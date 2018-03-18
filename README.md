@@ -1,6 +1,6 @@
 # Domino-ui
 
-A type safe material design with bootstrap buidler for java developer with GWT without dependencies on external JavaScript.
+A type safe material design with bootstrap builder for java developer with GWT without dependencies on external JavaScript.
 
 ## Demo app
 
