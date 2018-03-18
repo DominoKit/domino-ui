@@ -1,0 +1,54 @@
+**/target/
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+**/*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+**/*.class
+
+# Package Files #
+**/src/main/webapp/**/*.jar
+**/*.war
+
+# gwt caches and compiled units #
+src/main/webapp/gwt_bree/
+**/gwt-unitCache/
+
+# boilerplate generated classes #
+**/.apt_generated/
+
+
+# more caches and things from deploy #
+**/src/main/webapp/WEB-INF/deploy/
+**/src/main/webapp/WEB-INF/classes/
+
+#compilation logs
+**/.gwt/
+
+#gwt junit compilation files
+**/www-test/
+
+**/dependency-reduced-pom.xml
+**/buildNumber.properties
+**/.mvn/timing.properties
+
+# Eclipse
+**/.classpath
+**/.project
+**/.settings/
+
+# Intellij
+**/.idea/
+**/*.iml
+**/*.iws
+
+.idea/**/*.*
+**/*.iml
+**/*.iws
+**/*.log
+
+**/bin/

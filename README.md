@@ -1,2 +1,1 @@
-# domino-ui
-Domino-UI
+Domino-ui
