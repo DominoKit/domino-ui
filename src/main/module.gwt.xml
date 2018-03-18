@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <inherits name="com.google.gwt.core.Core" />
+  <inherits name="org.jboss.gwt.elemento.Core"/>
+  <inherits name="org.jboss.gwt.elemento.Template"/>
+
+  <source path="" />
+</module>
