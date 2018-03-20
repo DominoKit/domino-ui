@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.progressoft.brix.domino</groupId>
+    <groupId>org.dominokit</groupId>
     <artifactId>domino-ui</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>gwt-lib</packaging>
@@ -58,7 +58,7 @@
                 <version>1.0-rc-9</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <moduleName>com.progressoft.brix.domino.ui.DominoUI</moduleName>
+                    <moduleName>org.dominokit.domino.ui.DominoUI</moduleName>
                     <moduleShortName>dominoui</moduleShortName>
                 </configuration>
             </plugin>

@@ -12,12 +12,12 @@ A type safe material design with bootstrap buidler for java developer with GWT w
 
 ```xml
 <dependency>
-  <groupId>com.progressoft.brix.domino</groupId>
+  <groupId>org.dominokit</groupId>
   <artifactId>domino-ui</artifactId>
   <version>1.0-SNAPSHOT</version>
 </dependency>
 <dependency>
-  <groupId>com.progressoft.brix.domino</groupId>
+  <groupId>org.dominokit</groupId>
   <artifactId>domino-ui</artifactId>
   <version>1.0-SNAPSHOT</version>
   <classifier>sources</classifier>
@@ -28,7 +28,7 @@ A type safe material design with bootstrap buidler for java developer with GWT w
 
 ### GWT module interitence
 ```xml
-<inherits name="com.progressoft.brix.domino.ui.DominoUI"/>
+<inherits name="org.dominokit.domino.ui.DominoUI"/>
 ```
 
 ### Css
