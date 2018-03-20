@@ -3,10 +3,11 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
+import org.dominokit.domino.ui.utils.HasValue;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
-public class TextBox implements IsElement<HTMLDivElement> {
+public class TextBox implements IsElement<HTMLDivElement>, HasValue<String> {
 
     private static final String TEXT = "text";
 
@@ -157,5 +158,15 @@ public class TextBox implements IsElement<HTMLDivElement> {
         inputElement.removeAttribute("disabled");
         inputContainer.classList.remove("disabled");
         return this;
+    }
+
+    @Override
+    public void setValue(String value) {
+        inputElement.value=value;
+    }
+
+    @Override
+    public String getValue() {
+        return inputElement.value;
     }
 }
