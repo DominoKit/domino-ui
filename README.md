@@ -1,6 +1,8 @@
+<a title="Gitter" href="https://gitter.im/domino-gwt/domino-ui"><img src="https://badges.gitter.im/Join%20Chat.svg"></a>
+
 # Domino-ui
 
-A type safe material design with bootstrap buidler for java developer with GWT without dependencies on external JavaScript.
+A type safe material design with bootstrap builder for java developer with GWT without dependencies on external JavaScript.
 
 ## Demo app
 
