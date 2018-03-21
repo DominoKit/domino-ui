@@ -1,4 +1,5 @@
 <a title="Gitter" href="https://gitter.im/domino-gwt/domino-ui"><img src="https://badges.gitter.im/Join%20Chat.svg"></a>
+[![Build Status](https://travis-ci.org/DominoKit/domino-ui.svg?branch=master)](https://travis-ci.org/DominoKit/domino-ui)
 
 # Domino-ui
 
