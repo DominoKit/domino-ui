@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.animations;
 
-import com.google.gwt.user.client.Timer;
+import org.gwtproject.timer.client.Timer;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 

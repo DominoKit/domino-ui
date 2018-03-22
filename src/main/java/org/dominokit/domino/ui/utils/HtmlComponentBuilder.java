@@ -1,8 +1,8 @@
 package org.dominokit.domino.ui.utils;
 
-import com.google.gwt.safehtml.shared.SafeHtml;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
+import org.gwtproject.safehtml.shared.SafeHtml;
 import org.jboss.gwt.elemento.core.HasElements;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
