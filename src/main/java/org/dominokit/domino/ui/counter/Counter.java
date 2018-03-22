@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.counter;
 
-import com.google.gwt.user.client.Timer;
+import org.gwtproject.timer.client.Timer;
 
 public class Counter {
 
