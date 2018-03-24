@@ -57,9 +57,7 @@ A type safe material design with bootstrap builder for java developer with GWT w
 <link type="text/css" rel="stylesheet" href="/{module-short-name}/plugins/waitme/waitMe.css">
 <link type="text/css" rel="stylesheet" href="/{module-short-name}/css/style.css">
 <link type="text/css" rel="stylesheet" href="/{module-short-name}/css/themes/all-themes.css">
-<script src="/{module-short-name}/plugins/node-waves/waves.js" type="text/javascript"></script>
 ```
-> The dependency on the waves.js will be removed very soon.
 
 ## Sample
 
