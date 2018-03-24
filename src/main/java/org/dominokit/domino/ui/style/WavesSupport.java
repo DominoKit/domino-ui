@@ -14,6 +14,7 @@ public class WavesSupport<E extends HTMLElement> {
 
     private WavesSupport(E element) {
         this.element = element;
+        Waves.create(element);
     }
 
     public static <E extends HTMLElement> WavesSupport<E> addFor(E element){
@@ -26,11 +27,11 @@ public class WavesSupport<E extends HTMLElement> {
         if (isNull(waveEffect))
             element.classList.add(WAVES_EFFECT);
         this.waveEffect = WAVES_EFFECT;
-        Waves.init();
+
         return this;
     }
 
-    public WavesSupport<E> initWaves(WaveColor waveColor) {
+    public WavesSupport<E> setWavesColor(WaveColor waveColor) {
         if (isNull(waveEffect))
             initWaves();
         if (isNull(this.waveColor))
@@ -40,7 +41,6 @@ public class WavesSupport<E extends HTMLElement> {
             element.classList.add(waveColor.getStyle());
         }
         this.waveColor = waveColor.getStyle();
-        Waves.init();
         return this;
     }
 
@@ -49,8 +49,6 @@ public class WavesSupport<E extends HTMLElement> {
             initWaves();
         if(!element.classList.contains(waveStyle.getStyle()))
             element.classList.add(waveStyle.getStyle());
-
-        Waves.init();
         return this;
     }
 
