@@ -1,22 +1,16 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
-import org.dominokit.domino.ui.utils.HasValue;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
-public class TextBox implements IsElement<HTMLDivElement>, HasValue<String> {
+public class TextBox extends BasicFormElement<TextBox> {
 
     private static final String TEXT = "text";
 
-    private HTMLDivElement formGroup = Elements.div().css("form-group").asElement();
     private HTMLInputElement inputElement;
-    private HTMLDivElement inputContainer;
     private TextBoxSize size;
     private boolean floating;
-    private String placeholder;
     private HTMLLabelElement label;
 
     public enum TextBoxSize {
@@ -41,30 +35,9 @@ public class TextBox implements IsElement<HTMLDivElement>, HasValue<String> {
     }
 
     public TextBox(String type, String placeholder) {
-        setPlaceholder(placeholder);
         inputElement = Elements.input(type).css("form-control")
                 .attr("placeholder", placeholder).asElement();
-        inputContainer = Elements.div().css("form-line").asElement();
         inputContainer.appendChild(inputElement);
-        formGroup.appendChild(inputContainer);
-
-        addFocusListeners();
-    }
-
-    private void addFocusListeners() {
-        formGroup.addEventListener("focusin", evt -> focus());
-        formGroup.addEventListener("focusout", evt -> unfocus());
-    }
-
-    public TextBox unfocus() {
-        if (!floating || inputElement.value.isEmpty())
-            inputContainer.classList.remove("focused");
-        return this;
-    }
-
-    public TextBox focus() {
-        inputContainer.classList.add("focused");
-        return this;
     }
 
     public static TextBox create() {
@@ -80,29 +53,17 @@ public class TextBox implements IsElement<HTMLDivElement>, HasValue<String> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return formGroup;
-    }
-
     public HTMLInputElement getInputElement() {
         return inputElement;
     }
 
-    public HTMLDivElement getInputContainer() {
-        return inputContainer;
-    }
-
-    public TextBox placeholder(String placeholder) {
-        setPlaceholder(placeholder);
+    @Override
+    public TextBox setPlaceholder(String placeholder) {
         inputElement.placeholder = placeholder;
         return this;
     }
 
-    private void setPlaceholder(String placeholder) {
-        this.placeholder = placeholder;
-    }
-
-    public TextBox type(String type) {
+    public TextBox setType(String type) {
         inputElement.type = type;
         return this;
     }
@@ -140,29 +101,24 @@ public class TextBox implements IsElement<HTMLDivElement>, HasValue<String> {
 
     public TextBox nonfloating() {
         if (floating) {
+            inputElement.placeholder = label.textContent;
             inputContainer.removeChild(label);
-            inputElement.placeholder = placeholder;
             formGroup.classList.remove("form-float");
         }
         floating = false;
         return this;
     }
 
-    public TextBox disable() {
-        inputElement.setAttribute("disabled", "disabled");
-        inputContainer.classList.add("disabled");
-        return this;
-    }
-
-    public TextBox enable() {
-        inputElement.removeAttribute("disabled");
-        inputContainer.classList.remove("disabled");
+    @Override
+    public TextBox unfocus() {
+        if (!floating || getValue().isEmpty())
+            super.unfocus();
         return this;
     }
 
     @Override
     public void setValue(String value) {
-        inputElement.value=value;
+        inputElement.value = value;
     }
 
     @Override
