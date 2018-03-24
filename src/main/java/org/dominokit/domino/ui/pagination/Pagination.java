@@ -39,7 +39,6 @@ public class Pagination implements IsElement<HTMLElement> {
     public Pagination(int pages) {
         this.pagesCount = pages;
         updatePages(pages);
-        Waves.init();
     }
 
     private void updatePages(int pages) {
@@ -54,6 +53,7 @@ public class Pagination implements IsElement<HTMLElement> {
                 pageChangedCallBack.onPageChanged(p);
                 moveToPage(p);
             });
+            Waves.create(anchor.asElement());
             allPages.add(li.asElement());
             pagesElement.appendChild(li.add(anchor).asElement());
         });

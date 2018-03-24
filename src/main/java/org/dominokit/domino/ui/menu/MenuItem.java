@@ -3,7 +3,6 @@ package org.dominokit.domino.ui.menu;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.WaveColor;
 import org.dominokit.domino.ui.style.WaveStyle;
-import org.dominokit.domino.ui.style.Waves;
 import org.dominokit.domino.ui.style.WavesElement;
 import org.dominokit.domino.ui.utils.CanActivate;
 import org.dominokit.domino.ui.utils.CanDeactivate;
@@ -43,7 +42,7 @@ public class MenuItem extends WavesElement<MenuItem, HTMLAnchorElement> implemen
         this.isRoot = isRoot;
         element.appendChild(menuAnchor);
         super.init(this, menuAnchor);
-        initWaves(WaveColor.THEME);
+        setWaveColor(WaveColor.THEME);
         applyWaveStyle(WaveStyle.BLOCK);
     }
 
@@ -119,7 +118,6 @@ public class MenuItem extends WavesElement<MenuItem, HTMLAnchorElement> implemen
 
         subItems.add(menuItem);
         childrenContainer.appendChild(menuItem.asElement());
-        Waves.init();
         return menuItem;
     }
 
