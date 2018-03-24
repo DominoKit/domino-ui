@@ -64,7 +64,7 @@ public class Button extends WavesElement<Button, HTMLElement> implements
 
     protected Button() {
         super.init(this, buttonElement);
-        Waves.init();
+//        Waves.create(buttonElement);
     }
 
     protected Button(String content) {
