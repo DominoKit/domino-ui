@@ -33,7 +33,6 @@ public abstract class Menu implements IsElement<HTMLDivElement>, HasActiveItem<M
     public MenuItem addMenuItem(String title, Icon icon) {
         MenuItem menuItem=MenuItem.createRootItem(title, icon, this);
         root.appendChild(menuItem.asElement());
-        Waves.init();
         return menuItem;
     }
 
