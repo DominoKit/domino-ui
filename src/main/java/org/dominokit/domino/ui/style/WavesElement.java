@@ -20,8 +20,8 @@ public class WavesElement<T extends IsElement, E extends HTMLElement> implements
     }
 
     @Override
-    public T initWaves(WaveColor waveColor) {
-        wavesSupport.initWaves(waveColor);
+    public T setWaveColor(WaveColor waveColor) {
+        wavesSupport.setWavesColor(waveColor);
         return type;
     }
 
