@@ -1,23 +1,27 @@
 package org.dominokit.domino.ui.lists;
 
-import org.dominokit.domino.ui.style.Background;
-import org.dominokit.domino.ui.utils.HasBackground;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.style.Background;
+import org.dominokit.domino.ui.utils.HasBackground;
+import org.dominokit.domino.ui.utils.HtmlComponentBuilder;
+import org.dominokit.domino.ui.utils.IsHtmlComponent;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
-public class SimpleListItem extends BaseListItem implements IsElement<HTMLLIElement>, HasBackground<SimpleListItem> {
+public class SimpleListItem extends BaseListItem implements IsElement<HTMLLIElement>, HasBackground<SimpleListItem>, IsHtmlComponent<HTMLLIElement, SimpleListItem> {
 
     private final HTMLLIElement element;
+    private final HtmlComponentBuilder<HTMLLIElement, SimpleListItem> htmlBuilder;
     private String style;
 
 
     private SimpleListItem(HTMLLIElement element) {
         super(element);
         this.element = element;
+        this.htmlBuilder = new HtmlComponentBuilder<>(this);
     }
 
     public static SimpleListItem create(String text) {
@@ -60,5 +64,10 @@ public class SimpleListItem extends BaseListItem implements IsElement<HTMLLIElem
     @Override
     public HTMLLIElement asElement() {
         return element;
+    }
+
+    @Override
+    public HtmlComponentBuilder<HTMLLIElement, SimpleListItem> htmlBuilder() {
+        return htmlBuilder;
     }
 }
