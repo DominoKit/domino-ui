@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.modals;
 import org.dominokit.domino.ui.style.Color;
 import elemental2.dom.*;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.utils.MyDom;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
