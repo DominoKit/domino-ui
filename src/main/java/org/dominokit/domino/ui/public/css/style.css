@@ -2877,7 +2877,7 @@ section.content {
   .card .bg-brown,
   .card .bg-grey,
   .card .bg-blue-grey,
-  .card .theme-bg,
+  .card .bg-theme,
   .card .bg-black {
     border-bottom: none !important;
     color: #fff !important; }
@@ -2939,9 +2939,9 @@ section.content {
     .card .bg-black h2,
     .card .bg-black small,
     .card .bg-black .material-icons,
-    .card .theme-bg h2,
-    .card .theme-bg small,
-    .card .theme-bg .material-icons{
+    .card .bg-theme h2,
+    .card .bg-theme small,
+    .card .bg-theme .material-icons{
       color: #fff !important; }
     .card .bg-red .badge,
     .card .bg-pink .badge,
@@ -2963,7 +2963,7 @@ section.content {
     .card .bg-grey .badge,
     .card .bg-blue-grey .badge,
     .card .bg-black .badge,
-    .card .theme-bg .badge {
+    .card .bg-theme .badge {
       background-color: #fff;
       color: #555; }
   .card .header {

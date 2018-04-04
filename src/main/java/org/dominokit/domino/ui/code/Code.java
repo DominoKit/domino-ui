@@ -10,6 +10,8 @@ import static org.jboss.gwt.elemento.core.Elements.pre;
 
 public class Code{
 
+    private static final String CODE_STYLE = "overflow-x: scroll; white-space: pre;";
+
     public static class Block implements IsElement<HTMLPreElement>{
         private final HTMLPreElement element;
 
@@ -20,7 +22,7 @@ public class Code{
         public Block setCode(String code){
             if(nonNull(element.firstChild))
                 element.removeChild(element.firstChild);
-            element.appendChild(code().style("overflow-x: scroll; white-space: pre;").textContent(code).asElement());
+            element.appendChild(code().style(CODE_STYLE).textContent(code).asElement());
             return this;
         }
 
@@ -44,7 +46,7 @@ public class Code{
     }
 
     public static Block block(String code){
-        return new Block(pre().add(code().textContent(code)).asElement());
+        return new Block(pre().add(code().style(CODE_STYLE).textContent(code)).asElement());
     }
 
     public static Block block(){
@@ -52,7 +54,7 @@ public class Code{
     }
 
     public static Statement statement(String code){
-        return new Statement(code().textContent(code).asElement());
+        return new Statement(code().style(CODE_STYLE).textContent(code).asElement());
     }
 
 }

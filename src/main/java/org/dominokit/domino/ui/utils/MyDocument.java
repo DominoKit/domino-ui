@@ -1,4 +1,4 @@
-package org.dominokit.domino.ui.modals;
+package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDocument;
