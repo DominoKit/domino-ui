@@ -23,7 +23,7 @@ public enum Background {
     BLUE_GREY("bg-blue-grey"),
     BLACK("bg-black"),
     WHITE("bg-white"),
-    THEME("theme-bg");
+    THEME("bg-theme");
 
     private final String style;
 

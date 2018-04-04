@@ -1,4 +1,4 @@
-﻿.theme-red .theme-bg {
+﻿.theme-red .bg-theme {
   background-color: #F44336 !important;
   color: #fff; }
 .bg-red .content .text,
@@ -50,7 +50,7 @@
   .theme-red .sidebar .legal .copyright a {
     color: #F44336 !important; }
 
-.theme-pink .theme-bg {
+.theme-pink .bg-theme {
   background-color: #E91E63 !important;
   color: #fff; }
 .bg-pink .content .text,
@@ -103,7 +103,7 @@
   .theme-pink .sidebar .legal .copyright a {
     color: #E91E63 !important; }
 
-.theme-purple .theme-bg {
+.theme-purple .bg-theme {
   background-color: #9C27B0 !important;
   color: #fff; }
 .bg-purple .content .text,
@@ -155,7 +155,7 @@
   .theme-purple .sidebar .legal .copyright a {
     color: #9C27B0 !important; }
 
-.theme-deep-purple .theme-bg {
+.theme-deep-purple .bg-theme {
   background-color: #673AB7 !important;
   color: #fff; }
 .bg-deep-purple .content .text,
@@ -208,7 +208,7 @@
     color: #673AB7 !important; }
 
 
-.theme-indigo .theme-bg {
+.theme-indigo .bg-theme {
   background-color: #3F51B5 !important;
   color: #fff; }
 .bg-indigo .content .text,
@@ -260,7 +260,7 @@
   .theme-indigo .sidebar .legal .copyright a {
     color: #3F51B5 !important; }
 
-.theme-blue .theme-bg {
+.theme-blue .bg-theme {
   background-color: #2196F3 !important;
   color: #fff; }
 .bg-blue .content .text,
@@ -312,7 +312,7 @@
   .theme-blue .sidebar .legal .copyright a {
     color: #2196F3 !important; }
 
-.theme-light-blue .theme-bg {
+.theme-light-blue .bg-theme {
   background-color: #03A9F4 !important;
   color: #fff; }
 .bg-light-blue .content .text,
@@ -365,7 +365,7 @@
     color: #03A9F4 !important; }
 
 
-.theme-cyan .theme-bg {
+.theme-cyan .bg-theme {
   background-color: #00BCD4 !important;
   color: #fff; }
 .bg-cyan .content .text,
@@ -417,7 +417,7 @@
   .theme-cyan .sidebar .legal .copyright a {
     color: #00BCD4 !important; }
 
-.theme-teal .theme-bg {
+.theme-teal .bg-theme {
   background-color: #009688 !important;
   color: #fff; }
 .bg-teal .content .text,
@@ -469,7 +469,7 @@
   .theme-teal .sidebar .legal .copyright a {
     color: #009688 !important; }
 
-.theme-green .theme-bg {
+.theme-green .bg-theme {
   background-color: #4CAF50 !important;
   color: #fff; }
 .bg-green .content .text,
@@ -521,7 +521,7 @@
   .theme-green .sidebar .legal .copyright a {
     color: #4CAF50 !important; }
 
-.theme-light-green .theme-bg {
+.theme-light-green .bg-theme {
   background-color: #8BC34A !important;
   color: #fff; }
 .bg-light-green .content .text,
@@ -573,7 +573,7 @@
   .theme-light-green .sidebar .legal .copyright a {
     color: #8BC34A !important; }
 
-.theme-lime .theme-bg {
+.theme-lime .bg-theme {
   background-color: #CDDC39 !important;
   color: #fff; }
 .bg-lime .content .text,
@@ -625,7 +625,7 @@
   .theme-lime .sidebar .legal .copyright a {
     color: #CDDC39 !important; }
 
-.theme-yellow .theme-bg {
+.theme-yellow .bg-theme {
   background-color: #FFEB3B !important;
   color: #fff; }
 .bg-yellow .content .text,
@@ -677,7 +677,7 @@
   .theme-yellow .sidebar .legal .copyright a {
     color: #FFEB3B !important; }
 
-.theme-amber .theme-bg {
+.theme-amber .bg-theme {
   background-color: #FFC107 !important;
   color: #fff; }
 .bg-amber .content .text,
@@ -729,7 +729,7 @@
   .theme-amber .sidebar .legal .copyright a {
     color: #FFC107 !important; }
 
-.theme-orange .theme-bg {
+.theme-orange .bg-theme {
   background-color: #FF9800 !important;
   color: #fff; }
 .bg-orange .content .text,
@@ -781,7 +781,7 @@
   .theme-orange .sidebar .legal .copyright a {
     color: #FF9800 !important; }
 
-.theme-deep-orange .theme-bg {
+.theme-deep-orange .bg-theme {
   background-color: #FF5722 !important;
   color: #fff; }
 .bg-deep-orange .content .text,
@@ -833,7 +833,7 @@
   .theme-deep-orange .sidebar .legal .copyright a {
     color: #FF5722 !important; }
 
-.theme-brown .theme-bg {
+.theme-brown .bg-theme {
   background-color: #795548 !important;
   color: #fff; }
 .bg-brown .content .text,
@@ -885,7 +885,7 @@
   .theme-brown .sidebar .legal .copyright a {
     color: #795548 !important; }
 
-.theme-grey .theme-bg {
+.theme-grey .bg-theme {
   background-color: #9E9E9E !important;
   color: #fff; }
 .bg-grey .content .text,
@@ -937,7 +937,7 @@
   .theme-grey .sidebar .legal .copyright a {
     color: #9E9E9E !important; }
 
-.theme-blue-grey .theme-bg {
+.theme-blue-grey .bg-theme {
   background-color: #607D8B !important;
   color: #fff; }
 .bg-blue-grey .content .text,
@@ -989,7 +989,7 @@
   .theme-blue-grey .sidebar .legal .copyright a {
     color: #607D8B !important; }
 
-.theme-black .theme-bg {
+.theme-black .bg-theme {
   background-color: #000 !important;
   color: #fff; }
 .bg-black .content .text,

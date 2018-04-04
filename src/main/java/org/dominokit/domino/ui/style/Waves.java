@@ -155,5 +155,4 @@ public class Waves implements IsElement<HTMLElement> {
         private double top = 0;
         private double left = 0;
     }
-
 }

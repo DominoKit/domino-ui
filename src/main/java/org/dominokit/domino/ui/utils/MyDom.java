@@ -1,9 +1,9 @@
-package org.dominokit.domino.ui.modals;
+package org.dominokit.domino.ui.utils;
 
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
 @JsType(isNative = true, name = "window", namespace = JsPackage.GLOBAL)
-class MyDom {
-  static MyDocument document;
+public class MyDom {
+  public static MyDocument document;
 }
