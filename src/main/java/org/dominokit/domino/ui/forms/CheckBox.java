@@ -5,10 +5,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.CanDisable;
-import org.dominokit.domino.ui.utils.CanEnable;
-import org.dominokit.domino.ui.utils.HasName;
-import org.dominokit.domino.ui.utils.HasValue;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -17,7 +14,7 @@ import java.util.List;
 
 
 public class CheckBox implements IsElement<HTMLElement>, HasValue<Boolean>,
-        CanEnable<CheckBox>, CanDisable<CheckBox>, HasName<CheckBox> {
+        CanEnable<CheckBox>, CanDisable<CheckBox>, HasName<CheckBox>, Checkable<CheckBox> {
 
     private HTMLDivElement container = Elements.div().asElement();
     private HTMLInputElement inputElement = Elements.input("checkbox").asElement();
@@ -41,7 +38,7 @@ public class CheckBox implements IsElement<HTMLElement>, HasValue<Boolean>,
 
     private void onCheck() {
         for (CheckHandler handler : checkHandlers)
-            handler.onChecked(isChecked());
+            handler.onCheck(isChecked());
     }
 
     public static CheckBox create(String title) {
@@ -53,18 +50,21 @@ public class CheckBox implements IsElement<HTMLElement>, HasValue<Boolean>,
         return container;
     }
 
+    @Override
     public CheckBox check() {
         inputElement.checked = true;
         onCheck();
         return this;
     }
 
+    @Override
     public CheckBox uncheck() {
         inputElement.checked = false;
         onCheck();
         return this;
     }
 
+    @Override
     public boolean isChecked() {
         return inputElement.checked;
     }
@@ -74,6 +74,7 @@ public class CheckBox implements IsElement<HTMLElement>, HasValue<Boolean>,
         return this;
     }
 
+    @Override
     public CheckBox addCheckHandler(CheckHandler handler) {
         this.checkHandlers.add(handler);
         return this;
@@ -143,10 +144,5 @@ public class CheckBox implements IsElement<HTMLElement>, HasValue<Boolean>,
     public CheckBox setName(String name) {
         inputElement.name = name;
         return this;
-    }
-
-    @FunctionalInterface
-    public interface CheckHandler {
-        void onChecked(boolean checked);
     }
 }
