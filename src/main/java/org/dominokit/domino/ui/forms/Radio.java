@@ -4,10 +4,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.CanDisable;
-import org.dominokit.domino.ui.utils.CanEnable;
-import org.dominokit.domino.ui.utils.HasName;
-import org.dominokit.domino.ui.utils.HasValue;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -15,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Radio implements IsElement<HTMLDivElement>, HasValue<Boolean>,
-        CanDisable<Radio>, CanEnable<Radio>, HasName<Radio> {
+        CanDisable<Radio>, CanEnable<Radio>, HasName<Radio>, Checkable<Radio> {
 
     private HTMLDivElement container = Elements.div().asElement();
     private HTMLInputElement inputElement = Elements.input("radio").asElement();
@@ -49,12 +46,14 @@ public class Radio implements IsElement<HTMLDivElement>, HasValue<Boolean>,
         return container;
     }
 
+    @Override
     public Radio check() {
         inputElement.checked = true;
         onCheck();
         return this;
     }
 
+    @Override
     public Radio uncheck() {
         inputElement.checked = false;
         onCheck();
@@ -63,14 +62,16 @@ public class Radio implements IsElement<HTMLDivElement>, HasValue<Boolean>,
 
     private void onCheck() {
         for (CheckHandler checkHandler : checkHandlers)
-            checkHandler.onChecked(isChecked());
+            checkHandler.onCheck(isChecked());
     }
 
+    @Override
     public Radio addCheckHandler(CheckHandler checkHandler) {
         checkHandlers.add(checkHandler);
         return this;
     }
 
+    @Override
     public boolean isChecked() {
         return inputElement.checked;
     }
@@ -139,10 +140,5 @@ public class Radio implements IsElement<HTMLDivElement>, HasValue<Boolean>,
     public Radio setName(String name) {
         inputElement.name = name;
         return this;
-    }
-
-    @FunctionalInterface
-    public interface CheckHandler {
-        void onChecked(boolean checked);
     }
 }
