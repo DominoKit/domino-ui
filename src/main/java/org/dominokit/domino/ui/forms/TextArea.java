@@ -1,10 +1,12 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.*;
+import elemental2.dom.CSSProperties;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLTextAreaElement;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
-public class TextArea extends BasicFormElement<TextArea> implements IsElement<HTMLDivElement> {
+public class TextArea extends TextFormElement<TextArea> {
 
     private HTMLTextAreaElement inputElement;
     private EventListener autosizeListener = evt -> adjustHeight();
@@ -37,6 +39,11 @@ public class TextArea extends BasicFormElement<TextArea> implements IsElement<HT
 
     private void updateRows(int rows) {
         inputElement.setAttribute("rows", rows + "");
+    }
+
+    @Override
+    public String getPlaceholder() {
+        return inputElement.getAttribute("placeholder");
     }
 
     @Override
