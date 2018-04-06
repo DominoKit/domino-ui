@@ -2,9 +2,11 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
+import org.dominokit.domino.ui.utils.HasPlaceHolder;
+import org.dominokit.domino.ui.utils.HasValue;
 import org.jboss.gwt.elemento.core.Elements;
 
-public class TextBox extends BasicFormElement<TextBox> {
+public class TextBox extends TextFormElement<TextBox> {
 
     private static final String TEXT = "text";
 
@@ -55,6 +57,11 @@ public class TextBox extends BasicFormElement<TextBox> {
     @Override
     public HTMLInputElement getInputElement() {
         return inputElement;
+    }
+
+    @Override
+    public String getPlaceholder() {
+        return inputElement.placeholder;
     }
 
     @Override
@@ -115,6 +122,7 @@ public class TextBox extends BasicFormElement<TextBox> {
             super.unfocus();
         return this;
     }
+
 
     @Override
     public void setValue(String value) {
