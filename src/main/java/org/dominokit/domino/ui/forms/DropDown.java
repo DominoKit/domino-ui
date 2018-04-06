@@ -2,77 +2,38 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.*;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.utils.CanDisable;
+import org.dominokit.domino.ui.utils.CanEnable;
+import org.dominokit.domino.ui.utils.HasName;
+import org.dominokit.domino.ui.utils.HasValue;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DropDown implements IsElement<HTMLDivElement> {
-
+public class DropDown implements IsElement<HTMLDivElement>,
+        HasValue<String>, CanEnable<DropDown>, CanDisable<DropDown>, HasName<DropDown> {
 
     private static final String OPEN = "open";
-    private boolean disabled;
-
-    @Templated
-    public static abstract class DropDownElement implements IsElement<HTMLDivElement> {
-
-        @DataElement
-        HTMLButtonElement selectButton;
-
-        @DataElement
-        HTMLDivElement dropDownMenu;
-
-        @DataElement
-        HTMLUListElement optionsList;
-
-        @DataElement
-        HTMLSelectElement selectMenu;
-
-        @DataElement
-        HTMLElement selectedValueContainer;
-
-        public static DropDownElement create() {
-            return new Templated_DropDown_DropDownElement();
-        }
-
-        public HTMLButtonElement getSelectButton() {
-            return selectButton;
-        }
-
-        public HTMLDivElement getDropDownMenu() {
-            return dropDownMenu;
-        }
-
-        public HTMLUListElement getOptionsList() {
-            return optionsList;
-        }
-
-        public HTMLSelectElement getSelectMenu() {
-            return selectMenu;
-        }
-
-        public HTMLElement getSelectedValueContainer() {
-            return selectedValueContainer;
-        }
-    }
-
+    private static final String CLICK = "click";
     private DropDownElement dropDownElement;
     private List<DropDownOption> options = new LinkedList<>();
     private DropDownOption selectedOption;
-    private SelectionHandler selectionHandler = option -> {
-    };
+    private List<SelectionHandler> selectionHandlers = new ArrayList<>();
+    private boolean disabled;
 
     public DropDown() {
         dropDownElement = DropDownElement.create();
-        DomGlobal.document.addEventListener("click", evt -> {
+        DomGlobal.document.addEventListener(CLICK, evt -> {
             HTMLElement element = Js.cast(evt.target);
             if (!element.isEqualNode(dropDownElement.asElement()))
                 hideAllMenus();
         });
-        dropDownElement.asElement().addEventListener("click", evt -> {
+        dropDownElement.asElement().addEventListener(CLICK, evt -> {
             if (!isDisabled()) {
                 hideAllMenus();
                 open();
@@ -126,7 +87,7 @@ public class DropDown implements IsElement<HTMLDivElement> {
 
     public DropDown addOption(DropDownOption option) {
         options.add(option);
-        option.asElement().addEventListener("click", evt -> {
+        option.asElement().addEventListener(CLICK, evt -> {
             if (!isDisabled()) {
                 select(option);
                 close();
@@ -140,7 +101,7 @@ public class DropDown implements IsElement<HTMLDivElement> {
     private void appendOptionValue(DropDownOption option) {
         dropDownElement.getOptionsList().appendChild(option.asElement());
         dropDownElement.getSelectMenu().appendChild(Elements.option().attr("value", option.getValue())
-                .textContent(option.getValue())
+                .textContent(option.getDisplayValue())
                 .asElement());
     }
 
@@ -168,13 +129,18 @@ public class DropDown implements IsElement<HTMLDivElement> {
 
         this.selectedOption = option;
         option.select();
-        dropDownElement.getSelectedValueContainer().textContent = option.getValue();
-        selectionHandler.onSelection(option);
+        dropDownElement.getSelectedValueContainer().textContent = option.getDisplayValue();
+        onSelection(option);
         return this;
     }
 
-    public DropDown setSelectionHandler(SelectionHandler selectionHandler) {
-        this.selectionHandler = selectionHandler;
+    private void onSelection(DropDownOption option) {
+        for (SelectionHandler handler : selectionHandlers)
+            handler.onSelection(option);
+    }
+
+    public DropDown addSelectionHandler(SelectionHandler selectionHandler) {
+        selectionHandlers.add(selectionHandler);
         return this;
     }
 
@@ -182,16 +148,20 @@ public class DropDown implements IsElement<HTMLDivElement> {
         return selectedOption;
     }
 
+    @Override
     public DropDown enable() {
         asElement().classList.remove("disabled");
         getSelectButton().classList.remove("disabled");
+        getSelectMenu().disabled = false;
         this.disabled = false;
         return this;
     }
 
+    @Override
     public DropDown disable() {
         asElement().classList.add("disabled");
         getSelectButton().classList.add("disabled");
+        getSelectMenu().disabled = true;
         this.disabled = true;
         return this;
     }
@@ -204,6 +174,35 @@ public class DropDown implements IsElement<HTMLDivElement> {
 
     public DropDown dropdown() {
         asElement().classList.remove("dropup");
+        return this;
+    }
+
+    @Override
+    public void setValue(String value) {
+        for (DropDownOption option : getOptions()) {
+            if (option.getValue().equals(value))
+                select(option);
+        }
+    }
+
+    @Override
+    public String getValue() {
+        return getSelectedOption() != null ? getSelectedOption().getValue() : "";
+    }
+
+    @Override
+    public String getName() {
+        return getSelectMenu().name;
+    }
+
+    @Override
+    public DropDown setName(String name) {
+        getSelectMenu().name = name;
+        return this;
+    }
+
+    public DropDown setFormId(String formId) {
+        getSelectMenu().setAttribute("form", formId);
         return this;
     }
 
@@ -235,5 +234,48 @@ public class DropDown implements IsElement<HTMLDivElement> {
 
     public HTMLElement getSelectedValueContainer() {
         return dropDownElement.getSelectedValueContainer();
+    }
+
+    @Templated
+    public static abstract class DropDownElement implements IsElement<HTMLDivElement> {
+
+        @DataElement
+        HTMLButtonElement selectButton;
+
+        @DataElement
+        HTMLDivElement dropDownMenu;
+
+        @DataElement
+        HTMLUListElement optionsList;
+
+        @DataElement
+        HTMLSelectElement selectMenu;
+
+        @DataElement
+        HTMLElement selectedValueContainer;
+
+        public static DropDownElement create() {
+            return new Templated_DropDown_DropDownElement();
+        }
+
+        public HTMLButtonElement getSelectButton() {
+            return selectButton;
+        }
+
+        public HTMLDivElement getDropDownMenu() {
+            return dropDownMenu;
+        }
+
+        public HTMLUListElement getOptionsList() {
+            return optionsList;
+        }
+
+        public HTMLSelectElement getSelectMenu() {
+            return selectMenu;
+        }
+
+        public HTMLElement getSelectedValueContainer() {
+            return selectedValueContainer;
+        }
     }
 }
