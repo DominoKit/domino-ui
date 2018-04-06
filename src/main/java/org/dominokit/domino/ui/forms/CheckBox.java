@@ -5,31 +5,47 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.CanDisable;
+import org.dominokit.domino.ui.utils.CanEnable;
+import org.dominokit.domino.ui.utils.HasName;
+import org.dominokit.domino.ui.utils.HasValue;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
-public class CheckBox implements IsElement<HTMLElement> {
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class CheckBox implements IsElement<HTMLElement>, HasValue<Boolean>,
+        CanEnable<CheckBox>, CanDisable<CheckBox>, HasName<CheckBox> {
 
     private HTMLDivElement container = Elements.div().asElement();
     private HTMLInputElement inputElement = Elements.input("checkbox").asElement();
     private HTMLLabelElement labelElement = Elements.label().asElement();
-    private CheckHandler checkHandler = checked -> {
-    };
+    private List<CheckHandler> checkHandlers = new ArrayList<>();
     private Color color;
 
-    public CheckBox(String id, String title) {
-        inputElement.id = id;
-        labelElement.setAttribute("for", id);
+    public CheckBox(String title) {
         container.appendChild(inputElement);
         container.appendChild(labelElement);
         setTitle(title);
-        inputElement.addEventListener("change", evt -> {
-            checkHandler.onChecked(isChecked());
+        container.addEventListener("click", evt -> {
+            if (!isDisbaled()) {
+                if (isChecked())
+                    uncheck();
+                else
+                    check();
+            }
         });
     }
 
-    public static CheckBox create(String id, String title) {
-        return new CheckBox(id, title);
+    private void onCheck() {
+        for (CheckHandler handler : checkHandlers)
+            handler.onChecked(isChecked());
+    }
+
+    public static CheckBox create(String title) {
+        return new CheckBox(title);
     }
 
     @Override
@@ -39,11 +55,13 @@ public class CheckBox implements IsElement<HTMLElement> {
 
     public CheckBox check() {
         inputElement.checked = true;
+        onCheck();
         return this;
     }
 
     public CheckBox uncheck() {
         inputElement.checked = false;
+        onCheck();
         return this;
     }
 
@@ -56,8 +74,8 @@ public class CheckBox implements IsElement<HTMLElement> {
         return this;
     }
 
-    public CheckBox setCheckHandler(CheckHandler handler) {
-        this.checkHandler = handler;
+    public CheckBox addCheckHandler(CheckHandler handler) {
+        this.checkHandlers.add(handler);
         return this;
     }
 
@@ -71,14 +89,20 @@ public class CheckBox implements IsElement<HTMLElement> {
         return this;
     }
 
+    @Override
     public CheckBox enable() {
         inputElement.disabled = false;
         return this;
     }
 
+    @Override
     public CheckBox disable() {
         inputElement.disabled = true;
         return this;
+    }
+
+    public boolean isDisbaled() {
+        return inputElement.disabled;
     }
 
     public CheckBox setColor(Color color) {
@@ -95,6 +119,30 @@ public class CheckBox implements IsElement<HTMLElement> {
 
     public HTMLLabelElement getLabelElement() {
         return labelElement;
+    }
+
+    @Override
+    public void setValue(Boolean value) {
+        if (value != null && value)
+            check();
+        else
+            uncheck();
+    }
+
+    @Override
+    public Boolean getValue() {
+        return isChecked();
+    }
+
+    @Override
+    public String getName() {
+        return inputElement.name;
+    }
+
+    @Override
+    public CheckBox setName(String name) {
+        inputElement.name = name;
+        return this;
     }
 
     @FunctionalInterface
