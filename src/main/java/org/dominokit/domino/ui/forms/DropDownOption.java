@@ -15,19 +15,31 @@ public class DropDownOption implements IsElement<HTMLLIElement>, HasValue<String
         HasBackground<DropDownOption>, Selectable<DropDownOption> {
 
     private static final String SELECTED = "selected";
+    private String displayValue;
+    private String value;
     private HTMLLIElement li;
     private HTMLAnchorElement aElement;
     private HTMLElement valueContainer;
     private HTMLElement checkMark;
 
-    public DropDownOption(String value) {
+    public DropDownOption(String value, String displayValue) {
         li = Elements.li().asElement();
         aElement = Elements.a().attr("tabindex", "0")
                 .attr("data-tokens", "null").asElement();
-        valueContainer = Elements.span().css("text").textContent(value).asElement();
+        valueContainer = Elements.span().css("text").asElement();
         aElement.appendChild(valueContainer);
         li.appendChild(aElement);
         checkMark = Elements.span().css("glyphicon glyphicon-ok check-mark").asElement();
+        setValue(value);
+        setDisplayValue(displayValue);
+    }
+
+    public DropDownOption(String value) {
+        this(value, value);
+    }
+
+    public static DropDownOption create(String value, String displayValue) {
+        return new DropDownOption(value, displayValue);
     }
 
     public static DropDownOption create(String value) {
@@ -46,12 +58,22 @@ public class DropDownOption implements IsElement<HTMLLIElement>, HasValue<String
 
     @Override
     public void setValue(String value) {
-        valueContainer.textContent = value;
+        this.value = value;
     }
 
     @Override
     public String getValue() {
-        return valueContainer.textContent;
+        return this.value;
+    }
+
+    public String getDisplayValue() {
+        return displayValue;
+    }
+
+    public DropDownOption setDisplayValue(String displayValue) {
+        this.displayValue = displayValue;
+        valueContainer.textContent = displayValue;
+        return this;
     }
 
     @Override
