@@ -2,15 +2,16 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.utils.HasValue;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
-public abstract class BasicFormElement<T extends BasicFormElement> implements IsElement<HTMLDivElement>, HasValue<String> {
+abstract class TextFormElement<T extends TextFormElement> implements IsElement<HTMLDivElement>,
+        HasName<T>, Focusable<T>, CanEnable<T>, CanDisable<T>, HasPlaceHolder<T>, HasValue<String> {
     protected HTMLDivElement formGroup = Elements.div().css("form-group").asElement();
     protected HTMLDivElement inputContainer = Elements.div().css("form-line").asElement();
 
-    public BasicFormElement() {
+    public TextFormElement() {
         formGroup.appendChild(inputContainer);
         addFocusListeners();
     }
@@ -20,38 +21,51 @@ public abstract class BasicFormElement<T extends BasicFormElement> implements Is
         formGroup.addEventListener("focusout", evt -> unfocus());
     }
 
-    public T unfocus() {
-        inputContainer.classList.remove("focused");
-        return (T) this;
-    }
-
-    public T focus() {
-        inputContainer.classList.add("focused");
-        return (T) this;
-    }
-
     @Override
     public HTMLDivElement asElement() {
         return formGroup;
     }
 
+    @Override
     public T disable() {
         getInputElement().setAttribute("disabled", "disabled");
         inputContainer.classList.add("disabled");
         return (T) this;
     }
 
+    @Override
     public T enable() {
         getInputElement().removeAttribute("disabled");
         inputContainer.classList.remove("disabled");
         return (T) this;
     }
 
-    public HTMLDivElement getInputContainer() {
-        return inputContainer;
+    @Override
+    public String getName() {
+        return getInputElement().getAttribute("name");
     }
 
-    public abstract T setPlaceholder(String placeholder);
+    @Override
+    public T setName(String name) {
+        getInputElement().setAttribute("name", name);
+        return (T) this;
+    }
+
+    @Override
+    public T focus() {
+        inputContainer.classList.add("focused");
+        return (T) this;
+    }
+
+    @Override
+    public T unfocus() {
+        inputContainer.classList.remove("focused");
+        return (T) this;
+    }
+
+    protected HTMLDivElement getInputContainer() {
+        return inputContainer;
+    }
 
     protected abstract HTMLElement getInputElement();
 }
