@@ -29,7 +29,7 @@ public enum Color {
     private final String hex;
 
     Color(String style, String name, String hex) {
-        this.style=style;
+        this.style = style;
         this.name = name;
         this.hex = hex;
     }
@@ -45,4 +45,55 @@ public enum Color {
     public String getHex() {
         return hex;
     }
+
+    public Color darker() {
+        switch (this) {
+            case RED:
+                return PINK;
+            case BLUE:
+                return INDIGO;
+            case CYAN:
+                return LIGHT_BLUE;
+            case GREY:
+                return BLUE_GREY;
+            case LIME:
+                return LIGHT_GREEN;
+            case PINK:
+                return RED;
+            case TEAL:
+                return GREEN;
+            case AMBER:
+                return ORANGE;
+            case BLACK:
+                return BLACK;
+            case BROWN:
+                return BROWN;
+            case GREEN:
+                return TEAL;
+            case WHITE:
+                return WHITE;
+            case INDIGO:
+                return BLUE_GREY;
+            case ORANGE:
+                return DEEP_ORANGE;
+            case PURPLE:
+                return DEEP_PURPLE;
+            case YELLOW:
+                return LIME;
+            case BLUE_GREY:
+                return GREY;
+            case LIGHT_BLUE:
+                return BLUE;
+            case DEEP_ORANGE:
+                return ORANGE;
+            case DEEP_PURPLE:
+                return PURPLE;
+            case LIGHT_GREEN:
+                return GREEN;
+            default:
+                return this;
+
+        }
+    }
+
 }
