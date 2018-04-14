@@ -15,6 +15,7 @@ import static org.jboss.gwt.elemento.core.Elements.h;
 public class Popover implements IsElement<HTMLDivElement> {
 
     private static List<Popover> currentVisible=new ArrayList<>();
+    private final Text headerText;
 
     private HTMLDivElement element = div().css("popover").attr("role", "tooltip").style("display: block;").asElement();
     private HTMLDivElement arrowElement = div().css("arrow").asElement();
@@ -33,7 +34,8 @@ public class Popover implements IsElement<HTMLDivElement> {
         element.appendChild(headingElement);
         element.appendChild(contentElement);
 
-        headingElement.appendChild(new Text(title));
+        headerText = new Text(title);
+        headingElement.appendChild(headerText);
         contentElement.appendChild(content);
 
         target.addEventListener(EventType.click.getName(), evt -> {
@@ -100,5 +102,13 @@ public class Popover implements IsElement<HTMLDivElement> {
     @Override
     public HTMLDivElement asElement() {
         return element;
+    }
+
+    public Text getHeaderText() {
+        return headerText;
+    }
+
+    public HTMLDivElement getContentElement() {
+        return contentElement;
     }
 }
