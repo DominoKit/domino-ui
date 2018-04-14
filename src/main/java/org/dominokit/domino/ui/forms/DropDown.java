@@ -106,8 +106,12 @@ public class DropDown implements IsElement<HTMLDivElement>,
     }
 
     public DropDown selectAt(int index) {
+        return selectAt(index, false);
+    }
+
+    public DropDown selectAt(int index, boolean silent) {
         if (index < options.size() && index >= 0)
-            select(options.get(index));
+            select(options.get(index), silent);
 
         return this;
     }
@@ -123,6 +127,10 @@ public class DropDown implements IsElement<HTMLDivElement>,
     }
 
     public DropDown select(DropDownOption option) {
+        return select(option, false);
+    }
+
+    private DropDown select(DropDownOption option, boolean silent) {
         if (selectedOption != null)
             if (!option.asElement().isEqualNode(selectedOption.asElement()))
                 selectedOption.deselect();
@@ -130,7 +138,8 @@ public class DropDown implements IsElement<HTMLDivElement>,
         this.selectedOption = option;
         option.select();
         dropDownElement.getSelectedValueContainer().textContent = option.getDisplayValue();
-        onSelection(option);
+        if(!silent)
+            onSelection(option);
         return this;
     }
 
@@ -182,6 +191,13 @@ public class DropDown implements IsElement<HTMLDivElement>,
         for (DropDownOption option : getOptions()) {
             if (option.getValue().equals(value))
                 select(option);
+        }
+    }
+
+    public void setValue(String value, boolean silent) {
+        for (DropDownOption option : getOptions()) {
+            if (option.getValue().equals(value))
+                select(option, silent);
         }
     }
 
