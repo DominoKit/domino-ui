@@ -1,8 +1,8 @@
 package org.dominokit.domino.ui.layout;
 
+import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.themes.Theme;
-import elemental2.dom.*;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.jboss.gwt.elemento.core.Elements.a;
@@ -22,7 +22,7 @@ public class Layout implements IsLayout {
     private final Overlay overlay = Overlay.create();
     private final Content content = Content.create();
 
-    private Text appTitle=new Text("");
+    private Text appTitle = new Text("");
 
     private boolean leftPanelVisible = false;
     private boolean rightPanelVisible = false;
@@ -30,17 +30,33 @@ public class Layout implements IsLayout {
     private boolean overlayVisible = false;
     private boolean fixedLeftPanel;
 
+    public Layout() {
+    }
+
+    public Layout(String title) {
+        setTitle(title);
+    }
+
+    public static Layout create() {
+        return new Layout();
+    }
+
+    public static Layout create(String title) {
+        return new Layout(title);
+    }
+
     @Override
     public Layout show() {
         return show(Theme.currentTheme);
     }
 
     @Override
-    public Layout show(Theme theme){
+    public Layout show(Theme theme) {
         appendElements();
         initElementsPosition();
         addExpandListeners();
-        document.body.classList.add("ls-closed");
+        if (!document.body.classList.contains("ls-hidden"))
+            document.body.classList.add("ls-closed");
         theme.apply();
         return this;
     }
@@ -64,6 +80,15 @@ public class Layout implements IsLayout {
         navigationBar.menu.addEventListener(CLICK, e -> toggleLeftPanel());
         navigationBar.navBarExpand.addEventListener(CLICK, e -> toggleNavigationBar());
         overlay.asElement().addEventListener(CLICK, e -> hidePanels());
+    }
+
+    public Layout removeLeftPanel() {
+        navigationBar.menu.style.display = "none";
+        getLeftPanel().style.display = "none";
+        document.body.classList.remove("ls-closed");
+        document.body.classList.add("ls-hidden");
+
+        return this;
     }
 
     private void hidePanels() {
@@ -161,7 +186,7 @@ public class Layout implements IsLayout {
 
     @Override
     public Layout hideLeftPanel() {
-        if(!fixedLeftPanel) {
+        if (!fixedLeftPanel) {
             section.leftSide.style.left = SLIDE_OUT;
             leftPanelVisible = false;
             hideOverlay();
@@ -192,16 +217,16 @@ public class Layout implements IsLayout {
 
     @Override
     public Layout setTitle(String title) {
-        if(navigationBar.title.hasChildNodes())
+        if (navigationBar.title.hasChildNodes())
             navigationBar.title.removeChild(appTitle);
-        this.appTitle=new Text(title);
+        this.appTitle = new Text(title);
         navigationBar.title.appendChild(appTitle);
 
         return this;
     }
 
     @Override
-    public HTMLElement addActionItem(Icon icon){
+    public HTMLElement addActionItem(Icon icon) {
         HTMLLIElement li = li().css("pull-right").add(
                 a().css("js-right-sidebar")
                         .add(icon.asElement())).asElement();
@@ -209,19 +234,19 @@ public class Layout implements IsLayout {
         return li;
     }
 
-    public Layout fixLeftPanelPosition(){
+    public Layout fixLeftPanelPosition() {
         showLeftPanel();
         hideOverlay();
-        if(document.body.classList.contains("ls-closed"))
+        if (document.body.classList.contains("ls-closed"))
             document.body.classList.remove("ls-closed");
-        this.fixedLeftPanel=true;
+        this.fixedLeftPanel = true;
         return this;
     }
 
-    public Layout unfixLeftPanelPosition(){
-        if(!document.body.classList.contains("ls-closed"))
+    public Layout unfixLeftPanelPosition() {
+        if (!document.body.classList.contains("ls-closed"))
             document.body.classList.add("ls-closed");
-        this.fixedLeftPanel=false;
+        this.fixedLeftPanel = false;
         return this;
     }
 }
