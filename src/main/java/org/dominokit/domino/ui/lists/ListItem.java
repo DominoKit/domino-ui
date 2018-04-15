@@ -166,4 +166,8 @@ public class ListItem<T> extends BaseListItem implements IsElement<HTMLAnchorEle
         this.asElement().appendChild(node);
         return this;
     }
+
+    void setParent(HasMultiSelectSupport<ListItem<T>> parent) {
+        this.parent = parent;
+    }
 }
