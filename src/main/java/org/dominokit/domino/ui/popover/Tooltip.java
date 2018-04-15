@@ -9,46 +9,58 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class Tooltip implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement element=div().css("tooltip").attr("role","tooltip").asElement();
-    private HTMLDivElement arrowElement =div().css("tooltip-arrow").asElement();
-    private HTMLDivElement innerElement =div().css("tooltip-inner").asElement();
-    private PopupPosition popupPosition =TOP;
+    private HTMLDivElement element = div().css("tooltip").attr("role", "tooltip").asElement();
+    private HTMLDivElement arrowElement = div().css("tooltip-arrow").asElement();
+    private HTMLDivElement innerElement = div().css("tooltip-inner").asElement();
+    private PopupPosition popupPosition = TOP;
 
-    public Tooltip(HTMLElement target, String text) {
-        this(target, new Text(text));
+    public Tooltip(HTMLElement targetElement, String text) {
+        this(targetElement, new Text(text));
     }
 
-    public Tooltip(HTMLElement target, Node content) {
+    public Tooltip(HTMLElement targetElement, Node content) {
         element.appendChild(arrowElement);
         element.appendChild(innerElement);
         innerElement.appendChild(content);
 
         element.classList.add(popupPosition.getDirectionClass());
 
-        target.addEventListener(EventType.mouseenter.getName(), evt -> {
+        targetElement.addEventListener(EventType.mouseenter.getName(), evt -> {
+            evt.stopPropagation();
             DomGlobal.document.body.appendChild(element);
             element.classList.remove("fade", "in");
-            element.classList.add("fade","in");
-            popupPosition.position(element, target);
+            element.classList.add("fade", "in");
+            popupPosition.position(element, targetElement);
             position(popupPosition);
         });
 
-        target.addEventListener(EventType.mouseout.getName(), evt -> {
-            element.remove();
-        });
+        EventListener onRemoveListener = new EventListener() {
+            @Override
+            public void handleEvent(Event evt) {
+                if (evt.target.equals(targetElement)) {
+                    element.remove();
+                    DomGlobal.document.body.removeEventListener("DOMNodeRemoved", this);
+                }
+            }
+        };
+        DomGlobal.document.body.addEventListener("DOMNodeRemoved", onRemoveListener);
+
+        targetElement.addEventListener(EventType.mouseleave.getName(), evt1 -> element.remove());
+
+
     }
 
-    public static Tooltip create(HTMLElement target, String text){
+    public static Tooltip create(HTMLElement target, String text) {
         return new Tooltip(target, text);
     }
 
-    public static Tooltip create(HTMLElement target, Node content){
+    public static Tooltip create(HTMLElement target, Node content) {
         return new Tooltip(target, content);
     }
 
-    public Tooltip position(PopupPosition position){
+    public Tooltip position(PopupPosition position) {
         this.element.classList.remove(popupPosition.getDirectionClass());
-        this.popupPosition =position;
+        this.popupPosition = position;
         this.element.classList.add(popupPosition.getDirectionClass());
 
         return this;
