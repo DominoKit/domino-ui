@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.lists;
 
-import org.dominokit.domino.ui.utils.HasMultiSelectSupport;
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.utils.HasMultiSelectSupport;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.LinkedList;
@@ -10,28 +10,28 @@ import java.util.stream.Collectors;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class ListGroup<T> implements IsElement<HTMLDivElement> , HasMultiSelectSupport<ListItem<T>> {
+public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSupport<ListItem<T>> {
 
     private final HTMLDivElement element;
-    private List<ListItem<T>> allItems=new LinkedList<>();
-    private boolean multiSelect=false;
+    private List<ListItem<T>> allItems = new LinkedList<>();
+    private boolean multiSelect = false;
 
     private ListGroup(HTMLDivElement element) {
         this.element = element;
     }
 
-    public static <T> ListGroup<T> create(){
+    public static <T> ListGroup<T> create() {
         return new ListGroup<>(div().css("list-group").asElement());
     }
 
-    public ListItem<T> addItem(T value){
+    public ListItem<T> addItem(T value) {
         ListItem<T> listItem = ListItem.create(this, value);
         allItems.add(listItem);
         asElement().appendChild(listItem.asElement());
         return listItem;
     }
 
-    public ListItem<T> addItem(T value, String text){
+    public ListItem<T> addItem(T value, String text) {
         ListItem<T> listItem = ListItem.create(this, value);
         listItem.setText(text);
         allItems.add(listItem);
@@ -39,19 +39,20 @@ public class ListGroup<T> implements IsElement<HTMLDivElement> , HasMultiSelectS
         return listItem;
     }
 
-    public ListGroup<T> appendItem(ListItem<T> listItem){
+    public ListGroup<T> appendItem(ListItem<T> listItem) {
         allItems.add(listItem);
         asElement().appendChild(listItem.asElement());
+        listItem.setParent(this);
         return this;
     }
 
-    public ListItem<T> createItem(T value, String text){
+    public ListItem<T> createItem(T value, String text) {
         ListItem<T> listItem = ListItem.create(this, value);
         listItem.setText(text);
         return listItem;
     }
 
-    public ListGroup<T> multiSelect(){
+    public ListGroup<T> multiSelect() {
         setMultiSelect(true);
         return this;
     }
@@ -61,6 +62,21 @@ public class ListGroup<T> implements IsElement<HTMLDivElement> , HasMultiSelectS
         return allItems.stream().filter(ListItem::isSelected).collect(Collectors.toList());
     }
 
+    public ListGroup<T> removeSelected() {
+        getSelectedItems().forEach(item -> {
+            allItems.remove(item);
+            item.asElement().remove();
+        });
+        return this;
+    }
+
+    public ListGroup<T> removeItem(ListItem<T> listItem) {
+        if(allItems.contains(listItem)) {
+            allItems.remove(listItem);
+            listItem.asElement().remove();
+        }
+        return this;
+    }
 
     @Override
     public boolean isMultiSelect() {
@@ -69,7 +85,7 @@ public class ListGroup<T> implements IsElement<HTMLDivElement> , HasMultiSelectS
 
     @Override
     public void setMultiSelect(boolean multiSelect) {
-        this.multiSelect=multiSelect;
+        this.multiSelect = multiSelect;
     }
 
     @Override
