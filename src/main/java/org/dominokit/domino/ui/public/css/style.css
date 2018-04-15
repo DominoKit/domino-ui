@@ -38,6 +38,12 @@
   .navbar .navbar-collapse.in {
     overflow: visible; }
 
+.ls-hidden .bars:before{
+  content: '';
+}
+
+.ls-hidden section.content {
+  margin-left: 15px; }
 
 .ls-closed section.content {
   margin-left: 15px; }

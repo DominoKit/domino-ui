@@ -3,6 +3,7 @@
   <inherits name="com.google.gwt.core.Core" />
   <inherits name="org.jboss.gwt.elemento.Core"/>
   <inherits name="org.jboss.gwt.elemento.Template"/>
+  <inherits name="com.google.gwt.resources.Resources" />
 
   <source path="" />
 </module>
