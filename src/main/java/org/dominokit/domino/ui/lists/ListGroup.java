@@ -1,9 +1,12 @@
 package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.icons.ContentIcons;
 import org.dominokit.domino.ui.utils.HasMultiSelectSupport;
+import org.dominokit.domino.ui.utils.Selectable;
 import org.jboss.gwt.elemento.core.IsElement;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +18,7 @@ public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
     private final HTMLDivElement element;
     private List<ListItem<T>> allItems = new LinkedList<>();
     private boolean multiSelect = false;
+    private List<SelectionChangeHandler<T>> selectionHandlers=new ArrayList<>();
 
     private ListGroup(HTMLDivElement element) {
         this.element = element;
@@ -62,6 +66,14 @@ public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
         return allItems.stream().filter(ListItem::isSelected).collect(Collectors.toList());
     }
 
+    public List<T> getSelectedValues(){
+        List<ListItem<T>> selectedItems = getSelectedItems();
+        if(selectedItems.isEmpty())
+            return new ArrayList<>();
+        else
+            return selectedItems.stream().map(i-> i.getValue()).collect(Collectors.toList());
+    }
+
     public ListGroup<T> removeSelected() {
         getSelectedItems().forEach(item -> {
             allItems.remove(item);
@@ -96,5 +108,26 @@ public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
     @Override
     public HTMLDivElement asElement() {
         return element;
+    }
+
+    @Override
+    public void onSelectionChange(ListItem<T> source) {
+        for(int i=0;i<selectionHandlers.size();i++){
+            selectionHandlers.get(i).onSelectionChanged(source);
+        }
+    }
+
+    public ListGroup<T> addSelectionChangeHandler(SelectionChangeHandler<T> selectionChangeHandler){
+        this.selectionHandlers.add(selectionChangeHandler);
+        return this;
+    }
+
+    public ListGroup<T> removeSelectionChangeHandler(SelectionChangeHandler<T> selectionChangeHandler){
+        this.selectionHandlers.remove(selectionChangeHandler);
+        return this;
+    }
+
+    public interface SelectionChangeHandler<T> {
+        void onSelectionChanged(ListItem<T> item);
     }
 }
