@@ -5,6 +5,8 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLTextAreaElement;
 import org.jboss.gwt.elemento.core.Elements;
 
+import static java.util.Objects.nonNull;
+
 public class TextArea extends ValueBox<TextArea, HTMLTextAreaElement, String> {
 
     private EventListener autosizeListener = evt -> adjustHeight();
@@ -45,6 +47,8 @@ public class TextArea extends ValueBox<TextArea, HTMLTextAreaElement, String> {
 
     @Override
     public void setValue(String value) {
+        if (nonNull(value) && !value.isEmpty())
+            focus();
         inputElement.value = value;
     }
 
