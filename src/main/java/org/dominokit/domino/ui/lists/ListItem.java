@@ -1,23 +1,22 @@
 package org.dominokit.domino.ui.lists;
 
+import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLHeadingElement;
+import elemental2.dom.HTMLParagraphElement;
+import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Background;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasMultiSelectSupport;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.dominokit.domino.ui.utils.Selectable;
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLHeadingElement;
-import elemental2.dom.HTMLParagraphElement;
-import elemental2.dom.Node;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 
-public class ListItem<T> extends BaseListItem implements IsElement<HTMLAnchorElement>, HasValue<T>
+public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsElement<HTMLAnchorElement>, HasValue<T>
         , Selectable<ListItem<T>>, HasBackground<ListItem<T>> {
 
-    private final HTMLAnchorElement element;
     private T value;
     private HasMultiSelectSupport<ListItem<T>> parent;
     private boolean selected = false;
@@ -26,32 +25,28 @@ public class ListItem<T> extends BaseListItem implements IsElement<HTMLAnchorEle
     private HTMLHeadingElement header;
     private HTMLParagraphElement body;
 
-    private ListItem(HTMLAnchorElement element, T value, HasMultiSelectSupport<ListItem<T>> parent) {
-        super(element);
-        this.element = element;
+    public ListItem(T value, HasMultiSelectSupport<ListItem<T>> parent) {
+        super(a().css("list-group-item").asElement());
         this.value = value;
         this.parent = parent;
-    }
-
-    static <T> ListItem<T> create(HasMultiSelectSupport<ListItem<T>> parent, T value) {
-        HTMLAnchorElement element = a().css("list-group-item").asElement();
-        ListItem<T> listItem = new ListItem<>(element, value, parent);
-        element.addEventListener("click", e -> {
-            if (!listItem.disabled) {
-                if (listItem.isSelected()) {
-                    listItem.deselect();
+        getElement().addEventListener("click", e -> {
+            if (!disabled) {
+                if (isSelected()) {
+                    deselect();
                 } else {
-                    listItem.select();
+                    select();
                 }
             }
         });
-        return listItem;
     }
 
+    public static <T> ListItem<T> create(HasMultiSelectSupport<ListItem<T>> parent, T value) {
+        return new ListItem<>(value, parent);
+    }
 
     @Override
     public HTMLAnchorElement asElement() {
-        return element;
+        return getElement();
     }
 
     @Override
@@ -66,21 +61,36 @@ public class ListItem<T> extends BaseListItem implements IsElement<HTMLAnchorEle
 
     @Override
     public ListItem<T> select() {
+        return select(false);
+    }
+
+    @Override
+    public ListItem<T> deselect() {
+        return deselect(false);
+    }
+
+    @Override
+    public ListItem<T> select(boolean silent) {
         if (!parent.isMultiSelect())
-            parent.getItems().forEach(ListItem::deselect);
+            parent.getItems().forEach(tListItem -> tListItem.deselect(true));
         if (!selected) {
             asElement().classList.add("active");
             this.selected = true;
+            if(!silent)
+                parent.onSelectionChange(this);
         }
 
         return this;
     }
 
     @Override
-    public ListItem<T> deselect() {
+    public ListItem<T> deselect(boolean silent) {
         if (selected) {
             asElement().classList.remove("active");
             this.selected = false;
+            if (!silent) {
+                parent.onSelectionChange(this);
+            }
         }
 
         return this;
@@ -89,7 +99,7 @@ public class ListItem<T> extends BaseListItem implements IsElement<HTMLAnchorEle
     public ListItem<T> disable() {
         if (!disabled) {
             deselect();
-            element.classList.add("disabled");
+            getElement().classList.add("disabled");
             this.disabled = true;
         }
 
@@ -98,7 +108,7 @@ public class ListItem<T> extends BaseListItem implements IsElement<HTMLAnchorEle
 
     public ListItem<T> enable() {
         if (disabled) {
-            element.classList.remove("disabled");
+            getElement().classList.remove("disabled");
             this.disabled = false;
         }
 
@@ -120,28 +130,28 @@ public class ListItem<T> extends BaseListItem implements IsElement<HTMLAnchorEle
 
     private ListItem<T> setStyle(String itemStyle) {
         if (nonNull(this.style))
-            element.classList.remove(this.style);
-        element.classList.add(itemStyle);
+            getElement().classList.remove(this.style);
+        getElement().classList.add(itemStyle);
         this.style = itemStyle;
         return this;
     }
 
-    public ListItem<T> success(){
+    public ListItem<T> success() {
         setStyle(ListGroupStyle.SUCCESS);
         return this;
     }
 
-    public ListItem<T> warning(){
+    public ListItem<T> warning() {
         setStyle(ListGroupStyle.WARNING);
         return this;
     }
 
-    public ListItem<T> info(){
+    public ListItem<T> info() {
         setStyle(ListGroupStyle.INFO);
         return this;
     }
 
-    public ListItem<T> error(){
+    public ListItem<T> error() {
         setStyle(ListGroupStyle.ERROR);
         return this;
     }

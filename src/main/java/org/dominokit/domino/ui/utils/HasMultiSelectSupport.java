@@ -7,4 +7,6 @@ public interface HasMultiSelectSupport<T>{
     boolean isMultiSelect();
     void setMultiSelect(boolean multiSelect);
     List<T> getItems();
+    void onSelectionChange(T source);
+
 }

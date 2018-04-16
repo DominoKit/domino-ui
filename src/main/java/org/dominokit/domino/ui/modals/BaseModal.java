@@ -18,10 +18,8 @@ import static java.util.Objects.nonNull;
 
 public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModalDialog<T> {
     private static HTMLDivElement MODAL_BACKDROP = Elements.div().css("modal-backdrop fade in").asElement();
-    private OpenHandler openHandler = () -> {
-    };
-    private CloseHandler closeHandler = () -> {
-    };
+    private List<OpenHandler> openHandlers = new ArrayList<>();
+    private List<CloseHandler> closeHandlers = new ArrayList<>();
 
     @Templated
     public static abstract class Modal implements IsElement<HTMLDivElement> {
@@ -221,7 +219,9 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
         if (nonNull(firstFocusElement))
             firstFocusElement.focus();
 
-        openHandler.onOpen();
+        for(int i=0;i<openHandlers.size();i++)
+            openHandlers.get(i).onOpen();
+
 
         return (T) this;
     }
@@ -247,7 +247,9 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
         if (nonNull(activeElementBeforeOpen))
             activeElementBeforeOpen.focus();
 
-        closeHandler.onClose();
+        for(int i=0;i<closeHandlers.size();i++)
+            closeHandlers.get(i).onClose();
+
         return (T) this;
     }
 
@@ -314,13 +316,25 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
 
     @Override
     public T onOpen(OpenHandler openHandler) {
-        this.openHandler = openHandler;
+        this.openHandlers.add(openHandler);
         return (T) this;
     }
 
     @Override
     public T onClose(CloseHandler closeHandler) {
-        this.closeHandler = closeHandler;
+        this.closeHandlers.add(closeHandler);
+        return (T) this;
+    }
+
+    @Override
+    public T removeOpenHandler(OpenHandler openHandler) {
+        this.openHandlers.remove(openHandler);
+        return (T) this;
+    }
+
+    @Override
+    public T removeCloseHandler(CloseHandler closeHandler) {
+        this.closeHandlers.remove(closeHandler);
         return (T) this;
     }
 }

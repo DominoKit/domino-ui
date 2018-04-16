@@ -11,21 +11,20 @@ import org.jboss.gwt.elemento.core.IsElement;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
-public class SimpleListItem extends BaseListItem implements IsElement<HTMLLIElement>, HasBackground<SimpleListItem>, IsHtmlComponent<HTMLLIElement, SimpleListItem> {
+public class SimpleListItem extends BaseListItem<HTMLLIElement> implements IsElement<HTMLLIElement>, HasBackground<SimpleListItem>, IsHtmlComponent<HTMLLIElement, SimpleListItem> {
 
-    private final HTMLLIElement element;
     private final HtmlComponentBuilder<HTMLLIElement, SimpleListItem> htmlBuilder;
     private String style;
 
 
-    private SimpleListItem(HTMLLIElement element) {
-        super(element);
-        this.element = element;
+    private SimpleListItem(String text) {
+        super(li().css("list-group-item").textContent(text).asElement());
+
         this.htmlBuilder = new HtmlComponentBuilder<>(this);
     }
 
     public static SimpleListItem create(String text) {
-        return new SimpleListItem(li().css("list-group-item").textContent(text).asElement());
+        return new SimpleListItem(text);
     }
 
     public SimpleListItem setStyle(ListGroupStyle itemStyle) {
@@ -34,8 +33,8 @@ public class SimpleListItem extends BaseListItem implements IsElement<HTMLLIElem
 
     private SimpleListItem setStyle(String itemStyle) {
         if (nonNull(this.style))
-            element.classList.remove(this.style);
-        element.classList.add(itemStyle);
+            getElement().classList.remove(this.style);
+        getElement().classList.add(itemStyle);
         this.style = itemStyle;
         return this;
     }
@@ -63,7 +62,7 @@ public class SimpleListItem extends BaseListItem implements IsElement<HTMLLIElem
 
     @Override
     public HTMLLIElement asElement() {
-        return element;
+        return getElement();
     }
 
     @Override
