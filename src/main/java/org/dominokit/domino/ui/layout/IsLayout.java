@@ -31,6 +31,10 @@ public interface IsLayout {
 
     HTMLUListElement getTopBar();
 
+    NavigationBar getNavigationBar();
+
+    Content getContentSection();
+
     Layout setTitle(String title);
 
     HTMLElement addActionItem(Icon icon);

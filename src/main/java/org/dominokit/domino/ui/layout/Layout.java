@@ -216,6 +216,16 @@ public class Layout implements IsLayout {
     }
 
     @Override
+    public NavigationBar getNavigationBar(){
+        return this.navigationBar;
+    }
+
+    @Override
+    public Content getContentSection(){
+        return this.content;
+    }
+
+    @Override
     public Layout setTitle(String title) {
         if (navigationBar.title.hasChildNodes())
             navigationBar.title.removeChild(appTitle);
