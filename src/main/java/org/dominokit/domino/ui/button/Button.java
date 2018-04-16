@@ -1,9 +1,6 @@
 package org.dominokit.domino.ui.button;
 
-import org.dominokit.domino.ui.style.Background;
-import org.dominokit.domino.ui.style.StyleType;
-import org.dominokit.domino.ui.style.Waves;
-import org.dominokit.domino.ui.style.WavesElement;
+import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
@@ -21,6 +18,7 @@ public class Button extends WavesElement<Button, HTMLElement> implements
     final HTMLElement buttonElement = Elements.button().css("btn").asElement();
     private StyleType type;
     private Background background;
+    private Color color;
     private ButtonSize size;
     protected String content;
     private HtmlComponentBuilder<HTMLElement, Button> buttonComponentBuilder =new HtmlComponentBuilder<>(this);
@@ -64,7 +62,6 @@ public class Button extends WavesElement<Button, HTMLElement> implements
 
     protected Button() {
         super.init(this, buttonElement);
-//        Waves.create(buttonElement);
     }
 
     protected Button(String content) {
@@ -108,6 +105,14 @@ public class Button extends WavesElement<Button, HTMLElement> implements
             buttonElement.classList.remove(this.background.getStyle());
         buttonElement.classList.add(background.getStyle());
         this.background = background;
+        return this;
+    }
+
+    public Button setColor(Color color){
+        if(nonNull(this.color))
+            asElement().classList.remove(this.color.getStyle());
+        this.color=color;
+        asElement().classList.add(this.color.getStyle());
         return this;
     }
 

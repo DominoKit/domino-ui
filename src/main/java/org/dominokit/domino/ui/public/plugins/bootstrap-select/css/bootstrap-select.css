@@ -52,7 +52,6 @@ select.selectpicker {
   outline-offset: -2px;
 }
 .bootstrap-select.form-control {
-  margin-bottom: 0;
   padding: 0;
   border: none;
 }

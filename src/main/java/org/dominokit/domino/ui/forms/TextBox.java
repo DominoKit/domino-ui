@@ -3,6 +3,8 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.HTMLInputElement;
 import org.jboss.gwt.elemento.core.Elements;
 
+import static java.util.Objects.nonNull;
+
 public class TextBox extends ValueBox<TextBox, HTMLInputElement, String> {
 
     private static final String TEXT = "text";
@@ -45,11 +47,14 @@ public class TextBox extends ValueBox<TextBox, HTMLInputElement, String> {
 
     @Override
     public void setValue(String value) {
+        if (nonNull(value) && !value.isEmpty())
+            focus();
         inputElement.value = value;
     }
 
     @Override
     public String getValue() {
+        focus();
         return inputElement.value;
     }
 
