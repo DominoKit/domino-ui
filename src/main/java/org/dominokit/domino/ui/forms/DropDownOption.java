@@ -78,13 +78,23 @@ public class DropDownOption implements IsElement<HTMLLIElement>, HasValue<String
 
     @Override
     public DropDownOption select() {
+        return select(false);
+    }
+
+    @Override
+    public DropDownOption deselect() {
+        return deselect(false);
+    }
+
+    @Override
+    public DropDownOption select(boolean silent) {
         asElement().classList.add(SELECTED);
         aElement.appendChild(checkMark);
         return this;
     }
 
     @Override
-    public DropDownOption deselect() {
+    public DropDownOption deselect(boolean silent) {
         asElement().classList.remove(SELECTED);
         aElement.removeChild(checkMark);
         return this;
