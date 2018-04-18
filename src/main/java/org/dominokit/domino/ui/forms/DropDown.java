@@ -59,9 +59,9 @@ public class DropDown implements IsElement<HTMLDivElement>,
     }
 
 
-    private void hideAllMenus() {
+    public static void hideAllMenus() {
         NodeList<Element> elementsByName = DomGlobal.document.body
-                .getElementsByClassName(asElement().className);
+                .getElementsByClassName("bootstrap-select");
         for (int i = 0; i < elementsByName.length; i++) {
             Element item = elementsByName.item(i);
             if (item.classList.contains(OPEN))
@@ -69,7 +69,7 @@ public class DropDown implements IsElement<HTMLDivElement>,
         }
     }
 
-    private void close(Element item) {
+    private static void close(Element item) {
         item.classList.remove(OPEN);
     }
 
