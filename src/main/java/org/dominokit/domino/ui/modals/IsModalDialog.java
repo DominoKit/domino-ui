@@ -38,6 +38,8 @@ public interface IsModalDialog<T> {
 
     HTMLHeadingElement getHeaderElement();
 
+    HTMLDivElement getHeaderContainerElement();
+
     HTMLDivElement getBodyElement();
 
     HTMLDivElement getFooterElement();
