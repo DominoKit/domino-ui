@@ -16,6 +16,7 @@ public class Popover implements IsElement<HTMLDivElement> {
 
     private static List<Popover> currentVisible=new ArrayList<>();
     private final Text headerText;
+    private final HTMLElement targetElement;
 
     private HTMLDivElement element = div().css("popover").attr("role", "tooltip").style("display: block;").asElement();
     private HTMLDivElement arrowElement = div().css("arrow").asElement();
@@ -27,8 +28,12 @@ public class Popover implements IsElement<HTMLDivElement> {
     private boolean visible = false;
 
     private boolean closeOthers=true;
+    private final EventListener showListener;
+    private final EventListener closeListener;
 
     public Popover(HTMLElement target, String title, Node content) {
+
+        this.targetElement=target;
 
         element.appendChild(arrowElement);
         element.appendChild(headingElement);
@@ -38,18 +43,18 @@ public class Popover implements IsElement<HTMLDivElement> {
         headingElement.appendChild(headerText);
         contentElement.appendChild(content);
 
-        target.addEventListener(EventType.click.getName(), evt -> {
-            if(nonNull(currentVisible) && closeOthers) {
+        showListener = evt -> {
+            if (nonNull(currentVisible) && closeOthers) {
                 closeOthers();
             }
             evt.stopPropagation();
             open(target);
             currentVisible.add(Popover.this);
-        });
+        };
+        target.addEventListener(EventType.click.getName(), showListener);
 
-        DomGlobal.document.addEventListener(EventType.click.getName(), evt -> {
-            closeAll();
-        });
+        closeListener = evt -> closeAll();
+        DomGlobal.document.addEventListener(EventType.click.getName(), closeListener);
 
         element.addEventListener(EventType.click.getName(), Event::stopPropagation);
 
@@ -80,6 +85,12 @@ public class Popover implements IsElement<HTMLDivElement> {
     private void close() {
         asElement().remove();
         visible = false;
+    }
+
+    public void discard(){
+        close();
+        targetElement.removeEventListener(EventType.click.getName(), showListener);
+        DomGlobal.document.removeEventListener(EventType.click.getName(), closeListener);
     }
 
     public static Popover create(HTMLElement target, String title, Node content) {

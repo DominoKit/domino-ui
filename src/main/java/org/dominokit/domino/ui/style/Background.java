@@ -86,4 +86,56 @@ public enum Background {
 
         }
     }
+
+    public Color color() {
+        switch (this) {
+            case RED:
+                return Color.RED;
+            case BLUE:
+                return Color.BLUE;
+            case CYAN:
+                return Color.CYAN;
+            case GREY:
+                return Color.GREY;
+            case LIME:
+                return Color.LIME;
+            case PINK:
+                return Color.PINK;
+            case TEAL:
+                return Color.TEAL;
+            case AMBER:
+                return Color.AMBER;
+            case BLACK:
+                return Color.BLACK;
+            case BROWN:
+                return Color.BROWN;
+            case GREEN:
+                return Color.GREEN;
+            case WHITE:
+                return Color.WHITE;
+            case INDIGO:
+                return Color.INDIGO;
+            case ORANGE:
+                return Color.ORANGE;
+            case PURPLE:
+                return Color.PURPLE;
+            case YELLOW:
+                return Color.YELLOW;
+            case BLUE_GREY:
+                return Color.BLUE_GREY;
+            case LIGHT_BLUE:
+                return Color.LIGHT_BLUE;
+            case DEEP_ORANGE:
+                return Color.DEEP_ORANGE;
+            case DEEP_PURPLE:
+                return Color.DEEP_PURPLE;
+            case LIGHT_GREEN:
+                return Color.LIGHT_GREEN;
+            case THEME:
+                return Color.WHITE;
+            default:
+                return Color.WHITE;
+
+        }
+    }
 }
