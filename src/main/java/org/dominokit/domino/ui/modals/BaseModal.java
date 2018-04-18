@@ -192,7 +192,19 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     @Override
     public T setAutoClose(boolean autoClose) {
         this.autoClose = autoClose;
-        if (!autoClose) {
+        if (autoClose) {
+            MODAL_BACKDROP.addEventListener(EventType.keypress.getName(), evt -> {
+                evt.stopPropagation();
+                evt.preventDefault();
+                close();
+            });
+
+            MODAL_BACKDROP.addEventListener(EventType.mousedown.getName(), evt -> {
+                evt.stopPropagation();
+                evt.preventDefault();
+                close();
+            });
+        }else{
             MODAL_BACKDROP.addEventListener(EventType.keypress.getName(), evt -> {
                 evt.stopPropagation();
                 evt.preventDefault();
@@ -297,6 +309,11 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     @Override
     public HTMLHeadingElement getHeaderElement() {
         return modal.modalTitle;
+    }
+
+    @Override
+    public HTMLDivElement getHeaderContainerElement() {
+        return modal.modalHeader;
     }
 
     @Override
