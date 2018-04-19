@@ -82,7 +82,7 @@ public class Popover implements IsElement<HTMLDivElement> {
         }
     }
 
-    private void close() {
+    public void close() {
         asElement().remove();
         visible = false;
     }
@@ -108,6 +108,10 @@ public class Popover implements IsElement<HTMLDivElement> {
     public Popover setCloseOthers(boolean closeOthers){
         this.closeOthers=closeOthers;
         return this;
+    }
+
+    public HTMLHeadingElement getHeadingElement() {
+        return headingElement;
     }
 
     @Override
