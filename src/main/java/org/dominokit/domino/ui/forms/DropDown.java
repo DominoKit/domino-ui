@@ -51,7 +51,7 @@ public class DropDown implements IsElement<HTMLDivElement>,
 
     private void open() {
         dropDownElement.asElement().classList.add(OPEN);
-        getSelectedOption().asElement().scrollIntoView();
+//        getSelectedOption().asElement().scrollIntoView();
     }
 
     public DropDown(List<DropDownOption> options) {
