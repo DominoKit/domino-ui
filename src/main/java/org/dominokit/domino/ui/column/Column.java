@@ -5,6 +5,9 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import org.jboss.gwt.elemento.core.IsElement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
@@ -16,6 +19,7 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
     private OnMedium onMediumStyle;
     private OnSmall onSmallStyle;
     private OnXSmall onXSmallStyle;
+    private List<String> cssClasses=new ArrayList<>();
 
     private Column(HTMLDivElement htmlDivElement) {
         this.column = htmlDivElement;
@@ -37,6 +41,11 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
             column.onXSmall(this.onXSmallStyle);
         if(this.asElement().classList.contains(ALIGN_CENTER))
             column.centerContent();
+
+        for(int i=0;i<cssClasses.size();i++){
+            column.addCssClass(cssClasses.get(i));
+        }
+
         return column;
     }
 
@@ -84,6 +93,18 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
 
     public Column deCenterContent(){
         asElement().classList.remove(ALIGN_CENTER);
+        return this;
+    }
+
+    public Column addCssClass(String cssClass){
+        this.asElement().classList.add(cssClass);
+        this.cssClasses.add(cssClass);
+        return this;
+    }
+
+    public Column removeCssClass(String cssClass){
+        this.asElement().classList.remove(cssClass);
+        this.cssClasses.remove(cssClass);
         return this;
     }
 
