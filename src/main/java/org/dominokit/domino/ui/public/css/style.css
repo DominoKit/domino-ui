@@ -48,6 +48,24 @@
 .ls-closed section.content {
   margin-left: 15px; }
 
+@media only screen and (max-width: 600px) {
+  .content-panel {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+  }
+}
+
+@media only screen and (min-width: 601px) {
+  .content-panel {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+}
+
 .ls-closed .bars:after, .ls-closed .bars:before {
   font-family: 'Material Icons';
   font-size: 24px;
@@ -8112,20 +8130,21 @@ a.disabled{
 }
 
 .calendar .month-name {
-  font-size: 30px;
+  font-size: 24px;
 }
 
 .calendar .day-number {
-  font-size: 67px;
+  font-size: 48px;
 }
 
 .calendar .year-number {
-  font-size: 27px;
+  font-size: 24px;
   color: rgba(255, 255, 255, 0.8);
 }
 
 .date-picker-container{
-  padding : 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .calendar .selector-container{
@@ -8194,6 +8213,10 @@ a.disabled{
   color: #ffffff;
 }
 
+.date-picker .selected:HOVER {
+  color: #ffffff !important;
+}
+
 .date-picker .year-select {
   padding-right: 0px !important;
 }
@@ -8204,5 +8227,61 @@ a.disabled{
 
 .calendar .footer {
   padding: 5px;
-  margin-bottom: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .hide-on-small-only,
+  .hide-on-small-and-down {
+    display: none !important
+  }
+}
+@media only screen and (max-width: 992px) {
+  .hide-on-med-and-down {
+    display: none !important
+  }
+}
+@media only screen and (min-width: 601px) {
+  .hide-on-med-and-up {
+    display: none !important
+  }
+}
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+  .hide-on-med-only {
+    display: none !important
+  }
+}
+@media only screen and (min-width: 993px) {
+  .hide-on-large-only {
+    display: none !important
+  }
+}
+@media only screen and (min-width: 993px) {
+  .show-on-large {
+    display: block !important
+  }
+}
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+  .show-on-medium {
+    display: block !important
+  }
+}
+@media only screen and (max-width: 600px) {
+  .show-on-small {
+    display: block !important
+  }
+}
+@media only screen and (min-width: 601px) {
+  .show-on-medium-and-up {
+    display: block !important
+  }
+}
+@media only screen and (max-width: 992px) {
+  .show-on-medium-and-down {
+    display: block !important
+  }
+}
+@media only screen and (max-width: 600px) {
+  .center-on-small-only {
+    text-align: center
+  }
 }
