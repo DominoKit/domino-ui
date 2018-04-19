@@ -10,6 +10,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class Column implements IsElement<HTMLDivElement>, Cloneable {
 
+    public static final String ALIGN_CENTER = "align-center";
     private HTMLDivElement column;
     private OnLarge onLargeStyle;
     private OnMedium onMediumStyle;
@@ -34,6 +35,8 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
             column.onSmall(this.onSmallStyle);
         if (nonNull(this.onXSmallStyle))
             column.onXSmall(this.onXSmallStyle);
+        if(this.asElement().classList.contains(ALIGN_CENTER))
+            column.centerContent();
         return column;
     }
 
@@ -71,6 +74,16 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
             column.classList.remove(this.onXSmallStyle.getStyle());
         this.onXSmallStyle = onXSmall;
         column.classList.add(this.onXSmallStyle.getStyle());
+        return this;
+    }
+
+    public Column centerContent(){
+        asElement().classList.add(ALIGN_CENTER);
+        return this;
+    }
+
+    public Column deCenterContent(){
+        asElement().classList.remove(ALIGN_CENTER);
         return this;
     }
 
