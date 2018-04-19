@@ -81,6 +81,28 @@
             <version>${elemento.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.gwtproject.i18n</groupId>
+            <artifactId>gwt-cldr</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.gwtproject.i18n</groupId>
+            <artifactId>gwt-cldr</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.gwtproject.i18n</groupId>
+            <artifactId>gwt-datetimeformat</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.gwtproject.i18n</groupId>
+            <artifactId>gwt-datetimeformat</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <classifier>sources</classifier>
+        </dependency>
     </dependencies>
 
     <build>
