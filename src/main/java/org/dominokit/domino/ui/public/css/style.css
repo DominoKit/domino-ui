@@ -4104,14 +4104,16 @@ section.content {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     -ms-border-radius: 0;
-    border-radius: 0; }
+    border-radius: 0;
+    }
 
 .popover {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -ms-border-radius: 0;
   border-radius: 0;
-  border: 1px solid rgba(0, 0, 0, 0.08); }
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  max-width: 500px;}
   .popover .popover-title {
     font-weight: bold;
     -webkit-border-radius: 0;
@@ -7730,7 +7732,11 @@ fieldset[disabled] .form-control {
 /* Bootstrap Notify ============================ */
 .bootstrap-notify-container {
   max-width: 320px;
-  text-align: center; }
+  text-align: center;
+z-index: 999999999999999;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
 
 /* Jquery Nestable ============================= */
 .dd-handle {
@@ -8084,4 +8090,119 @@ a.disabled{
 
 .menu-header .material-icons{
   margin-bottom: 0px !important;
+}
+
+.calendar {
+  border: 1px solid #e6e6e6;
+  width: 100%;
+  display: inline-block;
+}
+
+.calendar .date-panel {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.calendar .day-name {
+  height: 3.2rem;
+  line-height: 3.2rem;
+  font-size: 15px;
+  opacity: 1;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.calendar .month-name {
+  font-size: 30px;
+}
+
+.calendar .day-number {
+  font-size: 67px;
+}
+
+.calendar .year-number {
+  font-size: 27px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.date-picker-container{
+  padding : 10px;
+}
+
+.calendar .selector-container{
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
+.calendar-modal-header{
+  padding: 5px !important;
+  text-align: center !important;
+}
+
+.calendar .navigate{
+  border-radius: 50%;
+  transform: scale(0.9);
+  text-align: center;
+  color: #7d7d7d;
+  font-weight: 600;
+  width: 30px;
+  height: 30px;
+  line-height: 42px
+}
+
+.date-picker {
+  width: 100%;
+}
+
+.date-picker thead {
+  border-bottom: 1px solid #E3E3E3;
+}
+
+.date-picker th {
+  cursor: pointer;
+  text-align: center;
+  padding: .75rem 0;
+}
+
+.date-picker .current-month {
+  text-align: center;
+  cursor: pointer;
+  color: #7d7d7d;
+  font-weight: 600;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+}
+
+.date-picker .current-month:hover {
+  color: #000000;
+}
+
+.date-picker .other-month {
+  text-align: center;
+  cursor: pointer;
+  color: #999999;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+}
+
+.date-picker .selected {
+  border-radius: 50%;
+  transform: scale(0.9);
+  line-height: 35px;
+  color: #ffffff;
+}
+
+.date-picker .year-select {
+  padding-right: 0px !important;
+}
+
+.date-picker .month-select {
+  padding-left: 0px !important;
+}
+
+.calendar .footer {
+  padding: 5px;
+  margin-bottom: 5px;
 }
