@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.modals;
 import org.dominokit.domino.ui.style.Color;
 import elemental2.dom.*;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.MyDom;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
@@ -84,6 +85,7 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     private Element activeElementBeforeOpen;
     private List<Element> focusElements = new ArrayList<>();
     private Text headerText=new Text();
+    private boolean open=false;
 
     public BaseModal() {
         modal = Modal.create();
@@ -234,7 +236,7 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
         for(int i=0;i<openHandlers.size();i++)
             openHandlers.get(i).onOpen();
 
-
+        this.open=true;
         return (T) this;
     }
 
@@ -262,6 +264,7 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
         for(int i=0;i<closeHandlers.size();i++)
             closeHandlers.get(i).onClose();
 
+        this.open=false;
         return (T) this;
     }
 
@@ -293,6 +296,9 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     public T setTitle(String title) {
         showHeader();
         headerText.textContent = title;
+        ElementUtil.clear(getHeaderElement());
+        getHeaderElement().appendChild(headerText);
+        DomGlobal.console.info("Settting the title "+title);
         return (T) this;
     }
 
@@ -353,5 +359,9 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     public T removeCloseHandler(CloseHandler closeHandler) {
         this.closeHandlers.remove(closeHandler);
         return (T) this;
+    }
+
+    public boolean isOpen() {
+        return open;
     }
 }
