@@ -298,7 +298,6 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
         headerText.textContent = title;
         ElementUtil.clear(getHeaderElement());
         getHeaderElement().appendChild(headerText);
-        DomGlobal.console.info("Settting the title "+title);
         return (T) this;
     }
 
