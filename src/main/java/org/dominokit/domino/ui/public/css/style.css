@@ -8153,6 +8153,13 @@ a.disabled{
   padding-top: 10px;
 }
 
+<<<<<<< HEAD
+=======
+.calendar .dropdown-toggle{
+  padding-right: 5px !important;
+}
+
+>>>>>>> f9b7dba7ea66cc37872165e8f7b3478edf905c1b
 .calendar-modal-header{
   padding: 5px !important;
   text-align: center !important;
