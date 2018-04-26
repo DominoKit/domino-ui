@@ -33,6 +33,7 @@ public class FileItem implements IsElement<HTMLDivElement> {
     private HTMLDivElement progressElement;
     private ProgressBar progressBar;
     private HTMLElement cancelIcon = Icons.ALL.cancel().asElement();
+    private HTMLElement refreshIcon = Icons.ALL.refresh().asElement();
 
     private File file;
     private UploadOptions options;
@@ -93,12 +94,14 @@ public class FileItem implements IsElement<HTMLDivElement> {
     private void initFooter() {
         initDeleteIcon();
         initCancelIcon();
+        initRefreshIcon();
         initMessageContainer();
         footerContainer.style.display = "inline-block";
         footerContainer.style.width = CSSProperties.WidthUnionType.of("100%");
         footerContainer.style.height = CSSProperties.HeightUnionType.of("25px");
-        footerContainer.appendChild(cancelIcon);
         footerContainer.appendChild(deleteIcon);
+        footerContainer.appendChild(cancelIcon);
+        footerContainer.appendChild(refreshIcon);
         footerContainer.appendChild(messageContainer);
     }
 
@@ -112,7 +115,14 @@ public class FileItem implements IsElement<HTMLDivElement> {
         cancelIcon.style.cssFloat = "right";
         cancelIcon.style.cursor = "pointer";
         cancelIcon.addEventListener("click", evt -> cancel());
-        cancelIcon.style.display = "none";
+        hideCancelIcon();
+    }
+
+    private void initRefreshIcon() {
+        refreshIcon.style.cssFloat = "right";
+        refreshIcon.style.cursor = "pointer";
+        refreshIcon.addEventListener("click", evt -> upload());
+        hideRefreshIcon();
     }
 
     private void initMessageContainer() {
@@ -217,11 +227,12 @@ public class FileItem implements IsElement<HTMLDivElement> {
             request = new XMLHttpRequest();
 
             request.upload.addEventListener("loadstart", evt -> {
-                cancelIcon.style.display = "inline-block";
+                hideRefreshIcon();
+                showCancelIcon();
             });
 
             request.upload.addEventListener("loadend", evt -> {
-                cancelIcon.style.display = "none";
+                hideCancelIcon();
             });
 
             request.upload.onprogress = p0 -> {
@@ -230,6 +241,7 @@ public class FileItem implements IsElement<HTMLDivElement> {
             };
 
             request.onabort = p0 -> {
+                showRefreshIcon();
                 resetProgress();
                 cancelHandlers.forEach(handler -> handler.onCancel(request));
             };
@@ -248,6 +260,22 @@ public class FileItem implements IsElement<HTMLDivElement> {
             beforeUploadHandlers.forEach(handler -> handler.onBeforeUpload(request));
             request.send(formData);
         }
+    }
+
+    private void showRefreshIcon() {
+        refreshIcon.style.display = "inline-block";
+    }
+
+    private void hideRefreshIcon() {
+        refreshIcon.style.display = "none";
+    }
+
+    private void showCancelIcon() {
+        cancelIcon.style.display = "inline-block";
+    }
+
+    private void hideCancelIcon() {
+        cancelIcon.style.display = "none";
     }
 
     private void resetState() {
@@ -283,6 +311,7 @@ public class FileItem implements IsElement<HTMLDivElement> {
         invalidate(getErrorMessage());
         updateProgressBackground(Background.RED);
         errorHandlers.forEach(handler -> handler.onError(request));
+        showRefreshIcon();
     }
 
     private String getErrorMessage() {
