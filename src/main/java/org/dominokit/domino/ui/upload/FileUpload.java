@@ -32,8 +32,7 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
     private List<OnAddFileHandler> onAddFileHandlers = new ArrayList<>();
     private boolean autoUpload = true;
 
-    public FileUpload(Icon icon) {
-        uploadIconContainer.appendChild(icon.asElement());
+    public FileUpload() {
         uploadMessageContainer.appendChild(uploadIconContainer);
         createHiddenInput();
         formElement.appendChild(uploadMessageContainer);
@@ -100,8 +99,8 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
         DomGlobal.document.body.appendChild(hiddenFileInput);
     }
 
-    public static FileUpload create(Icon icon) {
-        return new FileUpload(icon);
+    public static FileUpload create() {
+        return new FileUpload();
     }
 
     @Override
@@ -139,7 +138,7 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
         return this;
     }
 
-    public FileUpload addOnAddFileHandler(OnAddFileHandler onAddFileHandler) {
+    public FileUpload onAddFile(OnAddFileHandler onAddFileHandler) {
         onAddFileHandlers.add(onAddFileHandler);
         return this;
     }
@@ -205,6 +204,11 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
     @Override
     public String getName() {
         return hiddenFileInput.name;
+    }
+
+    public FileUpload setIcon(Icon icon) {
+        uploadIconContainer.appendChild(icon.asElement());
+        return this;
     }
 
     @Override

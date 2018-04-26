@@ -73,7 +73,7 @@ public class FileItem implements IsElement<HTMLDivElement> {
         if (isImage())
             fileImage = FileImage.createImageFile(file);
         else
-            fileImage = FileImage.create();
+            fileImage = FileImage.createDefault();
     }
 
     public boolean isImage() {
