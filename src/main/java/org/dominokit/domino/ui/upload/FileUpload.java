@@ -38,7 +38,7 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
         formElement.appendChild(uploadMessageContainer);
         formElement.appendChild(filesContainer);
 
-        hiddenFileInput.addEventListener("input", evt -> {
+        hiddenFileInput.addEventListener("change", evt -> {
             uploadFiles(hiddenFileInput.files);
         });
         uploadMessageContainer.addEventListener("click", evt -> hiddenFileInput.click());
