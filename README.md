@@ -64,6 +64,83 @@ A type safe material design with bootstrap builder for java developer with GWT w
 <link type="text/css" rel="stylesheet" href="/static/css/themes/all-themes.css">
 ```
 
+----------------------
+## Domino-ui Release 1.0 Road map
+
+> Checked item are already completed
+
+### Build All basic components :
+
+- [x] Cards
+- [x] Info box
+- [x] Buttons
+- [x] Alerts
+- [x] Badges
+- [x] Labels
+- [x] Modals
+- [x] Lists
+- [x] Loaders
+- [x] Icons
+- [x] Breadcrumbs
+- [x] Collapse
+- [x] Notifications
+- [x] Media Objects
+- [x] Pagination
+- [x] Preloaders
+- [x] Progress bars
+- [x] Tabs
+- [x] Thumbnails
+- [x] Dialogs
+- [x] Tooltips and Popovers
+- [x] Waves
+- [x] Typography
+- [x] Helper classes
+- [x] Colors
+- [x] Animations
+- [x] File upload
+- [x] Date picker
+- [ ] Time picker - **in progress**
+- [ ] Date time picker
+- [ ] Inputs decorations : Labels, Helper text, validation, Icons
+- [ ] Input groups
+- [ ] Advanced Select
+- [ ] Multi-Select
+- [ ] Tag field
+- [ ] Spinners
+- [ ] Field masking
+- [ ] Simple grids - Table based -
+- [ ] Form wizards / Steppers
+- [ ] Carousel
+- [ ] Sliders
+
+### Third Party libs and tools integration
+
+- [ ] make sure that domino-ui can be used with other third party tools and libs, this might indicate a standarized API and split between the builders and actual element class.
+
+Sample of third party tools and frameworks:
+- Editors framework.
+- UI Binder
+
+### Restructure CSS and Themeing
+
+- [ ] Restructure the CSS allowing easy themeing, writing a new theme by the uusers should be easy.
+
+- [ ] Simplify the injection of the css resources.
+
+### Java docs
+
+- [ ] Make sure all domino-ui classes has the proper JavaDocs.
+
+
+### Documentation
+
+- [ ] Create a full documentation describing how to use domino-ui, setup a project, and document each element/component on its own, this could be in github pages.
+
+### Build Samples
+
+- [ ] Implement a 3 different samples with different types of contents, the samples should try to use most of the avialable components.
+---------------------------
+
 ## Sample
 
 ```java
