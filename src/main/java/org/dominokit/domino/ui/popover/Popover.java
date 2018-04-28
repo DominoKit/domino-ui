@@ -1,14 +1,15 @@
 package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.*;
+import org.dominokit.domino.ui.utils.BodyObserver;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.h;
 
@@ -54,9 +55,11 @@ public class Popover implements IsElement<HTMLDivElement> {
         target.addEventListener(EventType.click.getName(), showListener);
 
         closeListener = evt -> closeAll();
-        DomGlobal.document.addEventListener(EventType.click.getName(), closeListener);
+        DomGlobal.document.body.addEventListener(EventType.click.getName(), closeListener);
 
         element.addEventListener(EventType.click.getName(), Event::stopPropagation);
+
+        BodyObserver.observeRemoval(targetElement, mutationRecord -> element.remove());
 
     }
 

@@ -47,9 +47,11 @@ public class TextArea extends ValueBox<TextArea, HTMLTextAreaElement, String> {
 
     @Override
     public void setValue(String value) {
+        inputElement.value = value;
         if (nonNull(value) && !value.isEmpty())
             focus();
-        inputElement.value = value;
+        else
+            unfocus();
     }
 
     @Override
