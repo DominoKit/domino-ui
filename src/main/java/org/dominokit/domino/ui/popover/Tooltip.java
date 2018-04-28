@@ -1,8 +1,11 @@
 package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.*;
+import org.dominokit.domino.ui.utils.BodyObserver;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
+
+import java.util.Arrays;
 
 import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
 import static org.jboss.gwt.elemento.core.Elements.div;
@@ -34,19 +37,9 @@ public class Tooltip implements IsElement<HTMLDivElement> {
             position(popupPosition);
         });
 
-        EventListener onRemoveListener = new EventListener() {
-            @Override
-            public void handleEvent(Event evt) {
-                if (evt.target.equals(targetElement)) {
-                    element.remove();
-                    DomGlobal.document.body.removeEventListener("DOMNodeRemoved", this);
-                }
-            }
-        };
-        DomGlobal.document.body.addEventListener("DOMNodeRemoved", onRemoveListener);
+        BodyObserver.observeRemoval(targetElement, mutationRecord -> element.remove());
 
         targetElement.addEventListener(EventType.mouseleave.getName(), evt1 -> element.remove());
-
 
     }
 
