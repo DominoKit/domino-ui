@@ -11,7 +11,7 @@ body.waitMe_container {position:fixed;width:100%;height:100%}
 .waitMe_container .waitMe .waitMe_progress {position:relative;font-size:0}
 .waitMe_container .waitMe .waitMe_progress > div {animation-fill-mode:both;display:inline-block;transform:translateZ(0);backface-visibility:hidden}
 .waitMe_container .waitMe .waitMe_text {position:relative;margin:20px 0 0}
-
+ 
 /* before load animation */
 body.waitMe_body {overflow:hidden;height:100%}
 body.waitMe_body.hideMe {transition:opacity .2s ease-in-out;opacity:0}

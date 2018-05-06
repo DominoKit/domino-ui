@@ -4,7 +4,7 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.HTMLParagraphElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.style.Background;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasMultiSelectSupport;
 import org.dominokit.domino.ui.utils.HasValue;
@@ -157,8 +157,8 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
     }
 
     @Override
-    public ListItem<T> setBackground(Background background) {
-        setStyle("list-group-" + background.getStyle());
+    public ListItem<T> setBackground(Color background) {
+        setStyle("list-group-" + background.getBackground());
         return this;
     }
 
