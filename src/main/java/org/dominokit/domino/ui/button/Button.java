@@ -17,7 +17,7 @@ public class Button extends WavesElement<Button, HTMLElement> implements
 
     final HTMLElement buttonElement = Elements.button().css("btn").asElement();
     private StyleType type;
-    private Background background;
+    private Color background;
     private Color color;
     private ButtonSize size;
     protected String content;
@@ -98,12 +98,12 @@ public class Button extends WavesElement<Button, HTMLElement> implements
     }
 
     @Override
-    public Button setBackground(Background background) {
+    public Button setBackground(Color background) {
         if (nonNull(this.type))
             buttonElement.classList.remove("btn-" + this.type.getStyle());
         if (nonNull(this.background))
-            buttonElement.classList.remove(this.background.getStyle());
-        buttonElement.classList.add(background.getStyle());
+            buttonElement.classList.remove(this.background.getBackground());
+        buttonElement.classList.add(background.getBackground());
         this.background = background;
         return this;
     }
@@ -188,6 +188,17 @@ public class Button extends WavesElement<Button, HTMLElement> implements
     public Button addClickListener(EventListener listener){
         getClickableElement().addEventListener(EventType.click.getName(), listener);
         return this;
+    }
+
+    public Button circle(CircleSize size) {
+        buttonElement.classList.add(size.getStyle());
+        applyCircleWaves();
+        return this;
+    }
+
+    private void applyCircleWaves() {
+        applyWaveStyle(WaveStyle.CIRCLE);
+        applyWaveStyle(WaveStyle.FLOAT);
     }
 
     @Override

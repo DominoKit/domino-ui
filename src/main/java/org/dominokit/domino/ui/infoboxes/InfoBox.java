@@ -1,7 +1,6 @@
 package org.dominokit.domino.ui.infoboxes;
 
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.style.Background;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
 import elemental2.dom.HTMLDivElement;
@@ -48,8 +47,8 @@ public abstract class InfoBox implements IsElement<HTMLDivElement>, HasBackgroun
 
     Icon icon;
 
-    private Background counterBackground;
-    private Background iconBackground;
+    private Color counterBackground;
+    private Color iconBackground;
     private HoverEffect hoverEffect;
     private Flip flip = Flip.LEFT;
     private Color iconColor;
@@ -66,19 +65,19 @@ public abstract class InfoBox implements IsElement<HTMLDivElement>, HasBackgroun
     }
 
     @Override
-    public InfoBox setBackground(Background background) {
+    public InfoBox setBackground(Color background) {
         if (nonNull(counterBackground))
-            this.asElement().classList.remove(counterBackground.getStyle());
-        this.asElement().classList.add(background.getStyle());
+            this.asElement().classList.remove(counterBackground.getBackground());
+        this.asElement().classList.add(background.getBackground());
         this.counterBackground = background;
 
         return this;
     }
 
-    public InfoBox setIconBackground(Background background) {
+    public InfoBox setIconBackground(Color background) {
         if (nonNull(iconBackground))
-            iconElement.classList.remove(iconBackground.getStyle());
-        iconElement.classList.add(background.getStyle());
+            iconElement.classList.remove(iconBackground.getBackground());
+        iconElement.classList.add(background.getBackground());
         this.iconBackground = background;
 
         return this;

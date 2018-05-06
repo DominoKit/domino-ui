@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.labels;
 
-import org.dominokit.domino.ui.style.Background;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.StyleType;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasContent;
@@ -13,7 +13,7 @@ import static java.util.Objects.nonNull;
 public class Label implements IsElement<HTMLElement>, HasContent<Label>, HasBackground<Label> {
 
     private HTMLElement span = Elements.span().css("label").asElement();
-    private Background background;
+    private Color background;
 
     private Label(String content) {
         setContent(content);
@@ -72,10 +72,10 @@ public class Label implements IsElement<HTMLElement>, HasContent<Label>, HasBack
     }
 
     @Override
-    public Label setBackground(Background background) {
+    public Label setBackground(Color background) {
         if (nonNull(this.background))
-            span.classList.remove(this.background.getStyle());
-        span.classList.add(background.getStyle());
+            span.classList.remove(this.background.getBackground());
+        span.classList.add(background.getBackground());
         this.background = background;
         return this;
     }

@@ -4,7 +4,7 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.style.Background;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.dominokit.domino.ui.utils.Selectable;
@@ -106,8 +106,8 @@ public class DropDownOption implements IsElement<HTMLLIElement>, HasValue<String
     }
 
     @Override
-    public DropDownOption setBackground(Background background) {
-        asElement().classList.add(background.getStyle());
+    public DropDownOption setBackground(Color background) {
+        asElement().classList.add(background.getBackground());
         return this;
     }
 

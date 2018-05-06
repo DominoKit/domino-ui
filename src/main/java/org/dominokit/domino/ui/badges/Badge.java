@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.badges;
 
-import org.dominokit.domino.ui.style.Background;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -12,7 +12,7 @@ public class Badge implements IsElement<HTMLElement>, HasBackground<Badge> {
 
     private HTMLElement badgeElement = span().css("badge").asElement();
     private boolean pulledRight = false;
-    private Background badgeBackground;
+    private Color badgeBackground;
 
     public static Badge create(String content) {
         Badge badge = new Badge();
@@ -38,12 +38,12 @@ public class Badge implements IsElement<HTMLElement>, HasBackground<Badge> {
     }
 
     @Override
-    public Badge setBackground(Background badgeBackground) {
+    public Badge setBackground(Color badgeBackground) {
         if (nonNull(this.badgeBackground))
-            badgeElement.classList.remove(this.badgeBackground.getStyle());
+            badgeElement.classList.remove(this.badgeBackground.getBackground());
 
         this.badgeBackground = badgeBackground;
-        badgeElement.classList.add(this.badgeBackground.getStyle());
+        badgeElement.classList.add(this.badgeBackground.getBackground());
         return this;
     }
 }

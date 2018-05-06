@@ -7,7 +7,7 @@ import com.google.gwt.resources.client.TextResource;
 import org.dominokit.domino.ui.code.Code;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.style.Background;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
 import elemental2.dom.*;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -70,7 +70,7 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
     public static Card createProfile(String name, String info) {
         Card profileCard = Card.create(name, info);
         profileCard.asElement().style.marginBottom = CSSProperties.MarginBottomUnionType.of(0);
-        profileCard.setBackground(Background.THEME);
+        profileCard.setBackground(Color.THEME);
 
         return profileCard;
     }
@@ -139,18 +139,18 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
         return body;
     }
 
-    public Card setHeaderBackground(Background background) {
-        header.classList.add(background.getStyle());
+    public Card setHeaderBackground(Color background) {
+        header.classList.add(background.getBackground());
         return this;
     }
 
-    public Card setBodyBackground(Background background) {
-        body.classList.add(background.getStyle());
+    public Card setBodyBackground(Color background) {
+        body.classList.add(background.getBackground());
         return this;
     }
 
     @Override
-    public Card setBackground(Background background) {
+    public Card setBackground(Color background) {
         setHeaderBackground(background);
         setBodyBackground(background);
         return this;

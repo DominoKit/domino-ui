@@ -8,7 +8,6 @@ import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.progress.Progress;
 import org.dominokit.domino.ui.progress.ProgressBar;
-import org.dominokit.domino.ui.style.Background;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.thumbnails.Thumbnail;
 import org.jboss.gwt.elemento.core.Elements;
@@ -283,7 +282,7 @@ public class FileItem implements IsElement<HTMLDivElement> {
         messageContainer.textContent = "";
         canceled = false;
         updateProgress(0);
-        updateProgressBackground(Background.BLUE);
+        updateProgressBackground(Color.BLUE);
     }
 
     private boolean isExceedsMaxFile() {
@@ -297,7 +296,7 @@ public class FileItem implements IsElement<HTMLDivElement> {
     private void onSuccess() {
         uploaded = true;
         setThumbnailBorder(Color.GREEN);
-        updateProgressBackground(Background.GREEN);
+        updateProgressBackground(Color.GREEN);
         updateProgress(file.size);
         setMessage(getSuccessMessage(), Color.GREEN);
         successUploadHandlers.forEach(handler -> handler.onSuccessUpload(request));
@@ -309,7 +308,7 @@ public class FileItem implements IsElement<HTMLDivElement> {
 
     private void onError() {
         invalidate(getErrorMessage());
-        updateProgressBackground(Background.RED);
+        updateProgressBackground(Color.RED);
         errorHandlers.forEach(handler -> handler.onError(request));
         showRefreshIcon();
     }
@@ -331,7 +330,7 @@ public class FileItem implements IsElement<HTMLDivElement> {
         Tooltip.create(messageContainer, message).position(PopupPosition.BOTTOM);
     }
 
-    private void updateProgressBackground(Background background) {
+    private void updateProgressBackground(Color background) {
         progressBar.setBackground(background);
     }
 

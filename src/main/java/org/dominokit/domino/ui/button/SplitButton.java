@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.button;
 
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
-import org.dominokit.domino.ui.style.Background;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.StyleType;
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.Elements;
@@ -15,7 +15,7 @@ public class SplitButton implements IsElement<HTMLElement> {
         addButton(Button.create(content).setButtonType(type));
     }
 
-    private SplitButton(String content, Background background) {
+    private SplitButton(String content, Color background) {
         addButton(Button.create(content).setBackground(background));
     }
 
@@ -36,7 +36,7 @@ public class SplitButton implements IsElement<HTMLElement> {
         return new SplitButton(content);
     }
 
-    public static SplitButton create(String content, Background background) {
+    public static SplitButton create(String content, Color background) {
         return new SplitButton(content, background);
     }
 

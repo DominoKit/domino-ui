@@ -2,8 +2,8 @@ package org.dominokit.domino.ui.notifications;
 
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
-import org.dominokit.domino.ui.style.Background;
 import elemental2.dom.*;
+import org.dominokit.domino.ui.style.Color;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
@@ -31,7 +31,7 @@ public abstract class Notification implements IsElement<HTMLDivElement> {
     private Transition inTransition = Transition.FADE_IN;
     private Transition outTransition = Transition.FADE_OUT;
     private Position position = TOP_RIGHT;
-    private Background background=Background.BLACK;
+    private Color background=Color.BLACK;
     private String type;
 
     public static Notification createDanger(String message){
@@ -54,14 +54,14 @@ public abstract class Notification implements IsElement<HTMLDivElement> {
         Notification notification = create(message);
         notification.asElement().classList.add(type);
         notification.type=type;
-        notification.asElement().classList.remove(notification.background.getStyle());
+        notification.asElement().classList.remove(notification.background.getBackground());
         return notification;
     }
 
     public static Notification create(String message) {
         Notification notification = new Templated_Notification();
         notification.messageSpan.textContent = message;
-        notification.asElement().classList.add(notification.background.getStyle());
+        notification.asElement().classList.add(notification.background.getBackground());
         notification.closeButton.addEventListener("click", e-> notification.close());
         return notification;
     }
@@ -103,12 +103,12 @@ public abstract class Notification implements IsElement<HTMLDivElement> {
         return this;
     }
 
-    public Notification setBackground(Background background){
+    public Notification setBackground(Color background){
         if(nonNull(type))
             asElement().classList.remove(type);
 
-        asElement().classList.remove(this.background.getStyle());
-        asElement().classList.add(background.getStyle());
+        asElement().classList.remove(this.background.getBackground());
+        asElement().classList.add(background.getBackground());
         this.background=background;
         return this;
     }
