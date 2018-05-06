@@ -4,7 +4,7 @@ import elemental2.core.JsDate;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
-import org.dominokit.domino.ui.style.Background;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasSelectSupport;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
@@ -28,7 +28,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     private DatePickerElement[][] monthData = new DatePickerElement[7][7];
     private List<DaySelectionHandler> daySelectionHandlers = new ArrayList<>();
     private DatePickerElement selectedElement;
-    private Background background=Background.LIGHT_BLUE;
+    private Color background=Color.LIGHT_BLUE;
 
     private HTMLDivElement element = div().css("date-picker-container").asElement();
 
@@ -271,7 +271,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
 
     private void select(DatePickerElement datePickerElement) {
         datePickerElement.select();
-        datePickerElement.getElement().classList.add(this.background.getStyle());
+        datePickerElement.getElement().classList.add(this.background.getBackground());
         this.selectedElement = datePickerElement;
         if (nonNull(internalHandler))
             internalHandler.onDaySelected(datePickerElement);
@@ -281,7 +281,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     private void deselect() {
         if (nonNull(selectedElement)) {
             selectedElement.deselect();
-            selectedElement.getElement().classList.remove(this.background.getStyle());
+            selectedElement.getElement().classList.remove(this.background.getBackground());
         }
     }
 
@@ -300,10 +300,10 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
         return dateTimeFormatInfo;
     }
 
-    public void setBackground(Background background) {
-        getSelectedItem().getElement().classList.remove(this.background.getStyle());
+    public void setBackground(Color background) {
+        getSelectedItem().getElement().classList.remove(this.background.getBackground());
         this.background=background;
-        getSelectedItem().getElement().classList.add(this.background.getStyle());
+        getSelectedItem().getElement().classList.add(this.background.getBackground());
     }
 
     @FunctionalInterface

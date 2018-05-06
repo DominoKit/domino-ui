@@ -63,6 +63,11 @@ public class Style<T extends HTMLElement> {
         return this;
     }
 
+    public Style<T> setWidth(String width){
+        setProperty("width", width);
+        return this;
+    }
+
     public boolean hasClass(String cssClass) {
         if (nonNull(cssClass) && !cssClass.isEmpty())
             element.classList.contains(cssClass);

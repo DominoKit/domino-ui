@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.progress;
 
-import org.dominokit.domino.ui.style.Background;
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.style.Color;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
@@ -98,8 +98,8 @@ public class ProgressBar implements IsElement<HTMLDivElement> {
         return this;
     }
 
-    public ProgressBar setBackground(Background background){
-        setStyle(background.getStyle());
+    public ProgressBar setBackground(Color background){
+        setStyle(background.getBackground());
         return this;
     }
 

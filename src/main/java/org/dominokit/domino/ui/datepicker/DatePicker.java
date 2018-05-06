@@ -10,7 +10,7 @@ import org.dominokit.domino.ui.forms.DropDownOption;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.row.Row;
-import org.dominokit.domino.ui.style.Background;
+import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.WavesSupport;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.gwtproject.i18n.client.impl.cldr.DateTimeFormatInfo_factory;
@@ -47,7 +47,7 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
     private Button clearButton;
     private Button closeButton;
 
-    private Background background = Background.LIGHT_BLUE;
+    private ColorScheme background = ColorScheme.LIGHT_BLUE;
 
     private final DatePickerMonth datePickerMonth;
     private DatePickerElement selectedPickerElement;
@@ -102,8 +102,8 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
     private void build() {
 
         element.appendChild(headerPanel);
-        headerPanel.classList.add(background.getStyle());
-        dayName.classList.add(background.darker().getStyle());
+        headerPanel.classList.add(background.color().getBackground());
+        dayName.classList.add(background.darker_2().getBackground());
         headerPanel.appendChild(dayName);
         headerPanel.appendChild(monthName);
         headerPanel.appendChild(dateNumber);
@@ -364,21 +364,21 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
         return datePickerMonth.getDateTimeFormatInfo();
     }
 
-    public DatePicker setBackground(Background background) {
+    public DatePicker setBackground(ColorScheme background) {
         backgroundHandler.onBackgroundChnaged(getBackground(), background);
-        this.headerPanel.classList.remove(this.background.getStyle());
-        this.dayName.classList.remove(this.background.darker().getStyle());
+        this.headerPanel.classList.remove(this.background.color().getBackground());
+        this.dayName.classList.remove(this.background.darker_2().getBackground());
         this.background = background;
-        this.headerPanel.classList.add(this.background.getStyle());
-        this.dayName.classList.add(this.background.darker().getStyle());
-        this.datePickerMonth.setBackground(background);
+        this.headerPanel.classList.add(this.background.color().getBackground());
+        this.dayName.classList.add(this.background.darker_2().getBackground());
+        this.datePickerMonth.setBackground(background.color());
         this.todayButton.setColor(background.color());
         this.closeButton.setColor(background.color());
         this.clearButton.setColor(background.color());
         return this;
     }
 
-    public Background getBackground() {
+    public ColorScheme getBackground() {
         return background;
     }
 
@@ -548,7 +548,7 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
 
     @FunctionalInterface
     interface BackgroundHandler {
-        void onBackgroundChnaged(Background oldBackground, Background newBackground);
+        void onBackgroundChnaged(ColorScheme oldBackground, ColorScheme newBackground);
     }
 
     @FunctionalInterface

@@ -1,9 +1,9 @@
 package org.dominokit.domino.ui.modals;
 
-import org.dominokit.domino.ui.style.Color;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.style.Color;
 
 public interface IsModalDialog<T> {
     T appendContent(Node content);

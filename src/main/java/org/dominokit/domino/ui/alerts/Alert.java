@@ -5,7 +5,7 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.Text;
-import org.dominokit.domino.ui.style.Background;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -43,8 +43,8 @@ public class Alert implements IsElement<HTMLDivElement>, HasBackground<Alert> {
         return alert;
     }
 
-    public static Alert create(Background background) {
-        return create(background.getStyle());
+    public static Alert create(Color background) {
+        return create(background.getBackground());
     }
 
     public static Alert create() {
@@ -70,10 +70,10 @@ public class Alert implements IsElement<HTMLDivElement>, HasBackground<Alert> {
     }
 
     @Override
-    public Alert setBackground(Background background) {
+    public Alert setBackground(Color background) {
         if (nonNull(style))
             element.classList.remove(style);
-        this.style = background.getStyle();
+        this.style = background.getBackground();
         element.classList.add(this.style);
         return this;
     }
