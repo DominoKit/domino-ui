@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.themes;
 
-import org.dominokit.domino.ui.style.Color;
+
 import org.dominokit.domino.ui.style.ColorScheme;
 
 import static elemental2.dom.DomGlobal.document;
