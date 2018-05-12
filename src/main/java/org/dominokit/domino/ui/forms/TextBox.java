@@ -47,9 +47,12 @@ public class TextBox extends ValueBox<TextBox, HTMLInputElement, String> {
 
     @Override
     public void setValue(String value) {
-        if (nonNull(value) && !value.isEmpty())
-            focus();
         inputElement.value = value;
+        if (nonNull(value) && !value.isEmpty()) {
+            focus();
+        } else {
+            unfocus();
+        }
     }
 
     @Override

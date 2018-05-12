@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.collapsible;
 
-import org.dominokit.domino.ui.style.Color;
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.style.Color;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.LinkedList;
