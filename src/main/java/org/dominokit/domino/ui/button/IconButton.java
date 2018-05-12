@@ -65,7 +65,7 @@ public class IconButton extends Button {
     }
 
     public IconButton circle(CircleSize size) {
-        buttonElement.classList.add(size.style);
+        buttonElement.classList.add(size.getStyle());
         applyCircleWaves();
         return this;
     }
@@ -84,14 +84,4 @@ public class IconButton extends Button {
         return this;
     }
 
-    public enum CircleSize {
-        SMALL("btn-circle"),
-        LARGE("btn-circle-lg");
-
-        private String style;
-
-        CircleSize(String style) {
-            this.style = style;
-        }
-    }
 }

@@ -101,7 +101,7 @@ A type safe material design with bootstrap builder for java developer with GWT w
 - [x] Date picker
 - [ ] Time picker - **in progress**
 - [ ] Date time picker
-- [ ] Inputs decorations : Labels, Helper text, validation, Icons
+- [ ] Inputs decorations : Labels, Helper text, validation, Icons - **in progress**
 - [ ] Input groups
 - [ ] Advanced Select
 - [ ] Multi-Select
@@ -155,22 +155,22 @@ DomGlobal.document.body.appendChild(Row.create()
                 .addElement(Card.create("CARD TITLE", "Card description")
                         .appendContent(Paragraph.create("I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe")
                                 .asElement())
-                        .setHeaderBackground(Background.BLUE)
-                        .setBodyBackground(Background.LIGHT_BLUE)
+                        .setHeaderBackground(Color.BLUE)
+                        .setBodyBackground(Color.LIGHT_BLUE)
                         .asElement()))
         .addColumn(column.copy()
                 .addElement(Card.create("CARD TITLE", "Card description")
                         .appendContent(Paragraph.create("I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe")
                                 .asElement())
-                        .setHeaderBackground(Background.GREEN)
-                        .setBodyBackground(Background.LIGHT_GREEN)
+                        .setHeaderBackground(Color.GREEN)
+                        .setBodyBackground(Color.LIGHT_GREEN)
                         .asElement()))
         .addColumn(column.copy()
                 .addElement(Card.create("CARD TITLE", "Card description")
                         .appendContent(Paragraph.create("I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe")
                                 .asElement())
-                        .setHeaderBackground(Background.ORANGE)
-                        .setBodyBackground(Background.AMBER)
+                        .setHeaderBackground(Color.ORANGE)
+                        .setBodyBackground(Color.AMBER)
                         .asElement()))
         .asElement());
 ```

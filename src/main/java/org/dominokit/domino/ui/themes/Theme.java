@@ -1,107 +1,71 @@
 package org.dominokit.domino.ui.themes;
 
-import elemental2.dom.DomGlobal;
 
+import org.dominokit.domino.ui.style.ColorScheme;
+
+import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 
-public enum Theme {
-    RED("theme-red", "Red", "red"),
-    PINK("theme-pink", "Pink", "pink"),
-    PURPLE("theme-purple", "Purple", "purple"),
-    DEEP_PURPLE("theme-deep-purple", "Deep purple", "deep_purple"),
-    INDIGO("theme-indigo", "Indigo", "indigo"),
-    BLUE("theme-blue", "Blue", "blue"),
-    LIGHT_BLUE("theme-light-blue", "Light blue", "light_blue"),
-    CYAN("theme-cyan", "Cyan", "cyan"),
-    TEAL("theme-teal", "Teal", "teal"),
-    GREEN("theme-green", "Green", "green"),
-    LIGHT_GREEN("theme-light-green", "Light green", "light_green"),
-    LIME("theme-lime", "Lime", "lime"),
-    YELLOW("theme-yellow", "Yellow", "yellow"),
-    AMBER("theme-amber", "Amber", "amber"),
-    ORANGE("theme-orange", "Orange", "orange"),
-    DEEP_ORANGE("theme-deep-orange", "Deep orange", "deep_orange"),
-    BROWN("theme-brown", "Brown", "brown"),
-    GREY("theme-grey", "Grey", "grey"),
-    BLUE_GREY("theme-blue-grey", "Blue grey", "blue_grey"),
-    BLACK("theme-black", "Black", "black");
+public class Theme {
 
+    public static final ColorScheme RED=ColorScheme.RED;
+
+    public static final ColorScheme PINK=ColorScheme.PINK;
+
+    public static final ColorScheme PURPLE=ColorScheme.PURPLE;
+
+    public static final ColorScheme DEEP_PURPLE=ColorScheme.DEEP_PURPLE;
+
+    public static final ColorScheme INDIGO=ColorScheme.INDIGO;
+
+    public static final ColorScheme BLUE=ColorScheme.BLUE;
+
+    public static final ColorScheme LIGHT_BLUE=ColorScheme.LIGHT_BLUE;
+
+    public static final ColorScheme CYAN=ColorScheme.CYAN;
+
+    public static final ColorScheme TEAL=ColorScheme.TEAL;
+
+    public static final ColorScheme GREEN=ColorScheme.GREEN;
+
+    public static final ColorScheme LIGHT_GREEN=ColorScheme.LIGHT_GREEN;
+
+    public static final ColorScheme LIME=ColorScheme.LIME;
+
+    public static final ColorScheme YELLOW=ColorScheme.YELLOW;
+
+    public static final ColorScheme AMBER=ColorScheme.AMBER;
+
+    public static final ColorScheme ORANGE=ColorScheme.ORANGE;
+
+    public static final ColorScheme DEEP_ORANGE=ColorScheme.DEEP_ORANGE;
+
+    public static final ColorScheme BROWN=ColorScheme.BROWN;
+
+    public static final ColorScheme GREY=ColorScheme.GREY;
+
+    public static final ColorScheme BLUE_GREY=ColorScheme.BLUE_GREY;
+
+    public static final ColorScheme BLACK=ColorScheme.BLACK;
+
+    public static final ColorScheme WHITE=ColorScheme.WHITE;
+
+    public static final ColorScheme TRANSPARENT=ColorScheme.TRANSPARENT;
+
+    private final ColorScheme scheme;
     private final String themeStyle;
     private final String name;
-    private final String key;
 
-    public static Theme currentTheme = Theme.RED;
+    public static Theme currentTheme = new Theme(ColorScheme.RED);
 
-    Theme(String themeStyle, String name, String key) {
-        this.themeStyle = themeStyle;
-        this.name = name;
-        this.key = key;
+    public Theme(ColorScheme scheme) {
+        this.scheme = scheme;
+        this.themeStyle=scheme.color().getStyle().replace("col-","theme-");
+        this.name=scheme.color().getName().replace(" ","_").toLowerCase();
     }
 
-    public static Theme of(String themeKey) {
-        switch (themeKey) {
-            case "red":
-                return Theme.RED;
-
-            case "pink":
-                return Theme.PINK;
-
-            case "purple":
-                return Theme.PURPLE;
-
-            case "deep_purple":
-                return Theme.DEEP_PURPLE;
-
-            case "indigo":
-                return Theme.INDIGO;
-
-            case "blue":
-                return Theme.BLUE;
-
-            case "light_blue":
-                return Theme.LIGHT_BLUE;
-
-            case "cyan":
-                return Theme.CYAN;
-
-            case "teal":
-                return Theme.TEAL;
-
-            case "green":
-                return Theme.GREEN;
-
-            case "light_green":
-                return Theme.LIGHT_GREEN;
-
-            case "lime":
-                return Theme.LIME;
-
-            case "yellow":
-                return Theme.YELLOW;
-
-            case "amber":
-                return Theme.AMBER;
-
-            case "orange":
-                return Theme.ORANGE;
-
-            case "deep_orange":
-                return Theme.DEEP_ORANGE;
-
-            case "brown":
-                return Theme.BROWN;
-
-            case "grey":
-                return Theme.GREY;
-
-            case "blue_grey":
-                return Theme.BLUE_GREY;
-
-            case "black":
-                return Theme.BLACK;
-            default:
-                return currentTheme;
-        }
+    public ColorScheme getScheme() {
+        return scheme;
     }
 
     public String getThemeStyle() {
@@ -112,15 +76,10 @@ public enum Theme {
         return name;
     }
 
-    public String getKey() {
-        return key;
-    }
-
     public void apply() {
         if (nonNull(currentTheme))
-            DomGlobal.document.body.classList.remove(currentTheme.themeStyle);
+            document.body.classList.remove(currentTheme.themeStyle);
         this.currentTheme = this;
-
-        DomGlobal.document.body.classList.add(themeStyle);
+        document.body.classList.add(themeStyle);
     }
 }

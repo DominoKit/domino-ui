@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.layout;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.themes.Theme;
 
 import static elemental2.dom.DomGlobal.document;
@@ -47,17 +48,17 @@ public class Layout implements IsLayout {
 
     @Override
     public Layout show() {
-        return show(Theme.currentTheme);
+        return show(ColorScheme.INDIGO);
     }
 
     @Override
-    public Layout show(Theme theme) {
+    public Layout show(ColorScheme theme) {
         appendElements();
         initElementsPosition();
         addExpandListeners();
         if (!document.body.classList.contains("ls-hidden"))
             document.body.classList.add("ls-closed");
-        theme.apply();
+        new Theme(theme).apply();
         return this;
     }
 

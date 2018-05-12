@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.preloaders;
 
-import org.dominokit.domino.ui.style.Color;
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.style.Color;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
