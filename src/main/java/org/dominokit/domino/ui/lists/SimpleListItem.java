@@ -2,7 +2,7 @@ package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.style.Background;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HtmlComponentBuilder;
 import org.dominokit.domino.ui.utils.IsHtmlComponent;
@@ -40,8 +40,8 @@ public class SimpleListItem extends BaseListItem<HTMLLIElement> implements IsEle
     }
 
     @Override
-    public SimpleListItem setBackground(Background background) {
-        setStyle("list-group-" + background.getStyle());
+    public SimpleListItem setBackground(Color background) {
+        setStyle("list-group-" + background.getBackground());
         return this;
     }
 

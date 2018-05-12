@@ -5,7 +5,7 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.Text;
-import org.dominokit.domino.ui.style.Background;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -29,7 +29,7 @@ public class Alert implements IsElement<HTMLDivElement>, HasBackground<Alert> {
 
     private String style;
     private boolean dismissible = false;
-    private HTMLDivElement alertElement = div().css("alert").asElement();
+    private HTMLDivElement element = div().css("alert").asElement();
 
     private HTMLButtonElement closeButton = button().attr("type", "button").css("close")
             .attr("aria-label", "Close")
@@ -38,13 +38,13 @@ public class Alert implements IsElement<HTMLDivElement>, HasBackground<Alert> {
 
     private static Alert create(String style) {
         Alert alert = create();
-        alert.alertElement.classList.add(style);
+        alert.element.classList.add(style);
         alert.style = style;
         return alert;
     }
 
-    public static Alert create(Background background) {
-        return create(background.getStyle());
+    public static Alert create(Color background) {
+        return create(background.getBackground());
     }
 
     public static Alert create() {
@@ -70,39 +70,39 @@ public class Alert implements IsElement<HTMLDivElement>, HasBackground<Alert> {
     }
 
     @Override
-    public Alert setBackground(Background background) {
+    public Alert setBackground(Color background) {
         if (nonNull(style))
-            alertElement.classList.remove(style);
-        this.style = background.getStyle();
-        alertElement.classList.add(this.style);
+            element.classList.remove(style);
+        this.style = background.getBackground();
+        element.classList.add(this.style);
         return this;
     }
 
     public Alert appendStrong(String text) {
-        alertElement.appendChild(strong().textContent(text).asElement());
+        element.appendChild(strong().textContent(text).asElement());
         return this;
     }
 
     public Alert appendText(String text) {
-        alertElement.appendChild(new Text(text));
+        element.appendChild(new Text(text));
         return this;
     }
 
     public Alert appendLink(HTMLAnchorElement anchorElement) {
         if (nonNull(anchorElement)) {
             anchorElement.classList.add("alert-link");
-            alertElement.appendChild(anchorElement);
+            element.appendChild(anchorElement);
         }
         return this;
     }
 
     public Alert dismissible() {
         if (!dismissible) {
-            alertElement.classList.add("alert-dismissible");
-            if (alertElement.childElementCount > 0)
-                alertElement.insertBefore(closeButton, alertElement.firstChild);
+            element.classList.add("alert-dismissible");
+            if (element.childElementCount > 0)
+                element.insertBefore(closeButton, element.firstChild);
             else
-                alertElement.appendChild(closeButton);
+                element.appendChild(closeButton);
         }
         dismissible = true;
         return this;
@@ -110,8 +110,8 @@ public class Alert implements IsElement<HTMLDivElement>, HasBackground<Alert> {
 
     public Alert unDismissible() {
         if (dismissible) {
-            alertElement.classList.remove("alert-dismissible");
-            alertElement.removeChild(closeButton);
+            element.classList.remove("alert-dismissible");
+            element.removeChild(closeButton);
         }
         dismissible = false;
         return this;
@@ -123,6 +123,6 @@ public class Alert implements IsElement<HTMLDivElement>, HasBackground<Alert> {
 
     @Override
     public HTMLDivElement asElement() {
-        return alertElement;
+        return element;
     }
 }

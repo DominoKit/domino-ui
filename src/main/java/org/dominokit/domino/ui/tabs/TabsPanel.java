@@ -2,9 +2,9 @@ package org.dominokit.domino.ui.tabs;
 
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
-import org.dominokit.domino.ui.style.Color;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.style.Color;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.Objects;

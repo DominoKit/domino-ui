@@ -1,7 +1,6 @@
 package org.dominokit.domino.ui.breadcrumbs;
 
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.style.Background;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
 import elemental2.dom.EventListener;
@@ -21,7 +20,7 @@ public class Breadcrumb implements IsElement<HTMLOListElement>, HasBackground<Br
     private BreadcrumbItem activeItem;
     private boolean removeTail=false;
     private Color activeColor;
-    private Background activeBackground;
+    private Color activeBackground;
     private String alignmentStyle;
 
     public static Breadcrumb create() {
@@ -108,11 +107,11 @@ public class Breadcrumb implements IsElement<HTMLOListElement>, HasBackground<Br
     }
 
     @Override
-    public Breadcrumb setBackground(Background background) {
+    public Breadcrumb setBackground(Color background) {
         if(nonNull(this.activeBackground))
-            element.classList.remove("breadcrumb-"+background.getStyle());
+            element.classList.remove("breadcrumb-"+background.getBackground());
         this.activeBackground=background;
-        element.classList.add("breadcrumb-"+background.getStyle());
+        element.classList.add("breadcrumb-"+background.getBackground());
 
         return this;
     }

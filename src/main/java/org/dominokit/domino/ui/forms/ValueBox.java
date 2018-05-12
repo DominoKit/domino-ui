@@ -92,7 +92,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
 
     @Override
     public T unfocus() {
-        if (!floating ||isEmpty())
+        if (!floating || isEmpty())
             super.unfocus();
         return (T) this;
     }

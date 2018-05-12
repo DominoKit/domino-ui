@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.button;
 
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
-import org.dominokit.domino.ui.style.Background;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.StyleType;
 import org.dominokit.domino.ui.utils.HasContent;
 import org.dominokit.domino.ui.utils.Justifiable;
@@ -23,7 +23,7 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton> {
         this(Button.create(content).setButtonType(type));
     }
 
-    private DropdownButton(String content, Background background) {
+    private DropdownButton(String content, Color background) {
         this(Button.create(content).setBackground(background));
     }
 
@@ -90,7 +90,7 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton> {
         return new DropdownButton(content);
     }
 
-    public static DropdownButton create(String content, Background background) {
+    public static DropdownButton create(String content, Color background) {
         return new DropdownButton(content, background);
     }
 
