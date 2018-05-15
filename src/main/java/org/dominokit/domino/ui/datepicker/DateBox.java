@@ -268,7 +268,6 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         }
     }
 
-    
     public enum Pattern {
         FULL,
         LONG,
