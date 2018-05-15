@@ -64,8 +64,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         this.pattern = this.datePicker.getDateTimeFormatInfo().dateFormatFull();
         this.datePicker.addDateSelectionHandler((date, dateTimeFormatInfo) -> setStringValue(date, dateTimeFormatInfo));
         this.modalListener = evt -> {
-        		if(!super.isDisabled())
-        			modal.open();
+        	  if(!super.isDisabled()) {
+        	    modal.open();
+        	  }
         	};
         DomGlobal.document.body.addEventListener("DOMNodeRemoved", evt -> {
             if (evt.target.equals(asElement())) {
