@@ -26,13 +26,10 @@ abstract class TextFormElement<T extends TextFormElement, V> implements IsElemen
         return formGroup;
     }
     
-	public boolean isDisabled() {
-		String disabled = getInputElement().getAttribute("disabled");
-		if(null == disabled) {
-			return false;
-		}
-		return true;
-	}
+    public boolean isDisabled() {
+        String disabled = getInputElement().getAttribute("disabled");
+        return disabled != null;
+    }
 
     
     @Override
