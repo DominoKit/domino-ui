@@ -6,6 +6,8 @@ import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
+import com.google.gwt.core.shared.GWT;
+
 abstract class TextFormElement<T extends TextFormElement, V> implements IsElement<HTMLDivElement>,
         HasName<T>, Focusable<T>, CanEnable<T>, CanDisable<T>, HasPlaceHolder<T>, HasValue<V> {
     protected HTMLDivElement formGroup = Elements.div().css("form-group").asElement();
@@ -25,7 +27,16 @@ abstract class TextFormElement<T extends TextFormElement, V> implements IsElemen
     public HTMLDivElement asElement() {
         return formGroup;
     }
+    
+	public boolean isDisabled() {
+		String disabled = getInputElement().getAttribute("disabled");
+		if(null == disabled) {
+			return false;
+		}
+		return true;
+	}
 
+    
     @Override
     public T disable() {
         getInputElement().setAttribute("disabled", "disabled");
