@@ -84,10 +84,18 @@ public class Layout implements IsLayout {
     }
 
     public Layout removeLeftPanel() {
-        navigationBar.menu.style.display = "none";
-        getLeftPanel().style.display = "none";
-        document.body.classList.remove("ls-closed");
-        document.body.classList.add("ls-hidden");
+        return updateLeftPanel("none", "ls-closed", "ls-hidden");
+    }
+
+    public Layout addLeftPanel() {
+        return updateLeftPanel("block", "ls-hidden", "ls-closed");
+    }
+
+    public Layout updateLeftPanel(String none, String s, String s2) {
+        navigationBar.menu.style.display = none;
+        getLeftPanel().style.display = none;
+        document.body.classList.remove(s);
+        document.body.classList.add(s2);
 
         return this;
     }
