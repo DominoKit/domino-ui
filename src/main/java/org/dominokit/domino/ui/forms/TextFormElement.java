@@ -25,7 +25,13 @@ abstract class TextFormElement<T extends TextFormElement, V> implements IsElemen
     public HTMLDivElement asElement() {
         return formGroup;
     }
+    
+    public boolean isDisabled() {
+        String disabled = getInputElement().getAttribute("disabled");
+        return disabled != null;
+    }
 
+    
     @Override
     public T disable() {
         getInputElement().setAttribute("disabled", "disabled");
