@@ -5,6 +5,7 @@ import elemental2.core.JsDate;
 import java.util.Objects;
 
 import static org.dominokit.domino.ui.timepicker.DayPeriod.AM;
+import static org.dominokit.domino.ui.timepicker.DayPeriod.NONE;
 import static org.dominokit.domino.ui.timepicker.DayPeriod.PM;
 
 public class Time {
@@ -13,15 +14,24 @@ public class Time {
     private DayPeriod dayPeriod;
 
     public Time() {
-        JsDate jsDate = new JsDate();
-        this.hour = jsDate.getHours();
-        this.minute = jsDate.getMinutes();
-        this.dayPeriod = this.hour > 11 ? PM : AM;
+        Clock12 clock12=new Clock12(new JsDate());
+        this.hour = clock12.getHour();
+        this.minute = clock12.getMinute();
+        this.dayPeriod = clock12.getDayPeriod();
     }
 
     public Time(int hour, int minute, DayPeriod dayPeriod) {
-        this.hour = hour;
-        this.minute = minute;
+        JsDate jsDate=new JsDate();
+        jsDate.setHours(hour);
+        jsDate.setMinutes(minute);
+        Clock clock;
+        if(NONE.equals(dayPeriod)){
+            clock=new Clock24(jsDate);
+        }else{
+            clock=new Clock12(jsDate);
+        }
+        this.hour = clock.getHour();
+        this.minute = clock.getMinute();
         this.dayPeriod = dayPeriod;
     }
 
