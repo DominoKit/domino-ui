@@ -14,11 +14,10 @@ public class BodyObserver {
     private static List<ElementObserver> appendObservers = new ArrayList<>();
 
     static {
-        MutationObserver mutationObserver = new MutationObserver((records, observer) -> {
+        MutationObserver mutationObserver = new MutationObserver((MutationRecord[] records, MutationObserver observer) -> {
             Arrays.stream(records).forEach(record -> {
                 onRemoval(record);
                 onAppend(record);
-
             });
             return null;
         });
