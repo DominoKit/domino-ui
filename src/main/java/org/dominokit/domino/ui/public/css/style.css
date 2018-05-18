@@ -8968,7 +8968,7 @@ a.disabled{
   padding-right: 5px !important;
 }
 
-.calendar-modal-header{
+.picker-modal-header{
   padding: 5px !important;
   text-align: center !important;
 }
@@ -9042,6 +9042,15 @@ a.disabled{
 
 .calendar .footer {
   padding: 5px;
+  text-align: center;
+}
+
+.calendar .clear-button{
+  float: left;
+}
+
+.calendar .close-button{
+  float: right;
 }
 
 @media only screen and (max-width: 600px) {
@@ -9139,4 +9148,127 @@ a.disabled{
 
 .domino-file-image-container {
     height: 80px;
+}
+
+.clock-picker{
+
+
+  display: block;
+  width: 300px;
+  height: 30px;
+  position: absolute;
+  left: 50%;
+  margin-left: -150px;
+}
+
+.clock-picker .hour{
+  position: absolute;
+  width:40px;
+  height:40px;
+  cursor: pointer;
+  border-radius:50%;
+  text-align: center;
+  line-height: 40px;
+  font-size: 18px;
+}
+
+.clock-picker .hour:hover{
+}
+
+.clock-picker .small-hour{
+  position: absolute;
+  width:20px;
+  height:20px;
+  cursor: pointer;
+  border-radius:50%;
+  text-align: center;
+  line-height: 20px;
+  font-size: 18px;
+  /*border: 1px solid grey;*/
+}
+
+.clock-picker .small-hour:hover{
+}
+
+.time-picker{
+  border: 1px solid #e6e6e6;
+  width: 100%;
+  display: inline-block;
+}
+
+.time-picker .time-panel{
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.time-picker .time-display-small{
+  height: 3.2rem;
+  line-height: 3.2rem;
+  font-size: 15px;
+  opacity: 1;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+
+.time-picker .time-display-large{
+  font-size: 48px;
+  cursor: pointer;
+}
+
+.time-picker .time-minute{
+  font-size: 24px;
+}
+.time-picker .year-ampm{
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.time-picker .full-time{
+  text-align: center;
+}
+
+.time-picker-container{
+
+}
+
+.time-picker .am-button{
+  position: relative;
+  top: 8px;
+  left: -94px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.time-picker .pm-button{
+  position: relative;
+  top: 8px;
+  right: -94px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.time-text{
+  height: 30px;
+  width: 200px;
+  position: absolute;
+  left: 50%;
+  margin-left: -100px;
+}
+
+.time-picker .am-pm-text{
+  font-size: 23px;
+  padding-left: 5px;
+}
+
+.time-picker .footer {
+  padding: 5px;
+  text-align: center;
+}
+
+.time-picker .clear-button{
+  float: left;
+}
+
+.time-picker .close-button{
+  float: right;
 }

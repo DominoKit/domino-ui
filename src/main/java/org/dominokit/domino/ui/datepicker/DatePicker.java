@@ -9,6 +9,7 @@ import org.dominokit.domino.ui.forms.DropDown;
 import org.dominokit.domino.ui.forms.DropDownOption;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.ModalDialog;
+import org.dominokit.domino.ui.pickers.PickerHandler;
 import org.dominokit.domino.ui.row.Row;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.WavesSupport;
@@ -47,7 +48,7 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
     private Button clearButton;
     private Button closeButton;
 
-    private ColorScheme background = ColorScheme.LIGHT_BLUE;
+    private ColorScheme colorScheme = ColorScheme.LIGHT_BLUE;
 
     private final DatePickerMonth datePickerMonth;
     private DatePickerElement selectedPickerElement;
@@ -102,8 +103,8 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
     private void build() {
 
         element.appendChild(headerPanel);
-        headerPanel.classList.add(background.color().getBackground());
-        dayName.classList.add(background.darker_2().getBackground());
+        headerPanel.classList.add(colorScheme.color().getBackground());
+        dayName.classList.add(colorScheme.darker_2().getBackground());
         headerPanel.appendChild(dayName);
         headerPanel.appendChild(monthName);
         headerPanel.appendChild(dateNumber);
@@ -120,13 +121,9 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
 
 
     private void initFooter() {
-        Column column = Column.create()
-                .onLarge(Column.OnLarge.four)
-                .onMedium(Column.OnMedium.four)
-                .onSmall(Column.OnSmall.four)
-                .onXSmall(Column.OnXSmall.four);
 
-        clearButton = Button.create("CLEAR").setColor(background.color());
+        clearButton = Button.create("CLEAR").setColor(colorScheme.color());
+        clearButton.asElement().classList.add("clear-button");
 
         clearButton.addClickListener(evt -> {
             for (int i = 0; i < clearHandlers.size(); i++) {
@@ -134,10 +131,11 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
             }
         });
 
-        todayButton = Button.create("TODAY").setColor(background.color());
+        todayButton = Button.create("TODAY").setColor(colorScheme.color());
         todayButton.addClickListener(evt -> setDate(new Date()));
 
-        closeButton = Button.create("CLOSE").setColor(background.color());
+        closeButton = Button.create("CLOSE").setColor(colorScheme.color());
+        closeButton.asElement().classList.add("close-button");
 
         closeButton.addClickListener(evt -> {
             for (int i = 0; i < closeHandlers.size(); i++) {
@@ -145,21 +143,10 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
             }
         });
 
+        footerPanel.appendChild(clearButton.linkify().asElement());
+        footerPanel.appendChild(todayButton.linkify().asElement());
+        footerPanel.appendChild(closeButton.linkify().asElement());
 
-        Column clearColumn = column.copy();
-        clearColumn.asElement().style.setProperty("margin-bottom", "5px");
-
-        Column todayColumn = column.copy();
-        todayColumn.asElement().style.setProperty("margin-bottom", "5px");
-
-        Column closeColumn = column.copy();
-        closeColumn.asElement().style.setProperty("margin-bottom", "5px");
-
-        footerPanel.appendChild(Row.create()
-                .addColumn(clearColumn.addElement(clearButton.linkify().asElement()))
-                .addColumn(todayColumn.addElement(todayButton.linkify().asElement()))
-                .addColumn(closeColumn.addElement(closeButton.linkify().asElement()))
-                .asElement());
     }
 
     private void initSelectors() {
@@ -271,17 +258,7 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
                 .asElement());
     }
 
-    public ModalDialog createModal(String title) {
-        ModalDialog modal = ModalDialog.create(title)
-                .small()
-                .setAutoClose(true)
-                .appendContent(this.asElement());
-        modal.getHeaderContainerElement().classList.add("calendar-modal-header", background.color().getStyle());
-        modal.getBodyElement().style.setProperty("padding", "0px", "important");
-        modal.getFooterElement().style.setProperty("padding", "0px", "important");
 
-        return modal;
-    }
 
     public static DatePicker create() {
         DateTimeFormatInfo dateTimeFormatInfo = DateTimeFormatInfo_factory.create();
@@ -364,22 +341,22 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
         return datePickerMonth.getDateTimeFormatInfo();
     }
 
-    public DatePicker setBackground(ColorScheme background) {
-        backgroundHandler.onBackgroundChnaged(getBackground(), background);
-        this.headerPanel.classList.remove(this.background.color().getBackground());
-        this.dayName.classList.remove(this.background.darker_2().getBackground());
-        this.background = background;
-        this.headerPanel.classList.add(this.background.color().getBackground());
-        this.dayName.classList.add(this.background.darker_2().getBackground());
-        this.datePickerMonth.setBackground(background.color());
-        this.todayButton.setColor(background.color());
-        this.closeButton.setColor(background.color());
-        this.clearButton.setColor(background.color());
+    public DatePicker setColorScheme(ColorScheme colorScheme) {
+        backgroundHandler.onBackgroundChanged(getColorScheme(), colorScheme);
+        this.headerPanel.classList.remove(this.colorScheme.color().getBackground());
+        this.dayName.classList.remove(this.colorScheme.darker_2().getBackground());
+        this.colorScheme = colorScheme;
+        this.headerPanel.classList.add(this.colorScheme.color().getBackground());
+        this.dayName.classList.add(this.colorScheme.darker_2().getBackground());
+        this.datePickerMonth.setBackground(colorScheme.color());
+        this.todayButton.setColor(colorScheme.color());
+        this.closeButton.setColor(colorScheme.color());
+        this.clearButton.setColor(colorScheme.color());
         return this;
     }
 
-    public ColorScheme getBackground() {
-        return background;
+    public ColorScheme getColorScheme() {
+        return colorScheme;
     }
 
     @Override
@@ -443,11 +420,6 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
     public DatePicker hideCloseButton() {
         this.closeButton.asElement().style.display = "none";
         return this;
-    }
-
-    @FunctionalInterface
-    public interface PickerHandler {
-        void handle();
     }
 
     public DatePicker addCloseHandler(PickerHandler closeHandler) {
@@ -546,9 +518,13 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
         return this;
     }
 
+    public ModalDialog createModal(String title){
+        return ModalDialog.createPickerModal(title, this.getColorScheme(), this.asElement());
+    }
+
     @FunctionalInterface
     interface BackgroundHandler {
-        void onBackgroundChnaged(ColorScheme oldBackground, ColorScheme newBackground);
+        void onBackgroundChanged(ColorScheme oldColorScheme, ColorScheme newColorScheme);
     }
 
     @FunctionalInterface
