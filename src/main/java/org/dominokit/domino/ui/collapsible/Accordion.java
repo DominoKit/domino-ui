@@ -69,4 +69,9 @@ public class Accordion implements IsElement<HTMLDivElement> {
     public HTMLDivElement asElement() {
         return element;
     }
+    
+    public List<AccordionPanel> getPanels() {
+    	return panels;
+    }
+    
 }
