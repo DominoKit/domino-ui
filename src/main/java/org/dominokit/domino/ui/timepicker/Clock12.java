@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.timepicker;
 
 import elemental2.core.JsDate;
+import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 
 import static org.dominokit.domino.ui.timepicker.DayPeriod.*;
@@ -24,6 +25,23 @@ class Clock12 implements Clock {
         } else {
             this.hour = jsDate.getHours();
         }
+    }
+
+    Clock12(JsDate jsDate){
+        this.setDayPeriod(jsDate.getHours() > 11 ? PM : AM);
+        this.minute = jsDate.getMinutes();
+        if (jsDate.getHours() > 12) {
+            this.hour = jsDate.getHours() - 12;
+        } else if (jsDate.getHours() == 0) {
+            this.hour = 12;
+        } else {
+            this.hour = jsDate.getHours();
+        }
+    }
+
+    @Override
+    public Clock getFor(JsDate jsDate) {
+        return new Clock12(jsDate);
     }
 
     public DayPeriod getDayPeriod() {

@@ -41,6 +41,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
     public TimeBox(String placeholder, Time time) {
         super("text", placeholder);
         this.timePicker = timePicker.create();
+
         this.timePicker.setTime(time);
         init();
     }

@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.timepicker;
 
+import elemental2.core.JsDate;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 
 interface Clock {
@@ -29,4 +30,6 @@ interface Clock {
     void setDateTimeFormatInfo(DateTimeFormatInfo dateTimeFormatInfo);
 
     Time getTime();
+
+    Clock getFor(JsDate jsDate);
 }

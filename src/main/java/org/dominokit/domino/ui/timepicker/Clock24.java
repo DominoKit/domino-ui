@@ -19,6 +19,16 @@ class Clock24 implements Clock {
         this.minute = date.getMinutes();
     }
 
+    Clock24(JsDate jsDate){
+        this.hour = jsDate.getHours();
+        this.minute = jsDate.getMinutes();
+    }
+
+    @Override
+    public Clock getFor(JsDate jsDate) {
+        return new Clock24(jsDate);
+    }
+
     public DayPeriod getDayPeriod() {
         return dayPeriod;
     }

@@ -40,7 +40,6 @@ class ClockElement {
                 circleRadius = 10;
                 elementStyle = "small-hour";
                 innerColor = colorScheme.darker_2();
-
             }
         }
 
