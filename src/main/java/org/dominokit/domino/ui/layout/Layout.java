@@ -91,11 +91,11 @@ public class Layout implements IsLayout {
         return updateLeftPanel("block", "ls-hidden", "ls-closed");
     }
 
-    public Layout updateLeftPanel(String none, String s, String s2) {
+    public Layout updateLeftPanel(String none, String hiddenStyle, String visibleStyle) {
         navigationBar.menu.style.display = none;
         getLeftPanel().style.display = none;
-        document.body.classList.remove(s);
-        document.body.classList.add(s2);
+        document.body.classList.remove(hiddenStyle);
+        document.body.classList.add(visibleStyle);
 
         return this;
     }
