@@ -85,6 +85,8 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     private ColorSchemeHandler colorSchemeHandler = (oldColorScheme, newColorScheme) -> {
     };
+    private Button hoursButton;
+    private Button minutesButton;
 
     public static TimePicker create() {
         return new TimePicker();
@@ -109,6 +111,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         clearHoverStyle();
         reDraw();
         initAmPmElements(dateTimeFormatInfo);
+        initHourMinuteElements();
         initFooter();
         preventTextSelection();
     }
@@ -158,8 +161,8 @@ public class TimePicker implements IsElement<HTMLDivElement> {
                     onTimeChanged();
                 });
 
-        amButton.asElement().classList.add("am-button");
-
+        amButton.asElement().classList.add("left-button");
+        amButton.asElement().style.top="342px";
 
         pmButton = Button.createDefault(dateTimeFormatInfo.ampms()[1])
                 .setBackground(colorScheme.lighten_1())
@@ -170,13 +173,43 @@ public class TimePicker implements IsElement<HTMLDivElement> {
                     formatTime();
                     onTimeChanged();
                 });
-        pmButton.asElement().classList.add("pm-button");
+        pmButton.asElement().classList.add("right-button");
+        pmButton.asElement().style.top="342px";
 
         HTMLElement span = Elements.span().css("time-text").add(timeTextSmall).asElement();
 
         timePanel.appendChild(amButton.asElement());
         timePanel.appendChild(span);
         timePanel.appendChild(pmButton.asElement());
+    }
+
+    private void initHourMinuteElements() {
+        hoursButton = Button.createDefault("H")
+                .circle(CircleSize.SMALL)
+                .setBackground(colorScheme.lighten_1())
+                .addClickListener(evt -> {
+                    evt.stopPropagation();
+                    if(minutesVisible) {
+                        showHours();
+                    }
+                });
+
+        hoursButton.asElement().classList.add("left-sm-button");
+
+        minutesButton = Button.createDefault("M")
+                .circle(CircleSize.SMALL)
+                .setBackground(colorScheme.lighten_1())
+                .addClickListener(evt -> {
+                    evt.stopPropagation();
+                    clock.setDayPeriod(PM);
+                    if(!minutesVisible){
+                        showMinutes();
+                    }
+                });
+        minutesButton.asElement().classList.add("right-sm-button");
+
+        timePanel.appendChild(hoursButton.asElement());
+        timePanel.appendChild(minutesButton.asElement());
     }
 
     private void clearHoverStyle() {
@@ -287,6 +320,9 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
         amButton.setBackground(colorScheme.lighten_1());
         pmButton.setBackground(colorScheme.lighten_1());
+
+        hoursButton.setBackground(colorScheme.lighten_1());
+        minutesButton.setBackground(colorScheme.lighten_1());
         clearButton.setColor(colorScheme.color());
         nowButton.setColor(colorScheme.color());
         closeButton.setColor(colorScheme.color());
@@ -460,8 +496,12 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     public TimePicker setHeaderPanelVisibility(boolean visible) {
         if (visible) {
             clockPanel.style.display = "block";
+            amButton.asElement().style.top="342px";
+            pmButton.asElement().style.top="342px";
         } else {
             clockPanel.style.display = "none";
+            amButton.asElement().style.top="274px";
+            pmButton.asElement().style.top="274px";
         }
         return this;
     }
@@ -585,10 +625,14 @@ public class TimePicker implements IsElement<HTMLDivElement> {
             this.clock = new Clock12(dateTimeFormatInfo);
             amButton.asElement().style.display = "block";
             pmButton.asElement().style.display = "block";
+            hoursButton.asElement().classList.remove("left-sm-button-24");
+            minutesButton.asElement().classList.remove("right-sm-button-24");
         } else {
             this.clock = new Clock24(dateTimeFormatInfo);
             amButton.asElement().style.display = "none";
             pmButton.asElement().style.display = "none";
+            hoursButton.asElement().classList.add("left-sm-button-24");
+            minutesButton.asElement().classList.add("right-sm-button-24");
         }
         reDraw();
         formatTime();
