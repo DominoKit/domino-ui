@@ -400,9 +400,10 @@ public class TimePicker implements IsElement<HTMLDivElement> {
                     event.preventDefault();
                     markeElement(clockElement);
                 })
-                .on(EventType.click, event -> {
+                .on(EventType.mouseup, event -> {
                     event.stopPropagation();
-                    selectMinute(clockElement.getValue());
+                    event.preventDefault();
+                    setminute(clockElement.getValue());
                 });
 
         return clockElement;
