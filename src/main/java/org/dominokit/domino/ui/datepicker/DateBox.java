@@ -8,6 +8,7 @@ import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.BodyObserver;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.Elements;
@@ -55,14 +56,12 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         this.pattern = this.datePicker.getDateTimeFormatInfo().dateFormatFull();
         this.datePicker.addDateSelectionHandler(this::setStringValue);
         this.modalListener = evt -> modal.open();
-        DomGlobal.document.body.addEventListener("DOMNodeRemoved", evt -> {
-            if (evt.target.equals(asElement())) {
-                if (nonNull(popover))
-                    popover.discard();
-                if (nonNull(modal)) {
-                    modal.close();
-                    modal.asElement().remove();
-                }
+        BodyObserver.observeRemoval(asElement(), mutationRecord -> {
+            if (nonNull(popover))
+                popover.discard();
+            if (nonNull(modal)) {
+                modal.close();
+                modal.asElement().remove();
             }
         });
 
@@ -71,7 +70,6 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 popover.close();
             if (nonNull(modal) && modal.isOpen())
                 modal.close();
-
         });
 
         datePicker.addClearHandler(() -> setValue(null));
@@ -176,12 +174,12 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         super.setPlaceholder(placeholder);
         if (nonNull(modal)) {
             modal.setTitle(placeholder);
-            modal.getHeaderContainerElement().classList.add(datePicker.getBackground().color().getStyle());
+            modal.getHeaderContainerElement().classList.add(datePicker.getColorScheme().color().getStyle());
         }
 
         if (nonNull(popover)) {
             popover.getHeaderText().textContent = placeholder;
-            popover.getHeadingElement().classList.add(datePicker.getBackground().color().getStyle());
+            popover.getHeadingElement().classList.add(datePicker.getColorScheme().color().getStyle());
         }
         return this;
     }
@@ -209,7 +207,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 popover.getContentElement().style.setProperty("width", "300px", "important");
                 popover.position(this.popupPosition)
                         .asElement().style.setProperty("max-width", "none", "important");
-                popover.getHeadingElement().classList.add(Styles.align_center, datePicker.getBackground().color().getStyle());
+                popover.getHeadingElement().classList.add(Styles.align_center, datePicker.getColorScheme().color().getStyle());
             }
         }
 
@@ -223,13 +221,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             }
 
             if (isNull(modal)) {
-                this.modal = ModalDialog.create(getPlaceholder())
-                        .small()
-                        .setAutoClose(true)
-                        .appendContent(this.datePicker.asElement());
-                this.modal.getHeaderContainerElement().classList.add("calendar-modal-header", datePicker.getBackground().color().getStyle());
-                this.modal.getBodyElement().style.setProperty("padding", "0px", "important");
-                this.modal.getFooterElement().style.setProperty("padding", "0px", "important");
+                this.modal = ModalDialog.createPickerModal(getPlaceholder(), datePicker.getColorScheme(), this.datePicker.asElement());
                 DomGlobal.document.body.appendChild(modal.asElement());
                 asElement().addEventListener(EventType.click.getName(), modalListener);
             }
