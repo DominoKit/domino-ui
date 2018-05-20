@@ -12612,7 +12612,7 @@ a.disabled {
     position: absolute;
     left: 50%;
     margin-left: -100px;
-    top: 10px;
+    margin-top: 10px;
 }
 
 .time-picker .am-pm-text {
