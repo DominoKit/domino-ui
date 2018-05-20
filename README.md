@@ -99,8 +99,8 @@ A type safe material design with bootstrap builder for java developer with GWT w
 - [x] Animations
 - [x] File upload
 - [x] Date picker
-- [ ] Time picker - **in progress**
-- [ ] Date time picker
+- [x] Time picker
+- [ ] Date time picker - **in progress**
 - [ ] Inputs decorations : Labels, Helper text, validation, Icons - **in progress**
 - [ ] Input groups
 - [ ] Advanced Select
