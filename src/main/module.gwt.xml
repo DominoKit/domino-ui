@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module>
   <inherits name="com.google.gwt.core.Core" />
+  <inherits name="elemental2.svg.Svg"/>
+  <inherits name="elemental2.core.Core"/>
+  <inherits name="elemental2.dom.Dom"/>
   <inherits name="org.jboss.gwt.elemento.Core"/>
   <inherits name="org.jboss.gwt.elemento.Template"/>
   <inherits name="com.google.gwt.resources.Resources" />
