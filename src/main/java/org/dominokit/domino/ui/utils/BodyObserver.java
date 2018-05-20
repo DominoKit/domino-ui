@@ -15,10 +15,10 @@ public class BodyObserver {
 
     static {
         MutationObserver mutationObserver = new MutationObserver((MutationRecord[] records, MutationObserver observer) -> {
-            Arrays.stream(records).forEach(record -> {
-                onRemoval(record);
-                onAppend(record);
-            });
+            for (int i=0;i<records.length;i++){
+                onRemoval(records[i]);
+                onAppend(records[i]);
+            }
             return null;
         });
 
