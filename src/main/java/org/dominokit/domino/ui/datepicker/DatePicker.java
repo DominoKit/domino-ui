@@ -5,8 +5,8 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.column.Column;
-import org.dominokit.domino.ui.forms.DropDown;
-import org.dominokit.domino.ui.forms.DropDownOption;
+import org.dominokit.domino.ui.forms.Select;
+import org.dominokit.domino.ui.forms.SelectOption;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.row.Row;
@@ -41,8 +41,8 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
     private HTMLAnchorElement navigateBefore;
     private HTMLAnchorElement navigateNext;
 
-    private DropDown yearSelect;
-    private DropDown monthSelect;
+    private Select yearSelect;
+    private Select monthSelect;
     private Button todayButton;
     private Button clearButton;
     private Button closeButton;
@@ -165,11 +165,11 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
     private void initSelectors() {
 
         int year = jsDate.getFullYear();
-        yearSelect = DropDown.create();
+        yearSelect = Select.create();
         yearSelect.asElement().style.setProperty("margin-bottom", "0px", "important");
 
         for (int i = minDate.getFullYear(); i <= maxDate.getFullYear(); i++) {
-            DropDownOption yearOption = DropDownOption.create(i + "", i + "");
+            SelectOption yearOption = SelectOption.create(i + "", i + "");
             yearSelect.addOption(yearOption);
 
             if (i == year)
@@ -182,11 +182,11 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
         });
 
         int month = jsDate.getMonth();
-        monthSelect = DropDown.create();
+        monthSelect = Select.create();
         monthSelect.asElement().style.setProperty("margin-bottom", "0px", "important");
         String[] months = getDateTimeFormatInfo().monthsShort();
         for (int i = 0; i < months.length; i++) {
-            DropDownOption monthOption = DropDownOption.create(i + "", months[i]);
+            SelectOption monthOption = SelectOption.create(i + "", months[i]);
             monthSelect.addOption(monthOption);
             if (i == month)
                 monthSelect.select(monthOption);

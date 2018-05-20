@@ -4,4 +4,6 @@ public interface Focusable<T> {
     T focus();
 
     T unfocus();
+
+    boolean isFocused();
 }

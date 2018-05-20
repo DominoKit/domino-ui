@@ -2,23 +2,23 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.Checkable;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SwitchButton implements IsElement<HTMLDivElement>,
-        HasName<SwitchButton>, CanDisable<SwitchButton>, CanEnable<SwitchButton>, HasValue<Boolean>,
-        Checkable<SwitchButton> {
+public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implements Checkable<SwitchButton> {
 
-    private HTMLDivElement container = Elements.div().css("switch").asElement();
+    private HTMLDivElement container = Elements.div().css("switch form-group").asElement();
     private HTMLLabelElement labelElement = Elements.label().asElement();
     private HTMLInputElement inputElement = Elements.input("checkbox").asElement();
-    private final HTMLElement lever = Elements.span().css("lever").asElement();
+    private HTMLElement lever = Elements.span().css("lever").asElement();
     private List<CheckHandler> checkHandlers = new ArrayList<>();
     private Color color;
+    private String label;
+    private Text labelText;
+    private CheckHandler validationHandler;
 
     public SwitchButton(String title, String onTitle) {
         this(title);
@@ -27,7 +27,7 @@ public class SwitchButton implements IsElement<HTMLDivElement>,
 
     public SwitchButton(String title) {
         this();
-        labelElement.insertBefore(new Text(title), inputElement);
+        setLabel(title);
     }
 
     public SwitchButton() {
@@ -41,8 +41,8 @@ public class SwitchButton implements IsElement<HTMLDivElement>,
         return new SwitchButton(offTitle, onTitle);
     }
 
-    public static SwitchButton create(String title) {
-        return new SwitchButton(title);
+    public static SwitchButton create(String label) {
+        return new SwitchButton(label);
     }
 
     public static SwitchButton create() {
@@ -54,48 +54,8 @@ public class SwitchButton implements IsElement<HTMLDivElement>,
             checkHandler.onCheck(isChecked());
     }
 
-    @Override
-    public HTMLDivElement asElement() {
-        return container;
-    }
-
-    public HTMLDivElement getContainer() {
-        return container;
-    }
-
-    public HTMLLabelElement getLabelElement() {
-        return labelElement;
-    }
-
-    public HTMLInputElement getInputElement() {
-        return inputElement;
-    }
-
     public HTMLElement getLever() {
         return lever;
-    }
-
-    @Override
-    public String getName() {
-        return inputElement.name;
-    }
-
-    @Override
-    public SwitchButton setName(String name) {
-        inputElement.name = name;
-        return this;
-    }
-
-    @Override
-    public SwitchButton disable() {
-        inputElement.disabled = true;
-        return this;
-    }
-
-    @Override
-    public SwitchButton enable() {
-        inputElement.disabled = false;
-        return this;
     }
 
     @Override
@@ -112,16 +72,43 @@ public class SwitchButton implements IsElement<HTMLDivElement>,
     }
 
     @Override
-    public SwitchButton check() {
-        inputElement.checked = true;
-        onCheck();
+    public boolean isEmpty() {
+        return !isChecked();
+    }
+
+    @Override
+    public SwitchButton clear() {
+        setValue(false);
         return this;
     }
 
     @Override
+    public SwitchButton check() {
+        return check(false);
+    }
+
+    @Override
     public SwitchButton uncheck() {
+        return uncheck(false);
+    }
+
+    @Override
+    public SwitchButton check(boolean silent) {
+        inputElement.checked = true;
+        if (!silent) {
+            onCheck();
+            validate();
+        }
+        return this;
+    }
+
+    @Override
+    public SwitchButton uncheck(boolean silent) {
         inputElement.checked = false;
-        onCheck();
+        if (!silent) {
+            onCheck();
+            validate();
+        }
         return this;
     }
 
@@ -141,6 +128,44 @@ public class SwitchButton implements IsElement<HTMLDivElement>,
             lever.classList.remove("switch-" + this.color.getStyle());
         lever.classList.add("switch-" + color.getStyle());
         this.color = color;
+        return this;
+
+    }
+
+    @Override
+    public SwitchButton setLabel(String label) {
+        this.label = label;
+        if (labelText != null) {
+            labelElement.removeChild(labelText);
+        }
+        labelText = new Text(label);
+        labelElement.insertBefore(labelText, inputElement);
+        return this;
+    }
+
+    @Override
+    public String getLabel() {
+        return label;
+    }
+
+    @Override
+    public HTMLLabelElement getLabelElement() {
+        return labelElement;
+    }
+
+    @Override
+    public HTMLInputElement getInputElement() {
+        return inputElement;
+    }
+
+    @Override
+    public HTMLDivElement getContainer() {
+        return container;
+    }
+
+    public SwitchButton removeCheckHandler(CheckHandler handler) {
+        if (handler != null)
+            checkHandlers.remove(handler);
         return this;
     }
 }
