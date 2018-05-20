@@ -36,8 +36,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     }
 
     public DateBox(Date date) {
-        this.datePicker = DatePicker.create(date);
-        init();
+        this("", date);
     }
 
     public DateBox(String placeholder, Date date) {
@@ -52,17 +51,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         init();
     }
 
-    @Override
-    protected HTMLInputElement createElement(String type, String placeholder) {
-        return Elements.input("text").css("form-control")
-                .attr("placeholder", placeholder)
-                .attr("readOnly", "true")
-                .asElement();
-    }
-
     private void init() {
         this.pattern = this.datePicker.getDateTimeFormatInfo().dateFormatFull();
-        this.datePicker.addDateSelectionHandler((date, dateTimeFormatInfo) -> setStringValue(date, dateTimeFormatInfo));
+        this.datePicker.addDateSelectionHandler(this::setStringValue);
         this.modalListener = evt -> modal.open();
         DomGlobal.document.body.addEventListener("DOMNodeRemoved", evt -> {
             if (evt.target.equals(asElement())) {
@@ -146,6 +137,12 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     }
 
     @Override
+    public DateBox clear() {
+        datePicker.setValue(null);
+        return this;
+    }
+
+    @Override
     public void setValue(Date value) {
         if (nonNull(value))
             this.datePicker.setDate(value);
@@ -156,10 +153,10 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     private void setStringValue(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
         if (nonNull(date))
-            this.inputElement.value = Formatter.getFormat(this.pattern, dateTimeFormatInfo).format(date);
+            this.getInputElement().value = Formatter.getFormat(this.pattern, dateTimeFormatInfo).format(date);
         else
-            this.inputElement.value = "";
-        this.value=date;
+            this.getInputElement().value = "";
+        this.value = date;
     }
 
     @Override
@@ -168,13 +165,15 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     }
 
     @Override
-    public String getPlaceholder() {
-        return inputElement.placeholder;
+    protected HTMLInputElement createInputElement(String type) {
+        return Elements.input("text").css("form-control")
+                .attr("readOnly", "true")
+                .asElement();
     }
 
     @Override
     public DateBox setPlaceholder(String placeholder) {
-        inputElement.placeholder = placeholder;
+        super.setPlaceholder(placeholder);
         if (nonNull(modal)) {
             modal.setTitle(placeholder);
             modal.getHeaderContainerElement().classList.add(datePicker.getBackground().color().getStyle());

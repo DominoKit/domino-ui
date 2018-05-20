@@ -1,62 +1,71 @@
 package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.Checkable;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Radio implements IsElement<HTMLDivElement>, HasValue<Boolean>,
-        CanDisable<Radio>, CanEnable<Radio>, HasName<Radio>, Checkable<Radio> {
+public class Radio extends BasicFormElement<Radio, Boolean> implements Checkable<Radio> {
 
-    private HTMLDivElement container = Elements.div().asElement();
-    private HTMLInputElement inputElement = Elements.input("radio").asElement();
+    private HTMLDivElement container = Elements.div().css("form-group").asElement();
     private HTMLLabelElement labelElement = Elements.label().asElement();
     private List<CheckHandler> checkHandlers = new ArrayList<>();
     private Color color;
+    private HTMLInputElement inputElement = Elements.input("radio").asElement();
+    private CheckHandler validationHandler;
 
-    public Radio(String title) {
+    public Radio(String label) {
         container.appendChild(inputElement);
         container.appendChild(labelElement);
+        inputElement.addEventListener("change", evt -> onCheck());
         container.addEventListener("click", evt -> {
-            if (!isDisabled()) {
-                if (!isChecked())
+            if (isEnabled()) {
+                if (isChecked())
+                    uncheck();
+                else
                     check();
             }
         });
-        setTitle(title);
+        setLabel(label);
     }
 
-    public static Radio create(String title) {
-        return new Radio(title);
-    }
-
-    public Radio setTitle(String title) {
-        labelElement.textContent = title;
-        return this;
-    }
-
-    @Override
-    public HTMLDivElement asElement() {
-        return container;
+    public static Radio create(String label) {
+        return new Radio(label);
     }
 
     @Override
     public Radio check() {
-        inputElement.checked = true;
-        onCheck();
-        return this;
+        return check(false);
     }
 
     @Override
     public Radio uncheck() {
+        return uncheck(false);
+    }
+
+    @Override
+    public Radio check(boolean silent) {
+        inputElement.checked = true;
+        if (!silent) {
+            onCheck();
+            validate();
+        }
+        return this;
+    }
+
+    @Override
+    public Radio uncheck(boolean silent) {
         inputElement.checked = false;
-        onCheck();
+        if (!silent) {
+            onCheck();
+            validate();
+        }
         return this;
     }
 
@@ -72,16 +81,15 @@ public class Radio implements IsElement<HTMLDivElement>, HasValue<Boolean>,
     }
 
     @Override
+    public Radio removeCheckHandler(CheckHandler checkHandler) {
+        if (checkHandler != null && checkHandlers.contains(checkHandler))
+            checkHandlers.remove(checkHandlers);
+        return this;
+    }
+
+    @Override
     public boolean isChecked() {
         return inputElement.checked;
-    }
-
-    public HTMLInputElement getInputElement() {
-        return inputElement;
-    }
-
-    public HTMLLabelElement getLabelElement() {
-        return labelElement;
     }
 
     public Radio withGap() {
@@ -108,19 +116,14 @@ public class Radio implements IsElement<HTMLDivElement>, HasValue<Boolean>,
     }
 
     @Override
-    public Radio disable() {
-        inputElement.disabled = true;
-        return this;
+    public boolean isEmpty() {
+        return !isChecked();
     }
 
     @Override
-    public Radio enable() {
-        inputElement.disabled = false;
+    public Radio clear() {
+        setValue(false);
         return this;
-    }
-
-    public boolean isDisabled() {
-        return inputElement.disabled;
     }
 
     public Radio setColor(Color color) {
@@ -132,13 +135,17 @@ public class Radio implements IsElement<HTMLDivElement>, HasValue<Boolean>,
     }
 
     @Override
-    public String getName() {
-        return inputElement.name;
+    protected HTMLElement getContainer() {
+        return container;
     }
 
     @Override
-    public Radio setName(String name) {
-        inputElement.name = name;
-        return this;
+    public HTMLInputElement getInputElement() {
+        return inputElement;
+    }
+
+    @Override
+    public HTMLLabelElement getLabelElement() {
+        return labelElement;
     }
 }
