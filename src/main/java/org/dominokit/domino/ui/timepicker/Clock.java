@@ -31,5 +31,7 @@ interface Clock {
 
     Time getTime();
 
+    DayPeriod getDayPeriod();
+
     Clock getFor(JsDate jsDate);
 }
