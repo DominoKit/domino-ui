@@ -478,7 +478,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
         Animation.create(minutesText)
                 .transition(Transition.FLIP_IN_X)
-                .duration(300)
+                .duration(600)
                 .animate();
     }
 
@@ -507,7 +507,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     private void animateClock() {
         Animation.create(getPickerContentContainer())
                 .transition(Transition.ZOOM_IN)
-                .duration(300)
+                .duration(600)
                 .animate();
     }
 
@@ -547,7 +547,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
         Animation.create(hoursText)
                 .transition(Transition.FLIP_IN_X)
-                .duration(300)
+                .duration(600)
                 .animate();
     }
 
