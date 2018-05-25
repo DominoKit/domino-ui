@@ -4,9 +4,7 @@ import elemental2.core.JsDate;
 
 import java.util.Objects;
 
-import static org.dominokit.domino.ui.timepicker.DayPeriod.AM;
 import static org.dominokit.domino.ui.timepicker.DayPeriod.NONE;
-import static org.dominokit.domino.ui.timepicker.DayPeriod.PM;
 
 public class Time {
     private int hour;

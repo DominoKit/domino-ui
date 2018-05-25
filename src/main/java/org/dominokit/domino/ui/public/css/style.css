@@ -3697,102 +3697,102 @@
 
 .bg-white {
     background-color: #FFFFFF !important;
-    color: #fff;
+    color: #000;
 }
 
 .bg-white .content .text,
 .bg-white .content .number {
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .bg-white-l-1 {
     background-color: #ffffff !important;
-    color: #fff;
+    color: #000;
 }
 
 .bg-white-l-1 .content .text,
 .bg-white-l-1 .content .number {
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .bg-white-l-2 {
     background-color: #ffffff !important;
-    color: #fff;
+    color: #000;
 }
 
 .bg-white-l-2 .content .text,
 .bg-white-l-2 .content .number {
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .bg-white-l-3 {
     background-color: #ffffff !important;
-    color: #fff;
+    color: #000;
 }
 
 .bg-white-l-3 .content .text,
 .bg-white-l-3 .content .number {
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .bg-white-l-4 {
     background-color: #ffffff !important;
-    color: #fff;
+    color: #000;
 }
 
 .bg-white-l-4 .content .text,
 .bg-white-l-4 .content .number {
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .bg-white-l-5 {
     background-color: #ffffff !important;
-    color: #fff;
+    color: #000;
 }
 
 .bg-white-l-5 .content .text,
 .bg-white-l-5 .content .number {
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .bg-white-d-1 {
     background-color: #ffffff !important;
-    color: #fff;
+    color: #000;
 }
 
 .bg-white-d-1 .content .text,
 .bg-white-d-1 .content .number {
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .bg-white-d-2 {
     background-color: #ffffff !important;
-    color: #fff;
+    color: #000;
 }
 
 .bg-white-d-2 .content .text,
 .bg-white-d-2 .content .number {
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .bg-white-d-3 {
     background-color: #ffffff !important;
-    color: #fff;
+    color: #000;
 }
 
 .bg-white-d-3 .content .text,
 .bg-white-d-3 .content .number {
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .bg-white-d-4 {
     background-color: #ffffff !important;
-    color: #fff;
+    color: #000;
 }
 
 .bg-white-d-4 .content .text,
 .bg-white-d-4 .content .number {
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .bg-transparent {
@@ -12487,6 +12487,7 @@ a.disabled {
     height: 80px;
 }
 
+/* for development only */
 .clock-picker {
 
     display: block;
@@ -12547,8 +12548,69 @@ a.disabled {
 }
 
 .time-picker .time-display-large {
-    font-size: 48px;
+    font-size: 42px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    transition-duration: 600ms;
+    align-items: flex-end;
+}
+
+.time-picker .hour-text {
+    font-size: 42px;
+    line-height: 60px;
     cursor: pointer;
+}
+
+.time-picker .minute-text {
+    font-size: 42px;
+    line-height: 60px;
+    cursor: pointer;
+}
+
+.time-picker .am-pm-container {
+    cursor: pointer;
+    padding-left: 5px;
+}
+
+.time-picker .am-pm-text {
+}
+
+.time-picker .am-pm-top {
+    line-height: 10px;
+    float: left;
+    clear: left;
+    font-size: 12px;
+    width: 40px;
+    color: #d2d2d2;
+    text-align: left;
+}
+
+.time-picker .am-pm-bottom {
+    float: left;
+    clear: left;
+    padding-bottom: 10px;
+    width: 40px;
+    text-align: left;
+    font-size: 18px;
+}
+
+.time-picker .navigate {
+    border-radius: 50%;
+    transform: scale(0.9);
+    text-align: center;
+    color: #7d7d7d;
+    font-weight: 600;
+    position: relative;
+    color: white !important;
+}
+
+.time-picker .navigate-left {
+    left: -50px;
+}
+
+.time-picker .navigate-right {
+    right: -50px;
 }
 
 .time-picker .full-time {
@@ -12606,6 +12668,7 @@ a.disabled {
     top: 3px !important;
     right: -102px !important;
 }
+
 .time-text {
     height: 40px;;
     width: 200px;
@@ -12613,11 +12676,6 @@ a.disabled {
     left: 50%;
     margin-left: -100px;
     margin-top: 10px;
-}
-
-.time-picker .am-pm-text {
-    font-size: 23px;
-    padding-left: 5px;
 }
 
 .time-picker .footer {
