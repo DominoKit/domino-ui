@@ -29,6 +29,7 @@ class Clock24 implements Clock {
         return new Clock24(jsDate);
     }
 
+    @Override
     public DayPeriod getDayPeriod() {
         return dayPeriod;
     }
