@@ -73,8 +73,6 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     private ColorScheme colorScheme = ColorScheme.BLUE;
 
-    private HTMLDivElement hoveredElement;
-
     private ClockStyle clockStyle = _12;
 
     private DateTimeFormatInfo dateTimeFormatInfo;
@@ -95,7 +93,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     private ColorSchemeHandler colorSchemeHandler = (oldColorScheme, newColorScheme) -> {
     };
-    private boolean borderVisible=false;
+    private boolean borderVisible = false;
 
     public static TimePicker create() {
         return new TimePicker();
@@ -117,7 +115,6 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         createCenterCircles(colorScheme);
         initRootSvg();
         initPickerElements();
-        clearHoverStyle();
         reDraw();
         initFooter();
         preventTextSelection();
@@ -178,18 +175,10 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         onTimeChanged();
     }
 
-    public TimePicker showBorder(){
-        this.borderVisible=true;
-        asElement().style.setProperty("border","1px solid "+colorScheme.color().getHex());
+    public TimePicker showBorder() {
+        this.borderVisible = true;
+        asElement().style.setProperty("border", "1px solid " + colorScheme.color().getHex());
         return this;
-    }
-
-    private void clearHoverStyle() {
-        builderFor(pickerContentContainer)
-                .on(EventType.mouseout, event -> {
-                    if (nonNull(hoveredElement))
-                        hoveredElement.classList.remove(colorScheme.lighten_4().getBackground());
-                });
     }
 
     private void initPickerElements() {
@@ -333,7 +322,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         this.colorScheme = colorScheme;
 
         reDraw();
-        if(borderVisible){
+        if (borderVisible) {
             showBorder();
         }
         return this;
@@ -379,11 +368,19 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     private ClockElement makeHourElement(int hour) {
         ClockElement clockElement = ClockElement.createHour(hour, clockStyle, colorScheme);
         builderFor(clockElement.getElement())
-                .on(EventType.mouseenter, event -> markElement(clockElement))
+                .on(EventType.mouseenter, event -> {
+                    drawHourPointer(hourElements.get(clock.getHour()));
+                    drawHourPointer(clockElement);
+                })
                 .on(EventType.mousedown, event -> {
                     event.stopPropagation();
                     event.preventDefault();
-                    markElement(clockElement);
+                    drawHourPointer(hourElements.get(clock.getHour()));
+                    drawHourPointer(clockElement);
+                })
+                .on(EventType.mouseout, event -> {
+                    if (clock.getHour() != clockElement.getValue())
+                        removeHourPointer(clockElement);
                 })
                 .on(EventType.click, event -> {
                     event.stopPropagation();
@@ -400,12 +397,16 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         ClockElement clockElement = ClockElement.createMinute(minute, colorScheme);
         builderFor(clockElement.getElement())
                 .on(EventType.mouseenter, event -> {
-                    markElement(clockElement);
+                    drawMinutesPointer(minutesElements.get(clock.getMinute()));
                     drawMinutesPointer(clockElement);
-                    MouseEvent mouseEvent=Js.cast(event);
-                    if(mouseEvent.buttons==1){
+                    MouseEvent mouseEvent = Js.cast(event);
+                    if (mouseEvent.buttons == 1) {
                         setminute(clockElement.getValue());
                     }
+                })
+                .on(EventType.mouseout, event -> {
+                    if (clock.getMinute() != clockElement.getValue())
+                        removeMinutesPointer(clockElement);
                 })
                 .on(EventType.mousedown, event -> {
                     event.stopPropagation();
@@ -427,20 +428,14 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         return clockElement;
     }
 
-    private void markElement(ClockElement clockElement) {
-        if (nonNull(hoveredElement)) {
-            hoveredElement.classList.remove(colorScheme.lighten_4().getBackground());
-        }
-        clockElement.getElement().classList.add(colorScheme.lighten_4().getBackground());
-        hoveredElement = clockElement.getElement();
-    }
-
     private void selectMinute(int minute) {
         selectMinute(minute, false);
     }
 
     private void selectMinute(int minute, boolean silent) {
         ClockElement clockElement = minutesElements.get(minute);
+        clear(minutesRootSvg);
+        minutesRootSvg.appendChild(minutesCircle);
         drawMinutesPointer(clockElement);
         updateMinute(minute);
         formatTime();
@@ -454,12 +449,29 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     }
 
     private void drawMinutesPointer(ClockElement clockElement) {
-        clear(minutesRootSvg);
-        minutesRootSvg.appendChild(minutesCircle);
+        minutesRootSvg.appendChild(minutesCenterCircle);
         minutesRootSvg.appendChild(clockElement.getCircle());
         minutesRootSvg.appendChild(clockElement.getLine());
         minutesRootSvg.appendChild(clockElement.getInnerCircle());
-        minutesRootSvg.appendChild(minutesCenterCircle);
+    }
+
+    private void removeMinutesPointer(ClockElement clockElement) {
+        clockElement.getCircle().remove();
+        clockElement.getLine().remove();
+        clockElement.getInnerCircle().remove();
+    }
+
+    private void drawHourPointer(ClockElement clockElement) {
+        hoursRootSvg.appendChild(minutesCenterCircle);
+        hoursRootSvg.appendChild(clockElement.getCircle());
+        hoursRootSvg.appendChild(clockElement.getLine());
+        hoursRootSvg.appendChild(clockElement.getInnerCircle());
+    }
+
+    private void removeHourPointer(ClockElement clockElement) {
+        clockElement.getCircle().remove();
+        clockElement.getLine().remove();
+        clockElement.getInnerCircle().remove();
     }
 
     private void updateMinute(int minute) {
@@ -486,7 +498,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     private void animateClock() {
         Animation.create(getPickerContentContainer())
-                .transition(Transition.ZOOM_IN)
+                .transition(Transition.PULSE)
                 .duration(600)
                 .animate();
     }
