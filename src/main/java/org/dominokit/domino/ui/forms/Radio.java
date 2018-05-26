@@ -1,42 +1,47 @@
 package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.Checkable;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.Elements;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Radio extends BasicFormElement<Radio, Boolean> implements Checkable<Radio> {
+public class Radio implements IsElement<HTMLDivElement>, HasName<Radio>, HasValue<String>, HasLabel<Radio>,
+        Switchable<Radio>, Checkable<Radio> {
 
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
     private HTMLLabelElement labelElement = Elements.label().asElement();
+    private HTMLInputElement inputElement = Elements.input("radio").asElement();
     private List<CheckHandler> checkHandlers = new ArrayList<>();
     private Color color;
-    private HTMLInputElement inputElement = Elements.input("radio").asElement();
-    private CheckHandler validationHandler;
 
-    public Radio(String label) {
+    public Radio(String value, String label) {
         container.appendChild(inputElement);
         container.appendChild(labelElement);
-        inputElement.addEventListener("change", evt -> onCheck());
-        container.addEventListener("click", evt -> {
-            if (isEnabled()) {
-                if (isChecked())
-                    uncheck();
-                else
-                    check();
-            }
-        });
         setLabel(label);
+        setValue(value);
+        container.addEventListener("click", evt -> {
+            if (isEnabled() && !isChecked())
+                check();
+        });
+        inputElement.addEventListener("change", evt -> onCheck());
     }
 
-    public static Radio create(String label) {
-        return new Radio(label);
+    public Radio(String value) {
+        this(value, value);
+    }
+
+    public static Radio create(String value, String label) {
+        return new Radio(value, label);
+    }
+
+    public static Radio create(String value) {
+        return new Radio(value);
     }
 
     @Override
@@ -44,7 +49,6 @@ public class Radio extends BasicFormElement<Radio, Boolean> implements Checkable
         return check(false);
     }
 
-    @Override
     public Radio uncheck() {
         return uncheck(false);
     }
@@ -52,20 +56,16 @@ public class Radio extends BasicFormElement<Radio, Boolean> implements Checkable
     @Override
     public Radio check(boolean silent) {
         inputElement.checked = true;
-        if (!silent) {
+        if (!silent)
             onCheck();
-            validate();
-        }
         return this;
     }
 
     @Override
     public Radio uncheck(boolean silent) {
         inputElement.checked = false;
-        if (!silent) {
+        if (!silent)
             onCheck();
-            validate();
-        }
         return this;
     }
 
@@ -75,15 +75,15 @@ public class Radio extends BasicFormElement<Radio, Boolean> implements Checkable
     }
 
     @Override
-    public Radio addCheckHandler(CheckHandler checkHandler) {
+    public Radio addCheckHandler(Checkable.CheckHandler checkHandler) {
         checkHandlers.add(checkHandler);
         return this;
     }
 
     @Override
     public Radio removeCheckHandler(CheckHandler checkHandler) {
-        if (checkHandler != null && checkHandlers.contains(checkHandler))
-            checkHandlers.remove(checkHandlers);
+        if (checkHandler != null)
+            checkHandlers.remove(checkHandler);
         return this;
     }
 
@@ -102,30 +102,6 @@ public class Radio extends BasicFormElement<Radio, Boolean> implements Checkable
         return this;
     }
 
-    @Override
-    public void setValue(Boolean value) {
-        if (value != null && value)
-            check();
-        else
-            uncheck();
-    }
-
-    @Override
-    public Boolean getValue() {
-        return isChecked();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return !isChecked();
-    }
-
-    @Override
-    public Radio clear() {
-        setValue(false);
-        return this;
-    }
-
     public Radio setColor(Color color) {
         if (this.color != null)
             inputElement.classList.remove("radio-" + this.color.getStyle());
@@ -135,17 +111,56 @@ public class Radio extends BasicFormElement<Radio, Boolean> implements Checkable
     }
 
     @Override
-    protected HTMLElement getContainer() {
+    public HTMLDivElement asElement() {
         return container;
     }
 
     @Override
-    public HTMLInputElement getInputElement() {
-        return inputElement;
+    public String getName() {
+        return inputElement.name;
     }
 
     @Override
-    public HTMLLabelElement getLabelElement() {
-        return labelElement;
+    public Radio setName(String name) {
+        inputElement.name = name;
+        return this;
+    }
+
+    @Override
+    public void setValue(String value) {
+        inputElement.value = value;
+    }
+
+    @Override
+    public String getValue() {
+        return inputElement.value;
+    }
+
+    @Override
+    public Radio setLabel(String label) {
+        labelElement.textContent = label;
+        return this;
+    }
+
+    @Override
+    public String getLabel() {
+        return labelElement.textContent;
+    }
+
+    @Override
+    public Radio enable() {
+        inputElement.disabled = true;
+        return this;
+    }
+
+    @Override
+    public Radio disable() {
+        inputElement.disabled = true;
+        return this;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return !inputElement.disabled;
     }
 }

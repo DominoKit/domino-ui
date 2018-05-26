@@ -12,6 +12,8 @@ import org.jboss.gwt.elemento.core.IsElement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 
 public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsElement<HTMLElement>, Checkable<CheckBox> {
 
@@ -20,6 +22,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
     private HTMLLabelElement labelElement = Elements.label().asElement();
     private List<CheckHandler> checkHandlers = new ArrayList<>();
     private Color color;
+    private CheckHandler autoValidationHandler;
 
     public CheckBox() {
         this("");
@@ -29,16 +32,17 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
         setLabel(label);
         container.appendChild(inputElement);
         container.appendChild(labelElement);
-        inputElement.addEventListener("change", evt -> onCheck());
+        inputElement.addEventListener("change", evt -> {
+            onCheck();
+        });
         labelElement.addEventListener("click", evt -> {
             if (isEnabled())
-                inputElement.click();
+                toggle();
         });
     }
 
     private void onCheck() {
-        for (CheckHandler handler : checkHandlers)
-            handler.onCheck(isChecked());
+        checkHandlers.forEach(checkHandler -> checkHandler.onCheck(isChecked()));
     }
 
     public static CheckBox create(String label) {
@@ -47,6 +51,14 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
 
     public static CheckBox create() {
         return new CheckBox();
+    }
+
+    public CheckBox toggle() {
+        if (isChecked())
+            uncheck();
+        else
+            check();
+        return this;
     }
 
     @Override
@@ -62,20 +74,16 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
     @Override
     public CheckBox check(boolean silent) {
         inputElement.checked = true;
-        if (!silent) {
+        if (!silent)
             onCheck();
-            validate();
-        }
         return this;
     }
 
     @Override
     public CheckBox uncheck(boolean silent) {
         inputElement.checked = false;
-        if (!silent) {
+        if (!silent)
             onCheck();
-            validate();
-        }
         return this;
     }
 
@@ -151,5 +159,19 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
     @Override
     public HTMLLabelElement getLabelElement() {
         return labelElement;
+    }
+
+    @Override
+    public CheckBox setAutoValidation(boolean autoValidation) {
+        if (autoValidation) {
+            if (isNull(autoValidationHandler)) {
+                autoValidationHandler = checked -> validate();
+                addCheckHandler(autoValidationHandler);
+            }
+        } else {
+            removeCheckHandler(autoValidationHandler);
+            autoValidationHandler = null;
+        }
+        return this;
     }
 }
