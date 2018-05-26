@@ -1,13 +1,10 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.utils.ElementValidations;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
-
-import static java.util.Objects.nonNull;
 
 public abstract class BasicFormElement<T extends BasicFormElement, V> implements FormElement<T, V>,
         IsElement<HTMLElement> {
@@ -17,8 +14,6 @@ public abstract class BasicFormElement<T extends BasicFormElement, V> implements
     private HTMLLabelElement errorLabel = Elements.label().css("error").asElement();
     private ElementValidations elementValidations = new ElementValidations(this);
     private String helperText;
-    private Validator requiredValidator;
-    private EventListener eventListener;
 
     @Override
     public T setHelperText(String helperText) {
@@ -133,20 +128,6 @@ public abstract class BasicFormElement<T extends BasicFormElement, V> implements
     @Override
     public boolean isRequired() {
         return elementValidations.isRequired();
-    }
-
-    @Override
-    public T setAutoValidation(boolean autoValidation) {
-        if (autoValidation) {
-            if (eventListener == null) {
-                eventListener = evt -> validate();
-                getInputElement().addEventListener("input", eventListener);
-            }
-        } else {
-            if (nonNull(eventListener))
-                getInputElement().removeEventListener("input", eventListener);
-        }
-        return (T) this;
     }
 
     protected abstract HTMLElement getContainer();

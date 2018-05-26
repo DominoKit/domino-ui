@@ -1,9 +1,7 @@
 package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLabelElement;
-import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.ElementValidations;
 import org.jboss.gwt.elemento.core.Elements;
@@ -13,8 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
-public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioGroup, Radio> {
+public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioGroup, String> {
 
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
     private HTMLLabelElement helperLabel = Elements.label().css("help-info").asElement();
@@ -23,7 +22,7 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
     private ElementValidations elementValidations = new ElementValidations(this);
     private List<Radio> radios = new ArrayList<>();
     private String name;
-    private Checkable.CheckHandler checkHandler;
+    private Checkable.CheckHandler autoValidationHandler;
 
     public RadioGroup(String name) {
         container.appendChild(labelContainer);
@@ -140,14 +139,16 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
     }
 
     @Override
-    public void setValue(Radio value) {
-        if (radios.contains(value))
-            value.check();
+    public void setValue(String value) {
+        Radio radioToSelect = radios.stream().filter(radio -> radio.getValue().equals(value))
+                .findFirst().orElse(null);
+        if (nonNull(radioToSelect))
+            radioToSelect.check();
     }
 
     @Override
-    public Radio getValue() {
-        return radios.stream().filter(Radio::isChecked).findFirst().orElse(null);
+    public String getValue() {
+        return radios.stream().filter(Radio::isChecked).map(Radio::getValue).findFirst().orElse(null);
     }
 
     @Override
@@ -157,12 +158,8 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
 
     @Override
     public RadioGroup clear() {
-        radios.forEach(Radio::clear);
+        radios.forEach(Radio::uncheck);
         return this;
-    }
-
-    public HTMLElement getLabelElement() {
-        return labelContainer;
     }
 
     @Override
@@ -178,30 +175,31 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
 
     @Override
     public RadioGroup enable() {
-        radios.forEach(BasicFormElement::enable);
+        radios.forEach(Radio::enable);
         return this;
     }
 
     @Override
     public RadioGroup disable() {
-        radios.forEach(BasicFormElement::disable);
+        radios.forEach(Radio::disable);
         return this;
     }
 
     @Override
     public boolean isEnabled() {
-        return radios.stream().allMatch(BasicFormElement::isEnabled);
+        return radios.stream().allMatch(Radio::isEnabled);
     }
 
     @Override
     public RadioGroup setAutoValidation(boolean autoValidation) {
         if (autoValidation) {
-            if (isNull(checkHandler)) {
-                checkHandler = checked -> validate();
-                radios.forEach(radio -> radio.addCheckHandler(checkHandler));
+            if (isNull(autoValidationHandler)) {
+                autoValidationHandler = checked -> validate();
+                radios.forEach(radio -> radio.addCheckHandler(autoValidationHandler));
             }
         } else {
-            radios.forEach(radio -> radio.removeCheckHandler(checkHandler));
+            radios.forEach(radio -> radio.removeCheckHandler(autoValidationHandler));
+            autoValidationHandler = null;
         }
         return this;
     }

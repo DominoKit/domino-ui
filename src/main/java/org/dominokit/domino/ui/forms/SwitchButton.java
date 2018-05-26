@@ -18,7 +18,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     private Color color;
     private String label;
     private Text labelText;
-    private CheckHandler validationHandler;
+    private boolean autoValidation;
 
     public SwitchButton(String title, String onTitle) {
         this(title);
@@ -34,7 +34,11 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
         labelElement.appendChild(inputElement);
         labelElement.appendChild(lever);
         container.appendChild(labelElement);
-        inputElement.addEventListener("change", evt -> onCheck());
+        inputElement.addEventListener("change", evt -> {
+            onCheck();
+            if (autoValidation)
+                validate();
+        });
     }
 
     public static SwitchButton create(String offTitle, String onTitle) {
@@ -166,6 +170,12 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     public SwitchButton removeCheckHandler(CheckHandler handler) {
         if (handler != null)
             checkHandlers.remove(handler);
+        return this;
+    }
+
+    @Override
+    public SwitchButton setAutoValidation(boolean autoValidation) {
+        this.autoValidation = autoValidation;
         return this;
     }
 }
