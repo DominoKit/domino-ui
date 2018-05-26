@@ -48,9 +48,8 @@ public class TextBox extends AbstractTextBox<TextBox, HTMLInputElement> {
     }
 
     @Override
-    public TextBox clear() {
+    protected void clearValue() {
         setValue("");
-        return this;
     }
 
     @Override

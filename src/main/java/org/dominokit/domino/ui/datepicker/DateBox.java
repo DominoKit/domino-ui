@@ -135,9 +135,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     }
 
     @Override
-    public DateBox clear() {
+    protected void clearValue() {
         datePicker.setValue(null);
-        return this;
     }
 
     @Override
