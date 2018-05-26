@@ -1,10 +1,13 @@
 package org.dominokit.domino.ui.button;
 
-import org.dominokit.domino.ui.style.*;
-import org.dominokit.domino.ui.utils.*;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.StyleType;
+import org.dominokit.domino.ui.style.WaveStyle;
+import org.dominokit.domino.ui.style.WavesElement;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -13,7 +16,10 @@ import static java.util.Objects.nonNull;
 
 public class Button extends WavesElement<Button, HTMLElement> implements
         Justifiable, HasClickableElement, Sizable<Button>, HasBackground<Button>,
-        HasContent<Button>, IsElement<HTMLElement>, IsHtmlComponent<HTMLElement, Button>, HasStyleProperty<Button>{
+        HasContent<Button>, IsElement<HTMLElement>, IsHtmlComponent<HTMLElement, Button>, HasStyleProperty<Button>,
+        Switchable<Button> {
+
+    private static final String DISABLED = "disabled";
 
     final HTMLElement buttonElement = Elements.button().css("btn").asElement();
     private StyleType type;
@@ -21,7 +27,7 @@ public class Button extends WavesElement<Button, HTMLElement> implements
     private Color color;
     private ButtonSize size;
     protected String content;
-    private HtmlComponentBuilder<HTMLElement, Button> buttonComponentBuilder =new HtmlComponentBuilder<>(this);
+    private HtmlComponentBuilder<HTMLElement, Button> buttonComponentBuilder = new HtmlComponentBuilder<>(this);
 
     private static Button create(String content, StyleType type) {
         return new Button(content, type);
@@ -108,10 +114,10 @@ public class Button extends WavesElement<Button, HTMLElement> implements
         return this;
     }
 
-    public Button setColor(Color color){
-        if(nonNull(this.color))
+    public Button setColor(Color color) {
+        if (nonNull(this.color))
             asElement().classList.remove(this.color.getStyle());
-        this.color=color;
+        this.color = color;
         asElement().classList.add(this.color.getStyle());
         return this;
     }
@@ -124,14 +130,21 @@ public class Button extends WavesElement<Button, HTMLElement> implements
         return this;
     }
 
+    @Override
     public Button disable() {
-        buttonElement.setAttribute("disabled", "disabled");
+        buttonElement.setAttribute(DISABLED, DISABLED);
         return this;
     }
 
+    @Override
     public Button enable() {
-        buttonElement.removeAttribute("disabled");
+        buttonElement.removeAttribute(DISABLED);
         return this;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return !buttonElement.hasAttribute(DISABLED);
     }
 
     @Override
@@ -180,12 +193,12 @@ public class Button extends WavesElement<Button, HTMLElement> implements
         return this;
     }
 
-    public Button linkify(){
+    public Button linkify() {
         buttonElement.classList.add("btn-link");
         return this;
     }
 
-    public Button addClickListener(EventListener listener){
+    public Button addClickListener(EventListener listener) {
         getClickableElement().addEventListener(EventType.click.getName(), listener);
         return this;
     }

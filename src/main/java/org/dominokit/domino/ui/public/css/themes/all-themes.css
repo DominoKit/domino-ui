@@ -207,7 +207,6 @@
   .theme-deep-purple .sidebar .legal .copyright a {
     color: #673AB7 !important; }
 
-
 .theme-indigo .bg-theme {
   background-color: #3F51B5 !important;
   color: #fff; }
@@ -937,6 +936,7 @@
   .theme-grey .sidebar .legal .copyright a {
     color: #9E9E9E !important; }
 
+
 .theme-blue-grey .bg-theme {
   background-color: #607D8B !important;
   color: #fff; }
@@ -1040,6 +1040,8 @@
   background-color: #fff; }
   .theme-black .sidebar .legal .copyright a {
     color: #000 !important; }
+
+
 /* Theme Waves ======================================= */
 .theme-red .waves-effect.waves-theme .waves-ripple {
   background: rgba(244, 67, 54, 0.5); }
@@ -1100,3 +1102,70 @@
 
 .theme-black .waves-effect.waves-theme .waves-ripple {
   background: rgba(0, 0, 0, 0.5); }
+
+.theme-red .col-theme {
+color: #F44336 !important;
+}
+.theme-pink .col-theme {
+color: #E91E63 !important;
+}
+.theme-purple .col-theme {
+color: #9C27B0 !important;
+}
+.theme-deep-purple .col-theme {
+color: #673AB7 !important;
+}
+.theme-indigo .col-theme {
+color: #3F51B5 !important;
+}
+.theme-blue .col-theme {
+color: #2196F3 !important;
+}
+.theme-light-blue .col-theme {
+color: #03A9F4 !important;
+}
+.theme-cyan .col-theme {
+color: #00BCD4 !important;
+}
+.theme-teal .col-theme {
+color: #009688 !important;
+}
+.theme-green .col-theme {
+color: #4CAF50 !important;
+}
+.theme-light-green .col-theme {
+color: #8BC34A !important;
+}
+.theme-lime .col-theme {
+color: #CDDC39 !important;
+}
+.theme-yellow .col-theme {
+color: #FFEB3B !important;
+}
+.theme-amber .col-theme {
+color: #FFC107 !important;
+}
+.theme-orange .col-theme {
+color: #FF9800 !important;
+}
+.theme-deep-orange .col-theme {
+color: #FF5722 !important;
+}
+.theme-brown .col-theme {
+color: #795548 !important;
+}
+.theme-grey .col-theme {
+color: #9E9E9E !important;
+}
+.theme-blue-grey .col-theme {
+color: #607D8B !important;
+}
+.theme-black .col-theme {
+color: #000000 !important;
+}
+.theme-white .col-theme {
+color: #FFFFFF !important;
+}
+.theme-transparent .col-theme {
+color: transparent !important;
+}

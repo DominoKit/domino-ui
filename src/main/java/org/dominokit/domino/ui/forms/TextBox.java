@@ -5,39 +5,41 @@ import org.jboss.gwt.elemento.core.Elements;
 
 import static java.util.Objects.nonNull;
 
-public class TextBox extends ValueBox<TextBox, HTMLInputElement, String> {
+public class TextBox extends AbstractTextBox<TextBox, HTMLInputElement> {
 
     private static final String TEXT = "text";
-
 
     public TextBox() {
         this(TEXT, "");
     }
 
-    public TextBox(String placeholder) {
-        this(TEXT, placeholder);
+    public TextBox(String label) {
+        this(TEXT, label);
     }
 
-    public TextBox(String type, String placeholder) {
-        super(type, placeholder);
-    }
-
-    @Override
-    protected HTMLInputElement createElement(String type, String placeholder) {
-        return Elements.input(type).css("form-control")
-                .attr("placeholder", placeholder).asElement();
+    public TextBox(String type, String label) {
+        super(type, label);
     }
 
     public static TextBox create() {
         return new TextBox();
     }
 
-    public static TextBox create(String placeholder) {
-        return new TextBox(placeholder);
+    public static TextBox create(String label) {
+        return new TextBox(label);
     }
 
-    public static TextBox password(String placeholder) {
-        return new TextBox("password", placeholder);
+    public static TextBox password(String label) {
+        return new TextBox("password", label);
+    }
+
+    public static TextBox password() {
+        return new TextBox("password", "");
+    }
+
+    @Override
+    protected HTMLInputElement createInputElement(String type) {
+        return Elements.input(type).css("form-control").asElement();
     }
 
     @Override
@@ -46,8 +48,14 @@ public class TextBox extends ValueBox<TextBox, HTMLInputElement, String> {
     }
 
     @Override
+    public TextBox clear() {
+        setValue("");
+        return this;
+    }
+
+    @Override
     public void setValue(String value) {
-        inputElement.value = value;
+        getInputElement().value = value;
         if (nonNull(value) && !value.isEmpty()) {
             focus();
         } else {
@@ -57,23 +65,11 @@ public class TextBox extends ValueBox<TextBox, HTMLInputElement, String> {
 
     @Override
     public String getValue() {
-        focus();
-        return inputElement.value;
-    }
-
-    @Override
-    public String getPlaceholder() {
-        return inputElement.placeholder;
-    }
-
-    @Override
-    public TextBox setPlaceholder(String placeholder) {
-        inputElement.placeholder = placeholder;
-        return this;
+        return getInputElement().value;
     }
 
     public TextBox setType(String type) {
-        inputElement.type = type;
+        getInputElement().type = type;
         return this;
     }
 }

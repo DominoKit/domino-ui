@@ -5,17 +5,14 @@ import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.HTMLParagraphElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.HasBackground;
-import org.dominokit.domino.ui.utils.HasMultiSelectSupport;
-import org.dominokit.domino.ui.utils.HasValue;
-import org.dominokit.domino.ui.utils.Selectable;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 
 public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsElement<HTMLAnchorElement>, HasValue<T>
-        , Selectable<ListItem<T>>, HasBackground<ListItem<T>> {
+        , Selectable<ListItem<T>>, HasBackground<ListItem<T>>, Switchable<ListItem<T>> {
 
     private T value;
     private HasMultiSelectSupport<ListItem<T>> parent;
@@ -76,7 +73,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
         if (!selected) {
             asElement().classList.add("active");
             this.selected = true;
-            if(!silent)
+            if (!silent)
                 parent.onSelectionChange(this);
         }
 
@@ -96,6 +93,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
         return this;
     }
 
+    @Override
     public ListItem<T> disable() {
         if (!disabled) {
             deselect();
@@ -106,6 +104,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
         return this;
     }
 
+    @Override
     public ListItem<T> enable() {
         if (disabled) {
             getElement().classList.remove("disabled");
@@ -113,6 +112,11 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
         }
 
         return this;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return !disabled;
     }
 
     public boolean isDisabled() {
