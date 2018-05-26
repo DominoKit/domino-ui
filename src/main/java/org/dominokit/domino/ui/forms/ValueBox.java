@@ -12,6 +12,7 @@ import static java.util.Objects.nonNull;
 public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> extends BasicFormElement<T, V> implements
         Focusable<T>, HasPlaceHolder<T> {
 
+    public static final String FOCUSED = "focused";
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
     private E inputElement;
     private HTMLDivElement inputContainer = Elements.div().css("form-line").asElement();
@@ -25,7 +26,6 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     private Element leftAddon;
     private Element rightAddon;
     private boolean valid = true;
-    private EventListener validateOnBlurListener;
     private EventListener changeEventListener;
 
     public enum ValueBoxSize {
@@ -87,31 +87,31 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     }
 
     public T floating() {
-        labelElement.classList.add("focused");
+        labelElement.classList.add(FOCUSED);
         showPlaceholder();
         this.floating = true;
         return (T) this;
     }
 
     public T nonfloating() {
-        labelElement.classList.remove("focused");
+        labelElement.classList.remove(FOCUSED);
         hidePlaceholder();
         this.floating = false;
         return (T) this;
     }
 
     public boolean isFloating() {
-        return labelElement.classList.contains("focused");
+        return labelElement.classList.contains(FOCUSED);
     }
 
     @Override
     public T focus() {
-        if (valid)
-            inputElement.classList.add("fc-" + focusColor.getStyle());
+        inputElement.classList.add(FOCUSED);
         if (!floating) {
-            labelElement.classList.add("focused");
+            labelElement.classList.add(FOCUSED);
         }
         if (valid) {
+            inputElement.classList.add("fc-" + focusColor.getStyle());
             setLabelColor(focusColor);
             setLeftAddonColor(focusColor);
         }
@@ -122,8 +122,9 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     @Override
     public T unfocus() {
         inputElement.classList.remove("fc-" + focusColor.getStyle());
+        inputElement.classList.remove(FOCUSED);
         if (!floating && isEmpty()) {
-            labelElement.classList.remove("focused");
+            labelElement.classList.remove(FOCUSED);
         }
         removeLabelColor(focusColor);
         removeLeftAddonColor(focusColor);
@@ -143,7 +144,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
 
     @Override
     public boolean isFocused() {
-        return inputElement.classList.contains("focused");
+        return inputElement.classList.contains(FOCUSED);
     }
 
     private void setLabelColor(Color color) {
@@ -203,6 +204,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         return this.placeholder;
     }
 
+    @Override
     public T setFocusColor(Color focusColor) {
         removeLabelColor(this.focusColor);
         if (isFocused()) {
@@ -283,9 +285,12 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         inputElement.classList.add("fc-" + focusColor.getStyle());
         inputElement.classList.remove("fc-" + Color.RED.getStyle());
         removeLabelColor(Color.RED);
-        setLabelColor(focusColor);
         removeLeftAddonColor(Color.RED);
-        setLeftAddonColor(focusColor);
+        if (isFocused()) {
+            focus();
+        } else {
+            unfocus();
+        }
         return super.clearInvalid();
     }
 
