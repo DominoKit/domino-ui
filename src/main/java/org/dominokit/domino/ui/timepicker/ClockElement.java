@@ -11,11 +11,11 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 class ClockElement {
 
-    private static final double outerRadius = 112;
-    private static final double innerRadius = 82;
+    private static final double outerRadius = 92;
+    private static final double innerRadius = 62;
 
-    private final double centerX = 150;
-    private final double centerY = 137;
+    private final double centerX = 135;
+    private final double centerY = 127;
     private final double radius = 20;
 
     private final double x;
