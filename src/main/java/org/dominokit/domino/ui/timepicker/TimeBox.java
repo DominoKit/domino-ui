@@ -72,17 +72,6 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
         timePicker.addClearHandler(() -> setValue(null));
         setPickerStyle(PickerStyle.MODAL);
 
-        timePicker.setColorSchemeHandler((oldColorScheme, newColorScheme) -> {
-            if (nonNull(modal)) {
-                modal.getHeaderContainerElement().classList.remove(oldColorScheme.color().getStyle());
-                modal.getHeaderContainerElement().classList.add(newColorScheme.color().getStyle());
-            }
-
-            if (nonNull(popover)) {
-                popover.getHeadingElement().classList.remove(oldColorScheme.color().getStyle());
-                popover.getHeadingElement().classList.add(newColorScheme.color().getStyle());
-            }
-        });
     }
 
     public static TimeBox create() {
@@ -149,15 +138,6 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
     @Override
     public TimeBox setPlaceholder(String placeholder) {
         getInputElement().placeholder = placeholder;
-        if (nonNull(modal)) {
-            modal.setTitle(placeholder);
-            modal.getHeaderContainerElement().classList.add(timePicker.getColorScheme().color().getStyle());
-        }
-
-        if (nonNull(popover)) {
-            popover.getHeaderText().textContent = placeholder;
-            popover.getHeadingElement().classList.add(timePicker.getColorScheme().color().getStyle());
-        }
         return this;
     }
 
@@ -179,12 +159,11 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
             }
 
             if (isNull(popover)) {
-                popover = Popover.create(this.asElement(), getPlaceholder(), this.timePicker.asElement());
+                popover = Popover.createPicker(this.asElement(), this.timePicker.asElement());
                 popover.getContentElement().style.setProperty("padding", "0px", "important");
-                popover.getContentElement().style.setProperty("width", "300px", "important");
+                popover.getContentElement().style.setProperty("width", "270px", "important");
                 popover.position(this.popupPosition)
                         .asElement().style.setProperty("max-width", "none", "important");
-                popover.getHeadingElement().classList.add(Styles.align_center, timePicker.getColorScheme().color().getStyle());
             }
         }
 
