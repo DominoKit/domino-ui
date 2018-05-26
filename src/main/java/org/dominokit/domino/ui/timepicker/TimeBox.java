@@ -33,15 +33,12 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
     }
 
     public TimeBox(Time time) {
-        this.timePicker = TimePicker.create();
-        this.timePicker.setTime(time);
-        init();
+        this("", time);
     }
 
     public TimeBox(String placeholder, Time time) {
         super("text", placeholder);
-        this.timePicker = timePicker.create();
-
+        this.timePicker = TimePicker.create();
         this.timePicker.setTime(time);
         init();
     }
@@ -51,14 +48,6 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
         this.timePicker = TimePicker.create(dateTimeFormatInfo);
         this.timePicker.setTime(time);
         init();
-    }
-
-    @Override
-    protected HTMLInputElement createElement(String type, String placeholder) {
-        return Elements.input("text").css("form-control")
-                .attr("placeholder", placeholder)
-                .attr("readOnly", "true")
-                .asElement();
     }
 
     private void init() {
@@ -119,6 +108,11 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
     }
 
     @Override
+    public TimeBox clear() {
+        return null;
+    }
+
+    @Override
     public void setValue(Time value) {
         if (nonNull(value))
             this.timePicker.setTime(value);
@@ -129,10 +123,10 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
 
     private void setStringValue(Time time, DateTimeFormatInfo dateTimeFormatInfo, TimePicker picker) {
         if (nonNull(time))
-            this.inputElement.value = picker.getFormattedTime();
+            this.getInputElement().value = picker.getFormattedTime();
         else
-            this.inputElement.value = "";
-        this.value= time;
+            this.getInputElement().value = "";
+        this.value = time;
     }
 
     @Override
@@ -142,12 +136,19 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
 
     @Override
     public String getPlaceholder() {
-        return inputElement.placeholder;
+        return getInputElement().placeholder;
+    }
+
+    @Override
+    protected HTMLInputElement createInputElement(String type) {
+        return Elements.input("text").css("form-control")
+                .attr("readOnly", "true")
+                .asElement();
     }
 
     @Override
     public TimeBox setPlaceholder(String placeholder) {
-        inputElement.placeholder = placeholder;
+        getInputElement().placeholder = placeholder;
         if (nonNull(modal)) {
             modal.setTitle(placeholder);
             modal.getHeaderContainerElement().classList.add(timePicker.getColorScheme().color().getStyle());

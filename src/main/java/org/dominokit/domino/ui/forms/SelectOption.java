@@ -11,8 +11,8 @@ import org.dominokit.domino.ui.utils.Selectable;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
-public class DropDownOption implements IsElement<HTMLLIElement>, HasValue<String>,
-        HasBackground<DropDownOption>, Selectable<DropDownOption> {
+public class SelectOption implements IsElement<HTMLLIElement>, HasValue<String>,
+        HasBackground<SelectOption>, Selectable<SelectOption> {
 
     private static final String SELECTED = "selected";
     private String displayValue;
@@ -22,10 +22,10 @@ public class DropDownOption implements IsElement<HTMLLIElement>, HasValue<String
     private HTMLElement valueContainer;
     private HTMLElement checkMark;
 
-    public DropDownOption(String value, String displayValue) {
+    public SelectOption(String value, String displayValue) {
         li = Elements.li().asElement();
-        aElement = Elements.a().attr("tabindex", "0")
-                .attr("data-tokens", "null").asElement();
+        aElement = Elements.a().attr("data-tokens", "null")
+                .attr("tabindex", "0").asElement();
         valueContainer = Elements.span().css("text").asElement();
         aElement.appendChild(valueContainer);
         li.appendChild(aElement);
@@ -34,24 +34,19 @@ public class DropDownOption implements IsElement<HTMLLIElement>, HasValue<String
         setDisplayValue(displayValue);
     }
 
-    public DropDownOption(String value) {
+    public SelectOption(String value) {
         this(value, value);
     }
 
-    public static DropDownOption create(String value, String displayValue) {
-        return new DropDownOption(value, displayValue);
+    public static SelectOption create(String value, String displayValue) {
+        return new SelectOption(value, displayValue);
     }
 
-    public static DropDownOption create(String value) {
-        return new DropDownOption(value);
+    public static SelectOption create(String value) {
+        return new SelectOption(value);
     }
 
-    @Override
-    public HTMLLIElement asElement() {
-        return li;
-    }
-
-    public DropDownOption appendContent(Node node) {
+    public SelectOption appendContent(Node node) {
         aElement.appendChild(node);
         return this;
     }
@@ -70,33 +65,34 @@ public class DropDownOption implements IsElement<HTMLLIElement>, HasValue<String
         return displayValue;
     }
 
-    public DropDownOption setDisplayValue(String displayValue) {
+    public SelectOption setDisplayValue(String displayValue) {
         this.displayValue = displayValue;
         valueContainer.textContent = displayValue;
         return this;
     }
 
     @Override
-    public DropDownOption select() {
+    public SelectOption select() {
         return select(false);
     }
 
     @Override
-    public DropDownOption deselect() {
+    public SelectOption deselect() {
         return deselect(false);
     }
 
     @Override
-    public DropDownOption select(boolean silent) {
+    public SelectOption select(boolean silent) {
         asElement().classList.add(SELECTED);
         aElement.appendChild(checkMark);
         return this;
     }
 
     @Override
-    public DropDownOption deselect(boolean silent) {
+    public SelectOption deselect(boolean silent) {
         asElement().classList.remove(SELECTED);
-        aElement.removeChild(checkMark);
+        if (aElement.contains(checkMark))
+            aElement.removeChild(checkMark);
         return this;
     }
 
@@ -106,9 +102,14 @@ public class DropDownOption implements IsElement<HTMLLIElement>, HasValue<String
     }
 
     @Override
-    public DropDownOption setBackground(Color background) {
+    public SelectOption setBackground(Color background) {
         asElement().classList.add(background.getBackground());
         return this;
+    }
+
+    @Override
+    public HTMLLIElement asElement() {
+        return li;
     }
 
     public HTMLElement getCheckMark() {
@@ -117,5 +118,9 @@ public class DropDownOption implements IsElement<HTMLLIElement>, HasValue<String
 
     public HTMLElement getValueContainer() {
         return valueContainer;
+    }
+
+    public void focus() {
+        aElement.focus();
     }
 }
