@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.*;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.utils.BodyObserver;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -45,12 +46,8 @@ public class Popover implements IsElement<HTMLDivElement> {
         contentElement.appendChild(content);
 
         showListener = evt -> {
-            if (nonNull(currentVisible) && closeOthers) {
-                closeOthers();
-            }
             evt.stopPropagation();
-            open(target);
-            currentVisible.add(Popover.this);
+            show();
         };
         target.addEventListener(EventType.click.getName(), showListener);
 
@@ -61,6 +58,14 @@ public class Popover implements IsElement<HTMLDivElement> {
 
         BodyObserver.observeRemoval(targetElement, mutationRecord -> element.remove());
 
+    }
+
+    public void show() {
+        if (nonNull(currentVisible) && closeOthers) {
+            closeOthers();
+        }
+        open(targetElement);
+        currentVisible.add(Popover.this);
     }
 
     private void closeAll() {
