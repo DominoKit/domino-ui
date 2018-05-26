@@ -108,8 +108,8 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
     }
 
     @Override
-    public TimeBox clear() {
-        return null;
+    protected void clearValue() {
+        setValue(null);
     }
 
     @Override
