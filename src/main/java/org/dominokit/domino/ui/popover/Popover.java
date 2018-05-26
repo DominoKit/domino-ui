@@ -96,6 +96,14 @@ public class Popover implements IsElement<HTMLDivElement> {
         DomGlobal.document.removeEventListener(EventType.click.getName(), closeListener);
     }
 
+    public static Popover createPicker(HTMLElement target, Node content) {
+        Popover popover = new Popover(target, "", content);
+        popover.getHeadingElement().style.display="none";
+        popover.getContentElement().style.setProperty("padding","0px");
+
+        return popover;
+    }
+
     public static Popover create(HTMLElement target, String title, Node content) {
         return new Popover(target, title, content);
     }
