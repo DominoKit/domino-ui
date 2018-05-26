@@ -24,8 +24,7 @@ public class SelectOption implements IsElement<HTMLLIElement>, HasValue<String>,
 
     public SelectOption(String value, String displayValue) {
         li = Elements.li().asElement();
-        aElement = Elements.a().attr("tabindex", "0")
-                .attr("data-tokens", "null").asElement();
+        aElement = Elements.a().attr("data-tokens", "null").asElement();
         valueContainer = Elements.span().css("text").asElement();
         aElement.appendChild(valueContainer);
         li.appendChild(aElement);
@@ -91,7 +90,8 @@ public class SelectOption implements IsElement<HTMLLIElement>, HasValue<String>,
     @Override
     public SelectOption deselect(boolean silent) {
         asElement().classList.remove(SELECTED);
-        aElement.removeChild(checkMark);
+        if (aElement.contains(checkMark))
+            aElement.removeChild(checkMark);
         return this;
     }
 

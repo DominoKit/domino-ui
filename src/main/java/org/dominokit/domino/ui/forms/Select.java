@@ -25,7 +25,7 @@ public class Select extends BasicFormElement<Select, String> {
     private List<SelectOption> options = new LinkedList<>();
     private SelectOption selectedOption;
     private List<SelectionHandler> selectionHandlers = new ArrayList<>();
-    private SelectionHandler selectionHandler;
+    private SelectionHandler autoValidationHandler;
 
     public Select() {
         DomGlobal.document.addEventListener(CLICK, evt -> {
@@ -231,6 +231,7 @@ public class Select extends BasicFormElement<Select, String> {
     public Select clear() {
         getOptions().forEach(selectOption -> selectOption.deselect(true));
         selectedOption = null;
+        selectElement.getSelectedValueContainer().textContent = "";
         return this;
     }
 
@@ -282,6 +283,20 @@ public class Select extends BasicFormElement<Select, String> {
 
     public HTMLElement getSelectedValueContainer() {
         return selectElement.getSelectedValueContainer();
+    }
+
+    @Override
+    public Select setAutoValidation(boolean autoValidation) {
+        if (autoValidation) {
+            if (isNull(autoValidationHandler)) {
+                autoValidationHandler = option -> validate();
+                addSelectionHandler(autoValidationHandler);
+            }
+        } else {
+            removeSelectionHandler(autoValidationHandler);
+            autoValidationHandler = null;
+        }
+        return this;
     }
 
     @Override

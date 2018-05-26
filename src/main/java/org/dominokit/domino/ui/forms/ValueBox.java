@@ -7,6 +7,8 @@ import org.dominokit.domino.ui.utils.Focusable;
 import org.dominokit.domino.ui.utils.HasPlaceHolder;
 import org.jboss.gwt.elemento.core.Elements;
 
+import static java.util.Objects.nonNull;
+
 public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> extends BasicFormElement<T, V> implements
         Focusable<T>, HasPlaceHolder<T> {
 
@@ -24,6 +26,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     private Element rightAddon;
     private boolean valid = true;
     private EventListener validateOnBlurListener;
+    private EventListener changeEventListener;
 
     public enum ValueBoxSize {
         LARGE("lg"),
@@ -277,10 +280,26 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     @Override
     public T clearInvalid() {
         this.valid = true;
+        inputElement.classList.add("fc-" + focusColor.getStyle());
         inputElement.classList.remove("fc-" + Color.RED.getStyle());
         removeLabelColor(Color.RED);
+        setLabelColor(focusColor);
         removeLeftAddonColor(Color.RED);
-        setFocusColor(focusColor);
+        setLeftAddonColor(focusColor);
         return super.clearInvalid();
+    }
+
+    @Override
+    public T setAutoValidation(boolean autoValidation) {
+        if (autoValidation) {
+            if (changeEventListener == null) {
+                changeEventListener = evt -> validate();
+                getInputElement().addEventListener("input", changeEventListener);
+            }
+        } else {
+            if (nonNull(changeEventListener))
+                getInputElement().removeEventListener("input", changeEventListener);
+        }
+        return (T) this;
     }
 }
