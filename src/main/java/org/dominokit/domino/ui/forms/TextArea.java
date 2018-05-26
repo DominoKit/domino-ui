@@ -54,9 +54,8 @@ public class TextArea extends AbstractTextBox<TextArea, HTMLTextAreaElement> {
     }
 
     @Override
-    public TextArea clear() {
+    protected void clearValue() {
         setValue("");
-        return this;
     }
 
     @Override

@@ -27,6 +27,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     private Element rightAddon;
     private boolean valid = true;
     private EventListener changeEventListener;
+    private boolean autoValidation;
 
     public enum ValueBoxSize {
         LARGE("lg"),
@@ -296,6 +297,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
 
     @Override
     public T setAutoValidation(boolean autoValidation) {
+        this.autoValidation = autoValidation;
         if (autoValidation) {
             if (changeEventListener == null) {
                 changeEventListener = evt -> validate();
@@ -307,4 +309,14 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         }
         return (T) this;
     }
+
+    @Override
+    public T clear() {
+        clearValue();
+        if (autoValidation)
+            validate();
+        return (T) this;
+    }
+
+    protected abstract void clearValue();
 }
