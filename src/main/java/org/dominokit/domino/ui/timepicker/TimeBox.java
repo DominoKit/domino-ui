@@ -1,8 +1,7 @@
 package org.dominokit.domino.ui.timepicker;
 
-import elemental2.dom.DomGlobal;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLInputElement;
+import elemental2.dom.*;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
@@ -27,6 +26,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
 
     private PickerStyle pickerStyle;
     private Time value;
+    private EventListener keyboardModalListener;
 
     public TimeBox() {
         this(new Time());
@@ -53,6 +53,15 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
     private void init() {
         this.timePicker.addTimeSelectionHandler(this::setStringValue);
         this.modalListener = evt -> modal.open();
+        this.keyboardModalListener = event -> {
+            event.stopPropagation();
+            KeyboardEvent keyboardEvent = Js.cast(event);
+            if (keyboardEvent.code.equals("Enter")) {
+                modal.open();
+            }else if(keyboardEvent.code.equals("Escape")){
+                modal.close();
+            }
+        };
         BodyObserver.observeRemoval(asElement(), mutationRecord -> {
             if (nonNull(popover))
                 popover.discard();
@@ -154,6 +163,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
         if (!PickerStyle.POPOVER.equals(this.pickerStyle)) {
             if (nonNull(modal)) {
                 asElement().removeEventListener(EventType.click.getName(), modalListener);
+                asElement().removeEventListener(EventType.keypress.getName(), keyboardModalListener);
                 modal.close();
                 modal.asElement().remove();
             }
@@ -164,6 +174,16 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
                 popover.getContentElement().style.setProperty("width", "270px", "important");
                 popover.position(this.popupPosition)
                         .asElement().style.setProperty("max-width", "none", "important");
+
+                asElement().addEventListener(EventType.keydown.getName(), event ->{
+                    KeyboardEvent keyboardEvent= Js.cast(event);
+                    event.stopPropagation();
+                    if(keyboardEvent.code.equals("Enter")){
+                        popover.show();
+                    }else if(keyboardEvent.code.equals("Escape")){
+                        popover.close();
+                    }
+                });
             }
         }
 
@@ -180,6 +200,8 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
                 this.modal = ModalDialog.createPickerModal(getPlaceholder(), timePicker.getColorScheme(), this.timePicker.asElement());
                 DomGlobal.document.body.appendChild(modal.asElement());
                 asElement().addEventListener(EventType.click.getName(), modalListener);
+
+                asElement().addEventListener(EventType.keydown.getName(), keyboardModalListener);
             }
         }
         this.pickerStyle = PickerStyle.MODAL;
