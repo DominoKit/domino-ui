@@ -4852,7 +4852,7 @@ public interface Color {
         }
     };
 
-    Color THEME=new Color() {
+    Color THEME = new Color() {
         @Override
         public String getStyle() {
             return "col-theme";
@@ -4873,9 +4873,6 @@ public interface Color {
             return "bg-theme";
         }
     };
-
-
-
 
 
     public static void main(String[] args) {
@@ -4908,22 +4905,27 @@ public interface Color {
     static void generateColorStyle(ColorScheme color) {
 
         generateStyle(color.color().getStyle(), color.color().getHex());
-        generateStyle(color.lighten_1().getStyle(), color.lighten_1().getHex());
-        generateStyle(color.lighten_2().getStyle(), color.lighten_2().getHex());
-        generateStyle(color.lighten_3().getStyle(), color.lighten_3().getHex());
-        generateStyle(color.lighten_4().getStyle(), color.lighten_4().getHex());
-        generateStyle(color.lighten_5().getStyle(), color.lighten_5().getHex());
-        generateStyle(color.darker_1().getStyle(), color.darker_1().getHex());
-        generateStyle(color.darker_2().getStyle(), color.darker_2().getHex());
-        generateStyle(color.darker_3().getStyle(), color.darker_3().getHex());
-        generateStyle(color.darker_4().getStyle(), color.darker_4().getHex());
+//        generateStyle(color.lighten_1().getStyle(), color.lighten_1().getHex());
+//        generateStyle(color.lighten_2().getStyle(), color.lighten_2().getHex());
+//        generateStyle(color.lighten_3().getStyle(), color.lighten_3().getHex());
+//        generateStyle(color.lighten_4().getStyle(), color.lighten_4().getHex());
+//        generateStyle(color.lighten_5().getStyle(), color.lighten_5().getHex());
+//        generateStyle(color.darker_1().getStyle(), color.darker_1().getHex());
+//        generateStyle(color.darker_2().getStyle(), color.darker_2().getHex());
+//        generateStyle(color.darker_3().getStyle(), color.darker_3().getHex());
+//        generateStyle(color.darker_4().getStyle(), color.darker_4().getHex());
 
     }
 
+    /*
+
+    .theme-red .col-theme {
+    color: #asdasd !important;
+}
+     */
     static void generateStyle(String style, String hex) {
-        System.out.println("\n."+style+" {\n" +
-                "  color: "+hex+" !important; }");
+        System.out.println(".theme-" + style.replace("col-", "") + " .col-theme {");
+        System.out.println("color: " + hex + " !important;");
+        System.out.println("}");
     }
-
-
 }

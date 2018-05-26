@@ -7,7 +7,7 @@ import org.jboss.gwt.elemento.core.Elements;
 
 import static java.util.Objects.nonNull;
 
-public class TextArea extends ValueBox<TextArea, HTMLTextAreaElement, String> {
+public class TextArea extends AbstractTextBox<TextArea, HTMLTextAreaElement> {
 
     private EventListener autosizeListener = evt -> adjustHeight();
     private int rows;
@@ -16,23 +16,22 @@ public class TextArea extends ValueBox<TextArea, HTMLTextAreaElement, String> {
         this("");
     }
 
-    public TextArea(String placeholder) {
-        super(placeholder);
+    public TextArea(String label) {
+        super("", label);
         setRows(4);
-    }
-
-    @Override
-    protected HTMLTextAreaElement createElement(String type, String placeholder) {
-        return Elements.textarea().css("form-control no-resize")
-                .attr("placeholder", placeholder).asElement();
     }
 
     public static TextArea create() {
         return new TextArea();
     }
 
-    public static TextArea create(String placeholder) {
-        return new TextArea(placeholder);
+    public static TextArea create(String label) {
+        return new TextArea(label);
+    }
+
+    @Override
+    protected HTMLTextAreaElement createInputElement(String type) {
+        return Elements.textarea().css("form-control no-resize").asElement();
     }
 
     public TextArea setRows(int rows) {
@@ -42,12 +41,12 @@ public class TextArea extends ValueBox<TextArea, HTMLTextAreaElement, String> {
     }
 
     private void updateRows(int rows) {
-        inputElement.setAttribute("rows", rows + "");
+        getInputElement().setAttribute("rows", rows + "");
     }
 
     @Override
     public void setValue(String value) {
-        inputElement.value = value;
+        getInputElement().value = value;
         if (nonNull(value) && !value.isEmpty())
             focus();
         else
@@ -55,48 +54,37 @@ public class TextArea extends ValueBox<TextArea, HTMLTextAreaElement, String> {
     }
 
     @Override
+    public TextArea clear() {
+        setValue("");
+        return this;
+    }
+
+    @Override
     public String getValue() {
-        return inputElement.value;
+        return getInputElement().value;
     }
 
     public TextArea autoSize() {
-        inputElement.addEventListener("input", autosizeListener);
-        inputElement.style.overflow = "hidden";
+        getInputElement().addEventListener("input", autosizeListener);
+        getInputElement().style.overflow = "hidden";
         updateRows(1);
         return this;
     }
 
     public TextArea fixedSize() {
-        inputElement.removeEventListener("input", autosizeListener);
-        inputElement.style.overflow = "";
+        getInputElement().removeEventListener("input", autosizeListener);
+        getInputElement().style.overflow = "";
         setRows(rows);
         return this;
     }
 
     private void adjustHeight() {
-        inputElement.style.height = CSSProperties.HeightUnionType.of("auto");
-        inputElement.style.height = CSSProperties.HeightUnionType.of(inputElement.scrollHeight + "px");
+        getInputElement().style.height = CSSProperties.HeightUnionType.of("auto");
+        getInputElement().style.height = CSSProperties.HeightUnionType.of(getInputElement().scrollHeight + "px");
     }
 
     @Override
     public boolean isEmpty() {
         return getValue().isEmpty();
     }
-
-    @Override
-    public String getPlaceholder() {
-        return inputElement.getAttribute("placeholder");
-    }
-
-    @Override
-    public TextArea setPlaceholder(String placeholder) {
-        inputElement.setAttribute("placeholder", placeholder);
-        return this;
-    }
-
-    @Override
-    public HTMLTextAreaElement getInputElement() {
-        return inputElement;
-    }
-
 }
