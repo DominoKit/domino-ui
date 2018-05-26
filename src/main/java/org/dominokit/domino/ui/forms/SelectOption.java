@@ -24,7 +24,8 @@ public class SelectOption implements IsElement<HTMLLIElement>, HasValue<String>,
 
     public SelectOption(String value, String displayValue) {
         li = Elements.li().asElement();
-        aElement = Elements.a().attr("data-tokens", "null").asElement();
+        aElement = Elements.a().attr("data-tokens", "null")
+                .attr("tabindex", "0").asElement();
         valueContainer = Elements.span().css("text").asElement();
         aElement.appendChild(valueContainer);
         li.appendChild(aElement);
@@ -117,5 +118,9 @@ public class SelectOption implements IsElement<HTMLLIElement>, HasValue<String>,
 
     public HTMLElement getValueContainer() {
         return valueContainer;
+    }
+
+    public void focus() {
+        aElement.focus();
     }
 }
