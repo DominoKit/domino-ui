@@ -3,7 +3,6 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Objects.isNull;
@@ -31,7 +30,8 @@ public class BodyObserver {
 
     private static void onAppend(MutationRecord record) {
         List<ElementObserver> observed=new ArrayList<>();
-        appendObservers.forEach(elementObserver -> {
+        for(int i=0;i<appendObservers.size(); i++){
+            ElementObserver elementObserver=appendObservers.get(i);
             if (isNull(elementObserver.observedElement())) {
                 observed.add(elementObserver);
             } else {
@@ -40,14 +40,15 @@ public class BodyObserver {
                     observed.add(elementObserver);
                 }
             }
-        });
+        }
 
         appendObservers.removeAll(observed);
     }
 
     private static void onRemoval(MutationRecord record) {
         List<ElementObserver> observed=new ArrayList<>();
-        removalObservers.forEach(elementObserver -> {
+        for(int i=0;i<removalObservers.size(); i++) {
+            ElementObserver elementObserver=removalObservers.get(i);
             if (isNull(elementObserver.observedElement())) {
                 observed.add(elementObserver);
             } else {
@@ -56,7 +57,7 @@ public class BodyObserver {
                     observed.add(elementObserver);
                 }
             }
-        });
+        }
 
         removalObservers.removeAll(observed);
     }
