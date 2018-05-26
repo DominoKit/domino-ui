@@ -14,6 +14,7 @@ public class ElementValidations {
     private FormElement element;
     private List<Validator> validators = new ArrayList<>();
     private Validator requiredValidator;
+    private boolean invalidated;
 
     public ElementValidations(FormElement element) {
         this.element = element;
@@ -24,10 +25,14 @@ public class ElementValidations {
             ValidationResult result = validator.isValid();
             if (!result.isValid()) {
                 element.invalidate(result.getErrorMessage());
+                this.invalidated = true;
                 return false;
             }
         }
-        element.clearInvalid();
+        if (invalidated) {
+            element.clearInvalid();
+            invalidated = false;
+        }
         return true;
     }
 

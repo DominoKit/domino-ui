@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.Focusable;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
@@ -12,13 +13,17 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-public class Select extends BasicFormElement<Select, String> {
+public class Select extends BasicFormElement<Select, String> implements Focusable<Select> {
 
     private static final String OPEN = "open";
     private static final String CLICK = "click";
+    private static final String KEYDOWN = "keydown";
+    public static final String FOCUSED = "focused";
+
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
     private SelectElement selectElement = SelectElement.create();
     private HTMLLabelElement labelElement = Elements.label().css("form-label").asElement();
@@ -26,25 +31,61 @@ public class Select extends BasicFormElement<Select, String> {
     private SelectOption selectedOption;
     private List<SelectionHandler> selectionHandlers = new ArrayList<>();
     private SelectionHandler autoValidationHandler;
+    private Color focusColor = Color.BLUE;
 
     public Select() {
-        DomGlobal.document.addEventListener(CLICK, evt -> {
-            HTMLElement element = Js.cast(evt.target);
+        initListeners();
+        container.appendChild(labelElement);
+        container.appendChild(selectElement.asElement());
+    }
+
+    private void initListeners() {
+        document.addEventListener(CLICK, evt -> {
+            HTMLElement element = Js.uncheckedCast(evt.target);
             if (!element.isEqualNode(this.selectElement.asElement()))
                 hideAllMenus();
         });
-        this.selectElement.getSelectButton().addEventListener(CLICK, evt -> {
-            if (isEnabled()) {
-                hideAllMenus();
-                open();
-            }
+
+        document.body.addEventListener(KEYDOWN, new NavigateOptionsKeyListener());
+
+        selectElement.getSelectButton().addEventListener(CLICK, evt -> {
+            doOpen();
+            focus();
             evt.stopPropagation();
         });
-        this.selectElement.getSelectButton().addEventListener("focus", evt -> {
-            this.selectElement.getSelectButton().blur();
+        selectElement.getSelectMenu().addEventListener("focusin", evt -> focus());
+        selectElement.getSelectMenu().addEventListener("focusout", evt -> unfocus());
+        selectElement.getSelectButton().addEventListener("focus", evt -> selectElement.getSelectButton().blur());
+        selectElement.getSelectMenu().addEventListener(KEYDOWN, evt -> {
+            KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
+            if (isSpaceKey(keyboardEvent) || isEnterKey(keyboardEvent)) {
+                doOpen();
+                evt.preventDefault();
+            }
         });
-        container.appendChild(labelElement);
-        container.appendChild(selectElement.asElement());
+    }
+
+    private boolean isKeyOf(String keyCode, KeyboardEvent keyboardEvent) {
+        return keyCode.equalsIgnoreCase(keyboardEvent.code);
+    }
+
+    private boolean isEnterKey(KeyboardEvent keyboardEvent) {
+        return isKeyOf("enter", keyboardEvent);
+    }
+
+    private boolean isSpaceKey(KeyboardEvent keyboardEvent) {
+        return isKeyOf("space", keyboardEvent);
+    }
+
+    private void doOpen() {
+        if (isEnabled()) {
+            hideAllMenus();
+            open();
+            if (nonNull(getSelectedOption()))
+                getSelectedOption().focus();
+            else if (!options.isEmpty())
+                options.get(0).focus();
+        }
     }
 
     public Select(String label) {
@@ -61,13 +102,13 @@ public class Select extends BasicFormElement<Select, String> {
         options.forEach(this::addOption);
     }
 
-    private void open() {
+    public void open() {
         selectElement.asElement().classList.add(OPEN);
     }
 
 
-    public static void hideAllMenus() {
-        NodeList<Element> elementsByName = DomGlobal.document.body
+    public void hideAllMenus() {
+        NodeList<Element> elementsByName = document.body
                 .getElementsByClassName("bootstrap-select");
         for (int i = 0; i < elementsByName.length; i++) {
             Element item = elementsByName.item(i);
@@ -76,12 +117,17 @@ public class Select extends BasicFormElement<Select, String> {
         }
     }
 
-    private static void close(Element item) {
+    private void close(Element item) {
         item.classList.remove(OPEN);
+        unfocus();
     }
 
-    private void close() {
+    public void close() {
         close(selectElement.asElement());
+    }
+
+    private boolean isOpened() {
+        return selectElement.asElement().classList.contains(OPEN);
     }
 
     public static Select create() {
@@ -103,14 +149,18 @@ public class Select extends BasicFormElement<Select, String> {
     public Select addOption(SelectOption option) {
         options.add(option);
         option.asElement().addEventListener(CLICK, evt -> {
-            if (isEnabled()) {
-                select(option);
-                close();
-                evt.stopPropagation();
-            }
+            doSelectOption(option);
+            evt.stopPropagation();
         });
         appendOptionValue(option);
         return this;
+    }
+
+    private void doSelectOption(SelectOption option) {
+        if (isEnabled()) {
+            select(option);
+            close();
+        }
     }
 
     private void appendOptionValue(SelectOption option) {
@@ -260,6 +310,36 @@ public class Select extends BasicFormElement<Select, String> {
         return this;
     }
 
+    @Override
+    public Select focus() {
+        selectElement.getSelectMenu().classList.add(FOCUSED);
+        labelElement.classList.add(focusColor.getStyle());
+        selectElement.asElement().classList.add("fc-" + focusColor.getStyle());
+        return this;
+    }
+
+    @Override
+    public Select unfocus() {
+        selectElement.getSelectMenu().classList.remove(FOCUSED);
+        labelElement.classList.remove(focusColor.getStyle());
+        selectElement.asElement().classList.remove("fc-" + focusColor.getStyle());
+        return this;
+    }
+
+    @Override
+    public boolean isFocused() {
+        return selectElement.getSelectMenu().classList.contains(FOCUSED);
+    }
+
+    @Override
+    public Select setFocusColor(Color focusColor) {
+        unfocus();
+        this.focusColor = focusColor;
+        if (isFocused())
+            focus();
+        return this;
+    }
+
     @FunctionalInterface
     public interface SelectionHandler {
         void onSelection(SelectOption option);
@@ -355,6 +435,48 @@ public class Select extends BasicFormElement<Select, String> {
 
         public HTMLElement getSelectedValueContainer() {
             return selectedValueContainer;
+        }
+    }
+
+    private final class NavigateOptionsKeyListener implements EventListener {
+
+        @Override
+        public void handleEvent(Event evt) {
+            KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
+            HTMLElement element = Js.uncheckedCast(keyboardEvent.target);
+            for (SelectOption option : options) {
+                if (option.asElement().contains(element)) {
+                    if (isKeyOf("ArrowUp", keyboardEvent))
+                        focusPrev(option);
+                    else if (isKeyOf("ArrowDown", keyboardEvent))
+                        focusNext(option);
+
+                    if (isEnterKey(keyboardEvent) ||
+                            isSpaceKey(keyboardEvent)
+                            || isKeyOf("tab", keyboardEvent)) {
+                        doSelectOption(option);
+                    }
+                    evt.preventDefault();
+                }
+            }
+        }
+
+        private void focusNext(SelectOption option) {
+            int i = options.indexOf(option);
+            if (i == options.size() - 1) {
+                options.get(0).focus();
+            } else {
+                options.get(i + 1).focus();
+            }
+        }
+
+        private void focusPrev(SelectOption option) {
+            int i = options.indexOf(option);
+            if (i == 0) {
+                options.get(options.size() - 1).focus();
+            } else {
+                options.get(i - 1).focus();
+            }
         }
     }
 }
