@@ -201,7 +201,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             }
 
             if (isNull(popover)) {
-                popover = Popover.create(this.asElement(), getPlaceholder(), this.datePicker.asElement());
+                popover = Popover.createPicker(this.asElement(), this.datePicker.asElement());
                 popover.getContentElement().style.setProperty("padding", "0px", "important");
                 popover.getContentElement().style.setProperty("width", "300px", "important");
                 popover.position(this.popupPosition)
