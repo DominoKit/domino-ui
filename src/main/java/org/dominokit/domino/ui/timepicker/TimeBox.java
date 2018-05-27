@@ -163,7 +163,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
         if (!PickerStyle.POPOVER.equals(this.pickerStyle)) {
             if (nonNull(modal)) {
                 asElement().removeEventListener(EventType.click.getName(), modalListener);
-                asElement().removeEventListener(EventType.keypress.getName(), keyboardModalListener);
+                asElement().removeEventListener(EventType.keydown.getName(), keyboardModalListener);
                 modal.close();
                 modal.asElement().remove();
             }
