@@ -11304,7 +11304,6 @@ fieldset[disabled] .form-control {
     font-family: "Roboto", sans-serif;
     background: #fdfdfd;
     width: 300px;
-    overflow: hidden;
     display: inline-block;
     height: calc(100vh - 70px);
     position: fixed;
