@@ -1,12 +1,14 @@
 package org.dominokit.domino.ui.timepicker;
 
-import elemental2.dom.*;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLInputElement;
+import elemental2.dom.KeyboardEvent;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
-import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BodyObserver;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.Elements;
@@ -37,28 +39,28 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
     }
 
     public TimeBox(String placeholder, Time time) {
-        super("text", placeholder);
-        this.timePicker = TimePicker.create();
-        this.timePicker.setTime(time);
-        init();
+        this(placeholder, time, null);
     }
 
     public TimeBox(String placeholder, Time time, DateTimeFormatInfo dateTimeFormatInfo) {
         super("text", placeholder);
-        this.timePicker = TimePicker.create(dateTimeFormatInfo);
-        this.timePicker.setTime(time);
+        if (nonNull(dateTimeFormatInfo))
+            this.timePicker = TimePicker.create(dateTimeFormatInfo);
+        else
+            this.timePicker = TimePicker.create();
+        setValue(time);
         init();
     }
 
     private void init() {
-        this.timePicker.addTimeSelectionHandler(this::setStringValue);
+        this.timePicker.addTimeSelectionHandler((time, dateTimeFormatInfo, picker) -> setStringValue(time, picker));
         this.modalListener = evt -> modal.open();
         this.keyboardModalListener = event -> {
             event.stopPropagation();
             KeyboardEvent keyboardEvent = Js.cast(event);
             if (keyboardEvent.code.equals("Enter")) {
                 modal.open();
-            }else if(keyboardEvent.code.equals("Escape")){
+            } else if (keyboardEvent.code.equals("Escape")) {
                 modal.close();
             }
         };
@@ -111,15 +113,15 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
     }
 
     @Override
-    public void setValue(Time value) {
+    protected void doSetValue(Time value) {
         if (nonNull(value))
             this.timePicker.setTime(value);
 
-        setStringValue(value, timePicker.getDateTimeFormatInfo(), timePicker);
+        setStringValue(value, timePicker);
         this.value = value;
     }
 
-    private void setStringValue(Time time, DateTimeFormatInfo dateTimeFormatInfo, TimePicker picker) {
+    private void setStringValue(Time time, TimePicker picker) {
         if (nonNull(time))
             this.getInputElement().value = picker.getFormattedTime();
         else
@@ -175,12 +177,12 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
                 popover.position(this.popupPosition)
                         .asElement().style.setProperty("max-width", "none", "important");
 
-                asElement().addEventListener(EventType.keydown.getName(), event ->{
-                    KeyboardEvent keyboardEvent= Js.cast(event);
+                asElement().addEventListener(EventType.keydown.getName(), event -> {
+                    KeyboardEvent keyboardEvent = Js.cast(event);
                     event.stopPropagation();
-                    if(keyboardEvent.code.equals("Enter")){
+                    if (keyboardEvent.code.equals("Enter")) {
                         popover.show();
-                    }else if(keyboardEvent.code.equals("Escape")){
+                    } else if (keyboardEvent.code.equals("Escape")) {
                         popover.close();
                     }
                 });
