@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import static org.dominokit.domino.ui.timepicker.DayPeriod.NONE;
 
+
 public class Time {
     private int hour;
     private int minute;
