@@ -140,7 +140,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     }
 
     @Override
-    public void setValue(Date value) {
+    protected void doSetValue(Date value) {
         if (nonNull(value))
             this.datePicker.setDate(value);
 
