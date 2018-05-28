@@ -53,13 +53,8 @@ public class TextBox extends AbstractTextBox<TextBox, HTMLInputElement> {
     }
 
     @Override
-    public void setValue(String value) {
+    protected void doSetValue(String value) {
         getInputElement().value = value;
-        if (nonNull(value) && !value.isEmpty()) {
-            floatLabel();
-        } else {
-            unfloatLabel();
-        }
     }
 
     @Override
