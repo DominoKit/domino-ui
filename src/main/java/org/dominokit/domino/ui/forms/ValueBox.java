@@ -108,9 +108,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     @Override
     public T focus() {
         inputElement.classList.add(FOCUSED);
-        if (!floating) {
-            labelElement.classList.add(FOCUSED);
-        }
+        floatLabel();
         if (valid) {
             inputElement.classList.add("fc-" + focusColor.getStyle());
             setLabelColor(focusColor);
@@ -120,13 +118,23 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         return (T) this;
     }
 
+    protected void floatLabel() {
+        if (!floating) {
+            labelElement.classList.add(FOCUSED);
+        }
+    }
+
+    protected void unfloatLabel() {
+        if (!floating && isEmpty()) {
+            labelElement.classList.remove(FOCUSED);
+        }
+    }
+
     @Override
     public T unfocus() {
         inputElement.classList.remove("fc-" + focusColor.getStyle());
         inputElement.classList.remove(FOCUSED);
-        if (!floating && isEmpty()) {
-            labelElement.classList.remove(FOCUSED);
-        }
+        unfloatLabel();
         removeLabelColor(focusColor);
         removeLeftAddonColor(focusColor);
         hidePlaceholder();
