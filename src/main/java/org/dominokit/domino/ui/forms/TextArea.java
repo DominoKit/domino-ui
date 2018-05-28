@@ -48,9 +48,9 @@ public class TextArea extends AbstractTextBox<TextArea, HTMLTextAreaElement> {
     public void setValue(String value) {
         getInputElement().value = value;
         if (nonNull(value) && !value.isEmpty())
-            focus();
+            floatLabel();
         else
-            unfocus();
+            unfloatLabel();
     }
 
     @Override
