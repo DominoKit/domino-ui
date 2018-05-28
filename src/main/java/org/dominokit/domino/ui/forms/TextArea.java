@@ -45,12 +45,8 @@ public class TextArea extends AbstractTextBox<TextArea, HTMLTextAreaElement> {
     }
 
     @Override
-    public void setValue(String value) {
+    protected void doSetValue(String value) {
         getInputElement().value = value;
-        if (nonNull(value) && !value.isEmpty())
-            floatLabel();
-        else
-            unfloatLabel();
     }
 
     @Override

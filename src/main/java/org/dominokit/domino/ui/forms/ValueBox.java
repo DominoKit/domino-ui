@@ -326,5 +326,17 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         return (T) this;
     }
 
+    @Override
+    public void setValue(V value) {
+        doSetValue(value);
+        if (!isEmpty()) {
+            floatLabel();
+        } else {
+            unfloatLabel();
+        }
+    }
+
+
     protected abstract void clearValue();
+    protected abstract void doSetValue(V value);
 }
