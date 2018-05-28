@@ -56,9 +56,9 @@ public class TextBox extends AbstractTextBox<TextBox, HTMLInputElement> {
     public void setValue(String value) {
         getInputElement().value = value;
         if (nonNull(value) && !value.isEmpty()) {
-            focus();
+            floatLabel();
         } else {
-            unfocus();
+            unfloatLabel();
         }
     }
 
