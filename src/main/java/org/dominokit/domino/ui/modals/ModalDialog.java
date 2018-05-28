@@ -26,8 +26,10 @@ public class ModalDialog extends BaseModal<ModalDialog>{
                 .small()
                 .setAutoClose(true)
                 .appendContent(content);
-        modal.getHeaderContainerElement().classList.add("picker-modal-header", colorScheme.color().getStyle());
+        modal.getHeaderContainerElement().style.display="none";
         modal.getBodyElement().style.setProperty("padding", "0px", "important");
+        modal.getContentElement().style.setProperty("width","275px");
+        modal.getDialogElement().style.setProperty("width","275px");
         modal.getFooterElement().style.setProperty("padding", "0px", "important");
 
         return modal;

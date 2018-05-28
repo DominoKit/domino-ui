@@ -13234,11 +13234,11 @@ box-shadow: 0px 1px transparent !important;
 .clock-picker {
 
     display: block;
-    width: 300px;
-    height: 30px;
+    width: 270px;
+    height: 255px;
     position: absolute;
     left: 50%;
-    margin-left: -150px;
+    margin-left: -135px;
 }
 
 .clock-picker .hour {
@@ -13264,30 +13264,24 @@ box-shadow: 0px 1px transparent !important;
     text-align: center;
     line-height: 20px;
     font-size: 18px;
-    /*border: 1px solid grey;*/
 }
 
 .clock-picker .small-hour:hover {
 }
 
 .time-picker {
-    border: 1px solid #e6e6e6;
     width: 100%;
     display: inline-block;
 }
 
-.time-picker .time-panel {
-    text-align: center;
-    margin-bottom: 10px;
+.time-picker .picker-content{
+    height: 255px;
 }
 
-.time-picker .time-display-small {
-    height: 4.5rem;
-    line-height: 3.2rem;
-    font-size: 15px;
-    opacity: 1;
-    color: rgba(255, 255, 255, 0.8);
-    cursor: pointer;
+.time-picker .time-panel {
+    text-align: center;
+    padding-top: 10px;
+    height: 80px;
 }
 
 .time-picker .time-display-large {
@@ -13349,11 +13343,11 @@ box-shadow: 0px 1px transparent !important;
 }
 
 .time-picker .navigate-left {
-    left: -50px;
+    left: -30px;
 }
 
 .time-picker .navigate-right {
-    right: -50px;
+    right: -30px;
 }
 
 .time-picker .full-time {
@@ -13400,16 +13394,6 @@ box-shadow: 0px 1px transparent !important;
     padding-right: 0px;
     z-index: 1;
     line-height: 30px;
-}
-
-.time-picker .left-sm-button-24 {
-    top: 3px !important;
-    left: -102px !important;
-}
-
-.time-picker .right-sm-button-24 {
-    top: 3px !important;
-    right: -102px !important;
 }
 
 .time-text {
