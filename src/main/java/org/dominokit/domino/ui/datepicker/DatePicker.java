@@ -126,9 +126,7 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
         clearButton.asElement().classList.add("clear-button");
 
         clearButton.addClickListener(evt -> {
-            for (int i = 0; i < clearHandlers.size(); i++) {
-                clearHandlers.get(i).handle();
-            }
+            clearHandlers.forEach(PickerHandler::handle);
         });
 
         todayButton = Button.create("TODAY").setColor(colorScheme.color());
@@ -138,9 +136,7 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
         closeButton.asElement().classList.add("close-button");
 
         closeButton.addClickListener(evt -> {
-            for (int i = 0; i < closeHandlers.size(); i++) {
-                closeHandlers.get(i).handle();
-            }
+            closeHandlers.forEach(PickerHandler::handle);
         });
 
         footerPanel.appendChild(clearButton.linkify().asElement());
@@ -257,7 +253,6 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
                 .addColumn(forwardColumn.addElement(navigateNext))
                 .asElement());
     }
-
 
 
     public static DatePicker create() {
@@ -518,7 +513,7 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
         return this;
     }
 
-    public ModalDialog createModal(String title){
+    public ModalDialog createModal(String title) {
         return ModalDialog.createPickerModal(title, this.getColorScheme(), this.asElement());
     }
 
