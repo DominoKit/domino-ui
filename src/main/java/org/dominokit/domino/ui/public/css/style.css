@@ -5339,10 +5339,12 @@ section.content {
     text-decoration: none;
     color: #333;
     background-color: #ddd;
+    border-radius: 2px;
 }
 
 .btn-link:not(.single):focus {
     background-color: rgba(0, 0, 0, 0.08) !important;
+    border-radius: 2px;
 }
 
 .btn-circle-lg {
@@ -12282,7 +12284,7 @@ a.disabled {
 
 .domino-file-upload {
     border: 2px solid transparent !important;
-    background-color: #eee !important;
+    background-color: #eee;
     min-height: 150px;
     padding: 20px 20px;
     box-sizing: border-box;
