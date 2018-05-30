@@ -249,9 +249,11 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         if (oldAddon != null) {
             container.removeChild(oldAddon);
         }
-        addon.classList.add("input-addon");
-        container.appendChild(addon);
-        setAddonSize(addon, size);
+        if (addon != null) {
+            addon.classList.add("input-addon");
+            container.appendChild(addon);
+            setAddonSize(addon, size);
+        }
     }
 
     private void setAddonSize(Element addon, ValueBoxSize size) {
@@ -338,5 +340,6 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
 
 
     protected abstract void clearValue();
+
     protected abstract void doSetValue(V value);
 }
