@@ -53,7 +53,11 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
     }
 
     private void init() {
-        this.timePicker.addTimeSelectionHandler((time, dateTimeFormatInfo, picker) -> setStringValue(time, picker));
+        this.timePicker.addTimeSelectionHandler((time, dateTimeFormatInfo, picker) -> {
+            setStringValue(time, picker);
+            changeLabelFloating();
+            autoValidate();
+        });
         this.modalListener = evt -> modal.open();
         this.keyboardModalListener = event -> {
             event.stopPropagation();
