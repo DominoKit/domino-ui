@@ -12,6 +12,7 @@ import org.jboss.gwt.elemento.template.Templated;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.isNull;
@@ -256,15 +257,17 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     @Override
     public void setValue(String value) {
         for (SelectOption option : getOptions()) {
-            if (option.getValue().equals(value))
+            if (Objects.equals(option.getValue(), value)) {
                 select(option);
+            }
         }
     }
 
     public void setValue(String value, boolean silent) {
         for (SelectOption option : getOptions()) {
-            if (option.getValue().equals(value))
+            if (Objects.equals(option.getValue(), value)) {
                 select(option, silent);
+            }
         }
     }
 
