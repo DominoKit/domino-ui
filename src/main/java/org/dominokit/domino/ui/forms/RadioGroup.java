@@ -205,6 +205,11 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
     }
 
     @Override
+    public boolean isAutoValidation() {
+        return nonNull(autoValidationHandler);
+    }
+
+    @Override
     public RadioGroup setRequired(boolean required) {
         elementValidations.setRequired(required);
         return this;
