@@ -101,7 +101,7 @@ A type safe material design with bootstrap builder for java developer with GWT w
 - [x] Date picker
 - [x] Time picker
 - [ ] Date time picker
-- [ ] Inputs decorations : Labels, Helper text, validation, Icons
+- [x] Inputs decorations : Labels, Helper text, validation, Icons
 - [ ] Advanced Select - **in progress**
 - [ ] Multi-Select
 - [ ] Tag field
