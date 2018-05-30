@@ -33,7 +33,6 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     private List<SelectionHandler> selectionHandlers = new ArrayList<>();
     private SelectionHandler autoValidationHandler;
     private Color focusColor = Color.BLUE;
-    private boolean autoValidation;
 
     public Select() {
         initListeners();
@@ -286,7 +285,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         getOptions().forEach(selectOption -> selectOption.deselect(true));
         selectedOption = null;
         selectElement.getSelectedValueContainer().textContent = "";
-        if (autoValidation)
+        if (isAutoValidation())
             validate();
         return this;
     }
@@ -373,7 +372,6 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
 
     @Override
     public Select setAutoValidation(boolean autoValidation) {
-        this.autoValidation = autoValidation;
         if (autoValidation) {
             if (isNull(autoValidationHandler)) {
                 autoValidationHandler = option -> validate();
@@ -384,6 +382,11 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
             autoValidationHandler = null;
         }
         return this;
+    }
+
+    @Override
+    public boolean isAutoValidation() {
+        return nonNull(autoValidationHandler);
     }
 
     @Override

@@ -54,7 +54,11 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     private void init() {
         this.pattern = this.datePicker.getDateTimeFormatInfo().dateFormatFull();
-        this.datePicker.addDateSelectionHandler(this::setStringValue);
+        this.datePicker.addDateSelectionHandler((date, dateTimeFormatInfo) -> {
+            setStringValue(date, dateTimeFormatInfo);
+            changeLabelFloating();
+            autoValidate();
+        });
         this.modalListener = evt -> modal.open();
         BodyObserver.observeRemoval(asElement(), mutationRecord -> {
             if (nonNull(popover))
@@ -131,7 +135,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     @Override
     public boolean isEmpty() {
-        return isNull(datePicker.getDate());
+        return isNull(value);
     }
 
     @Override

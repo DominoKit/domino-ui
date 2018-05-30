@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 
 public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsElement<HTMLElement>, Checkable<CheckBox> {
@@ -173,5 +174,10 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
             autoValidationHandler = null;
         }
         return this;
+    }
+
+    @Override
+    public boolean isAutoValidation() {
+        return nonNull(autoValidationHandler);
     }
 }

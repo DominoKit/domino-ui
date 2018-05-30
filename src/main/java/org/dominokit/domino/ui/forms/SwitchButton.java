@@ -178,4 +178,9 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
         this.autoValidation = autoValidation;
         return this;
     }
+
+    @Override
+    public boolean isAutoValidation() {
+        return autoValidation;
+    }
 }
