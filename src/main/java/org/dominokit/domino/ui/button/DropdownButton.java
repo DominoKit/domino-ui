@@ -1,13 +1,12 @@
 package org.dominokit.domino.ui.button;
 
-import elemental2.dom.*;
-import jsinterop.base.Js;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
-import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.StyleType;
 import org.dominokit.domino.ui.utils.HasContent;
 import org.dominokit.domino.ui.utils.Justifiable;
+import elemental2.dom.*;
+import jsinterop.base.Js;
 import org.jboss.gwt.elemento.core.Elements;
 
 import java.util.LinkedList;
@@ -21,27 +20,19 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton> {
     private List<Justifiable> items = new LinkedList<>();
 
     private DropdownButton(String content, StyleType type) {
-        this(content);
-        button.setButtonType(type);
+        this(Button.create(content).setButtonType(type));
     }
 
     private DropdownButton(String content, Color background) {
-        this(content);
-        button.setBackground(background);
+        this(Button.create(content).setBackground(background));
     }
 
     private DropdownButton(String content) {
         this(Button.create(content));
-//        button.asElement().appendChild(Elements.span().css("caret").asElement());
     }
 
-    public DropdownButton(Icon icon) {
-        this(IconButton.create(icon));
-    }
-
-    public DropdownButton(Button button) {
+    private DropdownButton(Button button) {
         this.button = button;
-
         configureButton();
     }
 
@@ -64,6 +55,7 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton> {
         buttonElement.setAttribute("data-toggle", "dropdown");
         buttonElement.setAttribute("aria-haspopup", true);
         buttonElement.setAttribute("aria-expanded", true);
+        buttonElement.appendChild(Elements.span().css("caret").asElement());
         buttonElement.setAttribute("type", "button");
         buttonElement.addEventListener("click", event -> {
             closeAllGroups();
@@ -129,11 +121,6 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton> {
     public static DropdownButton createDanger(String content) {
         return create(content, StyleType.DANGER);
     }
-
-    public static DropdownButton create(Icon icon) {
-        return new DropdownButton(icon);
-    }
-
 
     public DropdownButton addAction(DropdownAction action) {
         items.add(action);
