@@ -245,11 +245,25 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         return (T) this;
     }
 
+    public T removeRightAddon(){
+        if(nonNull(rightAddon)){
+            rightAddonContainer.removeChild(rightAddon);
+        }
+        return (T) this;
+    }
+
+    public T removeLeftAddon(){
+        if(nonNull(leftAddon)){
+            leftAddonContainer.removeChild(leftAddon);
+        }
+        return (T) this;
+    }
+
     private void setAddon(HTMLElement container, Element oldAddon, Element addon) {
-        if (oldAddon != null) {
+        if (nonNull(oldAddon)) {
             container.removeChild(oldAddon);
         }
-        if (addon != null) {
+        if (nonNull(addon)) {
             addon.classList.add("input-addon");
             container.appendChild(addon);
             setAddonSize(addon, size);
@@ -257,7 +271,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     }
 
     private void setAddonSize(Element addon, ValueBoxSize size) {
-        if (addon != null && !size.sizeValue.isEmpty()) {
+        if (nonNull(addon) && !size.sizeValue.isEmpty()) {
             addon.classList.remove(this.size.getStyle());
             addon.classList.add(size.sizeValue);
         }
