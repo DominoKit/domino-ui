@@ -1,9 +1,7 @@
 package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.icons.ContentIcons;
 import org.dominokit.domino.ui.utils.HasMultiSelectSupport;
-import org.dominokit.domino.ui.utils.Selectable;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -18,7 +16,8 @@ public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
     private final HTMLDivElement element;
     private List<ListItem<T>> allItems = new LinkedList<>();
     private boolean multiSelect = false;
-    private List<SelectionChangeHandler<T>> selectionHandlers=new ArrayList<>();
+    private List<SelectionChangeHandler<T>> selectionHandlers = new ArrayList<>();
+    private boolean selectable = true;
 
     private ListGroup(HTMLDivElement element) {
         this.element = element;
@@ -66,12 +65,12 @@ public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
         return allItems.stream().filter(ListItem::isSelected).collect(Collectors.toList());
     }
 
-    public List<T> getSelectedValues(){
+    public List<T> getSelectedValues() {
         List<ListItem<T>> selectedItems = getSelectedItems();
-        if(selectedItems.isEmpty())
+        if (selectedItems.isEmpty())
             return new ArrayList<>();
         else
-            return selectedItems.stream().map(i-> i.getValue()).collect(Collectors.toList());
+            return selectedItems.stream().map(i -> i.getValue()).collect(Collectors.toList());
     }
 
     public ListGroup<T> removeSelected() {
@@ -83,11 +82,25 @@ public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
     }
 
     public ListGroup<T> removeItem(ListItem<T> listItem) {
-        if(allItems.contains(listItem)) {
+        if (allItems.contains(listItem)) {
             allItems.remove(listItem);
             listItem.asElement().remove();
         }
         return this;
+    }
+
+    @Override
+    public boolean isSelectable() {
+        return selectable;
+    }
+
+    public void setSelectable(boolean selectable) {
+        this.selectable = selectable;
+        for (ListItem<T> listItem : getSelectedItems()) {
+            if (!selectable) {
+                listItem.deselect(true);
+            }
+        }
     }
 
     @Override
@@ -105,6 +118,7 @@ public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
         return allItems;
     }
 
+
     @Override
     public HTMLDivElement asElement() {
         return element;
@@ -112,17 +126,19 @@ public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
 
     @Override
     public void onSelectionChange(ListItem<T> source) {
-        for(int i=0;i<selectionHandlers.size();i++){
-            selectionHandlers.get(i).onSelectionChanged(source);
+        if (selectable) {
+            for (int i = 0; i < selectionHandlers.size(); i++) {
+                selectionHandlers.get(i).onSelectionChanged(source);
+            }
         }
     }
 
-    public ListGroup<T> addSelectionChangeHandler(SelectionChangeHandler<T> selectionChangeHandler){
+    public ListGroup<T> addSelectionChangeHandler(SelectionChangeHandler<T> selectionChangeHandler) {
         this.selectionHandlers.add(selectionChangeHandler);
         return this;
     }
 
-    public ListGroup<T> removeSelectionChangeHandler(SelectionChangeHandler<T> selectionChangeHandler){
+    public ListGroup<T> removeSelectionChangeHandler(SelectionChangeHandler<T> selectionChangeHandler) {
         this.selectionHandlers.remove(selectionChangeHandler);
         return this;
     }
