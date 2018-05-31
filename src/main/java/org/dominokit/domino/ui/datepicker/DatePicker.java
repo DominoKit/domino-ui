@@ -459,16 +459,19 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
 
     public DatePicker todayButtonText(String text) {
         this.todayButton.setContent(text);
+        this.todayButton.asElement().title=text;
         return this;
     }
 
     public DatePicker clearButtonText(String text) {
         this.clearButton.setContent(text);
+        this.clearButton.asElement().title=text;
         return this;
     }
 
     public DatePicker closeButtonText(String text) {
         this.closeButton.setContent(text);
+        this.closeButton.asElement().title=text;
         return this;
     }
 
