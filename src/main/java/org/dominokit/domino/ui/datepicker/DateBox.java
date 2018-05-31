@@ -59,7 +59,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             changeLabelFloating();
             autoValidate();
         });
-        this.modalListener = evt -> modal.open();
+        this.modalListener = evt -> {
+                modal.open();
+        };
         BodyObserver.observeRemoval(asElement(), mutationRecord -> {
             if (nonNull(popover))
                 popover.discard();
@@ -243,6 +245,30 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         return this;
     }
 
+    @Override
+    public DateBox disable() {
+        if(nonNull(modal)){
+            modal.disable();
+        }
+
+        if(nonNull(popover)){
+            popover.disable();
+        }
+        return super.disable();
+    }
+
+    @Override
+    public DateBox enable() {
+        if(nonNull(modal)){
+            modal.enable();
+        }
+
+        if(nonNull(popover)){
+            popover.enable();
+        }
+
+        return super.enable();
+    }
 
     private static class Formatter extends DateTimeFormat {
 
