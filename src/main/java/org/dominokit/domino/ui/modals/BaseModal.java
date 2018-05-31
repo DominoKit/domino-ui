@@ -5,6 +5,7 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.MyDom;
+import org.dominokit.domino.ui.utils.Switchable;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -17,7 +18,7 @@ import java.util.List;
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 
-public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModalDialog<T> {
+public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModalDialog<T>, Switchable<T> {
     private static HTMLDivElement MODAL_BACKDROP = Elements.div().css("modal-backdrop fade in").asElement();
     private List<OpenHandler> openHandlers = new ArrayList<>();
     private List<CloseHandler> closeHandlers = new ArrayList<>();
@@ -86,6 +87,7 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     private List<Element> focusElements = new ArrayList<>();
     private Text headerText=new Text();
     private boolean open=false;
+    private boolean disabled=false;
 
     public BaseModal() {
         modal = Modal.create();
@@ -223,20 +225,23 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     @Override
     public T open() {
 
-        initFocusElements();
+        if(isEnabled()) {
 
-        activeElementBeforeOpen = MyDom.document.activeElement;
-        MODAL_BACKDROP.remove();
-        document.body.appendChild(MODAL_BACKDROP);
-        asElement().classList.add("in");
-        asElement().style.display = "block";
-        if (nonNull(firstFocusElement))
-            firstFocusElement.focus();
+            initFocusElements();
 
-        for(int i=0;i<openHandlers.size();i++)
-            openHandlers.get(i).onOpen();
+            activeElementBeforeOpen = MyDom.document.activeElement;
+            MODAL_BACKDROP.remove();
+            document.body.appendChild(MODAL_BACKDROP);
+            asElement().classList.add("in");
+            asElement().style.display = "block";
+            if (nonNull(firstFocusElement))
+                firstFocusElement.focus();
 
-        this.open=true;
+            for (int i = 0; i < openHandlers.size(); i++)
+                openHandlers.get(i).onOpen();
+
+            this.open = true;
+        }
         return (T) this;
     }
 
@@ -362,5 +367,22 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
 
     public boolean isOpen() {
         return open;
+    }
+
+    @Override
+    public T enable() {
+        this.disabled=false;
+        return (T) this;
+    }
+
+    @Override
+    public T disable() {
+        this.disabled=true;
+        return (T) this;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return !disabled;
     }
 }
