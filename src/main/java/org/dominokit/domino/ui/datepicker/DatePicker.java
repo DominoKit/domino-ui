@@ -169,7 +169,7 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
         monthSelect.asElement().style.setProperty("margin-bottom", "0px", "important");
         String[] months = getDateTimeFormatInfo().monthsShort();
         for (int i = 0; i < months.length; i++) {
-            SelectOption monthOption = SelectOption.create(i + "", months[i]);
+            SelectOption monthOption = SelectOption.create(i + "", firstLetterToUpper(months[i]));
             monthSelect.addOption(monthOption);
             if (i == month)
                 monthSelect.select(monthOption);
@@ -336,6 +336,12 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
         return datePickerMonth.getDateTimeFormatInfo();
     }
 
+    public DatePicker showBorder() {
+        asElement().style.setProperty("border", "1px solid " + colorScheme.color().getHex());
+        return this;
+    }
+
+
     public DatePicker setColorScheme(ColorScheme colorScheme) {
         backgroundHandler.onBackgroundChanged(getColorScheme(), colorScheme);
         this.headerPanel.classList.remove(this.colorScheme.color().getBackground());
@@ -368,12 +374,20 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
     }
 
     private void updatePicker() {
-        this.dayName.textContent = getDateTimeFormatInfo().weekdaysFull()[this.selectedPickerElement.getWeekDay()];
-        this.monthName.textContent = getDateTimeFormatInfo().monthsFull()[this.selectedPickerElement.getMonth()];
+        int dayNameIndex = this.selectedPickerElement.getWeekDay() + getDateTimeFormatInfo().firstDayOfTheWeek();
+        if (dayNameIndex > 6) {
+            dayNameIndex = this.selectedPickerElement.getWeekDay() + getDateTimeFormatInfo().firstDayOfTheWeek() - 7;
+        }
+        this.dayName.textContent = firstLetterToUpper(getDateTimeFormatInfo().weekdaysFull()[dayNameIndex]);
+        this.monthName.textContent = getDateTimeFormatInfo().monthsFull()[this.selectedPickerElement.getMonth()].toUpperCase();
         this.dateNumber.textContent = this.selectedPickerElement.getDay() + "";
         this.yearNumber.textContent = this.selectedPickerElement.getYear() + "";
         this.monthSelect.selectAt(this.selectedPickerElement.getMonth(), true);
         this.yearSelect.setValue(this.selectedPickerElement.getYear() + "", true);
+    }
+
+    private String firstLetterToUpper(String input) {
+        return input.substring(0, 1).toUpperCase() + input.substring(1);
     }
 
     public DatePicker showHeaderPanel() {
@@ -446,17 +460,17 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
     }
 
     public DatePicker todayButtonText(String text) {
-        this.todayButton.setContent(text);
+        this.todayButton.setContent(text.toUpperCase());
         return this;
     }
 
     public DatePicker clearButtonText(String text) {
-        this.clearButton.setContent(text);
+        this.clearButton.setContent(text.toUpperCase());
         return this;
     }
 
     public DatePicker closeButtonText(String text) {
-        this.closeButton.setContent(text);
+        this.closeButton.setContent(text.toUpperCase());
         return this;
     }
 

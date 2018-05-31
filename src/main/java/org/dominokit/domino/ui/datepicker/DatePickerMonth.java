@@ -28,7 +28,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     private DatePickerElement[][] monthData = new DatePickerElement[7][7];
     private List<DaySelectionHandler> daySelectionHandlers = new ArrayList<>();
     private DatePickerElement selectedElement;
-    private Color background=Color.LIGHT_BLUE;
+    private Color background = Color.LIGHT_BLUE;
 
     private HTMLDivElement element = div().css("date-picker-container").asElement();
 
@@ -135,7 +135,13 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     }
 
     private void fillPreviousMonth(MonthContext monthContext) {
-        int fillEnd = monthContext.getFirstDay() == 0 ? 7 : monthContext.getFirstDay();
+
+        int columnIndex = monthContext.getFirstDay() - dateTimeFormatInfo.firstDayOfTheWeek();
+        if (columnIndex < 0) {
+            columnIndex = 7 + columnIndex;
+        }
+
+        int fillEnd = columnIndex == 0 ? 7 : columnIndex;
         MonthContext monthBefore = monthContext.getMonthBefore();
         int monthBeforeDay = monthBefore.getDays();
 
@@ -147,11 +153,16 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     }
 
     private void fillCurrentAndNextMonth(MonthContext monthContext) {
+
+
+        int columnIndex = monthContext.getFirstDay() - dateTimeFormatInfo.firstDayOfTheWeek();
+        if (columnIndex < 0) {
+            columnIndex = 7 + columnIndex;
+        }
         int startRow = 1;
-        if (monthContext.getFirstDay() == 0)
+        if (columnIndex == 0)
             startRow = 2;
 
-        int columnIndex = monthContext.getFirstDay();
         int dayNumber = 1;
         int row = startRow;
         int column;
@@ -176,9 +187,14 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     private void fillWeekHeader() {
         String[] days = dateTimeFormatInfo.weekdaysShort();
         String[] daysFull = dateTimeFormatInfo.weekdaysFull();
+        int startIndex = dateTimeFormatInfo.firstDayOfTheWeek();
+
         for (int y = 0; y < 7; y++) {
-            monthData[0][y].setText(days[y]);
-            monthData[0][y].getElement().setAttribute("title", daysFull[y]);
+            monthData[0][y].setText(days[startIndex]);
+            monthData[0][y].getElement().setAttribute("title", daysFull[startIndex]);
+            startIndex++;
+            if (startIndex >= 7)
+                startIndex = 0;
         }
     }
 
@@ -302,7 +318,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
 
     public void setBackground(Color background) {
         getSelectedItem().getElement().classList.remove(this.background.getBackground());
-        this.background=background;
+        this.background = background;
         getSelectedItem().getElement().classList.add(this.background.getBackground());
     }
 
