@@ -12217,6 +12217,9 @@ a.disabled {
 
 .calendar .footer .btn{
     text-transform: uppercase;
+    text-overflow: ellipsis;
+    max-width: 85px;
+    padding: 2px;
 }
 
 .calendar .clear-button {
@@ -13432,6 +13435,9 @@ box-shadow: 0px 1px transparent !important;
 
 .time-picker .footer .btn{
     text-transform: uppercase;
+    text-overflow: ellipsis;
+    max-width: 85px;
+    padding: 2px;
 }
 
 .time-picker .clear-button {
