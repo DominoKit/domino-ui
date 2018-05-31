@@ -169,7 +169,7 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
         monthSelect.asElement().style.setProperty("margin-bottom", "0px", "important");
         String[] months = getDateTimeFormatInfo().monthsShort();
         for (int i = 0; i < months.length; i++) {
-            SelectOption monthOption = SelectOption.create(i + "", firstLetterToUpper(months[i]));
+            SelectOption monthOption = SelectOption.create(i + "", months[i]);
             monthSelect.addOption(monthOption);
             if (i == month)
                 monthSelect.select(monthOption);
@@ -378,17 +378,15 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
         if (dayNameIndex > 6) {
             dayNameIndex = this.selectedPickerElement.getWeekDay() + getDateTimeFormatInfo().firstDayOfTheWeek() - 7;
         }
-        this.dayName.textContent = firstLetterToUpper(getDateTimeFormatInfo().weekdaysFull()[dayNameIndex]);
-        this.monthName.textContent = getDateTimeFormatInfo().monthsFull()[this.selectedPickerElement.getMonth()].toUpperCase();
+        this.dayName.textContent = getDateTimeFormatInfo().weekdaysFull()[dayNameIndex];
+        this.monthName.textContent = getDateTimeFormatInfo().monthsFull()[this.selectedPickerElement.getMonth()];
         this.dateNumber.textContent = this.selectedPickerElement.getDay() + "";
         this.yearNumber.textContent = this.selectedPickerElement.getYear() + "";
         this.monthSelect.selectAt(this.selectedPickerElement.getMonth(), true);
         this.yearSelect.setValue(this.selectedPickerElement.getYear() + "", true);
     }
 
-    private String firstLetterToUpper(String input) {
-        return input.substring(0, 1).toUpperCase() + input.substring(1);
-    }
+
 
     public DatePicker showHeaderPanel() {
         headerPanel.style.display = "block";
@@ -460,17 +458,17 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
     }
 
     public DatePicker todayButtonText(String text) {
-        this.todayButton.setContent(text.toUpperCase());
+        this.todayButton.setContent(text);
         return this;
     }
 
     public DatePicker clearButtonText(String text) {
-        this.clearButton.setContent(text.toUpperCase());
+        this.clearButton.setContent(text);
         return this;
     }
 
     public DatePicker closeButtonText(String text) {
-        this.closeButton.setContent(text.toUpperCase());
+        this.closeButton.setContent(text);
         return this;
     }
 

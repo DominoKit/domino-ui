@@ -7,6 +7,7 @@ import elemental2.dom.HTMLTableSectionElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasSelectSupport;
 import org.dominokit.domino.ui.utils.HasValue;
+import org.dominokit.domino.ui.utils.TextUtil;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
@@ -191,7 +192,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
 
         for (int y = 0; y < 7; y++) {
             monthData[0][y].setText(days[startIndex]);
-            monthData[0][y].getElement().setAttribute("title", daysFull[startIndex]);
+            monthData[0][y].getElement().setAttribute("title", TextUtil.firstLetterToUpper(daysFull[startIndex]));
             startIndex++;
             if (startIndex >= 7)
                 startIndex = 0;

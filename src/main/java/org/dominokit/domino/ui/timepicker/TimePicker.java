@@ -668,17 +668,17 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     }
 
     public TimePicker todayButtonText(String text) {
-        this.nowButton.setContent(text.toUpperCase());
+        this.nowButton.setContent(text);
         return this;
     }
 
     public TimePicker clearButtonText(String text) {
-        this.clearButton.setContent(text.toUpperCase());
+        this.clearButton.setContent(text);
         return this;
     }
 
     public TimePicker closeButtonText(String text) {
-        this.closeButton.setContent(text.toUpperCase());
+        this.closeButton.setContent(text);
         return this;
     }
 
