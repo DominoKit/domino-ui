@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.*;
+import elemental2.dom.EventListener;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.Focusable;
@@ -9,10 +10,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.isNull;
@@ -342,6 +340,29 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         this.focusColor = focusColor;
         if (isFocused())
             focus();
+        return this;
+    }
+
+    public Select removeOption(SelectOption option){
+        if(nonNull(option) && getOptions().contains(option)){
+            option.deselect(true);
+            options.remove(option);
+            option.asElement().remove();
+        }
+        return this;
+    }
+
+    public Select removeOptions(Collection<SelectOption> options){
+        if(nonNull(options) && !options.isEmpty() && !this.options.isEmpty()){
+            options.forEach(this::removeOption);
+        }
+        return this;
+    }
+
+    public Select removeAllOptions(){
+        if(nonNull(options) && !options.isEmpty()){
+            options.forEach(this::removeOption);
+        }
         return this;
     }
 
