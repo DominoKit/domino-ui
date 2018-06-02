@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.popover;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.utils.BodyObserver;
+import org.dominokit.domino.ui.utils.Switchable;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -14,7 +15,7 @@ import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.h;
 
-public class Popover implements IsElement<HTMLDivElement> {
+public class Popover implements IsElement<HTMLDivElement>, Switchable<Popover> {
 
     private static List<Popover> currentVisible=new ArrayList<>();
     private final Text headerText;
@@ -32,6 +33,7 @@ public class Popover implements IsElement<HTMLDivElement> {
     private boolean closeOthers=true;
     private final EventListener showListener;
     private final EventListener closeListener;
+    private boolean disabled=false;
 
     public Popover(HTMLElement target, String title, Node content) {
 
@@ -61,11 +63,13 @@ public class Popover implements IsElement<HTMLDivElement> {
     }
 
     public void show() {
-        if (nonNull(currentVisible) && closeOthers) {
-            closeOthers();
+        if(isEnabled()) {
+            if (nonNull(currentVisible) && closeOthers) {
+                closeOthers();
+            }
+            open(targetElement);
+            currentVisible.add(Popover.this);
         }
-        open(targetElement);
-        currentVisible.add(Popover.this);
     }
 
     private void closeAll() {
@@ -124,6 +128,23 @@ public class Popover implements IsElement<HTMLDivElement> {
     public Popover setCloseOthers(boolean closeOthers){
         this.closeOthers=closeOthers;
         return this;
+    }
+
+    @Override
+    public Popover enable() {
+        this.disabled=false;
+        return this;
+    }
+
+    @Override
+    public Popover disable() {
+        this.disabled=true;
+        return this;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return !disabled;
     }
 
     public HTMLHeadingElement getHeadingElement() {
