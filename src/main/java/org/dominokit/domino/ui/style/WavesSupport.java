@@ -3,36 +3,39 @@ package org.dominokit.domino.ui.style;
 import elemental2.dom.HTMLElement;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 public class WavesSupport<E extends HTMLElement> {
 
     private static final String WAVES_EFFECT = "waves-effect";
     private E element;
 
-    private String waveEffect;
     private String waveColor;
+    private Waves wavesElement;
 
     private WavesSupport(E element) {
         this.element = element;
-        Waves.create(element);
+        wavesElement = Waves.create(element);
     }
 
-    public static <E extends HTMLElement> WavesSupport<E> addFor(E element){
-        WavesSupport<E> wavesSupport=new WavesSupport<>(element);
-        wavesSupport.initWaves();
-        return wavesSupport;
+    public static <E extends HTMLElement> WavesSupport<E> addFor(E element) {
+        return new WavesSupport<>(element).initWaves();
     }
 
     public WavesSupport<E> initWaves() {
-        if (isNull(waveEffect))
+        if (!hasWavesEffect())
             element.classList.add(WAVES_EFFECT);
-        this.waveEffect = WAVES_EFFECT;
 
+        wavesElement.initWaves();
         return this;
     }
 
+    private boolean hasWavesEffect() {
+        return element.classList.contains(WAVES_EFFECT);
+    }
+
     public WavesSupport<E> setWavesColor(WaveColor waveColor) {
-        if (isNull(waveEffect))
+        if (!hasWavesEffect())
             initWaves();
         if (isNull(this.waveColor))
             element.classList.add(waveColor.getStyle());
@@ -45,14 +48,32 @@ public class WavesSupport<E extends HTMLElement> {
     }
 
     public WavesSupport<E> applyWaveStyle(WaveStyle waveStyle) {
-        if (isNull(waveEffect))
+        if (!hasWavesEffect())
             initWaves();
-        if(!element.classList.contains(waveStyle.getStyle()))
+        if (!element.classList.contains(waveStyle.getStyle()))
             element.classList.add(waveStyle.getStyle());
         return this;
     }
 
-    public E element(){
+    public WavesSupport<E> removeWaves() {
+        if (hasWavesEffect())
+            element.classList.remove(WAVES_EFFECT);
+        if (nonNull(waveColor))
+            element.classList.remove(waveColor);
+        removeWaveStyles();
+        wavesElement.removeWaves();
+        return this;
+    }
+
+    private void removeWaveStyles() {
+        for (int i = 0; i < element.classList.length; ++i) {
+            String style = element.classList.item(i);
+            if (style.contains("waves-"))
+                element.classList.remove(style);
+        }
+    }
+
+    public E element() {
         return element;
     }
 }
