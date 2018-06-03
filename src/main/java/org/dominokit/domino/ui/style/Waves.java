@@ -19,77 +19,29 @@ public class Waves implements IsElement<HTMLElement> {
     private Timer delayTimer;
     private Timer removeTimer;
     private final int duration = 750;
-    private double scaleValue;
+    private WavesEventListener wavesEventListener = new WavesEventListener();
 
     public Waves(HTMLElement target) {
         this.target = target;
-        initWaves();
     }
 
     public static Waves create(HTMLElement target) {
         return new Waves(target);
     }
 
-    private Node initWaves() {
+    public void initWaves() {
+        if (isTargetDisabled())
+            return;
 
-        if (target.getAttribute("disabled") != null || target.classList.contains("disabled")) {
-            return target;
-        }
+        target.addEventListener(mousedown.getName(), wavesEventListener);
+    }
 
-        target.addEventListener(mousedown.getName(), evt -> {
+    public void removeWaves() {
+        target.removeEventListener(mousedown.getName(), wavesEventListener);
+    }
 
-            MouseEvent mouseEvent = Js.cast(evt);
-            if (mouseEvent.button == 2) {
-                return;
-            }
-
-            stopCurrentWave();
-
-            ripple = div().asElement();
-            ripple.classList.add("waves-ripple", "waves-rippling");
-            target.appendChild(ripple);
-
-            ElementOffset position = offset(target);
-            double relativeY = (mouseEvent.pageY - position.top);
-            double relativeX = (mouseEvent.pageX - position.left);
-
-            relativeY = relativeY >= 0 ? relativeY : 0;
-            relativeX = relativeX >= 0 ? relativeX : 0;
-
-            int clientWidth = target.clientWidth;
-
-            scaleValue = (clientWidth * 0.01) * 3;
-            String scale = "scale(" + scaleValue + ")";
-            String translate = "translate(0,0)";
-
-            rippleStyle = Js.cast(JsPropertyMap.of());
-
-            rippleStyle.set("top", relativeY + "px");
-            rippleStyle.set("left", relativeX + "px");
-            ripple.classList.add("waves-notransition");
-
-            ripple.setAttribute("style", convertStyle(rippleStyle));
-
-            ripple.classList.remove("waves-notransition");
-
-            rippleStyle.set("-webkit-transform", scale + " " + translate);
-            rippleStyle.set("-moz-transform", scale + " " + translate);
-            rippleStyle.set("-ms-transform", scale + " " + translate);
-            rippleStyle.set("-o-transform", scale + " " + translate);
-            rippleStyle.set("transform", scale + " " + translate);
-            rippleStyle.set("opacity ", "1");
-
-            rippleStyle.set("-webkit-transition-duration", duration + "ms");
-            rippleStyle.set("-moz-transition-duration", duration + "ms");
-            rippleStyle.set("-o-transition-duration", duration + "ms");
-            rippleStyle.set("transition-duration", duration + "ms");
-
-            ripple.setAttribute("style", convertStyle(rippleStyle));
-
-            setupStopTimers();
-        });
-
-        return target;
+    private boolean isTargetDisabled() {
+        return target.getAttribute("disabled") != null || target.classList.contains("disabled");
     }
 
     private void setupStopTimers() {
@@ -154,5 +106,61 @@ public class Waves implements IsElement<HTMLElement> {
     private static class ElementOffset {
         private double top = 0;
         private double left = 0;
+    }
+
+    private final class WavesEventListener implements EventListener {
+
+        @Override
+        public void handleEvent(Event evt) {
+            MouseEvent mouseEvent = Js.cast(evt);
+            if (mouseEvent.button == 2) {
+                return;
+            }
+
+            stopCurrentWave();
+
+            ripple = div().asElement();
+            ripple.classList.add("waves-ripple", "waves-rippling");
+            target.appendChild(ripple);
+
+            ElementOffset position = offset(target);
+            double relativeY = (mouseEvent.pageY - position.top);
+            double relativeX = (mouseEvent.pageX - position.left);
+
+            relativeY = relativeY >= 0 ? relativeY : 0;
+            relativeX = relativeX >= 0 ? relativeX : 0;
+
+            int clientWidth = target.clientWidth;
+
+            double scaleValue = (clientWidth * 0.01) * 3;
+            String scale = "scale(" + scaleValue + ")";
+            String translate = "translate(0,0)";
+
+            rippleStyle = Js.cast(JsPropertyMap.of());
+
+            rippleStyle.set("top", relativeY + "px");
+            rippleStyle.set("left", relativeX + "px");
+            ripple.classList.add("waves-notransition");
+
+            ripple.setAttribute("style", convertStyle(rippleStyle));
+
+            ripple.classList.remove("waves-notransition");
+
+            rippleStyle.set("-webkit-transform", scale + " " + translate);
+            rippleStyle.set("-moz-transform", scale + " " + translate);
+            rippleStyle.set("-ms-transform", scale + " " + translate);
+            rippleStyle.set("-o-transform", scale + " " + translate);
+            rippleStyle.set("transform", scale + " " + translate);
+            rippleStyle.set("opacity ", "1");
+
+            rippleStyle.set("-webkit-transition-duration", duration + "ms");
+            rippleStyle.set("-moz-transition-duration", duration + "ms");
+            rippleStyle.set("-o-transition-duration", duration + "ms");
+            rippleStyle.set("transition-duration", duration + "ms");
+
+            ripple.setAttribute("style", convertStyle(rippleStyle));
+
+            setupStopTimers();
+        }
     }
 }
