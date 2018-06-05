@@ -9,8 +9,8 @@ public class WavesElement<T extends IsElement, E extends HTMLElement> implements
     private WavesSupport<E> wavesSupport;
 
     protected void init(T type, E element) {
-        this.type=type;
-        wavesSupport=WavesSupport.addFor(element);
+        this.type = type;
+        wavesSupport = WavesSupport.addFor(element);
     }
 
     @Override
@@ -28,6 +28,12 @@ public class WavesElement<T extends IsElement, E extends HTMLElement> implements
     @Override
     public T applyWaveStyle(WaveStyle waveStyle) {
         wavesSupport.applyWaveStyle(waveStyle);
+        return type;
+    }
+
+    @Override
+    public T removeWaves() {
+        wavesSupport.removeWaves();
         return type;
     }
 }
