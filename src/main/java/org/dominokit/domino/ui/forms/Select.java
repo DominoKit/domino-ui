@@ -21,7 +21,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     private static final String OPEN = "open";
     private static final String CLICK = "click";
     private static final String KEYDOWN = "keydown";
-    public static final String FOCUSED = "focused";
+    private static final String FOCUSED = "focused";
 
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
     private SelectElement selectElement = SelectElement.create();

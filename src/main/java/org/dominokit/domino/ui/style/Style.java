@@ -5,7 +5,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 
-public class Style<T extends HTMLElement> {
+public class Style<T extends HTMLElement> implements IsElement<T> {
 
     private T element;
 
@@ -68,6 +68,87 @@ public class Style<T extends HTMLElement> {
         return this;
     }
 
+    public Style<T> setWidth(String width, boolean important) {
+        if(important){
+            setImportantProperty("width", width);
+        }else {
+            setProperty("width", width);
+        }
+        return this;
+    }
+
+    public Style<T> setMinWidth(String width){
+        setProperty("min-width", width);
+        return this;
+    }
+
+    public Style<T> setMinWidth(String width, boolean important) {
+        if(important){
+            setImportantProperty("min-width", width);
+        }else {
+            setProperty("min-width", width);
+        }
+        return this;
+    }
+
+    public Style<T> setMaxWidth(String width){
+        setProperty("max-width", width);
+        return this;
+    }
+
+    public Style<T> setMaxWidth(String width, boolean important) {
+        if(important){
+            setImportantProperty("max-width", width);
+        }else {
+            setProperty("max-width", width);
+        }
+        return this;
+    }
+
+
+    public Style<T> setTextAlign(String textAlign){
+        setProperty("text-align", textAlign);
+        return this;
+    }
+
+    public Style<T> setTextAlign(String textAlign, boolean important) {
+        if(important){
+            setImportantProperty("text-align", textAlign);
+        }else {
+            setProperty("text-align", textAlign);
+        }
+        return this;
+    }
+
+    public Style<T> setColor(String color){
+        setProperty("color", color);
+        return this;
+    }
+
+    public Style<T> setColor(String color, boolean important) {
+        if(important){
+            setImportantProperty("color", color);
+        }else {
+            setProperty("color", color);
+        }
+        return this;
+    }
+
+
+    public Style<T> setBackgroundColor(String color){
+        setProperty("background-color", color);
+        return this;
+    }
+
+    public Style<T> setBackgroundColor(String color, boolean important) {
+        if(important){
+            setImportantProperty("background-color", color);
+        }else {
+            setProperty("background-color", color);
+        }
+        return this;
+    }
+
     public boolean hasClass(String cssClass) {
         if (nonNull(cssClass) && !cssClass.isEmpty())
             element.classList.contains(cssClass);
@@ -75,5 +156,8 @@ public class Style<T extends HTMLElement> {
     }
 
 
-
+    @Override
+    public T asElement() {
+        return element;
+    }
 }
