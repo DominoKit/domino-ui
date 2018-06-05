@@ -12,13 +12,13 @@ public class IconButton extends Button {
     private Icon icon;
     private String content;
 
-    private IconButton(Icon icon) {
-        this(icon, StyleType.DEFAULT);
+    public IconButton(Icon icon) {
+        setIcon(icon);
     }
 
-    private IconButton(Icon icon, StyleType type) {
+    public IconButton(Icon icon, StyleType type) {
+        this(icon);
         setButtonType(type);
-        setIcon(icon);
     }
 
     public static IconButton create(Icon icon) {

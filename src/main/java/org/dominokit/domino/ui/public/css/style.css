@@ -5465,6 +5465,10 @@ section.content {
     border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
 
+.btn-group .btn-default.dropdown-toggle i {
+    color: #333 !important;
+}
+
 /* Bootstrap Tags Input ======================== */
 .bootstrap-tagsinput {
     -webkit-box-shadow: none !important;
