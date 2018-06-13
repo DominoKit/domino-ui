@@ -5,6 +5,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class BlockHeader implements IsElement<HTMLDivElement>{
@@ -47,6 +48,15 @@ public class BlockHeader implements IsElement<HTMLDivElement>{
         if(isNull(descriptionElement))
             createDescriptionElement("");
         descriptionElement.appendChild(content);
+        return this;
+    }
+
+    public BlockHeader invert(){
+        if(nonNull(descriptionElement)){
+            descriptionElement.remove();
+            element.insertBefore(descriptionElement, headerElement);
+        }
+
         return this;
     }
 

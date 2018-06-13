@@ -54,13 +54,15 @@ public class IconButton extends Button {
     }
 
     public IconButton setIcon(Icon icon) {
-        this.icon = icon;
-        if (nonNull(content)) {
+        if (nonNull(this.icon)) {
             buttonElement.textContent = "";
+            this.icon.asElement().remove();
             buttonElement.appendChild(icon.asElement());
             buttonElement.appendChild(Elements.span().textContent(content).asElement());
-        } else
+        } else {
             buttonElement.appendChild(icon.asElement());
+        }
+        this.icon = icon;
         return this;
     }
 
