@@ -15,6 +15,7 @@ import org.jboss.gwt.elemento.template.Templated;
 import java.util.ArrayList;
 import java.util.List;
 
+import static elemental2.dom.DomGlobal.*;
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 
@@ -88,6 +89,7 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     private Text headerText=new Text();
     private boolean open=false;
     private boolean disabled=false;
+    private boolean autoAppendAndRemove=true;
 
     public BaseModal() {
         modal = Modal.create();
@@ -227,6 +229,11 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
 
         if(isEnabled()) {
 
+            if(autoAppendAndRemove){
+                asElement().remove();
+                document.body.appendChild(asElement());
+            }
+
             initFocusElements();
 
             activeElementBeforeOpen = MyDom.document.activeElement;
@@ -266,8 +273,13 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
         if (nonNull(activeElementBeforeOpen))
             activeElementBeforeOpen.focus();
 
-        for(int i=0;i<closeHandlers.size();i++)
+        for(int i=0;i<closeHandlers.size();i++) {
             closeHandlers.get(i).onClose();
+        }
+
+        if(autoAppendAndRemove){
+            asElement().remove();
+        }
 
         this.open=false;
         return (T) this;
@@ -384,5 +396,16 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     @Override
     public boolean isEnabled() {
         return !disabled;
+    }
+
+    @Override
+    public T setAutoAppendAndRemove(boolean autoAppendAndRemove) {
+        this.autoAppendAndRemove=autoAppendAndRemove;
+        return (T) this;
+    }
+
+    @Override
+    public boolean getAutoAppendAndRemove() {
+        return this.autoAppendAndRemove;
     }
 }
