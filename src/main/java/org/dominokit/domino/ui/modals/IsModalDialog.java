@@ -52,6 +52,9 @@ public interface IsModalDialog<T> {
 
     T removeCloseHandler(CloseHandler closeHandler);
 
+    T setAutoAppendAndRemove(boolean autoAppendAndRemove);
+    boolean getAutoAppendAndRemove();
+
     enum ModalSize {
         LARGE("modal-lg"),
         ALERT("modal-alert"),
