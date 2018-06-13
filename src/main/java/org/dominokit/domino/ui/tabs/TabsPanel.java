@@ -1,14 +1,16 @@
 package org.dominokit.domino.ui.tabs;
 
-import org.dominokit.domino.ui.animations.Animation;
-import org.dominokit.domino.ui.animations.Transition;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.animations.Animation;
+import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.style.Color;
 import org.jboss.gwt.elemento.core.IsElement;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.ul;
@@ -22,6 +24,7 @@ public class TabsPanel implements IsElement<HTMLDivElement> {
     private Tab activeTab;
     private Color tabsColor = Color.BLUE;
     private Transition transition;
+    private List<Tab> tabs = new ArrayList<>();
 
     public TabsPanel() {
         element.appendChild(tabsList);
@@ -34,7 +37,8 @@ public class TabsPanel implements IsElement<HTMLDivElement> {
 
     public TabsPanel addTab(Tab tab) {
         if (nonNull(tab)) {
-            if (Objects.isNull(activeTab)) {
+            tabs.add(tab);
+            if (isNull(activeTab)) {
                 this.activeTab = tab;
                 this.activeTab.activate();
             } else {
@@ -45,20 +49,31 @@ public class TabsPanel implements IsElement<HTMLDivElement> {
             tabsList.appendChild(tab.getTab());
             tabsContent.appendChild(tab.getContentContainer());
             tab.getClickableElement().addEventListener("click", evt -> activateTab(tab));
+
         }
 
         return this;
     }
 
-    private void activateTab(Tab tab) {
-        activeTab.deActivate();
-        activeTab = tab;
-        activeTab.activate();
+    public void activateTab(int index) {
+        if (!tabs.isEmpty() && index < tabs.size() && index >= 0) {
+            activateTab(tabs.get(index));
+        } else {
+            throw new IndexOutOfBoundsException("provided index of [" + index + "] is not within current tabs of size [" + tabs.size() + "].");
+        }
+    }
 
-        if (nonNull(transition)) {
-            Animation.create(activeTab.getContentContainer())
-                    .transition(transition)
-                    .animate();
+    public void activateTab(Tab tab) {
+        if (nonNull(tab) && tabs.contains(tab)) {
+            activeTab.deActivate();
+            activeTab = tab;
+            activeTab.activate();
+
+            if (nonNull(transition)) {
+                Animation.create(activeTab.getContentContainer())
+                        .transition(transition)
+                        .animate();
+            }
         }
     }
 
