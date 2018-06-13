@@ -49,7 +49,7 @@ public class Styles {
     public static final String m_r_0 = "m-r-0";
     public static final String m_r__20 = "m-r--30";
 
-    public static final String margin_0 = "margin_0";
+    public static final String margin_0 = "margin-0";
 
     public static final String p_t_10 = "p-t-10";
     public static final String p_t_0 = "p-t-10";
