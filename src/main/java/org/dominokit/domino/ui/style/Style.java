@@ -77,6 +77,20 @@ public class Style<T extends HTMLElement> implements IsElement<T> {
         return this;
     }
 
+    public Style<T> setHeight(String height){
+        setProperty("height", height);
+        return this;
+    }
+
+    public Style<T> setHeight(String height, boolean important) {
+        if(important){
+            setImportantProperty("height", height);
+        }else {
+            setProperty("height", height);
+        }
+        return this;
+    }
+
     public Style<T> setMinWidth(String width){
         setProperty("min-width", width);
         return this;
@@ -145,6 +159,147 @@ public class Style<T extends HTMLElement> implements IsElement<T> {
             setImportantProperty("background-color", color);
         }else {
             setProperty("background-color", color);
+        }
+        return this;
+    }
+
+    public Style<T> setMargin(String margin){
+        setProperty("margin", margin);
+        return this;
+    }
+
+    public Style<T> setMargin(String margin, boolean important) {
+        if(important){
+            setImportantProperty("margin", margin);
+        }else {
+            setProperty("margin", margin);
+        }
+        return this;
+    }
+
+    public Style<T> setMarginTop(String margin){
+        setProperty("margin-top", margin);
+        return this;
+    }
+
+    public Style<T> setMarginTop(String margin, boolean important) {
+        if(important){
+            setImportantProperty("margin-top", margin);
+        }else {
+            setProperty("margin-top", margin);
+        }
+        return this;
+    }
+
+    public Style<T> setMarginBottom(String margin){
+        setProperty("margin-bottom", margin);
+        return this;
+    }
+
+    public Style<T> setMarginBottom(String margin, boolean important) {
+        if(important){
+            setImportantProperty("margin-bottom", margin);
+        }else {
+            setProperty("margin-bottom", margin);
+        }
+        return this;
+    }
+
+    public Style<T> setMarginLeft(String margin){
+        setProperty("margin-left", margin);
+        return this;
+    }
+
+    public Style<T> setMarginLeft(String margin, boolean important) {
+        if(important){
+            setImportantProperty("margin-left", margin);
+        }else {
+            setProperty("margin-left", margin);
+        }
+        return this;
+    }
+
+    public Style<T> setMarginRight(String margin){
+        setProperty("margin-right", margin);
+        return this;
+    }
+
+    public Style<T> setMarginRight(String margin, boolean important) {
+        if(important){
+            setImportantProperty("margin-right", margin);
+        }else {
+            setProperty("margin-right", margin);
+        }
+        return this;
+    }
+
+    public Style<T> setPaddingRight(String padding){
+        setProperty("padding-right", padding);
+        return this;
+    }
+
+    public Style<T> setPaddingRight(String padding, boolean important) {
+        if(important){
+            setImportantProperty("padding-right", padding);
+        }else {
+            setProperty("padding-right", padding);
+        }
+        return this;
+    }
+
+    public Style<T> setPaddingLeft(String padding){
+        setProperty("padding-left", padding);
+        return this;
+    }
+
+    public Style<T> setPaddingLeft(String padding, boolean important) {
+        if(important){
+            setImportantProperty("padding-left", padding);
+        }else {
+            setProperty("padding-left", padding);
+        }
+        return this;
+    }
+
+
+    public Style<T> setPaddingBottom(String padding){
+        setProperty("padding-bottom", padding);
+        return this;
+    }
+
+    public Style<T> setPaddingBottom(String padding, boolean important) {
+        if(important){
+            setImportantProperty("padding-bottom", padding);
+        }else {
+            setProperty("padding-bottom", padding);
+        }
+        return this;
+    }
+
+    public Style<T> setPaddingTop(String padding){
+        setProperty("padding-top", padding);
+        return this;
+    }
+
+    public Style<T> setPaddingTop(String padding, boolean important) {
+        if(important){
+            setImportantProperty("padding-top", padding);
+        }else {
+            setProperty("padding-top", padding);
+        }
+        return this;
+    }
+
+    public Style<T> setPadding(String padding){
+        setProperty("padding", padding);
+        return this;
+    }
+
+    public Style<T> setPadding(String padding, boolean important) {
+        if(important){
+            setImportantProperty("padding", padding);
+        }else {
+            setProperty("padding", padding);
         }
         return this;
     }
