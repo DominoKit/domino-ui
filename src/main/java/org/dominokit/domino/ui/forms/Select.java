@@ -15,6 +15,7 @@ import java.util.*;
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.ElementUtil.*;
 
 public class Select extends BasicFormElement<Select, String> implements Focusable<Select> {
 
@@ -62,18 +63,6 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
                 evt.preventDefault();
             }
         });
-    }
-
-    private boolean isKeyOf(String keyCode, KeyboardEvent keyboardEvent) {
-        return keyCode.equalsIgnoreCase(keyboardEvent.code);
-    }
-
-    private boolean isEnterKey(KeyboardEvent keyboardEvent) {
-        return isKeyOf("enter", keyboardEvent);
-    }
-
-    private boolean isSpaceKey(KeyboardEvent keyboardEvent) {
-        return isKeyOf("space", keyboardEvent);
     }
 
     private void doOpen() {
@@ -477,17 +466,20 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
             HTMLElement element = Js.uncheckedCast(keyboardEvent.target);
             for (SelectOption option : options) {
                 if (option.asElement().contains(element)) {
-                    if (isKeyOf("ArrowUp", keyboardEvent))
+                    if (isKeyOf("ArrowUp", keyboardEvent)) {
                         focusPrev(option);
-                    else if (isKeyOf("ArrowDown", keyboardEvent))
+                        evt.preventDefault();
+                    }else if (isKeyOf("ArrowDown", keyboardEvent)) {
                         focusNext(option);
+                        evt.preventDefault();
+                    }
 
                     if (isEnterKey(keyboardEvent) ||
                             isSpaceKey(keyboardEvent)
                             || isKeyOf("tab", keyboardEvent)) {
                         doSelectOption(option);
+                        evt.preventDefault();
                     }
-                    evt.preventDefault();
                 }
             }
         }
