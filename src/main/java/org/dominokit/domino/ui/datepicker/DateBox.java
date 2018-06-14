@@ -1,8 +1,9 @@
 package org.dominokit.domino.ui.datepicker;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLInputElement;
+import elemental2.dom.KeyboardEvent;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
@@ -18,6 +19,8 @@ import java.util.Date;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.ElementUtil.isEnterKey;
+import static org.dominokit.domino.ui.utils.ElementUtil.isSpaceKey;
 
 public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
@@ -91,6 +94,13 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             if (nonNull(popover)) {
                 popover.getHeadingElement().classList.remove(oldBackground.color().getStyle());
                 popover.getHeadingElement().classList.add(newBackground.color().getStyle());
+            }
+        });
+
+        getInputElement().addEventListener(EventType.keypress.getName(), evt -> {
+            KeyboardEvent keyboardEvent= Js.cast(evt);
+            if(isEnterKey(keyboardEvent) || isSpaceKey(keyboardEvent) ){
+                open();
             }
         });
     }
@@ -227,7 +237,6 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
             if (isNull(modal)) {
                 this.modal = ModalDialog.createPickerModal(getPlaceholder(), datePicker.getColorScheme(), this.datePicker.asElement());
-                DomGlobal.document.body.appendChild(modal.asElement());
                 asElement().addEventListener(EventType.click.getName(), modalListener);
             }
         }
@@ -243,6 +252,27 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         if (nonNull(this.popover))
             this.popover.position(this.popupPosition);
         return this;
+    }
+
+    public DateBox openOnFocus(){
+        EventListener focusListener = evt -> {
+            open();
+        };
+        getInputElement().addEventListener(EventType.focus.getName(), focusListener);
+        modal.onClose(() -> {
+            getInputElement().removeEventListener(EventType.focus.getName(), focusListener);
+            getInputElement().focus();
+            getInputElement().addEventListener(EventType.focus.getName(), focusListener);
+        });
+        return this;
+    }
+
+    public void open() {
+        if (PickerStyle.MODAL.equals(this.pickerStyle)) {
+            modal.open();
+        } else {
+            popover.show();
+        }
     }
 
     @Override

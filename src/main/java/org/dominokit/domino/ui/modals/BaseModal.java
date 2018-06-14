@@ -14,8 +14,8 @@ import org.jboss.gwt.elemento.template.Templated;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import static elemental2.dom.DomGlobal.*;
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 
@@ -137,8 +137,8 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
             }
 
             if (!focusElements.contains(MyDom.document.activeElement)) {
-                firstFocusElement.focus();
-            }
+                    firstFocusElement.focus();
+                }
         });
     }
 
@@ -241,8 +241,14 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
             document.body.appendChild(MODAL_BACKDROP);
             asElement().classList.add("in");
             asElement().style.display = "block";
-            if (nonNull(firstFocusElement))
+            if (nonNull(firstFocusElement)) {
                 firstFocusElement.focus();
+                if(!Objects.equals(MyDom.document.activeElement, firstFocusElement)){
+                   if(nonNull(lastFocusElement)){
+                       lastFocusElement.focus();
+                   }
+                }
+            }
 
             for (int i = 0; i < openHandlers.size(); i++)
                 openHandlers.get(i).onOpen();
@@ -279,6 +285,7 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
 
         if(autoAppendAndRemove){
             asElement().remove();
+            MODAL_BACKDROP.remove();
         }
 
         this.open=false;
