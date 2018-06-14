@@ -4,6 +4,7 @@ import org.dominokit.domino.ui.Typography.Paragraph;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.button.Button;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.BaseModal;
 import org.dominokit.domino.ui.style.Color;
@@ -14,14 +15,15 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import org.jboss.gwt.elemento.core.EventType;
 
+import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 
 public class MessageDialog extends BaseModal<MessageDialog> {
 
-    private HTMLElement successIcon = MessageDialog.createMessageIcon(Icons.ALL.done().asElement());
-    private HTMLElement errorIcon = MessageDialog.createMessageIcon(Icons.ALL.clear().asElement());
-    private HTMLElement warningIcon = MessageDialog.createMessageIcon(Icons.ALL.error().asElement());
+    private HTMLElement successIcon;
+    private HTMLElement errorIcon;
+    private HTMLElement warningIcon;
 
     private HTMLDivElement iconContainer=div().asElement();
 
@@ -62,7 +64,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         messageDialog.modal.getModalHeader().insertBefore(messageDialog.iconContainer, messageDialog.modal.getModalHeader().firstChild);
         messageDialog.hideHeader();
         messageDialog.setAutoClose(true);
-        messageDialog.onClose(() -> closeHandler.onClose());
+        messageDialog.onClose(closeHandler::onClose);
         messageDialog.appendContent(content);
         Button okButton = Button.create("OK").linkify();
         okButton.asElement().style.setProperty("min-width", "120px");
@@ -93,7 +95,8 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         return createMessage(Paragraph.create(message).asElement(), closeHandler);
     }
 
-    public MessageDialog success() {
+    public MessageDialog success(Icon icon) {
+        this.successIcon=MessageDialog.createMessageIcon(icon.asElement());
         ElementUtil.clear(iconContainer);
         iconContainer.appendChild(successIcon);
 
@@ -116,7 +119,12 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         return this;
     }
 
-    public MessageDialog error(){
+    public MessageDialog success() {
+        return success(Icons.ALL.done());
+    }
+
+    public MessageDialog error(Icon icon){
+        this.errorIcon=MessageDialog.createMessageIcon(icon.asElement());
         ElementUtil.clear(iconContainer);
         iconContainer.appendChild(errorIcon);
 
@@ -139,7 +147,12 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         return this;
     }
 
-    public MessageDialog warning(){
+    public MessageDialog error(){
+        return error(Icons.ALL.error());
+    }
+
+    public MessageDialog warning(Icon icon){
+        this.warningIcon=MessageDialog.createMessageIcon(icon.asElement());
         ElementUtil.clear(iconContainer);
         iconContainer.appendChild(warningIcon);
 
@@ -162,6 +175,10 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         return this;
     }
 
+    public MessageDialog warning(){
+        return warning(Icons.ALL.clear());
+    }
+
     public MessageDialog setIconColor(Color color){
         this.successColor=color;
         this.warningColor=color;
@@ -171,9 +188,18 @@ public class MessageDialog extends BaseModal<MessageDialog> {
     }
 
     public MessageDialog appendHeaderContent(Node content){
-        successIcon.remove();
-        errorIcon.remove();
-        warningIcon.remove();
+        if(nonNull(successIcon)){
+            successIcon.remove();
+        }
+
+        if(nonNull(errorIcon)){
+            errorIcon.remove();
+        }
+
+        if(nonNull(warningIcon)){
+            warningIcon.remove();
+        }
+
         modal.getModalHeader().insertBefore(content, modal.getModalTitle());
         return this;
     }
