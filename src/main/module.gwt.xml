@@ -6,7 +6,6 @@
   <inherits name="elemental2.dom.Dom"/>
   <inherits name="org.jboss.gwt.elemento.Core"/>
   <inherits name="org.jboss.gwt.elemento.Template"/>
-  <inherits name="com.google.gwt.resources.Resources" />
   <inherits name="org.gwtproject.i18n.CLDR"/>
   <inherits name="org.gwtproject.i18n.DateTimeFormat"/>
 
