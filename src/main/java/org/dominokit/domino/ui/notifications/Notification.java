@@ -1,17 +1,15 @@
 package org.dominokit.domino.ui.notifications;
 
+import elemental2.dom.*;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
-import elemental2.dom.*;
 import org.dominokit.domino.ui.style.Color;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
 
 import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
-@Templated
-public abstract class Notification implements IsElement<HTMLDivElement> {
+public class Notification implements IsElement<HTMLDivElement> {
 
     public static final Position TOP_LEFT = new TopLeftPosition();
     public static final Position TOP_CENTER = new TopCenterPosition();
@@ -21,11 +19,24 @@ public abstract class Notification implements IsElement<HTMLDivElement> {
     public static final Position BOTTOM_CENTER = new BottomCenterPosition();
     public static final Position BOTTOM_RIGHT = new BottomRightPosition();
 
-    @DataElement
-    HTMLButtonElement closeButton;
+    private HTMLButtonElement closeButton=button()
+            .attr("type", "button")
+            .attr("aria-hidden", "true")
+            .css("close")
+            .style("position: absolute; right: 10px; top: 5px; z-index: 1033;")
+            .textContent("×")
+            .asElement();
 
-    @DataElement
-    HTMLElement messageSpan;
+    private HTMLElement messageSpan=span().asElement();
+
+    private final HTMLDivElement element=div()
+            .css("bootstrap-notify-container", "alert", "alert-dismissible", "p-r-35")
+            .attr("role","alert")
+            .attr("data-position","20")
+            .style("display: inline-block; margin: 0px auto; position: fixed; transition: all 800ms ease-in-out; z-index: 99999999;")
+            .add(closeButton)
+            .add(messageSpan)
+            .asElement();
 
     private int duration = 4000;
     private Transition inTransition = Transition.FADE_IN;
@@ -59,7 +70,7 @@ public abstract class Notification implements IsElement<HTMLDivElement> {
     }
 
     public static Notification create(String message) {
-        Notification notification = new Templated_Notification();
+        Notification notification = new Notification();
         notification.messageSpan.textContent = message;
         notification.asElement().classList.add(notification.background.getBackground());
         notification.closeButton.addEventListener("click", e-> notification.close());
@@ -127,6 +138,11 @@ public abstract class Notification implements IsElement<HTMLDivElement> {
                 .animate();
 
         return this;
+    }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return element;
     }
 
     public interface Position {

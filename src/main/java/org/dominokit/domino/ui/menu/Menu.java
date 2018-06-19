@@ -1,37 +1,46 @@
 package org.dominokit.domino.ui.menu;
 
-import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.style.Waves;
-import org.dominokit.domino.ui.utils.HasActiveItem;
 import elemental2.dom.*;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.utils.HasActiveItem;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
 
-@Templated
-public abstract class Menu implements IsElement<HTMLDivElement>, HasActiveItem<MenuItem> {
+import static org.jboss.gwt.elemento.core.Elements.*;
 
-    @DataElement
-    HTMLUListElement root;
+public class Menu implements IsElement<HTMLDivElement>, HasActiveItem<MenuItem> {
 
-    @DataElement
-    HTMLElement title;
+    private HTMLElement title = span().asElement();
 
-    @DataElement
-    HTMLLIElement header;
+    private HTMLLIElement header = li()
+            .css("header", "menu-header")
+            .add(title)
+            .asElement();
+
+    private HTMLUListElement root=ul()
+            .css("list")
+            .style("height: calc(100vh - 70px)")
+            .add(header)
+            .asElement();
+
+
+    private final HTMLDivElement element = div()
+            .css("menu")
+            .style("overflow-x: hidden")
+            .add(root)
+            .asElement();
 
     private MenuItem activeMenuItem;
 
     public static Menu create(String title) {
-        Templated_Menu menu = new Templated_Menu();
+        Menu menu = new Menu();
         menu.title.textContent = title;
-        menu.root.style.height= CSSProperties.HeightUnionType.of("calc(100vh - 83px)");
-        menu.asElement().style.height= CSSProperties.HeightUnionType.of("calc(100vh - 70px)");
+        menu.root.style.height = CSSProperties.HeightUnionType.of("calc(100vh - 83px)");
+        menu.asElement().style.height = CSSProperties.HeightUnionType.of("calc(100vh - 70px)");
         return menu;
     }
 
     public MenuItem addMenuItem(String title, Icon icon) {
-        MenuItem menuItem=MenuItem.createRootItem(title, icon, this);
+        MenuItem menuItem = MenuItem.createRootItem(title, icon, this);
         root.appendChild(menuItem.asElement());
         return menuItem;
     }
@@ -43,7 +52,7 @@ public abstract class Menu implements IsElement<HTMLDivElement>, HasActiveItem<M
 
     @Override
     public void setActiveItem(MenuItem activeItem) {
-        this.activeMenuItem=activeItem;
+        this.activeMenuItem = activeItem;
     }
 
     public HTMLLIElement getHeader() {
@@ -56,5 +65,10 @@ public abstract class Menu implements IsElement<HTMLDivElement>, HasActiveItem<M
 
     public HTMLElement getTitle() {
         return title;
+    }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return element;
     }
 }

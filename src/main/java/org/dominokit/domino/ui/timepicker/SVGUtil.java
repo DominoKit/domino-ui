@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.timepicker;
 
 import elemental2.svg.SVGCircleElement;
+import elemental2.svg.SVGElement;
 import elemental2.svg.SVGLineElement;
 
 import static elemental2.dom.DomGlobal.document;
@@ -26,5 +27,27 @@ public class SVGUtil {
         line.setAttributeNS(null, "y2", y);
         line.setAttributeNS(null, "style", "stroke: " + color + ";");
         return line;
+    }
+
+    public static SVGElement createSelectCaret(){
+
+        SVGElement svg=(SVGElement)document.createElementNS(SVGNS, "svg");
+        svg.classList.add("caret");
+        svg.setAttributeNS(null, "height", "24");
+        svg.setAttributeNS(null, "viewBox", "0 0 24 24");
+        svg.setAttributeNS(null, "width", "24");
+
+        SVGElement path1=(SVGElement)document.createElementNS(SVGNS, "path");
+        path1.setAttributeNS(null, "d", "M7 10l5 5 5-5z");
+
+        SVGElement path2=(SVGElement)document.createElementNS(SVGNS, "path");
+        path2.setAttributeNS(null, "d", "M0 0h24v24H0z");
+        path2.setAttributeNS(null, "fill", "none");
+
+        svg.appendChild(path1);
+        svg.appendChild(path2);
+
+
+        return svg;
     }
 }

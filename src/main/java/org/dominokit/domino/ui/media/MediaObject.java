@@ -1,25 +1,29 @@
 package org.dominokit.domino.ui.media;
 
-import org.dominokit.domino.ui.utils.ElementUtil;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.h;
 
-@Templated
-public abstract class MediaObject implements IsElement<HTMLDivElement> {
+public class MediaObject implements IsElement<HTMLDivElement> {
 
-    @DataElement
-    HTMLDivElement mediaBody;
+    private HTMLHeadingElement mediaHeader = h(4).css("media-heading").asElement();
+    private HTMLDivElement mediaBody = div()
+            .css("media-body")
+            .add(mediaHeader)
+            .asElement();
 
-    @DataElement
-    HTMLHeadingElement mediaHeader;
+
+    private final HTMLDivElement element = div()
+            .css("media")
+            .add(mediaBody)
+            .asElement();
 
     private HTMLDivElement leftMedia;
     private HTMLDivElement rightMedia;
@@ -28,7 +32,7 @@ public abstract class MediaObject implements IsElement<HTMLDivElement> {
     private MediaAlign rightAlign = MediaAlign.TOP;
 
     public static MediaObject create() {
-        return new Templated_MediaObject();
+        return new MediaObject();
     }
 
     public MediaObject setHeader(String header) {
@@ -95,6 +99,11 @@ public abstract class MediaObject implements IsElement<HTMLDivElement> {
 
     public HTMLDivElement getRightMedia() {
         return rightMedia;
+    }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return element;
     }
 
     public enum MediaAlign {

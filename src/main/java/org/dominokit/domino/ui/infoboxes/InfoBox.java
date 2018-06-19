@@ -1,17 +1,15 @@
 package org.dominokit.domino.ui.infoboxes;
 
+import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
-import elemental2.dom.HTMLDivElement;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
 
 import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.div;
 
-@Templated
-public abstract class InfoBox implements IsElement<HTMLDivElement>, HasBackground<InfoBox> {
+public class InfoBox implements IsElement<HTMLDivElement>, HasBackground<InfoBox> {
 
     public enum HoverEffect {
         ZOOM("hover-zoom-effect"),
@@ -36,16 +34,21 @@ public abstract class InfoBox implements IsElement<HTMLDivElement>, HasBackgroun
         }
     }
 
-    @DataElement
-    HTMLDivElement iconElement;
+    private HTMLDivElement iconElement = div().css("icon").asElement();
 
-    @DataElement
-    HTMLDivElement titleElement;
+    private HTMLDivElement titleElement = div().css("text").asElement();
+    private HTMLDivElement valueElement = div().css("number", "count-to").asElement();
 
-    @DataElement
-    HTMLDivElement valueElement;
 
-    Icon icon;
+    private HTMLDivElement element = div()
+            .css("info-box")
+            .add(iconElement)
+            .add(div().css("content")
+                    .add(titleElement)
+                    .add(valueElement))
+            .asElement();
+
+    private Icon icon;
 
     private Color counterBackground;
     private Color iconBackground;
@@ -55,13 +58,13 @@ public abstract class InfoBox implements IsElement<HTMLDivElement>, HasBackgroun
 
     public static InfoBox create(Icon icon, String title, String value) {
 
-        Templated_InfoBox templated_InfoBox = new Templated_InfoBox();
-        templated_InfoBox.iconElement.appendChild(icon.asElement());
-        templated_InfoBox.titleElement.textContent = title;
-        templated_InfoBox.valueElement.textContent = value;
-        templated_InfoBox.icon = icon;
+        InfoBox infoBox = new InfoBox();
+        infoBox.iconElement.appendChild(icon.asElement());
+        infoBox.titleElement.textContent = title;
+        infoBox.valueElement.textContent = value;
+        infoBox.icon = icon;
 
-        return templated_InfoBox;
+        return infoBox;
     }
 
     @Override
@@ -150,4 +153,10 @@ public abstract class InfoBox implements IsElement<HTMLDivElement>, HasBackgroun
     public HTMLDivElement getValueElement() {
         return valueElement;
     }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return element;
+    }
+
 }

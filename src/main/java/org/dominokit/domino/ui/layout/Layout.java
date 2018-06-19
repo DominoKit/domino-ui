@@ -7,6 +7,7 @@ import org.dominokit.domino.ui.themes.Theme;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.jboss.gwt.elemento.core.Elements.a;
+import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
 public class Layout implements IsLayout {
@@ -20,7 +21,8 @@ public class Layout implements IsLayout {
 
     private final NavigationBar navigationBar = NavigationBar.create();
     private final Section section = Section.create();
-    private final Overlay overlay = Overlay.create();
+
+    private final HTMLDivElement overlay=div().css("overlay").style("display: none;").asElement();
     private final Content content = Content.create();
 
     private Text appTitle = new Text("");
@@ -63,24 +65,24 @@ public class Layout implements IsLayout {
     }
 
     private void appendElements() {
-        document.body.appendChild(overlay.asElement());
+        document.body.appendChild(overlay);
         document.body.appendChild(navigationBar.asElement());
         document.body.appendChild(section.asElement());
         document.body.appendChild(content.asElement());
-        navigationBar.title.appendChild(appTitle);
+        navigationBar.getTitle().appendChild(appTitle);
     }
 
     private void initElementsPosition() {
-        section.leftSide.style.marginLeft = CSSProperties.MarginLeftUnionType.of(0);
-        section.rightSide.style.marginRight = CSSProperties.MarginRightUnionType.of(0);
-        section.leftSide.style.left = SLIDE_OUT;
-        section.rightSide.style.right = SLIDE_OUT;
+        section.getLeftSide().style.marginLeft = CSSProperties.MarginLeftUnionType.of(0);
+        section.getRightSide().style.marginRight = CSSProperties.MarginRightUnionType.of(0);
+        section.getLeftSide().style.left = SLIDE_OUT;
+        section.getRightSide().style.right = SLIDE_OUT;
     }
 
     private void addExpandListeners() {
-        navigationBar.menu.addEventListener(CLICK, e -> toggleLeftPanel());
-        navigationBar.navBarExpand.addEventListener(CLICK, e -> toggleNavigationBar());
-        overlay.asElement().addEventListener(CLICK, e -> hidePanels());
+        navigationBar.getMenu().addEventListener(CLICK, e -> toggleLeftPanel());
+        navigationBar.getNavBarExpand().addEventListener(CLICK, e -> toggleNavigationBar());
+        overlay.addEventListener(CLICK, e -> hidePanels());
     }
 
     public Layout removeLeftPanel() {
@@ -92,7 +94,7 @@ public class Layout implements IsLayout {
     }
 
     public Layout updateLeftPanel(String none, String hiddenStyle, String visibleStyle) {
-        navigationBar.menu.style.display = none;
+        navigationBar.getMenu().style.display = none;
         getLeftPanel().style.display = none;
         document.body.classList.remove(hiddenStyle);
         document.body.classList.add(visibleStyle);
@@ -119,12 +121,12 @@ public class Layout implements IsLayout {
             hideLeftPanel();
         if (rightPanelVisible)
             hideRightPanel();
-        navigationBar.navigationBar.classList.remove(COLLAPSE);
+        navigationBar.getNavigationBar().classList.remove(COLLAPSE);
         navigationBarExpanded = true;
     }
 
     private void collapseNavBar() {
-        navigationBar.navigationBar.classList.add(COLLAPSE);
+        navigationBar.getNavigationBar().classList.add(COLLAPSE);
         navigationBarExpanded = false;
     }
 
@@ -142,7 +144,7 @@ public class Layout implements IsLayout {
             hideLeftPanel();
         if (navigationBarExpanded)
             collapseNavBar();
-        section.rightSide.style.right = SLIDE_IN;
+        section.getRightSide().style.right = SLIDE_IN;
         rightPanelVisible = true;
         showOverlay();
 
@@ -151,7 +153,7 @@ public class Layout implements IsLayout {
 
     @Override
     public Layout hideRightPanel() {
-        section.rightSide.style.right = SLIDE_OUT;
+        section.getRightSide().style.right = SLIDE_OUT;
         rightPanelVisible = false;
         hideOverlay();
 
@@ -160,14 +162,14 @@ public class Layout implements IsLayout {
 
     private void hideOverlay() {
         if (overlayVisible) {
-            overlay.asElement().style.display = NONE;
+            overlay.style.display = NONE;
             overlayVisible = false;
         }
     }
 
     private void showOverlay() {
         if (!overlayVisible) {
-            overlay.asElement().style.display = BLOCK;
+            overlay.style.display = BLOCK;
             overlayVisible = true;
         }
     }
@@ -186,7 +188,7 @@ public class Layout implements IsLayout {
             hideRightPanel();
         if (navigationBarExpanded)
             collapseNavBar();
-        section.leftSide.style.left = SLIDE_IN;
+        section.getLeftSide().style.left = SLIDE_IN;
         leftPanelVisible = true;
         showOverlay();
 
@@ -196,7 +198,7 @@ public class Layout implements IsLayout {
     @Override
     public Layout hideLeftPanel() {
         if (!fixedLeftPanel) {
-            section.leftSide.style.left = SLIDE_OUT;
+            section.getLeftSide().style.left = SLIDE_OUT;
             leftPanelVisible = false;
             hideOverlay();
         }
@@ -206,22 +208,22 @@ public class Layout implements IsLayout {
 
     @Override
     public HTMLElement getRightPanel() {
-        return section.rightSide;
+        return section.getRightSide();
     }
 
     @Override
     public HTMLElement getLeftPanel() {
-        return section.leftSide;
+        return section.getLeftSide();
     }
 
     @Override
     public HTMLDivElement getContentPanel() {
-        return content.contentContainer;
+        return content.getContentContainer();
     }
 
     @Override
     public HTMLUListElement getTopBar() {
-        return navigationBar.topBar;
+        return navigationBar.getTopBar();
     }
 
     @Override
@@ -236,10 +238,10 @@ public class Layout implements IsLayout {
 
     @Override
     public Layout setTitle(String title) {
-        if (navigationBar.title.hasChildNodes())
-            navigationBar.title.removeChild(appTitle);
+        if (navigationBar.getTitle().hasChildNodes())
+            navigationBar.getTitle().removeChild(appTitle);
         this.appTitle = new Text(title);
-        navigationBar.title.appendChild(appTitle);
+        navigationBar.getTitle().appendChild(appTitle);
 
         return this;
     }

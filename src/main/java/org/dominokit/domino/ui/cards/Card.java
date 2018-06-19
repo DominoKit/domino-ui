@@ -7,60 +7,53 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
-
-import javax.annotation.PostConstruct;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.a;
-import static org.jboss.gwt.elemento.core.Elements.li;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
-@Templated
-public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<Card> {
+public class Card implements IsElement<HTMLDivElement>, HasBackground<Card> {
 
     private Text title = new Text("");
     private Text description = new Text("");
 
-    @DataElement
-    HTMLDivElement header;
+    private HTMLElement headerDescription=small().asElement();
+    private HTMLElement headerTitle=h(2).add(headerDescription).asElement();
+    private HTMLUListElement headerBar=ul().css("header-dropdown", "m-r--5").asElement();
 
-    @DataElement
-    HTMLElement headerTitle;
+    private HTMLDivElement header= div().add(headerTitle).add(headerBar).css("header").asElement();
+    private HTMLDivElement body= div().css("body").asElement();
+    private HTMLDivElement element=div().add(header).add(body).css("card").asElement();
 
-    @DataElement
-    HTMLElement headerDescription;
-
-    @DataElement
-    HTMLUListElement headerBar;
-
-    @DataElement
-    HTMLDivElement body;
 
     private boolean collapsible = false;
     private HTMLLIElement collapseAction;
     private boolean collapsed = false;
     private Icon collapseIcon;
 
+    public Card() {
+        headerTitle.insertBefore(title, headerDescription);
+        headerDescription.appendChild(description);
+    }
+
     public static Card create() {
-        Templated_Card templated_basicCard = new Templated_Card();
-        templated_basicCard.asElement().removeChild(templated_basicCard.header);
-        return templated_basicCard;
+        Card card = new Card();
+        card.asElement().removeChild(card.header);
+        return card;
     }
 
     public static Card create(String title) {
-        Templated_Card templated_basicCard = new Templated_Card();
-        templated_basicCard.setTitle(title);
-        templated_basicCard.headerTitle.removeChild(templated_basicCard.headerDescription);
-        return templated_basicCard;
+        Card card = new Card();
+        card.setTitle(title);
+        card.headerTitle.removeChild(card.headerDescription);
+        return card;
     }
 
     public static Card create(String title, String description) {
-        Templated_Card templated_basicCard = new Templated_Card();
-        templated_basicCard.setTitle(title);
-        templated_basicCard.setDescription(description);
-        return templated_basicCard;
+        Card card = new Card();
+        card.setTitle(title);
+        card.setDescription(description);
+        return card;
     }
 
     public static Card createProfile(String name, String info) {
@@ -76,13 +69,6 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
                 .setCollapsible()
                 .collapse()
                 .appendContent(Code.block(codeBlock).asElement());
-    }
-
-
-    @PostConstruct
-    void init() {
-        headerTitle.insertBefore(title, headerDescription);
-        headerDescription.appendChild(description);
     }
 
     public Card setTitle(String titleText) {
@@ -210,5 +196,10 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
         }
 
         return this;
+    }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return element;
     }
 }

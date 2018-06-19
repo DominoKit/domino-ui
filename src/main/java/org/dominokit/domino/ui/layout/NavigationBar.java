@@ -5,31 +5,48 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
 
-@Templated
-public abstract class NavigationBar implements IsElement<HTMLElement>{
+import static org.jboss.gwt.elemento.core.Elements.*;
 
-    @DataElement
-    HTMLAnchorElement menu;
+public class NavigationBar implements IsElement<HTMLElement> {
 
-    @DataElement
-    HTMLAnchorElement navBarExpand;
+    private HTMLAnchorElement navBarExpand = a()
+            .css("navbar-toggle", "collapsed")
+            .attr("data-toggle", "collapse")
+            .attr("data-target", "#navbar-collapse")
+            .attr("aria-expanded", "false")
+            .asElement();
 
-    @DataElement
-    HTMLDivElement navigationBar;
+    private HTMLAnchorElement menu = a().css("bars").asElement();
+    private HTMLAnchorElement title = a().css("navbar-brand").asElement();
 
-    @DataElement
-    HTMLUListElement topBar;
+    private HTMLUListElement topBar = ul().css("nav", "navbar-nav", "navbar-right").asElement();
 
-    @DataElement
-    HTMLAnchorElement title;
+    private HTMLDivElement navigationBar = div()
+            .css("collapse", "navbar-collapse")
+            .attr("id", "navbar-collapse")
+            .add(topBar)
+            .asElement();
 
-    private boolean collapsed=true;
+    private HTMLElement element = nav()
+            .css("navbar", "bars")
+            .add(div()
+                    .css("container-fluid")
+                    .add(div()
+                            .css("navbar-header")
+                            .add(navBarExpand)
+                            .add(menu)
+                            .add(title)
+                    )
+                    .add(navigationBar)
+            )
+            .asElement();
 
-    public static NavigationBar create(){
-        return new Templated_NavigationBar();
+
+    private boolean collapsed = true;
+
+    public static NavigationBar create() {
+        return new NavigationBar();
     }
 
     public boolean isCollapsed() {
@@ -41,4 +58,28 @@ public abstract class NavigationBar implements IsElement<HTMLElement>{
         return this;
     }
 
+    @Override
+    public HTMLElement asElement() {
+        return element;
+    }
+
+    public HTMLAnchorElement getNavBarExpand() {
+        return navBarExpand;
+    }
+
+    public HTMLAnchorElement getMenu() {
+        return menu;
+    }
+
+    public HTMLAnchorElement getTitle() {
+        return title;
+    }
+
+    public HTMLUListElement getTopBar() {
+        return topBar;
+    }
+
+    public HTMLDivElement getNavigationBar() {
+        return navigationBar;
+    }
 }

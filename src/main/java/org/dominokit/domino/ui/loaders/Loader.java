@@ -19,7 +19,7 @@ public class Loader {
 
     public Loader start(){
         stop();
-        target.appendChild(loaderElement.getElement());
+        target.appendChild(loaderElement.asElement());
         target.classList.add("waitMe_container");
         started=true;
 
@@ -28,7 +28,7 @@ public class Loader {
 
     public Loader stop(){
         if(started){
-            target.removeChild(loaderElement.getElement());
+            target.removeChild(loaderElement.asElement());
             target.classList.remove("waitMe_container");
             started=false;
         }

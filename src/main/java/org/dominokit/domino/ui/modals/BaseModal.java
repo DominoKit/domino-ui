@@ -6,11 +6,8 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.MyDom;
 import org.dominokit.domino.ui.utils.Switchable;
-import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,35 +15,55 @@ import java.util.Objects;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.h;
 
 public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModalDialog<T>, Switchable<T> {
-    private static HTMLDivElement MODAL_BACKDROP = Elements.div().css("modal-backdrop fade in").asElement();
+
+    private static HTMLDivElement MODAL_BACKDROP = div().css("modal-backdrop fade in").asElement();
     private List<OpenHandler> openHandlers = new ArrayList<>();
     private List<CloseHandler> closeHandlers = new ArrayList<>();
 
-    @Templated
-    public static abstract class Modal implements IsElement<HTMLDivElement> {
+    public static class Modal implements IsElement<HTMLDivElement> {
 
-        @DataElement
-        HTMLDivElement modalHeader;
+        private HTMLHeadingElement modalTitle = h(4).css("modal-title").asElement();
 
-        @DataElement
-        HTMLHeadingElement modalTitle;
+        private HTMLDivElement modalHeader = div()
+                .css("modal-header")
+                .add(modalTitle)
+                .asElement();
 
-        @DataElement
-        HTMLDivElement modalBody;
+        private HTMLDivElement modalBody = div().css("modal-body").asElement();
 
-        @DataElement
-        HTMLDivElement modalDialog;
+        private HTMLDivElement modalFooter = div().css("modal-footer").asElement();
 
-        @DataElement
-        HTMLDivElement modalContent;
+        private HTMLDivElement modalContent = div()
+                .css("modal-content")
+                .add(modalHeader)
+                .add(modalBody)
+                .add(modalFooter)
+                .asElement();
 
-        @DataElement
-        HTMLDivElement modalFooter;
+
+        private HTMLDivElement modalDialog = div()
+                .css("modal-dialog")
+                .attr("tabindex", "-1")
+                .attr("role", "document")
+                .add(modalContent)
+                .asElement();
+
+
+        private final HTMLDivElement element = div()
+                .css("modal", "fade")
+                .attr("role", "-1")
+                .attr("tabindex", "dialog")
+                .style("display: none;")
+                .add(modalDialog)
+                .asElement();
+
 
         public static Modal create() {
-            return new Templated_BaseModal_Modal();
+            return new Modal();
         }
 
         public HTMLHeadingElement getModalTitle() {
@@ -72,6 +89,11 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
         public HTMLDivElement getModalHeader() {
             return modalHeader;
         }
+
+        @Override
+        public HTMLDivElement asElement() {
+            return element;
+        }
     }
 
     protected Modal modal;
@@ -86,10 +108,10 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     private Element lastFocusElement;
     private Element activeElementBeforeOpen;
     private List<Element> focusElements = new ArrayList<>();
-    private Text headerText=new Text();
-    private boolean open=false;
-    private boolean disabled=false;
-    private boolean autoAppendAndRemove=true;
+    private Text headerText = new Text();
+    private boolean open = false;
+    private boolean disabled = false;
+    private boolean autoAppendAndRemove = true;
 
     public BaseModal() {
         modal = Modal.create();
@@ -137,8 +159,8 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
             }
 
             if (!focusElements.contains(MyDom.document.activeElement)) {
-                    firstFocusElement.focus();
-                }
+                firstFocusElement.focus();
+            }
         });
     }
 
@@ -178,7 +200,7 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
         return setSize(ModalSize.SMALL);
     }
 
-    public T setSize(ModalSize size){
+    public T setSize(ModalSize size) {
         if (nonNull(modalSize))
             modal.modalDialog.classList.remove(modalSize.style);
         modal.modalDialog.classList.add(size.style);
@@ -210,7 +232,7 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
                 evt.preventDefault();
                 close();
             });
-        }else{
+        } else {
             MODAL_BACKDROP.addEventListener(EventType.keypress.getName(), evt -> {
                 evt.stopPropagation();
                 evt.preventDefault();
@@ -227,9 +249,9 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     @Override
     public T open() {
 
-        if(isEnabled()) {
+        if (isEnabled()) {
 
-            if(autoAppendAndRemove){
+            if (autoAppendAndRemove) {
                 asElement().remove();
                 document.body.appendChild(asElement());
             }
@@ -243,10 +265,10 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
             asElement().style.display = "block";
             if (nonNull(firstFocusElement)) {
                 firstFocusElement.focus();
-                if(!Objects.equals(MyDom.document.activeElement, firstFocusElement)){
-                   if(nonNull(lastFocusElement)){
-                       lastFocusElement.focus();
-                   }
+                if (!Objects.equals(MyDom.document.activeElement, firstFocusElement)) {
+                    if (nonNull(lastFocusElement)) {
+                        lastFocusElement.focus();
+                    }
                 }
             }
 
@@ -279,16 +301,16 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
         if (nonNull(activeElementBeforeOpen))
             activeElementBeforeOpen.focus();
 
-        for(int i=0;i<closeHandlers.size();i++) {
+        for (int i = 0; i < closeHandlers.size(); i++) {
             closeHandlers.get(i).onClose();
         }
 
-        if(autoAppendAndRemove){
+        if (autoAppendAndRemove) {
             asElement().remove();
             MODAL_BACKDROP.remove();
         }
 
-        this.open=false;
+        this.open = false;
         return (T) this;
     }
 
@@ -390,13 +412,13 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
 
     @Override
     public T enable() {
-        this.disabled=false;
+        this.disabled = false;
         return (T) this;
     }
 
     @Override
     public T disable() {
-        this.disabled=true;
+        this.disabled = true;
         return (T) this;
     }
 
@@ -407,7 +429,7 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
 
     @Override
     public T setAutoAppendAndRemove(boolean autoAppendAndRemove) {
-        this.autoAppendAndRemove=autoAppendAndRemove;
+        this.autoAppendAndRemove = autoAppendAndRemove;
         return (T) this;
     }
 

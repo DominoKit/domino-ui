@@ -2,13 +2,13 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.*;
 import elemental2.dom.EventListener;
+import elemental2.svg.SVGElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.timepicker.SVGUtil;
 import org.dominokit.domino.ui.utils.Focusable;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
 
 import java.util.*;
 
@@ -16,6 +16,7 @@ import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementUtil.*;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Select extends BasicFormElement<Select, String> implements Focusable<Select> {
 
@@ -24,7 +25,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     private static final String KEYDOWN = "keydown";
     private static final String FOCUSED = "focused";
 
-    private HTMLDivElement container = Elements.div().css("form-group").asElement();
+    private HTMLDivElement container = div().css("form-group").asElement();
     private SelectElement selectElement = SelectElement.create();
     private HTMLLabelElement labelElement = Elements.label().css("form-label").asElement();
     private List<SelectOption> options = new LinkedList<>();
@@ -332,8 +333,8 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         return this;
     }
 
-    public Select removeOption(SelectOption option){
-        if(nonNull(option) && getOptions().contains(option)){
+    public Select removeOption(SelectOption option) {
+        if (nonNull(option) && getOptions().contains(option)) {
             option.deselect(true);
             options.remove(option);
             option.asElement().remove();
@@ -341,15 +342,15 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         return this;
     }
 
-    public Select removeOptions(Collection<SelectOption> options){
-        if(nonNull(options) && !options.isEmpty() && !this.options.isEmpty()){
+    public Select removeOptions(Collection<SelectOption> options) {
+        if (nonNull(options) && !options.isEmpty() && !this.options.isEmpty()) {
             options.forEach(this::removeOption);
         }
         return this;
     }
 
-    public Select removeAllOptions(){
-        if(nonNull(options) && !options.isEmpty()){
+    public Select removeAllOptions() {
+        if (nonNull(options) && !options.isEmpty()) {
             options.forEach(this::removeOption);
         }
         return this;
@@ -414,27 +415,44 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         return container;
     }
 
-    @Templated
-    public static abstract class SelectElement implements IsElement<HTMLDivElement> {
+    public static class SelectElement implements IsElement<HTMLDivElement> {
 
+        private HTMLElement selectedValueContainer = span().css("filter-option", "pull-left").asElement();
+        private SVGElement caret = SVGUtil.createSelectCaret();
 
-        @DataElement
-        HTMLButtonElement selectButton;
+        private HTMLButtonElement selectButton = button()
+                .attr("type", "button")
+                .attr("data-toggle", "dropdown")
+                .attr("aria-expanded", "false")
+                .attr("tabindex", "1")
+                .css("btn", "dropdown-toggle", "btn-default")
+                .add(selectedValueContainer)
+                .add(new Text("&nbsp;"))
+                .add(caret)
+                .asElement();
 
-        @DataElement
-        HTMLDivElement dropDownMenu;
+        private HTMLUListElement optionsList=ul().css("dropdown-menu", "inner")
+                .attr("role", "menu")
+                .style("max-height: 330px; overflow-y: auto; min-height: 82px;")
+                .asElement();
 
-        @DataElement
-        HTMLUListElement optionsList;
+        private HTMLDivElement dropDownMenu=div().css("dropdown-menu", "open")
+                .style("max-height: 340px; overflow: hidden; min-height: 92px;")
+                .add(optionsList)
+                .asElement();
 
-        @DataElement
-        HTMLSelectElement selectMenu;
+        private HTMLSelectElement selectMenu=Elements.select().css("form-control", "show-tick")
+                .asElement();
 
-        @DataElement
-        HTMLElement selectedValueContainer;
+        private HTMLDivElement element = div().css("btn-group", "bootstrap-select", "form-control", "show-tick")
+                .add(selectButton)
+                .add(dropDownMenu)
+                .add(selectMenu)
+                .asElement();
+
 
         public static SelectElement create() {
-            return new Templated_Select_SelectElement();
+            return new SelectElement();
         }
 
         public HTMLButtonElement getSelectButton() {
@@ -456,6 +474,11 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         public HTMLElement getSelectedValueContainer() {
             return selectedValueContainer;
         }
+
+        @Override
+        public HTMLDivElement asElement() {
+            return element;
+        }
     }
 
     private final class NavigateOptionsKeyListener implements EventListener {
@@ -469,7 +492,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
                     if (isKeyOf("ArrowUp", keyboardEvent)) {
                         focusPrev(option);
                         evt.preventDefault();
-                    }else if (isKeyOf("ArrowDown", keyboardEvent)) {
+                    } else if (isKeyOf("ArrowDown", keyboardEvent)) {
                         focusNext(option);
                         evt.preventDefault();
                     }
