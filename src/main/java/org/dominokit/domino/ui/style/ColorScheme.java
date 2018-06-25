@@ -46,7 +46,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.RED_LIGHTEN_4;
+            return Color.RED_LIGHTEN_2;
         }
 
         @Override

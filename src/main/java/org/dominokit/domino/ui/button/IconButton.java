@@ -78,6 +78,11 @@ public class IconButton extends Button {
     }
 
     @Override
+    public IconButton linkify() {
+        return (IconButton) super.linkify();
+    }
+
+    @Override
     public IconButton setContent(String content) {
         this.content = content;
         buttonElement.textContent = "";
