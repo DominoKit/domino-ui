@@ -5,7 +5,7 @@
 
     <groupId>org.dominokit</groupId>
     <artifactId>domino-ui</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-j2cl-SNAPSHOT</version>
     <packaging>gwt-lib</packaging>
     <url>https://github.com/DominoKit/domino</url>
     <description>Domino parent</description>
