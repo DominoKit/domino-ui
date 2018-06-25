@@ -62,7 +62,7 @@
     <dependencies>
         <dependency>
             <groupId>org.gwtproject.timer</groupId>
-            <artifactId>timer</artifactId>
+            <artifactId>gwt-timer</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

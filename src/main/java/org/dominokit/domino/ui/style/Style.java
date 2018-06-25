@@ -26,6 +26,11 @@ public class Style<T extends HTMLElement> implements IsElement<T> {
         return this;
     }
 
+    public Style<T> removeProperty(String name) {
+        element.style.removeProperty(name);
+        return this;
+    }
+
     public Style<T> setImportantProperty(String name, String value) {
         element.style.setProperty(name, value, "important");
         return this;
@@ -300,6 +305,20 @@ public class Style<T extends HTMLElement> implements IsElement<T> {
             setImportantProperty("padding", padding);
         }else {
             setProperty("padding", padding);
+        }
+        return this;
+    }
+
+    public Style<T> setDisplay(String display){
+        setProperty("display", display);
+        return this;
+    }
+
+    public Style<T> setDisplay(String display, boolean important) {
+        if(important){
+            setImportantProperty("display", display);
+        }else {
+            setProperty("display", display);
         }
         return this;
     }
