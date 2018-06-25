@@ -5,6 +5,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import elemental2.dom.Text;
 import org.dominokit.domino.ui.utils.BodyObserver;
+import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -76,5 +77,11 @@ public class Tooltip implements IsElement<HTMLDivElement> {
 
     public PopupPosition getPopupPosition() {
         return popupPosition;
+    }
+
+    public Tooltip setContent(Node content){
+        ElementUtil.clear(innerElement);
+        innerElement.appendChild(content);
+        return this;
     }
 }
