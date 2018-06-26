@@ -319,6 +319,11 @@
 
     <repositories>
         <repository>
+            <id>jboss-developer-repository-group</id>
+            <name>JBoss Developer Maven Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/developer/</url>
+        </repository>
+        <repository>
             <id>vertispan-snapshots</id>
             <name>Vertispan Snapshots</name>
             <url>https://repo.vertispan.com/gwt-snapshot/</url>
