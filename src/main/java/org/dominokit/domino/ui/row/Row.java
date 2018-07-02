@@ -1,8 +1,9 @@
 package org.dominokit.domino.ui.row;
 
-import org.dominokit.domino.ui.column.Column;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.column.Column;
+import org.dominokit.domino.ui.style.Style;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
@@ -38,5 +39,9 @@ public class Row implements IsElement<HTMLDivElement> {
     public Row appendContent(HTMLElement element) {
         row.appendChild(element);
         return this;
+    }
+
+    public Style<HTMLDivElement, Row> style() {
+        return Style.of(this);
     }
 }
