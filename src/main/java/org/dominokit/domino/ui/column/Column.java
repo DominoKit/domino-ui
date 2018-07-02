@@ -54,6 +54,10 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
         return this;
     }
 
+    public Column addElement(IsElement<? extends HTMLElement> element) {
+        this.asElement().appendChild(element.asElement());
+        return this;
+    }
     public Column onLarge(OnLarge onLarge) {
         if (nonNull(this.onLargeStyle))
             column.classList.remove(this.onLargeStyle.getStyle());

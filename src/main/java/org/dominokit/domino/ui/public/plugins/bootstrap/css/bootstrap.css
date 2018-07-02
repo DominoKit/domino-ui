@@ -2318,10 +2318,10 @@ th {
 .table-bordered > thead > tr > td {
   border-bottom-width: 2px;
 }
-.table-striped > tbody > tr:nth-of-type(odd) {
+.table-striped > tbody > tr:nth-of-type(odd):not([class*="details-tr"]) {
   background-color: #f9f9f9;
 }
-.table-hover > tbody > tr:hover {
+.table-hover > tbody > tr:hover:not([class*="details-tr"]) {
   background-color: #f5f5f5;
 }
 table col[class*="col-"] {

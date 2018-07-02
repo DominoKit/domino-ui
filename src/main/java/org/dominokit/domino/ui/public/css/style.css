@@ -1,4 +1,4 @@
-﻿/* Navbar ====================================== */
+﻿﻿/* Navbar ====================================== */
 @import url(materialize.css);
 .navbar {
     font-family: "Roboto", sans-serif;
@@ -5381,13 +5381,13 @@ section.content {
     outline: none;
 }
 
-.btn:not(.btn-link):not(.btn-circle) i {
+.btn:not(.btn-circle) i {
     font-size: 20px;
     position: relative;
     top: 3px;
 }
 
-.btn:not(.btn-link):not(.btn-circle) span {
+.btn:not(.btn-circle) span {
     position: relative;
     top: -2px;
     margin-left: 3px;
@@ -7456,7 +7456,6 @@ fieldset[disabled] .form-control {
     margin-top: 5px;
     color: #999;
     font-weight: normal;
-    display: block;
 }
 
 .switch label input[type=checkbox]:checked:not(:disabled) ~ .lever.switch-col-black:active:after {
@@ -13472,6 +13471,15 @@ box-shadow: 0px 1px transparent !important;
     max-width: 200px;
 }
 
+.details-tr{
+    border-top: 1px double #c3c3c3;
+}
+
+.table {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 0px !important;
+}
+
 .table .marker{
     padding: 0px !important;
     width: 3px !important;
@@ -13479,4 +13487,10 @@ box-shadow: 0px 1px transparent !important;
 
 .table .table-checkbox:before{
     margin-top: 4px !important;
+}
+
+.tbody-fixed{
+    display: block;
+    overflow: auto;
+    /*border-bottom: 1px solid #eee;*/
 }

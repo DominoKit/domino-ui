@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.*;
+import jsinterop.base.Js;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ public class BodyObserver {
     private static List<ElementObserver> removalObservers = new ArrayList<>();
     private static List<ElementObserver> appendObservers = new ArrayList<>();
 
-    static {
+    public static void init(){
         MutationObserver mutationObserver = new MutationObserver((MutationRecord[] records, MutationObserver observer) -> {
             for (int i=0;i<records.length;i++){
                 onRemoval(records[i]);
@@ -25,7 +26,7 @@ public class BodyObserver {
         mutationObserverInit.setChildList(true);
         mutationObserverInit.setSubtree(true);
 
-        mutationObserver.observe(DomGlobal.document.body, mutationObserverInit);
+        mutationObserver.observe(DomGlobal.document, mutationObserverInit);
     }
 
     private static void onAppend(MutationRecord record) {
