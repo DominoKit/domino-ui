@@ -75,7 +75,7 @@ public class TableConfig<T> {
                 fixElementWidth(columnConfig, cellElement);
             }
 
-            RowCell<T> rowCell = new RowCell<>(new TableCell.Cell<>(tableRow, cellElement), columnConfig);
+            RowCell<T> rowCell = new RowCell<>(new CellRenderer.CellInfo<>(tableRow, cellElement), columnConfig);
             rowCell.updateCell();
             tableRow.addCell(rowCell);
 

@@ -1,9 +1,11 @@
 package org.dominokit.domino.ui.infoboxes;
 
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.HasBackground;
-import elemental2.dom.HTMLDivElement;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
@@ -45,7 +47,7 @@ public abstract class InfoBox implements IsElement<HTMLDivElement>, HasBackgroun
     @DataElement
     HTMLDivElement valueElement;
 
-    Icon icon;
+    HTMLElement icon;
 
     private Color counterBackground;
     private Color iconBackground;
@@ -57,6 +59,17 @@ public abstract class InfoBox implements IsElement<HTMLDivElement>, HasBackgroun
 
         Templated_InfoBox templated_InfoBox = new Templated_InfoBox();
         templated_InfoBox.iconElement.appendChild(icon.asElement());
+        templated_InfoBox.titleElement.textContent = title;
+        templated_InfoBox.valueElement.textContent = value;
+        templated_InfoBox.icon = icon.asElement();
+
+        return templated_InfoBox;
+    }
+
+    public static InfoBox create(HTMLElement icon, String title, String value) {
+
+        Templated_InfoBox templated_InfoBox = new Templated_InfoBox();
+        templated_InfoBox.iconElement.appendChild(icon);
         templated_InfoBox.titleElement.textContent = title;
         templated_InfoBox.valueElement.textContent = value;
         templated_InfoBox.icon = icon;
@@ -130,12 +143,18 @@ public abstract class InfoBox implements IsElement<HTMLDivElement>, HasBackgroun
 
     public InfoBox setIconColor(Color color) {
         if (nonNull(iconColor) && nonNull(icon))
-            icon.asElement().classList.remove(iconColor.getStyle());
+            icon.classList.remove(iconColor.getStyle());
         if (nonNull(icon)) {
             this.iconColor = color;
-            icon.asElement().classList.add(this.iconColor.getStyle());
+            icon.classList.add(this.iconColor.getStyle());
         }
 
+        return this;
+    }
+
+    public InfoBox setIcon(HTMLElement element){
+        ElementUtil.clear(iconElement);
+        iconElement.appendChild(element);
         return this;
     }
 

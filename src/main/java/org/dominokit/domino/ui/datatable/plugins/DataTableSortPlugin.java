@@ -81,8 +81,4 @@ public class DataTableSortPlugin<T> implements DataTablePlugin<T> {
         }
     }
 
-    public enum SortDirection {
-        ASC, DESC
-    }
-
 }
