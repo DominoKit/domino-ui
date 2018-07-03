@@ -17,7 +17,6 @@ public class PatternMasking implements Masking {
         patternEvaluation = PatternEvaluation.pattern(pattern).build();
         patternEvaluation.addValueChangeListener(() -> {
             textBox.setValue(patternEvaluation.getDisplayValue());
-            textBox.setHelperText(patternEvaluation.getUnMaskedValue());
             updateTextCursorPosition();
         });
     }

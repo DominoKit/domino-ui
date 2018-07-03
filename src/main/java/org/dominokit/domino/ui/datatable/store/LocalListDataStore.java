@@ -3,7 +3,6 @@ package org.dominokit.domino.ui.datatable.store;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
-import org.dominokit.domino.ui.datatable.events.TablePageChangeEvent;
 import org.dominokit.domino.ui.pagination.HasPagination;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
     private List<StoreDataChangeListener<T>> listeners = new ArrayList<>();
 
     private final List<T> original;
-    private List<T> filterd;
+    private List<T> filtered;
     private HasPagination pagination;
     private SearchFilter<T> searchFilter;
     private RecordsSorter<T> recordsSorter;
@@ -28,18 +27,19 @@ public class LocalListDataStore<T> implements DataStore<T> {
 
     public LocalListDataStore(){
         this.original=new ArrayList<>();
-        this.filterd=new ArrayList<>();
+        this.filtered =new ArrayList<>();
     }
 
     public LocalListDataStore(List<T> data) {
         this.original = data;
-        this.filterd = new ArrayList<>(data);
+        this.filtered = new ArrayList<>(data);
     }
 
     public void setData(List<T> data){
         this.original.clear();
         this.original.addAll(data);
-        this.filterd.addAll(original);
+        this.filtered.clear();
+        this.filtered.addAll(original);
     }
 
     public SearchFilter<T> getSearchFilter() {
@@ -103,7 +103,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
 
     private void onSearchChanged(SearchEvent event) {
         if (nonNull(searchFilter)) {
-            filterd = original.stream().filter(record -> searchFilter.filterRecord(event, record)).collect(Collectors.toList());
+            filtered = original.stream().filter(record -> searchFilter.filterRecord(event, record)).collect(Collectors.toList());
             if (nonNull(lastSort)) {
                 sort(lastSort);
             }
@@ -121,12 +121,12 @@ public class LocalListDataStore<T> implements DataStore<T> {
     }
 
     private void sort(SortEvent<T> event) {
-        filterd.sort(recordsSorter.onSortChange(event.getColumnConfig().getName(), event.getSortDirection()));
+        filtered.sort(recordsSorter.onSortChange(event.getColumnConfig().getName(), event.getSortDirection()));
     }
 
     private void loadFirstPage() {
         if (nonNull(pagination)) {
-            pagination.updatePagesByTotalCount(filterd.size());
+            pagination.updatePagesByTotalCount(filtered.size());
             fireUpdate();
         }
     }
@@ -142,16 +142,16 @@ public class LocalListDataStore<T> implements DataStore<T> {
     }
 
     private void fireUpdate() {
-        listeners.forEach(dataChangeListener -> dataChangeListener.onDataChanged(new DataChangedEvent<>(getUpdateRecords(), filterd.size())));
+        listeners.forEach(dataChangeListener -> dataChangeListener.onDataChanged(new DataChangedEvent<>(getUpdateRecords(), filtered.size())));
     }
 
     private List<T> getUpdateRecords() {
         if (nonNull(pagination)) {
             int fromIndex = pagination.getPageSize() * (pagination.activePage() - 1);
-            int toIndex = Math.min(fromIndex + pagination.getPageSize(), filterd.size());
-            return new ArrayList<>(filterd.subList(fromIndex, toIndex));
+            int toIndex = Math.min(fromIndex + pagination.getPageSize(), filtered.size());
+            return new ArrayList<>(filtered.subList(fromIndex, toIndex));
         } else {
-            return new ArrayList<>(filterd);
+            return new ArrayList<>(filtered);
         }
     }
 

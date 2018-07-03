@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.datatable;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
-import org.dominokit.domino.ui.datatable.events.TableDataUpdated;
+import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TableEventListener;
 import org.dominokit.domino.ui.datatable.store.DataStore;
@@ -51,7 +51,7 @@ public class DataTable<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
             } else {
                 setData(dataChangedEvent.getNewData());
             }
-            fireTableEvent(new TableDataUpdated<>(this.data, dataChangedEvent.getTotalCount()));
+            fireTableEvent(new TableDataUpdatedEvent<>(this.data, dataChangedEvent.getTotalCount()));
         });
 
         init();

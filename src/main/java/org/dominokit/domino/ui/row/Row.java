@@ -41,6 +41,10 @@ public class Row implements IsElement<HTMLDivElement> {
         return this;
     }
 
+    public Row condenced(){
+        return Style.of(this).setMarginBottom("0px").get();
+    }
+
     public Style<HTMLDivElement, Row> style() {
         return Style.of(this);
     }

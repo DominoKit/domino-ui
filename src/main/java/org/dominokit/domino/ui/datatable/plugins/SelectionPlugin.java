@@ -51,7 +51,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
             }
 
         })
-        .setTableCell(cell -> {
+        .setCellRenderer(cell -> {
             CheckBox checkBox = createCheckBox();
 
             cell.getTableRow().addSelectionHandler(selectable -> {

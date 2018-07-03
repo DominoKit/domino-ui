@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.datatable.plugins;
 import elemental2.dom.Text;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.TableCell;
+import org.dominokit.domino.ui.datatable.CellRenderer;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 
@@ -24,7 +24,7 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
                 .styleCell(element -> Style.of(element).setPadding("0px", true)
                         .setWidth("3px", true))
 
-                .setTableCell(cell -> {
+                .setCellRenderer(cell -> {
                     ColorScheme colorScheme = markerColor.getColorScheme(cell);
                     if (nonNull(colorScheme)) {
                         Style.of(cell.getElement()).css(markerColor.getColorScheme(cell).color().getBackground());
@@ -39,6 +39,6 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
 
     @FunctionalInterface
     public interface MarkerColor<T> {
-        ColorScheme getColorScheme(TableCell.Cell<T> tableCell);
+        ColorScheme getColorScheme(CellRenderer.CellInfo<T> tableCellInfo);
     }
 }

@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.column;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.style.Style;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -110,6 +111,10 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
         this.asElement().classList.remove(cssClass);
         this.cssClasses.remove(cssClass);
         return this;
+    }
+
+    public Column condenced(){
+        return Style.of(this).setMarginBottom("0px").get();
     }
 
     @Override
