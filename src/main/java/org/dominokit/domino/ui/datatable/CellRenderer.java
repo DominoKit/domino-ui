@@ -4,14 +4,14 @@ import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.Node;
 
 @FunctionalInterface
-public interface TableCell<T> {
-    Node asElement(Cell<T> cell);
+public interface CellRenderer<T> {
+    Node asElement(CellInfo<T> cellInfo);
 
-    class Cell<T>{
+    class CellInfo<T>{
         private final TableRow<T> tableRow;
         private final HTMLTableCellElement element;
 
-        public Cell(TableRow<T> tableRow, HTMLTableCellElement element) {
+        public CellInfo(TableRow<T> tableRow, HTMLTableCellElement element) {
             this.tableRow = tableRow;
             this.element = element;
         }
@@ -22,6 +22,10 @@ public interface TableCell<T> {
 
         public HTMLTableCellElement getElement() {
             return element;
+        }
+
+        public T getRecord(){
+            return tableRow.getRecord();
         }
     }
 }

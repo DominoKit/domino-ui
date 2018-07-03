@@ -17,7 +17,7 @@ public class ColumnConfig<T> {
     private String minWidth;
     private String maxWidth;
     private String textAlign;
-    private TableCell<T> tableCell = cell -> new Text("");
+    private CellRenderer<T> cellRenderer = cell -> new Text("");
     private HeaderElement headerElement = columnTitle -> new Text(columnTitle);
     private CellStyler<T> headerStyler = element -> {
     };
@@ -129,12 +129,12 @@ public class ColumnConfig<T> {
         this.headElement = headElement;
     }
 
-    public TableCell<T> getTableCell() {
-        return tableCell;
+    public CellRenderer<T> getCellRenderer() {
+        return cellRenderer;
     }
 
-    public ColumnConfig<T> setTableCell(TableCell<T> tableCell) {
-        this.tableCell = tableCell;
+    public ColumnConfig<T> setCellRenderer(CellRenderer<T> cellRenderer) {
+        this.cellRenderer = cellRenderer;
         return this;
     }
 

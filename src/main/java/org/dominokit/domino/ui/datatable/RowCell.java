@@ -10,12 +10,12 @@ import static java.util.Objects.nonNull;
 public class RowCell<T> {
 
     private final ColumnConfig<T> columnConfig;
-    private final TableCell.Cell<T> cell;
+    private final CellRenderer.CellInfo<T> cellInfo;
 
 
-    public RowCell(TableCell.Cell<T> cell, ColumnConfig<T> columnConfig) {
+    public RowCell(CellRenderer.CellInfo<T> cellInfo, ColumnConfig<T> columnConfig) {
         this.columnConfig = columnConfig;
-        this.cell = cell;
+        this.cellInfo = cellInfo;
     }
 
     public ColumnConfig<T> getColumnConfig() {
@@ -23,8 +23,8 @@ public class RowCell<T> {
     }
 
     public void updateCell() {
-        ElementUtil.clear(cell.getElement());
-        Style<HTMLTableCellElement, IsElement<HTMLTableCellElement>> style = Style.of(cell.getElement());
+        ElementUtil.clear(cellInfo.getElement());
+        Style<HTMLTableCellElement, IsElement<HTMLTableCellElement>> style = Style.of(cellInfo.getElement());
         if (nonNull(columnConfig.getMinWidth())) {
             style.setMinWidth(columnConfig.getMinWidth());
             Style.of(columnConfig.getHeadElement()).setMinWidth(columnConfig.getMinWidth());
@@ -40,6 +40,6 @@ public class RowCell<T> {
             Style.of(columnConfig.getHeadElement()).setTextAlign(columnConfig.getTextAlign());
         }
 
-        cell.getElement().appendChild(columnConfig.getTableCell().asElement(cell));
+        cellInfo.getElement().appendChild(columnConfig.getCellRenderer().asElement(cellInfo));
     }
 }
