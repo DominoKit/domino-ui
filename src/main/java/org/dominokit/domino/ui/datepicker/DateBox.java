@@ -65,7 +65,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         this.modalListener = evt -> {
                 modal.open();
         };
-        BodyObserver.observeRemoval(asElement(), mutationRecord -> {
+        BodyObserver.onDetach(asElement(), mutationRecord -> {
             if (nonNull(popover))
                 popover.discard();
             if (nonNull(modal)) {
