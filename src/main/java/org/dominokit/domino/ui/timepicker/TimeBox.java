@@ -68,7 +68,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
                 modal.close();
             }
         };
-        BodyObserver.observeRemoval(asElement(), mutationRecord -> {
+        BodyObserver.onDetach(asElement(), mutationRecord -> {
             if (nonNull(popover))
                 popover.discard();
             if (nonNull(modal)) {
