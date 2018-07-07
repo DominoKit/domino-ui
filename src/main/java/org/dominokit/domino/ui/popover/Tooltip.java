@@ -4,12 +4,13 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import elemental2.dom.Text;
-import org.dominokit.domino.ui.utils.BodyObserver;
+import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
+import static org.jboss.gwt.elemento.core.Elements.*;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class Tooltip implements IsElement<HTMLDivElement> {
@@ -39,7 +40,7 @@ public class Tooltip implements IsElement<HTMLDivElement> {
             position(popupPosition);
         });
 
-        BodyObserver.onDetach(targetElement, mutationRecord -> element.remove());
+        onDetach(targetElement, mutationRecord -> element.remove());
 
         targetElement.addEventListener(EventType.mouseleave.getName(), evt1 -> element.remove());
 
