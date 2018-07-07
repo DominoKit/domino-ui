@@ -9,10 +9,8 @@ import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.BodyObserver;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
-import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 
 import java.util.Date;
@@ -21,6 +19,8 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementUtil.isEnterKey;
 import static org.dominokit.domino.ui.utils.ElementUtil.isSpaceKey;
+import static org.jboss.gwt.elemento.core.Elements.input;
+import static org.jboss.gwt.elemento.core.Elements.onDetach;
 
 public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
@@ -65,7 +65,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         this.modalListener = evt -> {
                 modal.open();
         };
-        BodyObserver.onDetach(asElement(), mutationRecord -> {
+        onDetach(asElement(), mutationRecord -> {
             if (nonNull(popover))
                 popover.discard();
             if (nonNull(modal)) {
@@ -179,7 +179,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     @Override
     protected HTMLInputElement createInputElement(String type) {
-        return Elements.input("text").css("form-control")
+        return input("text").css("form-control")
                 .attr("readOnly", "true")
                 .asElement();
     }
