@@ -1,9 +1,8 @@
 package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.*;
-import jsinterop.base.Js;
-import org.dominokit.domino.ui.utils.BodyObserver;
 import org.dominokit.domino.ui.utils.Switchable;
+import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -12,6 +11,7 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
+import static org.jboss.gwt.elemento.core.Elements.*;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.h;
 
@@ -58,7 +58,7 @@ public class Popover implements IsElement<HTMLDivElement>, Switchable<Popover> {
 
         element.addEventListener(EventType.click.getName(), Event::stopPropagation);
 
-        BodyObserver.observeRemoval(targetElement, mutationRecord -> element.remove());
+        onDetach(targetElement, mutationRecord -> element.remove());
 
     }
 

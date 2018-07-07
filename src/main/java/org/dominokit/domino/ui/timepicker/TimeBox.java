@@ -9,13 +9,13 @@ import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
-import org.dominokit.domino.ui.utils.BodyObserver;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
 
@@ -68,7 +68,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
                 modal.close();
             }
         };
-        BodyObserver.observeRemoval(asElement(), mutationRecord -> {
+        onDetach(asElement(), mutationRecord -> {
             if (nonNull(popover))
                 popover.discard();
             if (nonNull(modal)) {
@@ -145,7 +145,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
 
     @Override
     protected HTMLInputElement createInputElement(String type) {
-        return Elements.input("text").css("form-control")
+        return input("text").css("form-control")
                 .attr("readOnly", "true")
                 .asElement();
     }
