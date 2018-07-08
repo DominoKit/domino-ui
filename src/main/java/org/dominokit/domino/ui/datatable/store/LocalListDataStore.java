@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.datatable.events.SearchEvent.SEARCH_EVENT;
 import static org.dominokit.domino.ui.datatable.events.SortEvent.SORT_EVENT;
 import static org.dominokit.domino.ui.datatable.events.TablePageChangeEvent.PAGINATION_EVENT;
-import static org.dominokit.domino.ui.datatable.events.SearchEvent.SEARCH_EVENT;
 
 public class LocalListDataStore<T> implements DataStore<T> {
 
@@ -25,9 +25,9 @@ public class LocalListDataStore<T> implements DataStore<T> {
     private RecordsSorter<T> recordsSorter;
     private SortEvent<T> lastSort;
 
-    public LocalListDataStore(){
-        this.original=new ArrayList<>();
-        this.filtered =new ArrayList<>();
+    public LocalListDataStore() {
+        this.original = new ArrayList<>();
+        this.filtered = new ArrayList<>();
     }
 
     public LocalListDataStore(List<T> data) {
@@ -35,7 +35,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
         this.filtered = new ArrayList<>(data);
     }
 
-    public void setData(List<T> data){
+    public void setData(List<T> data) {
         this.original.clear();
         this.original.addAll(data);
         this.filtered.clear();
@@ -70,7 +70,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
     }
 
     private void updatePagination() {
-        if (nonNull(pagination)) {
+        if (nonNull(pagination) && nonNull(original)) {
             this.pagination.updatePagesByTotalCount(this.original.size());
         }
     }
@@ -127,6 +127,8 @@ public class LocalListDataStore<T> implements DataStore<T> {
     private void loadFirstPage() {
         if (nonNull(pagination)) {
             pagination.updatePagesByTotalCount(filtered.size());
+            fireUpdate();
+        } else {
             fireUpdate();
         }
     }

@@ -254,7 +254,7 @@ public class DataTable<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
     }
 
     @Override
-    public List<TableRow<T>> getItems() {
+    public List<TableRow<T>> getTableRows() {
         return tableRows;
     }
 

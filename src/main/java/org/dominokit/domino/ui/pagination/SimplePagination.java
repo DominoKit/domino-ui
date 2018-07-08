@@ -1,9 +1,6 @@
 package org.dominokit.domino.ui.pagination;
 
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLIElement;
-import elemental2.dom.HTMLUListElement;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Waves;
 import org.dominokit.domino.ui.utils.ElementUtil;
@@ -88,7 +85,6 @@ public class SimplePagination implements IsElement<HTMLElement>, HasPagination {
         prevElement = li().add(a().css(WAVES_EFFECT).add(Icons.ALL.chevron_left().asElement())
                 .on(EventType.click, event -> moveToPage(index - 1, false)).asElement()).asElement();
         pagesElement.appendChild(prevElement);
-
         if (pages > 0) {
             IntStream.rangeClosed(1, pages).forEach(p -> {
                 HtmlContentBuilder<HTMLLIElement> li = li();

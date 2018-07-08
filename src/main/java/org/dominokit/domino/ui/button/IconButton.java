@@ -58,7 +58,9 @@ public class IconButton extends Button {
             buttonElement.textContent = "";
             this.icon.asElement().remove();
             buttonElement.appendChild(icon.asElement());
-            buttonElement.appendChild(Elements.span().textContent(content).asElement());
+            if(nonNull(content) && !content.isEmpty()) {
+                buttonElement.appendChild(Elements.span().textContent(content).asElement());
+            }
         } else {
             buttonElement.appendChild(icon.asElement());
         }
