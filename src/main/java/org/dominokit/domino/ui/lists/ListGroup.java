@@ -114,7 +114,7 @@ public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
     }
 
     @Override
-    public List<ListItem<T>> getItems() {
+    public List<ListItem<T>> getTableRows() {
         return allItems;
     }
 

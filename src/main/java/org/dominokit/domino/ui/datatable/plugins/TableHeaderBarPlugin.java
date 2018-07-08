@@ -18,7 +18,7 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class TableActionsPlugin<T> implements DataTablePlugin<T> {
+public class TableHeaderBarPlugin<T> implements DataTablePlugin<T> {
 
     private Column column = Column.create()
             .onLarge(Column.OnLarge.six)
@@ -40,13 +40,13 @@ public class TableActionsPlugin<T> implements DataTablePlugin<T> {
             .style("padding-bottom: 5px;")
             .asElement();
 
-    private final List<DataTableActionElement<T>> actionElements = new ArrayList<>();
+    private final List<TableHeaderActionElement<T>> actionElements = new ArrayList<>();
 
-    public TableActionsPlugin(String title) {
+    public TableHeaderBarPlugin(String title) {
         this(title, "");
     }
 
-    public TableActionsPlugin(String title, String description) {
+    public TableHeaderBarPlugin(String title, String description) {
         this.title.appendChild(new Text(title));
         if (nonNull(description) && !description.isEmpty()) {
             this.title.appendChild(small().textContent(description).asElement());
@@ -62,17 +62,12 @@ public class TableActionsPlugin<T> implements DataTablePlugin<T> {
         dataTable.asElement().appendChild(element);
     }
 
-    public TableActionsPlugin<T> addActionElement(DataTableActionElement<T> dataTableActionElement) {
-        actionElements.add(dataTableActionElement);
+    public TableHeaderBarPlugin<T> addActionElement(TableHeaderActionElement<T> tableHeaderActionElement) {
+        actionElements.add(tableHeaderActionElement);
         return this;
     }
 
-    @FunctionalInterface
-    public interface DataTableActionElement<T> {
-        Node asElement(DataTable<T> dataTable);
-    }
-
-    public static class CondenseTableAction<T> implements DataTableActionElement<T> {
+    public static class CondenseTableAction<T> implements TableHeaderActionElement<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
             IconButton condenseButton = IconButton.create(Icons.ALL.line_weight())
@@ -100,7 +95,7 @@ public class TableActionsPlugin<T> implements DataTablePlugin<T> {
         }
     }
 
-    public static class StripesTableAction<T> implements DataTableActionElement<T> {
+    public static class StripesTableAction<T> implements TableHeaderActionElement<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
             IconButton strippedButton = IconButton.create(Icons.ALL.power_input())
@@ -127,7 +122,7 @@ public class TableActionsPlugin<T> implements DataTablePlugin<T> {
         }
     }
 
-    public static class BordersTableAction<T> implements DataTableActionElement<T> {
+    public static class BordersTableAction<T> implements TableHeaderActionElement<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
             IconButton borderedButton = IconButton.create(Icons.ALL.border_vertical())
@@ -154,7 +149,7 @@ public class TableActionsPlugin<T> implements DataTablePlugin<T> {
         }
     }
 
-    public static class HoverTableAction<T> implements DataTableActionElement<T> {
+    public static class HoverTableAction<T> implements TableHeaderActionElement<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
             IconButton hoverButton = IconButton.create(Icons.ALL.blur_off())
@@ -181,7 +176,7 @@ public class TableActionsPlugin<T> implements DataTablePlugin<T> {
         }
     }
 
-    public static class SearchTableAction<T> implements DataTableActionElement<T> {
+    public static class SearchTableAction<T> implements TableHeaderActionElement<T> {
 
         @Override
         public Node asElement(DataTable<T> dataTable) {

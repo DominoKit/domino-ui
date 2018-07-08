@@ -39,7 +39,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
                 });
 
                 dataTable.addSelectionListener((selectedRows, selectedRecords) -> {
-                    if(selectedRows.size()!=dataTable.getItems().size()){
+                    if(selectedRows.size()!=dataTable.getTableRows().size()){
                         checkBox.uncheck(true);
                     }else{
                         checkBox.check(true);
