@@ -1,10 +1,13 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
-import elemental2.dom.*;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLTableCellElement;
+import elemental2.dom.HTMLTableRowElement;
 import org.dominokit.domino.ui.button.IconButton;
+import org.dominokit.domino.ui.datatable.CellRenderer;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.CellRenderer;
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.events.ExpandRecordEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
@@ -59,8 +62,8 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
                     HTMLElement htmlElement = IconButton.create(expandIcon.copy()).linkify().disable().asElement();
                     Style.of(htmlElement)
                             .setProperty("padding", "0px")
-                            .setHeight("26px")
-                            .setMarginLeft("7px");
+                            .setHeight("24px")
+                            .setMarginLeft("10px");
 
                     return htmlElement;
                 })
@@ -95,9 +98,11 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
         return tr;
     }
 
-    public void applyStyles(CellRenderer.CellInfo<T> cellInfo){}
+    public void applyStyles(CellRenderer.CellInfo<T> cellInfo) {
+    }
 
-    public void setupColumn(ColumnConfig<T> column) {}
+    public void setupColumn(ColumnConfig<T> column) {
+    }
 
     public static class DetailsButtonElement<T> implements IsElement<HTMLElement>, TableRow.RowMetaObject {
         private final IconButton button;
@@ -116,7 +121,9 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
             button.linkify();
             Style.of(button)
                     .setProperty("padding", "0px")
-                    .setHeight("24px");
+                    .setHeight("27px")
+                    .setPaddingLeft("2px")
+                    .setPaddingRight("2px");
 
             button.addClickListener(evt -> {
                 if (expanded) {
