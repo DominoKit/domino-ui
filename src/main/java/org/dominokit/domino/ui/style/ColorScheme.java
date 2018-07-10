@@ -24,8 +24,59 @@ public interface ColorScheme {
 
     Color darker_4();
 
-    default Theme theme(){
+    default Theme theme() {
         return new Theme(this);
+    }
+
+    static ColorScheme valueOf(String name) {
+        switch (name) {
+            case "RED":
+                return ColorScheme.RED;
+            case "AMBER":
+                return ColorScheme.AMBER;
+            case "BLACK":
+                return ColorScheme.BLACK;
+            case "BLUE":
+                return ColorScheme.BLUE;
+            case "BROWN":
+                return ColorScheme.BROWN;
+            case "BLUE_GREY":
+                return ColorScheme.BLUE_GREY;
+            case "CYAN":
+                return ColorScheme.CYAN;
+            case "DEEP_ORANGE":
+                return ColorScheme.DEEP_ORANGE;
+            case "DEEP_PURPLE":
+                return ColorScheme.DEEP_PURPLE;
+            case "GREEN":
+                return ColorScheme.GREEN;
+            case "GREY":
+                return ColorScheme.GREY;
+            case "INDIGO":
+                return ColorScheme.INDIGO;
+            case "LIGHT_BLUE":
+                return ColorScheme.LIGHT_BLUE;
+            case "LIGHT_GREEN":
+                return ColorScheme.LIGHT_GREEN;
+            case "LIME":
+                return ColorScheme.LIME;
+            case "ORANGE":
+                return ColorScheme.ORANGE;
+            case "PINK":
+                return ColorScheme.PINK;
+            case "PURPLE":
+                return ColorScheme.PURPLE;
+            case "TEAL":
+                return ColorScheme.TEAL;
+            case "TRANSPARENT":
+                return ColorScheme.TRANSPARENT;
+            case "WHITE":
+                return ColorScheme.WHITE;
+            case "YELLOW":
+                return ColorScheme.YELLOW;
+            default:
+                return Theme.currentTheme.getScheme();
+        }
     }
 
     ColorScheme RED = new ColorScheme() {
@@ -46,7 +97,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.RED_LIGHTEN_4;
+            return Color.RED_LIGHTEN_2;
         }
 
         @Override
@@ -77,6 +128,10 @@ public interface ColorScheme {
         @Override
         public Color darker_4() {
             return Color.RED_DARKEN_4;
+        }
+
+        public String getName() {
+            return "RED";
         }
     };
 
