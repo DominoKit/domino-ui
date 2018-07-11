@@ -40,13 +40,13 @@ public interface ColorScheme {
                 return ColorScheme.BLUE;
             case "BROWN":
                 return ColorScheme.BROWN;
-            case "BLUE_GREY":
+            case "BLUE GREY":
                 return ColorScheme.BLUE_GREY;
             case "CYAN":
                 return ColorScheme.CYAN;
-            case "DEEP_ORANGE":
+            case "DEEP ORANGE":
                 return ColorScheme.DEEP_ORANGE;
-            case "DEEP_PURPLE":
+            case "DEEP PURPLE":
                 return ColorScheme.DEEP_PURPLE;
             case "GREEN":
                 return ColorScheme.GREEN;
@@ -54,9 +54,9 @@ public interface ColorScheme {
                 return ColorScheme.GREY;
             case "INDIGO":
                 return ColorScheme.INDIGO;
-            case "LIGHT_BLUE":
+            case "LIGHT BLUE":
                 return ColorScheme.LIGHT_BLUE;
-            case "LIGHT_GREEN":
+            case "LIGHT GREEN":
                 return ColorScheme.LIGHT_GREEN;
             case "LIME":
                 return ColorScheme.LIME;
