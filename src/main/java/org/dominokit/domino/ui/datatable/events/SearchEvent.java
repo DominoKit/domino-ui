@@ -5,13 +5,19 @@ public class SearchEvent implements TableEvent {
     public static final String SEARCH_EVENT = "table-search";
 
     private final String searchText;
+    private final String searchField;
 
-    public SearchEvent(String searchText) {
+    public SearchEvent(String searchText, String searchField) {
         this.searchText = searchText;
+        this.searchField = searchField;
     }
 
     public String getSearchText() {
         return searchText;
+    }
+
+    public String getSearchField() {
+        return searchField;
     }
 
     @Override

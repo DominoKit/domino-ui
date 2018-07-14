@@ -29,7 +29,7 @@ public class TableConfig<T> {
 
         columns.forEach(columnConfig -> {
             Node element = columnConfig.getHeaderElement().asElement(columnConfig.getTitle());
-            columnConfig.contextMenu = div().style("width: 15px;").asElement();
+            columnConfig.contextMenu = div().style("width: 15px; display: none;").asElement();
             HtmlContentBuilder<HTMLDivElement> add = div().style("display: flex;")
                     .add(div().style("width:100%").add(element))
                     .add(columnConfig.contextMenu);
