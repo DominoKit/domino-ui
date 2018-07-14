@@ -425,4 +425,10 @@ public class PatternEvaluationTest extends TestCase {
                 .input('3')
                 .getDisplayValue()).isEqualTo("#123g/NIC-123");
     }
+
+    public void testName() {
+        assertThat(newPatternEvaluation("https://000.0[00].0[00].0[00]:00[00]")
+                .input("127.0.0.1:8080")
+                .getDisplayValue()).isEqualTo("https://127.0.0.1:8080");
+    }
 }

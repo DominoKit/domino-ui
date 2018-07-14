@@ -54,13 +54,17 @@ public class IconButton extends Button {
     }
 
     public IconButton setIcon(Icon icon) {
-        this.icon = icon;
-        if (nonNull(content)) {
+        if (nonNull(this.icon)) {
             buttonElement.textContent = "";
+            this.icon.asElement().remove();
             buttonElement.appendChild(icon.asElement());
-            buttonElement.appendChild(Elements.span().textContent(content).asElement());
-        } else
+            if(nonNull(content) && !content.isEmpty()) {
+                buttonElement.appendChild(Elements.span().textContent(content).asElement());
+            }
+        } else {
             buttonElement.appendChild(icon.asElement());
+        }
+        this.icon = icon;
         return this;
     }
 
@@ -73,6 +77,11 @@ public class IconButton extends Button {
     private void applyCircleWaves() {
         applyWaveStyle(WaveStyle.CIRCLE);
         applyWaveStyle(WaveStyle.FLOAT);
+    }
+
+    @Override
+    public IconButton linkify() {
+        return (IconButton) super.linkify();
     }
 
     @Override

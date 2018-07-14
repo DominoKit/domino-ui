@@ -70,7 +70,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
     public ListItem<T> select(boolean silent) {
         if(parent.isSelectable()) {
             if (!parent.isMultiSelect())
-                parent.getItems().forEach(tListItem -> tListItem.deselect(true));
+                parent.getTableRows().forEach(tListItem -> tListItem.deselect(true));
             if (!selected) {
                 asElement().classList.add("active");
                 this.selected = true;

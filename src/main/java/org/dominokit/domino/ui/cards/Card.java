@@ -4,12 +4,12 @@ import com.google.gwt.resources.client.ExternalTextResource;
 import com.google.gwt.resources.client.ResourceCallback;
 import com.google.gwt.resources.client.ResourceException;
 import com.google.gwt.resources.client.TextResource;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.code.Code;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
-import elemental2.dom.*;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
@@ -128,6 +128,21 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
 
     public Card appendContent(Node content) {
         getBody().appendChild(content);
+        return this;
+    }
+
+    public Card appendContent(IsElement element) {
+        getBody().appendChild(element.asElement());
+        return this;
+    }
+
+    public Card appendChild(Node content) {
+        getBody().appendChild(content);
+        return this;
+    }
+
+    public Card appendChild(IsElement element) {
+        getBody().appendChild(element.asElement());
         return this;
     }
 
