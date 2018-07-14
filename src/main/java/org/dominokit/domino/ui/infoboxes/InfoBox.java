@@ -4,6 +4,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -155,6 +156,13 @@ public abstract class InfoBox implements IsElement<HTMLDivElement>, HasBackgroun
     public InfoBox setIcon(HTMLElement element){
         ElementUtil.clear(iconElement);
         iconElement.appendChild(element);
+        return this;
+    }
+
+    public InfoBox removeShadow(){
+        Style.of(this)
+                .setProperty("box-shadow", "none")
+                .setProperty("-webkit-box-shadow", "none");
         return this;
     }
 

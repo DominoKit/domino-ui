@@ -8059,7 +8059,8 @@ fieldset[disabled] .form-control {
     color: #fff !important;
 }
 
-.modal-col-light-green .modal-footer .btn-link:hover, .modal-col-light-green .modal-footer .btn-link:active, .modal-col-light-green .modal-footer .btn-link:focus {
+.modal-col-light-green .modal-footer .btn-link:hover, .modal-col-light-green .modal-footer ons
+-link:active, .modal-col-light-green .modal-footer .btn-link:focus {
     background-color: rgba(0, 0, 0, 0.12);
 }
 

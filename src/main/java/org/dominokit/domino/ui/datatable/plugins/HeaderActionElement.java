@@ -4,6 +4,6 @@ import elemental2.dom.Node;
 import org.dominokit.domino.ui.datatable.DataTable;
 
 @FunctionalInterface
-public interface TableHeaderActionElement<T> {
+public interface HeaderActionElement<T> {
     Node asElement(DataTable<T> dataTable);
 }

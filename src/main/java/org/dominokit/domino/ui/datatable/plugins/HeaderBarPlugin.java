@@ -5,6 +5,8 @@ import org.dominokit.domino.ui.button.IconButton;
 import org.dominokit.domino.ui.column.Column;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
+import org.dominokit.domino.ui.forms.Select;
+import org.dominokit.domino.ui.forms.SelectOption;
 import org.dominokit.domino.ui.forms.TextBox;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.popover.Tooltip;
@@ -18,7 +20,7 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class TableHeaderBarPlugin<T> implements DataTablePlugin<T> {
+public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
     private Column column = Column.create()
             .onLarge(Column.OnLarge.six)
@@ -40,13 +42,13 @@ public class TableHeaderBarPlugin<T> implements DataTablePlugin<T> {
             .style("padding-bottom: 5px;")
             .asElement();
 
-    private final List<TableHeaderActionElement<T>> actionElements = new ArrayList<>();
+    private final List<HeaderActionElement<T>> actionElements = new ArrayList<>();
 
-    public TableHeaderBarPlugin(String title) {
+    public HeaderBarPlugin(String title) {
         this(title, "");
     }
 
-    public TableHeaderBarPlugin(String title, String description) {
+    public HeaderBarPlugin(String title, String description) {
         this.title.appendChild(new Text(title));
         if (nonNull(description) && !description.isEmpty()) {
             this.title.appendChild(small().textContent(description).asElement());
@@ -62,12 +64,12 @@ public class TableHeaderBarPlugin<T> implements DataTablePlugin<T> {
         dataTable.asElement().appendChild(element);
     }
 
-    public TableHeaderBarPlugin<T> addActionElement(TableHeaderActionElement<T> tableHeaderActionElement) {
-        actionElements.add(tableHeaderActionElement);
+    public HeaderBarPlugin<T> addActionElement(HeaderActionElement<T> headerActionElement) {
+        actionElements.add(headerActionElement);
         return this;
     }
 
-    public static class CondenseTableAction<T> implements TableHeaderActionElement<T> {
+    public static class CondenseTableAction<T> implements HeaderActionElement<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
             IconButton condenseButton = IconButton.create(Icons.ALL.line_weight())
@@ -95,7 +97,7 @@ public class TableHeaderBarPlugin<T> implements DataTablePlugin<T> {
         }
     }
 
-    public static class StripesTableAction<T> implements TableHeaderActionElement<T> {
+    public static class StripesTableAction<T> implements HeaderActionElement<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
             IconButton strippedButton = IconButton.create(Icons.ALL.power_input())
@@ -122,7 +124,7 @@ public class TableHeaderBarPlugin<T> implements DataTablePlugin<T> {
         }
     }
 
-    public static class BordersTableAction<T> implements TableHeaderActionElement<T> {
+    public static class BordersTableAction<T> implements HeaderActionElement<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
             IconButton borderedButton = IconButton.create(Icons.ALL.border_vertical())
@@ -149,7 +151,7 @@ public class TableHeaderBarPlugin<T> implements DataTablePlugin<T> {
         }
     }
 
-    public static class HoverTableAction<T> implements TableHeaderActionElement<T> {
+    public static class HoverTableAction<T> implements HeaderActionElement<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
             IconButton hoverButton = IconButton.create(Icons.ALL.blur_off())
@@ -176,10 +178,16 @@ public class TableHeaderBarPlugin<T> implements DataTablePlugin<T> {
         }
     }
 
-    public static class SearchTableAction<T> implements TableHeaderActionElement<T> {
+    public static class SearchTableAction<T> implements HeaderActionElement<T> {
 
-        @Override
-        public Node asElement(DataTable<T> dataTable) {
+        private HTMLDivElement element=div().css("search-new").asElement();
+        private DataTable<T> dataTable;
+        private final Select select;
+
+        public SearchTableAction() {
+
+            select = Select.create();
+
             TextBox textBox = TextBox.create()
                     .setPlaceholder("Search")
                     .setLeftAddon(Icons.ALL.search().asElement());
@@ -188,12 +196,41 @@ public class TableHeaderBarPlugin<T> implements DataTablePlugin<T> {
                     .setMaxWidth("300px")
                     .css(Styles.pull_right);
 
+            Style.of(select)
+                    .setMarginBottom("0px")
+                    .setMaxWidth("300px")
+                    .css(Styles.pull_right);
+
+            Style.of(select.getSelectElement()).setHeight("38px");
+
+            element.appendChild(textBox.asElement());
+            element.appendChild(select.asElement());
+
             textBox.getInputElement().addEventListener("input", evt -> {
-                dataTable.fireTableEvent(new SearchEvent(textBox.getValue()));
-
+                dataTable.fireTableEvent(new SearchEvent(textBox.getValue(), select.getValue()));
             });
+        }
 
-            return textBox.asElement();
+
+
+        public SearchTableAction<T> addSearchField(SelectOption selectOption){
+            return addSearchField(selectOption, false);
+        }
+
+        public SearchTableAction<T> addSearchField(SelectOption selectOption, boolean defaultSelection){
+            if(nonNull(selectOption)) {
+                select.addOption(selectOption);
+                if(defaultSelection){
+                    select.select(selectOption);
+                }
+            }
+            return this;
+        }
+
+        @Override
+        public Node asElement(DataTable<T> dataTable) {
+            this.dataTable=dataTable;
+            return element;
         }
     }
 
