@@ -13,7 +13,7 @@ import org.jboss.gwt.elemento.core.EventType;
 import static java.util.Objects.isNull;
 import static org.jboss.gwt.elemento.core.Elements.span;
 
-public class DataTableSortPlugin<T> implements DataTablePlugin<T> {
+public class SortPlugin<T> implements DataTablePlugin<T> {
 
     private SortContainer currentContainer;
 
@@ -23,12 +23,10 @@ public class DataTableSortPlugin<T> implements DataTablePlugin<T> {
             SortContainer sortContainer = new SortContainer(column.getName());
 
             Style.of(column.getHeadElement()).css(Styles.cursor_pointer, Styles.disable_selection);
-//            Style.of(sortContainer.sortElement)
-//                    .setProperty("position", "absolute");
             column.contextMenu.appendChild(sortContainer.sortElement);
+            Style.of(column.contextMenu).setDisplay("block");
             column.getHeadElement().addEventListener(EventType.click.getName(), evt -> {
                 Style.of(sortContainer.sortElement)
-//                        .setProperty("position", "absolute")
                         .setProperty("right", "15px")
                         .setProperty("list-style", "none");
                 sortContainer.clear();
@@ -47,7 +45,7 @@ public class DataTableSortPlugin<T> implements DataTablePlugin<T> {
     private class SortContainer {
         private final String columnName;
         private SortDirection sortDirection = SortDirection.DESC;
-        private HTMLElement directionElement = Style.of(ElementUtil.builderFor(Icons.ALL.arrow_upward().asElement()).textContent(" ")).css(Styles.font_15).asElement();
+        private HTMLElement directionElement = Style.of(ElementUtil.builderFor(Icons.ALL.arrow_upward().asElement()).textContent("import_export")).css(Styles.font_15).asElement();
         private HTMLElement sortElement = span().css(Styles.pull_right).add(directionElement)
                 .style("min-width: 15px;")
                 .asElement();
@@ -57,7 +55,7 @@ public class DataTableSortPlugin<T> implements DataTablePlugin<T> {
         }
 
         public void clear() {
-            directionElement.textContent = " ";
+            directionElement.textContent = "import_export";
         }
 
         public void update(boolean flip) {

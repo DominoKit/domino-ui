@@ -355,6 +355,10 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         return this;
     }
 
+    public SelectElement getSelectElement() {
+        return selectElement;
+    }
+
     @FunctionalInterface
     public interface SelectionHandler {
         void onSelection(SelectOption option);

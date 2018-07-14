@@ -85,7 +85,6 @@ public class LocalListDataStore<T> implements DataStore<T> {
         listeners.remove(dataChangeListener);
     }
 
-
     @Override
     public void handleEvent(TableEvent event) {
         switch (event.getType()) {
