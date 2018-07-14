@@ -2,16 +2,16 @@ package org.dominokit.domino.ui.masking;
 
 import org.dominokit.domino.ui.forms.TextBox;
 
-public class ElementMasking {
+public class FieldMasking {
 
     private TextBox textBox;
 
-    public ElementMasking(TextBox textBox) {
+    public FieldMasking(TextBox textBox) {
         this.textBox = textBox;
     }
 
-    public static ElementMasking mask(TextBox textBox) {
-        return new ElementMasking(textBox);
+    public static FieldMasking mask(TextBox textBox) {
+        return new FieldMasking(textBox);
     }
 
     public RegExpMasking regex(String regex) {
