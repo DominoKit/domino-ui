@@ -1,7 +1,6 @@
 package org.dominokit.domino.ui.button;
 
 import elemental2.dom.*;
-import jsinterop.base.Js;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
@@ -24,6 +23,7 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton>, 
     private List<Justifiable> items = new LinkedList<>();
     private Button button;
     private Color background;
+    private static EventListener listener;
 
     public DropdownButton(String content, StyleType type) {
         this(Button.create(content).setButtonType(type));
@@ -54,11 +54,27 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton>, 
     }
 
     private void addHideListener() {
-        DomGlobal.window.addEventListener("click", evt -> {
-            HTMLElement element = Js.cast(evt.target);
-            if (!element.classList.contains("btn"))
-                closeAllGroups();
-        });
+//        DomGlobal.document.body.addEventListener("click", evt -> {
+//            close(evt);
+//        });
+
+        DomGlobal.document.body.style.cursor = "default";
+
+
+        if(nonNull(listener)) {
+            DomGlobal.document.body.addEventListener("click", listener);
+        }else{
+            listener = event -> {
+                DomGlobal.console.info("[ ON CLICK ]");
+                close(event);
+            };
+            DomGlobal.document.body.addEventListener("click", listener);
+        }
+
+    }
+
+    private void close(Event evt) {
+        closeAllGroups();
     }
 
     private HTMLElement asDropDown(HTMLElement buttonElement, HTMLElement groupElement) {
@@ -76,11 +92,12 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton>, 
     }
 
     private void closeAllGroups() {
-        NodeList<Element> elementsByName = DomGlobal.document.body.getElementsByClassName(groupElement.className);
+        NodeList<Element> elementsByName = DomGlobal.document.body.querySelectorAll(".btn-group.open");
         for (int i = 0; i < elementsByName.length; i++) {
             Element item = elementsByName.item(i);
-            if (isOpened(item))
+            if (isOpened(item)) {
                 close(item);
+            }
         }
     }
 
