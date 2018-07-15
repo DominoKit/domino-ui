@@ -93,4 +93,12 @@ public class TabsPanel implements IsElement<HTMLDivElement> {
         this.transition = transition;
         return this;
     }
+
+    public Tab getActiveTab() {
+        return activeTab;
+    }
+
+    public List<Tab> getTabs() {
+        return tabs;
+    }
 }
