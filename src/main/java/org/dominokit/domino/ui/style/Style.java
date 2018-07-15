@@ -360,6 +360,22 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return false;
     }
 
+    public Style<E, T> removeShadow(boolean important) {
+        if (important) {
+            setImportantProperty("box-shadow", "none");
+            setImportantProperty("-webkit-box-shadow", "none");
+        } else {
+            removeShadow();
+        }
+        return this;
+    }
+
+    public Style<E, T> removeShadow() {
+        setProperty("box-shadow", "none");
+        setProperty("-webkit-box-shadow", "none");
+        return this;
+    }
+
 
     @Override
     public E asElement() {
