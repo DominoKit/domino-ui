@@ -5829,116 +5829,18 @@ section.content {
     margin-top: 0;
 }
 
-.card .bg-red,
-.card .bg-pink,
-.card .bg-purple,
-.card .bg-deep-purple,
-.card .bg-indigo,
-.card .bg-blue,
-.card .bg-light-blue,
-.card .bg-cyan,
-.card .bg-teal,
-.card .bg-green,
-.card .bg-light-green,
-.card .bg-lime,
-.card .bg-yellow,
-.card .bg-amber,
-.card .bg-orange,
-.card .bg-deep-orange,
-.card .bg-brown,
-.card .bg-grey,
-.card .bg-blue-grey,
-.card .bg-theme,
-.card .bg-black {
+.card [class*="bg-"]:not(.bg-white) {
     border-bottom: none !important;
     color: #fff !important;
 }
 
-.card .bg-red h2, .card .bg-red small, .card .bg-red .material-icons,
-.card .bg-pink h2,
-.card .bg-pink small,
-.card .bg-pink .material-icons,
-.card .bg-purple h2,
-.card .bg-purple small,
-.card .bg-purple .material-icons,
-.card .bg-deep-purple h2,
-.card .bg-deep-purple small,
-.card .bg-deep-purple .material-icons,
-.card .bg-indigo h2,
-.card .bg-indigo small,
-.card .bg-indigo .material-icons,
-.card .bg-blue h2,
-.card .bg-blue small,
-.card .bg-blue .material-icons,
-.card .bg-light-blue h2,
-.card .bg-light-blue small,
-.card .bg-light-blue .material-icons,
-.card .bg-cyan h2,
-.card .bg-cyan small,
-.card .bg-cyan .material-icons,
-.card .bg-teal h2,
-.card .bg-teal small,
-.card .bg-teal .material-icons,
-.card .bg-green h2,
-.card .bg-green small,
-.card .bg-green .material-icons,
-.card .bg-light-green h2,
-.card .bg-light-green small,
-.card .bg-light-green .material-icons,
-.card .bg-lime h2,
-.card .bg-lime small,
-.card .bg-lime .material-icons,
-.card .bg-yellow h2,
-.card .bg-yellow small,
-.card .bg-yellow .material-icons,
-.card .bg-amber h2,
-.card .bg-amber small,
-.card .bg-amber .material-icons,
-.card .bg-orange h2,
-.card .bg-orange small,
-.card .bg-orange .material-icons,
-.card .bg-deep-orange h2,
-.card .bg-deep-orange small,
-.card .bg-deep-orange .material-icons,
-.card .bg-brown h2,
-.card .bg-brown small,
-.card .bg-brown .material-icons,
-.card .bg-grey h2,
-.card .bg-grey small,
-.card .bg-grey .material-icons,
-.card .bg-blue-grey h2,
-.card .bg-blue-grey small,
-.card .bg-blue-grey .material-icons,
-.card .bg-black h2,
-.card .bg-black small,
-.card .bg-black .material-icons,
-.card .bg-theme h2,
-.card .bg-theme small,
-.card .bg-theme .material-icons {
-    color: #fff !important;
+.card [class*="bg-"] h2,
+.card [class*="bg-"] small,
+.card [class*="bg-"] .material-icons {
+    color: #fff;
 }
 
-.card .bg-red .badge,
-.card .bg-pink .badge,
-.card .bg-purple .badge,
-.card .bg-deep-purple .badge,
-.card .bg-indigo .badge,
-.card .bg-blue .badge,
-.card .bg-light-blue .badge,
-.card .bg-cyan .badge,
-.card .bg-teal .badge,
-.card .bg-green .badge,
-.card .bg-light-green .badge,
-.card .bg-lime .badge,
-.card .bg-yellow .badge,
-.card .bg-amber .badge,
-.card .bg-orange .badge,
-.card .bg-deep-orange .badge,
-.card .bg-brown .badge,
-.card .bg-grey .badge,
-.card .bg-blue-grey .badge,
-.card .bg-black .badge,
-.card .bg-theme .badge {
+.card [class*="bg-"] .badge {
     background-color: #fff;
     color: #555;
 }
@@ -5976,6 +5878,14 @@ section.content {
 
 .card .header .header-dropdown i:hover {
     color: #000;
+}
+
+.card .header[class*="bg-"]:not(.bg-white) h2 {
+    color: #FFF !important;
+}
+
+.card .header[class*="bg-"]:not(.bg-white) h2 small {
+    color: #FFF !important;
 }
 
 .card .header h2 {
