@@ -13410,3 +13410,16 @@ box-shadow: 0px 1px transparent !important;
     overflow: auto;
     /*border-bottom: 1px solid #eee;*/
 }
+
+.details-td{
+    max-width: 200px;
+}
+
+.table .marker{
+    padding: 0px !important;
+    width: 3px !important;
+}
+
+.table .table-checkbox:before{
+    margin-top: 4px !important;
+}
