@@ -139,11 +139,13 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
     }
 
     @Override
-    public void setValue(String value) {
+    public RadioGroup setValue(String value) {
         Radio radioToSelect = radios.stream().filter(radio -> radio.getValue().equals(value))
                 .findFirst().orElse(null);
-        if (nonNull(radioToSelect))
+        if (nonNull(radioToSelect)) {
             radioToSelect.check();
+        }
+        return this;
     }
 
     @Override
@@ -224,5 +226,15 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
     @Override
     public boolean isRequired() {
         return elementValidations.isRequired();
+    }
+
+    @Override
+    public RadioGroup setReadOnly(boolean readOnly) {
+        return null;
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return false;
     }
 }

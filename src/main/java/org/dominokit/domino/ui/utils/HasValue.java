@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.utils;
 
-public interface HasValue<T> {
-    void setValue(T value);
+public interface HasValue<T, V> {
+    T setValue(V value);
 
-    T getValue();
+    V getValue();
 }

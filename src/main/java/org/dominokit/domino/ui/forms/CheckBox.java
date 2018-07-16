@@ -110,19 +110,22 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
     }
 
     public CheckBox setColor(Color color) {
-        if (this.color != null)
+        if (this.color != null) {
             inputElement.classList.remove("chk-" + this.color.getStyle());
+        }
         inputElement.classList.add("chk-" + color.getStyle());
         this.color = color;
         return this;
     }
 
     @Override
-    public void setValue(Boolean value) {
-        if (value != null && value)
+    public CheckBox setValue(Boolean value) {
+        if (value != null && value) {
             check();
-        else
+        } else {
             uncheck();
+        }
+        return this;
     }
 
     @Override
@@ -150,6 +153,11 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
     @Override
     public HTMLInputElement getInputElement() {
         return inputElement;
+    }
+
+    @Override
+    protected void doSetReadOnly(boolean readOnly) {
+
     }
 
     @Override

@@ -14,6 +14,7 @@ public abstract class BasicFormElement<T extends BasicFormElement, V> implements
     private HTMLLabelElement errorLabel = Elements.label().css("error").asElement();
     private ElementValidations elementValidations = new ElementValidations(this);
     private String helperText;
+    private boolean readOnly;
 
     @Override
     public T setHelperText(String helperText) {
@@ -125,10 +126,28 @@ public abstract class BasicFormElement<T extends BasicFormElement, V> implements
         return (T) this;
     }
 
+    public T readOnly() {
+        return setReadOnly(true);
+    }
+
+    @Override
+    public T setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+        doSetReadOnly(readOnly);
+        return (T) this;
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
     @Override
     public boolean isRequired() {
         return elementValidations.isRequired();
     }
+
+    protected abstract void doSetReadOnly(boolean readOnly);
 
     protected abstract HTMLElement getContainer();
 

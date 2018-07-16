@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.*;
 import elemental2.dom.EventListener;
+import elemental2.svg.SVGElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.Focusable;
@@ -64,7 +65,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     }
 
     private void doOpen() {
-        if (isEnabled()) {
+        if (isEnabled() && !isReadOnly()) {
             hideAllMenus();
             open();
             if (nonNull(getSelectedOption()))
@@ -218,6 +219,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         super.enable();
         asElement().classList.remove("disabled");
         getSelectButton().classList.remove("disabled");
+        getSelectMenu().classList.remove("disabled");
         return this;
     }
 
@@ -226,6 +228,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         super.disable();
         asElement().classList.add("disabled");
         getSelectButton().classList.add("disabled");
+        getSelectMenu().classList.add("disabled");
         return this;
     }
 
@@ -241,20 +244,17 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     }
 
     @Override
-    public void setValue(String value) {
-        for (SelectOption option : getOptions()) {
-            if (Objects.equals(option.getValue(), value)) {
-                select(option);
-            }
-        }
+    public Select setValue(String value) {
+        return setValue(value, false);
     }
 
-    public void setValue(String value, boolean silent) {
+    public Select setValue(String value, boolean silent) {
         for (SelectOption option : getOptions()) {
             if (Objects.equals(option.getValue(), value)) {
                 select(option, silent);
             }
         }
+        return this;
     }
 
     @Override
@@ -305,9 +305,12 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
 
     @Override
     public Select focus() {
-        selectElement.getSelectMenu().classList.add(FOCUSED);
-        selectElement.getSelectLabel().classList.add(focusColor.getStyle());
-        selectElement.asElement().classList.add("fc-" + focusColor.getStyle());
+        if (isEnabled() && !isReadOnly()) {
+            selectElement.getSelectMenu().classList.add(FOCUSED);
+            selectElement.getSelectLabel().classList.add(focusColor.getStyle());
+            selectElement.asElement().classList.add("fc-" + focusColor.getStyle());
+            selectElement.getSelectMenu().focus();
+        }
         return this;
     }
 
@@ -358,6 +361,23 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
 
     public SelectElement getSelectElement() {
         return selectElement;
+    }
+
+    @Override
+    protected void doSetReadOnly(boolean readOnly) {
+        if (readOnly) {
+            selectElement.asElement().classList.add("readonly");
+            selectElement.getSelectMenu().setAttribute("disabled", true);
+            selectElement.getSelectMenu().setAttribute("readonly", true);
+            selectElement.getSelectArrow().setAttributeNS(null, "style", "display: none;");
+        } else {
+            selectElement.asElement().classList.remove("readonly");
+            if (!asElement().classList.contains("disabled")) {
+                selectElement.getSelectMenu().removeAttribute("disabled");
+            }
+            selectElement.getSelectMenu().removeAttribute("readonly");
+            selectElement.getSelectArrow().removeAttributeNS(null, "style");
+        }
     }
 
     @FunctionalInterface
@@ -441,6 +461,9 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         @DataElement
         HTMLLabelElement selectLabel;
 
+        @DataElement
+        SVGElement selectArrow;
+
         public static SelectElement create() {
             return new Templated_Select_SelectElement();
         }
@@ -467,6 +490,10 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
 
         public HTMLLabelElement getSelectLabel() {
             return selectLabel;
+        }
+
+        public SVGElement getSelectArrow() {
+            return selectArrow;
         }
     }
 
