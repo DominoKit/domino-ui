@@ -3,8 +3,6 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.HTMLInputElement;
 import org.jboss.gwt.elemento.core.Elements;
 
-import static java.util.Objects.nonNull;
-
 public class TextBox extends AbstractTextBox<TextBox, HTMLInputElement> {
 
     private static final String TEXT = "text";

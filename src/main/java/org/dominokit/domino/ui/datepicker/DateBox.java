@@ -62,9 +62,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             changeLabelFloating();
             autoValidate();
         });
-        this.modalListener = evt -> {
-                modal.open();
-        };
+        this.modalListener = evt -> modal.open();
         onDetach(asElement(), mutationRecord -> {
             if (nonNull(popover))
                 popover.discard();
@@ -98,8 +96,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         });
 
         getInputElement().addEventListener(EventType.keypress.getName(), evt -> {
-            KeyboardEvent keyboardEvent= Js.cast(evt);
-            if(isEnterKey(keyboardEvent) || isSpaceKey(keyboardEvent) ){
+            KeyboardEvent keyboardEvent = Js.cast(evt);
+            if (isEnterKey(keyboardEvent) || isSpaceKey(keyboardEvent)) {
                 open();
             }
         });
@@ -254,7 +252,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         return this;
     }
 
-    public DateBox openOnFocus(){
+    public DateBox openOnFocus() {
         EventListener focusListener = evt -> {
             open();
         };
@@ -277,27 +275,53 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     @Override
     public DateBox disable() {
-        if(nonNull(modal)){
-            modal.disable();
-        }
-
-        if(nonNull(popover)){
-            popover.disable();
-        }
+        disableModal();
+        disablePopover();
         return super.disable();
     }
 
     @Override
-    public DateBox enable() {
-        if(nonNull(modal)){
-            modal.enable();
+    protected void doSetReadOnly(boolean readOnly) {
+        super.doSetReadOnly(readOnly);
+        if (readOnly) {
+            getInputElement().classList.add("readonly");
+            disableModal();
+            disablePopover();
+        } else if (isEnabled()) {
+            enableModal();
+            enablePopover();
         }
+    }
 
-        if(nonNull(popover)){
+    @Override
+    public DateBox enable() {
+        enableModal();
+        enablePopover();
+        return super.enable();
+    }
+
+    private void disablePopover() {
+        if (nonNull(popover)) {
+            popover.disable();
+        }
+    }
+
+    private void disableModal() {
+        if (nonNull(modal)) {
+            modal.disable();
+        }
+    }
+
+    private void enablePopover() {
+        if (nonNull(popover)) {
             popover.enable();
         }
+    }
 
-        return super.enable();
+    private void enableModal() {
+        if (nonNull(modal)) {
+            modal.enable();
+        }
     }
 
     private static class Formatter extends DateTimeFormat {

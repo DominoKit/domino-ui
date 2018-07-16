@@ -6,6 +6,7 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.Focusable;
 import org.dominokit.domino.ui.utils.HasPlaceHolder;
 import org.jboss.gwt.elemento.core.Elements;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 
@@ -27,6 +28,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     private Element rightAddon;
     private boolean valid = true;
     private EventListener changeEventListener;
+    private boolean readOnly;
 
     public enum ValueBoxSize {
         LARGE("lg"),
@@ -220,10 +222,18 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         return setLeftAddon(icon.asElement());
     }
 
+    public T setLeftAddon(IsElement leftAddon) {
+        return setLeftAddon(leftAddon.asElement());
+    }
+
     public T setLeftAddon(Element leftAddon) {
         setAddon(leftAddonContainer, this.leftAddon, leftAddon);
         this.leftAddon = leftAddon;
         return (T) this;
+    }
+
+    public T setRightAddon(IsElement rightAddon) {
+        return setRightAddon(rightAddon.asElement());
     }
 
     public T setRightAddon(Element rightAddon) {
@@ -232,15 +242,15 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         return (T) this;
     }
 
-    public T removeRightAddon(){
-        if(nonNull(rightAddon)){
+    public T removeRightAddon() {
+        if (nonNull(rightAddon)) {
             rightAddonContainer.removeChild(rightAddon);
         }
         return (T) this;
     }
 
-    public T removeLeftAddon(){
-        if(nonNull(leftAddon)){
+    public T removeLeftAddon() {
+        if (nonNull(leftAddon)) {
             leftAddonContainer.removeChild(leftAddon);
         }
         return (T) this;
@@ -334,10 +344,33 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     }
 
     @Override
-    public void setValue(V value) {
+    public T setValue(V value) {
         doSetValue(value);
         changeLabelFloating();
         autoValidate();
+        return (T) this;
+    }
+
+    @Override
+    protected void doSetReadOnly(boolean readOnly) {
+        if (readOnly) {
+            getInputElement().setAttribute("disabled", "true");
+            getInputElement().setAttribute("readonly", "true");
+            getInputElement().classList.add("readonly");
+            if (isFloating()) {
+                getInputElement().setAttribute("floating", true);
+            }
+            floating();
+        } else {
+            getInputElement().removeAttribute("disabled");
+            getInputElement().removeAttribute("readonly");
+            getInputElement().classList.remove("readonly");
+            if (getInputElement().hasAttribute("floating")) {
+                floating();
+            } else {
+                nonfloating();
+            }
+        }
     }
 
     protected void changeLabelFloating() {

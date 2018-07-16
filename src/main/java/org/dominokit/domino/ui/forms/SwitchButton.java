@@ -54,8 +54,9 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     private void onCheck() {
-        for (CheckHandler checkHandler : checkHandlers)
+        for (CheckHandler checkHandler : checkHandlers) {
             checkHandler.onCheck(isChecked());
+        }
     }
 
     public HTMLElement getLever() {
@@ -63,11 +64,13 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     @Override
-    public void setValue(Boolean value) {
-        if (value != null && value)
+    public SwitchButton setValue(Boolean value) {
+        if (value != null && value) {
             check();
-        else
+        } else {
             uncheck();
+        }
+        return this;
     }
 
     @Override
@@ -150,6 +153,11 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     @Override
     public String getLabel() {
         return label;
+    }
+
+    @Override
+    protected void doSetReadOnly(boolean readOnly) {
+
     }
 
     @Override
