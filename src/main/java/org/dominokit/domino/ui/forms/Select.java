@@ -5,6 +5,7 @@ import elemental2.dom.EventListener;
 import elemental2.svg.SVGElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.Focusable;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -47,11 +48,12 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
 
         document.body.addEventListener(KEYDOWN, new NavigateOptionsKeyListener());
 
-        selectElement.getSelectButton().addEventListener(CLICK, evt -> {
+        EventListener clickListener = evt -> {
             doOpen();
             focus();
             evt.stopPropagation();
-        });
+        };
+        selectElement.getSelectButton().addEventListener(CLICK, clickListener);
         selectElement.getSelectMenu().addEventListener("focusin", evt -> focus());
         selectElement.getSelectMenu().addEventListener("focusout", evt -> unfocus());
         selectElement.getSelectButton().addEventListener("focus", evt -> selectElement.getSelectButton().blur());
@@ -220,6 +222,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         asElement().classList.remove("disabled");
         getSelectButton().classList.remove("disabled");
         getSelectMenu().classList.remove("disabled");
+        Style.of(getLabelElement()).removeProperty("cursor");
         return this;
     }
 
@@ -229,6 +232,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         asElement().classList.add("disabled");
         getSelectButton().classList.add("disabled");
         getSelectMenu().classList.add("disabled");
+        Style.of(getLabelElement()).setProperty("cursor", "not-allowed");
         return this;
     }
 

@@ -14,7 +14,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     private HTMLLabelElement labelElement = Elements.label().asElement();
     private HTMLInputElement inputElement = Elements.input("checkbox").asElement();
     private HTMLElement lever = Elements.span().css("lever").asElement();
-    private List<CheckHandler> checkHandlers = new ArrayList<>();
+    private List<ChangeHandler<Boolean>> changeHandlers = new ArrayList<>();
     private Color color;
     private String label;
     private Text labelText;
@@ -54,8 +54,8 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     private void onCheck() {
-        for (CheckHandler checkHandler : checkHandlers) {
-            checkHandler.onCheck(isChecked());
+        for (ChangeHandler<Boolean> checkHandler : changeHandlers) {
+            checkHandler.onValueChanged(isChecked());
         }
     }
 
@@ -125,8 +125,15 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     @Override
-    public SwitchButton addCheckHandler(CheckHandler checkHandler) {
-        checkHandlers.add(checkHandler);
+    public SwitchButton addChangeHandler(ChangeHandler<Boolean> changeHandler) {
+        changeHandlers.add(changeHandler);
+        return this;
+    }
+
+    @Override
+    public SwitchButton removeChangeHandler(ChangeHandler<Boolean> changeHandler) {
+        if (changeHandler != null)
+            changeHandlers.remove(changeHandler);
         return this;
     }
 
@@ -173,12 +180,6 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     @Override
     public HTMLDivElement getContainer() {
         return container;
-    }
-
-    public SwitchButton removeCheckHandler(CheckHandler handler) {
-        if (handler != null)
-            checkHandlers.remove(handler);
-        return this;
     }
 
     @Override
