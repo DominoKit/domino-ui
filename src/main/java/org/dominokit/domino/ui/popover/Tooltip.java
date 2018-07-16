@@ -41,7 +41,7 @@ public class Tooltip implements IsElement<HTMLDivElement> {
             position(popupPosition);
         });
 
-        onDetach(targetElement, mutationRecord -> element.remove());
+        ElementUtil.onDetach(targetElement, mutationRecord -> element.remove());
 
         targetElement.addEventListener(EventType.mouseleave.getName(), evt1 -> element.remove());
 

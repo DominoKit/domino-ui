@@ -9,6 +9,7 @@ import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
+import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.EventType;
 
@@ -68,7 +69,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
                 modal.close();
             }
         };
-        onDetach(asElement(), mutationRecord -> {
+        ElementUtil.onDetach(asElement(), mutationRecord -> {
             if (nonNull(popover))
                 popover.discard();
             if (nonNull(modal)) {
