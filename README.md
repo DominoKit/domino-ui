@@ -49,19 +49,20 @@ A type safe material design with bootstrap builder for java developer with GWT w
 ```
 
 ### Css
-
+Add the following css files to your index page:
+> Replace [module-short-name] with the proper module name.
 ```html
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-<link type="text/css" rel="stylesheet" href="/static/font/material-icons.css">
-<link type="text/css" rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.css">
-<link type="text/css" rel="stylesheet" href="/static/plugins/node-waves/waves.css">
-<link type="text/css" rel="stylesheet" href="/static/plugins/animate-css/animate.css">
-<link type="text/css" rel="stylesheet" href="/static/plugins/waitme/waitMe.css">
-<link type="text/css" rel="stylesheet" href="/static/plugins/bootstrap-select/css/bootstrap-select.css">
-<link type="text/css" rel="stylesheet" href="/static/css/materialize.css">
-<link type="text/css" rel="stylesheet" href="/static/css/style.css">
-<link type="text/css" rel="stylesheet" href="/static/css/themes/all-themes.css">
+<link type="text/css" rel="stylesheet" href="/[module-short-name]/font/material-icons.css">
+<link type="text/css" rel="stylesheet" href="/[module-short-name]/plugins/bootstrap/css/bootstrap.css">
+<link type="text/css" rel="stylesheet" href="/[module-short-name]/plugins/node-waves/waves.css">
+<link type="text/css" rel="stylesheet" href="/[module-short-name]/plugins/animate-css/animate.css">
+<link type="text/css" rel="stylesheet" href="/[module-short-name]/plugins/waitme/waitMe.css">
+<link type="text/css" rel="stylesheet" href="/[module-short-name]/plugins/bootstrap-select/css/bootstrap-select.css">
+<link type="text/css" rel="stylesheet" href="/[module-short-name]/css/materialize.css">
+<link type="text/css" rel="stylesheet" href="/[module-short-name]/css/style.css">
+<link type="text/css" rel="stylesheet" href="/[module-short-name]/css/themes/all-themes.css">
 ```
 
 ----------------------
