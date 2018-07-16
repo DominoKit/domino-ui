@@ -30,7 +30,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
         .setHeaderElement(columnTitle -> {
             if(dataTable.isMultiSelect()){
                 CheckBox checkBox = createCheckBox();
-                checkBox.addCheckHandler(checked -> {
+                checkBox.addChangeHandler(checked -> {
                     if(checked){
                         dataTable.selectAll();
                     }else{
@@ -68,7 +68,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
                 }
             });
 
-            checkBox.addCheckHandler(checked -> {
+            checkBox.addChangeHandler(checked -> {
                 if(checked){
                     cell.getTableRow().select();
                     if(nonNull(colorScheme)){

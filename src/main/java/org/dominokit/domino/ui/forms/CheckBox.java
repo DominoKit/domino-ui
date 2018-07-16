@@ -21,9 +21,9 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
     private HTMLInputElement inputElement = Elements.input("checkbox").asElement();
     private HTMLLabelElement labelElement = Elements.label().asElement();
-    private List<CheckHandler> checkHandlers = new ArrayList<>();
+    private List<ChangeHandler<Boolean>> changeHandlers = new ArrayList<>();
     private Color color;
-    private CheckHandler autoValidationHandler;
+    private ChangeHandler<Boolean> autoValidationHandler;
 
     public CheckBox() {
         this("");
@@ -43,7 +43,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
     }
 
     private void onCheck() {
-        checkHandlers.forEach(checkHandler -> checkHandler.onCheck(isChecked()));
+        changeHandlers.forEach(handler -> handler.onValueChanged(isChecked()));
     }
 
     public static CheckBox create(String label) {
@@ -94,8 +94,15 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
     }
 
     @Override
-    public CheckBox addCheckHandler(CheckHandler handler) {
-        this.checkHandlers.add(handler);
+    public CheckBox addChangeHandler(ChangeHandler<Boolean> changeHandler) {
+        changeHandlers.add(changeHandler);
+        return this;
+    }
+
+    @Override
+    public CheckBox removeChangeHandler(ChangeHandler<Boolean> changeHandler) {
+        if (changeHandler != null)
+            changeHandlers.remove(changeHandler);
         return this;
     }
 
@@ -144,12 +151,6 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
         return this;
     }
 
-    public CheckBox removeCheckHandler(CheckHandler checkHandler) {
-        if (checkHandler != null)
-            checkHandlers.remove(checkHandler);
-        return this;
-    }
-
     @Override
     public HTMLInputElement getInputElement() {
         return inputElement;
@@ -175,10 +176,10 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
         if (autoValidation) {
             if (isNull(autoValidationHandler)) {
                 autoValidationHandler = checked -> validate();
-                addCheckHandler(autoValidationHandler);
+                addChangeHandler(autoValidationHandler);
             }
         } else {
-            removeCheckHandler(autoValidationHandler);
+            removeChangeHandler(autoValidationHandler);
             autoValidationHandler = null;
         }
         return this;

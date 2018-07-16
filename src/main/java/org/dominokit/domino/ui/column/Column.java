@@ -20,7 +20,7 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
     private OnMedium onMediumStyle;
     private OnSmall onSmallStyle;
     private OnXSmall onXSmallStyle;
-    private List<String> cssClasses=new ArrayList<>();
+    private List<String> cssClasses = new ArrayList<>();
 
     private Column(HTMLDivElement htmlDivElement) {
         this.column = htmlDivElement;
@@ -28,6 +28,30 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
 
     public static Column create() {
         return new Column(div().asElement());
+    }
+
+    public static Column create(int large, int medium, int small, int xsmall) {
+        return create()
+                .onLarge(OnLarge.of(large))
+                .onMedium(OnMedium.of(medium))
+                .onSmall(OnSmall.of(small))
+                .onXSmall(OnXSmall.of(xsmall));
+    }
+
+    public static Column columns2() {
+        return create(6, 6, 12, 12);
+    }
+
+    public static Column columns3() {
+        return create(4, 4, 12, 12);
+    }
+
+    public static Column columns4() {
+        return create(3, 3, 12, 12);
+    }
+
+    public static Column columns6() {
+        return create(2, 2, 12, 12);
     }
 
     public Column copy() {
@@ -40,10 +64,10 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
             column.onSmall(this.onSmallStyle);
         if (nonNull(this.onXSmallStyle))
             column.onXSmall(this.onXSmallStyle);
-        if(this.asElement().classList.contains(ALIGN_CENTER))
+        if (this.asElement().classList.contains(ALIGN_CENTER))
             column.centerContent();
 
-        for(int i=0;i<cssClasses.size();i++){
+        for (int i = 0; i < cssClasses.size(); i++) {
             column.addCssClass(cssClasses.get(i));
         }
 
@@ -59,6 +83,7 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
         this.asElement().appendChild(element.asElement());
         return this;
     }
+
     public Column onLarge(OnLarge onLarge) {
         if (nonNull(this.onLargeStyle))
             column.classList.remove(this.onLargeStyle.getStyle());
@@ -91,29 +116,29 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
         return this;
     }
 
-    public Column centerContent(){
+    public Column centerContent() {
         asElement().classList.add(ALIGN_CENTER);
         return this;
     }
 
-    public Column deCenterContent(){
+    public Column deCenterContent() {
         asElement().classList.remove(ALIGN_CENTER);
         return this;
     }
 
-    public Column addCssClass(String cssClass){
+    public Column addCssClass(String cssClass) {
         this.asElement().classList.add(cssClass);
         this.cssClasses.add(cssClass);
         return this;
     }
 
-    public Column removeCssClass(String cssClass){
+    public Column removeCssClass(String cssClass) {
         this.asElement().classList.remove(cssClass);
         this.cssClasses.remove(cssClass);
         return this;
     }
 
-    public Column condenced(){
+    public Column condenced() {
         return Style.of(this).setMarginBottom("0px").get();
     }
 
@@ -142,6 +167,10 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
             this.style = style;
         }
 
+        public static OnLarge of(int large) {
+            return OnLarge.valueOf(asNumberString(large));
+        }
+
         public String getStyle() {
             return style;
         }
@@ -165,6 +194,10 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
 
         OnMedium(String style) {
             this.style = style;
+        }
+
+        public static OnMedium of(int medium) {
+            return OnMedium.valueOf(asNumberString(medium));
         }
 
         public String getStyle() {
@@ -192,6 +225,10 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
             this.style = style;
         }
 
+        public static OnSmall of(int small) {
+            return OnSmall.valueOf(asNumberString(small));
+        }
+
         public String getStyle() {
             return style;
         }
@@ -217,8 +254,43 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
             this.style = style;
         }
 
+        public static OnXSmall of(int xsmall) {
+            return OnXSmall.valueOf(asNumberString(xsmall));
+        }
+
         public String getStyle() {
             return style;
+        }
+    }
+
+    private static String asNumberString(int size) {
+        switch (size) {
+            case 1:
+                return "one";
+            case 2:
+                return "two";
+            case 3:
+                return "three";
+            case 4:
+                return "four";
+            case 5:
+                return "five";
+            case 6:
+                return "six";
+            case 7:
+                return "seven";
+            case 8:
+                return "eight";
+            case 9:
+                return "nine";
+            case 10:
+                return "ten";
+            case 11:
+                return "eleven";
+            case 12:
+                return "twelve";
+            default:
+                return "twelve";
         }
     }
 

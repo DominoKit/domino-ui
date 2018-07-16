@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.utils;
 
-public interface Checkable<T> {
+public interface Checkable<T> extends HasChangeHandlers<T, Boolean> {
     T check();
 
     T uncheck();
@@ -10,13 +10,4 @@ public interface Checkable<T> {
     T uncheck(boolean silent);
 
     boolean isChecked();
-
-    T addCheckHandler(CheckHandler checkHandler);
-
-    T removeCheckHandler(CheckHandler checkHandler);
-
-    @FunctionalInterface
-    interface CheckHandler {
-        void onCheck(boolean checked);
-    }
 }

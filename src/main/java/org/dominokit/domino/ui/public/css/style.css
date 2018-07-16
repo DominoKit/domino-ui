@@ -5435,7 +5435,7 @@ section.content {
 .btn-default:hover,
 .btn-default:active,
 .btn-default:focus {
-    background-color: #fff !important;
+    background-color: #fff;
 }
 
 .btn-group,
@@ -7468,6 +7468,10 @@ fieldset[disabled] .form-control {
 
 .bootstrap-select .dropdown-toggle:focus, .bootstrap-select .dropdown-toggle:active {
     outline: none !important;
+}
+
+.bootstrap-select .dropdown-toggle.btn-default {
+    background-color: transparent;
 }
 
 .bootstrap-select .bs-searchbox,
