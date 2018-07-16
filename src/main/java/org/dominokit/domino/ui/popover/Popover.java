@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.*;
+import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.Switchable;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
@@ -58,7 +59,7 @@ public class Popover implements IsElement<HTMLDivElement>, Switchable<Popover> {
 
         element.addEventListener(EventType.click.getName(), Event::stopPropagation);
 
-        onDetach(targetElement, mutationRecord -> element.remove());
+        ElementUtil.onDetach(targetElement, mutationRecord -> element.remove());
 
     }
 
