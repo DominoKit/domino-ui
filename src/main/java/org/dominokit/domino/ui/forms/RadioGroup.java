@@ -2,8 +2,8 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLLabelElement;
-import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.ElementValidations;
+import org.dominokit.domino.ui.utils.HasChangeHandlers;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -13,19 +13,22 @@ import java.util.List;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioGroup, String> {
+public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioGroup, String>, HasChangeHandlers<RadioGroup, Radio> {
 
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
+    private HTMLDivElement formLine = Elements.div().css("form-line").asElement();
     private HTMLLabelElement helperLabel = Elements.label().css("help-info").asElement();
     private HTMLLabelElement errorLabel = Elements.label().css("error").asElement();
-    private HTMLDivElement labelContainer = Elements.div().css("form-label").asElement();
+    private HTMLDivElement labelContainer = Elements.div().css("form-label focused").asElement();
     private ElementValidations elementValidations = new ElementValidations(this);
     private List<Radio> radios = new ArrayList<>();
     private String name;
-    private Checkable.CheckHandler autoValidationHandler;
+    private ChangeHandler<Boolean> autoValidationHandler;
+    private List<ChangeHandler<Radio>> changeHandlers = new ArrayList<>();
 
     public RadioGroup(String name) {
-        container.appendChild(labelContainer);
+        formLine.appendChild(labelContainer);
+        container.appendChild(formLine);
         setName(name);
     }
 
@@ -44,9 +47,16 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
 
     public RadioGroup addRadio(Radio radio) {
         radio.setName(name);
+        radio.addChangeHandler(value -> onCheck(radio));
         radios.add(radio);
-        asElement().appendChild(radio.asElement());
+        formLine.appendChild(radio.asElement());
         return this;
+    }
+
+    private void onCheck(Radio selectedRadio) {
+        for (ChangeHandler<Radio> changeHandler : changeHandlers) {
+            changeHandler.onValueChanged(selectedRadio);
+        }
     }
 
     public RadioGroup horizontal() {
@@ -197,10 +207,10 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
         if (autoValidation) {
             if (isNull(autoValidationHandler)) {
                 autoValidationHandler = checked -> validate();
-                radios.forEach(radio -> radio.addCheckHandler(autoValidationHandler));
+                radios.forEach(radio -> radio.addChangeHandler(autoValidationHandler));
             }
         } else {
-            radios.forEach(radio -> radio.removeCheckHandler(autoValidationHandler));
+            radios.forEach(radio -> radio.addChangeHandler(autoValidationHandler));
             autoValidationHandler = null;
         }
         return this;
@@ -236,5 +246,18 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
     @Override
     public boolean isReadOnly() {
         return false;
+    }
+
+    @Override
+    public RadioGroup addChangeHandler(ChangeHandler<Radio> changeHandler) {
+        changeHandlers.add(changeHandler);
+        return this;
+    }
+
+    @Override
+    public RadioGroup removeChangeHandler(ChangeHandler<Radio> changeHandler) {
+        if (nonNull(changeHandler))
+            changeHandlers.remove(changeHandler);
+        return this;
     }
 }

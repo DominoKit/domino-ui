@@ -17,10 +17,11 @@ public class Radio implements IsElement<HTMLDivElement>, HasName<Radio>, HasValu
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
     private HTMLLabelElement labelElement = Elements.label().asElement();
     private HTMLInputElement inputElement = Elements.input("radio").asElement();
-    private List<CheckHandler> checkHandlers = new ArrayList<>();
+    private List<ChangeHandler<Boolean>> changeHandlers;
     private Color color;
 
     public Radio(String value, String label) {
+        changeHandlers = new ArrayList<>();
         container.appendChild(inputElement);
         container.appendChild(labelElement);
         setLabel(label);
@@ -69,22 +70,22 @@ public class Radio implements IsElement<HTMLDivElement>, HasName<Radio>, HasValu
         return this;
     }
 
+    @Override
+    public Radio addChangeHandler(ChangeHandler<Boolean> changeHandler) {
+        changeHandlers.add(changeHandler);
+        return this;
+    }
+
+    @Override
+    public Radio removeChangeHandler(ChangeHandler<Boolean> changeHandler) {
+        if (changeHandler != null)
+            changeHandlers.remove(changeHandler);
+        return this;
+    }
+
     private void onCheck() {
-        for (CheckHandler checkHandler : checkHandlers)
-            checkHandler.onCheck(isChecked());
-    }
-
-    @Override
-    public Radio addCheckHandler(Checkable.CheckHandler checkHandler) {
-        checkHandlers.add(checkHandler);
-        return this;
-    }
-
-    @Override
-    public Radio removeCheckHandler(CheckHandler checkHandler) {
-        if (checkHandler != null)
-            checkHandlers.remove(checkHandler);
-        return this;
+        for (ChangeHandler<Boolean> checkHandler : changeHandlers)
+            checkHandler.onValueChanged(isChecked());
     }
 
     @Override
