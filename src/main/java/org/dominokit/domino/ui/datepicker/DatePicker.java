@@ -26,8 +26,9 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.th;
 
-public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, DatePickerMonth.DaySelectionHandler {
+public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicker, Date>, DatePickerMonth.DaySelectionHandler {
 
     private final JsDate jsDate;
     private HTMLDivElement element = div().css("calendar").asElement();
@@ -280,8 +281,9 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<Date>, Da
     }
 
     @Override
-    public void setValue(Date value) {
+    public DatePicker setValue(Date value) {
         datePickerMonth.setValue(value);
+        return this;
     }
 
     @Override

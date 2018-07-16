@@ -10,12 +10,12 @@ import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
-import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.input;
+import static org.jboss.gwt.elemento.core.Elements.onDetach;
 
 public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
 
@@ -222,6 +222,56 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
         if (nonNull(this.popover))
             this.popover.position(this.popupPosition);
         return this;
+    }
+
+    @Override
+    public TimeBox disable() {
+        disableModal();
+        disablePopover();
+        return super.disable();
+    }
+
+    @Override
+    protected void doSetReadOnly(boolean readOnly) {
+        super.doSetReadOnly(readOnly);
+        if (readOnly) {
+            disableModal();
+            disablePopover();
+        } else if (isEnabled()) {
+            enableModal();
+            enablePopover();
+        }
+    }
+
+    @Override
+    public TimeBox enable() {
+        enableModal();
+        enablePopover();
+        return super.enable();
+    }
+
+    private void disablePopover() {
+        if (nonNull(popover)) {
+            popover.disable();
+        }
+    }
+
+    private void disableModal() {
+        if (nonNull(modal)) {
+            modal.disable();
+        }
+    }
+
+    private void enablePopover() {
+        if (nonNull(popover)) {
+            popover.enable();
+        }
+    }
+
+    private void enableModal() {
+        if (nonNull(modal)) {
+            modal.enable();
+        }
     }
 
     public enum PickerStyle {

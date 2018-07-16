@@ -11,7 +11,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 
-public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsElement<HTMLAnchorElement>, HasValue<T>
+public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsElement<HTMLAnchorElement>, HasValue<ListItem<T>, T>
         , Selectable<ListItem<T>>, HasBackground<ListItem<T>>, Switchable<ListItem<T>> {
 
     private T value;
@@ -47,8 +47,9 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
     }
 
     @Override
-    public void setValue(T value) {
+    public ListItem<T> setValue(T value) {
         this.value = value;
+        return this;
     }
 
     @Override
@@ -68,7 +69,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
 
     @Override
     public ListItem<T> select(boolean silent) {
-        if(parent.isSelectable()) {
+        if (parent.isSelectable()) {
             if (!parent.isMultiSelect())
                 parent.getTableRows().forEach(tListItem -> tListItem.deselect(true));
             if (!selected) {

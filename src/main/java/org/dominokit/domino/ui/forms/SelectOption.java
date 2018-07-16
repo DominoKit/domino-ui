@@ -11,7 +11,7 @@ import org.dominokit.domino.ui.utils.Selectable;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
-public class SelectOption implements IsElement<HTMLLIElement>, HasValue<String>,
+public class SelectOption implements IsElement<HTMLLIElement>, HasValue<SelectOption, String>,
         HasBackground<SelectOption>, Selectable<SelectOption> {
 
     private static final String SELECTED = "selected";
@@ -52,8 +52,9 @@ public class SelectOption implements IsElement<HTMLLIElement>, HasValue<String>,
     }
 
     @Override
-    public void setValue(String value) {
+    public SelectOption setValue(String value) {
         this.value = value;
+        return this;
     }
 
     @Override

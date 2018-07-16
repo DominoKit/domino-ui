@@ -21,7 +21,7 @@ import static org.dominokit.domino.ui.datepicker.DatePickerElement.createDayElem
 import static org.dominokit.domino.ui.datepicker.DatePickerElement.createDayHeader;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupport<DatePickerElement>, HasValue<Date>, DatePickerElement.SelectionHandler {
+public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupport<DatePickerElement>, HasValue<DatePickerMonth, Date>, DatePickerElement.SelectionHandler {
 
     private DaySelectionHandler internalHandler;
     private JsDate date;
@@ -267,8 +267,9 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     }
 
     @Override
-    public void setValue(Date value) {
+    public DatePickerMonth setValue(Date value) {
         update(new JsDate((double) value.getTime()));
+        return this;
     }
 
     @Override
