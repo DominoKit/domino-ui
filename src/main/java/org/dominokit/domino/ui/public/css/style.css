@@ -7326,7 +7326,7 @@ section.content {
 .form-group .form-line {
     width: 100%;
     position: relative;
-    display: table-cell;
+    display: table-cell !important;
 }
 
 .form-group .form-line .form-label {
@@ -7340,6 +7340,7 @@ section.content {
     -o-transition: 0.2s;
     -webkit-transition: 0.2s;
     transition: 0.2s;
+    line-height: 10px;
 }
 
 .form-group .form-line.error:after {
@@ -13399,18 +13400,22 @@ a.disabled {
 
 .input-addon-container {
     position: relative;
-    top: .5rem;
     background-color: transparent;
     border: none;
-    line-height: 1;
     text-align: center;
-    display: table;
+    display: table-cell;
+    vertical-align: top;
+    padding-top: 6px;
 }
 
 .input-addon {
-    font-size: 2rem;
     transition: color .2s;
-    margin: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.input-addon:not(.fas) {
+    font-size: 2rem;
 }
 
 .input-addon.lg {
@@ -13671,3 +13676,9 @@ a.disabled {
 .table .table-checkbox:before {
     margin-top: 4px !important;
 }
+
+/*.bootstrap-select.btn-group .dropdown-toggle .filter-option {*/
+/*margin-top: 2px;*/
+/*max-height: 17px;*/
+/*min-height: 17px;*/
+/*}*/

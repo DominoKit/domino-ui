@@ -1,8 +1,11 @@
 package org.dominokit.domino.ui.utils;
 
+import elemental2.dom.ClipboardEvent;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.KeyboardEvent;
+import jsinterop.base.Js;
+import org.dominokit.domino.ui.forms.TextBox;
 import org.jboss.gwt.elemento.core.ObserverCallback;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
@@ -56,5 +59,21 @@ public class ElementUtil {
         if (element != null) {
             BodyObserver.addDetachObserver(element, callback);
         }
+    }
+
+    public static TextBox numbersOnly(TextBox textBox) {
+        textBox.getInputElement().addEventListener("keypress", evt -> {
+            KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+            if (!keyboardEvent.key.matches("^\\d+$")) {
+                evt.preventDefault();
+            }
+        });
+        textBox.getInputElement().addEventListener("paste", evt -> {
+            ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
+            if (!clipboardEvent.clipboardData.getData("text").matches("^\\d+$")) {
+                evt.preventDefault();
+            }
+        });
+        return textBox;
     }
 }
