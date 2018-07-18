@@ -8,6 +8,9 @@ import org.dominokit.domino.ui.utils.HasPlaceHolder;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.util.Objects.nonNull;
 
 public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> extends BasicFormElement<T, V> implements
@@ -18,8 +21,8 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     private E inputElement;
     private HTMLDivElement inputContainer = Elements.div().css("form-line").asElement();
     private HTMLLabelElement labelElement = Elements.label().css("form-label").asElement();
-    private HTMLElement leftAddonContainer = Elements.span().css("input-addon-container").asElement();
-    private HTMLElement rightAddonContainer = Elements.span().css("input-addon-container").asElement();
+    private HTMLElement leftAddonContainer = Elements.div().css("input-addon-container").asElement();
+    private HTMLElement rightAddonContainer = Elements.div().css("input-addon-container").asElement();
     private ValueBoxSize size = ValueBoxSize.DEFAULT;
     private boolean floating;
     private String placeholder;
@@ -261,7 +264,14 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
             container.removeChild(oldAddon);
         }
         if (nonNull(addon)) {
-            addon.classList.add("input-addon");
+            List<String> oldClasses = new ArrayList<>(addon.classList.asList());
+            for (String oldClass : oldClasses) {
+                addon.classList.remove(oldClass);
+            }
+            oldClasses.add(0, "input-addon");
+            for (String oldClass : oldClasses) {
+                addon.classList.add(oldClass);
+            }
             container.appendChild(addon);
             setAddonSize(addon, size);
         }
