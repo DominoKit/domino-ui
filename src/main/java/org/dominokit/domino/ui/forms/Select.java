@@ -28,15 +28,21 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
 
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
     private SelectElement selectElement = SelectElement.create();
+    private HTMLElement leftAddonContainer = Elements.div().css("input-addon-container").asElement();
+    private HTMLElement rightAddonContainer = Elements.div().css("input-addon-container").asElement();
     private List<SelectOption> options = new LinkedList<>();
     private SelectOption selectedOption;
     private List<SelectionHandler> selectionHandlers = new ArrayList<>();
     private SelectionHandler autoValidationHandler;
     private Color focusColor = Color.BLUE;
+    private Element leftAddon;
+    private Element rightAddon;
 
     public Select() {
         initListeners();
+        container.appendChild(leftAddonContainer);
         container.appendChild(selectElement.asElement());
+        container.appendChild(rightAddonContainer);
     }
 
     private void initListeners() {
@@ -50,7 +56,6 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
 
         EventListener clickListener = evt -> {
             doOpen();
-            focus();
             evt.stopPropagation();
         };
         selectElement.getSelectButton().addEventListener(CLICK, clickListener);
@@ -115,6 +120,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
 
     public void close() {
         close(selectElement.asElement());
+        selectElement.getSelectMenu().focus();
     }
 
     private boolean isOpened() {
@@ -360,6 +366,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         if (nonNull(options) && !options.isEmpty()) {
             options.forEach(this::removeOption);
         }
+        clear();
         return this;
     }
 
@@ -426,6 +433,58 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     @Override
     public boolean isAutoValidation() {
         return nonNull(autoValidationHandler);
+    }
+
+
+    public Select setLeftAddon(IsElement leftAddon) {
+        return setLeftAddon(leftAddon.asElement());
+    }
+
+    public Select setLeftAddon(Element leftAddon) {
+        setAddon(leftAddonContainer, this.leftAddon, leftAddon);
+        this.leftAddon = leftAddon;
+        return this;
+    }
+
+    public Select setRightAddon(IsElement rightAddon) {
+        return setRightAddon(rightAddon.asElement());
+    }
+
+    public Select setRightAddon(Element rightAddon) {
+        setAddon(rightAddonContainer, this.rightAddon, rightAddon);
+        this.rightAddon = rightAddon;
+        return this;
+    }
+
+    public Select removeRightAddon() {
+        if (nonNull(rightAddon)) {
+            rightAddonContainer.removeChild(rightAddon);
+        }
+        return this;
+    }
+
+    public Select removeLeftAddon() {
+        if (nonNull(leftAddon)) {
+            leftAddonContainer.removeChild(leftAddon);
+        }
+        return this;
+    }
+
+    private void setAddon(HTMLElement container, Element oldAddon, Element addon) {
+        if (nonNull(oldAddon)) {
+            container.removeChild(oldAddon);
+        }
+        if (nonNull(addon)) {
+            List<String> oldClasses = new ArrayList<>(addon.classList.asList());
+            for (String oldClass : oldClasses) {
+                addon.classList.remove(oldClass);
+            }
+            oldClasses.add(0, "input-addon");
+            for (String oldClass : oldClasses) {
+                addon.classList.add(oldClass);
+            }
+            container.appendChild(addon);
+        }
     }
 
     @Override
