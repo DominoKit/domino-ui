@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLLabelElement;
+import elemental2.dom.Node;
 import org.dominokit.domino.ui.utils.ElementValidations;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
 import org.jboss.gwt.elemento.core.Elements;
@@ -51,6 +52,16 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
         radios.add(radio);
         formLine.appendChild(radio.asElement());
         return this;
+    }
+
+    public RadioGroup addRadio(Radio radio, Node content) {
+        addRadio(radio);
+        formLine.appendChild(content);
+        return this;
+    }
+
+    public RadioGroup addRadio(Radio radio, IsElement content) {
+        return addRadio(radio, content.asElement());
     }
 
     private void onCheck(Radio selectedRadio) {
