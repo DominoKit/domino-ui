@@ -43,7 +43,7 @@ A type safe material design with bootstrap builder for java developer with GWT w
 </repository>
 ```
 
-### GWT module interitence
+### GWT module inheritance
 ```xml
 <inherits name="org.dominokit.domino.ui.DominoUI"/>
 ```
