@@ -8,6 +8,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.BaseModal;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import elemental2.dom.HTMLDivElement;
@@ -32,9 +33,13 @@ public class MessageDialog extends BaseModal<MessageDialog> {
     private Color warningColor=Color.ORANGE;
 
     private static HTMLElement createMessageIcon(HTMLElement element) {
-        element.classList.add(Styles.m_b_15);
-        element.style.setProperty("font-size", "72px");
-        element.style.setProperty("border-radius", "50%");
+
+        Style.of(element)
+                .css(Styles.m_b_15)
+                .setProperty("font-size", "72px")
+                .setProperty("border-radius", "50%")
+                .setHeight("78px")
+                .setWidth("78px");
 
         return element;
     }
