@@ -103,13 +103,13 @@ Add the following css files to your index page:
 - [x] Time picker
 - [ ] Date time picker
 - [x] Inputs decorations : Labels, Helper text, validation, Icons
-- [ ] Advanced Select - **in progress**
+- [ ] Advanced Select
 - [ ] Multi-Select
 - [ ] Tag field
 - [ ] Spinners
-- [ ] Field masking
-- [ ] Simple grids - Table based -  - **in progress**
-- [ ] Form wizards / Steppers
+- [ ] Field masking - **in progress**
+- [x] Simple grids - Table based -
+- [ ] Form wizards / Steppers - **in progress**
 - [ ] Carousel
 - [ ] Sliders
 
