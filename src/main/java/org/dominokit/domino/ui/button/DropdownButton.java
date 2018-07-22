@@ -54,20 +54,12 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton>, 
     }
 
     private void addHideListener() {
-//        DomGlobal.document.body.addEventListener("click", evt -> {
-//            close(evt);
-//        });
-
         DomGlobal.document.body.style.cursor = "default";
-
 
         if(nonNull(listener)) {
             DomGlobal.document.body.addEventListener("click", listener);
         }else{
-            listener = event -> {
-                DomGlobal.console.info("[ ON CLICK ]");
-                close(event);
-            };
+            listener = event -> close(event);
             DomGlobal.document.body.addEventListener("click", listener);
         }
 
