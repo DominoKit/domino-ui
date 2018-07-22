@@ -6022,6 +6022,7 @@ section.content {
     text-align: center;
     background-color: rgba(0, 0, 0, 0.12);
     min-width: 80px;
+    width: 80px;
 }
 
 .info-box .icon i {
@@ -6129,6 +6130,7 @@ section.content {
     display: inline-block;
     text-align: center;
     width: 80px;
+    min-width: 80px;
 }
 
 .info-box-2 .icon i {
@@ -6237,6 +6239,8 @@ section.content {
     right: 10px;
     bottom: 2px;
     text-align: center;
+    min-width: 80px;
+    width: 80px;
 }
 
 .info-box-3 .icon i {
@@ -7621,6 +7625,7 @@ fieldset[disabled] .form-control {
     position: relative;
     top: 7px;
     margin-bottom: 8px;
+    width: 24px;
 }
 
 .nav-tabs li.active a {
@@ -8891,6 +8896,7 @@ fieldset[disabled] .form-control {
     font-size: 18px;
     position: relative;
     top: 4px;
+    width: 18px;
 }
 
 .breadcrumb > li + li:before {
@@ -9950,6 +9956,7 @@ fieldset[disabled] .form-control {
 .pagination > li:last-child > a .material-icons {
     position: relative;
     bottom: 2px;
+    width: 24px;
 }
 
 .pagination-sm > li:first-child > a,
@@ -9964,6 +9971,7 @@ fieldset[disabled] .form-control {
     top: -1px;
     left: -6px;
     font-size: 20px;
+    width: 20px;
 }
 
 .pagination-lg > li:first-child > a,
@@ -9978,6 +9986,7 @@ fieldset[disabled] .form-control {
     position: relative;
     top: -3px;
     left: -10px;
+    width: 30px;
 }
 
 /* Media Object ================================ */
@@ -11388,6 +11397,7 @@ fieldset[disabled] .form-control {
 
 .sidebar .menu .list i.material-icons {
     margin-top: 4px;
+    width: 24px;
 }
 
 .sidebar .menu .list .menu-toggle:after, .sidebar .menu .list .menu-toggle:before {
@@ -13406,12 +13416,17 @@ a.disabled {
     display: table-cell;
     vertical-align: top;
     padding-top: 6px;
+    width: 28px;
 }
 
 .input-addon {
     transition: color .2s;
     margin-left: 5px;
     margin-right: 5px;
+}
+
+.input-addon.material-icons{
+    width: 28px;
 }
 
 .input-addon:not(.fas) {
@@ -13675,6 +13690,11 @@ a.disabled {
 
 .table .table-checkbox:before {
     margin-top: 4px !important;
+}
+
+.material-icons{
+    font-feature-settings: 'liga’;
+
 }
 
 /*.bootstrap-select.btn-group .dropdown-toggle .filter-option {*/

@@ -1,6 +1,9 @@
 package org.dominokit.domino.ui.pagination;
 
-import elemental2.dom.*;
+import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLLIElement;
+import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Waves;
 import org.dominokit.domino.ui.utils.ElementUtil;
@@ -93,11 +96,15 @@ public class SimplePagination implements IsElement<HTMLElement>, HasPagination {
                 allPages.add(li.asElement());
                 pagesElement.appendChild(li.add(anchor).asElement());
             });
-            moveToPage(1, true);
+
         }
 
         nextElement = li().add(a().css(WAVES_EFFECT).add(Icons.ALL.chevron_right().asElement())
                 .on(EventType.click, event -> moveToPage(index + 1, false)).asElement()).asElement();
+
+        if (pages > 0) {
+            moveToPage(1, true);
+        }
 
         if (pages <= 0) {
             nextElement.classList.add("disabled");
