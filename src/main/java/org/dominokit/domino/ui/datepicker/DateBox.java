@@ -8,6 +8,7 @@ import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.i18n.shared.DateTimeFormat;
@@ -22,6 +23,7 @@ import static org.dominokit.domino.ui.utils.ElementUtil.isEnterKey;
 import static org.dominokit.domino.ui.utils.ElementUtil.isSpaceKey;
 import static org.jboss.gwt.elemento.core.Elements.input;
 import static org.jboss.gwt.elemento.core.Elements.onDetach;
+import static org.jboss.gwt.elemento.core.Elements.p;
 
 public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
@@ -217,8 +219,12 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
             if (isNull(popover)) {
                 popover = Popover.createPicker(this.asElement(), this.datePicker.asElement());
-                popover.getContentElement().style.setProperty("padding", "0px", "important");
-                popover.getContentElement().style.setProperty("width", "300px", "important");
+                Style.of(popover).setMaxWidth("300px");
+                Style.of(popover.getContentElement())
+                        .setImportantProperty("padding", "0px")
+                        .setImportantProperty("width", "300px")
+                        .setImportantProperty("max-width", "300px");
+                
                 popover.position(this.popupPosition)
                         .asElement().style.setProperty("max-width", "none", "important");
                 popover.getHeadingElement().classList.add(Styles.align_center, datePicker.getColorScheme().color().getStyle());
