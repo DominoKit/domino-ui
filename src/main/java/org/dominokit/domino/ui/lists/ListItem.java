@@ -19,8 +19,6 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
     private boolean selected = false;
     private boolean disabled = false;
     private String style;
-    private HTMLHeadingElement header;
-    private HTMLParagraphElement body;
 
     public ListItem(T value, HasMultiSelectSupport<ListItem<T>> parent) {
         super(a().css("list-group-item").asElement());
@@ -182,6 +180,14 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
     public ListItem<T> appendContent(Node node) {
         this.asElement().appendChild(node);
         return this;
+    }
+
+    public HTMLHeadingElement getHeaderElement() {
+        return header;
+    }
+
+    public HTMLParagraphElement getBodyElement() {
+        return body;
     }
 
     void setParent(HasMultiSelectSupport<ListItem<T>> parent) {

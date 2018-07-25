@@ -182,7 +182,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
         private HTMLDivElement element=div().css("search-new").asElement();
         private DataTable<T> dataTable;
-        private final Select select;
+        private final Select<String> select;
 
         public SearchTableAction() {
 
@@ -211,13 +211,11 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
             });
         }
 
-
-
-        public SearchTableAction<T> addSearchField(SelectOption selectOption){
+        public SearchTableAction<T> addSearchField(SelectOption<String> selectOption){
             return addSearchField(selectOption, false);
         }
 
-        public SearchTableAction<T> addSearchField(SelectOption selectOption, boolean defaultSelection){
+        public SearchTableAction<T> addSearchField(SelectOption<String> selectOption, boolean defaultSelection){
             if(nonNull(selectOption)) {
                 select.addOption(selectOption);
                 if(defaultSelection){

@@ -23,11 +23,11 @@ public abstract class AbstractTextBox<T extends AbstractTextBox, E extends HTMLE
     @Override
     public T setLength(int length) {
         this.length = length;
-        if (length < 0 && getContainer().contains(characterCountContainer)) {
-            getContainer().removeChild(characterCountContainer);
+        if (length < 0 && getFieldContainer().contains(characterCountContainer)) {
+            getFieldContainer().removeChild(characterCountContainer);
             getInputElement().removeAttribute("maxlength");
         } else {
-            getContainer().appendChild(characterCountContainer);
+            getFieldContainer().appendChild(characterCountContainer);
             getInputElement().setAttribute("maxlength", length);
             updateCharacterCount();
         }

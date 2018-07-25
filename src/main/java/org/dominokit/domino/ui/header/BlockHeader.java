@@ -8,7 +8,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class BlockHeader implements IsElement<HTMLDivElement>{
+public class BlockHeader implements IsElement<HTMLDivElement> {
 
     private final HTMLDivElement element;
     private HTMLHeadingElement headerElement;
@@ -26,33 +26,33 @@ public class BlockHeader implements IsElement<HTMLDivElement>{
     }
 
     private void createDescriptionElement(String description) {
-        this.descriptionElement=small().textContent(description).asElement();
+        this.descriptionElement = small().textContent(description).asElement();
         headerElement.appendChild(descriptionElement);
     }
 
-    public static BlockHeader create(String header, String description){
+    public static BlockHeader create(String header, String description) {
         HtmlContentBuilder<HTMLHeadingElement> headerElement = h(2).textContent(header);
         HTMLDivElement element = div().css("block-header")
                 .add(headerElement).asElement();
         return new BlockHeader(element, headerElement.asElement(), description);
     }
 
-    public static BlockHeader create(String header){
+    public static BlockHeader create(String header) {
         HtmlContentBuilder<HTMLHeadingElement> headerElement = h(2).textContent(header);
         HTMLDivElement element = div().css("block-header")
                 .add(headerElement).asElement();
         return new BlockHeader(element, headerElement.asElement());
     }
 
-    public BlockHeader appendContent(Node content){
-        if(isNull(descriptionElement))
+    public BlockHeader appendContent(Node content) {
+        if (isNull(descriptionElement))
             createDescriptionElement("");
         descriptionElement.appendChild(content);
         return this;
     }
 
-    public BlockHeader invert(){
-        if(nonNull(descriptionElement)){
+    public BlockHeader invert() {
+        if (nonNull(descriptionElement)) {
             descriptionElement.remove();
             element.insertBefore(descriptionElement, headerElement);
         }
@@ -60,8 +60,13 @@ public class BlockHeader implements IsElement<HTMLDivElement>{
         return this;
     }
 
-    public BlockHeader appendText(String text){
+    public BlockHeader appendText(String text) {
         return appendContent(new Text(text));
+    }
+
+    public BlockHeader setHeader(String header) {
+        headerElement.textContent = header;
+        return this;
     }
 
     @Override

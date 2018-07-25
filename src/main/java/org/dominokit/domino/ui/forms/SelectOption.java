@@ -11,18 +11,19 @@ import org.dominokit.domino.ui.utils.Selectable;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
-public class SelectOption implements IsElement<HTMLLIElement>, HasValue<SelectOption, String>,
+public class SelectOption<T> implements IsElement<HTMLLIElement>, HasValue<SelectOption, T>,
         HasBackground<SelectOption>, Selectable<SelectOption> {
 
     private static final String SELECTED = "selected";
     private String displayValue;
-    private String value;
+    private String key;
+    private T value;
     private HTMLLIElement li;
     private HTMLAnchorElement aElement;
     private HTMLElement valueContainer;
     private HTMLElement checkMark;
 
-    public SelectOption(String value, String displayValue) {
+    public SelectOption(T value, String key, String displayValue) {
         li = Elements.li().asElement();
         aElement = Elements.a().attr("data-tokens", "null")
                 .attr("tabindex", "0").asElement();
@@ -30,35 +31,44 @@ public class SelectOption implements IsElement<HTMLLIElement>, HasValue<SelectOp
         aElement.appendChild(valueContainer);
         li.appendChild(aElement);
         checkMark = Elements.span().css("glyphicon glyphicon-ok check-mark").asElement();
+        setKey(key);
         setValue(value);
         setDisplayValue(displayValue);
     }
 
-    public SelectOption(String value) {
-        this(value, value);
+    public SelectOption(T value, String key) {
+        this(value, key, key);
     }
 
-    public static SelectOption create(String value, String displayValue) {
-        return new SelectOption(value, displayValue);
+    public static <T> SelectOption<T> create(T value, String key, String displayValue) {
+        return new SelectOption<>(value, key, displayValue);
     }
 
-    public static SelectOption create(String value) {
-        return new SelectOption(value);
+    public static <T> SelectOption<T> create(T value, String key) {
+        return new SelectOption<>(value, key);
     }
 
-    public SelectOption appendContent(Node node) {
+    public SelectOption<T> appendContent(Node node) {
         aElement.appendChild(node);
         return this;
     }
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
     @Override
-    public SelectOption setValue(String value) {
+    public SelectOption<T> setValue(T value) {
         this.value = value;
         return this;
     }
 
     @Override
-    public String getValue() {
+    public T getValue() {
         return this.value;
     }
 
@@ -66,31 +76,31 @@ public class SelectOption implements IsElement<HTMLLIElement>, HasValue<SelectOp
         return displayValue;
     }
 
-    public SelectOption setDisplayValue(String displayValue) {
+    public SelectOption<T> setDisplayValue(String displayValue) {
         this.displayValue = displayValue;
         valueContainer.textContent = displayValue;
         return this;
     }
 
     @Override
-    public SelectOption select() {
+    public SelectOption<T> select() {
         return select(false);
     }
 
     @Override
-    public SelectOption deselect() {
+    public SelectOption<T> deselect() {
         return deselect(false);
     }
 
     @Override
-    public SelectOption select(boolean silent) {
+    public SelectOption<T> select(boolean silent) {
         asElement().classList.add(SELECTED);
         aElement.appendChild(checkMark);
         return this;
     }
 
     @Override
-    public SelectOption deselect(boolean silent) {
+    public SelectOption<T> deselect(boolean silent) {
         asElement().classList.remove(SELECTED);
         if (aElement.contains(checkMark))
             aElement.removeChild(checkMark);
@@ -103,7 +113,7 @@ public class SelectOption implements IsElement<HTMLLIElement>, HasValue<SelectOp
     }
 
     @Override
-    public SelectOption setBackground(Color background) {
+    public SelectOption<T> setBackground(Color background) {
         asElement().classList.add(background.getBackground());
         return this;
     }

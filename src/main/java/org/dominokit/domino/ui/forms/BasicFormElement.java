@@ -19,8 +19,8 @@ public abstract class BasicFormElement<T extends BasicFormElement, V> implements
     @Override
     public T setHelperText(String helperText) {
         this.helperText = helperText;
-        if (!getContainer().contains(helperLabel))
-            getContainer().appendChild(helperLabel);
+        if (!getFieldContainer().contains(helperLabel))
+            getFieldContainer().appendChild(helperLabel);
         helperLabel.textContent = helperText;
         return (T) this;
     }
@@ -70,11 +70,6 @@ public abstract class BasicFormElement<T extends BasicFormElement, V> implements
     }
 
     @Override
-    public HTMLElement asElement() {
-        return getContainer();
-    }
-
-    @Override
     public boolean validate() {
         return elementValidations.validate();
     }
@@ -99,8 +94,8 @@ public abstract class BasicFormElement<T extends BasicFormElement, V> implements
     @Override
     public T invalidate(String errorMessage) {
         helperLabel.style.display = "none";
-        if (!getContainer().contains(errorLabel))
-            getContainer().appendChild(errorLabel);
+        if (!getFieldContainer().contains(errorLabel))
+            getFieldContainer().appendChild(errorLabel);
         errorLabel.style.display = "block";
         errorLabel.textContent = errorMessage;
         return (T) this;
@@ -149,7 +144,7 @@ public abstract class BasicFormElement<T extends BasicFormElement, V> implements
 
     protected abstract void doSetReadOnly(boolean readOnly);
 
-    protected abstract HTMLElement getContainer();
+    protected abstract HTMLElement getFieldContainer();
 
     protected abstract HTMLElement getLabelElement();
 
