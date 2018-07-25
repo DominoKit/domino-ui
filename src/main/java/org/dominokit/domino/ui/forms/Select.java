@@ -13,6 +13,7 @@ import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.isNull;
@@ -500,6 +501,22 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
             }
             container.appendChild(addon);
         }
+    }
+
+    public List<T> getValues() {
+        return options.stream().map(SelectOption::getValue).collect(Collectors.toList());
+    }
+
+    public List<String> getKeys() {
+        return options.stream().map(SelectOption::getKey).collect(Collectors.toList());
+    }
+
+    public boolean containsKey(String key) {
+        return getKeys().contains(key);
+    }
+
+    public boolean containsValue(T value) {
+        return getValues().contains(value);
     }
 
     @Override
