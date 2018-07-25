@@ -43,8 +43,8 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicke
     private HTMLAnchorElement navigateBefore;
     private HTMLAnchorElement navigateNext;
 
-    private Select yearSelect;
-    private Select monthSelect;
+    private Select<Integer> yearSelect;
+    private Select<Integer> monthSelect;
     private Button todayButton;
     private Button clearButton;
     private Button closeButton;
@@ -153,14 +153,14 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicke
         yearSelect.asElement().style.setProperty("margin-bottom", "0px", "important");
 
         for (int i = minDate.getFullYear(); i <= maxDate.getFullYear(); i++) {
-            SelectOption yearOption = SelectOption.create(i + "", i + "");
+            SelectOption<Integer> yearOption = SelectOption.create(i, i + "");
             yearSelect.addOption(yearOption);
 
             if (i == year)
                 yearSelect.select(yearOption);
         }
         yearSelect.addSelectionHandler(option -> {
-            int selectedYear = Integer.parseInt(option.getValue());
+            int selectedYear = option.getValue();
             jsDate.setYear(selectedYear);
             setDate(jsDate);
         });
@@ -170,13 +170,13 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicke
         monthSelect.asElement().style.setProperty("margin-bottom", "0px", "important");
         String[] months = getDateTimeFormatInfo().monthsShort();
         for (int i = 0; i < months.length; i++) {
-            SelectOption monthOption = SelectOption.create(i + "", months[i]);
+            SelectOption<Integer> monthOption = SelectOption.create(i, months[i]);
             monthSelect.addOption(monthOption);
             if (i == month)
                 monthSelect.select(monthOption);
         }
         monthSelect.addSelectionHandler(option -> {
-            int selectedMonth = Integer.parseInt(option.getValue());
+            int selectedMonth = option.getValue();
             jsDate.setMonth(selectedMonth);
             setDate(jsDate);
         });
@@ -225,7 +225,7 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicke
                 jsDate.setMonth(currentMonth - 1);
             }
 
-            yearSelect.setValue(jsDate.getFullYear() + "", true);
+            yearSelect.setValue(jsDate.getFullYear(), true);
             monthSelect.selectAt(jsDate.getMonth(), true);
             setDate(jsDate);
         });
@@ -241,7 +241,7 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicke
                 jsDate.setMonth(currentMonth + 1);
             }
 
-            yearSelect.setValue(jsDate.getFullYear() + "", true);
+            yearSelect.setValue(jsDate.getFullYear(), true);
             monthSelect.selectAt(jsDate.getMonth(), true);
             setDate(jsDate);
         });
@@ -385,7 +385,7 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicke
         this.dateNumber.textContent = this.selectedPickerElement.getDay() + "";
         this.yearNumber.textContent = this.selectedPickerElement.getYear() + "";
         this.monthSelect.selectAt(this.selectedPickerElement.getMonth(), true);
-        this.yearSelect.setValue(this.selectedPickerElement.getYear() + "", true);
+        this.yearSelect.setValue(this.selectedPickerElement.getYear(), true);
     }
 
 

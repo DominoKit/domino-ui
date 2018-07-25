@@ -19,7 +19,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementUtil.*;
 
-public class Select extends BasicFormElement<Select, String> implements Focusable<Select> {
+public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusable<Select<T>> {
 
     private static final String OPEN = "open";
     private static final String CLICK = "click";
@@ -30,10 +30,10 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     private SelectElement selectElement = SelectElement.create();
     private HTMLElement leftAddonContainer = Elements.div().css("input-addon-container").asElement();
     private HTMLElement rightAddonContainer = Elements.div().css("input-addon-container").asElement();
-    private List<SelectOption> options = new LinkedList<>();
-    private SelectOption selectedOption;
-    private List<SelectionHandler> selectionHandlers = new ArrayList<>();
-    private SelectionHandler autoValidationHandler;
+    private List<SelectOption<T>> options = new LinkedList<>();
+    private SelectOption<T> selectedOption;
+    private List<SelectionHandler<T>> selectionHandlers = new ArrayList<>();
+    private SelectionHandler<T> autoValidationHandler;
     private Color focusColor = Color.BLUE;
     private Element leftAddon;
     private Element rightAddon;
@@ -48,7 +48,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     private void initListeners() {
         document.addEventListener(CLICK, evt -> {
             HTMLElement element = Js.uncheckedCast(evt.target);
-            if (!element.isEqualNode(this.selectElement.asElement()))
+            if (!element.isEqualNode(this.selectElement.getFormControl()))
                 hideAllMenus();
         });
 
@@ -87,17 +87,17 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         setLabel(label);
     }
 
-    public Select(List<SelectOption> options) {
+    public Select(List<SelectOption<T>> options) {
         this("", options);
     }
 
-    public Select(String label, List<SelectOption> options) {
+    public Select(String label, List<SelectOption<T>> options) {
         this(label);
         options.forEach(this::addOption);
     }
 
     public void open() {
-        selectElement.asElement().classList.add(OPEN);
+        selectElement.getFormControl().classList.add(OPEN);
     }
 
 
@@ -119,7 +119,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     }
 
     public void close() {
-        close(selectElement.asElement());
+        close(selectElement.getFormControl());
         selectElement.getSelectMenu().focus();
     }
 
@@ -127,23 +127,23 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         return selectElement.asElement().classList.contains(OPEN);
     }
 
-    public static Select create() {
-        return new Select();
+    public static <T> Select<T> create() {
+        return new Select<>();
     }
 
-    public static Select create(String label) {
-        return new Select(label);
+    public static <T> Select<T> create(String label) {
+        return new Select<>(label);
     }
 
-    public static Select create(String label, List<SelectOption> options) {
-        return new Select(label, options);
+    public static <T> Select<T> create(String label, List<SelectOption<T>> options) {
+        return new Select<>(label, options);
     }
 
-    public static Select create(List<SelectOption> options) {
-        return new Select(options);
+    public static <T> Select create(List<SelectOption<T>> options) {
+        return new Select<>(options);
     }
 
-    public Select addOption(SelectOption option) {
+    public Select<T> addOption(SelectOption<T> option) {
         options.add(option);
         option.asElement().addEventListener(CLICK, evt -> {
             doSelectOption(option);
@@ -153,45 +153,45 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         return this;
     }
 
-    private void doSelectOption(SelectOption option) {
+    private void doSelectOption(SelectOption<T> option) {
         if (isEnabled()) {
             select(option);
             close();
         }
     }
 
-    private void appendOptionValue(SelectOption option) {
+    private void appendOptionValue(SelectOption<T> option) {
         selectElement.getOptionsList().appendChild(option.asElement());
-        selectElement.getSelectMenu().appendChild(Elements.option().attr("value", option.getValue())
+        selectElement.getSelectMenu().appendChild(Elements.option().attr("value", option.getKey())
                 .textContent(option.getDisplayValue())
                 .asElement());
     }
 
-    public Select selectAt(int index) {
+    public Select<T> selectAt(int index) {
         return selectAt(index, false);
     }
 
-    public Select selectAt(int index, boolean silent) {
+    public Select<T> selectAt(int index, boolean silent) {
         if (index < options.size() && index >= 0)
             select(options.get(index), silent);
         return this;
     }
 
-    public SelectOption getOptionAt(int index) {
+    public SelectOption<T> getOptionAt(int index) {
         if (index < options.size() && index >= 0)
             return options.get(index);
         return null;
     }
 
-    public List<SelectOption> getOptions() {
+    public List<SelectOption<T>> getOptions() {
         return options;
     }
 
-    public Select select(SelectOption option) {
+    public Select<T> select(SelectOption<T> option) {
         return select(option, false);
     }
 
-    public Select select(SelectOption option, boolean silent) {
+    public Select<T> select(SelectOption<T> option, boolean silent) {
         if (selectedOption != null)
             if (!option.asElement().isEqualNode(selectedOption.asElement()))
                 selectedOption.deselect();
@@ -208,24 +208,24 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         return !isEmpty();
     }
 
-    private void onSelection(SelectOption option) {
-        for (SelectionHandler handler : selectionHandlers)
+    private void onSelection(SelectOption<T> option) {
+        for (SelectionHandler<T> handler : selectionHandlers)
             handler.onSelection(option);
     }
 
-    public Select addSelectionHandler(SelectionHandler selectionHandler) {
+    public Select<T> addSelectionHandler(SelectionHandler<T> selectionHandler) {
         selectionHandlers.add(selectionHandler);
         return this;
     }
 
-    public SelectOption getSelectedOption() {
+    public SelectOption<T> getSelectedOption() {
         return selectedOption;
     }
 
     @Override
-    public Select enable() {
+    public Select<T> enable() {
         super.enable();
-        asElement().classList.remove("disabled");
+        selectElement.getFormControl().classList.remove("disabled");
         getSelectButton().classList.remove("disabled");
         getSelectMenu().classList.remove("disabled");
         Style.of(getLabelElement()).removeProperty("cursor");
@@ -233,33 +233,33 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     }
 
     @Override
-    public Select disable() {
+    public Select<T> disable() {
         super.disable();
-        asElement().classList.add("disabled");
+        selectElement.getFormControl().classList.add("disabled");
         getSelectButton().classList.add("disabled");
         getSelectMenu().classList.add("disabled");
         Style.of(getLabelElement()).setProperty("cursor", "not-allowed");
         return this;
     }
 
-    public Select dropup() {
-        asElement().classList.remove("dropup");
-        asElement().classList.add("dropup");
+    public Select<T> dropup() {
+        selectElement.getFormControl().classList.remove("dropup");
+        selectElement.getFormControl().classList.add("dropup");
         return this;
     }
 
-    public Select dropdown() {
-        asElement().classList.remove("dropup");
+    public Select<T> dropdown() {
+        selectElement.getFormControl().classList.remove("dropup");
         return this;
     }
 
     @Override
-    public Select setValue(String value) {
+    public Select<T> setValue(T value) {
         return setValue(value, false);
     }
 
-    public Select setValue(String value, boolean silent) {
-        for (SelectOption option : getOptions()) {
+    public Select<T> setValue(T value, boolean silent) {
+        for (SelectOption<T> option : getOptions()) {
             if (Objects.equals(option.getValue(), value)) {
                 select(option, silent);
             }
@@ -268,8 +268,8 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     }
 
     @Override
-    public String getValue() {
-        return isSelected() ? getSelectedOption().getValue() : "";
+    public T getValue() {
+        return isSelected() ? getSelectedOption().getValue() : null;
     }
 
     @Override
@@ -278,7 +278,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     }
 
     @Override
-    public Select clear() {
+    public Select<T> clear() {
         selectElement.getSelectLabel().classList.remove(FOCUSED);
         getOptions().forEach(selectOption -> selectOption.deselect(true));
         selectedOption = null;
@@ -288,48 +288,63 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         return this;
     }
 
-    public Select setFormId(String formId) {
+    public Select<T> setFormId(String formId) {
         getSelectMenu().setAttribute("form", formId);
         return this;
     }
 
     @Override
-    public Select invalidate(String errorMessage) {
-        selectElement.asElement().classList.add("fc-" + Color.RED.getStyle());
+    public Select<T> invalidate(String errorMessage) {
+        selectElement.getFormControl().classList.add("fc-" + Color.RED.getStyle());
         selectElement.getSelectLabel().classList.add(Color.RED.getStyle());
+        removeLeftAddonColor(focusColor);
+        setLeftAddonColor(Color.RED);
         return super.invalidate(errorMessage);
     }
 
     @Override
-    public Select clearInvalid() {
-        selectElement.asElement().classList.remove("fc-" + Color.RED.getStyle());
+    public Select<T> clearInvalid() {
+        selectElement.getFormControl().classList.remove("fc-" + Color.RED.getStyle());
         selectElement.getSelectLabel().classList.remove(Color.RED.getStyle());
+        removeLeftAddonColor(Color.RED);
         return super.clearInvalid();
     }
 
-    public Select removeSelectionHandler(SelectionHandler selectionHandler) {
+    public Select<T> removeSelectionHandler(SelectionHandler selectionHandler) {
         if (nonNull(selectionHandler))
             selectionHandlers.remove(selectionHandler);
         return this;
     }
 
     @Override
-    public Select focus() {
+    public Select<T> focus() {
         if (isEnabled() && !isReadOnly()) {
             selectElement.getSelectMenu().classList.add(FOCUSED);
             selectElement.getSelectLabel().classList.add(focusColor.getStyle());
-            selectElement.asElement().classList.add("fc-" + focusColor.getStyle());
+            selectElement.getFormControl().classList.add("fc-" + focusColor.getStyle());
+            setLeftAddonColor(focusColor);
             selectElement.getSelectMenu().focus();
         }
         return this;
     }
 
     @Override
-    public Select unfocus() {
+    public Select<T> unfocus() {
         selectElement.getSelectMenu().classList.remove(FOCUSED);
         selectElement.getSelectLabel().classList.remove(focusColor.getStyle());
-        selectElement.asElement().classList.remove("fc-" + focusColor.getStyle());
+        selectElement.getFormControl().classList.remove("fc-" + focusColor.getStyle());
+        removeLeftAddonColor(focusColor);
         return this;
+    }
+
+    private void setLeftAddonColor(Color focusColor) {
+        if (leftAddon != null)
+            leftAddon.classList.add(focusColor.getStyle());
+    }
+
+    private void removeLeftAddonColor(Color focusColor) {
+        if (leftAddon != null)
+            leftAddon.classList.remove(focusColor.getStyle());
     }
 
     @Override
@@ -338,7 +353,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     }
 
     @Override
-    public Select setFocusColor(Color focusColor) {
+    public Select<T> setFocusColor(Color focusColor) {
         unfocus();
         this.focusColor = focusColor;
         if (isFocused())
@@ -346,7 +361,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         return this;
     }
 
-    public Select removeOption(SelectOption option) {
+    public Select<T> removeOption(SelectOption<T> option) {
         if (nonNull(option) && getOptions().contains(option)) {
             option.deselect(true);
             options.remove(option);
@@ -355,14 +370,14 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         return this;
     }
 
-    public Select removeOptions(Collection<SelectOption> options) {
+    public Select<T> removeOptions(Collection<SelectOption<T>> options) {
         if (nonNull(options) && !options.isEmpty() && !this.options.isEmpty()) {
             options.forEach(this::removeOption);
         }
         return this;
     }
 
-    public Select removeAllOptions() {
+    public Select<T> removeAllOptions() {
         if (nonNull(options) && !options.isEmpty()) {
             options.forEach(this::removeOption);
         }
@@ -392,8 +407,8 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     }
 
     @FunctionalInterface
-    public interface SelectionHandler {
-        void onSelection(SelectOption option);
+    public interface SelectionHandler<T> {
+        void onSelection(SelectOption<T> option);
     }
 
     public HTMLButtonElement getSelectButton() {
@@ -417,7 +432,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     }
 
     @Override
-    public Select setAutoValidation(boolean autoValidation) {
+    public Select<T> setAutoValidation(boolean autoValidation) {
         if (autoValidation) {
             if (isNull(autoValidationHandler)) {
                 autoValidationHandler = option -> validate();
@@ -436,34 +451,34 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     }
 
 
-    public Select setLeftAddon(IsElement leftAddon) {
+    public Select<T> setLeftAddon(IsElement leftAddon) {
         return setLeftAddon(leftAddon.asElement());
     }
 
-    public Select setLeftAddon(Element leftAddon) {
+    public Select<T> setLeftAddon(Element leftAddon) {
         setAddon(leftAddonContainer, this.leftAddon, leftAddon);
         this.leftAddon = leftAddon;
         return this;
     }
 
-    public Select setRightAddon(IsElement rightAddon) {
+    public Select<T> setRightAddon(IsElement rightAddon) {
         return setRightAddon(rightAddon.asElement());
     }
 
-    public Select setRightAddon(Element rightAddon) {
+    public Select<T> setRightAddon(Element rightAddon) {
         setAddon(rightAddonContainer, this.rightAddon, rightAddon);
         this.rightAddon = rightAddon;
         return this;
     }
 
-    public Select removeRightAddon() {
+    public Select<T> removeRightAddon() {
         if (nonNull(rightAddon)) {
             rightAddonContainer.removeChild(rightAddon);
         }
         return this;
     }
 
-    public Select removeLeftAddon() {
+    public Select<T> removeLeftAddon() {
         if (nonNull(leftAddon)) {
             leftAddonContainer.removeChild(leftAddon);
         }
@@ -498,13 +513,20 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
     }
 
     @Override
-    protected HTMLElement getContainer() {
+    protected HTMLElement getFieldContainer() {
+        return selectElement.asElement();
+    }
+
+    @Override
+    public HTMLElement asElement() {
         return container;
     }
 
     @Templated
     public static abstract class SelectElement implements IsElement<HTMLDivElement> {
 
+        @DataElement
+        HTMLDivElement formControl;
 
         @DataElement
         HTMLButtonElement selectButton;
@@ -558,6 +580,10 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         public SVGElement getSelectArrow() {
             return selectArrow;
         }
+
+        public HTMLDivElement getFormControl() {
+            return formControl;
+        }
     }
 
     private final class NavigateOptionsKeyListener implements EventListener {
@@ -566,7 +592,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
         public void handleEvent(Event evt) {
             KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
             HTMLElement element = Js.uncheckedCast(keyboardEvent.target);
-            for (SelectOption option : options) {
+            for (SelectOption<T> option : options) {
                 if (option.asElement().contains(element)) {
                     if (isKeyOf("ArrowUp", keyboardEvent)) {
                         focusPrev(option);
@@ -586,7 +612,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
             }
         }
 
-        private void focusNext(SelectOption option) {
+        private void focusNext(SelectOption<T> option) {
             int i = options.indexOf(option);
             if (i == options.size() - 1) {
                 options.get(0).focus();
@@ -595,7 +621,7 @@ public class Select extends BasicFormElement<Select, String> implements Focusabl
             }
         }
 
-        private void focusPrev(SelectOption option) {
+        private void focusPrev(SelectOption<T> option) {
             int i = options.indexOf(option);
             if (i == 0) {
                 options.get(options.size() - 1).focus();

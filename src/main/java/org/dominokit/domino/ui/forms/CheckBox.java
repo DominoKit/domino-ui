@@ -5,6 +5,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -19,6 +20,8 @@ import static java.util.Objects.nonNull;
 public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsElement<HTMLElement>, Checkable<CheckBox> {
 
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
+    private HTMLDivElement formLine = Elements.div().css("form-line").asElement();
+    private HTMLDivElement formControl = Elements.div().css("form-control").asElement();
     private HTMLInputElement inputElement = Elements.input("checkbox").asElement();
     private HTMLLabelElement labelElement = Elements.label().asElement();
     private List<ChangeHandler<Boolean>> changeHandlers = new ArrayList<>();
@@ -31,8 +34,9 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
 
     public CheckBox(String label) {
         setLabel(label);
-        container.appendChild(inputElement);
-        container.appendChild(labelElement);
+        Style.of(formControl).setProperty("border-bottom", "0px");
+        formControl.appendChild(inputElement);
+        formControl.appendChild(labelElement);
         inputElement.addEventListener("change", evt -> {
             onCheck();
         });
@@ -40,6 +44,8 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
             if (isEnabled())
                 toggle();
         });
+        formLine.appendChild(formControl);
+        container.appendChild(formLine);
     }
 
     private void onCheck() {
@@ -158,12 +164,12 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
 
     @Override
     protected void doSetReadOnly(boolean readOnly) {
-
+        // TODO: implement read only
     }
 
     @Override
-    protected HTMLDivElement getContainer() {
-        return container;
+    protected HTMLDivElement getFieldContainer() {
+        return formLine;
     }
 
     @Override
@@ -188,5 +194,10 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
     @Override
     public boolean isAutoValidation() {
         return nonNull(autoValidationHandler);
+    }
+
+    @Override
+    public HTMLElement asElement() {
+        return container;
     }
 }

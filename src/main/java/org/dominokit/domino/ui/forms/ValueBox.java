@@ -217,7 +217,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     }
 
     @Override
-    public HTMLDivElement getContainer() {
+    public HTMLDivElement getFieldContainer() {
         return inputContainer;
     }
 

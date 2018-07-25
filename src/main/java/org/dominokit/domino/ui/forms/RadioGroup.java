@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLLabelElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.ElementValidations;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
 import org.jboss.gwt.elemento.core.Elements;
@@ -18,6 +19,7 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
 
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
     private HTMLDivElement formLine = Elements.div().css("form-line").asElement();
+    private HTMLDivElement formControl = Elements.div().css("form-control").asElement();
     private HTMLLabelElement helperLabel = Elements.label().css("help-info").asElement();
     private HTMLLabelElement errorLabel = Elements.label().css("error").asElement();
     private HTMLDivElement labelContainer = Elements.div().css("form-label focused").asElement();
@@ -28,7 +30,9 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
     private List<ChangeHandler<Radio>> changeHandlers = new ArrayList<>();
 
     public RadioGroup(String name) {
-        formLine.appendChild(labelContainer);
+        Style.of(formControl).setProperty("border-bottom", "0px");
+        formControl.appendChild(labelContainer);
+        formLine.appendChild(formControl);
         container.appendChild(formLine);
         setName(name);
     }
@@ -50,13 +54,13 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
         radio.setName(name);
         radio.addChangeHandler(value -> onCheck(radio));
         radios.add(radio);
-        formLine.appendChild(radio.asElement());
+        formControl.appendChild(radio.asElement());
         return this;
     }
 
     public RadioGroup addRadio(Radio radio, Node content) {
         addRadio(radio);
-        formLine.appendChild(content);
+        formControl.appendChild(content);
         return this;
     }
 
@@ -84,8 +88,8 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
 
     @Override
     public RadioGroup setHelperText(String text) {
-        if (!container.contains(helperLabel))
-            container.appendChild(helperLabel);
+        if (!formLine.contains(helperLabel))
+            formLine.appendChild(helperLabel);
         helperLabel.textContent = text;
         return this;
     }
@@ -136,8 +140,8 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
     @Override
     public RadioGroup invalidate(String errorMessage) {
         helperLabel.style.display = "none";
-        if (!container.contains(errorLabel))
-            container.appendChild(errorLabel);
+        if (!formLine.contains(errorLabel))
+            formLine.appendChild(errorLabel);
         errorLabel.style.display = "block";
         errorLabel.textContent = errorMessage;
         return this;
@@ -251,7 +255,8 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
 
     @Override
     public RadioGroup setReadOnly(boolean readOnly) {
-        return null;
+        // TODO: implement read only
+        return this;
     }
 
     @Override

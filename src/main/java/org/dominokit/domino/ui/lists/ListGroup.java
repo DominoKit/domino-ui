@@ -7,8 +7,8 @@ import org.jboss.gwt.elemento.core.IsElement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSupport<ListItem<T>> {
@@ -62,7 +62,7 @@ public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
 
     @Override
     public List<ListItem<T>> getSelectedItems() {
-        return allItems.stream().filter(ListItem::isSelected).collect(Collectors.toList());
+        return allItems.stream().filter(ListItem::isSelected).collect(toList());
     }
 
     public List<T> getSelectedValues() {
@@ -70,7 +70,7 @@ public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
         if (selectedItems.isEmpty())
             return new ArrayList<>();
         else
-            return selectedItems.stream().map(i -> i.getValue()).collect(Collectors.toList());
+            return selectedItems.stream().map(ListItem::getValue).collect(toList());
     }
 
     public ListGroup<T> removeSelected() {
@@ -94,13 +94,15 @@ public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
         return selectable;
     }
 
-    public void setSelectable(boolean selectable) {
+    public ListGroup<T> setSelectable(boolean selectable) {
         this.selectable = selectable;
         for (ListItem<T> listItem : getSelectedItems()) {
             if (!selectable) {
                 listItem.deselect(true);
             }
         }
+
+        return this;
     }
 
     @Override
@@ -118,6 +120,9 @@ public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
         return allItems;
     }
 
+    public List<T> getAllValues() {
+        return allItems.stream().map(ListItem::getValue).collect(toList());
+    }
 
     @Override
     public HTMLDivElement asElement() {
