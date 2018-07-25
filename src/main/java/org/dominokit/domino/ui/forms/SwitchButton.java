@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.jboss.gwt.elemento.core.Elements;
 
@@ -11,6 +12,8 @@ import java.util.List;
 public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implements Checkable<SwitchButton> {
 
     private HTMLDivElement container = Elements.div().css("switch form-group").asElement();
+    private HTMLDivElement formLine = Elements.div().css("form-line").asElement();
+    private HTMLDivElement formControl = Elements.div().css("form-control").asElement();
     private HTMLLabelElement labelElement = Elements.label().asElement();
     private HTMLInputElement inputElement = Elements.input("checkbox").asElement();
     private HTMLElement lever = Elements.span().css("lever").asElement();
@@ -31,14 +34,17 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     public SwitchButton() {
+        Style.of(formControl).setProperty("border-bottom", "0px");
         labelElement.appendChild(inputElement);
         labelElement.appendChild(lever);
-        container.appendChild(labelElement);
+        formControl.appendChild(labelElement);
         inputElement.addEventListener("change", evt -> {
             onCheck();
             if (autoValidation)
                 validate();
         });
+        formLine.appendChild(formControl);
+        container.appendChild(formLine);
     }
 
     public static SwitchButton create(String offTitle, String onTitle) {
@@ -164,7 +170,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     @Override
     protected void doSetReadOnly(boolean readOnly) {
-
+        // TODO: implement read only
     }
 
     @Override
@@ -178,8 +184,8 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     @Override
-    public HTMLDivElement getContainer() {
-        return container;
+    public HTMLDivElement getFieldContainer() {
+        return formLine;
     }
 
     @Override
@@ -191,5 +197,10 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     @Override
     public boolean isAutoValidation() {
         return autoValidation;
+    }
+
+    @Override
+    public HTMLElement asElement() {
+        return container;
     }
 }

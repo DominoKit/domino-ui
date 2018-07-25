@@ -9,6 +9,7 @@ import org.dominokit.domino.ui.code.Code;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
@@ -252,4 +253,38 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
 
         return this;
     }
+
+    public Card setBodyPadding(String padding) {
+        Style.of(body).setPadding(padding);
+        return this;
+    }
+
+    public Card setBodyPaddingLeft(String padding) {
+        Style.of(body).setPaddingLeft(padding);
+        return this;
+    }
+
+    public Card setBodyPaddingRight(String padding) {
+        Style.of(body).setPaddingRight(padding);
+        return this;
+    }
+
+    public Card setBodyPaddingTop(String padding) {
+        Style.of(body).setPaddingTop(padding);
+        return this;
+    }
+
+    public Card setBodyPaddingBottom(String padding) {
+        Style.of(body).setPaddingBottom(padding);
+        return this;
+    }
+
+    public Style<HTMLDivElement, Card> style() {
+        return Style.of(this);
+    }
+
+    public Style<HTMLDivElement, IsElement<HTMLDivElement>> bodyStyle() {
+        return Style.of(body);
+    }
+
 }

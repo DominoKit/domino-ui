@@ -13,8 +13,8 @@ import static org.jboss.gwt.elemento.core.Elements.p;
 public class BaseListItem<T extends Element> {
 
     private T element;
-    private HTMLHeadingElement header;
-    private HTMLParagraphElement body;
+    protected HTMLHeadingElement header;
+    protected HTMLParagraphElement body;
 
     BaseListItem(T element) {
         this.element = element;

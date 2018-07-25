@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.collapsible;
 
-import org.dominokit.domino.ui.utils.IsCollapsible;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.utils.IsCollapsible;
 import org.jboss.gwt.elemento.core.IsElement;
 
 public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collapsible> {
@@ -17,6 +17,10 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
     public static Collapsible create(HTMLElement element) {
         return new Collapsible(element);
+    }
+
+    public static Collapsible create(IsElement isElement) {
+        return create(isElement.asElement());
     }
 
     public Collapsible collapse() {

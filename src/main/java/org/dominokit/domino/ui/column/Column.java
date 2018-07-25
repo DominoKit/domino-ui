@@ -38,6 +38,14 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
                 .onXSmall(OnXSmall.of(xsmall));
     }
 
+    public static Column create(int columnsOnAllScreens) {
+        return create()
+                .onLarge(OnLarge.of(columnsOnAllScreens))
+                .onMedium(OnMedium.of(columnsOnAllScreens))
+                .onSmall(OnSmall.of(columnsOnAllScreens))
+                .onXSmall(OnXSmall.of(columnsOnAllScreens));
+    }
+
     public static Column columns2() {
         return create(6, 6, 12, 12);
     }
