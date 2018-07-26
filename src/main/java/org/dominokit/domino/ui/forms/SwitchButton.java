@@ -14,45 +14,55 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     private HTMLDivElement container = Elements.div().css("switch form-group").asElement();
     private HTMLDivElement formLine = Elements.div().css("form-line").asElement();
     private HTMLDivElement formControl = Elements.div().css("form-control").asElement();
-    private HTMLLabelElement labelElement = Elements.label().asElement();
+    private HTMLLabelElement onOffLabelElement = Elements.label().asElement();
+    private HTMLLabelElement labelElement = Elements.label().css("form-label focused").asElement();
     private HTMLInputElement inputElement = Elements.input("checkbox").asElement();
     private HTMLElement lever = Elements.span().css("lever").asElement();
     private List<ChangeHandler<Boolean>> changeHandlers = new ArrayList<>();
     private Color color;
-    private String label;
-    private Text labelText;
+    private Text onTitleText = new Text();
+    private Text offTitleText = new Text();
     private boolean autoValidation;
 
-    public SwitchButton(String title, String onTitle) {
-        this(title);
-        labelElement.appendChild(new Text(onTitle));
+    public SwitchButton(String label, String onTitle, String offTitle) {
+        this(label);
+        setOnTitle(onTitle);
+        setOffTitle(offTitle);
     }
 
-    public SwitchButton(String title) {
+    public SwitchButton(String label, String onOffTitle) {
+        this(label);
+        setOffTitle(onOffTitle);
+    }
+
+    public SwitchButton(String label) {
         this();
-        setLabel(title);
+        setLabel(label);
     }
 
     public SwitchButton() {
         Style.of(formControl).setProperty("border-bottom", "0px");
-        labelElement.appendChild(inputElement);
-        labelElement.appendChild(lever);
-        formControl.appendChild(labelElement);
+        formControl.appendChild(onOffLabelElement);
+        onOffLabelElement.appendChild(offTitleText);
+        onOffLabelElement.appendChild(inputElement);
+        onOffLabelElement.appendChild(lever);
+        onOffLabelElement.appendChild(onTitleText);
         inputElement.addEventListener("change", evt -> {
             onCheck();
             if (autoValidation)
                 validate();
         });
         formLine.appendChild(formControl);
+        formLine.appendChild(labelElement);
         container.appendChild(formLine);
     }
 
-    public static SwitchButton create(String offTitle, String onTitle) {
-        return new SwitchButton(offTitle, onTitle);
+    public static SwitchButton create(String label, String offTitle, String onTitle) {
+        return new SwitchButton(label, offTitle, onTitle);
     }
 
-    public static SwitchButton create(String label) {
-        return new SwitchButton(label);
+    public static SwitchButton create(String label, String onOffTitle) {
+        return new SwitchButton(label, onOffTitle);
     }
 
     public static SwitchButton create() {
@@ -154,18 +164,13 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     @Override
     public SwitchButton setLabel(String label) {
-        this.label = label;
-        if (labelText != null) {
-            labelElement.removeChild(labelText);
-        }
-        labelText = new Text(label);
-        labelElement.insertBefore(labelText, inputElement);
+        this.labelElement.textContent = label;
         return this;
     }
 
     @Override
     public String getLabel() {
-        return label;
+        return labelElement.textContent;
     }
 
     @Override
@@ -176,6 +181,20 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     @Override
     public HTMLLabelElement getLabelElement() {
         return labelElement;
+    }
+
+    public SwitchButton setOnTitle(String onTitle) {
+        onTitleText.textContent = onTitle;
+        return this;
+    }
+
+    public SwitchButton setOffTitle(String offTitle) {
+        offTitleText.textContent = offTitle;
+        return this;
+    }
+
+    public HTMLLabelElement getOnOffLabelElement() {
+        return onOffLabelElement;
     }
 
     @Override
