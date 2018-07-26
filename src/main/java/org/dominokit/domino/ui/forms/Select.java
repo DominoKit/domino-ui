@@ -296,6 +296,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     @Override
     public Select<T> invalidate(String errorMessage) {
+        selectElement.getFormControl().classList.remove("fc-" + focusColor.getStyle());
+        selectElement.getSelectLabel().classList.remove(focusColor.getStyle());
         selectElement.getFormControl().classList.add("fc-" + Color.RED.getStyle());
         selectElement.getSelectLabel().classList.add(Color.RED.getStyle());
         removeLeftAddonColor(focusColor);
@@ -307,6 +309,11 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     public Select<T> clearInvalid() {
         selectElement.getFormControl().classList.remove("fc-" + Color.RED.getStyle());
         selectElement.getSelectLabel().classList.remove(Color.RED.getStyle());
+        if (isFocused()) {
+            selectElement.getFormControl().classList.add("fc-" + focusColor.getStyle());
+            selectElement.getSelectLabel().classList.add(focusColor.getStyle());
+        }
+
         removeLeftAddonColor(Color.RED);
         return super.clearInvalid();
     }
