@@ -24,10 +24,10 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     private Text offTitleText = new Text();
     private boolean autoValidation;
 
-    public SwitchButton(String label, String onTitle, String offTitle) {
+    public SwitchButton(String label, String offTitle, String onTitle) {
         this(label);
-        setOnTitle(onTitle);
         setOffTitle(offTitle);
+        setOnTitle(onTitle);
     }
 
     public SwitchButton(String label, String onOffTitle) {
