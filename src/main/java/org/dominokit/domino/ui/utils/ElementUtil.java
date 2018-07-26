@@ -44,10 +44,10 @@ public class ElementUtil {
      * @param callback {@link ObserverCallback}
      */
     public static void onAttach(HTMLElement element, ObserverCallback callback) {
-        Elements.onAttach(element, callback);
-//        if (element != null) {
-//            BodyObserver.addAttachObserver(element, callback);
-//        }
+//        Elements.onAttach(element, callback);
+        if (element != null) {
+            BodyObserver.addAttachObserver(element, callback);
+        }
     }
 
     /**
@@ -59,10 +59,10 @@ public class ElementUtil {
      */
     public static void onDetach(HTMLElement element, ObserverCallback callback) {
 
-        Elements.onDetach(element, callback);
-//        if (element != null) {
-//            BodyObserver.addDetachObserver(element, callback);
-//        }
+//        Elements.onDetach(element, callback);
+        if (element != null) {
+            BodyObserver.addDetachObserver(element, callback);
+        }
     }
 
     public static TextBox numbersOnly(TextBox textBox) {

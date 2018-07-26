@@ -276,4 +276,8 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
             changeHandlers.remove(changeHandler);
         return this;
     }
+
+    public Radio getSelectedRadio() {
+        return radios.stream().filter(Radio::isChecked).findFirst().orElse(null);
+    }
 }
