@@ -238,19 +238,18 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
     public Card collapse() {
         if (collapsible) {
             collapseIcon.asElement().textContent = Icons.ALL.keyboard_arrow_down().getName();
-            getBody().style.display = "none";
-            this.collapsed = true;
         }
+        getBody().style.display = "none";
+        this.collapsed = true;
         return this;
     }
 
     public Card expand() {
         if (collapsible) {
             collapseIcon.asElement().textContent = Icons.ALL.keyboard_arrow_up().getName();
-            getBody().style.display = "block";
-            this.collapsed = false;
         }
-
+        getBody().style.display = "block";
+        this.collapsed = false;
         return this;
     }
 
