@@ -174,11 +174,6 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     @Override
-    protected void doSetReadOnly(boolean readOnly) {
-        // TODO: implement read only
-    }
-
-    @Override
     public HTMLLabelElement getLabelElement() {
         return labelElement;
     }

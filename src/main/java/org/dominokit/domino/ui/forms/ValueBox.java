@@ -5,6 +5,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.Focusable;
 import org.dominokit.domino.ui.utils.HasPlaceHolder;
+import org.dominokit.domino.ui.utils.IsReadOnly;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -14,7 +15,7 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 
 public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> extends BasicFormElement<T, V> implements
-        Focusable<T>, HasPlaceHolder<T> {
+        Focusable<T>, HasPlaceHolder<T>, IsReadOnly<T> {
 
     public static final String FOCUSED = "focused";
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
@@ -362,7 +363,8 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     }
 
     @Override
-    protected void doSetReadOnly(boolean readOnly) {
+    public T setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
         if (readOnly) {
             getInputElement().setAttribute("disabled", "true");
             getInputElement().setAttribute("readonly", "true");
@@ -381,6 +383,12 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
                 nonfloating();
             }
         }
+        return (T) this;
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return readOnly;
     }
 
     protected void changeLabelFloating() {

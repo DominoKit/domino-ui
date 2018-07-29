@@ -7,6 +7,7 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.Focusable;
+import org.dominokit.domino.ui.utils.IsReadOnly;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
@@ -20,7 +21,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementUtil.*;
 
-public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusable<Select<T>> {
+public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusable<Select<T>>, IsReadOnly<Select<T>> {
 
     private static final String OPEN = "open";
     private static final String CLICK = "click";
@@ -38,6 +39,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private Color focusColor = Color.BLUE;
     private Element leftAddon;
     private Element rightAddon;
+    private boolean readOnly;
 
     public Select() {
         initListeners();
@@ -398,20 +400,27 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     @Override
-    protected void doSetReadOnly(boolean readOnly) {
+    public Select<T> setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
         if (readOnly) {
-            selectElement.asElement().classList.add("readonly");
+            selectElement.getFormControl().classList.add("readonly");
             selectElement.getSelectMenu().setAttribute("disabled", true);
             selectElement.getSelectMenu().setAttribute("readonly", true);
             selectElement.getSelectArrow().setAttributeNS(null, "style", "display: none;");
         } else {
-            selectElement.asElement().classList.remove("readonly");
+            selectElement.getFormControl().classList.remove("readonly");
             if (!asElement().classList.contains("disabled")) {
                 selectElement.getSelectMenu().removeAttribute("disabled");
             }
             selectElement.getSelectMenu().removeAttribute("readonly");
             selectElement.getSelectArrow().removeAttributeNS(null, "style");
         }
+        return this;
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return readOnly;
     }
 
     @FunctionalInterface

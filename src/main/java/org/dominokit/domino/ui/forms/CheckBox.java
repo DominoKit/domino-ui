@@ -163,11 +163,6 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
     }
 
     @Override
-    protected void doSetReadOnly(boolean readOnly) {
-        // TODO: implement read only
-    }
-
-    @Override
     protected HTMLDivElement getFieldContainer() {
         return formLine;
     }

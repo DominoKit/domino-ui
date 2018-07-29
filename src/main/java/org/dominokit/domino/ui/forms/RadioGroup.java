@@ -254,17 +254,6 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
     }
 
     @Override
-    public RadioGroup setReadOnly(boolean readOnly) {
-        // TODO: implement read only
-        return this;
-    }
-
-    @Override
-    public boolean isReadOnly() {
-        return false;
-    }
-
-    @Override
     public RadioGroup addChangeHandler(ChangeHandler<Radio> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
