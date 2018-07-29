@@ -11,58 +11,64 @@ public class PatternMasking implements Masking {
 
     private TextBox textBox;
     private final PatternEvaluation patternEvaluation;
+    private int nextIndex;
+    private boolean optional;
 
     public PatternMasking(TextBox textBox, String pattern) {
         this.textBox = textBox;
         patternEvaluation = PatternEvaluation.pattern(pattern).build();
-        patternEvaluation.addValueChangeListener(() -> {
+
+        patternEvaluation.addValueChangeListener(context -> {
             textBox.setValue(patternEvaluation.getDisplayValue());
-            updateTextCursorPosition();
+            setSelection(patternEvaluation.getCurrentDisplayIndex());
         });
     }
 
     public void mask() {
         textBox.getInputElement().addEventListener("keypress", evt -> {
             KeyboardEvent keyboardEvent = asKeyboardEvent(evt);
-            int startIndex = selectionStart();
             char c = keyboardEvent.key.charAt(0);
-            patternEvaluation.input(c, startIndex);
+            patternEvaluation.input(c);
             evt.preventDefault();
         });
 
         textBox.getInputElement().addEventListener("keydown", evt -> {
             KeyboardEvent keyboardEvent = asKeyboardEvent(evt);
             if (ElementUtil.isKeyOf("backspace", keyboardEvent)) {
-                if (selectionEnd() == textBox.getValue().length()) {
+//                if (selectionEnd() == getFirstEmptyCharIndex()) {
                     patternEvaluation.backspace();
-                } else {
-                    patternEvaluation.deleteAt(selectionEnd() - 1);
-                }
+//                } else {
+//                    patternEvaluation.deleteAt(selectionEnd() - 1);
+//                }
                 evt.preventDefault();
             } else if (ElementUtil.isKeyOf("delete", keyboardEvent)) {
                 int index = selectionEnd();
                 patternEvaluation.deleteAt(index);
-                setSelection(index);
                 evt.preventDefault();
+            } else if (ElementUtil.isKeyOf("ArrowRight", keyboardEvent)) {
+//                patternEvaluation.moveRight();
+//                setSelection(patternEvaluation.getCurrentDisplayIndex());
+//                evt.preventDefault();
+//                DomGlobal.console.info(patternEvaluation.getCurrentDisplayIndex());
+            } else if (ElementUtil.isKeyOf("ArrowLeft", keyboardEvent)) {
+//                patternEvaluation.moveLeft();
+//                setSelection(patternEvaluation.getCurrentDisplayIndex());
+//                evt.preventDefault();
             }
         });
 
-        textBox.getInputElement().addEventListener("mouseup", evt -> updateTextCursorPosition());
+//        textBox.getInputElement().addEventListener("mouseup", evt -> setSelection(getFirstEmptyCharIndex()));
 
         textBox.getInputElement().addEventListener("paste", evt -> {
             evt.preventDefault();
             evt.stopPropagation();
             ClipboardEvent clipboardEvent = asClipboardEvent(evt);
             String data = clipboardEvent.clipboardData.getData("text");
-            patternEvaluation.inputAt(data, selectionStart());
+            patternEvaluation.input(data, selectionStart());
         });
 
         textBox.setValue(patternEvaluation.getDisplayValue());
 
-    }
-
-    private void updateTextCursorPosition() {
-        setSelection(getFirstEmptyCharIndex());
     }
 
     private int getFirstEmptyCharIndex() {

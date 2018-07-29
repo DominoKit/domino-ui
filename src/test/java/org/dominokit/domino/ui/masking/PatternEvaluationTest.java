@@ -1,13 +1,12 @@
 package org.dominokit.domino.ui.masking;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PatternEvaluationTest extends TestCase {
+public class PatternEvaluationTest {
 
     private static final String FIXED = "FIXED";
     private final PatternDefinition testDefinition = new PatternDefinition() {
@@ -348,14 +347,14 @@ public class PatternEvaluationTest extends TestCase {
     @Test
     public void whenAddingValueChangeListener_thenShouldBeCalledOnceTheValueWasChanged() {
         AtomicBoolean calledOnInputString = new AtomicBoolean(false);
-        newPatternEvaluation("000a-").addValueChangeListener(() -> {
+        newPatternEvaluation("000a-").addValueChangeListener(context -> {
             calledOnInputString.set(true);
         }).input("123b");
 
         assertThat(calledOnInputString.get()).isTrue();
 
         AtomicBoolean calledOnInputChar = new AtomicBoolean(false);
-        newPatternEvaluation("000a-").addValueChangeListener(() -> {
+        newPatternEvaluation("000a-").addValueChangeListener(context -> {
             calledOnInputChar.set(true);
         }).input('1');
 
@@ -363,7 +362,7 @@ public class PatternEvaluationTest extends TestCase {
 
         AtomicBoolean calledOnBackspace = new AtomicBoolean(false);
         PatternEvaluation patternEvaluation = newPatternEvaluation("000a-").input("123a");
-        patternEvaluation.addValueChangeListener(() -> {
+        patternEvaluation.addValueChangeListener(context -> {
             calledOnBackspace.set(true);
         }).backspace();
 
@@ -430,5 +429,210 @@ public class PatternEvaluationTest extends TestCase {
         assertThat(newPatternEvaluation("https://000.0[00].0[00].0[00]:00[00]")
                 .input("127.0.0.1:8080")
                 .getDisplayValue()).isEqualTo("https://127.0.0.1:8080");
+    }
+
+    @Test
+    public void givenPattern_whenInputAndAskForNextIndex_thenShouldReturnNextAvailableInputCharIndex() {
+        assertThat(newPatternEvaluation("+{7}(000)").input('1', 3).getNextInputIndex(3)).isEqualTo(4);
+        assertThat(newPatternEvaluation("+{7}(0[0])").input('1', 3).getNextInputIndex(3)).isEqualTo(4);
+        assertThat(newPatternEvaluation("+{7}(0)0").input('1', 3).getNextInputIndex(3)).isEqualTo(5);
+    }
+
+    @Test
+    public void givenEmptyPattern_whenGetCurrentDisplayIndex_thenShouldReturnTheIndexZero() {
+        assertThat(newPatternEvaluation("").getCurrentDisplayIndex()).isEqualTo(0);
+    }
+
+    @Test
+    public void givenFixedPattern_whenGetCurrentDisplayIndex_thenShouldReturnTheSizeOfThePattern() {
+        assertThat(newPatternEvaluation(FIXED).getCurrentDisplayIndex()).isEqualTo(5);
+    }
+
+    @Test
+    public void givenPatternWithOnePart_whenGetCurrentDisplayIndex_thenShouldReturnZero() {
+        assertThat(newPatternEvaluation("0").getCurrentDisplayIndex()).isEqualTo(0);
+    }
+
+    @Test
+    public void givenPatternWithOnePart_whenInputThenGetCurrentDisplayIndex_thenShouldReturnOne() {
+        assertThat(newPatternEvaluation("0").input("1").getCurrentDisplayIndex()).isEqualTo(1);
+    }
+
+    @Test
+    public void givenPatternWithTwoParts_whenInputOneCharThenGetCurrentDisplayIndex_thenShouldReturnOne() {
+        assertThat(newPatternEvaluation("00").input("1").getCurrentDisplayIndex()).isEqualTo(1);
+    }
+
+    @Test
+    public void givenPatternWithOptionalPart_whenInputOneCharThenGetCurrentDisplayIndex_thenShouldReturnOne() {
+        assertThat(newPatternEvaluation("0[0]0").input("1").getCurrentDisplayIndex()).isEqualTo(1);
+    }
+
+    @Test
+    public void givenPatternWithOptionalPartBeforeFixedPart_whenInputUntilTheOptionalPartThenGetCurrentDisplayIndex_thenShouldReturnOne() {
+        assertThat(newPatternEvaluation("0[0]-0").input("1").getCurrentDisplayIndex()).isEqualTo(1);
+    }
+
+    @Test
+    public void givenPatternWithOptionalPartBeforeFixedPart_whenInputOptionalPartThenGetCurrentDisplayIndex_thenShouldReturnOne() {
+        assertThat(newPatternEvaluation("0[0]-0").input("12").getCurrentDisplayIndex()).isEqualTo(3);
+    }
+
+    @Test
+    public void givenPatternWithIncludedPart_whenGetCurrentDisplayIndex_thenShouldReturnOne() {
+        assertThat(newPatternEvaluation("{#}").getCurrentDisplayIndex()).isEqualTo(1);
+    }
+
+    @Test
+    public void givenPatternWithDifferentParts_whenInputThenGetCurrentDisplayIndex_thenShouldReturnTheFirstPossibleInputIndex() {
+        assertThat(newPatternEvaluation("{#}00-`00").moveRight().input("11").getCurrentDisplayIndex()).isEqualTo(4);
+        assertThat(newPatternEvaluation("{#}00[00]-`00").input("11").moveRight().input('1').getCurrentDisplayIndex()).isEqualTo(5);
+    } // #11-1_
+
+    @Test
+    public void givenPattern_whenInputThenDelete_thenShouldReturnTheFirstPossibleInputIndex() {
+        assertThat(newPatternEvaluation("{#}00-`00").input("11").input('1', 6).deleteAt(6).getCurrentDisplayIndex()).isEqualTo(4);
+    }
+
+    @Test
+    public void givenEmptyPattern_whenMoveRightThenGetCurrentDisplayIndex_thenShouldReturnZero() {
+        assertThat(newPatternEvaluation("").moveRight().getCurrentDisplayIndex()).isEqualTo(0);
+    }
+
+    @Test
+    public void givenFixedPattern_whenMoveRightThenGetCurrentDisplayIndex_thenShouldReturnTheSizeOfThePattern() {
+        assertThat(newPatternEvaluation(FIXED).moveRight().getCurrentDisplayIndex()).isEqualTo(5);
+    }
+
+    @Test
+    public void givenPatternWithSinglePart_whenMoveRightThenGetCurrentDisplayIndex_thenShouldReturnTheSizeOfThePattern() {
+        assertThat(newPatternEvaluation("0").moveRight().getCurrentDisplayIndex()).isEqualTo(1);
+    }
+
+    @Test
+    public void givenPatternWithTwoParts_whenMoveRightTwiceThenGetCurrentDisplayIndex_thenShouldReturnTheSizeOfThePattern() {
+        assertThat(newPatternEvaluation("00").moveRight(2).getCurrentDisplayIndex()).isEqualTo(2);
+    }
+
+    @Test
+    public void givenPatternWithTwoParts_whenInputAndMoveRightThenGetCurrentDisplayIndex_thenShouldReturnTheSizeOfThePattern() {
+        assertThat(newPatternEvaluation("00").input("1").moveRight().getCurrentDisplayIndex()).isEqualTo(2);
+    }
+
+    @Test
+    public void givenPatternWithOptionalPart_whenInputAndMoveRightThenGetCurrentDisplayIndex_thenShouldReturnTheFirstPossibleInputIndex() {
+        assertThat(newPatternEvaluation("0[0]").input("1").moveRight().getCurrentDisplayIndex()).isEqualTo(1);
+    }
+
+    @Test
+    public void givenPattern_whenMoveRightThenInputAndThenMoveRightThenGetCurrentDisplayIndex_thenShouldReturnTheFirstPossibleInputIndex() {
+        assertThat(newPatternEvaluation("0000").moveRight().input('1').moveRight().getCurrentDisplayIndex()).isEqualTo(3);
+    }
+
+    @Test
+    public void givenPattern_whenMoveRightThenInputThenDeleteThenMoveRightThenGetCurrentDisplayIndex_thenShouldReturnTheFirstPossibleInputIndex() {
+        assertThat(newPatternEvaluation("0000").moveRight().input('1').deleteAt(1).moveRight().getCurrentDisplayIndex()).isEqualTo(1);
+    }
+
+    @Test
+    public void givenEmptyPattern_whenMoveLeftThenGetCurrentDisplayIndex_thenShouldReturnZero() {
+        assertThat(newPatternEvaluation("").moveLeft().getCurrentDisplayIndex()).isEqualTo(0);
+    }
+
+    @Test
+    public void givenFixedPattern_whenMoveLeftThenGetCurrentDisplayIndex_thenShouldReturnTheSizeOfThePattern() {
+        assertThat(newPatternEvaluation(FIXED).moveLeft().getCurrentDisplayIndex()).isEqualTo(4);
+    }
+
+    @Test
+    public void givenPatternWithSinglePart_whenInputThenMoveLeftThenGetCurrentDisplayIndex_thenShouldReturnZero() {
+        assertThat(newPatternEvaluation("0").input('1').moveLeft().getCurrentDisplayIndex()).isEqualTo(0);
+    }
+
+    @Test
+    public void givenPatternWithTwoParts_whenInputTwoCharsThenMoveLeftTwiceThenGetCurrentDisplayIndex_thenShouldReturnZero() {
+        assertThat(newPatternEvaluation("00").input("12").moveLeft(2).getCurrentDisplayIndex()).isEqualTo(0);
+    }
+
+
+    @Test
+    public void givenPatternWithOptionalPart_whenInputTwiceAndMoveLeftThenGetCurrentDisplayIndex_thenShouldReturnOne() {
+        assertThat(newPatternEvaluation("0[0]").input("12").moveLeft().getCurrentDisplayIndex()).isEqualTo(1);
+    }
+
+    @Test
+    public void givenPattern_whenMoveRightThenMoveLeftThenGetCurrentDisplayIndex_thenShouldReturnZero() {
+        assertThat(newPatternEvaluation("0000").moveRight().moveLeft().getCurrentDisplayIndex()).isEqualTo(0);
+    }
+
+    @Test
+    public void givenPattern_whenMoveRightThenInputThenDeleteThenMoveLeftThenGetCurrentDisplayIndex_thenShouldReturnZero() {
+        assertThat(newPatternEvaluation("0000").moveRight().input('1').deleteAt(1).moveLeft().getCurrentDisplayIndex()).isEqualTo(0);
+    }
+
+    @Test
+    public void givenPatternWithFixedParts_whenInputAndMoveRightThenGetCurrentDisplayIndex_thenShouldReturnTheFirstPossibleInputIndex() {
+        assertThat(newPatternEvaluation("00-00").moveRight(2).moveLeft().getCurrentDisplayIndex()).isEqualTo(1);
+        assertThat(newPatternEvaluation("00-00").moveRight(2).getCurrentDisplayIndex()).isEqualTo(3);
+        assertThat(newPatternEvaluation("000.0[00].0[00]") // 123.1._
+                .input("1231")
+                .moveRight()
+                .getCurrentDisplayIndex()).isEqualTo(6);
+        assertThat(newPatternEvaluation("https://000.0[00].0[00].0[00]:00[00]")
+                .input('1')
+                .input('2')
+                .input('3')
+                .input('1')
+                .moveRight()
+                .input('5')
+                .moveRight()
+                .input('8')
+                .getDisplayValue()).isEqualTo("https://123.1.5.8:__");
+    }
+
+    @Test
+    public void givenPattern_whenMoveRightThenMoveLeftAndThenInput_thenShouldInputAtTheFirstIndex() {
+        assertThat(newPatternEvaluation("0000").moveRight().moveLeft().input('1').getDisplayValue()).isEqualTo("1___");
+        assertThat(newPatternEvaluation("https://000.0[00].0[00].0[00]:00[00]")
+                .input('1')
+                .input('2')
+                .input('3')
+                .input('1')
+                .moveRight()
+                .input('5')
+                .moveLeft()
+                .moveLeft()
+                .input('6')
+                .getDisplayValue()).isEqualTo("https://123.16.5._:__"); // https://123.16.5._:__
+    }
+
+    @Test
+    public void givenPattern_whenNextCharIsOptionalAndThenMoveRight_thenTheIndexShouldNotBeChanged() {
+        assertThat(newPatternEvaluation("00[00]").input("12").moveRight().input('1').input('2').getDisplayValue()).isEqualTo("1212");
+    }
+
+    @Test
+    public void givenPattern_whenInputUntilFixedPartAndThenBackspaceThenInputAgain_thenDisplayValueShouldMatchTheInput() {
+        assertThat(newPatternEvaluation("00.00").input("12").backspace().backspace().input("12").getDisplayValue()).isEqualTo("12.__");
+    }
+
+    @Test
+    public void givenAllRequiredPattern_whenInputAndMoveRightThenInput_thenDisplayValueShouldMatchTheInput() {
+        assertThat(newPatternEvaluation("0000").input("1").moveRight().input("2").getDisplayValue()).isEqualTo("1_2_");
+    }
+
+    @Test
+    public void givenPatternWithFixedPartAtTheBeginning_whenInputAndMoveRightThenInput_thenDisplayValueShouldMatchTheInput() {
+        assertThat(newPatternEvaluation("FIXED000.0[00]").input('1').moveRight().input('2').getDisplayValue()).isEqualTo("FIXED1_2._");
+    }
+
+    @Test
+    public void givenAllRequiredPattern_whenInputAndMoveRightThenInputThenDelete_thenDisplayValueShouldMatchTheInput() {
+        assertThat(newPatternEvaluation("FIXED000.0").input('1').moveRight().input('2').backspace().getDisplayValue()).isEqualTo("FIXED1__._");
+    }
+
+    @Test
+    public void givenFixedPattern_whenMoveRightToTheFirstRequiredIndexThenMoveLeftToTheFixedPartThenMoveRight_thenThePositionShouldMoveToTheRight() {
+        assertThat(newPatternEvaluation("FIXED000.0").moveRight().getCurrentDisplayIndex()).isEqualTo(1);
     }
 }
