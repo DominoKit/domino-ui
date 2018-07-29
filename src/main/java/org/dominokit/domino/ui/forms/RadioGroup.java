@@ -35,6 +35,7 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
         formLine.appendChild(formControl);
         container.appendChild(formLine);
         setName(name);
+        Style.of(formControl).setHeight("auto");
     }
 
     public RadioGroup(String name, String label) {
