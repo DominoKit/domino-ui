@@ -22,8 +22,6 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementUtil.isEnterKey;
 import static org.dominokit.domino.ui.utils.ElementUtil.isSpaceKey;
 import static org.jboss.gwt.elemento.core.Elements.input;
-import static org.jboss.gwt.elemento.core.Elements.onDetach;
-import static org.jboss.gwt.elemento.core.Elements.p;
 
 public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
@@ -224,7 +222,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                         .setImportantProperty("padding", "0px")
                         .setImportantProperty("width", "300px")
                         .setImportantProperty("max-width", "300px");
-                
+
                 popover.position(this.popupPosition)
                         .asElement().style.setProperty("max-width", "none", "important");
                 popover.getHeadingElement().classList.add(Styles.align_center, datePicker.getColorScheme().color().getStyle());
@@ -288,8 +286,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     }
 
     @Override
-    protected void doSetReadOnly(boolean readOnly) {
-        super.doSetReadOnly(readOnly);
+    public DateBox setReadOnly(boolean readOnly) {
+        super.setReadOnly(readOnly);
         if (readOnly) {
             getInputElement().classList.add("readonly");
             disableModal();
@@ -298,6 +296,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             enableModal();
             enablePopover();
         }
+        return this;
     }
 
     @Override

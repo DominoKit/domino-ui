@@ -16,7 +16,6 @@ import org.jboss.gwt.elemento.core.EventType;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.input;
-import static org.jboss.gwt.elemento.core.Elements.onDetach;
 
 public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
 
@@ -233,8 +232,8 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
     }
 
     @Override
-    protected void doSetReadOnly(boolean readOnly) {
-        super.doSetReadOnly(readOnly);
+    public TimeBox setReadOnly(boolean readOnly) {
+        super.setReadOnly(readOnly);
         if (readOnly) {
             disableModal();
             disablePopover();
@@ -242,6 +241,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
             enableModal();
             enablePopover();
         }
+        return this;
     }
 
     @Override
