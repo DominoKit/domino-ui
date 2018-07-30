@@ -27,77 +27,73 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
                 .setSortable(false)
                 .setWidth("40px")
                 .setFixed(true)
-        .setHeaderElement(columnTitle -> {
-            if(dataTable.isMultiSelect()){
-                CheckBox checkBox = createCheckBox();
-                checkBox.addChangeHandler(checked -> {
-                    if(checked){
-                        dataTable.selectAll();
-                    }else{
-                        dataTable.deselectAll();
-                    }
-                });
+                .setTooltipNode(new Text("Select"))
+                .setHeaderElement(columnTitle -> {
+                    if (dataTable.isMultiSelect()) {
+                        CheckBox checkBox = createCheckBox();
+                        checkBox.addChangeHandler(checked -> {
+                            if (checked) {
+                                dataTable.selectAll();
+                            } else {
+                                dataTable.deselectAll();
+                            }
+                        });
 
-                dataTable.addSelectionListener((selectedRows, selectedRecords) -> {
-                    if(selectedRows.size()!=dataTable.getTableRows().size()){
-                        checkBox.uncheck(true);
-                    }else{
-                        checkBox.check(true);
+                        dataTable.addSelectionListener((selectedRows, selectedRecords) -> {
+                            if (selectedRows.size() != dataTable.getTableRows().size()) {
+                                checkBox.uncheck(true);
+                            } else {
+                                checkBox.check(true);
+                            }
+                        });
+                        return checkBox.asElement();
+                    } else {
+                        return new Text("");
                     }
-                });
-                return checkBox.asElement();
-            }else{
-                return new Text("");
-            }
 
-        })
-        .setCellRenderer(cell -> {
-            CheckBox checkBox = createCheckBox();
+                })
+                .setCellRenderer(cell -> {
+                    CheckBox checkBox = createCheckBox();
 
-            cell.getTableRow().addSelectionHandler(selectable -> {
-                if(selectable.isSelected()){
-                    checkBox.check(true);
-                    if(nonNull(colorScheme)){
-                        Style.of(((TableRow<T>)selectable).asElement()).css(colorScheme.lighten_5().getBackground());
-                    }
-                }else{
-                    checkBox.uncheck(true);
-                    if(nonNull(colorScheme)){
-                        Style.of(((TableRow<T>)selectable).asElement()).removeClass(colorScheme.lighten_5().getBackground());
-                    }
-                }
-            });
+                    cell.getTableRow().addSelectionHandler(selectable -> {
+                        if (selectable.isSelected()) {
+                            checkBox.check(true);
+                            if (nonNull(colorScheme)) {
+                                Style.of(((TableRow<T>) selectable).asElement()).css(colorScheme.lighten_5().getBackground());
+                            }
+                        } else {
+                            checkBox.uncheck(true);
+                            if (nonNull(colorScheme)) {
+                                Style.of(((TableRow<T>) selectable).asElement()).removeClass(colorScheme.lighten_5().getBackground());
+                            }
+                        }
+                    });
 
-            checkBox.addChangeHandler(checked -> {
-                if(checked){
-                    cell.getTableRow().select();
-                    if(nonNull(colorScheme)){
-                        Style.of(cell.getTableRow().asElement()).css(colorScheme.lighten_5().getBackground());
-                    }
-                    dataTable.onSelectionChange(cell.getTableRow());
-                }else{
-                    cell.getTableRow().deselect();
-                    if(nonNull(colorScheme)){
-                        Style.of(cell.getTableRow().asElement()).removeClass(colorScheme.lighten_5().getBackground());
-                    }
-                    dataTable.onSelectionChange(cell.getTableRow());
-                }
-            });
-            return checkBox.asElement();
-        }).asHeader());
+                    checkBox.addChangeHandler(checked -> {
+                        if (checked) {
+                            cell.getTableRow().select();
+                            if (nonNull(colorScheme)) {
+                                Style.of(cell.getTableRow().asElement()).css(colorScheme.lighten_5().getBackground());
+                            }
+                            dataTable.onSelectionChange(cell.getTableRow());
+                        } else {
+                            cell.getTableRow().deselect();
+                            if (nonNull(colorScheme)) {
+                                Style.of(cell.getTableRow().asElement()).removeClass(colorScheme.lighten_5().getBackground());
+                            }
+                            dataTable.onSelectionChange(cell.getTableRow());
+                        }
+                    });
+                    return checkBox.asElement();
+                }).asHeader());
     }
 
     private CheckBox createCheckBox() {
         CheckBox checkBox = CheckBox.create();
-        if(nonNull(colorScheme)){
+        if (nonNull(colorScheme)) {
             checkBox.setColor(colorScheme.color());
         }
-        Style.of(checkBox).setMargin("0px");
-        Style.of(checkBox.getInputElement()).setMargin("0px");
-        Style.of(checkBox.getLabelElement())
-                .css("table-checkbox")
-                .setMargin("0px")
-                .setHeight("20px");
+        Style.of(checkBox).css("select-checkbox");
         return checkBox;
     }
 
