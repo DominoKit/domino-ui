@@ -13692,13 +13692,29 @@ a.disabled {
     margin-top: 4px !important;
 }
 
+.table .select-checkbox{
+    margin: 0px;
+    height: 20px;
+}
+
+.table .select-checkbox .checkbox{
+    margin: 0px;
+    height: 20px;
+}
+
+.table .select-checkbox .form-control{
+    height: 20px;
+    padding: 0px;
+    background: transparent;
+}
+
+.table .select-checkbox .form-control label{
+    height: 20px;
+    margin-bottom: 0px;
+}
+
+
 .material-icons{
     font-feature-settings: 'liga’;
 
 }
-
-/*.bootstrap-select.btn-group .dropdown-toggle .filter-option {*/
-/*margin-top: 2px;*/
-/*max-height: 17px;*/
-/*min-height: 17px;*/
-/*}*/
