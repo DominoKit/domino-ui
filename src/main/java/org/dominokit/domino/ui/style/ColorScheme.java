@@ -153,7 +153,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.PINK_LIGHTEN_4;
+            return Color.PINK_LIGHTEN_2;
         }
 
         @Override
@@ -205,7 +205,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.PURPLE_LIGHTEN_4;
+            return Color.PURPLE_LIGHTEN_2;
         }
 
         @Override
@@ -257,7 +257,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.DEEP_PURPLE_LIGHTEN_4;
+            return Color.DEEP_PURPLE_LIGHTEN_2;
         }
 
         @Override
@@ -310,7 +310,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.INDIGO_LIGHTEN_4;
+            return Color.INDIGO_LIGHTEN_2;
         }
 
         @Override
@@ -363,7 +363,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.BLUE_LIGHTEN_4;
+            return Color.BLUE_LIGHTEN_2;
         }
 
         @Override
@@ -415,7 +415,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.LIGHT_BLUE_LIGHTEN_4;
+            return Color.LIGHT_BLUE_LIGHTEN_2;
         }
 
         @Override
@@ -467,7 +467,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.CYAN_LIGHTEN_4;
+            return Color.CYAN_LIGHTEN_2;
         }
 
         @Override
@@ -519,7 +519,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.TEAL_LIGHTEN_4;
+            return Color.TEAL_LIGHTEN_2;
         }
 
         @Override
@@ -571,7 +571,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.GREEN_LIGHTEN_4;
+            return Color.GREEN_LIGHTEN_2;
         }
 
         @Override
@@ -623,7 +623,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.LIGHT_GREEN_LIGHTEN_4;
+            return Color.LIGHT_GREEN_LIGHTEN_2;
         }
 
         @Override
@@ -675,7 +675,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.LIME_LIGHTEN_4;
+            return Color.LIME_LIGHTEN_2;
         }
 
         @Override
@@ -727,7 +727,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.YELLOW_LIGHTEN_4;
+            return Color.YELLOW_LIGHTEN_2;
         }
 
         @Override
@@ -779,7 +779,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.AMBER_LIGHTEN_4;
+            return Color.AMBER_LIGHTEN_2;
         }
 
         @Override
@@ -831,7 +831,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.ORANGE_LIGHTEN_4;
+            return Color.ORANGE_LIGHTEN_2;
         }
 
         @Override
@@ -883,7 +883,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.DEEP_ORANGE_LIGHTEN_4;
+            return Color.DEEP_ORANGE_LIGHTEN_2;
         }
 
         @Override
@@ -935,7 +935,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.BROWN_LIGHTEN_4;
+            return Color.BROWN_LIGHTEN_2;
         }
 
         @Override
@@ -987,7 +987,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.GREY_LIGHTEN_4;
+            return Color.GREY_LIGHTEN_2;
         }
 
         @Override
@@ -1039,7 +1039,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.BLUE_GREY_LIGHTEN_4;
+            return Color.BLUE_GREY_LIGHTEN_2;
         }
 
         @Override
@@ -1091,7 +1091,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.BLACK_LIGHTEN_4;
+            return Color.BLACK_LIGHTEN_2;
         }
 
         @Override
@@ -1143,7 +1143,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.WHITE_LIGHTEN_4;
+            return Color.WHITE_LIGHTEN_2;
         }
 
         @Override
@@ -1195,7 +1195,7 @@ public interface ColorScheme {
 
         @Override
         public Color lighten_2() {
-            return Color.TRANSPARENT_LIGHTEN_4;
+            return Color.TRANSPARENT_LIGHTEN_2;
         }
 
         @Override
