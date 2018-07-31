@@ -62,8 +62,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
                     HTMLElement htmlElement = IconButton.create(expandIcon.copy()).linkify().disable().asElement();
                     Style.of(htmlElement)
                             .setProperty("padding", "0px")
-                            .setHeight("24px")
-                            .setMarginLeft("10px");
+                            .setHeight("24px");
 
                     return htmlElement;
                 })
