@@ -15,7 +15,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static elemental2.dom.DomGlobal.document;
-import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 public class DropdownButton implements Justifiable, HasContent<DropdownButton>, HasBackground<DropdownButton> {
@@ -26,7 +25,6 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton>, 
     private List<Justifiable> items = new LinkedList<>();
     private Button button;
     private Color background;
-    private static EventListener listener;
 
     public DropdownButton(String content, StyleType type) {
         this(Button.create(content).setButtonType(type));
@@ -50,32 +48,31 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton>, 
 
     public DropdownButton(Button button) {
         this.button = button;
-        addHideListener();
-        groupElement.appendChild(asDropDown(this.button.asElement(), groupElement));
+        groupElement.appendChild(asDropDown(button, groupElement));
         this.button.asElement().appendChild(caret);
         groupElement.appendChild(actionsElement);
+        addHideListener();
     }
 
     private void addHideListener() {
-        if (isNull(listener)) {
-            listener = evt -> {
-                HTMLElement element = Js.uncheckedCast(evt.target);
-                if (!groupElement.contains(element)) {
-                    closeAllGroups();
-                }
-            };
-            document.body.addEventListener("click", listener);
-            document.body.addEventListener("touchstart", listener);
-        }
+        EventListener listener = evt -> {
+            HTMLElement element = Js.uncheckedCast(evt.target);
+            if (!groupElement.contains(element)) {
+                closeAllGroups();
+            }
+        };
+        document.body.addEventListener("click", listener);
+        document.body.addEventListener("touchstart", listener);
     }
 
-    private HTMLElement asDropDown(HTMLElement buttonElement, HTMLElement groupElement) {
+    private HTMLElement asDropDown(Button button, HTMLElement groupElement) {
+        HTMLElement buttonElement = button.asElement();
         buttonElement.classList.add("dropdown-toggle");
         buttonElement.setAttribute("data-toggle", "dropdown");
         buttonElement.setAttribute("aria-haspopup", true);
         buttonElement.setAttribute("aria-expanded", true);
         buttonElement.setAttribute("type", "button");
-        buttonElement.addEventListener("click", evt -> {
+        button.addClickListener(evt -> {
             closeAllGroups();
             open(groupElement);
             evt.stopPropagation();

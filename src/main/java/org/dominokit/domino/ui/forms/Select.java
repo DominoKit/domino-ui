@@ -41,7 +41,6 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private Element leftAddon;
     private Element rightAddon;
     private boolean readOnly;
-    private static EventListener hideAllListener;
 
     public Select() {
         initListeners();
@@ -51,16 +50,14 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     private void initListeners() {
-        if (isNull(hideAllListener)) {
-            hideAllListener = evt -> {
-                HTMLElement element = Js.uncheckedCast(evt.target);
-                if (!selectElement.getFormControl().contains(element)) {
-                    hideAllMenus();
-                }
-            };
-            document.body.addEventListener(CLICK_EVENT, hideAllListener);
-            document.body.addEventListener(TOUCH_START_EVENT, hideAllListener);
-        }
+        EventListener hideAllListener = evt -> {
+            HTMLElement element = Js.uncheckedCast(evt.target);
+            if (!selectElement.getFormControl().contains(element)) {
+                hideAllMenus();
+            }
+        };
+        document.body.addEventListener(CLICK_EVENT, hideAllListener);
+        document.body.addEventListener(TOUCH_START_EVENT, hideAllListener);
 
         document.body.addEventListener(KEYDOWN, new NavigateOptionsKeyListener());
 
@@ -157,16 +154,14 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         EventListener openOptionListener = evt -> {
             doSelectOption(option);
             evt.stopPropagation();
-            evt.preventDefault();
         };
         option.asElement().addEventListener(CLICK_EVENT, openOptionListener);
         option.asElement().addEventListener(TOUCH_START_EVENT, evt -> {
             TouchEvent touchEvent = Js.uncheckedCast(evt);
             if (touchEvent.touches.length == 1) {
                 doSelectOption(option);
-                evt.stopPropagation();
-                evt.preventDefault();
             }
+            evt.stopPropagation();
         });
         appendOptionValue(option);
         return this;
