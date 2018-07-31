@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.button;
 
 import elemental2.dom.*;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
@@ -13,6 +14,8 @@ import org.jboss.gwt.elemento.core.Elements;
 import java.util.LinkedList;
 import java.util.List;
 
+import static elemental2.dom.DomGlobal.document;
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 public class DropdownButton implements Justifiable, HasContent<DropdownButton>, HasBackground<DropdownButton> {
@@ -54,19 +57,16 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton>, 
     }
 
     private void addHideListener() {
-        DomGlobal.document.body.style.cursor = "default";
-
-        if(nonNull(listener)) {
-            DomGlobal.document.body.addEventListener("click", listener);
-        }else{
-            listener = event -> close(event);
-            DomGlobal.document.body.addEventListener("click", listener);
+        if (isNull(listener)) {
+            listener = evt -> {
+                HTMLElement element = Js.uncheckedCast(evt.target);
+                if (!groupElement.contains(element)) {
+                    closeAllGroups();
+                }
+            };
+            document.body.addEventListener("click", listener);
+            document.body.addEventListener("touchstart", listener);
         }
-
-    }
-
-    private void close(Event evt) {
-        closeAllGroups();
     }
 
     private HTMLElement asDropDown(HTMLElement buttonElement, HTMLElement groupElement) {
@@ -75,16 +75,16 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton>, 
         buttonElement.setAttribute("aria-haspopup", true);
         buttonElement.setAttribute("aria-expanded", true);
         buttonElement.setAttribute("type", "button");
-        buttonElement.addEventListener("click", event -> {
+        buttonElement.addEventListener("click", evt -> {
             closeAllGroups();
             open(groupElement);
-            event.stopPropagation();
+            evt.stopPropagation();
         });
         return buttonElement;
     }
 
     private void closeAllGroups() {
-        NodeList<Element> elementsByName = DomGlobal.document.body.querySelectorAll(".btn-group.open");
+        NodeList<Element> elementsByName = document.body.querySelectorAll(".btn-group.open");
         for (int i = 0; i < elementsByName.length; i++) {
             Element item = elementsByName.item(i);
             if (isOpened(item)) {
@@ -106,6 +106,7 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton>, 
     }
 
     public DropdownButton addAction(DropdownAction action) {
+        action.addSelectionHandler(() -> close(groupElement));
         items.add(action);
         actionsElement.appendChild(action.asElement());
         return this;
