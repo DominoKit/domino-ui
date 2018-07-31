@@ -23,7 +23,14 @@ public class DropdownAction implements Justifiable, HasClickableElement, HasSele
                 .textContent(content)
                 .asElement();
         iElement.appendChild(aElement);
-        getClickableElement().addEventListener("click", evt -> selectionHandlers.forEach(SelectionHandler::onSelection));
+        getClickableElement().addEventListener("click", evt -> {
+            selectionHandlers.forEach(SelectionHandler::onSelection);
+            evt.preventDefault();
+        });
+        getClickableElement().addEventListener("touchstart", evt -> {
+            selectionHandlers.forEach(SelectionHandler::onSelection);
+            evt.preventDefault();
+        });
     }
 
     public static DropdownAction create(String content) {
