@@ -1,19 +1,17 @@
 package org.dominokit.domino.ui.thumbnails;
 
-import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.isNull;
-import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class Thumbnail implements IsElement<HTMLDivElement> {
 
     private HTMLDivElement element = div().css("thumbnail").asElement();
-    private HTMLAnchorElement contentElement = a().asElement();
+    private HTMLDivElement contentElement = div().asElement();
     private HTMLDivElement captionElement = div().css("caption").asElement();
 
     public Thumbnail() {
@@ -43,7 +41,7 @@ public class Thumbnail implements IsElement<HTMLDivElement> {
         return element;
     }
 
-    public HTMLAnchorElement getContentElement() {
+    public HTMLDivElement getContentElement() {
         return contentElement;
     }
 
