@@ -16,6 +16,7 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
 
     public static final String ALIGN_CENTER = "align-center";
     private HTMLDivElement column;
+    private OnXLarge onXLargeStyle;
     private OnLarge onLargeStyle;
     private OnMedium onMediumStyle;
     private OnSmall onSmallStyle;
@@ -30,16 +31,22 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
         return new Column(div().asElement());
     }
 
-    public static Column create(int large, int medium, int small, int xsmall) {
+    public static Column create(int xLarge, int large, int medium, int small, int xsmall) {
         return create()
+                .onXLarge(OnXLarge.of(xLarge))
                 .onLarge(OnLarge.of(large))
                 .onMedium(OnMedium.of(medium))
                 .onSmall(OnSmall.of(small))
                 .onXSmall(OnXSmall.of(xsmall));
     }
 
+    public static Column create(int large, int medium, int small, int xsmall) {
+        return create(large, large, medium, small, xsmall);
+    }
+
     public static Column create(int columnsOnAllScreens) {
         return create()
+                .onXLarge(OnXLarge.of(columnsOnAllScreens))
                 .onLarge(OnLarge.of(columnsOnAllScreens))
                 .onMedium(OnMedium.of(columnsOnAllScreens))
                 .onSmall(OnSmall.of(columnsOnAllScreens))
@@ -64,6 +71,8 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
 
     public Column copy() {
         Column column = Column.create();
+        if (nonNull(this.onXLargeStyle))
+            column.onXLarge(this.onXLargeStyle);
         if (nonNull(this.onLargeStyle))
             column.onLarge(this.onLargeStyle);
         if (nonNull(this.onMediumStyle))
@@ -89,6 +98,14 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
 
     public Column addElement(IsElement<? extends HTMLElement> element) {
         this.asElement().appendChild(element.asElement());
+        return this;
+    }
+
+    public Column onXLarge(OnXLarge onXLarge) {
+        if (nonNull(this.onXLargeStyle))
+            column.classList.remove(this.onXLargeStyle.getStyle());
+        this.onXLargeStyle = onXLarge;
+        column.classList.add(this.onXLargeStyle.getStyle());
         return this;
     }
 
@@ -153,6 +170,35 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
     @Override
     public HTMLDivElement asElement() {
         return column;
+    }
+
+    public enum OnXLarge {
+        one("col-xl-1"),
+        two("col-xl-2"),
+        three("col-xl-3"),
+        four("col-xl-4"),
+        five("col-xl-5"),
+        six("col-xl-6"),
+        seven("col-xl-7"),
+        eight("col-xl-8"),
+        nine("col-xl-9"),
+        ten("col-xl-10"),
+        eleven("col-xl-11"),
+        twelve("col-xl-12");
+
+        private String style;
+
+        OnXLarge(String style) {
+            this.style = style;
+        }
+
+        public static OnXLarge of(int large) {
+            return OnXLarge.valueOf(asNumberString(large));
+        }
+
+        public String getStyle() {
+            return style;
+        }
     }
 
     public enum OnLarge {

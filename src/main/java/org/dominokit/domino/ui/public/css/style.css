@@ -5928,84 +5928,96 @@ section.content {
 .card .body .col-xs-1,
 .card .body .col-sm-1,
 .card .body .col-md-1,
-.card .body .col-lg-1 {
+.card .body .col-lg-1,
+.card .body .col-xl-1 {
     margin-bottom: 20px;
 }
 
 .card .body .col-xs-2,
 .card .body .col-sm-2,
 .card .body .col-md-2,
-.card .body .col-lg-2 {
+.card .body .col-lg-2,
+.card .body .col-xl-2 {
     margin-bottom: 20px;
 }
 
 .card .body .col-xs-3,
 .card .body .col-sm-3,
 .card .body .col-md-3,
-.card .body .col-lg-3 {
+.card .body .col-lg-3,
+.card .body .col-xl-3 {
     margin-bottom: 20px;
 }
 
 .card .body .col-xs-4,
 .card .body .col-sm-4,
 .card .body .col-md-4,
-.card .body .col-lg-4 {
+.card .body .col-lg-4,
+.card .body .col-xl-4 {
     margin-bottom: 20px;
 }
 
 .card .body .col-xs-5,
 .card .body .col-sm-5,
 .card .body .col-md-5,
-.card .body .col-lg-5 {
+.card .body .col-lg-5,
+.card .body .col-xl-5 {
     margin-bottom: 20px;
 }
 
 .card .body .col-xs-6,
 .card .body .col-sm-6,
 .card .body .col-md-6,
-.card .body .col-lg-6 {
+.card .body .col-lg-6,
+.card .body .col-xl-6 {
     margin-bottom: 20px;
 }
 
 .card .body .col-xs-7,
 .card .body .col-sm-7,
 .card .body .col-md-7,
-.card .body .col-lg-7 {
+.card .body .col-lg-7,
+.card .body .col-xl-7 {
     margin-bottom: 20px;
 }
 
 .card .body .col-xs-8,
 .card .body .col-sm-8,
 .card .body .col-md-8,
-.card .body .col-lg-8 {
+.card .body .col-lg-8,
+.card .body .col-xl-8 {
     margin-bottom: 20px;
 }
 
 .card .body .col-xs-9,
 .card .body .col-sm-9,
 .card .body .col-md-9,
-.card .body .col-lg-9 {
+.card .body .col-lg-9,
+.card .body .col-xl-9 {
     margin-bottom: 20px;
 }
 
 .card .body .col-xs-10,
 .card .body .col-sm-10,
 .card .body .col-md-10,
-.card .body .col-lg-10 {
+.card .body .col-lg-10,
+.card .body .col-xl-10 {
     margin-bottom: 20px;
 }
 
 .card .body .col-xs-11,
 .card .body .col-sm-11,
 .card .body .col-md-11,
-.card .body .col-lg-11 {
+.card .body .col-lg-11,
+.card .body .col-xl-11 {
     margin-bottom: 20px;
 }
 
 .card .body .col-xs-12,
 .card .body .col-sm-12,
 .card .body .col-md-12,
-.card .body .col-lg-12 {
+.card .body .col-lg-12,
+.card .body .col-xl-12 {
     margin-bottom: 20px;
 }
 
