@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.utils.ElementValidations;
+import org.dominokit.domino.ui.utils.ValidationResult;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -70,7 +71,7 @@ public abstract class BasicFormElement<T extends BasicFormElement, V> implements
     }
 
     @Override
-    public boolean validate() {
+    public ValidationResult validate() {
         return elementValidations.validate();
     }
 
@@ -124,6 +125,12 @@ public abstract class BasicFormElement<T extends BasicFormElement, V> implements
     @Override
     public boolean isRequired() {
         return elementValidations.isRequired();
+    }
+
+    @Override
+    public T groupWith(FieldsGrouping fieldsGrouping) {
+        fieldsGrouping.addFormElement(this);
+        return (T) this;
     }
 
     protected abstract HTMLElement getFieldContainer();

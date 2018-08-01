@@ -2,7 +2,7 @@ package org.dominokit.domino.ui.utils;
 
 public interface HasValidation<T> {
 
-    boolean validate();
+    ValidationResult validate();
 
     T addValidator(Validator validator);
 
