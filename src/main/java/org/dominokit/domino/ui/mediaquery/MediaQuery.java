@@ -12,11 +12,13 @@ import static elemental2.dom.DomGlobal.window;
 
 public class MediaQuery {
 
-    private static final String LARGE_MEDIA_QUERY = "(min-width: 1200px)";
+    private static final String XLARGE_MEDIA_QUERY = "(min-width: 1800px)";
+    private static final String LARGE_MEDIA_QUERY = "(min-width: 1200px) and (max-width: 1800px)";
     private static final String MEDIUM_MEDIA_QUERY = "(min-width: 992px) and (max-width: 1200px)";
     private static final String SMALL_MEDIA_QUERY = "(min-width: 768px) and (max-width: 992px)";
     private static final String XSMALL_MEDIA_QUERY = "(max-width: 768px)";
 
+    private static MediaQueryList xlargeMediaQueryList = window.matchMedia(XLARGE_MEDIA_QUERY);
     private static MediaQueryList largeMediaQueryList = window.matchMedia(LARGE_MEDIA_QUERY);
     private static MediaQueryList mediumMediaQueryList = window.matchMedia(MEDIUM_MEDIA_QUERY);
     private static MediaQueryList smallMediaQueryList = window.matchMedia(SMALL_MEDIA_QUERY);
@@ -24,6 +26,10 @@ public class MediaQuery {
 
     private static Map<MediaQueryListener, MediaQueryListListener> listenersMap = new HashMap<>();
     private static Map<String, MediaQueryList> mediaQueries = new HashMap<>();
+
+    public static void addOnXLargeListener(MediaQueryListener listener) {
+        addListener(listener, xlargeMediaQueryList);
+    }
 
     public static void addOnLargeListener(MediaQueryListener listener) {
         addListener(listener, largeMediaQueryList);
@@ -58,6 +64,10 @@ public class MediaQuery {
         mediaQueryList.addListener(mediaQueryListListener);
         listenersMap.put(listener, mediaQueryListListener);
         mediaQueryListListener.onInvoke(mediaQueryList);
+    }
+
+    public static void removeOnXLargeListener(MediaQueryListener listener) {
+        removeListener(listener, xlargeMediaQueryList);
     }
 
     public static void removeOnLargeListener(MediaQueryListener listener) {
