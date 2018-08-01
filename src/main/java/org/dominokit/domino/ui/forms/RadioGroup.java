@@ -192,7 +192,7 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
     }
 
     @Override
-    public RadioGroup groupWith(FieldsGrouping fieldsGrouping) {
+    public RadioGroup groupBy(FieldsGrouping fieldsGrouping) {
         fieldsGrouping.addFormElement(this);
         return this;
     }

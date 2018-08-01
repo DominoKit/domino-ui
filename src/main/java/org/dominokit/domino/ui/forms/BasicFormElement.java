@@ -128,7 +128,7 @@ public abstract class BasicFormElement<T extends BasicFormElement, V> implements
     }
 
     @Override
-    public T groupWith(FieldsGrouping fieldsGrouping) {
+    public T groupBy(FieldsGrouping fieldsGrouping) {
         fieldsGrouping.addFormElement(this);
         return (T) this;
     }
