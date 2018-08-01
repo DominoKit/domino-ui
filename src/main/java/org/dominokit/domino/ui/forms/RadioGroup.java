@@ -6,6 +6,7 @@ import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.ElementValidations;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
+import org.dominokit.domino.ui.utils.ValidationResult;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -117,7 +118,7 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
     }
 
     @Override
-    public boolean validate() {
+    public ValidationResult validate() {
         return elementValidations.validate();
     }
 
@@ -187,6 +188,12 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
     @Override
     public RadioGroup clear() {
         radios.forEach(Radio::uncheck);
+        return this;
+    }
+
+    @Override
+    public RadioGroup groupWith(FieldsGrouping fieldsGrouping) {
+        fieldsGrouping.addFormElement(this);
         return this;
     }
 

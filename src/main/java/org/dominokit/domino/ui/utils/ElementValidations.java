@@ -20,20 +20,24 @@ public class ElementValidations {
         this.element = element;
     }
 
-    public boolean validate() {
+    public ValidationResult validate() {
+        if (!element.isEnabled()) {
+            element.clearInvalid();
+            return ValidationResult.valid();
+        }
         for (Validator validator : validators) {
             ValidationResult result = validator.isValid();
             if (!result.isValid()) {
                 element.invalidate(result.getErrorMessage());
                 this.invalidated = true;
-                return false;
+                return result;
             }
         }
         if (invalidated) {
             element.clearInvalid();
             invalidated = false;
         }
-        return true;
+        return ValidationResult.valid();
     }
 
     public void addValidator(Validator validator) {
