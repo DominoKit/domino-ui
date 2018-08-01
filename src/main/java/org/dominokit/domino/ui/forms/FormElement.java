@@ -8,4 +8,6 @@ public interface FormElement<T, V> extends HasName<T>, HasValue<T, V>, Switchabl
     boolean isEmpty();
 
     T clear();
+
+    T groupWith(FieldsGrouping fieldsGrouping);
 }

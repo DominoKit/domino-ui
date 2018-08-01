@@ -151,7 +151,7 @@ public class Radio implements IsElement<HTMLDivElement>, HasName<Radio>, HasValu
 
     @Override
     public Radio enable() {
-        inputElement.disabled = true;
+        inputElement.disabled = false;
         return this;
     }
 
