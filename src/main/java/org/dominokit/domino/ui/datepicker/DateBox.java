@@ -40,18 +40,22 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         this(new Date());
     }
 
+    public DateBox(String label) {
+        this(label, new Date());
+    }
+
     public DateBox(Date date) {
         this("", date);
     }
 
-    public DateBox(String placeholder, Date date) {
-        super("text", placeholder);
+    public DateBox(String label, Date date) {
+        super("text", label);
         this.datePicker = DatePicker.create(date);
         init();
     }
 
-    public DateBox(String placeholder, Date date, DateTimeFormatInfo dateTimeFormatInfo) {
-        super("text", placeholder);
+    public DateBox(String label, Date date, DateTimeFormatInfo dateTimeFormatInfo) {
+        super("text", label);
         this.datePicker = DatePicker.create(date, dateTimeFormatInfo);
         init();
     }
@@ -102,22 +106,37 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 open();
             }
         });
+        getInputElement().addEventListener("change", evt -> {
+            try {
+                String value = getInputElement().value;
+                DateTimeFormatInfo dateTimeFormatInfo = datePicker.getDateTimeFormatInfo();
+                Date parse = Formatter.getFormat(this.pattern, dateTimeFormatInfo).parse(value);
+                setValue(parse);
+                clearInvalid();
+            } catch (IllegalArgumentException e) {
+                invalidate("Invalid date format");
+            }
+        });
     }
 
     public static DateBox create() {
         return new DateBox();
     }
 
+    public static DateBox create(String label) {
+        return new DateBox(label);
+    }
+
     public static DateBox create(Date date) {
         return new DateBox(date);
     }
 
-    public static DateBox create(String placeHolder, Date date) {
-        return new DateBox(placeHolder, date);
+    public static DateBox create(String label, Date date) {
+        return new DateBox(label, date);
     }
 
-    public static DateBox create(String placeholder, Date date, DateTimeFormatInfo dateTimeFormatInfo) {
-        return new DateBox(placeholder, date, dateTimeFormatInfo);
+    public static DateBox create(String label, Date date, DateTimeFormatInfo dateTimeFormatInfo) {
+        return new DateBox(label, date, dateTimeFormatInfo);
     }
 
     public DateBox setPattern(Pattern pattern) {
@@ -179,7 +198,6 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     @Override
     protected HTMLInputElement createInputElement(String type) {
         return input("text").css("form-control")
-                .attr("readOnly", "true")
                 .asElement();
     }
 
