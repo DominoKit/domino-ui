@@ -20,6 +20,8 @@ import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementUtil.*;
+import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.li;
 
 public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusable<Select<T>>, IsReadOnly<Select<T>> {
 
@@ -29,11 +31,11 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private static final String FOCUSED = "focused";
     private static final String TOUCH_START_EVENT = "touchend";
 
-    private HTMLDivElement container = Elements.div().css("form-group").asElement();
+    private HTMLDivElement container = div().css("form-group").asElement();
     private SelectElement selectElement = SelectElement.create();
-    private HTMLElement leftAddonContainer = Elements.div().css("input-addon-container").asElement();
-    private HTMLElement rightAddonContainer = Elements.div().css("input-addon-container").asElement();
-    private List<SelectOption<T>> options = new LinkedList<>();
+    private HTMLElement leftAddonContainer = div().css("input-addon-container").asElement();
+    private HTMLElement rightAddonContainer = div().css("input-addon-container").asElement();
+    private TreeMap<String, SelectOption<T>> options = new TreeMap<>();
     private SelectOption<T> selectedOption;
     private List<SelectionHandler<T>> selectionHandlers = new ArrayList<>();
     private SelectionHandler<T> autoValidationHandler;
@@ -41,12 +43,21 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private Element leftAddon;
     private Element rightAddon;
     private boolean readOnly;
+    private boolean searchable = true;
+    private HTMLElement defaultNoSearchResultsElement = li().css("no-results").style("display: none;").asElement();
+    private HTMLElement noSearchResultsElement;
+    private String noResultsElementDisplay;
 
     public Select() {
         initListeners();
         container.appendChild(leftAddonContainer);
         container.appendChild(selectElement.asElement());
         container.appendChild(rightAddonContainer);
+        selectElement.getOptionsList().appendChild(defaultNoSearchResultsElement);
+        selectElement.getSearchContainer().addEventListener("click", evt -> {
+            evt.preventDefault();
+            evt.stopPropagation();
+        });
     }
 
     private void initListeners() {
@@ -62,7 +73,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         document.body.addEventListener(KEYDOWN, new NavigateOptionsKeyListener());
 
         EventListener clickListener = evt -> {
-            doOpen();
+            open();
             evt.stopPropagation();
         };
         selectElement.getSelectButton().addEventListener(CLICK_EVENT, clickListener);
@@ -72,21 +83,83 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         selectElement.getSelectMenu().addEventListener(KEYDOWN, evt -> {
             KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
             if (isSpaceKey(keyboardEvent) || isEnterKey(keyboardEvent)) {
-                doOpen();
+                open();
                 evt.preventDefault();
+            }
+        });
+
+        selectElement.getSearchBox().addEventListener("input", evt -> doSearch());
+        selectElement.getSearchBox().addEventListener(KEYDOWN, evt -> {
+            KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
+            if (isArrowUp(keyboardEvent)) {
+                options.lastEntry().getValue().focus();
+            } else if (isArrowDown(keyboardEvent)) {
+                options.values().stream().filter(so -> !so.asElement().classList.contains("hidden"))
+                        .findFirst().ifPresent(SelectOption::focus);
             }
         });
     }
 
-    private void doOpen() {
+    private void doSearch() {
+        if (searchable) {
+            boolean isThereValues = false;
+            String searchValue = selectElement.getSearchBox().value;
+            for (Map.Entry<String, SelectOption<T>> entry : options.entrySet()) {
+                if (!entry.getKey().contains(searchValue)) {
+                    entry.getValue().asElement().classList.add("hidden");
+                } else {
+                    isThereValues = true;
+                    entry.getValue().asElement().classList.remove("hidden");
+                }
+            }
+            if (!isThereValues) {
+                showNoResultsElement(searchValue);
+            } else {
+                hideNoResultsElement();
+            }
+        }
+    }
+
+    private void showNoResultsElement(String searchValue) {
+        if (isNull(noSearchResultsElement)) {
+            Style.of(defaultNoSearchResultsElement).setDisplay("list-item");
+            defaultNoSearchResultsElement.textContent = "No results matched \"" + searchValue + "\"";
+        } else {
+            Style.of(noSearchResultsElement).setDisplay(noResultsElementDisplay);
+        }
+    }
+
+    private void hideNoResultsElement() {
+        if (isNull(noSearchResultsElement)) {
+            Style.of(defaultNoSearchResultsElement).setDisplay("none");
+        } else {
+            Style.of(noSearchResultsElement).setDisplay("none");
+        }
+    }
+
+    public Select<T> clearSearch() {
+        for (Map.Entry<String, SelectOption<T>> entry : options.entrySet()) {
+            entry.getValue().asElement().classList.remove("hidden");
+        }
+        selectElement.getSearchBox().value = "";
+        hideNoResultsElement();
+        return this;
+    }
+
+    public Select<T> open() {
         if (isEnabled() && !isReadOnly()) {
             hideAllMenus();
-            open();
+            doOpen();
             if (nonNull(getSelectedOption()))
                 getSelectedOption().focus();
             else if (!options.isEmpty())
-                options.get(0).focus();
+                options.firstEntry().getValue().focus();
+            if (searchable) {
+                clearSearch();
+                selectElement.getSearchBox().focus();
+            }
         }
+        return this;
     }
 
     public Select(String label) {
@@ -103,7 +176,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         options.forEach(this::addOption);
     }
 
-    public void open() {
+    private void doOpen() {
         selectElement.getFormControl().classList.add(OPEN);
     }
 
@@ -150,7 +223,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     public Select<T> addOption(SelectOption<T> option) {
-        options.add(option);
+        options.put(option.getDisplayValue(), option);
         EventListener openOptionListener = evt -> {
             doSelectOption(option);
             evt.stopPropagation();
@@ -187,18 +260,18 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     public Select<T> selectAt(int index, boolean silent) {
         if (index < options.size() && index >= 0)
-            select(options.get(index), silent);
+            select((SelectOption<T>) options.values().toArray()[index], silent);
         return this;
     }
 
     public SelectOption<T> getOptionAt(int index) {
         if (index < options.size() && index >= 0)
-            return options.get(index);
+            return (SelectOption<T>) options.values().toArray()[index];
         return null;
     }
 
     public List<SelectOption<T>> getOptions() {
-        return options;
+        return new ArrayList<>(options.values());
     }
 
     public Select<T> select(SelectOption<T> option) {
@@ -385,7 +458,6 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     public Select<T> removeOption(SelectOption<T> option) {
         if (nonNull(option) && getOptions().contains(option)) {
             option.deselect(true);
-            options.remove(option);
             option.asElement().remove();
         }
         return this;
@@ -400,7 +472,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     public Select<T> removeAllOptions() {
         if (nonNull(options) && !options.isEmpty()) {
-            options.forEach(this::removeOption);
+            options.values().forEach(this::removeOption);
+            options.clear();
         }
         clear();
         return this;
@@ -531,11 +604,11 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     public List<T> getValues() {
-        return options.stream().map(SelectOption::getValue).collect(Collectors.toList());
+        return options.values().stream().map(SelectOption::getValue).collect(Collectors.toList());
     }
 
     public List<String> getKeys() {
-        return options.stream().map(SelectOption::getKey).collect(Collectors.toList());
+        return options.values().stream().map(SelectOption::getKey).collect(Collectors.toList());
     }
 
     public boolean containsKey(String key) {
@@ -544,6 +617,34 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     public boolean containsValue(T value) {
         return getValues().contains(value);
+    }
+
+    public Select<T> setSearchable(boolean searchable) {
+        if (searchable) {
+            Style.of(selectElement.getSearchContainer())
+                    .setDisplay("block");
+        } else {
+            Style.of(selectElement.getSearchContainer())
+                    .setDisplay("none");
+        }
+        this.searchable = searchable;
+        return this;
+    }
+
+    public boolean isSearchable() {
+        return searchable;
+    }
+
+    public Select<T> setNoSearchResultsElement(HTMLElement noResultsElement) {
+        this.noSearchResultsElement = noResultsElement;
+        this.noResultsElementDisplay = noResultsElement.style.display;
+        defaultNoSearchResultsElement.remove();
+        selectElement.getOptionsList().appendChild(noResultsElement);
+        return this;
+    }
+
+    public HTMLElement getNoSearchResultsElement() {
+        return isNull(noSearchResultsElement) ? defaultNoSearchResultsElement : noSearchResultsElement;
     }
 
     @Override
@@ -593,6 +694,12 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         @DataElement
         SVGElement selectArrow;
 
+        @DataElement
+        HTMLDivElement searchContainer;
+
+        @DataElement
+        HTMLInputElement searchBox;
+
         public static SelectElement create() {
             return new Templated_Select_SelectElement();
         }
@@ -628,6 +735,14 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         public HTMLDivElement getFormControl() {
             return formControl;
         }
+
+        public HTMLDivElement getSearchContainer() {
+            return searchContainer;
+        }
+
+        public HTMLInputElement getSearchBox() {
+            return searchBox;
+        }
     }
 
     private final class NavigateOptionsKeyListener implements EventListener {
@@ -636,12 +751,12 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         public void handleEvent(Event evt) {
             KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
             HTMLElement element = Js.uncheckedCast(keyboardEvent.target);
-            for (SelectOption<T> option : options) {
+            for (SelectOption<T> option : options.values()) {
                 if (option.asElement().contains(element)) {
-                    if (isKeyOf("ArrowUp", keyboardEvent)) {
+                    if (isArrowUp(keyboardEvent)) {
                         focusPrev(option);
                         evt.preventDefault();
-                    } else if (isKeyOf("ArrowDown", keyboardEvent)) {
+                    } else if (isArrowDown(keyboardEvent)) {
                         focusNext(option);
                         evt.preventDefault();
                     }
@@ -657,21 +772,29 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         }
 
         private void focusNext(SelectOption<T> option) {
-            int i = options.indexOf(option);
-            if (i == options.size() - 1) {
-                options.get(0).focus();
+            String nextKey = options.higherKey(option.getDisplayValue());
+            if (isNull(nextKey)) {
+                options.firstEntry().getValue().focus();
             } else {
-                options.get(i + 1).focus();
+                options.get(nextKey).focus();
             }
         }
 
         private void focusPrev(SelectOption<T> option) {
-            int i = options.indexOf(option);
-            if (i == 0) {
-                options.get(options.size() - 1).focus();
+            String prevKey = options.lowerKey(option.getDisplayValue());
+            if (isNull(prevKey)) {
+                options.lastEntry().getValue().focus();
             } else {
-                options.get(i - 1).focus();
+                options.get(prevKey).focus();
             }
         }
+    }
+
+    private boolean isArrowDown(KeyboardEvent keyboardEvent) {
+        return isKeyOf("ArrowDown", keyboardEvent);
+    }
+
+    private boolean isArrowUp(KeyboardEvent keyboardEvent) {
+        return isKeyOf("ArrowUp", keyboardEvent);
     }
 }
