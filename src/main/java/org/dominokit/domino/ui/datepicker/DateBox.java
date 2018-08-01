@@ -35,6 +35,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     private PickerStyle pickerStyle;
     private Date value;
+    private String invalidFormatMessage = "Invalid date format";
 
     public DateBox() {
         this(new Date());
@@ -114,7 +115,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 setValue(parse);
                 clearInvalid();
             } catch (IllegalArgumentException e) {
-                invalidate("Invalid date format");
+                invalidate(invalidFormatMessage);
             }
         });
     }
@@ -322,6 +323,11 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         enableModal();
         enablePopover();
         return super.enable();
+    }
+
+    public DateBox setInvalidFormatMessage(String invalidFormatMessage) {
+        this.invalidFormatMessage = invalidFormatMessage;
+        return this;
     }
 
     private void disablePopover() {
