@@ -13,9 +13,13 @@
             </svg>
         </button>
         <div data-element="dropDownMenu" class="dropdown-menu open"
-             style="max-height: 340px; overflow: hidden; min-height: 92px;">
+             style="max-height: 340px; overflow: hidden; min-height: 0px;">
+            <div data-element="searchContainer" class="bs-searchbox">
+                <input data-element="searchBox" type="text" class="form-control" autocomplete="off"
+                       style="padding-left: 12px; padding-right: 12px">
+            </div>
             <ul data-element="optionsList" class="dropdown-menu inner" role="menu"
-                style="max-height: 330px; overflow-y: auto; min-height: 82px;">
+                style="max-height: 330px; overflow-y: auto; min-height: 0px;">
             </ul>
         </div>
         <select data-element="selectMenu" class="form-control show-tick">
