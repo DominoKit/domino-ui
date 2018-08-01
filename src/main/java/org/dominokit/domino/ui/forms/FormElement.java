@@ -9,5 +9,5 @@ public interface FormElement<T, V> extends HasName<T>, HasValue<T, V>, Switchabl
 
     T clear();
 
-    T groupWith(FieldsGrouping fieldsGrouping);
+    T groupBy(FieldsGrouping fieldsGrouping);
 }
