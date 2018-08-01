@@ -47,6 +47,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private HTMLElement defaultNoSearchResultsElement = li().css("no-results").style("display: none;").asElement();
     private HTMLElement noSearchResultsElement;
     private String noResultsElementDisplay;
+    private boolean caseSensitiveSearch = false;
 
     public Select() {
         initListeners();
@@ -105,7 +106,13 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
             boolean isThereValues = false;
             String searchValue = selectElement.getSearchBox().value;
             for (Map.Entry<String, SelectOption<T>> entry : options.entrySet()) {
-                if (!entry.getKey().contains(searchValue)) {
+                boolean contains;
+                if (caseSensitiveSearch)
+                    contains = entry.getKey().contains(searchValue);
+                else
+                    contains = entry.getKey().toLowerCase().contains(searchValue.toLowerCase());
+
+                if (!contains) {
                     entry.getValue().asElement().classList.add("hidden");
                 } else {
                     isThereValues = true;
@@ -159,6 +166,11 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
                 selectElement.getSearchBox().focus();
             }
         }
+        return this;
+    }
+
+    public Select<T> setCaseSensitiveSearch(boolean caseSensitiveSearch) {
+        this.caseSensitiveSearch = caseSensitiveSearch;
         return this;
     }
 
