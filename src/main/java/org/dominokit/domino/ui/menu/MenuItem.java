@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.menu;
 
+import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.WaveColor;
 import org.dominokit.domino.ui.style.WaveStyle;
@@ -8,10 +9,7 @@ import org.dominokit.domino.ui.utils.CanActivate;
 import org.dominokit.domino.ui.utils.CanDeactivate;
 import org.dominokit.domino.ui.utils.HasActiveItem;
 import org.dominokit.domino.ui.utils.HasClickableElement;
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLIElement;
-import elemental2.dom.HTMLUListElement;
+import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.LinkedList;
@@ -163,7 +161,7 @@ public class MenuItem extends WavesElement<MenuItem, HTMLAnchorElement> implemen
 
                 getActiveItem().menuAnchor.classList.remove("toggled");
                 getActiveItem().toggled = false;
-                if(!getActiveItem().subItems.isEmpty())
+                if (!getActiveItem().subItems.isEmpty())
                     getActiveItem().hideChildren();
                 getActiveItem().deactivate();
             }
@@ -177,5 +175,10 @@ public class MenuItem extends WavesElement<MenuItem, HTMLAnchorElement> implemen
     @Override
     public HTMLElement getClickableElement() {
         return menuAnchor;
+    }
+
+    public MenuItem addClickListener(EventListener listener) {
+        getClickableElement().addEventListener(EventType.click.getName(), listener);
+        return this;
     }
 }
