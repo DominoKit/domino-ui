@@ -85,6 +85,7 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
             File file = files.item(i);
             addFilePreview(file);
         }
+        hiddenFileInput.value = "";
     }
 
     public void uploadAllFiles() {
@@ -100,8 +101,9 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
             addedFileItems.remove(fileItem);
         });
 
-        if (autoUpload)
+        if (autoUpload) {
             fileItem.upload();
+        }
 
         addedFileItems.add(fileItem);
         row.addColumn(previewColumn);
