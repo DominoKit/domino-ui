@@ -12279,7 +12279,7 @@ a.disabled {
     white-space: nowrap;
 }
 
-.domino-file-upload {
+.file-upload {
     border: 2px solid transparent !important;
     background-color: #eee;
     min-height: 150px;
@@ -12287,18 +12287,18 @@ a.disabled {
     box-sizing: border-box;
 }
 
-.domino-file-upload-hover {
+.file-upload-hover {
     border: 2px dashed #888 !important;
     opacity: 0.5;
 }
 
-.domino-file-upload-message {
+.file-upload-message {
     cursor: pointer;
     text-align: center;
     margin: 2em 0;
 }
 
-.domino-file-upload-message-icon i {
+.file-upload-message-icon i {
     font-size: 80px;
 }
 
