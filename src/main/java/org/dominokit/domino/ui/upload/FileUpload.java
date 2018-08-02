@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.upload;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.column.Column;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.notifications.Notification;
 import org.dominokit.domino.ui.row.Row;
 import org.dominokit.domino.ui.utils.HasName;
 import org.jboss.gwt.elemento.core.Elements;
@@ -20,9 +21,9 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
             .onSmall(Column.OnSmall.six)
             .onXSmall(Column.OnXSmall.twelve);
 
-    private HTMLDivElement formElement = Elements.div().css("domino-file-upload").asElement();
-    private HTMLDivElement uploadMessageContainer = Elements.div().css("domino-file-upload-message").asElement();
-    private HTMLDivElement uploadIconContainer = Elements.div().css("domino-file-upload-message-icon").asElement();
+    private HTMLDivElement formElement = Elements.div().css("file-upload").asElement();
+    private HTMLDivElement uploadMessageContainer = Elements.div().css("file-upload-message").asElement();
+    private HTMLDivElement uploadIconContainer = Elements.div().css("file-upload-message-icon").asElement();
     private HTMLInputElement hiddenFileInput;
     private HTMLDivElement filesContainer = Elements.div().asElement();
     private List<FileItem> addedFileItems = new ArrayList<>();
@@ -31,6 +32,8 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
 
     private List<OnAddFileHandler> onAddFileHandlers = new ArrayList<>();
     private boolean autoUpload = true;
+    private boolean singleFile = false;
+    private String errorMessage = "Only one file is allowed to be uploaded";
 
     public FileUpload() {
         uploadMessageContainer.appendChild(uploadIconContainer);
@@ -43,7 +46,12 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
         });
         uploadMessageContainer.addEventListener("click", evt -> hiddenFileInput.click());
         formElement.addEventListener("drop", evt -> {
-            uploadFiles(((DragEvent) evt).dataTransfer.files);
+            FileList files = ((DragEvent) evt).dataTransfer.files;
+            if (!singleFile || files.length == 1) {
+                uploadFiles(files);
+            } else {
+                notifySingleFileError();
+            }
             removeHover();
             evt.preventDefault();
         });
@@ -58,11 +66,21 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
         filesContainer.appendChild(row.asElement());
     }
 
+    private void notifySingleFileError() {
+        Notification.createWarning(errorMessage).show();
+    }
+
     private void addHover() {
-        formElement.classList.add("domino-file-upload-hover");
+        formElement.classList.add("file-upload-hover");
+        uploadMessageContainer.style.pointerEvents = "none";
+        uploadIconContainer.style.pointerEvents = "none";
     }
 
     private void uploadFiles(FileList files) {
+        if (singleFile) {
+            addedFileItems.forEach(FileItem::remove);
+            addedFileItems.clear();
+        }
         for (int i = 0; i < files.length; i++) {
             File file = files.item(i);
             addFilePreview(file);
@@ -91,7 +109,9 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
     }
 
     private void removeHover() {
-        formElement.classList.remove("domino-file-upload-hover");
+        formElement.classList.remove("file-upload-hover");
+        uploadMessageContainer.style.pointerEvents = "auto";
+        uploadIconContainer.style.pointerEvents = "auto";
     }
 
     private void createHiddenInput() {
@@ -116,11 +136,13 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
 
     public FileUpload multipleFiles() {
         hiddenFileInput.multiple = true;
+        this.singleFile = false;
         return this;
     }
 
     public FileUpload singleFile() {
         hiddenFileInput.multiple = false;
+        this.singleFile = true;
         return this;
     }
 
@@ -215,6 +237,11 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
     @Override
     public FileUpload setName(String name) {
         hiddenFileInput.name = name;
+        return this;
+    }
+
+    public FileUpload setSingleFileErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
         return this;
     }
 
