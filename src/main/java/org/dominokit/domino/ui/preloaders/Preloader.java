@@ -2,18 +2,26 @@ package org.dominokit.domino.ui.preloaders;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
 
+import javax.annotation.PostConstruct;
+
 @Templated
-public abstract class Preloader implements IsElement<HTMLDivElement>{
+public abstract class Preloader extends DominoElement<Preloader> implements IsElement<HTMLDivElement>{
 
     @DataElement
     HTMLDivElement spinnerLayer;
 
     private Size size=Size.large;
     private Color color=Color.RED;
+
+    @PostConstruct
+    void init(){
+        initCollapsible(this);
+    }
 
     public static Preloader create(){
         return new Templated_Preloader();

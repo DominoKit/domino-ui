@@ -6,6 +6,7 @@ import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Waves;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -17,7 +18,7 @@ import java.util.stream.IntStream;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class SimplePagination implements IsElement<HTMLElement>, HasPagination {
+public class SimplePagination extends DominoElement<SimplePagination> implements IsElement<HTMLElement>, HasPagination {
 
     private static final String WAVES_EFFECT = "waves-effect";
 
@@ -61,6 +62,7 @@ public class SimplePagination implements IsElement<HTMLElement>, HasPagination {
         this.pagesCount = pages;
         this.pageSize = pageSize;
         updatePages(pages, pageSize);
+        initCollapsible(this);
     }
 
     public SimplePagination updatePages(int pages) {

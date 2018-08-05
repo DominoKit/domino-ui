@@ -10,7 +10,6 @@ public class ModalDialog extends BaseModal<ModalDialog>{
     }
 
     public ModalDialog() {
-
     }
 
     public static ModalDialog create(String title) {
