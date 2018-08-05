@@ -5,6 +5,7 @@ import org.dominokit.domino.ui.column.Column;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.notifications.Notification;
 import org.dominokit.domino.ui.row.Row;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasName;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -12,7 +13,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload> {
+public class FileUpload extends DominoElement<FileUpload> implements IsElement<HTMLDivElement>, HasName<FileUpload> {
 
     private Row row = Row.create();
     private Column column = Column.create()
@@ -64,6 +65,7 @@ public class FileUpload implements IsElement<HTMLDivElement>, HasName<FileUpload
             evt.preventDefault();
         });
         filesContainer.appendChild(row.asElement());
+        initCollapsible(this);
     }
 
     private void notifySingleFileError() {

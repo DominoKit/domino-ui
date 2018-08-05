@@ -4,6 +4,7 @@ import org.dominokit.domino.ui.style.Styles;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import elemental2.dom.Text;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -11,7 +12,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.blockquote;
 
-public class Blockquote implements IsElement<HTMLElement>{
+public class Blockquote extends DominoElement<Blockquote> implements IsElement<HTMLElement>{
 
     private HTMLElement element=blockquote().css(Styles.m_b_25).asElement();
     private Paragraph paragraph=Paragraph.create();
@@ -19,16 +20,19 @@ public class Blockquote implements IsElement<HTMLElement>{
 
     public Blockquote(){
         element.appendChild(paragraph.asElement());
+        initCollapsible(this);
     }
 
     public Blockquote(String text){
         this.paragraph.setText(text);
         element.appendChild(paragraph.asElement());
+        initCollapsible(this);
     }
 
     public Blockquote(Paragraph paragraph) {
         this.paragraph=paragraph;
         element.appendChild(paragraph.asElement());
+        initCollapsible(this);
     }
 
     public static Blockquote create(){

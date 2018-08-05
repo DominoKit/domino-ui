@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.header;
 
 import elemental2.dom.*;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
@@ -8,21 +9,23 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class BlockHeader implements IsElement<HTMLDivElement> {
+public class BlockHeader extends DominoElement<BlockHeader> implements IsElement<HTMLDivElement> {
 
     private final HTMLDivElement element;
     private HTMLHeadingElement headerElement;
     private HTMLElement descriptionElement;
 
     private BlockHeader(HTMLDivElement element, HTMLHeadingElement headerElement) {
-        this.element = element;
-        this.headerElement = headerElement;
+        this(element, headerElement, null);
     }
 
     private BlockHeader(HTMLDivElement element, HTMLHeadingElement headerElement, String description) {
         this.element = element;
         this.headerElement = headerElement;
-        createDescriptionElement(description);
+        if (nonNull(descriptionElement)) {
+            createDescriptionElement(description);
+        }
+        initCollapsible(this);
     }
 
     private void createDescriptionElement(String description) {

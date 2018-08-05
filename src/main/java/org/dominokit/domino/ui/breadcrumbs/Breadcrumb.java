@@ -1,10 +1,11 @@
 package org.dominokit.domino.ui.breadcrumbs;
 
-import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.HasBackground;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLOListElement;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.HasBackground;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.LinkedList;
@@ -13,7 +14,7 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.ol;
 
-public class Breadcrumb implements IsElement<HTMLOListElement>, HasBackground<Breadcrumb> {
+public class Breadcrumb extends DominoElement<Breadcrumb> implements IsElement<HTMLOListElement>, HasBackground<Breadcrumb> {
 
     private HTMLOListElement element = ol().css("breadcrumb").asElement();
     private List<BreadcrumbItem> items = new LinkedList<>();
@@ -22,6 +23,10 @@ public class Breadcrumb implements IsElement<HTMLOListElement>, HasBackground<Br
     private Color activeColor;
     private Color activeBackground;
     private String alignmentStyle;
+
+    public Breadcrumb() {
+        initCollapsible(this);
+    }
 
     public static Breadcrumb create() {
         return new Breadcrumb();

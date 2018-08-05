@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.media;
 
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLHeadingElement;
@@ -8,12 +9,14 @@ import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
 
+import javax.annotation.PostConstruct;
+
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 @Templated
-public abstract class MediaObject implements IsElement<HTMLDivElement> {
+public abstract class MediaObject extends DominoElement<MediaObject> implements IsElement<HTMLDivElement> {
 
     @DataElement
     HTMLDivElement mediaBody;
@@ -26,6 +29,11 @@ public abstract class MediaObject implements IsElement<HTMLDivElement> {
 
     private MediaAlign leftAlign = MediaAlign.TOP;
     private MediaAlign rightAlign = MediaAlign.TOP;
+
+    @PostConstruct
+    void init(){
+        initCollapsible(this);
+    }
 
     public static MediaObject create() {
         return new Templated_MediaObject();

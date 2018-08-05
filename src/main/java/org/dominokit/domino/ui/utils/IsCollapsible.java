@@ -5,6 +5,10 @@ public interface IsCollapsible<T> {
 
     T expand();
 
+    T collapse(int duration);
+
+    T expand(int duration);
+
     T toggle();
 
     boolean isCollapsed();

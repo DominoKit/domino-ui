@@ -1,14 +1,18 @@
 package org.dominokit.domino.ui.progress;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class Progress implements IsElement<HTMLDivElement>{
+public class Progress extends DominoElement<Progress> implements IsElement<HTMLDivElement>{
 
     private HTMLDivElement element=div().css("progress").asElement();
 
+    public Progress() {
+        initCollapsible(this);
+    }
 
     public static Progress create(){
         return new Progress();

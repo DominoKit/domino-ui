@@ -4,16 +4,18 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.column.Column;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class Row implements IsElement<HTMLDivElement> {
+public class Row extends DominoElement<Row> implements IsElement<HTMLDivElement> {
 
     private HTMLDivElement row;
 
     private Row(HTMLDivElement row) {
         this.row = row;
+        initCollapsible(this);
     }
 
     public static Row create() {
