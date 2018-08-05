@@ -5,14 +5,18 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.Text;
+import org.dominokit.domino.ui.collapsible.Collapsible;
+import org.dominokit.domino.ui.collapsible.CollapsibleBase;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
+import org.dominokit.domino.ui.utils.IsCollapsible;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Alert implements IsElement<HTMLDivElement>, HasBackground<Alert> {
+public class Alert extends DominoElement<Alert> implements IsElement<HTMLDivElement>, HasBackground<Alert> {
 
     public enum AlertType {
         SUCCESS("alert-success"),
@@ -30,6 +34,10 @@ public class Alert implements IsElement<HTMLDivElement>, HasBackground<Alert> {
     private String style;
     private boolean dismissible = false;
     private HTMLDivElement element = div().css("alert").asElement();
+
+    public Alert() {
+        initCollapsible(this);
+    }
 
     private HTMLButtonElement closeButton = button().attr("type", "button").css("close")
             .attr("aria-label", "Close")
@@ -120,6 +128,8 @@ public class Alert implements IsElement<HTMLDivElement>, HasBackground<Alert> {
     public boolean isDismissible() {
         return dismissible;
     }
+
+
 
     @Override
     public HTMLDivElement asElement() {

@@ -4,23 +4,27 @@ import org.dominokit.domino.ui.button.group.ButtonsGroup;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.StyleType;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
-public class SplitButton implements IsElement<HTMLElement> {
+public class SplitButton extends DominoElement<SplitButton> implements IsElement<HTMLElement> {
 
     private HTMLElement groupElement = ButtonsGroup.create().asElement();
 
     private SplitButton(String content, StyleType type) {
         addButton(Button.create(content).setButtonType(type));
+        initCollapsible(this);
     }
 
     private SplitButton(String content, Color background) {
         addButton(Button.create(content).setBackground(background));
+        initCollapsible(this);
     }
 
     private SplitButton(String content) {
         addButton(Button.create(content));
+        initCollapsible(this);
     }
 
     private void addButton(Button button) {

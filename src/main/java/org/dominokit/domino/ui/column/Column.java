@@ -4,6 +4,8 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -12,9 +14,8 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class Column implements IsElement<HTMLDivElement>, Cloneable {
+public class Column extends DominoElement<Column> implements IsElement<HTMLDivElement>, Cloneable {
 
-    public static final String ALIGN_CENTER = "align-center";
     private HTMLDivElement column;
     private OnXLarge onXLargeStyle;
     private OnLarge onLargeStyle;
@@ -25,6 +26,7 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
 
     private Column(HTMLDivElement htmlDivElement) {
         this.column = htmlDivElement;
+        initCollapsible(this);
     }
 
     public static Column create() {
@@ -44,6 +46,10 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
         return create(large, large, medium, small, xsmall);
     }
 
+    public static Column create(int mediumAnUp, int smallAndDown) {
+        return create(mediumAnUp, mediumAnUp, mediumAnUp, smallAndDown, smallAndDown);
+    }
+
     public static Column create(int columnsOnAllScreens) {
         return create()
                 .onXLarge(OnXLarge.of(columnsOnAllScreens))
@@ -53,21 +59,44 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
                 .onXSmall(OnXSmall.of(columnsOnAllScreens));
     }
 
-    public static Column columns2() {
-        return create(6, 6, 12, 12);
+    public static Column span1() {
+        return create(1);
+    }
+    public static Column span2() {
+        return create(2);
+    }
+    public static Column span3() {
+        return create(3);
+    }
+    public static Column span4() {
+        return create(4);
+    }
+    public static Column span5() {
+        return create(5);
+    }
+    public static Column span6() {
+        return create(6);
+    }
+    public static Column span7() {
+        return create(7);
+    }
+    public static Column span8() {
+        return create(8);
+    }
+    public static Column span9() {
+        return create(9);
+    }
+    public static Column span10() {
+        return create(10);
+    }
+    public static Column span11() {
+        return create(11);
+    }
+    public static Column span12() {
+        return create(12);
     }
 
-    public static Column columns3() {
-        return create(4, 4, 12, 12);
-    }
 
-    public static Column columns4() {
-        return create(3, 3, 12, 12);
-    }
-
-    public static Column columns6() {
-        return create(2, 2, 12, 12);
-    }
 
     public Column copy() {
         Column column = Column.create();
@@ -81,7 +110,7 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
             column.onSmall(this.onSmallStyle);
         if (nonNull(this.onXSmallStyle))
             column.onXSmall(this.onXSmallStyle);
-        if (this.asElement().classList.contains(ALIGN_CENTER))
+        if (this.asElement().classList.contains(Styles.align_center))
             column.centerContent();
 
         for (int i = 0; i < cssClasses.size(); i++) {
@@ -142,12 +171,12 @@ public class Column implements IsElement<HTMLDivElement>, Cloneable {
     }
 
     public Column centerContent() {
-        asElement().classList.add(ALIGN_CENTER);
+        asElement().classList.add(Styles.align_center);
         return this;
     }
 
     public Column deCenterContent() {
-        asElement().classList.remove(ALIGN_CENTER);
+        asElement().classList.remove(Styles.align_center);
         return this;
     }
 

@@ -28,9 +28,23 @@
 .animated.flipOutX,
 .animated.flipOutY,
 .animated.bounceIn,
-.animated.bounceOut {
+.animated.bounceOut,
+.animated.collapseUp {
   -webkit-animation-duration: .75s;
   animation-duration: .75s;
+}
+.collapseUp {
+  -webkit-animation-name: collapseUp;
+  animation-name: collapseUp;
+  transform-origin: top;
+}
+
+@-webkit-keyframes collapseUp {
+  100% { transform: scaleY(0); }
+}
+
+@keyframes collapseUp {
+  100% {  transform: scaleY(0); }
 }
 
 @-webkit-keyframes bounce {

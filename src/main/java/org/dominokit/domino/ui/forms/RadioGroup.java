@@ -4,6 +4,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLLabelElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementValidations;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
 import org.dominokit.domino.ui.utils.ValidationResult;
@@ -16,7 +17,7 @@ import java.util.List;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioGroup, String>, HasChangeHandlers<RadioGroup, Radio> {
+public class RadioGroup extends DominoElement<RadioGroup> implements IsElement<HTMLDivElement>, FormElement<RadioGroup, String>, HasChangeHandlers<RadioGroup, Radio> {
 
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
     private HTMLDivElement formLine = Elements.div().css("form-line").asElement();
@@ -37,6 +38,7 @@ public class RadioGroup implements IsElement<HTMLDivElement>, FormElement<RadioG
         container.appendChild(formLine);
         setName(name);
         Style.of(formControl).setHeight("auto");
+        initCollapsible(this);
     }
 
     public RadioGroup(String name, String label) {
