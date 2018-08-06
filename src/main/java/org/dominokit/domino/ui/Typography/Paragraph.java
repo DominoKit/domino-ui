@@ -4,23 +4,27 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Styles;
 import elemental2.dom.HTMLParagraphElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.p;
 
-public class Paragraph implements IsElement<HTMLParagraphElement>{
+public class Paragraph extends DominoElement<Paragraph> implements IsElement<HTMLParagraphElement>{
 
     private HTMLParagraphElement element=p().asElement();
     private Color colorStyle;
     private String alignment= Styles.align_left;
 
     public Paragraph(){
-
+        this(null);
     }
 
     public Paragraph(String text){
-        element.textContent=text;
+        if(nonNull(text)) {
+            element.textContent = text;
+        }
+        initCollapsible(this);
     }
 
     public static Paragraph create(){

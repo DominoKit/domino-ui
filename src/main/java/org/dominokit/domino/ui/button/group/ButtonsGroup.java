@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.button.group;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.ButtonSize;
 import org.dominokit.domino.ui.button.DropdownButton;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Sizable;
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.Elements;
@@ -10,12 +11,16 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 
-public class ButtonsGroup implements IsElement<HTMLElement>, IsGroup<ButtonsGroup>, Sizable<ButtonsGroup> {
+public class ButtonsGroup extends DominoElement<ButtonsGroup> implements IsElement<HTMLElement>, IsGroup<ButtonsGroup>, Sizable<ButtonsGroup> {
 
     static final String BTN_GROUP = "btn-group";
     private static final String BTN_GROUP_VERTICAL = "btn-group-vertical";
     private HTMLElement groupElement = Elements.div().css(BTN_GROUP).attr("role", "group").asElement();
     private ButtonSize size;
+
+    public ButtonsGroup() {
+        initCollapsible(this);
+    }
 
     public static ButtonsGroup create() {
         return new ButtonsGroup();

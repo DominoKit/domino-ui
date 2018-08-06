@@ -1,16 +1,18 @@
 package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.ul;
 
-public class SimpleListGroup implements IsElement<HTMLUListElement>{
+public class SimpleListGroup extends DominoElement<SimpleListGroup> implements IsElement<HTMLUListElement>{
 
     private final HTMLUListElement element;
 
     private SimpleListGroup(HTMLUListElement element){
         this.element=element;
+        initCollapsible(this);
     }
 
     public static SimpleListGroup create(){

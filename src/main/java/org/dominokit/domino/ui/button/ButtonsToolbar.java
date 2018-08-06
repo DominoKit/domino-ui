@@ -2,12 +2,17 @@ package org.dominokit.domino.ui.button;
 
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
-public class ButtonsToolbar implements IsElement<HTMLElement> {
+public class ButtonsToolbar extends DominoElement<ButtonsToolbar> implements IsElement<HTMLElement> {
 
     private HTMLElement toolbarElement = Elements.div().css("btn-toolbar").attr("role", "toolbar").asElement();
+
+    public ButtonsToolbar() {
+        initCollapsible(this);
+    }
 
     public static ButtonsToolbar create() {
         return new ButtonsToolbar();

@@ -1,9 +1,12 @@
 package org.dominokit.domino.ui.tabs;
 
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 import elemental2.dom.*;
+import org.jboss.gwt.elemento.core.IsElement;
 
+import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Tab implements HasClickableElement{
@@ -14,16 +17,20 @@ public class Tab implements HasClickableElement{
     private boolean active;
 
     public Tab(String text) {
-        clickableElement.textContent=text;
+        this(null, text);
     }
 
     public Tab(Icon icon) {
-        clickableElement.appendChild(icon.asElement());
+        this(icon, null);
     }
 
     public Tab(Icon icon, String text) {
-        clickableElement.appendChild(icon.asElement());
-        clickableElement.appendChild(new Text(text));
+        if(nonNull(icon)) {
+            clickableElement.appendChild(icon.asElement());
+        }
+        if(nonNull(text)) {
+            clickableElement.appendChild(new Text(text));
+        }
     }
 
     public static Tab create(String text){

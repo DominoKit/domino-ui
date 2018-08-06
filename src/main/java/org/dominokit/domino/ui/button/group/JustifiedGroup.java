@@ -1,14 +1,15 @@
 package org.dominokit.domino.ui.button.group;
 
+import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.DropdownButton;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Sizable;
-import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.dominokit.domino.ui.button.group.ButtonsGroup.BTN_GROUP;
 
-public class JustifiedGroup implements IsElement<HTMLElement>, IsGroup<HTMLElement>, Sizable<JustifiedGroup> {
+public class JustifiedGroup extends DominoElement<JustifiedGroup> implements IsElement<HTMLElement>, IsGroup<HTMLElement>, Sizable<JustifiedGroup> {
 
     private ButtonsGroup group = ButtonsGroup.create();
 
@@ -18,6 +19,7 @@ public class JustifiedGroup implements IsElement<HTMLElement>, IsGroup<HTMLEleme
 
     private JustifiedGroup() {
         group.asElement().classList.add(BTN_GROUP + "-justified");
+        initCollapsible(this);
     }
 
     @Override
