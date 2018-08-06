@@ -131,6 +131,10 @@ public class SelectOption<T> implements IsElement<HTMLLIElement>, HasValue<Selec
         return valueContainer;
     }
 
+    public HTMLAnchorElement getLinkElement() {
+        return aElement;
+    }
+
     public void focus() {
         aElement.focus();
     }
