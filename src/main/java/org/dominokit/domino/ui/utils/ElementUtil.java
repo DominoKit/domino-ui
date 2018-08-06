@@ -1,17 +1,13 @@
 package org.dominokit.domino.ui.utils;
 
-import elemental2.dom.*;
+import elemental2.dom.ClipboardEvent;
+import elemental2.dom.Element;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.KeyboardEvent;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.forms.TextBox;
-import org.gwtproject.timer.client.Timer;
-import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.ObserverCallback;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
-
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 import static java.util.Objects.nonNull;
 
@@ -47,7 +43,6 @@ public class ElementUtil {
      * @param callback {@link ObserverCallback}
      */
     public static void onAttach(HTMLElement element, ObserverCallback callback) {
-//        Elements.onAttach(element, callback);
         if (element != null) {
             BodyObserver.addAttachObserver(element, callback);
         }
@@ -62,7 +57,6 @@ public class ElementUtil {
      */
     public static void onDetach(HTMLElement element, ObserverCallback callback) {
 
-//        Elements.onDetach(element, callback);
         if (element != null) {
             BodyObserver.addDetachObserver(element, callback);
         }
@@ -84,74 +78,4 @@ public class ElementUtil {
         return textBox;
     }
 
-    public static void collapse(HTMLElement element){
-        Collapsible.create(element).collapse();
-    }
-
-    public static void expand(HTMLElement element){
-        Collapsible.create(element).expand();
-    }
-
-    public static void collapse(IsElement element){
-        Collapsible.create(element).collapse();
-    }
-
-    public static void expand(IsElement element){
-        Collapsible.create(element).expand();
-    }
-
-    /*
-Element to slide gets the following CSS:
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease 0s;
-*/
-
-    /**
-     * Like jQuery's slideDown function - uses CSS3 transitions
-     * @param  {Node} elem Element to show and hide
-     */
-    public static void slideDown(HTMLElement element) {
-        element.style.maxHeight = CSSProperties.MaxHeightUnionType.of(1000);
-        // We're using a timer to set opacity = 0 because setting max-height = 0 doesn't (completely) hide the element.
-        element.style.opacity   = CSSProperties.OpacityUnionType.of(1);
-    }
-
-    /**
-     * Slide element up (like jQuery's slideUp)
-     * @param  {Node} elem Element
-     * @return {[type]}      [description]
-     */
-    public static void slideUp(HTMLElement element) {
-        element.style.maxHeight = CSSProperties.MaxHeightUnionType.of(0);
-        once( 1, () -> {
-            element.style.opacity = CSSProperties.OpacityUnionType.of(0);
-        });
-    }
-
-    /**
-     * Call once after timeout
-     * @param  {Number}   seconds  Number of seconds to wait
-     * @param  {Function} callback Callback function
-     */
-    public static void once (int seconds, Ready ready) {
-        int[] counter = new int[]{0};
-        new Timer(){
-            @Override
-            public void run() {
-                counter[0]++;
-                if ( counter[0] >= seconds ) {
-                    ready.onReady();
-                    cancel();
-                }
-            }
-        }.scheduleRepeating(400);
-
-    }
-
-    @FunctionalInterface
-    private interface Ready{
-        void onReady();
-    }
 }
