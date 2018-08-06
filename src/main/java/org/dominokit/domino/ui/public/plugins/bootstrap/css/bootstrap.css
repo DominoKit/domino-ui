@@ -3766,6 +3766,7 @@ tbody.collapse.in {
   line-height: 1.42857143;
   color: #777;
   white-space: nowrap;
+  margin-top: 5px;
 }
 .dropdown-backdrop {
   position: fixed;

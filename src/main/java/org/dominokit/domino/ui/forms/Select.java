@@ -48,6 +48,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private HTMLElement noSearchResultsElement;
     private String noResultsElementDisplay;
     private boolean caseSensitiveSearch = false;
+    private List<SelectOptionGroup<T>> groups = new ArrayList<>();
 
     public Select() {
         initListeners();
@@ -68,8 +69,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
                 hideAllMenus();
             }
         };
-        document.body.addEventListener(CLICK_EVENT, hideAllListener);
-        document.body.addEventListener(TOUCH_START_EVENT, hideAllListener);
+        document.addEventListener(CLICK_EVENT, hideAllListener);
+        document.addEventListener(TOUCH_START_EVENT, hideAllListener);
 
         document.body.addEventListener(KEYDOWN, new NavigateOptionsKeyListener());
 
@@ -103,28 +104,35 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     private void doSearch() {
         if (searchable) {
-            boolean isThereValues = false;
             String searchValue = selectElement.getSearchBox().value;
-            for (Map.Entry<String, SelectOption<T>> entry : options.entrySet()) {
-                boolean contains;
-                if (caseSensitiveSearch)
-                    contains = entry.getKey().contains(searchValue);
-                else
-                    contains = entry.getKey().toLowerCase().contains(searchValue.toLowerCase());
+            boolean isThereValues = changeOptionsVisibility(searchValue);
 
-                if (!contains) {
-                    entry.getValue().asElement().classList.add("hidden");
-                } else {
-                    isThereValues = true;
-                    entry.getValue().asElement().classList.remove("hidden");
-                }
-            }
             if (!isThereValues) {
                 showNoResultsElement(searchValue);
             } else {
                 hideNoResultsElement();
             }
         }
+    }
+
+    private boolean changeOptionsVisibility(String searchValue) {
+        boolean isThereValues = false;
+        for (Map.Entry<String, SelectOption<T>> entry : options.entrySet()) {
+            boolean contains;
+            if (caseSensitiveSearch)
+                contains = entry.getKey().contains(searchValue);
+            else
+                contains = entry.getKey().toLowerCase().contains(searchValue.toLowerCase());
+
+            if (!contains) {
+                entry.getValue().asElement().classList.add("hidden");
+            } else {
+                isThereValues = true;
+                entry.getValue().asElement().classList.remove("hidden");
+            }
+        }
+        groups.forEach(SelectOptionGroup::changeVisibility);
+        return isThereValues;
     }
 
     private void showNoResultsElement(String searchValue) {
@@ -232,6 +240,23 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     public static <T> Select create(List<SelectOption<T>> options) {
         return new Select<>(options);
+    }
+
+    public Select<T> divider() {
+        selectElement.getOptionsList().appendChild(li().css("divider").asElement());
+        return this;
+    }
+
+    public Select<T> addGroup(SelectOptionGroup<T> group) {
+        groups.add(group);
+        selectElement.getOptionsList().appendChild(group.asElement());
+        group.addOptionsTo(this);
+        return this;
+    }
+
+    public Select<T> addOptions(List<SelectOption<T>> options) {
+        options.forEach(this::addOption);
+        return this;
     }
 
     public Select<T> addOption(SelectOption<T> option) {
