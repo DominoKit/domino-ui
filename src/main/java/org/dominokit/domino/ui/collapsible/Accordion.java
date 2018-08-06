@@ -4,6 +4,7 @@ import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Color;
 import org.jboss.gwt.elemento.core.IsElement;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Accordion implements IsElement<HTMLDivElement> {
     private List<AccordionPanel> panels = new LinkedList<>();
     private boolean multiOpen = false;
 
+
     public static Accordion create() {
         return new Accordion();
     }
@@ -23,11 +25,27 @@ public class Accordion implements IsElement<HTMLDivElement> {
         panels.add(panel);
         element.appendChild(panel.asElement());
         panel.getClickableElement().addEventListener("click", evt -> {
-            if(!multiOpen)
-                panels.forEach(AccordionPanel::collapse);
-            panel.toggle();
+            if(!multiOpen) {
+                List<AccordionPanel> accordionPanels = otherPanels(panel);
+                accordionPanels.forEach(accordionPanel -> {
+                    if(!accordionPanel.isCollapsed()) {
+                        accordionPanel.collapse();
+                    }
+                });
+                if(panel.isCollapsed()) {
+                    panel.expand();
+                }
+            }else{
+                panel.toggle();
+            }
         });
         return this;
+    }
+
+    private List<AccordionPanel> otherPanels(AccordionPanel exclude){
+        List<AccordionPanel> newList = new ArrayList<>(panels);
+        newList.remove(exclude);
+        return newList;
     }
 
     public Accordion multiOpen(){

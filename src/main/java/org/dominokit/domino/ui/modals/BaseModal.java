@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.modals;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.MyDom;
 import org.dominokit.domino.ui.utils.Switchable;

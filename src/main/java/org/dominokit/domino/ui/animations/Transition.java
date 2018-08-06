@@ -76,7 +76,8 @@ public enum Transition {
     ZOOM_OUT_UP("zoomOutUp", "ZOOM OUT UP"),
     HINGE("hinge", "HINGE"),
     ROLL_IN("rollIn", "ROLL IN"),
-    ROLL_OUT("rollOut", "ROLL OUT");
+    ROLL_OUT("rollOut", "ROLL OUT"),
+    COLLAPSE_UP("collapseUp","COLLAPSE UP");
 
     private final String style;
     private final String name;

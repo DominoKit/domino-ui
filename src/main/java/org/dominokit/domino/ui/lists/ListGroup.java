@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMultiSelectSupport;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -11,7 +12,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSupport<ListItem<T>> {
+public class ListGroup<T> extends DominoElement<ListGroup<T>> implements IsElement<HTMLDivElement>, HasMultiSelectSupport<ListItem<T>> {
 
     private final HTMLDivElement element;
     private List<ListItem<T>> allItems = new LinkedList<>();
@@ -21,6 +22,7 @@ public class ListGroup<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
 
     private ListGroup(HTMLDivElement element) {
         this.element = element;
+        initCollapsible(this);
     }
 
     public static <T> ListGroup<T> create() {

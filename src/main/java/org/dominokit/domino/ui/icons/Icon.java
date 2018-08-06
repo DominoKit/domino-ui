@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.icons;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.isNull;

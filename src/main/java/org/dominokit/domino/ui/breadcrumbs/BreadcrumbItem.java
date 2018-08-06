@@ -1,15 +1,16 @@
 package org.dominokit.domino.ui.breadcrumbs;
 
-import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.utils.HasClickableElement;
 import elemental2.dom.*;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
-public class BreadcrumbItem implements IsElement<HTMLLIElement>, HasClickableElement {
+public class BreadcrumbItem extends DominoElement<BreadcrumbItem> implements IsElement<HTMLLIElement>, HasClickableElement {
 
     private HTMLLIElement element = li().asElement();
     private HTMLAnchorElement anchorElement=a().asElement();
@@ -18,17 +19,22 @@ public class BreadcrumbItem implements IsElement<HTMLLIElement>, HasClickableEle
     private boolean active = false;
 
     private BreadcrumbItem(String text) {
-        this.textElement = new Text(text);
-        this.anchorElement.appendChild(textElement);
-        element.appendChild(anchorElement);
+        init(text, null);
     }
 
-    private BreadcrumbItem(Icon icon, String text) {
-        this.icon = icon;
+    private BreadcrumbItem(String text, Icon icon) {
+        init(text, icon);
+    }
+
+    private void init(String text, Icon icon) {
         this.textElement = new Text(text);
-        this.anchorElement.appendChild(icon.asElement());
+        if(nonNull(icon)) {
+            this.icon = icon;
+            this.anchorElement.appendChild(icon.asElement());
+        }
         this.anchorElement.appendChild(textElement);
         element.appendChild(anchorElement);
+        initCollapsible(this);
     }
 
     public static BreadcrumbItem create(String text) {
@@ -36,7 +42,7 @@ public class BreadcrumbItem implements IsElement<HTMLLIElement>, HasClickableEle
     }
 
     public static BreadcrumbItem create(Icon icon, String text) {
-        return new BreadcrumbItem(icon, text);
+        return new BreadcrumbItem(text, icon);
     }
 
     public void activate() {

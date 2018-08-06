@@ -12,6 +12,7 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.pickers.PickerHandler;
 import org.dominokit.domino.ui.style.ColorScheme;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.impl.cldr.DateTimeFormatInfo_factory;
 import org.jboss.gwt.elemento.core.Elements;

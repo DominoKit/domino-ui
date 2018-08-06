@@ -6,6 +6,7 @@ import org.dominokit.domino.ui.button.group.ButtonsGroup;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.StyleType;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasContent;
 import org.dominokit.domino.ui.utils.Justifiable;
@@ -17,7 +18,7 @@ import java.util.List;
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 
-public class DropdownButton implements Justifiable, HasContent<DropdownButton>, HasBackground<DropdownButton> {
+public class DropdownButton extends DominoElement<DropdownButton> implements Justifiable, HasContent<DropdownButton>, HasBackground<DropdownButton> {
 
     private HTMLElement caret = Elements.span().css("caret").asElement();
     private HTMLElement groupElement = ButtonsGroup.create().asElement();
@@ -52,6 +53,7 @@ public class DropdownButton implements Justifiable, HasContent<DropdownButton>, 
         this.button.asElement().appendChild(caret);
         groupElement.appendChild(actionsElement);
         addHideListener();
+        initCollapsible(this);
     }
 
     private void addHideListener() {

@@ -8,6 +8,7 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TableEventListener;
 import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.HasMultiSelectSupport;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class DataTable<T> implements IsElement<HTMLDivElement>, HasMultiSelectSupport<TableRow<T>> {
+public class DataTable<T> extends DominoElement<DataTable<T>> implements IsElement<HTMLDivElement>, HasMultiSelectSupport<TableRow<T>> {
 
     public static final String ANY = "*";
     private final DataStore<T> dataStore;
@@ -80,6 +81,7 @@ public class DataTable<T> implements IsElement<HTMLDivElement>, HasMultiSelectSu
                     .css("tbody-fixed")
                     .setMaxHeight(tableConfig.getFixedBodyHeight());
         }
+        initCollapsible(this);
         return this;
     }
 
