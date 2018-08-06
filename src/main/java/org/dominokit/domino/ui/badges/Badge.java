@@ -1,18 +1,23 @@
 package org.dominokit.domino.ui.badges;
 
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.HasBackground;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.HasBackground;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.span;
 
-public class Badge implements IsElement<HTMLElement>, HasBackground<Badge> {
+public class Badge extends DominoElement<Badge> implements IsElement<HTMLElement>, HasBackground<Badge> {
 
     private HTMLElement badgeElement = span().css("badge").asElement();
     private boolean pulledRight = false;
     private Color badgeBackground;
+
+    public Badge() {
+        initCollapsible(this);
+    }
 
     public static Badge create(String content) {
         Badge badge = new Badge();

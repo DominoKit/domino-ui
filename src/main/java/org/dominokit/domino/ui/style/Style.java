@@ -355,8 +355,9 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     }
 
     public boolean hasClass(String cssClass) {
-        if (nonNull(cssClass) && !cssClass.isEmpty())
-            element.classList.contains(cssClass);
+        if (nonNull(cssClass) && !cssClass.isEmpty()) {
+            return element.classList.contains(cssClass);
+        }
         return false;
     }
 

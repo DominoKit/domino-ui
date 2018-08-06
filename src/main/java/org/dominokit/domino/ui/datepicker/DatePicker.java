@@ -13,6 +13,7 @@ import org.dominokit.domino.ui.pickers.PickerHandler;
 import org.dominokit.domino.ui.row.Row;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.WavesSupport;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.gwtproject.i18n.client.impl.cldr.DateTimeFormatInfo_factory;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;

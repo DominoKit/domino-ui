@@ -6,10 +6,12 @@ import com.google.gwt.resources.client.ResourceException;
 import com.google.gwt.resources.client.TextResource;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.code.Code;
+import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
@@ -45,8 +47,10 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
 
     private boolean collapsible = false;
     private HTMLLIElement collapseAction;
-    private boolean collapsed = false;
     private Icon collapseIcon;
+    private Collapsible bodyCollapsible;
+    private int collapseDuration;
+    private boolean collapsed = false;
 
     public static Card create() {
         Templated_Card templated_basicCard = new Templated_Card();
@@ -57,7 +61,6 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
     public static Card create(String title) {
         Templated_Card templated_basicCard = new Templated_Card();
         templated_basicCard.setTitle(title);
-        templated_basicCard.headerTitle.removeChild(templated_basicCard.headerDescription);
         return templated_basicCard;
     }
 
@@ -110,6 +113,24 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
     void init() {
         headerTitle.insertBefore(title, headerDescription);
         headerDescription.appendChild(description);
+        bodyCollapsible = Collapsible.create(body);
+        ElementUtil.onAttach(asElement(), mutationRecord -> {
+            if (collapsed) {
+                bodyCollapsible.collapse();
+            }
+        });
+
+        bodyCollapsible.addCollapseHandler(() -> {
+            if (collapsible) {
+                collapseIcon.asElement().textContent = Icons.ALL.keyboard_arrow_down().getName();
+            }
+        });
+
+        bodyCollapsible.addExpandHandler(() -> {
+            if (collapsible) {
+                collapseIcon.asElement().textContent = Icons.ALL.keyboard_arrow_up().getName();
+            }
+        });
     }
 
     public Card setTitle(String titleText) {
@@ -214,18 +235,19 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
     }
 
     public Card setCollapsible() {
-
         collapseIcon = Icons.ALL.keyboard_arrow_up();
         if (isNull(collapseAction)) {
             collapseAction = createHeaderAction(collapseIcon);
         }
         collapseAction.addEventListener("click", evt -> {
-            if (collapsible)
-                if (collapsed) {
-                    expand();
+            if (collapsible) {
+                int duration = collapseDuration == 0 ? bodyCollapsible.getDuration() : collapseDuration;
+                if (bodyCollapsible.isCollapsed()) {
+                    expand(duration);
                 } else {
-                    collapse();
+                    collapse(duration);
                 }
+            }
         });
 
         putAction(collapseAction);
@@ -236,19 +258,25 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
     }
 
     public Card collapse() {
-        if (collapsible) {
-            collapseIcon.asElement().textContent = Icons.ALL.keyboard_arrow_down().getName();
-        }
-        getBody().style.display = "none";
+        bodyCollapsible.collapse();
         this.collapsed = true;
         return this;
     }
 
     public Card expand() {
-        if (collapsible) {
-            collapseIcon.asElement().textContent = Icons.ALL.keyboard_arrow_up().getName();
-        }
-        getBody().style.display = "block";
+        bodyCollapsible.expand();
+        this.collapsed = false;
+        return this;
+    }
+
+    public Card collapse(int duration) {
+        bodyCollapsible.collapse(duration);
+        this.collapsed = true;
+        return this;
+    }
+
+    public Card expand(int duration) {
+        bodyCollapsible.expand(duration);
         this.collapsed = false;
         return this;
     }
@@ -286,4 +314,8 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
         return Style.of(body);
     }
 
+    public Card setCollapseDuration(int collapseDuration) {
+        this.collapseDuration = collapseDuration;
+        return this;
+    }
 }

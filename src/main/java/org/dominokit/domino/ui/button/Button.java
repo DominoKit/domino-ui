@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.button;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.StyleType;
 import org.dominokit.domino.ui.style.WaveStyle;
@@ -17,7 +18,7 @@ import static java.util.Objects.nonNull;
 public class Button extends WavesElement<Button, HTMLElement> implements
         Justifiable, HasClickableElement, Sizable<Button>, HasBackground<Button>,
         HasContent<Button>, IsElement<HTMLElement>, IsHtmlComponent<HTMLElement, Button>, HasStyleProperty<Button>,
-        Switchable<Button> {
+        Switchable<Button> , IsCollapsible<Button>{
 
     private static final String DISABLED = "disabled";
 
@@ -28,6 +29,7 @@ public class Button extends WavesElement<Button, HTMLElement> implements
     private ButtonSize size;
     protected String content;
     private HtmlComponentBuilder<HTMLElement, Button> buttonComponentBuilder = new HtmlComponentBuilder<>(this);
+    private Collapsible collapsible;
 
     private static Button create(String content, StyleType type) {
         return new Button(content, type);
@@ -68,6 +70,7 @@ public class Button extends WavesElement<Button, HTMLElement> implements
 
     protected Button() {
         super.init(this, buttonElement);
+        collapsible= Collapsible.create(this);
     }
 
     protected Button(String content) {
@@ -223,5 +226,40 @@ public class Button extends WavesElement<Button, HTMLElement> implements
     public Button setStyleProperty(String name, String value) {
         asElement().style.setProperty(name, value);
         return this;
+    }
+
+    @Override
+    public Button collapse() {
+        collapsible.collapse();
+        return this;
+    }
+
+    @Override
+    public Button expand() {
+        collapsible.expand();
+        return this;
+    }
+
+    @Override
+    public Button collapse(int duration) {
+        collapsible.collapse(duration);
+        return this;
+    }
+
+    @Override
+    public Button expand(int duration) {
+        collapsible.expand(duration);
+        return this;
+    }
+
+    @Override
+    public Button toggle() {
+        collapsible.toggle();
+        return this;
+    }
+
+    @Override
+    public boolean isCollapsed() {
+        return collapsible.isCollapsed();
     }
 }
