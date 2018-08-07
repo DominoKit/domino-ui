@@ -49,7 +49,7 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
     private HTMLLIElement collapseAction;
     private Icon collapseIcon;
     private Collapsible bodyCollapsible;
-    private int collapseDuration;
+    private int collapseDuration = 1;
     private boolean collapsed = false;
 
     public static Card create() {
@@ -116,7 +116,7 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
         bodyCollapsible = Collapsible.create(body);
         ElementUtil.onAttach(asElement(), mutationRecord -> {
             if (collapsed) {
-                bodyCollapsible.collapse();
+                bodyCollapsible.collapse(1);
             }
         });
 
