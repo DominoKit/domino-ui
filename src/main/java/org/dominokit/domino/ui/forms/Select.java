@@ -63,14 +63,14 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     private void initListeners() {
-        EventListener hideAllListener = evt -> {
-            HTMLElement element = Js.uncheckedCast(evt.target);
-            if (!selectElement.getFormControl().contains(element)) {
-                hideAllMenus();
-            }
-        };
+        EventListener hideAllListener = this::hideAllMenus;
         document.addEventListener(CLICK_EVENT, hideAllListener);
-        document.addEventListener(TOUCH_START_EVENT, hideAllListener);
+        document.addEventListener(TOUCH_START_EVENT, evt -> {
+            TouchEvent touchEvent = Js.uncheckedCast(evt);
+            if (touchEvent.touches.length == 1) {
+                hideAllMenus(evt);
+            }
+        });
 
         document.body.addEventListener(KEYDOWN, new NavigateOptionsKeyListener());
 
@@ -100,6 +100,13 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
                         .findFirst().ifPresent(SelectOption::focus);
             }
         });
+    }
+
+    private void hideAllMenus(Event evt) {
+        HTMLElement element = Js.uncheckedCast(evt.target);
+        if (!selectElement.getFormControl().contains(element)) {
+            hideAllMenus();
+        }
     }
 
     private void doSearch() {
