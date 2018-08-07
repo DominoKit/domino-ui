@@ -1,14 +1,20 @@
 package org.dominokit.domino.ui.utils;
 
+import com.google.gwt.i18n.client.NumberFormat;
 import elemental2.dom.ClipboardEvent;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.KeyboardEvent;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.TextBox;
+import org.dominokit.domino.ui.notifications.Notification;
 import org.jboss.gwt.elemento.core.ObserverCallback;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 public class ElementUtil {
@@ -74,6 +80,32 @@ public class ElementUtil {
             if (!clipboardEvent.clipboardData.getData("text").matches("^\\d+$")) {
                 evt.preventDefault();
             }
+        });
+        return textBox;
+    }
+
+    public static TextBox decimalOnly(TextBox textBox) {
+
+        textBox.getInputElement().addEventListener("keypress", evt -> {
+
+            List<String> allowedKies = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", ".", "Backspace", "Delete", "ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft", "Tab", "Escape");
+
+            KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+            String key = keyboardEvent.key;
+
+            if (!allowedKies.contains(key) || (key.equals(".") && textBox.getValue().contains("."))) {
+                evt.preventDefault();
+            }
+
+        });
+        textBox.getInputElement().addEventListener("paste", evt -> {
+            ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
+            try {
+                NumberFormat.getDecimalFormat().parse(clipboardEvent.clipboardData.getData("text"));
+            } catch (Exception ex) {
+                evt.preventDefault();
+            }
+
         });
         return textBox;
     }
