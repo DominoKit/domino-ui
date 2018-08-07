@@ -60,6 +60,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
             evt.preventDefault();
             evt.stopPropagation();
         });
+        initCollapsible(this);
     }
 
     private void initListeners() {
@@ -84,7 +85,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         selectElement.getSelectButton().addEventListener("focus", evt -> selectElement.getSelectButton().blur());
         selectElement.getSelectMenu().addEventListener(KEYDOWN, evt -> {
             KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
-            if (isSpaceKey(keyboardEvent) || isEnterKey(keyboardEvent)) {
+            if (isSpaceKey(keyboardEvent) || isEnterKey(keyboardEvent) || isArrowDown(keyboardEvent) || isArrowUp(keyboardEvent)) {
                 open();
                 evt.preventDefault();
             }
@@ -95,9 +96,11 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
             KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
             if (isArrowUp(keyboardEvent)) {
                 options.lastEntry().getValue().focus();
+                evt.preventDefault();
             } else if (isArrowDown(keyboardEvent)) {
                 options.values().stream().filter(so -> !so.asElement().classList.contains("hidden"))
                         .findFirst().ifPresent(SelectOption::focus);
+                evt.preventDefault();
             }
         });
     }

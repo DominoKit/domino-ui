@@ -22,7 +22,7 @@ public class BlockHeader extends DominoElement<BlockHeader> implements IsElement
     private BlockHeader(HTMLDivElement element, HTMLHeadingElement headerElement, String description) {
         this.element = element;
         this.headerElement = headerElement;
-        if (nonNull(descriptionElement)) {
+        if (nonNull(description)) {
             createDescriptionElement(description);
         }
         initCollapsible(this);
