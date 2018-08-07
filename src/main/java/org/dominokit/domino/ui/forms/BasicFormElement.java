@@ -8,7 +8,7 @@ import org.dominokit.domino.ui.utils.ValidationResult;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
-public abstract class BasicFormElement<T extends BasicFormElement, V> implements FormElement<T, V>,
+public abstract class BasicFormElement<T extends BasicFormElement, V> extends DominoElement<BasicFormElement<T, V>> implements FormElement<T, V>,
         IsElement<HTMLElement> {
 
     private static final String NAME = "name";
@@ -16,7 +16,6 @@ public abstract class BasicFormElement<T extends BasicFormElement, V> implements
     private HTMLLabelElement errorLabel = Elements.label().css("error").asElement();
     private ElementValidations elementValidations = new ElementValidations(this);
     private String helperText;
-    private boolean readOnly;
 
     @Override
     public T setHelperText(String helperText) {

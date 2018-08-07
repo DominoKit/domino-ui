@@ -60,6 +60,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         setFocusColor(focusColor);
         addFocusListeners();
         setLabel(label);
+        initCollapsible(this);
     }
 
     protected abstract E createInputElement(String type);

@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.utils;
 
 import org.dominokit.domino.ui.collapsible.Collapsible;
+import org.dominokit.domino.ui.style.Style;
 import org.jboss.gwt.elemento.core.IsElement;
 
 public abstract class DominoElement<E extends IsElement> implements IsCollapsible<E> {
