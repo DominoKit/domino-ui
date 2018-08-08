@@ -63,6 +63,14 @@
     margin-left: 15px;
 }
 
+.ls-hidden .footer {
+    margin-left: 0px;
+}
+
+.ls-closed .footer {
+    margin-left: 0px;
+}
+
 @media only screen and (max-width: 600px) {
     .content-panel {
         padding-right: 0px !important;
@@ -5216,6 +5224,10 @@
 }
 
 /* General ===================================== */
+html {
+    height: 100%;
+}
+
 body {
     background-color: #e9e9e9;
     -moz-transition: all 0.5s;
@@ -5223,6 +5235,9 @@ body {
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
     font-family: 'Roboto', Arial, Tahoma, sans-serif;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 h1,
@@ -5265,6 +5280,25 @@ section.content {
     -o-transition: 0.5s;
     -webkit-transition: 0.5s;
     transition: 0.5s;
+    flex: 1 0 auto;
+}
+
+.footer {
+    margin: 20px 0px 0 300px;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    min-height: 100px;
+    flex-shrink: 0;
+}
+
+.footer.fixed {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 9;
 }
 
 /* Dashboard =================================== */
