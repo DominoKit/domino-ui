@@ -281,6 +281,28 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
         return this;
     }
 
+    public Card toggle(){
+        if(this.collapsed){
+            expand();
+        }else{
+            collapse();
+        }
+        return this;
+    }
+
+    public Card toggle(int duration){
+        if(this.collapsed){
+            expand(duration);
+        }else{
+            collapse(duration);
+        }
+        return this;
+    }
+
+    public boolean isCollapsed(){
+        return this.collapsed;
+    }
+
     public Card setBodyPadding(String padding) {
         Style.of(body).setPadding(padding);
         return this;
