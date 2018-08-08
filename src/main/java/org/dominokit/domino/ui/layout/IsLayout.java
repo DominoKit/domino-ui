@@ -1,28 +1,27 @@
 package org.dominokit.domino.ui.layout;
 
-import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.style.ColorScheme;
-import org.dominokit.domino.ui.themes.Theme;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.style.ColorScheme;
 
 public interface IsLayout {
-    Layout show();
+    IsLayout show();
 
-    Layout show(ColorScheme theme);
+    IsLayout show(ColorScheme theme);
 
     void toggleRightPanel();
 
-    Layout showRightPanel();
+    IsLayout showRightPanel();
 
-    Layout hideRightPanel();
+    IsLayout hideRightPanel();
 
     void toggleLeftPanel();
 
-    Layout showLeftPanel();
+    IsLayout showLeftPanel();
 
-    Layout hideLeftPanel();
+    IsLayout hideLeftPanel();
 
     HTMLElement getRightPanel();
 
@@ -36,7 +35,13 @@ public interface IsLayout {
 
     Content getContentSection();
 
-    Layout setTitle(String title);
+    Footer getFooter();
+
+    IsLayout hideFooter();
+
+    IsLayout showFooter();
+
+    IsLayout setTitle(String title);
 
     HTMLElement addActionItem(Icon icon);
 }

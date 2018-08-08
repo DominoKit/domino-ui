@@ -2,8 +2,12 @@ package org.dominokit.domino.ui.layout;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.mediaquery.MediaQuery;
+import org.dominokit.domino.ui.notifications.Notification;
 import org.dominokit.domino.ui.style.ColorScheme;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.themes.Theme;
+import org.dominokit.domino.ui.utils.ElementUtil;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.jboss.gwt.elemento.core.Elements.a;
@@ -22,6 +26,7 @@ public class Layout implements IsLayout {
     private final Section section = Section.create();
     private final Overlay overlay = Overlay.create();
     private final Content content = Content.create();
+    private final Footer footer = Footer.create();
 
     private Text appTitle = new Text("");
 
@@ -59,6 +64,10 @@ public class Layout implements IsLayout {
         if (!document.body.classList.contains("ls-hidden"))
             document.body.classList.add("ls-closed");
         new Theme(theme).apply();
+        MediaQuery.addOnSmallAndDownListener(() -> {
+            Notification.createInfo("small and down").show();
+            unfixFooter();
+        });
         return this;
     }
 
@@ -67,6 +76,7 @@ public class Layout implements IsLayout {
         document.body.appendChild(navigationBar.asElement());
         document.body.appendChild(section.asElement());
         document.body.appendChild(content.asElement());
+        document.body.appendChild(footer.asElement());
         navigationBar.title.appendChild(appTitle);
     }
 
@@ -225,13 +235,30 @@ public class Layout implements IsLayout {
     }
 
     @Override
-    public NavigationBar getNavigationBar(){
+    public NavigationBar getNavigationBar() {
         return this.navigationBar;
     }
 
     @Override
-    public Content getContentSection(){
+    public Content getContentSection() {
         return this.content;
+    }
+
+    @Override
+    public Footer getFooter() {
+        return footer;
+    }
+
+    @Override
+    public Layout hideFooter() {
+        footer.hide();
+        return this;
+    }
+
+    @Override
+    public Layout showFooter() {
+        footer.show();
+        return this;
     }
 
     @Override
@@ -266,6 +293,22 @@ public class Layout implements IsLayout {
         if (!document.body.classList.contains("ls-closed"))
             document.body.classList.add("ls-closed");
         this.fixedLeftPanel = false;
+        return this;
+    }
+
+    public Layout fixFooter() {
+        footer.asElement().classList.add("fixed");
+        ElementUtil.onAttach(footer.asElement(), mutationRecord -> {
+            Style.of(content.asElement()).setMarginBottom(footer.asElement().clientHeight + "px");
+        });
+        return this;
+    }
+
+    public Layout unfixFooter() {
+        footer.asElement().classList.remove("fixed");
+        ElementUtil.onAttach(footer.asElement(), mutationRecord -> {
+            Style.of(content.asElement()).removeProperty("margin-bottom");
+        });
         return this;
     }
 }
