@@ -64,17 +64,16 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
     @Override
     public Collapsible collapse() {
-        return collapse(duration);
+        return collapse(1);
     }
 
     @Override
     public Collapsible expand() {
-        return expand(duration);
+        return expand(1);
     }
 
     public Collapsible collapse(int duration) {
 
-        final int[] lastHeight = new int[]{elementHeight};
         new Animation() {
 
             @Override
@@ -92,8 +91,6 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
             protected void onUpdate(double progress) {
                 Double doubleHeight = new Double(elementHeight);
                 long newHeight = Math.round(doubleHeight - new Double(doubleHeight * progress));
-//                long diff = newHeight - lastHeight[0];
-//                DomGlobal.console.info(elementHeight + " : " + newHeight + " : diff = " + diff + " : " + progress);
                 style.setProperty("height", newHeight + "px");
             }
 
