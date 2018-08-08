@@ -35,7 +35,7 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicke
     private HTMLDivElement element = div().css("calendar").asElement();
     private HTMLDivElement headerPanel = div().css("date-panel").asElement();
     private HTMLDivElement selectorsPanel = div().css("selector-container").asElement();
-    private HTMLDivElement footerPanel = div().css("footer").asElement();
+    private HTMLDivElement footerPanel = div().css("cal-footer").asElement();
 
     private HTMLDivElement dayName = div().css("day-name").asElement();
     private HTMLDivElement monthName = div().css("month-name").asElement();
