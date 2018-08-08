@@ -23,6 +23,7 @@ public class AccordionPanel implements IsElement<HTMLDivElement>, IsCollapsible<
     private String panelStyle = "panel-primary";
     private Icon panelIcon;
     private boolean expanded = false;
+    private int duration = 1;
 
     public AccordionPanel(String title) {
         clickablElement.textContent = title;
@@ -167,5 +168,13 @@ public class AccordionPanel implements IsElement<HTMLDivElement>, IsCollapsible<
 
     public HTMLDivElement getCollapsibleElement() {
         return collapsibleElement;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }
