@@ -9,7 +9,8 @@
   background-color: #F44336; }
 
 .theme-red .footer {
-  background-color: #F44336; }
+  background-color: #F44336;
+   color: #fff; }
 
 .theme-red .navbar-brand {
   color: #fff; }
@@ -65,7 +66,8 @@
   background-color: #E91E63; }
 
 .theme-pink .footer {
-  background-color: #E91E63; }
+  background-color: #E91E63;
+   color: #fff;}
 
 .theme-pink .navbar-brand {
   color: #fff; }
@@ -120,7 +122,8 @@
   background-color: #9C27B0; }
 
 .theme-purple .footer {
-  background-color: #9C27B0; }
+  background-color: #9C27B0;
+   color: #fff;}
 
 .theme-purple .navbar-brand {
   color: #fff; }
@@ -175,7 +178,8 @@
   background-color: #673AB7; }
 
 .theme-deep-purple .footer {
-  background-color: #673AB7; }
+  background-color: #673AB7;
+   color: #fff;}
 
 .theme-deep-purple .navbar-brand {
   color: #fff; }
@@ -230,7 +234,8 @@
   background-color: #3F51B5; }
 
 .theme-indigo .footer {
-  background-color: #3F51B5; }
+  background-color: #3F51B5;
+   color: #fff;}
 
 .theme-indigo .navbar-brand {
   color: #fff; }
@@ -285,7 +290,8 @@
   background-color: #2196F3; }
 
 .theme-blue .footer {
-  background-color: #2196F3; }
+  background-color: #2196F3;
+   color: #fff;}
 
 .theme-blue .navbar-brand {
   color: #fff; }
@@ -340,7 +346,8 @@
   background-color: #03A9F4; }
 
 .theme-light-blue .footer {
-  background-color: #03A9F4; }
+  background-color: #03A9F4;
+   color: #fff;}
 
 .theme-light-blue .navbar-brand {
   color: #fff; }
@@ -396,7 +403,8 @@
   background-color: #00BCD4; }
 
 .theme-cyan .footer {
-  background-color: #00BCD4; }
+  background-color: #00BCD4;
+   color: #fff;}
 
 .theme-cyan .navbar-brand {
   color: #fff; }
@@ -451,7 +459,8 @@
   background-color: #009688; }
 
 .theme-teal .footer {
-  background-color: #009688; }
+  background-color: #009688;
+   color: #fff;}
 
 .theme-teal .navbar-brand {
   color: #fff; }
@@ -506,7 +515,8 @@
   background-color: #4CAF50; }
 
 .theme-green .footer {
-  background-color: #4CAF50; }
+  background-color: #4CAF50;
+   color: #fff;}
 
 .theme-green .navbar-brand {
   color: #fff; }
@@ -561,7 +571,8 @@
   background-color: #8BC34A; }
 
 .theme-light-green .footer {
-  background-color: #8BC34A; }
+  background-color: #8BC34A;
+   color: #fff;}
 
 .theme-light-green .navbar-brand {
   color: #fff; }
@@ -616,7 +627,8 @@
   background-color: #CDDC39; }
 
 .theme-lime .footer {
-  background-color: #CDDC39; }
+  background-color: #CDDC39;
+   color: #fff;}
 
 .theme-lime .navbar-brand {
   color: #fff; }
@@ -671,7 +683,8 @@
   background-color: #FFEB3B; }
 
 .theme-yellow .footer {
-  background-color: #FFEB3B; }
+  background-color: #FFEB3B;
+   color: #fff;}
 
 .theme-yellow .navbar-brand {
   color: #fff; }
@@ -726,7 +739,8 @@
   background-color: #FFC107; }
 
 .theme-amber .footer {
-  background-color: #FFC107; }
+  background-color: #FFC107;
+   color: #fff;}
 
 .theme-amber .navbar-brand {
   color: #fff; }
@@ -781,7 +795,8 @@
   background-color: #FF9800; }
 
 .theme-orange .footer {
-  background-color: #FF9800; }
+  background-color: #FF9800;
+   color: #fff;}
 
 .theme-orange .navbar-brand {
   color: #fff; }
@@ -836,7 +851,8 @@
   background-color: #FF5722; }
 
 .theme-deep-orange .footer {
-  background-color: #FF5722; }
+  background-color: #FF5722;
+   color: #fff;}
 
 .theme-deep-orange .navbar-brand {
   color: #fff; }
@@ -891,7 +907,8 @@
   background-color: #795548; }
 
 .theme-brown .footer {
-  background-color: #795548; }
+  background-color: #795548;
+   color: #fff;}
 
 .theme-brown .navbar-brand {
   color: #fff; }
@@ -946,7 +963,8 @@
   background-color: #9E9E9E; }
 
 .theme-grey .footer {
-  background-color: #9E9E9E; }
+  background-color: #9E9E9E;
+   color: #fff;}
 
 .theme-grey .navbar-brand {
   color: #fff; }
@@ -1002,7 +1020,8 @@
   background-color: #607D8B; }
 
 .theme-blue-grey .footer {
-  background-color: #607D8B; }
+  background-color: #607D8B;
+   color: #fff;}
 
 .theme-blue-grey .navbar-brand {
   color: #fff; }
@@ -1057,7 +1076,8 @@
   background-color: #000; }
 
 .theme-black .footer {
-  background-color: #000; }
+  background-color: #000;
+   color: #fff;}
 
 .theme-black .navbar-brand {
   color: #fff; }
