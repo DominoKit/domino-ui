@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.layout;
 
 import elemental2.dom.HTMLElement;
+import elemental2.dom.Node;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.footer;
@@ -38,5 +39,14 @@ public class Footer implements IsElement<HTMLElement> {
 
     public void show() {
         asElement().style.display = "block";
+    }
+
+    public Footer appendChild(Node content) {
+        asElement().appendChild(content);
+        return this;
+    }
+
+    public Footer appendChild(IsElement<HTMLElement> content) {
+        return appendChild(content.asElement());
     }
 }
