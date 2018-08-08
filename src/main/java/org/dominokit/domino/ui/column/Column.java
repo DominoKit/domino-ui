@@ -60,40 +60,40 @@ public class Column extends DominoElement<Column> implements IsElement<HTMLDivEl
     }
 
     public static Column span1() {
-        return create(1);
+        return create(1,12);
     }
     public static Column span2() {
-        return create(2);
+        return create(2,12);
     }
     public static Column span3() {
-        return create(3);
+        return create(3,12);
     }
     public static Column span4() {
-        return create(4);
+        return create(4,12);
     }
     public static Column span5() {
-        return create(5);
+        return create(5,12);
     }
     public static Column span6() {
-        return create(6);
+        return create(6,12);
     }
     public static Column span7() {
-        return create(7);
+        return create(7,12);
     }
     public static Column span8() {
-        return create(8);
+        return create(8,12);
     }
     public static Column span9() {
-        return create(9);
+        return create(9,12);
     }
     public static Column span10() {
-        return create(10);
+        return create(10,12);
     }
     public static Column span11() {
-        return create(11);
+        return create(11,12);
     }
     public static Column span12() {
-        return create(12);
+        return create(12,12);
     }
 
 

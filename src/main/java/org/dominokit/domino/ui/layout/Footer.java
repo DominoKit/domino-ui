@@ -46,7 +46,7 @@ public class Footer implements IsElement<HTMLElement> {
         return this;
     }
 
-    public Footer appendChild(IsElement<HTMLElement> content) {
+    public Footer appendChild(IsElement content) {
         return appendChild(content.asElement());
     }
 }
