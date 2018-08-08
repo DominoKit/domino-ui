@@ -70,7 +70,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     private HTMLAnchorElement backToMinutes;
 
     private HTMLDivElement clockPanel = div().css("time-display-large").asElement();
-    private HTMLDivElement footerPanel = div().css("footer").asElement();
+    private HTMLDivElement footerPanel = div().css("time-footer").asElement();
 
     private ColorScheme colorScheme = ColorScheme.BLUE;
 

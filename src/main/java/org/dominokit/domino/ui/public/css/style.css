@@ -12242,12 +12242,12 @@ a.disabled {
     padding-left: 0px !important;
 }
 
-.calendar .footer {
+.calendar .cal-footer {
     padding: 5px;
     text-align: center;
 }
 
-.calendar .footer .btn {
+.calendar .cal-footer .btn {
     text-transform: uppercase;
     text-overflow: ellipsis;
     max-width: 85px;
@@ -13690,12 +13690,12 @@ a.disabled {
     margin-top: 10px;
 }
 
-.time-picker .footer {
+.time-picker .time-footer {
     padding: 5px;
     text-align: center;
 }
 
-.time-picker .footer .btn {
+.time-picker .time-footer .btn {
     text-transform: uppercase;
     text-overflow: ellipsis;
     max-width: 85px;
