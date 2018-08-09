@@ -5427,11 +5427,9 @@ section.content {
 }
 
 .btn:not(.btn-circle) span {
-    position: absolute;
-    top: 6px;
-    left: 0;
+    position: relative;
+    top: -2px;
     margin-left: 3px;
-    padding-right: 25px;
 }
 
 .btn-warning,
@@ -13793,5 +13791,11 @@ a.disabled {
 
 .material-icons{
     font-feature-settings: 'liga’;
+}
 
+.select-span {
+    position: absolute !important;
+    top: 6px !important;
+    left: 0 !important;
+    padding-right: 25px;
 }
