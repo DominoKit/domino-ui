@@ -35,7 +35,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private SelectElement selectElement = SelectElement.create();
     private HTMLElement leftAddonContainer = div().css("input-addon-container").asElement();
     private HTMLElement rightAddonContainer = div().css("input-addon-container").asElement();
-    private TreeMap<String, SelectOption<T>> options = new TreeMap<>();
+    private LinkedHashMap<String, SelectOption<T>> searchableOptions = new LinkedHashMap<>();
+    private LinkedList<SelectOption<T>> options = new LinkedList<>();
     private SelectOption<T> selectedOption;
     private List<SelectionHandler<T>> selectionHandlers = new ArrayList<>();
     private SelectionHandler<T> autoValidationHandler;
@@ -98,14 +99,18 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         selectElement.getSearchBox().addEventListener(KEYDOWN, evt -> {
             KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
             if (isArrowUp(keyboardEvent)) {
-                options.lastEntry().getValue().focus();
+                options.getLast().focus();
                 evt.preventDefault();
             } else if (isArrowDown(keyboardEvent)) {
-                options.values().stream().filter(so -> !so.asElement().classList.contains("hidden"))
+                options.stream().filter(so -> !isHidden(so))
                         .findFirst().ifPresent(SelectOption::focus);
                 evt.preventDefault();
             }
         });
+    }
+
+    private boolean isHidden(SelectOption<T> option) {
+        return option.asElement().classList.contains("hidden");
     }
 
     private void hideAllMenus(Event evt) {
@@ -130,7 +135,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     private boolean changeOptionsVisibility(String searchValue) {
         boolean isThereValues = false;
-        for (Map.Entry<String, SelectOption<T>> entry : options.entrySet()) {
+        for (Map.Entry<String, SelectOption<T>> entry : searchableOptions.entrySet()) {
             boolean contains;
             if (caseSensitiveSearch)
                 contains = entry.getKey().contains(searchValue);
@@ -166,8 +171,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     public Select<T> clearSearch() {
-        for (Map.Entry<String, SelectOption<T>> entry : options.entrySet()) {
-            entry.getValue().asElement().classList.remove("hidden");
+        for (SelectOption<T> option : options) {
+            option.asElement().classList.remove("hidden");
         }
         selectElement.getSearchBox().value = "";
         hideNoResultsElement();
@@ -181,7 +186,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
             if (nonNull(getSelectedOption()))
                 getSelectedOption().focus();
             else if (!options.isEmpty())
-                options.firstEntry().getValue().focus();
+                options.getFirst().focus();
             if (searchable) {
                 clearSearch();
                 selectElement.getSearchBox().focus();
@@ -273,7 +278,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     public Select<T> addOption(SelectOption<T> option) {
-        options.put(option.getDisplayValue(), option);
+        options.add(option);
+        searchableOptions.put(option.getDisplayValue(), option);
         EventListener openOptionListener = evt -> {
             doSelectOption(option);
             evt.stopPropagation();
@@ -307,18 +313,18 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     public Select<T> selectAt(int index, boolean silent) {
         if (index < options.size() && index >= 0)
-            select((SelectOption<T>) options.values().toArray()[index], silent);
+            select(options.get(index), silent);
         return this;
     }
 
     public SelectOption<T> getOptionAt(int index) {
         if (index < options.size() && index >= 0)
-            return (SelectOption<T>) options.values().toArray()[index];
+            return options.get(index);
         return null;
     }
 
     public List<SelectOption<T>> getOptions() {
-        return new ArrayList<>(options.values());
+        return options;
     }
 
     public Select<T> select(SelectOption<T> option) {
@@ -519,7 +525,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     public Select<T> removeAllOptions() {
         if (nonNull(options) && !options.isEmpty()) {
-            options.values().forEach(this::removeOption);
+            options.forEach(this::removeOption);
             options.clear();
         }
         clear();
@@ -651,11 +657,11 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     public List<T> getValues() {
-        return options.values().stream().map(SelectOption::getValue).collect(Collectors.toList());
+        return options.stream().map(SelectOption::getValue).collect(Collectors.toList());
     }
 
     public List<String> getKeys() {
-        return options.values().stream().map(SelectOption::getKey).collect(Collectors.toList());
+        return options.stream().map(SelectOption::getKey).collect(Collectors.toList());
     }
 
     public boolean containsKey(String key) {
@@ -798,7 +804,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         public void handleEvent(Event evt) {
             KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
             HTMLElement element = Js.uncheckedCast(keyboardEvent.target);
-            for (SelectOption<T> option : options.values()) {
+            for (SelectOption<T> option : options) {
                 if (option.asElement().contains(element)) {
                     if (isArrowUp(keyboardEvent)) {
                         focusPrev(option);
@@ -819,20 +825,33 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         }
 
         private void focusNext(SelectOption<T> option) {
-            String nextKey = options.higherKey(option.getDisplayValue());
-            if (isNull(nextKey)) {
-                options.firstEntry().getValue().focus();
+            int nextIndex = options.indexOf(option) + 1;
+            int size = options.size();
+            if (nextIndex >= size) {
+                options.getFirst().focus();
             } else {
-                options.get(nextKey).focus();
+                for (int i = nextIndex; i < size; i++) {
+                    SelectOption<T> nextOption = options.get(i);
+                    if (!isHidden(nextOption)) {
+                        nextOption.focus();
+                        break;
+                    }
+                }
             }
         }
 
         private void focusPrev(SelectOption<T> option) {
-            String prevKey = options.lowerKey(option.getDisplayValue());
-            if (isNull(prevKey)) {
-                options.lastEntry().getValue().focus();
+            int nextIndex = options.indexOf(option) - 1;
+            if (nextIndex < 0) {
+                options.getLast().focus();
             } else {
-                options.get(prevKey).focus();
+                for (int i = nextIndex; i >= 0; i--) {
+                    SelectOption<T> nextOption = options.get(i);
+                    if (!isHidden(nextOption)) {
+                        nextOption.focus();
+                        break;
+                    }
+                }
             }
         }
     }
