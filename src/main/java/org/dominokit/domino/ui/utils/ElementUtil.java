@@ -1,13 +1,11 @@
 package org.dominokit.domino.ui.utils;
 
 import com.google.gwt.i18n.client.NumberFormat;
-import elemental2.dom.ClipboardEvent;
-import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.KeyboardEvent;
+import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.TextBox;
 import org.dominokit.domino.ui.notifications.Notification;
+import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.ObserverCallback;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
@@ -108,6 +106,19 @@ public class ElementUtil {
 
         });
         return textBox;
+    }
+
+    public static void scrollTop(){
+        DomGlobal.document.body.scrollTop = 0;
+        DomGlobal.document.documentElement.scrollTop = 0;
+    }
+
+    public static void scrollToElement(IsElement isElement){
+        scrollToElement(isElement.asElement());
+    }
+
+    public static void scrollToElement(HTMLElement element){
+        element.scrollIntoView();
     }
 
 }
