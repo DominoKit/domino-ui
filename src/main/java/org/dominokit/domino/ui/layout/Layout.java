@@ -65,7 +65,6 @@ public class Layout implements IsLayout {
             document.body.classList.add("ls-closed");
         new Theme(theme).apply();
         MediaQuery.addOnSmallAndDownListener(() -> {
-            Notification.createInfo("small and down").show();
             unfixFooter();
         });
         return this;
