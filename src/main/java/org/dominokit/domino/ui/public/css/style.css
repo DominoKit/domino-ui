@@ -5427,9 +5427,11 @@ section.content {
 }
 
 .btn:not(.btn-circle) span {
-    position: relative;
-    top: -2px;
+    position: absolute;
+    top: 6px;
+    left: 0;
     margin-left: 3px;
+    padding-right: 25px;
 }
 
 .btn-warning,
