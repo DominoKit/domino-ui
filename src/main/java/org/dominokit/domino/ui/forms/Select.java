@@ -49,6 +49,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private String noResultsElementDisplay;
     private boolean caseSensitiveSearch = false;
     private List<SelectOptionGroup<T>> groups = new ArrayList<>();
+    private boolean touchMoved;
 
     public Select() {
         initListeners();
@@ -66,12 +67,14 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private void initListeners() {
         EventListener hideAllListener = this::hideAllMenus;
         document.addEventListener(CLICK_EVENT, hideAllListener);
-        document.addEventListener(TOUCH_START_EVENT, evt -> {
-            TouchEvent touchEvent = Js.uncheckedCast(evt);
-            if (touchEvent.touches.length == 1) {
-                hideAllMenus(evt);
+        document.addEventListener("touchend", evt -> {
+            if (!touchMoved) {
+                hideAllListener.handleEvent(evt);
             }
+            touchMoved = false;
         });
+
+        document.addEventListener("touchmove", evt -> this.touchMoved = true);
 
         document.body.addEventListener(KEYDOWN, new NavigateOptionsKeyListener());
 
@@ -277,11 +280,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         };
         option.asElement().addEventListener(CLICK_EVENT, openOptionListener);
         option.asElement().addEventListener(TOUCH_START_EVENT, evt -> {
-            TouchEvent touchEvent = Js.uncheckedCast(evt);
-            if (touchEvent.touches.length == 1) {
-                doSelectOption(option);
-            }
-            evt.stopPropagation();
+            doSelectOption(option);
+            evt.preventDefault();
         });
         appendOptionValue(option);
         return this;

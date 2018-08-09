@@ -26,6 +26,8 @@ public class DropdownButton extends DominoElement<DropdownButton> implements Jus
     private List<Justifiable> items = new LinkedList<>();
     private Button button;
     private Color background;
+    private boolean touchMoved;
+    private DropDownPosition position = DropDownPosition.BOTTOM_RIGHT;
 
     public DropdownButton(String content, StyleType type) {
         this(Button.create(content).setButtonType(type));
@@ -57,14 +59,22 @@ public class DropdownButton extends DominoElement<DropdownButton> implements Jus
     }
 
     private void addHideListener() {
-        EventListener listener = evt -> {
-            HTMLElement element = Js.uncheckedCast(evt.target);
-            if (!groupElement.contains(element)) {
-                closeAllGroups();
+        EventListener listener = this::closeAllGroups;
+        document.addEventListener("click", listener);
+        document.addEventListener("touchend", evt -> {
+            if (!touchMoved) {
+                closeAllGroups(evt);
             }
-        };
-        document.body.addEventListener("click", listener);
-        document.body.addEventListener("touchstart", listener);
+            touchMoved = false;
+        });
+        document.addEventListener("touchmove", evt -> this.touchMoved = true);
+    }
+
+    private void closeAllGroups(Event evt) {
+        HTMLElement element = Js.uncheckedCast(evt.target);
+        if (!groupElement.contains(element)) {
+            closeAllGroups();
+        }
     }
 
     private HTMLElement asDropDown(Button button, HTMLElement groupElement) {
@@ -98,6 +108,7 @@ public class DropdownButton extends DominoElement<DropdownButton> implements Jus
 
     private void open(HTMLElement groupElement) {
         groupElement.classList.add("open");
+        position.position(actionsElement, groupElement);
     }
 
     private void close(Element item) {
@@ -176,6 +187,23 @@ public class DropdownButton extends DominoElement<DropdownButton> implements Jus
             button.asElement().classList.remove(this.background.getBackground());
         button.asElement().classList.add(background.getBackground());
         this.background = background;
+        return this;
+    }
+
+    public DropdownButton linkify() {
+        groupElement.classList.add("link");
+        button.linkify();
+        return this;
+    }
+
+    public DropdownButton delinkify() {
+        groupElement.classList.remove("link");
+        button.delinkify();
+        return this;
+    }
+
+    public DropdownButton setPosition(DropDownPosition position) {
+        this.position = position;
         return this;
     }
 
