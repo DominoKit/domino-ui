@@ -21,7 +21,11 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
     }
 
     public ValidationResult validate() {
-        formElements.forEach(HasValidation::validate);
+        boolean fieldsValid = validateFields();
+
+        if (!fieldsValid) {
+            return new ValidationResult(false, "Invalid fields");
+        }
 
         for (Validator validator : validators) {
             ValidationResult result = validator.isValid();
@@ -30,6 +34,19 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
             }
         }
         return ValidationResult.valid();
+    }
+
+    private boolean validateFields() {
+
+        boolean valid = true;
+
+        for (FormElement formElement : formElements) {
+            ValidationResult result = formElement.validate();
+            if (!result.isValid()) {
+                valid = false;
+            }
+        }
+        return valid;
     }
 
     public FieldsGrouping clear() {
@@ -110,4 +127,5 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
     public boolean hasValidator(Validator validator) {
         return validators.contains(validator);
     }
+
 }
