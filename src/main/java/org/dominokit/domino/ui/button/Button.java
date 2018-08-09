@@ -18,7 +18,7 @@ import static java.util.Objects.nonNull;
 public class Button extends WavesElement<Button, HTMLElement> implements
         Justifiable, HasClickableElement, Sizable<Button>, HasBackground<Button>,
         HasContent<Button>, IsElement<HTMLElement>, IsHtmlComponent<HTMLElement, Button>, HasStyleProperty<Button>,
-        Switchable<Button> , IsCollapsible<Button>{
+        Switchable<Button>, IsCollapsible<Button> {
 
     private static final String DISABLED = "disabled";
 
@@ -70,7 +70,7 @@ public class Button extends WavesElement<Button, HTMLElement> implements
 
     protected Button() {
         super.init(this, buttonElement);
-        collapsible= Collapsible.create(this);
+        collapsible = Collapsible.create(this);
     }
 
     protected Button(String content) {
@@ -198,6 +198,11 @@ public class Button extends WavesElement<Button, HTMLElement> implements
 
     public Button linkify() {
         buttonElement.classList.add("btn-link");
+        return this;
+    }
+
+    public Button delinkify() {
+        buttonElement.classList.remove("btn-link");
         return this;
     }
 

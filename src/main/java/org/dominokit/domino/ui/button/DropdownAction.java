@@ -4,7 +4,6 @@ package org.dominokit.domino.ui.button;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
-import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
 import org.dominokit.domino.ui.utils.Justifiable;
 import org.jboss.gwt.elemento.core.Elements;
@@ -12,9 +11,9 @@ import org.jboss.gwt.elemento.core.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DropdownAction implements Justifiable, HasClickableElement, HasSelectionHandler<DropdownAction> {
+public class DropdownAction implements Justifiable, HasSelectionHandler<DropdownAction> {
 
-    private HTMLLIElement iElement = Elements.li().asElement();
+    private HTMLLIElement liElement = Elements.li().asElement();
     private HTMLAnchorElement aElement;
     private List<SelectionHandler> selectionHandlers = new ArrayList<>();
 
@@ -22,12 +21,12 @@ public class DropdownAction implements Justifiable, HasClickableElement, HasSele
         aElement = Elements.a()
                 .textContent(content)
                 .asElement();
-        iElement.appendChild(aElement);
-        getClickableElement().addEventListener("click", evt -> {
+        liElement.appendChild(aElement);
+        liElement.addEventListener("click", evt -> {
             selectionHandlers.forEach(SelectionHandler::onSelection);
             evt.preventDefault();
         });
-        getClickableElement().addEventListener("touchstart", evt -> {
+        liElement.addEventListener("touchstart", evt -> {
             selectionHandlers.forEach(SelectionHandler::onSelection);
             evt.preventDefault();
         });
@@ -39,7 +38,7 @@ public class DropdownAction implements Justifiable, HasClickableElement, HasSele
 
     @Override
     public HTMLElement asElement() {
-        return iElement;
+        return liElement;
     }
 
     @Override
@@ -48,13 +47,12 @@ public class DropdownAction implements Justifiable, HasClickableElement, HasSele
     }
 
     @Override
-    public HTMLElement getClickableElement() {
-        return aElement;
-    }
-
-    @Override
     public DropdownAction addSelectionHandler(SelectionHandler selectionHandler) {
         selectionHandlers.add(selectionHandler);
         return this;
+    }
+
+    public HTMLAnchorElement getAElement() {
+        return aElement;
     }
 }

@@ -3830,6 +3830,10 @@ tbody.collapse.in {
 .btn-group .btn-group + .btn-group {
   margin-left: -1px;
 }
+.btn-group.link {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
 .btn-toolbar {
   margin-left: -5px;
 }
