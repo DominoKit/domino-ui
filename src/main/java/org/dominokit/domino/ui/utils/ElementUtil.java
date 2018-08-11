@@ -4,7 +4,6 @@ import com.google.gwt.i18n.client.NumberFormat;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.TextBox;
-import org.dominokit.domino.ui.notifications.Notification;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.ObserverCallback;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
@@ -12,10 +11,12 @@ import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 import java.util.Arrays;
 import java.util.List;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 public class ElementUtil {
+
+    private static final List<String> navigationKeies =Arrays.asList("Backspace", "Delete", "ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft", "Tab", "Escape");
+    private static final List<String> decimalKeies =Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", ".");
 
     public static void clear(Element element) {
         if (nonNull(element))
@@ -67,9 +68,10 @@ public class ElementUtil {
     }
 
     public static TextBox numbersOnly(TextBox textBox) {
+
         textBox.getInputElement().addEventListener("keypress", evt -> {
             KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-            if (!keyboardEvent.key.matches("^\\d+$")) {
+            if (!navigationKeies.contains(keyboardEvent.key) && !keyboardEvent.key.matches("^\\d+$")) {
                 evt.preventDefault();
             }
         });
@@ -86,12 +88,9 @@ public class ElementUtil {
 
         textBox.getInputElement().addEventListener("keypress", evt -> {
 
-            List<String> allowedKies = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", ".", "Backspace", "Delete", "ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft", "Tab", "Escape");
-
             KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
             String key = keyboardEvent.key;
-
-            if (!allowedKies.contains(key) || (key.equals(".") && textBox.getValue().contains("."))) {
+            if (!(decimalKeies.contains(key) || navigationKeies.contains(key)) || (key.equals(".") && textBox.getValue().contains("."))) {
                 evt.preventDefault();
             }
 
@@ -108,16 +107,16 @@ public class ElementUtil {
         return textBox;
     }
 
-    public static void scrollTop(){
+    public static void scrollTop() {
         DomGlobal.document.body.scrollTop = 0;
         DomGlobal.document.documentElement.scrollTop = 0;
     }
 
-    public static void scrollToElement(IsElement isElement){
+    public static void scrollToElement(IsElement isElement) {
         scrollToElement(isElement.asElement());
     }
 
-    public static void scrollToElement(HTMLElement element){
+    public static void scrollToElement(HTMLElement element) {
         element.scrollIntoView();
     }
 

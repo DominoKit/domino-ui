@@ -2,6 +2,8 @@ package org.dominokit.domino.ui.badges;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -36,8 +38,10 @@ public class Badge extends DominoElement<Badge> implements IsElement<HTMLElement
     }
 
     public Badge pullRight() {
-        if (!pulledRight)
-            badgeElement.classList.add("pull-right");
+        Style<HTMLElement, Badge> style = Style.of(this);
+        if(!style.hasClass(Styles.pull_right)){
+            style.css(Styles.pull_right);
+        }
 
         return this;
     }

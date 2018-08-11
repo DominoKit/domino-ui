@@ -177,17 +177,26 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
         return this;
     }
 
+    @Deprecated
     public ListItem<T> appendContent(Node node) {
         this.asElement().appendChild(node);
         return this;
     }
 
-    public HTMLHeadingElement getHeaderElement() {
-        return header;
+    @Deprecated
+    public ListItem<T> appendContent(IsElement isElement) {
+        this.asElement().appendChild(isElement.asElement());
+        return this;
     }
 
-    public HTMLParagraphElement getBodyElement() {
-        return body;
+    public ListItem<T> appendChild(Node node) {
+        this.asElement().appendChild(node);
+        return this;
+    }
+
+    public ListItem<T> appendChild(IsElement isElement) {
+        this.asElement().appendChild(isElement.asElement());
+        return this;
     }
 
     void setParent(HasMultiSelectSupport<ListItem<T>> parent) {
