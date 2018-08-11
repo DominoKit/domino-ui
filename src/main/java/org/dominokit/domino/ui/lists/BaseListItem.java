@@ -44,4 +44,12 @@ public class BaseListItem<T extends Element> {
     public T getElement() {
         return element;
     }
+
+    public HTMLHeadingElement getHeader() {
+        return header;
+    }
+
+    public HTMLParagraphElement getBody() {
+        return body;
+    }
 }
