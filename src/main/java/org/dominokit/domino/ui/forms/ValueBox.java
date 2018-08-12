@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.Focusable;
 import org.dominokit.domino.ui.utils.HasPlaceHolder;
 import org.dominokit.domino.ui.utils.IsReadOnly;
@@ -121,6 +122,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
             setLeftAddonColor(focusColor);
         }
         showPlaceholder();
+        ElementUtil.onAttach(getInputElement(), mutationRecord -> getInputElement().focus());
         return (T) this;
     }
 
