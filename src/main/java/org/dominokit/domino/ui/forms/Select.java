@@ -470,7 +470,10 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
             selectElement.getSelectLabel().classList.add(focusColor.getStyle());
             selectElement.getFormControl().classList.add("fc-" + focusColor.getStyle());
             setLeftAddonColor(focusColor);
-            selectElement.getSelectMenu().focus();
+            onAttach(selectElement.asElement(), mutationRecord -> {
+                selectElement.getSelectMenu().focus();
+            });
+
         }
         return this;
     }
