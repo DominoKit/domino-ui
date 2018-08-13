@@ -156,8 +156,8 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     public SwitchButton setColor(Color color) {
         if (this.color != null)
-            lever.classList.remove("switch-" + this.color.getStyle());
-        lever.classList.add("switch-" + color.getStyle());
+            lever.classList.remove(this.color.getStyle());
+        lever.classList.add(color.getStyle());
         this.color = color;
         return this;
 

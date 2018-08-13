@@ -24,6 +24,9 @@ public interface ColorScheme {
 
     Color darker_4();
 
+    String rgba_1();
+    String rgba_2();
+
     default Theme theme() {
         return new Theme(this);
     }
@@ -133,6 +136,16 @@ public interface ColorScheme {
         public String getName() {
             return "RED";
         }
+
+        @Override
+        public String rgba_1() {
+            return "244, 67, 54, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "244, 67, 54, 0.5";
+        }
     };
 
     ColorScheme PINK = new ColorScheme() {
@@ -185,6 +198,17 @@ public interface ColorScheme {
         public Color darker_4() {
             return Color.PINK_DARKEN_4;
         }
+
+        @Override
+        public String rgba_1() {
+            return "233, 30, 99, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "233, 30, 99, 0.5";
+        }
+
     };
 
     ColorScheme PURPLE = new ColorScheme() {
@@ -237,6 +261,16 @@ public interface ColorScheme {
         public Color darker_4() {
             return Color.PURPLE_DARKEN_4;
         }
+
+        @Override
+        public String rgba_1() {
+            return "156, 39, 176, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "156, 39, 176, 0.5";
+        }
     };
 
     ColorScheme DEEP_PURPLE = new ColorScheme() {
@@ -288,6 +322,16 @@ public interface ColorScheme {
         @Override
         public Color darker_4() {
             return Color.DEEP_PURPLE_DARKEN_4;
+        }
+
+        @Override
+        public String rgba_1() {
+            return "103, 58, 183, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "103, 58, 183, 0.5";
         }
 
     };
@@ -343,6 +387,16 @@ public interface ColorScheme {
             return Color.INDIGO_DARKEN_4;
         }
 
+        @Override
+        public String rgba_1() {
+            return "63, 81, 181, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "63, 81, 181, 0.5";
+        }
+
     };
 
     ColorScheme BLUE = new ColorScheme() {
@@ -395,6 +449,17 @@ public interface ColorScheme {
         public Color darker_4() {
             return Color.BLUE_DARKEN_4;
         }
+
+        @Override
+        public String rgba_1() {
+            return "33, 150, 243, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "33, 150, 243, 0.5";
+        }
+
     };
 
     ColorScheme LIGHT_BLUE = new ColorScheme() {
@@ -446,6 +511,16 @@ public interface ColorScheme {
         @Override
         public Color darker_4() {
             return Color.LIGHT_BLUE_DARKEN_4;
+        }
+
+        @Override
+        public String rgba_1() {
+            return "3, 169, 244, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "3, 169, 244, 0.5";
         }
     };
 
@@ -499,6 +574,16 @@ public interface ColorScheme {
         public Color darker_4() {
             return Color.CYAN_DARKEN_4;
         }
+
+        @Override
+        public String rgba_1() {
+            return "0, 188, 212, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "0, 188, 212, 0.5";
+        }
     };
 
     ColorScheme TEAL = new ColorScheme() {
@@ -550,6 +635,16 @@ public interface ColorScheme {
         @Override
         public Color darker_4() {
             return Color.TEAL_DARKEN_4;
+        }
+
+        @Override
+        public String rgba_1() {
+            return "0, 150, 136, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "0, 150, 136, 0.5";
         }
     };
 
@@ -603,6 +698,16 @@ public interface ColorScheme {
         public Color darker_4() {
             return Color.GREEN_DARKEN_4;
         }
+
+        @Override
+        public String rgba_1() {
+            return "76, 175, 80, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "76, 175, 80, 0.5";
+        }
     };
 
     ColorScheme LIGHT_GREEN = new ColorScheme() {
@@ -654,6 +759,16 @@ public interface ColorScheme {
         @Override
         public Color darker_4() {
             return Color.LIGHT_GREEN_DARKEN_4;
+        }
+
+        @Override
+        public String rgba_1() {
+            return "139, 195, 74, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "139, 195, 74, 0.5";
         }
     };
 
@@ -707,6 +822,16 @@ public interface ColorScheme {
         public Color darker_4() {
             return Color.LIME_DARKEN_4;
         }
+
+        @Override
+        public String rgba_1() {
+            return "205, 220, 57, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "205, 220, 57, 0.5";
+        }
     };
 
     ColorScheme YELLOW = new ColorScheme() {
@@ -758,6 +883,16 @@ public interface ColorScheme {
         @Override
         public Color darker_4() {
             return Color.YELLOW_DARKEN_4;
+        }
+
+        @Override
+        public String rgba_1() {
+            return "255, 232, 33, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "255, 232, 33, 0.5";
         }
     };
 
@@ -811,6 +946,16 @@ public interface ColorScheme {
         public Color darker_4() {
             return Color.AMBER_DARKEN_4;
         }
+
+        @Override
+        public String rgba_1() {
+            return "255, 193, 7, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "255, 193, 7, 0.5";
+        }
     };
 
     ColorScheme ORANGE = new ColorScheme() {
@@ -863,6 +1008,17 @@ public interface ColorScheme {
         public Color darker_4() {
             return Color.ORANGE_DARKEN_4;
         }
+
+        @Override
+        public String rgba_1() {
+            return "255, 152, 0, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "255, 152, 0, 0.5";
+        }
+
     };
 
     ColorScheme DEEP_ORANGE = new ColorScheme() {
@@ -914,6 +1070,16 @@ public interface ColorScheme {
         @Override
         public Color darker_4() {
             return Color.DEEP_ORANGE_DARKEN_4;
+        }
+
+        @Override
+        public String rgba_1() {
+            return "255, 87, 34, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "255, 87, 34, 0.5";
         }
     };
 
@@ -967,6 +1133,16 @@ public interface ColorScheme {
         public Color darker_4() {
             return Color.BROWN_DARKEN_4;
         }
+
+        @Override
+        public String rgba_1() {
+            return "121, 85, 72, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "121, 85, 72, 0.5";
+        }
     };
 
     ColorScheme GREY = new ColorScheme() {
@@ -1018,6 +1194,16 @@ public interface ColorScheme {
         @Override
         public Color darker_4() {
             return Color.GREY_DARKEN_4;
+        }
+
+        @Override
+        public String rgba_1() {
+            return "158, 158, 158, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "158, 158, 158, 0.5";
         }
     };
 
@@ -1071,6 +1257,16 @@ public interface ColorScheme {
         public Color darker_4() {
             return Color.BLUE_GREY_DARKEN_4;
         }
+
+        @Override
+        public String rgba_1() {
+            return "96, 125, 139, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "96, 125, 139, 0.5";
+        }
     };
 
     ColorScheme BLACK = new ColorScheme() {
@@ -1122,6 +1318,16 @@ public interface ColorScheme {
         @Override
         public Color darker_4() {
             return Color.BLACK_DARKEN_4;
+        }
+
+        @Override
+        public String rgba_1() {
+            return "0, 0, 0, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "0, 0, 0, 0.5";
         }
     };
 
@@ -1175,6 +1381,16 @@ public interface ColorScheme {
         public Color darker_4() {
             return Color.WHITE_DARKEN_4;
         }
+
+        @Override
+        public String rgba_1() {
+            return "255, 255, 255, 0.1";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "255, 255, 255, 0.5";
+        }
     };
 
     ColorScheme TRANSPARENT = new ColorScheme() {
@@ -1226,6 +1442,16 @@ public interface ColorScheme {
         @Override
         public Color darker_4() {
             return Color.TRANSPARENT_DARKEN_4;
+        }
+
+        @Override
+        public String rgba_1() {
+            return "";
+        }
+
+        @Override
+        public String rgba_2() {
+            return "";
         }
     };
 }

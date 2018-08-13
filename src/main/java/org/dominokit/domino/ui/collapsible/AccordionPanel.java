@@ -141,7 +141,7 @@ public class AccordionPanel implements IsElement<HTMLDivElement>, IsCollapsible<
     }
 
     public AccordionPanel setColor(Color color) {
-        return applyStyle("panel-" + color.getStyle());
+        return applyStyle(color.getStyle());
     }
 
     AccordionPanel applyStyle(String style) {
