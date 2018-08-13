@@ -190,8 +190,8 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     @Override
     public T setModalColor(Color color) {
         if (nonNull(this.color))
-            modal.modalContent.classList.remove("modal-" + this.color.getStyle());
-        modal.modalContent.classList.add("modal-" + color.getStyle());
+            modal.modalContent.classList.remove(this.color.getStyle());
+        modal.modalContent.classList.add(color.getStyle());
         this.color = color;
         return (T) this;
     }

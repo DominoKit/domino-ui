@@ -106,8 +106,8 @@ public class Radio extends DominoElement<Radio> implements IsElement<HTMLDivElem
 
     public Radio setColor(Color color) {
         if (this.color != null)
-            inputElement.classList.remove("radio-" + this.color.getStyle());
-        inputElement.classList.add("radio-" + color.getStyle());
+            inputElement.classList.remove(this.color.getStyle());
+        inputElement.classList.add(color.getStyle());
         this.color = color;
         return this;
     }

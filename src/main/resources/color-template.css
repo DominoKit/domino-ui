@@ -1,0 +1,539 @@
+/*======================== ${COLOR} ========================*/
+
+.bg${color_base_name},
+.list-group.bg${color_base_name},
+.list-group.bg${color_base_name}:hover,
+.list-group.bg${color_base_name}:focus,
+[type="checkbox"].filled-in:checked.col${color_base_name} + label:after,
+[type="radio"].with-gap.col${color_base_name}:checked + label:after,
+[type="radio"].col${color_base_name}:checked + label:after,
+.switch label input[type=checkbox]:checked + .lever.col${color_base_name}:after,
+.modal-content.col${color_base_name},
+.panel-group .panel.col${color_base_name} .panel-title,
+.panel-group.full-body .panel.col${color_base_name} .panel-body{
+    background-color: ${main_color};
+}
+
+.fc-col${color_base_name}:not([class*="lever"]) {
+    border-bottom: 1px solid ${main_color};
+    box-shadow: 0px 1px ${main_color};
+}
+.col${color_base_name},
+.breadcrumb.col${color_base_name} li a{
+    color: ${main_color};
+}
+[type="checkbox"]:checked.col${color_base_name} + label:before {
+    border-right: 2px solid ${main_color};
+    border-bottom: 2px solid ${main_color};
+}
+[type="checkbox"].filled-in:checked.col${color_base_name} + label:after,
+[type="radio"].with-gap.col${color_base_name}:checked + label:before,
+[type="radio"].with-gap.col${color_base_name}:checked + label:after{
+    border: 2px solid ${main_color};
+}
+[type="radio"].col${color_base_name}:checked + label:after {
+    border-color: ${main_color};
+}
+.nav-tabs.tab-col${color_base_name} > li > a:before{
+    border-bottom: 2px solid ${main_color};
+}
+.panel-group.col${color_base_name} {
+    border: 1px solid ${main_color};
+}
+
+
+.bg${color_base_name}-l-1,
+.list-group.bg${color_base_name}-l-1,
+.list-group.bg${color_base_name}-l-1:hover,
+.list-group.bg${color_base_name}-l-1:focus,
+[type="checkbox"].filled-in:checked.col${color_base_name}-l-1 + label:after,
+[type="radio"].with-gap.col${color_base_name}-l-1:checked + label:after,
+[type="radio"].col${color_base_name}-l-1:checked + label:after,
+.switch label input[type=checkbox]:checked + .lever.col${color_base_name}-l-1:after,
+.modal-content.col${color_base_name}-l-1,
+.panel-group .panel.col${color_base_name}-l-1 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-l-1 .panel-body {
+    background-color: ${color_l_1};
+}
+
+.fc-col${color_base_name}-l-1:not([class*="lever"]) {
+    border-bottom: 1px solid ${color_l_1};
+    box-shadow: 0px 1px ${color_l_1};
+}
+.col${color_base_name}-l-1,
+.breadcrumb.col${color_base_name}-l-1 li a {
+    color: ${color_l_1};
+}
+[type="checkbox"]:checked.col${color_base_name}-l-1 + label:before {
+    border-right: 2px solid ${color_l_1};
+    border-bottom: 2px solid ${color_l_1};
+}
+[type="checkbox"].filled-in:checked.col${color_base_name}-l-1 + label:after,
+[type="radio"].with-gap.col${color_base_name}-l-1:checked + label:before,
+[type="radio"].with-gap.col${color_base_name}-l-1:checked + label:after {
+    border: 2px solid ${color_l_1};
+}
+[type="radio"].col${color_base_name}-l-1:checked + label:after {
+    border-color: ${color_l_1};
+}
+.nav-tabs.tab-col${color_base_name}-l-1 > li > a:before{
+    border-bottom: 2px solid ${color_l_1};
+}
+.panel-group.col${color_base_name}-l-1 {
+    border: 1px solid ${color_l_1};
+}
+
+
+.bg${color_base_name}-l-2,
+.list-group.bg${color_base_name}-l-2,
+.list-group.bg${color_base_name}-l-2:hover,
+.list-group.bg${color_base_name}-l-2:focus,
+[type="checkbox"].filled-in:checked.col${color_base_name}-l-2 + label:after,
+[type="radio"].with-gap.col${color_base_name}-l-2:checked + label:after,
+[type="radio"].col${color_base_name}-l-2:checked + label:after,
+.switch label input[type=checkbox]:checked + .lever.col${color_base_name}-l-2:after,
+.modal-content.col${color_base_name}-l-2,
+.panel-group .panel.col${color_base_name}-l-2 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-l-2 .panel-body {
+    background-color: ${color_l_2};
+}
+
+.fc-col${color_base_name}-l-2:not([class*="lever"]) {
+    border-bottom: 1px solid ${color_l_2};
+    box-shadow: 0px 1px ${color_l_2};
+}
+.col${color_base_name}-l-2,
+.breadcrumb.col${color_base_name}-l-2 li a {
+    color: ${color_l_2};
+}
+[type="checkbox"]:checked.col${color_base_name}-l-2 + label:before {
+    border-right: 2px solid ${color_l_2};
+    border-bottom: 2px solid ${color_l_2};
+}
+[type="checkbox"].filled-in:checked.col${color_base_name}-l-2 + label:after,
+[type="radio"].with-gap.col${color_base_name}-l-2:checked + label:before,
+[type="radio"].with-gap.col${color_base_name}-l-2:checked + label:after {
+    border: 2px solid ${color_l_2};
+}
+[type="radio"].col${color_base_name}-l-2:checked + label:after {
+    border-color: ${color_l_2};
+}
+.nav-tabs.tab-col${color_base_name}-l-2 > li > a:before{
+    border-bottom: 2px solid ${color_l_2};
+}
+.panel-group.col${color_base_name}-l-2 {
+    border: 1px solid ${color_l_2};
+}
+
+.bg${color_base_name}-l-3,
+.list-group.bg${color_base_name}-l-3,
+.list-group.bg${color_base_name}-l-3:hover,
+.list-group.bg${color_base_name}-l-3:focus,
+[type="checkbox"].filled-in:checked.col${color_base_name}-l-3 + label:after,
+[type="radio"].with-gap.col${color_base_name}-l-3:checked + label:after,
+[type="radio"].with-gap.col${color_base_name}-l-3:checked + label:after,
+[type="radio"].col${color_base_name}-l-3:checked + label:after,
+.switch label input[type=checkbox]:checked + .lever.col${color_base_name}-l-3:after,
+.modal-content.col${color_base_name}-l-3,
+.panel-group .panel.col${color_base_name}-l-3 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-l-3 .panel-body {
+    background-color: ${color_l_3};
+}
+
+.fc-col${color_base_name}-l-3:not([class*="lever"]) {
+    border-bottom: 1px solid ${color_l_3};
+    box-shadow: 0px 1px ${color_l_3};
+}
+
+.col${color_base_name}-l-3,
+.breadcrumb.col${color_base_name}-l-3 li a {
+    color: ${color_l_3};
+}
+[type="checkbox"]:checked.col${color_base_name}-l-3 + label:before {
+    border-right: 2px solid ${color_l_3};
+    border-bottom: 2px solid ${color_l_3};
+}
+[type="checkbox"].filled-in:checked.col${color_base_name}-l-3 + label:after,
+[type="radio"].with-gap.col${color_base_name}-l-3:checked + label:before,
+[type="radio"].with-gap.col${color_base_name}-l-3:checked + label:after {
+    border: 2px solid ${color_l_3};
+}
+[type="radio"].col${color_base_name}-l-3:checked + label:after {
+    border-color: ${color_l_3};
+}
+.nav-tabs.tab-col${color_base_name}-l-3 > li > a:before{
+    border-bottom: 2px solid ${color_l_3};
+}
+.panel-group.col${color_base_name}-l-3 {
+    border: 1px solid ${color_l_3};
+}
+
+.bg${color_base_name}-l-4,
+.list-group.bg${color_base_name}-l-4,
+.list-group.bg${color_base_name}-l-4:hover,
+.list-group.bg${color_base_name}-l-4:focus,
+[type="checkbox"].filled-in:checked.col${color_base_name}-l-4 + label:after,
+[type="radio"].with-gap.col${color_base_name}-l-4:checked + label:after,
+[type="radio"].col${color_base_name}-l-4:checked + label:after,
+.switch label input[type=checkbox]:checked + .lever.col${color_base_name}-l-4:after,
+.modal-content.col${color_base_name}-l-4,
+.panel-group .panel.col${color_base_name}-l-4 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-l-4 .panel-body {
+    background-color: ${color_l_4};
+}
+
+.fc-col${color_base_name}-l-4:not([class*="lever"]) {
+    border-bottom: 1px solid ${color_l_4};
+    box-shadow: 0px 1px ${color_l_4};
+}
+.col${color_base_name}-l-4,
+.breadcrumb.col${color_base_name}-l-4 li a {
+    color: ${color_l_4};
+}
+[type="checkbox"]:checked.col${color_base_name}-l-4 + label:before {
+    border-right: 2px solid ${color_l_4};
+    border-bottom: 2px solid ${color_l_4};
+}
+[type="checkbox"].filled-in:checked.col${color_base_name}-l-4 + label:after,
+[type="radio"].with-gap.col${color_base_name}-l-4:checked + label:before,
+[type="radio"].with-gap.col${color_base_name}-l-4:checked + label:after {
+    border: 2px solid ${color_l_4};
+}
+[type="radio"].col${color_base_name}-l-4:checked + label:after {
+    border-color: ${color_l_4};
+}
+.nav-tabs.tab-col${color_base_name}-l-4 > li > a:before{
+    border-bottom: 2px solid ${color_l_4};
+}
+.panel-group.col${color_base_name}-l-4 {
+    border: 1px solid ${color_l_4};
+}
+
+.bg${color_base_name}-l-5 ,
+.list-group.bg${color_base_name}-l-5,
+.list-group.bg${color_base_name}-l-5:hover,
+.list-group.bg${color_base_name}-l-5:focus,
+[type="checkbox"].filled-in:checked.col${color_base_name}-l-5 + label:after,
+[type="radio"].with-gap.col${color_base_name}-l-5:checked + label:after,
+[type="radio"].col${color_base_name}-l-5:checked + label:after,
+.switch label input[type=checkbox]:checked + .lever.col${color_base_name}-l-5:after,
+.modal-content.col${color_base_name}-l-5,
+.panel-group .panel.col${color_base_name}-l-5 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-l-5 .panel-body {
+    background-color: ${color_l_5};
+}
+
+.fc-col${color_base_name}-l-5:not([class*="lever"]) {
+    border-bottom: 1px solid ${color_l_5};
+    box-shadow: 0px 1px ${color_l_5};
+}
+.col${color_base_name}-l-1,
+.breadcrumb.col${color_base_name}-l-5 li a {
+    color: ${color_l_5};
+}
+[type="checkbox"]:checked.col${color_base_name}-l-5 + label:before {
+    border-right: 2px solid ${color_l_5};
+    border-bottom: 2px solid ${color_l_5};
+}
+[type="checkbox"].filled-in:checked.col${color_base_name}-l-5 + label:after,
+[type="radio"].with-gap.col${color_base_name}-l-5:checked + label:before,
+[type="radio"].with-gap.col${color_base_name}-l-5:checked + label:after {
+    border: 2px solid ${color_l_5};
+}
+[type="radio"].col${color_base_name}-l-5:checked + label:after {
+    border-color: ${color_l_5};
+}
+.nav-tabs.tab-col${color_base_name}-l-5 > li > a:before{
+    border-bottom: 2px solid ${color_l_5};
+}
+.panel-group.col${color_base_name}-l-5 {
+    border: 1px solid ${color_l_5};
+}
+
+.bg${color_base_name}-d-1,
+.list-group.bg${color_base_name}-d-1,
+.list-group.bg${color_base_name}-d-1:hover,
+.list-group.bg${color_base_name}-d-1:focus,
+[type="checkbox"].filled-in:checked.col${color_base_name}-d-1 + label:after,
+[type="radio"].with-gap.col${color_base_name}-d-1:checked + label:after,
+[type="radio"].col${color_base_name}-d-1:checked + label:after,
+.switch label input[type=checkbox]:checked + .lever.col${color_base_name}-d-1:after,
+.modal-content.col${color_base_name}-d-1,
+.panel-group .panel.col${color_base_name}-d-1 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-d-1 .panel-body {
+    background-color: ${color_d_1};
+}
+
+.fc-col${color_base_name}-d-1:not([class*="lever"]) {
+    border-bottom: 1px solid ${color_d_1};
+    box-shadow: 0px 1px ${color_d_1};
+}
+.col${color_base_name}-d-1,
+.breadcrumb.col${color_base_name}-d-1 li a {
+    color: ${color_d_1};
+}
+[type="checkbox"]:checked.col${color_base_name}-d-1 + label:before {
+    border-right: 2px solid ${color_d_1};
+    border-bottom: 2px solid ${color_d_1};
+}
+[type="checkbox"].filled-in:checked.col${color_base_name}-d-1 + label:after,
+[type="radio"].with-gap.col${color_base_name}-d-1:checked + label:before,
+[type="radio"].with-gap.col${color_base_name}-d-1:checked + label:after {
+    border: 2px solid ${color_d_1};
+}
+[type="radio"].col${color_base_name}-d-1:checked + label:after {
+    border-color: ${color_d_1};
+}
+.nav-tabs.tab-col${color_base_name}-d-1 > li > a:before{
+    border-bottom: 2px solid ${color_d_1};
+}
+.panel-group.col${color_base_name}-d-1 {
+    border: 1px solid ${color_d_1};
+}
+
+.bg${color_base_name}-d-2,
+.list-group.bg${color_base_name}-d-2,
+.list-group.bg${color_base_name}-d-2:hover,
+.list-group.bg${color_base_name}-d-2:focus,
+[type="checkbox"].filled-in:checked.col${color_base_name}-d-2 + label:after,
+[type="radio"].with-gap.col${color_base_name}-d-2:checked + label:after,
+[type="radio"].col${color_base_name}-d-2:checked + label:after,
+.switch label input[type=checkbox]:checked + .lever.col${color_base_name}-d-2:after,
+.modal-content.col${color_base_name}-d-2,
+.panel-group .panel.col${color_base_name}-d-2 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-d-2 .panel-body {
+    background-color: ${color_d_2};
+}
+
+.fc-col${color_base_name}-d-2:not([class*="lever"]) {
+    border-bottom: 1px solid ${color_d_2};
+    box-shadow: 0px 1px ${color_d_2};
+}
+.col${color_base_name}-d-2,
+.breadcrumb.col${color_base_name}-d-2 li a {
+    color: ${color_d_2};
+}
+[type="checkbox"]:checked.col${color_base_name}-d-2 + label:before {
+    border-right: 2px solid ${color_d_2};
+    border-bottom: 2px solid ${color_d_2};
+}
+[type="checkbox"].filled-in:checked.col${color_base_name}-d-2 + label:after,
+[type="radio"].with-gap.col${color_base_name}-d-2:checked + label:before,
+[type="radio"].with-gap.col${color_base_name}-d-2:checked + label:after {
+    border: 2px solid ${color_d_2};
+}
+[type="radio"].col${color_base_name}-d-2:checked + label:after {
+    border-color: ${color_d_2};
+}
+.nav-tabs.tab-col${color_base_name}-d-2 > li > a:before{
+    border-bottom: 2px solid ${color_d_2};
+}
+.panel-group.col${color_base_name}-d-2 {
+    border: 1px solid ${color_d_2};
+}
+
+.bg${color_base_name}-d-3,
+.list-group.bg${color_base_name}-d-3,
+.list-group.bg${color_base_name}-d-3:hover,
+.list-group.bg${color_base_name}-d-3:focus,
+[type="checkbox"].filled-in:checked.col${color_base_name}-d-3 + label:after,
+[type="radio"].with-gap.col${color_base_name}-d-3:checked + label:after,
+[type="radio"].col${color_base_name}-d-2:checked + label:after,
+.switch label input[type=checkbox]:checked + .lever.col${color_base_name}-d-3:after,
+.modal-content.col${color_base_name}-d-3,
+.panel-group .panel.col${color_base_name}-d-3 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-d-3 .panel-body {
+    background-color: ${color_d_3};
+}
+
+.fc-col${color_base_name}-d-3:not([class*="lever"]) {
+    border-bottom: 1px solid ${color_d_3};
+    box-shadow: 0px 1px ${color_d_3};
+}
+.col${color_base_name}-d-3,
+.breadcrumb.col${color_base_name}-d-2 li a{
+    color: ${color_d_3};
+}
+[type="checkbox"]:checked.col${color_base_name}-d-3 + label:before {
+    border-right: 2px solid ${color_d_3};
+    border-bottom: 2px solid ${color_d_3};
+}
+[type="checkbox"].filled-in:checked.col${color_base_name}-d-3 + label:after,
+[type="radio"].with-gap.col${color_base_name}-d-3:checked + label:before,
+[type="radio"].with-gap.col${color_base_name}-d-3:checked + label:after {
+    border: 2px solid ${color_d_3};
+}
+[type="radio"].col${color_base_name}-d-3:checked + label:after {
+    border-color: ${color_d_3};
+}
+.nav-tabs.tab-col${color_base_name}-d-3 > li > a:before{
+    border-bottom: 2px solid ${color_d_3};
+}
+.panel-group.col${color_base_name}-d-3 {
+    border: 1px solid ${color_d_3};
+}
+
+.bg${color_base_name}-d-4,
+.list-group.bg${color_base_name}-d-4,
+.list-group.bg${color_base_name}-d-4:hover,
+.list-group.bg${color_base_name}-d-4:focus,
+[type="checkbox"].filled-in:checked.col${color_base_name}-d-4 + label:after,
+[type="radio"].with-gap.col${color_base_name}-d-4:checked + label:after,
+[type="radio"].col${color_base_name}-d-4:checked + label:after,
+.switch label input[type=checkbox]:checked + .lever.col${color_base_name}-d-4:after,
+.modal-content.col${color_base_name}-d-4,
+.panel-group .panel.col${color_base_name}-d-4 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-d-4 .panel-body {
+    background-color: ${color_d_4};
+}
+
+.fc-col${color_base_name}-d-4:not([class*="lever"]) {
+    border-bottom: 1px solid ${color_d_4};
+    box-shadow: 0px 1px ${color_d_4};
+}
+.col${color_base_name}-d-4,
+.breadcrumb.col${color_base_name}-d-4 li a {
+    color: ${color_d_4};
+}
+[type="checkbox"]:checked.col${color_base_name}-d-4 + label:before {
+    border-right: 2px solid ${color_d_4};
+    border-bottom: 2px solid ${color_d_4};
+}
+[type="checkbox"].filled-in:checked.col${color_base_name}-d-4 + label:after,
+[type="radio"].with-gap.col${color_base_name}-d-4:checked + label:before,
+[type="radio"].with-gap.col${color_base_name}-d-4:checked + label:after {
+    border: 2px solid ${color_d_4};
+}
+[type="radio"].col${color_base_name}-d-4:checked + label:after {
+    border-color: ${color_d_4};
+}
+.nav-tabs.tab-col${color_base_name}-d-4 > li > a:before{
+    border-bottom: 2px solid ${color_d_4};
+}
+.panel-group.col${color_base_name}-d-4 {
+    border: 1px solid ${color_d_4};
+}
+
+.bg${color_base_name},
+.bg${color_base_name} .content .text,
+.bg${color_base_name} .content .number,
+.list-group.bg${color_base_name},
+.list-group.bg${color_base_name}:hover,
+.list-group.bg${color_base_name}:focus,
+.modal-content.col${color_base_name} .modal-body,
+.modal-content.col${color_base_name} .modal-footer .btn-link,
+.modal-content.col${color_base_name} .modal-title,
+.panel-group .panel.col${color_base_name} .panel-title,
+.panel-group.full-body .panel.col${color_base_name} .panel-body,
+.bg${color_base_name}-l-1,
+.bg${color_base_name}-l-1 .content .text,
+.bg${color_base_name}-l-1 .content .number,
+.list-group.bg${color_base_name}-l-1,
+.list-group.bg${color_base_name}-l-1:hover,
+.list-group.bg${color_base_name}-l-1:focus,
+.modal-content.col${color_base_name}-l-1 .modal-body,
+.modal-content.col${color_base_name}-l-1 .modal-footer .btn-link,
+.modal-content.col${color_base_name}-l-1 .modal-title,
+.panel-group .panel.col${color_base_name}-l-1 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-l-1 .panel-body,
+.bg${color_base_name}-l-2,
+.bg${color_base_name}-l-2 .content .text,
+.bg${color_base_name}-l-2 .content .number,
+.list-group.bg${color_base_name}-l-2,
+.list-group.bg${color_base_name}-l-2:hover,
+.list-group.bg${color_base_name}-l-2:focus,
+.modal-content.col${color_base_name}-l-2 .modal-body,
+.modal-content.col${color_base_name}-l-2 .modal-footer .btn-link,
+.modal-content.col${color_base_name}-l-2 .modal-title,
+.panel-group .panel.col${color_base_name}-l-2 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-l-2 .panel-body,
+.bg${color_base_name}-d-1,
+.bg${color_base_name}-d-1 .content .text,
+.bg${color_base_name}-d-1 .content .number,
+.list-group.bg${color_base_name}-d-1,
+.list-group.bg${color_base_name}-d-1:hover,
+.list-group.bg${color_base_name}-d-1:focus,
+.modal-content.col${color_base_name}-d-1 .modal-body,
+.modal-content.col${color_base_name}-d-1 .modal-footer .btn-link,
+.modal-content.col${color_base_name}-d-1 .modal-title,
+.panel-group .panel.col${color_base_name}-d-1 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-d-1 .panel-body,
+.bg${color_base_name}-d-2,
+.bg${color_base_name}-d-2 .content .text,
+.bg${color_base_name}-d-2 .content .number,
+.list-group.bg${color_base_name}-d-2,
+.list-group.bg${color_base_name}-d-2:hover,
+.list-group.bg${color_base_name}-d-2:focus,
+.modal-content.col${color_base_name}-d-2 .modal-body,
+.modal-content.col${color_base_name}-d-2 .modal-footer .btn-link,
+.modal-content.col${color_base_name}-d-2 .modal-title,
+.panel-group .panel.col${color_base_name}-d-2 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-d-2 .panel-body,
+.bg${color_base_name}-d-3,
+.bg${color_base_name}-d-3 .content .text,
+.bg${color_base_name}-d-3 .content .number,
+.list-group.bg${color_base_name}-d-3,
+.list-group.bg${color_base_name}-d-3:hover,
+.list-group.bg${color_base_name}-d-3:focus,
+.modal-content.col${color_base_name}-d-3 .modal-body,
+.modal-content.col${color_base_name}-d-3 .modal-footer .btn-link,
+.modal-content.col${color_base_name}-d-3 .modal-title,
+.panel-group .panel.col${color_base_name}-d-3 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-d-3 .panel-body,
+.bg${color_base_name}-d-4,
+.bg${color_base_name}-d-4 .content .text,
+.bg${color_base_name}-d-4 .content .number,
+.list-group.bg${color_base_name}-d-4,
+.list-group.bg${color_base_name}-d-4:hover,
+.list-group.bg${color_base_name}-d-4:focus,
+.modal-content.col${color_base_name}-d-4 .modal-body,
+.modal-content.col${color_base_name}-d-4 .modal-footer .btn-link,
+.modal-content.col${color_base_name}-d-4 .modal-title,
+.panel-group .panel.col${color_base_name}-d-4 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-d-4 .panel-body {
+    color: #FFF;
+}
+
+.bg${color_base_name}-l-3,
+.bg${color_base_name}-l-3 .content .text,
+.bg${color_base_name}-l-3 .content .number,
+.list-group.bg${color_base_name}-l-3,
+.list-group.bg${color_base_name}-l-3:hover,
+.list-group.bg${color_base_name}-l-3:focus,
+.modal-content.col${color_base_name}-l-3 .modal-body,
+.modal-content.col${color_base_name}-l-3 .modal-footer .btn-link,
+.modal-content.col${color_base_name}-l-3 .modal-title,
+.panel-group .panel.col${color_base_name}-l-3 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-l-3 .panel-body,
+.bg${color_base_name}-l-4,
+.bg${color_base_name}-l-4 .content .text,
+.bg${color_base_name}-l-4 .content .number,
+.list-group.bg${color_base_name}-l-4,
+.list-group.bg${color_base_name}-l-4:hover,
+.list-group.bg${color_base_name}-l-4:focus,
+.modal-content.col${color_base_name}-l-4 .modal-body,
+.modal-content.col${color_base_name}-l-4 .modal-footer .btn-link,
+.modal-content.col${color_base_name}-l-4 .modal-title,
+.panel-group .panel.col${color_base_name}-l-4 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-l-4 .panel-body,
+.bg${color_base_name}-l-5,
+.bg${color_base_name}-l-5 .content .text,
+.bg${color_base_name}-l-5 .content .number,
+.list-group.bg${color_base_name}-l-5,
+.list-group.bg${color_base_name}-l-5:hover,
+.list-group.bg${color_base_name}-l-5:focus,
+.modal-content.col${color_base_name}-l-5 .modal-body,
+.modal-content.col${color_base_name}-l-5 .modal-footer .btn-link,
+.modal-content.col${color_base_name}-l-5 .modal-title,
+.panel-group .panel.col${color_base_name}-l-5 .panel-title,
+.panel-group.full-body .panel.col${color_base_name}-l-5 .panel-body {
+    color: #202020;
+}
+
+.switch label input[type=checkbox]:checked:not(:disabled) ~ .lever[class*="col${color_base_name}"]:active:after {
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(${rgba_1});
+}
+
+.switch label input[type=checkbox]:checked + .lever[class*="col${color_base_name}"] {
+    background-color: rgba(${rgba_2});
+}

@@ -70,7 +70,7 @@ public class Accordion implements IsElement<HTMLDivElement> {
     }
 
     public Accordion setColor(Color color){
-        return applyStyle("panel-"+color.getStyle());
+        return applyStyle(color.getStyle());
     }
 
     private Accordion applyStyle(String style) {

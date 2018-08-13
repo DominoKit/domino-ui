@@ -125,9 +125,9 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
 
     public CheckBox setColor(Color color) {
         if (this.color != null) {
-            inputElement.classList.remove("chk-" + this.color.getStyle());
+            inputElement.classList.remove(this.color.getStyle());
         }
-        inputElement.classList.add("chk-" + color.getStyle());
+        inputElement.classList.add(color.getStyle());
         this.color = color;
         return this;
     }

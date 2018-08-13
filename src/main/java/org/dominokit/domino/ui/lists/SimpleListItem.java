@@ -41,7 +41,7 @@ public class SimpleListItem extends BaseListItem<HTMLLIElement> implements IsEle
 
     @Override
     public SimpleListItem setBackground(Color background) {
-        setStyle("list-group-" + background.getBackground());
+        setStyle(background.getBackground());
         return this;
     }
 
