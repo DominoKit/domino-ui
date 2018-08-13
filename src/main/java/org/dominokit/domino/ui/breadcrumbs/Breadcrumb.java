@@ -83,9 +83,9 @@ public class Breadcrumb extends DominoElement<Breadcrumb> implements IsElement<H
 
     public Breadcrumb setColor(Color color){
         if(nonNull(this.activeColor))
-            element.classList.remove("breadcrumb-"+color.getStyle());
+            element.classList.remove(color.getStyle());
         this.activeColor=color;
-        element.classList.add("breadcrumb-"+color.getStyle());
+        element.classList.add(color.getStyle());
 
         return this;
     }
@@ -114,9 +114,9 @@ public class Breadcrumb extends DominoElement<Breadcrumb> implements IsElement<H
     @Override
     public Breadcrumb setBackground(Color background) {
         if(nonNull(this.activeBackground))
-            element.classList.remove("breadcrumb-"+background.getBackground());
+            element.classList.remove(background.getBackground());
         this.activeBackground=background;
-        element.classList.add("breadcrumb-"+background.getBackground());
+        element.classList.add(background.getBackground());
 
         return this;
     }

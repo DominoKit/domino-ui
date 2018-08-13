@@ -163,7 +163,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
 
     @Override
     public ListItem<T> setBackground(Color background) {
-        setStyle("list-group-" + background.getBackground());
+        setStyle(background.getBackground());
         return this;
     }
 
