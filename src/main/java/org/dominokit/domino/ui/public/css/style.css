@@ -2787,10 +2787,6 @@ section.content {
     margin-top: 0;
 }
 
-.card [class*="bg-"]:not(.bg-white):not([class*="-l-3"]):not([class*="-l-4"]):not([class*="-l-5"]) {
-    border-bottom: none !important;
-    color: #fff !important;
-}
 
 .card [class*="bg-black"]{
     border-bottom: none !important;
@@ -2818,6 +2814,9 @@ section.content {
     color: #555;
     padding: 20px;
     position: relative;
+}
+
+.card .header:not([class*="bg-"]) {
     border-bottom: 1px solid rgba(204, 204, 204, 0.35);
 }
 
@@ -2882,7 +2881,6 @@ section.content {
 
 .card .body {
     font-size: 14px;
-    color: #555;
     padding: 20px;
 }
 
@@ -4239,6 +4237,9 @@ fieldset[disabled] .form-control {
     content: '>\00a0';
 }
 /* =============  end breadcrumb ================== */
+a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-danger"]):not([class*="-warning"]):not([class*="-info"]):not([class*="active"]){
+    color: #555;
+}
 .list-group{
     -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
     box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
