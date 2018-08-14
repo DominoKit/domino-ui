@@ -54,15 +54,8 @@ Add the following css files to your index page:
 ```html
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-<link type="text/css" rel="stylesheet" href="/[module-short-name]/font/material-icons.css">
-<link type="text/css" rel="stylesheet" href="/[module-short-name]/plugins/bootstrap/css/bootstrap.css">
-<link type="text/css" rel="stylesheet" href="/[module-short-name]/plugins/node-waves/waves.css">
-<link type="text/css" rel="stylesheet" href="/[module-short-name]/plugins/animate-css/animate.css">
-<link type="text/css" rel="stylesheet" href="/[module-short-name]/plugins/waitme/waitMe.css">
-<link type="text/css" rel="stylesheet" href="/[module-short-name]/plugins/bootstrap-select/css/bootstrap-select.css">
-<link type="text/css" rel="stylesheet" href="/[module-short-name]/css/materialize.css">
-<link type="text/css" rel="stylesheet" href="/[module-short-name]/css/style.css">
-<link type="text/css" rel="stylesheet" href="/[module-short-name]/css/themes/all-themes.css">
+<link type="text/css" rel="stylesheet" href="/{module-short-name}/css/domino-ui.css">
+<link type="text/css" rel="stylesheet" href="/{module-short-name}/css/themes/all-themes.css">
 ```
 
 ----------------------
