@@ -10,9 +10,6 @@
     color: #fff;
 }
 .bg-red,
-.list-group.bg-red,
-.list-group.bg-red:hover,
-.list-group.bg-red:focus,
 [type="checkbox"].filled-in:checked.col-red + label:after,
 [type="radio"].with-gap.col-red:checked + label:after,
 [type="radio"].col-red:checked + label:after,
@@ -52,9 +49,6 @@
 
 
 .bg-l-1-red,
-.list-group.bg-l-1-red,
-.list-group.bg-l-1-red:hover,
-.list-group.bg-l-1-red:focus,
 [type="checkbox"].filled-in:checked.col-l-1-red + label:after,
 [type="radio"].with-gap.col-l-1-red:checked + label:after,
 [type="radio"].col-l-1-red:checked + label:after,
@@ -94,9 +88,6 @@
 
 
 .bg-l-2-red,
-.list-group.bg-l-2-red,
-.list-group.bg-l-2-red:hover,
-.list-group.bg-l-2-red:focus,
 [type="checkbox"].filled-in:checked.col-l-2-red + label:after,
 [type="radio"].with-gap.col-l-2-red:checked + label:after,
 [type="radio"].col-l-2-red:checked + label:after,
@@ -135,9 +126,6 @@
 }
 
 .bg-l-3-red,
-.list-group.bg-l-3-red,
-.list-group.bg-l-3-red:hover,
-.list-group.bg-l-3-red:focus,
 [type="checkbox"].filled-in:checked.col-l-3-red + label:after,
 [type="radio"].with-gap.col-l-3-red:checked + label:after,
 [type="radio"].with-gap.col-l-3-red:checked + label:after,
@@ -178,9 +166,6 @@
 }
 
 .bg-l-4-red,
-.list-group.bg-l-4-red,
-.list-group.bg-l-4-red:hover,
-.list-group.bg-l-4-red:focus,
 [type="checkbox"].filled-in:checked.col-l-4-red + label:after,
 [type="radio"].with-gap.col-l-4-red:checked + label:after,
 [type="radio"].col-l-4-red:checked + label:after,
@@ -219,9 +204,6 @@
 }
 
 .bg-l-5-red ,
-.list-group.bg-l-5-red,
-.list-group.bg-l-5-red:hover,
-.list-group.bg-l-5-red:focus,
 [type="checkbox"].filled-in:checked.col-l-5-red + label:after,
 [type="radio"].with-gap.col-l-5-red:checked + label:after,
 [type="radio"].col-l-5-red:checked + label:after,
@@ -260,9 +242,6 @@
 }
 
 .bg-d-1-red,
-.list-group.bg-d-1-red,
-.list-group.bg-d-1-red:hover,
-.list-group.bg-d-1-red:focus,
 [type="checkbox"].filled-in:checked.col-d-1-red + label:after,
 [type="radio"].with-gap.col-d-1-red:checked + label:after,
 [type="radio"].col-d-1-red:checked + label:after,
@@ -301,9 +280,6 @@
 }
 
 .bg-d-2-red,
-.list-group.bg-d-2-red,
-.list-group.bg-d-2-red:hover,
-.list-group.bg-d-2-red:focus,
 [type="checkbox"].filled-in:checked.col-d-2-red + label:after,
 [type="radio"].with-gap.col-d-2-red:checked + label:after,
 [type="radio"].col-d-2-red:checked + label:after,
@@ -342,9 +318,6 @@
 }
 
 .bg-d-3-red,
-.list-group.bg-d-3-red,
-.list-group.bg-d-3-red:hover,
-.list-group.bg-d-3-red:focus,
 [type="checkbox"].filled-in:checked.col-d-3-red + label:after,
 [type="radio"].with-gap.col-d-3-red:checked + label:after,
 [type="radio"].col-d-2-red:checked + label:after,
@@ -383,9 +356,6 @@
 }
 
 .bg-d-4-red,
-.list-group.bg-d-4-red,
-.list-group.bg-d-4-red:hover,
-.list-group.bg-d-4-red:focus,
 [type="checkbox"].filled-in:checked.col-d-4-red + label:after,
 [type="radio"].with-gap.col-d-4-red:checked + label:after,
 [type="radio"].col-d-4-red:checked + label:after,
@@ -442,9 +412,6 @@
     color: #fff;
 }
 .bg-pink,
-.list-group.bg-pink,
-.list-group.bg-pink:hover,
-.list-group.bg-pink:focus,
 [type="checkbox"].filled-in:checked.col-pink + label:after,
 [type="radio"].with-gap.col-pink:checked + label:after,
 [type="radio"].col-pink:checked + label:after,
@@ -484,9 +451,6 @@
 
 
 .bg-l-1-pink,
-.list-group.bg-l-1-pink,
-.list-group.bg-l-1-pink:hover,
-.list-group.bg-l-1-pink:focus,
 [type="checkbox"].filled-in:checked.col-l-1-pink + label:after,
 [type="radio"].with-gap.col-l-1-pink:checked + label:after,
 [type="radio"].col-l-1-pink:checked + label:after,
@@ -526,9 +490,6 @@
 
 
 .bg-l-2-pink,
-.list-group.bg-l-2-pink,
-.list-group.bg-l-2-pink:hover,
-.list-group.bg-l-2-pink:focus,
 [type="checkbox"].filled-in:checked.col-l-2-pink + label:after,
 [type="radio"].with-gap.col-l-2-pink:checked + label:after,
 [type="radio"].col-l-2-pink:checked + label:after,
@@ -567,9 +528,6 @@
 }
 
 .bg-l-3-pink,
-.list-group.bg-l-3-pink,
-.list-group.bg-l-3-pink:hover,
-.list-group.bg-l-3-pink:focus,
 [type="checkbox"].filled-in:checked.col-l-3-pink + label:after,
 [type="radio"].with-gap.col-l-3-pink:checked + label:after,
 [type="radio"].with-gap.col-l-3-pink:checked + label:after,
@@ -610,9 +568,6 @@
 }
 
 .bg-l-4-pink,
-.list-group.bg-l-4-pink,
-.list-group.bg-l-4-pink:hover,
-.list-group.bg-l-4-pink:focus,
 [type="checkbox"].filled-in:checked.col-l-4-pink + label:after,
 [type="radio"].with-gap.col-l-4-pink:checked + label:after,
 [type="radio"].col-l-4-pink:checked + label:after,
@@ -651,9 +606,6 @@
 }
 
 .bg-l-5-pink ,
-.list-group.bg-l-5-pink,
-.list-group.bg-l-5-pink:hover,
-.list-group.bg-l-5-pink:focus,
 [type="checkbox"].filled-in:checked.col-l-5-pink + label:after,
 [type="radio"].with-gap.col-l-5-pink:checked + label:after,
 [type="radio"].col-l-5-pink:checked + label:after,
@@ -692,9 +644,6 @@
 }
 
 .bg-d-1-pink,
-.list-group.bg-d-1-pink,
-.list-group.bg-d-1-pink:hover,
-.list-group.bg-d-1-pink:focus,
 [type="checkbox"].filled-in:checked.col-d-1-pink + label:after,
 [type="radio"].with-gap.col-d-1-pink:checked + label:after,
 [type="radio"].col-d-1-pink:checked + label:after,
@@ -733,9 +682,6 @@
 }
 
 .bg-d-2-pink,
-.list-group.bg-d-2-pink,
-.list-group.bg-d-2-pink:hover,
-.list-group.bg-d-2-pink:focus,
 [type="checkbox"].filled-in:checked.col-d-2-pink + label:after,
 [type="radio"].with-gap.col-d-2-pink:checked + label:after,
 [type="radio"].col-d-2-pink:checked + label:after,
@@ -774,9 +720,6 @@
 }
 
 .bg-d-3-pink,
-.list-group.bg-d-3-pink,
-.list-group.bg-d-3-pink:hover,
-.list-group.bg-d-3-pink:focus,
 [type="checkbox"].filled-in:checked.col-d-3-pink + label:after,
 [type="radio"].with-gap.col-d-3-pink:checked + label:after,
 [type="radio"].col-d-2-pink:checked + label:after,
@@ -815,9 +758,6 @@
 }
 
 .bg-d-4-pink,
-.list-group.bg-d-4-pink,
-.list-group.bg-d-4-pink:hover,
-.list-group.bg-d-4-pink:focus,
 [type="checkbox"].filled-in:checked.col-d-4-pink + label:after,
 [type="radio"].with-gap.col-d-4-pink:checked + label:after,
 [type="radio"].col-d-4-pink:checked + label:after,
@@ -874,9 +814,6 @@
     color: #fff;
 }
 .bg-purple,
-.list-group.bg-purple,
-.list-group.bg-purple:hover,
-.list-group.bg-purple:focus,
 [type="checkbox"].filled-in:checked.col-purple + label:after,
 [type="radio"].with-gap.col-purple:checked + label:after,
 [type="radio"].col-purple:checked + label:after,
@@ -916,9 +853,6 @@
 
 
 .bg-l-1-purple,
-.list-group.bg-l-1-purple,
-.list-group.bg-l-1-purple:hover,
-.list-group.bg-l-1-purple:focus,
 [type="checkbox"].filled-in:checked.col-l-1-purple + label:after,
 [type="radio"].with-gap.col-l-1-purple:checked + label:after,
 [type="radio"].col-l-1-purple:checked + label:after,
@@ -958,9 +892,6 @@
 
 
 .bg-l-2-purple,
-.list-group.bg-l-2-purple,
-.list-group.bg-l-2-purple:hover,
-.list-group.bg-l-2-purple:focus,
 [type="checkbox"].filled-in:checked.col-l-2-purple + label:after,
 [type="radio"].with-gap.col-l-2-purple:checked + label:after,
 [type="radio"].col-l-2-purple:checked + label:after,
@@ -999,9 +930,6 @@
 }
 
 .bg-l-3-purple,
-.list-group.bg-l-3-purple,
-.list-group.bg-l-3-purple:hover,
-.list-group.bg-l-3-purple:focus,
 [type="checkbox"].filled-in:checked.col-l-3-purple + label:after,
 [type="radio"].with-gap.col-l-3-purple:checked + label:after,
 [type="radio"].with-gap.col-l-3-purple:checked + label:after,
@@ -1042,9 +970,6 @@
 }
 
 .bg-l-4-purple,
-.list-group.bg-l-4-purple,
-.list-group.bg-l-4-purple:hover,
-.list-group.bg-l-4-purple:focus,
 [type="checkbox"].filled-in:checked.col-l-4-purple + label:after,
 [type="radio"].with-gap.col-l-4-purple:checked + label:after,
 [type="radio"].col-l-4-purple:checked + label:after,
@@ -1083,9 +1008,6 @@
 }
 
 .bg-l-5-purple ,
-.list-group.bg-l-5-purple,
-.list-group.bg-l-5-purple:hover,
-.list-group.bg-l-5-purple:focus,
 [type="checkbox"].filled-in:checked.col-l-5-purple + label:after,
 [type="radio"].with-gap.col-l-5-purple:checked + label:after,
 [type="radio"].col-l-5-purple:checked + label:after,
@@ -1124,9 +1046,6 @@
 }
 
 .bg-d-1-purple,
-.list-group.bg-d-1-purple,
-.list-group.bg-d-1-purple:hover,
-.list-group.bg-d-1-purple:focus,
 [type="checkbox"].filled-in:checked.col-d-1-purple + label:after,
 [type="radio"].with-gap.col-d-1-purple:checked + label:after,
 [type="radio"].col-d-1-purple:checked + label:after,
@@ -1165,9 +1084,6 @@
 }
 
 .bg-d-2-purple,
-.list-group.bg-d-2-purple,
-.list-group.bg-d-2-purple:hover,
-.list-group.bg-d-2-purple:focus,
 [type="checkbox"].filled-in:checked.col-d-2-purple + label:after,
 [type="radio"].with-gap.col-d-2-purple:checked + label:after,
 [type="radio"].col-d-2-purple:checked + label:after,
@@ -1206,9 +1122,6 @@
 }
 
 .bg-d-3-purple,
-.list-group.bg-d-3-purple,
-.list-group.bg-d-3-purple:hover,
-.list-group.bg-d-3-purple:focus,
 [type="checkbox"].filled-in:checked.col-d-3-purple + label:after,
 [type="radio"].with-gap.col-d-3-purple:checked + label:after,
 [type="radio"].col-d-2-purple:checked + label:after,
@@ -1247,9 +1160,6 @@
 }
 
 .bg-d-4-purple,
-.list-group.bg-d-4-purple,
-.list-group.bg-d-4-purple:hover,
-.list-group.bg-d-4-purple:focus,
 [type="checkbox"].filled-in:checked.col-d-4-purple + label:after,
 [type="radio"].with-gap.col-d-4-purple:checked + label:after,
 [type="radio"].col-d-4-purple:checked + label:after,
@@ -1306,9 +1216,6 @@
     color: #fff;
 }
 .bg-deep-purple,
-.list-group.bg-deep-purple,
-.list-group.bg-deep-purple:hover,
-.list-group.bg-deep-purple:focus,
 [type="checkbox"].filled-in:checked.col-deep-purple + label:after,
 [type="radio"].with-gap.col-deep-purple:checked + label:after,
 [type="radio"].col-deep-purple:checked + label:after,
@@ -1348,9 +1255,6 @@
 
 
 .bg-l-1-deep-purple,
-.list-group.bg-l-1-deep-purple,
-.list-group.bg-l-1-deep-purple:hover,
-.list-group.bg-l-1-deep-purple:focus,
 [type="checkbox"].filled-in:checked.col-l-1-deep-purple + label:after,
 [type="radio"].with-gap.col-l-1-deep-purple:checked + label:after,
 [type="radio"].col-l-1-deep-purple:checked + label:after,
@@ -1390,9 +1294,6 @@
 
 
 .bg-l-2-deep-purple,
-.list-group.bg-l-2-deep-purple,
-.list-group.bg-l-2-deep-purple:hover,
-.list-group.bg-l-2-deep-purple:focus,
 [type="checkbox"].filled-in:checked.col-l-2-deep-purple + label:after,
 [type="radio"].with-gap.col-l-2-deep-purple:checked + label:after,
 [type="radio"].col-l-2-deep-purple:checked + label:after,
@@ -1431,9 +1332,6 @@
 }
 
 .bg-l-3-deep-purple,
-.list-group.bg-l-3-deep-purple,
-.list-group.bg-l-3-deep-purple:hover,
-.list-group.bg-l-3-deep-purple:focus,
 [type="checkbox"].filled-in:checked.col-l-3-deep-purple + label:after,
 [type="radio"].with-gap.col-l-3-deep-purple:checked + label:after,
 [type="radio"].with-gap.col-l-3-deep-purple:checked + label:after,
@@ -1474,9 +1372,6 @@
 }
 
 .bg-l-4-deep-purple,
-.list-group.bg-l-4-deep-purple,
-.list-group.bg-l-4-deep-purple:hover,
-.list-group.bg-l-4-deep-purple:focus,
 [type="checkbox"].filled-in:checked.col-l-4-deep-purple + label:after,
 [type="radio"].with-gap.col-l-4-deep-purple:checked + label:after,
 [type="radio"].col-l-4-deep-purple:checked + label:after,
@@ -1515,9 +1410,6 @@
 }
 
 .bg-l-5-deep-purple ,
-.list-group.bg-l-5-deep-purple,
-.list-group.bg-l-5-deep-purple:hover,
-.list-group.bg-l-5-deep-purple:focus,
 [type="checkbox"].filled-in:checked.col-l-5-deep-purple + label:after,
 [type="radio"].with-gap.col-l-5-deep-purple:checked + label:after,
 [type="radio"].col-l-5-deep-purple:checked + label:after,
@@ -1556,9 +1448,6 @@
 }
 
 .bg-d-1-deep-purple,
-.list-group.bg-d-1-deep-purple,
-.list-group.bg-d-1-deep-purple:hover,
-.list-group.bg-d-1-deep-purple:focus,
 [type="checkbox"].filled-in:checked.col-d-1-deep-purple + label:after,
 [type="radio"].with-gap.col-d-1-deep-purple:checked + label:after,
 [type="radio"].col-d-1-deep-purple:checked + label:after,
@@ -1597,9 +1486,6 @@
 }
 
 .bg-d-2-deep-purple,
-.list-group.bg-d-2-deep-purple,
-.list-group.bg-d-2-deep-purple:hover,
-.list-group.bg-d-2-deep-purple:focus,
 [type="checkbox"].filled-in:checked.col-d-2-deep-purple + label:after,
 [type="radio"].with-gap.col-d-2-deep-purple:checked + label:after,
 [type="radio"].col-d-2-deep-purple:checked + label:after,
@@ -1638,9 +1524,6 @@
 }
 
 .bg-d-3-deep-purple,
-.list-group.bg-d-3-deep-purple,
-.list-group.bg-d-3-deep-purple:hover,
-.list-group.bg-d-3-deep-purple:focus,
 [type="checkbox"].filled-in:checked.col-d-3-deep-purple + label:after,
 [type="radio"].with-gap.col-d-3-deep-purple:checked + label:after,
 [type="radio"].col-d-2-deep-purple:checked + label:after,
@@ -1679,9 +1562,6 @@
 }
 
 .bg-d-4-deep-purple,
-.list-group.bg-d-4-deep-purple,
-.list-group.bg-d-4-deep-purple:hover,
-.list-group.bg-d-4-deep-purple:focus,
 [type="checkbox"].filled-in:checked.col-d-4-deep-purple + label:after,
 [type="radio"].with-gap.col-d-4-deep-purple:checked + label:after,
 [type="radio"].col-d-4-deep-purple:checked + label:after,
@@ -1738,9 +1618,6 @@
     color: #fff;
 }
 .bg-indigo,
-.list-group.bg-indigo,
-.list-group.bg-indigo:hover,
-.list-group.bg-indigo:focus,
 [type="checkbox"].filled-in:checked.col-indigo + label:after,
 [type="radio"].with-gap.col-indigo:checked + label:after,
 [type="radio"].col-indigo:checked + label:after,
@@ -1780,9 +1657,6 @@
 
 
 .bg-l-1-indigo,
-.list-group.bg-l-1-indigo,
-.list-group.bg-l-1-indigo:hover,
-.list-group.bg-l-1-indigo:focus,
 [type="checkbox"].filled-in:checked.col-l-1-indigo + label:after,
 [type="radio"].with-gap.col-l-1-indigo:checked + label:after,
 [type="radio"].col-l-1-indigo:checked + label:after,
@@ -1822,9 +1696,6 @@
 
 
 .bg-l-2-indigo,
-.list-group.bg-l-2-indigo,
-.list-group.bg-l-2-indigo:hover,
-.list-group.bg-l-2-indigo:focus,
 [type="checkbox"].filled-in:checked.col-l-2-indigo + label:after,
 [type="radio"].with-gap.col-l-2-indigo:checked + label:after,
 [type="radio"].col-l-2-indigo:checked + label:after,
@@ -1863,9 +1734,6 @@
 }
 
 .bg-l-3-indigo,
-.list-group.bg-l-3-indigo,
-.list-group.bg-l-3-indigo:hover,
-.list-group.bg-l-3-indigo:focus,
 [type="checkbox"].filled-in:checked.col-l-3-indigo + label:after,
 [type="radio"].with-gap.col-l-3-indigo:checked + label:after,
 [type="radio"].with-gap.col-l-3-indigo:checked + label:after,
@@ -1906,9 +1774,6 @@
 }
 
 .bg-l-4-indigo,
-.list-group.bg-l-4-indigo,
-.list-group.bg-l-4-indigo:hover,
-.list-group.bg-l-4-indigo:focus,
 [type="checkbox"].filled-in:checked.col-l-4-indigo + label:after,
 [type="radio"].with-gap.col-l-4-indigo:checked + label:after,
 [type="radio"].col-l-4-indigo:checked + label:after,
@@ -1947,9 +1812,6 @@
 }
 
 .bg-l-5-indigo ,
-.list-group.bg-l-5-indigo,
-.list-group.bg-l-5-indigo:hover,
-.list-group.bg-l-5-indigo:focus,
 [type="checkbox"].filled-in:checked.col-l-5-indigo + label:after,
 [type="radio"].with-gap.col-l-5-indigo:checked + label:after,
 [type="radio"].col-l-5-indigo:checked + label:after,
@@ -1988,9 +1850,6 @@
 }
 
 .bg-d-1-indigo,
-.list-group.bg-d-1-indigo,
-.list-group.bg-d-1-indigo:hover,
-.list-group.bg-d-1-indigo:focus,
 [type="checkbox"].filled-in:checked.col-d-1-indigo + label:after,
 [type="radio"].with-gap.col-d-1-indigo:checked + label:after,
 [type="radio"].col-d-1-indigo:checked + label:after,
@@ -2029,9 +1888,6 @@
 }
 
 .bg-d-2-indigo,
-.list-group.bg-d-2-indigo,
-.list-group.bg-d-2-indigo:hover,
-.list-group.bg-d-2-indigo:focus,
 [type="checkbox"].filled-in:checked.col-d-2-indigo + label:after,
 [type="radio"].with-gap.col-d-2-indigo:checked + label:after,
 [type="radio"].col-d-2-indigo:checked + label:after,
@@ -2070,9 +1926,6 @@
 }
 
 .bg-d-3-indigo,
-.list-group.bg-d-3-indigo,
-.list-group.bg-d-3-indigo:hover,
-.list-group.bg-d-3-indigo:focus,
 [type="checkbox"].filled-in:checked.col-d-3-indigo + label:after,
 [type="radio"].with-gap.col-d-3-indigo:checked + label:after,
 [type="radio"].col-d-2-indigo:checked + label:after,
@@ -2111,9 +1964,6 @@
 }
 
 .bg-d-4-indigo,
-.list-group.bg-d-4-indigo,
-.list-group.bg-d-4-indigo:hover,
-.list-group.bg-d-4-indigo:focus,
 [type="checkbox"].filled-in:checked.col-d-4-indigo + label:after,
 [type="radio"].with-gap.col-d-4-indigo:checked + label:after,
 [type="radio"].col-d-4-indigo:checked + label:after,
@@ -2170,9 +2020,6 @@
     color: #fff;
 }
 .bg-blue,
-.list-group.bg-blue,
-.list-group.bg-blue:hover,
-.list-group.bg-blue:focus,
 [type="checkbox"].filled-in:checked.col-blue + label:after,
 [type="radio"].with-gap.col-blue:checked + label:after,
 [type="radio"].col-blue:checked + label:after,
@@ -2212,9 +2059,6 @@
 
 
 .bg-l-1-blue,
-.list-group.bg-l-1-blue,
-.list-group.bg-l-1-blue:hover,
-.list-group.bg-l-1-blue:focus,
 [type="checkbox"].filled-in:checked.col-l-1-blue + label:after,
 [type="radio"].with-gap.col-l-1-blue:checked + label:after,
 [type="radio"].col-l-1-blue:checked + label:after,
@@ -2254,9 +2098,6 @@
 
 
 .bg-l-2-blue,
-.list-group.bg-l-2-blue,
-.list-group.bg-l-2-blue:hover,
-.list-group.bg-l-2-blue:focus,
 [type="checkbox"].filled-in:checked.col-l-2-blue + label:after,
 [type="radio"].with-gap.col-l-2-blue:checked + label:after,
 [type="radio"].col-l-2-blue:checked + label:after,
@@ -2295,9 +2136,6 @@
 }
 
 .bg-l-3-blue,
-.list-group.bg-l-3-blue,
-.list-group.bg-l-3-blue:hover,
-.list-group.bg-l-3-blue:focus,
 [type="checkbox"].filled-in:checked.col-l-3-blue + label:after,
 [type="radio"].with-gap.col-l-3-blue:checked + label:after,
 [type="radio"].with-gap.col-l-3-blue:checked + label:after,
@@ -2338,9 +2176,6 @@
 }
 
 .bg-l-4-blue,
-.list-group.bg-l-4-blue,
-.list-group.bg-l-4-blue:hover,
-.list-group.bg-l-4-blue:focus,
 [type="checkbox"].filled-in:checked.col-l-4-blue + label:after,
 [type="radio"].with-gap.col-l-4-blue:checked + label:after,
 [type="radio"].col-l-4-blue:checked + label:after,
@@ -2379,9 +2214,6 @@
 }
 
 .bg-l-5-blue ,
-.list-group.bg-l-5-blue,
-.list-group.bg-l-5-blue:hover,
-.list-group.bg-l-5-blue:focus,
 [type="checkbox"].filled-in:checked.col-l-5-blue + label:after,
 [type="radio"].with-gap.col-l-5-blue:checked + label:after,
 [type="radio"].col-l-5-blue:checked + label:after,
@@ -2420,9 +2252,6 @@
 }
 
 .bg-d-1-blue,
-.list-group.bg-d-1-blue,
-.list-group.bg-d-1-blue:hover,
-.list-group.bg-d-1-blue:focus,
 [type="checkbox"].filled-in:checked.col-d-1-blue + label:after,
 [type="radio"].with-gap.col-d-1-blue:checked + label:after,
 [type="radio"].col-d-1-blue:checked + label:after,
@@ -2461,9 +2290,6 @@
 }
 
 .bg-d-2-blue,
-.list-group.bg-d-2-blue,
-.list-group.bg-d-2-blue:hover,
-.list-group.bg-d-2-blue:focus,
 [type="checkbox"].filled-in:checked.col-d-2-blue + label:after,
 [type="radio"].with-gap.col-d-2-blue:checked + label:after,
 [type="radio"].col-d-2-blue:checked + label:after,
@@ -2502,9 +2328,6 @@
 }
 
 .bg-d-3-blue,
-.list-group.bg-d-3-blue,
-.list-group.bg-d-3-blue:hover,
-.list-group.bg-d-3-blue:focus,
 [type="checkbox"].filled-in:checked.col-d-3-blue + label:after,
 [type="radio"].with-gap.col-d-3-blue:checked + label:after,
 [type="radio"].col-d-2-blue:checked + label:after,
@@ -2543,9 +2366,6 @@
 }
 
 .bg-d-4-blue,
-.list-group.bg-d-4-blue,
-.list-group.bg-d-4-blue:hover,
-.list-group.bg-d-4-blue:focus,
 [type="checkbox"].filled-in:checked.col-d-4-blue + label:after,
 [type="radio"].with-gap.col-d-4-blue:checked + label:after,
 [type="radio"].col-d-4-blue:checked + label:after,
@@ -2602,9 +2422,6 @@
     color: #fff;
 }
 .bg-light-blue,
-.list-group.bg-light-blue,
-.list-group.bg-light-blue:hover,
-.list-group.bg-light-blue:focus,
 [type="checkbox"].filled-in:checked.col-light-blue + label:after,
 [type="radio"].with-gap.col-light-blue:checked + label:after,
 [type="radio"].col-light-blue:checked + label:after,
@@ -2644,9 +2461,6 @@
 
 
 .bg-l-1-light-blue,
-.list-group.bg-l-1-light-blue,
-.list-group.bg-l-1-light-blue:hover,
-.list-group.bg-l-1-light-blue:focus,
 [type="checkbox"].filled-in:checked.col-l-1-light-blue + label:after,
 [type="radio"].with-gap.col-l-1-light-blue:checked + label:after,
 [type="radio"].col-l-1-light-blue:checked + label:after,
@@ -2686,9 +2500,6 @@
 
 
 .bg-l-2-light-blue,
-.list-group.bg-l-2-light-blue,
-.list-group.bg-l-2-light-blue:hover,
-.list-group.bg-l-2-light-blue:focus,
 [type="checkbox"].filled-in:checked.col-l-2-light-blue + label:after,
 [type="radio"].with-gap.col-l-2-light-blue:checked + label:after,
 [type="radio"].col-l-2-light-blue:checked + label:after,
@@ -2727,9 +2538,6 @@
 }
 
 .bg-l-3-light-blue,
-.list-group.bg-l-3-light-blue,
-.list-group.bg-l-3-light-blue:hover,
-.list-group.bg-l-3-light-blue:focus,
 [type="checkbox"].filled-in:checked.col-l-3-light-blue + label:after,
 [type="radio"].with-gap.col-l-3-light-blue:checked + label:after,
 [type="radio"].with-gap.col-l-3-light-blue:checked + label:after,
@@ -2770,9 +2578,6 @@
 }
 
 .bg-l-4-light-blue,
-.list-group.bg-l-4-light-blue,
-.list-group.bg-l-4-light-blue:hover,
-.list-group.bg-l-4-light-blue:focus,
 [type="checkbox"].filled-in:checked.col-l-4-light-blue + label:after,
 [type="radio"].with-gap.col-l-4-light-blue:checked + label:after,
 [type="radio"].col-l-4-light-blue:checked + label:after,
@@ -2811,9 +2616,6 @@
 }
 
 .bg-l-5-light-blue ,
-.list-group.bg-l-5-light-blue,
-.list-group.bg-l-5-light-blue:hover,
-.list-group.bg-l-5-light-blue:focus,
 [type="checkbox"].filled-in:checked.col-l-5-light-blue + label:after,
 [type="radio"].with-gap.col-l-5-light-blue:checked + label:after,
 [type="radio"].col-l-5-light-blue:checked + label:after,
@@ -2852,9 +2654,6 @@
 }
 
 .bg-d-1-light-blue,
-.list-group.bg-d-1-light-blue,
-.list-group.bg-d-1-light-blue:hover,
-.list-group.bg-d-1-light-blue:focus,
 [type="checkbox"].filled-in:checked.col-d-1-light-blue + label:after,
 [type="radio"].with-gap.col-d-1-light-blue:checked + label:after,
 [type="radio"].col-d-1-light-blue:checked + label:after,
@@ -2893,9 +2692,6 @@
 }
 
 .bg-d-2-light-blue,
-.list-group.bg-d-2-light-blue,
-.list-group.bg-d-2-light-blue:hover,
-.list-group.bg-d-2-light-blue:focus,
 [type="checkbox"].filled-in:checked.col-d-2-light-blue + label:after,
 [type="radio"].with-gap.col-d-2-light-blue:checked + label:after,
 [type="radio"].col-d-2-light-blue:checked + label:after,
@@ -2934,9 +2730,6 @@
 }
 
 .bg-d-3-light-blue,
-.list-group.bg-d-3-light-blue,
-.list-group.bg-d-3-light-blue:hover,
-.list-group.bg-d-3-light-blue:focus,
 [type="checkbox"].filled-in:checked.col-d-3-light-blue + label:after,
 [type="radio"].with-gap.col-d-3-light-blue:checked + label:after,
 [type="radio"].col-d-2-light-blue:checked + label:after,
@@ -2975,9 +2768,6 @@
 }
 
 .bg-d-4-light-blue,
-.list-group.bg-d-4-light-blue,
-.list-group.bg-d-4-light-blue:hover,
-.list-group.bg-d-4-light-blue:focus,
 [type="checkbox"].filled-in:checked.col-d-4-light-blue + label:after,
 [type="radio"].with-gap.col-d-4-light-blue:checked + label:after,
 [type="radio"].col-d-4-light-blue:checked + label:after,
@@ -3034,9 +2824,6 @@
     color: #fff;
 }
 .bg-cyan,
-.list-group.bg-cyan,
-.list-group.bg-cyan:hover,
-.list-group.bg-cyan:focus,
 [type="checkbox"].filled-in:checked.col-cyan + label:after,
 [type="radio"].with-gap.col-cyan:checked + label:after,
 [type="radio"].col-cyan:checked + label:after,
@@ -3076,9 +2863,6 @@
 
 
 .bg-l-1-cyan,
-.list-group.bg-l-1-cyan,
-.list-group.bg-l-1-cyan:hover,
-.list-group.bg-l-1-cyan:focus,
 [type="checkbox"].filled-in:checked.col-l-1-cyan + label:after,
 [type="radio"].with-gap.col-l-1-cyan:checked + label:after,
 [type="radio"].col-l-1-cyan:checked + label:after,
@@ -3118,9 +2902,6 @@
 
 
 .bg-l-2-cyan,
-.list-group.bg-l-2-cyan,
-.list-group.bg-l-2-cyan:hover,
-.list-group.bg-l-2-cyan:focus,
 [type="checkbox"].filled-in:checked.col-l-2-cyan + label:after,
 [type="radio"].with-gap.col-l-2-cyan:checked + label:after,
 [type="radio"].col-l-2-cyan:checked + label:after,
@@ -3159,9 +2940,6 @@
 }
 
 .bg-l-3-cyan,
-.list-group.bg-l-3-cyan,
-.list-group.bg-l-3-cyan:hover,
-.list-group.bg-l-3-cyan:focus,
 [type="checkbox"].filled-in:checked.col-l-3-cyan + label:after,
 [type="radio"].with-gap.col-l-3-cyan:checked + label:after,
 [type="radio"].with-gap.col-l-3-cyan:checked + label:after,
@@ -3202,9 +2980,6 @@
 }
 
 .bg-l-4-cyan,
-.list-group.bg-l-4-cyan,
-.list-group.bg-l-4-cyan:hover,
-.list-group.bg-l-4-cyan:focus,
 [type="checkbox"].filled-in:checked.col-l-4-cyan + label:after,
 [type="radio"].with-gap.col-l-4-cyan:checked + label:after,
 [type="radio"].col-l-4-cyan:checked + label:after,
@@ -3243,9 +3018,6 @@
 }
 
 .bg-l-5-cyan ,
-.list-group.bg-l-5-cyan,
-.list-group.bg-l-5-cyan:hover,
-.list-group.bg-l-5-cyan:focus,
 [type="checkbox"].filled-in:checked.col-l-5-cyan + label:after,
 [type="radio"].with-gap.col-l-5-cyan:checked + label:after,
 [type="radio"].col-l-5-cyan:checked + label:after,
@@ -3284,9 +3056,6 @@
 }
 
 .bg-d-1-cyan,
-.list-group.bg-d-1-cyan,
-.list-group.bg-d-1-cyan:hover,
-.list-group.bg-d-1-cyan:focus,
 [type="checkbox"].filled-in:checked.col-d-1-cyan + label:after,
 [type="radio"].with-gap.col-d-1-cyan:checked + label:after,
 [type="radio"].col-d-1-cyan:checked + label:after,
@@ -3325,9 +3094,6 @@
 }
 
 .bg-d-2-cyan,
-.list-group.bg-d-2-cyan,
-.list-group.bg-d-2-cyan:hover,
-.list-group.bg-d-2-cyan:focus,
 [type="checkbox"].filled-in:checked.col-d-2-cyan + label:after,
 [type="radio"].with-gap.col-d-2-cyan:checked + label:after,
 [type="radio"].col-d-2-cyan:checked + label:after,
@@ -3366,9 +3132,6 @@
 }
 
 .bg-d-3-cyan,
-.list-group.bg-d-3-cyan,
-.list-group.bg-d-3-cyan:hover,
-.list-group.bg-d-3-cyan:focus,
 [type="checkbox"].filled-in:checked.col-d-3-cyan + label:after,
 [type="radio"].with-gap.col-d-3-cyan:checked + label:after,
 [type="radio"].col-d-2-cyan:checked + label:after,
@@ -3407,9 +3170,6 @@
 }
 
 .bg-d-4-cyan,
-.list-group.bg-d-4-cyan,
-.list-group.bg-d-4-cyan:hover,
-.list-group.bg-d-4-cyan:focus,
 [type="checkbox"].filled-in:checked.col-d-4-cyan + label:after,
 [type="radio"].with-gap.col-d-4-cyan:checked + label:after,
 [type="radio"].col-d-4-cyan:checked + label:after,
@@ -3466,9 +3226,6 @@
     color: #fff;
 }
 .bg-teal,
-.list-group.bg-teal,
-.list-group.bg-teal:hover,
-.list-group.bg-teal:focus,
 [type="checkbox"].filled-in:checked.col-teal + label:after,
 [type="radio"].with-gap.col-teal:checked + label:after,
 [type="radio"].col-teal:checked + label:after,
@@ -3508,9 +3265,6 @@
 
 
 .bg-l-1-teal,
-.list-group.bg-l-1-teal,
-.list-group.bg-l-1-teal:hover,
-.list-group.bg-l-1-teal:focus,
 [type="checkbox"].filled-in:checked.col-l-1-teal + label:after,
 [type="radio"].with-gap.col-l-1-teal:checked + label:after,
 [type="radio"].col-l-1-teal:checked + label:after,
@@ -3550,9 +3304,6 @@
 
 
 .bg-l-2-teal,
-.list-group.bg-l-2-teal,
-.list-group.bg-l-2-teal:hover,
-.list-group.bg-l-2-teal:focus,
 [type="checkbox"].filled-in:checked.col-l-2-teal + label:after,
 [type="radio"].with-gap.col-l-2-teal:checked + label:after,
 [type="radio"].col-l-2-teal:checked + label:after,
@@ -3591,9 +3342,6 @@
 }
 
 .bg-l-3-teal,
-.list-group.bg-l-3-teal,
-.list-group.bg-l-3-teal:hover,
-.list-group.bg-l-3-teal:focus,
 [type="checkbox"].filled-in:checked.col-l-3-teal + label:after,
 [type="radio"].with-gap.col-l-3-teal:checked + label:after,
 [type="radio"].with-gap.col-l-3-teal:checked + label:after,
@@ -3634,9 +3382,6 @@
 }
 
 .bg-l-4-teal,
-.list-group.bg-l-4-teal,
-.list-group.bg-l-4-teal:hover,
-.list-group.bg-l-4-teal:focus,
 [type="checkbox"].filled-in:checked.col-l-4-teal + label:after,
 [type="radio"].with-gap.col-l-4-teal:checked + label:after,
 [type="radio"].col-l-4-teal:checked + label:after,
@@ -3675,9 +3420,6 @@
 }
 
 .bg-l-5-teal ,
-.list-group.bg-l-5-teal,
-.list-group.bg-l-5-teal:hover,
-.list-group.bg-l-5-teal:focus,
 [type="checkbox"].filled-in:checked.col-l-5-teal + label:after,
 [type="radio"].with-gap.col-l-5-teal:checked + label:after,
 [type="radio"].col-l-5-teal:checked + label:after,
@@ -3716,9 +3458,6 @@
 }
 
 .bg-d-1-teal,
-.list-group.bg-d-1-teal,
-.list-group.bg-d-1-teal:hover,
-.list-group.bg-d-1-teal:focus,
 [type="checkbox"].filled-in:checked.col-d-1-teal + label:after,
 [type="radio"].with-gap.col-d-1-teal:checked + label:after,
 [type="radio"].col-d-1-teal:checked + label:after,
@@ -3757,9 +3496,6 @@
 }
 
 .bg-d-2-teal,
-.list-group.bg-d-2-teal,
-.list-group.bg-d-2-teal:hover,
-.list-group.bg-d-2-teal:focus,
 [type="checkbox"].filled-in:checked.col-d-2-teal + label:after,
 [type="radio"].with-gap.col-d-2-teal:checked + label:after,
 [type="radio"].col-d-2-teal:checked + label:after,
@@ -3798,9 +3534,6 @@
 }
 
 .bg-d-3-teal,
-.list-group.bg-d-3-teal,
-.list-group.bg-d-3-teal:hover,
-.list-group.bg-d-3-teal:focus,
 [type="checkbox"].filled-in:checked.col-d-3-teal + label:after,
 [type="radio"].with-gap.col-d-3-teal:checked + label:after,
 [type="radio"].col-d-2-teal:checked + label:after,
@@ -3839,9 +3572,6 @@
 }
 
 .bg-d-4-teal,
-.list-group.bg-d-4-teal,
-.list-group.bg-d-4-teal:hover,
-.list-group.bg-d-4-teal:focus,
 [type="checkbox"].filled-in:checked.col-d-4-teal + label:after,
 [type="radio"].with-gap.col-d-4-teal:checked + label:after,
 [type="radio"].col-d-4-teal:checked + label:after,
@@ -3898,9 +3628,6 @@
     color: #fff;
 }
 .bg-green,
-.list-group.bg-green,
-.list-group.bg-green:hover,
-.list-group.bg-green:focus,
 [type="checkbox"].filled-in:checked.col-green + label:after,
 [type="radio"].with-gap.col-green:checked + label:after,
 [type="radio"].col-green:checked + label:after,
@@ -3940,9 +3667,6 @@
 
 
 .bg-l-1-green,
-.list-group.bg-l-1-green,
-.list-group.bg-l-1-green:hover,
-.list-group.bg-l-1-green:focus,
 [type="checkbox"].filled-in:checked.col-l-1-green + label:after,
 [type="radio"].with-gap.col-l-1-green:checked + label:after,
 [type="radio"].col-l-1-green:checked + label:after,
@@ -3982,9 +3706,6 @@
 
 
 .bg-l-2-green,
-.list-group.bg-l-2-green,
-.list-group.bg-l-2-green:hover,
-.list-group.bg-l-2-green:focus,
 [type="checkbox"].filled-in:checked.col-l-2-green + label:after,
 [type="radio"].with-gap.col-l-2-green:checked + label:after,
 [type="radio"].col-l-2-green:checked + label:after,
@@ -4023,9 +3744,6 @@
 }
 
 .bg-l-3-green,
-.list-group.bg-l-3-green,
-.list-group.bg-l-3-green:hover,
-.list-group.bg-l-3-green:focus,
 [type="checkbox"].filled-in:checked.col-l-3-green + label:after,
 [type="radio"].with-gap.col-l-3-green:checked + label:after,
 [type="radio"].with-gap.col-l-3-green:checked + label:after,
@@ -4066,9 +3784,6 @@
 }
 
 .bg-l-4-green,
-.list-group.bg-l-4-green,
-.list-group.bg-l-4-green:hover,
-.list-group.bg-l-4-green:focus,
 [type="checkbox"].filled-in:checked.col-l-4-green + label:after,
 [type="radio"].with-gap.col-l-4-green:checked + label:after,
 [type="radio"].col-l-4-green:checked + label:after,
@@ -4107,9 +3822,6 @@
 }
 
 .bg-l-5-green ,
-.list-group.bg-l-5-green,
-.list-group.bg-l-5-green:hover,
-.list-group.bg-l-5-green:focus,
 [type="checkbox"].filled-in:checked.col-l-5-green + label:after,
 [type="radio"].with-gap.col-l-5-green:checked + label:after,
 [type="radio"].col-l-5-green:checked + label:after,
@@ -4148,9 +3860,6 @@
 }
 
 .bg-d-1-green,
-.list-group.bg-d-1-green,
-.list-group.bg-d-1-green:hover,
-.list-group.bg-d-1-green:focus,
 [type="checkbox"].filled-in:checked.col-d-1-green + label:after,
 [type="radio"].with-gap.col-d-1-green:checked + label:after,
 [type="radio"].col-d-1-green:checked + label:after,
@@ -4189,9 +3898,6 @@
 }
 
 .bg-d-2-green,
-.list-group.bg-d-2-green,
-.list-group.bg-d-2-green:hover,
-.list-group.bg-d-2-green:focus,
 [type="checkbox"].filled-in:checked.col-d-2-green + label:after,
 [type="radio"].with-gap.col-d-2-green:checked + label:after,
 [type="radio"].col-d-2-green:checked + label:after,
@@ -4230,9 +3936,6 @@
 }
 
 .bg-d-3-green,
-.list-group.bg-d-3-green,
-.list-group.bg-d-3-green:hover,
-.list-group.bg-d-3-green:focus,
 [type="checkbox"].filled-in:checked.col-d-3-green + label:after,
 [type="radio"].with-gap.col-d-3-green:checked + label:after,
 [type="radio"].col-d-2-green:checked + label:after,
@@ -4271,9 +3974,6 @@
 }
 
 .bg-d-4-green,
-.list-group.bg-d-4-green,
-.list-group.bg-d-4-green:hover,
-.list-group.bg-d-4-green:focus,
 [type="checkbox"].filled-in:checked.col-d-4-green + label:after,
 [type="radio"].with-gap.col-d-4-green:checked + label:after,
 [type="radio"].col-d-4-green:checked + label:after,
@@ -4330,9 +4030,6 @@
     color: #fff;
 }
 .bg-light-green,
-.list-group.bg-light-green,
-.list-group.bg-light-green:hover,
-.list-group.bg-light-green:focus,
 [type="checkbox"].filled-in:checked.col-light-green + label:after,
 [type="radio"].with-gap.col-light-green:checked + label:after,
 [type="radio"].col-light-green:checked + label:after,
@@ -4372,9 +4069,6 @@
 
 
 .bg-l-1-light-green,
-.list-group.bg-l-1-light-green,
-.list-group.bg-l-1-light-green:hover,
-.list-group.bg-l-1-light-green:focus,
 [type="checkbox"].filled-in:checked.col-l-1-light-green + label:after,
 [type="radio"].with-gap.col-l-1-light-green:checked + label:after,
 [type="radio"].col-l-1-light-green:checked + label:after,
@@ -4414,9 +4108,6 @@
 
 
 .bg-l-2-light-green,
-.list-group.bg-l-2-light-green,
-.list-group.bg-l-2-light-green:hover,
-.list-group.bg-l-2-light-green:focus,
 [type="checkbox"].filled-in:checked.col-l-2-light-green + label:after,
 [type="radio"].with-gap.col-l-2-light-green:checked + label:after,
 [type="radio"].col-l-2-light-green:checked + label:after,
@@ -4455,9 +4146,6 @@
 }
 
 .bg-l-3-light-green,
-.list-group.bg-l-3-light-green,
-.list-group.bg-l-3-light-green:hover,
-.list-group.bg-l-3-light-green:focus,
 [type="checkbox"].filled-in:checked.col-l-3-light-green + label:after,
 [type="radio"].with-gap.col-l-3-light-green:checked + label:after,
 [type="radio"].with-gap.col-l-3-light-green:checked + label:after,
@@ -4498,9 +4186,6 @@
 }
 
 .bg-l-4-light-green,
-.list-group.bg-l-4-light-green,
-.list-group.bg-l-4-light-green:hover,
-.list-group.bg-l-4-light-green:focus,
 [type="checkbox"].filled-in:checked.col-l-4-light-green + label:after,
 [type="radio"].with-gap.col-l-4-light-green:checked + label:after,
 [type="radio"].col-l-4-light-green:checked + label:after,
@@ -4539,9 +4224,6 @@
 }
 
 .bg-l-5-light-green ,
-.list-group.bg-l-5-light-green,
-.list-group.bg-l-5-light-green:hover,
-.list-group.bg-l-5-light-green:focus,
 [type="checkbox"].filled-in:checked.col-l-5-light-green + label:after,
 [type="radio"].with-gap.col-l-5-light-green:checked + label:after,
 [type="radio"].col-l-5-light-green:checked + label:after,
@@ -4580,9 +4262,6 @@
 }
 
 .bg-d-1-light-green,
-.list-group.bg-d-1-light-green,
-.list-group.bg-d-1-light-green:hover,
-.list-group.bg-d-1-light-green:focus,
 [type="checkbox"].filled-in:checked.col-d-1-light-green + label:after,
 [type="radio"].with-gap.col-d-1-light-green:checked + label:after,
 [type="radio"].col-d-1-light-green:checked + label:after,
@@ -4621,9 +4300,6 @@
 }
 
 .bg-d-2-light-green,
-.list-group.bg-d-2-light-green,
-.list-group.bg-d-2-light-green:hover,
-.list-group.bg-d-2-light-green:focus,
 [type="checkbox"].filled-in:checked.col-d-2-light-green + label:after,
 [type="radio"].with-gap.col-d-2-light-green:checked + label:after,
 [type="radio"].col-d-2-light-green:checked + label:after,
@@ -4662,9 +4338,6 @@
 }
 
 .bg-d-3-light-green,
-.list-group.bg-d-3-light-green,
-.list-group.bg-d-3-light-green:hover,
-.list-group.bg-d-3-light-green:focus,
 [type="checkbox"].filled-in:checked.col-d-3-light-green + label:after,
 [type="radio"].with-gap.col-d-3-light-green:checked + label:after,
 [type="radio"].col-d-2-light-green:checked + label:after,
@@ -4703,9 +4376,6 @@
 }
 
 .bg-d-4-light-green,
-.list-group.bg-d-4-light-green,
-.list-group.bg-d-4-light-green:hover,
-.list-group.bg-d-4-light-green:focus,
 [type="checkbox"].filled-in:checked.col-d-4-light-green + label:after,
 [type="radio"].with-gap.col-d-4-light-green:checked + label:after,
 [type="radio"].col-d-4-light-green:checked + label:after,
@@ -4762,9 +4432,6 @@
     color: #fff;
 }
 .bg-lime,
-.list-group.bg-lime,
-.list-group.bg-lime:hover,
-.list-group.bg-lime:focus,
 [type="checkbox"].filled-in:checked.col-lime + label:after,
 [type="radio"].with-gap.col-lime:checked + label:after,
 [type="radio"].col-lime:checked + label:after,
@@ -4804,9 +4471,6 @@
 
 
 .bg-l-1-lime,
-.list-group.bg-l-1-lime,
-.list-group.bg-l-1-lime:hover,
-.list-group.bg-l-1-lime:focus,
 [type="checkbox"].filled-in:checked.col-l-1-lime + label:after,
 [type="radio"].with-gap.col-l-1-lime:checked + label:after,
 [type="radio"].col-l-1-lime:checked + label:after,
@@ -4846,9 +4510,6 @@
 
 
 .bg-l-2-lime,
-.list-group.bg-l-2-lime,
-.list-group.bg-l-2-lime:hover,
-.list-group.bg-l-2-lime:focus,
 [type="checkbox"].filled-in:checked.col-l-2-lime + label:after,
 [type="radio"].with-gap.col-l-2-lime:checked + label:after,
 [type="radio"].col-l-2-lime:checked + label:after,
@@ -4887,9 +4548,6 @@
 }
 
 .bg-l-3-lime,
-.list-group.bg-l-3-lime,
-.list-group.bg-l-3-lime:hover,
-.list-group.bg-l-3-lime:focus,
 [type="checkbox"].filled-in:checked.col-l-3-lime + label:after,
 [type="radio"].with-gap.col-l-3-lime:checked + label:after,
 [type="radio"].with-gap.col-l-3-lime:checked + label:after,
@@ -4930,9 +4588,6 @@
 }
 
 .bg-l-4-lime,
-.list-group.bg-l-4-lime,
-.list-group.bg-l-4-lime:hover,
-.list-group.bg-l-4-lime:focus,
 [type="checkbox"].filled-in:checked.col-l-4-lime + label:after,
 [type="radio"].with-gap.col-l-4-lime:checked + label:after,
 [type="radio"].col-l-4-lime:checked + label:after,
@@ -4971,9 +4626,6 @@
 }
 
 .bg-l-5-lime ,
-.list-group.bg-l-5-lime,
-.list-group.bg-l-5-lime:hover,
-.list-group.bg-l-5-lime:focus,
 [type="checkbox"].filled-in:checked.col-l-5-lime + label:after,
 [type="radio"].with-gap.col-l-5-lime:checked + label:after,
 [type="radio"].col-l-5-lime:checked + label:after,
@@ -5012,9 +4664,6 @@
 }
 
 .bg-d-1-lime,
-.list-group.bg-d-1-lime,
-.list-group.bg-d-1-lime:hover,
-.list-group.bg-d-1-lime:focus,
 [type="checkbox"].filled-in:checked.col-d-1-lime + label:after,
 [type="radio"].with-gap.col-d-1-lime:checked + label:after,
 [type="radio"].col-d-1-lime:checked + label:after,
@@ -5053,9 +4702,6 @@
 }
 
 .bg-d-2-lime,
-.list-group.bg-d-2-lime,
-.list-group.bg-d-2-lime:hover,
-.list-group.bg-d-2-lime:focus,
 [type="checkbox"].filled-in:checked.col-d-2-lime + label:after,
 [type="radio"].with-gap.col-d-2-lime:checked + label:after,
 [type="radio"].col-d-2-lime:checked + label:after,
@@ -5094,9 +4740,6 @@
 }
 
 .bg-d-3-lime,
-.list-group.bg-d-3-lime,
-.list-group.bg-d-3-lime:hover,
-.list-group.bg-d-3-lime:focus,
 [type="checkbox"].filled-in:checked.col-d-3-lime + label:after,
 [type="radio"].with-gap.col-d-3-lime:checked + label:after,
 [type="radio"].col-d-2-lime:checked + label:after,
@@ -5135,9 +4778,6 @@
 }
 
 .bg-d-4-lime,
-.list-group.bg-d-4-lime,
-.list-group.bg-d-4-lime:hover,
-.list-group.bg-d-4-lime:focus,
 [type="checkbox"].filled-in:checked.col-d-4-lime + label:after,
 [type="radio"].with-gap.col-d-4-lime:checked + label:after,
 [type="radio"].col-d-4-lime:checked + label:after,
@@ -5194,9 +4834,6 @@
     color: #fff;
 }
 .bg-yellow,
-.list-group.bg-yellow,
-.list-group.bg-yellow:hover,
-.list-group.bg-yellow:focus,
 [type="checkbox"].filled-in:checked.col-yellow + label:after,
 [type="radio"].with-gap.col-yellow:checked + label:after,
 [type="radio"].col-yellow:checked + label:after,
@@ -5236,9 +4873,6 @@
 
 
 .bg-l-1-yellow,
-.list-group.bg-l-1-yellow,
-.list-group.bg-l-1-yellow:hover,
-.list-group.bg-l-1-yellow:focus,
 [type="checkbox"].filled-in:checked.col-l-1-yellow + label:after,
 [type="radio"].with-gap.col-l-1-yellow:checked + label:after,
 [type="radio"].col-l-1-yellow:checked + label:after,
@@ -5278,9 +4912,6 @@
 
 
 .bg-l-2-yellow,
-.list-group.bg-l-2-yellow,
-.list-group.bg-l-2-yellow:hover,
-.list-group.bg-l-2-yellow:focus,
 [type="checkbox"].filled-in:checked.col-l-2-yellow + label:after,
 [type="radio"].with-gap.col-l-2-yellow:checked + label:after,
 [type="radio"].col-l-2-yellow:checked + label:after,
@@ -5319,9 +4950,6 @@
 }
 
 .bg-l-3-yellow,
-.list-group.bg-l-3-yellow,
-.list-group.bg-l-3-yellow:hover,
-.list-group.bg-l-3-yellow:focus,
 [type="checkbox"].filled-in:checked.col-l-3-yellow + label:after,
 [type="radio"].with-gap.col-l-3-yellow:checked + label:after,
 [type="radio"].with-gap.col-l-3-yellow:checked + label:after,
@@ -5362,9 +4990,6 @@
 }
 
 .bg-l-4-yellow,
-.list-group.bg-l-4-yellow,
-.list-group.bg-l-4-yellow:hover,
-.list-group.bg-l-4-yellow:focus,
 [type="checkbox"].filled-in:checked.col-l-4-yellow + label:after,
 [type="radio"].with-gap.col-l-4-yellow:checked + label:after,
 [type="radio"].col-l-4-yellow:checked + label:after,
@@ -5403,9 +5028,6 @@
 }
 
 .bg-l-5-yellow ,
-.list-group.bg-l-5-yellow,
-.list-group.bg-l-5-yellow:hover,
-.list-group.bg-l-5-yellow:focus,
 [type="checkbox"].filled-in:checked.col-l-5-yellow + label:after,
 [type="radio"].with-gap.col-l-5-yellow:checked + label:after,
 [type="radio"].col-l-5-yellow:checked + label:after,
@@ -5444,9 +5066,6 @@
 }
 
 .bg-d-1-yellow,
-.list-group.bg-d-1-yellow,
-.list-group.bg-d-1-yellow:hover,
-.list-group.bg-d-1-yellow:focus,
 [type="checkbox"].filled-in:checked.col-d-1-yellow + label:after,
 [type="radio"].with-gap.col-d-1-yellow:checked + label:after,
 [type="radio"].col-d-1-yellow:checked + label:after,
@@ -5485,9 +5104,6 @@
 }
 
 .bg-d-2-yellow,
-.list-group.bg-d-2-yellow,
-.list-group.bg-d-2-yellow:hover,
-.list-group.bg-d-2-yellow:focus,
 [type="checkbox"].filled-in:checked.col-d-2-yellow + label:after,
 [type="radio"].with-gap.col-d-2-yellow:checked + label:after,
 [type="radio"].col-d-2-yellow:checked + label:after,
@@ -5526,9 +5142,6 @@
 }
 
 .bg-d-3-yellow,
-.list-group.bg-d-3-yellow,
-.list-group.bg-d-3-yellow:hover,
-.list-group.bg-d-3-yellow:focus,
 [type="checkbox"].filled-in:checked.col-d-3-yellow + label:after,
 [type="radio"].with-gap.col-d-3-yellow:checked + label:after,
 [type="radio"].col-d-2-yellow:checked + label:after,
@@ -5567,9 +5180,6 @@
 }
 
 .bg-d-4-yellow,
-.list-group.bg-d-4-yellow,
-.list-group.bg-d-4-yellow:hover,
-.list-group.bg-d-4-yellow:focus,
 [type="checkbox"].filled-in:checked.col-d-4-yellow + label:after,
 [type="radio"].with-gap.col-d-4-yellow:checked + label:after,
 [type="radio"].col-d-4-yellow:checked + label:after,
@@ -5626,9 +5236,6 @@
     color: #fff;
 }
 .bg-amber,
-.list-group.bg-amber,
-.list-group.bg-amber:hover,
-.list-group.bg-amber:focus,
 [type="checkbox"].filled-in:checked.col-amber + label:after,
 [type="radio"].with-gap.col-amber:checked + label:after,
 [type="radio"].col-amber:checked + label:after,
@@ -5668,9 +5275,6 @@
 
 
 .bg-l-1-amber,
-.list-group.bg-l-1-amber,
-.list-group.bg-l-1-amber:hover,
-.list-group.bg-l-1-amber:focus,
 [type="checkbox"].filled-in:checked.col-l-1-amber + label:after,
 [type="radio"].with-gap.col-l-1-amber:checked + label:after,
 [type="radio"].col-l-1-amber:checked + label:after,
@@ -5710,9 +5314,6 @@
 
 
 .bg-l-2-amber,
-.list-group.bg-l-2-amber,
-.list-group.bg-l-2-amber:hover,
-.list-group.bg-l-2-amber:focus,
 [type="checkbox"].filled-in:checked.col-l-2-amber + label:after,
 [type="radio"].with-gap.col-l-2-amber:checked + label:after,
 [type="radio"].col-l-2-amber:checked + label:after,
@@ -5751,9 +5352,6 @@
 }
 
 .bg-l-3-amber,
-.list-group.bg-l-3-amber,
-.list-group.bg-l-3-amber:hover,
-.list-group.bg-l-3-amber:focus,
 [type="checkbox"].filled-in:checked.col-l-3-amber + label:after,
 [type="radio"].with-gap.col-l-3-amber:checked + label:after,
 [type="radio"].with-gap.col-l-3-amber:checked + label:after,
@@ -5794,9 +5392,6 @@
 }
 
 .bg-l-4-amber,
-.list-group.bg-l-4-amber,
-.list-group.bg-l-4-amber:hover,
-.list-group.bg-l-4-amber:focus,
 [type="checkbox"].filled-in:checked.col-l-4-amber + label:after,
 [type="radio"].with-gap.col-l-4-amber:checked + label:after,
 [type="radio"].col-l-4-amber:checked + label:after,
@@ -5835,9 +5430,6 @@
 }
 
 .bg-l-5-amber ,
-.list-group.bg-l-5-amber,
-.list-group.bg-l-5-amber:hover,
-.list-group.bg-l-5-amber:focus,
 [type="checkbox"].filled-in:checked.col-l-5-amber + label:after,
 [type="radio"].with-gap.col-l-5-amber:checked + label:after,
 [type="radio"].col-l-5-amber:checked + label:after,
@@ -5876,9 +5468,6 @@
 }
 
 .bg-d-1-amber,
-.list-group.bg-d-1-amber,
-.list-group.bg-d-1-amber:hover,
-.list-group.bg-d-1-amber:focus,
 [type="checkbox"].filled-in:checked.col-d-1-amber + label:after,
 [type="radio"].with-gap.col-d-1-amber:checked + label:after,
 [type="radio"].col-d-1-amber:checked + label:after,
@@ -5917,9 +5506,6 @@
 }
 
 .bg-d-2-amber,
-.list-group.bg-d-2-amber,
-.list-group.bg-d-2-amber:hover,
-.list-group.bg-d-2-amber:focus,
 [type="checkbox"].filled-in:checked.col-d-2-amber + label:after,
 [type="radio"].with-gap.col-d-2-amber:checked + label:after,
 [type="radio"].col-d-2-amber:checked + label:after,
@@ -5958,9 +5544,6 @@
 }
 
 .bg-d-3-amber,
-.list-group.bg-d-3-amber,
-.list-group.bg-d-3-amber:hover,
-.list-group.bg-d-3-amber:focus,
 [type="checkbox"].filled-in:checked.col-d-3-amber + label:after,
 [type="radio"].with-gap.col-d-3-amber:checked + label:after,
 [type="radio"].col-d-2-amber:checked + label:after,
@@ -5999,9 +5582,6 @@
 }
 
 .bg-d-4-amber,
-.list-group.bg-d-4-amber,
-.list-group.bg-d-4-amber:hover,
-.list-group.bg-d-4-amber:focus,
 [type="checkbox"].filled-in:checked.col-d-4-amber + label:after,
 [type="radio"].with-gap.col-d-4-amber:checked + label:after,
 [type="radio"].col-d-4-amber:checked + label:after,
@@ -6058,9 +5638,6 @@
     color: #fff;
 }
 .bg-orange,
-.list-group.bg-orange,
-.list-group.bg-orange:hover,
-.list-group.bg-orange:focus,
 [type="checkbox"].filled-in:checked.col-orange + label:after,
 [type="radio"].with-gap.col-orange:checked + label:after,
 [type="radio"].col-orange:checked + label:after,
@@ -6100,9 +5677,6 @@
 
 
 .bg-l-1-orange,
-.list-group.bg-l-1-orange,
-.list-group.bg-l-1-orange:hover,
-.list-group.bg-l-1-orange:focus,
 [type="checkbox"].filled-in:checked.col-l-1-orange + label:after,
 [type="radio"].with-gap.col-l-1-orange:checked + label:after,
 [type="radio"].col-l-1-orange:checked + label:after,
@@ -6142,9 +5716,6 @@
 
 
 .bg-l-2-orange,
-.list-group.bg-l-2-orange,
-.list-group.bg-l-2-orange:hover,
-.list-group.bg-l-2-orange:focus,
 [type="checkbox"].filled-in:checked.col-l-2-orange + label:after,
 [type="radio"].with-gap.col-l-2-orange:checked + label:after,
 [type="radio"].col-l-2-orange:checked + label:after,
@@ -6183,9 +5754,6 @@
 }
 
 .bg-l-3-orange,
-.list-group.bg-l-3-orange,
-.list-group.bg-l-3-orange:hover,
-.list-group.bg-l-3-orange:focus,
 [type="checkbox"].filled-in:checked.col-l-3-orange + label:after,
 [type="radio"].with-gap.col-l-3-orange:checked + label:after,
 [type="radio"].with-gap.col-l-3-orange:checked + label:after,
@@ -6226,9 +5794,6 @@
 }
 
 .bg-l-4-orange,
-.list-group.bg-l-4-orange,
-.list-group.bg-l-4-orange:hover,
-.list-group.bg-l-4-orange:focus,
 [type="checkbox"].filled-in:checked.col-l-4-orange + label:after,
 [type="radio"].with-gap.col-l-4-orange:checked + label:after,
 [type="radio"].col-l-4-orange:checked + label:after,
@@ -6267,9 +5832,6 @@
 }
 
 .bg-l-5-orange ,
-.list-group.bg-l-5-orange,
-.list-group.bg-l-5-orange:hover,
-.list-group.bg-l-5-orange:focus,
 [type="checkbox"].filled-in:checked.col-l-5-orange + label:after,
 [type="radio"].with-gap.col-l-5-orange:checked + label:after,
 [type="radio"].col-l-5-orange:checked + label:after,
@@ -6308,9 +5870,6 @@
 }
 
 .bg-d-1-orange,
-.list-group.bg-d-1-orange,
-.list-group.bg-d-1-orange:hover,
-.list-group.bg-d-1-orange:focus,
 [type="checkbox"].filled-in:checked.col-d-1-orange + label:after,
 [type="radio"].with-gap.col-d-1-orange:checked + label:after,
 [type="radio"].col-d-1-orange:checked + label:after,
@@ -6349,9 +5908,6 @@
 }
 
 .bg-d-2-orange,
-.list-group.bg-d-2-orange,
-.list-group.bg-d-2-orange:hover,
-.list-group.bg-d-2-orange:focus,
 [type="checkbox"].filled-in:checked.col-d-2-orange + label:after,
 [type="radio"].with-gap.col-d-2-orange:checked + label:after,
 [type="radio"].col-d-2-orange:checked + label:after,
@@ -6390,9 +5946,6 @@
 }
 
 .bg-d-3-orange,
-.list-group.bg-d-3-orange,
-.list-group.bg-d-3-orange:hover,
-.list-group.bg-d-3-orange:focus,
 [type="checkbox"].filled-in:checked.col-d-3-orange + label:after,
 [type="radio"].with-gap.col-d-3-orange:checked + label:after,
 [type="radio"].col-d-2-orange:checked + label:after,
@@ -6431,9 +5984,6 @@
 }
 
 .bg-d-4-orange,
-.list-group.bg-d-4-orange,
-.list-group.bg-d-4-orange:hover,
-.list-group.bg-d-4-orange:focus,
 [type="checkbox"].filled-in:checked.col-d-4-orange + label:after,
 [type="radio"].with-gap.col-d-4-orange:checked + label:after,
 [type="radio"].col-d-4-orange:checked + label:after,
@@ -6490,9 +6040,6 @@
     color: #fff;
 }
 .bg-deep-orange,
-.list-group.bg-deep-orange,
-.list-group.bg-deep-orange:hover,
-.list-group.bg-deep-orange:focus,
 [type="checkbox"].filled-in:checked.col-deep-orange + label:after,
 [type="radio"].with-gap.col-deep-orange:checked + label:after,
 [type="radio"].col-deep-orange:checked + label:after,
@@ -6532,9 +6079,6 @@
 
 
 .bg-l-1-deep-orange,
-.list-group.bg-l-1-deep-orange,
-.list-group.bg-l-1-deep-orange:hover,
-.list-group.bg-l-1-deep-orange:focus,
 [type="checkbox"].filled-in:checked.col-l-1-deep-orange + label:after,
 [type="radio"].with-gap.col-l-1-deep-orange:checked + label:after,
 [type="radio"].col-l-1-deep-orange:checked + label:after,
@@ -6574,9 +6118,6 @@
 
 
 .bg-l-2-deep-orange,
-.list-group.bg-l-2-deep-orange,
-.list-group.bg-l-2-deep-orange:hover,
-.list-group.bg-l-2-deep-orange:focus,
 [type="checkbox"].filled-in:checked.col-l-2-deep-orange + label:after,
 [type="radio"].with-gap.col-l-2-deep-orange:checked + label:after,
 [type="radio"].col-l-2-deep-orange:checked + label:after,
@@ -6615,9 +6156,6 @@
 }
 
 .bg-l-3-deep-orange,
-.list-group.bg-l-3-deep-orange,
-.list-group.bg-l-3-deep-orange:hover,
-.list-group.bg-l-3-deep-orange:focus,
 [type="checkbox"].filled-in:checked.col-l-3-deep-orange + label:after,
 [type="radio"].with-gap.col-l-3-deep-orange:checked + label:after,
 [type="radio"].with-gap.col-l-3-deep-orange:checked + label:after,
@@ -6658,9 +6196,6 @@
 }
 
 .bg-l-4-deep-orange,
-.list-group.bg-l-4-deep-orange,
-.list-group.bg-l-4-deep-orange:hover,
-.list-group.bg-l-4-deep-orange:focus,
 [type="checkbox"].filled-in:checked.col-l-4-deep-orange + label:after,
 [type="radio"].with-gap.col-l-4-deep-orange:checked + label:after,
 [type="radio"].col-l-4-deep-orange:checked + label:after,
@@ -6699,9 +6234,6 @@
 }
 
 .bg-l-5-deep-orange ,
-.list-group.bg-l-5-deep-orange,
-.list-group.bg-l-5-deep-orange:hover,
-.list-group.bg-l-5-deep-orange:focus,
 [type="checkbox"].filled-in:checked.col-l-5-deep-orange + label:after,
 [type="radio"].with-gap.col-l-5-deep-orange:checked + label:after,
 [type="radio"].col-l-5-deep-orange:checked + label:after,
@@ -6740,9 +6272,6 @@
 }
 
 .bg-d-1-deep-orange,
-.list-group.bg-d-1-deep-orange,
-.list-group.bg-d-1-deep-orange:hover,
-.list-group.bg-d-1-deep-orange:focus,
 [type="checkbox"].filled-in:checked.col-d-1-deep-orange + label:after,
 [type="radio"].with-gap.col-d-1-deep-orange:checked + label:after,
 [type="radio"].col-d-1-deep-orange:checked + label:after,
@@ -6781,9 +6310,6 @@
 }
 
 .bg-d-2-deep-orange,
-.list-group.bg-d-2-deep-orange,
-.list-group.bg-d-2-deep-orange:hover,
-.list-group.bg-d-2-deep-orange:focus,
 [type="checkbox"].filled-in:checked.col-d-2-deep-orange + label:after,
 [type="radio"].with-gap.col-d-2-deep-orange:checked + label:after,
 [type="radio"].col-d-2-deep-orange:checked + label:after,
@@ -6822,9 +6348,6 @@
 }
 
 .bg-d-3-deep-orange,
-.list-group.bg-d-3-deep-orange,
-.list-group.bg-d-3-deep-orange:hover,
-.list-group.bg-d-3-deep-orange:focus,
 [type="checkbox"].filled-in:checked.col-d-3-deep-orange + label:after,
 [type="radio"].with-gap.col-d-3-deep-orange:checked + label:after,
 [type="radio"].col-d-2-deep-orange:checked + label:after,
@@ -6863,9 +6386,6 @@
 }
 
 .bg-d-4-deep-orange,
-.list-group.bg-d-4-deep-orange,
-.list-group.bg-d-4-deep-orange:hover,
-.list-group.bg-d-4-deep-orange:focus,
 [type="checkbox"].filled-in:checked.col-d-4-deep-orange + label:after,
 [type="radio"].with-gap.col-d-4-deep-orange:checked + label:after,
 [type="radio"].col-d-4-deep-orange:checked + label:after,
@@ -6922,9 +6442,6 @@
     color: #fff;
 }
 .bg-brown,
-.list-group.bg-brown,
-.list-group.bg-brown:hover,
-.list-group.bg-brown:focus,
 [type="checkbox"].filled-in:checked.col-brown + label:after,
 [type="radio"].with-gap.col-brown:checked + label:after,
 [type="radio"].col-brown:checked + label:after,
@@ -6964,9 +6481,6 @@
 
 
 .bg-l-1-brown,
-.list-group.bg-l-1-brown,
-.list-group.bg-l-1-brown:hover,
-.list-group.bg-l-1-brown:focus,
 [type="checkbox"].filled-in:checked.col-l-1-brown + label:after,
 [type="radio"].with-gap.col-l-1-brown:checked + label:after,
 [type="radio"].col-l-1-brown:checked + label:after,
@@ -7006,9 +6520,6 @@
 
 
 .bg-l-2-brown,
-.list-group.bg-l-2-brown,
-.list-group.bg-l-2-brown:hover,
-.list-group.bg-l-2-brown:focus,
 [type="checkbox"].filled-in:checked.col-l-2-brown + label:after,
 [type="radio"].with-gap.col-l-2-brown:checked + label:after,
 [type="radio"].col-l-2-brown:checked + label:after,
@@ -7047,9 +6558,6 @@
 }
 
 .bg-l-3-brown,
-.list-group.bg-l-3-brown,
-.list-group.bg-l-3-brown:hover,
-.list-group.bg-l-3-brown:focus,
 [type="checkbox"].filled-in:checked.col-l-3-brown + label:after,
 [type="radio"].with-gap.col-l-3-brown:checked + label:after,
 [type="radio"].with-gap.col-l-3-brown:checked + label:after,
@@ -7090,9 +6598,6 @@
 }
 
 .bg-l-4-brown,
-.list-group.bg-l-4-brown,
-.list-group.bg-l-4-brown:hover,
-.list-group.bg-l-4-brown:focus,
 [type="checkbox"].filled-in:checked.col-l-4-brown + label:after,
 [type="radio"].with-gap.col-l-4-brown:checked + label:after,
 [type="radio"].col-l-4-brown:checked + label:after,
@@ -7131,9 +6636,6 @@
 }
 
 .bg-l-5-brown ,
-.list-group.bg-l-5-brown,
-.list-group.bg-l-5-brown:hover,
-.list-group.bg-l-5-brown:focus,
 [type="checkbox"].filled-in:checked.col-l-5-brown + label:after,
 [type="radio"].with-gap.col-l-5-brown:checked + label:after,
 [type="radio"].col-l-5-brown:checked + label:after,
@@ -7172,9 +6674,6 @@
 }
 
 .bg-d-1-brown,
-.list-group.bg-d-1-brown,
-.list-group.bg-d-1-brown:hover,
-.list-group.bg-d-1-brown:focus,
 [type="checkbox"].filled-in:checked.col-d-1-brown + label:after,
 [type="radio"].with-gap.col-d-1-brown:checked + label:after,
 [type="radio"].col-d-1-brown:checked + label:after,
@@ -7213,9 +6712,6 @@
 }
 
 .bg-d-2-brown,
-.list-group.bg-d-2-brown,
-.list-group.bg-d-2-brown:hover,
-.list-group.bg-d-2-brown:focus,
 [type="checkbox"].filled-in:checked.col-d-2-brown + label:after,
 [type="radio"].with-gap.col-d-2-brown:checked + label:after,
 [type="radio"].col-d-2-brown:checked + label:after,
@@ -7254,9 +6750,6 @@
 }
 
 .bg-d-3-brown,
-.list-group.bg-d-3-brown,
-.list-group.bg-d-3-brown:hover,
-.list-group.bg-d-3-brown:focus,
 [type="checkbox"].filled-in:checked.col-d-3-brown + label:after,
 [type="radio"].with-gap.col-d-3-brown:checked + label:after,
 [type="radio"].col-d-2-brown:checked + label:after,
@@ -7295,9 +6788,6 @@
 }
 
 .bg-d-4-brown,
-.list-group.bg-d-4-brown,
-.list-group.bg-d-4-brown:hover,
-.list-group.bg-d-4-brown:focus,
 [type="checkbox"].filled-in:checked.col-d-4-brown + label:after,
 [type="radio"].with-gap.col-d-4-brown:checked + label:after,
 [type="radio"].col-d-4-brown:checked + label:after,
@@ -7354,9 +6844,6 @@
     color: #fff;
 }
 .bg-grey,
-.list-group.bg-grey,
-.list-group.bg-grey:hover,
-.list-group.bg-grey:focus,
 [type="checkbox"].filled-in:checked.col-grey + label:after,
 [type="radio"].with-gap.col-grey:checked + label:after,
 [type="radio"].col-grey:checked + label:after,
@@ -7396,9 +6883,6 @@
 
 
 .bg-l-1-grey,
-.list-group.bg-l-1-grey,
-.list-group.bg-l-1-grey:hover,
-.list-group.bg-l-1-grey:focus,
 [type="checkbox"].filled-in:checked.col-l-1-grey + label:after,
 [type="radio"].with-gap.col-l-1-grey:checked + label:after,
 [type="radio"].col-l-1-grey:checked + label:after,
@@ -7438,9 +6922,6 @@
 
 
 .bg-l-2-grey,
-.list-group.bg-l-2-grey,
-.list-group.bg-l-2-grey:hover,
-.list-group.bg-l-2-grey:focus,
 [type="checkbox"].filled-in:checked.col-l-2-grey + label:after,
 [type="radio"].with-gap.col-l-2-grey:checked + label:after,
 [type="radio"].col-l-2-grey:checked + label:after,
@@ -7479,9 +6960,6 @@
 }
 
 .bg-l-3-grey,
-.list-group.bg-l-3-grey,
-.list-group.bg-l-3-grey:hover,
-.list-group.bg-l-3-grey:focus,
 [type="checkbox"].filled-in:checked.col-l-3-grey + label:after,
 [type="radio"].with-gap.col-l-3-grey:checked + label:after,
 [type="radio"].with-gap.col-l-3-grey:checked + label:after,
@@ -7522,9 +7000,6 @@
 }
 
 .bg-l-4-grey,
-.list-group.bg-l-4-grey,
-.list-group.bg-l-4-grey:hover,
-.list-group.bg-l-4-grey:focus,
 [type="checkbox"].filled-in:checked.col-l-4-grey + label:after,
 [type="radio"].with-gap.col-l-4-grey:checked + label:after,
 [type="radio"].col-l-4-grey:checked + label:after,
@@ -7563,9 +7038,6 @@
 }
 
 .bg-l-5-grey ,
-.list-group.bg-l-5-grey,
-.list-group.bg-l-5-grey:hover,
-.list-group.bg-l-5-grey:focus,
 [type="checkbox"].filled-in:checked.col-l-5-grey + label:after,
 [type="radio"].with-gap.col-l-5-grey:checked + label:after,
 [type="radio"].col-l-5-grey:checked + label:after,
@@ -7604,9 +7076,6 @@
 }
 
 .bg-d-1-grey,
-.list-group.bg-d-1-grey,
-.list-group.bg-d-1-grey:hover,
-.list-group.bg-d-1-grey:focus,
 [type="checkbox"].filled-in:checked.col-d-1-grey + label:after,
 [type="radio"].with-gap.col-d-1-grey:checked + label:after,
 [type="radio"].col-d-1-grey:checked + label:after,
@@ -7645,9 +7114,6 @@
 }
 
 .bg-d-2-grey,
-.list-group.bg-d-2-grey,
-.list-group.bg-d-2-grey:hover,
-.list-group.bg-d-2-grey:focus,
 [type="checkbox"].filled-in:checked.col-d-2-grey + label:after,
 [type="radio"].with-gap.col-d-2-grey:checked + label:after,
 [type="radio"].col-d-2-grey:checked + label:after,
@@ -7686,9 +7152,6 @@
 }
 
 .bg-d-3-grey,
-.list-group.bg-d-3-grey,
-.list-group.bg-d-3-grey:hover,
-.list-group.bg-d-3-grey:focus,
 [type="checkbox"].filled-in:checked.col-d-3-grey + label:after,
 [type="radio"].with-gap.col-d-3-grey:checked + label:after,
 [type="radio"].col-d-2-grey:checked + label:after,
@@ -7727,9 +7190,6 @@
 }
 
 .bg-d-4-grey,
-.list-group.bg-d-4-grey,
-.list-group.bg-d-4-grey:hover,
-.list-group.bg-d-4-grey:focus,
 [type="checkbox"].filled-in:checked.col-d-4-grey + label:after,
 [type="radio"].with-gap.col-d-4-grey:checked + label:after,
 [type="radio"].col-d-4-grey:checked + label:after,
@@ -7786,9 +7246,6 @@
     color: #fff;
 }
 .bg-blue-grey,
-.list-group.bg-blue-grey,
-.list-group.bg-blue-grey:hover,
-.list-group.bg-blue-grey:focus,
 [type="checkbox"].filled-in:checked.col-blue-grey + label:after,
 [type="radio"].with-gap.col-blue-grey:checked + label:after,
 [type="radio"].col-blue-grey:checked + label:after,
@@ -7828,9 +7285,6 @@
 
 
 .bg-l-1-blue-grey,
-.list-group.bg-l-1-blue-grey,
-.list-group.bg-l-1-blue-grey:hover,
-.list-group.bg-l-1-blue-grey:focus,
 [type="checkbox"].filled-in:checked.col-l-1-blue-grey + label:after,
 [type="radio"].with-gap.col-l-1-blue-grey:checked + label:after,
 [type="radio"].col-l-1-blue-grey:checked + label:after,
@@ -7870,9 +7324,6 @@
 
 
 .bg-l-2-blue-grey,
-.list-group.bg-l-2-blue-grey,
-.list-group.bg-l-2-blue-grey:hover,
-.list-group.bg-l-2-blue-grey:focus,
 [type="checkbox"].filled-in:checked.col-l-2-blue-grey + label:after,
 [type="radio"].with-gap.col-l-2-blue-grey:checked + label:after,
 [type="radio"].col-l-2-blue-grey:checked + label:after,
@@ -7911,9 +7362,6 @@
 }
 
 .bg-l-3-blue-grey,
-.list-group.bg-l-3-blue-grey,
-.list-group.bg-l-3-blue-grey:hover,
-.list-group.bg-l-3-blue-grey:focus,
 [type="checkbox"].filled-in:checked.col-l-3-blue-grey + label:after,
 [type="radio"].with-gap.col-l-3-blue-grey:checked + label:after,
 [type="radio"].with-gap.col-l-3-blue-grey:checked + label:after,
@@ -7954,9 +7402,6 @@
 }
 
 .bg-l-4-blue-grey,
-.list-group.bg-l-4-blue-grey,
-.list-group.bg-l-4-blue-grey:hover,
-.list-group.bg-l-4-blue-grey:focus,
 [type="checkbox"].filled-in:checked.col-l-4-blue-grey + label:after,
 [type="radio"].with-gap.col-l-4-blue-grey:checked + label:after,
 [type="radio"].col-l-4-blue-grey:checked + label:after,
@@ -7995,9 +7440,6 @@
 }
 
 .bg-l-5-blue-grey ,
-.list-group.bg-l-5-blue-grey,
-.list-group.bg-l-5-blue-grey:hover,
-.list-group.bg-l-5-blue-grey:focus,
 [type="checkbox"].filled-in:checked.col-l-5-blue-grey + label:after,
 [type="radio"].with-gap.col-l-5-blue-grey:checked + label:after,
 [type="radio"].col-l-5-blue-grey:checked + label:after,
@@ -8036,9 +7478,6 @@
 }
 
 .bg-d-1-blue-grey,
-.list-group.bg-d-1-blue-grey,
-.list-group.bg-d-1-blue-grey:hover,
-.list-group.bg-d-1-blue-grey:focus,
 [type="checkbox"].filled-in:checked.col-d-1-blue-grey + label:after,
 [type="radio"].with-gap.col-d-1-blue-grey:checked + label:after,
 [type="radio"].col-d-1-blue-grey:checked + label:after,
@@ -8077,9 +7516,6 @@
 }
 
 .bg-d-2-blue-grey,
-.list-group.bg-d-2-blue-grey,
-.list-group.bg-d-2-blue-grey:hover,
-.list-group.bg-d-2-blue-grey:focus,
 [type="checkbox"].filled-in:checked.col-d-2-blue-grey + label:after,
 [type="radio"].with-gap.col-d-2-blue-grey:checked + label:after,
 [type="radio"].col-d-2-blue-grey:checked + label:after,
@@ -8118,9 +7554,6 @@
 }
 
 .bg-d-3-blue-grey,
-.list-group.bg-d-3-blue-grey,
-.list-group.bg-d-3-blue-grey:hover,
-.list-group.bg-d-3-blue-grey:focus,
 [type="checkbox"].filled-in:checked.col-d-3-blue-grey + label:after,
 [type="radio"].with-gap.col-d-3-blue-grey:checked + label:after,
 [type="radio"].col-d-2-blue-grey:checked + label:after,
@@ -8159,9 +7592,6 @@
 }
 
 .bg-d-4-blue-grey,
-.list-group.bg-d-4-blue-grey,
-.list-group.bg-d-4-blue-grey:hover,
-.list-group.bg-d-4-blue-grey:focus,
 [type="checkbox"].filled-in:checked.col-d-4-blue-grey + label:after,
 [type="radio"].with-gap.col-d-4-blue-grey:checked + label:after,
 [type="radio"].col-d-4-blue-grey:checked + label:after,
@@ -8414,4 +7844,3 @@
 .panel-group.full-body .panel[class*="col-l-5"] .panel-body {
     color: #202020;
 }
-
