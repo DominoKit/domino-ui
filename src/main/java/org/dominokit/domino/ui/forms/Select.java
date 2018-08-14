@@ -189,7 +189,6 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
                 options.getFirst().focus();
             if (searchable) {
                 clearSearch();
-                selectElement.getSearchBox().focus();
             }
         }
         return this;
