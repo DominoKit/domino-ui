@@ -3,10 +3,7 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.ElementUtil;
-import org.dominokit.domino.ui.utils.Focusable;
-import org.dominokit.domino.ui.utils.HasPlaceHolder;
-import org.dominokit.domino.ui.utils.IsReadOnly;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -16,7 +13,7 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 
 public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> extends BasicFormElement<T, V> implements
-        Focusable<T>, HasPlaceHolder<T>, IsReadOnly<T> {
+        Focusable<T>, HasPlaceHolder<T>, IsReadOnly<T>, HasChangeHandlers<T, V> {
 
     public static final String FOCUSED = "focused";
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
@@ -34,6 +31,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     private boolean valid = true;
     private EventListener changeEventListener;
     private boolean readOnly;
+    private List<ChangeHandler<V>> changeHandlers = new ArrayList<>();
 
     public enum ValueBoxSize {
         LARGE("lg"),
@@ -53,6 +51,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
 
     public ValueBox(String type, String label) {
         inputElement = createInputElement(type);
+        inputElement.addEventListener("change", evt -> changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(getValue())));
         container.appendChild(leftAddonContainer);
         inputContainer.appendChild(inputElement);
         inputContainer.appendChild(labelElement);
@@ -418,6 +417,17 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
             validate();
     }
 
+    @Override
+    public T addChangeHandler(ChangeHandler<V> changeHandler) {
+        changeHandlers.add(changeHandler);
+        return (T) this;
+    }
+
+    @Override
+    public T removeChangeHandler(ChangeHandler<V> changeHandler) {
+        changeHandlers.remove(changeHandler);
+        return (T) this;
+    }
 
     protected abstract void clearValue();
 
