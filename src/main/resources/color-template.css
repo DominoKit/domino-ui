@@ -10,9 +10,6 @@
     color: #fff;
 }
 .bg${color_base_name},
-.list-group.bg${color_base_name},
-.list-group.bg${color_base_name}:hover,
-.list-group.bg${color_base_name}:focus,
 [type="checkbox"].filled-in:checked.col${color_base_name} + label:after,
 [type="radio"].with-gap.col${color_base_name}:checked + label:after,
 [type="radio"].col${color_base_name}:checked + label:after,
@@ -52,9 +49,6 @@
 
 
 .bg-l-1${color_base_name},
-.list-group.bg-l-1${color_base_name},
-.list-group.bg-l-1${color_base_name}:hover,
-.list-group.bg-l-1${color_base_name}:focus,
 [type="checkbox"].filled-in:checked.col-l-1${color_base_name} + label:after,
 [type="radio"].with-gap.col-l-1${color_base_name}:checked + label:after,
 [type="radio"].col-l-1${color_base_name}:checked + label:after,
@@ -94,9 +88,6 @@
 
 
 .bg-l-2${color_base_name},
-.list-group.bg-l-2${color_base_name},
-.list-group.bg-l-2${color_base_name}:hover,
-.list-group.bg-l-2${color_base_name}:focus,
 [type="checkbox"].filled-in:checked.col-l-2${color_base_name} + label:after,
 [type="radio"].with-gap.col-l-2${color_base_name}:checked + label:after,
 [type="radio"].col-l-2${color_base_name}:checked + label:after,
@@ -135,9 +126,6 @@
 }
 
 .bg-l-3${color_base_name},
-.list-group.bg-l-3${color_base_name},
-.list-group.bg-l-3${color_base_name}:hover,
-.list-group.bg-l-3${color_base_name}:focus,
 [type="checkbox"].filled-in:checked.col-l-3${color_base_name} + label:after,
 [type="radio"].with-gap.col-l-3${color_base_name}:checked + label:after,
 [type="radio"].with-gap.col-l-3${color_base_name}:checked + label:after,
@@ -178,9 +166,6 @@
 }
 
 .bg-l-4${color_base_name},
-.list-group.bg-l-4${color_base_name},
-.list-group.bg-l-4${color_base_name}:hover,
-.list-group.bg-l-4${color_base_name}:focus,
 [type="checkbox"].filled-in:checked.col-l-4${color_base_name} + label:after,
 [type="radio"].with-gap.col-l-4${color_base_name}:checked + label:after,
 [type="radio"].col-l-4${color_base_name}:checked + label:after,
@@ -219,9 +204,6 @@
 }
 
 .bg-l-5${color_base_name} ,
-.list-group.bg-l-5${color_base_name},
-.list-group.bg-l-5${color_base_name}:hover,
-.list-group.bg-l-5${color_base_name}:focus,
 [type="checkbox"].filled-in:checked.col-l-5${color_base_name} + label:after,
 [type="radio"].with-gap.col-l-5${color_base_name}:checked + label:after,
 [type="radio"].col-l-5${color_base_name}:checked + label:after,
@@ -260,9 +242,6 @@
 }
 
 .bg-d-1${color_base_name},
-.list-group.bg-d-1${color_base_name},
-.list-group.bg-d-1${color_base_name}:hover,
-.list-group.bg-d-1${color_base_name}:focus,
 [type="checkbox"].filled-in:checked.col-d-1${color_base_name} + label:after,
 [type="radio"].with-gap.col-d-1${color_base_name}:checked + label:after,
 [type="radio"].col-d-1${color_base_name}:checked + label:after,
@@ -301,9 +280,6 @@
 }
 
 .bg-d-2${color_base_name},
-.list-group.bg-d-2${color_base_name},
-.list-group.bg-d-2${color_base_name}:hover,
-.list-group.bg-d-2${color_base_name}:focus,
 [type="checkbox"].filled-in:checked.col-d-2${color_base_name} + label:after,
 [type="radio"].with-gap.col-d-2${color_base_name}:checked + label:after,
 [type="radio"].col-d-2${color_base_name}:checked + label:after,
@@ -342,9 +318,6 @@
 }
 
 .bg-d-3${color_base_name},
-.list-group.bg-d-3${color_base_name},
-.list-group.bg-d-3${color_base_name}:hover,
-.list-group.bg-d-3${color_base_name}:focus,
 [type="checkbox"].filled-in:checked.col-d-3${color_base_name} + label:after,
 [type="radio"].with-gap.col-d-3${color_base_name}:checked + label:after,
 [type="radio"].col-d-2${color_base_name}:checked + label:after,
@@ -383,9 +356,6 @@
 }
 
 .bg-d-4${color_base_name},
-.list-group.bg-d-4${color_base_name},
-.list-group.bg-d-4${color_base_name}:hover,
-.list-group.bg-d-4${color_base_name}:focus,
 [type="checkbox"].filled-in:checked.col-d-4${color_base_name} + label:after,
 [type="radio"].with-gap.col-d-4${color_base_name}:checked + label:after,
 [type="radio"].col-d-4${color_base_name}:checked + label:after,
