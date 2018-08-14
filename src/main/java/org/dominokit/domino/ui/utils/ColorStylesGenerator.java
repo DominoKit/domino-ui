@@ -16,12 +16,12 @@ public class ColorStylesGenerator {
     public static void main(String[] args) {
         try {
             InputStream resourceAsStream = ColorStylesGenerator.class.getClassLoader().getResourceAsStream("color-template.css");
-            InputStream whiteColorResourceAsStream = ColorStylesGenerator.class.getClassLoader().getResourceAsStream("color-white.css");
+            InputStream whiteColorResourceAsStream = ColorStylesGenerator.class.getClassLoader().getResourceAsStream("all-colors-section.css");
             byte[] bytes = IOUtils.readFully(resourceAsStream, Integer.MAX_VALUE, false);
-            byte[] whiteBytes = IOUtils.readFully(resourceAsStream, Integer.MAX_VALUE, false);
+            byte[] whiteBytes = IOUtils.readFully(whiteColorResourceAsStream, Integer.MAX_VALUE, false);
 
             String templateContent = new String(bytes, UTF_8);
-            String whiteTemplate = new String(whiteBytes, UTF_8);
+            String allOtherColorsTemplate = new String(whiteBytes, UTF_8);
 
             StringBuilder sb = new StringBuilder();
 
@@ -64,9 +64,7 @@ public class ColorStylesGenerator {
                     .append("\n")
                     .append(generateColorStyles(templateContent, ColorScheme.BLUE_GREY))
                     .append("\n")
-                    .append(generateColorStyles(templateContent, ColorScheme.BLACK))
-                    .append("\n")
-                    .append(whiteTemplate)
+                    .append(allOtherColorsTemplate)
                     .append("\n");
 
             File file=new File("colors.css");

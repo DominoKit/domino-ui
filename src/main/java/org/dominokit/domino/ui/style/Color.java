@@ -37,7 +37,7 @@ public interface Color {
     Color RED_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-red-l-1";
+            return "col-l-1-red";
         }
 
         @Override
@@ -52,14 +52,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-red-l-1";
+            return "bg-l-1-red";
         }
     };
 
     Color RED_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-red-l-2";
+            return "col-l-2-red";
         }
 
         @Override
@@ -74,14 +74,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-red-l-2";
+            return "bg-l-2-red";
         }
     };
 
     Color RED_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-red-l-3";
+            return "col-l-3-red";
         }
 
         @Override
@@ -96,14 +96,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-red-l-3";
+            return "bg-l-3-red";
         }
     };
 
     Color RED_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-red-l-4";
+            return "col-l-4-red";
         }
 
         @Override
@@ -118,14 +118,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-red-l-4";
+            return "bg-l-4-red";
         }
     };
 
     Color RED_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-red-l-5";
+            return "col-l-5-red";
         }
 
         @Override
@@ -140,14 +140,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-red-l-5";
+            return "bg-l-5-red";
         }
     };
 
     Color RED_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-red-d-1";
+            return "col-d-1-red";
         }
 
         @Override
@@ -162,14 +162,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-red-d-1";
+            return "bg-d-1-red";
         }
     };
 
     Color RED_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-red-d-2";
+            return "col-d-2-red";
         }
 
         @Override
@@ -184,14 +184,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-red-d-2";
+            return "bg-d-2-red";
         }
     };
 
     Color RED_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-red-d-3";
+            return "col-d-3-red";
         }
 
         @Override
@@ -206,14 +206,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-red-d-3";
+            return "bg-d-3-red";
         }
     };
 
     Color RED_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-red-d-4";
+            return "col-d-4-red";
         }
 
         @Override
@@ -228,7 +228,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-red-d-4";
+            return "bg-d-4-red";
         }
     };
 
@@ -257,7 +257,7 @@ public interface Color {
     Color PINK_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-pink-l-1";
+            return "col-l-1-pink";
         }
 
         @Override
@@ -272,14 +272,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-pink-l-1";
+            return "bg-l-1-pink";
         }
     };
 
     Color PINK_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-pink-l-2";
+            return "col-l-2-pink";
         }
 
         @Override
@@ -294,14 +294,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-pink-l-2";
+            return "bg-l-2-pink";
         }
     };
 
     Color PINK_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-pink-l-3";
+            return "col-l-3-pink";
         }
 
         @Override
@@ -316,14 +316,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-pink-l-3";
+            return "bg-l-3-pink";
         }
     };
 
     Color PINK_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-pink-l-4";
+            return "col-l-4-pink";
         }
 
         @Override
@@ -338,14 +338,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-pink-l-4";
+            return "bg-l-4-pink";
         }
     };
 
     Color PINK_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-pink-l-5";
+            return "col-l-5-pink";
         }
 
         @Override
@@ -360,14 +360,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-pink-l-5";
+            return "bg-l-5-pink";
         }
     };
 
     Color PINK_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-pink-d-1";
+            return "col-d-1-pink";
         }
 
         @Override
@@ -382,14 +382,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-pink-d-1";
+            return "bg-d-1-pink";
         }
     };
 
     Color PINK_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-pink-d-2";
+            return "col-d-2-pink";
         }
 
         @Override
@@ -404,14 +404,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-pink-d-2";
+            return "bg-d-2-pink";
         }
     };
 
     Color PINK_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-pink-d-3";
+            return "col-d-3-pink";
         }
 
         @Override
@@ -426,14 +426,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-pink-d-3";
+            return "bg-d-3-pink";
         }
     };
 
     Color PINK_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-pink-d-4";
+            return "col-d-4-pink";
         }
 
         @Override
@@ -448,7 +448,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-pink-d-4";
+            return "bg-d-4-pink";
         }
     };
 
@@ -477,7 +477,7 @@ public interface Color {
     Color PURPLE_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-purple-l-1";
+            return "col-l-1-purple";
         }
 
         @Override
@@ -492,14 +492,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-purple-l-1";
+            return "bg-l-1-purple";
         }
     };
 
     Color PURPLE_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-purple-l-2";
+            return "col-l-2-purple";
         }
 
         @Override
@@ -514,14 +514,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-purple-l-2";
+            return "bg-l-2-purple";
         }
     };
 
     Color PURPLE_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-purple-l-3";
+            return "col-l-3-purple";
         }
 
         @Override
@@ -536,14 +536,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-purple-l-3";
+            return "bg-l-3-purple";
         }
     };
 
     Color PURPLE_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-purple-l-4";
+            return "col-l-4-purple";
         }
 
         @Override
@@ -558,14 +558,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-purple-l-4";
+            return "bg-l-4-purple";
         }
     };
 
     Color PURPLE_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-purple-l-5";
+            return "col-l-5-purple";
         }
 
         @Override
@@ -580,14 +580,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-purple-l-5";
+            return "bg-l-5-purple";
         }
     };
 
     Color PURPLE_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-purple-d-1";
+            return "col-d-1-purple";
         }
 
         @Override
@@ -602,14 +602,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-purple-d-1";
+            return "bg-d-1-purple";
         }
     };
 
     Color PURPLE_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-purple-d-2";
+            return "col-d-2-purple";
         }
 
         @Override
@@ -624,14 +624,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-purple-d-2";
+            return "bg-d-2-purple";
         }
     };
 
     Color PURPLE_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-purple-d-3";
+            return "col-d-3-purple";
         }
 
         @Override
@@ -646,14 +646,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-purple-d-3";
+            return "bg-d-3-purple";
         }
     };
 
     Color PURPLE_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-purple-d-4";
+            return "col-d-4-purple";
         }
 
         @Override
@@ -668,7 +668,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-purple-d-4";
+            return "bg-d-4-purple";
         }
     };
 
@@ -697,7 +697,7 @@ public interface Color {
     Color DEEP_PURPLE_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-purple-l-1";
+            return "col-l-1-deep-purple";
         }
 
         @Override
@@ -712,14 +712,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-purple-l-1";
+            return "bg-l-1-deep-purple";
         }
     };
 
     Color DEEP_PURPLE_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-purple-l-2";
+            return "col-l-2-deep-purple";
         }
 
         @Override
@@ -734,14 +734,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-purple-l-2";
+            return "bg-l-2-deep-purple";
         }
     };
 
     Color DEEP_PURPLE_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-purple-l-3";
+            return "col-l-3-deep-purple";
         }
 
         @Override
@@ -756,14 +756,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-purple-l-3";
+            return "bg-l-3-deep-purple";
         }
     };
 
     Color DEEP_PURPLE_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-purple-l-4";
+            return "col-l-4-deep-purple";
         }
 
         @Override
@@ -778,14 +778,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-purple-l-4";
+            return "bg-l-4-deep-purple";
         }
     };
 
     Color DEEP_PURPLE_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-purple-l-5";
+            return "col-l-5-deep-purple";
         }
 
         @Override
@@ -800,14 +800,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-purple-l-5";
+            return "bg-l-5-deep-purple";
         }
     };
 
     Color DEEP_PURPLE_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-purple-d-1";
+            return "col-d-1-deep-purple";
         }
 
         @Override
@@ -822,14 +822,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-purple-d-1";
+            return "bg-d-1-deep-purple";
         }
     };
 
     Color DEEP_PURPLE_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-purple-d-2";
+            return "col-d-2-deep-purple";
         }
 
         @Override
@@ -844,14 +844,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-purple-d-2";
+            return "bg-d-2-deep-purple";
         }
     };
 
     Color DEEP_PURPLE_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-purple-d-3";
+            return "col-d-3-deep-purple";
         }
 
         @Override
@@ -866,14 +866,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-purple-d-3";
+            return "bg-d-3-deep-purple";
         }
     };
 
     Color DEEP_PURPLE_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-purple-d-4";
+            return "col-d-4-deep-purple";
         }
 
         @Override
@@ -888,7 +888,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-purple-d-4";
+            return "bg-d-4-deep-purple";
         }
     };
 
@@ -917,7 +917,7 @@ public interface Color {
     Color INDIGO_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-indigo-l-1";
+            return "col-l-1-indigo";
         }
 
         @Override
@@ -932,14 +932,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-indigo-l-1";
+            return "bg-l-1-indigo";
         }
     };
 
     Color INDIGO_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-indigo-l-2";
+            return "col-l-2-indigo";
         }
 
         @Override
@@ -954,14 +954,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-indigo-l-2";
+            return "bg-l-2-indigo";
         }
     };
 
     Color INDIGO_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-indigo-l-3";
+            return "col-l-3-indigo";
         }
 
         @Override
@@ -976,14 +976,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-indigo-l-3";
+            return "bg-l-3-indigo";
         }
     };
 
     Color INDIGO_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-indigo-l-4";
+            return "col-l-4-indigo";
         }
 
         @Override
@@ -998,14 +998,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-indigo-l-4";
+            return "bg-l-4-indigo";
         }
     };
 
     Color INDIGO_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-indigo-l-5";
+            return "col-l-5-indigo";
         }
 
         @Override
@@ -1020,14 +1020,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-indigo-l-5";
+            return "bg-l-5-indigo";
         }
     };
 
     Color INDIGO_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-indigo-d-1";
+            return "col-d-1-indigo";
         }
 
         @Override
@@ -1042,14 +1042,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-indigo-d-1";
+            return "bg-d-1-indigo";
         }
     };
 
     Color INDIGO_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-indigo-d-2";
+            return "col-d-2-indigo";
         }
 
         @Override
@@ -1064,14 +1064,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-indigo-d-2";
+            return "bg-d-2-indigo";
         }
     };
 
     Color INDIGO_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-indigo-d-3";
+            return "col-d-3-indigo";
         }
 
         @Override
@@ -1086,14 +1086,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-indigo-d-3";
+            return "bg-d-3-indigo";
         }
     };
 
     Color INDIGO_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-indigo-d-4";
+            return "col-d-4-indigo";
         }
 
         @Override
@@ -1108,7 +1108,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-indigo-d-4";
+            return "bg-d-4-indigo";
         }
     };
 
@@ -1137,7 +1137,7 @@ public interface Color {
     Color BLUE_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-l-1";
+            return "col-l-1-blue";
         }
 
         @Override
@@ -1152,14 +1152,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-l-1";
+            return "bg-l-1-blue";
         }
     };
 
     Color BLUE_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-l-2";
+            return "col-l-2-blue";
         }
 
         @Override
@@ -1174,14 +1174,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-l-2";
+            return "bg-l-2-blue";
         }
     };
 
     Color BLUE_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-l-3";
+            return "col-l-3-blue";
         }
 
         @Override
@@ -1196,14 +1196,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-l-3";
+            return "bg-l-3-blue";
         }
     };
 
     Color BLUE_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-l-4";
+            return "col-l-4-blue";
         }
 
         @Override
@@ -1218,14 +1218,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-l-4";
+            return "bg-l-4-blue";
         }
     };
 
     Color BLUE_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-l-5";
+            return "col-l-5-blue";
         }
 
         @Override
@@ -1240,14 +1240,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-l-5";
+            return "bg-l-5-blue";
         }
     };
 
     Color BLUE_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-d-1";
+            return "col-d-1-blue";
         }
 
         @Override
@@ -1262,14 +1262,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-d-1";
+            return "bg-d-1-blue";
         }
     };
 
     Color BLUE_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-d-2";
+            return "col-d-2-blue";
         }
 
         @Override
@@ -1284,14 +1284,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-d-2";
+            return "bg-d-2-blue";
         }
     };
 
     Color BLUE_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-d-3";
+            return "col-d-3-blue";
         }
 
         @Override
@@ -1306,14 +1306,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-d-3";
+            return "bg-d-3-blue";
         }
     };
 
     Color BLUE_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-d-4";
+            return "col-d-4-blue";
         }
 
         @Override
@@ -1328,7 +1328,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-d-4";
+            return "bg-d-4-blue";
         }
     };
 
@@ -1350,14 +1350,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-blue";
+            return "bg-blue";
         }
     };
 
     Color LIGHT_BLUE_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-blue-l-1";
+            return "col-l-1-light-blue";
         }
 
         @Override
@@ -1372,14 +1372,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-blue-l-1";
+            return "bg-l-1-light-blue";
         }
     };
 
     Color LIGHT_BLUE_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-blue-l-2";
+            return "col-l-2-light-blue";
         }
 
         @Override
@@ -1394,14 +1394,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-blue-l-2";
+            return "bg-l-2-light-blue";
         }
     };
 
     Color LIGHT_BLUE_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-blue-l-3";
+            return "col-l-3-light-blue";
         }
 
         @Override
@@ -1416,14 +1416,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-blue-l-3";
+            return "bg-l-3-light-blue";
         }
     };
 
     Color LIGHT_BLUE_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-blue-l-4";
+            return "col-l-4-light-blue";
         }
 
         @Override
@@ -1438,14 +1438,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-blue-l-4";
+            return "bg-l-4-light-blue";
         }
     };
 
     Color LIGHT_BLUE_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-blue-l-5";
+            return "col-l-5-light-blue";
         }
 
         @Override
@@ -1460,14 +1460,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-blue-l-5";
+            return "bg-l-5-light-blue";
         }
     };
 
     Color LIGHT_BLUE_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-blue-d-1";
+            return "col-d-1-light-blue";
         }
 
         @Override
@@ -1482,14 +1482,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-blue-d-1";
+            return "bg-d-1-light-blue";
         }
     };
 
     Color LIGHT_BLUE_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-blue-d-2";
+            return "col-d-2-light-blue";
         }
 
         @Override
@@ -1504,14 +1504,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-blue-d-2";
+            return "bg-d-2-light-blue";
         }
     };
 
     Color LIGHT_BLUE_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-blue-d-3";
+            return "col-d-3-light-blue";
         }
 
         @Override
@@ -1526,14 +1526,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-blue-d-3";
+            return "bg-d-3-light-blue";
         }
     };
 
     Color LIGHT_BLUE_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-blue-d-4";
+            return "col-d-4-light-blue";
         }
 
         @Override
@@ -1548,7 +1548,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-blue-d-4";
+            return "bg-d-4-light-blue";
         }
     };
 
@@ -1577,7 +1577,7 @@ public interface Color {
     Color CYAN_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-cyan-l-1";
+            return "col-l-1-cyan";
         }
 
         @Override
@@ -1592,14 +1592,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-cyan-l-1";
+            return "bg-l-1-cyan";
         }
     };
 
     Color CYAN_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-cyan-l-2";
+            return "col-l-2-cyan";
         }
 
         @Override
@@ -1614,14 +1614,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-cyan-l-2";
+            return "bg-l-2-cyan";
         }
     };
 
     Color CYAN_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-cyan-l-3";
+            return "col-l-3-cyan";
         }
 
         @Override
@@ -1636,14 +1636,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-cyan-l-3";
+            return "bg-l-3-cyan";
         }
     };
 
     Color CYAN_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-cyan-l-4";
+            return "col-l-4-cyan";
         }
 
         @Override
@@ -1658,14 +1658,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-cyan-l-4";
+            return "bg-l-4-cyan";
         }
     };
 
     Color CYAN_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-cyan-l-5";
+            return "col-l-5-cyan";
         }
 
         @Override
@@ -1680,14 +1680,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-cyan-l-5";
+            return "bg-l-5-cyan";
         }
     };
 
     Color CYAN_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-cyan-d-1";
+            return "col-d-1-cyan";
         }
 
         @Override
@@ -1702,14 +1702,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-cyan-d-1";
+            return "bg-d-1-cyan";
         }
     };
 
     Color CYAN_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-cyan-d-2";
+            return "col-d-2-cyan";
         }
 
         @Override
@@ -1724,14 +1724,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-cyan-d-2";
+            return "bg-d-2-cyan";
         }
     };
 
     Color CYAN_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-cyan-d-3";
+            return "col-d-3-cyan";
         }
 
         @Override
@@ -1746,14 +1746,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-cyan-d-3";
+            return "bg-d-3-cyan";
         }
     };
 
     Color CYAN_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-cyan-d-4";
+            return "col-d-4-cyan";
         }
 
         @Override
@@ -1768,7 +1768,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-cyan-d-4";
+            return "bg-d-4-cyan";
         }
     };
 
@@ -1797,7 +1797,7 @@ public interface Color {
     Color TEAL_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-teal-l-1";
+            return "col-l-1-teal";
         }
 
         @Override
@@ -1812,14 +1812,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-teal-l-1";
+            return "bg-l-1-teal";
         }
     };
 
     Color TEAL_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-teal-l-2";
+            return "col-l-2-teal";
         }
 
         @Override
@@ -1834,14 +1834,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-teal-l-2";
+            return "bg-l-2-teal";
         }
     };
 
     Color TEAL_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-teal-l-3";
+            return "col-l-3-teal";
         }
 
         @Override
@@ -1856,14 +1856,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-teal-l-3";
+            return "bg-l-3-teal";
         }
     };
 
     Color TEAL_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-teal-l-4";
+            return "col-l-4-teal";
         }
 
         @Override
@@ -1878,14 +1878,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-teal-l-4";
+            return "bg-l-4";
         }
     };
 
     Color TEAL_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-teal-l-5";
+            return "col-l-5-teal";
         }
 
         @Override
@@ -1900,14 +1900,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-teal-l-5";
+            return "bg-l-5-teal";
         }
     };
 
     Color TEAL_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-teal-d-1";
+            return "col-d-1-teal";
         }
 
         @Override
@@ -1922,14 +1922,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-teal-d-1";
+            return "bg-d-1-teal";
         }
     };
 
     Color TEAL_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-teal-d-2";
+            return "col-d-2-teal";
         }
 
         @Override
@@ -1944,14 +1944,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-teal-d-2";
+            return "bg-d-2-teal";
         }
     };
 
     Color TEAL_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-teal-d-3";
+            return "col-d-3-teal";
         }
 
         @Override
@@ -1966,14 +1966,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-teal-d-3";
+            return "bg-d-3-teal";
         }
     };
 
     Color TEAL_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-teal-d-4";
+            return "col-d-4-teal";
         }
 
         @Override
@@ -1988,7 +1988,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-teal-d-4";
+            return "bg-d-4-teal";
         }
     };
 
@@ -2017,7 +2017,7 @@ public interface Color {
     Color GREEN_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-green-l-1";
+            return "col-l-1-green";
         }
 
         @Override
@@ -2032,14 +2032,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-green-l-1";
+            return "bg-l-1-green";
         }
     };
 
     Color GREEN_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-green-l-2";
+            return "col-l-2-green";
         }
 
         @Override
@@ -2054,14 +2054,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-green-l-2";
+            return "bg-l-2-green";
         }
     };
 
     Color GREEN_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-green-l-3";
+            return "col-l-3-green";
         }
 
         @Override
@@ -2076,14 +2076,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-green-l-3";
+            return "bg-l-3-green";
         }
     };
 
     Color GREEN_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-green-l-4";
+            return "col-l-4-green";
         }
 
         @Override
@@ -2098,14 +2098,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-green-l-4";
+            return "bg-l-4-green";
         }
     };
 
     Color GREEN_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-green-l-5";
+            return "col-l-5-green";
         }
 
         @Override
@@ -2120,14 +2120,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-green-l-5";
+            return "bg-l-5-green";
         }
     };
 
     Color GREEN_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-green-d-1";
+            return "col-d-1-green";
         }
 
         @Override
@@ -2142,14 +2142,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-green-d-1";
+            return "bg-d-1-green";
         }
     };
 
     Color GREEN_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-green-d-2";
+            return "col-d-2-green";
         }
 
         @Override
@@ -2164,14 +2164,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-green-d-2";
+            return "bg-d-2-green";
         }
     };
 
     Color GREEN_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-green-d-3";
+            return "col-d-3-green";
         }
 
         @Override
@@ -2186,14 +2186,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-green-d-3";
+            return "bg-d-3-green";
         }
     };
 
     Color GREEN_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-green-d-4";
+            return "col-d-4-green";
         }
 
         @Override
@@ -2208,7 +2208,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-green-d-4";
+            return "bg-d-4-green";
         }
     };
 
@@ -2237,7 +2237,7 @@ public interface Color {
     Color LIGHT_GREEN_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-green-l-1";
+            return "col-l-1-light-green";
         }
 
         @Override
@@ -2252,14 +2252,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-green-l-1";
+            return "bg-l-1-light-green";
         }
     };
 
     Color LIGHT_GREEN_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-green-l-2";
+            return "col-l-2-light-green";
         }
 
         @Override
@@ -2274,14 +2274,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-green-l-2";
+            return "bg-l-2-light-green";
         }
     };
 
     Color LIGHT_GREEN_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-green-l-3";
+            return "col-l-3-light-green";
         }
 
         @Override
@@ -2296,14 +2296,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-green-l-3";
+            return "bg-l-3-light-green";
         }
     };
 
     Color LIGHT_GREEN_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-green-l-4";
+            return "col-l-4-light-green";
         }
 
         @Override
@@ -2318,14 +2318,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-green-l-4";
+            return "bg-l-4-light-green";
         }
     };
 
     Color LIGHT_GREEN_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-green-l-5";
+            return "col-l-5-light-green";
         }
 
         @Override
@@ -2340,14 +2340,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-green-l-5";
+            return "bg-l-5-light-green";
         }
     };
 
     Color LIGHT_GREEN_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-green-d-1";
+            return "col-d-1-light-green";
         }
 
         @Override
@@ -2362,14 +2362,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-green-d-1";
+            return "bg-d-1-light-green";
         }
     };
 
     Color LIGHT_GREEN_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-green-d-2";
+            return "col-d-2-light-green";
         }
 
         @Override
@@ -2384,14 +2384,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-green-d-2";
+            return "bg-d-2-light-green";
         }
     };
 
     Color LIGHT_GREEN_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-green-d-3";
+            return "col-d-3-light-green";
         }
 
         @Override
@@ -2406,14 +2406,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-green-d-3";
+            return "bg-d-3-light-green";
         }
     };
 
     Color LIGHT_GREEN_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-light-green-d-4";
+            return "col-d-4-light-green";
         }
 
         @Override
@@ -2428,7 +2428,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-light-green-d-4";
+            return "bg-d-4-light-green";
         }
     };
 
@@ -2457,7 +2457,7 @@ public interface Color {
     Color LIME_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-lime-l-1";
+            return "col-l-1-lime";
         }
 
         @Override
@@ -2472,14 +2472,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-lime-l-1";
+            return "bg-l-1-lime";
         }
     };
 
     Color LIME_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-lime-l-2";
+            return "col-l-2-lime";
         }
 
         @Override
@@ -2494,14 +2494,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-lime-l-2";
+            return "bg-l-2-lime";
         }
     };
 
     Color LIME_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-lime-l-3";
+            return "col-l-3-lime";
         }
 
         @Override
@@ -2516,14 +2516,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-lime-l-3";
+            return "bg-l-3-lime";
         }
     };
 
     Color LIME_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-lime-l-4";
+            return "col-l-4-lime";
         }
 
         @Override
@@ -2538,14 +2538,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-lime-l-4";
+            return "bg-l-4-lime";
         }
     };
 
     Color LIME_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-lime-l-5";
+            return "col-l-5-lime";
         }
 
         @Override
@@ -2560,14 +2560,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-lime-l-5";
+            return "bg-l-5-lime";
         }
     };
 
     Color LIME_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-lime-d-1";
+            return "col-d-1-lime";
         }
 
         @Override
@@ -2582,14 +2582,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-lime-d-1";
+            return "bg-d-1-lime";
         }
     };
 
     Color LIME_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-lime-d-2";
+            return "col-d-2-lime";
         }
 
         @Override
@@ -2604,14 +2604,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-lime-d-2";
+            return "bg-d-2-lime";
         }
     };
 
     Color LIME_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-lime-d-3";
+            return "col-d-3-lime";
         }
 
         @Override
@@ -2626,14 +2626,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-lime-d-3";
+            return "bg-d-3-lime";
         }
     };
 
     Color LIME_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-lime-d-4";
+            return "col-d-4-lime";
         }
 
         @Override
@@ -2648,7 +2648,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-lime-d-4";
+            return "bg-d-4-lime";
         }
     };
 
@@ -2677,7 +2677,7 @@ public interface Color {
     Color YELLOW_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-yellow-l-1";
+            return "col-l-1-yellow";
         }
 
         @Override
@@ -2692,14 +2692,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-yellow-l-1";
+            return "bg-l-1-yellow";
         }
     };
 
     Color YELLOW_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-yellow-l-2";
+            return "col-l-2-yellow";
         }
 
         @Override
@@ -2714,14 +2714,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-yellow-l-2";
+            return "bg-l-2-yellow";
         }
     };
 
     Color YELLOW_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-yellow-l-3";
+            return "col-l-3-yellow";
         }
 
         @Override
@@ -2736,14 +2736,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-yellow-l-3";
+            return "bg-l-3-yellow";
         }
     };
 
     Color YELLOW_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-yellow-l-4";
+            return "col-l-4-yellow";
         }
 
         @Override
@@ -2758,14 +2758,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-yellow-l-4";
+            return "bg-l-4-yellow";
         }
     };
 
     Color YELLOW_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-yellow-l-5";
+            return "col-l-5-yellow";
         }
 
         @Override
@@ -2780,14 +2780,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-yellow-l-5";
+            return "bg-l-5-yellow";
         }
     };
 
     Color YELLOW_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-yellow-d-1";
+            return "col-d-1-yellow";
         }
 
         @Override
@@ -2802,14 +2802,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-yellow-d-1";
+            return "bg-d-1-yellow";
         }
     };
 
     Color YELLOW_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-yellow-d-2";
+            return "col-d-2-yellow";
         }
 
         @Override
@@ -2824,14 +2824,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-yellow-d-2";
+            return "bg-d-2-yellow";
         }
     };
 
     Color YELLOW_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-yellow-d-3";
+            return "col-d-3-yellow";
         }
 
         @Override
@@ -2846,14 +2846,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-yellow-d-3";
+            return "bg-d-3-yellow";
         }
     };
 
     Color YELLOW_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-yellow-d-4";
+            return "col-d-4-yellow";
         }
 
         @Override
@@ -2868,7 +2868,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-yellow-d-4";
+            return "bg-d-4-yellow";
         }
     };
 
@@ -2897,7 +2897,7 @@ public interface Color {
     Color AMBER_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-amber-l-1";
+            return "col-l-1-amber";
         }
 
         @Override
@@ -2912,14 +2912,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-amber-l-1";
+            return "bg-l-1-amber";
         }
     };
 
     Color AMBER_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-amber-l-2";
+            return "col-l-2-amber";
         }
 
         @Override
@@ -2934,14 +2934,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-amber-l-2";
+            return "bg-l-2-amber";
         }
     };
 
     Color AMBER_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-amber-l-3";
+            return "col-l-3-amber";
         }
 
         @Override
@@ -2956,14 +2956,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-amber-l-3";
+            return "bg-l-3-amber";
         }
     };
 
     Color AMBER_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-amber-l-4";
+            return "col-l-4-amber";
         }
 
         @Override
@@ -2978,14 +2978,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-amber-l-4";
+            return "bg-l-4-amber";
         }
     };
 
     Color AMBER_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-amber-l-5";
+            return "col-l-5-amber";
         }
 
         @Override
@@ -3000,14 +3000,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-amber-l-5";
+            return "bg-l-5-amber";
         }
     };
 
     Color AMBER_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-amber-d-1";
+            return "col-d-1-amber";
         }
 
         @Override
@@ -3022,14 +3022,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-amber-d-1";
+            return "bg-d-1-amber";
         }
     };
 
     Color AMBER_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-amber-d-2";
+            return "col-d-2-amber";
         }
 
         @Override
@@ -3044,14 +3044,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-amber-d-2";
+            return "bg-d-2-amber";
         }
     };
 
     Color AMBER_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-amber-d-3";
+            return "col-d-3-amber";
         }
 
         @Override
@@ -3066,14 +3066,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-amber-d-3";
+            return "bg-d-3-amber";
         }
     };
 
     Color AMBER_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-amber-d-4";
+            return "col-d-4-amber";
         }
 
         @Override
@@ -3088,7 +3088,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-amber-d-4";
+            return "bg-d-4-amber";
         }
     };
 
@@ -3117,7 +3117,7 @@ public interface Color {
     Color ORANGE_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-orange-l-1";
+            return "col-l-1-orange";
         }
 
         @Override
@@ -3132,14 +3132,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-orange-l-1";
+            return "bg-l-1-orange";
         }
     };
 
     Color ORANGE_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-orange-l-2";
+            return "col-l-2-orange";
         }
 
         @Override
@@ -3154,14 +3154,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-orange-l-2";
+            return "bg-l-2-orange";
         }
     };
 
     Color ORANGE_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-orange-l-3";
+            return "col-l-3-orange";
         }
 
         @Override
@@ -3176,14 +3176,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-orange-l-3";
+            return "bg-l-3-orange";
         }
     };
 
     Color ORANGE_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-orange-l-4";
+            return "col-l-4-orange";
         }
 
         @Override
@@ -3198,14 +3198,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-orange-l-4";
+            return "bg-l-4-orange";
         }
     };
 
     Color ORANGE_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-orange-l-5";
+            return "col-l-5-orange";
         }
 
         @Override
@@ -3220,14 +3220,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-orange-l-5";
+            return "bg-l-5-orange";
         }
     };
 
     Color ORANGE_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-orange-d-1";
+            return "col-d-1-orange";
         }
 
         @Override
@@ -3242,14 +3242,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-orange-d-1";
+            return "bg-d-1-orange";
         }
     };
 
     Color ORANGE_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-orange-d-2";
+            return "col-d-2-orange";
         }
 
         @Override
@@ -3264,14 +3264,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-orange-d-2";
+            return "bg-d-2-orange";
         }
     };
 
     Color ORANGE_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-orange-d-3";
+            return "col-d-3-orange";
         }
 
         @Override
@@ -3286,14 +3286,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-orange-d-3";
+            return "bg-d-3-orange";
         }
     };
 
     Color ORANGE_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-orange-d-4";
+            return "col-d-4-orange";
         }
 
         @Override
@@ -3308,7 +3308,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-orange-d-4";
+            return "bg-d-4-orange";
         }
     };
 
@@ -3337,7 +3337,7 @@ public interface Color {
     Color DEEP_ORANGE_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-orange-l-1";
+            return "col-l-1-deep-orange";
         }
 
         @Override
@@ -3352,14 +3352,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-orange-l-1";
+            return "bg-l-1-deep-orange";
         }
     };
 
     Color DEEP_ORANGE_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-orange-l-2";
+            return "col-l-2-deep-orange";
         }
 
         @Override
@@ -3374,14 +3374,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-orange-l-2";
+            return "bg-l-2-deep-orange";
         }
     };
 
     Color DEEP_ORANGE_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-orange-l-3";
+            return "col-l-3-deep-orange";
         }
 
         @Override
@@ -3396,14 +3396,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-orange-l-3";
+            return "bg-l-3-deep-orange";
         }
     };
 
     Color DEEP_ORANGE_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-orange-l-4";
+            return "col-l-4-deep-orange";
         }
 
         @Override
@@ -3418,14 +3418,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-orange-l-4";
+            return "bg-l-4-deep-orange";
         }
     };
 
     Color DEEP_ORANGE_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-orange-l-5";
+            return "col-l-5-deep-orange";
         }
 
         @Override
@@ -3440,14 +3440,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-orange-l-5";
+            return "bg-l-5-deep-orange";
         }
     };
 
     Color DEEP_ORANGE_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-orange-d-1";
+            return "col-d-1-deep-orange";
         }
 
         @Override
@@ -3462,14 +3462,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-orange-d-1";
+            return "bg-d-1-deep-orange";
         }
     };
 
     Color DEEP_ORANGE_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-orange-d-2";
+            return "col-d-2-deep-orange";
         }
 
         @Override
@@ -3484,14 +3484,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-orange-d-2";
+            return "bg-d-2-deep-orange";
         }
     };
 
     Color DEEP_ORANGE_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-orange-d-3";
+            return "col-d-3-deep-orange";
         }
 
         @Override
@@ -3506,14 +3506,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-orange-d-3";
+            return "bg-d-3-deep-orange";
         }
     };
 
     Color DEEP_ORANGE_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-deep-orange-d-4";
+            return "col-d-4-deep-orange";
         }
 
         @Override
@@ -3528,7 +3528,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-deep-orange-d-4";
+            return "bg-d-4-deep-orange";
         }
     };
 
@@ -3557,7 +3557,7 @@ public interface Color {
     Color BROWN_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-brown-l-1";
+            return "col-l-1-brown";
         }
 
         @Override
@@ -3572,14 +3572,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-brown-l-1";
+            return "bg-l-1-brown";
         }
     };
 
     Color BROWN_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-brown-l-2";
+            return "col-l-2-brown";
         }
 
         @Override
@@ -3594,14 +3594,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-brown-l-2";
+            return "bg-l-2-brown";
         }
     };
 
     Color BROWN_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-brown-l-3";
+            return "col-l-3-brown";
         }
 
         @Override
@@ -3616,14 +3616,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-brown-l-3";
+            return "bg-l-3-brown";
         }
     };
 
     Color BROWN_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-brown-l-4";
+            return "col-l-4-brown";
         }
 
         @Override
@@ -3638,14 +3638,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-brown-l-4";
+            return "bg-l-4-brown";
         }
     };
 
     Color BROWN_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-brown-l-5";
+            return "col-l-5-brown";
         }
 
         @Override
@@ -3660,14 +3660,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-brown-l-5";
+            return "bg-l-5-brown";
         }
     };
 
     Color BROWN_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-brown-d-1";
+            return "col-d-1-brown";
         }
 
         @Override
@@ -3682,14 +3682,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-brown-d-1";
+            return "bg-d-1-brown";
         }
     };
 
     Color BROWN_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-brown-d-2";
+            return "col-d-2-brown";
         }
 
         @Override
@@ -3704,14 +3704,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-brown-d-2";
+            return "bg-d-2-brown";
         }
     };
 
     Color BROWN_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-brown-d-3";
+            return "col-d-3-brown";
         }
 
         @Override
@@ -3726,14 +3726,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-brown-d-3";
+            return "bg-d-3-brown";
         }
     };
 
     Color BROWN_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-brown-d-4";
+            return "col-d-4-brown";
         }
 
         @Override
@@ -3748,7 +3748,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-brown-d-4";
+            return "bg-d-4-brown";
         }
     };
 
@@ -3777,7 +3777,7 @@ public interface Color {
     Color GREY_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-grey-l-1";
+            return "col-l-1-grey";
         }
 
         @Override
@@ -3792,14 +3792,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-grey-l-1";
+            return "bg-l-1-grey";
         }
     };
 
     Color GREY_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-grey-l-2";
+            return "col-l-2-grey";
         }
 
         @Override
@@ -3814,14 +3814,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-grey-l-2";
+            return "bg-l-2-grey";
         }
     };
 
     Color GREY_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-grey-l-3";
+            return "col-l-3-grey";
         }
 
         @Override
@@ -3836,14 +3836,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-grey-l-3";
+            return "bg-l-3-grey";
         }
     };
 
     Color GREY_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-grey-l-4";
+            return "col-l-4-grey";
         }
 
         @Override
@@ -3858,14 +3858,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-grey-l-4";
+            return "bg-l-4-grey";
         }
     };
 
     Color GREY_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-grey-l-5";
+            return "col-l-5-grey";
         }
 
         @Override
@@ -3880,14 +3880,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-grey-l-5";
+            return "bg-l-5-grey";
         }
     };
 
     Color GREY_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-grey-d-1";
+            return "col-d-1-grey";
         }
 
         @Override
@@ -3902,14 +3902,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-grey-d-1";
+            return "bg-d-1-grey";
         }
     };
 
     Color GREY_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-grey-d-2";
+            return "col-d-2-grey";
         }
 
         @Override
@@ -3924,14 +3924,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-grey-d-2";
+            return "bg-d-2-grey";
         }
     };
 
     Color GREY_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-grey-d-3";
+            return "col-d-3-grey";
         }
 
         @Override
@@ -3946,14 +3946,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-grey-d-3";
+            return "bg-d-3-grey";
         }
     };
 
     Color GREY_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-grey-d-4";
+            return "col-d-4-grey";
         }
 
         @Override
@@ -3968,7 +3968,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-grey-d-4";
+            return "bg-d-4-grey";
         }
     };
 
@@ -3997,7 +3997,7 @@ public interface Color {
     Color BLUE_GREY_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-grey-l-1";
+            return "col-l-1-blue-grey";
         }
 
         @Override
@@ -4012,14 +4012,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-grey-l-1";
+            return "bg-l-1-blue-grey";
         }
     };
 
     Color BLUE_GREY_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-grey-l-2";
+            return "col-l-2-blue-grey";
         }
 
         @Override
@@ -4034,14 +4034,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-grey-l-2";
+            return "bg-l-2-blue-grey";
         }
     };
 
     Color BLUE_GREY_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-grey-l-3";
+            return "col-l-3-blue-grey";
         }
 
         @Override
@@ -4056,14 +4056,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-grey-l-3";
+            return "bg-l-3-blue-grey";
         }
     };
 
     Color BLUE_GREY_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-grey-l-4";
+            return "col-l-4-blue-grey";
         }
 
         @Override
@@ -4078,14 +4078,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-grey-l-4";
+            return "bg-l-4-blue-grey";
         }
     };
 
     Color BLUE_GREY_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-grey-l-5";
+            return "col-l-5-blue-grey";
         }
 
         @Override
@@ -4100,14 +4100,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-grey-l-5";
+            return "bg-l-5-blue-grey";
         }
     };
 
     Color BLUE_GREY_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-grey-d-1";
+            return "col-d-1-blue-grey";
         }
 
         @Override
@@ -4122,14 +4122,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-grey-d-1";
+            return "bg-d-1-blue-grey";
         }
     };
 
     Color BLUE_GREY_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-grey-d-2";
+            return "col-d-2-blue-grey";
         }
 
         @Override
@@ -4144,14 +4144,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-grey-d-2";
+            return "bg-d-2-blue-grey";
         }
     };
 
     Color BLUE_GREY_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-grey-d-3";
+            return "col-d-3-blue-grey";
         }
 
         @Override
@@ -4166,14 +4166,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-grey-d-3";
+            return "bg-d-3-blue-grey";
         }
     };
 
     Color BLUE_GREY_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-blue-grey-d-4";
+            return "col-d-4-blue-grey";
         }
 
         @Override
@@ -4188,7 +4188,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-blue-grey-d-4";
+            return "bg-d-4-blue-grey";
         }
     };
 
@@ -4217,7 +4217,7 @@ public interface Color {
     Color BLACK_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-black-l-1";
+            return "col-black";
         }
 
         @Override
@@ -4232,14 +4232,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-black-l-1";
+            return "bg-black";
         }
     };
 
     Color BLACK_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-black-l-2";
+            return "col-black";
         }
 
         @Override
@@ -4254,14 +4254,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-black-l-2";
+            return "bg-black";
         }
     };
 
     Color BLACK_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-black-l-3";
+            return "col-black";
         }
 
         @Override
@@ -4276,14 +4276,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-black-l-3";
+            return "bg-black";
         }
     };
 
     Color BLACK_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-black-l-4";
+            return "col-black";
         }
 
         @Override
@@ -4298,14 +4298,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-black-l-4";
+            return "bg-black";
         }
     };
 
     Color BLACK_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-black-l-5";
+            return "col-black";
         }
 
         @Override
@@ -4320,14 +4320,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-black-l-5";
+            return "bg-black";
         }
     };
 
     Color BLACK_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-black-d-1";
+            return "col-black";
         }
 
         @Override
@@ -4342,14 +4342,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-black-d-1";
+            return "bg-black";
         }
     };
 
     Color BLACK_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-black-d-2";
+            return "col-black";
         }
 
         @Override
@@ -4364,14 +4364,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-black-d-2";
+            return "bg-black";
         }
     };
 
     Color BLACK_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-black-d-3";
+            return "col-black";
         }
 
         @Override
@@ -4386,14 +4386,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-black-d-3";
+            return "bg-black";
         }
     };
 
     Color BLACK_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-black-d-4";
+            return "col-black";
         }
 
         @Override
@@ -4408,7 +4408,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-black-d-4";
+            return "bg-black";
         }
     };
 
@@ -4437,7 +4437,7 @@ public interface Color {
     Color WHITE_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-white-l-1";
+            return "col-white";
         }
 
         @Override
@@ -4452,14 +4452,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-white-l-1";
+            return "bg-white";
         }
     };
 
     Color WHITE_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-white-l-2";
+            return "col-white";
         }
 
         @Override
@@ -4474,14 +4474,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-white-l-2";
+            return "bg-white";
         }
     };
 
     Color WHITE_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-white-l-3";
+            return "col-white";
         }
 
         @Override
@@ -4496,14 +4496,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-white-l-3";
+            return "bg-white";
         }
     };
 
     Color WHITE_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-white-l-4";
+            return "col-white";
         }
 
         @Override
@@ -4518,14 +4518,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-white-l-4";
+            return "bg-white";
         }
     };
 
     Color WHITE_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-white-l-5";
+            return "col-white";
         }
 
         @Override
@@ -4540,14 +4540,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-white-l-5";
+            return "bg-white";
         }
     };
 
     Color WHITE_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-white-d-1";
+            return "col-white";
         }
 
         @Override
@@ -4562,14 +4562,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-white-d-1";
+            return "bg-white";
         }
     };
 
     Color WHITE_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-white-d-2";
+            return "col-white";
         }
 
         @Override
@@ -4584,14 +4584,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-white-d-2";
+            return "bg-white";
         }
     };
 
     Color WHITE_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-white-d-3";
+            return "col-white";
         }
 
         @Override
@@ -4606,14 +4606,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-white-d-3";
+            return "bg-white";
         }
     };
 
     Color WHITE_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-white-d-4";
+            return "col-white";
         }
 
         @Override
@@ -4628,7 +4628,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-white-d-4";
+            return "bg-white";
         }
     };
 
@@ -4657,7 +4657,7 @@ public interface Color {
     Color TRANSPARENT_LIGHTEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-transparent-l-1";
+            return "col-transparent";
         }
 
         @Override
@@ -4672,14 +4672,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-transparent-l-1";
+            return "bg-transparent";
         }
     };
 
     Color TRANSPARENT_LIGHTEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-transparent-l-2";
+            return "col-transparent";
         }
 
         @Override
@@ -4694,14 +4694,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-transparent-l-2";
+            return "bg-transparent";
         }
     };
 
     Color TRANSPARENT_LIGHTEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-transparent-l-3";
+            return "col-transparent";
         }
 
         @Override
@@ -4716,14 +4716,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-transparent-l-3";
+            return "bg-transparent";
         }
     };
 
     Color TRANSPARENT_LIGHTEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-transparent-l-4";
+            return "col-transparent";
         }
 
         @Override
@@ -4738,14 +4738,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-transparent-l-4";
+            return "bg-transparent";
         }
     };
 
     Color TRANSPARENT_LIGHTEN_5 = new Color() {
         @Override
         public String getStyle() {
-            return "col-transparent-l-5";
+            return "col-transparent";
         }
 
         @Override
@@ -4760,14 +4760,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-transparent-l-5";
+            return "bg-transparent";
         }
     };
 
     Color TRANSPARENT_DARKEN_1 = new Color() {
         @Override
         public String getStyle() {
-            return "col-transparent-d-1";
+            return "col-transparent";
         }
 
         @Override
@@ -4782,14 +4782,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-transparent-d-1";
+            return "bg-transparent";
         }
     };
 
     Color TRANSPARENT_DARKEN_2 = new Color() {
         @Override
         public String getStyle() {
-            return "col-transparent-d-2";
+            return "col-transparent";
         }
 
         @Override
@@ -4804,14 +4804,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-transparent-d-2";
+            return "bg-transparent";
         }
     };
 
     Color TRANSPARENT_DARKEN_3 = new Color() {
         @Override
         public String getStyle() {
-            return "col-transparent-d-3";
+            return "col-transparent";
         }
 
         @Override
@@ -4826,14 +4826,14 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-transparent-d-3";
+            return "bg-transparent";
         }
     };
 
     Color TRANSPARENT_DARKEN_4 = new Color() {
         @Override
         public String getStyle() {
-            return "col-transparent-d-4";
+            return "col-transparent";
         }
 
         @Override
@@ -4848,7 +4848,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-transparent-d-4";
+            return "bg-transparent";
         }
     };
 

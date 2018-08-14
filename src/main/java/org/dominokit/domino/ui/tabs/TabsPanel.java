@@ -80,8 +80,8 @@ public class TabsPanel extends DominoElement<TabsPanel> implements IsElement<HTM
     }
 
     public TabsPanel setColor(Color color) {
-        tabsList.classList.remove("tab-" + tabsColor.getStyle());
-        tabsList.classList.add("tab-" + color.getStyle());
+        tabsList.classList.remove(tabsColor.getStyle());
+        tabsList.classList.add(color.getStyle());
         this.tabsColor = color;
         return this;
     }
