@@ -63,6 +63,13 @@
     background-color: rgba(255, 255, 255, 0.5);
 }
 
+.slider.thumb-bg-white::-webkit-slider-thumb {
+    background-color: #FFFFFF;
+}
+
+.slider.thumb-bg-white::-moz-range-thumb {
+    background-color: #FFFFFF;
+}
 
 /* =========== all colors ======================= */
 
@@ -77,7 +84,23 @@
     color: #000;
 }
 
+.slider.thumb-bg-black::-webkit-slider-thumb {
+    background: #000;
+}
+
+.slider.thumb-bg-black::-moz-range-thumb {
+    background: #000;
+}
+
 .bg-transparent{
+    background-color: transparent;
+}
+
+.slider.thumb-bg-transparent::-webkit-slider-thumb {
+    background-color: transparent;
+}
+
+.slider.thumb-bg-transparent::-moz-range-thumb {
     background-color: transparent;
 }
 
