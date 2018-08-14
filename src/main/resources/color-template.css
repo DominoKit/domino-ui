@@ -20,6 +20,13 @@
     background-color: ${main_color};
 }
 
+ul.stepper.stepper-col${color_base_name} .step.active:before,
+ul.stepper.stepper-col${color_base_name} .step.done:before,
+ul.stepper.horizontal.stepper-col${color_base_name} .step.active .step-title:before,
+ul.stepper.horizontal.stepper-col${color_base_name} .step.done .step-title:before{
+    background-color: ${main_color};
+}
+
 .fc-col${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${main_color};
     box-shadow: 0px 1px ${main_color};
@@ -55,7 +62,6 @@
     background-color: ${main_color};
 }
 
-
 .bg-l-1${color_base_name},
 [type="checkbox"].filled-in:checked.col-l-1${color_base_name} + label:after,
 [type="radio"].with-gap.col-l-1${color_base_name}:checked + label:after,
@@ -66,6 +72,13 @@
 .panel-group.full-body .panel.col-l-1${color_base_name} .panel-body {
     background-color: ${color_l_1};
 }
+ul.stepper.stepper-col-l-1${color_base_name} .step.active:before,
+ul.stepper.stepper-col-l-1${color_base_name} .step.done:before,
+ul.stepper.horizontal.stepper-col-l-1${color_base_name} .step.active .step-title:before,
+ul.stepper.horizontal.stepper-col-l-1${color_base_name} .step.done .step-title:before  {
+    background-color: ${color_l_1};
+}
+
 
 .fc-col-l-1${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${color_l_1};
@@ -110,6 +123,12 @@
 .modal-content.col-l-2${color_base_name},
 .panel-group .panel.col-l-2${color_base_name} .panel-title,
 .panel-group.full-body .panel.col-l-2${color_base_name} .panel-body {
+    background-color: ${color_l_2};
+}
+ul.stepper.stepper-col-l-2${color_base_name} .step.active:before,
+ul.stepper.stepper-col-l-2${color_base_name} .step.done:before,
+ul.stepper.horizontal.stepper-col-l-2${color_base_name} .step.active .step-title:before,
+ul.stepper.horizontal.stepper-col-l-2${color_base_name} .step.done .step-title:before   {
     background-color: ${color_l_2};
 }
 
@@ -161,6 +180,13 @@
     background-color: ${color_l_3};
 }
 
+ul.stepper.stepper-col-l-3${color_base_name} .step.active:before,
+ul.stepper.stepper-col-l-3${color_base_name} .step.done:before,
+ul.stepper.horizontal.stepper-col-l-3${color_base_name} .step.active .step-title:before,
+ul.stepper.horizontal.stepper-col-l-3${color_base_name} .step.done .step-title:before   {
+    background-color: ${color_l_3};
+}
+
 .fc-col-l-3${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${color_l_3};
     box-shadow: 0px 1px ${color_l_3};
@@ -205,6 +231,13 @@
 .modal-content.col-l-4${color_base_name},
 .panel-group .panel.col-l-4${color_base_name} .panel-title,
 .panel-group.full-body .panel.col-l-4${color_base_name} .panel-body {
+    background-color: ${color_l_4};
+}
+
+ul.stepper.stepper-col-l-4${color_base_name} .step.active:before,
+ul.stepper.stepper-col-l-4${color_base_name} .step.done:before,
+ul.stepper.horizontal.stepper-col-l-4${color_base_name} .step.active .step-title:before,
+ul.stepper.horizontal.stepper-col-l-4${color_base_name} .step.done .step-title:before  {
     background-color: ${color_l_4};
 }
 
@@ -254,6 +287,13 @@
     background-color: ${color_l_5};
 }
 
+ul.stepper.stepper-col-l-5${color_base_name} .step.active:before,
+ul.stepper.stepper-col-l-5${color_base_name} .step.done:before,
+ul.stepper.horizontal.stepper-col-l-5${color_base_name} .step.active .step-title:before,
+ul.stepper.horizontal.stepper-col-l-5${color_base_name} .step.done .step-title:before   {
+    background-color: ${color_l_5};
+}
+
 .fc-col-l-5${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${color_l_5};
     box-shadow: 0px 1px ${color_l_5};
@@ -297,6 +337,13 @@
 .modal-content.col-d-1${color_base_name},
 .panel-group .panel.col-d-1${color_base_name} .panel-title,
 .panel-group.full-body .panel.col-d-1${color_base_name} .panel-body {
+    background-color: ${color_d_1};
+}
+
+ul.stepper.stepper-col-d-1${color_base_name} .step.active:before,
+ul.stepper.stepper-col-d-1${color_base_name} .step.done:before,
+ul.stepper.horizontal.stepper-col-d-1${color_base_name} .step.active .step-title:before,
+ul.stepper.horizontal.stepper-col-d-1${color_base_name} .step.done .step-title:before   {
     background-color: ${color_d_1};
 }
 
@@ -346,6 +393,13 @@
     background-color: ${color_d_2};
 }
 
+ul.stepper.stepper-col-d-2${color_base_name} .step.active:before,
+ul.stepper.stepper-col-d-2${color_base_name} .step.done:before,
+ul.stepper.horizontal.stepper-col-d-2${color_base_name} .step.active .step-title:before,
+ul.stepper.horizontal.stepper-col-d-2${color_base_name} .step.done .step-title:before  {
+    background-color: ${color_d_2};
+}
+
 .fc-col-d-2${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${color_d_2};
     box-shadow: 0px 1px ${color_d_2};
@@ -392,6 +446,13 @@
     background-color: ${color_d_3};
 }
 
+ul.stepper.stepper-col-d-3${color_base_name} .step.active:before,
+ul.stepper.stepper-col-d-3${color_base_name} .step.done:before,
+ul.stepper.horizontal.stepper-col-d-3${color_base_name} .step.active .step-title:before,
+ul.stepper.horizontal.stepper-col-d-3${color_base_name} .step.done .step-title:before  {
+    background-color: ${color_d_3};
+}
+
 .fc-col-d-3${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${color_d_3};
     box-shadow: 0px 1px ${color_d_3};
@@ -435,6 +496,13 @@
 .modal-content.col-d-4${color_base_name},
 .panel-group .panel.col-d-4${color_base_name} .panel-title,
 .panel-group.full-body .panel.col-d-4${color_base_name} .panel-body {
+    background-color: ${color_d_4};
+}
+
+ul.stepper.stepper-col-d-4${color_base_name} .step.active:before,
+ul.stepper.stepper-col-d-4${color_base_name} .step.done:before,
+ul.stepper.horizontal.stepper-col-d-4${color_base_name} .step.active .step-title:before,
+ul.stepper.horizontal.stepper-col-d-4${color_base_name} .step.done .step-title:before  {
     background-color: ${color_d_4};
 }
 
