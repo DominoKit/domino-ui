@@ -102,9 +102,9 @@ Add the following css files to your index page:
 - [ ] Spinners
 - [ ] Field masking - **in progress**
 - [x] Simple grids - Table based -
-- [ ] Form wizards / Steppers - **in progress**
-- [ ] Carousel
-- [ ] Sliders
+- [x] Form wizards / Steppers
+- [ ] Carousel - **in progress**
+- [x] Sliders
 
 ### Third Party libs and tools integration
 
@@ -137,28 +137,23 @@ Sample of third party tools and frameworks:
 ## Sample
 
 ```java
-Column column = Column.create()
-        .onLarge(Column.OnLarge.four)
-        .onMedium(Column.OnMedium.four)
-        .onSmall(Column.OnSmall.twelve)
-        .onXSmall(Column.OnXSmall.twelve);
 
 DomGlobal.document.body.appendChild(Row.create()
-        .addColumn(column.copy()
+        .addColumn(Column.span4()
                 .addElement(Card.create("CARD TITLE", "Card description")
                         .appendContent(Paragraph.create("I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe")
                                 .asElement())
                         .setHeaderBackground(Color.BLUE)
                         .setBodyBackground(Color.LIGHT_BLUE)
                         .asElement()))
-        .addColumn(column.copy()
+        .addColumn(Column.span4()
                 .addElement(Card.create("CARD TITLE", "Card description")
                         .appendContent(Paragraph.create("I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe")
                                 .asElement())
                         .setHeaderBackground(Color.GREEN)
                         .setBodyBackground(Color.LIGHT_GREEN)
                         .asElement()))
-        .addColumn(column.copy()
+        .addColumn(Column.span4()
                 .addElement(Card.create("CARD TITLE", "Card description")
                         .appendContent(Paragraph.create("I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe")
                                 .asElement())
