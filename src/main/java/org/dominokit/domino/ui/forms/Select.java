@@ -285,8 +285,10 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         };
         option.asElement().addEventListener(CLICK_EVENT, openOptionListener);
         option.asElement().addEventListener(TOUCH_START_EVENT, evt -> {
-            doSelectOption(option);
-            evt.preventDefault();
+            if (!touchMoved) {
+                doSelectOption(option);
+                evt.preventDefault();
+            }
         });
         appendOptionValue(option);
         return this;
