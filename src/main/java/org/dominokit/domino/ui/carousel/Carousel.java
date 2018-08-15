@@ -5,6 +5,7 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLOListElement;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.SwipeUtil;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -90,6 +91,15 @@ public class Carousel implements IsElement<HTMLDivElement> {
             this.activeSlide = slide;
         }
         slides.add(slide);
+
+        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, slide.asElement(), evt -> {
+            nextSlide();
+        });
+
+        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, slide.asElement(), evt -> {
+            prevSlide();
+        });
+
         return this;
     }
 
