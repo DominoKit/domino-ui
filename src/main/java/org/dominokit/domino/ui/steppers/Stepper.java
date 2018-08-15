@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.steppers;
 
 import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.animations.Transition;
+import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -15,12 +16,27 @@ import static org.jboss.gwt.elemento.core.Elements.ul;
 
 public class Stepper implements IsElement<HTMLUListElement> {
 
+    public static Transition HORIZONTAL_NEXT_STEP_TRANSITION = Transition.SLIDE_IN_RIGHT;
+    public static Transition HORIZONTAL_PREV_STEP_TRANSITION = Transition.SLIDE_IN_LEFT;
     private final HTMLUListElement element = ul().css("stepper").asElement();
     private Step activeStep;
     private Color color;
     private List<Step> steps = new ArrayList<>();
     private StepperCompletionHandler stepperCompletionHandler = () -> {
     };
+
+    public Stepper() {
+
+        MediaQuery.addOnSmallAndDownListener(() -> {
+            HORIZONTAL_NEXT_STEP_TRANSITION = Transition.FADE_IN;
+            HORIZONTAL_PREV_STEP_TRANSITION = Transition.FADE_IN;
+        });
+
+        MediaQuery.addOnMediumAndUpListener(() -> {
+            HORIZONTAL_NEXT_STEP_TRANSITION = Transition.SLIDE_IN_RIGHT;
+            HORIZONTAL_PREV_STEP_TRANSITION = Transition.SLIDE_IN_LEFT;
+        });
+    }
 
     public static Stepper create() {
         return new Stepper();
@@ -74,9 +90,9 @@ public class Stepper implements IsElement<HTMLUListElement> {
         int stepIndex = steps.indexOf(step);
         if (isHorizontal()) {
             if (stepIndex > activeStepIndex) {
-                return Transition.SLIDE_IN_RIGHT;
+                return HORIZONTAL_NEXT_STEP_TRANSITION;
             } else {
-                return Transition.SLIDE_IN_LEFT;
+                return HORIZONTAL_PREV_STEP_TRANSITION;
             }
         } else {
             return Transition.FADE_IN;
