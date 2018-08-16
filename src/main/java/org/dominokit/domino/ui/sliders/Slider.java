@@ -4,6 +4,7 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLParagraphElement;
+import org.dominokit.domino.ui.notifications.Notification;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.themes.Theme;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -73,6 +74,7 @@ public class Slider extends DominoElement<Slider> implements IsElement<HTMLParag
         EventListener upEvent = mouseUpEvent -> {
             mouseDown = false;
             slider.classList.remove("active");
+            hideThumb();
         };
         slider.addEventListener(change.getName(), evt -> callChangeHandlers());
 
