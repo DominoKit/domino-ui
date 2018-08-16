@@ -6565,7 +6565,7 @@ button.close {
   display: inline-block;
   width: 10px;
   height: 10px;
-  margin: 1px;
+  margin: 3px;
   text-indent: -999px;
   cursor: pointer;
   background-color: #000 \9;
@@ -6576,7 +6576,7 @@ button.close {
 .carousel-indicators .active {
   width: 12px;
   height: 12px;
-  margin: 0;
+  margin: 2px;
   background-color: #fff;
 }
 .carousel-caption {
