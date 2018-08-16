@@ -72,4 +72,6 @@ public class Styles {
 
     public static final String cursor_pointer="cursor-pointer";
     public static final String disable_selection="disable-selection";
+
+    public static final String default_shadow="default-shadow";
 }
