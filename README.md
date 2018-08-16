@@ -99,11 +99,11 @@ Add the following css files to your index page:
 - [ ] Advanced Select
 - [ ] Multi-Select
 - [ ] Tag field
-- [ ] Spinners
+- [ ] Spinners - **in progress**
 - [ ] Field masking - **in progress**
 - [x] Simple grids - Table based -
 - [x] Form wizards / Steppers
-- [ ] Carousel - **in progress**
+- [x] Carousel
 - [x] Sliders
 
 ### Third Party libs and tools integration
