@@ -53,9 +53,9 @@ public class SwipeUtil {
         double startY;
         double distX;
         double distY;
-        double threshold = 150; //required min distance traveled to be considered swipe
+        double threshold = 100; //required min distance traveled to be considered swipe
         double restraint = 100; // maximum distance allowed at the same time in perpendicular direction
-        double allowedTime = 300; // maximum time allowed to travel that distance
+        double allowedTime = 400; // maximum time allowed to travel that distance
         double elapsedTime;
         double startTime;
     }
