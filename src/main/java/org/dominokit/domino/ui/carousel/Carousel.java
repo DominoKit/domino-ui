@@ -5,6 +5,7 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLOListElement;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -18,6 +19,7 @@ public class Carousel implements IsElement<HTMLDivElement> {
 
     private HTMLOListElement indicatorsElement = ol().css("carousel-indicators").asElement();
     private HTMLDivElement slidesElement = div().css("carousel-inner").asElement();
+    private boolean autoSlide = false;
 
     private HTMLAnchorElement prevElement = a()
             .css("left", "carousel-control")
@@ -51,6 +53,8 @@ public class Carousel implements IsElement<HTMLDivElement> {
     private Slide activeSlide;
     private Slide targetSlide;
     private Timer timer;
+    private int autoSlideDuration = 3000;
+    private boolean attached = false;
 
     public Carousel() {
         nextElement.addEventListener("click", evt -> {
@@ -67,6 +71,28 @@ public class Carousel implements IsElement<HTMLDivElement> {
                 nextSlide();
             }
         };
+
+        addAttachListener();
+
+        addDetachListener();
+    }
+
+    private void addDetachListener() {
+        ElementUtil.onDetach(asElement(), mutationRecord -> {
+            this.attached = false;
+            this.stopAutoSlide();
+        });
+    }
+
+    private void addAttachListener() {
+        ElementUtil.onAttach(this.asElement(), mutationRecord -> {
+            this.attached = true;
+            if(autoSlide){
+                timer.scheduleRepeating(autoSlideDuration);
+            }
+
+            addDetachListener();
+        });
     }
 
     public static Carousel create() {
@@ -174,14 +200,21 @@ public class Carousel implements IsElement<HTMLDivElement> {
     }
 
     public Carousel startAutoSlide(int slideDuration) {
-        timer.scheduleRepeating(slideDuration);
+        this.autoSlide = true;
+        this.autoSlideDuration = slideDuration;
+        if(attached){
+            timer.scheduleRepeating(slideDuration);
+        }
+
         return this;
     }
 
     public Carousel stopAutoSlide() {
-        if(timer.isRunning()){
+        if (timer.isRunning()) {
             timer.cancel();
         }
+
+        addAttachListener();
         return this;
     }
 
