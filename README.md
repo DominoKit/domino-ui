@@ -54,8 +54,8 @@ Add the following css files to your index page:
 ```html
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-<link type="text/css" rel="stylesheet" href="/{module-short-name}/css/domino-ui.css">
-<link type="text/css" rel="stylesheet" href="/{module-short-name}/css/themes/all-themes.css">
+<link type="text/css" rel="stylesheet" href="{module-short-name}/css/domino-ui.css">
+<link type="text/css" rel="stylesheet" href="{module-short-name}/css/themes/all-themes.css">
 ```
 
 ----------------------
