@@ -147,7 +147,7 @@ ul.stepper .step:before {
     position: absolute;
     top: 12px;
     counter-increment: section;
-    content: counter(section);
+    content: attr(data-step-number);
     height: 28px;
     width: 28px;
     color: white;
