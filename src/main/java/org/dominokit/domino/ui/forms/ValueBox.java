@@ -311,6 +311,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         setLabelColor(Color.RED);
         removeLeftAddonColor(focusColor);
         setLeftAddonColor(Color.RED);
+        changeLabelFloating();
         return super.invalidate(errorMessage);
     }
 
@@ -326,6 +327,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         } else {
             unfocus();
         }
+        changeLabelFloating();
         return super.clearInvalid();
     }
 
