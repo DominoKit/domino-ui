@@ -25,6 +25,8 @@ public class Stepper implements IsElement<HTMLUListElement> {
     private StepperCompletionHandler stepperCompletionHandler = () -> {
     };
 
+    private boolean allowClickNavigation = true;
+
     public Stepper() {
 
         MediaQuery.addOnSmallAndDownListener(() -> {
@@ -57,15 +59,17 @@ public class Stepper implements IsElement<HTMLUListElement> {
     }
 
     private void onStepHeaderClicked(Step step) {
-        int activeStepIndex = steps.indexOf(this.activeStep);
-        int stepIndex = steps.indexOf(step);
-        if (this.activeStep.isValid() && (activeStepIndex == stepIndex - 1)) {
-            next();
-        } else if (stepIndex < activeStepIndex) {
-            activateStep(step);
-        } else {
-            if (!this.activeStep.isValid() && activeStepIndex != stepIndex) {
-                this.activeStep.invalidate();
+        if(isAllowClickNavigation()) {
+            int activeStepIndex = steps.indexOf(this.activeStep);
+            int stepIndex = steps.indexOf(step);
+            if (this.activeStep.isValid() && (activeStepIndex == stepIndex - 1)) {
+                next();
+            } else if (stepIndex < activeStepIndex) {
+                activateStep(step);
+            } else {
+                if (!this.activeStep.isValid() && activeStepIndex != stepIndex) {
+                    this.activeStep.invalidate();
+                }
             }
         }
     }
@@ -155,7 +159,7 @@ public class Stepper implements IsElement<HTMLUListElement> {
     }
 
     public Stepper setHorizontal(boolean horizontal) {
-        Style.of(element).removeClass("horizontal");
+        Style.of(element).removeCss("horizontal");
         if (horizontal) {
             Style.of(element).css("horizontal");
         }
@@ -170,12 +174,25 @@ public class Stepper implements IsElement<HTMLUListElement> {
 
     public Stepper setColor(Color color) {
         if (nonNull(this.color)) {
-            Style.of(this).removeClass("stepper-" + this.color.getStyle());
+            Style.of(this).removeCss("stepper-" + this.color.getStyle());
         }
         Style.of(this).css("stepper-" + color.getStyle());
         this.color = color;
 
         return this;
+    }
+
+    public Stepper disableClickNavigation(boolean allowClickNavigation){
+        this.allowClickNavigation = allowClickNavigation;
+        return this;
+    }
+
+    public boolean isAllowClickNavigation() {
+        return allowClickNavigation;
+    }
+
+    public void setAllowClickNavigation(boolean allowClickNavigation) {
+        this.allowClickNavigation = allowClickNavigation;
     }
 
     @FunctionalInterface
