@@ -41,4 +41,23 @@ public abstract class NavigationBar implements IsElement<HTMLElement>{
         return this;
     }
 
+    public HTMLAnchorElement getMenu() {
+        return menu;
+    }
+
+    public HTMLAnchorElement getNavBarExpand() {
+        return navBarExpand;
+    }
+
+    public HTMLDivElement getNavigationBar() {
+        return navigationBar;
+    }
+
+    public HTMLUListElement getTopBar() {
+        return topBar;
+    }
+
+    public HTMLAnchorElement getTitle() {
+        return title;
+    }
 }
