@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.datepicker;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.KeyboardEvent;
@@ -11,6 +12,7 @@ import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.ElementUtil;
+import org.dominokit.domino.ui.utils.ValidationResult;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.EventType;
@@ -107,17 +109,34 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 open();
             }
         });
-        getInputElement().addEventListener("change", evt -> {
+        addValidator(() -> {
             try {
-                String value = getInputElement().value;
-                DateTimeFormatInfo dateTimeFormatInfo = datePicker.getDateTimeFormatInfo();
-                Date parse = Formatter.getFormat(this.pattern, dateTimeFormatInfo).parse(value);
-                setValue(parse);
-                clearInvalid();
+                if (isEmpty()) {
+                    return ValidationResult.valid();
+                }
+                getFormattedValue(getInputElement().value);
+                return ValidationResult.valid();
             } catch (IllegalArgumentException e) {
-                invalidate(invalidFormatMessage);
+                return ValidationResult.invalid(invalidFormatMessage);
             }
         });
+        getInputElement().addEventListener("change", evt -> {
+            String value = getInputElement().value;
+            if (value.isEmpty()) {
+                clear();
+            } else {
+                try {
+                    setValue(getFormattedValue(value));
+                } catch (IllegalArgumentException ignored) {
+                    DomGlobal.console.warn("Unable to parse date value " + value);
+                }
+            }
+        });
+    }
+
+    private Date getFormattedValue(String value) throws IllegalArgumentException {
+        DateTimeFormatInfo dateTimeFormatInfo = datePicker.getDateTimeFormatInfo();
+        return Formatter.getFormat(this.pattern, dateTimeFormatInfo).parse(value);
     }
 
     public static DateBox create() {
@@ -166,12 +185,12 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     @Override
     public boolean isEmpty() {
-        return isNull(value);
+        return isNull(value) && getInputElement().value.isEmpty();
     }
 
     @Override
     protected void clearValue() {
-        datePicker.setValue(null);
+        setValue(null);
     }
 
     @Override
