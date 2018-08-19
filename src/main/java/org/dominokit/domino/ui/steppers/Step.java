@@ -50,7 +50,6 @@ public class Step implements IsElement<HTMLLIElement> {
                 collapsible.expand();
             }
         });
-
     }
 
     public static Step create(String title) {
@@ -93,7 +92,7 @@ public class Step implements IsElement<HTMLLIElement> {
 
     Step deActivate() {
         clearInvalid();
-        Style.of(element).removeClass("active");
+        Style.of(element).removeCss("active");
         collapsible.collapse();
         this.expanded = false;
         return this;
@@ -101,7 +100,7 @@ public class Step implements IsElement<HTMLLIElement> {
 
 
     public void setDone(boolean done) {
-        Style.of(element).removeClass("done");
+        Style.of(element).removeCss("done");
         if (done) {
             Style.of(element).css("done");
         }
@@ -135,6 +134,7 @@ public class Step implements IsElement<HTMLLIElement> {
     public HTMLDivElement getStepHeader() {
         return stepHeader;
     }
+
 
     @Override
     public HTMLLIElement asElement() {

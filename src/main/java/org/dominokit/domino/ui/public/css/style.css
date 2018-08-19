@@ -6215,7 +6215,7 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
 }
 
 .search-bar .search-icon .material-icons {
-    font-size: 32px;
+    font-size: 24px;
     color: #999 !important;
 }
 
@@ -6253,7 +6253,7 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
 .search-bar input[type="text"] {
     width: 100%;
     height: 100%;
-    font-size: 16px;
+    font-size: 14px;
     padding: 0px 60px 0px 56px;
     border: none;
     color: #000;
