@@ -182,8 +182,8 @@ public class Stepper implements IsElement<HTMLUListElement> {
         return this;
     }
 
-    public Stepper disableClickNavigation(boolean allowClickNavigation){
-        this.allowClickNavigation = allowClickNavigation;
+    public Stepper disableClickNavigation(){
+        this.allowClickNavigation = false;
         return this;
     }
 
