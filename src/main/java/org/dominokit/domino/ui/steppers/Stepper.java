@@ -49,6 +49,7 @@ public class Stepper implements IsElement<HTMLUListElement> {
             this.activeStep = step;
         }
         steps.add(step);
+        step.asElement().setAttribute("data-step-number", steps.size()+"");
 
         step.getStepHeader().addEventListener("click", evt -> onStepHeaderClicked(step));
 
