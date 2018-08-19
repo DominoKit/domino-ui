@@ -34,15 +34,15 @@
 .theme-indigo .bars {
   color: #fff; }
 
-.theme-indigo .sidebar .menu .list li.active {
+.theme-indigo .menu .list li.active {
   background-color: transparent; }
-  .theme-indigo .sidebar .menu .list li.active > :first-child i, .theme-indigo .sidebar .menu .list li.active > :first-child span {
+  .theme-indigo .menu .list li.active > :first-child i, .theme-indigo .menu .list li.active > :first-child span {
     color: #3F51B5; }
 
-.theme-indigo .sidebar .menu .list .toggled {
+.theme-indigo .menu .list .toggled {
   background-color: transparent; }
 
-.theme-indigo .sidebar .menu .list .ml-menu {
+.theme-indigo .menu .list .ml-tree {
   background-color: transparent; }
 
 .theme-indigo .sidebar .legal {

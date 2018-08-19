@@ -190,16 +190,18 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
         this.onExpanded = onExpanded;
     }
 
-    public void addCollapseHandler(CollapseCompletedHandler handler) {
+    public Collapsible addCollapseHandler(CollapseCompletedHandler handler) {
         collapseHandlers.add(handler);
+        return this;
     }
 
     public void removeCollapseHandler(CollapseCompletedHandler handler) {
         collapseHandlers.remove(handler);
     }
 
-    public void addExpandHandler(ExpandCompletedHandler handler) {
+    public Collapsible addExpandHandler(ExpandCompletedHandler handler) {
         expandHandlers.add(handler);
+        return this;
     }
 
     public void removeExpandHandlr(ExpandCompletedHandler handler) {

@@ -53,19 +53,19 @@
     color: #fff;
 }
 
-.theme-red .sidebar .menu .list li.active {
+.theme-red .menu .list li.active {
     background-color: transparent;
 }
 
-.theme-red .sidebar .menu .list li.active > :first-child i, .theme-red .sidebar .menu .list li.active > :first-child span {
+.theme-red .menu .list li.active > :first-child i, .theme-red .menu .list li.active > :first-child span {
     color: #F44336;
 }
 
-.theme-red .sidebar .menu .list .toggled {
+.theme-red .menu .list .toggled {
     background-color: transparent;
 }
 
-.theme-red .sidebar .menu .list .ml-menu {
+.theme-red .menu .list .ml-tree {
     background-color: transparent;
 }
 
