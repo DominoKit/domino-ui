@@ -96,7 +96,7 @@ Add the following css files to your index page:
 - [x] Time picker
 - [ ] Date time picker
 - [x] Inputs decorations : Labels, Helper text, validation, Icons
-- [ ] Advanced Select
+- [x] Advanced Select
 - [ ] Multi-Select
 - [ ] Tag field
 - [ ] Spinners - **in progress**
