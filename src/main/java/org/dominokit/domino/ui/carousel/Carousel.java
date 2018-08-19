@@ -58,10 +58,12 @@ public class Carousel implements IsElement<HTMLDivElement> {
 
     public Carousel() {
         nextElement.addEventListener("click", evt -> {
+            resetTimer();
             nextSlide();
         });
 
         prevElement.addEventListener("click", evt -> {
+            resetTimer();
             prevSlide();
         });
 
@@ -75,6 +77,11 @@ public class Carousel implements IsElement<HTMLDivElement> {
         addAttachListener();
 
         addDetachListener();
+    }
+
+    private void resetTimer() {
+        timer.cancel();
+        timer.scheduleRepeating(autoSlideDuration);
     }
 
     private void addDetachListener() {
@@ -103,6 +110,7 @@ public class Carousel implements IsElement<HTMLDivElement> {
         indicatorsElement.appendChild(slide.getIndicatorElement());
         slidesElement.appendChild(slide.asElement());
         slide.getIndicatorElement().addEventListener("click", evt -> {
+            resetTimer();
             gotToSlide(slide, "");
         });
 
@@ -157,12 +165,14 @@ public class Carousel implements IsElement<HTMLDivElement> {
             Style.of(slide.getIndicatorElement()).css("active");
             Style.of(activeSlide.getIndicatorElement()).removeClass("active");
             Style.of(slide).css(getPostionStyle(slide, source));
-            Scheduler.get().scheduleDeferred(() -> {
+            Scheduler.get().scheduleFixedDelay(() -> {
                 Style.of(activeSlide.getIndicatorElement()).removeClass("active");
                 String directionStyle = getDirectionStyle(slide, source);
                 Style.of(slide).css(directionStyle);
                 Style.of(activeSlide).css(directionStyle);
-            });
+                return false;
+            }, 50);
+
         }
     }
 

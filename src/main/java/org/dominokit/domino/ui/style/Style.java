@@ -51,19 +51,62 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return this;
     }
 
+    /**
+     * @param cssClass
+     * @return
+     * @deprecated  As of release 1.3, replaced by {@link #removeCss(String)}
+     */
+    @Deprecated
     public Style<E, T> removeClass(String cssClass) {
         if (nonNull(cssClass) && !cssClass.isEmpty())
             element.classList.remove(cssClass);
         return this;
     }
 
+    /**
+     *
+     * @param cssClasses
+     * @return
+     *
+     * @deprecated  As of release 1.3, replaced by {@link #removeCss(String...)}
+     */
+    @Deprecated
     public Style<E, T> removeClass(String... cssClasses) {
         if (nonNull(cssClasses) && cssClasses.length > 0)
             element.classList.remove(cssClasses);
         return this;
     }
 
+    /**
+     *
+     * @param cssClass
+     * @param replacementClass
+     * @return
+     *
+     * @deprecated  As of release 1.3, replaced by {@link #replaceCss(String, String)}
+     */
+    @Deprecated
     public Style<E, T> replaceClass(String cssClass, String replacementClass) {
+        if (hasClass(cssClass)) {
+            removeClass(cssClass);
+            css(replacementClass);
+        }
+        return this;
+    }
+
+    public Style<E, T> removeCss(String cssClass) {
+        if (nonNull(cssClass) && !cssClass.isEmpty())
+            element.classList.remove(cssClass);
+        return this;
+    }
+
+    public Style<E, T> removeCss(String... cssClasses) {
+        if (nonNull(cssClasses) && cssClasses.length > 0)
+            element.classList.remove(cssClasses);
+        return this;
+    }
+
+    public Style<E, T> replaceCss(String cssClass, String replacementClass) {
         if (hasClass(cssClass)) {
             removeClass(cssClass);
             css(replacementClass);

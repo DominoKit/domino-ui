@@ -34,15 +34,15 @@
 .theme-lime .bars {
   color: #fff; }
 
-.theme-lime .sidebar .menu .list li.active {
+.theme-lime .menu .list li.active {
   background-color: transparent; }
-  .theme-lime .sidebar .menu .list li.active > :first-child i, .theme-lime .sidebar .menu .list li.active > :first-child span {
+  .theme-lime .menu .list li.active > :first-child i, .theme-lime .menu .list li.active > :first-child span {
     color: #CDDC39; }
 
-.theme-lime .sidebar .menu .list .toggled {
+.theme-lime .menu .list .toggled {
   background-color: transparent; }
 
-.theme-lime .sidebar .menu .list .ml-menu {
+.theme-lime .menu .list .ml-tree {
   background-color: transparent; }
 
 .theme-lime .sidebar .legal {

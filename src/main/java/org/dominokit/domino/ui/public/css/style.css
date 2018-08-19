@@ -5630,10 +5630,10 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
 }
 
 .sidebar {
-    -moz-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
+    -moz-transition: left 0.5s;
+    -o-transition: left 0.5s;
+    -webkit-transition: left 0.5s;
+    transition: left 0.5s;
     font-family: "Roboto", sans-serif;
     background: #fdfdfd;
     width: 300px;
@@ -5745,34 +5745,32 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     color: #fff;
 }
 
-.sidebar .menu {
+.menu {
     position: relative;
     overflow-y: auto;
-    height: 90vh;
 }
 
-.sidebar .menu .list {
+.menu .list {
     list-style: none;
     padding-left: 0;
 }
 
-.sidebar .menu .list li.active > :first-child span {
+.menu .list li.active > :first-child span {
     font-weight: bold;
 }
 
-.sidebar .menu .list .header {
+.menu .list .header {
     background: #eee;
     font-size: 12px;
     font-weight: 600;
     padding: 8px 16px;
 }
 
-.sidebar .menu .list i.material-icons {
-    margin-top: 4px;
+.menu .list i.material-icons {
     width: 24px;
 }
 
-.sidebar .menu .list .menu-toggle:after, .sidebar .menu .list .menu-toggle:before {
+.menu .list .tree-toggle:after, .menu .list .tree-toggle:before {
     position: absolute;
     top: calc(50% - 14px);
     right: 17px;
@@ -5788,7 +5786,7 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     transition: all 0.3s;
 }
 
-.sidebar .menu .list .menu-toggle:before {
+.menu .list .tree-toggle:before {
     content: '+';
     -moz-transform: scale(1);
     -ms-transform: scale(1);
@@ -5797,7 +5795,7 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     transform: scale(1);
 }
 
-.sidebar .menu .list .menu-toggle:after {
+.menu .list .tree-toggle:after {
     content: '\2013';
     -moz-transform: scale(0);
     -ms-transform: scale(0);
@@ -5806,7 +5804,7 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     transform: scale(0);
 }
 
-.sidebar .menu .list .menu-toggle.toggled:before {
+.menu .list .tree-toggle.toggled:before {
     -moz-transform: scale(0);
     -ms-transform: scale(0);
     -o-transform: scale(0);
@@ -5814,7 +5812,7 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     transform: scale(0);
 }
 
-.sidebar .menu .list .menu-toggle.toggled:after {
+.menu .list .tree-toggle.toggled:after {
     -moz-transform: scale(1);
     -ms-transform: scale(1);
     -o-transform: scale(1);
@@ -5822,7 +5820,7 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     transform: scale(1);
 }
 
-.sidebar .menu .list a {
+.menu .list a {
     color: #747474;
     position: relative;
     display: inline-flex;
@@ -5831,63 +5829,59 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     padding: 10px 13px;
 }
 
-.sidebar .menu .list a:hover, .sidebar .menu .list a:active, .sidebar .menu .list a:focus {
+.menu .list a:hover, .menu .list a:active, .menu .list a:focus {
     text-decoration: none !important;
 }
 
-.sidebar .menu .list a small {
+.menu .list a small {
     position: absolute;
     top: calc(50% - 7.5px);
     right: 15px;
 }
 
-.sidebar .menu .list a span {
-    margin: 7px 0 7px 12px;
+
+.menu .list a span {
+    margin: 2px 0px 0px 12px;
     color: #333;
     font-weight: bold;
     font-size: 14px;
     overflow: hidden;
 }
 
-.sidebar .menu .list .ml-menu {
+.menu .tree-leaf a span{
+    font-weight: 500;
+}
+
+.menu .list .ml-tree {
     list-style: none;
-    display: none;
     padding-left: 0;
 }
 
-.sidebar .menu .list .ml-menu span {
-    font-weight: normal;
-    font-size: 14px;
-    margin: 3px 0 1px 6px;
-}
-
-.sidebar .menu .list .ml-menu li a {
-    padding-left: 55px;
+.menu .list .ml-tree li a {
+    padding-left: 32px;
     padding-top: 7px;
     padding-bottom: 7px;
 }
 
-.sidebar .menu .list .ml-menu li.active a.toggled:not(.menu-toggle) {
+.menu .list .ml-tree li.active a.toggled:not(.tree-toggle) {
     font-weight: 600;
     margin-left: 5px;
 }
 
-.sidebar .menu .list .ml-menu li.active a.toggled:not(.menu-toggle):before {
-    content: '\E315';
-    font-family: 'Material Icons';
-    position: relative;
-    font-size: 21px;
-    height: 20px;
-    top: -5px;
-    right: 0px;
+.menu .list .ml-tree li .ml-tree li a {
+    padding-left: 57px;
 }
 
-.sidebar .menu .list .ml-menu li .ml-menu li a {
-    padding-left: 80px;
-}
-
-.sidebar .menu .list .ml-menu li .ml-menu .ml-menu li a {
+.menu .list .ml-tree li .ml-tree .ml-tree li a {
     padding-left: 95px;
+}
+
+.menu .separator a{
+    border-bottom: 1px solid #cccccc;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 0px;
 }
 
 .right-sidebar {
@@ -6189,15 +6183,17 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
 
 /* Searchbar =================================== */
 .search-bar {
-    position: fixed;
+    position: absolute;
     top: -100px;
     left: 0;
-    z-index: 9999999;
+    z-index: 14;
     width: 100%;
+    height: 100%;
     -moz-transition: 0.25s;
     -o-transition: 0.25s;
     -webkit-transition: 0.25s;
     transition: 0.25s;
+    border-bottom: 1px solid #999;
 }
 
 .search-bar.open {
@@ -6205,31 +6201,49 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
 }
 
 .search-bar .search-icon {
+    display: table;
+    height: 100%;
     position: absolute;
-    top: 20px;
     left: 14px;
+}
+
+.search-bar .search-icon i{
+    height: 100%;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .search-bar .search-icon .material-icons {
     font-size: 32px;
-    color: #999;
+    color: #999 !important;
 }
 
 .search-bar .close-search {
+    display: table;
+    height: 100%;
     position: absolute;
     cursor: pointer;
     font-size: 30px;
-    top: 16px;
     right: 18px;
+    top: 0px;
+}
+
+.search-bar .close-search i{
+    height: 100%;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: #999;
 }
 
 .search-bar .close-search .material-icons {
-    color: #999;
     opacity: 1;
     -moz-transition: 0.5s;
     -o-transition: 0.5s;
     -webkit-transition: 0.5s;
     transition: 0.5s;
+    color: #999 !important;
 }
 
 .search-bar .close-search .material-icons:hover {
@@ -6238,9 +6252,12 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
 
 .search-bar input[type="text"] {
     width: 100%;
+    height: 100%;
     font-size: 16px;
-    padding: 25px 60px 23px 56px;
+    padding: 0px 60px 0px 56px;
     border: none;
+    color: #000;
+    font-weight: 500;
 }
 
 /* Jquery DataTable ============================ */
@@ -6353,7 +6370,7 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
 }
 
 /* For Internet Explorer 11 ===================== */
-html.ie11 .sidebar .menu .list .ml-menu li.active a:not(.menu-toggle).toggled:before {
+html.ie11 .menu .list .ml-tree li.active a:not(.tree-toggle).toggled:before {
     top: 6px !important;
     line-height: 20px !important;
 }

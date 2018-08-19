@@ -34,15 +34,15 @@
 .theme-yellow .bars {
   color: #fff; }
 
-.theme-yellow .sidebar .menu .list li.active {
+.theme-yellow .menu .list li.active {
   background-color: transparent; }
-  .theme-yellow .sidebar .menu .list li.active > :first-child i, .theme-yellow .sidebar .menu .list li.active > :first-child span {
+  .theme-yellow .menu .list li.active > :first-child i, .theme-yellow .menu .list li.active > :first-child span {
     color: #FFEB3B; }
 
-.theme-yellow .sidebar .menu .list .toggled {
+.theme-yellow .menu .list .toggled {
   background-color: transparent; }
 
-.theme-yellow .sidebar .menu .list .ml-menu {
+.theme-yellow .menu .list .ml-tree {
   background-color: transparent; }
 
 .theme-yellow .sidebar .legal {
