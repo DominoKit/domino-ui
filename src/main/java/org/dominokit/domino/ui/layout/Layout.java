@@ -34,6 +34,7 @@ public class Layout implements IsLayout {
     private boolean rightPanelVisible = false;
     private boolean navigationBarExpanded = false;
     private boolean overlayVisible = false;
+    private boolean leftPanelDisabled = false;
     private boolean fixedLeftPanel;
 
     public Layout() {
@@ -80,10 +81,10 @@ public class Layout implements IsLayout {
     }
 
     private void initElementsPosition() {
-        section.leftSide.style.marginLeft = CSSProperties.MarginLeftUnionType.of(0);
-        section.rightSide.style.marginRight = CSSProperties.MarginRightUnionType.of(0);
-        section.leftSide.style.left = SLIDE_OUT;
-        section.rightSide.style.right = SLIDE_OUT;
+        Style.of(section.leftSide).setMarginLeft("0px");
+        Style.of(section.leftSide).setProperty("left", SLIDE_OUT);
+        Style.of(section.rightSide).setMarginRight("0px");
+        Style.of(section.rightSide).setProperty("right", SLIDE_OUT);
     }
 
     private void addExpandListeners() {
@@ -191,20 +192,22 @@ public class Layout implements IsLayout {
 
     @Override
     public Layout showLeftPanel() {
-        if (rightPanelVisible)
-            hideRightPanel();
-        if (navigationBarExpanded)
-            collapseNavBar();
-        section.leftSide.style.left = SLIDE_IN;
-        leftPanelVisible = true;
-        showOverlay();
+        if(!leftPanelDisabled) {
+            if (rightPanelVisible)
+                hideRightPanel();
+            if (navigationBarExpanded)
+                collapseNavBar();
+            section.leftSide.style.left = SLIDE_IN;
+            leftPanelVisible = true;
+            showOverlay();
+        }
 
         return this;
     }
 
     @Override
     public Layout hideLeftPanel() {
-        if (!fixedLeftPanel) {
+        if (!fixedLeftPanel && !leftPanelDisabled) {
             section.leftSide.style.left = SLIDE_OUT;
             leftPanelVisible = false;
             hideOverlay();
@@ -280,18 +283,38 @@ public class Layout implements IsLayout {
     }
 
     public Layout fixLeftPanelPosition() {
-        showLeftPanel();
-        hideOverlay();
-        if (document.body.classList.contains("ls-closed"))
-            document.body.classList.remove("ls-closed");
-        this.fixedLeftPanel = true;
+        if(!leftPanelDisabled) {
+            showLeftPanel();
+            hideOverlay();
+            if (document.body.classList.contains("ls-closed"))
+                document.body.classList.remove("ls-closed");
+            this.fixedLeftPanel = true;
+        }
         return this;
     }
 
     public Layout unfixLeftPanelPosition() {
-        if (!document.body.classList.contains("ls-closed"))
-            document.body.classList.add("ls-closed");
-        this.fixedLeftPanel = false;
+        if(!leftPanelDisabled) {
+            if (!document.body.classList.contains("ls-closed"))
+                document.body.classList.add("ls-closed");
+            this.fixedLeftPanel = false;
+        }
+        return this;
+    }
+
+    public Layout disableLeftPanel(){
+        unfixLeftPanelPosition();
+        hideLeftPanel();
+        Style.of(section.leftSide).setDisplay("none");
+        Style.of(navigationBar.menu).removeCss("bars").setDisplay("none");
+        this.leftPanelDisabled = true;
+        return this;
+    }
+
+    public Layout enableLeftPanel(){
+        Style.of(section.leftSide).removeProperty("display");
+        Style.of(navigationBar.menu).css("bars").removeProperty("display");
+        this.leftPanelDisabled = false;
         return this;
     }
 
