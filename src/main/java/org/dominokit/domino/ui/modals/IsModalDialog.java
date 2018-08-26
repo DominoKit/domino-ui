@@ -4,6 +4,8 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.Styles;
 
 public interface IsModalDialog<T> {
     T appendContent(Node content);
@@ -53,7 +55,12 @@ public interface IsModalDialog<T> {
     T removeCloseHandler(CloseHandler closeHandler);
 
     T setAutoAppendAndRemove(boolean autoAppendAndRemove);
+
     boolean getAutoAppendAndRemove();
+
+    T centerVertically();
+
+    T deCenterVertically();
 
     enum ModalSize {
         LARGE("modal-lg"),
