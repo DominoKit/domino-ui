@@ -32,6 +32,8 @@ public class Styles {
     public static final String align_center = "align-center";
     public static final String align_justify = "align-justify";
 
+    public static final String vertical_center = "v-center";
+
     public static final String m_t_10 = "m-t-10";
     public static final String m_t_0 = "m-t-0";
     public static final String m_t__10 = "m-t--10";
@@ -65,13 +67,13 @@ public class Styles {
 
     public static final String padding_0 = "padding-0";
 
-    public static final String img_responsive ="img-responsive";
+    public static final String img_responsive = "img-responsive";
 
-    public static final String clearfix="clearfix";
-    public static final String pull_right="pull-right";
+    public static final String clearfix = "clearfix";
+    public static final String pull_right = "pull-right";
 
-    public static final String cursor_pointer="cursor-pointer";
-    public static final String disable_selection="disable-selection";
+    public static final String cursor_pointer = "cursor-pointer";
+    public static final String disable_selection = "disable-selection";
 
-    public static final String default_shadow="default-shadow";
+    public static final String default_shadow = "default-shadow";
 }
