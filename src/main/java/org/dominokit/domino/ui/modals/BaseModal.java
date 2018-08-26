@@ -3,6 +3,8 @@ package org.dominokit.domino.ui.modals;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.MyDom;
@@ -409,6 +411,18 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     @Override
     public T setAutoAppendAndRemove(boolean autoAppendAndRemove) {
         this.autoAppendAndRemove=autoAppendAndRemove;
+        return (T) this;
+    }
+
+    @Override
+    public T centerVertically(){
+        Style.of(modal.modalDialog).css(Styles.vertical_center);
+        return (T) this;
+    }
+
+    @Override
+    public T deCenterVertically(){
+        Style.of(modal.modalDialog).removeCss(Styles.vertical_center);
         return (T) this;
     }
 
