@@ -25,6 +25,11 @@ public class Stepper implements IsElement<HTMLUListElement> {
     private StepperCompletionHandler stepperCompletionHandler = () -> {
     };
 
+    private StepChangeHandler stepChangeHandler = (deactivatedStep, activatedStep) -> {
+    };
+
+    private List<StepChangeHandler> stepChangeHandlers = new ArrayList<>();
+
     private boolean allowClickNavigation = true;
 
     public Stepper() {
@@ -51,7 +56,7 @@ public class Stepper implements IsElement<HTMLUListElement> {
             this.activeStep = step;
         }
         steps.add(step);
-        step.asElement().setAttribute("data-step-number", steps.size()+"");
+        step.asElement().setAttribute("data-step-number", steps.size() + "");
 
         step.getStepHeader().addEventListener("click", evt -> onStepHeaderClicked(step));
 
@@ -59,7 +64,7 @@ public class Stepper implements IsElement<HTMLUListElement> {
     }
 
     private void onStepHeaderClicked(Step step) {
-        if(isAllowClickNavigation()) {
+        if (isAllowClickNavigation()) {
             int activeStepIndex = steps.indexOf(this.activeStep);
             int stepIndex = steps.indexOf(step);
             if (this.activeStep.isValid() && (activeStepIndex == stepIndex - 1)) {
@@ -81,10 +86,14 @@ public class Stepper implements IsElement<HTMLUListElement> {
 
     public Stepper activateStep(Step step) {
         if (steps.contains(step)) {
+            Step deActivatedStep = this.activeStep;
+            Step activatedStep = step;
             this.activeStep.deActivate();
             step.activate(getTransition(step));
             step.setDone(false);
             this.activeStep = step;
+
+            stepChangeHandlers.forEach(h -> h.onActiveStepChanged(deActivatedStep, activatedStep));
         }
 
         return this;
@@ -182,7 +191,7 @@ public class Stepper implements IsElement<HTMLUListElement> {
         return this;
     }
 
-    public Stepper disableClickNavigation(){
+    public Stepper disableClickNavigation() {
         this.allowClickNavigation = false;
         return this;
     }
@@ -195,8 +204,23 @@ public class Stepper implements IsElement<HTMLUListElement> {
         this.allowClickNavigation = allowClickNavigation;
     }
 
+    public Stepper addStepChangeHandler(StepChangeHandler stepChangeHandler) {
+        this.stepChangeHandlers.add(stepChangeHandler);
+        return this;
+    }
+
+    public Stepper removeStepChangeHandler(StepChangeHandler stepChangeHandler) {
+        this.stepChangeHandlers.remove(stepChangeHandler);
+        return this;
+    }
+
     @FunctionalInterface
     public interface StepperCompletionHandler {
         void onFinish();
+    }
+
+    @FunctionalInterface
+    public interface StepChangeHandler {
+        void onActiveStepChanged(Step deactivatedStep, Step activatedStep);
     }
 }
