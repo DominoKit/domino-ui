@@ -61,6 +61,11 @@ public class Animation {
         return this;
     }
 
+    public Animation beforeStart(StartHandler startHandler) {
+        this.startHandler = startHandler;
+        return this;
+    }
+
     public Animation animate() {
         if (delay > 0) {
             new Timer() {
