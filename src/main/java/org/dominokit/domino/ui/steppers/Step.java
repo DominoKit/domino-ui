@@ -135,11 +135,15 @@ public class Step implements IsElement<HTMLLIElement> {
         return stepHeader;
     }
 
+    public boolean isActive(){
+        return Style.of(element).hasClass("active");
+    }
 
     @Override
     public HTMLLIElement asElement() {
         return element;
     }
+
 
     @FunctionalInterface
     public interface StepCompletedValidator {
