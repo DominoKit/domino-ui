@@ -25,12 +25,7 @@ public class Stepper implements IsElement<HTMLUListElement> {
     private StepperCompletionHandler stepperCompletionHandler = () -> {
     };
 
-    private StepChangeHandler stepChangeHandler = (deactivatedStep, activatedStep) -> {
-    };
-
     private List<StepChangeHandler> stepChangeHandlers = new ArrayList<>();
-
-    private boolean allowClickNavigation = true;
 
     public Stepper() {
 
@@ -64,7 +59,7 @@ public class Stepper implements IsElement<HTMLUListElement> {
     }
 
     private void onStepHeaderClicked(Step step) {
-        if (isAllowClickNavigation()) {
+        if (step.isAllowStepClickActivation()) {
             int activeStepIndex = steps.indexOf(this.activeStep);
             int stepIndex = steps.indexOf(step);
             if (this.activeStep.isValid() && (activeStepIndex == stepIndex - 1)) {
@@ -189,19 +184,6 @@ public class Stepper implements IsElement<HTMLUListElement> {
         this.color = color;
 
         return this;
-    }
-
-    public Stepper disableClickNavigation() {
-        this.allowClickNavigation = false;
-        return this;
-    }
-
-    public boolean isAllowClickNavigation() {
-        return allowClickNavigation;
-    }
-
-    public void setAllowClickNavigation(boolean allowClickNavigation) {
-        this.allowClickNavigation = allowClickNavigation;
     }
 
     public Stepper addStepChangeHandler(StepChangeHandler stepChangeHandler) {

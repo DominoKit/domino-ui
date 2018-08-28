@@ -24,6 +24,7 @@ public class Step implements IsElement<HTMLLIElement> {
     private boolean expanded = false;
     private StepCompletedValidator stepCompletedValidator = () -> true;
     private Collapsible collapsible = Collapsible.create(contentElement);
+    private boolean allowStepClickActivation = true;
 
 
     public Step(String title) {
@@ -144,6 +145,23 @@ public class Step implements IsElement<HTMLLIElement> {
         return element;
     }
 
+    public void setAllowStepClickActivation(boolean allow){
+        this.allowStepClickActivation = allow;
+    }
+
+    public boolean isAllowStepClickActivation() {
+        return allowStepClickActivation;
+    }
+
+    public Step disableClickActivation(){
+        setAllowStepClickActivation(false);
+        return this;
+    }
+
+    public Step enableClickActivation(){
+        setAllowStepClickActivation(true);
+        return this;
+    }
 
     @FunctionalInterface
     public interface StepCompletedValidator {
