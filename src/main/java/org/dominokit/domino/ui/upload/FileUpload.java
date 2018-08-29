@@ -1,10 +1,10 @@
 package org.dominokit.domino.ui.upload;
 
 import elemental2.dom.*;
-import org.dominokit.domino.ui.column.Column;
+import org.dominokit.domino.ui.grid.Column;
+import org.dominokit.domino.ui.grid.Row;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.notifications.Notification;
-import org.dominokit.domino.ui.row.Row;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasName;
 import org.jboss.gwt.elemento.core.Elements;
@@ -16,11 +16,7 @@ import java.util.List;
 public class FileUpload extends DominoElement<FileUpload> implements IsElement<HTMLDivElement>, HasName<FileUpload> {
 
     private Row row = Row.create();
-    private Column column = Column.create()
-            .onLarge(Column.OnLarge.two)
-            .onMedium(Column.OnMedium.four)
-            .onSmall(Column.OnSmall.six)
-            .onXSmall(Column.OnXSmall.twelve);
+    private Column column = Column.span(2,2,4,6,12);
 
     private HTMLDivElement formElement = Elements.div().css("file-upload").asElement();
     private HTMLDivElement uploadMessageContainer = Elements.div().css("file-upload-message").asElement();
@@ -96,7 +92,7 @@ public class FileUpload extends DominoElement<FileUpload> implements IsElement<H
 
     private void addFilePreview(File file) {
         FileItem fileItem = FileItem.create(file, new UploadOptions(url, maxFileSize));
-        Column previewColumn = column.copy().addElement(fileItem.asElement());
+        Column previewColumn = column.copy().appendChild(fileItem.asElement());
 
         fileItem.addRemoveHandler(removedFile -> {
             previewColumn.asElement().remove();
@@ -136,6 +132,10 @@ public class FileUpload extends DominoElement<FileUpload> implements IsElement<H
     public FileUpload appendChild(Node child) {
         uploadMessageContainer.appendChild(child);
         return this;
+    }
+
+    public FileUpload appendChild(IsElement child) {
+        return appendChild(child.asElement());
     }
 
     public FileUpload multipleFiles() {

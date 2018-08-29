@@ -47,11 +47,25 @@ public class BlockHeader extends DominoElement<BlockHeader> implements IsElement
         return new BlockHeader(element, headerElement.asElement());
     }
 
+    /**
+     * @deprecated use {@link #appendChild(Node)}
+     * @param content
+     * @return
+     */
+    @Deprecated
     public BlockHeader appendContent(Node content) {
+        return appendChild(content);
+    }
+
+    public BlockHeader appendChild(Node content) {
         if (isNull(descriptionElement))
             createDescriptionElement("");
         descriptionElement.appendChild(content);
         return this;
+    }
+
+    public BlockHeader appendChild(IsElement content) {
+        return appendChild(content.asElement());
     }
 
     public BlockHeader invert() {

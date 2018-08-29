@@ -72,6 +72,12 @@ public class Blockquote extends DominoElement<Blockquote> implements IsElement<H
         return this;
     }
 
+    /**
+     * @deprecated use {@link #appendFooterChild(Node)}
+     * @param content
+     * @return
+     */
+    @Deprecated
     public Blockquote appendFooterContent(Node content){
         if(isNull(footer))
             setFooterContent(content);
@@ -79,6 +85,19 @@ public class Blockquote extends DominoElement<Blockquote> implements IsElement<H
             footer.appendChild(content);
 
         return this;
+    }
+
+    public Blockquote appendFooterChild(Node content){
+        if(isNull(footer))
+            setFooterContent(content);
+        else
+            footer.appendChild(content);
+
+        return this;
+    }
+
+    public Blockquote appendFooterChild(IsElement content){
+        return appendFooterChild(content.asElement());
     }
 
     @Override

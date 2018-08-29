@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.icons;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -48,5 +49,9 @@ public class Icon implements IsElement<HTMLElement> {
     @Override
     public HTMLElement asElement() {
         return icon;
+    }
+
+    public Style<HTMLElement, Icon> style(){
+        return Style.of(this);
     }
 }

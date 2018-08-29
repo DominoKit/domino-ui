@@ -218,4 +218,8 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     public HTMLElement asElement() {
         return container;
     }
+
+    public Style<HTMLElement, SwitchButton> style(){
+        return Style.of(this);
+    }
 }

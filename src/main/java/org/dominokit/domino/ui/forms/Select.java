@@ -704,6 +704,10 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         return isNull(noSearchResultsElement) ? defaultNoSearchResultsElement : noSearchResultsElement;
     }
 
+    public Style<HTMLElement, Select<T>> style(){
+        return Style.of(this);
+    }
+
     @Override
     public HTMLElement getInputElement() {
         return selectElement.selectMenu;

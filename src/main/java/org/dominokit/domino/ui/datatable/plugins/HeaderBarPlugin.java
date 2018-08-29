@@ -2,15 +2,15 @@ package org.dominokit.domino.ui.datatable.plugins;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.button.IconButton;
-import org.dominokit.domino.ui.column.Column;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.forms.Select;
 import org.dominokit.domino.ui.forms.SelectOption;
 import org.dominokit.domino.ui.forms.TextBox;
+import org.dominokit.domino.ui.grid.Column;
+import org.dominokit.domino.ui.grid.Row;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.popover.Tooltip;
-import org.dominokit.domino.ui.row.Row;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 
@@ -22,21 +22,17 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
-    private Column column = Column.create()
-            .onLarge(Column.OnLarge.six)
-            .onMedium(Column.OnMedium.six)
-            .onSmall(Column.OnSmall.twelve)
-            .onXSmall(Column.OnXSmall.twelve);
 
-    private Column titleColumn = column.copy();
-    private Column actionsBarColumn = column.copy();
+
+    private Column titleColumn = Column.span6();
+    private Column actionsBarColumn = Column.span6();
 
     private HTMLHeadingElement title = Style.of(h(2)).setMarginBottom("0px").asElement();
     private HTMLUListElement actionsBar = Style.of(ul().style("list-style: none;")).setMarginBottom("0px").asElement();
     private HTMLDivElement element = div()
             .add(Row.create()
-                    .addColumn(titleColumn.addElement(title))
-                    .addColumn(actionsBarColumn.addElement(actionsBar))
+                    .addColumn(titleColumn.appendChild(title))
+                    .addColumn(actionsBarColumn.appendChild(actionsBar))
                     .asElement())
             .css("header")
             .style("padding-bottom: 5px;")

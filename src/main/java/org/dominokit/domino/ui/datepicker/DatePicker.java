@@ -4,16 +4,15 @@ import elemental2.core.JsDate;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.column.Column;
 import org.dominokit.domino.ui.forms.Select;
 import org.dominokit.domino.ui.forms.SelectOption;
+import org.dominokit.domino.ui.grid.Column;
+import org.dominokit.domino.ui.grid.Row;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.pickers.PickerHandler;
-import org.dominokit.domino.ui.row.Row;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.WavesSupport;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.gwtproject.i18n.client.impl.cldr.DateTimeFormatInfo_factory;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
@@ -27,7 +26,6 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.jboss.gwt.elemento.core.Elements.th;
 
 public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicker, Date>, DatePickerMonth.DaySelectionHandler {
 
@@ -60,11 +58,7 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicke
     private BackgroundHandler backgroundHandler = (oldBackground, newBackground) -> {
     };
 
-    private Column column = Column.create()
-            .onXSmall(Column.OnXSmall.four)
-            .onSmall(Column.OnSmall.four)
-            .onMedium(Column.OnMedium.four)
-            .onLarge(Column.OnLarge.four);
+    private Column column = Column.span(4);
 
     private JsDate minDate;
     private JsDate maxDate;
@@ -182,26 +176,22 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicke
             setDate(jsDate);
         });
 
-        Column yearColumn = this.column.copy().addElement(yearSelect.asElement());
+        Column yearColumn = this.column.copy().appendChild(yearSelect.asElement());
         yearColumn.asElement().style.setProperty("padding-left", "0px", "important");
         yearColumn.asElement().style.setProperty("padding-right", "3px", "important");
         yearColumn.asElement().style.setProperty("margin-bottom", "5px", "important");
 
-        Column monthColumn = this.column.copy().addElement(monthSelect.asElement());
+        Column monthColumn = this.column.copy().appendChild(monthSelect.asElement());
         monthColumn.asElement().style.setProperty("padding-left", "3px", "important");
         monthColumn.asElement().style.setProperty("padding-right", "0px", "important");
         monthColumn.asElement().style.setProperty("margin-bottom", "5px", "important");
 
-        Column backColumn = this.column.copy()
-                .onXSmall(Column.OnXSmall.two)
-                .onSmall(Column.OnSmall.two)
-                .onMedium(Column.OnMedium.two)
-                .onLarge(Column.OnLarge.two);
+        Column backColumn = Column.span(2);
 
         backColumn.asElement().style.setProperty("padding", "0px", "important");
         backColumn.asElement().style.setProperty("margin-bottom", "5px", "important");
 
-        Column forwardColumn = backColumn.copy();
+        Column forwardColumn = Column.span(2);
         forwardColumn.asElement().style.setProperty("padding", "0px", "important");
         forwardColumn.asElement().style.setProperty("text-align", "right", "important");
         forwardColumn.asElement().style.setProperty("margin-bottom", "5px", "important");
@@ -249,10 +239,10 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicke
 
 
         selectorsPanel.appendChild(row
-                .addColumn(backColumn.addElement(navigateBefore))
+                .addColumn(backColumn.appendChild(navigateBefore))
                 .addColumn(yearColumn)
                 .addColumn(monthColumn)
-                .addColumn(forwardColumn.addElement(navigateNext))
+                .addColumn(forwardColumn.appendChild(navigateNext))
                 .asElement());
     }
 

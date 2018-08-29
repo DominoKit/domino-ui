@@ -83,7 +83,7 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
         return Card.create("Source Code")
                 .setCollapsible()
                 .collapse()
-                .appendContent(Code.block(codeBlock).asElement());
+                .appendChild(Code.block(codeBlock).asElement());
     }
 
     public static Card createCodeCard(ExternalTextResource codeResource) {
@@ -106,7 +106,7 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
         return Card.create("Source Code")
                 .setCollapsible()
                 .collapse()
-                .appendContent(block.asElement());
+                .appendChild(block.asElement());
     }
 
     @PostConstruct
@@ -143,16 +143,44 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
         return this;
     }
 
+
+    /**
+     * @deprecated use {@link #appendDescriptionChild(Node)}
+     * @param content
+     * @return
+     */
+    @Deprecated
     public Card appendDescriptionContent(Node content) {
         headerDescription.appendChild(content);
         return this;
     }
 
+    public Card appendDescriptionChild(Node node) {
+        headerDescription.appendChild(node);
+        return this;
+    }
+
+    public Card appendDescriptionChild(IsElement element) {
+        return appendDescriptionChild(element.asElement());
+    }
+
+    /**
+     *  @deprecated use {@link #appendChild(IsElement)}
+     * @param content
+     * @return
+     */
+    @Deprecated
     public Card appendContent(Node content) {
         getBody().appendChild(content);
         return this;
     }
 
+    /**
+     * @deprecated use {@link #appendChild(Node)}
+     * @param element
+     * @return
+     */
+    @Deprecated
     public Card appendContent(IsElement element) {
         getBody().appendChild(element.asElement());
         return this;

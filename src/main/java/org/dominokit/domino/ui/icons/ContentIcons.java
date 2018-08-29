@@ -47,7 +47,7 @@ public interface ContentIcons {
     }
 
     default Icon create() {
-        return Icon.create("create");
+        return Icon.create("span");
     }
 
     default Icon delete_sweep() {

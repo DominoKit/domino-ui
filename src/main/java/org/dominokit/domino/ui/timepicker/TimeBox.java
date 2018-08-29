@@ -1,14 +1,13 @@
 package org.dominokit.domino.ui.timepicker;
 
-import elemental2.dom.DomGlobal;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLInputElement;
-import elemental2.dom.KeyboardEvent;
+import elemental2.dom.*;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.forms.SwitchButton;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.EventType;
@@ -163,6 +162,10 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
             showInPopOver();
         }
         return this;
+    }
+
+    public Style<HTMLElement, TimeBox> style(){
+        return Style.of(this);
     }
 
     private void showInPopOver() {

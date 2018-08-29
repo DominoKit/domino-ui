@@ -112,7 +112,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     private void completeCollapse() {
         style.setDisplay("none");
         style.removeProperty("height");
-        style.removeClass("collapsing");
+        style.removeCss("collapsing");
         onCollapseCompleted();
     }
 
@@ -159,7 +159,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
     private void completeExpand() {
         style.removeProperty("height");
-        style.removeClass("collapsing");
+        style.removeCss("collapsing");
         onExpandCompleted();
         updateHeight();
     }

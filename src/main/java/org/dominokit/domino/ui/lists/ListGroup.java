@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMultiSelectSupport;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -44,7 +45,18 @@ public class ListGroup<T> extends DominoElement<ListGroup<T>> implements IsEleme
         return listItem;
     }
 
+
+    /**
+     * @deprecated use {@link #appendChild(ListItem)}
+     * @param listItem
+     * @return
+     */
+    @Deprecated
     public ListGroup<T> appendItem(ListItem<T> listItem) {
+        return appendChild(listItem);
+    }
+
+    public ListGroup<T> appendChild(ListItem<T> listItem) {
         allItems.add(listItem);
         asElement().appendChild(listItem.asElement());
         listItem.setParent(this);
@@ -152,5 +164,9 @@ public class ListGroup<T> extends DominoElement<ListGroup<T>> implements IsEleme
 
     public interface SelectionChangeHandler<T> {
         void onSelectionChanged(ListItem<T> item);
+    }
+
+    public Style<HTMLDivElement, ListGroup<T>> style(){
+        return Style.of(this);
     }
 }

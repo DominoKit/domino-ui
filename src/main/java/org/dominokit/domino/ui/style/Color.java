@@ -4875,7 +4875,7 @@ public interface Color {
     };
 
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
 
         generateColorStyle(ColorScheme.RED);
         generateColorStyle(ColorScheme.PINK);

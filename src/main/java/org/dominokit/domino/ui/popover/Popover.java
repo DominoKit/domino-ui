@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.*;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.Switchable;
 import org.jboss.gwt.elemento.core.Elements;
@@ -114,8 +115,28 @@ public class Popover implements IsElement<HTMLDivElement>, Switchable<Popover> {
         return popover;
     }
 
+    public static Popover createPicker(IsElement target, IsElement content) {
+        Popover popover = new Popover(target.asElement(), "", content.asElement());
+        popover.getHeadingElement().style.display="none";
+        popover.getContentElement().style.setProperty("padding","0px");
+
+        return popover;
+    }
+
     public static Popover create(HTMLElement target, String title, Node content) {
         return new Popover(target, title, content);
+    }
+
+    public static Popover create(HTMLElement target, String title, IsElement content) {
+        return new Popover(target, title, content.asElement());
+    }
+
+    public static Popover create(IsElement target, String title, Node content) {
+        return new Popover(target.asElement(), title, content);
+    }
+
+    public static Popover create(IsElement target, String title, IsElement content) {
+        return new Popover(target.asElement(), title, content.asElement());
     }
 
     public Popover position(PopupPosition position) {
@@ -163,5 +184,9 @@ public class Popover implements IsElement<HTMLDivElement>, Switchable<Popover> {
 
     public HTMLDivElement getContentElement() {
         return contentElement;
+    }
+
+    public Style<HTMLDivElement, Popover> style(){
+        return Style.of(this);
     }
 }

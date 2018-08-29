@@ -196,4 +196,9 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
     public HTMLElement asElement() {
         return container;
     }
+
+    public Style<HTMLElement, CheckBox> style(){
+        return Style.of(this);
+    }
+
 }

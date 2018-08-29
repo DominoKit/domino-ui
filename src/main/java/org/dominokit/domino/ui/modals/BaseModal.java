@@ -159,10 +159,38 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
         }
     }
 
+    /**
+     * @deprecated use {@link #appendChild(Node)}
+     * @param content
+     * @return
+     */
+    @Deprecated
     @Override
     public T appendContent(Node content) {
         modal.modalBody.appendChild(content);
         return (T) this;
+    }
+
+    @Override
+    public T appendChild(Node content) {
+        modal.modalBody.appendChild(content);
+        return (T) this;
+    }
+
+    @Override
+    public T appendChild(IsElement content) {
+        return appendChild(content.asElement());
+    }
+
+    @Override
+    public T appendFooterChild(Node content) {
+        modal.modalFooter.appendChild(content);
+        return (T) this;
+    }
+
+    @Override
+    public T appendFooterChild(IsElement content) {
+        return appendFooterChild(content.asElement());
     }
 
     @Override
