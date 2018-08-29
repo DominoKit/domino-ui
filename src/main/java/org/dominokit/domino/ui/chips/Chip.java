@@ -247,6 +247,10 @@ public class Chip implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip
         return this;
     }
 
+    public Style<HTMLDivElement, Chip> style() {
+        return Style.of(this);
+    }
+
     public String getValue() {
         return textContainer.textContent;
     }
