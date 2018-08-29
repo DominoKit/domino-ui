@@ -368,4 +368,9 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
         this.collapseDuration = collapseDuration;
         return this;
     }
+
+    public Card clearBody(){
+        ElementUtil.clear(getBody());
+        return this;
+    }
 }

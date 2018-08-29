@@ -74,9 +74,25 @@ public abstract class MediaObject extends DominoElement<MediaObject> implements 
         return setRightMedia(element.asElement());
     }
 
+    /**
+     * @deprecated use {@link #appendChild(Node)}
+     * @param content
+     * @return
+     */
+    @Deprecated
     public MediaObject appendContent(Node content) {
+        return appendChild(content);
+    }
+
+    public MediaObject appendChild(Node content) {
         mediaBody.appendChild(content);
         return this;
+    }
+
+
+
+    public MediaObject appendChild(IsElement content) {
+        return appendChild(content.asElement());
     }
 
     public MediaObject alignLeftMedia(MediaAlign align) {

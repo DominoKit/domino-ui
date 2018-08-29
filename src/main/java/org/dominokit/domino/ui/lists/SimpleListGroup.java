@@ -42,7 +42,18 @@ public class SimpleListGroup extends DominoElement<SimpleListGroup> implements I
         return this;
     }
 
+    /**
+     * @deprecated use {@link #appendChild(SimpleListItem)}
+     * @param item
+     * @return
+     */
+    @Deprecated
     public SimpleListGroup appendItem(SimpleListItem item){
+        element.appendChild(item.asElement());
+        return this;
+    }
+
+    public SimpleListGroup appendChild(SimpleListItem item){
         element.appendChild(item.asElement());
         return this;
     }
