@@ -44,6 +44,11 @@ public abstract class DominoElement<E extends IsElement> implements IsCollapsibl
         return element;
     }
 
+    public E clearElement(){
+        ElementUtil.clear(element.asElement());
+        return element;
+    }
+
     @Override
     public boolean isCollapsed() {
         return collapsible.isCollapsed();
