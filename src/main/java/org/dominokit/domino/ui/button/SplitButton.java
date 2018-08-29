@@ -73,11 +73,7 @@ public class SplitButton extends DominoElement<SplitButton> implements IsElement
     }
 
     public SplitButton addDropdown(DropdownButton dropdownButton) {
-        HTMLElement dropdownElement = dropdownButton.justify();
-        String content = dropdownElement.firstChild.textContent;
-        dropdownElement.firstChild.removeChild(dropdownElement.firstChild.firstChild);
-        dropdownElement.firstChild.appendChild(Elements.span().css("sr-only").textContent(content).asElement());
-        groupElement.appendChild(dropdownElement);
+        groupElement.appendChild(dropdownButton.asElement());
         return this;
     }
 }
