@@ -1,11 +1,12 @@
 package org.dominokit.domino.ui.button.group;
 
+import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.ButtonSize;
 import org.dominokit.domino.ui.button.DropdownButton;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Sizable;
-import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -84,5 +85,9 @@ public class ButtonsGroup extends DominoElement<ButtonsGroup> implements IsEleme
     @Override
     public ButtonsGroup xSmall() {
         return setSize(ButtonSize.XSMALL);
+    }
+
+    public Style<HTMLElement, ButtonsGroup> style() {
+        return Style.of(this);
     }
 }

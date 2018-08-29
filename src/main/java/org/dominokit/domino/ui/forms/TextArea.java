@@ -2,7 +2,9 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.CSSProperties;
 import elemental2.dom.EventListener;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLTextAreaElement;
+import org.dominokit.domino.ui.style.Style;
 import org.jboss.gwt.elemento.core.Elements;
 
 import static java.util.Objects.nonNull;
@@ -82,4 +84,9 @@ public class TextArea extends AbstractTextBox<TextArea, HTMLTextAreaElement> {
     public boolean isEmpty() {
         return getValue().isEmpty();
     }
+
+    public Style<HTMLElement, TextArea> style(){
+        return Style.of(this);
+    }
+
 }

@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.progress;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
@@ -111,5 +112,9 @@ public class ProgressBar implements IsElement<HTMLDivElement> {
         this.textExpression = expression;
         updateText();
         return this;
+    }
+
+    public Style<HTMLDivElement, ProgressBar> style(){
+        return Style.of(this);
     }
 }

@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.button.group;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.DropdownButton;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Sizable;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -69,5 +70,9 @@ public class JustifiedGroup extends DominoElement<JustifiedGroup> implements IsE
     public JustifiedGroup xSmall() {
         group.xSmall();
         return this;
+    }
+
+    public Style<HTMLElement, JustifiedGroup> style(){
+        return Style.of(this);
     }
 }

@@ -104,6 +104,10 @@ public class Alert extends DominoElement<Alert> implements IsElement<HTMLDivElem
         return this;
     }
 
+    public Alert appendLink(IsElement<HTMLAnchorElement> anchorElement) {
+        return appendLink(anchorElement.asElement());
+    }
+
     public Alert dismissible() {
         if (!dismissible) {
             element.classList.add("alert-dismissible");

@@ -1,10 +1,8 @@
 package org.dominokit.domino.ui.datepicker;
 
-import elemental2.dom.DomGlobal;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLInputElement;
-import elemental2.dom.KeyboardEvent;
+import elemental2.dom.*;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.forms.SwitchButton;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
@@ -371,6 +369,10 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         if (nonNull(modal)) {
             modal.enable();
         }
+    }
+
+    public Style<HTMLElement, DateBox> style(){
+        return Style.of(this);
     }
 
     private static class Formatter extends DateTimeFormat {

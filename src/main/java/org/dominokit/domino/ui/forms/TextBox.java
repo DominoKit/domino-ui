@@ -1,6 +1,8 @@
 package org.dominokit.domino.ui.forms;
 
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.style.Style;
 import org.jboss.gwt.elemento.core.Elements;
 
 public class TextBox extends AbstractTextBox<TextBox, HTMLInputElement> {
@@ -63,5 +65,9 @@ public class TextBox extends AbstractTextBox<TextBox, HTMLInputElement> {
     public TextBox setType(String type) {
         getInputElement().type = type;
         return this;
+    }
+
+    public Style<HTMLElement, TextBox> style(){
+        return Style.of(this);
     }
 }

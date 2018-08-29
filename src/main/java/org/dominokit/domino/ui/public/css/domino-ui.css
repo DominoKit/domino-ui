@@ -6,5 +6,6 @@
 @import url(../plugins/bootstrap-select/css/bootstrap-select.css);
 @import url(../plugins/stepper/materialize-stepper.css);
 @import url(materialize.css);
+@import url(grid.css);
 @import url(style.css);
 @import url(colors.css);

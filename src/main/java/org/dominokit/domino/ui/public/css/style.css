@@ -3894,6 +3894,12 @@ fieldset[disabled] .form-control {
 
 .panel-group .panel-primary .panel-title {
     background-color: #1f91f3;
+    color: #fff;
+}
+
+.panel-group.full-body .panel-primary .panel-body{
+    background-color: #1f91f3;
+    color: #fff;
 }
 
 .panel-group .panel-success {
@@ -3901,6 +3907,11 @@ fieldset[disabled] .form-control {
 }
 
 .panel-group .panel-success .panel-title {
+    background-color: #2b982b;
+    color: #fff;
+}
+
+.panel-group.full-body .panel-success .panel-body{
     background-color: #2b982b;
     color: #fff;
 }
@@ -3914,11 +3925,21 @@ fieldset[disabled] .form-control {
     color: #fff;
 }
 
+.panel-group.full-body .panel-warning .panel-body{
+    background-color: #ff9600;
+    color: #fff;
+}
+
 .panel-group .panel-danger {
     border: 1px solid #fb483a;
 }
 
 .panel-group .panel-danger .panel-title {
+    background-color: #fb483a;
+    color: #fff;
+}
+
+.panel-group.full-body .panel-danger .panel-body{
     background-color: #fb483a;
     color: #fff;
 }

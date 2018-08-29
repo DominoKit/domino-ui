@@ -4,6 +4,7 @@ import com.google.gwt.i18n.client.NumberFormat;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.TextBox;
+import org.dominokit.domino.ui.grid.Row;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.ObserverCallback;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
@@ -15,8 +16,8 @@ import static java.util.Objects.nonNull;
 
 public class ElementUtil {
 
-    private static final List<String> navigationKeies =Arrays.asList("Backspace", "Delete", "ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft", "Tab", "Escape");
-    private static final List<String> decimalKeies =Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", ".");
+    private static final List<String> navigationKeies = Arrays.asList("Backspace", "Delete", "ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft", "Tab", "Escape");
+    private static final List<String> decimalKeies = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", ".");
 
     public static void clear(Element element) {
         if (nonNull(element))
@@ -118,6 +119,13 @@ public class ElementUtil {
 
     public static void scrollToElement(HTMLElement element) {
         element.scrollIntoView();
+    }
+
+    public static void test() {
+        Row.create()
+                .span1(column -> {
+
+                });
     }
 
 }

@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -25,7 +26,18 @@ public class SimpleListGroup extends DominoElement<SimpleListGroup> implements I
         return item;
     }
 
+    /**
+     * @deprecated use {@link #appendChild(String)}
+     * @param content
+     * @return
+     */
+    @Deprecated
     public SimpleListGroup appendItem(String content){
+        element.appendChild(SimpleListItem.create(content).asElement());
+        return this;
+    }
+
+    public SimpleListGroup appendChild(String content){
         element.appendChild(SimpleListItem.create(content).asElement());
         return this;
     }
@@ -38,5 +50,9 @@ public class SimpleListGroup extends DominoElement<SimpleListGroup> implements I
     @Override
     public HTMLUListElement asElement() {
         return element;
+    }
+
+    public Style<HTMLUListElement, SimpleListGroup> style(){
+        return Style.of(this);
     }
 }

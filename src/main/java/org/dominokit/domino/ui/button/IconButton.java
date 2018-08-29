@@ -1,6 +1,8 @@
 package org.dominokit.domino.ui.button;
 
+import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.StyleType;
 import org.dominokit.domino.ui.style.WaveStyle;
 import org.jboss.gwt.elemento.core.Elements;
@@ -91,6 +93,10 @@ public class IconButton extends Button {
         buttonElement.appendChild(icon.asElement());
         buttonElement.appendChild(Elements.span().textContent(content).asElement());
         return this;
+    }
+
+    public Style<HTMLElement, IconButton> style(){
+        return Style.of(this);
     }
 
 }

@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLabelElement;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementValidations;
 import org.dominokit.domino.ui.utils.ValidationResult;
@@ -138,4 +139,5 @@ public abstract class BasicFormElement<T extends BasicFormElement, V> extends Do
     protected abstract HTMLElement getLabelElement();
 
     protected abstract HTMLElement getInputElement();
+
 }

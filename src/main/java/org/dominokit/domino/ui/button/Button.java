@@ -4,10 +4,7 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.collapsible.Collapsible;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.StyleType;
-import org.dominokit.domino.ui.style.WaveStyle;
-import org.dominokit.domino.ui.style.WavesElement;
+import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
@@ -168,8 +165,24 @@ public class Button extends WavesElement<Button, HTMLElement> implements
         return asElement();
     }
 
+    /**
+     * @deprecated use {@link #appendChild(Node)}
+     * @param node
+     * @return
+     */
+    @Deprecated
     public Button appendContent(Node node) {
         this.asElement().appendChild(node);
+        return this;
+    }
+
+    public Button appendChild(Node node) {
+        this.asElement().appendChild(node);
+        return this;
+    }
+
+    public Button appendChild(IsElement element) {
+        this.asElement().appendChild(element.asElement());
         return this;
     }
 
@@ -266,5 +279,9 @@ public class Button extends WavesElement<Button, HTMLElement> implements
     @Override
     public boolean isCollapsed() {
         return collapsible.isCollapsed();
+    }
+
+    public <B extends Button> Style<HTMLElement, Button> style(){
+        return Style.of(this);
     }
 }

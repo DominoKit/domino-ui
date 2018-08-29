@@ -54,8 +54,24 @@ public class Paragraph extends DominoElement<Paragraph> implements IsElement<HTM
         return this;
     }
 
+    /**
+     * @deprecated use {@link #appendChild(Node)}
+     * @param content
+     * @return
+     */
+    @Deprecated
     public Paragraph appendContent(Node content){
         element.appendChild(content);
+        return this;
+    }
+
+    public Paragraph appendChild(Node content){
+        element.appendChild(content);
+        return this;
+    }
+
+    public Paragraph appendChild(IsElement content){
+        element.appendChild(content.asElement());
         return this;
     }
 

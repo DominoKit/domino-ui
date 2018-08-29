@@ -6,11 +6,32 @@ import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
+import org.jboss.gwt.elemento.core.IsElement;
 
 public interface IsModalDialog<T> {
+    /**
+     * @deprecated use {@link #appendChild(Node)}
+     * @param content
+     * @return
+     */
+    @Deprecated
     T appendContent(Node content);
 
+    T appendChild(Node content);
+
+    T appendChild(IsElement content);
+
+    /**
+     * @deprecated use {@link #appendFooterChild(Node)}
+     * @param content
+     * @return
+     */
+    @Deprecated
     T appendFooterContent(Node content);
+
+    T appendFooterChild(Node content);
+
+    T appendFooterChild(IsElement content);
 
     T large();
 

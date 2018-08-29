@@ -84,8 +84,8 @@ public class Slide implements IsElement<HTMLDivElement> {
 
     public Slide deActivate() {
         this.active = false;
-        Style.of(indicatorElement).removeClass("active");
-        Style.of(this).removeClass("active");
+        Style.of(indicatorElement).removeCss("active");
+        Style.of(this).removeCss("active");
 
         return this;
     }

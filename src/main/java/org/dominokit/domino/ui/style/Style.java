@@ -54,7 +54,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     /**
      * @param cssClass
      * @return
-     * @deprecated  As of release 1.3, replaced by {@link #removeCss(String)}
+     * @deprecated use {@link #removeCss(String)}
      */
     @Deprecated
     public Style<E, T> removeClass(String cssClass) {
@@ -68,7 +68,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
      * @param cssClasses
      * @return
      *
-     * @deprecated  As of release 1.3, replaced by {@link #removeCss(String...)}
+     * @deprecated  use {@link #removeCss(String...)}
      */
     @Deprecated
     public Style<E, T> removeClass(String... cssClasses) {
@@ -83,7 +83,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
      * @param replacementClass
      * @return
      *
-     * @deprecated  As of release 1.3, replaced by {@link #replaceCss(String, String)}
+     * @deprecated use {@link #replaceCss(String, String)}
      */
     @Deprecated
     public Style<E, T> replaceClass(String cssClass, String replacementClass) {
@@ -108,7 +108,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
 
     public Style<E, T> replaceCss(String cssClass, String replacementClass) {
         if (hasClass(cssClass)) {
-            removeClass(cssClass);
+            removeCss(cssClass);
             css(replacementClass);
         }
         return this;
@@ -397,6 +397,34 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return this;
     }
 
+    public Style<E, T> setFontSize(String fontSize) {
+        setProperty("font-size", fontSize);
+        return this;
+    }
+
+    public Style<E, T> setFontSize(String fontSize, boolean important) {
+        if (important) {
+            setImportantProperty("font-size", fontSize);
+        } else {
+            setProperty("font-size", fontSize);
+        }
+        return this;
+    }
+
+    public Style<E, T> setFloat(String cssFloat) {
+        setProperty("float", cssFloat);
+        return this;
+    }
+
+    public Style<E, T> setFloat(String cssFloat, boolean important) {
+        if (important) {
+            setImportantProperty("float", cssFloat);
+        } else {
+            setProperty("float", cssFloat);
+        }
+        return this;
+    }
+
     public boolean hasClass(String cssClass) {
         if (nonNull(cssClass) && !cssClass.isEmpty()) {
             return element.classList.contains(cssClass);
@@ -408,7 +436,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         if (important) {
             setImportantProperty("box-shadow", "none");
             setImportantProperty("-webkit-box-shadow", "none");
-            removeClass(Styles.default_shadow);
+            removeCss(Styles.default_shadow);
         } else {
             removeShadow();
         }
@@ -418,7 +446,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     public Style<E, T> removeShadow() {
         setProperty("box-shadow", "none");
         setProperty("-webkit-box-shadow", "none");
-        removeClass(Styles.default_shadow);
+        removeCss(Styles.default_shadow);
         return this;
     }
 
