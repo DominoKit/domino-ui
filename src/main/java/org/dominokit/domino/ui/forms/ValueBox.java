@@ -51,7 +51,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
 
     public ValueBox(String type, String label) {
         inputElement = createInputElement(type);
-        inputElement.addEventListener("change", evt -> changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(getValue())));
+        inputElement.addEventListener("change", evt -> callChangeHandlers());
         container.appendChild(leftAddonContainer);
         inputContainer.appendChild(inputElement);
         inputContainer.appendChild(labelElement);
@@ -61,6 +61,10 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         addFocusListeners();
         setLabel(label);
         initCollapsible(this);
+    }
+
+    protected void callChangeHandlers() {
+        changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(getValue()));
     }
 
     protected abstract E createInputElement(String type);

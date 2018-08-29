@@ -53,6 +53,7 @@ public class Chip implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip
             } else {
                 clickHandlers.forEach(ClickHandler::onClick);
             }
+            evt.stopPropagation();
         });
     }
 

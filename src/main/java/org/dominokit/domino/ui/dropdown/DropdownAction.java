@@ -1,4 +1,4 @@
-package org.dominokit.domino.ui.button;
+package org.dominokit.domino.ui.dropdown;
 
 
 import elemental2.dom.HTMLAnchorElement;
@@ -11,15 +11,17 @@ import org.jboss.gwt.elemento.core.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DropdownAction implements Justifiable, HasSelectionHandler<DropdownAction> {
+public class DropdownAction<V> implements Justifiable, HasSelectionHandler<DropdownAction> {
 
     private HTMLLIElement liElement = Elements.li().asElement();
+    private V value;
     private HTMLAnchorElement aElement;
     private List<SelectionHandler> selectionHandlers = new ArrayList<>();
 
-    private DropdownAction(String content) {
+    private DropdownAction(V value, String displayValue) {
+        this.value = value;
         aElement = Elements.a()
-                .textContent(content)
+                .textContent(displayValue)
                 .asElement();
         liElement.appendChild(aElement);
         liElement.addEventListener("click", evt -> {
@@ -32,8 +34,12 @@ public class DropdownAction implements Justifiable, HasSelectionHandler<Dropdown
         });
     }
 
-    public static DropdownAction create(String content) {
-        return new DropdownAction(content);
+    public static DropdownAction<String> create(String content) {
+        return create(content, content);
+    }
+
+    public static <V> DropdownAction<V> create(V value, String displayValue) {
+        return new DropdownAction<>(value, displayValue);
     }
 
     @Override
@@ -50,6 +56,10 @@ public class DropdownAction implements Justifiable, HasSelectionHandler<Dropdown
     public DropdownAction addSelectionHandler(SelectionHandler selectionHandler) {
         selectionHandlers.add(selectionHandler);
         return this;
+    }
+
+    public V getValue() {
+        return value;
     }
 
     public HTMLAnchorElement getAElement() {
