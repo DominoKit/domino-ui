@@ -281,4 +281,8 @@ public class TreeItem extends WavesElement<TreeItem, HTMLAnchorElement> implemen
             subItems.forEach(TreeItem::expandAll);
         }
     }
+
+    public Style<HTMLLIElement, TreeItem> style(){
+        return Style.of(this);
+    }
 }

@@ -6,6 +6,7 @@ import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLParagraphElement;
 import org.dominokit.domino.ui.notifications.Notification;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.themes.Theme;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
@@ -225,6 +226,10 @@ public class Slider extends DominoElement<Slider> implements IsElement<HTMLParag
         thumb.classList.add(thumbColor.getBackground());
         this.thumbColor = thumbColor;
         return this;
+    }
+
+    public Style<HTMLParagraphElement, Slider> style(){
+        return Style.of(this);
     }
 
     @FunctionalInterface

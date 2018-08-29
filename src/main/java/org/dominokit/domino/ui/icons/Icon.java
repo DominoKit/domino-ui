@@ -1,9 +1,11 @@
 package org.dominokit.domino.ui.icons;
 
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.isNull;
@@ -44,6 +46,11 @@ public class Icon implements IsElement<HTMLElement> {
     public Icon copy() {
         return Icon.create(this.getName())
                 .setColor(this.color);
+    }
+
+    public Icon addClickListener(EventListener listener){
+        this.icon.addEventListener(EventType.click.getName(), listener);
+        return this;
     }
 
     @Override

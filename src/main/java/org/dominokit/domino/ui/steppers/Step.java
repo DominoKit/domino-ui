@@ -24,7 +24,8 @@ public class Step implements IsElement<HTMLLIElement> {
     private boolean expanded = false;
     private StepCompletedValidator stepCompletedValidator = () -> true;
     private Collapsible collapsible = Collapsible.create(contentElement);
-
+    private boolean allowStepClickActivation = true;
+    private Stepper stepper;
 
     public Step(String title) {
         init(makeHeaderElement(title, ""));
@@ -98,6 +99,16 @@ public class Step implements IsElement<HTMLLIElement> {
         return this;
     }
 
+    void setStepper(Stepper stepper){
+        this.stepper = stepper;
+    }
+
+    public int getIndex(){
+        if(nonNull(this.stepper)){
+            return stepper.getSteps().indexOf(this);
+        }
+        return -1;
+    }
 
     public void setDone(boolean done) {
         Style.of(element).removeCss("done");
@@ -139,9 +150,31 @@ public class Step implements IsElement<HTMLLIElement> {
         return contentElement;
     }
 
+    public boolean isActive(){
+        return Style.of(element).hasClass("active");
+    }
+
     @Override
     public HTMLLIElement asElement() {
         return element;
+    }
+
+    public void setAllowStepClickActivation(boolean allow){
+        this.allowStepClickActivation = allow;
+    }
+
+    public boolean isAllowStepClickActivation() {
+        return allowStepClickActivation;
+    }
+
+    public Step disableClickActivation(){
+        setAllowStepClickActivation(false);
+        return this;
+    }
+
+    public Step enableClickActivation(){
+        setAllowStepClickActivation(true);
+        return this;
     }
 
     @FunctionalInterface

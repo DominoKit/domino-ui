@@ -16,8 +16,8 @@ import static org.jboss.gwt.elemento.core.Elements.ul;
 
 public class Stepper implements IsElement<HTMLUListElement> {
 
-    public static Transition HORIZONTAL_NEXT_STEP_TRANSITION = Transition.SLIDE_IN_RIGHT;
-    public static Transition HORIZONTAL_PREV_STEP_TRANSITION = Transition.SLIDE_IN_LEFT;
+    private static Transition HORIZONTAL_NEXT_STEP_TRANSITION = Transition.SLIDE_IN_RIGHT;
+    private static Transition HORIZONTAL_PREV_STEP_TRANSITION = Transition.SLIDE_IN_LEFT;
     private final HTMLUListElement element = ul().css("stepper").asElement();
     private Step activeStep;
     private Color color;
@@ -25,7 +25,8 @@ public class Stepper implements IsElement<HTMLUListElement> {
     private StepperCompletionHandler stepperCompletionHandler = () -> {
     };
 
-    private boolean allowClickNavigation = true;
+    private List<StepActivationHandler> stepActivationHandlers = new ArrayList<>();
+    private List<StepDeActivationHandler> stepDeActivationHandlers = new ArrayList<>();
 
     public Stepper() {
 
@@ -46,20 +47,19 @@ public class Stepper implements IsElement<HTMLUListElement> {
 
     public Stepper addStep(Step step) {
         element.appendChild(step.asElement());
-        if (isNull(activeStep)) {
-            step.activate(getTransition(step));
-            this.activeStep = step;
-        }
         steps.add(step);
-        step.asElement().setAttribute("data-step-number", steps.size()+"");
-
+        step.setStepper(this);
+        if (isNull(activeStep)) {
+            activateStep(step);
+        }
+        step.asElement().setAttribute("data-step-number", steps.size() + "");
         step.getStepHeader().addEventListener("click", evt -> onStepHeaderClicked(step));
 
         return this;
     }
 
     private void onStepHeaderClicked(Step step) {
-        if(isAllowClickNavigation()) {
+        if (step.isAllowStepClickActivation()) {
             int activeStepIndex = steps.indexOf(this.activeStep);
             int stepIndex = steps.indexOf(step);
             if (this.activeStep.isValid() && (activeStepIndex == stepIndex - 1)) {
@@ -81,10 +81,16 @@ public class Stepper implements IsElement<HTMLUListElement> {
 
     public Stepper activateStep(Step step) {
         if (steps.contains(step)) {
-            this.activeStep.deActivate();
+            if(nonNull(this.activeStep)){
+                this.activeStep.deActivate();
+                stepDeActivationHandlers.forEach(h -> h.onStepDeActivated(this.activeStep));
+            }
+
             step.activate(getTransition(step));
             step.setDone(false);
             this.activeStep = step;
+
+            stepActivationHandlers.forEach(h -> h.onStepActivated(step));
         }
 
         return this;
@@ -182,21 +188,46 @@ public class Stepper implements IsElement<HTMLUListElement> {
         return this;
     }
 
-    public Stepper disableClickNavigation(){
-        this.allowClickNavigation = false;
+    public Stepper addStepActivationHandler(StepActivationHandler handler) {
+        this.stepActivationHandlers.add(handler);
         return this;
     }
 
-    public boolean isAllowClickNavigation() {
-        return allowClickNavigation;
+    public Stepper removeStepActivationHandler(StepActivationHandler handler) {
+        this.stepActivationHandlers.remove(handler);
+        return this;
     }
 
-    public void setAllowClickNavigation(boolean allowClickNavigation) {
-        this.allowClickNavigation = allowClickNavigation;
+    public Stepper addStepDeActivationHandler(StepDeActivationHandler handler) {
+        this.stepDeActivationHandlers.add(handler);
+        return this;
+    }
+
+    public Stepper removeStepDeActivationHandler(StepDeActivationHandler handler) {
+        this.stepDeActivationHandlers.remove(handler);
+        return this;
+    }
+
+    public Step getActiveStep() {
+        return activeStep;
+    }
+
+    public List<Step> getSteps() {
+        return steps;
     }
 
     @FunctionalInterface
     public interface StepperCompletionHandler {
         void onFinish();
+    }
+
+    @FunctionalInterface
+    public interface StepActivationHandler {
+        void onStepActivated(Step step);
+    }
+
+    @FunctionalInterface
+    public interface StepDeActivationHandler {
+        void onStepDeActivated(Step step);
     }
 }

@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.labels;
 
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.StyleType;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
@@ -80,5 +81,9 @@ public class Label extends DominoElement<Label> implements IsElement<HTMLElement
         span.classList.add(background.getBackground());
         this.background = background;
         return this;
+    }
+
+    public Style<HTMLElement, Label> style(){
+        return Style.of(this);
     }
 }
