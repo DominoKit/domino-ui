@@ -163,10 +163,10 @@ public class Carousel implements IsElement<HTMLDivElement> {
         if (!slide.hasActiveStyle()) {
             this.targetSlide = slide;
             Style.of(slide.getIndicatorElement()).css("active");
-            Style.of(activeSlide.getIndicatorElement()).removeClass("active");
+            Style.of(activeSlide.getIndicatorElement()).removeCss("active");
             Style.of(slide).css(getPostionStyle(slide, source));
             Scheduler.get().scheduleFixedDelay(() -> {
-                Style.of(activeSlide.getIndicatorElement()).removeClass("active");
+                Style.of(activeSlide.getIndicatorElement()).removeCss("active");
                 String directionStyle = getDirectionStyle(slide, source);
                 Style.of(slide).css(directionStyle);
                 Style.of(activeSlide).css(directionStyle);
@@ -194,16 +194,16 @@ public class Carousel implements IsElement<HTMLDivElement> {
 
     private void removeMotionStyles() {
         Style.of(activeSlide)
-                .removeClass("left")
-                .removeClass("right")
-                .removeClass("next")
-                .removeClass("prev");
+                .removeCss("left")
+                .removeCss("right")
+                .removeCss("next")
+                .removeCss("prev");
         activeSlide.deActivate();
         Style.of(targetSlide)
-                .removeClass("left")
-                .removeClass("right")
-                .removeClass("next")
-                .removeClass("prev");
+                .removeCss("left")
+                .removeCss("right")
+                .removeCss("next")
+                .removeCss("prev");
 
         targetSlide.activate();
         this.activeSlide = targetSlide;

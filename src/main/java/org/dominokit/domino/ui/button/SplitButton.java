@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.button;
 
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.StyleType;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -79,5 +80,9 @@ public class SplitButton extends DominoElement<SplitButton> implements IsElement
         dropdownElement.firstChild.appendChild(Elements.span().css("sr-only").textContent(content).asElement());
         groupElement.appendChild(dropdownElement);
         return this;
+    }
+
+    public Style<HTMLElement, SplitButton> style(){
+        return Style.of(this);
     }
 }

@@ -5,6 +5,7 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.StyleType;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
@@ -300,5 +301,9 @@ public class DropdownButton extends DominoElement<DropdownButton> implements Jus
         public HTMLElement asElement() {
             return separator;
         }
+    }
+
+    public Style<HTMLElement, DropdownButton> style() {
+        return Style.of(this);
     }
 }

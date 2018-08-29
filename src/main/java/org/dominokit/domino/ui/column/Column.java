@@ -14,6 +14,10 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
+/**
+ * @deprecated use {@link org.dominokit.domino.ui.grid.Column}
+ */
+@Deprecated
 public class Column extends DominoElement<Column> implements IsElement<HTMLDivElement>, Cloneable {
 
     private HTMLDivElement column;

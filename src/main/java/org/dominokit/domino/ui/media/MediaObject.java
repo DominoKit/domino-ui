@@ -55,6 +55,10 @@ public abstract class MediaObject extends DominoElement<MediaObject> implements 
         return this;
     }
 
+    public MediaObject setLeftMedia(IsElement element) {
+        return setLeftMedia(element.asElement());
+    }
+
     public MediaObject setRightMedia(Node content) {
         if (isNull(rightMedia)) {
             rightMedia = div().css("media-right").asElement();
@@ -64,6 +68,10 @@ public abstract class MediaObject extends DominoElement<MediaObject> implements 
         ElementUtil.clear(rightMedia);
         rightMedia.appendChild(content);
         return this;
+    }
+
+    public MediaObject setRightMedia(IsElement element) {
+        return setRightMedia(element.asElement());
     }
 
     public MediaObject appendContent(Node content) {

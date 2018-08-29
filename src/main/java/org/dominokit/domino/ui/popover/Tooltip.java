@@ -55,6 +55,14 @@ public class Tooltip implements IsElement<HTMLDivElement> {
         return new Tooltip(target, content);
     }
 
+    public static Tooltip create(IsElement element, String text) {
+        return new Tooltip(element.asElement(), text);
+    }
+
+    public static Tooltip create(IsElement element, Node content) {
+        return new Tooltip(element.asElement(), content);
+    }
+
     public Tooltip position(PopupPosition position) {
         this.element.classList.remove(popupPosition.getDirectionClass());
         this.popupPosition = position;

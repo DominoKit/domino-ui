@@ -55,4 +55,8 @@ public class Badge extends DominoElement<Badge> implements IsElement<HTMLElement
         badgeElement.classList.add(this.badgeBackground.getBackground());
         return this;
     }
+
+    public Style<HTMLElement, Badge> style(){
+        return Style.of(this);
+    }
 }

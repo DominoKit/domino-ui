@@ -1,10 +1,9 @@
 package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLHeadingElement;
-import elemental2.dom.HTMLParagraphElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -183,6 +182,11 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
         return this;
     }
 
+    /**
+     * @param isElement
+     * @return
+     * @deprecated use {@link #appendChild(IsElement)}
+     */
     @Deprecated
     public ListItem<T> appendContent(IsElement isElement) {
         this.asElement().appendChild(isElement.asElement());
@@ -201,5 +205,9 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
 
     void setParent(HasMultiSelectSupport<ListItem<T>> parent) {
         this.parent = parent;
+    }
+
+    public Style<HTMLAnchorElement, ListItem<T>> style() {
+        return Style.of(this);
     }
 }

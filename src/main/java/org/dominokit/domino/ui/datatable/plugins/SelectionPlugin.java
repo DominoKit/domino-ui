@@ -64,7 +64,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
                         } else {
                             checkBox.uncheck(true);
                             if (nonNull(colorScheme)) {
-                                Style.of(((TableRow<T>) selectable).asElement()).removeClass(colorScheme.lighten_5().getBackground());
+                                Style.of(((TableRow<T>) selectable).asElement()).removeCss(colorScheme.lighten_5().getBackground());
                             }
                         }
                     });
@@ -79,7 +79,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
                         } else {
                             cell.getTableRow().deselect();
                             if (nonNull(colorScheme)) {
-                                Style.of(cell.getTableRow().asElement()).removeClass(colorScheme.lighten_5().getBackground());
+                                Style.of(cell.getTableRow().asElement()).removeCss(colorScheme.lighten_5().getBackground());
                             }
                             dataTable.onSelectionChange(cell.getTableRow());
                         }

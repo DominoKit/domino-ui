@@ -13,7 +13,7 @@ import static elemental2.dom.DomGlobal.document;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
-public class Layout implements IsLayout {
+public class Layout {
 
     private static final String SLIDE_OUT = "-300px";
     private static final String SLIDE_IN = "0px";
@@ -52,12 +52,10 @@ public class Layout implements IsLayout {
         return new Layout(title);
     }
 
-    @Override
     public Layout show() {
         return show(ColorScheme.INDIGO);
     }
 
-    @Override
     public Layout show(ColorScheme theme) {
         appendElements();
         initElementsPosition();
@@ -138,7 +136,6 @@ public class Layout implements IsLayout {
         navigationBarExpanded = false;
     }
 
-    @Override
     public void toggleRightPanel() {
         if (rightPanelVisible)
             hideRightPanel();
@@ -146,7 +143,6 @@ public class Layout implements IsLayout {
             showRightPanel();
     }
 
-    @Override
     public Layout showRightPanel() {
         if (leftPanelVisible)
             hideLeftPanel();
@@ -159,7 +155,6 @@ public class Layout implements IsLayout {
         return this;
     }
 
-    @Override
     public Layout hideRightPanel() {
         section.rightSide.style.right = SLIDE_OUT;
         rightPanelVisible = false;
@@ -182,7 +177,6 @@ public class Layout implements IsLayout {
         }
     }
 
-    @Override
     public void toggleLeftPanel() {
         if (leftPanelVisible)
             hideLeftPanel();
@@ -190,7 +184,6 @@ public class Layout implements IsLayout {
             showLeftPanel();
     }
 
-    @Override
     public Layout showLeftPanel() {
         if(!leftPanelDisabled) {
             if (rightPanelVisible)
@@ -205,7 +198,6 @@ public class Layout implements IsLayout {
         return this;
     }
 
-    @Override
     public Layout hideLeftPanel() {
         if (!fixedLeftPanel && !leftPanelDisabled) {
             section.leftSide.style.left = SLIDE_OUT;
@@ -216,54 +208,44 @@ public class Layout implements IsLayout {
         return this;
     }
 
-    @Override
     public HTMLElement getRightPanel() {
         return section.rightSide;
     }
 
-    @Override
     public HTMLElement getLeftPanel() {
         return section.leftSide;
     }
 
-    @Override
     public HTMLDivElement getContentPanel() {
         return content.contentContainer;
     }
 
-    @Override
     public HTMLUListElement getTopBar() {
         return navigationBar.topBar;
     }
 
-    @Override
     public NavigationBar getNavigationBar() {
         return this.navigationBar;
     }
 
-    @Override
     public Content getContentSection() {
         return this.content;
     }
 
-    @Override
     public Footer getFooter() {
         return footer;
     }
 
-    @Override
     public Layout hideFooter() {
         footer.hide();
         return this;
     }
 
-    @Override
     public Layout showFooter() {
         footer.show();
         return this;
     }
 
-    @Override
     public Layout setTitle(String title) {
         if (navigationBar.title.hasChildNodes())
             navigationBar.title.removeChild(appTitle);
@@ -273,7 +255,6 @@ public class Layout implements IsLayout {
         return this;
     }
 
-    @Override
     public HTMLElement addActionItem(Icon icon) {
         HTMLLIElement li = li().css("pull-right").add(
                 a().css("js-right-sidebar")

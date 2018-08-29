@@ -113,7 +113,7 @@ public class Step implements IsElement<HTMLLIElement> {
     }
 
     public void clearInvalid() {
-        Style.of(element).removeClass("wrong");
+        Style.of(element).removeCss("wrong");
     }
 
     public HTMLDivElement getStepBody() {
@@ -135,6 +135,9 @@ public class Step implements IsElement<HTMLLIElement> {
         return stepHeader;
     }
 
+    public HTMLDivElement getContentElement() {
+        return contentElement;
+    }
 
     @Override
     public HTMLLIElement asElement() {

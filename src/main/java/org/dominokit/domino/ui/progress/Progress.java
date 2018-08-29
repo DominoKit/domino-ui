@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.progress;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -26,5 +27,9 @@ public class Progress extends DominoElement<Progress> implements IsElement<HTMLD
     @Override
     public HTMLDivElement asElement() {
         return element;
+    }
+
+    public Style<HTMLDivElement, Progress> style(){
+        return Style.of(this);
     }
 }

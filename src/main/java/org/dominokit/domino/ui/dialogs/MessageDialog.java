@@ -15,6 +15,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import org.jboss.gwt.elemento.core.EventType;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
@@ -192,7 +193,17 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         return this;
     }
 
+    /**
+     * @deprecated use {@link #appendHeaderChild(Node)}
+     * @param content
+     * @return
+     */
+    @Deprecated
     public MessageDialog appendHeaderContent(Node content){
+        return appendHeaderChild(content);
+    }
+
+    public MessageDialog appendHeaderChild(Node content){
         if(nonNull(successIcon)){
             successIcon.remove();
         }
@@ -207,5 +218,9 @@ public class MessageDialog extends BaseModal<MessageDialog> {
 
         modal.getModalHeader().insertBefore(content, modal.getModalTitle());
         return this;
+    }
+
+    public MessageDialog appendHeaderChild(IsElement content){
+        return appendHeaderChild(content.asElement());
     }
 }
