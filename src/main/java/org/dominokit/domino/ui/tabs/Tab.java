@@ -53,10 +53,27 @@ public class Tab implements HasClickableElement{
         return contentContainer;
     }
 
+
+    /**
+     * @deprecated use {@link #appendChild(Node)}
+     * @param content
+     * @return
+     */
+    @Deprecated
     public Tab appendContent(Node content){
+        return appendChild(content);
+    }
+
+
+    public Tab appendChild(Node content){
         contentContainer.appendChild(content);
         return this;
     }
+
+    public Tab appendChild(IsElement content){
+        return appendChild(content.asElement());
+    }
+
 
     public Tab activate(){
         tab.classList.add("active");

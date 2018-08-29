@@ -425,6 +425,20 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return this;
     }
 
+    public Style<E, T> setCursor(String cursor) {
+        setProperty("cursor", cursor);
+        return this;
+    }
+
+    public Style<E, T> setCursor(String cursor, boolean important) {
+        if (important) {
+            setImportantProperty("cursor", cursor);
+        } else {
+            setProperty("cursor", cursor);
+        }
+        return this;
+    }
+
     public boolean hasClass(String cssClass) {
         if (nonNull(cssClass) && !cssClass.isEmpty()) {
             return element.classList.contains(cssClass);

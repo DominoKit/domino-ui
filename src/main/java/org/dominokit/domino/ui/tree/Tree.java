@@ -184,4 +184,8 @@ public abstract class Tree implements IsElement<HTMLDivElement>, ParentTreeItem<
     public List<TreeItem> getSubItems() {
         return subItems;
     }
+
+    public Style<HTMLDivElement, Tree> style(){
+        return Style.of(this);
+    }
 }

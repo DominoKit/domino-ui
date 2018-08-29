@@ -39,7 +39,6 @@ public class Animation {
     public static Animation create(IsElement element) {
         return new Animation(element.asElement());
     }
-
     public Animation duration(int duration) {
         this.duration = duration;
         return this;
@@ -86,7 +85,6 @@ public class Animation {
     }
 
     private void animateElement() {
-
         this.startHandler.beforeStart(element);
         this.stopListener = evt -> stop();
 

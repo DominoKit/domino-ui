@@ -30,11 +30,29 @@ public class Thumbnail extends DominoElement<Thumbnail> implements IsElement<HTM
         return this;
     }
 
+    public Thumbnail setContent(IsElement content) {
+        return setContent(content.asElement());
+    }
+
+    /**
+     * @deprecated use {@link #appendCaptionChild(Node)}
+     * @param content
+     * @return
+     */
+    @Deprecated
     public Thumbnail appendCaptionContent(Node content) {
+        return appendCaptionChild(content);
+    }
+
+    public Thumbnail appendCaptionChild(Node content) {
         if (isNull(captionElement.parentNode))
             element.appendChild(captionElement);
         captionElement.appendChild(content);
         return this;
+    }
+
+    public Thumbnail appendCaptionChild(IsElement content) {
+        return appendCaptionChild(content.asElement());
     }
 
 
