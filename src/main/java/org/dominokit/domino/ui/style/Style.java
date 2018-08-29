@@ -114,6 +114,16 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return this;
     }
 
+    public Style<E, T> setBorder(String border) {
+        setProperty("border", border);
+        return this;
+    }
+
+    public Style<E, T> setBorderColor(String borderColor) {
+        setProperty("border-color", borderColor);
+        return this;
+    }
+
     public Style<E, T> setWidth(String width) {
         setProperty("width", width);
         return this;
