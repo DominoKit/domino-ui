@@ -26,7 +26,7 @@ public class Column extends DominoElement<Column> implements IsElement<HTMLDivEl
 
     private Column() {
         this.column = div().css("grid-col").asElement();
-        initCollapsible(this);
+        init(this);
     }
 
     public static Column span() {

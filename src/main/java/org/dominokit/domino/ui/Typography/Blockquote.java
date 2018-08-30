@@ -20,19 +20,19 @@ public class Blockquote extends DominoElement<Blockquote> implements IsElement<H
 
     public Blockquote(){
         element.appendChild(paragraph.asElement());
-        initCollapsible(this);
+        init(this);
     }
 
     public Blockquote(String text){
         this.paragraph.setText(text);
         element.appendChild(paragraph.asElement());
-        initCollapsible(this);
+        init(this);
     }
 
     public Blockquote(Paragraph paragraph) {
         this.paragraph=paragraph;
         element.appendChild(paragraph.asElement());
-        initCollapsible(this);
+        init(this);
     }
 
     public static Blockquote create(){

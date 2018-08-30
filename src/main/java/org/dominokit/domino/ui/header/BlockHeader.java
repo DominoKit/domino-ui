@@ -25,7 +25,7 @@ public class BlockHeader extends DominoElement<BlockHeader> implements IsElement
         if (nonNull(description)) {
             createDescriptionElement(description);
         }
-        initCollapsible(this);
+        init(this);
     }
 
     private void createDescriptionElement(String description) {

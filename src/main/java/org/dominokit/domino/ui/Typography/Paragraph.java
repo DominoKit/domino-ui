@@ -24,7 +24,7 @@ public class Paragraph extends DominoElement<Paragraph> implements IsElement<HTM
         if(nonNull(text)) {
             element.textContent = text;
         }
-        initCollapsible(this);
+        init(this);
     }
 
     public static Paragraph create(){

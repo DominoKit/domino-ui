@@ -141,7 +141,6 @@ public class GridLayout implements IsElement<HTMLDivElement> {
         return element;
     }
 
-
     public HTMLDivElement getContentElement() {
         return contentElement;
     }
@@ -160,5 +159,9 @@ public class GridLayout implements IsElement<HTMLDivElement> {
 
     public HTMLDivElement getRightElement() {
         return rightElement;
+    }
+
+    public Style<HTMLDivElement, GridLayout> style(){
+        return Style.of(this);
     }
 }

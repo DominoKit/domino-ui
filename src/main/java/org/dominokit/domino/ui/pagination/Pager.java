@@ -53,7 +53,7 @@ public class Pager extends DominoElement<Pager> implements IsElement<HTMLElement
         pagerElement.appendChild(prevElement);
         pagerElement.appendChild(nextElement);
 
-        initCollapsible(this);
+        init(this);
     }
 
     public static Pager create() {

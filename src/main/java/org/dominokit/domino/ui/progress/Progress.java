@@ -12,7 +12,7 @@ public class Progress extends DominoElement<Progress> implements IsElement<HTMLD
     private HTMLDivElement element=div().css("progress").asElement();
 
     public Progress() {
-        initCollapsible(this);
+        init(this);
     }
 
     public static Progress create(){

@@ -10,7 +10,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.dominokit.domino.ui.button.group.ButtonsGroup.BTN_GROUP;
 
-public class JustifiedGroup extends DominoElement<JustifiedGroup> implements IsElement<HTMLElement>, IsGroup<HTMLElement>, Sizable<JustifiedGroup> {
+public class JustifiedGroup extends DominoElement<HTMLElement, JustifiedGroup> implements IsElement<HTMLElement>, IsGroup<HTMLElement>, Sizable<JustifiedGroup> {
 
     private ButtonsGroup group = ButtonsGroup.create();
 
@@ -20,18 +20,39 @@ public class JustifiedGroup extends DominoElement<JustifiedGroup> implements IsE
 
     private JustifiedGroup() {
         group.asElement().classList.add(BTN_GROUP + "-justified");
-        initCollapsible(this);
+        init(this);
+    }
+
+    /**
+     * @deprecated use {@link #appendChild(Button)}
+     * @param button
+     * @return
+     */
+    @Deprecated
+    @Override
+    public HTMLElement addButton(Button button) {
+        return appendChild(button);
+    }
+
+    /**
+     * @deprecated use {@link #appendChild(DropdownButton)}
+     * @param dropDown
+     * @return
+     */
+    @Override
+    public HTMLElement addDropDown(DropdownButton dropDown) {
+        return appendChild(dropDown);
     }
 
     @Override
-    public HTMLElement addButton(Button button) {
+    public HTMLElement appendChild(Button button) {
         HTMLElement justify = button.justify();
         group.asElement().appendChild(justify);
         return justify;
     }
 
     @Override
-    public HTMLElement addDropDown(DropdownButton dropDown) {
+    public HTMLElement appendChild(DropdownButton dropDown) {
         HTMLElement justify = dropDown.justify();
         group.asElement().appendChild(justify);
         return justify;

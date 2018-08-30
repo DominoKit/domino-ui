@@ -7,12 +7,12 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
-public class ButtonsToolbar extends DominoElement<ButtonsToolbar> implements IsElement<HTMLElement> {
+public class ButtonsToolbar extends DominoElement<HTMLElement, ButtonsToolbar> implements IsElement<HTMLElement> {
 
     private HTMLElement toolbarElement = Elements.div().css("btn-toolbar").attr("role", "toolbar").asElement();
 
     public ButtonsToolbar() {
-        initCollapsible(this);
+        init(this);
     }
 
     public static ButtonsToolbar create() {
@@ -29,7 +29,4 @@ public class ButtonsToolbar extends DominoElement<ButtonsToolbar> implements IsE
         return toolbarElement;
     }
 
-    public Style<HTMLElement, ButtonsToolbar> style() {
-        return Style.of(this);
-    }
 }

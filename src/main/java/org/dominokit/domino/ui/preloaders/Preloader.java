@@ -20,7 +20,7 @@ public abstract class Preloader extends DominoElement<Preloader> implements IsEl
 
     @PostConstruct
     void init(){
-        initCollapsible(this);
+        init(this);
     }
 
     public static Preloader create(){

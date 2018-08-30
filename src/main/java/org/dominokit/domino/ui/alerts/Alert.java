@@ -5,18 +5,15 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.Text;
-import org.dominokit.domino.ui.collapsible.Collapsible;
-import org.dominokit.domino.ui.collapsible.CollapsibleBase;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
-import org.dominokit.domino.ui.utils.IsCollapsible;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Alert extends DominoElement<Alert> implements IsElement<HTMLDivElement>, HasBackground<Alert> {
+public class Alert extends DominoElement<HTMLDivElement, Alert> implements IsElement<HTMLDivElement>, HasBackground<Alert> {
 
     public enum AlertType {
         SUCCESS("alert-success"),
@@ -36,7 +33,7 @@ public class Alert extends DominoElement<Alert> implements IsElement<HTMLDivElem
     private HTMLDivElement element = div().css("alert").asElement();
 
     public Alert() {
-        initCollapsible(this);
+        init(this);
     }
 
     private HTMLButtonElement closeButton = button().attr("type", "button").css("close")
@@ -86,17 +83,50 @@ public class Alert extends DominoElement<Alert> implements IsElement<HTMLDivElem
         return this;
     }
 
+
+    /**
+     * @deprecated use {@link #appendChild(AlertStrong)}
+     * @param text
+     * @return
+     */
+    @Deprecated
     public Alert appendStrong(String text) {
         element.appendChild(strong().textContent(text).asElement());
         return this;
     }
 
+    public Alert appendChild(AlertStrong strong) {
+        element.appendChild(strong.asElement());
+        return this;
+    }
+
+    /**
+     * @deprecated use {@link #appendChild(String)}
+     * @param text
+     * @return
+     */
+    @Deprecated
     public Alert appendText(String text) {
         element.appendChild(new Text(text));
         return this;
     }
 
+    public Alert appendChild(String text) {
+        element.appendChild(new Text(text));
+        return this;
+    }
+
+    /**
+     * @deprecated use {@link #appendChild(HTMLAnchorElement)}
+     * @param anchorElement
+     * @return
+     */
+    @Deprecated
     public Alert appendLink(HTMLAnchorElement anchorElement) {
+        return appendChild(anchorElement);
+    }
+
+    public Alert appendChild(HTMLAnchorElement anchorElement) {
         if (nonNull(anchorElement)) {
             anchorElement.classList.add("alert-link");
             element.appendChild(anchorElement);
@@ -104,8 +134,26 @@ public class Alert extends DominoElement<Alert> implements IsElement<HTMLDivElem
         return this;
     }
 
+    /**
+     * @deprecated use {@link #appendChild(AlertLink)}
+     * @param anchorElement
+     * @return
+     */
+    @Deprecated
     public Alert appendLink(IsElement<HTMLAnchorElement> anchorElement) {
-        return appendLink(anchorElement.asElement());
+        return appendChild(anchorElement.asElement());
+    }
+
+    public Alert appendChild(AlertLink alertLink) {
+        return appendChild(alertLink.asElement());
+    }
+
+    public Alert setDissmissible(boolean dismissible){
+        if(dismissible){
+            return dismissible();
+        }else{
+            return unDismissible();
+        }
     }
 
     public Alert dismissible() {
@@ -132,8 +180,6 @@ public class Alert extends DominoElement<Alert> implements IsElement<HTMLDivElem
     public boolean isDismissible() {
         return dismissible;
     }
-
-
 
     @Override
     public HTMLDivElement asElement() {

@@ -30,7 +30,7 @@ public class TabsPanel extends DominoElement<TabsPanel> implements IsElement<HTM
     public TabsPanel() {
         element.appendChild(tabsList);
         element.appendChild(tabsContent);
-        initCollapsible(this);
+        init(this);
     }
 
     public static TabsPanel create() {

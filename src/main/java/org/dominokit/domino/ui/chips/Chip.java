@@ -66,7 +66,7 @@ public class Chip implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip
 
     public Chip select() {
         this.selected = true;
-        Style.of(element).replaceClass(getColor(), getDarkerColor());
+        Style.of(element).replaceCss(getColor(), getDarkerColor());
         Style.of(removeIcon).css(getDarkerColor());
         selectionHandlers.forEach(SelectionHandler::onSelection);
         return this;
@@ -74,8 +74,8 @@ public class Chip implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip
 
     public Chip deselect() {
         this.selected = false;
-        Style.of(element).replaceClass(getDarkerColor(), getColor());
-        Style.of(removeIcon).removeClass(getDarkerColor());
+        Style.of(element).replaceCss(getDarkerColor(), getColor());
+        Style.of(removeIcon).removeCss(getDarkerColor());
         deselectionHandlers.forEach(DeselectionHandler::onDeselection);
         return this;
     }
@@ -152,6 +152,10 @@ public class Chip implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip
     public Chip setLeftImg(HTMLImageElement imageElement) {
         setLeftAddon(imageElement);
         return this;
+    }
+
+    public Chip setLeftImg(IsElement<HTMLImageElement> imageElement) {
+        return setLeftImg(imageElement.asElement());
     }
 
     public Chip setLeftLetter(String text) {

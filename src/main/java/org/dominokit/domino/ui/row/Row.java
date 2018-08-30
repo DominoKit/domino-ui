@@ -19,7 +19,7 @@ public class Row extends DominoElement<Row> implements IsElement<HTMLDivElement>
 
     private Row(HTMLDivElement row) {
         this.row = row;
-        initCollapsible(this);
+        init(this);
     }
 
     public static Row create() {
