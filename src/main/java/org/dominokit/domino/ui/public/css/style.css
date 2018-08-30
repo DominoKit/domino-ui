@@ -2681,6 +2681,10 @@ input[type=range] + .thumb.active .value{
     line-height: 15px;
 }
 
+.card .header h2 small:empty {
+    display: none;
+}
+
 .card .header h2 small a {
     font-weight: bold;
     color: #777;
