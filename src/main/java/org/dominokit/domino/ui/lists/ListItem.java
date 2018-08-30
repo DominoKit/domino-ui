@@ -1,11 +1,12 @@
 package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLHeadingElement;
-import elemental2.dom.HTMLParagraphElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.HasBackground;
+import org.dominokit.domino.ui.utils.HasValue;
+import org.dominokit.domino.ui.utils.Selectable;
+import org.dominokit.domino.ui.utils.Switchable;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
@@ -15,12 +16,12 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
         , Selectable<ListItem<T>>, HasBackground<ListItem<T>>, Switchable<ListItem<T>> {
 
     private T value;
-    private HasMultiSelectSupport<ListItem<T>> parent;
+    private ListGroup<T> parent;
     private boolean selected = false;
     private boolean disabled = false;
     private String style;
 
-    public ListItem(T value, HasMultiSelectSupport<ListItem<T>> parent) {
+    public ListItem(T value, ListGroup<T> parent) {
         super(a().css("list-group-item").asElement());
         this.value = value;
         this.parent = parent;
@@ -35,7 +36,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
         });
     }
 
-    public static <T> ListItem<T> create(HasMultiSelectSupport<ListItem<T>> parent, T value) {
+    public static <T> ListItem<T> create(ListGroup<T> parent, T value) {
         return new ListItem<>(value, parent);
     }
 
@@ -199,7 +200,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
         return this;
     }
 
-    void setParent(HasMultiSelectSupport<ListItem<T>> parent) {
+    void setParent(ListGroup<T> parent) {
         this.parent = parent;
     }
 }
