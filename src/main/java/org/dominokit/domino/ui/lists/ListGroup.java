@@ -2,7 +2,8 @@ package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasMultiSelectSupport;
+import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
+import org.dominokit.domino.ui.utils.HasSelectionSupport;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class ListGroup<T> extends DominoElement<ListGroup<T>> implements IsElement<HTMLDivElement>, HasMultiSelectSupport<ListItem<T>> {
+public class ListGroup<T> extends DominoElement<ListGroup<T>> implements IsElement<HTMLDivElement>, HasSelectionSupport<ListItem<T>>, HasMultiSelectionSupport {
 
     private final HTMLDivElement element;
     private List<ListItem<T>> allItems = new LinkedList<>();
