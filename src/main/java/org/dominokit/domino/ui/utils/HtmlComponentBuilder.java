@@ -7,75 +7,75 @@ import org.jboss.gwt.elemento.core.HasElements;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
-public class HtmlComponentBuilder<E extends HTMLElement, C extends IsElement<E>> extends HtmlContentBuilder<E>{
+public class HtmlComponentBuilder<E extends HTMLElement, T extends IsElement<E>> extends HtmlContentBuilder<E>{
 
-    private C component;
+    private T component;
 
-    public HtmlComponentBuilder(C component) {
+    public HtmlComponentBuilder(T component) {
         super(component.asElement());
         this.component = component;
     }
 
-    public C component(){
+    public T build(){
         return component;
     }
 
     @Override
-    public HtmlComponentBuilder<E, C> innerHtml(SafeHtml html) {
+    public HtmlComponentBuilder<E, T> innerHtml(SafeHtml html) {
         super.innerHtml(html);
         return this;
     }
 
     @Override
-    public HtmlComponentBuilder<E, C> add(IsElement element) {
+    public HtmlComponentBuilder<E, T> add(IsElement element) {
         super.add(element);
         return this;
     }
 
     @Override
-    public HtmlComponentBuilder<E, C> add(String text) {
+    public HtmlComponentBuilder<E, T> add(String text) {
         super.add(text);
         return this;
     }
 
     @Override
-    public HtmlComponentBuilder<E, C> add(Node element) {
+    public HtmlComponentBuilder<E, T> add(Node element) {
         super.add(element);
         return this;
     }
 
     @Override
-    public HtmlComponentBuilder<E, C> addAll(HasElements elements) {
+    public HtmlComponentBuilder<E, T> addAll(HasElements elements) {
         super.addAll(elements);
         return this;
     }
 
     @Override
-    public HtmlComponentBuilder<E, C> addAll(HTMLElement... elements) {
+    public HtmlComponentBuilder<E, T> addAll(HTMLElement... elements) {
         super.addAll(elements);
         return this;
     }
 
     @Override
-    public HtmlComponentBuilder<E, C> addAll(Iterable<? extends Node> elements) {
+    public HtmlComponentBuilder<E, T> addAll(Iterable<? extends Node> elements) {
         super.addAll(elements);
         return this;
     }
 
     @Override
-    public HtmlComponentBuilder<E, C> addAll(IsElement... elements) {
+    public HtmlComponentBuilder<E, T> addAll(IsElement... elements) {
         super.addAll(elements);
         return this;
     }
 
     @Override
-    public HtmlComponentBuilder<E, C> textContent(String text) {
+    public HtmlComponentBuilder<E, T> textContent(String text) {
         super.textContent(text);
         return this;
     }
 
     @Override
-    public HtmlComponentBuilder<E, C> css(String... classes) {
+    public HtmlComponentBuilder<E, T> css(String... classes) {
         super.css(classes);
         return this;
     }

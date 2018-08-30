@@ -172,7 +172,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
             clear();
         }
         this.buttonElement = buttonElement;
-        ElementUtil.builderFor(td).attr("colspan", dataTable.getTableConfig().getColumns().size() + "");
+        ElementUtil.contentBuilder(td).attr("colspan", dataTable.getTableConfig().getColumns().size() + "");
         element.appendChild(cellRenderer.asElement(buttonElement.getCellInfo()));
         dataTable.bodyElement().insertBefore(tr, buttonElement.getCellInfo().getTableRow().asElement().nextSibling);
     }

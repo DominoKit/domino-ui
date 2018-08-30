@@ -12,7 +12,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 
-public class ButtonsGroup extends DominoElement<ButtonsGroup> implements IsElement<HTMLElement>, IsGroup<ButtonsGroup>, Sizable<ButtonsGroup> {
+public class ButtonsGroup extends DominoElement<HTMLElement, ButtonsGroup> implements IsElement<HTMLElement>, IsGroup<ButtonsGroup>, Sizable<ButtonsGroup> {
 
     static final String BTN_GROUP = "btn-group";
     private static final String BTN_GROUP_VERTICAL = "btn-group-vertical";
@@ -20,27 +20,45 @@ public class ButtonsGroup extends DominoElement<ButtonsGroup> implements IsEleme
     private ButtonSize size;
 
     public ButtonsGroup() {
-        initCollapsible(this);
+        init(this);
     }
 
     public static ButtonsGroup create() {
         return new ButtonsGroup();
     }
 
+    /**
+     * @deprecated use {@link #appendChild(Button)}
+     * @param button
+     * @return
+     */
+    @Deprecated
     @Override
     public ButtonsGroup addButton(Button button) {
+        return appendChild(button);
+    }
+
+    /**
+     * @deprecated {@link #appendChild(DropdownButton)}
+     * @param nestedDropDown
+     * @return
+     */
+    @Deprecated
+    @Override
+    public ButtonsGroup addDropDown(DropdownButton nestedDropDown) {
+        return appendChild(nestedDropDown);
+    }
+
+    @Override
+    public ButtonsGroup appendChild(Button button) {
         appendChild(button.asElement());
         return this;
     }
 
     @Override
-    public ButtonsGroup addDropDown(DropdownButton nestedDropDown) {
-        appendChild(nestedDropDown.asElement());
+    public ButtonsGroup appendChild(DropdownButton dropDown) {
+        appendChild(dropDown.asElement());
         return this;
-    }
-
-    private void appendChild(HTMLElement element) {
-        groupElement.appendChild(element);
     }
 
     @Override

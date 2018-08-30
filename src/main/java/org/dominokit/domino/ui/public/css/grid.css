@@ -1,3 +1,37 @@
+.layout-grid{
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+.layout-content{
+    grid-area: g-content;
+}
+
+.layout-header{
+    grid-area: g-header;
+}
+
+.layout-footer{
+    grid-area: g-footer;
+}
+
+.layout-left{
+    grid-area: g-left;
+}
+
+.layout-right{
+    grid-area: g-right;
+}
+
+.layout-sub-header{
+    grid-area: g-sub-header;
+}
+
+.layout-sub-footer{
+    grid-area: g-sub-footer;
+}
+
 .grid-row {
     display: grid;
     margin-right: -15px;

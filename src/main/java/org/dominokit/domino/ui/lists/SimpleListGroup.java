@@ -13,7 +13,7 @@ public class SimpleListGroup extends DominoElement<SimpleListGroup> implements I
 
     private SimpleListGroup(HTMLUListElement element){
         this.element=element;
-        initCollapsible(this);
+        init(this);
     }
 
     public static SimpleListGroup create(){

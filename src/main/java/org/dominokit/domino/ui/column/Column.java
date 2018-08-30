@@ -30,7 +30,7 @@ public class Column extends DominoElement<Column> implements IsElement<HTMLDivEl
 
     private Column(HTMLDivElement htmlDivElement) {
         this.column = htmlDivElement;
-        initCollapsible(this);
+        init(this);
     }
 
     public static Column create() {

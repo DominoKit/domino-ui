@@ -38,7 +38,7 @@ public class RadioGroup extends DominoElement<RadioGroup> implements IsElement<H
         container.appendChild(formLine);
         setName(name);
         Style.of(formControl).setHeight("auto");
-        initCollapsible(this);
+        init(this);
     }
 
     public RadioGroup(String name, String label) {

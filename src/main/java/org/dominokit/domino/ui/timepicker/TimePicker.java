@@ -12,7 +12,7 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.pickers.PickerHandler;
 import org.dominokit.domino.ui.style.ColorScheme;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.impl.cldr.DateTimeFormatInfo_factory;
 import org.jboss.gwt.elemento.core.Elements;
@@ -29,7 +29,6 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.timepicker.ClockStyle._12;
 import static org.dominokit.domino.ui.timepicker.DayPeriod.AM;
 import static org.dominokit.domino.ui.timepicker.DayPeriod.PM;
-import static org.dominokit.domino.ui.utils.ElementUtil.builderFor;
 import static org.dominokit.domino.ui.utils.ElementUtil.clear;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.div;
@@ -247,12 +246,12 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     }
 
     private void preventTextSelection() {
-        builderFor(headerPanel)
+        ElementUtil.contentBuilder(headerPanel)
                 .on(EventType.mousedown, event -> {
                     event.stopPropagation();
                     event.preventDefault();
                 });
-        builderFor(clockPanel)
+        ElementUtil.contentBuilder(clockPanel)
                 .on(EventType.mousedown, event -> {
                     event.stopPropagation();
                     event.preventDefault();
@@ -368,7 +367,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     private ClockElement makeHourElement(int hour) {
         ClockElement clockElement = ClockElement.createHour(hour, clockStyle, colorScheme);
-        builderFor(clockElement.getElement())
+        ElementUtil.contentBuilder(clockElement.getElement())
                 .on(EventType.mouseenter, event -> {
                     drawHourPointer(hourElements.get(clock.getHour()));
                     drawHourPointer(clockElement);
@@ -396,7 +395,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     private ClockElement makeMinuteElement(int minute) {
         ClockElement clockElement = ClockElement.createMinute(minute, colorScheme);
-        builderFor(clockElement.getElement())
+        ElementUtil.contentBuilder(clockElement.getElement())
                 .on(EventType.mouseenter, event -> {
                     drawMinutesPointer(minutesElements.get(clock.getMinute()));
                     drawMinutesPointer(clockElement);

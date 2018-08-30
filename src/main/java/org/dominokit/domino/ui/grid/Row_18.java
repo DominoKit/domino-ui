@@ -9,7 +9,7 @@ public class Row_18 extends Row<Row_18> {
 
     public Row_18() {
         super(Columns._18);
-        initCollapsible(this);
+        init(this);
     }
 
     public Row_18 span1(Consumer<Column> consumer) {

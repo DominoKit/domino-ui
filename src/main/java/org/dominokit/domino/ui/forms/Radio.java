@@ -31,7 +31,7 @@ public class Radio extends DominoElement<Radio> implements IsElement<HTMLDivElem
                 check();
         });
         inputElement.addEventListener("change", evt -> onCheck());
-        initCollapsible(this);
+        init(this);
     }
 
     public Radio(String value) {

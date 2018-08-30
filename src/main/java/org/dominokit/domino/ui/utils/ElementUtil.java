@@ -25,8 +25,12 @@ public class ElementUtil {
                 element.removeChild(element.firstChild);
     }
 
-    public static <T extends HTMLElement> HtmlContentBuilder<T> builderFor(T element) {
+    public static <T extends HTMLElement> HtmlContentBuilder<T> contentBuilder(T element) {
         return new HtmlContentBuilder<>(element);
+    }
+
+    public static <E extends HTMLElement, T extends IsElement<E>> HtmlComponentBuilder<E,T> componentBuilder(T element) {
+        return new HtmlComponentBuilder<>(element);
     }
 
     public static boolean isKeyOf(String keyCode, KeyboardEvent keyboardEvent) {

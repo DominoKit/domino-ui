@@ -14,39 +14,72 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.ol;
 
-public class Breadcrumb extends DominoElement<Breadcrumb> implements IsElement<HTMLOListElement>, HasBackground<Breadcrumb> {
+public class Breadcrumb extends DominoElement<HTMLOListElement, Breadcrumb> implements IsElement<HTMLOListElement>, HasBackground<Breadcrumb> {
 
     private HTMLOListElement element = ol().css("breadcrumb").asElement();
     private List<BreadcrumbItem> items = new LinkedList<>();
     private BreadcrumbItem activeItem;
-    private boolean removeTail=false;
+    private boolean removeTail = false;
     private Color activeColor;
     private Color activeBackground;
-    private String alignmentStyle;
 
     public Breadcrumb() {
-        initCollapsible(this);
+        init(this);
     }
 
     public static Breadcrumb create() {
         return new Breadcrumb();
     }
 
+    /**
+     * @param text
+     * @param onClick
+     * @return
+     * @deprecated use {@link #appendChild(String, EventListener)}
+     */
+    @Deprecated
     public Breadcrumb addItem(String text, EventListener onClick) {
+        return appendChild(text, onClick);
+    }
+
+    public Breadcrumb appendChild(String text, EventListener onClick) {
         BreadcrumbItem item = BreadcrumbItem.create(text);
         addNewItem(item);
-        item.onClick(onClick);
+        item.addClickListener(onClick);
         return this;
     }
 
+    /**
+     * @param icon
+     * @param text
+     * @param onClick
+     * @return
+     * @deprecated use {@link #appendChild(Icon, String, EventListener)}
+     */
+    @Deprecated
     public Breadcrumb addItem(Icon icon, String text, EventListener onClick) {
+        return appendChild(icon, text, onClick);
+    }
+
+    public Breadcrumb appendChild(Icon icon, String text, EventListener onClick) {
         BreadcrumbItem item = BreadcrumbItem.create(icon, text);
         addNewItem(item);
-        item.onClick(onClick);
+        item.addClickListener(onClick);
         return this;
     }
 
+    /**
+     * @param item
+     * @return
+     * @deprecated use {@link #appendChild(BreadcrumbItem)}
+     */
+    @Deprecated
     public Breadcrumb addItem(BreadcrumbItem item) {
+        addNewItem(item);
+        return this;
+    }
+
+    public Breadcrumb appendChild(BreadcrumbItem item) {
         addNewItem(item);
         return this;
     }
@@ -67,7 +100,7 @@ public class Breadcrumb extends DominoElement<Breadcrumb> implements IsElement<H
         if (removeTail) {
             int index = items.indexOf(item) + 1;
             while (items.size() > index) {
-                items.get(items.size()-1).asElement().remove();
+                items.get(items.size() - 1).asElement().remove();
                 items.remove(items.size() - 1);
             }
         }
@@ -81,28 +114,22 @@ public class Breadcrumb extends DominoElement<Breadcrumb> implements IsElement<H
         return this;
     }
 
-    public Breadcrumb setColor(Color color){
-        if(nonNull(this.activeColor))
+    public Breadcrumb setColor(Color color) {
+        if (nonNull(this.activeColor))
             element.classList.remove(color.getStyle());
-        this.activeColor=color;
+        this.activeColor = color;
         element.classList.add(color.getStyle());
 
         return this;
     }
 
-    public Breadcrumb alignCenter(){
-        if(nonNull(this.alignmentStyle))
-            element.classList.remove(this.alignmentStyle);
-        this.alignmentStyle="align-center";
-        element.classList.add(this.alignmentStyle);
+    public Breadcrumb alignCenter() {
+        style().alignCenter();
         return this;
     }
 
-    public Breadcrumb alignRight(){
-        if(nonNull(this.alignmentStyle))
-            element.classList.remove(this.alignmentStyle);
-        this.alignmentStyle="align-right";
-        element.classList.add(this.alignmentStyle);
+    public Breadcrumb alignRight() {
+        style().alignRight();
         return this;
     }
 
@@ -113,11 +140,19 @@ public class Breadcrumb extends DominoElement<Breadcrumb> implements IsElement<H
 
     @Override
     public Breadcrumb setBackground(Color background) {
-        if(nonNull(this.activeBackground))
+        if (nonNull(this.activeBackground))
             element.classList.remove(background.getBackground());
-        this.activeBackground=background;
+        this.activeBackground = background;
         element.classList.add(background.getBackground());
 
         return this;
+    }
+
+    public BreadcrumbItem getActiveItem() {
+        return activeItem;
+    }
+
+    public List<BreadcrumbItem> getItems() {
+        return items;
     }
 }

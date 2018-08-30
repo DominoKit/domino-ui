@@ -10,10 +10,10 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
-public class BreadcrumbItem extends DominoElement<BreadcrumbItem> implements IsElement<HTMLLIElement>, HasClickableElement {
+public class BreadcrumbItem extends DominoElement<HTMLLIElement, BreadcrumbItem> implements IsElement<HTMLLIElement>, HasClickableElement {
 
     private HTMLLIElement element = li().asElement();
-    private HTMLAnchorElement anchorElement=a().asElement();
+    private HTMLAnchorElement anchorElement = a().asElement();
     private Text textElement;
     private Icon icon;
     private boolean active = false;
@@ -28,13 +28,13 @@ public class BreadcrumbItem extends DominoElement<BreadcrumbItem> implements IsE
 
     private void init(String text, Icon icon) {
         this.textElement = new Text(text);
-        if(nonNull(icon)) {
+        if (nonNull(icon)) {
             this.icon = icon;
             this.anchorElement.appendChild(icon.asElement());
         }
         this.anchorElement.appendChild(textElement);
         element.appendChild(anchorElement);
-        initCollapsible(this);
+        init(this);
     }
 
     public static BreadcrumbItem create(String text) {
@@ -45,7 +45,7 @@ public class BreadcrumbItem extends DominoElement<BreadcrumbItem> implements IsE
         return new BreadcrumbItem(text, icon);
     }
 
-    public void activate() {
+    public BreadcrumbItem activate() {
         if (!active) {
             element.classList.add("active");
             textElement.remove();
@@ -57,9 +57,11 @@ public class BreadcrumbItem extends DominoElement<BreadcrumbItem> implements IsE
             element.appendChild(textElement);
             this.active = true;
         }
+
+        return this;
     }
 
-    public void deActivate() {
+    public BreadcrumbItem deActivate() {
         if (active) {
             element.classList.remove("active");
             textElement.remove();
@@ -71,11 +73,16 @@ public class BreadcrumbItem extends DominoElement<BreadcrumbItem> implements IsE
             element.appendChild(anchorElement);
             this.active = false;
         }
+
+        return this;
     }
 
-    public BreadcrumbItem onClick(EventListener onClick){
-        getClickableElement().addEventListener("click", onClick);
-        return this;
+    public BreadcrumbItem setActive(boolean active){
+        if(active){
+            return activate();
+        }else{
+            return deActivate();
+        }
     }
 
     @Override
@@ -84,7 +91,19 @@ public class BreadcrumbItem extends DominoElement<BreadcrumbItem> implements IsE
     }
 
     @Override
-    public HTMLElement getClickableElement() {
-        return anchorElement;
+    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getClickableElement() {
+        return DominoElement.of(anchorElement);
+    }
+
+    public Text getTextElement() {
+        return textElement;
+    }
+
+    public Icon getIcon() {
+        return icon;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 }

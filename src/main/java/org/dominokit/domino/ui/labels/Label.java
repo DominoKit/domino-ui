@@ -19,7 +19,7 @@ public class Label extends DominoElement<Label> implements IsElement<HTMLElement
 
     private Label(String content) {
         setContent(content);
-        initCollapsible(this);
+        init(this);
     }
 
     private Label(String content, StyleType type) {

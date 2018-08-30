@@ -11,14 +11,13 @@ import org.jboss.gwt.elemento.core.IsElement;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.span;
 
-public class Badge extends DominoElement<Badge> implements IsElement<HTMLElement>, HasBackground<Badge> {
+public class Badge extends DominoElement<HTMLElement, Badge> implements IsElement<HTMLElement>, HasBackground<Badge> {
 
     private HTMLElement badgeElement = span().css("badge").asElement();
-    private boolean pulledRight = false;
     private Color badgeBackground;
 
     public Badge() {
-        initCollapsible(this);
+        init(this);
     }
 
     public static Badge create(String content) {
@@ -38,11 +37,7 @@ public class Badge extends DominoElement<Badge> implements IsElement<HTMLElement
     }
 
     public Badge pullRight() {
-        Style<HTMLElement, Badge> style = Style.of(this);
-        if(!style.hasClass(Styles.pull_right)){
-            style.css(Styles.pull_right);
-        }
-
+        style().pullRight();
         return this;
     }
 
@@ -54,9 +49,5 @@ public class Badge extends DominoElement<Badge> implements IsElement<HTMLElement
         this.badgeBackground = badgeBackground;
         badgeElement.classList.add(this.badgeBackground.getBackground());
         return this;
-    }
-
-    public Style<HTMLElement, Badge> style(){
-        return Style.of(this);
     }
 }

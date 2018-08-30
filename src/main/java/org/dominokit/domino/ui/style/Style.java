@@ -4,6 +4,7 @@ import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.style.Styles.*;
 
 public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsElement<E> {
 
@@ -460,7 +461,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         if (important) {
             setImportantProperty("box-shadow", "none");
             setImportantProperty("-webkit-box-shadow", "none");
-            removeCss(Styles.default_shadow);
+            removeCss(default_shadow);
         } else {
             removeShadow();
         }
@@ -470,17 +471,47 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     public Style<E, T> removeShadow() {
         setProperty("box-shadow", "none");
         setProperty("-webkit-box-shadow", "none");
-        removeCss(Styles.default_shadow);
+        removeCss(default_shadow);
         return this;
     }
 
     public Style<E, T> addDefaultShadow() {
-        css(Styles.default_shadow);
+        css(default_shadow);
         return this;
     }
 
 
+    public Style<E,T> pullRight(){
+        if(!hasClass(pull_right)){
+            css(pull_right);
+        }
 
+        return this;
+    }
+
+    public Style<E,T> pullLeft(){
+        if(!hasClass(pull_left)){
+            css(pull_left);
+        }
+
+        return this;
+    }
+
+    public Style<E, T> alignCenter(){
+        if(hasClass(align_center)){
+            removeCss(align_center);
+        }
+        css(align_center);
+        return this;
+    }
+
+    public Style<E, T> alignRight(){
+        if(hasClass(align_right)){
+            removeCss(align_right);
+        }
+        css(align_right);
+        return this;
+    }
 
     @Override
     public E asElement() {
