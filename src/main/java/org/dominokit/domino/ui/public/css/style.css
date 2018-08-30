@@ -2681,6 +2681,10 @@ input[type=range] + .thumb.active .value{
     line-height: 15px;
 }
 
+.card .header h2 small:empty {
+    display: none;
+}
+
 .card .header h2 small a {
     font-weight: bold;
     color: #777;
@@ -7136,4 +7140,56 @@ a.disabled {
 .chip-remove[disabled] .material-icons {
     background-color: #a2a2a2 !important;
     cursor: not-allowed;
+}
+
+.tags-input{
+    min-height: 50px;
+    display: flex;
+    height: 100%;
+    padding-top: 5px;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+
+.tags-input[readonly], .tags-input[disabled] {
+    pointer-events: none;
+}
+
+.tag-value {
+    margin-right: 5px;
+}
+
+.tag-remove {
+    vertical-align: middle;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.tag-remove[disabled] {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.tags-input[readonly] .chip {
+    cursor: default;
+}
+
+.tags-input[readonly] .chip-remove {
+    display: none !important;
+}
+
+.tag-text-input {
+    border: none;
+    margin-left: 15px;
+    margin-top: 5px;
+    height: 30px;
+}
+
+.tag-text-input[disabled] {
+    background: transparent;
+    cursor: not-allowed;
+}
+
+.tags-input[readonly] .tag-text-input {
+    display: none;
 }
