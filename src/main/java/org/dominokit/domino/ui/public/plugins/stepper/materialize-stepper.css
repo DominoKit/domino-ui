@@ -52,6 +52,7 @@ ul.stepper {
         -webkit-box-pack: justify;
         justify-content: space-between;
         min-height: 500px;
+        padding-left: 0px;
     }
 
     .card-content ul.stepper.horizontal {
