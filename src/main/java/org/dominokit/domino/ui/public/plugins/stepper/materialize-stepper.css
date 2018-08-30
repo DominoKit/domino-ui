@@ -140,10 +140,6 @@ ul.stepper > li:not(:last-of-type) {
     transition: margin-bottom 0.4s;
 }
 
-ul.stepper .step:not(:last-of-type).active {
-    margin-bottom: 36px;
-}
-
 ul.stepper .step:before {
     position: absolute;
     top: 12px;
@@ -264,7 +260,7 @@ ul.stepper .step.active .step-title {
 }
 
 ul.stepper .step-content {
-    padding-top: 40px;
+    padding-top: 10px;
     position: relative;
     height: calc(100% - 132px);
     width: inherit;
