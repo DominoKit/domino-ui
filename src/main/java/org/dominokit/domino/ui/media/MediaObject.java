@@ -32,7 +32,7 @@ public abstract class MediaObject extends DominoElement<MediaObject> implements 
 
     @PostConstruct
     void init(){
-        initCollapsible(this);
+        init(this);
     }
 
     public static MediaObject create() {

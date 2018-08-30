@@ -81,7 +81,7 @@ public class DataTable<T> extends DominoElement<DataTable<T>> implements IsEleme
                     .css("tbody-fixed")
                     .setMaxHeight(tableConfig.getFixedBodyHeight());
         }
-        initCollapsible(this);
+        init(this);
         return this;
     }
 

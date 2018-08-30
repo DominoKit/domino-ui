@@ -23,7 +23,7 @@ public class ListGroup<T> extends DominoElement<ListGroup<T>> implements IsEleme
 
     private ListGroup(HTMLDivElement element) {
         this.element = element;
-        initCollapsible(this);
+        init(this);
     }
 
     public static <T> ListGroup<T> create() {

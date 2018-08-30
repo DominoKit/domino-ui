@@ -17,7 +17,7 @@ public class Thumbnail extends DominoElement<Thumbnail> implements IsElement<HTM
 
     public Thumbnail() {
         element.appendChild(contentElement);
-        initCollapsible(this);
+        init(this);
     }
 
     public static Thumbnail create() {

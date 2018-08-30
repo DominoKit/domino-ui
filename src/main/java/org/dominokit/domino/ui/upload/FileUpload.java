@@ -61,7 +61,7 @@ public class FileUpload extends DominoElement<FileUpload> implements IsElement<H
             evt.preventDefault();
         });
         filesContainer.appendChild(row.asElement());
-        initCollapsible(this);
+        init(this);
     }
 
     private void notifySingleFileError() {

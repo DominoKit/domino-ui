@@ -71,9 +71,12 @@ public class Styles {
 
     public static final String clearfix = "clearfix";
     public static final String pull_right = "pull-right";
+    public static final String pull_left = "pull-left";
 
     public static final String cursor_pointer = "cursor-pointer";
     public static final String disable_selection = "disable-selection";
 
     public static final String default_shadow = "default-shadow";
+
+    public static final String alert_link = "alert-link";
 }

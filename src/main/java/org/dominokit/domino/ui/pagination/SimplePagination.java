@@ -62,7 +62,7 @@ public class SimplePagination extends DominoElement<SimplePagination> implements
         this.pagesCount = pages;
         this.pageSize = pageSize;
         updatePages(pages, pageSize);
-        initCollapsible(this);
+        init(this);
     }
 
     public SimplePagination updatePages(int pages) {

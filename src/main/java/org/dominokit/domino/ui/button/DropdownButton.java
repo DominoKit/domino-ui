@@ -7,56 +7,48 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.StyleType;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasBackground;
-import org.dominokit.domino.ui.utils.HasContent;
-import org.dominokit.domino.ui.utils.Justifiable;
 import org.jboss.gwt.elemento.core.Elements;
-
-import java.util.LinkedList;
-import java.util.List;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 
-public class DropdownButton extends DominoElement<DropdownButton> implements Justifiable, HasContent<DropdownButton>, HasBackground<DropdownButton> {
+public class DropdownButton extends BaseButton<DropdownButton> {
 
     private HTMLElement caret = Elements.span().css("caret").asElement();
     private HTMLElement groupElement = ButtonsGroup.create().asElement();
     private HTMLUListElement actionsElement = Elements.ul().css("dropdown-menu").asElement();
-    private List<Justifiable> items = new LinkedList<>();
-    private Button button;
     private Color background;
     private boolean touchMoved;
+
+    public DropdownButton(String content) {
+        super(content);
+    }
+
     private DropDownPosition position = DropDownPosition.BOTTOM_RIGHT;
 
     public DropdownButton(String content, StyleType type) {
-        this(Button.create(content).setButtonType(type));
+        super(content, type);
     }
 
     public DropdownButton(String content, Color background) {
-        this(Button.create(content).setBackground(background));
-    }
-
-    public DropdownButton(String content) {
-        this(Button.create(content));
+        super(content);
+        setBackground(background);
     }
 
     public DropdownButton(Icon icon, StyleType type) {
-        this(IconButton.create(icon).setButtonType(type));
+        super(icon, type);
     }
 
     public DropdownButton(Icon icon) {
-        this(IconButton.create(icon));
+        super(icon);
     }
 
-    public DropdownButton(Button button) {
-        this.button = button;
-        groupElement.appendChild(asDropDown(button, groupElement));
-        this.button.asElement().appendChild(caret);
+    public DropdownButton() {
+        groupElement.appendChild(asDropDown(groupElement));
+        asElement().appendChild(caret);
         groupElement.appendChild(actionsElement);
         addHideListener();
-        initCollapsible(this);
     }
 
     private void addHideListener() {
@@ -78,14 +70,14 @@ public class DropdownButton extends DominoElement<DropdownButton> implements Jus
         }
     }
 
-    private HTMLElement asDropDown(Button button, HTMLElement groupElement) {
-        HTMLElement buttonElement = button.asElement();
+    private HTMLElement asDropDown( HTMLElement groupElement) {
+        HTMLElement buttonElement = asElement();
         buttonElement.classList.add("dropdown-toggle");
         buttonElement.setAttribute("data-toggle", "dropdown");
         buttonElement.setAttribute("aria-haspopup", true);
         buttonElement.setAttribute("aria-expanded", true);
         buttonElement.setAttribute("type", "button");
-        button.addClickListener(evt -> {
+        addClickListener(evt -> {
             closeAllGroups();
             open(groupElement);
             evt.stopPropagation();
@@ -118,7 +110,6 @@ public class DropdownButton extends DominoElement<DropdownButton> implements Jus
 
     public DropdownButton addAction(DropdownAction action) {
         action.addSelectionHandler(() -> close(groupElement));
-        items.add(action);
         actionsElement.appendChild(action.asElement());
         return this;
     }
@@ -129,40 +120,8 @@ public class DropdownButton extends DominoElement<DropdownButton> implements Jus
     }
 
     public DropdownButton separator() {
-        JustifiableSeparator justifiableSeparator = new JustifiableSeparator();
-        items.add(justifiableSeparator);
-        actionsElement.appendChild(justifiableSeparator.asElement());
-        return this;
-    }
-
-    @Override
-    public HTMLElement justify() {
-        Button button = Button.create(this.button.asElement().textContent);
-
-        for (String style : this.button.asElement().classList.asList()) {
-            button.asElement().classList.add(style);
-        }
-
-        DropdownButton cloneDropdownButton = new DropdownButton(button);
-        for (Justifiable item : items) {
-            cloneDropdownButton.actionsElement.appendChild(item.justify());
-        }
-        return cloneDropdownButton.asElement();
-    }
-
-    @Override
-    public DropdownButton setContent(String content) {
-        button.setContent(content);
-        return this;
-    }
-
-    public DropdownButton dropup() {
-        groupElement.classList.add("dropup");
-        return this;
-    }
-
-    public DropdownButton dropdown() {
-        groupElement.classList.remove("dropup");
+        Separator separator = new Separator();
+        actionsElement.appendChild(separator.asElement());
         return this;
     }
 
@@ -174,32 +133,32 @@ public class DropdownButton extends DominoElement<DropdownButton> implements Jus
 
     public DropdownButton showCaret() {
         if (!isCaretAdded())
-            button.asElement().appendChild(caret);
+            asElement().appendChild(caret);
         return this;
     }
 
     private boolean isCaretAdded() {
-        return button.asElement().contains(caret);
+        return asElement().contains(caret);
     }
 
     @Override
     public DropdownButton setBackground(Color background) {
         if (nonNull(this.background))
-            button.asElement().classList.remove(this.background.getBackground());
-        button.asElement().classList.add(background.getBackground());
+            asElement().classList.remove(this.background.getBackground());
+        asElement().classList.add(background.getBackground());
         this.background = background;
         return this;
     }
 
     public DropdownButton linkify() {
         groupElement.classList.add("link");
-        button.linkify();
+        linkify();
         return this;
     }
 
     public DropdownButton delinkify() {
         groupElement.classList.remove("link");
-        button.delinkify();
+        deLinkify();
         return this;
     }
 
@@ -284,21 +243,12 @@ public class DropdownButton extends DominoElement<DropdownButton> implements Jus
         return actionsElement;
     }
 
-    public Button getButton() {
-        return button;
-    }
-
-    private class JustifiableSeparator implements Justifiable {
+    private class Separator implements IsElement<HTMLLIElement> {
 
         private HTMLLIElement separator = Elements.li().attr("role", "separator").css("divider").asElement();
 
         @Override
-        public HTMLElement justify() {
-            return (HTMLElement) separator.cloneNode(true);
-        }
-
-        @Override
-        public HTMLElement asElement() {
+        public HTMLLIElement asElement() {
             return separator;
         }
     }

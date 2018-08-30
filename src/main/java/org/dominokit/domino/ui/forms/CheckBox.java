@@ -46,7 +46,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
         });
         formLine.appendChild(formControl);
         container.appendChild(formLine);
-        initCollapsible(this);
+        init(this);
     }
 
     private void onCheck() {
