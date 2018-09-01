@@ -7,6 +7,7 @@ import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.Checkable;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -159,18 +160,18 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
     }
 
     @Override
-    public HTMLInputElement getInputElement() {
-        return inputElement;
+    public DominoElement<HTMLInputElement, IsElement<HTMLInputElement>> getInputElement() {
+        return DominoElement.of(inputElement);
     }
 
     @Override
-    protected HTMLDivElement getFieldContainer() {
-        return formLine;
+    protected DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFieldContainer() {
+        return DominoElement.of(formLine);
     }
 
     @Override
-    public HTMLLabelElement getLabelElement() {
-        return labelElement;
+    public DominoElement<HTMLLabelElement, IsElement<HTMLLabelElement>> getLabelElement() {
+        return DominoElement.of(labelElement);
     }
 
     @Override
@@ -197,8 +198,5 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
         return container;
     }
 
-    public Style<HTMLElement, CheckBox> style(){
-        return Style.of(this);
-    }
 
 }

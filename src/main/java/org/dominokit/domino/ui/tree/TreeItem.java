@@ -8,10 +8,7 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.WaveColor;
 import org.dominokit.domino.ui.style.WaveStyle;
 import org.dominokit.domino.ui.style.WavesElement;
-import org.dominokit.domino.ui.utils.CanActivate;
-import org.dominokit.domino.ui.utils.CanDeactivate;
-import org.dominokit.domino.ui.utils.ParentTreeItem;
-import org.dominokit.domino.ui.utils.HasClickableElement;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -23,7 +20,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class TreeItem extends WavesElement<TreeItem, HTMLAnchorElement> implements IsElement<HTMLLIElement>, ParentTreeItem<TreeItem>, CanActivate, CanDeactivate, HasClickableElement {
+public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements IsElement<HTMLLIElement>, ParentTreeItem<TreeItem>, CanActivate, CanDeactivate, HasClickableElement {
 
     private String title;
     private HTMLLIElement element;
@@ -73,10 +70,10 @@ public class TreeItem extends WavesElement<TreeItem, HTMLAnchorElement> implemen
     public TreeItem addTreeItem(TreeItem treeItem) {
         this.subItems.add(treeItem);
         childrenContainer.appendChild(treeItem.asElement());
-        Style.of(anchorElement).css("tree-toggle");
+        Style.of(anchorElement).add("tree-toggle");
         treeItem.parent = this;
-        Style.of(treeItem).css("tree-leaf");
-        Style.of(this.asElement()).removeCss("tree-leaf");
+        Style.of(treeItem).add("tree-leaf");
+        Style.of(this.asElement()).remove("tree-leaf");
         return this;
     }
 
@@ -92,22 +89,22 @@ public class TreeItem extends WavesElement<TreeItem, HTMLAnchorElement> implemen
         this.element.appendChild(anchorElement);
         childrenContainer = ul().css("ml-tree").asElement();
         asElement().appendChild(childrenContainer);
-        super.init(this, anchorElement);
+        super.init(this);
         setWaveColor(WaveColor.THEME);
         applyWaveStyle(WaveStyle.BLOCK);
         collapsible = Collapsible.create(childrenContainer)
                 .addCollapseHandler(() -> {
-                    Style.of(anchorElement).removeCss("toggled");
+                    Style.of(anchorElement).remove("toggled");
                     restoreIcon();
                 })
                 .addExpandHandler(() -> {
-                    Style.of(anchorElement).css("toggled");
+                    Style.of(anchorElement).add("toggled");
                     replaceIcon(expandIcon);
                 })
                 .collapse();
         anchorElement.addEventListener("click", evt -> {
             if (isParent()) {
-                collapsible.toggle();
+                collapsible.toggleDisplay();
             }
             parent.setActiveItem(TreeItem.this);
         });
@@ -127,9 +124,9 @@ public class TreeItem extends WavesElement<TreeItem, HTMLAnchorElement> implemen
         return this;
     }
 
-    public TreeItem toggle() {
+    public TreeItem toggleDisplay() {
         if (isParent()) {
-            collapsible.toggle();
+            collapsible.toggleDisplay();
         }
         return this;
     }
@@ -164,7 +161,7 @@ public class TreeItem extends WavesElement<TreeItem, HTMLAnchorElement> implemen
 
     @Override
     public void activate() {
-        Style.of(asElement()).css("active");
+        Style.of(asElement()).add("active");
         if (isNull(expandIcon) || collapsible.isCollapsed() || !isParent()) {
             replaceIcon(this.activeIcon);
         }
@@ -181,7 +178,7 @@ public class TreeItem extends WavesElement<TreeItem, HTMLAnchorElement> implemen
 
     @Override
     public void deactivate() {
-        Style.of(asElement()).removeCss("active");
+        Style.of(asElement()).remove("active");
         if (isNull(expandIcon) || collapsible.isCollapsed() || !isParent()) {
             restoreIcon();
         }
@@ -202,8 +199,8 @@ public class TreeItem extends WavesElement<TreeItem, HTMLAnchorElement> implemen
     }
 
     @Override
-    public HTMLElement getClickableElement() {
-        return anchorElement;
+    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getClickableElement() {
+        return DominoElement.of(anchorElement);
     }
 
     public TreeItem addClickListener(EventListener listener) {
@@ -280,9 +277,5 @@ public class TreeItem extends WavesElement<TreeItem, HTMLAnchorElement> implemen
             expand();
             subItems.forEach(TreeItem::expandAll);
         }
-    }
-
-    public Style<HTMLLIElement, TreeItem> style(){
-        return Style.of(this);
     }
 }

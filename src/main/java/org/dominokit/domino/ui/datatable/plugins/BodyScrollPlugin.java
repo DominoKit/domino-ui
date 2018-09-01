@@ -7,7 +7,7 @@ import org.dominokit.domino.ui.datatable.events.BodyScrollEvent;
 public class BodyScrollPlugin<T> implements DataTablePlugin<T> {
     @Override
     public void onBodyAdded(DataTable<T> dataTable) {
-        HTMLTableSectionElement tbody = dataTable.bodyElement();
+        HTMLTableSectionElement tbody = dataTable.bodyElement().asElement();
         tbody.addEventListener("scroll", evt -> {
             if (tbody.scrollTop == 0) {
                 dataTable.fireTableEvent(new BodyScrollEvent(ScrollPosition.TOP));

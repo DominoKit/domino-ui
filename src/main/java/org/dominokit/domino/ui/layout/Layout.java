@@ -7,7 +7,9 @@ import org.dominokit.domino.ui.notifications.Notification;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.themes.Theme;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.jboss.gwt.elemento.core.Elements.a;
@@ -101,7 +103,7 @@ public class Layout {
 
     public Layout updateLeftPanel(String none, String hiddenStyle, String visibleStyle) {
         navigationBar.menu.style.display = none;
-        getLeftPanel().style.display = none;
+        getLeftPanel().style().setDisplay(none);
         document.body.classList.remove(hiddenStyle);
         document.body.classList.add(visibleStyle);
 
@@ -208,20 +210,20 @@ public class Layout {
         return this;
     }
 
-    public HTMLElement getRightPanel() {
-        return section.rightSide;
+    public DominoElement<HTMLElement, IsElement<HTMLElement>> getRightPanel() {
+        return DominoElement.of(section.rightSide);
     }
 
-    public HTMLElement getLeftPanel() {
-        return section.leftSide;
+    public DominoElement<HTMLElement, IsElement<HTMLElement>> getLeftPanel() {
+        return DominoElement.of(section.leftSide);
     }
 
-    public HTMLDivElement getContentPanel() {
-        return content.contentContainer;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentPanel() {
+        return DominoElement.of(content.contentContainer);
     }
 
-    public HTMLUListElement getTopBar() {
-        return navigationBar.topBar;
+    public DominoElement<HTMLUListElement, IsElement<HTMLUListElement>> getTopBar() {
+        return DominoElement.of(navigationBar.topBar);
     }
 
     public NavigationBar getNavigationBar() {
@@ -287,14 +289,14 @@ public class Layout {
         unfixLeftPanelPosition();
         hideLeftPanel();
         Style.of(section.leftSide).setDisplay("none");
-        Style.of(navigationBar.menu).removeCss("bars").setDisplay("none");
+        Style.of(navigationBar.menu).remove("bars").setDisplay("none");
         this.leftPanelDisabled = true;
         return this;
     }
 
     public Layout enableLeftPanel(){
         Style.of(section.leftSide).removeProperty("display");
-        Style.of(navigationBar.menu).css("bars").removeProperty("display");
+        Style.of(navigationBar.menu).add("bars").removeProperty("display");
         this.leftPanelDisabled = false;
         return this;
     }

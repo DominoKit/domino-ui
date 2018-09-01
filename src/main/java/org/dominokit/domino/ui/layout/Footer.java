@@ -2,11 +2,12 @@ package org.dominokit.domino.ui.layout;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.footer;
 
-public class Footer implements IsElement<HTMLElement> {
+public class Footer extends DominoElement<HTMLElement, Footer> implements IsElement<HTMLElement> {
 
     private HTMLElement element = footer().css("footer").asElement();
 

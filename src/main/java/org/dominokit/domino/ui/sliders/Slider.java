@@ -21,7 +21,7 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 import static org.jboss.gwt.elemento.core.EventType.*;
 import static org.jboss.gwt.elemento.core.EventType.input;
 
-public class Slider extends DominoElement<Slider> implements IsElement<HTMLParagraphElement>, HasChangeHandlers<Slider, Double> {
+public class Slider extends DominoElement<HTMLParagraphElement, Slider> implements IsElement<HTMLParagraphElement>, HasChangeHandlers<Slider, Double> {
 
     private HTMLParagraphElement sliderContainer = p().css("slide-container").asElement();
     private HTMLInputElement slider = input("range").css("slider").asElement();
@@ -93,6 +93,8 @@ public class Slider extends DominoElement<Slider> implements IsElement<HTMLParag
         slider.addEventListener(blur.getName(), leaveMouseListener);
 
         setThumbColor(Theme.currentTheme.getScheme().color());
+
+        init(this);
     }
 
     private double calculateRangeOffset() {
@@ -226,10 +228,6 @@ public class Slider extends DominoElement<Slider> implements IsElement<HTMLParag
         thumb.classList.add(thumbColor.getBackground());
         this.thumbColor = thumbColor;
         return this;
-    }
-
-    public Style<HTMLParagraphElement, Slider> style(){
-        return Style.of(this);
     }
 
     @FunctionalInterface

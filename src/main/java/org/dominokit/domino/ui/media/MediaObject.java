@@ -16,7 +16,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 @Templated
-public abstract class MediaObject extends DominoElement<MediaObject> implements IsElement<HTMLDivElement> {
+public abstract class MediaObject extends DominoElement<HTMLDivElement, MediaObject> implements IsElement<HTMLDivElement> {
 
     @DataElement
     HTMLDivElement mediaBody;
@@ -89,8 +89,6 @@ public abstract class MediaObject extends DominoElement<MediaObject> implements 
         return this;
     }
 
-
-
     public MediaObject appendChild(IsElement content) {
         return appendChild(content.asElement());
     }
@@ -113,20 +111,20 @@ public abstract class MediaObject extends DominoElement<MediaObject> implements 
         return this;
     }
 
-    public HTMLDivElement getMediaBody() {
-        return mediaBody;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getMediaBody() {
+        return DominoElement.of(mediaBody);
     }
 
-    public HTMLHeadingElement getMediaHeader() {
-        return mediaHeader;
+    public DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getMediaHeader() {
+        return DominoElement.of(mediaHeader);
     }
 
-    public HTMLDivElement getLeftMedia() {
-        return leftMedia;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getLeftMedia() {
+        return DominoElement.of(leftMedia);
     }
 
-    public HTMLDivElement getRightMedia() {
-        return rightMedia;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getRightMedia() {
+        return DominoElement.of(rightMedia);
     }
 
     public enum MediaAlign {

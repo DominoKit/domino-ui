@@ -18,8 +18,8 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.span;
 
-public class Chip implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip>, HasDeselectionHandler<Chip>,
-        Switchable<Chip>, HasRemoveHandler<Chip>, HasClickHandler<Chip> {
+public class Chip extends DominoElement<HTMLDivElement, Chip> implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip>, HasDeselectionHandler<Chip>,
+        Switchable<Chip>, HasRemoveHandler<Chip> {
 
     private HTMLDivElement element = div().css("chip").asElement();
     private HTMLDivElement textContainer = div().css("chip-value").asElement();
@@ -35,7 +35,6 @@ public class Chip implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip
     private boolean enabled;
     private HTMLElement leftAddon;
     private boolean selectable;
-    private List<ClickHandler> clickHandlers = new ArrayList<>();
     private Color leftBackground;
 
     public Chip(String value) {
@@ -49,12 +48,11 @@ public class Chip implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip
         setValue(value);
         element.addEventListener("click", evt -> {
             if (selectable) {
-                toggle();
-            } else {
-                clickHandlers.forEach(ClickHandler::onClick);
+                toggleSelect();
             }
             evt.stopPropagation();
         });
+        init(this);
     }
 
     public static Chip create() {
@@ -68,7 +66,7 @@ public class Chip implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip
     public Chip select() {
         this.selected = true;
         Style.of(element).replaceCss(getColor(), getDarkerColor());
-        Style.of(removeIcon).css(getDarkerColor());
+        Style.of(removeIcon).add(getDarkerColor());
         selectionHandlers.forEach(SelectionHandler::onSelection);
         return this;
     }
@@ -76,12 +74,12 @@ public class Chip implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip
     public Chip deselect() {
         this.selected = false;
         Style.of(element).replaceCss(getDarkerColor(), getColor());
-        Style.of(removeIcon).removeCss(getDarkerColor());
+        Style.of(removeIcon).remove(getDarkerColor());
         deselectionHandlers.forEach(DeselectionHandler::onDeselection);
         return this;
     }
 
-    public Chip toggle() {
+    public Chip toggleSelect() {
         if (selected) {
             deselect();
         } else {
@@ -179,7 +177,7 @@ public class Chip implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip
 
     private void updateLeftAddonBackground() {
         if (nonNull(leftAddon) && nonNull(leftBackground)) {
-            Style.of(leftAddon).css(leftBackground.getBackground());
+            Style.of(leftAddon).add(leftBackground.getBackground());
         }
     }
 
@@ -232,12 +230,6 @@ public class Chip implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip
         return this;
     }
 
-    @Override
-    public Chip addClickHandler(ClickHandler clickHandler) {
-        clickHandlers.add(clickHandler);
-        return this;
-    }
-
     public Chip setBorderColor(Color borderColor) {
         if (nonNull(this.borderColor)) {
             Style.of(element).removeProperty("border-color");
@@ -252,31 +244,27 @@ public class Chip implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip
         return this;
     }
 
-    public Style<HTMLDivElement, Chip> style() {
-        return Style.of(this);
-    }
-
     public String getValue() {
         return textContainer.textContent;
     }
 
-    public HTMLDivElement getTextContainer() {
-        return textContainer;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getTextContainer() {
+        return DominoElement.of(textContainer);
     }
 
-    public HTMLDivElement getLeftAddonContainer() {
-        return leftAddonContainer;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getLeftAddonContainer() {
+        return DominoElement.of(leftAddonContainer);
     }
 
-    public HTMLDivElement getRemoveIconContainer() {
-        return removeIconContainer;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getRemoveIconContainer() {
+        return DominoElement.of(removeIconContainer);
     }
 
-    public HTMLElement getRemoveIcon() {
-        return removeIcon;
+    public DominoElement<HTMLElement, IsElement<HTMLElement>> getRemoveIcon() {
+        return DominoElement.of(removeIcon);
     }
 
-    public HTMLElement getLeftAddon() {
-        return leftAddon;
+    public DominoElement<HTMLElement, IsElement<HTMLElement>> getLeftAddon() {
+        return DominoElement.of(leftAddon);
     }
 }

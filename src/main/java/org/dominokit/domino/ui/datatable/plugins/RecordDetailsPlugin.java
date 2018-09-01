@@ -4,7 +4,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableRowElement;
-import org.dominokit.domino.ui.button.IconButton;
+import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.datatable.CellRenderer;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
@@ -58,14 +58,13 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
                     applyStyles(cell);
                     return detailsButtonElement.asElement();
                 })
-                .setHeaderElement(columnTitle -> {
-                    HTMLElement htmlElement = IconButton.create(expandIcon.copy()).linkify().disable().asElement();
-                    Style.of(htmlElement)
-                            .setProperty("padding", "0px")
-                            .setHeight("24px");
-
-                    return htmlElement;
-                })
+                .setHeaderElement(columnTitle -> Button.create(expandIcon.copy())
+                        .linkify()
+                        .disable()
+                        .style()
+                        .setProperty("padding", "0px")
+                        .setHeight("24px")
+                        .asElement())
                 .asHeader()
                 .textAlign("center");
         setupColumn(column);
@@ -104,7 +103,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     }
 
     public static class DetailsButtonElement<T> implements IsElement<HTMLElement>, TableRow.RowMetaObject {
-        private final IconButton button;
+        private final Button button;
         private final CellRenderer.CellInfo<T> cellInfo;
         private final Icon expandIcon;
         private final Icon collapseIcon;
@@ -116,7 +115,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
             this.collapseIcon = collapseIcon;
             this.recordDetailsPlugin = recordDetailsPlugin;
             this.cellInfo = cellInfo;
-            this.button = IconButton.create(expandIcon.copy());
+            this.button = Button.create(expandIcon.copy());
             button.linkify();
             Style.of(button)
                     .setProperty("padding", "0px")
@@ -174,7 +173,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
         this.buttonElement = buttonElement;
         ElementUtil.contentBuilder(td).attr("colspan", dataTable.getTableConfig().getColumns().size() + "");
         element.appendChild(cellRenderer.asElement(buttonElement.getCellInfo()));
-        dataTable.bodyElement().insertBefore(tr, buttonElement.getCellInfo().getTableRow().asElement().nextSibling);
+        dataTable.bodyElement().asElement().insertBefore(tr, buttonElement.getCellInfo().getTableRow().asElement().nextSibling);
     }
 
 }

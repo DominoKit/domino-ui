@@ -1,22 +1,23 @@
 package org.dominokit.domino.ui.lists;
 
-import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.HTMLParagraphElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.isNull;
 import static org.jboss.gwt.elemento.core.Elements.h;
 import static org.jboss.gwt.elemento.core.Elements.p;
 
-public class BaseListItem<T extends Element> {
+public class BaseListItem<E extends HTMLElement, T extends BaseListItem<E,T>> extends DominoElement<E, T> implements IsElement<E>{
 
-    private T element;
+    private E element;
     protected HTMLHeadingElement header;
     protected HTMLParagraphElement body;
 
-    BaseListItem(T element) {
+    BaseListItem(E element) {
         this.element = element;
     }
 
@@ -41,15 +42,16 @@ public class BaseListItem<T extends Element> {
             body.textContent = content;
     }
 
-    public T getElement() {
+    @Override
+    public E asElement() {
         return element;
     }
 
-    public HTMLHeadingElement getHeader() {
-        return header;
+    public DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getHeader() {
+        return DominoElement.of(header);
     }
 
-    public HTMLParagraphElement getBody() {
-        return body;
+    public DominoElement<HTMLParagraphElement, IsElement<HTMLParagraphElement>> getBody() {
+        return DominoElement.of(body);
     }
 }

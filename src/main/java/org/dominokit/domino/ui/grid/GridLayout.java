@@ -2,12 +2,13 @@ package org.dominokit.domino.ui.grid;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class GridLayout implements IsElement<HTMLDivElement> {
+public class GridLayout extends DominoElement<HTMLDivElement, GridLayout> implements IsElement<HTMLDivElement> {
 
     private HTMLDivElement element = div()
             .css("layout-grid").asElement();
@@ -123,7 +124,6 @@ public class GridLayout implements IsElement<HTMLDivElement> {
         return this;
     }
 
-
     private boolean hasHeader() {
         return nonNull(headerElement.parentNode);
     }
@@ -141,27 +141,23 @@ public class GridLayout implements IsElement<HTMLDivElement> {
         return element;
     }
 
-    public HTMLDivElement getContentElement() {
-        return contentElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentElement() {
+        return DominoElement.of(contentElement);
     }
 
-    public HTMLDivElement getHeaderElement() {
-        return headerElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getHeaderElement() {
+        return DominoElement.of(headerElement);
     }
 
-    public HTMLDivElement getFooterElement() {
-        return footerElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFooterElement() {
+        return DominoElement.of(footerElement);
     }
 
-    public HTMLDivElement getLeftElement() {
-        return leftElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getLeftElement() {
+        return DominoElement.of(leftElement);
     }
 
-    public HTMLDivElement getRightElement() {
-        return rightElement;
-    }
-
-    public Style<HTMLDivElement, GridLayout> style(){
-        return Style.of(this);
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getRightElement() {
+        return DominoElement.of(rightElement);
     }
 }

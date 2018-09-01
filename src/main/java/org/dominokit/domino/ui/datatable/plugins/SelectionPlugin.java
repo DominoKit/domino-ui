@@ -59,12 +59,12 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
                         if (selectable.isSelected()) {
                             checkBox.check(true);
                             if (nonNull(colorScheme)) {
-                                Style.of(((TableRow<T>) selectable).asElement()).css(colorScheme.lighten_5().getBackground());
+                                Style.of(((TableRow<T>) selectable).asElement()).add(colorScheme.lighten_5().getBackground());
                             }
                         } else {
                             checkBox.uncheck(true);
                             if (nonNull(colorScheme)) {
-                                Style.of(((TableRow<T>) selectable).asElement()).removeCss(colorScheme.lighten_5().getBackground());
+                                Style.of(((TableRow<T>) selectable).asElement()).remove(colorScheme.lighten_5().getBackground());
                             }
                         }
                     });
@@ -73,13 +73,13 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
                         if (checked) {
                             cell.getTableRow().select();
                             if (nonNull(colorScheme)) {
-                                Style.of(cell.getTableRow().asElement()).css(colorScheme.lighten_5().getBackground());
+                                Style.of(cell.getTableRow().asElement()).add(colorScheme.lighten_5().getBackground());
                             }
                             dataTable.onSelectionChange(cell.getTableRow());
                         } else {
                             cell.getTableRow().deselect();
                             if (nonNull(colorScheme)) {
-                                Style.of(cell.getTableRow().asElement()).removeCss(colorScheme.lighten_5().getBackground());
+                                Style.of(cell.getTableRow().asElement()).remove(colorScheme.lighten_5().getBackground());
                             }
                             dataTable.onSelectionChange(cell.getTableRow());
                         }
@@ -89,11 +89,13 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     }
 
     private CheckBox createCheckBox() {
-        CheckBox checkBox = CheckBox.create();
+        CheckBox checkBox = CheckBox.create()
+                .style()
+                .add("select-checkbox")
+                .get();
         if (nonNull(colorScheme)) {
             checkBox.setColor(colorScheme.color());
         }
-        Style.of(checkBox).css("select-checkbox");
         return checkBox;
     }
 

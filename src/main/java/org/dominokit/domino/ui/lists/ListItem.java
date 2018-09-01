@@ -10,7 +10,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 
-public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsElement<HTMLAnchorElement>, HasValue<ListItem<T>, T>
+public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> implements HasValue<ListItem<T>, T>
         , Selectable<ListItem<T>>, HasBackground<ListItem<T>>, Switchable<ListItem<T>> {
 
     private T value;
@@ -23,7 +23,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
         super(a().css("list-group-item").asElement());
         this.value = value;
         this.parent = parent;
-        getElement().addEventListener("click", e -> {
+        asElement().addEventListener("click", e -> {
             if (!disabled) {
                 if (isSelected()) {
                     deselect();
@@ -32,16 +32,13 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
                 }
             }
         });
+        init(this);
     }
 
     public static <T> ListItem<T> create(HasMultiSelectSupport<ListItem<T>> parent, T value) {
         return new ListItem<>(value, parent);
     }
 
-    @Override
-    public HTMLAnchorElement asElement() {
-        return getElement();
-    }
 
     @Override
     public ListItem<T> setValue(T value) {
@@ -97,7 +94,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
     public ListItem<T> disable() {
         if (!disabled) {
             deselect();
-            getElement().classList.add("disabled");
+            asElement().classList.add("disabled");
             this.disabled = true;
         }
 
@@ -107,7 +104,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
     @Override
     public ListItem<T> enable() {
         if (disabled) {
-            getElement().classList.remove("disabled");
+            style().remove("disabled");
             this.disabled = false;
         }
 
@@ -133,9 +130,10 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
     }
 
     private ListItem<T> setStyle(String itemStyle) {
-        if (nonNull(this.style))
-            getElement().classList.remove(this.style);
-        getElement().classList.add(itemStyle);
+        if (nonNull(this.style)) {
+            style().remove(this.style);
+        }
+        style().add(itemStyle);
         this.style = itemStyle;
         return this;
     }
@@ -205,9 +203,5 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement> implements IsEl
 
     void setParent(HasMultiSelectSupport<ListItem<T>> parent) {
         this.parent = parent;
-    }
-
-    public Style<HTMLAnchorElement, ListItem<T>> style() {
-        return Style.of(this);
     }
 }

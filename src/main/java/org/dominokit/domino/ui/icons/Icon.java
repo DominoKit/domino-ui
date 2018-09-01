@@ -12,7 +12,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.i;
 
-public class Icon implements IsElement<HTMLElement> {
+public class Icon extends DominoElement<HTMLElement, Icon> implements IsElement<HTMLElement> {
 
     private final HTMLElement icon;
     private String name;
@@ -56,9 +56,5 @@ public class Icon implements IsElement<HTMLElement> {
     @Override
     public HTMLElement asElement() {
         return icon;
-    }
-
-    public Style<HTMLElement, Icon> style(){
-        return Style.of(this);
     }
 }

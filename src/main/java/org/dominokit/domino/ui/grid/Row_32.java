@@ -172,7 +172,4 @@ public class Row_32 extends Row<Row_32> {
         return this;
     }
 
-    public Style<HTMLDivElement, Row_32> style() {
-        return Style.of(this);
-    }
 }

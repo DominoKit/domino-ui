@@ -13,7 +13,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
  * @deprecated use {@link org.dominokit.domino.ui.grid.Row}
  */
 @Deprecated
-public class Row extends DominoElement<Row> implements IsElement<HTMLDivElement> {
+public class Row extends DominoElement<HTMLDivElement, Row> implements IsElement<HTMLDivElement> {
 
     private HTMLDivElement row;
 

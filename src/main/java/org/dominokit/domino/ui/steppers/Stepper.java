@@ -5,6 +5,7 @@ import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.ul;
 
-public class Stepper implements IsElement<HTMLUListElement> {
+public class Stepper extends DominoElement<HTMLUListElement, Stepper> implements IsElement<HTMLUListElement> {
 
     private static Transition HORIZONTAL_NEXT_STEP_TRANSITION = Transition.SLIDE_IN_RIGHT;
     private static Transition HORIZONTAL_PREV_STEP_TRANSITION = Transition.SLIDE_IN_LEFT;
@@ -39,6 +40,8 @@ public class Stepper implements IsElement<HTMLUListElement> {
             HORIZONTAL_NEXT_STEP_TRANSITION = Transition.SLIDE_IN_RIGHT;
             HORIZONTAL_PREV_STEP_TRANSITION = Transition.SLIDE_IN_LEFT;
         });
+
+        init(this);
     }
 
     public static Stepper create() {
@@ -112,7 +115,7 @@ public class Stepper implements IsElement<HTMLUListElement> {
     }
 
     private boolean isHorizontal() {
-        return Style.of(this).hasClass("horizontal");
+        return Style.of(this).contains("horizontal");
     }
 
     public Stepper invalidate() {
@@ -165,24 +168,24 @@ public class Stepper implements IsElement<HTMLUListElement> {
     }
 
     public Stepper setHorizontal(boolean horizontal) {
-        Style.of(element).removeCss("horizontal");
+        style().remove("horizontal");
         if (horizontal) {
-            Style.of(element).css("horizontal");
+            style().add("horizontal");
         }
 
         return this;
     }
 
     public Stepper setMinHeight(String minHeight) {
-        Style.of(this).setMinHeight(minHeight);
+        style().setMinHeight(minHeight);
         return this;
     }
 
     public Stepper setColor(Color color) {
         if (nonNull(this.color)) {
-            Style.of(this).removeCss("stepper-" + this.color.getStyle());
+            style().remove("stepper-" + this.color.getStyle());
         }
-        Style.of(this).css("stepper-" + color.getStyle());
+        style().add("stepper-" + color.getStyle());
         this.color = color;
 
         return this;

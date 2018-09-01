@@ -5,6 +5,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.HasSelectSupport;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.dominokit.domino.ui.utils.TextUtil;
@@ -229,15 +230,15 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     }
 
     private void styleOtherMonth(DatePickerElement datePickerElement) {
-        datePickerElement.getElement().classList.remove("other-month");
-        datePickerElement.getElement().classList.remove("current-month");
-        datePickerElement.getElement().classList.add("other-month");
+        Style.of(datePickerElement.getElement())
+                .remove("other-month", "current-month")
+                .add("other-month");
     }
 
     private void styleCurrentMonth(DatePickerElement datePickerElement) {
-        datePickerElement.getElement().classList.remove("other-month");
-        datePickerElement.getElement().classList.remove("current-month");
-        datePickerElement.getElement().classList.add("current-month");
+        Style.of(datePickerElement.getElement())
+                .remove("other-month", "current-month")
+                .add("current-month");
     }
 
     public void addDaySelectionHandler(DaySelectionHandler daySelectionHandler) {

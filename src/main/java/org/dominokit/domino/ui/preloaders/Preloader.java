@@ -10,7 +10,7 @@ import org.jboss.gwt.elemento.template.Templated;
 import javax.annotation.PostConstruct;
 
 @Templated
-public abstract class Preloader extends DominoElement<Preloader> implements IsElement<HTMLDivElement>{
+public abstract class Preloader extends DominoElement<HTMLDivElement, Preloader> implements IsElement<HTMLDivElement>{
 
     @DataElement
     HTMLDivElement spinnerLayer;
@@ -28,9 +28,9 @@ public abstract class Preloader extends DominoElement<Preloader> implements IsEl
     }
 
     public Preloader setSize(Size size){
-        asElement().classList.remove(this.size.style);
+        style().remove(this.size.style);
         this.size=size;
-        asElement().classList.add(this.size.style);
+        style().add(this.size.style);
         return this;
     }
 

@@ -22,7 +22,7 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
         if (column.isSortable()) {
             SortContainer sortContainer = new SortContainer(column.getName());
 
-            Style.of(column.getHeadElement()).css(Styles.cursor_pointer, Styles.disable_selection);
+            Style.of(column.getHeadElement()).add(Styles.cursor_pointer, Styles.disable_selection);
             column.contextMenu.appendChild(sortContainer.sortElement);
             Style.of(column.contextMenu).setDisplay("block");
             column.getHeadElement().addEventListener(EventType.click.getName(), evt -> {
@@ -45,7 +45,7 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
     private class SortContainer {
         private final String columnName;
         private SortDirection sortDirection = SortDirection.DESC;
-        private HTMLElement directionElement = Style.of(ElementUtil.contentBuilder(Icons.ALL.arrow_upward().asElement()).textContent("import_export")).css(Styles.font_15).asElement();
+        private HTMLElement directionElement = Style.of(ElementUtil.contentBuilder(Icons.ALL.arrow_upward().asElement()).textContent("import_export")).add(Styles.font_15).asElement();
         private HTMLElement sortElement = span().css(Styles.pull_right).add(directionElement)
                 .style("min-width: 15px;")
                 .asElement();

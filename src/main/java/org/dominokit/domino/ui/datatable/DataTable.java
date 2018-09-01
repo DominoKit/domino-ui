@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class DataTable<T> extends DominoElement<DataTable<T>> implements IsElement<HTMLDivElement>, HasMultiSelectSupport<TableRow<T>> {
+public class DataTable<T> extends DominoElement<HTMLDivElement, DataTable<T>> implements IsElement<HTMLDivElement>, HasMultiSelectSupport<TableRow<T>> {
 
     public static final String ANY = "*";
     private final DataStore<T> dataStore;
@@ -78,10 +78,10 @@ public class DataTable<T> extends DominoElement<DataTable<T>> implements IsEleme
                     .setProperty("overflow-y", "hidden");
             Style.of(thead).setDisplay("block");
             Style.of(tbody)
-                    .css("tbody-fixed")
+                    .add("tbody-fixed")
                     .setMaxHeight(tableConfig.getFixedBodyHeight());
         }
-        init(this);
+        super.init(this);
         return this;
     }
 
@@ -175,16 +175,16 @@ public class DataTable<T> extends DominoElement<DataTable<T>> implements IsEleme
         return this;
     }
 
-    public HTMLTableElement tableElement() {
-        return tableElement;
+    public DominoElement<HTMLTableElement,IsElement<HTMLTableElement>> tableElement() {
+        return DominoElement.of(tableElement);
     }
 
-    public HTMLTableSectionElement bodyElement() {
-        return tbody;
+    public DominoElement<HTMLTableSectionElement,IsElement<HTMLTableSectionElement>> bodyElement() {
+        return DominoElement.of(tbody);
     }
 
-    public HTMLTableSectionElement headerElement() {
-        return thead;
+    public DominoElement<HTMLTableSectionElement,IsElement<HTMLTableSectionElement>> headerElement() {
+        return DominoElement.of(thead);
     }
 
     public TableConfig<T> getTableConfig() {

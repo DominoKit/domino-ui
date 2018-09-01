@@ -7,7 +7,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class Progress extends DominoElement<Progress> implements IsElement<HTMLDivElement>{
+public class Progress extends DominoElement<HTMLDivElement, Progress> implements IsElement<HTMLDivElement>{
 
     private HTMLDivElement element=div().css("progress").asElement();
 
@@ -29,7 +29,4 @@ public class Progress extends DominoElement<Progress> implements IsElement<HTMLD
         return element;
     }
 
-    public Style<HTMLDivElement, Progress> style(){
-        return Style.of(this);
-    }
 }

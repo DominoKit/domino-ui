@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.datatable.events;
 
-import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.pagination.HasPagination;
 
 public class TablePageChangeEvent implements TableEvent {

@@ -11,7 +11,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Radio extends DominoElement<Radio> implements IsElement<HTMLDivElement>, HasName<Radio>, HasValue<Radio, String>, HasLabel<Radio>,
+public class Radio extends DominoElement<HTMLDivElement, Radio> implements IsElement<HTMLDivElement>, HasName<Radio>, HasValue<Radio, String>, HasLabel<Radio>,
         Switchable<Radio>, Checkable<Radio> {
 
     private HTMLDivElement container = Elements.div().css("form-group").asElement();

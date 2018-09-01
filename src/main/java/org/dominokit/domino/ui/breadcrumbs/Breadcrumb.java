@@ -88,7 +88,7 @@ public class Breadcrumb extends DominoElement<HTMLOListElement, Breadcrumb> impl
         items.add(item);
         setActiveItem(item);
         element.appendChild(item.asElement());
-        item.getClickableElement().addEventListener("click", e -> setActiveItem(item));
+        item.getClickableElement().addClickListener( e -> setActiveItem(item));
     }
 
     private Breadcrumb setActiveItem(BreadcrumbItem item) {

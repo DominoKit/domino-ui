@@ -10,7 +10,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.p;
 
-public class Paragraph extends DominoElement<Paragraph> implements IsElement<HTMLParagraphElement>{
+public class Paragraph extends DominoElement<HTMLParagraphElement, Paragraph> implements IsElement<HTMLParagraphElement>{
 
     private HTMLParagraphElement element=p().asElement();
     private Color colorStyle;

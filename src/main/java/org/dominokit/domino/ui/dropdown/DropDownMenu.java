@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.dropdown;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -12,7 +13,7 @@ import java.util.List;
 
 import static elemental2.dom.DomGlobal.document;
 
-public class DropDownMenu implements IsElement<HTMLUListElement> {
+public class DropDownMenu extends DominoElement<HTMLUListElement, DropDownMenu> implements IsElement<HTMLUListElement> {
 
     private HTMLUListElement element = Elements.ul().css("dropdown-menu").asElement();
     private HTMLElement targetElement;

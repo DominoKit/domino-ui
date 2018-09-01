@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import elemental2.dom.*;
-import org.dominokit.domino.ui.button.IconButton;
+import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.forms.Select;
@@ -22,8 +22,6 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
-
-
     private Column titleColumn = Column.span6();
     private Column actionsBarColumn = Column.span6();
 
@@ -31,8 +29,8 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     private HTMLUListElement actionsBar = Style.of(ul().style("list-style: none;")).setMarginBottom("0px").asElement();
     private HTMLDivElement element = div()
             .add(Row.create()
-                    .addColumn(titleColumn.appendChild(title))
-                    .addColumn(actionsBarColumn.appendChild(actionsBar))
+                    .appendChild(titleColumn.appendChild(title))
+                    .appendChild(actionsBarColumn.appendChild(actionsBar))
                     .asElement())
             .css("header")
             .style("padding-bottom: 5px;")
@@ -68,15 +66,17 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     public static class CondenseTableAction<T> implements HeaderActionElement<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
-            IconButton condenseButton = IconButton.create(Icons.ALL.line_weight())
-                    .linkify();
-
-            Tooltip tooltip = Tooltip.create(condenseButton.asElement(), new Text("Condense"));
-            Style.of(condenseButton)
+            Button condenseButton = Button.create(Icons.ALL.line_weight())
+                    .linkify()
+                    .style()
                     .setProperty("padding", "0px")
                     .setHeight("26px")
                     .setColor("black", true)
-                    .css(Styles.pull_right, Styles.m_r_15);
+                    .add(Styles.pull_right, Styles.m_r_15)
+                    .get();
+
+            Tooltip tooltip = Tooltip.create(condenseButton, new Text("Condense"));
+
             condenseButton.addClickListener(evt -> {
                 if (dataTable.isCondensed()) {
                     dataTable.expand();
@@ -96,14 +96,15 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     public static class StripesTableAction<T> implements HeaderActionElement<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
-            IconButton strippedButton = IconButton.create(Icons.ALL.power_input())
-                    .linkify();
-            Tooltip tooltip = Tooltip.create(strippedButton.asElement(), new Text("No Stripes"));
-            Style.of(strippedButton)
+            Button strippedButton = Button.create(Icons.ALL.power_input())
+                    .linkify()
+                    .style()
                     .setProperty("padding", "0px")
                     .setHeight("26px")
                     .setColor("black", true)
-                    .css(Styles.pull_right, Styles.m_r_15);
+                    .add(Styles.pull_right, Styles.m_r_15)
+                    .get();
+            Tooltip tooltip = Tooltip.create(strippedButton.asElement(), new Text("No Stripes"));
             strippedButton.addClickListener(evt -> {
                 if (dataTable.isStriped()) {
                     dataTable.noStripes();
@@ -123,14 +124,16 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     public static class BordersTableAction<T> implements HeaderActionElement<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
-            IconButton borderedButton = IconButton.create(Icons.ALL.border_vertical())
-                    .linkify();
-            Tooltip tooltip = Tooltip.create(borderedButton.asElement(), new Text("Bordered"));
-            Style.of(borderedButton)
+            Button borderedButton = Button.create(Icons.ALL.border_vertical())
+                    .linkify()
+                    .style()
                     .setProperty("padding", "0px")
                     .setHeight("26px")
                     .setColor("black", true)
-                    .css(Styles.pull_right, Styles.m_r_15);
+                    .add(Styles.pull_right, Styles.m_r_15)
+                    .get();
+            Tooltip tooltip = Tooltip.create(borderedButton.asElement(), new Text("Bordered"));
+
             borderedButton.addClickListener(evt -> {
                 if (dataTable.isBordered()) {
                     dataTable.noBorder();
@@ -150,14 +153,15 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     public static class HoverTableAction<T> implements HeaderActionElement<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
-            IconButton hoverButton = IconButton.create(Icons.ALL.blur_off())
-                    .linkify();
-            Tooltip tooltip = Tooltip.create(hoverButton.asElement(), new Text("No Hover"));
-            Style.of(hoverButton)
+            Button hoverButton = Button.create(Icons.ALL.blur_off())
+                    .linkify()
+                    .style()
                     .setProperty("padding", "0px")
                     .setHeight("26px")
                     .setColor("black", true)
-                    .css(Styles.pull_right, Styles.m_r_15);
+                    .add(Styles.pull_right, Styles.m_r_15)
+                    .get();
+            Tooltip tooltip = Tooltip.create(hoverButton.asElement(), new Text("No Hover"));
             hoverButton.addClickListener(evt -> {
                 if (dataTable.isHoverable()) {
                     dataTable.noHover();
@@ -176,28 +180,29 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
     public static class SearchTableAction<T> implements HeaderActionElement<T> {
 
-        private HTMLDivElement element=div().css("search-new").asElement();
+        private HTMLDivElement element = div().css("search-new").asElement();
         private DataTable<T> dataTable;
         private final Select<String> select;
 
         public SearchTableAction() {
 
-            select = Select.create();
+            select = Select.<String>create()
+                    .style()
+                    .setMarginBottom("0px")
+                    .setMaxWidth("300px")
+                    .add(Styles.pull_right)
+                    .get();
 
             TextBox textBox = TextBox.create()
                     .setPlaceholder("Search")
-                    .setLeftAddon(Icons.ALL.search().asElement());
-            Style.of(textBox)
+                    .setLeftAddon(Icons.ALL.search().asElement())
+                    .style()
                     .setMarginBottom("0px")
                     .setMaxWidth("300px")
-                    .css(Styles.pull_right);
+                    .add(Styles.pull_right)
+                    .get();
 
-            Style.of(select)
-                    .setMarginBottom("0px")
-                    .setMaxWidth("300px")
-                    .css(Styles.pull_right);
-
-            Style.of(select.getSelectElement()).setHeight("38px");
+            select.getSelectElement().style().setHeight("38px");
 
             element.appendChild(textBox.asElement());
             element.appendChild(select.asElement());
@@ -207,14 +212,14 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
             });
         }
 
-        public SearchTableAction<T> addSearchField(SelectOption<String> selectOption){
+        public SearchTableAction<T> addSearchField(SelectOption<String> selectOption) {
             return addSearchField(selectOption, false);
         }
 
-        public SearchTableAction<T> addSearchField(SelectOption<String> selectOption, boolean defaultSelection){
-            if(nonNull(selectOption)) {
+        public SearchTableAction<T> addSearchField(SelectOption<String> selectOption, boolean defaultSelection) {
+            if (nonNull(selectOption)) {
                 select.addOption(selectOption);
-                if(defaultSelection){
+                if (defaultSelection) {
                     select.select(selectOption);
                 }
             }
@@ -223,10 +228,8 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
         @Override
         public Node asElement(DataTable<T> dataTable) {
-            this.dataTable=dataTable;
+            this.dataTable = dataTable;
             return element;
         }
     }
-
-
 }

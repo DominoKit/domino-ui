@@ -10,6 +10,7 @@ import org.dominokit.domino.ui.progress.Progress;
 import org.dominokit.domino.ui.progress.ProgressBar;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.thumbnails.Thumbnail;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -18,7 +19,7 @@ import java.util.List;
 
 import static org.jboss.gwt.elemento.core.Elements.h;
 
-public class FileItem implements IsElement<HTMLDivElement> {
+public class FileItem extends DominoElement<HTMLDivElement, FileItem> implements IsElement<HTMLDivElement> {
     private static final String[] UNITS = {"KB", "MB", "GB", "TB"};
     private static final String ELLIPSIS_TEXT = "ellipsis-text";
 
@@ -65,8 +66,11 @@ public class FileItem implements IsElement<HTMLDivElement> {
         initProgress();
         initThumbnail();
 
-        if (isExceedsMaxFile())
+        if (isExceedsMaxFile()) {
             invalidate("File is too large, maximum file size is " + formatSize(options.getMaxFileSize()));
+        }
+        init(this);
+
     }
 
     private void initFileImage() {
@@ -139,15 +143,15 @@ public class FileItem implements IsElement<HTMLDivElement> {
 
     private void initThumbnail() {
         thumbnail.asElement().appendChild(fileImage.asElement());
-        thumbnail.appendCaptionContent(fileNameTitleContainer);
-        thumbnail.appendCaptionContent(fileSizeParagraph);
-        thumbnail.appendCaptionContent(footerContainer);
-        thumbnail.appendCaptionContent(progressElement);
-        thumbnail.getContentElement().style.cssText = "cursor: default !important";
-        thumbnail.getContentElement().style.padding = CSSProperties.PaddingUnionType.of("5px");
+        thumbnail.appendCaptionChild(fileNameTitleContainer);
+        thumbnail.appendCaptionChild(fileSizeParagraph);
+        thumbnail.appendCaptionChild(footerContainer);
+        thumbnail.appendCaptionChild(progressElement);
+        thumbnail.getContentElement().style()
+                .cssText("cursor: default !important")
+                .setPadding("5px");
         thumbnail.getContentElement().remove();
     }
-
 
     @Override
     public HTMLDivElement asElement() {
@@ -334,37 +338,39 @@ public class FileItem implements IsElement<HTMLDivElement> {
         progressBar.setBackground(background);
     }
 
-    public void remove() {
-        asElement().remove();
+    @Override
+    public DominoElement<HTMLDivElement, FileItem> remove() {
+        super.remove();
         removeHandlers.forEach(handler -> handler.onRemoveFile(file));
+        return this;
     }
 
     public FileImage getFileImage() {
         return fileImage;
     }
 
-    public HTMLParagraphElement getFileSizeParagraph() {
-        return fileSizeParagraph;
+    public DominoElement<HTMLParagraphElement, IsElement<HTMLParagraphElement>> getFileSizeParagraph() {
+        return DominoElement.of(fileSizeParagraph);
     }
 
-    public HTMLHeadingElement getFileNameTitleContainer() {
-        return fileNameTitleContainer;
+    public DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getFileNameTitleContainer() {
+        return DominoElement.of(fileNameTitleContainer);
     }
 
-    public HTMLDivElement getFooterContainer() {
-        return footerContainer;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFooterContainer() {
+        return DominoElement.of(footerContainer);
     }
 
-    public HTMLElement getDeleteIcon() {
-        return deleteIcon;
+    public DominoElement<HTMLElement, IsElement<HTMLElement>> getDeleteIcon() {
+        return DominoElement.of(deleteIcon);
     }
 
-    public HTMLElement getMessageContainer() {
-        return messageContainer;
+    public DominoElement<HTMLElement, IsElement<HTMLElement>> getMessageContainer() {
+        return DominoElement.of(messageContainer);
     }
 
-    public HTMLDivElement getProgressElement() {
-        return progressElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getProgressElement() {
+        return DominoElement.of(progressElement);
     }
 
     public ProgressBar getProgressBar() {
@@ -414,8 +420,8 @@ public class FileItem implements IsElement<HTMLDivElement> {
         return this;
     }
 
-    public HTMLElement getCancelIcon() {
-        return cancelIcon;
+    public DominoElement<HTMLElement, IsElement<HTMLElement>> getCancelIcon() {
+        return DominoElement.of(cancelIcon);
     }
 
     public List<CancelHandler> getCancelHandlers() {

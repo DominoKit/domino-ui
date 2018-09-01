@@ -7,6 +7,7 @@ import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -14,7 +15,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
-public class Step implements IsElement<HTMLLIElement> {
+public class Step extends DominoElement<HTMLLIElement, Step> implements IsElement<HTMLLIElement> {
 
     private final HTMLLIElement element = li().css("step").asElement();
     private final HTMLDivElement contentElement = div().css("step-content").asElement();
@@ -51,6 +52,8 @@ public class Step implements IsElement<HTMLLIElement> {
                 collapsible.expand();
             }
         });
+
+        init(this);
     }
 
     public static Step create(String title) {
@@ -81,7 +84,7 @@ public class Step implements IsElement<HTMLLIElement> {
 
     Step activate(Transition transition) {
         clearInvalid();
-        Style.of(element).css("active");
+        Style.of(element).add("active");
         collapsible.expand();
         this.expanded = true;
         Animation.create(contentElement)
@@ -93,7 +96,7 @@ public class Step implements IsElement<HTMLLIElement> {
 
     Step deActivate() {
         clearInvalid();
-        Style.of(element).removeCss("active");
+        Style.of(element).remove("active");
         collapsible.collapse();
         this.expanded = false;
         return this;
@@ -111,24 +114,24 @@ public class Step implements IsElement<HTMLLIElement> {
     }
 
     public void setDone(boolean done) {
-        Style.of(element).removeCss("done");
+        style().remove("done");
         if (done) {
-            Style.of(element).css("done");
+            style().add("done");
         }
     }
 
     public void invalidate() {
-        if (!Style.of(element).hasClass("wrong")) {
-            Style.of(element).css("wrong");
+        if (!style().contains("wrong")) {
+            style().add("wrong");
         }
     }
 
     public void clearInvalid() {
-        Style.of(element).removeCss("wrong");
+        style().remove("wrong");
     }
 
-    public HTMLDivElement getStepBody() {
-        return bodyElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getStepBody() {
+        return DominoElement.of(bodyElement);
     }
 
     public boolean isValid() {
@@ -142,16 +145,16 @@ public class Step implements IsElement<HTMLLIElement> {
         return this;
     }
 
-    public HTMLDivElement getStepHeader() {
-        return stepHeader;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getStepHeader() {
+        return DominoElement.of(stepHeader);
     }
 
-    public HTMLDivElement getContentElement() {
-        return contentElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentElement() {
+        return DominoElement.of(contentElement);
     }
 
     public boolean isActive(){
-        return Style.of(element).hasClass("active");
+        return Style.of(element).contains("active");
     }
 
     @Override

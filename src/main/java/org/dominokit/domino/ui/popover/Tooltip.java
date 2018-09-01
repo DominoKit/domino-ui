@@ -4,6 +4,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import elemental2.dom.Text;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
@@ -14,7 +15,7 @@ import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
 import static org.jboss.gwt.elemento.core.Elements.*;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class Tooltip implements IsElement<HTMLDivElement> {
+public class Tooltip extends DominoElement<HTMLDivElement, Tooltip> implements IsElement<HTMLDivElement> {
 
     private HTMLDivElement element = div().css("tooltip").attr("role", "tooltip").asElement();
     private HTMLDivElement arrowElement = div().css("tooltip-arrow").asElement();
@@ -44,6 +45,8 @@ public class Tooltip implements IsElement<HTMLDivElement> {
         ElementUtil.onDetach(targetElement, mutationRecord -> element.remove());
 
         targetElement.addEventListener(EventType.mouseleave.getName(), evt1 -> element.remove());
+
+        init(this);
 
     }
 
@@ -76,12 +79,12 @@ public class Tooltip implements IsElement<HTMLDivElement> {
         return element;
     }
 
-    public HTMLDivElement getArrowElement() {
-        return arrowElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getArrowElement() {
+        return DominoElement.of(arrowElement);
     }
 
-    public HTMLDivElement getInnerElement() {
-        return innerElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getInnerElement() {
+        return DominoElement.of(innerElement);
     }
 
     public PopupPosition getPopupPosition() {

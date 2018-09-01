@@ -22,7 +22,7 @@ import java.util.Objects;
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 
-public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModalDialog<T>, Switchable<T> {
+public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends DominoElement<HTMLDivElement, T> implements IsElement<HTMLDivElement>, IsModalDialog<T>, Switchable<T> {
     private static HTMLDivElement MODAL_BACKDROP = Elements.div().css("modal-backdrop fade in").asElement();
     private List<OpenHandler> openHandlers = new ArrayList<>();
     private List<CloseHandler> closeHandlers = new ArrayList<>();
@@ -52,28 +52,28 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
             return new Templated_BaseModal_Modal();
         }
 
-        public HTMLHeadingElement getModalTitle() {
-            return modalTitle;
+        public DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getModalTitle() {
+            return DominoElement.of(modalTitle);
         }
 
-        public HTMLDivElement getModalBody() {
-            return modalBody;
+        public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getModalBody() {
+            return DominoElement.of(modalBody);
         }
 
-        public HTMLDivElement getModalDialog() {
-            return modalDialog;
+        public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getModalDialog() {
+            return DominoElement.of(modalDialog);
         }
 
-        public HTMLDivElement getModalContent() {
-            return modalContent;
+        public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getModalContent() {
+            return DominoElement.of(modalContent);
         }
 
-        public HTMLDivElement getModalFooter() {
-            return modalFooter;
+        public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getModalFooter() {
+            return DominoElement.of(modalFooter);
         }
 
-        public HTMLDivElement getModalHeader() {
-            return modalHeader;
+        public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getModalHeader() {
+            return DominoElement.of(modalHeader);
         }
     }
 
@@ -96,9 +96,9 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
 
     public BaseModal() {
         modal = Modal.create();
-        modal.modalTitle.style.display = "none";
-        modal.modalTitle.appendChild(headerText);
-        modal.modalDialog.addEventListener("click", Event::stopPropagation);
+        modal.getModalTitle().style().setDisplay("none");
+        modal.getModalTitle().appendChild(headerText);
+        modal.getModalDialog().addEventListener("click", Event::stopPropagation);
         addCloseHandler();
 
         addTabIndexHandler();
@@ -216,18 +216,20 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     }
 
     public T setSize(ModalSize size){
-        if (nonNull(modalSize))
-            modal.modalDialog.classList.remove(modalSize.style);
-        modal.modalDialog.classList.add(size.style);
+        if (nonNull(modalSize)) {
+            modal.getModalDialog().style().remove(modalSize.style);
+        }
+        modal.getModalDialog().style().add(size.style);
         this.modalSize = size;
         return (T) this;
     }
 
     @Override
     public T setModalColor(Color color) {
-        if (nonNull(this.color))
-            modal.modalContent.classList.remove(this.color.getStyle());
-        modal.modalContent.classList.add(color.getStyle());
+        if (nonNull(this.color)) {
+            modal.getModalContent().style().remove(this.color.getStyle());
+        }
+        modal.getModalContent().style().add(color.getStyle());
         this.color = color;
         return (T) this;
     }
@@ -276,8 +278,8 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
             activeElementBeforeOpen = MyDom.document.activeElement;
             MODAL_BACKDROP.remove();
             document.body.appendChild(MODAL_BACKDROP);
-            asElement().classList.add("in");
-            asElement().style.display = "block";
+            style().add("in");
+            style().setDisplay("block");
             if (nonNull(firstFocusElement)) {
                 firstFocusElement.focus();
                 if(!Objects.equals(MyDom.document.activeElement, firstFocusElement)){
@@ -331,25 +333,25 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
 
     @Override
     public T hideFooter() {
-        modal.modalFooter.style.display = "none";
+        modal.getModalFooter().style().setDisplay("none");
         return (T) this;
     }
 
     @Override
     public T showFooter() {
-        modal.modalFooter.style.display = "block";
+        modal.getModalFooter().style().setDisplay("block");
         return (T) this;
     }
 
     @Override
     public T hideHeader() {
-        modal.modalTitle.style.display = "none";
+        modal.getModalTitle().style().setDisplay("none");
         return (T) this;
     }
 
     @Override
     public T showHeader() {
-        modal.modalTitle.style.display = "block";
+        modal.getModalTitle().style().setDisplay("block");
         return (T) this;
     }
 
@@ -357,39 +359,39 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
     public T setTitle(String title) {
         showHeader();
         headerText.textContent = title;
-        ElementUtil.clear(getHeaderElement());
+        getHeaderElement().clearElement();
         getHeaderElement().appendChild(headerText);
         return (T) this;
     }
 
     @Override
-    public HTMLDivElement getDialogElement() {
-        return modal.modalDialog;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getDialogElement() {
+        return DominoElement.of(modal.modalDialog);
     }
 
     @Override
-    public HTMLDivElement getContentElement() {
-        return modal.modalContent;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentElement() {
+        return DominoElement.of(modal.modalContent);
     }
 
     @Override
-    public HTMLHeadingElement getHeaderElement() {
-        return modal.modalTitle;
+    public DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getHeaderElement() {
+        return DominoElement.of(modal.modalTitle);
     }
 
     @Override
-    public HTMLDivElement getHeaderContainerElement() {
-        return modal.modalHeader;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getHeaderContainerElement() {
+        return DominoElement.of(modal.modalHeader);
     }
 
     @Override
-    public HTMLDivElement getBodyElement() {
-        return modal.modalBody;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getBodyElement() {
+        return DominoElement.of(modal.modalBody);
     }
 
     @Override
-    public HTMLDivElement getFooterElement() {
-        return modal.modalFooter;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFooterElement() {
+        return DominoElement.of(modal.modalFooter);
     }
 
     @Override
@@ -450,13 +452,13 @@ public abstract class BaseModal<T> implements IsElement<HTMLDivElement>, IsModal
 
     @Override
     public T centerVertically(){
-        Style.of(modal.modalDialog).css(Styles.vertical_center);
+        Style.of(modal.modalDialog).add(Styles.vertical_center);
         return (T) this;
     }
 
     @Override
     public T deCenterVertically(){
-        Style.of(modal.modalDialog).removeCss(Styles.vertical_center);
+        Style.of(modal.modalDialog).remove(Styles.vertical_center);
         return (T) this;
     }
 
