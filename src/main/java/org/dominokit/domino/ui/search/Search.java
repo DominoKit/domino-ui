@@ -6,6 +6,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.gwt.elemento.core.EventType;
@@ -13,9 +14,17 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Search implements IsElement<HTMLDivElement> {
-    private final HTMLElement closeIcon = i().css("material-icons").textContent("close").asElement();
-    private final HTMLInputElement searchInput = input("text").attr("placeholder", "START TYPING...").asElement();
+public class Search extends DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> implements IsElement<HTMLDivElement> {
+
+    private final HTMLElement closeIcon = i()
+            .css("material-icons")
+            .textContent("close")
+            .asElement();
+
+    private final HTMLInputElement searchInput = input("text")
+            .attr("placeholder", "START TYPING...")
+            .asElement();
+
     private HTMLDivElement element = div()
             .css("search-bar")
             .add(div().css("search-icon")
@@ -60,6 +69,8 @@ public class Search implements IsElement<HTMLDivElement> {
             }
         });
 
+        init(this);
+
     }
 
     public static Search create() {
@@ -71,9 +82,9 @@ public class Search implements IsElement<HTMLDivElement> {
     }
 
     public Search open() {
-        Style.of(element).setDisplay("inline-block");
+        style().setDisplay("inline-block");
         Scheduler.get().scheduleFixedDelay(() -> {
-            Style.of(element).css("open");
+            style().add("open");
             return false;
         }, 50);
 
@@ -82,11 +93,9 @@ public class Search implements IsElement<HTMLDivElement> {
     }
 
     public Search close() {
-        Style.of(element)
-                .removeCss("open");
+        style().remove("open");
         Scheduler.get().scheduleFixedDelay(() -> {
-            Style.of(element)
-                    .setDisplay("none");
+            style().setDisplay("none");
             return false;
         }, 50);
 

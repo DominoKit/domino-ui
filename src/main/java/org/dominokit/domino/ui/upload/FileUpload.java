@@ -13,7 +13,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileUpload extends DominoElement<FileUpload> implements IsElement<HTMLDivElement>, HasName<FileUpload> {
+public class FileUpload extends DominoElement<HTMLDivElement, FileUpload> implements IsElement<HTMLDivElement>, HasName<FileUpload> {
 
     private Row row = Row.create();
     private Column column = Column.span(2,2,4,6,12);
@@ -104,7 +104,7 @@ public class FileUpload extends DominoElement<FileUpload> implements IsElement<H
         }
 
         addedFileItems.add(fileItem);
-        row.addColumn(previewColumn);
+        row.appendChild(previewColumn);
         onAddFileHandlers.forEach(handler -> handler.onAddFile(fileItem));
     }
 
@@ -188,24 +188,24 @@ public class FileUpload extends DominoElement<FileUpload> implements IsElement<H
         return column;
     }
 
-    public HTMLDivElement getFormElement() {
-        return formElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFormElement() {
+        return DominoElement.of(formElement);
     }
 
-    public HTMLDivElement getUploadMessageContainer() {
-        return uploadMessageContainer;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getUploadMessageContainer() {
+        return DominoElement.of(uploadMessageContainer);
     }
 
-    public HTMLDivElement getUploadIconContainer() {
-        return uploadIconContainer;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getUploadIconContainer() {
+        return DominoElement.of(uploadIconContainer);
     }
 
-    public HTMLInputElement getHiddenFileInput() {
-        return hiddenFileInput;
+    public DominoElement<HTMLInputElement, IsElement<HTMLInputElement>> getHiddenFileInput() {
+        return DominoElement.of(hiddenFileInput);
     }
 
-    public HTMLDivElement getFilesContainer() {
-        return filesContainer;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFilesContainer() {
+        return DominoElement.of(filesContainer);
     }
 
     public List<FileItem> getAddedFileItems() {

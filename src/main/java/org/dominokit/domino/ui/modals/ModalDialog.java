@@ -7,9 +7,12 @@ public class ModalDialog extends BaseModal<ModalDialog>{
 
     public ModalDialog(String title) {
         super(title);
+        init(this);
+
     }
 
     public ModalDialog() {
+        init(this);
     }
 
     public static ModalDialog create(String title) {
@@ -24,12 +27,12 @@ public class ModalDialog extends BaseModal<ModalDialog>{
         ModalDialog modal = ModalDialog.create(title)
                 .small()
                 .setAutoClose(true)
-                .appendContent(content);
-        modal.getHeaderContainerElement().style.display="none";
-        modal.getBodyElement().style.setProperty("padding", "0px", "important");
-        modal.getContentElement().style.setProperty("width","275px");
-        modal.getDialogElement().style.setProperty("width","275px");
-        modal.getFooterElement().style.setProperty("padding", "0px", "important");
+                .appendChild(content);
+        modal.getHeaderContainerElement().style().setDisplay("none");
+        modal.getBodyElement().style().setPadding("0px", true);
+        modal.getContentElement().style().setWidth("275px");
+        modal.getDialogElement().style().setWidth("275px");
+        modal.getFooterElement().style().setPadding("0px", true);
 
         return modal;
     }

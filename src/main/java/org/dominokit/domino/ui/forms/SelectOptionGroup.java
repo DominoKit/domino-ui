@@ -4,6 +4,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
 import elemental2.dom.Text;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 
 import static org.jboss.gwt.elemento.core.Elements.li;
 
-public class SelectOptionGroup<T> implements IsElement<HTMLLIElement> {
+public class SelectOptionGroup<T> extends DominoElement<HTMLLIElement, SelectOptionGroup<T>> implements IsElement<HTMLLIElement> {
 
     private HTMLLIElement element = li().css("dropdown-header").asElement();
     private List<SelectOption<T>> options = new ArrayList<>();
@@ -22,6 +23,7 @@ public class SelectOptionGroup<T> implements IsElement<HTMLLIElement> {
             evt.stopPropagation();
         });
         element.appendChild(titleElement);
+        init(this);
     }
 
     public static <T> SelectOptionGroup<T> create(String title) {
@@ -40,8 +42,18 @@ public class SelectOptionGroup<T> implements IsElement<HTMLLIElement> {
         return create(titleElement.asElement());
     }
 
+    /**
+     * @deprecated use {@link #appendChild(SelectOption)}
+     * @param option
+     * @return
+     */
+    @Deprecated
     public SelectOptionGroup<T> addOption(SelectOption<T> option) {
-        option.getLinkElement().classList.add("opt");
+        return appendChild(option);
+    }
+
+    public SelectOptionGroup<T> appendChild(SelectOption<T> option) {
+        option.getLinkElement().style().add("opt");
         options.add(option);
         return this;
     }
@@ -56,15 +68,15 @@ public class SelectOptionGroup<T> implements IsElement<HTMLLIElement> {
     }
 
     boolean isAllHidden() {
-        return options.stream().allMatch(option -> option.asElement().classList.contains("hidden"));
+        return options.stream().allMatch(option -> option.style().contains("hidden"));
     }
 
     void hide() {
-        asElement().classList.add("hidden");
+        style().add("hidden");
     }
 
     void show() {
-        asElement().classList.remove("hidden");
+        style().remove("hidden");
     }
 
     void addOptionsTo(Select<T> select) {

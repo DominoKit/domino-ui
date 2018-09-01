@@ -5,6 +5,7 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLOListElement;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 import org.gwtproject.timer.client.Timer;
@@ -15,7 +16,7 @@ import java.util.List;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Carousel implements IsElement<HTMLDivElement> {
+public class Carousel extends DominoElement<HTMLDivElement, Carousel> implements IsElement<HTMLDivElement> {
 
     private HTMLOListElement indicatorsElement = ol().css("carousel-indicators").asElement();
     private HTMLDivElement slidesElement = div().css("carousel-inner").asElement();
@@ -77,6 +78,8 @@ public class Carousel implements IsElement<HTMLDivElement> {
         addAttachListener();
 
         addDetachListener();
+
+        init(this);
     }
 
     private void resetTimer() {
@@ -106,8 +109,19 @@ public class Carousel implements IsElement<HTMLDivElement> {
         return new Carousel();
     }
 
+    /**
+     * @deprecated use {@link #appendChild(Slide)}
+     * @param slide
+     * @return
+     */
+    @Deprecated
     public Carousel addSlide(Slide slide) {
-        indicatorsElement.appendChild(slide.getIndicatorElement());
+        return appendChild(slide);
+    }
+
+
+    public Carousel appendChild(Slide slide) {
+        getIndicatorsElement().appendChild(slide.getIndicatorElement().asElement());
         slidesElement.appendChild(slide.asElement());
         slide.getIndicatorElement().addEventListener("click", evt -> {
             resetTimer();
@@ -162,14 +176,14 @@ public class Carousel implements IsElement<HTMLDivElement> {
     private void gotToSlide(Slide slide, String source) {
         if (!slide.hasActiveStyle()) {
             this.targetSlide = slide;
-            Style.of(slide.getIndicatorElement()).css("active");
-            Style.of(activeSlide.getIndicatorElement()).removeCss("active");
-            Style.of(slide).css(getPostionStyle(slide, source));
+            Style.of(slide.getIndicatorElement()).add("active");
+            Style.of(activeSlide.getIndicatorElement()).remove("active");
+            Style.of(slide).add(getPostionStyle(slide, source));
             Scheduler.get().scheduleFixedDelay(() -> {
-                Style.of(activeSlide.getIndicatorElement()).removeCss("active");
+                Style.of(activeSlide.getIndicatorElement()).remove("active");
                 String directionStyle = getDirectionStyle(slide, source);
-                Style.of(slide).css(directionStyle);
-                Style.of(activeSlide).css(directionStyle);
+                Style.of(slide).add(directionStyle);
+                Style.of(activeSlide).add(directionStyle);
                 return false;
             }, 50);
 
@@ -194,16 +208,16 @@ public class Carousel implements IsElement<HTMLDivElement> {
 
     private void removeMotionStyles() {
         Style.of(activeSlide)
-                .removeCss("left")
-                .removeCss("right")
-                .removeCss("next")
-                .removeCss("prev");
+                .remove("left")
+                .remove("right")
+                .remove("next")
+                .remove("prev");
         activeSlide.deActivate();
         Style.of(targetSlide)
-                .removeCss("left")
-                .removeCss("right")
-                .removeCss("next")
-                .removeCss("prev");
+                .remove("left")
+                .remove("right")
+                .remove("next")
+                .remove("prev");
 
         targetSlide.activate();
         this.activeSlide = targetSlide;
@@ -231,5 +245,21 @@ public class Carousel implements IsElement<HTMLDivElement> {
     @Override
     public HTMLDivElement asElement() {
         return element;
+    }
+
+    public DominoElement<HTMLOListElement, IsElement<HTMLOListElement>> getIndicatorsElement() {
+        return DominoElement.of(indicatorsElement);
+    }
+
+    public DominoElement<HTMLDivElement,IsElement<HTMLDivElement>>  getSlidesElement() {
+        return DominoElement.of(slidesElement);
+    }
+
+    public List<Slide> getSlides() {
+        return slides;
+    }
+
+    public Slide getActiveSlide() {
+        return activeSlide;
     }
 }

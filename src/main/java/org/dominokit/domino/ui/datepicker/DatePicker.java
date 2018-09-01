@@ -13,6 +13,7 @@ import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.pickers.PickerHandler;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.WavesSupport;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.gwtproject.i18n.client.impl.cldr.DateTimeFormatInfo_factory;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
@@ -27,7 +28,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicker, Date>, DatePickerMonth.DaySelectionHandler {
+public class DatePicker extends DominoElement<HTMLDivElement, DatePicker> implements IsElement<HTMLDivElement>, HasValue<DatePicker, Date>, DatePickerMonth.DaySelectionHandler {
 
     private final JsDate jsDate;
     private HTMLDivElement element = div().css("calendar").asElement();
@@ -239,10 +240,10 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicke
 
 
         selectorsPanel.appendChild(row
-                .addColumn(backColumn.appendChild(navigateBefore))
-                .addColumn(yearColumn)
-                .addColumn(monthColumn)
-                .addColumn(forwardColumn.appendChild(navigateNext))
+                .appendChild(backColumn.appendChild(navigateBefore))
+                .appendChild(yearColumn)
+                .appendChild(monthColumn)
+                .appendChild(forwardColumn.appendChild(navigateNext))
                 .asElement());
     }
 
@@ -478,46 +479,46 @@ public class DatePicker implements IsElement<HTMLDivElement>, HasValue<DatePicke
         return this;
     }
 
-    public HTMLDivElement getHeaderPanel() {
-        return headerPanel;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getHeaderPanel() {
+        return DominoElement.of(headerPanel);
     }
 
-    public HTMLDivElement getSelectorsPanel() {
-        return selectorsPanel;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getSelectorsPanel() {
+        return DominoElement.of(selectorsPanel);
     }
 
-    public HTMLDivElement getFooterPanel() {
-        return footerPanel;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFooterPanel() {
+        return DominoElement.of(footerPanel);
     }
 
-    public HTMLDivElement getDayNamePanel() {
-        return dayName;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getDayNamePanel() {
+        return DominoElement.of(dayName);
     }
 
-    public HTMLDivElement getMonthNamePanel() {
-        return monthName;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getMonthNamePanel() {
+        return DominoElement.of(monthName);
     }
 
-    public HTMLDivElement getDateNumberPanel() {
-        return dateNumber;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getDateNumberPanel() {
+        return DominoElement.of(dateNumber);
     }
 
-    public HTMLDivElement getYearNumberPanel() {
-        return yearNumber;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getYearNumberPanel() {
+        return DominoElement.of(yearNumber);
     }
 
-    public HTMLAnchorElement getNavigateBefore() {
-        return navigateBefore;
+    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getNavigateBefore() {
+        return DominoElement.of(navigateBefore);
     }
 
-    public HTMLAnchorElement getNavigateNext() {
-        return navigateNext;
+    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getNavigateNext() {
+        return DominoElement.of(navigateNext);
     }
 
     DatePicker setBackgroundHandler(BackgroundHandler backgroundHandler) {
-        if (nonNull(backgroundHandler))
+        if (nonNull(backgroundHandler)) {
             this.backgroundHandler = backgroundHandler;
-
+        }
         return this;
     }
 

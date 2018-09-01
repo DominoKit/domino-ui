@@ -14,7 +14,7 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class Column extends DominoElement<Column> implements IsElement<HTMLDivElement>, Cloneable {
+public class Column extends DominoElement<HTMLDivElement, Column> implements IsElement<HTMLDivElement>, Cloneable {
 
     private HTMLDivElement column;
     private OnXLarge onXLargeStyle;
@@ -112,7 +112,7 @@ public class Column extends DominoElement<Column> implements IsElement<HTMLDivEl
             column.centerContent();
 
         for (int i = 0; i < cssClasses.size(); i++) {
-            style().css(cssClasses.get(i));
+            style().add(cssClasses.get(i));
         }
 
         return column;
@@ -145,7 +145,7 @@ public class Column extends DominoElement<Column> implements IsElement<HTMLDivEl
         return this;
     }
 
-    public Column appendChild(IsElement<? extends HTMLElement> element) {
+    public Column appendChild(IsElement element) {
         this.asElement().appendChild(element.asElement());
         return this;
     }

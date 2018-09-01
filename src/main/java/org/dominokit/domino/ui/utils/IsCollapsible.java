@@ -9,7 +9,7 @@ public interface IsCollapsible<T> {
 
     T expand(int duration);
 
-    T toggle();
+    T toggleDisplay();
 
     boolean isCollapsed();
 }

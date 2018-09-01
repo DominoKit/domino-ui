@@ -9,7 +9,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class BlockHeader extends DominoElement<BlockHeader> implements IsElement<HTMLDivElement> {
+public class BlockHeader extends DominoElement<HTMLDivElement, BlockHeader> implements IsElement<HTMLDivElement> {
 
     private final HTMLDivElement element;
     private HTMLHeadingElement headerElement;
@@ -84,6 +84,14 @@ public class BlockHeader extends DominoElement<BlockHeader> implements IsElement
     public BlockHeader setHeader(String header) {
         headerElement.textContent = header;
         return this;
+    }
+
+    public DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getHeaderElement() {
+        return DominoElement.of(headerElement);
+    }
+
+    public DominoElement<HTMLElement, IsElement<HTMLElement>> getDescriptionElement() {
+        return DominoElement.of(descriptionElement);
     }
 
     @Override

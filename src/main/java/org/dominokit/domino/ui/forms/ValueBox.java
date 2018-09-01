@@ -12,7 +12,7 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 
-public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> extends BasicFormElement<T, V> implements
+public abstract class ValueBox<T extends ValueBox<T,E,V>, E extends HTMLElement, V> extends BasicFormElement<T, V> implements
         Focusable<T>, HasPlaceHolder<T>, IsReadOnly<T>, HasChangeHandlers<T, V> {
 
     public static final String FOCUSED = "focused";
@@ -60,7 +60,6 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         setFocusColor(focusColor);
         addFocusListeners();
         setLabel(label);
-        init(this);
     }
 
     protected void callChangeHandlers() {
@@ -125,7 +124,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
             setLeftAddonColor(focusColor);
         }
         showPlaceholder();
-        ElementUtil.onAttach(getInputElement(), mutationRecord -> getInputElement().focus());
+        ElementUtil.onAttach(getInputElement().asElement(), mutationRecord -> getInputElement().asElement().focus());
         return (T) this;
     }
 
@@ -224,8 +223,8 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     }
 
     @Override
-    public HTMLDivElement getFieldContainer() {
-        return inputContainer;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFieldContainer() {
+        return DominoElement.of(inputContainer);
     }
 
     public T setIcon(Icon icon) {
@@ -292,13 +291,13 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
     }
 
     @Override
-    public E getInputElement() {
-        return inputElement;
+    public DominoElement<E, IsElement<E>> getInputElement() {
+        return DominoElement.of(inputElement);
     }
 
     @Override
-    public HTMLLabelElement getLabelElement() {
-        return labelElement;
+    public DominoElement<HTMLLabelElement,IsElement<HTMLLabelElement>> getLabelElement() {
+        return DominoElement.of(labelElement);
     }
 
     @Override
@@ -343,8 +342,9 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
                 getInputElement().addEventListener("input", changeEventListener);
             }
         } else {
-            if (nonNull(changeEventListener))
+            if (nonNull(changeEventListener)) {
                 getInputElement().removeEventListener("input", changeEventListener);
+            }
             changeEventListener = null;
         }
         return (T) this;
@@ -376,7 +376,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         if (readOnly) {
             getInputElement().setAttribute("disabled", "true");
             getInputElement().setAttribute("readonly", "true");
-            getInputElement().classList.add("readonly");
+            getInputElement().style().add("readonly");
             if (isFloating()) {
                 getInputElement().setAttribute("floating", true);
             }
@@ -384,7 +384,7 @@ public abstract class ValueBox<T extends ValueBox, E extends HTMLElement, V> ext
         } else {
             getInputElement().removeAttribute("disabled");
             getInputElement().removeAttribute("readonly");
-            getInputElement().classList.remove("readonly");
+            getInputElement().style().remove("readonly");
             if (getInputElement().hasAttribute("floating")) {
                 floating();
             } else {

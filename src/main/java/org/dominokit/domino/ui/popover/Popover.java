@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.Switchable;
 import org.jboss.gwt.elemento.core.Elements;
@@ -17,7 +18,7 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.h;
 
-public class Popover implements IsElement<HTMLDivElement>, Switchable<Popover> {
+public class Popover extends DominoElement<HTMLDivElement, Popover> implements IsElement<HTMLDivElement>, Switchable<Popover> {
 
     private static List<Popover> currentVisible=new ArrayList<>();
     private final Text headerText;
@@ -61,6 +62,8 @@ public class Popover implements IsElement<HTMLDivElement>, Switchable<Popover> {
         element.addEventListener(EventType.click.getName(), Event::stopPropagation);
 
         ElementUtil.onDetach(targetElement, mutationRecord -> element.remove());
+
+        init(this);
 
     }
 
@@ -109,16 +112,16 @@ public class Popover implements IsElement<HTMLDivElement>, Switchable<Popover> {
 
     public static Popover createPicker(HTMLElement target, Node content) {
         Popover popover = new Popover(target, "", content);
-        popover.getHeadingElement().style.display="none";
-        popover.getContentElement().style.setProperty("padding","0px");
+        popover.getHeadingElement().style().setDisplay("none");
+        popover.getContentElement().style().setProperty("padding","0px");
 
         return popover;
     }
 
     public static Popover createPicker(IsElement target, IsElement content) {
         Popover popover = new Popover(target.asElement(), "", content.asElement());
-        popover.getHeadingElement().style.display="none";
-        popover.getContentElement().style.setProperty("padding","0px");
+        popover.getHeadingElement().style().setDisplay("none");
+        popover.getContentElement().style().setProperty("padding","0px");
 
         return popover;
     }
@@ -169,8 +172,8 @@ public class Popover implements IsElement<HTMLDivElement>, Switchable<Popover> {
         return !disabled;
     }
 
-    public HTMLHeadingElement getHeadingElement() {
-        return headingElement;
+    public DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getHeadingElement() {
+        return DominoElement.of(headingElement);
     }
 
     @Override
@@ -182,11 +185,7 @@ public class Popover implements IsElement<HTMLDivElement>, Switchable<Popover> {
         return headerText;
     }
 
-    public HTMLDivElement getContentElement() {
-        return contentElement;
-    }
-
-    public Style<HTMLDivElement, Popover> style(){
-        return Style.of(this);
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentElement() {
+        return DominoElement.of(contentElement);
     }
 }

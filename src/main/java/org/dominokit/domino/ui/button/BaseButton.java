@@ -52,6 +52,11 @@ public class BaseButton<B extends BaseButton<?>> extends WavesElement<HTMLElemen
         setButtonType(type);
     }
 
+    public BaseButton(String content, Color background) {
+        this(content);
+        setBackground(background);
+    }
+
     @Override
     public B setContent(String content) {
         this.content = content;

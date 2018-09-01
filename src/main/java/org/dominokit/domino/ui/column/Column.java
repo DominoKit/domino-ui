@@ -18,7 +18,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
  * @deprecated use {@link org.dominokit.domino.ui.grid.Column}
  */
 @Deprecated
-public class Column extends DominoElement<Column> implements IsElement<HTMLDivElement>, Cloneable {
+public class Column extends DominoElement<HTMLDivElement, Column> implements IsElement<HTMLDivElement>, Cloneable {
 
     private HTMLDivElement column;
     private OnXLarge onXLargeStyle;

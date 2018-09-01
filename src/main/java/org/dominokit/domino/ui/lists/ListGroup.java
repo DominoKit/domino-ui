@@ -13,7 +13,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class ListGroup<T> extends DominoElement<ListGroup<T>> implements IsElement<HTMLDivElement>, HasMultiSelectSupport<ListItem<T>> {
+public class ListGroup<T> extends DominoElement<HTMLDivElement, ListGroup<T>> implements IsElement<HTMLDivElement>, HasMultiSelectSupport<ListItem<T>> {
 
     private final HTMLDivElement element;
     private List<ListItem<T>> allItems = new LinkedList<>();
@@ -166,7 +166,4 @@ public class ListGroup<T> extends DominoElement<ListGroup<T>> implements IsEleme
         void onSelectionChanged(ListItem<T> item);
     }
 
-    public Style<HTMLDivElement, ListGroup<T>> style(){
-        return Style.of(this);
-    }
 }

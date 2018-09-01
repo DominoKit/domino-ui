@@ -12,7 +12,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
-public class SimpleListItem extends BaseListItem<HTMLLIElement> implements IsElement<HTMLLIElement>, HasBackground<SimpleListItem>, IsHtmlComponent<HTMLLIElement, SimpleListItem> {
+public class SimpleListItem extends BaseListItem<HTMLLIElement, SimpleListItem> implements IsElement<HTMLLIElement>, HasBackground<SimpleListItem> {
 
     private final HtmlComponentBuilder<HTMLLIElement, SimpleListItem> htmlBuilder;
     private String style;
@@ -33,9 +33,10 @@ public class SimpleListItem extends BaseListItem<HTMLLIElement> implements IsEle
     }
 
     private SimpleListItem setStyle(String itemStyle) {
-        if (nonNull(this.style))
-            getElement().classList.remove(this.style);
-        getElement().classList.add(itemStyle);
+        if (nonNull(this.style)) {
+            style().remove(this.style);
+        }
+        style().add(itemStyle);
         this.style = itemStyle;
         return this;
     }
@@ -76,17 +77,4 @@ public class SimpleListItem extends BaseListItem<HTMLLIElement> implements IsEle
        return appendChild(content.asElement());
     }
 
-    @Override
-    public HTMLLIElement asElement() {
-        return getElement();
-    }
-
-    @Override
-    public HtmlComponentBuilder<HTMLLIElement, SimpleListItem> htmlBuilder() {
-        return htmlBuilder;
-    }
-
-    public Style<HTMLLIElement, SimpleListItem> style(){
-        return Style.of(this);
-    }
 }

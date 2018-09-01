@@ -5,13 +5,14 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.dominokit.domino.ui.utils.Selectable;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
-public class SelectOption<T> implements IsElement<HTMLLIElement>, HasValue<SelectOption, T>,
+public class SelectOption<T> extends DominoElement<HTMLLIElement, SelectOption<T>> implements IsElement<HTMLLIElement>, HasValue<SelectOption, T>,
         HasBackground<SelectOption>, Selectable<SelectOption> {
 
     private static final String SELECTED = "selected";
@@ -34,6 +35,7 @@ public class SelectOption<T> implements IsElement<HTMLLIElement>, HasValue<Selec
         setKey(key);
         setValue(value);
         setDisplayValue(displayValue);
+        init(this);
     }
 
     public SelectOption(T value, String key) {
@@ -47,9 +49,23 @@ public class SelectOption<T> implements IsElement<HTMLLIElement>, HasValue<Selec
     public static <T> SelectOption<T> create(T value, String key) {
         return new SelectOption<>(value, key);
     }
-
+    /**
+     * @deprecated use {@link #appendChild(Node)}
+     * @param node
+     * @return
+     */
+    @Deprecated
     public SelectOption<T> appendContent(Node node) {
+        return appendChild(node);
+    }
+
+    public SelectOption<T> appendChild(Node node) {
         aElement.appendChild(node);
+        return this;
+    }
+
+    public SelectOption<T> appendChild(IsElement node) {
+        aElement.appendChild(node.asElement());
         return this;
     }
 
@@ -94,14 +110,14 @@ public class SelectOption<T> implements IsElement<HTMLLIElement>, HasValue<Selec
 
     @Override
     public SelectOption<T> select(boolean silent) {
-        asElement().classList.add(SELECTED);
+        style().add(SELECTED);
         aElement.appendChild(checkMark);
         return this;
     }
 
     @Override
     public SelectOption<T> deselect(boolean silent) {
-        asElement().classList.remove(SELECTED);
+        style().remove(SELECTED);
         if (aElement.contains(checkMark))
             aElement.removeChild(checkMark);
         return this;
@@ -109,12 +125,12 @@ public class SelectOption<T> implements IsElement<HTMLLIElement>, HasValue<Selec
 
     @Override
     public boolean isSelected() {
-        return asElement().classList.contains(SELECTED);
+        return style().contains(SELECTED);
     }
 
     @Override
     public SelectOption<T> setBackground(Color background) {
-        asElement().classList.add(background.getBackground());
+        style().add(background.getBackground());
         return this;
     }
 
@@ -123,16 +139,16 @@ public class SelectOption<T> implements IsElement<HTMLLIElement>, HasValue<Selec
         return li;
     }
 
-    public HTMLElement getCheckMark() {
-        return checkMark;
+    public DominoElement<HTMLElement, IsElement<HTMLElement>> getCheckMark() {
+        return DominoElement.of(checkMark);
     }
 
-    public HTMLElement getValueContainer() {
-        return valueContainer;
+    public DominoElement<HTMLElement, IsElement<HTMLElement>> getValueContainer() {
+        return DominoElement.of(valueContainer);
     }
 
-    public HTMLAnchorElement getLinkElement() {
-        return aElement;
+    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getLinkElement() {
+        return DominoElement.of(aElement);
     }
 
     public void focus() {

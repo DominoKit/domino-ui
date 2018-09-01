@@ -18,7 +18,7 @@ import java.util.stream.IntStream;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class SimplePagination extends DominoElement<SimplePagination> implements IsElement<HTMLElement>, HasPagination {
+public class SimplePagination extends DominoElement<HTMLElement, SimplePagination> implements IsElement<HTMLElement>, HasPagination {
 
     private static final String WAVES_EFFECT = "waves-effect";
 

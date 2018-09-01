@@ -3,11 +3,12 @@ package org.dominokit.domino.ui.progress;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class ProgressBar implements IsElement<HTMLDivElement> {
+public class ProgressBar extends DominoElement<HTMLDivElement, ProgressBar> implements IsElement<HTMLDivElement> {
 
     private HTMLDivElement element = div().css("progress-bar").attr("role", "progressbar").asElement();
     private double maxValue = 100;
@@ -24,6 +25,7 @@ public class ProgressBar implements IsElement<HTMLDivElement> {
         this.maxValue = maxValue;
         this.textExpression = textExpression;
         this.setValue(0);
+        init(this);
     }
 
     public static ProgressBar create(int maxValue) {
@@ -112,9 +114,5 @@ public class ProgressBar implements IsElement<HTMLDivElement> {
         this.textExpression = expression;
         updateText();
         return this;
-    }
-
-    public Style<HTMLDivElement, ProgressBar> style(){
-        return Style.of(this);
     }
 }

@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.collapsible;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -10,21 +11,34 @@ import java.util.List;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class Accordion implements IsElement<HTMLDivElement> {
+public class Accordion extends DominoElement<HTMLDivElement, Accordion> implements IsElement<HTMLDivElement> {
 
     private final HTMLDivElement element = div().css("panel-group").asElement();
     private List<AccordionPanel> panels = new LinkedList<>();
     private boolean multiOpen = false;
 
+    public Accordion() {
+        init(this);
+    }
 
     public static Accordion create() {
         return new Accordion();
     }
 
+    /**
+     * @deprecated use {@link #appendChild(AccordionPanel)}
+     * @param panel
+     * @return
+     */
+    @Deprecated
     public Accordion addPanel(AccordionPanel panel) {
+        return appendChild(panel);
+    }
+
+    public Accordion appendChild(AccordionPanel panel) {
         panels.add(panel);
         element.appendChild(panel.asElement());
-        panel.getClickableElement().addEventListener("click", evt -> {
+        panel.getClickableElement().addClickListener( evt -> {
             if(!multiOpen) {
                 List<AccordionPanel> accordionPanels = otherPanels(panel);
                 accordionPanels.forEach(accordionPanel -> {
@@ -36,7 +50,7 @@ public class Accordion implements IsElement<HTMLDivElement> {
                     panel.expand();
                 }
             }else{
-                panel.toggle();
+                panel.toggleDisplay();
             }
         });
         return this;

@@ -102,7 +102,4 @@ public class Row_18 extends Row<Row_18> {
         return this;
     }
 
-    public Style<HTMLDivElement, Row_18> style() {
-        return Style.of(this);
-    }
 }

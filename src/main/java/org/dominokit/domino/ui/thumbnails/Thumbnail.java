@@ -9,7 +9,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import static java.util.Objects.isNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class Thumbnail extends DominoElement<Thumbnail> implements IsElement<HTMLDivElement> {
+public class Thumbnail extends DominoElement<HTMLDivElement, Thumbnail> implements IsElement<HTMLDivElement> {
 
     private HTMLDivElement element = div().css("thumbnail").asElement();
     private HTMLDivElement contentElement = div().asElement();
@@ -55,17 +55,16 @@ public class Thumbnail extends DominoElement<Thumbnail> implements IsElement<HTM
         return appendCaptionChild(content.asElement());
     }
 
-
     @Override
     public HTMLDivElement asElement() {
         return element;
     }
 
-    public HTMLDivElement getContentElement() {
-        return contentElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentElement() {
+        return DominoElement.of(contentElement);
     }
 
-    public HTMLDivElement getCaptionElement() {
-        return captionElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getCaptionElement() {
+        return DominoElement.of(captionElement);
     }
 }

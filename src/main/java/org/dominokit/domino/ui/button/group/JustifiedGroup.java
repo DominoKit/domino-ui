@@ -46,14 +46,14 @@ public class JustifiedGroup extends DominoElement<HTMLElement, JustifiedGroup> i
 
     @Override
     public HTMLElement appendChild(Button button) {
-        HTMLElement justify = button.justify();
+        HTMLElement justify = button.asElement();
         group.asElement().appendChild(justify);
         return justify;
     }
 
     @Override
     public HTMLElement appendChild(DropdownButton dropDown) {
-        HTMLElement justify = dropDown.justify();
+        HTMLElement justify = dropDown.asElement();
         group.asElement().appendChild(justify);
         return justify;
     }

@@ -7,7 +7,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.ul;
 
-public class SimpleListGroup extends DominoElement<SimpleListGroup> implements IsElement<HTMLUListElement>{
+public class SimpleListGroup extends DominoElement<HTMLUListElement, SimpleListGroup> implements IsElement<HTMLUListElement>{
 
     private final HTMLUListElement element;
 
@@ -63,7 +63,4 @@ public class SimpleListGroup extends DominoElement<SimpleListGroup> implements I
         return element;
     }
 
-    public Style<HTMLUListElement, SimpleListGroup> style(){
-        return Style.of(this);
-    }
 }

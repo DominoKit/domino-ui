@@ -45,14 +45,13 @@ public class Tab implements HasClickableElement{
         return new Tab(icon, text);
     }
 
-    public HTMLLIElement getTab() {
-        return tab;
+    public DominoElement<HTMLLIElement, IsElement<HTMLLIElement>> getTab() {
+        return DominoElement.of(tab);
     }
 
-    public HTMLDivElement getContentContainer() {
-        return contentContainer;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentContainer() {
+        return DominoElement.of(contentContainer);
     }
-
 
     /**
      * @deprecated use {@link #appendChild(Node)}
@@ -96,7 +95,7 @@ public class Tab implements HasClickableElement{
     }
 
     @Override
-    public HTMLElement getClickableElement() {
-        return clickableElement;
+    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getClickableElement() {
+        return DominoElement.of(clickableElement);
     }
 }

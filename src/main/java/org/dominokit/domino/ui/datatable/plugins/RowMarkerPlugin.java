@@ -27,7 +27,7 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
                 .setCellRenderer(cell -> {
                     ColorScheme colorScheme = markerColor.getColorScheme(cell);
                     if (nonNull(colorScheme)) {
-                        Style.of(cell.getElement()).css(markerColor.getColorScheme(cell).color().getBackground());
+                        Style.of(cell.getElement()).add(markerColor.getColorScheme(cell).color().getBackground());
                     }
                     return new Text("");
                 }));

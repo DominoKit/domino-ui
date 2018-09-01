@@ -4,12 +4,15 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
 
+import javax.annotation.PostConstruct;
+
 @Templated
-public abstract class NavigationBar implements IsElement<HTMLElement>{
+public abstract class NavigationBar extends DominoElement<HTMLElement, NavigationBar> implements IsElement<HTMLElement>{
 
     @DataElement
     HTMLAnchorElement menu;
@@ -28,6 +31,11 @@ public abstract class NavigationBar implements IsElement<HTMLElement>{
 
     private boolean collapsed=true;
 
+    @PostConstruct
+    void init(){
+        init(this);
+    }
+
     public static NavigationBar create(){
         return new Templated_NavigationBar();
     }
@@ -41,23 +49,23 @@ public abstract class NavigationBar implements IsElement<HTMLElement>{
         return this;
     }
 
-    public HTMLAnchorElement getMenu() {
-        return menu;
+    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getMenu() {
+        return DominoElement.of(menu);
     }
 
-    public HTMLAnchorElement getNavBarExpand() {
-        return navBarExpand;
+    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getNavBarExpand() {
+        return DominoElement.of(navBarExpand);
     }
 
-    public HTMLDivElement getNavigationBar() {
-        return navigationBar;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getNavigationBar() {
+        return DominoElement.of(navigationBar);
     }
 
-    public HTMLUListElement getTopBar() {
-        return topBar;
+    public DominoElement<HTMLUListElement, IsElement<HTMLUListElement>> getTopBar() {
+        return DominoElement.of(topBar);
     }
 
-    public HTMLAnchorElement getTitle() {
-        return title;
+    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getTitle() {
+        return DominoElement.of(title);
     }
 }

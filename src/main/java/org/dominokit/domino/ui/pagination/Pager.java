@@ -11,7 +11,7 @@ import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Pager extends DominoElement<Pager> implements IsElement<HTMLElement> {
+public class Pager extends DominoElement<HTMLElement, Pager> implements IsElement<HTMLElement> {
 
     private HTMLUListElement pagerElement = ul().css("pager").asElement();
     private HTMLElement element = nav().add(pagerElement).asElement();

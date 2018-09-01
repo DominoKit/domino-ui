@@ -1,76 +1,53 @@
 package org.dominokit.domino.ui.button;
 
-import elemental2.dom.*;
-import jsinterop.base.Js;
+import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
+import org.dominokit.domino.ui.dropdown.DropDownMenu;
+import org.dominokit.domino.ui.dropdown.DropDownPosition;
+import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.StyleType;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
-import static elemental2.dom.DomGlobal.document;
-import static java.util.Objects.nonNull;
-
-public class DropdownButton extends BaseButton<DropdownButton> {
+public class DropdownButton extends BaseButton<DropdownButton>  {
 
     private HTMLElement caret = Elements.span().css("caret").asElement();
     private HTMLElement groupElement = ButtonsGroup.create().asElement();
-    private HTMLUListElement actionsElement = Elements.ul().css("dropdown-menu").asElement();
-    private Color background;
-    private boolean touchMoved;
-
-    public DropdownButton(String content) {
-        super(content);
-    }
-
-    private DropDownPosition position = DropDownPosition.BOTTOM_RIGHT;
+    private DropDownMenu dropDownMenu;
 
     public DropdownButton(String content, StyleType type) {
         super(content, type);
+        initDropDown();
     }
 
     public DropdownButton(String content, Color background) {
+        super(content, background);
+        initDropDown();
+    }
+
+    public DropdownButton(String content) {
         super(content);
-        setBackground(background);
+        initDropDown();
     }
 
     public DropdownButton(Icon icon, StyleType type) {
         super(icon, type);
+        initDropDown();
     }
 
     public DropdownButton(Icon icon) {
         super(icon);
+        initDropDown();
     }
 
-    public DropdownButton() {
-        groupElement.appendChild(asDropDown(groupElement));
+    private void initDropDown() {
+        dropDownMenu = DropDownMenu.create(groupElement);
+        groupElement.appendChild(asDropDown());
         asElement().appendChild(caret);
-        groupElement.appendChild(actionsElement);
-        addHideListener();
     }
 
-    private void addHideListener() {
-        EventListener listener = this::closeAllGroups;
-        document.addEventListener("click", listener);
-        document.addEventListener("touchend", evt -> {
-            if (!touchMoved) {
-                closeAllGroups(evt);
-            }
-            touchMoved = false;
-        });
-        document.addEventListener("touchmove", evt -> this.touchMoved = true);
-    }
-
-    private void closeAllGroups(Event evt) {
-        HTMLElement element = Js.uncheckedCast(evt.target);
-        if (!groupElement.contains(element)) {
-            closeAllGroups();
-        }
-    }
-
-    private HTMLElement asDropDown( HTMLElement groupElement) {
+    private HTMLElement asDropDown() {
         HTMLElement buttonElement = asElement();
         buttonElement.classList.add("dropdown-toggle");
         buttonElement.setAttribute("data-toggle", "dropdown");
@@ -78,39 +55,19 @@ public class DropdownButton extends BaseButton<DropdownButton> {
         buttonElement.setAttribute("aria-expanded", true);
         buttonElement.setAttribute("type", "button");
         addClickListener(evt -> {
-            closeAllGroups();
-            open(groupElement);
+            dropDownMenu.closeAllMenus();
+            open();
             evt.stopPropagation();
         });
         return buttonElement;
     }
 
-    private void closeAllGroups() {
-        NodeList<Element> elementsByName = document.body.querySelectorAll(".btn-group.open");
-        for (int i = 0; i < elementsByName.length; i++) {
-            Element item = elementsByName.item(i);
-            if (isOpened(item)) {
-                close(item);
-            }
-        }
-    }
-
-    private boolean isOpened(Element item) {
-        return item.classList.contains("open");
-    }
-
-    private void open(HTMLElement groupElement) {
-        groupElement.classList.add("open");
-        position.position(actionsElement, groupElement);
-    }
-
-    private void close(Element item) {
-        item.classList.remove("open");
+    private void open() {
+        dropDownMenu.open();
     }
 
     public DropdownButton addAction(DropdownAction action) {
-        action.addSelectionHandler(() -> close(groupElement));
-        actionsElement.appendChild(action.asElement());
+        dropDownMenu.addAction(action);
         return this;
     }
 
@@ -120,10 +77,10 @@ public class DropdownButton extends BaseButton<DropdownButton> {
     }
 
     public DropdownButton separator() {
-        Separator separator = new Separator();
-        actionsElement.appendChild(separator.asElement());
+        dropDownMenu.separator();
         return this;
     }
+
 
     public DropdownButton hideCaret() {
         if (isCaretAdded())
@@ -141,14 +98,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
         return asElement().contains(caret);
     }
 
-    @Override
-    public DropdownButton setBackground(Color background) {
-        if (nonNull(this.background))
-            asElement().classList.remove(this.background.getBackground());
-        asElement().classList.add(background.getBackground());
-        this.background = background;
-        return this;
-    }
+
 
     public DropdownButton linkify() {
         groupElement.classList.add("link");
@@ -158,12 +108,12 @@ public class DropdownButton extends BaseButton<DropdownButton> {
 
     public DropdownButton delinkify() {
         groupElement.classList.remove("link");
-        deLinkify();
+        delinkify();
         return this;
     }
 
     public DropdownButton setPosition(DropDownPosition position) {
-        this.position = position;
+        dropDownMenu.setPosition(position);
         return this;
     }
 
@@ -239,21 +189,8 @@ public class DropdownButton extends BaseButton<DropdownButton> {
         return caret;
     }
 
-    public HTMLUListElement getActionsElement() {
-        return actionsElement;
+    public DropDownMenu getDropDownMenu() {
+        return dropDownMenu;
     }
 
-    private class Separator implements IsElement<HTMLLIElement> {
-
-        private HTMLLIElement separator = Elements.li().attr("role", "separator").css("divider").asElement();
-
-        @Override
-        public HTMLLIElement asElement() {
-            return separator;
-        }
-    }
-
-    public Style<HTMLElement, DropdownButton> style() {
-        return Style.of(this);
-    }
 }

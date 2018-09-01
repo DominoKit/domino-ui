@@ -2,11 +2,12 @@ package org.dominokit.domino.ui.carousel;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Slide implements IsElement<HTMLDivElement> {
+public class Slide extends DominoElement<HTMLDivElement, Slide> implements IsElement<HTMLDivElement> {
 
     private HTMLLIElement indicatorElement = li().asElement();
     private HTMLHeadingElement slideLabelElement = h(3).asElement();
@@ -31,6 +32,7 @@ public class Slide implements IsElement<HTMLDivElement> {
     public Slide(HTMLImageElement image) {
         imageElement = image;
         slideElement.appendChild(image);
+        init(this);
 
     }
 
@@ -43,6 +45,7 @@ public class Slide implements IsElement<HTMLDivElement> {
         slideLabelElement.textContent = label;
         slideDescriptionElement.textContent = description;
         slideElement.appendChild(captionElement);
+        init(this);
     }
 
     public static Slide create(String imageSrc) {
@@ -61,8 +64,8 @@ public class Slide implements IsElement<HTMLDivElement> {
         return new Slide(image, label, description);
     }
 
-    public HTMLLIElement getIndicatorElement() {
-        return indicatorElement;
+    public DominoElement<HTMLLIElement, IsElement<HTMLLIElement>> getIndicatorElement() {
+        return DominoElement.of(indicatorElement);
     }
 
     @Override
@@ -72,11 +75,11 @@ public class Slide implements IsElement<HTMLDivElement> {
 
     public Slide activate() {
         this.active = true;
-        if (!Style.of(indicatorElement).hasClass("active")) {
-            Style.of(indicatorElement).css("active");
+        if (!Style.of(indicatorElement).contains("active")) {
+            Style.of(indicatorElement).add("active");
         }
-        if (!Style.of(this).hasClass("active")) {
-            Style.of(this).css("active");
+        if (!Style.of(this).contains("active")) {
+            Style.of(this).add("active");
         }
 
         return this;
@@ -84,8 +87,8 @@ public class Slide implements IsElement<HTMLDivElement> {
 
     public Slide deActivate() {
         this.active = false;
-        Style.of(indicatorElement).removeCss("active");
-        Style.of(this).removeCss("active");
+        Style.of(indicatorElement).remove("active");
+        Style.of(this).remove("active");
 
         return this;
     }
@@ -99,6 +102,22 @@ public class Slide implements IsElement<HTMLDivElement> {
     }
 
     public boolean hasActiveStyle() {
-        return Style.of(this).hasClass("active");
+        return Style.of(this).contains("active");
+    }
+
+    public DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getSlideLabelElement() {
+        return DominoElement.of(slideLabelElement);
+    }
+
+    public DominoElement<HTMLParagraphElement,IsElement<HTMLParagraphElement>> getSlideDescriptionElement() {
+        return DominoElement.of(slideDescriptionElement);
+    }
+
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getCaptionElement() {
+        return DominoElement.of(captionElement);
+    }
+
+    public DominoElement<HTMLImageElement,IsElement<HTMLImageElement>> getImageElement() {
+        return DominoElement.of(imageElement);
     }
 }

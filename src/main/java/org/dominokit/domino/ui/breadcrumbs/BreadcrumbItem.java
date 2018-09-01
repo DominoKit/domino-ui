@@ -27,6 +27,7 @@ public class BreadcrumbItem extends DominoElement<HTMLLIElement, BreadcrumbItem>
     }
 
     private void init(String text, Icon icon) {
+        init(this);
         this.textElement = new Text(text);
         if (nonNull(icon)) {
             this.icon = icon;

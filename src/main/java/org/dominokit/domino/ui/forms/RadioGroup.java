@@ -17,7 +17,7 @@ import java.util.List;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-public class RadioGroup extends DominoElement<RadioGroup> implements IsElement<HTMLDivElement>, FormElement<RadioGroup, String>, HasChangeHandlers<RadioGroup, Radio> {
+public class RadioGroup extends DominoElement<HTMLDivElement, RadioGroup> implements IsElement<HTMLDivElement>, FormElement<RadioGroup, String>, HasChangeHandlers<RadioGroup, Radio> {
 
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
     private HTMLDivElement formLine = Elements.div().css("form-line").asElement();
@@ -55,6 +55,10 @@ public class RadioGroup extends DominoElement<RadioGroup> implements IsElement<H
     }
 
     public RadioGroup addRadio(Radio radio) {
+        return appendChild(radio);
+    }
+
+    public RadioGroup appendChild(Radio radio) {
         radio.setName(name);
         radio.addChangeHandler(value -> onCheck(radio));
         radios.add(radio);
@@ -62,14 +66,36 @@ public class RadioGroup extends DominoElement<RadioGroup> implements IsElement<H
         return this;
     }
 
+    /**
+     * @deprecated use {@link #appendChild(Radio, Node)}
+     * @param radio
+     * @param content
+     * @return
+     */
+    @Deprecated
     public RadioGroup addRadio(Radio radio, Node content) {
+       return appendChild(radio,content);
+    }
+
+    public RadioGroup appendChild(Radio radio, Node content) {
         addRadio(radio);
         formControl.appendChild(content);
         return this;
     }
 
+    /**
+     * @deprecated use {@link #appendChild(Radio, Node)}
+     * @param radio
+     * @param content
+     * @return
+     */
+    @Deprecated
     public RadioGroup addRadio(Radio radio, IsElement content) {
         return addRadio(radio, content.asElement());
+    }
+
+    public RadioGroup appendChild(Radio radio, IsElement content) {
+        return appendChild(radio, content.asElement());
     }
 
     private void onCheck(Radio selectedRadio) {
