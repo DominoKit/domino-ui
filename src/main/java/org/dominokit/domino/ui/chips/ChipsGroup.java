@@ -1,7 +1,9 @@
 package org.dominokit.domino.ui.chips;
 
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.ColorScheme;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
 import org.dominokit.domino.ui.utils.Switchable;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -11,18 +13,33 @@ import java.util.List;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class ChipsGroup implements IsElement<HTMLDivElement>, Switchable<ChipsGroup>, HasSelectionHandler<ChipsGroup> {
+public class ChipsGroup extends DominoElement<HTMLDivElement, ChipsGroup> implements IsElement<HTMLDivElement>, Switchable<ChipsGroup>, HasSelectionHandler<ChipsGroup> {
 
     private HTMLDivElement element = div().asElement();
     private List<Chip> chips = new ArrayList<>();
     private Chip selectedChip;
     private List<SelectionHandler> selectionHandlers = new ArrayList<>();
 
+    public ChipsGroup() {
+        init(this);
+    }
+
     public static ChipsGroup create() {
         return new ChipsGroup();
     }
 
+    /**
+     * @deprecated use {@link #appendChild(Chip)}
+     * @param chip
+     * @return
+     */
+    @Deprecated
     public ChipsGroup addChip(Chip chip) {
+        return appendChild(chip);
+    }
+
+
+    public ChipsGroup appendChild(Chip chip) {
         chip.setSelectable(true);
         chip.addSelectionHandler(() -> {
             for (Chip c : chips) {

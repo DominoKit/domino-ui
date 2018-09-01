@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.style;
 
+import elemental2.dom.CSSProperties;
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -40,13 +41,32 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return this;
     }
 
+    /**
+     * @deprecated use {@link #add(String)}
+     * @param cssClass
+     * @return
+     */
+    @Deprecated
     public Style<E, T> css(String cssClass) {
+        return add(cssClass);
+    }
+
+    /**
+     * @deprecated use {@link #add(String...)}
+     * @param cssClasses
+     * @return
+     */
+    public Style<E, T> css(String... cssClasses) {
+        return add(cssClasses);
+    }
+
+    public Style<E, T> add(String cssClass) {
         if (nonNull(cssClass) && !cssClass.isEmpty())
             element.classList.add(cssClass);
         return this;
     }
 
-    public Style<E, T> css(String... cssClasses) {
+    public Style<E, T> add(String... cssClasses) {
         if (nonNull(cssClasses) && cssClasses.length > 0)
             element.classList.add(cssClasses);
         return this;
@@ -55,7 +75,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     /**
      * @param cssClass
      * @return
-     * @deprecated use {@link #removeCss(String)}
+     * @deprecated use {@link #remove(String)}
      */
     @Deprecated
     public Style<E, T> removeClass(String cssClass) {
@@ -69,7 +89,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
      * @param cssClasses
      * @return
      *
-     * @deprecated  use {@link #removeCss(String...)}
+     * @deprecated  use {@link #remove(String...)}
      */
     @Deprecated
     public Style<E, T> removeClass(String... cssClasses) {
@@ -84,7 +104,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
      * @param replacementClass
      * @return
      *
-     * @deprecated use {@link #replaceCss(String, String)}
+     * @deprecated use {@link #replace(String, String)}
      */
     @Deprecated
     public Style<E, T> replaceClass(String cssClass, String replacementClass) {
@@ -95,25 +115,50 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return this;
     }
 
+    /**
+     * @deprecated use {@link #remove(String)}
+     * @param cssClass
+     * @return
+     */
+    @Deprecated
     public Style<E, T> removeCss(String cssClass) {
+        return remove(cssClass);
+    }
+
+    /**
+     * @deprecated use {@link #remove(String...)}
+     * @param cssClasses
+     * @return
+     */
+    @Deprecated
+    public Style<E, T> removeCss(String... cssClasses) {
+        return remove(cssClasses);
+    }
+
+    public Style<E, T> remove(String cssClass) {
         if (nonNull(cssClass) && !cssClass.isEmpty())
             element.classList.remove(cssClass);
         return this;
     }
 
-    public Style<E, T> removeCss(String... cssClasses) {
+    public Style<E, T> remove(String... cssClasses) {
         if (nonNull(cssClasses) && cssClasses.length > 0)
             element.classList.remove(cssClasses);
         return this;
     }
 
     public Style<E, T> replaceCss(String cssClass, String replacementClass) {
+        return replace(cssClass, replacementClass);
+    }
+
+    public Style<E, T> replace(String cssClass, String replacementClass) {
         if (hasClass(cssClass)) {
-            removeCss(cssClass);
+            remove(cssClass);
             css(replacementClass);
         }
         return this;
     }
+
 
     public Style<E, T> setBorder(String border) {
         setProperty("border", border);
@@ -436,6 +481,20 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return this;
     }
 
+    public Style<E, T> setOverFlow(String overFlow) {
+        setProperty("overflow", overFlow);
+        return this;
+    }
+
+    public Style<E, T> setOverFlow(String overFlow, boolean important) {
+        if (important) {
+            setImportantProperty("overflow", overFlow);
+        } else {
+            setProperty("overflow", overFlow);
+        }
+        return this;
+    }
+
     public Style<E, T> setCursor(String cursor) {
         setProperty("cursor", cursor);
         return this;
@@ -450,7 +509,19 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return this;
     }
 
+
+    /**
+     * @deprecated use {@link #contains(String)}
+     * @param cssClass
+     * @return
+     */
+    @Deprecated
     public boolean hasClass(String cssClass) {
+        return contains(cssClass);
+    }
+
+
+    public boolean contains(String cssClass) {
         if (nonNull(cssClass) && !cssClass.isEmpty()) {
             return element.classList.contains(cssClass);
         }
@@ -461,7 +532,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         if (important) {
             setImportantProperty("box-shadow", "none");
             setImportantProperty("-webkit-box-shadow", "none");
-            removeCss(default_shadow);
+            remove(default_shadow);
         } else {
             removeShadow();
         }
@@ -471,45 +542,50 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     public Style<E, T> removeShadow() {
         setProperty("box-shadow", "none");
         setProperty("-webkit-box-shadow", "none");
-        removeCss(default_shadow);
+        remove(default_shadow);
         return this;
     }
 
     public Style<E, T> addDefaultShadow() {
-        css(default_shadow);
+        add(default_shadow);
         return this;
     }
 
 
     public Style<E,T> pullRight(){
-        if(!hasClass(pull_right)){
-            css(pull_right);
+        if(!contains(pull_right)){
+            add(pull_right);
         }
 
         return this;
     }
 
     public Style<E,T> pullLeft(){
-        if(!hasClass(pull_left)){
-            css(pull_left);
+        if(!contains(pull_left)){
+            add(pull_left);
         }
 
         return this;
     }
 
     public Style<E, T> alignCenter(){
-        if(hasClass(align_center)){
-            removeCss(align_center);
+        if(contains(align_center)){
+            remove(align_center);
         }
-        css(align_center);
+        add(align_center);
         return this;
     }
 
     public Style<E, T> alignRight(){
-        if(hasClass(align_right)){
-            removeCss(align_right);
+        if(contains(align_right)){
+            remove(align_right);
         }
-        css(align_right);
+        add(align_right);
+        return this;
+    }
+
+    public Style<E,T> cssText(String cssText){
+        element.style.cssText = cssText;
         return this;
     }
 
@@ -521,4 +597,6 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     public T get() {
         return wrapperElement;
     }
+
+
 }

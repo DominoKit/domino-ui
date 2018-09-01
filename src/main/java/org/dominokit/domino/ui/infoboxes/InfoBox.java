@@ -17,7 +17,7 @@ import javax.annotation.PostConstruct;
 import static java.util.Objects.nonNull;
 
 @Templated
-public abstract class InfoBox implements IsElement<HTMLDivElement>, HasBackground<InfoBox> {
+public abstract class InfoBox extends DominoElement<HTMLDivElement, InfoBox> implements IsElement<HTMLDivElement>, HasBackground<InfoBox> {
 
     public enum HoverEffect {
         ZOOM("hover-zoom-effect"),
@@ -58,6 +58,11 @@ public abstract class InfoBox implements IsElement<HTMLDivElement>, HasBackgroun
     private HoverEffect hoverEffect;
     private Flip flip = Flip.LEFT;
     private Color iconColor;
+
+    @PostConstruct
+    void init(){
+        init(this);
+    }
 
     public static InfoBox create(Icon icon, String title, String value) {
 
@@ -169,15 +174,15 @@ public abstract class InfoBox implements IsElement<HTMLDivElement>, HasBackgroun
         return this;
     }
 
-    public HTMLDivElement getIconElement() {
-        return iconElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getIconElement() {
+        return DominoElement.of(iconElement);
     }
 
-    public HTMLDivElement getTitleElement() {
-        return titleElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getTitleElement() {
+        return DominoElement.of(titleElement);
     }
 
-    public HTMLDivElement getValueElement() {
-        return valueElement;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getValueElement() {
+        return DominoElement.of(valueElement);
     }
 }

@@ -19,6 +19,7 @@ public class TextBox extends AbstractTextBox<TextBox, HTMLInputElement> {
 
     public TextBox(String type, String label) {
         super(type, label);
+        init(this);
     }
 
     public static TextBox create() {
@@ -54,20 +55,16 @@ public class TextBox extends AbstractTextBox<TextBox, HTMLInputElement> {
 
     @Override
     protected void doSetValue(String value) {
-        getInputElement().value = value;
+        getInputElement().asElement().value = value;
     }
 
     @Override
     public String getValue() {
-        return getInputElement().value;
+        return getInputElement().asElement().value;
     }
 
     public TextBox setType(String type) {
-        getInputElement().type = type;
+        getInputElement().asElement().type = type;
         return this;
-    }
-
-    public Style<HTMLElement, TextBox> style(){
-        return Style.of(this);
     }
 }

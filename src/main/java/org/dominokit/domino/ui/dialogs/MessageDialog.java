@@ -33,10 +33,14 @@ public class MessageDialog extends BaseModal<MessageDialog> {
     private Color errorColor=Color.RED;
     private Color warningColor=Color.ORANGE;
 
+    public MessageDialog() {
+        init(this);
+    }
+
     private static HTMLElement createMessageIcon(HTMLElement element) {
 
         Style.of(element)
-                .css(Styles.m_b_15)
+                .add(Styles.m_b_15)
                 .setProperty("font-size", "72px")
                 .setProperty("border-radius", "50%")
                 .setHeight("78px")
@@ -65,16 +69,16 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         MessageDialog messageDialog = new MessageDialog();
 
         messageDialog.setSize(ModalSize.ALERT);
-        messageDialog.modal.getModalContent().style.textAlign = "center";
-        messageDialog.modal.getModalFooter().style.textAlign = "center";
-        messageDialog.modal.getModalHeader().insertBefore(messageDialog.iconContainer, messageDialog.modal.getModalHeader().firstChild);
+        messageDialog.modal.getModalContent().style().setTextAlign("center");
+        messageDialog.modal.getModalFooter().style().setTextAlign("center");
+        messageDialog.modal.getModalHeader().asElement().insertBefore(messageDialog.iconContainer, messageDialog.modal.getModalHeader().asElement().firstChild);
         messageDialog.hideHeader();
         messageDialog.setAutoClose(true);
         messageDialog.onClose(closeHandler::onClose);
-        messageDialog.appendContent(content);
+        messageDialog.appendChild(content);
         Button okButton = Button.create("OK").linkify();
         okButton.asElement().style.setProperty("min-width", "120px");
-        messageDialog.appendFooterContent(okButton.asElement());
+        messageDialog.appendFooterChild(okButton);
         okButton.getClickableElement().addEventListener(EventType.click.getName(), evt -> messageDialog.close());
 
         return messageDialog;

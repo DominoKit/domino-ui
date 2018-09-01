@@ -12,6 +12,7 @@ public class AlertStrong extends DominoElement<HTMLElement, AlertStrong> impleme
 
     public AlertStrong(String text){
         element.textContent = text;
+        init(this);
     }
 
     public static AlertStrong create(String text){

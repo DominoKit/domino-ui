@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class Row<T extends Row> extends DominoElement<Row> implements IsElement<HTMLDivElement> {
+public class Row<T extends Row<T>> extends DominoElement<HTMLDivElement, T> implements IsElement<HTMLDivElement> {
 
     protected final Columns columns;
     protected HTMLDivElement row;
@@ -66,13 +66,8 @@ public class Row<T extends Row> extends DominoElement<Row> implements IsElement<
         return (T) this;
     }
 
-    public Column addColumn() {
-        Column column = Column.span();
-        row.appendChild(column.asElement());
-        return column;
-    }
 
-    public T addColumn(Column column) {
+    public T appendChild(Column column) {
         row.appendChild(column.asElement());
         return (T) this;
     }
@@ -84,7 +79,7 @@ public class Row<T extends Row> extends DominoElement<Row> implements IsElement<
 
     protected Column addAutoSpanColumn(int span) {
         Column column = Column.span(span, columns.getCount());
-        addColumn(column);
+        appendChild(column);
         return column;
     }
 
@@ -104,7 +99,7 @@ public class Row<T extends Row> extends DominoElement<Row> implements IsElement<
     }
 
     public T condenced() {
-        return (T) Style.of(this).setMarginBottom("0px").get();
+        return style().setMarginBottom("0px").get();
     }
 
 }

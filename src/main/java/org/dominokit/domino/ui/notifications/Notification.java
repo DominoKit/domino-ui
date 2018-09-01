@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
 import static java.util.Objects.nonNull;
 
 @Templated
-public abstract class Notification implements IsElement<HTMLDivElement> {
+public abstract class Notification extends DominoElement<HTMLDivElement, Notification> implements IsElement<HTMLDivElement> {
 
     public static final Position TOP_LEFT = new TopLeftPosition();
     public static final Position TOP_CENTER = new TopCenterPosition();
@@ -37,6 +37,11 @@ public abstract class Notification implements IsElement<HTMLDivElement> {
     private Color background=Color.BLACK;
     private String type;
 
+    @PostConstruct
+    void init(){
+        init(this);
+    }
+
     public static Notification createDanger(String message){
         return create(message, "alert-danger");
     }
@@ -55,16 +60,16 @@ public abstract class Notification implements IsElement<HTMLDivElement> {
 
     public static Notification create(String message, String type){
         Notification notification = create(message);
-        notification.asElement().classList.add(type);
+        notification.style().add(type);
         notification.type=type;
-        notification.asElement().classList.remove(notification.background.getBackground());
+        notification.style().remove(notification.background.getBackground());
         return notification;
     }
 
     public static Notification create(String message) {
         Notification notification = new Templated_Notification();
         notification.messageSpan.textContent = message;
-        notification.asElement().classList.add(notification.background.getBackground());
+        notification.style().add(notification.background.getBackground());
         notification.closeButton.addEventListener("click", e-> notification.close());
         return notification;
     }
@@ -107,11 +112,12 @@ public abstract class Notification implements IsElement<HTMLDivElement> {
     }
 
     public Notification setBackground(Color background){
-        if(nonNull(type))
-            asElement().classList.remove(type);
+        if(nonNull(type)) {
+            style().remove(type);
+        }
 
-        asElement().classList.remove(this.background.getBackground());
-        asElement().classList.add(background.getBackground());
+        style().remove(this.background.getBackground());
+        style().add(background.getBackground());
         this.background=background;
         return this;
     }

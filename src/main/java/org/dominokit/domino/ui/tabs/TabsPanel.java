@@ -16,7 +16,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.ul;
 
-public class TabsPanel extends DominoElement<TabsPanel> implements IsElement<HTMLDivElement> {
+public class TabsPanel extends DominoElement<HTMLDivElement, TabsPanel> implements IsElement<HTMLDivElement> {
 
     private HTMLDivElement element = div().asElement();
     private HTMLUListElement tabsList = ul().css("nav", "nav-tabs", "nav-tabs-right").attr("role", "tablist")
@@ -37,7 +37,17 @@ public class TabsPanel extends DominoElement<TabsPanel> implements IsElement<HTM
         return new TabsPanel();
     }
 
+    /**
+     * @deprecated use {@link #appendChild(Tab)}
+     * @param tab
+     * @return
+     */
+    @Deprecated
     public TabsPanel addTab(Tab tab) {
+        return appendChild(tab);
+    }
+
+    public TabsPanel appendChild(Tab tab) {
         if (nonNull(tab)) {
             tabs.add(tab);
             if (isNull(activeTab)) {
@@ -48,8 +58,8 @@ public class TabsPanel extends DominoElement<TabsPanel> implements IsElement<HTM
                     activateTab(tab);
                 }
             }
-            tabsList.appendChild(tab.getTab());
-            tabsContent.appendChild(tab.getContentContainer());
+            tabsList.appendChild(tab.getTab().asElement());
+            tabsContent.appendChild(tab.getContentContainer().asElement());
             tab.getClickableElement().addEventListener("click", evt -> activateTab(tab));
 
         }

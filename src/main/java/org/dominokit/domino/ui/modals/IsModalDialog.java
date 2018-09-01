@@ -6,6 +6,7 @@ import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 public interface IsModalDialog<T> {
@@ -55,17 +56,17 @@ public interface IsModalDialog<T> {
 
     T setTitle(String title);
 
-    HTMLDivElement getDialogElement();
+    DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getDialogElement();
 
-    HTMLDivElement getContentElement();
+    DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentElement();
 
-    HTMLHeadingElement getHeaderElement();
+    DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getHeaderElement();
 
-    HTMLDivElement getHeaderContainerElement();
+    DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getHeaderContainerElement();
 
-    HTMLDivElement getBodyElement();
+    DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getBodyElement();
 
-    HTMLDivElement getFooterElement();
+    DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFooterElement();
 
     T onOpen(OpenHandler openHandler);
 

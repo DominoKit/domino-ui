@@ -12,7 +12,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 
-public class Label extends DominoElement<Label> implements IsElement<HTMLElement>, HasContent<Label>, HasBackground<Label> {
+public class Label extends DominoElement<HTMLElement, Label> implements IsElement<HTMLElement>, HasContent<Label>, HasBackground<Label> {
 
     private HTMLElement span = Elements.span().css("label").asElement();
     private Color background;
@@ -81,9 +81,5 @@ public class Label extends DominoElement<Label> implements IsElement<HTMLElement
         span.classList.add(background.getBackground());
         this.background = background;
         return this;
-    }
-
-    public Style<HTMLElement, Label> style(){
-        return Style.of(this);
     }
 }

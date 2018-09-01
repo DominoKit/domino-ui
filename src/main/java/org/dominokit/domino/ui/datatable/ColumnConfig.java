@@ -4,6 +4,8 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.Node;
 import elemental2.dom.Text;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 
@@ -18,7 +20,7 @@ public class ColumnConfig<T> {
     private String maxWidth;
     private String textAlign;
     private CellRenderer<T> cellRenderer = cell -> new Text("");
-    private HeaderElement headerElement = columnTitle -> new Text(columnTitle);
+    private HeaderElement headerElement = Text::new;
     private CellStyler<T> headerStyler = element -> {
     };
     private CellStyler<T> cellStyler = element -> {
@@ -121,8 +123,8 @@ public class ColumnConfig<T> {
         return this;
     }
 
-    public HTMLTableCellElement getHeadElement() {
-        return headElement;
+    public DominoElement<HTMLTableCellElement, IsElement<HTMLTableCellElement>> getHeadElement() {
+        return DominoElement.of(headElement);
     }
 
     protected void setHeadElement(HTMLTableCellElement headElement) {

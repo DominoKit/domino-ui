@@ -86,6 +86,8 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
         timePicker.addClearHandler(() -> setValue(null));
         setPickerStyle(PickerStyle.MODAL);
 
+        init(this);
+
     }
 
     public static TimeBox create() {
@@ -126,9 +128,9 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
 
     private void setStringValue(Time time, TimePicker picker) {
         if (nonNull(time))
-            this.getInputElement().value = picker.getFormattedTime();
+            this.getInputElement().asElement().value = picker.getFormattedTime();
         else
-            this.getInputElement().value = "";
+            this.getInputElement().asElement().value = "";
         this.value = time;
     }
 
@@ -139,7 +141,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
 
     @Override
     public String getPlaceholder() {
-        return getInputElement().placeholder;
+        return getInputElement().asElement().placeholder;
     }
 
     @Override
@@ -151,7 +153,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
 
     @Override
     public TimeBox setPlaceholder(String placeholder) {
-        getInputElement().placeholder = placeholder;
+        getInputElement().asElement().placeholder = placeholder;
         return this;
     }
 
@@ -179,10 +181,10 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
 
             if (isNull(popover)) {
                 popover = Popover.createPicker(this.asElement(), this.timePicker.asElement());
-                popover.getContentElement().style.setProperty("padding", "0px", "important");
-                popover.getContentElement().style.setProperty("width", "270px", "important");
+                popover.getContentElement().style().setPadding( "0px", true);
+                popover.getContentElement().style().setWidth("270px", true);
                 popover.position(this.popupPosition)
-                        .asElement().style.setProperty("max-width", "none", "important");
+                        .style().setMaxWidth("none", true);
 
                 asElement().addEventListener(EventType.keydown.getName(), event -> {
                     KeyboardEvent keyboardEvent = Js.cast(event);

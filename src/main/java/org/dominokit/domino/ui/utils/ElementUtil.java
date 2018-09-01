@@ -25,6 +25,10 @@ public class ElementUtil {
                 element.removeChild(element.firstChild);
     }
 
+    public static void clear(IsElement element) {
+        clear(element.asElement());
+    }
+
     public static <T extends HTMLElement> HtmlContentBuilder<T> contentBuilder(T element) {
         return new HtmlContentBuilder<>(element);
     }
@@ -59,6 +63,17 @@ public class ElementUtil {
     }
 
     /**
+     * {@link #onAttach(HTMLElement, ObserverCallback)}
+     * @param element
+     * @param callback
+     */
+    public static void onAttach(IsElement element, ObserverCallback callback) {
+        if (element != null) {
+            BodyObserver.addAttachObserver(element.asElement(), callback);
+        }
+    }
+
+    /**
      * Registers a callback when an element is removed from the document body. Note that the callback will be called
      * only once, if the element is removed and re-appended a new callback should be registered.
      *
@@ -69,6 +84,19 @@ public class ElementUtil {
 
         if (element != null) {
             BodyObserver.addDetachObserver(element, callback);
+        }
+    }
+
+
+    /**
+     * {@link #onDetach(HTMLElement, ObserverCallback)}
+     * @param element
+     * @param callback
+     */
+    public static void onDetach(IsElement element, ObserverCallback callback) {
+
+        if (element != null) {
+            BodyObserver.addDetachObserver(element.asElement(), callback);
         }
     }
 
@@ -123,13 +151,6 @@ public class ElementUtil {
 
     public static void scrollToElement(HTMLElement element) {
         element.scrollIntoView();
-    }
-
-    public static void test() {
-        Row.create()
-                .span1(column -> {
-
-                });
     }
 
 }

@@ -4,7 +4,9 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.Checkable;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.Elements;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -175,8 +177,8 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     @Override
-    public HTMLLabelElement getLabelElement() {
-        return labelElement;
+    public DominoElement<HTMLLabelElement, IsElement<HTMLLabelElement>> getLabelElement() {
+        return DominoElement.of(labelElement);
     }
 
     public SwitchButton setOnTitle(String onTitle) {
@@ -189,18 +191,18 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
         return this;
     }
 
-    public HTMLLabelElement getOnOffLabelElement() {
-        return onOffLabelElement;
+    public DominoElement<HTMLLabelElement, IsElement<HTMLLabelElement>> getOnOffLabelElement() {
+        return DominoElement.of(onOffLabelElement);
     }
 
     @Override
-    public HTMLInputElement getInputElement() {
-        return inputElement;
+    public DominoElement<HTMLInputElement, IsElement<HTMLInputElement>> getInputElement() {
+        return DominoElement.of(inputElement);
     }
 
     @Override
-    public HTMLDivElement getFieldContainer() {
-        return formLine;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFieldContainer() {
+        return DominoElement.of(formLine);
     }
 
     @Override

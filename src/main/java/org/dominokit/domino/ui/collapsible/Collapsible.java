@@ -37,28 +37,12 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
         });
     }
 
-    public Collapsible(HTMLElement element, String key) {
-        this.element = element;
-        style = Style.of(element);
-        ElementUtil.onAttach(element, mutationRecord -> {
-            updateHeight();
-        });
-    }
-
     public static Collapsible create(HTMLElement element) {
         return new Collapsible(element);
     }
 
     public static Collapsible create(IsElement isElement) {
         return create(isElement.asElement());
-    }
-
-    public static Collapsible create(HTMLElement element, String key) {
-        return new Collapsible(element, key);
-    }
-
-    public static Collapsible create(IsElement isElement, String key) {
-        return create(isElement.asElement(), key);
     }
 
     @Override
@@ -82,7 +66,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
                 @Override
                 protected void onStart() {
                     super.onStart();
-                    style.css("collapsing");
+                    style.add("collapsing");
                     updateHeight();
                     if (elementHeight == 0) {
                         completeCollapse();
@@ -112,7 +96,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     private void completeCollapse() {
         style.setDisplay("none");
         style.removeProperty("height");
-        style.removeCss("collapsing");
+        style.remove("collapsing");
         onCollapseCompleted();
     }
 
@@ -133,7 +117,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
                 protected void onStart() {
                     super.onStart();
                     style.setProperty("height", "0px");
-                    style.css("collapsing");
+                    style.add("collapsing");
                     style.removeProperty("display");
                     if (elementHeight == 0) {
                         cancel();
@@ -159,7 +143,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
     private void completeExpand() {
         style.removeProperty("height");
-        style.removeCss("collapsing");
+        style.remove("collapsing");
         onExpandCompleted();
         updateHeight();
     }
@@ -174,7 +158,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     }
 
     @Override
-    public Collapsible toggle() {
+    public Collapsible toggleDisplay() {
         if (isCollapsed())
             expand();
         else

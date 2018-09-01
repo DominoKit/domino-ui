@@ -11,7 +11,8 @@ public class AlertLink extends DominoElement<HTMLAnchorElement, AlertLink> imple
 
     public AlertLink(HTMLAnchorElement element) {
         this.element = element;
-        style().css(Styles.alert_link);
+        style().add(Styles.alert_link);
+        init(this);
     }
 
     public static AlertLink create(HTMLAnchorElement element){

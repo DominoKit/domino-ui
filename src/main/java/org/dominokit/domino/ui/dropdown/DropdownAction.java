@@ -2,16 +2,16 @@ package org.dominokit.domino.ui.dropdown;
 
 
 import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
-import org.dominokit.domino.ui.utils.Justifiable;
 import org.jboss.gwt.elemento.core.Elements;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DropdownAction<V> implements Justifiable, HasSelectionHandler<DropdownAction> {
+public class DropdownAction<V> extends DominoElement<HTMLLIElement, DropdownAction<V>> implements  HasSelectionHandler<DropdownAction> {
 
     private HTMLLIElement liElement = Elements.li().asElement();
     private V value;
@@ -43,13 +43,8 @@ public class DropdownAction<V> implements Justifiable, HasSelectionHandler<Dropd
     }
 
     @Override
-    public HTMLElement asElement() {
+    public HTMLLIElement asElement() {
         return liElement;
-    }
-
-    @Override
-    public HTMLElement justify() {
-        return (HTMLLIElement) asElement().cloneNode(true);
     }
 
     @Override
@@ -62,7 +57,8 @@ public class DropdownAction<V> implements Justifiable, HasSelectionHandler<Dropd
         return value;
     }
 
-    public HTMLAnchorElement getAElement() {
-        return aElement;
+    @Override
+    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getClickableElement() {
+        return DominoElement.of(aElement);
     }
 }

@@ -1,13 +1,8 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.CSSProperties;
 import elemental2.dom.EventListener;
-import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLTextAreaElement;
-import org.dominokit.domino.ui.style.Style;
 import org.jboss.gwt.elemento.core.Elements;
-
-import static java.util.Objects.nonNull;
 
 public class TextArea extends AbstractTextBox<TextArea, HTMLTextAreaElement> {
 
@@ -16,11 +11,13 @@ public class TextArea extends AbstractTextBox<TextArea, HTMLTextAreaElement> {
 
     public TextArea() {
         this("");
+        init(this);
     }
 
     public TextArea(String label) {
         super("", label);
         setRows(4);
+        init(this);
     }
 
     public static TextArea create() {
@@ -48,7 +45,7 @@ public class TextArea extends AbstractTextBox<TextArea, HTMLTextAreaElement> {
 
     @Override
     protected void doSetValue(String value) {
-        getInputElement().value = value;
+        getInputElement().asElement().value = value;
     }
 
     @Override
@@ -58,26 +55,26 @@ public class TextArea extends AbstractTextBox<TextArea, HTMLTextAreaElement> {
 
     @Override
     public String getValue() {
-        return getInputElement().value;
+        return getInputElement().asElement().value;
     }
 
     public TextArea autoSize() {
         getInputElement().addEventListener("input", autosizeListener);
-        getInputElement().style.overflow = "hidden";
+        getInputElement().style().setOverFlow("hidden");
         updateRows(1);
         return this;
     }
 
     public TextArea fixedSize() {
         getInputElement().removeEventListener("input", autosizeListener);
-        getInputElement().style.overflow = "";
+        getInputElement().style().setOverFlow("");
         setRows(rows);
         return this;
     }
 
     private void adjustHeight() {
-        getInputElement().style.height = CSSProperties.HeightUnionType.of("auto");
-        getInputElement().style.height = CSSProperties.HeightUnionType.of(getInputElement().scrollHeight + "px");
+        getInputElement().style().setHeight("auto");
+        getInputElement().style().setHeight(getInputElement().asElement().scrollHeight + "px");
     }
 
     @Override
@@ -85,8 +82,5 @@ public class TextArea extends AbstractTextBox<TextArea, HTMLTextAreaElement> {
         return getValue().isEmpty();
     }
 
-    public Style<HTMLElement, TextArea> style(){
-        return Style.of(this);
-    }
 
 }

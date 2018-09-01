@@ -11,6 +11,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -25,7 +26,7 @@ import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
 @Templated
-public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<Card> {
+public abstract class Card extends DominoElement<HTMLDivElement, Card> implements IsElement<HTMLDivElement>, HasBackground<Card> {
 
     private Text title = new Text("");
     private Text description = new Text("");
@@ -131,6 +132,8 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
                 collapseIcon.asElement().textContent = Icons.ALL.keyboard_arrow_up().getName();
             }
         });
+
+        init(this);
     }
 
     public Card setTitle(String titleText) {
@@ -196,12 +199,12 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
         return this;
     }
 
-    public HTMLUListElement getHeaderBar() {
-        return headerBar;
+    public DominoElement<HTMLUListElement, IsElement<HTMLUListElement>> getHeaderBar() {
+        return DominoElement.of(headerBar);
     }
 
-    public HTMLDivElement getBody() {
-        return body;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getBody() {
+        return DominoElement.of(body);
     }
 
     public Card setHeaderBackground(Color background) {
@@ -221,16 +224,16 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
         return this;
     }
 
-    public HTMLDivElement getHeader() {
-        return header;
+    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getHeader() {
+        return DominoElement.of(header);
     }
 
-    public HTMLElement getHeaderTitle() {
-        return headerTitle;
+    public DominoElement<HTMLElement, IsElement<HTMLElement>> getHeaderTitle() {
+        return DominoElement.of(headerTitle);
     }
 
-    public HTMLElement getHeaderDescription() {
-        return headerDescription;
+    public DominoElement<HTMLElement, IsElement<HTMLElement>> getHeaderDescription() {
+        return DominoElement.of(headerDescription);
     }
 
     public static HTMLLIElement createIcon(Icon icon) {
@@ -370,7 +373,7 @@ public abstract class Card implements IsElement<HTMLDivElement>, HasBackground<C
     }
 
     public Card clearBody(){
-        ElementUtil.clear(getBody());
+        getBody().clearElement();
         return this;
     }
 }

@@ -7,11 +7,13 @@ import org.dominokit.domino.ui.search.Search;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ParentTreeItem;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,7 @@ import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
 @Templated
-public abstract class Tree implements IsElement<HTMLDivElement>, ParentTreeItem<TreeItem> {
+public abstract class Tree extends DominoElement<HTMLDivElement, Tree> implements IsElement<HTMLDivElement>, ParentTreeItem<TreeItem> {
 
     @DataElement
     HTMLUListElement root;
@@ -36,6 +38,11 @@ public abstract class Tree implements IsElement<HTMLDivElement>, ParentTreeItem<
     private boolean autoCollapse = true;
     private List<TreeItem> subItems = new ArrayList<>();
     private boolean autoExpandFound;
+
+    @PostConstruct
+    void init(){
+        init(this);
+    }
 
     public static Tree create(String title) {
         Templated_Tree tree = new Templated_Tree();
@@ -72,16 +79,16 @@ public abstract class Tree implements IsElement<HTMLDivElement>, ParentTreeItem<
         this.activeTreeItem.activate();
     }
 
-    public HTMLLIElement getHeader() {
-        return header;
+    public DominoElement<HTMLLIElement, IsElement<HTMLLIElement>> getHeader() {
+        return DominoElement.of(header);
     }
 
-    public HTMLUListElement getRoot() {
-        return root;
+    public DominoElement<HTMLUListElement, IsElement<HTMLUListElement>> getRoot() {
+        return DominoElement.of(root);
     }
 
-    public HTMLElement getTitle() {
-        return title;
+    public DominoElement<HTMLElement, IsElement<HTMLElement>> getTitle() {
+        return DominoElement.of(title);
     }
 
     public Tree autoHieght() {
@@ -103,10 +110,11 @@ public abstract class Tree implements IsElement<HTMLDivElement>, ParentTreeItem<
                 .onSearch(Tree.this::filter)
                 .onClose(this::clearFilter);
 
-        Icon searchIcon = Style.of(Icons.ALL.search())
+        Icon searchIcon = Icons.ALL.search()
+                .style()
                 .setMarginBottom("0px")
                 .setMarginTop("0px")
-                .css(Styles.pull_right)
+                .add(Styles.pull_right)
                 .setProperty("cursor", "pointer")
                 .get()
                 .setColor(Color.GREY);
@@ -119,10 +127,11 @@ public abstract class Tree implements IsElement<HTMLDivElement>, ParentTreeItem<
     }
 
     public Tree enableFolding() {
-        Icon collapseAll = Style.of(Icons.ALL.fullscreen_exit())
+        Icon collapseAll = Icons.ALL.fullscreen_exit()
+                .style()
                 .setMarginBottom("0px")
                 .setMarginTop("0px")
-                .css(Styles.pull_right)
+                .add(Styles.pull_right)
                 .setProperty("cursor", "pointer")
                 .get()
                 .setColor(Color.GREY);
@@ -130,10 +139,11 @@ public abstract class Tree implements IsElement<HTMLDivElement>, ParentTreeItem<
         collapseAll.asElement().addEventListener("click", evt -> getSubItems().forEach(TreeItem::collapseAll));
 
 
-        Icon expandAll = Style.of(Icons.ALL.fullscreen())
+        Icon expandAll = Icons.ALL.fullscreen()
+                .style()
                 .setMarginBottom("0px")
                 .setMarginTop("0px")
-                .css(Styles.pull_right)
+                .add(Styles.pull_right)
                 .setProperty("cursor", "pointer")
                 .get()
                 .setColor(Color.GREY);
@@ -183,9 +193,5 @@ public abstract class Tree implements IsElement<HTMLDivElement>, ParentTreeItem<
 
     public List<TreeItem> getSubItems() {
         return subItems;
-    }
-
-    public Style<HTMLDivElement, Tree> style(){
-        return Style.of(this);
     }
 }

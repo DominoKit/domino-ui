@@ -4,10 +4,11 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
-public class FileImage implements IsElement<HTMLDivElement> {
+public class FileImage extends DominoElement<HTMLDivElement, FileImage> implements IsElement<HTMLDivElement> {
 
     private HTMLDivElement fileImageContainer;
 
@@ -20,6 +21,7 @@ public class FileImage implements IsElement<HTMLDivElement> {
         icon.style.width = CSSProperties.WidthUnionType.of("100%");
         icon.style.textAlign = "center";
         setImage(icon);
+        init(this);
     }
 
     public FileImage(File file) {
@@ -34,6 +36,7 @@ public class FileImage implements IsElement<HTMLDivElement> {
         fileReader.addEventListener("load", evt -> image.src = fileReader.result.asString());
         fileReader.readAsDataURL(file);
         setImage(image);
+        init(this);
     }
 
     private void initFileContainer() {

@@ -5,7 +5,7 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.HasLength;
 import org.jboss.gwt.elemento.core.Elements;
 
-public abstract class AbstractTextBox<T extends AbstractTextBox, E extends HTMLElement>
+public abstract class AbstractTextBox<T extends AbstractTextBox<T,E>, E extends HTMLElement>
         extends ValueBox<T, E, String> implements HasLength<T> {
 
     private HTMLDivElement characterCountContainer = Elements.div().css("help-info pull-right").asElement();
