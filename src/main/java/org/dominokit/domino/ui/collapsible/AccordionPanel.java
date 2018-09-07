@@ -6,34 +6,32 @@ import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.IsCollapsible;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class AccordionPanel extends DominoElement<HTMLDivElement, AccordionPanel> implements IsElement<HTMLDivElement>, IsCollapsible<AccordionPanel> {
+public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionPanel> implements IsCollapsible<AccordionPanel> {
 
     private HTMLDivElement element = div().css("panel panel-primary").asElement();
     private HTMLDivElement headerElement = div().css("panel-heading").attr("role", "tab").asElement();
     private HTMLHeadingElement headingElement = h(4).css("panel-title").asElement();
-    private HTMLAnchorElement clickablElement = a().attr("role", "button").asElement();
+    private HTMLAnchorElement clickableElement = a().attr("role", "button").asElement();
     private HTMLDivElement collapsibleElement = div().css("panel-collapse").asElement();
-    private Collapsible collapsible;
     private HTMLDivElement bodyElement = div().css("panel-body").asElement();
     private String panelStyle = "panel-primary";
     private Icon panelIcon;
-    private int duration = 1;
 
     public AccordionPanel(String title) {
-        clickablElement.textContent = title;
+        clickableElement.textContent = title;
         init();
     }
 
     public AccordionPanel(String title, Node content) {
-        clickablElement.textContent = title;
+        clickableElement.textContent = title;
         bodyElement.appendChild(content);
         init();
     }
@@ -49,15 +47,15 @@ public class AccordionPanel extends DominoElement<HTMLDivElement, AccordionPanel
     private void init() {
         element.appendChild(headerElement);
         headerElement.appendChild(headingElement);
-        headingElement.appendChild(clickablElement);
+        headingElement.appendChild(clickableElement);
         collapsibleElement.appendChild(bodyElement);
         element.appendChild(collapsibleElement);
-        collapsible = Collapsible.create(collapsibleElement);
-
+        init(this);
+        collapse();
     }
 
     public AccordionPanel setTitle(String title) {
-        clickablElement.textContent = title;
+        clickableElement.textContent = title;
         return this;
     }
 
@@ -126,30 +124,22 @@ public class AccordionPanel extends DominoElement<HTMLDivElement, AccordionPanel
         }
 
         panelIcon = icon;
-        clickablElement.insertBefore(icon.asElement(), clickablElement.firstChild);
+        clickableElement.insertBefore(icon.asElement(), clickableElement.firstChild);
 
         return this;
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getBody() {
+    public DominoElement<HTMLDivElement> getBody() {
         return DominoElement.of(bodyElement);
     }
 
     @Override
-    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getClickableElement() {
-        return DominoElement.of(clickablElement);
+    public HTMLAnchorElement getClickableElement() {
+        return clickableElement;
     }
 
     @Override
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getCollapsibleElement() {
-        return DominoElement.of(collapsibleElement);
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public HTMLDivElement getCollapsibleElement() {
+        return collapsibleElement;
     }
 }

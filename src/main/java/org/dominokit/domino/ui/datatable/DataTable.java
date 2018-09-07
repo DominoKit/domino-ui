@@ -8,9 +8,10 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TableEventListener;
 import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.dominokit.domino.ui.utils.HasMultiSelectSupport;
+import org.dominokit.domino.ui.utils.HasSelectionSupport;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.*;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class DataTable<T> extends DominoElement<HTMLDivElement, DataTable<T>> implements IsElement<HTMLDivElement>, HasMultiSelectSupport<TableRow<T>> {
+public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>> implements HasSelectionSupport<TableRow<T>> {
 
     public static final String ANY = "*";
     private final DataStore<T> dataStore;
@@ -29,7 +30,6 @@ public class DataTable<T> extends DominoElement<HTMLDivElement, DataTable<T>> im
     private HTMLTableSectionElement tbody = tbody().asElement();
     private HTMLTableSectionElement thead = thead().asElement();
     private List<T> data = new ArrayList<>();
-    private boolean multiSelect = true;
     private boolean selectable = true;
     private List<TableRow<T>> tableRows = new ArrayList<>();
 
@@ -175,15 +175,15 @@ public class DataTable<T> extends DominoElement<HTMLDivElement, DataTable<T>> im
         return this;
     }
 
-    public DominoElement<HTMLTableElement,IsElement<HTMLTableElement>> tableElement() {
+    public DominoElement<HTMLTableElement> tableElement() {
         return DominoElement.of(tableElement);
     }
 
-    public DominoElement<HTMLTableSectionElement,IsElement<HTMLTableSectionElement>> bodyElement() {
+    public DominoElement<HTMLTableSectionElement> bodyElement() {
         return DominoElement.of(tbody);
     }
 
-    public DominoElement<HTMLTableSectionElement,IsElement<HTMLTableSectionElement>> headerElement() {
+    public DominoElement<HTMLTableSectionElement> headerElement() {
         return DominoElement.of(thead);
     }
 
@@ -246,16 +246,6 @@ public class DataTable<T> extends DominoElement<HTMLDivElement, DataTable<T>> im
     }
 
     @Override
-    public boolean isMultiSelect() {
-        return this.multiSelect;
-    }
-
-    @Override
-    public void setMultiSelect(boolean multiSelect) {
-        this.multiSelect = multiSelect;
-    }
-
-    @Override
     public List<TableRow<T>> getTableRows() {
         return tableRows;
     }
@@ -267,7 +257,7 @@ public class DataTable<T> extends DominoElement<HTMLDivElement, DataTable<T>> im
 
     @Override
     public void selectAll() {
-        if (isMultiSelect() && !tableRows.isEmpty()) {
+        if (tableConfig.isMultiSelect() && !tableRows.isEmpty()) {
             tableRows.forEach(TableRow::select);
             onSelectionChange(tableRows.get(0));
         }

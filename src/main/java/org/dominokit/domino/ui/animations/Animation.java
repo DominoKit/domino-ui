@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.animations;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -34,6 +35,10 @@ public class Animation {
 
     public static Animation create(HTMLElement element) {
         return new Animation(element);
+    }
+
+    public static Animation create(BaseDominoElement element) {
+        return new Animation(element.asElement());
     }
 
     public static Animation create(IsElement element) {

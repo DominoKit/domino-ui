@@ -2,12 +2,13 @@ package org.dominokit.domino.ui.carousel;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Slide extends DominoElement<HTMLDivElement, Slide> implements IsElement<HTMLDivElement> {
+public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
     private HTMLLIElement indicatorElement = li().asElement();
     private HTMLHeadingElement slideLabelElement = h(3).asElement();
@@ -64,7 +65,7 @@ public class Slide extends DominoElement<HTMLDivElement, Slide> implements IsEle
         return new Slide(image, label, description);
     }
 
-    public DominoElement<HTMLLIElement, IsElement<HTMLLIElement>> getIndicatorElement() {
+    public DominoElement<HTMLLIElement> getIndicatorElement() {
         return DominoElement.of(indicatorElement);
     }
 
@@ -105,19 +106,19 @@ public class Slide extends DominoElement<HTMLDivElement, Slide> implements IsEle
         return Style.of(this).contains("active");
     }
 
-    public DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getSlideLabelElement() {
+    public DominoElement<HTMLHeadingElement> getSlideLabelElement() {
         return DominoElement.of(slideLabelElement);
     }
 
-    public DominoElement<HTMLParagraphElement,IsElement<HTMLParagraphElement>> getSlideDescriptionElement() {
+    public DominoElement<HTMLParagraphElement> getSlideDescriptionElement() {
         return DominoElement.of(slideDescriptionElement);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getCaptionElement() {
+    public DominoElement<HTMLDivElement> getCaptionElement() {
         return DominoElement.of(captionElement);
     }
 
-    public DominoElement<HTMLImageElement,IsElement<HTMLImageElement>> getImageElement() {
+    public DominoElement<HTMLImageElement> getImageElement() {
         return DominoElement.of(imageElement);
     }
 }

@@ -6,10 +6,9 @@ import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Waves;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
 import java.util.LinkedList;
@@ -18,7 +17,7 @@ import java.util.stream.IntStream;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class SimplePagination extends DominoElement<HTMLElement, SimplePagination> implements IsElement<HTMLElement>, HasPagination {
+public class SimplePagination extends BaseDominoElement<HTMLElement, SimplePagination> implements HasPagination {
 
     private static final String WAVES_EFFECT = "waves-effect";
 

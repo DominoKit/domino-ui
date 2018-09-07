@@ -1,10 +1,9 @@
 package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasMultiSelectSupport;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
+import org.dominokit.domino.ui.utils.HasSelectionSupport;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -13,7 +12,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class ListGroup<T> extends DominoElement<HTMLDivElement, ListGroup<T>> implements IsElement<HTMLDivElement>, HasMultiSelectSupport<ListItem<T>> {
+public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>> implements HasSelectionSupport<ListItem<T>>, HasMultiSelectionSupport {
 
     private final HTMLDivElement element;
     private List<ListItem<T>> allItems = new LinkedList<>();
@@ -47,9 +46,9 @@ public class ListGroup<T> extends DominoElement<HTMLDivElement, ListGroup<T>> im
 
 
     /**
-     * @deprecated use {@link #appendChild(ListItem)}
      * @param listItem
      * @return
+     * @deprecated use {@link #appendChild(ListItem)}
      */
     @Deprecated
     public ListGroup<T> appendItem(ListItem<T> listItem) {
@@ -152,6 +151,11 @@ public class ListGroup<T> extends DominoElement<HTMLDivElement, ListGroup<T>> im
         }
     }
 
+    public ListGroup<T> removeAll() {
+        getTableRows().forEach(this::removeItem);
+        return this;
+    }
+
     public ListGroup<T> addSelectionChangeHandler(SelectionChangeHandler<T> selectionChangeHandler) {
         this.selectionHandlers.add(selectionChangeHandler);
         return this;
@@ -165,5 +169,4 @@ public class ListGroup<T> extends DominoElement<HTMLDivElement, ListGroup<T>> im
     public interface SelectionChangeHandler<T> {
         void onSelectionChanged(ListItem<T> item);
     }
-
 }

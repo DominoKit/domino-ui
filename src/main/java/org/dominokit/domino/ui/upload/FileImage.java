@@ -4,11 +4,10 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
-public class FileImage extends DominoElement<HTMLDivElement, FileImage> implements IsElement<HTMLDivElement> {
+public class FileImage extends BaseDominoElement<HTMLDivElement, FileImage> {
 
     private HTMLDivElement fileImageContainer;
 

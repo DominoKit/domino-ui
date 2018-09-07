@@ -11,8 +11,8 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
@@ -26,7 +26,7 @@ import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
 @Templated
-public abstract class Card extends DominoElement<HTMLDivElement, Card> implements IsElement<HTMLDivElement>, HasBackground<Card> {
+public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> implements HasBackground<Card>, IsElement<HTMLDivElement> {
 
     private Text title = new Text("");
     private Text description = new Text("");
@@ -115,11 +115,9 @@ public abstract class Card extends DominoElement<HTMLDivElement, Card> implement
         headerTitle.insertBefore(title, headerDescription);
         headerDescription.appendChild(description);
         bodyCollapsible = Collapsible.create(body);
-        ElementUtil.onAttach(asElement(), mutationRecord -> {
-            if (collapsed) {
-                bodyCollapsible.collapse(1);
-            }
-        });
+        if (collapsed) {
+            bodyCollapsible.collapse();
+        }
 
         bodyCollapsible.addCollapseHandler(() -> {
             if (collapsible) {
@@ -148,9 +146,9 @@ public abstract class Card extends DominoElement<HTMLDivElement, Card> implement
 
 
     /**
-     * @deprecated use {@link #appendDescriptionChild(Node)}
      * @param content
      * @return
+     * @deprecated use {@link #appendDescriptionChild(Node)}
      */
     @Deprecated
     public Card appendDescriptionContent(Node content) {
@@ -168,9 +166,9 @@ public abstract class Card extends DominoElement<HTMLDivElement, Card> implement
     }
 
     /**
-     *  @deprecated use {@link #appendChild(IsElement)}
      * @param content
      * @return
+     * @deprecated use {@link #appendChild(IsElement)}
      */
     @Deprecated
     public Card appendContent(Node content) {
@@ -179,9 +177,9 @@ public abstract class Card extends DominoElement<HTMLDivElement, Card> implement
     }
 
     /**
-     * @deprecated use {@link #appendChild(Node)}
      * @param element
      * @return
+     * @deprecated use {@link #appendChild(Node)}
      */
     @Deprecated
     public Card appendContent(IsElement element) {
@@ -199,11 +197,11 @@ public abstract class Card extends DominoElement<HTMLDivElement, Card> implement
         return this;
     }
 
-    public DominoElement<HTMLUListElement, IsElement<HTMLUListElement>> getHeaderBar() {
+    public DominoElement<HTMLUListElement> getHeaderBar() {
         return DominoElement.of(headerBar);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getBody() {
+    public DominoElement<HTMLDivElement> getBody() {
         return DominoElement.of(body);
     }
 
@@ -224,15 +222,15 @@ public abstract class Card extends DominoElement<HTMLDivElement, Card> implement
         return this;
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getHeader() {
+    public DominoElement<HTMLDivElement> getHeader() {
         return DominoElement.of(header);
     }
 
-    public DominoElement<HTMLElement, IsElement<HTMLElement>> getHeaderTitle() {
+    public DominoElement<HTMLElement> getHeaderTitle() {
         return DominoElement.of(headerTitle);
     }
 
-    public DominoElement<HTMLElement, IsElement<HTMLElement>> getHeaderDescription() {
+    public DominoElement<HTMLElement> getHeaderDescription() {
         return DominoElement.of(headerDescription);
     }
 
@@ -272,11 +270,10 @@ public abstract class Card extends DominoElement<HTMLDivElement, Card> implement
         }
         collapseAction.addEventListener("click", evt -> {
             if (collapsible) {
-                int duration = collapseDuration == 0 ? bodyCollapsible.getDuration() : collapseDuration;
                 if (bodyCollapsible.isCollapsed()) {
-                    expand(duration);
+                    expand();
                 } else {
-                    collapse(duration);
+                    collapse();
                 }
             }
         });
@@ -290,48 +287,26 @@ public abstract class Card extends DominoElement<HTMLDivElement, Card> implement
 
     public Card collapse() {
         bodyCollapsible.collapse();
-        this.collapsed = true;
         return this;
     }
 
     public Card expand() {
         bodyCollapsible.expand();
-        this.collapsed = false;
         return this;
     }
 
-    public Card collapse(int duration) {
-        bodyCollapsible.collapse(duration);
-        this.collapsed = true;
-        return this;
-    }
 
-    public Card expand(int duration) {
-        bodyCollapsible.expand(duration);
-        this.collapsed = false;
-        return this;
-    }
-
-    public Card toggle(){
-        if(this.collapsed){
+    public Card toggle() {
+        if (this.collapsed) {
             expand();
-        }else{
+        } else {
             collapse();
         }
         return this;
     }
 
-    public Card toggle(int duration){
-        if(this.collapsed){
-            expand(duration);
-        }else{
-            collapse(duration);
-        }
-        return this;
-    }
-
-    public boolean isCollapsed(){
-        return this.collapsed;
+    public boolean isCollapsed() {
+        return bodyCollapsible.isCollapsed();
     }
 
     public Card setBodyPadding(String padding) {
@@ -372,7 +347,7 @@ public abstract class Card extends DominoElement<HTMLDivElement, Card> implement
         return this;
     }
 
-    public Card clearBody(){
+    public Card clearBody() {
         getBody().clearElement();
         return this;
     }

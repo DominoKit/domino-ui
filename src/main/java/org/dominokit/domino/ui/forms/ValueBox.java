@@ -12,7 +12,7 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 
-public abstract class ValueBox<T extends ValueBox<T,E,V>, E extends HTMLElement, V> extends BasicFormElement<T, V> implements
+public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElement, V> extends BasicFormElement<T, V> implements
         Focusable<T>, HasPlaceHolder<T>, IsReadOnly<T>, HasChangeHandlers<T, V> {
 
     public static final String FOCUSED = "focused";
@@ -124,7 +124,14 @@ public abstract class ValueBox<T extends ValueBox<T,E,V>, E extends HTMLElement,
             setLeftAddonColor(focusColor);
         }
         showPlaceholder();
-        ElementUtil.onAttach(getInputElement().asElement(), mutationRecord -> getInputElement().asElement().focus());
+        if (!isAttached()) {
+            ElementUtil.onAttach(getInputElement(), mutationRecord -> {
+                DomGlobal.console.info("attach");
+                getInputElement().asElement().focus();
+            });
+        } else {
+            getInputElement().asElement().focus();
+        }
         return (T) this;
     }
 
@@ -223,7 +230,7 @@ public abstract class ValueBox<T extends ValueBox<T,E,V>, E extends HTMLElement,
     }
 
     @Override
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFieldContainer() {
+    public DominoElement<HTMLDivElement> getFieldContainer() {
         return DominoElement.of(inputContainer);
     }
 
@@ -267,7 +274,7 @@ public abstract class ValueBox<T extends ValueBox<T,E,V>, E extends HTMLElement,
 
     private void setAddon(HTMLElement container, Element oldAddon, Element addon) {
         if (nonNull(oldAddon)) {
-            container.removeChild(oldAddon);
+            oldAddon.remove();
         }
         if (nonNull(addon)) {
             List<String> oldClasses = new ArrayList<>(addon.classList.asList());
@@ -291,12 +298,12 @@ public abstract class ValueBox<T extends ValueBox<T,E,V>, E extends HTMLElement,
     }
 
     @Override
-    public DominoElement<E, IsElement<E>> getInputElement() {
+    public DominoElement<E> getInputElement() {
         return DominoElement.of(inputElement);
     }
 
     @Override
-    public DominoElement<HTMLLabelElement,IsElement<HTMLLabelElement>> getLabelElement() {
+    public DominoElement<HTMLLabelElement> getLabelElement() {
         return DominoElement.of(labelElement);
     }
 

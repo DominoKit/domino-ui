@@ -218,7 +218,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
         public SearchTableAction<T> addSearchField(SelectOption<String> selectOption, boolean defaultSelection) {
             if (nonNull(selectOption)) {
-                select.addOption(selectOption);
+                select.appendChild(selectOption);
                 if (defaultSelection) {
                     select.select(selectOption);
                 }

@@ -6,13 +6,15 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implements Checkable<SwitchButton> {
 
+    public static final String READONLY = "readonly";
     private HTMLDivElement container = Elements.div().css("switch form-group").asElement();
     private HTMLDivElement formLine = Elements.div().css("form-line").asElement();
     private HTMLDivElement formControl = Elements.div().css("form-control").asElement();
@@ -24,7 +26,11 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     private Color color;
     private Text onTitleText = new Text();
     private Text offTitleText = new Text();
+    private String checkedReadonlyLabel = "Yes";
+    private String unCheckedReadonlyLabel = "No";
     private boolean autoValidation;
+    private String offTitle;
+    private String onTitle;
 
     public SwitchButton(String label, String offTitle, String onTitle) {
         this(label);
@@ -177,31 +183,33 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     @Override
-    public DominoElement<HTMLLabelElement, IsElement<HTMLLabelElement>> getLabelElement() {
+    public DominoElement<HTMLLabelElement> getLabelElement() {
         return DominoElement.of(labelElement);
     }
 
     public SwitchButton setOnTitle(String onTitle) {
         onTitleText.textContent = onTitle;
+        this.onTitle = onTitle;
         return this;
     }
 
     public SwitchButton setOffTitle(String offTitle) {
         offTitleText.textContent = offTitle;
+        this.offTitle = offTitle;
         return this;
     }
 
-    public DominoElement<HTMLLabelElement, IsElement<HTMLLabelElement>> getOnOffLabelElement() {
+    public DominoElement<HTMLLabelElement> getOnOffLabelElement() {
         return DominoElement.of(onOffLabelElement);
     }
 
     @Override
-    public DominoElement<HTMLInputElement, IsElement<HTMLInputElement>> getInputElement() {
+    public DominoElement<HTMLInputElement> getInputElement() {
         return DominoElement.of(inputElement);
     }
 
     @Override
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFieldContainer() {
+    public DominoElement<HTMLDivElement> getFieldContainer() {
         return DominoElement.of(formLine);
     }
 
@@ -221,7 +229,56 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
         return container;
     }
 
-    public Style<HTMLElement, SwitchButton> style(){
+    public Style<HTMLElement, SwitchButton> style() {
         return Style.of(this);
+    }
+
+    @Override
+    public SwitchButton setReadOnly(boolean readOnly) {
+        if (readOnly) {
+            setAttribute(READONLY, READONLY);
+            if (isChecked()) {
+                if (onTitleText.textContent.isEmpty()) {
+                    offTitleText.textContent = offTitle + getCheckedReadonlyLabel();
+                } else {
+                    offTitleText.textContent = "";
+                }
+            } else {
+                if (onTitleText.textContent.isEmpty()) {
+                    offTitleText.textContent = offTitle + getUnCheckedReadonlyLabel();
+                } else {
+                    onTitleText.textContent = "";
+                }
+            }
+        } else {
+            removeAttribute(READONLY);
+            setOffTitle(offTitle);
+            setOnTitle(onTitle);
+        }
+        return this;
+    }
+
+
+    private String getCheckedReadonlyLabel() {
+        return isNull(checkedReadonlyLabel) || checkedReadonlyLabel.isEmpty() ? "" : ": " + checkedReadonlyLabel;
+    }
+
+    private String getUnCheckedReadonlyLabel() {
+        return isNull(unCheckedReadonlyLabel) || unCheckedReadonlyLabel.isEmpty() ? "" : ": " + unCheckedReadonlyLabel;
+    }
+
+    public SwitchButton setCheckedReadonlyLabel(String checkedReadonlyLabel) {
+        this.checkedReadonlyLabel = checkedReadonlyLabel;
+        return this;
+    }
+
+    public SwitchButton setUnCheckedReadonlyLabel(String unCheckedReadonlyLabel) {
+        this.unCheckedReadonlyLabel = unCheckedReadonlyLabel;
+        return this;
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return formControl.hasAttribute(READONLY);
     }
 }

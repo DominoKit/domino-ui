@@ -7,6 +7,7 @@ import org.dominokit.domino.ui.search.Search;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ParentTreeItem;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -22,7 +23,7 @@ import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
 @Templated
-public abstract class Tree extends DominoElement<HTMLDivElement, Tree> implements IsElement<HTMLDivElement>, ParentTreeItem<TreeItem> {
+public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> implements ParentTreeItem<TreeItem>, IsElement<HTMLDivElement>  {
 
     @DataElement
     HTMLUListElement root;
@@ -50,7 +51,17 @@ public abstract class Tree extends DominoElement<HTMLDivElement, Tree> implement
         return tree;
     }
 
+    /**
+     * @deprecated use {@link #appendChild(TreeItem)}
+     * @param treeItem
+     * @return
+     */
+    @Deprecated
     public Tree addTreeItem(TreeItem treeItem) {
+        return appendChild(treeItem);
+    }
+
+    public Tree appendChild(TreeItem treeItem) {
         root.appendChild(treeItem.asElement());
         treeItem.setParent(this);
         this.subItems.add(treeItem);
@@ -79,15 +90,15 @@ public abstract class Tree extends DominoElement<HTMLDivElement, Tree> implement
         this.activeTreeItem.activate();
     }
 
-    public DominoElement<HTMLLIElement, IsElement<HTMLLIElement>> getHeader() {
+    public DominoElement<HTMLLIElement> getHeader() {
         return DominoElement.of(header);
     }
 
-    public DominoElement<HTMLUListElement, IsElement<HTMLUListElement>> getRoot() {
+    public DominoElement<HTMLUListElement> getRoot() {
         return DominoElement.of(root);
     }
 
-    public DominoElement<HTMLElement, IsElement<HTMLElement>> getTitle() {
+    public DominoElement<HTMLElement> getTitle() {
         return DominoElement.of(title);
     }
 
@@ -184,6 +195,11 @@ public abstract class Tree extends DominoElement<HTMLDivElement, Tree> implement
 
     public Tree setAutoCollapse(boolean autoCollapse) {
         this.autoCollapse = autoCollapse;
+        return this;
+    }
+
+    public Tree setTitle(String title){
+        getTitle().setTextContent(title);
         return this;
     }
 

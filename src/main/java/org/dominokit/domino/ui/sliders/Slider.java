@@ -4,13 +4,10 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLParagraphElement;
-import org.dominokit.domino.ui.notifications.Notification;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.themes.Theme;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +18,7 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 import static org.jboss.gwt.elemento.core.EventType.*;
 import static org.jboss.gwt.elemento.core.EventType.input;
 
-public class Slider extends DominoElement<HTMLParagraphElement, Slider> implements IsElement<HTMLParagraphElement>, HasChangeHandlers<Slider, Double> {
+public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> implements HasChangeHandlers<Slider, Double> {
 
     private HTMLParagraphElement sliderContainer = p().css("slide-container").asElement();
     private HTMLInputElement slider = input("range").css("slider").asElement();

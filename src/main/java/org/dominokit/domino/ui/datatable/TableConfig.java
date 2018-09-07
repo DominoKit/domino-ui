@@ -4,6 +4,7 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
 import java.util.LinkedList;
@@ -12,7 +13,7 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class TableConfig<T> {
+public class TableConfig<T> implements HasMultiSelectionSupport {
 
     private List<ColumnConfig<T>> columns = new LinkedList<>();
     private List<DataTablePlugin<T>> plugins = new LinkedList<>();
@@ -21,6 +22,7 @@ public class TableConfig<T> {
     private String fixedDefaultColumnWidth = "100px";
     private String fixedBodyHeight = "400px";
     private boolean lazyLoad = true;
+    private boolean multiSelect = true;
 
     public void drawHeaders(DataTable<T> dataTable, HTMLTableSectionElement thead) {
         this.dataTable = dataTable;
@@ -154,6 +156,16 @@ public class TableConfig<T> {
         } else {
             return fixedDefaultColumnWidth;
         }
+    }
+
+    @Override
+    public boolean isMultiSelect() {
+        return this.multiSelect;
+    }
+
+    @Override
+    public void setMultiSelect(boolean multiSelect) {
+        this.multiSelect = multiSelect;
     }
 
     public List<DataTablePlugin<T>> getPlugins() {

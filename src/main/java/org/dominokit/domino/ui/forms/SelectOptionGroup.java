@@ -4,7 +4,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
 import elemental2.dom.Text;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.jboss.gwt.elemento.core.Elements.li;
 
-public class SelectOptionGroup<T> extends DominoElement<HTMLLIElement, SelectOptionGroup<T>> implements IsElement<HTMLLIElement> {
+public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, SelectOptionGroup<T>> {
 
     private HTMLLIElement element = li().css("dropdown-header").asElement();
     private List<SelectOption<T>> options = new ArrayList<>();
@@ -81,7 +81,7 @@ public class SelectOptionGroup<T> extends DominoElement<HTMLLIElement, SelectOpt
 
     void addOptionsTo(Select<T> select) {
         for (SelectOption<T> option : options) {
-            select.addOption(option);
+            select.appendChild(option);
         }
     }
 

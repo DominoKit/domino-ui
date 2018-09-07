@@ -3,14 +3,14 @@ package org.dominokit.domino.ui.grid;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.function.Consumer;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class Row<T extends Row<T>> extends DominoElement<HTMLDivElement, T> implements IsElement<HTMLDivElement> {
+public class Row<T extends Row<T>> extends BaseDominoElement<HTMLDivElement, T> {
 
     protected final Columns columns;
     protected HTMLDivElement row;
@@ -64,6 +64,10 @@ public class Row<T extends Row<T>> extends DominoElement<HTMLDivElement, T> impl
     public T setGap(String gap) {
         Style.of(row).setProperty("grid-gap", gap);
         return (T) this;
+    }
+
+    public T addColumn(Column column) {
+        return appendChild(column);
     }
 
 

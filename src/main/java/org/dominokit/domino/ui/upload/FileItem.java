@@ -10,6 +10,7 @@ import org.dominokit.domino.ui.progress.Progress;
 import org.dominokit.domino.ui.progress.ProgressBar;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.thumbnails.Thumbnail;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -19,7 +20,7 @@ import java.util.List;
 
 import static org.jboss.gwt.elemento.core.Elements.h;
 
-public class FileItem extends DominoElement<HTMLDivElement, FileItem> implements IsElement<HTMLDivElement> {
+public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private static final String[] UNITS = {"KB", "MB", "GB", "TB"};
     private static final String ELLIPSIS_TEXT = "ellipsis-text";
 
@@ -339,7 +340,7 @@ public class FileItem extends DominoElement<HTMLDivElement, FileItem> implements
     }
 
     @Override
-    public DominoElement<HTMLDivElement, FileItem> remove() {
+    public FileItem remove() {
         super.remove();
         removeHandlers.forEach(handler -> handler.onRemoveFile(file));
         return this;
@@ -349,27 +350,27 @@ public class FileItem extends DominoElement<HTMLDivElement, FileItem> implements
         return fileImage;
     }
 
-    public DominoElement<HTMLParagraphElement, IsElement<HTMLParagraphElement>> getFileSizeParagraph() {
+    public DominoElement<HTMLParagraphElement> getFileSizeParagraph() {
         return DominoElement.of(fileSizeParagraph);
     }
 
-    public DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getFileNameTitleContainer() {
+    public DominoElement<HTMLHeadingElement> getFileNameTitleContainer() {
         return DominoElement.of(fileNameTitleContainer);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFooterContainer() {
+    public DominoElement<HTMLDivElement> getFooterContainer() {
         return DominoElement.of(footerContainer);
     }
 
-    public DominoElement<HTMLElement, IsElement<HTMLElement>> getDeleteIcon() {
+    public DominoElement<HTMLElement> getDeleteIcon() {
         return DominoElement.of(deleteIcon);
     }
 
-    public DominoElement<HTMLElement, IsElement<HTMLElement>> getMessageContainer() {
+    public DominoElement<HTMLElement> getMessageContainer() {
         return DominoElement.of(messageContainer);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getProgressElement() {
+    public DominoElement<HTMLDivElement> getProgressElement() {
         return DominoElement.of(progressElement);
     }
 
@@ -420,7 +421,7 @@ public class FileItem extends DominoElement<HTMLDivElement, FileItem> implements
         return this;
     }
 
-    public DominoElement<HTMLElement, IsElement<HTMLElement>> getCancelIcon() {
+    public DominoElement<HTMLElement> getCancelIcon() {
         return DominoElement.of(cancelIcon);
     }
 

@@ -2,7 +2,7 @@ package org.dominokit.domino.ui.preloaders;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
@@ -10,7 +10,7 @@ import org.jboss.gwt.elemento.template.Templated;
 import javax.annotation.PostConstruct;
 
 @Templated
-public abstract class Preloader extends DominoElement<HTMLDivElement, Preloader> implements IsElement<HTMLDivElement>{
+public abstract class Preloader extends BaseDominoElement<HTMLDivElement, Preloader> implements IsElement<HTMLDivElement> {
 
     @DataElement
     HTMLDivElement spinnerLayer;

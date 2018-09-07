@@ -5,5 +5,5 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 @FunctionalInterface
 public interface HasClickableElement {
-    <E extends HTMLElement, T extends IsElement<E>> DominoElement<E,T> getClickableElement();
+    HTMLElement getClickableElement();
 }

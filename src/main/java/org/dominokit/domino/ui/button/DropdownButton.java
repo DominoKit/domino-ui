@@ -41,82 +41,6 @@ public class DropdownButton extends BaseButton<DropdownButton>  {
         initDropDown();
     }
 
-    private void initDropDown() {
-        dropDownMenu = DropDownMenu.create(groupElement);
-        groupElement.appendChild(asDropDown());
-        asElement().appendChild(caret);
-    }
-
-    private HTMLElement asDropDown() {
-        HTMLElement buttonElement = asElement();
-        buttonElement.classList.add("dropdown-toggle");
-        buttonElement.setAttribute("data-toggle", "dropdown");
-        buttonElement.setAttribute("aria-haspopup", true);
-        buttonElement.setAttribute("aria-expanded", true);
-        buttonElement.setAttribute("type", "button");
-        addClickListener(evt -> {
-            dropDownMenu.closeAllMenus();
-            open();
-            evt.stopPropagation();
-        });
-        return buttonElement;
-    }
-
-    private void open() {
-        dropDownMenu.open();
-    }
-
-    public DropdownButton addAction(DropdownAction action) {
-        dropDownMenu.addAction(action);
-        return this;
-    }
-
-    @Override
-    public HTMLElement asElement() {
-        return groupElement;
-    }
-
-    public DropdownButton separator() {
-        dropDownMenu.separator();
-        return this;
-    }
-
-
-    public DropdownButton hideCaret() {
-        if (isCaretAdded())
-            caret.remove();
-        return this;
-    }
-
-    public DropdownButton showCaret() {
-        if (!isCaretAdded())
-            asElement().appendChild(caret);
-        return this;
-    }
-
-    private boolean isCaretAdded() {
-        return asElement().contains(caret);
-    }
-
-
-
-    public DropdownButton linkify() {
-        groupElement.classList.add("link");
-        linkify();
-        return this;
-    }
-
-    public DropdownButton delinkify() {
-        groupElement.classList.remove("link");
-        delinkify();
-        return this;
-    }
-
-    public DropdownButton setPosition(DropDownPosition position) {
-        dropDownMenu.setPosition(position);
-        return this;
-    }
-
     public static DropdownButton create(String content) {
         return new DropdownButton(content);
     }
@@ -183,6 +107,91 @@ public class DropdownButton extends BaseButton<DropdownButton>  {
 
     public static DropdownButton createDanger(Icon icon) {
         return create(icon, StyleType.DANGER);
+    }
+
+    private void initDropDown() {
+        buttonElement.classList.add("btn-dropdown");
+        dropDownMenu = DropDownMenu.create(groupElement);
+        groupElement.appendChild(asDropDown());
+        buttonElement.appendChild(caret);
+        init(this);
+    }
+
+    private HTMLElement asDropDown() {
+        buttonElement.classList.add("dropdown-toggle");
+        buttonElement.setAttribute("data-toggle", "dropdown");
+        buttonElement.setAttribute("aria-haspopup", true);
+        buttonElement.setAttribute("aria-expanded", true);
+        buttonElement.setAttribute("type", "button");
+        addClickListener(evt -> {
+            dropDownMenu.closeAllMenus();
+            open();
+            evt.stopPropagation();
+        });
+        return buttonElement;
+    }
+
+    private void open() {
+        dropDownMenu.open();
+    }
+
+    /**
+     * @deprecated use {@link #appendChild(DropdownAction)}
+     * @param action
+     * @return
+     */
+    @Deprecated
+    public DropdownButton addAction(DropdownAction action) {
+        return appendChild(action);
+    }
+
+    public DropdownButton appendChild(DropdownAction action) {
+        dropDownMenu.addAction(action);
+        return this;
+    }
+
+    @Override
+    public HTMLElement asElement() {
+        return groupElement;
+    }
+
+    public DropdownButton separator() {
+        dropDownMenu.separator();
+        return this;
+    }
+
+
+    public DropdownButton hideCaret() {
+        if (isCaretAdded())
+            caret.remove();
+        return this;
+    }
+
+    public DropdownButton showCaret() {
+        if (!isCaretAdded())
+            asElement().appendChild(caret);
+        return this;
+    }
+
+    private boolean isCaretAdded() {
+        return asElement().contains(caret);
+    }
+
+    public DropdownButton linkify() {
+        groupElement.classList.add("link");
+        super.linkify();
+        return this;
+    }
+
+    public DropdownButton delinkify() {
+        groupElement.classList.remove("link");
+        super.deLinkify();
+        return this;
+    }
+
+    public DropdownButton setPosition(DropDownPosition position) {
+        dropDownMenu.setPosition(position);
+        return this;
     }
 
     public HTMLElement getCaret() {

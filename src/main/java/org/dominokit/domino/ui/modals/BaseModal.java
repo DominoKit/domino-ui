@@ -5,9 +5,9 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
-import org.dominokit.domino.ui.utils.MyDom;
+import org.dominokit.domino.ui.utils.DominoDom;
 import org.dominokit.domino.ui.utils.Switchable;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
@@ -22,7 +22,7 @@ import java.util.Objects;
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 
-public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends DominoElement<HTMLDivElement, T> implements IsElement<HTMLDivElement>, IsModalDialog<T>, Switchable<T> {
+public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends BaseDominoElement<HTMLDivElement, T> implements IsModalDialog<T>, Switchable<T> {
     private static HTMLDivElement MODAL_BACKDROP = Elements.div().css("modal-backdrop fade in").asElement();
     private List<OpenHandler> openHandlers = new ArrayList<>();
     private List<CloseHandler> closeHandlers = new ArrayList<>();
@@ -52,27 +52,27 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Dom
             return new Templated_BaseModal_Modal();
         }
 
-        public DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getModalTitle() {
+        public DominoElement<HTMLHeadingElement> getModalTitle() {
             return DominoElement.of(modalTitle);
         }
 
-        public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getModalBody() {
+        public DominoElement<HTMLDivElement> getModalBody() {
             return DominoElement.of(modalBody);
         }
 
-        public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getModalDialog() {
+        public DominoElement<HTMLDivElement> getModalDialog() {
             return DominoElement.of(modalDialog);
         }
 
-        public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getModalContent() {
+        public DominoElement<HTMLDivElement> getModalContent() {
             return DominoElement.of(modalContent);
         }
 
-        public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getModalFooter() {
+        public DominoElement<HTMLDivElement> getModalFooter() {
             return DominoElement.of(modalFooter);
         }
 
-        public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getModalHeader() {
+        public DominoElement<HTMLDivElement> getModalHeader() {
             return DominoElement.of(modalHeader);
         }
     }
@@ -139,21 +139,21 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Dom
                     break;
             }
 
-            if (!focusElements.contains(MyDom.document.activeElement)) {
+            if (!focusElements.contains(DominoDom.document.activeElement)) {
                     firstFocusElement.focus();
                 }
         });
     }
 
     private void handleBackwardTab(Event evt) {
-        if (MyDom.document.activeElement.equals(firstFocusElement)) {
+        if (DominoDom.document.activeElement.equals(firstFocusElement)) {
             evt.preventDefault();
             lastFocusElement.focus();
         }
     }
 
     private void handleForwardTab(Event evt) {
-        if (MyDom.document.activeElement.equals(lastFocusElement)) {
+        if (DominoDom.document.activeElement.equals(lastFocusElement)) {
             evt.preventDefault();
             firstFocusElement.focus();
         }
@@ -275,14 +275,14 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Dom
 
             initFocusElements();
 
-            activeElementBeforeOpen = MyDom.document.activeElement;
+            activeElementBeforeOpen = DominoDom.document.activeElement;
             MODAL_BACKDROP.remove();
             document.body.appendChild(MODAL_BACKDROP);
             style().add("in");
             style().setDisplay("block");
             if (nonNull(firstFocusElement)) {
                 firstFocusElement.focus();
-                if(!Objects.equals(MyDom.document.activeElement, firstFocusElement)){
+                if(!Objects.equals(DominoDom.document.activeElement, firstFocusElement)){
                    if(nonNull(lastFocusElement)){
                        lastFocusElement.focus();
                    }
@@ -365,32 +365,32 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Dom
     }
 
     @Override
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getDialogElement() {
+    public DominoElement<HTMLDivElement> getDialogElement() {
         return DominoElement.of(modal.modalDialog);
     }
 
     @Override
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentElement() {
+    public DominoElement<HTMLDivElement> getContentElement() {
         return DominoElement.of(modal.modalContent);
     }
 
     @Override
-    public DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getHeaderElement() {
+    public DominoElement<HTMLHeadingElement> getHeaderElement() {
         return DominoElement.of(modal.modalTitle);
     }
 
     @Override
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getHeaderContainerElement() {
+    public DominoElement<HTMLDivElement> getHeaderContainerElement() {
         return DominoElement.of(modal.modalHeader);
     }
 
     @Override
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getBodyElement() {
+    public DominoElement<HTMLDivElement> getBodyElement() {
         return DominoElement.of(modal.modalBody);
     }
 
     @Override
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFooterElement() {
+    public DominoElement<HTMLDivElement> getFooterElement() {
         return DominoElement.of(modal.modalFooter);
     }
 

@@ -4,15 +4,13 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.ButtonSize;
 import org.dominokit.domino.ui.button.DropdownButton;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.Sizable;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 
-public class ButtonsGroup extends DominoElement<HTMLElement, ButtonsGroup> implements IsElement<HTMLElement>, IsGroup<ButtonsGroup>, Sizable<ButtonsGroup> {
+public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> implements IsGroup<ButtonsGroup>, Sizable<ButtonsGroup> {
 
     static final String BTN_GROUP = "btn-group";
     private static final String BTN_GROUP_VERTICAL = "btn-group-vertical";
@@ -105,7 +103,4 @@ public class ButtonsGroup extends DominoElement<HTMLElement, ButtonsGroup> imple
         return setSize(ButtonSize.XSMALL);
     }
 
-    public Style<HTMLElement, ButtonsGroup> style() {
-        return Style.of(this);
-    }
 }

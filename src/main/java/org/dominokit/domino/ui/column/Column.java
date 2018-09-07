@@ -5,7 +5,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
  * @deprecated use {@link org.dominokit.domino.ui.grid.Column}
  */
 @Deprecated
-public class Column extends DominoElement<HTMLDivElement, Column> implements IsElement<HTMLDivElement>, Cloneable {
+public class Column extends BaseDominoElement<HTMLDivElement, Column> implements Cloneable {
 
     private HTMLDivElement column;
     private OnXLarge onXLargeStyle;

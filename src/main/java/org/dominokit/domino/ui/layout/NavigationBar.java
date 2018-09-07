@@ -4,6 +4,7 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
@@ -12,7 +13,7 @@ import org.jboss.gwt.elemento.template.Templated;
 import javax.annotation.PostConstruct;
 
 @Templated
-public abstract class NavigationBar extends DominoElement<HTMLElement, NavigationBar> implements IsElement<HTMLElement>{
+public abstract class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar> {
 
     @DataElement
     HTMLAnchorElement menu;
@@ -49,23 +50,23 @@ public abstract class NavigationBar extends DominoElement<HTMLElement, Navigatio
         return this;
     }
 
-    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getMenu() {
+    public DominoElement<HTMLAnchorElement> getMenu() {
         return DominoElement.of(menu);
     }
 
-    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getNavBarExpand() {
+    public DominoElement<HTMLAnchorElement> getNavBarExpand() {
         return DominoElement.of(navBarExpand);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getNavigationBar() {
+    public DominoElement<HTMLDivElement> getNavigationBar() {
         return DominoElement.of(navigationBar);
     }
 
-    public DominoElement<HTMLUListElement, IsElement<HTMLUListElement>> getTopBar() {
+    public DominoElement<HTMLUListElement> getTopBar() {
         return DominoElement.of(topBar);
     }
 
-    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getTitle() {
+    public DominoElement<HTMLAnchorElement> getTitle() {
         return DominoElement.of(title);
     }
 }

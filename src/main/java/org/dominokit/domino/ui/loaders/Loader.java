@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLElement;
+import org.jboss.gwt.elemento.core.IsElement;
 
 public class Loader {
 
@@ -10,6 +11,10 @@ public class Loader {
 
     public static Loader create(HTMLElement target, LoaderEffect effect){
         return new Loader(target, effect);
+    }
+
+    public static Loader create(IsElement target, LoaderEffect effect){
+        return new Loader(target.asElement(), effect);
     }
 
     private Loader(HTMLElement target, LoaderEffect type){

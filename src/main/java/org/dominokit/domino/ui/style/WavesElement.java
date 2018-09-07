@@ -1,17 +1,17 @@
 package org.dominokit.domino.ui.style;
 
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
-public class WavesElement<E extends HTMLElement, T extends IsElement<E>> extends DominoElement<E,T> implements HasWaveEffect<T> {
+public abstract class WavesElement<E extends HTMLElement, T extends IsElement<E>> extends BaseDominoElement<E,T> implements HasWaveEffect<T> {
 
-    private WavesSupport<E> wavesSupport;
+    protected WavesSupport wavesSupport;
 
     @Override
     public void init(T element) {
         super.init(element);
-        wavesSupport = WavesSupport.addFor(element.asElement());
+        wavesSupport = WavesSupport.addFor(this.getWavesElement());
     }
 
     @Override

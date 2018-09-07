@@ -1,28 +1,38 @@
 package org.dominokit.domino.ui.style;
 
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.utils.HasWavesElement;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-public class WavesSupport<E extends HTMLElement> {
+public class WavesSupport {
 
     private static final String WAVES_EFFECT = "waves-effect";
-    private E element;
+    private HTMLElement element;
 
     private String waveColor;
     private Waves wavesElement;
 
-    private WavesSupport(E element) {
-        this.element = element;
-        wavesElement = Waves.create(element);
+    private WavesSupport(HasWavesElement targetElement) {
+        this.element = targetElement.getWavesElement();
+        wavesElement = Waves.create(this.element);
     }
 
-    public static <E extends HTMLElement> WavesSupport<E> addFor(E element) {
-        return new WavesSupport<>(element).initWaves();
+    private WavesSupport(HTMLElement targetElement) {
+        this.element = targetElement;
+        wavesElement = Waves.create(this.element);
     }
 
-    public WavesSupport<E> initWaves() {
+    public static WavesSupport addFor(HasWavesElement element) {
+        return new WavesSupport(element).initWaves();
+    }
+
+    public static WavesSupport addFor(HTMLElement element) {
+        return new WavesSupport(element).initWaves();
+    }
+
+    public WavesSupport initWaves() {
         if (!hasWavesEffect())
             element.classList.add(WAVES_EFFECT);
 
@@ -34,7 +44,7 @@ public class WavesSupport<E extends HTMLElement> {
         return element.classList.contains(WAVES_EFFECT);
     }
 
-    public WavesSupport<E> setWavesColor(WaveColor waveColor) {
+    public WavesSupport setWavesColor(WaveColor waveColor) {
         if (!hasWavesEffect())
             initWaves();
         if (isNull(this.waveColor))
@@ -47,7 +57,7 @@ public class WavesSupport<E extends HTMLElement> {
         return this;
     }
 
-    public WavesSupport<E> applyWaveStyle(WaveStyle waveStyle) {
+    public WavesSupport applyWaveStyle(WaveStyle waveStyle) {
         if (!hasWavesEffect())
             initWaves();
         if (!element.classList.contains(waveStyle.getStyle()))
@@ -55,7 +65,7 @@ public class WavesSupport<E extends HTMLElement> {
         return this;
     }
 
-    public WavesSupport<E> removeWaves() {
+    public WavesSupport removeWaves() {
         if (hasWavesEffect())
             element.classList.remove(WAVES_EFFECT);
         if (nonNull(waveColor))
@@ -73,7 +83,4 @@ public class WavesSupport<E extends HTMLElement> {
         }
     }
 
-    public E element() {
-        return element;
-    }
 }

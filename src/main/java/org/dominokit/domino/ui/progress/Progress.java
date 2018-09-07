@@ -1,13 +1,11 @@
 package org.dominokit.domino.ui.progress;
 
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class Progress extends DominoElement<HTMLDivElement, Progress> implements IsElement<HTMLDivElement>{
+public class Progress extends BaseDominoElement<HTMLDivElement, Progress> {
 
     private HTMLDivElement element=div().css("progress").asElement();
 
@@ -19,7 +17,17 @@ public class Progress extends DominoElement<HTMLDivElement, Progress> implements
         return new Progress();
     }
 
+    /**
+     * @deprecated use {@link #appendChild(ProgressBar)}
+     * @param bar
+     * @return
+     */
+    @Deprecated
     public Progress addBar(ProgressBar bar){
+       return appendChild(bar);
+    }
+
+    public Progress appendChild(ProgressBar bar){
         element.appendChild(bar.asElement());
         return this;
     }

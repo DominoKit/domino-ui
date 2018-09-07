@@ -1,19 +1,17 @@
 package org.dominokit.domino.ui.chips;
 
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.ColorScheme;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
 import org.dominokit.domino.ui.utils.Switchable;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class ChipsGroup extends DominoElement<HTMLDivElement, ChipsGroup> implements IsElement<HTMLDivElement>, Switchable<ChipsGroup>, HasSelectionHandler<ChipsGroup> {
+public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> implements Switchable<ChipsGroup>, HasSelectionHandler<ChipsGroup> {
 
     private HTMLDivElement element = div().asElement();
     private List<Chip> chips = new ArrayList<>();

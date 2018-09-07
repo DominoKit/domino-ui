@@ -2,12 +2,10 @@ package org.dominokit.domino.ui.button;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
-public class ButtonsToolbar extends DominoElement<HTMLElement, ButtonsToolbar> implements IsElement<HTMLElement> {
+public class ButtonsToolbar extends BaseDominoElement<HTMLElement, ButtonsToolbar> {
 
     private HTMLElement toolbarElement = Elements.div().css("btn-toolbar").attr("role", "toolbar").asElement();
 

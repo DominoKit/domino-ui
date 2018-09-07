@@ -18,7 +18,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.span;
 
-public class Chip extends DominoElement<HTMLDivElement, Chip> implements IsElement<HTMLDivElement>, HasSelectionHandler<Chip>, HasDeselectionHandler<Chip>,
+public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements HasSelectionHandler<Chip>, HasDeselectionHandler<Chip>,
         Switchable<Chip>, HasRemoveHandler<Chip> {
 
     private HTMLDivElement element = div().css("chip").asElement();
@@ -248,23 +248,23 @@ public class Chip extends DominoElement<HTMLDivElement, Chip> implements IsEleme
         return textContainer.textContent;
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getTextContainer() {
+    public DominoElement<HTMLDivElement> getTextContainer() {
         return DominoElement.of(textContainer);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getLeftAddonContainer() {
+    public DominoElement<HTMLDivElement> getLeftAddonContainer() {
         return DominoElement.of(leftAddonContainer);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getRemoveIconContainer() {
+    public DominoElement<HTMLDivElement> getRemoveIconContainer() {
         return DominoElement.of(removeIconContainer);
     }
 
-    public DominoElement<HTMLElement, IsElement<HTMLElement>> getRemoveIcon() {
+    public DominoElement<HTMLElement> getRemoveIcon() {
         return DominoElement.of(removeIcon);
     }
 
-    public DominoElement<HTMLElement, IsElement<HTMLElement>> getLeftAddon() {
+    public DominoElement<HTMLElement> getLeftAddon() {
         return DominoElement.of(leftAddon);
     }
 }

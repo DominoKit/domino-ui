@@ -3,16 +3,14 @@ package org.dominokit.domino.ui.icons;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.i;
 
-public class Icon extends DominoElement<HTMLElement, Icon> implements IsElement<HTMLElement> {
+public class Icon extends BaseDominoElement<HTMLElement, Icon> {
 
     private final HTMLElement icon;
     private String name;
@@ -20,6 +18,7 @@ public class Icon extends DominoElement<HTMLElement, Icon> implements IsElement<
 
     private Icon(HTMLElement icon) {
         this.icon = icon;
+        init(this);
     }
 
     public static Icon create(String icon) {

@@ -1,18 +1,16 @@
 package org.dominokit.domino.ui.labels;
 
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.StyleType;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasContent;
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 
-public class Label extends DominoElement<HTMLElement, Label> implements IsElement<HTMLElement>, HasContent<Label>, HasBackground<Label> {
+public class Label extends BaseDominoElement<HTMLElement, Label> implements HasContent<Label>, HasBackground<Label> {
 
     private HTMLElement span = Elements.span().css("label").asElement();
     private Color background;

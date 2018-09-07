@@ -9434,7 +9434,7 @@ ul.stepper.horizontal.stepper-col-l-1-grey .step.done .step-title:before  {
     border-bottom: 1px solid #bdbdbd;
     box-shadow: 0px 1px #bdbdbd;
 }
-.col-l-1-grey,
+
 .breadcrumb.col-l-1-grey li a {
     color: #bdbdbd;
 }
@@ -9648,7 +9648,7 @@ ul.stepper.horizontal.stepper-col-l-5-grey .step.done .step-title:before   {
     border-bottom: 1px solid #fafafa;
     box-shadow: 0px 1px #fafafa;
 }
-.col-l-1-grey,
+
 .breadcrumb.col-l-5-grey li a {
     color: #fafafa;
 }

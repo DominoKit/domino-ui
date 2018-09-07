@@ -5,16 +5,14 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Search extends DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> implements IsElement<HTMLDivElement> {
+public class Search extends BaseDominoElement<HTMLDivElement, Search> {
 
     private final HTMLElement closeIcon = i()
             .css("material-icons")
@@ -26,6 +24,7 @@ public class Search extends DominoElement<HTMLDivElement, IsElement<HTMLDivEleme
             .asElement();
 
     private HTMLDivElement element = div()
+            .style("display: none;")
             .css("search-bar")
             .add(div().css("search-icon")
                     .add(i().css("material-icons").textContent("search")))
@@ -49,7 +48,7 @@ public class Search extends DominoElement<HTMLDivElement, IsElement<HTMLDivEleme
             close();
         });
 
-        autoSearchTimer= new Timer() {
+        autoSearchTimer = new Timer() {
             @Override
             public void run() {
                 searchHandler.onSearch(searchInput.value);
@@ -82,7 +81,9 @@ public class Search extends DominoElement<HTMLDivElement, IsElement<HTMLDivEleme
     }
 
     public Search open() {
-        style().setDisplay("inline-block");
+        style()
+                .setDisplay("inline-block")
+                .setHeight("100%");
         Scheduler.get().scheduleFixedDelay(() -> {
             style().add("open");
             return false;
@@ -110,7 +111,7 @@ public class Search extends DominoElement<HTMLDivElement, IsElement<HTMLDivEleme
         return this;
     }
 
-    public Search onClose(SearchCloseHandler handler){
+    public Search onClose(SearchCloseHandler handler) {
         this.closeHandler = handler;
         return this;
     }
