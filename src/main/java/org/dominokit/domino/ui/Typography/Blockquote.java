@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.Typography;
 
+import elemental2.dom.DomGlobal;
 import org.dominokit.domino.ui.style.Styles;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
@@ -11,6 +12,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.blockquote;
+import static org.jboss.gwt.elemento.core.Elements.textElement;
 
 public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
 
@@ -58,12 +60,12 @@ public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
 
         footer=Elements.footer().add(content).asElement();
         element.appendChild(footer);
-
+textElement()
         return this;
     }
 
     public Blockquote setFooterText(String text){
-        return setFooterContent(new Text(text));
+        return setFooterContent(DomGlobal.document.createTextNode(text));
     }
 
     public Blockquote reverse(){

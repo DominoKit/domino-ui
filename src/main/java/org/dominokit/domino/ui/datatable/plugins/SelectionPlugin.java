@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import elemental2.dom.Text;
@@ -46,7 +47,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
                 .setSortable(false)
                 .setWidth(dataTable.getTableConfig().isMultiSelect() ? "40px" : "45px")
                 .setFixed(true)
-                .setTooltipNode(new Text("Select"))
+                .setTooltipNode(DomGlobal.document.createTextNode("Select"))
                 .setHeaderElement(columnTitle -> {
                     if (dataTable.getTableConfig().isMultiSelect()) {
                         return createMultiSelectHeader(dataTable);

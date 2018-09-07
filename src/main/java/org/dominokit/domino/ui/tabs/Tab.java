@@ -30,7 +30,7 @@ public class Tab implements HasClickableElement{
             clickableElement.appendChild(icon.asElement());
         }
         if(nonNull(text)) {
-            clickableElement.appendChild(new Text(text));
+            clickableElement.appendChild(DomGlobal.document.createTextNode(text));
         }
     }
 

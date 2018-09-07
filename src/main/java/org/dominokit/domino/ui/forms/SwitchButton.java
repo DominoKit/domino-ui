@@ -24,8 +24,8 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     private HTMLElement lever = Elements.span().css("lever").asElement();
     private List<ChangeHandler<Boolean>> changeHandlers = new ArrayList<>();
     private Color color;
-    private Text onTitleText = new Text();
-    private Text offTitleText = new Text();
+    private Text onTitleText = DomGlobal.document.createTextNode("");
+    private Text offTitleText = DomGlobal.document.createTextNode("");
     private String checkedReadonlyLabel = "Yes";
     private String unCheckedReadonlyLabel = "No";
     private boolean autoValidation;

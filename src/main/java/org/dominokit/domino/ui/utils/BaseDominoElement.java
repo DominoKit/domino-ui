@@ -31,6 +31,15 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         this.style = Style.of(element);
     }
 
+    public T setId(String id){
+        asElement().id = id;
+        return element;
+    }
+
+    public String getId(){
+        return asElement().id;
+    }
+
     @Override
     public T collapse() {
         collapsible.collapse();
@@ -222,7 +231,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     public T setTooltip(String text) {
-        return setTooltip(new Text(text));
+        return setTooltip(DomGlobal.document.createTextNode(text));
     }
 
     public T setTooltip(Node node) {

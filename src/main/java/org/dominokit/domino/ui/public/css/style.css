@@ -2465,13 +2465,15 @@ section.content {
     height: 14px;
     border-radius: 50%;
     cursor: pointer;
+    border: 0px;
 }
 
 .slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     cursor: pointer;
+    border: 0px;
 }
 
 input[type=range] + .thumb {
