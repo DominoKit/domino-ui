@@ -12,16 +12,14 @@ import org.jboss.gwt.elemento.core.IsElement;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
-public class SimpleListItem extends BaseListItem<HTMLLIElement, SimpleListItem> implements IsElement<HTMLLIElement>, HasBackground<SimpleListItem> {
+public class SimpleListItem extends BaseListItem<HTMLLIElement, SimpleListItem> implements HasBackground<SimpleListItem> {
 
-    private final HtmlComponentBuilder<HTMLLIElement, SimpleListItem> htmlBuilder;
     private String style;
 
 
     private SimpleListItem(String text) {
         super(li().css("list-group-item").textContent(text).asElement());
-
-        this.htmlBuilder = new HtmlComponentBuilder<>(this);
+        init(this);
     }
 
     public static SimpleListItem create(String text) {

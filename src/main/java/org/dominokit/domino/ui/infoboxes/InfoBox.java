@@ -5,6 +5,7 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.HasBackground;
@@ -17,7 +18,7 @@ import javax.annotation.PostConstruct;
 import static java.util.Objects.nonNull;
 
 @Templated
-public abstract class InfoBox extends DominoElement<HTMLDivElement, InfoBox> implements IsElement<HTMLDivElement>, HasBackground<InfoBox> {
+public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implements HasBackground<InfoBox>, IsElement<HTMLDivElement> {
 
     public enum HoverEffect {
         ZOOM("hover-zoom-effect"),
@@ -174,15 +175,15 @@ public abstract class InfoBox extends DominoElement<HTMLDivElement, InfoBox> imp
         return this;
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getIconElement() {
+    public DominoElement<HTMLDivElement> getIconElement() {
         return DominoElement.of(iconElement);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getTitleElement() {
+    public DominoElement<HTMLDivElement> getTitleElement() {
         return DominoElement.of(titleElement);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getValueElement() {
+    public DominoElement<HTMLDivElement> getValueElement() {
         return DominoElement.of(valueElement);
     }
 }

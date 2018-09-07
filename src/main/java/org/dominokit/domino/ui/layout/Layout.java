@@ -3,10 +3,10 @@ package org.dominokit.domino.ui.layout;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
-import org.dominokit.domino.ui.notifications.Notification;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.themes.Theme;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -210,19 +210,19 @@ public class Layout {
         return this;
     }
 
-    public DominoElement<HTMLElement, IsElement<HTMLElement>> getRightPanel() {
+    public DominoElement<HTMLElement> getRightPanel() {
         return DominoElement.of(section.rightSide);
     }
 
-    public DominoElement<HTMLElement, IsElement<HTMLElement>> getLeftPanel() {
+    public DominoElement<HTMLElement> getLeftPanel() {
         return DominoElement.of(section.leftSide);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentPanel() {
+    public DominoElement<HTMLDivElement> getContentPanel() {
         return DominoElement.of(content.contentContainer);
     }
 
-    public DominoElement<HTMLUListElement, IsElement<HTMLUListElement>> getTopBar() {
+    public DominoElement<HTMLUListElement> getTopBar() {
         return DominoElement.of(navigationBar.topBar);
     }
 

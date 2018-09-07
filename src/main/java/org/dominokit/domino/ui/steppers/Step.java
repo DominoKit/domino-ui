@@ -7,6 +7,7 @@ import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -15,7 +16,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
-public class Step extends DominoElement<HTMLLIElement, Step> implements IsElement<HTMLLIElement> {
+public class Step extends BaseDominoElement<HTMLLIElement, Step> {
 
     private final HTMLLIElement element = li().css("step").asElement();
     private final HTMLDivElement contentElement = div().css("step-content").asElement();
@@ -27,6 +28,8 @@ public class Step extends DominoElement<HTMLLIElement, Step> implements IsElemen
     private Collapsible collapsible = Collapsible.create(contentElement);
     private boolean allowStepClickActivation = true;
     private Stepper stepper;
+    private ActivationHandler activationHandler= step -> {};
+    private DeActivationHandler deActivationHandler= step -> {};
 
     public Step(String title) {
         init(makeHeaderElement(title, ""));
@@ -90,6 +93,11 @@ public class Step extends DominoElement<HTMLLIElement, Step> implements IsElemen
         Animation.create(contentElement)
                 .duration(350)
                 .transition(transition)
+                .callback(element -> {
+                    if(nonNull(activationHandler)){
+                        activationHandler.onActivated(this);
+                    }
+                })
                .animate();
         return this;
     }
@@ -99,6 +107,9 @@ public class Step extends DominoElement<HTMLLIElement, Step> implements IsElemen
         Style.of(element).remove("active");
         collapsible.collapse();
         this.expanded = false;
+        if(nonNull(deActivationHandler)){
+            deActivationHandler.onDeActivated(this);
+        }
         return this;
     }
 
@@ -130,7 +141,7 @@ public class Step extends DominoElement<HTMLLIElement, Step> implements IsElemen
         style().remove("wrong");
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getStepBody() {
+    public DominoElement<HTMLDivElement> getStepBody() {
         return DominoElement.of(bodyElement);
     }
 
@@ -145,11 +156,11 @@ public class Step extends DominoElement<HTMLLIElement, Step> implements IsElemen
         return this;
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getStepHeader() {
+    public DominoElement<HTMLDivElement> getStepHeader() {
         return DominoElement.of(stepHeader);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentElement() {
+    public DominoElement<HTMLDivElement> getContentElement() {
         return DominoElement.of(contentElement);
     }
 
@@ -180,8 +191,29 @@ public class Step extends DominoElement<HTMLLIElement, Step> implements IsElemen
         return this;
     }
 
+    public Step onActivated(ActivationHandler activationHandler) {
+        this.activationHandler = activationHandler;
+        return this;
+    }
+
+    public Step onDeActivated(DeActivationHandler deActivationHandler) {
+        this.deActivationHandler = deActivationHandler;
+        return this;
+    }
+
     @FunctionalInterface
     public interface StepCompletedValidator {
         boolean isValid();
     }
+
+    @FunctionalInterface
+    public interface ActivationHandler{
+        void onActivated(Step step);
+    }
+
+    @FunctionalInterface
+    public interface DeActivationHandler{
+        void onDeActivated(Step step);
+    }
+
 }

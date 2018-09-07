@@ -2,17 +2,11 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementValidations;
-import org.dominokit.domino.ui.utils.ValidationResult;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
-public abstract class BasicFormElement<T extends BasicFormElement<T,V>, V> extends DominoElement<HTMLElement, T> implements FormElement<T, V>,
-        IsElement<HTMLElement> {
+public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> extends BaseDominoElement<HTMLElement, T> implements FormElement<T, V>, IsReadOnly<T> {
 
     private static final String NAME = "name";
     private HTMLLabelElement helperLabel = Elements.label().css("help-info").asElement();
@@ -136,10 +130,10 @@ public abstract class BasicFormElement<T extends BasicFormElement<T,V>, V> exten
         return (T) this;
     }
 
-    protected abstract DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFieldContainer();
+    protected abstract DominoElement<HTMLDivElement> getFieldContainer();
 
-    protected abstract DominoElement<HTMLLabelElement, IsElement<HTMLLabelElement>> getLabelElement();
+    protected abstract DominoElement<HTMLLabelElement> getLabelElement();
 
-    protected abstract <E extends HTMLElement> DominoElement<E, IsElement<E>> getInputElement();
+    protected abstract <E extends HTMLElement> DominoElement<E> getInputElement();
 
 }

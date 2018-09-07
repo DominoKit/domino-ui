@@ -1,11 +1,10 @@
 package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.*;
-import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.Switchable;
-import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -14,11 +13,10 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
-import static org.jboss.gwt.elemento.core.Elements.*;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.h;
 
-public class Popover extends DominoElement<HTMLDivElement, Popover> implements IsElement<HTMLDivElement>, Switchable<Popover> {
+public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implements Switchable<Popover> {
 
     private static List<Popover> currentVisible=new ArrayList<>();
     private final Text headerText;
@@ -172,7 +170,7 @@ public class Popover extends DominoElement<HTMLDivElement, Popover> implements I
         return !disabled;
     }
 
-    public DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getHeadingElement() {
+    public DominoElement<HTMLHeadingElement> getHeadingElement() {
         return DominoElement.of(headingElement);
     }
 
@@ -185,7 +183,7 @@ public class Popover extends DominoElement<HTMLDivElement, Popover> implements I
         return headerText;
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentElement() {
+    public DominoElement<HTMLDivElement> getContentElement() {
         return DominoElement.of(contentElement);
     }
 }

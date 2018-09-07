@@ -4,6 +4,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.Node;
 import elemental2.dom.Text;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -123,7 +124,7 @@ public class ColumnConfig<T> {
         return this;
     }
 
-    public DominoElement<HTMLTableCellElement, IsElement<HTMLTableCellElement>> getHeadElement() {
+    public DominoElement<HTMLTableCellElement> getHeadElement() {
         return DominoElement.of(headElement);
     }
 

@@ -1,11 +1,13 @@
 package org.dominokit.domino.ui.button;
 
+import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.StyleType;
 
 public class Button extends BaseButton<Button> {
 
     public Button() {
+        init(this);
     }
 
     public Button(String content) {
@@ -20,10 +22,12 @@ public class Button extends BaseButton<Button> {
 
     public Button(Icon icon) {
         super(icon);
+        init(this);
     }
 
     public Button(Icon icon, StyleType type) {
-        super(icon, type);
+        this(icon);
+        setButtonType(type);
     }
 
     private static Button create(String content, StyleType type) {
@@ -92,5 +96,10 @@ public class Button extends BaseButton<Button> {
 
     public static Button createDanger(Icon icon) {
         return create(icon, StyleType.DANGER);
+    }
+
+    @Override
+    public HTMLElement asElement() {
+        return buttonElement;
     }
 }

@@ -2,10 +2,9 @@ package org.dominokit.domino.ui.alerts;
 
 import elemental2.dom.HTMLAnchorElement;
 import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-public class AlertLink extends DominoElement<HTMLAnchorElement, AlertLink> implements IsElement<HTMLAnchorElement> {
+public class AlertLink extends BaseDominoElement<HTMLAnchorElement, AlertLink> {
 
     private final HTMLAnchorElement element;
 

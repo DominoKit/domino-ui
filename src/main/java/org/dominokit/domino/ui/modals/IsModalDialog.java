@@ -4,8 +4,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -56,17 +55,17 @@ public interface IsModalDialog<T> {
 
     T setTitle(String title);
 
-    DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getDialogElement();
+    DominoElement<HTMLDivElement> getDialogElement();
 
-    DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentElement();
+    DominoElement<HTMLDivElement> getContentElement();
 
-    DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getHeaderElement();
+    DominoElement<HTMLHeadingElement> getHeaderElement();
 
-    DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getHeaderContainerElement();
+    DominoElement<HTMLDivElement> getHeaderContainerElement();
 
-    DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getBodyElement();
+    DominoElement<HTMLDivElement> getBodyElement();
 
-    DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFooterElement();
+    DominoElement<HTMLDivElement> getFooterElement();
 
     T onOpen(OpenHandler openHandler);
 

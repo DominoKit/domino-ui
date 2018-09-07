@@ -2,13 +2,11 @@ package org.dominokit.domino.ui.progress;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class ProgressBar extends DominoElement<HTMLDivElement, ProgressBar> implements IsElement<HTMLDivElement> {
+public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> {
 
     private HTMLDivElement element = div().css("progress-bar").attr("role", "progressbar").asElement();
     private double maxValue = 100;

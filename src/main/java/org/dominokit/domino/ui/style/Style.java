@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.style;
 
-import elemental2.dom.CSSProperties;
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -477,6 +476,20 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
             setImportantProperty("float", cssFloat);
         } else {
             setProperty("float", cssFloat);
+        }
+        return this;
+    }
+
+    public Style<E, T> setLineHeight(String lineHeight) {
+        setProperty("line-height", lineHeight);
+        return this;
+    }
+
+    public Style<E, T> setLineHeight(String lineHeight, boolean important) {
+        if (important) {
+            setImportantProperty("line-height", lineHeight);
+        } else {
+            setProperty("line-height", lineHeight);
         }
         return this;
     }

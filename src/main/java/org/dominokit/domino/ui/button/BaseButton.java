@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.button;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
+import elemental2.dom.Text;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.StyleType;
@@ -11,12 +12,13 @@ import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.span;
 
-public class BaseButton<B extends BaseButton<?>> extends WavesElement<HTMLElement, B> implements
+public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<HTMLElement, B> implements
         HasClickableElement, Sizable<B>, HasBackground<B>,
-        HasContent<B>, IsElement<HTMLElement>,
-        Switchable<B> {
+        HasContent<B>, Switchable<B> {
 
     private static final String DISABLED = "disabled";
 
@@ -27,9 +29,10 @@ public class BaseButton<B extends BaseButton<?>> extends WavesElement<HTMLElemen
     private ButtonSize size;
     protected String content;
     private Icon icon;
+    private HTMLElement textSpan = span().asElement();
+    private Text textElement = new Text();
 
     protected BaseButton() {
-        super.init((B) this);
     }
 
     protected BaseButton(String content) {
@@ -60,7 +63,19 @@ public class BaseButton<B extends BaseButton<?>> extends WavesElement<HTMLElemen
     @Override
     public B setContent(String content) {
         this.content = content;
-        buttonElement.textContent = this.content;
+        textElement.textContent = content;
+        if (isNull(icon)) {
+            buttonElement.appendChild(textElement);
+        }else{
+            textSpan.appendChild(textElement);
+            buttonElement.appendChild(textSpan);
+        }
+        return (B) this;
+    }
+
+    @Override
+    public B setTextContent(String text) {
+        setContent(text);
         return (B) this;
     }
 
@@ -125,20 +140,14 @@ public class BaseButton<B extends BaseButton<?>> extends WavesElement<HTMLElemen
     }
 
     @Override
-    public HTMLElement asElement() {
-        return buttonElement;
-    }
-
-
-    @Override
-    public DominoElement<HTMLElement, B> getClickableElement() {
-        return this;
+    public HTMLElement getClickableElement() {
+        return asElement();
     }
 
     /**
-     * @deprecated use {@link #appendChild(Node)}
      * @param node
      * @return
+     * @deprecated use {@link #appendChild(Node)}
      */
     @Deprecated
     public B appendContent(Node node) {
@@ -197,13 +206,12 @@ public class BaseButton<B extends BaseButton<?>> extends WavesElement<HTMLElemen
 
     public B setIcon(Icon icon) {
         if (nonNull(this.icon)) {
-            buttonElement.textContent = "";
-            this.icon.asElement().remove();
-            buttonElement.appendChild(icon.asElement());
-            if(nonNull(content) && !content.isEmpty()) {
-                buttonElement.appendChild(Elements.span().textContent(content).asElement());
-            }
+            this.icon.setTextContent(icon.getName());
         } else {
+            if (nonNull(content) && !content.isEmpty()) {
+                textSpan.appendChild(textElement);
+                buttonElement.appendChild(textSpan.appendChild(textElement));
+            }
             buttonElement.appendChild(icon.asElement());
         }
         this.icon = icon;

@@ -2,13 +2,13 @@ package org.dominokit.domino.ui.grid;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class GridLayout extends DominoElement<HTMLDivElement, GridLayout> implements IsElement<HTMLDivElement> {
+public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
 
     private HTMLDivElement element = div()
             .css("layout-grid").asElement();
@@ -23,11 +23,12 @@ public class GridLayout extends DominoElement<HTMLDivElement, GridLayout> implem
 
     public GridLayout() {
         element.appendChild(contentElement);
+        init(this);
         updateGridLayout();
     }
 
     private void updateGridLayout() {
-        Style.of(element).setProperty("grid-template-areas", editor.gridAreasAsString());
+        style.setProperty("grid-template-areas", editor.gridAreasAsString());
     }
 
     public static GridLayout create() {
@@ -35,15 +36,12 @@ public class GridLayout extends DominoElement<HTMLDivElement, GridLayout> implem
     }
 
     public GridLayout setGap(String gap) {
-        Style.of(element).setProperty("grid-gap", gap);
+        style.setProperty("grid-gap", gap);
         return this;
     }
 
-    public GridLayout addHeader() {
-        return addHeader(SectionSpan._1);
-    }
 
-    public GridLayout addHeader(SectionSpan sectionSpan) {
+    public GridLayout setHeaderSpan(SectionSpan sectionSpan) {
         editor.addHeader(sectionSpan);
         element.appendChild(headerElement);
         updateGridLayout();
@@ -51,7 +49,7 @@ public class GridLayout extends DominoElement<HTMLDivElement, GridLayout> implem
         return this;
     }
 
-    public GridLayout removeHeader() {
+    public GridLayout hideHeader() {
         editor.removeHeader();
         headerElement.remove();
         updateGridLayout();
@@ -59,11 +57,7 @@ public class GridLayout extends DominoElement<HTMLDivElement, GridLayout> implem
         return this;
     }
 
-    public GridLayout addRight() {
-        return addRight(SectionSpan._3, false, false);
-    }
-
-    public GridLayout addRight(SectionSpan sectionSpan, boolean spanUp, boolean spanDown) {
+    public GridLayout setRightSpan(SectionSpan sectionSpan, boolean spanUp, boolean spanDown) {
         editor.addRight(sectionSpan, spanUp, spanDown);
 
         element.appendChild(rightElement);
@@ -75,7 +69,7 @@ public class GridLayout extends DominoElement<HTMLDivElement, GridLayout> implem
         return nonNull(footerElement.parentNode);
     }
 
-    public GridLayout removeRight() {
+    public GridLayout hideRight() {
         editor.removeRight();
         rightElement.remove();
         updateGridLayout();
@@ -83,11 +77,8 @@ public class GridLayout extends DominoElement<HTMLDivElement, GridLayout> implem
         return this;
     }
 
-    public GridLayout addLeft() {
-        return addLeft(SectionSpan._3, false, false);
-    }
 
-    public GridLayout addLeft(SectionSpan sectionSpan, boolean spanUp, boolean spanDown) {
+    public GridLayout setLeftSpan(SectionSpan sectionSpan, boolean spanUp, boolean spanDown) {
         editor.addLeft(sectionSpan, spanUp, spanDown);
 
         element.appendChild(leftElement);
@@ -95,7 +86,7 @@ public class GridLayout extends DominoElement<HTMLDivElement, GridLayout> implem
         return this;
     }
 
-    public GridLayout removeLeft() {
+    public GridLayout hideLeft() {
         editor.removeLeft();
 
         leftElement.remove();
@@ -104,11 +95,8 @@ public class GridLayout extends DominoElement<HTMLDivElement, GridLayout> implem
         return this;
     }
 
-    public GridLayout addFooter() {
-        return addFooter(SectionSpan._1);
-    }
 
-    public GridLayout addFooter(SectionSpan sectionSpan) {
+    public GridLayout setFooterSpan(SectionSpan sectionSpan) {
         editor.addFooter(sectionSpan);
         element.appendChild(footerElement);
         updateGridLayout();
@@ -116,7 +104,7 @@ public class GridLayout extends DominoElement<HTMLDivElement, GridLayout> implem
         return this;
     }
 
-    public GridLayout removeFooter() {
+    public GridLayout hideFooter() {
         editor.removeFooter();
         footerElement.remove();
         updateGridLayout();
@@ -141,23 +129,23 @@ public class GridLayout extends DominoElement<HTMLDivElement, GridLayout> implem
         return element;
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentElement() {
+    public DominoElement<HTMLDivElement> getContentElement() {
         return DominoElement.of(contentElement);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getHeaderElement() {
+    public DominoElement<HTMLDivElement> getHeaderElement() {
         return DominoElement.of(headerElement);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFooterElement() {
+    public DominoElement<HTMLDivElement> getFooterElement() {
         return DominoElement.of(footerElement);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getLeftElement() {
+    public DominoElement<HTMLDivElement> getLeftElement() {
         return DominoElement.of(leftElement);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getRightElement() {
+    public DominoElement<HTMLDivElement> getRightElement() {
         return DominoElement.of(rightElement);
     }
 }

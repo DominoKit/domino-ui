@@ -1,13 +1,11 @@
 package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLUListElement;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 import static org.jboss.gwt.elemento.core.Elements.ul;
 
-public class SimpleListGroup extends DominoElement<HTMLUListElement, SimpleListGroup> implements IsElement<HTMLUListElement>{
+public class SimpleListGroup extends BaseDominoElement<HTMLUListElement, SimpleListGroup> {
 
     private final HTMLUListElement element;
 

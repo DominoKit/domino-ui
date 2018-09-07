@@ -1,8 +1,5 @@
 package org.dominokit.domino.ui.grid;
 
-import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Style;
-
 import java.util.function.Consumer;
 
 public class Row_24 extends Row<Row_24> {

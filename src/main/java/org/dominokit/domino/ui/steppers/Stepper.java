@@ -5,8 +5,7 @@ import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.ul;
 
-public class Stepper extends DominoElement<HTMLUListElement, Stepper> implements IsElement<HTMLUListElement> {
+public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
 
     private static Transition HORIZONTAL_NEXT_STEP_TRANSITION = Transition.SLIDE_IN_RIGHT;
     private static Transition HORIZONTAL_PREV_STEP_TRANSITION = Transition.SLIDE_IN_LEFT;
@@ -48,14 +47,24 @@ public class Stepper extends DominoElement<HTMLUListElement, Stepper> implements
         return new Stepper();
     }
 
+    /**
+     * @deprecated use {@link #appendChild(Step)}
+     * @param step
+     * @return
+     */
+    @Deprecated
     public Stepper addStep(Step step) {
+        return appendChild(step);
+    }
+
+    public Stepper appendChild(Step step) {
         element.appendChild(step.asElement());
         steps.add(step);
         step.setStepper(this);
         if (isNull(activeStep)) {
             activateStep(step);
         }
-        step.asElement().setAttribute("data-step-number", steps.size() + "");
+        step.setAttribute("data-step-number", steps.size() + "");
         step.getStepHeader().addEventListener("click", evt -> onStepHeaderClicked(step));
 
         return this;

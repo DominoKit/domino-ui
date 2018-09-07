@@ -27,17 +27,17 @@ public class RowCell<T> {
         Style<HTMLTableCellElement, IsElement<HTMLTableCellElement>> style = Style.of(cellInfo.getElement());
         if (nonNull(columnConfig.getMinWidth())) {
             style.setMinWidth(columnConfig.getMinWidth());
-            Style.of(columnConfig.getHeadElement()).setMinWidth(columnConfig.getMinWidth());
+            columnConfig.getHeadElement().style().setMinWidth(columnConfig.getMinWidth());
         }
 
         if (nonNull(columnConfig.getMaxWidth())) {
             style.setMaxWidth(columnConfig.getMaxWidth());
-            Style.of(columnConfig.getHeadElement()).setMaxWidth(columnConfig.getMaxWidth());
+            columnConfig.getHeadElement().style().setMaxWidth(columnConfig.getMaxWidth());
         }
 
         if (nonNull(columnConfig.getTextAlign())) {
             style.setTextAlign(columnConfig.getTextAlign());
-            Style.of(columnConfig.getHeadElement()).setTextAlign(columnConfig.getTextAlign());
+            columnConfig.getHeadElement().style().setTextAlign(columnConfig.getTextAlign());
         }
 
         cellInfo.getElement().appendChild(columnConfig.getCellRenderer().asElement(cellInfo));

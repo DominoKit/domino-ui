@@ -4,13 +4,12 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.DropdownButton;
 import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.Sizable;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.dominokit.domino.ui.button.group.ButtonsGroup.BTN_GROUP;
 
-public class JustifiedGroup extends DominoElement<HTMLElement, JustifiedGroup> implements IsElement<HTMLElement>, IsGroup<HTMLElement>, Sizable<JustifiedGroup> {
+public class JustifiedGroup extends BaseDominoElement<HTMLElement, JustifiedGroup> implements IsGroup<HTMLElement>, Sizable<JustifiedGroup> {
 
     private ButtonsGroup group = ButtonsGroup.create();
 

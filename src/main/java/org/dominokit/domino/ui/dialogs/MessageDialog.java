@@ -71,7 +71,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         messageDialog.setSize(ModalSize.ALERT);
         messageDialog.modal.getModalContent().style().setTextAlign("center");
         messageDialog.modal.getModalFooter().style().setTextAlign("center");
-        messageDialog.modal.getModalHeader().asElement().insertBefore(messageDialog.iconContainer, messageDialog.modal.getModalHeader().asElement().firstChild);
+        messageDialog.modal.getModalHeader().insertBefore(messageDialog.iconContainer, messageDialog.modal.getModalHeader().firstChild());
         messageDialog.hideHeader();
         messageDialog.setAutoClose(true);
         messageDialog.onClose(closeHandler::onClose);

@@ -5,6 +5,7 @@ import org.dominokit.domino.ui.grid.Column;
 import org.dominokit.domino.ui.grid.Row;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.notifications.Notification;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasName;
 import org.jboss.gwt.elemento.core.Elements;
@@ -13,7 +14,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileUpload extends DominoElement<HTMLDivElement, FileUpload> implements IsElement<HTMLDivElement>, HasName<FileUpload> {
+public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> implements HasName<FileUpload> {
 
     private Row row = Row.create();
     private Column column = Column.span(2,2,4,6,12);
@@ -188,23 +189,23 @@ public class FileUpload extends DominoElement<HTMLDivElement, FileUpload> implem
         return column;
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFormElement() {
+    public DominoElement<HTMLDivElement> getFormElement() {
         return DominoElement.of(formElement);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getUploadMessageContainer() {
+    public DominoElement<HTMLDivElement> getUploadMessageContainer() {
         return DominoElement.of(uploadMessageContainer);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getUploadIconContainer() {
+    public DominoElement<HTMLDivElement> getUploadIconContainer() {
         return DominoElement.of(uploadIconContainer);
     }
 
-    public DominoElement<HTMLInputElement, IsElement<HTMLInputElement>> getHiddenFileInput() {
+    public DominoElement<HTMLInputElement> getHiddenFileInput() {
         return DominoElement.of(hiddenFileInput);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFilesContainer() {
+    public DominoElement<HTMLDivElement> getFilesContainer() {
         return DominoElement.of(filesContainer);
     }
 

@@ -20,7 +20,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements IsElement<HTMLLIElement>, ParentTreeItem<TreeItem>, CanActivate, CanDeactivate, HasClickableElement {
+public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements ParentTreeItem<TreeItem>, CanActivate, CanDeactivate, HasClickableElement {
 
     private String title;
     private HTMLLIElement element;
@@ -67,7 +67,17 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements I
         return new TreeItem(title, icon);
     }
 
+    /**
+     * @deprecated use {@link #appendChild(TreeItem)}
+     * @param treeItem
+     * @return
+     */
+    @Deprecated
     public TreeItem addTreeItem(TreeItem treeItem) {
+        return appendChild(treeItem);
+    }
+
+    public TreeItem appendChild(TreeItem treeItem) {
         this.subItems.add(treeItem);
         childrenContainer.appendChild(treeItem.asElement());
         Style.of(anchorElement).add("tree-toggle");
@@ -89,9 +99,6 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements I
         this.element.appendChild(anchorElement);
         childrenContainer = ul().css("ml-tree").asElement();
         asElement().appendChild(childrenContainer);
-        super.init(this);
-        setWaveColor(WaveColor.THEME);
-        applyWaveStyle(WaveStyle.BLOCK);
         collapsible = Collapsible.create(childrenContainer)
                 .addCollapseHandler(() -> {
                     Style.of(anchorElement).remove("toggled");
@@ -108,6 +115,9 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements I
             }
             parent.setActiveItem(TreeItem.this);
         });
+        init(this);
+        setWaveColor(WaveColor.THEME);
+        applyWaveStyle(WaveStyle.BLOCK);
     }
 
     public TreeItem expand() {
@@ -199,8 +209,8 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements I
     }
 
     @Override
-    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getClickableElement() {
-        return DominoElement.of(anchorElement);
+    public HTMLAnchorElement getClickableElement() {
+        return anchorElement;
     }
 
     public TreeItem addClickListener(EventListener listener) {
@@ -277,5 +287,10 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements I
             expand();
             subItems.forEach(TreeItem::expandAll);
         }
+    }
+
+    @Override
+    public HTMLElement getWavesElement() {
+        return anchorElement;
     }
 }

@@ -22,7 +22,7 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
         if (column.isSortable()) {
             SortContainer sortContainer = new SortContainer(column.getName());
 
-            Style.of(column.getHeadElement()).add(Styles.cursor_pointer, Styles.disable_selection);
+            column.getHeadElement().style().add(Styles.cursor_pointer, Styles.disable_selection);
             column.contextMenu.appendChild(sortContainer.sortElement);
             Style.of(column.contextMenu).setDisplay("block");
             column.getHeadElement().addEventListener(EventType.click.getName(), evt -> {

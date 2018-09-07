@@ -404,4 +404,5 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         MODAL,
         POPOVER
     }
+
 }
