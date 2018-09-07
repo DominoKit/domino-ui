@@ -60,7 +60,6 @@ public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
 
         footer=Elements.footer().add(content).asElement();
         element.appendChild(footer);
-textElement()
         return this;
     }
 
