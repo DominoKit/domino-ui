@@ -1,9 +1,6 @@
 package org.dominokit.domino.ui.popover;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.Node;
-import elemental2.dom.Text;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
@@ -22,7 +19,7 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
     private PopupPosition popupPosition = TOP;
 
     public Tooltip(HTMLElement targetElement, String text) {
-        this(targetElement, new Text(text));
+        this(targetElement, DomGlobal.document.createTextNode(text));
     }
 
     public Tooltip(HTMLElement targetElement, Node content) {

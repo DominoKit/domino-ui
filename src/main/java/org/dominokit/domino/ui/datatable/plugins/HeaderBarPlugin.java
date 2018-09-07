@@ -43,7 +43,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     }
 
     public HeaderBarPlugin(String title, String description) {
-        this.title.appendChild(new Text(title));
+        this.title.appendChild(DomGlobal.document.createTextNode(title));
         if (nonNull(description) && !description.isEmpty()) {
             this.title.appendChild(small().textContent(description).asElement());
         }
@@ -75,17 +75,17 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                     .add(Styles.pull_right, Styles.m_r_15)
                     .get();
 
-            Tooltip tooltip = Tooltip.create(condenseButton, new Text("Condense"));
+            Tooltip tooltip = Tooltip.create(condenseButton, DomGlobal.document.createTextNode("Condense"));
 
             condenseButton.addClickListener(evt -> {
                 if (dataTable.isCondensed()) {
                     dataTable.expand();
                     condenseButton.setIcon(Icons.ALL.line_weight());
-                    tooltip.setContent(new Text("Condense"));
+                    tooltip.setContent(DomGlobal.document.createTextNode("Condense"));
                 } else {
                     dataTable.condense();
                     condenseButton.setIcon(Icons.ALL.format_line_spacing());
-                    tooltip.setContent(new Text("Expand"));
+                    tooltip.setContent(DomGlobal.document.createTextNode("Expand"));
                 }
             });
 
@@ -104,16 +104,16 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                     .setColor("black", true)
                     .add(Styles.pull_right, Styles.m_r_15)
                     .get();
-            Tooltip tooltip = Tooltip.create(strippedButton.asElement(), new Text("No Stripes"));
+            Tooltip tooltip = Tooltip.create(strippedButton.asElement(), DomGlobal.document.createTextNode("No Stripes"));
             strippedButton.addClickListener(evt -> {
                 if (dataTable.isStriped()) {
                     dataTable.noStripes();
                     strippedButton.setIcon(Icons.ALL.drag_handle());
-                    tooltip.setContent(new Text("Stripped"));
+                    tooltip.setContent(DomGlobal.document.createTextNode("Stripped"));
                 } else {
                     dataTable.striped();
                     strippedButton.setIcon(Icons.ALL.power_input());
-                    tooltip.setContent(new Text("No Stripes"));
+                    tooltip.setContent(DomGlobal.document.createTextNode("No Stripes"));
                 }
             });
 
@@ -132,17 +132,17 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                     .setColor("black", true)
                     .add(Styles.pull_right, Styles.m_r_15)
                     .get();
-            Tooltip tooltip = Tooltip.create(borderedButton.asElement(), new Text("Bordered"));
+            Tooltip tooltip = Tooltip.create(borderedButton.asElement(), DomGlobal.document.createTextNode("Bordered"));
 
             borderedButton.addClickListener(evt -> {
                 if (dataTable.isBordered()) {
                     dataTable.noBorder();
                     borderedButton.setIcon(Icons.ALL.border_vertical());
-                    tooltip.setContent(new Text("Bordered"));
+                    tooltip.setContent(DomGlobal.document.createTextNode("Bordered"));
                 } else {
                     dataTable.bordered();
                     borderedButton.setIcon(Icons.ALL.border_clear());
-                    tooltip.setContent(new Text("No Borders"));
+                    tooltip.setContent(DomGlobal.document.createTextNode("No Borders"));
                 }
             });
 
@@ -161,16 +161,16 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                     .setColor("black", true)
                     .add(Styles.pull_right, Styles.m_r_15)
                     .get();
-            Tooltip tooltip = Tooltip.create(hoverButton.asElement(), new Text("No Hover"));
+            Tooltip tooltip = Tooltip.create(hoverButton.asElement(), DomGlobal.document.createTextNode("No Hover"));
             hoverButton.addClickListener(evt -> {
                 if (dataTable.isHoverable()) {
                     dataTable.noHover();
                     hoverButton.setIcon(Icons.ALL.blur_on());
-                    tooltip.setContent(new Text("Hover"));
+                    tooltip.setContent(DomGlobal.document.createTextNode("Hover"));
                 } else {
                     dataTable.hovered();
                     hoverButton.setIcon(Icons.ALL.blur_off());
-                    tooltip.setContent(new Text("No Hover"));
+                    tooltip.setContent(DomGlobal.document.createTextNode("No Hover"));
                 }
             });
 

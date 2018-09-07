@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.button;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import elemental2.dom.Text;
@@ -30,7 +31,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     protected String content;
     private Icon icon;
     private HTMLElement textSpan = span().asElement();
-    private Text textElement = new Text();
+    private Text textElement = DomGlobal.document.createTextNode("");
 
     protected BaseButton() {
     }

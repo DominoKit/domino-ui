@@ -58,7 +58,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     private HTMLDivElement element = div().css("time-picker").asElement();
     private HTMLDivElement headerPanel = div().css("time-panel").asElement();
-    private Text splitText = new Text(":");
+    private Text splitText = DomGlobal.document.createTextNode(":");
     private HTMLDivElement hoursText = div().css("hour-text").asElement();
     private HTMLDivElement minutesText = div().css("minute-text").asElement();
     private HTMLDivElement amPmContainer = div().css("am-pm-container").asElement();

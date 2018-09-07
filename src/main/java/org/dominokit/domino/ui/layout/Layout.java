@@ -6,10 +6,8 @@ import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.themes.Theme;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.jboss.gwt.elemento.core.Elements.a;
@@ -30,7 +28,7 @@ public class Layout {
     private final Content content = Content.create();
     private final Footer footer = Footer.create();
 
-    private Text appTitle = new Text("");
+    private Text appTitle = DomGlobal.document.createTextNode("");
 
     private boolean leftPanelVisible = false;
     private boolean rightPanelVisible = false;
@@ -251,7 +249,7 @@ public class Layout {
     public Layout setTitle(String title) {
         if (navigationBar.title.hasChildNodes())
             navigationBar.title.removeChild(appTitle);
-        this.appTitle = new Text(title);
+        this.appTitle = DomGlobal.document.createTextNode(title);
         navigationBar.title.appendChild(appTitle);
 
         return this;

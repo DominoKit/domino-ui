@@ -1,9 +1,6 @@
 package org.dominokit.domino.ui.datatable;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLTableCellElement;
-import elemental2.dom.Node;
-import elemental2.dom.Text;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -20,7 +17,7 @@ public class ColumnConfig<T> {
     private String minWidth;
     private String maxWidth;
     private String textAlign;
-    private CellRenderer<T> cellRenderer = cell -> new Text("");
+    private CellRenderer<T> cellRenderer = cell -> DomGlobal.document.createTextNode("");
     private HeaderElement headerElement = Text::new;
     private CellStyler<T> headerStyler = element -> {
     };
@@ -179,7 +176,7 @@ public class ColumnConfig<T> {
     }
 
     public ColumnConfig<T> setTooltipText(String tooltipText) {
-        this.tooltipNode = new Text(tooltipText);
+        this.tooltipNode = DomGlobal.document.createTextNode(tooltipText);
         return this;
     }
 

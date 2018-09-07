@@ -27,7 +27,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
 
     private void init(String text, Icon icon) {
         init(this);
-        this.textElement = new Text(text);
+        this.textElement = DomGlobal.document.createTextNode(text);
         if (nonNull(icon)) {
             this.icon = icon;
             this.anchorElement.appendChild(icon.asElement());
