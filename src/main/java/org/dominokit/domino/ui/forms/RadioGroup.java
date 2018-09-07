@@ -68,9 +68,6 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
 
     /**
      * @deprecated use {@link #appendChild(Radio, Node)}
-     * @param radio
-     * @param content
-     * @return
      */
     @Deprecated
     public RadioGroup addRadio(Radio radio, Node content) {
@@ -85,9 +82,6 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
 
     /**
      * @deprecated use {@link #appendChild(Radio, Node)}
-     * @param radio
-     * @param content
-     * @return
      */
     @Deprecated
     public RadioGroup addRadio(Radio radio, IsElement content) {

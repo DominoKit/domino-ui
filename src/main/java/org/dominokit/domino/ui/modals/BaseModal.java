@@ -161,8 +161,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     /**
      * @deprecated use {@link #appendChild(Node)}
-     * @param content
-     * @return
      */
     @Deprecated
     @Override
@@ -195,8 +193,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     /**
      * @deprecated use {@link #appendChild(Node)}
-     * @param content
-     * @return
      */
     @Deprecated
     @Override

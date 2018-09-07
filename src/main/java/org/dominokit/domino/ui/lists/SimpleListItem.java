@@ -57,8 +57,6 @@ public class SimpleListItem extends BaseListItem<HTMLLIElement, SimpleListItem> 
 
     /**
      * @deprecated use {@link #appendChild(Node)}
-     * @param content
-     * @return
      */
     @Deprecated
     public SimpleListItem appendContent(Node content) {

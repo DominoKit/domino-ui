@@ -77,8 +77,6 @@ public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, Medi
 
     /**
      * @deprecated use {@link #appendChild(Node)}
-     * @param content
-     * @return
      */
     @Deprecated
     public MediaObject appendContent(Node content) {

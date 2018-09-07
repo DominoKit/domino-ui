@@ -48,8 +48,6 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
     }
     /**
      * @deprecated use {@link #appendChild(Node)}
-     * @param node
-     * @return
      */
     @Deprecated
     public SelectOption<T> appendContent(Node node) {

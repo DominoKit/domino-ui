@@ -137,8 +137,6 @@ public class DropdownButton extends BaseButton<DropdownButton>  {
 
     /**
      * @deprecated use {@link #appendChild(DropdownAction)}
-     * @param action
-     * @return
      */
     @Deprecated
     public DropdownButton addAction(DropdownAction action) {

@@ -199,8 +199,6 @@ public class MessageDialog extends BaseModal<MessageDialog> {
 
     /**
      * @deprecated use {@link #appendHeaderChild(Node)}
-     * @param content
-     * @return
      */
     @Deprecated
     public MessageDialog appendHeaderContent(Node content){

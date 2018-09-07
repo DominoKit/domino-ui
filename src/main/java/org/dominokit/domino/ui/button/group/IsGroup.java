@@ -7,8 +7,6 @@ public interface IsGroup<T> {
 
     /**
      * @deprecated use {@link #appendChild(Button)}
-     * @param button
-     * @return
      */
     @Deprecated
     T addButton(Button button);
@@ -18,8 +16,6 @@ public interface IsGroup<T> {
 
     /**
      * @deprecated use {@link #appendChild(DropdownButton)}
-     * @param dropDown
-     * @return
      */
     @Deprecated
     T addDropDown(DropdownButton dropDown);

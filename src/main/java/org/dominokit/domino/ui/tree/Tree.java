@@ -53,8 +53,6 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
 
     /**
      * @deprecated use {@link #appendChild(TreeItem)}
-     * @param treeItem
-     * @return
      */
     @Deprecated
     public Tree addTreeItem(TreeItem treeItem) {

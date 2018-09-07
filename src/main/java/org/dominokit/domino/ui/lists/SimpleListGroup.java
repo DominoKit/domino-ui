@@ -26,8 +26,6 @@ public class SimpleListGroup extends BaseDominoElement<HTMLUListElement, SimpleL
 
     /**
      * @deprecated use {@link #appendChild(String)}
-     * @param content
-     * @return
      */
     @Deprecated
     public SimpleListGroup appendItem(String content){
@@ -42,8 +40,6 @@ public class SimpleListGroup extends BaseDominoElement<HTMLUListElement, SimpleL
 
     /**
      * @deprecated use {@link #appendChild(SimpleListItem)}
-     * @param item
-     * @return
      */
     @Deprecated
     public SimpleListGroup appendItem(SimpleListItem item){

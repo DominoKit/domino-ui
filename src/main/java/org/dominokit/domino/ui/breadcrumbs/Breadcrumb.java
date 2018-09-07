@@ -32,9 +32,6 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
     }
 
     /**
-     * @param text
-     * @param onClick
-     * @return
      * @deprecated use {@link #appendChild(String, EventListener)}
      */
     @Deprecated
@@ -50,10 +47,6 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
     }
 
     /**
-     * @param icon
-     * @param text
-     * @param onClick
-     * @return
      * @deprecated use {@link #appendChild(Icon, String, EventListener)}
      */
     @Deprecated
@@ -69,8 +62,6 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
     }
 
     /**
-     * @param item
-     * @return
      * @deprecated use {@link #appendChild(BreadcrumbItem)}
      */
     @Deprecated

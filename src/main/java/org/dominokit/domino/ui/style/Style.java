@@ -42,8 +42,6 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
 
     /**
      * @deprecated use {@link #add(String)}
-     * @param cssClass
-     * @return
      */
     @Deprecated
     public Style<E, T> css(String cssClass) {
@@ -52,8 +50,6 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
 
     /**
      * @deprecated use {@link #add(String...)}
-     * @param cssClasses
-     * @return
      */
     public Style<E, T> css(String... cssClasses) {
         return add(cssClasses);
@@ -72,8 +68,6 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     }
 
     /**
-     * @param cssClass
-     * @return
      * @deprecated use {@link #remove(String)}
      */
     @Deprecated
@@ -85,9 +79,6 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
 
     /**
      *
-     * @param cssClasses
-     * @return
-     *
      * @deprecated  use {@link #remove(String...)}
      */
     @Deprecated
@@ -98,10 +89,6 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     }
 
     /**
-     *
-     * @param cssClass
-     * @param replacementClass
-     * @return
      *
      * @deprecated use {@link #replace(String, String)}
      */
@@ -116,8 +103,6 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
 
     /**
      * @deprecated use {@link #remove(String)}
-     * @param cssClass
-     * @return
      */
     @Deprecated
     public Style<E, T> removeCss(String cssClass) {
@@ -126,8 +111,6 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
 
     /**
      * @deprecated use {@link #remove(String...)}
-     * @param cssClasses
-     * @return
      */
     @Deprecated
     public Style<E, T> removeCss(String... cssClasses) {
@@ -525,8 +508,6 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
 
     /**
      * @deprecated use {@link #contains(String)}
-     * @param cssClass
-     * @return
      */
     @Deprecated
     public boolean hasClass(String cssClass) {

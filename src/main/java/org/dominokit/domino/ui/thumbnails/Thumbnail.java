@@ -37,8 +37,6 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
 
     /**
      * @deprecated use {@link #appendCaptionChild(Node)}
-     * @param content
-     * @return
      */
     @Deprecated
     public Thumbnail appendCaptionContent(Node content) {

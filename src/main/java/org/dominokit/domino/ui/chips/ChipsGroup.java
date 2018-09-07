@@ -28,8 +28,6 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> im
 
     /**
      * @deprecated use {@link #appendChild(Chip)}
-     * @param chip
-     * @return
      */
     @Deprecated
     public ChipsGroup addChip(Chip chip) {

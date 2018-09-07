@@ -75,8 +75,6 @@ public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
 
     /**
      * @deprecated use {@link #appendFooterChild(Node)}
-     * @param content
-     * @return
      */
     @Deprecated
     public Blockquote appendFooterContent(Node content){
