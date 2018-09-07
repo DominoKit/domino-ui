@@ -27,8 +27,6 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> i
 
     /**
      * @deprecated use {@link #appendChild(Button)}
-     * @param button
-     * @return
      */
     @Deprecated
     @Override
@@ -38,8 +36,6 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> i
 
     /**
      * @deprecated {@link #appendChild(DropdownButton)}
-     * @param nestedDropDown
-     * @return
      */
     @Deprecated
     @Override

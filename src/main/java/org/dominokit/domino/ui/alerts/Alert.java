@@ -85,8 +85,6 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
 
     /**
      * @deprecated use {@link #appendChild(Strong)}
-     * @param text
-     * @return
      */
     @Deprecated
     public Alert appendStrong(String text) {
@@ -101,8 +99,6 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
 
     /**
      * @deprecated use {@link #appendChild(String)}
-     * @param text
-     * @return
      */
     @Deprecated
     public Alert appendText(String text) {
@@ -117,8 +113,6 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
 
     /**
      * @deprecated use {@link #appendChild(HTMLAnchorElement)}
-     * @param anchorElement
-     * @return
      */
     @Deprecated
     public Alert appendLink(HTMLAnchorElement anchorElement) {
@@ -135,8 +129,6 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
 
     /**
      * @deprecated use {@link #appendChild(AlertLink)}
-     * @param anchorElement
-     * @return
      */
     @Deprecated
     public Alert appendLink(IsElement<HTMLAnchorElement> anchorElement) {

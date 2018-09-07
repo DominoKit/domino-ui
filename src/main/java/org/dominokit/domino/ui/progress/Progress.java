@@ -19,8 +19,6 @@ public class Progress extends BaseDominoElement<HTMLDivElement, Progress> {
 
     /**
      * @deprecated use {@link #appendChild(ProgressBar)}
-     * @param bar
-     * @return
      */
     @Deprecated
     public Progress addBar(ProgressBar bar){

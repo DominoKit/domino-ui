@@ -146,8 +146,6 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     }
 
     /**
-     * @param node
-     * @return
      * @deprecated use {@link #appendChild(Node)}
      */
     @Deprecated

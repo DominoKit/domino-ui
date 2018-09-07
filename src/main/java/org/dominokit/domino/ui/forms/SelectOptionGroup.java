@@ -41,8 +41,6 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
 
     /**
      * @deprecated use {@link #appendChild(SelectOption)}
-     * @param option
-     * @return
      */
     @Deprecated
     public SelectOptionGroup<T> addOption(SelectOption<T> option) {

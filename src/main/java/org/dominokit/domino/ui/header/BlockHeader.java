@@ -47,8 +47,6 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
     }
 
     /**
-     * @param content
-     * @return
      * @deprecated use {@link #appendChild(Node)}
      */
     @Deprecated

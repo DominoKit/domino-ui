@@ -39,8 +39,6 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
 
     /**
      * @deprecated use {@link #appendChild(Tab)}
-     * @param tab
-     * @return
      */
     @Deprecated
     public TabsPanel addTab(Tab tab) {

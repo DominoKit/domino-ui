@@ -46,8 +46,6 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
 
 
     /**
-     * @param listItem
-     * @return
      * @deprecated use {@link #appendChild(ListItem)}
      */
     @Deprecated

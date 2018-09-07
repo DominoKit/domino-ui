@@ -27,8 +27,6 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
 
     /**
      * @deprecated use {@link #appendChild(AccordionPanel)}
-     * @param panel
-     * @return
      */
     @Deprecated
     public Accordion addPanel(AccordionPanel panel) {

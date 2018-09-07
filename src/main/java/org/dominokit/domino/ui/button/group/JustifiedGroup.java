@@ -24,8 +24,6 @@ public class JustifiedGroup extends BaseDominoElement<HTMLElement, JustifiedGrou
 
     /**
      * @deprecated use {@link #appendChild(Button)}
-     * @param button
-     * @return
      */
     @Deprecated
     @Override
@@ -35,8 +33,6 @@ public class JustifiedGroup extends BaseDominoElement<HTMLElement, JustifiedGrou
 
     /**
      * @deprecated use {@link #appendChild(DropdownButton)}
-     * @param dropDown
-     * @return
      */
     @Override
     public HTMLElement addDropDown(DropdownButton dropDown) {

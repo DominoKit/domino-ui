@@ -56,8 +56,6 @@ public class Paragraph extends BaseDominoElement<HTMLParagraphElement, Paragraph
 
     /**
      * @deprecated use {@link #appendChild(Node)}
-     * @param content
-     * @return
      */
     @Deprecated
     public Paragraph appendContent(Node content){

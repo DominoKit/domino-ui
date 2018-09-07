@@ -56,8 +56,6 @@ public class Tab implements HasClickableElement{
 
     /**
      * @deprecated use {@link #appendChild(Node)}
-     * @param content
-     * @return
      */
     @Deprecated
     public Tab appendContent(Node content){
