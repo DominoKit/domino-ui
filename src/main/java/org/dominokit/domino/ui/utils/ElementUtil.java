@@ -4,7 +4,7 @@ import com.google.gwt.i18n.client.NumberFormat;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.TextBox;
-import org.dominokit.domino.ui.grid.Row;
+import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.ObserverCallback;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
@@ -13,10 +13,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.a;
 
 public class ElementUtil {
 
-    private static final List<String> navigationKeies = Arrays.asList("Backspace", "Delete", "ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft", "Tab", "Escape");
+    private static final List<String> navigationKeies = Arrays.asList("Enter", "Backspace", "Delete", "ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft", "Tab", "Escape");
     private static final List<String> decimalKeies = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", ".");
 
     public static void clear(Element element) {
@@ -33,12 +34,12 @@ public class ElementUtil {
         return new HtmlContentBuilder<>(element);
     }
 
-    public static <E extends HTMLElement, T extends IsElement<E>> HtmlComponentBuilder<E,T> componentBuilder(T element) {
+    public static <E extends HTMLElement, T extends IsElement<E>> HtmlComponentBuilder<E, T> componentBuilder(T element) {
         return new HtmlComponentBuilder<>(element);
     }
 
     public static boolean isKeyOf(String keyCode, KeyboardEvent keyboardEvent) {
-        return keyCode.equalsIgnoreCase(keyboardEvent.code);
+        return keyCode.equalsIgnoreCase(keyboardEvent.key);
     }
 
     public static boolean isEnterKey(KeyboardEvent keyboardEvent) {
@@ -64,6 +65,7 @@ public class ElementUtil {
 
     /**
      * {@link #onAttach(HTMLElement, ObserverCallback)}
+     *
      * @param element
      * @param callback
      */
@@ -90,6 +92,7 @@ public class ElementUtil {
 
     /**
      * {@link #onDetach(HTMLElement, ObserverCallback)}
+     *
      * @param element
      * @param callback
      */
@@ -151,6 +154,13 @@ public class ElementUtil {
 
     public static void scrollToElement(HTMLElement element) {
         element.scrollIntoView();
+    }
+
+    public static HTMLAnchorElement openInNewTabLink(String text, String targetUrl) {
+        return a()
+                .textContent(text)
+                .on(EventType.click, event -> DomGlobal.window.open(targetUrl, "_blank"))
+                .asElement();
     }
 
 }

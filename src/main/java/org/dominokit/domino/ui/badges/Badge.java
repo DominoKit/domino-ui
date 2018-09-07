@@ -2,16 +2,13 @@ package org.dominokit.domino.ui.badges;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.span;
 
-public class Badge extends DominoElement<HTMLElement, Badge> implements IsElement<HTMLElement>, HasBackground<Badge> {
+public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasBackground<Badge> {
 
     private HTMLElement badgeElement = span().css("badge").asElement();
     private Color badgeBackground;

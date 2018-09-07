@@ -6,12 +6,11 @@ import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Radio extends DominoElement<HTMLDivElement, Radio> implements IsElement<HTMLDivElement>, HasName<Radio>, HasValue<Radio, String>, HasLabel<Radio>,
+public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements HasName<Radio>, HasValue<Radio, String>, HasLabel<Radio>,
         Switchable<Radio>, Checkable<Radio> {
 
     private HTMLDivElement container = Elements.div().css("form-group").asElement();

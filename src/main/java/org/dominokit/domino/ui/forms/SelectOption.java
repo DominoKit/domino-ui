@@ -5,14 +5,11 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasBackground;
-import org.dominokit.domino.ui.utils.HasValue;
-import org.dominokit.domino.ui.utils.Selectable;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
-public class SelectOption<T> extends DominoElement<HTMLLIElement, SelectOption<T>> implements IsElement<HTMLLIElement>, HasValue<SelectOption, T>,
+public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOption<T>> implements HasValue<SelectOption, T>,
         HasBackground<SelectOption>, Selectable<SelectOption> {
 
     private static final String SELECTED = "selected";
@@ -139,15 +136,15 @@ public class SelectOption<T> extends DominoElement<HTMLLIElement, SelectOption<T
         return li;
     }
 
-    public DominoElement<HTMLElement, IsElement<HTMLElement>> getCheckMark() {
+    public DominoElement<HTMLElement> getCheckMark() {
         return DominoElement.of(checkMark);
     }
 
-    public DominoElement<HTMLElement, IsElement<HTMLElement>> getValueContainer() {
+    public DominoElement<HTMLElement> getValueContainer() {
         return DominoElement.of(valueContainer);
     }
 
-    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getLinkElement() {
+    public DominoElement<HTMLAnchorElement> getLinkElement() {
         return DominoElement.of(aElement);
     }
 

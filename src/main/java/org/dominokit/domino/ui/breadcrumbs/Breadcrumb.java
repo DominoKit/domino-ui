@@ -4,9 +4,9 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLOListElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.ol;
 
-public class Breadcrumb extends DominoElement<HTMLOListElement, Breadcrumb> implements IsElement<HTMLOListElement>, HasBackground<Breadcrumb> {
+public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> implements HasBackground<Breadcrumb> {
 
     private HTMLOListElement element = ol().css("breadcrumb").asElement();
     private List<BreadcrumbItem> items = new LinkedList<>();
@@ -88,7 +88,7 @@ public class Breadcrumb extends DominoElement<HTMLOListElement, Breadcrumb> impl
         items.add(item);
         setActiveItem(item);
         element.appendChild(item.asElement());
-        item.getClickableElement().addClickListener( e -> setActiveItem(item));
+        DominoElement.of(item.getClickableElement()).addClickListener(e -> setActiveItem(item));
     }
 
     private Breadcrumb setActiveItem(BreadcrumbItem item) {

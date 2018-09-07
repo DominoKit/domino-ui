@@ -1,9 +1,7 @@
 package org.dominokit.domino.ui.collapsible;
 
-import com.google.gwt.animation.client.Animation;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.IsCollapsible;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -12,14 +10,11 @@ import java.util.List;
 
 public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collapsible> {
 
-    public final static int DEFAULT_DURATION = 300;
 
     private final HTMLElement element;
     private final Style<HTMLElement, IsElement<HTMLElement>> style;
 
     private boolean collapsed = false;
-    private int elementHeight = 0;
-    private int duration = DEFAULT_DURATION;
 
     private CollapseCompletedHandler onCollapsed = () -> {
     };
@@ -32,9 +27,6 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     public Collapsible(HTMLElement element) {
         this.element = element;
         style = Style.of(element);
-        ElementUtil.onAttach(element, mutationRecord -> {
-            updateHeight();
-        });
     }
 
     public static Collapsible create(HTMLElement element) {
@@ -47,105 +39,23 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
     @Override
     public Collapsible collapse() {
-        return collapse(0);
+        style.setDisplay("none");
+        onCollapseCompleted();
+        this.collapsed = true;
+        return this;
     }
 
     @Override
     public Collapsible expand() {
-        return expand(0);
-    }
-
-    public Collapsible collapse(int duration) {
-        if (duration < 1) {
-            style.setDisplay("none");
-            onCollapseCompleted();
-        }else {
-
-            new Animation() {
-
-                @Override
-                protected void onStart() {
-                    super.onStart();
-                    style.add("collapsing");
-                    updateHeight();
-                    if (elementHeight == 0) {
-                        completeCollapse();
-                        cancel();
-                    }
-                }
-
-                @Override
-                protected void onUpdate(double progress) {
-                    Double doubleHeight = new Double(elementHeight);
-                    long newHeight = Math.round(doubleHeight - new Double(doubleHeight * progress));
-                    style.setProperty("height", newHeight + "px");
-                }
-
-                @Override
-                protected void onComplete() {
-                    super.onComplete();
-                    completeCollapse();
-                }
-            }.run(duration);
-        }
-        collapsed = true;
-
+        onExpandCompleted();
+        style.removeProperty("display");
+        this.collapsed = false;
         return this;
-    }
-
-    private void completeCollapse() {
-        style.setDisplay("none");
-        style.removeProperty("height");
-        style.remove("collapsing");
-        onCollapseCompleted();
     }
 
     private void onCollapseCompleted() {
         onCollapsed.onCollapsed();
         collapseHandlers.forEach(CollapseCompletedHandler::onCollapsed);
-    }
-
-    public Collapsible expand(int duration) {
-
-        if(duration<1){
-            onExpandCompleted();
-            style.removeProperty("display");
-        }else {
-            new Animation() {
-
-                @Override
-                protected void onStart() {
-                    super.onStart();
-                    style.setProperty("height", "0px");
-                    style.add("collapsing");
-                    style.removeProperty("display");
-                    if (elementHeight == 0) {
-                        cancel();
-                        completeExpand();
-                    }
-                }
-
-                @Override
-                protected void onUpdate(double progress) {
-                    style.setProperty("height", new Double(Math.round(new Double((elementHeight * progress)))).intValue() + "px");
-                }
-
-                @Override
-                protected void onComplete() {
-                    super.onComplete();
-                    completeExpand();
-                }
-            }.run(duration);
-        }
-        this.collapsed = false;
-        return this;
-    }
-
-    private void completeExpand() {
-        style.removeProperty("height");
-        style.remove("collapsing");
-        onExpandCompleted();
-        updateHeight();
     }
 
     private void onExpandCompleted() {
@@ -190,19 +100,6 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
     public void removeExpandHandlr(ExpandCompletedHandler handler) {
         expandHandlers.remove(handler);
-    }
-
-    private void updateHeight() {
-        elementHeight = element.offsetHeight;
-        if (elementHeight < 300) {
-            this.duration = 150;
-        } else {
-            this.duration = DEFAULT_DURATION;
-        }
-    }
-
-    public int getDuration() {
-        return duration;
     }
 
     @Override

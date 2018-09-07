@@ -260,7 +260,7 @@ ul.stepper .step.active .step-title {
 }
 
 ul.stepper .step-content {
-    padding-top: 10px;
+    padding-top: 15px;
     position: relative;
     height: calc(100% - 132px);
     width: inherit;

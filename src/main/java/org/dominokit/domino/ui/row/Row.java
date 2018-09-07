@@ -4,8 +4,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.column.Column;
 import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
@@ -13,7 +12,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
  * @deprecated use {@link org.dominokit.domino.ui.grid.Row}
  */
 @Deprecated
-public class Row extends DominoElement<HTMLDivElement, Row> implements IsElement<HTMLDivElement> {
+public class Row extends BaseDominoElement<HTMLDivElement, Row> {
 
     private HTMLDivElement row;
 

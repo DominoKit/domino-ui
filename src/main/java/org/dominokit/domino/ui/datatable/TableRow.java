@@ -1,8 +1,8 @@
 package org.dominokit.domino.ui.datatable;
 
 import elemental2.dom.HTMLTableRowElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.Selectable;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static org.jboss.gwt.elemento.core.Elements.tr;
 
-public class TableRow<T> implements Selectable<T>, IsElement<HTMLTableRowElement> {
+public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement,TableRow<T> > implements Selectable<T> {
     private T record;
     private boolean selected = false;
     private final int index;

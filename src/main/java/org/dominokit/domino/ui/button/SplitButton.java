@@ -5,10 +5,9 @@ import org.dominokit.domino.ui.button.group.ButtonsGroup;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.StyleType;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-public class SplitButton extends DominoElement<HTMLElement, SplitButton> implements IsElement<HTMLElement> {
+public class SplitButton extends BaseDominoElement<HTMLElement, SplitButton> {
 
     private HTMLElement groupElement = ButtonsGroup.create().asElement();
 

@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.media;
 
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import elemental2.dom.HTMLDivElement;
@@ -16,7 +17,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 @Templated
-public abstract class MediaObject extends DominoElement<HTMLDivElement, MediaObject> implements IsElement<HTMLDivElement> {
+public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> implements IsElement<HTMLDivElement> {
 
     @DataElement
     HTMLDivElement mediaBody;
@@ -111,19 +112,19 @@ public abstract class MediaObject extends DominoElement<HTMLDivElement, MediaObj
         return this;
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getMediaBody() {
+    public DominoElement<HTMLDivElement> getMediaBody() {
         return DominoElement.of(mediaBody);
     }
 
-    public DominoElement<HTMLHeadingElement, IsElement<HTMLHeadingElement>> getMediaHeader() {
+    public DominoElement<HTMLHeadingElement> getMediaHeader() {
         return DominoElement.of(mediaHeader);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getLeftMedia() {
+    public DominoElement<HTMLDivElement> getLeftMedia() {
         return DominoElement.of(leftMedia);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getRightMedia() {
+    public DominoElement<HTMLDivElement> getRightMedia() {
         return DominoElement.of(rightMedia);
     }
 

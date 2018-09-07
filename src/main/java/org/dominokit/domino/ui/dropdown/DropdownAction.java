@@ -3,15 +3,14 @@ package org.dominokit.domino.ui.dropdown;
 
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLLIElement;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DropdownAction<V> extends DominoElement<HTMLLIElement, DropdownAction<V>> implements  HasSelectionHandler<DropdownAction> {
+public class DropdownAction<V> extends BaseDominoElement<HTMLLIElement, DropdownAction<V>> implements HasSelectionHandler<DropdownAction> {
 
     private HTMLLIElement liElement = Elements.li().asElement();
     private V value;
@@ -58,7 +57,7 @@ public class DropdownAction<V> extends DominoElement<HTMLLIElement, DropdownActi
     }
 
     @Override
-    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getClickableElement() {
-        return DominoElement.of(aElement);
+    public HTMLAnchorElement getClickableElement() {
+        return aElement;
     }
 }

@@ -11,6 +11,6 @@ public class DropDownPositionTopRight implements DropDownPosition {
         ClientRect targetRect = target.getBoundingClientRect();
         ClientRect actionsRect = actionsMenu.getBoundingClientRect();
         actionsMenu.style.setProperty("top", ((targetRect.top + window.scrollY) - actionsRect.height) + 31 + "px");
-        actionsMenu.style.setProperty("left", targetRect.left + window.scrollX + actionsRect.width + "px");
+        actionsMenu.style.setProperty("left", targetRect.left + window.scrollX + targetRect.width + "px");
     }
 }

@@ -4,13 +4,13 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Styles;
 import elemental2.dom.HTMLParagraphElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.p;
 
-public class Paragraph extends DominoElement<HTMLParagraphElement, Paragraph> implements IsElement<HTMLParagraphElement>{
+public class Paragraph extends BaseDominoElement<HTMLParagraphElement, Paragraph> {
 
     private HTMLParagraphElement element=p().asElement();
     private Color colorStyle;

@@ -4,18 +4,17 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import elemental2.dom.Text;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
-import static org.jboss.gwt.elemento.core.Elements.*;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class Tooltip extends DominoElement<HTMLDivElement, Tooltip> implements IsElement<HTMLDivElement> {
+public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
 
     private HTMLDivElement element = div().css("tooltip").attr("role", "tooltip").asElement();
     private HTMLDivElement arrowElement = div().css("tooltip-arrow").asElement();
@@ -79,11 +78,11 @@ public class Tooltip extends DominoElement<HTMLDivElement, Tooltip> implements I
         return element;
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getArrowElement() {
+    public DominoElement<HTMLDivElement> getArrowElement() {
         return DominoElement.of(arrowElement);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getInnerElement() {
+    public DominoElement<HTMLDivElement> getInnerElement() {
         return DominoElement.of(innerElement);
     }
 

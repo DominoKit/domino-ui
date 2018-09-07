@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.tabs;
 
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 import elemental2.dom.*;
@@ -45,11 +46,11 @@ public class Tab implements HasClickableElement{
         return new Tab(icon, text);
     }
 
-    public DominoElement<HTMLLIElement, IsElement<HTMLLIElement>> getTab() {
+    public DominoElement<HTMLLIElement> getTab() {
         return DominoElement.of(tab);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentContainer() {
+    public DominoElement<HTMLDivElement> getContentContainer() {
         return DominoElement.of(contentContainer);
     }
 
@@ -95,7 +96,7 @@ public class Tab implements HasClickableElement{
     }
 
     @Override
-    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getClickableElement() {
-        return DominoElement.of(clickableElement);
+    public HTMLAnchorElement getClickableElement() {
+        return clickableElement;
     }
 }

@@ -2,15 +2,14 @@ package org.dominokit.domino.ui.breadcrumbs;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
-public class BreadcrumbItem extends DominoElement<HTMLLIElement, BreadcrumbItem> implements IsElement<HTMLLIElement>, HasClickableElement {
+public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbItem> implements HasClickableElement {
 
     private HTMLLIElement element = li().asElement();
     private HTMLAnchorElement anchorElement = a().asElement();
@@ -92,8 +91,8 @@ public class BreadcrumbItem extends DominoElement<HTMLLIElement, BreadcrumbItem>
     }
 
     @Override
-    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getClickableElement() {
-        return DominoElement.of(anchorElement);
+    public HTMLAnchorElement getClickableElement() {
+        return anchorElement;
     }
 
     public Text getTextElement() {

@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.thumbnails;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -9,7 +10,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import static java.util.Objects.isNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class Thumbnail extends DominoElement<HTMLDivElement, Thumbnail> implements IsElement<HTMLDivElement> {
+public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
 
     private HTMLDivElement element = div().css("thumbnail").asElement();
     private HTMLDivElement contentElement = div().asElement();
@@ -60,11 +61,11 @@ public class Thumbnail extends DominoElement<HTMLDivElement, Thumbnail> implemen
         return element;
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getContentElement() {
+    public DominoElement<HTMLDivElement> getContentElement() {
         return DominoElement.of(contentElement);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getCaptionElement() {
+    public DominoElement<HTMLDivElement> getCaptionElement() {
         return DominoElement.of(captionElement);
     }
 }

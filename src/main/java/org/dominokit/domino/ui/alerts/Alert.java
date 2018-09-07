@@ -5,15 +5,17 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.Text;
+import org.dominokit.domino.ui.Typography.Strong;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Alert extends DominoElement<HTMLDivElement, Alert> implements IsElement<HTMLDivElement>, HasBackground<Alert> {
+public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements HasBackground<Alert> {
 
     public enum AlertType {
         SUCCESS("alert-success"),
@@ -85,7 +87,7 @@ public class Alert extends DominoElement<HTMLDivElement, Alert> implements IsEle
 
 
     /**
-     * @deprecated use {@link #appendChild(AlertStrong)}
+     * @deprecated use {@link #appendChild(Strong)}
      * @param text
      * @return
      */
@@ -95,7 +97,7 @@ public class Alert extends DominoElement<HTMLDivElement, Alert> implements IsEle
         return this;
     }
 
-    public Alert appendChild(AlertStrong strong) {
+    public Alert appendChild(Strong strong) {
         element.appendChild(strong.asElement());
         return this;
     }
@@ -128,7 +130,7 @@ public class Alert extends DominoElement<HTMLDivElement, Alert> implements IsEle
 
     public Alert appendChild(HTMLAnchorElement anchorElement) {
         if (nonNull(anchorElement)) {
-            anchorElement.classList.add("alert-link");
+            anchorElement.classList.add(Styles.alert_link);
             element.appendChild(anchorElement);
         }
         return this;

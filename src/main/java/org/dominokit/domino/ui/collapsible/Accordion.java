@@ -2,8 +2,8 @@ package org.dominokit.domino.ui.collapsible;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class Accordion extends DominoElement<HTMLDivElement, Accordion> implements IsElement<HTMLDivElement> {
+public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
 
     private final HTMLDivElement element = div().css("panel-group").asElement();
     private List<AccordionPanel> panels = new LinkedList<>();
@@ -38,7 +38,7 @@ public class Accordion extends DominoElement<HTMLDivElement, Accordion> implemen
     public Accordion appendChild(AccordionPanel panel) {
         panels.add(panel);
         element.appendChild(panel.asElement());
-        panel.getClickableElement().addClickListener( evt -> {
+        DominoElement.of(panel.getClickableElement()).addClickListener(evt -> {
             if(!multiOpen) {
                 List<AccordionPanel> accordionPanels = otherPanels(panel);
                 accordionPanels.forEach(accordionPanel -> {

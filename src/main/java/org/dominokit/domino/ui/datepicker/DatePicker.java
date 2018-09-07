@@ -13,6 +13,7 @@ import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.pickers.PickerHandler;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.WavesSupport;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.gwtproject.i18n.client.impl.cldr.DateTimeFormatInfo_factory;
@@ -28,7 +29,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class DatePicker extends DominoElement<HTMLDivElement, DatePicker> implements IsElement<HTMLDivElement>, HasValue<DatePicker, Date>, DatePickerMonth.DaySelectionHandler {
+public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> implements HasValue<DatePicker, Date>, DatePickerMonth.DaySelectionHandler {
 
     private final JsDate jsDate;
     private HTMLDivElement element = div().css("calendar").asElement();
@@ -150,7 +151,7 @@ public class DatePicker extends DominoElement<HTMLDivElement, DatePicker> implem
 
         for (int i = minDate.getFullYear(); i <= maxDate.getFullYear(); i++) {
             SelectOption<Integer> yearOption = SelectOption.create(i, i + "");
-            yearSelect.addOption(yearOption);
+            yearSelect.appendChild(yearOption);
 
             if (i == year)
                 yearSelect.select(yearOption);
@@ -167,7 +168,7 @@ public class DatePicker extends DominoElement<HTMLDivElement, DatePicker> implem
         String[] months = getDateTimeFormatInfo().monthsShort();
         for (int i = 0; i < months.length; i++) {
             SelectOption<Integer> monthOption = SelectOption.create(i, months[i]);
-            monthSelect.addOption(monthOption);
+            monthSelect.appendChild(monthOption);
             if (i == month)
                 monthSelect.select(monthOption);
         }
@@ -479,39 +480,39 @@ public class DatePicker extends DominoElement<HTMLDivElement, DatePicker> implem
         return this;
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getHeaderPanel() {
+    public DominoElement<HTMLDivElement> getHeaderPanel() {
         return DominoElement.of(headerPanel);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getSelectorsPanel() {
+    public DominoElement<HTMLDivElement> getSelectorsPanel() {
         return DominoElement.of(selectorsPanel);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFooterPanel() {
+    public DominoElement<HTMLDivElement> getFooterPanel() {
         return DominoElement.of(footerPanel);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getDayNamePanel() {
+    public DominoElement<HTMLDivElement> getDayNamePanel() {
         return DominoElement.of(dayName);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getMonthNamePanel() {
+    public DominoElement<HTMLDivElement> getMonthNamePanel() {
         return DominoElement.of(monthName);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getDateNumberPanel() {
+    public DominoElement<HTMLDivElement> getDateNumberPanel() {
         return DominoElement.of(dateNumber);
     }
 
-    public DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getYearNumberPanel() {
+    public DominoElement<HTMLDivElement> getYearNumberPanel() {
         return DominoElement.of(yearNumber);
     }
 
-    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getNavigateBefore() {
+    public DominoElement<HTMLAnchorElement> getNavigateBefore() {
         return DominoElement.of(navigateBefore);
     }
 
-    public DominoElement<HTMLAnchorElement, IsElement<HTMLAnchorElement>> getNavigateNext() {
+    public DominoElement<HTMLAnchorElement> getNavigateNext() {
         return DominoElement.of(navigateNext);
     }
 

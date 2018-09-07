@@ -4,14 +4,13 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLUListElement;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Pager extends DominoElement<HTMLElement, Pager> implements IsElement<HTMLElement> {
+public class Pager extends BaseDominoElement<HTMLElement, Pager> {
 
     private HTMLUListElement pagerElement = ul().css("pager").asElement();
     private HTMLElement element = nav().add(pagerElement).asElement();

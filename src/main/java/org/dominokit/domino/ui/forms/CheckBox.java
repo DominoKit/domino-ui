@@ -8,32 +8,36 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
 
-public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsElement<HTMLElement>, Checkable<CheckBox> {
+public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Checkable<CheckBox> {
 
-    private HTMLDivElement container = Elements.div().css("form-group").asElement();
-    private HTMLDivElement formLine = Elements.div().css("form-line").asElement();
-    private HTMLDivElement formControl = Elements.div().css("form-control").asElement();
-    private HTMLInputElement inputElement = Elements.input("checkbox").asElement();
-    private HTMLLabelElement labelElement = Elements.label().asElement();
+    public static final String READONLY = "readonly";
+    private HTMLDivElement container = div().css("form-group").asElement();
+    private HTMLDivElement formLine = div().css("form-line").asElement();
+    private HTMLDivElement formControl = div().css("form-control").asElement();
+    private HTMLInputElement inputElement = input("checkbox").asElement();
+    private HTMLLabelElement labelElement = label().asElement();
     private List<ChangeHandler<Boolean>> changeHandlers = new ArrayList<>();
     private Color color;
     private ChangeHandler<Boolean> autoValidationHandler;
+    private String checkedReadonlyLabel = "Yes";
+    private String unCheckedReadonlyLabel = "No";
+    private String label;
 
     public CheckBox() {
         this("");
     }
 
     public CheckBox(String label) {
+        this.label = label;
         setLabel(label);
         Style.of(formControl).setProperty("border-bottom", "0px");
         formControl.appendChild(inputElement);
@@ -42,7 +46,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
             onCheck();
         });
         labelElement.addEventListener("click", evt -> {
-            if (isEnabled())
+            if (isEnabled() && !isReadOnly())
                 toggle();
         });
         formLine.appendChild(formControl);
@@ -160,17 +164,17 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
     }
 
     @Override
-    public DominoElement<HTMLInputElement, IsElement<HTMLInputElement>> getInputElement() {
+    public DominoElement<HTMLInputElement> getInputElement() {
         return DominoElement.of(inputElement);
     }
 
     @Override
-    protected DominoElement<HTMLDivElement, IsElement<HTMLDivElement>> getFieldContainer() {
+    protected DominoElement<HTMLDivElement> getFieldContainer() {
         return DominoElement.of(formLine);
     }
 
     @Override
-    public DominoElement<HTMLLabelElement, IsElement<HTMLLabelElement>> getLabelElement() {
+    public DominoElement<HTMLLabelElement> getLabelElement() {
         return DominoElement.of(labelElement);
     }
 
@@ -199,4 +203,42 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements IsE
     }
 
 
+    @Override
+    public CheckBox setReadOnly(boolean readOnly) {
+        if (readOnly) {
+            DominoElement.of(formControl).setAttribute(READONLY, READONLY);
+            if (isChecked()) {
+                labelElement.textContent = label + getCheckedReadonlyLabel();
+            } else {
+                labelElement.textContent = label + getUnCheckedReadonlyLabel();
+            }
+        } else {
+            DominoElement.of(formControl).removeAttribute(READONLY);
+            labelElement.textContent = label;
+        }
+        return this;
+    }
+
+    private String getCheckedReadonlyLabel() {
+        return isNull(checkedReadonlyLabel) || checkedReadonlyLabel.isEmpty() ? "" : ": " + checkedReadonlyLabel;
+    }
+
+    private String getUnCheckedReadonlyLabel() {
+        return isNull(unCheckedReadonlyLabel) || unCheckedReadonlyLabel.isEmpty() ? "" : ": " + unCheckedReadonlyLabel;
+    }
+
+    public CheckBox setCheckedReadonlyLabel(String checkedReadonlyLabel) {
+        this.checkedReadonlyLabel = checkedReadonlyLabel;
+        return this;
+    }
+
+    public CheckBox setUnCheckedReadonlyLabel(String unCheckedReadonlyLabel) {
+        this.unCheckedReadonlyLabel = unCheckedReadonlyLabel;
+        return this;
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return DominoElement.of(formControl).hasAttribute(READONLY);
+    }
 }

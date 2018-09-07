@@ -79,4 +79,6 @@ public class Styles {
     public static final String default_shadow = "default-shadow";
 
     public static final String alert_link = "alert-link";
+
+    public static final String ellipsis_text = "ellipsis-text";
 }

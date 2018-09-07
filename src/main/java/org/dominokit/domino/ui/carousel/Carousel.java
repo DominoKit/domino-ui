@@ -5,6 +5,7 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLOListElement;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.SwipeUtil;
@@ -16,7 +17,7 @@ import java.util.List;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Carousel extends DominoElement<HTMLDivElement, Carousel> implements IsElement<HTMLDivElement> {
+public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
 
     private HTMLOListElement indicatorsElement = ol().css("carousel-indicators").asElement();
     private HTMLDivElement slidesElement = div().css("carousel-inner").asElement();
@@ -176,11 +177,11 @@ public class Carousel extends DominoElement<HTMLDivElement, Carousel> implements
     private void gotToSlide(Slide slide, String source) {
         if (!slide.hasActiveStyle()) {
             this.targetSlide = slide;
-            Style.of(slide.getIndicatorElement()).add("active");
-            Style.of(activeSlide.getIndicatorElement()).remove("active");
-            Style.of(slide).add(getPostionStyle(slide, source));
+            slide.getIndicatorElement().style().add("active");
+            activeSlide.getIndicatorElement().style().remove("active");
+            slide.style().add(getPostionStyle(slide, source));
             Scheduler.get().scheduleFixedDelay(() -> {
-                Style.of(activeSlide.getIndicatorElement()).remove("active");
+                activeSlide.getIndicatorElement().style().remove("active");
                 String directionStyle = getDirectionStyle(slide, source);
                 Style.of(slide).add(directionStyle);
                 Style.of(activeSlide).add(directionStyle);
@@ -247,11 +248,11 @@ public class Carousel extends DominoElement<HTMLDivElement, Carousel> implements
         return element;
     }
 
-    public DominoElement<HTMLOListElement, IsElement<HTMLOListElement>> getIndicatorsElement() {
+    public DominoElement<HTMLOListElement> getIndicatorsElement() {
         return DominoElement.of(indicatorsElement);
     }
 
-    public DominoElement<HTMLDivElement,IsElement<HTMLDivElement>>  getSlidesElement() {
+    public DominoElement<HTMLDivElement> getSlidesElement() {
         return DominoElement.of(slidesElement);
     }
 
