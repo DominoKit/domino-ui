@@ -49,8 +49,6 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
 
     /**
      * @deprecated use {@link #appendChild(Step)}
-     * @param step
-     * @return
      */
     @Deprecated
     public Stepper addStep(Step step) {

@@ -11,8 +11,6 @@ import org.jboss.gwt.elemento.core.IsElement;
 public interface IsModalDialog<T> {
     /**
      * @deprecated use {@link #appendChild(Node)}
-     * @param content
-     * @return
      */
     @Deprecated
     T appendContent(Node content);
@@ -23,8 +21,6 @@ public interface IsModalDialog<T> {
 
     /**
      * @deprecated use {@link #appendFooterChild(Node)}
-     * @param content
-     * @return
      */
     @Deprecated
     T appendFooterContent(Node content);

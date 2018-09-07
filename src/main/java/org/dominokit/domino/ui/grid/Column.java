@@ -378,8 +378,6 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
     }
 
     /**
-     * @param element
-     * @return
      * @deprecated use{@link #appendChild(Node)}
      */
     @Deprecated
@@ -394,8 +392,6 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
     }
 
     /**
-     * @param element
-     * @return
      * @deprecated use {@link #appendChild(IsElement)}
      */
     @Deprecated

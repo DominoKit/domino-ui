@@ -146,8 +146,6 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
 
 
     /**
-     * @param content
-     * @return
      * @deprecated use {@link #appendDescriptionChild(Node)}
      */
     @Deprecated
@@ -166,8 +164,6 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
     }
 
     /**
-     * @param content
-     * @return
      * @deprecated use {@link #appendChild(IsElement)}
      */
     @Deprecated
@@ -177,8 +173,6 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
     }
 
     /**
-     * @param element
-     * @return
      * @deprecated use {@link #appendChild(Node)}
      */
     @Deprecated

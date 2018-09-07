@@ -69,8 +69,6 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
 
     /**
      * @deprecated use {@link #appendChild(TreeItem)}
-     * @param treeItem
-     * @return
      */
     @Deprecated
     public TreeItem addTreeItem(TreeItem treeItem) {

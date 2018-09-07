@@ -281,8 +281,6 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     /**
      * @deprecated use {@link #appendChild(SelectOption)}
-     * @param option
-     * @return
      */
     @Deprecated
     public Select<T> addOption(SelectOption<T> option) {

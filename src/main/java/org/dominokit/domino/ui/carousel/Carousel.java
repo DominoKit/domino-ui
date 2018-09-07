@@ -112,8 +112,6 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
 
     /**
      * @deprecated use {@link #appendChild(Slide)}
-     * @param slide
-     * @return
      */
     @Deprecated
     public Carousel addSlide(Slide slide) {
