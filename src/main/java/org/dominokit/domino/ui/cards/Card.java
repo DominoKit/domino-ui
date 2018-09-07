@@ -28,8 +28,8 @@ import static org.jboss.gwt.elemento.core.Elements.li;
 @Templated
 public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> implements HasBackground<Card>, IsElement<HTMLDivElement> {
 
-    private Text title = new Text("");
-    private Text description = new Text("");
+    private Text title = DomGlobal.document.createTextNode("");
+    private Text description = DomGlobal.document.createTextNode("");
 
     @DataElement
     HTMLDivElement header;

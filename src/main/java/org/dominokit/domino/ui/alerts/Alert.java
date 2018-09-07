@@ -1,10 +1,7 @@
 package org.dominokit.domino.ui.alerts;
 
 
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLButtonElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.Text;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.Typography.Strong;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Styles;
@@ -109,12 +106,12 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
      */
     @Deprecated
     public Alert appendText(String text) {
-        element.appendChild(new Text(text));
+        element.appendChild(DomGlobal.document.createTextNode(text));
         return this;
     }
 
     public Alert appendChild(String text) {
-        element.appendChild(new Text(text));
+        element.appendChild(DomGlobal.document.createTextNode(text));
         return this;
     }
 

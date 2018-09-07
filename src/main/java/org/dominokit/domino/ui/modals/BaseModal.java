@@ -89,7 +89,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     private Element lastFocusElement;
     private Element activeElementBeforeOpen;
     private List<Element> focusElements = new ArrayList<>();
-    private Text headerText=new Text();
+    private Text headerText=DomGlobal.document.createTextNode("");
     private boolean open=false;
     private boolean disabled=false;
     private boolean autoAppendAndRemove=true;

@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.Text;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
@@ -29,7 +30,7 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
                     if (nonNull(colorScheme)) {
                         Style.of(cell.getElement()).add(markerColor.getColorScheme(cell).color().getBackground());
                     }
-                    return new Text("");
+                    return DomGlobal.document.createTextNode("");
                 }));
     }
 

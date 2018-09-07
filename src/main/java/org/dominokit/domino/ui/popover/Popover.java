@@ -44,7 +44,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
         element.appendChild(headingElement);
         element.appendChild(contentElement);
 
-        headerText = new Text(title);
+        headerText = DomGlobal.document.createTextNode(title);
         headingElement.appendChild(headerText);
         contentElement.appendChild(content);
 

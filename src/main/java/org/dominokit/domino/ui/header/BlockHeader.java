@@ -14,8 +14,8 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
     private HTMLDivElement element = div().css("block-header").asElement();
     private HTMLHeadingElement headerElement = h(2).asElement();
     private HTMLElement descriptionElement;
-    private Text headerText = new Text();
-    private Text descriptionText = new Text();
+    private Text headerText = DomGlobal.document.createTextNode("");
+    private Text descriptionText = DomGlobal.document.createTextNode("");
 
     private BlockHeader(String header) {
         this(header, null);
@@ -77,7 +77,7 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
     }
 
     public BlockHeader appendText(String text) {
-        return appendContent(new Text(text));
+        return appendContent(DomGlobal.document.createTextNode(text));
     }
 
     public BlockHeader setHeader(String header) {

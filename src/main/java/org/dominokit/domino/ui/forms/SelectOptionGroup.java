@@ -1,9 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLIElement;
-import elemental2.dom.Node;
-import elemental2.dom.Text;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -27,7 +24,7 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
     }
 
     public static <T> SelectOptionGroup<T> create(String title) {
-        return create(new Text(title));
+        return create(DomGlobal.document.createTextNode(title));
     }
 
     public static <T> SelectOptionGroup<T> create(Node titleElement) {
