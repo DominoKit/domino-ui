@@ -17,6 +17,7 @@ public class Footer extends BaseDominoElement<HTMLElement, Footer> {
 
     public Footer() {
         hide();
+        init(this);
     }
 
     @Override
