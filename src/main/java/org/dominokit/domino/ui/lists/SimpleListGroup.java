@@ -18,6 +18,10 @@ public class SimpleListGroup extends BaseDominoElement<HTMLUListElement, SimpleL
         return new SimpleListGroup(ul().css("list-group").asElement());
     }
 
+    /**
+     * @deprecated use {@link #appendChild(String)}
+     */
+    @Deprecated
     public SimpleListItem addItem(String content){
         SimpleListItem item = SimpleListItem.create(content);
         element.appendChild(item.asElement());

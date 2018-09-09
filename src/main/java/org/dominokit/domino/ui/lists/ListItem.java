@@ -21,10 +21,9 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     private boolean disabled = false;
     private String style;
 
-    public ListItem(T value, ListGroup<T> parent) {
+    public ListItem(T value) {
         super(a().css("list-group-item").asElement());
         this.value = value;
-        this.parent = parent;
         asElement().addEventListener("click", e -> {
             if (!disabled) {
                 if (isSelected()) {
@@ -37,8 +36,8 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
         init(this);
     }
 
-    public static <T> ListItem<T> create(ListGroup<T> parent, T value) {
-        return new ListItem<>(value, parent);
+    public static <T> ListItem<T> create(T value) {
+        return new ListItem<>(value);
     }
 
     @Override
@@ -66,7 +65,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     public ListItem<T> select(boolean silent) {
         if (parent.isSelectable()) {
             if (!parent.isMultiSelect())
-                parent.getTableRows().forEach(tListItem -> tListItem.deselect(true));
+                parent.getItems().forEach(tListItem -> tListItem.deselect(true));
             if (!selected) {
                 asElement().classList.add("active");
                 this.selected = true;

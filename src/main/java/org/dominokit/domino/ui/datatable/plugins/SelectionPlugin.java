@@ -3,7 +3,6 @@ package org.dominokit.domino.ui.datatable.plugins;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
-import elemental2.dom.Text;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.CellRenderer;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
@@ -138,7 +137,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
         });
 
         dataTable.addSelectionListener((selectedRows, selectedRecords) -> {
-            if (selectedRows.size() != dataTable.getTableRows().size()) {
+            if (selectedRows.size() != dataTable.getItems().size()) {
                 checkBox.uncheck(true);
             } else {
                 checkBox.check(true);

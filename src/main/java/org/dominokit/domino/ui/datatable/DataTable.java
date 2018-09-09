@@ -246,7 +246,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     }
 
     @Override
-    public List<TableRow<T>> getTableRows() {
+    public List<TableRow<T>> getItems() {
         return tableRows;
     }
 
