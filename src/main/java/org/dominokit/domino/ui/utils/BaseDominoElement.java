@@ -17,7 +17,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     protected T element;
     private String uuid;
     private Tooltip tooltip;
-    protected Collapsible collapsible;
+    private Collapsible collapsible;
     protected Style<E, T> style;
 
     private ScreenMedia hideOn;

@@ -71,19 +71,19 @@
 
 @media only screen and (max-width: 600px) {
     .content-panel {
-        padding-right: 0px !important;
-        padding-left: 0px !important;
-        margin-right: 0px !important;
-        margin-left: 0px !important;
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-right: 0px;
+        margin-left: 0px;
     }
 }
 
 @media only screen and (min-width: 601px) {
     .content-panel {
-        padding-right: 15px !important;
-        padding-left: 15px !important;
-        margin-right: auto !important;
-        margin-left: auto !important;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
     }
 }
 
