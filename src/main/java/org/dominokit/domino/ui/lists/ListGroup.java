@@ -30,14 +30,16 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
     }
 
     public ListItem<T> addItem(T value) {
-        ListItem<T> listItem = ListItem.create(this, value);
+        ListItem<T> listItem = ListItem.create(value);
+        listItem.setParent(this);
         allItems.add(listItem);
         asElement().appendChild(listItem.asElement());
         return listItem;
     }
 
     public ListItem<T> addItem(T value, String text) {
-        ListItem<T> listItem = ListItem.create(this, value);
+        ListItem<T> listItem = ListItem.create(value);
+        listItem.setParent(this);
         listItem.setText(text);
         allItems.add(listItem);
         asElement().appendChild(listItem.asElement());
@@ -54,6 +56,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
     }
 
     public ListGroup<T> appendChild(ListItem<T> listItem) {
+        listItem.setParent(this);
         allItems.add(listItem);
         asElement().appendChild(listItem.asElement());
         listItem.setParent(this);
@@ -61,7 +64,8 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
     }
 
     public ListItem<T> createItem(T value, String text) {
-        ListItem<T> listItem = ListItem.create(this, value);
+        ListItem<T> listItem = ListItem.create(value);
+        listItem.setParent(this);
         listItem.setText(text);
         return listItem;
     }
@@ -127,7 +131,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
     }
 
     @Override
-    public List<ListItem<T>> getTableRows() {
+    public List<ListItem<T>> getItems() {
         return allItems;
     }
 
@@ -150,7 +154,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
     }
 
     public ListGroup<T> removeAll() {
-        getTableRows().forEach(this::removeItem);
+        getItems().forEach(this::removeItem);
         return this;
     }
 

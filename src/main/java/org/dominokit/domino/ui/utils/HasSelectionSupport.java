@@ -6,7 +6,7 @@ public interface HasSelectionSupport<T> {
 
     List<T> getSelectedItems();
 
-    List<T> getTableRows();
+    List<T> getItems();
 
     void onSelectionChange(T source);
 
