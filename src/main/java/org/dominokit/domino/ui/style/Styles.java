@@ -1,5 +1,9 @@
 package org.dominokit.domino.ui.style;
 
+import elemental2.dom.HTMLHeadingElement;
+import org.jboss.gwt.elemento.core.Elements;
+import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
+
 public class Styles {
 
     public static final String font_6 = "font-6";
@@ -81,4 +85,20 @@ public class Styles {
     public static final String alert_link = "alert-link";
 
     public static final String ellipsis_text = "ellipsis-text";
+
+    public static final String opacity_l_0 = "opacity-l-0";
+    public static final String opacity_l_1 = "opacity-l-1";
+    public static final String opacity_l_2 = "opacity-l-2";
+    public static final String opacity_l_3 = "opacity-l-3";
+    public static final String opacity_l_4 = "opacity-l-4";
+    public static final String opacity_l_5 = "opacity-l-5";
+    public static final String opacity_l_6 = "opacity-l-6";
+    public static final String opacity_l_7 = "opacity-l-7";
+    public static final String opacity_l_8 = "opacity-l-8";
+    public static final String opacity_l_9 = "opacity-l-9";
+    public static final String opacity_l_full = "opacity-l-full";
+
+    HtmlContentBuilder<HTMLHeadingElement> header = Elements.h(1)
+            .style("text-align: left;")
+            .textContent("Example heading ");
 }
