@@ -7234,3 +7234,38 @@ a.disabled {
         display: block !important
     }
 }
+
+.opacity-l-0{
+    opacity: 0;
+}
+.opacity-l-1{
+    opacity: 0.1;
+}
+.opacity-l-2{
+    opacity: 0.2;
+}
+.opacity-l-3{
+    opacity: 0.3;
+}
+.opacity-l-4{
+    opacity: 0.4;
+}
+.opacity-l-5{
+    opacity: 0.5;
+}
+.opacity-l-6{
+    opacity: 0.6;
+}
+.opacity-l-7{
+    opacity: 0.7;
+}
+.opacity-l-8{
+    opacity: 0.8;
+}
+.opacity-l-9{
+    opacity: 0.9;
+}
+
+.opacity-l-full{
+    opacity: 1;
+}
