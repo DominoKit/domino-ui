@@ -39,26 +39,31 @@
 .row-12 {
     grid-template-columns: repeat(12, 1fr);
     column-gap: 20px;
+    grid-column-gap: 20px;
 }
 
 .row-16 {
     grid-template-columns: repeat(16, 1fr);
     column-gap: 18px;
+    grid-column-gap: 18px;
 }
 
 .row-18 {
     grid-template-columns: repeat(18, 1fr);
     column-gap: 16px;
+    grid-column-gap: 16px;
 }
 
 .row-24 {
     grid-template-columns: repeat(24, 1fr);
     column-gap: 8px;
+    grid-column-gap: 8px;
 }
 
 .row-32 {
     grid-template-columns: repeat(32, 1fr);
     column-gap: 4px;
+    grid-column-gap: 4px;
 }
 
 /*x-Large screens*/
