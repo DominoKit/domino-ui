@@ -54,6 +54,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private boolean caseSensitiveSearch = false;
     private List<SelectOptionGroup<T>> groups = new ArrayList<>();
     private boolean touchMoved;
+    private String noMatchSearchResultText = "No results matched";
 
     public Select() {
         initListeners();
@@ -159,7 +160,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private void showNoResultsElement(String searchValue) {
         if (isNull(noSearchResultsElement)) {
             Style.of(defaultNoSearchResultsElement).setDisplay("list-item");
-            defaultNoSearchResultsElement.textContent = "No results matched \"" + searchValue + "\"";
+            defaultNoSearchResultsElement.textContent = noMatchSearchResultText + " \"" + searchValue + "\"";
         } else {
             Style.of(noSearchResultsElement).setDisplay(noResultsElementDisplay);
         }
@@ -568,6 +569,11 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
             selectElement.getSelectMenu().removeAttribute("readonly");
             selectElement.getSelectArrow().removeAttributeNS(null, "style");
         }
+        return this;
+    }
+
+    public Select<T> setNoResultsElementDisplay(String noResultsElementDisplay) {
+        this.noResultsElementDisplay = noResultsElementDisplay;
         return this;
     }
 
