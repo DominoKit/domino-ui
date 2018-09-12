@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import elemental2.dom.*;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
@@ -9,10 +10,14 @@ import org.dominokit.domino.ui.forms.SelectOption;
 import org.dominokit.domino.ui.forms.TextBox;
 import org.dominokit.domino.ui.grid.Column;
 import org.dominokit.domino.ui.grid.Row;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.ElementUtil;
+import org.gwtproject.timer.client.Timer;
+import org.jboss.gwt.elemento.core.EventType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,21 +185,48 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
     public static class SearchTableAction<T> implements HeaderActionElement<T> {
 
+        private int autoSearchDelay = 200;
         private HTMLDivElement element = div().css("search-new").asElement();
         private DataTable<T> dataTable;
         private final Select<String> select;
         private final TextBox textBox;
+        private boolean autoSearch = true;
+        private Timer autoSearchTimer;
+        private EventListener autoSearchEventListener;
 
         public SearchTableAction() {
 
+            Icon searchIcon = Icons.ALL.search()
+                    .addClickListener(evt -> {
+                        autoSearchTimer.cancel();
+                        doSearch();
+                    })
+                    .setTooltip("Search")
+                    .style()
+                    .setCursor("pointer")
+                    .get();
+
+            Icon clearIcon = Icons.ALL.clear()
+                    .setTooltip("Clear")
+                    .style()
+                    .setCursor("pointer")
+                    .get();
+
             textBox = TextBox.create()
                     .setPlaceholder("Search")
-                    .setLeftAddon(Icons.ALL.search().asElement())
+                    .setLeftAddon(searchIcon)
+                    .setRightAddon(clearIcon)
                     .style()
                     .setMarginBottom("0px")
                     .setMaxWidth("300px")
                     .add(Styles.pull_right)
                     .get();
+
+            clearIcon.addClickListener(evt -> {
+                textBox.clear();
+                autoSearchTimer.cancel();
+                doSearch();
+            });
 
             select = Select.<String>create()
                     .style()
@@ -209,7 +241,20 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
             element.appendChild(textBox.asElement());
             element.appendChild(select.asElement());
 
-            textBox.getInputElement().addEventListener("input", evt -> dataTable.fireTableEvent(new SearchEvent(textBox.getValue(), select.getValue())));
+
+            autoSearchTimer = new Timer() {
+                @Override
+                public void run() {
+                    doSearch();
+                }
+            };
+
+            autoSearchEventListener = evt -> {
+                autoSearchTimer.cancel();
+                autoSearchTimer.schedule(autoSearchDelay);
+            };
+
+            setAutoSearch(true);
         }
 
         public SearchTableAction<T> addSearchField(SelectOption<String> selectOption) {
@@ -226,13 +271,52 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
             return this;
         }
 
+        public boolean isAutoSearch() {
+            return autoSearch;
+        }
+
+        public SearchTableAction<T> setAutoSearch(boolean autoSearch) {
+            this.autoSearch = autoSearch;
+
+            if (autoSearch) {
+                textBox.addEventListener("input", autoSearchEventListener);
+            } else {
+                textBox.removeEventListener("input", autoSearchEventListener);
+                autoSearchTimer.cancel();
+            }
+
+            textBox.addEventListener(EventType.keypress.getName(), evt -> {
+                if (ElementUtil.isEnterKey(Js.uncheckedCast(evt))) {
+                    doSearch();
+                }
+            });
+
+            return this;
+        }
+
+        public int getAutoSearchDelay() {
+            return autoSearchDelay;
+        }
+
+        public void setAutoSearchDelay(int autoSearchDelayInMillies) {
+            this.autoSearchDelay = autoSearchDelayInMillies;
+        }
+
+        private void doSearch() {
+            dataTable.fireTableEvent(new SearchEvent(textBox.getValue(), select.getValue()));
+        }
+
         @Override
         public Node asElement(DataTable<T> dataTable) {
             this.dataTable = dataTable;
             select.addSelectionHandler(option -> {
-                        textBox.clear();
-                        dataTable.fireTableEvent(new SearchEvent("", option.getValue()));
-                    });
+                if (autoSearch) {
+                    autoSearchTimer.cancel();
+                }
+                textBox.clear();
+                doSearch();
+
+            });
             return element;
         }
     }
