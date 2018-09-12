@@ -183,17 +183,11 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
         private HTMLDivElement element = div().css("search-new").asElement();
         private DataTable<T> dataTable;
         private final Select<String> select;
+        private final TextBox textBox;
 
         public SearchTableAction() {
 
-            select = Select.<String>create()
-                    .style()
-                    .setMarginBottom("0px")
-                    .setMaxWidth("300px")
-                    .add(Styles.pull_right)
-                    .get();
-
-            TextBox textBox = TextBox.create()
+            textBox = TextBox.create()
                     .setPlaceholder("Search")
                     .setLeftAddon(Icons.ALL.search().asElement())
                     .style()
@@ -202,14 +196,20 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                     .add(Styles.pull_right)
                     .get();
 
+            select = Select.<String>create()
+                    .style()
+                    .setMarginBottom("0px")
+                    .setMaxWidth("300px")
+                    .add(Styles.pull_right)
+                    .get();
+
+
             select.getSelectElement().style().setHeight("38px");
 
             element.appendChild(textBox.asElement());
             element.appendChild(select.asElement());
 
-            textBox.getInputElement().addEventListener("input", evt -> {
-                dataTable.fireTableEvent(new SearchEvent(textBox.getValue(), select.getValue()));
-            });
+            textBox.getInputElement().addEventListener("input", evt -> dataTable.fireTableEvent(new SearchEvent(textBox.getValue(), select.getValue())));
         }
 
         public SearchTableAction<T> addSearchField(SelectOption<String> selectOption) {
@@ -229,6 +229,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
             this.dataTable = dataTable;
+            select.addSelectionHandler(option -> {
+                        textBox.clear();
+                        dataTable.fireTableEvent(new SearchEvent("", option.getValue()));
+                    });
             return element;
         }
     }
