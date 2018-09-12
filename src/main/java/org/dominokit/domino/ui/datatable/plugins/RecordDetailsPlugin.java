@@ -1,9 +1,6 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLTableCellElement;
-import elemental2.dom.HTMLTableRowElement;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.datatable.CellRenderer;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
@@ -13,7 +10,6 @@ import org.dominokit.domino.ui.datatable.events.ExpandRecordEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -115,9 +111,8 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
             this.collapseIcon = collapseIcon;
             this.recordDetailsPlugin = recordDetailsPlugin;
             this.cellInfo = cellInfo;
-            this.button = Button.create(expandIcon.copy());
-            button.linkify();
-            Style.of(button)
+            this.button = Button.create(expandIcon.copy()).linkify();
+            button.style()
                     .setProperty("padding", "0px")
                     .setHeight("27px")
                     .setPaddingLeft("2px")

@@ -205,15 +205,15 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
     public B setIcon(Icon icon) {
         if (nonNull(this.icon)) {
-            this.icon.setTextContent(icon.getName());
+            this.icon.asElement().textContent = icon.getName();
         } else {
             if (nonNull(content) && !content.isEmpty()) {
                 textSpan.appendChild(textElement);
                 buttonElement.appendChild(textSpan.appendChild(textElement));
             }
-            buttonElement.appendChild(icon.asElement());
+            this.icon = icon;
+            buttonElement.appendChild(this.icon.asElement());
         }
-        this.icon = icon;
         return (B) this;
     }
 
