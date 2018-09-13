@@ -9,6 +9,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -27,6 +28,8 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
 
     private List<StepActivationHandler> stepActivationHandlers = new ArrayList<>();
     private List<StepDeActivationHandler> stepDeActivationHandlers = new ArrayList<>();
+    private StepperChangeHandler stepperChangeHandler = (stepper, activatedStep, deactivatedStep) -> {
+    };
 
     public Stepper() {
 
@@ -91,7 +94,11 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
 
     public Stepper activateStep(Step step) {
         if (steps.contains(step)) {
-            if(nonNull(this.activeStep)){
+
+            Step currentActive = this.activeStep;
+            Step targetStep = step;
+
+            if (nonNull(this.activeStep)) {
                 this.activeStep.deActivate();
                 stepDeActivationHandlers.forEach(h -> h.onStepDeActivated(this.activeStep));
             }
@@ -99,7 +106,7 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
             step.activate(getTransition(step));
             step.setDone(false);
             this.activeStep = step;
-
+            stepperChangeHandler.onStepperChange(this, Optional.ofNullable(targetStep), Optional.ofNullable(currentActive));
             stepActivationHandlers.forEach(h -> h.onStepActivated(step));
         }
 
@@ -159,6 +166,7 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
             this.activeStep.clearInvalid();
             this.activeStep.setDone(true);
             stepperCompletionHandler.onFinish();
+            stepperChangeHandler.onStepperChange(this, Optional.empty(), Optional.ofNullable(this.activeStep));
         } else {
             this.activeStep.invalidate();
         }
@@ -218,6 +226,11 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
         return this;
     }
 
+    public Stepper setStepperChangeHandler(StepperChangeHandler stepperChangeHandler) {
+        this.stepperChangeHandler = stepperChangeHandler;
+        return this;
+    }
+
     public Step getActiveStep() {
         return activeStep;
     }
@@ -239,5 +252,10 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
     @FunctionalInterface
     public interface StepDeActivationHandler {
         void onStepDeActivated(Step step);
+    }
+
+    @FunctionalInterface
+    public interface StepperChangeHandler {
+        void onStepperChange(Stepper stepper, Optional<Step> activatedStep, Optional<Step> deactivatedStep);
     }
 }
