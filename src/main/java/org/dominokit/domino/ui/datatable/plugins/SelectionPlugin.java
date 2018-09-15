@@ -69,7 +69,10 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
 
     private Node createSingleSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
         HTMLElement clonedIndicator = Js.uncheckedCast(singleSelectIndicator.cloneNode(true));
-        cell.getTableRow().asElement().addEventListener("click", evt -> cell.getTableRow().select());
+        cell.getTableRow().asElement().addEventListener("click", evt -> {
+            cell.getTableRow().select();
+            dataTable.onSelectionChange(cell.getTableRow());
+        });
         cell.getTableRow().addSelectionHandler(selectable -> {
             if (selectable.isSelected()) {
                 if (nonNull(selectedRow)) {
