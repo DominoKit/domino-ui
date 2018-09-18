@@ -31,12 +31,12 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         this.style = Style.of(element);
     }
 
-    public T setId(String id){
+    public T setId(String id) {
         asElement().id = id;
         return element;
     }
 
-    public String getId(){
+    public String getId() {
         return asElement().id;
     }
 
@@ -276,12 +276,26 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return element;
     }
 
+    public ClientRect getBoundingClientRect() {
+        return element.asElement().getBoundingClientRect();
+    }
+
+    public T styler(StyleEditor<E, T> styleEditor) {
+        styleEditor.applyStyles(style());
+        return element;
+    }
+
     public int getElementsCount() {
         return new Double(asElement().childElementCount).intValue();
     }
 
     public boolean isEmpty() {
         return getElementsCount() == 0;
+    }
+
+    @FunctionalInterface
+    public interface StyleEditor<E extends HTMLElement, T extends IsElement<E>> {
+        void applyStyles(Style<E, T> style);
     }
 
 }

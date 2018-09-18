@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.datatable;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.Node;
