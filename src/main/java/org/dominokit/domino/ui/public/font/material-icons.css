@@ -1,9 +1,13 @@
-/* fallback */
 @font-face {
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: 400;
-    src: url(2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+    src: url("./MaterialIcons-Regular.eot"); /* For IE6-8 */
+    src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url("./MaterialIcons-Regular.woff2") format('woff2'),
+    url("./MaterialIcons-Regular.woff") format('woff'), /* Modern Browsers */
+    url("./MaterialIcons-Regular.ttf") format('truetype'); /* Safari, Android, iOS */
 }
 
 .material-icons {
@@ -18,8 +22,20 @@
     white-space: nowrap;
     word-wrap: normal;
     direction: ltr;
-    -webkit-font-feature-settings: 'liga';
+
+    /* Support for IE. */
     font-feature-settings: 'liga';
+
+    /* Support for Firefox. */
+    -moz-font-feature-settings: 'liga';
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
-    font-smoothing: antialiased;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
 }
