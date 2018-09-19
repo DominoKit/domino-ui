@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.splitpanel;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.MouseEvent;
+import elemental2.dom.TouchEvent;
 
 class VSplitter extends BaseSplitter<VSplitter> {
 
@@ -26,6 +27,11 @@ class VSplitter extends BaseSplitter<VSplitter> {
     @Override
     protected double getPanelSize(SplitPanel panel) {
         return panel.getBoundingClientRect().height;
+    }
+
+    @Override
+    protected double touchPosition(TouchEvent event) {
+        return event.touches.getAt(0).clientY;
     }
 
     @Override

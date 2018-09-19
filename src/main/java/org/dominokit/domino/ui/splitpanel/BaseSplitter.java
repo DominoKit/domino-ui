@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.splitpanel;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.MouseEvent;
+import elemental2.dom.TouchEvent;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -29,40 +30,67 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
     BaseSplitter(SplitPanel first, SplitPanel second, HasSize mainPanel) {
         element.appendChild(handleElement);
 
+
         EventListener resizeListener = evt -> {
             MouseEvent mouseEvent = Js.uncheckedCast(evt);
 
             if (LEFT_BUTTON == mouseEvent.buttons) {
-
                 double currentPosition = mousePosition(mouseEvent);
-                double diff = currentPosition - initialStartPosition;
-
-                double firstSize = this.firstSize + diff;
-                double secondSize = this.secondSize - diff;
-                double firstPercent = ((firstSize / fullSize) * 100);
-                double secondPercent = ((secondSize / fullSize) * 100);
-
-                if (withinPanelLimits(first, firstSize, firstPercent) && withinPanelLimits(second, secondSize, secondPercent)) {
-                    setNewSizes(first, second, firstPercent, secondPercent);
-                    first.onResize(firstSize, firstPercent);
-                    second.onResize(secondSize, secondPercent);
-                }
+                resize(first, second, currentPosition);
             }
+        };
+
+        EventListener touchResizeListener = evt -> {
+            evt.preventDefault();
+            evt.stopPropagation();
+            TouchEvent touchEvent = Js.uncheckedCast(evt);
+            double currentPosition = touchPosition(touchEvent);
+            resize(first, second, currentPosition);
         };
 
         element.addEventListener(EventType.mousedown.getName(), evt -> {
             MouseEvent mouseEvent = Js.uncheckedCast(evt);
             initialStartPosition = mousePosition(mouseEvent);
-            firstSize = getPanelSize(first);
-            secondSize = getPanelSize(second);
-            fullSize = getFullSize(mainPanel);
-
+            startResize(first, second, mainPanel);
             document.body.addEventListener(EventType.mousemove.getName(), resizeListener);
         });
 
+        element.addEventListener(EventType.touchstart.getName(), evt -> {
+            evt.preventDefault();
+            evt.stopPropagation();
+            TouchEvent touchEvent = Js.uncheckedCast(evt);
+            initialStartPosition = touchPosition(touchEvent);
+            startResize(first, second, mainPanel);
+            document.body.addEventListener(EventType.touchmove.getName(), touchResizeListener);
+
+        });
+
         element.addEventListener(EventType.mouseup.getName(), evt -> document.body.removeEventListener(EventType.mousemove.getName(), resizeListener));
+        element.addEventListener(EventType.touchend.getName(), evt -> document.body.removeEventListener(EventType.touchmove.getName(), touchResizeListener));
 
         document.body.addEventListener(EventType.mouseup.getName(), evt -> document.body.removeEventListener(EventType.mousemove.getName(), resizeListener));
+        document.body.addEventListener(EventType.touchend.getName(), evt -> document.body.removeEventListener(EventType.touchmove.getName(), touchResizeListener));
+    }
+
+    private void resize(SplitPanel first, SplitPanel second, double currentPosition) {
+        double diff = currentPosition - initialStartPosition;
+
+        double firstSize = this.firstSize + diff;
+        double secondSize = this.secondSize - diff;
+        double firstPercent = ((firstSize / fullSize) * 100);
+        double secondPercent = ((secondSize / fullSize) * 100);
+
+        if (withinPanelLimits(first, firstSize, firstPercent) && withinPanelLimits(second, secondSize, secondPercent)) {
+            setNewSizes(first, second, firstPercent, secondPercent);
+            first.onResize(firstSize, firstPercent);
+            second.onResize(secondSize, secondPercent);
+        }
+    }
+
+    private void startResize(SplitPanel first, SplitPanel second, HasSize mainPanel) {
+        firstSize = getPanelSize(first);
+        secondSize = getPanelSize(second);
+        fullSize = getFullSize(mainPanel);
     }
 
     private double getFullSize(HasSize mainPanel) {
@@ -74,6 +102,8 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
     protected abstract void setNewSizes(SplitPanel first, SplitPanel second, double firstPercent, double secondPercent);
 
     protected abstract double mousePosition(MouseEvent event);
+
+    protected abstract double touchPosition(TouchEvent event);
 
     private boolean withinPanelLimits(SplitPanel panel, double topSize, double topPercent) {
         return withinPanelSize(panel, topSize) && withinPanelPercent(panel, topPercent);
