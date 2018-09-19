@@ -285,6 +285,16 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return element;
     }
 
+    public T setWidth(String width){
+        style().setWidth(width);
+        return element;
+    }
+
+    public T setHeight(String height){
+        style().setHeight(height);
+        return element;
+    }
+
     public int getElementsCount() {
         return new Double(asElement().childElementCount).intValue();
     }

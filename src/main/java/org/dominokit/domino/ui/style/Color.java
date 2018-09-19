@@ -1878,7 +1878,7 @@ public interface Color {
 
         @Override
         public String getBackground() {
-            return "bg-l-4";
+            return "bg-l-4-teal";
         }
     };
 
