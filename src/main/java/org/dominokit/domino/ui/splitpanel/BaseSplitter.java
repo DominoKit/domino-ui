@@ -1,0 +1,116 @@
+package org.dominokit.domino.ui.splitpanel;
+
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.MouseEvent;
+import jsinterop.base.Js;
+import org.dominokit.domino.ui.style.ColorScheme;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.jboss.gwt.elemento.core.EventType;
+
+import static elemental2.dom.DomGlobal.document;
+import static org.jboss.gwt.elemento.core.Elements.div;
+
+abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement<HTMLDivElement, T> {
+
+    private static final int LEFT_BUTTON = 1;
+
+    protected DominoElement<HTMLDivElement> element = DominoElement.of(div().css("splitter"));
+    private DominoElement<HTMLDivElement> handleElement = DominoElement.of(div().css("split-handle"));
+
+    private double fullSize = 0;
+    private double initialStartPosition = 0;
+    private double firstSize = 0;
+    private double secondSize = 0;
+
+    private ColorScheme colorScheme = ColorScheme.INDIGO;
+
+    BaseSplitter(SplitPanel first, SplitPanel second, HasSize mainPanel) {
+        element.appendChild(handleElement);
+
+        EventListener resizeListener = evt -> {
+            MouseEvent mouseEvent = Js.uncheckedCast(evt);
+
+            if (LEFT_BUTTON == mouseEvent.buttons) {
+
+                double currentPosition = mousePosition(mouseEvent);
+                double diff = currentPosition - initialStartPosition;
+
+                double firstSize = this.firstSize + diff;
+                double secondSize = this.secondSize - diff;
+                double firstPercent = ((firstSize / fullSize) * 100);
+                double secondPercent = ((secondSize / fullSize) * 100);
+
+                if (withinPanelLimits(first, firstSize, firstPercent) && withinPanelLimits(second, secondSize, secondPercent)) {
+                    setNewSizes(first, second, firstPercent, secondPercent);
+                    first.onResize(firstSize, firstPercent);
+                    second.onResize(secondSize, secondPercent);
+                }
+            }
+        };
+
+        element.addEventListener(EventType.mousedown.getName(), evt -> {
+            MouseEvent mouseEvent = Js.uncheckedCast(evt);
+            initialStartPosition = mousePosition(mouseEvent);
+            firstSize = getPanelSize(first);
+            secondSize = getPanelSize(second);
+            fullSize = getFullSize(mainPanel);
+
+            document.body.addEventListener(EventType.mousemove.getName(), resizeListener);
+        });
+
+        element.addEventListener(EventType.mouseup.getName(), evt -> document.body.removeEventListener(EventType.mousemove.getName(), resizeListener));
+
+        document.body.addEventListener(EventType.mouseup.getName(), evt -> document.body.removeEventListener(EventType.mousemove.getName(), resizeListener));
+    }
+
+    private double getFullSize(HasSize mainPanel) {
+        return mainPanel.getSize();
+    }
+
+    protected abstract double getPanelSize(SplitPanel panel);
+
+    protected abstract void setNewSizes(SplitPanel first, SplitPanel second, double firstPercent, double secondPercent);
+
+    protected abstract double mousePosition(MouseEvent event);
+
+    private boolean withinPanelLimits(SplitPanel panel, double topSize, double topPercent) {
+        return withinPanelSize(panel, topSize) && withinPanelPercent(panel, topPercent);
+    }
+
+    private boolean withinPanelSize(SplitPanel panel, double newSize) {
+        return newSize > panel.getMinSize() && (((panel.getMaxSize() > -1) && newSize < panel.getMaxSize()) || panel.getMaxSize() < 0);
+    }
+
+    private boolean withinPanelPercent(SplitPanel panel, double percent) {
+        return percent > panel.getMinPercent() && (((panel.getMaxPercent() > -1) && percent < panel.getMaxPercent()) || panel.getMaxPercent() < 0);
+    }
+
+    public ColorScheme getColorScheme() {
+        return colorScheme;
+    }
+
+    public T setColorScheme(ColorScheme colorScheme) {
+        element.style()
+                .remove(this.colorScheme.lighten_4().getBackground())
+                .add(colorScheme.lighten_4().getBackground());
+        handleElement.style()
+                .remove(this.colorScheme.color().getBackground())
+                .add(colorScheme.color().getBackground());
+
+        this.colorScheme = colorScheme;
+        return (T) this;
+    }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return element.asElement();
+    }
+
+    public double getSize() {
+        return element.getBoundingClientRect().height;
+    }
+
+    protected abstract void setSize(int size);
+}
