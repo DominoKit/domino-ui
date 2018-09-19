@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.splitpanel;
 
 import elemental2.dom.MouseEvent;
+import elemental2.dom.TouchEvent;
 
 class HSplitter extends BaseSplitter<HSplitter> {
 
@@ -22,6 +23,11 @@ class HSplitter extends BaseSplitter<HSplitter> {
     protected void setNewSizes(SplitPanel first, SplitPanel second, double firstPercent, double secondPercent) {
         first.style().setWidth(firstPercent + "%");
         second.style().setWidth(secondPercent + "%");
+    }
+
+    @Override
+    protected double touchPosition(TouchEvent event) {
+        return event.touches.getAt(0).clientX;
     }
 
     @Override
