@@ -8,9 +8,11 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.WaveColor;
 import org.dominokit.domino.ui.style.WaveStyle;
 import org.dominokit.domino.ui.style.WavesElement;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.CanActivate;
+import org.dominokit.domino.ui.utils.CanDeactivate;
+import org.dominokit.domino.ui.utils.HasClickableElement;
+import org.dominokit.domino.ui.utils.ParentTreeItem;
 import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -40,8 +42,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
 
     public TreeItem(String title, Icon icon) {
         this.title = title;
-        this.icon = icon;
-        this.originalIcon = icon.copy();
+        setIcon(icon);
         this.titleElement = span().textContent(title).asElement();
         this.anchorElement = a()
                 .add(this.icon)
@@ -216,6 +217,12 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         return this;
     }
 
+    public TreeItem setIcon(Icon icon) {
+        this.icon = icon;
+        this.originalIcon = icon.copy();
+        return this;
+    }
+
     public TreeItem setActiveIcon(Icon activeIcon) {
         this.activeIcon = activeIcon;
         return this;
@@ -241,15 +248,15 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     public boolean filter(String searchToken) {
 
         boolean found;
-        if(isParent()){
+        if (isParent()) {
             found = title.toLowerCase().contains(searchToken.toLowerCase()) | filterChildren(searchToken);
-        }else {
+        } else {
             found = title.toLowerCase().contains(searchToken.toLowerCase());
         }
 
         if (found) {
             Style.of(element).removeProperty("display");
-            if(isParent() && isAutoExpandFound() && collapsible.isCollapsed()){
+            if (isParent() && isAutoExpandFound() && collapsible.isCollapsed()) {
                 collapsible.expand();
             }
             return true;
@@ -264,7 +271,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         return parent.isAutoExpandFound();
     }
 
-    public void clearFilter(){
+    public void clearFilter() {
         Style.of(element).removeProperty("display");
         subItems.forEach(TreeItem::clearFilter);
     }
@@ -274,14 +281,14 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     }
 
     public void collapseAll() {
-        if(isParent() && !collapsible.isCollapsed()){
+        if (isParent() && !collapsible.isCollapsed()) {
             collapse();
             subItems.forEach(TreeItem::collapseAll);
         }
     }
 
     public void expandAll() {
-        if(isParent() && collapsible.isCollapsed()){
+        if (isParent() && collapsible.isCollapsed()) {
             expand();
             subItems.forEach(TreeItem::expandAll);
         }
