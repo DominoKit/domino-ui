@@ -30,13 +30,17 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return this;
     }
 
-    public Style<E, T> removeProperty(String name) {
-        element.style.removeProperty(name);
+    public Style<E, T> setProperty(String name, String value, boolean important) {
+        if (important) {
+            element.style.setProperty(name, value, "important");
+        } else {
+            element.style.setProperty(name, value);
+        }
         return this;
     }
 
-    public Style<E, T> setImportantProperty(String name, String value) {
-        element.style.setProperty(name, value, "important");
+    public Style<E, T> removeProperty(String name) {
+        element.style.removeProperty(name);
         return this;
     }
 
@@ -78,8 +82,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     }
 
     /**
-     *
-     * @deprecated  use {@link #remove(String...)}
+     * @deprecated use {@link #remove(String...)}
      */
     @Deprecated
     public Style<E, T> removeClass(String... cssClasses) {
@@ -89,7 +92,6 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     }
 
     /**
-     *
      * @deprecated use {@link #replace(String, String)}
      */
     @Deprecated
@@ -134,9 +136,9 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     }
 
     public Style<E, T> replace(String cssClass, String replacementClass) {
-        if (hasClass(cssClass)) {
+        if (contains(cssClass)) {
             remove(cssClass);
-            css(replacementClass);
+            add(replacementClass);
         }
         return this;
     }
@@ -153,358 +155,307 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     }
 
     public Style<E, T> setWidth(String width) {
-        setProperty("width", width);
+        setWidth(width, false);
         return this;
     }
 
     public Style<E, T> setWidth(String width, boolean important) {
-        if (important) {
-            setImportantProperty("width", width);
-        } else {
-            setProperty("width", width);
-        }
+        setProperty("width", width, important);
         return this;
     }
 
     public Style<E, T> setMinWidth(String width) {
-        setProperty("min-width", width);
+        setMinWidth(width, false);
         return this;
     }
 
     public Style<E, T> setMinWidth(String width, boolean important) {
-        if (important) {
-            setImportantProperty("min-width", width);
-        } else {
-            setProperty("min-width", width);
-        }
+        setProperty("min-width", width, important);
         return this;
     }
 
     public Style<E, T> setMaxWidth(String width) {
-        setProperty("max-width", width);
+        setMaxWidth(width, false);
         return this;
     }
 
     public Style<E, T> setMaxWidth(String width, boolean important) {
-        if (important) {
-            setImportantProperty("max-width", width);
-        } else {
-            setProperty("max-width", width);
-        }
+        setProperty("max-width", width, important);
         return this;
     }
 
 
     public Style<E, T> setHeight(String height) {
-        setProperty("height", height);
+        setHeight(height, false);
         return this;
     }
 
     public Style<E, T> setHeight(String height, boolean important) {
-        if (important) {
-            setImportantProperty("height", height);
-        } else {
-            setProperty("height", height);
-        }
+        setProperty("height", height, important);
         return this;
     }
 
     public Style<E, T> setMinHeight(String height) {
-        setProperty("min-height", height);
+        setMinHeight(height, false);
         return this;
     }
 
     public Style<E, T> setMinHeight(String height, boolean important) {
-        if (important) {
-            setImportantProperty("min-height", height);
-        } else {
-            setProperty("min-height", height);
-        }
+        setProperty("min-height", height, important);
         return this;
     }
 
     public Style<E, T> setMaxHeight(String height) {
-        setProperty("max-height", height);
+        setMaxHeight(height, false);
         return this;
     }
 
     public Style<E, T> setMaxHeight(String height, boolean important) {
-        if (important) {
-            setImportantProperty("max-height", height);
-        } else {
-            setProperty("max-height", height);
-        }
+        setProperty("max-height", height, important);
         return this;
     }
 
     public Style<E, T> setTextAlign(String textAlign) {
-        setProperty("text-align", textAlign);
+        setTextAlign(textAlign, false);
         return this;
     }
 
     public Style<E, T> setTextAlign(String textAlign, boolean important) {
-        if (important) {
-            setImportantProperty("text-align", textAlign);
-        } else {
-            setProperty("text-align", textAlign);
-        }
+        setProperty("text-align", textAlign, important);
         return this;
     }
 
     public Style<E, T> setColor(String color) {
-        setProperty("color", color);
+        setColor(color, false);
         return this;
     }
 
     public Style<E, T> setColor(String color, boolean important) {
-        if (important) {
-            setImportantProperty("color", color);
-        } else {
-            setProperty("color", color);
-        }
+        setProperty("color", color, important);
         return this;
     }
 
 
     public Style<E, T> setBackgroundColor(String color) {
-        setProperty("background-color", color);
+        setBackgroundColor(color, false);
         return this;
     }
 
     public Style<E, T> setBackgroundColor(String color, boolean important) {
-        if (important) {
-            setImportantProperty("background-color", color);
-        } else {
-            setProperty("background-color", color);
-        }
+        setProperty("background-color", color, important);
         return this;
     }
 
     public Style<E, T> setMargin(String margin) {
-        setProperty("margin", margin);
+        setMargin(margin, false);
         return this;
     }
 
     public Style<E, T> setMargin(String margin, boolean important) {
-        if (important) {
-            setImportantProperty("margin", margin);
-        } else {
-            setProperty("margin", margin);
-        }
+        setProperty("margin", margin, important);
         return this;
     }
 
     public Style<E, T> setMarginTop(String margin) {
-        setProperty("margin-top", margin);
+        setMarginTop(margin, false);
         return this;
     }
 
     public Style<E, T> setMarginTop(String margin, boolean important) {
-        if (important) {
-            setImportantProperty("margin-top", margin);
-        } else {
-            setProperty("margin-top", margin);
-        }
+        setProperty("margin-top", margin, important);
         return this;
     }
 
     public Style<E, T> setMarginBottom(String margin) {
-        setProperty("margin-bottom", margin);
+        setMarginBottom(margin, false);
         return this;
     }
 
     public Style<E, T> setMarginBottom(String margin, boolean important) {
-        if (important) {
-            setImportantProperty("margin-bottom", margin);
-        } else {
-            setProperty("margin-bottom", margin);
-        }
+        setProperty("margin-bottom", margin, important);
         return this;
     }
 
     public Style<E, T> setMarginLeft(String margin) {
-        setProperty("margin-left", margin);
+        setMarginLeft(margin, false);
         return this;
     }
 
     public Style<E, T> setMarginLeft(String margin, boolean important) {
-        if (important) {
-            setImportantProperty("margin-left", margin);
-        } else {
-            setProperty("margin-left", margin);
-        }
+        setProperty("margin-left", margin, important);
         return this;
     }
 
     public Style<E, T> setMarginRight(String margin) {
-        setProperty("margin-right", margin);
+        setMarginRight(margin, false);
         return this;
     }
 
     public Style<E, T> setMarginRight(String margin, boolean important) {
-        if (important) {
-            setImportantProperty("margin-right", margin);
-        } else {
-            setProperty("margin-right", margin);
-        }
+        setProperty("margin-right", margin, important);
         return this;
     }
 
     public Style<E, T> setPaddingRight(String padding) {
-        setProperty("padding-right", padding);
+        setPaddingRight(padding, false);
         return this;
     }
 
     public Style<E, T> setPaddingRight(String padding, boolean important) {
-        if (important) {
-            setImportantProperty("padding-right", padding);
-        } else {
-            setProperty("padding-right", padding);
-        }
+        setProperty("padding-right", padding, important);
         return this;
     }
 
     public Style<E, T> setPaddingLeft(String padding) {
-        setProperty("padding-left", padding);
+        setPaddingLeft(padding, false);
         return this;
     }
 
     public Style<E, T> setPaddingLeft(String padding, boolean important) {
-        if (important) {
-            setImportantProperty("padding-left", padding);
-        } else {
-            setProperty("padding-left", padding);
-        }
+        setProperty("padding-left", padding, important);
         return this;
     }
 
 
     public Style<E, T> setPaddingBottom(String padding) {
-        setProperty("padding-bottom", padding);
+        setPaddingBottom(padding, false);
         return this;
     }
 
     public Style<E, T> setPaddingBottom(String padding, boolean important) {
-        if (important) {
-            setImportantProperty("padding-bottom", padding);
-        } else {
-            setProperty("padding-bottom", padding);
-        }
+        setProperty("padding-bottom", padding, important);
         return this;
     }
 
     public Style<E, T> setPaddingTop(String padding) {
-        setProperty("padding-top", padding);
+        setPaddingTop(padding, false);
         return this;
     }
 
     public Style<E, T> setPaddingTop(String padding, boolean important) {
-        if (important) {
-            setImportantProperty("padding-top", padding);
-        } else {
-            setProperty("padding-top", padding);
-        }
+        setProperty("padding-top", padding, important);
         return this;
     }
 
     public Style<E, T> setPadding(String padding) {
-        setProperty("padding", padding);
+        setPadding(padding, false);
         return this;
     }
 
     public Style<E, T> setPadding(String padding, boolean important) {
-        if (important) {
-            setImportantProperty("padding", padding);
-        } else {
-            setProperty("padding", padding);
-        }
+        setProperty("padding", padding, important);
         return this;
     }
 
     public Style<E, T> setDisplay(String display) {
-        setProperty("display", display);
+        setDisplay(display, false);
         return this;
     }
 
     public Style<E, T> setDisplay(String display, boolean important) {
-        if (important) {
-            setImportantProperty("display", display);
-        } else {
-            setProperty("display", display);
-        }
+        setProperty("display", display, important);
         return this;
     }
 
     public Style<E, T> setFontSize(String fontSize) {
-        setProperty("font-size", fontSize);
+        setFontSize(fontSize, false);
         return this;
     }
 
     public Style<E, T> setFontSize(String fontSize, boolean important) {
-        if (important) {
-            setImportantProperty("font-size", fontSize);
-        } else {
-            setProperty("font-size", fontSize);
-        }
+        setProperty("font-size", fontSize, important);
         return this;
     }
 
     public Style<E, T> setFloat(String cssFloat) {
-        setProperty("float", cssFloat);
+        setFloat(cssFloat, false);
         return this;
     }
 
     public Style<E, T> setFloat(String cssFloat, boolean important) {
-        if (important) {
-            setImportantProperty("float", cssFloat);
-        } else {
-            setProperty("float", cssFloat);
-        }
+        setProperty("float", cssFloat, important);
         return this;
     }
 
     public Style<E, T> setLineHeight(String lineHeight) {
-        setProperty("line-height", lineHeight);
+        setLineHeight(lineHeight, false);
         return this;
     }
 
     public Style<E, T> setLineHeight(String lineHeight, boolean important) {
-        if (important) {
-            setImportantProperty("line-height", lineHeight);
-        } else {
-            setProperty("line-height", lineHeight);
-        }
+        setProperty("line-height", lineHeight, important);
         return this;
     }
 
     public Style<E, T> setOverFlow(String overFlow) {
-        setProperty("overflow", overFlow);
+        setOverFlow(overFlow, false);
         return this;
     }
 
     public Style<E, T> setOverFlow(String overFlow, boolean important) {
-        if (important) {
-            setImportantProperty("overflow", overFlow);
-        } else {
-            setProperty("overflow", overFlow);
-        }
+        setProperty("overflow", overFlow, important);
         return this;
     }
 
     public Style<E, T> setCursor(String cursor) {
-        setProperty("cursor", cursor);
+        setCursor(cursor, false);
         return this;
     }
 
     public Style<E, T> setCursor(String cursor, boolean important) {
-        if (important) {
-            setImportantProperty("cursor", cursor);
-        } else {
-            setProperty("cursor", cursor);
-        }
+        setProperty("cursor", cursor, important);
         return this;
     }
 
+    public Style<E, T> setPosition(String position) {
+        setPosition(position, false);
+        return this;
+    }
+
+    public Style<E, T> setPosition(String position, boolean important) {
+        setProperty("position", position, important);
+        return this;
+    }
+
+    public Style<E, T> setLeft(String left) {
+        setLeft(left, false);
+        return this;
+    }
+
+    public Style<E, T> setLeft(String left, boolean important) {
+        setProperty("left", left, important);
+        return this;
+    }
+
+    public Style<E, T> setRight(String right) {
+        setRight(right, false);
+        return this;
+    }
+
+    public Style<E, T> setRight(String right, boolean important) {
+        setProperty("right", right, important);
+        return this;
+    }
+
+    public Style<E, T> setTop(String top) {
+        setTop(top, false);
+        return this;
+    }
+
+    public Style<E, T> setTop(String top, boolean important) {
+        setProperty("top", top, important);
+        return this;
+    }
+
+    public Style<E, T> setBottom(String bottom) {
+        setBottom(bottom, false);
+        return this;
+    }
+
+    public Style<E, T> setBottom(String bottom, boolean important) {
+        setProperty("bottom", bottom, important);
+        return this;
+    }
 
     /**
      * @deprecated use {@link #contains(String)}
@@ -523,13 +474,9 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     }
 
     public Style<E, T> removeShadow(boolean important) {
-        if (important) {
-            setImportantProperty("box-shadow", "none");
-            setImportantProperty("-webkit-box-shadow", "none");
-            remove(default_shadow);
-        } else {
-            removeShadow();
-        }
+        setProperty("box-shadow", "none", important);
+        setProperty("-webkit-box-shadow", "none", important);
+        remove(default_shadow);
         return this;
     }
 
@@ -546,39 +493,39 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     }
 
 
-    public Style<E,T> pullRight(){
-        if(!contains(pull_right)){
+    public Style<E, T> pullRight() {
+        if (!contains(pull_right)) {
             add(pull_right);
         }
 
         return this;
     }
 
-    public Style<E,T> pullLeft(){
-        if(!contains(pull_left)){
+    public Style<E, T> pullLeft() {
+        if (!contains(pull_left)) {
             add(pull_left);
         }
 
         return this;
     }
 
-    public Style<E, T> alignCenter(){
-        if(contains(align_center)){
+    public Style<E, T> alignCenter() {
+        if (contains(align_center)) {
             remove(align_center);
         }
         add(align_center);
         return this;
     }
 
-    public Style<E, T> alignRight(){
-        if(contains(align_right)){
+    public Style<E, T> alignRight() {
+        if (contains(align_right)) {
             remove(align_right);
         }
         add(align_right);
         return this;
     }
 
-    public Style<E,T> cssText(String cssText){
+    public Style<E, T> cssText(String cssText) {
         element.style.cssText = cssText;
         return this;
     }
