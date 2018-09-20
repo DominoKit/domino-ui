@@ -9,6 +9,10 @@ public class VScrollPanel extends BaseDominoElement<HTMLDivElement, VScrollPanel
 
     private HTMLDivElement element = div().css("v-scroll-panel").asElement();
 
+    public static VScrollPanel create(){
+        return new VScrollPanel();
+    }
+
     @Override
     public HTMLDivElement asElement() {
         return element;
