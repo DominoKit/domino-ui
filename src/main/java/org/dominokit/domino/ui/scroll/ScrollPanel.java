@@ -9,6 +9,10 @@ public class ScrollPanel extends BaseDominoElement<HTMLDivElement, ScrollPanel> 
 
     private HTMLDivElement element = div().css("scroll-panel").asElement();
 
+    public static ScrollPanel create(){
+        return new ScrollPanel();
+    }
+
     @Override
     public HTMLDivElement asElement() {
         return element;
