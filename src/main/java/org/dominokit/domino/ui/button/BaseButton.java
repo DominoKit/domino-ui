@@ -23,7 +23,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
     private static final String DISABLED = "disabled";
 
-    final HTMLElement buttonElement = Elements.button().css("btn").asElement();
+    protected final HTMLElement buttonElement = Elements.button().css("btn").asElement();
     private StyleType type;
     private Color background;
     private Color color;
