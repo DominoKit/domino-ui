@@ -256,14 +256,14 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                         .position(this.popupPosition)
                         .style()
                         .setMaxWidth("300px")
-                        .setImportantProperty("max-width", "none")
+                        .setMaxWidth("none", true)
                         .get();
 
                 popover.getContentElement()
                         .style()
-                        .setImportantProperty("padding", "0px")
-                        .setImportantProperty("width", "300px")
-                        .setImportantProperty("max-width", "300px");
+                        .setPadding("0px", true)
+                        .setWidth("300px", true)
+                        .setMaxWidth("300px", true);
 
 
                 popover.getHeadingElement()
