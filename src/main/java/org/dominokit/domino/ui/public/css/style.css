@@ -7345,3 +7345,22 @@ a.disabled {
 }
 
 /*====================== SPLIT PANEL END =====================*/
+
+.top-scroller{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 99999;
+}
+
+.scroll-panel{
+    overflow: scroll;
+}
+
+.v-scroll-panel{
+    overflow-y: scroll;
+}
+
+.h-scroll-panel{
+    overflow-x: scroll;
+}
