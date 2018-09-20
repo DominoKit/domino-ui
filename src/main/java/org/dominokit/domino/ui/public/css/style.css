@@ -3310,7 +3310,7 @@ input[type=range] + .thumb.active .value {
 [type="checkbox"] + label {
     padding-left: 26px;
     height: 25px;
-    line-height: 21px;
+    line-height: 25px;
     font-size: 13px;
     font-weight: normal;
 }
@@ -7363,4 +7363,9 @@ a.disabled {
 
 .h-scroll-panel{
     overflow-x: scroll;
+}
+
+/*======================== FLEX LAYOUT ========================*/
+.flex-layout {
+    display: flex;
 }
