@@ -5,7 +5,7 @@ import jsinterop.annotations.JsType;
 
 @JsType(isNative = true, name = "window", namespace = JsPackage.GLOBAL)
 public class DominoDom {
-  public static MyDocument document;
+  public static DominoDocument document;
   public static DominoWindow window;
 
 }

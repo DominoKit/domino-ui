@@ -285,6 +285,16 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return element;
     }
 
+    public T addCss(String cssClass){
+        style().add(cssClass);
+        return element;
+    }
+
+    public T addCss(String... cssClass){
+        style().add(cssClass);
+        return element;
+    }
+
     public T setWidth(String width){
         style().setWidth(width);
         return element;
