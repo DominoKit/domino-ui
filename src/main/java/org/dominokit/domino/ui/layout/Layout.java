@@ -185,7 +185,7 @@ public class Layout {
     }
 
     public Layout showLeftPanel() {
-        if(!leftPanelDisabled) {
+        if (!leftPanelDisabled) {
             if (rightPanelVisible)
                 hideRightPanel();
             if (navigationBarExpanded)
@@ -264,7 +264,7 @@ public class Layout {
     }
 
     public Layout fixLeftPanelPosition() {
-        if(!leftPanelDisabled) {
+        if (!leftPanelDisabled) {
             showLeftPanel();
             hideOverlay();
             if (document.body.classList.contains("ls-closed"))
@@ -275,7 +275,7 @@ public class Layout {
     }
 
     public Layout unfixLeftPanelPosition() {
-        if(!leftPanelDisabled) {
+        if (!leftPanelDisabled) {
             if (!document.body.classList.contains("ls-closed"))
                 document.body.classList.add("ls-closed");
             this.fixedLeftPanel = false;
@@ -283,7 +283,7 @@ public class Layout {
         return this;
     }
 
-    public Layout disableLeftPanel(){
+    public Layout disableLeftPanel() {
         unfixLeftPanelPosition();
         hideLeftPanel();
         Style.of(section.leftSide).setDisplay("none");
@@ -292,7 +292,7 @@ public class Layout {
         return this;
     }
 
-    public Layout enableLeftPanel(){
+    public Layout enableLeftPanel() {
         Style.of(section.leftSide).removeProperty("display");
         Style.of(navigationBar.menu).add("bars").removeProperty("display");
         this.leftPanelDisabled = false;
@@ -313,5 +313,23 @@ public class Layout {
             Style.of(content.asElement()).removeProperty("margin-bottom");
         });
         return this;
+    }
+
+    public Layout setHeaderHeight(String height) {
+        navigationBar.style().setHeight(height);
+        if (navigationBar.isAttached()) {
+            updateContentMargin();
+        } else {
+            navigationBar.onAttached(mutationRecord -> {
+                updateContentMargin();
+            });
+        }
+
+        return this;
+    }
+
+    private void updateContentMargin() {
+        double margin = navigationBar.getBoundingClientRect().height + 30;
+        content.style().setMarginTop(margin + "px");
     }
 }
