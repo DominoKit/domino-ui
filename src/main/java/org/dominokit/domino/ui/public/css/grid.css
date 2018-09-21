@@ -1491,6 +1491,10 @@
         margin-bottom: 20px;
     }
 
+    .card .body .grid-col.condense {
+        margin-bottom: 0px;
+    }
+
     .card .body .grid-row {
         padding-right: 15px;
         padding-left: 15px;

@@ -6,6 +6,7 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.pagination.HasPagination;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -156,5 +157,36 @@ public class LocalListDataStore<T> implements DataStore<T> {
         }
     }
 
+    public void addRecord(T record) {
+        original.add(record);
+        List<T> newData= new ArrayList<>(original);
+        setData(newData);
+        load();
+    }
+
+    public void removeRecord(T record) {
+        if (original.contains(record)) {
+            original.remove(record);
+            filtered.remove(record);
+            fireUpdate();
+        }
+    }
+
+    public void addRecords(Collection<T> records) {
+        original.addAll(records);
+        List<T> newData= new ArrayList<>(original);
+        setData(newData);
+        load();
+    }
+
+    public void removeRecord(Collection<T> records) {
+        original.removeAll(records);
+        filtered.removeAll(records);
+        fireUpdate();
+    }
+
+    public List<T> getRecords() {
+        return new ArrayList<>(original);
+    }
 
 }

@@ -6895,6 +6895,10 @@ a.disabled {
     border-top: 1px double #c3c3c3;
 }
 
+.table td .form-group{
+    margin-bottom: 0px;
+}
+
 .table {
     border-bottom: 1px solid #eee;
     margin-bottom: 0px !important;
@@ -7368,4 +7372,9 @@ a.disabled {
 /*======================== FLEX LAYOUT ========================*/
 .flex-layout {
     display: flex;
+}
+
+.header-dropdown li {
+    margin-left: 5px;
+    margin-right: 5px;
 }

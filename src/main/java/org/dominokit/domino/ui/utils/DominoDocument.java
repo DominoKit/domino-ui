@@ -6,6 +6,8 @@ import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
-public class MyDocument extends HTMLDocument {
+public class DominoDocument extends HTMLDocument {
     public Element activeElement;
+    public native void execCommand(String aCommandName, boolean aShowDefaultUI, String aValueArgument);
+    public native void execCommand(String aCommandName);
 }

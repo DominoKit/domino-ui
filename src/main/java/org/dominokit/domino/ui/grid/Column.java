@@ -3,13 +3,9 @@ package org.dominokit.domino.ui.grid;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
@@ -29,7 +25,6 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
     private OnXLargeOffset onXLargeOffsetStyle;
     private OnLargeOffset onLargeOffsetStyle;
     private OnSmallOffset onSmallOffsetStyle;
-
 
     private Column() {
         this.column = div().css("grid-col").asElement();
@@ -507,7 +502,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
     }
 
     public Column condenced() {
-        return Style.of(this).setMarginBottom("0px").get();
+        style.remove("condense")
+                .add("condense");
+        return this;
     }
 
     @Override
