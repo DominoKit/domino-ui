@@ -5,9 +5,9 @@ addons:
       - oracle-java8-installer
 language: java
 jdk: oraclejdk8
-branches: 
-only:
-- master
+branches:
+  only:
+  - master
 cache:
   directories:
   - "$HOME/.m2"
