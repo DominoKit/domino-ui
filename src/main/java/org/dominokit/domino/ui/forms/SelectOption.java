@@ -30,7 +30,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
         li.appendChild(aElement);
         checkMark = Elements.span().css("glyphicon glyphicon-ok check-mark").asElement();
         setKey(key);
-        setValue(value);
+        withValue(value);
         setDisplayValue(displayValue);
         init(this);
     }
@@ -73,13 +73,13 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
     }
 
     @Override
-    public SelectOption<T> setValue(T value) {
+    public SelectOption<T> withValue(T value) {
         this.value = value;
         return this;
     }
 
     @Override
-    public T getValue() {
+    public T value() {
         return this.value;
     }
 

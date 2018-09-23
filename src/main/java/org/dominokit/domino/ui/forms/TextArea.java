@@ -4,7 +4,7 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLTextAreaElement;
 import org.jboss.gwt.elemento.core.Elements;
 
-public class TextArea extends AbstractTextBox<TextArea, HTMLTextAreaElement> {
+public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, String> {
 
     private EventListener autosizeListener = evt -> adjustHeight();
     private int rows;
@@ -50,11 +50,11 @@ public class TextArea extends AbstractTextBox<TextArea, HTMLTextAreaElement> {
 
     @Override
     protected void clearValue() {
-        setValue("");
+        withValue("");
     }
 
     @Override
-    public String getValue() {
+    public String value() {
         return getInputElement().asElement().value;
     }
 
@@ -78,9 +78,7 @@ public class TextArea extends AbstractTextBox<TextArea, HTMLTextAreaElement> {
     }
 
     @Override
-    public boolean isEmpty() {
-        return getValue().isEmpty();
+    public String getStringValue() {
+        return value();
     }
-
-
 }

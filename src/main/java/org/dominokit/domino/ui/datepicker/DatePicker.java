@@ -19,7 +19,6 @@ import org.dominokit.domino.ui.utils.HasValue;
 import org.gwtproject.i18n.client.impl.cldr.DateTimeFormatInfo_factory;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -157,7 +156,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
                 yearSelect.select(yearOption);
         }
         yearSelect.addSelectionHandler(option -> {
-            int selectedYear = option.getValue();
+            int selectedYear = option.value();
             jsDate.setYear(selectedYear);
             setDate(jsDate);
         });
@@ -173,7 +172,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
                 monthSelect.select(monthOption);
         }
         monthSelect.addSelectionHandler(option -> {
-            int selectedMonth = option.getValue();
+            int selectedMonth = option.value();
             jsDate.setMonth(selectedMonth);
             setDate(jsDate);
         });
@@ -274,32 +273,32 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
     @Override
-    public DatePicker setValue(Date value) {
-        datePickerMonth.setValue(value);
+    public DatePicker withValue(Date value) {
+        datePickerMonth.withValue(value);
         return this;
     }
 
     @Override
-    public Date getValue() {
-        return datePickerMonth.getValue();
+    public Date value() {
+        return datePickerMonth.value();
     }
 
     public DatePicker setDate(Date date) {
-        this.setValue(date);
+        this.withValue(date);
         return this;
     }
 
     public Date getDate() {
-        return this.getValue();
+        return this.value();
     }
 
     public DatePicker setDate(JsDate jsDate) {
-        this.setValue(new Date(new Double(jsDate.getTime()).longValue()));
+        this.withValue(new Date(new Double(jsDate.getTime()).longValue()));
         return this;
     }
 
     public JsDate getJsDate() {
-        return new JsDate((double) getValue().getTime());
+        return new JsDate((double) value().getTime());
     }
 
     public DatePicker addDateSelectionHandler(DateSelectionHandler dateSelectionHandler) {

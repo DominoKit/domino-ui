@@ -5,13 +5,13 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.HasLength;
 import org.jboss.gwt.elemento.core.Elements;
 
-public abstract class AbstractTextBox<T extends AbstractTextBox<T,E>, E extends HTMLElement>
-        extends ValueBox<T, E, String> implements HasLength<T> {
+public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E extends HTMLElement, V>
+        extends ValueBox<T, E, V> implements HasLength<T> {
 
     private HTMLDivElement characterCountContainer = Elements.div().css("help-info pull-right").asElement();
     private int length;
 
-    public AbstractTextBox(String type, String label) {
+    public AbstractValueBox(String type, String label) {
         super(type, label);
         addInputEvent();
     }
@@ -35,7 +35,7 @@ public abstract class AbstractTextBox<T extends AbstractTextBox<T,E>, E extends 
     }
 
     private void updateCharacterCount() {
-        characterCountContainer.textContent = getValue().length() + "/" + length;
+        characterCountContainer.textContent = getStringValue().length() + "/" + length;
     }
 
     @Override
@@ -45,6 +45,8 @@ public abstract class AbstractTextBox<T extends AbstractTextBox<T,E>, E extends 
 
     @Override
     public boolean isEmpty() {
-        return getValue().isEmpty();
+        return getStringValue().isEmpty();
     }
+
+    public abstract String getStringValue();
 }

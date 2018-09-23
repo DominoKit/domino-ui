@@ -14,6 +14,8 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     private ElementValidations elementValidations = new ElementValidations(this);
     private String helperText;
 
+    private ValueBoxEditor<T,V> editor;
+
     @Override
     public T setHelperText(String helperText) {
         this.helperText = helperText;
@@ -130,10 +132,28 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
         return (T) this;
     }
 
+    @Override
+    public void setValue(V value) {
+        withValue(value);
+    }
+
+    @Override
+    public V getValue() {
+        return value();
+    }
+
     protected abstract DominoElement<HTMLDivElement> getFieldContainer();
 
     protected abstract DominoElement<HTMLLabelElement> getLabelElement();
 
     protected abstract <E extends HTMLElement> DominoElement<E> getInputElement();
+
+    @Override
+    public ValueBoxEditor<T,V> asEditor() {
+        if (editor == null) {
+            editor = ValueBoxEditor.of(this);
+        }
+        return editor;
+    }
 
 }

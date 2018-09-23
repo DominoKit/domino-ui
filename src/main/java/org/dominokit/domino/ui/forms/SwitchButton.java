@@ -89,7 +89,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     @Override
-    public SwitchButton setValue(Boolean value) {
+    public SwitchButton withValue(Boolean value) {
         if (value != null && value) {
             check();
         } else {
@@ -99,7 +99,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     @Override
-    public Boolean getValue() {
+    public Boolean value() {
         return inputElement.checked;
     }
 
@@ -110,7 +110,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     @Override
     public SwitchButton clear() {
-        setValue(false);
+        withValue(false);
         return this;
     }
 

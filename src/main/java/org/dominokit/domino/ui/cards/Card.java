@@ -80,35 +80,7 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
         return profileCard;
     }
 
-    public static Card createCodeCard(String codeBlock) {
-        return Card.create("Source Code")
-                .setCollapsible()
-                .collapse()
-                .appendChild(Code.block(codeBlock).asElement());
-    }
 
-    public static Card createCodeCard(ExternalTextResource codeResource) {
-        Code.Block block = Code.block();
-        try {
-            codeResource.getText(new ResourceCallback<TextResource>() {
-                @Override
-                public void onError(ResourceException e) {
-                    DomGlobal.console.error("could not load code from external resource", e);
-                }
-
-                @Override
-                public void onSuccess(TextResource resource) {
-                    block.setCode(resource.getText());
-                }
-            });
-        } catch (ResourceException e) {
-            DomGlobal.console.error("could not load code from external resource", e);
-        }
-        return Card.create("Source Code")
-                .setCollapsible()
-                .collapse()
-                .appendChild(block.asElement());
-    }
 
     @PostConstruct
     void init() {

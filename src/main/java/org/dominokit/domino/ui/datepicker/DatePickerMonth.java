@@ -268,13 +268,13 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     }
 
     @Override
-    public DatePickerMonth setValue(Date value) {
+    public DatePickerMonth withValue(Date value) {
         update(new JsDate((double) value.getTime()));
         return this;
     }
 
     @Override
-    public Date getValue() {
+    public Date value() {
         return new Date(new Double(getSelectedItem().getDate().getTime()).longValue());
     }
 

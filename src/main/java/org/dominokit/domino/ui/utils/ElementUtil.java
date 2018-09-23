@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.utils;
 import com.google.gwt.i18n.client.NumberFormat;
 import elemental2.dom.*;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.forms.TextBox;
+import org.dominokit.domino.ui.forms.AbstractValueBox;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.ObserverCallback;
@@ -103,12 +103,15 @@ public class ElementUtil {
         }
     }
 
-    public static TextBox numbersOnly(TextBox textBox) {
+    public static <T extends AbstractValueBox<T,E,V>, E extends HTMLElement, V> AbstractValueBox<T,E,V> numbersOnly(AbstractValueBox<T,E,V> textBox) {
 
-        textBox.getInputElement().addEventListener("keypress", evt -> {
-            KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-            if (!navigationKeies.contains(keyboardEvent.key) && !keyboardEvent.key.matches("^\\d+$")) {
-                evt.preventDefault();
+        textBox.getInputElement().addEventListener("keypress", new EventListener() {
+            @Override
+            public void handleEvent(Event evt) {
+                KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+                if (!navigationKeies.contains(keyboardEvent.key) && !keyboardEvent.key.matches("^\\d+$")) {
+                    evt.preventDefault();
+                }
             }
         });
         textBox.getInputElement().addEventListener("paste", evt -> {
@@ -120,13 +123,13 @@ public class ElementUtil {
         return textBox;
     }
 
-    public static TextBox decimalOnly(TextBox textBox) {
+    public static <T extends AbstractValueBox<T,E,V>, E extends HTMLElement, V> AbstractValueBox<T,E,V> decimalOnly(AbstractValueBox<T,E,V> textBox) {
 
         textBox.getInputElement().addEventListener("keypress", evt -> {
 
             KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
             String key = keyboardEvent.key;
-            if (!(decimalKeies.contains(key) || navigationKeies.contains(key)) || (key.equals(".") && textBox.getValue().contains("."))) {
+            if (!(decimalKeies.contains(key) || navigationKeies.contains(key)) || (key.equals(".") && textBox.getStringValue().contains("."))) {
                 evt.preventDefault();
             }
 

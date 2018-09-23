@@ -24,7 +24,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
         container.appendChild(inputElement);
         container.appendChild(labelElement);
         setLabel(label);
-        setValue(value);
+        withValue(value);
         container.addEventListener("click", evt -> {
             if (isEnabled() && !isChecked())
                 check();
@@ -128,13 +128,13 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     }
 
     @Override
-    public Radio setValue(String value) {
+    public Radio withValue(String value) {
         inputElement.value = value;
         return this;
     }
 
     @Override
-    public String getValue() {
+    public String value() {
         return inputElement.value;
     }
 

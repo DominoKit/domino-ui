@@ -160,7 +160,7 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     }
 
     @Override
-    public List<V> getValue() {
+    public List<V> value() {
         return selectedItems;
     }
 

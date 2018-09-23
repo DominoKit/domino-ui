@@ -63,7 +63,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     protected void callChangeHandlers() {
-        changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(getValue()));
+        changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(value()));
     }
 
     protected abstract E createInputElement(String type);
@@ -370,7 +370,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     @Override
-    public T setValue(V value) {
+    public T withValue(V value) {
         doSetValue(value);
         changeLabelFloating();
         autoValidate();

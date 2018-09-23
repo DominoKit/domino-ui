@@ -41,13 +41,13 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     }
 
     @Override
-    public ListItem<T> setValue(T value) {
+    public ListItem<T> withValue(T value) {
         this.value = value;
         return this;
     }
 
     @Override
-    public T getValue() {
+    public T value() {
         return value;
     }
 

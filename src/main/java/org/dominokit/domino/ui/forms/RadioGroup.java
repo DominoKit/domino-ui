@@ -24,6 +24,22 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     private HTMLDivElement formControl = Elements.div().css("form-control").asElement();
     private HTMLLabelElement helperLabel = Elements.label().css("help-info").asElement();
     private HTMLLabelElement errorLabel = Elements.label().css("error").asElement();
+
+    @Override
+    public ValueBoxEditor asEditor() {
+        return null;
+    }
+
+    @Override
+    public void setValue(String value) {
+        withValue(value);
+    }
+
+    @Override
+    public String getValue() {
+        return value();
+    }
+
     private HTMLDivElement labelContainer = Elements.div().css("form-label focused").asElement();
     private ElementValidations elementValidations = new ElementValidations(this);
     private List<Radio> radios = new ArrayList<>();
@@ -184,12 +200,12 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     public boolean isSelected() {
-        return getValue() != null;
+        return value() != null;
     }
 
     @Override
-    public RadioGroup setValue(String value) {
-        Radio radioToSelect = radios.stream().filter(radio -> radio.getValue().equals(value))
+    public RadioGroup withValue(String value) {
+        Radio radioToSelect = radios.stream().filter(radio -> radio.value().equals(value))
                 .findFirst().orElse(null);
         if (nonNull(radioToSelect)) {
             radioToSelect.check();
@@ -198,8 +214,8 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public String getValue() {
-        return radios.stream().filter(Radio::isChecked).map(Radio::getValue).findFirst().orElse(null);
+    public String value() {
+        return radios.stream().filter(Radio::isChecked).map(Radio::value).findFirst().orElse(null);
     }
 
     @Override

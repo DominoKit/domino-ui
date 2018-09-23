@@ -407,13 +407,13 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     @Override
-    public Select<T> setValue(T value) {
+    public Select<T> withValue(T value) {
         return setValue(value, false);
     }
 
     public Select<T> setValue(T value, boolean silent) {
         for (SelectOption<T> option : getOptions()) {
-            if (Objects.equals(option.getValue(), value)) {
+            if (Objects.equals(option.value(), value)) {
                 select(option, silent);
             }
         }
@@ -421,8 +421,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     @Override
-    public T getValue() {
-        return isSelected() ? getSelectedOption().getValue() : null;
+    public T value() {
+        return isSelected() ? getSelectedOption().value() : null;
     }
 
     @Override
@@ -679,7 +679,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     public List<T> getValues() {
-        return options.stream().map(SelectOption::getValue).collect(Collectors.toList());
+        return options.stream().map(SelectOption::value).collect(Collectors.toList());
     }
 
     public List<String> getKeys() {

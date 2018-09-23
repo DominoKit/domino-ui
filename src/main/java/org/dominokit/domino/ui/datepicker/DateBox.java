@@ -1,6 +1,9 @@
 package org.dominokit.domino.ui.datepicker;
 
-import elemental2.dom.*;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLInputElement;
+import elemental2.dom.KeyboardEvent;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.modals.ModalDialog;
@@ -25,6 +28,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     private DatePicker datePicker;
     private String pattern;
+
+    private static int counter = 0;
 
     private Popover popover;
     private ModalDialog modal;
@@ -83,7 +88,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 modal.close();
         });
 
-        datePicker.addClearHandler(() -> setValue(null));
+        datePicker.addClearHandler(() -> withValue(null));
         setPickerStyle(PickerStyle.MODAL);
 
         datePicker.setBackgroundHandler((oldBackground, newBackground) -> {
@@ -122,7 +127,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 clear();
             } else {
                 try {
-                    setValue(getFormattedValue(value));
+                    withValue(getFormattedValue(value));
                 } catch (IllegalArgumentException ignored) {
                     DomGlobal.console.warn("Unable to parse date value " + value);
                 }
@@ -188,7 +193,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     @Override
     protected void clearValue() {
-        setValue(null);
+        withValue(null);
     }
 
     @Override
@@ -209,7 +214,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     }
 
     @Override
-    public Date getValue() {
+    public Date value() {
         return this.value;
     }
 

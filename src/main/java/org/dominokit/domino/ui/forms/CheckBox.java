@@ -138,7 +138,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     }
 
     @Override
-    public CheckBox setValue(Boolean value) {
+    public CheckBox withValue(Boolean value) {
         if (value != null && value) {
             check();
         } else {
@@ -148,7 +148,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     }
 
     @Override
-    public Boolean getValue() {
+    public Boolean value() {
         return isChecked();
     }
 
@@ -159,7 +159,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
 
     @Override
     public CheckBox clear() {
-        setValue(false);
+        withValue(false);
         return this;
     }
 
