@@ -43,7 +43,7 @@ public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String>
 
     @Override
     protected void clearValue() {
-        withValue("");
+        value("");
     }
 
     @Override
@@ -52,7 +52,7 @@ public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String>
     }
 
     @Override
-    public String value() {
+    public String getValue() {
         return getInputElement().asElement().value;
     }
 
@@ -63,6 +63,6 @@ public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String>
 
     @Override
     public String getStringValue() {
-        return value();
+        return getValue();
     }
 }

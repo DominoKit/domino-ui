@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.Elements;
@@ -15,7 +16,7 @@ import static java.util.Objects.isNull;
 public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implements Checkable<SwitchButton> {
 
     public static final String READONLY = "readonly";
-    private HTMLDivElement container = Elements.div().css("switch form-group").asElement();
+    private HTMLDivElement container = Elements.div().css("switch", "form-group", Styles.no_wrap).asElement();
     private HTMLDivElement formLine = Elements.div().css("form-line").asElement();
     private HTMLDivElement formControl = Elements.div().css("form-control").asElement();
     private HTMLLabelElement onOffLabelElement = Elements.label().asElement();
@@ -89,7 +90,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     @Override
-    public SwitchButton withValue(Boolean value) {
+    public SwitchButton value(Boolean value) {
         if (value != null && value) {
             check();
         } else {
@@ -99,7 +100,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     @Override
-    public Boolean value() {
+    public Boolean getValue() {
         return inputElement.checked;
     }
 
@@ -110,7 +111,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     @Override
     public SwitchButton clear() {
-        withValue(false);
+        value(false);
         return this;
     }
 
@@ -280,5 +281,10 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     @Override
     public boolean isReadOnly() {
         return formControl.hasAttribute(READONLY);
+    }
+
+    @Override
+    public String getStringValue() {
+        return Boolean.toString(getValue());
     }
 }

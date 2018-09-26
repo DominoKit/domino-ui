@@ -85,7 +85,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
         if (selectedItems.isEmpty())
             return new ArrayList<>();
         else
-            return selectedItems.stream().map(ListItem::value).collect(toList());
+            return selectedItems.stream().map(ListItem::getValue).collect(toList());
     }
 
     public ListGroup<T> removeSelected() {
@@ -136,7 +136,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
     }
 
     public List<T> getAllValues() {
-        return allItems.stream().map(ListItem::value).collect(toList());
+        return allItems.stream().map(ListItem::getValue).collect(toList());
     }
 
     @Override

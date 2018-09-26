@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
+import org.gwtproject.editor.client.shared.TakesValue;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
@@ -9,8 +10,11 @@ import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOption<T>> implements HasValue<SelectOption, T>,
-        HasBackground<SelectOption>, Selectable<SelectOption> {
+        HasBackground<SelectOption>, Selectable<SelectOption>, TakesValue<T> {
 
     private static final String SELECTED = "selected";
     private String displayValue;
@@ -20,6 +24,8 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
     private HTMLAnchorElement aElement;
     private HTMLElement valueContainer;
     private HTMLElement checkMark;
+    private List<SelectionHandler<SelectOption>> selectionHandlers = new ArrayList<>();
+
 
     public SelectOption(T value, String key, String displayValue) {
         li = Elements.li().asElement();
@@ -30,7 +36,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
         li.appendChild(aElement);
         checkMark = Elements.span().css("glyphicon glyphicon-ok check-mark").asElement();
         setKey(key);
-        withValue(value);
+        value(value);
         setDisplayValue(displayValue);
         init(this);
     }
@@ -46,6 +52,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
     public static <T> SelectOption<T> create(T value, String key) {
         return new SelectOption<>(value, key);
     }
+
     /**
      * @deprecated use {@link #appendChild(Node)}
      */
@@ -73,14 +80,24 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
     }
 
     @Override
-    public SelectOption<T> withValue(T value) {
-        this.value = value;
+    public SelectOption<T> value(T value) {
+        setValue(value);
         return this;
     }
 
     @Override
-    public T value() {
+    public T getValue() {
         return this.value;
+    }
+
+    @Override
+    public void setValue(T value) {
+        this.value = value;
+    }
+
+    @Override
+    public void addSelectionHandler(SelectionHandler<SelectOption> selectionHandler) {
+        selectionHandlers.add(selectionHandler);
     }
 
     public String getDisplayValue() {
@@ -107,6 +124,9 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
     public SelectOption<T> select(boolean silent) {
         style().add(SELECTED);
         aElement.appendChild(checkMark);
+        if (!silent) {
+            selectionHandlers.forEach(handler -> handler.onSelectionChanged(this));
+        }
         return this;
     }
 

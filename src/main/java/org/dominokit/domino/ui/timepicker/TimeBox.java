@@ -48,7 +48,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
             this.timePicker = TimePicker.create(dateTimeFormatInfo);
         else
             this.timePicker = TimePicker.create();
-        withValue(time);
+        value(time);
         init();
     }
 
@@ -84,7 +84,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
                 modal.close();
         });
 
-        timePicker.addClearHandler(() -> withValue(null));
+        timePicker.addClearHandler(() -> value(null));
         setPickerStyle(PickerStyle.MODAL);
 
         init(this);
@@ -114,7 +114,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
     @Override
     protected void clearValue() {
-        withValue(null);
+        value(null);
     }
 
     @Override
@@ -135,7 +135,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
     }
 
     @Override
-    public Date value() {
+    public Date getValue() {
         return this.value;
     }
 
@@ -247,6 +247,11 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
             enablePopover();
         }
         return this;
+    }
+
+    @Override
+    public String getStringValue() {
+        return timePicker.getFormattedTime();
     }
 
     @Override

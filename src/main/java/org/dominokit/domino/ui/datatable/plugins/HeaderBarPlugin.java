@@ -303,7 +303,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
         }
 
         private void doSearch() {
-            dataTable.fireTableEvent(new SearchEvent(textBox.value(), select.value()));
+            dataTable.fireTableEvent(new SearchEvent(textBox.getValue(), select.getValue()));
         }
 
         @Override

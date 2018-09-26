@@ -17,6 +17,7 @@ import org.dominokit.domino.ui.tag.store.TagsStore;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementUtil.isEnterKey;
@@ -160,7 +161,7 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     }
 
     @Override
-    public List<V> value() {
+    public List<V> getValue() {
         return selectedItems;
     }
 
@@ -198,5 +199,10 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     @Override
     public TagsInput<V> setReadOnly(boolean readOnly) {
         return super.setReadOnly(readOnly);
+    }
+
+    @Override
+    public String getStringValue() {
+        return getValue().stream().map(Object::toString).collect(Collectors.joining(","));
     }
 }

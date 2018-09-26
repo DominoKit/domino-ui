@@ -1,26 +1,12 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.gwt.elemento.core.Elements;
 
-public class FloatBox extends AbstractValueBox<FloatBox, HTMLInputElement, Float> {
+import static java.util.Objects.isNull;
 
-    private static final String TEXT = "text";
+public class FloatBox extends NumberBox<FloatBox, Float> {
 
-    public FloatBox() {
-        this(TEXT, "");
-    }
-
-    public FloatBox(String label) {
-        this(TEXT, label);
-    }
-
-    public FloatBox(String type, String label) {
-        super(type, label);
-        init(this);
-        ElementUtil.decimalOnly(this);
-    }
+    private Float maxValue;
 
     public static FloatBox create() {
         return new FloatBox();
@@ -30,33 +16,37 @@ public class FloatBox extends AbstractValueBox<FloatBox, HTMLInputElement, Float
         return new FloatBox(label);
     }
 
-    @Override
-    protected HTMLInputElement createInputElement(String type) {
-        return Elements.input(type).css("form-control").asElement();
+    public FloatBox() {
+        this("");
+    }
+
+    public FloatBox(String label) {
+        super(label);
+        ElementUtil.decimalOnly(this);
     }
 
     @Override
     protected void clearValue() {
-        withValue(0.0F);
+        value(0.0F);
     }
 
     @Override
-    protected void doSetValue(Float value) {
-        getInputElement().asElement().value = Float.toString(value);
+    protected Float parseValue(String value) {
+        return Float.parseFloat(value);
     }
 
     @Override
-    public Float value() {
-        return Float.parseFloat(getInputElement().asElement().value);
+    protected boolean isExceedMaxValue(Float value) {
+        return value > getMaxValue();
     }
 
-    public FloatBox setType(String type) {
-        getInputElement().asElement().type = type;
+    @Override
+    protected Float getMaxValue() {
+        return isNull(maxValue) ? Float.MAX_VALUE : maxValue;
+    }
+
+    public FloatBox setMaxValue(float maxValue) {
+        this.maxValue = maxValue;
         return this;
-    }
-
-    @Override
-    public String getStringValue() {
-        return Float.toString(value());
     }
 }

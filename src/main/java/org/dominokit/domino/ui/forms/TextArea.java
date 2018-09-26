@@ -50,11 +50,11 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
 
     @Override
     protected void clearValue() {
-        withValue("");
+        value("");
     }
 
     @Override
-    public String value() {
+    public String getValue() {
         return getInputElement().asElement().value;
     }
 
@@ -79,6 +79,6 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
 
     @Override
     public String getStringValue() {
-        return value();
+        return getValue();
     }
 }

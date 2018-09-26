@@ -4,6 +4,7 @@ import com.google.gwt.i18n.client.NumberFormat;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.AbstractValueBox;
+import org.dominokit.domino.ui.forms.HasInputElement;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.ObserverCallback;
@@ -103,9 +104,9 @@ public class ElementUtil {
         }
     }
 
-    public static <T extends AbstractValueBox<T,E,V>, E extends HTMLElement, V> AbstractValueBox<T,E,V> numbersOnly(AbstractValueBox<T,E,V> textBox) {
+    public static <T extends HasInputElement> T numbersOnly(T hasInputElement) {
 
-        textBox.getInputElement().addEventListener("keypress", new EventListener() {
+        hasInputElement.getInputElement().addEventListener("keypress", new EventListener() {
             @Override
             public void handleEvent(Event evt) {
                 KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
@@ -114,27 +115,27 @@ public class ElementUtil {
                 }
             }
         });
-        textBox.getInputElement().addEventListener("paste", evt -> {
+        hasInputElement.getInputElement().addEventListener("paste", evt -> {
             ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
             if (!clipboardEvent.clipboardData.getData("text").matches("^\\d+$")) {
                 evt.preventDefault();
             }
         });
-        return textBox;
+        return hasInputElement;
     }
 
-    public static <T extends AbstractValueBox<T,E,V>, E extends HTMLElement, V> AbstractValueBox<T,E,V> decimalOnly(AbstractValueBox<T,E,V> textBox) {
+    public static <T extends HasInputElement> T decimalOnly(T hasInputElement) {
 
-        textBox.getInputElement().addEventListener("keypress", evt -> {
+        hasInputElement.getInputElement().addEventListener("keypress", evt -> {
 
             KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
             String key = keyboardEvent.key;
-            if (!(decimalKeies.contains(key) || navigationKeies.contains(key)) || (key.equals(".") && textBox.getStringValue().contains("."))) {
+            if (!(decimalKeies.contains(key) || navigationKeies.contains(key)) || (key.equals(".") && hasInputElement.getStringValue().contains("."))) {
                 evt.preventDefault();
             }
 
         });
-        textBox.getInputElement().addEventListener("paste", evt -> {
+        hasInputElement.getInputElement().addEventListener("paste", evt -> {
             ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
             try {
                 NumberFormat.getDecimalFormat().parse(clipboardEvent.clipboardData.getData("text"));
@@ -143,7 +144,7 @@ public class ElementUtil {
             }
 
         });
-        return textBox;
+        return hasInputElement;
     }
 
     public static void scrollTop() {

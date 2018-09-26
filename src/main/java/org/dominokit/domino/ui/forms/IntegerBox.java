@@ -1,35 +1,12 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.dominokit.domino.ui.utils.ValidationResult;
-import org.jboss.gwt.elemento.core.Elements;
 
-public class IntegerBox extends AbstractValueBox<IntegerBox, HTMLInputElement, Integer> {
+import static java.util.Objects.isNull;
 
-    private static final String TEXT = "text";
-    private int maxValue = Integer.MAX_VALUE;
+public class IntegerBox extends NumberBox<IntegerBox, Integer> {
 
-    public IntegerBox() {
-        this(TEXT, "");
-    }
-
-    public IntegerBox(String label) {
-        this(TEXT, label);
-    }
-
-    public IntegerBox(String type, String label) {
-        super(type, label);
-        init(this);
-        ElementUtil.numbersOnly(this);
-        addValidator(() -> {
-            if (value() > maxValue) {
-                return ValidationResult.invalid("Maximum allowed value is [" + maxValue + "]");
-            }
-            return ValidationResult.valid();
-        });
-        setAutoValidation(true);
-    }
+    private Integer maxValue;
 
     public static IntegerBox create() {
         return new IntegerBox();
@@ -39,43 +16,33 @@ public class IntegerBox extends AbstractValueBox<IntegerBox, HTMLInputElement, I
         return new IntegerBox(label);
     }
 
-    @Override
-    protected HTMLInputElement createInputElement(String type) {
-        return Elements.input(type).css("form-control").asElement();
+    public IntegerBox() {
+        this("");
+    }
+
+    public IntegerBox(String label) {
+        super(label);
+        ElementUtil.numbersOnly(this);
     }
 
     @Override
     protected void clearValue() {
-        withValue(0);
+        value(0);
     }
 
     @Override
-    protected void doSetValue(Integer value) {
-        getInputElement().asElement().value = Integer.toString(value);
+    protected Integer parseValue(String value) {
+        return Integer.parseInt(value);
     }
 
     @Override
-    public Integer value() {
-        try {
-            String value = getInputElement().asElement().value;
-            if (value.isEmpty()) {
-                return 0;
-            }
-            return Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-//            invalidate("Maximum allowed value is [" + maxValue + "]");
-            throw new IllegalStateException("invalid integer value", e);
-        }
-    }
-
-    public IntegerBox setType(String type) {
-        getInputElement().asElement().type = type;
-        return this;
+    protected boolean isExceedMaxValue(Integer value) {
+        return value > getMaxValue();
     }
 
     @Override
-    public String getStringValue() {
-        return Integer.toString(value());
+    protected Integer getMaxValue() {
+        return isNull(maxValue) ? Integer.MAX_VALUE : maxValue;
     }
 
     public IntegerBox setMaxValue(int maxValue) {

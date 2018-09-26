@@ -34,7 +34,13 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
         return (T) this;
     }
 
-    private void updateCharacterCount() {
+    @Override
+    public void setValue(V value) {
+        super.setValue(value);
+        updateCharacterCount();
+    }
+
+    protected void updateCharacterCount() {
         characterCountContainer.textContent = getStringValue().length() + "/" + length;
     }
 
@@ -48,5 +54,4 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
         return getStringValue().isEmpty();
     }
 
-    public abstract String getStringValue();
 }

@@ -407,13 +407,13 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     @Override
-    public Select<T> withValue(T value) {
+    public Select<T> value(T value) {
         return setValue(value, false);
     }
 
     public Select<T> setValue(T value, boolean silent) {
         for (SelectOption<T> option : getOptions()) {
-            if (Objects.equals(option.value(), value)) {
+            if (Objects.equals(option.getValue(), value)) {
                 select(option, silent);
             }
         }
@@ -421,8 +421,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     @Override
-    public T value() {
-        return isSelected() ? getSelectedOption().value() : null;
+    public T getValue() {
+        return isSelected() ? getSelectedOption().getValue() : null;
     }
 
     @Override
@@ -679,7 +679,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     public List<T> getValues() {
-        return options.stream().map(SelectOption::value).collect(Collectors.toList());
+        return options.stream().map(SelectOption::getValue).collect(Collectors.toList());
     }
 
     public List<String> getKeys() {
@@ -726,7 +726,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
 
     @Override
-    protected DominoElement<HTMLSelectElement> getInputElement() {
+    public DominoElement<HTMLSelectElement> getInputElement() {
         return DominoElement.of(selectElement.selectMenu);
     }
 
@@ -893,5 +893,14 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     private boolean isArrowUp(KeyboardEvent keyboardEvent) {
         return isKeyOf("ArrowUp", keyboardEvent);
+    }
+
+    @Override
+    public String getStringValue() {
+        SelectOption<T> selectedOption = getSelectedOption();
+        if(nonNull(selectedOption)){
+            return selectedOption.getDisplayValue();
+        }
+        return null;
     }
 }

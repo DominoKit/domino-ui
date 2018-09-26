@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLLabelElement;
 import elemental2.dom.Node;
@@ -8,6 +9,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ElementValidations;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
 import org.dominokit.domino.ui.utils.ValidationResult;
+import org.gwtproject.editor.client.adapters.TakesValueEditor;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -24,22 +26,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     private HTMLDivElement formControl = Elements.div().css("form-control").asElement();
     private HTMLLabelElement helperLabel = Elements.label().css("help-info").asElement();
     private HTMLLabelElement errorLabel = Elements.label().css("error").asElement();
-
-    @Override
-    public ValueBoxEditor asEditor() {
-        return null;
-    }
-
-    @Override
-    public void setValue(String value) {
-        withValue(value);
-    }
-
-    @Override
-    public String getValue() {
-        return value();
-    }
-
+    private TakesValueEditor<String> editor;
     private HTMLDivElement labelContainer = Elements.div().css("form-label focused").asElement();
     private ElementValidations elementValidations = new ElementValidations(this);
     private List<Radio> radios = new ArrayList<>();
@@ -87,7 +74,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
      */
     @Deprecated
     public RadioGroup addRadio(Radio radio, Node content) {
-       return appendChild(radio,content);
+        return appendChild(radio, content);
     }
 
     public RadioGroup appendChild(Radio radio, Node content) {
@@ -200,23 +187,20 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     public boolean isSelected() {
-        return value() != null;
+        return getValue() != null;
     }
 
     @Override
-    public RadioGroup withValue(String value) {
-        Radio radioToSelect = radios.stream().filter(radio -> radio.value().equals(value))
-                .findFirst().orElse(null);
-        if (nonNull(radioToSelect)) {
-            radioToSelect.check();
-        }
+    public RadioGroup value(String value) {
+        setValue(value);
         return this;
     }
 
     @Override
-    public String value() {
-        return radios.stream().filter(Radio::isChecked).map(Radio::value).findFirst().orElse(null);
+    public String getValue() {
+        return radios.stream().filter(Radio::isChecked).map(Radio::getValue).findFirst().orElse(null);
     }
+
 
     @Override
     public boolean isEmpty() {
@@ -310,6 +294,23 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
         if (nonNull(changeHandler))
             changeHandlers.remove(changeHandler);
         return this;
+    }
+
+    @Override
+    public TakesValueEditor<String> asEditor() {
+        if (editor == null) {
+            editor = TakesValueEditor.of(this);
+        }
+        return editor;
+    }
+
+    @Override
+    public void setValue(String value) {
+        Radio radioToSelect = radios.stream().filter(radio -> radio.getValue().equals(value))
+                .findFirst().orElse(null);
+        if (nonNull(radioToSelect)) {
+            radioToSelect.check();
+        }
     }
 
     public Radio getSelectedRadio() {

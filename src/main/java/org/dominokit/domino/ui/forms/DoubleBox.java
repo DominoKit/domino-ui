@@ -1,26 +1,12 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.gwt.elemento.core.Elements;
 
-public class DoubleBox extends AbstractValueBox<DoubleBox, HTMLInputElement, Double> {
+import static java.util.Objects.isNull;
 
-    private static final String TEXT = "text";
+public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
-    public DoubleBox() {
-        this(TEXT, "");
-    }
-
-    public DoubleBox(String label) {
-        this(TEXT, label);
-    }
-
-    public DoubleBox(String type, String label) {
-        super(type, label);
-        init(this);
-        ElementUtil.decimalOnly(this);
-    }
+    private Double maxValue;
 
     public static DoubleBox create() {
         return new DoubleBox();
@@ -30,33 +16,37 @@ public class DoubleBox extends AbstractValueBox<DoubleBox, HTMLInputElement, Dou
         return new DoubleBox(label);
     }
 
-    @Override
-    protected HTMLInputElement createInputElement(String type) {
-        return Elements.input(type).css("form-control").asElement();
+    public DoubleBox() {
+        this("");
+    }
+
+    public DoubleBox(String label) {
+        super(label);
+        ElementUtil.decimalOnly(this);
     }
 
     @Override
     protected void clearValue() {
-        withValue(0.0);
+        value(0.0);
     }
 
     @Override
-    protected void doSetValue(Double value) {
-        getInputElement().asElement().value = Double.toString(value);
+    protected Double parseValue(String value) {
+        return Double.parseDouble(value);
     }
 
     @Override
-    public Double value() {
-        return Double.parseDouble(getInputElement().asElement().value);
+    protected boolean isExceedMaxValue(Double value) {
+        return value > getMaxValue();
     }
 
-    public DoubleBox setType(String type) {
-        getInputElement().asElement().type = type;
+    @Override
+    protected Double getMaxValue() {
+        return isNull(maxValue) ? Double.MAX_VALUE : maxValue;
+    }
+
+    public DoubleBox setMaxValue(double maxValue) {
+        this.maxValue = maxValue;
         return this;
-    }
-
-    @Override
-    public String getStringValue() {
-        return Double.toString(value());
     }
 }

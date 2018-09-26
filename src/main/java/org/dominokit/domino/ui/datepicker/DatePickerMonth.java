@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.datepicker;
 
+import org.gwtproject.editor.client.shared.TakesValue;
 import elemental2.core.JsDate;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
@@ -22,7 +23,8 @@ import static org.dominokit.domino.ui.datepicker.DatePickerElement.createDayElem
 import static org.dominokit.domino.ui.datepicker.DatePickerElement.createDayHeader;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupport<DatePickerElement>, HasValue<DatePickerMonth, Date>, DatePickerElement.SelectionHandler {
+public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupport<DatePickerElement>,
+        HasValue<DatePickerMonth, Date>, DatePickerElement.SelectionHandler, TakesValue<Date> {
 
     private DaySelectionHandler internalHandler;
     private JsDate date;
@@ -268,14 +270,19 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     }
 
     @Override
-    public DatePickerMonth withValue(Date value) {
-        update(new JsDate((double) value.getTime()));
+    public DatePickerMonth value(Date value) {
+        setValue(value);
         return this;
     }
 
     @Override
-    public Date value() {
+    public Date getValue() {
         return new Date(new Double(getSelectedItem().getDate().getTime()).longValue());
+    }
+
+    @Override
+    public void setValue(Date value) {
+        update(new JsDate((double) value.getTime()));
     }
 
     @Override

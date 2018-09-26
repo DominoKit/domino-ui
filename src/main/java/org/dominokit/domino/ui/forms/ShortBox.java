@@ -1,26 +1,12 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.gwt.elemento.core.Elements;
 
-public class ShortBox extends AbstractValueBox<ShortBox, HTMLInputElement, Short> {
+import static java.util.Objects.isNull;
 
-    private static final String TEXT = "text";
+public class ShortBox extends NumberBox<ShortBox, Short> {
 
-    public ShortBox() {
-        this(TEXT, "");
-    }
-
-    public ShortBox(String label) {
-        this(TEXT, label);
-    }
-
-    public ShortBox(String type, String label) {
-        super(type, label);
-        init(this);
-        ElementUtil.numbersOnly(this);
-    }
+    private Short maxValue;
 
     public static ShortBox create() {
         return new ShortBox();
@@ -30,33 +16,37 @@ public class ShortBox extends AbstractValueBox<ShortBox, HTMLInputElement, Short
         return new ShortBox(label);
     }
 
-    @Override
-    protected HTMLInputElement createInputElement(String type) {
-        return Elements.input(type).css("form-control").asElement();
+    public ShortBox() {
+        this("");
+    }
+
+    public ShortBox(String label) {
+        super(label);
+        ElementUtil.numbersOnly(this);
     }
 
     @Override
     protected void clearValue() {
-        withValue((short)0);
+        value((short) 0);
     }
 
     @Override
-    protected void doSetValue(Short value) {
-        getInputElement().asElement().value = Short.toString(value);
+    protected Short parseValue(String value) {
+        return Short.parseShort(value);
     }
 
     @Override
-    public Short value() {
-        return Short.parseShort(getInputElement().asElement().value);
+    protected boolean isExceedMaxValue(Short value) {
+        return value > getMaxValue();
     }
 
-    public ShortBox setType(String type) {
-        getInputElement().asElement().type = type;
+    @Override
+    protected Short getMaxValue() {
+        return isNull(maxValue) ? Short.MAX_VALUE : maxValue;
+    }
+
+    public ShortBox setMaxValue(short maxValue) {
+        this.maxValue = maxValue;
         return this;
-    }
-
-    @Override
-    public String getStringValue() {
-        return Short.toString(value());
     }
 }

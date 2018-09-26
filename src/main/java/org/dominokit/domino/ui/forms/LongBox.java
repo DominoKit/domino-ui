@@ -1,26 +1,12 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.gwt.elemento.core.Elements;
 
-public class LongBox extends AbstractValueBox<LongBox, HTMLInputElement, Long> {
+import static java.util.Objects.isNull;
 
-    private static final String TEXT = "text";
+public class LongBox extends NumberBox<LongBox, Long> {
 
-    public LongBox() {
-        this(TEXT, "");
-    }
-
-    public LongBox(String label) {
-        this(TEXT, label);
-    }
-
-    public LongBox(String type, String label) {
-        super(type, label);
-        init(this);
-        ElementUtil.numbersOnly(this);
-    }
+    private Long maxValue;
 
     public static LongBox create() {
         return new LongBox();
@@ -30,33 +16,37 @@ public class LongBox extends AbstractValueBox<LongBox, HTMLInputElement, Long> {
         return new LongBox(label);
     }
 
-    @Override
-    protected HTMLInputElement createInputElement(String type) {
-        return Elements.input(type).css("form-control").asElement();
+    public LongBox() {
+        this("");
+    }
+
+    public LongBox(String label) {
+        super(label);
+        ElementUtil.numbersOnly(this);
     }
 
     @Override
     protected void clearValue() {
-        withValue(0L);
+        value(0L);
     }
 
     @Override
-    protected void doSetValue(Long value) {
-        getInputElement().asElement().value = Long.toString(value);
+    protected Long parseValue(String value) {
+        return Long.parseLong(value);
     }
 
     @Override
-    public Long value() {
-        return Long.parseLong(getInputElement().asElement().value);
+    protected boolean isExceedMaxValue(Long value) {
+        return value > getMaxValue();
     }
 
-    public LongBox setType(String type) {
-        getInputElement().asElement().type = type;
+    @Override
+    protected Long getMaxValue() {
+        return isNull(maxValue) ? Long.MAX_VALUE : maxValue;
+    }
+
+    public LongBox setMaxValue(long maxValue) {
+        this.maxValue = maxValue;
         return this;
-    }
-
-    @Override
-    public String getStringValue() {
-        return Long.toString(value());
     }
 }
