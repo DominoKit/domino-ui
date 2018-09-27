@@ -3,7 +3,6 @@ package org.dominokit.domino.ui.utils;
 import com.google.gwt.i18n.client.NumberFormat;
 import elemental2.dom.*;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.forms.AbstractValueBox;
 import org.dominokit.domino.ui.forms.HasInputElement;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -106,13 +105,10 @@ public class ElementUtil {
 
     public static <T extends HasInputElement> T numbersOnly(T hasInputElement) {
 
-        hasInputElement.getInputElement().addEventListener("keypress", new EventListener() {
-            @Override
-            public void handleEvent(Event evt) {
-                KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-                if (!navigationKeies.contains(keyboardEvent.key) && !keyboardEvent.key.matches("^\\d+$")) {
-                    evt.preventDefault();
-                }
+        hasInputElement.getInputElement().addEventListener("keypress", evt -> {
+            KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+            if (!navigationKeies.contains(keyboardEvent.key) && !keyboardEvent.key.matches("^\\d+$")) {
+                evt.preventDefault();
             }
         });
         hasInputElement.getInputElement().addEventListener("paste", evt -> {

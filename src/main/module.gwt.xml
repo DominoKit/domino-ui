@@ -8,7 +8,6 @@
     <inherits name="org.jboss.gwt.elemento.Template"/>
     <inherits name="org.gwtproject.i18n.CLDR"/>
     <inherits name="org.gwtproject.i18n.DateTimeFormat"/>
-    <inherits name="com.google.gwt.resources.Resources"/>
     <inherits name="com.google.gwt.i18n.I18N"/>
 
     <source path=""/>

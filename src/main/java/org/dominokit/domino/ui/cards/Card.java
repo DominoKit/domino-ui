@@ -1,11 +1,6 @@
 package org.dominokit.domino.ui.cards;
 
-import com.google.gwt.resources.client.ExternalTextResource;
-import com.google.gwt.resources.client.ResourceCallback;
-import com.google.gwt.resources.client.ResourceException;
-import com.google.gwt.resources.client.TextResource;
 import elemental2.dom.*;
-import org.dominokit.domino.ui.code.Code;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
@@ -78,8 +73,6 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
         profileCard.setBackground(Color.THEME);
         return profileCard;
     }
-
-
 
     @PostConstruct
     void init() {
