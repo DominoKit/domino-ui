@@ -8,6 +8,7 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.themes.Theme;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
+import org.dominokit.domino.ui.utils.TextNode;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.jboss.gwt.elemento.core.Elements.a;
@@ -28,7 +29,7 @@ public class Layout {
     private final Content content = Content.create();
     private final Footer footer = Footer.create();
 
-    private Text appTitle = DomGlobal.document.createTextNode("");
+    private Text appTitle = TextNode.empty();
 
     private boolean leftPanelVisible = false;
     private boolean rightPanelVisible = false;
@@ -326,6 +327,10 @@ public class Layout {
         }
 
         return this;
+    }
+
+    public Text getAppTitle() {
+        return appTitle;
     }
 
     private void updateContentMargin() {
