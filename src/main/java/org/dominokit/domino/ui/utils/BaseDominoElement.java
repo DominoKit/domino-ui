@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
+import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.Style;
 import org.jboss.gwt.elemento.core.Elements;
@@ -231,15 +232,24 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     public T setTooltip(String text) {
-        return setTooltip(DomGlobal.document.createTextNode(text));
+        return setTooltip(text, PopupPosition.TOP);
+    }
+
+    public T setTooltip(String text, PopupPosition position) {
+        return setTooltip(TextNode.of(text), position);
     }
 
     public T setTooltip(Node node) {
+        return setTooltip(node, PopupPosition.TOP);
+    }
+
+    public T setTooltip(Node node, PopupPosition position) {
         if (isNull(tooltip)) {
             tooltip = Tooltip.create(asElement(), node);
         } else {
             tooltip.setContent(node);
         }
+        tooltip.position(position);
         return element;
     }
 
