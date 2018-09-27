@@ -19,10 +19,7 @@ import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
@@ -136,9 +133,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         nowButton = Button.createDefault("NOW").linkify().setColor(colorScheme.color());
         nowButton.asElement().classList.add("now-button");
         nowButton.addClickListener(evt -> {
-            JsDate date = new JsDate();
-            Time time = new Time(date.getHours(), date.getMinutes(), date.getHours() > 11 ? PM : AM);
-            setTime(time);
+            setTime(new Date());
         });
 
         closeButton = Button.createDefault("CLOSE").linkify().setColor(colorScheme.color());
@@ -290,10 +285,11 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     }
 
 
-    public void setTime(Time time) {
-        this.clock.setHour(time.getHour());
-        this.clock.setMinute(time.getMinute());
-        this.clock.setDayPeriod(time.getDayPeriod());
+    public void setTime(Date time) {
+        JsDate jsDate = new JsDate((double) time.getTime());
+        this.clock.setHour(jsDate.getHours());
+        this.clock.setMinute(jsDate.getMinutes());
+        this.clock.setDayPeriod(jsDate.getHours() >= 12 ? PM : AM);
         selectHour(this.clock.getHour(), true);
         selectMinute(this.clock.getMinute(), true);
         this.formatTime();
@@ -669,19 +665,19 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     public TimePicker todayButtonText(String text) {
         this.nowButton.setContent(text);
-        this.nowButton.asElement().title=text;
+        this.nowButton.asElement().title = text;
         return this;
     }
 
     public TimePicker clearButtonText(String text) {
         this.clearButton.setContent(text);
-        this.clearButton.asElement().title=text;
+        this.clearButton.asElement().title = text;
         return this;
     }
 
     public TimePicker closeButtonText(String text) {
         this.closeButton.setContent(text);
-        this.closeButton.asElement().title=text;
+        this.closeButton.asElement().title = text;
         return this;
     }
 
@@ -772,7 +768,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         return colorScheme;
     }
 
-    public Time getTime() {
+    public Date getTime() {
         return this.clock.getTime();
     }
 
@@ -812,7 +808,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     @FunctionalInterface
     public interface TimeSelectionHandler {
-        void onTimeSelected(Time time, DateTimeFormatInfo dateTimeFormatInfo, TimePicker picker);
+        void onTimeSelected(Date time, DateTimeFormatInfo dateTimeFormatInfo, TimePicker picker);
     }
 
 }

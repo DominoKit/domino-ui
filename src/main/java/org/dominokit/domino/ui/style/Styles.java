@@ -76,6 +76,7 @@ public class Styles {
     public static final String clearfix = "clearfix";
     public static final String pull_right = "pull-right";
     public static final String pull_left = "pull-left";
+    public static final String no_wrap = "no-wrap";
 
     public static final String cursor_pointer = "cursor-pointer";
     public static final String disable_selection = "disable-selection";
