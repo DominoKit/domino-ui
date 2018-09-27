@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.datepicker;
 
-import org.gwtproject.editor.client.shared.TakesValue;
+import com.google.gwt.user.client.TakesValue;
 import elemental2.core.JsDate;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;

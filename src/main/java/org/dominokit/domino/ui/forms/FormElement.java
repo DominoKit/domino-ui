@@ -1,8 +1,8 @@
 package org.dominokit.domino.ui.forms;
 
-import org.gwtproject.editor.client.IsEditor;
-import org.gwtproject.editor.client.adapters.TakesValueEditor;
-import org.gwtproject.editor.client.shared.TakesValue;
+import com.google.gwt.editor.client.IsEditor;
+import com.google.gwt.editor.client.adapters.TakesValueEditor;
+import com.google.gwt.user.client.TakesValue;
 import org.dominokit.domino.ui.utils.*;
 
 public interface FormElement<T, V> extends HasName<T>, HasValue<T, V>, Switchable<T>,

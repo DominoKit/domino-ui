@@ -56,6 +56,7 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
     public static Card create() {
         Templated_Card templated_basicCard = new Templated_Card();
         templated_basicCard.asElement().removeChild(templated_basicCard.header);
+
         return templated_basicCard;
     }
 

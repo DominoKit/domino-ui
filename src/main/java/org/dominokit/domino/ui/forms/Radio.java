@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
-import org.gwtproject.editor.client.shared.TakesValue;
+import com.google.gwt.user.client.TakesValue;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;

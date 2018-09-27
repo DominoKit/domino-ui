@@ -9,7 +9,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ElementValidations;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
 import org.dominokit.domino.ui.utils.ValidationResult;
-import org.gwtproject.editor.client.adapters.TakesValueEditor;
+import com.google.gwt.editor.client.adapters.TakesValueEditor;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
