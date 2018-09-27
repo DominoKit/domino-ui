@@ -302,10 +302,17 @@ public class Layout {
 
     public Layout fixFooter() {
         footer.asElement().classList.add("fixed");
-        ElementUtil.onAttach(footer.asElement(), mutationRecord -> {
-            Style.of(content.asElement()).setMarginBottom(footer.asElement().clientHeight + "px");
-        });
+        if(footer.isAttached()){
+            updateContentBottomMargin();
+        }else{
+            ElementUtil.onAttach(footer.asElement(), mutationRecord -> updateContentBottomMargin());
+        }
+
         return this;
+    }
+
+    private void updateContentBottomMargin() {
+        Style.of(content.asElement()).setMarginBottom(footer.asElement().clientHeight + "px");
     }
 
     public Layout unfixFooter() {
