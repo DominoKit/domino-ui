@@ -3,6 +3,8 @@ package org.dominokit.domino.ui.timepicker;
 import elemental2.core.JsDate;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 
+import java.util.Date;
+
 interface Clock {
 
     void setDayPeriod(DayPeriod dayPeriod);
@@ -29,7 +31,7 @@ interface Clock {
 
     void setDateTimeFormatInfo(DateTimeFormatInfo dateTimeFormatInfo);
 
-    Time getTime();
+    Date getTime();
 
     DayPeriod getDayPeriod();
 

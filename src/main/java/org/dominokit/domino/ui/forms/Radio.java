@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
+import com.google.gwt.user.client.TakesValue;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements HasName<Radio>, HasValue<Radio, String>, HasLabel<Radio>,
-        Switchable<Radio>, Checkable<Radio> {
+        Switchable<Radio>, Checkable<Radio>, TakesValue<String> {
 
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
     private HTMLLabelElement labelElement = Elements.label().asElement();
@@ -24,7 +25,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
         container.appendChild(inputElement);
         container.appendChild(labelElement);
         setLabel(label);
-        setValue(value);
+        value(value);
         container.addEventListener("click", evt -> {
             if (isEnabled() && !isChecked())
                 check();
@@ -128,9 +129,14 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     }
 
     @Override
-    public Radio setValue(String value) {
-        inputElement.value = value;
+    public Radio value(String value) {
+        setValue(value);
         return this;
+    }
+
+    @Override
+    public void setValue(String value) {
+        inputElement.value = value;
     }
 
     @Override

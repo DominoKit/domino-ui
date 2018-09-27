@@ -3,9 +3,9 @@ package org.dominokit.domino.ui.timepicker;
 import elemental2.core.JsDate;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 
-import static org.dominokit.domino.ui.timepicker.DayPeriod.AM;
-import static org.dominokit.domino.ui.timepicker.DayPeriod.NONE;
-import static org.dominokit.domino.ui.timepicker.DayPeriod.PM;
+import java.util.Date;
+
+import static org.dominokit.domino.ui.timepicker.DayPeriod.*;
 
 
 class Clock12 implements Clock {
@@ -20,7 +20,7 @@ class Clock12 implements Clock {
         this.dateTimeFormatInfo = dateTimeFormatInfo;
     }
 
-    Clock12(JsDate jsDate){
+    Clock12(JsDate jsDate) {
         this.setDayPeriod(jsDate.getHours() > 11 ? PM : AM);
         this.minute = jsDate.getMinutes();
         if (jsDate.getHours() > 12) {
@@ -112,7 +112,10 @@ class Clock12 implements Clock {
     }
 
     @Override
-    public Time getTime() {
-        return new Time(hour, minute, dayPeriod);
+    public Date getTime() {
+        JsDate jsDate = new JsDate();
+        jsDate.setHours(DayPeriod.PM.equals(dayPeriod) ? hour + 12 : hour);
+        jsDate.setMinutes(minute);
+        return new Date(new Double(jsDate.getTime()).longValue());
     }
 }

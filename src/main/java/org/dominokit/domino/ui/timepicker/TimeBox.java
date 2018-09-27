@@ -2,7 +2,6 @@ package org.dominokit.domino.ui.timepicker;
 
 import elemental2.dom.*;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.forms.SwitchButton;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
@@ -12,11 +11,13 @@ import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.EventType;
 
+import java.util.Date;
+
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.input;
 
-public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
+public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
     private TimePicker timePicker;
 
@@ -26,28 +27,28 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
     private PopupPosition popupPosition = PopupPosition.BOTTOM;
 
     private PickerStyle pickerStyle;
-    private Time value;
+    private Date value;
     private EventListener keyboardModalListener;
 
     public TimeBox() {
-        this(new Time());
+        this(new Date());
     }
 
-    public TimeBox(Time time) {
+    public TimeBox(Date time) {
         this("", time);
     }
 
-    public TimeBox(String placeholder, Time time) {
+    public TimeBox(String placeholder, Date time) {
         this(placeholder, time, null);
     }
 
-    public TimeBox(String placeholder, Time time, DateTimeFormatInfo dateTimeFormatInfo) {
+    public TimeBox(String placeholder, Date time, DateTimeFormatInfo dateTimeFormatInfo) {
         super("text", placeholder);
         if (nonNull(dateTimeFormatInfo))
             this.timePicker = TimePicker.create(dateTimeFormatInfo);
         else
             this.timePicker = TimePicker.create();
-        setValue(time);
+        value(time);
         init();
     }
 
@@ -83,7 +84,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
                 modal.close();
         });
 
-        timePicker.addClearHandler(() -> setValue(null));
+        timePicker.addClearHandler(() -> value(null));
         setPickerStyle(PickerStyle.MODAL);
 
         init(this);
@@ -94,18 +95,17 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
         return new TimeBox();
     }
 
-    public static TimeBox create(Time time) {
+    public static TimeBox create(Date time) {
         return new TimeBox(time);
     }
 
-    public static TimeBox create(String placeHolder, Time time) {
+    public static TimeBox create(String placeHolder, Date time) {
         return new TimeBox(placeHolder, time);
     }
 
-    public static TimeBox create(String placeholder, Time time, DateTimeFormatInfo dateTimeFormatInfo) {
+    public static TimeBox create(String placeholder, Date time, DateTimeFormatInfo dateTimeFormatInfo) {
         return new TimeBox(placeholder, time, dateTimeFormatInfo);
     }
-
 
     @Override
     public boolean isEmpty() {
@@ -114,19 +114,19 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
 
     @Override
     protected void clearValue() {
-        setValue(null);
+        value(null);
     }
 
     @Override
-    protected void doSetValue(Time value) {
-        if (nonNull(value))
+    protected void doSetValue(Date value) {
+        if (nonNull(value)) {
             this.timePicker.setTime(value);
-
+        }
         setStringValue(value, timePicker);
         this.value = value;
     }
 
-    private void setStringValue(Time time, TimePicker picker) {
+    private void setStringValue(Date time, TimePicker picker) {
         if (nonNull(time))
             this.getInputElement().asElement().value = picker.getFormattedTime();
         else
@@ -135,7 +135,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
     }
 
     @Override
-    public Time getValue() {
+    public Date getValue() {
         return this.value;
     }
 
@@ -166,7 +166,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
         return this;
     }
 
-    public Style<HTMLElement, TimeBox> style(){
+    public Style<HTMLElement, TimeBox> style() {
         return Style.of(this);
     }
 
@@ -181,7 +181,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
 
             if (isNull(popover)) {
                 popover = Popover.createPicker(this.asElement(), this.timePicker.asElement());
-                popover.getContentElement().style().setPadding( "0px", true);
+                popover.getContentElement().style().setPadding("0px", true);
                 popover.getContentElement().style().setWidth("270px", true);
                 popover.position(this.popupPosition)
                         .style().setMaxWidth("none", true);
@@ -247,6 +247,11 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Time> {
             enablePopover();
         }
         return this;
+    }
+
+    @Override
+    public String getStringValue() {
+        return timePicker.getFormattedTime();
     }
 
     @Override

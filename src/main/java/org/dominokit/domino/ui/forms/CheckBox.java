@@ -138,7 +138,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     }
 
     @Override
-    public CheckBox setValue(Boolean value) {
+    public CheckBox value(Boolean value) {
         if (value != null && value) {
             check();
         } else {
@@ -159,7 +159,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
 
     @Override
     public CheckBox clear() {
-        setValue(false);
+        value(false);
         return this;
     }
 
@@ -240,5 +240,10 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     @Override
     public boolean isReadOnly() {
         return DominoElement.of(formControl).hasAttribute(READONLY);
+    }
+
+    @Override
+    public String getStringValue() {
+        return Boolean.toString(getValue());
     }
 }

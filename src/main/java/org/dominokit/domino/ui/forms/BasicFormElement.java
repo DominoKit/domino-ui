@@ -1,18 +1,21 @@
 package org.dominokit.domino.ui.forms;
 
+import com.google.gwt.editor.client.adapters.TakesValueEditor;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.Elements;
 
-public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> extends BaseDominoElement<HTMLElement, T> implements FormElement<T, V>, IsReadOnly<T> {
+public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> extends BaseDominoElement<HTMLElement, T> implements FormElement<T, V>, IsReadOnly<T> , HasInputElement{
 
     private static final String NAME = "name";
     private HTMLLabelElement helperLabel = Elements.label().css("help-info").asElement();
     private HTMLLabelElement errorLabel = Elements.label().css("error").asElement();
     private ElementValidations elementValidations = new ElementValidations(this);
     private String helperText;
+
+    private TakesValueEditor<V> editor;
 
     @Override
     public T setHelperText(String helperText) {
@@ -130,10 +133,21 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
         return (T) this;
     }
 
+    @Override
+    public void setValue(V value) {
+        value(value);
+    }
+
     protected abstract DominoElement<HTMLDivElement> getFieldContainer();
 
     protected abstract DominoElement<HTMLLabelElement> getLabelElement();
 
-    protected abstract <E extends HTMLElement> DominoElement<E> getInputElement();
+    @Override
+    public TakesValueEditor<V> asEditor() {
+        if (editor == null) {
+            editor = TakesValueEditor.of(this);
+        }
+        return editor;
+    }
 
 }

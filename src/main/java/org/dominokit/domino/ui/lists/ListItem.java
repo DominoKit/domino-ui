@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.lists;
 
+import com.google.gwt.user.client.TakesValue;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
@@ -13,7 +14,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 
 public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> implements HasValue<ListItem<T>, T>
-        , Selectable<ListItem<T>>, HasBackground<ListItem<T>>, Switchable<ListItem<T>> {
+        , Selectable<ListItem<T>>, HasBackground<ListItem<T>>, Switchable<ListItem<T>>, TakesValue<T> {
 
     private T value;
     private ListGroup<T> parent;
@@ -41,14 +42,19 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     }
 
     @Override
-    public ListItem<T> setValue(T value) {
-        this.value = value;
+    public ListItem<T> value(T value) {
+        setValue(value);
         return this;
     }
 
     @Override
     public T getValue() {
         return value;
+    }
+
+    @Override
+    public void setValue(T value) {
+        this.value = value;
     }
 
     @Override

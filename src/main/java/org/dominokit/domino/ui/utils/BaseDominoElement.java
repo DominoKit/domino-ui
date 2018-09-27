@@ -309,7 +309,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return new Double(asElement().childElementCount).intValue();
     }
 
-    public boolean isEmpty() {
+    public boolean isEmptyElement() {
         return getElementsCount() == 0;
     }
 

@@ -19,7 +19,7 @@ public class ColumnConfig<T> {
     private String maxWidth;
     private String textAlign;
     private CellRenderer<T> cellRenderer = cell -> TextNode.of("");
-    private HeaderElement headerElement = content -> TextNode.of(content);
+    private HeaderElement headerElement = TextNode::of;
     private CellStyler<T> headerStyler = element -> {
     };
     private CellStyler<T> cellStyler = element -> {
@@ -43,7 +43,7 @@ public class ColumnConfig<T> {
     }
 
     public ColumnConfig(String name) {
-        this.name = name;
+        this(name, "");
     }
 
     public String getTitle() {
