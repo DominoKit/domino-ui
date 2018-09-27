@@ -56,7 +56,6 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
     public static Card create() {
         Templated_Card templated_basicCard = new Templated_Card();
         templated_basicCard.asElement().removeChild(templated_basicCard.header);
-
         return templated_basicCard;
     }
 
@@ -77,7 +76,6 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
         Card profileCard = Card.create(name, info);
         profileCard.asElement().style.marginBottom = CSSProperties.MarginBottomUnionType.of(0);
         profileCard.setBackground(Color.THEME);
-
         return profileCard;
     }
 
