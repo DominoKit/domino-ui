@@ -15,7 +15,7 @@ import static java.util.Objects.nonNull;
 public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElement, V> extends BasicFormElement<T, V> implements
         Focusable<T>, HasPlaceHolder<T>, IsReadOnly<T>, HasChangeHandlers<T, V> {
 
-    public static final String FOCUSED = "focused";
+    private static final String FOCUSED = "focused";
     private HTMLDivElement container = Elements.div().css("form-group").asElement();
     private E inputElement;
     private HTMLDivElement inputContainer = Elements.div().css("form-line").asElement();
@@ -312,6 +312,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return container;
     }
 
+
     @Override
     public T invalidate(String errorMessage) {
         this.valid = false;
@@ -370,7 +371,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     @Override
-    public T setValue(V value) {
+    public T value(V value) {
         doSetValue(value);
         changeLabelFloating();
         autoValidate();
@@ -407,7 +408,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     protected void changeLabelFloating() {
-        if (!isEmpty())
+        if (!isEmpty() || isFocused())
             floatLabel();
         else
             unfloatLabel();

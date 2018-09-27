@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.datepicker;
 
+import com.google.gwt.user.client.TakesValue;
 import elemental2.core.JsDate;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
@@ -19,7 +20,6 @@ import org.dominokit.domino.ui.utils.HasValue;
 import org.gwtproject.i18n.client.impl.cldr.DateTimeFormatInfo_factory;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +29,8 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> implements HasValue<DatePicker, Date>, DatePickerMonth.DaySelectionHandler {
+public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> implements HasValue<DatePicker, Date>,
+        DatePickerMonth.DaySelectionHandler, TakesValue<Date> {
 
     private final JsDate jsDate;
     private HTMLDivElement element = div().css("calendar").asElement();
@@ -274,8 +275,8 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
     @Override
-    public DatePicker setValue(Date value) {
-        datePickerMonth.setValue(value);
+    public DatePicker value(Date value) {
+        setValue(value);
         return this;
     }
 
@@ -284,8 +285,13 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         return datePickerMonth.getValue();
     }
 
+    @Override
+    public void setValue(Date value) {
+        datePickerMonth.value(value);
+    }
+
     public DatePicker setDate(Date date) {
-        this.setValue(date);
+        this.value(date);
         return this;
     }
 
@@ -294,7 +300,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
     public DatePicker setDate(JsDate jsDate) {
-        this.setValue(new Date(new Double(jsDate.getTime()).longValue()));
+        this.value(new Date(new Double(jsDate.getTime()).longValue()));
         return this;
     }
 
@@ -382,7 +388,6 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
 
-
     public DatePicker showHeaderPanel() {
         headerPanel.style.display = "block";
         return this;
@@ -454,19 +459,19 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
     public DatePicker todayButtonText(String text) {
         this.todayButton.setContent(text);
-        this.todayButton.asElement().title=text;
+        this.todayButton.asElement().title = text;
         return this;
     }
 
     public DatePicker clearButtonText(String text) {
         this.clearButton.setContent(text);
-        this.clearButton.asElement().title=text;
+        this.clearButton.asElement().title = text;
         return this;
     }
 
     public DatePicker closeButtonText(String text) {
         this.closeButton.setContent(text);
-        this.closeButton.asElement().title=text;
+        this.closeButton.asElement().title = text;
         return this;
     }
 

@@ -407,7 +407,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     @Override
-    public Select<T> setValue(T value) {
+    public Select<T> value(T value) {
         return setValue(value, false);
     }
 
@@ -726,7 +726,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
 
     @Override
-    protected DominoElement<HTMLSelectElement> getInputElement() {
+    public DominoElement<HTMLSelectElement> getInputElement() {
         return DominoElement.of(selectElement.selectMenu);
     }
 
@@ -893,5 +893,14 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     private boolean isArrowUp(KeyboardEvent keyboardEvent) {
         return isKeyOf("ArrowUp", keyboardEvent);
+    }
+
+    @Override
+    public String getStringValue() {
+        SelectOption<T> selectedOption = getSelectedOption();
+        if(nonNull(selectedOption)){
+            return selectedOption.getDisplayValue();
+        }
+        return null;
     }
 }

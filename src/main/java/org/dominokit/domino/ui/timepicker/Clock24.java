@@ -3,6 +3,8 @@ package org.dominokit.domino.ui.timepicker;
 import elemental2.core.JsDate;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 
+import java.util.Date;
+
 import static org.dominokit.domino.ui.timepicker.DayPeriod.NONE;
 
 class Clock24 implements Clock {
@@ -19,7 +21,7 @@ class Clock24 implements Clock {
         this.minute = date.getMinutes();
     }
 
-    Clock24(JsDate jsDate){
+    Clock24(JsDate jsDate) {
         this.hour = jsDate.getHours();
         this.minute = jsDate.getMinutes();
     }
@@ -96,7 +98,10 @@ class Clock24 implements Clock {
     }
 
     @Override
-    public Time getTime() {
-        return new Time(hour, minute, dayPeriod);
+    public Date getTime() {
+        JsDate jsDate = new JsDate();
+        jsDate.setHours(hour);
+        jsDate.setMinutes(minute);
+        return new Date(new Double(jsDate.getTime()).longValue());
     }
 }

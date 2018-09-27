@@ -1,11 +1,6 @@
 package org.dominokit.domino.ui.cards;
 
-import com.google.gwt.resources.client.ExternalTextResource;
-import com.google.gwt.resources.client.ResourceCallback;
-import com.google.gwt.resources.client.ResourceException;
-import com.google.gwt.resources.client.TextResource;
 import elemental2.dom.*;
-import org.dominokit.domino.ui.code.Code;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
@@ -76,38 +71,7 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
         Card profileCard = Card.create(name, info);
         profileCard.asElement().style.marginBottom = CSSProperties.MarginBottomUnionType.of(0);
         profileCard.setBackground(Color.THEME);
-
         return profileCard;
-    }
-
-    public static Card createCodeCard(String codeBlock) {
-        return Card.create("Source Code")
-                .setCollapsible()
-                .collapse()
-                .appendChild(Code.block(codeBlock).asElement());
-    }
-
-    public static Card createCodeCard(ExternalTextResource codeResource) {
-        Code.Block block = Code.block();
-        try {
-            codeResource.getText(new ResourceCallback<TextResource>() {
-                @Override
-                public void onError(ResourceException e) {
-                    DomGlobal.console.error("could not load code from external resource", e);
-                }
-
-                @Override
-                public void onSuccess(TextResource resource) {
-                    block.setCode(resource.getText());
-                }
-            });
-        } catch (ResourceException e) {
-            DomGlobal.console.error("could not load code from external resource", e);
-        }
-        return Card.create("Source Code")
-                .setCollapsible()
-                .collapse()
-                .appendChild(block.asElement());
     }
 
     @PostConstruct

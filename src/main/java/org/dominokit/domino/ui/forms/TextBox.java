@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.HTMLInputElement;
 import org.jboss.gwt.elemento.core.Elements;
 
-public class TextBox extends AbstractTextBox<TextBox, HTMLInputElement> {
+public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String> {
 
     private static final String TEXT = "text";
 
@@ -42,13 +42,8 @@ public class TextBox extends AbstractTextBox<TextBox, HTMLInputElement> {
     }
 
     @Override
-    public boolean isEmpty() {
-        return getValue().isEmpty();
-    }
-
-    @Override
     protected void clearValue() {
-        setValue("");
+        value("");
     }
 
     @Override
@@ -64,5 +59,10 @@ public class TextBox extends AbstractTextBox<TextBox, HTMLInputElement> {
     public TextBox setType(String type) {
         getInputElement().asElement().type = type;
         return this;
+    }
+
+    @Override
+    public String getStringValue() {
+        return getValue();
     }
 }
