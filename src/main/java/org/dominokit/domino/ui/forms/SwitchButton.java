@@ -56,11 +56,20 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
         onOffLabelElement.appendChild(inputElement);
         onOffLabelElement.appendChild(lever);
         onOffLabelElement.appendChild(onTitleText);
-        inputElement.addEventListener("change", evt -> {
+        addClickListener(evt -> {
+            evt.stopPropagation();
+            DomGlobal.console.info("clicking ----------");
             onCheck();
             if (autoValidation)
                 validate();
         });
+//        inputElement.addEventListener("change", evt -> {
+//            evt.stopPropagation();
+//            DomGlobal.console.info("changing ----------");
+//            onCheck();
+//            if (autoValidation)
+//                validate();
+//        });
         formLine.appendChild(formControl);
         formLine.appendChild(labelElement);
         container.appendChild(formLine);
