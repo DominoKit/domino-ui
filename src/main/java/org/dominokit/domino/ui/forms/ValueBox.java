@@ -261,6 +261,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     public T removeRightAddon() {
         if (nonNull(rightAddon)) {
             rightAddonContainer.removeChild(rightAddon);
+            rightAddon = null;
         }
         return (T) this;
     }
@@ -268,6 +269,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     public T removeLeftAddon() {
         if (nonNull(leftAddon)) {
             leftAddonContainer.removeChild(leftAddon);
+            leftAddon = null;            
         }
         return (T) this;
     }
