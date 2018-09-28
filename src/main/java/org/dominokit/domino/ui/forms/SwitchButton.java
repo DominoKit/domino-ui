@@ -57,6 +57,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
         onOffLabelElement.appendChild(lever.asElement());
         onOffLabelElement.appendChild(onTitleText);
         inputElement.addEventListener("change", evt -> {
+            evt.stopPropagation();
             onCheck();
             if (autoValidation)
                 validate();
