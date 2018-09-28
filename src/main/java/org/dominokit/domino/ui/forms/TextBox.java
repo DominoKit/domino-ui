@@ -1,7 +1,10 @@
 package org.dominokit.domino.ui.forms;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLInputElement;
 import org.jboss.gwt.elemento.core.Elements;
+
+import static java.util.Objects.nonNull;
 
 public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String> {
 
@@ -48,7 +51,11 @@ public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String>
 
     @Override
     protected void doSetValue(String value) {
-        getInputElement().asElement().value = value;
+        if(nonNull(value)){
+            getInputElement().asElement().value = value;
+        }else{
+            getInputElement().asElement().value = "";
+        }
     }
 
     @Override
