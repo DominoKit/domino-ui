@@ -4,6 +4,8 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLTextAreaElement;
 import org.jboss.gwt.elemento.core.Elements;
 
+import static java.util.Objects.nonNull;
+
 public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, String> {
 
     private EventListener autosizeListener = evt -> adjustHeight();
@@ -45,7 +47,11 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
 
     @Override
     protected void doSetValue(String value) {
-        getInputElement().asElement().value = value;
+        if(nonNull(value)) {
+            getInputElement().asElement().value = value;
+        }else{
+            getInputElement().asElement().value = "";
+        }
     }
 
     @Override
