@@ -4,6 +4,7 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
@@ -24,7 +25,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
     private boolean lazyLoad = true;
     private boolean multiSelect = true;
 
-    public void drawHeaders(DataTable<T> dataTable, HTMLTableSectionElement thead) {
+    public void drawHeaders(DataTable<T> dataTable, DominoElement<HTMLTableSectionElement> thead) {
         this.dataTable = dataTable;
         HtmlContentBuilder<HTMLTableRowElement> tr = tr();
         thead.appendChild(tr.asElement());

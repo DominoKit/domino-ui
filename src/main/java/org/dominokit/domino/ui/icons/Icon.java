@@ -4,6 +4,7 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.EventType;
 
 import static java.util.Objects.isNull;
@@ -12,12 +13,12 @@ import static org.jboss.gwt.elemento.core.Elements.i;
 
 public class Icon extends BaseDominoElement<HTMLElement, Icon> {
 
-    private final HTMLElement icon;
+    private final DominoElement<HTMLElement> icon;
     private String name;
     private Color color;
 
     private Icon(HTMLElement icon) {
-        this.icon = icon;
+        this.icon = DominoElement.of(icon);
         init(this);
     }
 
@@ -35,9 +36,9 @@ public class Icon extends BaseDominoElement<HTMLElement, Icon> {
         if (isNull(color))
             return this;
         if (nonNull(this.color))
-            icon.classList.remove(this.color.getStyle());
+            icon.style().remove(this.color.getStyle());
 
-        icon.classList.add(color.getStyle());
+        icon.style().add(color.getStyle());
         this.color = color;
         return this;
     }
@@ -47,13 +48,13 @@ public class Icon extends BaseDominoElement<HTMLElement, Icon> {
                 .setColor(this.color);
     }
 
-    public Icon addClickListener(EventListener listener){
+    public Icon addClickListener(EventListener listener) {
         this.icon.addEventListener(EventType.click.getName(), listener);
         return this;
     }
 
     @Override
     public HTMLElement asElement() {
-        return icon;
+        return icon.asElement();
     }
 }

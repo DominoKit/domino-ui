@@ -6,6 +6,7 @@ import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -19,8 +20,7 @@ import static org.jboss.gwt.elemento.core.Elements.ul;
 public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> implements IsElement<HTMLDivElement> {
 
     private HTMLDivElement element = div().asElement();
-    private HTMLUListElement tabsList = ul().css("nav", "nav-tabs", "nav-tabs-right").attr("role", "tablist")
-            .asElement();
+    private DominoElement<HTMLUListElement> tabsList = DominoElement.of(ul().css("nav", "nav-tabs", "nav-tabs-right").attr("role", "tablist"));
     private HTMLDivElement tabsContent = div().css("tab-content").asElement();
     private Tab activeTab;
     private Color tabsColor = Color.BLUE;
@@ -28,7 +28,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
     private List<Tab> tabs = new ArrayList<>();
 
     public TabsPanel() {
-        element.appendChild(tabsList);
+        element.appendChild(tabsList.asElement());
         element.appendChild(tabsContent);
         init(this);
     }
@@ -88,8 +88,8 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
     }
 
     public TabsPanel setColor(Color color) {
-        tabsList.classList.remove(tabsColor.getStyle());
-        tabsList.classList.add(color.getStyle());
+        tabsList.style().remove(tabsColor.getStyle());
+        tabsList.style().add(color.getStyle());
         this.tabsColor = color;
         return this;
     }

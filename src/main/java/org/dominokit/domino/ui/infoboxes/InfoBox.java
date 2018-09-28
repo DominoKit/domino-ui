@@ -61,37 +61,33 @@ public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
     private Color iconColor;
 
     @PostConstruct
-    void init(){
+    void init() {
         init(this);
     }
 
     public static InfoBox create(Icon icon, String title, String value) {
-
         Templated_InfoBox templated_InfoBox = new Templated_InfoBox();
-        templated_InfoBox.iconElement.appendChild(icon.asElement());
-        templated_InfoBox.titleElement.textContent = title;
-        templated_InfoBox.valueElement.textContent = value;
+        templated_InfoBox.getIconElement().appendChild(icon);
+        templated_InfoBox.getTitleElement().setTextContent(title);
+        templated_InfoBox.getValueElement().setTextContent(value);
         templated_InfoBox.icon = icon.asElement();
-
         return templated_InfoBox;
     }
 
     public static InfoBox create(HTMLElement icon, String title, String value) {
-
         Templated_InfoBox templated_InfoBox = new Templated_InfoBox();
-        templated_InfoBox.iconElement.appendChild(icon);
-        templated_InfoBox.titleElement.textContent = title;
-        templated_InfoBox.valueElement.textContent = value;
+        templated_InfoBox.getIconElement().appendChild(icon);
+        templated_InfoBox.getTitleElement().setTextContent(title);
+        templated_InfoBox.getValueElement().setTextContent(value);
         templated_InfoBox.icon = icon;
-
         return templated_InfoBox;
     }
 
     @Override
     public InfoBox setBackground(Color background) {
         if (nonNull(counterBackground))
-            this.asElement().classList.remove(counterBackground.getBackground());
-        this.asElement().classList.add(background.getBackground());
+            style().remove(counterBackground.getBackground());
+        style().add(background.getBackground());
         this.counterBackground = background;
 
         return this;
@@ -99,8 +95,8 @@ public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
 
     public InfoBox setIconBackground(Color background) {
         if (nonNull(iconBackground))
-            iconElement.classList.remove(iconBackground.getBackground());
-        iconElement.classList.add(background.getBackground());
+            Style.of(iconElement).remove(iconBackground.getBackground());
+        Style.of(iconElement).add(background.getBackground());
         this.iconBackground = background;
 
         return this;
@@ -108,16 +104,16 @@ public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
 
     public InfoBox setHoverEffect(HoverEffect effect) {
         if (nonNull(hoverEffect))
-            this.asElement().classList.remove(hoverEffect.effectStyle);
+            style().remove(hoverEffect.effectStyle);
         this.hoverEffect = effect;
-        this.asElement().classList.add(hoverEffect.effectStyle);
+        style().add(hoverEffect.effectStyle);
 
         return this;
     }
 
     public InfoBox removeHoverEffect() {
         if (nonNull(hoverEffect)) {
-            this.asElement().classList.remove(hoverEffect.effectStyle);
+            style().remove(hoverEffect.effectStyle);
             this.hoverEffect = null;
         }
 
@@ -125,52 +121,52 @@ public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
     }
 
     public InfoBox flipLeft() {
-        this.asElement().classList.remove(flip.flipStyle);
+        style().remove(flip.flipStyle);
         this.flip = Flip.LEFT;
-        this.asElement().classList.add(this.flip.flipStyle);
+        style().add(this.flip.flipStyle);
 
         return this;
     }
 
     public InfoBox flipRight() {
-        this.asElement().classList.remove(flip.flipStyle);
+        style().remove(flip.flipStyle);
         this.flip = Flip.RIGHT;
-        this.asElement().classList.add(this.flip.flipStyle);
+        style().add(this.flip.flipStyle);
         return this;
     }
 
     public InfoBox flip() {
-        this.asElement().classList.remove(flip.flipStyle);
+        style().remove(flip.flipStyle);
         if (Flip.LEFT.equals(this.flip)) {
             this.flip = Flip.RIGHT;
         } else {
             this.flip = Flip.LEFT;
         }
-        this.asElement().classList.add(this.flip.flipStyle);
+        style().add(this.flip.flipStyle);
 
         return this;
     }
 
     public InfoBox setIconColor(Color color) {
         if (nonNull(iconColor) && nonNull(icon))
-            icon.classList.remove(iconColor.getStyle());
+            Style.of(icon).remove(iconColor.getStyle());
         if (nonNull(icon)) {
             this.iconColor = color;
-            icon.classList.add(this.iconColor.getStyle());
+            Style.of(icon).add(this.iconColor.getStyle());
         }
 
         return this;
     }
 
-    public InfoBox setIcon(HTMLElement element){
+    public InfoBox setIcon(HTMLElement element) {
         ElementUtil.clear(iconElement);
         iconElement.appendChild(element);
         return this;
     }
 
-    public InfoBox removeShadow(){
-        Style.of(this)
-                .setProperty("box-shadow", "none")
+    public InfoBox removeShadow() {
+        style()
+                .setBoxShadow("none")
                 .setProperty("-webkit-box-shadow", "none");
         return this;
     }

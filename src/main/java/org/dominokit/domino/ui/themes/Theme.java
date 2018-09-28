@@ -8,6 +8,7 @@ import java.util.List;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.style.Style.bodyStyle;
 
 public class Theme {
 
@@ -94,7 +95,7 @@ public class Theme {
         if (nonNull(currentTheme))
             document.body.classList.remove(currentTheme.themeStyle);
         this.currentTheme = this;
-        document.body.classList.add(themeStyle);
+        bodyStyle().add(themeStyle);
         themeChangeHandlers.forEach(themeChangeHandler -> themeChangeHandler.onThemeChanged(oldTheme, this));
     }
 

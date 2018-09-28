@@ -34,6 +34,10 @@ public class ElementUtil {
         return new HtmlContentBuilder<>(element);
     }
 
+    public static <T extends HTMLElement> HtmlContentBuilder<T> contentBuilder(IsElement<T> element) {
+        return new HtmlContentBuilder<>(element.asElement());
+    }
+
     public static <E extends HTMLElement, T extends IsElement<E>> HtmlComponentBuilder<E, T> componentBuilder(T element) {
         return new HtmlComponentBuilder<>(element);
     }

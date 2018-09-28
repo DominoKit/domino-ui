@@ -4,24 +4,25 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.*;
-import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.label;
 
 public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElement, V> extends BasicFormElement<T, V> implements
         Focusable<T>, HasPlaceHolder<T>, IsReadOnly<T>, HasChangeHandlers<T, V> {
 
-    private static final String FOCUSED = "focused";
-    private HTMLDivElement container = Elements.div().css("form-group").asElement();
-    private E inputElement;
-    private HTMLDivElement inputContainer = Elements.div().css("form-line").asElement();
-    private HTMLLabelElement labelElement = Elements.label().css("form-label").asElement();
-    private HTMLElement leftAddonContainer = Elements.div().css("input-addon-container").asElement();
-    private HTMLElement rightAddonContainer = Elements.div().css("input-addon-container").asElement();
+    public static final String FOCUSED = "focused";
+    private DominoElement<HTMLDivElement> container = DominoElement.of(div().css("form-group"));
+    private DominoElement<E> inputElement;
+    private DominoElement<HTMLDivElement> inputContainer = DominoElement.of(div().css("form-line"));
+    private DominoElement<HTMLLabelElement> labelElement = DominoElement.of(label().css("form-label"));
+    private DominoElement<HTMLDivElement> leftAddonContainer = DominoElement.of(div().css("input-addon-container"));
+    private DominoElement<HTMLDivElement> rightAddonContainer = DominoElement.of(div().css("input-addon-container"));
     private ValueBoxSize size = ValueBoxSize.DEFAULT;
     private boolean floating;
     private String placeholder;
@@ -50,7 +51,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     public ValueBox(String type, String label) {
-        inputElement = createInputElement(type);
+        inputElement = DominoElement.of(createInputElement(type));
         inputElement.addEventListener("change", evt -> callChangeHandlers());
         container.appendChild(leftAddonContainer);
         inputContainer.appendChild(inputElement);
@@ -71,7 +72,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     private void addFocusListeners() {
         inputElement.addEventListener("focusin", evt -> focus());
         inputElement.addEventListener("focusout", evt -> unfocus());
-        labelElement.addEventListener("click", evt -> inputElement.focus());
+        labelElement.addEventListener("click", evt -> inputElement.asElement().focus());
     }
 
     public T large() {
@@ -84,8 +85,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     public T setSize(ValueBoxSize size) {
         if (this.size != null)
-            container.classList.remove(size.getStyle());
-        container.classList.add(size.getStyle());
+            container.style().remove(size.getStyle());
+        container.style().add(size.getStyle());
         setAddonsSize(size);
         this.size = size;
         return (T) this;
@@ -97,29 +98,29 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     public T floating() {
-        labelElement.classList.add(FOCUSED);
+        labelElement.style().add(FOCUSED);
         showPlaceholder();
         this.floating = true;
         return (T) this;
     }
 
     public T nonfloating() {
-        labelElement.classList.remove(FOCUSED);
+        labelElement.style().remove(FOCUSED);
         hidePlaceholder();
         this.floating = false;
         return (T) this;
     }
 
     public boolean isFloating() {
-        return labelElement.classList.contains(FOCUSED);
+        return labelElement.style().contains(FOCUSED);
     }
 
     @Override
     public T focus() {
-        inputElement.classList.add(FOCUSED);
+        inputElement.style().add(FOCUSED);
         floatLabel();
         if (valid) {
-            inputElement.classList.add("fc-" + focusColor.getStyle());
+            inputElement.style().add("fc-" + focusColor.getStyle());
             setLabelColor(focusColor);
             setLeftAddonColor(focusColor);
         }
@@ -137,8 +138,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     @Override
     public T unfocus() {
-        inputElement.classList.remove("fc-" + focusColor.getStyle());
-        inputElement.classList.remove(FOCUSED);
+        inputElement.style().remove("fc-" + focusColor.getStyle(), FOCUSED);
         unfloatLabel();
         removeLabelColor(focusColor);
         removeLeftAddonColor(focusColor);
@@ -158,28 +158,28 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     @Override
     public boolean isFocused() {
-        return inputElement.classList.contains(FOCUSED);
+        return inputElement.style().contains(FOCUSED);
     }
 
     private void setLabelColor(Color color) {
-        labelElement.classList.add(color.getStyle());
+        labelElement.style().add(color.getStyle());
     }
 
     private void removeLabelColor(Color color) {
-        labelElement.classList.remove(color.getStyle());
+        labelElement.style().remove(color.getStyle());
     }
 
     @Override
     public T enable() {
         super.enable();
-        inputContainer.classList.remove("disabled");
+        inputContainer.style().remove("disabled");
         return (T) this;
     }
 
     @Override
     public T disable() {
         super.disable();
-        inputContainer.classList.add("disabled");
+        inputContainer.style().add("disabled");
         return (T) this;
     }
 
@@ -272,7 +272,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
-    private void setAddon(HTMLElement container, Element oldAddon, Element addon) {
+    private void setAddon(DominoElement<HTMLDivElement> container, Element oldAddon, Element addon) {
         if (nonNull(oldAddon)) {
             oldAddon.remove();
         }
@@ -309,15 +309,15 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     @Override
     public HTMLElement asElement() {
-        return container;
+        return container.asElement();
     }
 
 
     @Override
     public T invalidate(String errorMessage) {
         this.valid = false;
-        inputElement.classList.remove("fc-" + focusColor.getStyle());
-        inputElement.classList.add("fc-" + Color.RED.getStyle());
+        inputElement.style().remove("fc-" + focusColor.getStyle());
+        inputElement.style().add("fc-" + Color.RED.getStyle());
         removeLabelColor(focusColor);
         setLabelColor(Color.RED);
         removeLeftAddonColor(focusColor);
@@ -329,8 +329,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     @Override
     public T clearInvalid() {
         this.valid = true;
-        inputElement.classList.add("fc-" + focusColor.getStyle());
-        inputElement.classList.remove("fc-" + Color.RED.getStyle());
+        inputElement.style().add("fc-" + focusColor.getStyle());
+        inputElement.style().remove("fc-" + Color.RED.getStyle());
         removeLabelColor(Color.RED);
         removeLeftAddonColor(Color.RED);
         if (isFocused()) {
@@ -416,13 +416,13 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     protected void floatLabel() {
         if (!floating) {
-            labelElement.classList.add(FOCUSED);
+            labelElement.style().add(FOCUSED);
         }
     }
 
     protected void unfloatLabel() {
         if (!floating && isEmpty()) {
-            labelElement.classList.remove(FOCUSED);
+            labelElement.style().remove(FOCUSED);
         }
     }
 

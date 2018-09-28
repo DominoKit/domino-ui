@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.button;
 
-import elemental2.dom.DomGlobal;
+import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import elemental2.dom.Text;
@@ -10,11 +10,10 @@ import org.dominokit.domino.ui.style.StyleType;
 import org.dominokit.domino.ui.style.WaveStyle;
 import org.dominokit.domino.ui.style.WavesElement;
 import org.dominokit.domino.ui.utils.*;
-import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.button;
 import static org.jboss.gwt.elemento.core.Elements.span;
 
 public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<HTMLElement, B> implements
@@ -23,7 +22,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
     private static final String DISABLED = "disabled";
 
-    protected final HTMLElement buttonElement = Elements.button().css("btn").asElement();
+    protected final DominoElement<HTMLButtonElement> buttonElement = DominoElement.of(button().css("btn"));
     private StyleType type;
     private Color background;
     private Color color;
@@ -31,7 +30,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     protected String content;
     private Icon icon;
     private HTMLElement textSpan = span().asElement();
-    private Text textElement = DomGlobal.document.createTextNode("");
+    private Text textElement = TextNode.empty();
 
     protected BaseButton() {
     }
@@ -67,7 +66,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         textElement.textContent = content;
         if (isNull(icon)) {
             buttonElement.appendChild(textElement);
-        }else{
+        } else {
             textSpan.appendChild(textElement);
             buttonElement.appendChild(textSpan);
         }
@@ -82,43 +81,43 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
     public B setSize(ButtonSize size) {
         if (nonNull(this.size))
-            buttonElement.classList.remove("btn-" + this.size.getStyle());
-        buttonElement.classList.add("btn-" + size.getStyle());
+            buttonElement.style().remove("btn-" + this.size.getStyle());
+        buttonElement.style().add("btn-" + size.getStyle());
         this.size = size;
         return (B) this;
     }
 
     public B setBlock(boolean block) {
         if (block)
-            buttonElement.classList.add("btn-block");
+            buttonElement.style().add("btn-block");
         else
-            buttonElement.classList.remove("btn-block");
+            buttonElement.style().remove("btn-block");
         return (B) this;
     }
 
     @Override
     public B setBackground(Color background) {
         if (nonNull(this.type))
-            buttonElement.classList.remove("btn-" + this.type.getStyle());
+            buttonElement.style().remove("btn-" + this.type.getStyle());
         if (nonNull(this.background))
-            buttonElement.classList.remove(this.background.getBackground());
-        buttonElement.classList.add(background.getBackground());
+            buttonElement.style().remove(this.background.getBackground());
+        buttonElement.style().add(background.getBackground());
         this.background = background;
         return (B) this;
     }
 
     public B setColor(Color color) {
         if (nonNull(this.color))
-            asElement().classList.remove(this.color.getStyle());
+            style().remove(this.color.getStyle());
         this.color = color;
-        asElement().classList.add(this.color.getStyle());
+        style().add(this.color.getStyle());
         return (B) this;
     }
 
     public B setButtonType(StyleType type) {
         if (nonNull(this.type))
-            buttonElement.classList.remove("btn-" + this.type.getStyle());
-        buttonElement.classList.add("btn-" + type.getStyle());
+            buttonElement.style().remove("btn-" + this.type.getStyle());
+        buttonElement.style().add("btn-" + type.getStyle());
         this.type = type;
         return (B) this;
     }
@@ -150,18 +149,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
      */
     @Deprecated
     public B appendContent(Node node) {
-        this.asElement().appendChild(node);
-        return (B) this;
-    }
-
-    public B appendChild(Node node) {
-        this.asElement().appendChild(node);
-        return (B) this;
-    }
-
-    public B appendChild(IsElement element) {
-        this.asElement().appendChild(element.asElement());
-        return (B) this;
+        return appendChild(node);
     }
 
     @Override
@@ -188,31 +176,31 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     }
 
     public B linkify() {
-        buttonElement.classList.add("btn-link");
+        buttonElement.style().add("btn-link");
         return (B) this;
     }
 
     public B deLinkify() {
-        buttonElement.classList.remove("btn-link");
+        buttonElement.style().remove("btn-link");
         return (B) this;
     }
 
     public B circle(CircleSize size) {
-        buttonElement.classList.add(size.getStyle());
+        buttonElement.style().add(size.getStyle());
         applyCircleWaves();
         return (B) this;
     }
 
     public B setIcon(Icon icon) {
         if (nonNull(this.icon)) {
-            this.icon.asElement().textContent = icon.getName();
+            this.icon.setTextContent(icon.getName());
         } else {
             if (nonNull(content) && !content.isEmpty()) {
                 textSpan.appendChild(textElement);
                 buttonElement.appendChild(textSpan.appendChild(textElement));
             }
             this.icon = icon;
-            buttonElement.appendChild(this.icon.asElement());
+            buttonElement.appendChild(this.icon);
         }
         return (B) this;
     }

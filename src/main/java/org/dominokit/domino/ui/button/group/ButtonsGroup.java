@@ -1,20 +1,22 @@
 package org.dominokit.domino.ui.button.group;
 
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.ButtonSize;
 import org.dominokit.domino.ui.button.DropdownButton;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Sizable;
-import org.jboss.gwt.elemento.core.Elements;
 
 import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> implements IsGroup<ButtonsGroup>, Sizable<ButtonsGroup> {
 
     static final String BTN_GROUP = "btn-group";
     private static final String BTN_GROUP_VERTICAL = "btn-group-vertical";
-    private HTMLElement groupElement = Elements.div().css(BTN_GROUP).attr("role", "group").asElement();
+    private DominoElement<HTMLDivElement> groupElement = DominoElement.of(div().css(BTN_GROUP).attr("role", "group"));
     private ButtonSize size;
 
     public ButtonsGroup() {
@@ -57,13 +59,13 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> i
 
     @Override
     public HTMLElement asElement() {
-        return groupElement;
+        return groupElement.asElement();
     }
 
     public ButtonsGroup setSize(ButtonSize size) {
         if (nonNull(this.size))
-            groupElement.classList.remove("btn-group-" + this.size.getStyle());
-        groupElement.classList.add("btn-group-" + size.getStyle());
+            groupElement.style().remove("btn-group-" + this.size.getStyle());
+        groupElement.style().add("btn-group-" + size.getStyle());
         this.size = size;
         return this;
     }
@@ -79,8 +81,9 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> i
     }
 
     private ButtonsGroup switchClasses(String toRemove, String toAdd) {
-        groupElement.classList.remove(toRemove);
-        groupElement.classList.add(toAdd);
+        groupElement.style()
+                .remove(toRemove)
+                .add(toAdd);
         return this;
     }
 

@@ -25,7 +25,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     public ListItem(T value) {
         super(a().css("list-group-item").asElement());
         this.value = value;
-        asElement().addEventListener("click", e -> {
+        addEventListener("click", e -> {
             if (!disabled) {
                 if (isSelected()) {
                     deselect();
@@ -73,7 +73,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
             if (!parent.isMultiSelect())
                 parent.getItems().forEach(tListItem -> tListItem.deselect(true));
             if (!selected) {
-                asElement().classList.add("active");
+                style().add("active");
                 this.selected = true;
                 if (!silent)
                     parent.onSelectionChange(this);
@@ -86,7 +86,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     @Override
     public ListItem<T> deselect(boolean silent) {
         if (selected) {
-            asElement().classList.remove("active");
+            style().remove("active");
             this.selected = false;
             if (!silent) {
                 parent.onSelectionChange(this);
@@ -182,24 +182,23 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
 
     @Deprecated
     public ListItem<T> appendContent(Node node) {
-        this.asElement().appendChild(node);
+        this.appendChild(node);
         return this;
     }
 
     @Deprecated
     public ListItem<T> appendContent(IsElement isElement) {
-        this.asElement().appendChild(isElement.asElement());
+        this.appendChild(isElement);
         return this;
     }
 
     public ListItem<T> appendChild(Node node) {
-        this.asElement().appendChild(node);
+        asElement().appendChild(node);
         return this;
     }
 
     public ListItem<T> appendChild(IsElement isElement) {
-        this.asElement().appendChild(isElement.asElement());
-        return this;
+        return appendChild(isElement.asElement());
     }
 
     void setParent(ListGroup<T> parent) {

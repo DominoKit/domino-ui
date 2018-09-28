@@ -2,27 +2,27 @@ package org.dominokit.domino.ui.dropdown;
 
 import elemental2.dom.*;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.gwt.elemento.core.Elements;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static elemental2.dom.DomGlobal.document;
+import static org.jboss.gwt.elemento.core.Elements.li;
+import static org.jboss.gwt.elemento.core.Elements.ul;
 
 public class DropDownMenu extends BaseDominoElement<HTMLUListElement, DropDownMenu> {
 
-    private HTMLUListElement element = Elements.ul().css("dropdown-menu").asElement();
-    private HTMLElement targetElement;
+    private DominoElement<HTMLUListElement> element = DominoElement.of(ul().css("dropdown-menu"));
+    private DominoElement<HTMLElement> targetElement;
     private DropDownPosition position = DropDownPosition.BOTTOM;
     private List<DropdownAction> actions = new ArrayList<>();
     private boolean touchMoved;
 
     public DropDownMenu(HTMLElement targetElement) {
-        this.targetElement = targetElement;
+        this.targetElement = DominoElement.of(targetElement);
         EventListener listener = this::closeAllGroups;
         document.addEventListener("click", listener);
         document.addEventListener("touchend", evt -> {
@@ -42,7 +42,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLUListElement, DropDownMe
     }
 
     private void close(HTMLElement item) {
-        item.style.display = "none";
+        item.remove();
     }
 
     private boolean isOpened(HTMLElement item) {
@@ -65,7 +65,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLUListElement, DropDownMe
     }
 
     public DropDownMenu separator() {
-        element.appendChild(Elements.li().attr("role", "separator").css("divider").asElement());
+        element.appendChild(li().attr("role", "separator").css("divider"));
         return this;
     }
 
@@ -75,15 +75,15 @@ public class DropDownMenu extends BaseDominoElement<HTMLUListElement, DropDownMe
     }
 
     public void close() {
-        Style.of(element).setDisplay("none");
+        element.remove();
     }
 
     public void open() {
-        if (!document.body.contains(element)) {
-            document.body.appendChild(element);
+        if (!document.body.contains(element.asElement())) {
+            document.body.appendChild(element.asElement());
         }
-        Style.of(element).setDisplay("block");
-        position.position(element, targetElement);
+        element.style().setDisplay("block");
+        position.position(element.asElement(), targetElement.asElement());
     }
 
     public DropDownMenu setPosition(DropDownPosition position) {
@@ -93,11 +93,11 @@ public class DropDownMenu extends BaseDominoElement<HTMLUListElement, DropDownMe
 
     @Override
     public HTMLUListElement asElement() {
-        return element;
+        return element.asElement();
     }
 
     public DropDownMenu clearActions() {
-        ElementUtil.clear(element);
+        element.clearElement();
         actions.clear();
         return this;
     }

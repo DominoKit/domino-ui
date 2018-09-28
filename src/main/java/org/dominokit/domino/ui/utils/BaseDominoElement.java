@@ -158,6 +158,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return element;
     }
 
+    public T insertFirst(IsElement element) {
+        return insertFirst(element.asElement());
+    }
+
     public T insertFirst(BaseDominoElement newNode) {
         asElement().insertBefore(newNode.asElement(), asElement().firstChild);
         return element;
@@ -178,6 +182,14 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return element;
     }
 
+    public T setReadonly(boolean readonly) {
+        if (readonly) {
+            return setAttribute("readonly", "readonly");
+        } else {
+            return removeAttribute("readonly");
+        }
+    }
+
     public String getAttribute(String name) {
         return asElement().getAttribute(name);
     }
@@ -189,6 +201,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     public boolean hasAttribute(String name) {
         return asElement().hasAttribute(name);
+    }
+
+    public boolean contains(DominoElement<? extends HTMLElement> node) {
+        return contains(node.asElement());
     }
 
     public boolean contains(Node node) {
@@ -207,6 +223,11 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     public T removeChild(Node node) {
         asElement().removeChild(node);
+        return element;
+    }
+
+    public T removeChild(IsElement<HTMLElement> elementToRemove) {
+        removeChild(elementToRemove.asElement());
         return element;
     }
 
@@ -295,24 +316,28 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return element;
     }
 
-    public T addCss(String cssClass){
+    public T addCss(String cssClass) {
         style().add(cssClass);
         return element;
     }
 
-    public T addCss(String... cssClass){
+    public T addCss(String... cssClass) {
         style().add(cssClass);
         return element;
     }
 
-    public T setWidth(String width){
+    public T setWidth(String width) {
         style().setWidth(width);
         return element;
     }
 
-    public T setHeight(String height){
+    public T setHeight(String height) {
         style().setHeight(height);
         return element;
+    }
+
+    public boolean isEqualNode(Node node) {
+        return asElement().isEqualNode(node);
     }
 
     public int getElementsCount() {
@@ -321,6 +346,18 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     public boolean isEmptyElement() {
         return getElementsCount() == 0;
+    }
+
+    public double getChildElementCount() {
+        return asElement().childElementCount;
+    }
+
+    public Node getFirstChild() {
+        return asElement().firstChild;
+    }
+
+    public boolean hasChildNodes() {
+        return asElement().hasChildNodes();
     }
 
     @FunctionalInterface

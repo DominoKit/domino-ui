@@ -33,17 +33,17 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         DatePickerMonth.DaySelectionHandler, TakesValue<Date> {
 
     private final JsDate jsDate;
-    private HTMLDivElement element = div().css("calendar").asElement();
-    private HTMLDivElement headerPanel = div().css("date-panel").asElement();
-    private HTMLDivElement selectorsPanel = div().css("selector-container").asElement();
-    private HTMLDivElement footerPanel = div().css("cal-footer").asElement();
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("calendar"));
+    private DominoElement<HTMLDivElement> headerPanel = DominoElement.of(div().css("date-panel"));
+    private DominoElement<HTMLDivElement> selectorsPanel = DominoElement.of(div().css("selector-container"));
+    private DominoElement<HTMLDivElement> footerPanel = DominoElement.of(div().css("cal-footer"));
 
-    private HTMLDivElement dayName = div().css("day-name").asElement();
-    private HTMLDivElement monthName = div().css("month-name").asElement();
-    private HTMLDivElement dateNumber = div().css("day-number").asElement();
-    private HTMLDivElement yearNumber = div().css("year-number").asElement();
-    private HTMLAnchorElement navigateBefore;
-    private HTMLAnchorElement navigateNext;
+    private DominoElement<HTMLDivElement> dayName = DominoElement.of(div().css("day-name"));
+    private DominoElement<HTMLDivElement> monthName = DominoElement.of(div().css("month-name"));
+    private DominoElement<HTMLDivElement> dateNumber = DominoElement.of(div().css("day-number"));
+    private DominoElement<HTMLDivElement> yearNumber = DominoElement.of(div().css("year-number"));
+    private DominoElement<HTMLAnchorElement> navigateBefore;
+    private DominoElement<HTMLAnchorElement> navigateNext;
 
     private Select<Integer> yearSelect;
     private Select<Integer> monthSelect;
@@ -102,8 +102,8 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     private void build() {
 
         element.appendChild(headerPanel);
-        headerPanel.classList.add(colorScheme.color().getBackground());
-        dayName.classList.add(colorScheme.darker_2().getBackground());
+        headerPanel.style().add(colorScheme.color().getBackground());
+        dayName.style().add(colorScheme.darker_2().getBackground());
         headerPanel.appendChild(dayName);
         headerPanel.appendChild(monthName);
         headerPanel.appendChild(dateNumber);
@@ -111,7 +111,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
         element.appendChild(selectorsPanel);
         initSelectors();
-        element.appendChild(datePickerMonth.asElement());
+        element.appendChild(datePickerMonth);
         element.appendChild(footerPanel);
         initFooter();
 
@@ -122,7 +122,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     private void initFooter() {
 
         clearButton = Button.create("CLEAR").setColor(colorScheme.color());
-        clearButton.asElement().classList.add("clear-button");
+        clearButton.style().add("clear-button");
 
         clearButton.addClickListener(evt -> {
             clearHandlers.forEach(PickerHandler::handle);
@@ -132,15 +132,15 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         todayButton.addClickListener(evt -> setDate(new Date()));
 
         closeButton = Button.create("CLOSE").setColor(colorScheme.color());
-        closeButton.asElement().classList.add("close-button");
+        closeButton.style().add("close-button");
 
         closeButton.addClickListener(evt -> {
             closeHandlers.forEach(PickerHandler::handle);
         });
 
-        footerPanel.appendChild(clearButton.linkify().asElement());
-        footerPanel.appendChild(todayButton.linkify().asElement());
-        footerPanel.appendChild(closeButton.linkify().asElement());
+        footerPanel.appendChild(clearButton.linkify());
+        footerPanel.appendChild(todayButton.linkify());
+        footerPanel.appendChild(closeButton.linkify());
 
     }
 
@@ -148,7 +148,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
         int year = jsDate.getFullYear();
         yearSelect = Select.create();
-        yearSelect.asElement().style.setProperty("margin-bottom", "0px", "important");
+        yearSelect.style().setMarginBottom("0px", true);
 
         for (int i = minDate.getFullYear(); i <= maxDate.getFullYear(); i++) {
             SelectOption<Integer> yearOption = SelectOption.create(i, i + "");
@@ -165,7 +165,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
         int month = jsDate.getMonth();
         monthSelect = Select.create();
-        monthSelect.asElement().style.setProperty("margin-bottom", "0px", "important");
+        monthSelect.style().setMarginBottom("0px", true);
         String[] months = getDateTimeFormatInfo().monthsShort();
         for (int i = 0; i < months.length; i++) {
             SelectOption<Integer> monthOption = SelectOption.create(i, months[i]);
@@ -180,31 +180,31 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         });
 
         Column yearColumn = this.column.copy().appendChild(yearSelect.asElement());
-        yearColumn.asElement().style.setProperty("padding-left", "0px", "important");
-        yearColumn.asElement().style.setProperty("padding-right", "3px", "important");
-        yearColumn.asElement().style.setProperty("margin-bottom", "5px", "important");
+        yearColumn.style().setPaddingLeft("0px", true);
+        yearColumn.style().setPaddingRight("3px", true);
+        yearColumn.style().setMarginBottom("5px", true);
 
         Column monthColumn = this.column.copy().appendChild(monthSelect.asElement());
-        monthColumn.asElement().style.setProperty("padding-left", "3px", "important");
-        monthColumn.asElement().style.setProperty("padding-right", "0px", "important");
-        monthColumn.asElement().style.setProperty("margin-bottom", "5px", "important");
+        monthColumn.style().setPaddingLeft("3px", true);
+        monthColumn.style().setPaddingRight("0px", true);
+        monthColumn.style().setMarginBottom("5px", true);
 
         Column backColumn = Column.span(2);
 
-        backColumn.asElement().style.setProperty("padding", "0px", "important");
-        backColumn.asElement().style.setProperty("margin-bottom", "5px", "important");
+        backColumn.style().setPadding("0px", true);
+        backColumn.style().setMarginBottom("5px", true);
 
         Column forwardColumn = Column.span(2);
-        forwardColumn.asElement().style.setProperty("padding", "0px", "important");
-        forwardColumn.asElement().style.setProperty("text-align", "right", "important");
-        forwardColumn.asElement().style.setProperty("margin-bottom", "5px", "important");
+        forwardColumn.style().setPadding("0px", true);
+        forwardColumn.style().setTextAlign("right", true);
+        forwardColumn.style().setMarginBottom("5px", true);
 
 
         Row row = Row.create();
-        row.asElement().style.setProperty("margin-left", "0px", "important");
-        row.asElement().style.setProperty("margin-right", "0px", "important");
-        navigateBefore = a().css("navigate").add(Icons.ALL.navigate_before().asElement()).asElement();
-        navigateNext = a().css("navigate").add(Icons.ALL.navigate_next().asElement()).asElement();
+        row.style().setMarginLeft("0px", true);
+        row.style().setMarginRight("0px", true);
+        navigateBefore = DominoElement.of(a().css("navigate").add(Icons.ALL.navigate_before()));
+        navigateNext = DominoElement.of(a().css("navigate").add(Icons.ALL.navigate_next()));
 
         WavesSupport.addFor(navigateBefore);
         WavesSupport.addFor(navigateNext);
@@ -245,8 +245,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
                 .appendChild(backColumn.appendChild(navigateBefore))
                 .appendChild(yearColumn)
                 .appendChild(monthColumn)
-                .appendChild(forwardColumn.appendChild(navigateNext))
-                .asElement());
+                .appendChild(forwardColumn.appendChild(navigateNext)));
     }
 
 
@@ -271,7 +270,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
     @Override
     public HTMLDivElement asElement() {
-        return element;
+        return element.asElement();
     }
 
     @Override
@@ -338,18 +337,18 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
     public DatePicker showBorder() {
-        asElement().style.setProperty("border", "1px solid " + colorScheme.color().getHex());
+        element.style().setBorder("1px solid " + colorScheme.color().getHex());
         return this;
     }
 
 
     public DatePicker setColorScheme(ColorScheme colorScheme) {
         backgroundHandler.onBackgroundChanged(getColorScheme(), colorScheme);
-        this.headerPanel.classList.remove(this.colorScheme.color().getBackground());
-        this.dayName.classList.remove(this.colorScheme.darker_2().getBackground());
+        this.headerPanel.style().remove(this.colorScheme.color().getBackground());
+        this.dayName.style().remove(this.colorScheme.darker_2().getBackground());
         this.colorScheme = colorScheme;
-        this.headerPanel.classList.add(this.colorScheme.color().getBackground());
-        this.dayName.classList.add(this.colorScheme.darker_2().getBackground());
+        this.headerPanel.style().add(this.colorScheme.color().getBackground());
+        this.dayName.style().add(this.colorScheme.darker_2().getBackground());
         this.datePickerMonth.setBackground(colorScheme.color());
         this.todayButton.setColor(colorScheme.color());
         this.closeButton.setColor(colorScheme.color());
@@ -379,53 +378,53 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         if (dayNameIndex > 6) {
             dayNameIndex = this.selectedPickerElement.getWeekDay() + getDateTimeFormatInfo().firstDayOfTheWeek() - 7;
         }
-        this.dayName.textContent = getDateTimeFormatInfo().weekdaysFull()[dayNameIndex];
-        this.monthName.textContent = getDateTimeFormatInfo().monthsFull()[this.selectedPickerElement.getMonth()];
-        this.dateNumber.textContent = this.selectedPickerElement.getDay() + "";
-        this.yearNumber.textContent = this.selectedPickerElement.getYear() + "";
+        this.dayName.setTextContent(getDateTimeFormatInfo().weekdaysFull()[dayNameIndex]);
+        this.monthName.setTextContent(getDateTimeFormatInfo().monthsFull()[this.selectedPickerElement.getMonth()]);
+        this.dateNumber.setTextContent(this.selectedPickerElement.getDay() + "");
+        this.yearNumber.setTextContent(this.selectedPickerElement.getYear() + "");
         this.monthSelect.selectAt(this.selectedPickerElement.getMonth(), true);
         this.yearSelect.setValue(this.selectedPickerElement.getYear(), true);
     }
 
 
     public DatePicker showHeaderPanel() {
-        headerPanel.style.display = "block";
+        headerPanel.style().setDisplay("block");
         return this;
     }
 
     public DatePicker hideHeaderPanel() {
-        headerPanel.style.display = "none";
+        headerPanel.style().setDisplay("none");
         return this;
     }
 
     public DatePicker showTodayButton() {
-        this.todayButton.asElement().style.display = "block";
+        this.todayButton.style().setDisplay("block");
         return this;
     }
 
     public DatePicker hideTodayButton() {
-        this.todayButton.asElement().style.display = "none";
+        this.todayButton.style().setDisplay("none");
         return this;
     }
 
     public DatePicker showClearButton() {
-        this.clearButton.asElement().style.display = "block";
+        this.clearButton.style().setDisplay("block");
         return this;
     }
 
     public DatePicker hideClearButton() {
-        this.clearButton.asElement().style.display = "none";
+        this.clearButton.style().setDisplay("none");
         return this;
     }
 
 
     public DatePicker showCloseButton() {
-        this.closeButton.asElement().style.display = "block";
+        this.closeButton.style().setDisplay("block");
         return this;
     }
 
     public DatePicker hideCloseButton() {
-        this.closeButton.asElement().style.display = "none";
+        this.closeButton.style().setDisplay("none");
         return this;
     }
 
@@ -476,12 +475,12 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
     public DatePicker fixedWidth() {
-        asElement().style.setProperty("width", "300px", "important");
+        element.style().setWidth("300px", true);
         return this;
     }
 
     public DatePicker fixedWidth(String width) {
-        asElement().style.setProperty("width", width, "important");
+        element.style().setWidth(width, true);
         return this;
     }
 

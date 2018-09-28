@@ -21,13 +21,13 @@ import static org.jboss.gwt.elemento.core.Elements.span;
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements HasSelectionHandler<Chip>, HasDeselectionHandler<Chip>,
         Switchable<Chip>, HasRemoveHandler<Chip> {
 
-    private HTMLDivElement element = div().css("chip").asElement();
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("chip"));
     private HTMLDivElement textContainer = div().css("chip-value").asElement();
     private HTMLDivElement leftAddonContainer = div().css("chip-addon").asElement();
     private HTMLDivElement removeIconContainer = div().css("chip-remove").asElement();
     private ColorScheme colorScheme = ColorScheme.INDIGO;
     private Color borderColor;
-    private HTMLElement removeIcon = Icons.ALL.close().asElement();
+    private DominoElement<HTMLElement> removeIcon = DominoElement.of(Icons.ALL.close().asElement());
     private List<SelectionHandler> selectionHandlers = new ArrayList<>();
     private List<DeselectionHandler> deselectionHandlers = new ArrayList<>();
     private List<RemoveHandler> removeHandlers = new ArrayList<>();
@@ -89,7 +89,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     }
 
     public Chip setRemoveIcon(HTMLElement removeIcon) {
-        this.removeIcon = removeIcon;
+        this.removeIcon = DominoElement.of(removeIcon);
         ElementUtil.clear(removeIconContainer);
         removeIconContainer.appendChild(removeIcon);
         removeIcon.addEventListener("click", evt -> {
@@ -111,12 +111,12 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
 
     public Chip setColorScheme(ColorScheme colorScheme) {
         if (nonNull(this.colorScheme)) {
-            element.classList.remove(getColor());
-            removeIcon.classList.remove(getColor());
+            element.style().remove(getColor());
+            removeIcon.style().remove(getColor());
         }
         this.colorScheme = colorScheme;
-        element.classList.add(getColor());
-        removeIcon.classList.add(getColor());
+        element.style().add(getColor());
+        removeIcon.style().add(getColor());
         setBorderColor(colorScheme.color());
         return this;
     }
@@ -183,7 +183,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
 
     @Override
     public HTMLDivElement asElement() {
-        return element;
+        return element.asElement();
     }
 
     @Override
