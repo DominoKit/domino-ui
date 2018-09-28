@@ -13,7 +13,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
 
-    private final HTMLDivElement element = div().css("panel-group").asElement();
+    private final DominoElement<HTMLDivElement> element = DominoElement.of(div().css("panel-group"));
     private List<AccordionPanel> panels = new LinkedList<>();
     private boolean multiOpen = false;
 
@@ -35,73 +35,73 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
 
     public Accordion appendChild(AccordionPanel panel) {
         panels.add(panel);
-        element.appendChild(panel.asElement());
+        element.appendChild(panel);
         DominoElement.of(panel.getClickableElement()).addClickListener(evt -> {
-            if(!multiOpen) {
+            if (!multiOpen) {
                 List<AccordionPanel> accordionPanels = otherPanels(panel);
                 accordionPanels.forEach(accordionPanel -> {
-                    if(!accordionPanel.isCollapsed()) {
+                    if (!accordionPanel.isCollapsed()) {
                         accordionPanel.collapse();
                     }
                 });
-                if(panel.isCollapsed()) {
+                if (panel.isCollapsed()) {
                     panel.expand();
                 }
-            }else{
+            } else {
                 panel.toggleDisplay();
             }
         });
         return this;
     }
 
-    private List<AccordionPanel> otherPanels(AccordionPanel exclude){
+    private List<AccordionPanel> otherPanels(AccordionPanel exclude) {
         List<AccordionPanel> newList = new ArrayList<>(panels);
         newList.remove(exclude);
         return newList;
     }
 
-    public Accordion multiOpen(){
-        this.multiOpen=true;
+    public Accordion multiOpen() {
+        this.multiOpen = true;
         return this;
     }
 
-    public Accordion primary(){
+    public Accordion primary() {
         return applyStyle("panel-primary");
     }
 
-    public Accordion success(){
+    public Accordion success() {
         return applyStyle("panel-success");
     }
 
-    public Accordion warning(){
+    public Accordion warning() {
         return applyStyle("panel-warning");
     }
 
-    public Accordion danger(){
+    public Accordion danger() {
         return applyStyle("panel-danger");
     }
 
-    public Accordion setColor(Color color){
+    public Accordion setColor(Color color) {
         return applyStyle(color.getStyle());
     }
 
     private Accordion applyStyle(String style) {
-        panels.forEach(p-> p.applyStyle(style));
+        panels.forEach(p -> p.applyStyle(style));
         return this;
     }
 
-    public Accordion fullBody(){
-        element.classList.add("full-body");
+    public Accordion fullBody() {
+        element.style().add("full-body");
         return this;
     }
 
     @Override
     public HTMLDivElement asElement() {
-        return element;
+        return element.asElement();
     }
-    
+
     public List<AccordionPanel> getPanels() {
-    	return panels;
+        return panels;
     }
-    
+
 }

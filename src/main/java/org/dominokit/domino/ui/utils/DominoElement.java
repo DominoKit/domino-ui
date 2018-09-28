@@ -1,6 +1,8 @@
 package org.dominokit.domino.ui.utils;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
+import jsinterop.base.Js;
 import org.jboss.gwt.elemento.core.IsElement;
 
 public class DominoElement<E extends HTMLElement> extends BaseDominoElement<E, DominoElement<E>> {

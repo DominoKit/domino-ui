@@ -1,5 +1,7 @@
 package org.dominokit.domino.ui.style;
 
+import elemental2.dom.DomGlobal;
+import elemental2.dom.HTMLBodyElement;
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -23,6 +25,10 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
 
     public static <E extends HTMLElement, T extends IsElement<E>> Style<E, T> of(T htmlElement) {
         return new Style<>(htmlElement);
+    }
+
+    public static Style<HTMLBodyElement, IsElement<HTMLBodyElement>> bodyStyle() {
+        return Style.of(DomGlobal.document.body);
     }
 
     public Style<E, T> setProperty(String name, String value) {
@@ -66,8 +72,12 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     }
 
     public Style<E, T> add(String... cssClasses) {
-        if (nonNull(cssClasses) && cssClasses.length > 0)
-            element.classList.add(cssClasses);
+        if (nonNull(cssClasses) && cssClasses.length > 0) {
+            // add(String... arr) is not supported in IE11, so looping over the array solving the problem
+            for (String cssClass : cssClasses) {
+                add(cssClass);
+            }
+        }
         return this;
     }
 
@@ -126,8 +136,12 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     }
 
     public Style<E, T> remove(String... cssClasses) {
-        if (nonNull(cssClasses) && cssClasses.length > 0)
-            element.classList.remove(cssClasses);
+        if (nonNull(cssClasses) && cssClasses.length > 0) {
+            // remove(String... arr) is not supported in IE11, so looping over the array solving the problem
+            for (String cssClass : cssClasses) {
+                remove(cssClass);
+            }
+        }
         return this;
     }
 
@@ -540,4 +554,35 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     }
 
 
+    public int length() {
+        return element.classList.length;
+    }
+
+    public String item(int index) {
+        return element.classList.item(index);
+    }
+
+    public Style<E, T> setPointerEvents(String pointerEvents) {
+        return setProperty("pointer-events", pointerEvents);
+    }
+
+    public Style<E, T> setAlignItems(String alignItems) {
+        return setProperty("align-items", alignItems);
+    }
+
+    public Style<E, T> setOverFlowY(String overflow) {
+        return setProperty("overflow-y", overflow);
+    }
+
+    public Style<E, T> setBoxShadow(String boxShadow) {
+        return setProperty("box-shadow", boxShadow);
+    }
+
+    public Style<E, T> setTransitionDuration(String transactionDuration) {
+        return setProperty("transaction-duration", transactionDuration);
+    }
+
+    public Style<E, T> setFlex(String flex) {
+        return setProperty("flex", flex);
+    }
 }

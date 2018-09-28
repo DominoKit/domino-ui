@@ -12,10 +12,11 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.pickers.PickerHandler;
 import org.dominokit.domino.ui.style.ColorScheme;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
+import org.dominokit.domino.ui.utils.TextNode;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.impl.cldr.DateTimeFormatInfo_factory;
-import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -27,8 +28,7 @@ import static org.dominokit.domino.ui.timepicker.ClockStyle._12;
 import static org.dominokit.domino.ui.timepicker.DayPeriod.AM;
 import static org.dominokit.domino.ui.timepicker.DayPeriod.PM;
 import static org.dominokit.domino.ui.utils.ElementUtil.clear;
-import static org.jboss.gwt.elemento.core.Elements.a;
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class TimePicker implements IsElement<HTMLDivElement> {
 
@@ -53,20 +53,20 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     private SVGCircleElement minutesCenterCircle;
     private HTMLDivElement minutesPanel;
 
-    private HTMLDivElement element = div().css("time-picker").asElement();
-    private HTMLDivElement headerPanel = div().css("time-panel").asElement();
-    private Text splitText = DomGlobal.document.createTextNode(":");
-    private HTMLDivElement hoursText = div().css("hour-text").asElement();
-    private HTMLDivElement minutesText = div().css("minute-text").asElement();
-    private HTMLDivElement amPmContainer = div().css("am-pm-container").asElement();
-    private HTMLElement amPmSpanTop = Elements.span().css("am-pm-text").css("am-pm-top").asElement();
-    private HTMLElement amPmSpanBottom = Elements.span().css("am-pm-text").css("am-pm-bottom").asElement();
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("time-picker"));
+    private DominoElement<HTMLDivElement> headerPanel = DominoElement.of(div().css("time-panel"));
+    private Text splitText = TextNode.of(":");
+    private DominoElement<HTMLDivElement> hoursText = DominoElement.of(div().css("hour-text"));
+    private DominoElement<HTMLDivElement> minutesText = DominoElement.of(div().css("minute-text"));
+    private DominoElement<HTMLDivElement> amPmContainer = DominoElement.of(div().css("am-pm-container"));
+    private DominoElement<HTMLElement> amPmSpanTop = DominoElement.of(span().css("am-pm-text").css("am-pm-top"));
+    private DominoElement<HTMLElement> amPmSpanBottom = DominoElement.of(span().css("am-pm-text").css("am-pm-bottom"));
 
     private HTMLAnchorElement backToHours;
     private HTMLAnchorElement backToMinutes;
 
-    private HTMLDivElement clockPanel = div().css("time-display-large").asElement();
-    private HTMLDivElement footerPanel = div().css("time-footer").asElement();
+    private DominoElement<HTMLDivElement> clockPanel = DominoElement.of(div().css("time-display-large"));
+    private DominoElement<HTMLDivElement> footerPanel = DominoElement.of(div().css("time-footer"));
 
     private ColorScheme colorScheme = ColorScheme.BLUE;
 
@@ -122,7 +122,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         element.appendChild(footerPanel);
 
         clearButton = Button.createDefault("CLEAR").linkify().setColor(colorScheme.color());
-        clearButton.asElement().classList.add("clear-button");
+        clearButton.style().add("clear-button");
 
         clearButton.addClickListener(evt -> {
             for (int i = 0; i < clearHandlers.size(); i++) {
@@ -131,13 +131,13 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         });
 
         nowButton = Button.createDefault("NOW").linkify().setColor(colorScheme.color());
-        nowButton.asElement().classList.add("now-button");
+        nowButton.style().add("now-button");
         nowButton.addClickListener(evt -> {
             setTime(new Date());
         });
 
         closeButton = Button.createDefault("CLOSE").linkify().setColor(colorScheme.color());
-        closeButton.asElement().classList.add("close-button");
+        closeButton.style().add("close-button");
 
         closeButton.addClickListener(evt -> {
             for (int i = 0; i < closeHandlers.size(); i++) {
@@ -154,12 +154,12 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     private void switchPeriod() {
         if (AM.equals(clock.getDayPeriod())) {
             clock.setDayPeriod(PM);
-            amPmSpanTop.textContent = amPeriod();
-            amPmSpanBottom.textContent = pmPeriod();
+            amPmSpanTop.setTextContent(amPeriod());
+            amPmSpanBottom.setTextContent(pmPeriod());
         } else {
             clock.setDayPeriod(AM);
-            amPmSpanTop.textContent = pmPeriod();
-            amPmSpanBottom.textContent = amPeriod();
+            amPmSpanTop.setTextContent(pmPeriod());
+            amPmSpanBottom.setTextContent(amPeriod());
         }
 
         Animation.create(amPmContainer)
@@ -172,7 +172,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     public TimePicker showBorder() {
         this.borderVisible = true;
-        asElement().style.setProperty("border", "1px solid " + colorScheme.color().getHex());
+        element.style().setBorder("1px solid " + colorScheme.color().getHex());
         return this;
     }
 
@@ -185,7 +185,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
                         showHours();
                     }
                 })
-                .add(Icons.ALL.navigate_before().asElement()).asElement();
+                .add(Icons.ALL.navigate_before()).asElement();
         backToMinutes = a().css("navigate").css("navigate-right")
                 .style("display: none;")
                 .on(EventType.click, event -> {
@@ -193,11 +193,11 @@ public class TimePicker implements IsElement<HTMLDivElement> {
                         showMinutes();
                     }
                 })
-                .add(Icons.ALL.navigate_next().asElement()).asElement();
+                .add(Icons.ALL.navigate_next()).asElement();
 
         element.appendChild(headerPanel);
 
-        headerPanel.classList.add(colorScheme.color().getBackground());
+        headerPanel.style().add(colorScheme.color().getBackground());
         headerPanel.appendChild(clockPanel);
 
         clockPanel.appendChild(backToHours);
@@ -209,7 +209,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         amPmContainer.appendChild(amPmSpanTop);
         amPmContainer.appendChild(amPmSpanBottom);
 
-        minutesText.classList.add(colorScheme.lighten_4().getStyle());
+        minutesText.style().add(colorScheme.lighten_4().getStyle());
 
         hoursText.addEventListener(EventType.click.getName(), evt -> {
             if (minutesVisible)
@@ -299,19 +299,19 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     public TimePicker setColorScheme(ColorScheme colorScheme) {
         createCenterCircles(colorScheme);
 
-        headerPanel.classList.remove(this.colorScheme.color().getBackground());
-        headerPanel.classList.add(colorScheme.color().getBackground());
+        headerPanel.style().remove(this.colorScheme.color().getBackground());
+        headerPanel.style().add(colorScheme.color().getBackground());
 
         clearButton.setColor(colorScheme.color());
         nowButton.setColor(colorScheme.color());
         closeButton.setColor(colorScheme.color());
-        minutesText.classList.remove(this.colorScheme.lighten_4().getStyle());
-        hoursText.classList.remove(this.colorScheme.lighten_4().getStyle());
+        minutesText.style().remove(this.colorScheme.lighten_4().getStyle());
+        hoursText.style().remove(this.colorScheme.lighten_4().getStyle());
 
         if (minutesVisible) {
-            hoursText.classList.add(colorScheme.lighten_4().getStyle());
+            hoursText.style().add(colorScheme.lighten_4().getStyle());
         } else {
-            minutesText.classList.add(colorScheme.lighten_4().getStyle());
+            minutesText.style().add(colorScheme.lighten_4().getStyle());
         }
 
         this.colorSchemeHandler.onColorSchemeChanged(this.colorScheme, colorScheme);
@@ -487,8 +487,8 @@ public class TimePicker implements IsElement<HTMLDivElement> {
             showMinutesHandlers.get(i).handle();
         }
 
-        minutesText.classList.remove(colorScheme.lighten_4().getStyle());
-        hoursText.classList.add(colorScheme.lighten_4().getStyle());
+        minutesText.style().remove(colorScheme.lighten_4().getStyle());
+        hoursText.style().add(colorScheme.lighten_4().getStyle());
         animateClock();
     }
 
@@ -511,8 +511,8 @@ public class TimePicker implements IsElement<HTMLDivElement> {
             showHoursHandlers.get(i).handle();
         }
 
-        hoursText.classList.remove(colorScheme.lighten_4().getStyle());
-        minutesText.classList.add(colorScheme.lighten_4().getStyle());
+        hoursText.style().remove(colorScheme.lighten_4().getStyle());
+        minutesText.style().add(colorScheme.lighten_4().getStyle());
         animateClock();
     }
 
@@ -558,33 +558,33 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     }
 
     public TimePicker showNowButton() {
-        this.nowButton.asElement().style.display = "block";
+        this.nowButton.style().setDisplay("block");
         return this;
     }
 
     public TimePicker hideNowButton() {
-        this.nowButton.asElement().style.display = "none";
+        this.nowButton.style().setDisplay("none");
         return this;
     }
 
     public TimePicker showClearButton() {
-        this.clearButton.asElement().style.display = "block";
+        this.clearButton.style().setDisplay("block");
         return this;
     }
 
     public TimePicker hideClearButton() {
-        this.clearButton.asElement().style.display = "none";
+        this.clearButton.style().setDisplay("none");
         return this;
     }
 
 
     public TimePicker showCloseButton() {
-        this.closeButton.asElement().style.display = "block";
+        this.closeButton.style().setDisplay("block");
         return this;
     }
 
     public TimePicker hideCloseButton() {
-        this.closeButton.asElement().style.display = "none";
+        this.closeButton.style().setDisplay("none");
         return this;
     }
 
@@ -682,12 +682,12 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     }
 
     public TimePicker fixedWidth() {
-        asElement().style.setProperty("width", PICKER_WIDTH, "important");
+        element.style().setWidth(PICKER_WIDTH, true);
         return this;
     }
 
     public TimePicker fixedWidth(String width) {
-        asElement().style.setProperty("width", width, "important");
+        element.style().setWidth(width, true);
         return this;
     }
 
@@ -704,7 +704,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     }
 
     public HTMLDivElement getClockPanel() {
-        return clockPanel;
+        return clockPanel.asElement();
     }
 
     public boolean isShowSwitchers() {
@@ -728,10 +728,10 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         this.clockStyle = clockStyle;
         if (_12.equals(clockStyle)) {
             this.clock = new Clock12(dateTimeFormatInfo);
-            amPmContainer.style.display = "block";
+            amPmContainer.style().setDisplay("block");
         } else {
             this.clock = new Clock24(dateTimeFormatInfo);
-            amPmContainer.style.display = "none";
+            amPmContainer.style().setDisplay("none");
         }
         reDraw();
         formatTime();
@@ -750,10 +750,10 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     }
 
     private void formatTime() {
-        hoursText.textContent = clock.getHour() < 10 ? ("0" + clock.getHour()) : clock.getHour() + "";
-        minutesText.textContent = clock.getMinute() < 10 ? ("0" + clock.getMinute()) : clock.getMinute() + "";
-        amPmSpanTop.textContent = AM.equals(clock.getDayPeriod()) ? pmPeriod() : amPeriod();
-        amPmSpanBottom.textContent = clock.formatPeriod();
+        hoursText.setTextContent(clock.getHour() < 10 ? ("0" + clock.getHour()) : clock.getHour() + "");
+        minutesText.setTextContent(clock.getMinute() < 10 ? ("0" + clock.getMinute()) : clock.getMinute() + "");
+        amPmSpanTop.setTextContent(AM.equals(clock.getDayPeriod()) ? pmPeriod() : amPeriod());
+        amPmSpanBottom.setTextContent(clock.formatPeriod());
     }
 
     private String amPeriod() {
@@ -791,7 +791,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     @Override
     public HTMLDivElement asElement() {
-        return element;
+        return element.asElement();
     }
 
     TimePicker setColorSchemeHandler(ColorSchemeHandler colorSchemeHandler) {

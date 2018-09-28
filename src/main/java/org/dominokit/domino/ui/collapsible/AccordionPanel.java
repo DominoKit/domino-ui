@@ -16,22 +16,22 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionPanel> implements IsCollapsible<AccordionPanel> {
 
-    private HTMLDivElement element = div().css("panel panel-primary").asElement();
-    private HTMLDivElement headerElement = div().css("panel-heading").attr("role", "tab").asElement();
-    private HTMLHeadingElement headingElement = h(4).css("panel-title").asElement();
-    private HTMLAnchorElement clickableElement = a().attr("role", "button").asElement();
-    private HTMLDivElement collapsibleElement = div().css("panel-collapse").asElement();
-    private HTMLDivElement bodyElement = div().css("panel-body").asElement();
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("panel panel-primary"));
+    private DominoElement<HTMLDivElement> headerElement = DominoElement.of(div().css("panel-heading").attr("role", "tab"));
+    private DominoElement<HTMLHeadingElement> headingElement = DominoElement.of(h(4).css("panel-title"));
+    private DominoElement<HTMLAnchorElement> clickableElement = DominoElement.of(a().attr("role", "button"));
+    private DominoElement<HTMLDivElement> collapsibleElement = DominoElement.of(div().css("panel-collapse"));
+    private DominoElement<HTMLDivElement> bodyElement = DominoElement.of(div().css("panel-body"));
     private String panelStyle = "panel-primary";
     private Icon panelIcon;
 
     public AccordionPanel(String title) {
-        clickableElement.textContent = title;
+        clickableElement.setTextContent(title);
         init();
     }
 
     public AccordionPanel(String title, Node content) {
-        clickableElement.textContent = title;
+        clickableElement.setTextContent(title);
         bodyElement.appendChild(content);
         init();
     }
@@ -55,12 +55,12 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     }
 
     public AccordionPanel setTitle(String title) {
-        clickableElement.textContent = title;
+        clickableElement.setTextContent(title);
         return this;
     }
 
     public AccordionPanel setContent(Node content) {
-        bodyElement.textContent = "";
+        bodyElement.setTextContent("");
         return appendChild(content);
     }
 
@@ -85,7 +85,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
 
     @Override
     public HTMLDivElement asElement() {
-        return element;
+        return element.asElement();
     }
 
 
@@ -110,19 +110,19 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     }
 
     AccordionPanel applyStyle(String style) {
-        element.classList.remove(panelStyle);
+        element.style().remove(panelStyle);
         panelStyle = style;
-        element.classList.add(panelStyle);
+        element.style().add(panelStyle);
         return this;
     }
 
     public AccordionPanel setIcon(Icon icon) {
         if (nonNull(this.panelIcon)) {
-            panelIcon.asElement().remove();
+            panelIcon.remove();
         }
 
         panelIcon = icon;
-        clickableElement.insertBefore(icon.asElement(), clickableElement.firstChild);
+        clickableElement.insertFirst(icon);
 
         return this;
     }
@@ -133,11 +133,11 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
 
     @Override
     public HTMLAnchorElement getClickableElement() {
-        return clickableElement;
+        return clickableElement.asElement();
     }
 
     @Override
     public HTMLDivElement getCollapsibleElement() {
-        return collapsibleElement;
+        return collapsibleElement.asElement();
     }
 }

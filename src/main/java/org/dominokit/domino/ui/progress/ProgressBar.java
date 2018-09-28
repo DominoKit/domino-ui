@@ -3,12 +3,13 @@ package org.dominokit.domino.ui.progress;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> {
 
-    private HTMLDivElement element = div().css("progress-bar").attr("role", "progressbar").asElement();
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("progress-bar").attr("role", "progressbar"));
     private double maxValue = 100;
     private double value = 0;
     private String textExpression = "{percent}%";
@@ -32,7 +33,7 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
 
     @Override
     public HTMLDivElement asElement() {
-        return element;
+        return element.asElement();
     }
 
     public double getValue() {
@@ -49,7 +50,7 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
         if (value >= 0 && value <= maxValue) {
             this.value = value;
             int percent = new Double((value / maxValue) * 100).intValue();
-            element.style.setProperty("width", percent + "%");
+            element.style().setWidth(percent + "%");
             updateText();
         }
         return this;
@@ -58,21 +59,21 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
     private void updateText() {
         if (showText) {
             int percent = new Double((value / maxValue) * 100).intValue();
-            element.textContent = textExpression.replace("{percent}", percent + "")
+            element.setTextContent(textExpression.replace("{percent}", percent + "")
                     .replace("{value}", value + "")
-                    .replace("{maxValue}", maxValue + "");
+                    .replace("{maxValue}", maxValue + ""));
         }
     }
 
-    public ProgressBar animate(){
+    public ProgressBar animate() {
         striped();
-        element.classList.add("active");
+        element.style().add("active");
         return this;
     }
 
-    public ProgressBar striped(){
-        element.classList.remove("progress-bar-striped");
-        element.classList.add("progress-bar-striped");
+    public ProgressBar striped() {
+        element.style().remove("progress-bar-striped");
+        element.style().add("progress-bar-striped");
         return this;
     }
 
@@ -93,13 +94,13 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
     }
 
     private ProgressBar setStyle(String style) {
-        element.classList.remove(this.style);
-        element.classList.add(style);
+        element.style().remove(this.style);
+        element.style().add(style);
         this.style = style;
         return this;
     }
 
-    public ProgressBar setBackground(Color background){
+    public ProgressBar setBackground(Color background) {
         setStyle(background.getBackground());
         return this;
     }

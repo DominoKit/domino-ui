@@ -1,16 +1,10 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.DomGlobal;
+import com.google.gwt.editor.client.adapters.TakesValueEditor;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLLabelElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.ElementValidations;
-import org.dominokit.domino.ui.utils.HasChangeHandlers;
-import org.dominokit.domino.ui.utils.ValidationResult;
-import com.google.gwt.editor.client.adapters.TakesValueEditor;
-import org.jboss.gwt.elemento.core.Elements;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -18,16 +12,18 @@ import java.util.List;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.label;
 
 public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> implements FormElement<RadioGroup, String>, HasChangeHandlers<RadioGroup, Radio> {
 
-    private HTMLDivElement container = Elements.div().css("form-group").asElement();
-    private HTMLDivElement formLine = Elements.div().css("form-line").asElement();
-    private HTMLDivElement formControl = Elements.div().css("form-control").asElement();
-    private HTMLLabelElement helperLabel = Elements.label().css("help-info").asElement();
-    private HTMLLabelElement errorLabel = Elements.label().css("error").asElement();
+    private DominoElement<HTMLDivElement> container = DominoElement.of(div().css("form-group"));
+    private DominoElement<HTMLDivElement> formLine = DominoElement.of(div().css("form-line"));
+    private DominoElement<HTMLDivElement> formControl = DominoElement.of(div().css("form-control"));
+    private DominoElement<HTMLLabelElement> helperLabel = DominoElement.of(label().css("help-info"));
+    private DominoElement<HTMLLabelElement> errorLabel = DominoElement.of(label().css("error"));
+    private DominoElement<HTMLDivElement> labelContainer = DominoElement.of(div().css("form-label focused"));
     private TakesValueEditor<String> editor;
-    private HTMLDivElement labelContainer = Elements.div().css("form-label focused").asElement();
     private ElementValidations elementValidations = new ElementValidations(this);
     private List<Radio> radios = new ArrayList<>();
     private String name;
@@ -35,12 +31,13 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     private List<ChangeHandler<Radio>> changeHandlers = new ArrayList<>();
 
     public RadioGroup(String name) {
-        Style.of(formControl).setProperty("border-bottom", "0px");
+        formControl.style()
+                .setProperty("border-bottom", "0px")
+                .setHeight("auto");
         formControl.appendChild(labelContainer);
         formLine.appendChild(formControl);
         container.appendChild(formLine);
         setName(name);
-        Style.of(formControl).setHeight("auto");
         init(this);
     }
 
@@ -103,13 +100,13 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
 
     public RadioGroup horizontal() {
         for (Radio radio : radios)
-            radio.asElement().classList.add("horizontal-radio");
+            radio.style().add("horizontal-radio");
         return this;
     }
 
     public RadioGroup vertical() {
         for (Radio radio : radios)
-            radio.asElement().classList.remove("horizontal-radio");
+            radio.style().remove("horizontal-radio");
         return this;
     }
 
@@ -117,29 +114,29 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     public RadioGroup setHelperText(String text) {
         if (!formLine.contains(helperLabel))
             formLine.appendChild(helperLabel);
-        helperLabel.textContent = text;
+        helperLabel.setTextContent(text);
         return this;
     }
 
     @Override
     public String getHelperText() {
-        return helperLabel.textContent;
+        return helperLabel.getTextContent();
     }
 
     @Override
     public RadioGroup setLabel(String label) {
-        labelContainer.textContent = label;
+        labelContainer.setTextContent(label);
         return this;
     }
 
     @Override
     public HTMLDivElement asElement() {
-        return container;
+        return container.asElement();
     }
 
     @Override
     public String getLabel() {
-        return labelContainer.textContent;
+        return labelContainer.asElement().textContent;
     }
 
     @Override
@@ -166,19 +163,19 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
 
     @Override
     public RadioGroup invalidate(String errorMessage) {
-        helperLabel.style.display = "none";
+        helperLabel.style().setDisplay("none");
         if (!formLine.contains(errorLabel))
             formLine.appendChild(errorLabel);
-        errorLabel.style.display = "block";
-        errorLabel.textContent = errorMessage;
+        errorLabel.style().setDisplay("block");
+        errorLabel.setTextContent(errorMessage);
         return this;
     }
 
     @Override
     public RadioGroup clearInvalid() {
-        helperLabel.style.display = "block";
-        errorLabel.textContent = "";
-        errorLabel.style.display = "none";
+        helperLabel.style().setDisplay("block");
+        errorLabel.style().setDisplay("none");
+        errorLabel.setTextContent("");
         return this;
     }
 

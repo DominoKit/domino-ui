@@ -1,20 +1,19 @@
 package org.dominokit.domino.ui.tabs;
 
+import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
-import elemental2.dom.*;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Tab implements HasClickableElement{
+public class Tab implements HasClickableElement {
 
-    private HTMLAnchorElement clickableElement=a().asElement();
-    private HTMLLIElement tab=li().attr("role","presentation").add(clickableElement).asElement();
-    private HTMLDivElement contentContainer =div().attr("role","tabpanel").css("tab-pane", "fade").asElement();
+    private HTMLAnchorElement clickableElement = a().asElement();
+    private DominoElement<HTMLLIElement> tab = DominoElement.of(li().attr("role", "presentation").add(clickableElement));
+    private DominoElement<HTMLDivElement> contentContainer = DominoElement.of(div().attr("role", "tabpanel").css("tab-pane", "fade"));
     private boolean active;
 
     public Tab(String text) {
@@ -26,23 +25,23 @@ public class Tab implements HasClickableElement{
     }
 
     public Tab(Icon icon, String text) {
-        if(nonNull(icon)) {
+        if (nonNull(icon)) {
             clickableElement.appendChild(icon.asElement());
         }
-        if(nonNull(text)) {
+        if (nonNull(text)) {
             clickableElement.appendChild(DomGlobal.document.createTextNode(text));
         }
     }
 
-    public static Tab create(String text){
+    public static Tab create(String text) {
         return new Tab(text);
     }
 
-    public static Tab create(Icon icon){
+    public static Tab create(Icon icon) {
         return new Tab(icon);
     }
 
-    public static Tab create(Icon icon, String text){
+    public static Tab create(Icon icon, String text) {
         return new Tab(icon, text);
     }
 
@@ -58,34 +57,32 @@ public class Tab implements HasClickableElement{
      * @deprecated use {@link #appendChild(Node)}
      */
     @Deprecated
-    public Tab appendContent(Node content){
+    public Tab appendContent(Node content) {
         return appendChild(content);
     }
 
 
-    public Tab appendChild(Node content){
+    public Tab appendChild(Node content) {
         contentContainer.appendChild(content);
         return this;
     }
 
-    public Tab appendChild(IsElement content){
+    public Tab appendChild(IsElement content) {
         return appendChild(content.asElement());
     }
 
 
-    public Tab activate(){
-        tab.classList.add("active");
-        contentContainer.classList.add("in");
-        contentContainer.classList.add("active");
-        this.active=true;
+    public Tab activate() {
+        tab.style().add("active");
+        contentContainer.style().add("in", "active");
+        this.active = true;
         return this;
     }
 
-    public Tab deActivate(){
-        tab.classList.remove("active");
-        contentContainer.classList.remove("in");
-        contentContainer.classList.remove("active");
-        this.active=false;
+    public Tab deActivate() {
+        tab.style().remove("active");
+        contentContainer.style().remove("in", "active");
+        this.active = false;
         return this;
     }
 

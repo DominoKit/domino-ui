@@ -5,6 +5,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
@@ -12,14 +13,14 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Pager extends BaseDominoElement<HTMLElement, Pager> {
 
-    private HTMLUListElement pagerElement = ul().css("pager").asElement();
-    private HTMLElement element = nav().add(pagerElement).asElement();
+    private DominoElement<HTMLUListElement> pagerElement = DominoElement.of(ul().css("pager"));
+    private DominoElement<HTMLElement> element = DominoElement.of(nav().add(pagerElement));
 
-    private HTMLLIElement nextElement;
-    private HTMLLIElement prevElement;
+    private DominoElement<HTMLLIElement> nextElement;
+    private DominoElement<HTMLLIElement> prevElement;
 
-    private HTMLAnchorElement nextAnchor;
-    private HTMLAnchorElement prevAnchor;
+    private DominoElement<HTMLAnchorElement> nextAnchor;
+    private DominoElement<HTMLAnchorElement> prevAnchor;
 
     private PagerChangeCallback onNext = () -> {
     };
@@ -31,24 +32,23 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
 
     public Pager() {
         HtmlContentBuilder<HTMLAnchorElement> nextAnchor = a();
-        this.nextAnchor = nextAnchor.asElement();
-        nextElement = li().add(nextAnchor.css("wave-effect")
+        this.nextAnchor = DominoElement.of(nextAnchor);
+        nextElement = DominoElement.of(li().add(nextAnchor.css("wave-effect")
                 .on(EventType.click, event -> {
                     if (allowNext)
                         onNext.onChange();
                 })
                 .textContent("Next")
-                .asElement()).asElement();
+                .asElement()));
 
         HtmlContentBuilder<HTMLAnchorElement> prevAnchor = a();
-        this.prevAnchor = prevAnchor.asElement();
-        prevElement = li().add(prevAnchor.css("wave-effect")
+        this.prevAnchor = DominoElement.of(prevAnchor);
+        prevElement = DominoElement.of(li().add(prevAnchor.css("wave-effect")
                 .on(EventType.click, event -> {
                     if (allowPrev)
                         onPrev.onChange();
                 })
-                .textContent("Previous")
-                .asElement()).asElement();
+                .textContent("Previous")));
         pagerElement.appendChild(prevElement);
         pagerElement.appendChild(nextElement);
 
@@ -71,59 +71,59 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
 
     public Pager disableNext() {
         this.allowNext = false;
-        nextElement.classList.remove("disabled");
-        nextElement.classList.add("disabled");
+        nextElement.style().remove("disabled");
+        nextElement.style().add("disabled");
 
         return this;
     }
 
     public Pager disablePrevious() {
         this.allowPrev = false;
-        prevElement.classList.remove("disabled");
-        prevElement.classList.add("disabled");
+        prevElement.style().remove("disabled");
+        prevElement.style().add("disabled");
 
         return this;
     }
 
     public Pager enableNext() {
         this.allowNext = true;
-        nextElement.classList.remove("disabled");
+        nextElement.style().remove("disabled");
 
         return this;
     }
 
     public Pager enablePrevious() {
         this.allowPrev = true;
-        prevElement.classList.remove("disabled");
+        prevElement.style().remove("disabled");
 
         return this;
     }
 
     public Pager nextText(String text) {
-        nextAnchor.textContent = text;
+        nextAnchor.setTextContent(text);
         return this;
     }
 
     public Pager previousText(String text) {
-        prevAnchor.textContent = text;
+        prevAnchor.setTextContent(text);
         return this;
     }
 
     public Pager expand() {
-        nextElement.classList.add("next");
-        prevElement.classList.add("previous");
+        nextElement.style().add("next");
+        prevElement.style().add("previous");
         return this;
     }
 
     public Pager showArrows() {
-        prevAnchor.insertBefore(span().attr("aria-hidden", "true").textContent("←").asElement(), prevAnchor.firstChild);
-        nextAnchor.appendChild(span().attr("aria-hidden", "true").textContent("→").asElement());
+        prevAnchor.insertFirst(span().attr("aria-hidden", "true").textContent("←"));
+        nextAnchor.appendChild(span().attr("aria-hidden", "true").textContent("→"));
         return this;
     }
 
     @Override
     public HTMLElement asElement() {
-        return element;
+        return element.asElement();
     }
 
 

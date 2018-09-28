@@ -10,10 +10,10 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.StyleType;
 import org.jboss.gwt.elemento.core.Elements;
 
-public class DropdownButton extends BaseButton<DropdownButton>  {
+public class DropdownButton extends BaseButton<DropdownButton> {
 
     private HTMLElement caret = Elements.span().css("caret").asElement();
-    private HTMLElement groupElement = ButtonsGroup.create().asElement();
+    private ButtonsGroup groupElement = ButtonsGroup.create();
     private DropDownMenu dropDownMenu;
 
     public DropdownButton(String content, StyleType type) {
@@ -110,7 +110,7 @@ public class DropdownButton extends BaseButton<DropdownButton>  {
     }
 
     private void initDropDown() {
-        buttonElement.classList.add("btn-dropdown");
+        buttonElement.style().add("btn-dropdown");
         dropDownMenu = DropDownMenu.create(groupElement);
         groupElement.appendChild(asDropDown());
         buttonElement.appendChild(caret);
@@ -118,7 +118,7 @@ public class DropdownButton extends BaseButton<DropdownButton>  {
     }
 
     private HTMLElement asDropDown() {
-        buttonElement.classList.add("dropdown-toggle");
+        buttonElement.style().add("dropdown-toggle");
         buttonElement.setAttribute("data-toggle", "dropdown");
         buttonElement.setAttribute("aria-haspopup", true);
         buttonElement.setAttribute("aria-expanded", true);
@@ -128,7 +128,7 @@ public class DropdownButton extends BaseButton<DropdownButton>  {
             open();
             evt.stopPropagation();
         });
-        return buttonElement;
+        return buttonElement.asElement();
     }
 
     private void open() {
@@ -150,7 +150,7 @@ public class DropdownButton extends BaseButton<DropdownButton>  {
 
     @Override
     public HTMLElement asElement() {
-        return groupElement;
+        return groupElement.asElement();
     }
 
     public DropdownButton separator() {
@@ -176,13 +176,13 @@ public class DropdownButton extends BaseButton<DropdownButton>  {
     }
 
     public DropdownButton linkify() {
-        groupElement.classList.add("link");
+        groupElement.style().add("link");
         super.linkify();
         return this;
     }
 
     public DropdownButton delinkify() {
-        groupElement.classList.remove("link");
+        groupElement.style().remove("link");
         super.deLinkify();
         return this;
     }

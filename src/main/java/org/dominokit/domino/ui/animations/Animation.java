@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.animations;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -16,18 +17,18 @@ public class Animation {
     private int duration = 800;
     private int delay = 0;
     private boolean infinite = false;
-    private final HTMLElement element;
+    private final DominoElement<HTMLElement> element;
     private Transition transition = Transition.BOUNCE;
     private CompleteCallback callback = DEFAULT_CALLBACK;
     private StartHandler startHandler = DEFAULT_START_HANDLER;
     private EventListener stopListener;
 
     public Animation(HTMLElement element) {
-        this.element = element;
+        this.element = DominoElement.of(element);
     }
 
     public Animation(HTMLElement element, int duration, int delay, boolean infinite) {
-        this.element = element;
+        this(element);
         this.duration = duration;
         this.delay = delay;
         this.infinite = infinite;
@@ -44,6 +45,7 @@ public class Animation {
     public static Animation create(IsElement element) {
         return new Animation(element.asElement());
     }
+
     public Animation duration(int duration) {
         this.duration = duration;
         return this;
@@ -90,7 +92,7 @@ public class Animation {
     }
 
     private void animateElement() {
-        this.startHandler.beforeStart(element);
+        this.startHandler.beforeStart(element.asElement());
         this.stopListener = evt -> stop();
 
         element.addEventListener("webkitAnimationEnd", stopListener);
@@ -99,30 +101,30 @@ public class Animation {
         element.addEventListener("oanimationend", stopListener);
         element.addEventListener("animationend", stopListener);
 
-        element.style.transitionDuration = duration + "ms";
-        element.style.setProperty("animation-duration", duration + "ms");
-        element.style.setProperty("-webkit-animation-duration", duration + "ms");
+        element.style().setTransitionDuration(duration + "ms");
+        element.style().setProperty("animation-duration", duration + "ms");
+        element.style().setProperty("-webkit-animation-duration", duration + "ms");
         if (infinite)
-            element.classList.add("infinite");
+            element.style().add("infinite");
 
-        element.classList.add("animated");
-        element.classList.add("ease-in-out");
-        element.classList.add(transition.getStyle());
+        element.style().add("animated");
+        element.style().add("ease-in-out");
+        element.style().add(transition.getStyle());
     }
 
     public void stop() {
-        element.classList.remove(transition.getStyle());
-        element.classList.remove("animated");
-        element.classList.remove("infinite");
-        element.classList.remove("ease-in-out");
-        element.style.removeProperty("animation-duration");
-        element.style.removeProperty("-webkit-animation-duration");
+        element.style().remove(transition.getStyle());
+        element.style().remove("animated");
+        element.style().remove("infinite");
+        element.style().remove("ease-in-out");
+        element.style().removeProperty("animation-duration");
+        element.style().removeProperty("-webkit-animation-duration");
         element.removeEventListener("webkitAnimationEnd", stopListener);
         element.removeEventListener("MSAnimationEnd", stopListener);
         element.removeEventListener("mozAnimationEnd", stopListener);
         element.removeEventListener("oanimationend", stopListener);
         element.removeEventListener("animationend", stopListener);
-        callback.onComplete(element);
+        callback.onComplete(element.asElement());
     }
 
     @FunctionalInterface

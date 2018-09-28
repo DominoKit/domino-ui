@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.style;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -13,8 +14,8 @@ import static org.jboss.gwt.elemento.core.EventType.mousedown;
 
 public class Waves implements IsElement<HTMLElement> {
 
-    private final HTMLElement target;
-    private HTMLDivElement ripple;
+    private final DominoElement<? extends HTMLElement> target;
+    private DominoElement<HTMLDivElement> ripple;
     private JsPropertyMap<String> rippleStyle;
     private Timer delayTimer;
     private Timer removeTimer;
@@ -22,10 +23,18 @@ public class Waves implements IsElement<HTMLElement> {
     private WavesEventListener wavesEventListener = new WavesEventListener();
 
     public Waves(HTMLElement target) {
+        this(DominoElement.of(target));
+    }
+
+    public Waves(DominoElement<? extends HTMLElement> target) {
         this.target = target;
     }
 
     public static Waves create(HTMLElement target) {
+        return new Waves(target);
+    }
+
+    public static Waves create(DominoElement<? extends HTMLElement> target) {
         return new Waves(target);
     }
 
@@ -41,7 +50,7 @@ public class Waves implements IsElement<HTMLElement> {
     }
 
     private boolean isTargetDisabled() {
-        return target.getAttribute("disabled") != null || target.classList.contains("disabled");
+        return target.getAttribute("disabled") != null || target.style().contains("disabled");
     }
 
     private void setupStopTimers() {
@@ -55,7 +64,7 @@ public class Waves implements IsElement<HTMLElement> {
                 removeTimer = new Timer() {
                     @Override
                     public void run() {
-                        ripple.classList.remove("waves-rippling");
+                        ripple.style().remove("waves-rippling");
                         ripple.remove();
                     }
                 };
@@ -87,7 +96,7 @@ public class Waves implements IsElement<HTMLElement> {
 
     @Override
     public HTMLElement asElement() {
-        return target;
+        return target.asElement();
     }
 
     private ElementOffset offset(HTMLElement target) {
@@ -119,18 +128,19 @@ public class Waves implements IsElement<HTMLElement> {
 
             stopCurrentWave();
 
-            ripple = div().asElement();
-            ripple.classList.add("waves-ripple", "waves-rippling");
+            ripple = DominoElement.of(div())
+                    .style().add("waves-ripple", "waves-rippling")
+                    .get();
             target.appendChild(ripple);
 
-            ElementOffset position = offset(target);
+            ElementOffset position = offset(target.asElement());
             double relativeY = (mouseEvent.pageY - position.top);
             double relativeX = (mouseEvent.pageX - position.left);
 
             relativeY = relativeY >= 0 ? relativeY : 0;
             relativeX = relativeX >= 0 ? relativeX : 0;
 
-            int clientWidth = target.clientWidth;
+            int clientWidth = target.asElement().clientWidth;
 
             double scaleValue = (clientWidth * 0.01) * 3;
             String scale = "scale(" + scaleValue + ")";
@@ -140,11 +150,11 @@ public class Waves implements IsElement<HTMLElement> {
 
             rippleStyle.set("top", relativeY + "px");
             rippleStyle.set("left", relativeX + "px");
-            ripple.classList.add("waves-notransition");
+            ripple.style().add("waves-notransition");
 
             ripple.setAttribute("style", convertStyle(rippleStyle));
 
-            ripple.classList.remove("waves-notransition");
+            ripple.style().remove("waves-notransition");
 
             rippleStyle.set("-webkit-transform", scale + " " + translate);
             rippleStyle.set("-moz-transform", scale + " " + translate);

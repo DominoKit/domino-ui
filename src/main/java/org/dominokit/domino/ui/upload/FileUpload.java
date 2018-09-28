@@ -8,22 +8,24 @@ import org.dominokit.domino.ui.notifications.Notification;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasName;
-import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.input;
+
 public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> implements HasName<FileUpload> {
 
     private Row row = Row.create();
-    private Column column = Column.span(2,2,4,6,12);
+    private Column column = Column.span(2, 2, 4, 6, 12);
 
-    private HTMLDivElement formElement = Elements.div().css("file-upload").asElement();
-    private HTMLDivElement uploadMessageContainer = Elements.div().css("file-upload-message").asElement();
-    private HTMLDivElement uploadIconContainer = Elements.div().css("file-upload-message-icon").asElement();
+    private DominoElement<HTMLDivElement> formElement = DominoElement.of(div().css("file-upload"));
+    private DominoElement<HTMLDivElement> uploadMessageContainer = DominoElement.of(div().css("file-upload-message"));
+    private DominoElement<HTMLDivElement> uploadIconContainer = DominoElement.of(div().css("file-upload-message-icon"));
     private HTMLInputElement hiddenFileInput;
-    private HTMLDivElement filesContainer = Elements.div().asElement();
+    private DominoElement<HTMLDivElement> filesContainer = DominoElement.of(div());
     private List<FileItem> addedFileItems = new ArrayList<>();
     private double maxFileSize;
     private String url;
@@ -70,9 +72,9 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
     }
 
     private void addHover() {
-        formElement.classList.add("file-upload-hover");
-        uploadMessageContainer.style.pointerEvents = "none";
-        uploadIconContainer.style.pointerEvents = "none";
+        formElement.style().add("file-upload-hover");
+        uploadMessageContainer.style().setPointerEvents("none");
+        uploadIconContainer.style().setPointerEvents("none");
     }
 
     private void uploadFiles(FileList files) {
@@ -110,13 +112,13 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
     }
 
     private void removeHover() {
-        formElement.classList.remove("file-upload-hover");
-        uploadMessageContainer.style.pointerEvents = "auto";
-        uploadIconContainer.style.pointerEvents = "auto";
+        formElement.style().remove("file-upload-hover");
+        uploadMessageContainer.style().setPointerEvents("auto");
+        uploadIconContainer.style().setPointerEvents("auto");
     }
 
     private void createHiddenInput() {
-        hiddenFileInput = Elements.input("file")
+        hiddenFileInput = input("file")
                 .style("visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;").asElement();
         DomGlobal.document.body.appendChild(hiddenFileInput);
     }
@@ -127,7 +129,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
 
     @Override
     public HTMLDivElement asElement() {
-        return formElement;
+        return formElement.asElement();
     }
 
     public FileUpload appendChild(Node child) {
@@ -235,7 +237,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
     }
 
     public FileUpload setIcon(Icon icon) {
-        uploadIconContainer.appendChild(icon.asElement());
+        uploadIconContainer.appendChild(icon);
         return this;
     }
 

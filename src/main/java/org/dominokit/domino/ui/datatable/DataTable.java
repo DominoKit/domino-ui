@@ -7,12 +7,9 @@ import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TableEventListener;
 import org.dominokit.domino.ui.datatable.store.DataStore;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.HasSelectionSupport;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,11 +21,11 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
     public static final String ANY = "*";
     private final DataStore<T> dataStore;
-    private HTMLDivElement element = div().css("table-responsive").asElement();
-    private HTMLTableElement tableElement = table().css("table", "table-hover", "table-striped").asElement();
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("table-responsive"));
+    private DominoElement<HTMLTableElement> tableElement = DominoElement.of(table().css("table", "table-hover", "table-striped"));
     private TableConfig<T> tableConfig;
-    private HTMLTableSectionElement tbody = tbody().asElement();
-    private HTMLTableSectionElement thead = thead().asElement();
+    private DominoElement<HTMLTableSectionElement> tbody = DominoElement.of(tbody());
+    private DominoElement<HTMLTableSectionElement> thead = DominoElement.of(thead());
     private List<T> data = new ArrayList<>();
     private boolean selectable = true;
     private List<TableRow<T>> tableRows = new ArrayList<>();
@@ -73,11 +70,11 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
             this.dataStore.load();
         }
         if (tableConfig.isFixed()) {
-            Style.of(element)
-                    .setProperty("position", "relative")
-                    .setProperty("overflow-y", "hidden");
-            Style.of(thead).setDisplay("block");
-            Style.of(tbody)
+            element.style()
+                    .setPosition("relative")
+                    .setOverFlowY("hidden");
+            thead.style().setDisplay("block");
+            tbody.style()
                     .add("tbody-fixed")
                     .setMaxHeight(tableConfig.getFixedBodyHeight());
         }
@@ -94,12 +91,12 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     public void setData(List<T> data) {
         this.data = data;
         tableRows.clear();
-        ElementUtil.clear(tbody);
+        tbody.clearElement();
         if (nonNull(data) && !data.isEmpty()) {
             addRows(data, 0);
         }
 
-        tbody.scrollTop = 0.0;
+        tbody.asElement().scrollTop = 0.0;
     }
 
     public void appendData(List<T> newData) {
@@ -124,67 +121,67 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     }
 
     public DataTable<T> expand() {
-        tableElement.classList.remove("table-condensed");
+        tableElement.style().remove("table-condensed");
         this.condensed = false;
         return this;
     }
 
     public DataTable<T> condense() {
         expand();
-        tableElement.classList.add("table-condensed");
+        tableElement.style().add("table-condensed");
         this.condensed = true;
         return this;
     }
 
     public DataTable<T> noHover() {
-        tableElement.classList.remove("table-hover");
+        tableElement.style().remove("table-hover");
         this.hoverable = false;
         return this;
     }
 
     public DataTable<T> hovered() {
         noHover();
-        tableElement.classList.add("table-hover");
+        tableElement.style().add("table-hover");
         this.hoverable = true;
         return this;
     }
 
     public DataTable<T> noBorder() {
-        tableElement.classList.remove("table-bordered");
+        tableElement.style().remove("table-bordered");
         this.bordered = false;
         return this;
     }
 
     public DataTable<T> bordered() {
         noBorder();
-        tableElement.classList.add("table-bordered");
+        tableElement.style().add("table-bordered");
         this.bordered = true;
         return this;
     }
 
     public DataTable<T> noStripes() {
-        tableElement.classList.remove("table-striped");
+        tableElement.style().remove("table-striped");
         this.striped = false;
         return this;
     }
 
     public DataTable<T> striped() {
         noStripes();
-        tableElement.classList.add("table-striped");
+        tableElement.style().add("table-striped");
         this.striped = true;
         return this;
     }
 
     public DominoElement<HTMLTableElement> tableElement() {
-        return DominoElement.of(tableElement);
+        return tableElement;
     }
 
     public DominoElement<HTMLTableSectionElement> bodyElement() {
-        return DominoElement.of(tbody);
+        return tbody;
     }
 
     public DominoElement<HTMLTableSectionElement> headerElement() {
-        return DominoElement.of(thead);
+        return thead;
     }
 
     public TableConfig<T> getTableConfig() {
@@ -210,11 +207,11 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     public void filterRows(LocalRowFilter<T> rowFilter) {
         tableRows.forEach(tableRow -> {
             if (rowFilter.filter(tableRow)) {
-                Style.of(tableRow.asElement()).removeProperty("display");
+                tableRow.style().removeProperty("display");
                 tableRow.removeFlag("data-table-row-filtered");
                 tableRow.fireUpdate();
             } else {
-                Style.of(tableRow.asElement()).setDisplay("none");
+                tableRow.style().setDisplay("none");
                 tableRow.setFlag("data-table-row-filtered", "true");
                 tableRow.deselect();
                 tableRow.fireUpdate();
@@ -225,7 +222,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     public void clearRowFilters() {
         tableRows.stream().filter(tableRow -> nonNull(tableRow.getFlag("data-table-row-filtered")))
                 .forEach(tableRow -> {
-                    Style.of(tableRow.asElement()).removeProperty("display");
+                    tableRow.style().removeProperty("display");
                     tableRow.removeFlag("data-table-row-filtered");
                     tableRow.fireUpdate();
                 });
@@ -233,7 +230,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
     @Override
     public HTMLDivElement asElement() {
-        return element;
+        return element.asElement();
     }
 
     @Override

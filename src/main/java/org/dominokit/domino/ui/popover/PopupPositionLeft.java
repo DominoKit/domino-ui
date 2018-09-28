@@ -9,8 +9,8 @@ public class PopupPositionLeft implements PopupPosition {
     public void position(HTMLElement tooltip, HTMLElement target) {
         ClientRect targetRect = target.getBoundingClientRect();
         ClientRect tooltipRect = tooltip.getBoundingClientRect();
-        tooltip.style.setProperty("top", (targetRect.top+ DomGlobal.window.scrollY)+((targetRect.height-tooltipRect.height)/2)+"px");
-        tooltip.style.setProperty("left", targetRect.left-DomGlobal.window.scrollX-tooltipRect.width+"px");
+        tooltip.style.setProperty("top", (targetRect.top+ DomGlobal.window.pageYOffset)+((targetRect.height-tooltipRect.height)/2)+"px");
+        tooltip.style.setProperty("left", targetRect.left-DomGlobal.window.pageXOffset-tooltipRect.width+"px");
     }
 
     @Override

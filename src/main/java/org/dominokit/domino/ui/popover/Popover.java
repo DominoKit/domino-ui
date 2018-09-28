@@ -1,16 +1,14 @@
 package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.*;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
-import org.dominokit.domino.ui.utils.Switchable;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
 import static org.jboss.gwt.elemento.core.Elements.div;
@@ -18,55 +16,46 @@ import static org.jboss.gwt.elemento.core.Elements.h;
 
 public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implements Switchable<Popover> {
 
-    private static List<Popover> currentVisible=new ArrayList<>();
+    private static List<Popover> currentVisible = new ArrayList<>();
     private final Text headerText;
     private final HTMLElement targetElement;
 
-    private HTMLDivElement element = div().css("popover").attr("role", "tooltip").style("display: block;").asElement();
-    private HTMLDivElement arrowElement = div().css("arrow").asElement();
-    private HTMLHeadingElement headingElement = h(3).css("popover-title").asElement();
-    private HTMLDivElement contentElement = div().css("popover-content").asElement();
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("popover").attr("role", "tooltip").style("display: block;"));
+    private DominoElement<HTMLDivElement> arrowElement = DominoElement.of(div().css("arrow"));
+    private DominoElement<HTMLHeadingElement> headingElement = DominoElement.of(h(3).css("popover-title"));
+    private DominoElement<HTMLDivElement> contentElement = DominoElement.of(div().css("popover-content"));
 
     private PopupPosition popupPosition = TOP;
 
     private boolean visible = false;
 
-    private boolean closeOthers=true;
+    private boolean closeOthers = true;
     private final EventListener showListener;
     private final EventListener closeListener;
-    private boolean disabled=false;
+    private boolean disabled = false;
 
     public Popover(HTMLElement target, String title, Node content) {
-
-        this.targetElement=target;
-
+        this.targetElement = target;
         element.appendChild(arrowElement);
         element.appendChild(headingElement);
         element.appendChild(contentElement);
-
-        headerText = DomGlobal.document.createTextNode(title);
+        headerText = TextNode.of(title);
         headingElement.appendChild(headerText);
         contentElement.appendChild(content);
-
         showListener = evt -> {
             evt.stopPropagation();
             show();
         };
         target.addEventListener(EventType.click.getName(), showListener);
-
         closeListener = evt -> closeAll();
-        DomGlobal.document.body.addEventListener(EventType.click.getName(), closeListener);
-
+        document.body.addEventListener(EventType.click.getName(), closeListener);
         element.addEventListener(EventType.click.getName(), Event::stopPropagation);
-
         ElementUtil.onDetach(targetElement, mutationRecord -> element.remove());
-
         init(this);
-
     }
 
     public void show() {
-        if(isEnabled()) {
+        if (isEnabled()) {
             if (nonNull(currentVisible) && closeOthers) {
                 closeOthers();
             }
@@ -88,10 +77,10 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
         if (visible) {
             close();
         } else {
-            DomGlobal.document.body.appendChild(element);
-            element.classList.remove("fade", "in");
-            element.classList.add("fade", "in");
-            popupPosition.position(element, target);
+            document.body.appendChild(element.asElement());
+            element.style().remove("fade", "in");
+            element.style().add("fade", "in");
+            popupPosition.position(element.asElement(), target);
             position(popupPosition);
             visible = true;
         }
@@ -102,16 +91,16 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
         visible = false;
     }
 
-    public void discard(){
+    public void discard() {
         close();
         targetElement.removeEventListener(EventType.click.getName(), showListener);
-        DomGlobal.document.removeEventListener(EventType.click.getName(), closeListener);
+        document.removeEventListener(EventType.click.getName(), closeListener);
     }
 
     public static Popover createPicker(HTMLElement target, Node content) {
         Popover popover = new Popover(target, "", content);
         popover.getHeadingElement().style().setDisplay("none");
-        popover.getContentElement().style().setProperty("padding","0px");
+        popover.getContentElement().style().setProperty("padding", "0px");
 
         return popover;
     }
@@ -119,7 +108,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
     public static Popover createPicker(IsElement target, IsElement content) {
         Popover popover = new Popover(target.asElement(), "", content.asElement());
         popover.getHeadingElement().style().setDisplay("none");
-        popover.getContentElement().style().setProperty("padding","0px");
+        popover.getContentElement().style().setProperty("padding", "0px");
 
         return popover;
     }
@@ -141,27 +130,27 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
     }
 
     public Popover position(PopupPosition position) {
-        this.element.classList.remove(popupPosition.getDirectionClass());
+        this.element.style().remove(popupPosition.getDirectionClass());
         this.popupPosition = position;
-        this.element.classList.add(popupPosition.getDirectionClass());
+        this.element.style().add(popupPosition.getDirectionClass());
 
         return this;
     }
 
-    public Popover setCloseOthers(boolean closeOthers){
-        this.closeOthers=closeOthers;
+    public Popover setCloseOthers(boolean closeOthers) {
+        this.closeOthers = closeOthers;
         return this;
     }
 
     @Override
     public Popover enable() {
-        this.disabled=false;
+        this.disabled = false;
         return this;
     }
 
     @Override
     public Popover disable() {
-        this.disabled=true;
+        this.disabled = true;
         return this;
     }
 
@@ -171,19 +160,19 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
     }
 
     public DominoElement<HTMLHeadingElement> getHeadingElement() {
-        return DominoElement.of(headingElement);
+        return headingElement;
     }
 
     @Override
     public HTMLDivElement asElement() {
-        return element;
+        return element.asElement();
+    }
+
+    public DominoElement<HTMLDivElement> getContentElement() {
+        return contentElement;
     }
 
     public Text getHeaderText() {
         return headerText;
-    }
-
-    public DominoElement<HTMLDivElement> getContentElement() {
-        return DominoElement.of(contentElement);
     }
 }

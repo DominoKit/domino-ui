@@ -1,15 +1,14 @@
 package org.dominokit.domino.ui.layout;
 
 import elemental2.dom.HTMLElement;
-import elemental2.dom.Node;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 import static org.jboss.gwt.elemento.core.Elements.footer;
 
 public class Footer extends BaseDominoElement<HTMLElement, Footer> {
 
-    private HTMLElement element = footer().css("footer").asElement();
+    private DominoElement<HTMLElement> element = DominoElement.of(footer().css("footer"));
 
     public static Footer create() {
         return new Footer();
@@ -22,33 +21,24 @@ public class Footer extends BaseDominoElement<HTMLElement, Footer> {
 
     @Override
     public HTMLElement asElement() {
-        return element;
+        return element.asElement();
     }
 
     public Footer fixed() {
-        element.classList.add("fixed");
+        element.style().add("fixed");
         return this;
     }
 
     public Footer unfixed() {
-        element.classList.remove("fixed");
+        element.style().remove("fixed");
         return this;
     }
 
     public void hide() {
-        asElement().style.display = "none";
+        element.style().setDisplay("none");
     }
 
     public void show() {
-        asElement().style.display = "block";
-    }
-
-    public Footer appendChild(Node content) {
-        asElement().appendChild(content);
-        return this;
-    }
-
-    public Footer appendChild(IsElement content) {
-        return appendChild(content.asElement());
+        element.style().setDisplay("block");
     }
 }

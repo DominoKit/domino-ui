@@ -1,5 +1,8 @@
 package org.dominokit.domino.ui.dialogs;
 
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.Node;
 import org.dominokit.domino.ui.Typography.Paragraph;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
@@ -10,10 +13,7 @@ import org.dominokit.domino.ui.modals.BaseModal;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.ElementUtil;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.Node;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -23,30 +23,29 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class MessageDialog extends BaseModal<MessageDialog> {
 
-    private HTMLElement successIcon;
-    private HTMLElement errorIcon;
-    private HTMLElement warningIcon;
+    private DominoElement<HTMLElement> successIcon;
+    private DominoElement<HTMLElement> errorIcon;
+    private DominoElement<HTMLElement> warningIcon;
 
-    private HTMLDivElement iconContainer=div().asElement();
+    private DominoElement<HTMLDivElement> iconContainer = DominoElement.of(div());
 
-    private Color successColor=Color.LIGHT_GREEN;
-    private Color errorColor=Color.RED;
-    private Color warningColor=Color.ORANGE;
+    private Color successColor = Color.LIGHT_GREEN;
+    private Color errorColor = Color.RED;
+    private Color warningColor = Color.ORANGE;
 
     public MessageDialog() {
         init(this);
     }
 
-    private static HTMLElement createMessageIcon(HTMLElement element) {
-
-        Style.of(element)
+    private static DominoElement<HTMLElement> createMessageIcon(HTMLElement element) {
+        return DominoElement.of(element)
+                .style()
                 .add(Styles.m_b_15)
                 .setProperty("font-size", "72px")
                 .setProperty("border-radius", "50%")
                 .setHeight("78px")
-                .setWidth("78px");
-
-        return element;
+                .setWidth("78px")
+                .get();
     }
 
     public static MessageDialog createMessage(Node content) {
@@ -106,26 +105,8 @@ public class MessageDialog extends BaseModal<MessageDialog> {
     }
 
     public MessageDialog success(Icon icon) {
-        this.successIcon=MessageDialog.createMessageIcon(icon.asElement());
-        ElementUtil.clear(iconContainer);
-        iconContainer.appendChild(successIcon);
-
-        onOpen(() -> {
-            successIcon.classList.remove(successColor.getStyle());
-            successIcon.classList.add(Color.ORANGE.getStyle());
-            successIcon.style.setProperty("border", "3px solid " + Color.ORANGE.getHex());
-            Animation.create(successIcon)
-                    .transition(Transition.ROTATE_IN)
-                    .duration(400)
-                    .callback(element -> {
-                        element.classList.remove(Color.ORANGE.getStyle());
-                        element.classList.add(successColor.getStyle());
-                        element.style.setProperty("border", "3px solid " + successColor.getHex());
-                        Animation.create(successIcon)
-                                .transition(Transition.PULSE)
-                                .animate();
-                    }).animate();
-        });
+        this.successIcon = MessageDialog.createMessageIcon(icon.asElement());
+        appendIcon(successIcon, successColor, Color.ORANGE, Transition.PULSE);
         return this;
     }
 
@@ -133,66 +114,53 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         return success(Icons.ALL.done());
     }
 
-    public MessageDialog error(Icon icon){
-        this.errorIcon=MessageDialog.createMessageIcon(icon.asElement());
-        ElementUtil.clear(iconContainer);
-        iconContainer.appendChild(errorIcon);
-
-        onOpen(() -> {
-            errorIcon.classList.remove(errorColor.getStyle());
-            errorIcon.classList.add(Color.GREY.getStyle());
-            errorIcon.style.setProperty("border", "3px solid " + Color.GREY.getHex());
-            Animation.create(errorIcon)
-                    .transition(Transition.ROTATE_IN)
-                    .duration(400)
-                    .callback(element -> {
-                        element.classList.remove(Color.GREY.getStyle());
-                        element.classList.add(errorColor.getStyle());
-                        element.style.setProperty("border", "3px solid " + errorColor.getHex());
-                        Animation.create(errorIcon)
-                                .transition(Transition.TADA)
-                                .animate();
-                    }).animate();
-        });
+    public MessageDialog error(Icon icon) {
+        this.errorIcon = MessageDialog.createMessageIcon(icon.asElement());
+        appendIcon(errorIcon, errorColor, Color.GREY, Transition.TADA);
         return this;
     }
 
-    public MessageDialog error(){
+    public MessageDialog error() {
         return error(Icons.ALL.error());
     }
 
-    public MessageDialog warning(Icon icon){
-        this.warningIcon=MessageDialog.createMessageIcon(icon.asElement());
-        ElementUtil.clear(iconContainer);
-        iconContainer.appendChild(warningIcon);
-
-        onOpen(() -> {
-            warningIcon.classList.remove(warningColor.getStyle());
-            warningIcon.classList.add(Color.GREY.getStyle());
-            warningIcon.style.setProperty("border", "3px solid " + Color.GREY.getHex());
-            Animation.create(warningIcon)
-                    .transition(Transition.ROTATE_IN)
-                    .duration(400)
-                    .callback(element -> {
-                        element.classList.remove(Color.GREY.getStyle());
-                        element.classList.add(warningColor.getStyle());
-                        element.style.setProperty("border", "3px solid " + warningColor.getHex());
-                        Animation.create(warningIcon)
-                                .transition(Transition.RUBBER_BAND)
-                                .animate();
-                    }).animate();
-        });
+    public MessageDialog warning(Icon icon) {
+        this.warningIcon = MessageDialog.createMessageIcon(icon.asElement());
+        appendIcon(warningIcon, warningColor, Color.GREY, Transition.RUBBER_BAND);
         return this;
     }
 
-    public MessageDialog warning(){
+    private void appendIcon(DominoElement<HTMLElement> icon, Color iconColor, Color color, Transition rubberBand) {
+        iconContainer.clearElement();
+        iconContainer.appendChild(icon);
+
+        onOpen(() -> {
+            icon.style().remove(iconColor.getStyle())
+                    .add(color.getStyle())
+                    .setBorder("3px solid " + color.getHex());
+            Animation.create(icon)
+                    .transition(Transition.ROTATE_IN)
+                    .duration(400)
+                    .callback(element -> {
+                        Style.of(element)
+                                .remove(color.getStyle())
+                                .add(iconColor.getStyle())
+                                .setBorder("3px solid " + iconColor.getHex());
+                        Animation.create(icon)
+                                .transition(rubberBand)
+                                .animate();
+                    }).animate();
+        });
+    }
+
+    public MessageDialog warning() {
         return warning(Icons.ALL.clear());
     }
 
-    public MessageDialog setIconColor(Color color){
-        this.successColor=color;
-        this.warningColor=color;
-        this.errorColor=color;
+    public MessageDialog setIconColor(Color color) {
+        this.successColor = color;
+        this.warningColor = color;
+        this.errorColor = color;
 
         return this;
     }
@@ -201,20 +169,20 @@ public class MessageDialog extends BaseModal<MessageDialog> {
      * @deprecated use {@link #appendHeaderChild(Node)}
      */
     @Deprecated
-    public MessageDialog appendHeaderContent(Node content){
+    public MessageDialog appendHeaderContent(Node content) {
         return appendHeaderChild(content);
     }
 
-    public MessageDialog appendHeaderChild(Node content){
-        if(nonNull(successIcon)){
+    public MessageDialog appendHeaderChild(Node content) {
+        if (nonNull(successIcon)) {
             successIcon.remove();
         }
 
-        if(nonNull(errorIcon)){
+        if (nonNull(errorIcon)) {
             errorIcon.remove();
         }
 
-        if(nonNull(warningIcon)){
+        if (nonNull(warningIcon)) {
             warningIcon.remove();
         }
 
@@ -222,7 +190,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         return this;
     }
 
-    public MessageDialog appendHeaderChild(IsElement content){
+    public MessageDialog appendHeaderChild(IsElement content) {
         return appendHeaderChild(content.asElement());
     }
 }

@@ -297,7 +297,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
 
     private void select(DatePickerElement datePickerElement) {
         datePickerElement.select();
-        datePickerElement.getElement().classList.add(this.background.getBackground());
+        datePickerElement.style().add(this.background.getBackground());
         this.selectedElement = datePickerElement;
         if (nonNull(internalHandler))
             internalHandler.onDaySelected(datePickerElement);
@@ -307,7 +307,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     private void deselect() {
         if (nonNull(selectedElement)) {
             selectedElement.deselect();
-            selectedElement.getElement().classList.remove(this.background.getBackground());
+            selectedElement.style().remove(this.background.getBackground());
         }
     }
 
@@ -327,9 +327,9 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     }
 
     public void setBackground(Color background) {
-        getSelectedItem().getElement().classList.remove(this.background.getBackground());
+        getSelectedItem().style().remove(this.background.getBackground());
         this.background = background;
-        getSelectedItem().getElement().classList.add(this.background.getBackground());
+        getSelectedItem().style().add(this.background.getBackground());
     }
 
     @FunctionalInterface
