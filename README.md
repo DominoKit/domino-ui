@@ -98,9 +98,9 @@ Add the following css files to your index page:
 - [x] Inputs decorations : Labels, Helper text, validation, Icons
 - [x] Advanced Select
 - [ ] Multi-Select
-- [ ] Tag field
-- [ ] Spinners - **in progress**
-- [ ] Field masking - **in progress**
+- [x] Tag field
+- [ ] Spinners
+- [ ] Field masking
 - [x] Simple grids - Table based -
 - [x] Form wizards / Steppers
 - [x] Carousel
