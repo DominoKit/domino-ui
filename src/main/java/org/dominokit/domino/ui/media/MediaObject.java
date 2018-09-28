@@ -1,11 +1,10 @@
 package org.dominokit.domino.ui.media;
 
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
@@ -25,14 +24,14 @@ public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, Medi
     @DataElement
     HTMLHeadingElement mediaHeader;
 
-    private HTMLDivElement leftMedia;
-    private HTMLDivElement rightMedia;
+    private DominoElement<HTMLDivElement> leftMedia;
+    private DominoElement<HTMLDivElement> rightMedia;
 
     private MediaAlign leftAlign = MediaAlign.TOP;
     private MediaAlign rightAlign = MediaAlign.TOP;
 
     @PostConstruct
-    void init(){
+    void init() {
         init(this);
     }
 
@@ -47,11 +46,11 @@ public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, Medi
 
     public MediaObject setLeftMedia(Node content) {
         if (isNull(leftMedia)) {
-            leftMedia = div().css("media-left").asElement();
-            asElement().insertBefore(leftMedia, mediaBody);
+            leftMedia = DominoElement.of(div().css("media-left"));
+            insertBefore(leftMedia, mediaBody);
         }
 
-        ElementUtil.clear(leftMedia);
+        leftMedia.clearElement();
         leftMedia.appendChild(content);
         return this;
     }
@@ -62,11 +61,11 @@ public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, Medi
 
     public MediaObject setRightMedia(Node content) {
         if (isNull(rightMedia)) {
-            rightMedia = div().css("media-right").asElement();
-            asElement().appendChild(rightMedia);
+            rightMedia = DominoElement.of(div().css("media-right"));
+            appendChild(rightMedia);
         }
 
-        ElementUtil.clear(rightMedia);
+        rightMedia.clearElement();
         rightMedia.appendChild(content);
         return this;
     }
@@ -94,8 +93,8 @@ public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, Medi
 
     public MediaObject alignLeftMedia(MediaAlign align) {
         if (nonNull(leftMedia)) {
-            leftMedia.classList.remove(leftAlign.style);
-            leftMedia.classList.add(align.style);
+            leftMedia.style().remove(leftAlign.style);
+            leftMedia.style().add(align.style);
             this.leftAlign = align;
         }
         return this;
@@ -103,8 +102,8 @@ public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, Medi
 
     public MediaObject alignRightMedia(MediaAlign align) {
         if (nonNull(rightMedia)) {
-            rightMedia.classList.remove(rightAlign.style);
-            rightMedia.classList.add(align.style);
+            rightMedia.style().remove(rightAlign.style);
+            rightMedia.style().add(align.style);
             this.rightAlign = align;
         }
         return this;
@@ -119,11 +118,11 @@ public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, Medi
     }
 
     public DominoElement<HTMLDivElement> getLeftMedia() {
-        return DominoElement.of(leftMedia);
+        return leftMedia;
     }
 
     public DominoElement<HTMLDivElement> getRightMedia() {
-        return DominoElement.of(rightMedia);
+        return rightMedia;
     }
 
     public enum MediaAlign {

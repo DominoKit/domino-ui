@@ -1,18 +1,19 @@
 package org.dominokit.domino.ui.labels;
 
+import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.StyleType;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasContent;
-import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.Elements;
 
 import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.span;
 
 public class Label extends BaseDominoElement<HTMLElement, Label> implements HasContent<Label>, HasBackground<Label> {
 
-    private HTMLElement span = Elements.span().css("label").asElement();
+    private DominoElement<HTMLElement> span = DominoElement.of(span().css("label"));
     private Color background;
 
     private Label(String content) {
@@ -26,7 +27,7 @@ public class Label extends BaseDominoElement<HTMLElement, Label> implements HasC
     }
 
     private void setType(StyleType type) {
-        span.classList.add("label-" + type.getStyle());
+        span.style().add("label-" + type.getStyle());
     }
 
     public static Label create(String content) {
@@ -63,20 +64,20 @@ public class Label extends BaseDominoElement<HTMLElement, Label> implements HasC
 
     @Override
     public HTMLElement asElement() {
-        return span;
+        return span.asElement();
     }
 
     @Override
     public Label setContent(String content) {
-        span.textContent = content;
+        span.setTextContent(content);
         return this;
     }
 
     @Override
     public Label setBackground(Color background) {
         if (nonNull(this.background))
-            span.classList.remove(this.background.getBackground());
-        span.classList.add(background.getBackground());
+            span.style().remove(this.background.getBackground());
+        span.style().add(background.getBackground());
         this.background = background;
         return this;
     }

@@ -5,6 +5,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
@@ -14,7 +15,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
 
     private static final int FULL_SPAN = -1;
     private static final int NO_OFFSET = -1;
-    private HTMLDivElement column;
+    private DominoElement<HTMLDivElement> column;
     private OnXLarge onXLargeStyle;
     private OnLarge onLargeStyle;
     private OnMedium onMediumStyle;
@@ -27,7 +28,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
     private OnSmallOffset onSmallOffsetStyle;
 
     private Column() {
-        this.column = div().css("grid-col").asElement();
+        this.column = DominoElement.of(div().css("grid-col"));
         init(this);
     }
 
@@ -377,13 +378,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
      */
     @Deprecated
     public Column addElement(Node element) {
-        this.asElement().appendChild(element);
-        return this;
-    }
-
-    public Column appendChild(Node element) {
-        this.asElement().appendChild(element);
-        return this;
+        return appendChild(element);
     }
 
     /**
@@ -391,125 +386,119 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
      */
     @Deprecated
     public Column addElement(IsElement<? extends HTMLElement> element) {
-        this.asElement().appendChild(element.asElement());
-        return this;
-    }
-
-    public Column appendChild(IsElement element) {
-        this.asElement().appendChild(element.asElement());
-        return this;
+        return appendChild(element.asElement());
     }
 
     public Column onXLarge(OnXLarge onXLarge) {
         if (nonNull(this.onXLargeStyle)) {
-            style.remove(this.onXLargeStyle.getStyle());
+            style().remove(this.onXLargeStyle.getStyle());
         }
         this.onXLargeStyle = onXLarge;
-        style.add(this.onXLargeStyle.getStyle());
+        style().add(this.onXLargeStyle.getStyle());
         return this;
     }
 
     public Column onLarge(OnLarge onLarge) {
         if (nonNull(this.onLargeStyle)) {
-            style.remove(this.onLargeStyle.getStyle());
+            style().remove(this.onLargeStyle.getStyle());
         }
         this.onLargeStyle = onLarge;
-        style.add(this.onLargeStyle.getStyle());
+        style().add(this.onLargeStyle.getStyle());
         return this;
     }
 
     public Column onMedium(OnMedium onMedium) {
         if (nonNull(this.onMediumStyle)) {
-            style.remove(this.onMediumStyle.getStyle());
+            style().remove(this.onMediumStyle.getStyle());
         }
         this.onMediumStyle = onMedium;
-        style.add(this.onMediumStyle.getStyle());
+        style().add(this.onMediumStyle.getStyle());
         return this;
     }
 
     public Column onSmall(OnSmall onSmall) {
         if (nonNull(this.onSmallStyle)) {
-            style.remove(this.onSmallStyle.getStyle());
+            style().remove(this.onSmallStyle.getStyle());
         }
         this.onSmallStyle = onSmall;
-        style.add(this.onSmallStyle.getStyle());
+        style().add(this.onSmallStyle.getStyle());
         return this;
     }
 
     public Column onXSmall(OnXSmall onXSmall) {
         if (nonNull(this.onXSmallStyle)) {
-            style.remove(this.onXSmallStyle.getStyle());
+            style().remove(this.onXSmallStyle.getStyle());
         }
         this.onXSmallStyle = onXSmall;
-        style.add(this.onXSmallStyle.getStyle());
+        style().add(this.onXSmallStyle.getStyle());
         return this;
     }
 
     //----------------
     public Column onXLargeOffset(OnXLargeOffset onXLarge) {
         if (nonNull(this.onXLargeOffsetStyle)) {
-            style.remove(this.onXLargeOffsetStyle.getStyle());
+            style().remove(this.onXLargeOffsetStyle.getStyle());
         }
         this.onXLargeOffsetStyle = onXLarge;
-        style.add(this.onXLargeOffsetStyle.getStyle());
+        style().add(this.onXLargeOffsetStyle.getStyle());
         return this;
     }
 
     public Column onLargeOffset(OnLargeOffset onLarge) {
         if (nonNull(this.onLargeOffsetStyle)) {
-            style.remove(this.onLargeOffsetStyle.getStyle());
+            style().remove(this.onLargeOffsetStyle.getStyle());
         }
         this.onLargeOffsetStyle = onLarge;
-        style.add(this.onLargeOffsetStyle.getStyle());
+        style().add(this.onLargeOffsetStyle.getStyle());
         return this;
     }
 
     public Column onMediumOffset(OnMediumOffset onMedium) {
         if (nonNull(this.onMediumOffsetStyle)) {
-            style.remove(this.onMediumOffsetStyle.getStyle());
+            style().remove(this.onMediumOffsetStyle.getStyle());
         }
         this.onMediumOffsetStyle = onMedium;
-        style.add(this.onMediumOffsetStyle.getStyle());
+        style().add(this.onMediumOffsetStyle.getStyle());
         return this;
     }
 
     public Column onSmallOffset(OnSmallOffset onSmall) {
         if (nonNull(this.onSmallOffsetStyle)) {
-            style.remove(this.onSmallOffsetStyle.getStyle());
+            style().remove(this.onSmallOffsetStyle.getStyle());
         }
         this.onSmallOffsetStyle = onSmall;
-        style.add(this.onSmallOffsetStyle.getStyle());
+        style().add(this.onSmallOffsetStyle.getStyle());
         return this;
     }
 
     public Column onXSmallOffset(OnXSmallOffset onXSmall) {
         if (nonNull(this.onXSmallOffsetStyle)) {
-            style.remove(this.onXSmallOffsetStyle.getStyle());
+            style().remove(this.onXSmallOffsetStyle.getStyle());
         }
         this.onXSmallOffsetStyle = onXSmall;
-        style.add(this.onXSmallOffsetStyle.getStyle());
+        style().add(this.onXSmallOffsetStyle.getStyle());
         return this;
     }
 
     public Column centerContent() {
-        asElement().classList.add(Styles.align_center);
+        style().add(Styles.align_center);
         return this;
     }
 
     public Column deCenterContent() {
-        asElement().classList.remove(Styles.align_center);
+        style().remove(Styles.align_center);
         return this;
     }
 
     public Column condenced() {
-        style.remove("condense")
+        style().remove("condense")
                 .add("condense");
         return this;
     }
 
     @Override
     public HTMLDivElement asElement() {
-        return column;
+        return column.asElement();
     }
 
     public static class OnXLarge {

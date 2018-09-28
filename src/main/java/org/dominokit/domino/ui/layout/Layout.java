@@ -9,6 +9,7 @@ import org.dominokit.domino.ui.themes.Theme;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.TextNode;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.jboss.gwt.elemento.core.Elements.a;
@@ -61,8 +62,8 @@ public class Layout {
         appendElements();
         initElementsPosition();
         addExpandListeners();
-        if (!document.body.classList.contains("ls-hidden"))
-            document.body.classList.add("ls-closed");
+        if (!bodyStyle().contains("ls-hidden"))
+            bodyStyle().add("ls-closed");
         new Theme(theme).apply();
         MediaQuery.addOnSmallAndDownListener(() -> {
             unfixFooter();
@@ -80,16 +81,21 @@ public class Layout {
     }
 
     private void initElementsPosition() {
-        Style.of(section.leftSide).setMarginLeft("0px");
-        Style.of(section.leftSide).setProperty("left", SLIDE_OUT);
-        Style.of(section.rightSide).setMarginRight("0px");
-        Style.of(section.rightSide).setProperty("right", SLIDE_OUT);
+        getLeftPanel()
+                .style()
+                .setMarginLeft("0px")
+                .setLeft(SLIDE_OUT);
+
+        getRightPanel()
+                .style()
+                .setMarginRight("0px")
+                .setRight(SLIDE_OUT);
     }
 
     private void addExpandListeners() {
-        navigationBar.menu.addEventListener(CLICK, e -> toggleLeftPanel());
-        navigationBar.navBarExpand.addEventListener(CLICK, e -> toggleNavigationBar());
-        overlay.asElement().addEventListener(CLICK, e -> hidePanels());
+        navigationBar.getMenu().addEventListener(CLICK, e -> toggleLeftPanel());
+        navigationBar.getNavBarExpand().addEventListener(CLICK, e -> toggleNavigationBar());
+        overlay.addEventListener(CLICK, e -> hidePanels());
     }
 
     public Layout removeLeftPanel() {
@@ -100,11 +106,11 @@ public class Layout {
         return updateLeftPanel("block", "ls-hidden", "ls-closed");
     }
 
-    public Layout updateLeftPanel(String none, String hiddenStyle, String visibleStyle) {
-        navigationBar.menu.style.display = none;
-        getLeftPanel().style().setDisplay(none);
-        document.body.classList.remove(hiddenStyle);
-        document.body.classList.add(visibleStyle);
+    public Layout updateLeftPanel(String style, String hiddenStyle, String visibleStyle) {
+        navigationBar.getMenu().style().setDisplay(style);
+        getLeftPanel().style().setDisplay(style);
+        bodyStyle().remove(hiddenStyle);
+        bodyStyle().add(visibleStyle);
 
         return this;
     }
@@ -128,12 +134,12 @@ public class Layout {
             hideLeftPanel();
         if (rightPanelVisible)
             hideRightPanel();
-        navigationBar.navigationBar.classList.remove(COLLAPSE);
+        navigationBar.getNavigationBar().style().remove(COLLAPSE);
         navigationBarExpanded = true;
     }
 
     private void collapseNavBar() {
-        navigationBar.navigationBar.classList.add(COLLAPSE);
+        navigationBar.getNavigationBar().style().add(COLLAPSE);
         navigationBarExpanded = false;
     }
 
@@ -149,7 +155,7 @@ public class Layout {
             hideLeftPanel();
         if (navigationBarExpanded)
             collapseNavBar();
-        section.rightSide.style.right = SLIDE_IN;
+        getRightPanel().style().setRight(SLIDE_IN);
         rightPanelVisible = true;
         showOverlay();
 
@@ -157,7 +163,7 @@ public class Layout {
     }
 
     public Layout hideRightPanel() {
-        section.rightSide.style.right = SLIDE_OUT;
+        getRightPanel().style().setRight(SLIDE_OUT);
         rightPanelVisible = false;
         hideOverlay();
 
@@ -166,14 +172,14 @@ public class Layout {
 
     private void hideOverlay() {
         if (overlayVisible) {
-            overlay.asElement().style.display = NONE;
+            overlay.style().setDisplay(NONE);
             overlayVisible = false;
         }
     }
 
     private void showOverlay() {
         if (!overlayVisible) {
-            overlay.asElement().style.display = BLOCK;
+            overlay.style().setDisplay(BLOCK);
             overlayVisible = true;
         }
     }
@@ -191,7 +197,7 @@ public class Layout {
                 hideRightPanel();
             if (navigationBarExpanded)
                 collapseNavBar();
-            section.leftSide.style.left = SLIDE_IN;
+            getLeftPanel().style().setLeft(SLIDE_IN);
             leftPanelVisible = true;
             showOverlay();
         }
@@ -201,7 +207,7 @@ public class Layout {
 
     public Layout hideLeftPanel() {
         if (!fixedLeftPanel && !leftPanelDisabled) {
-            section.leftSide.style.left = SLIDE_OUT;
+            getLeftPanel().style().setLeft(SLIDE_OUT);
             leftPanelVisible = false;
             hideOverlay();
         }
@@ -248,10 +254,10 @@ public class Layout {
     }
 
     public Layout setTitle(String title) {
-        if (navigationBar.title.hasChildNodes())
-            navigationBar.title.removeChild(appTitle);
-        this.appTitle = DomGlobal.document.createTextNode(title);
-        navigationBar.title.appendChild(appTitle);
+        if (navigationBar.getTitle().hasChildNodes())
+            navigationBar.getTitle().removeChild(appTitle);
+        this.appTitle = TextNode.of(title);
+        navigationBar.getTitle().appendChild(appTitle);
 
         return this;
     }
@@ -268,8 +274,8 @@ public class Layout {
         if (!leftPanelDisabled) {
             showLeftPanel();
             hideOverlay();
-            if (document.body.classList.contains("ls-closed"))
-                document.body.classList.remove("ls-closed");
+            if (bodyStyle().contains("ls-closed"))
+                bodyStyle().remove("ls-closed");
             this.fixedLeftPanel = true;
         }
         return this;
@@ -277,37 +283,44 @@ public class Layout {
 
     public Layout unfixLeftPanelPosition() {
         if (!leftPanelDisabled) {
-            if (!document.body.classList.contains("ls-closed"))
-                document.body.classList.add("ls-closed");
+            if (!bodyStyle().contains("ls-closed"))
+                bodyStyle().add("ls-closed");
             this.fixedLeftPanel = false;
         }
         return this;
     }
 
+    private Style<HTMLBodyElement, IsElement<HTMLBodyElement>> bodyStyle() {
+        return Style.of(document.body);
+    }
+
     public Layout disableLeftPanel() {
         unfixLeftPanelPosition();
         hideLeftPanel();
-        Style.of(section.leftSide).setDisplay("none");
-        Style.of(navigationBar.menu).remove("bars").setDisplay("none");
+        getLeftPanel().style().setDisplay("none");
+        navigationBar.getMenu().style()
+                .remove("bars")
+                .setDisplay("none");
         this.leftPanelDisabled = true;
         return this;
     }
 
     public Layout enableLeftPanel() {
-        Style.of(section.leftSide).removeProperty("display");
-        Style.of(navigationBar.menu).add("bars").removeProperty("display");
+        getLeftPanel().style().removeProperty("display");
+        navigationBar.getMenu().style()
+                .add("bars")
+                .removeProperty("display");
         this.leftPanelDisabled = false;
         return this;
     }
 
     public Layout fixFooter() {
-        footer.asElement().classList.add("fixed");
-        if(footer.isAttached()){
+        footer.style().add("fixed");
+        if (footer.isAttached()) {
             updateContentBottomMargin();
-        }else{
+        } else {
             ElementUtil.onAttach(footer.asElement(), mutationRecord -> updateContentBottomMargin());
         }
-
         return this;
     }
 
@@ -316,9 +329,9 @@ public class Layout {
     }
 
     public Layout unfixFooter() {
-        footer.asElement().classList.remove("fixed");
-        ElementUtil.onAttach(footer.asElement(), mutationRecord -> {
-            Style.of(content.asElement()).removeProperty("margin-bottom");
+        footer.style().remove("fixed");
+        ElementUtil.onAttach(footer, mutationRecord -> {
+            content.style().removeProperty("margin-bottom");
         });
         return this;
     }

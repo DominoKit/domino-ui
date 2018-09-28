@@ -11,7 +11,7 @@ public class PopupPositionBottom implements PopupPosition {
     public void position(HTMLElement tooltip, HTMLElement target) {
         ClientRect targetRect = target.getBoundingClientRect();
         ClientRect tooltipRect = tooltip.getBoundingClientRect();
-        tooltip.style.setProperty("top", (targetRect.top+ window.scrollY+targetRect.height)+"px");
+        tooltip.style.setProperty("top", (targetRect.top+ window.pageYOffset+targetRect.height)+"px");
         tooltip.style.setProperty("left", targetRect.left+((targetRect.width-tooltipRect.width)/2)+"px");
     }
 

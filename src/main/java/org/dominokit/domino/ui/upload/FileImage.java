@@ -1,48 +1,53 @@
 package org.dominokit.domino.ui.upload;
 
 import elemental2.dom.*;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.jboss.gwt.elemento.core.Elements;
+import org.dominokit.domino.ui.utils.DominoElement;
+
+import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.img;
 
 public class FileImage extends BaseDominoElement<HTMLDivElement, FileImage> {
 
-    private HTMLDivElement fileImageContainer;
+    private DominoElement<HTMLDivElement> fileImageContainer;
 
     public FileImage() {
         initFileContainer();
-        HTMLElement icon = Icons.EDITOR_ICONS.insert_drive_file().setColor(Color.GREY).asElement();
-        icon.classList.add("md-inactive");
-        icon.style.cursor = "default";
-        icon.style.fontSize = CSSProperties.FontSizeUnionType.of("100px");
-        icon.style.width = CSSProperties.WidthUnionType.of("100%");
-        icon.style.textAlign = "center";
-        setImage(icon);
+        Icon icon = Icons.EDITOR_ICONS.insert_drive_file().setColor(Color.GREY);
+        icon.style().add("md-inactive");
+        icon.style().setCursor("default")
+                .setFontSize("100px")
+                .setWidth("100%")
+                .setTextAlign("center");
+        setImage(icon.asElement());
         init(this);
     }
 
     public FileImage(File file) {
         initFileContainer();
-        HTMLImageElement image = Elements.img().css(Styles.img_responsive).asElement();
-        image.alt = file.name;
-        image.style.maxHeight = CSSProperties.MaxHeightUnionType.of("100%");
-        image.style.maxWidth = CSSProperties.MaxWidthUnionType.of("100%");
-        image.style.marginRight = CSSProperties.MarginRightUnionType.of("auto");
-        image.style.marginLeft = CSSProperties.MarginLeftUnionType.of("auto");
+        DominoElement<HTMLImageElement> image = DominoElement.of(img().css(Styles.img_responsive));
+        image.asElement().alt = file.name;
+        image.style().setMaxHeight("100%")
+                .setMaxWidth("100%")
+                .setMarginRight("auto")
+                .setMarginLeft("auto")
+                .setFlex("1 1");
         FileReader fileReader = new FileReader();
-        fileReader.addEventListener("load", evt -> image.src = fileReader.result.asString());
+        fileReader.addEventListener("load", evt -> image.asElement().src = fileReader.result.asString());
         fileReader.readAsDataURL(file);
-        setImage(image);
+        setImage(image.asElement());
         init(this);
     }
 
     private void initFileContainer() {
-        fileImageContainer = Elements.div().asElement();
-        fileImageContainer.style.height = CSSProperties.HeightUnionType.of("200px");
-        fileImageContainer.style.alignItems = "center";
-        fileImageContainer.style.display = "flex";
+        fileImageContainer = DominoElement.of(div());
+        fileImageContainer.style().setHeight("200px")
+                .setAlignItems("center")
+                .setDisplay("flex");
     }
 
     public static FileImage createImageFile(File file) {
@@ -55,7 +60,7 @@ public class FileImage extends BaseDominoElement<HTMLDivElement, FileImage> {
 
     @Override
     public HTMLDivElement asElement() {
-        return fileImageContainer;
+        return fileImageContainer.asElement();
     }
 
     public FileImage setImage(HTMLElement image) {

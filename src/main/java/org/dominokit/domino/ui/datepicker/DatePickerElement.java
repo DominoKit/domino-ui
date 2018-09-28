@@ -2,6 +2,8 @@ package org.dominokit.domino.ui.datepicker;
 
 import elemental2.core.JsDate;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Selectable;
 import org.jboss.gwt.elemento.core.EventType;
 
@@ -9,16 +11,16 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.th;
 
 class DatePickerElement implements Selectable<DatePickerElement> {
-    private HTMLElement element;
+    private DominoElement<HTMLElement> element;
     private int day;
     private int month;
     private int weekDay;
     private int year;
     private String text;
-    private boolean selected=false;
+    private boolean selected = false;
 
     public DatePickerElement(HTMLElement element) {
-        this.element = element;
+        this.element = DominoElement.of(element);
     }
 
     public static DatePickerElement createDayHeader(int index, DatePickerElement[][] monthData) {
@@ -52,17 +54,17 @@ class DatePickerElement implements Selectable<DatePickerElement> {
         return day;
     }
 
-    public void setText(String text){
-        this.text=text;
-        element.textContent=text;
+    public void setText(String text) {
+        this.text = text;
+        element.setTextContent(text);
     }
 
     public HTMLElement getElement() {
-        return element;
+        return element.asElement();
     }
 
     public void setElement(HTMLElement element) {
-        this.element = element;
+        this.element = DominoElement.of(element);
     }
 
     public int getDay() {
@@ -103,7 +105,7 @@ class DatePickerElement implements Selectable<DatePickerElement> {
 
     @Override
     public DatePickerElement select() {
-       return select(true);
+        return select(true);
     }
 
     @Override
@@ -113,15 +115,15 @@ class DatePickerElement implements Selectable<DatePickerElement> {
 
     @Override
     public DatePickerElement select(boolean silent) {
-        this.selected=true;
-        this.element.classList.add("selected");
+        this.selected = true;
+        this.element.style().add("selected");
         return this;
     }
 
     @Override
     public DatePickerElement deselect(boolean silent) {
-        this.selected=false;
-        this.element.classList.remove("selected");
+        this.selected = false;
+        this.element.style().remove("selected");
         return this;
     }
 
@@ -130,12 +132,16 @@ class DatePickerElement implements Selectable<DatePickerElement> {
         return selected;
     }
 
-    public JsDate getDate(){
+    public JsDate getDate() {
         return new JsDate(year, month, day);
     }
 
+    public Style<HTMLElement, DominoElement<HTMLElement>> style() {
+        return element.style();
+    }
+
     @FunctionalInterface
-    public interface SelectionHandler{
+    public interface SelectionHandler {
         void selectElement(DatePickerElement datePickerElement);
     }
 }

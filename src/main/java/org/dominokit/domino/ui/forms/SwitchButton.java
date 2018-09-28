@@ -6,23 +6,23 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.isNull;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implements Checkable<SwitchButton> {
 
     public static final String READONLY = "readonly";
-    private HTMLDivElement container = Elements.div().css("switch", "form-group", Styles.no_wrap).asElement();
-    private HTMLDivElement formLine = Elements.div().css("form-line").asElement();
-    private HTMLDivElement formControl = Elements.div().css("form-control").asElement();
-    private HTMLLabelElement onOffLabelElement = Elements.label().asElement();
-    private HTMLLabelElement labelElement = Elements.label().css("form-label focused").asElement();
-    private HTMLInputElement inputElement = Elements.input("checkbox").asElement();
-    private HTMLElement lever = Elements.span().css("lever").asElement();
+    private HTMLDivElement container = div().css("switch", "form-group", Styles.no_wrap).asElement();
+    private HTMLDivElement formLine = div().css("form-line").asElement();
+    private HTMLDivElement formControl = div().css("form-control").asElement();
+    private HTMLLabelElement onOffLabelElement = label().asElement();
+    private HTMLLabelElement labelElement = label().css("form-label", "focused").asElement();
+    private HTMLInputElement inputElement = input("checkbox").asElement();
+    private DominoElement<HTMLElement> lever = DominoElement.of(span().css("lever"));
     private List<ChangeHandler<Boolean>> changeHandlers = new ArrayList<>();
     private Color color;
     private Text onTitleText = DomGlobal.document.createTextNode("");
@@ -54,7 +54,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
         formControl.appendChild(onOffLabelElement);
         onOffLabelElement.appendChild(offTitleText);
         onOffLabelElement.appendChild(inputElement);
-        onOffLabelElement.appendChild(lever);
+        onOffLabelElement.appendChild(lever.asElement());
         onOffLabelElement.appendChild(onTitleText);
         inputElement.addEventListener("change", evt -> {
             onCheck();
@@ -85,7 +85,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
         }
     }
 
-    public HTMLElement getLever() {
+    public DominoElement<HTMLElement> getLever() {
         return lever;
     }
 
@@ -165,8 +165,8 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     public SwitchButton setColor(Color color) {
         if (this.color != null)
-            lever.classList.remove(this.color.getStyle());
-        lever.classList.add(color.getStyle());
+            lever.style().remove(this.color.getStyle());
+        lever.style().add(color.getStyle());
         this.color = color;
         return this;
 

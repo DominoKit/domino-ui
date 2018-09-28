@@ -53,6 +53,6 @@ public class ScrollTop extends BaseButton<ScrollTop> {
 
     @Override
     public HTMLElement asElement() {
-        return buttonElement;
+        return buttonElement.asElement();
     }
 }

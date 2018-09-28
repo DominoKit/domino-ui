@@ -1,12 +1,17 @@
 package org.dominokit.domino.ui.alerts;
 
 
-import elemental2.dom.*;
+import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.Typography.Strong;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
+import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
@@ -29,7 +34,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
 
     private String style;
     private boolean dismissible = false;
-    private HTMLDivElement element = div().css("alert").asElement();
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("alert"));
 
     public Alert() {
         init(this);
@@ -42,7 +47,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
 
     private static Alert create(String style) {
         Alert alert = create();
-        alert.element.classList.add(style);
+        alert.element.style().add(style);
         alert.style = style;
         return alert;
     }
@@ -76,9 +81,9 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
     @Override
     public Alert setBackground(Color background) {
         if (nonNull(style))
-            element.classList.remove(style);
+            element.style().remove(style);
         this.style = background.getBackground();
-        element.classList.add(this.style);
+        element.style().add(this.style);
         return this;
     }
 
@@ -102,12 +107,12 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
      */
     @Deprecated
     public Alert appendText(String text) {
-        element.appendChild(DomGlobal.document.createTextNode(text));
+        element.appendChild(TextNode.of(text));
         return this;
     }
 
     public Alert appendChild(String text) {
-        element.appendChild(DomGlobal.document.createTextNode(text));
+        element.appendChild(TextNode.of(text));
         return this;
     }
 
@@ -121,7 +126,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
 
     public Alert appendChild(HTMLAnchorElement anchorElement) {
         if (nonNull(anchorElement)) {
-            anchorElement.classList.add(Styles.alert_link);
+            Style.of(anchorElement).add(Styles.alert_link);
             element.appendChild(anchorElement);
         }
         return this;
@@ -139,19 +144,19 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
         return appendChild(alertLink.asElement());
     }
 
-    public Alert setDissmissible(boolean dismissible){
-        if(dismissible){
+    public Alert setDissmissible(boolean dismissible) {
+        if (dismissible) {
             return dismissible();
-        }else{
+        } else {
             return unDismissible();
         }
     }
 
     public Alert dismissible() {
         if (!dismissible) {
-            element.classList.add("alert-dismissible");
-            if (element.childElementCount > 0)
-                element.insertBefore(closeButton, element.firstChild);
+            element.style().add("alert-dismissible");
+            if (element.getChildElementCount() > 0)
+                element.insertFirst(closeButton);
             else
                 element.appendChild(closeButton);
         }
@@ -161,7 +166,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
 
     public Alert unDismissible() {
         if (dismissible) {
-            element.classList.remove("alert-dismissible");
+            element.style().remove("alert-dismissible");
             element.removeChild(closeButton);
         }
         dismissible = false;
@@ -174,6 +179,6 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
 
     @Override
     public HTMLDivElement asElement() {
-        return element;
+        return element.asElement();
     }
 }

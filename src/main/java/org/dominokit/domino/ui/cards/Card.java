@@ -164,12 +164,12 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
     }
 
     public Card setHeaderBackground(Color background) {
-        header.classList.add(background.getBackground());
+        Style.of(header).add(background.getBackground());
         return this;
     }
 
     public Card setBodyBackground(Color background) {
-        body.classList.add(background.getBackground());
+        Style.of(body).add(background.getBackground());
         return this;
     }
 

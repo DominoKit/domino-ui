@@ -16,7 +16,7 @@ import static org.jboss.gwt.elemento.core.Elements.ol;
 
 public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> implements HasBackground<Breadcrumb> {
 
-    private HTMLOListElement element = ol().css("breadcrumb").asElement();
+    private DominoElement<HTMLOListElement> element = DominoElement.of(ol().css("breadcrumb"));
     private List<BreadcrumbItem> items = new LinkedList<>();
     private BreadcrumbItem activeItem;
     private boolean removeTail = false;
@@ -78,7 +78,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
     private void addNewItem(BreadcrumbItem item) {
         items.add(item);
         setActiveItem(item);
-        element.appendChild(item.asElement());
+        element.appendChild(item);
         DominoElement.of(item.getClickableElement()).addClickListener(e -> setActiveItem(item));
     }
 
@@ -107,9 +107,9 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
 
     public Breadcrumb setColor(Color color) {
         if (nonNull(this.activeColor))
-            element.classList.remove(color.getStyle());
+            element.style().remove(color.getStyle());
         this.activeColor = color;
-        element.classList.add(color.getStyle());
+        element.style().add(color.getStyle());
 
         return this;
     }
@@ -126,15 +126,15 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
 
     @Override
     public HTMLOListElement asElement() {
-        return element;
+        return element.asElement();
     }
 
     @Override
     public Breadcrumb setBackground(Color background) {
         if (nonNull(this.activeBackground))
-            element.classList.remove(background.getBackground());
+            element.style().remove(background.getBackground());
         this.activeBackground = background;
-        element.classList.add(background.getBackground());
+        element.style().add(background.getBackground());
 
         return this;
     }

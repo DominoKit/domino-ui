@@ -7,7 +7,7 @@ import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Waves;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
@@ -21,13 +21,13 @@ public class SimplePagination extends BaseDominoElement<HTMLElement, SimplePagin
 
     private static final String WAVES_EFFECT = "waves-effect";
 
-    private HTMLUListElement pagesElement = ul().css("pagination").asElement();
-    private HTMLElement element = nav().add(pagesElement).asElement();
-    private HTMLLIElement activePage = li().asElement();
-    private HTMLLIElement prevElement;
-    private HTMLLIElement nextElement;
+    private DominoElement<HTMLUListElement> pagesElement = DominoElement.of(ul().css("pagination"));
+    private DominoElement<HTMLElement> element = DominoElement.of(nav().add(pagesElement));
+    private DominoElement<HTMLLIElement> activePage = DominoElement.of(li());
+    private DominoElement<HTMLLIElement> prevElement;
+    private DominoElement<HTMLLIElement> nextElement;
 
-    private List<HTMLLIElement> allPages = new LinkedList<>();
+    private List<DominoElement<HTMLLIElement>> allPages = new LinkedList<>();
     private PageChangedCallBack pageChangedCallBack = pageIndex -> {
     };
     private String size = "pagination-default";
@@ -85,31 +85,31 @@ public class SimplePagination extends BaseDominoElement<HTMLElement, SimplePagin
         this.pagesCount = pages;
         this.index = 1;
         allPages.clear();
-        ElementUtil.clear(pagesElement);
-        prevElement = li().add(a().css(WAVES_EFFECT).add(Icons.ALL.chevron_left().asElement())
-                .on(EventType.click, event -> moveToPage(index - 1, false)).asElement()).asElement();
+        pagesElement.clearElement();
+        prevElement = DominoElement.of(li().add(a().css(WAVES_EFFECT).add(Icons.ALL.chevron_left())
+                .on(EventType.click, event -> moveToPage(index - 1, false))));
         pagesElement.appendChild(prevElement);
         if (pages > 0) {
             IntStream.rangeClosed(1, pages).forEach(p -> {
-                HtmlContentBuilder<HTMLLIElement> li = li();
                 HtmlContentBuilder<HTMLAnchorElement> anchor = a().css(WAVES_EFFECT).textContent(p + "").on(EventType.click, event -> moveToPage(p, false));
                 Waves.create(anchor.asElement());
-                allPages.add(li.asElement());
-                pagesElement.appendChild(li.add(anchor).asElement());
+                DominoElement<HTMLLIElement> li = DominoElement.of(li());
+                allPages.add(li);
+                pagesElement.appendChild(li.appendChild(anchor));
             });
 
         }
 
-        nextElement = li().add(a().css(WAVES_EFFECT).add(Icons.ALL.chevron_right().asElement())
-                .on(EventType.click, event -> moveToPage(index + 1, false)).asElement()).asElement();
+        nextElement = DominoElement.of(li().add(a().css(WAVES_EFFECT).add(Icons.ALL.chevron_right())
+                .on(EventType.click, event -> moveToPage(index + 1, false))));
 
         if (pages > 0) {
             moveToPage(1, true);
         }
 
         if (pages <= 0) {
-            nextElement.classList.add("disabled");
-            prevElement.classList.add("disabled");
+            nextElement.style().add("disabled");
+            prevElement.style().add("disabled");
         }
 
         pagesElement.appendChild(nextElement);
@@ -117,10 +117,10 @@ public class SimplePagination extends BaseDominoElement<HTMLElement, SimplePagin
         return this;
     }
 
-    private void gotoPage(HTMLLIElement li) {
-        activePage.classList.remove("active");
+    private void gotoPage(DominoElement<HTMLLIElement> li) {
+        activePage.style().remove("active");
         activePage = li;
-        activePage.classList.add("active");
+        activePage.style().add("active");
     }
 
     @Override
@@ -196,14 +196,14 @@ public class SimplePagination extends BaseDominoElement<HTMLElement, SimplePagin
             }
 
             if (page == pagesCount)
-                nextElement.classList.add("disabled");
+                nextElement.style().add("disabled");
             else
-                nextElement.classList.remove("disabled");
+                nextElement.style().remove("disabled");
 
             if (page == 1)
-                prevElement.classList.add("disabled");
+                prevElement.style().add("disabled");
             else
-                prevElement.classList.remove("disabled");
+                prevElement.style().remove("disabled");
         }
     }
 
@@ -229,8 +229,8 @@ public class SimplePagination extends BaseDominoElement<HTMLElement, SimplePagin
     }
 
     private SimplePagination setSize(String sizeStyle) {
-        pagesElement.classList.remove(size);
-        pagesElement.classList.add(sizeStyle);
+        pagesElement.style().remove(size);
+        pagesElement.style().add(sizeStyle);
         size = sizeStyle;
         return this;
     }
@@ -258,6 +258,6 @@ public class SimplePagination extends BaseDominoElement<HTMLElement, SimplePagin
 
     @Override
     public HTMLElement asElement() {
-        return element;
+        return element.asElement();
     }
 }

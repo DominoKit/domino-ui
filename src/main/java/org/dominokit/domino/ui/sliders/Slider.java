@@ -7,6 +7,7 @@ import elemental2.dom.HTMLParagraphElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.themes.Theme;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
 
 import java.util.ArrayList;
@@ -20,10 +21,10 @@ import static org.jboss.gwt.elemento.core.EventType.input;
 
 public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> implements HasChangeHandlers<Slider, Double> {
 
-    private HTMLParagraphElement sliderContainer = p().css("slide-container").asElement();
-    private HTMLInputElement slider = input("range").css("slider").asElement();
-    private HTMLElement thumb = span().css("thumb").asElement();
-    private HTMLElement thumbValue = span().css("value").asElement();
+    private DominoElement<HTMLParagraphElement> sliderContainer = DominoElement.of(p().css("slide-container"));
+    private DominoElement<HTMLInputElement> slider = DominoElement.of(input("range").css("slider"));
+    private DominoElement<HTMLElement> thumb = DominoElement.of(span().css("thumb"));
+    private DominoElement<HTMLElement> thumbValue = DominoElement.of(span().css("value"));
     private List<ChangeHandler<Double>> changeHandlers = new ArrayList<>();
     private List<SlideHandler> slideHandlers = new ArrayList<>();
     private boolean mouseDown;
@@ -51,7 +52,7 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         setMinValue(min);
         setValue(value);
         EventListener downEvent = mouseDownEvent -> {
-            slider.classList.add("active");
+            slider.style().add("active");
             this.mouseDown = true;
             if (withThumb) {
                 showThumb();
@@ -71,7 +72,7 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
 
         EventListener upEvent = mouseUpEvent -> {
             mouseDown = false;
-            slider.classList.remove("active");
+            slider.style().remove("active");
             hideThumb();
         };
         slider.addEventListener(change.getName(), evt -> callChangeHandlers());
@@ -95,7 +96,7 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
     }
 
     private double calculateRangeOffset() {
-        int width = slider.offsetWidth - 15;
+        int width = slider.asElement().offsetWidth - 15;
         double percent = (getValue() - getMin()) / (getMax() - getMin());
         return percent * width;
     }
@@ -106,63 +107,63 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
 
     private void updateThumbValue() {
         if (withThumb) {
-            thumbValue.textContent = getValue() + "";
+            thumbValue.setTextContent(getValue() + "");
         }
     }
 
     private void showThumb() {
-        thumb.classList.add("active");
+        thumb.style().add("active");
         updateThumbValue();
     }
 
     private void hideThumb() {
-        thumb.classList.remove("active");
+        thumb.style().remove("active");
     }
 
     private void evaluateThumbPosition() {
         if (mouseDown) {
-            thumb.style.left = calculateRangeOffset() + "px";
+            thumb.style().setLeft(calculateRangeOffset() + "px");
         }
     }
 
     public Slider setMaxValue(double max) {
-        slider.max = max + "";
+        slider.asElement().max = max + "";
         return this;
     }
 
     public Slider setMinValue(double min) {
-        slider.min = min + "";
+        slider.asElement().min = min + "";
         return this;
     }
 
 
     public Slider setValue(double newValue) {
-        slider.value = newValue + "";
+        slider.asElement().value = newValue + "";
         updateThumbValue();
         callChangeHandlers();
         return this;
     }
 
     public Slider setStep(double step) {
-        slider.step = step + "";
+        slider.asElement().step = step + "";
         return this;
     }
 
     public Slider anyStep() {
-        slider.step = "any";
+        slider.asElement().step = "any";
         return this;
     }
 
     public double getMax() {
-        return Double.parseDouble(slider.max);
+        return Double.parseDouble(slider.asElement().max);
     }
 
     public double getMin() {
-        return Double.parseDouble(slider.min);
+        return Double.parseDouble(slider.asElement().min);
     }
 
     public double getValue() {
-        return slider.valueAsNumber;
+        return slider.asElement().valueAsNumber;
     }
 
     public Slider withThumb() {
@@ -182,7 +183,7 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
 
     @Override
     public HTMLParagraphElement asElement() {
-        return sliderContainer;
+        return sliderContainer.asElement();
     }
 
     @Override
@@ -209,20 +210,20 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
 
     public Slider setBackgroundColor(Color backgroundColor) {
         if (nonNull(this.backgroundColor)) {
-            slider.classList.remove(this.backgroundColor.getBackground());
+            slider.style().remove(this.backgroundColor.getBackground());
         }
-        slider.classList.add(backgroundColor.getBackground());
+        slider.style().add(backgroundColor.getBackground());
         this.backgroundColor = backgroundColor;
         return this;
     }
 
     public Slider setThumbColor(Color thumbColor) {
         if (nonNull(this.thumbColor)) {
-            slider.classList.remove("thumb-" + this.thumbColor.getBackground());
-            thumb.classList.remove(this.thumbColor.getBackground());
+            slider.style().remove("thumb-" + this.thumbColor.getBackground());
+            thumb.style().remove(this.thumbColor.getBackground());
         }
-        slider.classList.add("thumb-" + thumbColor.getBackground());
-        thumb.classList.add(thumbColor.getBackground());
+        slider.style().add("thumb-" + thumbColor.getBackground());
+        thumb.style().add(thumbColor.getBackground());
         this.thumbColor = thumbColor;
         return this;
     }

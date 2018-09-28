@@ -1,6 +1,9 @@
 package org.dominokit.domino.ui.popover;
 
-import elemental2.dom.*;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.Node;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
@@ -13,9 +16,9 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
 
-    private HTMLDivElement element = div().css("tooltip").attr("role", "tooltip").asElement();
-    private HTMLDivElement arrowElement = div().css("tooltip-arrow").asElement();
-    private HTMLDivElement innerElement = div().css("tooltip-inner").asElement();
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("tooltip").attr("role", "tooltip"));
+    private DominoElement<HTMLDivElement> arrowElement = DominoElement.of(div().css("tooltip-arrow"));
+    private DominoElement<HTMLDivElement> innerElement = DominoElement.of(div().css("tooltip-inner"));
     private PopupPosition popupPosition = TOP;
 
     public Tooltip(HTMLElement targetElement, String text) {
@@ -27,23 +30,20 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
         element.appendChild(innerElement);
         innerElement.appendChild(content);
 
-        element.classList.add(popupPosition.getDirectionClass());
+        element.style().add(popupPosition.getDirectionClass());
 
         targetElement.addEventListener(EventType.mouseenter.getName(), evt -> {
             evt.stopPropagation();
-            document.body.appendChild(element);
-            element.classList.remove("fade", "in");
-            element.classList.add("fade", "in");
-            popupPosition.position(element, targetElement);
+            document.body.appendChild(element.asElement());
+            element.style().remove("fade", "in");
+            element.style().add("fade", "in");
+            popupPosition.position(element.asElement(), targetElement);
             position(popupPosition);
         });
 
         ElementUtil.onDetach(targetElement, mutationRecord -> element.remove());
-
         targetElement.addEventListener(EventType.mouseleave.getName(), evt1 -> element.remove());
-
         init(this);
-
     }
 
     public static Tooltip create(HTMLElement target, String text) {
@@ -63,32 +63,32 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
     }
 
     public Tooltip position(PopupPosition position) {
-        this.element.classList.remove(popupPosition.getDirectionClass());
+        this.element.style().remove(popupPosition.getDirectionClass());
         this.popupPosition = position;
-        this.element.classList.add(popupPosition.getDirectionClass());
+        this.element.style().add(popupPosition.getDirectionClass());
 
         return this;
     }
 
     @Override
     public HTMLDivElement asElement() {
-        return element;
+        return element.asElement();
     }
 
     public DominoElement<HTMLDivElement> getArrowElement() {
-        return DominoElement.of(arrowElement);
+        return arrowElement;
     }
 
     public DominoElement<HTMLDivElement> getInnerElement() {
-        return DominoElement.of(innerElement);
+        return innerElement;
     }
 
     public PopupPosition getPopupPosition() {
         return popupPosition;
     }
 
-    public Tooltip setContent(Node content){
-        ElementUtil.clear(innerElement);
+    public Tooltip setContent(Node content) {
+        innerElement.clearElement();
         innerElement.appendChild(content);
         return this;
     }

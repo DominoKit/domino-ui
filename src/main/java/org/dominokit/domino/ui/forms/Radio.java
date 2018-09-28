@@ -5,18 +5,20 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.*;
-import org.jboss.gwt.elemento.core.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.jboss.gwt.elemento.core.Elements.*;
+
 public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements HasName<Radio>, HasValue<Radio, String>, HasLabel<Radio>,
         Switchable<Radio>, Checkable<Radio>, TakesValue<String> {
 
-    private HTMLDivElement container = Elements.div().css("form-group").asElement();
-    private HTMLLabelElement labelElement = Elements.label().asElement();
-    private HTMLInputElement inputElement = Elements.input("radio").asElement();
+    private HTMLDivElement container = div().css("form-group").asElement();
+    private HTMLLabelElement labelElement = label().asElement();
+    private HTMLInputElement inputElement = input("radio").asElement();
     private List<ChangeHandler<Boolean>> changeHandlers;
     private Color color;
 
@@ -95,19 +97,19 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     }
 
     public Radio withGap() {
-        inputElement.classList.add("with-gap");
+        Style.of(inputElement).add("with-gap");
         return this;
     }
 
     public Radio withoutGap() {
-        inputElement.classList.remove("with-gap");
+        Style.of(inputElement).remove("with-gap");
         return this;
     }
 
     public Radio setColor(Color color) {
         if (this.color != null)
-            inputElement.classList.remove(this.color.getStyle());
-        inputElement.classList.add(color.getStyle());
+            Style.of(inputElement).remove(this.color.getStyle());
+        Style.of(inputElement).add(color.getStyle());
         this.color = color;
         return this;
     }
