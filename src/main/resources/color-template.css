@@ -62,6 +62,22 @@ ul.stepper.horizontal.stepper-col${color_base_name} .step.done .step-title:befor
     background-color: ${main_color};
 }
 
+.slider.thumb-bg${color_base_name}::-ms-thumb {
+    background-color: ${main_color};
+}
+
+.slider.slider-bg${color_base_name}::-webkit-slider-runnable-track {
+    background-color: ${main_color};
+}
+
+.slider.slider-bg${color_base_name}::-moz-range-track {
+    background-color: ${main_color};
+}
+
+.slider.slider-bg${color_base_name}::-ms-track {
+    background-color: ${main_color};
+}
+
 .bg-l-1${color_base_name},
 [type="checkbox"].filled-in:checked.col-l-1${color_base_name} + label:after,
 [type="radio"].with-gap.col-l-1${color_base_name}:checked + label:after,
@@ -112,6 +128,22 @@ ul.stepper.horizontal.stepper-col-l-1${color_base_name} .step.done .step-title:b
 }
 
 .slider.thumb-bg-l-1${color_base_name}::-moz-range-thumb {
+    background-color: ${color_l_1};
+}
+
+.slider.thumb-bg-l-1${color_base_name}::-ms-thumb {
+    background-color: ${color_l_1};
+}
+
+.slider.slider-bg-l-1${color_base_name}::-webkit-slider-runnable-track {
+    background-color: ${color_l_1};
+}
+
+.slider.slider-bg-l-1${color_base_name}::-moz-range-track {
+    background-color: ${color_l_1};
+}
+
+.slider.slider-bg-l-1${color_base_name}::-ms-track {
     background-color: ${color_l_1};
 }
 
@@ -167,6 +199,21 @@ ul.stepper.horizontal.stepper-col-l-2${color_base_name} .step.done .step-title:b
     background-color: ${color_l_2};
 }
 
+.slider.thumb-bg-l-2${color_base_name}::-ms-thumb {
+    background-color: ${color_l_2};
+}
+
+.slider.slider-bg-l-2${color_base_name}::-webkit-slider-runnable-track {
+    background-color: ${color_l_2};
+}
+
+.slider.slider-bg-l-2${color_base_name}::-moz-range-track {
+    background-color: ${color_l_2};
+}
+
+.slider.slider-bg-l-2${color_base_name}::-ms-track {
+    background-color: ${color_l_2};
+}
 
 .bg-l-3${color_base_name},
 [type="checkbox"].filled-in:checked.col-l-3${color_base_name} + label:after,
@@ -223,6 +270,22 @@ ul.stepper.horizontal.stepper-col-l-3${color_base_name} .step.done .step-title:b
     background-color: ${color_l_3};
 }
 
+.slider.thumb-bg-l-3${color_base_name}::-ms-thumb {
+    background-color: ${color_l_3};
+}
+
+.slider.slider-bg-l-3${color_base_name}::-webkit-slider-runnable-track {
+    background-color: ${color_l_3};
+}
+
+.slider.slider-bg-l-3${color_base_name}::-moz-range-track {
+    background-color: ${color_l_3};
+}
+
+.slider.slider-bg-l-3${color_base_name}::-ms-track {
+    background-color: ${color_l_3};
+}
+
 .bg-l-4${color_base_name},
 [type="checkbox"].filled-in:checked.col-l-4${color_base_name} + label:after,
 [type="radio"].with-gap.col-l-4${color_base_name}:checked + label:after,
@@ -273,6 +336,22 @@ ul.stepper.horizontal.stepper-col-l-4${color_base_name} .step.done .step-title:b
 }
 
 .slider.thumb-bg-l-4${color_base_name}::-moz-range-thumb {
+    background-color: ${color_l_4};
+}
+
+.slider.thumb-bg-l-4${color_base_name}::-ms-thumb {
+    background-color: ${color_l_4};
+}
+
+.slider.slider-bg-l-4${color_base_name}::-webkit-slider-runnable-track {
+    background-color: ${color_l_4};
+}
+
+.slider.slider-bg-l-4${color_base_name}::-moz-range-track {
+    background-color: ${color_l_4};
+}
+
+.slider.slider-bg-l-4${color_base_name}::-ms-track {
     background-color: ${color_l_4};
 }
 
@@ -329,6 +408,22 @@ ul.stepper.horizontal.stepper-col-l-5${color_base_name} .step.done .step-title:b
     background-color: ${color_l_5};
 }
 
+.slider.thumb-bg-l-5${color_base_name}::-ms-thumb {
+    background-color: ${color_l_5};
+}
+
+.slider.slider-bg-l-5${color_base_name}::-webkit-slider-runnable-track {
+    background-color: ${color_l_5};
+}
+
+.slider.slider-bg-l-5${color_base_name}::-moz-range-track {
+    background-color: ${color_l_5};
+}
+
+.slider.slider-bg-l-5${color_base_name}::-ms-track {
+    background-color: ${color_l_5};
+}
+
 .bg-d-1${color_base_name},
 [type="checkbox"].filled-in:checked.col-d-1${color_base_name} + label:after,
 [type="radio"].with-gap.col-d-1${color_base_name}:checked + label:after,
@@ -379,6 +474,22 @@ ul.stepper.horizontal.stepper-col-d-1${color_base_name} .step.done .step-title:b
 }
 
 .slider.thumb-bg-d-1${color_base_name}::-moz-range-thumb {
+    background-color: ${color_d_1};
+}
+
+.slider.thumb-bg-d-1${color_base_name}::-ms-thumb {
+    background-color: ${color_d_1};
+}
+
+.slider.slider-bg-d-1${color_base_name}::-webkit-slider-runnable-track {
+    background-color: ${color_d_1};
+}
+
+.slider.slider-bg-d-1${color_base_name}::-moz-range-track {
+    background-color: ${color_d_1};
+}
+
+.slider.slider-bg-d-1${color_base_name}::-ms-track {
     background-color: ${color_d_1};
 }
 
@@ -435,6 +546,22 @@ ul.stepper.horizontal.stepper-col-d-2${color_base_name} .step.done .step-title:b
     background-color: ${color_d_2};
 }
 
+.slider.thumb-bg-d-2${color_base_name}::-ms-thumb {
+    background-color: ${color_d_2};
+}
+
+.slider.slider-bg-d-2${color_base_name}::-webkit-slider-runnable-track {
+    background-color: ${color_d_2};
+}
+
+.slider.slider-bg-d-2${color_base_name}::-moz-range-track {
+    background-color: ${color_d_2};
+}
+
+.slider.slider-bg-d-2${color_base_name}::-ms-track {
+    background-color: ${color_d_2};
+}
+
 .bg-d-3${color_base_name},
 [type="checkbox"].filled-in:checked.col-d-3${color_base_name} + label:after,
 [type="radio"].with-gap.col-d-3${color_base_name}:checked + label:after,
@@ -485,6 +612,22 @@ ul.stepper.horizontal.stepper-col-d-3${color_base_name} .step.done .step-title:b
 }
 
 .slider.thumb-bg-d-3${color_base_name}::-moz-range-thumb {
+    background-color: ${color_d_3};
+}
+
+.slider.thumb-bg-d-3${color_base_name}::-ms-thumb {
+    background-color: ${color_d_3};
+}
+
+.slider.slider-bg-d-3${color_base_name}::-webkit-slider-runnable-track {
+    background-color: ${color_d_3};
+}
+
+.slider.slider-bg-d-3${color_base_name}::-moz-range-track {
+    background-color: ${color_d_3};
+}
+
+.slider.slider-bg-d-3${color_base_name}::-ms-track {
     background-color: ${color_d_3};
 }
 
@@ -546,5 +689,21 @@ ul.stepper.horizontal.stepper-col-d-4${color_base_name} .step.done .step-title:b
 }
 
 .slider.thumb-bg-d-4${color_base_name}::-moz-range-thumb {
+    background-color: ${color_d_4};
+}
+
+.slider.thumb-bg-d-4${color_base_name}::-ms-thumb {
+    background-color: ${color_d_4};
+}
+
+.slider.slider-bg-d-4${color_base_name}::-webkit-slider-runnable-track {
+    background-color: ${color_d_4};
+}
+
+.slider.slider-bg-d-4${color_base_name}::-moz-range-track {
+    background-color: ${color_d_4};
+}
+
+.slider.slider-bg-d-4${color_base_name}::-ms-track {
     background-color: ${color_d_4};
 }
