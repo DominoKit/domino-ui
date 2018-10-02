@@ -1,8 +1,8 @@
 package org.dominokit.domino.ui.notifications;
 
+import elemental2.dom.*;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
-import elemental2.dom.*;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -34,34 +34,34 @@ public abstract class Notification extends BaseDominoElement<HTMLDivElement, Not
     private Transition inTransition = Transition.FADE_IN;
     private Transition outTransition = Transition.FADE_OUT;
     private Position position = TOP_RIGHT;
-    private Color background=Color.BLACK;
+    private Color background = Color.BLACK;
     private String type;
 
     @PostConstruct
-    void init(){
+    void init() {
         init(this);
     }
 
-    public static Notification createDanger(String message){
+    public static Notification createDanger(String message) {
         return create(message, "alert-danger");
     }
 
-    public static Notification createSuccess(String message){
+    public static Notification createSuccess(String message) {
         return create(message, "alert-success");
     }
 
-    public static Notification createWarning(String message){
+    public static Notification createWarning(String message) {
         return create(message, "alert-warning");
     }
 
-    public static Notification createInfo(String message){
+    public static Notification createInfo(String message) {
         return create(message, "alert-info");
     }
 
-    public static Notification create(String message, String type){
+    public static Notification create(String message, String type) {
         Notification notification = create(message);
         notification.style().add(type);
-        notification.type=type;
+        notification.type = type;
         notification.style().remove(notification.background.getBackground());
         return notification;
     }
@@ -70,13 +70,13 @@ public abstract class Notification extends BaseDominoElement<HTMLDivElement, Not
         Notification notification = new Templated_Notification();
         notification.messageSpan.textContent = message;
         notification.style().add(notification.background.getBackground());
-        notification.closeButton.addEventListener("click", e-> notification.close());
+        notification.closeButton.addEventListener("click", e -> notification.close());
         return notification;
     }
 
-    private  void close() {
+    private void close() {
         int dataPosition = Integer.parseInt(asElement().getAttribute("data-position"));
-        int height=asElement().offsetHeight;
+        int height = asElement().offsetHeight;
         asElement().remove();
         position.onRemoveElement(dataPosition, height);
     }
@@ -101,7 +101,7 @@ public abstract class Notification extends BaseDominoElement<HTMLDivElement, Not
         return this;
     }
 
-    public Notification appendContent(Node content){
+    public Notification appendContent(Node content) {
         asElement().appendChild(content);
         return this;
     }
@@ -111,14 +111,14 @@ public abstract class Notification extends BaseDominoElement<HTMLDivElement, Not
         return this;
     }
 
-    public Notification setBackground(Color background){
-        if(nonNull(type)) {
+    public Notification setBackground(Color background) {
+        if (nonNull(type)) {
             style().remove(type);
         }
 
         style().remove(this.background.getBackground());
         style().add(background.getBackground());
-        this.background=background;
+        this.background = background;
         return this;
     }
 

@@ -210,9 +210,9 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
 
     public Slider setBackgroundColor(Color backgroundColor) {
         if (nonNull(this.backgroundColor)) {
-            slider.style().remove(this.backgroundColor.getBackground());
+            slider.style().remove("slider-" + this.backgroundColor.getBackground());
         }
-        slider.style().add(backgroundColor.getBackground());
+        slider.style().add("slider-" + backgroundColor.getBackground());
         this.backgroundColor = backgroundColor;
         return this;
     }
