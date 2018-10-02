@@ -2447,10 +2447,10 @@ section.content {
 .slider {
     -webkit-appearance: none;
     width: 100%;
-    height: 5px;
-    border-radius: 5px;
-    background: #d3d3d3;
+    height: 25px;
+    background: transparent;
     outline: none;
+    padding: 0px;
 }
 
 /* Mouse-over effects */
@@ -2458,9 +2458,52 @@ section.content {
     opacity: 1; /* Fully shown on mouse-over */
 }
 
-.slider::-webkit-slider-thumb {
+input[type=range]::-webkit-slider-runnable-track {
+    background: #d3d3d3;
+    height: 5px;
+    width: 100%;
+    border-radius: 15px;
+}
+input[type=range]::-moz-range-track {
+    background: #d3d3d3;
+    height: 5px;
+    width: 100%;
+    border-radius: 15px;
+}
+input[type=range]::-ms-track {
+    background: #d3d3d3;
+    height: 5px;
+    width: 100%;
+    border-radius: 15px;
+    color: transparent;
+    border: 0px;
+}
+
+input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    appearance: none;
+    box-sizing: border-box;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 0px;
+    margin-top: -4px;
+}
+
+input[type=range]::-moz-range-thumb {
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 0px;
+    margin-top: -4px;
+}
+
+input[type=range]::-ms-thumb {
+    box-sizing: border-box;
+    -webkit-appearance: none;
     width: 14px;
     height: 14px;
     border-radius: 50%;
@@ -2468,12 +2511,12 @@ section.content {
     border: 0px;
 }
 
-.slider::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 0px;
+input[type=range]::-ms-fill-lower {
+    background: transparent;
+}
+
+input[type=range]::-ms-tooltip {
+    display: none;
 }
 
 input[type=range] + .thumb {
@@ -2514,6 +2557,7 @@ input[type=range] + .thumb.active .value {
     margin-top: 8px;
     font-size: 10px;
 }
+
 
 /* Multi Select ================================ */
 .ms-container {
