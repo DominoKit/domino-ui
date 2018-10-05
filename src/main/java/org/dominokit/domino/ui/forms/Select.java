@@ -51,8 +51,20 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private String noResultsElementDisplay;
     private boolean caseSensitiveSearch = false;
     private List<SelectOptionGroup<T>> groups = new ArrayList<>();
-    private boolean touchMoved;
+    private static boolean touchMoved;
     private String noMatchSearchResultText = "No results matched";
+    private static EventListener hideAllListener = Select::hideAllMenus;
+    private static Select currentOpened;
+
+    static {
+        document.addEventListener(CLICK_EVENT, hideAllListener);
+        document.addEventListener("touchend", evt -> {
+            if (!touchMoved) {
+                hideAllListener.handleEvent(evt);
+            }
+            touchMoved = false;
+        });
+    }
 
     public Select() {
         initListeners();
@@ -68,16 +80,6 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     private void initListeners() {
-        EventListener hideAllListener = this::hideAllMenus;
-        document.addEventListener(CLICK_EVENT, hideAllListener);
-        document.addEventListener("touchend", evt -> {
-            if (!touchMoved) {
-                hideAllListener.handleEvent(evt);
-            }
-            touchMoved = false;
-        });
-
-        document.addEventListener("touchmove", evt -> this.touchMoved = true);
 
         document.body.addEventListener(KEYDOWN, new NavigateOptionsKeyListener());
 
@@ -115,11 +117,17 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         return option.style().contains("hidden");
     }
 
-    private void hideAllMenus(Event evt) {
+    private static void hideAllMenus(Event evt) {
         HTMLElement element = Js.uncheckedCast(evt.target);
-        if (!selectElement.getFormControl().contains(element)) {
-            hideAllMenus();
+        if (nonNull(getCurrentOpened())) {
+            if (!getCurrentOpened().getSelectElement().getFormControl().contains(element)) {
+                hideAllMenus();
+            }
         }
+    }
+
+    private static Select getCurrentOpened() {
+        return currentOpened;
     }
 
     private void doSearch() {
@@ -212,20 +220,24 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     public Select(String label, List<SelectOption<T>> options) {
         this(label);
-        options.forEach(this::addOption);
+        options.forEach(this::appendChild);
     }
 
     private void doOpen() {
         selectElement.getFormControl().style().add(OPEN);
+        currentOpened = this;
     }
 
-    public void hideAllMenus() {
+    public static void hideAllMenus() {
         NodeList<Element> elementsByName = document.body
                 .getElementsByClassName("bootstrap-select");
         for (int i = 0; i < elementsByName.length; i++) {
             Element item = elementsByName.item(i);
-            if (item.classList.contains(OPEN))
-                close(item);
+            if (item.classList.contains(OPEN)) {
+                if (nonNull(getCurrentOpened())) {
+                    getCurrentOpened().close(item);
+                }
+            }
         }
     }
 
@@ -289,9 +301,12 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     public Select<T> appendChild(SelectOption<T> option) {
         options.add(option);
         searchableOptions.put(option.getDisplayValue(), option);
-        EventListener openOptionListener = evt -> {
-            doSelectOption(option);
-            evt.stopPropagation();
+        EventListener openOptionListener = new EventListener() {
+            @Override
+            public void handleEvent(Event evt) {
+                Select.this.doSelectOption(option);
+                evt.stopPropagation();
+            }
         };
         option.asElement().addEventListener(CLICK_EVENT, openOptionListener);
         option.asElement().addEventListener(TOUCH_START_EVENT, evt -> {
@@ -895,7 +910,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     @Override
     public String getStringValue() {
         SelectOption<T> selectedOption = getSelectedOption();
-        if(nonNull(selectedOption)){
+        if (nonNull(selectedOption)) {
             return selectedOption.getDisplayValue();
         }
         return null;

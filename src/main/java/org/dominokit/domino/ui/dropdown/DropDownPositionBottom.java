@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.dropdown;
 
 import elemental2.dom.ClientRect;
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 
 import static elemental2.dom.DomGlobal.window;

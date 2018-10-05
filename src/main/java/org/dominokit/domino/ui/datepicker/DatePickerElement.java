@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.datepicker;
 
 import elemental2.core.JsDate;
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -49,7 +50,11 @@ class DatePickerElement implements Selectable<DatePickerElement> {
 
         monthData[indexX][indexY] = day;
 
-        element.addEventListener(EventType.click.getName(), evt -> selectionHandler.selectElement(day));
+        element.addEventListener(EventType.click.getName(), evt -> {
+            selectionHandler.selectElement(day);
+            selectionHandler.onElementClick(day);
+
+        });
 
         return day;
     }
@@ -140,8 +145,8 @@ class DatePickerElement implements Selectable<DatePickerElement> {
         return element.style();
     }
 
-    @FunctionalInterface
     public interface SelectionHandler {
         void selectElement(DatePickerElement datePickerElement);
+        void onElementClick(DatePickerElement datePickerElement);
     }
 }

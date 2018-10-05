@@ -1504,6 +1504,7 @@
 
 /* IE10+ CSS styles go here */
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+
     .container-fluid {
         padding-right: 15px;
         padding-left: 15px;

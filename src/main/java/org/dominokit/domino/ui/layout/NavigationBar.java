@@ -30,6 +30,9 @@ public abstract class NavigationBar extends BaseDominoElement<HTMLElement, Navig
     @DataElement
     HTMLAnchorElement title;
 
+    @DataElement
+    HTMLDivElement navBarHeader;
+
     private boolean collapsed=true;
 
     @PostConstruct
@@ -60,6 +63,10 @@ public abstract class NavigationBar extends BaseDominoElement<HTMLElement, Navig
 
     public DominoElement<HTMLDivElement> getNavigationBar() {
         return DominoElement.of(navigationBar);
+    }
+
+    public DominoElement<HTMLDivElement> getNavBarHeader() {
+        return DominoElement.of(navBarHeader);
     }
 
     public DominoElement<HTMLUListElement> getTopBar() {

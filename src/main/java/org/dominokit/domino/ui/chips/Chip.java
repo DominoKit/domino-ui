@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.col;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.span;
 
@@ -26,6 +27,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     private HTMLDivElement leftAddonContainer = div().css("chip-addon").asElement();
     private HTMLDivElement removeIconContainer = div().css("chip-remove").asElement();
     private ColorScheme colorScheme = ColorScheme.INDIGO;
+    private Color color = Color.INDIGO;
     private Color borderColor;
     private DominoElement<HTMLElement> removeIcon = DominoElement.of(Icons.ALL.close().asElement());
     private List<SelectionHandler> selectionHandlers = new ArrayList<>();
@@ -65,7 +67,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
 
     public Chip select() {
         this.selected = true;
-        Style.of(element).replaceCss(getColor(), getDarkerColor());
+        Style.of(element).replaceCss(getBackgroundStyle(), getDarkerColor());
         Style.of(removeIcon).add(getDarkerColor());
         selectionHandlers.forEach(SelectionHandler::onSelection);
         return this;
@@ -73,7 +75,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
 
     public Chip deselect() {
         this.selected = false;
-        Style.of(element).replaceCss(getDarkerColor(), getColor());
+        Style.of(element).replaceCss(getDarkerColor(), getBackgroundStyle());
         Style.of(removeIcon).remove(getDarkerColor());
         deselectionHandlers.forEach(DeselectionHandler::onDeselection);
         return this;
@@ -110,23 +112,57 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     }
 
     public Chip setColorScheme(ColorScheme colorScheme) {
-        if (nonNull(this.colorScheme)) {
-            element.style().remove(getColor());
-            removeIcon.style().remove(getColor());
-        }
+        removeCurrentBackground();
+
         this.colorScheme = colorScheme;
-        element.style().add(getColor());
-        removeIcon.style().add(getColor());
-        setBorderColor(colorScheme.color());
+        this.color = colorScheme.color();
+        applyColor();
         return this;
+    }
+
+    public void applyColor() {
+        element.style().add(this.color.getBackground());
+        removeIcon.style().add(this.color.getBackground());
+        setBorderColor(this.color);
+    }
+
+    public void removeCurrentBackground() {
+        if (nonNull(this.colorScheme)) {
+            element.style().remove(getBackgroundStyle());
+            removeIcon.style().remove(getBackgroundStyle());
+        }
+
+        if(nonNull(this.color)){
+            element.style().remove(color.getBackground());
+            removeIcon.style().remove(color.getBackground());
+        }
+    }
+
+    public Chip setColor(Color color) {
+        if (nonNull(this.colorScheme)) {
+            element.style().remove(getBackgroundStyle());
+            removeIcon.style().remove(getBackgroundStyle());
+        }
+
+        if(nonNull(this.color)){
+            element.style().remove(color.getBackground());
+            removeIcon.style().remove(color.getBackground());
+        }
+        this.color = color;
+        applyColor();
+        return this;
+    }
+
+    private boolean hasColor(){
+        return nonNull(this.colorScheme) || nonNull(color);
     }
 
     private String getDarkerColor() {
         return colorScheme.darker_4().getBackground();
     }
 
-    private String getColor() {
-        return this.colorScheme.color().getBackground();
+    private String getBackgroundStyle() {
+        return this.color.getBackground();
     }
 
     public Chip setRemovable(boolean removable) {

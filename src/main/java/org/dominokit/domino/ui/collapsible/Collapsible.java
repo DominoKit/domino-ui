@@ -76,6 +76,17 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
         return this;
     }
 
+
+    @Override
+    public Collapsible toggleDisplay(boolean state) {
+        if(state){
+            expand();
+        }else{
+            collapse();
+        }
+        return this;
+    }
+
     void setOnCollapsed(CollapseCompletedHandler onCollapsed) {
         this.onCollapsed = onCollapsed;
     }

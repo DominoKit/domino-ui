@@ -127,7 +127,6 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         showPlaceholder();
         if (!isAttached()) {
             ElementUtil.onAttach(getInputElement(), mutationRecord -> {
-                DomGlobal.console.info("attach");
                 getInputElement().asElement().focus();
             });
         } else {
