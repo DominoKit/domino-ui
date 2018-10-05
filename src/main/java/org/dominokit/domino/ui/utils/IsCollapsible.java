@@ -7,5 +7,7 @@ public interface IsCollapsible<T> {
 
     T toggleDisplay();
 
+    T toggleDisplay(boolean state);
+
     boolean isCollapsed();
 }

@@ -4,7 +4,6 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -87,6 +86,19 @@ public interface IsModalDialog<T> {
         String style;
 
         ModalSize(String style) {
+            this.style = style;
+        }
+    }
+
+    enum ModalType {
+        BOTTOM_SHEET("bottom-sheet"),
+        TOP_SHEET("top-sheet"),
+        LEFT_SHEET("left-sheet"),
+        RIGHT_SHEET("right-sheet");
+
+        String style;
+
+        ModalType(String style) {
             this.style = style;
         }
     }

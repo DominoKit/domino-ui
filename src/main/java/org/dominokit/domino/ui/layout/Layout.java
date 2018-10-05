@@ -11,7 +11,10 @@ import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.gwt.elemento.core.IsElement;
 
+import java.util.function.Consumer;
+
 import static elemental2.dom.DomGlobal.document;
+import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
@@ -38,6 +41,8 @@ public class Layout {
     private boolean overlayVisible = false;
     private boolean leftPanelDisabled = false;
     private boolean fixedLeftPanel;
+    private LayoutHandler onShowHandler = layout -> {
+    };
 
     public Layout() {
     }
@@ -68,6 +73,10 @@ public class Layout {
         MediaQuery.addOnSmallAndDownListener(() -> {
             unfixFooter();
         });
+
+        if (nonNull(onShowHandler)) {
+            onShowHandler.handleLayout(this);
+        }
         return this;
     }
 
@@ -96,6 +105,11 @@ public class Layout {
         navigationBar.getMenu().addEventListener(CLICK, e -> toggleLeftPanel());
         navigationBar.getNavBarExpand().addEventListener(CLICK, e -> toggleNavigationBar());
         overlay.addEventListener(CLICK, e -> hidePanels());
+    }
+
+    public Layout onShow(LayoutHandler layoutHandler){
+        this.onShowHandler = layoutHandler;
+        return this;
     }
 
     public Layout removeLeftPanel() {
@@ -315,24 +329,23 @@ public class Layout {
     }
 
     public Layout fixFooter() {
-        footer.style().add("fixed");
+        footer.asElement().classList.add("fixed");
         if (footer.isAttached()) {
-            updateContentBottomMargin();
+            updateContentBottomPadding();
         } else {
-            ElementUtil.onAttach(footer.asElement(), mutationRecord -> updateContentBottomMargin());
+            ElementUtil.onAttach(footer.asElement(), mutationRecord -> updateContentBottomPadding());
         }
+
         return this;
     }
 
-    private void updateContentBottomMargin() {
-        Style.of(content.asElement()).setMarginBottom(footer.asElement().clientHeight + "px");
+    private void updateContentBottomPadding() {
+        Style.of(content.asElement()).setPaddingBottom(footer.asElement().clientHeight + "px");
     }
 
     public Layout unfixFooter() {
-        footer.style().remove("fixed");
-        ElementUtil.onAttach(footer, mutationRecord -> {
-            content.style().removeProperty("margin-bottom");
-        });
+        footer.asElement().classList.remove("fixed");
+        ElementUtil.onAttach(footer.asElement(), mutationRecord -> Style.of(content.asElement()).removeProperty("padding-bottom"));
         return this;
     }
 
@@ -349,12 +362,98 @@ public class Layout {
         return this;
     }
 
+    public Layout apply(LayoutHandler layoutHandler) {
+        layoutHandler.handleLayout(this);
+        return this;
+    }
+
     public Text getAppTitle() {
         return appTitle;
+    }
+
+    public Layout setContent(Node node) {
+        getContentPanel()
+                .clearElement()
+                .appendChild(node);
+        ElementUtil.scrollTop();
+        return this;
+    }
+
+    public Layout setContent(IsElement element) {
+        setContent(element.asElement());
+        return this;
+    }
+
+    public Layout content(Consumer<DominoElement<HTMLDivElement>> contentConsumer) {
+        contentConsumer.accept(getContentPanel());
+        return this;
+    }
+
+    public Layout leftPanel(Consumer<DominoElement<HTMLElement>> leftPanelConsumer) {
+        leftPanelConsumer.accept(getLeftPanel());
+        return this;
+    }
+
+    public Layout rightPanel(Consumer<DominoElement<HTMLElement>> rightPanelConsumer) {
+        rightPanelConsumer.accept(getRightPanel());
+        return this;
+    }
+
+    public Layout footer(Consumer<Footer> footerConsumer) {
+        footerConsumer.accept(getFooter());
+        return this;
+    }
+
+    public Layout navigationBar(Consumer<NavigationBar> navigationBarConsumer) {
+        navigationBarConsumer.accept(getNavigationBar());
+        return this;
+    }
+
+    public Layout topBar(Consumer<DominoElement<HTMLUListElement>> topBarConsumer) {
+        topBarConsumer.accept(getTopBar());
+        return this;
+    }
+
+    public Layout setLogo(HTMLImageElement imageElement) {
+        navigationBar.getNavBarHeader()
+                .insertBefore(imageElement, getNavigationBar().getTitle())
+                .styler(style -> style.add("logo-in"));
+        return this;
+    }
+
+    public Layout setLogo(IsElement<HTMLImageElement> imageElement) {
+        return setLogo(imageElement.asElement());
+    }
+
+    public Layout autoFixLeftPanel() {
+        MediaQuery.addOnMediumAndUpListener(() -> {
+            if (getLeftPanel().isAttached()) {
+                fixLeftPanelPosition();
+            } else {
+                getLeftPanel().onAttached(mutationRecord -> fixLeftPanelPosition());
+            }
+
+        });
+        MediaQuery.addOnSmallAndDownListener(() -> {
+            if (getLeftPanel().isAttached()) {
+                this.unfixLeftPanelPosition();
+                this.hideLeftPanel();
+            } else {
+                this.unfixLeftPanelPosition();
+                this.hideLeftPanel();
+            }
+        });
+
+        return this;
     }
 
     private void updateContentMargin() {
         double margin = navigationBar.getBoundingClientRect().height + 30;
         content.style().setMarginTop(margin + "px");
+    }
+
+    @FunctionalInterface
+    public interface LayoutHandler {
+        void handleLayout(Layout layout);
     }
 }

@@ -25,6 +25,7 @@ public class ModalDialog extends BaseModal<ModalDialog>{
 
     public static ModalDialog createPickerModal(String title, ColorScheme colorScheme, Node content) {
         ModalDialog modal = ModalDialog.create(title)
+                .styler(style -> style.setMinWidth("275px"))
                 .small()
                 .setAutoClose(true)
                 .appendChild(content);

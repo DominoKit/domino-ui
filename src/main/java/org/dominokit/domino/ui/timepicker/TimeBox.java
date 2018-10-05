@@ -72,7 +72,6 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
             if (nonNull(popover))
                 popover.discard();
             if (nonNull(modal)) {
-                modal.close();
                 modal.asElement().remove();
             }
         });

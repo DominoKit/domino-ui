@@ -20,6 +20,11 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
 
     private Row row = Row.create();
     private Column column = Column.span(2, 2, 4, 6, 12);
+    private int thumbSpanXLarge = 2;
+    private int thumbSpanLarge = 2;
+    private int thumbSpanMedium = 4;
+    private int thumbSpanSmall = 6;
+    private int thumbSpanXSmall = 12;
 
     private DominoElement<HTMLDivElement> formElement = DominoElement.of(div().css("file-upload"));
     private DominoElement<HTMLDivElement> uploadMessageContainer = DominoElement.of(div().css("file-upload-message"));
@@ -95,7 +100,8 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
 
     private void addFilePreview(File file) {
         FileItem fileItem = FileItem.create(file, new UploadOptions(url, maxFileSize));
-        Column previewColumn = column.copy().appendChild(fileItem.asElement());
+        Column previewColumn = Column.span(thumbSpanXLarge, thumbSpanLarge, thumbSpanMedium, thumbSpanSmall, thumbSpanXSmall)
+                .appendChild(fileItem.asElement());
 
         fileItem.addRemoveHandler(removedFile -> {
             previewColumn.asElement().remove();
@@ -238,6 +244,15 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
 
     public FileUpload setIcon(Icon icon) {
         uploadIconContainer.appendChild(icon);
+        return this;
+    }
+
+    public FileUpload setThumbSpans(int xLarge, int large, int medium, int small, int xSmall) {
+        this.thumbSpanXLarge = xLarge;
+        this.thumbSpanLarge = large;
+        this.thumbSpanMedium = medium;
+        this.thumbSpanSmall = small;
+        this.thumbSpanXSmall = xSmall;
         return this;
     }
 
