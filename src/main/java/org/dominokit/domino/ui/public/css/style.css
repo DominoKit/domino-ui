@@ -3816,6 +3816,10 @@ fieldset[disabled] .form-control {
         width: 40%;
     }
 
+    .modal:not([class*="-sheet"]){
+        top: 30px;
+    }
+
     .modal.modal-lg {
         margin-left: 20%;
         margin-right: 20%;
@@ -3833,11 +3837,13 @@ fieldset[disabled] .form-control {
     .modal.bottom-sheet {
         margin: 0px;
         bottom: 0;
+        width: 100%;
     }
 
     .modal.top-sheet {
         margin: 0px;
         top: 0;
+        width: 100%;
     }
 
     .modal.left-sheet {
@@ -3886,6 +3892,10 @@ fieldset[disabled] .form-control {
         width: 90%;
     }
 
+    .modal:not([class*="-sheet"]){
+        top: 30px;
+    }
+
     .modal.modal-lg {
         margin-left: 5%;
         margin-right: 5%;
@@ -3908,6 +3918,7 @@ fieldset[disabled] .form-control {
     .modal.top-sheet {
         margin: 0px;
         top: 0;
+        width: 100%;
     }
 
     .modal.left-sheet {
