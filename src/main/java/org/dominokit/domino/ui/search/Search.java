@@ -1,11 +1,10 @@
 package org.dominokit.domino.ui.search;
 
 import com.google.gwt.core.client.Scheduler;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLInputElement;
+import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.gwt.elemento.core.EventType;
@@ -65,6 +64,13 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
         searchInput.addEventListener(EventType.keypress.getName(), evt -> {
             if (ElementUtil.isEnterKey(Js.uncheckedCast(evt))) {
                 searchHandler.onSearch(searchInput.value);
+            }
+        });
+
+        searchInput.addEventListener("keydown", evt -> {
+            if(ElementUtil.isEscapeKey(Js.uncheckedCast(evt))){
+                evt.stopPropagation();
+                close();
             }
         });
 
@@ -140,6 +146,10 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
     @Override
     public HTMLDivElement asElement() {
         return element;
+    }
+
+    public DominoElement<HTMLInputElement> getInputElement() {
+        return DominoElement.of(searchInput);
     }
 
     @FunctionalInterface

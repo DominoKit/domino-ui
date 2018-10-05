@@ -76,7 +76,6 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             if (nonNull(popover))
                 popover.discard();
             if (nonNull(modal)) {
-                modal.close();
                 modal.asElement().remove();
             }
         });

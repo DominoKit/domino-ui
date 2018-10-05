@@ -4449,6 +4449,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar > .container-fluid .navbar-brand {
     margin-left: 35px;
   }
+  .navbar > .container-fluid .logo-in .navbar-brand {
+    margin-left: 83px;
+  }
+
 }
 .navbar-toggle {
   position: relative;
@@ -5069,7 +5073,7 @@ a.label:focus {
   background-color: #c9302c;
 }
 .badge {
-  display: inline-block;
+  display: inline-flex;
   min-width: 10px;
   padding: 3px 7px;
   font-size: 12px;
@@ -6026,10 +6030,10 @@ button.close {
 }
 .modal {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  /*top: 0;*/
+  /*right: 0;*/
+  /*bottom: 0;*/
+  /*left: 0;*/
   z-index: 1050;
   display: none;
   overflow: hidden;
@@ -6128,15 +6132,13 @@ button.close {
 }
 @media (min-width: 768px) {
   .modal-dialog {
-    width: 600px;
-    margin: 30px auto;
+    margin: 0px auto;
   }
   .modal-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
             box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
   }
   .modal-sm {
-    width: 300px;
   }
 
   .modal-alert{
@@ -6145,7 +6147,6 @@ button.close {
 }
 @media (min-width: 992px) {
   .modal-lg {
-    width: 900px;
   }
 }
 .tooltip {

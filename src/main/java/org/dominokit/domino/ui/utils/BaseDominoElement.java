@@ -1,10 +1,12 @@
 package org.dominokit.domino.ui.utils;
 
+import com.google.gwt.editor.client.Editor;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.WavesSupport;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -15,16 +17,19 @@ import static java.util.Objects.nonNull;
 
 public abstract class BaseDominoElement<E extends HTMLElement, T extends IsElement<E>> implements IsElement<E>, IsCollapsible<T>, HasChildren<T>, HasWavesElement {
 
+    @Editor.Ignore
     protected T element;
     private String uuid;
     private Tooltip tooltip;
     private Collapsible collapsible;
+    @Editor.Ignore
     protected Style<E, T> style;
 
     private ScreenMedia hideOn;
     private ScreenMedia showOn;
 
-    public void init(T element) {
+    @Editor.Ignore
+    protected void init(T element) {
         this.element = element;
         this.uuid = Elements.createDocumentUniqueId();
         setAttribute("domino-uuid", this.uuid);
@@ -56,6 +61,12 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     @Override
     public T toggleDisplay() {
         collapsible.toggleDisplay();
+        return element;
+    }
+
+    @Override
+    public T toggleDisplay(boolean state) {
+        collapsible.toggleDisplay(state);
         return element;
     }
 
@@ -340,6 +351,21 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return asElement().isEqualNode(node);
     }
 
+    public T withWaves(){
+        WavesSupport.addFor(element.asElement());
+        return element;
+    }
+
+    public T withWaves(WavesStyler wavesStyler){
+        wavesStyler.styleWaves(WavesSupport.addFor(element.asElement()));
+        return element;
+    }
+
+    public T apply(ElementHandler<T> elementHandler){
+        elementHandler.handleElement(element);
+        return element;
+    }
+
     public int getElementsCount() {
         return new Double(asElement().childElementCount).intValue();
     }
@@ -363,6 +389,16 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     @FunctionalInterface
     public interface StyleEditor<E extends HTMLElement, T extends IsElement<E>> {
         void applyStyles(Style<E, T> style);
+    }
+
+    @FunctionalInterface
+    public interface WavesStyler {
+        void styleWaves(WavesSupport wavesSupport);
+    }
+
+    @FunctionalInterface
+    public interface ElementHandler<T>{
+        void handleElement(T element);
     }
 
 }

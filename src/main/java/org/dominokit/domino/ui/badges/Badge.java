@@ -1,10 +1,12 @@
 package org.dominokit.domino.ui.badges;
 
 import elemental2.dom.HTMLElement;
+import elemental2.dom.Text;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
+import org.dominokit.domino.ui.utils.TextNode;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.span;
@@ -13,6 +15,7 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasB
 
     private DominoElement<HTMLElement> badgeElement = DominoElement.of(span().css("badge"));
     private Color badgeBackground;
+    private Text textNode = TextNode.empty();
 
     public Badge() {
         init(this);
@@ -20,7 +23,8 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasB
 
     public static Badge create(String content) {
         Badge badge = new Badge();
-        badge.badgeElement.setTextContent(content);
+        badge.textNode.textContent = content;
+        badge.badgeElement.appendChild(badge.textNode);
         return badge;
     }
 
@@ -30,7 +34,7 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasB
     }
 
     public Badge setText(String text) {
-        badgeElement.setTextContent(text);
+        textNode.textContent = text;
         return this;
     }
 

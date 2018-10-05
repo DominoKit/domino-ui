@@ -26,17 +26,18 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupport<DatePickerElement>,
         HasValue<DatePickerMonth, Date>, DatePickerElement.SelectionHandler, TakesValue<Date> {
 
-    private DaySelectionHandler internalHandler;
+    private InternalHandler internalHandler;
     private JsDate date;
     private DateTimeFormatInfo dateTimeFormatInfo;
     private DatePickerElement[][] monthData = new DatePickerElement[7][7];
     private List<DaySelectionHandler> daySelectionHandlers = new ArrayList<>();
+    private List<DayClickHandler> dayClickHandlers = new ArrayList<>();
     private DatePickerElement selectedElement;
     private Color background = Color.LIGHT_BLUE;
 
     private HTMLDivElement element = div().css("date-picker-container").asElement();
 
-    public DatePickerMonth(JsDate date, DateTimeFormatInfo dateTimeFormatInfo, DaySelectionHandler daySelectionHandler) {
+    public DatePickerMonth(JsDate date, DateTimeFormatInfo dateTimeFormatInfo, InternalHandler daySelectionHandler) {
         this.date = date;
         this.dateTimeFormatInfo = dateTimeFormatInfo;
         this.internalHandler = daySelectionHandler;
@@ -47,7 +48,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
         update();
     }
 
-    public static DatePickerMonth create(JsDate date, DateTimeFormatInfo dateTimeFormatInfo, DaySelectionHandler daySelectionHandler) {
+    public static DatePickerMonth create(JsDate date, DateTimeFormatInfo dateTimeFormatInfo, InternalHandler daySelectionHandler) {
         return new DatePickerMonth(date, dateTimeFormatInfo, daySelectionHandler);
     }
 
@@ -259,6 +260,23 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
         this.daySelectionHandlers.clear();
     }
 
+
+    public void addDayClickHandler(DayClickHandler dayClickHandler) {
+        this.dayClickHandlers.add(dayClickHandler);
+    }
+
+    public void removeDayClickHandler(DayClickHandler dayClickHandler) {
+        this.dayClickHandlers.remove(dayClickHandler);
+    }
+
+    public List<DayClickHandler> getDayClickHandlers() {
+        return this.dayClickHandlers;
+    }
+
+    public void clearDayClickHandlers() {
+        this.dayClickHandlers.clear();
+    }
+
     @Override
     public HTMLDivElement asElement() {
         return element;
@@ -295,6 +313,16 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
         }
     }
 
+    @Override
+    public void onElementClick(DatePickerElement datePickerElement) {
+        if (nonNull(internalHandler)) {
+            internalHandler.onDayClicked(datePickerElement);
+        }
+        informClickHandlers(datePickerElement);
+    }
+
+
+
     private void select(DatePickerElement datePickerElement) {
         datePickerElement.select();
         datePickerElement.style().add(this.background.getBackground());
@@ -317,6 +345,12 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
         });
     }
 
+    private void informClickHandlers(DatePickerElement datePickerElement) {
+        getDayClickHandlers().forEach(dayClickHandler -> {
+            dayClickHandler.onDayClicked(datePickerElement);
+        });
+    }
+
     public void setDateTimeFormatInfo(DateTimeFormatInfo dateTimeFormatInfo) {
         this.dateTimeFormatInfo = dateTimeFormatInfo;
         update();
@@ -335,5 +369,14 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     @FunctionalInterface
     interface DaySelectionHandler {
         void onDaySelected(DatePickerElement datePickerElement);
+    }
+
+    @FunctionalInterface
+    interface DayClickHandler {
+        void onDayClicked(DatePickerElement datePickerElement);
+    }
+
+    protected interface InternalHandler extends DaySelectionHandler, DayClickHandler{
+
     }
 }

@@ -6,6 +6,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
@@ -194,7 +195,7 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
 
     public static HTMLLIElement createIcon(Icon icon) {
         return li().add(
-                a().add(icon.asElement()))
+                a().add(icon))
                 .asElement();
     }
 
@@ -207,6 +208,11 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
         return this;
     }
 
+    public Card addHeaderAction(HeaderAction headerAction){
+        putAction(headerAction.asElement());
+        return this;
+    }
+
     private void putAction(HTMLLIElement actionItem) {
         if (nonNull(collapseAction) && collapsible) {
             headerBar.insertBefore(actionItem, collapseAction);
@@ -216,8 +222,10 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
     }
 
     private HTMLLIElement createHeaderAction(Icon icon) {
-        return li().add(
-                a().add(icon.asElement()))
+        return li().add(a()
+                .add(icon.withWaves()
+                        .styler(style -> style
+                                .add(Styles.pull_right, "action-icon"))))
                 .asElement();
     }
 
@@ -309,4 +317,5 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
         getBody().clearElement();
         return this;
     }
+
 }

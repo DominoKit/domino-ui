@@ -321,7 +321,7 @@
 
 .theme-blue .menu .list li.active {
   background-color: transparent; }
-  .theme-blue .menu .list li.active > :first-child i, .theme-blue .menu .list li.active > :first-child span {
+  .theme-blue .menu .list li.active > :first-child i, .theme-blue .menu .list li.active > :first-child .title {
     color: #2196F3; }
 
 .theme-blue .menu .list .toggled {
@@ -377,7 +377,7 @@
 
 .theme-light-blue .menu .list li.active {
   background-color: transparent; }
-  .theme-light-blue .menu .list li.active > :first-child i, .theme-light-blue .menu .list li.active > :first-child span {
+  .theme-light-blue .menu .list li.active > :first-child i, .theme-light-blue .menu .list li.active > :first-child .title {
     color: #03A9F4; }
 
 .theme-light-blue .menu .list .toggled {
@@ -434,7 +434,7 @@
 
 .theme-cyan .menu .list li.active {
   background-color: transparent; }
-  .theme-cyan .menu .list li.active > :first-child i, .theme-cyan .menu .list li.active > :first-child span {
+  .theme-cyan .menu .list li.active > :first-child i, .theme-cyan .menu .list li.active > :first-child .title {
     color: #00BCD4; }
 
 .theme-cyan .menu .list .toggled {
@@ -490,7 +490,7 @@
 
 .theme-teal .menu .list li.active {
   background-color: transparent; }
-  .theme-teal .menu .list li.active > :first-child i, .theme-teal .menu .list li.active > :first-child span {
+  .theme-teal .menu .list li.active > :first-child i, .theme-teal .menu .list li.active > :first-child .title {
     color: #009688; }
 
 .theme-teal .menu .list .toggled {
@@ -546,7 +546,7 @@
 
 .theme-green .menu .list li.active {
   background-color: transparent; }
-  .theme-green .menu .list li.active > :first-child i, .theme-green .menu .list li.active > :first-child span {
+  .theme-green .menu .list li.active > :first-child i, .theme-green .menu .list li.active > :first-child .title {
     color: #4CAF50; }
 
 .theme-green .menu .list .toggled {
@@ -602,7 +602,7 @@
 
 .theme-light-green .menu .list li.active {
   background-color: transparent; }
-  .theme-light-green .menu .list li.active > :first-child i, .theme-light-green .menu .list li.active > :first-child span {
+  .theme-light-green .menu .list li.active > :first-child i, .theme-light-green .menu .list li.active > :first-child .title {
     color: #8BC34A; }
 
 .theme-light-green .menu .list .toggled {
@@ -658,7 +658,7 @@
 
 .theme-lime .menu .list li.active {
   background-color: transparent; }
-  .theme-lime .menu .list li.active > :first-child i, .theme-lime .menu .list li.active > :first-child span {
+  .theme-lime .menu .list li.active > :first-child i, .theme-lime .menu .list li.active > :first-child .title {
     color: #CDDC39; }
 
 .theme-lime .menu .list .toggled {
@@ -714,7 +714,7 @@
 
 .theme-yellow .menu .list li.active {
   background-color: transparent; }
-  .theme-yellow .menu .list li.active > :first-child i, .theme-yellow .menu .list li.active > :first-child span {
+  .theme-yellow .menu .list li.active > :first-child i, .theme-yellow .menu .list li.active > :first-child .title {
     color: #FFEB3B; }
 
 .theme-yellow .menu .list .toggled {
@@ -770,7 +770,7 @@
 
 .theme-amber .menu .list li.active {
   background-color: transparent; }
-  .theme-amber .menu .list li.active > :first-child i, .theme-amber .menu .list li.active > :first-child span {
+  .theme-amber .menu .list li.active > :first-child i, .theme-amber .menu .list li.active > :first-child .title {
     color: #FFC107; }
 
 .theme-amber .menu .list .toggled {
@@ -826,7 +826,7 @@
 
 .theme-orange .menu .list li.active {
   background-color: transparent; }
-  .theme-orange .menu .list li.active > :first-child i, .theme-orange .menu .list li.active > :first-child span {
+  .theme-orange .menu .list li.active > :first-child i, .theme-orange .menu .list li.active > :first-child .title {
     color: #FF9800; }
 
 .theme-orange .menu .list .toggled {
@@ -882,7 +882,7 @@
 
 .theme-deep-orange .menu .list li.active {
   background-color: transparent; }
-  .theme-deep-orange .menu .list li.active > :first-child i, .theme-deep-orange .menu .list li.active > :first-child span {
+  .theme-deep-orange .menu .list li.active > :first-child i, .theme-deep-orange .menu .list li.active > :first-child .title {
     color: #FF5722; }
 
 .theme-deep-orange .menu .list .toggled {
@@ -938,7 +938,7 @@
 
 .theme-brown .menu .list li.active {
   background-color: transparent; }
-  .theme-brown .menu .list li.active > :first-child i, .theme-brown .menu .list li.active > :first-child span {
+  .theme-brown .menu .list li.active > :first-child i, .theme-brown .menu .list li.active > :first-child .title {
     color: #795548; }
 
 .theme-brown .menu .list .toggled {
@@ -994,7 +994,7 @@
 
 .theme-grey .menu .list li.active {
   background-color: transparent; }
-  .theme-grey .menu .list li.active > :first-child i, .theme-grey .menu .list li.active > :first-child span {
+  .theme-grey .menu .list li.active > :first-child i, .theme-grey .menu .list li.active > :first-child .title {
     color: #9E9E9E; }
 
 .theme-grey .menu .list .toggled {
@@ -1051,7 +1051,7 @@
 
 .theme-blue-grey .menu .list li.active {
   background-color: transparent; }
-  .theme-blue-grey .menu .list li.active > :first-child i, .theme-blue-grey .menu .list li.active > :first-child span {
+  .theme-blue-grey .menu .list li.active > :first-child i, .theme-blue-grey .menu .list li.active > :first-child .title {
     color: #607D8B; }
 
 .theme-blue-grey .menu .list .toggled {
@@ -1107,7 +1107,7 @@
 
 .theme-black .menu .list li.active {
   background-color: transparent; }
-  .theme-black .menu .list li.active > :first-child i, .theme-black .menu .list li.active > :first-child span {
+  .theme-black .menu .list li.active > :first-child i, .theme-black .menu .list li.active > :first-child .title {
     color: #000; }
 
 .theme-black .menu .list .toggled {

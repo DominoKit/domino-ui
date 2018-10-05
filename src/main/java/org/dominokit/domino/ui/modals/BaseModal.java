@@ -6,10 +6,9 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.DominoDom;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Switchable;
-import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
@@ -23,9 +22,11 @@ import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 
 public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends BaseDominoElement<HTMLDivElement, T> implements IsModalDialog<T>, Switchable<T> {
-    private static HTMLDivElement MODAL_BACKDROP = Elements.div().css("modal-backdrop fade in").asElement();
+
     private List<OpenHandler> openHandlers = new ArrayList<>();
     private List<CloseHandler> closeHandlers = new ArrayList<>();
+    static int opened_dialogs = 0;
+    static int Z_INDEX = 1040;
 
     @Templated
     public static abstract class Modal implements IsElement<HTMLDivElement> {
@@ -82,6 +83,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     private boolean autoClose = true;
 
     private ModalSize modalSize;
+    private ModalType modalType;
 
     private Color color;
 
@@ -89,17 +91,15 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     private Element lastFocusElement;
     private Element activeElementBeforeOpen;
     private List<Element> focusElements = new ArrayList<>();
-    private Text headerText=DomGlobal.document.createTextNode("");
-    private boolean open=false;
-    private boolean disabled=false;
-    private boolean autoAppendAndRemove=true;
+    private Text headerText = DomGlobal.document.createTextNode("");
+    private boolean open = false;
+    private boolean disabled = false;
+    private boolean autoAppendAndRemove = true;
 
     public BaseModal() {
         modal = Modal.create();
         modal.getModalTitle().style().setDisplay("none");
         modal.getModalTitle().appendChild(headerText);
-        modal.getModalDialog().addEventListener("click", Event::stopPropagation);
-        addCloseHandler();
 
         addTabIndexHandler();
     }
@@ -108,13 +108,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         this();
         showHeader();
         modal.modalTitle.textContent = title;
-    }
-
-    void addCloseHandler() {
-        asElement().addEventListener("click", event -> {
-            if (autoClose)
-                close();
-        });
     }
 
     void addTabIndexHandler() {
@@ -140,8 +133,8 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
             }
 
             if (!focusElements.contains(DominoDom.document.activeElement)) {
-                    firstFocusElement.focus();
-                }
+                firstFocusElement.focus();
+            }
         });
     }
 
@@ -211,12 +204,23 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         return setSize(ModalSize.SMALL);
     }
 
-    public T setSize(ModalSize size){
+    public T setSize(ModalSize size) {
+        DominoElement<HTMLDivElement> modalElement = DominoElement.of(modal);
         if (nonNull(modalSize)) {
-            modal.getModalDialog().style().remove(modalSize.style);
+            modalElement.style().remove(modalSize.style);
         }
-        modal.getModalDialog().style().add(size.style);
+        modalElement.style().add(size.style);
         this.modalSize = size;
+        return (T) this;
+    }
+
+    public T setType(ModalType type) {
+        DominoElement<HTMLDivElement> modalElement = DominoElement.of(modal);
+        if (nonNull(modalType)) {
+            modalElement.style().remove(modalType.style);
+        }
+        modalElement.style().add(type.style);
+        this.modalType = type;
         return (T) this;
     }
 
@@ -233,38 +237,15 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     @Override
     public T setAutoClose(boolean autoClose) {
         this.autoClose = autoClose;
-        if (autoClose) {
-            MODAL_BACKDROP.addEventListener(EventType.keypress.getName(), evt -> {
-                evt.stopPropagation();
-                evt.preventDefault();
-                close();
-            });
-
-            MODAL_BACKDROP.addEventListener(EventType.mousedown.getName(), evt -> {
-                evt.stopPropagation();
-                evt.preventDefault();
-                close();
-            });
-        }else{
-            MODAL_BACKDROP.addEventListener(EventType.keypress.getName(), evt -> {
-                evt.stopPropagation();
-                evt.preventDefault();
-            });
-
-            MODAL_BACKDROP.addEventListener(EventType.mousedown.getName(), evt -> {
-                evt.stopPropagation();
-                evt.preventDefault();
-            });
-        }
         return (T) this;
     }
 
     @Override
     public T open() {
 
-        if(isEnabled()) {
+        if (isEnabled()) {
 
-            if(autoAppendAndRemove){
+            if (autoAppendAndRemove) {
                 asElement().remove();
                 document.body.appendChild(asElement());
             }
@@ -272,16 +253,15 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
             initFocusElements();
 
             activeElementBeforeOpen = DominoDom.document.activeElement;
-            MODAL_BACKDROP.remove();
-            document.body.appendChild(MODAL_BACKDROP);
+            addBackdrop();
             style().add("in");
             style().setDisplay("block");
             if (nonNull(firstFocusElement)) {
                 firstFocusElement.focus();
-                if(!Objects.equals(DominoDom.document.activeElement, firstFocusElement)){
-                   if(nonNull(lastFocusElement)){
-                       lastFocusElement.focus();
-                   }
+                if (!Objects.equals(DominoDom.document.activeElement, firstFocusElement)) {
+                    if (nonNull(lastFocusElement)) {
+                        lastFocusElement.focus();
+                    }
                 }
             }
 
@@ -289,8 +269,32 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
                 openHandlers.get(i).onOpen();
 
             this.open = true;
+            opened_dialogs = opened_dialogs + 1;
+            ModalBackDrop.openedModals.push(this);
         }
         return (T) this;
+    }
+
+    public void addBackdrop() {
+        if (opened_dialogs <= 0) {
+            document.body.appendChild(ModalBackDrop.INSTANCE);
+            DominoElement.of(document.body).style().add("modal-open");
+        } else {
+            Z_INDEX = Z_INDEX + 10;
+            ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
+            asElement().style.setProperty("z-index", (Z_INDEX + 10) + "");
+        }
+    }
+
+    public void removeBackDrop() {
+        if (opened_dialogs <= 0) {
+            ModalBackDrop.INSTANCE.remove();
+            DominoElement.of(document.body).style().remove("modal-open");
+        } else {
+            Z_INDEX = Z_INDEX - 10;
+            ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
+            asElement().style.setProperty("z-index", (Z_INDEX + 10) + "");
+        }
     }
 
     private void initFocusElements() {
@@ -308,24 +312,34 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public T close() {
-        MODAL_BACKDROP.remove();
+        opened_dialogs = opened_dialogs - 1;
+
         asElement().classList.remove("in");
         asElement().style.display = "none";
         if (nonNull(activeElementBeforeOpen))
             activeElementBeforeOpen.focus();
 
-        for(int i=0;i<closeHandlers.size();i++) {
+        for (int i = 0; i < closeHandlers.size(); i++) {
             closeHandlers.get(i).onClose();
         }
 
-        if(autoAppendAndRemove){
+        if (autoAppendAndRemove) {
             asElement().remove();
-            MODAL_BACKDROP.remove();
         }
 
-        this.open=false;
+        this.open = false;
+        removeBackDrop();
+        if(ModalBackDrop.openedModals.contains(this)){
+            ModalBackDrop.openedModals.pop();
+        }
+
         return (T) this;
     }
+
+    public boolean isAutoClose() {
+        return autoClose;
+    }
+
 
     @Override
     public T hideFooter() {
@@ -425,13 +439,13 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public T enable() {
-        this.disabled=false;
+        this.disabled = false;
         return (T) this;
     }
 
     @Override
     public T disable() {
-        this.disabled=true;
+        this.disabled = true;
         return (T) this;
     }
 
@@ -442,18 +456,18 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public T setAutoAppendAndRemove(boolean autoAppendAndRemove) {
-        this.autoAppendAndRemove=autoAppendAndRemove;
+        this.autoAppendAndRemove = autoAppendAndRemove;
         return (T) this;
     }
 
     @Override
-    public T centerVertically(){
+    public T centerVertically() {
         Style.of(modal.modalDialog).add(Styles.vertical_center);
         return (T) this;
     }
 
     @Override
-    public T deCenterVertically(){
+    public T deCenterVertically() {
         Style.of(modal.modalDialog).remove(Styles.vertical_center);
         return (T) this;
     }

@@ -16,7 +16,7 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implements Checkable<SwitchButton> {
 
     public static final String READONLY = "readonly";
-    private HTMLDivElement container = div().css("switch", "form-group", Styles.no_wrap).asElement();
+    private HTMLDivElement container = div().css("switch").css("form-group").css(Styles.no_wrap).asElement();
     private HTMLDivElement formLine = div().css("form-line").asElement();
     private HTMLDivElement formControl = div().css("form-control").asElement();
     private HTMLLabelElement onOffLabelElement = label().asElement();

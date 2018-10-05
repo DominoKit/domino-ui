@@ -18,6 +18,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.gwtproject.i18n.client.impl.cldr.DateTimeFormatInfo_factory;
+import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.EventType;
 
@@ -30,7 +31,7 @@ import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> implements HasValue<DatePicker, Date>,
-        DatePickerMonth.DaySelectionHandler, TakesValue<Date> {
+        DatePickerMonth.InternalHandler, TakesValue<Date> {
 
     private final JsDate jsDate;
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("calendar"));
@@ -67,6 +68,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     private JsDate maxDate;
 
     private List<DateSelectionHandler> dateSelectionHandlers = new ArrayList<>();
+    private List<DateDayClickedHandler> dateDayClickedHandlers = new ArrayList<>();
 
 
     public DatePicker(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
@@ -326,6 +328,26 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         return this;
     }
 
+
+    public DatePicker addDateDayClickHandler(DateDayClickedHandler dateDayClickedHandler) {
+        this.dateDayClickedHandlers.add(dateDayClickedHandler);
+        return this;
+    }
+
+    public DatePicker removeDateDayClickedHandler(DateDayClickedHandler dateClickedHandler) {
+        this.dateDayClickedHandlers.remove(dateClickedHandler);
+        return this;
+    }
+
+    public List<DateDayClickedHandler> getDateDayClickedHandlers() {
+        return this.dateDayClickedHandlers;
+    }
+
+    public DatePicker clearDateDayClickedHandlers() {
+        this.dateDayClickedHandlers.clear();
+        return this;
+    }
+
     public DatePicker setDateTimeFormatInfo(DateTimeFormatInfo dateTimeFormatInfo) {
         this.datePickerMonth.setDateTimeFormatInfo(dateTimeFormatInfo);
         updatePicker();
@@ -340,7 +362,6 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         element.style().setBorder("1px solid " + colorScheme.color().getHex());
         return this;
     }
-
 
     public DatePicker setColorScheme(ColorScheme colorScheme) {
         backgroundHandler.onBackgroundChanged(getColorScheme(), colorScheme);
@@ -365,6 +386,13 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         this.selectedPickerElement = datePickerElement;
         updatePicker();
         publish();
+    }
+
+    @Override
+    public void onDayClicked(DatePickerElement datePickerElement) {
+        for (int i = 0; i < dateDayClickedHandlers.size(); i++) {
+            dateDayClickedHandlers.get(i).onDateDayClicked(getDate(), getDateTimeFormatInfo());
+        }
     }
 
     private void publish() {
@@ -539,5 +567,25 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     @FunctionalInterface
     public interface DateSelectionHandler {
         void onDateSelected(Date date, DateTimeFormatInfo dateTimeFormatInfo);
+    }
+
+    @FunctionalInterface
+    public interface DateDayClickedHandler {
+        void onDateDayClicked(Date date, DateTimeFormatInfo dateTimeFormatInfo);
+    }
+
+    public static class Formatter extends DateTimeFormat {
+
+        protected Formatter(String pattern) {
+            super(pattern);
+        }
+
+        protected Formatter(String pattern, DateTimeFormatInfo dtfi) {
+            super(pattern, dtfi);
+        }
+
+        public static DateTimeFormat getFormat(String pattern, DateTimeFormatInfo dateTimeFormatInfo) {
+            return DateTimeFormat.getFormat(pattern, dateTimeFormatInfo);
+        }
     }
 }

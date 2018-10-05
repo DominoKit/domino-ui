@@ -7,7 +7,7 @@
 .modal-content.col-red:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-red:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-red:not([class*="col-white"]) .panel-body,
-.badge.bg-red{
+.badge .bg-red{
     color: #fff;
 }
 .bg-red,
@@ -9435,7 +9435,7 @@ ul.stepper.horizontal.stepper-col-l-1-grey .step.done .step-title:before  {
     border-bottom: 1px solid #bdbdbd;
     box-shadow: 0px 1px #bdbdbd;
 }
-.col-l-1-grey,
+
 .breadcrumb.col-l-1-grey li a {
     color: #bdbdbd;
 }
@@ -9649,7 +9649,7 @@ ul.stepper.horizontal.stepper-col-l-5-grey .step.done .step-title:before   {
     border-bottom: 1px solid #fafafa;
     box-shadow: 0px 1px #fafafa;
 }
-.col-l-5-grey,
+
 .breadcrumb.col-l-5-grey li a {
     color: #fafafa;
 }

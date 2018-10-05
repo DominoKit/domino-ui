@@ -10,6 +10,7 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
 
     private EventListener autosizeListener = evt -> adjustHeight();
     private int rows;
+    private boolean autoSize = false;
 
     public TextArea() {
         this("");
@@ -47,9 +48,16 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
 
     @Override
     protected void doSetValue(String value) {
-        if(nonNull(value)) {
+        if (nonNull(value)) {
             getInputElement().asElement().value = value;
-        }else{
+            if (autoSize) {
+                if (isAttached()) {
+                    adjustHeight();
+                } else {
+                    onAttached(mutationRecord -> adjustHeight());
+                }
+            }
+        } else {
             getInputElement().asElement().value = "";
         }
     }
@@ -68,6 +76,7 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
         getInputElement().addEventListener("input", autosizeListener);
         getInputElement().style().setOverFlow("hidden");
         updateRows(1);
+        this.autoSize = true;
         return this;
     }
 
@@ -75,6 +84,7 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
         getInputElement().removeEventListener("input", autosizeListener);
         getInputElement().style().setOverFlow("");
         setRows(rows);
+        this.autoSize = false;
         return this;
     }
 
