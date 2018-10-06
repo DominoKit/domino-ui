@@ -73,6 +73,11 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         inputElement.addEventListener("focusin", evt -> focus());
         inputElement.addEventListener("focusout", evt -> unfocus());
         labelElement.addEventListener("click", evt -> inputElement.asElement().focus());
+        inputElement.addEventListener("blur", evt -> {
+            if(isAutoValidation()){
+                validate();
+            }
+        });
     }
 
     public T large() {
@@ -142,6 +147,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         removeLabelColor(focusColor);
         removeLeftAddonColor(focusColor);
         hidePlaceholder();
+//        if(isAutoValidation()){
+//            validate();
+//        }
         return (T) this;
     }
 

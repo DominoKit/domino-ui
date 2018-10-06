@@ -72,20 +72,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             autoValidate();
         });
         this.modalListener = evt -> modal.open();
-        ElementUtil.onDetach(asElement(), mutationRecord -> {
-            if (nonNull(popover))
-                popover.discard();
-            if (nonNull(modal)) {
-                modal.asElement().remove();
-            }
-        });
+        ElementUtil.onDetach(asElement(), mutationRecord -> removeBox());
 
-        datePicker.addCloseHandler(() -> {
-            if (nonNull(popover))
-                popover.close();
-            if (nonNull(modal) && modal.isOpen())
-                modal.close();
-        });
+        datePicker.addCloseHandler(this::close);
 
         datePicker.addClearHandler(() -> value(null));
         setPickerStyle(PickerStyle.MODAL);
@@ -134,6 +123,21 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         });
 
         init(this);
+    }
+
+    private void removeBox() {
+        if (nonNull(popover))
+            popover.discard();
+        if (nonNull(modal)) {
+            modal.asElement().remove();
+        }
+    }
+
+    public void close() {
+        if (nonNull(popover))
+            popover.close();
+        if (nonNull(modal) && modal.isOpen())
+            modal.close();
     }
 
     private Date getFormattedValue(String value) throws IllegalArgumentException {
