@@ -8,6 +8,7 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.themes.Theme;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
+import org.dominokit.domino.ui.utils.ScreenMedia;
 import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -60,10 +61,18 @@ public class Layout {
     }
 
     public Layout show() {
-        return show(ColorScheme.INDIGO);
+        return show(ColorScheme.INDIGO, true);
+    }
+
+    public Layout show(boolean autoFixLeftPanel) {
+        return show(ColorScheme.INDIGO, autoFixLeftPanel);
     }
 
     public Layout show(ColorScheme theme) {
+        return show(theme, true);
+    }
+
+    public Layout show(ColorScheme theme, boolean autoFixLeftPanel) {
         appendElements();
         initElementsPosition();
         addExpandListeners();
@@ -77,6 +86,10 @@ public class Layout {
         if (nonNull(onShowHandler)) {
             onShowHandler.handleLayout(this);
         }
+        if(autoFixLeftPanel){
+            autoFixLeftPanel();
+        }
+
         return this;
     }
 
@@ -109,6 +122,16 @@ public class Layout {
 
     public Layout onShow(LayoutHandler layoutHandler){
         this.onShowHandler = layoutHandler;
+        return this;
+    }
+
+    public Layout hidNavBarExpand(){
+        navigationBar.getNavBarExpand().hideOn(ScreenMedia.SMALL_AND_DOWN);
+        return this;
+    }
+
+    public Layout showNavBarExpand(){
+        navigationBar.getNavBarExpand().removeHideOn();
         return this;
     }
 

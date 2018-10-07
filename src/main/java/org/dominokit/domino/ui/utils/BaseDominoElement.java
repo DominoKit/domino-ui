@@ -299,24 +299,37 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     public T hideOn(ScreenMedia screenMedia) {
-        if (nonNull(hideOn)) {
-            style.remove("hide-on-" + hideOn.getStyle());
-        }
+        removeHideOn();
         this.hideOn = screenMedia;
         style.add("hide-on-" + this.hideOn.getStyle());
 
         return element;
     }
 
-    public T showOn(ScreenMedia screenMedia) {
-        if (nonNull(showOn)) {
-            style.remove("show-on-" + showOn.getStyle());
+    public T removeHideOn() {
+        if (nonNull(hideOn)) {
+            style.remove("hide-on-" + hideOn.getStyle());
         }
+
+        return element;
+    }
+
+    public T showOn(ScreenMedia screenMedia) {
+        removeShowOn();
         this.showOn = screenMedia;
         style.add("show-on-" + this.showOn.getStyle());
 
         return element;
     }
+
+    public T removeShowOn() {
+        if (nonNull(showOn)) {
+            style.remove("show-on-" + showOn.getStyle());
+        }
+
+        return element;
+    }
+
 
     public ClientRect getBoundingClientRect() {
         return element.asElement().getBoundingClientRect();
@@ -351,17 +364,17 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return asElement().isEqualNode(node);
     }
 
-    public T withWaves(){
+    public T withWaves() {
         WavesSupport.addFor(element.asElement());
         return element;
     }
 
-    public T withWaves(WavesStyler wavesStyler){
+    public T withWaves(WavesStyler wavesStyler) {
         wavesStyler.styleWaves(WavesSupport.addFor(element.asElement()));
         return element;
     }
 
-    public T apply(ElementHandler<T> elementHandler){
+    public T apply(ElementHandler<T> elementHandler) {
         elementHandler.handleElement(element);
         return element;
     }
@@ -397,7 +410,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @FunctionalInterface
-    public interface ElementHandler<T>{
+    public interface ElementHandler<T> {
         void handleElement(T element);
     }
 
