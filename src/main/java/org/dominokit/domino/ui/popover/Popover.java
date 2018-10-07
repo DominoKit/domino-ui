@@ -33,6 +33,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
     private final EventListener showListener;
     private final EventListener closeListener;
     private boolean disabled = false;
+    private String positionClass;
 
     public Popover(HTMLElement target, String title, Node content) {
         this.targetElement = target;
@@ -130,9 +131,10 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
     }
 
     public Popover position(PopupPosition position) {
-        this.element.style().remove(popupPosition.getDirectionClass());
+        this.element.style().remove(this.positionClass);
         this.popupPosition = position;
-        this.element.style().add(popupPosition.getDirectionClass());
+        this.positionClass = position.getDirectionClass();
+        this.element.style().add(this.positionClass);
 
         return this;
     }
