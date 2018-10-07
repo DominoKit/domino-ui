@@ -3956,6 +3956,11 @@ fieldset[disabled] .form-control {
     .modal.right-sheet .modal-content {
         height: calc(100vh);
     }
+
+    .modal.picker-modal{
+        margin-top: 0px;
+        top: 5px;
+    }
 }
 
 .modal .modal-header {
@@ -7591,7 +7596,7 @@ a.disabled {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    z-index: 99999;
+    z-index: 1000;
 }
 
 .scroll-panel {
@@ -7633,7 +7638,7 @@ a.disabled {
 }
 
 .logo-in img {
-    margin-left: 40px;
+    margin-left: 25px;
     left: 25px;
     position: absolute;
 }

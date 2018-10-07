@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.modals;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.ColorScheme;
 
-public class ModalDialog extends BaseModal<ModalDialog>{
+public class ModalDialog extends BaseModal<ModalDialog> {
 
     public ModalDialog(String title) {
         super(title);
@@ -25,7 +25,11 @@ public class ModalDialog extends BaseModal<ModalDialog>{
 
     public static ModalDialog createPickerModal(String title, ColorScheme colorScheme, Node content) {
         ModalDialog modal = ModalDialog.create(title)
-                .styler(style -> style.setMinWidth("275px"))
+                .styler(style -> style
+                        .add("picker-modal")
+                        .setMinWidth("275px")
+                        .setWidth("275px")
+                .setMarginLeft("calc(50% - 137.5px)"))
                 .small()
                 .setAutoClose(true)
                 .appendChild(content);
