@@ -70,7 +70,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     protected abstract E createInputElement(String type);
 
     private void addFocusListeners() {
-        inputElement.addEventListener("focusin", evt -> focus());
+        inputElement.addEventListener("focus", evt -> focus());
         inputElement.addEventListener("focusout", evt -> unfocus());
         labelElement.addEventListener("click", evt -> inputElement.asElement().focus());
         inputElement.addEventListener("blur", evt -> {

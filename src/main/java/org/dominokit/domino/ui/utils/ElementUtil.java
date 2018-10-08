@@ -58,6 +58,22 @@ public class ElementUtil {
         return isKeyOf("space", keyboardEvent);
     }
 
+    public static boolean isArrowDown(KeyboardEvent keyboardEvent) {
+        return isKeyOf("ArrowDown", keyboardEvent);
+    }
+
+    public static boolean isArrowUp(KeyboardEvent keyboardEvent) {
+        return isKeyOf("ArrowUp", keyboardEvent);
+    }
+
+    public static boolean isTabKey(KeyboardEvent keyboardEvent) {
+        return isKeyOf("tab", keyboardEvent);
+    }
+
+    public static boolean isEscapeKey(KeyboardEvent keyboardEvent) {
+        return isKeyOf("escape", keyboardEvent);
+    }
+
     /**
      * Registers a callback when an element is appended to the document body. Note that the callback will be called
      * only once, if the element is appended more than once a new callback should be registered.
@@ -170,5 +186,4 @@ public class ElementUtil {
                 .on(EventType.click, event -> DomGlobal.window.open(targetUrl, "_blank"))
                 .asElement();
     }
-
 }
