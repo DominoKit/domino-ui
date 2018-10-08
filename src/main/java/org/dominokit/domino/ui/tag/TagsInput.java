@@ -1,15 +1,14 @@
 package org.dominokit.domino.ui.tag;
 
-import elemental2.dom.Event;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
-import elemental2.dom.KeyboardEvent;
-import jsinterop.base.Js;
 import org.dominokit.domino.ui.chips.Chip;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.forms.ValueBox;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents.KeyboardEventOptions;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.tag.store.DynamicLocalTagsStore;
 import org.dominokit.domino.ui.tag.store.TagsStore;
@@ -20,7 +19,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.ElementUtil.isEnterKey;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.input;
 
@@ -33,8 +31,8 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     private DropDownMenu dropDownMenu;
     private ColorScheme colorScheme = ColorScheme.INDIGO;
 
-    public TagsInput(String type, String label, TagsStore<V> store) {
-        super(type, label);
+    public TagsInput(String label, TagsStore<V> store) {
+        super("text", label);
         this.store = store;
         floating();
     }
@@ -52,44 +50,55 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     }
 
     public static <V> TagsInput<V> create(String label, TagsStore<V> store) {
-        return new TagsInput<>("text", label, store);
+        return new TagsInput<>(label, store);
     }
 
     @Override
     protected HTMLDivElement createInputElement(String type) {
         HTMLDivElement tagsInputContainer = div().css("tags-input", "form-control").asElement();
-        tagTextInput = input("text").css("tag-text-input").asElement();
-        dropDownMenu = DropDownMenu.create(tagTextInput).setPosition(DropDownPosition.BOTTOM);
+        tagTextInput = input(type).css("tag-text-input").asElement();
+        dropDownMenu = DropDownMenu.create(tagTextInput)
+                .setPosition(DropDownPosition.BOTTOM)
+                .addCloseHandler(() -> tagTextInput.focus());
         tagsInputContainer.appendChild(tagTextInput);
         tagsInputContainer.addEventListener("click", evt -> {
-            focus();
+            tagTextInput.focus();
             evt.stopPropagation();
         });
         initListeners();
         return tagsInputContainer;
     }
 
-    @Override
-    public TagsInput<V> focus() {
-        tagTextInput.focus();
-        return super.focus();
-    }
-
     private void initListeners() {
-        tagTextInput.addEventListener("keypress", evt -> {
-            String displayValue = tagTextInput.value;
-            KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-            if (isEnterKey(keyboardEvent) && !displayValue.isEmpty()) {
-                V value = store.getItemByDisplayValue(displayValue);
-                if (nonNull(value)) {
-                    addTag(displayValue, value);
-                }
-            }
-        });
+        KeyboardEvents.listenOn(tagTextInput)
+                .onEnter(evt -> {
+                    String displayValue = tagTextInput.value;
+                    if (displayValue.isEmpty()) {
+                        openMenu();
+                    } else {
+                        V value = store.getItemByDisplayValue(displayValue);
+                        if (nonNull(value)) {
+                            addTag(displayValue, value);
+                        }
+                    }
+                })
+                .onTab(evt -> {
+                    dropDownMenu.close();
+                    unfocus();
+                })
+                .onCtrlBackspace(evt -> {
+                    chips.stream().reduce((first, second) -> second)
+                            .ifPresent(Chip::remove);
+                    search();
+                })
+                .onArrowUpDown(evt -> openMenu(), KeyboardEventOptions.create().setPreventDefault(true));
+
         tagTextInput.addEventListener("input", evt -> search());
-        tagTextInput.addEventListener("change", Event::stopPropagation);
-        tagTextInput.addEventListener("focusin", evt -> search());
-        tagTextInput.addEventListener("click", Event::stopPropagation);
+        tagTextInput.addEventListener("focus", evt -> {
+            focus();
+            search();
+        });
+        tagTextInput.addEventListener("blur", evt -> unfocus());
     }
 
     private void search() {
@@ -104,7 +113,10 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
         if (!selectedItems.contains(value)) {
             dropDownMenu
                     .addAction(DropdownAction.create(value, displayValue)
-                            .addSelectionHandler(() -> addTag(displayValue, value)));
+                            .addSelectionHandler(selectedValue -> {
+                                addTag(displayValue, value);
+                                tagTextInput.focus();
+                            }));
         }
     }
 
@@ -114,14 +126,9 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
         }
     }
 
-    private void closeMenu() {
-        dropDownMenu.close();
-    }
-
     private void fireChangeEvent() {
         callChangeHandlers();
         tagTextInput.value = "";
-        closeMenu();
         validate();
     }
 

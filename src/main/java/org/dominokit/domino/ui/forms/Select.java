@@ -4,6 +4,9 @@ import elemental2.dom.*;
 import elemental2.dom.EventListener;
 import elemental2.svg.SVGElement;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.dropdown.MenuNavigation;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents.KeyboardEventOptions;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -21,7 +24,6 @@ import java.util.stream.Collectors;
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.ElementUtil.*;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusable<Select<T>>, IsReadOnly<Select<T>> {
@@ -81,7 +83,12 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     private void initListeners() {
 
-        document.body.addEventListener(KEYDOWN, new NavigateOptionsKeyListener());
+        selectElement.getDropDownMenu().addEventListener(KEYDOWN, MenuNavigation.create(options, selectElement.selectButton)
+                .onFocus(SelectOption::focus)
+                .onSelect(this::doSelectOption)
+                .focusCondition(item -> !isHidden(item))
+                .onEscape(this::close)
+        );
 
         EventListener clickListener = evt -> {
             open();
@@ -91,26 +98,32 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         selectElement.getSelectMenu().addEventListener("focusin", evt -> focus());
         selectElement.getSelectMenu().addEventListener("focusout", evt -> unfocus());
         selectElement.getSelectButton().addEventListener("focus", evt -> selectElement.getSelectButton().blur());
-        selectElement.getSelectMenu().addEventListener(KEYDOWN, evt -> {
-            KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
-            if (isSpaceKey(keyboardEvent) || isEnterKey(keyboardEvent) || isArrowDown(keyboardEvent) || isArrowUp(keyboardEvent)) {
-                open();
-                evt.preventDefault();
-            }
-        });
+
+        EventListener keyboardListener = evt -> open();
+        KeyboardEvents.listenOn(selectElement.getSelectMenu())
+                .onArrowUpDown(keyboardListener)
+                .onSpace(keyboardListener)
+                .onEnter(keyboardListener);
 
         selectElement.getSearchBox().addEventListener("input", evt -> doSearch());
-        selectElement.getSearchBox().addEventListener(KEYDOWN, evt -> {
-            KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
-            if (isArrowUp(keyboardEvent)) {
-                options.getLast().focus();
-                evt.preventDefault();
-            } else if (isArrowDown(keyboardEvent)) {
-                options.stream().filter(so -> !isHidden(so))
-                        .findFirst().ifPresent(SelectOption::focus);
-                evt.preventDefault();
-            }
-        });
+
+        KeyboardEvents.listenOn(selectElement.getSearchBox())
+                .onArrowDown(evt -> focusFirstOption(), KeyboardEventOptions.create().setPreventDefault(true))
+                .onArrowUp(evt -> focusLastOption(), KeyboardEventOptions.create().setPreventDefault(true));
+    }
+
+    private void focusLastOption() {
+        options.stream().filter(so -> !isHidden(so))
+                .reduce((first, second) -> second).ifPresent(SelectOption::focus);
+    }
+
+    private void focusFirstOption() {
+        options.stream().filter(so -> !isHidden(so))
+                .findFirst().ifPresent(SelectOption::focus);
+    }
+
+    private void focusAt(int index) {
+        options.get(index).focus();
     }
 
     private boolean isHidden(SelectOption<T> option) {
@@ -758,8 +771,18 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         return container.asElement();
     }
 
+    @Override
+    public String getStringValue() {
+        SelectOption<T> selectedOption = getSelectedOption();
+        if (nonNull(selectedOption)) {
+            return selectedOption.getDisplayValue();
+        }
+        return null;
+    }
+
     @Templated
     public static abstract class SelectElement extends BaseDominoElement<HTMLDivElement, SelectElement> implements IsElement<HTMLDivElement> {
+
 
         @DataElement
         HTMLDivElement formControl;
@@ -839,80 +862,5 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         public DominoElement<HTMLInputElement> getSearchBox() {
             return DominoElement.of(searchBox);
         }
-    }
-
-    private final class NavigateOptionsKeyListener implements EventListener {
-
-        @Override
-        public void handleEvent(Event evt) {
-            KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
-            HTMLElement element = Js.uncheckedCast(keyboardEvent.target);
-            for (SelectOption<T> option : options) {
-                if (option.asElement().contains(element)) {
-                    if (isArrowUp(keyboardEvent)) {
-                        focusPrev(option);
-                        evt.preventDefault();
-                    } else if (isArrowDown(keyboardEvent)) {
-                        focusNext(option);
-                        evt.preventDefault();
-                    }
-
-                    if (isEnterKey(keyboardEvent) ||
-                            isSpaceKey(keyboardEvent)
-                            || isKeyOf("tab", keyboardEvent)) {
-                        doSelectOption(option);
-                        evt.preventDefault();
-                    }
-                }
-            }
-        }
-
-        private void focusNext(SelectOption<T> option) {
-            int nextIndex = options.indexOf(option) + 1;
-            int size = options.size();
-            if (nextIndex >= size) {
-                options.getFirst().focus();
-            } else {
-                for (int i = nextIndex; i < size; i++) {
-                    SelectOption<T> nextOption = options.get(i);
-                    if (!isHidden(nextOption)) {
-                        nextOption.focus();
-                        break;
-                    }
-                }
-            }
-        }
-
-        private void focusPrev(SelectOption<T> option) {
-            int nextIndex = options.indexOf(option) - 1;
-            if (nextIndex < 0) {
-                options.getLast().focus();
-            } else {
-                for (int i = nextIndex; i >= 0; i--) {
-                    SelectOption<T> nextOption = options.get(i);
-                    if (!isHidden(nextOption)) {
-                        nextOption.focus();
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-    private boolean isArrowDown(KeyboardEvent keyboardEvent) {
-        return isKeyOf("ArrowDown", keyboardEvent);
-    }
-
-    private boolean isArrowUp(KeyboardEvent keyboardEvent) {
-        return isKeyOf("ArrowUp", keyboardEvent);
-    }
-
-    @Override
-    public String getStringValue() {
-        SelectOption<T> selectedOption = getSelectedOption();
-        if (nonNull(selectedOption)) {
-            return selectedOption.getDisplayValue();
-        }
-        return null;
     }
 }

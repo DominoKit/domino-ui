@@ -19,7 +19,7 @@ import static org.jboss.gwt.elemento.core.Elements.col;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.span;
 
-public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements HasSelectionHandler<Chip>, HasDeselectionHandler<Chip>,
+public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements HasSelectionHandler<Chip, String>, HasDeselectionHandler<Chip>,
         Switchable<Chip>, HasRemoveHandler<Chip> {
 
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("chip"));
@@ -30,7 +30,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     private Color color = Color.INDIGO;
     private Color borderColor;
     private DominoElement<HTMLElement> removeIcon = DominoElement.of(Icons.ALL.close().asElement());
-    private List<SelectionHandler> selectionHandlers = new ArrayList<>();
+    private List<SelectionHandler<String>> selectionHandlers = new ArrayList<>();
     private List<DeselectionHandler> deselectionHandlers = new ArrayList<>();
     private List<RemoveHandler> removeHandlers = new ArrayList<>();
     private boolean selected;
@@ -69,7 +69,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         this.selected = true;
         Style.of(element).replaceCss(getBackgroundStyle(), getDarkerColor());
         Style.of(removeIcon).add(getDarkerColor());
-        selectionHandlers.forEach(SelectionHandler::onSelection);
+        selectionHandlers.forEach(selectionHandler -> selectionHandler.onSelection(getValue()));
         return this;
     }
 
@@ -223,7 +223,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     }
 
     @Override
-    public Chip addSelectionHandler(SelectionHandler selectionHandler) {
+    public Chip addSelectionHandler(SelectionHandler<String> selectionHandler) {
         selectionHandlers.add(selectionHandler);
         return this;
     }

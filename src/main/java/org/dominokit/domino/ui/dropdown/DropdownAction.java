@@ -10,25 +10,26 @@ import org.jboss.gwt.elemento.core.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DropdownAction<V> extends BaseDominoElement<HTMLLIElement, DropdownAction<V>> implements HasSelectionHandler<DropdownAction> {
+public class DropdownAction<V> extends BaseDominoElement<HTMLLIElement, DropdownAction<V>> implements HasSelectionHandler<DropdownAction, V> {
 
     private HTMLLIElement liElement = Elements.li().asElement();
     private V value;
     private HTMLAnchorElement aElement;
-    private List<SelectionHandler> selectionHandlers = new ArrayList<>();
+    private List<SelectionHandler<V>> selectionHandlers = new ArrayList<>();
 
     private DropdownAction(V value, String displayValue) {
         this.value = value;
         aElement = Elements.a()
+                .attr("tabindex", "0")
                 .textContent(displayValue)
                 .asElement();
         liElement.appendChild(aElement);
         liElement.addEventListener("click", evt -> {
-            selectionHandlers.forEach(SelectionHandler::onSelection);
+            select();
             evt.preventDefault();
         });
         liElement.addEventListener("touchstart", evt -> {
-            selectionHandlers.forEach(SelectionHandler::onSelection);
+            select();
             evt.preventDefault();
         });
     }
@@ -41,13 +42,23 @@ public class DropdownAction<V> extends BaseDominoElement<HTMLLIElement, Dropdown
         return new DropdownAction<>(value, displayValue);
     }
 
+    public DropdownAction<V> focus() {
+        aElement.focus();
+        return this;
+    }
+
+    public DropdownAction<V> select() {
+        selectionHandlers.forEach(handler -> handler.onSelection(getValue()));
+        return this;
+    }
+
     @Override
     public HTMLLIElement asElement() {
         return liElement;
     }
 
     @Override
-    public DropdownAction addSelectionHandler(SelectionHandler selectionHandler) {
+    public DropdownAction<V> addSelectionHandler(SelectionHandler<V> selectionHandler) {
         selectionHandlers.add(selectionHandler);
         return this;
     }

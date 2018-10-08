@@ -15,11 +15,13 @@ import static org.jboss.gwt.elemento.core.Elements.ul;
 
 public class DropDownMenu extends BaseDominoElement<HTMLUListElement, DropDownMenu> {
 
+    private MenuNavigation<DropdownAction, HTMLElement> menuNavigation;
     private DominoElement<HTMLUListElement> element = DominoElement.of(ul().css("dropdown-menu"));
     private DominoElement<HTMLElement> targetElement;
     private DropDownPosition position = DropDownPosition.BOTTOM;
     private List<DropdownAction> actions = new ArrayList<>();
     private boolean touchMoved;
+    private List<CloseHandler> closeHandlers = new ArrayList<>();
 
     public DropDownMenu(HTMLElement targetElement) {
         this.targetElement = DominoElement.of(targetElement);
@@ -32,6 +34,17 @@ public class DropDownMenu extends BaseDominoElement<HTMLUListElement, DropDownMe
             touchMoved = false;
         });
         document.addEventListener("touchmove", evt -> this.touchMoved = true);
+
+        addMenuNavigationListener(targetElement);
+    }
+
+    private void addMenuNavigationListener(HTMLElement targetElement) {
+        menuNavigation = MenuNavigation.create(actions, targetElement)
+                .onSelect(DropdownAction::select)
+                .onFocus(DropdownAction::focus)
+                .onEscape(this::close);
+
+        element.addEventListener("keydown", menuNavigation);
     }
 
     private void closeAllGroups(Event evt) {
@@ -58,7 +71,10 @@ public class DropDownMenu extends BaseDominoElement<HTMLUListElement, DropDownMe
     }
 
     public DropDownMenu addAction(DropdownAction action) {
-        action.addSelectionHandler(this::close);
+        action.addSelectionHandler(value -> {
+            if (!hasActions())
+                close();
+        });
         actions.add(action);
         element.appendChild(action.asElement());
         return this;
@@ -76,6 +92,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLUListElement, DropDownMe
 
     public void close() {
         element.remove();
+        closeHandlers.forEach(CloseHandler::onClose);
     }
 
     public void open() {
@@ -114,5 +131,26 @@ public class DropDownMenu extends BaseDominoElement<HTMLUListElement, DropDownMe
                 close(item);
             }
         }
+    }
+
+    public DropDownMenu selectAt(int index) {
+        if (index >= 0 && index < actions.size()) {
+            menuNavigation.focusAt(index);
+        }
+        return this;
+    }
+
+    public DropDownMenu addCloseHandler(CloseHandler closeHandler) {
+        closeHandlers.add(closeHandler);
+        return this;
+    }
+
+    public List<DropdownAction> getActions() {
+        return actions;
+    }
+
+    @FunctionalInterface
+    public interface CloseHandler {
+        void onClose();
     }
 }
