@@ -11,12 +11,12 @@ import java.util.List;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> implements Switchable<ChipsGroup>, HasSelectionHandler<ChipsGroup> {
+public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> implements Switchable<ChipsGroup>, HasSelectionHandler<ChipsGroup, Chip> {
 
     private HTMLDivElement element = div().asElement();
     private List<Chip> chips = new ArrayList<>();
     private Chip selectedChip;
-    private List<SelectionHandler> selectionHandlers = new ArrayList<>();
+    private List<SelectionHandler<Chip>> selectionHandlers = new ArrayList<>();
 
     public ChipsGroup() {
         init(this);
@@ -37,14 +37,14 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> im
 
     public ChipsGroup appendChild(Chip chip) {
         chip.setSelectable(true);
-        chip.addSelectionHandler(() -> {
+        chip.addSelectionHandler(value -> {
             for (Chip c : chips) {
                 if (!c.equals(chip)) {
                     c.deselect();
                 }
             }
             this.selectedChip = chip;
-            selectionHandlers.forEach(SelectionHandler::onSelection);
+            selectionHandlers.forEach(handler -> handler.onSelection(chip));
         });
         chips.add(chip);
         element.appendChild(chip.asElement());
@@ -73,7 +73,7 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> im
     }
 
     @Override
-    public ChipsGroup addSelectionHandler(SelectionHandler selectionHandler) {
+    public ChipsGroup addSelectionHandler(SelectionHandler<Chip> selectionHandler) {
         selectionHandlers.add(selectionHandler);
         return this;
     }
