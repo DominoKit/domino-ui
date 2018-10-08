@@ -4,7 +4,12 @@ import com.google.gwt.editor.client.adapters.TakesValueEditor;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLLabelElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.forms.validations.ElementValidations;
+import org.dominokit.domino.ui.forms.validations.RequiredValidator;
+import org.dominokit.domino.ui.forms.validations.ValidationResult;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.HasChangeHandlers;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -25,10 +30,12 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     private DominoElement<HTMLDivElement> labelContainer = DominoElement.of(div().css("form-label focused"));
     private TakesValueEditor<String> editor;
     private ElementValidations elementValidations = new ElementValidations(this);
+    private RequiredValidator requiredValidator = new RequiredValidator(this);
     private List<Radio> radios = new ArrayList<>();
     private String name;
     private ChangeHandler<Boolean> autoValidationHandler;
     private List<ChangeHandler<Radio>> changeHandlers = new ArrayList<>();
+    private String requiredErrorMessage;
 
     public RadioGroup(String name) {
         formControl.style()
@@ -265,19 +272,35 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
 
     @Override
     public RadioGroup setRequired(boolean required) {
-        elementValidations.setRequired(required);
+        if (required) {
+            addValidator(requiredValidator);
+        } else {
+            removeValidator(requiredValidator);
+        }
         return this;
     }
 
     @Override
     public RadioGroup setRequired(boolean required, String message) {
-        elementValidations.setRequired(required, message);
+        setRequired(required);
+        setRequiredErrorMessage(message);
         return this;
     }
 
     @Override
     public boolean isRequired() {
-        return elementValidations.isRequired();
+        return hasValidator(requiredValidator);
+    }
+
+    @Override
+    public RadioGroup setRequiredErrorMessage(String requiredErrorMessage) {
+        this.requiredErrorMessage = requiredErrorMessage;
+        return this;
+    }
+
+    @Override
+    public String getRequiredErrorMessage() {
+        return isNull(requiredErrorMessage) ? "* This field is required." : requiredErrorMessage;
     }
 
     @Override

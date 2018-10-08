@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.forms;
 
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.*;
 
 import java.util.ArrayList;
