@@ -11,7 +11,7 @@ import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.dominokit.domino.ui.utils.ValidationResult;
+import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.EventType;

@@ -1,5 +1,7 @@
 package org.dominokit.domino.ui.utils;
 
+import org.dominokit.domino.ui.forms.validations.ValidationResult;
+
 public interface HasValidation<T> {
 
     ValidationResult validate();

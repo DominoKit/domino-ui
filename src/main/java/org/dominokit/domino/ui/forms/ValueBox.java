@@ -147,9 +147,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         removeLabelColor(focusColor);
         removeLeftAddonColor(focusColor);
         hidePlaceholder();
-//        if(isAutoValidation()){
-//            validate();
-//        }
+
         return (T) this;
     }
 

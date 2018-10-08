@@ -4,18 +4,27 @@ import com.google.gwt.editor.client.adapters.TakesValueEditor;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLabelElement;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.forms.validations.ElementValidations;
+import org.dominokit.domino.ui.forms.validations.RequiredValidator;
+import org.dominokit.domino.ui.forms.validations.ValidationResult;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.IsReadOnly;
 import org.jboss.gwt.elemento.core.Elements;
 
-public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> extends BaseDominoElement<HTMLElement, T> implements FormElement<T, V>, IsReadOnly<T> , HasInputElement{
+import static java.util.Objects.isNull;
+
+public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> extends BaseDominoElement<HTMLElement, T> implements FormElement<T, V>, IsReadOnly<T>, HasInputElement {
 
     private static final String NAME = "name";
     private HTMLLabelElement helperLabel = Elements.label().css("help-info").asElement();
     private HTMLLabelElement errorLabel = Elements.label().css("error").asElement();
     private ElementValidations elementValidations = new ElementValidations(this);
+    private RequiredValidator requiredValidator = new RequiredValidator(this);
     private String helperText;
 
     private TakesValueEditor<V> editor;
+    private String requiredErrorMessage;
 
     @Override
     public T setHelperText(String helperText) {
@@ -112,19 +121,35 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     @Override
     public T setRequired(boolean required) {
-        elementValidations.setRequired(required);
+        if (required) {
+            addValidator(requiredValidator);
+        } else {
+            removeValidator(requiredValidator);
+        }
         return (T) this;
     }
 
     @Override
     public T setRequired(boolean required, String message) {
-        elementValidations.setRequired(required, message);
+        setRequired(required);
+        setRequiredErrorMessage(message);
         return (T) this;
     }
 
     @Override
     public boolean isRequired() {
-        return elementValidations.isRequired();
+        return hasValidator(requiredValidator);
+    }
+
+    @Override
+    public T setRequiredErrorMessage(String requiredErrorMessage) {
+        this.requiredErrorMessage = requiredErrorMessage;
+        return (T) this;
+    }
+
+    @Override
+    public String getRequiredErrorMessage() {
+        return isNull(requiredErrorMessage) ? "* This field is required." : requiredErrorMessage;
     }
 
     @Override

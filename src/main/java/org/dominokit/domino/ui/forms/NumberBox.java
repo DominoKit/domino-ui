@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.HTMLInputElement;
-import org.dominokit.domino.ui.utils.ValidationResult;
+import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.jboss.gwt.elemento.core.Elements;
 
 import static java.util.Objects.nonNull;
@@ -22,7 +22,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         });
         setAutoValidation(true);
         if (nonNull(getMaxValue())) {
-            setLength(getMaxValue().toString().length());
+            setMaxLength(getMaxValue().toString().length());
         }
     }
 
