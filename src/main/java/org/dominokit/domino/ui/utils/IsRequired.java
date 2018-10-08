@@ -7,4 +7,8 @@ public interface IsRequired<T> {
     T setRequired(boolean required, String message);
 
     boolean isRequired();
+
+    T setRequiredErrorMessage(String requiredErrorMessage);
+
+    String getRequiredErrorMessage();
 }

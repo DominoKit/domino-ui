@@ -1,4 +1,4 @@
-package org.dominokit.domino.ui.utils;
+package org.dominokit.domino.ui.forms.validations;
 
 public class ValidationResult {
 

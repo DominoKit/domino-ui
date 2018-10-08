@@ -1,7 +1,11 @@
 package org.dominokit.domino.ui.utils;
 
 public interface HasLength<T> {
-    T setLength(int length);
+    T setMaxLength(int maxLength);
 
-    int getLength();
+    int getMaxLength();
+
+    T setMinLength(int minLength);
+
+    int getMinLength();
 }

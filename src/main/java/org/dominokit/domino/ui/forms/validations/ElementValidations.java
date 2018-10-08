@@ -1,12 +1,9 @@
-package org.dominokit.domino.ui.utils;
+package org.dominokit.domino.ui.forms.validations;
 
-import elemental2.dom.DomGlobal;
 import org.dominokit.domino.ui.forms.FormElement;
 import org.dominokit.domino.ui.utils.HasValidation.Validator;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import static java.util.Objects.isNull;
@@ -16,12 +13,6 @@ public class ElementValidations {
 
     private FormElement element;
     private Set<Validator> validators = new LinkedHashSet<>();
-    private String requiredMessage = "* This field is required.";
-    private Validator requiredValidator =  () -> {
-        if (element.isEmpty())
-            return ValidationResult.invalid(requiredMessage);
-        return ValidationResult.valid();
-    };;
     private boolean invalidated;
 
     public ElementValidations(FormElement element) {
@@ -59,22 +50,5 @@ public class ElementValidations {
 
     public boolean hasValidator(Validator validator) {
         return !isNull(validator) && validators.contains(validator);
-    }
-
-    public void setRequired(boolean required) {
-        setRequired(required, "* This field is required.");
-    }
-
-    public void setRequired(boolean required, String message) {
-        this.requiredMessage = message;
-        if (required) {
-            addValidator(requiredValidator);
-        } else {
-            removeValidator(requiredValidator);
-        }
-    }
-
-    public boolean isRequired() {
-        return hasValidator(requiredValidator);
     }
 }

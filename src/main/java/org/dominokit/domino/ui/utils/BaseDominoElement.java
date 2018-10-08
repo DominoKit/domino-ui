@@ -399,6 +399,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return asElement().hasChildNodes();
     }
 
+    public String getDominoId() {
+        return uuid;
+    }
+
     @FunctionalInterface
     public interface StyleEditor<E extends HTMLElement, T extends IsElement<E>> {
         void applyStyles(Style<E, T> style);
