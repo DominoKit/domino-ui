@@ -4,6 +4,8 @@ import elemental2.dom.ClientRect;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 
+import static elemental2.dom.DomGlobal.*;
+
 public class PopupPositionLeftRight implements PopupPosition {
 
     private String positionClass;
@@ -11,10 +13,9 @@ public class PopupPositionLeftRight implements PopupPosition {
     @Override
     public void position(HTMLElement popup, HTMLElement target) {
         ClientRect targetRect = target.getBoundingClientRect();
-        ClientRect tooltipRect = popup.getBoundingClientRect();
 
-        double distanceToCenter = targetRect.left - (tooltipRect.width / 2);
-        double windowCenter = DomGlobal.window.innerWidth / 2;
+        double distanceToCenter = (targetRect.left) - (targetRect.width / 2);
+        double windowCenter = window.innerWidth / 2;
 
         if (distanceToCenter >= windowCenter) {
             PopupPosition.LEFT.position(popup, target);
