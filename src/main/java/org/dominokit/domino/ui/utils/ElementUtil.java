@@ -50,10 +50,6 @@ public class ElementUtil {
         return isKeyOf("enter", keyboardEvent);
     }
 
-    public static boolean isEscapeKey(KeyboardEvent keyboardEvent) {
-        return isKeyOf("Escape", keyboardEvent);
-    }
-
     public static boolean isSpaceKey(KeyboardEvent keyboardEvent) {
         return isKeyOf("space", keyboardEvent);
     }
