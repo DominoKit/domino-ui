@@ -13,9 +13,8 @@ public class PopupPositionTopDown implements PopupPosition {
     @Override
     public void position(HTMLElement popup, HTMLElement target) {
         ClientRect targetRect = target.getBoundingClientRect();
-        ClientRect tooltipRect = popup.getBoundingClientRect();
 
-        double distanceToMiddle =((targetRect.top)-(tooltipRect.height/2));
+        double distanceToMiddle =((targetRect.top)-(targetRect.height/2));
         double windowMiddle = DomGlobal.window.innerHeight/2;
 
         if(distanceToMiddle>=windowMiddle){
