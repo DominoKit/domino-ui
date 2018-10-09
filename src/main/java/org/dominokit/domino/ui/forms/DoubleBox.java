@@ -2,6 +2,8 @@ package org.dominokit.domino.ui.forms;
 
 import org.dominokit.domino.ui.utils.ElementUtil;
 
+import java.math.BigDecimal;
+
 import static java.util.Objects.isNull;
 
 public class DoubleBox extends NumberBox<DoubleBox, Double> {
@@ -47,6 +49,25 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
     public DoubleBox setMaxValue(double maxValue) {
         this.maxValue = maxValue;
+        return this;
+    }
+
+    @Override
+    public DoubleBox setMinValue(Double minValue) {
+        setAttribute("min", String.valueOf(minValue));
+        return this;
+    }
+
+    @Override
+    public DoubleBox setMaxValue(Double maxValue) {
+        this.maxValue = maxValue;
+        setAttribute("max", String.valueOf(maxValue));
+        return this;
+    }
+
+    @Override
+    public DoubleBox setStep(Double step) {
+        setAttribute("step", String.valueOf(step));
         return this;
     }
 }

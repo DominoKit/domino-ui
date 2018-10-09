@@ -8,7 +8,7 @@ import static java.util.Objects.nonNull;
 
 public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> extends AbstractValueBox<T, HTMLInputElement, E> {
 
-    private static final String TEXT = "text";
+    private static final String TEXT = "number";
 
     public NumberBox(String label) {
         super(TEXT, label);
@@ -73,4 +73,9 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     protected abstract boolean isExceedMaxValue(E value);
 
     protected abstract E getMaxValue();
+
+    public abstract T setMinValue(E minValue);
+    public abstract T setMaxValue(E maxValue);
+    public abstract T setStep(E step);
+
 }

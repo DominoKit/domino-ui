@@ -49,8 +49,23 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
         return maxValue;
     }
 
+
+    @Override
+    public BigDecimalBox setMinValue(BigDecimal minValue) {
+        setAttribute("min", String.valueOf(minValue));
+        return this;
+    }
+
+    @Override
     public BigDecimalBox setMaxValue(BigDecimal maxValue) {
         this.maxValue = maxValue;
+        setAttribute("max", String.valueOf(maxValue));
+        return this;
+    }
+
+    @Override
+    public BigDecimalBox setStep(BigDecimal step) {
+        setAttribute("step", String.valueOf(step));
         return this;
     }
 }

@@ -49,4 +49,23 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
         this.maxValue = maxValue;
         return this;
     }
+
+    @Override
+    public FloatBox setMinValue(Float minValue) {
+        setAttribute("min", String.valueOf(minValue));
+        return this;
+    }
+
+    @Override
+    public FloatBox setMaxValue(Float maxValue) {
+        this.maxValue = maxValue;
+        setAttribute("max", String.valueOf(maxValue));
+        return this;
+    }
+
+    @Override
+    public FloatBox setStep(Float step) {
+        setAttribute("step", String.valueOf(step));
+        return this;
+    }
 }

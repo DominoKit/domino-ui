@@ -63,6 +63,12 @@ public class DropdownAction<V> extends BaseDominoElement<HTMLLIElement, Dropdown
         return this;
     }
 
+    @Override
+    public DropdownAction removeSelectionHandler(SelectionHandler<V> selectionHandler) {
+        selectionHandlers.remove(selectionHandler);
+        return this;
+    }
+
     public V getValue() {
         return value;
     }
