@@ -379,6 +379,17 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return element;
     }
 
+
+    public T setContent(IsElement element){
+        return setContent(element.asElement());
+    }
+
+    public T setContent(Node content){
+        clearElement();
+        appendChild(content);
+        return element;
+    }
+
     public int getElementsCount() {
         return new Double(asElement().childElementCount).intValue();
     }

@@ -79,6 +79,12 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> im
     }
 
     @Override
+    public ChipsGroup removeSelectionHandler(SelectionHandler<Chip> selectionHandler) {
+        selectionHandlers.remove(selectionHandler);
+        return this;
+    }
+
+    @Override
     public HTMLDivElement asElement() {
         return element;
     }

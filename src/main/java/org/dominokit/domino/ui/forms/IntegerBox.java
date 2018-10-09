@@ -49,4 +49,22 @@ public class IntegerBox extends NumberBox<IntegerBox, Integer> {
         this.maxValue = maxValue;
         return this;
     }
+
+    @Override
+    public IntegerBox setMinValue(Integer minValue) {
+        setAttribute("min", String.valueOf(minValue));
+        return this;
+    }
+
+    @Override
+    public IntegerBox setMaxValue(Integer maxValue) {
+        setAttribute("max", String.valueOf(maxValue));
+        return this;
+    }
+
+    @Override
+    public IntegerBox setStep(Integer step) {
+        setAttribute("step", String.valueOf(step));
+        return this;
+    }
 }
