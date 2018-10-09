@@ -49,4 +49,23 @@ public class ShortBox extends NumberBox<ShortBox, Short> {
         this.maxValue = maxValue;
         return this;
     }
+
+    @Override
+    public ShortBox setMinValue(Short minValue) {
+        setAttribute("min", String.valueOf(minValue));
+        return this;
+    }
+
+    @Override
+    public ShortBox setMaxValue(Short maxValue) {
+        this.maxValue = maxValue;
+        setAttribute("max", String.valueOf(maxValue));
+        return this;
+    }
+
+    @Override
+    public ShortBox setStep(Short step) {
+        setAttribute("step", String.valueOf(step));
+        return this;
+    }
 }

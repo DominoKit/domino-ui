@@ -235,6 +235,12 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     }
 
     @Override
+    public Chip removeSelectionHandler(SelectionHandler<String> selectionHandler) {
+        selectionHandlers.remove(selectionHandler);
+        return this;
+    }
+
+    @Override
     public Chip enable() {
         this.enabled = true;
         element.removeAttribute("disabled");

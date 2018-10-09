@@ -85,6 +85,12 @@ public class Icon extends BaseDominoElement<HTMLElement, Icon> {
         }
     }
 
+    public Icon clickable() {
+        style.add("clickable-icon");
+        withWaves();
+        return this;
+    }
+
     @Override
     public HTMLElement asElement() {
         return icon.asElement();

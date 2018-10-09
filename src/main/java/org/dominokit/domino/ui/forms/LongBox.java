@@ -49,4 +49,23 @@ public class LongBox extends NumberBox<LongBox, Long> {
         this.maxValue = maxValue;
         return this;
     }
+
+    @Override
+    public LongBox setMinValue(Long minValue) {
+        setAttribute("min", String.valueOf(minValue));
+        return this;
+    }
+
+    @Override
+    public LongBox setMaxValue(Long maxValue) {
+        this.maxValue = maxValue;
+        setAttribute("max", String.valueOf(maxValue));
+        return this;
+    }
+
+    @Override
+    public LongBox setStep(Long step) {
+        setAttribute("step", String.valueOf(step));
+        return this;
+    }
 }
