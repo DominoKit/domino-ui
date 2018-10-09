@@ -21,7 +21,7 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
     private DominoElement<HTMLAnchorElement> prevAnchor = DominoElement.of(a().css("prev").css("disabled"));
 
     private DominoElement<HTMLAnchorElement> nextAnchor = DominoElement.of(a().css("next"));
-    DominoElement<HTMLDivElement> contentPanel = DominoElement.of(div().css("spin-content"));
+    protected DominoElement<HTMLDivElement> contentPanel = DominoElement.of(div().css("spin-content"));
     protected DominoElement<HTMLDivElement> main = DominoElement.of(div().add(contentPanel).css("spin-container"));
     protected List<SpinItem<T>> items = new ArrayList<>();
     private SpinItem<T> activeItem;
