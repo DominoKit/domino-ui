@@ -1,9 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.Element;
-import elemental2.dom.HTMLDataListElement;
-import elemental2.dom.HTMLInputElement;
-import elemental2.dom.HTMLOptionElement;
+import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 
@@ -17,7 +14,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<T, HTMLInputElement, String> {
-    private HTMLDataListElement suggestionsDataList = datalist().asElement();
+    private HTMLElement suggestionsDataList = datalist().asElement();
     private String typeMismatchErrorMessage;
     private Map<String, HTMLOptionElement> suggestedValues = new HashMap<>();
     private String invalidPatternErrorMessage;
