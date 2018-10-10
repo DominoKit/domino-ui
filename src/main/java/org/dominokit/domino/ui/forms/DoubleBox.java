@@ -1,8 +1,5 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.core.JsNumber;
-import elemental2.dom.DomGlobal;
-
 public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
     public static DoubleBox create() {
@@ -43,11 +40,11 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
     @Override
     protected Double defaultMaxValue() {
-        return JsNumber.POSITIVE_INFINITY;
+        return Double.MAX_VALUE;
     }
 
     @Override
     protected Double defaultMinValue() {
-        return JsNumber.NEGATIVE_INFINITY;
+        return Double.NEGATIVE_INFINITY;
     }
 }
