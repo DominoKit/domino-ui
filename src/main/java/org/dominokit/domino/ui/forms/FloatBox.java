@@ -1,12 +1,8 @@
 package org.dominokit.domino.ui.forms;
 
-import org.dominokit.domino.ui.utils.ElementUtil;
-
-import static java.util.Objects.isNull;
+import elemental2.core.JsNumber;
 
 public class FloatBox extends NumberBox<FloatBox, Float> {
-
-    private Float maxValue;
 
     public static FloatBox create() {
         return new FloatBox();
@@ -22,7 +18,6 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
 
     public FloatBox(String label) {
         super(label);
-        ElementUtil.decimalOnly(this);
     }
 
     @Override
@@ -36,36 +31,22 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
     }
 
     @Override
-    protected boolean isExceedMaxValue(Float value) {
-        return value > getMaxValue();
+    protected boolean isExceedMaxValue(Float maxValue, Float value) {
+        return value > maxValue;
     }
 
     @Override
-    protected Float getMaxValue() {
-        return isNull(maxValue) ? Float.MAX_VALUE : maxValue;
-    }
-
-    public FloatBox setMaxValue(float maxValue) {
-        this.maxValue = maxValue;
-        return this;
+    protected boolean isLowerThanMinValue(Float minValue, Float value) {
+        return value < minValue;
     }
 
     @Override
-    public FloatBox setMinValue(Float minValue) {
-        setAttribute("min", String.valueOf(minValue));
-        return this;
+    protected Float defaultMaxValue() {
+        return (float) JsNumber.POSITIVE_INFINITY;
     }
 
     @Override
-    public FloatBox setMaxValue(Float maxValue) {
-        this.maxValue = maxValue;
-        setAttribute("max", String.valueOf(maxValue));
-        return this;
-    }
-
-    @Override
-    public FloatBox setStep(Float step) {
-        setAttribute("step", String.valueOf(step));
-        return this;
+    protected Float defaultMinValue() {
+        return (float) JsNumber.NEGATIVE_INFINITY;
     }
 }
