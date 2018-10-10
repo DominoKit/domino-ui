@@ -4,26 +4,32 @@ import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.jboss.gwt.elemento.core.Elements;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> extends AbstractValueBox<T, HTMLInputElement, E> {
 
-    private static final String TEXT = "number";
+    private String maxValueErrorMessage;
+    private String minValueErrorMessage;
 
     public NumberBox(String label) {
-        super(TEXT, label);
+        super("number", label);
         init((T) this);
         addValidator(() -> {
             E value = getValue();
             if (nonNull(value) && isExceedMaxValue(value)) {
-                return ValidationResult.invalid("Maximum allowed value is [" + getMaxValue() + "]");
+                return ValidationResult.invalid(getMaxValueErrorMessage());
+            }
+            return ValidationResult.valid();
+        });
+        addValidator(() -> {
+            E value = getValue();
+            if (nonNull(value) && isLowerThanMixValue(value)) {
+                return ValidationResult.invalid(getMinValueErrorMessage());
             }
             return ValidationResult.valid();
         });
         setAutoValidation(true);
-        if (nonNull(getMaxValue())) {
-            setMaxLength(getMaxValue().toString().length());
-        }
     }
 
     @Override
@@ -33,12 +39,11 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
 
     @Override
     protected void doSetValue(E value) {
-        if(nonNull(value)){
+        if (nonNull(value)) {
             getInputElement().asElement().value = String.valueOf(value);
-        }else{
+        } else {
             getInputElement().asElement().value = "";
         }
-
     }
 
     @Override
@@ -49,11 +54,11 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
                 clearInvalid();
                 return null;
             }
-            E eValue = parseValue(value);
+            E parsedValue = parseValue(value);
             clearInvalid();
-            return eValue;
+            return parsedValue;
         } catch (NumberFormatException e) {
-            invalidate("Maximum allowed value is [" + getMaxValue() + "]");
+            invalidate(value.startsWith("-") ? getMinValueErrorMessage() : getMaxValueErrorMessage());
             return null;
         }
     }
@@ -68,14 +73,84 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         return getInputElement().asElement().value;
     }
 
+    public T setMinValue(E minValue) {
+        getInputElement().asElement().min = minValue + "";
+        return (T) this;
+    }
+
+    public T setMaxValue(E maxValue) {
+        getInputElement().asElement().max = maxValue + "";
+        return (T) this;
+    }
+
+    public T setStep(E step) {
+        getInputElement().asElement().step = step + "";
+        return (T) this;
+    }
+
+    public E getMaxValue() {
+        String maxValue = getInputElement().asElement().max;
+        if (isNull(maxValue) || maxValue.isEmpty()) {
+            return defaultMaxValue();
+        }
+        return parseValue(maxValue);
+    }
+
+    public E getMinValue() {
+        String minValue = getInputElement().asElement().min;
+        if (isNull(minValue) || minValue.isEmpty()) {
+            return defaultMinValue();
+        }
+        return parseValue(minValue);
+    }
+
+    public E getStep() {
+        String step = getInputElement().asElement().step;
+        if (isNull(step) || step.isEmpty()) {
+            return null;
+        }
+        return parseValue(step);
+    }
+
+    public T setMaxValueErrorMessage(String maxValueErrorMessage) {
+        this.maxValueErrorMessage = maxValueErrorMessage;
+        return (T) this;
+    }
+
+    public T setMinValueErrorMessage(String minValueErrorMessage) {
+        this.minValueErrorMessage = minValueErrorMessage;
+        return (T) this;
+    }
+
+    public String getMaxValueErrorMessage() {
+        return isNull(maxValueErrorMessage) ? "Maximum allowed value is [" + getMaxValue() + "]" : maxValueErrorMessage;
+    }
+
+    public String getMinValueErrorMessage() {
+        return isNull(minValueErrorMessage) ? "Minimum allowed value is [" + getMinValue() + "]" : minValueErrorMessage;
+    }
+
+    private boolean isExceedMaxValue(E value) {
+        E maxValue = getMaxValue();
+        if (isNull(maxValue))
+            return false;
+        return isExceedMaxValue(maxValue, value);
+    }
+
+    private boolean isLowerThanMixValue(E value) {
+        E minValue = getMinValue();
+        if (isNull(minValue))
+            return false;
+        return isLowerThanMinValue(minValue, value);
+    }
+
     protected abstract E parseValue(String value);
 
-    protected abstract boolean isExceedMaxValue(E value);
+    protected abstract E defaultMaxValue();
 
-    protected abstract E getMaxValue();
+    protected abstract E defaultMinValue();
 
-    public abstract T setMinValue(E minValue);
-    public abstract T setMaxValue(E maxValue);
-    public abstract T setStep(E step);
+    protected abstract boolean isExceedMaxValue(E maxValue, E value);
 
+    protected abstract boolean isLowerThanMinValue(E minValue, E value);
 }
