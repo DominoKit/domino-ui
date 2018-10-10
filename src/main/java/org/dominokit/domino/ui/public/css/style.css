@@ -7766,3 +7766,13 @@ a.disabled {
     display: table;
     content: '';
 }
+
+/*========================= Email box ======================== */
+input[type=email].disabled-suggestions::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+/*========================= Telephone box ======================== */
+input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
+    display: none;
+}
