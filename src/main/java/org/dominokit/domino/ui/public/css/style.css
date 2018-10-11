@@ -3719,26 +3719,19 @@ fieldset[disabled] .form-control {
 
 /* Nav Tabs ==================================== */
 .nav-tabs {
-    border-bottom: 2px solid #eee;
+    border-bottom: 1px solid #eee;
 }
 
 .nav-tabs > li {
     position: relative;
-    top: 3px;
-    left: -2px;
 }
 
 .nav-tabs > li > a {
     border: none !important;
-    color: #999 !important;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     -ms-border-radius: 0;
     border-radius: 0;
-}
-
-.nav-tabs > li > a:hover, .nav-tabs > li > a:active, .nav-tabs > li > a:focus {
-    background-color: transparent !important;
 }
 
 .nav-tabs > li > a:before {
@@ -3748,7 +3741,7 @@ fieldset[disabled] .form-control {
     width: 100%;
     height: 0;
     border-bottom: 2px solid #2196F3;
-    bottom: 2px;
+    bottom: 1px;
     -moz-transform: scaleX(0);
     -ms-transform: scaleX(0);
     -o-transform: scaleX(0);
@@ -3765,14 +3758,6 @@ fieldset[disabled] .form-control {
     top: 7px;
     margin-bottom: 8px;
     width: 24px;
-}
-
-.nav-tabs li.active a {
-    color: #222 !important;
-}
-
-.nav-tabs li.active a:hover, .nav-tabs li.active a:active, .nav-tabs li.active a:focus {
-    background-color: transparent !important;
 }
 
 .nav-tabs li.active a:before {

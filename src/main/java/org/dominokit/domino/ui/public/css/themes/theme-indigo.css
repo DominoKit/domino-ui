@@ -19,10 +19,6 @@
 
 .theme-indigo .nav > li > a {
   color: #fff; }
-  .theme-indigo .nav > li > a:hover {
-    background-color: transparent; }
-  .theme-indigo .nav > li > a:focus {
-    background-color: transparent; }
 
 .theme-indigo .nav .open > a {
   background-color: transparent; }
