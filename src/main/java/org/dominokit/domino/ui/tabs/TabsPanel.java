@@ -1,10 +1,12 @@
 package org.dominokit.domino.ui.tabs;
 
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -21,16 +23,19 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
 
     private HTMLDivElement element = div().asElement();
     private DominoElement<HTMLUListElement> tabsList = DominoElement.of(ul().css("nav", "nav-tabs", "nav-tabs-right").attr("role", "tablist"));
-    private HTMLDivElement tabsContent = div().css("tab-content").asElement();
+    private HTMLElement tabsContent = div().css("tab-content").asElement();
     private Tab activeTab;
-    private Color tabsColor = Color.BLUE;
+    private Color tabsColor;
     private Transition transition;
     private List<Tab> tabs = new ArrayList<>();
+    private Color background;
 
     public TabsPanel() {
         element.appendChild(tabsList.asElement());
         element.appendChild(tabsContent);
         init(this);
+        setBackgroundColor(Color.WHITE);
+        setColor(Color.BLUE);
     }
 
     public static TabsPanel create() {
@@ -56,12 +61,10 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
                     activateTab(tab);
                 }
             }
-            tabsList.appendChild(tab.getTab().asElement());
+            tabsList.appendChild(tab.asElement());
             tabsContent.appendChild(tab.getContentContainer().asElement());
             tab.getClickableElement().addEventListener("click", evt -> activateTab(tab));
-
         }
-
         return this;
     }
 
@@ -88,9 +91,20 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
     }
 
     public TabsPanel setColor(Color color) {
-        tabsList.style().remove(tabsColor.getStyle());
+        if (nonNull(this.tabsColor)) {
+            tabsList.style().remove(tabsColor.getStyle());
+        }
         tabsList.style().add(color.getStyle());
         this.tabsColor = color;
+        return this;
+    }
+
+    public TabsPanel setBackgroundColor(Color background) {
+        if (nonNull(this.background)) {
+            tabsList.style().remove(this.background.getBackground());
+        }
+        tabsList.style().add(background.getBackground());
+        this.background = background;
         return this;
     }
 
@@ -102,6 +116,19 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
     public TabsPanel setTransition(Transition transition) {
         this.transition = transition;
         return this;
+    }
+
+    public TabsPanel setContentContainer(HTMLElement contentContainer) {
+        if (element.contains(tabsContent)) {
+            tabsContent.remove();
+        }
+        Style.of(contentContainer).add("tab-content");
+        this.tabsContent = contentContainer;
+        return this;
+    }
+
+    public TabsPanel setContentContainer(IsElement contentContainer) {
+        return setContentContainer(contentContainer.asElement());
     }
 
     public Tab getActiveTab() {

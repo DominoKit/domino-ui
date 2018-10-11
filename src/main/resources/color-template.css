@@ -6,7 +6,9 @@
 .modal-content.col${color_base_name}:not([class*="col-white"]) .modal-footer .btn-link,
 .modal-content.col${color_base_name}:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col${color_base_name}:not([class*="col-white"]) .panel-title,
-.panel-group.full-body .panel.col${color_base_name}:not([class*="col-white"]) .panel-body{
+.panel-group.full-body .panel.col${color_base_name}:not([class*="col-white"]) .panel-body,
+.badge .bg${color_base_name},
+.bg${color_base_name}.nav-tabs li a{
     color: #fff;
 }
 .bg${color_base_name},
