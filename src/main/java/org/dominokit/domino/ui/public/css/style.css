@@ -1898,6 +1898,7 @@ body.modal-open{
 .demo-icon-container .demo-google-material-icon {
     margin-bottom: 5px;
     text-align: left;
+    cursor: pointer;
 }
 
 .demo-icon-container .demo-google-material-icon .icon-name {
