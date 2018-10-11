@@ -51,7 +51,9 @@
 .modal-content.col-white .modal-footer .btn-link,
 .modal-content.col-white .modal-title,
 .panel-group .panel.col-white .panel-title,
-.panel-group.full-body .panel.col-white .panel-body {
+.panel-group.full-body .panel.col-white .panel-body,
+.bg-white.nav-tabs li a,
+.bg-white.nav-tabs li a:hover{
     color: #202020;
 }
 
@@ -77,6 +79,12 @@
     background-color: #000;
     color: #FFF;
 }
+
+.bg-black.nav-tabs li a,
+.bg-black.nav-tabs li a:hover {
+    color: #FFF;
+}
+
 .col-white{
     color: #FFF;
 }
