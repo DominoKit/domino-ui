@@ -1,12 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
-import org.dominokit.domino.ui.utils.ElementUtil;
-
-import static java.util.Objects.isNull;
-
 public class IntegerBox extends NumberBox<IntegerBox, Integer> {
-
-    private Integer maxValue;
 
     public static IntegerBox create() {
         return new IntegerBox();
@@ -22,7 +16,6 @@ public class IntegerBox extends NumberBox<IntegerBox, Integer> {
 
     public IntegerBox(String label) {
         super(label);
-        ElementUtil.numbersOnly(this);
     }
 
     @Override
@@ -36,35 +29,22 @@ public class IntegerBox extends NumberBox<IntegerBox, Integer> {
     }
 
     @Override
-    protected boolean isExceedMaxValue(Integer value) {
-        return value > getMaxValue();
+    protected Integer defaultMaxValue() {
+        return Integer.MAX_VALUE;
     }
 
     @Override
-    protected Integer getMaxValue() {
-        return isNull(maxValue) ? Integer.MAX_VALUE : maxValue;
-    }
-
-    public IntegerBox setMaxValue(int maxValue) {
-        this.maxValue = maxValue;
-        return this;
+    protected Integer defaultMinValue() {
+        return Integer.MIN_VALUE;
     }
 
     @Override
-    public IntegerBox setMinValue(Integer minValue) {
-        setAttribute("min", String.valueOf(minValue));
-        return this;
+    protected boolean isExceedMaxValue(Integer maxValue, Integer value) {
+        return value > maxValue;
     }
 
     @Override
-    public IntegerBox setMaxValue(Integer maxValue) {
-        setAttribute("max", String.valueOf(maxValue));
-        return this;
-    }
-
-    @Override
-    public IntegerBox setStep(Integer step) {
-        setAttribute("step", String.valueOf(step));
-        return this;
+    protected boolean isLowerThanMinValue(Integer minValue, Integer value) {
+        return value < minValue;
     }
 }

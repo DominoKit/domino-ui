@@ -1,12 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
-import org.dominokit.domino.ui.utils.ElementUtil;
-
-import static java.util.Objects.isNull;
-
 public class LongBox extends NumberBox<LongBox, Long> {
-
-    private Long maxValue;
 
     public static LongBox create() {
         return new LongBox();
@@ -22,7 +16,6 @@ public class LongBox extends NumberBox<LongBox, Long> {
 
     public LongBox(String label) {
         super(label);
-        ElementUtil.numbersOnly(this);
     }
 
     @Override
@@ -36,36 +29,22 @@ public class LongBox extends NumberBox<LongBox, Long> {
     }
 
     @Override
-    protected boolean isExceedMaxValue(Long value) {
-        return value > getMaxValue();
+    protected Long defaultMaxValue() {
+        return Long.MAX_VALUE;
     }
 
     @Override
-    protected Long getMaxValue() {
-        return isNull(maxValue) ? Long.MAX_VALUE : maxValue;
-    }
-
-    public LongBox setMaxValue(long maxValue) {
-        this.maxValue = maxValue;
-        return this;
+    protected Long defaultMinValue() {
+        return Long.MIN_VALUE;
     }
 
     @Override
-    public LongBox setMinValue(Long minValue) {
-        setAttribute("min", String.valueOf(minValue));
-        return this;
+    protected boolean isExceedMaxValue(Long maxValue, Long value) {
+        return value > maxValue;
     }
 
     @Override
-    public LongBox setMaxValue(Long maxValue) {
-        this.maxValue = maxValue;
-        setAttribute("max", String.valueOf(maxValue));
-        return this;
-    }
-
-    @Override
-    public LongBox setStep(Long step) {
-        setAttribute("step", String.valueOf(step));
-        return this;
+    protected boolean isLowerThanMinValue(Long minValue, Long value) {
+        return value < minValue;
     }
 }
