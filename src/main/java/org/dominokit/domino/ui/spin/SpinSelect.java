@@ -11,6 +11,7 @@ import org.dominokit.domino.ui.utils.SwipeUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
@@ -26,22 +27,29 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
     protected List<SpinItem<T>> items = new ArrayList<>();
     private SpinItem<T> activeItem;
     private List<HasSelectionHandler.SelectionHandler<SpinItem<T>>> selectionHandlers = new ArrayList<>();
+    private NavigationHandler navigationHandler = direction -> {
+    };
 
     SpinSelect(Icon backIcon, Icon forwardIcon) {
         element.appendChild(
                 prevAnchor.appendChild(backIcon
                         .clickable()
-                        .addClickListener(evt -> moveBack())))
+                        .addClickListener(evt -> {
+                            moveBack();
+                            navigationHandler.onNavigate(Direction.BACKWARD);
+                        })))
                 .appendChild(main)
                 .appendChild(
                         nextAnchor.appendChild(forwardIcon
                                 .clickable()
-                                .addClickListener(evt -> moveForward())));
+                                .addClickListener(evt -> {
+                                    moveForward();
+                                    navigationHandler.onNavigate(Direction.FORWARD);
+                                })));
         init((S) this);
         onAttached(mutationRecord -> fixElementsWidth());
         SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, main.asElement(), evt -> moveBack());
         SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, main.asElement(), evt -> moveForward());
-        style().setHeight("50px");
     }
 
     public S moveForward() {
@@ -53,6 +61,7 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
         moveToIndex(items.indexOf(this.activeItem) - 1);
         return (S) this;
     }
+
     public S moveToIndex(int targetIndex) {
         if (targetIndex < items.size() && targetIndex >= 0) {
             int activeIndex = items.indexOf(activeItem);
@@ -69,7 +78,7 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
     }
 
     public S moveToItem(SpinItem<T> item) {
-        if(items.contains(item)){
+        if (items.contains(item)) {
             return moveToIndex(items.indexOf(item));
         }
         return (S) this;
@@ -118,7 +127,67 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
         return (S) this;
     }
 
+    public List<SpinItem<T>> getItems() {
+        return items;
+    }
+
+    public int indexOf(SpinItem<T> item) {
+        if (items.contains(item)) {
+            return items.indexOf(item);
+        } else {
+            return -1;
+        }
+    }
+
+    public int itemsCount() {
+        return items.size();
+    }
+
+    public boolean isLastItem(SpinItem<T> item) {
+        if (items.contains(item) && indexOf(item) == (itemsCount() - 1)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isFirstItem(SpinItem<T> item) {
+        if (items.contains(item) && indexOf(item) == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public S gotoFirst() {
+        moveToIndex(0);
+        return (S) this;
+    }
+
+    public S gotoLast() {
+        moveToIndex(itemsCount() - 1);
+        return (S) this;
+    }
+
+    public S onNavigate(NavigationHandler navigationHandler) {
+        if (nonNull(navigationHandler)) {
+            this.navigationHandler = navigationHandler;
+        }
+        return (S) this;
+    }
+
     protected abstract void fixElementsWidth();
+
     protected abstract void setTransformProperty(double offset);
+
     protected abstract String getStyle();
+
+    @FunctionalInterface
+    public interface NavigationHandler {
+        void onNavigate(Direction direction);
+    }
+
+    public enum Direction {
+        BACKWARD, FORWARD
+    }
 }
