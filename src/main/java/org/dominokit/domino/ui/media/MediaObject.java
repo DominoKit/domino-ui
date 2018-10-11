@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.media;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -61,7 +62,7 @@ public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, Medi
 
     public MediaObject setRightMedia(Node content) {
         if (isNull(rightMedia)) {
-            rightMedia = DominoElement.of(div().css("media-right"));
+            rightMedia = DominoElement.of(div().css("media-right").css(Styles.pull_right));
             appendChild(rightMedia);
         }
 
