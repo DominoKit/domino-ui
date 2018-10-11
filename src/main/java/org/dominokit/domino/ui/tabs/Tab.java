@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.tabs;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -9,7 +10,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Tab implements HasClickableElement {
+public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasClickableElement {
 
     private HTMLAnchorElement clickableElement = a().asElement();
     private DominoElement<HTMLLIElement> tab = DominoElement.of(li().attr("role", "presentation").add(clickableElement));
@@ -31,6 +32,8 @@ public class Tab implements HasClickableElement {
         if (nonNull(text)) {
             clickableElement.appendChild(DomGlobal.document.createTextNode(text));
         }
+        init(this);
+        withWaves();
     }
 
     public static Tab create(String text) {
@@ -93,5 +96,10 @@ public class Tab implements HasClickableElement {
     @Override
     public HTMLAnchorElement getClickableElement() {
         return clickableElement;
+    }
+
+    @Override
+    public HTMLLIElement asElement() {
+        return tab.asElement();
     }
 }

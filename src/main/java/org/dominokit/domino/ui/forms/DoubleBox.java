@@ -1,14 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
-import org.dominokit.domino.ui.utils.ElementUtil;
-
-import java.math.BigDecimal;
-
-import static java.util.Objects.isNull;
-
 public class DoubleBox extends NumberBox<DoubleBox, Double> {
-
-    private Double maxValue;
 
     public static DoubleBox create() {
         return new DoubleBox();
@@ -24,7 +16,6 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
     public DoubleBox(String label) {
         super(label);
-        ElementUtil.decimalOnly(this);
     }
 
     @Override
@@ -38,36 +29,22 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
     }
 
     @Override
-    protected boolean isExceedMaxValue(Double value) {
-        return value > getMaxValue();
+    protected boolean isExceedMaxValue(Double maxValue, Double value) {
+        return value.compareTo(maxValue) > 0;
     }
 
     @Override
-    protected Double getMaxValue() {
-        return isNull(maxValue) ? Double.MAX_VALUE : maxValue;
-    }
-
-    public DoubleBox setMaxValue(double maxValue) {
-        this.maxValue = maxValue;
-        return this;
+    protected boolean isLowerThanMinValue(Double minValue, Double value) {
+        return value.compareTo(minValue) < 0;
     }
 
     @Override
-    public DoubleBox setMinValue(Double minValue) {
-        setAttribute("min", String.valueOf(minValue));
-        return this;
+    protected Double defaultMaxValue() {
+        return Double.MAX_VALUE;
     }
 
     @Override
-    public DoubleBox setMaxValue(Double maxValue) {
-        this.maxValue = maxValue;
-        setAttribute("max", String.valueOf(maxValue));
-        return this;
-    }
-
-    @Override
-    public DoubleBox setStep(Double step) {
-        setAttribute("step", String.valueOf(step));
-        return this;
+    protected Double defaultMinValue() {
+        return Double.NEGATIVE_INFINITY;
     }
 }

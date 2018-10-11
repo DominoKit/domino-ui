@@ -71,13 +71,13 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     private void addFocusListeners() {
         inputElement.addEventListener("focus", evt -> focus());
-        inputElement.addEventListener("focusout", evt -> unfocus());
-        labelElement.addEventListener("click", evt -> inputElement.asElement().focus());
-        inputElement.addEventListener("blur", evt -> {
-            if(isAutoValidation()){
+        inputElement.addEventListener("focusout", evt -> {
+            unfocus();
+            if (isAutoValidation()) {
                 validate();
             }
         });
+        labelElement.addEventListener("click", evt -> inputElement.asElement().focus());
     }
 
     public T large() {
@@ -265,14 +265,14 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     public T removeRightAddon() {
         if (nonNull(rightAddon)) {
-            rightAddonContainer.removeChild(rightAddon);
+            rightAddon.remove();
         }
         return (T) this;
     }
 
     public T removeLeftAddon() {
         if (nonNull(leftAddon)) {
-            leftAddonContainer.removeChild(leftAddon);
+            leftAddon.remove();
         }
         return (T) this;
     }

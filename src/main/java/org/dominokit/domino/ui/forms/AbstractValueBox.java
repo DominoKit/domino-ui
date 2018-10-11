@@ -41,9 +41,10 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
     }
 
     @Override
-    public void setValue(V value) {
-        super.setValue(value);
+    public T value(V value) {
+        super.value(value);
         updateCharacterCount();
+        return (T) this;
     }
 
     protected void updateCharacterCount() {
