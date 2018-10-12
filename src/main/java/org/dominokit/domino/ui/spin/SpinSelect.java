@@ -182,12 +182,4 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
 
     protected abstract String getStyle();
 
-    @FunctionalInterface
-    public interface NavigationHandler {
-        void onNavigate(Direction direction);
-    }
-
-    public enum Direction {
-        BACKWARD, FORWARD
-    }
 }
