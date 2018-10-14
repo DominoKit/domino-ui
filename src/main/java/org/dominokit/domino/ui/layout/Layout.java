@@ -61,7 +61,7 @@ public class Layout {
     }
 
     public Layout show() {
-        return show(ColorScheme.INDIGO, true);
+        return show(ColorScheme.INDIGO, false);
     }
 
     public Layout show(boolean autoFixLeftPanel) {
@@ -69,7 +69,7 @@ public class Layout {
     }
 
     public Layout show(ColorScheme theme) {
-        return show(theme, true);
+        return show(theme, false);
     }
 
     public Layout show(ColorScheme theme, boolean autoFixLeftPanel) {
@@ -79,9 +79,7 @@ public class Layout {
         if (!bodyStyle().contains("ls-hidden"))
             bodyStyle().add("ls-closed");
         new Theme(theme).apply();
-        MediaQuery.addOnSmallAndDownListener(() -> {
-            unfixFooter();
-        });
+        MediaQuery.addOnSmallAndDownListener(this::unfixFooter);
 
         if (nonNull(onShowHandler)) {
             onShowHandler.handleLayout(this);
