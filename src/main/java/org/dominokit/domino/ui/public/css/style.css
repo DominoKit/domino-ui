@@ -1,6 +1,6 @@
 ﻿/* Navbar ====================================== */
 
-body.modal-open{
+body.modal-open {
     overflow: hidden;
 }
 
@@ -3802,7 +3802,7 @@ fieldset[disabled] .form-control {
         width: 40%;
     }
 
-    .modal:not([class*="-sheet"]){
+    .modal:not([class*="-sheet"]) {
         top: 30px;
     }
 
@@ -3878,7 +3878,7 @@ fieldset[disabled] .form-control {
         width: 90%;
     }
 
-    .modal:not([class*="-sheet"]){
+    .modal:not([class*="-sheet"]) {
         top: 30px;
     }
 
@@ -3943,7 +3943,7 @@ fieldset[disabled] .form-control {
         height: calc(100vh);
     }
 
-    .modal.picker-modal{
+    .modal.picker-modal {
         margin-top: 0px;
         top: 5px;
     }
@@ -7583,6 +7583,11 @@ a.disabled {
     right: 20px;
     bottom: 20px;
     z-index: 1000;
+    opacity: 0.4;
+}
+
+.top-scroller:hover {
+    opacity: 1;
 }
 
 .scroll-panel {
@@ -7656,7 +7661,7 @@ a.disabled {
     left: -40px;
 }
 
-.h-spin .prev.disabled i{
+.h-spin .prev.disabled i {
     opacity: 0.3;
     cursor: not-allowed !important;
 }
@@ -7667,7 +7672,7 @@ a.disabled {
     right: -40px;
 }
 
-.h-spin .next.disabled i{
+.h-spin .next.disabled i {
     opacity: 0.3;
     cursor: not-allowed !important;
 }
@@ -7712,7 +7717,7 @@ a.disabled {
     top: -40px;
 }
 
-.v-spin .prev.disabled i{
+.v-spin .prev.disabled i {
     opacity: 0.3;
     cursor: not-allowed !important;
 }
@@ -7723,7 +7728,7 @@ a.disabled {
     margin-top: 10px;
 }
 
-.v-spin .next.disabled i{
+.v-spin .next.disabled i {
     opacity: 0.3;
     cursor: not-allowed !important;
 }
