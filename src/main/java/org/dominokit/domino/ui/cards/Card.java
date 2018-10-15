@@ -174,6 +174,11 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
         return this;
     }
 
+    public Card condenseBody() {
+        getBody().style().setPadding("0px");
+        return this;
+    }
+
     @Override
     public Card setBackground(Color background) {
         setHeaderBackground(background);
@@ -208,7 +213,7 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
         return this;
     }
 
-    public Card addHeaderAction(HeaderAction headerAction){
+    public Card addHeaderAction(HeaderAction headerAction) {
         putAction(headerAction.asElement());
         return this;
     }
