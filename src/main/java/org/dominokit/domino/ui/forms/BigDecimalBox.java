@@ -1,5 +1,7 @@
 package org.dominokit.domino.ui.forms;
 
+import org.dominokit.domino.ui.utils.ElementUtil;
+
 import java.math.BigDecimal;
 
 public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
@@ -18,6 +20,7 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
 
     public BigDecimalBox(String label) {
         super(label);
+        ElementUtil.decimalOnly(this);
     }
 
     @Override

@@ -75,19 +75,14 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
                 modal.asElement().remove();
             }
         });
-
         timePicker.addCloseHandler(() -> {
             if (nonNull(popover))
                 popover.close();
             if (nonNull(modal) && modal.isOpen())
                 modal.close();
         });
-
         timePicker.addClearHandler(() -> value(null));
         setPickerStyle(PickerStyle.MODAL);
-
-        init(this);
-
     }
 
     public static TimeBox create() {

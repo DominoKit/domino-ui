@@ -65,7 +65,6 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
         formLine.appendChild(formControl);
         formLine.appendChild(labelElement);
         container.appendChild(formLine);
-        init(this);
     }
 
     public static SwitchButton create(String label, String offTitle, String onTitle) {
@@ -162,6 +161,11 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
         if (changeHandler != null)
             changeHandlers.remove(changeHandler);
         return this;
+    }
+
+    @Override
+    public boolean hasChangeHandler(ChangeHandler<Boolean> changeHandler) {
+        return changeHandlers.contains(changeHandler);
     }
 
     public SwitchButton setColor(Color color) {

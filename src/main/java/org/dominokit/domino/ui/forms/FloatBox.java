@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.forms;
 
 import elemental2.core.JsNumber;
+import org.dominokit.domino.ui.utils.ElementUtil;
 
 public class FloatBox extends NumberBox<FloatBox, Float> {
 
@@ -18,6 +19,7 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
 
     public FloatBox(String label) {
         super(label);
+        ElementUtil.decimalOnly(this);
     }
 
     @Override

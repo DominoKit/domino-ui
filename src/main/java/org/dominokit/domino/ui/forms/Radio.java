@@ -86,6 +86,11 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
         return this;
     }
 
+    @Override
+    public boolean hasChangeHandler(ChangeHandler<Boolean> changeHandler) {
+        return changeHandlers.contains(changeHandler);
+    }
+
     private void onCheck() {
         for (ChangeHandler<Boolean> checkHandler : changeHandlers)
             checkHandler.onValueChanged(isChecked());

@@ -14,13 +14,11 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
 
     public TextArea() {
         this("");
-        init(this);
     }
 
     public TextArea(String label) {
         super("", label);
         setRows(4);
-        init(this);
     }
 
     public static TextArea create() {
