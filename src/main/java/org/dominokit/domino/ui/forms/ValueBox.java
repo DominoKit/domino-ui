@@ -61,6 +61,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         setFocusColor(focusColor);
         addFocusListeners();
         setLabel(label);
+        init((T) this);
     }
 
     protected void callChangeHandlers() {

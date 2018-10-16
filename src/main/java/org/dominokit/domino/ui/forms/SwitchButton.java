@@ -65,6 +65,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
         formLine.appendChild(formControl);
         formLine.appendChild(labelElement);
         container.appendChild(formLine);
+        init(this);
     }
 
     public static SwitchButton create(String label, String offTitle, String onTitle) {

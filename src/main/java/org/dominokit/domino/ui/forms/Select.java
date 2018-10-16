@@ -78,6 +78,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
             evt.preventDefault();
             evt.stopPropagation();
         });
+        init(this);
     }
 
     private void initListeners() {
