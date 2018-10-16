@@ -50,6 +50,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
         });
         formLine.appendChild(formControl);
         container.appendChild(formLine);
+        init(this);
     }
 
     private void onCheck() {
