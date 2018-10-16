@@ -122,12 +122,12 @@ Sample of third party tools and frameworks:
 
 ### Java docs
 
-- [ ] Make sure all domino-ui classes has the proper JavaDocs.
+- [ ] Make sure all Domino-ui classes has the proper JavaDocs.
 
 
 ### Documentation
 
-- [ ] Create a full documentation describing how to use domino-ui, setup a project, and document each element/component on its own, this could be in github pages.
+- [ ] Create a full documentation describing how to use Domino-ui, setup a project, and document each element/component on its own, this could be in github pages.
 
 ### Build Samples
 
@@ -141,21 +141,21 @@ Sample of third party tools and frameworks:
 DomGlobal.document.body.appendChild(Row.create()
         .addColumn(Column.span4()
                 .addElement(Card.create("CARD TITLE", "Card description")
-                        .appendContent(Paragraph.create("I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe")
+                        .appendContent(Paragraph.create("I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe")
                                 .asElement())
                         .setHeaderBackground(Color.BLUE)
                         .setBodyBackground(Color.LIGHT_BLUE)
                         .asElement()))
         .addColumn(Column.span4()
                 .addElement(Card.create("CARD TITLE", "Card description")
-                        .appendContent(Paragraph.create("I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe")
+                        .appendContent(Paragraph.create("I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe")
                                 .asElement())
                         .setHeaderBackground(Color.GREEN)
                         .setBodyBackground(Color.LIGHT_GREEN)
                         .asElement()))
         .addColumn(Column.span4()
                 .addElement(Card.create("CARD TITLE", "Card description")
-                        .appendContent(Paragraph.create("I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe, I love domino-ui, domino-ui does not use jquery or js and is typesafe")
+                        .appendContent(Paragraph.create("I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe")
                                 .asElement())
                         .setHeaderBackground(Color.ORANGE)
                         .setBodyBackground(Color.AMBER)
