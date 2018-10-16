@@ -19,7 +19,6 @@ public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String>
 
     public TextBox(String type, String label) {
         super(type, label);
-        init(this);
     }
 
     public static TextBox create() {

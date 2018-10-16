@@ -147,7 +147,6 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         removeLabelColor(focusColor);
         removeLeftAddonColor(focusColor);
         hidePlaceholder();
-
         return (T) this;
     }
 
@@ -380,6 +379,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         doSetValue(value);
         changeLabelFloating();
         autoValidate();
+        callChangeHandlers();
         return (T) this;
     }
 
@@ -446,6 +446,11 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     public T removeChangeHandler(ChangeHandler<V> changeHandler) {
         changeHandlers.remove(changeHandler);
         return (T) this;
+    }
+
+    @Override
+    public boolean hasChangeHandler(ChangeHandler<V> changeHandler) {
+        return changeHandlers.contains(changeHandler);
     }
 
     protected abstract void clearValue();

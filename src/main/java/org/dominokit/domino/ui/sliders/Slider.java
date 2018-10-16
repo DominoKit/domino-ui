@@ -198,6 +198,11 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         return this;
     }
 
+    @Override
+    public boolean hasChangeHandler(ChangeHandler<Double> changeHandler) {
+        return changeHandlers.contains(changeHandler);
+    }
+
     public Slider addSlideHandler(SlideHandler slideHandler) {
         slideHandlers.add(slideHandler);
         return this;

@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
+import com.google.gwt.i18n.client.NumberFormat;
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.jboss.gwt.elemento.core.Elements;
@@ -9,12 +10,20 @@ import static java.util.Objects.nonNull;
 
 public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> extends AbstractValueBox<T, HTMLInputElement, E> {
 
+    private final ChangeHandler<E> formatValueChangeHandler = value -> formatValue();
     private String maxValueErrorMessage;
     private String minValueErrorMessage;
+    private boolean formattingEnabled;
 
     public NumberBox(String label) {
-        super("number", label);
-        init((T) this);
+        super("tel", label);
+        addMaxValueValidator();
+        addMinValueValidator();
+        setAutoValidation(true);
+        enableFormatting();
+    }
+
+    private void addMaxValueValidator() {
         addValidator(() -> {
             E value = getValue();
             if (nonNull(value) && isExceedMaxValue(value)) {
@@ -22,14 +31,23 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
             }
             return ValidationResult.valid();
         });
+    }
+
+    private void addMinValueValidator() {
         addValidator(() -> {
             E value = getValue();
-            if (nonNull(value) && isLowerThanMixValue(value)) {
+            if (nonNull(value) && isLowerThanMinValue(value)) {
                 return ValidationResult.invalid(getMinValueErrorMessage());
             }
             return ValidationResult.valid();
         });
-        setAutoValidation(true);
+    }
+
+    private void formatValue() {
+        if (!getStringValue().isEmpty()) {
+            double parsedValue = NumberFormat.getDecimalFormat().parse(getStringValue());
+            getInputElement().asElement().value = NumberFormat.getDecimalFormat().format(parsedValue);
+        }
     }
 
     @Override
@@ -53,6 +71,9 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
             if (value.isEmpty()) {
                 clearInvalid();
                 return null;
+            }
+            if (formattingEnabled) {
+                value = NumberFormat.getDecimalFormat().parse(value) + "";
             }
             E parsedValue = parseValue(value);
             clearInvalid();
@@ -137,11 +158,31 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         return isExceedMaxValue(maxValue, value);
     }
 
-    private boolean isLowerThanMixValue(E value) {
+    private boolean isLowerThanMinValue(E value) {
         E minValue = getMinValue();
         if (isNull(minValue))
             return false;
         return isLowerThanMinValue(minValue, value);
+    }
+
+    public T enableFormatting() {
+        return setFormattingEnabled(true);
+    }
+
+    public T disableFormatting() {
+        return setFormattingEnabled(false);
+    }
+
+    private T setFormattingEnabled(boolean formattingEnabled) {
+        this.formattingEnabled = formattingEnabled;
+        if (formattingEnabled) {
+            if (!hasChangeHandler(formatValueChangeHandler)) {
+                addChangeHandler(formatValueChangeHandler);
+            }
+        } else {
+            removeChangeHandler(formatValueChangeHandler);
+        }
+        return (T) this;
     }
 
     protected abstract E parseValue(String value);

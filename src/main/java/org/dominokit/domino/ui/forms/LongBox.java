@@ -1,5 +1,7 @@
 package org.dominokit.domino.ui.forms;
 
+import org.dominokit.domino.ui.utils.ElementUtil;
+
 public class LongBox extends NumberBox<LongBox, Long> {
 
     public static LongBox create() {
@@ -16,6 +18,7 @@ public class LongBox extends NumberBox<LongBox, Long> {
 
     public LongBox(String label) {
         super(label);
+        ElementUtil.numbersOnly(this);
     }
 
     @Override

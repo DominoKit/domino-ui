@@ -317,6 +317,11 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
+    public boolean hasChangeHandler(ChangeHandler<Radio> changeHandler) {
+        return changeHandlers.contains(changeHandler);
+    }
+
+    @Override
     public TakesValueEditor<String> asEditor() {
         if (editor == null) {
             editor = TakesValueEditor.of(this);

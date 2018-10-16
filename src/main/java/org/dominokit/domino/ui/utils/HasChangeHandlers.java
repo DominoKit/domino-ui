@@ -6,6 +6,8 @@ public interface HasChangeHandlers<T, V> {
 
     T removeChangeHandler(ChangeHandler<V> changeHandler);
 
+    boolean hasChangeHandler(ChangeHandler<V> changeHandler);
+
     @FunctionalInterface
     interface ChangeHandler<V> {
         void onValueChanged(V value);
