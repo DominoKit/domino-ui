@@ -121,8 +121,6 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 }
             }
         });
-
-        init(this);
     }
 
     private void removeBox() {

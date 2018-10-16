@@ -21,7 +21,6 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
 
     public InputValueBox(String type, String label) {
         super(type, label);
-        init((T) this);
         suggestionsDataList.id = getDominoId();
         getInputElement().setAttribute("list", getDominoId());
         getInputElement().asElement().parentNode.appendChild(suggestionsDataList);

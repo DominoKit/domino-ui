@@ -1,5 +1,7 @@
 package org.dominokit.domino.ui.forms;
 
+import org.dominokit.domino.ui.utils.ElementUtil;
+
 public class ShortBox extends NumberBox<ShortBox, Short> {
 
     public static ShortBox create() {
@@ -16,6 +18,7 @@ public class ShortBox extends NumberBox<ShortBox, Short> {
 
     public ShortBox(String label) {
         super(label);
+        ElementUtil.numbersOnly(this);
     }
 
     @Override

@@ -9,16 +9,10 @@ import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.ObserverCallback;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 
 public class ElementUtil {
-
-    private static final List<String> navigationKeies = Arrays.asList("Enter", "Backspace", "Delete", "ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft", "Tab", "Escape");
-    private static final List<String> decimalKeies = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", ".");
 
     public static void clear(Element element) {
         if (nonNull(element))
@@ -124,16 +118,17 @@ public class ElementUtil {
     }
 
     public static <T extends HasInputElement> T numbersOnly(T hasInputElement) {
-
         hasInputElement.getInputElement().addEventListener("keypress", evt -> {
             KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-            if (!navigationKeies.contains(keyboardEvent.key) && !keyboardEvent.key.matches("^\\d+$")) {
+            if (!(isMinusKey(keyboardEvent.key) || keyboardEvent.key.matches("^\\d+$"))) {
                 evt.preventDefault();
             }
         });
         hasInputElement.getInputElement().addEventListener("paste", evt -> {
             ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
-            if (!clipboardEvent.clipboardData.getData("text").matches("^\\d+$")) {
+            String text = clipboardEvent.clipboardData.getData("text");
+            text = text.replace("-", "");
+            if (!text.matches("^\\d+$")) {
                 evt.preventDefault();
             }
         });
@@ -141,15 +136,12 @@ public class ElementUtil {
     }
 
     public static <T extends HasInputElement> T decimalOnly(T hasInputElement) {
-
         hasInputElement.getInputElement().addEventListener("keypress", evt -> {
-
             KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
             String key = keyboardEvent.key;
-            if (!(decimalKeies.contains(key) || navigationKeies.contains(key)) || (key.equals(".") && hasInputElement.getStringValue().contains("."))) {
+            if (!(isMinusKey(keyboardEvent.key) || key.equals(".") || keyboardEvent.key.matches("^\\d+$"))) {
                 evt.preventDefault();
             }
-
         });
         hasInputElement.getInputElement().addEventListener("paste", evt -> {
             ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
@@ -161,6 +153,10 @@ public class ElementUtil {
 
         });
         return hasInputElement;
+    }
+
+    private static boolean isMinusKey(String key) {
+        return "-".equals(key);
     }
 
     public static void scrollTop() {
