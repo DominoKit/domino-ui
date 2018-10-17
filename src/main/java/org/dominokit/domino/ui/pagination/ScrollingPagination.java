@@ -63,8 +63,8 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         this.pagesCount = pages;
         this.pageSize = pageSize;
         this.windowSize = windowSize;
-        updatePages(pages, pageSize);
         init(this);
+        updatePages(pages, pageSize);
     }
 
     public ScrollingPagination updatePages(int pages) {

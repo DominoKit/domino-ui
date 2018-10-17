@@ -37,8 +37,8 @@ public class SimplePagination extends BasePagination<SimplePagination> {
     public SimplePagination(int pages, int pageSize) {
         this.pagesCount = pages;
         this.pageSize = pageSize;
-        updatePages(pages, pageSize);
         init(this);
+        updatePages(pages, pageSize);
     }
 
     public SimplePagination updatePages(int pages) {

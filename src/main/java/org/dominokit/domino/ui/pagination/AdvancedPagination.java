@@ -8,6 +8,8 @@ import org.dominokit.domino.ui.forms.SelectOption;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.DominoElement;
 
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import static org.jboss.gwt.elemento.core.Elements.a;
@@ -23,6 +25,8 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
     private DominoElement<HTMLAnchorElement> nextAnchor;
     private DominoElement<HTMLAnchorElement> lastPageAnchor;
     private Select<Integer> pagesSelect;
+
+    private Function<Integer, String> pagesCountTextHandler = pagesCount -> " of " + pagesCount + " Pages";
 
     public static AdvancedPagination create() {
         return new AdvancedPagination();
@@ -48,8 +52,8 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
     public AdvancedPagination(int pages, int pageSize) {
         this.pagesCount = pages;
         this.pageSize = pageSize;
-        updatePages(pages, pageSize);
         init(this);
+        updatePages(pages, pageSize);
     }
 
     public AdvancedPagination updatePages(int pages) {
@@ -84,17 +88,19 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
                 .appendChild(prevElement);
 
         pagesSelect = Select.<Integer>create()
+                .styler(style -> style.setMarginBottom("0px"))
                 .addSelectionHandler(option -> moveToPage(option.getValue(), false));
 
         if (pages > 0) {
             IntStream.rangeClosed(1, pages).forEach(p -> {
                 pagesSelect.appendChild(SelectOption.create(p, p + "")
                         .apply(element -> allPages.add(DominoElement.of(element.asElement()))));
-
             });
         }
 
-        pagesElement.appendChild(DominoElement.of(li()).appendChild(a().add(pagesSelect)));
+        pagesElement.appendChild(DominoElement.of(li()).appendChild(a().style("margin-left: 10px; margin-right: 10px;").add(pagesSelect)));
+        pagesElement.appendChild(DominoElement.of(li()).appendChild(a().css("adv-page-count").textContent(pagesCountTextHandler.apply(pages))));
+
         nextAnchor = DominoElement.of(a());
         nextElement = DominoElement.of(li().css("page-nav"))
                 .appendChild(nextAnchor
@@ -177,5 +183,9 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 
     public DominoElement<HTMLAnchorElement> getLastPageAnchor() {
         return lastPageAnchor;
+    }
+
+    public void setPagesCountTextHandler(Function<Integer, String> pagesCountTextHandler) {
+        this.pagesCountTextHandler = pagesCountTextHandler;
     }
 }
