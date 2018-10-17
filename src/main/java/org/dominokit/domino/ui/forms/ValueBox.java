@@ -71,14 +71,14 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     protected abstract E createInputElement(String type);
 
     private void addFocusListeners() {
-        inputElement.addEventListener("focus", evt -> focus());
+        inputElement.addEventListener("focus", evt -> doFocus());
         inputElement.addEventListener("focusout", evt -> {
-            unfocus();
+            doUnfocus();
             if (isAutoValidation()) {
                 validate();
             }
         });
-        labelElement.addEventListener("click", evt -> inputElement.asElement().focus());
+        labelElement.addEventListener("click", evt -> focus());
     }
 
     public T large() {
@@ -123,14 +123,6 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     @Override
     public T focus() {
-        inputElement.style().add(FOCUSED);
-        floatLabel();
-        if (valid) {
-            inputElement.style().add("fc-" + focusColor.getStyle());
-            setLabelColor(focusColor);
-            setLeftAddonColor(focusColor);
-        }
-        showPlaceholder();
         if (!isAttached()) {
             ElementUtil.onAttach(getInputElement(), mutationRecord -> {
                 getInputElement().asElement().focus();
@@ -143,12 +135,33 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     @Override
     public T unfocus() {
+        if (!isAttached()) {
+            ElementUtil.onAttach(getInputElement(), mutationRecord -> {
+                getInputElement().asElement().blur();
+            });
+        } else {
+            getInputElement().asElement().blur();
+        }
+        return (T) this;
+    }
+
+    private void doFocus() {
+        inputElement.style().add(FOCUSED);
+        floatLabel();
+        if (valid) {
+            inputElement.style().add("fc-" + focusColor.getStyle());
+            setLabelColor(focusColor);
+            setLeftAddonColor(focusColor);
+        }
+        showPlaceholder();
+    }
+
+    private void doUnfocus() {
         inputElement.style().remove("fc-" + focusColor.getStyle(), FOCUSED);
         unfloatLabel();
         removeLabelColor(focusColor);
         removeLeftAddonColor(focusColor);
         hidePlaceholder();
-        return (T) this;
     }
 
     private void setLeftAddonColor(Color focusColor) {
@@ -339,9 +352,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         removeLabelColor(Color.RED);
         removeLeftAddonColor(Color.RED);
         if (isFocused()) {
-            focus();
+            doFocus();
         } else {
-            unfocus();
+            doUnfocus();
         }
         changeLabelFloating();
         return super.clearInvalid();
