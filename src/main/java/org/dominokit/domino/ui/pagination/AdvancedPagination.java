@@ -8,7 +8,6 @@ import org.dominokit.domino.ui.forms.SelectOption;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 

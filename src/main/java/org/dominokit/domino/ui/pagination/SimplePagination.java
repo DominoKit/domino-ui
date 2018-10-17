@@ -86,8 +86,8 @@ public class SimplePagination extends BasePagination<SimplePagination> {
         }
 
         if (pages <= 0) {
-            nextElement.style().add("disabled");
-            prevElement.style().add("disabled");
+            nextElement.disable();
+            prevElement.disable();
         }
 
         pagesElement.appendChild(nextElement);
@@ -109,14 +109,14 @@ public class SimplePagination extends BasePagination<SimplePagination> {
             }
 
             if (page == pagesCount)
-                nextElement.style().add("disabled");
+                nextElement.disable();
             else
-                nextElement.style().remove("disabled");
+                nextElement.enable();
 
             if (page == 1)
-                prevElement.style().add("disabled");
+                prevElement.disable();
             else
-                prevElement.style().remove("disabled");
+                prevElement.enable();
         }
     }
 
