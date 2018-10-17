@@ -58,6 +58,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private static EventListener hideAllListener = Select::hideAllMenus;
     private static Select currentOpened;
 
+    private boolean valid = true;
+
     static {
         document.addEventListener(CLICK_EVENT, hideAllListener);
         document.addEventListener("touchend", evt -> {
@@ -95,8 +97,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
             evt.stopPropagation();
         };
         selectElement.getSelectButton().addEventListener(CLICK_EVENT, clickListener);
-        selectElement.getSelectMenu().addEventListener("focusin", evt -> focus());
-        selectElement.getSelectMenu().addEventListener("focusout", evt -> unfocus());
+        selectElement.getSelectMenu().addEventListener("focusin", evt -> doFocus());
+        selectElement.getSelectMenu().addEventListener("focusout", evt -> doUnfocus());
         selectElement.getSelectButton().addEventListener("focus", evt -> selectElement.getSelectButton().blur());
 
         EventListener keyboardListener = evt -> open();
@@ -314,12 +316,9 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     public Select<T> appendChild(SelectOption<T> option) {
         options.add(option);
         searchableOptions.put(option.getDisplayValue(), option);
-        EventListener openOptionListener = new EventListener() {
-            @Override
-            public void handleEvent(Event evt) {
-                Select.this.doSelectOption(option);
-                evt.stopPropagation();
-            }
+        EventListener openOptionListener = evt -> {
+            Select.this.doSelectOption(option);
+            evt.stopPropagation();
         };
         option.asElement().addEventListener(CLICK_EVENT, openOptionListener);
         option.asElement().addEventListener(TOUCH_START_EVENT, evt -> {
@@ -473,6 +472,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     @Override
     public Select<T> invalidate(String errorMessage) {
+        this.valid = false;
         selectElement.getFormControl().style().remove("fc-" + focusColor.getStyle());
         selectElement.getSelectLabel().style().remove(focusColor.getStyle());
         selectElement.getFormControl().style().add("fc-" + Color.RED.getStyle());
@@ -484,6 +484,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     @Override
     public Select<T> clearInvalid() {
+        this.valid = true;
         selectElement.getFormControl().style().remove("fc-" + Color.RED.getStyle());
         selectElement.getSelectLabel().style().remove(Color.RED.getStyle());
         if (isFocused()) {
@@ -504,10 +505,6 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     @Override
     public Select<T> focus() {
         if (isEnabled() && !isReadOnly()) {
-            selectElement.getSelectMenu().style().add(FOCUSED);
-            selectElement.getSelectLabel().style().add(focusColor.getStyle());
-            selectElement.getFormControl().style().add("fc-" + focusColor.getStyle());
-            setLeftAddonColor(focusColor);
             if (!isAttached()) {
                 selectElement.getSelectMenu().asElement().focus();
             } else {
@@ -519,11 +516,44 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     @Override
     public Select<T> unfocus() {
+        if (isEnabled() && !isReadOnly()) {
+            if (!isAttached()) {
+                selectElement.getSelectMenu().asElement().blur();
+            } else {
+                onAttached(mutationRecord -> selectElement.getSelectMenu().asElement().blur());
+            }
+        }
+        return this;
+    }
+
+    private void doFocus() {
+        if (isEnabled() && !isReadOnly()) {
+            floatLabel();
+            if (valid) {
+                selectElement.getSelectMenu().style().add(FOCUSED);
+                selectElement.getSelectLabel().style().add(focusColor.getStyle());
+                selectElement.getFormControl().style().add("fc-" + focusColor.getStyle());
+                setLeftAddonColor(focusColor);
+            }
+        }
+    }
+
+    private void doUnfocus() {
+        unfloatLabel();
         selectElement.getSelectMenu().style().remove(FOCUSED);
         selectElement.getSelectLabel().style().remove(focusColor.getStyle());
         selectElement.getFormControl().style().remove("fc-" + focusColor.getStyle());
         removeLeftAddonColor(focusColor);
-        return this;
+    }
+
+    protected void floatLabel() {
+        getSelectLabel().style().add(FOCUSED);
+    }
+
+    protected void unfloatLabel() {
+        if (isEmpty()) {
+            getSelectLabel().style().remove(FOCUSED);
+        }
     }
 
     private void setLeftAddonColor(Color focusColor) {
@@ -626,6 +656,10 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     public DominoElement<HTMLSelectElement> getSelectMenu() {
         return selectElement.getSelectMenu();
+    }
+
+    public DominoElement<HTMLLabelElement> getSelectLabel() {
+        return selectElement.getSelectLabel();
     }
 
     public DominoElement<HTMLElement> getSelectedValueContainer() {
