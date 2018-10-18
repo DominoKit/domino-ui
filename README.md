@@ -61,7 +61,7 @@ Add the following css files to your index page:
 ----------------------
 ## Domino-ui Release 1.0 Road map
 
-> Checked item are already completed
+> Checked items are already completed
 
 ### Build All basic components :
 
@@ -114,9 +114,9 @@ Sample of third party tools and frameworks:
 - Editors framework.
 - UI Binder
 
-### Restructure CSS and Themeing
+### Restructure CSS and Theming
 
-- [ ] Restructure the CSS allowing easy themeing, writing a new theme by the uusers should be easy.
+- [ ] Restructure the CSS allowing easy theming, writing a new theme by the users should be easy.
 
 - [ ] Simplify the injection of the css resources.
 
@@ -127,11 +127,11 @@ Sample of third party tools and frameworks:
 
 ### Documentation
 
-- [ ] Create a full documentation describing how to use Domino-ui, setup a project, and document each element/component on its own, this could be in github pages.
+- [ ] Create a full documentation describing how to use Domino-ui, setup a project and document each element/component on its own, this could be in github pages.
 
 ### Build Samples
 
-- [ ] Implement a 3 different samples with different types of contents, the samples should try to use most of the avialable components.
+- [ ] Implement three samples with different types of contents, the samples should try to use most of the available components.
 ---------------------------
 
 ## Sample
