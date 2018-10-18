@@ -414,6 +414,26 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return uuid;
     }
 
+    public T disable(){
+        setAttribute("disabled", "");
+        style().add("disabled");
+        return element;
+    }
+
+    public T enable(){
+        removeAttribute("disabled");
+        style().remove("disabled");
+        return element;
+    }
+
+    public void setDisabled(boolean disabled){
+        if(disabled){
+            disable();
+        }else{
+            enable();
+        }
+    }
+
     @FunctionalInterface
     public interface StyleEditor<E extends HTMLElement, T extends IsElement<E>> {
         void applyStyles(Style<E, T> style);
