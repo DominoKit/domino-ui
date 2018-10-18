@@ -1453,78 +1453,103 @@ body.modal-open {
 .padding-0 {
     padding: 0px;
 }
+
 .padding-5 {
     padding: 5px;
 }
+
 .padding-10 {
     padding: 10px;
 }
+
 .padding-15 {
     padding: 15px;
 }
+
 .padding-20 {
     padding: 20px;
 }
+
 .padding-25 {
     padding: 25px;
 }
+
 .padding-30 {
     padding: 30px;
 }
+
 .padding-35 {
     padding: 35px;
 }
+
 .padding-40 {
     padding: 40px;
 }
+
 .padding-45 {
     padding: 45px;
 }
+
 .padding-50 {
     padding: 50px;
 }
+
 .padding-55 {
     padding: 55px;
 }
+
 .padding-60 {
     padding: 60px;
 }
+
 .padding-65 {
     padding: 65px;
 }
+
 .padding-70 {
     padding: 70px;
 }
+
 .padding-75 {
     padding: 75px;
 }
+
 .padding-80 {
     padding: 80px;
 }
+
 .padding-85 {
     padding: 85px;
 }
+
 .padding-90 {
     padding: 90px;
 }
+
 .padding-95 {
     padding: 95px;
 }
+
 .padding-100 {
     padding: 100px;
 }
+
 .padding-105 {
     padding: 105px;
 }
+
 .padding-110 {
     padding: 110px;
 }
+
 .padding-115 {
     padding: 115px;
 }
+
 .padding-120 {
     padding: 120px;
 }
+
 .padding-125 {
     padding: 125px;
 }
@@ -7178,6 +7203,15 @@ a.disabled {
     background-color: rgba(0, 0, 0, 0.04) !important;
 }
 
+.table thead tr th.table-cm-filter {
+    padding: 5px;
+    font-weight: 300;
+}
+
+.table-cm-filter .material-icons {
+    font-size: 12px;
+}
+
 .details-td {
     max-width: 200px;
 }
@@ -7717,6 +7751,15 @@ a.disabled {
     padding-top: 4px;
     border-radius: 50%;
     cursor: pointer;
+    text-align: center;
+}
+
+.clickable-icon.small-icon {
+    width: 16px;
+    height: 16px;
+    line-height: 8px;
+    padding-left: 1px;
+    text-align: center;
 }
 
 .clickable-icon:HOVER {

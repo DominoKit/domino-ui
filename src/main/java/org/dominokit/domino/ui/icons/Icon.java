@@ -91,6 +91,11 @@ public class Icon extends BaseDominoElement<HTMLElement, Icon> {
         return this;
     }
 
+    public Icon small(){
+        style.add("small-icon");
+        return this;
+    }
+
     @Override
     public HTMLElement asElement() {
         return icon.asElement();

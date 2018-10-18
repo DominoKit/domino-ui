@@ -462,6 +462,14 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    public DominoElement<HTMLDivElement> getLeftAddonContainer() {
+        return leftAddonContainer;
+    }
+
+    public DominoElement<HTMLDivElement> getRightAddonContainer() {
+        return rightAddonContainer;
+    }
+
     @Override
     public boolean hasChangeHandler(ChangeHandler<V> changeHandler) {
         return changeHandlers.contains(changeHandler);

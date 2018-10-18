@@ -62,6 +62,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         });
         tableConfig.onBeforeHeaders(this);
         tableConfig.drawHeaders(this, thead);
+        tableConfig.onAfterHeaders(this);
         tableElement.appendChild(tbody);
         tableConfig.getPlugins().forEach(plugin -> plugin.onBodyAdded(DataTable.this));
         element.appendChild(tableElement);
