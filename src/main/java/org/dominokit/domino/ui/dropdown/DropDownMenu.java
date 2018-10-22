@@ -36,6 +36,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLUListElement, DropDownMe
         document.addEventListener("touchmove", evt -> this.touchMoved = true);
 
         addMenuNavigationListener(targetElement);
+        init(this);
     }
 
     private void addMenuNavigationListener(HTMLElement targetElement) {
