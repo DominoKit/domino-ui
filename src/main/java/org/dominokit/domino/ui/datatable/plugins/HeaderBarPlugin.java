@@ -4,7 +4,9 @@ import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.events.SearchEvent;
+import org.dominokit.domino.ui.datatable.model.Category;
+import org.dominokit.domino.ui.datatable.model.Filter;
+import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.forms.Select;
 import org.dominokit.domino.ui.forms.SelectOption;
 import org.dominokit.domino.ui.forms.TextBox;
@@ -303,7 +305,11 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
         }
 
         private void doSearch() {
-            dataTable.fireTableEvent(new SearchEvent(textBox.getValue(), select.getValue()));
+            SearchContext searchContext = dataTable.getSearchContext();
+            Category search = Category.SEARCH;
+            searchContext.removeByCategory(search);
+            searchContext.add(Filter.create(select.getValue(), textBox.getValue(), Category.SEARCH))
+                    .fireSearchEvent();
         }
 
         @Override
