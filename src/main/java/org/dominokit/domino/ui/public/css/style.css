@@ -5811,7 +5811,7 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     max-width: 100%;
 }
 
-.dropdown-menu ellipsis {
+.dropdown-menu .ellipsis {
 	display: block;
 	overflow: hidden;
 	white-space: nowrap;
