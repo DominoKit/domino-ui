@@ -9,7 +9,7 @@ import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.forms.CheckBox;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
@@ -149,8 +149,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
         return checkBox.asElement();
     }
 
-    public SelectionPlugin<T> setSingleSelectIcon(Icon singleSelectIcon) {
-
+    public SelectionPlugin<T> setSingleSelectIcon(BaseIcon<?> singleSelectIcon) {
         return this;
     }
 

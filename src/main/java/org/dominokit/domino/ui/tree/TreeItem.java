@@ -2,7 +2,7 @@ package org.dominokit.domino.ui.tree;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.WaveColor;
@@ -33,14 +33,14 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     private Collapsible collapsible;
 
     private HTMLUListElement childrenContainer;
-    private Icon icon;
-    private Icon activeIcon;
-    private Icon originalIcon;
+    private BaseIcon<?> icon;
+    private BaseIcon<?> activeIcon;
+    private BaseIcon<?> originalIcon;
     private HTMLElement titleElement;
 
-    private Icon expandIcon;
+    private BaseIcon<?> expandIcon;
 
-    public TreeItem(String title, Icon icon) {
+    public TreeItem(String title, BaseIcon<?> icon) {
         this.title = title;
         setIcon(icon);
         this.titleElement = span().css("title").textContent(title).asElement();
@@ -64,7 +64,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         return new TreeItem(title);
     }
 
-    public static TreeItem create(String title, Icon icon) {
+    public static TreeItem create(String title, BaseIcon<?> icon) {
         return new TreeItem(title, icon);
     }
 
@@ -176,7 +176,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         }
     }
 
-    private void replaceIcon(Icon newIcon) {
+    private void replaceIcon(BaseIcon<?> newIcon) {
         if (nonNull(newIcon)) {
             icon.asElement().textContent = newIcon.getName();
             if (isNull(originalIcon)) {
@@ -217,18 +217,18 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         return this;
     }
 
-    public TreeItem setIcon(Icon icon) {
+    public TreeItem setIcon(BaseIcon<?> icon) {
         this.icon = icon;
         this.originalIcon = icon.copy();
         return this;
     }
 
-    public TreeItem setActiveIcon(Icon activeIcon) {
+    public TreeItem setActiveIcon(BaseIcon<?> activeIcon) {
         this.activeIcon = activeIcon;
         return this;
     }
 
-    public TreeItem setExpandIcon(Icon expandIcon) {
+    public TreeItem setExpandIcon(BaseIcon<?> expandIcon) {
         this.expandIcon = expandIcon;
         return this;
     }

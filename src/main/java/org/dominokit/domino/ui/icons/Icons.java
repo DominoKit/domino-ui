@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.icons;
 
-public class Icons implements ActionIcons, AlertIcons, AvIcons, CommunicationIcons, ContentIcons, DeviceIcons, EditorIcons, HardwareIcons,FileIcons, ImageIcons, MapsIcons, NavigationIcons, NotificationIcons, PlacesIcons, SocialIcons, ToggleIcons {
+public class Icons implements ActionIcons, AlertIcons, AvIcons, CommunicationIcons, ContentIcons, DeviceIcons, EditorIcons, HardwareIcons, FileIcons, ImageIcons, MapsIcons, NavigationIcons, NotificationIcons, PlacesIcons, SocialIcons, ToggleIcons, MdiIcons {
 
     private Icons() {
     }
@@ -23,4 +23,5 @@ public class Icons implements ActionIcons, AlertIcons, AvIcons, CommunicationIco
     public static final PlacesIcons PLACES_ICONS = ALL;
     public static final SocialIcons SOCIAL_ICONS = ALL;
     public static final ToggleIcons TOGGLE_ICONS = ALL;
+    public static final MdiIcons MDI_ICONS = ALL;
 }

@@ -4,7 +4,7 @@ import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import elemental2.dom.Text;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.StyleType;
 import org.dominokit.domino.ui.style.WaveStyle;
@@ -28,7 +28,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     private Color color;
     private ButtonSize size;
     protected String content;
-    private Icon icon;
+    private BaseIcon<?> icon;
     private HTMLElement textSpan = span().asElement();
     private Text textElement = TextNode.empty();
 
@@ -40,7 +40,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         setContent(content);
     }
 
-    protected BaseButton(Icon icon) {
+    protected BaseButton(BaseIcon icon) {
         this();
         setIcon(icon);
     }
@@ -50,7 +50,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         setButtonType(type);
     }
 
-    protected BaseButton(Icon icon, StyleType type) {
+    protected BaseButton(BaseIcon icon, StyleType type) {
         this(icon);
         setButtonType(type);
     }
@@ -191,7 +191,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return (B) this;
     }
 
-    public B setIcon(Icon icon) {
+    public B setIcon(BaseIcon<?> icon) {
         if (nonNull(this.icon)) {
             this.icon.setTextContent(icon.getName());
         } else {
