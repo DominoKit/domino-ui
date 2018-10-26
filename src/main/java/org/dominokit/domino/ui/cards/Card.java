@@ -2,7 +2,7 @@ package org.dominokit.domino.ui.cards;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
@@ -44,7 +44,7 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
 
     private boolean collapsible = false;
     private HTMLLIElement collapseAction;
-    private Icon collapseIcon;
+    private BaseIcon collapseIcon;
     private Collapsible bodyCollapsible;
     private int collapseDuration = 1;
     private boolean collapsed = false;
@@ -198,13 +198,13 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
         return DominoElement.of(headerDescription);
     }
 
-    public static HTMLLIElement createIcon(Icon icon) {
+    public static HTMLLIElement createIcon(BaseIcon<?> icon) {
         return li().add(
                 a().add(icon))
                 .asElement();
     }
 
-    public Card addHeaderAction(Icon icon, EventListener eventListener) {
+    public Card addHeaderAction(BaseIcon<?> icon, EventListener eventListener) {
         HTMLLIElement actionItem = createHeaderAction(icon);
         actionItem.addEventListener("click", eventListener);
 
@@ -226,7 +226,7 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
         }
     }
 
-    private HTMLLIElement createHeaderAction(Icon icon) {
+    private HTMLLIElement createHeaderAction(BaseIcon<?> icon) {
         return li().add(a()
                 .add(icon.withWaves()
                         .styler(style -> style

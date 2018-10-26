@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.button;
 
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.StyleType;
 
 public class Button extends BaseButton<Button> {
@@ -20,12 +20,12 @@ public class Button extends BaseButton<Button> {
         setButtonType(type);
     }
 
-    public Button(Icon icon) {
+    public Button(BaseIcon<?> icon) {
         super(icon);
         init(this);
     }
 
-    public Button(Icon icon, StyleType type) {
+    public Button(BaseIcon<?> icon, StyleType type) {
         this(icon);
         setButtonType(type);
     }
@@ -66,35 +66,35 @@ public class Button extends BaseButton<Button> {
         return create(content, StyleType.DANGER);
     }
 
-    public static Button create(Icon icon) {
+    public static Button create(BaseIcon<?> icon) {
         return new Button(icon);
     }
 
-    private static Button create(Icon icon, StyleType type) {
+    private static Button create(BaseIcon<?> icon, StyleType type) {
         return new Button(icon, type);
     }
 
-    public static Button createDefault(Icon icon) {
+    public static Button createDefault(BaseIcon<?> icon) {
         return create(icon, StyleType.DEFAULT);
     }
 
-    public static Button createPrimary(Icon icon) {
+    public static Button createPrimary(BaseIcon<?> icon) {
         return create(icon, StyleType.PRIMARY);
     }
 
-    public static Button createSuccess(Icon icon) {
+    public static Button createSuccess(BaseIcon<?> icon) {
         return create(icon, StyleType.SUCCESS);
     }
 
-    public static Button createInfo(Icon icon) {
+    public static Button createInfo(BaseIcon<?> icon) {
         return create(icon, StyleType.INFO);
     }
 
-    public static Button createWarning(Icon icon) {
+    public static Button createWarning(BaseIcon<?> icon) {
         return create(icon, StyleType.WARNING);
     }
 
-    public static Button createDanger(Icon icon) {
+    public static Button createDanger(BaseIcon<?> icon) {
         return create(icon, StyleType.DANGER);
     }
 

@@ -7,7 +7,7 @@ import org.dominokit.domino.ui.Typography.Paragraph;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.BaseModal;
 import org.dominokit.domino.ui.style.Color;
@@ -104,7 +104,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         return createMessage(Paragraph.create(message).asElement(), closeHandler);
     }
 
-    public MessageDialog success(Icon icon) {
+    public MessageDialog success(BaseIcon<?> icon) {
         this.successIcon = MessageDialog.createMessageIcon(icon.asElement());
         appendIcon(successIcon, successColor, Color.ORANGE, Transition.PULSE);
         return this;
@@ -114,7 +114,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         return success(Icons.ALL.done());
     }
 
-    public MessageDialog error(Icon icon) {
+    public MessageDialog error(BaseIcon<?> icon) {
         this.errorIcon = MessageDialog.createMessageIcon(icon.asElement());
         appendIcon(errorIcon, errorColor, Color.GREY, Transition.TADA);
         return this;
@@ -124,7 +124,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         return error(Icons.ALL.error());
     }
 
-    public MessageDialog warning(Icon icon) {
+    public MessageDialog warning(BaseIcon<?> icon) {
         this.warningIcon = MessageDialog.createMessageIcon(icon.asElement());
         appendIcon(warningIcon, warningColor, Color.GREY, Transition.RUBBER_BAND);
         return this;

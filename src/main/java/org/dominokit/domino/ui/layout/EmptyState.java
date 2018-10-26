@@ -4,7 +4,7 @@ package org.dominokit.domino.ui.layout;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.HTMLParagraphElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
@@ -24,7 +24,7 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState> {
     private Color titleColor;
     private Color descriptionColor;
 
-    public EmptyState(Icon icon) {
+    public EmptyState(BaseIcon<?> icon) {
         iconContainer.appendChild(icon.asElement());
         element.appendChild(iconContainer);
         element.appendChild(titleContainer);
@@ -32,7 +32,7 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState> {
         init(this);
     }
 
-    public static EmptyState create(Icon icon) {
+    public static EmptyState create(BaseIcon<?> icon) {
         return new EmptyState(icon);
     }
 

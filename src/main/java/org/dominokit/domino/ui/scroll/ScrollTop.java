@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.scroll;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.BaseButton;
 import org.dominokit.domino.ui.button.CircleSize;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.EventType;
@@ -14,7 +14,7 @@ public class ScrollTop extends BaseButton<ScrollTop> {
 
     private int showOffset = 60;
 
-    public ScrollTop(Icon icon) {
+    public ScrollTop(BaseIcon<?> icon) {
         super(icon);
         init(this);
         circle(CircleSize.LARGE);
@@ -47,7 +47,7 @@ public class ScrollTop extends BaseButton<ScrollTop> {
         return this;
     }
 
-    public static ScrollTop create(Icon icon) {
+    public static ScrollTop create(BaseIcon<?> icon) {
         return new ScrollTop(icon);
     }
 
