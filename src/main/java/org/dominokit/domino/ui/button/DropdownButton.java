@@ -5,7 +5,7 @@ import org.dominokit.domino.ui.button.group.ButtonsGroup;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.StyleType;
 import org.jboss.gwt.elemento.core.Elements;
@@ -31,12 +31,12 @@ public class DropdownButton extends BaseButton<DropdownButton> {
         initDropDown();
     }
 
-    public DropdownButton(Icon icon, StyleType type) {
+    public DropdownButton(BaseIcon<?> icon, StyleType type) {
         super(icon, type);
         initDropDown();
     }
 
-    public DropdownButton(Icon icon) {
+    public DropdownButton(BaseIcon<?> icon) {
         super(icon);
         initDropDown();
     }
@@ -77,35 +77,35 @@ public class DropdownButton extends BaseButton<DropdownButton> {
         return create(content, StyleType.DANGER);
     }
 
-    public static DropdownButton create(Icon icon, StyleType type) {
+    public static DropdownButton create(BaseIcon<?> icon, StyleType type) {
         return new DropdownButton(icon, type);
     }
 
-    public static DropdownButton create(Icon icon) {
+    public static DropdownButton create(BaseIcon<?> icon) {
         return new DropdownButton(icon);
     }
 
-    public static DropdownButton createDefault(Icon icon) {
+    public static DropdownButton createDefault(BaseIcon<?> icon) {
         return create(icon, StyleType.DEFAULT);
     }
 
-    public static DropdownButton createPrimary(Icon icon) {
+    public static DropdownButton createPrimary(BaseIcon<?> icon) {
         return create(icon, StyleType.PRIMARY);
     }
 
-    public static DropdownButton createSuccess(Icon icon) {
+    public static DropdownButton createSuccess(BaseIcon<?> icon) {
         return create(icon, StyleType.SUCCESS);
     }
 
-    public static DropdownButton createInfo(Icon icon) {
+    public static DropdownButton createInfo(BaseIcon<?> icon) {
         return create(icon, StyleType.INFO);
     }
 
-    public static DropdownButton createWarning(Icon icon) {
+    public static DropdownButton createWarning(BaseIcon<?> icon) {
         return create(icon, StyleType.WARNING);
     }
 
-    public static DropdownButton createDanger(Icon icon) {
+    public static DropdownButton createDanger(BaseIcon<?> icon) {
         return create(icon, StyleType.DANGER);
     }
 

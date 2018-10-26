@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.layout;
 
 import elemental2.dom.*;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
@@ -297,7 +297,7 @@ public class Layout {
         return this;
     }
 
-    public HTMLElement addActionItem(Icon icon) {
+    public HTMLElement addActionItem(BaseIcon<?> icon) {
         HTMLLIElement li = li().css("pull-right").add(
                 a().css("js-right-sidebar")
                         .add(icon.asElement())).asElement();

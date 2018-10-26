@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Filter {
 
     private final String fieldName;
-    private final Types type;
+    private final FilterTypes type;
     private final Operator operator;
     private final List<String> values;
     private final Category category;
@@ -15,7 +15,13 @@ public class Filter {
     public static Filter create(String field, String value, Category category) {
         List<String> values = new ArrayList<>();
         values.add(value);
-        return new Filter(field, Types.STRING, Operator.like, values, category);
+        return new Filter(field, FilterTypes.STRING, Operator.like, values, category);
+    }
+
+    public static Filter create(String field, String value, Category category, FilterTypes type) {
+        List<String> values = new ArrayList<>();
+        values.add(value);
+        return new Filter(field, type, Operator.like, values, category);
     }
 
     public static List<Filter> initListWith(Filter filter) {
@@ -24,7 +30,7 @@ public class Filter {
         return filters;
     }
 
-    public Filter(String fieldName, Types type, Operator operator, List<String> values, Category category) {
+    public Filter(String fieldName, FilterTypes type, Operator operator, List<String> values, Category category) {
         this.fieldName = fieldName;
         this.type = type;
         this.operator = operator;
@@ -36,7 +42,7 @@ public class Filter {
         return fieldName;
     }
 
-    public Types getType() {
+    public FilterTypes getType() {
         return type;
     }
 

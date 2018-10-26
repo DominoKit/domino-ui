@@ -7,19 +7,29 @@ import elemental2.dom.HTMLTableSectionElement;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableConfig;
-import org.dominokit.domino.ui.forms.TextBox;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
+import org.dominokit.domino.ui.datatable.events.TableEvent;
+import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.th;
 import static org.jboss.gwt.elemento.core.Elements.tr;
 
 public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
+
+    private final Map<String, HeaderFilter> headerFilters = new HashMap<>();
+
+    public static <T> ColumnHeaderFilterPlugin<T> create() {
+        return new ColumnHeaderFilterPlugin<>();
+    }
 
     @Override
     public void onAfterAddHeaders(DataTable<T> dataTable) {
@@ -31,18 +41,17 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
         columns.forEach(columnConfig -> {
 
-            HtmlContentBuilder<HTMLTableCellElement> th = th().css("table-cm-filter")
-                    .add(TextBox.create()
-                            .apply(element -> {
-                                element.getLeftAddonContainer().collapse();
-                                element.getRightAddonContainer().collapse();
-                            })
-                            .setPlaceholder("Search")
-                            .styler(style -> style.setMarginBottom("0px")));
+            HtmlContentBuilder<HTMLTableCellElement> th = th().css("table-cm-filter");
+            columnConfig.getHeaderStyler()
+                    .styleCell(th.asElement());
             tr.add(th);
 
             if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
                 fixElementWidth(columnConfig, th.asElement());
+            }
+            if (headerFilters.containsKey(columnConfig.getName())) {
+                headerFilters.get(columnConfig.getName()).init(dataTable.getSearchContext(), columnConfig);
+                th.add(headerFilters.get(columnConfig.getName()));
             }
         });
 
@@ -71,5 +80,24 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
         } else {
             return "100px";
         }
+    }
+
+    public ColumnHeaderFilterPlugin<T> addHeaderFilter(String columnName, HeaderFilter headerFilter) {
+        headerFilters.put(columnName, headerFilter);
+        return this;
+    }
+
+    @Override
+    public void handleEvent(TableEvent event) {
+        if (SearchClearedEvent.SEARCH_EVENT_CLEARED.equals(event.getType())) {
+            headerFilters.values().forEach(HeaderFilter::clear);
+            headerFilters.clear();
+        }
+    }
+
+    public interface HeaderFilter<T> extends IsElement<HTMLElement> {
+        void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig);
+
+        void clear();
     }
 }

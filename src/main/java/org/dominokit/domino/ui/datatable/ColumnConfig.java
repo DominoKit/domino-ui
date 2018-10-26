@@ -190,6 +190,14 @@ public class ColumnConfig<T> {
         cellStyler.styleCell(element);
     }
 
+    public CellStyler<T> getHeaderStyler() {
+        return headerStyler;
+    }
+
+    public CellStyler<T> getCellStyler() {
+        return cellStyler;
+    }
+
     @FunctionalInterface
     public interface CellStyler<T> {
         void styleCell(HTMLTableCellElement element);

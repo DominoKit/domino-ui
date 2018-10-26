@@ -2,7 +2,7 @@ package org.dominokit.domino.ui.infoboxes;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -65,7 +65,7 @@ public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
         init(this);
     }
 
-    public static InfoBox create(Icon icon, String title, String value) {
+    public static InfoBox create(BaseIcon icon, String title, String value) {
         Templated_InfoBox templated_InfoBox = new Templated_InfoBox();
         templated_InfoBox.getIconElement().appendChild(icon);
         templated_InfoBox.getTitleElement().setTextContent(title);

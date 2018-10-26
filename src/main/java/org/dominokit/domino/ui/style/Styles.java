@@ -117,6 +117,7 @@ public class Styles {
     public static final String m_l__5 = "m-l--5";
     public static final String m_l_0 = "m-l-0";
     public static final String m_l_5 = "m-l-5";
+    public static final String m_l_2 = "m-l-2";
     public static final String m_l_10 = "m-l-10";
     public static final String m_l_15 = "m-l-15";
     public static final String m_l_20 = "m-l-20";
@@ -220,6 +221,7 @@ public class Styles {
     public static final String m_r__10 = "m-r--10";
     public static final String m_r__5 = "m-r--5";
     public static final String m_r_0 = "m-r-0";
+    public static final String m_r_2 = "m-r-2";
     public static final String m_r_5 = "m-r-5";
     public static final String m_r_10 = "m-r-10";
     public static final String m_r_15 = "m-r-15";

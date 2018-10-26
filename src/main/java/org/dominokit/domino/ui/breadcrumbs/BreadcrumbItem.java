@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.breadcrumbs;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Text;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
@@ -18,18 +18,18 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
     private DominoElement<HTMLLIElement> element = DominoElement.of(li().asElement());
     private DominoElement<HTMLAnchorElement> anchorElement = DominoElement.of(a());
     private Text textElement;
-    private Icon icon;
+    private BaseIcon icon;
     private boolean active = false;
 
     private BreadcrumbItem(String text) {
         init(text, null);
     }
 
-    private BreadcrumbItem(String text, Icon icon) {
+    private BreadcrumbItem(String text, BaseIcon<?> icon) {
         init(text, icon);
     }
 
-    private void init(String text, Icon icon) {
+    private void init(String text, BaseIcon<?> icon) {
         init(this);
         this.textElement = TextNode.of(text);
         if (nonNull(icon)) {
@@ -45,7 +45,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
         return new BreadcrumbItem(text);
     }
 
-    public static BreadcrumbItem create(Icon icon, String text) {
+    public static BreadcrumbItem create(BaseIcon<?> icon, String text) {
         return new BreadcrumbItem(text, icon);
     }
 
@@ -103,7 +103,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
         return textElement;
     }
 
-    public Icon getIcon() {
+    public BaseIcon getIcon() {
         return icon;
     }
 

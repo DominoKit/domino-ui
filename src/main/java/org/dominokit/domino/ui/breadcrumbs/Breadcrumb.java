@@ -2,7 +2,7 @@ package org.dominokit.domino.ui.breadcrumbs;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLOListElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -47,14 +47,14 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
     }
 
     /**
-     * @deprecated use {@link #appendChild(Icon, String, EventListener)}
+     * @deprecated use {@link #appendChild(BaseIcon<?>, String, EventListener)}
      */
     @Deprecated
-    public Breadcrumb addItem(Icon icon, String text, EventListener onClick) {
+    public Breadcrumb addItem(BaseIcon<?> icon, String text, EventListener onClick) {
         return appendChild(icon, text, onClick);
     }
 
-    public Breadcrumb appendChild(Icon icon, String text, EventListener onClick) {
+    public Breadcrumb appendChild(BaseIcon<?> icon, String text, EventListener onClick) {
         BreadcrumbItem item = BreadcrumbItem.create(icon, text);
         addNewItem(item);
         item.addClickListener(onClick);

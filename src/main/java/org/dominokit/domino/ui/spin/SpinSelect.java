@@ -2,7 +2,7 @@ package org.dominokit.domino.ui.spin;
 
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
@@ -30,7 +30,7 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
     private NavigationHandler navigationHandler = direction -> {
     };
 
-    SpinSelect(Icon backIcon, Icon forwardIcon) {
+    SpinSelect(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {
         element.appendChild(
                 prevAnchor.appendChild(backIcon
                         .clickable()

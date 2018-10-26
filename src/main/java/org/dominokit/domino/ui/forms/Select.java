@@ -706,6 +706,14 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         return this;
     }
 
+    public DominoElement<HTMLDivElement> getLeftAddonContainer() {
+        return leftAddonContainer;
+    }
+
+    public DominoElement<HTMLDivElement> getRightAddonContainer() {
+        return rightAddonContainer;
+    }
+
     public Select<T> removeRightAddon() {
         if (nonNull(rightAddon)) {
             rightAddonContainer.removeChild(rightAddon);
@@ -812,6 +820,10 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
             return selectedOption.getDisplayValue();
         }
         return null;
+    }
+
+    public int getSelectedIndex() {
+        return options.indexOf(getSelectedOption());
     }
 
     @Templated

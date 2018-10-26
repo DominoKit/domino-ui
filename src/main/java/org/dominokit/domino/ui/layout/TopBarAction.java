@@ -2,7 +2,7 @@ package org.dominokit.domino.ui.layout;
 
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLLIElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
@@ -14,13 +14,13 @@ public class TopBarAction extends BaseDominoElement<HTMLLIElement, TopBarAction>
     private HTMLLIElement element = li().css(Styles.pull_right).asElement();
     private HTMLAnchorElement clickableElement= a().css("js-right-sidebar").asElement();
 
-    public TopBarAction(Icon icon) {
+    public TopBarAction(BaseIcon<?> icon) {
         element.appendChild(clickableElement);
         clickableElement.appendChild(icon.asElement());
         init(this);
     }
 
-    public static TopBarAction create(Icon icon){
+    public static TopBarAction create(BaseIcon<?> icon){
         return new TopBarAction(icon);
     }
 

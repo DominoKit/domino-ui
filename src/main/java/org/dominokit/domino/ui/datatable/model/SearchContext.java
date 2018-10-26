@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.datatable.model;
 
 import org.dominokit.domino.ui.datatable.DataTable;
+import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class SearchContext<T> {
 
     public SearchContext clear() {
         filters.clear();
+        dataTable.fireTableEvent(new SearchClearedEvent());
         return this;
     }
 
