@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.*;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -33,6 +33,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     private EventListener changeEventListener;
     private boolean readOnly;
     private List<ChangeHandler<V>> changeHandlers = new ArrayList<>();
+    private boolean pauseChangeHandlers = false;
 
     public enum ValueBoxSize {
         LARGE("lg"),
@@ -65,7 +66,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     protected void callChangeHandlers() {
-        changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(getValue()));
+        if(!pauseChangeHandlers) {
+            changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(getValue()));
+        }
     }
 
     protected abstract E createInputElement(String type);
@@ -252,7 +255,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return DominoElement.of(inputContainer);
     }
 
-    public T setIcon(Icon icon) {
+    public T setIcon(BaseIcon<?> icon) {
         return setLeftAddon(icon.asElement());
     }
 
@@ -460,6 +463,27 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     public T removeChangeHandler(ChangeHandler<V> changeHandler) {
         changeHandlers.remove(changeHandler);
         return (T) this;
+    }
+
+    public T setPauseChangeHandlers(boolean pauseChangeHandlers){
+        this.pauseChangeHandlers = pauseChangeHandlers;
+        return (T) this;
+    }
+
+    public T pauseChangeHandlers(){
+        return setPauseChangeHandlers(true);
+    }
+
+    public T resumeChangeHandlers(){
+        return setPauseChangeHandlers(false);
+    }
+
+    public DominoElement<HTMLDivElement> getLeftAddonContainer() {
+        return leftAddonContainer;
+    }
+
+    public DominoElement<HTMLDivElement> getRightAddonContainer() {
+        return rightAddonContainer;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package org.dominokit.domino.ui.forms;
 
+import org.dominokit.domino.ui.utils.ElementUtil;
+
 public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
     public static DoubleBox create() {
@@ -16,6 +18,7 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
     public DoubleBox(String label) {
         super(label);
+        ElementUtil.decimalOnly(this);
     }
 
     @Override

@@ -177,6 +177,10 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
         plugins.forEach(plugin -> plugin.onBeforeAddHeaders(dataTable));
     }
 
+    public void onAfterHeaders(DataTable<T> dataTable) {
+        plugins.forEach(plugin -> plugin.onAfterAddHeaders(dataTable));
+    }
+
     public List<ColumnConfig<T>> getColumns() {
         return columns;
     }

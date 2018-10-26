@@ -630,12 +630,20 @@ body.modal-open {
     margin-bottom: 0px;
 }
 
+.m-l-2 {
+    margin-left: 2px;
+}
+
 .m-l-5 {
     margin-left: 5px;
 }
 
 .m-t-5 {
     margin-top: 5px;
+}
+
+.m-r-2 {
+    margin-right: 2px;
 }
 
 .m-r-5 {
@@ -2011,6 +2019,10 @@ body.modal-open {
     width: 24px;
 }
 
+.demo-icon-container .demo-google-material-icon .mdi {
+    width: 24px;
+}
+
 .demo-preloader .preloader {
     margin-right: 10px;
 }
@@ -2459,7 +2471,12 @@ section.content {
 .btn:not(.btn-circle) i {
     font-size: 20px;
     position: relative;
-    top: 3px;
+    top: 2px;
+    line-height: 30px;
+}
+
+.btn:not(.btn-circle) i:before{
+    font-size: 20px;
 }
 
 .btn:not(.btn-circle) span {
@@ -7206,6 +7223,26 @@ a.disabled {
     background-color: rgba(0, 0, 0, 0.04) !important;
 }
 
+.table thead tr th.table-cm-filter {
+    padding: 5px;
+    font-weight: 300;
+}
+
+.table-cm-filter .material-icons {
+    font-size: 12px;
+}
+
+.table-search-box{
+    background-color: #efefef;
+    border-radius: 3px;
+}
+
+.table-search-box .form-line .form-control{
+    background-color: #efefef;
+    border-bottom: 0px;
+    box-shadow: none;
+}
+
 .details-td {
     max-width: 200px;
 }
@@ -7741,10 +7778,18 @@ a.disabled {
 .clickable-icon {
     width: 32px;
     height: 32px;
-    padding-left: 4px;
     padding-top: 4px;
     border-radius: 50%;
     cursor: pointer;
+    text-align: center;
+}
+
+.clickable-icon.small-icon {
+    width: 16px;
+    height: 16px;
+    line-height: 8px;
+    padding-left: 1px;
+    text-align: center;
 }
 
 .clickable-icon:HOVER {

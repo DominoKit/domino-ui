@@ -6,6 +6,7 @@ import elemental2.dom.HTMLTableSectionElement;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TableEventListener;
+import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -38,6 +39,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
     private Map<String, List<TableEventListener>> events = new HashMap<>();
 
+    private final SearchContext<T> searchContext= new SearchContext<>(this);
+
     public DataTable(TableConfig<T> tableConfig, DataStore<T> dataStore) {
         this.tableConfig = tableConfig;
         this.events.put(ANY, new ArrayList<>());
@@ -58,10 +61,12 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     private DataTable<T> init() {
         tableConfig.getPlugins().forEach(plugin -> {
             DataTable.this.addTableEventListner("*", plugin);
+            plugin.init(DataTable.this);
             plugin.onBeforeAddTable(DataTable.this);
         });
         tableConfig.onBeforeHeaders(this);
         tableConfig.drawHeaders(this, thead);
+        tableConfig.onAfterHeaders(this);
         tableElement.appendChild(tbody);
         tableConfig.getPlugins().forEach(plugin -> plugin.onBodyAdded(DataTable.this));
         element.appendChild(tableElement);
@@ -82,11 +87,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         return this;
     }
 
-
     public void load() {
         this.dataStore.load();
     }
-
 
     public void setData(List<T> data) {
         this.data = data;
@@ -300,6 +303,10 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         }
 
         events.get(ANY).forEach(listener -> listener.handleEvent(tableEvent));
+    }
+
+    public SearchContext getSearchContext() {
+        return searchContext;
     }
 
     @FunctionalInterface

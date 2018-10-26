@@ -4,7 +4,7 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -23,7 +23,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     private DominoElement<HTMLDivElement> collapsibleElement = DominoElement.of(div().css("panel-collapse"));
     private DominoElement<HTMLDivElement> bodyElement = DominoElement.of(div().css("panel-body"));
     private String panelStyle = "panel-primary";
-    private Icon panelIcon;
+    private BaseIcon<?> panelIcon;
 
     public AccordionPanel(String title) {
         clickableElement.setTextContent(title);
@@ -116,7 +116,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         return this;
     }
 
-    public AccordionPanel setIcon(Icon icon) {
+    public AccordionPanel setIcon(BaseIcon<?> icon) {
         if (nonNull(this.panelIcon)) {
             panelIcon.remove();
         }

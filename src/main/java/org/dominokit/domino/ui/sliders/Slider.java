@@ -149,7 +149,6 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         return setValue(newValue, false);
     }
 
-
     public Slider setStep(double step) {
         slider.asElement().step = step + "";
         return this;
