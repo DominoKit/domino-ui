@@ -91,7 +91,6 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
     public void handleEvent(TableEvent event) {
         if (SearchClearedEvent.SEARCH_EVENT_CLEARED.equals(event.getType())) {
             headerFilters.values().forEach(HeaderFilter::clear);
-            headerFilters.clear();
         }
     }
 
