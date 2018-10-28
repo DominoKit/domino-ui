@@ -45,6 +45,13 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
         return this;
     }
 
+    @Override
+    public MdiIcon changeTo(BaseIcon icon) {
+        style.remove(getName());
+        style.add(icon.getName());
+        return null;
+    }
+
     public MdiIcon setSize(MdiSize mdiSize) {
         if (nonNull(this.mdiSize)) {
             style.remove(this.mdiSize.getStyle());
