@@ -2023,6 +2023,10 @@ body.modal-open {
     width: 24px;
 }
 
+.mdi:before{
+    line-height: 28px;
+}
+
 .demo-preloader .preloader {
     margin-right: 10px;
 }
@@ -6997,6 +7001,34 @@ a.disabled {
 
 .input-addon.material-icons {
     width: 28px;
+    height: 28px;
+    cursor: default;
+}
+
+.input-addon.material-icons.clickable-icon {
+    cursor: pointer;
+}
+
+.input-addon.mdi {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    display: inline-block;
+}
+
+.input-addon.mdi:before {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 2rem;
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    margin-left: -13px;
+}
+
+.input-addon.mdi.clickable-icon:before{
+    top: 0px;
 }
 
 .input-addon:not(.fas) {
