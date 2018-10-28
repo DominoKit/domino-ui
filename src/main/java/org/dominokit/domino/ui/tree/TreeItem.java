@@ -178,7 +178,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
 
     private void replaceIcon(BaseIcon<?> newIcon) {
         if (nonNull(newIcon)) {
-            icon.asElement().textContent = newIcon.getName();
+            icon.changeTo(newIcon);
             if (isNull(originalIcon)) {
                 Style.of(icon).setProperty("visibility", "visible");
             }
@@ -201,7 +201,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
 
     private void restoreIcon() {
         if (nonNull(originalIcon)) {
-            icon.asElement().textContent = originalIcon.getName();
+            icon.changeTo(originalIcon);
         } else {
             Style.of(icon).setProperty("visibility", "hidden");
         }

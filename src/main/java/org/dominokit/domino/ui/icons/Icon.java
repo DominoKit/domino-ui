@@ -44,6 +44,12 @@ public class Icon extends BaseIcon<Icon> {
     }
 
     @Override
+    public Icon changeTo(BaseIcon icon) {
+        asElement().textContent = icon.getName();
+        return this;
+    }
+
+    @Override
     public HTMLElement asElement() {
         return icon.asElement();
     }
