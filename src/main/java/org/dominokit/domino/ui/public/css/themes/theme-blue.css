@@ -17,7 +17,7 @@
   .theme-blue .navbar-brand:focus {
     color: #fff; }
 
-.theme-blue .nav > li > a {
+.theme-blue .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-blue .nav > li > a:hover {
     background-color: transparent; }

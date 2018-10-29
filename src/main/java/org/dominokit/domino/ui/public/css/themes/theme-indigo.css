@@ -17,7 +17,7 @@
   .theme-indigo .navbar-brand:focus {
     color: #fff; }
 
-.theme-indigo .nav > li > a {
+.theme-indigo .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
 
 .theme-indigo .nav .open > a {

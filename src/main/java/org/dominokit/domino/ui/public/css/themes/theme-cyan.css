@@ -17,7 +17,7 @@
   .theme-cyan .navbar-brand:focus {
     color: #fff; }
 
-.theme-cyan .nav > li > a {
+.theme-cyan .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-cyan .nav > li > a:hover {
     background-color: transparent; }
