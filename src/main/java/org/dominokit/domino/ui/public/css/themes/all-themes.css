@@ -21,7 +21,7 @@
   .theme-red .navbar-brand:focus {
     color: #fff; }
 
-.theme-red .nav > li > a {
+.theme-red .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-red .nav > li > a:hover {
     background-color: transparent; }
@@ -78,7 +78,7 @@
   .theme-pink .navbar-brand:focus {
     color: #fff; }
 
-.theme-pink .nav > li > a {
+.theme-pink .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-pink .nav > li > a:hover {
     background-color: transparent; }
@@ -134,7 +134,7 @@
   .theme-purple .navbar-brand:focus {
     color: #fff; }
 
-.theme-purple .nav > li > a {
+.theme-purple .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-purple .nav > li > a:hover {
     background-color: transparent; }
@@ -190,7 +190,7 @@
   .theme-deep-purple .navbar-brand:focus {
     color: #fff; }
 
-.theme-deep-purple .nav > li > a {
+.theme-deep-purple .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-deep-purple .nav > li > a:hover {
     background-color: transparent; }
@@ -298,7 +298,7 @@
   .theme-blue .navbar-brand:focus {
     color: #fff; }
 
-.theme-blue .nav > li > a {
+.theme-blue .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-blue .nav > li > a:hover {
     background-color: transparent; }
@@ -354,7 +354,7 @@
   .theme-light-blue .navbar-brand:focus {
     color: #fff; }
 
-.theme-light-blue .nav > li > a {
+.theme-light-blue:not([class*="nav-tab"]) .nav > li > a {
   color: #fff; }
   .theme-light-blue .nav > li > a:hover {
     background-color: transparent; }
@@ -411,7 +411,7 @@
   .theme-cyan .navbar-brand:focus {
     color: #fff; }
 
-.theme-cyan .nav > li > a {
+.theme-cyan .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-cyan .nav > li > a:hover {
     background-color: transparent; }
@@ -467,7 +467,7 @@
   .theme-teal .navbar-brand:focus {
     color: #fff; }
 
-.theme-teal .nav > li > a {
+.theme-teal .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-teal .nav > li > a:hover {
     background-color: transparent; }
@@ -523,7 +523,7 @@
   .theme-green .navbar-brand:focus {
     color: #fff; }
 
-.theme-green .nav > li > a {
+.theme-green .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-green .nav > li > a:hover {
     background-color: transparent; }
@@ -579,7 +579,7 @@
   .theme-light-green .navbar-brand:focus {
     color: #fff; }
 
-.theme-light-green .nav > li > a {
+.theme-light-green .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-light-green .nav > li > a:hover {
     background-color: transparent; }
@@ -635,7 +635,7 @@
   .theme-lime .navbar-brand:focus {
     color: #fff; }
 
-.theme-lime .nav > li > a {
+.theme-lime .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-lime .nav > li > a:hover {
     background-color: transparent; }
@@ -691,7 +691,7 @@
   .theme-yellow .navbar-brand:focus {
     color: #fff; }
 
-.theme-yellow .nav > li > a {
+.theme-yellow .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-yellow .nav > li > a:hover {
     background-color: transparent; }
@@ -747,7 +747,7 @@
   .theme-amber .navbar-brand:focus {
     color: #fff; }
 
-.theme-amber .nav > li > a {
+.theme-amber .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-amber .nav > li > a:hover {
     background-color: transparent; }
@@ -803,7 +803,7 @@
   .theme-orange .navbar-brand:focus {
     color: #fff; }
 
-.theme-orange .nav > li > a {
+.theme-orange .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-orange .nav > li > a:hover {
     background-color: transparent; }
@@ -859,7 +859,7 @@
   .theme-deep-orange .navbar-brand:focus {
     color: #fff; }
 
-.theme-deep-orange .nav > li > a {
+.theme-deep-orange .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-deep-orange .nav > li > a:hover {
     background-color: transparent; }
@@ -915,7 +915,7 @@
   .theme-brown .navbar-brand:focus {
     color: #fff; }
 
-.theme-brown .nav > li > a {
+.theme-brown .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-brown .nav > li > a:hover {
     background-color: transparent; }
@@ -971,7 +971,7 @@
   .theme-grey .navbar-brand:focus {
     color: #fff; }
 
-.theme-grey .nav > li > a {
+.theme-grey .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-grey .nav > li > a:hover {
     background-color: transparent; }
@@ -1028,7 +1028,7 @@
   .theme-blue-grey .navbar-brand:focus {
     color: #fff; }
 
-.theme-blue-grey .nav > li > a {
+.theme-blue-grey .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-blue-grey .nav > li > a:hover {
     background-color: transparent; }
@@ -1084,7 +1084,7 @@
   .theme-black .navbar-brand:focus {
     color: #fff; }
 
-.theme-black .nav > li > a {
+.theme-black .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-black .nav > li > a:hover {
     background-color: transparent; }

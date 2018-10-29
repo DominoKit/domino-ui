@@ -17,7 +17,7 @@
   .theme-deep-orange .navbar-brand:focus {
     color: #fff; }
 
-.theme-deep-orange .nav > li > a {
+.theme-deep-orange .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-deep-orange .nav > li > a:hover {
     background-color: transparent; }

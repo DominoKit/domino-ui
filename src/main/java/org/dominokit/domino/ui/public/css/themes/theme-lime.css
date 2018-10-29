@@ -17,7 +17,7 @@
   .theme-lime .navbar-brand:focus {
     color: #fff; }
 
-.theme-lime .nav > li > a {
+.theme-lime .nav:not([class*="nav-tab"]) > li > a {
   color: #fff; }
   .theme-lime .nav > li > a:hover {
     background-color: transparent; }
