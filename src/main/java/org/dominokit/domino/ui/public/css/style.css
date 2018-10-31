@@ -3025,7 +3025,8 @@ input[type=range] + .thumb.active .value {
     color: #fff;
 }
 
-.info-box .icon i {
+.info-box .icon i,
+.info-box .icon i.mdi:before{
     font-size: 50px;
     line-height: 80px;
 }
@@ -3079,14 +3080,16 @@ input[type=range] + .thumb.active .value {
     overflow: hidden;
 }
 
-.info-box.hover-zoom-effect .icon i {
+.info-box.hover-zoom-effect .icon i,
+.info-box.hover-zoom-effect .icon i.mdi:before{
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
-.info-box.hover-zoom-effect:hover .icon i {
+.info-box.hover-zoom-effect:hover .icon i,
+.info-box.hover-zoom-effect:hover .icon i.mdi:before{
     opacity: 0.4;
     -moz-transform: rotate(-32deg) scale(1.4);
     -ms-transform: rotate(-32deg) scale(1.4);
@@ -3187,14 +3190,16 @@ input[type=range] + .thumb.active .value {
     overflow: hidden;
 }
 
-.info-box-2.hover-zoom-effect .icon i {
+.info-box-2.hover-zoom-effect .icon i,
+.info-box-2.hover-zoom-effect .icon i.mdi:before{
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
-.info-box-2.hover-zoom-effect:hover .icon i {
+.info-box-2.hover-zoom-effect:hover .icon i,
+.info-box-2.hover-zoom-effect:hover .icon i.mdi:before{
     opacity: 0.4;
     -moz-transform: rotate(-32deg) scale(1.4);
     -ms-transform: rotate(-32deg) scale(1.4);
@@ -3295,14 +3300,16 @@ input[type=range] + .thumb.active .value {
     color: #555;
 }
 
-.info-box-3.hover-zoom-effect .icon i {
+.info-box-3.hover-zoom-effect .icon i,
+.info-box-3.hover-zoom-effect .icon i.mdi:before{
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
-.info-box-3.hover-zoom-effect:hover .icon i {
+.info-box-3.hover-zoom-effect:hover .icon i,
+.info-box-3.hover-zoom-effect:hover .icon i.mdi:before{
     opacity: 0.4;
     -moz-transform: rotate(-32deg) scale(1.4);
     -ms-transform: rotate(-32deg) scale(1.4);
@@ -3401,14 +3408,16 @@ input[type=range] + .thumb.active .value {
     color: #555;
 }
 
-.info-box-4.hover-zoom-effect .icon i {
+.info-box-4.hover-zoom-effect .icon i,
+.info-box-4.hover-zoom-effect .icon i.mdi:before{
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
-.info-box-4.hover-zoom-effect:hover .icon i {
+.info-box-4.hover-zoom-effect:hover .icon i,
+.info-box-4.hover-zoom-effect:hover .icon i.mdi:before{
     opacity: 0.4;
     -moz-transform: rotate(-32deg) scale(1.4);
     -ms-transform: rotate(-32deg) scale(1.4);
