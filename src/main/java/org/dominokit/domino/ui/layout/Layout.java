@@ -45,6 +45,8 @@ public class Layout {
     private LayoutHandler onShowHandler = layout -> {
     };
 
+    private LayoutHandler removeHandler = layout -> {};
+
     public Layout() {
     }
 
@@ -98,6 +100,20 @@ public class Layout {
         document.body.appendChild(content.asElement());
         document.body.appendChild(footer.asElement());
         navigationBar.title.appendChild(appTitle);
+    }
+
+    public void remove(LayoutHandler removeHandler){
+        this.removeHandler = removeHandler;
+        remove();
+    }
+
+    public void remove(){
+        overlay.remove();
+        navigationBar.remove();
+        section.remove();
+        content.remove();
+        footer.remove();
+        removeHandler.handleLayout(this);
     }
 
     private void initElementsPosition() {
