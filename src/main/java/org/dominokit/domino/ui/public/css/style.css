@@ -7392,7 +7392,7 @@ a.disabled {
 .v-center {
     position: relative;
     top: 50%;
-    transform: translateY(calc(50%)) !important;
+    transform: translateY(calc(-50%)) !important;
 }
 
 .chip {
