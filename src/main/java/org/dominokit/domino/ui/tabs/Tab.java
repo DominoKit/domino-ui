@@ -5,6 +5,7 @@ import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
+import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
@@ -30,7 +31,7 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
             clickableElement.appendChild(icon.asElement());
         }
         if (nonNull(text)) {
-            clickableElement.appendChild(DomGlobal.document.createTextNode(text));
+            clickableElement.appendChild(span().add(TextNode.of(text)).asElement());
         }
         init(this);
         withWaves();
