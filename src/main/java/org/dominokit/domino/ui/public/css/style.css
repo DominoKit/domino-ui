@@ -7455,6 +7455,15 @@ a.disabled {
     margin: 0 0px 0 -12px;
 }
 
+.chip-addon .mdi:before{
+    font-size: 20px;
+    border-radius: 50%;
+    line-height: 32px;
+    width: 32px;
+    height: 32px;
+    margin: 0px;
+}
+
 .chip-addon img {
     border-radius: 50%;
     width: 34px;
