@@ -1,5 +1,4 @@
-﻿﻿﻿/* Navbar ====================================== */
-
+﻿﻿﻿ /* Navbar ====================================== */
 body.modal-open {
     overflow: hidden;
 }
@@ -2023,7 +2022,7 @@ body.modal-open {
     width: 24px;
 }
 
-.mdi:before{
+.mdi:before {
     line-height: 28px;
 }
 
@@ -2488,7 +2487,8 @@ section.content {
 .btn:not([class*="btn-circle"]) i.mdi:before {
     line-height: 24px;
 }
-.btn:not(.btn-circle) i:before{
+
+.btn:not(.btn-circle) i:before {
     font-size: 20px;
 }
 
@@ -3026,7 +3026,7 @@ input[type=range] + .thumb.active .value {
 }
 
 .info-box .icon i,
-.info-box .icon i.mdi:before{
+.info-box .icon i.mdi:before {
     font-size: 50px;
     line-height: 80px;
 }
@@ -3081,7 +3081,7 @@ input[type=range] + .thumb.active .value {
 }
 
 .info-box.hover-zoom-effect .icon i,
-.info-box.hover-zoom-effect .icon i.mdi:before{
+.info-box.hover-zoom-effect .icon i.mdi:before {
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -3089,7 +3089,7 @@ input[type=range] + .thumb.active .value {
 }
 
 .info-box.hover-zoom-effect:hover .icon i,
-.info-box.hover-zoom-effect:hover .icon i.mdi:before{
+.info-box.hover-zoom-effect:hover .icon i.mdi:before {
     opacity: 0.4;
     -moz-transform: rotate(-32deg) scale(1.4);
     -ms-transform: rotate(-32deg) scale(1.4);
@@ -3191,7 +3191,7 @@ input[type=range] + .thumb.active .value {
 }
 
 .info-box-2.hover-zoom-effect .icon i,
-.info-box-2.hover-zoom-effect .icon i.mdi:before{
+.info-box-2.hover-zoom-effect .icon i.mdi:before {
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -3199,7 +3199,7 @@ input[type=range] + .thumb.active .value {
 }
 
 .info-box-2.hover-zoom-effect:hover .icon i,
-.info-box-2.hover-zoom-effect:hover .icon i.mdi:before{
+.info-box-2.hover-zoom-effect:hover .icon i.mdi:before {
     opacity: 0.4;
     -moz-transform: rotate(-32deg) scale(1.4);
     -ms-transform: rotate(-32deg) scale(1.4);
@@ -3301,7 +3301,7 @@ input[type=range] + .thumb.active .value {
 }
 
 .info-box-3.hover-zoom-effect .icon i,
-.info-box-3.hover-zoom-effect .icon i.mdi:before{
+.info-box-3.hover-zoom-effect .icon i.mdi:before {
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -3309,7 +3309,7 @@ input[type=range] + .thumb.active .value {
 }
 
 .info-box-3.hover-zoom-effect:hover .icon i,
-.info-box-3.hover-zoom-effect:hover .icon i.mdi:before{
+.info-box-3.hover-zoom-effect:hover .icon i.mdi:before {
     opacity: 0.4;
     -moz-transform: rotate(-32deg) scale(1.4);
     -ms-transform: rotate(-32deg) scale(1.4);
@@ -3409,7 +3409,7 @@ input[type=range] + .thumb.active .value {
 }
 
 .info-box-4.hover-zoom-effect .icon i,
-.info-box-4.hover-zoom-effect .icon i.mdi:before{
+.info-box-4.hover-zoom-effect .icon i.mdi:before {
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -3417,7 +3417,7 @@ input[type=range] + .thumb.active .value {
 }
 
 .info-box-4.hover-zoom-effect:hover .icon i,
-.info-box-4.hover-zoom-effect:hover .icon i.mdi:before{
+.info-box-4.hover-zoom-effect:hover .icon i.mdi:before {
     opacity: 0.4;
     -moz-transform: rotate(-32deg) scale(1.4);
     -ms-transform: rotate(-32deg) scale(1.4);
@@ -3895,9 +3895,23 @@ fieldset[disabled] .form-control {
 
 .nav-tabs > li > a .material-icons {
     position: relative;
-    top: 7px;
+    top: 6px;
     margin-bottom: 8px;
     width: 24px;
+    line-height: 27px;
+}
+
+.nav-tabs > li > a .mdi {
+    position: relative;
+    top: 3px;
+    margin-bottom: 8px;
+    width: 24px;
+    line-height: 28px;
+    height: 24px;
+}
+
+.nav-tabs > li > a .mdi:before{
+    line-height: 34px;
 }
 
 .nav-tabs li.active a:before {
@@ -7045,7 +7059,7 @@ a.disabled {
     margin-left: -13px;
 }
 
-.input-addon.mdi.clickable-icon:before{
+.input-addon.mdi.clickable-icon:before {
     top: 0px;
 }
 
@@ -7282,12 +7296,12 @@ a.disabled {
     font-size: 12px;
 }
 
-.table-search-box{
+.table-search-box {
     background-color: #efefef;
     border-radius: 3px;
 }
 
-.table-search-box .form-line .form-control{
+.table-search-box .form-line .form-control {
     background-color: #efefef;
     border-bottom: 0px;
     box-shadow: none;
@@ -7969,4 +7983,14 @@ input[type=email].disabled-suggestions::-webkit-calendar-picker-indicator {
 /*========================= Telephone box ======================== */
 input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
     display: none;
+}
+
+.labeled-icon .right-node {
+    position: absolute;
+}
+
+.labeled-icon .text-node {
+    line-height: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
