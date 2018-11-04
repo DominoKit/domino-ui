@@ -21,6 +21,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     private HTMLInputElement inputElement = input("radio").asElement();
     private List<ChangeHandler<Boolean>> changeHandlers;
     private Color color;
+    private boolean checked = false;
 
     public Radio(String value, String label) {
         changeHandlers = new ArrayList<>();
@@ -60,6 +61,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     @Override
     public Radio check(boolean silent) {
         inputElement.checked = true;
+        this.checked = true;
         if (!silent)
             onCheck();
         return this;
@@ -68,6 +70,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     @Override
     public Radio uncheck(boolean silent) {
         inputElement.checked = false;
+        this.checked = false;
         if (!silent)
             onCheck();
         return this;
@@ -98,7 +101,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
 
     @Override
     public boolean isChecked() {
-        return inputElement.checked;
+        return this.checked;
     }
 
     public Radio withGap() {
