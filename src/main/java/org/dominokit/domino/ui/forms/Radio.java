@@ -62,11 +62,10 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
 
     @Override
     public Radio check(boolean silent) {
-        inputElement.checked = true;
-        this.checked = true;
         if(nonNull(radioGroup)){
-            radioGroup.uncheckAllExcept(this);
+            radioGroup.getRadios().forEach(radio -> radio.setChecked(false));
         }
+        setChecked(true);
         if (!silent)
             onCheck();
         return this;
@@ -74,8 +73,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
 
     @Override
     public Radio uncheck(boolean silent) {
-        inputElement.checked = false;
-        this.checked = false;
+        setChecked(false);
         if (!silent)
             onCheck();
         return this;
@@ -85,6 +83,11 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     public Radio addChangeHandler(ChangeHandler<Boolean> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
+    }
+
+    private void setChecked(boolean value){
+        inputElement.checked = value;
+        this.checked = value;
     }
 
     @Override
