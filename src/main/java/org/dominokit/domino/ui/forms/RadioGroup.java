@@ -68,6 +68,10 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     public RadioGroup appendChild(Radio radio) {
         radio.setName(name);
         radio.addChangeHandler(value -> onCheck(radio));
+        radio.setGroup(this);
+        if (radio.isChecked()) {
+            radios.forEach(r -> r.uncheck(true));
+        }
         radios.add(radio);
         formControl.appendChild(radio.asElement());
         return this;
@@ -340,5 +344,9 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
 
     public Radio getSelectedRadio() {
         return radios.stream().filter(Radio::isChecked).findFirst().orElse(null);
+    }
+
+    void uncheckAllExcept(Radio radio) {
+        radios.stream().filter(r -> !r.equals(radio)).forEach(r -> radio.uncheck(true));
     }
 }

@@ -11,6 +11,7 @@ import org.dominokit.domino.ui.utils.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements HasName<Radio>, HasValue<Radio, String>, HasLabel<Radio>,
@@ -22,6 +23,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     private List<ChangeHandler<Boolean>> changeHandlers;
     private Color color;
     private boolean checked = false;
+    private RadioGroup radioGroup;
 
     public Radio(String value, String label) {
         changeHandlers = new ArrayList<>();
@@ -62,6 +64,9 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     public Radio check(boolean silent) {
         inputElement.checked = true;
         this.checked = true;
+        if(nonNull(radioGroup)){
+            radioGroup.uncheckAllExcept(this);
+        }
         if (!silent)
             onCheck();
         return this;
@@ -180,5 +185,9 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     @Override
     public boolean isEnabled() {
         return !inputElement.disabled;
+    }
+
+    void setGroup(RadioGroup radioGroup) {
+        this.radioGroup = radioGroup;
     }
 }
