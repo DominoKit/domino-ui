@@ -345,8 +345,4 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     public Radio getSelectedRadio() {
         return radios.stream().filter(Radio::isChecked).findFirst().orElse(null);
     }
-
-    void uncheckAllExcept(Radio radio) {
-        radios.stream().filter(r -> !r.equals(radio)).forEach(r -> radio.uncheck(true));
-    }
 }
