@@ -31,7 +31,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
         li = Elements.li().asElement();
         aElement = Elements.a().attr("data-tokens", "null")
                 .attr("tabindex", "0").asElement();
-        valueContainer = Elements.span().css("text").asElement();
+        valueContainer = Elements.span().css("text", "ellipsis").asElement();
         aElement.appendChild(valueContainer);
         li.appendChild(aElement);
         checkMark = Elements.span().css("glyphicon glyphicon-ok check-mark").asElement();

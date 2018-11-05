@@ -5860,6 +5860,14 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     margin-top: -35px !important;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     border: none;
+    max-width: 100%;
+}
+
+.dropdown-menu .ellipsis {
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .dropdown-menu .divider {
