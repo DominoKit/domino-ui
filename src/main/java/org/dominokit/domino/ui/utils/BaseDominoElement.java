@@ -237,6 +237,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         }
     }
 
+    @Editor.Ignore
     @Override
     public boolean isReadOnly() {
         return hasAttribute("readonly");
