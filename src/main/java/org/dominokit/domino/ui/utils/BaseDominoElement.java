@@ -15,7 +15,7 @@ import org.jboss.gwt.elemento.core.ObserverCallback;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-public abstract class BaseDominoElement<E extends HTMLElement, T extends IsElement<E>> implements IsElement<E>, IsCollapsible<T>, HasChildren<T>, HasWavesElement {
+public abstract class BaseDominoElement<E extends HTMLElement, T extends IsElement<E>> implements IsElement<E>, IsCollapsible<T>, HasChildren<T>, HasWavesElement, IsReadOnly<T> {
 
     @Editor.Ignore
     protected T element;
@@ -223,17 +223,23 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
-    public T setReadonly(boolean readonly) {
-        if (readonly) {
+    public String getAttribute(String name) {
+        return asElement().getAttribute(name);
+    }
+
+    @Editor.Ignore
+    @Override
+    public T setReadOnly(boolean readOnly) {
+        if (readOnly) {
             return setAttribute("readonly", "readonly");
         } else {
             return removeAttribute("readonly");
         }
     }
 
-    @Editor.Ignore
-    public String getAttribute(String name) {
-        return asElement().getAttribute(name);
+    @Override
+    public boolean isReadOnly() {
+        return hasAttribute("readonly");
     }
 
     @Editor.Ignore

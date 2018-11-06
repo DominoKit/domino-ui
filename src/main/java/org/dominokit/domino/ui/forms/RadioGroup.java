@@ -326,13 +326,13 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public RadioGroup setReadonly(boolean readonly) {
+    public RadioGroup setReadOnly(boolean readonly) {
         if(readonly){
             formControl.style().add("readonly");
         }else{
             formControl.style().remove("readonly");
         }
-        return super.setReadonly(readonly);
+        return super.setReadOnly(readonly);
     }
 
     @Override

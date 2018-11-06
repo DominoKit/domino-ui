@@ -210,14 +210,14 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     @Override
     public CheckBox setReadOnly(boolean readOnly) {
         if (readOnly) {
-            formControl.setReadonly(true);
+            formControl.setReadOnly(true);
             if (isChecked()) {
                 labelElement.setTextContent(label + getCheckedReadonlyLabel());
             } else {
                 labelElement.setTextContent(label + getUnCheckedReadonlyLabel());
             }
         } else {
-            formControl.setReadonly(false);
+            formControl.setReadOnly(false);
             labelElement.setTextContent(label);
         }
         return this;
