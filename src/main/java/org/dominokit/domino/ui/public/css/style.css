@@ -3550,6 +3550,27 @@ input[type=range] + .thumb.active .value {
     border-bottom: 2px solid #fff !important;
 }
 
+.form-control.readonly .form-group {
+    margin-bottom: 0px;
+}
+
+.form-control.readonly .form-group [type="radio"]:not(:checked) {
+    display: none;
+}
+
+.form-control.readonly .form-group [type="radio"]:not(:checked) + label {
+    display: none;
+}
+
+.form-control.readonly .form-group [type="radio"]:checked + label{
+    padding-left: 0px;
+    cursor: text;
+}
+.form-control.readonly .form-group [type="radio"]:checked + label:before,
+.form-control.readonly .form-group [type="radio"]:checked + label:after {
+    display: none;
+}
+
 [type="radio"]:not(:checked) + label {
     padding-left: 26px;
     height: 25px;
@@ -3909,7 +3930,7 @@ fieldset[disabled] .form-control {
     height: 24px;
 }
 
-.nav-tabs > li > a .mdi:before{
+.nav-tabs > li > a .mdi:before {
     line-height: 34px;
 }
 
@@ -5864,10 +5885,10 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
 }
 
 .dropdown-menu .ellipsis {
-	display: block;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .dropdown-menu .divider {
@@ -7462,7 +7483,7 @@ a.disabled {
     margin: 0 0px 0 -12px;
 }
 
-.chip-addon .mdi:before{
+.chip-addon .mdi:before {
     font-size: 20px;
     border-radius: 50%;
     line-height: 32px;
