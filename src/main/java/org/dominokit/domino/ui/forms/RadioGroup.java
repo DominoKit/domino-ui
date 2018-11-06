@@ -326,6 +326,16 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
+    public RadioGroup setReadonly(boolean readonly) {
+        if(readonly){
+            formControl.style().add("readonly");
+        }else{
+            formControl.style().remove("readonly");
+        }
+        return super.setReadonly(readonly);
+    }
+
+    @Override
     public TakesValueEditor<String> asEditor() {
         if (editor == null) {
             editor = TakesValueEditor.of(this);
