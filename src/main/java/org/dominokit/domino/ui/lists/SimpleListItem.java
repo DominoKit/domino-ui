@@ -1,7 +1,9 @@
 package org.dominokit.domino.ui.lists;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.badges.Badge;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.HasBackground;
@@ -61,6 +63,20 @@ public class SimpleListItem extends BaseListItem<HTMLLIElement, SimpleListItem> 
     @Deprecated
     public SimpleListItem appendContent(Node content) {
         asElement().appendChild(content);
+        return this;
+    }
+
+    public SimpleListItem appendChild(Badge badge){
+        appendChild(badge, true);
+        return this;
+    }
+
+    public SimpleListItem appendChild(Badge badge, boolean first){
+        if(first) {
+            insertFirst(badge);
+        }else{
+            appendChild(badge.asElement());
+        }
         return this;
     }
 
