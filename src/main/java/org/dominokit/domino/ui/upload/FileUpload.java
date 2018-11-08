@@ -108,13 +108,16 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
             addedFileItems.remove(fileItem);
         });
 
+        onAddFileHandlers.forEach(handler -> handler.onAddFile(fileItem));
+        if(!fileItem.isCanceled()) {
+            addedFileItems.add(fileItem);
+            row.appendChild(previewColumn);
+        }
+
         if (autoUpload) {
             fileItem.upload();
         }
 
-        addedFileItems.add(fileItem);
-        row.appendChild(previewColumn);
-        onAddFileHandlers.forEach(handler -> handler.onAddFile(fileItem));
     }
 
     private void removeHover() {
