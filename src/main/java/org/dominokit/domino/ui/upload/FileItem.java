@@ -70,6 +70,8 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         if (isExceedsMaxFile()) {
             invalidate("File is too large, maximum file size is " + formatSize(options.getMaxFileSize()));
         }
+
+        request =new XMLHttpRequest();
         init(this);
 
     }
@@ -136,7 +138,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private void initProgress() {
         progressBar = ProgressBar.create(file.size);
         progressElement = Progress.create()
-                .addBar(progressBar)
+                .appendChild(progressBar)
                 .asElement();
         progressElement.style.marginBottom = CSSProperties.MarginBottomUnionType.of("0px");
         progressElement.style.height = CSSProperties.HeightUnionType.of("5px");
@@ -225,10 +227,8 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     }
 
     public void upload() {
-        if (!isExceedsMaxFile() && !uploaded) {
+        if (!isExceedsMaxFile() && !uploaded && !isCanceled()) {
             resetState();
-
-            request = new XMLHttpRequest();
 
             request.upload.addEventListener("loadstart", evt -> {
                 hideRefreshIcon();
