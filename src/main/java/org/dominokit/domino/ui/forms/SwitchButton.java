@@ -23,7 +23,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     private HTMLLabelElement labelElement = label().css("form-label", "focused").asElement();
     private HTMLInputElement inputElement = input("checkbox").asElement();
     private DominoElement<HTMLElement> lever = DominoElement.of(span().css("lever"));
-    private List<ChangeHandler<Boolean>> changeHandlers = new ArrayList<>();
+    private List<ChangeHandler<? super Boolean>> changeHandlers = new ArrayList<>();
     private Color color;
     private Text onTitleText = DomGlobal.document.createTextNode("");
     private Text offTitleText = DomGlobal.document.createTextNode("");
@@ -81,7 +81,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     private void onCheck() {
-        for (ChangeHandler<Boolean> checkHandler : changeHandlers) {
+        for (ChangeHandler<? super Boolean> checkHandler : changeHandlers) {
             checkHandler.onValueChanged(isChecked());
         }
     }
@@ -152,20 +152,20 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     @Override
-    public SwitchButton addChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public SwitchButton addChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
     }
 
     @Override
-    public SwitchButton removeChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public SwitchButton removeChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         if (changeHandler != null)
             changeHandlers.remove(changeHandler);
         return this;
     }
 
     @Override
-    public boolean hasChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public boolean hasChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 
