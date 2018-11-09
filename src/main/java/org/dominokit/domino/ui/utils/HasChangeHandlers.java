@@ -2,11 +2,11 @@ package org.dominokit.domino.ui.utils;
 
 public interface HasChangeHandlers<T, V> {
 
-    T addChangeHandler(ChangeHandler<V> changeHandler);
+    T addChangeHandler(ChangeHandler<? super V> changeHandler);
 
-    T removeChangeHandler(ChangeHandler<V> changeHandler);
+    T removeChangeHandler(ChangeHandler<? super V> changeHandler);
 
-    boolean hasChangeHandler(ChangeHandler<V> changeHandler);
+    boolean hasChangeHandler(ChangeHandler<? super V> changeHandler);
 
     @FunctionalInterface
     interface ChangeHandler<V> {
