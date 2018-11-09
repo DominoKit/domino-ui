@@ -346,6 +346,11 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         return this;
     }
 
+    public FileItem setUrl(String url){
+        options.setUrl(url);
+        return this;
+    }
+
     public FileImage getFileImage() {
         return fileImage;
     }
