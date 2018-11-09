@@ -8031,3 +8031,15 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
     margin-left: 5px;
     margin-right: 5px;
 }
+
+/*========================= SuggestBox ======================== */
+.highlight {
+    color: #424242;
+}
+
+.suggest-box-loader {
+    width: 38px;
+    height: 33px;
+    position: absolute;
+    right: 0px;
+}

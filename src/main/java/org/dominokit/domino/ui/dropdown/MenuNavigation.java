@@ -25,6 +25,7 @@ public class MenuNavigation<V extends IsElement, T extends HTMLElement> implemen
     public MenuNavigation(List<V> items, T menuTargetElement) {
         this.items = items;
         KeyboardEvents.listenOn(menuTargetElement)
+                .setDefaultOptions(KeyboardEvents.KeyboardEventOptions.create().setPreventDefault(true))
                 .onArrowUp(evt -> focusAt(items.size() - 1))
                 .onArrowDown(evt -> focusAt(0))
                 .onEscape(evt -> escapeHandler.onEscape());
@@ -169,6 +170,5 @@ public class MenuNavigation<V extends IsElement, T extends HTMLElement> implemen
     @FunctionalInterface
     public interface FocusCondition<V extends IsElement> {
         boolean shouldFocus(V item);
-
     }
 }
