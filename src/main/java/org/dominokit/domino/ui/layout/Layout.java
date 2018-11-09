@@ -44,6 +44,7 @@ public class Layout {
     private boolean fixedLeftPanel;
     private LayoutHandler onShowHandler = layout -> {
     };
+    private boolean fixLeftPanelMode;
 
     private LayoutHandler removeHandler = layout -> {};
 
@@ -86,7 +87,7 @@ public class Layout {
         if (nonNull(onShowHandler)) {
             onShowHandler.handleLayout(this);
         }
-        if(autoFixLeftPanel){
+        if (autoFixLeftPanel) {
             autoFixLeftPanel();
         }
 
@@ -134,17 +135,17 @@ public class Layout {
         overlay.addEventListener(CLICK, e -> hidePanels());
     }
 
-    public Layout onShow(LayoutHandler layoutHandler){
+    public Layout onShow(LayoutHandler layoutHandler) {
         this.onShowHandler = layoutHandler;
         return this;
     }
 
-    public Layout hidNavBarExpand(){
+    public Layout hidNavBarExpand() {
         navigationBar.getNavBarExpand().hideOn(ScreenMedia.SMALL_AND_DOWN);
         return this;
     }
 
-    public Layout showNavBarExpand(){
+    public Layout showNavBarExpand() {
         navigationBar.getNavBarExpand().removeHideOn();
         return this;
     }
@@ -487,6 +488,11 @@ public class Layout {
     private void updateContentMargin() {
         double margin = navigationBar.getBoundingClientRect().height + 30;
         content.style().setMarginTop(margin + "px");
+    }
+
+    public Layout fixLeftPanelMode() {
+        fixLeftPanelMode = true;
+        return this;
     }
 
     @FunctionalInterface

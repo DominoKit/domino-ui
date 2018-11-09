@@ -9,6 +9,8 @@
     <inherits name="org.gwtproject.i18n.CLDR"/>
     <inherits name="org.gwtproject.i18n.DateTimeFormat"/>
     <inherits name="com.google.gwt.i18n.I18N"/>
+    <inherits name="org.dominokit.immutables.Immutables"/>
 
     <source path=""/>
+
 </module>
