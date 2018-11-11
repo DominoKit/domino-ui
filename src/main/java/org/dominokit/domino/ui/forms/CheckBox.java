@@ -24,9 +24,9 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     private DominoElement<HTMLDivElement> formControl = DominoElement.of(div().css("form-control"));
     private DominoElement<HTMLInputElement> inputElement = DominoElement.of(input("checkbox"));
     private DominoElement<HTMLLabelElement> labelElement = DominoElement.of(label());
-    private List<ChangeHandler<Boolean>> changeHandlers = new ArrayList<>();
+    private List<ChangeHandler<? super Boolean>> changeHandlers = new ArrayList<>();
     private Color color;
-    private ChangeHandler<Boolean> autoValidationHandler;
+    private ChangeHandler<? super Boolean> autoValidationHandler;
     private String checkedReadonlyLabel = "Yes";
     private String unCheckedReadonlyLabel = "No";
     private String label;
@@ -105,20 +105,20 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     }
 
     @Override
-    public CheckBox addChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public CheckBox addChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
     }
 
     @Override
-    public CheckBox removeChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public CheckBox removeChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         if (changeHandler != null)
             changeHandlers.remove(changeHandler);
         return this;
     }
 
     @Override
-    public boolean hasChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public boolean hasChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 
