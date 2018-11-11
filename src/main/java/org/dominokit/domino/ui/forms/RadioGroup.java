@@ -33,8 +33,8 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     private RequiredValidator requiredValidator = new RequiredValidator(this);
     private List<Radio> radios = new ArrayList<>();
     private String name;
-    private ChangeHandler<Boolean> autoValidationHandler;
-    private List<ChangeHandler<Radio>> changeHandlers = new ArrayList<>();
+    private ChangeHandler<? super Boolean> autoValidationHandler;
+    private List<ChangeHandler<? super Radio>> changeHandlers = new ArrayList<>();
     private String requiredErrorMessage;
 
     public RadioGroup(String name) {
@@ -104,7 +104,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     private void onCheck(Radio selectedRadio) {
-        for (ChangeHandler<Radio> changeHandler : changeHandlers) {
+        for (ChangeHandler<? super Radio> changeHandler : changeHandlers) {
             changeHandler.onValueChanged(selectedRadio);
         }
     }
@@ -308,20 +308,20 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public RadioGroup addChangeHandler(ChangeHandler<Radio> changeHandler) {
+    public RadioGroup addChangeHandler(ChangeHandler<? super Radio> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
     }
 
     @Override
-    public RadioGroup removeChangeHandler(ChangeHandler<Radio> changeHandler) {
+    public RadioGroup removeChangeHandler(ChangeHandler<? super Radio> changeHandler) {
         if (nonNull(changeHandler))
             changeHandlers.remove(changeHandler);
         return this;
     }
 
     @Override
-    public boolean hasChangeHandler(ChangeHandler<Radio> changeHandler) {
+    public boolean hasChangeHandler(ChangeHandler<? super Radio> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 
