@@ -126,7 +126,9 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
                     }
                     break;
                 case "Escape":
-                    close();
+                    if (isAutoClose()) {
+                        close();
+                    }
                     break;
                 default:
                     break;
@@ -329,7 +331,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
         this.open = false;
         removeBackDrop();
-        if(ModalBackDrop.openedModals.contains(this)){
+        if (ModalBackDrop.openedModals.contains(this)) {
             ModalBackDrop.openedModals.pop();
         }
 
