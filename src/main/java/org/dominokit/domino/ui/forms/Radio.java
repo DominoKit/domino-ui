@@ -20,7 +20,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     private HTMLDivElement container = div().css("form-group").asElement();
     private HTMLLabelElement labelElement = label().asElement();
     private HTMLInputElement inputElement = input("radio").asElement();
-    private List<ChangeHandler<Boolean>> changeHandlers;
+    private List<ChangeHandler<? super Boolean>> changeHandlers;
     private Color color;
     private boolean checked = false;
     private RadioGroup radioGroup;
@@ -80,7 +80,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     }
 
     @Override
-    public Radio addChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public Radio addChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
     }
@@ -91,19 +91,19 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     }
 
     @Override
-    public Radio removeChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public Radio removeChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         if (changeHandler != null)
             changeHandlers.remove(changeHandler);
         return this;
     }
 
     @Override
-    public boolean hasChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public boolean hasChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 
     private void onCheck() {
-        for (ChangeHandler<Boolean> checkHandler : changeHandlers)
+        for (ChangeHandler<? super Boolean> checkHandler : changeHandlers)
             checkHandler.onValueChanged(isChecked());
     }
 

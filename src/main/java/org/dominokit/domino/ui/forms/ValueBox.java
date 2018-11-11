@@ -32,7 +32,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     private boolean valid = true;
     private EventListener changeEventListener;
     private boolean readOnly;
-    private List<ChangeHandler<V>> changeHandlers = new ArrayList<>();
+    private List<ChangeHandler<? super V>> changeHandlers = new ArrayList<>();
     private boolean pauseChangeHandlers = false;
 
     public enum ValueBoxSize {
@@ -454,13 +454,13 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     @Override
-    public T addChangeHandler(ChangeHandler<V> changeHandler) {
+    public T addChangeHandler(ChangeHandler<? super V> changeHandler) {
         changeHandlers.add(changeHandler);
         return (T) this;
     }
 
     @Override
-    public T removeChangeHandler(ChangeHandler<V> changeHandler) {
+    public T removeChangeHandler(ChangeHandler<? super V> changeHandler) {
         changeHandlers.remove(changeHandler);
         return (T) this;
     }
@@ -487,7 +487,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     @Override
-    public boolean hasChangeHandler(ChangeHandler<V> changeHandler) {
+    public boolean hasChangeHandler(ChangeHandler<? super V> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 
