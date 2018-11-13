@@ -289,7 +289,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
-    public NodeList<Node> childNodes(Node node) {
+    public NodeList<Node> childNodes() {
         return asElement().childNodes;
     }
 

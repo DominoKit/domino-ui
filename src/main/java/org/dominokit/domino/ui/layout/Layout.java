@@ -141,7 +141,16 @@ public class Layout {
         return this;
     }
 
+    /**
+     * @deprecated use {@link #hideNavBarExpand()}
+     * @return
+     */
+    @Deprecated
     public Layout hidNavBarExpand() {
+        return hideNavBarExpand();
+    }
+
+    public Layout hideNavBarExpand() {
         navigationBar.getNavBarExpand().hideOn(ScreenMedia.SMALL_AND_DOWN);
         return this;
     }
