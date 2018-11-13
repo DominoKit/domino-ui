@@ -46,7 +46,8 @@ public class Layout {
     };
     private boolean fixLeftPanelMode;
 
-    private LayoutHandler removeHandler = layout -> {};
+    private LayoutHandler removeHandler = layout -> {
+    };
 
     public Layout() {
     }
@@ -103,12 +104,12 @@ public class Layout {
         navigationBar.title.appendChild(appTitle);
     }
 
-    public void remove(LayoutHandler removeHandler){
+    public void remove(LayoutHandler removeHandler) {
         this.removeHandler = removeHandler;
         remove();
     }
 
-    public void remove(){
+    public void remove() {
         overlay.remove();
         navigationBar.remove();
         section.remove();
@@ -315,9 +316,17 @@ public class Layout {
     }
 
     public HTMLElement addActionItem(BaseIcon<?> icon) {
+        return addActionItem(icon.asElement());
+    }
+
+    public HTMLElement addActionItem(IsElement element) {
+        return addActionItem(element.asElement());
+    }
+
+    public HTMLElement addActionItem(HTMLElement element) {
         HTMLLIElement li = li().css("pull-right").add(
                 a().css("js-right-sidebar")
-                        .add(icon.asElement())).asElement();
+                        .add(element)).asElement();
         getTopBar().appendChild(li);
         return li;
     }
