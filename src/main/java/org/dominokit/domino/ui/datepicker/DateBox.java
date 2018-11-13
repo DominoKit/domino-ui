@@ -361,7 +361,10 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     @Override
     public String getStringValue() {
-        return Formatter.getFormat(this.pattern, datePicker.getDateTimeFormatInfo()).format(value);
+        if(nonNull(value)) {
+            return Formatter.getFormat(this.pattern, datePicker.getDateTimeFormatInfo()).format(value);
+        }
+        return null;
     }
 
     public DateBox setInvalidFormatMessage(String invalidFormatMessage) {
