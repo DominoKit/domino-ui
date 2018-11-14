@@ -9,10 +9,7 @@ import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents.KeyboardEventOptions;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.Focusable;
-import org.dominokit.domino.ui.utils.IsReadOnly;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
@@ -26,7 +23,8 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusable<Select<T>>, IsReadOnly<Select<T>> {
+public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusable<Select<T>>, IsReadOnly<Select<T>>, HasChangeHandlers<Select<T>, T> {
+
 
     private static final String OPEN = "open";
     private static final String CLICK_EVENT = "click";
@@ -34,30 +32,35 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private static final String FOCUSED = "focused";
     private static final String TOUCH_START_EVENT = "touchend";
 
-    private DominoElement<HTMLDivElement> container = DominoElement.of(div().css("form-group"));
+    private static EventListener hideAllListener = Select::hideAllMenus;
+    private static Select currentOpened;
+    private static boolean touchMoved;
+
     private SelectElement selectElement = SelectElement.create();
+
+    private DominoElement<HTMLDivElement> container = DominoElement.of(div().css("form-group"));
     private DominoElement<HTMLDivElement> leftAddonContainer = DominoElement.of(div().css("input-addon-container"));
     private DominoElement<HTMLDivElement> rightAddonContainer = DominoElement.of(div().css("input-addon-container"));
     private DominoElement<HTMLLIElement> defaultNoSearchResultsElement = DominoElement.of(li().css("no-results").style("display: none;"));
     private DominoElement<HTMLElement> noSearchResultsElement;
+    private DominoElement<HTMLElement> leftAddon;
+    private DominoElement<HTMLElement> rightAddon;
+
+    private List<SelectOptionGroup<T>> groups = new ArrayList<>();
     private LinkedHashMap<String, SelectOption<T>> searchableOptions = new LinkedHashMap<>();
     private LinkedList<SelectOption<T>> options = new LinkedList<>();
     private SelectOption<T> selectedOption;
     private List<SelectionHandler<T>> selectionHandlers = new ArrayList<>();
     private SelectionHandler<T> autoValidationHandler;
+
+    private List<ChangeHandler<? super T>> changeHandlers = new ArrayList<>();
+
     private Color focusColor = Color.BLUE;
-    private DominoElement<HTMLElement> leftAddon;
-    private DominoElement<HTMLElement> rightAddon;
+    private String noResultsElementDisplay;
+    private String noMatchSearchResultText = "No results matched";
     private boolean readOnly;
     private boolean searchable = true;
-    private String noResultsElementDisplay;
     private boolean caseSensitiveSearch = false;
-    private List<SelectOptionGroup<T>> groups = new ArrayList<>();
-    private static boolean touchMoved;
-    private String noMatchSearchResultText = "No results matched";
-    private static EventListener hideAllListener = Select::hideAllMenus;
-    private static Select currentOpened;
-
     private boolean valid = true;
 
     static {
@@ -386,13 +389,35 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     private void onSelection(SelectOption<T> option) {
-        for (SelectionHandler<T> handler : selectionHandlers)
+        for (SelectionHandler<T> handler : selectionHandlers) {
             handler.onSelection(option);
+        }
+
+        for (ChangeHandler<? super T> c : changeHandlers) {
+            c.onValueChanged(option.getValue());
+        }
     }
 
     public Select<T> addSelectionHandler(SelectionHandler<T> selectionHandler) {
         selectionHandlers.add(selectionHandler);
         return this;
+    }
+
+    @Override
+    public Select<T> addChangeHandler(ChangeHandler<? super T> changeHandler) {
+        changeHandlers.add(changeHandler);
+        return this;
+    }
+
+    @Override
+    public Select<T> removeChangeHandler(ChangeHandler<? super T> changeHandler) {
+        changeHandlers.remove(changeHandler);
+        return this;
+    }
+
+    @Override
+    public boolean hasChangeHandler(ChangeHandler<? super T> changeHandler) {
+        return changeHandlers.contains(changeHandler);
     }
 
     public SelectOption<T> getSelectedOption() {
