@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
-import com.google.gwt.i18n.client.NumberFormat;
+import elemental2.core.JsNumber;
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.jboss.gwt.elemento.core.Elements;
@@ -45,8 +45,8 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
 
     private void formatValue() {
         if (!getStringValue().isEmpty()) {
-            double parsedValue = NumberFormat.getDecimalFormat().parse(getStringValue());
-            getInputElement().asElement().value = NumberFormat.getDecimalFormat().format(parsedValue);
+            double parsedValue = JsNumber.parseFloat(getStringValue());
+            getInputElement().asElement().value = new JsNumber(parsedValue).toLocaleString();
         }
     }
 
@@ -73,7 +73,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
                 return null;
             }
             if (formattingEnabled) {
-                value = NumberFormat.getDecimalFormat().parse(value) + "";
+                value = JsNumber.parseFloat(value) + "";
             }
             E parsedValue = parseValue(value);
             clearInvalid();

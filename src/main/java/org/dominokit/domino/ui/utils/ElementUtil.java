@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.utils;
 
-import com.google.gwt.i18n.client.NumberFormat;
+import elemental2.core.JsNumber;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.HasInputElement;
@@ -146,7 +146,7 @@ public class ElementUtil {
         hasInputElement.getInputElement().addEventListener("paste", evt -> {
             ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
             try {
-                NumberFormat.getDecimalFormat().parse(clipboardEvent.clipboardData.getData("text"));
+                JsNumber.parseFloat(clipboardEvent.clipboardData.getData("text"));
             } catch (Exception ex) {
                 evt.preventDefault();
             }
