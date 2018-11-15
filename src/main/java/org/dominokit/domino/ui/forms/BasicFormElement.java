@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.forms;
 
-import com.google.gwt.editor.client.adapters.TakesValueEditor;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLabelElement;
@@ -23,7 +22,6 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     private RequiredValidator requiredValidator = new RequiredValidator(this);
     private String helperText;
 
-    private TakesValueEditor<V> editor;
     private String requiredErrorMessage;
 
     @Override
@@ -167,12 +165,5 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     protected abstract DominoElement<HTMLLabelElement> getLabelElement();
 
-    @Override
-    public TakesValueEditor<V> asEditor() {
-        if (editor == null) {
-            editor = TakesValueEditor.of(this);
-        }
-        return editor;
-    }
 
 }

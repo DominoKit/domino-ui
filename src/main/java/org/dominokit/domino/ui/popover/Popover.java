@@ -66,6 +66,11 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
             document.body.removeEventListener(EventType.keydown.getName(), closeListener);
         });
 
+        asElement().onscroll = p0->{
+            closeAllPopovers();
+            return null;
+        };
+
     }
 
     public void show() {

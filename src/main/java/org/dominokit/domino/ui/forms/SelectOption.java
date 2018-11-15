@@ -1,12 +1,12 @@
 package org.dominokit.domino.ui.forms;
 
-import com.google.gwt.user.client.TakesValue;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.*;
+import org.gwtproject.editor.client.LeafValueEditor;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOption<T>> implements HasValue<SelectOption, T>,
-        HasBackground<SelectOption>, Selectable<SelectOption>, TakesValue<T> {
+        HasBackground<SelectOption>, Selectable<SelectOption>, LeafValueEditor<T> {
 
     private static final String SELECTED = "selected";
     private String displayValue;

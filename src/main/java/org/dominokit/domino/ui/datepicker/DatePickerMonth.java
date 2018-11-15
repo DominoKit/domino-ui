@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.datepicker;
 
-import com.google.gwt.user.client.TakesValue;
 import elemental2.core.JsDate;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
@@ -10,6 +9,7 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.HasSelectSupport;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.dominokit.domino.ui.utils.TextUtil;
+import org.gwtproject.editor.client.LeafValueEditor;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
@@ -24,7 +24,7 @@ import static org.dominokit.domino.ui.datepicker.DatePickerElement.createDayHead
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupport<DatePickerElement>,
-        HasValue<DatePickerMonth, Date>, DatePickerElement.SelectionHandler, TakesValue<Date> {
+        HasValue<DatePickerMonth, Date>, DatePickerElement.SelectionHandler, LeafValueEditor<Date> {
 
     private InternalHandler internalHandler;
     private JsDate date;

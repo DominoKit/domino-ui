@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.carousel;
 
-import com.google.gwt.core.client.Scheduler;
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLOListElement;
@@ -10,7 +10,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 import org.gwtproject.timer.client.Timer;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -178,13 +177,16 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
             slide.getIndicatorElement().style().add("active");
             activeSlide.getIndicatorElement().style().remove("active");
             slide.style().add(getPostionStyle(slide, source));
-            Scheduler.get().scheduleFixedDelay(() -> {
+            DomGlobal.setTimeout(p0 -> {
                 activeSlide.getIndicatorElement().style().remove("active");
                 String directionStyle = getDirectionStyle(slide, source);
                 Style.of(slide).add(directionStyle);
                 Style.of(activeSlide).add(directionStyle);
-                return false;
             }, 50);
+//            Scheduler.get().scheduleFixedDelay(() -> {
+//
+//                return false;
+//            }, 50);
 
         }
     }

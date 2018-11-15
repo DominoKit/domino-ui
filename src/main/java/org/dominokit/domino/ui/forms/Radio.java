@@ -1,12 +1,12 @@
 package org.dominokit.domino.ui.forms;
 
-import com.google.gwt.user.client.TakesValue;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.*;
+import org.gwtproject.editor.client.LeafValueEditor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements HasName<Radio>, HasValue<Radio, String>, HasLabel<Radio>,
-        Switchable<Radio>, Checkable<Radio>, TakesValue<String> {
+        Switchable<Radio>, Checkable<Radio>, LeafValueEditor<String> {
 
     private HTMLDivElement container = div().css("form-group").asElement();
     private HTMLLabelElement labelElement = label().asElement();

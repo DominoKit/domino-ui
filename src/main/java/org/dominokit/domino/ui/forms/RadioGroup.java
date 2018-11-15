@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.forms;
 
-import com.google.gwt.editor.client.adapters.TakesValueEditor;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLLabelElement;
 import elemental2.dom.Node;
@@ -28,7 +27,6 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     private DominoElement<HTMLLabelElement> helperLabel = DominoElement.of(label().css("help-info"));
     private DominoElement<HTMLLabelElement> errorLabel = DominoElement.of(label().css("error"));
     private DominoElement<HTMLDivElement> labelContainer = DominoElement.of(div().css("form-label focused"));
-    private TakesValueEditor<String> editor;
     private ElementValidations elementValidations = new ElementValidations(this);
     private RequiredValidator requiredValidator = new RequiredValidator(this);
     private List<Radio> radios = new ArrayList<>();
@@ -333,14 +331,6 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
             formControl.style().remove("readonly");
         }
         return super.setReadOnly(readonly);
-    }
-
-    @Override
-    public TakesValueEditor<String> asEditor() {
-        if (editor == null) {
-            editor = TakesValueEditor.of(this);
-        }
-        return editor;
     }
 
     @Override

@@ -1,12 +1,12 @@
 package org.dominokit.domino.ui.utils;
 
-import com.google.gwt.editor.client.Editor;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.WavesSupport;
+import org.gwtproject.editor.client.Editor;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;

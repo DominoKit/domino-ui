@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.lists;
 
-import com.google.gwt.user.client.TakesValue;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
@@ -8,13 +7,14 @@ import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.dominokit.domino.ui.utils.Selectable;
 import org.dominokit.domino.ui.utils.Switchable;
+import org.gwtproject.editor.client.LeafValueEditor;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 
 public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> implements HasValue<ListItem<T>, T>
-        , Selectable<ListItem<T>>, HasBackground<ListItem<T>>, Switchable<ListItem<T>>, TakesValue<T> {
+        , Selectable<ListItem<T>>, HasBackground<ListItem<T>>, Switchable<ListItem<T>>, LeafValueEditor<T> {
 
     private T value;
     private ListGroup<T> parent;

@@ -1,7 +1,8 @@
 package org.dominokit.domino.ui.search;
 
-import com.google.gwt.core.client.Scheduler;
-import elemental2.dom.*;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -9,6 +10,7 @@ import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.gwt.elemento.core.EventType;
 
+import static elemental2.dom.DomGlobal.setTimeout;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Search extends BaseDominoElement<HTMLDivElement, Search> {
@@ -90,10 +92,11 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
         style()
                 .setDisplay("inline-block")
                 .setHeight("100%");
-        Scheduler.get().scheduleFixedDelay(() -> {
-            style().add("open");
-            return false;
-        }, 50);
+        setTimeout(p0 -> style().add("open"), 50);
+//        Scheduler.get().scheduleFixedDelay(() -> {
+//
+//            return false;
+//        }, 50);
 
         searchInput.focus();
         return this;
@@ -101,10 +104,11 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
 
     public Search close() {
         style().remove("open");
-        Scheduler.get().scheduleFixedDelay(() -> {
-            style().setDisplay("none");
-            return false;
-        }, 50);
+        setTimeout(p0 -> style().setDisplay("none"), 50);
+//        Scheduler.get().scheduleFixedDelay(() -> {
+//
+//            return false;
+//        }, 50);
 
         searchInput.value = "";
         closeHandler.onClose();

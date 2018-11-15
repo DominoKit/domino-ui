@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.datepicker;
 
-import com.google.gwt.user.client.TakesValue;
 import elemental2.core.JsDate;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
@@ -17,6 +16,7 @@ import org.dominokit.domino.ui.style.WavesSupport;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasValue;
+import org.gwtproject.editor.client.LeafValueEditor;
 import org.gwtproject.i18n.client.impl.cldr.DateTimeFormatInfo_factory;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
@@ -31,7 +31,7 @@ import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> implements HasValue<DatePicker, Date>,
-        DatePickerMonth.InternalHandler, TakesValue<Date> {
+        DatePickerMonth.InternalHandler, LeafValueEditor<Date> {
 
     private final JsDate jsDate;
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("calendar"));
