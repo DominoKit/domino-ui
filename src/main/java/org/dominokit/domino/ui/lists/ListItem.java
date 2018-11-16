@@ -7,6 +7,7 @@ import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.dominokit.domino.ui.utils.Selectable;
 import org.dominokit.domino.ui.utils.Switchable;
+import org.gwtproject.editor.client.IsEditor;
 import org.gwtproject.editor.client.LeafValueEditor;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -14,7 +15,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 
 public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> implements HasValue<ListItem<T>, T>
-        , Selectable<ListItem<T>>, HasBackground<ListItem<T>>, Switchable<ListItem<T>>, LeafValueEditor<T> {
+        , Selectable<ListItem<T>>, HasBackground<ListItem<T>>, Switchable<ListItem<T>>, LeafValueEditor<T>, IsEditor<LeafValueEditor<T>> {
 
     private T value;
     private ListGroup<T> parent;
@@ -203,5 +204,10 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
 
     void setParent(ListGroup<T> parent) {
         this.parent = parent;
+    }
+
+    @Override
+    public LeafValueEditor<T> asEditor() {
+        return this;
     }
 }

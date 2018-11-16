@@ -9,6 +9,7 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
+import org.gwtproject.editor.client.LeafValueEditor;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -340,6 +341,11 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
         if (nonNull(radioToSelect)) {
             radioToSelect.check();
         }
+    }
+
+    @Override
+    public LeafValueEditor<String> asEditor() {
+        return this;
     }
 
     public Radio getSelectedRadio() {

@@ -16,6 +16,7 @@ import org.dominokit.domino.ui.style.WavesSupport;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasValue;
+import org.gwtproject.editor.client.IsEditor;
 import org.gwtproject.editor.client.LeafValueEditor;
 import org.gwtproject.i18n.client.impl.cldr.DateTimeFormatInfo_factory;
 import org.gwtproject.i18n.shared.DateTimeFormat;
@@ -31,7 +32,7 @@ import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> implements HasValue<DatePicker, Date>,
-        DatePickerMonth.InternalHandler, LeafValueEditor<Date> {
+        DatePickerMonth.InternalHandler, LeafValueEditor<Date>, IsEditor<LeafValueEditor<Date>> {
 
     private final JsDate jsDate;
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("calendar"));
@@ -557,6 +558,11 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
     public ModalDialog createModal(String title) {
         return ModalDialog.createPickerModal(title, this.getColorScheme(), this.asElement());
+    }
+
+    @Override
+    public LeafValueEditor<Date> asEditor() {
+        return this;
     }
 
     @FunctionalInterface

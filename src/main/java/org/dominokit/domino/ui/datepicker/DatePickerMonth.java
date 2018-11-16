@@ -9,6 +9,7 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.HasSelectSupport;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.dominokit.domino.ui.utils.TextUtil;
+import org.gwtproject.editor.client.IsEditor;
 import org.gwtproject.editor.client.LeafValueEditor;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -24,7 +25,7 @@ import static org.dominokit.domino.ui.datepicker.DatePickerElement.createDayHead
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupport<DatePickerElement>,
-        HasValue<DatePickerMonth, Date>, DatePickerElement.SelectionHandler, LeafValueEditor<Date> {
+        HasValue<DatePickerMonth, Date>, DatePickerElement.SelectionHandler, LeafValueEditor<Date>, IsEditor<LeafValueEditor<Date>> {
 
     private InternalHandler internalHandler;
     private JsDate date;
@@ -364,6 +365,11 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
         getSelectedItem().style().remove(this.background.getBackground());
         this.background = background;
         getSelectedItem().style().add(this.background.getBackground());
+    }
+
+    @Override
+    public LeafValueEditor<Date> asEditor() {
+        return this;
     }
 
     @FunctionalInterface

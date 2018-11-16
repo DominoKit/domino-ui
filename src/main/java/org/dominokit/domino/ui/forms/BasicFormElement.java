@@ -9,6 +9,7 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.IsReadOnly;
+import org.gwtproject.editor.client.LeafValueEditor;
 import org.jboss.gwt.elemento.core.Elements;
 
 import static java.util.Objects.isNull;
@@ -154,6 +155,11 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     public T groupBy(FieldsGrouping fieldsGrouping) {
         fieldsGrouping.addFormElement(this);
         return (T) this;
+    }
+
+    @Override
+    public LeafValueEditor<V> asEditor() {
+        return (LeafValueEditor<V>) this;
     }
 
     @Override

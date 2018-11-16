@@ -6,6 +6,7 @@ import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.*;
+import org.gwtproject.editor.client.IsEditor;
 import org.gwtproject.editor.client.LeafValueEditor;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOption<T>> implements HasValue<SelectOption, T>,
-        HasBackground<SelectOption>, Selectable<SelectOption>, LeafValueEditor<T> {
+        HasBackground<SelectOption>, Selectable<SelectOption>, LeafValueEditor<T>, IsEditor<LeafValueEditor<T>> {
 
     private static final String SELECTED = "selected";
     private String displayValue;
@@ -146,6 +147,11 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
     @Override
     public SelectOption<T> setBackground(Color background) {
         style().add(background.getBackground());
+        return this;
+    }
+
+    @Override
+    public LeafValueEditor<T> asEditor() {
         return this;
     }
 

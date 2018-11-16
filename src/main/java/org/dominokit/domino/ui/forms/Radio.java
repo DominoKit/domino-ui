@@ -6,6 +6,7 @@ import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.*;
+import org.gwtproject.editor.client.IsEditor;
 import org.gwtproject.editor.client.LeafValueEditor;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements HasName<Radio>, HasValue<Radio, String>, HasLabel<Radio>,
-        Switchable<Radio>, Checkable<Radio>, LeafValueEditor<String> {
+        Switchable<Radio>, Checkable<Radio>, LeafValueEditor<String>, IsEditor<LeafValueEditor<String>> {
 
     private HTMLDivElement container = div().css("form-group").asElement();
     private HTMLLabelElement labelElement = label().asElement();
@@ -192,5 +193,10 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
 
     void setGroup(RadioGroup radioGroup) {
         this.radioGroup = radioGroup;
+    }
+
+    @Override
+    public LeafValueEditor<String> asEditor() {
+        return this;
     }
 }
