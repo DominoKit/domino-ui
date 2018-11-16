@@ -182,7 +182,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
 
     public void addRecord(T record) {
         original.add(record);
-        List<T> newData= new ArrayList<>(original);
+        List<T> newData = new ArrayList<>(original);
         setData(newData);
         load();
     }
@@ -197,7 +197,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
 
     public void addRecords(Collection<T> records) {
         original.addAll(records);
-        List<T> newData= new ArrayList<>(original);
+        List<T> newData = new ArrayList<>(original);
         setData(newData);
         load();
     }
