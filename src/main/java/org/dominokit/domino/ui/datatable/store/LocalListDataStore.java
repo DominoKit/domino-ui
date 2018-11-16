@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.datatable.store;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
+import org.dominokit.domino.ui.datatable.plugins.SortDirection;
 import org.dominokit.domino.ui.pagination.HasPagination;
 
 import java.util.ArrayList;
@@ -25,6 +26,9 @@ public class LocalListDataStore<T> implements DataStore<T> {
     private SearchFilter<T> searchFilter;
     private RecordsSorter<T> recordsSorter;
     private SortEvent<T> lastSort;
+    private boolean autoSort = false;
+    private String autoSortBy = "*";
+    private SortDirection autoSortDirection = SortDirection.ASC;
 
     public LocalListDataStore() {
         this.original = new ArrayList<>();
@@ -49,6 +53,21 @@ public class LocalListDataStore<T> implements DataStore<T> {
 
     public LocalListDataStore<T> setSearchFilter(SearchFilter<T> searchFilter) {
         this.searchFilter = searchFilter;
+        return this;
+    }
+
+    public LocalListDataStore<T> setAutoSort(boolean autoSort) {
+        this.autoSort = autoSort;
+        return this;
+    }
+
+    public LocalListDataStore<T> setAutoSortBy(String autoSortBy) {
+        this.autoSortBy = autoSortBy;
+        return this;
+    }
+
+    public LocalListDataStore<T> setAutoSortDirection(SortDirection autoSortDirection) {
+        this.autoSortDirection = autoSortDirection;
         return this;
     }
 
@@ -144,7 +163,11 @@ public class LocalListDataStore<T> implements DataStore<T> {
     }
 
     private void fireUpdate() {
-        listeners.forEach(dataChangeListener -> dataChangeListener.onDataChanged(new DataChangedEvent<>(getUpdateRecords(), filtered.size())));
+        List<T> updateRecords = getUpdateRecords();
+        if (autoSort && nonNull(recordsSorter)) {
+            updateRecords.sort(recordsSorter.onSortChange(autoSortBy, autoSortDirection));
+        }
+        listeners.forEach(dataChangeListener -> dataChangeListener.onDataChanged(new DataChangedEvent<>(updateRecords, filtered.size())));
     }
 
     private List<T> getUpdateRecords() {
@@ -159,7 +182,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
 
     public void addRecord(T record) {
         original.add(record);
-        List<T> newData= new ArrayList<>(original);
+        List<T> newData = new ArrayList<>(original);
         setData(newData);
         load();
     }
@@ -174,7 +197,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
 
     public void addRecords(Collection<T> records) {
         original.addAll(records);
-        List<T> newData= new ArrayList<>(original);
+        List<T> newData = new ArrayList<>(original);
         setData(newData);
         load();
     }
