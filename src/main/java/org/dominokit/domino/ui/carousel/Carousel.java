@@ -183,10 +183,6 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
                 Style.of(slide).add(directionStyle);
                 Style.of(activeSlide).add(directionStyle);
             }, 50);
-//            Scheduler.get().scheduleFixedDelay(() -> {
-//
-//                return false;
-//            }, 50);
 
         }
     }

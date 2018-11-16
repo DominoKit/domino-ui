@@ -131,7 +131,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
         return setContentContainer(contentContainer.asElement());
     }
 
-    public DominoElement<HTMLElement> getContentPanel(){
+    public DominoElement<HTMLElement> getTabsContent() {
         return DominoElement.of(tabsContent);
     }
 

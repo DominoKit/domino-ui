@@ -105,10 +105,6 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
     public Search close() {
         style().remove("open");
         setTimeout(p0 -> style().setDisplay("none"), 50);
-//        Scheduler.get().scheduleFixedDelay(() -> {
-//
-//            return false;
-//        }, 50);
 
         searchInput.value = "";
         closeHandler.onClose();

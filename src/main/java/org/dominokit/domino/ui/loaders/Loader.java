@@ -45,7 +45,7 @@ public class Loader {
 
     public Loader stop() {
         if (started) {
-            target.removeChild(loaderElement.getElement());
+            loaderElement.getElement().remove();
             target.style().remove("waitMe_container");
             started = false;
         }
