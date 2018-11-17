@@ -37,6 +37,7 @@ public class Styles {
     public static final String align_justify = "align-justify";
 
     public static final String vertical_center = "v-center";
+    public static final String horizontal_center = "h-center";
 
     public static final String m_t__125 = "m-t--125";
     public static final String m_t__120 = "m-t--120";

@@ -7437,6 +7437,12 @@ a.disabled {
     transform: translateY(calc(-50%)) !important;
 }
 
+.h-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .chip {
     border-radius: 15px;
     min-width: 50px;
