@@ -46,7 +46,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         this.titleElement = span().css("title").textContent(title).asElement();
         this.anchorElement = a()
                 .add(this.icon)
-                .add(titleElement).asElement();
+                .add(div().style("margin-top: 2px;").add(titleElement)).asElement();
         init();
     }
 
@@ -56,7 +56,15 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         this.titleElement = span().css("title").textContent(title).asElement();
         this.anchorElement = a()
                 .add(this.icon)
-                .add(titleElement).asElement();
+                .add(div().style("margin-top: 2px;").add(titleElement)).asElement();
+        init();
+    }
+
+    public TreeItem(BaseIcon<?> icon) {
+        setIcon(icon);
+        this.anchorElement = a()
+                .add(this.icon)
+                .asElement();
         init();
     }
 
@@ -66,6 +74,10 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
 
     public static TreeItem create(String title, BaseIcon<?> icon) {
         return new TreeItem(title, icon);
+    }
+
+    public static TreeItem create(BaseIcon<?> icon) {
+        return new TreeItem(icon);
     }
 
     /**

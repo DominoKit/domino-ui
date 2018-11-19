@@ -14320,13 +14320,10 @@ ul.stepper.horizontal.stepper-col-d-4-blue-grey .step.done .step-title:before  {
 .modal-content.col-white .modal-footer .btn-link,
 .modal-content.col-white .modal-title,
 .panel-group .panel.col-white .panel-title,
-.panel-group.full-body .panel.col-white .panel-body{
-    color: #202020;
-}
-
+.panel-group.full-body .panel.col-white .panel-body,
 .bg-white.nav-tabs li a,
 .bg-white.nav-tabs li a:hover{
-    color: #565656;
+    color: #202020;
 }
 
 .switch label input[type=checkbox]:checked:not(:disabled) ~ .lever.col-white:active:after {

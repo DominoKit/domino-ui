@@ -21,8 +21,10 @@ import static org.jboss.gwt.elemento.core.Elements.li;
 
 public class Layout {
 
-    private static final String SLIDE_OUT = "-300px";
-    private static final String SLIDE_IN = "0px";
+    private static final String SLIDE_OUT_LEFT = "slide-out-left";
+    private static final String SLIDE_OUT_RIGHT = "slide-out-right";
+    private static final String SLIDE_IN_LEFT = "slide-in-left";
+    private static final String SLIDE_IN_RIGHT = "slide-in-right";
     private static final String NONE = "none";
     private static final String BLOCK = "block";
     private static final String COLLAPSE = "collapse";
@@ -44,7 +46,6 @@ public class Layout {
     private boolean fixedLeftPanel;
     private LayoutHandler onShowHandler = layout -> {
     };
-    private boolean fixLeftPanelMode;
 
     private LayoutHandler removeHandler = layout -> {
     };
@@ -121,13 +122,11 @@ public class Layout {
     private void initElementsPosition() {
         getLeftPanel()
                 .style()
-                .setMarginLeft("0px")
-                .setLeft(SLIDE_OUT);
+                .add(SLIDE_OUT_LEFT);
 
         getRightPanel()
                 .style()
-                .setMarginRight("0px")
-                .setRight(SLIDE_OUT);
+                .add(SLIDE_OUT_RIGHT);
     }
 
     private void addExpandListeners() {
@@ -217,7 +216,7 @@ public class Layout {
             hideLeftPanel();
         if (navigationBarExpanded)
             collapseNavBar();
-        getRightPanel().style().setRight(SLIDE_IN);
+        getRightPanel().style().remove(SLIDE_OUT_RIGHT);
         rightPanelVisible = true;
         showOverlay();
 
@@ -225,7 +224,7 @@ public class Layout {
     }
 
     public Layout hideRightPanel() {
-        getRightPanel().style().setRight(SLIDE_OUT);
+        getRightPanel().style().add(SLIDE_OUT_RIGHT);
         rightPanelVisible = false;
         hideOverlay();
 
@@ -259,7 +258,7 @@ public class Layout {
                 hideRightPanel();
             if (navigationBarExpanded)
                 collapseNavBar();
-            getLeftPanel().style().setLeft(SLIDE_IN);
+            getLeftPanel().style().remove(SLIDE_OUT_LEFT);
             leftPanelVisible = true;
             showOverlay();
         }
@@ -269,7 +268,7 @@ public class Layout {
 
     public Layout hideLeftPanel() {
         if (!fixedLeftPanel && !leftPanelDisabled) {
-            getLeftPanel().style().setLeft(SLIDE_OUT);
+            getLeftPanel().style().add(SLIDE_OUT_LEFT);
             leftPanelVisible = false;
             hideOverlay();
         }
@@ -506,11 +505,6 @@ public class Layout {
     private void updateContentMargin() {
         double margin = navigationBar.getBoundingClientRect().height + 30;
         content.style().setMarginTop(margin + "px");
-    }
-
-    public Layout fixLeftPanelMode() {
-        fixLeftPanelMode = true;
-        return this;
     }
 
     @FunctionalInterface

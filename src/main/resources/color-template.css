@@ -37,6 +37,10 @@ ul.stepper.horizontal.stepper-col${color_base_name} .step.done .step-title:befor
 .breadcrumb.col${color_base_name} li a{
     color: ${main_color};
 }
+.vtabs.col${color_base_name} li.active{
+    color: ${main_color};
+    border-right: 2px solid ${main_color};
+}
 [type="checkbox"]:checked.col${color_base_name} + label:before {
     border-right: 2px solid ${main_color};
     border-bottom: 2px solid ${main_color};
@@ -106,6 +110,10 @@ ul.stepper.horizontal.stepper-col-l-1${color_base_name} .step.done .step-title:b
 .breadcrumb.col-l-1${color_base_name} li a {
     color: ${color_l_1};
 }
+.vtabs.col-l-1${color_base_name} li.active{
+    color: ${color_l_1};
+    border-right: 2px solid ${color_l_1};
+}
 [type="checkbox"]:checked.col-l-1${color_base_name} + label:before {
     border-right: 2px solid ${color_l_1};
     border-bottom: 2px solid ${color_l_1};
@@ -173,6 +181,10 @@ ul.stepper.horizontal.stepper-col-l-2${color_base_name} .step.done .step-title:b
 .col-l-2${color_base_name},
 .breadcrumb.col-l-2${color_base_name} li a {
     color: ${color_l_2};
+}
+.vtabs.col-l-2${color_base_name} li.active{
+    color: ${color_l_2};
+    border-right: 2px solid ${color_l_2};
 }
 [type="checkbox"]:checked.col-l-2${color_base_name} + label:before {
     border-right: 2px solid ${color_l_2};
@@ -245,6 +257,10 @@ ul.stepper.horizontal.stepper-col-l-3${color_base_name} .step.done .step-title:b
 .breadcrumb.col-l-3${color_base_name} li a {
     color: ${color_l_3};
 }
+.vtabs.col-l-3${color_base_name} li.active{
+    color: ${color_l_3};
+    border-right: 2px solid ${color_l_3};
+}
 [type="checkbox"]:checked.col-l-3${color_base_name} + label:before {
     border-right: 2px solid ${color_l_3};
     border-bottom: 2px solid ${color_l_3};
@@ -314,6 +330,10 @@ ul.stepper.horizontal.stepper-col-l-4${color_base_name} .step.done .step-title:b
 .breadcrumb.col-l-4${color_base_name} li a {
     color: ${color_l_4};
 }
+.vtabs.col-l-4${color_base_name} li.active{
+    color: ${color_l_4};
+    border-right: 2px solid ${color_l_4};
+}
 [type="checkbox"]:checked.col-l-4${color_base_name} + label:before {
     border-right: 2px solid ${color_l_4};
     border-bottom: 2px solid ${color_l_4};
@@ -379,9 +399,13 @@ ul.stepper.horizontal.stepper-col-l-5${color_base_name} .step.done .step-title:b
     border-bottom: 1px solid ${color_l_5};
     box-shadow: 0px 1px ${color_l_5};
 }
-.col-l-1${color_base_name},
+.col-l-5${color_base_name},
 .breadcrumb.col-l-5${color_base_name} li a {
     color: ${color_l_5};
+}
+.vtabs.col-l-5${color_base_name} li.active{
+    color: ${color_l_5};
+    border-right: 2px solid ${color_l_5};
 }
 [type="checkbox"]:checked.col-l-5${color_base_name} + label:before {
     border-right: 2px solid ${color_l_5};
@@ -452,6 +476,10 @@ ul.stepper.horizontal.stepper-col-d-1${color_base_name} .step.done .step-title:b
 .breadcrumb.col-d-1${color_base_name} li a {
     color: ${color_d_1};
 }
+.vtabs.col-d-1${color_base_name} li.active{
+    color: ${color_d_1};
+    border-right: 2px solid ${color_d_1};
+}
 [type="checkbox"]:checked.col-d-1${color_base_name} + label:before {
     border-right: 2px solid ${color_d_1};
     border-bottom: 2px solid ${color_d_1};
@@ -520,6 +548,10 @@ ul.stepper.horizontal.stepper-col-d-2${color_base_name} .step.done .step-title:b
 .col-d-2${color_base_name},
 .breadcrumb.col-d-2${color_base_name} li a {
     color: ${color_d_2};
+}
+.vtabs.col-d-2${color_base_name} li.active{
+    color: ${color_d_2};
+    border-right: 2px solid ${color_d_2};
 }
 [type="checkbox"]:checked.col-d-2${color_base_name} + label:before {
     border-right: 2px solid ${color_d_2};
@@ -590,6 +622,10 @@ ul.stepper.horizontal.stepper-col-d-3${color_base_name} .step.done .step-title:b
 .breadcrumb.col-d-2${color_base_name} li a{
     color: ${color_d_3};
 }
+.vtabs.col-d-3${color_base_name} li.active{
+    color: ${color_d_3};
+    border-right: 2px solid ${color_d_3};
+}
 [type="checkbox"]:checked.col-d-3${color_base_name} + label:before {
     border-right: 2px solid ${color_d_3};
     border-bottom: 2px solid ${color_d_3};
@@ -658,6 +694,10 @@ ul.stepper.horizontal.stepper-col-d-4${color_base_name} .step.done .step-title:b
 .col-d-4${color_base_name},
 .breadcrumb.col-d-4${color_base_name} li a {
     color: ${color_d_4};
+}
+.vtabs.col-d-4${color_base_name} li.active{
+    color: ${color_d_4};
+    border-right: 2px solid ${color_d_4};
 }
 [type="checkbox"]:checked.col-d-4${color_base_name} + label:before {
     border-right: 2px solid ${color_d_4};
