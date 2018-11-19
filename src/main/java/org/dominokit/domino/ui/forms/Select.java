@@ -87,7 +87,6 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     private void initListeners() {
-
         selectElement.getDropDownMenu().addEventListener(KEYDOWN, MenuNavigation.create(options, selectElement.selectButton)
                 .onFocus(SelectOption::focus)
                 .onSelect(this::doSelectOption)
@@ -211,12 +210,13 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         if (isEnabled() && !isReadOnly()) {
             hideAllMenus();
             doOpen();
-            if (nonNull(getSelectedOption()))
-                getSelectedOption().focus();
-            else if (!options.isEmpty())
-                options.getFirst().focus();
             if (searchable) {
+                selectElement.getSearchBox().asElement().focus();
                 clearSearch();
+            } else if (nonNull(getSelectedOption())) {
+                getSelectedOption().focus();
+            } else if (!options.isEmpty()) {
+                options.getFirst().focus();
             }
         }
         return this;
