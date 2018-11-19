@@ -179,6 +179,22 @@ body.modal-open {
     border-radius: 3px;
 }
 
+.slide-out-left{
+    left: -300px;
+}
+
+.slide-out-right{
+    right: -300px;
+}
+
+.slide-in-left{
+    left: 0px;
+}
+
+.slide-in-right{
+    right: 0px;
+}
+
 /* Material Icons ============================== */
 .material-icons.md-18 {
     font-size: 18px;
@@ -6059,6 +6075,7 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     height: calc(100vh - 70px);
     position: fixed;
     top: 70px;
+    margin-left: 0px;
     left: 0;
     -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
@@ -6307,6 +6324,7 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     position: fixed;
     right: -300px;
     top: 70px;
+    margin-right: 0px;
     background: #fdfdfd;
     z-index: 11 !important;
     -webkit-box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
@@ -8048,4 +8066,92 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
     height: 33px;
     position: absolute;
     right: 0px;
+}
+
+/* ================ vertical tabs =========================== */
+
+.vtabs {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.vtabs .list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.vtabs .list li{
+    border-right: 2px solid transparent;
+}
+
+.vtabs .list i.material-icons {
+    width: 24px;
+}
+
+.vtabs.text-below .list i.material-icons,
+.vtabs.text-below .list i.mdi{
+    margin-left: calc(50% - 8px);
+}
+
+.vtabs.text-below .list a{
+    display: inline-block;
+}
+
+.vtabs.text-below .list a div{
+    text-align: center;
+}
+
+.vtabs .list a {
+    color: #565656;
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+    width: 100%;
+    padding: 10px 10px;
+}
+
+.vtabs .list a:hover, .menu .list a:active, .menu .list a:focus {
+    text-decoration: none !important;
+}
+
+.vtabs .list a small {
+    position: absolute;
+    top: calc(50% - 7.5px);
+    right: 15px;
+}
+
+.vtabs .list a .title {
+    margin: 2px 0px 0px 12px;
+    color: #333;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.vtabs .tree-leaf a .title {
+    font-weight: 500;
+}
+
+.vtabs .list .ml-tree {
+    list-style: none;
+    padding-left: 0;
+}
+
+.vtabs .list .ml-tree li a {
+    padding-left: 32px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.vtabs .list .ml-tree li.active a.toggled:not(.tree-toggle) {
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.vtabs .list .ml-tree li .ml-tree li a {
+    padding-left: 57px;
+}
+
+.vtabs .list .ml-tree li .ml-tree .ml-tree li a {
+    padding-left: 95px;
 }
