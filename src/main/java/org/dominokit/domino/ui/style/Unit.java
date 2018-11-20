@@ -1,20 +1,90 @@
 package org.dominokit.domino.ui.style;
 
 public enum Unit{
-    px(value -> value+"px"),
-    q(value -> value+"q"),
-    mm(value -> value+"mm"),
-    cm(value -> value+"cm"),
-    in(value -> value+"in"),
-    pt(value -> value+"pt"),
-    pc(value -> value+"pc"),
-    em(value -> value+"em"),
-    rem(value -> value+"rem"),
-    ex(value -> value+"ex"),
-    ch(value -> value+"ch"),
-    vw(value -> value+"vw"),
-    vh(value -> value+"vh"),
-    none(value -> value+"");
+    px(new UnitFormatter() {
+        @Override
+        public String format(Number value) {
+            return value + "px";
+        }
+    }),
+    q(new UnitFormatter() {
+        @Override
+        public String format(Number value) {
+            return value + "q";
+        }
+    }),
+    mm(new UnitFormatter() {
+        @Override
+        public String format(Number value) {
+            return value + "mm";
+        }
+    }),
+    cm(new UnitFormatter() {
+        @Override
+        public String format(Number value) {
+            return value + "cm";
+        }
+    }),
+    in(new UnitFormatter() {
+        @Override
+        public String format(Number value) {
+            return value + "in";
+        }
+    }),
+    pt(new UnitFormatter() {
+        @Override
+        public String format(Number value) {
+            return value + "pt";
+        }
+    }),
+    pc(new UnitFormatter() {
+        @Override
+        public String format(Number value) {
+            return value + "pc";
+        }
+    }),
+    em(new UnitFormatter() {
+        @Override
+        public String format(Number value) {
+            return value + "em";
+        }
+    }),
+    rem(new UnitFormatter() {
+        @Override
+        public String format(Number value) {
+            return value + "rem";
+        }
+    }),
+    ex(new UnitFormatter() {
+        @Override
+        public String format(Number value) {
+            return value + "ex";
+        }
+    }),
+    ch(new UnitFormatter() {
+        @Override
+        public String format(Number value) {
+            return value + "ch";
+        }
+    }),
+    vw(new UnitFormatter() {
+        @Override
+        public String format(Number value) {
+            return value + "vw";
+        }
+    }),
+    vh(new UnitFormatter() {
+        @Override
+        public String format(Number value) {
+            return value + "vh";
+        }
+    }),
+    none(new UnitFormatter() {
+        @Override
+        public String format(Number value) {
+            return value + "";
+        }
+    });
 
 
     private final UnitFormatter unitFormatter;

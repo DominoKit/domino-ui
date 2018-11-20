@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.utils;
 
+import elemental2.core.JsNumber;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.jboss.gwt.elemento.core.Elements;
@@ -121,7 +122,7 @@ final class BodyObserver {
                                                   String idAttributeName) {
         String elementId = element.getAttribute(idAttributeName);
         if (elementId == null) {
-            element.setAttribute(idAttributeName, Elements.createDocumentUniqueId());
+            element.setAttribute(idAttributeName, new JsNumber(Math.random()).toString(36).substring(2,9)+"");
         }
         return new ElementObserver() {
             @Override

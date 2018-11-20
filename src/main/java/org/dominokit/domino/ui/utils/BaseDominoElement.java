@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.utils;
 
+import elemental2.core.JsNumber;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.popover.PopupPosition;
@@ -31,7 +32,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     @Editor.Ignore
     protected void init(T element) {
         this.element = element;
-        this.uuid = Elements.createDocumentUniqueId();
+
+        double random = Math.random();
+
+        this.uuid = new JsNumber(random).toString(36).substring(2,9)+"";
         setAttribute("domino-uuid", this.uuid);
         this.collapsible = Collapsible.create(getCollapsibleElement());
         this.style = Style.of(element);
