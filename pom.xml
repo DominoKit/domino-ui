@@ -366,5 +366,14 @@
             <name>Vertispan Snapshots</name>
             <url>https://repo.vertispan.com/gwt-snapshot/</url>
         </repository>
+        <repository>
+            <id>sonatype-snapshots-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
+        </repository>
     </repositories>
 </project>
