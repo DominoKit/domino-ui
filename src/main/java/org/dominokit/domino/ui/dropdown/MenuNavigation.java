@@ -1,9 +1,6 @@
 package org.dominokit.domino.ui.dropdown;
 
-import elemental2.dom.Event;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.KeyboardEvent;
+import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -76,7 +73,7 @@ public class MenuNavigation<V extends IsElement, T extends HTMLElement> implemen
                 if (isEnterKey(keyboardEvent) ||
                         isSpaceKey(keyboardEvent)
                         || isTabKey(keyboardEvent)) {
-                    selectHandler.doSelect(focusedItem);
+                    selectHandler.doSelect(item);
                 }
                 evt.preventDefault();
             }
