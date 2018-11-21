@@ -8,6 +8,7 @@ jdk: oraclejdk8
 branches: 
   only:
   - master
+  - "j2cl-public"
 cache:
   directories:
   - "$HOME/.m2"
