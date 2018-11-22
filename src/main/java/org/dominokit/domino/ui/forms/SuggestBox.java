@@ -27,6 +27,14 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
     private HTMLDivElement loaderContainer = div().css("suggest-box-loader").asElement();
     private Loader loader;
 
+    public SuggestBox() {
+        this("");
+    }
+
+    public SuggestBox(String label) {
+        this(label, null);
+    }
+
     public SuggestBox(SuggestBoxStore store) {
         this("", store);
     }
@@ -64,15 +72,17 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
         loader.start();
         suggestionsMenu.clearActions();
         suggestionsMenu.close();
-        store.filter(getValue(), suggestions -> {
-            suggestionsMenu.clearActions();
-            suggestions.forEach(suggestion -> {
-                suggestion.highlight(SuggestBox.this.getValue());
-                suggestionsMenu.appendChild(SuggestBox.this.dropdownAction(suggestion));
+        if (store != null) {
+            store.filter(getValue(), suggestions -> {
+                suggestionsMenu.clearActions();
+                suggestions.forEach(suggestion -> {
+                    suggestion.highlight(SuggestBox.this.getValue());
+                    suggestionsMenu.appendChild(SuggestBox.this.dropdownAction(suggestion));
+                });
+                suggestionsMenu.open();
+                loader.stop();
             });
-            suggestionsMenu.open();
-            loader.stop();
-        });
+        }
     }
 
     public static SuggestBox create(SuggestBoxStore store) {
@@ -105,6 +115,10 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
     @Override
     public String getValue() {
         return getInputElement().asElement().value;
+    }
+
+    public void setSuggestBoxStore(SuggestBoxStore store) {
+        this.store = store;
     }
 
     public SuggestBox setType(String type) {
