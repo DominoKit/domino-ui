@@ -69,10 +69,10 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
     }
 
     private void search() {
-        loader.start();
-        suggestionsMenu.clearActions();
-        suggestionsMenu.close();
         if (store != null) {
+            loader.start();
+            suggestionsMenu.clearActions();
+            suggestionsMenu.close();
             store.filter(getValue(), suggestions -> {
                 suggestionsMenu.clearActions();
                 suggestions.forEach(suggestion -> {
@@ -117,8 +117,9 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
         return getInputElement().asElement().value;
     }
 
-    public void setSuggestBoxStore(SuggestBoxStore store) {
+    public SuggestBox setSuggestBoxStore(SuggestBoxStore store) {
         this.store = store;
+        return this;
     }
 
     public SuggestBox setType(String type) {
