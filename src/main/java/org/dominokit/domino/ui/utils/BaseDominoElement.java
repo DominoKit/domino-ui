@@ -453,12 +453,12 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
 
     @Editor.Ignore
-    public T setContent(IsElement element){
+    public T setContent(IsElement element) {
         return setContent(element.asElement());
     }
 
     @Editor.Ignore
-    public T setContent(Node content){
+    public T setContent(Node content) {
         clearElement();
         appendChild(content);
         return element;
@@ -495,26 +495,50 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
-    public T disable(){
+    public T disable() {
         setAttribute("disabled", "");
         style().add("disabled");
         return element;
     }
 
     @Editor.Ignore
-    public T enable(){
+    public T enable() {
         removeAttribute("disabled");
         style().remove("disabled");
         return element;
     }
 
     @Editor.Ignore
-    public void setDisabled(boolean disabled){
-        if(disabled){
+    public void setDisabled(boolean disabled) {
+        if (disabled) {
             disable();
-        }else{
+        } else {
             enable();
         }
+    }
+
+    @Editor.Ignore
+    public T addCollapseHandler(Collapsible.CollapseCompletedHandler handler) {
+        collapsible.addCollapseHandler(handler);
+        return (T) this;
+    }
+
+    @Editor.Ignore
+    public T removeCollapseHandler(Collapsible.CollapseCompletedHandler handler) {
+        collapsible.removeCollapseHandler(handler);
+        return (T) this;
+    }
+
+    @Editor.Ignore
+    public T addExpandHandler(Collapsible.ExpandCompletedHandler handler) {
+        collapsible.addExpandHandler(handler);
+        return (T) this;
+    }
+
+    @Editor.Ignore
+    public T removeExpandHandlr(Collapsible.ExpandCompletedHandler handler) {
+        collapsible.removeExpandHandlr(handler);
+        return (T) this;
     }
 
     @FunctionalInterface

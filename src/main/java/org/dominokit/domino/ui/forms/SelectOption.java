@@ -1,43 +1,50 @@
 package org.dominokit.domino.ui.forms;
 
 import com.google.gwt.user.client.TakesValue;
-import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.*;
-import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOption<T>> implements HasValue<SelectOption, T>,
+import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.span;
+
+public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOption<T>> implements HasValue<SelectOption, T>,
         HasBackground<SelectOption>, Selectable<SelectOption>, TakesValue<T> {
 
-    private static final String SELECTED = "selected";
+    private static final String SELECTED = "select-option-selected";
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("select-option"));
+    private DominoElement<HTMLElement> valueContainer = DominoElement.of(span().css(Styles.ellipsis_text));
+    private Icon checkMark = Icons.ALL.check().styler(style1 -> style1.add(Styles.pull_right)
+            .add("select-option-check-mark"));
     private String displayValue;
     private String key;
     private T value;
-    private HTMLLIElement li;
-    private HTMLAnchorElement aElement;
-    private HTMLElement valueContainer;
-    private HTMLElement checkMark;
-    private List<SelectionHandler<SelectOption>> selectionHandlers = new ArrayList<>();
-
+    private List<Selectable.SelectionHandler<SelectOption>> selectionHandlers = new ArrayList<>();
+    private FlexItem checkMarkFlexItem;
 
     public SelectOption(T value, String key, String displayValue) {
-        li = Elements.li().asElement();
-        aElement = Elements.a().attr("data-tokens", "null")
-                .attr("tabindex", "0").asElement();
-        valueContainer = Elements.span().css("text", "ellipsis").asElement();
-        aElement.appendChild(valueContainer);
-        li.appendChild(aElement);
-        checkMark = Elements.span().css("glyphicon glyphicon-ok check-mark").asElement();
         setKey(key);
-        value(value);
+        setValue(value);
         setDisplayValue(displayValue);
+        checkMarkFlexItem = FlexItem.create();
+        element
+                .appendChild(FlexLayout.create()
+                        .appendChild(FlexItem.create()
+                                .setFlexGrow(1)
+                                .appendChild(valueContainer))
+                        .appendChild(checkMarkFlexItem)
+                );
         init(this);
     }
 
@@ -62,12 +69,12 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
     }
 
     public SelectOption<T> appendChild(Node node) {
-        aElement.appendChild(node);
+        element.appendChild(node);
         return this;
     }
 
     public SelectOption<T> appendChild(IsElement node) {
-        aElement.appendChild(node.asElement());
+        element.appendChild(node.asElement());
         return this;
     }
 
@@ -77,12 +84,6 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
 
     public void setKey(String key) {
         this.key = key;
-    }
-
-    @Override
-    public SelectOption<T> value(T value) {
-        setValue(value);
-        return this;
     }
 
     @Override
@@ -96,7 +97,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
     }
 
     @Override
-    public void addSelectionHandler(SelectionHandler<SelectOption> selectionHandler) {
+    public void addSelectionHandler(Selectable.SelectionHandler<SelectOption> selectionHandler) {
         selectionHandlers.add(selectionHandler);
     }
 
@@ -106,7 +107,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
 
     public SelectOption<T> setDisplayValue(String displayValue) {
         this.displayValue = displayValue;
-        valueContainer.textContent = displayValue;
+        valueContainer.setTextContent(displayValue);
         return this;
     }
 
@@ -123,7 +124,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
     @Override
     public SelectOption<T> select(boolean silent) {
         style().add(SELECTED);
-        aElement.appendChild(checkMark);
+        checkMarkFlexItem.appendChild(checkMark);
         if (!silent) {
             selectionHandlers.forEach(handler -> handler.onSelectionChanged(this));
         }
@@ -133,8 +134,8 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
     @Override
     public SelectOption<T> deselect(boolean silent) {
         style().remove(SELECTED);
-        if (aElement.contains(checkMark))
-            aElement.removeChild(checkMark);
+        if (element.contains(checkMark.asElement()))
+            checkMark.remove();
         return this;
     }
 
@@ -150,23 +151,21 @@ public class SelectOption<T> extends BaseDominoElement<HTMLLIElement, SelectOpti
     }
 
     @Override
-    public HTMLLIElement asElement() {
-        return li;
+    public HTMLDivElement asElement() {
+        return element.asElement();
     }
 
-    public DominoElement<HTMLElement> getCheckMark() {
-        return DominoElement.of(checkMark);
+    public Icon getCheckMark() {
+        return checkMark;
     }
 
     public DominoElement<HTMLElement> getValueContainer() {
-        return DominoElement.of(valueContainer);
+        return valueContainer;
     }
 
-    public DominoElement<HTMLAnchorElement> getLinkElement() {
-        return DominoElement.of(aElement);
-    }
-
-    public void focus() {
-        aElement.focus();
+    @Override
+    public SelectOption<T> value(T value) {
+        setValue(value);
+        return this;
     }
 }

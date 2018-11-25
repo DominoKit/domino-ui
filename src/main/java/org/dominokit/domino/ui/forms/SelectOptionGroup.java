@@ -1,7 +1,11 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.*;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLLIElement;
+import elemental2.dom.Node;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -11,10 +15,12 @@ import static org.jboss.gwt.elemento.core.Elements.li;
 
 public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, SelectOptionGroup<T>> {
 
-    private HTMLLIElement element = li().css("dropdown-header").asElement();
+    private DominoElement<HTMLLIElement> element = DominoElement.of(li().css("dropdown-header"));
     private List<SelectOption<T>> options = new ArrayList<>();
+    private Node titleElement;
 
     public SelectOptionGroup(Node titleElement) {
+        this.titleElement = titleElement;
         element.addEventListener("click", evt -> {
             evt.preventDefault();
             evt.stopPropagation();
@@ -48,7 +54,7 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
     }
 
     public SelectOptionGroup<T> appendChild(SelectOption<T> option) {
-        option.getLinkElement().style().add("opt");
+        option.style().add("opt");
         options.add(option);
         return this;
     }
@@ -59,32 +65,39 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
 
     @Override
     public HTMLLIElement asElement() {
-        return element;
+        return element.asElement();
     }
 
     boolean isAllHidden() {
-        return options.stream().allMatch(option -> option.style().contains("hidden"));
+        return options.stream().allMatch(SelectOption::isCollapsed);
     }
 
     void hide() {
-        style().add("hidden");
+        element.collapse();
     }
 
     void show() {
-        style().remove("hidden");
+        element.expand();
     }
 
     void addOptionsTo(Select<T> select) {
         for (SelectOption<T> option : options) {
+            option.addCollapseHandler(this::changeVisibility);
+            option.addExpandHandler(this::changeVisibility);
             select.appendChild(option);
         }
     }
 
     void changeVisibility() {
+        DomGlobal.console.info("changeVisibility");
         if (isAllHidden()) {
             hide();
         } else {
             show();
         }
+    }
+
+    public Node getTitleElement() {
+        return titleElement;
     }
 }
