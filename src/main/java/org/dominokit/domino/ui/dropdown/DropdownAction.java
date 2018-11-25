@@ -6,6 +6,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
 import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.gwt.elemento.core.Elements;
@@ -13,26 +14,28 @@ import org.jboss.gwt.elemento.core.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DropdownAction<V> extends BaseDominoElement<HTMLLIElement, DropdownAction<V>> implements HasSelectionHandler<DropdownAction, V> {
+public class DropdownAction extends BaseDominoElement<HTMLLIElement, DropdownAction> implements HasSelectionHandler<DropdownAction, String> {
 
     private HTMLLIElement liElement = Elements.li().asElement();
-    private V value;
+    private String value;
     private HTMLElement content;
     private HTMLAnchorElement aElement;
-    private List<SelectionHandler<V>> selectionHandlers = new ArrayList<>();
-    private List<FocusHandler<V>> focusHandlers = new ArrayList<>();
+    private List<SelectionHandler<String>> selectionHandlers = new ArrayList<>();
+    private List<FocusHandler> focusHandlers = new ArrayList<>();
 
-    private DropdownAction(V value, String displayValue) {
+    public DropdownAction(String value, String displayValue) {
         this.value = value;
         init();
         aElement.appendChild(TextNode.of(displayValue));
+        init(this);
     }
 
-    public DropdownAction(V value, HTMLElement content) {
+    public DropdownAction(String value, HTMLElement content) {
         this.value = value;
         this.content = content;
         init();
         aElement.appendChild(content);
+        init(this);
     }
 
     private void init() {
@@ -51,24 +54,24 @@ public class DropdownAction<V> extends BaseDominoElement<HTMLLIElement, Dropdown
         aElement.addEventListener("focus", evt -> focusHandlers.forEach(focusHandler -> focusHandler.onFocus(this)));
     }
 
-    public static DropdownAction<String> create(String content) {
+    public static DropdownAction create(String content) {
         return create(content, content);
     }
 
-    public static <V> DropdownAction<V> create(V value, String displayValue) {
-        return new DropdownAction<>(value, displayValue);
+    public static DropdownAction create(String value, String displayValue) {
+        return new DropdownAction(value, displayValue);
     }
 
-    public static <V> DropdownAction<V> create(V value, HTMLElement content) {
-        return new DropdownAction<>(value, content);
+    public static DropdownAction create(String value, HTMLElement content) {
+        return new DropdownAction(value, content);
     }
 
-    public DropdownAction<V> focus() {
+    public DropdownAction focus() {
         aElement.focus();
         return this;
     }
 
-    public DropdownAction<V> select() {
+    public DropdownAction select() {
         selectionHandlers.forEach(handler -> handler.onSelection(getValue()));
         return this;
     }
@@ -79,18 +82,18 @@ public class DropdownAction<V> extends BaseDominoElement<HTMLLIElement, Dropdown
     }
 
     @Override
-    public DropdownAction<V> addSelectionHandler(SelectionHandler<V> selectionHandler) {
+    public DropdownAction addSelectionHandler(SelectionHandler<String> selectionHandler) {
         selectionHandlers.add(selectionHandler);
         return this;
     }
 
     @Override
-    public DropdownAction removeSelectionHandler(SelectionHandler<V> selectionHandler) {
+    public DropdownAction removeSelectionHandler(SelectionHandler<String> selectionHandler) {
         selectionHandlers.remove(selectionHandler);
         return this;
     }
 
-    public V getValue() {
+    public String getValue() {
         return value;
     }
 
@@ -103,13 +106,26 @@ public class DropdownAction<V> extends BaseDominoElement<HTMLLIElement, Dropdown
         return aElement;
     }
 
-    public DropdownAction<V> addFocusHandler(FocusHandler<V> focusHandler) {
+    public DropdownAction setDisplayValue(String displayValue) {
+        DominoElement.of(aElement).clearElement()
+                .appendChild(TextNode.of(displayValue));
+        return this;
+    }
+
+    public DropdownAction setDisplayValue(HTMLElement content) {
+        this.content = content;
+        DominoElement.of(aElement).clearElement()
+                .appendChild(content);
+        return this;
+    }
+
+    public DropdownAction addFocusHandler(FocusHandler focusHandler) {
         focusHandlers.add(focusHandler);
         return this;
     }
 
     @FunctionalInterface
-    public interface FocusHandler<V> {
-        void onFocus(DropdownAction<V> dropdownAction);
+    public interface FocusHandler {
+        void onFocus(DropdownAction dropdownAction);
     }
 }
