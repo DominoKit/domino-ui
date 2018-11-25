@@ -6,8 +6,6 @@ import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.dropdown.DropdownActionsGroup;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.style.Color;
@@ -39,10 +37,11 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private DominoElement<HTMLElement> rightAddon;
 
     private DominoElement<HTMLButtonElement> buttonElement = DominoElement.of(button().css("select-button"));
-    private DominoElement<HTMLDivElement> buttonValueContainer = DominoElement.of(div().css("select-value"));
+    private DominoElement<HTMLElement> buttonValueContainer = DominoElement.of(span().css("select-value", Styles.ellipsis_text));
     private DominoElement<HTMLDivElement> iconContainer = DominoElement.of(div().css(Styles.pull_right));
     private DropDownMenu optionsMenu = DropDownMenu.create(buttonElement).styler(style1 -> style1.add("select-option-menu"));
-    private DominoElement<HTMLLabelElement> labelElement = DominoElement.of(label().css("form-label", Styles.cursor_pointer));
+    private DominoElement<HTMLLabelElement> labelElement = DominoElement.of(label().css("form-label", "select-label"));
+
 
     private LinkedList<SelectOption<T>> options = new LinkedList<>();
     private SelectOption<T> selectedOption;
@@ -60,14 +59,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     public Select() {
         initListeners();
         buttonElement
-                .appendChild(FlexLayout.create()
-                        .appendChild(FlexItem.create()
-                                .setFlexGrow(1)
-                                .appendChild(buttonValueContainer))
-                        .appendChild(FlexItem.create()
-                                .appendChild(iconContainer)
-                        )
-                );
+                .appendChild(buttonValueContainer)
+                .appendChild(iconContainer);
         formControl
                 .appendChild(buttonElement)
                 .appendChild(labelElement);
