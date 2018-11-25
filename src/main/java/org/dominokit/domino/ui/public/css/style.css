@@ -8098,6 +8098,7 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
     z-index: 1;
     border: 0px;
     text-align: left;
+    padding: 0;
 }
 
 .select-button[disabled] {
@@ -8118,7 +8119,7 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 }
 
 .select-option {
-    padding: 7px 30px;
+    padding: 7px 10px 7px 30px;
 }
 
 .select-option-selected {
@@ -8132,7 +8133,12 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 .select-value {
     width: 100%;
     text-align: left;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    position: absolute !important;
+    top: 6px !important;
+    left: 0 !important;
+    padding-right: 40px;
+}
+
+.select-label {
+    cursor: pointer !important;
 }
