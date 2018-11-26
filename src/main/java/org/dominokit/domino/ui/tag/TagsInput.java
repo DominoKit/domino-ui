@@ -112,7 +112,7 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     private void addDropDownAction(String displayValue, V value) {
         if (!selectedItems.contains(value)) {
             dropDownMenu
-                    .addAction(DropdownAction.create(value, displayValue)
+                    .addAction(DropdownAction.create(displayValue, displayValue)
                             .addSelectionHandler(selectedValue -> {
                                 addTag(displayValue, value);
                                 tagTextInput.focus();

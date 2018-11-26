@@ -1,7 +1,6 @@
 package org.dominokit.domino.ui.pagination;
 
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -15,11 +14,11 @@ abstract class BasePagination<T extends BasePagination<T>> extends BaseDominoEle
 
     protected DominoElement<HTMLUListElement> pagesElement = DominoElement.of(ul().css("pagination"));
     protected DominoElement<HTMLElement> element = DominoElement.of(nav().add(pagesElement));
-    protected DominoElement<HTMLLIElement> activePage = DominoElement.of(li());
-    protected DominoElement<HTMLLIElement> prevElement;
-    protected DominoElement<HTMLLIElement> nextElement;
+    protected DominoElement<? extends HTMLElement> activePage = DominoElement.of(li());
+    protected DominoElement<? extends HTMLElement> prevElement;
+    protected DominoElement<? extends HTMLElement> nextElement;
 
-    protected List<DominoElement<HTMLLIElement>> allPages = new LinkedList<>();
+    protected List<DominoElement<? extends HTMLElement>> allPages = new LinkedList<>();
     protected PageChangedCallBack pageChangedCallBack = pageIndex -> {
     };
     protected String size = "pagination-default";
@@ -109,19 +108,19 @@ abstract class BasePagination<T extends BasePagination<T>> extends BaseDominoEle
         return (T) this;
     }
 
-    public T setMarkActivePage(boolean markActivePage){
+    public T setMarkActivePage(boolean markActivePage) {
         this.markActivePage = markActivePage;
-        if(!markActivePage){
+        if (!markActivePage) {
             activePage.style().remove("active");
         }
 
         return (T) this;
     }
 
-    void gotoPage(DominoElement<HTMLLIElement> li) {
+    void gotoPage(DominoElement<? extends HTMLElement> li) {
         activePage.style().remove("active");
         activePage = li;
-        if(markActivePage) {
+        if (markActivePage) {
             activePage.style().add("active");
         }
     }
