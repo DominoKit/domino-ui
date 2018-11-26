@@ -133,7 +133,7 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
     }
 
     private DropdownAction dropdownAction(SuggestItem suggestItem) {
-        DropdownAction<String> suggestionAction = DropdownAction.create(suggestItem.getValue(), suggestItem.asElement());
+        DropdownAction suggestionAction = DropdownAction.create(suggestItem.getValue(), suggestItem.asElement());
         suggestionAction.addSelectionHandler(value -> {
             setValue(value);
             selectionHandlers.forEach(handler -> handler.onSelection(suggestItem));

@@ -10,7 +10,7 @@ public class DropDownPositionBottomRight implements DropDownPosition {
     public void position(HTMLElement actionsMenu, HTMLElement target) {
         ClientRect targetRect = target.getBoundingClientRect();
         ClientRect actionsRect = actionsMenu.getBoundingClientRect();
-        actionsMenu.style.setProperty("top", ((targetRect.top + window.pageYOffset) + targetRect.height + 35 + "px"));
+        actionsMenu.style.setProperty("top", ((targetRect.top + window.pageYOffset) + targetRect.height + "px"));
         actionsMenu.style.setProperty("left", targetRect.left + window.pageXOffset + targetRect.width + "px");
     }
 }
