@@ -132,8 +132,15 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     }
 
     public TreeItem expand() {
+        return expand(false);
+    }
+
+    public TreeItem expand(boolean expandParent) {
         if (isParent()) {
             collapsible.expand();
+        }
+        if(expandParent && nonNull(parent)){
+            parent.expand(expandParent);
         }
         return this;
     }
@@ -179,12 +186,22 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         }
     }
 
-
     @Override
     public void activate() {
+        activate(false);
+    }
+
+    @Override
+    public void activate(boolean activateParent) {
         Style.of(asElement()).add("active");
         if (isNull(expandIcon) || collapsible.isCollapsed() || !isParent()) {
             replaceIcon(this.activeIcon);
+        }
+
+
+        if(activateParent && nonNull(parent)){
+            parent.setActiveItem(this);
+
         }
     }
 

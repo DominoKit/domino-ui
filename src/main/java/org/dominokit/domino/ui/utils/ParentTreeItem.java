@@ -7,4 +7,8 @@ public interface ParentTreeItem<T> {
     void setActiveItem(T activeItem);
     Tree getTreeRoot();
     boolean isAutoExpandFound();
+    ParentTreeItem expand();
+    ParentTreeItem expand(boolean expandParent);
+    void activate();
+    void activate(boolean activateParent);
 }
