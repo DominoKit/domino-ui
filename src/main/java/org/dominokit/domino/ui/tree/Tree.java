@@ -152,7 +152,7 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
                 .get()
                 .setColor(Color.GREY);
 
-        collapseAll.asElement().addEventListener("click", evt -> getSubItems().forEach(TreeItem::collapseAll));
+        collapseAll.asElement().addEventListener("click", evt -> collapseAll());
 
 
         Icon expandAll = Icons.ALL.fullscreen()
@@ -164,11 +164,23 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
                 .get()
                 .setColor(Color.GREY);
 
-        expandAll.asElement().addEventListener("click", evt -> getSubItems().forEach(TreeItem::expandAll));
+        expandAll.asElement().addEventListener("click", evt -> expandAll());
 
         header.appendChild(expandAll.asElement());
         header.appendChild(collapseAll.asElement());
         return this;
+    }
+
+    public void expandAll() {
+        getSubItems().forEach(TreeItem::expandAll);
+    }
+
+    public void collapseAll() {
+        getSubItems().forEach(TreeItem::collapseAll);
+    }
+
+    public void deactivateAll(){
+        getSubItems().forEach(TreeItem::deactivate);
     }
 
     public Tree autoExpandFound() {
@@ -217,5 +229,25 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
 
     public List<TreeItem> getSubItems() {
         return subItems;
+    }
+
+    @Override
+    public ParentTreeItem expand(boolean expandParent) {
+        return this;
+    }
+
+    @Override
+    public void activate() {
+
+    }
+
+    @Override
+    public void activate(boolean activateParent) {
+
+    }
+
+    @Override
+    public Tree collapse() {
+        return super.collapse();
     }
 }
