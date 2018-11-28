@@ -44,6 +44,8 @@ public class Layout {
     private boolean overlayVisible = false;
     private boolean leftPanelDisabled = false;
     private boolean fixedLeftPanel;
+    private LeftPanelSize leftPanelSize = LeftPanelSize.DEFAULT;
+
     private LayoutHandler onShowHandler = layout -> {
     };
 
@@ -84,6 +86,11 @@ public class Layout {
         if (!bodyStyle().contains("ls-hidden"))
             bodyStyle().add("ls-closed");
         new Theme(theme).apply();
+
+        DominoElement.of(document.body)
+                .style()
+                .add(leftPanelSize.getSize());
+
         MediaQuery.addOnSmallAndDownListener(this::unfixFooter);
 
         if (nonNull(onShowHandler)) {
@@ -245,11 +252,20 @@ public class Layout {
         }
     }
 
-    public void toggleLeftPanel() {
+    public Layout toggleLeftPanel() {
         if (leftPanelVisible)
             hideLeftPanel();
         else
             showLeftPanel();
+
+        return this;
+    }
+
+    public Layout setLeftPanelSize(LeftPanelSize leftPanelSize) {
+        DominoElement.of(document.body).style().remove(this.leftPanelSize.getSize());
+        this.leftPanelSize = leftPanelSize;
+        DominoElement.of(document.body).style().add(this.leftPanelSize.getSize());
+        return this;
     }
 
     public Layout showLeftPanel() {
@@ -261,6 +277,9 @@ public class Layout {
             getLeftPanel().style().remove(SLIDE_OUT_LEFT);
             leftPanelVisible = true;
             showOverlay();
+            DominoElement.of(document.body)
+                    .styler(style -> style.add("panel-open"));
+
         }
 
         return this;
@@ -271,6 +290,8 @@ public class Layout {
             getLeftPanel().style().add(SLIDE_OUT_LEFT);
             leftPanelVisible = false;
             hideOverlay();
+            DominoElement.of(document.body)
+                    .styler(style -> style.remove("panel-open"));
         }
 
         return this;
@@ -346,6 +367,8 @@ public class Layout {
             if (bodyStyle().contains("ls-closed"))
                 bodyStyle().remove("ls-closed");
             this.fixedLeftPanel = true;
+            DominoElement.body()
+                    .style().add("l-fixed");
         }
         return this;
     }
@@ -355,6 +378,8 @@ public class Layout {
             if (!bodyStyle().contains("ls-closed"))
                 bodyStyle().add("ls-closed");
             this.fixedLeftPanel = false;
+            DominoElement.body()
+                    .style().remove("l-fixed");
         }
         return this;
     }
@@ -505,6 +530,22 @@ public class Layout {
     private void updateContentMargin() {
         double margin = navigationBar.getBoundingClientRect().height + 30;
         content.style().setMarginTop(margin + "px");
+    }
+
+    public enum LeftPanelSize{
+        SMALL("sm"),
+        DEFAULT("md"),
+        LARGE("lg");
+
+        private String size;
+
+        LeftPanelSize(String size) {
+            this.size = size;
+        }
+
+        public String getSize() {
+            return size;
+        }
     }
 
     @FunctionalInterface
