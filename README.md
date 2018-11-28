@@ -99,20 +99,22 @@ Add the following css files to your index page:
 - [x] Advanced Select
 - [ ] Multi-Select
 - [x] Tag field
-- [ ] Spinners
+- [x] Spinners
 - [ ] Field masking
 - [x] Simple grids - Table based -
 - [x] Form wizards / Steppers
 - [x] Carousel
 - [x] Sliders
+- [x] Chips
+- [x] Tree
 
 ### Third Party libs and tools integration
 
 - [ ] make sure that domino-ui can be used with other third party tools and libs, this might indicate a standarized API and split between the builders and actual element class.
 
 Sample of third party tools and frameworks:
-- Editors framework.
-- UI Binder
+- [x] Editors framework.
+- [ ] UI Binder
 
 ### Restructure CSS and Theming
 
