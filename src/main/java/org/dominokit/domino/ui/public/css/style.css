@@ -191,39 +191,39 @@ body.modal-open {
 
 @media only screen and (min-width: 601px) {
     .sidebar.slide-out-left{
-        left: -20%;
+        left: -25%;
     }
 
     .right-sidebar.slide-out-right{
-        right: -20%;
+        right: -25%;
     }
 }
 
-.panel-open.fixed .content{
+.panel-open.md.l-fixed .content{
     margin-left: 315px;
 }
 
-.panel-open .sidebar{
+.md .sidebar{
     width: 300px;
 }
 
-.panel-open.fixed.sm .content{
+.panel-open.sm.l-fixed .content{
     margin-left: 115px;
 }
 
-.panel-open.sm .sidebar{
+.sm .sidebar{
     width: 100px;
 }
 
-.panel-open.fixed.lg .content{
+.panel-open.lg.l-fixed .content{
     margin-left: 415px;
 }
 
-.panel-open.lg .sidebar{
+.lg .sidebar{
     width: 400px;
 }
 
-.sidebar.slide-in-left.sm{
+.sidebar.slide-in-left{
     width: 0px;
 }
 
@@ -6134,7 +6134,6 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     transition: left 0.5s;
     font-family: "Roboto", sans-serif;
     background: #fdfdfd;
-    width: 300px;
     display: inline-block;
     height: calc(100vh - 70px);
     position: fixed;
