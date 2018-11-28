@@ -3109,22 +3109,31 @@ input[type=range] + .thumb.active .value {
     vertical-align: baseline !important;
 }
 
-.info-box .content {
+.info-box .info-content {
     display: inline-block;
     padding: 7px 10px;
 }
 
-.info-box .content .text {
+.info-box .info-content .text {
     font-size: 13px;
     margin-top: 11px;
+}
+
+.info-box:not([class*="bg-"]) .info-content .text,
+.info-box:not([class*="bg-"]) .info-content .number,
+.info-box-2:not([class*="bg-"]) .info-content .text,
+.info-box-2:not([class*="bg-"]) .info-content .number,
+.info-box-3:not([class*="bg-"]) .info-content .text,
+.info-box-3:not([class*="bg-"]) .info-content .number,
+.info-box-4:not([class*="bg-"]) .info-content .text,
+.info-box-4:not([class*="bg-"]) .info-content .number{
     color: #555;
 }
 
-.info-box .content .number {
+.info-box .info-content .number {
     font-weight: normal;
     font-size: 26px;
     margin-top: -4px;
-    color: #555;
 }
 
 .info-box.hover-zoom-effect .icon {
@@ -3219,22 +3228,20 @@ input[type=range] + .thumb.active .value {
     vertical-align: baseline !important;
 }
 
-.info-box-2 .content {
+.info-box-2 .info-content {
     display: inline-block;
     padding: 7px 10px;
 }
 
-.info-box-2 .content .text {
+.info-box-2 .info-content .text {
     font-size: 13px;
     margin-top: 11px;
-    color: #555;
 }
 
-.info-box-2 .content .number {
+.info-box-2 .info-content .number {
     font-weight: normal;
     font-size: 26px;
     margin-top: -4px;
-    color: #555;
 }
 
 .info-box-2.hover-zoom-effect .icon {
@@ -3333,22 +3340,20 @@ input[type=range] + .thumb.active .value {
     vertical-align: baseline !important;
 }
 
-.info-box-3 .content {
+.info-box-3 .info-content {
     display: inline-block;
     padding: 7px 16px;
 }
 
-.info-box-3 .content .text {
+.info-box-3 .info-content .text {
     font-size: 13px;
     margin-top: 11px;
-    color: #555;
 }
 
-.info-box-3 .content .number {
+.info-box-3 .info-content .number {
     font-weight: normal;
     font-size: 26px;
     margin-top: -4px;
-    color: #555;
 }
 
 .info-box-3.hover-zoom-effect .icon i,
@@ -3441,22 +3446,20 @@ input[type=range] + .thumb.active .value {
     vertical-align: baseline !important;
 }
 
-.info-box-4 .content {
+.info-box-4 .info-content {
     display: inline-block;
     padding: 7px 16px;
 }
 
-.info-box-4 .content .text {
+.info-box-4 .info-content .text {
     font-size: 13px;
     margin-top: 11px;
-    color: #555;
 }
 
-.info-box-4 .content .number {
+.info-box-4 .info-content .number {
     font-weight: normal;
     font-size: 26px;
     margin-top: -4px;
-    color: #555;
 }
 
 .info-box-4.hover-zoom-effect .icon i,
@@ -6257,8 +6260,16 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     font-weight: bold;
 }
 
-.menu .list .header {
+.menu[class*="bg-"] .list li.active > :first-child span,
+.menu[class*="bg-"] .list li.active > :first-child i {
+    opacity: 0.7;
+}
+
+.menu:not([class*="bg-"]) .list .header {
     background: #eee;
+}
+
+.menu .list .header {
     font-size: 12px;
     font-weight: 600;
     padding: 8px 16px;
@@ -6318,8 +6329,11 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     transform: scale(1);
 }
 
-.menu .list a {
+.menu:not([class*="bg-"]) .list a {
     color: #747474;
+}
+
+.menu .list a {
     position: relative;
     display: inline-flex;
     vertical-align: middle;
@@ -6337,12 +6351,23 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     right: 15px;
 }
 
+.menu:not([class*="bg-"]) .list a .title {
+    color: #333;
+}
+
 .menu .list a .title {
     margin: 2px 0px 0px 12px;
-    color: #333;
     font-weight: bold;
     font-size: 14px;
     overflow: hidden;
+}
+
+.menu[class*="bg-"] .list li a:hover {
+    opacity: 0.7;
+}
+
+.menu[class*="bg-"] .list li a:hover i{
+    opacity: 0.7;
 }
 
 .menu .tree-leaf a .title {
@@ -6373,12 +6398,15 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     padding-left: 95px;
 }
 
-.menu .separator a {
-    border-bottom: 1px solid #cccccc;
+.menu .gap{
     width: 100%;
     margin-top: 5px;
     margin-bottom: 5px;
     padding: 0px;
+}
+
+.menu .separator a {
+    border-bottom: 1px solid #cccccc;
 }
 
 .right-sidebar {
