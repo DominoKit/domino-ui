@@ -5,6 +5,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.search.Search;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
+import static org.jboss.gwt.elemento.core.Elements.col;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
 @Templated
@@ -39,6 +41,7 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     private boolean autoCollapse = true;
     private List<TreeItem> subItems = new ArrayList<>();
     private boolean autoExpandFound;
+    private ColorScheme colorScheme;
 
     @PostConstruct
     void init(){
@@ -74,9 +77,32 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     }
 
     public Tree addSeparator() {
-        root.appendChild(li().css("separator")
+        root.appendChild(li()
+                .css("gap")
+                .css("separator")
                 .add(a())
                 .asElement());
+        return this;
+    }
+
+    public Tree addGap() {
+        root.appendChild(li()
+                .css("gap")
+                .add(a())
+                .asElement());
+        return this;
+    }
+
+    public Tree setColorScheme(ColorScheme colorScheme){
+        if(nonNull(this.colorScheme)){
+            style.remove(colorScheme.color().getBackground());
+            DominoElement.of(header).style().remove(this.colorScheme.darker_3().getBackground());
+        }
+        this.colorScheme = colorScheme;
+
+        style.add(colorScheme.color().getBackground());
+        DominoElement.of(header).style().add(this.colorScheme.darker_3().getBackground());
+
         return this;
     }
 
@@ -132,8 +158,7 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
                 .setMarginTop("0px")
                 .add(Styles.pull_right)
                 .setProperty("cursor", "pointer")
-                .get()
-                .setColor(Color.GREY);
+                .get();
 
         this.header.appendChild(search.asElement());
         this.header.appendChild(searchIcon.asElement());
@@ -149,8 +174,7 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
                 .setMarginTop("0px")
                 .add(Styles.pull_right)
                 .setProperty("cursor", "pointer")
-                .get()
-                .setColor(Color.GREY);
+                .get();
 
         collapseAll.asElement().addEventListener("click", evt -> collapseAll());
 
@@ -161,8 +185,7 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
                 .setMarginTop("0px")
                 .add(Styles.pull_right)
                 .setProperty("cursor", "pointer")
-                .get()
-                .setColor(Color.GREY);
+                .get();
 
         expandAll.asElement().addEventListener("click", evt -> expandAll());
 

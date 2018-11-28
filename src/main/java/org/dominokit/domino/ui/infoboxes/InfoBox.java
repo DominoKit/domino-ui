@@ -33,6 +33,7 @@ public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
     }
 
     public enum Flip {
+
         RIGHT("info-box-3"),
         LEFT("info-box");
 
