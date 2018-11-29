@@ -28,6 +28,7 @@ public class ColumnConfig<T> {
     private String width;
     private boolean fixed = false;
     private Node tooltipNode;
+    private boolean showTooltip = true;
 
     public static <T> ColumnConfig<T> create(String name) {
         return new ColumnConfig<>(name);
@@ -181,6 +182,11 @@ public class ColumnConfig<T> {
         return this;
     }
 
+    public ColumnConfig<T> setShowTooltip(boolean showTooltip) {
+        this.showTooltip = showTooltip;
+        return this;
+    }
+
 
     void applyHeaderStyle() {
         headerStyler.styleCell(headElement);
@@ -196,6 +202,10 @@ public class ColumnConfig<T> {
 
     public CellStyler<T> getCellStyler() {
         return cellStyler;
+    }
+
+    public boolean isShowTooltip() {
+        return showTooltip;
     }
 
     @FunctionalInterface

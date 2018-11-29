@@ -43,7 +43,9 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
                 fixElementWidth(columnConfig, th.asElement());
             }
 
-            Tooltip.create(th.asElement(), columnConfig.getTooltipNode());
+            if (columnConfig.isShowTooltip()) {
+                Tooltip.create(th.asElement(), columnConfig.getTooltipNode());
+            }
             columnConfig.applyHeaderStyle();
 
             plugins.forEach(plugin -> plugin.onHeaderAdded(dataTable, columnConfig));
