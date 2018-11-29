@@ -20,6 +20,7 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu> {
 
+    private boolean shouldRemove;
     private MenuNavigation<DropdownAction, HTMLElement> menuNavigation;
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("dropdown"));
     private DominoElement<HTMLUListElement> menuElement = DominoElement.of(ul().css("dropdown-menu"));
@@ -147,7 +148,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         element.addEventListener("keydown", menuNavigation);
     }
 
-    public void closeAllMenus() {
+    public static void closeAllMenus() {
         NodeList<Element> elementsByName = document.body.querySelectorAll(".dropdown");
         for (int i = 0; i < elementsByName.length; i++) {
             HTMLElement item = Js.uncheckedCast(elementsByName.item(i));
@@ -155,7 +156,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         }
     }
 
-    private void close(HTMLElement item) {
+    private static void close(HTMLElement item) {
         item.remove();
     }
 
