@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.modals;
 
+import elemental2.dom.Event;
 import elemental2.dom.HTMLDivElement;
 import jsinterop.base.Js;
 import org.jboss.gwt.elemento.core.Elements;
@@ -9,8 +10,8 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 public class ModalBackDrop {
-    static Deque<BaseModal> openedModals = new LinkedList<>();
-    static final HTMLDivElement INSTANCE = Elements.div().css("modal-backdrop fade in")
+    public static Deque<BaseModal> openedModals = new LinkedList<>();
+    public static final HTMLDivElement INSTANCE = Elements.div().css("modal-backdrop fade in")
             .on(EventType.click, event -> {
                 if (ModalBackDrop.INSTANCE.isEqualNode(Js.uncheckedCast(event.target))) {
                     closeCurrentOpen();
@@ -21,7 +22,7 @@ public class ModalBackDrop {
                     closeCurrentOpen();
                 }
             })
-            .on(EventType.scroll, event -> event.stopPropagation())
+            .on(EventType.scroll, Event::stopPropagation)
             .asElement();
 
     private static void closeCurrentOpen() {
