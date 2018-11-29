@@ -8222,6 +8222,11 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 }
 
 /* ================ vertical tabs =========================== */
+.vtabs-panel .tabs,
+.vtabs-panel .tabs-container,
+.vtabs-panel .tabs-content {
+    height: 100%;
+}
 
 .vtabs {
     position: relative;
@@ -8232,6 +8237,7 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 .vtabs .list {
     list-style: none;
     padding-left: 0;
+
 }
 
 .vtabs .list li{
