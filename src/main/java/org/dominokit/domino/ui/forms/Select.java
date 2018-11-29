@@ -648,4 +648,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     public int getSelectedIndex() {
         return options.indexOf(getSelectedOption());
     }
+
+    public static void closeAllSelects() {
+        DropDownMenu.closeAllMenus();
+    }
 }
