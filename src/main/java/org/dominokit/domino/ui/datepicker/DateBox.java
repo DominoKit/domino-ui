@@ -6,12 +6,12 @@ import elemental2.dom.HTMLInputElement;
 import elemental2.dom.KeyboardEvent;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.ValueBox;
+import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.EventType;
@@ -70,6 +70,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             setStringValue(date, dateTimeFormatInfo);
             changeLabelFloating();
             autoValidate();
+            callChangeHandlers();
         });
         this.modalListener = evt -> modal.open();
         ElementUtil.onDetach(asElement(), mutationRecord -> removeBox());
@@ -361,7 +362,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     @Override
     public String getStringValue() {
-        if(nonNull(value)) {
+        if (nonNull(value)) {
             return Formatter.getFormat(this.pattern, datePicker.getDateTimeFormatInfo()).format(value);
         }
         return null;
