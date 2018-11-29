@@ -179,24 +179,21 @@ body.modal-open {
     border-radius: 3px;
 }
 
-@media only screen and (max-width: 600px) {
-    .sidebar.slide-out-left{
-        left: -120%;
-    }
 
-    .right-sidebar.slide-out-right{
-        right: -120%;
-    }
+.sm .sidebar.slide-out-left{
+    left: -100px;
 }
 
-@media only screen and (min-width: 601px) {
-    .sidebar.slide-out-left{
-        left: -25%;
-    }
+.md .sidebar.slide-out-left{
+    left: -300px;
+}
 
-    .right-sidebar.slide-out-right{
-        right: -25%;
-    }
+.lg .sidebar.slide-out-left{
+    left: -400px;
+}
+
+.right-sidebar.slide-out-right{
+    right: -300px;
 }
 
 .panel-open.md.l-fixed .content{
