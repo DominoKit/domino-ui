@@ -115,6 +115,18 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
+    public T css(String cssClass){
+        style.add(cssClass);
+        return element;
+    }
+
+    @Editor.Ignore
+    public T css(String... cssClasses){
+        style.add(cssClasses);
+        return element;
+    }
+
+    @Editor.Ignore
     public HtmlComponentBuilder<E, T> builder() {
         return ElementUtil.componentBuilder(element);
     }
