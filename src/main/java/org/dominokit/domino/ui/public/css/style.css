@@ -8222,9 +8222,10 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 }
 
 /* ================ vertical tabs =========================== */
-.vtabs-panel .tabs,
-.vtabs-panel .tabs-container,
-.vtabs-panel .tabs-content {
+.vtabs-panel .tabs {
+    height: 100%;
+}
+.vtabs-panel .tabs-container{
     height: 100%;
 }
 

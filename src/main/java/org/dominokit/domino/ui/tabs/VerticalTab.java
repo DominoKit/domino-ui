@@ -37,10 +37,8 @@ public class VerticalTab extends WavesElement<HTMLLIElement, VerticalTab> implem
 
     public VerticalTab(String title) {
         this.title = title;
-        this.icon = Style.of(Icons.ALL.folder()).get();
         this.titleElement = span().css("title").textContent(title).asElement();
         this.anchorElement = a()
-                .add(this.icon)
                 .add(div().style("margin-top: 2px;").add(titleElement)).asElement();
         init();
     }
