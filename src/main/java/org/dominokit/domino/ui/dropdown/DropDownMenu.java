@@ -13,19 +13,18 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu> {
 
-    private boolean shouldRemove;
     private MenuNavigation<DropdownAction, HTMLElement> menuNavigation;
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("dropdown"));
     private DominoElement<HTMLUListElement> menuElement = DominoElement.of(ul().css("dropdown-menu"));
     private HTMLElement targetElement;
     private DropDownPosition position = DropDownPosition.BOTTOM;
+    private DominoElement<HTMLDivElement> titleContainer = DominoElement.of(div()).addCss("dropdown-title-container");
     private DominoElement<HTMLDivElement> searchContainer = DominoElement.of(div().css("dropdown-search-container"));
     private DominoElement<HTMLInputElement> searchBox = DominoElement.of(input("text")
             .css("dropdown-search-box"));
@@ -88,6 +87,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
         setNoSearchResultsElement(li().css("no-results").style("display: none;").asElement());
         menuElement.appendChild(noSearchResultsElement);
+
+        titleContainer.addClickListener(Event::stopPropagation);
     }
 
     private int firstVisibleActionIndex() {
@@ -210,12 +211,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     public void clearSearch() {
         searchBox.asElement().value = "";
         noSearchResultsElement.collapse();
-        actions.forEach(new Consumer<DropdownAction>() {
-            @Override
-            public void accept(DropdownAction dropdownAction) {
-                dropdownAction.expand();
-            }
-        });
+        actions.forEach(DropdownAction::expand);
     }
 
     public boolean isOpened() {
@@ -277,6 +273,13 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         groups.add(group);
         menuElement.appendChild(group.asElement());
         group.addActionsTo(this);
+        return this;
+    }
+
+    public DropDownMenu setTitle(String title) {
+        if (!element.contains(titleContainer)) {
+            element.insertFirst(titleContainer.appendChild(h(5).textContent(title)));
+        }
         return this;
     }
 

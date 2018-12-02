@@ -5934,6 +5934,11 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     border-radius: 2px;
 }
 
+.dropdown-title-container {
+    padding: 4px 8px;
+    border-bottom: 1px solid #ddd;
+}
+
 .dropdown-search-container {
     padding: 4px 8px;
     border-bottom: 1px solid #ddd;
