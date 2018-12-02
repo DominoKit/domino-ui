@@ -61,7 +61,7 @@ final class BodyObserver {
     }
 
     private static void onElementsRemoved(MutationRecord record) {
-        List<Node> nodes = record.addedNodes.asList();
+        List<Node> nodes = record.removedNodes.asList();
         List<ElementObserver> observed = new ArrayList<>();
         for (ElementObserver elementObserver : detachObservers) {
             if (isNull(elementObserver.observedElement())) {

@@ -23,7 +23,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, VerticalTabsPanel> {
 
     private final VTabsContainer tabsList = VTabsContainer.create();
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div());
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("vtabs-panel"));
     private HTMLElement tabsContent = div().css("tab-content").asElement();
     private VerticalTab activeTab;
     private Color tabsColor;
@@ -38,10 +38,13 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
     public VerticalTabsPanel() {
 
         element.appendChild(FlexLayout.create()
+                .styler(style -> style.add("tabs-container"))
                 .appendChild(FlexItem.create()
+                        .styler(style -> style.add("tabs"))
                         .appendChild(tabsList))
                 .appendChild(FlexItem.create()
-                        .styler(style -> style.setPaddingLeft(px.of(10))
+                        .styler(style -> style
+                                .add("tabs-content")
                                 .setProperty("border-left", "1px solid #cecece")
                         )
                         .setFlexGrow(1)
