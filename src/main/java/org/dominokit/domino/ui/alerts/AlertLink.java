@@ -11,7 +11,7 @@ public class AlertLink extends BaseDominoElement<HTMLAnchorElement, AlertLink> {
     public AlertLink(HTMLAnchorElement element) {
         this.element = element;
         init(this);
-        style().add(Styles.alert_link);
+        style().add(AlertStyles.ALERT_LINK);
     }
 
     public static AlertLink create(HTMLAnchorElement element){

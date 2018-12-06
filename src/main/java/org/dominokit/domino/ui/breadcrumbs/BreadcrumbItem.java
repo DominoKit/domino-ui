@@ -51,7 +51,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
 
     public BreadcrumbItem activate() {
         if (!active) {
-            element.style().add("active");
+            element.style().add(BreadcrumbStyles.ACTIVE);
             textElement.remove();
             anchorElement.remove();
             if (nonNull(icon)) {
@@ -67,7 +67,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
 
     public BreadcrumbItem deActivate() {
         if (active) {
-            element.style().remove("active");
+            element.style().remove(BreadcrumbStyles.ACTIVE);
             textElement.remove();
             if (nonNull(icon)) {
                 icon.remove();
