@@ -3,6 +3,8 @@ package org.dominokit.domino.ui.tree;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.WaveColor;
 import org.dominokit.domino.ui.style.WaveStyle;
@@ -47,11 +49,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     }
 
     public TreeItem(String title) {
-        this.title = title;
-        this.titleElement = span().css("title").textContent(title).asElement();
-        this.anchorElement = DominoElement.of(a()
-                .add(div().style("margin-top: 2px;").add(titleElement)));
-        init();
+        this(title, Icons.ALL.folder().styler(style-> style.setProperty("visibility", "hidden")));
     }
 
     public TreeItem(BaseIcon<?> icon) {
@@ -200,10 +198,10 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
 
     private void replaceIcon(BaseIcon<?> newIcon) {
         if (nonNull(newIcon)) {
-            anchorElement.insertFirst(newIcon);
             if (nonNull(icon)) {
                 icon.remove();
             }
+            anchorElement.insertFirst(newIcon);
             this.icon = newIcon;
         }
     }
@@ -247,6 +245,9 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     public TreeItem setIcon(BaseIcon<?> icon) {
         this.icon = icon;
         this.originalIcon = icon.copy();
+        if(icon.asElement().style.visibility.equals("hidden")){
+            this.originalIcon.styler(style -> style.setProperty("visibility", "hidden"));
+        }
         return this;
     }
 
