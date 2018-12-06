@@ -16,7 +16,7 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionPanel> implements IsCollapsible<AccordionPanel> {
 
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("panel panel-primary"));
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("panel"));
     private DominoElement<HTMLDivElement> headerElement = DominoElement.of(div().css("panel-heading").attr("role", "tab"));
     private DominoElement<HTMLHeadingElement> headingElement = DominoElement.of(h(4).css("panel-title"));
     private DominoElement<HTMLAnchorElement> clickableElement = DominoElement.of(a().attr("role", "button"));
@@ -42,6 +42,10 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
 
     public static AccordionPanel create(String title, Node content) {
         return new AccordionPanel(title, content);
+    }
+
+    public static AccordionPanel create(String title, IsElement content) {
+        return new AccordionPanel(title, content.asElement());
     }
 
     private void init() {
@@ -139,5 +143,21 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     @Override
     public HTMLDivElement getCollapsibleElement() {
         return collapsibleElement.asElement();
+    }
+
+    public DominoElement<HTMLDivElement> getHeaderElement() {
+        return headerElement;
+    }
+
+    public DominoElement<HTMLHeadingElement> getHeadingElement() {
+        return headingElement;
+    }
+
+    public DominoElement<HTMLDivElement> getBodyElement() {
+        return bodyElement;
+    }
+
+    public BaseIcon<?> getPanelIcon() {
+        return panelIcon;
     }
 }
