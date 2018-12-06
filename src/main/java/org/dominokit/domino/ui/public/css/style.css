@@ -2857,10 +2857,6 @@ input[type=range] + .thumb.active .value {
     color: #202020;
 }
 
-.badge:not([class*="bg-"]) {
-    background-color: #fff;
-    color: #555;
-}
 
 .card .header {
     color: #555;
@@ -4457,61 +4453,6 @@ fieldset[disabled] .form-control {
     border: 2px dashed #888 !important;
 }
 
-/* Breadcrumbs ================================= */
-.breadcrumb {
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    border-radius: 0;
-    background-color: transparent;
-    font-size: 13px;
-    margin-bottom: 10px;
-}
-
-.breadcrumb li a {
-    color: #444;
-    text-decoration: none;
-}
-
-.breadcrumb[class*="bg-"]:not([class*="bg-white"]) li + li:before {
-    color: #FFF;
-}
-
-.breadcrumb[class*="bg-"]:not([class*="bg-white"]) li {
-    color: #FFF;
-}
-
-.breadcrumb[class*="bg-"]:not([class*="bg-white"]) li a {
-    color: #FFF;
-    font-weight: bold;
-}
-
-.breadcrumb[class*="bg-"]:not([class*="bg-white"]) li a .material-icons {
-    color: #FFF;
-    padding-bottom: 8px;
-}
-
-.breadcrumb[class*="col-"]:not([class*="col-white"]) li a {
-    font-weight: bold;
-}
-
-.breadcrumb li a .material-icons {
-    font-size: 18px;
-    position: relative;
-    top: 4px;
-}
-
-.breadcrumb li .material-icons {
-    font-size: 18px;
-    position: relative;
-    top: 4px;
-    width: 18px;
-}
-
-.breadcrumb > li + li:before {
-    content: '>\00a0';
-}
-
 /* =============  end breadcrumb ================== */
 a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-danger"]):not([class*="-warning"]):not([class*="-info"]):not([class*="active"]) {
     color: #555;
@@ -4532,15 +4473,6 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
 }
 
 /* Badge | List Group Item ===================== */
-.badge {
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    border-radius: 2px;
-    -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
-}
-
 .list-group-item {
     padding-left: 30px;
     -webkit-border-radius: 0;
