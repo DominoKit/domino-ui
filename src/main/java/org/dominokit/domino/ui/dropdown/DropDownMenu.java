@@ -231,6 +231,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     public DropDownMenu clearActions() {
         menuElement.clearElement();
         actions.clear();
+        groups.clear();
         return this;
     }
 

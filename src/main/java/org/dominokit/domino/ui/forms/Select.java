@@ -470,10 +470,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     public Select<T> removeAllOptions() {
-        if (nonNull(options) && !options.isEmpty()) {
-            options.forEach(this::removeOption);
-            options.clear();
-        }
+        options.clear();
+        optionsMenu.clearActions();
         clear();
         return this;
     }
