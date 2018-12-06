@@ -88,7 +88,11 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
 
     private void adjustHeight() {
         getInputElement().style().setHeight("auto");
-        getInputElement().style().setHeight(getInputElement().asElement().scrollHeight + "px");
+        int scrollHeight = getInputElement().asElement().scrollHeight;
+        if (scrollHeight < 34) {
+            scrollHeight = 34;
+        }
+        getInputElement().style().setHeight(scrollHeight + "px");
     }
 
     @Override
