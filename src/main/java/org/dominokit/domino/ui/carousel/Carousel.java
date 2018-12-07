@@ -4,13 +4,14 @@ import com.google.gwt.core.client.Scheduler;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLOListElement;
+import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 import org.gwtproject.timer.client.Timer;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,20 +27,19 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
     private HTMLAnchorElement prevElement = a()
             .css("left", "carousel-control")
             .attr("role", "button")
-            .add(span()
-                    .css("glyphicon", "glyphicon-chevron-left")
-                    .attr("aria-hidden", "true"))
-            .add(span().css("sr-only").textContent("Previous"))
+            .add(Icons.ALL.chevron_left()
+                    .styler(style -> style
+                            .add(Styles.vertical_center)
+                            .setFontSize("60px")))
             .asElement();
-
 
     private HTMLAnchorElement nextElement = a()
             .css("right", "carousel-control")
             .attr("role", "button")
-            .add(span()
-                    .css("glyphicon", "glyphicon-chevron-right")
-                    .attr("aria-hidden", "true"))
-            .add(span().css("sr-only").textContent("Next"))
+            .add(Icons.ALL.chevron_right()
+                    .styler(style -> style
+                            .add(Styles.vertical_center)
+                            .setFontSize("60px")))
             .asElement();
 
     private HTMLDivElement element = div()
@@ -49,7 +49,6 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
             .add(nextElement)
             .css("carousel", "slide")
             .asElement();
-
 
     private List<Slide> slides = new ArrayList<>();
     private Slide activeSlide;
@@ -63,23 +62,18 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
             resetTimer();
             nextSlide();
         });
-
         prevElement.addEventListener("click", evt -> {
             resetTimer();
             prevSlide();
         });
-
         timer = new Timer() {
             @Override
             public void run() {
                 nextSlide();
             }
         };
-
         addAttachListener();
-
         addDetachListener();
-
         init(this);
     }
 
@@ -98,7 +92,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
     private void addAttachListener() {
         ElementUtil.onAttach(this.asElement(), mutationRecord -> {
             this.attached = true;
-            if(autoSlide){
+            if (autoSlide) {
                 timer.scheduleRepeating(autoSlideDuration);
             }
 
@@ -190,7 +184,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
     }
 
     private String getPostionStyle(Slide target, String source) {
-        if ((slides.indexOf(target) > slides.indexOf(activeSlide) && !"prev".equals(source)) || ("next".equals(source) && !"".equals("source"))) {
+        if ((slides.indexOf(target) > slides.indexOf(activeSlide) && !"prev".equals(source)) || ("next".equals(source))) {
             return "next";
         } else {
             return "prev";
@@ -198,7 +192,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
     }
 
     private String getDirectionStyle(Slide target, String source) {
-        if ((slides.indexOf(target) > slides.indexOf(activeSlide) && !"prev".equals(source)) || ("next".equals(source) && !"".equals("source"))) {
+        if ((slides.indexOf(target) > slides.indexOf(activeSlide) && !"prev".equals(source)) || ("next".equals(source))) {
             return "left";
         } else {
             return "right";
@@ -225,7 +219,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
     public Carousel startAutoSlide(int slideDuration) {
         this.autoSlide = true;
         this.autoSlideDuration = slideDuration;
-        if(attached){
+        if (attached) {
             timer.scheduleRepeating(slideDuration);
         }
 
