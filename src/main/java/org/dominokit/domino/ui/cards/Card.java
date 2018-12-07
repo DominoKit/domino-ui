@@ -10,79 +10,42 @@ import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
+import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
-
-import javax.annotation.PostConstruct;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.a;
-import static org.jboss.gwt.elemento.core.Elements.li;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
-@Templated
-public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> implements HasBackground<Card>, IsElement<HTMLDivElement> {
+public class Card extends BaseDominoElement<HTMLDivElement, Card> implements HasBackground<Card> {
 
-    private Text title = DomGlobal.document.createTextNode("");
-    private Text description = DomGlobal.document.createTextNode("");
+    private DominoElement<HTMLDivElement> root = DominoElement.div().addCss("card");
+    private DominoElement<HTMLDivElement> header = DominoElement.div().addCss("header");
+    private DominoElement<HTMLHeadingElement> headerTitle = DominoElement.of(h(2));
+    private DominoElement<HTMLElement> headerDescription = DominoElement.of(small());
+    private DominoElement<HTMLUListElement> headerBar = DominoElement.of(ul()).addCss("header-actions");
+    private DominoElement<HTMLDivElement> body = DominoElement.div().addCss("body");
 
-    @DataElement
-    HTMLDivElement header;
-
-    @DataElement
-    HTMLElement headerTitle;
-
-    @DataElement
-    HTMLElement headerDescription;
-
-    @DataElement
-    HTMLUListElement headerBar;
-
-    @DataElement
-    HTMLDivElement body;
-
+    private Text title = TextNode.empty();
+    private Text description = TextNode.empty();
     private boolean collapsible = false;
     private HTMLLIElement collapseAction;
     private BaseIcon collapseIcon;
     private Collapsible bodyCollapsible;
-    private int collapseDuration = 1;
-    private boolean collapsed = false;
 
-    public static Card create() {
-        Templated_Card templated_basicCard = new Templated_Card();
-        templated_basicCard.asElement().removeChild(templated_basicCard.header);
-        return templated_basicCard;
-    }
+    public Card() {
+        headerTitle
+                .appendChild(title)
+                .appendChild(headerDescription);
 
-    public static Card create(String title) {
-        Templated_Card templated_basicCard = new Templated_Card();
-        templated_basicCard.setTitle(title);
-        return templated_basicCard;
-    }
+        header.appendChild(headerTitle)
+                .appendChild(headerBar);
 
-    public static Card create(String title, String description) {
-        Templated_Card templated_basicCard = new Templated_Card();
-        templated_basicCard.setTitle(title);
-        templated_basicCard.setDescription(description);
-        return templated_basicCard;
-    }
+        root.appendChild(header)
+                .appendChild(body);
 
-    public static Card createProfile(String name, String info) {
-        Card profileCard = Card.create(name, info);
-        profileCard.asElement().style.marginBottom = CSSProperties.MarginBottomUnionType.of(0);
-        profileCard.setBackground(Color.THEME);
-        return profileCard;
-    }
-
-    @PostConstruct
-    void init() {
-        headerTitle.insertBefore(title, headerDescription);
         headerDescription.appendChild(description);
         bodyCollapsible = Collapsible.create(body);
-        if (collapsed) {
-            bodyCollapsible.collapse();
-        }
 
         bodyCollapsible.addCollapseHandler(() -> {
             if (collapsible) {
@@ -97,6 +60,32 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
         });
 
         init(this);
+    }
+
+    public static Card create() {
+        Card card = new Card();
+        card.removeChild(card.header.asElement());
+        return card;
+    }
+
+    public static Card create(String title) {
+        Card card = new Card();
+        card.setTitle(title);
+        return card;
+    }
+
+    public static Card create(String title, String description) {
+        Card card = new Card();
+        card.setTitle(title);
+        card.setDescription(description);
+        return card;
+    }
+
+    public static Card createProfile(String name, String info) {
+        Card profileCard = Card.create(name, info);
+        profileCard.style().setMarginBottom("0px");
+        profileCard.setBackground(Color.THEME);
+        return profileCard;
     }
 
     public Card setTitle(String titleText) {
@@ -156,21 +145,13 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
         return this;
     }
 
-    public DominoElement<HTMLUListElement> getHeaderBar() {
-        return DominoElement.of(headerBar);
-    }
-
-    public DominoElement<HTMLDivElement> getBody() {
-        return DominoElement.of(body);
-    }
-
     public Card setHeaderBackground(Color background) {
-        Style.of(header).add(background.getBackground());
+        header.style().add(background.getBackground());
         return this;
     }
 
     public Card setBodyBackground(Color background) {
-        Style.of(body).add(background.getBackground());
+        body.style().add(background.getBackground());
         return this;
     }
 
@@ -187,15 +168,23 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
     }
 
     public DominoElement<HTMLDivElement> getHeader() {
-        return DominoElement.of(header);
+        return header;
     }
 
-    public DominoElement<HTMLElement> getHeaderTitle() {
-        return DominoElement.of(headerTitle);
+    public DominoElement<HTMLUListElement> getHeaderBar() {
+        return headerBar;
+    }
+
+    public DominoElement<HTMLDivElement> getBody() {
+        return body;
+    }
+
+    public DominoElement<HTMLHeadingElement> getHeaderTitle() {
+        return headerTitle;
     }
 
     public DominoElement<HTMLElement> getHeaderDescription() {
-        return DominoElement.of(headerDescription);
+        return headerDescription;
     }
 
     public static HTMLLIElement createIcon(BaseIcon<?> icon) {
@@ -268,7 +257,7 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
 
 
     public Card toggle() {
-        if (this.collapsed) {
+        if (isCollapsed()) {
             expand();
         } else {
             collapse();
@@ -281,41 +270,32 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
     }
 
     public Card setBodyPadding(String padding) {
-        Style.of(body).setPadding(padding);
+        body.style().setPadding(padding);
         return this;
     }
 
     public Card setBodyPaddingLeft(String padding) {
-        Style.of(body).setPaddingLeft(padding);
+        body.style().setPaddingLeft(padding);
         return this;
     }
 
     public Card setBodyPaddingRight(String padding) {
-        Style.of(body).setPaddingRight(padding);
+        body.style().setPaddingRight(padding);
         return this;
     }
 
     public Card setBodyPaddingTop(String padding) {
-        Style.of(body).setPaddingTop(padding);
+        body.style().setPaddingTop(padding);
         return this;
     }
 
     public Card setBodyPaddingBottom(String padding) {
-        Style.of(body).setPaddingBottom(padding);
+        body.style().setPaddingBottom(padding);
         return this;
     }
 
-    public Style<HTMLDivElement, Card> style() {
-        return Style.of(this);
-    }
-
-    public Style<HTMLDivElement, IsElement<HTMLDivElement>> bodyStyle() {
-        return Style.of(body);
-    }
-
-    public Card setCollapseDuration(int collapseDuration) {
-        this.collapseDuration = collapseDuration;
-        return this;
+    public Style<HTMLDivElement, DominoElement<HTMLDivElement>> bodyStyle() {
+        return body.style();
     }
 
     public Card clearBody() {
@@ -323,4 +303,8 @@ public abstract class Card extends BaseDominoElement<HTMLDivElement, Card> imple
         return this;
     }
 
+    @Override
+    public HTMLDivElement asElement() {
+        return root.asElement();
+    }
 }
