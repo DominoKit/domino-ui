@@ -78,7 +78,7 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
                     } else {
                         V value = store.getItemByDisplayValue(displayValue);
                         if (nonNull(value)) {
-                            addTag(displayValue, value);
+                            appendChip(displayValue, value);
                         }
                     }
                 })
@@ -114,7 +114,7 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
             dropDownMenu
                     .addAction(DropdownAction.create(displayValue, displayValue)
                             .addSelectionHandler(selectedValue -> {
-                                addTag(displayValue, value);
+                                appendChip(displayValue, value);
                                 tagTextInput.focus();
                             }));
         }
@@ -143,14 +143,18 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     protected void doSetValue(List<V> values) {
         for (V value : values) {
             String displayValue = store.getDisplayValue(value);
-            addTag(displayValue, value);
+            appendChip(displayValue, value);
         }
     }
 
-    private void addTag(String displayValue, V value) {
+    public void appendChip(String displayValue, V value) {
         Chip chip = Chip.create(displayValue)
                 .setColorScheme(colorScheme)
                 .setRemovable(true);
+        appendChip(chip, value);
+    }
+
+    public void appendChip(Chip chip, V value){
         chip.addRemoveHandler(() -> {
             selectedItems.remove(value);
             chips.remove(chip);
