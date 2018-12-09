@@ -12,6 +12,8 @@ import org.dominokit.domino.ui.utils.ScreenMedia;
 import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.gwt.elemento.core.IsElement;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 import static elemental2.dom.DomGlobal.document;
@@ -51,6 +53,8 @@ public class Layout {
 
     private LayoutHandler removeHandler = layout -> {
     };
+
+    private List<Consumer<Boolean>> leftPanelHandlers = new ArrayList<>();
 
     public Layout() {
     }
@@ -279,7 +283,7 @@ public class Layout {
             showOverlay();
             DominoElement.of(document.body)
                     .styler(style -> style.add("panel-open"));
-
+            leftPanelHandlers.forEach(handler -> handler.accept(true));
         }
 
         return this;
@@ -292,6 +296,7 @@ public class Layout {
             hideOverlay();
             DominoElement.of(document.body)
                     .styler(style -> style.remove("panel-open"));
+            leftPanelHandlers.forEach(handler -> handler.accept(false));
         }
 
         return this;
@@ -524,6 +529,16 @@ public class Layout {
             }
         });
 
+        return this;
+    }
+
+    public Layout onLeftPanelStateChanged(Consumer<Boolean> leftPanelHandler){
+        leftPanelHandlers.add(leftPanelHandler);
+        return this;
+    }
+
+    public Layout removeLeftPanelHandler(Consumer<Boolean> leftPanelHandler){
+        leftPanelHandlers.remove(leftPanelHandler);
         return this;
     }
 
