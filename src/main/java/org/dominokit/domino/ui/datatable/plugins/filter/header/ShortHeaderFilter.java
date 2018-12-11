@@ -7,9 +7,19 @@ import org.dominokit.domino.ui.forms.ShortBox;
 public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T> {
 
     private ShortBox shortBox;
+    public ShortHeaderFilter() {
+    }
+
+    public ShortHeaderFilter(String placeholder) {
+        super(placeholder);
+    }
 
     public static <T> ShortHeaderFilter<T> create() {
         return new ShortHeaderFilter<>();
+    }
+
+    public static <T> ShortHeaderFilter<T> create(String placeholder) {
+        return new ShortHeaderFilter<>(placeholder);
     }
 
     @Override

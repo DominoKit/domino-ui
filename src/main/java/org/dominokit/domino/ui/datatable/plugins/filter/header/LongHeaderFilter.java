@@ -8,8 +8,19 @@ public class LongHeaderFilter<T> extends DelayedHeaderFilterInput<LongBox, T> {
 
     private LongBox longBox;
 
+    public LongHeaderFilter() {
+    }
+
+    public LongHeaderFilter(String placeholder) {
+        super(placeholder);
+    }
+
     public static <T> LongHeaderFilter<T> create() {
         return new LongHeaderFilter<>();
+    }
+
+    public static <T> LongHeaderFilter<T> create(String placeholder) {
+        return new LongHeaderFilter<>(placeholder);
     }
 
     @Override
