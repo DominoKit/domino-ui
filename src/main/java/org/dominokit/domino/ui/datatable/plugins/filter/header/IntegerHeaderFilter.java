@@ -8,8 +8,19 @@ public class IntegerHeaderFilter<T> extends DelayedHeaderFilterInput<IntegerBox,
 
     private IntegerBox integerBox;
 
+    public IntegerHeaderFilter() {
+    }
+
+    public IntegerHeaderFilter(String placeholder) {
+        super(placeholder);
+    }
+
     public static <T> IntegerHeaderFilter<T> create() {
         return new IntegerHeaderFilter<>();
+    }
+
+    public static <T> IntegerHeaderFilter<T> create(String placeholder) {
+        return new IntegerHeaderFilter<>(placeholder);
     }
 
     @Override

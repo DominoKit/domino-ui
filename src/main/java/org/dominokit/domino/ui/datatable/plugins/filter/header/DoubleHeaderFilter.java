@@ -8,8 +8,19 @@ public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<DoubleBox, T
 
     private DoubleBox doubleBox;
 
+    public DoubleHeaderFilter() {
+    }
+
+    public DoubleHeaderFilter(String placeholder) {
+        super(placeholder);
+    }
+
     public static <T> DoubleHeaderFilter<T> create() {
         return new DoubleHeaderFilter<>();
+    }
+
+    public static <T> DoubleHeaderFilter<T> create(String placeholder) {
+        return new DoubleHeaderFilter<>(placeholder);
     }
 
     @Override

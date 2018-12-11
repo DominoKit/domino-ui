@@ -81,51 +81,82 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     }
 
     public static class CondenseTableAction<T> implements HeaderActionElement<T> {
+        private String condenseToolTip = "Condense";
+        private String expandToolTip = "Expand";
+
         @Override
         public Node asElement(DataTable<T> dataTable) {
             Icon condenseIcon= Icons.ALL.line_weight()
                     .clickable()
-                    .setTooltip("Condense")
+                    .setTooltip(condenseToolTip)
                     .setToggleIcon(Icons.ALL.format_line_spacing())
                     .toggleOnClick(true)
                     .apply(icon -> icon.addClickListener(evt -> {
                         if (dataTable.isCondensed()) {
                             dataTable.expand();
-                            icon.setTooltip("Condense");
+                            icon.setTooltip(condenseToolTip);
                         } else {
                             dataTable.condense();
-                            icon.setTooltip("Expand");
+                            icon.setTooltip(expandToolTip);
                         }
                     }));
 
 
             return a().add(condenseIcon).asElement();
         }
+
+        public CondenseTableAction<T> setCondenseToolTip(String condenseToolTip) {
+            this.condenseToolTip = condenseToolTip;
+            return this;
+        }
+
+        public CondenseTableAction<T> setExpandToolTip(String expandToolTip) {
+            this.expandToolTip = expandToolTip;
+            return this;
+        }
     }
 
     public static class StripesTableAction<T> implements HeaderActionElement<T> {
+
+        private String noStripsToolTip = "No stripes";
+        private String stripsToolTip = "Stripes";
+
         @Override
         public Node asElement(DataTable<T> dataTable) {
             Icon stripesIcon= Icons.ALL.format_line_spacing()
                     .clickable()
                     .setToggleIcon(Icons.ALL.power_input())
-                    .setTooltip("No Stripes")
+                    .setTooltip(noStripsToolTip)
                     .toggleOnClick(true)
                     .apply(icon -> icon.addClickListener(evt -> {
                         if (dataTable.isStriped()) {
                             dataTable.noStripes();
-                            icon.setTooltip("Stripped");
+                            icon.setTooltip(stripsToolTip);
                         } else {
                             dataTable.striped();
-                            icon.setTooltip("No Stripes");
+                            icon.setTooltip(noStripsToolTip);
                         }
                     }));
 
             return a().add(stripesIcon).asElement();
         }
+
+        public StripesTableAction<T> setNoStripsToolTip(String noStripsToolTip) {
+            this.noStripsToolTip = noStripsToolTip;
+            return this;
+        }
+
+        public StripesTableAction<T> setStripsToolTip(String stripsToolTip) {
+            this.stripsToolTip = stripsToolTip;
+            return this;
+        }
     }
 
     public static class BordersTableAction<T> implements HeaderActionElement<T> {
+
+        private String borderedToolTip = "Bordered";
+        private String noBprdersToolTip = "No borders";
+
         @Override
         public Node asElement(DataTable<T> dataTable) {
 
@@ -133,22 +164,36 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                     .clickable()
                     .setToggleIcon(Icons.ALL.border_clear())
                     .toggleOnClick(true)
-                    .setTooltip("Bordered")
+                    .setTooltip(borderedToolTip)
                     .apply(icon -> icon.addClickListener(evt -> {
                         if (dataTable.isBordered()) {
                             dataTable.noBorder();
-                            icon.setTooltip("Bordered");
+                            icon.setTooltip(borderedToolTip);
                         } else {
                             dataTable.bordered();
-                            icon.setTooltip("No Borders");
+                            icon.setTooltip(noBprdersToolTip);
                         }
                     }));
 
             return a().add(bordersIcon).asElement();
         }
+
+        public BordersTableAction<T> setBorderedToolTip(String borderedToolTip) {
+            this.borderedToolTip = borderedToolTip;
+            return this;
+        }
+
+        public BordersTableAction<T> setNoBprdersToolTip(String noBprdersToolTip) {
+            this.noBprdersToolTip = noBprdersToolTip;
+            return this;
+        }
     }
 
     public static class HoverTableAction<T> implements HeaderActionElement<T> {
+
+        private String hoverToolTip = "Hover";
+        private String noHoverToolTip = "No Hover";
+
         @Override
         public Node asElement(DataTable<T> dataTable) {
 
@@ -156,27 +201,40 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                     .clickable()
                     .setToggleIcon(Icons.ALL.blur_on())
                     .toggleOnClick(true)
-                    .setTooltip("No Hover")
+                    .setTooltip(noHoverToolTip)
                     .apply(icon -> icon.addClickListener(evt -> {
                         if (dataTable.isHoverable()) {
                             dataTable.noHover();
-                            icon.setTooltip("Hover");
+                            icon.setTooltip(hoverToolTip);
                         } else {
                             dataTable.hovered();
-                            icon.setTooltip("No Hover");
+                            icon.setTooltip(noHoverToolTip);
                         }
                     }));
 
             return a().add(hoverIcon).asElement();
         }
+
+        public HoverTableAction<T> setHoverToolTip(String hoverToolTip) {
+            this.hoverToolTip = hoverToolTip;
+            return this;
+        }
+
+        public HoverTableAction<T> setNoHoverToolTip(String noHoverToolTip) {
+            this.noHoverToolTip = noHoverToolTip;
+            return this;
+        }
     }
 
     public static class ClearSearch<T> implements HeaderActionElement<T> {
+
+        private String clearFiltersToolTip = "Clear filters";
+
         @Override
         public Node asElement(DataTable<T> dataTable) {
 
             MdiIcon clearFiltersIcon = Icons.MDI_ICONS.filter_remove_mdi()
-                    .setTooltip("Clear filters")
+                    .setTooltip(clearFiltersToolTip)
                     .size18()
                     .clickable()
                     .addClickListener(evt -> dataTable.getSearchContext()
@@ -186,9 +244,17 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
             return a()
                     .add(clearFiltersIcon).asElement();
         }
+
+        public ClearSearch<T> setClearFiltersToolTip(String clearFiltersToolTip) {
+            this.clearFiltersToolTip = clearFiltersToolTip;
+            return this;
+        }
     }
 
     public static class SearchTableAction<T> implements HeaderActionElement<T> {
+
+        private String searchToolTip = "Search";
+        private String clearSearchToolTip = "Clear search";
 
         private int autoSearchDelay = 200;
         private HTMLDivElement element = div().css("search-new").asElement();
@@ -197,27 +263,29 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
         private boolean autoSearch = true;
         private Timer autoSearchTimer;
         private EventListener autoSearchEventListener;
+        private final Icon searchIcon;
+        private final Icon clearIcon;
 
         public SearchTableAction() {
 
-            Icon searchIcon = Icons.ALL.search()
+            searchIcon = Icons.ALL.search()
                     .addClickListener(evt -> {
                         autoSearchTimer.cancel();
                         doSearch();
                     })
-                    .setTooltip("Search")
+                    .setTooltip(searchToolTip)
                     .style()
                     .setCursor("pointer")
                     .get();
 
-            Icon clearIcon = Icons.ALL.clear()
-                    .setTooltip("Clear")
+            clearIcon = Icons.ALL.clear()
+                    .setTooltip(clearSearchToolTip)
                     .style()
                     .setCursor("pointer")
                     .get();
 
             textBox = TextBox.create()
-                    .setPlaceholder("Search")
+                    .setPlaceholder(searchToolTip)
                     .setLeftAddon(searchIcon)
                     .setRightAddon(clearIcon)
                     .styler(style -> style
@@ -302,6 +370,19 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
             this.dataTable = dataTable;
             dataTable.addTableEventListner(SearchClearedEvent.SEARCH_EVENT_CLEARED, this);
             return element;
+        }
+
+        public SearchTableAction<T> setSearchToolTip(String searchToolTip) {
+            this.searchToolTip = searchToolTip;
+            searchIcon.setTooltip(searchToolTip);
+            textBox.setPlaceholder(searchToolTip);
+            return this;
+        }
+
+        public SearchTableAction<T> setClearSearchToolTip(String clearSearchToolTip) {
+            this.clearSearchToolTip = clearSearchToolTip;
+            clearIcon.setTooltip(clearSearchToolTip);
+            return this;
         }
     }
 }

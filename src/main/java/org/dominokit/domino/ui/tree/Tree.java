@@ -42,6 +42,10 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     private List<TreeItem> subItems = new ArrayList<>();
     private boolean autoExpandFound;
     private ColorScheme colorScheme;
+    private Search search;
+    private Icon searchIcon;
+    private Icon collapseAllIcon;
+    private Icon expandAllIcon;
 
     @PostConstruct
     void init(){
@@ -146,13 +150,13 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     }
 
     public Tree enableSearch() {
-        Search search = Style.of(Search.create(true))
+        search = Style.of(Search.create(true))
                 .setHeight("40px")
                 .get()
                 .onSearch(Tree.this::filter)
                 .onClose(this::clearFilter);
 
-        Icon searchIcon = Icons.ALL.search()
+        searchIcon = Icons.ALL.search()
                 .style()
                 .setMarginBottom("0px")
                 .setMarginTop("0px")
@@ -168,7 +172,7 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     }
 
     public Tree enableFolding() {
-        Icon collapseAll = Icons.ALL.fullscreen_exit()
+        collapseAllIcon = Icons.ALL.fullscreen_exit()
                 .style()
                 .setMarginBottom("0px")
                 .setMarginTop("0px")
@@ -176,10 +180,10 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
                 .setProperty("cursor", "pointer")
                 .get();
 
-        collapseAll.asElement().addEventListener("click", evt -> collapseAll());
+        collapseAllIcon.asElement().addEventListener("click", evt -> collapseAll());
 
 
-        Icon expandAll = Icons.ALL.fullscreen()
+        expandAllIcon = Icons.ALL.fullscreen()
                 .style()
                 .setMarginBottom("0px")
                 .setMarginTop("0px")
@@ -187,10 +191,10 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
                 .setProperty("cursor", "pointer")
                 .get();
 
-        expandAll.asElement().addEventListener("click", evt -> expandAll());
+        expandAllIcon.asElement().addEventListener("click", evt -> expandAll());
 
-        header.appendChild(expandAll.asElement());
-        header.appendChild(collapseAll.asElement());
+        header.appendChild(expandAllIcon.asElement());
+        header.appendChild(collapseAllIcon.asElement());
         return this;
     }
 
@@ -272,5 +276,21 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     @Override
     public Tree collapse() {
         return super.collapse();
+    }
+
+    public Search getSearch() {
+        return search;
+    }
+
+    public Icon getSearchIcon() {
+        return searchIcon;
+    }
+
+    public Icon getCollapseAllIcon() {
+        return collapseAllIcon;
+    }
+
+    public Icon getExpandAllIcon() {
+        return expandAllIcon;
     }
 }
