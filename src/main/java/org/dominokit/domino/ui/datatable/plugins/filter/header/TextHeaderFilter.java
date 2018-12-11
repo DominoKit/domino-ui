@@ -8,8 +8,19 @@ public class TextHeaderFilter<T> extends DelayedHeaderFilterInput<TextBox, T>{
 
     private TextBox textBox;
 
+    public TextHeaderFilter() {
+    }
+
+    public TextHeaderFilter(String placeholder) {
+        super(placeholder);
+    }
+
     public static <T> TextHeaderFilter<T> create() {
         return new TextHeaderFilter<>();
+    }
+
+    public static <T> TextHeaderFilter<T> create(String placeholder) {
+        return new TextHeaderFilter<>(placeholder);
     }
 
     @Override

@@ -18,10 +18,14 @@ public abstract class DelayedHeaderFilterInput<B extends ValueBox, T> implements
     private DelayedTextInput delayedTextInput;
 
     public DelayedHeaderFilterInput() {
+        this("Search");
+    }
+
+    public DelayedHeaderFilterInput(String placeHolder) {
         input = createValueBox();
 
         input.styler(style -> style.setMarginBottom("0px"));
-        input.setPlaceholder("Search");
+        input.setPlaceholder(placeHolder);
         input.getLeftAddonContainer().collapse();
         input.getRightAddonContainer().collapse();
 
@@ -48,6 +52,9 @@ public abstract class DelayedHeaderFilterInput<B extends ValueBox, T> implements
     protected abstract boolean isEmpty();
     protected abstract String getValue();
     protected abstract FilterTypes getType();
+    public B getField(){
+        return input;
+    }
 
     @Override
     public HTMLElement asElement() {

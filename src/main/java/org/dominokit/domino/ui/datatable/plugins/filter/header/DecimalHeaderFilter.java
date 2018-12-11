@@ -8,8 +8,19 @@ public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalB
 
     private BigDecimalBox decimalBox;
 
+    public DecimalHeaderFilter() {
+    }
+
+    public DecimalHeaderFilter(String placeholder) {
+        super(placeholder);
+    }
+
     public static <T> DecimalHeaderFilter<T> create() {
         return new DecimalHeaderFilter<>();
+    }
+
+    public static <T> DecimalHeaderFilter<T> create(String placeholder) {
+        return new DecimalHeaderFilter<>(placeholder);
     }
 
     @Override

@@ -8,8 +8,19 @@ public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T> 
 
     private FloatBox floatBox;
 
+    public FloatHeaderFilter() {
+    }
+
+    public FloatHeaderFilter(String placeholder) {
+        super(placeholder);
+    }
+
     public static <T> FloatHeaderFilter<T> create() {
         return new FloatHeaderFilter<>();
+    }
+
+    public static <T> FloatHeaderFilter<T> create(String placeholder) {
+        return new FloatHeaderFilter<>(placeholder);
     }
 
     @Override
