@@ -84,6 +84,14 @@ public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
         return templated_InfoBox;
     }
 
+    public static InfoBox create(HTMLElement icon, String title) {
+        Templated_InfoBox templated_InfoBox = new Templated_InfoBox();
+        templated_InfoBox.getIconElement().appendChild(icon);
+        templated_InfoBox.getTitleElement().setTextContent(title);
+        templated_InfoBox.icon = icon;
+        return templated_InfoBox;
+    }
+
     @Override
     public InfoBox setBackground(Color background) {
         if (nonNull(counterBackground))
@@ -169,6 +177,22 @@ public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
         style()
                 .setBoxShadow("none")
                 .setProperty("-webkit-box-shadow", "none");
+        return this;
+    }
+
+    public InfoBox setValue(String value){
+        getValueElement().setTextContent(value);
+        return this;
+    }
+
+    public InfoBox setTitle(String title){
+        getTitleElement().setTextContent(title);
+        return this;
+    }
+
+    public InfoBox setIcon(BaseIcon icon){
+        getIconElement().clearElement()
+                .appendChild(icon);
         return this;
     }
 
