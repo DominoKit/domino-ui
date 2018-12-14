@@ -10,9 +10,11 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.StyleType;
 import org.jboss.gwt.elemento.core.Elements;
 
+import static org.dominokit.domino.ui.button.ButtonStyles.CARET;
+
 public class DropdownButton extends BaseButton<DropdownButton> {
 
-    private HTMLElement caret = Elements.span().css("caret").asElement();
+    private HTMLElement caret = Elements.span().css(CARET).asElement();
     private ButtonsGroup groupElement = ButtonsGroup.create();
     private DropDownMenu dropDownMenu;
 
@@ -110,7 +112,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
     }
 
     private void initDropDown() {
-        buttonElement.style().add("btn-dropdown");
+        buttonElement.style().add(ButtonStyles.BUTTON_DROPDOWN);
         dropDownMenu = DropDownMenu.create(groupElement);
         groupElement.appendChild(asDropDown());
         buttonElement.appendChild(caret);
@@ -118,7 +120,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
     }
 
     private HTMLElement asDropDown() {
-        buttonElement.style().add("dropdown-toggle");
+        buttonElement.style().add(ButtonStyles.DROPDOWN_TOGGLE);
         buttonElement.setAttribute("data-toggle", "dropdown");
         buttonElement.setAttribute("aria-haspopup", true);
         buttonElement.setAttribute("aria-expanded", true);
@@ -176,13 +178,13 @@ public class DropdownButton extends BaseButton<DropdownButton> {
     }
 
     public DropdownButton linkify() {
-        groupElement.style().add("link");
+        groupElement.style().add(ButtonStyles.LINK);
         super.linkify();
         return this;
     }
 
     public DropdownButton delinkify() {
-        groupElement.style().remove("link");
+        groupElement.style().remove(ButtonStyles.LINK);
         super.deLinkify();
         return this;
     }

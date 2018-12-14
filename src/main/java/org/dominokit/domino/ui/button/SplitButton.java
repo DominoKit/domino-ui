@@ -75,8 +75,4 @@ public class SplitButton extends BaseDominoElement<HTMLElement, SplitButton> {
         groupElement.appendChild(dropdownButton.asElement());
         return this;
     }
-
-    public Style<HTMLElement, SplitButton> style(){
-        return Style.of(this);
-    }
 }
