@@ -24,6 +24,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
     private String fixedBodyHeight = "400px";
     private boolean lazyLoad = true;
     private boolean multiSelect = true;
+    private RowAppender<T> rowAppender = (dataTable, tableRow) -> dataTable.bodyElement().appendChild(tableRow.asElement());
 
     public void drawHeaders(DataTable<T> dataTable, DominoElement<HTMLTableSectionElement> thead) {
         this.dataTable = dataTable;
@@ -87,7 +88,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
             tableRow.asElement().appendChild(cellElement);
             columnConfig.applyCellStyle(cellElement);
         });
-        dataTable.bodyElement().appendChild(tableRow.asElement());
+        rowAppender.appendRow(dataTable, tableRow);
 
         plugins.forEach(plugin -> plugin.onRowAdded(dataTable, tableRow));
     }
@@ -171,6 +172,12 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
         this.multiSelect = multiSelect;
     }
 
+    public void setRowAppender(RowAppender<T> rowAppender) {
+        if(nonNull(rowAppender)) {
+            this.rowAppender = rowAppender;
+        }
+    }
+
     public List<DataTablePlugin<T>> getPlugins() {
         return plugins;
     }
@@ -189,5 +196,10 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
 
     public DataTable<T> getDataTable() {
         return dataTable;
+    }
+
+    @FunctionalInterface
+    public interface RowAppender<T>{
+        void appendRow(DataTable<T> dataTable, TableRow<T> tableRow);
     }
 }
