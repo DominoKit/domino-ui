@@ -2,11 +2,10 @@ package org.dominokit.domino.ui.button.group;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
+import org.dominokit.domino.ui.button.ButtonStyles;
 import org.dominokit.domino.ui.button.DropdownButton;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.Sizable;
-
-import static org.dominokit.domino.ui.button.group.ButtonsGroup.BTN_GROUP;
 
 public class JustifiedGroup extends BaseDominoElement<HTMLElement, JustifiedGroup> implements IsGroup<HTMLElement>, Sizable<JustifiedGroup> {
 
@@ -17,25 +16,8 @@ public class JustifiedGroup extends BaseDominoElement<HTMLElement, JustifiedGrou
     }
 
     private JustifiedGroup() {
-        group.style().add(BTN_GROUP + "-justified");
+        group.style().add(ButtonStyles.JUSTIFIED);
         init(this);
-    }
-
-    /**
-     * @deprecated use {@link #appendChild(Button)}
-     */
-    @Deprecated
-    @Override
-    public HTMLElement addButton(Button button) {
-        return appendChild(button);
-    }
-
-    /**
-     * @deprecated use {@link #appendChild(DropdownButton)}
-     */
-    @Override
-    public HTMLElement addDropDown(DropdownButton dropDown) {
-        return appendChild(dropDown);
     }
 
     @Override

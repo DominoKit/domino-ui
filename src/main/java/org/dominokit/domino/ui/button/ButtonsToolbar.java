@@ -7,7 +7,9 @@ import org.jboss.gwt.elemento.core.Elements;
 
 public class ButtonsToolbar extends BaseDominoElement<HTMLElement, ButtonsToolbar> {
 
-    private HTMLElement toolbarElement = Elements.div().css("btn-toolbar").attr("role", "toolbar").asElement();
+    private HTMLElement toolbarElement = Elements.div().css(ButtonStyles.BUTTON_TOOLBAR)
+            .attr("role", "toolbar")
+            .asElement();
 
     public ButtonsToolbar() {
         init(this);
