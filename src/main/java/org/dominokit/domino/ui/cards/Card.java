@@ -15,16 +15,17 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.cards.CardStyles.*;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Card extends BaseDominoElement<HTMLDivElement, Card> implements HasBackground<Card> {
 
-    private DominoElement<HTMLDivElement> root = DominoElement.div().addCss("card");
-    private DominoElement<HTMLDivElement> header = DominoElement.div().addCss("header");
+    private DominoElement<HTMLDivElement> root = DominoElement.div().addCss(CARD);
+    private DominoElement<HTMLDivElement> header = DominoElement.div().addCss(HEADER);
     private DominoElement<HTMLHeadingElement> headerTitle = DominoElement.of(h(2));
     private DominoElement<HTMLElement> headerDescription = DominoElement.of(small());
-    private DominoElement<HTMLUListElement> headerBar = DominoElement.of(ul()).addCss("header-actions");
-    private DominoElement<HTMLDivElement> body = DominoElement.div().addCss("body");
+    private DominoElement<HTMLUListElement> headerBar = DominoElement.of(ul()).addCss(HEADER_ACTIONS);
+    private DominoElement<HTMLDivElement> body = DominoElement.div().addCss(BODY);
 
     private Text title = TextNode.empty();
     private Text description = TextNode.empty();
@@ -219,7 +220,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         return li().add(a()
                 .add(icon.withWaves()
                         .styler(style -> style
-                                .add(Styles.pull_right, "action-icon"))))
+                                .add(Styles.pull_right, ACTION_ICON))))
                 .asElement();
     }
 

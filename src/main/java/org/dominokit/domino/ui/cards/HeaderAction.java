@@ -8,6 +8,7 @@ import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
+import static org.dominokit.domino.ui.cards.CardStyles.ACTION_ICON;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
@@ -28,7 +29,7 @@ public class HeaderAction extends BaseDominoElement<HTMLLIElement, HeaderAction>
     public HeaderAction(BaseIcon<?> icon) {
         this.icon = icon;
         this.icon.withWaves()
-                .styler(style -> style.add(Styles.pull_right, "action-icon"));
+                .styler(style -> style.add(Styles.pull_right, ACTION_ICON));
         anchorElement.appendChild(this.icon.asElement());
         element.appendChild(anchorElement);
         init(this);
