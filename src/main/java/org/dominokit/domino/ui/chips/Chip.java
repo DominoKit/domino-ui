@@ -15,16 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.chips.ChipStyles.*;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.span;
 
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements HasSelectionHandler<Chip, String>, HasDeselectionHandler<Chip>,
         Switchable<Chip>, HasRemoveHandler<Chip> {
 
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("chip"));
-    private HTMLDivElement textContainer = div().css("chip-value").asElement();
-    private HTMLDivElement leftAddonContainer = div().css("chip-addon").asElement();
-    private HTMLDivElement removeIconContainer = div().css("chip-remove").asElement();
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(CHIP));
+    private HTMLDivElement textContainer = div().css(CHIP_VALUE).asElement();
+    private HTMLDivElement leftAddonContainer = div().css(CHIP_ADDON).asElement();
+    private HTMLDivElement removeIconContainer = div().css(CHIP_REMOVE).asElement();
     private ColorScheme colorScheme = ColorScheme.INDIGO;
     private Color color = Color.INDIGO;
     private Color borderColor;
@@ -131,7 +132,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
             removeIcon.style().remove(getBackgroundStyle());
         }
 
-        if(nonNull(this.color)){
+        if (nonNull(this.color)) {
             element.style().remove(color.getBackground());
             removeIcon.style().remove(color.getBackground());
         }
@@ -143,7 +144,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
             removeIcon.style().remove(getBackgroundStyle());
         }
 
-        if(nonNull(this.color)){
+        if (nonNull(this.color)) {
             element.style().remove(color.getBackground());
             removeIcon.style().remove(color.getBackground());
         }
@@ -152,7 +153,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this;
     }
 
-    private boolean hasColor(){
+    private boolean hasColor() {
         return nonNull(this.colorScheme) || nonNull(color);
     }
 
