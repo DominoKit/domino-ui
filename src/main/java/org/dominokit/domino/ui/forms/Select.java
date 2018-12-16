@@ -62,7 +62,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         initListeners();
         buttonElement
                 .appendChild(buttonValueContainer)
-                .appendChild(iconContainer);
+                .appendChild(iconContainer)
+                .asElement().type = "button";        
         formControl
                 .appendChild(buttonElement)
                 .appendChild(labelElement);
