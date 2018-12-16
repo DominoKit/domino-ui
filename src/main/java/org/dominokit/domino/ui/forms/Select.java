@@ -38,7 +38,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private DominoElement<HTMLElement> leftAddon;
     private DominoElement<HTMLElement> rightAddon;
 
-    private DominoElement<HTMLButtonElement> buttonElement = DominoElement.of(button().css("select-button"));
+    private DominoElement<HTMLButtonElement> buttonElement = DominoElement.of(button().attr("type","button").css("select-button"));
     private DominoElement<HTMLElement> buttonValueContainer = DominoElement.of(span().css("select-value", Styles.ellipsis_text));
     private DominoElement<HTMLDivElement> iconContainer = DominoElement.of(div().css(Styles.pull_right));
     private DropDownMenu optionsMenu = DropDownMenu.create(buttonElement).styler(style1 -> style1.add("select-option-menu"));
