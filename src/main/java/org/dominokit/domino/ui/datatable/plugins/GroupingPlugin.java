@@ -10,6 +10,7 @@ import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
@@ -28,6 +30,8 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     private Map<String, DataGroup<T>> dataGroups = new HashMap<>();
     private final GroupSupplier<T> groupSupplier;
     private CellRenderer<T> groupRenderer;
+    private Supplier<BaseIcon<?>> groupExpandedIconSupplier = Icons.ALL::minus_box_mdi;
+    private Supplier<BaseIcon<?>> groupCollapsedIconSupplier = Icons.ALL::plus_box_mdi;
 
     public GroupingPlugin(GroupSupplier<T> groupSupplier, CellRenderer<T> groupRenderer) {
         this.groupSupplier = groupSupplier;
@@ -38,6 +42,16 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     public void init(DataTable<T> dataTable) {
         dataTable.getTableConfig()
                 .setRowAppender(this);
+    }
+
+    public GroupingPlugin<T> setGroupExpandedIcon(Supplier<BaseIcon<?>> groupExpandedIconSupplier){
+        this.groupExpandedIconSupplier = groupExpandedIconSupplier;
+        return this;
+    }
+
+    public GroupingPlugin<T> setGroupCollapsedIcon(Supplier<BaseIcon<?>> groupCollapsedIconSupplier){
+        this.groupCollapsedIconSupplier = groupCollapsedIconSupplier;
+        return this;
     }
 
     @Override
@@ -52,9 +66,9 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
 
             cellElement.appendChild(FlexLayout.create()
                     .appendChild(FlexItem.create()
-                            .appendChild(Icons.ALL.minus_mdi()
+                            .appendChild(groupExpandedIconSupplier.get()
                                     .clickable()
-                                    .setToggleIcon(Icons.ALL.plus_mdi())
+                                    .setToggleIcon(groupCollapsedIconSupplier.get())
                                     .toggleOnClick(true)
                                     .addClickListener(evt -> dataGroup.toggleGroup())))
                     .appendChild(FlexItem.create()
