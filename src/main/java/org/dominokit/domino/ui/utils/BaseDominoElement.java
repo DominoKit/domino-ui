@@ -31,10 +31,19 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     @Editor.Ignore
     protected void init(T element) {
         this.element = element;
-        this.uuid = Elements.createDocumentUniqueId();
-        setAttribute("domino-uuid", this.uuid);
+
+        if (hasDominoId()) {
+            uuid = getAttribute("domino-uuid");
+        }else{
+            this.uuid = Elements.createDocumentUniqueId();
+            setAttribute("domino-uuid", this.uuid);
+        }
         this.collapsible = Collapsible.create(getCollapsibleElement());
         this.style = Style.of(element);
+    }
+
+    private boolean hasDominoId() {
+        return hasAttribute("domino-uuid") && nonNull(getAttribute("domino-uuid")) && !getAttribute("domino-uuid").isEmpty();
     }
 
     public T setId(String id) {
@@ -115,13 +124,13 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
-    public T css(String cssClass){
+    public T css(String cssClass) {
         style.add(cssClass);
         return element;
     }
 
     @Editor.Ignore
-    public T css(String... cssClasses){
+    public T css(String... cssClasses) {
         style.add(cssClasses);
         return element;
     }

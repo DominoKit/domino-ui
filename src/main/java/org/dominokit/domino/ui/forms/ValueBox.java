@@ -52,6 +52,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     public ValueBox(String type, String label) {
+        init((T) this);
         inputElement = DominoElement.of(createInputElement(type));
         inputElement.addEventListener("change", evt -> callChangeHandlers());
         container.appendChild(leftAddonContainer);
@@ -62,7 +63,6 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         setFocusColor(focusColor);
         addFocusListeners();
         setLabel(label);
-        init((T) this);
     }
 
     protected void callChangeHandlers() {
@@ -81,7 +81,10 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
                 validate();
             }
         });
-        labelElement.addEventListener("click", evt -> focus());
+        labelElement.addEventListener("click", evt -> {
+            DomGlobal.console.info("FOCUSING FIELD -------------");
+            focus();
+        });
     }
 
     public T large() {
@@ -127,10 +130,13 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     @Override
     public T focus() {
         if (!isAttached()) {
+            DomGlobal.console.info("IS ATTACHED ---- 0");
             ElementUtil.onAttach(getInputElement(), mutationRecord -> {
+                DomGlobal.console.info("IS ATTACHED ---- 1");
                 getInputElement().asElement().focus();
             });
         } else {
+            DomGlobal.console.info("IS ATTACHED ---- 2");
             getInputElement().asElement().focus();
         }
         return (T) this;
