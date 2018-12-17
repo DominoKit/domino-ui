@@ -81,10 +81,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
                 validate();
             }
         });
-        labelElement.addEventListener("click", evt -> {
-            DomGlobal.console.info("FOCUSING FIELD -------------");
-            focus();
-        });
+        labelElement.addEventListener("click", evt -> focus());
     }
 
     public T large() {
@@ -130,13 +127,10 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     @Override
     public T focus() {
         if (!isAttached()) {
-            DomGlobal.console.info("IS ATTACHED ---- 0");
             ElementUtil.onAttach(getInputElement(), mutationRecord -> {
-                DomGlobal.console.info("IS ATTACHED ---- 1");
                 getInputElement().asElement().focus();
             });
         } else {
-            DomGlobal.console.info("IS ATTACHED ---- 2");
             getInputElement().asElement().focus();
         }
         return (T) this;
