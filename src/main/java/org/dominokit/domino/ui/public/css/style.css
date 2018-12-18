@@ -6650,9 +6650,8 @@ a.disabled {
 }
 
 .horizontal-radio {
-    display: inline-block;
-    width: auto;
     margin: 5px;
+    width: auto;
 }
 
 .input-addon-container {
