@@ -4,11 +4,15 @@ import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
 
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("flex-layout"));
+    private List<FlexItem> flexItems = new ArrayList<>();
 
     public FlexLayout() {
         init(this);
@@ -45,8 +49,13 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
     }
 
     public FlexLayout appendChild(FlexItem flexItem) {
+        flexItems.add(flexItem);
         appendChild(flexItem.asElement());
         return this;
+    }
+
+    public List<FlexItem> getFlexItems() {
+        return flexItems;
     }
 
     @Override

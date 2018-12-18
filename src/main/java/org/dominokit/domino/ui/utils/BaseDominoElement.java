@@ -438,6 +438,18 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
+    public T removeCss(String cssClass) {
+        style().remove(cssClass);
+        return element;
+    }
+
+    @Editor.Ignore
+    public T removeCss(String... cssClass) {
+        style().remove(cssClass);
+        return element;
+    }
+
+    @Editor.Ignore
     public T setWidth(String width) {
         style().setWidth(width);
         return element;
