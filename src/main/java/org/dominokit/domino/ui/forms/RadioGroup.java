@@ -7,6 +7,8 @@ import elemental2.dom.Node;
 import org.dominokit.domino.ui.forms.validations.ElementValidations;
 import org.dominokit.domino.ui.forms.validations.RequiredValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
+import org.dominokit.domino.ui.grid.flex.FlexDirection;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
@@ -36,16 +38,19 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     private ChangeHandler<? super Boolean> autoValidationHandler;
     private List<ChangeHandler<? super Radio>> changeHandlers = new ArrayList<>();
     private String requiredErrorMessage;
+    private FlexLayout flexLayout = FlexLayout.create();
 
     public RadioGroup(String name) {
         formControl.style()
                 .setProperty("border-bottom", "0px")
                 .setHeight("auto");
         formControl.appendChild(labelContainer);
+        formControl.appendChild(flexLayout);
         formLine.appendChild(formControl);
         container.appendChild(formLine);
         setName(name);
         init(this);
+        vertical();
     }
 
     public RadioGroup(String name, String label) {
@@ -66,15 +71,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     public RadioGroup appendChild(Radio radio) {
-        radio.setName(name);
-        radio.addChangeHandler(value -> onCheck(radio));
-        radio.setGroup(this);
-        if (radio.isChecked()) {
-            radios.forEach(r -> r.uncheck(true));
-        }
-        radios.add(radio);
-        formControl.appendChild(radio.asElement());
-        return this;
+        return appendChild(radio, (Node) null);
     }
 
     /**
@@ -86,8 +83,17 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     public RadioGroup appendChild(Radio radio, Node content) {
-        addRadio(radio);
-        formControl.appendChild(content);
+        radio.setName(name);
+        radio.addChangeHandler(value -> onCheck(radio));
+        radio.setGroup(this);
+        if (radio.isChecked()) {
+            radios.forEach(r -> r.uncheck(true));
+        }
+        radios.add(radio);
+        if (nonNull(content)) {
+            radio.appendChild(content);
+        }
+        flexLayout.appendChild(radio);
         return this;
     }
 
@@ -110,14 +116,18 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     public RadioGroup horizontal() {
-        for (Radio radio : radios)
-            radio.style().add("horizontal-radio");
+        flexLayout.setDirection(FlexDirection.LEFT_TO_RIGHT);
+        for (Radio radio : radios) {
+            radio.addCss("horizontal-radio");
+        }
         return this;
     }
 
     public RadioGroup vertical() {
-        for (Radio radio : radios)
-            radio.style().remove("horizontal-radio");
+        flexLayout.setDirection(FlexDirection.TOP_TO_BOTTOM);
+        for (Radio radio : radios) {
+            radio.removeCss("horizontal-radio");
+        }
         return this;
     }
 
@@ -327,9 +337,9 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
 
     @Override
     public RadioGroup setReadOnly(boolean readonly) {
-        if(readonly){
+        if (readonly) {
             formControl.style().add("readonly");
-        }else{
+        } else {
             formControl.style().remove("readonly");
         }
         return super.setReadOnly(readonly);

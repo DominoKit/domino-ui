@@ -4,6 +4,8 @@ import com.google.gwt.user.client.TakesValue;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
+import elemental2.dom.HTMLParagraphElement;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.*;
@@ -17,9 +19,10 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements HasName<Radio>, HasValue<Radio, String>, HasLabel<Radio>,
         Switchable<Radio>, Checkable<Radio>, TakesValue<String> {
 
-    private HTMLDivElement container = div().css("form-group").asElement();
+    private FlexItem container = FlexItem.create().addCss("form-group");
     private HTMLLabelElement labelElement = label().asElement();
     private HTMLInputElement inputElement = input("radio").asElement();
+    private DominoElement<HTMLParagraphElement> helperTextElement = DominoElement.of(p());
     private List<ChangeHandler<? super Boolean>> changeHandlers;
     private Color color;
     private boolean checked = false;
@@ -62,7 +65,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
 
     @Override
     public Radio check(boolean silent) {
-        if(nonNull(radioGroup)){
+        if (nonNull(radioGroup)) {
             radioGroup.getRadios().forEach(radio -> radio.setChecked(false));
         }
         setChecked(true);
@@ -85,7 +88,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
         return this;
     }
 
-    private void setChecked(boolean value){
+    private void setChecked(boolean value) {
         inputElement.checked = value;
         this.checked = value;
     }
@@ -132,7 +135,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
 
     @Override
     public HTMLDivElement asElement() {
-        return container;
+        return container.asElement();
     }
 
     @Override
@@ -182,6 +185,14 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     @Override
     public Radio disable() {
         inputElement.disabled = true;
+        return this;
+    }
+
+    public Radio setHelperText(String text) {
+        helperTextElement.setTextContent(text);
+        if (!DominoElement.of(labelElement).contains(helperTextElement.asElement())) {
+            labelElement.appendChild(helperTextElement.asElement());
+        }
         return this;
     }
 
