@@ -7582,6 +7582,7 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
     border: 0px;
     text-align: left;
     padding: 0;
+    cursor: pointer;
 }
 
 .select-button[disabled] {
