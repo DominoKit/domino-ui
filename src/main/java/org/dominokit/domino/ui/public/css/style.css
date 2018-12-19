@@ -3233,6 +3233,10 @@ input[type=range] + .thumb.active .value {
     border-bottom: 1px solid #ddd;
 }
 
+.form-group .form-control:HOVER {
+    border-color: #adaeaa;
+}
+
 .form-group label.error {
     font-size: 12px;
     display: block;
