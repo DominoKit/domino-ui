@@ -112,6 +112,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     void addTabIndexHandler() {
         asElement().addEventListener(EventType.keydown.getName(), evt -> {
+            initFocusElements();
             KeyboardEvent keyboardEvent = Js.cast(evt);
             switch (keyboardEvent.code) {
                 case "Tab":

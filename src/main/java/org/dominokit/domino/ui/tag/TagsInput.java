@@ -12,6 +12,7 @@ import org.dominokit.domino.ui.keyboard.KeyboardEvents.KeyboardEventOptions;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.tag.store.DynamicLocalTagsStore;
 import org.dominokit.domino.ui.tag.store.TagsStore;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +20,17 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.input;
 
 public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>> {
 
-    private HTMLInputElement tagTextInput;
+    private DominoElement<HTMLInputElement> tagTextInput;
     private final List<Chip> chips = new ArrayList<>();
     private final List<V> selectedItems = new ArrayList<>();
     private final TagsStore<V> store;
     private DropDownMenu dropDownMenu;
     private ColorScheme colorScheme = ColorScheme.INDIGO;
+    private int maxSize = -1;
 
     public TagsInput(String label, TagsStore<V> store) {
         super("text", label);
@@ -55,24 +56,24 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
 
     @Override
     protected HTMLDivElement createInputElement(String type) {
-        HTMLDivElement tagsInputContainer = div().css("tags-input", "form-control").asElement();
-        tagTextInput = input(type).css("tag-text-input").asElement();
+        DominoElement<HTMLDivElement> tagsInputContainer = DominoElement.div().addCss("tags-input", "form-control");
+        tagTextInput = DominoElement.of(input(type)).addCss("tag-text-input");
         dropDownMenu = DropDownMenu.create(tagTextInput)
                 .setPosition(DropDownPosition.BOTTOM)
-                .addCloseHandler(() -> tagTextInput.focus());
+                .addCloseHandler(() -> tagTextInput.asElement().focus());
         tagsInputContainer.appendChild(tagTextInput);
         tagsInputContainer.addEventListener("click", evt -> {
-            tagTextInput.focus();
+            tagTextInput.asElement().focus();
             evt.stopPropagation();
         });
         initListeners();
-        return tagsInputContainer;
+        return tagsInputContainer.asElement();
     }
 
     private void initListeners() {
         KeyboardEvents.listenOn(tagTextInput)
                 .onEnter(evt -> {
-                    String displayValue = tagTextInput.value;
+                    String displayValue = tagTextInput.asElement().value;
                     if (displayValue.isEmpty()) {
                         openMenu();
                     } else {
@@ -103,7 +104,7 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
 
     private void search() {
         dropDownMenu.clearActions();
-        String searchValue = tagTextInput.value;
+        String searchValue = tagTextInput.asElement().value;
         Map<String, V> valuesToShow = store.filter(searchValue);
         valuesToShow.forEach(this::addDropDownAction);
         openMenu();
@@ -115,7 +116,7 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
                     .addAction(DropdownAction.create(displayValue, displayValue)
                             .addSelectionHandler(selectedValue -> {
                                 appendChip(displayValue, value);
-                                tagTextInput.focus();
+                                tagTextInput.asElement().focus();
                             }));
         }
     }
@@ -128,8 +129,13 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
 
     private void fireChangeEvent() {
         callChangeHandlers();
-        tagTextInput.value = "";
+        tagTextInput.asElement().value = "";
         validate();
+        if (isExceedsMaxSize()) {
+            disableAddValues();
+        } else {
+            enableAddValues();
+        }
     }
 
     @Override
@@ -154,7 +160,7 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
         appendChip(chip, value);
     }
 
-    public void appendChip(Chip chip, V value){
+    public void appendChip(Chip chip, V value) {
         chip.addRemoveHandler(() -> {
             selectedItems.remove(value);
             chips.remove(chip);
@@ -164,6 +170,10 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
         selectedItems.add(value);
         getInputElement().insertBefore(chip.asElement(), tagTextInput);
         fireChangeEvent();
+    }
+
+    private boolean isExceedsMaxSize() {
+        return maxSize >= 0 && chips.size() >= maxSize;
     }
 
     @Override
@@ -190,20 +200,33 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     @Override
     public TagsInput<V> disable() {
         chips.forEach(Chip::disable);
-        tagTextInput.disabled = true;
+        tagTextInput.asElement().disabled = true;
         return super.disable();
     }
 
     @Override
     public TagsInput<V> enable() {
         chips.forEach(Chip::enable);
-        tagTextInput.disabled = false;
+        tagTextInput.asElement().disabled = false;
         return super.enable();
     }
 
     public TagsInput<V> setTagsColor(ColorScheme colorScheme) {
         this.colorScheme = colorScheme;
         chips.forEach(chip -> chip.setColorScheme(this.colorScheme));
+        return this;
+    }
+
+    private void disableAddValues() {
+        tagTextInput.collapse();
+    }
+
+    private void enableAddValues() {
+        tagTextInput.expand();
+    }
+
+    public TagsInput<V> setMaxValue(int maxSize) {
+        this.maxSize = maxSize;
         return this;
     }
 
