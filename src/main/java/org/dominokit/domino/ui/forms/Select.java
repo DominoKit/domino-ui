@@ -31,7 +31,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private static int OPTIONS_Z_INDEX = 1041;
 
     private DominoElement<HTMLDivElement> container = DominoElement.of(div().css("form-group"));
-    private DominoElement<HTMLDivElement> formline = DominoElement.of(div().css("form-line"));
+    private DominoElement<HTMLDivElement> formLine = DominoElement.of(div().css("form-line"));
     private DominoElement<HTMLDivElement> formControl = DominoElement.of(div().css("form-control"));
     private DominoElement<HTMLDivElement> leftAddonContainer = DominoElement.of(div().css("input-addon-container"));
     private DominoElement<HTMLDivElement> rightAddonContainer = DominoElement.of(div().css("input-addon-container"));
@@ -66,9 +66,9 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         formControl
                 .appendChild(buttonElement)
                 .appendChild(labelElement);
-        formline.appendChild(formControl);
+        formLine.appendChild(formControl);
         container.appendChild(leftAddonContainer);
-        container.appendChild(formline.asElement());
+        container.appendChild(formLine.asElement());
         container.appendChild(rightAddonContainer);
         init(this);
 
@@ -615,7 +615,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     @Override
     public DominoElement<HTMLDivElement> getInputElement() {
-        return formline;
+        return formLine;
     }
 
     @Override
@@ -625,7 +625,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     @Override
     protected DominoElement<HTMLDivElement> getFieldContainer() {
-        return formline;
+        return formLine;
     }
 
 
