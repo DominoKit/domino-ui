@@ -249,18 +249,20 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     @Override
     public SwitchButton setReadOnly(boolean readOnly) {
         if (readOnly) {
-            setAttribute(READONLY, READONLY);
-            if (isChecked()) {
-                if (isOnTitleEmpty()) {
-                    offTitleText.textContent = offTitle + getCheckedReadonlyLabel();
+            if(!isReadOnly()) {
+                setAttribute(READONLY, READONLY);
+                if (isChecked()) {
+                    if (isOnTitleEmpty()) {
+                        offTitleText.textContent = offTitle + getCheckedReadonlyLabel();
+                    } else {
+                        offTitleText.textContent = "";
+                    }
                 } else {
-                    offTitleText.textContent = "";
-                }
-            } else {
-                if (isOnTitleEmpty()) {
-                    offTitleText.textContent = offTitle + getUnCheckedReadonlyLabel();
-                } else {
-                    onTitleText.textContent = "";
+                    if (isOnTitleEmpty()) {
+                        offTitleText.textContent = offTitle + getUnCheckedReadonlyLabel();
+                    } else {
+                        onTitleText.textContent = "";
+                    }
                 }
             }
         } else {
