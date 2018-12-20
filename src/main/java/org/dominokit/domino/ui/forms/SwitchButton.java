@@ -58,7 +58,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
         onOffLabelElement.appendChild(onTitleText);
         inputElement.addEventListener("change", evt -> {
             evt.stopPropagation();
-            if(!isReadOnly()) {
+            if (!isReadOnly()) {
                 onCheck();
                 if (autoValidation)
                     validate();
@@ -130,7 +130,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     @Override
     public SwitchButton check(boolean silent) {
-        if(!isReadOnly()) {
+        if (!isReadOnly()) {
             inputElement.checked = true;
             if (!silent) {
                 onCheck();
@@ -142,7 +142,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     @Override
     public SwitchButton uncheck(boolean silent) {
-        if(!isReadOnly()) {
+        if (!isReadOnly()) {
             inputElement.checked = false;
             if (!silent) {
                 onCheck();
@@ -249,20 +249,20 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     @Override
     public SwitchButton setReadOnly(boolean readOnly) {
         if (readOnly) {
-            if(!isReadOnly()) {
-                setAttribute(READONLY, READONLY);
-                if (isChecked()) {
-                    if (isOnTitleEmpty()) {
-                        offTitleText.textContent = offTitle + getCheckedReadonlyLabel();
-                    } else {
-                        offTitleText.textContent = "";
-                    }
+            setOffTitle(offTitle);
+            setOnTitle(onTitle);
+            setAttribute(READONLY, READONLY);
+            if (isChecked()) {
+                if (isOnTitleEmpty()) {
+                    offTitleText.textContent = offTitle + getCheckedReadonlyLabel();
                 } else {
-                    if (isOnTitleEmpty()) {
-                        offTitleText.textContent = offTitle + getUnCheckedReadonlyLabel();
-                    } else {
-                        onTitleText.textContent = "";
-                    }
+                    offTitleText.textContent = "";
+                }
+            } else {
+                if (isOnTitleEmpty()) {
+                    offTitleText.textContent = offTitle + getUnCheckedReadonlyLabel();
+                } else {
+                    onTitleText.textContent = "";
                 }
             }
         } else {
