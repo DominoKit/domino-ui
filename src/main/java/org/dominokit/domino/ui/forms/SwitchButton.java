@@ -58,9 +58,11 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
         onOffLabelElement.appendChild(onTitleText);
         inputElement.addEventListener("change", evt -> {
             evt.stopPropagation();
-            onCheck();
-            if (autoValidation)
-                validate();
+            if(!isReadOnly()) {
+                onCheck();
+                if (autoValidation)
+                    validate();
+            }
         });
         formLine.appendChild(formControl);
         formLine.appendChild(labelElement);
@@ -128,20 +130,24 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     @Override
     public SwitchButton check(boolean silent) {
-        inputElement.checked = true;
-        if (!silent) {
-            onCheck();
-            validate();
+        if(!isReadOnly()) {
+            inputElement.checked = true;
+            if (!silent) {
+                onCheck();
+                validate();
+            }
         }
         return this;
     }
 
     @Override
     public SwitchButton uncheck(boolean silent) {
-        inputElement.checked = false;
-        if (!silent) {
-            onCheck();
-            validate();
+        if(!isReadOnly()) {
+            inputElement.checked = false;
+            if (!silent) {
+                onCheck();
+                validate();
+            }
         }
         return this;
     }
@@ -262,6 +268,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
             setOffTitle(offTitle);
             setOnTitle(onTitle);
         }
+        inputElement.disabled = readOnly;
         return this;
     }
 
