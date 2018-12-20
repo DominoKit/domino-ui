@@ -245,13 +245,13 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
         if (readOnly) {
             setAttribute(READONLY, READONLY);
             if (isChecked()) {
-                if (onTitleText.textContent.isEmpty()) {
+                if (isOnTitleEmpty()) {
                     offTitleText.textContent = offTitle + getCheckedReadonlyLabel();
                 } else {
                     offTitleText.textContent = "";
                 }
             } else {
-                if (onTitleText.textContent.isEmpty()) {
+                if (isOnTitleEmpty()) {
                     offTitleText.textContent = offTitle + getUnCheckedReadonlyLabel();
                 } else {
                     onTitleText.textContent = "";
@@ -263,6 +263,10 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
             setOnTitle(onTitle);
         }
         return this;
+    }
+
+    private boolean isOnTitleEmpty() {
+        return isNull(onTitle) || onTitle.isEmpty();
     }
 
 
