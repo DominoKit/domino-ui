@@ -1,6 +1,9 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.*;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
+import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
@@ -25,8 +28,8 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     private DominoElement<HTMLElement> lever = DominoElement.of(span().css("lever"));
     private List<ChangeHandler<? super Boolean>> changeHandlers = new ArrayList<>();
     private Color color;
-    private Text onTitleText = DomGlobal.document.createTextNode("");
-    private Text offTitleText = DomGlobal.document.createTextNode("");
+    private HTMLElement onTitleTextRoot = span().asElement();
+    private HTMLElement offTitleTextRoot = span().asElement();
     private String checkedReadonlyLabel = "Yes";
     private String unCheckedReadonlyLabel = "No";
     private boolean autoValidation;
@@ -52,10 +55,10 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     public SwitchButton() {
         Style.of(formControl).setProperty("border-bottom", "0px");
         formControl.appendChild(onOffLabelElement);
-        onOffLabelElement.appendChild(offTitleText);
+        onOffLabelElement.appendChild(offTitleTextRoot);
         onOffLabelElement.appendChild(inputElement);
         onOffLabelElement.appendChild(lever.asElement());
-        onOffLabelElement.appendChild(onTitleText);
+        onOffLabelElement.appendChild(onTitleTextRoot);
         inputElement.addEventListener("change", evt -> {
             evt.stopPropagation();
             if (!isReadOnly()) {
@@ -201,13 +204,17 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     public SwitchButton setOnTitle(String onTitle) {
-        onTitleText.textContent = onTitle;
+        DominoElement.of(onTitleTextRoot)
+                .clearElement()
+                .appendChild(span().textContent(onTitle));
         this.onTitle = onTitle;
         return this;
     }
 
     public SwitchButton setOffTitle(String offTitle) {
-        offTitleText.textContent = offTitle;
+        DominoElement.of(offTitleTextRoot)
+                .clearElement()
+                .appendChild(span().textContent(offTitle));
         this.offTitle = offTitle;
         return this;
     }
@@ -254,15 +261,23 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
             setAttribute(READONLY, READONLY);
             if (isChecked()) {
                 if (isOnTitleEmpty()) {
-                    offTitleText.textContent = offTitle + getCheckedReadonlyLabel();
+                    DominoElement.of(offTitleTextRoot)
+                            .clearElement()
+                            .appendChild(span().textContent(offTitle))
+                            .appendChild(span().textContent(getCheckedReadonlyLabel()));
                 } else {
-                    offTitleText.textContent = "";
+                    DominoElement.of(offTitleTextRoot)
+                            .clearElement();
                 }
             } else {
                 if (isOnTitleEmpty()) {
-                    offTitleText.textContent = offTitle + getUnCheckedReadonlyLabel();
+                    DominoElement.of(offTitleTextRoot)
+                            .clearElement()
+                            .appendChild(span().textContent(offTitle))
+                            .appendChild(span().textContent(getUnCheckedReadonlyLabel()));
                 } else {
-                    onTitleText.textContent = "";
+                    DominoElement.of(onTitleTextRoot)
+                            .clearElement();
                 }
             }
         } else {

@@ -3215,6 +3215,14 @@ input[type=range] + .thumb.active .value {
     margin: 0 14px;
 }
 
+.switch[readonly] .lever {
+    display: none;
+}
+
+.switch[readonly] {
+    pointer-events: none;
+}
+
 .form-group {
     width: 100%;
     margin-bottom: 25px;
@@ -3864,97 +3872,7 @@ fieldset[disabled] .form-control {
 
 /* Panel ======================================= */
 
-.panel-group .panel {
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    border-radius: 0;
-    -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
-}
 
-.panel-group .panel .panel-title .material-icons {
-    float: left;
-    line-height: 16px;
-    margin-right: 8px;
-}
-
-.panel-group .panel .panel-heading {
-    padding: 0;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    border-radius: 0;
-}
-
-.panel-group .panel .panel-heading a {
-    display: block;
-    padding: 10px 15px;
-}
-
-.panel-group .panel .panel-heading a:hover, .panel-group .panel .panel-heading a:focus, .panel-group .panel .panel-heading a:active {
-    text-decoration: none;
-}
-
-.panel-group .panel .panel-body {
-    color: #555;
-}
-
-.panel-group .panel-primary {
-    border: 1px solid #1f91f3;
-}
-
-.panel-group .panel-primary .panel-title {
-    background-color: #1f91f3;
-    color: #fff;
-}
-
-.panel-group.full-body .panel-primary .panel-body {
-    background-color: #1f91f3;
-    color: #fff;
-}
-
-.panel-group .panel-success {
-    border: 1px solid #2b982b;
-}
-
-.panel-group .panel-success .panel-title {
-    background-color: #2b982b;
-    color: #fff;
-}
-
-.panel-group.full-body .panel-success .panel-body {
-    background-color: #2b982b;
-    color: #fff;
-}
-
-.panel-group .panel-warning {
-    border: 1px solid #ff9600;
-}
-
-.panel-group .panel-warning .panel-title {
-    background-color: #ff9600;
-    color: #fff;
-}
-
-.panel-group.full-body .panel-warning .panel-body {
-    background-color: #ff9600;
-    color: #fff;
-}
-
-.panel-group .panel-danger {
-    border: 1px solid #fb483a;
-}
-
-.panel-group .panel-danger .panel-title {
-    background-color: #fb483a;
-    color: #fff;
-}
-
-.panel-group.full-body .panel-danger .panel-body {
-    background-color: #fb483a;
-    color: #fff;
-}
 
 /* Progress Bars =============================== */
 .progress {
