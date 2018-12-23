@@ -8,6 +8,7 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.themes.Theme;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -16,8 +17,7 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.chips.ChipStyles.*;
-import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.jboss.gwt.elemento.core.Elements.span;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements HasSelectionHandler<Chip, String>, HasDeselectionHandler<Chip>,
         Switchable<Chip>, HasRemoveHandler<Chip> {
@@ -38,6 +38,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     private HTMLElement leftAddon;
     private boolean selectable;
     private Color leftBackground;
+    private Theme.ThemeChangeHandler themeListener = (oldTheme, newTheme) -> style.setBorderColor(newTheme.getScheme().color().getHex());
 
     public Chip(String value) {
         element.appendChild(leftAddonContainer);
@@ -273,9 +274,12 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     }
 
     public Chip setBorderColor(Color borderColor) {
-        if (nonNull(this.borderColor)) {
-            Style.of(element).removeProperty("border-color");
+        if(Color.THEME.equals(color)){
+            Theme.addThemeChangeHandler(themeListener);
+        }else{
+            Theme.removeThemeChangeHandler(themeListener);
         }
+
         this.borderColor = borderColor;
         Style.of(element).setBorderColor(borderColor.getHex());
         return this;
