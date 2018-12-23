@@ -570,7 +570,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Editor.Ignore
     public T removeExpandHandlr(Collapsible.ExpandCompletedHandler handler) {
-        collapsible.removeExpandHandlr(handler);
+        collapsible.removeExpandHandler(handler);
         return (T) this;
     }
 

@@ -109,7 +109,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
         return this;
     }
 
-    public void removeExpandHandlr(ExpandCompletedHandler handler) {
+    public void removeExpandHandler(ExpandCompletedHandler handler) {
         expandHandlers.remove(handler);
     }
 

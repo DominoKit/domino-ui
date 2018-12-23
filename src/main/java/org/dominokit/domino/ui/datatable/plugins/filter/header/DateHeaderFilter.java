@@ -21,7 +21,6 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
     public DateHeaderFilter() {
         this.dateBox = DateBox.create()
                 .setPlaceholder("Search")
-
                 .apply(element -> {
                     element.getDatePicker().hideHeaderPanel();
                     element.getDatePicker().addDateDayClickHandler((date, dateTimeFormatInfo) -> {
