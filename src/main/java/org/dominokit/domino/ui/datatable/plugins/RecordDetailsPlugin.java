@@ -5,10 +5,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableRowElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.datatable.CellRenderer;
-import org.dominokit.domino.ui.datatable.ColumnConfig;
-import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.TableRow;
+import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.ExpandRecordEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.icons.BaseIcon;
@@ -21,12 +18,12 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
 
-    public static final String RECORD_DETAILS_BUTTON = "record-details-button";
+    public static final String DATA_TABLE_DETAILS_CM = "data-table-details-cm";
     private final BaseIcon<?> collapseIcon;
     private final BaseIcon<?> expandIcon;
     private HTMLDivElement element = div().asElement();
-    private HTMLTableCellElement td = td().css("details-td").add(element).asElement();
-    private HTMLTableRowElement tr = tr().css("details-tr").add(td).asElement();
+    private HTMLTableCellElement td = td().css(DataTableStyles.DETAILS_TD).add(element).asElement();
+    private HTMLTableRowElement tr = tr().css(DataTableStyles.DETAILS_TR).add(td).asElement();
 
     private final CellRenderer<T> cellRenderer;
     private DetailsButtonElement buttonElement;
@@ -46,7 +43,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     @Override
     public void onBeforeAddHeaders(DataTable<T> dataTable) {
         this.dataTable = dataTable;
-        ColumnConfig<T> column = ColumnConfig.<T>create("data-table-details-cm")
+        ColumnConfig<T> column = ColumnConfig.<T>create(DATA_TABLE_DETAILS_CM)
                 .setSortable(false)
                 .setWidth("60px")
                 .setFixed(true)
@@ -79,7 +76,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     }
 
     private void expandRow(ExpandRecordEvent<T> event) {
-        DetailsButtonElement<T> detailsButtonElement = event.getTableRow().getMetaObject(RECORD_DETAILS_BUTTON);
+        DetailsButtonElement<T> detailsButtonElement = event.getTableRow().getMetaObject(DataTableStyles.RECORD_DETAILS_BUTTON);
         setExpanded(detailsButtonElement);
     }
 
@@ -153,7 +150,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
 
         @Override
         public String getKey() {
-            return RECORD_DETAILS_BUTTON;
+            return DataTableStyles.RECORD_DETAILS_BUTTON;
         }
     }
 

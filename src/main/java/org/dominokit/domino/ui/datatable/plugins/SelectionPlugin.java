@@ -4,10 +4,7 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.datatable.CellRenderer;
-import org.dominokit.domino.ui.datatable.ColumnConfig;
-import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.TableRow;
+import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.forms.CheckBox;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
@@ -158,7 +155,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
         if (nonNull(colorScheme)) {
             checkBox.setColor(colorScheme.color());
         }
-        Style.of(checkBox).add("select-checkbox");
+        Style.of(checkBox).add(DataTableStyles.SELECT_CHECKBOX);
         return checkBox;
     }
 

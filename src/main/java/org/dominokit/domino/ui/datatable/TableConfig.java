@@ -32,12 +32,16 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
         thead.appendChild(tr.asElement());
 
         columns.forEach(columnConfig -> {
+            //TODO replace with FlexLayout
             Node element = columnConfig.getHeaderElement().asElement(columnConfig.getTitle());
             columnConfig.contextMenu = div().style("width: 15px; display: none;").asElement();
-            HtmlContentBuilder<HTMLDivElement> add = div().style("display: flex;")
-                    .add(div().style("width:100%").add(element))
+            HtmlContentBuilder<HTMLDivElement> headerContent = div()
+                    .style("display: flex;")
+                    .add(div()
+                            .style("width:100%")
+                            .add(element))
                     .add(columnConfig.contextMenu);
-            HtmlContentBuilder<HTMLTableCellElement> th = th().css("table-cm-header").add(add.asElement());
+            HtmlContentBuilder<HTMLTableCellElement> th = th().css(DataTableStyles.TABLE_CM_HEADER).add(headerContent.asElement());
             tr.add(th);
             columnConfig.setHeadElement(th.asElement());
             if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
@@ -61,9 +65,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
                 .setWidth(fixedWidth)
                 .setMinWidth(fixedWidth)
                 .setMaxWidth(fixedWidth)
-                .setProperty("overflow", "hidden")
-                .setProperty("text-overflow", "ellipsis")
-                .setProperty("white-space", "nowrap");
+                .add(DataTableStyles.FIXED_WIDTH);
 
     }
 
@@ -173,7 +175,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
     }
 
     public void setRowAppender(RowAppender<T> rowAppender) {
-        if(nonNull(rowAppender)) {
+        if (nonNull(rowAppender)) {
             this.rowAppender = rowAppender;
         }
     }
@@ -199,7 +201,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
     }
 
     @FunctionalInterface
-    public interface RowAppender<T>{
+    public interface RowAppender<T> {
         void appendRow(DataTable<T> dataTable, TableRow<T> tableRow);
     }
 }
