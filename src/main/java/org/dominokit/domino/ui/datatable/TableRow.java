@@ -32,7 +32,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement,TableRow<
 
     @Override
     public T select() {
-        if (!hasFalg("data-table-row-filtered")) {
+        if (!hasFalg(DataTable.DATA_TABLE_ROW_FILTERED)) {
             this.selected = true;
             selectionHandlers.forEach(selectionHandler -> selectionHandler.onSelectionChanged(TableRow.this));
         }

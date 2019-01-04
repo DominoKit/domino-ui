@@ -2,8 +2,8 @@ package org.dominokit.domino.ui.datatable.plugins;
 
 import elemental2.dom.*;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.datatable.DataTable;
+import org.dominokit.domino.ui.datatable.DataTableStyles;
 import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.model.Category;
@@ -18,7 +18,6 @@ import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
-import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.ElementUtil;
@@ -36,7 +35,8 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     private Column titleColumn = Column.span6();
     private Column actionsBarColumn = Column.span6();
 
-    private HTMLHeadingElement title = Style.of(h(2)).setMarginBottom("0px").asElement();
+    private HTMLHeadingElement title = Style.of(h(2))
+            .setMarginBottom("0px").asElement();
     private FlexLayout actionsBar = FlexLayout.create()
             .setJustifyContent(FlexJustifyContent.END);
 
@@ -45,7 +45,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                     .appendChild(titleColumn.appendChild(title))
                     .appendChild(actionsBarColumn.appendChild(actionsBar))
                     .asElement())
-            .css("header")
+            .css(DataTableStyles.HEADER)
             .style("padding-bottom: 5px;")
             .asElement();
 

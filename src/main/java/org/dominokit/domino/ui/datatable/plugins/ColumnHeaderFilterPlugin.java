@@ -6,6 +6,7 @@ import elemental2.dom.HTMLTableRowElement;
 import elemental2.dom.HTMLTableSectionElement;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
+import org.dominokit.domino.ui.datatable.DataTableStyles;
 import org.dominokit.domino.ui.datatable.TableConfig;
 import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
@@ -41,7 +42,7 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
         columns.forEach(columnConfig -> {
 
-            HtmlContentBuilder<HTMLTableCellElement> th = th().css("table-cm-filter");
+            HtmlContentBuilder<HTMLTableCellElement> th = th().css(DataTableStyles.TABLE_CM_HEADER);
             columnConfig.getHeaderStyler()
                     .styleCell(th.asElement());
             tr.add(th);
@@ -64,9 +65,7 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
                 .setWidth(fixedWidth)
                 .setMinWidth(fixedWidth)
                 .setMaxWidth(fixedWidth)
-                .setProperty("overflow", "hidden")
-                .setProperty("text-overflow", "ellipsis")
-                .setProperty("white-space", "nowrap");
+                .add(DataTableStyles.FIXED_WIDTH);
 
     }
 
