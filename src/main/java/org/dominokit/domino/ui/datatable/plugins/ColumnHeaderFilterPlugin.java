@@ -42,7 +42,7 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
         columns.forEach(columnConfig -> {
 
-            HtmlContentBuilder<HTMLTableCellElement> th = th().css(DataTableStyles.TABLE_CM_HEADER);
+            HtmlContentBuilder<HTMLTableCellElement> th = th().css(DataTableStyles.TABLE_CM_FILTER);
             columnConfig.getHeaderStyler()
                     .styleCell(th.asElement());
             tr.add(th);

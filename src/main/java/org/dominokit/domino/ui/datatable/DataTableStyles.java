@@ -11,6 +11,7 @@ public class DataTableStyles {
     public static final String TABLE_FIXED = "table-fixed";
     public static final String TBODY_FIXED = "tbody-fixed";
     public static final String TABLE_CM_HEADER = "table-cm-header";
+    public static final String TABLE_CM_FILTER = "table-cm-filter";
     public static final String FIXED_WIDTH = "fixed-width";
     public static final String HEADER = "table-header";
     public static final String RECORD_DETAILS_BUTTON = "record-details-button";
