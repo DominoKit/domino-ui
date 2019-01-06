@@ -12,7 +12,6 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.BaseModal;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -20,32 +19,20 @@ import org.jboss.gwt.elemento.core.IsElement;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-
 public class MessageDialog extends BaseModal<MessageDialog> {
-
-    private DominoElement<HTMLElement> successIcon;
-    private DominoElement<HTMLElement> errorIcon;
-    private DominoElement<HTMLElement> warningIcon;
 
     private DominoElement<HTMLDivElement> iconContainer = DominoElement.of(div());
 
-    private Color successColor = Color.LIGHT_GREEN;
-    private Color errorColor = Color.RED;
-    private Color warningColor = Color.ORANGE;
+    private DominoElement<HTMLElement> icon;
+    private Color iconColorStart;
+    private Color iconColorEnd;
+    private Transition iconStartTransition;
+    private Transition iconEndTransition;
+    private static Button okButton;
+
 
     public MessageDialog() {
         init(this);
-    }
-
-    private static DominoElement<HTMLElement> createMessageIcon(HTMLElement element) {
-        return DominoElement.of(element)
-                .style()
-                .add(Styles.m_b_15)
-                .setProperty("font-size", "72px")
-                .setProperty("border-radius", "50%")
-                .setHeight("78px")
-                .setWidth("78px")
-                .get();
     }
 
     public static MessageDialog createMessage(Node content) {
@@ -70,17 +57,23 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         messageDialog.setSize(ModalSize.ALERT);
         messageDialog.modal.getModalContent().style().setTextAlign("center");
         messageDialog.modal.getModalFooter().style().setTextAlign("center");
-        messageDialog.modal.getModalHeader().insertBefore(messageDialog.iconContainer, messageDialog.modal.getModalHeader().firstChild());
+        messageDialog.modal.getModalHeader()
+                .insertBefore(messageDialog.iconContainer, messageDialog.modal.getModalHeader().firstChild());
         messageDialog.hideHeader();
         messageDialog.setAutoClose(true);
         messageDialog.onClose(closeHandler::onClose);
         messageDialog.appendChild(content);
-        Button okButton = Button.create("OK").linkify();
+        okButton = Button.create("OK").linkify();
         okButton.asElement().style.setProperty("min-width", "120px");
         messageDialog.appendFooterChild(okButton);
         okButton.getClickableElement().addEventListener(EventType.click.getName(), evt -> messageDialog.close());
 
         return messageDialog;
+    }
+
+    public MessageDialog setOkButtonText(String text){
+        okButton.setContent(text);
+        return this;
     }
 
 
@@ -105,8 +98,12 @@ public class MessageDialog extends BaseModal<MessageDialog> {
     }
 
     public MessageDialog success(BaseIcon<?> icon) {
-        this.successIcon = MessageDialog.createMessageIcon(icon.asElement());
-        appendIcon(successIcon, successColor, Color.ORANGE, Transition.PULSE);
+        this.icon = MessageDialog.createMessageIcon(icon.asElement());
+        this.iconColorStart = Color.ORANGE;
+        this.iconColorEnd = Color.LIGHT_GREEN;
+        this.iconStartTransition = Transition.ROTATE_IN;
+        this.iconEndTransition = Transition.PULSE;
+        initIcon();
         return this;
     }
 
@@ -115,8 +112,12 @@ public class MessageDialog extends BaseModal<MessageDialog> {
     }
 
     public MessageDialog error(BaseIcon<?> icon) {
-        this.errorIcon = MessageDialog.createMessageIcon(icon.asElement());
-        appendIcon(errorIcon, errorColor, Color.GREY, Transition.TADA);
+        this.icon = MessageDialog.createMessageIcon(icon.asElement());
+        this.iconColorStart = Color.GREY;
+        this.iconColorEnd = Color.RED;
+        this.iconStartTransition = Transition.ROTATE_IN;
+        this.iconEndTransition = Transition.TADA;
+        initIcon();
         return this;
     }
 
@@ -125,67 +126,59 @@ public class MessageDialog extends BaseModal<MessageDialog> {
     }
 
     public MessageDialog warning(BaseIcon<?> icon) {
-        this.warningIcon = MessageDialog.createMessageIcon(icon.asElement());
-        appendIcon(warningIcon, warningColor, Color.GREY, Transition.RUBBER_BAND);
+        this.icon = MessageDialog.createMessageIcon(icon.asElement());
+        this.iconColorStart = Color.GREY;
+        this.iconColorEnd = Color.ORANGE;
+        this.iconStartTransition = Transition.ROTATE_IN;
+        this.iconEndTransition = Transition.RUBBER_BAND;
+        initIcon();
         return this;
-    }
-
-    private void appendIcon(DominoElement<HTMLElement> icon, Color iconColor, Color color, Transition rubberBand) {
-        iconContainer.clearElement();
-        iconContainer.appendChild(icon);
-
-        onOpen(() -> {
-            icon.style().remove(iconColor.getStyle())
-                    .add(color.getStyle())
-                    .setBorder("3px solid " + color.getHex());
-            Animation.create(icon)
-                    .transition(Transition.ROTATE_IN)
-                    .duration(400)
-                    .callback(element -> {
-                        Style.of(element)
-                                .remove(color.getStyle())
-                                .add(iconColor.getStyle())
-                                .setBorder("3px solid " + iconColor.getHex());
-                        Animation.create(icon)
-                                .transition(rubberBand)
-                                .animate();
-                    }).animate();
-        });
     }
 
     public MessageDialog warning() {
         return warning(Icons.ALL.clear());
     }
 
-    public MessageDialog setIconColor(Color color) {
-        this.successColor = color;
-        this.warningColor = color;
-        this.errorColor = color;
+    private static DominoElement<HTMLElement> createMessageIcon(HTMLElement element) {
+        return DominoElement.of(element)
+                .styler(style -> style.add("message-icon"));
+    }
+
+    private void initIcon() {
+        iconContainer.clearElement();
+        iconContainer.appendChild(icon);
+
+        onOpen(() -> {
+            icon.style()
+                    .remove(iconColorEnd.getStyle())
+                    .add(iconColorStart.getStyle())
+                    .setBorder("3px solid " + iconColorStart.getHex());
+            Animation.create(icon)
+                    .transition(iconStartTransition)
+                    .duration(400)
+                    .callback(element -> {
+                        Style.of(element)
+                                .remove(iconColorStart.getStyle())
+                                .add(iconColorEnd.getStyle())
+                                .setBorder("3px solid " + iconColorEnd.getHex());
+                        Animation.create(icon)
+                                .transition(iconEndTransition)
+                                .animate();
+                    }).animate();
+        });
+    }
+
+    public MessageDialog setIconColor(Color iconColorStart, Color iconColorEnd) {
+        this.iconColorStart = iconColorStart;
+        this.iconColorEnd = iconColorEnd;
 
         return this;
     }
 
-    /**
-     * @deprecated use {@link #appendHeaderChild(Node)}
-     */
-    @Deprecated
-    public MessageDialog appendHeaderContent(Node content) {
-        return appendHeaderChild(content);
-    }
-
     public MessageDialog appendHeaderChild(Node content) {
-        if (nonNull(successIcon)) {
-            successIcon.remove();
+        if (nonNull(icon)) {
+            icon.remove();
         }
-
-        if (nonNull(errorIcon)) {
-            errorIcon.remove();
-        }
-
-        if (nonNull(warningIcon)) {
-            warningIcon.remove();
-        }
-
         modal.getModalHeader().insertBefore(content, modal.getModalTitle());
         return this;
     }
