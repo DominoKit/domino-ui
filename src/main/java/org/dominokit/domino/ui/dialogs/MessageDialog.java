@@ -53,18 +53,18 @@ public class MessageDialog extends BaseModal<MessageDialog> {
 
     public static MessageDialog createMessage(Node content, CloseHandler closeHandler) {
         MessageDialog messageDialog = new MessageDialog();
+        messageDialog.style.add(MessageDialogStyles.MESSAGE_DIALOG);
 
         messageDialog.setSize(ModalSize.ALERT);
-        messageDialog.modal.getModalContent().style().setTextAlign("center");
-        messageDialog.modal.getModalFooter().style().setTextAlign("center");
         messageDialog.modal.getModalHeader()
                 .insertBefore(messageDialog.iconContainer, messageDialog.modal.getModalHeader().firstChild());
         messageDialog.hideHeader();
         messageDialog.setAutoClose(true);
         messageDialog.onClose(closeHandler::onClose);
         messageDialog.appendChild(content);
-        okButton = Button.create("OK").linkify();
-        okButton.asElement().style.setProperty("min-width", "120px");
+        okButton = Button.create("OK")
+                .styler(style -> style.add(MessageDialogStyles.DIALOG_BUTTON))
+                .linkify();
         messageDialog.appendFooterChild(okButton);
         okButton.getClickableElement().addEventListener(EventType.click.getName(), evt -> messageDialog.close());
 
@@ -141,7 +141,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
 
     private static DominoElement<HTMLElement> createMessageIcon(HTMLElement element) {
         return DominoElement.of(element)
-                .styler(style -> style.add("message-icon"));
+                .styler(style -> style.add(MessageDialogStyles.MESSAGE_ICON));
     }
 
     private void initIcon() {

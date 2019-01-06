@@ -8,21 +8,10 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 public interface IsModalDialog<T> {
-    /**
-     * @deprecated use {@link #appendChild(Node)}
-     */
-    @Deprecated
-    T appendContent(Node content);
 
     T appendChild(Node content);
 
     T appendChild(IsElement content);
-
-    /**
-     * @deprecated use {@link #appendFooterChild(Node)}
-     */
-    @Deprecated
-    T appendFooterContent(Node content);
 
     T appendFooterChild(Node content);
 
@@ -79,9 +68,9 @@ public interface IsModalDialog<T> {
     T deCenterVertically();
 
     enum ModalSize {
-        LARGE("modal-lg"),
-        ALERT("modal-alert"),
-        SMALL("modal-sm");
+        LARGE(ModalStyles.MODAL_LG),
+        ALERT(ModalStyles.MODAL_ALERT),
+        SMALL(ModalStyles.MODAL_SM);
 
         String style;
 
@@ -91,10 +80,10 @@ public interface IsModalDialog<T> {
     }
 
     enum ModalType {
-        BOTTOM_SHEET("bottom-sheet"),
-        TOP_SHEET("top-sheet"),
-        LEFT_SHEET("left-sheet"),
-        RIGHT_SHEET("right-sheet");
+        BOTTOM_SHEET(ModalStyles.BOTTOM_SHEET),
+        TOP_SHEET(ModalStyles.TOP_SHEET),
+        LEFT_SHEET(ModalStyles.LEFT_SHEET),
+        RIGHT_SHEET(ModalStyles.RIGHT_SHEET);
 
         String style;
 

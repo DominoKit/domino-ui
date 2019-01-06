@@ -11,7 +11,10 @@ import java.util.LinkedList;
 
 public class ModalBackDrop {
     public static Deque<BaseModal> openedModals = new LinkedList<>();
-    public static final HTMLDivElement INSTANCE = Elements.div().css("modal-backdrop fade in")
+    public static final HTMLDivElement INSTANCE = Elements.div()
+            .css(ModalStyles.MODAL_BACKDROP)
+            .css(ModalStyles.FADE)
+            .css(ModalStyles.IN)
             .on(EventType.click, event -> {
                 if (ModalBackDrop.INSTANCE.isEqualNode(Js.uncheckedCast(event.target))) {
                     closeCurrentOpen();

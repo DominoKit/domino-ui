@@ -155,16 +155,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         }
     }
 
-    /**
-     * @deprecated use {@link #appendChild(Node)}
-     */
-    @Deprecated
-    @Override
-    public T appendContent(Node content) {
-        modal.modalBody.appendChild(content);
-        return (T) this;
-    }
-
     @Override
     public T appendChild(Node content) {
         modal.modalBody.appendChild(content);
@@ -185,16 +175,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     @Override
     public T appendFooterChild(IsElement content) {
         return appendFooterChild(content.asElement());
-    }
-
-    /**
-     * @deprecated use {@link #appendChild(Node)}
-     */
-    @Deprecated
-    @Override
-    public T appendFooterContent(Node content) {
-        modal.modalFooter.appendChild(content);
-        return (T) this;
     }
 
     @Override
@@ -257,7 +237,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
             activeElementBeforeOpen = DominoDom.document.activeElement;
             addBackdrop();
-            style().add("in");
+            style().add(ModalStyles.IN);
             style().setDisplay("block");
             if (nonNull(firstFocusElement)) {
                 firstFocusElement.focus();
@@ -281,7 +261,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     public void addBackdrop() {
         if (opened_dialogs <= 0) {
             document.body.appendChild(ModalBackDrop.INSTANCE);
-            DominoElement.of(document.body).style().add("modal-open");
+            DominoElement.of(document.body).style().add(ModalStyles.MODAL_OPEN);
         } else {
             Z_INDEX = Z_INDEX + 10;
             ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
@@ -292,7 +272,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     public void removeBackDrop() {
         if (opened_dialogs <= 0) {
             ModalBackDrop.INSTANCE.remove();
-            DominoElement.of(document.body).style().remove("modal-open");
+            DominoElement.of(document.body).style().remove(ModalStyles.MODAL_OPEN);
         } else {
             Z_INDEX = Z_INDEX - 10;
             ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
@@ -317,7 +297,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     public T close() {
         opened_dialogs = opened_dialogs - 1;
 
-        asElement().classList.remove("in");
+        asElement().classList.remove(ModalStyles.IN);
         asElement().style.display = "none";
         if (nonNull(activeElementBeforeOpen))
             activeElementBeforeOpen.focus();

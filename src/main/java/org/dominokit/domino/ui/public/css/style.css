@@ -1,8 +1,4 @@
 ﻿﻿﻿ /* Navbar ====================================== */
-body.modal-open {
-    overflow: hidden;
-}
-
 .navbar {
     font-family: "Roboto", sans-serif;
     -webkit-border-radius: 0;
@@ -3592,189 +3588,7 @@ fieldset[disabled] .form-control {
     font-size: 17px;
 }
 
-/* Modals ====================================== */
-@media only screen and (min-width: 992px) {
-    .modal {
-        margin-left: 30%;
-        margin-right: 30%;
-        margin-top: 30px;
-        width: 40%;
-    }
 
-    .modal:not([class*="-sheet"]) {
-        top: 30px;
-    }
-
-    .modal.modal-lg {
-        margin-left: 20%;
-        margin-right: 20%;
-        margin-top: 30px;
-        width: 60%;
-    }
-
-    .modal.modal-sm {
-        margin-left: 40%;
-        margin-right: 40%;
-        margin-top: 30px;
-        width: 20%;
-    }
-
-    .modal.bottom-sheet {
-        margin: 0px;
-        bottom: 0;
-        width: 100%;
-    }
-
-    .modal.top-sheet {
-        margin: 0px;
-        top: 0;
-        width: 100%;
-    }
-
-    .modal.left-sheet {
-        margin: 0px;
-        left: 0;
-        width: 30%;
-    }
-
-    .modal.modal-lg.left-sheet {
-        width: 50%;
-    }
-
-    .modal.modal-sm.left-sheet {
-        width: 20%;
-    }
-
-    .modal.left-sheet .modal-content {
-        height: calc(100vh);
-    }
-
-    .modal.right-sheet {
-        margin: 0px;
-        right: 0;
-        width: 30%;
-    }
-
-    .modal.modal-lg.right-sheet {
-        width: 50%;
-    }
-
-    .modal.modal-sm.right-sheet {
-        width: 20%;
-    }
-
-    .modal.right-sheet .modal-content {
-        height: calc(100vh);
-    }
-}
-
-@media only screen and (max-width: 992px) {
-
-    .modal {
-        margin-left: 5%;
-        margin-right: 5%;
-        margin-top: 30px;
-        width: 90%;
-    }
-
-    .modal:not([class*="-sheet"]) {
-        top: 30px;
-    }
-
-    .modal.modal-lg {
-        margin-left: 5%;
-        margin-right: 5%;
-        margin-top: 30px;
-        width: 90%;
-    }
-
-    .modal.modal-sm {
-        margin-left: 5%;
-        margin-right: 5%;
-        margin-top: 30px;
-        width: 90%;
-    }
-
-    .modal.bottom-sheet {
-        margin: 0px;
-        bottom: 0;
-    }
-
-    .modal.top-sheet {
-        margin: 0px;
-        top: 0;
-        width: 100%;
-    }
-
-    .modal.left-sheet {
-        margin: 0px;
-        left: 0;
-        width: 90%;
-    }
-
-    .modal.modal-lg.left-sheet {
-        width: 90%;
-    }
-
-    .modal.modal-sm.left-sheet {
-        width: 90%;
-    }
-
-    .modal.left-sheet .modal-content {
-        height: calc(100vh);
-    }
-
-    .modal.right-sheet {
-        margin: 0px;
-        right: 0;
-        width: 90%;
-    }
-
-    .modal.modal-lg.right-sheet {
-        width: 90%;
-    }
-
-    .modal.modal-sm.right-sheet {
-        width: 90%;
-    }
-
-    .modal.right-sheet .modal-content {
-        height: calc(100vh);
-    }
-
-    .modal.picker-modal {
-        margin-top: 0px;
-        top: 5px;
-    }
-}
-
-.modal .modal-header {
-    border: none;
-    padding: 25px 25px 25px 25px;
-}
-
-.modal .modal-header .modal-title {
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.modal .modal-content {
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    border-radius: 0;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.31) !important;
-    border: none;
-}
-
-.modal .modal-content .modal-body {
-    color: #777;
-    padding: 15px 25px 15px 25px;
-}
-
-.modal .modal-footer {
-    border: none;
-}
 
 /* Labels ====================================== */
 .label {
@@ -6272,11 +6086,6 @@ a.disabled {
     padding-right: 5px !important;
 }
 
-.picker-modal-header {
-    padding: 5px !important;
-    text-align: center !important;
-}
-
 .calendar .navigate {
     border-radius: 50%;
     transform: scale(0.9);
@@ -6706,15 +6515,6 @@ a.disabled {
     padding-right: 25px;
 }
 
-.modal-content[class*="col-"] .modal-footer {
-    background-color: rgba(0, 0, 0, 0.12);
-}
-
-.modal-content[class*="col-"] .modal-footer .btn-link:hover,
-.modal-content[class*="col-"] .modal-footer .btn-link:active,
-.modal-content[class*="col-"] .modal-footer .btn-link:focus {
-    background-color: rgba(0, 0, 0, 0.12);
-}
 
 .panel-group .full-body .panel[class*="col-"] .panel-body {
     border-top-color: #fff;
