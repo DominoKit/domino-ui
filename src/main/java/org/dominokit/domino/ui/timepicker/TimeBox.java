@@ -204,7 +204,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
             }
 
             if (isNull(modal)) {
-                this.modal = ModalDialog.createPickerModal(getPlaceholder(), timePicker.getColorScheme(), this.timePicker.asElement());
+                this.modal = ModalDialog.createPickerModal(getPlaceholder(), this.timePicker.asElement());
                 DomGlobal.document.body.appendChild(modal.asElement());
                 asElement().addEventListener(EventType.click.getName(), modalListener);
 
