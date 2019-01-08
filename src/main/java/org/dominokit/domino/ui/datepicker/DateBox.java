@@ -5,6 +5,7 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.KeyboardEvent;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.forms.FormFieldsStyles;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.modals.ModalDialog;
@@ -28,8 +29,6 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     private DatePicker datePicker;
     private String pattern;
-
-    private static int counter = 0;
 
     private Popover popover;
     private ModalDialog modal;
@@ -226,7 +225,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     @Override
     protected HTMLInputElement createInputElement(String type) {
-        return input("text").css("form-control")
+        return input("text")
+                .css(FormFieldsStyles.FORM_CONTROL)
                 .asElement();
     }
 
@@ -265,17 +265,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             if (isNull(popover)) {
                 popover = Popover.createPicker(this, this.datePicker)
                         .position(this.popupPosition)
-                        .style()
-                        .setMaxWidth("300px")
-                        .setMaxWidth("none", true)
-                        .get();
-
-                popover.getContentElement()
-                        .style()
-                        .setPadding("0px", true)
-                        .setWidth("300px", true)
-                        .setMaxWidth("300px", true);
-
+                        .styler(style-> style.add(DatePickerStyles.PICKER_POPOVER));
 
                 popover.getHeadingElement()
                         .style()
@@ -293,7 +283,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             }
 
             if (isNull(modal)) {
-                this.modal = ModalDialog.createPickerModal(getPlaceholder(), datePicker.getColorScheme(), this.datePicker.asElement());
+                this.modal = ModalDialog.createPickerModal(getPlaceholder(), this.datePicker.asElement());
                 asElement().addEventListener(EventType.click.getName(), modalListener);
             }
         }
@@ -312,9 +302,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     }
 
     public DateBox openOnFocus() {
-        EventListener focusListener = evt -> {
-            open();
-        };
+        EventListener focusListener = evt -> open();
         getInputElement().addEventListener(EventType.focus.getName(), focusListener);
         modal.onClose(() -> {
             getInputElement().removeEventListener(EventType.focus.getName(), focusListener);
@@ -343,7 +331,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     public DateBox setReadOnly(boolean readOnly) {
         super.setReadOnly(readOnly);
         if (readOnly) {
-            getInputElement().style().add("readonly");
+            getInputElement().style().add(FormFieldsStyles.READONLY);
             disableModal();
             disablePopover();
         } else if (isEnabled()) {

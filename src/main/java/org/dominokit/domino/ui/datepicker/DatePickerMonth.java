@@ -35,7 +35,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     private DatePickerElement selectedElement;
     private Color background = Color.LIGHT_BLUE;
 
-    private HTMLDivElement element = div().css("date-picker-container").asElement();
+    private HTMLDivElement element = div().css(DatePickerStyles.DATE_PICKER_CONTAINER).asElement();
 
     public DatePickerMonth(JsDate date, DateTimeFormatInfo dateTimeFormatInfo, InternalHandler daySelectionHandler) {
         this.date = date;
@@ -53,7 +53,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     }
 
     private void createMarkup() {
-        HtmlContentBuilder<HTMLTableElement> table = table().css("date-picker");
+        HtmlContentBuilder<HTMLTableElement> table = table().css(DatePickerStyles.DATE_PICKER);
 
         HtmlContentBuilder<HTMLTableSectionElement> thead = thead()
                 .add(tr()
@@ -234,14 +234,14 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
 
     private void styleOtherMonth(DatePickerElement datePickerElement) {
         Style.of(datePickerElement.getElement())
-                .remove("other-month", "current-month")
-                .add("other-month");
+                .remove(DatePickerStyles.OTHER_MONTH, DatePickerStyles.CURRENT_MONTH)
+                .add(DatePickerStyles.OTHER_MONTH);
     }
 
     private void styleCurrentMonth(DatePickerElement datePickerElement) {
         Style.of(datePickerElement.getElement())
-                .remove("other-month", "current-month")
-                .add("current-month");
+                .remove(DatePickerStyles.OTHER_MONTH, DatePickerStyles.CURRENT_MONTH)
+                .add(DatePickerStyles.CURRENT_MONTH);
     }
 
     public void addDaySelectionHandler(DaySelectionHandler daySelectionHandler) {

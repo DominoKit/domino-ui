@@ -786,7 +786,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     }
 
     public ModalDialog createModal(String title) {
-        return ModalDialog.createPickerModal(title, this.getColorScheme(), this.asElement());
+        return ModalDialog.createPickerModal(title, this.asElement());
     }
 
     @Override

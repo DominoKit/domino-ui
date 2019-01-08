@@ -1,7 +1,6 @@
 package org.dominokit.domino.ui.datepicker;
 
 import elemental2.core.JsDate;
-import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -121,14 +120,14 @@ class DatePickerElement implements Selectable<DatePickerElement> {
     @Override
     public DatePickerElement select(boolean silent) {
         this.selected = true;
-        this.element.style().add("selected");
+        this.element.style().add(DatePickerStyles.SELECTED);
         return this;
     }
 
     @Override
     public DatePickerElement deselect(boolean silent) {
         this.selected = false;
-        this.element.style().remove("selected");
+        this.element.style().remove(DatePickerStyles.SELECTED);
         return this;
     }
 
