@@ -34,11 +34,11 @@ class ClockElement {
         this.value = value;
         double circleRadius = radius;
         Color innerColor = colorScheme.lighten_4();
-        String elementStyle = "hour";
+        String elementStyle = TimePickerStyles.HOUR;
         if (isMinute) {
             if (value % 5 != 0) {
                 circleRadius = 10;
-                elementStyle = "small-hour";
+                elementStyle = TimePickerStyles.SMALL_HOUR;
                 innerColor = colorScheme.darker_2();
             }
         }
