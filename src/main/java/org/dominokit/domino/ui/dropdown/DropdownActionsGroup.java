@@ -14,7 +14,7 @@ import java.util.List;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
 public class DropdownActionsGroup extends BaseDominoElement<HTMLLIElement, DropdownActionsGroup> {
-    private DominoElement<HTMLLIElement> element = DominoElement.of(li().css("dropdown-header"));
+    private DominoElement<HTMLLIElement> element = DominoElement.of(li().css(DropDownStyles.DROPDOWN_HEADER));
     private List<DropdownAction> actions = new ArrayList<>();
 
     public DropdownActionsGroup(Node titleElement) {
@@ -42,16 +42,8 @@ public class DropdownActionsGroup extends BaseDominoElement<HTMLLIElement, Dropd
         return create(titleElement.asElement());
     }
 
-    /**
-     * @deprecated use {@link #appendChild(DropdownAction)}
-     */
-    @Deprecated
-    public DropdownActionsGroup addOption(DropdownAction action) {
-        return appendChild(action);
-    }
 
     public DropdownActionsGroup appendChild(DropdownAction action) {
-        action.style().add("opt");
         actions.add(action);
         return this;
     }

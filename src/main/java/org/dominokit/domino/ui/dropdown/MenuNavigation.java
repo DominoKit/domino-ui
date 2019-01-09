@@ -16,7 +16,6 @@ public class MenuNavigation<V extends IsElement, T extends HTMLElement> implemen
     private FocusHandler<V> focusHandler;
     private SelectHandler<V> selectHandler;
     private FocusCondition<V> focusCondition;
-    private V focusedItem;
     private EscapeHandler escapeHandler;
 
     public MenuNavigation(List<V> items, T menuTargetElement) {
@@ -138,7 +137,6 @@ public class MenuNavigation<V extends IsElement, T extends HTMLElement> implemen
 
     private void doFocus(V item) {
         focusHandler.doFocus(item);
-        focusedItem = item;
     }
 
     public void focusAt(int index) {
