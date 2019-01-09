@@ -20,14 +20,14 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu> {
 
     private MenuNavigation<DropdownAction, HTMLElement> menuNavigation;
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("dropdown"));
-    private DominoElement<HTMLUListElement> menuElement = DominoElement.of(ul().css("dropdown-menu"));
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(DropDownStyles.DROPDOWN));
+    private DominoElement<HTMLUListElement> menuElement = DominoElement.of(ul().css(DropDownStyles.DROPDOWN_MENU));
     private HTMLElement targetElement;
     private DropDownPosition position = DropDownPosition.BOTTOM;
-    private DominoElement<HTMLDivElement> titleContainer = DominoElement.of(div()).addCss("dropdown-title-container");
-    private DominoElement<HTMLDivElement> searchContainer = DominoElement.of(div().css("dropdown-search-container"));
+    private DominoElement<HTMLDivElement> titleContainer = DominoElement.of(div()).addCss(DropDownStyles.DROPDOWN_TITLE_CONTAINER);
+    private DominoElement<HTMLDivElement> searchContainer = DominoElement.of(div().css(DropDownStyles.DROPDOWN_SEARCH_CONTAINER));
     private DominoElement<HTMLInputElement> searchBox = DominoElement.of(input("text")
-            .css("dropdown-search-box"));
+            .css(DropDownStyles.DROPDOWN_SEARCH_BOX));
     private DominoElement<HTMLElement> noSearchResultsElement;
     private String noMatchSearchResultText = "No results matched";
     private String noResultsElementDisplay;
@@ -85,7 +85,9 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
         init(this);
 
-        setNoSearchResultsElement(li().css("no-results").style("display: none;").asElement());
+        setNoSearchResultsElement(DominoElement.of(li().css(DropDownStyles.NO_RESULTS))
+                .collapse()
+                .asElement());
         menuElement.appendChild(noSearchResultsElement);
 
         titleContainer.addClickListener(Event::stopPropagation);
@@ -181,7 +183,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     public DropDownMenu separator() {
-        menuElement.appendChild(li().attr("role", "separator").css("divider"));
+        menuElement.appendChild(li().attr("role", "separator")
+                .css(DropDownStyles.DIVIDER));
         return this;
     }
 
