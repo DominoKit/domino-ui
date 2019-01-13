@@ -138,18 +138,18 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
             onCheck();
             validate();
         }
+        updateLabel();
         return this;
     }
 
     @Override
     public SwitchButton uncheck(boolean silent) {
-        if (!isReadOnly()) {
-            inputElement.checked = false;
-            if (!silent) {
-                onCheck();
-                validate();
-            }
+        inputElement.checked = false;
+        if (!silent) {
+            onCheck();
+            validate();
         }
+        updateLabel();
         return this;
     }
 
@@ -253,10 +253,22 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     @Override
     public SwitchButton setReadOnly(boolean readOnly) {
-        if (readOnly) {
+        inputElement.disabled = readOnly;
+        if(readOnly) {
             setOffTitle(offTitle);
             setOnTitle(onTitle);
             setAttribute(READONLY, READONLY);
+            updateLabel();
+        }else{
+            removeAttribute(READONLY);
+            setOffTitle(offTitle);
+            setOnTitle(onTitle);
+        }
+        return this;
+    }
+
+    private void updateLabel() {
+        if (isReadOnly()) {
             if (isChecked()) {
                 if (isOnTitleEmpty()) {
                     DominoElement.of(offTitleTextRoot)
@@ -278,13 +290,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
                             .clearElement();
                 }
             }
-        } else {
-            removeAttribute(READONLY);
-            setOffTitle(offTitle);
-            setOnTitle(onTitle);
         }
-        inputElement.disabled = readOnly;
-        return this;
     }
 
     private boolean isOnTitleEmpty() {
