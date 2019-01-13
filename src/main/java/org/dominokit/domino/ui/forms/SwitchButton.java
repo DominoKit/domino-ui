@@ -133,12 +133,10 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     @Override
     public SwitchButton check(boolean silent) {
-        if (!isReadOnly()) {
-            inputElement.checked = true;
-            if (!silent) {
-                onCheck();
-                validate();
-            }
+        inputElement.checked = true;
+        if (!silent) {
+            onCheck();
+            validate();
         }
         return this;
     }
