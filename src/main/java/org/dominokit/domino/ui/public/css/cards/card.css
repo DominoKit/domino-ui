@@ -107,6 +107,10 @@
     padding: 20px;
 }
 
+.card.fit-content .body{
+    padding: 0px;
+}
+
 .card .body .grid-col {
     margin-bottom: 20px;
 }
