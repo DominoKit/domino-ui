@@ -7,4 +7,5 @@ public class CardStyles {
     public static final String HEADER_ACTIONS = "header-actions";
     public static final String BODY = "body";
     public static final String ACTION_ICON = "action-icon";
+    public static final String FIT_CONTENT = "fit-content";
 }
