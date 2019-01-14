@@ -100,15 +100,6 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     }
 
 
-    /**
-     * @deprecated use {@link #appendDescriptionChild(Node)}
-     */
-    @Deprecated
-    public Card appendDescriptionContent(Node content) {
-        headerDescription.appendChild(content);
-        return this;
-    }
-
     public Card appendDescriptionChild(Node node) {
         headerDescription.appendChild(node);
         return this;
@@ -118,23 +109,6 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         return appendDescriptionChild(element.asElement());
     }
 
-    /**
-     * @deprecated use {@link #appendChild(IsElement)}
-     */
-    @Deprecated
-    public Card appendContent(Node content) {
-        getBody().appendChild(content);
-        return this;
-    }
-
-    /**
-     * @deprecated use {@link #appendChild(Node)}
-     */
-    @Deprecated
-    public Card appendContent(IsElement element) {
-        getBody().appendChild(element.asElement());
-        return this;
-    }
 
     public Card appendChild(Node content) {
         getBody().appendChild(content);
@@ -156,8 +130,13 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         return this;
     }
 
-    public Card condenseBody() {
-        getBody().style().setPadding("0px");
+    public Card fitContent(){
+        style.add(FIT_CONTENT);
+        return this;
+    }
+
+    public Card unFitContent(){
+        style.remove(FIT_CONTENT);
         return this;
     }
 

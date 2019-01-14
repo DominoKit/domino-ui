@@ -31,6 +31,8 @@ public class Layout {
     private static final String BLOCK = "block";
     private static final String COLLAPSE = "collapse";
     private static final String CLICK = "click";
+    public static final String FIT_WIDTH = "fit-width";
+    public static final String FIT_HEIGHT = "fit-height";
 
     private final NavigationBar navigationBar = NavigationBar.create();
     private final Section section = Section.create();
@@ -539,6 +541,30 @@ public class Layout {
 
     public Layout removeLeftPanelHandler(Consumer<Boolean> leftPanelHandler){
         leftPanelHandlers.remove(leftPanelHandler);
+        return this;
+    }
+
+    public Layout fitWidth(){
+        content.styler(style -> style.add(FIT_WIDTH));
+        getContentPanel().styler(style -> style.add(FIT_WIDTH));
+        return this;
+    }
+
+    public Layout unfitWidth(){
+        content.styler(style -> style.remove(FIT_WIDTH));
+        getContentPanel().styler(style -> style.remove(FIT_WIDTH));
+        return this;
+    }
+
+    public Layout fitHeight(){
+        content.styler(style -> style.add(FIT_HEIGHT));
+        getFooter().styler(style -> style.add(FIT_HEIGHT));
+        return this;
+    }
+
+    public Layout unfitHeight(){
+        content.styler(style -> style.remove(FIT_HEIGHT));
+        getFooter().styler(style -> style.remove(FIT_HEIGHT));
         return this;
     }
 
