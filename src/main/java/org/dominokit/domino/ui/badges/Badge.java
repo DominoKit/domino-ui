@@ -22,12 +22,12 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasB
 
     public Badge() {
         init(this);
+        appendChild(textNode);
     }
 
     public static Badge create(String content) {
         Badge badge = new Badge();
-        badge.textNode.textContent = content;
-        badge.badgeElement.appendChild(badge.textNode);
+        badge.setText(content);
         return badge;
     }
 
