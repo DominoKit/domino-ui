@@ -5,10 +5,7 @@ import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.WaveColor;
-import org.dominokit.domino.ui.style.WaveStyle;
-import org.dominokit.domino.ui.style.WavesElement;
+import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.EventType;
 
@@ -18,6 +15,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.style.Unit.*;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements ParentTreeItem<TreeItem>, CanActivate, CanDeactivate, HasClickableElement {
@@ -37,6 +35,8 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     private HTMLElement titleElement;
 
     private BaseIcon<?> expandIcon;
+
+    private int nextLevel = 1;
 
     public TreeItem(String title, BaseIcon<?> icon) {
         this.title = title;
@@ -84,6 +84,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         childrenContainer.appendChild(treeItem.asElement());
         Style.of(anchorElement).add("tree-toggle");
         treeItem.parent = this;
+        treeItem.setLevel(nextLevel);
         Style.of(treeItem).add("tree-leaf");
         Style.of(this.asElement()).remove("tree-leaf");
         return this;
@@ -320,6 +321,14 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
             expand();
             subItems.forEach(TreeItem::expandAll);
         }
+    }
+
+    public void setLevel(int level) {
+        this.nextLevel = level+1;
+        if(isParent()){
+            subItems.forEach(treeItem -> treeItem.setLevel(nextLevel));
+        }
+        anchorElement.style().setPaddingLeft(px.of(nextLevel * 15));
     }
 
     @Override

@@ -36,6 +36,8 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     @DataElement
     HTMLLIElement header;
 
+    private final int nextLevel = 1;
+
     private TreeItem activeTreeItem;
 
     private boolean autoCollapse = true;
@@ -76,6 +78,7 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     public Tree appendChild(TreeItem treeItem) {
         root.appendChild(treeItem.asElement());
         treeItem.setParent(this);
+        treeItem.setLevel(nextLevel);
         this.subItems.add(treeItem);
         return this;
     }
