@@ -5295,6 +5295,7 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
 .menu .tree-leaf a .title {
     font-weight: 500;
     display: block;
+    white-space: nowrap;
 }
 
 .menu .list .ml-tree {
@@ -5303,7 +5304,6 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
 }
 
 .menu .list .ml-tree li a {
-    padding-left: 32px;
     padding-top: 7px;
     padding-bottom: 7px;
 }
@@ -5311,14 +5311,6 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
 .menu .list .ml-tree li.active a.toggled:not(.tree-toggle) {
     font-weight: 600;
     margin-left: 5px;
-}
-
-.menu .list .ml-tree li .ml-tree li a {
-    padding-left: 57px;
-}
-
-.menu .list .ml-tree li .ml-tree .ml-tree li a {
-    padding-left: 95px;
 }
 
 .menu .gap{
