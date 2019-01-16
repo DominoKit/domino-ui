@@ -1935,23 +1935,33 @@ section.content.fit-height {
     margin-bottom: 15px;
 }
 
-.block-header h2 {
+
+.block-header h2, fieldset legend {
     margin: 0 !important;
     color: #666 !important;
     font-weight: normal;
     font-size: 16px;
 }
 
-.block-header h2 small {
+.block-header h2 small, fieldset legend small {
     display: block;
     font-size: 12px;
     margin-top: 8px;
     color: #888;
 }
 
-.block-header h2 small a {
+.block-header h2 small a, fieldset legend small a {
     font-weight: bold;
     color: #777;
+}
+
+fieldset legend {
+    line-height: 1.1;
+    border: none;
+}
+
+fieldset legend small{
+    line-height: 1;
 }
 
 /* Custom Animate ============================== */
