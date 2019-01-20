@@ -14,6 +14,7 @@ public enum Unit{
     ch(value -> value+"ch"),
     vw(value -> value+"vw"),
     vh(value -> value+"vh"),
+    percent(value -> value+"%"),
     none(value -> value+"");
 
 
