@@ -99,6 +99,18 @@ section.content.fit-height {
     flex-shrink: 0;
 }
 
+.sm .footer{
+    margin: 20px 0px 0 100px;
+}
+
+.md .footer{
+    margin: 20px 0px 0 300px;
+}
+
+.lg .footer{
+    margin: 20px 0px 0 400px;
+}
+
 .footer.fit-height{
     margin-top: 0px;
 }
@@ -5062,6 +5074,13 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
 .overlay-open .sidebar {
     margin-left: 0;
     z-index: 99999999;
+}
+
+.sm .sidebar{
+    -moz-transition: left 0.2s;
+    -o-transition: left 0.2s;
+    -webkit-transition: left 0.2s;
+    transition: left 0.2s;
 }
 
 .sidebar {
