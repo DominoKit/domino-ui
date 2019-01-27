@@ -30,6 +30,10 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement,TableRow<
         this.index = index;
     }
 
+    public void setRecord(T record) {
+        this.record = record;
+    }
+
     @Override
     public T select() {
         if (!hasFalg(DataTable.DATA_TABLE_ROW_FILTERED)) {
