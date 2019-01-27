@@ -6,10 +6,7 @@ import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.themes.Theme;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
-import org.dominokit.domino.ui.utils.ScreenMedia;
-import org.dominokit.domino.ui.utils.TextNode;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -21,18 +18,18 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
-public class Layout {
+public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
 
     private static final String SLIDE_OUT_LEFT = "slide-out-left";
     private static final String SLIDE_OUT_RIGHT = "slide-out-right";
-    private static final String SLIDE_IN_LEFT = "slide-in-left";
-    private static final String SLIDE_IN_RIGHT = "slide-in-right";
     private static final String NONE = "none";
     private static final String BLOCK = "block";
     private static final String COLLAPSE = "collapse";
     private static final String CLICK = "click";
     public static final String FIT_WIDTH = "fit-width";
     public static final String FIT_HEIGHT = "fit-height";
+
+    private DominoElement<HTMLDivElement> root = DominoElement.div();
 
     private final NavigationBar navigationBar = NavigationBar.create();
     private final Section section = Section.create();
@@ -59,10 +56,12 @@ public class Layout {
     private List<Consumer<Boolean>> leftPanelHandlers = new ArrayList<>();
 
     public Layout() {
+        init(this);
     }
 
     public Layout(String title) {
         setTitle(title);
+        init(this);
     }
 
     public static Layout create() {
@@ -110,12 +109,13 @@ public class Layout {
     }
 
     private void appendElements() {
-        document.body.appendChild(overlay.asElement());
-        document.body.appendChild(navigationBar.asElement());
-        document.body.appendChild(section.asElement());
-        document.body.appendChild(content.asElement());
-        document.body.appendChild(footer.asElement());
+        root.appendChild(overlay.asElement());
+        root.appendChild(navigationBar.asElement());
+        root.appendChild(section.asElement());
+        root.appendChild(content.asElement());
+        root.appendChild(footer.asElement());
         navigationBar.title.appendChild(appTitle);
+        document.body.appendChild(root.asElement());
     }
 
     public void remove(LayoutHandler removeHandler) {
@@ -123,13 +123,10 @@ public class Layout {
         remove();
     }
 
-    public void remove() {
-        overlay.remove();
-        navigationBar.remove();
-        section.remove();
-        content.remove();
-        footer.remove();
+    public Layout remove() {
+        root.remove();
         removeHandler.handleLayout(this);
+        return this;
     }
 
     private void initElementsPosition() {
@@ -151,15 +148,6 @@ public class Layout {
     public Layout onShow(LayoutHandler layoutHandler) {
         this.onShowHandler = layoutHandler;
         return this;
-    }
-
-    /**
-     * @deprecated use {@link #hideNavBarExpand()}
-     * @return
-     */
-    @Deprecated
-    public Layout hidNavBarExpand() {
-        return hideNavBarExpand();
     }
 
     public Layout hideNavBarExpand() {
@@ -571,6 +559,11 @@ public class Layout {
     private void updateContentMargin() {
         double margin = navigationBar.getBoundingClientRect().height + 30;
         content.style().setMarginTop(margin + "px");
+    }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return root.asElement();
     }
 
     public enum LeftPanelSize{
