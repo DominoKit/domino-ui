@@ -111,6 +111,13 @@ section.content.fit-height {
     margin: 20px 0px 0 400px;
 }
 
+.ls-closed.sm .footer,
+.ls-closed.md .footer,
+.ls-closed.lg .footer {
+    margin-left: 0px;
+}
+
+
 .footer.fit-height{
     margin-top: 0px;
 }
