@@ -15,8 +15,7 @@ import java.util.function.Consumer;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.a;
-import static org.jboss.gwt.elemento.core.Elements.li;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
 
@@ -29,7 +28,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     public static final String FIT_WIDTH = "fit-width";
     public static final String FIT_HEIGHT = "fit-height";
 
-    private DominoElement<HTMLDivElement> root = DominoElement.div();
+    private DominoElement<HTMLDivElement> root = DominoElement.of(div().css("layout"));
 
     private final NavigationBar navigationBar = NavigationBar.create();
     private final Section section = Section.create();
@@ -56,12 +55,29 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     private List<Consumer<Boolean>> leftPanelHandlers = new ArrayList<>();
 
     public Layout() {
-        init(this);
+        this(null);
     }
 
     public Layout(String title) {
-        setTitle(title);
-        init(this);
+        if (nonNull(title)) {
+            setTitle(title);
+        }
+        appendElements();
+        initElementsPosition();
+        addExpandListeners();
+        if (!bodyStyle().contains("ls-hidden"))
+            bodyStyle().add("ls-closed");
+        new Theme(Theme.INDIGO).apply();
+
+        DominoElement.of(document.body)
+                .style()
+                .add(leftPanelSize.getSize());
+
+        MediaQuery.addOnSmallAndDownListener(this::unfixFooter);
+
+        if (nonNull(onShowHandler)) {
+            onShowHandler.handleLayout(this);
+        }
     }
 
     public static Layout create() {
@@ -85,24 +101,13 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public Layout show(ColorScheme theme, boolean autoFixLeftPanel) {
-        appendElements();
-        initElementsPosition();
-        addExpandListeners();
-        if (!bodyStyle().contains("ls-hidden"))
-            bodyStyle().add("ls-closed");
         new Theme(theme).apply();
 
-        DominoElement.of(document.body)
-                .style()
-                .add(leftPanelSize.getSize());
-
-        MediaQuery.addOnSmallAndDownListener(this::unfixFooter);
-
-        if (nonNull(onShowHandler)) {
-            onShowHandler.handleLayout(this);
-        }
         if (autoFixLeftPanel) {
             autoFixLeftPanel();
+        }
+        if (!root.isAttached()) {
+            document.body.appendChild(root.asElement());
         }
 
         return this;
@@ -115,7 +120,6 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         root.appendChild(content.asElement());
         root.appendChild(footer.asElement());
         navigationBar.title.appendChild(appTitle);
-        document.body.appendChild(root.asElement());
     }
 
     public void remove(LayoutHandler removeHandler) {
@@ -522,35 +526,35 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         return this;
     }
 
-    public Layout onLeftPanelStateChanged(Consumer<Boolean> leftPanelHandler){
+    public Layout onLeftPanelStateChanged(Consumer<Boolean> leftPanelHandler) {
         leftPanelHandlers.add(leftPanelHandler);
         return this;
     }
 
-    public Layout removeLeftPanelHandler(Consumer<Boolean> leftPanelHandler){
+    public Layout removeLeftPanelHandler(Consumer<Boolean> leftPanelHandler) {
         leftPanelHandlers.remove(leftPanelHandler);
         return this;
     }
 
-    public Layout fitWidth(){
+    public Layout fitWidth() {
         content.styler(style -> style.add(FIT_WIDTH));
         getContentPanel().styler(style -> style.add(FIT_WIDTH));
         return this;
     }
 
-    public Layout unfitWidth(){
+    public Layout unfitWidth() {
         content.styler(style -> style.remove(FIT_WIDTH));
         getContentPanel().styler(style -> style.remove(FIT_WIDTH));
         return this;
     }
 
-    public Layout fitHeight(){
+    public Layout fitHeight() {
         content.styler(style -> style.add(FIT_HEIGHT));
         getFooter().styler(style -> style.add(FIT_HEIGHT));
         return this;
     }
 
-    public Layout unfitHeight(){
+    public Layout unfitHeight() {
         content.styler(style -> style.remove(FIT_HEIGHT));
         getFooter().styler(style -> style.remove(FIT_HEIGHT));
         return this;
@@ -566,7 +570,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         return root.asElement();
     }
 
-    public enum LeftPanelSize{
+    public enum LeftPanelSize {
         SMALL("sm"),
         DEFAULT("md"),
         LARGE("lg");
