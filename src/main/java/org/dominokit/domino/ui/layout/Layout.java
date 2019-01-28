@@ -441,11 +441,6 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         return this;
     }
 
-    public Layout apply(LayoutHandler layoutHandler) {
-        layoutHandler.handleLayout(this);
-        return this;
-    }
-
     public Text getAppTitle() {
         return appTitle;
     }
