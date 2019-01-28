@@ -59,6 +59,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public Layout(String title) {
+        init(this);
         if (nonNull(title)) {
             setTitle(title);
         }
