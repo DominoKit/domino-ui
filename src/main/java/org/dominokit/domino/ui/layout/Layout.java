@@ -561,6 +561,34 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         content.style().setMarginTop(margin + "px");
     }
 
+    public boolean isLeftPanelVisible() {
+        return leftPanelVisible;
+    }
+
+    public boolean isRightPanelVisible() {
+        return rightPanelVisible;
+    }
+
+    public boolean isNavigationBarExpanded() {
+        return navigationBarExpanded;
+    }
+
+    public boolean isOverlayVisible() {
+        return overlayVisible;
+    }
+
+    public boolean isLeftPanelDisabled() {
+        return leftPanelDisabled;
+    }
+
+    public boolean isFixedLeftPanel() {
+        return fixedLeftPanel;
+    }
+
+    public LeftPanelSize getLeftPanelSize() {
+        return leftPanelSize;
+    }
+
     @Override
     public HTMLDivElement asElement() {
         return root.asElement();

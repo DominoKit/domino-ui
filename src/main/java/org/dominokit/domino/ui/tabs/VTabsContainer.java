@@ -1,8 +1,9 @@
 package org.dominokit.domino.ui.tabs;
 
-import elemental2.dom.CSSProperties;
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.grid.flex.FlexDirection;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
+import org.dominokit.domino.ui.style.Calc;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -11,13 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.style.Unit.px;
+import static org.dominokit.domino.ui.style.Unit.vh;
 import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.jboss.gwt.elemento.core.Elements.ul;
 
 class VTabsContainer extends BaseDominoElement<HTMLDivElement, VTabsContainer> implements HasActiveItem<VerticalTab>, IsElement<HTMLDivElement> {
 
-    private HTMLUListElement listContainer = DominoElement.of(ul().css("list"))
-            .asElement();
+    private FlexLayout listContainer = FlexLayout.create()
+            .setDirection(FlexDirection.TOP_TO_BOTTOM)
+            .css("list");
 
     private HTMLDivElement element = DominoElement.of(div()
             .add(listContainer)
@@ -42,6 +45,11 @@ class VTabsContainer extends BaseDominoElement<HTMLDivElement, VTabsContainer> i
         return this;
     }
 
+    public VTabsContainer appendChild(FillItem fillItem) {
+        listContainer.appendChild(fillItem.asElement());
+        return this;
+    }
+
     @Override
     public VerticalTab getActiveItem() {
         return activeItem;
@@ -57,19 +65,19 @@ class VTabsContainer extends BaseDominoElement<HTMLDivElement, VTabsContainer> i
         this.activeItem.activate();
     }
 
-    public DominoElement<HTMLUListElement> getListContainer() {
-        return DominoElement.of(listContainer);
+    public FlexLayout getListContainer() {
+        return listContainer;
     }
 
     public VTabsContainer autoHieght() {
-        listContainer.style.height = CSSProperties.HeightUnionType.of("calc(100vh - 83px)");
-        asElement().style.height = CSSProperties.HeightUnionType.of("calc(100vh - 70px)");
+        listContainer.styler(style-> style.setHeight(Calc.sub(vh.of(100), px.of(83))));
+        DominoElement.of(element).styler(style -> style.setHeight(Calc.sub(vh.of(100), px.of(70))));
         return this;
     }
 
     public VTabsContainer autoHieght(int offset) {
-        listContainer.style.height = CSSProperties.HeightUnionType.of("calc(100vh - " + offset + 13 + "px)");
-        asElement().style.height = CSSProperties.HeightUnionType.of("calc(100vh - " + offset + "px)");
+        listContainer.styler(style-> style.setHeight(Calc.sum(vh.of(100), px.of(offset+13))));
+        DominoElement.of(element).styler(style -> style.setHeight(Calc.sum(vh.of(100), px.of(offset))));
         return this;
     }
 

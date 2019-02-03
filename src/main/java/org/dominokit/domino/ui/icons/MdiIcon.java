@@ -31,7 +31,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
     }
 
     @Override
-    public MdiIcon toggleIcon() {
+    protected MdiIcon doToggle() {
         if (nonNull(toggleName)) {
             if (this.style.contains(originalName)) {
                 this.style.remove(originalName);

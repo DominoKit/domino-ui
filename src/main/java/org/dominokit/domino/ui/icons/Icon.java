@@ -26,7 +26,7 @@ public class Icon extends BaseIcon<Icon> {
     }
 
     @Override
-    public Icon toggleIcon() {
+    protected Icon doToggle() {
         if (nonNull(toggleName)) {
             if (this.getTextContent().equals(originalName)) {
                 this.setTextContent(toggleName);

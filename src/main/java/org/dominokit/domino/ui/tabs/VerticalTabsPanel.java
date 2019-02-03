@@ -53,9 +53,15 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
 
         init(this);
         setColor(Color.BLUE);
-
-
     }
+
+    public VerticalTabsPanel appendChild(FillItem fillItem) {
+        if(nonNull(fillItem)){
+            tabsList.appendChild(fillItem);
+        }
+      return this;
+    }
+
 
     public VerticalTabsPanel appendChild(VerticalTab tab) {
         if (nonNull(tab)) {
