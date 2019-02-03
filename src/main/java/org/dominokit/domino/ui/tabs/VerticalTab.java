@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.tabs;
 
 import elemental2.dom.*;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Style;
@@ -13,10 +14,10 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class VerticalTab extends WavesElement<HTMLLIElement, VerticalTab> implements HasClickableElement {
+public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> implements HasClickableElement {
 
     private String title;
-    private HTMLLIElement element;
+    private FlexItem element;
     private HTMLAnchorElement anchorElement;
 
     private BaseIcon<?> icon;
@@ -64,7 +65,7 @@ public class VerticalTab extends WavesElement<HTMLLIElement, VerticalTab> implem
     }
 
     private void init() {
-        this.element = li().asElement();
+        this.element = FlexItem.create();
         this.element.appendChild(anchorElement);
         init(this);
         setWaveColor(WaveColor.THEME);
@@ -125,8 +126,8 @@ public class VerticalTab extends WavesElement<HTMLLIElement, VerticalTab> implem
     }
 
     @Override
-    public HTMLLIElement asElement() {
-        return element;
+    public HTMLDivElement asElement() {
+        return element.asElement();
     }
 
 }

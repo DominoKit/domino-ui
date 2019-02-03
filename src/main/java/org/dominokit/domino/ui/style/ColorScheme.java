@@ -25,6 +25,7 @@ public interface ColorScheme {
     Color darker_4();
 
     String rgba_1();
+
     String rgba_2();
 
     default Theme theme() {
@@ -1454,4 +1455,77 @@ public interface ColorScheme {
             return "";
         }
     };
+
+    default ColorScheme of(String name) {
+        switch (name) {
+            case "RED":
+                return ColorScheme.RED;
+
+            case "PINK":
+                return ColorScheme.PINK;
+
+            case "PURPLE":
+                return ColorScheme.PURPLE;
+
+            case "DEEP PURPLE":
+                return ColorScheme.DEEP_PURPLE;
+
+            case "INDIGO":
+                return ColorScheme.INDIGO;
+
+            case "BLUE":
+                return ColorScheme.BLUE;
+
+            case "LIGHT BLUE":
+                return ColorScheme.LIGHT_BLUE;
+
+            case "CYAN":
+                return ColorScheme.CYAN;
+
+            case "TEAL":
+                return ColorScheme.TEAL;
+
+            case "GREEN":
+                return ColorScheme.GREEN;
+
+            case "LIGHT GREEN":
+                return ColorScheme.LIGHT_GREEN;
+
+            case "LIME":
+                return ColorScheme.LIME;
+
+            case "YELLOW":
+                return ColorScheme.YELLOW;
+
+            case "AMBER":
+                return ColorScheme.AMBER;
+
+            case "ORANGE":
+                return ColorScheme.ORANGE;
+
+            case "DEEP ORANGE":
+                return ColorScheme.DEEP_ORANGE;
+
+            case "BROWN":
+                return ColorScheme.BROWN;
+
+            case "GREY":
+                return ColorScheme.GREY;
+
+            case "BLUE GREY":
+                return ColorScheme.BLUE_GREY;
+
+            case "BLACK":
+                return ColorScheme.BLACK;
+
+            case "WHITE":
+                return ColorScheme.WHITE;
+
+            case "TRANSPARENT":
+                return ColorScheme.TRANSPARENT;
+            default:
+                throw new IllegalArgumentException("ColorScheme [" + name + "] not found!.");
+        }
+    }
+
 }

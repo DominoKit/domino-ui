@@ -28,7 +28,7 @@ public class HeaderAction extends BaseDominoElement<HTMLLIElement, HeaderAction>
 
     public HeaderAction(BaseIcon<?> icon) {
         this.icon = icon;
-        this.icon.withWaves()
+        this.icon.clickable()
                 .styler(style -> style.add(Styles.pull_right, ACTION_ICON));
         anchorElement.appendChild(this.icon.asElement());
         element.appendChild(anchorElement);

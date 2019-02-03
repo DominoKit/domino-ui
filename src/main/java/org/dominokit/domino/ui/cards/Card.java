@@ -197,7 +197,8 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
 
     private HTMLLIElement createHeaderAction(BaseIcon<?> icon) {
         return li().add(a()
-                .add(icon.withWaves()
+                .add(icon
+                        .clickable()
                         .styler(style -> style
                                 .add(Styles.pull_right, ACTION_ICON))))
                 .asElement();
