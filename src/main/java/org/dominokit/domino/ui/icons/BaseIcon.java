@@ -8,6 +8,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.EventType;
 
+import java.util.function.Consumer;
+
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -19,6 +21,9 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
     protected String originalName;
     protected String toggleName;
     protected boolean toggleOnClick = false;
+    private boolean toggled = false;
+    private Consumer<T> onToggleHandler = icon -> {
+    };
 
     public String getName() {
         return name;
@@ -48,11 +53,15 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
         addClickListener(evt -> {
             if (toggleOnClick) {
                 evt.stopPropagation();
-                onToggleIcon(evt);
+                toggleIcon();
             }
         });
 
         return (T) this;
+    }
+
+    public boolean isToggled() {
+        return toggled;
     }
 
     public T toggleOnClick(boolean toggleOnClick) {
@@ -60,7 +69,19 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
         return (T) this;
     }
 
-    public abstract T toggleIcon();
+    public T onToggle(Consumer<T> toggleConsumer) {
+        this.onToggleHandler = toggleConsumer;
+        return (T) this;
+    }
+
+    public T toggleIcon(){
+        doToggle();
+        this.toggled = !this.toggled;
+        this.onToggleHandler.accept((T) BaseIcon.this);
+        return (T) this;
+    }
+
+    protected abstract T doToggle();
 
     public T clickable() {
         style.add("clickable-icon");
@@ -73,9 +94,5 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
     @Override
     public HTMLElement asElement() {
         return icon.asElement();
-    }
-
-    private void onToggleIcon(Event evt) {
-        toggleIcon();
     }
 }
