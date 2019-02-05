@@ -6600,7 +6600,7 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
     display: inline-flex;
     vertical-align: middle;
     width: 100%;
-    padding: 10px 10px;
+    padding: 10px 10px 10px 0px;
 }
 
 .vtabs .list a:hover, .menu .list a:active, .menu .list a:focus {
