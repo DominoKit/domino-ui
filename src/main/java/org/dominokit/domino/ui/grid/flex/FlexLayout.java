@@ -1,18 +1,24 @@
 package org.dominokit.domino.ui.grid.flex;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.style.IsCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
 
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("flex-layout"));
     private List<FlexItem> flexItems = new ArrayList<>();
+    private FlexDirection flexDirection;
+    private FlexWrap flexWrap;
+    private FlexJustifyContent flexJustifyContent;
+    private FlexAlign flexAlign;
 
     public FlexLayout() {
         init(this);
@@ -23,12 +29,14 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
     }
 
     public FlexLayout setDirection(FlexDirection direction) {
-        element.style().setProperty("flex-direction", direction.getStyle());
+        replaceCssClass(flexDirection, direction);
+        this.flexDirection = direction;
         return this;
     }
 
     public FlexLayout setWrap(FlexWrap wrap) {
-        element.style().setProperty("flex-wrap", wrap.getStyle());
+       replaceCssClass(flexWrap, wrap);
+        flexWrap = wrap;
         return this;
     }
 
@@ -39,12 +47,14 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
     }
 
     public FlexLayout setJustifyContent(FlexJustifyContent justifyContent) {
-        element.style().setProperty("justify-content", justifyContent.getStyle());
+        replaceCssClass(flexJustifyContent, justifyContent);
+        flexJustifyContent = justifyContent;
         return this;
     }
 
     public FlexLayout setAlignItems(FlexAlign alignItems) {
-        element.style().setProperty("align-items", alignItems.getStyle());
+        replaceCssClass(flexAlign, alignItems);
+        flexAlign = alignItems;
         return this;
     }
 
@@ -52,6 +62,13 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
         flexItems.add(flexItem);
         appendChild(flexItem.asElement());
         return this;
+    }
+
+    private void replaceCssClass(IsCssClass original, IsCssClass replacement){
+        if(nonNull(original)){
+            element.style().remove(original.getStyle());
+        }
+        element.style().add(replacement.getStyle());
     }
 
     public List<FlexItem> getFlexItems() {

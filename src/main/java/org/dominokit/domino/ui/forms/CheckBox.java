@@ -5,6 +5,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -38,7 +39,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     public CheckBox(String label) {
         this.label = label;
         setLabel(label);
-        formControl.style().setProperty("border-bottom", "0px");
+        formControl.style().add("no-bottom-border");
         formControl.appendChild(inputElement);
         formControl.appendChild(labelElement);
         inputElement.addEventListener("change", evt -> {
