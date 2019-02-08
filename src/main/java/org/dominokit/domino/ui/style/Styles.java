@@ -414,6 +414,12 @@ public class Styles {
     public static final String opacity_l_9 = "opacity-l-9";
     public static final String opacity_l_full = "opacity-l-full";
 
+    public static final String b_b_0 = "b-b-0";
+    public static final String b_t_0 = "b-t-0";
+    public static final String b_l_0 = "b-l-0";
+    public static final String b_r_0 = "b-r-0";
+    public static final String b_0 = "b-0";
+
     HtmlContentBuilder<HTMLHeadingElement> header = Elements.h(1)
             .style("text-align: left;")
             .textContent("Example heading ");

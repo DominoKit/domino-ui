@@ -1,10 +1,12 @@
 package org.dominokit.domino.ui.grid.flex;
 
-public enum FlexDirection {
-    LEFT_TO_RIGHT("row"),
-    RIGHT_TO_LEFT("row-reverse"),
-    TOP_TO_BOTTOM("column"),
-    BOTTOM_TO_TOP("column-reverse");
+import org.dominokit.domino.ui.style.IsCssClass;
+
+public enum FlexDirection implements IsCssClass {
+    LEFT_TO_RIGHT("flex-dir-row"),
+    RIGHT_TO_LEFT("flex-dir-row-reverse"),
+    TOP_TO_BOTTOM("flex-dir-column"),
+    BOTTOM_TO_TOP("flex-dir-column-reverse");
 
     private String style;
 
@@ -12,6 +14,7 @@ public enum FlexDirection {
         this.style = style;
     }
 
+    @Override
     public String getStyle() {
         return style;
     }

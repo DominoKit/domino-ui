@@ -1,12 +1,14 @@
 package org.dominokit.domino.ui.grid.flex;
 
-public enum FlexJustifyContent {
-    START("flex-start"),
-    END("flex-end"),
-    CENTER("center"),
-    SPACE_BETWEEN("space-between"),
-    SPACE_AROUND("space-around"),
-    SPACE_EVENLY("space-evenly");
+import org.dominokit.domino.ui.style.IsCssClass;
+
+public enum FlexJustifyContent implements IsCssClass {
+    START("flex-just-start"),
+    END("flex-just-end"),
+    CENTER("flex-just-center"),
+    SPACE_BETWEEN("flex-just-space-between"),
+    SPACE_AROUND("flex-just-space-around"),
+    SPACE_EVENLY("flex-just-space-evenly");
 
     private String style;
 
@@ -14,6 +16,7 @@ public enum FlexJustifyContent {
         this.style = style;
     }
 
+    @Override
     public String getStyle() {
         return style;
     }
