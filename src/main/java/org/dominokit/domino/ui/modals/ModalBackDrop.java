@@ -67,8 +67,10 @@ public class ModalBackDrop {
     }
 
     public static void popPopOver() {
-        openedPopOvers.pop();
-        NEXT_Z_INDEX -= 10;
+        if (!openedPopOvers.isEmpty()) {
+            openedPopOvers.pop();
+            NEXT_Z_INDEX -= 10;
+        }
     }
 
     public static Integer getNextZIndex() {

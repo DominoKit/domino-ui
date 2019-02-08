@@ -28,7 +28,6 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     private static final String CLICK_EVENT = "click";
     private static final String FOCUSED = "focused";
-    private static int OPTIONS_Z_INDEX = 1041;
 
     private DominoElement<HTMLDivElement> container = DominoElement.of(div().css("form-group"));
     private DominoElement<HTMLDivElement> formLine = DominoElement.of(div().css("form-line"));
@@ -114,7 +113,6 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private void doOpen() {
         optionsMenu.open();
         optionsMenu.styler(style -> style.setWidth(formControl.getBoundingClientRect().width + "px"));
-//        int zIndex = 1041 + (10 * ModalBackDrop.openedModals.size());
 
         optionsMenu.style().setProperty("z-index", ModalBackDrop.getNextZIndex() + "");
     }
