@@ -114,8 +114,9 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private void doOpen() {
         optionsMenu.open();
         optionsMenu.styler(style -> style.setWidth(formControl.getBoundingClientRect().width + "px"));
-        int zIndex = 1041 + (10 * ModalBackDrop.openedModals.size());
-        optionsMenu.style().setProperty("z-index", zIndex + "");
+//        int zIndex = 1041 + (10 * ModalBackDrop.openedModals.size());
+
+        optionsMenu.style().setProperty("z-index", ModalBackDrop.getNextZIndex() + "");
     }
 
     public void close() {
