@@ -44,10 +44,12 @@ public class DropdownAction extends BaseDominoElement<HTMLLIElement, DropdownAct
                 .asElement();
         liElement.appendChild(aElement);
         liElement.addEventListener("click", evt -> {
+            evt.stopPropagation();
             select();
             evt.preventDefault();
         });
         liElement.addEventListener("touchstart", evt -> {
+            evt.stopPropagation();
             select();
             evt.preventDefault();
         });
