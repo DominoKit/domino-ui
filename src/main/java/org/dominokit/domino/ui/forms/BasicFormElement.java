@@ -30,7 +30,6 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     private RequiredValidator requiredValidator = new RequiredValidator(this);
     private String helperText;
 
-    private TakesValueEditor<V> editor;
     private String requiredErrorMessage;
 
     @Override
@@ -192,18 +191,11 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     protected abstract DominoElement<HTMLLabelElement> getLabelElement();
 
-    @Override
-    public TakesValueEditor<V> asEditor() {
-        if (editor == null) {
-            editor = TakesValueEditor.of(this);
-        }
-        return editor;
-    }
 
     @Override
     public void showErrors(List<EditorError> errors) {
         invalidate(errors.stream()
-                .filter(e -> editor.equals(e.getEditor()))
+                .filter(e -> this.equals(e.getEditor()))
                 .map(EditorError::getMessage)
                 .collect(Collectors.toList()));
 

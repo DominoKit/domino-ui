@@ -35,7 +35,6 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     private DominoElement<HTMLLabelElement> helperLabel = DominoElement.of(label().css("help-info"));
     private List<HTMLLabelElement> errorLabels = new ArrayList<>();
     private DominoElement<HTMLDivElement> labelContainer = DominoElement.of(div().css("form-label focused"));
-    private TakesValueEditor<String> editor;
     private ElementValidations elementValidations = new ElementValidations(this);
     private RequiredValidator requiredValidator = new RequiredValidator(this);
     private List<Radio> radios = new ArrayList<>();
@@ -369,17 +368,9 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public TakesValueEditor<String> asEditor() {
-        if (editor == null) {
-            editor = TakesValueEditor.of(this);
-        }
-        return editor;
-    }
-
-    @Override
     public void showErrors(List<EditorError> errors) {
         invalidate(errors.stream()
-                .filter(e -> editor.equals(e.getEditor()))
+                .filter(e -> this.equals(e.getEditor()))
                 .map(EditorError::getMessage)
                 .collect(Collectors.toList()));
     }
