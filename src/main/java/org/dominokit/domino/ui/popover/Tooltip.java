@@ -46,8 +46,10 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
         init(this);
     }
 
-    private void hide() {
+    @Override
+    public Tooltip hide() {
         element.remove();
+        return this;
     }
 
     public static Tooltip create(HTMLElement target, String text) {
