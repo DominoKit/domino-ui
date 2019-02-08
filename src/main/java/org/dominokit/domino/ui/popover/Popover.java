@@ -69,7 +69,8 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
         });
     }
 
-    public void show() {
+    @Override
+    public Popover show() {
         if (isEnabled()) {
             if (closeOthers) {
                 closeOthers();
@@ -78,6 +79,8 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
             element.style().setZIndex(ModalBackDrop.getNextZIndex());
             ModalBackDrop.push(this);
         }
+
+        return this;
     }
 
     private void closeAll() {

@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.forms;
 
 import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.editor.client.adapters.TakesValueEditor;
+import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLLabelElement;
 import elemental2.dom.Node;
@@ -19,6 +20,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -194,7 +196,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
 
     @Override
     public RadioGroup invalidate(List<String> errorMessages) {
-        helperLabel.style().setDisplay("none");
+        helperLabel.toggleDisplay(errorMessages.isEmpty());
         removeErrors();
 
         errorMessages.forEach(message -> {
@@ -212,13 +214,14 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
 
     @Override
     public RadioGroup clearInvalid() {
-        helperLabel.style().setDisplay("block");
+        helperLabel.show();
         removeErrors();
         return this;
     }
 
     private void removeErrors() {
-        errorLabels.forEach(l -> l.remove());
+        errorLabels.forEach(Element::remove);
+        errorLabels.clear();
     }
 
     public List<Radio> getRadios() {
@@ -239,7 +242,6 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     public String getValue() {
         return radios.stream().filter(Radio::isChecked).map(Radio::getValue).findFirst().orElse(null);
     }
-
 
     @Override
     public boolean isEmpty() {
@@ -376,16 +378,10 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
 
     @Override
     public void showErrors(List<EditorError> errors) {
-        List<String> errorMessages = new ArrayList<>();
-        for (EditorError error : errors) {
-            if (error.getEditor().equals(editor)) {
-                errorMessages.add(error.getMessage());
-            }
-        }
-
-        if (!errorMessages.isEmpty()) {
-            invalidate(errorMessages);
-        }
+        invalidate(errors.stream()
+                .filter(e -> editor.equals(e.getEditor()))
+                .map(EditorError::getMessage)
+                .collect(Collectors.toList()));
     }
 
     @Override

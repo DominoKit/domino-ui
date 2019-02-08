@@ -59,15 +59,13 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     @Override
     @Editor.Ignore
     public T collapse() {
-        collapsible.collapse();
-        return element;
+        return hide();
     }
 
     @Override
     @Editor.Ignore
     public T expand() {
-        collapsible.expand();
-        return element;
+        return show();
     }
 
     @Override
@@ -81,6 +79,18 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     @Editor.Ignore
     public T toggleDisplay(boolean state) {
         collapsible.toggleDisplay(state);
+        return element;
+    }
+
+    @Override
+    public T show() {
+        collapsible.show();
+        return element;
+    }
+
+    @Override
+    public T hide() {
+        collapsible.hide();
         return element;
     }
 
