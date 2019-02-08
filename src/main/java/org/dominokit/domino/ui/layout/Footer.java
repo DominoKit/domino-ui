@@ -33,12 +33,4 @@ public class Footer extends BaseDominoElement<HTMLElement, Footer> {
         element.style().remove("fixed");
         return this;
     }
-
-    public void hide() {
-        element.style().setDisplay("none");
-    }
-
-    public void show() {
-        element.style().setDisplay("block");
-    }
 }

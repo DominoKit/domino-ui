@@ -39,17 +39,27 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
     @Override
     public Collapsible collapse() {
-        style.setDisplay("none");
-        onCollapseCompleted();
-        this.collapsed = true;
-        return this;
+        return hide();
     }
 
     @Override
     public Collapsible expand() {
+        return show();
+    }
+
+    @Override
+    public Collapsible show() {
         onExpandCompleted();
         style.removeProperty("display");
         this.collapsed = false;
+        return this;
+    }
+
+    @Override
+    public Collapsible hide() {
+        style.setDisplay("none");
+        onCollapseCompleted();
+        this.collapsed = true;
         return this;
     }
 
@@ -70,9 +80,9 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     @Override
     public Collapsible toggleDisplay() {
         if (isCollapsed())
-            expand();
+            show();
         else
-            collapse();
+            hide();
         return this;
     }
 
@@ -80,9 +90,9 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     @Override
     public Collapsible toggleDisplay(boolean state) {
         if(state){
-            expand();
+            show();
         }else{
-            collapse();
+            hide();
         }
         return this;
     }
