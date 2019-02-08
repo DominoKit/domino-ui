@@ -61,14 +61,6 @@ public class DropdownActionsGroup extends BaseDominoElement<HTMLLIElement, Dropd
         return actions.stream().allMatch(DropdownAction::isCollapsed);
     }
 
-    void hide() {
-        element.collapse();
-    }
-
-    void show() {
-        element.expand();
-    }
-
     void addActionsTo(DropDownMenu menu) {
         for (DropdownAction action : actions) {
             action.addCollapseHandler(this::changeVisibility);

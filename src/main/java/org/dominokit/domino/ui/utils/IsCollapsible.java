@@ -5,6 +5,10 @@ public interface IsCollapsible<T> {
 
     T expand();
 
+    T show();
+
+    T hide();
+
     T toggleDisplay();
 
     T toggleDisplay(boolean state);

@@ -72,14 +72,6 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
         return options.stream().allMatch(SelectOption::isCollapsed);
     }
 
-    void hide() {
-        element.collapse();
-    }
-
-    void show() {
-        element.expand();
-    }
-
     void addOptionsTo(Select<T> select) {
         for (SelectOption<T> option : options) {
             option.addCollapseHandler(this::changeVisibility);
