@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
+import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.editor.client.adapters.TakesValueEditor;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLLabelElement;
@@ -12,9 +13,11 @@ import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
+import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static java.util.Objects.isNull;
@@ -28,7 +31,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     private DominoElement<HTMLDivElement> formLine = DominoElement.of(div().css("form-line"));
     private DominoElement<HTMLDivElement> formControl = DominoElement.of(div().css("form-control"));
     private DominoElement<HTMLLabelElement> helperLabel = DominoElement.of(label().css("help-info"));
-    private DominoElement<HTMLLabelElement> errorLabel = DominoElement.of(label().css("error"));
+    private List<HTMLLabelElement> errorLabels = new ArrayList<>();
     private DominoElement<HTMLDivElement> labelContainer = DominoElement.of(div().css("form-label focused"));
     private TakesValueEditor<String> editor;
     private ElementValidations elementValidations = new ElementValidations(this);
@@ -182,22 +185,40 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
         return elementValidations.hasValidator(validator);
     }
 
+
     @Override
     public RadioGroup invalidate(String errorMessage) {
-        helperLabel.style().setDisplay("none");
-        if (!formLine.contains(errorLabel))
-            formLine.appendChild(errorLabel);
-        errorLabel.style().setDisplay("block");
-        errorLabel.setTextContent(errorMessage);
+        invalidate(Collections.singletonList(errorMessage));
         return this;
+    }
+
+    @Override
+    public RadioGroup invalidate(List<String> errorMessages) {
+        helperLabel.style().setDisplay("none");
+        removeErrors();
+
+        errorMessages.forEach(message -> {
+            HTMLLabelElement errorLabel = makeErrorLabel(message);
+            errorLabels.add(errorLabel);
+            formLine.appendChild(errorLabel);
+        });
+
+        return this;
+    }
+
+    protected HTMLLabelElement makeErrorLabel(String message) {
+        return Elements.label().css("error").textContent(message).asElement();
     }
 
     @Override
     public RadioGroup clearInvalid() {
         helperLabel.style().setDisplay("block");
-        errorLabel.style().setDisplay("none");
-        errorLabel.setTextContent("");
+        removeErrors();
         return this;
+    }
+
+    private void removeErrors() {
+        errorLabels.forEach(l -> l.remove());
     }
 
     public List<Radio> getRadios() {
@@ -351,6 +372,20 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
             editor = TakesValueEditor.of(this);
         }
         return editor;
+    }
+
+    @Override
+    public void showErrors(List<EditorError> errors) {
+        List<String> errorMessages = new ArrayList<>();
+        for (EditorError error : errors) {
+            if (error.getEditor().equals(editor)) {
+                errorMessages.add(error.getMessage());
+            }
+        }
+
+        if (!errorMessages.isEmpty()) {
+            invalidate(errorMessages);
+        }
     }
 
     @Override
