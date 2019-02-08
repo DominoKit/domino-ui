@@ -5,6 +5,7 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FieldsGrouping implements HasValidation<FieldsGrouping> {
@@ -61,7 +62,13 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
     }
 
     public FieldsGrouping invalidate(String errorMessage) {
-        formElements.forEach(formElement -> formElement.invalidate(errorMessage));
+
+        return invalidate(Collections.singletonList(errorMessage));
+    }
+
+    @Override
+    public FieldsGrouping invalidate(List<String> errorMessages) {
+        formElements.forEach(formElement -> formElement.invalidate(errorMessages));
         return this;
     }
 
@@ -128,5 +135,4 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
     public boolean hasValidator(Validator validator) {
         return validators.contains(validator);
     }
-
 }
