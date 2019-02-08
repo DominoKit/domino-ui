@@ -11,14 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static elemental2.dom.DomGlobal.document;
-import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
-import static org.jboss.gwt.elemento.core.Elements.body;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.h;
 
 public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implements Switchable<Popover> {
-
 
     private static List<Popover> currentVisible = new ArrayList<>();
     private final Text headerText;
@@ -59,22 +56,27 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
         closeListener = evt -> closeAll();
         document.body.addEventListener(EventType.click.getName(), closeListener);
         element.addEventListener(EventType.click.getName(), Event::stopPropagation);
-        ElementUtil.onDetach(targetElement, mutationRecord -> element.remove());
+        ElementUtil.onDetach(targetElement, mutationRecord -> {
+            if (visible) {
+                close();
+            }
+            element.remove();
+        });
         init(this);
 
         onDetached(mutationRecord -> {
             document.body.removeEventListener(EventType.keydown.getName(), closeListener);
         });
-
     }
 
     public void show() {
         if (isEnabled()) {
-            if (nonNull(currentVisible) && closeOthers) {
+            if (closeOthers) {
                 closeOthers();
             }
             open(targetElement);
-            currentVisible.add(Popover.this);
+            element.style().setZIndex(ModalBackDrop.getNextZIndex());
+            ModalBackDrop.push(this);
         }
     }
 
@@ -83,8 +85,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
     }
 
     private void closeOthers() {
-        currentVisible.forEach(Popover::close);
-        currentVisible.clear();
+        ModalBackDrop.closePopovers();
     }
 
     private void open(HTMLElement target) {
@@ -97,7 +98,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
             popupPosition.position(element.asElement(), target);
             position(popupPosition);
             visible = true;
-            if(closeOnEscp) {
+            if (closeOnEscp) {
                 KeyboardEvents.listenOn(document.body)
                         .onEscape(closeListener);
             }
@@ -108,6 +109,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
         asElement().remove();
         visible = false;
         document.body.removeEventListener(EventType.keydown.getName(), closeListener);
+        ModalBackDrop.popPopOver();
     }
 
     public void discard() {
@@ -183,12 +185,12 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
         return headingElement;
     }
 
-    public Popover closeOnEscp(boolean closeOnEscp){
+    public Popover closeOnEscp(boolean closeOnEscp) {
         this.closeOnEscp = closeOnEscp;
         return this;
     }
 
-    public Popover closeOnScroll(boolean closeOnScroll){
+    public Popover closeOnScroll(boolean closeOnScroll) {
         this.closeOnScroll = closeOnScroll;
         return this;
     }
@@ -206,13 +208,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
         return headerText;
     }
 
-    public static void closeAllPopovers(){
-        List<Popover> all = new ArrayList<>(currentVisible);
-        for (Popover popover : all) {
-            if(popover.closeOnScroll) {
-                popover.close();
-            }
-        }
+    public boolean isCloseOnScroll() {
+        return closeOnScroll;
     }
-
 }

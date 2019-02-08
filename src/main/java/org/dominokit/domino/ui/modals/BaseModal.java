@@ -253,7 +253,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
             this.open = true;
             opened_dialogs = opened_dialogs + 1;
-            ModalBackDrop.openedModals.push(this);
+            ModalBackDrop.push(this);
         }
         return (T) this;
     }
@@ -312,8 +312,8 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
         this.open = false;
         removeBackDrop();
-        if (ModalBackDrop.openedModals.contains(this)) {
-            ModalBackDrop.openedModals.pop();
+        if (ModalBackDrop.contains(this)) {
+            ModalBackDrop.popModal();
         }
 
         return (T) this;
