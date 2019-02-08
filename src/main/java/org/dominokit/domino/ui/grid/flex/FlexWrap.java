@@ -1,9 +1,11 @@
 package org.dominokit.domino.ui.grid.flex;
 
-public enum FlexWrap {
-    NO_WRAP("nowrap"),
-    WRAP_TOP_TO_BOTTOM("wrap"),
-    WRAP_BOTTOM_TO_TOP("wrap-reverse");
+import org.dominokit.domino.ui.style.IsCssClass;
+
+public enum FlexWrap implements IsCssClass {
+    NO_WRAP("flex-wrap-nowrap"),
+    WRAP_TOP_TO_BOTTOM("flex-wrap-wrap"),
+    WRAP_BOTTOM_TO_TOP("flex-wrap-wrap-reverse");
 
     private String style;
 
@@ -11,6 +13,7 @@ public enum FlexWrap {
         this.style = style;
     }
 
+    @Override
     public String getStyle() {
         return style;
     }
