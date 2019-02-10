@@ -1,9 +1,23 @@
 package org.dominokit.domino.ui.utils;
 
 public interface IsCollapsible<T> {
-    T collapse();
+    /**
+     * @deprecated use {@link #hide()}
+     * @return T
+     */
+    @Deprecated
+    default T collapse(){
+        return hide();
+    }
 
-    T expand();
+    /**
+     * @deprecated use {@link #show()}
+     * @return T
+     */
+    @Deprecated
+    default T expand(){
+        return show();
+    }
 
     T show();
 

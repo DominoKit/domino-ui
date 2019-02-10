@@ -129,7 +129,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
 
     public TreeItem expand(boolean expandParent) {
         if (isParent()) {
-            collapsible.expand();
+            collapsible.show();
         }
         if (expandParent && nonNull(parent)) {
             parent.expand(expandParent);
@@ -139,7 +139,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
 
     public TreeItem collapse() {
         if (isParent()) {
-            collapsible.collapse();
+            collapsible.hide();
         }
         return this;
     }
