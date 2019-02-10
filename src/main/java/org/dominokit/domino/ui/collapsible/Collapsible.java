@@ -37,11 +37,21 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
         return create(isElement.asElement());
     }
 
+    /**
+     * @deprecated use {@link #show()}
+     * @return T
+     */
+    @Deprecated
     @Override
     public Collapsible collapse() {
         return hide();
     }
 
+    /**
+     * @deprecated use {@link #show()}
+     * @return T
+     */
+    @Deprecated
     @Override
     public Collapsible expand() {
         return show();

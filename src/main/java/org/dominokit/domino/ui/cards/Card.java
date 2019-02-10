@@ -226,23 +226,43 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         return this;
     }
 
+    /**
+     * @deprecated use {@link #hide()}
+     * @return T
+     */
+    @Deprecated
     public Card collapse() {
-        bodyCollapsible.collapse();
-        return this;
+       return hide();
     }
 
+    /**
+     * @deprecated use {@link #show()}
+     * @return T
+     */
+    @Deprecated
     public Card expand() {
-        bodyCollapsible.expand();
-        return this;
+       return show();
     }
 
 
     public Card toggle() {
         if (isCollapsed()) {
-            expand();
+            show();
         } else {
-            collapse();
+            hide();
         }
+        return this;
+    }
+
+    @Override
+    public Card show() {
+        bodyCollapsible.show();
+        return this;
+    }
+
+    @Override
+    public Card hide() {
+        bodyCollapsible.hide();
         return this;
     }
 

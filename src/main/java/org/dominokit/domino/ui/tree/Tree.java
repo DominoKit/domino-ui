@@ -276,11 +276,6 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
 
     }
 
-    @Override
-    public Tree collapse() {
-        return super.collapse();
-    }
-
     public Search getSearch() {
         return search;
     }
