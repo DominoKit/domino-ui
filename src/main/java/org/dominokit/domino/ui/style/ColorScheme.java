@@ -1456,7 +1456,7 @@ public interface ColorScheme {
         }
     };
 
-    default ColorScheme of(String name) {
+    static ColorScheme of(String name) {
         switch (name) {
             case "RED":
                 return ColorScheme.RED;
