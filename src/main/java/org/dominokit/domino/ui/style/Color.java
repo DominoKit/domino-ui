@@ -4874,7 +4874,7 @@ public interface Color {
         }
     };
 
-    default Color of(String name) {
+    static Color of(String name) {
         switch (name) {
             case "RED":
                 return Color.RED;
