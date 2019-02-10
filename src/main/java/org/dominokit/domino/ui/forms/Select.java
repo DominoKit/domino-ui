@@ -113,8 +113,6 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private void doOpen() {
         optionsMenu.open();
         optionsMenu.styler(style -> style.setWidth(formControl.getBoundingClientRect().width + "px"));
-
-        optionsMenu.style().setProperty("z-index", ModalBackDrop.getNextZIndex() + "");
     }
 
     public void close() {
@@ -480,10 +478,10 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         this.readOnly = readOnly;
         if (readOnly) {
             formControl.style().add("readonly");
-            iconContainer.collapse();
+            iconContainer.hide();
         } else {
             formControl.style().remove("readonly");
-            iconContainer.expand();
+            iconContainer.show();
         }
         buttonElement.setReadOnly(readOnly);
         return this;

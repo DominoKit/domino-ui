@@ -6,6 +6,7 @@ import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
+import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -86,7 +87,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         init(this);
 
         setNoSearchResultsElement(DominoElement.of(li().css(DropDownStyles.NO_RESULTS))
-                .collapse()
+                .hide()
                 .asElement());
         menuElement.appendChild(noSearchResultsElement);
 
@@ -122,16 +123,16 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
                 contains = action.getValue().toLowerCase().contains(searchValue.toLowerCase());
 
             if (!contains) {
-                action.collapse();
+                action.hide();
             } else {
                 thereIsValues = true;
-                action.expand();
+                action.show();
             }
         }
         if (thereIsValues) {
-            noSearchResultsElement.collapse();
+            noSearchResultsElement.hide();
         } else {
-            noSearchResultsElement.expand();
+            noSearchResultsElement.show();
             noSearchResultsElement.setTextContent(noMatchSearchResultText + " \"" + searchValue + "\"");
         }
         groups.forEach(DropdownActionsGroup::changeVisibility);
@@ -208,13 +209,15 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
                 searchBox.asElement().focus();
                 clearSearch();
             }
+
+            element.style().setProperty("z-index", ModalBackDrop.getNextZIndex() + "");
         }
     }
 
     public void clearSearch() {
         searchBox.asElement().value = "";
-        noSearchResultsElement.collapse();
-        actions.forEach(DropdownAction::expand);
+        noSearchResultsElement.hide();
+        actions.forEach(DropdownAction::show);
     }
 
     public boolean isOpened() {
@@ -266,9 +269,9 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     public DropDownMenu setSearchable(boolean searchable) {
         this.searchable = searchable;
         if (searchable) {
-            searchContainer.expand();
+            searchContainer.show();
         } else {
-            searchContainer.collapse();
+            searchContainer.hide();
         }
         return this;
     }

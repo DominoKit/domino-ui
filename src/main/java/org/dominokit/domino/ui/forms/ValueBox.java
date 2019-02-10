@@ -66,7 +66,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     protected void callChangeHandlers() {
-        if(!pauseChangeHandlers) {
+        if (!pauseChangeHandlers) {
             changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(getValue()));
         }
     }
@@ -418,7 +418,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
             if (getInputElement().hasAttribute("floating")) {
                 floating();
             } else {
-                nonfloating();
+                if(isEmpty()) {
+                    nonfloating();
+                }
             }
         }
         return (T) this;
@@ -465,16 +467,16 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
-    public T setPauseChangeHandlers(boolean pauseChangeHandlers){
+    public T setPauseChangeHandlers(boolean pauseChangeHandlers) {
         this.pauseChangeHandlers = pauseChangeHandlers;
         return (T) this;
     }
 
-    public T pauseChangeHandlers(){
+    public T pauseChangeHandlers() {
         return setPauseChangeHandlers(true);
     }
 
-    public T resumeChangeHandlers(){
+    public T resumeChangeHandlers() {
         return setPauseChangeHandlers(false);
     }
 

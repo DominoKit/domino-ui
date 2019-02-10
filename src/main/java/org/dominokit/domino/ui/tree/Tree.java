@@ -63,7 +63,7 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     public static Tree create() {
         Templated_Tree tree = new Templated_Tree();
         DominoElement.of(tree.header)
-                .collapse();
+                .hide();
         return tree;
     }
 
@@ -248,7 +248,7 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     public Tree setTitle(String title){
         getTitle().setTextContent(title);
         if(getHeader().isCollapsed()){
-            getHeader().expand();
+            getHeader().show();
         }
         return this;
     }
@@ -291,4 +291,5 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     public Icon getExpandAllIcon() {
         return expandAllIcon;
     }
+
 }

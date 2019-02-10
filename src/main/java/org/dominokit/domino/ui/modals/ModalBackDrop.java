@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ModalBackDrop {
+    public static final int INCREMENT = 10;
     private static Deque<BaseModal> openedModals = new LinkedList<>();
     private static Deque<Popover> openedPopOvers = new LinkedList<>();
     private static Integer NEXT_Z_INDEX = 1040;
@@ -36,7 +37,7 @@ public class ModalBackDrop {
 
     private static void closeCurrentOpen() {
         if (!ModalBackDrop.openedModals.isEmpty()) {
-            BaseModal modal = ModalBackDrop.openedModals.pop();
+            BaseModal modal = ModalBackDrop.openedModals.peek();
             if (modal.isAutoClose()) {
                 modal.close();
             }
@@ -49,12 +50,12 @@ public class ModalBackDrop {
 
     public static void push(BaseModal modal) {
         openedModals.push(modal);
-        NEXT_Z_INDEX += 10;
+        NEXT_Z_INDEX += INCREMENT;
     }
 
     public static void popModal() {
         openedModals.pop();
-        NEXT_Z_INDEX -= 10;
+        NEXT_Z_INDEX -= INCREMENT;
     }
 
     public static boolean contains(Popover popover) {
@@ -63,13 +64,13 @@ public class ModalBackDrop {
 
     public static void push(Popover popover) {
         openedPopOvers.push(popover);
-        NEXT_Z_INDEX += 10;
+        NEXT_Z_INDEX += INCREMENT;
     }
 
     public static void popPopOver() {
         if (!openedPopOvers.isEmpty()) {
             openedPopOvers.pop();
-            NEXT_Z_INDEX -= 10;
+            NEXT_Z_INDEX -= INCREMENT;
         }
     }
 
@@ -78,7 +79,7 @@ public class ModalBackDrop {
     }
 
     public static void toNextZIndex() {
-        NEXT_Z_INDEX += 10;
+        NEXT_Z_INDEX += INCREMENT;
     }
 
     public static void closePopovers() {
@@ -91,6 +92,10 @@ public class ModalBackDrop {
         for (Popover popover : shouldClose) {
             popover.close();
         }
+    }
+
+    public static int openedModalsCount() {
+        return openedModals.size();
     }
 
 }
