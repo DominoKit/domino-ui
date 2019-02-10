@@ -409,43 +409,43 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
 
     public DatePicker showHeaderPanel() {
-        headerPanel.expand();
+        headerPanel.show();
         return this;
     }
 
     public DatePicker hideHeaderPanel() {
-        headerPanel.collapse();
+        headerPanel.hide();
         return this;
     }
 
     public DatePicker showTodayButton() {
-        this.todayButton.expand();
+        this.todayButton.show();
         return this;
     }
 
     public DatePicker hideTodayButton() {
-        this.todayButton.collapse();
+        this.todayButton.hide();
         return this;
     }
 
     public DatePicker showClearButton() {
-        this.clearButton.expand();
+        this.clearButton.show();
         return this;
     }
 
     public DatePicker hideClearButton() {
-        this.clearButton.expand();
+        this.clearButton.show();
         return this;
     }
 
 
     public DatePicker showCloseButton() {
-        this.closeButton.expand();
+        this.closeButton.hide();
         return this;
     }
 
     public DatePicker hideCloseButton() {
-        this.closeButton.collapse();
+        this.closeButton.hide();
         return this;
     }
 

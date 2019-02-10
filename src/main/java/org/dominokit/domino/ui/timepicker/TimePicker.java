@@ -195,7 +195,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
                     }
                 })
                 .add(Icons.ALL.navigate_before()))
-                .collapse();
+                .hide();
 
         backToMinutes = DominoElement.of(a().css(TimePickerStyles.NAVIGATE)
                 .css(TimePickerStyles.NAVIGATE_RIGHT)
@@ -205,7 +205,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
                     }
                 })
                 .add(Icons.ALL.navigate_next()))
-                .collapse();
+                .hide();
 
         element.appendChild(headerPanel);
 
@@ -243,7 +243,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         hoursPanel = DominoElement.of(div().css(TimePickerStyles.CLOCK_PICKER));
         minutesPanel = DominoElement.of(div().css(TimePickerStyles.CLOCK_PICKER));
 
-        minutesPanel.collapse();
+        minutesPanel.hide();
 
         pickerContentContainer.appendChild(hoursPanel);
         pickerContentContainer.appendChild(minutesPanel);
@@ -489,10 +489,10 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     }
 
     private void showMinutes() {
-        this.minutesPanel.expand();
+        this.minutesPanel.show();
         this.minutesRootSvg.setAttributeNS(null, "style", "display: block; margin: auto;");
 
-        this.hoursPanel.collapse();
+        this.hoursPanel.hide();
         this.hoursRootSvg.setAttributeNS(null, "style", "display: none; margin: auto;");
 
         this.minutesVisible = true;
@@ -514,10 +514,10 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     }
 
     private void showHours() {
-        this.hoursPanel.expand();
+        this.hoursPanel.show();
         this.hoursRootSvg.setAttributeNS(null, "style", "display: block; margin: auto;");
 
-        this.minutesPanel.collapse();
+        this.minutesPanel.hide();
         this.minutesRootSvg.setAttributeNS(null, "style", "display: none; margin: auto;");
         this.minutesVisible = false;
 
@@ -572,33 +572,33 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     }
 
     public TimePicker showNowButton() {
-        this.nowButton.expand();
+        this.nowButton.show();
         return this;
     }
 
     public TimePicker hideNowButton() {
-        this.nowButton.collapse();
+        this.nowButton.hide();
         return this;
     }
 
     public TimePicker showClearButton() {
-        this.clearButton.expand();
+        this.clearButton.show();
         return this;
     }
 
     public TimePicker hideClearButton() {
-        this.clearButton.collapse();
+        this.clearButton.hide();
         return this;
     }
 
 
     public TimePicker showCloseButton() {
-        this.closeButton.expand();
+        this.closeButton.show();
         return this;
     }
 
     public TimePicker hideCloseButton() {
-        this.closeButton.collapse();
+        this.closeButton.hide();
         return this;
     }
 
@@ -727,11 +727,11 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     public TimePicker setShowSwitchers(boolean showSwitchers) {
         if (showSwitchers) {
-            backToHours.expand();
-            backToMinutes.expand();
+            backToHours.show();
+            backToMinutes.show();
         } else {
-            backToHours.collapse();
-            backToMinutes.collapse();
+            backToHours.hide();
+            backToMinutes.hide();
         }
         this.showSwitchers = showSwitchers;
 
@@ -742,10 +742,10 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         this.clockStyle = clockStyle;
         if (_12.equals(clockStyle)) {
             this.clock = new Clock12(dateTimeFormatInfo);
-            amPmContainer.expand();
+            amPmContainer.show();
         } else {
             this.clock = new Clock24(dateTimeFormatInfo);
-            amPmContainer.collapse();
+            amPmContainer.hide();
         }
         reDraw();
         formatTime();

@@ -234,15 +234,15 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         if (windowIndex >= windowCount - 1) {
             nextSet.disable();
             if(nonNull(dotsElement) && nonNull(pagesCountPageElement)){
-                dotsElement.collapse();
-                pagesCountPageElement.collapse();
+                dotsElement.hide();
+                pagesCountPageElement.hide();
             }
 
         } else {
             nextSet.enable();
             if(nonNull(dotsElement) && nonNull(pagesCountPageElement)){
-                dotsElement.expand();
-                pagesCountPageElement.expand();
+                dotsElement.show();
+                pagesCountPageElement.show();
             }
         }
 
@@ -255,14 +255,14 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
             int windowMaxLimit = windowMinLimit + windowSize;
 
             for (int i = windowMinLimit; i < windowMaxLimit; i++) {
-                allPages.get(i).collapse();
+                allPages.get(i).hide();
             }
 
             int targetWindowMinLimit = index * windowSize;
             int targetWindowMaxLimit = targetWindowMinLimit + windowSize;
 
             for (int i = targetWindowMinLimit; i < targetWindowMaxLimit; i++) {
-                allPages.get(i).expand();
+                allPages.get(i).show();
             }
 
             this.windowIndex = index;

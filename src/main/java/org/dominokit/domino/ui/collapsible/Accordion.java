@@ -49,11 +49,11 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
                 List<AccordionPanel> accordionPanels = otherPanels(panel);
                 accordionPanels.forEach(accordionPanel -> {
                     if (!accordionPanel.isCollapsed()) {
-                        accordionPanel.collapse();
+                        accordionPanel.hide();
                     }
                 });
                 if (panel.isCollapsed()) {
-                    panel.expand();
+                    panel.show();
                 }
             } else {
                 panel.toggleDisplay();
