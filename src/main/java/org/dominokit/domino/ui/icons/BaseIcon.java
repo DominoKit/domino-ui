@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.icons;
 
-import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Color;

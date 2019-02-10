@@ -56,12 +56,22 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return asElement().id;
     }
 
+    /**
+     * @deprecated use {@link #hide()}
+     * @return T
+     */
+    @Deprecated
     @Override
     @Editor.Ignore
     public T collapse() {
         return hide();
     }
 
+    /**
+     * @deprecated use {@link #show()}
+     * @return T
+     */
+    @Deprecated
     @Override
     @Editor.Ignore
     public T expand() {
