@@ -21,14 +21,14 @@ public class ScrollTop extends BaseButton<ScrollTop> {
         setSize(ButtonSize.LARGE);
         setBackground(Color.THEME);
         style.add("top-scroller");
-        collapse();
+        hide();
         addClickListener(evt -> ElementUtil.scrollTop());
 
         document.addEventListener(EventType.scroll.getName(), evt -> {
             if (document.scrollingElement.scrollTop > showOffset) {
-                ScrollTop.this.expand();
+                ScrollTop.this.show();
             } else {
-                ScrollTop.this.collapse();
+                ScrollTop.this.hide();
             }
         });
     }

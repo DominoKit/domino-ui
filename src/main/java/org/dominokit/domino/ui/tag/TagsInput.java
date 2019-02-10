@@ -218,11 +218,11 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     }
 
     private void disableAddValues() {
-        tagTextInput.collapse();
+        tagTextInput.hide();
     }
 
     private void enableAddValues() {
-        tagTextInput.expand();
+        tagTextInput.show();
     }
 
     public TagsInput<V> setMaxValue(int maxSize) {

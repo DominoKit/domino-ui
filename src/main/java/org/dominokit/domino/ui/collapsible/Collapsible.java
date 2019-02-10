@@ -42,7 +42,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
      * @return T
      */
     @Deprecated
-    @Override
+//    @Override
     public Collapsible collapse() {
         return hide();
     }
@@ -52,7 +52,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
      * @return T
      */
     @Deprecated
-    @Override
+//    @Override
     public Collapsible expand() {
         return show();
     }

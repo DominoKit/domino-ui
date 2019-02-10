@@ -61,7 +61,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         collapsibleElement.appendChild(bodyElement);
         element.appendChild(collapsibleElement);
         init(this);
-        collapse();
+        hide();
     }
 
     public AccordionPanel setTitle(String title) {

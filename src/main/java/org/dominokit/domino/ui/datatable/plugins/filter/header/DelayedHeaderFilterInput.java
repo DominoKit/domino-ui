@@ -26,8 +26,8 @@ public abstract class DelayedHeaderFilterInput<B extends ValueBox, T> implements
 
         input.styler(style -> style.setMarginBottom("0px"));
         input.setPlaceholder(placeHolder);
-        input.getLeftAddonContainer().collapse();
-        input.getRightAddonContainer().collapse();
+        input.getLeftAddonContainer().hide();
+        input.getRightAddonContainer().hide();
 
         delayedTextInput = DelayedTextInput.create(getInputElement(), 200);
     }

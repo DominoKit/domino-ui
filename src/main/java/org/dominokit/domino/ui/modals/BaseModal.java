@@ -25,7 +25,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     private List<OpenHandler> openHandlers = new ArrayList<>();
     private List<CloseHandler> closeHandlers = new ArrayList<>();
-    static int opened_dialogs = 0;
     static int Z_INDEX = 1040;
 
     @Templated
@@ -252,14 +251,13 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
                 openHandlers.get(i).onOpen();
 
             this.open = true;
-            opened_dialogs = opened_dialogs + 1;
             ModalBackDrop.push(this);
         }
         return (T) this;
     }
 
     public void addBackdrop() {
-        if (opened_dialogs <= 0) {
+        if (ModalBackDrop.openedModalsCount() <= 0) {
             document.body.appendChild(ModalBackDrop.INSTANCE);
             DominoElement.of(document.body).style().add(ModalStyles.MODAL_OPEN);
         } else {
@@ -270,7 +268,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     }
 
     public void removeBackDrop() {
-        if (opened_dialogs <= 0) {
+        if (ModalBackDrop.openedModalsCount() <= 1) {
             ModalBackDrop.INSTANCE.remove();
             DominoElement.of(document.body).style().remove(ModalStyles.MODAL_OPEN);
         } else {
@@ -295,7 +293,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public T close() {
-        opened_dialogs = opened_dialogs - 1;
 
         asElement().classList.remove(ModalStyles.IN);
         asElement().style.display = "none";
