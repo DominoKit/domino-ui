@@ -96,7 +96,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
     private int firstVisibleActionIndex() {
         for (int i = 0; i < actions.size(); i++) {
-            if (!actions.get(i).isCollapsed()) {
+            if (!actions.get(i).isHidden()) {
                 return i;
             }
         }
@@ -105,7 +105,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
     private int lastVisibleActionIndex() {
         for (int i = actions.size() - 1; i >= 0; i--) {
-            if (!actions.get(i).isCollapsed()) {
+            if (!actions.get(i).isHidden()) {
                 return i;
             }
         }
@@ -141,7 +141,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     private void addMenuNavigationListener(HTMLElement targetElement) {
         menuNavigation = MenuNavigation.create(actions, targetElement)
                 .onSelect(DropdownAction::select)
-                .focusCondition(item -> !item.isCollapsed())
+                .focusCondition(item -> !item.isHidden())
                 .onFocus(item -> {
                     if (isOpened()) {
                         item.focus();

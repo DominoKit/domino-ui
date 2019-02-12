@@ -58,13 +58,13 @@ public class DropdownActionsGroup extends BaseDominoElement<HTMLLIElement, Dropd
     }
 
     boolean isAllHidden() {
-        return actions.stream().allMatch(DropdownAction::isCollapsed);
+        return actions.stream().allMatch(DropdownAction::isHidden);
     }
 
     void addActionsTo(DropDownMenu menu) {
         for (DropdownAction action : actions) {
-            action.addCollapseHandler(this::changeVisibility);
-            action.addExpandHandler(this::changeVisibility);
+            action.addHideHandler(this::changeVisibility);
+            action.addShowHandler(this::changeVisibility);
             menu.appendChild(action);
         }
     }

@@ -49,10 +49,10 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
         element.appendChild(contentElement);
         contentElement.appendChild(bodyElement);
         contentElement.appendChild(footerElement);
-        collapsible.collapse();
+        collapsible.hide();
         ElementUtil.onAttach(asElement(), mutationRecord -> {
             if (expanded) {
-                collapsible.expand();
+                collapsible.show();
             }
         });
 
@@ -88,7 +88,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
     Step activate(Transition transition) {
         clearInvalid();
         Style.of(element).add("active");
-        collapsible.expand();
+        collapsible.show();
         this.expanded = true;
         Animation.create(contentElement)
                 .duration(350)
@@ -105,7 +105,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
     Step deActivate() {
         clearInvalid();
         Style.of(element).remove("active");
-        collapsible.collapse();
+        collapsible.hide();
         this.expanded = false;
         if(nonNull(deActivationHandler)){
             deActivationHandler.onDeActivated(this);

@@ -16,13 +16,13 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
     private boolean collapsed = false;
 
-    private CollapseCompletedHandler onCollapsed = () -> {
+    private HideCompletedHandler onHidden = () -> {
     };
-    private ExpandCompletedHandler onExpanded = () -> {
+    private ShowCompletedHandler onShown = () -> {
     };
 
-    private List<CollapseCompletedHandler> collapseHandlers = new ArrayList<>();
-    private List<ExpandCompletedHandler> expandHandlers = new ArrayList<>();
+    private List<HideCompletedHandler> hideHandlers = new ArrayList<>();
+    private List<ShowCompletedHandler> showHandlers = new ArrayList<>();
 
     public Collapsible(HTMLElement element) {
         this.element = element;
@@ -38,28 +38,28 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     }
 
     /**
-     * @deprecated use {@link #show()}
      * @return T
+     * @deprecated use {@link #show()}
      */
     @Deprecated
-//    @Override
+    @Override
     public Collapsible collapse() {
         return hide();
     }
 
     /**
-     * @deprecated use {@link #show()}
      * @return T
+     * @deprecated use {@link #show()}
      */
     @Deprecated
-//    @Override
+    @Override
     public Collapsible expand() {
         return show();
     }
 
     @Override
     public Collapsible show() {
-        onExpandCompleted();
+        onShowCompleted();
         style.removeProperty("display");
         this.collapsed = false;
         return this;
@@ -68,28 +68,37 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     @Override
     public Collapsible hide() {
         style.setDisplay("none");
-        onCollapseCompleted();
+        onHideCompleted();
         this.collapsed = true;
         return this;
     }
 
-    private void onCollapseCompleted() {
-        onCollapsed.onCollapsed();
-        collapseHandlers.forEach(CollapseCompletedHandler::onCollapsed);
+    private void onHideCompleted() {
+        onHidden.onHidden();
+        hideHandlers.forEach(HideCompletedHandler::onHidden);
     }
 
-    private void onExpandCompleted() {
-        onExpanded.onExpanded();
-        expandHandlers.forEach(ExpandCompletedHandler::onExpanded);
+    private void onShowCompleted() {
+        onShown.onShown();
+        showHandlers.forEach(ShowCompletedHandler::onShown);
     }
 
+    /**
+     * @deprecated use {@link #isHidden()}
+     */
+    @Deprecated
     public boolean isCollapsed() {
+        return isHidden();
+    }
+
+    @Override
+    public boolean isHidden() {
         return this.collapsed;
     }
 
     @Override
     public Collapsible toggleDisplay() {
-        if (isCollapsed())
+        if (isHidden())
             show();
         else
             hide();
@@ -99,54 +108,105 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
     @Override
     public Collapsible toggleDisplay(boolean state) {
-        if(state){
+        if (state) {
             show();
-        }else{
+        } else {
             hide();
         }
         return this;
     }
 
-    void setOnCollapsed(CollapseCompletedHandler onCollapsed) {
-        this.onCollapsed = onCollapsed;
+    void setOnHidden(HideCompletedHandler onHidden) {
+        this.onHidden = onHidden;
     }
 
-    void setOnExpanded(ExpandCompletedHandler onExpanded) {
-        this.onExpanded = onExpanded;
+    void setOnShown(ShowCompletedHandler onShown) {
+        this.onShown = onShown;
     }
 
+
+    /**
+     * @deprecated use {@link #addHideHandler(HideCompletedHandler)}
+     */
+    @Deprecated
     public Collapsible addCollapseHandler(CollapseCompletedHandler handler) {
-        collapseHandlers.add(handler);
-        return this;
+        return addHideHandler(handler::onCollapsed);
     }
 
+    /**
+     * @deprecated use {@link #removeHideHandler(HideCompletedHandler)}
+     */
+    @Deprecated
     public void removeCollapseHandler(CollapseCompletedHandler handler) {
-        collapseHandlers.remove(handler);
+        removeHideHandler(handler::onCollapsed);
     }
 
+    /**
+     * @deprecated use {@link #addShowHandler(ShowCompletedHandler)}
+     */
+    @Deprecated
     public Collapsible addExpandHandler(ExpandCompletedHandler handler) {
-        expandHandlers.add(handler);
+        return addShowHandler(handler::onExpanded);
+    }
+
+    /**
+     * @deprecated use {@link #removeShowHandler(ShowCompletedHandler)}
+     */
+    @Deprecated
+    public void removeExpandHandler(ExpandCompletedHandler handler) {
+        removeShowHandler(handler::onExpanded);
+    }
+
+    public Collapsible addHideHandler(HideCompletedHandler handler) {
+        hideHandlers.add(handler);
         return this;
     }
 
-    public void removeExpandHandler(ExpandCompletedHandler handler) {
-        expandHandlers.remove(handler);
+    public void removeHideHandler(HideCompletedHandler handler) {
+        hideHandlers.remove(handler);
     }
+
+    public Collapsible addShowHandler(ShowCompletedHandler handler) {
+        showHandlers.add(handler);
+        return this;
+    }
+
+    public void removeShowHandler(ShowCompletedHandler handler) {
+        showHandlers.remove(handler);
+    }
+
 
     @Override
     public HTMLElement asElement() {
         return element;
     }
 
+    /**
+     * @deprecated use {@link HideCompletedHandler()}
+     */
+    @Deprecated
     @FunctionalInterface
     public interface CollapseCompletedHandler {
         void onCollapsed();
     }
 
+    /**
+     * @deprecated use {@link ShowCompletedHandler()}
+     */
+    @Deprecated
     @FunctionalInterface
     public interface ExpandCompletedHandler {
         void onExpanded();
     }
 
+    @FunctionalInterface
+    public interface HideCompletedHandler {
+        void onHidden();
+    }
+
+    @FunctionalInterface
+    public interface ShowCompletedHandler {
+        void onShown();
+    }
 
 }

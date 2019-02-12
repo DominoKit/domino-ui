@@ -247,7 +247,7 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
 
     public Tree setTitle(String title){
         getTitle().setTextContent(title);
-        if(getHeader().isCollapsed()){
+        if(getHeader().isHidden()){
             getHeader().show();
         }
         return this;
