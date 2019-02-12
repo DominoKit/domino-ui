@@ -110,15 +110,6 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return element;
     }
 
-    /**
-     * @deprecated use {@link #isHidden()}
-     */
-    @Deprecated
-    @Override
-    public boolean isCollapsed() {
-        return isHidden();
-    }
-
     @Override
     @Editor.Ignore
     public boolean isHidden() {
