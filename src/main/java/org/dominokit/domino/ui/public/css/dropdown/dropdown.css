@@ -253,10 +253,17 @@
     background-color: rgba(0, 0, 0, 0.075);
 }
 
-.dropdown-menu > li > a i.material-icons {
+.dropdown-menu > li > a i.material-icons{
     float: left;
     margin-right: 7px;
     margin-top: 2px;
+    font-size: 20px;
+}
+
+.dropdown-menu > li > a i.mdi::before {
+    float: left;
+    margin-right: 7px;
+    margin-top: -1px;
     font-size: 20px;
 }
 
