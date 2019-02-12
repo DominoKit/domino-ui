@@ -42,6 +42,9 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
                             .add(element))
                     .add(columnConfig.contextMenu);
             HtmlContentBuilder<HTMLTableCellElement> th = th().css(DataTableStyles.TABLE_CM_HEADER).add(headerContent.asElement());
+
+            applyScreenMedia(columnConfig, th.asElement());
+
             tr.add(th);
             columnConfig.setHeadElement(th.asElement());
             if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
@@ -57,6 +60,19 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
         });
 
         dataTable.tableElement().appendChild(thead);
+    }
+
+    private void applyScreenMedia(ColumnConfig<T> columnConfig, HTMLTableCellElement element) {
+        DominoElement<HTMLTableCellElement> thElement = DominoElement.of(element);
+
+        if (nonNull(columnConfig.getShowOn())) {
+            thElement
+                    .showOn(columnConfig.getShowOn());
+        }
+
+        if (nonNull(columnConfig.getHideOn())) {
+            thElement.hideOn(columnConfig.getHideOn());
+        }
     }
 
     private void fixElementWidth(ColumnConfig<T> column, HTMLElement element) {
@@ -86,6 +102,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
             RowCell<T> rowCell = new RowCell<>(new CellRenderer.CellInfo<>(tableRow, cellElement), columnConfig);
             rowCell.updateCell();
             tableRow.addCell(rowCell);
+
+            applyScreenMedia(columnConfig, cellElement);
 
             tableRow.asElement().appendChild(cellElement);
             columnConfig.applyCellStyle(cellElement);
