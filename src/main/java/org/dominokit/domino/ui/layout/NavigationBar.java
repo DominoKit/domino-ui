@@ -6,7 +6,6 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
 
@@ -33,18 +32,19 @@ public abstract class NavigationBar extends BaseDominoElement<HTMLElement, Navig
     @DataElement
     HTMLDivElement navBarHeader;
 
-    private boolean collapsed=true;
+    private boolean collapsed = true;
 
     @PostConstruct
-    void init(){
+    void init() {
         init(this);
     }
 
-    public static NavigationBar create(){
+    public static NavigationBar create() {
         return new Templated_NavigationBar();
     }
 
-    public boolean isCollapsed() {
+    @Override
+    public boolean isHidden() {
         return collapsed;
     }
 

@@ -48,13 +48,13 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         headerDescription.appendChild(description);
         bodyCollapsible = Collapsible.create(body);
 
-        bodyCollapsible.addCollapseHandler(() -> {
+        bodyCollapsible.addHideHandler(() -> {
             if (collapsible) {
                 collapseIcon.asElement().textContent = Icons.ALL.keyboard_arrow_down().getName();
             }
         });
 
-        bodyCollapsible.addExpandHandler(() -> {
+        bodyCollapsible.addShowHandler(() -> {
             if (collapsible) {
                 collapseIcon.asElement().textContent = Icons.ALL.keyboard_arrow_up().getName();
             }
@@ -130,12 +130,12 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         return this;
     }
 
-    public Card fitContent(){
+    public Card fitContent() {
         style.add(FIT_CONTENT);
         return this;
     }
 
-    public Card unFitContent(){
+    public Card unFitContent() {
         style.remove(FIT_CONTENT);
         return this;
     }
@@ -211,10 +211,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         }
         collapseAction.addEventListener("click", evt -> {
             if (collapsible) {
-                if (bodyCollapsible.isCollapsed()) {
-                    expand();
+                if (bodyCollapsible.isHidden()) {
+                    show();
                 } else {
-                    collapse();
+                    hide();
                 }
             }
         });
@@ -227,26 +227,26 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     }
 
     /**
-     * @deprecated use {@link #hide()}
      * @return T
+     * @deprecated use {@link #hide()}
      */
     @Deprecated
     public Card collapse() {
-       return hide();
+        return hide();
     }
 
     /**
-     * @deprecated use {@link #show()}
      * @return T
+     * @deprecated use {@link #show()}
      */
     @Deprecated
     public Card expand() {
-       return show();
+        return show();
     }
 
 
     public Card toggle() {
-        if (isCollapsed()) {
+        if (isHidden()) {
             show();
         } else {
             hide();
@@ -266,8 +266,9 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         return this;
     }
 
-    public boolean isCollapsed() {
-        return bodyCollapsible.isCollapsed();
+    @Override
+    public boolean isHidden() {
+        return bodyCollapsible.isHidden();
     }
 
     public Card setBodyPadding(String padding) {

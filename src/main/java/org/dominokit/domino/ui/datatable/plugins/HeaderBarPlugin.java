@@ -93,7 +93,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                     .toggleOnClick(true)
                     .apply(icon -> icon.addClickListener(evt -> {
                         if (dataTable.isCondensed()) {
-                            dataTable.expand();
+                            dataTable.show();
                             icon.setTooltip(condenseToolTip);
                         } else {
                             dataTable.condense();

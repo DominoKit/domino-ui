@@ -69,19 +69,18 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
     }
 
     boolean isAllHidden() {
-        return options.stream().allMatch(SelectOption::isCollapsed);
+        return options.stream().allMatch(SelectOption::isHidden);
     }
 
     void addOptionsTo(Select<T> select) {
         for (SelectOption<T> option : options) {
-            option.addCollapseHandler(this::changeVisibility);
-            option.addExpandHandler(this::changeVisibility);
+            option.addHideHandler(this::changeVisibility);
+            option.addShowHandler(this::changeVisibility);
             select.appendChild(option);
         }
     }
 
     void changeVisibility() {
-        DomGlobal.console.info("changeVisibility");
         if (isAllHidden()) {
             hide();
         } else {
