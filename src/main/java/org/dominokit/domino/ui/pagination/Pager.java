@@ -109,7 +109,8 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
         return this;
     }
 
-    public Pager expand() {
+    @Override
+    public Pager show() {
         nextElement.style().add("next");
         prevElement.style().add("previous");
         return this;

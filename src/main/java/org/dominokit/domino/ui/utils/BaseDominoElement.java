@@ -34,7 +34,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
         if (hasDominoId()) {
             uuid = getAttribute("domino-uuid");
-        }else{
+        } else {
             this.uuid = Elements.createDocumentUniqueId();
             setAttribute("domino-uuid", this.uuid);
         }
@@ -57,8 +57,8 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     /**
-     * @deprecated use {@link #hide()}
      * @return T
+     * @deprecated use {@link #hide()}
      */
     @Deprecated
     @Override
@@ -68,8 +68,8 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     /**
-     * @deprecated use {@link #show()}
      * @return T
+     * @deprecated use {@link #show()}
      */
     @Deprecated
     @Override
@@ -110,13 +110,27 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return element;
     }
 
+    /**
+     * @deprecated use {@link #isHidden()}
+     */
+    @Deprecated
+    @Override
+    public boolean isCollapsed() {
+        return isHidden();
+    }
+
     @Override
     @Editor.Ignore
-    public boolean isCollapsed() {
+    public boolean isHidden() {
         if (isNull(collapsible)) {
             return false;
         }
-        return collapsible.isCollapsed();
+        return collapsible.isHidden();
+    }
+
+    @Override
+    public E asElement() {
+        return null;
     }
 
     @Editor.Ignore
@@ -570,27 +584,63 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         }
     }
 
+    /**
+     * @deprecated use {@link #addHideHandler(Collapsible.HideCompletedHandler)}
+     */
+    @Deprecated
     @Editor.Ignore
     public T addCollapseHandler(Collapsible.CollapseCompletedHandler handler) {
-        collapsible.addCollapseHandler(handler);
-        return (T) this;
+        return addHideHandler(handler::onCollapsed);
     }
 
+    /**
+     * @deprecated use {@link #removeHideHandler(Collapsible.HideCompletedHandler)}
+     */
+    @Deprecated
     @Editor.Ignore
     public T removeCollapseHandler(Collapsible.CollapseCompletedHandler handler) {
-        collapsible.removeCollapseHandler(handler);
-        return (T) this;
+        return removeHideHandler(handler::onCollapsed);
     }
 
+    /**
+     * @deprecated use {@link #addShowHandler(Collapsible.ShowCompletedHandler)}
+     */
+    @Deprecated
     @Editor.Ignore
     public T addExpandHandler(Collapsible.ExpandCompletedHandler handler) {
-        collapsible.addExpandHandler(handler);
+        return addShowHandler(handler::onExpanded);
+    }
+
+    /**
+     * @deprecated use {@link #removeShowHandler(Collapsible.ShowCompletedHandler)}
+     */
+    @Deprecated
+    @Editor.Ignore
+    public T removeExpandHandlr(Collapsible.ExpandCompletedHandler handler) {
+        return removeShowHandler(handler::onExpanded);
+    }
+
+    @Editor.Ignore
+    public T addHideHandler(Collapsible.HideCompletedHandler handler) {
+        collapsible.addHideHandler(handler);
         return (T) this;
     }
 
     @Editor.Ignore
-    public T removeExpandHandlr(Collapsible.ExpandCompletedHandler handler) {
-        collapsible.removeExpandHandler(handler);
+    public T removeHideHandler(Collapsible.HideCompletedHandler handler) {
+        collapsible.removeHideHandler(handler);
+        return (T) this;
+    }
+
+    @Editor.Ignore
+    public T addShowHandler(Collapsible.ShowCompletedHandler handler) {
+        collapsible.addShowHandler(handler);
+        return (T) this;
+    }
+
+    @Editor.Ignore
+    public T removeShowHandler(Collapsible.ShowCompletedHandler handler) {
+        collapsible.removeShowHandler(handler);
         return (T) this;
     }
 
