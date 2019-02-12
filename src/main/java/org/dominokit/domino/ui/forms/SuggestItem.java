@@ -4,6 +4,7 @@ import elemental2.core.JsRegExp;
 import elemental2.core.JsString;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -23,7 +24,7 @@ public class SuggestItem extends BaseDominoElement<HTMLDivElement, SuggestItem> 
         this(value, Icons.ALL.text_fields());
     }
 
-    public SuggestItem(String value, Icon icon) {
+    public SuggestItem(String value, BaseIcon<?> icon) {
         this.value = value;
         element.appendChild(icon);
         valueContainer.setTextContent(value);
@@ -35,7 +36,7 @@ public class SuggestItem extends BaseDominoElement<HTMLDivElement, SuggestItem> 
         return new SuggestItem(value);
     }
 
-    public static SuggestItem create(String value, Icon icon) {
+    public static SuggestItem create(String value, BaseIcon<?> icon) {
         return new SuggestItem(value, icon);
     }
 
