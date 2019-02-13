@@ -25,7 +25,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     private List<OpenHandler> openHandlers = new ArrayList<>();
     private List<CloseHandler> closeHandlers = new ArrayList<>();
-    static int opened_dialogs = 0;
     static int Z_INDEX = 1040;
 
     @Templated
@@ -112,6 +111,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     void addTabIndexHandler() {
         asElement().addEventListener(EventType.keydown.getName(), evt -> {
+            initFocusElements();
             KeyboardEvent keyboardEvent = Js.cast(evt);
             switch (keyboardEvent.code) {
                 case "Tab":
@@ -126,7 +126,9 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
                     }
                     break;
                 case "Escape":
-                    close();
+                    if (isAutoClose()) {
+                        close();
+                    }
                     break;
                 default:
                     break;
@@ -152,16 +154,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         }
     }
 
-    /**
-     * @deprecated use {@link #appendChild(Node)}
-     */
-    @Deprecated
-    @Override
-    public T appendContent(Node content) {
-        modal.modalBody.appendChild(content);
-        return (T) this;
-    }
-
     @Override
     public T appendChild(Node content) {
         modal.modalBody.appendChild(content);
@@ -182,16 +174,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     @Override
     public T appendFooterChild(IsElement content) {
         return appendFooterChild(content.asElement());
-    }
-
-    /**
-     * @deprecated use {@link #appendChild(Node)}
-     */
-    @Deprecated
-    @Override
-    public T appendFooterContent(Node content) {
-        modal.modalFooter.appendChild(content);
-        return (T) this;
     }
 
     @Override
@@ -254,7 +236,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
             activeElementBeforeOpen = DominoDom.document.activeElement;
             addBackdrop();
-            style().add("in");
+            style().add(ModalStyles.IN);
             style().setDisplay("block");
             if (nonNull(firstFocusElement)) {
                 firstFocusElement.focus();
@@ -269,16 +251,15 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
                 openHandlers.get(i).onOpen();
 
             this.open = true;
-            opened_dialogs = opened_dialogs + 1;
-            ModalBackDrop.openedModals.push(this);
+            ModalBackDrop.push(this);
         }
         return (T) this;
     }
 
     public void addBackdrop() {
-        if (opened_dialogs <= 0) {
+        if (ModalBackDrop.openedModalsCount() <= 0) {
             document.body.appendChild(ModalBackDrop.INSTANCE);
-            DominoElement.of(document.body).style().add("modal-open");
+            DominoElement.of(document.body).style().add(ModalStyles.MODAL_OPEN);
         } else {
             Z_INDEX = Z_INDEX + 10;
             ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
@@ -287,9 +268,9 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     }
 
     public void removeBackDrop() {
-        if (opened_dialogs <= 0) {
+        if (ModalBackDrop.openedModalsCount() <= 1) {
             ModalBackDrop.INSTANCE.remove();
-            DominoElement.of(document.body).style().remove("modal-open");
+            DominoElement.of(document.body).style().remove(ModalStyles.MODAL_OPEN);
         } else {
             Z_INDEX = Z_INDEX - 10;
             ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
@@ -312,9 +293,8 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public T close() {
-        opened_dialogs = opened_dialogs - 1;
 
-        asElement().classList.remove("in");
+        asElement().classList.remove(ModalStyles.IN);
         asElement().style.display = "none";
         if (nonNull(activeElementBeforeOpen))
             activeElementBeforeOpen.focus();
@@ -329,8 +309,8 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
         this.open = false;
         removeBackDrop();
-        if(ModalBackDrop.openedModals.contains(this)){
-            ModalBackDrop.openedModals.pop();
+        if (ModalBackDrop.contains(this)) {
+            ModalBackDrop.popModal();
         }
 
         return (T) this;

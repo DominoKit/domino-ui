@@ -4,6 +4,8 @@ import com.google.gwt.user.client.TakesValue;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
+import elemental2.dom.HTMLParagraphElement;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.*;
@@ -11,16 +13,20 @@ import org.dominokit.domino.ui.utils.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements HasName<Radio>, HasValue<Radio, String>, HasLabel<Radio>,
         Switchable<Radio>, Checkable<Radio>, TakesValue<String> {
 
-    private HTMLDivElement container = div().css("form-group").asElement();
+    private FlexItem container = FlexItem.create().addCss("form-group");
     private HTMLLabelElement labelElement = label().asElement();
     private HTMLInputElement inputElement = input("radio").asElement();
-    private List<ChangeHandler<Boolean>> changeHandlers;
+    private DominoElement<HTMLParagraphElement> helperTextElement = DominoElement.of(p());
+    private List<ChangeHandler<? super Boolean>> changeHandlers;
     private Color color;
+    private boolean checked = false;
+    private RadioGroup radioGroup;
 
     public Radio(String value, String label) {
         changeHandlers = new ArrayList<>();
@@ -59,7 +65,10 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
 
     @Override
     public Radio check(boolean silent) {
-        inputElement.checked = true;
+        if (nonNull(radioGroup)) {
+            radioGroup.getRadios().forEach(radio -> radio.setChecked(false));
+        }
+        setChecked(true);
         if (!silent)
             onCheck();
         return this;
@@ -67,38 +76,43 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
 
     @Override
     public Radio uncheck(boolean silent) {
-        inputElement.checked = false;
+        setChecked(false);
         if (!silent)
             onCheck();
         return this;
     }
 
     @Override
-    public Radio addChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public Radio addChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
     }
 
+    private void setChecked(boolean value) {
+        inputElement.checked = value;
+        this.checked = value;
+    }
+
     @Override
-    public Radio removeChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public Radio removeChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         if (changeHandler != null)
             changeHandlers.remove(changeHandler);
         return this;
     }
 
     @Override
-    public boolean hasChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public boolean hasChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 
     private void onCheck() {
-        for (ChangeHandler<Boolean> checkHandler : changeHandlers)
+        for (ChangeHandler<? super Boolean> checkHandler : changeHandlers)
             checkHandler.onValueChanged(isChecked());
     }
 
     @Override
     public boolean isChecked() {
-        return inputElement.checked;
+        return this.checked;
     }
 
     public Radio withGap() {
@@ -121,7 +135,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
 
     @Override
     public HTMLDivElement asElement() {
-        return container;
+        return container.asElement();
     }
 
     @Override
@@ -174,8 +188,20 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
         return this;
     }
 
+    public Radio setHelperText(String text) {
+        helperTextElement.setTextContent(text);
+        if (!DominoElement.of(labelElement).contains(helperTextElement.asElement())) {
+            labelElement.appendChild(helperTextElement.asElement());
+        }
+        return this;
+    }
+
     @Override
     public boolean isEnabled() {
         return !inputElement.disabled;
+    }
+
+    void setGroup(RadioGroup radioGroup) {
+        this.radioGroup = radioGroup;
     }
 }

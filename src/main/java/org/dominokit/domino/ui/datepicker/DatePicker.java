@@ -2,49 +2,50 @@ package org.dominokit.domino.ui.datepicker;
 
 import com.google.gwt.user.client.TakesValue;
 import elemental2.core.JsDate;
-import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.forms.Select;
 import org.dominokit.domino.ui.forms.SelectOption;
 import org.dominokit.domino.ui.grid.Column;
 import org.dominokit.domino.ui.grid.Row;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.pickers.PickerHandler;
 import org.dominokit.domino.ui.style.ColorScheme;
-import org.dominokit.domino.ui.style.WavesSupport;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.gwtproject.i18n.client.impl.cldr.DateTimeFormatInfo_factory;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
-import org.jboss.gwt.elemento.core.EventType;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.a;
+import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> implements HasValue<DatePicker, Date>,
         DatePickerMonth.InternalHandler, TakesValue<Date> {
 
     private final JsDate jsDate;
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("calendar"));
-    private DominoElement<HTMLDivElement> headerPanel = DominoElement.of(div().css("date-panel"));
-    private DominoElement<HTMLDivElement> selectorsPanel = DominoElement.of(div().css("selector-container"));
-    private DominoElement<HTMLDivElement> footerPanel = DominoElement.of(div().css("cal-footer"));
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div()
+            .css(DatePickerStyles.CALENDAR)
+            .css(Styles.default_shadow));
+    private DominoElement<HTMLDivElement> headerPanel = DominoElement.of(div().css(DatePickerStyles.DATE_PANEL));
+    private DominoElement<HTMLDivElement> selectorsPanel = DominoElement.of(div().css(DatePickerStyles.SELECTOR_CONTAINER));
+    private DominoElement<HTMLDivElement> footerPanel = DominoElement.of(div().css(DatePickerStyles.CAL_FOOTER));
 
-    private DominoElement<HTMLDivElement> dayName = DominoElement.of(div().css("day-name"));
-    private DominoElement<HTMLDivElement> monthName = DominoElement.of(div().css("month-name"));
-    private DominoElement<HTMLDivElement> dateNumber = DominoElement.of(div().css("day-number"));
-    private DominoElement<HTMLDivElement> yearNumber = DominoElement.of(div().css("year-number"));
-    private DominoElement<HTMLAnchorElement> navigateBefore;
-    private DominoElement<HTMLAnchorElement> navigateNext;
+    private DominoElement<HTMLDivElement> dayName = DominoElement.of(div().css(DatePickerStyles.DAY_NAME));
+    private DominoElement<HTMLDivElement> monthName = DominoElement.of(div().css(DatePickerStyles.MONTH_NAME));
+    private DominoElement<HTMLDivElement> dateNumber = DominoElement.of(div().css(DatePickerStyles.DAY_NUMBER));
+    private DominoElement<HTMLDivElement> yearNumber = DominoElement.of(div().css(DatePickerStyles.YEAR_NUMBER));
+    private Icon navigateBefore;
+    private Icon navigateNext;
 
     private Select<Integer> yearSelect;
     private Select<Integer> monthSelect;
@@ -61,8 +62,6 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     private List<PickerHandler> clearHandlers = new ArrayList<>();
     private BackgroundHandler backgroundHandler = (oldBackground, newBackground) -> {
     };
-
-    private Column column = Column.span(4);
 
     private JsDate minDate;
     private JsDate maxDate;
@@ -124,7 +123,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     private void initFooter() {
 
         clearButton = Button.create("CLEAR").setColor(colorScheme.color());
-        clearButton.style().add("clear-button");
+        clearButton.style().add(DatePickerStyles.CLEAR_BUTTON);
 
         clearButton.addClickListener(evt -> {
             clearHandlers.forEach(PickerHandler::handle);
@@ -134,7 +133,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         todayButton.addClickListener(evt -> setDate(new Date()));
 
         closeButton = Button.create("CLOSE").setColor(colorScheme.color());
-        closeButton.style().add("close-button");
+        closeButton.style().add(DatePickerStyles.CLOSE_BUTTON);
 
         closeButton.addClickListener(evt -> {
             closeHandlers.forEach(PickerHandler::handle);
@@ -150,7 +149,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
         int year = jsDate.getFullYear();
         yearSelect = Select.create();
-        yearSelect.style().setMarginBottom("0px", true);
+        yearSelect.style().add(DatePickerStyles.SELECTOR);
 
         for (int i = minDate.getFullYear(); i <= maxDate.getFullYear(); i++) {
             SelectOption<Integer> yearOption = SelectOption.create(i, i + "");
@@ -167,7 +166,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
         int month = jsDate.getMonth();
         monthSelect = Select.create();
-        monthSelect.style().setMarginBottom("0px", true);
+        monthSelect.style().add(DatePickerStyles.SELECTOR);
         String[] months = getDateTimeFormatInfo().monthsShort();
         for (int i = 0; i < months.length; i++) {
             SelectOption<Integer> monthOption = SelectOption.create(i, months[i]);
@@ -181,66 +180,60 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
             setDate(jsDate);
         });
 
-        Column yearColumn = this.column.copy().appendChild(yearSelect.asElement());
-        yearColumn.style().setPaddingLeft("0px", true);
-        yearColumn.style().setPaddingRight("3px", true);
-        yearColumn.style().setMarginBottom("5px", true);
-
-        Column monthColumn = this.column.copy().appendChild(monthSelect.asElement());
-        monthColumn.style().setPaddingLeft("3px", true);
-        monthColumn.style().setPaddingRight("0px", true);
-        monthColumn.style().setMarginBottom("5px", true);
-
-        Column backColumn = Column.span(2);
-
-        backColumn.style().setPadding("0px", true);
-        backColumn.style().setMarginBottom("5px", true);
-
-        Column forwardColumn = Column.span(2);
-        forwardColumn.style().setPadding("0px", true);
-        forwardColumn.style().setTextAlign("right", true);
-        forwardColumn.style().setMarginBottom("5px", true);
+        Column yearColumn = Column.span5()
+                .condenced()
+                .appendChild(yearSelect.asElement());
 
 
-        Row row = Row.create();
-        row.style().setMarginLeft("0px", true);
-        row.style().setMarginRight("0px", true);
-        navigateBefore = DominoElement.of(a().css("navigate").add(Icons.ALL.navigate_before()));
-        navigateNext = DominoElement.of(a().css("navigate").add(Icons.ALL.navigate_next()));
+        Column monthColumn = Column.span5()
+                .condenced()
+                .appendChild(monthSelect.asElement());
 
-        WavesSupport.addFor(navigateBefore);
-        WavesSupport.addFor(navigateNext);
+        Column backColumn = Column.span1()
+                .condenced();
 
-        navigateBefore.addEventListener(EventType.click.getName(), evt -> {
-            JsDate jsDate = getJsDate();
-            int currentMonth = jsDate.getMonth();
-            if (currentMonth == 0) {
-                jsDate.setYear(jsDate.getFullYear() - 1);
-                jsDate.setMonth(11);
-            } else {
-                jsDate.setMonth(currentMonth - 1);
-            }
+        Column forwardColumn = Column.span1()
+                .condenced();
 
-            yearSelect.setValue(jsDate.getFullYear(), true);
-            monthSelect.selectAt(jsDate.getMonth(), true);
-            setDate(jsDate);
-        });
+        Row row = Row.create()
+                .setGap(px.of(5))
+                .styler(style -> style
+                        .add(DatePickerStyles.SELECTOR_ROW));
+        navigateBefore = Icons.ALL.navigate_before()
+                .clickable()
+                .styler(style -> style.add(Styles.m_r_5))
+                .addClickListener(evt -> {
+                    JsDate jsDate = getJsDate();
+                    int currentMonth = jsDate.getMonth();
+                    if (currentMonth == 0) {
+                        jsDate.setYear(jsDate.getFullYear() - 1);
+                        jsDate.setMonth(11);
+                    } else {
+                        jsDate.setMonth(currentMonth - 1);
+                    }
 
+                    yearSelect.setValue(jsDate.getFullYear(), true);
+                    monthSelect.selectAt(jsDate.getMonth(), true);
+                    setDate(jsDate);
+                });
 
-        navigateNext.addEventListener(EventType.click.getName(), evt -> {
-            JsDate jsDate = getJsDate();
-            int currentMonth = jsDate.getMonth();
-            if (currentMonth == 11) {
-                jsDate.setYear(jsDate.getFullYear() + 1);
-                jsDate.setMonth(0);
-            } else {
-                jsDate.setMonth(currentMonth + 1);
-            }
+        navigateNext = Icons.ALL.navigate_next()
+                .clickable()
+                .styler(style -> style.add(Styles.m_l_5))
+                .addClickListener(evt -> {
+                    JsDate jsDate = getJsDate();
+                    int currentMonth = jsDate.getMonth();
+                    if (currentMonth == 11) {
+                        jsDate.setYear(jsDate.getFullYear() + 1);
+                        jsDate.setMonth(0);
+                    } else {
+                        jsDate.setMonth(currentMonth + 1);
+                    }
 
-            yearSelect.setValue(jsDate.getFullYear(), true);
-            monthSelect.selectAt(jsDate.getMonth(), true);
-            setDate(jsDate);
-        });
+                    yearSelect.setValue(jsDate.getFullYear(), true);
+                    monthSelect.selectAt(jsDate.getMonth(), true);
+                    setDate(jsDate);
+                });
 
 
         selectorsPanel.appendChild(row
@@ -416,43 +409,43 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
 
     public DatePicker showHeaderPanel() {
-        headerPanel.style().setDisplay("block");
+        headerPanel.show();
         return this;
     }
 
     public DatePicker hideHeaderPanel() {
-        headerPanel.style().setDisplay("none");
+        headerPanel.hide();
         return this;
     }
 
     public DatePicker showTodayButton() {
-        this.todayButton.style().setDisplay("block");
+        this.todayButton.show();
         return this;
     }
 
     public DatePicker hideTodayButton() {
-        this.todayButton.style().setDisplay("none");
+        this.todayButton.hide();
         return this;
     }
 
     public DatePicker showClearButton() {
-        this.clearButton.style().setDisplay("block");
+        this.clearButton.show();
         return this;
     }
 
     public DatePicker hideClearButton() {
-        this.clearButton.style().setDisplay("none");
+        this.clearButton.show();
         return this;
     }
 
 
     public DatePicker showCloseButton() {
-        this.closeButton.style().setDisplay("block");
+        this.closeButton.hide();
         return this;
     }
 
     public DatePicker hideCloseButton() {
-        this.closeButton.style().setDisplay("none");
+        this.closeButton.hide();
         return this;
     }
 
@@ -503,7 +496,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
     public DatePicker fixedWidth() {
-        element.style().setWidth("300px", true);
+        element.style().setWidth(px.of(300), true);
         return this;
     }
 
@@ -540,12 +533,12 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         return DominoElement.of(yearNumber);
     }
 
-    public DominoElement<HTMLAnchorElement> getNavigateBefore() {
-        return DominoElement.of(navigateBefore);
+    public Icon getNavigateBefore() {
+        return navigateBefore;
     }
 
-    public DominoElement<HTMLAnchorElement> getNavigateNext() {
-        return DominoElement.of(navigateNext);
+    public Icon getNavigateNext() {
+        return navigateNext;
     }
 
     DatePicker setBackgroundHandler(BackgroundHandler backgroundHandler) {
@@ -556,7 +549,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
     public ModalDialog createModal(String title) {
-        return ModalDialog.createPickerModal(title, this.getColorScheme(), this.asElement());
+        return ModalDialog.createPickerModal(title, this.asElement());
     }
 
     @FunctionalInterface

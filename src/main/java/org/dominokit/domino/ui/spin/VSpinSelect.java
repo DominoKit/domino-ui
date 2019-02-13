@@ -1,19 +1,10 @@
 package org.dominokit.domino.ui.spin;
 
 import elemental2.dom.ClientRect;
-import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasSelectionHandler;
 import org.dominokit.domino.ui.utils.SwipeUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.jboss.gwt.elemento.core.Elements.a;
-import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
 
@@ -22,7 +13,7 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
         return new VSpinSelect<>();
     }
 
-    public static <T> VSpinSelect<T> create(Icon backIcon, Icon forwardIcon) {
+    public static <T> VSpinSelect<T> create(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {
         return new VSpinSelect<>(backIcon, forwardIcon);
     }
 
@@ -30,7 +21,7 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
         this(Icons.ALL.keyboard_arrow_up(), Icons.ALL.keyboard_arrow_down());
     }
 
-    public VSpinSelect(Icon backIcon, Icon forwardIcon) {
+    public VSpinSelect(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {
         super(backIcon, forwardIcon);
         SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.DOWN, main.asElement(), evt -> moveBack());
         SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.UP, main.asElement(), evt -> moveForward());

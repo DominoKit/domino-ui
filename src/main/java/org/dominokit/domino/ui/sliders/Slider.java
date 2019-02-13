@@ -25,7 +25,7 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
     private DominoElement<HTMLInputElement> slider = DominoElement.of(input("range").css("slider"));
     private DominoElement<HTMLElement> thumb = DominoElement.of(span().css("thumb"));
     private DominoElement<HTMLElement> thumbValue = DominoElement.of(span().css("value"));
-    private List<ChangeHandler<Double>> changeHandlers = new ArrayList<>();
+    private List<ChangeHandler<? super Double>> changeHandlers = new ArrayList<>();
     private List<SlideHandler> slideHandlers = new ArrayList<>();
     private boolean mouseDown;
     private boolean withThumb;
@@ -149,7 +149,6 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         return setValue(newValue, false);
     }
 
-
     public Slider setStep(double step) {
         slider.asElement().step = step + "";
         return this;
@@ -193,19 +192,19 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
     }
 
     @Override
-    public Slider addChangeHandler(ChangeHandler<Double> changeHandler) {
+    public Slider addChangeHandler(ChangeHandler<? super Double> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
     }
 
     @Override
-    public Slider removeChangeHandler(ChangeHandler<Double> changeHandler) {
+    public Slider removeChangeHandler(ChangeHandler<? super Double> changeHandler) {
         changeHandlers.remove(changeHandler);
         return this;
     }
 
     @Override
-    public boolean hasChangeHandler(ChangeHandler<Double> changeHandler) {
+    public boolean hasChangeHandler(ChangeHandler<? super Double> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 

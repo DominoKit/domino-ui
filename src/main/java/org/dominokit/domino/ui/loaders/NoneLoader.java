@@ -9,27 +9,32 @@ import org.jboss.gwt.elemento.template.Templated;
 import javax.annotation.PostConstruct;
 
 @Templated
-public abstract class NoneLoader extends BaseDominoElement<HTMLDivElement, NoneLoader> implements IsLoader, IsElement<HTMLDivElement>{
+public abstract class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTMLDivElement> {
 
     @DataElement
     HTMLDivElement loadingText;
 
     @PostConstruct
-    void init(){
+    void init() {
         init(this);
     }
 
-    public static NoneLoader create(){
+    public static NoneLoader create() {
         return new Templated_NoneLoader();
     }
 
     @Override
-    public HTMLDivElement getElement() {
-        return this.asElement();
+    public void setLoadingText(String text) {
+        loadingText.textContent = text;
     }
 
     @Override
-    public void setLoadingText(String text) {
-        loadingText.textContent=text;
+    public void setSize(String width, String height) {
+
+    }
+
+    @Override
+    public void removeLoadingText() {
+        onAttached(mutationRecord -> loadingText.remove());
     }
 }

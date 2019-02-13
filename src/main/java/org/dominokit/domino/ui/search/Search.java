@@ -122,6 +122,11 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
         return this;
     }
 
+    public Search setSearchPlaceHolder(String placeHolder){
+        DominoElement.of(searchInput)
+                .setAttribute("placeholder", placeHolder);
+        return this;
+    }
 
     public boolean isAutoSearch() {
         return autoSearch;

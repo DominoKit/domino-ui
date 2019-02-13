@@ -37,6 +37,7 @@ public class Styles {
     public static final String align_justify = "align-justify";
 
     public static final String vertical_center = "v-center";
+    public static final String horizontal_center = "h-center";
 
     public static final String m_t__125 = "m-t--125";
     public static final String m_t__120 = "m-t--120";
@@ -117,6 +118,7 @@ public class Styles {
     public static final String m_l__5 = "m-l--5";
     public static final String m_l_0 = "m-l-0";
     public static final String m_l_5 = "m-l-5";
+    public static final String m_l_2 = "m-l-2";
     public static final String m_l_10 = "m-l-10";
     public static final String m_l_15 = "m-l-15";
     public static final String m_l_20 = "m-l-20";
@@ -220,6 +222,7 @@ public class Styles {
     public static final String m_r__10 = "m-r--10";
     public static final String m_r__5 = "m-r--5";
     public static final String m_r_0 = "m-r-0";
+    public static final String m_r_2 = "m-r-2";
     public static final String m_r_5 = "m-r-5";
     public static final String m_r_10 = "m-r-10";
     public static final String m_r_15 = "m-r-15";
@@ -410,6 +413,12 @@ public class Styles {
     public static final String opacity_l_8 = "opacity-l-8";
     public static final String opacity_l_9 = "opacity-l-9";
     public static final String opacity_l_full = "opacity-l-full";
+
+    public static final String b_b_0 = "b-b-0";
+    public static final String b_t_0 = "b-t-0";
+    public static final String b_l_0 = "b-l-0";
+    public static final String b_r_0 = "b-r-0";
+    public static final String b_0 = "b-0";
 
     HtmlContentBuilder<HTMLHeadingElement> header = Elements.h(1)
             .style("text-align: left;")

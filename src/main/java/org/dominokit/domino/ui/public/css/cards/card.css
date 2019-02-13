@@ -1,0 +1,124 @@
+.card {
+    background: #fff;
+    min-height: 50px;
+    -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    position: relative;
+    margin-bottom: 30px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.card[class*="bg-black"] {
+    border-bottom: none;
+    color: #fff;
+}
+
+.card .header[class*="bg-"] h2,
+.card .header[class*="bg-"] small,
+.card .header[class*="bg-"] .material-icons {
+    color: #fff;
+}
+
+.card .header:not([class*="bg-"]) h2,
+.card .header:not([class*="bg-"]) small,
+.card .header:not([class*="bg-"]) :not([class*="col-"]).material-icons {
+    color: #202020;
+}
+
+
+.card .header {
+    color: #555;
+    padding: 20px;
+    position: relative;
+}
+
+.card .header:not([class*="bg-"]) {
+    border-bottom: 1px solid rgba(204, 204, 204, 0.35);
+}
+
+.card .header .header-actions {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    list-style: none;
+    margin-right: -5px;
+}
+
+.card .header .header-actions li {
+    display: inline-block;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.card .header .header-actions i {
+    font-size: 20px;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.card .header .header-actions i:hover {
+    color: #202020;
+}
+
+.card .header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: normal;
+    color: #111;
+}
+
+.card .header h2 small {
+    display: block;
+    font-size: 12px;
+    margin-top: 5px;
+    color: #999;
+    line-height: 15px;
+}
+
+.card .header h2 small:empty {
+    display: none;
+}
+
+.card .header h2 small a {
+    font-weight: bold;
+    color: #777;
+}
+
+.card .header .action-icon {
+    width: 32px;
+    height: 32px;
+    padding-top: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.card .header .action-icon:HOVER {
+    opacity: 0.7;
+}
+
+.card .body {
+    font-size: 14px;
+    padding: 20px;
+}
+
+.card.fit-content .body{
+    padding: 0px;
+}
+
+.card .body .grid-col {
+    margin-bottom: 20px;
+}
+
+.card .body .grid-col.condense {
+    margin-bottom: 0px;
+}
+
+.card .body .grid-row {
+    padding-right: 15px;
+    padding-left: 15px;
+}

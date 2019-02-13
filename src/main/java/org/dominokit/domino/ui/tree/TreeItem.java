@@ -2,16 +2,13 @@ package org.dominokit.domino.ui.tree;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.WaveColor;
 import org.dominokit.domino.ui.style.WaveStyle;
 import org.dominokit.domino.ui.style.WavesElement;
-import org.dominokit.domino.ui.utils.CanActivate;
-import org.dominokit.domino.ui.utils.CanDeactivate;
-import org.dominokit.domino.ui.utils.HasClickableElement;
-import org.dominokit.domino.ui.utils.ParentTreeItem;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.EventType;
 
 import java.util.LinkedList;
@@ -20,43 +17,47 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements ParentTreeItem<TreeItem>, CanActivate, CanDeactivate, HasClickableElement {
 
     private String title;
     private HTMLLIElement element;
-    private HTMLAnchorElement anchorElement;
+    private DominoElement<HTMLAnchorElement> anchorElement;
     private List<TreeItem> subItems = new LinkedList<>();
     private TreeItem activeTreeItem;
     private ParentTreeItem<TreeItem> parent;
     private Collapsible collapsible;
 
     private HTMLUListElement childrenContainer;
-    private Icon icon;
-    private Icon activeIcon;
-    private Icon originalIcon;
+    private BaseIcon<?> icon;
+    private BaseIcon<?> activeIcon;
+    private BaseIcon<?> originalIcon;
     private HTMLElement titleElement;
 
-    private Icon expandIcon;
+    private BaseIcon<?> expandIcon;
 
-    public TreeItem(String title, Icon icon) {
+    private int nextLevel = 1;
+
+    public TreeItem(String title, BaseIcon<?> icon) {
         this.title = title;
         setIcon(icon);
         this.titleElement = span().css("title").textContent(title).asElement();
-        this.anchorElement = a()
+        this.anchorElement = DominoElement.of(a()
                 .add(this.icon)
-                .add(titleElement).asElement();
+                .add(div().style("margin-top: 2px;").add(titleElement)));
         init();
     }
 
     public TreeItem(String title) {
-        this.title = title;
-        this.icon = Style.of(Icons.ALL.folder()).setProperty("visibility", "hidden").get();
-        this.titleElement = span().css("title").textContent(title).asElement();
-        this.anchorElement = a()
-                .add(this.icon)
-                .add(titleElement).asElement();
+        this(title, Icons.ALL.folder().styler(style -> style.setProperty("visibility", "hidden")));
+    }
+
+    public TreeItem(BaseIcon<?> icon) {
+        setIcon(icon);
+        this.anchorElement = DominoElement.of(a()
+                .add(this.icon));
         init();
     }
 
@@ -64,8 +65,12 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         return new TreeItem(title);
     }
 
-    public static TreeItem create(String title, Icon icon) {
+    public static TreeItem create(String title, BaseIcon<?> icon) {
         return new TreeItem(title, icon);
+    }
+
+    public static TreeItem create(BaseIcon<?> icon) {
+        return new TreeItem(icon);
     }
 
     /**
@@ -81,6 +86,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         childrenContainer.appendChild(treeItem.asElement());
         Style.of(anchorElement).add("tree-toggle");
         treeItem.parent = this;
+        treeItem.setLevel(nextLevel);
         Style.of(treeItem).add("tree-leaf");
         Style.of(this.asElement()).remove("tree-leaf");
         return this;
@@ -95,19 +101,19 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
 
     private void init() {
         this.element = li().asElement();
-        this.element.appendChild(anchorElement);
+        this.element.appendChild(anchorElement.asElement());
         childrenContainer = ul().css("ml-tree").asElement();
         asElement().appendChild(childrenContainer);
         collapsible = Collapsible.create(childrenContainer)
-                .addCollapseHandler(() -> {
+                .addHideHandler(() -> {
                     Style.of(anchorElement).remove("toggled");
                     restoreIcon();
                 })
-                .addExpandHandler(() -> {
+                .addShowHandler(() -> {
                     Style.of(anchorElement).add("toggled");
                     replaceIcon(expandIcon);
                 })
-                .collapse();
+                .hide();
         anchorElement.addEventListener("click", evt -> {
             if (isParent()) {
                 collapsible.toggleDisplay();
@@ -119,16 +125,31 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         applyWaveStyle(WaveStyle.BLOCK);
     }
 
-    public TreeItem expand() {
+    public TreeItem show() {
+        return show(false);
+    }
+
+    public TreeItem show(boolean expandParent) {
         if (isParent()) {
-            collapsible.expand();
+            collapsible.show();
+        }
+        if (expandParent && nonNull(parent)) {
+            parent.expand(expandParent);
         }
         return this;
     }
 
-    public TreeItem collapse() {
+    /**
+     * @deprecated use {@link #show(boolean)}
+     */
+    @Deprecated
+    public TreeItem expand(boolean expandParent) {
+        return show(expandParent);
+    }
+
+    public TreeItem hide() {
         if (isParent()) {
-            collapsible.collapse();
+            collapsible.hide();
         }
         return this;
     }
@@ -137,6 +158,35 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         if (isParent()) {
             collapsible.toggleDisplay();
         }
+        return this;
+    }
+
+    @Override
+    public boolean isHidden() {
+        return collapsible.isHidden();
+    }
+
+    @Override
+    public TreeItem addHideHandler(Collapsible.HideCompletedHandler handler) {
+        collapsible.addHideHandler(handler);
+        return this;
+    }
+
+    @Override
+    public TreeItem removeHideHandler(Collapsible.HideCompletedHandler handler) {
+        collapsible.removeHideHandler(handler);
+        return this;
+    }
+
+    @Override
+    public TreeItem addShowHandler(Collapsible.ShowCompletedHandler handler) {
+        collapsible.addShowHandler(handler);
+        return this;
+    }
+
+    @Override
+    public TreeItem removeShowHandler(Collapsible.ShowCompletedHandler handler) {
+        collapsible.removeShowHandler(handler);
         return this;
     }
 
@@ -167,49 +217,64 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         }
     }
 
-
     @Override
     public void activate() {
+        activate(false);
+    }
+
+    @Override
+    public void activate(boolean activateParent) {
         Style.of(asElement()).add("active");
-        if (isNull(expandIcon) || collapsible.isCollapsed() || !isParent()) {
+        if (isNull(expandIcon) || collapsible.isHidden() || !isParent()) {
             replaceIcon(this.activeIcon);
+        }
+
+
+        if (activateParent && nonNull(parent)) {
+            parent.setActiveItem(this);
+
         }
     }
 
-    private void replaceIcon(Icon newIcon) {
+    private void replaceIcon(BaseIcon<?> newIcon) {
         if (nonNull(newIcon)) {
-            icon.asElement().textContent = newIcon.getName();
-            if (isNull(originalIcon)) {
-                Style.of(icon).setProperty("visibility", "visible");
+            if (nonNull(icon)) {
+                icon.remove();
             }
+            anchorElement.insertFirst(newIcon);
+            this.icon = newIcon;
         }
     }
 
     @Override
     public void deactivate() {
         Style.of(asElement()).remove("active");
-        if (isNull(expandIcon) || collapsible.isCollapsed() || !isParent()) {
+        if (isNull(expandIcon) || collapsible.isHidden() || !isParent()) {
             restoreIcon();
         }
         if (isParent()) {
             subItems.forEach(TreeItem::deactivate);
             if (getTreeRoot().isAutoCollapse()) {
-                collapsible.collapse();
+                collapsible.hide();
             }
         }
     }
 
     private void restoreIcon() {
         if (nonNull(originalIcon)) {
-            icon.asElement().textContent = originalIcon.getName();
+            icon.remove();
+            anchorElement.insertFirst(originalIcon);
+            this.icon = originalIcon;
         } else {
-            Style.of(icon).setProperty("visibility", "hidden");
+            if (nonNull(icon)) {
+                icon.remove();
+            }
         }
     }
 
     @Override
     public HTMLAnchorElement getClickableElement() {
-        return anchorElement;
+        return anchorElement.asElement();
     }
 
     public TreeItem addClickListener(EventListener listener) {
@@ -217,18 +282,21 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         return this;
     }
 
-    public TreeItem setIcon(Icon icon) {
+    public TreeItem setIcon(BaseIcon<?> icon) {
         this.icon = icon;
         this.originalIcon = icon.copy();
+        if (icon.asElement().style.visibility.equals("hidden")) {
+            this.originalIcon.styler(style -> style.setProperty("visibility", "hidden"));
+        }
         return this;
     }
 
-    public TreeItem setActiveIcon(Icon activeIcon) {
+    public TreeItem setActiveIcon(BaseIcon<?> activeIcon) {
         this.activeIcon = activeIcon;
         return this;
     }
 
-    public TreeItem setExpandIcon(Icon expandIcon) {
+    public TreeItem setExpandIcon(BaseIcon<?> expandIcon) {
         this.expandIcon = expandIcon;
         return this;
     }
@@ -256,8 +324,8 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
 
         if (found) {
             Style.of(element).removeProperty("display");
-            if (isParent() && isAutoExpandFound() && collapsible.isCollapsed()) {
-                collapsible.expand();
+            if (isParent() && isAutoExpandFound() && collapsible.isHidden()) {
+                collapsible.show();
             }
             return true;
         } else {
@@ -281,21 +349,33 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     }
 
     public void collapseAll() {
-        if (isParent() && !collapsible.isCollapsed()) {
-            collapse();
+        if (isParent() && !collapsible.isHidden()) {
+            hide();
             subItems.forEach(TreeItem::collapseAll);
         }
     }
 
     public void expandAll() {
-        if (isParent() && collapsible.isCollapsed()) {
-            expand();
+        if (isParent() && collapsible.isHidden()) {
+            show();
             subItems.forEach(TreeItem::expandAll);
         }
     }
 
+    public void setLevel(int level) {
+        this.nextLevel = level + 1;
+        if (isParent()) {
+            subItems.forEach(treeItem -> treeItem.setLevel(nextLevel));
+        }
+        anchorElement.style().setPaddingLeft(px.of(nextLevel * 15));
+    }
+
     @Override
     public HTMLElement getWavesElement() {
-        return anchorElement;
+        return anchorElement.asElement();
+    }
+
+    public boolean isLeaf() {
+        return subItems.isEmpty();
     }
 }

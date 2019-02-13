@@ -1,14 +1,14 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
-import elemental2.dom.*;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLTableCellElement;
+import elemental2.dom.HTMLTableRowElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.datatable.CellRenderer;
-import org.dominokit.domino.ui.datatable.ColumnConfig;
-import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.TableRow;
+import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.ExpandRecordEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -18,12 +18,12 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
 
-    public static final String RECORD_DETAILS_BUTTON = "record-details-button";
-    private final Icon collapseIcon;
-    private final Icon expandIcon;
+    public static final String DATA_TABLE_DETAILS_CM = "data-table-details-cm";
+    private final BaseIcon<?> collapseIcon;
+    private final BaseIcon<?> expandIcon;
     private HTMLDivElement element = div().asElement();
-    private HTMLTableCellElement td = td().css("details-td").add(element).asElement();
-    private HTMLTableRowElement tr = tr().css("details-tr").add(td).asElement();
+    private HTMLTableCellElement td = td().css(DataTableStyles.DETAILS_TD).add(element).asElement();
+    private HTMLTableRowElement tr = tr().css(DataTableStyles.DETAILS_TR).add(td).asElement();
 
     private final CellRenderer<T> cellRenderer;
     private DetailsButtonElement buttonElement;
@@ -34,7 +34,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
         this(cellRenderer, Icons.ALL.fullscreen_exit(), Icons.ALL.fullscreen());
     }
 
-    public RecordDetailsPlugin(CellRenderer<T> cellRenderer, Icon collapseIcon, Icon expandIcon) {
+    public RecordDetailsPlugin(CellRenderer<T> cellRenderer, BaseIcon<?> collapseIcon, BaseIcon<?> expandIcon) {
         this.cellRenderer = cellRenderer;
         this.collapseIcon = collapseIcon;
         this.expandIcon = expandIcon;
@@ -43,7 +43,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     @Override
     public void onBeforeAddHeaders(DataTable<T> dataTable) {
         this.dataTable = dataTable;
-        ColumnConfig<T> column = ColumnConfig.<T>create("data-table-details-cm")
+        ColumnConfig<T> column = ColumnConfig.<T>create(DATA_TABLE_DETAILS_CM)
                 .setSortable(false)
                 .setWidth("60px")
                 .setFixed(true)
@@ -76,7 +76,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     }
 
     private void expandRow(ExpandRecordEvent<T> event) {
-        DetailsButtonElement<T> detailsButtonElement = event.getTableRow().getMetaObject(RECORD_DETAILS_BUTTON);
+        DetailsButtonElement<T> detailsButtonElement = event.getTableRow().getMetaObject(DataTableStyles.RECORD_DETAILS_BUTTON);
         setExpanded(detailsButtonElement);
     }
 
@@ -101,12 +101,12 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     public static class DetailsButtonElement<T> implements IsElement<HTMLElement>, TableRow.RowMetaObject {
         private final Button button;
         private final CellRenderer.CellInfo<T> cellInfo;
-        private final Icon expandIcon;
-        private final Icon collapseIcon;
+        private final BaseIcon<?> expandIcon;
+        private final BaseIcon<?> collapseIcon;
         private RecordDetailsPlugin<?> recordDetailsPlugin;
         private boolean expanded = false;
 
-        public DetailsButtonElement(Icon expandIcon, Icon collapseIcon, RecordDetailsPlugin<?> recordDetailsPlugin, CellRenderer.CellInfo<T> cellInfo) {
+        public DetailsButtonElement(BaseIcon<?> expandIcon, BaseIcon<?> collapseIcon, RecordDetailsPlugin<?> recordDetailsPlugin, CellRenderer.CellInfo<T> cellInfo) {
             this.expandIcon = expandIcon;
             this.collapseIcon = collapseIcon;
             this.recordDetailsPlugin = recordDetailsPlugin;
@@ -150,7 +150,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
 
         @Override
         public String getKey() {
-            return RECORD_DETAILS_BUTTON;
+            return DataTableStyles.RECORD_DETAILS_BUTTON;
         }
     }
 

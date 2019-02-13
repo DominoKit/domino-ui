@@ -15,8 +15,8 @@ public class Footer extends BaseDominoElement<HTMLElement, Footer> {
     }
 
     public Footer() {
-        hide();
         init(this);
+        hide();
     }
 
     @Override
@@ -32,13 +32,5 @@ public class Footer extends BaseDominoElement<HTMLElement, Footer> {
     public Footer unfixed() {
         element.style().remove("fixed");
         return this;
-    }
-
-    public void hide() {
-        element.style().setDisplay("none");
-    }
-
-    public void show() {
-        element.style().setDisplay("block");
     }
 }

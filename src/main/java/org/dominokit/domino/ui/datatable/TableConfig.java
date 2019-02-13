@@ -24,6 +24,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
     private String fixedBodyHeight = "400px";
     private boolean lazyLoad = true;
     private boolean multiSelect = true;
+    private RowAppender<T> rowAppender = (dataTable, tableRow) -> dataTable.bodyElement().appendChild(tableRow.asElement());
 
     public void drawHeaders(DataTable<T> dataTable, DominoElement<HTMLTableSectionElement> thead) {
         this.dataTable = dataTable;
@@ -31,19 +32,28 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
         thead.appendChild(tr.asElement());
 
         columns.forEach(columnConfig -> {
+            //TODO replace with FlexLayout
             Node element = columnConfig.getHeaderElement().asElement(columnConfig.getTitle());
             columnConfig.contextMenu = div().style("width: 15px; display: none;").asElement();
-            HtmlContentBuilder<HTMLDivElement> add = div().style("display: flex;")
-                    .add(div().style("width:100%").add(element))
+            HtmlContentBuilder<HTMLDivElement> headerContent = div()
+                    .style("display: flex;")
+                    .add(div()
+                            .style("width:100%")
+                            .add(element))
                     .add(columnConfig.contextMenu);
-            HtmlContentBuilder<HTMLTableCellElement> th = th().css("table-cm-header").add(add.asElement());
+            HtmlContentBuilder<HTMLTableCellElement> th = th().css(DataTableStyles.TABLE_CM_HEADER).add(headerContent.asElement());
+
+            applyScreenMedia(columnConfig, th.asElement());
+
             tr.add(th);
             columnConfig.setHeadElement(th.asElement());
             if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
                 fixElementWidth(columnConfig, th.asElement());
             }
 
-            Tooltip.create(th.asElement(), columnConfig.getTooltipNode());
+            if (columnConfig.isShowTooltip()) {
+                Tooltip.create(th.asElement(), columnConfig.getTooltipNode());
+            }
             columnConfig.applyHeaderStyle();
 
             plugins.forEach(plugin -> plugin.onHeaderAdded(dataTable, columnConfig));
@@ -52,15 +62,26 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
         dataTable.tableElement().appendChild(thead);
     }
 
+    private void applyScreenMedia(ColumnConfig<T> columnConfig, HTMLTableCellElement element) {
+        DominoElement<HTMLTableCellElement> thElement = DominoElement.of(element);
+
+        if (nonNull(columnConfig.getShowOn())) {
+            thElement
+                    .showOn(columnConfig.getShowOn());
+        }
+
+        if (nonNull(columnConfig.getHideOn())) {
+            thElement.hideOn(columnConfig.getHideOn());
+        }
+    }
+
     private void fixElementWidth(ColumnConfig<T> column, HTMLElement element) {
         String fixedWidth = bestFitWidth(column);
         Style.of(element)
                 .setWidth(fixedWidth)
                 .setMinWidth(fixedWidth)
                 .setMaxWidth(fixedWidth)
-                .setProperty("overflow", "hidden")
-                .setProperty("text-overflow", "ellipsis")
-                .setProperty("white-space", "nowrap");
+                .add(DataTableStyles.FIXED_WIDTH);
 
     }
 
@@ -82,10 +103,12 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
             rowCell.updateCell();
             tableRow.addCell(rowCell);
 
+            applyScreenMedia(columnConfig, cellElement);
+
             tableRow.asElement().appendChild(cellElement);
             columnConfig.applyCellStyle(cellElement);
         });
-        dataTable.bodyElement().appendChild(tableRow.asElement());
+        rowAppender.appendRow(dataTable, tableRow);
 
         plugins.forEach(plugin -> plugin.onRowAdded(dataTable, tableRow));
     }
@@ -169,6 +192,12 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
         this.multiSelect = multiSelect;
     }
 
+    public void setRowAppender(RowAppender<T> rowAppender) {
+        if (nonNull(rowAppender)) {
+            this.rowAppender = rowAppender;
+        }
+    }
+
     public List<DataTablePlugin<T>> getPlugins() {
         return plugins;
     }
@@ -177,11 +206,20 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
         plugins.forEach(plugin -> plugin.onBeforeAddHeaders(dataTable));
     }
 
+    public void onAfterHeaders(DataTable<T> dataTable) {
+        plugins.forEach(plugin -> plugin.onAfterAddHeaders(dataTable));
+    }
+
     public List<ColumnConfig<T>> getColumns() {
         return columns;
     }
 
     public DataTable<T> getDataTable() {
         return dataTable;
+    }
+
+    @FunctionalInterface
+    public interface RowAppender<T> {
+        void appendRow(DataTable<T> dataTable, TableRow<T> tableRow);
     }
 }

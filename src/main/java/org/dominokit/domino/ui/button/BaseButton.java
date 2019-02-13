@@ -2,9 +2,8 @@ package org.dominokit.domino.ui.button;
 
 import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLElement;
-import elemental2.dom.Node;
 import elemental2.dom.Text;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.StyleType;
 import org.dominokit.domino.ui.style.WaveStyle;
@@ -22,13 +21,13 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
     private static final String DISABLED = "disabled";
 
-    protected final DominoElement<HTMLButtonElement> buttonElement = DominoElement.of(button().css("btn"));
+    protected final DominoElement<HTMLButtonElement> buttonElement = DominoElement.of(button().css(ButtonStyles.BUTTON));
     private StyleType type;
     private Color background;
     private Color color;
     private ButtonSize size;
     protected String content;
-    private Icon icon;
+    private BaseIcon<?> icon;
     private HTMLElement textSpan = span().asElement();
     private Text textElement = TextNode.empty();
 
@@ -40,7 +39,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         setContent(content);
     }
 
-    protected BaseButton(Icon icon) {
+    protected BaseButton(BaseIcon icon) {
         this();
         setIcon(icon);
     }
@@ -50,7 +49,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         setButtonType(type);
     }
 
-    protected BaseButton(Icon icon, StyleType type) {
+    protected BaseButton(BaseIcon icon, StyleType type) {
         this(icon);
         setButtonType(type);
     }
@@ -81,24 +80,24 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
     public B setSize(ButtonSize size) {
         if (nonNull(this.size))
-            buttonElement.style().remove("btn-" + this.size.getStyle());
-        buttonElement.style().add("btn-" + size.getStyle());
+            buttonElement.style().remove(this.size.getStyle());
+        buttonElement.style().add(size.getStyle());
         this.size = size;
         return (B) this;
     }
 
     public B setBlock(boolean block) {
         if (block)
-            buttonElement.style().add("btn-block");
+            buttonElement.style().add(ButtonStyles.BUTTON_BLOCK);
         else
-            buttonElement.style().remove("btn-block");
+            buttonElement.style().remove(ButtonStyles.BUTTON_BLOCK);
         return (B) this;
     }
 
     @Override
     public B setBackground(Color background) {
         if (nonNull(this.type))
-            buttonElement.style().remove("btn-" + this.type.getStyle());
+            buttonElement.style().remove(this.type.getStyle());
         if (nonNull(this.background))
             buttonElement.style().remove(this.background.getBackground());
         buttonElement.style().add(background.getBackground());
@@ -116,8 +115,8 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
     public B setButtonType(StyleType type) {
         if (nonNull(this.type))
-            buttonElement.style().remove("btn-" + this.type.getStyle());
-        buttonElement.style().add("btn-" + type.getStyle());
+            buttonElement.style().remove(this.type.getStyle());
+        buttonElement.style().add(type.getStyle());
         this.type = type;
         return (B) this;
     }
@@ -144,14 +143,6 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return asElement();
     }
 
-    /**
-     * @deprecated use {@link #appendChild(Node)}
-     */
-    @Deprecated
-    public B appendContent(Node node) {
-        return appendChild(node);
-    }
-
     @Override
     public B large() {
         setSize(ButtonSize.LARGE);
@@ -176,22 +167,22 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     }
 
     public B linkify() {
-        buttonElement.style().add("btn-link");
+        buttonElement.style().add(ButtonStyles.BUTTON_LINK);
         return (B) this;
     }
 
     public B deLinkify() {
-        buttonElement.style().remove("btn-link");
+        buttonElement.style().remove(ButtonStyles.BUTTON_LINK);
         return (B) this;
     }
 
-    public B circle(CircleSize size) {
-        buttonElement.style().add(size.getStyle());
+    public B circle() {
+        buttonElement.style().add(ButtonStyles.BUTTON_CIRCLE);
         applyCircleWaves();
         return (B) this;
     }
 
-    public B setIcon(Icon icon) {
+    public B setIcon(BaseIcon<?> icon) {
         if (nonNull(this.icon)) {
             this.icon.setTextContent(icon.getName());
         } else {

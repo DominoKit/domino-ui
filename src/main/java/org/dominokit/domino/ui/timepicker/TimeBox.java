@@ -31,19 +31,19 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
     private EventListener keyboardModalListener;
 
     public TimeBox() {
-        this(new Date());
+        this(null);
     }
 
     public TimeBox(Date time) {
-        this("", time);
+        this(null, time);
     }
 
-    public TimeBox(String placeholder, Date time) {
-        this(placeholder, time, null);
+    public TimeBox(String label, Date time) {
+        this(label, time, null);
     }
 
-    public TimeBox(String placeholder, Date time, DateTimeFormatInfo dateTimeFormatInfo) {
-        super("text", placeholder);
+    public TimeBox(String label, Date time, DateTimeFormatInfo dateTimeFormatInfo) {
+        super("text", label);
         if (nonNull(dateTimeFormatInfo))
             this.timePicker = TimePicker.create(dateTimeFormatInfo);
         else
@@ -103,7 +103,8 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
     @Override
     public boolean isEmpty() {
-        return isNull(getTimePicker().getTime());
+        String stringValue = getStringValue();
+        return isNull(stringValue) || stringValue.isEmpty();
     }
 
     @Override
@@ -127,6 +128,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
             this.getInputElement().asElement().value = "";
         this.value = time;
     }
+
 
     @Override
     public Date getValue() {
@@ -202,7 +204,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
             }
 
             if (isNull(modal)) {
-                this.modal = ModalDialog.createPickerModal(getPlaceholder(), timePicker.getColorScheme(), this.timePicker.asElement());
+                this.modal = ModalDialog.createPickerModal(getPlaceholder(), this.timePicker.asElement());
                 DomGlobal.document.body.appendChild(modal.asElement());
                 asElement().addEventListener(EventType.click.getName(), modalListener);
 
@@ -245,7 +247,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
     @Override
     public String getStringValue() {
-        return timePicker.getFormattedTime();
+        return nonNull(value) ? timePicker.getFormattedTime() : "";
     }
 
     @Override

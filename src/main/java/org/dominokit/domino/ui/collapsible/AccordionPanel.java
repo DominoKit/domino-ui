@@ -4,8 +4,9 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.IsCollapsible;
@@ -16,14 +17,19 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionPanel> implements IsCollapsible<AccordionPanel> {
 
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("panel panel-primary"));
-    private DominoElement<HTMLDivElement> headerElement = DominoElement.of(div().css("panel-heading").attr("role", "tab"));
-    private DominoElement<HTMLHeadingElement> headingElement = DominoElement.of(h(4).css("panel-title"));
-    private DominoElement<HTMLAnchorElement> clickableElement = DominoElement.of(a().attr("role", "button"));
-    private DominoElement<HTMLDivElement> collapsibleElement = DominoElement.of(div().css("panel-collapse"));
-    private DominoElement<HTMLDivElement> bodyElement = DominoElement.of(div().css("panel-body"));
-    private String panelStyle = "panel-primary";
-    private Icon panelIcon;
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(CollapsibleStyles.PANEL)
+            .css(Styles.default_shadow));
+    private DominoElement<HTMLDivElement> headerElement = DominoElement.of(div().css(CollapsibleStyles.PANEL_HEADING)
+            .attr("role", "tab"));
+    private DominoElement<HTMLHeadingElement> headingElement = DominoElement.of(h(4).css(CollapsibleStyles.PANEL_TITLE));
+    private DominoElement<HTMLAnchorElement> clickableElement = DominoElement.of(a()
+            .attr("role", "button"));
+    private DominoElement<HTMLDivElement> collapsibleElement = DominoElement.of(div()
+            .css(CollapsibleStyles.PANEL_COLLAPSE));
+    private DominoElement<HTMLDivElement> bodyElement = DominoElement.of(div().css(CollapsibleStyles.PANEL_BODY));
+    private Color headerColor;
+    private Color bodyColor;
+    private BaseIcon<?> panelIcon;
 
     public AccordionPanel(String title) {
         clickableElement.setTextContent(title);
@@ -44,6 +50,10 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         return new AccordionPanel(title, content);
     }
 
+    public static AccordionPanel create(String title, IsElement content) {
+        return new AccordionPanel(title, content.asElement());
+    }
+
     private void init() {
         element.appendChild(headerElement);
         headerElement.appendChild(headingElement);
@@ -51,7 +61,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         collapsibleElement.appendChild(bodyElement);
         element.appendChild(collapsibleElement);
         init(this);
-        collapse();
+        hide();
     }
 
     public AccordionPanel setTitle(String title) {
@@ -64,15 +74,6 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         return appendChild(content);
     }
 
-    /**
-     * @deprecated use {@link #appendChild(Node)}
-     */
-    @Deprecated
-    public AccordionPanel appendContent(Node content) {
-        bodyElement.appendChild(content);
-        return this;
-    }
-
     public AccordionPanel appendChild(Node content) {
         bodyElement.appendChild(content);
         return this;
@@ -82,41 +83,74 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         return appendChild(content.asElement());
     }
 
-
     @Override
     public HTMLDivElement asElement() {
         return element.asElement();
     }
 
-
     public AccordionPanel primary() {
-        return applyStyle("panel-primary");
+        return setHeaderBackground(Color.BLUE);
     }
 
     public AccordionPanel success() {
-        return applyStyle("panel-success");
+        return setHeaderBackground(Color.GREEN);
     }
 
     public AccordionPanel warning() {
-        return applyStyle("panel-warning");
+        return setHeaderBackground(Color.ORANGE);
     }
 
     public AccordionPanel danger() {
-        return applyStyle("panel-danger");
+        return setHeaderBackground(Color.RED);
     }
 
-    public AccordionPanel setColor(Color color) {
-        return applyStyle(color.getStyle());
-    }
-
-    AccordionPanel applyStyle(String style) {
-        element.style().remove(panelStyle);
-        panelStyle = style;
-        element.style().add(panelStyle);
+    public AccordionPanel primaryFull() {
+        setHeaderBackground(Color.BLUE);
+        setBodyBackground(Color.BLUE);
         return this;
     }
 
-    public AccordionPanel setIcon(Icon icon) {
+    public AccordionPanel successFull() {
+        setHeaderBackground(Color.GREEN);
+        setBodyBackground(Color.GREEN);
+        return this;
+    }
+
+    public AccordionPanel warningFull() {
+        setHeaderBackground(Color.ORANGE);
+        setBodyBackground(Color.ORANGE);
+        return this;
+    }
+
+    public AccordionPanel dangerFull() {
+        setHeaderBackground(Color.RED);
+        setBodyBackground(Color.RED);
+        return this;
+    }
+
+    public AccordionPanel setHeaderBackground(Color color) {
+        if(nonNull(this.headerColor)){
+            getHeaderElement().style().remove(this.headerColor.getBackground());
+        }
+        getHeaderElement().style().add(color.getBackground());
+
+        this.headerColor = color;
+
+        return this;
+    }
+
+    public AccordionPanel setBodyBackground(Color color) {
+        if(nonNull(this.bodyColor)){
+            getBodyElement().style().remove(this.bodyColor.getBackground());
+        }
+        getBodyElement().style().add(color.getBackground());
+
+        this.bodyColor = color;
+
+        return this;
+    }
+
+    public AccordionPanel setIcon(BaseIcon<?> icon) {
         if (nonNull(this.panelIcon)) {
             panelIcon.remove();
         }
@@ -139,5 +173,29 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     @Override
     public HTMLDivElement getCollapsibleElement() {
         return collapsibleElement.asElement();
+    }
+
+    public DominoElement<HTMLDivElement> getHeaderElement() {
+        return headerElement;
+    }
+
+    public DominoElement<HTMLHeadingElement> getHeadingElement() {
+        return headingElement;
+    }
+
+    public DominoElement<HTMLDivElement> getBodyElement() {
+        return bodyElement;
+    }
+
+    public BaseIcon<?> getPanelIcon() {
+        return panelIcon;
+    }
+
+    public Color getHeaderColor() {
+        return headerColor;
+    }
+
+    public Color getBodyColor() {
+        return bodyColor;
     }
 }

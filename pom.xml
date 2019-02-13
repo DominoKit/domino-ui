@@ -139,7 +139,7 @@
                 <plugin>
                     <groupId>net.ltgt.gwt.maven</groupId>
                     <artifactId>gwt-maven-plugin</artifactId>
-                    <version>1.0-rc-9</version>
+                    <version>1.0-rc-10</version>
                     <extensions>true</extensions>
                     <configuration>
                         <moduleName>org.dominokit.domino.ui.DominoUI</moduleName>
@@ -163,7 +163,11 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.10.4</version>
+                    <version>3.0.1</version>
+                    <configuration>
+                        <failOnError>false</failOnError>
+                        <failOnWarnings>false</failOnWarnings>
+                    </configuration>
                     <executions>
                         <execution>
                             <id>attach-javadocs</id>

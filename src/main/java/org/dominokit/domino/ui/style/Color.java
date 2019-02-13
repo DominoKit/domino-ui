@@ -4874,58 +4874,669 @@ public interface Color {
         }
     };
 
+    static Color of(String name) {
+        switch (name) {
+            case "RED":
+                return Color.RED;
 
-    static void main(String[] args) {
+            case "RED DARKEN 1":
+                return Color.RED_DARKEN_1;
 
-        generateColorStyle(ColorScheme.RED);
-        generateColorStyle(ColorScheme.PINK);
-        generateColorStyle(ColorScheme.PURPLE);
-        generateColorStyle(ColorScheme.DEEP_PURPLE);
-        generateColorStyle(ColorScheme.INDIGO);
-        generateColorStyle(ColorScheme.BLUE);
-        generateColorStyle(ColorScheme.LIGHT_BLUE);
-        generateColorStyle(ColorScheme.CYAN);
-        generateColorStyle(ColorScheme.TEAL);
-        generateColorStyle(ColorScheme.GREEN);
-        generateColorStyle(ColorScheme.LIGHT_GREEN);
-        generateColorStyle(ColorScheme.LIME);
-        generateColorStyle(ColorScheme.YELLOW);
-        generateColorStyle(ColorScheme.AMBER);
-        generateColorStyle(ColorScheme.ORANGE);
-        generateColorStyle(ColorScheme.DEEP_ORANGE);
-        generateColorStyle(ColorScheme.BROWN);
-        generateColorStyle(ColorScheme.GREY);
-        generateColorStyle(ColorScheme.BLUE_GREY);
-        generateColorStyle(ColorScheme.BLACK);
-        generateColorStyle(ColorScheme.WHITE);
-        generateColorStyle(ColorScheme.TRANSPARENT);
+            case "RED DARKEN 2":
+                return Color.RED_DARKEN_2;
 
-    }
+            case "RED DARKEN 3":
+                return Color.RED_DARKEN_3;
 
-    static void generateColorStyle(ColorScheme color) {
+            case "RED DARKEN 4":
+                return Color.RED_DARKEN_4;
 
-        generateStyle(color.color().getStyle(), color.color().getHex());
-//        generateStyle(color.lighten_1().getStyle(), color.lighten_1().getHex());
-//        generateStyle(color.lighten_2().getStyle(), color.lighten_2().getHex());
-//        generateStyle(color.lighten_3().getStyle(), color.lighten_3().getHex());
-//        generateStyle(color.lighten_4().getStyle(), color.lighten_4().getHex());
-//        generateStyle(color.lighten_5().getStyle(), color.lighten_5().getHex());
-//        generateStyle(color.darker_1().getStyle(), color.darker_1().getHex());
-//        generateStyle(color.darker_2().getStyle(), color.darker_2().getHex());
-//        generateStyle(color.darker_3().getStyle(), color.darker_3().getHex());
-//        generateStyle(color.darker_4().getStyle(), color.darker_4().getHex());
+            case "RED LIGHTEN 1":
+                return Color.RED_LIGHTEN_1;
 
-    }
+            case "RED LIGHTEN 2":
+                return Color.RED_LIGHTEN_2;
 
-    /*
+            case "RED LIGHTEN 3":
+                return Color.RED_LIGHTEN_3;
 
-    .theme-red .col-theme {
-    color: #asdasd !important;
-}
-     */
-    static void generateStyle(String style, String hex) {
-        System.out.println(".theme-" + style.replace("col-", "") + " .col-theme {");
-        System.out.println("color: " + hex + " !important;");
-        System.out.println("}");
+            case "RED LIGHTEN 4":
+                return Color.RED_LIGHTEN_4;
+
+            case "RED LIGHTEN 5":
+                return Color.RED_LIGHTEN_5;
+
+            case "PINK":
+                return Color.PINK;
+
+            case "PINK DARKEN 1":
+                return Color.PINK_DARKEN_1;
+
+            case "PINK DARKEN 2":
+                return Color.PINK_DARKEN_2;
+
+            case "PINK DARKEN 3":
+                return Color.PINK_DARKEN_3;
+
+            case "PINK DARKEN 4":
+                return Color.PINK_DARKEN_4;
+
+            case "PINK LIGHTEN 1":
+                return Color.PINK_LIGHTEN_1;
+
+            case "PINK LIGHTEN 2":
+                return Color.PINK_LIGHTEN_2;
+
+            case "PINK LIGHTEN 3":
+                return Color.PINK_LIGHTEN_3;
+
+            case "PINK LIGHTEN 4":
+                return Color.PINK_LIGHTEN_4;
+
+            case "PINK LIGHTEN 5":
+                return Color.PINK_LIGHTEN_5;
+
+            case "PURPLE":
+                return Color.PURPLE;
+
+            case "PURPLE DARKEN 1":
+                return Color.PURPLE_DARKEN_1;
+
+            case "PURPLE DARKEN 2":
+                return Color.PURPLE_DARKEN_2;
+
+            case "PURPLE DARKEN 3":
+                return Color.PURPLE_DARKEN_3;
+
+            case "PURPLE DARKEN 4":
+                return Color.PURPLE_DARKEN_4;
+
+            case "PURPLE LIGHTEN 1":
+                return Color.PURPLE_LIGHTEN_1;
+
+            case "PURPLE LIGHTEN 2":
+                return Color.PURPLE_LIGHTEN_2;
+
+            case "PURPLE LIGHTEN 3":
+                return Color.PURPLE_LIGHTEN_3;
+
+            case "PURPLE LIGHTEN 4":
+                return Color.PURPLE_LIGHTEN_4;
+
+            case "PURPLE LIGHTEN 5":
+                return Color.PURPLE_LIGHTEN_5;
+
+            case "DEEP PURPLE":
+                return Color.DEEP_PURPLE;
+
+            case "DEEP PURPLE DARKEN 1":
+                return Color.DEEP_PURPLE_DARKEN_1;
+
+            case "DEEP PURPLE DARKEN 2":
+                return Color.DEEP_PURPLE_DARKEN_2;
+
+            case "DEEP PURPLE DARKEN 3":
+                return Color.DEEP_PURPLE_DARKEN_3;
+
+            case "DEEP PURPLE DARKEN 4":
+                return Color.DEEP_PURPLE_DARKEN_4;
+
+            case "DEEP PURPLE LIGHTEN 1":
+                return Color.DEEP_PURPLE_LIGHTEN_1;
+
+            case "DEEP PURPLE LIGHTEN 2":
+                return Color.DEEP_PURPLE_LIGHTEN_2;
+
+            case "DEEP PURPLE LIGHTEN 3":
+                return Color.DEEP_PURPLE_LIGHTEN_3;
+
+            case "DEEP PURPLE LIGHTEN 4":
+                return Color.DEEP_PURPLE_LIGHTEN_4;
+
+            case "DEEP PURPLE LIGHTEN 5":
+                return Color.DEEP_PURPLE_LIGHTEN_5;
+
+            case "INDIGO":
+                return Color.INDIGO;
+
+            case "INDIGO DARKEN 1":
+                return Color.INDIGO_DARKEN_1;
+
+            case "INDIGO DARKEN 2":
+                return Color.INDIGO_DARKEN_2;
+
+            case "INDIGO DARKEN 3":
+                return Color.INDIGO_DARKEN_3;
+
+            case "INDIGO DARKEN 4":
+                return Color.INDIGO_DARKEN_4;
+
+            case "INDIGO LIGHTEN 1":
+                return Color.INDIGO_LIGHTEN_1;
+
+            case "INDIGO LIGHTEN 2":
+                return Color.INDIGO_LIGHTEN_2;
+
+            case "INDIGO LIGHTEN 3":
+                return Color.INDIGO_LIGHTEN_3;
+
+            case "INDIGO LIGHTEN 4":
+                return Color.INDIGO_LIGHTEN_4;
+
+            case "INDIGO LIGHTEN 5":
+                return Color.INDIGO_LIGHTEN_5;
+
+            case "BLUE":
+                return Color.BLUE;
+
+            case "BLUE DARKEN 1":
+                return Color.BLUE_DARKEN_1;
+
+            case "BLUE DARKEN 2":
+                return Color.BLUE_DARKEN_2;
+
+            case "BLUE DARKEN 3":
+                return Color.BLUE_DARKEN_3;
+
+            case "BLUE DARKEN 4":
+                return Color.BLUE_DARKEN_4;
+
+            case "BLUE LIGHTEN 1":
+                return Color.BLUE_LIGHTEN_1;
+
+            case "BLUE LIGHTEN 2":
+                return Color.BLUE_LIGHTEN_2;
+
+            case "BLUE LIGHTEN 3":
+                return Color.BLUE_LIGHTEN_3;
+
+            case "BLUE LIGHTEN 4":
+                return Color.BLUE_LIGHTEN_4;
+
+            case "BLUE LIGHTEN 5":
+                return Color.BLUE_LIGHTEN_5;
+
+            case "LIGHT BLUE":
+                return Color.LIGHT_BLUE;
+
+            case "LIGHT BLUE DARKEN 1":
+                return Color.LIGHT_BLUE_DARKEN_1;
+
+            case "LIGHT BLUE DARKEN 2":
+                return Color.LIGHT_BLUE_DARKEN_2;
+
+            case "LIGHT BLUE DARKEN 3":
+                return Color.LIGHT_BLUE_DARKEN_3;
+
+            case "LIGHT BLUE DARKEN 4":
+                return Color.LIGHT_BLUE_DARKEN_4;
+
+            case "LIGHT BLUE LIGHTEN 1":
+                return Color.LIGHT_BLUE_LIGHTEN_1;
+
+            case "LIGHT BLUE LIGHTEN 2":
+                return Color.LIGHT_BLUE_LIGHTEN_2;
+
+            case "LIGHT BLUE LIGHTEN 3":
+                return Color.LIGHT_BLUE_LIGHTEN_3;
+
+            case "LIGHT BLUE LIGHTEN 4":
+                return Color.LIGHT_BLUE_LIGHTEN_4;
+
+            case "LIGHT BLUE LIGHTEN 5":
+                return Color.LIGHT_BLUE_LIGHTEN_5;
+
+            case "CYAN":
+                return Color.CYAN;
+
+            case "CYAN DARKEN 1":
+                return Color.CYAN_DARKEN_1;
+
+            case "CYAN DARKEN 2":
+                return Color.CYAN_DARKEN_2;
+
+            case "CYAN DARKEN 3":
+                return Color.CYAN_DARKEN_3;
+
+            case "CYAN DARKEN 4":
+                return Color.CYAN_DARKEN_4;
+
+            case "CYAN LIGHTEN 1":
+                return Color.CYAN_LIGHTEN_1;
+
+            case "CYAN LIGHTEN 2":
+                return Color.CYAN_LIGHTEN_2;
+
+            case "CYAN LIGHTEN 3":
+                return Color.CYAN_LIGHTEN_3;
+
+            case "CYAN LIGHTEN 4":
+                return Color.CYAN_LIGHTEN_4;
+
+            case "CYAN LIGHTEN 5":
+                return Color.CYAN_LIGHTEN_5;
+
+            case "TEAL":
+                return Color.TEAL;
+
+            case "TEAL DARKEN 1":
+                return Color.TEAL_DARKEN_1;
+
+            case "TEAL DARKEN 2":
+                return Color.TEAL_DARKEN_2;
+
+            case "TEAL DARKEN 3":
+                return Color.TEAL_DARKEN_3;
+
+            case "TEAL DARKEN 4":
+                return Color.TEAL_DARKEN_4;
+
+            case "TEAL LIGHTEN 1":
+                return Color.TEAL_LIGHTEN_1;
+
+            case "TEAL LIGHTEN 2":
+                return Color.TEAL_LIGHTEN_2;
+
+            case "TEAL LIGHTEN 3":
+                return Color.TEAL_LIGHTEN_3;
+
+            case "TEAL LIGHTEN 4":
+                return Color.TEAL_LIGHTEN_4;
+
+            case "TEAL LIGHTEN 5":
+                return Color.TEAL_LIGHTEN_5;
+
+            case "GREEN":
+                return Color.GREEN;
+
+            case "GREEN DARKEN 1":
+                return Color.GREEN_DARKEN_1;
+
+            case "GREEN DARKEN 2":
+                return Color.GREEN_DARKEN_2;
+
+            case "GREEN DARKEN 3":
+                return Color.GREEN_DARKEN_3;
+
+            case "GREEN DARKEN 4":
+                return Color.GREEN_DARKEN_4;
+
+            case "GREEN LIGHTEN 1":
+                return Color.GREEN_LIGHTEN_1;
+
+            case "GREEN LIGHTEN 2":
+                return Color.GREEN_LIGHTEN_2;
+
+            case "GREEN LIGHTEN 3":
+                return Color.GREEN_LIGHTEN_3;
+
+            case "GREEN LIGHTEN 4":
+                return Color.GREEN_LIGHTEN_4;
+
+            case "GREEN LIGHTEN 5":
+                return Color.GREEN_LIGHTEN_5;
+
+            case "LIGHT GREEN":
+                return Color.LIGHT_GREEN;
+
+            case "LIGHT GREEN DARKEN 1":
+                return Color.LIGHT_GREEN_DARKEN_1;
+
+            case "LIGHT GREEN DARKEN 2":
+                return Color.LIGHT_GREEN_DARKEN_2;
+
+            case "LIGHT GREEN DARKEN 3":
+                return Color.LIGHT_GREEN_DARKEN_3;
+
+            case "LIGHT GREEN DARKEN 4":
+                return Color.LIGHT_GREEN_DARKEN_4;
+
+            case "LIGHT GREEN LIGHTEN 1":
+                return Color.LIGHT_GREEN_LIGHTEN_1;
+
+            case "LIGHT GREEN LIGHTEN 2":
+                return Color.LIGHT_GREEN_LIGHTEN_2;
+
+            case "LIGHT GREEN LIGHTEN 3":
+                return Color.LIGHT_GREEN_LIGHTEN_3;
+
+            case "LIGHT GREEN LIGHTEN 4":
+                return Color.LIGHT_GREEN_LIGHTEN_4;
+
+            case "LIGHT GREEN LIGHTEN 5":
+                return Color.LIGHT_GREEN_LIGHTEN_5;
+
+            case "LIME":
+                return Color.LIME;
+
+            case "LIME DARKEN 1":
+                return Color.LIME_DARKEN_1;
+
+            case "LIME DARKEN 2":
+                return Color.LIME_DARKEN_2;
+
+            case "LIME DARKEN 3":
+                return Color.LIME_DARKEN_3;
+
+            case "LIME DARKEN 4":
+                return Color.LIME_DARKEN_4;
+
+            case "LIME LIGHTEN 1":
+                return Color.LIME_LIGHTEN_1;
+
+            case "LIME LIGHTEN 2":
+                return Color.LIME_LIGHTEN_2;
+
+            case "LIME LIGHTEN 3":
+                return Color.LIME_LIGHTEN_3;
+
+            case "LIME LIGHTEN 4":
+                return Color.LIME_LIGHTEN_4;
+
+            case "LIME LIGHTEN 5":
+                return Color.LIME_LIGHTEN_5;
+
+            case "YELLOW":
+                return Color.YELLOW;
+
+            case "YELLOW DARKEN 1":
+                return Color.YELLOW_DARKEN_1;
+
+            case "YELLOW DARKEN 2":
+                return Color.YELLOW_DARKEN_2;
+
+            case "YELLOW DARKEN 3":
+                return Color.YELLOW_DARKEN_3;
+
+            case "YELLOW DARKEN 4":
+                return Color.YELLOW_DARKEN_4;
+
+            case "YELLOW LIGHTEN 1":
+                return Color.YELLOW_LIGHTEN_1;
+
+            case "YELLOW LIGHTEN 2":
+                return Color.YELLOW_LIGHTEN_2;
+
+            case "YELLOW LIGHTEN 3":
+                return Color.YELLOW_LIGHTEN_3;
+
+            case "YELLOW LIGHTEN 4":
+                return Color.YELLOW_LIGHTEN_4;
+
+            case "YELLOW LIGHTEN 5":
+                return Color.YELLOW_LIGHTEN_5;
+
+            case "AMBER":
+                return Color.AMBER;
+
+            case "AMBER DARKEN 1":
+                return Color.AMBER_DARKEN_1;
+
+            case "AMBER DARKEN 2":
+                return Color.AMBER_DARKEN_2;
+
+            case "AMBER DARKEN 3":
+                return Color.AMBER_DARKEN_3;
+
+            case "AMBER DARKEN 4":
+                return Color.AMBER_DARKEN_4;
+
+            case "AMBER LIGHTEN 1":
+                return Color.AMBER_LIGHTEN_1;
+
+            case "AMBER LIGHTEN 2":
+                return Color.AMBER_LIGHTEN_2;
+
+            case "AMBER LIGHTEN 3":
+                return Color.AMBER_LIGHTEN_3;
+
+            case "AMBER LIGHTEN 4":
+                return Color.AMBER_LIGHTEN_4;
+
+            case "AMBER LIGHTEN 5":
+                return Color.AMBER_LIGHTEN_5;
+
+            case "ORANGE":
+                return Color.ORANGE;
+
+            case "ORANGE DARKEN 1":
+                return Color.ORANGE_DARKEN_1;
+
+            case "ORANGE DARKEN 2":
+                return Color.ORANGE_DARKEN_2;
+
+            case "ORANGE DARKEN 3":
+                return Color.ORANGE_DARKEN_3;
+
+            case "ORANGE DARKEN 4":
+                return Color.ORANGE_DARKEN_4;
+
+            case "ORANGE LIGHTEN 1":
+                return Color.ORANGE_LIGHTEN_1;
+
+            case "ORANGE LIGHTEN 2":
+                return Color.ORANGE_LIGHTEN_2;
+
+            case "ORANGE LIGHTEN 3":
+                return Color.ORANGE_LIGHTEN_3;
+
+            case "ORANGE LIGHTEN 4":
+                return Color.ORANGE_LIGHTEN_4;
+
+            case "ORANGE LIGHTEN 5":
+                return Color.ORANGE_LIGHTEN_5;
+
+            case "DEEP ORANGE":
+                return Color.DEEP_ORANGE;
+
+            case "DEEP ORANGE DARKEN 1":
+                return Color.DEEP_ORANGE_DARKEN_1;
+
+            case "DEEP ORANGE DARKEN 2":
+                return Color.DEEP_ORANGE_DARKEN_2;
+
+            case "DEEP ORANGE DARKEN 3":
+                return Color.DEEP_ORANGE_DARKEN_3;
+
+            case "DEEP ORANGE DARKEN 4":
+                return Color.DEEP_ORANGE_DARKEN_4;
+
+            case "DEEP ORANGE LIGHTEN 1":
+                return Color.DEEP_ORANGE_LIGHTEN_1;
+
+            case "DEEP ORANGE LIGHTEN 2":
+                return Color.DEEP_ORANGE_LIGHTEN_2;
+
+            case "DEEP ORANGE LIGHTEN 3":
+                return Color.DEEP_ORANGE_LIGHTEN_3;
+
+            case "DEEP ORANGE LIGHTEN 4":
+                return Color.DEEP_ORANGE_LIGHTEN_4;
+
+            case "DEEP ORANGE LIGHTEN 5":
+                return Color.DEEP_ORANGE_LIGHTEN_5;
+
+            case "BROWN":
+                return Color.BROWN;
+
+            case "BROWN DARKEN 1":
+                return Color.BROWN_DARKEN_1;
+
+            case "BROWN DARKEN 2":
+                return Color.BROWN_DARKEN_2;
+
+            case "BROWN DARKEN 3":
+                return Color.BROWN_DARKEN_3;
+
+            case "BROWN DARKEN 4":
+                return Color.BROWN_DARKEN_4;
+
+            case "BROWN LIGHTEN 1":
+                return Color.BROWN_LIGHTEN_1;
+
+            case "BROWN LIGHTEN 2":
+                return Color.BROWN_LIGHTEN_2;
+
+            case "BROWN LIGHTEN 3":
+                return Color.BROWN_LIGHTEN_3;
+
+            case "BROWN LIGHTEN 4":
+                return Color.BROWN_LIGHTEN_4;
+
+            case "BROWN LIGHTEN 5":
+                return Color.BROWN_LIGHTEN_5;
+
+            case "GREY":
+                return Color.GREY;
+
+            case "GREY DARKEN 1":
+                return Color.GREY_DARKEN_1;
+
+            case "GREY DARKEN 2":
+                return Color.GREY_DARKEN_2;
+
+            case "GREY DARKEN 3":
+                return Color.GREY_DARKEN_3;
+
+            case "GREY DARKEN 4":
+                return Color.GREY_DARKEN_4;
+
+            case "GREY LIGHTEN 1":
+                return Color.GREY_LIGHTEN_1;
+
+            case "GREY LIGHTEN 2":
+                return Color.GREY_LIGHTEN_2;
+
+            case "GREY LIGHTEN 3":
+                return Color.GREY_LIGHTEN_3;
+
+            case "GREY LIGHTEN 4":
+                return Color.GREY_LIGHTEN_4;
+
+            case "GREY LIGHTEN 5":
+                return Color.GREY_LIGHTEN_5;
+
+            case "BLUE GREY":
+                return Color.BLUE_GREY;
+
+            case "BLUE GREY DARKEN 1":
+                return Color.BLUE_GREY_DARKEN_1;
+
+            case "BLUE GREY DARKEN 2":
+                return Color.BLUE_GREY_DARKEN_2;
+
+            case "BLUE GREY DARKEN 3":
+                return Color.BLUE_GREY_DARKEN_3;
+
+            case "BLUE GREY DARKEN 4":
+                return Color.BLUE_GREY_DARKEN_4;
+
+            case "BLUE GREY LIGHTEN 1":
+                return Color.BLUE_GREY_LIGHTEN_1;
+
+            case "BLUE GREY LIGHTEN 2":
+                return Color.BLUE_GREY_LIGHTEN_2;
+
+            case "BLUE GREY LIGHTEN 3":
+                return Color.BLUE_GREY_LIGHTEN_3;
+
+            case "BLUE GREY LIGHTEN 4":
+                return Color.BLUE_GREY_LIGHTEN_4;
+
+            case "BLUE GREY LIGHTEN 5":
+                return Color.BLUE_GREY_LIGHTEN_5;
+
+            case "BLACK":
+                return Color.BLACK;
+
+            case "BLACK DARKEN 1":
+                return Color.BLACK_DARKEN_1;
+
+            case "BLACK DARKEN 2":
+                return Color.BLACK_DARKEN_2;
+
+            case "BLACK DARKEN 3":
+                return Color.BLACK_DARKEN_3;
+
+            case "BLACK DARKEN 4":
+                return Color.BLACK_DARKEN_4;
+
+            case "BLACK LIGHTEN 1":
+                return Color.BLACK_LIGHTEN_1;
+
+            case "BLACK LIGHTEN 2":
+                return Color.BLACK_LIGHTEN_2;
+
+            case "BLACK LIGHTEN 3":
+                return Color.BLACK_LIGHTEN_3;
+
+            case "BLACK LIGHTEN 4":
+                return Color.BLACK_LIGHTEN_4;
+
+            case "BLACK LIGHTEN 5":
+                return Color.BLACK_LIGHTEN_5;
+
+            case "WHITE":
+                return Color.WHITE;
+
+            case "WHITE DARKEN 1":
+                return Color.WHITE_DARKEN_1;
+
+            case "WHITE DARKEN 2":
+                return Color.WHITE_DARKEN_2;
+
+            case "WHITE DARKEN 3":
+                return Color.WHITE_DARKEN_3;
+
+            case "WHITE DARKEN 4":
+                return Color.WHITE_DARKEN_4;
+
+            case "WHITE LIGHTEN 1":
+                return Color.WHITE_LIGHTEN_1;
+
+            case "WHITE LIGHTEN 2":
+                return Color.WHITE_LIGHTEN_2;
+
+            case "WHITE LIGHTEN 3":
+                return Color.WHITE_LIGHTEN_3;
+
+            case "WHITE LIGHTEN 4":
+                return Color.WHITE_LIGHTEN_4;
+
+            case "WHITE LIGHTEN 5":
+                return Color.WHITE_LIGHTEN_5;
+
+            case "TRANSPARENT":
+                return Color.TRANSPARENT;
+
+            case "TRANSPARENT DARKEN 1":
+                return Color.TRANSPARENT_DARKEN_1;
+
+            case "TRANSPARENT DARKEN 2":
+                return Color.TRANSPARENT_DARKEN_2;
+
+            case "TRANSPARENT DARKEN 3":
+                return Color.TRANSPARENT_DARKEN_3;
+
+            case "TRANSPARENT DARKEN 4":
+                return Color.TRANSPARENT_DARKEN_4;
+
+            case "TRANSPARENT LIGHTEN 1":
+                return Color.TRANSPARENT_LIGHTEN_1;
+
+            case "TRANSPARENT LIGHTEN 2":
+                return Color.TRANSPARENT_LIGHTEN_2;
+
+            case "TRANSPARENT LIGHTEN 3":
+                return Color.TRANSPARENT_LIGHTEN_3;
+
+            case "TRANSPARENT LIGHTEN 4":
+                return Color.TRANSPARENT_LIGHTEN_4;
+
+            case "TRANSPARENT LIGHTEN 5":
+                return Color.TRANSPARENT_LIGHTEN_5;
+            default:
+                throw new IllegalArgumentException("Color ["+name+"] not found!");
+        }
     }
 }

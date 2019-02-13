@@ -1,10 +1,11 @@
 package org.dominokit.domino.ui.tabs;
 
 import elemental2.dom.*;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
+import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
@@ -21,16 +22,16 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         this(null, text);
     }
 
-    public Tab(Icon icon) {
+    public Tab(BaseIcon<?> icon) {
         this(icon, null);
     }
 
-    public Tab(Icon icon, String text) {
+    public Tab(BaseIcon<?> icon, String text) {
         if (nonNull(icon)) {
             clickableElement.appendChild(icon.asElement());
         }
         if (nonNull(text)) {
-            clickableElement.appendChild(DomGlobal.document.createTextNode(text));
+            clickableElement.appendChild(span().add(TextNode.of(text)).asElement());
         }
         init(this);
         withWaves();
@@ -40,11 +41,11 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return new Tab(text);
     }
 
-    public static Tab create(Icon icon) {
+    public static Tab create(BaseIcon<?> icon) {
         return new Tab(icon);
     }
 
-    public static Tab create(Icon icon, String text) {
+    public static Tab create(BaseIcon<?> icon, String text) {
         return new Tab(icon, text);
     }
 

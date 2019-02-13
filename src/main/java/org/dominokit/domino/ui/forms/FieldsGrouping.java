@@ -5,18 +5,19 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FieldsGrouping implements HasValidation<FieldsGrouping> {
 
-    private List<FormElement> formElements = new ArrayList<>();
+    private List<HasGrouping> formElements = new ArrayList<>();
     private List<Validator> validators = new ArrayList<>();
 
     public static FieldsGrouping create() {
         return new FieldsGrouping();
     }
 
-    public FieldsGrouping addFormElement(FormElement formElement) {
+    public FieldsGrouping addFormElement(HasGrouping formElement) {
         formElements.add(formElement);
         return this;
     }
@@ -41,7 +42,7 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
 
         boolean valid = true;
 
-        for (FormElement formElement : formElements) {
+        for (HasGrouping formElement : formElements) {
             ValidationResult result = formElement.validate();
             if (!result.isValid()) {
                 valid = false;
@@ -51,17 +52,23 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
     }
 
     public FieldsGrouping clear() {
-        formElements.forEach(FormElement::clear);
+        formElements.forEach(HasGrouping::clear);
         return this;
     }
 
     public FieldsGrouping clearInvalid() {
-        formElements.forEach(FormElement::clearInvalid);
+        formElements.forEach(HasGrouping::clearInvalid);
         return this;
     }
 
     public FieldsGrouping invalidate(String errorMessage) {
-        formElements.forEach(formElement -> formElement.invalidate(errorMessage));
+
+        return invalidate(Collections.singletonList(errorMessage));
+    }
+
+    @Override
+    public FieldsGrouping invalidate(List<String> errorMessages) {
+        formElements.forEach(formElement -> formElement.invalidate(errorMessages));
         return this;
     }
 
@@ -109,7 +116,7 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
         return formElements.stream().allMatch(IsRequired::isRequired);
     }
 
-    public List<FormElement> getFormElements() {
+    public List<HasGrouping> getFormElements() {
         return formElements;
     }
 
@@ -128,5 +135,4 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
     public boolean hasValidator(Validator validator) {
         return validators.contains(validator);
     }
-
 }

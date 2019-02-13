@@ -2803,40 +2803,6 @@ video.responsive-video {
   }
 }
 
-.breadcrumb {
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.breadcrumb i,
-.breadcrumb [class^="mdi-"], .breadcrumb [class*="mdi-"],
-.breadcrumb i.material-icons {
-  display: inline-block;
-  float: left;
-  font-size: 24px;
-}
-
-.breadcrumb:before {
-  content: '\E5CC';
-  color: rgba(255, 255, 255, 0.7);
-  vertical-align: top;
-  display: inline-block;
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 25px;
-  margin: 0 10px 0 8px;
-  -webkit-font-smoothing: antialiased;
-}
-
-.breadcrumb:first-child:before {
-  display: none;
-}
-
-.breadcrumb:last-child {
-  color: #fff;
-}
-
 .parallax-container {
   position: relative;
   overflow: hidden;

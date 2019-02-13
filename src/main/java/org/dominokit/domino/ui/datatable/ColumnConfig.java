@@ -4,6 +4,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ScreenMedia;
 import org.dominokit.domino.ui.utils.TextNode;
 
 import static java.util.Objects.nonNull;
@@ -28,6 +29,10 @@ public class ColumnConfig<T> {
     private String width;
     private boolean fixed = false;
     private Node tooltipNode;
+    private boolean showTooltip = true;
+
+    private ScreenMedia showOn;
+    private ScreenMedia hideOn;
 
     public static <T> ColumnConfig<T> create(String name) {
         return new ColumnConfig<>(name);
@@ -181,6 +186,28 @@ public class ColumnConfig<T> {
         return this;
     }
 
+    public ColumnConfig<T> setShowTooltip(boolean showTooltip) {
+        this.showTooltip = showTooltip;
+        return this;
+    }
+
+    public ScreenMedia getShowOn() {
+        return showOn;
+    }
+
+    public ColumnConfig<T> showOn(ScreenMedia showOn) {
+        this.showOn = showOn;
+        return this;
+    }
+
+    public ScreenMedia getHideOn() {
+        return hideOn;
+    }
+
+    public ColumnConfig<T> hideOn(ScreenMedia hideOn) {
+        this.hideOn = hideOn;
+        return this;
+    }
 
     void applyHeaderStyle() {
         headerStyler.styleCell(headElement);
@@ -188,6 +215,18 @@ public class ColumnConfig<T> {
 
     void applyCellStyle(HTMLTableCellElement element) {
         cellStyler.styleCell(element);
+    }
+
+    public CellStyler<T> getHeaderStyler() {
+        return headerStyler;
+    }
+
+    public CellStyler<T> getCellStyler() {
+        return cellStyler;
+    }
+
+    public boolean isShowTooltip() {
+        return showTooltip;
     }
 
     @FunctionalInterface

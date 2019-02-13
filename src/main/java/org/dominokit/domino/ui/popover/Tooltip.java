@@ -6,7 +6,6 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -20,12 +19,14 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
     private DominoElement<HTMLDivElement> arrowElement = DominoElement.of(div().css("tooltip-arrow"));
     private DominoElement<HTMLDivElement> innerElement = DominoElement.of(div().css("tooltip-inner"));
     private PopupPosition popupPosition = TOP;
+    private HTMLElement targetElement;
 
     public Tooltip(HTMLElement targetElement, String text) {
         this(targetElement, DomGlobal.document.createTextNode(text));
     }
 
     public Tooltip(HTMLElement targetElement, Node content) {
+        this.targetElement = targetElement;
         element.appendChild(arrowElement);
         element.appendChild(innerElement);
         innerElement.appendChild(content);
@@ -39,11 +40,16 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
             element.style().add("fade", "in");
             popupPosition.position(element.asElement(), targetElement);
             position(popupPosition);
+            DominoElement.of(targetElement).onDetached(mutationRecord -> hide());
         });
-
-        ElementUtil.onDetach(targetElement, mutationRecord -> element.remove());
         targetElement.addEventListener(EventType.mouseleave.getName(), evt1 -> element.remove());
         init(this);
+    }
+
+    @Override
+    public Tooltip hide() {
+        element.remove();
+        return this;
     }
 
     public static Tooltip create(HTMLElement target, String text) {

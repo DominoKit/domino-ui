@@ -471,6 +471,11 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return this;
     }
 
+    public Style<E, T> setZIndex(int zindex) {
+        setProperty("z-index", zindex+"");
+        return this;
+    }
+
     /**
      * @deprecated use {@link #contains(String)}
      */

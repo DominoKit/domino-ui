@@ -1,16 +1,14 @@
 package org.dominokit.domino.ui.forms;
 
-import com.google.gwt.editor.client.IsEditor;
-import com.google.gwt.editor.client.adapters.TakesValueEditor;
+import com.google.gwt.editor.client.HasEditorErrors;
+import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.user.client.TakesValue;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.HasHelperText;
+import org.dominokit.domino.ui.utils.HasLabel;
+import org.dominokit.domino.ui.utils.HasName;
+import org.dominokit.domino.ui.utils.HasValue;
 
-public interface FormElement<T, V> extends HasName<T>, HasValue<T, V>, Switchable<T>,
-        HasHelperText<T>, HasLabel<T>, HasValidation<T>, HasAutoValidation<T>, IsRequired<T>, TakesValue<V>, IsEditor<TakesValueEditor<V>> {
+public interface FormElement<T, V> extends HasName<T>, HasValue<T, V>,
+        HasHelperText<T>, HasLabel<T>, TakesValue<V>, LeafValueEditor<V>, HasGrouping<T> , HasEditorErrors<V> {
 
-    boolean isEmpty();
-
-    T clear();
-
-    T groupBy(FieldsGrouping fieldsGrouping);
 }

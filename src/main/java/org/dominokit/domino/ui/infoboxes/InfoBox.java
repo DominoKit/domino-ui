@@ -2,7 +2,7 @@ package org.dominokit.domino.ui.infoboxes;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -33,6 +33,7 @@ public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
     }
 
     public enum Flip {
+
         RIGHT("info-box-3"),
         LEFT("info-box");
 
@@ -65,7 +66,7 @@ public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
         init(this);
     }
 
-    public static InfoBox create(Icon icon, String title, String value) {
+    public static InfoBox create(BaseIcon icon, String title, String value) {
         Templated_InfoBox templated_InfoBox = new Templated_InfoBox();
         templated_InfoBox.getIconElement().appendChild(icon);
         templated_InfoBox.getTitleElement().setTextContent(title);
@@ -79,6 +80,14 @@ public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
         templated_InfoBox.getIconElement().appendChild(icon);
         templated_InfoBox.getTitleElement().setTextContent(title);
         templated_InfoBox.getValueElement().setTextContent(value);
+        templated_InfoBox.icon = icon;
+        return templated_InfoBox;
+    }
+
+    public static InfoBox create(HTMLElement icon, String title) {
+        Templated_InfoBox templated_InfoBox = new Templated_InfoBox();
+        templated_InfoBox.getIconElement().appendChild(icon);
+        templated_InfoBox.getTitleElement().setTextContent(title);
         templated_InfoBox.icon = icon;
         return templated_InfoBox;
     }
@@ -168,6 +177,22 @@ public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
         style()
                 .setBoxShadow("none")
                 .setProperty("-webkit-box-shadow", "none");
+        return this;
+    }
+
+    public InfoBox setValue(String value){
+        getValueElement().setTextContent(value);
+        return this;
+    }
+
+    public InfoBox setTitle(String title){
+        getTitleElement().setTextContent(title);
+        return this;
+    }
+
+    public InfoBox setIcon(BaseIcon icon){
+        getIconElement().clearElement()
+                .appendChild(icon);
         return this;
     }
 

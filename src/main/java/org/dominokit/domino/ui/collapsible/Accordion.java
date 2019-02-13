@@ -9,13 +9,16 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
 
-    private final DominoElement<HTMLDivElement> element = DominoElement.of(div().css("panel-group"));
+    private final DominoElement<HTMLDivElement> element = DominoElement.of(div().css(CollapsibleStyles.PANEL_GROUP));
     private List<AccordionPanel> panels = new LinkedList<>();
     private boolean multiOpen = false;
+    private Color headerColor;
+    private Color bodyColor;
 
     public Accordion() {
         init(this);
@@ -25,27 +28,32 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
         return new Accordion();
     }
 
-    /**
-     * @deprecated use {@link #appendChild(AccordionPanel)}
-     */
-    @Deprecated
-    public Accordion addPanel(AccordionPanel panel) {
-        return appendChild(panel);
+    public Accordion appendChild(AccordionPanel panel) {
+        return appendChild(panel, true);
     }
 
-    public Accordion appendChild(AccordionPanel panel) {
+    public Accordion appendChild(AccordionPanel panel, boolean overrideColors) {
         panels.add(panel);
+        if (overrideColors) {
+            if (nonNull(headerColor)) {
+                panel.setHeaderBackground(headerColor);
+            }
+
+            if (nonNull(bodyColor)) {
+                panel.setBodyBackground(bodyColor);
+            }
+        }
         element.appendChild(panel);
         DominoElement.of(panel.getClickableElement()).addClickListener(evt -> {
             if (!multiOpen) {
                 List<AccordionPanel> accordionPanels = otherPanels(panel);
                 accordionPanels.forEach(accordionPanel -> {
-                    if (!accordionPanel.isCollapsed()) {
-                        accordionPanel.collapse();
+                    if (!accordionPanel.isHidden()) {
+                        accordionPanel.hide();
                     }
                 });
-                if (panel.isCollapsed()) {
-                    panel.expand();
+                if (panel.isHidden()) {
+                    panel.show();
                 }
             } else {
                 panel.toggleDisplay();
@@ -66,32 +74,58 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
     }
 
     public Accordion primary() {
-        return applyStyle("panel-primary");
+        return setHeaderBackground(Color.BLUE);
     }
 
     public Accordion success() {
-        return applyStyle("panel-success");
+        return setHeaderBackground(Color.GREEN);
     }
 
     public Accordion warning() {
-        return applyStyle("panel-warning");
+        return setHeaderBackground(Color.ORANGE);
     }
 
     public Accordion danger() {
-        return applyStyle("panel-danger");
+        return setHeaderBackground(Color.RED);
     }
 
-    public Accordion setColor(Color color) {
-        return applyStyle(color.getStyle());
-    }
+    public Accordion primaryFull() {
+        setHeaderBackground(Color.BLUE);
+        setBodyBackground(Color.BLUE);
 
-    private Accordion applyStyle(String style) {
-        panels.forEach(p -> p.applyStyle(style));
         return this;
     }
 
-    public Accordion fullBody() {
-        element.style().add("full-body");
+    public Accordion successFull() {
+        setHeaderBackground(Color.GREEN);
+        setBodyBackground(Color.GREEN);
+
+        return this;
+    }
+
+    public Accordion warningFull() {
+        setHeaderBackground(Color.ORANGE);
+        setBodyBackground(Color.ORANGE);
+
+        return this;
+    }
+
+    public Accordion dangerFull() {
+        setHeaderBackground(Color.RED);
+        setBodyBackground(Color.RED);
+
+        return this;
+    }
+
+    public Accordion setHeaderBackground(Color color) {
+        panels.forEach(p -> p.setHeaderBackground(color));
+        this.headerColor = color;
+        return this;
+    }
+
+    public Accordion setBodyBackground(Color color) {
+        panels.forEach(p -> p.setBodyBackground(color));
+        this.bodyColor = color;
         return this;
     }
 

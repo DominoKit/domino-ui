@@ -51,10 +51,13 @@
 .modal-content.col-white .modal-footer .btn-link,
 .modal-content.col-white .modal-title,
 .panel-group .panel.col-white .panel-title,
-.panel-group.full-body .panel.col-white .panel-body,
+.panel-group.full-body .panel.col-white .panel-body{
+    color: #202020;
+}
+
 .bg-white.nav-tabs li a,
 .bg-white.nav-tabs li a:hover{
-    color: #202020;
+    color: #565656;
 }
 
 .switch label input[type=checkbox]:checked:not(:disabled) ~ .lever.col-white:active:after {

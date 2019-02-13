@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.*;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -32,7 +32,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     private boolean valid = true;
     private EventListener changeEventListener;
     private boolean readOnly;
-    private List<ChangeHandler<V>> changeHandlers = new ArrayList<>();
+    private List<ChangeHandler<? super V>> changeHandlers = new ArrayList<>();
+    private boolean pauseChangeHandlers = false;
 
     public enum ValueBoxSize {
         LARGE("lg"),
@@ -51,6 +52,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     public ValueBox(String type, String label) {
+        init((T) this);
         inputElement = DominoElement.of(createInputElement(type));
         inputElement.addEventListener("change", evt -> callChangeHandlers());
         container.appendChild(leftAddonContainer);
@@ -61,11 +63,12 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         setFocusColor(focusColor);
         addFocusListeners();
         setLabel(label);
-        init((T) this);
     }
 
     protected void callChangeHandlers() {
-        changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(getValue()));
+        if (!pauseChangeHandlers) {
+            changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(getValue()));
+        }
     }
 
     protected abstract E createInputElement(String type);
@@ -252,7 +255,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return DominoElement.of(inputContainer);
     }
 
-    public T setIcon(Icon icon) {
+    public T setIcon(BaseIcon<?> icon) {
         return setLeftAddon(icon.asElement());
     }
 
@@ -415,7 +418,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
             if (getInputElement().hasAttribute("floating")) {
                 floating();
             } else {
-                nonfloating();
+                if(isEmpty()) {
+                    nonfloating();
+                }
             }
         }
         return (T) this;
@@ -451,19 +456,40 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     @Override
-    public T addChangeHandler(ChangeHandler<V> changeHandler) {
+    public T addChangeHandler(ChangeHandler<? super V> changeHandler) {
         changeHandlers.add(changeHandler);
         return (T) this;
     }
 
     @Override
-    public T removeChangeHandler(ChangeHandler<V> changeHandler) {
+    public T removeChangeHandler(ChangeHandler<? super V> changeHandler) {
         changeHandlers.remove(changeHandler);
         return (T) this;
     }
 
+    public T setPauseChangeHandlers(boolean pauseChangeHandlers) {
+        this.pauseChangeHandlers = pauseChangeHandlers;
+        return (T) this;
+    }
+
+    public T pauseChangeHandlers() {
+        return setPauseChangeHandlers(true);
+    }
+
+    public T resumeChangeHandlers() {
+        return setPauseChangeHandlers(false);
+    }
+
+    public DominoElement<HTMLDivElement> getLeftAddonContainer() {
+        return leftAddonContainer;
+    }
+
+    public DominoElement<HTMLDivElement> getRightAddonContainer() {
+        return rightAddonContainer;
+    }
+
     @Override
-    public boolean hasChangeHandler(ChangeHandler<V> changeHandler) {
+    public boolean hasChangeHandler(ChangeHandler<? super V> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 

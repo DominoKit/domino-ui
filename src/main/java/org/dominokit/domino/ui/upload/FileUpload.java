@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.upload;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.grid.Column;
 import org.dominokit.domino.ui.grid.Row;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.notifications.Notification;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -108,13 +108,16 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
             addedFileItems.remove(fileItem);
         });
 
+        onAddFileHandlers.forEach(handler -> handler.onAddFile(fileItem));
+        if(!fileItem.isCanceled()) {
+            addedFileItems.add(fileItem);
+            row.appendChild(previewColumn);
+        }
+
         if (autoUpload) {
             fileItem.upload();
         }
 
-        addedFileItems.add(fileItem);
-        row.appendChild(previewColumn);
-        onAddFileHandlers.forEach(handler -> handler.onAddFile(fileItem));
     }
 
     private void removeHover() {
@@ -242,7 +245,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
         return hiddenFileInput.name;
     }
 
-    public FileUpload setIcon(Icon icon) {
+    public FileUpload setIcon(BaseIcon<?> icon) {
         uploadIconContainer.appendChild(icon);
         return this;
     }

@@ -3,9 +3,11 @@ package org.dominokit.domino.ui.datatable;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
+import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TableEventListener;
+import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -15,14 +17,17 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.*;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>> implements HasSelectionSupport<TableRow<T>> {
 
     public static final String ANY = "*";
+    public static final String DATA_TABLE_ROW_FILTERED = "data-table-row-filtered";
+
     private final DataStore<T> dataStore;
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("table-responsive"));
-    private DominoElement<HTMLTableElement> tableElement = DominoElement.of(table().css("table", "table-hover", "table-striped"));
+    private DominoElement<HTMLDivElement> root = DominoElement.of(div().css(TABLE_RESPONSIVE));
+    private DominoElement<HTMLTableElement> tableElement = DominoElement.of(table().css(TABLE, TABLE_HOVER, TABLE_STRIPED));
     private TableConfig<T> tableConfig;
     private DominoElement<HTMLTableSectionElement> tbody = DominoElement.of(tbody());
     private DominoElement<HTMLTableSectionElement> thead = DominoElement.of(thead());
@@ -38,12 +43,15 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
     private Map<String, List<TableEventListener>> events = new HashMap<>();
 
+    private final SearchContext<T> searchContext= new SearchContext<>(this);
+
     public DataTable(TableConfig<T> tableConfig, DataStore<T> dataStore) {
         this.tableConfig = tableConfig;
         this.events.put(ANY, new ArrayList<>());
         this.dataStore = dataStore;
         this.addTableEventListner(ANY, dataStore);
         this.dataStore.onDataChanged(dataChangedEvent -> {
+            fireTableEvent(new OnBeforeDataChangeEvent<>(this.data, dataChangedEvent.getTotalCount(), dataChangedEvent.isAppend()));
             if (dataChangedEvent.isAppend()) {
                 appendData(dataChangedEvent.getNewData());
             } else {
@@ -58,35 +66,32 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     private DataTable<T> init() {
         tableConfig.getPlugins().forEach(plugin -> {
             DataTable.this.addTableEventListner("*", plugin);
+            plugin.init(DataTable.this);
             plugin.onBeforeAddTable(DataTable.this);
         });
         tableConfig.onBeforeHeaders(this);
         tableConfig.drawHeaders(this, thead);
+        tableConfig.onAfterHeaders(this);
         tableElement.appendChild(tbody);
         tableConfig.getPlugins().forEach(plugin -> plugin.onBodyAdded(DataTable.this));
-        element.appendChild(tableElement);
+        root.appendChild(tableElement);
         tableConfig.getPlugins().forEach(plugin -> plugin.onAfterAddTable(DataTable.this));
         if (!tableConfig.isLazyLoad()) {
             this.dataStore.load();
         }
         if (tableConfig.isFixed()) {
-            element.style()
-                    .setPosition("relative")
-                    .setOverFlowY("hidden");
-            thead.style().setDisplay("block");
+            root.style().add(TABLE_FIXED);
             tbody.style()
-                    .add("tbody-fixed")
+                    .add(TBODY_FIXED)
                     .setMaxHeight(tableConfig.getFixedBodyHeight());
         }
         super.init(this);
         return this;
     }
 
-
     public void load() {
         this.dataStore.load();
     }
-
 
     public void setData(List<T> data) {
         this.data = data;
@@ -120,54 +125,55 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         return data;
     }
 
-    public DataTable<T> expand() {
-        tableElement.style().remove("table-condensed");
+    @Override
+    public DataTable<T> show() {
+        tableElement.style().remove(TABLE_CONDENSED);
         this.condensed = false;
         return this;
     }
 
     public DataTable<T> condense() {
-        expand();
-        tableElement.style().add("table-condensed");
+        show();
+        tableElement.style().add(TABLE_CONDENSED);
         this.condensed = true;
         return this;
     }
 
     public DataTable<T> noHover() {
-        tableElement.style().remove("table-hover");
+        tableElement.style().remove(TABLE_HOVER);
         this.hoverable = false;
         return this;
     }
 
     public DataTable<T> hovered() {
         noHover();
-        tableElement.style().add("table-hover");
+        tableElement.style().add(TABLE_HOVER);
         this.hoverable = true;
         return this;
     }
 
     public DataTable<T> noBorder() {
-        tableElement.style().remove("table-bordered");
+        tableElement.style().remove(TABLE_BORDERED);
         this.bordered = false;
         return this;
     }
 
     public DataTable<T> bordered() {
         noBorder();
-        tableElement.style().add("table-bordered");
+        tableElement.style().add(TABLE_BORDERED);
         this.bordered = true;
         return this;
     }
 
     public DataTable<T> noStripes() {
-        tableElement.style().remove("table-striped");
+        tableElement.style().remove(TABLE_STRIPED);
         this.striped = false;
         return this;
     }
 
     public DataTable<T> striped() {
         noStripes();
-        tableElement.style().add("table-striped");
+        tableElement.style().add(TABLE_STRIPED);
         this.striped = true;
         return this;
     }
@@ -207,12 +213,12 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     public void filterRows(LocalRowFilter<T> rowFilter) {
         tableRows.forEach(tableRow -> {
             if (rowFilter.filter(tableRow)) {
-                tableRow.style().removeProperty("display");
-                tableRow.removeFlag("data-table-row-filtered");
+                tableRow.style().remove(TABLE_ROW_FILTERED);
+                tableRow.removeFlag(DATA_TABLE_ROW_FILTERED);
                 tableRow.fireUpdate();
             } else {
-                tableRow.style().setDisplay("none");
-                tableRow.setFlag("data-table-row-filtered", "true");
+                tableRow.style().add(TABLE_ROW_FILTERED);
+                tableRow.setFlag(DATA_TABLE_ROW_FILTERED, "true");
                 tableRow.deselect();
                 tableRow.fireUpdate();
             }
@@ -220,17 +226,17 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     }
 
     public void clearRowFilters() {
-        tableRows.stream().filter(tableRow -> nonNull(tableRow.getFlag("data-table-row-filtered")))
+        tableRows.stream().filter(tableRow -> nonNull(tableRow.getFlag(DATA_TABLE_ROW_FILTERED)))
                 .forEach(tableRow -> {
-                    tableRow.style().removeProperty("display");
-                    tableRow.removeFlag("data-table-row-filtered");
+                    tableRow.style().remove(TABLE_ROW_FILTERED);
+                    tableRow.removeFlag(DATA_TABLE_ROW_FILTERED);
                     tableRow.fireUpdate();
                 });
     }
 
     @Override
     public HTMLDivElement asElement() {
-        return element.asElement();
+        return root.asElement();
     }
 
     @Override
@@ -300,6 +306,10 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         }
 
         events.get(ANY).forEach(listener -> listener.handleEvent(tableEvent));
+    }
+
+    public SearchContext getSearchContext() {
+        return searchContext;
     }
 
     @FunctionalInterface

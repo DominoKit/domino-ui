@@ -5,6 +5,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -24,9 +25,9 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     private DominoElement<HTMLDivElement> formControl = DominoElement.of(div().css("form-control"));
     private DominoElement<HTMLInputElement> inputElement = DominoElement.of(input("checkbox"));
     private DominoElement<HTMLLabelElement> labelElement = DominoElement.of(label());
-    private List<ChangeHandler<Boolean>> changeHandlers = new ArrayList<>();
+    private List<ChangeHandler<? super Boolean>> changeHandlers = new ArrayList<>();
     private Color color;
-    private ChangeHandler<Boolean> autoValidationHandler;
+    private ChangeHandler<? super Boolean> autoValidationHandler;
     private String checkedReadonlyLabel = "Yes";
     private String unCheckedReadonlyLabel = "No";
     private String label;
@@ -38,7 +39,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     public CheckBox(String label) {
         this.label = label;
         setLabel(label);
-        formControl.style().setProperty("border-bottom", "0px");
+        formControl.style().add("no-bottom-border");
         formControl.appendChild(inputElement);
         formControl.appendChild(labelElement);
         inputElement.addEventListener("change", evt -> {
@@ -105,20 +106,20 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     }
 
     @Override
-    public CheckBox addChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public CheckBox addChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
     }
 
     @Override
-    public CheckBox removeChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public CheckBox removeChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         if (changeHandler != null)
             changeHandlers.remove(changeHandler);
         return this;
     }
 
     @Override
-    public boolean hasChangeHandler(ChangeHandler<Boolean> changeHandler) {
+    public boolean hasChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 
@@ -210,14 +211,14 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     @Override
     public CheckBox setReadOnly(boolean readOnly) {
         if (readOnly) {
-            formControl.setReadonly(true);
+            formControl.setReadOnly(true);
             if (isChecked()) {
                 labelElement.setTextContent(label + getCheckedReadonlyLabel());
             } else {
                 labelElement.setTextContent(label + getUnCheckedReadonlyLabel());
             }
         } else {
-            formControl.setReadonly(false);
+            formControl.setReadOnly(false);
             labelElement.setTextContent(label);
         }
         return this;

@@ -24,6 +24,7 @@ public class KeyboardEvents<T extends Node> {
 
     private Map<String, HandlerContext> handlers = new HashMap<>();
     private Map<String, HandlerContext> ctrlHandlers = new HashMap<>();
+    private KeyboardEventOptions defaultOptions = KeyboardEventOptions.create();
 
     public KeyboardEvents(T element) {
         element.addEventListener(KEYDOWN, evt -> {
@@ -129,6 +130,11 @@ public class KeyboardEvents<T extends Node> {
         return addCtrlHandler(BACKSPACE, contextOf(ctrlBackspaceHandler, options));
     }
 
+    public KeyboardEvents<T> setDefaultOptions(KeyboardEventOptions defaultOptions) {
+        this.defaultOptions = defaultOptions;
+        return this;
+    }
+
     private KeyboardEvents<T> addCtrlHandler(String type, HandlerContext handlerContext) {
         ctrlHandlers.put(type, handlerContext);
         return this;
@@ -139,7 +145,7 @@ public class KeyboardEvents<T extends Node> {
     }
 
     private KeyboardEventOptions defaultOptions() {
-        return KeyboardEventOptions.create();
+        return defaultOptions;
     }
 
     public static class KeyboardEventOptions {

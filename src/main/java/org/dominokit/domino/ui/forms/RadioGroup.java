@@ -1,19 +1,26 @@
 package org.dominokit.domino.ui.forms;
 
+import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.editor.client.adapters.TakesValueEditor;
+import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLLabelElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.forms.validations.ElementValidations;
 import org.dominokit.domino.ui.forms.validations.RequiredValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
+import org.dominokit.domino.ui.grid.flex.FlexDirection;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
+import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -26,26 +33,28 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     private DominoElement<HTMLDivElement> formLine = DominoElement.of(div().css("form-line"));
     private DominoElement<HTMLDivElement> formControl = DominoElement.of(div().css("form-control"));
     private DominoElement<HTMLLabelElement> helperLabel = DominoElement.of(label().css("help-info"));
-    private DominoElement<HTMLLabelElement> errorLabel = DominoElement.of(label().css("error"));
+    private List<HTMLLabelElement> errorLabels = new ArrayList<>();
     private DominoElement<HTMLDivElement> labelContainer = DominoElement.of(div().css("form-label focused"));
-    private TakesValueEditor<String> editor;
     private ElementValidations elementValidations = new ElementValidations(this);
     private RequiredValidator requiredValidator = new RequiredValidator(this);
     private List<Radio> radios = new ArrayList<>();
     private String name;
-    private ChangeHandler<Boolean> autoValidationHandler;
-    private List<ChangeHandler<Radio>> changeHandlers = new ArrayList<>();
+    private ChangeHandler<? super Boolean> autoValidationHandler;
+    private List<ChangeHandler<? super Radio>> changeHandlers = new ArrayList<>();
     private String requiredErrorMessage;
+    private FlexLayout flexLayout = FlexLayout.create();
 
     public RadioGroup(String name) {
         formControl.style()
                 .setProperty("border-bottom", "0px")
                 .setHeight("auto");
         formControl.appendChild(labelContainer);
+        formControl.appendChild(flexLayout);
         formLine.appendChild(formControl);
         container.appendChild(formLine);
         setName(name);
         init(this);
+        vertical();
     }
 
     public RadioGroup(String name, String label) {
@@ -66,11 +75,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     public RadioGroup appendChild(Radio radio) {
-        radio.setName(name);
-        radio.addChangeHandler(value -> onCheck(radio));
-        radios.add(radio);
-        formControl.appendChild(radio.asElement());
-        return this;
+        return appendChild(radio, (Node) null);
     }
 
     /**
@@ -82,8 +87,17 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     public RadioGroup appendChild(Radio radio, Node content) {
-        addRadio(radio);
-        formControl.appendChild(content);
+        radio.setName(name);
+        radio.addChangeHandler(value -> onCheck(radio));
+        radio.setGroup(this);
+        if (radio.isChecked()) {
+            radios.forEach(r -> r.uncheck(true));
+        }
+        radios.add(radio);
+        if (nonNull(content)) {
+            radio.appendChild(content);
+        }
+        flexLayout.appendChild(radio);
         return this;
     }
 
@@ -100,20 +114,24 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     private void onCheck(Radio selectedRadio) {
-        for (ChangeHandler<Radio> changeHandler : changeHandlers) {
+        for (ChangeHandler<? super Radio> changeHandler : changeHandlers) {
             changeHandler.onValueChanged(selectedRadio);
         }
     }
 
     public RadioGroup horizontal() {
-        for (Radio radio : radios)
-            radio.style().add("horizontal-radio");
+        flexLayout.setDirection(FlexDirection.LEFT_TO_RIGHT);
+        for (Radio radio : radios) {
+            radio.addCss("horizontal-radio");
+        }
         return this;
     }
 
     public RadioGroup vertical() {
-        for (Radio radio : radios)
-            radio.style().remove("horizontal-radio");
+        flexLayout.setDirection(FlexDirection.TOP_TO_BOTTOM);
+        for (Radio radio : radios) {
+            radio.removeCss("horizontal-radio");
+        }
         return this;
     }
 
@@ -168,22 +186,41 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
         return elementValidations.hasValidator(validator);
     }
 
+
     @Override
     public RadioGroup invalidate(String errorMessage) {
-        helperLabel.style().setDisplay("none");
-        if (!formLine.contains(errorLabel))
-            formLine.appendChild(errorLabel);
-        errorLabel.style().setDisplay("block");
-        errorLabel.setTextContent(errorMessage);
+        invalidate(Collections.singletonList(errorMessage));
         return this;
     }
 
     @Override
-    public RadioGroup clearInvalid() {
-        helperLabel.style().setDisplay("block");
-        errorLabel.style().setDisplay("none");
-        errorLabel.setTextContent("");
+    public RadioGroup invalidate(List<String> errorMessages) {
+        helperLabel.toggleDisplay(errorMessages.isEmpty());
+        removeErrors();
+
+        errorMessages.forEach(message -> {
+            HTMLLabelElement errorLabel = makeErrorLabel(message);
+            errorLabels.add(errorLabel);
+            formLine.appendChild(errorLabel);
+        });
+
         return this;
+    }
+
+    protected HTMLLabelElement makeErrorLabel(String message) {
+        return Elements.label().css("error").textContent(message).asElement();
+    }
+
+    @Override
+    public RadioGroup clearInvalid() {
+        helperLabel.show();
+        removeErrors();
+        return this;
+    }
+
+    private void removeErrors() {
+        errorLabels.forEach(Element::remove);
+        errorLabels.clear();
     }
 
     public List<Radio> getRadios() {
@@ -204,7 +241,6 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     public String getValue() {
         return radios.stream().filter(Radio::isChecked).map(Radio::getValue).findFirst().orElse(null);
     }
-
 
     @Override
     public boolean isEmpty() {
@@ -304,29 +340,39 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public RadioGroup addChangeHandler(ChangeHandler<Radio> changeHandler) {
+    public RadioGroup addChangeHandler(ChangeHandler<? super Radio> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
     }
 
     @Override
-    public RadioGroup removeChangeHandler(ChangeHandler<Radio> changeHandler) {
+    public RadioGroup removeChangeHandler(ChangeHandler<? super Radio> changeHandler) {
         if (nonNull(changeHandler))
             changeHandlers.remove(changeHandler);
         return this;
     }
 
     @Override
-    public boolean hasChangeHandler(ChangeHandler<Radio> changeHandler) {
+    public boolean hasChangeHandler(ChangeHandler<? super Radio> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 
     @Override
-    public TakesValueEditor<String> asEditor() {
-        if (editor == null) {
-            editor = TakesValueEditor.of(this);
+    public RadioGroup setReadOnly(boolean readonly) {
+        if (readonly) {
+            formControl.style().add("readonly");
+        } else {
+            formControl.style().remove("readonly");
         }
-        return editor;
+        return super.setReadOnly(readonly);
+    }
+
+    @Override
+    public void showErrors(List<EditorError> errors) {
+        invalidate(errors.stream()
+                .filter(e -> this.equals(e.getEditor()))
+                .map(EditorError::getMessage)
+                .collect(Collectors.toList()));
     }
 
     @Override

@@ -2,7 +2,7 @@ package org.dominokit.domino.ui.breadcrumbs;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLOListElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -16,7 +16,8 @@ import static org.jboss.gwt.elemento.core.Elements.ol;
 
 public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> implements HasBackground<Breadcrumb> {
 
-    private DominoElement<HTMLOListElement> element = DominoElement.of(ol().css("breadcrumb"));
+    private DominoElement<HTMLOListElement> element = DominoElement.of(ol()
+            .css(BreadcrumbStyles.BREADCRUMB));
     private List<BreadcrumbItem> items = new LinkedList<>();
     private BreadcrumbItem activeItem;
     private boolean removeTail = false;
@@ -31,13 +32,6 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
         return new Breadcrumb();
     }
 
-    /**
-     * @deprecated use {@link #appendChild(String, EventListener)}
-     */
-    @Deprecated
-    public Breadcrumb addItem(String text, EventListener onClick) {
-        return appendChild(text, onClick);
-    }
 
     public Breadcrumb appendChild(String text, EventListener onClick) {
         BreadcrumbItem item = BreadcrumbItem.create(text);
@@ -46,29 +40,14 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
         return this;
     }
 
-    /**
-     * @deprecated use {@link #appendChild(Icon, String, EventListener)}
-     */
-    @Deprecated
-    public Breadcrumb addItem(Icon icon, String text, EventListener onClick) {
-        return appendChild(icon, text, onClick);
-    }
 
-    public Breadcrumb appendChild(Icon icon, String text, EventListener onClick) {
+    public Breadcrumb appendChild(BaseIcon<?> icon, String text, EventListener onClick) {
         BreadcrumbItem item = BreadcrumbItem.create(icon, text);
         addNewItem(item);
         item.addClickListener(onClick);
         return this;
     }
 
-    /**
-     * @deprecated use {@link #appendChild(BreadcrumbItem)}
-     */
-    @Deprecated
-    public Breadcrumb addItem(BreadcrumbItem item) {
-        addNewItem(item);
-        return this;
-    }
 
     public Breadcrumb appendChild(BreadcrumbItem item) {
         addNewItem(item);

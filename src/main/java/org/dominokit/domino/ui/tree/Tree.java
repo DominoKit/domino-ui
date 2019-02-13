@@ -5,6 +5,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.search.Search;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
+import static org.jboss.gwt.elemento.core.Elements.col;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
 @Templated
@@ -34,11 +36,18 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     @DataElement
     HTMLLIElement header;
 
+    private final int nextLevel = 1;
+
     private TreeItem activeTreeItem;
 
     private boolean autoCollapse = true;
     private List<TreeItem> subItems = new ArrayList<>();
     private boolean autoExpandFound;
+    private ColorScheme colorScheme;
+    private Search search;
+    private Icon searchIcon;
+    private Icon collapseAllIcon;
+    private Icon expandAllIcon;
 
     @PostConstruct
     void init(){
@@ -48,6 +57,13 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     public static Tree create(String title) {
         Templated_Tree tree = new Templated_Tree();
         tree.title.textContent = title;
+        return tree;
+    }
+
+    public static Tree create() {
+        Templated_Tree tree = new Templated_Tree();
+        DominoElement.of(tree.header)
+                .hide();
         return tree;
     }
 
@@ -62,14 +78,38 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     public Tree appendChild(TreeItem treeItem) {
         root.appendChild(treeItem.asElement());
         treeItem.setParent(this);
+        treeItem.setLevel(nextLevel);
         this.subItems.add(treeItem);
         return this;
     }
 
     public Tree addSeparator() {
-        root.appendChild(li().css("separator")
+        root.appendChild(li()
+                .css("gap")
+                .css("separator")
                 .add(a())
                 .asElement());
+        return this;
+    }
+
+    public Tree addGap() {
+        root.appendChild(li()
+                .css("gap")
+                .add(a())
+                .asElement());
+        return this;
+    }
+
+    public Tree setColorScheme(ColorScheme colorScheme){
+        if(nonNull(this.colorScheme)){
+            style.remove(colorScheme.color().getBackground());
+            DominoElement.of(header).style().remove(this.colorScheme.darker_3().getBackground());
+        }
+        this.colorScheme = colorScheme;
+
+        style.add(colorScheme.color().getBackground());
+        DominoElement.of(header).style().add(this.colorScheme.darker_3().getBackground());
+
         return this;
     }
 
@@ -113,20 +153,19 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     }
 
     public Tree enableSearch() {
-        Search search = Style.of(Search.create(true))
+        search = Style.of(Search.create(true))
                 .setHeight("40px")
                 .get()
                 .onSearch(Tree.this::filter)
                 .onClose(this::clearFilter);
 
-        Icon searchIcon = Icons.ALL.search()
+        searchIcon = Icons.ALL.search()
                 .style()
                 .setMarginBottom("0px")
                 .setMarginTop("0px")
                 .add(Styles.pull_right)
                 .setProperty("cursor", "pointer")
-                .get()
-                .setColor(Color.GREY);
+                .get();
 
         this.header.appendChild(search.asElement());
         this.header.appendChild(searchIcon.asElement());
@@ -136,32 +175,42 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     }
 
     public Tree enableFolding() {
-        Icon collapseAll = Icons.ALL.fullscreen_exit()
+        collapseAllIcon = Icons.ALL.fullscreen_exit()
                 .style()
                 .setMarginBottom("0px")
                 .setMarginTop("0px")
                 .add(Styles.pull_right)
                 .setProperty("cursor", "pointer")
-                .get()
-                .setColor(Color.GREY);
+                .get();
 
-        collapseAll.asElement().addEventListener("click", evt -> getSubItems().forEach(TreeItem::collapseAll));
+        collapseAllIcon.asElement().addEventListener("click", evt -> collapseAll());
 
 
-        Icon expandAll = Icons.ALL.fullscreen()
+        expandAllIcon = Icons.ALL.fullscreen()
                 .style()
                 .setMarginBottom("0px")
                 .setMarginTop("0px")
                 .add(Styles.pull_right)
                 .setProperty("cursor", "pointer")
-                .get()
-                .setColor(Color.GREY);
+                .get();
 
-        expandAll.asElement().addEventListener("click", evt -> getSubItems().forEach(TreeItem::expandAll));
+        expandAllIcon.asElement().addEventListener("click", evt -> expandAll());
 
-        header.appendChild(expandAll.asElement());
-        header.appendChild(collapseAll.asElement());
+        header.appendChild(expandAllIcon.asElement());
+        header.appendChild(collapseAllIcon.asElement());
         return this;
+    }
+
+    public void expandAll() {
+        getSubItems().forEach(TreeItem::expandAll);
+    }
+
+    public void collapseAll() {
+        getSubItems().forEach(TreeItem::collapseAll);
+    }
+
+    public void deactivateAll(){
+        getSubItems().forEach(TreeItem::deactivate);
     }
 
     public Tree autoExpandFound() {
@@ -198,6 +247,9 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
 
     public Tree setTitle(String title){
         getTitle().setTextContent(title);
+        if(getHeader().isHidden()){
+            getHeader().show();
+        }
         return this;
     }
 
@@ -208,4 +260,36 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     public List<TreeItem> getSubItems() {
         return subItems;
     }
+
+    @Override
+    public ParentTreeItem expand(boolean expandParent) {
+        return this;
+    }
+
+    @Override
+    public void activate() {
+
+    }
+
+    @Override
+    public void activate(boolean activateParent) {
+
+    }
+
+    public Search getSearch() {
+        return search;
+    }
+
+    public Icon getSearchIcon() {
+        return searchIcon;
+    }
+
+    public Icon getCollapseAllIcon() {
+        return collapseAllIcon;
+    }
+
+    public Icon getExpandAllIcon() {
+        return expandAllIcon;
+    }
+
 }

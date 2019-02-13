@@ -4,8 +4,8 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
 
+import static org.dominokit.domino.ui.carousel.CarouselStyles.*;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
@@ -16,14 +16,14 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
     private HTMLDivElement captionElement = div()
             .add(slideLabelElement)
             .add(slideDescriptionElement)
-            .css("carousel-caption")
+            .css(CAROUSEL_CAPTION)
             .asElement();
 
     private HTMLDivElement slideElement = div()
-            .css("item")
+            .css(ITEM)
             .asElement();
 
-    HTMLImageElement imageElement;
+    private HTMLImageElement imageElement;
     private boolean active = false;
 
     public Slide(String imageSrc) {
@@ -34,7 +34,6 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
         imageElement = image;
         slideElement.appendChild(image);
         init(this);
-
     }
 
     public Slide(String imageSrc, String label, String description) {
@@ -76,11 +75,11 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
     public Slide activate() {
         this.active = true;
-        if (!Style.of(indicatorElement).contains("active")) {
-            Style.of(indicatorElement).add("active");
+        if (!Style.of(indicatorElement).contains(ACTIVE)) {
+            Style.of(indicatorElement).add(ACTIVE);
         }
-        if (!Style.of(this).contains("active")) {
-            Style.of(this).add("active");
+        if (!style().contains(ACTIVE)) {
+            style().add(ACTIVE);
         }
 
         return this;
@@ -88,8 +87,8 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
     public Slide deActivate() {
         this.active = false;
-        Style.of(indicatorElement).remove("active");
-        Style.of(this).remove("active");
+        Style.of(indicatorElement).remove(ACTIVE);
+        style().remove(ACTIVE);
 
         return this;
     }
@@ -103,7 +102,7 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
     }
 
     public boolean hasActiveStyle() {
-        return Style.of(this).contains("active");
+        return style().contains(ACTIVE);
     }
 
     public DominoElement<HTMLHeadingElement> getSlideLabelElement() {

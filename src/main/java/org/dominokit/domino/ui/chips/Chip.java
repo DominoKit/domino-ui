@@ -3,11 +3,12 @@ package org.dominokit.domino.ui.chips;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLImageElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.themes.Theme;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -15,17 +16,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.col;
-import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.jboss.gwt.elemento.core.Elements.span;
+import static org.dominokit.domino.ui.chips.ChipStyles.*;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements HasSelectionHandler<Chip, String>, HasDeselectionHandler<Chip>,
         Switchable<Chip>, HasRemoveHandler<Chip> {
 
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("chip"));
-    private HTMLDivElement textContainer = div().css("chip-value").asElement();
-    private HTMLDivElement leftAddonContainer = div().css("chip-addon").asElement();
-    private HTMLDivElement removeIconContainer = div().css("chip-remove").asElement();
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(CHIP));
+    private HTMLDivElement textContainer = div().css(CHIP_VALUE).asElement();
+    private HTMLDivElement leftAddonContainer = div().css(CHIP_ADDON).asElement();
+    private HTMLDivElement removeIconContainer = div().css(CHIP_REMOVE).asElement();
     private ColorScheme colorScheme = ColorScheme.INDIGO;
     private Color color = Color.INDIGO;
     private Color borderColor;
@@ -38,6 +38,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     private HTMLElement leftAddon;
     private boolean selectable;
     private Color leftBackground;
+    private Theme.ThemeChangeHandler themeListener = (oldTheme, newTheme) -> style.setBorderColor(newTheme.getScheme().color().getHex());
 
     public Chip(String value) {
         element.appendChild(leftAddonContainer);
@@ -132,7 +133,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
             removeIcon.style().remove(getBackgroundStyle());
         }
 
-        if(nonNull(this.color)){
+        if (nonNull(this.color)) {
             element.style().remove(color.getBackground());
             removeIcon.style().remove(color.getBackground());
         }
@@ -144,7 +145,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
             removeIcon.style().remove(getBackgroundStyle());
         }
 
-        if(nonNull(this.color)){
+        if (nonNull(this.color)) {
             element.style().remove(color.getBackground());
             removeIcon.style().remove(color.getBackground());
         }
@@ -153,7 +154,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this;
     }
 
-    private boolean hasColor(){
+    private boolean hasColor() {
         return nonNull(this.colorScheme) || nonNull(color);
     }
 
@@ -179,7 +180,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this;
     }
 
-    public Chip setLeftIcon(Icon icon) {
+    public Chip setLeftIcon(BaseIcon<?> icon) {
         setLeftAddon(icon.asElement());
         return this;
     }
@@ -273,9 +274,12 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     }
 
     public Chip setBorderColor(Color borderColor) {
-        if (nonNull(this.borderColor)) {
-            Style.of(element).removeProperty("border-color");
+        if(Color.THEME.equals(color)){
+            Theme.addThemeChangeHandler(themeListener);
+        }else{
+            Theme.removeThemeChangeHandler(themeListener);
         }
+
         this.borderColor = borderColor;
         Style.of(element).setBorderColor(borderColor.getHex());
         return this;

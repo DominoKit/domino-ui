@@ -1,6 +1,8 @@
 package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.*;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
+import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -9,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static elemental2.dom.DomGlobal.document;
-import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.h;
@@ -34,6 +35,10 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
     private final EventListener closeListener;
     private boolean disabled = false;
     private String positionClass;
+    private boolean closeOnEscp = true;
+    private boolean closeOnScroll = true;
+
+    private EventListener bodyClosListener = evt -> close();
 
     public Popover(HTMLElement target, String title, Node content) {
         this.targetElement = target;
@@ -51,18 +56,31 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
         closeListener = evt -> closeAll();
         document.body.addEventListener(EventType.click.getName(), closeListener);
         element.addEventListener(EventType.click.getName(), Event::stopPropagation);
-        ElementUtil.onDetach(targetElement, mutationRecord -> element.remove());
+        ElementUtil.onDetach(targetElement, mutationRecord -> {
+            if (visible) {
+                close();
+            }
+            element.remove();
+        });
         init(this);
+
+        onDetached(mutationRecord -> {
+            document.body.removeEventListener(EventType.keydown.getName(), closeListener);
+        });
     }
 
-    public void show() {
+    @Override
+    public Popover show() {
         if (isEnabled()) {
-            if (nonNull(currentVisible) && closeOthers) {
+            if (closeOthers) {
                 closeOthers();
             }
             open(targetElement);
-            currentVisible.add(Popover.this);
+            element.style().setZIndex(ModalBackDrop.getNextZIndex());
+            ModalBackDrop.push(this);
         }
+
+        return this;
     }
 
     private void closeAll() {
@@ -70,8 +88,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
     }
 
     private void closeOthers() {
-        currentVisible.forEach(Popover::close);
-        currentVisible.clear();
+        ModalBackDrop.closePopovers();
     }
 
     private void open(HTMLElement target) {
@@ -84,12 +101,18 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
             popupPosition.position(element.asElement(), target);
             position(popupPosition);
             visible = true;
+            if (closeOnEscp) {
+                KeyboardEvents.listenOn(document.body)
+                        .onEscape(closeListener);
+            }
         }
     }
 
     public void close() {
         asElement().remove();
         visible = false;
+        document.body.removeEventListener(EventType.keydown.getName(), closeListener);
+        ModalBackDrop.popPopOver();
     }
 
     public void discard() {
@@ -165,6 +188,16 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
         return headingElement;
     }
 
+    public Popover closeOnEscp(boolean closeOnEscp) {
+        this.closeOnEscp = closeOnEscp;
+        return this;
+    }
+
+    public Popover closeOnScroll(boolean closeOnScroll) {
+        this.closeOnScroll = closeOnScroll;
+        return this;
+    }
+
     @Override
     public HTMLDivElement asElement() {
         return element.asElement();
@@ -176,5 +209,9 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
 
     public Text getHeaderText() {
         return headerText;
+    }
+
+    public boolean isCloseOnScroll() {
+        return closeOnScroll;
     }
 }

@@ -7,7 +7,6 @@
 .modal-content.col${color_base_name}:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col${color_base_name}:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col${color_base_name}:not([class*="col-white"]) .panel-body,
-.badge .bg${color_base_name},
 .bg${color_base_name}.nav-tabs li a{
     color: #fff;
 }
@@ -33,9 +32,12 @@ ul.stepper.horizontal.stepper-col${color_base_name} .step.done .step-title:befor
     border-bottom: 1px solid ${main_color};
     box-shadow: 0px 1px ${main_color};
 }
-.col${color_base_name},
-.breadcrumb.col${color_base_name} li a{
+.col${color_base_name}{
     color: ${main_color};
+}
+.vtabs.col${color_base_name} li.active{
+    color: ${main_color};
+    border-right: 2px solid ${main_color};
 }
 [type="checkbox"]:checked.col${color_base_name} + label:before {
     border-right: 2px solid ${main_color};
@@ -102,9 +104,12 @@ ul.stepper.horizontal.stepper-col-l-1${color_base_name} .step.done .step-title:b
     border-bottom: 1px solid ${color_l_1};
     box-shadow: 0px 1px ${color_l_1};
 }
-.col-l-1${color_base_name},
-.breadcrumb.col-l-1${color_base_name} li a {
+.col-l-1${color_base_name} {
     color: ${color_l_1};
+}
+.vtabs.col-l-1${color_base_name} li.active{
+    color: ${color_l_1};
+    border-right: 2px solid ${color_l_1};
 }
 [type="checkbox"]:checked.col-l-1${color_base_name} + label:before {
     border-right: 2px solid ${color_l_1};
@@ -170,9 +175,12 @@ ul.stepper.horizontal.stepper-col-l-2${color_base_name} .step.done .step-title:b
     border-bottom: 1px solid ${color_l_2};
     box-shadow: 0px 1px ${color_l_2};
 }
-.col-l-2${color_base_name},
-.breadcrumb.col-l-2${color_base_name} li a {
+.col-l-2${color_base_name} {
     color: ${color_l_2};
+}
+.vtabs.col-l-2${color_base_name} li.active{
+    color: ${color_l_2};
+    border-right: 2px solid ${color_l_2};
 }
 [type="checkbox"]:checked.col-l-2${color_base_name} + label:before {
     border-right: 2px solid ${color_l_2};
@@ -241,9 +249,12 @@ ul.stepper.horizontal.stepper-col-l-3${color_base_name} .step.done .step-title:b
     box-shadow: 0px 1px ${color_l_3};
 }
 
-.col-l-3${color_base_name},
-.breadcrumb.col-l-3${color_base_name} li a {
+.col-l-3${color_base_name} {
     color: ${color_l_3};
+}
+.vtabs.col-l-3${color_base_name} li.active{
+    color: ${color_l_3};
+    border-right: 2px solid ${color_l_3};
 }
 [type="checkbox"]:checked.col-l-3${color_base_name} + label:before {
     border-right: 2px solid ${color_l_3};
@@ -310,9 +321,12 @@ ul.stepper.horizontal.stepper-col-l-4${color_base_name} .step.done .step-title:b
     border-bottom: 1px solid ${color_l_4};
     box-shadow: 0px 1px ${color_l_4};
 }
-.col-l-4${color_base_name},
-.breadcrumb.col-l-4${color_base_name} li a {
+.col-l-4${color_base_name}{
     color: ${color_l_4};
+}
+.vtabs.col-l-4${color_base_name} li.active{
+    color: ${color_l_4};
+    border-right: 2px solid ${color_l_4};
 }
 [type="checkbox"]:checked.col-l-4${color_base_name} + label:before {
     border-right: 2px solid ${color_l_4};
@@ -379,9 +393,12 @@ ul.stepper.horizontal.stepper-col-l-5${color_base_name} .step.done .step-title:b
     border-bottom: 1px solid ${color_l_5};
     box-shadow: 0px 1px ${color_l_5};
 }
-.col-l-1${color_base_name},
-.breadcrumb.col-l-5${color_base_name} li a {
+.col-l-5${color_base_name} {
     color: ${color_l_5};
+}
+.vtabs.col-l-5${color_base_name} li.active{
+    color: ${color_l_5};
+    border-right: 2px solid ${color_l_5};
 }
 [type="checkbox"]:checked.col-l-5${color_base_name} + label:before {
     border-right: 2px solid ${color_l_5};
@@ -448,9 +465,12 @@ ul.stepper.horizontal.stepper-col-d-1${color_base_name} .step.done .step-title:b
     border-bottom: 1px solid ${color_d_1};
     box-shadow: 0px 1px ${color_d_1};
 }
-.col-d-1${color_base_name},
-.breadcrumb.col-d-1${color_base_name} li a {
+.col-d-1${color_base_name} {
     color: ${color_d_1};
+}
+.vtabs.col-d-1${color_base_name} li.active{
+    color: ${color_d_1};
+    border-right: 2px solid ${color_d_1};
 }
 [type="checkbox"]:checked.col-d-1${color_base_name} + label:before {
     border-right: 2px solid ${color_d_1};
@@ -517,9 +537,12 @@ ul.stepper.horizontal.stepper-col-d-2${color_base_name} .step.done .step-title:b
     border-bottom: 1px solid ${color_d_2};
     box-shadow: 0px 1px ${color_d_2};
 }
-.col-d-2${color_base_name},
-.breadcrumb.col-d-2${color_base_name} li a {
+.col-d-2${color_base_name} {
     color: ${color_d_2};
+}
+.vtabs.col-d-2${color_base_name} li.active{
+    color: ${color_d_2};
+    border-right: 2px solid ${color_d_2};
 }
 [type="checkbox"]:checked.col-d-2${color_base_name} + label:before {
     border-right: 2px solid ${color_d_2};
@@ -586,9 +609,12 @@ ul.stepper.horizontal.stepper-col-d-3${color_base_name} .step.done .step-title:b
     border-bottom: 1px solid ${color_d_3};
     box-shadow: 0px 1px ${color_d_3};
 }
-.col-d-3${color_base_name},
-.breadcrumb.col-d-2${color_base_name} li a{
+.col-d-3${color_base_name}{
     color: ${color_d_3};
+}
+.vtabs.col-d-3${color_base_name} li.active{
+    color: ${color_d_3};
+    border-right: 2px solid ${color_d_3};
 }
 [type="checkbox"]:checked.col-d-3${color_base_name} + label:before {
     border-right: 2px solid ${color_d_3};
@@ -655,9 +681,12 @@ ul.stepper.horizontal.stepper-col-d-4${color_base_name} .step.done .step-title:b
     border-bottom: 1px solid ${color_d_4};
     box-shadow: 0px 1px ${color_d_4};
 }
-.col-d-4${color_base_name},
-.breadcrumb.col-d-4${color_base_name} li a {
+.col-d-4${color_base_name}{
     color: ${color_d_4};
+}
+.vtabs.col-d-4${color_base_name} li.active{
+    color: ${color_d_4};
+    border-right: 2px solid ${color_d_4};
 }
 [type="checkbox"]:checked.col-d-4${color_base_name} + label:before {
     border-right: 2px solid ${color_d_4};

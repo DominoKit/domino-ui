@@ -1,32 +1,34 @@
 package org.dominokit.domino.ui.layout;
 
 import elemental2.dom.*;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.themes.Theme;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
-import org.dominokit.domino.ui.utils.ScreenMedia;
-import org.dominokit.domino.ui.utils.TextNode;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.IsElement;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.a;
-import static org.jboss.gwt.elemento.core.Elements.li;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Layout {
+public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
 
-    private static final String SLIDE_OUT = "-300px";
-    private static final String SLIDE_IN = "0px";
+    private static final String SLIDE_OUT_LEFT = "slide-out-left";
+    private static final String SLIDE_OUT_RIGHT = "slide-out-right";
     private static final String NONE = "none";
     private static final String BLOCK = "block";
     private static final String COLLAPSE = "collapse";
     private static final String CLICK = "click";
+    public static final String FIT_WIDTH = "fit-width";
+    public static final String FIT_HEIGHT = "fit-height";
+
+    private DominoElement<HTMLDivElement> root = DominoElement.of(div().css("layout"));
 
     private final NavigationBar navigationBar = NavigationBar.create();
     private final Section section = Section.create();
@@ -42,14 +44,41 @@ public class Layout {
     private boolean overlayVisible = false;
     private boolean leftPanelDisabled = false;
     private boolean fixedLeftPanel;
+    private LeftPanelSize leftPanelSize = LeftPanelSize.DEFAULT;
+
     private LayoutHandler onShowHandler = layout -> {
     };
 
+    private LayoutHandler removeHandler = layout -> {
+    };
+
+    private List<Consumer<Boolean>> leftPanelHandlers = new ArrayList<>();
+
     public Layout() {
+        this(null);
     }
 
     public Layout(String title) {
-        setTitle(title);
+        init(this);
+        if (nonNull(title)) {
+            setTitle(title);
+        }
+        appendElements();
+        initElementsPosition();
+        addExpandListeners();
+        if (!bodyStyle().contains("ls-hidden"))
+            bodyStyle().add("ls-closed");
+        new Theme(Theme.INDIGO).apply();
+
+        DominoElement.of(document.body)
+                .style()
+                .add(leftPanelSize.getSize());
+
+        MediaQuery.addOnSmallAndDownListener(this::unfixFooter);
+
+        if (nonNull(onShowHandler)) {
+            onShowHandler.handleLayout(this);
+        }
     }
 
     public static Layout create() {
@@ -73,43 +102,46 @@ public class Layout {
     }
 
     public Layout show(ColorScheme theme, boolean autoFixLeftPanel) {
-        appendElements();
-        initElementsPosition();
-        addExpandListeners();
-        if (!bodyStyle().contains("ls-hidden"))
-            bodyStyle().add("ls-closed");
         new Theme(theme).apply();
-        MediaQuery.addOnSmallAndDownListener(this::unfixFooter);
 
-        if (nonNull(onShowHandler)) {
-            onShowHandler.handleLayout(this);
-        }
-        if(autoFixLeftPanel){
+        if (autoFixLeftPanel) {
             autoFixLeftPanel();
+        }
+        if (!root.isAttached()) {
+            document.body.appendChild(root.asElement());
         }
 
         return this;
     }
 
     private void appendElements() {
-        document.body.appendChild(overlay.asElement());
-        document.body.appendChild(navigationBar.asElement());
-        document.body.appendChild(section.asElement());
-        document.body.appendChild(content.asElement());
-        document.body.appendChild(footer.asElement());
+        root.appendChild(overlay.asElement());
+        root.appendChild(navigationBar.asElement());
+        root.appendChild(section.asElement());
+        root.appendChild(content.asElement());
+        root.appendChild(footer.asElement());
         navigationBar.title.appendChild(appTitle);
+    }
+
+    public void remove(LayoutHandler removeHandler) {
+        this.removeHandler = removeHandler;
+        remove();
+    }
+
+    public Layout remove() {
+        root.remove();
+        removeHandler.handleLayout(this);
+        return this;
     }
 
     private void initElementsPosition() {
         getLeftPanel()
                 .style()
-                .setMarginLeft("0px")
-                .setLeft(SLIDE_OUT);
+                .add(SLIDE_OUT_LEFT);
 
         getRightPanel()
                 .style()
-                .setMarginRight("0px")
-                .setRight(SLIDE_OUT);
+                .add(SLIDE_OUT_RIGHT);
     }
 
     private void addExpandListeners() {
@@ -118,17 +150,17 @@ public class Layout {
         overlay.addEventListener(CLICK, e -> hidePanels());
     }
 
-    public Layout onShow(LayoutHandler layoutHandler){
+    public Layout onShow(LayoutHandler layoutHandler) {
         this.onShowHandler = layoutHandler;
         return this;
     }
 
-    public Layout hidNavBarExpand(){
+    public Layout hideNavBarExpand() {
         navigationBar.getNavBarExpand().hideOn(ScreenMedia.SMALL_AND_DOWN);
         return this;
     }
 
-    public Layout showNavBarExpand(){
+    public Layout showNavBarExpand() {
         navigationBar.getNavBarExpand().removeHideOn();
         return this;
     }
@@ -190,7 +222,7 @@ public class Layout {
             hideLeftPanel();
         if (navigationBarExpanded)
             collapseNavBar();
-        getRightPanel().style().setRight(SLIDE_IN);
+        getRightPanel().style().remove(SLIDE_OUT_RIGHT);
         rightPanelVisible = true;
         showOverlay();
 
@@ -198,7 +230,7 @@ public class Layout {
     }
 
     public Layout hideRightPanel() {
-        getRightPanel().style().setRight(SLIDE_OUT);
+        getRightPanel().style().add(SLIDE_OUT_RIGHT);
         rightPanelVisible = false;
         hideOverlay();
 
@@ -219,11 +251,20 @@ public class Layout {
         }
     }
 
-    public void toggleLeftPanel() {
+    public Layout toggleLeftPanel() {
         if (leftPanelVisible)
             hideLeftPanel();
         else
             showLeftPanel();
+
+        return this;
+    }
+
+    public Layout setLeftPanelSize(LeftPanelSize leftPanelSize) {
+        DominoElement.of(document.body).style().remove(this.leftPanelSize.getSize());
+        this.leftPanelSize = leftPanelSize;
+        DominoElement.of(document.body).style().add(this.leftPanelSize.getSize());
+        return this;
     }
 
     public Layout showLeftPanel() {
@@ -232,9 +273,12 @@ public class Layout {
                 hideRightPanel();
             if (navigationBarExpanded)
                 collapseNavBar();
-            getLeftPanel().style().setLeft(SLIDE_IN);
+            getLeftPanel().style().remove(SLIDE_OUT_LEFT);
             leftPanelVisible = true;
             showOverlay();
+            DominoElement.of(document.body)
+                    .styler(style -> style.add("panel-open"));
+            leftPanelHandlers.forEach(handler -> handler.accept(true));
         }
 
         return this;
@@ -242,9 +286,12 @@ public class Layout {
 
     public Layout hideLeftPanel() {
         if (!fixedLeftPanel && !leftPanelDisabled) {
-            getLeftPanel().style().setLeft(SLIDE_OUT);
+            getLeftPanel().style().add(SLIDE_OUT_LEFT);
             leftPanelVisible = false;
             hideOverlay();
+            DominoElement.of(document.body)
+                    .styler(style -> style.remove("panel-open"));
+            leftPanelHandlers.forEach(handler -> handler.accept(false));
         }
 
         return this;
@@ -297,10 +344,18 @@ public class Layout {
         return this;
     }
 
-    public HTMLElement addActionItem(Icon icon) {
+    public HTMLElement addActionItem(BaseIcon<?> icon) {
+        return addActionItem(icon.asElement());
+    }
+
+    public HTMLElement addActionItem(IsElement element) {
+        return addActionItem(element.asElement());
+    }
+
+    public HTMLElement addActionItem(HTMLElement element) {
         HTMLLIElement li = li().css("pull-right").add(
                 a().css("js-right-sidebar")
-                        .add(icon.asElement())).asElement();
+                        .add(element)).asElement();
         getTopBar().appendChild(li);
         return li;
     }
@@ -312,6 +367,8 @@ public class Layout {
             if (bodyStyle().contains("ls-closed"))
                 bodyStyle().remove("ls-closed");
             this.fixedLeftPanel = true;
+            DominoElement.body()
+                    .style().add("l-fixed");
         }
         return this;
     }
@@ -321,6 +378,8 @@ public class Layout {
             if (!bodyStyle().contains("ls-closed"))
                 bodyStyle().add("ls-closed");
             this.fixedLeftPanel = false;
+            DominoElement.body()
+                    .style().remove("l-fixed");
         }
         return this;
     }
@@ -380,11 +439,6 @@ public class Layout {
             });
         }
 
-        return this;
-    }
-
-    public Layout apply(LayoutHandler layoutHandler) {
-        layoutHandler.handleLayout(this);
         return this;
     }
 
@@ -468,9 +522,92 @@ public class Layout {
         return this;
     }
 
+    public Layout onLeftPanelStateChanged(Consumer<Boolean> leftPanelHandler) {
+        leftPanelHandlers.add(leftPanelHandler);
+        return this;
+    }
+
+    public Layout removeLeftPanelHandler(Consumer<Boolean> leftPanelHandler) {
+        leftPanelHandlers.remove(leftPanelHandler);
+        return this;
+    }
+
+    public Layout fitWidth() {
+        content.styler(style -> style.add(FIT_WIDTH));
+        getContentPanel().styler(style -> style.add(FIT_WIDTH));
+        return this;
+    }
+
+    public Layout unfitWidth() {
+        content.styler(style -> style.remove(FIT_WIDTH));
+        getContentPanel().styler(style -> style.remove(FIT_WIDTH));
+        return this;
+    }
+
+    public Layout fitHeight() {
+        content.styler(style -> style.add(FIT_HEIGHT));
+        getFooter().styler(style -> style.add(FIT_HEIGHT));
+        return this;
+    }
+
+    public Layout unfitHeight() {
+        content.styler(style -> style.remove(FIT_HEIGHT));
+        getFooter().styler(style -> style.remove(FIT_HEIGHT));
+        return this;
+    }
+
     private void updateContentMargin() {
         double margin = navigationBar.getBoundingClientRect().height + 30;
         content.style().setMarginTop(margin + "px");
+    }
+
+    public boolean isLeftPanelVisible() {
+        return leftPanelVisible;
+    }
+
+    public boolean isRightPanelVisible() {
+        return rightPanelVisible;
+    }
+
+    public boolean isNavigationBarExpanded() {
+        return navigationBarExpanded;
+    }
+
+    public boolean isOverlayVisible() {
+        return overlayVisible;
+    }
+
+    public boolean isLeftPanelDisabled() {
+        return leftPanelDisabled;
+    }
+
+    public boolean isFixedLeftPanel() {
+        return fixedLeftPanel;
+    }
+
+    public LeftPanelSize getLeftPanelSize() {
+        return leftPanelSize;
+    }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return root.asElement();
+    }
+
+    public enum LeftPanelSize {
+        SMALL("sm"),
+        DEFAULT("md"),
+        LARGE("lg");
+
+        private String size;
+
+        LeftPanelSize(String size) {
+            this.size = size;
+        }
+
+        public String getSize() {
+            return size;
+        }
     }
 
     @FunctionalInterface
