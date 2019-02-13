@@ -168,6 +168,18 @@ public class ColumnConfig<T> {
         return this;
     }
 
+    public void applyScreenMedia(HTMLTableCellElement element) {
+        DominoElement<HTMLTableCellElement> thElement = DominoElement.of(element);
+
+        if (nonNull(showOn)) {
+            thElement.showOn(showOn);
+        }
+
+        if (nonNull(hideOn)) {
+            thElement.hideOn(hideOn);
+        }
+    }
+
     public Node getTooltipNode() {
         if (nonNull(tooltipNode))
             return tooltipNode;
