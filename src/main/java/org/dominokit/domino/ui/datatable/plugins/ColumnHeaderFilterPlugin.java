@@ -45,6 +45,9 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
             HtmlContentBuilder<HTMLTableCellElement> th = th().css(DataTableStyles.TABLE_CM_FILTER);
             columnConfig.getHeaderStyler()
                     .styleCell(th.asElement());
+            
+            applyScreenMedia(columnConfig, th.asElement());
+            
             tr.add(th);
 
             if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
@@ -58,6 +61,19 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
         dataTable.tableElement().appendChild(thead);
     }
+    
+    private void applyScreenMedia(ColumnConfig<T> columnConfig, HTMLTableCellElement element) {
+        DominoElement<HTMLTableCellElement> thElement = DominoElement.of(element);
+
+        if (nonNull(columnConfig.getShowOn())) {
+            thElement.showOn(columnConfig.getShowOn());
+        }
+
+        if (nonNull(columnConfig.getHideOn())) {
+            thElement.hideOn(columnConfig.getHideOn());
+        }
+    }
+
 
     private void fixElementWidth(ColumnConfig<T> column, HTMLElement element) {
         String fixedWidth = bestFitWidth(column);
