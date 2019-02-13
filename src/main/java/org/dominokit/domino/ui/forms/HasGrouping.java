@@ -12,6 +12,9 @@ public interface HasGrouping<T> extends Switchable<T>, IsRequired<T>, HasValidat
     T groupBy(FieldsGrouping fieldsGrouping);
 
     @Editor.Ignore
+    T ungroup(FieldsGrouping fieldsGrouping);
+
+    @Editor.Ignore
     boolean isEmpty();
 
     @Editor.Ignore
