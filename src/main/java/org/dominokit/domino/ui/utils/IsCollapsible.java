@@ -32,7 +32,9 @@ public interface IsCollapsible<T> {
      * @deprecated use {@link #isHidden()}
      */
     @Deprecated
-    boolean isCollapsed();
+    default boolean isCollapsed() {
+        return isHidden();
+    }
 
     boolean isHidden();
 }

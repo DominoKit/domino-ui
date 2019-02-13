@@ -83,14 +83,6 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
         showHandlers.forEach(ShowCompletedHandler::onShown);
     }
 
-    /**
-     * @deprecated use {@link #isHidden()}
-     */
-    @Deprecated
-    public boolean isCollapsed() {
-        return isHidden();
-    }
-
     @Override
     public boolean isHidden() {
         return this.collapsed;

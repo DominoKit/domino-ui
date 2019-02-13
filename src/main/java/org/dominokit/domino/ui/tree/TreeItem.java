@@ -162,6 +162,11 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     }
 
     @Override
+    public boolean isHidden() {
+        return collapsible.isHidden();
+    }
+
+    @Override
     public TreeItem addHideHandler(Collapsible.HideCompletedHandler handler) {
         collapsible.addHideHandler(handler);
         return this;
@@ -368,5 +373,9 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     @Override
     public HTMLElement getWavesElement() {
         return anchorElement.asElement();
+    }
+
+    public boolean isLeaf() {
+        return subItems.isEmpty();
     }
 }
