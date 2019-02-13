@@ -135,4 +135,14 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
     public boolean hasValidator(Validator validator) {
         return validators.contains(validator);
     }
+
+    public FieldsGrouping removeFormElement(HasGrouping hasGrouping){
+        formElements.remove(hasGrouping);
+        return this;
+    }
+
+    public FieldsGrouping removeAllFormElements(){
+        formElements.clear();
+        return this;
+    }
 }
