@@ -1,13 +1,10 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLInputElement;
-import elemental2.dom.HTMLLabelElement;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +61,21 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
 
     public static CheckBox create() {
         return new CheckBox();
+    }
+
+    public static CheckBox create(IsElement<HTMLAnchorElement> link) {
+        return create(DominoElement.of(link));
+    }
+
+    public static CheckBox create(HTMLAnchorElement link) {
+        return create(DominoElement.of(link));
+    }
+
+    public static CheckBox create(DominoElement<HTMLAnchorElement> link) {
+        CheckBox checkBox = new CheckBox();
+        checkBox.getLabelElement().appendChild(link);
+        link.addClickListener(Event::stopPropagation);
+        return checkBox;
     }
 
     public CheckBox toggle() {
