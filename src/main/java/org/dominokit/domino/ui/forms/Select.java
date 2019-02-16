@@ -8,7 +8,6 @@ import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.dropdown.DropdownActionsGroup;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
-import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -37,7 +36,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private DominoElement<HTMLElement> leftAddon;
     private DominoElement<HTMLElement> rightAddon;
 
-    private DominoElement<HTMLButtonElement> buttonElement = DominoElement.of(button().attr("type","button").css("select-button"));
+    private DominoElement<HTMLButtonElement> buttonElement = DominoElement.of(button().attr("type", "button").css("select-button"));
     private DominoElement<HTMLElement> buttonValueContainer = DominoElement.of(span().css("select-value", Styles.ellipsis_text));
     private DominoElement<HTMLDivElement> iconContainer = DominoElement.of(div().css(Styles.pull_right));
     private DropDownMenu optionsMenu = DropDownMenu.create(buttonElement).styler(style1 -> style1.add("select-option-menu"));
@@ -530,8 +529,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     public Select<T> setLeftAddon(HTMLElement leftAddon) {
+        setAddon(leftAddonContainer, this.leftAddon, leftAddon);
         this.leftAddon = DominoElement.of(leftAddon);
-        setAddon(leftAddonContainer, leftAddon, leftAddon);
         return this;
     }
 
@@ -540,8 +539,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     public Select<T> setRightAddon(HTMLElement rightAddon) {
+        setAddon(rightAddonContainer, this.rightAddon, rightAddon);
         this.rightAddon = DominoElement.of(rightAddon);
-        setAddon(rightAddonContainer, rightAddon, rightAddon);
         return this;
     }
 
@@ -567,7 +566,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         return this;
     }
 
-    private void setAddon(DominoElement<HTMLDivElement> container, Element oldAddon, Element addon) {
+    private void setAddon(DominoElement<HTMLDivElement> container, DominoElement oldAddon, Element addon) {
         if (nonNull(oldAddon)) {
             oldAddon.remove();
         }
