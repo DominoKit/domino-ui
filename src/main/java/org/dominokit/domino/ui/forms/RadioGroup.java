@@ -260,6 +260,12 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
+    public RadioGroup ungroup(FieldsGrouping fieldsGrouping) {
+        fieldsGrouping.removeFormElement(this);
+        return this;
+    }
+
+    @Override
     public String getName() {
         return name;
     }

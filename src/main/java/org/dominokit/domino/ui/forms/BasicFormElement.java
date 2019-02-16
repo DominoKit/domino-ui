@@ -183,6 +183,12 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     }
 
     @Override
+    public T ungroup(FieldsGrouping fieldsGrouping) {
+        fieldsGrouping.removeFormElement(this);
+        return (T) this;
+    }
+
+    @Override
     public void setValue(V value) {
         value(value);
     }

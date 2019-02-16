@@ -45,6 +45,9 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
             HtmlContentBuilder<HTMLTableCellElement> th = th().css(DataTableStyles.TABLE_CM_FILTER);
             columnConfig.getHeaderStyler()
                     .styleCell(th.asElement());
+
+            columnConfig.applyScreenMedia(th.asElement());
+
             tr.add(th);
 
             if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
