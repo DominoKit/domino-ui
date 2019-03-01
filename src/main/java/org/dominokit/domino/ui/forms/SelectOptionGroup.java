@@ -10,7 +10,9 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
+import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
 public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, SelectOptionGroup<T>> {
@@ -18,6 +20,7 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
     private DominoElement<HTMLLIElement> element = DominoElement.of(li().css("dropdown-header"));
     private List<SelectOption<T>> options = new ArrayList<>();
     private Node titleElement;
+    private Consumer<SelectOption<T>> addOptionConsumer = (option)->{};
 
     public SelectOptionGroup(Node titleElement) {
         this.titleElement = titleElement;
@@ -56,7 +59,14 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
     public SelectOptionGroup<T> appendChild(SelectOption<T> option) {
         option.style().add("opt");
         options.add(option);
+        if(nonNull(addOptionConsumer)){
+            addOptionConsumer.accept(option);
+        }
         return this;
+    }
+
+    public void setAddOptionConsumer(Consumer<SelectOption<T>> addOptionConsumer) {
+        this.addOptionConsumer = addOptionConsumer;
     }
 
     public List<SelectOption<T>> getOptions() {

@@ -279,7 +279,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     public DropDownMenu addGroup(DropdownActionsGroup group) {
         groups.add(group);
         menuElement.appendChild(group.asElement());
-        group.addActionsTo(this);
+        group.bindTo(this);
         return this;
     }
 
