@@ -387,6 +387,7 @@ public class Styles {
     public static final String padding_125 = "padding-125";
 
     public static final String img_responsive = "img-responsive";
+    public static final String img_circle = "img-circle";
 
     public static final String clearfix = "clearfix";
     public static final String pull_right = "pull-right";
