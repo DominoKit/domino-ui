@@ -10,6 +10,7 @@ import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
@@ -44,17 +45,22 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     public DropDownMenu(HTMLElement targetElement) {
         this.targetElement = targetElement;
         EventListener listener = evt -> closeAllMenus();
-        document.addEventListener("click", listener);
-        document.addEventListener("touchend", evt -> {
+
+        element.addEventListener(EventType.touchend, Event::stopPropagation);
+        element.addEventListener(EventType.touchmove, Event::stopPropagation);
+        element.addEventListener(EventType.touchstart, Event::stopPropagation);
+
+        document.addEventListener(EventType.click.getName(), listener);
+        document.addEventListener(EventType.touchmove.getName(), evt -> this.touchMoved = true);
+        document.addEventListener(EventType.touchend.getName(), evt -> {
             if (!touchMoved) {
                 closeAllMenus();
             }
             touchMoved = false;
         });
-        document.addEventListener("touchmove", evt -> this.touchMoved = true);
 
         addMenuNavigationListener(targetElement);
-        searchContainer.addEventListener("click", evt -> {
+        searchContainer.addClickListener(evt -> {
             evt.preventDefault();
             evt.stopPropagation();
         });
