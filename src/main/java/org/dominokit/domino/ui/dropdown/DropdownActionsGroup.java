@@ -11,11 +11,13 @@ import org.jboss.gwt.elemento.core.IsElement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
 public class DropdownActionsGroup extends BaseDominoElement<HTMLLIElement, DropdownActionsGroup> {
     private DominoElement<HTMLLIElement> element = DominoElement.of(li().css(DropDownStyles.DROPDOWN_HEADER));
     private List<DropdownAction> actions = new ArrayList<>();
+    private DropDownMenu menu;
 
     public DropdownActionsGroup(Node titleElement) {
         element.addEventListener("click", evt -> {
@@ -45,6 +47,7 @@ public class DropdownActionsGroup extends BaseDominoElement<HTMLLIElement, Dropd
 
     public DropdownActionsGroup appendChild(DropdownAction action) {
         actions.add(action);
+        addActionToMenu(action);
         return this;
     }
 
@@ -61,8 +64,15 @@ public class DropdownActionsGroup extends BaseDominoElement<HTMLLIElement, Dropd
         return actions.stream().allMatch(DropdownAction::isHidden);
     }
 
-    void addActionsTo(DropDownMenu menu) {
+    public void bindTo(DropDownMenu menu) {
+        this.menu = menu;
         for (DropdownAction action : actions) {
+            addActionToMenu(action);
+        }
+    }
+
+    private void addActionToMenu(DropdownAction action) {
+        if (nonNull(menu)) {
             action.addHideHandler(this::changeVisibility);
             action.addShowHandler(this::changeVisibility);
             menu.appendChild(action);

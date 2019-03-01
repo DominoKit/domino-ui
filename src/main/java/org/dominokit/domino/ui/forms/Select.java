@@ -56,6 +56,22 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private boolean valid = true;
     private boolean focused;
 
+    public static <T> Select<T> create() {
+        return new Select<>();
+    }
+
+    public static <T> Select<T> create(String label) {
+        return new Select<>(label);
+    }
+
+    public static <T> Select<T> create(String label, List<SelectOption<T>> options) {
+        return new Select<>(label, options);
+    }
+
+    public static <T> Select create(List<SelectOption<T>> options) {
+        return new Select<>(options);
+    }
+
     public Select() {
         initListeners();
         buttonElement
@@ -112,26 +128,13 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private void doOpen() {
         optionsMenu.open();
         optionsMenu.styler(style -> style.setWidth(formControl.getBoundingClientRect().width + "px"));
+        if(nonNull(selectedOption)){
+            selectedOption.asElement().scrollIntoView();
+        }
     }
 
     public void close() {
         optionsMenu.close();
-    }
-
-    public static <T> Select<T> create() {
-        return new Select<>();
-    }
-
-    public static <T> Select<T> create(String label) {
-        return new Select<>(label);
-    }
-
-    public static <T> Select<T> create(String label, List<SelectOption<T>> options) {
-        return new Select<>(label, options);
-    }
-
-    public static <T> Select create(List<SelectOption<T>> options) {
-        return new Select<>(options);
     }
 
     public Select<T> divider() {
@@ -142,11 +145,19 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     public Select<T> addGroup(SelectOptionGroup<T> group) {
         DropdownActionsGroup dropdownActionsGroup = DropdownActionsGroup.create(group.getTitleElement());
         for (SelectOption<T> option : group.getOptions()) {
-            dropdownActionsGroup.appendChild(asDropDownAction(option));
+            addOptionToGroup(dropdownActionsGroup, option);
         }
-        options.addAll(group.getOptions());
+        group.setAddOptionConsumer(selectOption -> {
+            addOptionToGroup(dropdownActionsGroup, selectOption);
+        });
+
         optionsMenu.addGroup(dropdownActionsGroup);
         return this;
+    }
+
+    private void addOptionToGroup(DropdownActionsGroup dropdownActionsGroup, SelectOption<T> option) {
+        dropdownActionsGroup.appendChild(asDropDownAction(option));
+        options.add(option);
     }
 
     public Select<T> addOptions(List<SelectOption<T>> options) {
