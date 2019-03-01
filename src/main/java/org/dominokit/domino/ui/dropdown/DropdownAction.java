@@ -48,11 +48,6 @@ public class DropdownAction extends BaseDominoElement<HTMLLIElement, DropdownAct
             select();
             evt.preventDefault();
         });
-        liElement.addEventListener("touchstart", evt -> {
-            evt.stopPropagation();
-            select();
-            evt.preventDefault();
-        });
         aElement.addEventListener("focus", evt -> focusHandlers.forEach(focusHandler -> focusHandler.onFocus(this)));
     }
 
