@@ -2,6 +2,9 @@ package org.dominokit.domino.ui.cards;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
+import org.dominokit.domino.ui.grid.flex.FlexAlign;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
@@ -20,6 +23,7 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Card extends BaseDominoElement<HTMLDivElement, Card> implements HasBackground<Card> {
 
+    private final FlexItem logoContainer;
     private DominoElement<HTMLDivElement> root = DominoElement.div().addCss(CARD);
     private DominoElement<HTMLDivElement> header = DominoElement.div().addCss(HEADER);
     private DominoElement<HTMLHeadingElement> headerTitle = DominoElement.of(h(2));
@@ -39,8 +43,16 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
                 .appendChild(title)
                 .appendChild(headerDescription);
 
-        header.appendChild(headerTitle)
-                .appendChild(headerBar);
+        logoContainer = FlexItem.create();
+        header.appendChild(FlexLayout.create()
+                .appendChild(logoContainer
+                        .css(Styles.m_r_10)
+                        .setAlignSelf(FlexAlign.CENTER))
+                .appendChild(FlexItem.create()
+                        .setAlignSelf(FlexAlign.CENTER)
+                        .appendChild(headerTitle))
+                .appendChild(FlexItem.create().appendChild(headerBar))
+        );
 
         root.appendChild(header)
                 .appendChild(body);
@@ -226,25 +238,6 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         return this;
     }
 
-    /**
-     * @return T
-     * @deprecated use {@link #hide()}
-     */
-    @Deprecated
-    public Card collapse() {
-        return hide();
-    }
-
-    /**
-     * @return T
-     * @deprecated use {@link #show()}
-     */
-    @Deprecated
-    public Card expand() {
-        return show();
-    }
-
-
     public Card toggle() {
         if (isHidden()) {
             show();
@@ -295,6 +288,18 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         body.style().setPaddingBottom(padding);
         return this;
     }
+
+    public Card setHeaderLogo(Node node) {
+        logoContainer.clearElement();
+        logoContainer.appendChild(node);
+        return this;
+    }
+
+    public Card setHeaderLogo(IsElement<?> element) {
+        setHeaderLogo(element.asElement());
+        return this;
+    }
+
 
     public Style<HTMLDivElement, DominoElement<HTMLDivElement>> bodyStyle() {
         return body.style();
