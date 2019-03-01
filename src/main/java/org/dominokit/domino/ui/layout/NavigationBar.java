@@ -4,35 +4,47 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
 
 import javax.annotation.PostConstruct;
 
-@Templated
-public abstract class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar> {
+import static org.jboss.gwt.elemento.core.Elements.*;
 
-    @DataElement
-    HTMLAnchorElement menu;
+public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar> {
+    private final FlexItem menuToggleItem;
+    private final FlexItem titleItem;
+    private final FlexItem actionBarItem;
 
-    @DataElement
-    HTMLAnchorElement navBarExpand;
+    private DominoElement<HTMLElement> navBar = DominoElement.of(nav().css("navbar"));
+    private FlexLayout container = FlexLayout.create().css("container-fluid");
 
-    @DataElement
-    HTMLDivElement navigationBar;
+    DominoElement<HTMLAnchorElement> title = DominoElement.of(a().css("navbar-brand"));
+    DominoElement<HTMLAnchorElement> menu = DominoElement.of(a().css("bars"));
+    DominoElement<HTMLUListElement> topBar = DominoElement.of(ul()
+            .css("nav")
+            .css("navbar-nav")
+            .css("navbar-right")
+    );
+    DominoElement<HTMLDivElement> topBarContainer = DominoElement.div().appendChild(topBar);
+    DominoElement<HTMLDivElement> navBarHeader = DominoElement.div().css("navbar-header");
 
-    @DataElement
-    HTMLUListElement topBar;
+    public NavigationBar() {
+        menuToggleItem = FlexItem.create();
+        titleItem = FlexItem.create();
+        actionBarItem = FlexItem.create();
+        container
+                .appendChild(menuToggleItem.appendChild(menu))
+                .appendChild(titleItem.setFlexGrow(1).appendChild(title))
+                .appendChild(actionBarItem.appendChild(topBarContainer))
+        ;
 
-    @DataElement
-    HTMLAnchorElement title;
-
-    @DataElement
-    HTMLDivElement navBarHeader;
-
-    private boolean collapsed = true;
+        navBar.appendChild(navBarHeader
+                .appendChild(container));
+        init();
+    }
 
     @PostConstruct
     void init() {
@@ -40,40 +52,35 @@ public abstract class NavigationBar extends BaseDominoElement<HTMLElement, Navig
     }
 
     public static NavigationBar create() {
-        return new Templated_NavigationBar();
+        return new NavigationBar();
     }
 
     @Override
-    public boolean isHidden() {
-        return collapsed;
+    public HTMLElement asElement() {
+        return navBar.asElement();
     }
 
-    public NavigationBar setCollapsed(boolean collapsed) {
-        this.collapsed = collapsed;
-        return this;
-    }
-
-    public DominoElement<HTMLAnchorElement> getMenu() {
-        return DominoElement.of(menu);
-    }
-
-    public DominoElement<HTMLAnchorElement> getNavBarExpand() {
-        return DominoElement.of(navBarExpand);
-    }
-
-    public DominoElement<HTMLDivElement> getNavigationBar() {
-        return DominoElement.of(navigationBar);
-    }
-
-    public DominoElement<HTMLDivElement> getNavBarHeader() {
-        return DominoElement.of(navBarHeader);
-    }
-
-    public DominoElement<HTMLUListElement> getTopBar() {
-        return DominoElement.of(topBar);
+    public DominoElement<HTMLElement> getNavBar() {
+        return navBar;
     }
 
     public DominoElement<HTMLAnchorElement> getTitle() {
-        return DominoElement.of(title);
+        return title;
+    }
+
+    public DominoElement<HTMLAnchorElement> getMenu() {
+        return menu;
+    }
+
+    public DominoElement<HTMLUListElement> getTopBar() {
+        return topBar;
+    }
+
+    public DominoElement<HTMLDivElement> getTopBarContainer() {
+        return topBarContainer;
+    }
+
+    public DominoElement<HTMLDivElement> getNavBarHeader() {
+        return navBarHeader;
     }
 }

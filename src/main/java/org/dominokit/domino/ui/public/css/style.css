@@ -211,19 +211,9 @@ section.content.fit-height {
     transform: scale(1);
 }
 
-.navbar-header {
-    padding: 10px 7px;
-}
-
 .navbar-header .bars {
     float: left;
     text-decoration: none;
-}
-
-.navbar-nav > li > a {
-    padding: 7px 7px 2px 7px;
-    margin-top: 17px;
-    margin-left: 5px;
 }
 
 .sm .sidebar.slide-out-left {
@@ -2339,12 +2329,6 @@ section.content.fit-height {
     .navbar > .container-fluid .logo-in .navbar-brand {
         margin-left: 83px;
         width: 55%;
-    }
-
-    .navbar .navbar-header {
-        display: inline-block;
-        margin-bottom: -6px;
-        width: calc(100% + 30px);
     }
 
     .navbar .nav > li {
@@ -5058,18 +5042,16 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
 }
 
 .navbar-header {
-    padding: 10px 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    width: 100%;
+    min-height: 69px;
 }
 
 .navbar-header .bars {
     float: left;
     text-decoration: none;
-}
-
-.navbar-nav > li > a {
-    padding: 7px 7px 2px 7px;
-    margin-top: 17px;
-    margin-left: 5px;
 }
 
 
@@ -5120,9 +5102,9 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     font-family: "Roboto", sans-serif;
     background: #fdfdfd;
     display: inline-block;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 69px);
     position: fixed;
-    top: 70px;
+    top: 69px;
     margin-left: 0px;
     left: 0;
     -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
