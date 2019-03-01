@@ -14,6 +14,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Focusable;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
 import org.dominokit.domino.ui.utils.IsReadOnly;
+import org.gwtproject.timer.client.Timer;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.*;
@@ -128,9 +129,6 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private void doOpen() {
         optionsMenu.open();
         optionsMenu.styler(style -> style.setWidth(formControl.getBoundingClientRect().width + "px"));
-        if(nonNull(selectedOption)){
-            selectedOption.asElement().scrollIntoView();
-        }
     }
 
     public void close() {
