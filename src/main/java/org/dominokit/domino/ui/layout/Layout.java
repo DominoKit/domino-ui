@@ -145,23 +145,12 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     private void addExpandListeners() {
-        navigationBar.getMenu().addEventListener(CLICK, e -> toggleLeftPanel());
-        navigationBar.getNavBarExpand().addEventListener(CLICK, e -> toggleNavigationBar());
+        navigationBar.menu.addEventListener(CLICK, e -> toggleLeftPanel());
         overlay.addEventListener(CLICK, e -> hidePanels());
     }
 
     public Layout onShow(LayoutHandler layoutHandler) {
         this.onShowHandler = layoutHandler;
-        return this;
-    }
-
-    public Layout hideNavBarExpand() {
-        navigationBar.getNavBarExpand().hideOn(ScreenMedia.SMALL_AND_DOWN);
-        return this;
-    }
-
-    public Layout showNavBarExpand() {
-        navigationBar.getNavBarExpand().removeHideOn();
         return this;
     }
 
@@ -174,7 +163,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public Layout updateLeftPanel(String style, String hiddenStyle, String visibleStyle) {
-        navigationBar.getMenu().style().setDisplay(style);
+        navigationBar.menu.style().setDisplay(style);
         getLeftPanel().style().setDisplay(style);
         bodyStyle().remove(hiddenStyle);
         bodyStyle().add(visibleStyle);
@@ -185,29 +174,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     private void hidePanels() {
         hideRightPanel();
         hideLeftPanel();
-        collapseNavBar();
         hideOverlay();
-    }
-
-    private void toggleNavigationBar() {
-        if (navigationBarExpanded)
-            collapseNavBar();
-        else
-            expandNavBar();
-    }
-
-    private void expandNavBar() {
-        if (leftPanelVisible)
-            hideLeftPanel();
-        if (rightPanelVisible)
-            hideRightPanel();
-        navigationBar.getNavigationBar().style().remove(COLLAPSE);
-        navigationBarExpanded = true;
-    }
-
-    private void collapseNavBar() {
-        navigationBar.getNavigationBar().style().add(COLLAPSE);
-        navigationBarExpanded = false;
     }
 
     public void toggleRightPanel() {
@@ -220,8 +187,6 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     public Layout showRightPanel() {
         if (leftPanelVisible)
             hideLeftPanel();
-        if (navigationBarExpanded)
-            collapseNavBar();
         getRightPanel().style().remove(SLIDE_OUT_RIGHT);
         rightPanelVisible = true;
         showOverlay();
@@ -271,8 +236,6 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         if (!leftPanelDisabled) {
             if (rightPanelVisible)
                 hideRightPanel();
-            if (navigationBarExpanded)
-                collapseNavBar();
             getLeftPanel().style().remove(SLIDE_OUT_LEFT);
             leftPanelVisible = true;
             showOverlay();
@@ -336,10 +299,10 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public Layout setTitle(String title) {
-        if (navigationBar.getTitle().hasChildNodes())
-            navigationBar.getTitle().removeChild(appTitle);
+        if (navigationBar.title.hasChildNodes())
+            navigationBar.title.removeChild(appTitle);
         this.appTitle = TextNode.of(title);
-        navigationBar.getTitle().appendChild(appTitle);
+        navigationBar.title.appendChild(appTitle);
 
         return this;
     }
@@ -392,7 +355,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         unfixLeftPanelPosition();
         hideLeftPanel();
         getLeftPanel().style().setDisplay("none");
-        navigationBar.getMenu().style()
+        navigationBar.menu.style()
                 .remove("bars")
                 .setDisplay("none");
         this.leftPanelDisabled = true;
@@ -401,7 +364,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
 
     public Layout enableLeftPanel() {
         getLeftPanel().style().removeProperty("display");
-        navigationBar.getMenu().style()
+        navigationBar.menu.style()
                 .add("bars")
                 .removeProperty("display");
         this.leftPanelDisabled = false;
@@ -490,8 +453,8 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public Layout setLogo(HTMLImageElement imageElement) {
-        navigationBar.getNavBarHeader()
-                .insertBefore(imageElement, getNavigationBar().getTitle())
+        navigationBar.navBarHeader
+                .insertBefore(imageElement, getNavigationBar().title)
                 .styler(style -> style.add("logo-in"));
         return this;
     }
