@@ -453,8 +453,9 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public Layout setLogo(HTMLImageElement imageElement) {
-        navigationBar.navBarHeader
-                .insertBefore(imageElement, getNavigationBar().title)
+        navigationBar.getLogoItem()
+                .clearElement()
+                .appendChild(imageElement)
                 .styler(style -> style.add("logo-in"));
         return this;
     }
