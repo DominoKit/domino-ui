@@ -16,6 +16,7 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar> {
     private final FlexItem menuToggleItem;
     private final FlexItem titleItem;
+    private final FlexItem logoItem;
     private final FlexItem actionBarItem;
 
     private DominoElement<HTMLElement> navBar = DominoElement.of(nav().css("navbar"));
@@ -33,11 +34,14 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
 
     public NavigationBar() {
         menuToggleItem = FlexItem.create();
+        logoItem = FlexItem.create();
         titleItem = FlexItem.create();
         actionBarItem = FlexItem.create();
         container
                 .appendChild(menuToggleItem.appendChild(menu))
-                .appendChild(titleItem.setFlexGrow(1).appendChild(title))
+                .appendChild(logoItem)
+                .appendChild(titleItem.setFlexGrow(1)
+                        .appendChild(title))
                 .appendChild(actionBarItem.appendChild(topBarContainer))
         ;
 
@@ -82,5 +86,9 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
 
     public DominoElement<HTMLDivElement> getNavBarHeader() {
         return navBarHeader;
+    }
+
+    public FlexItem getLogoItem() {
+        return logoItem;
     }
 }
