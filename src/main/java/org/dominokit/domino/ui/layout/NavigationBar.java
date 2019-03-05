@@ -33,8 +33,8 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
     DominoElement<HTMLDivElement> navBarHeader = DominoElement.div().css("navbar-header");
 
     public NavigationBar() {
-        menuToggleItem = FlexItem.create();
-        logoItem = FlexItem.create().css("title-logo");
+        menuToggleItem = FlexItem.create().css("menu-toggle");
+        logoItem = FlexItem.create();
         titleItem = FlexItem.create();
         actionBarItem = FlexItem.create();
         container
@@ -42,8 +42,7 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
                 .appendChild(logoItem)
                 .appendChild(titleItem.setFlexGrow(1)
                         .appendChild(title))
-                .appendChild(actionBarItem.appendChild(topBarContainer))
-        ;
+                .appendChild(actionBarItem.appendChild(topBarContainer));
 
         navBar.appendChild(navBarHeader
                 .appendChild(container));
@@ -86,6 +85,10 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
 
     public DominoElement<HTMLDivElement> getNavBarHeader() {
         return navBarHeader;
+    }
+
+    public FlexItem getMenuToggleItem() {
+        return menuToggleItem;
     }
 
     public FlexItem getLogoItem() {
