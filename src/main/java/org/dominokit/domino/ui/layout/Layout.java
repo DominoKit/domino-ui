@@ -453,10 +453,11 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public Layout setLogo(HTMLImageElement imageElement) {
-        navigationBar.getLogoItem()
+        navigationBar
+                .getLogoItem()
                 .clearElement()
                 .appendChild(imageElement)
-                .styler(style -> style.add("logo-in"));
+                .css( "logo-in");
         return this;
     }
 
@@ -483,6 +484,13 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
             }
         });
 
+        return this;
+    }
+
+    public Layout hideNavBarExpand() {
+        navigationBar
+                .getMenuToggleItem()
+                .hideOn(ScreenMedia.SMALL_AND_DOWN);
         return this;
     }
 

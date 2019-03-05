@@ -6404,10 +6404,13 @@ START("flex-start"),
     margin-left: 83px;
 }
 
-.title-logo {
-    margin-left: 35px;
+.menu-toggle{
+    margin-right: 15px;
 }
 
+.logo-in{
+    margin-left: 15px;
+}
 .logo-in img {
     left: 25px;
 }
