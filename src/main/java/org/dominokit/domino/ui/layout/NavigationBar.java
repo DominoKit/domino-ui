@@ -34,7 +34,7 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
 
     public NavigationBar() {
         menuToggleItem = FlexItem.create();
-        logoItem = FlexItem.create();
+        logoItem = FlexItem.create().css("title-logo");
         titleItem = FlexItem.create();
         actionBarItem = FlexItem.create();
         container
