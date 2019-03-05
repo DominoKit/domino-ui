@@ -191,9 +191,6 @@ section.content.fit-height {
     transform: scale(0);
 }
 
-.ls-closed .navbar-brand {
-    margin-left: 30px;
-}
 
 .overlay-open .bars:before {
     -moz-transform: scale(0);
@@ -5021,10 +5018,6 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     transform: scale(0);
 }
 
-.ls-closed .navbar-brand {
-    margin-left: 30px;
-}
-
 .overlay-open .bars:before {
     -moz-transform: scale(0);
     -ms-transform: scale(0);
@@ -6397,9 +6390,8 @@ START("flex-start"),
 }
 
 .logo-in img {
-    margin-left: 25px;
+    margin-left: 35px;
     left: 25px;
-    position: absolute;
 }
 
 /* ==================== icons =================*/
