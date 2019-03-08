@@ -38,6 +38,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     private PickerStyle pickerStyle;
     private Date value;
     private String invalidFormatMessage = "Invalid date format";
+    private EventListener focusListener;
 
     public DateBox() {
         this(new Date());
@@ -57,9 +58,21 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         initDateBox();
     }
 
+    public DateBox(String label, Date date, Date minDate, Date maxDate) {
+        super("text", label);
+        this.datePicker = DatePicker.create(date, minDate, maxDate);
+        initDateBox();
+    }
+
     public DateBox(String label, Date date, DateTimeFormatInfo dateTimeFormatInfo) {
         super("text", label);
         this.datePicker = DatePicker.create(date, dateTimeFormatInfo);
+        initDateBox();
+    }
+
+    public DateBox(String label, Date date, DateTimeFormatInfo dateTimeFormatInfo, Date minDate, Date maxDate) {
+        super("text", label);
+        this.datePicker = DatePicker.create(date, dateTimeFormatInfo, minDate, maxDate);
         initDateBox();
     }
 
@@ -302,10 +315,15 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     }
 
     public DateBox openOnFocus() {
-        EventListener focusListener = evt -> open();
+        if(nonNull(focusListener)){
+            getInputElement().removeEventListener(EventType.focus.getName(), focusListener);
+        }
+        focusListener = evt -> {
+            getInputElement().removeEventListener(EventType.focus.getName(), focusListener);
+            open();
+        };
         getInputElement().addEventListener(EventType.focus.getName(), focusListener);
         modal.onClose(() -> {
-            getInputElement().removeEventListener(EventType.focus.getName(), focusListener);
             getInputElement().asElement().focus();
             getInputElement().addEventListener(EventType.focus.getName(), focusListener);
         });
