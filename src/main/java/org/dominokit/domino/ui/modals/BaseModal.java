@@ -299,9 +299,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         if (nonNull(activeElementBeforeOpen))
             activeElementBeforeOpen.focus();
 
-        for (int i = 0; i < closeHandlers.size(); i++) {
-            closeHandlers.get(i).onClose();
-        }
 
         if (autoAppendAndRemove) {
             asElement().remove();
@@ -311,6 +308,10 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         removeBackDrop();
         if (ModalBackDrop.contains(this)) {
             ModalBackDrop.popModal();
+        }
+
+        for (int i = 0; i < closeHandlers.size(); i++) {
+            closeHandlers.get(i).onClose();
         }
 
         return (T) this;
