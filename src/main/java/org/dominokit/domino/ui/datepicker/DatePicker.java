@@ -255,6 +255,11 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         return new DatePicker(date, dateTimeFormatInfo);
     }
 
+    public static DatePicker create(Date date, Date minDate, Date maxDate) {
+        DateTimeFormatInfo dateTimeFormatInfo = DateTimeFormatInfo_factory.create();
+        return new DatePicker(date, dateTimeFormatInfo, minDate, maxDate);
+    }
+
     public static DatePicker create(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
         return new DatePicker(date, dateTimeFormatInfo);
     }
