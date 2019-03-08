@@ -111,12 +111,27 @@ section.content.fit-height {
     margin: 20px 0px 0 400px;
 }
 
+.sm .footer.fixed {
+    width: calc(100% - 100px);
+}
+
+.md .footer.fixed {
+    width: calc(100% - 300px);
+}
+
+.lg .footer.fixed {
+    width: calc(100% - 400px);
+}
+
 .ls-closed.sm .footer,
 .ls-closed.md .footer,
 .ls-closed.lg .footer {
     margin-left: 0px;
 }
 
+.ls-closed .footer.fixed{
+    width: 100%;
+}
 
 .footer.fit-height {
     margin-top: 0px;
@@ -126,7 +141,6 @@ section.content.fit-height {
     position: fixed;
     left: 0;
     bottom: 0;
-    width: 100%;
     z-index: 9;
 }
 
