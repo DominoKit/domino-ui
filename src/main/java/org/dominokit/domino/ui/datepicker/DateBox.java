@@ -315,19 +315,23 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     }
 
     public DateBox openOnFocus() {
-        if(nonNull(focusListener)){
-            getInputElement().removeEventListener(EventType.focus.getName(), focusListener);
+        if(nonNull(getFocusEventListener())){
+            getInputElement().removeEventListener(EventType.focus.getName(), getFocusEventListener());
         }
         focusListener = evt -> {
-            getInputElement().removeEventListener(EventType.focus.getName(), focusListener);
+            getInputElement().removeEventListener(EventType.focus.getName(), getFocusEventListener());
             open();
         };
-        getInputElement().addEventListener(EventType.focus.getName(), focusListener);
+        getInputElement().addEventListener(EventType.focus.getName(), getFocusEventListener());
         modal.onClose(() -> {
             getInputElement().asElement().focus();
-            getInputElement().addEventListener(EventType.focus.getName(), focusListener);
+            getInputElement().addEventListener(EventType.focus.getName(), getFocusEventListener());
         });
         return this;
+    }
+
+    private EventListener getFocusEventListener() {
+        return focusListener;
     }
 
     public void open() {
