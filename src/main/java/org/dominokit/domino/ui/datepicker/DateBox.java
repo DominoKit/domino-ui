@@ -8,13 +8,16 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.FormFieldsStyles;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
+import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.timepicker.Time;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
+import org.gwtproject.timer.client.Timer;
 import org.jboss.gwt.elemento.core.EventType;
 
 import java.util.Date;
@@ -39,6 +42,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     private Date value;
     private String invalidFormatMessage = "Invalid date format";
     private EventListener focusListener;
+    private boolean openOnFocus = false;
+    private boolean focused = false;
 
     public DateBox() {
         this(new Date());
@@ -84,7 +89,17 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             autoValidate();
             callChangeHandlers();
         });
-        this.modalListener = evt -> modal.open();
+
+        getInputElement().addEventListener(EventType.focus.getName(), evt-> focused =true);
+        getInputElement().addEventListener("focusin", evt-> focused =true);
+        getInputElement().addEventListener(EventType.blur.getName(), evt-> focused =false);
+        getInputElement().addEventListener("focusout", evt-> focused =false);
+
+        this.modalListener = evt -> {
+            if(!openOnFocus || focused) {
+                modal.open();
+            }
+        };
         ElementUtil.onDetach(asElement(), mutationRecord -> removeBox());
 
         datePicker.addCloseHandler(this::close);
@@ -278,7 +293,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             if (isNull(popover)) {
                 popover = Popover.createPicker(this, this.datePicker)
                         .position(this.popupPosition)
-                        .styler(style-> style.add(DatePickerStyles.PICKER_POPOVER));
+                        .styler(style -> style.add(DatePickerStyles.PICKER_POPOVER));
 
                 popover.getHeadingElement()
                         .style()
@@ -315,7 +330,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     }
 
     public DateBox openOnFocus() {
-        if(nonNull(getFocusEventListener())){
+        this.openOnFocus = true;
+        if (nonNull(getFocusEventListener())) {
             getInputElement().removeEventListener(EventType.focus.getName(), getFocusEventListener());
         }
         focusListener = evt -> {
@@ -326,6 +342,10 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         modal.onClose(() -> {
             getInputElement().asElement().focus();
             getInputElement().addEventListener(EventType.focus.getName(), getFocusEventListener());
+        });
+
+        modal.onOpen(() -> {
+            getInputElement().removeEventListener(EventType.focus.getName(), getFocusEventListener());
         });
         return this;
     }
