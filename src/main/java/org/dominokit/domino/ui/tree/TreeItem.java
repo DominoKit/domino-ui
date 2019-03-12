@@ -378,4 +378,13 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     public boolean isLeaf() {
         return subItems.isEmpty();
     }
+
+    /**
+     * Returns the list of all sub {@link TreeItem} 
+     * @return 
+     */
+    public List<TreeItem> getSubItems() {
+        return subItems;
+    }
+    
 }
