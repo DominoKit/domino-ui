@@ -252,7 +252,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
 
             request.addEventListener("readystatechange", evt -> {
                 if (request.readyState == 4) {
-                    if (request.status == 200)
+                    if (this.options.getSuccessCodesProvider().get().contains(request.status))
                         onSuccess();
                     else if (!canceled)
                         onError();
