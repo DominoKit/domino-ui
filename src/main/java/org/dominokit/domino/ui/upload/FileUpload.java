@@ -11,7 +11,9 @@ import org.dominokit.domino.ui.utils.HasName;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.input;
@@ -39,6 +41,8 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
     private boolean autoUpload = true;
     private boolean singleFile = false;
     private String errorMessage = "Only one file is allowed to be uploaded";
+
+    private Supplier<List<Integer>> successCodesProvider = () -> Arrays.asList(200, 201, 202, 203, 204, 205, 206, 207, 208, 226);
 
     public FileUpload() {
         uploadMessageContainer.appendChild(uploadIconContainer);
@@ -99,7 +103,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
     }
 
     private void addFilePreview(File file) {
-        FileItem fileItem = FileItem.create(file, new UploadOptions(url, maxFileSize));
+        FileItem fileItem = FileItem.create(file, new UploadOptions(url, maxFileSize, successCodesProvider));
         Column previewColumn = Column.span(thumbSpanXLarge, thumbSpanLarge, thumbSpanMedium, thumbSpanSmall, thumbSpanXSmall)
                 .appendChild(fileItem.asElement());
 
@@ -257,6 +261,10 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
         this.thumbSpanSmall = small;
         this.thumbSpanXSmall = xSmall;
         return this;
+    }
+
+    public void setSuccessCodesProvider(Supplier<List<Integer>> successCodesProvider) {
+        this.successCodesProvider = successCodesProvider;
     }
 
     @Override
