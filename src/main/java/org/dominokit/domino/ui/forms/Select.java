@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.*;
 import elemental2.dom.EventListener;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
@@ -14,7 +14,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Focusable;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
 import org.dominokit.domino.ui.utils.IsReadOnly;
-import org.gwtproject.timer.client.Timer;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.*;
@@ -654,5 +653,18 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     public static void closeAllSelects() {
         DropDownMenu.closeAllMenus();
+    }
+
+    public Select<T> selectByKey(String key) {
+        return selectByKey(key, false);
+    }
+
+    public Select<T> selectByKey(String key, boolean silent) {
+        for (SelectOption<T> option : getOptions()) {
+            if (option.getKey().equals(key)) {
+                select(option, silent);
+            }
+        }
+        return this;
     }
 }
