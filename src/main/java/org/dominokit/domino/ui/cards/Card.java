@@ -50,6 +50,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
                         .setAlignSelf(FlexAlign.CENTER))
                 .appendChild(FlexItem.create()
                         .setAlignSelf(FlexAlign.CENTER)
+                        .setFlexGrow(1)
                         .appendChild(headerTitle))
                 .appendChild(FlexItem.create().appendChild(headerBar))
         );
