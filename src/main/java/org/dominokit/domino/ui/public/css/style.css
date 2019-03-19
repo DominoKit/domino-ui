@@ -6765,3 +6765,7 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 .vtabs .list .ml-tree li .ml-tree .ml-tree li a {
     padding-left: 95px;
 }
+
+.vtabs .flex-item a{
+    border-right: 2px solid transparent;
+}

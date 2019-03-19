@@ -58,6 +58,10 @@ ul.stepper.horizontal.stepper-col${color_base_name} .step.done .step-title:befor
     border: 1px solid ${main_color};
 }
 
+.vtabs.col${color_base_name} .flex-item.active a{
+    border-right: 2px solid ${main_color};
+}
+
 .slider.thumb-bg${color_base_name}::-webkit-slider-thumb {
     background-color: ${main_color};
 }
