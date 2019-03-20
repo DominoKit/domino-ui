@@ -261,7 +261,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
             request.open("post", options.getUrl());
             FormData formData = new FormData();
             formData.append(file.name, file);
-            beforeUploadHandlers.forEach(handler -> handler.onBeforeUpload(request));
+            beforeUploadHandlers.forEach(handler -> handler.onBeforeUpload(request, formData));
             request.send(formData);
         }
     }
@@ -463,7 +463,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
 
     @FunctionalInterface
     public interface BeforeUploadHandler {
-        void onBeforeUpload(XMLHttpRequest request);
+        void onBeforeUpload(XMLHttpRequest request, FormData formData);
     }
 
     @FunctionalInterface
