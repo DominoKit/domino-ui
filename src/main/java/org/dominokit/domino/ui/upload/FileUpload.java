@@ -28,6 +28,12 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
     private int thumbSpanSmall = 6;
     private int thumbSpanXSmall = 12;
 
+    private int thumbOffsetXLarge = 0;
+    private int thumbOffsetLarge = 0;
+    private int thumbOffsetMedium = 0;
+    private int thumbOffsetSmall = 0;
+    private int thumbOffsetXSmall = 0;
+
     private DominoElement<HTMLDivElement> formElement = DominoElement.of(div().css("file-upload"));
     private DominoElement<HTMLDivElement> uploadMessageContainer = DominoElement.of(div().css("file-upload-message"));
     private DominoElement<HTMLDivElement> uploadIconContainer = DominoElement.of(div().css("file-upload-message-icon"));
@@ -105,6 +111,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
     private void addFilePreview(File file) {
         FileItem fileItem = FileItem.create(file, new UploadOptions(url, maxFileSize, successCodesProvider));
         Column previewColumn = Column.span(thumbSpanXLarge, thumbSpanLarge, thumbSpanMedium, thumbSpanSmall, thumbSpanXSmall)
+                .offset(thumbOffsetXLarge, thumbOffsetLarge, thumbOffsetMedium, thumbOffsetSmall, thumbOffsetXSmall)
                 .appendChild(fileItem.asElement());
 
         fileItem.addRemoveHandler(removedFile -> {
@@ -113,7 +120,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
         });
 
         onAddFileHandlers.forEach(handler -> handler.onAddFile(fileItem));
-        if(!fileItem.isCanceled()) {
+        if (!fileItem.isCanceled()) {
             addedFileItems.add(fileItem);
             row.appendChild(previewColumn);
         }
@@ -260,6 +267,15 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
         this.thumbSpanMedium = medium;
         this.thumbSpanSmall = small;
         this.thumbSpanXSmall = xSmall;
+        return this;
+    }
+
+    public FileUpload setThumbOffset(int xLarge, int large, int medium, int small, int xSmall) {
+        this.thumbOffsetXLarge = xLarge;
+        this.thumbOffsetLarge = large;
+        this.thumbOffsetMedium = medium;
+        this.thumbOffsetSmall = small;
+        this.thumbOffsetXSmall = xSmall;
         return this;
     }
 
