@@ -41,6 +41,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
         element
                 .appendChild(FlexLayout.create()
                         .appendChild(FlexItem.create()
+                                .css(Styles.ellipsis_text)
                                 .setFlexGrow(1)
                                 .appendChild(valueContainer))
                         .appendChild(checkMarkFlexItem)
