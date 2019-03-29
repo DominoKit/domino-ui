@@ -67,7 +67,11 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     private Node createSingleSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
         HTMLElement clonedIndicator = Js.uncheckedCast(singleSelectIndicator.cloneNode(true));
         cell.getTableRow().asElement().addEventListener("click", evt -> {
-            cell.getTableRow().select();
+            if (cell.getTableRow().isSelected()) {
+                cell.getTableRow().deselect();
+            } else {
+                cell.getTableRow().select();
+            }
             dataTable.onSelectionChange(cell.getTableRow());
         });
         cell.getTableRow().addSelectionHandler(selectable -> {
@@ -85,6 +89,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
                 if (nonNull(colorScheme)) {
                     Style.of(((TableRow<T>) selectable).asElement()).remove(colorScheme.lighten_5().getBackground());
                 }
+                selectedRow = null;
             }
         });
         Style.of(clonedIndicator).setDisplay("none");
