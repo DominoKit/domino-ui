@@ -28,6 +28,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement,TableRow<
     public TableRow(T record, int index) {
         this.record = record;
         this.index = index;
+        init(this);
     }
 
     public void setRecord(T record) {
