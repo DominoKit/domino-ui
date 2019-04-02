@@ -104,6 +104,17 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return appendChild(content.asElement());
     }
 
+    @Override
+    public Tab setContent(IsElement element) {
+        return setContent(element.asElement());
+    }
+
+    @Override
+    public Tab setContent(Node content) {
+        clearElement();
+        return appendChild(content);
+    }
+
     public Tab activate() {
         tab.style().add("active");
         contentContainer.style().add("in", "active");
