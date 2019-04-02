@@ -129,7 +129,7 @@ section.content.fit-height {
     margin-left: 0px;
 }
 
-.ls-closed .footer.fixed{
+.ls-closed .footer.fixed {
     width: 100%;
 }
 
@@ -3515,22 +3515,33 @@ fieldset[disabled] .form-control {
 .nav-tabs > li > a .material-icons {
     position: relative;
     top: 6px;
-    margin-bottom: 8px;
     width: 24px;
-    line-height: 27px;
 }
 
 .nav-tabs > li > a .mdi {
     position: relative;
     top: 3px;
-    margin-bottom: 8px;
     width: 24px;
-    line-height: 28px;
     height: 24px;
 }
 
 .nav-tabs > li > a .mdi:before {
-    line-height: 34px;
+    line-height: 30px;
+}
+
+.nav-tabs > li > a span {
+    line-height: 36px;
+    margin-left: 5px;
+}
+
+.nav-tabs > li > a .clickable-icon {
+    padding-top: 0px;
+    margin-left: 5px;
+    margin-top: 2px;
+}
+
+.nav-tabs > li > a .clickable-icon::before {
+    line-height: 26px;
 }
 
 .nav-tabs li.active a:before {
@@ -6418,13 +6429,14 @@ START("flex-start"),
     margin-left: 83px;
 }
 
-.menu-toggle{
+.menu-toggle {
     margin-right: 15px;
 }
 
-.logo-in{
+.logo-in {
     margin-left: 15px;
 }
+
 .logo-in img {
     left: 25px;
 }
@@ -6766,6 +6778,6 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
     padding-left: 95px;
 }
 
-.vtabs .flex-item a{
+.vtabs .flex-item a {
     border-right: 2px solid transparent;
 }
