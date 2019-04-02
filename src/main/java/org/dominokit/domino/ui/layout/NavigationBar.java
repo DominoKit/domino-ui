@@ -19,7 +19,7 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
     private final FlexItem logoItem;
     private final FlexItem actionBarItem;
 
-    private DominoElement<HTMLElement> navBar = DominoElement.of(nav().css("navbar"));
+    private DominoElement<HTMLElement> navBar = DominoElement.of(nav().css("navbar").css("ls-closed"));
     private FlexLayout container = FlexLayout.create().css("container-fluid");
 
     DominoElement<HTMLAnchorElement> title = DominoElement.of(a().css("navbar-brand"));
