@@ -4965,11 +4965,14 @@ a.list-group-item:not([class*="bg-"]):not([class*="-success"]):not([class*="-dan
     -ms-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
     border: none;
-    position: fixed;
     top: 0;
     left: 0;
-    z-index: 12;
     width: 100%;
+}
+
+.navbar.nav-fixed {
+    position: fixed;
+    z-index: 12;
 }
 
 .navbar .navbar-brand {
@@ -6461,7 +6464,7 @@ START("flex-start"),
 
 .clickable-icon:HOVER {
     opacity: 0.8;
-    background-color: #efefef;
+    background-color: rgba(32,33,36,0.1);
 }
 
 .clickable-icon:disabled {

@@ -121,6 +121,9 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         root.appendChild(content.asElement());
         root.appendChild(footer.asElement());
         navigationBar.title.appendChild(appTitle);
+
+        navigationBar.css("nav-fixed");
+        navigationBar.style().remove("ls-closed");
     }
 
     public void remove(LayoutHandler removeHandler) {
@@ -316,11 +319,9 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public HTMLElement addActionItem(HTMLElement element) {
-        HTMLLIElement li = li().css("pull-right").add(
-                a().css("js-right-sidebar")
-                        .add(element)).asElement();
-        getTopBar().appendChild(li);
-        return li;
+        LayoutActionItem layoutActionItem = LayoutActionItem.create(element);
+        getTopBar().appendChild(layoutActionItem);
+        return layoutActionItem.asElement();
     }
 
     public Layout fixLeftPanelPosition() {
