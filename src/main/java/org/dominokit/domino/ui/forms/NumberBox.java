@@ -14,6 +14,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     private String maxValueErrorMessage;
     private String minValueErrorMessage;
     private boolean formattingEnabled;
+    private String pattern = null;
 
     public NumberBox(String label) {
         super("tel", label);
@@ -45,8 +46,8 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
 
     private void formatValue() {
         if (!getStringValue().isEmpty()) {
-            double parsedValue = NumberFormat.getDecimalFormat().parse(getStringValue());
-            getInputElement().asElement().value = NumberFormat.getDecimalFormat().format(parsedValue);
+            double parsedValue = getNumberFormat().parse(getStringValue());
+            getInputElement().asElement().value = getNumberFormat().format(parsedValue);
         }
     }
 
@@ -73,7 +74,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
                 return null;
             }
             if (formattingEnabled) {
-                value = NumberFormat.getDecimalFormat().parse(value) + "";
+                value = getNumberFormat().parse(value) + "";
             }
             E parsedValue = parseValue(value);
             clearInvalid();
@@ -182,6 +183,23 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         } else {
             removeChangeHandler(formatValueChangeHandler);
         }
+        return (T) this;
+    }
+
+    protected NumberFormat getNumberFormat(){
+        if(nonNull(getPattern())){
+            return NumberFormat.getFormat(getPattern());
+        }else{
+            return NumberFormat.getDecimalFormat();
+        }
+    }
+
+    public String getPattern() {
+        return pattern;
+    }
+
+    public T setPattern(String pattern) {
+        this.pattern = pattern;
         return (T) this;
     }
 
