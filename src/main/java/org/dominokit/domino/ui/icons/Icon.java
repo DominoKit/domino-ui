@@ -14,7 +14,7 @@ public class Icon extends BaseIcon<Icon> {
     }
 
     public static Icon create(String icon) {
-        Icon iconElement = new Icon(i().css("material-icons").textContent(icon).asElement());
+        Icon iconElement = new Icon(i().css(IconsStyles.MATERIAL_ICONS).textContent(icon).asElement());
         iconElement.name = icon;
         return iconElement;
     }
@@ -39,7 +39,7 @@ public class Icon extends BaseIcon<Icon> {
     }
 
     public Icon small(){
-        style.add("small-icon");
+        style.add(IconsStyles.SMALL_ICON);
         return this;
     }
 

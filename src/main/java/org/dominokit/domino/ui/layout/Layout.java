@@ -493,10 +493,10 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
 
     public Layout autoFixLeftPanel() {
         MediaQuery.addOnMediumAndUpListener(() -> {
-            if (getLeftPanel().isAttached()) {
-                fixLeftPanelPosition();
+            if (Layout.this.getLeftPanel().isAttached()) {
+                Layout.this.fixLeftPanelPosition();
             } else {
-                getLeftPanel().onAttached(mutationRecord -> fixLeftPanelPosition());
+                Layout.this.getLeftPanel().onAttached(mutationRecord -> Layout.this.fixLeftPanelPosition());
             }
 
         });
