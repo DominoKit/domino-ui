@@ -83,7 +83,7 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
     protected abstract T doToggle();
 
     public T clickable() {
-        style.add("clickable-icon");
+        style.add(IconsStyles.CLICKABLE_ICON);
         withWaves();
         return (T) this;
     }
