@@ -28,7 +28,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
     private OnSmallOffset onSmallOffsetStyle;
 
     private Column() {
-        this.column = DominoElement.of(div().css("grid-col"));
+        this.column = DominoElement.of(div().css(GridStyles.GRID_COL));
         init(this);
     }
 
@@ -373,22 +373,6 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return column;
     }
 
-    /**
-     * @deprecated use{@link #appendChild(Node)}
-     */
-    @Deprecated
-    public Column addElement(Node element) {
-        return appendChild(element);
-    }
-
-    /**
-     * @deprecated use {@link #appendChild(IsElement)}
-     */
-    @Deprecated
-    public Column addElement(IsElement<? extends HTMLElement> element) {
-        return appendChild(element.asElement());
-    }
-
     public Column onXLarge(OnXLarge onXLarge) {
         if (nonNull(this.onXLargeStyle)) {
             style().remove(this.onXLargeStyle.getStyle());
@@ -491,8 +475,8 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
     }
 
     public Column condenced() {
-        style().remove("condense")
-                .add("condense");
+        style().remove(GridStyles.CONDENSE)
+                .add(GridStyles.CONDENSE);
         return this;
     }
 
@@ -517,7 +501,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         }
 
         public String getStyle() {
-            return "span-xl" + span.postfix;
+            return GridStyles.SPAN_XL + span.postfix;
         }
     }
 
@@ -537,7 +521,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         }
 
         public String getStyle() {
-            return "span-l" + span.postfix;
+            return GridStyles.SPAN_L + span.postfix;
         }
     }
 
@@ -557,7 +541,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         }
 
         public String getStyle() {
-            return "span-m" + span.postfix;
+            return GridStyles.SPAN_M + span.postfix;
         }
     }
 
@@ -577,7 +561,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         }
 
         public String getStyle() {
-            return "span-s" + span.postfix;
+            return GridStyles.SPAN_S + span.postfix;
         }
     }
 
@@ -598,7 +582,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         }
 
         public String getStyle() {
-            return "span-xs" + span.postfix;
+            return GridStyles.SPAN_XS + span.postfix;
         }
     }
 
@@ -621,7 +605,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         }
 
         public String getStyle() {
-            return "offset-xl" + offset.postfix;
+            return GridStyles.OFFSET_XL + offset.postfix;
         }
     }
 
@@ -641,7 +625,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         }
 
         public String getStyle() {
-            return "offset-l" + offset.postfix;
+            return GridStyles.OFFSET_L + offset.postfix;
         }
     }
 
@@ -661,7 +645,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         }
 
         public String getStyle() {
-            return "offset-m" + offset.postfix;
+            return GridStyles.OFFSET_M + offset.postfix;
         }
     }
 
@@ -681,7 +665,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         }
 
         public String getStyle() {
-            return "offset-s" + offset.postfix;
+            return GridStyles.OFFSET_S + offset.postfix;
         }
     }
 
@@ -702,7 +686,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         }
 
         public String getStyle() {
-            return "offset-xs" + offset.postfix;
+            return GridStyles.OFFSET_XS + offset.postfix;
         }
     }
 

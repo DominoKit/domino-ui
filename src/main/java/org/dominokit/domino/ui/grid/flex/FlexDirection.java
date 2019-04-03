@@ -3,10 +3,10 @@ package org.dominokit.domino.ui.grid.flex;
 import org.dominokit.domino.ui.style.IsCssClass;
 
 public enum FlexDirection implements IsCssClass {
-    LEFT_TO_RIGHT("flex-dir-row"),
-    RIGHT_TO_LEFT("flex-dir-row-reverse"),
-    TOP_TO_BOTTOM("flex-dir-column"),
-    BOTTOM_TO_TOP("flex-dir-column-reverse");
+    LEFT_TO_RIGHT(FlexStyles.FLEX_DIR_ROW),
+    RIGHT_TO_LEFT(FlexStyles.FLEX_DIR_ROW_REVERSE),
+    TOP_TO_BOTTOM(FlexStyles.FLEX_DIR_COLUMN),
+    BOTTOM_TO_TOP(FlexStyles.FLEX_DIR_COLUMN_REVERSE);
 
     private String style;
 
