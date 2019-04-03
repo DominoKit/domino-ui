@@ -3207,6 +3207,10 @@ input[type=range] + .thumb.active .value {
     border-bottom: 2px solid #fff !important;
 }
 
+.form-control[readonly] > [type="checkbox"] + label::after {
+    display: none;
+}
+
 .form-control.readonly .form-group {
     margin-bottom: 0px;
 }
@@ -6464,7 +6468,7 @@ START("flex-start"),
 
 .clickable-icon:HOVER {
     opacity: 0.8;
-    background-color: rgba(32,33,36,0.1);
+    background-color: rgba(32, 33, 36, 0.1);
 }
 
 .clickable-icon:disabled {
