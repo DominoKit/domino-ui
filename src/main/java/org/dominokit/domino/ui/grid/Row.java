@@ -16,7 +16,7 @@ public class Row<T extends Row<T>> extends BaseDominoElement<HTMLDivElement, T> 
     protected HTMLDivElement row;
 
     public Row(Columns columns) {
-        this.row = div().css("grid-row").css(columns.getColumnsStyle()).asElement();
+        this.row = div().css(GridStyles.GRID_ROW).css(columns.getColumnsStyle()).asElement();
         this.columns = columns;
     }
 
