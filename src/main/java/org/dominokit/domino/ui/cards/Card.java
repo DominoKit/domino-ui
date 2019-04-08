@@ -78,7 +78,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
 
     public static Card create() {
         Card card = new Card();
-        card.removeChild(card.header.asElement());
+        card.header.hide();
         return card;
     }
 
@@ -301,6 +301,18 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         return this;
     }
 
+    public Card showHeader(){
+       return setHeaderVisible(true);
+    }
+
+    public Card hideHeader(){
+        return setHeaderVisible(false);
+    }
+
+    public Card setHeaderVisible(boolean headerVisible){
+        this.header.toggleDisplay(headerVisible);
+        return this;
+    }
 
     public Style<HTMLDivElement, DominoElement<HTMLDivElement>> bodyStyle() {
         return body.style();
