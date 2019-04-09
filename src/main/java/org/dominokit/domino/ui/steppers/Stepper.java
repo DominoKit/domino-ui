@@ -50,14 +50,6 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
         return new Stepper();
     }
 
-    /**
-     * @deprecated use {@link #appendChild(Step)}
-     */
-    @Deprecated
-    public Stepper addStep(Step step) {
-        return appendChild(step);
-    }
-
     public Stepper appendChild(Step step) {
         element.appendChild(step.asElement());
         steps.add(step);

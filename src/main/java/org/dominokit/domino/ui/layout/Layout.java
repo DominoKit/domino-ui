@@ -43,7 +43,9 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     private boolean navigationBarExpanded = false;
     private boolean overlayVisible = false;
     private boolean leftPanelDisabled = false;
+    private boolean footerVisible = false;
     private boolean fixedLeftPanel;
+    private boolean fixedFooter = false;
     private LeftPanelSize leftPanelSize = LeftPanelSize.DEFAULT;
 
     private LayoutHandler onShowHandler = layout -> {
@@ -74,7 +76,25 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
                 .style()
                 .add(leftPanelSize.getSize());
 
-        MediaQuery.addOnSmallAndDownListener(this::unfixFooter);
+        MediaQuery.addOnSmallAndDownListener(() -> {
+            if(footer.isAutoUnFixForSmallScreens() && footer.isFixed()) {
+                fixedFooter = true;
+                unfixFooter();
+            }
+        });
+
+        MediaQuery.addOnSmallAndDownListener(() -> {
+            if(footer.isAutoUnFixForSmallScreens() && isFooterVisible()) {
+                fixedFooter = true;
+                unfixFooter();
+            }
+        });
+
+        MediaQuery.addOnMediumAndUpListener(() -> {
+            if(footer.isAutoUnFixForSmallScreens() && nonNull(fixedFooter) && fixedFooter && isFooterVisible()) {
+                fixFooter();
+            }
+        });
 
         if (nonNull(onShowHandler)) {
             onShowHandler.handleLayout(this);
@@ -121,6 +141,9 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         root.appendChild(content.asElement());
         root.appendChild(footer.asElement());
         navigationBar.title.appendChild(appTitle);
+
+        navigationBar.css("nav-fixed");
+        navigationBar.style().remove("ls-closed");
     }
 
     public void remove(LayoutHandler removeHandler) {
@@ -260,6 +283,10 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         return this;
     }
 
+    public boolean isFooterVisible() {
+        return footerVisible;
+    }
+
     public DominoElement<HTMLElement> getRightPanel() {
         return DominoElement.of(section.rightSide);
     }
@@ -295,6 +322,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
 
     public Layout showFooter() {
         footer.show();
+        this.footerVisible = true;
         return this;
     }
 
@@ -316,11 +344,9 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public HTMLElement addActionItem(HTMLElement element) {
-        HTMLLIElement li = li().css("pull-right").add(
-                a().css("js-right-sidebar")
-                        .add(element)).asElement();
-        getTopBar().appendChild(li);
-        return li;
+        LayoutActionItem layoutActionItem = LayoutActionItem.create(element);
+        getTopBar().appendChild(layoutActionItem);
+        return layoutActionItem.asElement();
     }
 
     public Layout fixLeftPanelPosition() {
@@ -372,7 +398,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public Layout fixFooter() {
-        footer.asElement().classList.add("fixed");
+        footer.fixed();
         if (footer.isAttached()) {
             updateContentBottomPadding();
         } else {
@@ -387,7 +413,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public Layout unfixFooter() {
-        footer.asElement().classList.remove("fixed");
+        footer.unfixed();
         ElementUtil.onAttach(footer.asElement(), mutationRecord -> Style.of(content.asElement()).removeProperty("padding-bottom"));
         return this;
     }
@@ -467,10 +493,10 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
 
     public Layout autoFixLeftPanel() {
         MediaQuery.addOnMediumAndUpListener(() -> {
-            if (getLeftPanel().isAttached()) {
-                fixLeftPanelPosition();
+            if (Layout.this.getLeftPanel().isAttached()) {
+                Layout.this.fixLeftPanelPosition();
             } else {
-                getLeftPanel().onAttached(mutationRecord -> fixLeftPanelPosition());
+                Layout.this.getLeftPanel().onAttached(mutationRecord -> Layout.this.fixLeftPanelPosition());
             }
 
         });

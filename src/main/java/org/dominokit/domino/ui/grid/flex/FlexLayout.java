@@ -13,7 +13,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
 
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("flex-layout"));
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(FlexStyles.FLEX_LAYOUT));
     private List<FlexItem> flexItems = new ArrayList<>();
     private FlexDirection flexDirection;
     private FlexWrap flexWrap;

@@ -28,7 +28,7 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
     @Override
     protected Double parseValue(String value) {
-        return Double.parseDouble(value);
+        return getNumberFormat().parse(value);
     }
 
     @Override
