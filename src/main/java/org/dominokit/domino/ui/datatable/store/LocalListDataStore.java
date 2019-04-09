@@ -212,4 +212,8 @@ public class LocalListDataStore<T> implements DataStore<T> {
         return new ArrayList<>(original);
     }
 
+    public List<T> getFilteredRecords() {
+        return new ArrayList<>(filtered);
+    }
+
 }

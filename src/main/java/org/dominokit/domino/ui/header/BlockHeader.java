@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.header;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.isNull;
@@ -11,11 +12,11 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> {
 
-    private HTMLDivElement element = div().css("block-header").asElement();
+    private HTMLDivElement element = div().css(BlockHeaderStyles.BLOCK_HEADER).asElement();
     private HTMLHeadingElement headerElement = h(2).asElement();
     private HTMLElement descriptionElement;
-    private Text headerText = DomGlobal.document.createTextNode("");
-    private Text descriptionText = DomGlobal.document.createTextNode("");
+    private Text headerText = TextNode.empty();
+    private Text descriptionText = TextNode.empty();
 
     private BlockHeader(String header) {
         this(header, null);
@@ -46,13 +47,6 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
         return new BlockHeader(header);
     }
 
-    /**
-     * @deprecated use {@link #appendChild(Node)}
-     */
-    @Deprecated
-    public BlockHeader appendContent(Node content) {
-        return appendChild(content);
-    }
 
     public BlockHeader appendChild(Node content) {
         if (isNull(descriptionElement))
@@ -75,7 +69,7 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
     }
 
     public BlockHeader appendText(String text) {
-        return appendContent(DomGlobal.document.createTextNode(text));
+        return appendChild(DomGlobal.document.createTextNode(text));
     }
 
     public BlockHeader setHeader(String header) {

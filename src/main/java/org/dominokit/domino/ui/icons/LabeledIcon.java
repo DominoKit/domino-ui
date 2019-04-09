@@ -11,9 +11,9 @@ import static org.jboss.gwt.elemento.core.Elements.span;
 
 public class LabeledIcon extends BaseDominoElement<HTMLDivElement, LabeledIcon> {
 
-    private HTMLDivElement element = div().css("labeled-icon").asElement();
-    private HTMLElement leftSpan = span().css("left-node").asElement();
-    private HTMLElement rightSpan = span().css("right-node").asElement();
+    private HTMLDivElement element = div().css(IconsStyles.LABELED_ICON).asElement();
+    private HTMLElement leftSpan = span().css(IconsStyles.LEFT_NODE).asElement();
+    private HTMLElement rightSpan = span().css(IconsStyles.RIGHT_NODE).asElement();
 
     public LabeledIcon(BaseIcon icon, String text) {
         this(icon, text, IconPosition.LEFT);
@@ -42,15 +42,15 @@ public class LabeledIcon extends BaseDominoElement<HTMLDivElement, LabeledIcon> 
         LEFT((left, right, icon, text) -> {
             left.appendChild(icon.asElement());
             right.appendChild(text);
-            left.classList.add("icon-node");
-            right.classList.add("text-node");
+            left.classList.add(IconsStyles.ICON_NODE);
+            right.classList.add(IconsStyles.TEXT_NODE);
         }),
 
         RIGHT((left, right, icon, text) -> {
             left.appendChild(text);
             right.appendChild(icon.asElement());
-            right.classList.add("icon-node");
-            left.classList.add("text-node");
+            right.classList.add(IconsStyles.ICON_NODE);
+            left.classList.add(IconsStyles.TEXT_NODE);
         });
 
         private ElementsPlacement elementsPlacement;

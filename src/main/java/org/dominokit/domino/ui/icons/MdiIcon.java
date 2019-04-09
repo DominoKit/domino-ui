@@ -216,10 +216,10 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
     }
 
     public enum MdiSize {
-        mdi18("mdi-18px"),
-        mdi24("mdi-24px"),
-        mdi36("mdi-36px"),
-        mdi48("mdi-48px");
+        mdi18(IconsStyles.MDI_18_PX),
+        mdi24(IconsStyles.MDI_24_PX),
+        mdi36(IconsStyles.MDI_36_PX),
+        mdi48(IconsStyles.MDI_48_PX);
 
         private final String style;
 
@@ -233,13 +233,13 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
     }
 
     public enum MdiRotate {
-        rotate45("mdi-rotate-45"),
-        rotate90("mdi-rotate-90"),
-        rotate135("mdi-rotate-135"),
-        rotate180("mdi-rotate-180"),
-        rotate225("mdi-rotate-225"),
-        rotate270("mdi-rotate-270"),
-        rotate315("mdi-rotate-315");
+        rotate45(IconsStyles.MDI_ROTATE_45),
+        rotate90(IconsStyles.MDI_ROTATE_90),
+        rotate135(IconsStyles.MDI_ROTATE_135),
+        rotate180(IconsStyles.MDI_ROTATE_180),
+        rotate225(IconsStyles.MDI_ROTATE_225),
+        rotate270(IconsStyles.MDI_ROTATE_270),
+        rotate315(IconsStyles.MDI_ROTATE_315);
 
         private String style;
 
@@ -253,8 +253,8 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
     }
 
     public enum MdiFlip {
-        flipV("mdi-flip-v"),
-        flipH("mdi-flip-h");
+        flipV(IconsStyles.MDI_FLIP_V),
+        flipH(IconsStyles.MDI_FLIP_H);
 
         private String style;
 
@@ -269,8 +269,8 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
 
     public enum MdiContrast {
 
-        light("mdi-light"),
-        dark("mdi-dark");
+        light(IconsStyles.MDI_LIGHT),
+        dark(IconsStyles.MDI_DARK);
 
         private String style;
 
