@@ -21,5 +21,9 @@
 @import url(datepicker/datepicker.css);
 @import url(timepicker/timepicker.css);
 @import url(dropdown/dropdown.css);
+@import url(flex/flex.css);
+@import url(header/header.css);
+@import url(icons/icons.css);
+@import url(infobox/infobox.css);
 @import url(style.css);
 @import url(colors.css);

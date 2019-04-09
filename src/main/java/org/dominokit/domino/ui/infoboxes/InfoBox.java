@@ -5,6 +5,7 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
@@ -17,79 +18,62 @@ import javax.annotation.PostConstruct;
 
 import static java.util.Objects.nonNull;
 
-@Templated
-public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implements HasBackground<InfoBox>, IsElement<HTMLDivElement> {
+public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implements HasBackground<InfoBox>, IsElement<HTMLDivElement> {
 
-    public enum HoverEffect {
-        ZOOM("hover-zoom-effect"),
-        EXPAND("hover-expand-effect");
+    private DominoElement<HTMLDivElement> iconElement = DominoElement.div().css("icon");
+    private DominoElement<HTMLDivElement> titleElement = DominoElement.div().css("text");
+    private DominoElement<HTMLDivElement> valueElement = DominoElement.div()
+            .css("number")
+            .css("count-to");
+    private DominoElement<HTMLDivElement> infoContent = DominoElement.div()
+            .css("info-content")
+            .appendChild(titleElement)
+            .appendChild(valueElement);
 
-        private final String effectStyle;
+    private DominoElement<HTMLDivElement> root = DominoElement.div()
+            .css("info-box")
+            .css(Styles.default_shadow)
+            .appendChild(iconElement)
+            .appendChild(infoContent);
 
-        HoverEffect(String effectStyle) {
-            this.effectStyle = effectStyle;
-        }
-
-    }
-
-    public enum Flip {
-
-        RIGHT("info-box-3"),
-        LEFT("info-box");
-
-        private final String flipStyle;
-
-        Flip(String flipStyle) {
-            this.flipStyle = flipStyle;
-        }
-    }
-
-    @DataElement
-    HTMLDivElement iconElement;
-
-    @DataElement
-    HTMLDivElement titleElement;
-
-    @DataElement
-    HTMLDivElement valueElement;
-
-    HTMLElement icon;
+    private HTMLElement icon;
 
     private Color counterBackground;
+
     private Color iconBackground;
     private HoverEffect hoverEffect;
     private Flip flip = Flip.LEFT;
     private Color iconColor;
 
-    @PostConstruct
-    void init() {
+    public InfoBox(HTMLElement icon, String title, String value) {
+        iconElement.appendChild(icon);
+        titleElement.setTextContent(title);
+        if (nonNull(value)) {
+            valueElement.setTextContent(value);
+        }
         init(this);
+        this.icon = icon;
+
     }
 
-    public static InfoBox create(BaseIcon icon, String title, String value) {
-        Templated_InfoBox templated_InfoBox = new Templated_InfoBox();
-        templated_InfoBox.getIconElement().appendChild(icon);
-        templated_InfoBox.getTitleElement().setTextContent(title);
-        templated_InfoBox.getValueElement().setTextContent(value);
-        templated_InfoBox.icon = icon.asElement();
-        return templated_InfoBox;
+    public InfoBox(BaseIcon<?> icon, String title, String value) {
+        this(icon.asElement(), title, value);
+    }
+
+    public InfoBox(HTMLElement icon, String title) {
+       this(icon, title, null);
+    }
+
+    public static InfoBox create(BaseIcon<?> icon, String title, String value) {
+        return new InfoBox(icon, title, value);
     }
 
     public static InfoBox create(HTMLElement icon, String title, String value) {
-        Templated_InfoBox templated_InfoBox = new Templated_InfoBox();
-        templated_InfoBox.getIconElement().appendChild(icon);
-        templated_InfoBox.getTitleElement().setTextContent(title);
-        templated_InfoBox.getValueElement().setTextContent(value);
-        templated_InfoBox.icon = icon;
-        return templated_InfoBox;
+        return new InfoBox(icon, title, value);
     }
 
     public static InfoBox create(HTMLElement icon, String title) {
-        Templated_InfoBox templated_InfoBox = new Templated_InfoBox();
-        templated_InfoBox.getIconElement().appendChild(icon);
-        templated_InfoBox.getTitleElement().setTextContent(title);
-        templated_InfoBox.icon = icon;
-        return templated_InfoBox;
+        return new InfoBox(icon, title);
     }
 
     @Override
@@ -174,37 +158,66 @@ public abstract class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
     }
 
     public InfoBox removeShadow() {
-        style()
-                .setBoxShadow("none")
-                .setProperty("-webkit-box-shadow", "none");
+        style().removeShadow();
         return this;
     }
 
-    public InfoBox setValue(String value){
+    public InfoBox setValue(String value) {
         getValueElement().setTextContent(value);
         return this;
     }
 
-    public InfoBox setTitle(String title){
+    public InfoBox setTitle(String title) {
         getTitleElement().setTextContent(title);
         return this;
     }
 
-    public InfoBox setIcon(BaseIcon icon){
+    public InfoBox setIcon(BaseIcon icon) {
         getIconElement().clearElement()
                 .appendChild(icon);
         return this;
     }
 
     public DominoElement<HTMLDivElement> getIconElement() {
-        return DominoElement.of(iconElement);
+        return iconElement;
     }
 
     public DominoElement<HTMLDivElement> getTitleElement() {
-        return DominoElement.of(titleElement);
+        return titleElement;
     }
 
     public DominoElement<HTMLDivElement> getValueElement() {
-        return DominoElement.of(valueElement);
+        return valueElement;
     }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return root.asElement();
+    }
+
+    public enum HoverEffect {
+        ZOOM(InfoBoxStyles.HOVER_ZOOM_EFFECT),
+        EXPAND(InfoBoxStyles.HOVER_EXPAND_EFFECT);
+
+        private final String effectStyle;
+
+        HoverEffect(String effectStyle) {
+            this.effectStyle = effectStyle;
+        }
+
+    }
+
+    public enum Flip {
+
+        RIGHT(InfoBoxStyles.INFO_BOX_3),
+        LEFT(InfoBoxStyles.INFO_BOX);
+
+        private final String flipStyle;
+
+        Flip(String flipStyle) {
+            this.flipStyle = flipStyle;
+        }
+
+    }
+
 }

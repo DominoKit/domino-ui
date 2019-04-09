@@ -2,19 +2,25 @@ package org.dominokit.domino.ui.grid;
 
 class GridLayoutEditor {
 
+    private static final String G_CONTENT = "g-content";
+    private static final String G_LEFT = "g-left";
+    private static final String G_RIGHT = "g-right";
+    private static final String G_HEADER = "g-header";
+    private static final String G_FOOTER = "g-footer";
+
     private String[][] gridTemplateAreas = new String[][]{
-            {"g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content"},
-            {"g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content"},
-            {"g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content"},
-            {"g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content"},
-            {"g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content"},
-            {"g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content"},
-            {"g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content"},
-            {"g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content"},
-            {"g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content"},
-            {"g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content"},
-            {"g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content"},
-            {"g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content", "g-content"}
+            {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
+            {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
+            {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
+            {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
+            {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
+            {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
+            {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
+            {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
+            {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
+            {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
+            {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
+            {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT}
     };
 
 
@@ -37,8 +43,8 @@ class GridLayoutEditor {
         for (int i = 0; i < sectionSpan.getValue(); i++) {
             for (int j = 0; j < gridTemplateAreas.length; j++) {
                 String cellArea = gridTemplateAreas[i][j];
-                if (cellArea.equals("g-content") || (cellArea.equals("g-left") && !leftSpanUp) || (cellArea.equals("g-right") && !rightSpanUp)) {
-                    gridTemplateAreas[i][j] = "g-header";
+                if (cellArea.equals(G_CONTENT) || (cellArea.equals(G_LEFT) && !leftSpanUp) || (cellArea.equals(G_RIGHT) && !rightSpanUp)) {
+                    gridTemplateAreas[i][j] = G_HEADER;
                 }
             }
         }
@@ -49,7 +55,7 @@ class GridLayoutEditor {
         this.hasHeader = false;
         for (int i = 0; i < headerSectionSpan.getValue(); i++) {
             for (int j = 0; j < gridTemplateAreas.length; j++) {
-                if (gridTemplateAreas[i][j].equals("g-header")) {
+                if (gridTemplateAreas[i][j].equals(G_HEADER)) {
                     resetCell(i, j);
                 }
             }
@@ -70,7 +76,7 @@ class GridLayoutEditor {
         int yEnd = gridTemplateAreas.length;
         for (int x = xStart; x < xEnd; x++) {
             for (int y = yStart; y < yEnd; y++) {
-                gridTemplateAreas[x][y] = "g-right";
+                gridTemplateAreas[x][y] = G_RIGHT;
             }
         }
 
@@ -81,7 +87,7 @@ class GridLayoutEditor {
             yEnd = gridTemplateAreas.length;
             for (int x = xStart; x < xEnd; x++) {
                 for (int y = yStart; y < yEnd; y++) {
-                    gridTemplateAreas[x][y] = "g-right";
+                    gridTemplateAreas[x][y] = G_RIGHT;
                 }
             }
         }
@@ -93,7 +99,7 @@ class GridLayoutEditor {
             yEnd = gridTemplateAreas.length;
             for (int x = xStart; x < xEnd; x++) {
                 for (int y = yStart; y < yEnd; y++) {
-                    gridTemplateAreas[x][y] = "g-right";
+                    gridTemplateAreas[x][y] = G_RIGHT;
                 }
             }
         }
@@ -112,7 +118,7 @@ class GridLayoutEditor {
         int yEnd = gridTemplateAreas.length;
         for (int x = xStart; x < xEnd; x++) {
             for (int y = yStart; y < yEnd; y++) {
-                gridTemplateAreas[x][y] = "g-content";
+                gridTemplateAreas[x][y] = G_CONTENT;
             }
         }
 
@@ -123,7 +129,7 @@ class GridLayoutEditor {
             yEnd = gridTemplateAreas.length;
             for (int x = xStart; x < xEnd; x++) {
                 for (int y = yStart; y < yEnd; y++) {
-                    gridTemplateAreas[x][y] = "g-header";
+                    gridTemplateAreas[x][y] = G_HEADER;
                 }
             }
         }
@@ -135,7 +141,7 @@ class GridLayoutEditor {
             yEnd = gridTemplateAreas.length;
             for (int x = xStart; x < xEnd; x++) {
                 for (int y = yStart; y < yEnd; y++) {
-                    gridTemplateAreas[x][y] = "g-footer";
+                    gridTemplateAreas[x][y] = G_FOOTER;
                 }
             }
         }
@@ -156,7 +162,7 @@ class GridLayoutEditor {
         int yEnd = leftSectionSpan.getValue();
         for (int x = xStart; x < xEnd; x++) {
             for (int y = yStart; y < yEnd; y++) {
-                gridTemplateAreas[x][y] = "g-left";
+                gridTemplateAreas[x][y] = G_LEFT;
             }
         }
 
@@ -167,7 +173,7 @@ class GridLayoutEditor {
             yEnd = leftSectionSpan.getValue();
             for (int x = xStart; x < xEnd; x++) {
                 for (int y = yStart; y < yEnd; y++) {
-                    gridTemplateAreas[x][y] = "g-left";
+                    gridTemplateAreas[x][y] = G_LEFT;
                 }
             }
         }
@@ -179,7 +185,7 @@ class GridLayoutEditor {
             yEnd = leftSectionSpan.getValue();
             for (int x = xStart; x < xEnd; x++) {
                 for (int y = yStart; y < yEnd; y++) {
-                    gridTemplateAreas[x][y] = "g-left";
+                    gridTemplateAreas[x][y] = G_LEFT;
                 }
             }
         }
@@ -193,7 +199,7 @@ class GridLayoutEditor {
         int yEnd = leftSectionSpan.getValue();
         for (int x = xStart; x < xEnd; x++) {
             for (int y = yStart; y < yEnd; y++) {
-                gridTemplateAreas[x][y] = "g-content";
+                gridTemplateAreas[x][y] = G_CONTENT;
             }
         }
 
@@ -204,7 +210,7 @@ class GridLayoutEditor {
             yEnd = leftSectionSpan.getValue();
             for (int x = xStart; x < xEnd; x++) {
                 for (int y = yStart; y < yEnd; y++) {
-                    gridTemplateAreas[x][y] = "g-header";
+                    gridTemplateAreas[x][y] = G_HEADER;
                 }
             }
         }
@@ -216,7 +222,7 @@ class GridLayoutEditor {
             yEnd = leftSectionSpan.getValue();
             for (int x = xStart; x < xEnd; x++) {
                 for (int y = yStart; y < yEnd; y++) {
-                    gridTemplateAreas[x][y] = "g-footer";
+                    gridTemplateAreas[x][y] = G_FOOTER;
                 }
             }
         }
@@ -232,8 +238,8 @@ class GridLayoutEditor {
         for (int i = gridTemplateAreas.length - sectionSpan.getValue(); i < gridTemplateAreas.length; i++) {
             for (int j = 0; j < gridTemplateAreas.length; j++) {
                 String cellArea = gridTemplateAreas[i][j];
-                if (cellArea.equals("g-content") || (cellArea.equals("g-left") && !leftSpanUp) || (cellArea.equals("g-right") && !rightSpanUp)) {
-                    gridTemplateAreas[i][j] = "g-footer";
+                if (cellArea.equals(G_CONTENT) || (cellArea.equals(G_LEFT) && !leftSpanUp) || (cellArea.equals(G_RIGHT) && !rightSpanUp)) {
+                    gridTemplateAreas[i][j] = G_FOOTER;
                 }
             }
         }
@@ -244,7 +250,7 @@ class GridLayoutEditor {
         this.hasFooter = false;
         for (int i = gridTemplateAreas.length - footerSectionSpan.getValue(); i < gridTemplateAreas.length; i++) {
             for (int j = 0; j < gridTemplateAreas.length; j++) {
-                if (gridTemplateAreas[i][j].equals("g-footer")) {
+                if (gridTemplateAreas[i][j].equals(G_FOOTER)) {
                     resetCell(i, j);
                 }
             }
@@ -254,11 +260,11 @@ class GridLayoutEditor {
 
     private void resetCell(int i, int j) {
         if (hasLeft() && j < leftSectionSpan.getValue()) {
-            gridTemplateAreas[i][j] = "g-left";
+            gridTemplateAreas[i][j] = G_LEFT;
         } else if (hasRight() && j > gridTemplateAreas.length - rightSectionSpan.getValue() - 1) {
-            gridTemplateAreas[i][j] = "g-right";
+            gridTemplateAreas[i][j] = G_RIGHT;
         } else {
-            gridTemplateAreas[i][j] = "g-content";
+            gridTemplateAreas[i][j] = G_CONTENT;
         }
     }
 

@@ -7,7 +7,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
 
-    private HTMLDivElement element = div().css("flex-item").asElement();
+    private HTMLDivElement element = div().css(FlexStyles.FLEX_ITEM).asElement();
     private int order;
     private int flexGrow;
     private int flexShrink;

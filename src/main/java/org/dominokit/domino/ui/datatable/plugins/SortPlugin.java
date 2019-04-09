@@ -10,36 +10,61 @@ import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.EventType;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static java.util.Objects.isNull;
 import static org.jboss.gwt.elemento.core.Elements.span;
 
 public class SortPlugin<T> implements DataTablePlugin<T> {
 
     private SortContainer currentContainer;
+    private Map<String, SortContainer> sortContainers=new HashMap<>();
+    private DataTable<T> dataTable;
+
+    @Override
+    public void init(DataTable<T> dataTable) {
+        this.dataTable = dataTable;
+    }
 
     @Override
     public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
         if (column.isSortable()) {
             SortContainer sortContainer = new SortContainer(column.getName());
+            sortContainers.put(column.getName(), sortContainer);
 
             column.getHeadElement().style().add(Styles.cursor_pointer, Styles.disable_selection);
             column.contextMenu.appendChild(sortContainer.sortElement);
             Style.of(column.contextMenu).setDisplay("block");
             column.getHeadElement().addEventListener(EventType.click.getName(), evt -> {
-                Style.of(sortContainer.sortElement)
-                        .setProperty("right", "15px")
-                        .setProperty("list-style", "none");
-                sortContainer.clear();
-                if (isNull(currentContainer)) {
-                    sortContainer.update(false);
-                } else {
-                    currentContainer.clear();
-                    sortContainer.update(currentContainer.columnName.equals(sortContainer.columnName));
-                }
-                currentContainer = sortContainer;
-                dataTable.fireTableEvent(new SortEvent<>(currentContainer.sortDirection, column));
+                updateStyles(sortContainer);
+                fireSortEvent(currentContainer.sortDirection, column);
             });
         }
+    }
+
+    private void updateStyles(SortContainer sortContainer) {
+        Style.of(sortContainer.sortElement)
+                .setProperty("right", "15px")
+                .setProperty("list-style", "none");
+        sortContainer.clear();
+        if (isNull(currentContainer)) {
+            sortContainer.update(false);
+        } else {
+            currentContainer.clear();
+            sortContainer.update(currentContainer.columnName.equals(sortContainer.columnName));
+        }
+        currentContainer = sortContainer;
+    }
+
+    public void sort(SortDirection direction, ColumnConfig<T> column){
+        SortContainer sortContainer = sortContainers.get(column.getName());
+        updateStyles(sortContainer);
+        fireSortEvent(direction, column);
+    }
+
+    private void fireSortEvent(SortDirection direction, ColumnConfig<T> column) {
+        dataTable.fireTableEvent(new SortEvent<>(direction, column));
     }
 
     private class SortContainer {
