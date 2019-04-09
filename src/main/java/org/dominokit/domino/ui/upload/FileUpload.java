@@ -28,11 +28,11 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
     private int thumbSpanSmall = 6;
     private int thumbSpanXSmall = 12;
 
-    private int thumbOffsetXLarge = 0;
-    private int thumbOffsetLarge = 0;
-    private int thumbOffsetMedium = 0;
-    private int thumbOffsetSmall = 0;
-    private int thumbOffsetXSmall = 0;
+    private int thumbOffsetXLarge = -1;
+    private int thumbOffsetLarge = -1;
+    private int thumbOffsetMedium = -1;
+    private int thumbOffsetSmall = -1;
+    private int thumbOffsetXSmall = -1;
 
     private DominoElement<HTMLDivElement> formElement = DominoElement.of(div().css("file-upload"));
     private DominoElement<HTMLDivElement> uploadMessageContainer = DominoElement.of(div().css("file-upload-message"));
@@ -111,8 +111,23 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
     private void addFilePreview(File file) {
         FileItem fileItem = FileItem.create(file, new UploadOptions(url, maxFileSize, successCodesProvider));
         Column previewColumn = Column.span(thumbSpanXLarge, thumbSpanLarge, thumbSpanMedium, thumbSpanSmall, thumbSpanXSmall)
-                .offset(thumbOffsetXLarge, thumbOffsetLarge, thumbOffsetMedium, thumbOffsetSmall, thumbOffsetXSmall)
                 .appendChild(fileItem.asElement());
+
+        if (thumbOffsetXLarge >= 0) {
+            previewColumn.onXLargeOffset(Column.OnXLargeOffset.of(thumbOffsetXLarge));
+        }
+        if (thumbOffsetLarge >= 0) {
+            previewColumn.onLargeOffset(Column.OnLargeOffset.of(thumbOffsetLarge));
+        }
+        if (thumbOffsetMedium >= 0) {
+            previewColumn.onMediumOffset(Column.OnMediumOffset.of(thumbOffsetMedium));
+        }
+        if (thumbOffsetSmall >= 0) {
+            previewColumn.onSmallOffset(Column.OnSmallOffset.of(thumbOffsetSmall));
+        }
+        if (thumbOffsetXSmall >= 0) {
+            previewColumn.onXSmallOffset(Column.OnXSmallOffset.of(thumbOffsetXSmall));
+        }
 
         fileItem.addRemoveHandler(removedFile -> {
             previewColumn.asElement().remove();
