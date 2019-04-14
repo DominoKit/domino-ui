@@ -63,6 +63,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         setFocusColor(focusColor);
         addFocusListeners();
         setLabel(label);
+        setSpellCheck(true);
     }
 
     protected void callChangeHandlers() {
@@ -418,7 +419,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
             if (getInputElement().hasAttribute("floating")) {
                 floating();
             } else {
-                if(isEmpty()) {
+                if (isEmpty()) {
                     nonfloating();
                 }
             }
@@ -491,6 +492,11 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     @Override
     public boolean hasChangeHandler(ChangeHandler<? super V> changeHandler) {
         return changeHandlers.contains(changeHandler);
+    }
+
+    public T setSpellCheck(boolean spellCheck) {
+        inputElement.setAttribute("spellcheck", spellCheck);
+        return (T) this;
     }
 
     protected abstract void clearValue();
