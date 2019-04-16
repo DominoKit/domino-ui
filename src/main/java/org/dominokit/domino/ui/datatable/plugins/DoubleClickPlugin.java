@@ -6,9 +6,9 @@ import org.jboss.gwt.elemento.core.EventType;
 
 public class DoubleClickPlugin<T> implements DataTablePlugin<T> {
 
-    private DoublClickHandler handler;
+    private DoublClickHandler<T> handler;
 
-    public DoubleClickPlugin(DoublClickHandler handler) {
+    public DoubleClickPlugin(DoublClickHandler<T> handler) {
         this.handler = handler;
     }
 
