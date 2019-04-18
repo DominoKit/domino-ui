@@ -4,11 +4,15 @@ import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.DataTableStyles;
+import org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener;
 import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
+import org.dominokit.domino.ui.dropdown.DropDownMenu;
+import org.dominokit.domino.ui.dropdown.DropDownPosition;
+import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.forms.TextBox;
 import org.dominokit.domino.ui.grid.Column;
 import org.dominokit.domino.ui.grid.Row;
@@ -20,7 +24,9 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.Unit;
 import org.dominokit.domino.ui.utils.ElementUtil;
+import org.dominokit.domino.ui.utils.TextNode;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.gwt.elemento.core.EventType;
 
@@ -86,7 +92,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
         @Override
         public Node asElement(DataTable<T> dataTable) {
-            Icon condenseIcon= Icons.ALL.line_weight()
+            Icon condenseIcon = Icons.ALL.line_weight()
                     .clickable()
                     .setTooltip(condenseToolTip)
                     .setToggleIcon(Icons.ALL.format_line_spacing())
@@ -123,7 +129,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
         @Override
         public Node asElement(DataTable<T> dataTable) {
-            Icon stripesIcon= Icons.ALL.format_line_spacing()
+            Icon stripesIcon = Icons.ALL.format_line_spacing()
                     .clickable()
                     .setToggleIcon(Icons.ALL.power_input())
                     .setTooltip(noStripsToolTip)
@@ -358,7 +364,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
         @Override
         public void handleEvent(TableEvent event) {
-            if(SearchClearedEvent.SEARCH_EVENT_CLEARED.equals(event.getType())){
+            if (SearchClearedEvent.SEARCH_EVENT_CLEARED.equals(event.getType())) {
                 textBox.pauseChangeHandlers();
                 textBox.clear();
                 textBox.resumeChangeHandlers();
@@ -383,6 +389,45 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
             this.clearSearchToolTip = clearSearchToolTip;
             clearIcon.setTooltip(clearSearchToolTip);
             return this;
+        }
+    }
+
+    public static class ShowHideColumnsAction<T> implements HeaderActionElement<T> {
+        @Override
+        public Node asElement(DataTable<T> dataTable) {
+            Icon columnsIcon = Icons.ALL.view_column()
+                    .clickable();
+
+            DropDownMenu dropDownMenu = DropDownMenu.create(columnsIcon);
+            dropDownMenu
+                    .setPosition(DropDownPosition.BOTTOM_LEFT)
+                    .apply(columnsMenu -> dataTable.getTableConfig()
+                            .getColumns()
+                            .forEach(columnConfig -> {
+
+                                Icon checkIcon = Icons.ALL.check();
+                                columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(checkIcon.asElement(), true));
+                                FlexLayout itemElement = FlexLayout.create()
+                                        .appendChild(FlexItem.create()
+                                                .styler(style -> style.setWidth(Unit.px.of(24)))
+                                                .appendChild(checkIcon))
+                                        .appendChild(FlexItem.create().appendChild(TextNode.of(columnConfig.getTitle())));
+
+                                columnsMenu.addAction(DropdownAction.create(columnConfig.getName(), itemElement.asElement())
+                                        .setAutoClose(false)
+                                        .addSelectionHandler(value -> columnConfig.toggleDisplay(columnConfig.isHidden())));
+                            }));
+
+            columnsIcon.addClickListener(evt -> {
+                dropDownMenu.open();
+                evt.stopPropagation();
+            });
+            return columnsIcon.asElement();
+        }
+
+        @Override
+        public void handleEvent(TableEvent event) {
+
         }
     }
 }

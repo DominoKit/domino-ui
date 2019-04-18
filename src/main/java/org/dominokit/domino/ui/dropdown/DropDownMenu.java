@@ -179,7 +179,11 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     public DropDownMenu appendChild(DropdownAction action) {
-        action.addSelectionHandler(value -> close());
+        action.addSelectionHandler(value -> {
+            if(action.isAutoClose()) {
+                close();
+            }
+        });
         actions.add(action);
         menuElement.appendChild(action.asElement());
         return this;
