@@ -4,10 +4,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableRowElement;
 import elemental2.dom.HTMLTableSectionElement;
-import org.dominokit.domino.ui.datatable.ColumnConfig;
-import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.DataTableStyles;
-import org.dominokit.domino.ui.datatable.TableConfig;
+import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
@@ -57,6 +54,9 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
                 headerFilters.get(columnConfig.getName()).init(dataTable.getSearchContext(), columnConfig);
                 th.add(headerFilters.get(columnConfig.getName()));
             }
+
+            columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(th.asElement(), true));
+            DominoElement.of(th).toggleDisplay(!columnConfig.isHidden());
         });
 
         dataTable.tableElement().appendChild(thead);
