@@ -10,6 +10,8 @@ import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
@@ -55,6 +57,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
                 Tooltip.create(th.asElement(), columnConfig.getTooltipNode());
             }
             columnConfig.applyHeaderStyle();
+            columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(th.asElement(), true));
+            DominoElement.of(th).toggleDisplay(!columnConfig.isHidden());
 
             plugins.forEach(plugin -> plugin.onHeaderAdded(dataTable, columnConfig));
         });
@@ -94,6 +98,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
 
             tableRow.asElement().appendChild(cellElement);
             columnConfig.applyCellStyle(cellElement);
+            columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(cellElement));
+            DominoElement.of(cellElement).toggleDisplay(!columnConfig.isHidden());
         });
         rowAppender.appendRow(dataTable, tableRow);
 
@@ -201,6 +207,23 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
         return columns;
     }
 
+    public List<ColumnConfig<T>> getVisibleColumns() {
+        return columns.stream().filter(column -> !column.isHidden())
+                .collect(Collectors.toList());
+    }
+
+    public ColumnConfig<T> getColumnByName(String name) {
+        Optional<ColumnConfig<T>> first = getColumns()
+                .stream()
+                .filter(columnConfig -> columnConfig.getName().equals(name))
+                .findFirst();
+        if (first.isPresent()) {
+            return first.get();
+        } else {
+            throw new ColumnNofFoundException(name);
+        }
+    }
+
     public DataTable<T> getDataTable() {
         return dataTable;
     }
@@ -208,5 +231,11 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
     @FunctionalInterface
     public interface RowAppender<T> {
         void appendRow(DataTable<T> dataTable, TableRow<T> tableRow);
+    }
+
+    public static class ColumnNofFoundException extends RuntimeException {
+        public ColumnNofFoundException(String name) {
+            super(name);
+        }
     }
 }

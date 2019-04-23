@@ -22,6 +22,7 @@ public class DropdownAction extends BaseDominoElement<HTMLLIElement, DropdownAct
     private HTMLAnchorElement aElement;
     private List<SelectionHandler<String>> selectionHandlers = new ArrayList<>();
     private List<FocusHandler> focusHandlers = new ArrayList<>();
+    private boolean autoClose = true;
 
     public DropdownAction(String value, String displayValue) {
         this.value = value;
@@ -118,6 +119,15 @@ public class DropdownAction extends BaseDominoElement<HTMLLIElement, DropdownAct
 
     public DropdownAction addFocusHandler(FocusHandler focusHandler) {
         focusHandlers.add(focusHandler);
+        return this;
+    }
+
+    public boolean isAutoClose() {
+        return autoClose;
+    }
+
+    public DropdownAction setAutoClose(boolean autoClose) {
+        this.autoClose = autoClose;
         return this;
     }
 
