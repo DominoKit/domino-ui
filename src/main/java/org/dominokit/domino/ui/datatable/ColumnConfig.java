@@ -7,6 +7,10 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ScreenMedia;
 import org.dominokit.domino.ui.utils.TextNode;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.util.Objects.nonNull;
 
 public class ColumnConfig<T> {
@@ -31,8 +35,12 @@ public class ColumnConfig<T> {
     private Node tooltipNode;
     private boolean showTooltip = true;
 
+    private boolean hidden = false;
+
     private ScreenMedia showOn;
     private ScreenMedia hideOn;
+
+    private final List<ColumnShowHideListener> showHideListeners = new ArrayList<>();
 
     public static <T> ColumnConfig<T> create(String name) {
         return new ColumnConfig<>(name);
@@ -239,6 +247,48 @@ public class ColumnConfig<T> {
 
     public boolean isShowTooltip() {
         return showTooltip;
+    }
+
+    public ColumnConfig<T> addShowHideListener(ColumnShowHideListener showHideListener){
+        this.showHideListeners.add(showHideListener);
+        return this;
+    }
+
+    public ColumnConfig<T> removeShowHideListener(ColumnShowHideListener showHideListener){
+        this.showHideListeners.remove(showHideListener);
+        return this;
+    }
+
+    public ColumnConfig<T> show(){
+        this.showHideListeners.forEach(showHideListener -> showHideListener.onShowHide(true));
+        this.hidden = false;
+        return this;
+    }
+
+    public ColumnConfig<T> hide(){
+        this.showHideListeners.forEach(showHideListener -> showHideListener.onShowHide(false));
+        this.hidden = true;
+        return this;
+    }
+
+    public ColumnConfig<T> toggleDisplay(boolean visible){
+        if(visible){
+            return show();
+        }else {
+            return hide();
+        }
+    }
+
+    public void clearShowHideListners(){
+        List<ColumnShowHideListener> nonPermanent = showHideListeners.stream()
+                .filter(listener -> !listener.isPermanent())
+                .collect(Collectors.toList());
+
+        showHideListeners.removeAll(nonPermanent);
+    }
+
+    public boolean isHidden() {
+        return hidden;
     }
 
     @FunctionalInterface
