@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
 
@@ -77,21 +77,21 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
                 .add(leftPanelSize.getSize());
 
         MediaQuery.addOnSmallAndDownListener(() -> {
-            if(footer.isAutoUnFixForSmallScreens() && footer.isFixed()) {
+            if (footer.isAutoUnFixForSmallScreens() && footer.isFixed()) {
                 fixedFooter = true;
                 unfixFooter();
             }
         });
 
         MediaQuery.addOnSmallAndDownListener(() -> {
-            if(footer.isAutoUnFixForSmallScreens() && isFooterVisible()) {
+            if (footer.isAutoUnFixForSmallScreens() && isFooterVisible()) {
                 fixedFooter = true;
                 unfixFooter();
             }
         });
 
         MediaQuery.addOnMediumAndUpListener(() -> {
-            if(footer.isAutoUnFixForSmallScreens() && nonNull(fixedFooter) && fixedFooter && isFooterVisible()) {
+            if (footer.isAutoUnFixForSmallScreens() && nonNull(fixedFooter) && fixedFooter && isFooterVisible()) {
                 fixFooter();
             }
         });
@@ -483,7 +483,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
                 .getLogoItem()
                 .clearElement()
                 .appendChild(imageElement)
-                .css( "logo-in");
+                .css("logo-in");
         return this;
     }
 
@@ -514,9 +514,16 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public Layout hideNavBarExpand() {
-        navigationBar
-                .getMenuToggleItem()
-                .hideOn(ScreenMedia.SMALL_AND_DOWN);
+        navigationBar.getMenuToggleItem().hide();
+        return this;
+    }
+
+    public Layout hideNavBarExpandOnSmallDown() {
+        return hideNavBarExpandOn(ScreenMedia.SMALL_AND_DOWN);
+    }
+
+    public Layout hideNavBarExpandOn(ScreenMedia screenMedia) {
+        navigationBar.getMenuToggleItem().hideOn(screenMedia);
         return this;
     }
 
