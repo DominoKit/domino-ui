@@ -37,6 +37,8 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     private HTMLLIElement collapseAction;
     private BaseIcon collapseIcon;
     private Collapsible bodyCollapsible;
+    private Color headerBackground;
+    private Color bodyBackground;
 
     public Card() {
         headerTitle
@@ -133,13 +135,21 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         return this;
     }
 
-    public Card setHeaderBackground(Color background) {
-        header.style().add(background.getBackground());
+    public Card setHeaderBackground(Color headerBackground) {
+        if (nonNull(this.headerBackground)) {
+            header.style().remove(this.headerBackground.getBackground());
+        }
+        this.headerBackground = headerBackground;
+        header.style().add(headerBackground.getBackground());
         return this;
     }
 
-    public Card setBodyBackground(Color background) {
-        body.style().add(background.getBackground());
+    public Card setBodyBackground(Color bodyBackground) {
+        if (nonNull(this.bodyBackground)) {
+            body.style().remove(this.bodyBackground.getBackground());
+        }
+        this.bodyBackground = bodyBackground;
+        body.style().add(bodyBackground.getBackground());
         return this;
     }
 
@@ -301,15 +311,15 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         return this;
     }
 
-    public Card showHeader(){
-       return setHeaderVisible(true);
+    public Card showHeader() {
+        return setHeaderVisible(true);
     }
 
-    public Card hideHeader(){
+    public Card hideHeader() {
         return setHeaderVisible(false);
     }
 
-    public Card setHeaderVisible(boolean headerVisible){
+    public Card setHeaderVisible(boolean headerVisible) {
         this.header.toggleDisplay(headerVisible);
         return this;
     }
