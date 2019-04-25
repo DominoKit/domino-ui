@@ -647,7 +647,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @FunctionalInterface
     public interface ElementHandler<T> {
-        void handleElement(T element);
+        void handleElement(T self);
     }
 
 }
