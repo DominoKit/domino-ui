@@ -324,6 +324,18 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         }
         return this;
     }
+    public Select<T> setKey(String key) {
+        return setKey(key, false);
+    }
+
+    public Select<T> setKey(String key, boolean silent) {
+        for (SelectOption<T> option : getOptions()) {
+            if (option.getKey().equals(key)) {
+                select(option, silent);
+            }
+        }
+        return this;
+    }
 
     @Override
     public T getValue() {
