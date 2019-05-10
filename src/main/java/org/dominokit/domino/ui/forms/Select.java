@@ -68,8 +68,16 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         return new Select<>(label, options);
     }
 
-    public static <T> Select create(List<SelectOption<T>> options) {
+    public static <T> Select<T> create(List<SelectOption<T>> options) {
         return new Select<>(options);
+    }
+
+    public static <T extends Enum<T>> Select<T> ofEnum(String label, T[] values) {
+        Select<T> select = create(label);
+        for (T value : values) {
+            select.appendChild(SelectOption.create(value, value.name(), value.toString()));
+        }
+        return select;
     }
 
     public Select() {
@@ -324,6 +332,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         }
         return this;
     }
+
     public Select<T> setKey(String key) {
         return setKey(key, false);
     }
