@@ -6,6 +6,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -19,7 +20,8 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
     private final FlexItem logoItem;
     private final FlexItem actionBarItem;
 
-    private DominoElement<HTMLElement> navBar = DominoElement.of(nav().css("navbar").css("ls-closed"));
+    private DominoElement<HTMLElement> navBar = DominoElement.of(nav().css("navbar")
+            .css("ls-closed"));
     private FlexLayout container = FlexLayout.create().css("container-fluid");
 
     DominoElement<HTMLAnchorElement> title = DominoElement.of(a().css("navbar-brand"));

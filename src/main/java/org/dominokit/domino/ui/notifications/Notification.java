@@ -4,7 +4,9 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
@@ -12,9 +14,9 @@ import org.jboss.gwt.elemento.template.Templated;
 import javax.annotation.PostConstruct;
 
 import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
-@Templated
-public abstract class Notification extends BaseDominoElement<HTMLDivElement, Notification> implements IsElement<HTMLDivElement> {
+public class Notification extends BaseDominoElement<HTMLDivElement, Notification> implements IsElement<HTMLDivElement> {
 
     public static final Position TOP_LEFT = new TopLeftPosition();
     public static final Position TOP_CENTER = new TopCenterPosition();
@@ -24,11 +26,28 @@ public abstract class Notification extends BaseDominoElement<HTMLDivElement, Not
     public static final Position BOTTOM_CENTER = new BottomCenterPosition();
     public static final Position BOTTOM_RIGHT = new BottomRightPosition();
 
-    @DataElement
-    HTMLButtonElement closeButton;
+    private HTMLButtonElement closeButton = button()
+            .attr("type","button")
+            .attr("aria-hidden", "true")
+            .css(NotificationStyles.CLOSE)
+            .style("position: absolute; right: 10px; top: 5px; z-index: 1033;")
+            .textContent("×")
+            .asElement();
 
-    @DataElement
-    HTMLElement messageSpan;
+    private HTMLElement messageSpan = span().asElement();
+
+    private HTMLDivElement element = div()
+            .css(NotificationStyles.BOOTSTRAP_NOTIFY_CONTAINER)
+            .css(NotificationStyles.ALERT)
+            .css(NotificationStyles.ALERT_DISMISSIBLE)
+            .css(Styles.default_shadow)
+            .css(Styles.p_r_35)
+            .attr("role","alert")
+            .attr("data-position","20")
+            .style("display: inline-block; position: fixed; transition: all 800ms ease-in-out; z-index: 99999999;")
+            .add(closeButton)
+            .add(messageSpan)
+            .asElement();
 
     private int duration = 4000;
     private Transition inTransition = Transition.FADE_IN;
@@ -37,25 +56,24 @@ public abstract class Notification extends BaseDominoElement<HTMLDivElement, Not
     private Color background = Color.BLACK;
     private String type;
 
-    @PostConstruct
-    void init() {
+    public Notification() {
         init(this);
     }
 
     public static Notification createDanger(String message) {
-        return create(message, "alert-danger");
+        return create(message, NotificationStyles.ALERT_DANGER);
     }
 
     public static Notification createSuccess(String message) {
-        return create(message, "alert-success");
+        return create(message, NotificationStyles.ALERT_SUCCESS);
     }
 
     public static Notification createWarning(String message) {
-        return create(message, "alert-warning");
+        return create(message, NotificationStyles.ALERT_WARNING);
     }
 
     public static Notification createInfo(String message) {
-        return create(message, "alert-info");
+        return create(message, NotificationStyles.ALERT_INFO);
     }
 
     public static Notification create(String message, String type) {
@@ -67,7 +85,7 @@ public abstract class Notification extends BaseDominoElement<HTMLDivElement, Not
     }
 
     public static Notification create(String message) {
-        Notification notification = new Templated_Notification();
+        Notification notification = new Notification();
         notification.messageSpan.textContent = message;
         notification.style().add(notification.background.getBackground());
         notification.closeButton.addEventListener("click", e -> notification.close());
@@ -136,6 +154,11 @@ public abstract class Notification extends BaseDominoElement<HTMLDivElement, Not
                 .animate();
 
         return this;
+    }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return element;
     }
 
     public interface Position {

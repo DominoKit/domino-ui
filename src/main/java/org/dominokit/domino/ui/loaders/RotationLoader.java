@@ -2,28 +2,39 @@ package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.Styles;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
 
-import javax.annotation.PostConstruct;
+import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
+import static org.jboss.gwt.elemento.core.Elements.div;
 
-@Templated
-public abstract class RotationLoader extends BaseLoader<RotationLoader> implements IsElement<HTMLDivElement> {
+public class RotationLoader extends BaseLoader<RotationLoader> implements IsElement<HTMLDivElement> {
 
-    @DataElement
-    HTMLDivElement loadingText;
+    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("border-color:#555").asElement();
 
-    @DataElement
-    HTMLDivElement loader;
+    private HTMLDivElement loader = div()
+            .css(WAIT_ME_PROGRESS)
+            .css(LoaderStyles.ROTATION)
+            .add(progress1)
+            .asElement();
 
-    @PostConstruct
-    void init() {
+    private HTMLDivElement element = div()
+            .css(WAIT_ME)
+            .style("background: rgba(255, 255, 255, 0.9);")
+            .add(div()
+                    .css(WAIT_ME_CONTENT)
+                    .css(Styles.vertical_center)
+                    .add(loader)
+                    .add(loadingText)
+                    .asElement())
+            .asElement();
+
+    public RotationLoader() {
         init(this);
     }
 
     public static RotationLoader create() {
-        return new Templated_RotationLoader();
+        return new RotationLoader();
     }
 
     @Override
@@ -41,5 +52,10 @@ public abstract class RotationLoader extends BaseLoader<RotationLoader> implemen
     @Override
     public void removeLoadingText() {
         onAttached(mutationRecord -> loadingText.remove());
+    }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return element;
     }
 }

@@ -96,6 +96,21 @@ public class ColumnConfig<T> {
         return this;
     }
 
+    public ColumnConfig<T> alignLeft() {
+        textAlign("left");
+        return this;
+    }
+
+    public ColumnConfig<T> alignRight() {
+        textAlign("right");
+        return this;
+    }
+
+    public ColumnConfig<T> alignCenter() {
+        textAlign("center");
+        return this;
+    }
+
     public HeaderElement getHeaderElement() {
         return headerElement;
     }
