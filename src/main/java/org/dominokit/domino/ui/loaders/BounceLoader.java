@@ -2,35 +2,43 @@ package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.Styles;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
 
-import javax.annotation.PostConstruct;
+import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
+import static org.jboss.gwt.elemento.core.Elements.div;
 
+public class BounceLoader extends BaseLoader<BounceLoader> implements IsElement<HTMLDivElement> {
 
-@Templated
-public abstract class BounceLoader extends BaseLoader<BounceLoader> implements IsElement<HTMLDivElement> {
+    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555;").asElement();
+    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555;").asElement();
+    private HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#555;").asElement();
 
-    @DataElement
-    HTMLDivElement loadingText;
+    private HTMLDivElement loader = div()
+            .css(WAIT_ME_PROGRESS)
+            .css(BOUNCE)
+            .add(progress1)
+            .add(progress2)
+            .add(progress3)
+            .asElement();
 
-    @DataElement
-    HTMLDivElement progress1;
+    private final HTMLDivElement element = div()
+            .css(WAIT_ME)
+            .style("background: rgba(255, 255, 255, 0.9);")
+            .add(div()
+                    .css(WAIT_ME_CONTENT)
+                    .css(Styles.vertical_center)
+                    .add(loader)
+                    .add(loadingText)
+            )
+            .asElement();
 
-    @DataElement
-    HTMLDivElement progress2;
-
-    @DataElement
-    HTMLDivElement progress3;
-
-    @PostConstruct
-    void init() {
+    public BounceLoader() {
         init(this);
     }
 
     public static BounceLoader create() {
-        return new Templated_BounceLoader();
+        return new BounceLoader();
     }
 
     @Override
@@ -41,14 +49,17 @@ public abstract class BounceLoader extends BaseLoader<BounceLoader> implements I
     @Override
     public void setSize(String width, String height) {
         onAttached(mutationRecord -> {
-            Style.of(progress1).setWidth(width).setHeight(height);
-            Style.of(progress2).setWidth(width).setHeight(height);
-            Style.of(progress3).setWidth(width).setHeight(height);
+            Style.of(loader).setWidth(width).setHeight(height);
         });
     }
 
     @Override
     public void removeLoadingText() {
         onAttached(mutationRecord -> loadingText.remove());
+    }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return element;
     }
 }

@@ -103,6 +103,13 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
         return this;
     }
 
+    public Breadcrumb removeAll() {
+        items.forEach(BaseDominoElement::remove);
+        items.clear();
+        this.activeItem = null;
+        return this;
+    }
+
     @Override
     public HTMLOListElement asElement() {
         return element.asElement();

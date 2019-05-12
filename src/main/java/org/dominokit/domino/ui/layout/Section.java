@@ -3,26 +3,44 @@ package org.dominokit.domino.ui.layout;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.template.DataElement;
 import org.jboss.gwt.elemento.template.Templated;
 
 import javax.annotation.PostConstruct;
 
-@Templated
-public abstract class Section extends BaseDominoElement<HTMLElement, Section> {
-    @DataElement
-    HTMLElement leftSide;
+import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.aside;
 
-    @DataElement
+public class Section extends BaseDominoElement<HTMLElement, Section> {
+
+    HTMLElement section;
+    HTMLElement leftSide;
     HTMLElement rightSide;
 
-    @PostConstruct
-    void init() {
+    public Section() {
+        leftSide = aside()
+                .id("leftsidebar")
+                .css(LayoutStyles.SIDEBAR)
+                .asElement();
+
+        rightSide = aside()
+                .id("rightsidebar")
+                .css(LayoutStyles.RIGHT_SIDEBAR)
+                .css(LayoutStyles.OVERLAY_OPEN)
+                .style("height: calc(100vh - 70px); overflow-y: scroll;")
+                .asElement();
+
+        section = section()
+                .add(leftSide)
+                .add(rightSide)
+                .asElement();
+
         init(this);
     }
 
     public static Section create() {
-        return new Templated_Section();
+        return new Section();
     }
 
     public DominoElement<HTMLElement> getLeftSide() {
@@ -31,5 +49,10 @@ public abstract class Section extends BaseDominoElement<HTMLElement, Section> {
 
     public DominoElement<HTMLElement> getRightSide() {
         return DominoElement.of(rightSide);
+    }
+
+    @Override
+    public HTMLElement asElement() {
+        return section;
     }
 }
