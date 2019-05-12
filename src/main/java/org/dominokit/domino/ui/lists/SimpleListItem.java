@@ -1,14 +1,10 @@
 package org.dominokit.domino.ui.lists;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.badges.Badge;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.HasBackground;
-import org.dominokit.domino.ui.utils.HtmlComponentBuilder;
-import org.dominokit.domino.ui.utils.IsHtmlComponent;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
@@ -17,15 +13,19 @@ import static org.jboss.gwt.elemento.core.Elements.li;
 public class SimpleListItem extends BaseListItem<HTMLLIElement, SimpleListItem> implements HasBackground<SimpleListItem> {
 
     private String style;
+    private HTMLLIElement element= li()
+            .css(ListStyles.LIST_GROUP_ITEM)
+            .asElement();
 
-
-    private SimpleListItem(String text) {
-        super(li().css("list-group-item").textContent(text).asElement());
+    public SimpleListItem() {
+        setElement(element);
         init(this);
     }
 
     public static SimpleListItem create(String text) {
-        return new SimpleListItem(text);
+        SimpleListItem simpleListItem = new SimpleListItem();
+        simpleListItem.element.textContent = text;
+        return simpleListItem;
     }
 
     public SimpleListItem setStyle(ListGroupStyle itemStyle) {
@@ -54,15 +54,6 @@ public class SimpleListItem extends BaseListItem<HTMLLIElement, SimpleListItem> 
 
     public SimpleListItem setText(String content) {
         setBodyText(content);
-        return this;
-    }
-
-    /**
-     * @deprecated use {@link #appendChild(Node)}
-     */
-    @Deprecated
-    public SimpleListItem appendContent(Node content) {
-        asElement().appendChild(content);
         return this;
     }
 

@@ -7,23 +7,27 @@ import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
-
-import javax.annotation.PostConstruct;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.h;
 
-@Templated
-public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> implements IsElement<HTMLDivElement> {
+public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> implements IsElement<HTMLDivElement> {
 
-    @DataElement
-    HTMLDivElement mediaBody;
+    private HTMLHeadingElement mediaHeader = h(4)
+            .css(MediaStyles.MEDIA_HEADING)
+            .asElement();
 
-    @DataElement
-    HTMLHeadingElement mediaHeader;
+    private HTMLDivElement mediaBody = div()
+            .css(MediaStyles.MEDIA_BODY)
+            .add(mediaHeader)
+            .asElement();
+
+    private HTMLDivElement element = div()
+            .css(MediaStyles.MEDIA)
+            .add(mediaBody)
+            .asElement();
 
     private DominoElement<HTMLDivElement> leftMedia;
     private DominoElement<HTMLDivElement> rightMedia;
@@ -31,13 +35,12 @@ public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, Medi
     private MediaAlign leftAlign = MediaAlign.TOP;
     private MediaAlign rightAlign = MediaAlign.TOP;
 
-    @PostConstruct
-    void init() {
+    public MediaObject() {
         init(this);
     }
 
     public static MediaObject create() {
-        return new Templated_MediaObject();
+        return new MediaObject();
     }
 
     public MediaObject setHeader(String header) {
@@ -47,7 +50,7 @@ public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, Medi
 
     public MediaObject setLeftMedia(Node content) {
         if (isNull(leftMedia)) {
-            leftMedia = DominoElement.of(div().css("media-left"));
+            leftMedia = DominoElement.of(div().css(MediaStyles.MEDIA_LEFT));
             insertBefore(leftMedia, mediaBody);
         }
 
@@ -62,7 +65,7 @@ public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, Medi
 
     public MediaObject setRightMedia(Node content) {
         if (isNull(rightMedia)) {
-            rightMedia = DominoElement.of(div().css("media-right").css(Styles.pull_right));
+            rightMedia = DominoElement.of(div().css(MediaStyles.MEDIA_RIGHT).css(Styles.pull_right));
             appendChild(rightMedia);
         }
 
@@ -73,14 +76,6 @@ public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, Medi
 
     public MediaObject setRightMedia(IsElement element) {
         return setRightMedia(element.asElement());
-    }
-
-    /**
-     * @deprecated use {@link #appendChild(Node)}
-     */
-    @Deprecated
-    public MediaObject appendContent(Node content) {
-        return appendChild(content);
     }
 
     public MediaObject appendChild(Node content) {
@@ -126,10 +121,15 @@ public abstract class MediaObject extends BaseDominoElement<HTMLDivElement, Medi
         return rightMedia;
     }
 
+    @Override
+    public HTMLDivElement asElement() {
+        return element;
+    }
+
     public enum MediaAlign {
-        MIDDLE("media-middle"),
-        BOTTOM("media-bottom"),
-        TOP("media-top");
+        MIDDLE(MediaStyles.MEDIA_MIDDLE),
+        BOTTOM(MediaStyles.MEDIA_BOTTOM),
+        TOP(MediaStyles.MEDIA_TOP);
 
         private final String style;
 
