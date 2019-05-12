@@ -257,6 +257,16 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
         return super.enable();
     }
 
+    /**
+     * Parse time with format hh:mm
+     *
+     * @param time with correct format
+     */
+    public TimeBox parseTime(String time) {
+        timePicker.parseTime(time);
+        return this;
+    }
+
     private void disablePopover() {
         if (nonNull(popover)) {
             popover.disable();
