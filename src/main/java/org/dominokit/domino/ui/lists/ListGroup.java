@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
 import org.dominokit.domino.ui.utils.HasSelectionSupport;
@@ -20,13 +21,16 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
     private List<SelectionChangeHandler<T>> selectionHandlers = new ArrayList<>();
     private boolean selectable = true;
 
-    private ListGroup(HTMLDivElement element) {
-        this.element = element;
+    public ListGroup() {
+        this.element = div()
+                .css(ListStyles.LIST_GROUP)
+                .css(Styles.default_shadow)
+                .asElement();
         init(this);
     }
 
     public static <T> ListGroup<T> create() {
-        return new ListGroup<>(div().css("list-group").asElement());
+        return new ListGroup<>();
     }
 
     public ListItem<T> addItem(T value) {
@@ -44,15 +48,6 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
         allItems.add(listItem);
         asElement().appendChild(listItem.asElement());
         return listItem;
-    }
-
-
-    /**
-     * @deprecated use {@link #appendChild(ListItem)}
-     */
-    @Deprecated
-    public ListGroup<T> appendItem(ListItem<T> listItem) {
-        return appendChild(listItem);
     }
 
     public ListGroup<T> appendChild(ListItem<T> listItem) {

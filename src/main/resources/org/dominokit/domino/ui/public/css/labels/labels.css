@@ -1,0 +1,48 @@
+/* Labels ====================================== */
+.label-default {
+    background-color: #777;
+}
+
+.label-primary {
+    background-color: #1f91f3;
+}
+
+.label-success {
+    background-color: #2b982b;
+}
+
+.label-info {
+    background-color: #00b0e4;
+}
+
+.label-warning {
+    background-color: #ff9600;
+}
+
+.label-danger {
+    background-color: #fb483a;
+}
+
+.label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0;
+}
+
+a.label:hover,
+a.label:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.label:empty {
+    display: none;
+}

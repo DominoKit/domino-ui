@@ -227,14 +227,14 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
 
     private void hideOverlay() {
         if (overlayVisible) {
-            overlay.style().setDisplay(NONE);
+            overlay.style().setDisplay("none");
             overlayVisible = false;
         }
     }
 
     private void showOverlay() {
         if (!overlayVisible) {
-            overlay.style().setDisplay(BLOCK);
+            overlay.style().setDisplay("block");
             overlayVisible = true;
         }
     }
