@@ -8,18 +8,29 @@ import org.jboss.gwt.elemento.template.Templated;
 
 import javax.annotation.PostConstruct;
 
-@Templated
-public abstract class Content extends BaseDominoElement<HTMLElement, Content> {
+import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.section;
 
-    @DataElement
+public class Content extends BaseDominoElement<HTMLElement, Content> {
+
     HTMLDivElement contentContainer;
+    HTMLElement section;
 
-    @PostConstruct
-    void init(){
+    public Content() {
+        contentContainer = div().css(LayoutStyles.CONTENT_PANEL).asElement();
+        section = section()
+                .css(LayoutStyles.CONTENT)
+                .add(contentContainer)
+                .asElement();
         init(this);
     }
 
     public static Content create(){
-        return new Templated_Content();
+        return new Content();
+    }
+
+    @Override
+    public HTMLElement asElement() {
+        return section;
     }
 }

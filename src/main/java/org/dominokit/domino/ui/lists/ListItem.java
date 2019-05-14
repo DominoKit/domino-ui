@@ -21,9 +21,10 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     private boolean selected = false;
     private boolean disabled = false;
     private String style;
+    private HTMLAnchorElement element= a().css(ListStyles.LIST_GROUP_ITEM).asElement();
 
     public ListItem(T value) {
-        super(a().css("list-group-item").asElement());
+        setElement(element);
         this.value = value;
         addEventListener("click", e -> {
             if (!disabled) {

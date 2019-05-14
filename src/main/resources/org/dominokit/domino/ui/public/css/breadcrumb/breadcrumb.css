@@ -47,3 +47,8 @@
 .breadcrumb li .material-icons {
     width: 18px;
 }
+
+.breadcrumb li[disabled] a{
+    cursor: default !important;
+    text-decoration: none;
+}

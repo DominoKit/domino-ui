@@ -13,22 +13,25 @@ import static java.util.Objects.isNull;
 import static org.jboss.gwt.elemento.core.Elements.h;
 import static org.jboss.gwt.elemento.core.Elements.p;
 
-public class BaseListItem<E extends HTMLElement, T extends BaseListItem<E, T>> extends BaseDominoElement<E, T> {
+public abstract class BaseListItem<E extends HTMLElement, T extends BaseListItem<E, T>> extends BaseDominoElement<E, T> {
 
     private E element;
     protected HTMLHeadingElement header;
     protected HTMLParagraphElement body;
 
-    BaseListItem(E element) {
+    BaseListItem() {
+    }
+
+    void setElement(E element) {
         this.element = element;
     }
 
     void setHeaderText(String heading) {
         if (isNull(header)) {
-            body = p().css("list-group-item-text").asElement();
-            body.innerHTML = element.innerHTML;
-            ElementUtil.clear(element);
-            header = h(4).css("list-group-item-heading").asElement();
+            body = p().css(ListStyles.LIST_GROUP_ITEM_TEXT).asElement();
+            body.innerHTML = asElement().innerHTML;
+            ElementUtil.clear(asElement());
+            header = h(4).css(ListStyles.LIST_GROUP_ITEM_HEADING).asElement();
             header.textContent = heading;
             element.appendChild(header);
             element.appendChild(body);

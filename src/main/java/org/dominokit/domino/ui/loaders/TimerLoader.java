@@ -2,29 +2,42 @@ package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.style.Styles;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
 
-import javax.annotation.PostConstruct;
+import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
+import static org.jboss.gwt.elemento.core.Elements.div;
 
-@Templated
-public abstract class TimerLoader extends BaseLoader<TimerLoader> implements IsElement<HTMLDivElement> {
+public class TimerLoader extends BaseLoader<TimerLoader> implements IsElement<HTMLDivElement> {
 
-    @DataElement
-    HTMLDivElement loadingText;
+    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555").asElement();
+    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555").asElement();
 
-    @DataElement
-    HTMLDivElement loader;
+    private HTMLDivElement loader = div()
+            .css(WAIT_ME_PROGRESS)
+            .css(TIMER)
+            .style("border-color:#555;")
+            .add(progress1)
+            .add(progress2)
+            .asElement();
 
-    @PostConstruct
-    void init() {
+    private HTMLDivElement element = div()
+            .css(WAIT_ME)
+            .style("background: rgba(255, 255, 255, 0.9);")
+            .add(div()
+                    .css(WAIT_ME_CONTENT)
+                    .css(Styles.vertical_center)
+                    .add(loader)
+                    .add(loadingText)
+            )
+            .asElement();
+
+    public TimerLoader() {
         init(this);
     }
 
     public static TimerLoader create() {
-        return new Templated_TimerLoader();
+        return new TimerLoader();
     }
 
     @Override
@@ -42,5 +55,10 @@ public abstract class TimerLoader extends BaseLoader<TimerLoader> implements IsE
     @Override
     public void removeLoadingText() {
         onAttached(mutationRecord -> loadingText.remove());
+    }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return element;
     }
 }
