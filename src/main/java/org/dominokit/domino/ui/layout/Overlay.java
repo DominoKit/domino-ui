@@ -3,19 +3,25 @@ package org.dominokit.domino.ui.layout;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.Templated;
 
-import javax.annotation.PostConstruct;
+import static org.jboss.gwt.elemento.core.Elements.div;
 
-@Templated
-public abstract class Overlay extends BaseDominoElement<HTMLDivElement, Overlay> implements IsElement<HTMLDivElement> {
+public class Overlay extends BaseDominoElement<HTMLDivElement, Overlay> implements IsElement<HTMLDivElement> {
 
-    @PostConstruct
-    void init(){
+    private HTMLDivElement element;
+
+    public Overlay() {
+        element = div().css(LayoutStyles.OVERLAY)
+                .asElement();
         init(this);
     }
 
     public static Overlay create(){
-        return new Templated_Overlay();
+        return new Overlay();
+    }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return element;
     }
 }

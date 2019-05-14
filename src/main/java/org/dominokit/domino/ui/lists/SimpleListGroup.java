@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 import static org.jboss.gwt.elemento.core.Elements.ul;
@@ -9,49 +10,24 @@ public class SimpleListGroup extends BaseDominoElement<HTMLUListElement, SimpleL
 
     private final HTMLUListElement element;
 
-    private SimpleListGroup(HTMLUListElement element){
-        this.element=element;
+    private SimpleListGroup() {
+        this.element = ul()
+                .css(ListStyles.LIST_GROUP)
+                .css(Styles.default_shadow)
+                .asElement();
         init(this);
     }
 
-    public static SimpleListGroup create(){
-        return new SimpleListGroup(ul().css("list-group").asElement());
+    public static SimpleListGroup create() {
+        return new SimpleListGroup();
     }
 
-    /**
-     * @deprecated use {@link #appendChild(String)}
-     */
-    @Deprecated
-    public SimpleListItem addItem(String content){
-        SimpleListItem item = SimpleListItem.create(content);
-        element.appendChild(item.asElement());
-        return item;
-    }
-
-    /**
-     * @deprecated use {@link #appendChild(String)}
-     */
-    @Deprecated
-    public SimpleListGroup appendItem(String content){
+    public SimpleListGroup appendChild(String content) {
         element.appendChild(SimpleListItem.create(content).asElement());
         return this;
     }
 
-    public SimpleListGroup appendChild(String content){
-        element.appendChild(SimpleListItem.create(content).asElement());
-        return this;
-    }
-
-    /**
-     * @deprecated use {@link #appendChild(SimpleListItem)}
-     */
-    @Deprecated
-    public SimpleListGroup appendItem(SimpleListItem item){
-        element.appendChild(item.asElement());
-        return this;
-    }
-
-    public SimpleListGroup appendChild(SimpleListItem item){
+    public SimpleListGroup appendChild(SimpleListItem item) {
         element.appendChild(item.asElement());
         return this;
     }
