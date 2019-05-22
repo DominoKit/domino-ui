@@ -814,17 +814,6 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         return this;
     }
 
-    public void parseTime(String time) {
-        if (nonNull(time) && time.contains(":")) {
-            String[] timeParts = time.split(":");
-            if (timeParts.length > 2) {
-                int hours = Integer.parseInt(timeParts[0]);
-                setHour(hours);
-                setminute(Integer.parseInt(timeParts[1]));
-            }
-        }
-    }
-
     @FunctionalInterface
     interface ColorSchemeHandler {
         void onColorSchemeChanged(ColorScheme oldColorScheme, ColorScheme newColorScheme);
