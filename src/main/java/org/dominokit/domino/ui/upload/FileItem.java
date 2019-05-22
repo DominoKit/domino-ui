@@ -13,7 +13,6 @@ import org.dominokit.domino.ui.thumbnails.Thumbnail;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +50,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private XMLHttpRequest request;
     private boolean canceled;
     private boolean uploaded;
-
+    private String fileName;
 
     public static FileItem create(File file, UploadOptions options) {
         return new FileItem(file, options);
@@ -71,9 +70,9 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
             invalidate("File is too large, maximum file size is " + formatSize(options.getMaxFileSize()));
         }
 
-        request =new XMLHttpRequest();
+        request = new XMLHttpRequest();
         init(this);
-
+        this.fileName = file.name;
     }
 
     private void initFileImage() {
@@ -260,7 +259,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
             });
             request.open("post", options.getUrl());
             FormData formData = new FormData();
-            formData.append(file.name, file);
+            formData.append(fileName, file);
             beforeUploadHandlers.forEach(handler -> handler.onBeforeUpload(request, formData));
             request.send(formData);
         }
@@ -346,9 +345,17 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         return this;
     }
 
-    public FileItem setUrl(String url){
+    public FileItem setUrl(String url) {
         options.setUrl(url);
         return this;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public FileImage getFileImage() {

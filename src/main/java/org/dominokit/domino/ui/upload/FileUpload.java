@@ -200,6 +200,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
 
     public FileUpload setUrl(String url) {
         this.url = url;
+        addedFileItems.forEach(fileItem -> fileItem.setUrl(url));
         return this;
     }
 
