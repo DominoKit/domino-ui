@@ -33,7 +33,6 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class TimePicker implements IsElement<HTMLDivElement> {
 
-
     private DominoElement<HTMLDivElement> pickerContentContainer;
     private Clock clock;
 
