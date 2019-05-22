@@ -507,9 +507,13 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         if (readOnly) {
             formControl.style().add("readonly");
             iconContainer.hide();
+            floatLabel();
         } else {
             formControl.style().remove("readonly");
             iconContainer.show();
+            if (isEmpty()) {
+                unfloatLabel();
+            }
         }
         buttonElement.setReadOnly(readOnly);
         return this;
