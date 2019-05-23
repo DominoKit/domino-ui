@@ -120,6 +120,10 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         return active;
     }
 
+    public DominoElement<HTMLElement> getTitleElement() {
+        return DominoElement.of(titleElement);
+    }
+
     @Override
     public HTMLElement getWavesElement() {
         return anchorElement;
