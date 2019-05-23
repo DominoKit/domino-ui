@@ -373,6 +373,12 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         return this;
     }
 
+    public Layout spanLeftPanelUp(){
+            DominoElement.body()
+                    .style().add("l-panel-span-up");
+            return this;
+    }
+
     private Style<HTMLBodyElement, IsElement<HTMLBodyElement>> bodyStyle() {
         return Style.of(document.body);
     }
