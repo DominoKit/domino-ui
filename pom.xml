@@ -209,6 +209,49 @@
                         <autoReleaseAfterClose>false</autoReleaseAfterClose>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>com.samaxes.maven</groupId>
+                    <artifactId>minify-maven-plugin</artifactId>
+                    <version>1.7.6</version>
+                    <executions>
+                        <execution>
+                            <id>default-minify</id>
+                            <configuration>
+                                <charset>UTF-8</charset>
+                                <cssIncludes>
+                                    <cssInclude>**/*.css</cssInclude>
+                                </cssIncludes>
+
+                                <cssExcludes>
+                                    <cssExclude>domino-ui.css</cssExclude>
+                                    <cssExclude>colors.css</cssExclude>
+                                    <cssExclude>loaders/waitMe.css</cssExclude>
+                                    <cssExclude>grid.css</cssExclude>
+                                    <cssExclude>material-icons.css</cssExclude>
+                                    <cssExclude>**/*.min.css</cssExclude>
+                                    <cssExclude>**/themes/*.css</cssExclude>
+                                    <cssExclude>bootstrap.css</cssExclude>
+                                    <cssExclude>waves.css</cssExclude>
+                                    <cssExclude>style.css</cssExclude>
+                                </cssExcludes>
+
+                                <webappSourceDir>${basedir}/src/main/resources</webappSourceDir>
+                                <webappTargetDir>${build.directory}</webappTargetDir>
+                                <cssTargetDir>/classes/org/dominokit/domino/ui/public/css</cssTargetDir>
+
+                                <cssSourceDir>/org/dominokit/domino/ui/public/css</cssSourceDir>
+
+                                <cssFinalFile>domino-ui-components.css</cssFinalFile>
+
+                                <cssEngine>YUI</cssEngine>
+
+                            </configuration>
+                            <goals>
+                                <goal>minify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -237,47 +280,6 @@
                         <groupId>com.samaxes.maven</groupId>
                         <artifactId>minify-maven-plugin</artifactId>
                         <version>1.7.6</version>
-                        <executions>
-                            <execution>
-                                <id>default-minify</id>
-                                <configuration>
-                                    <charset>UTF-8</charset>
-                                    <cssIncludes>
-                                        <cssInclude>**/*.css</cssInclude>
-                                    </cssIncludes>
-
-                                    <cssExcludes>
-                                        <cssExclude>domino-ui.css</cssExclude>
-                                        <cssExclude>colors.css</cssExclude>
-                                        <cssExclude>loaders/waitMe.css</cssExclude>
-                                        <cssExclude>grid.css</cssExclude>
-                                        <cssExclude>material-icons.css</cssExclude>
-                                        <cssExclude>**/*.min.css</cssExclude>
-                                        <cssExclude>**/themes/*.css</cssExclude>
-                                        <cssExclude>bootstrap.css</cssExclude>
-                                        <cssExclude>waves.css</cssExclude>
-<!--                                        <cssExclude>animate.css</cssExclude>-->
-<!--                                        <cssExclude>materialize.css</cssExclude>-->
-<!--                                        <cssExclude>materialize-stepper.css</cssExclude>-->
-                                        <cssExclude>style.css</cssExclude>
-                                    </cssExcludes>
-
-                                    <webappSourceDir>${basedir}/src/main/resources</webappSourceDir>
-                                    <webappTargetDir>${build.directory}</webappTargetDir>
-                                    <cssTargetDir>/classes/org/dominokit/domino/ui/public/css</cssTargetDir>
-
-                                    <cssSourceDir>/org/dominokit/domino/ui/public/css</cssSourceDir>
-
-                                    <cssFinalFile>domino-ui-components.css</cssFinalFile>
-
-                                    <cssEngine>YUI</cssEngine>
-
-                                </configuration>
-                                <goals>
-                                    <goal>minify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>
@@ -323,6 +325,11 @@
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.samaxes.maven</groupId>
+                        <artifactId>minify-maven-plugin</artifactId>
+                        <version>1.7.6</version>
                     </plugin>
                 </plugins>
             </build>
