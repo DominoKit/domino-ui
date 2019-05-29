@@ -38,7 +38,6 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
         }
         this.anchorElement.appendChild(textElement);
         element.appendChild(anchorElement);
-        init(this);
     }
 
     public static BreadcrumbItem create(String text) {
