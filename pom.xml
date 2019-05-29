@@ -4,11 +4,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.dominokit</groupId>
-    <artifactId>domino-ui</artifactId>
+    <artifactId>domino-ui-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>gwt-lib</packaging>
+    <packaging>pom</packaging>
     <url>https://github.com/DominoKit/domino</url>
-    <description>Domino parent</description>
+    <name>domino-ui-parent</name>
+    <description>Domino ui parent</description>
+
+    <modules>
+        <module>domino-ui</module>
+        <module>domino-ui-shared</module>
+        <module>domino-ui-tools</module>
+    </modules>
 
     <licenses>
         <license>
@@ -141,10 +148,6 @@
                     <artifactId>gwt-maven-plugin</artifactId>
                     <version>1.0-rc-10</version>
                     <extensions>true</extensions>
-                    <configuration>
-                        <moduleName>org.dominokit.domino.ui.DominoUI</moduleName>
-                        <moduleShortName>dominoui</moduleShortName>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -219,10 +222,6 @@
                         <artifactId>maven-compiler-plugin</artifactId>
                     </plugin>
                     <plugin>
-                        <groupId>net.ltgt.gwt.maven</groupId>
-                        <artifactId>gwt-maven-plugin</artifactId>
-                    </plugin>
-                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
                     </plugin>
@@ -250,10 +249,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-compiler-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>net.ltgt.gwt.maven</groupId>
-                        <artifactId>gwt-maven-plugin</artifactId>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
