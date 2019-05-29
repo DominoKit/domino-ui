@@ -23,6 +23,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
     private boolean removeTail = false;
     private Color activeColor;
     private Color activeBackground;
+    private boolean allowNavigation = true;
 
     public Breadcrumb() {
         init(this);
@@ -32,14 +33,12 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
         return new Breadcrumb();
     }
 
-
     public Breadcrumb appendChild(String text, EventListener onClick) {
         BreadcrumbItem item = BreadcrumbItem.create(text);
         addNewItem(item);
         item.addClickListener(onClick);
         return this;
     }
-
 
     public Breadcrumb appendChild(BaseIcon<?> icon, String text, EventListener onClick) {
         BreadcrumbItem item = BreadcrumbItem.create(icon, text);
@@ -54,11 +53,29 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
         return this;
     }
 
+    public Breadcrumb setAllowNavigation(boolean allowNavigation){
+        this.allowNavigation = allowNavigation;
+        style.remove(BreadcrumbStyles.NAV_DISABLED);
+
+        if(!allowNavigation){
+            style.add(BreadcrumbStyles.NAV_DISABLED);
+        }
+        return this;
+    }
+
+    public boolean isAllowNavigation() {
+        return allowNavigation;
+    }
+
     private void addNewItem(BreadcrumbItem item) {
         items.add(item);
         setActiveItem(item);
         element.appendChild(item);
-        DominoElement.of(item.getClickableElement()).addClickListener(e -> setActiveItem(item));
+        DominoElement.of(item.getClickableElement()).addClickListener(e -> {
+            if(allowNavigation) {
+                setActiveItem(item);
+            }
+        });
     }
 
     private Breadcrumb setActiveItem(BreadcrumbItem item) {
@@ -80,7 +97,6 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
 
     public Breadcrumb setRemoveActiveTailItem(boolean removeTail) {
         this.removeTail = removeTail;
-
         return this;
     }
 

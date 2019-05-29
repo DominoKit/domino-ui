@@ -52,3 +52,7 @@
     cursor: default !important;
     text-decoration: none;
 }
+
+.breadcrumb.nav-disabled li a:hover{
+    cursor: default !important;
+}
