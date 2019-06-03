@@ -67,14 +67,6 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
         return tree;
     }
 
-    /**
-     * @deprecated use {@link #appendChild(TreeItem)}
-     */
-    @Deprecated
-    public Tree addTreeItem(TreeItem treeItem) {
-        return appendChild(treeItem);
-    }
-
     public Tree appendChild(TreeItem treeItem) {
         root.appendChild(treeItem.asElement());
         treeItem.setParent(this);
@@ -261,8 +253,11 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
         return subItems;
     }
 
-    @Override
     public ParentTreeItem expand(boolean expandParent) {
+        return this;
+    }
+
+    public ParentTreeItem expand() {
         return this;
     }
 

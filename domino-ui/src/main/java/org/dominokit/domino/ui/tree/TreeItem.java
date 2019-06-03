@@ -139,10 +139,11 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         return this;
     }
 
-    /**
-     * @deprecated use {@link #show(boolean)}
-     */
-    @Deprecated
+    @Override
+    public ParentTreeItem expand() {
+        return show();
+    }
+
     public TreeItem expand(boolean expandParent) {
         return show(expandParent);
     }
