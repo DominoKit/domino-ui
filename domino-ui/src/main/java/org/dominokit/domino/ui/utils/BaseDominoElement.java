@@ -5,6 +5,7 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.popover.Tooltip;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.WavesSupport;
 import org.jboss.gwt.elemento.core.Elements;
@@ -27,6 +28,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     private ScreenMedia hideOn;
     private ScreenMedia showOn;
+    private Elevation elevation;
 
     @Editor.Ignore
     protected void init(T element) {
@@ -56,27 +58,6 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return asElement().id;
     }
 
-    /**
-     * @return T
-     * @deprecated use {@link #hide()}
-     */
-    @Deprecated
-    @Override
-    @Editor.Ignore
-    public T collapse() {
-        return hide();
-    }
-
-    /**
-     * @return T
-     * @deprecated use {@link #show()}
-     */
-    @Deprecated
-    @Override
-    @Editor.Ignore
-    public T expand() {
-        return show();
-    }
 
     @Override
     @Editor.Ignore
@@ -575,40 +556,18 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         }
     }
 
-    /**
-     * @deprecated use {@link #addHideHandler(Collapsible.HideCompletedHandler)}
-     */
-    @Deprecated
-    @Editor.Ignore
-    public T addCollapseHandler(Collapsible.CollapseCompletedHandler handler) {
-        return addHideHandler(handler::onCollapsed);
+    public T elevate(int level){
+        return elevate(Elevation.of(level));
     }
 
-    /**
-     * @deprecated use {@link #removeHideHandler(Collapsible.HideCompletedHandler)}
-     */
-    @Deprecated
-    @Editor.Ignore
-    public T removeCollapseHandler(Collapsible.CollapseCompletedHandler handler) {
-        return removeHideHandler(handler::onCollapsed);
-    }
+    public T elevate(Elevation elevation){
+        if(nonNull(this.elevation)){
+            style.remove(this.elevation.getStyle());
+        }
 
-    /**
-     * @deprecated use {@link #addShowHandler(Collapsible.ShowCompletedHandler)}
-     */
-    @Deprecated
-    @Editor.Ignore
-    public T addExpandHandler(Collapsible.ExpandCompletedHandler handler) {
-        return addShowHandler(handler::onExpanded);
-    }
-
-    /**
-     * @deprecated use {@link #removeShowHandler(Collapsible.ShowCompletedHandler)}
-     */
-    @Deprecated
-    @Editor.Ignore
-    public T removeExpandHandlr(Collapsible.ExpandCompletedHandler handler) {
-        return removeShowHandler(handler::onExpanded);
+        this.elevation = elevation;
+        style.add(this.elevation.getStyle());
+        return (T) this;
     }
 
     @Editor.Ignore
