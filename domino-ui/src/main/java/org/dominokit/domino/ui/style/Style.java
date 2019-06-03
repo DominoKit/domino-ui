@@ -492,6 +492,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return false;
     }
 
+    @Deprecated
     public Style<E, T> removeShadow(boolean important) {
         setProperty("box-shadow", "none", important);
         setProperty("-webkit-box-shadow", "none", important);
@@ -499,6 +500,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return this;
     }
 
+    @Deprecated
     public Style<E, T> removeShadow() {
         setProperty("box-shadow", "none");
         setProperty("-webkit-box-shadow", "none");
@@ -506,6 +508,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return this;
     }
 
+    @Deprecated
     public Style<E, T> addDefaultShadow() {
         add(default_shadow);
         return this;
