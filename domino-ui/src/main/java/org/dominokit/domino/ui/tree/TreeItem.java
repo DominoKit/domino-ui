@@ -4,10 +4,7 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.WaveColor;
-import org.dominokit.domino.ui.style.WaveStyle;
-import org.dominokit.domino.ui.style.WavesElement;
+import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.EventType;
 
@@ -43,10 +40,15 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     public TreeItem(String title, BaseIcon<?> icon) {
         this.title = title;
         setIcon(icon);
-        this.titleElement = span().css("title").textContent(title).asElement();
+        this.titleElement = span()
+                .css("title")
+                .textContent(title).asElement();
         this.anchorElement = DominoElement.of(a()
                 .add(this.icon)
-                .add(div().style("margin-top: 2px;").add(titleElement)));
+                .add(div()
+                        .css(Styles.ellipsis_text)
+                        .style("margin-top: 2px;")
+                        .add(titleElement)));
         init();
     }
 
@@ -373,8 +375,9 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     }
 
     /**
-     * Returns the list of all sub {@link TreeItem} 
-     * @return 
+     * Returns the list of all sub {@link TreeItem}
+     *
+     * @return
      */
     public List<TreeItem> getSubItems() {
         return subItems;
