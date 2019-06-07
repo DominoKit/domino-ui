@@ -37,6 +37,10 @@ public interface IsModalDialog<T> {
 
     T showHeader();
 
+    T hideTitle();
+
+    T showTitle();
+
     T setTitle(String title);
 
     DominoElement<HTMLDivElement> getDialogElement();
