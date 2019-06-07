@@ -1,6 +1,9 @@
 package org.dominokit.domino.ui.datatable;
 
 import elemental2.dom.HTMLTableRowElement;
+import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
+import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
+import org.dominokit.domino.ui.datatable.store.DataChangedEvent;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.Selectable;
 
@@ -11,10 +14,11 @@ import java.util.Map;
 
 import static org.jboss.gwt.elemento.core.Elements.tr;
 
-public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement,TableRow<T> > implements Selectable<T> {
+public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow<T>> implements Selectable<T> {
     private T record;
     private boolean selected = false;
     private final int index;
+    private DataTable<T> dataTable;
     private final Map<String, RowCell<T>> rowCells = new HashMap<>();
 
     private Map<String, String> flags = new HashMap<>();
@@ -25,9 +29,10 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement,TableRow<
 
     private List<RowListener<T>> listeners = new ArrayList<>();
 
-    public TableRow(T record, int index) {
+    public TableRow(T record, int index, DataTable<T> dataTable) {
         this.record = record;
         this.index = index;
+        this.dataTable = dataTable;
         init(this);
     }
 
@@ -132,7 +137,14 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement,TableRow<
     }
 
     public void updateRow() {
+        updateRow(this.record);
+    }
+
+    public void updateRow(T record) {
+        this.record = record;
         rowCells.values().forEach(RowCell::updateCell);
+        this.dataTable.fireTableEvent(new RowRecordUpdatedEvent<>(this));
+        this.dataTable.fireTableEvent(new TableDataUpdatedEvent<>(new ArrayList<>(dataTable.getData()), dataTable.getData().size()));
     }
 
     @FunctionalInterface
