@@ -118,7 +118,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
                 .forEach(ColumnConfig::clearShowHideListners);
 
         for (int index = 0; index < data.size(); index++) {
-            TableRow<T> tableRow = new TableRow<>(data.get(index), initialIndex + index);
+            TableRow<T> tableRow = new TableRow<>(data.get(index), initialIndex + index, this);
             tableConfig.drawRecord(DataTable.this, tableRow);
             tableRows.add(tableRow);
         }
