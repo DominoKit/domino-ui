@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
@@ -96,6 +97,26 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
             allItems.remove(listItem);
             listItem.asElement().remove();
         }
+        return this;
+    }
+
+    public ListGroup<T> removeItem(T value) {
+        List<ListItem<T>> toBeRemoved = allItems.stream().filter(listItem -> listItem.getValue().equals(value))
+                .collect(toList());
+        return removeItems(toBeRemoved);
+    }
+
+    public ListGroup<T> removeItemsByValue(List<T> values) {
+        if(isNull(values) || values.isEmpty()){
+            return this;
+        }
+        List<ListItem<T>> toBeRemoved = allItems.stream().filter(listItem -> values.contains(listItem.getValue()))
+                .collect(toList());
+        return removeItems(toBeRemoved);
+    }
+
+    public ListGroup<T> removeItems(List<ListItem<T>> toBeRemoved) {
+        toBeRemoved.forEach(this::removeItem);
         return this;
     }
 
