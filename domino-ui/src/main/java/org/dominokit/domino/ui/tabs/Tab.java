@@ -228,6 +228,11 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return this;
     }
 
+    public void removeTab() {
+        this.remove();
+        contentContainer.remove();
+    }
+
     @FunctionalInterface
     public interface CloseHandler {
         boolean onBeforeClose(Tab tab);
