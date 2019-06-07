@@ -13,6 +13,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -30,6 +31,9 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
     private List<Tab> tabs = new ArrayList<>();
     private Color background;
 
+    private final List<Consumer<Tab>> closeHandlers = new ArrayList<>();
+    private final List<Tab.ActivationHandler> activationHandlers = new ArrayList<>();
+
     public TabsPanel() {
         element.appendChild(tabsList.asElement());
         element.appendChild(tabsContent);
@@ -42,20 +46,12 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
         return new TabsPanel();
     }
 
-    /**
-     * @deprecated use {@link #appendChild(Tab)}
-     */
-    @Deprecated
-    public TabsPanel addTab(Tab tab) {
-        return appendChild(tab);
-    }
-
     public TabsPanel appendChild(Tab tab) {
         if (nonNull(tab)) {
             tabs.add(tab);
             if (isNull(activeTab)) {
                 this.activeTab = tab;
-                this.activeTab.activate();
+                activateTab(this.activeTab);
             } else {
                 if (tab.isActive()) {
                     activateTab(tab);
@@ -77,18 +73,42 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
         }
     }
 
+    public void deActivateTab(int index) {
+        if (!tabs.isEmpty() && index < tabs.size() && index >= 0) {
+            deActivateTab(tabs.get(index));
+        } else {
+            throw new IndexOutOfBoundsException("provided index of [" + index + "] is not within current tabs of size [" + tabs.size() + "].");
+        }
+    }
+
     public void activateTab(Tab tab) {
         if (nonNull(tab) && tabs.contains(tab)) {
             if (nonNull(activeTab)) {
-                activeTab.deActivate();
+                deActivateTab(activeTab);
             }
-            activeTab = tab;
-            activeTab.activate();
+            if (!tab.isActive()) {
+                activeTab = tab;
+                activeTab.activate();
+                activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, true));
+                if (nonNull(transition)) {
+                    Animation.create(activeTab.getContentContainer())
+                            .transition(transition)
+                            .animate();
+                }
+            }
+        }
+    }
 
-            if (nonNull(transition)) {
-                Animation.create(activeTab.getContentContainer())
-                        .transition(transition)
-                        .animate();
+    public void deActivateTab(Tab tab) {
+        if (nonNull(tab) && tabs.contains(tab)) {
+            if (tab.isActive()) {
+                tab.deActivate();
+                activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, false));
+                if (nonNull(transition)) {
+                    Animation.create(activeTab.getContentContainer())
+                            .transition(transition)
+                            .animate();
+                }
             }
         }
     }
@@ -157,12 +177,43 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
                 }
             }
         } else {
-            tab.deActivate();
+            deActivateTab(tab);
             this.activeTab = null;
         }
 
         tabs.remove(tab);
         tab.remove();
         tab.setParent(null);
+
+        closeHandlers.forEach(closeHandler -> closeHandler.accept(tab));
+
+    }
+
+    public TabsPanel addCloseHandler(Consumer<Tab> closeHandler) {
+        if (nonNull(closeHandler)) {
+            this.closeHandlers.add(closeHandler);
+        }
+        return this;
+    }
+
+    public TabsPanel removeCloseHandler(Consumer<Tab> closeHandler) {
+        if (nonNull(closeHandler)) {
+            this.closeHandlers.remove(closeHandler);
+        }
+        return this;
+    }
+
+    public TabsPanel addActivationHandler(Tab.ActivationHandler activationHandler) {
+        if (nonNull(activationHandler)) {
+            this.activationHandlers.add(activationHandler);
+        }
+        return this;
+    }
+
+    public TabsPanel removeActivationHandler(Tab.ActivationHandler activationHandler) {
+        if (nonNull(activationHandler)) {
+            this.activationHandlers.remove(activationHandler);
+        }
+        return this;
     }
 }
