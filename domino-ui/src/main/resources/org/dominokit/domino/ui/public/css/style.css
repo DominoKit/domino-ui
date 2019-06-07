@@ -3921,9 +3921,13 @@ fieldset[disabled] .form-control {
     opacity: 0.7;
 }
 
+.menu .tree-leaf a i {
+    min-width: 24px;
+}
+
 .menu .tree-leaf a .title {
     font-weight: 500;
-    display: block;
+    display: inline;
     white-space: nowrap;
 }
 
