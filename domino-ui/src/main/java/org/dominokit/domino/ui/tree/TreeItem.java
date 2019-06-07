@@ -73,14 +73,6 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         return new TreeItem(icon);
     }
 
-    /**
-     * @deprecated use {@link #appendChild(TreeItem)}
-     */
-    @Deprecated
-    public TreeItem addTreeItem(TreeItem treeItem) {
-        return appendChild(treeItem);
-    }
-
     public TreeItem appendChild(TreeItem treeItem) {
         this.subItems.add(treeItem);
         childrenContainer.appendChild(treeItem.asElement());
@@ -387,5 +379,8 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     public List<TreeItem> getSubItems() {
         return subItems;
     }
-    
+
+    public void select() {
+        this.show(true).activate(true);
+    }
 }
