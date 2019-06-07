@@ -182,7 +182,8 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
         }
 
         tabs.remove(tab);
-        tab.remove();
+        tab.removeTab();
+
         tab.setParent(null);
 
         closeHandlers.forEach(closeHandler -> closeHandler.accept(tab));
