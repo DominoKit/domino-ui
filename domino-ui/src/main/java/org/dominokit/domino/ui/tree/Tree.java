@@ -286,5 +286,4 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     public Icon getExpandAllIcon() {
         return expandAllIcon;
     }
-
 }
