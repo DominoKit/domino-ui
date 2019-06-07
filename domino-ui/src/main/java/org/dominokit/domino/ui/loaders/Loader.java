@@ -68,4 +68,8 @@ public class Loader {
         this.removeLoadingText = removeLoadingText;
         return this;
     }
+
+    public boolean isStarted() {
+        return started;
+    }
 }
