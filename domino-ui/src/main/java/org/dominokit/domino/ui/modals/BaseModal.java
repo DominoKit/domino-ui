@@ -97,7 +97,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     public BaseModal() {
         modal = Modal.create();
-        modal.getModalTitle().style().setDisplay("none");
+        modal.getModalHeader().hide();
         modal.getModalTitle().appendChild(headerText);
 
         addTabIndexHandler();
@@ -336,15 +336,29 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public T hideHeader() {
-        modal.getModalTitle().style().setDisplay("none");
+        modal.getModalHeader().hide();
         return (T) this;
     }
 
     @Override
     public T showHeader() {
-        modal.getModalTitle().style().setDisplay("block");
+        modal.getModalHeader().show();
         return (T) this;
     }
+
+    @Override
+    public T hideTitle() {
+        modal.getModalTitle().hide();
+        return (T) this;
+    }
+
+    @Override
+    public T showTitle() {
+        modal.getModalTitle().show();
+        return (T) this;
+    }
+
+
 
     @Override
     public T setTitle(String title) {
