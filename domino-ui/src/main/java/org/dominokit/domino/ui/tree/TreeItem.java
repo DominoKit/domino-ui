@@ -17,14 +17,14 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements ParentTreeItem<TreeItem>, CanActivate, CanDeactivate, HasClickableElement {
+public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implements ParentTreeItem<TreeItem<T>>, CanActivate, CanDeactivate, HasClickableElement {
 
     private String title;
     private HTMLLIElement element;
     private DominoElement<HTMLAnchorElement> anchorElement;
-    private List<TreeItem> subItems = new LinkedList<>();
-    private TreeItem activeTreeItem;
-    private ParentTreeItem<TreeItem> parent;
+    private List<TreeItem<T>> subItems = new LinkedList<>();
+    private TreeItem<T> activeTreeItem;
+    private ParentTreeItem<TreeItem<T>> parent;
     private Collapsible collapsible;
 
     private HTMLUListElement childrenContainer;
@@ -34,6 +34,8 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     private HTMLElement titleElement;
 
     private BaseIcon<?> expandIcon;
+
+    private T value;
 
     private int nextLevel = 1;
 
@@ -63,19 +65,52 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         init();
     }
 
-    public static TreeItem create(String title) {
-        return new TreeItem(title);
+    public TreeItem(String title, T value){
+        this(title);
+        this.value = value;
     }
 
-    public static TreeItem create(String title, BaseIcon<?> icon) {
-        return new TreeItem(title, icon);
+    public TreeItem(String title, BaseIcon<?> icon, T value){
+        this(title, icon);
+        this.value = value;
     }
 
-    public static TreeItem create(BaseIcon<?> icon) {
-        return new TreeItem(icon);
+    public TreeItem(BaseIcon<?> icon, T value){
+        this(icon);
+        this.value = value;
     }
 
-    public TreeItem appendChild(TreeItem treeItem) {
+    public static TreeItem<String> create(String title) {
+        TreeItem<String> treeItem = new TreeItem<>(title);
+        treeItem.value = title;
+        return treeItem;
+    }
+
+    public static TreeItem<String> create(String title, BaseIcon<?> icon) {
+        TreeItem<String> treeItem = new TreeItem<>(title, icon);
+        treeItem.value = title;
+        return treeItem;
+    }
+
+    public static TreeItem<String> create(BaseIcon<?> icon) {
+        TreeItem<String> treeItem = new TreeItem<>(icon);
+        treeItem.value = "";
+        return treeItem;
+    }
+
+    public static <T> TreeItem<T> create(String title, T value) {
+        return new TreeItem<>(title, value);
+    }
+
+    public static <T> TreeItem<T> create(String title, BaseIcon<?> icon, T value) {
+        return new TreeItem<>(title, icon, value);
+    }
+
+    public static <T> TreeItem<T> create(BaseIcon<?> icon, T value) {
+        return new TreeItem<>(icon, value);
+    }
+
+    public TreeItem<T> appendChild(TreeItem<T> treeItem) {
         this.subItems.add(treeItem);
         childrenContainer.appendChild(treeItem.asElement());
         Style.of(anchorElement).add("tree-toggle");
@@ -86,7 +121,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         return this;
     }
 
-    public TreeItem addSeparator() {
+    public TreeItem<T> addSeparator() {
         childrenContainer.appendChild(li().css("separator")
                 .add(a())
                 .asElement());
@@ -119,11 +154,11 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         applyWaveStyle(WaveStyle.BLOCK);
     }
 
-    public TreeItem show() {
+    public TreeItem<T> show() {
         return show(false);
     }
 
-    public TreeItem show(boolean expandParent) {
+    public TreeItem<T> show(boolean expandParent) {
         if (isParent()) {
             collapsible.show();
         }
@@ -138,18 +173,18 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         return show();
     }
 
-    public TreeItem expand(boolean expandParent) {
+    public TreeItem<T> expand(boolean expandParent) {
         return show(expandParent);
     }
 
-    public TreeItem hide() {
+    public TreeItem<T> hide() {
         if (isParent()) {
             collapsible.hide();
         }
         return this;
     }
 
-    public TreeItem toggleDisplay() {
+    public TreeItem<T> toggleDisplay() {
         if (isParent()) {
             collapsible.toggleDisplay();
         }
@@ -162,25 +197,25 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     }
 
     @Override
-    public TreeItem addHideHandler(Collapsible.HideCompletedHandler handler) {
+    public TreeItem<T> addHideHandler(Collapsible.HideCompletedHandler handler) {
         collapsible.addHideHandler(handler);
         return this;
     }
 
     @Override
-    public TreeItem removeHideHandler(Collapsible.HideCompletedHandler handler) {
+    public TreeItem<T> removeHideHandler(Collapsible.HideCompletedHandler handler) {
         collapsible.removeHideHandler(handler);
         return this;
     }
 
     @Override
-    public TreeItem addShowHandler(Collapsible.ShowCompletedHandler handler) {
+    public TreeItem<T> addShowHandler(Collapsible.ShowCompletedHandler handler) {
         collapsible.addShowHandler(handler);
         return this;
     }
 
     @Override
-    public TreeItem removeShowHandler(Collapsible.ShowCompletedHandler handler) {
+    public TreeItem<T> removeShowHandler(Collapsible.ShowCompletedHandler handler) {
         collapsible.removeShowHandler(handler);
         return this;
     }
@@ -191,7 +226,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     }
 
     @Override
-    public TreeItem getActiveItem() {
+    public TreeItem<T> getActiveItem() {
         return activeTreeItem;
     }
 
@@ -201,7 +236,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
     }
 
     @Override
-    public void setActiveItem(TreeItem activeItem) {
+    public void setActiveItem(TreeItem<T> activeItem) {
         if (nonNull(activeItem)) {
             if (nonNull(this.activeTreeItem) && !this.activeTreeItem.equals(activeItem)) {
                 this.activeTreeItem.deactivate();
@@ -272,12 +307,12 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         return anchorElement.asElement();
     }
 
-    public TreeItem addClickListener(EventListener listener) {
+    public TreeItem<T> addClickListener(EventListener listener) {
         getClickableElement().addEventListener(EventType.click.getName(), listener);
         return this;
     }
 
-    public TreeItem setIcon(BaseIcon<?> icon) {
+    public TreeItem<T> setIcon(BaseIcon<?> icon) {
         this.icon = icon;
         this.originalIcon = icon.copy();
         if (icon.asElement().style.visibility.equals("hidden")) {
@@ -286,12 +321,12 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         return this;
     }
 
-    public TreeItem setActiveIcon(BaseIcon<?> activeIcon) {
+    public TreeItem<T> setActiveIcon(BaseIcon<?> activeIcon) {
         this.activeIcon = activeIcon;
         return this;
     }
 
-    public TreeItem setExpandIcon(BaseIcon<?> expandIcon) {
+    public TreeItem<T> setExpandIcon(BaseIcon<?> expandIcon) {
         this.expandIcon = expandIcon;
         return this;
     }
@@ -300,7 +335,7 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
         return !subItems.isEmpty();
     }
 
-    void setParent(ParentTreeItem<TreeItem> parentMenu) {
+    void setParent(ParentTreeItem<TreeItem<T>> parentMenu) {
         this.parent = parentMenu;
     }
 
@@ -379,11 +414,19 @@ public class TreeItem extends WavesElement<HTMLLIElement, TreeItem> implements P
      *
      * @return
      */
-    public List<TreeItem> getSubItems() {
+    public List<TreeItem<T>> getSubItems() {
         return subItems;
     }
 
     public void select() {
         this.show(true).activate(true);
+    }
+
+    public T getValue() {
+        return value;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
     }
 }

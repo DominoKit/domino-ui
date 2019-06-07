@@ -19,29 +19,37 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.a;
-import static org.jboss.gwt.elemento.core.Elements.col;
-import static org.jboss.gwt.elemento.core.Elements.li;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
-@Templated
-public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> implements ParentTreeItem<TreeItem>, IsElement<HTMLDivElement>  {
+public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implements ParentTreeItem<TreeItem<T>>, IsElement<HTMLDivElement> {
 
-    @DataElement
-    HTMLUListElement root;
+    private HTMLElement title = span().css("title").asElement();
 
-    @DataElement
-    HTMLElement title;
+    private HTMLLIElement header = li()
+            .css("header")
+            .css("menu-header")
+            .add(title)
+            .asElement();
 
-    @DataElement
-    HTMLLIElement header;
+    private HTMLUListElement root = ul()
+            .add(header)
+            .css("list")
+            .asElement();
+
+    private HTMLDivElement menu = div().style("overflow-x: hidden")
+            .css("menu")
+            .add(root)
+            .asElement();
+
 
     private final int nextLevel = 1;
 
-    private TreeItem activeTreeItem;
+    private TreeItem<T> activeTreeItem;
 
     private boolean autoCollapse = true;
-    private List<TreeItem> subItems = new ArrayList<>();
+    private List<TreeItem<T>> subItems = new ArrayList<>();
     private boolean autoExpandFound;
     private ColorScheme colorScheme;
     private Search search;
@@ -49,25 +57,54 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     private Icon collapseAllIcon;
     private Icon expandAllIcon;
 
-    @PostConstruct
-    void init(){
-        init(this);
+    private T value;
+
+    public Tree() {
+        this("");
     }
 
-    public static Tree create(String title) {
-        Templated_Tree tree = new Templated_Tree();
-        tree.title.textContent = title;
+    public Tree(String treeTitle) {
+        init(this);
+        if(isNull(treeTitle) || treeTitle.trim().isEmpty()){
+            DominoElement.of(header)
+                    .hide();
+        }
+        title.textContent = treeTitle;
+    }
+
+    public Tree(String treeTitle, T value) {
+        this(treeTitle);
+        this.value = value;
+    }
+
+    public Tree(T value) {
+        this("");
+        this.value = value;
+    }
+
+    public static Tree<String> create(String title) {
+        Tree<String> tree = new Tree<>(title);
         return tree;
     }
 
-    public static Tree create() {
-        Templated_Tree tree = new Templated_Tree();
+    public static Tree<String> create() {
+        Tree<String> tree = new Tree<>();
         DominoElement.of(tree.header)
                 .hide();
         return tree;
     }
 
-    public Tree appendChild(TreeItem treeItem) {
+    public static <T> Tree<T> create(String title, T value) {
+        Tree<T> tree = new Tree<>(title, value);
+        return tree;
+    }
+
+    public static <T> Tree<T> create(T value) {
+        Tree<T> tree = new Tree<>(value);
+        return tree;
+    }
+
+    public Tree<T> appendChild(TreeItem<T> treeItem) {
         root.appendChild(treeItem.asElement());
         treeItem.setParent(this);
         treeItem.setLevel(nextLevel);
@@ -75,7 +112,7 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
         return this;
     }
 
-    public Tree addSeparator() {
+    public Tree<T> addSeparator() {
         root.appendChild(li()
                 .css("gap")
                 .css("separator")
@@ -84,7 +121,7 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
         return this;
     }
 
-    public Tree addGap() {
+    public Tree<T> addGap() {
         root.appendChild(li()
                 .css("gap")
                 .add(a())
@@ -92,8 +129,8 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
         return this;
     }
 
-    public Tree setColorScheme(ColorScheme colorScheme){
-        if(nonNull(this.colorScheme)){
+    public Tree setColorScheme(ColorScheme colorScheme) {
+        if (nonNull(this.colorScheme)) {
             style.remove(colorScheme.color().getBackground());
             DominoElement.of(header).style().remove(this.colorScheme.darker_3().getBackground());
         }
@@ -106,12 +143,12 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     }
 
     @Override
-    public TreeItem getActiveItem() {
+    public TreeItem<T> getActiveItem() {
         return activeTreeItem;
     }
 
     @Override
-    public void setActiveItem(TreeItem activeItem) {
+    public void setActiveItem(TreeItem<T> activeItem) {
         if (nonNull(this.activeTreeItem) && !this.activeTreeItem.equals(activeItem)) {
             this.activeTreeItem.deactivate();
         }
@@ -132,19 +169,19 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
         return DominoElement.of(title);
     }
 
-    public Tree autoHieght() {
+    public Tree<T> autoHieght() {
         root.style.height = CSSProperties.HeightUnionType.of("calc(100vh - 83px)");
         asElement().style.height = CSSProperties.HeightUnionType.of("calc(100vh - 70px)");
         return this;
     }
 
-    public Tree autoHieght(int offset) {
+    public Tree<T> autoHieght(int offset) {
         root.style.height = CSSProperties.HeightUnionType.of("calc(100vh - " + offset + 13 + "px)");
         asElement().style.height = CSSProperties.HeightUnionType.of("calc(100vh - " + offset + "px)");
         return this;
     }
 
-    public Tree enableSearch() {
+    public Tree<T> enableSearch() {
         search = Style.of(Search.create(true))
                 .setHeight("40px")
                 .get()
@@ -166,7 +203,7 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
         return this;
     }
 
-    public Tree enableFolding() {
+    public Tree<T> enableFolding() {
         collapseAllIcon = Icons.ALL.fullscreen_exit()
                 .style()
                 .setMarginBottom("0px")
@@ -201,11 +238,11 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
         getSubItems().forEach(TreeItem::collapseAll);
     }
 
-    public void deactivateAll(){
+    public void deactivateAll() {
         getSubItems().forEach(TreeItem::deactivate);
     }
 
-    public Tree autoExpandFound() {
+    public Tree<T> autoExpandFound() {
         this.autoExpandFound = true;
         return this;
     }
@@ -228,18 +265,18 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
     }
 
     @Override
-    public Tree getTreeRoot() {
+    public Tree<T> getTreeRoot() {
         return this;
     }
 
-    public Tree setAutoCollapse(boolean autoCollapse) {
+    public Tree<T> setAutoCollapse(boolean autoCollapse) {
         this.autoCollapse = autoCollapse;
         return this;
     }
 
-    public Tree setTitle(String title){
+    public Tree<T> setTitle(String title) {
         getTitle().setTextContent(title);
-        if(getHeader().isHidden()){
+        if (getHeader().isHidden()) {
             getHeader().show();
         }
         return this;
@@ -249,7 +286,7 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
         return autoCollapse;
     }
 
-    public List<TreeItem> getSubItems() {
+    public List<TreeItem<T>> getSubItems() {
         return subItems;
     }
 
@@ -285,5 +322,18 @@ public abstract class Tree extends BaseDominoElement<HTMLDivElement, Tree> imple
 
     public Icon getExpandAllIcon() {
         return expandAllIcon;
+    }
+
+    public T getValue() {
+        return value;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
+    }
+
+    @Override
+    public HTMLDivElement asElement() {
+        return menu;
     }
 }
