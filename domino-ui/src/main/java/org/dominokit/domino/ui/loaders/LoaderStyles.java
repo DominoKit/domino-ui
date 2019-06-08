@@ -28,4 +28,8 @@ public class LoaderStyles {
     public static final String TIMER = "timer";
     public static final String WIN_8_LINEAR = "win8_linear";
     public static final String WIN_8 = "win8";
+    public static final String LIMIT_VIEWPORT = "limit-viewport";
+    public static final String LOADING_TOP = "loading-top";
+    public static final String LOADING_MIDDLE = "loading-middle";
+    public static final String LOADING_BOTTOM = "loading-bottom";
 }

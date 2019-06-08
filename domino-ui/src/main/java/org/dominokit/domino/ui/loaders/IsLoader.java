@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 public interface IsLoader {
 
@@ -12,4 +13,6 @@ public interface IsLoader {
     void setSize(String width, String height);
 
     void removeLoadingText();
+
+    DominoElement<HTMLDivElement> getContentElement();
 }

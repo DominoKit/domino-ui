@@ -119,7 +119,7 @@
                             <cssExcludes>
                                 <cssExclude>domino-ui.css</cssExclude>
                                 <cssExclude>colors.css</cssExclude>
-                                <cssExclude>loaders/waitMe.css</cssExclude>
+<!--                                <cssExclude>loaders/waitMe.css</cssExclude>-->
                                 <cssExclude>grid.css</cssExclude>
                                 <cssExclude>material-icons.css</cssExclude>
                                 <cssExclude>**/*.min.css</cssExclude>
