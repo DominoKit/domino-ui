@@ -3,25 +3,13 @@ package org.dominokit.domino.ui.loaders;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class BounceLoader extends BaseLoader<BounceLoader> implements IsElement<HTMLDivElement> {
-
-    /*
-    <div class="waitMe" style="background: rgba(255, 255, 255, 0.9);">
-    <div class="waitMe_content v-center">
-        <div class="waitMe_progress bounce">
-            <div data-element="progress1" class="waitMe_progress_elem1" style="background-color:#555"></div>
-            <div data-element="progress2" class="waitMe_progress_elem2" style="background-color:#555"></div>
-            <div data-element="progress3" class="waitMe_progress_elem3" style="background-color:#555"></div>
-        </div>
-        <div data-element="loadingText" class="waitMe_text" style="color:#555">Loading...</div>
-    </div>
-</div>
-     */
 
     private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555;").asElement();
     private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555;").asElement();
@@ -35,15 +23,16 @@ public class BounceLoader extends BaseLoader<BounceLoader> implements IsElement<
             .add(progress3)
             .asElement();
 
+    private final HTMLDivElement content = div()
+            .css(WAIT_ME_CONTENT)
+            .css(Styles.vertical_center)
+            .add(loader)
+            .add(loadingText).asElement();
+
     private final HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.9);")
-            .add(div()
-                    .css(WAIT_ME_CONTENT)
-                    .css(Styles.vertical_center)
-                    .add(loader)
-                    .add(loadingText)
-            )
+            .add(content)
             .asElement();
 
     public BounceLoader() {
@@ -69,6 +58,11 @@ public class BounceLoader extends BaseLoader<BounceLoader> implements IsElement<
     @Override
     public void removeLoadingText() {
         onAttached(mutationRecord -> loadingText.remove());
+    }
+
+    @Override
+    public DominoElement<HTMLDivElement> getContentElement() {
+        return DominoElement.of(content);
     }
 
     @Override

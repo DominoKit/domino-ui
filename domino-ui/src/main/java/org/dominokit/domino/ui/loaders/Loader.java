@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -15,6 +16,8 @@ public class Loader {
     private String height;
     private boolean removeLoadingText = false;
 
+    private LoadingTextPosition loadingTextPosition = LoadingTextPosition.MIDDLE;
+
     public static Loader create(HTMLElement target, LoaderEffect effect) {
         return new Loader(target, effect);
     }
@@ -26,6 +29,7 @@ public class Loader {
     private Loader(HTMLElement target, LoaderEffect type) {
         this.target = DominoElement.of(target);
         this.loaderElement = LoaderFactory.make(type);
+        this.loaderElement.getContentElement().css(loadingTextPosition.getStyle());
     }
 
     public Loader start() {
@@ -36,6 +40,7 @@ public class Loader {
         if (removeLoadingText) {
             loaderElement.removeLoadingText();
         }
+
         target.appendChild(loaderElement.getElement());
         target.style().add("waitMe_container");
         started = true;
@@ -71,5 +76,35 @@ public class Loader {
 
     public boolean isStarted() {
         return started;
+    }
+
+    public LoadingTextPosition getLoadingTextPosition() {
+        return loadingTextPosition;
+    }
+
+    public Loader setLoadingTextPosition(LoadingTextPosition loadingTextPosition) {
+        this.loaderElement.getContentElement().removeCss(this.loadingTextPosition.getStyle());
+        this.loadingTextPosition = loadingTextPosition;
+        if(LoadingTextPosition.MIDDLE.equals(loadingTextPosition)){
+            this.loaderElement.getContentElement().css(Styles.vertical_center);
+        }else{
+            this.loaderElement.getContentElement().removeCss(Styles.vertical_center);
+        }
+        this.loaderElement.getContentElement().css(this.loadingTextPosition.getStyle());
+        return this;
+    }
+
+    public enum LoadingTextPosition {
+        TOP(LoaderStyles.LOADING_TOP), MIDDLE(LoaderStyles.LOADING_MIDDLE), BOTTOM(LoaderStyles.LOADING_BOTTOM);
+
+        private String style;
+
+        LoadingTextPosition(String style) {
+            this.style = style;
+        }
+
+        public String getStyle() {
+            return style;
+        }
     }
 }
