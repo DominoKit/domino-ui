@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.loaders;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
@@ -40,17 +41,18 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
             .add(progress12)
             .asElement();
 
+    private HTMLDivElement content = div()
+            .css(WAIT_ME_CONTENT)
+            .css(Styles.vertical_center)
+            .add(div()
+                    .add(loader)
+                    .add(loadingText)
+            ).asElement();
+
     private HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.9);")
-            .add(div()
-                    .css(WAIT_ME_CONTENT)
-                    .css(Styles.vertical_center)
-                    .add(div()
-                            .add(loader)
-                            .add(loadingText)
-                    )
-            )
+            .add(content)
             .asElement();
 
     public IosLoader() {
@@ -76,6 +78,11 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
     @Override
     public void removeLoadingText() {
         onAttached(mutationRecord -> loadingText.remove());
+    }
+
+    @Override
+    public DominoElement<HTMLDivElement> getContentElement() {
+        return DominoElement.of(content);
     }
 
     @Override
