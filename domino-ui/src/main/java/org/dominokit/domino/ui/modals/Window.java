@@ -37,6 +37,10 @@ public class Window extends BaseModal<Window> {
     private boolean draggable = true;
     private boolean fixed;
 
+    public static Window create(String title){
+        return new Window(title);
+    }
+
     public Window(String title) {
         super(title);
         init(this);
