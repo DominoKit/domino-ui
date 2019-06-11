@@ -56,8 +56,8 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         messageDialog.style.add(MessageDialogStyles.MESSAGE_DIALOG);
 
         messageDialog.setSize(ModalSize.ALERT);
-        messageDialog.modal.getModalHeader()
-                .insertBefore(messageDialog.iconContainer, messageDialog.modal.getModalHeader().firstChild());
+        messageDialog.modalElement.getModalHeader()
+                .insertBefore(messageDialog.iconContainer, messageDialog.modalElement.getModalHeader().firstChild());
         messageDialog.hideHeader();
         messageDialog.setAutoClose(true);
         messageDialog.onClose(closeHandler::onClose);
@@ -179,7 +179,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         if (nonNull(icon)) {
             icon.remove();
         }
-        modal.getModalHeader().insertBefore(content, modal.getModalTitle());
+        modalElement.getModalHeader().insertBefore(content, modalElement.getModalTitle());
         return this;
     }
 

@@ -77,7 +77,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         }
     }
 
-    protected Modal modal;
+    protected Modal modalElement;
 
     private boolean autoClose = true;
 
@@ -94,11 +94,12 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     private boolean open = false;
     private boolean disabled = false;
     private boolean autoAppendAndRemove = true;
+    private boolean modal = true;
 
     public BaseModal() {
-        modal = Modal.create();
-        modal.getModalHeader().hide();
-        modal.getModalTitle().appendChild(headerText);
+        modalElement = Modal.create();
+        modalElement.getModalHeader().hide();
+        modalElement.getModalTitle().appendChild(headerText);
 
         addTabIndexHandler();
     }
@@ -106,7 +107,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     public BaseModal(String title) {
         this();
         showHeader();
-        modal.modalTitle.textContent = title;
+        modalElement.modalTitle.textContent = title;
     }
 
     void addTabIndexHandler() {
@@ -156,7 +157,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public T appendChild(Node content) {
-        modal.modalBody.appendChild(content);
+        modalElement.modalBody.appendChild(content);
         return (T) this;
     }
 
@@ -167,7 +168,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public T appendFooterChild(Node content) {
-        modal.modalFooter.appendChild(content);
+        modalElement.modalFooter.appendChild(content);
         return (T) this;
     }
 
@@ -187,7 +188,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     }
 
     public T setSize(ModalSize size) {
-        DominoElement<HTMLDivElement> modalElement = DominoElement.of(modal);
+        DominoElement<HTMLDivElement> modalElement = DominoElement.of(this.modalElement);
         if (nonNull(modalSize)) {
             modalElement.style().remove(modalSize.style);
         }
@@ -197,7 +198,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     }
 
     public T setType(ModalType type) {
-        DominoElement<HTMLDivElement> modalElement = DominoElement.of(modal);
+        DominoElement<HTMLDivElement> modalElement = DominoElement.of(this.modalElement);
         if (nonNull(modalType)) {
             modalElement.style().remove(modalType.style);
         }
@@ -209,9 +210,9 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     @Override
     public T setModalColor(Color color) {
         if (nonNull(this.color)) {
-            modal.getModalContent().style().remove(this.color.getStyle());
+            modalElement.getModalContent().style().remove(this.color.getStyle());
         }
-        modal.getModalContent().style().add(color.getStyle());
+        modalElement.getModalContent().style().add(color.getStyle());
         this.color = color;
         return (T) this;
     }
@@ -257,24 +258,28 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     }
 
     public void addBackdrop() {
-        if (ModalBackDrop.openedModalsCount() <= 0) {
-            document.body.appendChild(ModalBackDrop.INSTANCE);
-            DominoElement.of(document.body).style().add(ModalStyles.MODAL_OPEN);
-        } else {
-            Z_INDEX = Z_INDEX + 10;
-            ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
-            asElement().style.setProperty("z-index", (Z_INDEX + 10) + "");
+        if (modal) {
+            if (ModalBackDrop.openedModalsCount() <= 0) {
+                document.body.appendChild(ModalBackDrop.INSTANCE);
+                DominoElement.of(document.body).style().add(ModalStyles.MODAL_OPEN);
+            } else {
+                Z_INDEX = Z_INDEX + 10;
+                ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
+                asElement().style.setProperty("z-index", (Z_INDEX + 10) + "");
+            }
         }
     }
 
     public void removeBackDrop() {
-        if (ModalBackDrop.openedModalsCount() <= 1) {
-            ModalBackDrop.INSTANCE.remove();
-            DominoElement.of(document.body).style().remove(ModalStyles.MODAL_OPEN);
-        } else {
-            Z_INDEX = Z_INDEX - 10;
-            ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
-            asElement().style.setProperty("z-index", (Z_INDEX + 10) + "");
+        if (modal) {
+            if (ModalBackDrop.openedModalsCount() <= 1) {
+                ModalBackDrop.INSTANCE.remove();
+                DominoElement.of(document.body).style().remove(ModalStyles.MODAL_OPEN);
+            } else {
+                Z_INDEX = Z_INDEX - 10;
+                ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
+                asElement().style.setProperty("z-index", (Z_INDEX + 10) + "");
+            }
         }
     }
 
@@ -287,7 +292,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
             firstFocusElement = focusElements.get(0);
             lastFocusElement = elements.get(elements.size() - 1);
         } else {
-            lastFocusElement = modal.modalContent;
+            lastFocusElement = modalElement.modalContent;
         }
     }
 
@@ -324,40 +329,39 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public T hideFooter() {
-        modal.getModalFooter().style().setDisplay("none");
+        modalElement.getModalFooter().style().setDisplay("none");
         return (T) this;
     }
 
     @Override
     public T showFooter() {
-        modal.getModalFooter().style().setDisplay("block");
+        modalElement.getModalFooter().style().setDisplay("block");
         return (T) this;
     }
 
     @Override
     public T hideHeader() {
-        modal.getModalHeader().hide();
+        modalElement.getModalHeader().hide();
         return (T) this;
     }
 
     @Override
     public T showHeader() {
-        modal.getModalHeader().show();
+        modalElement.getModalHeader().show();
         return (T) this;
     }
 
     @Override
     public T hideTitle() {
-        modal.getModalTitle().hide();
+        modalElement.getModalTitle().hide();
         return (T) this;
     }
 
     @Override
     public T showTitle() {
-        modal.getModalTitle().show();
+        modalElement.getModalTitle().show();
         return (T) this;
     }
-
 
 
     @Override
@@ -371,37 +375,37 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public DominoElement<HTMLDivElement> getDialogElement() {
-        return DominoElement.of(modal.modalDialog);
+        return DominoElement.of(modalElement.modalDialog);
     }
 
     @Override
     public DominoElement<HTMLDivElement> getContentElement() {
-        return DominoElement.of(modal.modalContent);
+        return DominoElement.of(modalElement.modalContent);
     }
 
     @Override
     public DominoElement<HTMLHeadingElement> getHeaderElement() {
-        return DominoElement.of(modal.modalTitle);
+        return DominoElement.of(modalElement.modalTitle);
     }
 
     @Override
     public DominoElement<HTMLDivElement> getHeaderContainerElement() {
-        return DominoElement.of(modal.modalHeader);
+        return DominoElement.of(modalElement.modalHeader);
     }
 
     @Override
     public DominoElement<HTMLDivElement> getBodyElement() {
-        return DominoElement.of(modal.modalBody);
+        return DominoElement.of(modalElement.modalBody);
     }
 
     @Override
     public DominoElement<HTMLDivElement> getFooterElement() {
-        return DominoElement.of(modal.modalFooter);
+        return DominoElement.of(modalElement.modalFooter);
     }
 
     @Override
     public HTMLDivElement asElement() {
-        return modal.asElement();
+        return modalElement.asElement();
     }
 
     @Override
@@ -457,18 +461,27 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public T centerVertically() {
-        Style.of(modal.modalDialog).add(Styles.vertical_center);
+        Style.of(modalElement.modalDialog).add(Styles.vertical_center);
         return (T) this;
     }
 
     @Override
     public T deCenterVertically() {
-        Style.of(modal.modalDialog).remove(Styles.vertical_center);
+        Style.of(modalElement.modalDialog).remove(Styles.vertical_center);
         return (T) this;
     }
 
     @Override
     public boolean getAutoAppendAndRemove() {
         return this.autoAppendAndRemove;
+    }
+
+    public boolean isModal() {
+        return modal;
+    }
+
+    public T setModal(boolean modal) {
+        this.modal = modal;
+        return (T) this;
     }
 }
