@@ -500,17 +500,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
 
     @Deprecated
     public Style<E, T> removeShadow() {
-        String elevationClass = "";
-        for (int i = 0; i < element.classList.length; i++) {
-            if(element.classList.item(i).startsWith("elevation-")){
-                elevationClass = element.classList.item(i);
-            }
-        }
-        if(nonNull(elevationClass) && !elevationClass.isEmpty()){
-            element.classList.remove(elevationClass);
-        }
-
-        element.classList.add(Elevation.NONE.getStyle());
+        Elevation.removeFrom(element);
         return this;
     }
 
