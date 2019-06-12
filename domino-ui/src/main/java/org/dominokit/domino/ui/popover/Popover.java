@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.popover;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.modals.ModalBackDrop;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.EventType;
@@ -24,9 +25,9 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
 
     private DominoElement<HTMLDivElement> element = DominoElement.of(div()
             .css("popover")
-            .css(Styles.default_shadow)
             .attr("role", "tooltip")
-            .style("display: block;"));
+            .style("display: block;"))
+            .elevate(Elevation.LEVEL_1);
     private DominoElement<HTMLDivElement> arrowElement = DominoElement.of(div().css("arrow"));
     private DominoElement<HTMLHeadingElement> headingElement = DominoElement.of(h(3).css("popover-title"));
     private DominoElement<HTMLDivElement> contentElement = DominoElement.of(div().css("popover-content"));

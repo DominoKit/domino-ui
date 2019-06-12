@@ -4,6 +4,7 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.gwt.elemento.core.Elements;
@@ -40,7 +41,6 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
             .css(NotificationStyles.BOOTSTRAP_NOTIFY_CONTAINER)
             .css(NotificationStyles.ALERT)
             .css(NotificationStyles.ALERT_DISMISSIBLE)
-            .css(Styles.default_shadow)
             .css(Styles.p_r_35)
             .attr("role","alert")
             .attr("data-position","20")
@@ -58,6 +58,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
 
     public Notification() {
         init(this);
+        elevate(Elevation.LEVEL_1);
     }
 
     public static Notification createDanger(String message) {

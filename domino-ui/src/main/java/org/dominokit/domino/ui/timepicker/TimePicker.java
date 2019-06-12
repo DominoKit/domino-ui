@@ -12,6 +12,7 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.pickers.PickerHandler;
 import org.dominokit.domino.ui.style.ColorScheme;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
@@ -53,8 +54,9 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     private DominoElement<HTMLDivElement> minutesPanel;
 
     private DominoElement<HTMLDivElement> element = DominoElement.of(div()
-            .css(TimePickerStyles.TIME_PICKER)
-            .css(Styles.default_shadow));
+            .css(TimePickerStyles.TIME_PICKER))
+            .elevate(Elevation.LEVEL_1);
+
     private DominoElement<HTMLDivElement> headerPanel = DominoElement.of(div().css(TimePickerStyles.TIME_PANEL));
     private Text splitText = TextNode.of(":");
     private DominoElement<HTMLDivElement> hoursText = DominoElement.of(div().css(TimePickerStyles.HOUR_TEXT));

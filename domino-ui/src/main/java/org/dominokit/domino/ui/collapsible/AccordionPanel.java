@@ -6,6 +6,7 @@ import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -17,8 +18,8 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionPanel> implements IsCollapsible<AccordionPanel> {
 
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(CollapsibleStyles.PANEL)
-            .css(Styles.default_shadow));
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(CollapsibleStyles.PANEL))
+            .elevate(Elevation.LEVEL_1);
     private DominoElement<HTMLDivElement> headerElement = DominoElement.of(div().css(CollapsibleStyles.PANEL_HEADING)
             .attr("role", "tab"));
     private DominoElement<HTMLHeadingElement> headingElement = DominoElement.of(h(4).css(CollapsibleStyles.PANEL_TITLE));
