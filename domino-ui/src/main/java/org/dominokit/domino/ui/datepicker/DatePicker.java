@@ -13,6 +13,7 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.pickers.PickerHandler;
 import org.dominokit.domino.ui.style.ColorScheme;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -34,8 +35,8 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
     private final JsDate jsDate;
     private DominoElement<HTMLDivElement> element = DominoElement.of(div()
-            .css(DatePickerStyles.CALENDAR)
-            .css(Styles.default_shadow));
+            .css(DatePickerStyles.CALENDAR))
+            .elevate(Elevation.LEVEL_1);
     private DominoElement<HTMLDivElement> headerPanel = DominoElement.of(div().css(DatePickerStyles.DATE_PANEL));
     private DominoElement<HTMLDivElement> selectorsPanel = DominoElement.of(div().css(DatePickerStyles.SELECTOR_CONTAINER));
     private DominoElement<HTMLDivElement> footerPanel = DominoElement.of(div().css(DatePickerStyles.CAL_FOOTER));
