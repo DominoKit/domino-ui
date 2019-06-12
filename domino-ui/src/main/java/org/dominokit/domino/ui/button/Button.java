@@ -2,12 +2,14 @@ package org.dominokit.domino.ui.button;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.StyleType;
 
 public class Button extends BaseButton<Button> {
 
     public Button() {
         init(this);
+        elevate(Elevation.LEVEL_1);
     }
 
     public Button(String content) {
@@ -23,6 +25,7 @@ public class Button extends BaseButton<Button> {
     public Button(BaseIcon<?> icon) {
         super(icon);
         init(this);
+        elevate(Elevation.LEVEL_1);
     }
 
     public Button(BaseIcon<?> icon, StyleType type) {

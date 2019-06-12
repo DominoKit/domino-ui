@@ -5,6 +5,7 @@ import org.dominokit.domino.ui.button.BaseButton;
 import org.dominokit.domino.ui.button.ButtonSize;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.EventType;
 
@@ -17,6 +18,7 @@ public class ScrollTop extends BaseButton<ScrollTop> {
     public ScrollTop(BaseIcon<?> icon) {
         super(icon);
         init(this);
+        elevate(Elevation.LEVEL_1);
         circle();
         setSize(ButtonSize.LARGE);
         setBackground(Color.THEME);
