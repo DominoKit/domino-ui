@@ -4,6 +4,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -32,7 +33,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
 
     private DominoElement<HTMLDivElement> root = DominoElement.div()
             .css("info-box")
-            .css(Styles.default_shadow)
+            .elevate(Elevation.LEVEL_1)
             .appendChild(iconElement)
             .appendChild(infoContent);
 

@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.badges;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Text;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -15,8 +16,8 @@ import static org.jboss.gwt.elemento.core.Elements.span;
 public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasBackground<Badge> {
 
     private DominoElement<HTMLElement> badgeElement = DominoElement.of(span()
-            .css(BadgeStyles.BADGE)
-            .css(Styles.default_shadow));
+            .css(BadgeStyles.BADGE))
+            .elevate(Elevation.LEVEL_1);
     private Color badgeBackground;
     private Text textNode = TextNode.empty();
 

@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
@@ -13,9 +14,9 @@ public class SimpleListGroup extends BaseDominoElement<HTMLUListElement, SimpleL
     private SimpleListGroup() {
         this.element = ul()
                 .css(ListStyles.LIST_GROUP)
-                .css(Styles.default_shadow)
                 .asElement();
         init(this);
+        elevate(Elevation.LEVEL_1);
     }
 
     public static SimpleListGroup create() {

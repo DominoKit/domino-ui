@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
@@ -25,9 +26,9 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
     public ListGroup() {
         this.element = div()
                 .css(ListStyles.LIST_GROUP)
-                .css(Styles.default_shadow)
                 .asElement();
         init(this);
+        elevate(Elevation.LEVEL_1);
     }
 
     public static <T> ListGroup<T> create() {

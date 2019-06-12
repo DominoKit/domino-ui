@@ -5,6 +5,7 @@ import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.Typography.Strong;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -33,8 +34,8 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
     private Color background;
     private boolean dismissible = false;
     private DominoElement<HTMLDivElement> element = DominoElement.of(div()
-            .css(AlertStyles.ALERT)
-            .css(Styles.default_shadow));
+            .css(AlertStyles.ALERT))
+            .elevate(Elevation.LEVEL_1);
 
     public Alert() {
         init(this);

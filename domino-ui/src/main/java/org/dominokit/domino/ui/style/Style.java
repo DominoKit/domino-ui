@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.style;
 
+import elemental2.dom.DOMTokenList;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLBodyElement;
 import elemental2.dom.HTMLElement;
@@ -472,7 +473,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     }
 
     public Style<E, T> setZIndex(int zindex) {
-        setProperty("z-index", zindex+"");
+        setProperty("z-index", zindex + "");
         return this;
     }
 
@@ -494,23 +495,28 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
 
     @Deprecated
     public Style<E, T> removeShadow(boolean important) {
-        setProperty("box-shadow", "none", important);
-        setProperty("-webkit-box-shadow", "none", important);
-        remove(default_shadow);
-        return this;
+        return removeShadow();
     }
 
     @Deprecated
     public Style<E, T> removeShadow() {
-        setProperty("box-shadow", "none");
-        setProperty("-webkit-box-shadow", "none");
-        remove(default_shadow);
+        String elevationClass = "";
+        for (int i = 0; i < element.classList.length; i++) {
+            if(element.classList.item(i).startsWith("elevation-")){
+                elevationClass = element.classList.item(i);
+            }
+        }
+        if(nonNull(elevationClass) && !elevationClass.isEmpty()){
+            element.classList.remove(elevationClass);
+        }
+
+        element.classList.add(Elevation.NONE.getStyle());
         return this;
     }
 
     @Deprecated
     public Style<E, T> addDefaultShadow() {
-        add(default_shadow);
+        add(Elevation.LEVEL_1.getStyle());
         return this;
     }
 
