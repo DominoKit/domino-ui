@@ -563,6 +563,8 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     public T elevate(Elevation elevation){
         if(nonNull(this.elevation)){
             style.remove(this.elevation.getStyle());
+        }else{
+            Elevation.removeFrom(asElement());
         }
 
         this.elevation = elevation;

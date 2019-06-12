@@ -1,5 +1,9 @@
 package org.dominokit.domino.ui.style;
 
+import elemental2.dom.HTMLElement;
+
+import static java.util.Objects.nonNull;
+
 public enum Elevation {
 
     NONE("elevation-none"),
@@ -97,6 +101,18 @@ public enum Elevation {
                 } else {
                     return LEVEL_24;
                 }
+        }
+    }
+
+    public static void removeFrom(HTMLElement element){
+        String elevationClass = "";
+        for (int i = 0; i < element.classList.length; i++) {
+            if(element.classList.item(i).startsWith("elevation-")){
+                elevationClass = element.classList.item(i);
+            }
+        }
+        if(nonNull(elevationClass) && !elevationClass.isEmpty()){
+            element.classList.remove(elevationClass);
         }
     }
 }
