@@ -7,6 +7,7 @@ import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.StyleType;
 import org.jboss.gwt.elemento.core.Elements;
 
@@ -117,6 +118,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
         groupElement.appendChild(asDropDown());
         buttonElement.appendChild(caret);
         init(this);
+        elevate(Elevation.LEVEL_1);
     }
 
     private HTMLElement asDropDown() {
