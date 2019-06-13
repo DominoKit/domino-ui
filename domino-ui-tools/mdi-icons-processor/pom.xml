@@ -15,8 +15,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.dominokit.domino.apt</groupId>
-            <artifactId>apt-commons</artifactId>
+            <groupId>org.dominokit</groupId>
+            <artifactId>domino-apt-commons</artifactId>
             <version>1.0-rc.4-SNAPSHOT</version>
         </dependency>
         <dependency>
