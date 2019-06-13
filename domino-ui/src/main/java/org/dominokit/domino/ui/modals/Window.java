@@ -265,12 +265,12 @@ public class Window extends BaseModal<Window> {
         return this;
     }
 
-    public Window hideClose() {
+    public Window hideClosing() {
         closeIcon.hide();
         return this;
     }
 
-    public Window showClose() {
+    public Window showClosing() {
         closeIcon.show();
         return this;
     }
