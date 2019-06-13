@@ -1,0 +1,78 @@
+/* Searchbar =================================== */
+.search-bar {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    z-index: 14;
+    width: 100%;
+    height: 100%;
+    -moz-transition: 0.25s;
+    -o-transition: 0.25s;
+    -webkit-transition: 0.25s;
+    transition: 0.25s;
+    border-bottom: 1px solid #999;
+}
+
+.search-bar.open {
+    top: 0 !important;
+}
+
+.search-bar .search-icon {
+    display: table;
+    height: 100%;
+    position: absolute;
+    left: 14px;
+}
+
+.search-bar .search-icon i {
+    height: 100%;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.search-bar .search-icon .material-icons {
+    font-size: 24px;
+    color: #999 !important;
+}
+
+.search-bar .close-search {
+    display: table;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+    font-size: 30px;
+    right: 18px;
+    top: 0px;
+}
+
+.search-bar .close-search i {
+    height: 100%;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: #999;
+}
+
+.search-bar .close-search .material-icons {
+    opacity: 1;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    color: #999 !important;
+}
+
+.search-bar .close-search .material-icons:hover {
+    opacity: .5;
+}
+
+.search-bar input[type="text"] {
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    padding: 0px 60px 0px 56px;
+    border: none;
+    color: #000;
+    font-weight: 500;
+}
