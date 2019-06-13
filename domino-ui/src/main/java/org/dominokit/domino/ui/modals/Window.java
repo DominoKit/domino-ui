@@ -16,8 +16,9 @@ import static org.dominokit.domino.ui.style.Unit.px;
 
 public class Window extends BaseModal<Window> {
 
-    private final MdiIcon restore;
-    private final MdiIcon maximize;
+    private final MdiIcon restoreIcon;
+    private final MdiIcon maximizeIcon;
+    private final MdiIcon closeIcon;
     private boolean maximized = false;
 
     private double mouseX;
@@ -37,7 +38,7 @@ public class Window extends BaseModal<Window> {
     private boolean draggable = true;
     private boolean fixed;
 
-    public static Window create(String title){
+    public static Window create(String title) {
         return new Window(title);
     }
 
@@ -52,23 +53,24 @@ public class Window extends BaseModal<Window> {
                 .setFloat("left")
                 .setPadding(px.of(8)));
 
-        restore = Icons.ALL.window_restore_mdi();
-        maximize = Icons.ALL.window_maximize_mdi();
+        restoreIcon = Icons.ALL.window_restore_mdi();
+        maximizeIcon = Icons.ALL.window_maximize_mdi();
+        closeIcon = Icons.ALL.close_mdi();
         modalElement.getModalHeader().appendChild(FlexLayout.create()
                 .styler(style -> style.setFloat("right"))
                 .appendChild(FlexItem.create()
-                        .appendChild(restore
+                        .appendChild(restoreIcon
                                 .hide()
                                 .size18()
                                 .clickable()
                                 .addClickListener(evt -> restore())
                         )
-                        .appendChild(maximize
+                        .appendChild(maximizeIcon
                                 .size18()
                                 .clickable()
                                 .addClickListener(evt -> maximize())
                         )
-                        .appendChild(Icons.ALL.close_mdi()
+                        .appendChild(closeIcon
                                 .size18()
                                 .clickable()
                                 .addClickListener(evt -> close()))
@@ -131,8 +133,8 @@ public class Window extends BaseModal<Window> {
     }
 
     public Window maximize() {
-        maximize.hide();
-        restore.show();
+        maximizeIcon.hide();
+        restoreIcon.show();
         maximized = true;
         updatePosition();
         Window.this.css("maximized");
@@ -141,8 +143,8 @@ public class Window extends BaseModal<Window> {
     }
 
     public Window restore() {
-        restore.hide();
-        maximize.show();
+        restoreIcon.hide();
+        maximizeIcon.show();
         maximized = false;
         Window.this.removeCss("maximized");
         updatePosition();
@@ -188,7 +190,7 @@ public class Window extends BaseModal<Window> {
     }
 
     private void initPosition() {
-        onOpen(() -> updatePosition());
+        onOpen(this::updatePosition);
     }
 
     private void updatePosition() {
@@ -201,7 +203,7 @@ public class Window extends BaseModal<Window> {
             double windowWidth = DomGlobal.window.innerWidth;
 
             if (windowLeft < 0) {
-                modalElement.asElement().style.left = ((windowWidth - initialWidth) / 2)+((fixed ? 0 : DomGlobal.window.pageXOffset)) + "px";
+                modalElement.asElement().style.left = ((windowWidth - initialWidth) / 2) + ((fixed ? 0 : DomGlobal.window.pageXOffset)) + "px";
             } else {
                 modalElement.asElement().style.left = windowLeft + "px";
             }
@@ -244,5 +246,44 @@ public class Window extends BaseModal<Window> {
                 .addEventListener(EventType.mousemove.getName(), moveListener);
         DomGlobal.document.body
                 .addEventListener(EventType.mouseup.getName(), stopMoveListener);
+    }
+
+    public Window hideResizing() {
+        restoreIcon.hide();
+        maximizeIcon.hide();
+        return this;
+    }
+
+    public Window showResizing() {
+        if (maximized) {
+            maximizeIcon.hide();
+            restoreIcon.show();
+        } else {
+            maximizeIcon.show();
+            restoreIcon.hide();
+        }
+        return this;
+    }
+
+    public Window hideClose() {
+        closeIcon.hide();
+        return this;
+    }
+
+    public Window showClose() {
+        closeIcon.show();
+        return this;
+    }
+
+    public MdiIcon getRestoreIcon() {
+        return restoreIcon;
+    }
+
+    public MdiIcon getMaximizeIcon() {
+        return maximizeIcon;
+    }
+
+    public MdiIcon getCloseIcon() {
+        return closeIcon;
     }
 }
