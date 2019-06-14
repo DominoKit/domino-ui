@@ -53,8 +53,8 @@ public class ModalBackDrop {
         NEXT_Z_INDEX += INCREMENT;
     }
 
-    public static void popModal() {
-        openedModals.pop();
+    public static void popModal(BaseModal modal) {
+        openedModals.remove(modal);
         NEXT_Z_INDEX -= INCREMENT;
     }
 

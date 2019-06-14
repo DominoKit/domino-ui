@@ -227,7 +227,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     public T open() {
 
         if (isEnabled()) {
-
+            style().removeProperty("z-index");
             if (autoAppendAndRemove) {
                 asElement().remove();
                 document.body.appendChild(asElement());
@@ -312,7 +312,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         this.open = false;
         removeBackDrop();
         if (ModalBackDrop.contains(this)) {
-            ModalBackDrop.popModal();
+            ModalBackDrop.popModal(this);
         }
 
         for (int i = 0; i < closeHandlers.size(); i++) {
