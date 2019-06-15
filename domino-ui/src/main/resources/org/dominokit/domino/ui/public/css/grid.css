@@ -1485,6 +1485,7 @@
 
     .grid-col {
         min-height: 1px;
+        max-width: 100%;
     }
 }
 
@@ -1521,6 +1522,7 @@
         min-height: 1px;
         padding-right: 15px;
         padding-left: 15px;
+        max-width: 100%;
     }
 
 }
@@ -2308,4 +2310,5 @@
 
 .grid-col {
     min-height: 1px;
+    max-width: 100%;
 }
