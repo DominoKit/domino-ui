@@ -197,6 +197,7 @@ body.modal-open {
     .modal.left-sheet {
         margin: 0px;
         left: 0;
+        top: 0px;
         width: 30%;
     }
 
@@ -215,6 +216,7 @@ body.modal-open {
     .modal.right-sheet {
         margin: 0px;
         right: 0;
+        top: 0px;
         width: 30%;
     }
 
@@ -272,6 +274,7 @@ body.modal-open {
     .modal.left-sheet {
         margin: 0px;
         left: 0;
+        top: 0px;
         width: 90%;
     }
 
@@ -290,6 +293,7 @@ body.modal-open {
     .modal.right-sheet {
         margin: 0px;
         right: 0;
+        top: 0px;
         width: 90%;
     }
 
@@ -367,16 +371,16 @@ body.modal-open {
 }
 
 .modal.picker-modal .modal-content,
-.modal.picker-modal .modal-dialog{
+.modal.picker-modal .modal-dialog {
     width: 275px;
 }
 
-.modal.picker-modal .modal-header{
+.modal.picker-modal .modal-header {
     display: none;
 }
 
 .modal.picker-modal .modal-body,
-.modal.picker-modal .modal-footer{
+.modal.picker-modal .modal-footer {
     padding: 0px;
 }
 
@@ -385,18 +389,18 @@ body.modal-open {
     text-align: center !important;
 }
 
-.modal.window{
+.modal.window {
     border-radius: 4px;
     margin: auto;
     position: absolute;
     top: 100px;
 }
 
-.modal.window.fixed{
+.modal.window.fixed {
     position: fixed;
 }
 
-.modal.window.maximized{
+.modal.window.maximized {
     width: 100%;
     position: fixed;
     top: 0px;
@@ -405,15 +409,15 @@ body.modal-open {
 }
 
 .modal.window.maximized .modal-dialog,
-.modal.window.maximized .modal-dialog .modal-content{
+.modal.window.maximized .modal-dialog .modal-content {
     height: 100%
 }
 
-.modal.window .modal-dialog .modal-content{
+.modal.window .modal-dialog .modal-content {
     border-radius: 4px;
 }
 
-.modal.window .modal-dialog .modal-content .modal-header{
+.modal.window .modal-dialog .modal-content .modal-header {
     padding: 5px;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
