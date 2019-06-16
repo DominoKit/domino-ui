@@ -17,7 +17,9 @@ import org.jboss.gwt.elemento.template.Templated;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -58,6 +60,8 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
     private Icon expandAllIcon;
 
     private T value;
+
+    private final List<ItemClickListener<T>> itemsClickListeners = new ArrayList<>();
 
     public Tree() {
         this("");
@@ -149,12 +153,20 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
 
     @Override
     public void setActiveItem(TreeItem<T> activeItem) {
+        setActiveItem(activeItem, false);
+    }
+
+    @Override
+    public void setActiveItem(TreeItem<T> activeItem, boolean silent) {
         if (nonNull(this.activeTreeItem) && !this.activeTreeItem.equals(activeItem)) {
             this.activeTreeItem.deactivate();
         }
 
         this.activeTreeItem = activeItem;
         this.activeTreeItem.activate();
+        if(!silent) {
+            onTreeItemClicked(activeItem);
+        }
     }
 
     public DominoElement<HTMLLIElement> getHeader() {
@@ -299,6 +311,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
     }
 
     @Override
+    public Optional<TreeItem<T>> getParent() {
+        return Optional.empty();
+    }
+
+    @Override
     public void activate() {
 
     }
@@ -332,8 +349,48 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         this.value = value;
     }
 
+    public Tree<T> addItemClickListener(ItemClickListener<T> itemClickListener){
+        this.itemsClickListeners.add(itemClickListener);
+        return this;
+    }
+
+    public Tree<T> removeItemClickListener(ItemClickListener<T> itemClickListener){
+        this.itemsClickListeners.remove(itemClickListener);
+        return this;
+    }
+
+    void onTreeItemClicked(TreeItem<T> treeItem){
+        this.itemsClickListeners.forEach(itemClickListener -> itemClickListener.onTreeItemClicked(treeItem));
+    }
+
+    public List<TreeItem<T>> getActivePath(){
+        List<TreeItem<T>> activeItems = new ArrayList<>();
+        TreeItem<T> activeItem = getActiveItem();
+        while(nonNull(activeItem)){
+            activeItems.add(activeItem);
+            activeItem = activeItem.getActiveItem();
+        }
+
+        return activeItems;
+    }
+
+    public List<T> getActivePathValues(){
+        List<T> activeValues = new ArrayList<>();
+        TreeItem<T> activeItem = getActiveItem();
+        while(nonNull(activeItem)){
+            activeValues.add(activeItem.getValue());
+            activeItem = activeItem.getActiveItem();
+        }
+
+        return activeValues;
+    }
+
     @Override
     public HTMLDivElement asElement() {
         return menu;
+    }
+
+    public interface ItemClickListener<T> {
+        void onTreeItemClicked(TreeItem<T> treeItem);
     }
 }

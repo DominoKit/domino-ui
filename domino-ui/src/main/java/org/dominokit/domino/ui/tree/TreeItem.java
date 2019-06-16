@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.tree;
 
 import elemental2.dom.*;
+import elemental2.dom.EventListener;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
@@ -8,8 +9,7 @@ import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.EventType;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -147,6 +147,11 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
             if (isParent()) {
                 collapsible.toggleDisplay();
             }
+
+            if(nonNull(TreeItem.this.getActiveItem())) {
+                TreeItem.this.activeTreeItem.deactivate();
+                TreeItem.this.activeTreeItem = null;
+            }
             parent.setActiveItem(TreeItem.this);
         });
         init(this);
@@ -236,15 +241,62 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     }
 
     @Override
+    public Optional<TreeItem<T>> getParent() {
+        if(parent instanceof TreeItem) {
+            return Optional.of((TreeItem<T>) parent);
+        }else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public void setActiveItem(TreeItem<T> activeItem) {
+        setActiveItem(activeItem, false);
+    }
+
+    @Override
+    public void setActiveItem(TreeItem<T> activeItem, boolean silent) {
         if (nonNull(activeItem)) {
             if (nonNull(this.activeTreeItem) && !this.activeTreeItem.equals(activeItem)) {
                 this.activeTreeItem.deactivate();
             }
             this.activeTreeItem = activeItem;
             this.activeTreeItem.activate();
-            parent.setActiveItem(this);
+            parent.setActiveItem(this, true);
+            if(!silent) {
+                getTreeRoot().onTreeItemClicked(activeItem);
+            }
         }
+    }
+
+    public List<TreeItem<T>> getPath(){
+        List<TreeItem<T>> items = new ArrayList<>();
+        items.add(this);
+        Optional<TreeItem<T>> parent = getParent();
+
+        while(parent.isPresent()){
+            items.add(parent.get());
+            parent = parent.get().getParent();
+        }
+
+        Collections.reverse(items);
+
+        return items;
+    }
+
+    public List<T> getPathValues(){
+        List<T> values = new ArrayList<>();
+        values.add(this.getValue());
+        Optional<TreeItem<T>> parent = getParent();
+
+        while(parent.isPresent()){
+            values.add(parent.get().getValue());
+            parent = parent.get().getParent();
+        }
+
+        Collections.reverse(values);
+
+        return values;
     }
 
     @Override
@@ -259,10 +311,8 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
             replaceIcon(this.activeIcon);
         }
 
-
         if (activateParent && nonNull(parent)) {
             parent.setActiveItem(this);
-
         }
     }
 
