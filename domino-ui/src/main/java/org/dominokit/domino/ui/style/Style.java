@@ -493,17 +493,26 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
         return false;
     }
 
+    /**
+     * use {@link org.dominokit.domino.ui.utils.BaseDominoElement#elevate(Elevation)} with elevation level of {@link Elevation#NONE}
+     */
     @Deprecated
     public Style<E, T> removeShadow(boolean important) {
         return removeShadow();
     }
 
+    /**
+     * use {@link org.dominokit.domino.ui.utils.BaseDominoElement#elevate(Elevation)} with elevation level of {@link Elevation#NONE}
+     */
     @Deprecated
     public Style<E, T> removeShadow() {
         Elevation.removeFrom(element);
         return this;
     }
 
+    /**
+     * use {@link org.dominokit.domino.ui.utils.BaseDominoElement#elevate(Elevation)} with elevation level of {@link Elevation#LEVEL_1}
+     */
     @Deprecated
     public Style<E, T> addDefaultShadow() {
         add(Elevation.LEVEL_1.getStyle());
