@@ -31,6 +31,7 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     private DropDownMenu dropDownMenu;
     private ColorScheme colorScheme = ColorScheme.INDIGO;
     private int maxSize = -1;
+    private boolean userInputEnabled;
 
     public TagsInput(String label, TagsStore<V> store) {
         super("text", label);
@@ -161,15 +162,17 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     }
 
     public void appendChip(Chip chip, V value) {
-        chip.addRemoveHandler(() -> {
-            selectedItems.remove(value);
-            chips.remove(chip);
+        if (!isExceedsMaxSize()) {
+            chip.addRemoveHandler(() -> {
+                selectedItems.remove(value);
+                chips.remove(chip);
+                fireChangeEvent();
+            });
+            chips.add(chip);
+            selectedItems.add(value);
+            getInputElement().insertBefore(chip.asElement(), tagTextInput);
             fireChangeEvent();
-        });
-        chips.add(chip);
-        selectedItems.add(value);
-        getInputElement().insertBefore(chip.asElement(), tagTextInput);
-        fireChangeEvent();
+        }
     }
 
     private boolean isExceedsMaxSize() {
@@ -218,11 +221,13 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     }
 
     private void disableAddValues() {
-        tagTextInput.hide();
+        if (userInputEnabled)
+            tagTextInput.hide();
     }
 
     private void enableAddValues() {
-        tagTextInput.show();
+        if (userInputEnabled)
+            tagTextInput.show();
     }
 
     public TagsInput<V> setMaxValue(int maxSize) {
@@ -231,12 +236,19 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     }
 
     @Override
-    public TagsInput<V> setReadOnly(boolean readOnly) {
-        return super.setReadOnly(readOnly);
-    }
-
-    @Override
     public String getStringValue() {
         return getValue().stream().map(Object::toString).collect(Collectors.joining(","));
+    }
+
+    public TagsInput<V> disableUserInput() {
+        userInputEnabled = false;
+        tagTextInput.hide();
+        return this;
+    }
+
+    public TagsInput<V> enableUserInput() {
+        userInputEnabled = true;
+        tagTextInput.show();
+        return this;
     }
 }
