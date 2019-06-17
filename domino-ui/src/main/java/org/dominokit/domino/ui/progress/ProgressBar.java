@@ -9,12 +9,12 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> {
 
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("progress-bar").attr("role", "progressbar"));
-    private double maxValue = 100;
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(ProgressStyles.progress_bar).attr("role", "progressbar"));
+    private double maxValue;
     private double value = 0;
-    private String textExpression = "{percent}%";
+    private String textExpression;
     private boolean showText = false;
-    private String style = "progress-bar-success";
+    private String style = ProgressStyles.progress_bar_success;
 
     public ProgressBar(int maxValue) {
         this(maxValue, "{percent}%");
@@ -67,30 +67,30 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
 
     public ProgressBar animate() {
         striped();
-        element.style().add("active");
+        element.style().add(ProgressStyles.active);
         return this;
     }
 
     public ProgressBar striped() {
-        element.style().remove("progress-bar-striped");
-        element.style().add("progress-bar-striped");
+        element.style().remove(ProgressStyles.progress_bar_striped);
+        element.style().add(ProgressStyles.progress_bar_striped);
         return this;
     }
 
     public ProgressBar success() {
-        return setStyle("progress-bar-success");
+        return setStyle(ProgressStyles.progress_bar_success);
     }
 
     public ProgressBar warning() {
-        return setStyle("progress-bar-warning");
+        return setStyle(ProgressStyles.progress_bar_warning);
     }
 
     public ProgressBar info() {
-        return setStyle("progress-bar-info");
+        return setStyle(ProgressStyles.progress_bar_info);
     }
 
     public ProgressBar danger() {
-        return setStyle("progress-bar-danger");
+        return setStyle(ProgressStyles.progress_bar_danger);
     }
 
     private ProgressBar setStyle(String style) {

@@ -17,8 +17,8 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
 
     private static final int LEFT_BUTTON = 1;
 
-    protected DominoElement<HTMLDivElement> element = DominoElement.of(div().css("splitter"));
-    private DominoElement<HTMLDivElement> handleElement = DominoElement.of(div().css("split-handle"));
+    protected DominoElement<HTMLDivElement> element = DominoElement.of(div().css(SplitStyles.splitter));
+    private DominoElement<HTMLDivElement> handleElement = DominoElement.of(div().css(SplitStyles.split_handle));
 
     private double fullSize = 0;
     private double initialStartPosition = 0;

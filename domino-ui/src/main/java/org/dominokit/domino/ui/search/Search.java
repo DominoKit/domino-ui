@@ -24,11 +24,11 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
 
     private HTMLDivElement element = div()
             .style("display: none;")
-            .css("search-bar")
-            .add(div().css("search-icon")
+            .css(SearchStyles.search_bar)
+            .add(div().css(SearchStyles.search_icon)
                     .add(i().css("material-icons").textContent("search")))
             .add(searchInput)
-            .add(div().css("close-search")
+            .add(div().css(SearchStyles.close_search)
                     .add(closeIcon))
             .asElement();
 
@@ -91,7 +91,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
                 .setDisplay("inline-block")
                 .setHeight("100%");
         Scheduler.get().scheduleFixedDelay(() -> {
-            style().add("open");
+            style().add(SearchStyles.open);
             return false;
         }, 50);
 
@@ -100,7 +100,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
     }
 
     public Search close() {
-        style().remove("open");
+        style().remove(SearchStyles.open);
         Scheduler.get().scheduleFixedDelay(() -> {
             style().setDisplay("none");
             return false;
