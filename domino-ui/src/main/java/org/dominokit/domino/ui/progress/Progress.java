@@ -7,7 +7,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class Progress extends BaseDominoElement<HTMLDivElement, Progress> {
 
-    private HTMLDivElement element=div().css("progress").asElement();
+    private HTMLDivElement element=div().css(ProgressStyles.progress).asElement();
 
     public Progress() {
         init(this);

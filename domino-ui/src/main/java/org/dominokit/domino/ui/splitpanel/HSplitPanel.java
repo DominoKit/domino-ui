@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.splitpanel;
 public class HSplitPanel extends BaseSplitPanel<HSplitPanel, HSplitter> implements HasSize {
 
     public HSplitPanel() {
-        super("horizontal");
+        super(SplitStyles.horizontal);
         init(this);
     }
 

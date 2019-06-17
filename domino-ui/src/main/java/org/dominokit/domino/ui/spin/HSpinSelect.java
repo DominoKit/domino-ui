@@ -7,7 +7,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 
-public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>>{
+public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
 
     public static <T> HSpinSelect<T> create() {
         return new HSpinSelect<>();
@@ -43,7 +43,7 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>>{
 
     @Override
     protected String getStyle() {
-        return "h-spin";
+        return SpinStyles.h_spin;
     }
 
     @Override
