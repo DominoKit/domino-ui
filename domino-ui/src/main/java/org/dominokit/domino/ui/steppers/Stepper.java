@@ -13,13 +13,15 @@ import java.util.Optional;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.steppers.StepperStyles.horizontal;
+import static org.dominokit.domino.ui.steppers.StepperStyles.stepper;
 import static org.jboss.gwt.elemento.core.Elements.ul;
 
 public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
 
     private static Transition HORIZONTAL_NEXT_STEP_TRANSITION = Transition.SLIDE_IN_RIGHT;
     private static Transition HORIZONTAL_PREV_STEP_TRANSITION = Transition.SLIDE_IN_LEFT;
-    private final HTMLUListElement element = ul().css("stepper").asElement();
+    private final HTMLUListElement element = ul().css(stepper).asElement();
     private Step activeStep;
     private Color color;
     private List<Step> steps = new ArrayList<>();
@@ -121,7 +123,7 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
     }
 
     private boolean isHorizontal() {
-        return Style.of(this).contains("horizontal");
+        return Style.of(this).contains(horizontal);
     }
 
     public Stepper invalidate() {
@@ -175,9 +177,9 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
     }
 
     public Stepper setHorizontal(boolean horizontal) {
-        style().remove("horizontal");
+        style().remove(StepperStyles.horizontal);
         if (horizontal) {
-            style().add("horizontal");
+            style().add(StepperStyles.horizontal);
         }
 
         return this;
