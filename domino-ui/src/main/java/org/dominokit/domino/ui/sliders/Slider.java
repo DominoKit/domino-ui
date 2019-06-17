@@ -21,9 +21,9 @@ import static org.jboss.gwt.elemento.core.EventType.input;
 
 public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> implements HasChangeHandlers<Slider, Double> {
 
-    private DominoElement<HTMLParagraphElement> sliderContainer = DominoElement.of(p().css("slide-container"));
-    private DominoElement<HTMLInputElement> slider = DominoElement.of(input("range").css("slider"));
-    private DominoElement<HTMLElement> thumb = DominoElement.of(span().css("thumb"));
+    private DominoElement<HTMLParagraphElement> sliderContainer = DominoElement.of(p().css(SliderStyles.slide_container));
+    private DominoElement<HTMLInputElement> slider = DominoElement.of(input("range").css(SliderStyles.slider));
+    private DominoElement<HTMLElement> thumb = DominoElement.of(span().css(SliderStyles.thumb));
     private DominoElement<HTMLElement> thumbValue = DominoElement.of(span().css("value"));
     private List<ChangeHandler<? super Double>> changeHandlers = new ArrayList<>();
     private List<SlideHandler> slideHandlers = new ArrayList<>();
@@ -52,7 +52,7 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         setMinValue(min);
         setValue(value);
         EventListener downEvent = mouseDownEvent -> {
-            slider.style().add("active");
+            slider.style().add(SliderStyles.active);
             this.mouseDown = true;
             if (withThumb) {
                 showThumb();
@@ -72,7 +72,7 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
 
         EventListener upEvent = mouseUpEvent -> {
             mouseDown = false;
-            slider.style().remove("active");
+            slider.style().remove(SliderStyles.active);
             hideThumb();
         };
         slider.addEventListener(change.getName(), evt -> callChangeHandlers());
@@ -112,12 +112,12 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
     }
 
     private void showThumb() {
-        thumb.style().add("active");
+        thumb.style().add(SliderStyles.active);
         updateThumbValue();
     }
 
     private void hideThumb() {
-        thumb.style().remove("active");
+        thumb.style().remove(SliderStyles.active);
     }
 
     private void evaluateThumbPosition() {

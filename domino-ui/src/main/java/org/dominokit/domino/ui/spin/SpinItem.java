@@ -11,7 +11,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>> {
 
     private T value;
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("spin-item"));
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(SpinStyles.spin_item));
 
     public SpinItem(T value) {
         this.value = value;

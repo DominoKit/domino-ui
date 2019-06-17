@@ -53,11 +53,11 @@ public abstract class Preloader extends BaseDominoElement<HTMLDivElement, Preloa
     }
 
     public enum Size {
-        xLarge("pl-size-xl"),
-        large("pl-size-l"),
-        medium("pl-size-md"),
-        small("pl-size-sm"),
-        xSmall("pl-size-xs");
+        xLarge(PreloaderStyles.pl_size_xl),
+        large(PreloaderStyles.pl_size_l),
+        medium(PreloaderStyles.pl_size_md),
+        small(PreloaderStyles.pl_size_sm),
+        xSmall(PreloaderStyles.pl_size_xs);
 
         private String style;
 
