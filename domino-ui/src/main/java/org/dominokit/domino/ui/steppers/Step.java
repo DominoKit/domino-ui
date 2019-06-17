@@ -13,23 +13,26 @@ import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.steppers.StepperStyles.*;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
 public class Step extends BaseDominoElement<HTMLLIElement, Step> {
 
-    private final HTMLLIElement element = li().css("step").asElement();
-    private final HTMLDivElement contentElement = div().css("step-content").asElement();
+    private final HTMLLIElement element = li().css(step).asElement();
+    private final HTMLDivElement contentElement = div().css(step_content).asElement();
     private HTMLDivElement stepHeader;
-    private HTMLDivElement bodyElement = div().css("step-body").asElement();
-    private HTMLDivElement footerElement = div().css("step-footer").asElement();
+    private HTMLDivElement bodyElement = div().css(step_body).asElement();
+    private HTMLDivElement footerElement = div().css(step_footer).asElement();
     private boolean expanded = false;
     private StepCompletedValidator stepCompletedValidator = () -> true;
     private Collapsible collapsible = Collapsible.create(contentElement);
     private boolean allowStepClickActivation = true;
     private Stepper stepper;
-    private ActivationHandler activationHandler= step -> {};
-    private DeActivationHandler deActivationHandler= step -> {};
+    private ActivationHandler activationHandler = step -> {
+    };
+    private DeActivationHandler deActivationHandler = step -> {
+    };
 
     public Step(String title) {
         init(makeHeaderElement(title, ""));
@@ -40,7 +43,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
     }
 
     private HTMLDivElement makeHeaderElement(String title, String description) {
-        return div().css("step-title").attr("data-step-label", description).textContent(title).asElement();
+        return div().css(step_title).attr("data-step-label", description).textContent(title).asElement();
     }
 
     private void init(HTMLDivElement stepHeader) {
@@ -87,58 +90,58 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
 
     Step activate(Transition transition) {
         clearInvalid();
-        Style.of(element).add("active");
+        Style.of(element).add(active);
         collapsible.show();
         this.expanded = true;
         Animation.create(contentElement)
                 .duration(350)
                 .transition(transition)
                 .callback(element -> {
-                    if(nonNull(activationHandler)){
+                    if (nonNull(activationHandler)) {
                         activationHandler.onActivated(this);
                     }
                 })
-               .animate();
+                .animate();
         return this;
     }
 
     Step deActivate() {
         clearInvalid();
-        Style.of(element).remove("active");
+        Style.of(element).remove(active);
         collapsible.hide();
         this.expanded = false;
-        if(nonNull(deActivationHandler)){
+        if (nonNull(deActivationHandler)) {
             deActivationHandler.onDeActivated(this);
         }
         return this;
     }
 
-    void setStepper(Stepper stepper){
+    void setStepper(Stepper stepper) {
         this.stepper = stepper;
     }
 
-    public int getIndex(){
-        if(nonNull(this.stepper)){
+    public int getIndex() {
+        if (nonNull(this.stepper)) {
             return stepper.getSteps().indexOf(this);
         }
         return -1;
     }
 
     public void setDone(boolean done) {
-        style().remove("done");
+        style().remove(StepperStyles.done);
         if (done) {
-            style().add("done");
+            style().add(StepperStyles.done);
         }
     }
 
     public void invalidate() {
-        if (!style().contains("wrong")) {
-            style().add("wrong");
+        if (!style().contains(wrong)) {
+            style().add(wrong);
         }
     }
 
     public void clearInvalid() {
-        style().remove("wrong");
+        style().remove(wrong);
     }
 
     public DominoElement<HTMLDivElement> getStepBody() {
@@ -164,8 +167,8 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
         return DominoElement.of(contentElement);
     }
 
-    public boolean isActive(){
-        return Style.of(element).contains("active");
+    public boolean isActive() {
+        return Style.of(element).contains(active);
     }
 
     @Override
@@ -173,7 +176,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
         return element;
     }
 
-    public void setAllowStepClickActivation(boolean allow){
+    public void setAllowStepClickActivation(boolean allow) {
         this.allowStepClickActivation = allow;
     }
 
@@ -181,12 +184,12 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
         return allowStepClickActivation;
     }
 
-    public Step disableClickActivation(){
+    public Step disableClickActivation() {
         setAllowStepClickActivation(false);
         return this;
     }
 
-    public Step enableClickActivation(){
+    public Step enableClickActivation() {
         setAllowStepClickActivation(true);
         return this;
     }
@@ -207,12 +210,12 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
     }
 
     @FunctionalInterface
-    public interface ActivationHandler{
+    public interface ActivationHandler {
         void onActivated(Step step);
     }
 
     @FunctionalInterface
-    public interface DeActivationHandler{
+    public interface DeActivationHandler {
         void onDeActivated(Step step);
     }
 
