@@ -141,17 +141,24 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
 
     @Override
     protected void clearValue() {
-        chips.forEach(Chip::remove);
+        chips.forEach(chip -> chip.remove(true));
         chips.clear();
         selectedItems.clear();
+        fireChangeEvent();
     }
 
     @Override
     protected void doSetValue(List<V> values) {
+        clearValue();
         for (V value : values) {
-            String displayValue = store.getDisplayValue(value);
-            appendChip(displayValue, value);
+            addValue(value);
         }
+    }
+
+    public TagsInput<V> addValue(V value) {
+        String displayValue = store.getDisplayValue(value);
+        appendChip(displayValue, value);
+        return this;
     }
 
     public void appendChip(String displayValue, V value) {
