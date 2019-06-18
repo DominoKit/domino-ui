@@ -31,7 +31,7 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     private DropDownMenu dropDownMenu;
     private ColorScheme colorScheme = ColorScheme.INDIGO;
     private int maxSize = -1;
-    private boolean userInputEnabled;
+    private boolean userInputEnabled = true;
 
     public TagsInput(String label, TagsStore<V> store) {
         super("text", label);
