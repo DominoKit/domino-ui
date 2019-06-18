@@ -17,7 +17,8 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.chips.ChipStyles.*;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.span;
 
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements HasSelectionHandler<Chip, String>, HasDeselectionHandler<Chip>,
         Switchable<Chip>, HasRemoveHandler<Chip> {
@@ -103,8 +104,13 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     }
 
     public Chip remove() {
+        return remove(false);
+    }
+
+    public Chip remove(boolean silent) {
         element.remove();
-        removeHandlers.forEach(RemoveHandler::onRemove);
+        if (!silent)
+            removeHandlers.forEach(RemoveHandler::onRemove);
         return this;
     }
 
@@ -274,9 +280,9 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     }
 
     public Chip setBorderColor(Color borderColor) {
-        if(Color.THEME.equals(color)){
+        if (Color.THEME.equals(color)) {
             Theme.addThemeChangeHandler(themeListener);
-        }else{
+        } else {
             Theme.removeThemeChangeHandler(themeListener);
         }
 
