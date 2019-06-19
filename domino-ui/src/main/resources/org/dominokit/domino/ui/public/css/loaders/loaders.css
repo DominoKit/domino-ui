@@ -1,0 +1,9 @@
+.waitMe_container .waitMe .waitMe_content.loading-top{
+    top: 10%;
+}
+.waitMe_container .waitMe .waitMe_content.loading-middle {
+    top: 50%;
+}
+.waitMe_container .waitMe .waitMe_content.loading-bottom {
+    top: 90%;
+}

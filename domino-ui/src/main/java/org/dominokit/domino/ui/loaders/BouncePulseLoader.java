@@ -9,37 +9,40 @@ import org.jboss.gwt.elemento.core.IsElement;
 import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class OrbitLoader extends BaseLoader<OrbitLoader> implements IsElement<HTMLDivElement> {
+public class BouncePulseLoader extends BaseLoader<BouncePulseLoader> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).add(div().style("background-color:#000")).asElement();
-    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).add(div().style("background-color:#000")).asElement();
+    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").asElement();
+    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#000").asElement();
+    private HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#000").asElement();
 
     private HTMLDivElement loader = div()
             .css(WAIT_ME_PROGRESS)
-            .css(ORBIT)
+            .css(BOUNCE_PULSE)
             .add(progress1)
             .add(progress2)
+            .add(progress3)
             .asElement();
 
     private HTMLDivElement content = div()
             .css(WAIT_ME_CONTENT)
             .css(Styles.vertical_center)
+            .css(VERTICAL)
             .add(loader)
             .add(loadingText)
             .asElement();
 
     private HTMLDivElement element = div()
             .css(WAIT_ME)
-            .style("background: rgba(255, 255, 255, 0.9);")
+            .style("background: rgba(255, 255, 255, 0.7);")
             .add(content)
             .asElement();
 
-    public OrbitLoader() {
+    public BouncePulseLoader() {
         init(this);
     }
 
-    public static OrbitLoader create() {
-        return new OrbitLoader();
+    public static BouncePulseLoader create() {
+        return new BouncePulseLoader();
     }
 
     @Override
