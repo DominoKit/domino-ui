@@ -596,6 +596,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return (T) this;
     }
 
+    public Elevation getElevation() {
+        return elevation;
+    }
+
     @FunctionalInterface
     public interface StyleEditor<E extends HTMLElement, T extends IsElement<E>> {
         void applyStyles(Style<E, T> style);

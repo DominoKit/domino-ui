@@ -12,5 +12,8 @@ public enum LoaderEffect {
     FACEBOOK,
     ROTATION,
     TIMER,
+    PULSE,
+    PROGRESS_BAR,
+    BOUNCE_PULSE,
     NONE;
 }
