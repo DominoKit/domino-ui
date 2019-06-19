@@ -305,7 +305,6 @@ fieldset[disabled] .btn.warning.focus {
 
 .btn:not(.btn-link):focus {
     outline: none;
-    box-shadow: 0 0 8px rgba(0, 0, 0, .18), 0 4px 8px rgba(0, 0, 0, .36);
 }
 
 .btn.circle, .btn.circle.lg {
@@ -350,8 +349,6 @@ fieldset[disabled] .btn.warning.focus {
     -webkit-transition: .5s;
     transition: .5s;
     background-color: transparent;
-    -webkit-box-shadow: none;
-    box-shadow: none;
 }
 
 .btn-link:active, .btn-link:focus {

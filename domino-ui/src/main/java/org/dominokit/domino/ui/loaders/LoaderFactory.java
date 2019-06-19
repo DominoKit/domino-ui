@@ -2,9 +2,8 @@ package org.dominokit.domino.ui.loaders;
 
 public class LoaderFactory {
 
-    public static IsLoader make(LoaderEffect type){
+    public static IsLoader make(LoaderEffect type) {
         switch (type){
-
             case BOUNCE:
                 return BounceLoader.create();
             case ROTATE_PLANE:
@@ -27,9 +26,14 @@ public class LoaderFactory {
                 return RotationLoader.create();
             case TIMER:
                 return TimerLoader.create();
+            case PULSE:
+                return PulseLoader.create();
+            case PROGRESS_BAR:
+                return ProgressBarLoader.create();
+            case BOUNCE_PULSE:
+                return BouncePulseLoader.create();
             default:
                 return NoneLoader.create();
         }
     }
-
 }
