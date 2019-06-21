@@ -110,7 +110,7 @@
                 <executions>
                     <execution>
                         <id>default-minify</id>
-                        <phase>package</phase>
+                        <phase>prepare-package</phase>
                         <configuration>
                             <charset>UTF-8</charset>
                             <cssIncludes>
