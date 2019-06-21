@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.spin.SpinStyles.*;
 import static org.jboss.gwt.elemento.core.Elements.a;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
@@ -19,11 +20,11 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
 
     protected DominoElement<HTMLDivElement> element = DominoElement.of(div().css(getStyle()));
 
-    private DominoElement<HTMLAnchorElement> prevAnchor = DominoElement.of(a().css("prev").css("disabled"));
+    private DominoElement<HTMLAnchorElement> prevAnchor = DominoElement.of(a().css(prev).css(disabled));
 
-    private DominoElement<HTMLAnchorElement> nextAnchor = DominoElement.of(a().css("next"));
-    protected DominoElement<HTMLDivElement> contentPanel = DominoElement.of(div().css("spin-content"));
-    protected DominoElement<HTMLDivElement> main = DominoElement.of(div().add(contentPanel).css("spin-container"));
+    private DominoElement<HTMLAnchorElement> nextAnchor = DominoElement.of(a().css(next));
+    protected DominoElement<HTMLDivElement> contentPanel = DominoElement.of(div().css(spin_content));
+    protected DominoElement<HTMLDivElement> main = DominoElement.of(div().add(contentPanel).css(spin_container));
     protected List<SpinItem<T>> items = new ArrayList<>();
     private SpinItem<T> activeItem;
     private List<HasSelectionHandler.SelectionHandler<SpinItem<T>>> selectionHandlers = new ArrayList<>();
@@ -86,15 +87,15 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
 
     private void updateArrowsVisibility() {
         if (items.indexOf(this.activeItem) == items.size() - 1) {
-            nextAnchor.style().add("disabled");
+            nextAnchor.style().add(disabled);
         } else {
-            nextAnchor.style().remove("disabled");
+            nextAnchor.style().remove(disabled);
         }
 
         if (items.indexOf(this.activeItem) < 1) {
-            prevAnchor.style().add("disabled");
+            prevAnchor.style().add(disabled);
         } else {
-            prevAnchor.style().remove("disabled");
+            prevAnchor.style().remove(disabled);
         }
     }
 

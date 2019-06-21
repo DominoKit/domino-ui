@@ -12,7 +12,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 abstract class BaseSplitPanel<T extends BaseSplitPanel<T,S>, S extends BaseSplitter> extends BaseDominoElement<HTMLDivElement, T> implements HasSize {
 
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("split-panel"));
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(SplitStyles.split_panel));
 
     private List<SplitPanel> panels = new LinkedList<>();
     private List<S> splitters = new LinkedList<>();

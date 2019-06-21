@@ -4,10 +4,7 @@ import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Text;
 import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.StyleType;
-import org.dominokit.domino.ui.style.WaveStyle;
-import org.dominokit.domino.ui.style.WavesElement;
+import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
 
 import static java.util.Objects.isNull;
@@ -30,6 +27,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     private BaseIcon<?> icon;
     private HTMLElement textSpan = span().asElement();
     private Text textElement = TextNode.empty();
+    private Elevation beforeLinkifyElevation = Elevation.LEVEL_1;
 
     protected BaseButton() {
     }
@@ -168,11 +166,14 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
     public B linkify() {
         buttonElement.style().add(ButtonStyles.BUTTON_LINK);
+        beforeLinkifyElevation = nonNull(buttonElement.getElevation()) ? buttonElement.getElevation() : Elevation.LEVEL_1;
+        buttonElement.elevate(Elevation.NONE);
         return (B) this;
     }
 
     public B deLinkify() {
         buttonElement.style().remove(ButtonStyles.BUTTON_LINK);
+        buttonElement.elevate(beforeLinkifyElevation);
         return (B) this;
     }
 

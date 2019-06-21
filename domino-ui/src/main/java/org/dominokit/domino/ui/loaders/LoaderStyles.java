@@ -32,4 +32,8 @@ public class LoaderStyles {
     public static final String LOADING_TOP = "loading-top";
     public static final String LOADING_MIDDLE = "loading-middle";
     public static final String LOADING_BOTTOM = "loading-bottom";
+    public static final String PULSE = "pulse";
+    public static final String VERTICAL = "vertical";
+    public static final String PROGRESS_BAR = "progressBar";
+    public static final String BOUNCE_PULSE = "bouncePulse";
 }

@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.splitpanel;
 public class VSplitPanel extends BaseSplitPanel<VSplitPanel, VSplitter> implements HasSize {
 
     public VSplitPanel() {
-        super("vertical");
+        super(SplitStyles.vertical);
         init(this);
     }
 

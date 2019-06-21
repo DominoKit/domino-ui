@@ -35,7 +35,7 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
 
     @Override
     protected String getStyle() {
-        return "v-spin";
+        return SpinStyles.v_spin;
     }
 
     @Override
