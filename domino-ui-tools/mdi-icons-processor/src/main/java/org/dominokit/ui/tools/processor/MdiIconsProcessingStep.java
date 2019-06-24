@@ -83,7 +83,7 @@ public class MdiIconsProcessingStep extends AbstractProcessingStep {
 
     private void copyFont(String fontName){
         try (InputStream inputStream = new URL("https://github.com/Templarian/MaterialDesign-Webfont/blob/"+mdiVersion+"/fonts/"+fontName+"?raw=true").openStream()){
-            FileObject resource = filer.createResource(StandardLocation.SOURCE_OUTPUT, "org.dominokit.domino.ui", "public/fonts/"+fontName);
+            FileObject resource = filer.createResource(StandardLocation.SOURCE_OUTPUT, "org.dominokit.domino.ui", "public/css/mdi/fonts/"+fontName);
             OutputStream outputStream = resource.openOutputStream();
             IOUtils.copyLarge(inputStream, outputStream);
             outputStream.close();
