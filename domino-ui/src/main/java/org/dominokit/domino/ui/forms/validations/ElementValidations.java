@@ -13,28 +13,22 @@ public class ElementValidations {
 
     private FormElement element;
     private Set<Validator> validators = new LinkedHashSet<>();
-    private boolean invalidated;
 
     public ElementValidations(FormElement element) {
         this.element = element;
     }
 
     public ValidationResult validate() {
+        element.clearInvalid();
         if (!element.isEnabled()) {
-            element.clearInvalid();
             return ValidationResult.valid();
         }
         for (Validator validator : validators) {
             ValidationResult result = validator.isValid();
             if (!result.isValid()) {
                 element.invalidate(result.getErrorMessage());
-                this.invalidated = true;
                 return result;
             }
-        }
-        if (invalidated) {
-            element.clearInvalid();
-            invalidated = false;
         }
         return ValidationResult.valid();
     }
