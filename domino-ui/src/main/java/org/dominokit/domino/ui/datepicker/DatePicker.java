@@ -440,13 +440,13 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
     public DatePicker hideClearButton() {
-        this.clearButton.show();
+        this.clearButton.hide();
         return this;
     }
 
 
     public DatePicker showCloseButton() {
-        this.closeButton.hide();
+        this.closeButton.show();
         return this;
     }
 
