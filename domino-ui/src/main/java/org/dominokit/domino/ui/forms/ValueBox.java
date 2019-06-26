@@ -334,10 +334,21 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return container.asElement();
     }
 
-
     @Override
     public T invalidate(String errorMessage) {
         this.valid = false;
+        updateValidationStyles();
+        return super.invalidate(errorMessage);
+    }
+
+    @Override
+    public T invalidate(List<String> errorMessages) {
+        this.valid = false;
+        updateValidationStyles();
+        return super.invalidate(errorMessages);
+    }
+
+    private void updateValidationStyles() {
         inputElement.style().remove("fc-" + focusColor.getStyle());
         inputElement.style().add("fc-" + Color.RED.getStyle());
         removeLabelColor(focusColor);
@@ -345,7 +356,6 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         removeLeftAddonColor(focusColor);
         setLeftAddonColor(Color.RED);
         changeLabelFloating();
-        return super.invalidate(errorMessage);
     }
 
     @Override
