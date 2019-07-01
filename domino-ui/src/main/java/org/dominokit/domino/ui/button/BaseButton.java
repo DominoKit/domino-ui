@@ -194,6 +194,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
             this.icon = icon;
             buttonElement.appendChild(this.icon);
         }
+        icon.addCss("btn-icon");
         return (B) this;
     }
 
