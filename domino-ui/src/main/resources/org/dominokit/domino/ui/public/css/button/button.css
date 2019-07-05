@@ -501,3 +501,8 @@ input[type=submit].btn-block, input[type=reset].btn-block, input[type=button].bt
 .btn-group .btn, .btn-group-vertical .btn:not(.btn-link):not([class*=circle]), .btn-group .btn-group, .btn-group-vertical .btn-group {
     box-shadow: none;
 }
+
+.btn .btn-icon.mdi {
+    top: 0;
+    margin-left: -4px;
+}
