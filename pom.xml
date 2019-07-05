@@ -146,7 +146,6 @@
                         <showWarnings>true</showWarnings>
                         <compilerArgs>
                             <arg>-Adebug=true</arg>
-                            <arg>-Amdi.version=master</arg>
                         </compilerArgs>
                     </configuration>
                 </plugin>

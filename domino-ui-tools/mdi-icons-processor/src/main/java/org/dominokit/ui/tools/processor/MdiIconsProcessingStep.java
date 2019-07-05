@@ -22,7 +22,6 @@ import org.dominokit.domino.apt.commons.StepBuilder;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
-import javax.tools.Diagnostic;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 import java.io.IOException;
@@ -34,16 +33,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import static java.util.Objects.isNull;
-
 public class MdiIconsProcessingStep extends AbstractProcessingStep {
 
-    private final String mdiVersion;
+    private static final String MDI_VERSION="v3.7.95";
 
     public MdiIconsProcessingStep(ProcessingEnvironment processingEnv) {
         super(processingEnv);
-        this.mdiVersion = isNull(processingEnv.getOptions().get("mdi.version"))?"master":processingEnv.getOptions().get("mdi.version");
-        messager.printMessage(Diagnostic.Kind.NOTE, ">> MDI Version  : "+mdiVersion);
     }
 
     public static class Builder extends StepBuilder<MdiIconsProcessingStep> {
@@ -68,7 +63,6 @@ public class MdiIconsProcessingStep extends AbstractProcessingStep {
 
     private void updateFonts() {
         copyFont("materialdesignicons-webfont.eot");
-        copyFont("materialdesignicons-webfont.svg");
         copyFont("materialdesignicons-webfont.ttf");
         copyFont("materialdesignicons-webfont.woff");
         copyFont("materialdesignicons-webfont.woff2");
@@ -82,7 +76,7 @@ public class MdiIconsProcessingStep extends AbstractProcessingStep {
     }
 
     private void copyFont(String fontName){
-        try (InputStream inputStream = new URL("https://github.com/Templarian/MaterialDesign-Webfont/blob/"+mdiVersion+"/fonts/"+fontName+"?raw=true").openStream()){
+        try (InputStream inputStream = new URL("https://github.com/Templarian/MaterialDesign-Webfont/blob/"+ MDI_VERSION +"/fonts/"+fontName+"?raw=true").openStream()){
             FileObject resource = filer.createResource(StandardLocation.SOURCE_OUTPUT, "org.dominokit.domino.ui", "public/css/mdi/fonts/"+fontName);
             OutputStream outputStream = resource.openOutputStream();
             IOUtils.copyLarge(inputStream, outputStream);
@@ -93,7 +87,7 @@ public class MdiIconsProcessingStep extends AbstractProcessingStep {
     }
 
     private void copyCss(String cssName){
-        try (InputStream inputStream = new URL("https://raw.githubusercontent.com/Templarian/MaterialDesign-Webfont/"+mdiVersion+"/css/"+cssName+"?raw=true").openStream()){
+        try (InputStream inputStream = new URL("https://raw.githubusercontent.com/Templarian/MaterialDesign-Webfont/"+ MDI_VERSION +"/css/"+cssName+"?raw=true").openStream()){
             FileObject resource = filer.createResource(StandardLocation.SOURCE_OUTPUT, "org.dominokit.domino.ui", "public/css/mdi/css/"+cssName);
             OutputStream outputStream = resource.openOutputStream();
             IOUtils.copyLarge(inputStream, outputStream);
@@ -109,7 +103,7 @@ public class MdiIconsProcessingStep extends AbstractProcessingStep {
 
     private List<MetaIconInfo> loadIconMetaInfo() {
         try {
-            try (InputStream meta = new URL("https://raw.githubusercontent.com/Templarian/MaterialDesign-SVG/"+mdiVersion+"/meta.json").openStream()) {
+            try (InputStream meta = new URL("https://raw.githubusercontent.com/Templarian/MaterialDesign-SVG/"+ MDI_VERSION +"/meta.json").openStream()) {
                 String metaJson = IOUtils.toString(meta, "UTF-8");
                 return Arrays.asList(MetaIconInfo_MapperImpl.INSTANCE.readArray(metaJson, MetaIconInfo[]::new));
             }
