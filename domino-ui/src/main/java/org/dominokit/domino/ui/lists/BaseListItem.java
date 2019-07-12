@@ -3,11 +3,11 @@ package org.dominokit.domino.ui.lists;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.HTMLParagraphElement;
-import elemental2.dom.Text;
+
+import org.dominokit.domino.ui.badges.Badge;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.dominokit.domino.ui.utils.TextNode;
 
 import static java.util.Objects.isNull;
 import static org.jboss.gwt.elemento.core.Elements.h;
@@ -58,5 +58,18 @@ public abstract class BaseListItem<E extends HTMLElement, T extends BaseListItem
 
     public DominoElement<HTMLParagraphElement> getBody() {
         return DominoElement.of(body);
+    }
+
+    public T appendChild(Badge badge) {
+        return appendChild(badge, true);
+    }
+
+    public T appendChild(Badge badge, boolean first) {
+        if (first) {
+            insertFirst(badge);
+        } else {
+            appendChild(badge.asElement());
+        }
+        return (T) this;
     }
 }
