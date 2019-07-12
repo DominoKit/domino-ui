@@ -2,7 +2,6 @@ package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.badges.Badge;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -13,7 +12,7 @@ import static org.jboss.gwt.elemento.core.Elements.li;
 public class SimpleListItem extends BaseListItem<HTMLLIElement, SimpleListItem> implements HasBackground<SimpleListItem> {
 
     private String style;
-    private HTMLLIElement element= li()
+    private HTMLLIElement element = li()
             .css(ListStyles.LIST_GROUP_ITEM)
             .asElement();
 
@@ -54,20 +53,6 @@ public class SimpleListItem extends BaseListItem<HTMLLIElement, SimpleListItem> 
 
     public SimpleListItem setText(String content) {
         setBodyText(content);
-        return this;
-    }
-
-    public SimpleListItem appendChild(Badge badge){
-        appendChild(badge, true);
-        return this;
-    }
-
-    public SimpleListItem appendChild(Badge badge, boolean first){
-        if(first) {
-            insertFirst(badge);
-        }else{
-            appendChild(badge.asElement());
-        }
         return this;
     }
 
