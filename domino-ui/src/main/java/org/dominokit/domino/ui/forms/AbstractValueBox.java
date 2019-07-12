@@ -3,10 +3,12 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.forms.validations.MinLengthValidator;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasLength;
 import org.jboss.gwt.elemento.core.Elements;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E extends HTMLElement, V>
         extends ValueBox<T, E, V> implements HasLength<T> {
@@ -53,6 +55,7 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
             length = minLength;
         }
         characterCountContainer.textContent = length + "/" + maxLength;
+
     }
 
     @Override
@@ -82,6 +85,15 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
     }
 
     @Override
+    public T setReadOnly(boolean readOnly) {
+        if(nonNull(characterCountContainer)){
+            DominoElement.of(characterCountContainer)
+                    .toggleDisplay(!readOnly);
+        }
+        return super.setReadOnly(readOnly);
+    }
+
+    @Override
     public boolean isEmpty() {
         return getStringValue().isEmpty();
     }
@@ -93,5 +105,9 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
 
     public String getMinLengthErrorMessage() {
         return isNull(minLengthErrorMessage) ? "Minimum length is " + minLength : minLengthErrorMessage;
+    }
+
+    public HTMLDivElement getCharacterCountContainer() {
+        return characterCountContainer;
     }
 }
