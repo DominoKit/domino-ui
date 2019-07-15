@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.lists;
 
 import com.google.gwt.user.client.TakesValue;
 import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.KeyboardEvent;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
@@ -24,7 +25,17 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     private HTMLAnchorElement element= a().css(ListStyles.LIST_GROUP_ITEM).asElement();
 
     public ListItem(T value) {
+    	element.setAttribute("tabindex", "0");
         setElement(element);
+        element.addEventListener("keydown", e ->{
+            if ("Enter".equalsIgnoreCase(((KeyboardEvent) e).code)) {
+                if (isSelected()) {
+                    deselect();
+                    } else {
+                        select();
+                    }
+                }
+            });
         this.value = value;
         addEventListener("click", e -> {
             if (!disabled) {
