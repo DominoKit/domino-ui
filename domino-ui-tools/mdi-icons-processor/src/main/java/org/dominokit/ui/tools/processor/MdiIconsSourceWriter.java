@@ -19,13 +19,11 @@ import static java.util.Objects.isNull;
 public class MdiIconsSourceWriter extends AbstractSourceBuilder {
 
     public static final String UNTAGGED = "UnTagged";
-    private final Element rootPackage;
     private final List<MetaIconInfo> metaIconInfos;
     private final String rootPackageName;
 
     protected MdiIconsSourceWriter(Element rootPackage, List<MetaIconInfo> metaIconInfos, ProcessingEnvironment processingEnv) {
         super(processingEnv);
-        this.rootPackage = rootPackage;
         this.metaIconInfos = metaIconInfos;
         this.rootPackageName = elements.getPackageOf(rootPackage).getQualifiedName().toString();
     }
