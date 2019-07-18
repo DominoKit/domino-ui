@@ -6,6 +6,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -40,7 +41,7 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
             element.style().add("fade", "in");
             popupPosition.position(element.asElement(), targetElement);
             position(popupPosition);
-            DominoElement.of(targetElement).onDetached(mutationRecord -> hide());
+            ElementUtil.onDetach(targetElement, mutationRecord -> hide());
         });
         targetElement.addEventListener(EventType.mouseleave.getName(), evt1 -> element.remove());
         init(this);
