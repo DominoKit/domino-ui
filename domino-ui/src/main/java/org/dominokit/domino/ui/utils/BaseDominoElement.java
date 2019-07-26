@@ -8,6 +8,7 @@ import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.WavesSupport;
+import org.gwtproject.safehtml.shared.SafeHtmlBuilder;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -294,6 +295,13 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     @Editor.Ignore
     public T setTextContent(String text) {
         asElement().textContent = text;
+        return element;
+    }
+
+    @Editor.Ignore
+    public T setInnerHtml(String html) {
+        asElement().innerHTML = new SafeHtmlBuilder().appendHtmlConstant(html)
+                .toSafeHtml().asString();
         return element;
     }
 
