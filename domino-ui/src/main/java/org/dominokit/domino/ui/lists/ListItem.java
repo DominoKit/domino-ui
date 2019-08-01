@@ -26,27 +26,26 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     private HTMLAnchorElement element= a().css(ListStyles.LIST_GROUP_ITEM).asElement();
 
     public ListItem(T value) {
-    	element.setAttribute("tabindex", "0");
+        element.setAttribute("tabindex", "0");
         setElement(element);
-        KeyboardEvents.listenOn(element)
-        .onEnter(evt -> {
+        KeyboardEvents.listenOn(element).onEnter(evt -> {
             setSelectedItem();
         });
         this.value = value;
         addEventListener("click", e -> {
-            if (!disabled) {
-                setSelectedItem();
-            }
+            setSelectedItem();
         });
         init(this);
     }
 
     public void setSelectedItem() {
-        if (isSelected()) {
-            deselect();
-            }else {
+        if (!disabled) {
+            if (isSelected()) {
+                deselect();
+            } else {
                 select();
             }
+        }
     }
 
     public static <T> ListItem<T> create(T value) {
