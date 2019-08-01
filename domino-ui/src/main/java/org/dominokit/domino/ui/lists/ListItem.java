@@ -27,26 +27,26 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     public ListItem(T value) {
     	element.setAttribute("tabindex", "0");
         setElement(element);
-        element.addEventListener("keydown", e ->{
+        element.addEventListener("keydown", e -> {
             if ("Enter".equalsIgnoreCase(((KeyboardEvent) e).code)) {
-                if (isSelected()) {
-                    deselect();
-                    } else {
-                        select();
-                    }
+                checkSelected();
                 }
             });
         this.value = value;
         addEventListener("click", e -> {
             if (!disabled) {
-                if (isSelected()) {
-                    deselect();
-                } else {
-                    select();
-                }
+                checkSelected();
             }
         });
         init(this);
+    }
+
+    public void checkSelectedItem() {
+        if (isSelected()) {
+            deselect();
+            } else {
+                select();
+            }
     }
 
     public static <T> ListItem<T> create(T value) {
@@ -204,11 +204,13 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
         return this;
     }
 
+    @Override
     public ListItem<T> appendChild(Node node) {
         asElement().appendChild(node);
         return this;
     }
 
+    @Override
     public ListItem<T> appendChild(IsElement isElement) {
         return appendChild(isElement.asElement());
     }
