@@ -3,6 +3,8 @@ package org.dominokit.domino.ui.lists;
 import com.google.gwt.user.client.TakesValue;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.Node;
+
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasValue;
@@ -24,18 +26,26 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     private HTMLAnchorElement element= a().css(ListStyles.LIST_GROUP_ITEM).asElement();
 
     public ListItem(T value) {
+        element.setAttribute("tabindex", "0");
         setElement(element);
+        KeyboardEvents.listenOn(element).onEnter(evt -> {
+            setSelectedItem();
+        });
         this.value = value;
         addEventListener("click", e -> {
-            if (!disabled) {
-                if (isSelected()) {
-                    deselect();
-                } else {
-                    select();
-                }
-            }
+            setSelectedItem();
         });
         init(this);
+    }
+
+    public void setSelectedItem() {
+        if (!disabled) {
+            if (isSelected()) {
+                deselect();
+            } else {
+                select();
+            }
+        }
     }
 
     public static <T> ListItem<T> create(T value) {
