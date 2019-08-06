@@ -47,8 +47,21 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
     }
 
     public TabsPanel appendChild(Tab tab) {
+        insertAt(0, tab);
+        return this;
+    }
+
+    public TabsPanel insertAt(int index, Tab tab) {
         if (nonNull(tab)) {
-            tabs.add(tab);
+
+            Tab oldTab = null;
+
+            if (index >= 0 && index < tabs.size()) {
+                oldTab = tabs.get(index);
+            }
+
+            tabs.add(index, tab);
+
             if (isNull(activeTab)) {
                 this.activeTab = tab;
                 activateTab(this.activeTab);
@@ -57,8 +70,15 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
                     activateTab(tab);
                 }
             }
-            tabsList.appendChild(tab.asElement());
-            tabsContent.appendChild(tab.getContentContainer().asElement());
+
+            if (nonNull(oldTab)) {
+                tabsList.insertBefore(tab.asElement(), oldTab.asElement());
+                tabsContent.insertBefore(tab.getContentContainer().asElement(), oldTab.getContentContainer().asElement());
+            } else {
+                tabsList.appendChild(tab.asElement());
+                tabsContent.appendChild(tab.getContentContainer().asElement());
+            }
+
             tab.getClickableElement().addEventListener("click", evt -> activateTab(tab));
             tab.setParent(this);
         }
