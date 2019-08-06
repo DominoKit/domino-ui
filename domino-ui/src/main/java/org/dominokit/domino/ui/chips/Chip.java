@@ -5,6 +5,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLImageElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
@@ -51,6 +52,9 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         setRemovable(false);
         setBorderColor(Color.INDIGO);
         setValue(value);
+        KeyboardEvents.listenOn(element).onEnter(evt -> {
+            element.remove();
+        });
         element.addEventListener("click", evt -> {
             if (selectable) {
                 toggleSelect();
