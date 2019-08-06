@@ -45,6 +45,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         element.appendChild(leftAddonContainer);
         element.appendChild(textContainer);
         element.appendChild(removeIconContainer);
+        element.setAttribute("tabindex", "0");
         setColorScheme(colorScheme);
         setRemoveIcon(removeIcon);
         setRemovable(false);
