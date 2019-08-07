@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.input;
 
@@ -50,6 +51,8 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
 
     private Supplier<List<Integer>> successCodesProvider = () -> Arrays.asList(200, 201, 202, 203, 204, 205, 206, 207, 208, 226);
 
+    private UploadRequestSender requestSender = (XMLHttpRequest::send);
+
     public FileUpload() {
         uploadMessageContainer.appendChild(uploadIconContainer);
         createHiddenInput();
@@ -82,6 +85,12 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
         init(this);
     }
 
+    public void setRequestSender(UploadRequestSender requestSender){
+        if(nonNull(requestSender)){
+            this.requestSender = requestSender;
+        }
+    }
+
     private void notifySingleFileError() {
         Notification.createWarning(errorMessage).show();
     }
@@ -105,7 +114,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
     }
 
     public void uploadAllFiles() {
-        addedFileItems.forEach(FileItem::upload);
+        addedFileItems.forEach(fileItem -> fileItem.upload(requestSender));
     }
 
     private void addFilePreview(File file) {
@@ -141,9 +150,8 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
         }
 
         if (autoUpload) {
-            fileItem.upload();
+            fileItem.upload(requestSender);
         }
-
     }
 
     private void removeHover() {
