@@ -85,10 +85,11 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
         init(this);
     }
 
-    public void setRequestSender(UploadRequestSender requestSender){
-        if(nonNull(requestSender)){
+    public FileUpload setRequestSender(UploadRequestSender requestSender) {
+        if (nonNull(requestSender)) {
             this.requestSender = requestSender;
         }
+        return this;
     }
 
     private void notifySingleFileError() {
