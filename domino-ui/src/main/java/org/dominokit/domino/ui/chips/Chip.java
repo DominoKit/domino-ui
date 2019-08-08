@@ -39,6 +39,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     private boolean enabled;
     private HTMLElement leftAddon;
     private boolean selectable;
+    private boolean removable;
     private Color leftBackground;
     private Theme.ThemeChangeHandler themeListener = (oldTheme, newTheme) -> style.setBorderColor(newTheme.getScheme().color().getHex());
 
@@ -53,9 +54,12 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         setBorderColor(Color.INDIGO);
         setValue(value);
         KeyboardEvents.listenOn(element).onEnter(evt -> {
-            if(selectable) {
-               element.remove();
-            }
+            if(removable) {
+               remove();
+              }else if(selectable) {
+                  toggleSelect();
+              }
+            evt.stopPropagation();
         });
         element.addEventListener("click", evt -> {
             if (selectable) {
@@ -180,6 +184,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     }
 
     public Chip setRemovable(boolean removable) {
+        this.removable = removable;
         if (removable) {
             Style.of(removeIconContainer).setDisplay("block");
         } else {
