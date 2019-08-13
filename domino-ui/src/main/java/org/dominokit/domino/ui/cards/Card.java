@@ -7,6 +7,7 @@ import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
@@ -229,17 +230,19 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
 
     public Card setCollapsible() {
         collapseIcon = Icons.ALL.keyboard_arrow_up();
+
+        collapseIcon.setAttribute("tabindex", "0");
+
         if (isNull(collapseAction)) {
             collapseAction = createHeaderAction(collapseIcon);
         }
+
+        KeyboardEvents.listenOn(collapseAction).onEnter(evt -> {
+            switchVisibilty();
+        });
+
         collapseAction.addEventListener("click", evt -> {
-            if (collapsible) {
-                if (bodyCollapsible.isHidden()) {
-                    show();
-                } else {
-                    hide();
-                }
-            }
+            switchVisibilty();
         });
 
         putAction(collapseAction);
@@ -247,6 +250,16 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         this.collapsible = true;
 
         return this;
+    }
+
+    private void switchVisibilty() {
+        if (collapsible) {
+            if (bodyCollapsible.isHidden()) {
+                show();
+            } else {
+                hide();
+            }
+        }
     }
 
     public Card toggle() {
