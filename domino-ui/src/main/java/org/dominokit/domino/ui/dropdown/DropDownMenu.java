@@ -44,6 +44,9 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
     public DropDownMenu(HTMLElement targetElement) {
         this.targetElement = targetElement;
+
+        menuElement.setAttribute("role", "listbox");
+
         EventListener listener = evt -> closeAllMenus();
 
         element.addEventListener(EventType.touchend, Event::stopPropagation);
