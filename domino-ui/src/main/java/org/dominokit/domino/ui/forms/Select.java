@@ -703,4 +703,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         }
         return this;
     }
+
+    public DropDownMenu getOptionsMenu() {
+        return this.optionsMenu;
+    }
 }
