@@ -135,4 +135,8 @@ public class DropdownAction extends BaseDominoElement<HTMLLIElement, DropdownAct
     public interface FocusHandler {
         void onFocus(DropdownAction dropdownAction);
     }
+
+    public HTMLLIElement getLiElement() {
+        return this.liElement;
+    }
 }
