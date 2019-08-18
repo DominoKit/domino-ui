@@ -151,6 +151,10 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
         return dismissible;
     }
 
+    public HTMLButtonElement getCloseButton() {
+        return closeButton;
+    }
+
     @Override
     public HTMLDivElement asElement() {
         return element.asElement();
