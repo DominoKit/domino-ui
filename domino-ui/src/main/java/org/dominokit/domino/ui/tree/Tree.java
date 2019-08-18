@@ -4,10 +4,7 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.search.Search;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.ColorScheme;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ParentTreeItem;
@@ -203,9 +200,8 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
     }
 
     public Tree<T> enableSearch() {
-        search = Style.of(Search.create(true))
-                .setHeight("40px")
-                .get()
+        search = Search.create(true)
+                .styler(style -> style.setHeight(Unit.px.of(40)))
                 .onSearch(Tree.this::filter)
                 .onClose(this::clearFilter);
 
