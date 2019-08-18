@@ -52,7 +52,7 @@ public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
 
     public FlexItem setAlignSelf(FlexAlign alignSelf) {
         this.alignSelf = alignSelf;
-        style().setProperty("align-self", alignSelf.getStyle());
+        style().setProperty("align-self", alignSelf.getValue());
         return this;
     }
 
