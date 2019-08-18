@@ -2262,7 +2262,7 @@ a {
 [type="checkbox"] + label {
     padding-left: 26px;
     height: 25px;
-    line-height: 25px;
+    line-height: 24px;
     font-size: 13px;
     font-weight: normal;
 }
