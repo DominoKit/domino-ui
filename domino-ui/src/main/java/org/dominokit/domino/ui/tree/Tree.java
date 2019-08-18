@@ -181,13 +181,22 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         return DominoElement.of(title);
     }
 
+    /**
+     * Use {@link #autoHeight()}
+     * @return
+     */
+    @Deprecated
     public Tree<T> autoHieght() {
+        return this.autoHeight();
+    }
+
+    public Tree<T> autoHeight() {
         root.style.height = CSSProperties.HeightUnionType.of("calc(100vh - 83px)");
         asElement().style.height = CSSProperties.HeightUnionType.of("calc(100vh - 70px)");
         return this;
     }
 
-    public Tree<T> autoHieght(int offset) {
+    public Tree<T> autoHeight(int offset) {
         root.style.height = CSSProperties.HeightUnionType.of("calc(100vh - " + offset + 13 + "px)");
         asElement().style.height = CSSProperties.HeightUnionType.of("calc(100vh - " + offset + "px)");
         return this;
