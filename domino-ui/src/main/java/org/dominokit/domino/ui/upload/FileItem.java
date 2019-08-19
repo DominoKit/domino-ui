@@ -16,7 +16,10 @@ import org.jboss.gwt.elemento.core.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.upload.UploadOptions.*;
 import static org.jboss.gwt.elemento.core.Elements.h;
 
 public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
@@ -51,6 +54,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private boolean canceled;
     private boolean uploaded;
     private String fileName;
+    private UploadRequestSender requestSender;
 
     public static FileItem create(File file, UploadOptions options) {
         return new FileItem(file, options);
@@ -126,7 +130,13 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private void initRefreshIcon() {
         refreshIcon.style.cssFloat = "right";
         refreshIcon.style.cursor = "pointer";
-        refreshIcon.addEventListener("click", evt -> upload());
+        refreshIcon.addEventListener("click", evt -> {
+            if (nonNull(requestSender)) {
+                upload(requestSender);
+            } else {
+                upload();
+            }
+        });
         hideRefreshIcon();
     }
 
@@ -226,6 +236,15 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     }
 
     public void upload() {
+        if (nonNull(requestSender)) {
+            upload(requestSender);
+        } else {
+            upload(XMLHttpRequest::send);
+        }
+    }
+
+    public void upload(UploadRequestSender requestSender) {
+        this.requestSender = requestSender;
         if (!isExceedsMaxFile() && !uploaded && !isCanceled()) {
             resetState();
 
@@ -261,7 +280,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
             FormData formData = new FormData();
             formData.append(fileName, file);
             beforeUploadHandlers.forEach(handler -> handler.onBeforeUpload(request, formData));
-            request.send(formData);
+            requestSender.onReady(request, formData);
         }
     }
 

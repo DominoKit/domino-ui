@@ -55,6 +55,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
             } else {
                 if (tab.isActive()) {
                     activateTab(tab);
+                    this.activeTab = tab;
                 }
             }
             tabsList.appendChild(tab.asElement());

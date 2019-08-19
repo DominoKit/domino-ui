@@ -119,9 +119,12 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
         for (int index = 0; index < data.size(); index++) {
             TableRow<T> tableRow = new TableRow<>(data.get(index), initialIndex + index, this);
+            tableConfig.getPlugins().forEach(plugin -> plugin.onBeforeAddRow(DataTable.this, tableRow));
             tableConfig.drawRecord(DataTable.this, tableRow);
             tableRows.add(tableRow);
         }
+
+        tableConfig.getPlugins().forEach(plugin -> plugin.onAllRowsAdded(DataTable.this));
     }
 
     public Collection<T> getData() {

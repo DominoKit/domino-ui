@@ -36,7 +36,6 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     private boolean collapsible = false;
     private HTMLLIElement collapseAction;
     private BaseIcon collapseIcon;
-    private Collapsible bodyCollapsible;
     private Color headerBackground;
     private Color bodyBackground;
 
@@ -61,15 +60,14 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
                 .appendChild(body);
 
         headerDescription.appendChild(description);
-        bodyCollapsible = Collapsible.create(body);
 
-        bodyCollapsible.addHideHandler(() -> {
+        body.getCollapsible().addHideHandler(() -> {
             if (collapsible) {
                 collapseIcon.asElement().textContent = Icons.ALL.keyboard_arrow_down().getName();
             }
         });
 
-        bodyCollapsible.addShowHandler(() -> {
+        body.getCollapsible().addShowHandler(() -> {
             if (collapsible) {
                 collapseIcon.asElement().textContent = Icons.ALL.keyboard_arrow_up().getName();
             }
@@ -234,7 +232,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         }
         collapseAction.addEventListener("click", evt -> {
             if (collapsible) {
-                if (bodyCollapsible.isHidden()) {
+                if (body.getCollapsible().isHidden()) {
                     show();
                 } else {
                     hide();
@@ -260,19 +258,19 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
 
     @Override
     public Card show() {
-        bodyCollapsible.show();
+        body.getCollapsible().show();
         return this;
     }
 
     @Override
     public Card hide() {
-        bodyCollapsible.hide();
+        body.getCollapsible().hide();
         return this;
     }
 
     @Override
     public boolean isHidden() {
-        return bodyCollapsible.isHidden();
+        return body.getCollapsible().isHidden();
     }
 
     public Card setBodyPadding(String padding) {
