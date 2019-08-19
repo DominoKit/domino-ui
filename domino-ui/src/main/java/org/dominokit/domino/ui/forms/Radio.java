@@ -16,8 +16,8 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements HasName<Radio>, HasValue<Radio, String>, HasLabel<Radio>,
-        Switchable<Radio>, Checkable<Radio>, TakesValue<String> {
+public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implements HasName<Radio<T>>, HasValue<Radio<T>, T>, HasLabel<Radio<T>>,
+        Switchable<Radio<T>>, Checkable<Radio<T>>, TakesValue<T> {
 
     private FlexItem container = FlexItem.create().addCss("form-group");
     private HTMLLabelElement labelElement = label().asElement();
@@ -26,9 +26,10 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     private List<ChangeHandler<? super Boolean>> changeHandlers;
     private Color color;
     private boolean checked = false;
-    private RadioGroup radioGroup;
+    private RadioGroup<? super T> radioGroup;
+    private T value;
 
-    public Radio(String value, String label) {
+    public Radio(T value, String label) {
         changeHandlers = new ArrayList<>();
         container.appendChild(inputElement);
         container.appendChild(labelElement);
@@ -42,29 +43,29 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
         init(this);
     }
 
-    public Radio(String value) {
-        this(value, value);
+    public Radio(T value) {
+        this(value, String.valueOf(value));
     }
 
-    public static Radio create(String value, String label) {
-        return new Radio(value, label);
+    public static <E> Radio<E> create(E value, String label) {
+        return new Radio<>(value, label);
     }
 
-    public static Radio create(String value) {
-        return new Radio(value);
+    public static <E> Radio<E> create(E value) {
+        return new Radio<>(value);
     }
 
     @Override
-    public Radio check() {
+    public Radio<T> check() {
         return check(false);
     }
 
-    public Radio uncheck() {
+    public Radio<T> uncheck() {
         return uncheck(false);
     }
 
     @Override
-    public Radio check(boolean silent) {
+    public Radio<T> check(boolean silent) {
         if (nonNull(radioGroup)) {
             radioGroup.getRadios().forEach(radio -> radio.setChecked(false));
         }
@@ -75,7 +76,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     }
 
     @Override
-    public Radio uncheck(boolean silent) {
+    public Radio<T> uncheck(boolean silent) {
         setChecked(false);
         if (!silent)
             onCheck();
@@ -83,7 +84,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     }
 
     @Override
-    public Radio addChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
+    public Radio<T> addChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
     }
@@ -94,7 +95,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     }
 
     @Override
-    public Radio removeChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
+    public Radio<T> removeChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         if (changeHandler != null)
             changeHandlers.remove(changeHandler);
         return this;
@@ -115,17 +116,17 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
         return this.checked;
     }
 
-    public Radio withGap() {
+    public Radio<T> withGap() {
         Style.of(inputElement).add("with-gap");
         return this;
     }
 
-    public Radio withoutGap() {
+    public Radio<T> withoutGap() {
         Style.of(inputElement).remove("with-gap");
         return this;
     }
 
-    public Radio setColor(Color color) {
+    public Radio<T> setColor(Color color) {
         if (this.color != null)
             Style.of(inputElement).remove(this.color.getStyle());
         Style.of(inputElement).add(color.getStyle());
@@ -144,30 +145,31 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     }
 
     @Override
-    public Radio setName(String name) {
+    public Radio<T> setName(String name) {
         inputElement.name = name;
         return this;
     }
 
     @Override
-    public Radio value(String value) {
+    public Radio<T> value(T value) {
         setValue(value);
         return this;
     }
 
     @Override
-    public void setValue(String value) {
-        inputElement.value = value;
+    public void setValue(T value) {
+        this.value = value;
     }
 
     @Override
-    public String getValue() {
-        return inputElement.value;
+    public T getValue() {
+        return this.value;
     }
 
     @Override
-    public Radio setLabel(String label) {
+    public Radio<T> setLabel(String label) {
         labelElement.textContent = label;
+        inputElement.value = label;
         return this;
     }
 
@@ -177,18 +179,18 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
     }
 
     @Override
-    public Radio enable() {
+    public Radio<T> enable() {
         inputElement.disabled = false;
         return this;
     }
 
     @Override
-    public Radio disable() {
+    public Radio<T> disable() {
         inputElement.disabled = true;
         return this;
     }
 
-    public Radio setHelperText(String text) {
+    public Radio<T> setHelperText(String text) {
         helperTextElement.setTextContent(text);
         if (!DominoElement.of(labelElement).contains(helperTextElement.asElement())) {
             labelElement.appendChild(helperTextElement.asElement());
@@ -201,7 +203,7 @@ public class Radio extends BaseDominoElement<HTMLDivElement, Radio> implements H
         return !inputElement.disabled;
     }
 
-    void setGroup(RadioGroup radioGroup) {
+    void setGroup(RadioGroup<? super T> radioGroup) {
         this.radioGroup = radioGroup;
     }
 }

@@ -12,7 +12,6 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.IsReadOnly;
-import org.jboss.gwt.elemento.core.Elements;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,16 +19,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
 public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> extends BaseDominoElement<HTMLElement, T> implements FormElement<T, V>, IsReadOnly<T>, HasInputElement {
 
     private static final String NAME = "name";
-    private DominoElement<HTMLLabelElement> helperLabel = DominoElement.of(Elements.label().css("help-info"));
+    private DominoElement<HTMLLabelElement> helperLabel = DominoElement.of(label().css("help-info"));
     private List<HTMLLabelElement> errorLabels = new ArrayList<>();
     private ElementValidations elementValidations = new ElementValidations(this);
     private RequiredValidator requiredValidator = new RequiredValidator(this);
     private String helperText;
-
     private String requiredErrorMessage;
 
     @Override
@@ -59,13 +58,13 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     @Override
     public T setLabel(String label) {
-        getLabelElement().setTextContent(label);
+        getLabelTextElement().setTextContent(label);
         return (T) this;
     }
 
     @Override
     public String getLabel() {
-        return getLabelElement().getTextContent();
+        return getLabelTextElement().getTextContent();
     }
 
     @Override
@@ -128,7 +127,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     }
 
     protected HTMLLabelElement makeErrorLabel(String message) {
-        return Elements.label().css("error").textContent(message).asElement();
+        return label().css("error").textContent(message).asElement();
     }
 
     @Override
@@ -197,6 +196,9 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     protected abstract DominoElement<HTMLLabelElement> getLabelElement();
 
+    protected DominoElement<HTMLElement> getLabelTextElement(){
+        return DominoElement.of(getLabelElement().asElement());
+    }
 
     @Override
     public void showErrors(List<EditorError> errors) {

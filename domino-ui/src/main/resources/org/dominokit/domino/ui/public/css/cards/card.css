@@ -16,9 +16,10 @@
     color: #fff;
 }
 
-.card .header[class*="bg-"] h2,
-.card .header[class*="bg-"] small,
-.card .header[class*="bg-"] .material-icons {
+
+.card .header:not([class*="bg-l-"]) h2,
+.card .header:not([class*="bg-l-"]) small,
+.card .header:not([class*="bg-l-"]) .material-icons {
     color: #fff;
 }
 
@@ -27,7 +28,6 @@
 .card .header:not([class*="bg-"]) :not([class*="col-"]).material-icons {
     color: #202020;
 }
-
 
 .card .header {
     color: #555;
@@ -76,7 +76,7 @@
     display: block;
     font-size: 12px;
     margin-top: 5px;
-    color: #999;
+    color: #202020;
     line-height: 15px;
 }
 
@@ -95,6 +95,10 @@
     padding-top: 6px;
     border-radius: 50%;
     cursor: pointer;
+}
+
+.card .header .mdi.action-icon{
+    padding-top: 2px;
 }
 
 .card .header .action-icon:HOVER {

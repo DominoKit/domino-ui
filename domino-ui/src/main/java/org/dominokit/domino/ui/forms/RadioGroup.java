@@ -27,7 +27,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.label;
 
-public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> implements FormElement<RadioGroup, String>, HasChangeHandlers<RadioGroup, Radio> {
+public class RadioGroup<T> extends BaseDominoElement<HTMLDivElement, RadioGroup<T>> implements FormElement<RadioGroup<T>, T>, HasChangeHandlers<RadioGroup<T>, Radio<T>> {
 
     private DominoElement<HTMLDivElement> container = DominoElement.of(div().css("form-group"));
     private DominoElement<HTMLDivElement> formLine = DominoElement.of(div().css("form-line"));
@@ -37,10 +37,10 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     private DominoElement<HTMLDivElement> labelContainer = DominoElement.of(div().css("form-label focused"));
     private ElementValidations elementValidations = new ElementValidations(this);
     private RequiredValidator requiredValidator = new RequiredValidator(this);
-    private List<Radio> radios = new ArrayList<>();
+    private List<Radio<? extends T>> radios = new ArrayList<>();
     private String name;
     private ChangeHandler<? super Boolean> autoValidationHandler;
-    private List<ChangeHandler<? super Radio>> changeHandlers = new ArrayList<>();
+    private List<ChangeHandler<? super Radio<T>>> changeHandlers = new ArrayList<>();
     private String requiredErrorMessage;
     private FlexLayout flexLayout = FlexLayout.create();
 
@@ -62,31 +62,19 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
         setLabel(label);
     }
 
-    public static RadioGroup create(String name) {
-        return new RadioGroup(name);
+    public static <T> RadioGroup<T> create(String name) {
+        return new RadioGroup<>(name);
     }
 
-    public static RadioGroup create(String name, String label) {
-        return new RadioGroup(name, label);
+    public static <T> RadioGroup<T> create(String name, String label) {
+        return new RadioGroup<>(name, label);
     }
 
-    public RadioGroup addRadio(Radio radio) {
-        return appendChild(radio);
-    }
-
-    public RadioGroup appendChild(Radio radio) {
+    public RadioGroup<T> appendChild(Radio<? extends T> radio) {
         return appendChild(radio, (Node) null);
     }
 
-    /**
-     * @deprecated use {@link #appendChild(Radio, Node)}
-     */
-    @Deprecated
-    public RadioGroup addRadio(Radio radio, Node content) {
-        return appendChild(radio, content);
-    }
-
-    public RadioGroup appendChild(Radio radio, Node content) {
+    public RadioGroup<T> appendChild(Radio<? extends T> radio, Node content) {
         radio.setName(name);
         radio.addChangeHandler(value -> onCheck(radio));
         radio.setGroup(this);
@@ -101,25 +89,17 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
         return this;
     }
 
-    /**
-     * @deprecated use {@link #appendChild(Radio, Node)}
-     */
-    @Deprecated
-    public RadioGroup addRadio(Radio radio, IsElement content) {
-        return addRadio(radio, content.asElement());
-    }
-
-    public RadioGroup appendChild(Radio radio, IsElement content) {
+    public RadioGroup<T> appendChild(Radio<? extends T> radio, IsElement content) {
         return appendChild(radio, content.asElement());
     }
 
-    private void onCheck(Radio selectedRadio) {
-        for (ChangeHandler<? super Radio> changeHandler : changeHandlers) {
-            changeHandler.onValueChanged(selectedRadio);
+    private void onCheck(Radio<? extends T> selectedRadio) {
+        for (ChangeHandler<? super Radio<T>> changeHandler : changeHandlers) {
+            changeHandler.onValueChanged((Radio<T>) selectedRadio);
         }
     }
 
-    public RadioGroup horizontal() {
+    public RadioGroup<T> horizontal() {
         flexLayout.setDirection(FlexDirection.LEFT_TO_RIGHT);
         for (Radio radio : radios) {
             radio.addCss("horizontal-radio");
@@ -127,16 +107,16 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
         return this;
     }
 
-    public RadioGroup vertical() {
+    public RadioGroup<T> vertical() {
         flexLayout.setDirection(FlexDirection.TOP_TO_BOTTOM);
-        for (Radio radio : radios) {
+        for (Radio<? extends T> radio : radios) {
             radio.removeCss("horizontal-radio");
         }
         return this;
     }
 
     @Override
-    public RadioGroup setHelperText(String text) {
+    public RadioGroup<T> setHelperText(String text) {
         if (!formLine.contains(helperLabel))
             formLine.appendChild(helperLabel);
         helperLabel.setTextContent(text);
@@ -149,7 +129,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public RadioGroup setLabel(String label) {
+    public RadioGroup<T> setLabel(String label) {
         labelContainer.setTextContent(label);
         return this;
     }
@@ -170,13 +150,13 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public RadioGroup addValidator(Validator validator) {
+    public RadioGroup<T> addValidator(Validator validator) {
         elementValidations.addValidator(validator);
         return this;
     }
 
     @Override
-    public RadioGroup removeValidator(Validator validator) {
+    public RadioGroup<T> removeValidator(Validator validator) {
         elementValidations.removeValidator(validator);
         return this;
     }
@@ -188,13 +168,13 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
 
 
     @Override
-    public RadioGroup invalidate(String errorMessage) {
+    public RadioGroup<T> invalidate(String errorMessage) {
         invalidate(Collections.singletonList(errorMessage));
         return this;
     }
 
     @Override
-    public RadioGroup invalidate(List<String> errorMessages) {
+    public RadioGroup<T> invalidate(List<String> errorMessages) {
         helperLabel.toggleDisplay(errorMessages.isEmpty());
         removeErrors();
 
@@ -212,7 +192,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public RadioGroup clearInvalid() {
+    public RadioGroup<T> clearInvalid() {
         helperLabel.show();
         removeErrors();
         return this;
@@ -223,7 +203,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
         errorLabels.clear();
     }
 
-    public List<Radio> getRadios() {
+    public List<Radio<? extends T>> getRadios() {
         return radios;
     }
 
@@ -232,13 +212,13 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public RadioGroup value(String value) {
+    public RadioGroup<T> value(T value) {
         setValue(value);
         return this;
     }
 
     @Override
-    public String getValue() {
+    public T getValue() {
         return radios.stream().filter(Radio::isChecked).map(Radio::getValue).findFirst().orElse(null);
     }
 
@@ -248,19 +228,19 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public RadioGroup clear() {
+    public RadioGroup<T> clear() {
         radios.forEach(Radio::uncheck);
         return this;
     }
 
     @Override
-    public RadioGroup groupBy(FieldsGrouping fieldsGrouping) {
+    public RadioGroup<T> groupBy(FieldsGrouping fieldsGrouping) {
         fieldsGrouping.addFormElement(this);
         return this;
     }
 
     @Override
-    public RadioGroup ungroup(FieldsGrouping fieldsGrouping) {
+    public RadioGroup<T> ungroup(FieldsGrouping fieldsGrouping) {
         fieldsGrouping.removeFormElement(this);
         return this;
     }
@@ -271,19 +251,19 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public RadioGroup setName(String name) {
+    public RadioGroup<T> setName(String name) {
         this.name = name;
         return this;
     }
 
     @Override
-    public RadioGroup enable() {
+    public RadioGroup<T> enable() {
         radios.forEach(Radio::enable);
         return this;
     }
 
     @Override
-    public RadioGroup disable() {
+    public RadioGroup<T> disable() {
         radios.forEach(Radio::disable);
         return this;
     }
@@ -294,7 +274,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public RadioGroup setAutoValidation(boolean autoValidation) {
+    public RadioGroup<T> setAutoValidation(boolean autoValidation) {
         if (autoValidation) {
             if (isNull(autoValidationHandler)) {
                 autoValidationHandler = checked -> validate();
@@ -313,7 +293,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public RadioGroup setRequired(boolean required) {
+    public RadioGroup<T> setRequired(boolean required) {
         if (required) {
             addValidator(requiredValidator);
         } else {
@@ -323,7 +303,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public RadioGroup setRequired(boolean required, String message) {
+    public RadioGroup<T> setRequired(boolean required, String message) {
         setRequired(required);
         setRequiredErrorMessage(message);
         return this;
@@ -335,7 +315,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public RadioGroup setRequiredErrorMessage(String requiredErrorMessage) {
+    public RadioGroup<T> setRequiredErrorMessage(String requiredErrorMessage) {
         this.requiredErrorMessage = requiredErrorMessage;
         return this;
     }
@@ -346,25 +326,25 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public RadioGroup addChangeHandler(ChangeHandler<? super Radio> changeHandler) {
+    public RadioGroup<T> addChangeHandler(ChangeHandler<? super Radio<T>> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
     }
 
     @Override
-    public RadioGroup removeChangeHandler(ChangeHandler<? super Radio> changeHandler) {
+    public RadioGroup<T> removeChangeHandler(ChangeHandler<? super Radio<T>> changeHandler) {
         if (nonNull(changeHandler))
             changeHandlers.remove(changeHandler);
         return this;
     }
 
     @Override
-    public boolean hasChangeHandler(ChangeHandler<? super Radio> changeHandler) {
+    public boolean hasChangeHandler(ChangeHandler<? super Radio<T>> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 
     @Override
-    public RadioGroup setReadOnly(boolean readonly) {
+    public RadioGroup<T> setReadOnly(boolean readonly) {
         if (readonly) {
             formControl.style().add("readonly");
         } else {
@@ -382,7 +362,7 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
     }
 
     @Override
-    public void setValue(String value) {
+    public void setValue(T value) {
         Radio radioToSelect = radios.stream().filter(radio -> radio.getValue().equals(value))
                 .findFirst().orElse(null);
         if (nonNull(radioToSelect)) {
@@ -390,7 +370,10 @@ public class RadioGroup extends BaseDominoElement<HTMLDivElement, RadioGroup> im
         }
     }
 
-    public Radio getSelectedRadio() {
-        return radios.stream().filter(Radio::isChecked).findFirst().orElse(null);
+    public Radio<T> getSelectedRadio() {
+        return (Radio<T>) radios.stream()
+                .filter(Radio::isChecked)
+                .findFirst()
+                .orElse(null);
     }
 }

@@ -26,13 +26,13 @@ public interface DataTablePlugin<T> extends TableEventListener {
     default void onBodyAdded(DataTable<T> dataTable) {
     }
 
-    default void onBeforeAddRow(DataTable<T> dataTable) {
+    default void onBeforeAddRow(DataTable<T> dataTable, TableRow<T> tableRow) {
     }
 
     default void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
     }
 
-    default void onAllRowsAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
+    default void onAllRowsAdded(DataTable<T> dataTable) {
     }
 
     default void onAfterAddTable(DataTable<T> dataTable) {
