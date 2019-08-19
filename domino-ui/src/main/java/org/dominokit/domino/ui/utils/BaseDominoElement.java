@@ -87,6 +87,11 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
+    public Collapsible getCollapsible() {
+        return collapsible;
+    }
+
+    @Editor.Ignore
     public T clearElement() {
         ElementUtil.clear(asElement());
         return element;
