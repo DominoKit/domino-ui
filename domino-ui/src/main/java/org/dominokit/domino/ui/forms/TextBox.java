@@ -8,6 +8,7 @@ import static java.util.Objects.nonNull;
 public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String> {
 
     private static final String TEXT = "text";
+    private boolean emptyAsNull;
 
     public TextBox() {
         this(TEXT, "");
@@ -58,7 +59,11 @@ public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String>
 
     @Override
     public String getValue() {
-        return getInputElement().asElement().value;
+        String value = getInputElement().asElement().value;
+        if (value.isEmpty() && isEmptyAsNull()) {
+            return null;
+        }
+        return value;
     }
 
     public TextBox setType(String type) {
@@ -69,5 +74,14 @@ public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String>
     @Override
     public String getStringValue() {
         return getValue();
+    }
+
+    public TextBox setEmptyAsNull(boolean emptyAsNull) {
+        this.emptyAsNull = emptyAsNull;
+        return this;
+    }
+
+    public boolean isEmptyAsNull() {
+        return emptyAsNull;
     }
 }
