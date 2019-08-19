@@ -1,6 +1,9 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.*;
+import elemental2.dom.Element;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
+import elemental2.dom.HTMLOptionElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 
@@ -18,6 +21,7 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
     private String typeMismatchErrorMessage;
     private Map<String, HTMLOptionElement> suggestedValues = new HashMap<>();
     private String invalidPatternErrorMessage;
+    private boolean emptyAsNull;
 
     public InputValueBox(String type, String label) {
         super(type, label);
@@ -70,7 +74,11 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
 
     @Override
     public String getValue() {
-        return getInputElement().asElement().value;
+        String value = getInputElement().asElement().value;
+        if (value.isEmpty() && isEmptyAsNull()) {
+            return null;
+        }
+        return value;
     }
 
     public T setType(String type) {
@@ -156,5 +164,14 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
             getInputElement().style().add("disabled-suggestions");
         }
         return (T) this;
+    }
+
+    public T setEmptyAsNull(boolean emptyAsNull) {
+        this.emptyAsNull = emptyAsNull;
+        return (T) this;
+    }
+
+    public boolean isEmptyAsNull() {
+        return emptyAsNull;
     }
 }

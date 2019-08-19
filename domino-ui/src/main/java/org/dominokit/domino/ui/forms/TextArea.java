@@ -11,6 +11,7 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
     private EventListener autosizeListener = evt -> adjustHeight();
     private int rows;
     private boolean autoSize = false;
+    private boolean emptyAsNull;
 
     public TextArea() {
         this("");
@@ -67,7 +68,11 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
 
     @Override
     public String getValue() {
-        return getInputElement().asElement().value;
+        String value = getInputElement().asElement().value;
+        if (value.isEmpty() && isEmptyAsNull()) {
+            return null;
+        }
+        return value;
     }
 
     public TextArea autoSize() {
@@ -98,5 +103,14 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
     @Override
     public String getStringValue() {
         return getValue();
+    }
+
+    public TextArea setEmptyAsNull(boolean emptyAsNull) {
+        this.emptyAsNull = emptyAsNull;
+        return this;
+    }
+
+    public boolean isEmptyAsNull() {
+        return emptyAsNull;
     }
 }

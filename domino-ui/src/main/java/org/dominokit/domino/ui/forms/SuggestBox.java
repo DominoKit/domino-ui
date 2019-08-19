@@ -26,6 +26,7 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
     private SuggestBoxStore store;
     private HTMLDivElement loaderContainer = div().css("suggest-box-loader").asElement();
     private Loader loader;
+    private boolean emptyAsNull;
 
     public SuggestBox() {
         this("");
@@ -49,9 +50,11 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
         suggestionsMenu = DropDownMenu.create(getInputElement());
         suggestionsMenu.addCloseHandler(this::focus);
         Element element = DomGlobal.document.querySelector(".content");
-        element.addEventListener("transitionend", evt -> {
-            suggestionsMenu.style().setWidth(asElement().offsetWidth + "px");
-        });
+        if (nonNull(element)) {
+            element.addEventListener("transitionend", evt -> {
+                suggestionsMenu.style().setWidth(asElement().offsetWidth + "px");
+            });
+        }
         onAttached(mutationRecord -> {
             suggestionsMenu.style().setWidth(asElement().offsetWidth + "px");
         });
@@ -114,7 +117,11 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
 
     @Override
     public String getValue() {
-        return getInputElement().asElement().value;
+        String value = getInputElement().asElement().value;
+        if (value.isEmpty() && isEmptyAsNull()) {
+            return null;
+        }
+        return value;
     }
 
     public SuggestBox setSuggestBoxStore(SuggestBoxStore store) {
@@ -163,5 +170,14 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
 
     public Loader getLoader() {
         return loader;
+    }
+
+    public SuggestBox setEmptyAsNull(boolean emptyAsNull) {
+        this.emptyAsNull = emptyAsNull;
+        return this;
+    }
+
+    public boolean isEmptyAsNull() {
+        return emptyAsNull;
     }
 }

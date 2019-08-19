@@ -50,7 +50,11 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
     }
 
     protected void updateCharacterCount() {
-        int length = getStringValue().length();
+        String value = getStringValue();
+        int length = 0;
+        if (nonNull(value)) {
+            length = value.length();
+        }
         if (length < minLength) {
             length = minLength;
         }
@@ -86,7 +90,7 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
 
     @Override
     public T setReadOnly(boolean readOnly) {
-        if(nonNull(characterCountContainer)){
+        if (nonNull(characterCountContainer)) {
             DominoElement.of(characterCountContainer)
                     .toggleDisplay(!readOnly);
         }
@@ -95,7 +99,8 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
 
     @Override
     public boolean isEmpty() {
-        return getStringValue().isEmpty();
+        String stringValue = getStringValue();
+        return isNull(stringValue) || stringValue.isEmpty();
     }
 
     public T setMinLengthErrorMessage(String minLengthErrorMessage) {
