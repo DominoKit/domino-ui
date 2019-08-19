@@ -45,8 +45,9 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     }
 
     private void formatValue() {
-        if (!getStringValue().isEmpty()) {
-            double parsedValue = getNumberFormat().parse(getStringValue());
+        String stringValue = getStringValue();
+        if (nonNull(stringValue) && !stringValue.isEmpty()) {
+            double parsedValue = getNumberFormat().parse(stringValue);
             getInputElement().asElement().value = getNumberFormat().format(parsedValue);
         }
     }
@@ -186,10 +187,10 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         return (T) this;
     }
 
-    protected NumberFormat getNumberFormat(){
-        if(nonNull(getPattern())){
+    protected NumberFormat getNumberFormat() {
+        if (nonNull(getPattern())) {
             return NumberFormat.getFormat(getPattern());
-        }else{
+        } else {
             return NumberFormat.getDecimalFormat();
         }
     }
