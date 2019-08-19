@@ -22,6 +22,7 @@ public class Animation {
     private CompleteCallback callback = DEFAULT_CALLBACK;
     private StartHandler startHandler = DEFAULT_START_HANDLER;
     private EventListener stopListener;
+    private double repeatCount = 1;
 
     public Animation(HTMLElement element) {
         this.element = DominoElement.of(element);
@@ -66,6 +67,11 @@ public class Animation {
         return this;
     }
 
+    public Animation repeat(double repeatCount) {
+        this.repeatCount = repeatCount;
+        return this;
+    }
+
     public Animation callback(CompleteCallback callback) {
         this.callback = callback;
         return this;
@@ -104,8 +110,13 @@ public class Animation {
         element.style().setTransitionDuration(duration + "ms");
         element.style().setProperty("animation-duration", duration + "ms");
         element.style().setProperty("-webkit-animation-duration", duration + "ms");
-        if (infinite)
+        if (infinite) {
             element.style().add("infinite");
+        }
+
+        if (repeatCount != 1) {
+            element.style().setProperty("animation-iteration-count", repeatCount+"");
+        }
 
         element.style().add("animated");
         element.style().add("ease-in-out");

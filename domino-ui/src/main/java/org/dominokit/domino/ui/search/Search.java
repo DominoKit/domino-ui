@@ -75,7 +75,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
         });
 
         init(this);
-
+        style.setHeight("100%");
     }
 
     public static Search create() {
@@ -88,8 +88,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
 
     public Search open() {
         style()
-                .setDisplay("inline-block")
-                .setHeight("100%");
+                .setDisplay("inline-block");
         Scheduler.get().scheduleFixedDelay(() -> {
             style().add(SearchStyles.open);
             return false;
