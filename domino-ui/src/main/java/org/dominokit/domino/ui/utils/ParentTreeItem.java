@@ -1,7 +1,9 @@
 package org.dominokit.domino.ui.utils;
 
 import org.dominokit.domino.ui.tree.Tree;
+import org.dominokit.domino.ui.tree.TreeItem;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ParentTreeItem<T> {
@@ -15,4 +17,6 @@ public interface ParentTreeItem<T> {
     void activate();
     void activate(boolean activateParent);
     Optional<T> getParent();
+    void removeItem(T item);
+    List<T> getSubItems();
 }

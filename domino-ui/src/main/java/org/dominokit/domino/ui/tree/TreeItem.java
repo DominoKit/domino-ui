@@ -464,6 +464,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
      *
      * @return
      */
+    @Override
     public List<TreeItem<T>> getSubItems() {
         return subItems;
     }
@@ -478,5 +479,18 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
 
     public void setValue(T value) {
         this.value = value;
+    }
+
+    @Override
+    public void removeItem(TreeItem<T> item) {
+        subItems.remove(item);
+        item.remove();
+    }
+
+    public TreeItem<T> remove(){
+        if(parent.getSubItems().contains(this)) {
+            parent.removeItem(this);
+        }
+        return super.remove();
     }
 }

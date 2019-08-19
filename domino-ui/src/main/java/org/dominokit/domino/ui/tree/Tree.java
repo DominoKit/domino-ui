@@ -303,6 +303,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         return autoCollapse;
     }
 
+    @Override
     public List<TreeItem<T>> getSubItems() {
         return subItems;
     }
@@ -388,6 +389,12 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         }
 
         return activeValues;
+    }
+
+    @Override
+    public void removeItem(TreeItem<T> item) {
+        subItems.remove(item);
+        item.remove();
     }
 
     @Override
