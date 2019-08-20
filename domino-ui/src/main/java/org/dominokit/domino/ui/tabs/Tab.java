@@ -37,6 +37,8 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
     private CloseHandler closeHandler = tab -> true;
     private final List<Consumer<Tab>> closeHandlers = new ArrayList<>();
     private final List<ActivationHandler> activationHandlers = new ArrayList<>();
+    private FlexItem iconContainer;
+    private FlexItem textContainer;
 
     public Tab(String text) {
         this(null, text);
@@ -47,8 +49,8 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
     }
 
     public Tab(BaseIcon<?> icon, String text) {
-        FlexItem iconContainer = FlexItem.create();
-        FlexItem textContainer = FlexItem.create();
+        iconContainer = FlexItem.create();
+        textContainer = FlexItem.create();
         tabElementsContainer = FlexLayout.create();
 
         if (nonNull(icon)) {
@@ -114,6 +116,18 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
     public Tab setContent(Node content) {
         clearElement();
         return appendChild(content);
+    }
+
+    public Tab setTitle(String title){
+        textContainer.clearElement();
+        textContainer.appendChild(span().add(TextNode.of(title)));
+        return this;
+    }
+
+    public Tab setIcon(BaseIcon<?> icon){
+        iconContainer.clearElement();
+        iconContainer.appendChild(icon);
+        return this;
     }
 
     public Tab activate() {
