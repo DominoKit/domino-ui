@@ -198,6 +198,10 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return (B) this;
     }
 
+    public ButtonSize getSize() {
+        return size;
+    }
+
     private void applyCircleWaves() {
         applyWaveStyle(WaveStyle.CIRCLE);
         applyWaveStyle(WaveStyle.FLOAT);
