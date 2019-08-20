@@ -418,7 +418,6 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return this;
     }
 
-    //----------------
     public Column onXLargeOffset(OnXLargeOffset onXLarge) {
         if (nonNull(this.onXLargeOffsetStyle)) {
             style().remove(this.onXLargeOffsetStyle.getStyle());
@@ -480,6 +479,46 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return this;
     }
 
+    public OnXLarge getOnXLargeStyle() {
+        return onXLargeStyle;
+    }
+
+    public OnLarge getOnLargeStyle() {
+        return onLargeStyle;
+    }
+
+    public OnMedium getOnMediumStyle() {
+        return onMediumStyle;
+    }
+
+    public OnSmall getOnSmallStyle() {
+        return onSmallStyle;
+    }
+
+    public OnXSmall getOnXSmallStyle() {
+        return onXSmallStyle;
+    }
+
+    public OnMediumOffset getOnMediumOffsetStyle() {
+        return onMediumOffsetStyle;
+    }
+
+    public OnXSmallOffset getOnXSmallOffsetStyle() {
+        return onXSmallOffsetStyle;
+    }
+
+    public OnXLargeOffset getOnXLargeOffsetStyle() {
+        return onXLargeOffsetStyle;
+    }
+
+    public OnLargeOffset getOnLargeOffsetStyle() {
+        return onLargeOffsetStyle;
+    }
+
+    public OnSmallOffset getOnSmallOffsetStyle() {
+        return onSmallOffsetStyle;
+    }
+
     @Override
     public HTMLDivElement asElement() {
         return column.asElement();
@@ -503,6 +542,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         public String getStyle() {
             return GridStyles.SPAN_XL + span.postfix;
         }
+
+        public Span getSpan() {
+            return span;
+        }
     }
 
     public static class OnLarge {
@@ -522,6 +565,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
 
         public String getStyle() {
             return GridStyles.SPAN_L + span.postfix;
+        }
+
+        public Span getSpan() {
+            return span;
         }
     }
 
@@ -543,6 +590,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         public String getStyle() {
             return GridStyles.SPAN_M + span.postfix;
         }
+
+        public Span getSpan() {
+            return span;
+        }
     }
 
     public static class OnSmall {
@@ -562,6 +613,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
 
         public String getStyle() {
             return GridStyles.SPAN_S + span.postfix;
+        }
+
+        public Span getSpan() {
+            return span;
         }
     }
 
@@ -584,10 +639,11 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         public String getStyle() {
             return GridStyles.SPAN_XS + span.postfix;
         }
+
+        public Span getSpan() {
+            return span;
+        }
     }
-
-
-    //--------------
 
     public static class OnXLargeOffset {
         private Offset offset;
@@ -606,6 +662,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
 
         public String getStyle() {
             return GridStyles.OFFSET_XL + offset.postfix;
+        }
+
+        public Offset getOffset() {
+            return offset;
         }
     }
 
@@ -627,6 +687,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         public String getStyle() {
             return GridStyles.OFFSET_L + offset.postfix;
         }
+
+        public Offset getOffset() {
+            return offset;
+        }
     }
 
     public static class OnMediumOffset {
@@ -647,6 +711,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         public String getStyle() {
             return GridStyles.OFFSET_M + offset.postfix;
         }
+
+        public Offset getOffset() {
+            return offset;
+        }
     }
 
     public static class OnSmallOffset {
@@ -666,6 +734,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
 
         public String getStyle() {
             return GridStyles.OFFSET_S + offset.postfix;
+        }
+
+        public Offset getOffset() {
+            return offset;
         }
     }
 
@@ -688,47 +760,57 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         public String getStyle() {
             return GridStyles.OFFSET_XS + offset.postfix;
         }
+
+        public Offset getOffset() {
+            return offset;
+        }
     }
 
     public enum Span {
-        _1("-1"),
-        _2("-2"),
-        _3("-3"),
-        _4("-4"),
-        _5("-5"),
-        _6("-6"),
-        _7("-7"),
-        _8("-8"),
-        _9("-9"),
-        _10("-10"),
-        _11("-11"),
-        _12("-12"),
-        _13("-13"),
-        _14("-14"),
-        _15("-15"),
-        _16("-16"),
-        _17("-17"),
-        _18("-18"),
-        _19("-19"),
-        _20("-20"),
-        _21("-21"),
-        _22("-22"),
-        _23("-23"),
-        _24("-24"),
-        _25("-25"),
-        _26("-26"),
-        _27("-27"),
-        _28("-28"),
-        _29("-29"),
-        _30("-30"),
-        _31("-31"),
-        _32("-32"),
-        _full("-full");
+        _1("-1", 1),
+        _2("-2", 2),
+        _3("-3", 3),
+        _4("-4", 4),
+        _5("-5", 5),
+        _6("-6", 6),
+        _7("-7",7),
+        _8("-8", 8),
+        _9("-9", 9),
+        _10("-10", 10),
+        _11("-11", 11),
+        _12("-12", 12),
+        _13("-13", 13),
+        _14("-14", 14),
+        _15("-15", 15),
+        _16("-16", 16),
+        _17("-17", 17),
+        _18("-18", 18),
+        _19("-19", 19),
+        _20("-20", 20),
+        _21("-21", 21),
+        _22("-22", 22),
+        _23("-23", 23),
+        _24("-24", 24),
+        _25("-25", 25),
+        _26("-26", 26),
+        _27("-27", 27),
+        _28("-28", 28),
+        _29("-29", 29),
+        _30("-30", 30),
+        _31("-31", 31),
+        _32("-32", 32),
+        _full("-full", 0);
 
         private String postfix;
+        private int value;
 
-        Span(String postfix) {
+        Span(String postfix, int value) {
             this.postfix = postfix;
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
         }
 
         static Span of(int columns) {
@@ -804,44 +886,50 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
     }
 
     public enum Offset {
-        _0("-0"),
-        _1("-1"),
-        _2("-2"),
-        _3("-3"),
-        _4("-4"),
-        _5("-5"),
-        _6("-6"),
-        _7("-7"),
-        _8("-8"),
-        _9("-9"),
-        _10("-10"),
-        _11("-11"),
-        _12("-12"),
-        _13("-13"),
-        _14("-14"),
-        _15("-15"),
-        _16("-16"),
-        _17("-17"),
-        _18("-18"),
-        _19("-19"),
-        _20("-20"),
-        _21("-21"),
-        _22("-22"),
-        _23("-23"),
-        _24("-24"),
-        _25("-25"),
-        _26("-26"),
-        _27("-27"),
-        _28("-28"),
-        _29("-29"),
-        _30("-30"),
-        _31("-31"),
-        _none("-none");
+        _0("-0", 0),
+        _1("-1", 1),
+        _2("-2", 2),
+        _3("-3", 3),
+        _4("-4", 4),
+        _5("-5",5),
+        _6("-6", 6),
+        _7("-7", 7),
+        _8("-8", 8),
+        _9("-9", 9),
+        _10("-10", 10),
+        _11("-11", 11),
+        _12("-12", 12),
+        _13("-13", 13),
+        _14("-14", 14),
+        _15("-15", 15),
+        _16("-16", 16),
+        _17("-17", 17),
+        _18("-18", 18),
+        _19("-19", 19),
+        _20("-20", 20),
+        _21("-21", 21),
+        _22("-22", 22),
+        _23("-23", 23),
+        _24("-24", 24),
+        _25("-25", 25),
+        _26("-26", 26),
+        _27("-27", 27),
+        _28("-28", 28),
+        _29("-29", 29),
+        _30("-30", 30),
+        _31("-31", 31),
+        _none("-none", -1);
 
         private String postfix;
+        private int value;
 
-        Offset(String postfix) {
+        Offset(String postfix, int value) {
             this.postfix = postfix;
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
         }
 
         static Offset of(int offset) {
