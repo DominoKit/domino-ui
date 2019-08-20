@@ -4,10 +4,7 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.WaveColor;
-import org.dominokit.domino.ui.style.WaveStyle;
-import org.dominokit.domino.ui.style.WavesElement;
+import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -22,17 +19,21 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
 
     private BaseIcon<?> icon;
     private HTMLElement titleElement;
-    private DominoElement<HTMLDivElement> contentContainer = DominoElement.of(div().attr("role", "tabpanel").css("tab-pane", "fade"));
+    private DominoElement<HTMLDivElement> contentContainer = DominoElement.of(div()
+            .attr("role", "tabpanel")
+            .css("tab-pane", "fade"));
     private boolean active;
-
+    private DominoElement<HTMLDivElement> iconContainer = DominoElement.div();
+    private DominoElement<HTMLDivElement> textContainer = DominoElement.div()
+            .styler(style -> style.setMarginTop(Unit.px.of(2)));
 
     public VerticalTab(String title, BaseIcon<?> icon) {
         this.title = title;
         setIcon(icon);
         this.titleElement = span().css("title").textContent(title).asElement();
         this.anchorElement = a()
-                .add(this.icon)
-                .add(div().style("margin-top: 2px;").add(titleElement)).asElement();
+                .add(iconContainer.appendChild(this.icon))
+                .add(textContainer.appendChild(titleElement)).asElement();
         init();
     }
 
@@ -40,14 +41,16 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         this.title = title;
         this.titleElement = span().css("title").textContent(title).asElement();
         this.anchorElement = a()
-                .add(div().style("margin-top: 2px;").add(titleElement)).asElement();
+                .add(iconContainer)
+                .add(textContainer.appendChild(titleElement)).asElement();
         init();
     }
 
     public VerticalTab(BaseIcon<?> icon) {
         setIcon(icon);
         this.anchorElement = a()
-                .add(this.icon)
+                .add(iconContainer.appendChild(this.icon))
+                .add(textContainer)
                 .asElement();
         init();
     }
@@ -95,20 +98,24 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         return this;
     }
 
+    public VerticalTab setTitle(String title){
+        titleElement.textContent = title;
+        return this;
+    }
+
     public VerticalTab appendChild(IsElement content) {
         return appendChild(content.asElement());
     }
-
-
 
     @Override
     public HTMLAnchorElement getClickableElement() {
         return anchorElement;
     }
 
-
     public VerticalTab setIcon(BaseIcon<?> icon) {
         this.icon = icon;
+        iconContainer.clearElement();
+        iconContainer.appendChild(icon);
         return this;
     }
 

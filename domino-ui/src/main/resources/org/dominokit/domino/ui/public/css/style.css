@@ -4540,7 +4540,7 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 
 .vtabs.text-below .list i.material-icons,
 .vtabs.text-below .list i.mdi {
-    margin-left: calc(50% - 8px);
+    margin-left: 8px;
 }
 
 .vtabs.text-below .list a {
