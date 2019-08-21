@@ -57,6 +57,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private boolean searchable;
     private boolean valid = true;
     private boolean focused;
+    private boolean clearable;
 
     public static <T> Select<T> create() {
         return new Select<>();
@@ -95,11 +96,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         container.appendChild(formLine.asElement());
         container.appendChild(rightAddonContainer);
         init(this);
-
         dropdown();
-
         setSearchable(true);
-
         addChangeHandler(value -> {
             if (isNull(value)) {
                 clear();
@@ -351,17 +349,20 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         return this;
     }
 
+    /**
+     * @deprecated use {@link #selectByKey(String)}
+     */
+    @Deprecated
     public Select<T> setKey(String key) {
-        return setKey(key, false);
+        return selectByKey(key);
     }
 
+    /**
+     * @deprecated use {@link #selectByKey(String, boolean)}
+     */
+    @Deprecated
     public Select<T> setKey(String key, boolean silent) {
-        for (SelectOption<T> option : getOptions()) {
-            if (option.getKey().equals(key)) {
-                select(option, silent);
-            }
-        }
-        return this;
+        return selectByKey(key, silent);
     }
 
     @Override
@@ -527,6 +528,9 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         options.clear();
         optionsMenu.clearActions();
         clear();
+        if (isClearable()) {
+            setClearable(true);
+        }
         return this;
     }
 
@@ -722,13 +726,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         return this;
     }
 
-    @Override
-    public Select<T> setRequired(boolean required) {
-        setClearable(!required);
-        return super.setRequired(required);
-    }
-
     public Select<T> setClearable(boolean clearable) {
+        this.clearable = clearable;
         if (clearable && !options.contains(noneOption)) {
             insertFirst(noneOption);
         } else {
@@ -738,7 +737,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     public boolean isClearable() {
-        return options.contains(noneOption);
+        return clearable;
     }
 
     public Select<T> setClearableText(String clearableText) {
