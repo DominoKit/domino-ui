@@ -198,7 +198,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     }
 
     @Override
-    protected DominoElement<HTMLElement> getLabelTextElement() {
+    public DominoElement<HTMLElement> getLabelTextElement() {
         return DominoElement.of(labelTextElement);
     }
 

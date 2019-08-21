@@ -196,7 +196,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     protected abstract DominoElement<HTMLLabelElement> getLabelElement();
 
-    protected DominoElement<HTMLElement> getLabelTextElement(){
+    public DominoElement<HTMLElement> getLabelTextElement(){
         return DominoElement.of(getLabelElement().asElement());
     }
 
