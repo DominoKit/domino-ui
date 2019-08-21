@@ -28,6 +28,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private static final String CLICK_EVENT = "click";
     private static final String FOCUSED = "focused";
 
+    private SelectOption<T> noneOption = SelectOption.create(null, "none", "None");
+
     private DominoElement<HTMLDivElement> container = DominoElement.of(div().css("form-group"));
     private DominoElement<HTMLDivElement> formLine = DominoElement.of(div().css("form-line"));
     private DominoElement<HTMLDivElement> formControl = DominoElement.of(div().css("form-control"));
@@ -55,6 +57,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private boolean searchable;
     private boolean valid = true;
     private boolean focused;
+    private boolean clearable;
 
     public static <T> Select<T> create() {
         return new Select<>();
@@ -93,10 +96,13 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         container.appendChild(formLine.asElement());
         container.appendChild(rightAddonContainer);
         init(this);
-
         dropdown();
-
         setSearchable(true);
+        addChangeHandler(value -> {
+            if (isNull(value)) {
+                clear();
+            }
+        });
     }
 
     public Select(String label) {
@@ -127,7 +133,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     public Select<T> open() {
         if (isEnabled() && !isReadOnly()) {
-            optionsMenu.closeAllMenus();
+            DropDownMenu.closeAllMenus();
             doOpen();
         }
         return this;
@@ -184,6 +190,12 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         return this;
     }
 
+    public Select<T> insertFirst(SelectOption<T> option) {
+        options.add(0, option);
+        insertFirstOptionValue(option);
+        return this;
+    }
+
     private void doSelectOption(SelectOption<T> option) {
         if (isEnabled()) {
             select(option);
@@ -193,6 +205,10 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     private void appendOptionValue(SelectOption<T> option) {
         optionsMenu.appendChild(asDropDownAction(option));
+    }
+
+    private void insertFirstOptionValue(SelectOption<T> option) {
+        optionsMenu.insertFirst(asDropDownAction(option));
     }
 
     private DropdownAction asDropDownAction(SelectOption<T> option) {
@@ -333,17 +349,20 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         return this;
     }
 
+    /**
+     * @deprecated use {@link #selectByKey(String)}
+     */
+    @Deprecated
     public Select<T> setKey(String key) {
-        return setKey(key, false);
+        return selectByKey(key);
     }
 
+    /**
+     * @deprecated use {@link #selectByKey(String, boolean)}
+     */
+    @Deprecated
     public Select<T> setKey(String key, boolean silent) {
-        for (SelectOption<T> option : getOptions()) {
-            if (option.getKey().equals(key)) {
-                select(option, silent);
-            }
-        }
-        return this;
+        return selectByKey(key, silent);
     }
 
     @Override
@@ -509,6 +528,9 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         options.clear();
         optionsMenu.clearActions();
         clear();
+        if (isClearable()) {
+            setClearable(true);
+        }
         return this;
     }
 
@@ -702,5 +724,28 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
             }
         }
         return this;
+    }
+
+    public Select<T> setClearable(boolean clearable) {
+        this.clearable = clearable;
+        if (clearable && !options.contains(noneOption)) {
+            insertFirst(noneOption);
+        } else {
+            removeOption(noneOption);
+        }
+        return this;
+    }
+
+    public boolean isClearable() {
+        return clearable;
+    }
+
+    public Select<T> setClearableText(String clearableText) {
+        noneOption.setDisplayValue(clearableText);
+        return this;
+    }
+
+    public String getClearableText() {
+        return noneOption.getDisplayValue();
     }
 }

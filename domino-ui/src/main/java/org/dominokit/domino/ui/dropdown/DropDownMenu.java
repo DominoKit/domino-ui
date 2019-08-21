@@ -178,9 +178,20 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         return new DropDownMenu(targetElement.asElement());
     }
 
+    public DropDownMenu insertFirst(DropdownAction action) {
+        action.addSelectionHandler(value -> {
+            if (action.isAutoClose()) {
+                close();
+            }
+        });
+        actions.add(0, action);
+        menuElement.insertFirst(action.asElement());
+        return this;
+    }
+
     public DropDownMenu appendChild(DropdownAction action) {
         action.addSelectionHandler(value -> {
-            if(action.isAutoClose()) {
+            if (action.isAutoClose()) {
                 close();
             }
         });
