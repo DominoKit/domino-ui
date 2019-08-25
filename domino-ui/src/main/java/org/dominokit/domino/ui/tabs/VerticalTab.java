@@ -9,6 +9,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
+import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> implements HasClickableElement {
@@ -18,7 +19,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
     private HTMLAnchorElement anchorElement;
 
     private BaseIcon<?> icon;
-    private HTMLElement titleElement;
+    private DominoElement<HTMLElement> titleElement;
     private DominoElement<HTMLDivElement> contentContainer = DominoElement.of(div()
             .attr("role", "tabpanel")
             .css("tab-pane", "fade"));
@@ -27,10 +28,16 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
     private DominoElement<HTMLDivElement> textContainer = DominoElement.div()
             .styler(style -> style.setMarginTop(Unit.px.of(2)));
 
+    private Color textColor;
+    private Color iconColor;
+
+    private boolean textColorOverridden = false;
+    private boolean iconColorOverridden = false;
+
     public VerticalTab(String title, BaseIcon<?> icon) {
         this.title = title;
         setIcon(icon);
-        this.titleElement = span().css("title").textContent(title).asElement();
+        this.titleElement = DominoElement.of(span().css("title").textContent(title));
         this.anchorElement = a()
                 .add(iconContainer.appendChild(this.icon))
                 .add(textContainer.appendChild(titleElement)).asElement();
@@ -39,7 +46,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
 
     public VerticalTab(String title) {
         this.title = title;
-        this.titleElement = span().css("title").textContent(title).asElement();
+        this.titleElement = DominoElement.of(span().css("title").textContent(title));
         this.anchorElement = a()
                 .add(iconContainer)
                 .add(textContainer.appendChild(titleElement)).asElement();
@@ -98,8 +105,8 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         return this;
     }
 
-    public VerticalTab setTitle(String title){
-        titleElement.textContent = title;
+    public VerticalTab setTitle(String title) {
+        titleElement.setTextContent(title);
         return this;
     }
 
@@ -141,4 +148,37 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         return element.asElement();
     }
 
+    public VerticalTab setTextColor(Color textColor) {
+        if (!textColorOverridden && nonNull(title)) {
+            if (nonNull(this.textColor)) {
+                this.titleElement.removeCss(this.textColor.getStyle());
+            }
+            this.titleElement.addCss(textColor.getStyle());
+            this.textColor = textColor;
+        }
+        return this;
+    }
+
+    public VerticalTab setIconColor(Color iconColor) {
+        if (!iconColorOverridden && nonNull(icon)) {
+            if (nonNull(this.iconColor)) {
+                this.icon.removeCss(this.iconColor.getStyle());
+            }
+            this.icon.addCss(iconColor.getStyle());
+            this.iconColor = iconColor;
+        }
+        return this;
+    }
+
+    public VerticalTab setTextColorOverride(Color textColor) {
+        setTextColor(textColor);
+        this.textColorOverridden = true;
+        return this;
+    }
+
+    public VerticalTab setIconColorOverride(Color iconColor) {
+        setIconColor(iconColor);
+        this.iconColorOverridden = true;
+        return this;
+    }
 }
