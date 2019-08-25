@@ -1870,13 +1870,10 @@
     color: #555 !important;
 }
 
-<<<<<<< HEAD
-=======
 .demo-tagsinput-area {
     margin-bottom: 50px !important;
 }
 
->>>>>>> eaf37065d83dbfd0b629ef90d59c3e924df99433
 .demo-icon-container .demo-google-material-icon {
     margin-bottom: 5px;
     text-align: left;
@@ -2214,7 +2211,6 @@ a {
     position: relative;
     top: 6px;
 }
-
 
 /* Bootstrap Tags Input ======================== */
 .bootstrap-tagsinput {
