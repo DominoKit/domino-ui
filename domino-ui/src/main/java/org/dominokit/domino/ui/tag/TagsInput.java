@@ -57,6 +57,7 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
 
     @Override
     protected HTMLDivElement createInputElement(String type) {
+<<<<<<< HEAD
         DominoElement<HTMLDivElement> tagsInputContainer = DominoElement.div()
                 .addCss(TagStyles.TAGS_INPUT, TagStyles.FORM_CONTROL
                 );
@@ -67,6 +68,13 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
                 .setPosition(DropDownPosition.BOTTOM)
                 .addCloseHandler(() -> tagTextInput.asElement().focus());
 
+=======
+        DominoElement<HTMLDivElement> tagsInputContainer = DominoElement.div().addCss("tags-input", "form-control");
+        tagTextInput = DominoElement.of(input(type)).addCss("tag-text-input");
+        dropDownMenu = DropDownMenu.create(tagTextInput)
+                .setPosition(DropDownPosition.BOTTOM)
+                .addCloseHandler(() -> tagTextInput.asElement().focus());
+>>>>>>> eaf37065d83dbfd0b629ef90d59c3e924df99433
         tagsInputContainer.appendChild(tagTextInput);
         tagsInputContainer.addEventListener("click", evt -> {
             tagTextInput.asElement().focus();
