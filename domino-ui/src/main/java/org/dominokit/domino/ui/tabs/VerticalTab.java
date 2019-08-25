@@ -1,13 +1,18 @@
 package org.dominokit.domino.ui.tabs;
 
-import elemental2.dom.*;
+import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.Node;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.jboss.gwt.elemento.core.IsElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.tabs.TabStyles.*;
@@ -31,6 +36,8 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
 
     private Color textColor;
     private Color iconColor;
+
+    private final List<VerticalTab.ActivationHandler> activationHandlers = new ArrayList<>();
 
     private boolean textColorOverridden = false;
     private boolean iconColorOverridden = false;
@@ -91,6 +98,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         Style.of(asElement()).add(ACTIVE);
         contentContainer.style().add(IN, ACTIVE);
         this.active = true;
+        activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, true));
         return this;
     }
 
@@ -98,6 +106,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         Style.of(asElement()).remove(ACTIVE);
         contentContainer.style().remove(IN, ACTIVE);
         this.active = false;
+        activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, false));
         return this;
     }
 
@@ -181,5 +190,24 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         setIconColor(iconColor);
         this.iconColorOverridden = true;
         return this;
+    }
+
+    public VerticalTab addActivationHandler(VerticalTab.ActivationHandler activationHandler) {
+        if (nonNull(activationHandler)) {
+            this.activationHandlers.add(activationHandler);
+        }
+        return this;
+    }
+
+    public VerticalTab removeActivationHandler(VerticalTab.ActivationHandler activationHandler) {
+        if (nonNull(activationHandler)) {
+            this.activationHandlers.remove(activationHandler);
+        }
+        return this;
+    }
+
+    @FunctionalInterface
+    public interface ActivationHandler {
+        void onActiveStateChanged(VerticalTab tab, boolean active);
     }
 }
