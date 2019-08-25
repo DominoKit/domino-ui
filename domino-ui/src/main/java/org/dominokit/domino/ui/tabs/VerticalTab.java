@@ -10,6 +10,7 @@ import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.tabs.TabStyles.*;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> implements HasClickableElement {
@@ -22,7 +23,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
     private DominoElement<HTMLElement> titleElement;
     private DominoElement<HTMLDivElement> contentContainer = DominoElement.of(div()
             .attr("role", "tabpanel")
-            .css("tab-pane", "fade"));
+            .css(TAB_PANE, FADE));
     private boolean active;
     private DominoElement<HTMLDivElement> iconContainer = DominoElement.div();
     private DominoElement<HTMLDivElement> textContainer = DominoElement.div()
@@ -37,7 +38,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
     public VerticalTab(String title, BaseIcon<?> icon) {
         this.title = title;
         setIcon(icon);
-        this.titleElement = DominoElement.of(span().css("title").textContent(title));
+        this.titleElement = DominoElement.of(span().css(TITLE).textContent(title));
         this.anchorElement = a()
                 .add(iconContainer.appendChild(this.icon))
                 .add(textContainer.appendChild(titleElement)).asElement();
@@ -46,7 +47,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
 
     public VerticalTab(String title) {
         this.title = title;
-        this.titleElement = DominoElement.of(span().css("title").textContent(title));
+        this.titleElement = DominoElement.of(span().css(TITLE).textContent(title));
         this.anchorElement = a()
                 .add(iconContainer)
                 .add(textContainer.appendChild(titleElement)).asElement();
@@ -87,15 +88,15 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
     }
 
     public VerticalTab activate() {
-        Style.of(asElement()).add("active");
-        contentContainer.style().add("in", "active");
+        Style.of(asElement()).add(ACTIVE);
+        contentContainer.style().add(IN, ACTIVE);
         this.active = true;
         return this;
     }
 
     public VerticalTab deactivate() {
-        Style.of(asElement()).remove("active");
-        contentContainer.style().remove("in", "active");
+        Style.of(asElement()).remove(ACTIVE);
+        contentContainer.style().remove(IN, ACTIVE);
         this.active = false;
         return this;
     }
