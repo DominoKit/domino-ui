@@ -32,12 +32,14 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
     private List<VerticalTab> tabs = new ArrayList<>();
     private Color background;
 
+    private Color textColor;
+    private Color iconColor;
+
     public static VerticalTabsPanel create() {
         return new VerticalTabsPanel();
     }
 
     public VerticalTabsPanel() {
-
         tabsHeadersContainer = FlexItem.create();
         element.appendChild(FlexLayout.create()
                 .styler(style -> style.add("tabs-container"))
@@ -58,12 +60,11 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
     }
 
     public VerticalTabsPanel appendChild(FillItem fillItem) {
-        if(nonNull(fillItem)){
+        if (nonNull(fillItem)) {
             tabsList.appendChild(fillItem);
         }
-      return this;
+        return this;
     }
-
 
     public VerticalTabsPanel appendChild(VerticalTab tab) {
         if (nonNull(tab)) {
@@ -79,7 +80,34 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
             tabsList.appendChild(tab);
             tabsContent.appendChild(tab.getContentContainer().asElement());
             tab.getClickableElement().addEventListener("click", evt -> activateTab(tab));
+            if (nonNull(textColor)) {
+                tab.setTextColor(textColor);
+            }
+
+            if (nonNull(iconColor)) {
+                tab.setIconColor(iconColor);
+            }
         }
+        return this;
+    }
+
+    public Color getTextColor() {
+        return textColor;
+    }
+
+    public VerticalTabsPanel setTextColor(Color textColor) {
+        this.textColor = textColor;
+        getTabs().forEach(verticalTab -> verticalTab.setTextColor(textColor));
+        return this;
+    }
+
+    public Color getIconColor() {
+        return iconColor;
+    }
+
+    public VerticalTabsPanel setIconColor(Color iconColor) {
+        this.iconColor = iconColor;
+        getTabs().forEach(verticalTab -> verticalTab.setIconColor(iconColor));
         return this;
     }
 
