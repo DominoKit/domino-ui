@@ -20,11 +20,11 @@ class VTabsContainer extends BaseDominoElement<HTMLDivElement, VTabsContainer> i
 
     private FlexLayout listContainer = FlexLayout.create()
             .setDirection(FlexDirection.TOP_TO_BOTTOM)
-            .css("list");
+            .css(TabStyles.LIST);
 
     private HTMLDivElement element = DominoElement.of(div()
             .add(listContainer)
-            .css("vtabs"))
+            .css(TabStyles.VTABS))
             .asElement();
 
     private VerticalTab activeItem;
@@ -69,13 +69,13 @@ class VTabsContainer extends BaseDominoElement<HTMLDivElement, VTabsContainer> i
         return listContainer;
     }
 
-    public VTabsContainer autoHieght() {
+    public VTabsContainer autoHeight() {
         listContainer.styler(style-> style.setHeight(Calc.sub(vh.of(100), px.of(83))));
         DominoElement.of(element).styler(style -> style.setHeight(Calc.sub(vh.of(100), px.of(70))));
         return this;
     }
 
-    public VTabsContainer autoHieght(int offset) {
+    public VTabsContainer autoHeight(int offset) {
         listContainer.styler(style-> style.setHeight(Calc.sum(vh.of(100), px.of(offset+13))));
         DominoElement.of(element).styler(style -> style.setHeight(Calc.sum(vh.of(100), px.of(offset))));
         return this;
