@@ -36,6 +36,7 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
 
     private Color textColor;
     private Color iconColor;
+    private final List<VerticalTab.ActivationHandler> activationHandlers = new ArrayList<>();
 
     public static VerticalTabsPanel create() {
         return new VerticalTabsPanel();
@@ -125,11 +126,25 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
             activeTab.deactivate();
             activeTab = tab;
             activeTab.activate();
-
+            activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, true));
             if (nonNull(transition)) {
                 Animation.create(activeTab.getContentContainer())
                         .transition(transition)
                         .animate();
+            }
+        }
+    }
+
+    public void deactivateTab(VerticalTab tab) {
+        if (nonNull(tab) && tabs.contains(tab)) {
+            if (tab.isActive()) {
+                tab.deactivate();
+                activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, false));
+                if (nonNull(transition)) {
+                    Animation.create(activeTab.getContentContainer())
+                            .transition(transition)
+                            .animate();
+                }
             }
         }
     }
@@ -199,5 +214,19 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
 
     public FlexItem getTabsHeadersContainer() {
         return tabsHeadersContainer;
+    }
+
+    public VerticalTabsPanel addActivationHandler(VerticalTab.ActivationHandler activationHandler) {
+        if (nonNull(activationHandler)) {
+            this.activationHandlers.add(activationHandler);
+        }
+        return this;
+    }
+
+    public VerticalTabsPanel removeActivationHandler(VerticalTab.ActivationHandler activationHandler) {
+        if (nonNull(activationHandler)) {
+            this.activationHandlers.remove(activationHandler);
+        }
+        return this;
     }
 }
