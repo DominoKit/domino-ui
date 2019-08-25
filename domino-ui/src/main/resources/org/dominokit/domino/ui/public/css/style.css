@@ -4572,7 +4572,6 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 
 .vtabs .list a .title {
     margin: 2px 0px 0px 12px;
-    color: #333;
     font-size: 14px;
     overflow: hidden;
 }
