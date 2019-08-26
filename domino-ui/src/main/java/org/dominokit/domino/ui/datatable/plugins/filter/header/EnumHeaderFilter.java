@@ -35,15 +35,14 @@ public class EnumHeaderFilter<T, E extends Enum> implements ColumnHeaderFilterPl
 
     @Override
     public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
-        select.addSelectionHandler(option -> {
+        searchContext.addBeforeSearchHandler(context -> {
             if (select.getSelectedIndex() > 0) {
-                searchContext.add(Filter.create(columnConfig.getName(), option.getValue(), Category.HEADER_FILTER, FilterTypes.ENUM));
-                searchContext.fireSearchEvent();
+                searchContext.add(Filter.create(columnConfig.getName(), select.getValue(), Category.HEADER_FILTER, FilterTypes.ENUM));
             } else {
                 searchContext.remove(columnConfig.getName(), Category.HEADER_FILTER);
-                searchContext.fireSearchEvent();
             }
         });
+        select.addSelectionHandler(option -> searchContext.fireSearchEvent());
     }
 
     @Override

@@ -19,7 +19,7 @@ public class SelectHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFil
     }
 
     public static <T> SelectHeaderFilter<T> create(String allLabel) {
-        return new SelectHeaderFilter<>( allLabel);
+        return new SelectHeaderFilter<>(allLabel);
     }
 
     public SelectHeaderFilter(String allLabel) {
@@ -29,22 +29,21 @@ public class SelectHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFil
         select.styler(style -> style.setMarginBottom("0px"));
     }
 
-    public SelectHeaderFilter appendChild(SelectOption<String> selectOption){
+    public SelectHeaderFilter appendChild(SelectOption<String> selectOption) {
         select.appendChild(selectOption);
         return this;
     }
 
     @Override
     public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
-        select.addSelectionHandler(option -> {
+        searchContext.addBeforeSearchHandler(context -> {
             if (select.getSelectedIndex() > 0) {
-                searchContext.add(Filter.create(columnConfig.getName(), option.getValue(), Category.HEADER_FILTER, FilterTypes.STRING));
-                searchContext.fireSearchEvent();
+                searchContext.add(Filter.create(columnConfig.getName(), select.getValue(), Category.HEADER_FILTER, FilterTypes.STRING));
             } else {
                 searchContext.remove(columnConfig.getName(), Category.HEADER_FILTER);
-                searchContext.fireSearchEvent();
             }
         });
+        select.addSelectionHandler(option -> searchContext.fireSearchEvent());
     }
 
     @Override
