@@ -17,14 +17,17 @@ import java.util.List;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.tabs.TabStyles.*;
+import static org.dominokit.domino.ui.tabs.TabStyles.TAB_CONTENT;
+import static org.dominokit.domino.ui.tabs.TabStyles.VTABS_PANEL;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, VerticalTabsPanel> {
 
     private final VTabsContainer tabsList = VTabsContainer.create();
     private final FlexItem tabsHeadersContainer;
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("vtabs-panel"));
-    private HTMLElement tabsContent = div().css("tab-content").asElement();
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(VTABS_PANEL));
+    private HTMLElement tabsContent = div().css(TAB_CONTENT).asElement();
     private VerticalTab activeTab;
     private Color tabsColor;
     private Transition transition;
@@ -42,14 +45,13 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
     public VerticalTabsPanel() {
         tabsHeadersContainer = FlexItem.create();
         element.appendChild(FlexLayout.create()
-                .styler(style -> style.add("tabs-container"))
+                .styler(style -> style.add(TABS_CONTAINER))
                 .appendChild(tabsHeadersContainer
-                        .styler(style -> style.add("tabs"))
+                        .styler(style -> style.add(TABS))
                         .appendChild(tabsList))
                 .appendChild(FlexItem.create()
                         .styler(style -> style
-                                .add("tabs-content")
-                                .setProperty("border-left", "1px solid #cecece")
+                                .add(TABS_CONTENT)
                         )
                         .setFlexGrow(1)
                         .appendChild(tabsContent))
