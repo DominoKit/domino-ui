@@ -4079,9 +4079,6 @@ a.disabled {
     margin-right: auto;
 }
 
-<<<<<<< HEAD
-
-=======
 .tags-input {
     min-height: 50px;
     display: flex;
@@ -4133,7 +4130,6 @@ a.disabled {
 .tags-input[readonly] .tag-text-input {
     display: none;
 }
->>>>>>> eaf37065d83dbfd0b629ef90d59c3e924df99433
 
 .btn-dropdown {
     width: 100%;
