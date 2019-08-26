@@ -29,6 +29,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     private ElementValidations elementValidations = new ElementValidations(this);
     private RequiredValidator requiredValidator = new RequiredValidator(this);
     private String helperText;
+
     private String requiredErrorMessage;
 
     @Override
