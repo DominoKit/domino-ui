@@ -28,7 +28,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     private String checkedReadonlyLabel = "Yes";
     private String unCheckedReadonlyLabel = "No";
     private String label;
-    private HTMLElement labelTextElement = span().asElement();
+    private DominoElement<HTMLElement> labelTextElement = DominoElement.of(span());
 
     public CheckBox() {
         this("");
@@ -232,13 +232,13 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
         if (readOnly) {
             formControl.setReadOnly(true);
             if (isChecked()) {
-                labelElement.setTextContent(label + getCheckedReadonlyLabel());
+                labelTextElement.setTextContent(label + getCheckedReadonlyLabel());
             } else {
-                labelElement.setTextContent(label + getUnCheckedReadonlyLabel());
+                labelTextElement.setTextContent(label + getUnCheckedReadonlyLabel());
             }
         } else {
             formControl.setReadOnly(false);
-            labelElement.setTextContent(label);
+            labelTextElement.setTextContent(label);
         }
         return this;
     }
