@@ -22,5 +22,4 @@ public class FillItem extends BaseDominoElement<HTMLDivElement, FillItem> {
     public HTMLDivElement asElement() {
         return element.asElement();
     }
-
 }

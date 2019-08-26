@@ -23,8 +23,12 @@ import static org.jboss.gwt.elemento.core.Elements.ul;
 public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> implements IsElement<HTMLDivElement> {
 
     private HTMLDivElement element = div().asElement();
-    private DominoElement<HTMLUListElement> tabsList = DominoElement.of(ul().css("nav", "nav-tabs", "nav-tabs-right").attr("role", "tablist"));
-    private HTMLElement tabsContent = div().css("tab-content").asElement();
+    private DominoElement<HTMLUListElement> tabsList = DominoElement.of(ul()
+            .css(TabStyles.NAV, TabStyles.NAV_TABS, TabStyles.NAV_TABS_RIGHT)
+            .attr("role", "tablist"));
+    private HTMLElement tabsContent = div()
+            .css(TabStyles.TAB_CONTENT)
+            .asElement();
     private Tab activeTab;
     private Color tabsColor;
     private Transition transition;
@@ -146,7 +150,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
         if (element.contains(tabsContent)) {
             tabsContent.remove();
         }
-        Style.of(contentContainer).add("tab-content");
+        Style.of(contentContainer).add(TabStyles.TAB_CONTENT);
         this.tabsContent = contentContainer;
         return this;
     }
