@@ -1,33 +1,52 @@
 package org.dominokit.domino.ui.dropdown;
 
 
+import elemental2.core.JsRegExp;
+import elemental2.core.JsString;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasSelectionHandler;
-import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.gwt.elemento.core.Elements;
+import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.*;
+import org.gwtproject.safehtml.shared.SafeHtmlBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DropdownAction extends BaseDominoElement<HTMLLIElement, DropdownAction> implements HasSelectionHandler<DropdownAction, String> {
+import static java.util.Objects.nonNull;
+import static org.jboss.gwt.elemento.core.Elements.*;
 
-    private HTMLLIElement liElement = Elements.li().asElement();
+public class DropdownAction extends BaseDominoElement<HTMLLIElement, DropdownAction> implements HasSelectionHandler<DropdownAction, String>, HasBackground<DropdownAction> {
+
+    private static final String IGNORE_CASE_FLAG = "ig";
+
+    private HTMLLIElement liElement = li().asElement();
     private String value;
+    private BaseIcon<?> icon;
     private HTMLElement content;
     private HTMLAnchorElement aElement;
     private List<SelectionHandler<String>> selectionHandlers = new ArrayList<>();
     private List<FocusHandler> focusHandlers = new ArrayList<>();
     private boolean autoClose = true;
+    private Color background;
+    private HTMLElement valueNode;
 
     public DropdownAction(String value, String displayValue) {
+        this(value, null, displayValue);
+    }
+
+    public DropdownAction(String value, BaseIcon<?> icon, String displayValue) {
         this.value = value;
+        this.icon = icon;
         init();
-        aElement.appendChild(TextNode.of(displayValue));
+        if (nonNull(icon))
+            aElement.appendChild(icon.asElement());
+        valueNode = span()
+                .textContent(displayValue)
+                .asElement();
+        aElement.appendChild(valueNode);
         init(this);
     }
 
@@ -40,7 +59,7 @@ public class DropdownAction extends BaseDominoElement<HTMLLIElement, DropdownAct
     }
 
     private void init() {
-        aElement = Elements.a()
+        aElement = a()
                 .attr("tabindex", "0")
                 .asElement();
         liElement.appendChild(aElement);
@@ -58,6 +77,10 @@ public class DropdownAction extends BaseDominoElement<HTMLLIElement, DropdownAct
 
     public static DropdownAction create(String value, String displayValue) {
         return new DropdownAction(value, displayValue);
+    }
+
+    public static DropdownAction create(String value, BaseIcon<?> icon, String displayValue) {
+        return new DropdownAction(value, icon, displayValue);
     }
 
     public static DropdownAction create(String value, HTMLElement content) {
@@ -110,6 +133,13 @@ public class DropdownAction extends BaseDominoElement<HTMLLIElement, DropdownAct
         return this;
     }
 
+    public DropdownAction setDisplayValue(BaseIcon<?> icon, String displayValue) {
+        DominoElement.of(aElement).clearElement()
+                .appendChild(icon.asElement())
+                .appendChild(TextNode.of(displayValue));
+        return this;
+    }
+
     public DropdownAction setDisplayValue(HTMLElement content) {
         this.content = content;
         DominoElement.of(aElement).clearElement()
@@ -129,6 +159,39 @@ public class DropdownAction extends BaseDominoElement<HTMLLIElement, DropdownAct
     public DropdownAction setAutoClose(boolean autoClose) {
         this.autoClose = autoClose;
         return this;
+    }
+
+    @Override
+    public DropdownAction setBackground(Color background) {
+        if (nonNull(background)) {
+            if (nonNull(this.background)) {
+                DominoElement.of(getClickableElement())
+                        .removeCss(this.background.getBackground());
+                if (nonNull(content)) {
+                    DominoElement.of(content).removeCss(this.background.getBackground());
+                }
+            }
+            DominoElement.of(getClickableElement()).addCss(background.getBackground());
+            if (nonNull(content)) {
+                DominoElement.of(content).addCss(background.getBackground());
+            }
+            this.background = background;
+        }
+        return this;
+    }
+
+    public void highlight(String value, Color highlightColor) {
+        if (nonNull(valueNode)) {
+            String innerHTML = valueNode.textContent;
+            JsRegExp regExp = new JsRegExp(value, IGNORE_CASE_FLAG);
+            innerHTML = new JsString(innerHTML).replace(regExp, (valueToReplace, p1) -> {
+                if (nonNull(highlightColor)) {
+                    return "<strong class=\"" + highlightColor.getStyle() + "\">" + valueToReplace + "</strong>";
+                }
+                return "<strong>" + valueToReplace + "</strong>";
+            });
+            innerHtml(valueNode, new SafeHtmlBuilder().appendHtmlConstant(innerHTML).toSafeHtml());
+        }
     }
 
     @FunctionalInterface

@@ -4,10 +4,7 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.search.Search;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.ColorScheme;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ParentTreeItem;
@@ -181,22 +178,30 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         return DominoElement.of(title);
     }
 
+    /**
+     * Use {@link #autoHeight()}
+     * @return
+     */
+    @Deprecated
     public Tree<T> autoHieght() {
+        return this.autoHeight();
+    }
+
+    public Tree<T> autoHeight() {
         root.style.height = CSSProperties.HeightUnionType.of("calc(100vh - 83px)");
         asElement().style.height = CSSProperties.HeightUnionType.of("calc(100vh - 70px)");
         return this;
     }
 
-    public Tree<T> autoHieght(int offset) {
+    public Tree<T> autoHeight(int offset) {
         root.style.height = CSSProperties.HeightUnionType.of("calc(100vh - " + offset + 13 + "px)");
         asElement().style.height = CSSProperties.HeightUnionType.of("calc(100vh - " + offset + "px)");
         return this;
     }
 
     public Tree<T> enableSearch() {
-        search = Style.of(Search.create(true))
-                .setHeight("40px")
-                .get()
+        search = Search.create(true)
+                .styler(style -> style.setHeight(Unit.px.of(40)))
                 .onSearch(Tree.this::filter)
                 .onClose(this::clearFilter);
 
@@ -298,6 +303,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         return autoCollapse;
     }
 
+    @Override
     public List<TreeItem<T>> getSubItems() {
         return subItems;
     }
@@ -383,6 +389,12 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         }
 
         return activeValues;
+    }
+
+    @Override
+    public void removeItem(TreeItem<T> item) {
+        subItems.remove(item);
+        item.remove();
     }
 
     @Override

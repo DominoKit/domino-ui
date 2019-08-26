@@ -8,6 +8,7 @@ import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.loaders.Loader;
 import org.dominokit.domino.ui.loaders.LoaderEffect;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.DelayedTextInput;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
 import org.jboss.gwt.elemento.core.Elements;
@@ -26,6 +27,8 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
     private SuggestBoxStore store;
     private HTMLDivElement loaderContainer = div().css("suggest-box-loader").asElement();
     private Loader loader;
+    private boolean emptyAsNull;
+    private Color highlightColor;
 
     public SuggestBox() {
         this("");
@@ -46,12 +49,14 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
     public SuggestBox(String type, String label, SuggestBoxStore store) {
         super(type, label);
         this.store = store;
-        suggestionsMenu = DropDownMenu.create(getInputElement());
+        suggestionsMenu = DropDownMenu.create(asElement());
         suggestionsMenu.addCloseHandler(this::focus);
         Element element = DomGlobal.document.querySelector(".content");
-        element.addEventListener("transitionend", evt -> {
-            suggestionsMenu.style().setWidth(asElement().offsetWidth + "px");
-        });
+        if (nonNull(element)) {
+            element.addEventListener("transitionend", evt -> {
+                suggestionsMenu.style().setWidth(asElement().offsetWidth + "px");
+            });
+        }
         onAttached(mutationRecord -> {
             suggestionsMenu.style().setWidth(asElement().offsetWidth + "px");
         });
@@ -76,8 +81,8 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
             store.filter(getValue(), suggestions -> {
                 suggestionsMenu.clearActions();
                 suggestions.forEach(suggestion -> {
-                    suggestion.highlight(SuggestBox.this.getValue());
-                    suggestionsMenu.appendChild(SuggestBox.this.dropdownAction(suggestion));
+                    suggestion.highlight(SuggestBox.this.getValue(), highlightColor);
+                    suggestionsMenu.appendChild(dropdownAction(suggestion));
                 });
                 suggestionsMenu.open();
                 loader.stop();
@@ -114,7 +119,11 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
 
     @Override
     public String getValue() {
-        return getInputElement().asElement().value;
+        String value = getInputElement().asElement().value;
+        if (value.isEmpty() && isEmptyAsNull()) {
+            return null;
+        }
+        return value;
     }
 
     public SuggestBox setSuggestBoxStore(SuggestBoxStore store) {
@@ -133,13 +142,13 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
     }
 
     private DropdownAction dropdownAction(SuggestItem suggestItem) {
-        DropdownAction suggestionAction = DropdownAction.create(suggestItem.getValue(), suggestItem.asElement());
-        suggestionAction.addSelectionHandler(value -> {
+        DropdownAction dropdownAction = suggestItem.asDropDownAction();
+        dropdownAction.addSelectionHandler(value -> {
             setValue(value);
             selectionHandlers.forEach(handler -> handler.onSelection(suggestItem));
             suggestionsMenu.close();
         });
-        return suggestionAction;
+        return dropdownAction;
     }
 
     @Override
@@ -163,5 +172,23 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
 
     public Loader getLoader() {
         return loader;
+    }
+
+    public SuggestBox setEmptyAsNull(boolean emptyAsNull) {
+        this.emptyAsNull = emptyAsNull;
+        return this;
+    }
+
+    public boolean isEmptyAsNull() {
+        return emptyAsNull;
+    }
+
+    public DropDownMenu getSuggestionsMenu() {
+        return suggestionsMenu;
+    }
+
+    public SuggestBox setHighlightColor(Color highlightColor) {
+        this.highlightColor = highlightColor;
+        return this;
     }
 }

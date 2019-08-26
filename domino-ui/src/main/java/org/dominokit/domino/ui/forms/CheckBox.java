@@ -28,6 +28,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     private String checkedReadonlyLabel = "Yes";
     private String unCheckedReadonlyLabel = "No";
     private String label;
+    private DominoElement<HTMLElement> labelTextElement = DominoElement.of(span());
 
     public CheckBox() {
         this("");
@@ -35,6 +36,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
 
     public CheckBox(String label) {
         this.label = label;
+        labelElement.appendChild(labelTextElement);
         setLabel(label);
         formControl.style().add("no-bottom-border");
         formControl.appendChild(inputElement);
@@ -73,7 +75,7 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
 
     public static CheckBox create(DominoElement<HTMLAnchorElement> link) {
         CheckBox checkBox = new CheckBox();
-        checkBox.getLabelElement().appendChild(link);
+        checkBox.getLabelTextElement().appendChild(link);
         link.addClickListener(Event::stopPropagation);
         return checkBox;
     }
@@ -196,6 +198,11 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     }
 
     @Override
+    public DominoElement<HTMLElement> getLabelTextElement() {
+        return DominoElement.of(labelTextElement);
+    }
+
+    @Override
     public CheckBox setAutoValidation(boolean autoValidation) {
         if (autoValidation) {
             if (isNull(autoValidationHandler)) {
@@ -225,13 +232,13 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
         if (readOnly) {
             formControl.setReadOnly(true);
             if (isChecked()) {
-                labelElement.setTextContent(label + getCheckedReadonlyLabel());
+                labelTextElement.setTextContent(label + getCheckedReadonlyLabel());
             } else {
-                labelElement.setTextContent(label + getUnCheckedReadonlyLabel());
+                labelTextElement.setTextContent(label + getUnCheckedReadonlyLabel());
             }
         } else {
             formControl.setReadOnly(false);
-            labelElement.setTextContent(label);
+            labelTextElement.setTextContent(label);
         }
         return this;
     }

@@ -26,8 +26,14 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasClickableElement {
 
     private HTMLAnchorElement clickableElement = a().asElement();
-    private DominoElement<HTMLLIElement> tab = DominoElement.of(li().attr("role", "presentation").add(clickableElement));
-    private DominoElement<HTMLDivElement> contentContainer = DominoElement.of(div().attr("role", "tabpanel").css("tab-pane", "fade"));
+    private DominoElement<HTMLLIElement> tab = DominoElement.of(li()
+            .attr("role", "presentation")
+            .add(clickableElement));
+
+    private DominoElement<HTMLDivElement> contentContainer = DominoElement.of(div()
+            .attr("role", "tabpanel")
+            .css(TabStyles.TAB_PANE, TabStyles.FADE));
+
     private FlexItem closeContainer = FlexItem.create();
     private FlexLayout tabElementsContainer;
     private boolean active;
@@ -37,6 +43,8 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
     private CloseHandler closeHandler = tab -> true;
     private final List<Consumer<Tab>> closeHandlers = new ArrayList<>();
     private final List<ActivationHandler> activationHandlers = new ArrayList<>();
+    private FlexItem iconContainer;
+    private FlexItem textContainer;
 
     public Tab(String text) {
         this(null, text);
@@ -47,8 +55,8 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
     }
 
     public Tab(BaseIcon<?> icon, String text) {
-        FlexItem iconContainer = FlexItem.create();
-        FlexItem textContainer = FlexItem.create();
+        iconContainer = FlexItem.create();
+        textContainer = FlexItem.create();
         tabElementsContainer = FlexLayout.create();
 
         if (nonNull(icon)) {
@@ -116,20 +124,32 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return appendChild(content);
     }
 
+    public Tab setTitle(String title) {
+        textContainer.clearElement();
+        textContainer.appendChild(span().add(TextNode.of(title)));
+        return this;
+    }
+
+    public Tab setIcon(BaseIcon<?> icon) {
+        iconContainer.clearElement();
+        iconContainer.appendChild(icon);
+        return this;
+    }
+
     public Tab activate() {
-        if(nonNull(parent)){
+        if (nonNull(parent)) {
             parent.deActivateTab(parent.getActiveTab());
         }
-        tab.style().add("active");
-        contentContainer.style().add("in", "active");
+        tab.style().add(TabStyles.ACTIVE);
+        contentContainer.style().add(TabStyles.IN, TabStyles.ACTIVE);
         this.active = true;
         activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, true));
         return this;
     }
 
     public Tab deActivate() {
-        tab.style().remove("active");
-        contentContainer.style().remove("in", "active");
+        tab.style().remove(TabStyles.ACTIVE);
+        contentContainer.style().remove(TabStyles.IN, TabStyles.ACTIVE);
         this.active = false;
         activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, false));
         return this;
@@ -173,29 +193,29 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return this;
     }
 
-    public Tab addCloseHandler(Consumer<Tab> closeHandler){
-        if(nonNull(closeHandler)) {
+    public Tab addCloseHandler(Consumer<Tab> closeHandler) {
+        if (nonNull(closeHandler)) {
             this.closeHandlers.add(closeHandler);
         }
         return this;
     }
 
-    public Tab removeCloseHandler(Consumer<Tab> closeHandler){
-        if(nonNull(closeHandler)) {
+    public Tab removeCloseHandler(Consumer<Tab> closeHandler) {
+        if (nonNull(closeHandler)) {
             this.closeHandlers.remove(closeHandler);
         }
         return this;
     }
 
-    public Tab addActivationHandler(ActivationHandler activationHandler){
-        if(nonNull(activationHandler)) {
+    public Tab addActivationHandler(ActivationHandler activationHandler) {
+        if (nonNull(activationHandler)) {
             this.activationHandlers.add(activationHandler);
         }
         return this;
     }
 
-    public Tab removeActivationHandler(ActivationHandler activationHandler){
-        if(nonNull(activationHandler)) {
+    public Tab removeActivationHandler(ActivationHandler activationHandler) {
+        if (nonNull(activationHandler)) {
             this.activationHandlers.remove(activationHandler);
         }
         return this;
@@ -239,7 +259,7 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
     }
 
     @FunctionalInterface
-    public interface ActivationHandler{
+    public interface ActivationHandler {
         void onActiveStateChanged(Tab tab, boolean active);
     }
 }

@@ -17,37 +17,41 @@ import java.util.List;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.style.Unit.px;
+import static org.dominokit.domino.ui.tabs.TabStyles.*;
+import static org.dominokit.domino.ui.tabs.TabStyles.TAB_CONTENT;
+import static org.dominokit.domino.ui.tabs.TabStyles.VTABS_PANEL;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, VerticalTabsPanel> {
 
     private final VTabsContainer tabsList = VTabsContainer.create();
     private final FlexItem tabsHeadersContainer;
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("vtabs-panel"));
-    private HTMLElement tabsContent = div().css("tab-content").asElement();
+    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(VTABS_PANEL));
+    private HTMLElement tabsContent = div().css(TAB_CONTENT).asElement();
     private VerticalTab activeTab;
     private Color tabsColor;
     private Transition transition;
     private List<VerticalTab> tabs = new ArrayList<>();
     private Color background;
 
+    private Color textColor;
+    private Color iconColor;
+    private final List<VerticalTab.ActivationHandler> activationHandlers = new ArrayList<>();
+
     public static VerticalTabsPanel create() {
         return new VerticalTabsPanel();
     }
 
     public VerticalTabsPanel() {
-
         tabsHeadersContainer = FlexItem.create();
         element.appendChild(FlexLayout.create()
-                .styler(style -> style.add("tabs-container"))
+                .styler(style -> style.add(TABS_CONTAINER))
                 .appendChild(tabsHeadersContainer
-                        .styler(style -> style.add("tabs"))
+                        .styler(style -> style.add(TABS))
                         .appendChild(tabsList))
                 .appendChild(FlexItem.create()
                         .styler(style -> style
-                                .add("tabs-content")
-                                .setProperty("border-left", "1px solid #cecece")
+                                .add(TABS_CONTENT)
                         )
                         .setFlexGrow(1)
                         .appendChild(tabsContent))
@@ -58,12 +62,11 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
     }
 
     public VerticalTabsPanel appendChild(FillItem fillItem) {
-        if(nonNull(fillItem)){
+        if (nonNull(fillItem)) {
             tabsList.appendChild(fillItem);
         }
-      return this;
+        return this;
     }
-
 
     public VerticalTabsPanel appendChild(VerticalTab tab) {
         if (nonNull(tab)) {
@@ -79,7 +82,34 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
             tabsList.appendChild(tab);
             tabsContent.appendChild(tab.getContentContainer().asElement());
             tab.getClickableElement().addEventListener("click", evt -> activateTab(tab));
+            if (nonNull(textColor)) {
+                tab.setTextColor(textColor);
+            }
+
+            if (nonNull(iconColor)) {
+                tab.setIconColor(iconColor);
+            }
         }
+        return this;
+    }
+
+    public Color getTextColor() {
+        return textColor;
+    }
+
+    public VerticalTabsPanel setTextColor(Color textColor) {
+        this.textColor = textColor;
+        getTabs().forEach(verticalTab -> verticalTab.setTextColor(textColor));
+        return this;
+    }
+
+    public Color getIconColor() {
+        return iconColor;
+    }
+
+    public VerticalTabsPanel setIconColor(Color iconColor) {
+        this.iconColor = iconColor;
+        getTabs().forEach(verticalTab -> verticalTab.setIconColor(iconColor));
         return this;
     }
 
@@ -96,11 +126,25 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
             activeTab.deactivate();
             activeTab = tab;
             activeTab.activate();
-
+            activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, true));
             if (nonNull(transition)) {
                 Animation.create(activeTab.getContentContainer())
                         .transition(transition)
                         .animate();
+            }
+        }
+    }
+
+    public void deactivateTab(VerticalTab tab) {
+        if (nonNull(tab) && tabs.contains(tab)) {
+            if (tab.isActive()) {
+                tab.deactivate();
+                activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, false));
+                if (nonNull(transition)) {
+                    Animation.create(activeTab.getContentContainer())
+                            .transition(transition)
+                            .animate();
+                }
             }
         }
     }
@@ -170,5 +214,19 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
 
     public FlexItem getTabsHeadersContainer() {
         return tabsHeadersContainer;
+    }
+
+    public VerticalTabsPanel addActivationHandler(VerticalTab.ActivationHandler activationHandler) {
+        if (nonNull(activationHandler)) {
+            this.activationHandlers.add(activationHandler);
+        }
+        return this;
+    }
+
+    public VerticalTabsPanel removeActivationHandler(VerticalTab.ActivationHandler activationHandler) {
+        if (nonNull(activationHandler)) {
+            this.activationHandlers.remove(activationHandler);
+        }
+        return this;
     }
 }

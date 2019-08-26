@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.collapsible;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.IsCollapsible;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -18,6 +19,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
     private HideCompletedHandler onHidden = () -> {
     };
+
     private ShowCompletedHandler onShown = () -> {
     };
 
@@ -41,6 +43,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     public Collapsible show() {
         onShowCompleted();
         style.removeProperty("display");
+        DominoElement.of(element).removeAttribute("d-collapsed");
         this.collapsed = false;
         return this;
     }
@@ -48,6 +51,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     @Override
     public Collapsible hide() {
         style.setDisplay("none");
+        DominoElement.of(element).setAttribute("d-collapsed", "true");
         onHideCompleted();
         this.collapsed = true;
         return this;
@@ -65,7 +69,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
     @Override
     public boolean isHidden() {
-        return this.collapsed;
+        return this.collapsed || DominoElement.of(element).hasAttribute("d-collapsed");
     }
 
     @Override
