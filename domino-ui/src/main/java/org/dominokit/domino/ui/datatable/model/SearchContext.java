@@ -6,13 +6,14 @@ import org.dominokit.domino.ui.datatable.events.SearchEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class SearchContext<T> {
 
-    private final List<Filter> filters = new ArrayList<>();
-
     private final DataTable<T> dataTable;
+    private final List<Filter> filters = new ArrayList<>();
+    private final List<Consumer<SearchContext<T>>> beforeSearchHandlers = new ArrayList<>();
 
     public SearchContext(DataTable<T> dataTable) {
         this.dataTable = dataTable;
@@ -69,6 +70,15 @@ public class SearchContext<T> {
     }
 
     public void fireSearchEvent() {
+        beforeSearchHandlers.forEach(handler -> handler.accept(SearchContext.this));
         dataTable.fireTableEvent(new SearchEvent(listAll()));
+    }
+
+    public void addBeforeSearchHandler(Consumer<SearchContext<T>> handler) {
+        this.beforeSearchHandlers.add(handler);
+    }
+
+    public void removeBeforeSearchHandler(Consumer<SearchContext<T>> handler) {
+        this.beforeSearchHandlers.remove(handler);
     }
 }
