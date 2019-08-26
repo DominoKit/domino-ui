@@ -63,6 +63,8 @@ public class DropdownAction extends BaseDominoElement<HTMLLIElement, DropdownAct
                 .attr("tabindex", "0")
                 .asElement();
         liElement.appendChild(aElement);
+
+        liElement.setAttribute("role", "option");
         liElement.addEventListener("click", evt -> {
             evt.stopPropagation();
             select();
