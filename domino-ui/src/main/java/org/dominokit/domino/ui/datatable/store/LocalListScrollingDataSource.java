@@ -130,4 +130,8 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
             fireUpdate(false);
         }
     }
+
+    public List<T> getFiltered() {
+        return new ArrayList<>(filtered);
+    }
 }
