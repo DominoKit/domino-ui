@@ -34,9 +34,8 @@
 }
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
-    color: #262626;
     text-decoration: none;
-    background-color: #f5f5f5;
+    background-color: rgba(0, 0, 0, 0.075);
 }
 
 .dropdown-menu > .disabled > a,
