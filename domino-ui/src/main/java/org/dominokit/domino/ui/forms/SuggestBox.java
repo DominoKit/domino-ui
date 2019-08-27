@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
@@ -16,19 +15,21 @@ import org.jboss.gwt.elemento.core.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
+import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, String> implements HasSelectionHandler<SuggestBox, SuggestItem> {
+public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElement, T> implements HasSelectionHandler<SuggestBox<T>, SuggestItem<T>> {
 
     private static final String TEXT = "text";
     private DropDownMenu suggestionsMenu;
-    private List<SelectionHandler<SuggestItem>> selectionHandlers = new ArrayList<>();
-    private SuggestBoxStore store;
+    private List<SelectionHandler<SuggestItem<T>>> selectionHandlers = new ArrayList<>();
+    private SuggestBoxStore<T> store;
     private HTMLDivElement loaderContainer = div().css("suggest-box-loader").asElement();
     private Loader loader;
     private boolean emptyAsNull;
     private Color highlightColor;
+    private T value;
 
     public SuggestBox() {
         this("");
@@ -38,20 +39,20 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
         this(label, null);
     }
 
-    public SuggestBox(SuggestBoxStore store) {
+    public SuggestBox(SuggestBoxStore<T> store) {
         this("", store);
     }
 
-    public SuggestBox(String label, SuggestBoxStore store) {
+    public SuggestBox(String label, SuggestBoxStore<T> store) {
         this(TEXT, label, store);
     }
 
-    public SuggestBox(String type, String label, SuggestBoxStore store) {
+    public SuggestBox(String type, String label, SuggestBoxStore<T> store) {
         super(type, label);
         this.store = store;
         suggestionsMenu = DropDownMenu.create(asElement());
         suggestionsMenu.addCloseHandler(this::focus);
-        Element element = DomGlobal.document.querySelector(".content");
+        Element element = document.querySelector(".content");
         if (nonNull(element)) {
             element.addEventListener("transitionend", evt -> {
                 suggestionsMenu.style().setWidth(asElement().offsetWidth + "px");
@@ -78,10 +79,10 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
             loader.start();
             suggestionsMenu.clearActions();
             suggestionsMenu.close();
-            store.filter(getValue(), suggestions -> {
+            store.filter(getStringValue(), suggestions -> {
                 suggestionsMenu.clearActions();
                 suggestions.forEach(suggestion -> {
-                    suggestion.highlight(SuggestBox.this.getValue(), highlightColor);
+                    suggestion.highlight(SuggestBox.this.getStringValue(), highlightColor);
                     suggestionsMenu.appendChild(dropdownAction(suggestion));
                 });
                 suggestionsMenu.open();
@@ -90,12 +91,12 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
         }
     }
 
-    public static SuggestBox create(SuggestBoxStore store) {
-        return new SuggestBox(store);
+    public static <T> SuggestBox<T> create(SuggestBoxStore<T> store) {
+        return new SuggestBox<>(store);
     }
 
-    public static SuggestBox create(String label, SuggestBoxStore store) {
-        return new SuggestBox(label, store);
+    public static <T> SuggestBox<T> create(String label, SuggestBoxStore<T> store) {
+        return new SuggestBox<T>(label, store);
     }
 
     @Override
@@ -105,44 +106,49 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
 
     @Override
     protected void clearValue() {
-        value("");
+        value(null);
     }
 
     @Override
-    protected void doSetValue(String value) {
-        if (nonNull(value)) {
-            getInputElement().asElement().value = value;
-        } else {
-            getInputElement().asElement().value = "";
+    protected void doSetValue(T value) {
+        if (nonNull(store)) {
+            store.find(value, suggestItem -> {
+                if (nonNull(suggestItem)) {
+                    this.value = value;
+                    getInputElement().asElement().value = suggestItem.getDisplayValue();
+                } else {
+                    getInputElement().asElement().value = "";
+                }
+            });
         }
     }
 
     @Override
-    public String getValue() {
-        String value = getInputElement().asElement().value;
-        if (value.isEmpty() && isEmptyAsNull()) {
-            return null;
-        }
-        return value;
+    public T getValue() {
+        return this.value;
     }
 
-    public SuggestBox setSuggestBoxStore(SuggestBoxStore store) {
+    public SuggestBox<T> setSuggestBoxStore(SuggestBoxStore<T> store) {
         this.store = store;
         return this;
     }
 
-    public SuggestBox setType(String type) {
+    public SuggestBox<T> setType(String type) {
         getInputElement().asElement().type = type;
         return this;
     }
 
     @Override
     public String getStringValue() {
-        return getValue();
+        String stringValue = getInputElement().asElement().value;
+        if (stringValue.isEmpty() && isEmptyAsNull()) {
+            return null;
+        }
+        return stringValue;
     }
 
-    private DropdownAction dropdownAction(SuggestItem suggestItem) {
-        DropdownAction dropdownAction = suggestItem.asDropDownAction();
+    private DropdownAction<T> dropdownAction(SuggestItem<T> suggestItem) {
+        DropdownAction<T> dropdownAction = suggestItem.asDropDownAction();
         dropdownAction.addSelectionHandler(value -> {
             setValue(value);
             selectionHandlers.forEach(handler -> handler.onSelection(suggestItem));
@@ -152,18 +158,18 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
     }
 
     @Override
-    public SuggestBox addSelectionHandler(SelectionHandler<SuggestItem> selectionHandler) {
+    public SuggestBox<T> addSelectionHandler(SelectionHandler<SuggestItem<T>> selectionHandler) {
         selectionHandlers.add(selectionHandler);
         return this;
     }
 
     @Override
-    public SuggestBox removeSelectionHandler(SelectionHandler<SuggestItem> selectionHandler) {
+    public SuggestBox<T> removeSelectionHandler(SelectionHandler<SuggestItem<T>> selectionHandler) {
         selectionHandlers.remove(selectionHandler);
         return this;
     }
 
-    public SuggestBox setLoaderEffect(LoaderEffect loaderEffect) {
+    public SuggestBox<T> setLoaderEffect(LoaderEffect loaderEffect) {
         loader = Loader.create(loaderContainer, loaderEffect)
                 .setSize("20px", "20px")
                 .setRemoveLoadingText(true);
@@ -174,7 +180,7 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
         return loader;
     }
 
-    public SuggestBox setEmptyAsNull(boolean emptyAsNull) {
+    public SuggestBox<T> setEmptyAsNull(boolean emptyAsNull) {
         this.emptyAsNull = emptyAsNull;
         return this;
     }
@@ -187,7 +193,7 @@ public class SuggestBox extends AbstractValueBox<SuggestBox, HTMLInputElement, S
         return suggestionsMenu;
     }
 
-    public SuggestBox setHighlightColor(Color highlightColor) {
+    public SuggestBox<T> setHighlightColor(Color highlightColor) {
         this.highlightColor = highlightColor;
         return this;
     }
