@@ -1,12 +1,18 @@
 package org.dominokit.domino.ui.forms;
 
 import java.util.List;
+import java.util.function.Consumer;
 
-public interface SuggestBoxStore {
+import static java.util.Objects.isNull;
 
-    void filter(String searchValue, SuggestionsHandler suggestionsHandler);
+public interface SuggestBoxStore<T> {
 
-    interface SuggestionsHandler {
-        void onSuggestionsReady(List<SuggestItem> suggestions);
+    void filter(String value, SuggestionsHandler<T> suggestionsHandler);
+    void find(T searchValue, Consumer<SuggestItem<T>> handler);
+
+
+    @FunctionalInterface
+    interface SuggestionsHandler<T> {
+        void onSuggestionsReady(List<SuggestItem<T>> suggestions);
     }
 }

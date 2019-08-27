@@ -5,35 +5,47 @@ import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 
-public class SuggestItem {
+public class SuggestItem<T> {
 
-    private DropdownAction element;
+    private DropdownAction<T> element;
+    private T value;
+    private final String displayValue;
 
-    public SuggestItem(String value) {
-        this(value, Icons.ALL.text_fields());
+    public SuggestItem(T value, String displayValue) {
+        this(value, displayValue, Icons.ALL.text_fields());
     }
 
-    public SuggestItem(String value, BaseIcon<?> icon) {
-        element = DropdownAction.create(value, icon, value);
+    public SuggestItem(T value, String displayValue, BaseIcon<?> icon) {
+        element = DropdownAction.create(value, displayValue, icon);
+        this.value = value;
+        this.displayValue = displayValue;
     }
 
-    public static SuggestItem create(String value) {
-        return new SuggestItem(value);
+    public static SuggestItem<String> create(String value) {
+        return new SuggestItem<>(value, value);
     }
 
-    public static SuggestItem create(String value, BaseIcon<?> icon) {
-        return new SuggestItem(value, icon);
+    public static <T> SuggestItem<T> create(T value, String displayValue) {
+        return new SuggestItem<>(value, displayValue);
+    }
+
+    public static <T> SuggestItem<T> create(T value, String displayValue, BaseIcon<?> icon) {
+        return new SuggestItem<>(value, displayValue, icon);
     }
 
     public void highlight(String value, Color highlightColor) {
         element.highlight(value, highlightColor);
     }
 
-    public DropdownAction asDropDownAction() {
+    public DropdownAction<T> asDropDownAction() {
         return element;
     }
 
-    public String getValue() {
+    public T getValue() {
         return element.getValue();
+    }
+
+    public String getDisplayValue() {
+        return displayValue;
     }
 }
