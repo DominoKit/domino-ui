@@ -7,9 +7,11 @@ import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.modals.ModalBackDrop;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.HasBackground;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.IsElement;
 
@@ -17,9 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static elemental2.dom.DomGlobal.document;
+import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu> {
+public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu> implements HasBackground<DropDownMenu> {
 
     private MenuNavigation<DropdownAction, HTMLElement> menuNavigation;
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(DropDownStyles.DROPDOWN));
@@ -41,9 +44,13 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     private boolean searchable;
     private boolean caseSensitiveSearch = false;
     private List<DropdownActionsGroup> groups = new ArrayList<>();
+    private Color background;
 
     public DropDownMenu(HTMLElement targetElement) {
         this.targetElement = targetElement;
+
+        menuElement.setAttribute("role", "listbox");
+
         EventListener listener = evt -> closeAllMenus();
 
         element.addEventListener(EventType.touchend, Event::stopPropagation);
@@ -197,6 +204,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         });
         actions.add(action);
         menuElement.appendChild(action.asElement());
+        action.setBackground(this.background);
         return this;
     }
 
@@ -329,6 +337,17 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
     public DominoElement<HTMLUListElement> getMenuElement() {
         return menuElement;
+    }
+
+    @Override
+    public DropDownMenu setBackground(Color background) {
+        if (nonNull(this.background)) {
+            getMenuElement().removeCss(this.background.getBackground());
+        }
+        getMenuElement().addCss(background.getBackground());
+        this.background = background;
+        actions.forEach(dropdownAction -> dropdownAction.setBackground(background));
+        return this;
     }
 
     @FunctionalInterface

@@ -38,15 +38,14 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
 
     @Override
     public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
-        dateBox.addChangeHandler(value -> {
+        searchContext.addBeforeSearchHandler(context -> {
             if (dateBox.isEmpty()) {
                 searchContext.remove(columnConfig.getName(), Category.HEADER_FILTER);
-                searchContext.fireSearchEvent();
             } else {
                 searchContext.add(Filter.create(columnConfig.getName(), dateBox.getValue().getTime() + "", Category.HEADER_FILTER, FilterTypes.DATE));
-                searchContext.fireSearchEvent();
             }
         });
+        dateBox.addChangeHandler(value -> searchContext.fireSearchEvent());
     }
 
     @Override

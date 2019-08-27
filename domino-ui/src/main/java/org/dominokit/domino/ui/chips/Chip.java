@@ -5,6 +5,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLImageElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
@@ -38,6 +39,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     private boolean enabled;
     private HTMLElement leftAddon;
     private boolean selectable;
+    private boolean removable;
     private Color leftBackground;
     private Theme.ThemeChangeHandler themeListener = (oldTheme, newTheme) -> style.setBorderColor(newTheme.getScheme().color().getHex());
 
@@ -45,11 +47,24 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         element.appendChild(leftAddonContainer);
         element.appendChild(textContainer);
         element.appendChild(removeIconContainer);
+        element.setAttribute("tabindex", "0");
         setColorScheme(colorScheme);
         setRemoveIcon(removeIcon);
         setRemovable(false);
         setBorderColor(Color.INDIGO);
         setValue(value);
+        KeyboardEvents.listenOn(element).onEnter(evt -> {
+
+            if(selectable) {
+                toggleSelect();
+            }
+
+            if (removable) {
+                remove();
+            }
+
+            evt.stopPropagation();
+        });
         element.addEventListener("click", evt -> {
             if (selectable) {
                 toggleSelect();
@@ -173,6 +188,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     }
 
     public Chip setRemovable(boolean removable) {
+        this.removable = removable;
         if (removable) {
             Style.of(removeIconContainer).setDisplay("block");
         } else {
