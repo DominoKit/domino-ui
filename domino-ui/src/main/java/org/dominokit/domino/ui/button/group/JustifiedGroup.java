@@ -58,6 +58,12 @@ public class JustifiedGroup extends BaseDominoElement<HTMLElement, JustifiedGrou
     }
 
     @Override
+    public JustifiedGroup medium() {
+        group.medium();
+        return this;
+    }
+
+    @Override
     public JustifiedGroup small() {
         group.small();
         return this;

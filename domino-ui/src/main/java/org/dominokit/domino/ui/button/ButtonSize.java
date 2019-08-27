@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.button;
 
 public enum ButtonSize {
     LARGE("lg"),
+    MEDIUM("md"),
     SMALL("sm"),
     XSMALL("xs");
 

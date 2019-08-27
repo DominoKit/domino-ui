@@ -28,9 +28,7 @@ button.close {
 
 .btn {
     display: inline-block;
-    font-size: 14px;
     font-weight: 400;
-    line-height: 1.42857143;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
@@ -43,7 +41,6 @@ button.close {
     user-select: none;
     background-image: none;
     border: 1px solid transparent;
-    padding: 6px 12px;
 }
 
 a.btn.disabled,
@@ -146,6 +143,12 @@ fieldset[disabled] .btn.warning.focus {
     font-size: 16px;
     line-height: 1.3333333;
     padding: 10px 16px;
+}
+
+.btn.md, .btn-group.md > .btn {
+    font-size: 14px;
+    line-height: 1.42857143;
+    padding: 6px 12px;
 }
 
 .btn.sm, .btn-group.sm > .btn {

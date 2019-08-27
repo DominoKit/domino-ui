@@ -76,6 +76,11 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> i
     }
 
     @Override
+    public ButtonsGroup medium() {
+        return setSize(ButtonSize.MEDIUM);
+    }
+
+    @Override
     public ButtonsGroup small() {
         return setSize(ButtonSize.SMALL);
     }
