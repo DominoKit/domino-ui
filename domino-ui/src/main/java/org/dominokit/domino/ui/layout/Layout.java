@@ -128,6 +128,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
             autoFixLeftPanel();
         }
         if (!root.isAttached()) {
+            DomGlobal.console.info("attaching layout ---------------------- > "+document.body.contains(root.asElement()));
             document.body.appendChild(root.asElement());
         }
 
