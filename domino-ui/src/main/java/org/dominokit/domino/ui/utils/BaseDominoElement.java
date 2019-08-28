@@ -30,6 +30,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     private ScreenMedia hideOn;
     private ScreenMedia showOn;
     private Elevation elevation;
+    private WavesSupport wavesSupport;
 
     @Editor.Ignore
     protected void init(T element) {
@@ -487,7 +488,15 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Editor.Ignore
     public T withWaves() {
-        WavesSupport.addFor(element.asElement());
+        this.wavesSupport = WavesSupport.addFor(element.asElement());
+        return element;
+    }
+
+    @Editor.Ignore
+    public T removeWaves() {
+        if(nonNull(this.wavesSupport)) {
+            this.wavesSupport.removeWaves();
+        }
         return element;
     }
 

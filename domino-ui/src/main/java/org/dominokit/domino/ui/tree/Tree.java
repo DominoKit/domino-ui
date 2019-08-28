@@ -25,6 +25,7 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implements ParentTreeItem<TreeItem<T>>, IsElement<HTMLDivElement> {
 
     private HTMLElement title = span().css("title").asElement();
+    private ToggleTarget toggleTarget = ToggleTarget.ANY;
 
     private HTMLLIElement header = li()
             .css("header")
@@ -66,7 +67,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
 
     public Tree(String treeTitle) {
         init(this);
-        if(isNull(treeTitle) || treeTitle.trim().isEmpty()){
+        if (isNull(treeTitle) || treeTitle.trim().isEmpty()) {
             DominoElement.of(header)
                     .hide();
         }
@@ -109,6 +110,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         root.appendChild(treeItem.asElement());
         treeItem.setParent(this);
         treeItem.setLevel(nextLevel);
+        treeItem.setToggleTarget(this.toggleTarget);
         this.subItems.add(treeItem);
         return this;
     }
@@ -130,6 +132,14 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         return this;
     }
 
+    public Tree<T> setToggleTarget(ToggleTarget toggleTarget) {
+        if (nonNull(toggleTarget)) {
+            subItems.forEach(item -> item.setToggleTarget(toggleTarget));
+            this.toggleTarget = toggleTarget;
+        }
+        return this;
+    }
+
     public Tree setColorScheme(ColorScheme colorScheme) {
         if (nonNull(this.colorScheme)) {
             style.remove(colorScheme.color().getBackground());
@@ -142,6 +152,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
 
         return this;
     }
+
 
     @Override
     public TreeItem<T> getActiveItem() {
@@ -161,7 +172,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
 
         this.activeTreeItem = activeItem;
         this.activeTreeItem.activate();
-        if(!silent) {
+        if (!silent) {
             onTreeItemClicked(activeItem);
         }
     }
@@ -180,6 +191,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
 
     /**
      * Use {@link #autoHeight()}
+     *
      * @return
      */
     @Deprecated
@@ -355,24 +367,24 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         this.value = value;
     }
 
-    public Tree<T> addItemClickListener(ItemClickListener<T> itemClickListener){
+    public Tree<T> addItemClickListener(ItemClickListener<T> itemClickListener) {
         this.itemsClickListeners.add(itemClickListener);
         return this;
     }
 
-    public Tree<T> removeItemClickListener(ItemClickListener<T> itemClickListener){
+    public Tree<T> removeItemClickListener(ItemClickListener<T> itemClickListener) {
         this.itemsClickListeners.remove(itemClickListener);
         return this;
     }
 
-    void onTreeItemClicked(TreeItem<T> treeItem){
+    void onTreeItemClicked(TreeItem<T> treeItem) {
         this.itemsClickListeners.forEach(itemClickListener -> itemClickListener.onTreeItemClicked(treeItem));
     }
 
-    public List<TreeItem<T>> getActivePath(){
+    public List<TreeItem<T>> getActivePath() {
         List<TreeItem<T>> activeItems = new ArrayList<>();
         TreeItem<T> activeItem = getActiveItem();
-        while(nonNull(activeItem)){
+        while (nonNull(activeItem)) {
             activeItems.add(activeItem);
             activeItem = activeItem.getActiveItem();
         }
@@ -380,10 +392,10 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         return activeItems;
     }
 
-    public List<T> getActivePathValues(){
+    public List<T> getActivePathValues() {
         List<T> activeValues = new ArrayList<>();
         TreeItem<T> activeItem = getActiveItem();
-        while(nonNull(activeItem)){
+        while (nonNull(activeItem)) {
             activeValues.add(activeItem.getValue());
             activeItem = activeItem.getActiveItem();
         }
