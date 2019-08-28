@@ -1,4 +1,7 @@
-﻿.close {
+﻿:focus {
+    outline: none;
+}
+.close {
     float: right;
     font-size: 21px;
     font-weight: bold;
@@ -3369,6 +3372,13 @@ fieldset[disabled] .form-control {
     width: 24px;
 }
 
+.menu .list i.material-icons.clickable-icon {
+    width: 32px;
+    height: 32px;
+}
+
+
+
 .menu .list .tree-toggle:after, .menu .list .tree-toggle:before {
     position: absolute;
     top: calc(50% - 14px);
@@ -4420,4 +4430,10 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 
 .select-label {
     cursor: pointer !important;
+}
+
+.mdi:focus,
+.material-icons:focus{
+    outline: none;
+    background-color: rgba(32,33,36,0.1);
 }
