@@ -43,7 +43,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
     private Map<String, List<TableEventListener>> events = new HashMap<>();
 
-    private final SearchContext<T> searchContext= new SearchContext<>(this);
+    private final SearchContext<T> searchContext = new SearchContext<>(this);
 
     public DataTable(TableConfig<T> tableConfig, DataStore<T> dataStore) {
         this.tableConfig = tableConfig;
@@ -266,16 +266,34 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
     @Override
     public void selectAll() {
+        selectAll((table, tableRow) -> true);
+    }
+
+    public void selectAll(SelectionCondition<T> selectionCondition) {
         if (tableConfig.isMultiSelect() && !tableRows.isEmpty()) {
-            tableRows.forEach(TableRow::select);
+            for (TableRow<T> tableRow : tableRows) {
+                if (selectionCondition.isAllowSelection(this, tableRow)) {
+                    tableRow.select();
+                }
+            }
             onSelectionChange(tableRows.get(0));
         }
     }
 
     @Override
     public void deselectAll() {
+        deselectAll((table, tableRow) -> true);
+    }
+
+    public void deselectAll(SelectionCondition<T> selectionCondition) {
         if (!tableRows.isEmpty()) {
-            tableRows.stream().filter(TableRow::isSelected).forEach(TableRow::deselect);
+            for (TableRow<T> tableRow : tableRows) {
+                if (tableRow.isSelected()) {
+                    if (selectionCondition.isAllowSelection(this, tableRow)) {
+                        tableRow.deselect();
+                    }
+                }
+            }
             onSelectionChange(tableRows.get(0));
         }
     }

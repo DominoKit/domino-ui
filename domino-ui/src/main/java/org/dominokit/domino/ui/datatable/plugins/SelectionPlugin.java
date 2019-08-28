@@ -11,15 +11,20 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.Selectable;
+import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.gwt.elemento.core.IsElement;
 
+import java.util.stream.Collectors;
+
 import static java.util.Objects.nonNull;
+import static java.util.Objects.requireNonNull;
 
 public class SelectionPlugin<T> implements DataTablePlugin<T> {
 
     private ColorScheme colorScheme;
     private Selectable<T> selectedRow;
     private HTMLElement singleSelectIndicator = Icons.ALL.check().asElement();
+    private SelectionCondition<T> selectionCondition = (table, row) -> true;
 
     public SelectionPlugin() {
     }
@@ -52,11 +57,16 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
                     }
                 })
                 .setCellRenderer(cell -> {
-                    if (dataTable.getTableConfig().isMultiSelect()) {
-                        return createMultiSelectCell(dataTable, cell);
+                    if (selectionCondition.isAllowSelection(dataTable, cell.getTableRow())) {
+                        if (dataTable.getTableConfig().isMultiSelect()) {
+                            return createMultiSelectCell(dataTable, cell);
+                        } else {
+                            return createSingleSelectCell(dataTable, cell);
+                        }
                     } else {
-                        return createSingleSelectCell(dataTable, cell);
+                        return TextNode.empty();
                     }
+
                 }).asHeader());
     }
 
@@ -67,29 +77,33 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     private Node createSingleSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
         HTMLElement clonedIndicator = Js.uncheckedCast(singleSelectIndicator.cloneNode(true));
         cell.getTableRow().asElement().addEventListener("click", evt -> {
-            if (cell.getTableRow().isSelected()) {
-                cell.getTableRow().deselect();
-            } else {
-                cell.getTableRow().select();
+            if (selectionCondition.isAllowSelection(dataTable, cell.getTableRow())) {
+                if (cell.getTableRow().isSelected()) {
+                    cell.getTableRow().deselect();
+                } else {
+                    cell.getTableRow().select();
+                }
+                dataTable.onSelectionChange(cell.getTableRow());
             }
-            dataTable.onSelectionChange(cell.getTableRow());
         });
         cell.getTableRow().addSelectionHandler(selectable -> {
-            if (selectable.isSelected()) {
-                if (nonNull(selectedRow)) {
-                    selectedRow.deselect();
+            if (selectionCondition.isAllowSelection(dataTable, cell.getTableRow())) {
+                if (selectable.isSelected()) {
+                    if (nonNull(selectedRow)) {
+                        selectedRow.deselect();
+                    }
+                    Style.of(clonedIndicator).setDisplay("inline-block");
+                    if (nonNull(colorScheme)) {
+                        Style.of(((TableRow<T>) selectable).asElement()).add(colorScheme.lighten_5().getBackground());
+                    }
+                    selectedRow = selectable;
+                } else {
+                    Style.of(clonedIndicator).setDisplay("none");
+                    if (nonNull(colorScheme)) {
+                        Style.of(((TableRow<T>) selectable).asElement()).remove(colorScheme.lighten_5().getBackground());
+                    }
+                    selectedRow = null;
                 }
-                Style.of(clonedIndicator).setDisplay("inline-block");
-                if (nonNull(colorScheme)) {
-                    Style.of(((TableRow<T>) selectable).asElement()).add(colorScheme.lighten_5().getBackground());
-                }
-                selectedRow = selectable;
-            } else {
-                Style.of(clonedIndicator).setDisplay("none");
-                if (nonNull(colorScheme)) {
-                    Style.of(((TableRow<T>) selectable).asElement()).remove(colorScheme.lighten_5().getBackground());
-                }
-                selectedRow = null;
             }
         });
         Style.of(clonedIndicator).setDisplay("none");
@@ -100,32 +114,36 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
         CheckBox checkBox = createCheckBox();
 
         cell.getTableRow().addSelectionHandler(selectable -> {
-            if (selectable.isSelected()) {
-                checkBox.check(true);
-                if (nonNull(colorScheme)) {
-                    Style.of(((TableRow<T>) selectable).asElement()).add(colorScheme.lighten_5().getBackground());
-                }
-            } else {
-                checkBox.uncheck(true);
-                if (nonNull(colorScheme)) {
-                    Style.of(((TableRow<T>) selectable).asElement()).remove(colorScheme.lighten_5().getBackground());
+            if (selectionCondition.isAllowSelection(dataTable, cell.getTableRow())) {
+                if (selectable.isSelected()) {
+                    checkBox.check(true);
+                    if (nonNull(colorScheme)) {
+                        Style.of(((TableRow<T>) selectable).asElement()).add(colorScheme.lighten_5().getBackground());
+                    }
+                } else {
+                    checkBox.uncheck(true);
+                    if (nonNull(colorScheme)) {
+                        Style.of(((TableRow<T>) selectable).asElement()).remove(colorScheme.lighten_5().getBackground());
+                    }
                 }
             }
         });
 
         checkBox.addChangeHandler(checked -> {
-            if (checked) {
-                cell.getTableRow().select();
-                if (nonNull(colorScheme)) {
-                    Style.of(cell.getTableRow().asElement()).add(colorScheme.lighten_5().getBackground());
+            if (selectionCondition.isAllowSelection(dataTable, cell.getTableRow())) {
+                if (checked) {
+                    cell.getTableRow().select();
+                    if (nonNull(colorScheme)) {
+                        Style.of(cell.getTableRow().asElement()).add(colorScheme.lighten_5().getBackground());
+                    }
+                    dataTable.onSelectionChange(cell.getTableRow());
+                } else {
+                    cell.getTableRow().deselect();
+                    if (nonNull(colorScheme)) {
+                        Style.of(cell.getTableRow().asElement()).remove(colorScheme.lighten_5().getBackground());
+                    }
+                    dataTable.onSelectionChange(cell.getTableRow());
                 }
-                dataTable.onSelectionChange(cell.getTableRow());
-            } else {
-                cell.getTableRow().deselect();
-                if (nonNull(colorScheme)) {
-                    Style.of(cell.getTableRow().asElement()).remove(colorScheme.lighten_5().getBackground());
-                }
-                dataTable.onSelectionChange(cell.getTableRow());
             }
         });
         return checkBox.asElement();
@@ -135,14 +153,17 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
         CheckBox checkBox = createCheckBox();
         checkBox.addChangeHandler(checked -> {
             if (checked) {
-                dataTable.selectAll();
+                dataTable.selectAll(selectionCondition);
             } else {
-                dataTable.deselectAll();
+                dataTable.deselectAll(selectionCondition);
             }
         });
 
         dataTable.addSelectionListener((selectedRows, selectedRecords) -> {
-            if (selectedRows.size() != dataTable.getItems().size()) {
+            if (selectedRows.size() != dataTable.getItems()
+                    .stream()
+                    .filter(tableRow -> selectionCondition.isAllowSelection(dataTable, tableRow))
+                    .count()) {
                 checkBox.uncheck(true);
             } else {
                 checkBox.check(true);
@@ -164,4 +185,10 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
         return checkBox;
     }
 
+    public SelectionPlugin<T> setSelectionCondition(SelectionCondition<T> selectionCondition) {
+        if (nonNull(selectionCondition)) {
+            this.selectionCondition = selectionCondition;
+        }
+        return this;
+    }
 }
