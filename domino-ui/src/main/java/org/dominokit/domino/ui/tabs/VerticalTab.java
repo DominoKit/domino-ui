@@ -42,6 +42,8 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
     private boolean textColorOverridden = false;
     private boolean iconColorOverridden = false;
 
+    private Color color = Color.GREY_DARKEN_3;
+
     public VerticalTab(String title, BaseIcon<?> icon) {
         this.title = title;
         setIcon(icon);
@@ -83,7 +85,8 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
     }
 
     private void init() {
-        this.element = FlexItem.create();
+        this.element = FlexItem.create()
+                .css(Color.GREY_DARKEN_3.getStyle());
         this.element.appendChild(anchorElement);
         init(this);
         setWaveColor(WaveColor.THEME);
@@ -203,6 +206,20 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         if (nonNull(activationHandler)) {
             this.activationHandlers.remove(activationHandler);
         }
+        return this;
+    }
+
+    public VerticalTab setColor(Color color) {
+        element.removeCss(this.color.getStyle());
+        element.css(color.getStyle());
+        this.color = color;
+        return this;
+    }
+
+    public VerticalTab resetColor() {
+        element.removeCss(this.color.getStyle());
+        element.css(Color.GREY_DARKEN_3.getStyle());
+        this.color = Color.GREY_DARKEN_3;
         return this;
     }
 
