@@ -4438,3 +4438,11 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 .tree-tgl-icn .mdi:before{
     line-height: 26px;
 }
+
+.tree-indicator{
+    position: absolute;
+    right: 48px;
+    top: 9px;
+    height: 24px;
+    line-height: 24px;
+}

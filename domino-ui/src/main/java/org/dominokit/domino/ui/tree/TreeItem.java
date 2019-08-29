@@ -2,14 +2,17 @@ package org.dominokit.domino.ui.tree;
 
 import elemental2.dom.*;
 import elemental2.dom.EventListener;
+import org.dominokit.domino.ui.badges.Badge;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.EventType;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -43,6 +46,9 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     private DominoElement<HTMLElement> toggleContainer = DominoElement.of(span()
             .css("tree-tgl-icn")
     );
+    private DominoElement<HTMLElement> indicatorContainer = DominoElement.of(span()
+            .css("tree-indicator")
+    );
 
     public TreeItem(String title, BaseIcon<?> icon) {
         this.title = title;
@@ -63,8 +69,8 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
                                 .css("tree-tgl-collapsed")
                                 .clickable()
                                 .addClickListener(evt -> {
-                                        evt.stopPropagation();
-                                        toggle();
+                                    evt.stopPropagation();
+                                    toggle();
                                 })
                         )
                         .appendChild(Icons.ALL.minus_mdi()
@@ -72,11 +78,13 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
                                 .css("tree-tgl-expanded")
                                 .clickable()
                                 .addClickListener(evt -> {
-                                        evt.stopPropagation();
-                                        toggle();
+                                    evt.stopPropagation();
+                                    toggle();
                                 })
                         )
-                ));
+                )
+                .add(indicatorContainer)
+        );
         init();
     }
 
@@ -559,5 +567,32 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
             }
         }
         return super.remove();
+    }
+
+    public TreeItem<T> setIndicatorContent(Node indicatorContent) {
+        indicatorContainer.clearElement();
+        if (nonNull(indicatorContent)) {
+            indicatorContainer.appendChild(indicatorContent);
+        }
+        return this;
+    }
+
+    public TreeItem<T> setIndicatorContent(IsElement<?> element) {
+        setIndicatorContent(element.asElement());
+        return this;
+    }
+
+    public TreeItem<T> clearIndicator() {
+        indicatorContainer.clearElement();
+        return this;
+    }
+
+    @Override
+    public Collapsible getCollapsible() {
+        return collapsible;
+    }
+
+    public DominoElement<HTMLElement> getIndicatorContainer() {
+        return indicatorContainer;
     }
 }
