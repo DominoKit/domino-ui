@@ -40,6 +40,9 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     private int nextLevel = 1;
 
     private ToggleTarget toggleTarget = ToggleTarget.ANY;
+    private DominoElement<HTMLElement> toggleContainer = DominoElement.of(span()
+            .css("tree-tgl-icn")
+    );
 
     public TreeItem(String title, BaseIcon<?> icon) {
         this.title = title;
@@ -52,7 +55,28 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
                 .add(div()
                         .css(Styles.ellipsis_text)
                         .style("margin-top: 2px;")
-                        .add(titleElement)));
+                        .add(titleElement)
+                )
+                .add(toggleContainer
+                        .appendChild(Icons.ALL.plus_mdi()
+                                .size18()
+                                .css("tree-tgl-collapsed")
+                                .clickable()
+                                .addClickListener(evt -> {
+                                        evt.stopPropagation();
+                                        toggle();
+                                })
+                        )
+                        .appendChild(Icons.ALL.minus_mdi()
+                                .size18()
+                                .css("tree-tgl-expanded")
+                                .clickable()
+                                .addClickListener(evt -> {
+                                        evt.stopPropagation();
+                                        toggle();
+                                })
+                        )
+                ));
         init();
     }
 
@@ -147,6 +171,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         Style.of(treeItem).add("tree-leaf");
         Style.of(this.asElement()).remove("tree-leaf");
         treeItem.setToggleTarget(this.toggleTarget);
+        this.style.add("tree-item-parent");
         return this;
     }
 
@@ -159,18 +184,18 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
 
     public TreeItem<T> setToggleTarget(ToggleTarget toggleTarget) {
         if (nonNull(toggleTarget)) {
-            if(nonNull(this.toggleTarget)){
+            if (nonNull(this.toggleTarget)) {
                 this.removeCss(this.toggleTarget.getStyle());
             }
 
             this.toggleTarget = toggleTarget;
             this.css(this.toggleTarget.getStyle());
-            if(ToggleTarget.ICON.equals(toggleTarget)){
-                if(nonNull(icon)) {
+            if (ToggleTarget.ICON.equals(toggleTarget)) {
+                if (nonNull(icon)) {
                     icon.setClickable(true);
                 }
-            }else{
-                if(nonNull(icon)) {
+            } else {
+                if (nonNull(icon)) {
                     icon.setClickable(false);
                 }
             }
@@ -403,15 +428,15 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         }
         this.originalIcon
                 .addClickListener(evt -> {
-            if(ToggleTarget.ICON.equals(this.toggleTarget)){
-                evt.stopPropagation();
-                toggle();
-            }
-        });
+                    if (ToggleTarget.ICON.equals(this.toggleTarget)) {
+                        evt.stopPropagation();
+                        toggle();
+                    }
+                });
         return this;
     }
 
-    public TreeItem<T> setActiveIcon(BaseIcon<?> activeIcon) {
+    public TreeItem<T> setActiveIcon(BaseIcon<?> actibveIcon) {
         this.activeIcon = activeIcon;
         return this;
     }
@@ -529,6 +554,9 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     public TreeItem<T> remove() {
         if (parent.getSubItems().contains(this)) {
             parent.removeItem(this);
+            if (parent.getSubItems().isEmpty() && parent instanceof TreeItem) {
+                ((TreeItem<T>) parent).style.remove("tree-item-parent");
+            }
         }
         return super.remove();
     }
