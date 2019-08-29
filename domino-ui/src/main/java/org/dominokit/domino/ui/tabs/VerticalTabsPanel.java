@@ -34,6 +34,8 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
     private List<VerticalTab> tabs = new ArrayList<>();
     private Color background;
 
+    private boolean activeTabColored = false;
+
     private Color textColor;
     private Color iconColor;
     private final List<VerticalTab.ActivationHandler> activationHandlers = new ArrayList<>();
@@ -74,6 +76,9 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
             if (isNull(activeTab)) {
                 this.activeTab = tab;
                 this.activeTab.activate();
+                if(activeTabColored){
+                    this.activeTab.setColor(tabsColor);
+                }
             } else {
                 if (tab.isActive()) {
                     activateTab(tab);
@@ -123,6 +128,9 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
 
     public void activateTab(VerticalTab tab) {
         if (nonNull(tab) && tabs.contains(tab)) {
+            if(activeTabColored){
+                this.activeTab.resetColor();
+            }
             activeTab.deactivate();
             activeTab = tab;
             activeTab.activate();
@@ -131,6 +139,10 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
                 Animation.create(activeTab.getContentContainer())
                         .transition(transition)
                         .animate();
+            }
+
+            if(activeTabColored){
+                this.activeTab.setColor(this.tabsColor);
             }
         }
     }
@@ -155,6 +167,27 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
         }
         tabsList.style().add(color.getStyle());
         this.tabsColor = color;
+
+        if(activeTabColored && nonNull(this.activeTab)){
+            this.activeTab.setColor(this.tabsColor);
+        }
+        return this;
+    }
+
+    public boolean isActiveTabColored() {
+        return activeTabColored;
+    }
+
+    public VerticalTabsPanel setActiveTabColored(boolean activeTabColored) {
+        this.activeTabColored = activeTabColored;
+        if(activeTabColored) {
+            if (nonNull(activeTab) && nonNull(this.tabsColor)) {
+                this.activeTab.setColor(tabsColor);
+            }
+        }else{
+            this.activeTab.resetColor();
+        }
+
         return this;
     }
 

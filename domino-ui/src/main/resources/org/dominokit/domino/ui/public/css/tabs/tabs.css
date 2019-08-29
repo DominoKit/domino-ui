@@ -131,7 +131,6 @@
 }
 
 .vtabs .list a {
-    color: #565656;
     position: relative;
     display: inline-flex;
     vertical-align: middle;
@@ -275,4 +274,28 @@
 
 .tabs-content {
     border-left: 1px solid #cecece;
+}
+
+.layout .sidebar .vtabs-panel .tabs-content {
+    display: none;
+}
+.layout .sidebar .vtabs-panel .tabs{
+    width: 100%;
+}
+
+.layout .sidebar .vtabs-panel .vtabs .flex-item a {
+    padding: 22px 0;
+}
+
+.layout .sidebar .vtabs-panel .vtabs .flex-item a .title {
+    font-size: 15px;
+    margin: 0;
+}
+
+.layout .sidebar .vtabs-panel .vtabs .flex-item a i {
+    margin: 0;
+}
+
+.layout .sidebar .vtabs-panel .tabs-content {
+    border-left: 0;
 }
