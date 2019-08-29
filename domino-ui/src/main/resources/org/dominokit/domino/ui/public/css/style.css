@@ -3377,58 +3377,6 @@ fieldset[disabled] .form-control {
     height: 32px;
 }
 
-
-
-.menu .list .tree-toggle:after, .menu .list .tree-toggle:before {
-    position: absolute;
-    top: calc(50% - 14px);
-    right: 17px;
-    font-size: 19px;
-    -moz-transform: scale(0);
-    -ms-transform: scale(0);
-    -o-transform: scale(0);
-    -webkit-transform: scale(0);
-    transform: scale(0);
-    -moz-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
-}
-
-.menu .list .tree-toggle:before {
-    content: '+';
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-    -webkit-transform: scale(1);
-    transform: scale(1);
-}
-
-.menu .list .tree-toggle:after {
-    content: '\2013';
-    -moz-transform: scale(0);
-    -ms-transform: scale(0);
-    -o-transform: scale(0);
-    -webkit-transform: scale(0);
-    transform: scale(0);
-}
-
-.menu .list .tree-toggle.toggled:before {
-    -moz-transform: scale(0);
-    -ms-transform: scale(0);
-    -o-transform: scale(0);
-    -webkit-transform: scale(0);
-    transform: scale(0);
-}
-
-.menu .list .tree-toggle.toggled:after {
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-    -webkit-transform: scale(1);
-    transform: scale(1);
-}
-
 .menu:not([class*="bg-"]) .list a {
     color: #747474;
 }
@@ -4436,4 +4384,57 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 .material-icons:focus{
     outline: none;
     background-color: rgba(32,33,36,0.1);
+}
+
+.menu .list .tgl-icon .title {
+    line-height: 30px;
+}
+
+.menu .list .tgl-icon a {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.tree-tgl-icn {
+    position: absolute;
+    line-height: 18px;
+    padding-top: 2px;
+    right: 15px;
+    width: 24px;
+    top: 3px;
+}
+
+.menu .list .tree-tgl-icn {
+    display: none;
+}
+
+.menu .list .tree-item-parent > a .tree-tgl-icn {
+    display: block;
+}
+
+.menu .list .tree-item-parent > a .tree-tgl-icn .tree-tgl-collapsed {
+    display: block;
+}
+.menu .list .tree-item-parent > a .tree-tgl-icn .tree-tgl-expanded {
+    display: none;
+}
+
+.menu .list .tree-item-parent > a.toggled .tree-tgl-icn .tree-tgl-expanded {
+    display: block;
+}
+
+.menu .list .tree-item-parent > a.toggled .tree-tgl-icn .tree-tgl-collapsed {
+    display: none;
+}
+
+.menu .list li a:hover{
+    background-color: rgba(0,0,0,0.05);
+}
+
+.menu .list .toggled:hover{
+    background-color: rgba(0,0,0,0.05);
+}
+
+.tree-tgl-icn .mdi:before{
+    line-height: 26px;
 }
