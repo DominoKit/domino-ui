@@ -154,7 +154,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     public Select<T> addGroup(SelectOptionGroup<T> group) {
-        DropdownActionsGroup dropdownActionsGroup = DropdownActionsGroup.create(group.getTitleElement());
+        DropdownActionsGroup<T> dropdownActionsGroup = DropdownActionsGroup.create(group.getTitleElement());
         for (SelectOption<T> option : group.getOptions()) {
             addOptionToGroup(dropdownActionsGroup, option);
         }
@@ -166,7 +166,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         return this;
     }
 
-    private void addOptionToGroup(DropdownActionsGroup dropdownActionsGroup, SelectOption<T> option) {
+    private void addOptionToGroup(DropdownActionsGroup<T> dropdownActionsGroup, SelectOption<T> option) {
         dropdownActionsGroup.appendChild(asDropDownAction(option));
         options.add(option);
     }
@@ -211,7 +211,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         optionsMenu.insertFirst(asDropDownAction(option));
     }
 
-    private DropdownAction asDropDownAction(SelectOption<T> option) {
+    private DropdownAction<String> asDropDownAction(SelectOption<T> option) {
         return DropdownAction.create(option.getDisplayValue(), option.asElement())
                 .addSelectionHandler(value -> doSelectOption(option));
     }

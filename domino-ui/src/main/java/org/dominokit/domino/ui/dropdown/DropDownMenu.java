@@ -130,10 +130,11 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         boolean thereIsValues = false;
         for (DropdownAction<?> action : actions) {
             boolean contains;
-            if (caseSensitiveSearch)
+            if (caseSensitiveSearch) {
                 contains = action.getContent().textContent.contains(searchValue);
-            else
-                contains = action.getContent().textContent.contains(searchValue.toLowerCase());
+            } else {
+                contains = action.getContent().textContent.toLowerCase().contains(searchValue.toLowerCase());
+            }
 
             if (!contains) {
                 action.hide();
