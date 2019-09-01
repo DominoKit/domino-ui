@@ -594,26 +594,65 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return (T) this;
     }
 
+    /**
+     * use {@link #addHideListener(Collapsible.HideCompletedHandler)}
+     */
+    @Deprecated
     @Editor.Ignore
     public T addHideHandler(Collapsible.HideCompletedHandler handler) {
+        return addHideListener(handler);
+    }
+
+    /**
+     * use {@link #removeHideListener(Collapsible.HideCompletedHandler)}
+     */
+    @Deprecated
+    @Editor.Ignore
+    public T removeHideHandler(Collapsible.HideCompletedHandler handler) {
+        return removeHideListener(handler);
+    }
+
+    /**
+     * use {@link #addShowListener(Collapsible.ShowCompletedHandler)}
+     */
+    @Deprecated
+    @Editor.Ignore
+    public T addShowHandler(Collapsible.ShowCompletedHandler handler) {
+        return addShowListener(handler);
+    }
+
+    /**
+     * use {@link #removeShowListener(Collapsible.ShowCompletedHandler)}
+     * @param handler
+     * @return
+     */
+    @Deprecated
+    @Editor.Ignore
+    public T removeShowHandler(Collapsible.ShowCompletedHandler handler) {
+        collapsible.removeShowHandler(handler);
+        return (T) this;
+    }
+
+    @Editor.Ignore
+    public T addHideListener(Collapsible.HideCompletedHandler handler) {
         collapsible.addHideHandler(handler);
         return (T) this;
     }
 
     @Editor.Ignore
-    public T removeHideHandler(Collapsible.HideCompletedHandler handler) {
+    public T removeHideListener(Collapsible.HideCompletedHandler handler) {
         collapsible.removeHideHandler(handler);
         return (T) this;
     }
 
     @Editor.Ignore
-    public T addShowHandler(Collapsible.ShowCompletedHandler handler) {
+    public T addShowListener(Collapsible.ShowCompletedHandler handler) {
         collapsible.addShowHandler(handler);
         return (T) this;
     }
 
     @Editor.Ignore
-    public T removeShowHandler(Collapsible.ShowCompletedHandler handler) {
+    public T removeShowListener(Collapsible.ShowCompletedHandler handler) {
         collapsible.removeShowHandler(handler);
         return (T) this;
     }
