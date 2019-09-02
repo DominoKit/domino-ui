@@ -211,8 +211,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         optionsMenu.insertFirst(asDropDownAction(option));
     }
 
-    private DropdownAction<String> asDropDownAction(SelectOption<T> option) {
-        return DropdownAction.create(option.getDisplayValue(), option.asElement())
+    private DropdownAction<T> asDropDownAction(SelectOption<T> option) {
+        return DropdownAction.create(option.getValue(), option.asElement())
                 .addSelectionHandler(value -> doSelectOption(option));
     }
 

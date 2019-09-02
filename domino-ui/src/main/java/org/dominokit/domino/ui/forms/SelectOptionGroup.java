@@ -84,8 +84,8 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
 
     void addOptionsTo(Select<T> select) {
         for (SelectOption<T> option : options) {
-            option.addHideHandler(this::changeVisibility);
-            option.addShowHandler(this::changeVisibility);
+            option.addHideListener(this::changeVisibility);
+            option.addShowListener(this::changeVisibility);
             select.appendChild(option);
         }
     }
