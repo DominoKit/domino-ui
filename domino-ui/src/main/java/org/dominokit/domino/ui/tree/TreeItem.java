@@ -71,6 +71,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
                                 .addClickListener(evt -> {
                                     evt.stopPropagation();
                                     toggle();
+                                    activateItem();
                                 })
                         )
                         .appendChild(Icons.ALL.minus_mdi()
@@ -80,6 +81,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
                                 .addClickListener(evt -> {
                                     evt.stopPropagation();
                                     toggle();
+                                    activateItem();
                                 })
                         )
                 )
@@ -160,14 +162,23 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
                 })
                 .hide();
         anchorElement.addEventListener("click", evt -> {
-            if (ToggleTarget.ANY.equals(this.toggleTarget)) {
+            if (ToggleTarget.ANY.equals(this.toggleTarget) && isParent()) {
                 toggle();
             }
+            activateItem();
         });
         init(this);
         setToggleTarget(ToggleTarget.ANY);
         setWaveColor(WaveColor.THEME);
         applyWaveStyle(WaveStyle.BLOCK);
+    }
+
+    private void activateItem() {
+        if (nonNull(TreeItem.this.getActiveItem())) {
+            TreeItem.this.activeTreeItem.deactivate();
+            TreeItem.this.activeTreeItem = null;
+        }
+        parent.setActiveItem(TreeItem.this);
     }
 
     public TreeItem<T> appendChild(TreeItem<T> treeItem) {
@@ -217,12 +228,6 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         if (isParent()) {
             collapsible.toggleDisplay();
         }
-
-        if (nonNull(TreeItem.this.getActiveItem())) {
-            TreeItem.this.activeTreeItem.deactivate();
-            TreeItem.this.activeTreeItem = null;
-        }
-        parent.setActiveItem(TreeItem.this);
     }
 
     public TreeItem<T> show() {
@@ -440,12 +445,13 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
                         evt.stopPropagation();
                         toggle();
                     }
+                    activateItem();
                 });
         return this;
     }
 
-    public TreeItem<T> setActiveIcon(BaseIcon<?> actibveIcon) {
-        this.activeIcon = activeIcon;
+    public TreeItem<T> setActiveIcon(BaseIcon<?> activeIcon) {
+        this.activeIcon = this.activeIcon;
         return this;
     }
 
