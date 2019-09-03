@@ -1,14 +1,14 @@
 package org.dominokit.domino.ui.sliders;
 
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLInputElement;
-import elemental2.dom.HTMLParagraphElement;
+import elemental2.dom.*;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.themes.Theme;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +16,16 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.input;
 import static org.jboss.gwt.elemento.core.Elements.*;
-import static org.jboss.gwt.elemento.core.EventType.*;
 import static org.jboss.gwt.elemento.core.EventType.input;
+import static org.jboss.gwt.elemento.core.EventType.*;
 
 public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> implements HasChangeHandlers<Slider, Double> {
 
     private DominoElement<HTMLParagraphElement> sliderContainer = DominoElement.of(p().css(SliderStyles.slide_container));
     private DominoElement<HTMLInputElement> slider = DominoElement.of(input("range").css(SliderStyles.slider));
     private DominoElement<HTMLElement> thumb = DominoElement.of(span().css(SliderStyles.thumb));
+    private FlexItem leftAddonContainer = FlexItem.create();
+    private FlexItem rightAddonContainer = FlexItem.create();
     private DominoElement<HTMLElement> thumbValue = DominoElement.of(span().css("value"));
     private List<ChangeHandler<? super Double>> changeHandlers = new ArrayList<>();
     private List<SlideHandler> slideHandlers = new ArrayList<>();
@@ -31,6 +33,8 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
     private boolean withThumb;
     private Color backgroundColor;
     private Color thumbColor;
+    private Element leftAddon;
+    private Element rightAddon;
 
     public static Slider create(double max) {
         return create(max, 0, 0);
@@ -45,9 +49,30 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
     }
 
     public Slider(double max, double min, double value) {
-        sliderContainer.appendChild(slider);
+        sliderContainer.appendChild(FlexLayout.create()
+                .appendChild(leftAddonContainer
+                        .hide()
+                        .setHeight("100%")
+                        .styler(style1 -> style1.setWidth("28px")
+                                .setTextAlign("center")
+                                .setMarginLeft("5px")
+                                .setMarginRight("5px"))
+                )
+                .appendChild(FlexItem.create()
+                        .setFlexGrow(1)
+                        .appendChild(slider)
+                        .appendChild(thumb)
+                )
+                .appendChild(rightAddonContainer
+                        .hide()
+                        .styler(style1 -> style1.setWidth("28px")
+                                .setTextAlign("center")
+                                .setMarginLeft("5px")
+                                .setMarginRight("5px"))
+                        .setHeight("100%")
+                )
+        );
         thumb.appendChild(thumbValue);
-        sliderContainer.appendChild(thumb);
         setMaxValue(max);
         setMinValue(min);
         setValue(value);
@@ -98,7 +123,11 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
     private double calculateRangeOffset() {
         int width = slider.asElement().offsetWidth - 15;
         double percent = (getValue() - getMin()) / (getMax() - getMin());
-        return percent * width;
+        double rangeOffset = percent * width;
+        if (!leftAddonContainer.isHidden()) {
+            rangeOffset += leftAddonContainer.asElement().offsetWidth + 9;
+        }
+        return rangeOffset;
     }
 
     private void callChangeHandlers() {
@@ -236,6 +265,60 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         thumb.style().add(thumbColor.getBackground());
         this.thumbColor = thumbColor;
         return this;
+    }
+
+    public Slider setLeftAddon(IsElement leftAddon) {
+        return setLeftAddon(leftAddon.asElement());
+    }
+
+    public Slider setLeftAddon(Element leftAddon) {
+        leftAddonContainer.show();
+        setAddon(leftAddonContainer.asElement(), this.leftAddon, leftAddon);
+        this.leftAddon = leftAddon;
+        return this;
+    }
+
+    public Slider setRightAddon(IsElement rightAddon) {
+        return setRightAddon(rightAddon.asElement());
+    }
+
+    public Slider setRightAddon(Element rightAddon) {
+        rightAddonContainer.show();
+        setAddon(rightAddonContainer.asElement(), this.rightAddon, rightAddon);
+        this.rightAddon = rightAddon;
+        return this;
+    }
+
+    public Slider removeRightAddon() {
+        if (nonNull(rightAddon)) {
+            rightAddon.remove();
+            rightAddonContainer.hide();
+        }
+        return this;
+    }
+
+    public Slider removeLeftAddon() {
+        if (nonNull(leftAddon)) {
+            leftAddon.remove();
+            leftAddonContainer.hide();
+        }
+        return this;
+    }
+
+    private void setAddon(HTMLElement container, Element oldAddon, Element addon) {
+        if (nonNull(oldAddon)) {
+            oldAddon.remove();
+        }
+        if (nonNull(addon)) {
+            List<String> oldClasses = new ArrayList<>(addon.classList.asList());
+            for (String oldClass : oldClasses) {
+                addon.classList.remove(oldClass);
+            }
+            for (String oldClass : oldClasses) {
+                addon.classList.add(oldClass);
+            }
+            container.appendChild(addon);
+        }
     }
 
     @FunctionalInterface
