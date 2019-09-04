@@ -30,6 +30,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     private boolean emptyAsNull;
     private Color highlightColor;
     private T value;
+    private int typeAheadDelay = 200;
 
     public SuggestBox() {
         this("");
@@ -64,7 +65,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         getFieldContainer().insertFirst(loaderContainer);
         setLoaderEffect(LoaderEffect.IOS);
 
-        DelayedTextInput.create(getInputElement(), 200)
+        DelayedTextInput.create(getInputElement(), typeAheadDelay)
                 .setDelayedAction(() -> {
                     if (isEmpty()) {
                         suggestionsMenu.close();
@@ -72,6 +73,14 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
                         search();
                     }
                 });
+    }
+
+    public static <T> SuggestBox<T> create(SuggestBoxStore<T> store) {
+        return new SuggestBox<>(store);
+    }
+
+    public static <T> SuggestBox<T> create(String label, SuggestBoxStore<T> store) {
+        return new SuggestBox<T>(label, store);
     }
 
     private void search() {
@@ -91,17 +100,18 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         }
     }
 
-    public static <T> SuggestBox<T> create(SuggestBoxStore<T> store) {
-        return new SuggestBox<>(store);
-    }
-
-    public static <T> SuggestBox<T> create(String label, SuggestBoxStore<T> store) {
-        return new SuggestBox<T>(label, store);
-    }
-
     @Override
     protected HTMLInputElement createInputElement(String type) {
         return Elements.input(type).css("form-control").asElement();
+    }
+
+    public int getTypeAheadDelay() {
+        return typeAheadDelay;
+    }
+
+    public SuggestBox<T> setTypeAheadDelay(int delayMilliseconds) {
+        this.typeAheadDelay = delayMilliseconds;
+        return this;
     }
 
     @Override
