@@ -11,12 +11,13 @@ import org.jboss.gwt.elemento.core.IsElement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static elemental2.dom.DomGlobal.*;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
-public class DropdownActionsGroup extends BaseDominoElement<HTMLLIElement, DropdownActionsGroup> {
+public class DropdownActionsGroup<T> extends BaseDominoElement<HTMLLIElement, DropdownActionsGroup<T>> {
     private DominoElement<HTMLLIElement> element = DominoElement.of(li().css(DropDownStyles.DROPDOWN_HEADER));
-    private List<DropdownAction> actions = new ArrayList<>();
+    private List<DropdownAction<T>> actions = new ArrayList<>();
     private DropDownMenu menu;
 
     public DropdownActionsGroup(Node titleElement) {
@@ -28,30 +29,30 @@ public class DropdownActionsGroup extends BaseDominoElement<HTMLLIElement, Dropd
         init(this);
     }
 
-    public static DropdownActionsGroup create(String title) {
-        return create(DomGlobal.document.createTextNode(title));
+    public static <T> DropdownActionsGroup<T> create(String title) {
+        return create(document.createTextNode(title));
     }
 
-    public static DropdownActionsGroup create(Node titleElement) {
-        return new DropdownActionsGroup(titleElement);
+    public static <T> DropdownActionsGroup<T> create(Node titleElement) {
+        return new DropdownActionsGroup<>(titleElement);
     }
 
-    public static DropdownActionsGroup create(HTMLElement titleElement) {
+    public static <T> DropdownActionsGroup<T> create(HTMLElement titleElement) {
         return create((Node) titleElement);
     }
 
-    public static DropdownActionsGroup create(IsElement titleElement) {
+    public static <T> DropdownActionsGroup<T> create(IsElement titleElement) {
         return create(titleElement.asElement());
     }
 
 
-    public DropdownActionsGroup appendChild(DropdownAction action) {
+    public DropdownActionsGroup<T> appendChild(DropdownAction<T> action) {
         actions.add(action);
         addActionToMenu(action);
         return this;
     }
 
-    public List<DropdownAction> getActions() {
+    public List<DropdownAction<T>> getActions() {
         return actions;
     }
 
@@ -71,7 +72,7 @@ public class DropdownActionsGroup extends BaseDominoElement<HTMLLIElement, Dropd
         }
     }
 
-    private void addActionToMenu(DropdownAction action) {
+    private void addActionToMenu(DropdownAction<T> action) {
         if (nonNull(menu)) {
             action.addHideHandler(this::changeVisibility);
             action.addShowHandler(this::changeVisibility);

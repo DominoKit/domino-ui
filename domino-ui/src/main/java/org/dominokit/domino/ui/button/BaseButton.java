@@ -30,6 +30,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     private Elevation beforeLinkifyElevation = Elevation.LEVEL_1;
 
     protected BaseButton() {
+        setSize(ButtonSize.MEDIUM);
     }
 
     protected BaseButton(String content) {
@@ -77,10 +78,13 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     }
 
     public B setSize(ButtonSize size) {
-        if (nonNull(this.size))
-            buttonElement.style().remove(this.size.getStyle());
-        buttonElement.style().add(size.getStyle());
-        this.size = size;
+        if (nonNull(size)) {
+            if (nonNull(this.size)) {
+                buttonElement.style().remove(this.size.getStyle());
+            }
+            buttonElement.style().add(size.getStyle());
+            this.size = size;
+        }
         return (B) this;
     }
 
@@ -144,6 +148,12 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     @Override
     public B large() {
         setSize(ButtonSize.LARGE);
+        return (B) this;
+    }
+
+    @Override
+    public B medium() {
+        setSize(ButtonSize.MEDIUM);
         return (B) this;
     }
 

@@ -2,54 +2,69 @@ package org.dominokit.domino.ui.forms;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class LocalSuggestBoxStore implements SuggestBoxStore {
+import static java.util.Objects.isNull;
 
-    private List<SuggestItem> suggestions;
+public class LocalSuggestBoxStore<T> implements SuggestBoxStore<T> {
+
+    private List<SuggestItem<T>> suggestions;
 
     public LocalSuggestBoxStore() {
         this(new ArrayList<>());
     }
 
-    public LocalSuggestBoxStore(List<SuggestItem> suggestions) {
+    public LocalSuggestBoxStore(List<SuggestItem<T>> suggestions) {
         this.suggestions = suggestions;
     }
 
-    public static LocalSuggestBoxStore create() {
-        return new LocalSuggestBoxStore();
+    public static <T> LocalSuggestBoxStore<T> create() {
+        return new LocalSuggestBoxStore<>();
     }
 
-    public static LocalSuggestBoxStore create(List<SuggestItem> suggestions) {
-        return new LocalSuggestBoxStore(suggestions);
+    public static <T> LocalSuggestBoxStore<T> create(List<SuggestItem<T>> suggestions) {
+        return new LocalSuggestBoxStore<>(suggestions);
     }
 
-    public LocalSuggestBoxStore addSuggestion(SuggestItem suggestion) {
+    public LocalSuggestBoxStore<T> addSuggestion(SuggestItem<T> suggestion) {
         suggestions.add(suggestion);
         return this;
     }
 
-    public LocalSuggestBoxStore addSuggestions(List<SuggestItem> suggestions) {
+    public LocalSuggestBoxStore<T> addSuggestions(List<SuggestItem<T>> suggestions) {
         this.suggestions.addAll(suggestions);
         return this;
     }
 
-    public LocalSuggestBoxStore setSuggestions(List<SuggestItem> suggestions) {
+    public LocalSuggestBoxStore<T> setSuggestions(List<SuggestItem<T>> suggestions) {
         this.suggestions = new ArrayList<>(suggestions);
         return this;
     }
 
-    public List<SuggestItem> getSuggestions() {
+    public List<SuggestItem<T>> getSuggestions() {
         return suggestions;
     }
 
     @Override
-    public void filter(String searchValue, SuggestionsHandler suggestionsHandler) {
-        List<SuggestItem> filteredSuggestions = new ArrayList<>();
-        for (SuggestItem suggestion : suggestions) {
-            if (suggestion.getValue().toLowerCase().contains(searchValue.toLowerCase())) {
+    public void filter(String searchValue, SuggestionsHandler<T> suggestionsHandler) {
+        List<SuggestItem<T>> filteredSuggestions = new ArrayList<>();
+        for (SuggestItem<T> suggestion : suggestions) {
+            if (suggestion.getDisplayValue().toLowerCase().contains(searchValue.toLowerCase())) {
                 filteredSuggestions.add(suggestion);
             }
         }
         suggestionsHandler.onSuggestionsReady(filteredSuggestions);
+    }
+
+    @Override
+    public void find(T searchValue, Consumer<SuggestItem<T>> handler) {
+        if (isNull(searchValue)) {
+            handler.accept(null);
+        }
+        for (SuggestItem<T> suggestion : suggestions) {
+            if (suggestion.getValue().equals(searchValue)) {
+                handler.accept(suggestion);
+            }
+        }
     }
 }

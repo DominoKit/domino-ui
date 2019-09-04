@@ -45,6 +45,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
         this.original.addAll(data);
         this.filtered.clear();
         this.filtered.addAll(original);
+        load();
     }
 
     public SearchFilter<T> getSearchFilter() {
@@ -184,14 +185,13 @@ public class LocalListDataStore<T> implements DataStore<T> {
         original.add(record);
         List<T> newData = new ArrayList<>(original);
         setData(newData);
-        load();
     }
 
     public void removeRecord(T record) {
         if (original.contains(record)) {
             original.remove(record);
             filtered.remove(record);
-            fireUpdate();
+            load();
         }
     }
 
@@ -199,13 +199,12 @@ public class LocalListDataStore<T> implements DataStore<T> {
         original.addAll(records);
         List<T> newData = new ArrayList<>(original);
         setData(newData);
-        load();
     }
 
     public void removeRecord(Collection<T> records) {
         original.removeAll(records);
         filtered.removeAll(records);
-        fireUpdate();
+        load();
     }
 
     public List<T> getRecords() {

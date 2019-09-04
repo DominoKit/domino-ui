@@ -227,6 +227,50 @@ section.content.fit-height {
     -webkit-transform: scale(1);
     transform: scale(1);
 }
+/* ======================== nav =======================*/
+.nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+.nav > li {
+    position: relative;
+    display: block;
+}
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 5px 10px;
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+    text-decoration: none;
+}
+.nav > li.disabled > a {
+    color: #777;
+}
+.nav > li.disabled > a:hover,
+.nav > li.disabled > a:focus {
+    color: #777;
+    text-decoration: none;
+    cursor: not-allowed;
+    background-color: transparent;
+}
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {
+    background-color: #eee;
+    border-color: #337ab7;
+}
+.nav .nav-divider {
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+}
+.nav > li > a > img {
+    max-width: none;
+}
 
 .navbar-header .bars {
     float: left;
@@ -701,6 +745,3 @@ section.content.fit-height {
     -webkit-transition: left 0.5s;
     transition: left 0.5s;
 }
-
-
-

@@ -88,6 +88,16 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
         return (T) this;
     }
 
+    public T setClickable(boolean clickable){
+        if(clickable){
+            clickable();
+        }else{
+            style.remove(IconsStyles.CLICKABLE_ICON);
+            removeWaves();
+        }
+        return (T) this;
+    }
+
     public abstract T changeTo(BaseIcon icon);
 
     @Override

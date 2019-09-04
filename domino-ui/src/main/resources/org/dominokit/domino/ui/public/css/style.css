@@ -1,4 +1,7 @@
-﻿.close {
+﻿:focus {
+    outline: none;
+}
+.close {
     float: right;
     font-size: 21px;
     font-weight: bold;
@@ -1649,51 +1652,6 @@
 
 .font-overline {
     text-decoration: overline;
-}
-
-/* ======================== nav =======================*/
-.nav {
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
-}
-.nav > li {
-    position: relative;
-    display: block;
-}
-.nav > li > a {
-    position: relative;
-    display: block;
-    padding: 5px 10px;
-}
-.nav > li > a:hover,
-.nav > li > a:focus {
-    text-decoration: none;
-}
-.nav > li.disabled > a {
-    color: #777;
-}
-.nav > li.disabled > a:hover,
-.nav > li.disabled > a:focus {
-    color: #777;
-    text-decoration: none;
-    cursor: not-allowed;
-    background-color: transparent;
-}
-.nav .open > a,
-.nav .open > a:hover,
-.nav .open > a:focus {
-    background-color: #eee;
-    border-color: #337ab7;
-}
-.nav .nav-divider {
-    height: 1px;
-    margin: 9px 0;
-    overflow: hidden;
-    background-color: #e5e5e5;
-}
-.nav > li > a > img {
-    max-width: none;
 }
 
 /* Custom Animate ============================== */
@@ -3414,54 +3372,9 @@ fieldset[disabled] .form-control {
     width: 24px;
 }
 
-.menu .list .tree-toggle:after, .menu .list .tree-toggle:before {
-    position: absolute;
-    top: calc(50% - 14px);
-    right: 17px;
-    font-size: 19px;
-    -moz-transform: scale(0);
-    -ms-transform: scale(0);
-    -o-transform: scale(0);
-    -webkit-transform: scale(0);
-    transform: scale(0);
-    -moz-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
-}
-
-.menu .list .tree-toggle:before {
-    content: '+';
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-    -webkit-transform: scale(1);
-    transform: scale(1);
-}
-
-.menu .list .tree-toggle:after {
-    content: '\2013';
-    -moz-transform: scale(0);
-    -ms-transform: scale(0);
-    -o-transform: scale(0);
-    -webkit-transform: scale(0);
-    transform: scale(0);
-}
-
-.menu .list .tree-toggle.toggled:before {
-    -moz-transform: scale(0);
-    -ms-transform: scale(0);
-    -o-transform: scale(0);
-    -webkit-transform: scale(0);
-    transform: scale(0);
-}
-
-.menu .list .tree-toggle.toggled:after {
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-    -webkit-transform: scale(1);
-    transform: scale(1);
+.menu .list i.material-icons.clickable-icon {
+    width: 32px;
+    height: 32px;
 }
 
 .menu:not([class*="bg-"]) .list a {
@@ -4465,4 +4378,71 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 
 .select-label {
     cursor: pointer !important;
+}
+
+.mdi:focus,
+.material-icons:focus{
+    outline: none;
+    background-color: rgba(32,33,36,0.1);
+}
+
+.menu .list .tgl-icon .title {
+    line-height: 30px;
+}
+
+.menu .list .tgl-icon a {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.tree-tgl-icn {
+    position: absolute;
+    line-height: 18px;
+    padding-top: 2px;
+    right: 15px;
+    width: 24px;
+    top: 3px;
+}
+
+.menu .list .tree-tgl-icn {
+    display: none;
+}
+
+.menu .list .tree-item-parent > a .tree-tgl-icn {
+    display: block;
+}
+
+.menu .list .tree-item-parent > a .tree-tgl-icn .tree-tgl-collapsed {
+    display: block;
+}
+.menu .list .tree-item-parent > a .tree-tgl-icn .tree-tgl-expanded {
+    display: none;
+}
+
+.menu .list .tree-item-parent > a.toggled .tree-tgl-icn .tree-tgl-expanded {
+    display: block;
+}
+
+.menu .list .tree-item-parent > a.toggled .tree-tgl-icn .tree-tgl-collapsed {
+    display: none;
+}
+
+.menu .list li a:hover{
+    background-color: rgba(0,0,0,0.05);
+}
+
+.menu .list .toggled:hover{
+    background-color: rgba(0,0,0,0.05);
+}
+
+.tree-tgl-icn .mdi:before{
+    line-height: 26px;
+}
+
+.tree-indicator{
+    position: absolute;
+    right: 48px;
+    top: 9px;
+    height: 24px;
+    line-height: 24px;
 }

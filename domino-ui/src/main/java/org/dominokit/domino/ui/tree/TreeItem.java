@@ -2,14 +2,17 @@ package org.dominokit.domino.ui.tree;
 
 import elemental2.dom.*;
 import elemental2.dom.EventListener;
+import org.dominokit.domino.ui.badges.Badge;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.gwt.elemento.core.EventType;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -39,6 +42,14 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
 
     private int nextLevel = 1;
 
+    private ToggleTarget toggleTarget = ToggleTarget.ANY;
+    private DominoElement<HTMLElement> toggleContainer = DominoElement.of(span()
+            .css("tree-tgl-icn")
+    );
+    private DominoElement<HTMLElement> indicatorContainer = DominoElement.of(span()
+            .css("tree-indicator")
+    );
+
     public TreeItem(String title, BaseIcon<?> icon) {
         this.title = title;
         setIcon(icon);
@@ -50,7 +61,32 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
                 .add(div()
                         .css(Styles.ellipsis_text)
                         .style("margin-top: 2px;")
-                        .add(titleElement)));
+                        .add(titleElement)
+                )
+                .add(toggleContainer
+                        .appendChild(Icons.ALL.plus_mdi()
+                                .size18()
+                                .css("tree-tgl-collapsed")
+                                .clickable()
+                                .addClickListener(evt -> {
+                                    evt.stopPropagation();
+                                    toggle();
+                                    activateItem();
+                                })
+                        )
+                        .appendChild(Icons.ALL.minus_mdi()
+                                .size18()
+                                .css("tree-tgl-expanded")
+                                .clickable()
+                                .addClickListener(evt -> {
+                                    evt.stopPropagation();
+                                    toggle();
+                                    activateItem();
+                                })
+                        )
+                )
+                .add(indicatorContainer)
+        );
         init();
     }
 
@@ -65,17 +101,17 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         init();
     }
 
-    public TreeItem(String title, T value){
+    public TreeItem(String title, T value) {
         this(title);
         this.value = value;
     }
 
-    public TreeItem(String title, BaseIcon<?> icon, T value){
+    public TreeItem(String title, BaseIcon<?> icon, T value) {
         this(title, icon);
         this.value = value;
     }
 
-    public TreeItem(BaseIcon<?> icon, T value){
+    public TreeItem(BaseIcon<?> icon, T value) {
         this(icon);
         this.value = value;
     }
@@ -110,24 +146,6 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         return new TreeItem<>(icon, value);
     }
 
-    public TreeItem<T> appendChild(TreeItem<T> treeItem) {
-        this.subItems.add(treeItem);
-        childrenContainer.appendChild(treeItem.asElement());
-        Style.of(anchorElement).add("tree-toggle");
-        treeItem.parent = this;
-        treeItem.setLevel(nextLevel);
-        Style.of(treeItem).add("tree-leaf");
-        Style.of(this.asElement()).remove("tree-leaf");
-        return this;
-    }
-
-    public TreeItem<T> addSeparator() {
-        childrenContainer.appendChild(li().css("separator")
-                .add(a())
-                .asElement());
-        return this;
-    }
-
     private void init() {
         this.element = li().asElement();
         this.element.appendChild(anchorElement.asElement());
@@ -144,19 +162,72 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
                 })
                 .hide();
         anchorElement.addEventListener("click", evt -> {
-            if (isParent()) {
-                collapsible.toggleDisplay();
+            if (ToggleTarget.ANY.equals(this.toggleTarget) && isParent()) {
+                toggle();
             }
-
-            if(nonNull(TreeItem.this.getActiveItem())) {
-                TreeItem.this.activeTreeItem.deactivate();
-                TreeItem.this.activeTreeItem = null;
-            }
-            parent.setActiveItem(TreeItem.this);
+            activateItem();
         });
         init(this);
+        setToggleTarget(ToggleTarget.ANY);
         setWaveColor(WaveColor.THEME);
         applyWaveStyle(WaveStyle.BLOCK);
+    }
+
+    private void activateItem() {
+        if (nonNull(TreeItem.this.getActiveItem())) {
+            TreeItem.this.activeTreeItem.deactivate();
+            TreeItem.this.activeTreeItem = null;
+        }
+        parent.setActiveItem(TreeItem.this);
+    }
+
+    public TreeItem<T> appendChild(TreeItem<T> treeItem) {
+        this.subItems.add(treeItem);
+        childrenContainer.appendChild(treeItem.asElement());
+        Style.of(anchorElement).add("tree-toggle");
+        treeItem.parent = this;
+        treeItem.setLevel(nextLevel);
+        Style.of(treeItem).add("tree-leaf");
+        Style.of(this.asElement()).remove("tree-leaf");
+        treeItem.setToggleTarget(this.toggleTarget);
+        this.style.add("tree-item-parent");
+        return this;
+    }
+
+    public TreeItem<T> addSeparator() {
+        childrenContainer.appendChild(li().css("separator")
+                .add(a())
+                .asElement());
+        return this;
+    }
+
+    public TreeItem<T> setToggleTarget(ToggleTarget toggleTarget) {
+        if (nonNull(toggleTarget)) {
+            if (nonNull(this.toggleTarget)) {
+                this.removeCss(this.toggleTarget.getStyle());
+            }
+
+            this.toggleTarget = toggleTarget;
+            this.css(this.toggleTarget.getStyle());
+            if (ToggleTarget.ICON.equals(toggleTarget)) {
+                if (nonNull(icon)) {
+                    icon.setClickable(true);
+                }
+            } else {
+                if (nonNull(icon)) {
+                    icon.setClickable(false);
+                }
+            }
+
+            subItems.forEach(item -> item.setToggleTarget(toggleTarget));
+        }
+        return this;
+    }
+
+    private void toggle() {
+        if (isParent()) {
+            collapsible.toggleDisplay();
+        }
     }
 
     public TreeItem<T> show() {
@@ -242,9 +313,9 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
 
     @Override
     public Optional<TreeItem<T>> getParent() {
-        if(parent instanceof TreeItem) {
+        if (parent instanceof TreeItem) {
             return Optional.of((TreeItem<T>) parent);
-        }else {
+        } else {
             return Optional.empty();
         }
     }
@@ -263,18 +334,18 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
             this.activeTreeItem = activeItem;
             this.activeTreeItem.activate();
             parent.setActiveItem(this, true);
-            if(!silent) {
+            if (!silent) {
                 getTreeRoot().onTreeItemClicked(activeItem);
             }
         }
     }
 
-    public List<TreeItem<T>> getPath(){
+    public List<TreeItem<T>> getPath() {
         List<TreeItem<T>> items = new ArrayList<>();
         items.add(this);
         Optional<TreeItem<T>> parent = getParent();
 
-        while(parent.isPresent()){
+        while (parent.isPresent()) {
             items.add(parent.get());
             parent = parent.get().getParent();
         }
@@ -284,12 +355,12 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         return items;
     }
 
-    public List<T> getPathValues(){
+    public List<T> getPathValues() {
         List<T> values = new ArrayList<>();
         values.add(this.getValue());
         Optional<TreeItem<T>> parent = getParent();
 
-        while(parent.isPresent()){
+        while (parent.isPresent()) {
             values.add(parent.get().getValue());
             parent = parent.get().getParent();
         }
@@ -368,11 +439,19 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         if (icon.asElement().style.visibility.equals("hidden")) {
             this.originalIcon.styler(style -> style.setProperty("visibility", "hidden"));
         }
+        this.originalIcon
+                .addClickListener(evt -> {
+                    if (ToggleTarget.ICON.equals(this.toggleTarget)) {
+                        evt.stopPropagation();
+                        toggle();
+                    }
+                    activateItem();
+                });
         return this;
     }
 
     public TreeItem<T> setActiveIcon(BaseIcon<?> activeIcon) {
-        this.activeIcon = activeIcon;
+        this.activeIcon = this.activeIcon;
         return this;
     }
 
@@ -394,7 +473,6 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     }
 
     public boolean filter(String searchToken) {
-
         boolean found;
         if (isParent()) {
             found = title.toLowerCase().contains(searchToken.toLowerCase()) | filterChildren(searchToken);
@@ -487,10 +565,40 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         item.remove();
     }
 
-    public TreeItem<T> remove(){
-        if(parent.getSubItems().contains(this)) {
+    public TreeItem<T> remove() {
+        if (parent.getSubItems().contains(this)) {
             parent.removeItem(this);
+            if (parent.getSubItems().isEmpty() && parent instanceof TreeItem) {
+                ((TreeItem<T>) parent).style.remove("tree-item-parent");
+            }
         }
         return super.remove();
+    }
+
+    public TreeItem<T> setIndicatorContent(Node indicatorContent) {
+        indicatorContainer.clearElement();
+        if (nonNull(indicatorContent)) {
+            indicatorContainer.appendChild(indicatorContent);
+        }
+        return this;
+    }
+
+    public TreeItem<T> setIndicatorContent(IsElement<?> element) {
+        setIndicatorContent(element.asElement());
+        return this;
+    }
+
+    public TreeItem<T> clearIndicator() {
+        indicatorContainer.clearElement();
+        return this;
+    }
+
+    @Override
+    public Collapsible getCollapsible() {
+        return collapsible;
+    }
+
+    public DominoElement<HTMLElement> getIndicatorContainer() {
+        return indicatorContainer;
     }
 }

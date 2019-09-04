@@ -55,9 +55,21 @@ public interface IsModalDialog<T> {
 
     DominoElement<HTMLDivElement> getFooterElement();
 
+    /**
+     * use {@link #addOpenListener(OpenHandler)}
+     */
+    @Deprecated
     T onOpen(OpenHandler openHandler);
 
+    T addOpenListener(OpenHandler openHandler);
+
+    /**
+     * use {@link #addCloseListener(CloseHandler)}
+     */
+    @Deprecated
     T onClose(CloseHandler closeHandler);
+
+    T addCloseListener(CloseHandler closeHandler);
 
     T removeOpenHandler(OpenHandler openHandler);
 

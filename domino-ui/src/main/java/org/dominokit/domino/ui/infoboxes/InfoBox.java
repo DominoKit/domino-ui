@@ -64,6 +64,9 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
     public InfoBox(HTMLElement icon, String title) {
        this(icon, title, null);
     }
+    public InfoBox(BaseIcon<?> icon, String title) {
+       this(icon, title, null);
+    }
 
     public static InfoBox create(BaseIcon<?> icon, String title, String value) {
         return new InfoBox(icon, title, value);
@@ -74,6 +77,10 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
     }
 
     public static InfoBox create(HTMLElement icon, String title) {
+        return new InfoBox(icon, title);
+    }
+
+    public static InfoBox create(BaseIcon<?> icon, String title) {
         return new InfoBox(icon, title);
     }
 

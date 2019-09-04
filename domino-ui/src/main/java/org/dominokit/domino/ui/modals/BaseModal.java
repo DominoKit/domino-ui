@@ -408,14 +408,32 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         return modalElement.asElement();
     }
 
+    /**
+     * use {@link #addOpenListener(OpenHandler)}
+     */
     @Override
+    @Deprecated
     public T onOpen(OpenHandler openHandler) {
+        return addOpenListener(openHandler);
+    }
+
+    @Override
+    public T addOpenListener(OpenHandler openHandler) {
         this.openHandlers.add(openHandler);
         return (T) this;
     }
 
+    /**
+     * use {@link #addCloseListener(CloseHandler)}
+     */
     @Override
+    @Deprecated
     public T onClose(CloseHandler closeHandler) {
+        return addCloseListener(closeHandler);
+    }
+
+    @Override
+    public T addCloseListener(CloseHandler closeHandler) {
         this.closeHandlers.add(closeHandler);
         return (T) this;
     }
