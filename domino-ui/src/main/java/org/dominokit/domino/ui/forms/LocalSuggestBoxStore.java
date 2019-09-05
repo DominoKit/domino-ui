@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 public class LocalSuggestBoxStore<T> implements SuggestBoxStore<T> {
 
     private List<SuggestItem<T>> suggestions;
+    private SuggestionFilter<T> suggestionFilter = (searchValue, suggestItem) -> suggestItem.getDisplayValue().toLowerCase().contains(searchValue.toLowerCase());
 
     public LocalSuggestBoxStore() {
         this(new ArrayList<>());
@@ -49,7 +51,7 @@ public class LocalSuggestBoxStore<T> implements SuggestBoxStore<T> {
     public void filter(String searchValue, SuggestionsHandler<T> suggestionsHandler) {
         List<SuggestItem<T>> filteredSuggestions = new ArrayList<>();
         for (SuggestItem<T> suggestion : suggestions) {
-            if (suggestion.getDisplayValue().toLowerCase().contains(searchValue.toLowerCase())) {
+            if (filterItem(searchValue, suggestion)) {
                 filteredSuggestions.add(suggestion);
             }
         }
@@ -66,5 +68,21 @@ public class LocalSuggestBoxStore<T> implements SuggestBoxStore<T> {
                 handler.accept(suggestion);
             }
         }
+    }
+
+    @Override
+    public boolean filterItem(String searchValue, SuggestItem<T> suggestItem) {
+        return suggestionFilter.filter(searchValue, suggestItem);
+    }
+
+    public SuggestionFilter<T> getSuggestionFilter() {
+        return suggestionFilter;
+    }
+
+    public LocalSuggestBoxStore<T> setSuggestionFilter(SuggestionFilter<T> suggestionFilter) {
+        if (nonNull(suggestionFilter)) {
+            this.suggestionFilter = suggestionFilter;
+        }
+        return this;
     }
 }
