@@ -6,14 +6,14 @@ import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.ButtonSize;
 import org.dominokit.domino.ui.button.ButtonStyles;
 import org.dominokit.domino.ui.button.DropdownButton;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.style.WavesElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Sizable;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> implements IsGroup<ButtonsGroup>, Sizable<ButtonsGroup> {
+public class ButtonsGroup extends WavesElement<HTMLElement, ButtonsGroup> implements IsGroup<ButtonsGroup>, Sizable<ButtonsGroup> {
 
     private DominoElement<HTMLDivElement> groupElement = DominoElement.of(div()
             .css(ButtonStyles.BTN_GROUP)
@@ -22,6 +22,7 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> i
 
     public ButtonsGroup() {
         init(this);
+        initWaves();
     }
 
     public static ButtonsGroup create() {

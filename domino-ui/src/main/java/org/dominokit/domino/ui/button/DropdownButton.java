@@ -6,16 +6,16 @@ import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.StyleType;
-import org.jboss.gwt.elemento.core.Elements;
-
-import static org.dominokit.domino.ui.button.ButtonStyles.CARET;
+import org.dominokit.domino.ui.style.Styles;
 
 public class DropdownButton extends BaseButton<DropdownButton> {
 
-    private HTMLElement caret = Elements.span().css(CARET).asElement();
+    private Icon caretIcon = Icons.ALL.keyboard_arrow_down();
     private ButtonsGroup groupElement = ButtonsGroup.create();
     private DropDownMenu dropDownMenu;
 
@@ -116,7 +116,8 @@ public class DropdownButton extends BaseButton<DropdownButton> {
         buttonElement.style().add(ButtonStyles.BUTTON_DROPDOWN);
         dropDownMenu = DropDownMenu.create(groupElement);
         groupElement.appendChild(asDropDown());
-        buttonElement.appendChild(caret);
+        caretIcon.addCss(Styles.pull_right);
+        buttonElement.appendChild(caretIcon);
         init(this);
         elevate(Elevation.LEVEL_1);
     }
@@ -128,7 +129,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
         buttonElement.setAttribute("aria-expanded", true);
         buttonElement.setAttribute("type", "button");
         addClickListener(evt -> {
-            dropDownMenu.closeAllMenus();
+            DropDownMenu.closeAllMenus();
             open();
             evt.stopPropagation();
         });
@@ -164,19 +165,13 @@ public class DropdownButton extends BaseButton<DropdownButton> {
 
 
     public DropdownButton hideCaret() {
-        if (isCaretAdded())
-            caret.remove();
+        caretIcon.hide();
         return this;
     }
 
     public DropdownButton showCaret() {
-        if (!isCaretAdded())
-            asElement().appendChild(caret);
+        caretIcon.show();
         return this;
-    }
-
-    private boolean isCaretAdded() {
-        return asElement().contains(caret);
     }
 
     public DropdownButton linkify() {
@@ -191,13 +186,25 @@ public class DropdownButton extends BaseButton<DropdownButton> {
         return this;
     }
 
+    @Override
+    public DropdownButton bordered() {
+        groupElement.addCss(ButtonStyles.BTN_GROUP_BORDERED);
+        return super.bordered();
+    }
+
+    @Override
+    public DropdownButton nonBordered() {
+        groupElement.removeCss(ButtonStyles.BTN_GROUP_BORDERED);
+        return super.nonBordered();
+    }
+
     public DropdownButton setPosition(DropDownPosition position) {
         dropDownMenu.setPosition(position);
         return this;
     }
 
-    public HTMLElement getCaret() {
-        return caret;
+    public Icon getCaretIcon() {
+        return caretIcon;
     }
 
     public DropDownMenu getDropDownMenu() {

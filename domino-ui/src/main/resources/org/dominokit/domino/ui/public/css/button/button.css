@@ -396,7 +396,7 @@ fieldset[disabled] .btn.warning.focus {
 .btn:not([class*=circle]) i {
     font-size: 20px;
     position: relative;
-    top: 2px;
+    top: 3px;
     line-height: 20px;
 }
 
@@ -547,4 +547,8 @@ input[type=submit].btn-block, input[type=reset].btn-block, input[type=button].bt
 .btn-bordered.primary, .btn-bordered.primary:hover,
 .btn-bordered.primary:active, .btn-bordered.primary:focus {
     border-color: #1f91f3;
+}
+
+.btn-group.bordered {
+    border-radius: 4px;
 }
