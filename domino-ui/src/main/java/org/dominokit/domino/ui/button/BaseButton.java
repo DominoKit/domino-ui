@@ -187,6 +187,25 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return (B) this;
     }
 
+    public B bordered() {
+        buttonElement.style().add(ButtonStyles.BUTTON_BORDERED);
+        beforeLinkifyElevation = nonNull(buttonElement.getElevation()) ? buttonElement.getElevation() : Elevation.LEVEL_1;
+        buttonElement.elevate(Elevation.NONE);
+        return (B) this;
+    }
+
+    public B bordered(Color borderColor) {
+        bordered();
+        buttonElement.style().setBorderColor(borderColor.getHex());
+        return (B) this;
+    }
+
+    public B nonBordered() {
+        buttonElement.style().remove(ButtonStyles.BUTTON_BORDERED);
+        buttonElement.elevate(beforeLinkifyElevation);
+        return (B) this;
+    }
+
     public B circle() {
         buttonElement.style().add(ButtonStyles.BUTTON_CIRCLE);
         applyCircleWaves();

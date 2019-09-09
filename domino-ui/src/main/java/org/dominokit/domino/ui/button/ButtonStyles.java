@@ -14,4 +14,5 @@ public class ButtonStyles {
     public static final String BTN_GROUP = "btn-group";
     public static final String BTN_GROUP_VERTICAL = "btn-group-vertical";
     public static final String JUSTIFIED = "justified";
+    public static final String BUTTON_BORDERED = "btn-bordered";
 }
