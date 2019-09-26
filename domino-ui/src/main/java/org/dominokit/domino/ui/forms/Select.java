@@ -58,6 +58,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     private boolean valid = true;
     private boolean focused;
     private boolean clearable;
+    private boolean floating;
 
     public static <T> Select<T> create() {
         return new Select<>();
@@ -244,7 +245,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         if (selectedOption != null)
             if (!option.isEqualNode(selectedOption.asElement()))
                 selectedOption.deselect();
-        labelElement.style().add(FOCUSED);
+        floatLabel();
         this.selectedOption = option;
         option.select();
         buttonValueContainer.setTextContent(option.getDisplayValue());
@@ -377,7 +378,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     @Override
     public Select<T> clear() {
-        labelElement.style().remove(FOCUSED);
+        unfloatLabel();
         getOptions().forEach(selectOption -> selectOption.deselect(true));
         selectedOption = null;
         buttonValueContainer.setTextContent("");
@@ -476,11 +477,12 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     protected void floatLabel() {
-        getSelectLabel().style().add(FOCUSED);
+        if (!floating)
+            getSelectLabel().style().add(FOCUSED);
     }
 
     protected void unfloatLabel() {
-        if (isEmpty()) {
+        if (!floating && isEmpty()) {
             getSelectLabel().style().remove(FOCUSED);
         }
     }
@@ -723,6 +725,18 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
                 select(option, silent);
             }
         }
+        return this;
+    }
+
+    public Select<T> floating() {
+        getSelectLabel().style().add(FOCUSED);
+        this.floating = true;
+        return this;
+    }
+
+    public Select<T> nonfloating() {
+        getSelectLabel().style().remove(FOCUSED);
+        this.floating = false;
         return this;
     }
 

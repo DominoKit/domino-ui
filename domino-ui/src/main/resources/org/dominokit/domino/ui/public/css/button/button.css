@@ -137,7 +137,11 @@ fieldset[disabled] .btn.warning.focus {
     border-color: #eea236;
 }
 
-.btn.primary, .btn.info, .btn.warning, .btn.danger, .btn.success {
+.btn.primary:not([class*="col-"]),
+.btn.info:not([class*="col-"]),
+.btn.warning:not([class*="col-"]),
+.btn.danger:not([class*="col-"]),
+.btn.success:not([class*="col-"]) {
     color: #fff;
 }
 
@@ -373,14 +377,14 @@ fieldset[disabled] .btn.warning.focus {
     border-radius: 2px;
 }
 
-.btn:not(.btn-link):not([class*=circle]) {
+.btn:not(.btn-link):not([class*=circle]):not(.btn-bordered) {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     -ms-border-radius: 2px;
     border-radius: 2px;
 }
 
-.btn:not(.btn-link) {
+.btn:not(.btn-link):not(.btn-bordered) {
     border: none;
     outline: none;
 }
@@ -392,7 +396,7 @@ fieldset[disabled] .btn.warning.focus {
 .btn:not([class*=circle]) i {
     font-size: 20px;
     position: relative;
-    top: 2px;
+    top: 3px;
     line-height: 20px;
 }
 
@@ -467,7 +471,7 @@ input[type=submit].btn-block, input[type=reset].btn-block, input[type=button].bt
     width: 100%;
 }
 
-.btn.default, .btn-group .btn.default.dropdown-toggle i {
+.btn.default:not([class*="col-"]), .btn-group .btn.default.dropdown-toggle i {
     color: #333;
 }
 
@@ -510,4 +514,41 @@ input[type=submit].btn-block, input[type=reset].btn-block, input[type=button].bt
 .btn .btn-icon.mdi {
     top: 0;
     margin-left: -4px;
+}
+
+.btn-bordered {
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    border: 1px solid;
+}
+
+.btn-bordered.warning, .btn-bordered.warning:hover,
+.btn-bordered.warning:active, .btn-bordered.warning:focus {
+    border-color: #ff9600;
+}
+
+.btn-bordered.danger, .btn-bordered.danger:hover,
+.btn-bordered.danger:active, .btn-bordered.danger:focus {
+    border-color: #fb483a;
+}
+
+.btn-bordered.info, .btn-bordered.info:hover,
+.btn-bordered.info:active, .btn-bordered.info:focus {
+    border-color: #00b0e4;
+}
+
+.btn-bordered.success, .btn-bordered.success:hover,
+.btn-bordered.success:active, .btn-bordered.success:focus {
+    border-color: #2b982b;
+}
+
+.btn-bordered.primary, .btn-bordered.primary:hover,
+.btn-bordered.primary:active, .btn-bordered.primary:focus {
+    border-color: #1f91f3;
+}
+
+.btn-group.bordered {
+    border-radius: 4px;
 }

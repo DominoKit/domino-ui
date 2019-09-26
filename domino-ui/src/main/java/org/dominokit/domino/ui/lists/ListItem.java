@@ -41,7 +41,9 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     public void setSelectedItem() {
         if (!disabled) {
             if (isSelected()) {
-                deselect();
+                if(parent.isMultiSelect()) {
+                    deselect();
+                }
             } else {
                 select();
             }

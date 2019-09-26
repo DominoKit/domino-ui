@@ -44,7 +44,12 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
             }
         }
         element.appendChild(panel);
-        DominoElement.of(panel.getClickableElement()).addClickListener(evt -> {
+        DominoElement.of(panel.getClickableElement()).addClickListener(evt -> togglePanel(panel));
+        return this;
+    }
+
+    public void togglePanel(AccordionPanel panel) {
+        if(panels.contains(panel)) {
             if (!multiOpen) {
                 List<AccordionPanel> accordionPanels = otherPanels(panel);
                 accordionPanels.forEach(accordionPanel -> {
@@ -58,8 +63,7 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
             } else {
                 panel.toggleDisplay();
             }
-        });
-        return this;
+        }
     }
 
     private List<AccordionPanel> otherPanels(AccordionPanel exclude) {

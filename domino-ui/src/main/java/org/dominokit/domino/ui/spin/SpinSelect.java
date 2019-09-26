@@ -177,6 +177,18 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
         return (S) this;
     }
 
+    public DominoElement<HTMLAnchorElement> getPrevAnchor() {
+        return prevAnchor;
+    }
+
+    public DominoElement<HTMLAnchorElement> getNextAnchor() {
+        return nextAnchor;
+    }
+
+    public DominoElement<HTMLDivElement> getContentPanel() {
+        return contentPanel;
+    }
+
     protected abstract void fixElementsWidth();
 
     protected abstract void setTransformProperty(double offset);
