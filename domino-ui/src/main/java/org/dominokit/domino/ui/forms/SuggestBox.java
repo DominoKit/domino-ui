@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
+
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.loaders.Loader;
@@ -31,7 +32,8 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     private Color highlightColor;
     private T value;
     private int typeAheadDelay = 200;
-
+    private DelayedTextInput delayedTextInput;
+    
     public SuggestBox() {
         this("");
     }
@@ -65,14 +67,15 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         getFieldContainer().insertFirst(loaderContainer);
         setLoaderEffect(LoaderEffect.IOS);
 
-        DelayedTextInput.create(getInputElement(), typeAheadDelay)
-                .setDelayedAction(() -> {
-                    if (isEmpty()) {
-                        suggestionsMenu.close();
-                    } else {
-                        search();
-                    }
-                });
+        delayedTextInput = DelayedTextInput.create(getInputElement(), typeAheadDelay)
+                        				   .setDelayedAction(() -> {
+			if (isEmpty()) {
+			    suggestionsMenu.close();
+			} else {
+			    search();
+			}
+        });
+        
     }
 
     public static <T> SuggestBox<T> create(SuggestBoxStore<T> store) {
@@ -206,5 +209,10 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     public SuggestBox<T> setHighlightColor(Color highlightColor) {
         this.highlightColor = highlightColor;
         return this;
+    }
+    
+    public void setEnterKeyPressed(Runnable keyPressedAction)
+    {
+    	this.delayedTextInput.setEnterKeyPressedAction(keyPressedAction);
     }
 }
