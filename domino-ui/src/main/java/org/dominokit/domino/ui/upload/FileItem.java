@@ -52,6 +52,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private String unsentMessage = "Error while sending request";
     private XMLHttpRequest request;
     private boolean canceled;
+    private boolean removed;
     private boolean uploaded;
     private String fileName;
     private UploadRequestSender requestSender;
@@ -304,6 +305,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         thumbnail.asElement().style.border = "1px solid #ddd";
         messageContainer.textContent = "";
         canceled = false;
+        removed = false;
         updateProgress(0);
         updateProgressBackground(Color.BLUE);
     }
@@ -360,6 +362,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     @Override
     public FileItem remove() {
         super.remove();
+        this.removed = true;
         removeHandlers.forEach(handler -> handler.onRemoveFile(file));
         return this;
     }
@@ -466,6 +469,10 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
 
     public boolean isCanceled() {
         return canceled;
+    }
+
+    public boolean isRemoved() {
+        return removed;
     }
 
     public boolean isUploaded() {

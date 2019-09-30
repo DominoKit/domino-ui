@@ -139,18 +139,21 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
             previewColumn.onXSmallOffset(Column.OnXSmallOffset.of(thumbOffsetXSmall));
         }
 
+        row.appendChild(previewColumn);
+        addedFileItems.add(fileItem);
+
         fileItem.addRemoveHandler(removedFile -> {
             previewColumn.asElement().remove();
             addedFileItems.remove(fileItem);
         });
 
         onAddFileHandlers.forEach(handler -> handler.onAddFile(fileItem));
-        if (!fileItem.isCanceled()) {
-            addedFileItems.add(fileItem);
-            row.appendChild(previewColumn);
+
+        if (fileItem.isCanceled()) {
+            fileItem.remove();
         }
 
-        if (autoUpload) {
+        if (autoUpload && !fileItem.isCanceled() && !fileItem.isRemoved()) {
             fileItem.upload(requestSender);
         }
     }
