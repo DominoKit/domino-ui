@@ -7,7 +7,7 @@ import org.jboss.gwt.elemento.core.EventType;
 
 public class DelayedTextInput {
 
-    private final int delay;
+    private int delay;
     private final HTMLInputElement inputElement;
     private Timer autoActionTimer;
     private DelayedAction delayedAction = () -> {
@@ -63,6 +63,14 @@ public class DelayedTextInput {
     public DelayedTextInput setDelayedAction(DelayedAction delayedAction) {
         this.delayedAction = delayedAction;
         return this;
+    }
+
+    public int getDelay() {
+        return delay;
+    }
+
+    public void setDelay(int delay) {
+        this.delay = delay;
     }
 
     @FunctionalInterface
