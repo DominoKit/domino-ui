@@ -31,10 +31,10 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private HTMLParagraphElement fileSizeParagraph;
     private HTMLHeadingElement fileNameTitleContainer;
     private HTMLDivElement footerContainer = Elements.div().asElement();
-    private HTMLElement deleteIcon = Icons.ALL.delete().asElement();
     private HTMLElement messageContainer = Elements.p().css(ELLIPSIS_TEXT).asElement();
     private HTMLDivElement progressElement;
     private ProgressBar progressBar;
+    private HTMLElement deleteIcon = Icons.ALL.delete().asElement();
     private HTMLElement cancelIcon = Icons.ALL.cancel().asElement();
     private HTMLElement refreshIcon = Icons.ALL.refresh().asElement();
 
@@ -251,11 +251,13 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
 
             request.upload.addEventListener("loadstart", evt -> {
                 hideRefreshIcon();
+                hideDeleteIcon();
                 showCancelIcon();
             });
 
             request.upload.addEventListener("loadend", evt -> {
                 hideCancelIcon();
+                showDeleteIcon();
             });
 
             request.upload.onprogress = p0 -> {
@@ -265,6 +267,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
 
             request.onabort = p0 -> {
                 showRefreshIcon();
+                showDeleteIcon();
                 resetProgress();
                 cancelHandlers.forEach(handler -> handler.onCancel(request));
             };
@@ -291,6 +294,13 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
 
     private void hideRefreshIcon() {
         refreshIcon.style.display = "none";
+    }
+
+    private void hideDeleteIcon() {
+        deleteIcon.style.display = "none";
+    }
+    private void showDeleteIcon() {
+        deleteIcon.style.display = "inline-block";
     }
 
     private void showCancelIcon() {
@@ -336,6 +346,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         updateProgressBackground(Color.RED);
         errorHandlers.forEach(handler -> handler.onError(request));
         showRefreshIcon();
+        showDeleteIcon();
     }
 
     private String getErrorMessage() {
