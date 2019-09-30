@@ -121,9 +121,15 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         return delayedAction;
     }
 
-    public void setDelayedAction(DelayedTextInput.DelayedAction delayedAction) {
+    public SuggestBox<T> setDelayedAction(DelayedTextInput.DelayedAction delayedAction) {
         this.delayedAction = delayedAction;
         this.delayedTextInput.setDelayedAction(delayedAction);
+        return this;
+    }
+
+    public SuggestBox<T> setOnEnterAction(DelayedTextInput.DelayedAction onEnterAction) {
+        this.delayedTextInput.setOnEnterAction(onEnterAction);
+        return this;
     }
 
     @Override
@@ -213,6 +219,10 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
 
     public SuggestBoxStore<T> getStore() {
         return store;
+    }
+
+    public DelayedTextInput getDelayedTextInput() {
+        return delayedTextInput;
     }
 
     public DropDownMenu getSuggestionsMenu() {
