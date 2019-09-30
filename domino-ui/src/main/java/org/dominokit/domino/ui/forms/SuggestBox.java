@@ -31,6 +31,14 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     private Color highlightColor;
     private T value;
     private int typeAheadDelay = 200;
+    private DelayedTextInput delayedTextInput;
+    private DelayedTextInput.DelayedAction delayedAction = () -> {
+        if (isEmpty()) {
+            suggestionsMenu.close();
+        } else {
+            search();
+        }
+    };
 
     public SuggestBox() {
         this("");
@@ -65,14 +73,8 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         getFieldContainer().insertFirst(loaderContainer);
         setLoaderEffect(LoaderEffect.IOS);
 
-        DelayedTextInput.create(getInputElement(), typeAheadDelay)
-                .setDelayedAction(() -> {
-                    if (isEmpty()) {
-                        suggestionsMenu.close();
-                    } else {
-                        search();
-                    }
-                });
+        delayedTextInput = DelayedTextInput.create(getInputElement(), typeAheadDelay)
+                .setDelayedAction(delayedAction);
     }
 
     public static <T> SuggestBox<T> create(SuggestBoxStore<T> store) {
@@ -111,7 +113,17 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
 
     public SuggestBox<T> setTypeAheadDelay(int delayMilliseconds) {
         this.typeAheadDelay = delayMilliseconds;
+        this.delayedTextInput.setDelay(delayMilliseconds);
         return this;
+    }
+
+    public DelayedTextInput.DelayedAction getDelayedAction() {
+        return delayedAction;
+    }
+
+    public void setDelayedAction(DelayedTextInput.DelayedAction delayedAction) {
+        this.delayedAction = delayedAction;
+        this.delayedTextInput.setDelayedAction(delayedAction);
     }
 
     @Override
@@ -197,6 +209,10 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
 
     public boolean isEmptyAsNull() {
         return emptyAsNull;
+    }
+
+    public SuggestBoxStore<T> getStore() {
+        return store;
     }
 
     public DropDownMenu getSuggestionsMenu() {
