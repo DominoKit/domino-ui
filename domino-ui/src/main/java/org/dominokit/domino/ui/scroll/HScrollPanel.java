@@ -13,6 +13,10 @@ public class HScrollPanel extends BaseDominoElement<HTMLDivElement, HScrollPanel
         return new HScrollPanel();
     }
 
+    public HScrollPanel() {
+        init(this);
+    }
+
     @Override
     public HTMLDivElement asElement() {
         return element;

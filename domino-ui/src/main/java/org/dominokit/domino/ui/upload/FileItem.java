@@ -31,10 +31,10 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private HTMLParagraphElement fileSizeParagraph;
     private HTMLHeadingElement fileNameTitleContainer;
     private HTMLDivElement footerContainer = Elements.div().asElement();
-    private HTMLElement deleteIcon = Icons.ALL.delete().asElement();
     private HTMLElement messageContainer = Elements.p().css(ELLIPSIS_TEXT).asElement();
     private HTMLDivElement progressElement;
     private ProgressBar progressBar;
+    private HTMLElement deleteIcon = Icons.ALL.delete().asElement();
     private HTMLElement cancelIcon = Icons.ALL.cancel().asElement();
     private HTMLElement refreshIcon = Icons.ALL.refresh().asElement();
 
@@ -52,6 +52,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private String unsentMessage = "Error while sending request";
     private XMLHttpRequest request;
     private boolean canceled;
+    private boolean removed;
     private boolean uploaded;
     private String fileName;
     private UploadRequestSender requestSender;
@@ -250,11 +251,13 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
 
             request.upload.addEventListener("loadstart", evt -> {
                 hideRefreshIcon();
+                hideDeleteIcon();
                 showCancelIcon();
             });
 
             request.upload.addEventListener("loadend", evt -> {
                 hideCancelIcon();
+                showDeleteIcon();
             });
 
             request.upload.onprogress = p0 -> {
@@ -264,6 +267,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
 
             request.onabort = p0 -> {
                 showRefreshIcon();
+                showDeleteIcon();
                 resetProgress();
                 cancelHandlers.forEach(handler -> handler.onCancel(request));
             };
@@ -292,6 +296,13 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         refreshIcon.style.display = "none";
     }
 
+    private void hideDeleteIcon() {
+        deleteIcon.style.display = "none";
+    }
+    private void showDeleteIcon() {
+        deleteIcon.style.display = "inline-block";
+    }
+
     private void showCancelIcon() {
         cancelIcon.style.display = "inline-block";
     }
@@ -304,6 +315,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         thumbnail.asElement().style.border = "1px solid #ddd";
         messageContainer.textContent = "";
         canceled = false;
+        removed = false;
         updateProgress(0);
         updateProgressBackground(Color.BLUE);
     }
@@ -334,6 +346,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         updateProgressBackground(Color.RED);
         errorHandlers.forEach(handler -> handler.onError(request));
         showRefreshIcon();
+        showDeleteIcon();
     }
 
     private String getErrorMessage() {
@@ -360,6 +373,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     @Override
     public FileItem remove() {
         super.remove();
+        this.removed = true;
         removeHandlers.forEach(handler -> handler.onRemoveFile(file));
         return this;
     }
@@ -466,6 +480,10 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
 
     public boolean isCanceled() {
         return canceled;
+    }
+
+    public boolean isRemoved() {
+        return removed;
     }
 
     public boolean isUploaded() {
