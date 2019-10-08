@@ -13,6 +13,10 @@ public class VScrollPanel extends BaseDominoElement<HTMLDivElement, VScrollPanel
         return new VScrollPanel();
     }
 
+    public VScrollPanel() {
+        init(this);
+    }
+
     @Override
     public HTMLDivElement asElement() {
         return element;

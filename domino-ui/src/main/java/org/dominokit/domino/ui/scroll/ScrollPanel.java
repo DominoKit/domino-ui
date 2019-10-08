@@ -13,6 +13,10 @@ public class ScrollPanel extends BaseDominoElement<HTMLDivElement, ScrollPanel> 
         return new ScrollPanel();
     }
 
+    public ScrollPanel() {
+        init(this);
+    }
+
     @Override
     public HTMLDivElement asElement() {
         return element;
