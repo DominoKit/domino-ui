@@ -8,6 +8,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.div;
@@ -34,6 +35,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     private boolean readOnly;
     private List<ChangeHandler<? super V>> changeHandlers = new ArrayList<>();
     private boolean pauseChangeHandlers = false;
+    private final List<Consumer<T>> onClearHandlers = new ArrayList<>();
 
     public enum ValueBoxSize {
         LARGE("lg"),
@@ -399,6 +401,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     public T clear() {
         clearValue();
         autoValidate();
+        onClearHandlers.forEach(handler -> handler.accept((T)ValueBox.this));
         return (T) this;
     }
 
@@ -507,6 +510,20 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     public T setSpellCheck(boolean spellCheck) {
         inputElement.setAttribute("spellcheck", spellCheck);
         return (T) this;
+    }
+
+    public T addOnClearHandler(Consumer<T> onClearHandler){
+        this.onClearHandlers.add(onClearHandler);
+        return (T) this;
+    }
+
+    public T removeOnClearHandler(Consumer<T> onClearHandler){
+        this.onClearHandlers.remove(onClearHandler);
+        return (T) this;
+    }
+
+    public List<Consumer<T>> getOnClearHandlers() {
+        return new ArrayList<>(onClearHandlers);
     }
 
     protected abstract void clearValue();

@@ -35,7 +35,7 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
     }
 
     public FlexLayout setWrap(FlexWrap wrap) {
-       replaceCssClass(flexWrap, wrap);
+        replaceCssClass(flexWrap, wrap);
         flexWrap = wrap;
         return this;
     }
@@ -64,8 +64,16 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
         return this;
     }
 
-    private void replaceCssClass(IsCssClass original, IsCssClass replacement){
-        if(nonNull(original)){
+    public FlexLayout appendChildBefore(FlexItem flexItem, FlexItem existingItem) {
+        if (flexItems.contains(existingItem)) {
+            flexItems.add(flexItem);
+            insertBefore(flexItem, existingItem);
+        }
+        return this;
+    }
+
+    private void replaceCssClass(IsCssClass original, IsCssClass replacement) {
+        if (nonNull(original)) {
             element.style().remove(original.getStyle());
         }
         element.style().add(replacement.getStyle());
