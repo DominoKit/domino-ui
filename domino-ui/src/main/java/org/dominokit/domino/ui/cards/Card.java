@@ -6,7 +6,6 @@ import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
@@ -38,6 +37,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     private BaseIcon collapseIcon;
     private Color headerBackground;
     private Color bodyBackground;
+    private HTMLAnchorElement aElement;
 
     public Card() {
         headerTitle
@@ -217,24 +217,27 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     }
 
     private HTMLLIElement createHeaderAction(BaseIcon<?> icon) {
-        return li().add(a()
+        aElement = a()
+                .attr("tabindex", "0")
+                .attr("aria-expanded", "true")
+                .attr("href", "#")
                 .add(icon
                         .clickable()
                         .styler(style -> style
-                                .add(Styles.pull_right, ACTION_ICON))))
+                                .add(Styles.pull_right, ACTION_ICON)))
                 .asElement();
+        HTMLLIElement liElement = li().asElement();
+        liElement.appendChild(aElement);
+        return liElement;
+
     }
 
     public Card setCollapsible() {
         collapseIcon = Icons.ALL.keyboard_arrow_up();
 
-        collapseIcon.setAttribute("tabindex", "0");
-
         if (isNull(collapseAction)) {
             collapseAction = createHeaderAction(collapseIcon);
         }
-
-        KeyboardEvents.listenOn(collapseAction).onEnter(evt -> switchVisibilty());
 
         collapseAction.addEventListener("click", evt -> switchVisibilty());
 
@@ -249,8 +252,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         if (collapsible) {
             if (body.getCollapsible().isHidden()) {
                 show();
+                aElement.setAttribute("aria-expanded", "true");
             } else {
                 hide();
+                aElement.setAttribute("aria-expanded", "false");
             }
         }
     }
@@ -343,4 +348,9 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     public HTMLDivElement asElement() {
         return root.asElement();
     }
+
+    public BaseIcon getCollapseIcon() {
+        return collapseIcon;
+    }
+
 }
