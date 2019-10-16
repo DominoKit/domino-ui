@@ -570,11 +570,11 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
-    public void setDisabled(boolean disabled) {
+    public T setDisabled(boolean disabled) {
         if (disabled) {
-            disable();
+            return disable();
         } else {
-            enable();
+            return enable();
         }
     }
 
