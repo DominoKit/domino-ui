@@ -90,13 +90,13 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             callChangeHandlers();
         });
 
-        getInputElement().addEventListener(EventType.focus.getName(), evt-> focused =true);
-        getInputElement().addEventListener("focusin", evt-> focused =true);
-        getInputElement().addEventListener(EventType.blur.getName(), evt-> focused =false);
-        getInputElement().addEventListener("focusout", evt-> focused =false);
+        getInputElement().addEventListener(EventType.focus.getName(), evt -> focused = true);
+        getInputElement().addEventListener("focusin", evt -> focused = true);
+        getInputElement().addEventListener(EventType.blur.getName(), evt -> focused = false);
+        getInputElement().addEventListener("focusout", evt -> focused = false);
 
         this.modalListener = evt -> {
-            if(!openOnFocus || focused) {
+            if (!openOnFocus || focused) {
                 modal.open();
             }
         };
@@ -286,7 +286,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         if (!PickerStyle.POPOVER.equals(this.pickerStyle)) {
             if (nonNull(modal)) {
                 asElement().removeEventListener(EventType.click.getName(), modalListener);
-                modal.close();
+                if (modal.isOpen()) {
+                    modal.close();
+                }
                 modal.asElement().remove();
             }
 
