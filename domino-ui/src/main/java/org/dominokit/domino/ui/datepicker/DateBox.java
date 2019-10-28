@@ -44,6 +44,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     private EventListener focusListener;
     private boolean openOnFocus = false;
     private boolean focused = false;
+    private boolean handlerPaused = false;
 
     public DateBox() {
         this(new Date());
@@ -84,10 +85,13 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     private void initDateBox() {
         this.pattern = this.datePicker.getDateTimeFormatInfo().dateFormatFull();
         this.datePicker.addDateSelectionHandler((date, dateTimeFormatInfo) -> {
-            setStringValue(date, dateTimeFormatInfo);
-            changeLabelFloating();
-            autoValidate();
-            callChangeHandlers();
+            if (!handlerPaused) {
+                value(date);
+            }
+//            setStringValue(date, dateTimeFormatInfo);
+//            changeLabelFloating();
+//            autoValidate();
+//            callChangeHandlers();
         });
 
         getInputElement().addEventListener(EventType.focus.getName(), evt -> focused = true);
@@ -227,8 +231,11 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     @Override
     protected void doSetValue(Date value) {
-        if (nonNull(value))
+        if (nonNull(value)) {
+            handlerPaused = true;
             this.datePicker.setDate(value);
+            this.handlerPaused = false;
+        }
 
         setStringValue(value, datePicker.getDateTimeFormatInfo());
         this.value = value;
