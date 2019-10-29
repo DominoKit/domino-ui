@@ -88,10 +88,6 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             if (!handlerPaused) {
                 value(date);
             }
-//            setStringValue(date, dateTimeFormatInfo);
-//            changeLabelFloating();
-//            autoValidate();
-//            callChangeHandlers();
         });
 
         getInputElement().addEventListener(EventType.focus.getName(), evt -> focused = true);
@@ -348,12 +344,12 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             open();
         };
         getInputElement().addEventListener(EventType.focus.getName(), getFocusEventListener());
-        modal.onClose(() -> {
+        modal.addCloseListener(() -> {
             getInputElement().asElement().focus();
             getInputElement().addEventListener(EventType.focus.getName(), getFocusEventListener());
         });
 
-        modal.onOpen(() -> {
+        modal.addOpenListener(() -> {
             getInputElement().removeEventListener(EventType.focus.getName(), getFocusEventListener());
         });
         return this;
