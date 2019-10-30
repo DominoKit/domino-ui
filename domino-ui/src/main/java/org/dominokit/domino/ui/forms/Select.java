@@ -43,7 +43,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     private SelectOption<T> selectedOption;
     private List<SelectionHandler<T>> selectionHandlers = new ArrayList<>();
     private SelectionHandler<T> autoValidationHandler;
-    private Supplier<BaseIcon<?>> arrowIconSupplier = Icons.ALL::arrow_drop_down;
+    private Supplier<BaseIcon<?>> arrowIconSupplier = Icons.ALL::menu_down_mdi;
     private BaseIcon<?> arrowIcon;
 
     private List<ChangeHandler<? super T>> changeHandlers = new ArrayList<>();
@@ -113,7 +113,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
             open();
             evt.stopPropagation();
         };
-        if(nonNull(arrowIcon)){
+        if (nonNull(arrowIcon)) {
             arrowIcon.addClickListener(clickListener);
         }
 
@@ -608,8 +608,13 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
     @Override
     protected FlexItem createMandatoryAddOn() {
-        arrowIcon = arrowIconSupplier.get()
-                .clickable();
+        if (isNull(arrowIconSupplier)) {
+            arrowIcon = Icons.ALL.menu_down_mdi()
+                    .clickable();
+        }else {
+            arrowIcon = arrowIconSupplier.get()
+                    .clickable();
+        }
         return FlexItem.create().appendChild(arrowIcon);
     }
 
