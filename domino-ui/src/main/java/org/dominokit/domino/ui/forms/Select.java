@@ -6,6 +6,8 @@ import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.dropdown.DropdownActionsGroup;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.style.Color;
@@ -17,38 +19,32 @@ import org.dominokit.domino.ui.utils.IsReadOnly;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusable<Select<T>>, IsReadOnly<Select<T>>, HasChangeHandlers<Select<T>, T> {
+public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
     private static final String CLICK_EVENT = "click";
     private static final String FOCUSED = "focused";
 
     private SelectOption<T> noneOption = SelectOption.create(null, "none", "None");
 
-    private DominoElement<HTMLDivElement> container = DominoElement.of(div().css("form-group"));
-    private DominoElement<HTMLDivElement> formLine = DominoElement.of(div().css("form-line"));
-    private DominoElement<HTMLDivElement> formControl = DominoElement.of(div().css("form-control"));
-    private DominoElement<HTMLDivElement> leftAddonContainer = DominoElement.of(div().css("input-addon-container"));
-    private DominoElement<HTMLDivElement> rightAddonContainer = DominoElement.of(div().css("input-addon-container"));
-    private DominoElement<HTMLElement> leftAddon;
-    private DominoElement<HTMLElement> rightAddon;
-
-    private DominoElement<HTMLButtonElement> buttonElement = DominoElement.of(button().attr("type", "button").css("select-button"));
+    private DominoElement<HTMLButtonElement> buttonElement;
     private DominoElement<HTMLElement> buttonValueContainer = DominoElement.of(span().css("select-value", Styles.ellipsis_text));
     private DominoElement<HTMLDivElement> iconContainer = DominoElement.of(div().css(Styles.pull_right));
     private DropDownMenu optionsMenu = DropDownMenu.create(buttonElement).styler(style1 -> style1.add("select-option-menu"));
-    private DominoElement<HTMLLabelElement> labelElement = DominoElement.of(label().css("form-label", "select-label"));
-
 
     private LinkedList<SelectOption<T>> options = new LinkedList<>();
     private SelectOption<T> selectedOption;
     private List<SelectionHandler<T>> selectionHandlers = new ArrayList<>();
     private SelectionHandler<T> autoValidationHandler;
+    private Supplier<BaseIcon<?>> arrowIconSupplier = Icons.ALL::arrow_drop_down;
+    private BaseIcon<?> arrowIcon;
 
     private List<ChangeHandler<? super T>> changeHandlers = new ArrayList<>();
 
@@ -85,17 +81,8 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     public Select() {
+        super("button", "");
         initListeners();
-        buttonElement
-                .appendChild(buttonValueContainer)
-                .appendChild(iconContainer);
-        formControl
-                .appendChild(buttonElement)
-                .appendChild(labelElement);
-        formLine.appendChild(formControl);
-        container.appendChild(leftAddonContainer);
-        container.appendChild(formLine.asElement());
-        container.appendChild(rightAddonContainer);
         init(this);
         dropdown();
         setSearchable(true);
@@ -104,6 +91,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
                 clear();
             }
         });
+
     }
 
     public Select(String label) {
@@ -125,11 +113,21 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
             open();
             evt.stopPropagation();
         };
+        if(nonNull(arrowIcon)){
+            arrowIcon.addClickListener(clickListener);
+        }
+
         buttonElement.addEventListener(CLICK_EVENT, clickListener);
-        labelElement.addEventListener(CLICK_EVENT, clickListener);
+        getLabelElement().addEventListener(CLICK_EVENT, clickListener);
         buttonElement.addEventListener("focus", evt -> doFocus());
         buttonElement.addEventListener("blur", evt -> doUnfocus());
         optionsMenu.addCloseHandler(this::doFocus);
+    }
+
+    public void setArrowIconSupplier(Supplier<BaseIcon<?>> arrowIconSupplier) {
+        if (nonNull(arrowIconSupplier)) {
+            this.arrowIconSupplier = arrowIconSupplier;
+        }
     }
 
     public Select<T> open() {
@@ -142,7 +140,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     private void doOpen() {
         optionsMenu.open();
-        optionsMenu.styler(style -> style.setWidth(formControl.getBoundingClientRect().width + "px"));
+        optionsMenu.styler(style -> style.setWidth(getFieldContainer().getBoundingClientRect().width + "px"));
     }
 
     public void close() {
@@ -298,7 +296,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     public Select<T> enable() {
         super.enable();
         buttonElement.enable();
-        labelElement.enable();
+        getLabelElement().enable();
         return this;
     }
 
@@ -306,7 +304,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     public Select<T> disable() {
         super.disable();
         buttonElement.disable();
-        labelElement.disable();
+        getLabelElement().disable();
         return this;
     }
 
@@ -387,42 +385,6 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         return this;
     }
 
-    @Override
-    public Select<T> invalidate(String errorMessage) {
-        this.valid = false;
-        updateValidationStyles();
-        return super.invalidate(errorMessage);
-    }
-
-    @Override
-    public Select<T> invalidate(List<String> errorMessages) {
-        this.valid = false;
-        updateValidationStyles();
-        return super.invalidate(errorMessages);
-    }
-
-    private void updateValidationStyles() {
-        formControl.style().remove("fc-" + focusColor.getStyle());
-        labelElement.style().remove(focusColor.getStyle());
-        formControl.style().add("fc-" + Color.RED.getStyle());
-        labelElement.style().add(Color.RED.getStyle());
-        removeLeftAddonColor(focusColor);
-        setLeftAddonColor(Color.RED);
-    }
-
-    @Override
-    public Select<T> clearInvalid() {
-        this.valid = true;
-        formControl.style().remove("fc-" + Color.RED.getStyle());
-        labelElement.style().remove(Color.RED.getStyle());
-        if (isFocused()) {
-            formControl.style().add("fc-" + focusColor.getStyle());
-            labelElement.style().add(focusColor.getStyle());
-        }
-
-        removeLeftAddonColor(Color.RED);
-        return super.clearInvalid();
-    }
 
     public Select<T> removeSelectionHandler(SelectionHandler selectionHandler) {
         if (nonNull(selectionHandler))
@@ -430,85 +392,21 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         return this;
     }
 
-    @Override
-    public Select<T> focus() {
-        if (isEnabled() && !isReadOnly()) {
-            if (!isAttached()) {
-                onAttached(mutationRecord -> buttonElement.asElement().focus());
-            } else {
-                buttonElement.asElement().focus();
-            }
-        }
-        return this;
-    }
-
-    @Override
-    public Select<T> unfocus() {
-        if (isEnabled() && !isReadOnly()) {
-            if (!isAttached()) {
-                onAttached(mutationRecord -> buttonElement.asElement().blur());
-            } else {
-                buttonElement.asElement().focus();
-            }
-        }
-        return this;
-    }
 
     private void doFocus() {
         if (isEnabled() && !isReadOnly()) {
             floatLabel();
             if (valid) {
-                labelElement.style().add(focusColor.getStyle());
-                formControl.style().add("fc-" + focusColor.getStyle());
-                setLeftAddonColor(focusColor);
-                buttonElement.asElement().focus();
+                super.focus();
                 this.focused = true;
             }
         }
     }
 
     private void doUnfocus() {
+        super.unfocus();
         unfloatLabel();
-        labelElement.style().remove(focusColor.getStyle());
-        formControl.style().remove("fc-" + focusColor.getStyle());
-        removeLeftAddonColor(focusColor);
-        buttonElement.asElement().blur();
         this.focused = false;
-    }
-
-    protected void floatLabel() {
-        if (!floating)
-            getSelectLabel().style().add(FOCUSED);
-    }
-
-    protected void unfloatLabel() {
-        if (!floating && isEmpty()) {
-            getSelectLabel().style().remove(FOCUSED);
-        }
-    }
-
-    private void setLeftAddonColor(Color focusColor) {
-        if (leftAddon != null)
-            leftAddon.style().add(focusColor.getStyle());
-    }
-
-    private void removeLeftAddonColor(Color focusColor) {
-        if (leftAddon != null)
-            leftAddon.style().remove(focusColor.getStyle());
-    }
-
-    @Override
-    public boolean isFocused() {
-        return focused;
-    }
-
-    @Override
-    public Select<T> setFocusColor(Color focusColor) {
-        unfocus();
-        this.focusColor = focusColor;
-        if (isFocused())
-            focus();
-        return this;
     }
 
     public Select<T> removeOption(SelectOption<T> option) {
@@ -538,13 +436,15 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     @Override
     public Select<T> setReadOnly(boolean readOnly) {
+
+        //TODO implement readonly mode
         this.readOnly = readOnly;
         if (readOnly) {
-            formControl.style().add("readonly");
+//            formControl.style().add("readonly");
             iconContainer.hide();
             floatLabel();
         } else {
-            formControl.style().remove("readonly");
+//            formControl.style().remove("readonly");
             iconContainer.show();
             if (isEmpty()) {
                 unfloatLabel();
@@ -569,7 +469,7 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
     }
 
     public DominoElement<HTMLLabelElement> getSelectLabel() {
-        return labelElement;
+        return getLabelElement();
     }
 
     @Override
@@ -582,54 +482,6 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
         } else {
             removeSelectionHandler(autoValidationHandler);
             autoValidationHandler = null;
-        }
-        return this;
-    }
-
-    @Override
-    public boolean isAutoValidation() {
-        return nonNull(autoValidationHandler);
-    }
-
-
-    public Select<T> setLeftAddon(IsElement leftAddon) {
-        return setLeftAddon(leftAddon.asElement());
-    }
-
-    public Select<T> setLeftAddon(HTMLElement leftAddon) {
-        setAddon(leftAddonContainer, this.leftAddon, leftAddon);
-        this.leftAddon = DominoElement.of(leftAddon);
-        return this;
-    }
-
-    public Select<T> setRightAddon(IsElement rightAddon) {
-        return setRightAddon(rightAddon.asElement());
-    }
-
-    public Select<T> setRightAddon(HTMLElement rightAddon) {
-        setAddon(rightAddonContainer, this.rightAddon, rightAddon);
-        this.rightAddon = DominoElement.of(rightAddon);
-        return this;
-    }
-
-    public DominoElement<HTMLDivElement> getLeftAddonContainer() {
-        return leftAddonContainer;
-    }
-
-    public DominoElement<HTMLDivElement> getRightAddonContainer() {
-        return rightAddonContainer;
-    }
-
-    public Select<T> removeRightAddon() {
-        if (nonNull(rightAddon)) {
-            rightAddonContainer.removeChild(rightAddon);
-        }
-        return this;
-    }
-
-    public Select<T> removeLeftAddon() {
-        if (nonNull(leftAddon)) {
-            leftAddonContainer.removeChild(leftAddon);
         }
         return this;
     }
@@ -675,27 +527,6 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     public boolean isSearchable() {
         return searchable;
-    }
-
-    @Override
-    public DominoElement<HTMLDivElement> getInputElement() {
-        return formLine;
-    }
-
-    @Override
-    protected DominoElement<HTMLLabelElement> getLabelElement() {
-        return labelElement;
-    }
-
-    @Override
-    protected DominoElement<HTMLDivElement> getFieldContainer() {
-        return formLine;
-    }
-
-
-    @Override
-    public HTMLElement asElement() {
-        return container.asElement();
     }
 
     @Override
@@ -761,5 +592,34 @@ public class Select<T> extends BasicFormElement<Select<T>, T> implements Focusab
 
     public String getClearableText() {
         return noneOption.getDisplayValue();
+    }
+
+    @Override
+    protected DominoElement<HTMLElement> getHelperContainer() {
+        //TODO implement this
+        return null;
+    }
+
+    @Override
+    protected HTMLElement createInputElement(String type) {
+        buttonElement = DominoElement.of(button().attr("type", "button").css("select-button"));
+        return buttonElement.asElement();
+    }
+
+    @Override
+    protected FlexItem createMandatoryAddOn() {
+        arrowIcon = arrowIconSupplier.get()
+                .clickable();
+        return FlexItem.create().appendChild(arrowIcon);
+    }
+
+    @Override
+    protected void clearValue() {
+
+    }
+
+    @Override
+    protected void doSetValue(T value) {
+
     }
 }

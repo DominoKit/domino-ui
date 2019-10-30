@@ -323,4 +323,10 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     public String getStringValue() {
         return Boolean.toString(getValue());
     }
+
+    @Override
+    protected DominoElement<HTMLElement> getHelperContainer() {
+        //TODO implement this
+        return null;
+    }
 }

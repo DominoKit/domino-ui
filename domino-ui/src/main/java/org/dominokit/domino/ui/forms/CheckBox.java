@@ -270,4 +270,10 @@ public class CheckBox extends BasicFormElement<CheckBox, Boolean> implements Che
     public String getStringValue() {
         return Boolean.toString(getValue());
     }
+
+    @Override
+    protected DominoElement<HTMLElement> getHelperContainer() {
+        //TODO implement this
+        return null;
+    }
 }

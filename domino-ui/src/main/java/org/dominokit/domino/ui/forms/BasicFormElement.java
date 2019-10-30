@@ -1,7 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
 import com.google.gwt.editor.client.EditorError;
-import com.google.gwt.editor.client.adapters.TakesValueEditor;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
@@ -19,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.label;
 
 public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> extends BaseDominoElement<HTMLElement, T> implements FormElement<T, V>, IsReadOnly<T>, HasInputElement {
 
@@ -35,8 +34,9 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     @Override
     public T setHelperText(String helperText) {
         this.helperText = helperText;
-        if (!getFieldContainer().contains(helperLabel))
-            getFieldContainer().appendChild(helperLabel);
+        if (!getHelperContainer().contains(helperLabel)) {
+            getHelperContainer().appendChild(helperLabel);
+        }
         helperLabel.setTextContent(helperText);
         return (T) this;
     }
@@ -194,7 +194,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     }
 
     protected abstract DominoElement<HTMLDivElement> getFieldContainer();
-
+    protected abstract DominoElement<HTMLElement> getHelperContainer();
     protected abstract DominoElement<HTMLLabelElement> getLabelElement();
 
     public DominoElement<HTMLElement> getLabelTextElement(){
@@ -209,4 +209,5 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
                 .collect(Collectors.toList()));
 
     }
+
 }
