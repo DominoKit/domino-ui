@@ -300,7 +300,10 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
 
     @Override
     public void setValue(Date value) {
-        update(new JsDate((double) value.getTime()));
+        JsDate jsDate = new JsDate((double)value.getTime());
+        JsDate currentDate=new JsDate();
+        jsDate.setHours(currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds(), currentDate.getMilliseconds());
+        update(jsDate);
     }
 
     @Override
