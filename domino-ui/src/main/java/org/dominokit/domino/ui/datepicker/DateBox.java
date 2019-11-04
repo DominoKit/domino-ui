@@ -231,10 +231,12 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             handlerPaused = true;
             this.datePicker.setDate(value);
             this.handlerPaused = false;
+            setStringValue(this.datePicker.getDate(), datePicker.getDateTimeFormatInfo());
+            this.value = this.datePicker.getDate();
+        }else{
+            setStringValue(value, datePicker.getDateTimeFormatInfo());
+            this.value = value;
         }
-
-        setStringValue(value, datePicker.getDateTimeFormatInfo());
-        this.value = value;
     }
 
     private void setStringValue(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
