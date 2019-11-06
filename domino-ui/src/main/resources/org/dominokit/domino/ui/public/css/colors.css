@@ -30,7 +30,6 @@ ul.stepper.horizontal.stepper-col-red .step.done .step-title:before{
 
 .fc-col-red:not([class*="lever"]) {
     border-bottom: 1px solid #F44336;
-    box-shadow: 0px 1px #F44336;
 }
 .col-red{
     color: #F44336;
@@ -106,7 +105,6 @@ ul.stepper.horizontal.stepper-col-l-1-red .step.done .step-title:before  {
 
 .fc-col-l-1-red:not([class*="lever"]) {
     border-bottom: 1px solid #e53935;
-    box-shadow: 0px 1px #e53935;
 }
 .col-l-1-red {
     color: #e53935;
@@ -177,7 +175,6 @@ ul.stepper.horizontal.stepper-col-l-2-red .step.done .step-title:before   {
 
 .fc-col-l-2-red:not([class*="lever"]) {
     border-bottom: 1px solid #e57373;
-    box-shadow: 0px 1px #e57373;
 }
 .col-l-2-red {
     color: #e57373;
@@ -250,7 +247,6 @@ ul.stepper.horizontal.stepper-col-l-3-red .step.done .step-title:before   {
 
 .fc-col-l-3-red:not([class*="lever"]) {
     border-bottom: 1px solid #ef9a9a;
-    box-shadow: 0px 1px #ef9a9a;
 }
 
 .col-l-3-red {
@@ -323,7 +319,6 @@ ul.stepper.horizontal.stepper-col-l-4-red .step.done .step-title:before  {
 
 .fc-col-l-4-red:not([class*="lever"]) {
     border-bottom: 1px solid #ffcdd2;
-    box-shadow: 0px 1px #ffcdd2;
 }
 .col-l-4-red{
     color: #ffcdd2;
@@ -395,7 +390,6 @@ ul.stepper.horizontal.stepper-col-l-5-red .step.done .step-title:before   {
 
 .fc-col-l-5-red:not([class*="lever"]) {
     border-bottom: 1px solid #ffebee;
-    box-shadow: 0px 1px #ffebee;
 }
 .col-l-5-red {
     color: #ffebee;
@@ -467,7 +461,6 @@ ul.stepper.horizontal.stepper-col-d-1-red .step.done .step-title:before   {
 
 .fc-col-d-1-red:not([class*="lever"]) {
     border-bottom: 1px solid #ef5350;
-    box-shadow: 0px 1px #ef5350;
 }
 .col-d-1-red {
     color: #ef5350;
@@ -539,7 +532,6 @@ ul.stepper.horizontal.stepper-col-d-2-red .step.done .step-title:before  {
 
 .fc-col-d-2-red:not([class*="lever"]) {
     border-bottom: 1px solid #d32f2f;
-    box-shadow: 0px 1px #d32f2f;
 }
 .col-d-2-red {
     color: #d32f2f;
@@ -611,7 +603,6 @@ ul.stepper.horizontal.stepper-col-d-3-red .step.done .step-title:before  {
 
 .fc-col-d-3-red:not([class*="lever"]) {
     border-bottom: 1px solid #c62828;
-    box-shadow: 0px 1px #c62828;
 }
 .col-d-3-red{
     color: #c62828;
@@ -683,7 +674,6 @@ ul.stepper.horizontal.stepper-col-d-4-red .step.done .step-title:before  {
 
 .fc-col-d-4-red:not([class*="lever"]) {
     border-bottom: 1px solid #b71c1c;
-    box-shadow: 0px 1px #b71c1c;
 }
 .col-d-4-red{
     color: #b71c1c;
@@ -774,7 +764,6 @@ ul.stepper.horizontal.stepper-col-pink .step.done .step-title:before{
 
 .fc-col-pink:not([class*="lever"]) {
     border-bottom: 1px solid #E91E63;
-    box-shadow: 0px 1px #E91E63;
 }
 .col-pink{
     color: #E91E63;
@@ -850,7 +839,6 @@ ul.stepper.horizontal.stepper-col-l-1-pink .step.done .step-title:before  {
 
 .fc-col-l-1-pink:not([class*="lever"]) {
     border-bottom: 1px solid #ec407a;
-    box-shadow: 0px 1px #ec407a;
 }
 .col-l-1-pink {
     color: #ec407a;
@@ -921,7 +909,6 @@ ul.stepper.horizontal.stepper-col-l-2-pink .step.done .step-title:before   {
 
 .fc-col-l-2-pink:not([class*="lever"]) {
     border-bottom: 1px solid #f06292;
-    box-shadow: 0px 1px #f06292;
 }
 .col-l-2-pink {
     color: #f06292;
@@ -994,7 +981,6 @@ ul.stepper.horizontal.stepper-col-l-3-pink .step.done .step-title:before   {
 
 .fc-col-l-3-pink:not([class*="lever"]) {
     border-bottom: 1px solid #f48fb1;
-    box-shadow: 0px 1px #f48fb1;
 }
 
 .col-l-3-pink {
@@ -1067,7 +1053,6 @@ ul.stepper.horizontal.stepper-col-l-4-pink .step.done .step-title:before  {
 
 .fc-col-l-4-pink:not([class*="lever"]) {
     border-bottom: 1px solid #f8bbd0;
-    box-shadow: 0px 1px #f8bbd0;
 }
 .col-l-4-pink{
     color: #f8bbd0;
@@ -1139,7 +1124,6 @@ ul.stepper.horizontal.stepper-col-l-5-pink .step.done .step-title:before   {
 
 .fc-col-l-5-pink:not([class*="lever"]) {
     border-bottom: 1px solid #fce4ec;
-    box-shadow: 0px 1px #fce4ec;
 }
 .col-l-5-pink {
     color: #fce4ec;
@@ -1211,7 +1195,6 @@ ul.stepper.horizontal.stepper-col-d-1-pink .step.done .step-title:before   {
 
 .fc-col-d-1-pink:not([class*="lever"]) {
     border-bottom: 1px solid #d81b60;
-    box-shadow: 0px 1px #d81b60;
 }
 .col-d-1-pink {
     color: #d81b60;
@@ -1283,7 +1266,6 @@ ul.stepper.horizontal.stepper-col-d-2-pink .step.done .step-title:before  {
 
 .fc-col-d-2-pink:not([class*="lever"]) {
     border-bottom: 1px solid #c2185b;
-    box-shadow: 0px 1px #c2185b;
 }
 .col-d-2-pink {
     color: #c2185b;
@@ -1355,7 +1337,6 @@ ul.stepper.horizontal.stepper-col-d-3-pink .step.done .step-title:before  {
 
 .fc-col-d-3-pink:not([class*="lever"]) {
     border-bottom: 1px solid #ad1457;
-    box-shadow: 0px 1px #ad1457;
 }
 .col-d-3-pink{
     color: #ad1457;
@@ -1427,7 +1408,6 @@ ul.stepper.horizontal.stepper-col-d-4-pink .step.done .step-title:before  {
 
 .fc-col-d-4-pink:not([class*="lever"]) {
     border-bottom: 1px solid #880e4f;
-    box-shadow: 0px 1px #880e4f;
 }
 .col-d-4-pink{
     color: #880e4f;
@@ -1518,7 +1498,6 @@ ul.stepper.horizontal.stepper-col-purple .step.done .step-title:before{
 
 .fc-col-purple:not([class*="lever"]) {
     border-bottom: 1px solid #9C27B0;
-    box-shadow: 0px 1px #9C27B0;
 }
 .col-purple{
     color: #9C27B0;
@@ -1594,7 +1573,6 @@ ul.stepper.horizontal.stepper-col-l-1-purple .step.done .step-title:before  {
 
 .fc-col-l-1-purple:not([class*="lever"]) {
     border-bottom: 1px solid #ab47bc;
-    box-shadow: 0px 1px #ab47bc;
 }
 .col-l-1-purple {
     color: #ab47bc;
@@ -1665,7 +1643,6 @@ ul.stepper.horizontal.stepper-col-l-2-purple .step.done .step-title:before   {
 
 .fc-col-l-2-purple:not([class*="lever"]) {
     border-bottom: 1px solid #ba68c8;
-    box-shadow: 0px 1px #ba68c8;
 }
 .col-l-2-purple {
     color: #ba68c8;
@@ -1738,7 +1715,6 @@ ul.stepper.horizontal.stepper-col-l-3-purple .step.done .step-title:before   {
 
 .fc-col-l-3-purple:not([class*="lever"]) {
     border-bottom: 1px solid #ce93d8;
-    box-shadow: 0px 1px #ce93d8;
 }
 
 .col-l-3-purple {
@@ -1811,7 +1787,6 @@ ul.stepper.horizontal.stepper-col-l-4-purple .step.done .step-title:before  {
 
 .fc-col-l-4-purple:not([class*="lever"]) {
     border-bottom: 1px solid #e1bee7;
-    box-shadow: 0px 1px #e1bee7;
 }
 .col-l-4-purple{
     color: #e1bee7;
@@ -1883,7 +1858,6 @@ ul.stepper.horizontal.stepper-col-l-5-purple .step.done .step-title:before   {
 
 .fc-col-l-5-purple:not([class*="lever"]) {
     border-bottom: 1px solid #f3e5f5;
-    box-shadow: 0px 1px #f3e5f5;
 }
 .col-l-5-purple {
     color: #f3e5f5;
@@ -1955,7 +1929,6 @@ ul.stepper.horizontal.stepper-col-d-1-purple .step.done .step-title:before   {
 
 .fc-col-d-1-purple:not([class*="lever"]) {
     border-bottom: 1px solid #8e24aa;
-    box-shadow: 0px 1px #8e24aa;
 }
 .col-d-1-purple {
     color: #8e24aa;
@@ -2027,7 +2000,6 @@ ul.stepper.horizontal.stepper-col-d-2-purple .step.done .step-title:before  {
 
 .fc-col-d-2-purple:not([class*="lever"]) {
     border-bottom: 1px solid #7b1fa2;
-    box-shadow: 0px 1px #7b1fa2;
 }
 .col-d-2-purple {
     color: #7b1fa2;
@@ -2099,7 +2071,6 @@ ul.stepper.horizontal.stepper-col-d-3-purple .step.done .step-title:before  {
 
 .fc-col-d-3-purple:not([class*="lever"]) {
     border-bottom: 1px solid #6a1b9a;
-    box-shadow: 0px 1px #6a1b9a;
 }
 .col-d-3-purple{
     color: #6a1b9a;
@@ -2171,7 +2142,6 @@ ul.stepper.horizontal.stepper-col-d-4-purple .step.done .step-title:before  {
 
 .fc-col-d-4-purple:not([class*="lever"]) {
     border-bottom: 1px solid #4a148c;
-    box-shadow: 0px 1px #4a148c;
 }
 .col-d-4-purple{
     color: #4a148c;
@@ -2262,7 +2232,6 @@ ul.stepper.horizontal.stepper-col-deep-purple .step.done .step-title:before{
 
 .fc-col-deep-purple:not([class*="lever"]) {
     border-bottom: 1px solid #673AB7;
-    box-shadow: 0px 1px #673AB7;
 }
 .col-deep-purple{
     color: #673AB7;
@@ -2338,7 +2307,6 @@ ul.stepper.horizontal.stepper-col-l-1-deep-purple .step.done .step-title:before 
 
 .fc-col-l-1-deep-purple:not([class*="lever"]) {
     border-bottom: 1px solid #7e57c2;
-    box-shadow: 0px 1px #7e57c2;
 }
 .col-l-1-deep-purple {
     color: #7e57c2;
@@ -2409,7 +2377,6 @@ ul.stepper.horizontal.stepper-col-l-2-deep-purple .step.done .step-title:before 
 
 .fc-col-l-2-deep-purple:not([class*="lever"]) {
     border-bottom: 1px solid #9575cd;
-    box-shadow: 0px 1px #9575cd;
 }
 .col-l-2-deep-purple {
     color: #9575cd;
@@ -2482,7 +2449,6 @@ ul.stepper.horizontal.stepper-col-l-3-deep-purple .step.done .step-title:before 
 
 .fc-col-l-3-deep-purple:not([class*="lever"]) {
     border-bottom: 1px solid #b39ddb;
-    box-shadow: 0px 1px #b39ddb;
 }
 
 .col-l-3-deep-purple {
@@ -2555,7 +2521,6 @@ ul.stepper.horizontal.stepper-col-l-4-deep-purple .step.done .step-title:before 
 
 .fc-col-l-4-deep-purple:not([class*="lever"]) {
     border-bottom: 1px solid #d1c4e9;
-    box-shadow: 0px 1px #d1c4e9;
 }
 .col-l-4-deep-purple{
     color: #d1c4e9;
@@ -2627,7 +2592,6 @@ ul.stepper.horizontal.stepper-col-l-5-deep-purple .step.done .step-title:before 
 
 .fc-col-l-5-deep-purple:not([class*="lever"]) {
     border-bottom: 1px solid #ede7f6;
-    box-shadow: 0px 1px #ede7f6;
 }
 .col-l-5-deep-purple {
     color: #ede7f6;
@@ -2699,7 +2663,6 @@ ul.stepper.horizontal.stepper-col-d-1-deep-purple .step.done .step-title:before 
 
 .fc-col-d-1-deep-purple:not([class*="lever"]) {
     border-bottom: 1px solid #5e35b1;
-    box-shadow: 0px 1px #5e35b1;
 }
 .col-d-1-deep-purple {
     color: #5e35b1;
@@ -2771,7 +2734,6 @@ ul.stepper.horizontal.stepper-col-d-2-deep-purple .step.done .step-title:before 
 
 .fc-col-d-2-deep-purple:not([class*="lever"]) {
     border-bottom: 1px solid #512da8;
-    box-shadow: 0px 1px #512da8;
 }
 .col-d-2-deep-purple {
     color: #512da8;
@@ -2843,7 +2805,6 @@ ul.stepper.horizontal.stepper-col-d-3-deep-purple .step.done .step-title:before 
 
 .fc-col-d-3-deep-purple:not([class*="lever"]) {
     border-bottom: 1px solid #4527a0;
-    box-shadow: 0px 1px #4527a0;
 }
 .col-d-3-deep-purple{
     color: #4527a0;
@@ -2915,7 +2876,6 @@ ul.stepper.horizontal.stepper-col-d-4-deep-purple .step.done .step-title:before 
 
 .fc-col-d-4-deep-purple:not([class*="lever"]) {
     border-bottom: 1px solid #311b92;
-    box-shadow: 0px 1px #311b92;
 }
 .col-d-4-deep-purple{
     color: #311b92;
@@ -3006,7 +2966,6 @@ ul.stepper.horizontal.stepper-col-indigo .step.done .step-title:before{
 
 .fc-col-indigo:not([class*="lever"]) {
     border-bottom: 1px solid #3F51B5;
-    box-shadow: 0px 1px #3F51B5;
 }
 .col-indigo{
     color: #3F51B5;
@@ -3082,7 +3041,6 @@ ul.stepper.horizontal.stepper-col-l-1-indigo .step.done .step-title:before  {
 
 .fc-col-l-1-indigo:not([class*="lever"]) {
     border-bottom: 1px solid #5c6bc0;
-    box-shadow: 0px 1px #5c6bc0;
 }
 .col-l-1-indigo {
     color: #5c6bc0;
@@ -3153,7 +3111,6 @@ ul.stepper.horizontal.stepper-col-l-2-indigo .step.done .step-title:before   {
 
 .fc-col-l-2-indigo:not([class*="lever"]) {
     border-bottom: 1px solid #7986cb;
-    box-shadow: 0px 1px #7986cb;
 }
 .col-l-2-indigo {
     color: #7986cb;
@@ -3226,7 +3183,6 @@ ul.stepper.horizontal.stepper-col-l-3-indigo .step.done .step-title:before   {
 
 .fc-col-l-3-indigo:not([class*="lever"]) {
     border-bottom: 1px solid #9fa8da;
-    box-shadow: 0px 1px #9fa8da;
 }
 
 .col-l-3-indigo {
@@ -3299,7 +3255,6 @@ ul.stepper.horizontal.stepper-col-l-4-indigo .step.done .step-title:before  {
 
 .fc-col-l-4-indigo:not([class*="lever"]) {
     border-bottom: 1px solid #c5cae9;
-    box-shadow: 0px 1px #c5cae9;
 }
 .col-l-4-indigo{
     color: #c5cae9;
@@ -3371,7 +3326,6 @@ ul.stepper.horizontal.stepper-col-l-5-indigo .step.done .step-title:before   {
 
 .fc-col-l-5-indigo:not([class*="lever"]) {
     border-bottom: 1px solid #e8eaf6;
-    box-shadow: 0px 1px #e8eaf6;
 }
 .col-l-5-indigo {
     color: #e8eaf6;
@@ -3443,7 +3397,6 @@ ul.stepper.horizontal.stepper-col-d-1-indigo .step.done .step-title:before   {
 
 .fc-col-d-1-indigo:not([class*="lever"]) {
     border-bottom: 1px solid #3949ab;
-    box-shadow: 0px 1px #3949ab;
 }
 .col-d-1-indigo {
     color: #3949ab;
@@ -3515,7 +3468,6 @@ ul.stepper.horizontal.stepper-col-d-2-indigo .step.done .step-title:before  {
 
 .fc-col-d-2-indigo:not([class*="lever"]) {
     border-bottom: 1px solid #303f9f;
-    box-shadow: 0px 1px #303f9f;
 }
 .col-d-2-indigo {
     color: #303f9f;
@@ -3587,7 +3539,6 @@ ul.stepper.horizontal.stepper-col-d-3-indigo .step.done .step-title:before  {
 
 .fc-col-d-3-indigo:not([class*="lever"]) {
     border-bottom: 1px solid #283593;
-    box-shadow: 0px 1px #283593;
 }
 .col-d-3-indigo{
     color: #283593;
@@ -3659,7 +3610,6 @@ ul.stepper.horizontal.stepper-col-d-4-indigo .step.done .step-title:before  {
 
 .fc-col-d-4-indigo:not([class*="lever"]) {
     border-bottom: 1px solid #1a237e;
-    box-shadow: 0px 1px #1a237e;
 }
 .col-d-4-indigo{
     color: #1a237e;
@@ -3750,7 +3700,6 @@ ul.stepper.horizontal.stepper-col-blue .step.done .step-title:before{
 
 .fc-col-blue:not([class*="lever"]) {
     border-bottom: 1px solid #2196F3;
-    box-shadow: 0px 1px #2196F3;
 }
 .col-blue{
     color: #2196F3;
@@ -3826,7 +3775,6 @@ ul.stepper.horizontal.stepper-col-l-1-blue .step.done .step-title:before  {
 
 .fc-col-l-1-blue:not([class*="lever"]) {
     border-bottom: 1px solid #42a5f5;
-    box-shadow: 0px 1px #42a5f5;
 }
 .col-l-1-blue {
     color: #42a5f5;
@@ -3897,7 +3845,6 @@ ul.stepper.horizontal.stepper-col-l-2-blue .step.done .step-title:before   {
 
 .fc-col-l-2-blue:not([class*="lever"]) {
     border-bottom: 1px solid #64b5f6;
-    box-shadow: 0px 1px #64b5f6;
 }
 .col-l-2-blue {
     color: #64b5f6;
@@ -3970,7 +3917,6 @@ ul.stepper.horizontal.stepper-col-l-3-blue .step.done .step-title:before   {
 
 .fc-col-l-3-blue:not([class*="lever"]) {
     border-bottom: 1px solid #90caf9;
-    box-shadow: 0px 1px #90caf9;
 }
 
 .col-l-3-blue {
@@ -4043,7 +3989,6 @@ ul.stepper.horizontal.stepper-col-l-4-blue .step.done .step-title:before  {
 
 .fc-col-l-4-blue:not([class*="lever"]) {
     border-bottom: 1px solid #bbdefb;
-    box-shadow: 0px 1px #bbdefb;
 }
 .col-l-4-blue{
     color: #bbdefb;
@@ -4115,7 +4060,6 @@ ul.stepper.horizontal.stepper-col-l-5-blue .step.done .step-title:before   {
 
 .fc-col-l-5-blue:not([class*="lever"]) {
     border-bottom: 1px solid #e3f2fd;
-    box-shadow: 0px 1px #e3f2fd;
 }
 .col-l-5-blue {
     color: #e3f2fd;
@@ -4187,7 +4131,6 @@ ul.stepper.horizontal.stepper-col-d-1-blue .step.done .step-title:before   {
 
 .fc-col-d-1-blue:not([class*="lever"]) {
     border-bottom: 1px solid #1e88e5;
-    box-shadow: 0px 1px #1e88e5;
 }
 .col-d-1-blue {
     color: #1e88e5;
@@ -4259,7 +4202,6 @@ ul.stepper.horizontal.stepper-col-d-2-blue .step.done .step-title:before  {
 
 .fc-col-d-2-blue:not([class*="lever"]) {
     border-bottom: 1px solid #1976d2;
-    box-shadow: 0px 1px #1976d2;
 }
 .col-d-2-blue {
     color: #1976d2;
@@ -4331,7 +4273,6 @@ ul.stepper.horizontal.stepper-col-d-3-blue .step.done .step-title:before  {
 
 .fc-col-d-3-blue:not([class*="lever"]) {
     border-bottom: 1px solid #1565c0;
-    box-shadow: 0px 1px #1565c0;
 }
 .col-d-3-blue{
     color: #1565c0;
@@ -4403,7 +4344,6 @@ ul.stepper.horizontal.stepper-col-d-4-blue .step.done .step-title:before  {
 
 .fc-col-d-4-blue:not([class*="lever"]) {
     border-bottom: 1px solid #0d47a1;
-    box-shadow: 0px 1px #0d47a1;
 }
 .col-d-4-blue{
     color: #0d47a1;
@@ -4494,7 +4434,6 @@ ul.stepper.horizontal.stepper-col-light-blue .step.done .step-title:before{
 
 .fc-col-light-blue:not([class*="lever"]) {
     border-bottom: 1px solid #03A9F4;
-    box-shadow: 0px 1px #03A9F4;
 }
 .col-light-blue{
     color: #03A9F4;
@@ -4570,7 +4509,6 @@ ul.stepper.horizontal.stepper-col-l-1-light-blue .step.done .step-title:before  
 
 .fc-col-l-1-light-blue:not([class*="lever"]) {
     border-bottom: 1px solid #29b6f6;
-    box-shadow: 0px 1px #29b6f6;
 }
 .col-l-1-light-blue {
     color: #29b6f6;
@@ -4641,7 +4579,6 @@ ul.stepper.horizontal.stepper-col-l-2-light-blue .step.done .step-title:before  
 
 .fc-col-l-2-light-blue:not([class*="lever"]) {
     border-bottom: 1px solid #4fc3f7;
-    box-shadow: 0px 1px #4fc3f7;
 }
 .col-l-2-light-blue {
     color: #4fc3f7;
@@ -4714,7 +4651,6 @@ ul.stepper.horizontal.stepper-col-l-3-light-blue .step.done .step-title:before  
 
 .fc-col-l-3-light-blue:not([class*="lever"]) {
     border-bottom: 1px solid #81d4fa;
-    box-shadow: 0px 1px #81d4fa;
 }
 
 .col-l-3-light-blue {
@@ -4787,7 +4723,6 @@ ul.stepper.horizontal.stepper-col-l-4-light-blue .step.done .step-title:before  
 
 .fc-col-l-4-light-blue:not([class*="lever"]) {
     border-bottom: 1px solid #b3e5fc;
-    box-shadow: 0px 1px #b3e5fc;
 }
 .col-l-4-light-blue{
     color: #b3e5fc;
@@ -4859,7 +4794,6 @@ ul.stepper.horizontal.stepper-col-l-5-light-blue .step.done .step-title:before  
 
 .fc-col-l-5-light-blue:not([class*="lever"]) {
     border-bottom: 1px solid #e1f5fe;
-    box-shadow: 0px 1px #e1f5fe;
 }
 .col-l-5-light-blue {
     color: #e1f5fe;
@@ -4931,7 +4865,6 @@ ul.stepper.horizontal.stepper-col-d-1-light-blue .step.done .step-title:before  
 
 .fc-col-d-1-light-blue:not([class*="lever"]) {
     border-bottom: 1px solid #039be5;
-    box-shadow: 0px 1px #039be5;
 }
 .col-d-1-light-blue {
     color: #039be5;
@@ -5003,7 +4936,6 @@ ul.stepper.horizontal.stepper-col-d-2-light-blue .step.done .step-title:before  
 
 .fc-col-d-2-light-blue:not([class*="lever"]) {
     border-bottom: 1px solid #0288d1;
-    box-shadow: 0px 1px #0288d1;
 }
 .col-d-2-light-blue {
     color: #0288d1;
@@ -5075,7 +5007,6 @@ ul.stepper.horizontal.stepper-col-d-3-light-blue .step.done .step-title:before  
 
 .fc-col-d-3-light-blue:not([class*="lever"]) {
     border-bottom: 1px solid #0277bd;
-    box-shadow: 0px 1px #0277bd;
 }
 .col-d-3-light-blue{
     color: #0277bd;
@@ -5147,7 +5078,6 @@ ul.stepper.horizontal.stepper-col-d-4-light-blue .step.done .step-title:before  
 
 .fc-col-d-4-light-blue:not([class*="lever"]) {
     border-bottom: 1px solid #01579b;
-    box-shadow: 0px 1px #01579b;
 }
 .col-d-4-light-blue{
     color: #01579b;
@@ -5238,7 +5168,6 @@ ul.stepper.horizontal.stepper-col-cyan .step.done .step-title:before{
 
 .fc-col-cyan:not([class*="lever"]) {
     border-bottom: 1px solid #00BCD4;
-    box-shadow: 0px 1px #00BCD4;
 }
 .col-cyan{
     color: #00BCD4;
@@ -5314,7 +5243,6 @@ ul.stepper.horizontal.stepper-col-l-1-cyan .step.done .step-title:before  {
 
 .fc-col-l-1-cyan:not([class*="lever"]) {
     border-bottom: 1px solid #26c6da;
-    box-shadow: 0px 1px #26c6da;
 }
 .col-l-1-cyan {
     color: #26c6da;
@@ -5385,7 +5313,6 @@ ul.stepper.horizontal.stepper-col-l-2-cyan .step.done .step-title:before   {
 
 .fc-col-l-2-cyan:not([class*="lever"]) {
     border-bottom: 1px solid #4dd0e1;
-    box-shadow: 0px 1px #4dd0e1;
 }
 .col-l-2-cyan {
     color: #4dd0e1;
@@ -5458,7 +5385,6 @@ ul.stepper.horizontal.stepper-col-l-3-cyan .step.done .step-title:before   {
 
 .fc-col-l-3-cyan:not([class*="lever"]) {
     border-bottom: 1px solid #80deea;
-    box-shadow: 0px 1px #80deea;
 }
 
 .col-l-3-cyan {
@@ -5531,7 +5457,6 @@ ul.stepper.horizontal.stepper-col-l-4-cyan .step.done .step-title:before  {
 
 .fc-col-l-4-cyan:not([class*="lever"]) {
     border-bottom: 1px solid #b2ebf2;
-    box-shadow: 0px 1px #b2ebf2;
 }
 .col-l-4-cyan{
     color: #b2ebf2;
@@ -5603,7 +5528,6 @@ ul.stepper.horizontal.stepper-col-l-5-cyan .step.done .step-title:before   {
 
 .fc-col-l-5-cyan:not([class*="lever"]) {
     border-bottom: 1px solid #e0f7fa;
-    box-shadow: 0px 1px #e0f7fa;
 }
 .col-l-5-cyan {
     color: #e0f7fa;
@@ -5675,7 +5599,6 @@ ul.stepper.horizontal.stepper-col-d-1-cyan .step.done .step-title:before   {
 
 .fc-col-d-1-cyan:not([class*="lever"]) {
     border-bottom: 1px solid #00acc1;
-    box-shadow: 0px 1px #00acc1;
 }
 .col-d-1-cyan {
     color: #00acc1;
@@ -5747,7 +5670,6 @@ ul.stepper.horizontal.stepper-col-d-2-cyan .step.done .step-title:before  {
 
 .fc-col-d-2-cyan:not([class*="lever"]) {
     border-bottom: 1px solid #0097a7;
-    box-shadow: 0px 1px #0097a7;
 }
 .col-d-2-cyan {
     color: #0097a7;
@@ -5819,7 +5741,6 @@ ul.stepper.horizontal.stepper-col-d-3-cyan .step.done .step-title:before  {
 
 .fc-col-d-3-cyan:not([class*="lever"]) {
     border-bottom: 1px solid #00838f;
-    box-shadow: 0px 1px #00838f;
 }
 .col-d-3-cyan{
     color: #00838f;
@@ -5891,7 +5812,6 @@ ul.stepper.horizontal.stepper-col-d-4-cyan .step.done .step-title:before  {
 
 .fc-col-d-4-cyan:not([class*="lever"]) {
     border-bottom: 1px solid #006064;
-    box-shadow: 0px 1px #006064;
 }
 .col-d-4-cyan{
     color: #006064;
@@ -5982,7 +5902,6 @@ ul.stepper.horizontal.stepper-col-teal .step.done .step-title:before{
 
 .fc-col-teal:not([class*="lever"]) {
     border-bottom: 1px solid #009688;
-    box-shadow: 0px 1px #009688;
 }
 .col-teal{
     color: #009688;
@@ -6058,7 +5977,6 @@ ul.stepper.horizontal.stepper-col-l-1-teal .step.done .step-title:before  {
 
 .fc-col-l-1-teal:not([class*="lever"]) {
     border-bottom: 1px solid #26a69a;
-    box-shadow: 0px 1px #26a69a;
 }
 .col-l-1-teal {
     color: #26a69a;
@@ -6129,7 +6047,6 @@ ul.stepper.horizontal.stepper-col-l-2-teal .step.done .step-title:before   {
 
 .fc-col-l-2-teal:not([class*="lever"]) {
     border-bottom: 1px solid #4db6ac;
-    box-shadow: 0px 1px #4db6ac;
 }
 .col-l-2-teal {
     color: #4db6ac;
@@ -6202,7 +6119,6 @@ ul.stepper.horizontal.stepper-col-l-3-teal .step.done .step-title:before   {
 
 .fc-col-l-3-teal:not([class*="lever"]) {
     border-bottom: 1px solid #80cbc4;
-    box-shadow: 0px 1px #80cbc4;
 }
 
 .col-l-3-teal {
@@ -6275,7 +6191,6 @@ ul.stepper.horizontal.stepper-col-l-4-teal .step.done .step-title:before  {
 
 .fc-col-l-4-teal:not([class*="lever"]) {
     border-bottom: 1px solid #b2dfdb;
-    box-shadow: 0px 1px #b2dfdb;
 }
 .col-l-4-teal{
     color: #b2dfdb;
@@ -6347,7 +6262,6 @@ ul.stepper.horizontal.stepper-col-l-5-teal .step.done .step-title:before   {
 
 .fc-col-l-5-teal:not([class*="lever"]) {
     border-bottom: 1px solid #e0f2f1;
-    box-shadow: 0px 1px #e0f2f1;
 }
 .col-l-5-teal {
     color: #e0f2f1;
@@ -6419,7 +6333,6 @@ ul.stepper.horizontal.stepper-col-d-1-teal .step.done .step-title:before   {
 
 .fc-col-d-1-teal:not([class*="lever"]) {
     border-bottom: 1px solid #00897b;
-    box-shadow: 0px 1px #00897b;
 }
 .col-d-1-teal {
     color: #00897b;
@@ -6491,7 +6404,6 @@ ul.stepper.horizontal.stepper-col-d-2-teal .step.done .step-title:before  {
 
 .fc-col-d-2-teal:not([class*="lever"]) {
     border-bottom: 1px solid #00796b;
-    box-shadow: 0px 1px #00796b;
 }
 .col-d-2-teal {
     color: #00796b;
@@ -6563,7 +6475,6 @@ ul.stepper.horizontal.stepper-col-d-3-teal .step.done .step-title:before  {
 
 .fc-col-d-3-teal:not([class*="lever"]) {
     border-bottom: 1px solid #00695c;
-    box-shadow: 0px 1px #00695c;
 }
 .col-d-3-teal{
     color: #00695c;
@@ -6635,7 +6546,6 @@ ul.stepper.horizontal.stepper-col-d-4-teal .step.done .step-title:before  {
 
 .fc-col-d-4-teal:not([class*="lever"]) {
     border-bottom: 1px solid #004d40;
-    box-shadow: 0px 1px #004d40;
 }
 .col-d-4-teal{
     color: #004d40;
@@ -6726,7 +6636,6 @@ ul.stepper.horizontal.stepper-col-green .step.done .step-title:before{
 
 .fc-col-green:not([class*="lever"]) {
     border-bottom: 1px solid #4CAF50;
-    box-shadow: 0px 1px #4CAF50;
 }
 .col-green{
     color: #4CAF50;
@@ -6802,7 +6711,6 @@ ul.stepper.horizontal.stepper-col-l-1-green .step.done .step-title:before  {
 
 .fc-col-l-1-green:not([class*="lever"]) {
     border-bottom: 1px solid #66bb6a;
-    box-shadow: 0px 1px #66bb6a;
 }
 .col-l-1-green {
     color: #66bb6a;
@@ -6873,7 +6781,6 @@ ul.stepper.horizontal.stepper-col-l-2-green .step.done .step-title:before   {
 
 .fc-col-l-2-green:not([class*="lever"]) {
     border-bottom: 1px solid #81c784;
-    box-shadow: 0px 1px #81c784;
 }
 .col-l-2-green {
     color: #81c784;
@@ -6946,7 +6853,6 @@ ul.stepper.horizontal.stepper-col-l-3-green .step.done .step-title:before   {
 
 .fc-col-l-3-green:not([class*="lever"]) {
     border-bottom: 1px solid #a5d6a7;
-    box-shadow: 0px 1px #a5d6a7;
 }
 
 .col-l-3-green {
@@ -7019,7 +6925,6 @@ ul.stepper.horizontal.stepper-col-l-4-green .step.done .step-title:before  {
 
 .fc-col-l-4-green:not([class*="lever"]) {
     border-bottom: 1px solid #c8e6c9;
-    box-shadow: 0px 1px #c8e6c9;
 }
 .col-l-4-green{
     color: #c8e6c9;
@@ -7091,7 +6996,6 @@ ul.stepper.horizontal.stepper-col-l-5-green .step.done .step-title:before   {
 
 .fc-col-l-5-green:not([class*="lever"]) {
     border-bottom: 1px solid #e8f5e9;
-    box-shadow: 0px 1px #e8f5e9;
 }
 .col-l-5-green {
     color: #e8f5e9;
@@ -7163,7 +7067,6 @@ ul.stepper.horizontal.stepper-col-d-1-green .step.done .step-title:before   {
 
 .fc-col-d-1-green:not([class*="lever"]) {
     border-bottom: 1px solid #43a047;
-    box-shadow: 0px 1px #43a047;
 }
 .col-d-1-green {
     color: #43a047;
@@ -7235,7 +7138,6 @@ ul.stepper.horizontal.stepper-col-d-2-green .step.done .step-title:before  {
 
 .fc-col-d-2-green:not([class*="lever"]) {
     border-bottom: 1px solid #388e3c;
-    box-shadow: 0px 1px #388e3c;
 }
 .col-d-2-green {
     color: #388e3c;
@@ -7307,7 +7209,6 @@ ul.stepper.horizontal.stepper-col-d-3-green .step.done .step-title:before  {
 
 .fc-col-d-3-green:not([class*="lever"]) {
     border-bottom: 1px solid #2e7d32;
-    box-shadow: 0px 1px #2e7d32;
 }
 .col-d-3-green{
     color: #2e7d32;
@@ -7379,7 +7280,6 @@ ul.stepper.horizontal.stepper-col-d-4-green .step.done .step-title:before  {
 
 .fc-col-d-4-green:not([class*="lever"]) {
     border-bottom: 1px solid #1b5e20;
-    box-shadow: 0px 1px #1b5e20;
 }
 .col-d-4-green{
     color: #1b5e20;
@@ -7470,7 +7370,6 @@ ul.stepper.horizontal.stepper-col-light-green .step.done .step-title:before{
 
 .fc-col-light-green:not([class*="lever"]) {
     border-bottom: 1px solid #8BC34A;
-    box-shadow: 0px 1px #8BC34A;
 }
 .col-light-green{
     color: #8BC34A;
@@ -7546,7 +7445,6 @@ ul.stepper.horizontal.stepper-col-l-1-light-green .step.done .step-title:before 
 
 .fc-col-l-1-light-green:not([class*="lever"]) {
     border-bottom: 1px solid #9ccc65;
-    box-shadow: 0px 1px #9ccc65;
 }
 .col-l-1-light-green {
     color: #9ccc65;
@@ -7617,7 +7515,6 @@ ul.stepper.horizontal.stepper-col-l-2-light-green .step.done .step-title:before 
 
 .fc-col-l-2-light-green:not([class*="lever"]) {
     border-bottom: 1px solid #aed581;
-    box-shadow: 0px 1px #aed581;
 }
 .col-l-2-light-green {
     color: #aed581;
@@ -7690,7 +7587,6 @@ ul.stepper.horizontal.stepper-col-l-3-light-green .step.done .step-title:before 
 
 .fc-col-l-3-light-green:not([class*="lever"]) {
     border-bottom: 1px solid #c5e1a5;
-    box-shadow: 0px 1px #c5e1a5;
 }
 
 .col-l-3-light-green {
@@ -7763,7 +7659,6 @@ ul.stepper.horizontal.stepper-col-l-4-light-green .step.done .step-title:before 
 
 .fc-col-l-4-light-green:not([class*="lever"]) {
     border-bottom: 1px solid #dcedc8;
-    box-shadow: 0px 1px #dcedc8;
 }
 .col-l-4-light-green{
     color: #dcedc8;
@@ -7835,7 +7730,6 @@ ul.stepper.horizontal.stepper-col-l-5-light-green .step.done .step-title:before 
 
 .fc-col-l-5-light-green:not([class*="lever"]) {
     border-bottom: 1px solid #f1f8e9;
-    box-shadow: 0px 1px #f1f8e9;
 }
 .col-l-5-light-green {
     color: #f1f8e9;
@@ -7907,7 +7801,6 @@ ul.stepper.horizontal.stepper-col-d-1-light-green .step.done .step-title:before 
 
 .fc-col-d-1-light-green:not([class*="lever"]) {
     border-bottom: 1px solid #7cb342;
-    box-shadow: 0px 1px #7cb342;
 }
 .col-d-1-light-green {
     color: #7cb342;
@@ -7979,7 +7872,6 @@ ul.stepper.horizontal.stepper-col-d-2-light-green .step.done .step-title:before 
 
 .fc-col-d-2-light-green:not([class*="lever"]) {
     border-bottom: 1px solid #689f38;
-    box-shadow: 0px 1px #689f38;
 }
 .col-d-2-light-green {
     color: #689f38;
@@ -8051,7 +7943,6 @@ ul.stepper.horizontal.stepper-col-d-3-light-green .step.done .step-title:before 
 
 .fc-col-d-3-light-green:not([class*="lever"]) {
     border-bottom: 1px solid #558b2f;
-    box-shadow: 0px 1px #558b2f;
 }
 .col-d-3-light-green{
     color: #558b2f;
@@ -8123,7 +8014,6 @@ ul.stepper.horizontal.stepper-col-d-4-light-green .step.done .step-title:before 
 
 .fc-col-d-4-light-green:not([class*="lever"]) {
     border-bottom: 1px solid #33691e;
-    box-shadow: 0px 1px #33691e;
 }
 .col-d-4-light-green{
     color: #33691e;
@@ -8214,7 +8104,6 @@ ul.stepper.horizontal.stepper-col-lime .step.done .step-title:before{
 
 .fc-col-lime:not([class*="lever"]) {
     border-bottom: 1px solid #CDDC39;
-    box-shadow: 0px 1px #CDDC39;
 }
 .col-lime{
     color: #CDDC39;
@@ -8290,7 +8179,6 @@ ul.stepper.horizontal.stepper-col-l-1-lime .step.done .step-title:before  {
 
 .fc-col-l-1-lime:not([class*="lever"]) {
     border-bottom: 1px solid #d4e157;
-    box-shadow: 0px 1px #d4e157;
 }
 .col-l-1-lime {
     color: #d4e157;
@@ -8361,7 +8249,6 @@ ul.stepper.horizontal.stepper-col-l-2-lime .step.done .step-title:before   {
 
 .fc-col-l-2-lime:not([class*="lever"]) {
     border-bottom: 1px solid #dce775;
-    box-shadow: 0px 1px #dce775;
 }
 .col-l-2-lime {
     color: #dce775;

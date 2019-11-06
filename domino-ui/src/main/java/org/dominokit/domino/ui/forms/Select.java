@@ -23,8 +23,10 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
@@ -36,8 +38,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
     private DominoElement<HTMLButtonElement> buttonElement;
     private DominoElement<HTMLElement> buttonValueContainer = DominoElement.of(span().css("select-value", Styles.ellipsis_text));
-    private DominoElement<HTMLDivElement> iconContainer = DominoElement.of(div().css(Styles.pull_right));
-    private DropDownMenu optionsMenu = DropDownMenu.create(buttonElement).styler(style1 -> style1.add("select-option-menu"));
+    private DropDownMenu optionsMenu;
 
     private LinkedList<SelectOption<T>> options = new LinkedList<>();
     private SelectOption<T> selectedOption;
@@ -48,13 +49,10 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
     private List<ChangeHandler<? super T>> changeHandlers = new ArrayList<>();
 
-    private Color focusColor = Color.BLUE;
-    private boolean readOnly;
     private boolean searchable;
     private boolean valid = true;
-    private boolean focused;
     private boolean clearable;
-    private boolean floating;
+    private FlexItem arrowIconContainer;
 
     public static <T> Select<T> create() {
         return new Select<>();
@@ -82,8 +80,12 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
     public Select() {
         super("button", "");
+        optionsMenu = DropDownMenu.create(fieldContainer).styler(style1 -> style1.add("select-option-menu"));
+        optionsMenu.setAppendTarget(fieldContainer.asElement());
+        optionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
+        optionsMenu.setPosition(new PopupPositionTopDown(this));
+        buttonElement.appendChild(buttonValueContainer);
         initListeners();
-        init(this);
         dropdown();
         setSearchable(true);
         addChangeHandler(value -> {
@@ -91,7 +93,6 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
                 clear();
             }
         });
-
     }
 
     public Select(String label) {
@@ -119,8 +120,8 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
         buttonElement.addEventListener(CLICK_EVENT, clickListener);
         getLabelElement().addEventListener(CLICK_EVENT, clickListener);
-        buttonElement.addEventListener("focus", evt -> doFocus());
-        buttonElement.addEventListener("blur", evt -> doUnfocus());
+        buttonElement.addEventListener("focus", evt -> focus());
+        buttonElement.addEventListener("blur", evt -> unfocus());
         optionsMenu.addCloseHandler(this::doFocus);
     }
 
@@ -314,15 +315,29 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     }
 
     public Select<T> dropup() {
-        optionsMenu.setPosition(DropDownPosition.TOP);
-        iconContainer.clearElement()
-                .appendChild(getDropupIcon());
+        optionsMenu.appendChild(optionsMenu.getSearchContainer());
+        optionsMenu
+                .getSearchContainer()
+                .style()
+                .remove("pos-top")
+                .add("pos-bottom");
+        optionsMenu
+                .style()
+                .remove("pos-top")
+                .add("pos-bottom");
         return this;
     }
 
     public Select<T> dropdown() {
-        optionsMenu.setPosition(DropDownPosition.BOTTOM);
-        iconContainer.clearElement().appendChild(getDropdownIcon());
+        optionsMenu.insertFirst(optionsMenu.getSearchContainer());
+        optionsMenu.getSearchContainer()
+                .style()
+                .remove("pos-bottom")
+                .add("pos-top");
+        optionsMenu
+                .style()
+                .remove("pos-bottom")
+                .add("pos-top");
         return this;
     }
 
@@ -392,23 +407,6 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
         return this;
     }
 
-
-    private void doFocus() {
-        if (isEnabled() && !isReadOnly()) {
-            floatLabel();
-            if (valid) {
-                super.focus();
-                this.focused = true;
-            }
-        }
-    }
-
-    private void doUnfocus() {
-        super.unfocus();
-        unfloatLabel();
-        this.focused = false;
-    }
-
     public Select<T> removeOption(SelectOption<T> option) {
         if (nonNull(option) && getOptions().contains(option)) {
             option.deselect(true);
@@ -436,27 +434,18 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
     @Override
     public Select<T> setReadOnly(boolean readOnly) {
-
-        //TODO implement readonly mode
-        this.readOnly = readOnly;
+        super.setReadOnly(readOnly);
         if (readOnly) {
-//            formControl.style().add("readonly");
-            iconContainer.hide();
+            arrowIconContainer.hide();
             floatLabel();
         } else {
-//            formControl.style().remove("readonly");
-            iconContainer.show();
+            arrowIconContainer.show();
             if (isEmpty()) {
                 unfloatLabel();
             }
         }
         buttonElement.setReadOnly(readOnly);
         return this;
-    }
-
-    @Override
-    public boolean isReadOnly() {
-        return readOnly;
     }
 
     @FunctionalInterface
@@ -559,18 +548,6 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
         return this;
     }
 
-    public Select<T> floating() {
-        getSelectLabel().style().add(FOCUSED);
-        this.floating = true;
-        return this;
-    }
-
-    public Select<T> nonfloating() {
-        getSelectLabel().style().remove(FOCUSED);
-        this.floating = false;
-        return this;
-    }
-
     public Select<T> setClearable(boolean clearable) {
         this.clearable = clearable;
         if (clearable && !options.contains(noneOption)) {
@@ -611,11 +588,12 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
         if (isNull(arrowIconSupplier)) {
             arrowIcon = Icons.ALL.menu_down_mdi()
                     .clickable();
-        }else {
+        } else {
             arrowIcon = arrowIconSupplier.get()
                     .clickable();
         }
-        return FlexItem.create().appendChild(arrowIcon);
+        arrowIconContainer = FlexItem.create().appendChild(arrowIcon);
+        return arrowIconContainer;
     }
 
     @Override
@@ -626,5 +604,54 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     @Override
     protected void doSetValue(T value) {
 
+    }
+
+    public static class PopupPositionTopDown implements DropDownPosition {
+
+        private DropDownPositionUp up = new DropDownPositionUp();
+        private DropDownPositionDown down = new DropDownPositionDown();
+
+        private final Select<?> select;
+
+        public PopupPositionTopDown(Select<?> select) {
+            this.select = select;
+        }
+
+        @Override
+        public void position(HTMLElement popup, HTMLElement target) {
+            ClientRect targetRect = target.getBoundingClientRect();
+
+            double distanceToMiddle = ((targetRect.top) - (targetRect.height / 2));
+            double windowMiddle = DomGlobal.window.innerHeight / 2;
+
+            if (distanceToMiddle >= windowMiddle) {
+                up.position(popup, target);
+                select.dropup();
+                popup.setAttribute("popup-direction", "top");
+            } else {
+                down.position(popup, target);
+                select.dropdown();
+                popup.setAttribute("popup-direction", "down");
+            }
+
+            popup.style.setProperty("width", targetRect.width + "px");
+            popup.style.setProperty("left", px.of(0));
+        }
+    }
+
+    public static class DropDownPositionUp implements DropDownPosition {
+        @Override
+        public void position(HTMLElement actionsMenu, HTMLElement target) {
+            actionsMenu.style.setProperty("bottom", px.of(-1));
+            actionsMenu.style.removeProperty("top");
+        }
+    }
+
+    public static class DropDownPositionDown implements DropDownPosition {
+        @Override
+        public void position(HTMLElement actionsMenu, HTMLElement target) {
+            actionsMenu.style.removeProperty("bottom");
+            actionsMenu.style.setProperty("top", px.of(0));
+        }
     }
 }

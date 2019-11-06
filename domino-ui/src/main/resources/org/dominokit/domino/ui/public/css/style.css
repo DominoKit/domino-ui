@@ -2256,38 +2256,38 @@ a {
 }
 
 /* Checkbox & Radio ============================ */
-[type="checkbox"] + label {
-    padding-left: 26px;
-    height: 25px;
-    line-height: 24px;
-    font-size: 13px;
-    font-weight: normal;
-}
+/*[type="checkbox"] + label {*/
+/*    padding-left: 26px;*/
+/*    height: 25px;*/
+/*    line-height: 24px;*/
+/*    font-size: 13px;*/
+/*    font-weight: normal;*/
+/*}*/
 
-[type="checkbox"]:checked + label:before {
-    top: -4px;
-    left: -2px;
-    width: 11px;
-    height: 19px;
-}
+/*[type="checkbox"]:checked + label:before {*/
+/*    top: -4px;*/
+/*    left: -2px;*/
+/*    width: 11px;*/
+/*    height: 19px;*/
+/*}*/
 
-[type="checkbox"].filled-in:checked + label:after {
-    top: 0;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #26a69a;
-    background-color: #26a69a;
-    z-index: 0;
-}
+/*[type="checkbox"].filled-in:checked + label:after {*/
+/*    top: 0;*/
+/*    width: 20px;*/
+/*    height: 20px;*/
+/*    border: 2px solid #26a69a;*/
+/*    background-color: #26a69a;*/
+/*    z-index: 0;*/
+/*}*/
 
-[type="checkbox"].filled-in:checked + label:before {
-    border-right: 2px solid #fff !important;
-    border-bottom: 2px solid #fff !important;
-}
+/*[type="checkbox"].filled-in:checked + label:before {*/
+/*    border-right: 2px solid #fff !important;*/
+/*    border-bottom: 2px solid #fff !important;*/
+/*}*/
 
-.form-control[readonly] > [type="checkbox"] + label::after {
-    display: none;
-}
+/*.form-control[readonly] > [type="checkbox"] + label::after {*/
+/*    display: none;*/
+/*}*/
 
 .form-control.readonly .form-group {
     margin-bottom: 0px;
@@ -3834,7 +3834,6 @@ a.disabled {
 
 .fc-col-transparent {
     border-bottom: 1px solid transparent !important;
-    box-shadow: 0px 1px transparent !important;
 }
 
 .error-info {
@@ -4048,13 +4047,13 @@ a.disabled {
     width: 100%;
 }
 
-.form-control[readonly] [type="checkbox"] + label {
-    cursor: default;
-}
+/*.form-control[readonly] [type="checkbox"] + label {*/
+/*    cursor: default;*/
+/*}*/
 
-.form-control[readonly] [type="checkbox"] + label:before {
-    content: none;
-}
+/*.form-control[readonly] [type="checkbox"] + label:before {*/
+/*    content: none;*/
+/*}*/
 
 /*x-Large screens*/
 @media screen and (min-width: 1800px) {
@@ -4424,7 +4423,6 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 
 .select-button[disabled] {
     cursor: not-allowed;
-    opacity: .65;
 }
 
 .select-button[readonly] {
@@ -4455,7 +4453,7 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
     width: 100%;
     text-align: left;
     position: absolute !important;
-    top: 6px !important;
+    top: 0px !important;
     left: 0 !important;
     padding-right: 40px;
 }

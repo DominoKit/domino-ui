@@ -25,10 +25,10 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     private DominoElement<E> inputElement;
 
-    private FlexLayout fieldGroup = FlexLayout.create();
-    private FlexItem fieldContainer = FlexItem.create();
-    private FlexItem inputContainer = FlexItem.create();
-    private FlexItem notesContainer = FlexItem.create();
+    protected DominoElement<HTMLDivElement> fieldGroup = DominoElement.div();
+    protected DominoElement<HTMLDivElement> fieldContainer = DominoElement.div();
+    protected FlexItem inputContainer = FlexItem.create();
+    private DominoElement<HTMLDivElement> notesContainer = DominoElement.div();
 
     private FlexLayout leftAddOnsContainer = FlexLayout.create();
     private FlexLayout rightAddOnsContainer = FlexLayout.create();
@@ -52,6 +52,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     private boolean valid = true;
     private boolean floating;
     private boolean readOnly;
+    private boolean focused;
     private String prefix;
     private String postfix;
 
@@ -69,12 +70,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     private void layout() {
         fieldGroup.css("field-group");
-        fieldGroup.setDirection(FlexDirection.TOP_TO_BOTTOM);
         fieldContainer
-                .setFlexGrow(1)
                 .css("field-cntr");
         notesContainer
-                .setFlexGrow(1)
                 .css("notes-cntr");
 
         leftAddOnsContainer
@@ -92,8 +90,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
                                 .appendChild(inputContainer
                                         .css("field-input-cntr")
                                         .setFlexGrow(1)
-                                        .appendChild(labelElement)
                                         .appendChild(inputElement)
+                                        .appendChild(labelElement)
                                 )
                                 .appendChild(postFixItem
                                         .css("field-postfix")
@@ -177,9 +175,11 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         if (!isAttached()) {
             ElementUtil.onAttach(getInputElement(), mutationRecord -> {
                 getInputElement().asElement().focus();
+                doFocus();
             });
         } else {
             getInputElement().asElement().focus();
+            doFocus();
         }
         return (T) this;
     }
@@ -189,14 +189,16 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         if (!isAttached()) {
             ElementUtil.onAttach(getInputElement(), mutationRecord -> {
                 getInputElement().asElement().blur();
+                doUnfocus();
             });
         } else {
             getInputElement().asElement().blur();
+            doUnfocus();
         }
         return (T) this;
     }
 
-    private void doFocus() {
+    protected void doFocus() {
         fieldGroup.style().add(FOCUSED);
         floatLabel();
         if (valid) {
@@ -206,7 +208,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         showPlaceholder();
     }
 
-    private void doUnfocus() {
+    protected void doUnfocus() {
         fieldGroup.style().remove(FOCUSED);
         fieldContainer.style().remove("fc-" + focusColor.getStyle(), FOCUSED);
         unfloatLabel();
@@ -487,13 +489,13 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         if (readOnly) {
             getInputElement().setAttribute(DISABLED, "true");
             getInputElement().setAttribute("readonly", "true");
-            getInputElement().style().add("readonly");
             getInputElement().setAttribute(FLOATING, isFloating());
+            css("readonly");
             floating();
         } else {
             getInputElement().removeAttribute(DISABLED);
             getInputElement().removeAttribute("readonly");
-            getInputElement().style().remove("readonly");
+            removeCss("readonly");
             boolean floating;
             if (getInputElement().hasAttribute(FLOATING)) {
                 floating = Boolean.parseBoolean(getInputElement().getAttribute(FLOATING));
@@ -606,6 +608,50 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         this.postFixItem.setTextContent(postfix);
         this.postfix = postfix;
         return (T) this;
+    }
+
+    public DominoElement<HTMLDivElement> getFieldGroup() {
+        return fieldGroup;
+    }
+
+    public FlexItem getInputContainer() {
+        return inputContainer;
+    }
+
+    public DominoElement<HTMLDivElement> getNotesContainer() {
+        return notesContainer;
+    }
+
+    public FlexLayout getLeftAddOnsContainer() {
+        return leftAddOnsContainer;
+    }
+
+    public FlexLayout getRightAddOnsContainer() {
+        return rightAddOnsContainer;
+    }
+
+    public FlexItem getHelpItem() {
+        return helpItem;
+    }
+
+    public FlexItem getCountItem() {
+        return countItem;
+    }
+
+    public FlexItem getErrorItem() {
+        return errorItem;
+    }
+
+    public FlexItem getPrefixItem() {
+        return prefixItem;
+    }
+
+    public FlexItem getPostFixItem() {
+        return postFixItem;
+    }
+
+    public Color getFocusColor() {
+        return focusColor;
     }
 
     public String getPostfix() {
