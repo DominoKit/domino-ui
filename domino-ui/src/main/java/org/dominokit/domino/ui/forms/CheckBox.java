@@ -13,7 +13,6 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-
 public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> implements Checkable<CheckBox> {
 
     public static final String READONLY = "readonly";
@@ -170,7 +169,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
 
     @Override
     public CheckBox clear() {
-        value(false);
+        super.clear();
         return this;
     }
 
@@ -236,12 +235,6 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     }
 
     @Override
-    protected DominoElement<HTMLElement> getHelperContainer() {
-        //TODO implement this
-        return null;
-    }
-
-    @Override
     protected HTMLElement createInputElement(String type) {
         inputElement = DominoElement.of(input("checkbox"));
         return inputElement.asElement();
@@ -249,7 +242,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
 
     @Override
     protected void clearValue() {
-        setValue(false);
+        value(false);
     }
 
     @Override

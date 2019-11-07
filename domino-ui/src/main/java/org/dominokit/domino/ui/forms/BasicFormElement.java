@@ -24,7 +24,6 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     private static final String NAME = "name";
     private DominoElement<HTMLLabelElement> helperLabel = DominoElement.of(label().css("help-info"));
-    private List<HTMLLabelElement> errorLabels = new ArrayList<>();
     private ElementValidations elementValidations = new ElementValidations(this);
     private RequiredValidator requiredValidator = new RequiredValidator(this);
     private String helperText;
@@ -115,13 +114,19 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     @Override
     public T invalidate(List<String> errorMessages) {
-        helperLabel.toggleDisplay(errorMessages.isEmpty());
+        getHelperContainer().toggleDisplay(errorMessages.isEmpty());
         removeErrors();
+        getErrorsContainer().toggleDisplay(!errorMessages.isEmpty());
+
+        if(!errorMessages.isEmpty()){
+            css("error");
+        }else{
+            removeCss("error");
+        }
 
         errorMessages.forEach(message -> {
             HTMLLabelElement errorLabel = makeErrorLabel(message);
-            errorLabels.add(errorLabel);
-            getFieldContainer().appendChild(errorLabel);
+            getErrorsContainer().appendChild(errorLabel);
         });
 
         return (T) this;
@@ -133,14 +138,15 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     @Override
     public T clearInvalid() {
-        helperLabel.show();
+        getHelperContainer().show();
         removeErrors();
+        getErrorsContainer().hide();
         return (T) this;
     }
 
     private void removeErrors() {
-        errorLabels.forEach(Element::remove);
-        errorLabels.clear();
+        getErrorsContainer().clearElement();
+        removeCss("error");
     }
 
     @Override
@@ -195,6 +201,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     protected abstract DominoElement<HTMLDivElement> getFieldContainer();
     protected abstract DominoElement<HTMLElement> getHelperContainer();
+    protected abstract DominoElement<HTMLElement> getErrorsContainer();
     protected abstract DominoElement<HTMLLabelElement> getLabelElement();
 
     public DominoElement<HTMLElement> getLabelTextElement(){

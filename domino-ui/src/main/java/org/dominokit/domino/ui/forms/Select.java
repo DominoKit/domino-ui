@@ -10,29 +10,22 @@ import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
-import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.Focusable;
-import org.dominokit.domino.ui.utils.HasChangeHandlers;
-import org.dominokit.domino.ui.utils.IsReadOnly;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.button;
+import static org.jboss.gwt.elemento.core.Elements.span;
 
 public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
     private static final String CLICK_EVENT = "click";
-    private static final String FOCUSED = "focused";
 
     private SelectOption<T> noneOption = SelectOption.create(null, "none", "None");
 
@@ -569,12 +562,6 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
     public String getClearableText() {
         return noneOption.getDisplayValue();
-    }
-
-    @Override
-    protected DominoElement<HTMLElement> getHelperContainer() {
-        //TODO implement this
-        return null;
     }
 
     @Override

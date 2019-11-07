@@ -1,7 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.*;
-import org.dominokit.domino.ui.grid.flex.FlexDirection;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.BaseIcon;
@@ -33,9 +32,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     private FlexLayout leftAddOnsContainer = FlexLayout.create();
     private FlexLayout rightAddOnsContainer = FlexLayout.create();
 
-    private FlexItem helpItem = FlexItem.create();
-    private FlexItem countItem = FlexItem.create();
-    private FlexItem errorItem = FlexItem.create();
+    private FlexItem helpItem;
+    private FlexItem countItem;
+    private FlexItem errorItem;
 
     private FlexItem prefixItem = FlexItem.create();
     private FlexItem postFixItem = FlexItem.create();
@@ -57,6 +56,10 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     private String postfix;
 
     public ValueBox(String type, String label) {
+        helpItem = FlexItem.create();
+        countItem = FlexItem.create();
+        errorItem = FlexItem.create();
+
         init((T) this);
         inputElement = DominoElement.of(createInputElement(type));
         inputElement.addEventListener("change", evt -> callChangeHandlers());
@@ -382,6 +385,10 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     protected DominoElement<HTMLElement> getHelperContainer() {
         return DominoElement.of(helpItem.asElement());
     }
+    @Override
+    protected DominoElement<HTMLElement> getErrorsContainer() {
+        return DominoElement.of(errorItem.asElement());
+    }
 
     @Override
     public V getValue() {
@@ -423,8 +430,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     private void updateValidationStyles() {
-        inputElement.style().remove("fc-" + focusColor.getStyle());
-        inputElement.style().add("fc-" + Color.RED.getStyle());
+        fieldContainer.style().remove("fc-" + focusColor.getStyle());
+        fieldContainer.style().add("fc-" + Color.RED.getStyle());
         removeLabelColor(focusColor);
         setLabelColor(Color.RED);
         changeLabelFloating();
@@ -433,8 +440,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     @Override
     public T clearInvalid() {
         this.valid = true;
-        inputElement.style().add("fc-" + focusColor.getStyle());
-        inputElement.style().remove("fc-" + Color.RED.getStyle());
+        fieldContainer.style().add("fc-" + focusColor.getStyle());
+        fieldContainer.style().remove("fc-" + Color.RED.getStyle());
         removeLabelColor(Color.RED);
         if (isFocused()) {
             doFocus();

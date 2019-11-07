@@ -327,6 +327,12 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     @Override
     protected DominoElement<HTMLElement> getHelperContainer() {
         //TODO implement this
-        return null;
+        return DominoElement.of(formControl);
+    }
+
+    @Override
+    protected DominoElement<HTMLElement> getErrorsContainer() {
+        //TODO implement this
+        return DominoElement.of(formControl);
     }
 }

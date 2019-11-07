@@ -20,6 +20,7 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
     public TextArea(String label) {
         super("", label);
         setRows(4);
+        css("auto-height");
     }
 
     public static TextArea create() {
