@@ -1,5 +1,6 @@
 .field-group{
     margin-bottom: 15px;
+    position: relative;
 }
 
 .field-group.condensed{
@@ -118,6 +119,11 @@
     white-space: nowrap;
 }
 
+.field-group:not([class*="readonly"]) .field-postfix,
+.field-group:not([class*="readonly"]) .field-prefix{
+    color: #1d1d1d;
+}
+
 .field-group .field-note {
     flex-grow: 1;
     font-family: Roboto, sans-serif;
@@ -186,16 +192,16 @@
 
 .field-group.lined input,
 .field-group.lined .select-button {
-    line-height: 26px;
+    line-height: 27px;
 }
 
 .field-group.rounded input,
 .field-group .rounded.select-button {
-    line-height: 32px;
+    line-height: 33px;
 }
 
 .field-group input {
-    height: 26px;
+    height: 27px;
 }
 
 .field-group .select-button {
@@ -239,7 +245,9 @@
 .field-group.disabled .field-helper,
 .field-group.disabled .field-counter,
 .field-group.disabled .field-rgt-addons,
-.field-group.disabled .field-lft-addons {
+.field-group.disabled .field-lft-addons,
+.field-group.disabled .select-button,
+.field-group.disabled input {
     color: rgba(0, 0, 0, 0.3);
 }
 
@@ -563,4 +571,20 @@ label {
 
 .field-group.switch .switch-label {
     margin-top: 7px;
+}
+
+[type="checkbox"].filled-in[class*="col-"]:checked + label:before,
+[type="checkbox"].filled-in:checked + label:before {
+    top: 0;
+    left: 1px;
+    width: 8px;
+    height: 13px;
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    -webkit-transform: rotateZ(37deg);
+    transform: rotateZ(37deg);
+    -webkit-transform-origin: 100% 100%;
+    transform-origin: 100% 100%;
 }
