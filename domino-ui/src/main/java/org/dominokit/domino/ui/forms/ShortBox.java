@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
+import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
 public class ShortBox extends NumberBox<ShortBox, Short> {

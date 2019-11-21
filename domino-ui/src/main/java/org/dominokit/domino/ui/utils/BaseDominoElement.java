@@ -198,26 +198,50 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
-    public T insertBefore(Node newNode, Node oldNode) {
-        asElement().insertBefore(newNode, oldNode);
+    public T insertBefore(Node newNode, Node otherNode) {
+        asElement().insertBefore(newNode, otherNode);
         return (T) this;
     }
 
     @Editor.Ignore
-    public T insertBefore(Node newNode, BaseDominoElement oldNode) {
-        asElement().insertBefore(newNode, oldNode.asElement());
+    public T insertBefore(Node newNode, BaseDominoElement otherNode) {
+        asElement().insertBefore(newNode, otherNode.asElement());
         return element;
     }
 
     @Editor.Ignore
-    public T insertBefore(BaseDominoElement newNode, BaseDominoElement oldNode) {
-        asElement().insertBefore(newNode.asElement(), oldNode.asElement());
+    public T insertBefore(BaseDominoElement newNode, BaseDominoElement otherNode) {
+        asElement().insertBefore(newNode.asElement(), otherNode.asElement());
         return element;
     }
 
     @Editor.Ignore
-    public T insertBefore(BaseDominoElement newNode, Node oldNode) {
-        asElement().insertBefore(newNode.asElement(), oldNode);
+    public T insertBefore(BaseDominoElement newNode, Node otherNode) {
+        asElement().insertBefore(newNode.asElement(), otherNode);
+        return element;
+    }
+
+    @Editor.Ignore
+    public T insertAfter(Node newNode, Node otherNode) {
+        asElement().insertBefore(newNode, otherNode.nextSibling);
+        return (T) this;
+    }
+
+    @Editor.Ignore
+    public T insertAfter(Node newNode, BaseDominoElement otherNode) {
+        asElement().insertBefore(newNode, otherNode.asElement().nextSibling);
+        return element;
+    }
+
+    @Editor.Ignore
+    public T insertAfter(BaseDominoElement newNode, BaseDominoElement otherNode) {
+        asElement().insertBefore(newNode.asElement(), otherNode.asElement().nextSibling);
+        return element;
+    }
+
+    @Editor.Ignore
+    public T insertAfter(BaseDominoElement newNode, Node otherNode) {
+        asElement().insertBefore(newNode.asElement(), otherNode.nextSibling);
         return element;
     }
 
@@ -560,6 +584,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         setAttribute("disabled", "");
         style().add("disabled");
         return element;
+    }
+
+    public boolean isDisabled(){
+        return hasAttribute("disabled");
     }
 
     @Editor.Ignore

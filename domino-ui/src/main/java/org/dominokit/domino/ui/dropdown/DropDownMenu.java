@@ -40,6 +40,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     private List<DropdownAction> actions = new ArrayList<>();
     private boolean touchMoved;
     private List<CloseHandler> closeHandlers = new ArrayList<>();
+    private List<OpenHandler> openHandlers = new ArrayList<>();
     private boolean closeOnEscape;
     private boolean searchable;
     private boolean caseSensitiveSearch = false;
@@ -107,6 +108,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         menuElement.appendChild(noSearchResultsElement);
 
         titleContainer.addClickListener(Event::stopPropagation);
+
+        onDetached(mutationRecord -> closeHandlers.forEach(CloseHandler::onClose));
     }
 
     private int firstVisibleActionIndex() {
@@ -234,18 +237,21 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     public void open() {
         if (hasActions()) {
             onAttached(mutationRecord -> {
-            position.position(element.asElement(), targetElement);
-            if (searchable) {
-                searchBox.asElement().focus();
-                clearSearch();
-            }
+                position.position(element.asElement(), targetElement);
+                if (searchable) {
+                    searchBox.asElement().focus();
+                    clearSearch();
+                }
 
-            element.style().setProperty("z-index", ModalBackDrop.getNextZIndex() + "");
+                element.style().setProperty("z-index", ModalBackDrop.getNextZIndex() + "");
+                openHandlers.forEach(OpenHandler::onOpen);
             });
 
             if (!appendTarget.contains(element.asElement())) {
                 appendStrategy.onAppend(appendTarget, element.asElement());
             }
+
+
         }
     }
 
@@ -289,6 +295,21 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
     public DropDownMenu addCloseHandler(CloseHandler closeHandler) {
         closeHandlers.add(closeHandler);
+        return this;
+    }
+
+    public DropDownMenu removeCloseHandler(CloseHandler closeHandler) {
+        closeHandlers.remove(closeHandler);
+        return this;
+    }
+
+    public DropDownMenu addOpenHandler(OpenHandler openHandler) {
+        openHandlers.add(openHandler);
+        return this;
+    }
+
+    public DropDownMenu removeOpenHandler(OpenHandler openHandler) {
+        openHandlers.remove(openHandler);
         return this;
     }
 
@@ -385,6 +406,11 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     @FunctionalInterface
     public interface CloseHandler {
         void onClose();
+    }
+
+    @FunctionalInterface
+    public interface OpenHandler {
+        void onOpen();
     }
 
     @FunctionalInterface

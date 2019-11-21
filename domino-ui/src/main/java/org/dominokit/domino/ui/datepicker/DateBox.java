@@ -7,7 +7,11 @@ import elemental2.dom.KeyboardEvent;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.FormFieldsStyles;
 import org.dominokit.domino.ui.forms.ValueBox;
+import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
@@ -45,6 +49,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     private boolean openOnFocus = false;
     private boolean focused = false;
     private boolean handlerPaused = false;
+    private FlexItem calendarIconContainer;
+    private MdiIcon calendarIcon;
 
     public DateBox() {
         this(new Date());
@@ -233,7 +239,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             this.handlerPaused = false;
             setStringValue(this.datePicker.getDate(), datePicker.getDateTimeFormatInfo());
             this.value = this.datePicker.getDate();
-        }else{
+        } else {
             setStringValue(value, datePicker.getDateTimeFormatInfo());
             this.value = value;
         }
@@ -403,6 +409,32 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             return Formatter.getFormat(this.pattern, datePicker.getDateTimeFormatInfo()).format(value);
         }
         return null;
+    }
+
+    @Override
+    protected FlexItem createMandatoryAddOn() {
+        calendarIcon = Icons.ALL.calendar_mdi();
+        calendarIcon.clickable()
+                .addClickListener(evt -> {
+                    evt.stopPropagation();
+                    open();
+                });
+        calendarIconContainer = FlexItem.create();
+        return calendarIconContainer
+                .appendChild(calendarIcon);
+    }
+
+    public FlexItem getCalendarIconContainer() {
+        return calendarIconContainer;
+    }
+
+    public MdiIcon getCalendarIcon() {
+        return calendarIcon;
+    }
+
+    @Override
+    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+        return new InputAutoValidator<>(getInputElement(), autoValidate);
     }
 
     public DateBox setInvalidFormatMessage(String invalidFormatMessage) {

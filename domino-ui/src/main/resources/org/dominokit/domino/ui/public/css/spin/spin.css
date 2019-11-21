@@ -91,6 +91,7 @@
 .v-spin .spin-container {
     position: relative;
     overflow: hidden;
+    overflow: -moz-hidden-unscrollable;
     height: 100%;
 }
 

@@ -5,6 +5,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLOptionElement;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 
 import java.util.Collection;
@@ -173,5 +174,10 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
 
     public boolean isEmptyAsNull() {
         return emptyAsNull;
+    }
+
+    @Override
+    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+        return new InputAutoValidator<>(getInputElement(), autoValidate);
     }
 }

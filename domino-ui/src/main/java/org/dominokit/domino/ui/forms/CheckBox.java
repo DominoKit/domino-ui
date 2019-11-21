@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> implements Checkable<CheckBox> {
@@ -19,7 +18,6 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     private DominoElement<HTMLInputElement> inputElement;
     private List<ChangeHandler<? super Boolean>> changeHandlers = new ArrayList<>();
     private Color color;
-    private ChangeHandler<? super Boolean> autoValidationHandler;
     private String checkedReadonlyLabel = "Yes";
     private String unCheckedReadonlyLabel = "No";
     private String label;
@@ -174,25 +172,6 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     }
 
     @Override
-    public CheckBox setAutoValidation(boolean autoValidation) {
-        if (autoValidation) {
-            if (isNull(autoValidationHandler)) {
-                autoValidationHandler = checked -> validate();
-                addChangeHandler(autoValidationHandler);
-            }
-        } else {
-            removeChangeHandler(autoValidationHandler);
-            autoValidationHandler = null;
-        }
-        return this;
-    }
-
-    @Override
-    public boolean isAutoValidation() {
-        return nonNull(autoValidationHandler);
-    }
-
-    @Override
     public CheckBox setReadOnly(boolean readOnly) {
         super.setReadOnly(readOnly);
         if (readOnly) {
@@ -248,5 +227,38 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     @Override
     protected void doSetValue(Boolean value) {
 
+    }
+
+    @Override
+    protected boolean isAddFocusColor() {
+        return false;
+    }
+
+    @Override
+    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+        return new CheckBoxAutoValidator<>(this, autoValidate);
+    }
+
+    private static class CheckBoxAutoValidator<T> extends AutoValidator{
+
+        private CheckBox checkBox;
+        private ChangeHandler<Boolean> changeHandler;
+
+        public CheckBoxAutoValidator(CheckBox checkBox, AutoValidate autoValidate) {
+            super(autoValidate);
+            this.checkBox = checkBox;
+        }
+
+        @Override
+        public void attach() {
+
+            changeHandler = value -> autoValidate.apply();
+            checkBox.addChangeHandler(changeHandler);
+        }
+
+        @Override
+        public void remove() {
+            checkBox.removeChangeHandler(changeHandler);
+        }
     }
 }

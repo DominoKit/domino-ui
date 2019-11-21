@@ -360,11 +360,6 @@ table th[class*="col-"] {
     font-weight: 300;
 }
 
-.table-search-box {
-    background-color: #efefef;
-    border-radius: 3px;
-}
-
 .table-responsive .table-header{
     padding: 20px;
     position: relative;
@@ -390,12 +385,6 @@ table th[class*="col-"] {
 .table-responsive .table-header:not([class*="bg-"]) h2,
 .table-responsive .table-header:not([class*="bg-"]) small {
     color: #202020;
-}
-
-.table-search-box .form-line .form-control {
-    background-color: #efefef;
-    border-bottom: 0px;
-    box-shadow: none;
 }
 
 .details-td {
@@ -438,23 +427,49 @@ table th[class*="col-"] {
     margin-top: 4px !important;
 }
 
-.table .select-checkbox {
+.table .select-checkbox .field-label{
     margin: 0px;
     height: 20px;
 }
 
-.table .select-checkbox .checkbox {
+.table .select-checkbox .field-label{
+    top: -5px;
+}
+
+.table .field-group.select-checkbox.d-checkbox{
     margin: 0px;
     height: 20px;
 }
 
-.table .select-checkbox .form-control {
+.table .field-group.select-checkbox .field-cntr{
+    padding: 5px;
+}
+.table .field-group.select-checkbox{
     height: 20px;
     padding: 0px;
     background: transparent;
 }
 
-.table .select-checkbox .form-control label {
+.table .field-group.select-checkbox label {
     height: 20px;
     margin-bottom: 0px;
+}
+
+.table .field-group.select-checkbox.d-checkbox.floating .field-label{
+    top: -5px;
+}
+
+.table-responsive .field-group.table-search-box .field-cntr{
+    background-color: #efefef;
+    border-radius: 3px;
+    border: none;
+    height: 30px;
+    padding: 5px;
+}
+
+.table-responsive .field-group.table-search-box.lined.focused:not([class*="readonly"]) .field-cntr,
+.table-responsive .field-group.table-search-box.rounded.focused:not([class*="readonly"]) .field-cntr,
+.table-responsive .field-group.table-search-box.lined:not([class*="focused"]):not([class*="readonly"]):not([class*="error"]) .field-cntr,
+.table-responsive .field-group.table-search-box.rounded:not([class*="focused"]):not([class*="readonly"]):not([class*="error"]) .field-cntr{
+    border: none;
 }

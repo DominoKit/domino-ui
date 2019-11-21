@@ -1,12 +1,16 @@
 package org.dominokit.domino.ui.tag;
 
-import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.chips.Chip;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
-import org.dominokit.domino.ui.forms.ValueBox;
+import org.dominokit.domino.ui.forms.AbstractValueBox;
+import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
+import org.dominokit.domino.ui.grid.flex.FlexWrap;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents.KeyboardEventOptions;
 import org.dominokit.domino.ui.style.ColorScheme;
@@ -22,7 +26,7 @@ import java.util.stream.Collectors;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.input;
 
-public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>> {
+public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, List<V>> {
 
     private DominoElement<HTMLInputElement> tagTextInput;
     private final List<Chip> chips = new ArrayList<>();
@@ -32,9 +36,13 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     private ColorScheme colorScheme = ColorScheme.INDIGO;
     private int maxSize = -1;
     private boolean userInputEnabled = true;
+    private FlexItem tagInputTextContainer;
+    private FlexLayout tagsContainer;
 
     public TagsInput(String label, TagsStore<V> store) {
         super("text", label);
+        init(this);
+        css("tags-input");
         this.store = store;
         floating();
     }
@@ -56,22 +64,27 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
     }
 
     @Override
-    protected HTMLDivElement createInputElement(String type) {
+    protected HTMLElement createInputElement(String type) {
+        tagsContainer = FlexLayout.create()
+                .setWrap(FlexWrap.WRAP_TOP_TO_BOTTOM);
 
-        DominoElement<HTMLDivElement> tagsInputContainer = DominoElement.div()
-                .addCss(TagStyles.TAGS_INPUT, TagStyles.FORM_CONTROL);
+        tagInputTextContainer = FlexItem.create()
+                .setFlexGrow(1);
         tagTextInput = DominoElement.of(input(type))
                 .addCss(TagStyles.TAG_TEXT_INPUT);
         dropDownMenu = DropDownMenu.create(tagTextInput)
                 .setPosition(DropDownPosition.BOTTOM)
                 .addCloseHandler(() -> tagTextInput.asElement().focus());
-        tagsInputContainer.appendChild(tagTextInput);
-        tagsInputContainer.addEventListener("click", evt -> {
+        getInputContainer().addEventListener("click", evt -> {
             tagTextInput.asElement().focus();
             evt.stopPropagation();
         });
         initListeners();
-        return tagsInputContainer.asElement();
+
+        tagInputTextContainer.appendChild(tagTextInput);
+
+        tagsContainer.appendChild(tagInputTextContainer);
+        return tagsContainer.asElement();
     }
 
     private void initListeners() {
@@ -180,7 +193,7 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
             });
             chips.add(chip);
             selectedItems.add(value);
-            getInputElement().insertBefore(chip.asElement(), tagTextInput);
+            tagsContainer.insertBefore(FlexItem.from(chip.asElement()), tagInputTextContainer);
             fireChangeEvent();
         }
     }
@@ -260,5 +273,10 @@ public class TagsInput<V> extends ValueBox<TagsInput<V>, HTMLDivElement, List<V>
         userInputEnabled = true;
         tagTextInput.show();
         return this;
+    }
+
+    @Override
+    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+        return new InputAutoValidator<>(getInputElement(), autoValidate);
     }
 }

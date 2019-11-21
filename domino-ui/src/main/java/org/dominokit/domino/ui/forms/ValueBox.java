@@ -43,21 +43,24 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     private Color focusColor = Color.BLUE;
     private String placeholder;
-    private EventListener changeEventListener;
-    private List<ChangeHandler<? super V>> changeHandlers = new ArrayList<>();
+    private AutoValidator autoValidator;
+    protected List<ChangeHandler<? super V>> changeHandlers = new ArrayList<>();
     private final List<Consumer<T>> onClearHandlers = new ArrayList<>();
 
     private boolean pauseChangeHandlers = false;
     private boolean valid = true;
     private boolean floating;
     private boolean readOnly;
-    private boolean focused;
     private String prefix;
     private String postfix;
+    private FlexItem mandatoryAddOn;
+    private boolean validateOnFocusLost = true;
+    private FieldStyle fieldStyle = DominoFields.INSTANCE.getDefaultFieldsStyle();
+    private FlexLayout fieldInnerContainer;
 
     public ValueBox(String type, String label) {
         helpItem = FlexItem.create();
-        countItem = FlexItem.create();
+        countItem = FlexItem.create().hide();
         errorItem = FlexItem.create();
 
         init((T) this);
@@ -69,6 +72,20 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         addFocusListeners();
         setLabel(label);
         setSpellCheck(true);
+        fieldStyle.apply(this);
+    }
+
+    public FieldStyle getFieldStyle() {
+        return fieldStyle;
+    }
+
+    public T setFieldStyle(FieldStyle fieldStyle) {
+        if (nonNull(fieldStyle)) {
+            fieldStyle.apply(this);
+            this.fieldStyle = fieldStyle;
+        }
+
+        return (T) this;
     }
 
     private void layout() {
@@ -83,29 +100,25 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         rightAddOnsContainer
                 .css("field-rgt-addons");
 
+        prefixItem.css("field-prefix");
+        postFixItem.css("field-postfix");
+
+        fieldInnerContainer = FlexLayout.create();
         fieldGroup
                 .appendChild(fieldContainer
-                        .appendChild(FlexLayout.create()
-                                .appendChild(leftAddOnsContainer)
-                                .appendChild(prefixItem
-                                        .css("field-prefix")
-                                )
+                        .appendChild(fieldInnerContainer
                                 .appendChild(inputContainer
                                         .css("field-input-cntr")
                                         .setFlexGrow(1)
                                         .appendChild(inputElement)
                                         .appendChild(labelElement)
                                 )
-                                .appendChild(postFixItem
-                                        .css("field-postfix")
-                                )
                                 .apply(self -> {
-                                    FlexItem mandatoryAddOn = createMandatoryAddOn();
+                                    mandatoryAddOn = createMandatoryAddOn();
                                     if (nonNull(mandatoryAddOn)) {
-                                        self.appendChild(mandatoryAddOn);
+                                        self.appendChild(mandatoryAddOn.css("field-mandatory-addon"));
                                     }
                                 })
-                                .appendChild(rightAddOnsContainer)
                         )
                 )
                 .appendChild(notesContainer
@@ -139,11 +152,15 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         inputElement.addEventListener("focus", evt -> doFocus());
         inputElement.addEventListener("focusout", evt -> {
             doUnfocus();
-            if (isAutoValidation()) {
+            if (isAutoValidation() && validateOnFocusLost) {
                 validate();
             }
         });
-        labelElement.addEventListener("click", evt -> focus());
+        labelElement.addEventListener("click", evt -> {
+            if(!isDisabled()) {
+                focus();
+            }
+        });
     }
 
     public T setFloating(boolean floating) {
@@ -171,6 +188,10 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     public boolean isFloating() {
         return floating;
+    }
+
+    public FlexItem getMandatoryAddOn() {
+        return mandatoryAddOn;
     }
 
     @Override
@@ -205,10 +226,16 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         fieldGroup.style().add(FOCUSED);
         floatLabel();
         if (valid) {
-            fieldContainer.style().add("fc-" + focusColor.getStyle());
+            if (isAddFocusColor()) {
+                fieldContainer.style().add("fc-" + focusColor.getStyle());
+            }
             setLabelColor(focusColor);
         }
         showPlaceholder();
+    }
+
+    protected boolean isAddFocusColor() {
+        return true;
     }
 
     protected void doUnfocus() {
@@ -328,17 +355,18 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     public T addLeftAddOn(FlexItem addon) {
         leftAddOnsContainer.appendChild(addon);
+        if(!leftAddOnsContainer.isAttached()){
+            fieldInnerContainer.insertFirst(leftAddOnsContainer);
+        }
         return (T) this;
     }
 
     public T addLeftAddOn(IsElement<?> addon) {
-        leftAddOnsContainer.appendChild(FlexItem.create().appendChild(addon));
-        return (T) this;
+        return addLeftAddOn(FlexItem.create().appendChild(addon));
     }
 
     public T addLeftAddOn(Node addon) {
-        leftAddOnsContainer.appendChild(FlexItem.create().appendChild(addon));
-        return (T) this;
+        return addLeftAddOn(leftAddOnsContainer.appendChild(FlexItem.create().appendChild(addon)));
     }
 
     /**
@@ -361,18 +389,21 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return addRightAddOn(FlexItem.create().appendChild(rightAddon));
     }
 
-    public T addRightAddOn(FlexItem addon) {
-        rightAddOnsContainer.appendChild(addon);
+    public T addRightAddOn(FlexItem rightAddon) {
+        rightAddOnsContainer.appendChild(rightAddon);
+        if(!rightAddOnsContainer.isAttached()){
+            fieldInnerContainer.appendChild(rightAddOnsContainer);
+        }
         return (T) this;
     }
 
     public T addRightAddOn(IsElement<?> addon) {
-        rightAddOnsContainer.appendChild(FlexItem.create().appendChild(addon));
+        addRightAddOn(FlexItem.create().appendChild(addon));
         return (T) this;
     }
 
     public T addRightAddOn(Node addon) {
-        rightAddOnsContainer.appendChild(FlexItem.create().appendChild(addon));
+        addRightAddOn(FlexItem.create().appendChild(addon));
         return (T) this;
     }
 
@@ -385,6 +416,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     protected DominoElement<HTMLElement> getHelperContainer() {
         return DominoElement.of(helpItem.asElement());
     }
+
     @Override
     protected DominoElement<HTMLElement> getErrorsContainer() {
         return DominoElement.of(errorItem.asElement());
@@ -437,6 +469,16 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         changeLabelFloating();
     }
 
+    public T pauseFocusValidation() {
+        this.validateOnFocusLost = false;
+        return (T) this;
+    }
+
+    public T resumeFocusValidation() {
+        this.validateOnFocusLost = true;
+        return (T) this;
+    }
+
     @Override
     public T clearInvalid() {
         this.valid = true;
@@ -455,23 +497,25 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     @Override
     public T setAutoValidation(boolean autoValidation) {
         if (autoValidation) {
-            if (changeEventListener == null) {
-                changeEventListener = evt -> validate();
-                getInputElement().addEventListener("input", changeEventListener);
+            if (autoValidator == null) {
+                autoValidator = createAutoValidator(this::validate);
             }
+            autoValidator.attach();
         } else {
-            if (nonNull(changeEventListener)) {
-                getInputElement().removeEventListener("input", changeEventListener);
+            if (nonNull(autoValidator)) {
+                autoValidator.remove();
             }
-            changeEventListener = null;
+            autoValidator = null;
         }
         return (T) this;
     }
 
     @Override
     public boolean isAutoValidation() {
-        return nonNull(changeEventListener);
+        return nonNull(autoValidator);
     }
+
+    protected abstract AutoValidator createAutoValidator(AutoValidate autoValidate);
 
     @Override
     public T clear() {
@@ -602,6 +646,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     public T setPrefix(String prefix) {
+        if(!prefixItem.isAttached()){
+            fieldInnerContainer.insertBefore(prefixItem, inputContainer);
+        }
         this.prefixItem.setTextContent(prefix);
         this.prefix = prefix;
         return (T) this;
@@ -612,8 +659,12 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     public T setPostFix(String postfix) {
+        if(!postFixItem.isAttached()){
+            fieldInnerContainer.insertAfter(postFixItem, inputContainer);
+        }
         this.postFixItem.setTextContent(postfix);
         this.postfix = postfix;
+
         return (T) this;
     }
 
@@ -669,7 +720,35 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     protected abstract void doSetValue(V value);
 
+
+    public T condense() {
+        removeCss("condensed");
+        css("condensed");
+        return (T) this;
+    }
+
+    public T spread() {
+        removeCss("condensed");
+        return (T) this;
+    }
+
     protected FlexItem createMandatoryAddOn() {
         return null;
+    }
+
+    public interface AutoValidate {
+        void apply();
+    }
+
+    public abstract static class AutoValidator {
+        protected AutoValidate autoValidate;
+
+        public AutoValidator(AutoValidate autoValidate) {
+            this.autoValidate = autoValidate;
+        }
+
+        public abstract void attach();
+
+        public abstract void remove();
     }
 }

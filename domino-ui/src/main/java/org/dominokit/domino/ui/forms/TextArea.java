@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLTextAreaElement;
+import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.jboss.gwt.elemento.core.Elements;
 
 import static java.util.Objects.nonNull;
@@ -114,4 +115,10 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
     public boolean isEmptyAsNull() {
         return emptyAsNull;
     }
+
+    @Override
+    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+        return new InputAutoValidator<>(getInputElement(), autoValidate);
+    }
+
 }

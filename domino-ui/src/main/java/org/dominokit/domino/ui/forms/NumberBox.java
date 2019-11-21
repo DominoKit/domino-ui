@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.forms;
 
 import com.google.gwt.i18n.client.NumberFormat;
 import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.jboss.gwt.elemento.core.Elements;
 
@@ -213,4 +214,9 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     protected abstract boolean isExceedMaxValue(E maxValue, E value);
 
     protected abstract boolean isLowerThanMinValue(E minValue, E value);
+
+    @Override
+    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+        return new InputAutoValidator<>(getInputElement(), autoValidate);
+    }
 }

@@ -19,7 +19,7 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implements HasName<Radio<T>>, HasValue<Radio<T>, T>, HasLabel<Radio<T>>,
         Switchable<Radio<T>>, Checkable<Radio<T>>, TakesValue<T> {
 
-    private FlexItem container = FlexItem.create().addCss("form-group");
+    private FlexItem container = FlexItem.create().addCss("radio-option");
     private HTMLLabelElement labelElement = label().asElement();
     private HTMLInputElement inputElement = input("radio").asElement();
     private DominoElement<HTMLParagraphElement> helperTextElement = DominoElement.of(p());

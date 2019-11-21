@@ -1,13 +1,15 @@
 package org.dominokit.domino.ui.grid.flex;
 
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
 
-    private HTMLDivElement element = div().css(FlexStyles.FLEX_ITEM).asElement();
+    private HTMLDivElement element;
     private int order;
     private int flexGrow;
     private int flexShrink;
@@ -15,11 +17,20 @@ public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
     private FlexAlign alignSelf;
 
     public FlexItem() {
+        this(div().asElement());
+    }
+    public FlexItem(HTMLDivElement root) {
+        element = root;
         init(this);
+        css(FlexStyles.FLEX_ITEM);
     }
 
     public static FlexItem create() {
         return new FlexItem();
+    }
+
+    public static FlexItem from(HTMLDivElement element) {
+        return new FlexItem(element);
     }
 
     public FlexItem setOrder(int order) {

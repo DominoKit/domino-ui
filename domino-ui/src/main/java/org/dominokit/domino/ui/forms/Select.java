@@ -36,16 +36,15 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     private LinkedList<SelectOption<T>> options = new LinkedList<>();
     private SelectOption<T> selectedOption;
     private List<SelectionHandler<T>> selectionHandlers = new ArrayList<>();
-    private SelectionHandler<T> autoValidationHandler;
     private Supplier<BaseIcon<?>> arrowIconSupplier = Icons.ALL::menu_down_mdi;
     private BaseIcon<?> arrowIcon;
 
     private List<ChangeHandler<? super T>> changeHandlers = new ArrayList<>();
 
     private boolean searchable;
-    private boolean valid = true;
     private boolean clearable;
     private FlexItem arrowIconContainer;
+    private int popupWidth = 0;
 
     public static <T> Select<T> create() {
         return new Select<>();
@@ -77,6 +76,9 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
         optionsMenu.setAppendTarget(fieldContainer.asElement());
         optionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
         optionsMenu.setPosition(new PopupPositionTopDown(this));
+        optionsMenu.addOpenHandler(() -> {
+            resumeFocusValidation();
+        });
         buttonElement.appendChild(buttonValueContainer);
         initListeners();
         dropdown();
@@ -86,6 +88,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
                 clear();
             }
         });
+        css("d-select");
     }
 
     public Select(String label) {
@@ -104,6 +107,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
     private void initListeners() {
         EventListener clickListener = evt -> {
+            pauseFocusValidation();
             open();
             evt.stopPropagation();
         };
@@ -115,7 +119,10 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
         getLabelElement().addEventListener(CLICK_EVENT, clickListener);
         buttonElement.addEventListener("focus", evt -> focus());
         buttonElement.addEventListener("blur", evt -> unfocus());
-        optionsMenu.addCloseHandler(this::doFocus);
+        optionsMenu.addCloseHandler(() -> {
+            Select.this.focus();
+            validate();
+        });
     }
 
     public void setArrowIconSupplier(Supplier<BaseIcon<?>> arrowIconSupplier) {
@@ -135,6 +142,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     private void doOpen() {
         optionsMenu.open();
         optionsMenu.styler(style -> style.setWidth(getFieldContainer().getBoundingClientRect().width + "px"));
+
     }
 
     public void close() {
@@ -166,6 +174,11 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
     public Select<T> addOptions(List<SelectOption<T>> options) {
         options.forEach(this::appendChild);
+        return this;
+    }
+
+    public Select<T> setPopupWidth(int width) {
+        this.popupWidth = width;
         return this;
     }
 
@@ -455,17 +468,8 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     }
 
     @Override
-    public Select<T> setAutoValidation(boolean autoValidation) {
-        if (autoValidation) {
-            if (isNull(autoValidationHandler)) {
-                autoValidationHandler = option -> validate();
-                addSelectionHandler(autoValidationHandler);
-            }
-        } else {
-            removeSelectionHandler(autoValidationHandler);
-            autoValidationHandler = null;
-        }
-        return this;
+    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+        return new SelectAutoValidator<>(this, autoValidate);
     }
 
     private void setAddon(DominoElement<HTMLDivElement> container, DominoElement oldAddon, Element addon) {
@@ -621,8 +625,8 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
                 popup.setAttribute("popup-direction", "down");
             }
 
-            popup.style.setProperty("width", targetRect.width + "px");
-            popup.style.setProperty("left", px.of(0));
+            popup.style.setProperty("width", select.popupWidth > 0 ? (select.popupWidth + "px") : (targetRect.width + "px"));
+            popup.style.setProperty("left", px.of(-1));
         }
     }
 
@@ -638,7 +642,29 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
         @Override
         public void position(HTMLElement actionsMenu, HTMLElement target) {
             actionsMenu.style.removeProperty("bottom");
-            actionsMenu.style.setProperty("top", px.of(0));
+            actionsMenu.style.setProperty("top", px.of(-1));
+        }
+    }
+
+    private static class SelectAutoValidator<T> extends AutoValidator {
+
+        private Select<T> select;
+        private SelectionHandler<T> selectionHandler;
+
+        public SelectAutoValidator(Select<T> select, AutoValidate autoValidate) {
+            super(autoValidate);
+            this.select = select;
+        }
+
+        @Override
+        public void attach() {
+            selectionHandler = option -> autoValidate.apply();
+            select.addSelectionHandler(selectionHandler);
+        }
+
+        @Override
+        public void remove() {
+            select.removeSelectionHandler(selectionHandler);
         }
     }
 }

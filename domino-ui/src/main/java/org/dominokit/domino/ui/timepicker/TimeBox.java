@@ -3,6 +3,10 @@ package org.dominokit.domino.ui.timepicker;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.ValueBox;
+import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
@@ -29,6 +33,8 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
     private PickerStyle pickerStyle;
     private Date value;
     private EventListener keyboardModalListener;
+    private MdiIcon timeIcon;
+    private FlexItem timeIconContainer;
 
     public TimeBox() {
         this(null);
@@ -248,6 +254,36 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
     @Override
     public String getStringValue() {
         return nonNull(value) ? timePicker.getFormattedTime() : "";
+    }
+
+    @Override
+    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+        return new InputAutoValidator<>(getInputElement(), autoValidate);
+    }
+
+    @Override
+    protected FlexItem createMandatoryAddOn() {
+        timeIcon = Icons.ALL.clock_mdi();
+        timeIcon.clickable();
+        timeIconContainer = FlexItem.create();
+        return timeIconContainer
+                .appendChild(timeIcon);
+    }
+
+    public MdiIcon getTimeIcon() {
+        return timeIcon;
+    }
+
+    public void setTimeIcon(MdiIcon timeIcon) {
+        this.timeIcon = timeIcon;
+    }
+
+    public FlexItem getTimeIconContainer() {
+        return timeIconContainer;
+    }
+
+    public void setTimeIconContainer(FlexItem timeIconContainer) {
+        this.timeIconContainer = timeIconContainer;
     }
 
     @Override

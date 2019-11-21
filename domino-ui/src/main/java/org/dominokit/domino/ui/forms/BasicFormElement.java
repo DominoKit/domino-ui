@@ -23,7 +23,6 @@ import static org.jboss.gwt.elemento.core.Elements.label;
 public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> extends BaseDominoElement<HTMLElement, T> implements FormElement<T, V>, IsReadOnly<T>, HasInputElement {
 
     private static final String NAME = "name";
-    private DominoElement<HTMLLabelElement> helperLabel = DominoElement.of(label().css("help-info"));
     private ElementValidations elementValidations = new ElementValidations(this);
     private RequiredValidator requiredValidator = new RequiredValidator(this);
     private String helperText;
@@ -33,10 +32,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     @Override
     public T setHelperText(String helperText) {
         this.helperText = helperText;
-        if (!getHelperContainer().contains(helperLabel)) {
-            getHelperContainer().appendChild(helperLabel);
-        }
-        helperLabel.setTextContent(helperText);
+        getHelperContainer().setTextContent(helperText);
         return (T) this;
     }
 
@@ -118,9 +114,9 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
         removeErrors();
         getErrorsContainer().toggleDisplay(!errorMessages.isEmpty());
 
-        if(!errorMessages.isEmpty()){
+        if (!errorMessages.isEmpty()) {
             css("error");
-        }else{
+        } else {
             removeCss("error");
         }
 
@@ -200,11 +196,14 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     }
 
     protected abstract DominoElement<HTMLDivElement> getFieldContainer();
+
     protected abstract DominoElement<HTMLElement> getHelperContainer();
+
     protected abstract DominoElement<HTMLElement> getErrorsContainer();
+
     protected abstract DominoElement<HTMLLabelElement> getLabelElement();
 
-    public DominoElement<HTMLElement> getLabelTextElement(){
+    public DominoElement<HTMLElement> getLabelTextElement() {
         return DominoElement.of(getLabelElement().asElement());
     }
 
