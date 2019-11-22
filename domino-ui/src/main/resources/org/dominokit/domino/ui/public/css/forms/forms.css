@@ -27,7 +27,7 @@
 }
 
 .field-group.lined .field-cntr{
-    padding: 16px 6px 6px;
+    padding: 20px 6px 6px;
     background-color: #f5f5f5;
     border-radius: 4px 4px 0 0;
     height: 52px;
@@ -175,7 +175,7 @@
 }
 
 .field-group.lined.floating .field-label {
-    top: -12px;
+    top: -15px;
 }
 
 .field-group.rounded.readonly.floating:not([class*="switch"]):not([class*="d-checkbox"]) .field-label{

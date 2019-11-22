@@ -13,6 +13,7 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
     private int rows;
     private boolean autoSize = false;
     private boolean emptyAsNull;
+    private boolean floating;
 
     public TextArea() {
         this("");
@@ -44,6 +45,16 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
     }
 
     private void updateRows(int rows) {
+        if (rows > 1) {
+            floating = isFloating();
+            floating();
+        }else{
+            if(floating){
+                floating();
+            }else{
+                nonfloating();
+            }
+        }
         getInputElement().setAttribute("rows", rows + "");
     }
 
