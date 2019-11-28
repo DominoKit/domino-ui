@@ -84,6 +84,7 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
 
     @Override
     public SwitchButton value(Boolean value) {
+        super.value(value);
         if (value != null && value) {
             check();
         } else {
@@ -267,7 +268,7 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
 
     @Override
     protected void clearValue() {
-
+        value(false);
     }
 
     @Override

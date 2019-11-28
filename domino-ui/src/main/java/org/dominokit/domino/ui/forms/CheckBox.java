@@ -16,7 +16,6 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
 
     public static final String READONLY = "readonly";
     private DominoElement<HTMLInputElement> inputElement;
-    private List<ChangeHandler<? super Boolean>> changeHandlers = new ArrayList<>();
     private Color color;
     private String checkedReadonlyLabel = "Yes";
     private String unCheckedReadonlyLabel = "No";
@@ -147,6 +146,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
 
     @Override
     public CheckBox value(Boolean value) {
+
         if (value != null && value) {
             check();
         } else {
