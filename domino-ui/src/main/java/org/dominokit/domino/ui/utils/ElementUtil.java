@@ -139,7 +139,7 @@ public class ElementUtil {
         hasInputElement.getInputElement().addEventListener("keypress", evt -> {
             KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
             String key = keyboardEvent.key;
-            if (!(isMinusKey(keyboardEvent.key) || key.equals(".") || keyboardEvent.key.matches("^\\d+$"))) {
+            if (!(isMinusKey(keyboardEvent.key) || key.equals(".") || key.equals(",")  || keyboardEvent.key.matches("^\\d+$"))) {
                 evt.preventDefault();
             }
         });
