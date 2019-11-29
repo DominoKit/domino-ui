@@ -127,6 +127,10 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
         return (T) this;
     }
 
+    public  List<HTMLLabelElement> getErrorLabels(){
+        return this.errorLabels;
+    }
+
     protected HTMLLabelElement makeErrorLabel(String message) {
         return label().css("error").textContent(message).asElement();
     }
