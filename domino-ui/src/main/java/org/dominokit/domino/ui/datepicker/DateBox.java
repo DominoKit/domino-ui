@@ -44,6 +44,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     private EventListener focusListener;
     private boolean openOnFocus = false;
     private boolean focused = false;
+    private boolean handlerPaused = false;
 
     public DateBox() {
         this(new Date());
@@ -84,19 +85,18 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     private void initDateBox() {
         this.pattern = this.datePicker.getDateTimeFormatInfo().dateFormatFull();
         this.datePicker.addDateSelectionHandler((date, dateTimeFormatInfo) -> {
-            setStringValue(date, dateTimeFormatInfo);
-            changeLabelFloating();
-            autoValidate();
-            callChangeHandlers();
+            if (!handlerPaused) {
+                value(date);
+            }
         });
 
-        getInputElement().addEventListener(EventType.focus.getName(), evt-> focused =true);
-        getInputElement().addEventListener("focusin", evt-> focused =true);
-        getInputElement().addEventListener(EventType.blur.getName(), evt-> focused =false);
-        getInputElement().addEventListener("focusout", evt-> focused =false);
+        getInputElement().addEventListener(EventType.focus.getName(), evt -> focused = true);
+        getInputElement().addEventListener("focusin", evt -> focused = true);
+        getInputElement().addEventListener(EventType.blur.getName(), evt -> focused = false);
+        getInputElement().addEventListener("focusout", evt -> focused = false);
 
         this.modalListener = evt -> {
-            if(!openOnFocus || focused) {
+            if (!openOnFocus || focused) {
                 modal.open();
             }
         };
@@ -227,11 +227,16 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     @Override
     protected void doSetValue(Date value) {
-        if (nonNull(value))
+        if (nonNull(value)) {
+            handlerPaused = true;
             this.datePicker.setDate(value);
-
-        setStringValue(value, datePicker.getDateTimeFormatInfo());
-        this.value = value;
+            this.handlerPaused = false;
+            setStringValue(this.datePicker.getDate(), datePicker.getDateTimeFormatInfo());
+            this.value = this.datePicker.getDate();
+        }else{
+            setStringValue(value, datePicker.getDateTimeFormatInfo());
+            this.value = value;
+        }
     }
 
     private void setStringValue(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
@@ -286,7 +291,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         if (!PickerStyle.POPOVER.equals(this.pickerStyle)) {
             if (nonNull(modal)) {
                 asElement().removeEventListener(EventType.click.getName(), modalListener);
-                modal.close();
+                if (modal.isOpen()) {
+                    modal.close();
+                }
                 modal.asElement().remove();
             }
 
@@ -339,12 +346,12 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             open();
         };
         getInputElement().addEventListener(EventType.focus.getName(), getFocusEventListener());
-        modal.onClose(() -> {
+        modal.addCloseListener(() -> {
             getInputElement().asElement().focus();
             getInputElement().addEventListener(EventType.focus.getName(), getFocusEventListener());
         });
 
-        modal.onOpen(() -> {
+        modal.addOpenListener(() -> {
             getInputElement().removeEventListener(EventType.focus.getName(), getFocusEventListener());
         });
         return this;

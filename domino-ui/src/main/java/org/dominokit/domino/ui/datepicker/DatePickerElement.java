@@ -137,7 +137,11 @@ class DatePickerElement implements Selectable<DatePickerElement> {
     }
 
     public JsDate getDate() {
-        return new JsDate(year, month, day);
+        JsDate jsDate = new JsDate();
+        jsDate.setYear(year);
+        jsDate.setMonth(month);
+        jsDate.setDate(day);
+        return jsDate;
     }
 
     public Style<HTMLElement, DominoElement<HTMLElement>> style() {
@@ -146,6 +150,7 @@ class DatePickerElement implements Selectable<DatePickerElement> {
 
     public interface SelectionHandler {
         void selectElement(DatePickerElement datePickerElement);
+
         void onElementClick(DatePickerElement datePickerElement);
     }
 }

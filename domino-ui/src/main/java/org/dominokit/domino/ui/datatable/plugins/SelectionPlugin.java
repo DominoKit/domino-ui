@@ -2,12 +2,14 @@ package org.dominokit.domino.ui.datatable.plugins;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
+import elemental2.dom.MouseEvent;
 import elemental2.dom.Node;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.forms.CheckBox;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.Selectable;
@@ -25,6 +27,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     private Selectable<T> selectedRow;
     private HTMLElement singleSelectIndicator = Icons.ALL.check().asElement();
     private SelectionCondition<T> selectionCondition = (table, row) -> true;
+    private TableRow<T> lastSelected;
 
     public SelectionPlugin() {
     }
@@ -113,8 +116,9 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     private Node createMultiSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
         CheckBox checkBox = createCheckBox();
 
-        cell.getTableRow().addSelectionHandler(selectable -> {
-            if (selectionCondition.isAllowSelection(dataTable, cell.getTableRow())) {
+        TableRow<T> tableRow = cell.getTableRow();
+        tableRow.addSelectionHandler(selectable -> {
+            if (selectionCondition.isAllowSelection(dataTable, tableRow)) {
                 if (selectable.isSelected()) {
                     checkBox.check(true);
                     if (nonNull(colorScheme)) {
@@ -129,24 +133,63 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
             }
         });
 
+        checkBox.addClickListener(evt -> {
+            MouseEvent mouseEvent = Js.cast(evt);
+            if (mouseEvent.shiftKey) {
+                int startIndex = getStartSelectionIndex(dataTable);
+                int endIndex = tableRow.getIndex();
+                int increment = startIndex < endIndex ? 1 : -1;
+                for (int i = startIndex; startIndex < endIndex ? i <= endIndex : i >= endIndex; i += increment) {
+                    TableRow<T> row = dataTable.getItems()
+                            .get(i);
+                    selectRow(dataTable, row);
+                }
+            } else {
+                this.lastSelected = tableRow;
+            }
+        });
         checkBox.addChangeHandler(checked -> {
-            if (selectionCondition.isAllowSelection(dataTable, cell.getTableRow())) {
+            if (selectionCondition.isAllowSelection(dataTable, tableRow)) {
                 if (checked) {
-                    cell.getTableRow().select();
-                    if (nonNull(colorScheme)) {
-                        Style.of(cell.getTableRow().asElement()).add(colorScheme.lighten_5().getBackground());
-                    }
-                    dataTable.onSelectionChange(cell.getTableRow());
+                    selectRow(dataTable, tableRow);
                 } else {
-                    cell.getTableRow().deselect();
+                    tableRow.deselect();
                     if (nonNull(colorScheme)) {
-                        Style.of(cell.getTableRow().asElement()).remove(colorScheme.lighten_5().getBackground());
+                        Style.of(tableRow.asElement()).remove(colorScheme.lighten_5().getBackground());
                     }
-                    dataTable.onSelectionChange(cell.getTableRow());
+                    dataTable.onSelectionChange(tableRow);
                 }
             }
         });
         return checkBox.asElement();
+    }
+
+    private int getStartSelectionIndex(DataTable<T> dataTable) {
+        if (nonNull(lastSelected)) {
+            return lastSelected.getIndex();
+        } else {
+            if (dataTable.getSelectedItems().isEmpty()) {
+                return 0;
+            } else {
+                return dataTable.getSelectedItems().get(0).getIndex();
+            }
+        }
+    }
+
+    private void selectRow(DataTable<T> dataTable, TableRow<T> tableRow) {
+        tableRow.select();
+        if (nonNull(colorScheme)) {
+            Style.of(tableRow.asElement()).add(colorScheme.lighten_5().getBackground());
+        }
+        dataTable.onSelectionChange(tableRow);
+    }
+
+    private void deselectRow(DataTable<T> dataTable, TableRow<T> tableRow) {
+        tableRow.deselect();
+        if (nonNull(colorScheme)) {
+            Style.of(tableRow.asElement()).remove(colorScheme.lighten_5().getBackground());
+        }
+        dataTable.onSelectionChange(tableRow);
     }
 
     private Node createMultiSelectHeader(DataTable<T> dataTable) {

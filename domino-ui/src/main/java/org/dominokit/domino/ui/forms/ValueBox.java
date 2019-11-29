@@ -109,6 +109,15 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         setAddonSize(rightAddon, size);
     }
 
+    public T setFloating(boolean floating) {
+        if (floating) {
+            floating();
+        } else {
+            nonfloating();
+        }
+        return (T) this;
+    }
+
     public T floating() {
         labelElement.style().add(FOCUSED);
         showPlaceholder();
@@ -124,7 +133,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     public boolean isFloating() {
-        return labelElement.style().contains(FOCUSED);
+        return floating;
     }
 
     @Override
@@ -401,7 +410,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     public T clear() {
         clearValue();
         autoValidate();
-        onClearHandlers.forEach(handler -> handler.accept((T)ValueBox.this));
+        onClearHandlers.forEach(handler -> handler.accept((T) ValueBox.this));
         return (T) this;
     }
 
@@ -421,21 +430,20 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
             getInputElement().setAttribute("disabled", "true");
             getInputElement().setAttribute("readonly", "true");
             getInputElement().style().add("readonly");
-            if (isFloating()) {
-                getInputElement().setAttribute("floating", true);
-            }
+            getInputElement().setAttribute("floating", isFloating());
             floating();
         } else {
             getInputElement().removeAttribute("disabled");
             getInputElement().removeAttribute("readonly");
             getInputElement().style().remove("readonly");
+            boolean floating;
             if (getInputElement().hasAttribute("floating")) {
-                floating();
+                floating = Boolean.parseBoolean(getInputElement().getAttribute("floating"));
             } else {
-                if (isEmpty()) {
-                    nonfloating();
-                }
+                floating = isFloating();
             }
+            setFloating(floating);
+            changeLabelFloating();
         }
         return (T) this;
     }
@@ -512,12 +520,12 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
-    public T addOnClearHandler(Consumer<T> onClearHandler){
+    public T addOnClearHandler(Consumer<T> onClearHandler) {
         this.onClearHandlers.add(onClearHandler);
         return (T) this;
     }
 
-    public T removeOnClearHandler(Consumer<T> onClearHandler){
+    public T removeOnClearHandler(Consumer<T> onClearHandler) {
         this.onClearHandlers.remove(onClearHandler);
         return (T) this;
     }
