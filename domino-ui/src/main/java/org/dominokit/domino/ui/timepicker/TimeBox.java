@@ -148,7 +148,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
     @Override
     protected HTMLInputElement createInputElement(String type) {
-        return input("text").css("form-control")
+        return input("text")
                 .attr("readOnly", "true")
                 .asElement();
     }

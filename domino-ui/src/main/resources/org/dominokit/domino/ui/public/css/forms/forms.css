@@ -174,7 +174,7 @@
     top: 6px;
 }
 
-.field-group.lined.floating .field-label {
+.field-group.lined.floating:not([class*="switch"]):not([class*="d-checkbox"]) .field-label {
     top: -15px;
 }
 
@@ -206,6 +206,7 @@
 
 .field-group .select-button {
     height: 35px;
+    line-height: 35px;
 }
 
 .field-group input,
@@ -220,12 +221,34 @@
     font-family: Roboto, sans-serif;
 }
 
+.field-group textarea {
+    padding-top: 3px;
+    padding-bottom: 1px;
+    line-height: 22px;
+    vertical-align: middle;
+}
+
+.field-group.lined textarea{
+    min-height: 25px;
+}
+
+.field-group.lined textarea{
+    min-height: 25px;
+}
+
+.field-group.rounded textarea{
+    min-height: 28px;
+}
+
+.field-group.disabled textarea {
+    color: rgba(0,0,0,0.3);
+}
+
 .field-group input[readonly][disabled],
 .field-group textarea[readonly][disabled],
 .field-group button[readonly][disabled] {
     color: #555;
 }
-
 
 .field-group .field-postfix {
     line-height: 26px;

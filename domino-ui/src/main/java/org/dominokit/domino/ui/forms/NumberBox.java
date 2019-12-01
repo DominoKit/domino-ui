@@ -55,7 +55,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
 
     @Override
     protected HTMLInputElement createInputElement(String type) {
-        return Elements.input(type).css("form-control").asElement();
+        return Elements.input(type).asElement();
     }
 
     @Override

@@ -56,7 +56,7 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
 
     @Override
     protected HTMLInputElement createInputElement(String type) {
-        return input(type).css("form-control").asElement();
+        return input(type).asElement();
     }
 
     @Override

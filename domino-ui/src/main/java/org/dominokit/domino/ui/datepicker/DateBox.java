@@ -265,7 +265,6 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     @Override
     protected HTMLInputElement createInputElement(String type) {
         return input("text")
-                .css(FormFieldsStyles.FORM_CONTROL)
                 .asElement();
     }
 

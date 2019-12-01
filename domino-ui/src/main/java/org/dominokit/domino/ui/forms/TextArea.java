@@ -23,6 +23,7 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
         super("", label);
         setRows(4);
         css("auto-height");
+        onAttached(mutationRecord -> adjustHeight());
     }
 
     public static TextArea create() {
@@ -35,7 +36,7 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
 
     @Override
     protected HTMLTextAreaElement createInputElement(String type) {
-        return Elements.textarea().css("form-control no-resize").asElement();
+        return Elements.textarea().css("no-resize").asElement();
     }
 
     public TextArea setRows(int rows) {
@@ -48,10 +49,10 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
         if (rows > 1) {
             floating = isFloating();
             floating();
-        }else{
-            if(floating){
+        } else {
+            if (floating) {
                 floating();
-            }else{
+            } else {
                 nonfloating();
             }
         }
@@ -62,13 +63,9 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
     protected void doSetValue(String value) {
         if (nonNull(value)) {
             getInputElement().asElement().value = value;
-            if (autoSize) {
                 if (isAttached()) {
                     adjustHeight();
-                } else {
-                    onAttached(mutationRecord -> adjustHeight());
                 }
-            }
         } else {
             getInputElement().asElement().value = "";
         }
@@ -107,10 +104,12 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
     private void adjustHeight() {
         getInputElement().style().setHeight("auto");
         int scrollHeight = getInputElement().asElement().scrollHeight;
-        if (scrollHeight < 34) {
-            scrollHeight = 34;
+        if (scrollHeight < 30) {
+            scrollHeight = 22;
         }
-        getInputElement().style().setHeight(scrollHeight + "px");
+        if (autoSize) {
+            getInputElement().style().setHeight(scrollHeight + "px");
+        }
     }
 
     @Override

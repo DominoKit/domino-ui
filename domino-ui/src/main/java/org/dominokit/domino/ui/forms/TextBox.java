@@ -41,7 +41,7 @@ public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String>
 
     @Override
     protected HTMLInputElement createInputElement(String type) {
-        return Elements.input(type).css("form-control").asElement();
+        return Elements.input(type).asElement();
     }
 
     @Override
