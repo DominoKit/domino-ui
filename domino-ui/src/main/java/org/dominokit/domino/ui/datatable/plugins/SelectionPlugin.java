@@ -70,7 +70,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
                         return TextNode.empty();
                     }
 
-                }).asHeader());
+                }));
     }
 
     private Node createSingleSelectHeader() {

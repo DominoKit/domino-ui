@@ -360,18 +360,18 @@ table th[class*="col-"] {
     font-weight: 300;
 }
 
-.table-responsive .table-header{
+.table-responsive .table-header {
     padding: 20px;
     position: relative;
 }
 
-.table-responsive .table-header h2{
+.table-responsive .table-header h2 {
     margin: 0;
     font-size: 18px;
     font-weight: normal;
 }
 
-.table-responsive .table-header h2 small{
+.table-responsive .table-header h2 small {
     display: block;
     font-size: 12px;
     margin-top: 5px;
@@ -427,24 +427,21 @@ table th[class*="col-"] {
     margin-top: 4px !important;
 }
 
-.table .select-checkbox .field-label{
+.table .select-checkbox .field-label {
     margin: 0px;
     height: 20px;
 }
 
-.table .select-checkbox .field-label{
-    top: -5px;
-}
-
-.table .field-group.select-checkbox.d-checkbox{
+.table .field-group.select-checkbox.d-checkbox {
     margin: 0px;
     height: 20px;
 }
 
-.table .field-group.select-checkbox .field-cntr{
+.table .field-group.select-checkbox .field-cntr {
     padding: 5px;
 }
-.table .field-group.select-checkbox{
+
+.table .field-group.select-checkbox {
     height: 20px;
     padding: 0px;
     background: transparent;
@@ -455,11 +452,25 @@ table th[class*="col-"] {
     margin-bottom: 0px;
 }
 
-.table .field-group.select-checkbox.d-checkbox.floating .field-label{
+.table td .field-group.d-checkbox.select-checkbox label,
+.table td .field-group.d-checkbox.select-checkbox.floating .field-label {
     top: -5px;
+    left: -4px;
 }
 
-.table-responsive .field-group.table-search-box .field-cntr{
+.table th .field-group.d-checkbox.select-checkbox label,
+.table th .field-group.d-checkbox.select-checkbox.floating .field-label {
+    top: -5px;
+    left: -5px;
+}
+
+.table th .field-group.d-checkbox.select-checkbox input,
+.table th .field-group.d-checkbox.select-checkbox.floating input {
+    height: 20px;
+}
+
+
+.table-responsive .field-group.table-search-box .field-cntr {
     background-color: #efefef;
     border-radius: 3px;
     border: none;
@@ -470,6 +481,6 @@ table th[class*="col-"] {
 .table-responsive .field-group.table-search-box.lined.focused:not([class*="readonly"]) .field-cntr,
 .table-responsive .field-group.table-search-box.rounded.focused:not([class*="readonly"]) .field-cntr,
 .table-responsive .field-group.table-search-box.lined:not([class*="focused"]):not([class*="readonly"]):not([class*="error"]) .field-cntr,
-.table-responsive .field-group.table-search-box.rounded:not([class*="focused"]):not([class*="readonly"]):not([class*="error"]) .field-cntr{
+.table-responsive .field-group.table-search-box.rounded:not([class*="focused"]):not([class*="readonly"]):not([class*="error"]) .field-cntr {
     border: none;
 }

@@ -396,7 +396,7 @@ fieldset[disabled] .btn.warning.focus {
 .btn:not([class*=circle]) i {
     font-size: 20px;
     position: relative;
-    top: 3px;
+    top: 1px;
     line-height: 20px;
 }
 
