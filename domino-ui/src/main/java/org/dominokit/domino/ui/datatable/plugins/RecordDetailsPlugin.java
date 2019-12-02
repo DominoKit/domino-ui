@@ -21,9 +21,9 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     public static final String DATA_TABLE_DETAILS_CM = "data-table-details-cm";
     private final BaseIcon<?> collapseIcon;
     private final BaseIcon<?> expandIcon;
-    private HTMLDivElement element = div().asElement();
-    private HTMLTableCellElement td = td().css(DataTableStyles.DETAILS_TD).add(element).asElement();
-    private HTMLTableRowElement tr = tr().css(DataTableStyles.DETAILS_TR).add(td).asElement();
+    private HTMLDivElement element = div().element();
+    private HTMLTableCellElement td = td().css(DataTableStyles.DETAILS_TD).add(element).element();
+    private HTMLTableRowElement tr = tr().css(DataTableStyles.DETAILS_TR).add(td).element();
 
     private final CellRenderer<T> cellRenderer;
     private DetailsButtonElement buttonElement;
@@ -52,7 +52,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
                     DetailsButtonElement<T> detailsButtonElement = new DetailsButtonElement<>(expandIcon, collapseIcon, RecordDetailsPlugin.this, cell);
                     cell.getTableRow().addMetaObject(detailsButtonElement);
                     applyStyles(cell);
-                    return detailsButtonElement.asElement();
+                    return detailsButtonElement.element();
                 })
                 .setHeaderElement(columnTitle -> Button.create(expandIcon.copy())
                         .linkify()
@@ -60,7 +60,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
                         .style()
                         .setProperty("padding", "0px")
                         .setHeight("24px")
-                        .asElement())
+                        .element())
                 .asHeader()
                 .textAlign("center");
         setupColumn(column);
@@ -144,8 +144,8 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
         }
 
         @Override
-        public HTMLElement asElement() {
-            return button.asElement();
+        public HTMLElement element() {
+            return button.element();
         }
 
         @Override
@@ -168,7 +168,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
         this.buttonElement = buttonElement;
         ElementUtil.contentBuilder(td).attr("colspan", dataTable.getTableConfig().getColumns().size() + "");
         element.appendChild(cellRenderer.asElement(buttonElement.getCellInfo()));
-        dataTable.bodyElement().asElement().insertBefore(tr, buttonElement.getCellInfo().getTableRow().asElement().nextSibling);
+        dataTable.bodyElement().element().insertBefore(tr, buttonElement.getCellInfo().getTableRow().element().nextSibling);
     }
 
 }

@@ -25,7 +25,7 @@ public class TextHeaderFilter<T> extends DelayedHeaderFilterInput<TextBox, T>{
 
     @Override
     protected HTMLInputElement getInputElement() {
-        return this.textBox.getInputElement().asElement();
+        return this.textBox.getInputElement().element();
     }
 
     @Override

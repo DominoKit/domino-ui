@@ -14,8 +14,8 @@ public class RowClickPlugin<T> implements DataTablePlugin<T> {
 
     @Override
     public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
-        DominoElement.of(tableRow.asElement()).styler(style -> style.setCursor("pointer"));
-        tableRow.asElement().addEventListener(EventType.click.getName(), evt -> handler.onClick(tableRow));
+        DominoElement.of(tableRow.element()).styler(style -> style.setCursor("pointer"));
+        tableRow.element().addEventListener(EventType.click.getName(), evt -> handler.onClick(tableRow));
     }
 
     @FunctionalInterface

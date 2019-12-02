@@ -121,11 +121,11 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
     }
 
     private double calculateRangeOffset() {
-        int width = slider.asElement().offsetWidth - 15;
+        int width = slider.element().offsetWidth - 15;
         double percent = (getValue() - getMin()) / (getMax() - getMin());
         double rangeOffset = percent * width;
         if (!leftAddonContainer.isHidden()) {
-            rangeOffset += leftAddonContainer.asElement().offsetWidth + 9;
+            rangeOffset += leftAddonContainer.element().offsetWidth + 9;
         }
         return rangeOffset;
     }
@@ -156,17 +156,17 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
     }
 
     public Slider setMaxValue(double max) {
-        slider.asElement().max = max + "";
+        slider.element().max = max + "";
         return this;
     }
 
     public Slider setMinValue(double min) {
-        slider.asElement().min = min + "";
+        slider.element().min = min + "";
         return this;
     }
 
     public Slider setValue(double newValue, boolean silent) {
-        slider.asElement().value = newValue + "";
+        slider.element().value = newValue + "";
         updateThumbValue();
         if (!silent) {
             callChangeHandlers();
@@ -179,25 +179,25 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
     }
 
     public Slider setStep(double step) {
-        slider.asElement().step = step + "";
+        slider.element().step = step + "";
         return this;
     }
 
     public Slider anyStep() {
-        slider.asElement().step = "any";
+        slider.element().step = "any";
         return this;
     }
 
     public double getMax() {
-        return Double.parseDouble(slider.asElement().max);
+        return Double.parseDouble(slider.element().max);
     }
 
     public double getMin() {
-        return Double.parseDouble(slider.asElement().min);
+        return Double.parseDouble(slider.element().min);
     }
 
     public double getValue() {
-        return slider.asElement().valueAsNumber;
+        return slider.element().valueAsNumber;
     }
 
     public Slider withThumb() {
@@ -216,8 +216,8 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
     }
 
     @Override
-    public HTMLParagraphElement asElement() {
-        return sliderContainer.asElement();
+    public HTMLParagraphElement element() {
+        return sliderContainer.element();
     }
 
     @Override
@@ -268,23 +268,23 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
     }
 
     public Slider setLeftAddon(IsElement leftAddon) {
-        return setLeftAddon(leftAddon.asElement());
+        return setLeftAddon(leftAddon.element());
     }
 
     public Slider setLeftAddon(Element leftAddon) {
         leftAddonContainer.show();
-        setAddon(leftAddonContainer.asElement(), this.leftAddon, leftAddon);
+        setAddon(leftAddonContainer.element(), this.leftAddon, leftAddon);
         this.leftAddon = leftAddon;
         return this;
     }
 
     public Slider setRightAddon(IsElement rightAddon) {
-        return setRightAddon(rightAddon.asElement());
+        return setRightAddon(rightAddon.element());
     }
 
     public Slider setRightAddon(Element rightAddon) {
         rightAddonContainer.show();
-        setAddon(rightAddonContainer.asElement(), this.rightAddon, rightAddon);
+        setAddon(rightAddonContainer.element(), this.rightAddon, rightAddon);
         this.rightAddon = rightAddon;
         return this;
     }

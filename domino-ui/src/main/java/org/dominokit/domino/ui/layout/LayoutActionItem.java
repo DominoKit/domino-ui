@@ -19,11 +19,11 @@ public class LayoutActionItem extends BaseDominoElement<HTMLLIElement, LayoutAct
             .add(anchorElement));
 
     public LayoutActionItem(BaseIcon<?> baseIcon) {
-        this(baseIcon.asElement());
+        this(baseIcon.element());
     }
 
     public LayoutActionItem(IsElement<?> isElement) {
-        this(isElement.asElement());
+        this(isElement.element());
     }
 
     public static LayoutActionItem create(BaseIcon<?> baseIcon){
@@ -46,11 +46,11 @@ public class LayoutActionItem extends BaseDominoElement<HTMLLIElement, LayoutAct
 
     @Override
     public HTMLElement getClickableElement() {
-        return anchorElement.asElement();
+        return anchorElement.element();
     }
 
     @Override
-    public HTMLLIElement asElement() {
-        return li.asElement();
+    public HTMLLIElement element() {
+        return li.element();
     }
 }

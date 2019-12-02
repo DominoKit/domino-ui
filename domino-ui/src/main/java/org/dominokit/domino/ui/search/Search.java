@@ -16,11 +16,11 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
     private final HTMLElement closeIcon = i()
             .css("material-icons")
             .textContent("close")
-            .asElement();
+            .element();
 
     private final HTMLInputElement searchInput = input("text")
             .attr("placeholder", "START TYPING...")
-            .asElement();
+            .element();
 
     private HTMLDivElement element = div()
             .style("display: none;")
@@ -30,7 +30,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
             .add(searchInput)
             .add(div().css(SearchStyles.close_search)
                     .add(closeIcon))
-            .asElement();
+            .element();
 
     private SearchHandler searchHandler = searchToken -> {
     };
@@ -148,7 +148,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 

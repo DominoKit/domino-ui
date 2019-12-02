@@ -134,8 +134,8 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     public List<AccordionPanel> getPanels() {

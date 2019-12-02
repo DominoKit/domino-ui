@@ -21,7 +21,7 @@ public class ElementUtil {
     }
 
     public static void clear(IsElement element) {
-        clear(element.asElement());
+        clear(element.element());
     }
 
     public static <T extends HTMLElement> HtmlContentBuilder<T> contentBuilder(T element) {
@@ -29,7 +29,7 @@ public class ElementUtil {
     }
 
     public static <T extends HTMLElement> HtmlContentBuilder<T> contentBuilder(IsElement<T> element) {
-        return new HtmlContentBuilder<>(element.asElement());
+        return new HtmlContentBuilder<>(element.element());
     }
 
     public static <E extends HTMLElement, T extends IsElement<E>> HtmlComponentBuilder<E, T> componentBuilder(T element) {
@@ -85,7 +85,7 @@ public class ElementUtil {
      */
     public static void onAttach(IsElement element, ObserverCallback callback) {
         if (element != null) {
-            BodyObserver.addAttachObserver(element.asElement(), callback);
+            BodyObserver.addAttachObserver(element.element(), callback);
         }
     }
 
@@ -113,7 +113,7 @@ public class ElementUtil {
     public static void onDetach(IsElement element, ObserverCallback callback) {
 
         if (element != null) {
-            BodyObserver.addDetachObserver(element.asElement(), callback);
+            BodyObserver.addDetachObserver(element.element(), callback);
         }
     }
 
@@ -165,7 +165,7 @@ public class ElementUtil {
     }
 
     public static void scrollToElement(IsElement isElement) {
-        scrollToElement(isElement.asElement());
+        scrollToElement(isElement.element());
     }
 
     public static void scrollToElement(HTMLElement element) {
@@ -176,6 +176,6 @@ public class ElementUtil {
         return a()
                 .textContent(text)
                 .on(EventType.click, event -> DomGlobal.window.open(targetUrl, "_blank"))
-                .asElement();
+                .element();
     }
 }

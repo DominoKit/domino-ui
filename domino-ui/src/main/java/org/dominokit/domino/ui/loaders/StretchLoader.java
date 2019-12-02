@@ -11,11 +11,11 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class StretchLoader extends BaseLoader<StretchLoader> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555;").asElement();
-    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555;").asElement();
-    private HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#555;").asElement();
-    private HTMLDivElement progress4 = div().css(WAIT_ME_PROGRESS_ELEM_4).style("background-color:#555;").asElement();
-    private HTMLDivElement progress5 = div().css(WAIT_ME_PROGRESS_ELEM_5).style("background-color:#555;").asElement();
+    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555;").element();
+    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555;").element();
+    private HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#555;").element();
+    private HTMLDivElement progress4 = div().css(WAIT_ME_PROGRESS_ELEM_4).style("background-color:#555;").element();
+    private HTMLDivElement progress5 = div().css(WAIT_ME_PROGRESS_ELEM_5).style("background-color:#555;").element();
 
     private HTMLDivElement loader = div()
             .css(WAIT_ME_PROGRESS)
@@ -25,20 +25,20 @@ public class StretchLoader extends BaseLoader<StretchLoader> implements IsElemen
             .add(progress3)
             .add(progress4)
             .add(progress5)
-            .asElement();
+            .element();
 
     private HTMLDivElement content = div()
             .css(WAIT_ME_CONTENT)
             .css(Styles.vertical_center)
             .add(loader)
             .add(loadingText)
-            .asElement();
+            .element();
 
     private HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.9);")
             .add(content)
-            .asElement();
+            .element();
 
     public StretchLoader() {
         init(this);
@@ -71,7 +71,7 @@ public class StretchLoader extends BaseLoader<StretchLoader> implements IsElemen
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

@@ -111,7 +111,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     }
 
     void addTabIndexHandler() {
-        asElement().addEventListener(EventType.keydown.getName(), evt -> {
+        element().addEventListener(EventType.keydown.getName(), evt -> {
             initFocusElements();
             KeyboardEvent keyboardEvent = Js.cast(evt);
             switch (keyboardEvent.code) {
@@ -163,7 +163,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public T appendChild(IsElement content) {
-        return appendChild(content.asElement());
+        return appendChild(content.element());
     }
 
     @Override
@@ -174,7 +174,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public T appendFooterChild(IsElement content) {
-        return appendFooterChild(content.asElement());
+        return appendFooterChild(content.element());
     }
 
     @Override
@@ -229,8 +229,8 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         if (isEnabled()) {
             style().removeProperty("z-index");
             if (autoAppendAndRemove) {
-                asElement().remove();
-                document.body.appendChild(asElement());
+                element().remove();
+                document.body.appendChild(element());
             }
 
             initFocusElements();
@@ -265,7 +265,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
             } else {
                 Z_INDEX = Z_INDEX + 10;
                 ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
-                asElement().style.setProperty("z-index", (Z_INDEX + 10) + "");
+                element().style.setProperty("z-index", (Z_INDEX + 10) + "");
             }
         }
     }
@@ -278,13 +278,13 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
             } else {
                 Z_INDEX = Z_INDEX - 10;
                 ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
-                asElement().style.setProperty("z-index", (Z_INDEX + 10) + "");
+                element().style.setProperty("z-index", (Z_INDEX + 10) + "");
             }
         }
     }
 
     private void initFocusElements() {
-        NodeList<Element> elementNodeList = asElement().querySelectorAll("a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex=\"0\"]");
+        NodeList<Element> elementNodeList = element().querySelectorAll("a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex=\"0\"]");
         List<Element> elements = elementNodeList.asList();
 
         if (elements.size() > 0) {
@@ -299,14 +299,14 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     @Override
     public T close() {
 
-        asElement().classList.remove(ModalStyles.IN);
-        asElement().style.display = "none";
+        element().classList.remove(ModalStyles.IN);
+        element().style.display = "none";
         if (nonNull(activeElementBeforeOpen))
             activeElementBeforeOpen.focus();
 
 
         if (autoAppendAndRemove) {
-            asElement().remove();
+            element().remove();
         }
 
         this.open = false;
@@ -404,8 +404,8 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return modalElement.asElement();
+    public HTMLDivElement element() {
+        return modalElement.element();
     }
 
     /**

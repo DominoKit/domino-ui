@@ -12,9 +12,9 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
 
-    private HTMLDivElement element = div().css("thumbnail").asElement();
-    private HTMLDivElement contentElement = div().asElement();
-    private HTMLDivElement captionElement = div().css("caption").asElement();
+    private HTMLDivElement element = div().css("thumbnail").element();
+    private HTMLDivElement contentElement = div().element();
+    private HTMLDivElement captionElement = div().css("caption").element();
 
     public Thumbnail() {
         element.appendChild(contentElement);
@@ -32,7 +32,7 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
     }
 
     public Thumbnail setContent(IsElement content) {
-        return setContent(content.asElement());
+        return setContent(content.element());
     }
 
     /**
@@ -51,11 +51,11 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
     }
 
     public Thumbnail appendCaptionChild(IsElement content) {
-        return appendCaptionChild(content.asElement());
+        return appendCaptionChild(content.element());
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 

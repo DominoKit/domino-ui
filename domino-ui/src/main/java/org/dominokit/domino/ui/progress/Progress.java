@@ -7,7 +7,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class Progress extends BaseDominoElement<HTMLDivElement, Progress> {
 
-    private HTMLDivElement element=div().css(ProgressStyles.progress).asElement();
+    private HTMLDivElement element=div().css(ProgressStyles.progress).element();
 
     public Progress() {
         init(this);
@@ -26,12 +26,12 @@ public class Progress extends BaseDominoElement<HTMLDivElement, Progress> {
     }
 
     public Progress appendChild(ProgressBar bar){
-        element.appendChild(bar.asElement());
+        element.appendChild(bar.element());
         return this;
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 

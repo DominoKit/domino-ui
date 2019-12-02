@@ -42,7 +42,7 @@ public class DropdownActionsGroup<T> extends BaseDominoElement<HTMLLIElement, Dr
     }
 
     public static <T> DropdownActionsGroup<T> create(IsElement titleElement) {
-        return create(titleElement.asElement());
+        return create(titleElement.element());
     }
 
 
@@ -57,8 +57,8 @@ public class DropdownActionsGroup<T> extends BaseDominoElement<HTMLLIElement, Dr
     }
 
     @Override
-    public HTMLLIElement asElement() {
-        return element.asElement();
+    public HTMLLIElement element() {
+        return element.element();
     }
 
     boolean isAllHidden() {

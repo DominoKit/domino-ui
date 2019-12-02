@@ -33,9 +33,9 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
             .css(NotificationStyles.CLOSE)
             .style("position: absolute; right: 10px; top: 5px; z-index: 1033;")
             .textContent("×")
-            .asElement();
+            .element();
 
-    private HTMLElement messageSpan = span().asElement();
+    private HTMLElement messageSpan = span().element();
 
     private HTMLDivElement element = div()
             .css(NotificationStyles.BOOTSTRAP_NOTIFY_CONTAINER)
@@ -47,7 +47,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
             .style("display: inline-block; position: fixed; transition: all 800ms ease-in-out; z-index: 99999999;")
             .add(closeButton)
             .add(messageSpan)
-            .asElement();
+            .element();
 
     private int duration = 4000;
     private Transition inTransition = Transition.FADE_IN;
@@ -94,9 +94,9 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     }
 
     private void close() {
-        int dataPosition = Integer.parseInt(asElement().getAttribute("data-position"));
-        int height = asElement().offsetHeight;
-        asElement().remove();
+        int dataPosition = Integer.parseInt(element().getAttribute("data-position"));
+        int height = element().offsetHeight;
+        element().remove();
         position.onRemoveElement(dataPosition, height);
     }
 
@@ -121,7 +121,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     }
 
     public Notification appendContent(Node content) {
-        asElement().appendChild(content);
+        element().appendChild(content);
         return this;
     }
 
@@ -142,15 +142,15 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     }
 
     public Notification show() {
-        position.onBeforeAttach(asElement());
-        DomGlobal.document.body.appendChild(asElement());
-        position.onNewElement(asElement());
-        Animation.create(asElement())
+        position.onBeforeAttach(element());
+        DomGlobal.document.body.appendChild(element());
+        position.onNewElement(element());
+        Animation.create(element())
                 .transition(inTransition)
-                .callback(e -> Animation.create(asElement())
+                .callback(e -> Animation.create(element())
                         .delay(duration)
                         .transition(outTransition)
-                        .callback(e2 -> asElement().remove())
+                        .callback(e2 -> element().remove())
                         .animate())
                 .animate();
 
@@ -158,7 +158,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 

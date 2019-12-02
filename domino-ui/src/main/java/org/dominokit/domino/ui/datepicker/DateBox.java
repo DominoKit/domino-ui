@@ -106,7 +106,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 modal.open();
             }
         };
-        ElementUtil.onDetach(asElement(), mutationRecord -> removeBox());
+        ElementUtil.onDetach(element(), mutationRecord -> removeBox());
 
         datePicker.addCloseHandler(this::close);
 
@@ -137,14 +137,14 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 if (isEmpty()) {
                     return ValidationResult.valid();
                 }
-                getFormattedValue(getInputElement().asElement().value);
+                getFormattedValue(getInputElement().element().value);
                 return ValidationResult.valid();
             } catch (IllegalArgumentException e) {
                 return ValidationResult.invalid(invalidFormatMessage);
             }
         });
         getInputElement().addEventListener("change", evt -> {
-            String value = getInputElement().asElement().value;
+            String value = getInputElement().element().value;
             if (value.isEmpty()) {
                 clear();
             } else {
@@ -161,7 +161,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         if (nonNull(popover))
             popover.close();
         if (nonNull(modal)) {
-            modal.asElement().remove();
+            modal.element().remove();
         }
     }
 
@@ -223,7 +223,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     @Override
     public boolean isEmpty() {
-        return isNull(value) && getInputElement().asElement().value.isEmpty();
+        return isNull(value) && getInputElement().element().value.isEmpty();
     }
 
     @Override
@@ -247,9 +247,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     private void setStringValue(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
         if (nonNull(date))
-            this.getInputElement().asElement().value = getFormatted(date, dateTimeFormatInfo);
+            this.getInputElement().element().value = getFormatted(date, dateTimeFormatInfo);
         else
-            this.getInputElement().asElement().value = "";
+            this.getInputElement().element().value = "";
         this.value = date;
     }
 
@@ -265,7 +265,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     @Override
     protected HTMLInputElement createInputElement(String type) {
         return input("text")
-                .asElement();
+                .element();
     }
 
     @Override
@@ -295,11 +295,11 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     private void showInPopOver() {
         if (!PickerStyle.POPOVER.equals(this.pickerStyle)) {
             if (nonNull(modal)) {
-                asElement().removeEventListener(EventType.click.getName(), modalListener);
+                element().removeEventListener(EventType.click.getName(), modalListener);
                 if (modal.isOpen()) {
                     modal.close();
                 }
-                modal.asElement().remove();
+                modal.element().remove();
             }
 
             if (isNull(popover)) {
@@ -323,8 +323,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             }
 
             if (isNull(modal)) {
-                this.modal = ModalDialog.createPickerModal(getPlaceholder(), this.datePicker.asElement());
-                asElement().addEventListener(EventType.click.getName(), modalListener);
+                this.modal = ModalDialog.createPickerModal(getPlaceholder(), this.datePicker.element());
+                element().addEventListener(EventType.click.getName(), modalListener);
             }
         }
         this.pickerStyle = PickerStyle.MODAL;
@@ -352,7 +352,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         };
         getInputElement().addEventListener(EventType.focus.getName(), getFocusEventListener());
         modal.addCloseListener(() -> {
-            getInputElement().asElement().focus();
+            getInputElement().element().focus();
             getInputElement().addEventListener(EventType.focus.getName(), getFocusEventListener());
         });
 

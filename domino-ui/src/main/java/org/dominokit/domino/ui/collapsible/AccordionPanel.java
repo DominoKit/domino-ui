@@ -52,7 +52,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     }
 
     public static AccordionPanel create(String title, IsElement content) {
-        return new AccordionPanel(title, content.asElement());
+        return new AccordionPanel(title, content.element());
     }
 
     private void init() {
@@ -81,12 +81,12 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     }
 
     public AccordionPanel appendChild(IsElement content) {
-        return appendChild(content.asElement());
+        return appendChild(content.element());
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     public AccordionPanel primary() {
@@ -168,12 +168,12 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
 
     @Override
     public HTMLAnchorElement getClickableElement() {
-        return clickableElement.asElement();
+        return clickableElement.element();
     }
 
     @Override
     public HTMLDivElement getCollapsibleElement() {
-        return collapsibleElement.asElement();
+        return collapsibleElement.element();
     }
 
     public DominoElement<HTMLDivElement> getHeaderElement() {

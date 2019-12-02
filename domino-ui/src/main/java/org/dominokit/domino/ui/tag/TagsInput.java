@@ -74,9 +74,9 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
                 .addCss(TagStyles.TAG_TEXT_INPUT);
         dropDownMenu = DropDownMenu.create(tagTextInput)
                 .setPosition(DropDownPosition.BOTTOM)
-                .addCloseHandler(() -> tagTextInput.asElement().focus());
+                .addCloseHandler(() -> tagTextInput.element().focus());
         getInputContainer().addEventListener("click", evt -> {
-            tagTextInput.asElement().focus();
+            tagTextInput.element().focus();
             evt.stopPropagation();
         });
         initListeners();
@@ -84,13 +84,13 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
         tagInputTextContainer.appendChild(tagTextInput);
 
         tagsContainer.appendChild(tagInputTextContainer);
-        return tagsContainer.asElement();
+        return tagsContainer.element();
     }
 
     private void initListeners() {
         KeyboardEvents.listenOn(tagTextInput)
                 .onEnter(evt -> {
-                    String displayValue = tagTextInput.asElement().value;
+                    String displayValue = tagTextInput.element().value;
                     if (displayValue.isEmpty()) {
                         openMenu();
                     } else {
@@ -121,7 +121,7 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
 
     private void search() {
         dropDownMenu.clearActions();
-        String searchValue = tagTextInput.asElement().value;
+        String searchValue = tagTextInput.element().value;
         Map<String, V> valuesToShow = store.filter(searchValue);
         valuesToShow.forEach(this::addDropDownAction);
         openMenu();
@@ -133,7 +133,7 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
                     .addAction(DropdownAction.create(displayValue, displayValue)
                             .addSelectionHandler(selectedValue -> {
                                 appendChip(displayValue, value);
-                                tagTextInput.asElement().focus();
+                                tagTextInput.element().focus();
                             }));
         }
     }
@@ -146,7 +146,7 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
 
     private void fireChangeEvent() {
         callChangeHandlers();
-        tagTextInput.asElement().value = "";
+        tagTextInput.element().value = "";
         validate();
         if (isExceedsMaxSize()) {
             disableAddValues();
@@ -193,7 +193,7 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
             });
             chips.add(chip);
             selectedItems.add(value);
-            tagsContainer.insertBefore(FlexItem.from(chip.asElement()), tagInputTextContainer);
+            tagsContainer.insertBefore(FlexItem.from(chip.element()), tagInputTextContainer);
             fireChangeEvent();
         }
     }
@@ -226,14 +226,14 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
     @Override
     public TagsInput<V> disable() {
         chips.forEach(Chip::disable);
-        tagTextInput.asElement().disabled = true;
+        tagTextInput.element().disabled = true;
         return super.disable();
     }
 
     @Override
     public TagsInput<V> enable() {
         chips.forEach(Chip::enable);
-        tagTextInput.asElement().disabled = false;
+        tagTextInput.element().disabled = false;
         return super.enable();
     }
 

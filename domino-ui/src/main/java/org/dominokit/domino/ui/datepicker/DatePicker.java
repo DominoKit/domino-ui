@@ -191,12 +191,12 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
         Column yearColumn = Column.span5()
                 .condenced()
-                .appendChild(yearSelect.asElement());
+                .appendChild(yearSelect.element());
 
 
         Column monthColumn = Column.span5()
                 .condenced()
-                .appendChild(monthSelect.asElement());
+                .appendChild(monthSelect.element());
 
         Column backColumn = Column.span1()
                 .condenced();
@@ -278,8 +278,8 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     @Override
@@ -493,19 +493,19 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
     public DatePicker todayButtonText(String text) {
         this.todayButton.setContent(text);
-        this.todayButton.asElement().title = text;
+        this.todayButton.element().title = text;
         return this;
     }
 
     public DatePicker clearButtonText(String text) {
         this.clearButton.setContent(text);
-        this.clearButton.asElement().title = text;
+        this.clearButton.element().title = text;
         return this;
     }
 
     public DatePicker closeButtonText(String text) {
         this.closeButton.setContent(text);
-        this.closeButton.asElement().title = text;
+        this.closeButton.element().title = text;
         return this;
     }
 
@@ -563,7 +563,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
     public ModalDialog createModal(String title) {
-        return ModalDialog.createPickerModal(title, this.asElement());
+        return ModalDialog.createPickerModal(title, this.element());
     }
 
     @FunctionalInterface

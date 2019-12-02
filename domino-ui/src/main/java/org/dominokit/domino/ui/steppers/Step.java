@@ -19,11 +19,11 @@ import static org.jboss.gwt.elemento.core.Elements.li;
 
 public class Step extends BaseDominoElement<HTMLLIElement, Step> {
 
-    private final HTMLLIElement element = li().css(step).asElement();
-    private final HTMLDivElement contentElement = div().css(step_content).asElement();
+    private final HTMLLIElement element = li().css(step).element();
+    private final HTMLDivElement contentElement = div().css(step_content).element();
     private HTMLDivElement stepHeader;
-    private HTMLDivElement bodyElement = div().css(step_body).asElement();
-    private HTMLDivElement footerElement = div().css(step_footer).asElement();
+    private HTMLDivElement bodyElement = div().css(step_body).element();
+    private HTMLDivElement footerElement = div().css(step_footer).element();
     private boolean expanded = false;
     private StepCompletedValidator stepCompletedValidator = () -> true;
     private Collapsible collapsible = Collapsible.create(contentElement);
@@ -43,7 +43,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
     }
 
     private HTMLDivElement makeHeaderElement(String title, String description) {
-        return div().css(step_title).attr("data-step-label", description).textContent(title).asElement();
+        return div().css(step_title).attr("data-step-label", description).textContent(title).element();
     }
 
     private void init(HTMLDivElement stepHeader) {
@@ -53,7 +53,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
         contentElement.appendChild(bodyElement);
         contentElement.appendChild(footerElement);
         collapsible.hide();
-        ElementUtil.onAttach(asElement(), mutationRecord -> {
+        ElementUtil.onAttach(element(), mutationRecord -> {
             if (expanded) {
                 collapsible.show();
             }
@@ -76,7 +76,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
     }
 
     public Step appendChild(IsElement content) {
-        return appendChild(content.asElement());
+        return appendChild(content.element());
     }
 
     public Step appendFooterChild(Node content) {
@@ -85,7 +85,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
     }
 
     public Step appendFooterChild(IsElement content) {
-        return appendFooterChild(content.asElement());
+        return appendFooterChild(content.element());
     }
 
     Step activate(Transition transition) {
@@ -172,7 +172,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
     }
 
     @Override
-    public HTMLLIElement asElement() {
+    public HTMLLIElement element() {
         return element;
     }
 

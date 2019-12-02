@@ -12,7 +12,7 @@ public class UrlIcon extends BaseIcon<UrlIcon> {
     private UrlIcon(String url, String name) {
         this.url = url;
         this.name = name;
-        this.icon = DominoElement.of(img(url).asElement());
+        this.icon = DominoElement.of(img(url).element());
         init(this);
     }
 

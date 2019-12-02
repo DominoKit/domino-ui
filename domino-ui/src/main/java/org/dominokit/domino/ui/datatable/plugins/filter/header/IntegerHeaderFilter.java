@@ -25,7 +25,7 @@ public class IntegerHeaderFilter<T> extends DelayedHeaderFilterInput<IntegerBox,
 
     @Override
     protected HTMLInputElement getInputElement() {
-        return integerBox.getInputElement().asElement();
+        return integerBox.getInputElement().element();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class IntegerHeaderFilter<T> extends DelayedHeaderFilterInput<IntegerBox,
     public void clear() {
         integerBox.pauseChangeHandlers();
         integerBox.clear();
-        integerBox.getInputElement().asElement().value = "";
+        integerBox.getInputElement().element().value = "";
         integerBox.resumeChangeHandlers();
     }
 }

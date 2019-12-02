@@ -45,8 +45,8 @@ public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>> 
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
 }

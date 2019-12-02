@@ -88,7 +88,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
 
     @Override
     public CheckBox check(boolean silent) {
-        inputElement.asElement().checked = true;
+        inputElement.element().checked = true;
         if (!silent)
             onCheck();
         return this;
@@ -96,7 +96,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
 
     @Override
     public CheckBox uncheck(boolean silent) {
-        inputElement.asElement().checked = false;
+        inputElement.element().checked = false;
         if (!silent)
             onCheck();
         return this;
@@ -104,7 +104,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
 
     @Override
     public boolean isChecked() {
-        return inputElement.asElement().checked;
+        return inputElement.element().checked;
     }
 
     @Override
@@ -216,7 +216,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     @Override
     protected HTMLElement createInputElement(String type) {
         inputElement = DominoElement.of(input("checkbox"));
-        return inputElement.asElement();
+        return inputElement.element();
     }
 
     @Override

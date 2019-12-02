@@ -32,8 +32,8 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     public double getValue() {

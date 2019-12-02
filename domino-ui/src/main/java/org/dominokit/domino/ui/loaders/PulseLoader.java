@@ -12,13 +12,13 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class PulseLoader extends BaseLoader<PulseLoader> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("border-color:#000;").asElement();
+    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("border-color:#000;").element();
 
     private HTMLDivElement loader = div()
             .css(WAIT_ME_PROGRESS)
             .css(PULSE)
             .add(progress1)
-            .asElement();
+            .element();
 
     private HTMLDivElement content = div()
             .css(WAIT_ME_CONTENT)
@@ -26,13 +26,13 @@ public class PulseLoader extends BaseLoader<PulseLoader> implements IsElement<HT
             .css(VERTICAL)
             .add(loader)
             .add(loadingText)
-            .asElement();
+            .element();
 
     private HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.7);")
             .add(content)
-            .asElement();
+            .element();
 
     public PulseLoader() {
         init(this);
@@ -63,7 +63,7 @@ public class PulseLoader extends BaseLoader<PulseLoader> implements IsElement<HT
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

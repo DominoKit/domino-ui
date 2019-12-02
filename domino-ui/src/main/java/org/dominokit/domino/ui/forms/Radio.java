@@ -20,8 +20,8 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
         Switchable<Radio<T>>, Checkable<Radio<T>>, TakesValue<T> {
 
     private FlexItem container = FlexItem.create().addCss("radio-option");
-    private HTMLLabelElement labelElement = label().asElement();
-    private HTMLInputElement inputElement = input("radio").asElement();
+    private HTMLLabelElement labelElement = label().element();
+    private HTMLInputElement inputElement = input("radio").element();
     private DominoElement<HTMLParagraphElement> helperTextElement = DominoElement.of(p());
     private List<ChangeHandler<? super Boolean>> changeHandlers;
     private Color color;
@@ -135,8 +135,8 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return container.asElement();
+    public HTMLDivElement element() {
+        return container.element();
     }
 
     @Override
@@ -192,8 +192,8 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
 
     public Radio<T> setHelperText(String text) {
         helperTextElement.setTextContent(text);
-        if (!DominoElement.of(labelElement).contains(helperTextElement.asElement())) {
-            labelElement.appendChild(helperTextElement.asElement());
+        if (!DominoElement.of(labelElement).contains(helperTextElement.element())) {
+            labelElement.appendChild(helperTextElement.element());
         }
         return this;
     }

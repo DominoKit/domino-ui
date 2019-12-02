@@ -29,7 +29,7 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
                 emptyState.hide();
             }
         });
-        dataTable.asElement().appendChild(emptyState.asElement());
+        dataTable.element().appendChild(emptyState.element());
     }
 
     public EmptyState getEmptyState() {

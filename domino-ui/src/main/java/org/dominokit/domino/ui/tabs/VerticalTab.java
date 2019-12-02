@@ -50,7 +50,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         this.titleElement = DominoElement.of(span().css(TITLE).textContent(title));
         this.anchorElement = a()
                 .add(iconContainer.appendChild(this.icon))
-                .add(textContainer.appendChild(titleElement)).asElement();
+                .add(textContainer.appendChild(titleElement)).element();
         init();
     }
 
@@ -59,7 +59,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         this.titleElement = DominoElement.of(span().css(TITLE).textContent(title));
         this.anchorElement = a()
                 .add(iconContainer)
-                .add(textContainer.appendChild(titleElement)).asElement();
+                .add(textContainer.appendChild(titleElement)).element();
         init();
     }
 
@@ -68,7 +68,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         this.anchorElement = a()
                 .add(iconContainer.appendChild(this.icon))
                 .add(textContainer)
-                .asElement();
+                .element();
         init();
     }
 
@@ -98,7 +98,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
     }
 
     public VerticalTab activate() {
-        Style.of(asElement()).add(ACTIVE);
+        Style.of(element()).add(ACTIVE);
         contentContainer.style().add(IN, ACTIVE);
         this.active = true;
         activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, true));
@@ -106,7 +106,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
     }
 
     public VerticalTab deactivate() {
-        Style.of(asElement()).remove(ACTIVE);
+        Style.of(element()).remove(ACTIVE);
         contentContainer.style().remove(IN, ACTIVE);
         this.active = false;
         activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, false));
@@ -124,7 +124,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
     }
 
     public VerticalTab appendChild(IsElement content) {
-        return appendChild(content.asElement());
+        return appendChild(content.element());
     }
 
     @Override
@@ -157,8 +157,8 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     public VerticalTab setTextColor(Color textColor) {

@@ -73,7 +73,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     public Select() {
         super("button", "");
         optionsMenu = DropDownMenu.create(fieldContainer).styler(style1 -> style1.add("select-option-menu"));
-        optionsMenu.setAppendTarget(fieldContainer.asElement());
+        optionsMenu.setAppendTarget(fieldContainer.element());
         optionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
         optionsMenu.setPosition(new PopupPositionTopDown(this));
         optionsMenu.addOpenHandler(() -> {
@@ -218,7 +218,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     }
 
     private DropdownAction<T> asDropDownAction(SelectOption<T> option) {
-        return DropdownAction.create(option.getValue(), option.asElement())
+        return DropdownAction.create(option.getValue(), option.element())
                 .addSelectionHandler(value -> doSelectOption(option));
     }
 
@@ -248,7 +248,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
     public Select<T> select(SelectOption<T> option, boolean silent) {
         if (selectedOption != null)
-            if (!option.isEqualNode(selectedOption.asElement()))
+            if (!option.isEqualNode(selectedOption.element()))
                 selectedOption.deselect();
         floatLabel();
         this.selectedOption = option;
@@ -416,7 +416,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     public Select<T> removeOption(SelectOption<T> option) {
         if (nonNull(option) && getOptions().contains(option)) {
             option.deselect(true);
-            option.asElement().remove();
+            option.element().remove();
         }
         return this;
     }
@@ -571,7 +571,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     @Override
     protected HTMLElement createInputElement(String type) {
         buttonElement = DominoElement.of(button().attr("type", "button").css("select-button"));
-        return buttonElement.asElement();
+        return buttonElement.element();
     }
 
     @Override

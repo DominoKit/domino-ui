@@ -52,7 +52,7 @@ public class SelectHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFil
     }
 
     @Override
-    public HTMLElement asElement() {
-        return select.asElement();
+    public HTMLElement element() {
+        return select.element();
     }
 }

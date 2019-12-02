@@ -23,23 +23,23 @@ public class FileImage extends BaseDominoElement<HTMLDivElement, FileImage> {
                 .setFontSize("100px")
                 .setWidth("100%")
                 .setTextAlign("center");
-        setImage(icon.asElement());
+        setImage(icon.element());
         init(this);
     }
 
     public FileImage(File file) {
         initFileContainer();
         DominoElement<HTMLImageElement> image = DominoElement.of(img().css(Styles.img_responsive));
-        image.asElement().alt = file.name;
+        image.element().alt = file.name;
         image.style().setMaxHeight("100%")
                 .setMaxWidth("100%")
                 .setMarginRight("auto")
                 .setMarginLeft("auto")
                 .setFlex("1 1");
         FileReader fileReader = new FileReader();
-        fileReader.addEventListener("load", evt -> image.asElement().src = fileReader.result.asString());
+        fileReader.addEventListener("load", evt -> image.element().src = fileReader.result.asString());
         fileReader.readAsDataURL(file);
-        setImage(image.asElement());
+        setImage(image.element());
         init(this);
     }
 
@@ -59,8 +59,8 @@ public class FileImage extends BaseDominoElement<HTMLDivElement, FileImage> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return fileImageContainer.asElement();
+    public HTMLDivElement element() {
+        return fileImageContainer.element();
     }
 
     public FileImage setImage(HTMLElement image) {

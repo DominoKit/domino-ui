@@ -56,7 +56,7 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
     }
 
     @Override
-    public HTMLElement asElement() {
-        return dateBox.asElement();
+    public HTMLElement element() {
+        return dateBox.element();
     }
 }

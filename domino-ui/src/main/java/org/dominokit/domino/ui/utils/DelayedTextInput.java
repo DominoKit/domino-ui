@@ -25,7 +25,7 @@ public class DelayedTextInput {
     }
 
     public static DelayedTextInput create(DominoElement<HTMLInputElement> inputElement, int delay) {
-        return create(inputElement.asElement(), delay);
+        return create(inputElement.element(), delay);
     }
 
     public DelayedTextInput(HTMLInputElement inputElement, int delay) {

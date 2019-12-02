@@ -9,7 +9,7 @@ public class ButtonsToolbar extends BaseDominoElement<HTMLElement, ButtonsToolba
 
     private HTMLElement toolbarElement = Elements.div().css(ButtonStyles.BUTTON_TOOLBAR)
             .attr("role", "toolbar")
-            .asElement();
+            .element();
 
     public ButtonsToolbar() {
         init(this);
@@ -20,12 +20,12 @@ public class ButtonsToolbar extends BaseDominoElement<HTMLElement, ButtonsToolba
     }
 
     public ButtonsToolbar addGroup(ButtonsGroup group) {
-        toolbarElement.appendChild(group.asElement());
+        toolbarElement.appendChild(group.element());
         return this;
     }
 
     @Override
-    public HTMLElement asElement() {
+    public HTMLElement element() {
         return toolbarElement;
     }
 

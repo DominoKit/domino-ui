@@ -24,24 +24,24 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implements ParentTreeItem<TreeItem<T>>, IsElement<HTMLDivElement> {
 
-    private HTMLElement title = span().css("title").asElement();
+    private HTMLElement title = span().css("title").element();
     private ToggleTarget toggleTarget = ToggleTarget.ANY;
 
     private HTMLLIElement header = li()
             .css("header")
             .css("menu-header")
             .add(title)
-            .asElement();
+            .element();
 
     private HTMLUListElement root = ul()
             .add(header)
             .css("list")
-            .asElement();
+            .element();
 
     private HTMLDivElement menu = div().style("overflow-x: hidden")
             .css("menu")
             .add(root)
-            .asElement();
+            .element();
 
 
     private final int nextLevel = 1;
@@ -107,7 +107,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
     }
 
     public Tree<T> appendChild(TreeItem<T> treeItem) {
-        root.appendChild(treeItem.asElement());
+        root.appendChild(treeItem.element());
         treeItem.setParent(this);
         treeItem.setLevel(nextLevel);
         treeItem.setToggleTarget(this.toggleTarget);
@@ -120,7 +120,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
                 .css("gap")
                 .css("separator")
                 .add(a())
-                .asElement());
+                .element());
         return this;
     }
 
@@ -128,7 +128,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         root.appendChild(li()
                 .css("gap")
                 .add(a())
-                .asElement());
+                .element());
         return this;
     }
 
@@ -201,13 +201,13 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
 
     public Tree<T> autoHeight() {
         root.style.height = CSSProperties.HeightUnionType.of("calc(100vh - 83px)");
-        asElement().style.height = CSSProperties.HeightUnionType.of("calc(100vh - 70px)");
+        element().style.height = CSSProperties.HeightUnionType.of("calc(100vh - 70px)");
         return this;
     }
 
     public Tree<T> autoHeight(int offset) {
         root.style.height = CSSProperties.HeightUnionType.of("calc(100vh - " + offset + 13 + "px)");
-        asElement().style.height = CSSProperties.HeightUnionType.of("calc(100vh - " + offset + "px)");
+        element().style.height = CSSProperties.HeightUnionType.of("calc(100vh - " + offset + "px)");
         return this;
     }
 
@@ -225,9 +225,9 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
                 .setProperty("cursor", "pointer")
                 .get();
 
-        this.header.appendChild(search.asElement());
-        this.header.appendChild(searchIcon.asElement());
-        searchIcon.asElement().addEventListener("click", evt -> search.open());
+        this.header.appendChild(search.element());
+        this.header.appendChild(searchIcon.element());
+        searchIcon.element().addEventListener("click", evt -> search.open());
 
         return this;
     }
@@ -241,7 +241,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
                 .setProperty("cursor", "pointer")
                 .get();
 
-        collapseAllIcon.asElement().addEventListener("click", evt -> collapseAll());
+        collapseAllIcon.element().addEventListener("click", evt -> collapseAll());
 
 
         expandAllIcon = Icons.ALL.fullscreen()
@@ -252,10 +252,10 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
                 .setProperty("cursor", "pointer")
                 .get();
 
-        expandAllIcon.asElement().addEventListener("click", evt -> expandAll());
+        expandAllIcon.element().addEventListener("click", evt -> expandAll());
 
-        header.appendChild(expandAllIcon.asElement());
-        header.appendChild(collapseAllIcon.asElement());
+        header.appendChild(expandAllIcon.element());
+        header.appendChild(collapseAllIcon.element());
         return this;
     }
 
@@ -410,7 +410,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return menu;
     }
 

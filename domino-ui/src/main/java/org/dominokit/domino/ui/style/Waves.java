@@ -95,8 +95,8 @@ public class Waves implements IsElement<HTMLElement> {
     }
 
     @Override
-    public HTMLElement asElement() {
-        return target.asElement();
+    public HTMLElement element() {
+        return target.element();
     }
 
     private ElementOffset offset(HTMLElement target) {
@@ -133,14 +133,14 @@ public class Waves implements IsElement<HTMLElement> {
                     .get();
             target.appendChild(ripple);
 
-            ElementOffset position = offset(target.asElement());
+            ElementOffset position = offset(target.element());
             double relativeY = (mouseEvent.pageY - position.top);
             double relativeX = (mouseEvent.pageX - position.left);
 
             relativeY = relativeY >= 0 ? relativeY : 0;
             relativeX = relativeX >= 0 ? relativeX : 0;
 
-            int clientWidth = target.asElement().clientWidth;
+            int clientWidth = target.element().clientWidth;
 
             double scaleValue = (clientWidth * 0.01) * 3;
             String scale = "scale(" + scaleValue + ")";

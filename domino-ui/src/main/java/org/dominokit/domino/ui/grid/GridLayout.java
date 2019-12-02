@@ -11,13 +11,13 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
 
     private HTMLDivElement element = div()
-            .css(GridStyles.LAYOUT_GRID).asElement();
+            .css(GridStyles.LAYOUT_GRID).element();
 
-    private final HTMLDivElement contentElement = div().css(GridStyles.LAYOUT_CONTENT).asElement();
-    private final HTMLDivElement headerElement = div().css(GridStyles.LAYOUT_HEADER).asElement();
-    private final HTMLDivElement footerElement = div().css(GridStyles.LAYOUT_FOOTER).asElement();
-    private final HTMLDivElement leftElement = div().css(GridStyles.LAYOUT_LEFT).asElement();
-    private final HTMLDivElement rightElement = div().css(GridStyles.LAYOUT_RIGHT).asElement();
+    private final HTMLDivElement contentElement = div().css(GridStyles.LAYOUT_CONTENT).element();
+    private final HTMLDivElement headerElement = div().css(GridStyles.LAYOUT_HEADER).element();
+    private final HTMLDivElement footerElement = div().css(GridStyles.LAYOUT_FOOTER).element();
+    private final HTMLDivElement leftElement = div().css(GridStyles.LAYOUT_LEFT).element();
+    private final HTMLDivElement rightElement = div().css(GridStyles.LAYOUT_RIGHT).element();
 
     private GridLayoutEditor editor = new GridLayoutEditor();
 
@@ -125,7 +125,7 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 

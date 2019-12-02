@@ -75,7 +75,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     }
 
     public SelectOption<T> appendChild(IsElement node) {
-        element.appendChild(node.asElement());
+        element.appendChild(node.element());
         return this;
     }
 
@@ -135,7 +135,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     @Override
     public SelectOption<T> deselect(boolean silent) {
         style().remove(SELECTED);
-        if (element.contains(checkMark.asElement()))
+        if (element.contains(checkMark.element()))
             checkMark.remove();
         return this;
     }
@@ -152,8 +152,8 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     public Icon getCheckMark() {

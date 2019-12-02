@@ -23,7 +23,7 @@ public class Loader {
     }
 
     public static Loader create(IsElement target, LoaderEffect effect) {
-        return new Loader(target.asElement(), effect);
+        return new Loader(target.element(), effect);
     }
 
     private Loader(HTMLElement target, LoaderEffect type) {

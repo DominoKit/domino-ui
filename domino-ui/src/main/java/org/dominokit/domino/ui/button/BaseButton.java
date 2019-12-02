@@ -25,7 +25,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     private ButtonSize size;
     protected String content;
     private BaseIcon<?> icon;
-    private HTMLElement textSpan = span().asElement();
+    private HTMLElement textSpan = span().element();
     private Text textElement = TextNode.empty();
     private Elevation beforeLinkifyElevation = Elevation.LEVEL_1;
 
@@ -142,7 +142,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
     @Override
     public HTMLElement getClickableElement() {
-        return asElement();
+        return element();
     }
 
     @Override

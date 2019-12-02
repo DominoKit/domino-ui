@@ -17,7 +17,7 @@ public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
     private FlexAlign alignSelf;
 
     public FlexItem() {
-        this(div().asElement());
+        this(div().element());
     }
     public FlexItem(HTMLDivElement root) {
         element = root;
@@ -89,7 +89,7 @@ public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

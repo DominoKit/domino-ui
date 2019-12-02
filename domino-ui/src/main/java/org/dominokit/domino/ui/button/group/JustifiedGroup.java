@@ -22,14 +22,14 @@ public class JustifiedGroup extends BaseDominoElement<HTMLElement, JustifiedGrou
 
     @Override
     public HTMLElement appendChild(Button button) {
-        HTMLElement justify = button.asElement();
+        HTMLElement justify = button.element();
         group.appendChild(justify);
         return justify;
     }
 
     @Override
     public HTMLElement appendChild(DropdownButton dropDown) {
-        HTMLElement justify = dropDown.asElement();
+        HTMLElement justify = dropDown.element();
         group.appendChild(justify);
         return justify;
     }
@@ -47,8 +47,8 @@ public class JustifiedGroup extends BaseDominoElement<HTMLElement, JustifiedGrou
     }
 
     @Override
-    public HTMLElement asElement() {
-        return group.asElement();
+    public HTMLElement element() {
+        return group.element();
     }
 
     @Override

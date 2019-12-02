@@ -16,7 +16,7 @@ public class Row<T extends Row<T>> extends BaseDominoElement<HTMLDivElement, T> 
     protected HTMLDivElement row;
 
     public Row(Columns columns) {
-        this.row = div().css(GridStyles.GRID_ROW).css(columns.getColumnsStyle()).asElement();
+        this.row = div().css(GridStyles.GRID_ROW).css(columns.getColumnsStyle()).element();
         this.columns = columns;
     }
 
@@ -72,7 +72,7 @@ public class Row<T extends Row<T>> extends BaseDominoElement<HTMLDivElement, T> 
 
 
     public T appendChild(Column column) {
-        row.appendChild(column.asElement());
+        row.appendChild(column.element());
         return (T) this;
     }
 
@@ -88,7 +88,7 @@ public class Row<T extends Row<T>> extends BaseDominoElement<HTMLDivElement, T> 
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return row;
     }
 
@@ -98,7 +98,7 @@ public class Row<T extends Row<T>> extends BaseDominoElement<HTMLDivElement, T> 
     }
 
     public T appendChild(IsElement element) {
-        row.appendChild(element.asElement());
+        row.appendChild(element.element());
         return (T) this;
     }
 

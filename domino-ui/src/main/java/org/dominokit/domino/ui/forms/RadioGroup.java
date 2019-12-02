@@ -61,7 +61,7 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
     }
 
     public RadioGroup<T> appendChild(Radio<? extends T> radio, IsElement content) {
-        return appendChild(radio, content.asElement());
+        return appendChild(radio, content.element());
     }
 
     private void onCheck(Radio<? extends T> selectedRadio) {
@@ -90,7 +90,7 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
     }
 
     protected HTMLLabelElement makeErrorLabel(String message) {
-        return Elements.label().css("error").textContent(message).asElement();
+        return Elements.label().css("error").textContent(message).element();
     }
 
     public List<Radio<? extends T>> getRadios() {
@@ -184,7 +184,7 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
     @Override
     protected HTMLElement createInputElement(String type) {
         flexLayout = FlexLayout.create();
-        return flexLayout.asElement();
+        return flexLayout.element();
     }
 
     @Override

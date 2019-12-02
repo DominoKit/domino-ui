@@ -36,7 +36,7 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
 
     @Override
     protected HTMLTextAreaElement createInputElement(String type) {
-        return Elements.textarea().css("no-resize").asElement();
+        return Elements.textarea().css("no-resize").element();
     }
 
     public TextArea setRows(int rows) {
@@ -62,12 +62,12 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
     @Override
     protected void doSetValue(String value) {
         if (nonNull(value)) {
-            getInputElement().asElement().value = value;
+            getInputElement().element().value = value;
                 if (isAttached()) {
                     adjustHeight();
                 }
         } else {
-            getInputElement().asElement().value = "";
+            getInputElement().element().value = "";
         }
     }
 
@@ -78,7 +78,7 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
 
     @Override
     public String getValue() {
-        String value = getInputElement().asElement().value;
+        String value = getInputElement().element().value;
         if (value.isEmpty() && isEmptyAsNull()) {
             return null;
         }
@@ -103,7 +103,7 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
 
     private void adjustHeight() {
         getInputElement().style().setHeight("auto");
-        int scrollHeight = getInputElement().asElement().scrollHeight;
+        int scrollHeight = getInputElement().element().scrollHeight;
         if (scrollHeight < 30) {
             scrollHeight = 22;
         }

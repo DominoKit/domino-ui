@@ -41,7 +41,7 @@ public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String>
 
     @Override
     protected HTMLInputElement createInputElement(String type) {
-        return Elements.input(type).asElement();
+        return Elements.input(type).element();
     }
 
     @Override
@@ -52,15 +52,15 @@ public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String>
     @Override
     protected void doSetValue(String value) {
         if (nonNull(value)) {
-            getInputElement().asElement().value = value;
+            getInputElement().element().value = value;
         } else {
-            getInputElement().asElement().value = "";
+            getInputElement().element().value = "";
         }
     }
 
     @Override
     public String getValue() {
-        String value = getInputElement().asElement().value;
+        String value = getInputElement().element().value;
         if (value.isEmpty() && isEmptyAsNull()) {
             return null;
         }
@@ -68,7 +68,7 @@ public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String>
     }
 
     public TextBox setType(String type) {
-        getInputElement().asElement().type = type;
+        getInputElement().element().type = type;
         return this;
     }
 

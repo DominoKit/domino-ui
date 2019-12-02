@@ -70,10 +70,10 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
     private class SortContainer {
         private final String columnName;
         private SortDirection sortDirection = SortDirection.DESC;
-        private HTMLElement directionElement = Style.of(ElementUtil.contentBuilder(Icons.ALL.arrow_upward().asElement()).textContent("import_export")).add(Styles.font_15).asElement();
+        private HTMLElement directionElement = Style.of(ElementUtil.contentBuilder(Icons.ALL.arrow_upward().element()).textContent("import_export")).add(Styles.font_15).element();
         private HTMLElement sortElement = span().css(Styles.pull_right).add(directionElement)
                 .style("min-width: 15px;")
-                .asElement();
+                .element();
 
         public SortContainer(String columnName) {
             this.columnName = columnName;

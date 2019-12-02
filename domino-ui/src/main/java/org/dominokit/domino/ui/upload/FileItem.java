@@ -30,13 +30,13 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private FileImage fileImage;
     private HTMLParagraphElement fileSizeParagraph;
     private HTMLHeadingElement fileNameTitleContainer;
-    private HTMLDivElement footerContainer = Elements.div().asElement();
-    private HTMLElement messageContainer = Elements.p().css(ELLIPSIS_TEXT).asElement();
+    private HTMLDivElement footerContainer = Elements.div().element();
+    private HTMLElement messageContainer = Elements.p().css(ELLIPSIS_TEXT).element();
     private HTMLDivElement progressElement;
     private ProgressBar progressBar;
-    private HTMLElement deleteIcon = Icons.ALL.delete().asElement();
-    private HTMLElement cancelIcon = Icons.ALL.cancel().asElement();
-    private HTMLElement refreshIcon = Icons.ALL.refresh().asElement();
+    private HTMLElement deleteIcon = Icons.ALL.delete().element();
+    private HTMLElement cancelIcon = Icons.ALL.cancel().element();
+    private HTMLElement refreshIcon = Icons.ALL.refresh().element();
 
     private File file;
     private UploadOptions options;
@@ -92,13 +92,13 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     }
 
     private void initFileTitle() {
-        fileNameTitleContainer = h(3).css(ELLIPSIS_TEXT).textContent(file.name).asElement();
+        fileNameTitleContainer = h(3).css(ELLIPSIS_TEXT).textContent(file.name).element();
         fileNameTitleContainer.style.margin = CSSProperties.MarginUnionType.of("0px");
         Tooltip.create(fileNameTitleContainer, file.name);
     }
 
     private void initFileSizeParagraph() {
-        fileSizeParagraph = Paragraph.create("File size : " + readableFileSize()).asElement();
+        fileSizeParagraph = Paragraph.create("File size : " + readableFileSize()).element();
     }
 
     private void initFooter() {
@@ -149,13 +149,13 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         progressBar = ProgressBar.create(file.size);
         progressElement = Progress.create()
                 .appendChild(progressBar)
-                .asElement();
+                .element();
         progressElement.style.marginBottom = CSSProperties.MarginBottomUnionType.of("0px");
         progressElement.style.height = CSSProperties.HeightUnionType.of("5px");
     }
 
     private void initThumbnail() {
-        thumbnail.asElement().appendChild(fileImage.asElement());
+        thumbnail.element().appendChild(fileImage.element());
         thumbnail.appendCaptionChild(fileNameTitleContainer);
         thumbnail.appendCaptionChild(fileSizeParagraph);
         thumbnail.appendCaptionChild(footerContainer);
@@ -167,12 +167,12 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return thumbnail.asElement();
+    public HTMLDivElement element() {
+        return thumbnail.element();
     }
 
     private void setThumbnailBorder(Color red) {
-        thumbnail.asElement().style.border = "1px solid " + red.getHex();
+        thumbnail.element().style.border = "1px solid " + red.getHex();
     }
 
     public File getFile() {
@@ -312,7 +312,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     }
 
     private void resetState() {
-        thumbnail.asElement().style.border = "1px solid #ddd";
+        thumbnail.element().style.border = "1px solid #ddd";
         messageContainer.textContent = "";
         canceled = false;
         removed = false;

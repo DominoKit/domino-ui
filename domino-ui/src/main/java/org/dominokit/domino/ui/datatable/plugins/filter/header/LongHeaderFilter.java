@@ -25,7 +25,7 @@ public class LongHeaderFilter<T> extends DelayedHeaderFilterInput<LongBox, T> {
 
     @Override
     protected HTMLInputElement getInputElement() {
-        return longBox.getInputElement().asElement();
+        return longBox.getInputElement().element();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class LongHeaderFilter<T> extends DelayedHeaderFilterInput<LongBox, T> {
     public void clear() {
         longBox.pauseChangeHandlers();
         longBox.clear();
-        longBox.getInputElement().asElement().value = "";
+        longBox.getInputElement().element().value = "";
         longBox.resumeChangeHandlers();
     }
 }

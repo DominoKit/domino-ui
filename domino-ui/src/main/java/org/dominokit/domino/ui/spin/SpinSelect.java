@@ -49,8 +49,8 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
                                 })));
         init((S) this);
         onAttached(mutationRecord -> fixElementsWidth());
-        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, main.asElement(), evt -> moveBack());
-        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, main.asElement(), evt -> moveForward());
+        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, main.element(), evt -> moveBack());
+        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, main.element(), evt -> moveForward());
     }
 
     public S moveForward() {

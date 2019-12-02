@@ -10,8 +10,8 @@ public abstract class TopPanelPlugin<T> implements DataTablePlugin<T>, IsElement
 
     @Override
     public void onBeforeAddTable(DataTable<T> dataTable) {
-        if (nonNull(asElement())) {
-            dataTable.asElement().appendChild(asElement());
+        if (nonNull(element())) {
+            dataTable.element().appendChild(element());
         }
     }
 

@@ -12,7 +12,7 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Boolean> implements Checkable<SwitchButton> {
 
-    private HTMLLabelElement onOffLabelElement = label().asElement();
+    private HTMLLabelElement onOffLabelElement = label().element();
     private DominoElement<HTMLInputElement> inputElement;
     private DominoElement<HTMLElement> lever = DominoElement.of(span().css("lever"));
     private Color color;
@@ -44,10 +44,10 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         init(this);
         DominoElement.of(onOffLabelElement).css("switch-label");
         getInputContainer().appendChild(onOffLabelElement);
-        onOffLabelElement.appendChild(offTitleTextRoot.asElement());
-        onOffLabelElement.appendChild(getInputElement().asElement());
-        onOffLabelElement.appendChild(lever.asElement());
-        onOffLabelElement.appendChild(onTitleTextRoot.asElement());
+        onOffLabelElement.appendChild(offTitleTextRoot.element());
+        onOffLabelElement.appendChild(getInputElement().element());
+        onOffLabelElement.appendChild(lever.element());
+        onOffLabelElement.appendChild(onTitleTextRoot.element());
         inputElement.addEventListener("change", evt -> {
             evt.stopPropagation();
             if (!isReadOnly()) {
@@ -95,7 +95,7 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
 
     @Override
     public Boolean getValue() {
-        return inputElement.asElement().checked;
+        return inputElement.element().checked;
     }
 
     @Override
@@ -121,7 +121,7 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
 
     @Override
     public SwitchButton check(boolean silent) {
-        inputElement.asElement().checked = true;
+        inputElement.element().checked = true;
         if (!silent) {
             onCheck();
             validate();
@@ -132,7 +132,7 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
 
     @Override
     public SwitchButton uncheck(boolean silent) {
-        inputElement.asElement().checked = false;
+        inputElement.element().checked = false;
         if (!silent) {
             onCheck();
             validate();
@@ -143,7 +143,7 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
 
     @Override
     public boolean isChecked() {
-        return inputElement.asElement().checked;
+        return inputElement.element().checked;
     }
 
     @Override
@@ -258,7 +258,7 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
     @Override
     protected HTMLElement createInputElement(String type) {
         inputElement = DominoElement.of(input("checkbox"));
-        return inputElement.asElement();
+        return inputElement.element();
     }
 
     @Override

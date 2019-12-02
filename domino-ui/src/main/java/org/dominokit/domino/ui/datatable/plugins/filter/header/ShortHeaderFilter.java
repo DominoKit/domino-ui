@@ -24,7 +24,7 @@ public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T> 
 
     @Override
     protected HTMLInputElement getInputElement() {
-        return shortBox.getInputElement().asElement();
+        return shortBox.getInputElement().element();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T> 
     public void clear() {
         shortBox.pauseChangeHandlers();
         shortBox.clear();
-        shortBox.getInputElement().asElement().value = "";
+        shortBox.getInputElement().element().value = "";
         shortBox.resumeChangeHandlers();
     }
 }

@@ -51,7 +51,7 @@ public class EnumHeaderFilter<T, E extends Enum> implements ColumnHeaderFilterPl
     }
 
     @Override
-    public HTMLElement asElement() {
-        return select.asElement();
+    public HTMLElement element() {
+        return select.element();
     }
 }

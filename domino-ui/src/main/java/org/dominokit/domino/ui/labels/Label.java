@@ -63,8 +63,8 @@ public class Label extends BaseDominoElement<HTMLElement, Label> implements HasC
     }
 
     @Override
-    public HTMLElement asElement() {
-        return span.asElement();
+    public HTMLElement element() {
+        return span.element();
     }
 
     @Override

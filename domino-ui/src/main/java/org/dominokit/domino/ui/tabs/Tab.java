@@ -25,7 +25,7 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasClickableElement {
 
-    private HTMLAnchorElement clickableElement = a().asElement();
+    private HTMLAnchorElement clickableElement = a().element();
     private DominoElement<HTMLLIElement> tab = DominoElement.of(li()
             .attr("role", "presentation")
             .add(clickableElement));
@@ -79,7 +79,7 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
                 })
                 .clickable();
 
-        clickableElement.appendChild(tabElementsContainer.asElement());
+        clickableElement.appendChild(tabElementsContainer.element());
         init(this);
         withWaves();
     }
@@ -110,12 +110,12 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
     }
 
     public Tab appendChild(IsElement content) {
-        return appendChild(content.asElement());
+        return appendChild(content.element());
     }
 
     @Override
     public Tab setContent(IsElement element) {
-        return setContent(element.asElement());
+        return setContent(element.element());
     }
 
     @Override
@@ -231,8 +231,8 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
     }
 
     @Override
-    public HTMLLIElement asElement() {
-        return tab.asElement();
+    public HTMLLIElement element() {
+        return tab.element();
     }
 
     void setParent(TabsPanel tabsPanel) {

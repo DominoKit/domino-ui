@@ -14,8 +14,8 @@ import static org.jboss.gwt.elemento.core.Elements.li;
 
 public class HeaderAction extends BaseDominoElement<HTMLLIElement, HeaderAction> {
 
-    private HTMLLIElement element = li().asElement();
-    private HTMLAnchorElement anchorElement = a().asElement();
+    private HTMLLIElement element = li().element();
+    private HTMLAnchorElement anchorElement = a().element();
     private BaseIcon<?> icon;
 
     public static HeaderAction create(BaseIcon<?> icon, EventListener eventListener) {
@@ -30,7 +30,7 @@ public class HeaderAction extends BaseDominoElement<HTMLLIElement, HeaderAction>
         this.icon = icon;
         this.icon.clickable()
                 .styler(style -> style.add(Styles.pull_right, ACTION_ICON));
-        anchorElement.appendChild(this.icon.asElement());
+        anchorElement.appendChild(this.icon.element());
         element.appendChild(anchorElement);
         init(this);
     }
@@ -41,7 +41,7 @@ public class HeaderAction extends BaseDominoElement<HTMLLIElement, HeaderAction>
     }
 
     @Override
-    public HTMLLIElement asElement() {
+    public HTMLLIElement element() {
         return element;
     }
 

@@ -81,7 +81,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
             removeHover();
             evt.preventDefault();
         });
-        filesContainer.appendChild(row.asElement());
+        filesContainer.appendChild(row.element());
         init(this);
     }
 
@@ -121,7 +121,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
     private void addFilePreview(File file) {
         FileItem fileItem = FileItem.create(file, new UploadOptions(url, maxFileSize, successCodesProvider));
         Column previewColumn = Column.span(thumbSpanXLarge, thumbSpanLarge, thumbSpanMedium, thumbSpanSmall, thumbSpanXSmall)
-                .appendChild(fileItem.asElement());
+                .appendChild(fileItem.element());
 
         if (thumbOffsetXLarge >= 0) {
             previewColumn.onXLargeOffset(Column.OnXLargeOffset.of(thumbOffsetXLarge));
@@ -143,7 +143,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
         addedFileItems.add(fileItem);
 
         fileItem.addRemoveHandler(removedFile -> {
-            previewColumn.asElement().remove();
+            previewColumn.element().remove();
             addedFileItems.remove(fileItem);
         });
 
@@ -166,7 +166,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
 
     private void createHiddenInput() {
         hiddenFileInput = input("file")
-                .style("visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;").asElement();
+                .style("visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;").element();
         DomGlobal.document.body.appendChild(hiddenFileInput);
     }
 
@@ -175,8 +175,8 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return formElement.asElement();
+    public HTMLDivElement element() {
+        return formElement.element();
     }
 
     public FileUpload appendChild(Node child) {
@@ -185,7 +185,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
     }
 
     public FileUpload appendChild(IsElement child) {
-        return appendChild(child.asElement());
+        return appendChild(child.element());
     }
 
     public FileUpload multipleFiles() {

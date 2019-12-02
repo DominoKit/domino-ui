@@ -11,26 +11,26 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class RotationLoader extends BaseLoader<RotationLoader> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("border-color:#555").asElement();
+    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("border-color:#555").element();
 
     private HTMLDivElement loader = div()
             .css(WAIT_ME_PROGRESS)
             .css(LoaderStyles.ROTATION)
             .add(progress1)
-            .asElement();
+            .element();
 
     private HTMLDivElement content = div()
             .css(WAIT_ME_CONTENT)
             .css(Styles.vertical_center)
             .add(loader)
             .add(loadingText)
-            .asElement();
+            .element();
 
     private HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.9);")
             .add(content)
-            .asElement();
+            .element();
 
     public RotationLoader() {
         init(this);
@@ -63,7 +63,7 @@ public class RotationLoader extends BaseLoader<RotationLoader> implements IsElem
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

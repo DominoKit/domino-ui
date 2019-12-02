@@ -48,7 +48,7 @@ public abstract class Preloader extends BaseDominoElement<HTMLDivElement, Preloa
     }
 
     public Preloader stop() {
-        asElement().remove();
+        element().remove();
         return this;
     }
 

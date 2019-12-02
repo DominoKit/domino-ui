@@ -22,12 +22,12 @@ public class Code{
         public Block setCode(String code){
             if(nonNull(element.firstChild))
                 element.removeChild(element.firstChild);
-            element.appendChild(code().style(CODE_STYLE).textContent(code).asElement());
+            element.appendChild(code().style(CODE_STYLE).textContent(code).element());
             return this;
         }
 
         @Override
-        public HTMLPreElement asElement() {
+        public HTMLPreElement element() {
             return element;
         }
     }
@@ -40,21 +40,21 @@ public class Code{
         }
 
         @Override
-        public HTMLElement asElement() {
+        public HTMLElement element() {
             return element;
         }
     }
 
     public static Block block(String code){
-        return new Block(pre().add(code().style(CODE_STYLE).textContent(code)).asElement());
+        return new Block(pre().add(code().style(CODE_STYLE).textContent(code)).element());
     }
 
     public static Block block(){
-        return new Block(pre().asElement());
+        return new Block(pre().element());
     }
 
     public static Statement statement(String code){
-        return new Statement(code().style(CODE_STYLE).textContent(code).asElement());
+        return new Statement(code().style(CODE_STYLE).textContent(code).element());
     }
 
 }

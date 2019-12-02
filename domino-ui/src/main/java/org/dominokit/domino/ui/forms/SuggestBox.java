@@ -25,7 +25,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     private DropDownMenu suggestionsMenu;
     private List<SelectionHandler<SuggestItem<T>>> selectionHandlers = new ArrayList<>();
     private SuggestBoxStore<T> store;
-    private HTMLDivElement loaderContainer = div().css("suggest-box-loader").asElement();
+    private HTMLDivElement loaderContainer = div().css("suggest-box-loader").element();
     private Loader loader;
     private boolean emptyAsNull;
     private Color highlightColor;
@@ -60,18 +60,18 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         super(type, label);
         this.store = store;
         suggestionsMenu = DropDownMenu.create(fieldContainer);
-        suggestionsMenu.setAppendTarget(fieldContainer.asElement());
+        suggestionsMenu.setAppendTarget(fieldContainer.element());
         suggestionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
         suggestionsMenu.setPosition(new PopupPositionTopDown());
         suggestionsMenu.addCloseHandler(this::focus);
         Element element = document.querySelector(".content");
         if (nonNull(element)) {
             element.addEventListener("transitionend", evt -> {
-                suggestionsMenu.style().setWidth(asElement().offsetWidth + "px");
+                suggestionsMenu.style().setWidth(element().offsetWidth + "px");
             });
         }
         onAttached(mutationRecord -> {
-            suggestionsMenu.style().setWidth(asElement().offsetWidth + "px");
+            suggestionsMenu.style().setWidth(element().offsetWidth + "px");
         });
         getFieldContainer().insertFirst(loaderContainer);
         setLoaderEffect(LoaderEffect.IOS);
@@ -107,7 +107,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
 
     @Override
     protected HTMLInputElement createInputElement(String type) {
-        return Elements.input(type).asElement();
+        return Elements.input(type).element();
     }
 
     public int getTypeAheadDelay() {
@@ -146,9 +146,9 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
             store.find(value, suggestItem -> {
                 if (nonNull(suggestItem)) {
                     this.value = value;
-                    getInputElement().asElement().value = suggestItem.getDisplayValue();
+                    getInputElement().element().value = suggestItem.getDisplayValue();
                 } else {
-                    getInputElement().asElement().value = "";
+                    getInputElement().element().value = "";
                 }
             });
         }
@@ -165,13 +165,13 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     }
 
     public SuggestBox<T> setType(String type) {
-        getInputElement().asElement().type = type;
+        getInputElement().element().type = type;
         return this;
     }
 
     @Override
     public String getStringValue() {
-        String stringValue = getInputElement().asElement().value;
+        String stringValue = getInputElement().element().value;
         if (stringValue.isEmpty() && isEmptyAsNull()) {
             return null;
         }

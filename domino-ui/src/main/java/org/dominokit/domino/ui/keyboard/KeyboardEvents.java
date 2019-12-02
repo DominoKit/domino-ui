@@ -54,7 +54,7 @@ public class KeyboardEvents<T extends Node> {
     }
 
     public static KeyboardEvents listenOn(IsElement element) {
-        return new KeyboardEvents<>(element.asElement());
+        return new KeyboardEvents<>(element.element());
     }
 
     // ---------------- handlers ----------------

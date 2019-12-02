@@ -17,11 +17,11 @@ public class Content extends BaseDominoElement<HTMLElement, Content> {
     HTMLElement section;
 
     public Content() {
-        contentContainer = div().css(LayoutStyles.CONTENT_PANEL).asElement();
+        contentContainer = div().css(LayoutStyles.CONTENT_PANEL).element();
         section = section()
                 .css(LayoutStyles.CONTENT)
                 .add(contentContainer)
-                .asElement();
+                .element();
         init(this);
     }
 
@@ -30,7 +30,7 @@ public class Content extends BaseDominoElement<HTMLElement, Content> {
     }
 
     @Override
-    public HTMLElement asElement() {
+    public HTMLElement element() {
         return section;
     }
 }

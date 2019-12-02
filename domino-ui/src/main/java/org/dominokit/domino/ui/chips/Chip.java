@@ -25,13 +25,13 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         Switchable<Chip>, HasRemoveHandler<Chip> {
 
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(CHIP));
-    private HTMLDivElement textContainer = div().css(CHIP_VALUE).asElement();
-    private HTMLDivElement leftAddonContainer = div().css(CHIP_ADDON).asElement();
-    private HTMLDivElement removeIconContainer = div().css(CHIP_REMOVE).asElement();
+    private HTMLDivElement textContainer = div().css(CHIP_VALUE).element();
+    private HTMLDivElement leftAddonContainer = div().css(CHIP_ADDON).element();
+    private HTMLDivElement removeIconContainer = div().css(CHIP_REMOVE).element();
     private ColorScheme colorScheme = ColorScheme.INDIGO;
     private Color color = Color.INDIGO;
     private Color borderColor;
-    private DominoElement<HTMLElement> removeIcon = DominoElement.of(Icons.ALL.close().asElement());
+    private DominoElement<HTMLElement> removeIcon = DominoElement.of(Icons.ALL.close().element());
     private List<SelectionHandler<String>> selectionHandlers = new ArrayList<>();
     private List<DeselectionHandler> deselectionHandlers = new ArrayList<>();
     private List<RemoveHandler> removeHandlers = new ArrayList<>();
@@ -130,7 +130,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     }
 
     public Chip setRemoveIcon(IsElement removeIcon) {
-        return setRemoveIcon(removeIcon.asElement());
+        return setRemoveIcon(removeIcon.element());
     }
 
     public Chip setColorScheme(ColorScheme colorScheme) {
@@ -203,7 +203,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     }
 
     public Chip setLeftIcon(BaseIcon<?> icon) {
-        setLeftAddon(icon.asElement());
+        setLeftAddon(icon.element());
         return this;
     }
 
@@ -213,11 +213,11 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     }
 
     public Chip setLeftImg(IsElement<HTMLImageElement> imageElement) {
-        return setLeftImg(imageElement.asElement());
+        return setLeftImg(imageElement.element());
     }
 
     public Chip setLeftLetter(String text) {
-        setLeftAddon(span().textContent(text).asElement());
+        setLeftAddon(span().textContent(text).element());
         return this;
     }
 
@@ -241,8 +241,8 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     @Override

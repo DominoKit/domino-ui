@@ -11,18 +11,18 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555").asElement();
-    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555").asElement();
-    private HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#555").asElement();
-    private HTMLDivElement progress4 = div().css(WAIT_ME_PROGRESS_ELEM_4).style("background-color:#555").asElement();
-    private HTMLDivElement progress5 = div().css(WAIT_ME_PROGRESS_ELEM_5).style("background-color:#555").asElement();
-    private HTMLDivElement progress6 = div().css(WAIT_ME_PROGRESS_ELEM_6).style("background-color:#555").asElement();
-    private HTMLDivElement progress7 = div().css(WAIT_ME_PROGRESS_ELEM_7).style("background-color:#555").asElement();
-    private HTMLDivElement progress8 = div().css(WAIT_ME_PROGRESS_ELEM_8).style("background-color:#555").asElement();
-    private HTMLDivElement progress9 = div().css(WAIT_ME_PROGRESS_ELEM_9).style("background-color:#555").asElement();
-    private HTMLDivElement progress10 = div().css(WAIT_ME_PROGRESS_ELEM_10).style("background-color:#555").asElement();
-    private HTMLDivElement progress11 = div().css(WAIT_ME_PROGRESS_ELEM_11).style("background-color:#555").asElement();
-    private HTMLDivElement progress12 = div().css(WAIT_ME_PROGRESS_ELEM_12).style("background-color:#555").asElement();
+    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555").element();
+    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555").element();
+    private HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#555").element();
+    private HTMLDivElement progress4 = div().css(WAIT_ME_PROGRESS_ELEM_4).style("background-color:#555").element();
+    private HTMLDivElement progress5 = div().css(WAIT_ME_PROGRESS_ELEM_5).style("background-color:#555").element();
+    private HTMLDivElement progress6 = div().css(WAIT_ME_PROGRESS_ELEM_6).style("background-color:#555").element();
+    private HTMLDivElement progress7 = div().css(WAIT_ME_PROGRESS_ELEM_7).style("background-color:#555").element();
+    private HTMLDivElement progress8 = div().css(WAIT_ME_PROGRESS_ELEM_8).style("background-color:#555").element();
+    private HTMLDivElement progress9 = div().css(WAIT_ME_PROGRESS_ELEM_9).style("background-color:#555").element();
+    private HTMLDivElement progress10 = div().css(WAIT_ME_PROGRESS_ELEM_10).style("background-color:#555").element();
+    private HTMLDivElement progress11 = div().css(WAIT_ME_PROGRESS_ELEM_11).style("background-color:#555").element();
+    private HTMLDivElement progress12 = div().css(WAIT_ME_PROGRESS_ELEM_12).style("background-color:#555").element();
 
     private HTMLDivElement loader = div()
             .css(WAIT_ME_PROGRESS)
@@ -39,7 +39,7 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
             .add(progress10)
             .add(progress11)
             .add(progress12)
-            .asElement();
+            .element();
 
     private HTMLDivElement content = div()
             .css(WAIT_ME_CONTENT)
@@ -47,13 +47,13 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
             .add(div()
                     .add(loader)
                     .add(loadingText)
-            ).asElement();
+            ).element();
 
     private HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.9);")
             .add(content)
-            .asElement();
+            .element();
 
     public IosLoader() {
         init(this);
@@ -86,7 +86,7 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

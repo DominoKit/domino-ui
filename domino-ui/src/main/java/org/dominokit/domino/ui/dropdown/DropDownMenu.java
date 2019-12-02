@@ -104,7 +104,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
         setNoSearchResultsElement(DominoElement.of(li().css(DropDownStyles.NO_RESULTS))
                 .hide()
-                .asElement());
+                .element());
         menuElement.appendChild(noSearchResultsElement);
 
         titleContainer.addClickListener(Event::stopPropagation);
@@ -131,7 +131,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     private void doSearch() {
-        String searchValue = searchBox.asElement().value;
+        String searchValue = searchBox.element().value;
         boolean thereIsValues = false;
         for (DropdownAction<?> action : actions) {
             boolean contains;
@@ -188,7 +188,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     public static DropDownMenu create(IsElement targetElement) {
-        return new DropDownMenu(targetElement.asElement());
+        return new DropDownMenu(targetElement.element());
     }
 
     public DropDownMenu insertFirst(DropdownAction action) {
@@ -198,7 +198,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
             }
         });
         actions.add(0, action);
-        menuElement.insertFirst(action.asElement());
+        menuElement.insertFirst(action.element());
         return this;
     }
 
@@ -209,7 +209,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
             }
         });
         actions.add(action);
-        menuElement.appendChild(action.asElement());
+        menuElement.appendChild(action.element());
         action.setBackground(this.background);
         return this;
     }
@@ -237,9 +237,9 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     public void open() {
         if (hasActions()) {
             onAttached(mutationRecord -> {
-                position.position(element.asElement(), targetElement);
+                position.position(element.element(), targetElement);
                 if (searchable) {
-                    searchBox.asElement().focus();
+                    searchBox.element().focus();
                     clearSearch();
                 }
 
@@ -247,8 +247,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
                 openHandlers.forEach(OpenHandler::onOpen);
             });
 
-            if (!appendTarget.contains(element.asElement())) {
-                appendStrategy.onAppend(appendTarget, element.asElement());
+            if (!appendTarget.contains(element.element())) {
+                appendStrategy.onAppend(appendTarget, element.element());
             }
 
 
@@ -256,13 +256,13 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     public void clearSearch() {
-        searchBox.asElement().value = "";
+        searchBox.element().value = "";
         noSearchResultsElement.hide();
         actions.forEach(DropdownAction::show);
     }
 
     public boolean isOpened() {
-        return appendTarget.contains(element.asElement());
+        return appendTarget.contains(element.element());
     }
 
     public DropDownMenu setPosition(DropDownPosition position) {
@@ -271,8 +271,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     public DropDownMenu clearActions() {
@@ -334,7 +334,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
     public DropDownMenu addGroup(DropdownActionsGroup group) {
         groups.add(group);
-        menuElement.appendChild(group.asElement());
+        menuElement.appendChild(group.element());
         group.bindTo(this);
         return this;
     }

@@ -42,7 +42,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     private Column actionsBarColumn = Column.span6();
 
     private HTMLHeadingElement title = Style.of(h(2))
-            .setMarginBottom("0px").asElement();
+            .setMarginBottom("0px").element();
     private FlexLayout actionsBar = FlexLayout.create()
             .setJustifyContent(FlexJustifyContent.END);
 
@@ -50,10 +50,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
             .add(Row.create()
                     .appendChild(titleColumn.appendChild(title))
                     .appendChild(actionsBarColumn.appendChild(actionsBar))
-                    .asElement())
+                    .element())
             .css(DataTableStyles.HEADER)
             .style("padding-bottom: 5px;")
-            .asElement();
+            .element();
 
     private final List<HeaderActionElement<T>> actionElements = new ArrayList<>();
 
@@ -64,7 +64,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     public HeaderBarPlugin(String title, String description) {
         this.title.appendChild(DomGlobal.document.createTextNode(title));
         if (nonNull(description) && !description.isEmpty()) {
-            this.title.appendChild(small().textContent(description).asElement());
+            this.title.appendChild(small().textContent(description).element());
         }
 
         Style.of(titleColumn).setMarginBottom("0px");
@@ -77,8 +77,8 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                 .styler(style -> style
                         .add(Styles.m_r_5)
                         .add(Styles.m_l_5))
-                .appendChild(actionElement.asElement(dataTable)).asElement()));
-        dataTable.asElement().appendChild(element);
+                .appendChild(actionElement.asElement(dataTable)).element()));
+        dataTable.element().appendChild(element);
     }
 
     public HeaderBarPlugin<T> addActionElement(HeaderActionElement<T> headerActionElement) {
@@ -108,7 +108,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                     }));
 
 
-            return a().add(condenseIcon).asElement();
+            return a().add(condenseIcon).element();
         }
 
         public CondenseTableAction<T> setCondenseToolTip(String condenseToolTip) {
@@ -144,7 +144,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                         }
                     }));
 
-            return a().add(stripesIcon).asElement();
+            return a().add(stripesIcon).element();
         }
 
         public StripesTableAction<T> setNoStripsToolTip(String noStripsToolTip) {
@@ -181,7 +181,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                         }
                     }));
 
-            return a().add(bordersIcon).asElement();
+            return a().add(bordersIcon).element();
         }
 
         public BordersTableAction<T> setBorderedToolTip(String borderedToolTip) {
@@ -218,7 +218,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                         }
                     }));
 
-            return a().add(hoverIcon).asElement();
+            return a().add(hoverIcon).element();
         }
 
         public HoverTableAction<T> setHoverToolTip(String hoverToolTip) {
@@ -248,7 +248,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                             .fireSearchEvent());
 
             return a()
-                    .add(clearFiltersIcon).asElement();
+                    .add(clearFiltersIcon).element();
         }
 
         public ClearSearch<T> setClearFiltersToolTip(String clearFiltersToolTip) {
@@ -263,7 +263,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
         private String clearSearchToolTip = "Clear search";
 
         private int autoSearchDelay = 200;
-        private HTMLDivElement element = div().css("search-new").asElement();
+        private HTMLDivElement element = div().css("search-new").element();
         private DataTable<T> dataTable;
         private final TextBox textBox;
         private boolean autoSearch = true;
@@ -306,7 +306,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                 doSearch();
             });
 
-            element.appendChild(textBox.asElement());
+            element.appendChild(textBox.element());
 
             autoSearchTimer = new Timer() {
                 @Override
@@ -406,14 +406,14 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                             .forEach(columnConfig -> {
 
                                 Icon checkIcon = Icons.ALL.check();
-                                columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(checkIcon.asElement(), true));
+                                columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(checkIcon.element(), true));
                                 FlexLayout itemElement = FlexLayout.create()
                                         .appendChild(FlexItem.create()
                                                 .styler(style -> style.setWidth(Unit.px.of(24)))
                                                 .appendChild(checkIcon))
                                         .appendChild(FlexItem.create().appendChild(TextNode.of(columnConfig.getTitle())));
 
-                                columnsMenu.addAction(DropdownAction.create(columnConfig.getName(), itemElement.asElement())
+                                columnsMenu.addAction(DropdownAction.create(columnConfig.getName(), itemElement.element())
                                         .setAutoClose(false)
                                         .addSelectionHandler(value -> columnConfig.toggleDisplay(columnConfig.isHidden())));
                             }));
@@ -422,7 +422,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                 dropDownMenu.open();
                 evt.stopPropagation();
             });
-            return columnsIcon.asElement();
+            return columnsIcon.element();
         }
 
         @Override

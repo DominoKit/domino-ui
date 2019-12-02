@@ -32,7 +32,7 @@ public class MenuNavigation<V extends IsElement, T extends HTMLElement> implemen
     }
 
     public static <V extends IsElement, T extends HTMLElement> MenuNavigation<V, T> create(List<V> items, IsElement<T> element) {
-        return create(items, element.asElement());
+        return create(items, element.element());
     }
 
     public MenuNavigation<V, T> onFocus(FocusHandler<V> focusHandler) {
@@ -60,7 +60,7 @@ public class MenuNavigation<V extends IsElement, T extends HTMLElement> implemen
         KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
         HTMLElement element = Js.uncheckedCast(keyboardEvent.target);
         for (V item : items) {
-            if (item.asElement().contains(element)) {
+            if (item.element().contains(element)) {
                 if (isArrowUp(keyboardEvent)) {
                     focusPrevious(item);
                 } else if (isArrowDown(keyboardEvent)) {

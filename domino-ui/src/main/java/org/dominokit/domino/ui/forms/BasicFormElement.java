@@ -129,7 +129,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     }
 
     protected HTMLLabelElement makeErrorLabel(String message) {
-        return label().css("error").textContent(message).asElement();
+        return label().css("error").textContent(message).element();
     }
 
     @Override
@@ -204,7 +204,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     protected abstract DominoElement<HTMLLabelElement> getLabelElement();
 
     public DominoElement<HTMLElement> getLabelTextElement() {
-        return DominoElement.of(getLabelElement().asElement());
+        return DominoElement.of(getLabelElement().element());
     }
 
     @Override

@@ -49,27 +49,27 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         String stringValue = getStringValue();
         if (nonNull(stringValue) && !stringValue.isEmpty()) {
             double parsedValue = getNumberFormat().parse(stringValue);
-            getInputElement().asElement().value = getNumberFormat().format(parsedValue);
+            getInputElement().element().value = getNumberFormat().format(parsedValue);
         }
     }
 
     @Override
     protected HTMLInputElement createInputElement(String type) {
-        return Elements.input(type).asElement();
+        return Elements.input(type).element();
     }
 
     @Override
     protected void doSetValue(E value) {
         if (nonNull(value)) {
-            getInputElement().asElement().value = String.valueOf(value);
+            getInputElement().element().value = String.valueOf(value);
         } else {
-            getInputElement().asElement().value = "";
+            getInputElement().element().value = "";
         }
     }
 
     @Override
     public E getValue() {
-        String value = getInputElement().asElement().value;
+        String value = getInputElement().element().value;
         try {
             if (value.isEmpty()) {
                 clearInvalid();
@@ -89,31 +89,31 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
 
     @Override
     public boolean isEmpty() {
-        return getInputElement().asElement().value.isEmpty();
+        return getInputElement().element().value.isEmpty();
     }
 
     @Override
     public String getStringValue() {
-        return getInputElement().asElement().value;
+        return getInputElement().element().value;
     }
 
     public T setMinValue(E minValue) {
-        getInputElement().asElement().min = minValue + "";
+        getInputElement().element().min = minValue + "";
         return (T) this;
     }
 
     public T setMaxValue(E maxValue) {
-        getInputElement().asElement().max = maxValue + "";
+        getInputElement().element().max = maxValue + "";
         return (T) this;
     }
 
     public T setStep(E step) {
-        getInputElement().asElement().step = step + "";
+        getInputElement().element().step = step + "";
         return (T) this;
     }
 
     public E getMaxValue() {
-        String maxValue = getInputElement().asElement().max;
+        String maxValue = getInputElement().element().max;
         if (isNull(maxValue) || maxValue.isEmpty()) {
             return defaultMaxValue();
         }
@@ -121,7 +121,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     }
 
     public E getMinValue() {
-        String minValue = getInputElement().asElement().min;
+        String minValue = getInputElement().element().min;
         if (isNull(minValue) || minValue.isEmpty()) {
             return defaultMinValue();
         }
@@ -129,7 +129,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     }
 
     public E getStep() {
-        String step = getInputElement().asElement().step;
+        String step = getInputElement().element().step;
         if (isNull(step) || step.isEmpty()) {
             return null;
         }
