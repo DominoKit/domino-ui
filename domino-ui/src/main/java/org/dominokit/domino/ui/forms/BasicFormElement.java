@@ -209,11 +209,16 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     @Override
     public void showErrors(List<EditorError> errors) {
-        invalidate(errors.stream()
+        List<String> editorErrors = errors.stream()
                 .filter(e -> this.equals(e.getEditor()))
                 .map(EditorError::getMessage)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
 
+        if (editorErrors.isEmpty()) {
+            clearInvalid();
+        } else {
+            invalidate(editorErrors);
+        }
     }
 
 }
