@@ -454,6 +454,20 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return super.invalidate(errorMessage);
     }
 
+    public T asTableField(){
+        setTableField(true);
+        return (T) this;
+    }
+
+    public T setTableField(boolean asTableField){
+        if(asTableField) {
+            css("table-field");
+        }else{
+            removeCss("table-field");
+        }
+        return (T) this;
+    }
+
     @Override
     public T invalidate(List<String> errorMessages) {
         this.valid = false;

@@ -622,3 +622,20 @@ label {
 .table-cm-filter .field-group.lined .select-button {
     line-height: 30px;
 }
+
+.field-group.table-field{
+    margin-bottom: 0px;
+}
+
+.field-group.table-field:not([class*="d-checkbox"]) .field-label {
+    display: none;
+}
+
+.field-group.table-field .field-cntr {
+    padding: 2px;
+    height: 34px;
+}
+
+.field-group.table-field .field-cntr .select-button {
+    line-height: 30px;
+}

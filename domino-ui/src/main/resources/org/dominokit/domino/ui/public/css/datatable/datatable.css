@@ -219,6 +219,7 @@ table th[class*="col-"] {
 .table-responsive {
     min-height: .01%;
     overflow-x: auto;
+    display: initial;
 }
 
 .table-responsive.table-fixed {
@@ -474,7 +475,7 @@ table th[class*="col-"] {
     background-color: #efefef;
     border-radius: 3px;
     border: none;
-    height: 30px;
+    height: 33px;
     padding: 5px;
 }
 
@@ -483,4 +484,26 @@ table th[class*="col-"] {
 .table-responsive .field-group.table-search-box.lined:not([class*="focused"]):not([class*="readonly"]):not([class*="error"]) .field-cntr,
 .table-responsive .field-group.table-search-box.rounded:not([class*="focused"]):not([class*="readonly"]):not([class*="error"]) .field-cntr {
     border: none;
+}
+
+
+.table .dt-td-cell > .field-group,
+.table .dt-th-cell > .field-group {
+    margin-bottom: 0px;
+}
+
+.table .dt-td-cell > .field-group:not([class*="d-checkbox"]) .field-label,
+.table .dt-th-cell > .field-group:not([class*="d-checkbox"]) .field-label {
+    display: none;
+}
+
+.table .dt-td-cell > .field-group .field-cntr,
+.table .dt-th-cell > .field-group .field-cntr {
+    padding: 2px;
+    height: 34px;
+}
+
+.table .dt-td-cell > .field-group .field-cntr .select-button,
+.table .dt-th-cell > .field-group .field-cntr .select-button {
+    line-height: 30px;
 }

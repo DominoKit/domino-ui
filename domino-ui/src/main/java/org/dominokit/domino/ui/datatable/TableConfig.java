@@ -81,9 +81,9 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
 
             HTMLTableCellElement cellElement;
             if (columnConfig.isHeader()) {
-                cellElement = th().element();
+                cellElement = th().css("dt-th-cell").element();
             } else {
-                cellElement = td().element();
+                cellElement = td().css("dt-td-cell").element();
             }
 
             if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
