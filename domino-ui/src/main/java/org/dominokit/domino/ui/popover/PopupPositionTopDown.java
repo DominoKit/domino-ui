@@ -4,8 +4,6 @@ import elemental2.dom.ClientRect;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 
-import static elemental2.dom.DomGlobal.window;
-
 public class PopupPositionTopDown implements PopupPosition {
 
     private String positionClass;
@@ -13,18 +11,15 @@ public class PopupPositionTopDown implements PopupPosition {
     @Override
     public void position(HTMLElement popup, HTMLElement target) {
         ClientRect targetRect = target.getBoundingClientRect();
-
-        double distanceToMiddle =((targetRect.top)-(targetRect.height/2));
-        double windowMiddle = DomGlobal.window.innerHeight/2;
-
-        if(distanceToMiddle>=windowMiddle){
+        double bottom = targetRect.bottom + popup.getBoundingClientRect().height;
+        int innerHeight = DomGlobal.window.innerHeight;
+        if (bottom > innerHeight) {
             PopupPosition.TOP.position(popup, target);
             this.positionClass = PopupPosition.TOP.getDirectionClass();
-        }else{
+        } else {
             PopupPosition.BOTTOM.position(popup, target);
             this.positionClass = PopupPosition.BOTTOM.getDirectionClass();
         }
-
     }
 
     @Override
