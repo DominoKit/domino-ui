@@ -219,7 +219,6 @@ table th[class*="col-"] {
 .table-responsive {
     min-height: .01%;
     overflow-x: auto;
-    display: initial;
 }
 
 .table-responsive.table-fixed {
