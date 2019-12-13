@@ -72,14 +72,12 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         String value = getInputElement().element().value;
         try {
             if (value.isEmpty()) {
-                clearInvalid();
                 return null;
             }
             if (formattingEnabled) {
                 value = getNumberFormat().parse(value) + "";
             }
             E parsedValue = parseValue(value);
-            clearInvalid();
             return parsedValue;
         } catch (NumberFormatException e) {
             invalidate(value.startsWith("-") ? getMinValueErrorMessage() : getMaxValueErrorMessage());

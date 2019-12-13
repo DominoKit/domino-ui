@@ -1,6 +1,9 @@
 .field-group {
     margin-bottom: 15px;
-    position: relative;
+}
+
+.field-group.floating.rounded .field-label:after {
+
 }
 
 .field-group.condensed {
@@ -35,7 +38,6 @@
 
 .field-group .field-cntr {
     width: 100%;
-    position: relative;
 }
 
 .field-group.auto-height .field-cntr {
@@ -184,10 +186,22 @@
 
 .field-group.rounded.floating:not([class*="switch"]):not([class*="d-checkbox"]) .field-label {
     top: -14px;
-    background-color: #ffffff;
+    background-color: transparent;
     padding-left: 3px;
     padding-right: 3px;
     left: 5px;
+    z-index: 10;
+}
+
+.field-group.rounded.floating:not([class*="switch"]):not([class*="d-checkbox"]) .field-label:not(:empty):after {
+    content: "";
+    background-color: #FFFFFF;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    top: 8px;
+    z-index: -2;
 }
 
 .field-group.lined input,
@@ -623,7 +637,7 @@ label {
     line-height: 30px;
 }
 
-.field-group.table-field{
+.field-group.table-field {
     margin-bottom: 0px;
 }
 

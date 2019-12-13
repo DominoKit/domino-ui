@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static elemental2.dom.DomGlobal.document;
+import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.gwt.elemento.core.Elements.div;
@@ -263,14 +264,16 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
             }
 
             popup.style.setProperty("width", targetRect.width + "px");
-            popup.style.setProperty("left", px.of(0));
         }
     }
 
     public static class DropDownPositionUp implements DropDownPosition {
         @Override
         public void position(HTMLElement actionsMenu, HTMLElement target) {
-            actionsMenu.style.setProperty("bottom", px.of(52));
+            ClientRect targetRect = target.getBoundingClientRect();
+
+            actionsMenu.style.setProperty("bottom", px.of(((window.innerHeight - targetRect.bottom) - window.pageYOffset + targetRect.height + 5)));
+            actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
             actionsMenu.style.removeProperty("top");
         }
     }
@@ -278,12 +281,14 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     public static class DropDownPositionDown implements DropDownPosition {
         @Override
         public void position(HTMLElement actionsMenu, HTMLElement target) {
+            ClientRect targetRect = target.getBoundingClientRect();
+            actionsMenu.style.setProperty("top", px.of((targetRect.top + window.pageYOffset + targetRect.height)));
+            actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
             actionsMenu.style.removeProperty("bottom");
-            actionsMenu.style.setProperty("top", px.of(52));
         }
     }
 
-    private static class SuggestAutoValidator<T> extends AutoValidator{
+    private static class SuggestAutoValidator<T> extends AutoValidator {
 
         private SuggestBox<T> suggestBox;
         private SelectionHandler<SuggestItem<T>> selectionHandler;

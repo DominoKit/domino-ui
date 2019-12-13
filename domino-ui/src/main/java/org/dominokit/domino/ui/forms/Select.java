@@ -17,6 +17,7 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
@@ -76,9 +77,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
         optionsMenu.setAppendTarget(fieldContainer.element());
         optionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
         optionsMenu.setPosition(new PopupPositionTopDown(this));
-        optionsMenu.addOpenHandler(() -> {
-            resumeFocusValidation();
-        });
+        optionsMenu.addOpenHandler(this::resumeFocusValidation);
         buttonElement.appendChild(buttonValueContainer);
         initListeners();
         dropdown();
@@ -626,14 +625,17 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
             }
 
             popup.style.setProperty("width", select.popupWidth > 0 ? (select.popupWidth + "px") : (targetRect.width + "px"));
-            popup.style.setProperty("left", px.of(-1));
         }
     }
 
     public static class DropDownPositionUp implements DropDownPosition {
         @Override
         public void position(HTMLElement actionsMenu, HTMLElement target) {
-            actionsMenu.style.setProperty("bottom", px.of(-1));
+
+            ClientRect targetRect = target.getBoundingClientRect();
+
+            actionsMenu.style.setProperty("bottom", px.of(((window.innerHeight - targetRect.bottom) - window.pageYOffset)));
+            actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
             actionsMenu.style.removeProperty("top");
         }
     }
@@ -641,8 +643,11 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     public static class DropDownPositionDown implements DropDownPosition {
         @Override
         public void position(HTMLElement actionsMenu, HTMLElement target) {
+
+            ClientRect targetRect = target.getBoundingClientRect();
+            actionsMenu.style.setProperty("top", px.of((targetRect.top + window.pageYOffset)));
+            actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
             actionsMenu.style.removeProperty("bottom");
-            actionsMenu.style.setProperty("top", px.of(-1));
         }
     }
 
