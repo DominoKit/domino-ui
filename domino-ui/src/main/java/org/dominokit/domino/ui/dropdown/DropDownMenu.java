@@ -24,7 +24,7 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu> implements HasBackground<DropDownMenu> {
 
-    private MenuNavigation<DropdownAction, HTMLElement> menuNavigation;
+    private MenuNavigation<DropdownAction> menuNavigation;
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(DropDownStyles.DROPDOWN));
     private DominoElement<HTMLUListElement> menuElement = DominoElement.of(ul().css(DropDownStyles.DROPDOWN_MENU));
     private HTMLElement targetElement;
@@ -71,7 +71,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
             touchMoved = false;
         });
 
-        addMenuNavigationListener(targetElement);
+        addMenuNavigationListener();
         searchContainer.addClickListener(evt -> {
             evt.preventDefault();
             evt.stopPropagation();
@@ -157,8 +157,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         groups.forEach(DropdownActionsGroup::changeVisibility);
     }
 
-    private void addMenuNavigationListener(HTMLElement targetElement) {
-        menuNavigation = MenuNavigation.create(actions, targetElement)
+    private void addMenuNavigationListener() {
+        menuNavigation = MenuNavigation.create(actions)
                 .onSelect(DropdownAction::select)
                 .focusCondition(item -> !item.isHidden())
                 .onFocus(item -> {
@@ -401,6 +401,10 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
     public DominoElement<HTMLDivElement> getSearchContainer() {
         return searchContainer;
+    }
+
+    public void focus() {
+        menuNavigation.focusAt(0);
     }
 
     @FunctionalInterface

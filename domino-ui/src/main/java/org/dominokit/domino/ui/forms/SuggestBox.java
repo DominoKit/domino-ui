@@ -4,6 +4,7 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.loaders.Loader;
 import org.dominokit.domino.ui.loaders.LoaderEffect;
 import org.dominokit.domino.ui.style.Color;
@@ -79,6 +80,19 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
 
         delayedTextInput = DelayedTextInput.create(getInputElement(), typeAheadDelay)
                 .setDelayedAction(delayedAction);
+        KeyboardEvents.listenOn(getInputElement())
+                .onArrowDown(evt -> {
+                    suggestionsMenu.focus();
+                    evt.preventDefault();
+                })
+                .onArrowUp(evt -> {
+                    suggestionsMenu.focus();
+                    evt.preventDefault();
+                })
+                .onEscape(evt -> {
+                    focus();
+                    evt.preventDefault();
+                });
     }
 
     public static <T> SuggestBox<T> create(SuggestBoxStore<T> store) {

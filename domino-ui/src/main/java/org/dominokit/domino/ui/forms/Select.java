@@ -141,7 +141,9 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     private void doOpen() {
         optionsMenu.open();
         optionsMenu.styler(style -> style.setWidth(getFieldContainer().getBoundingClientRect().width + "px"));
-
+        if (!searchable) {
+            optionsMenu.focus();
+        }
     }
 
     public void close() {
