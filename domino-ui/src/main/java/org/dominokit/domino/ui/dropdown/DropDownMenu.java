@@ -243,15 +243,13 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
                     clearSearch();
                 }
 
-                element.style().setProperty("z-index", ModalBackDrop.getNextZIndex() + "");
+                element.style().setProperty("z-index", ModalBackDrop.getNextZIndex() + 10 + "");
                 openHandlers.forEach(OpenHandler::onOpen);
             });
 
             if (!appendTarget.contains(element.element())) {
                 appendStrategy.onAppend(appendTarget, element.element());
             }
-
-
         }
     }
 

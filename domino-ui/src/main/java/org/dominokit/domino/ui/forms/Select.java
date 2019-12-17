@@ -74,7 +74,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     public Select() {
         super("button", "");
         optionsMenu = DropDownMenu.create(fieldContainer).styler(style1 -> style1.add("select-option-menu"));
-        optionsMenu.setAppendTarget(fieldContainer.element());
+        optionsMenu.setAppendTarget(DomGlobal.document.body);
         optionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
         optionsMenu.setPosition(new PopupPositionTopDown(this));
         optionsMenu.addOpenHandler(this::resumeFocusValidation);
@@ -647,6 +647,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
         public void position(HTMLElement actionsMenu, HTMLElement target) {
 
             ClientRect targetRect = target.getBoundingClientRect();
+
             actionsMenu.style.setProperty("top", px.of((targetRect.top + window.pageYOffset)));
             actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
             actionsMenu.style.removeProperty("bottom");
