@@ -422,3 +422,15 @@ body.modal-open {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
 }
+
+.modal-open .modal.right-sheet,
+.modal-open .modal.left-sheet {
+    height: calc(100vh);
+    overflow-y: hidden;
+}
+
+.modal.right-sheet .modal-body,
+.modal.left-sheet .modal-body {
+    height: 100%;
+    overflow-y: auto;
+}
