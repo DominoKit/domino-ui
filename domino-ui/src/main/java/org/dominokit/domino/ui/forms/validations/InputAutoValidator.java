@@ -18,11 +18,11 @@ public class InputAutoValidator<E extends HTMLElement> extends ValueBox.AutoVali
     @Override
     public void attach() {
         eventListener = evt -> autoValidate.apply();
-        inputElement.addEventListener("input", eventListener);
+        inputElement.addEventListener("blur", eventListener);
     }
 
     @Override
     public void remove() {
-        inputElement.removeEventListener("input", eventListener);
+        inputElement.removeEventListener("blur", eventListener);
     }
 }
