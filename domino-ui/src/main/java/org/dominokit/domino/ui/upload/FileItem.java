@@ -75,7 +75,6 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
             invalidate("File is too large, maximum file size is " + formatSize(options.getMaxFileSize()));
         }
 
-        request = new XMLHttpRequest();
         init(this);
         this.fileName = file.name;
     }
@@ -249,6 +248,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         if (!isExceedsMaxFile() && !uploaded && !isCanceled()) {
             resetState();
 
+            request = new XMLHttpRequest();
             request.upload.addEventListener("loadstart", evt -> {
                 hideRefreshIcon();
                 hideDeleteIcon();
