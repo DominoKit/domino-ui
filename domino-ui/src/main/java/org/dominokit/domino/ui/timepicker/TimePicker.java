@@ -369,10 +369,17 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     private void drawMinutes() {
         clear(minutesPanel);
-        for (int minute = 0; minute < 60; minute++) {
+        for (int minute = 0; minute < 60; minute += 5) {
             ClockElement clockElement = makeMinuteElement(minute);
             minutesElements.put(minute, clockElement);
             minutesPanel.appendChild(clockElement.getElement());
+        }
+        for (int minute = 0; minute < 60; minute++) {
+            if(minute % 5 != 0) {
+                ClockElement clockElement = makeMinuteElement(minute);
+                minutesElements.put(minute, clockElement);
+                minutesPanel.appendChild(clockElement.getElement());
+            }
         }
     }
 
