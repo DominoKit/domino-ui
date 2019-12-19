@@ -434,3 +434,19 @@ body.modal-open {
     height: 100%;
     overflow-y: auto;
 }
+
+.modal.left-sheet .modal-dialog,
+.modal.right-sheet .modal-dialog  {
+    height: 100%;
+}
+
+.modal.left-sheet .modal-dialog .modal-content,
+.modal.right-sheet .modal-dialog .modal-content {
+    display: flex;
+    flex-flow: column;
+}
+
+.modal.left-sheet .modal-dialog .modal-content .modal-body,
+.modal.right-sheet .modal-dialog .modal-content .modal-body{
+    flex-grow: 1;
+}

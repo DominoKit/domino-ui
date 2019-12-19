@@ -109,6 +109,9 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
         titleContainer.addClickListener(Event::stopPropagation);
 
+        DominoElement.of(targetElement)
+                .onDetached(mutationRecord -> close());
+
         onDetached(mutationRecord -> closeHandlers.forEach(CloseHandler::onClose));
     }
 
