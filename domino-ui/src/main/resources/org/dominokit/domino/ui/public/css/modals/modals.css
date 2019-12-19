@@ -210,7 +210,7 @@ body.modal-open {
     }
 
     .modal.left-sheet .modal-content {
-        height: calc(100vh);
+        height: 100%;
     }
 
     .modal.right-sheet {
@@ -229,7 +229,7 @@ body.modal-open {
     }
 
     .modal.right-sheet .modal-content {
-        height: calc(100vh);
+        height: 100%;
     }
 }
 
@@ -287,7 +287,7 @@ body.modal-open {
     }
 
     .modal.left-sheet .modal-content {
-        height: calc(100vh);
+        height: 100%;
     }
 
     .modal.right-sheet {
@@ -306,7 +306,7 @@ body.modal-open {
     }
 
     .modal.right-sheet .modal-content {
-        height: calc(100vh);
+        height: 100%;
     }
 
     .modal.picker-modal {
