@@ -135,7 +135,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
                     break;
             }
 
-            if (!focusElements.contains(DominoDom.document.activeElement)) {
+            if (!focusElements.contains(DominoDom.document.activeElement) && nonNull(firstFocusElement)) {
                 firstFocusElement.focus();
             }
         });
