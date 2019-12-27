@@ -62,7 +62,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
 
     public static CheckBox create(DominoElement<HTMLAnchorElement> link) {
         CheckBox checkBox = new CheckBox();
-        checkBox.getLabelTextElement().appendChild(link);
+        checkBox.setLabel(link.element());
         link.addClickListener(Event::stopPropagation);
         return checkBox;
     }
@@ -146,7 +146,6 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
 
     @Override
     public CheckBox value(Boolean value) {
-
         if (value != null && value) {
             check();
         } else {

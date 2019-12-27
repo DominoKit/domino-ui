@@ -1,16 +1,15 @@
 package org.dominokit.domino.ui.forms;
 
 import com.google.gwt.editor.client.EditorError;
-import elemental2.dom.Element;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLabelElement;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.forms.validations.ElementValidations;
 import org.dominokit.domino.ui.forms.validations.RequiredValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.IsReadOnly;
+import org.gwtproject.safehtml.shared.SafeHtml;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,6 +55,23 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     public T setLabel(String label) {
         getLabelTextElement().setTextContent(label);
         return (T) this;
+    }
+
+    public T setLabel(Node node) {
+        getLabelTextElement()
+                .clearElement()
+                .appendChild(node);
+        return (T) this;
+    }
+
+    public T setLabel(SafeHtml safeHtml) {
+        getLabelTextElement()
+                .setInnerHtml(safeHtml.asString());
+        return (T) this;
+    }
+
+    public T setLabel(IsElement<?> element) {
+        return setLabel(element.element());
     }
 
     @Override
