@@ -61,7 +61,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     @Override
     protected void doSetValue(E value) {
         if (nonNull(value)) {
-            getInputElement().element().value = String.valueOf(value);
+            getInputElement().element().value = getNumberFormat().format(value);
         } else {
             getInputElement().element().value = "";
         }
@@ -73,9 +73,6 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         try {
             if (value.isEmpty()) {
                 return null;
-            }
-            if (formattingEnabled) {
-                value = getNumberFormat().parse(value) + "";
             }
             E parsedValue = parseValue(value);
             return parsedValue;

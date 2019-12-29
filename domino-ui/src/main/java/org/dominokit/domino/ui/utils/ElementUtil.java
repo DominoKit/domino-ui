@@ -1,6 +1,8 @@
 package org.dominokit.domino.ui.utils;
 
+import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.i18n.client.constants.NumberConstants;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.HasInputElement;
@@ -13,6 +15,8 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.a;
 
 public class ElementUtil {
+
+    final static NumberConstants numberConstants = LocaleInfo.getCurrentLocale().getNumberConstants();
 
     public static void clear(Element element) {
         if (nonNull(element))
@@ -139,7 +143,7 @@ public class ElementUtil {
         hasInputElement.getInputElement().addEventListener("keypress", evt -> {
             KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
             String key = keyboardEvent.key;
-            if (!(isMinusKey(keyboardEvent.key) || key.equals(".") || key.equals(",")  || keyboardEvent.key.matches("^\\d+$"))) {
+            if (!(isMinusKey(keyboardEvent.key) || key.equals(numberConstants.decimalSeparator()) || keyboardEvent.key.matches("^\\d+$"))) {
                 evt.preventDefault();
             }
         });
@@ -156,7 +160,7 @@ public class ElementUtil {
     }
 
     private static boolean isMinusKey(String key) {
-        return "-".equals(key);
+        return numberConstants.minusSign().equals(key);
     }
 
     public static void scrollTop() {
