@@ -5,7 +5,7 @@
     <parent>
         <artifactId>domino-ui-tools</artifactId>
         <groupId>org.dominokit</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-ps-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -17,7 +17,7 @@
         <dependency>
             <groupId>org.dominokit</groupId>
             <artifactId>domino-apt-commons</artifactId>
-            <version>1.0-rc.4-SNAPSHOT</version>
+            <version>1.0-ps-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.google.auto.service</groupId>
@@ -33,18 +33,18 @@
         <dependency>
             <groupId>org.dominokit.jackson</groupId>
             <artifactId>jackson-apt</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0-ps-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.dominokit.jackson</groupId>
             <artifactId>jackson-apt-processor</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0-ps-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.dominokit</groupId>
             <artifactId>domino-ui-shared</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0-ps-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
