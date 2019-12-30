@@ -29,11 +29,6 @@ public class LongBox extends NumberBox<LongBox, Long> {
     @Override
     protected Long parseValue(String value) {
         double dValue = getNumberFormat().parse(value);
-        double maxLong=new Double(getMaxValue());
-
-        if(dValue > maxLong){
-            throw new NumberFormatException("Exceeded maximum value");
-        }
         return new Double(dValue).longValue();
     }
 

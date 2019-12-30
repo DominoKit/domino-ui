@@ -28,12 +28,22 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     private void addMaxValueValidator() {
         addValidator(() -> {
             E value = getValue();
-            if (nonNull(value) && isExceedMaxValue(value)) {
-                return ValidationResult.invalid(getMaxValueErrorMessage());
+            if(nonNull(getMaxValue())) {
+                double parsed = getNumberFormat().parse(getInputElement().element().value);
+                if (nonNull(value) && isExceedMaxValue(getMaxDoubleValue(), parsed)) {
+                    return ValidationResult.invalid(getMaxValueErrorMessage());
+                }
             }
             return ValidationResult.valid();
         });
     }
+
+    protected Double getMaxDoubleValue(){
+        if(nonNull(getMaxValue())){
+            return getMaxValue().doubleValue();
+        }
+        return null;
+    };
 
     private void addMinValueValidator() {
         addValidator(() -> {
@@ -154,6 +164,10 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         if (isNull(maxValue))
             return false;
         return isExceedMaxValue(maxValue, value);
+    }
+
+    private boolean isExceedMaxValue(double maxAsDouble, double valueAsDouble) {
+        return valueAsDouble > maxAsDouble;
     }
 
     private boolean isLowerThanMinValue(E value) {

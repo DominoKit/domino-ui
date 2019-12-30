@@ -29,11 +29,6 @@ public class IntegerBox extends NumberBox<IntegerBox, Integer> {
     @Override
     protected Integer parseValue(String value) {
         double dValue = getNumberFormat().parse(value);
-        double maxInteger=new Double(getMaxValue());
-
-        if(dValue > maxInteger){
-            throw new NumberFormatException("Exceeded maximum value");
-        }
         return new Double(dValue).intValue();
     }
 
