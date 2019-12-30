@@ -352,7 +352,9 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private String getErrorMessage() {
         if (errorMessage != null)
             return errorMessage;
-        return request.responseText.isEmpty() ? "Error while sending request" : request.responseText;
+        
+        final boolean hasErrorText = request.responseType != null && (request.responseType.isEmpty() || request.responseType.equals("text")) && !request.responseText.isEmpty();
+        return hasErrorText ? request.responseText : "Error while sending request";
     }
 
     public void invalidate(String message) {
