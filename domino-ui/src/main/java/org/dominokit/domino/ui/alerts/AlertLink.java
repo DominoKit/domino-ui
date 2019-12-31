@@ -19,7 +19,7 @@ public class AlertLink extends BaseDominoElement<HTMLAnchorElement, AlertLink> {
     }
 
     @Override
-    public HTMLAnchorElement asElement() {
+    public HTMLAnchorElement element() {
         return element;
     }
 }

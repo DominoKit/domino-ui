@@ -25,7 +25,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
     }
 
     private MdiIcon(String icon, MdiMeta mdiMeta) {
-        this.icon = DominoElement.of(i().css("mdi").css(icon).asElement());
+        this.icon = DominoElement.of(i().css("mdi").css(icon).element());
         this.name = icon;
         this.metaInfo = mdiMeta;
         init(this);
@@ -226,8 +226,8 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
     }
 
     @Override
-    public HTMLElement asElement() {
-        return icon.asElement();
+    public HTMLElement element() {
+        return icon.element();
     }
 
     public enum MdiSize {

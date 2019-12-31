@@ -101,7 +101,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
             addRows(data, 0);
         }
 
-        tbody.asElement().scrollTop = 0.0;
+        tbody.element().scrollTop = 0.0;
     }
 
     public void appendData(List<T> newData) {
@@ -241,8 +241,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return root.asElement();
+    public HTMLDivElement element() {
+        return root.element();
     }
 
     @Override

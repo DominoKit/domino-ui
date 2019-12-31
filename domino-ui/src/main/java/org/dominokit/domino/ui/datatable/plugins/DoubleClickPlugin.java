@@ -14,7 +14,7 @@ public class DoubleClickPlugin<T> implements DataTablePlugin<T> {
 
     @Override
     public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
-        tableRow.asElement().addEventListener(EventType.dblclick.getName(), evt -> {
+        tableRow.element().addEventListener(EventType.dblclick.getName(), evt -> {
             handler.onDoubleClick(tableRow);
         });
     }

@@ -15,6 +15,7 @@ public class MetaIconInfo {
 	private List<String> tags;
 	private String author;
 	private String version;
+	private boolean deprecated;
 
 	public String getName() {
 		return name;
@@ -62,5 +63,13 @@ public class MetaIconInfo {
 
 	public void setVersion(String version) {
 		this.version = version;
+	}
+
+	public boolean isDeprecated() {
+		return deprecated;
+	}
+
+	public void setDeprecated(boolean deprecated) {
+		this.deprecated = deprecated;
 	}
 }

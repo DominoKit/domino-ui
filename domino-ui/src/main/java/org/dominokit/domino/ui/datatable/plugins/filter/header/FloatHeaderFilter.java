@@ -25,7 +25,7 @@ public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T> 
 
     @Override
     protected HTMLInputElement getInputElement() {
-        return floatBox.getInputElement().asElement();
+        return floatBox.getInputElement().element();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T> 
     public void clear() {
         floatBox.pauseChangeHandlers();
         floatBox.clear();
-        floatBox.getInputElement().asElement().value = "";
+        floatBox.getInputElement().element().value = "";
         floatBox.resumeChangeHandlers();
     }
 }

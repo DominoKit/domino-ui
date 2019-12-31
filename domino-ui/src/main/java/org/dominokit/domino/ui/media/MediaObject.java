@@ -17,17 +17,17 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
 
     private HTMLHeadingElement mediaHeader = h(4)
             .css(MediaStyles.MEDIA_HEADING)
-            .asElement();
+            .element();
 
     private HTMLDivElement mediaBody = div()
             .css(MediaStyles.MEDIA_BODY)
             .add(mediaHeader)
-            .asElement();
+            .element();
 
     private HTMLDivElement element = div()
             .css(MediaStyles.MEDIA)
             .add(mediaBody)
-            .asElement();
+            .element();
 
     private DominoElement<HTMLDivElement> leftMedia;
     private DominoElement<HTMLDivElement> rightMedia;
@@ -60,7 +60,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
     }
 
     public MediaObject setLeftMedia(IsElement element) {
-        return setLeftMedia(element.asElement());
+        return setLeftMedia(element.element());
     }
 
     public MediaObject setRightMedia(Node content) {
@@ -75,7 +75,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
     }
 
     public MediaObject setRightMedia(IsElement element) {
-        return setRightMedia(element.asElement());
+        return setRightMedia(element.element());
     }
 
     public MediaObject appendChild(Node content) {
@@ -84,7 +84,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
     }
 
     public MediaObject appendChild(IsElement content) {
-        return appendChild(content.asElement());
+        return appendChild(content.element());
     }
 
     public MediaObject alignLeftMedia(MediaAlign align) {
@@ -122,7 +122,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 

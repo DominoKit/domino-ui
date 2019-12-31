@@ -1,11 +1,8 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.forms.validations.MinLengthValidator;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasLength;
-import org.jboss.gwt.elemento.core.Elements;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -13,7 +10,6 @@ import static java.util.Objects.nonNull;
 public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E extends HTMLElement, V>
         extends ValueBox<T, E, V> implements HasLength<T> {
 
-    private HTMLDivElement characterCountContainer = Elements.div().css("help-info pull-right").asElement();
     private int maxLength;
     private int minLength;
     private String minLengthErrorMessage;
@@ -31,11 +27,11 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
     @Override
     public T setMaxLength(int maxLength) {
         this.maxLength = maxLength;
-        if (maxLength < 0 && getFieldContainer().contains(characterCountContainer)) {
-            getFieldContainer().removeChild(characterCountContainer);
+        if (maxLength < 0) {
+            getCountItem().hide();
             getInputElement().removeAttribute("maxlength");
         } else {
-            getFieldContainer().appendChild(characterCountContainer);
+            getCountItem().show();
             getInputElement().setAttribute("maxlength", maxLength);
             updateCharacterCount();
         }
@@ -50,15 +46,20 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
     }
 
     protected void updateCharacterCount() {
-        String value = getStringValue();
-        int length = 0;
-        if (nonNull(value)) {
-            length = value.length();
+        if (maxLength > 0 || minLength > 0) {
+            getCountItem().show();
+            String value = getStringValue();
+            int length = 0;
+            if (nonNull(value)) {
+                length = value.length();
+            }
+            if (length < minLength) {
+                length = minLength;
+            }
+            getCountItem().setTextContent(length + "/" + maxLength);
+        }else{
+            getCountItem().hide();
         }
-        if (length < minLength) {
-            length = minLength;
-        }
-        characterCountContainer.textContent = length + "/" + maxLength;
 
     }
 
@@ -70,12 +71,12 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
     @Override
     public T setMinLength(int minLength) {
         this.minLength = minLength;
-        if (minLength < 0 && getFieldContainer().contains(characterCountContainer)) {
-            getFieldContainer().removeChild(characterCountContainer);
+        if (minLength < 0) {
+            getCountItem().hide();
             getInputElement().removeAttribute("minlength");
             removeValidator(minLengthValidator);
         } else {
-            getFieldContainer().appendChild(characterCountContainer);
+            getCountItem().show();
             getInputElement().setAttribute("minlength", minLength);
             updateCharacterCount();
             addValidator(minLengthValidator);
@@ -90,10 +91,8 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
 
     @Override
     public T setReadOnly(boolean readOnly) {
-        if (nonNull(characterCountContainer)) {
-            DominoElement.of(characterCountContainer)
-                    .toggleDisplay(!readOnly);
-        }
+        getCountItem()
+                .toggleDisplay(!readOnly);
         return super.setReadOnly(readOnly);
     }
 
@@ -110,9 +109,5 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
 
     public String getMinLengthErrorMessage() {
         return isNull(minLengthErrorMessage) ? "Minimum length is " + minLength : minLengthErrorMessage;
-    }
-
-    public HTMLDivElement getCharacterCountContainer() {
-        return characterCountContainer;
     }
 }

@@ -15,7 +15,7 @@ public class MinLengthValidator implements HasValidation.Validator {
 
     @Override
     public ValidationResult isValid() {
-        if (Js.<HTMLInputElement>uncheckedCast(valueBox.getInputElement().asElement()).validity.tooShort) {
+        if (Js.<HTMLInputElement>uncheckedCast(valueBox.getInputElement().element()).validity.tooShort) {
             return ValidationResult.invalid(valueBox.getMinLengthErrorMessage());
         }
         return ValidationResult.valid();

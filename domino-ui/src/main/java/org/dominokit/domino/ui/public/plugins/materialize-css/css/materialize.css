@@ -6189,6 +6189,7 @@ form p:last-child {
   z-index: 0;
 }
 
+[type="checkbox"].filled-in[class*="col-"]:checked + label:before,
 [type="checkbox"].filled-in:checked + label:before {
   top: 0;
   left: 1px;

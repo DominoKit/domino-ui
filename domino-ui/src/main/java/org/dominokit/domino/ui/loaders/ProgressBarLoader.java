@@ -11,13 +11,13 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class ProgressBarLoader extends BaseLoader<ProgressBarLoader> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").asElement();
+    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").element();
 
     private HTMLDivElement loader = div()
             .css(WAIT_ME_PROGRESS)
             .css(PROGRESS_BAR)
             .add(progress1)
-            .asElement();
+            .element();
 
     private HTMLDivElement content = div()
             .css(WAIT_ME_CONTENT)
@@ -25,13 +25,13 @@ public class ProgressBarLoader extends BaseLoader<ProgressBarLoader> implements 
             .css(VERTICAL)
             .add(loader)
             .add(loadingText)
-            .asElement();
+            .element();
 
     private HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.7);")
             .add(content)
-            .asElement();
+            .element();
 
     public ProgressBarLoader() {
         init(this);
@@ -62,7 +62,7 @@ public class ProgressBarLoader extends BaseLoader<ProgressBarLoader> implements 
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

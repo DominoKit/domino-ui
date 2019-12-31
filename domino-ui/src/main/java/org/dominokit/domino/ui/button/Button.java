@@ -102,7 +102,7 @@ public class Button extends BaseButton<Button> {
     }
 
     @Override
-    public HTMLElement asElement() {
-        return buttonElement.asElement();
+    public HTMLElement element() {
+        return buttonElement.element();
     }
 }

@@ -91,11 +91,11 @@ public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
     }
 
     public Blockquote appendFooterChild(IsElement content) {
-        return appendFooterChild(content.asElement());
+        return appendFooterChild(content.element());
     }
 
     @Override
-    public HTMLElement asElement() {
-        return element.asElement();
+    public HTMLElement element() {
+        return element.element();
     }
 }

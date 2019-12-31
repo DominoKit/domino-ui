@@ -101,7 +101,7 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
     public abstract T changeTo(BaseIcon icon);
 
     @Override
-    public HTMLElement asElement() {
-        return icon.asElement();
+    public HTMLElement element() {
+        return icon.element();
     }
 }

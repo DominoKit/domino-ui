@@ -520,8 +520,8 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return column.asElement();
+    public HTMLDivElement element() {
+        return column.element();
     }
 
     public static class OnXLarge {

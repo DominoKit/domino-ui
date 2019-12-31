@@ -11,26 +11,26 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class RotatePlaneLoader extends BaseLoader<RotatePlaneLoader> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555").asElement();
+    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555").element();
 
     private HTMLDivElement loader = div()
             .css(WAIT_ME_PROGRESS)
             .css(LoaderStyles.ROTATEPLANE)
             .add(progress1)
-            .asElement();
+            .element();
 
     private HTMLDivElement content = div()
             .css(WAIT_ME_CONTENT)
             .css(Styles.vertical_center)
             .add(loader)
             .add(loadingText)
-            .asElement();
+            .element();
 
     private HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.9);")
             .add(content)
-            .asElement();
+            .element();
 
     public RotatePlaneLoader() {
         init(this);
@@ -63,7 +63,7 @@ public class RotatePlaneLoader extends BaseLoader<RotatePlaneLoader> implements 
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

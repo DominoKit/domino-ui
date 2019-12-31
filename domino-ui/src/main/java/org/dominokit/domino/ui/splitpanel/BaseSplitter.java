@@ -134,8 +134,8 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     public double getSize() {

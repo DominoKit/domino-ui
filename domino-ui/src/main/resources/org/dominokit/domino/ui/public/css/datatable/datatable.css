@@ -360,23 +360,18 @@ table th[class*="col-"] {
     font-weight: 300;
 }
 
-.table-search-box {
-    background-color: #efefef;
-    border-radius: 3px;
-}
-
-.table-responsive .table-header{
+.table-responsive .table-header {
     padding: 20px;
     position: relative;
 }
 
-.table-responsive .table-header h2{
+.table-responsive .table-header h2 {
     margin: 0;
     font-size: 18px;
     font-weight: normal;
 }
 
-.table-responsive .table-header h2 small{
+.table-responsive .table-header h2 small {
     display: block;
     font-size: 12px;
     margin-top: 5px;
@@ -390,12 +385,6 @@ table th[class*="col-"] {
 .table-responsive .table-header:not([class*="bg-"]) h2,
 .table-responsive .table-header:not([class*="bg-"]) small {
     color: #202020;
-}
-
-.table-search-box .form-line .form-control {
-    background-color: #efefef;
-    border-bottom: 0px;
-    box-shadow: none;
 }
 
 .details-td {
@@ -438,23 +427,82 @@ table th[class*="col-"] {
     margin-top: 4px !important;
 }
 
-.table .select-checkbox {
+.table .select-checkbox .field-label {
     margin: 0px;
     height: 20px;
 }
 
-.table .select-checkbox .checkbox {
+.table .field-group.select-checkbox.d-checkbox {
     margin: 0px;
     height: 20px;
 }
 
-.table .select-checkbox .form-control {
+.table .field-group.select-checkbox .field-cntr {
+    padding: 5px;
+}
+
+.table .field-group.select-checkbox {
     height: 20px;
     padding: 0px;
     background: transparent;
 }
 
-.table .select-checkbox .form-control label {
+.table .field-group.select-checkbox label {
     height: 20px;
     margin-bottom: 0px;
+}
+
+.table td .field-group.d-checkbox.select-checkbox label,
+.table td .field-group.d-checkbox.select-checkbox.floating .field-label {
+    top: -5px;
+    left: -4px;
+}
+
+.table th .field-group.d-checkbox.select-checkbox label,
+.table th .field-group.d-checkbox.select-checkbox.floating .field-label {
+    top: -5px;
+    left: -5px;
+}
+
+.table th .field-group.d-checkbox.select-checkbox input,
+.table th .field-group.d-checkbox.select-checkbox.floating input {
+    height: 20px;
+}
+
+
+.table-responsive .field-group.table-search-box .field-cntr {
+    background-color: #efefef;
+    border-radius: 3px;
+    border: none;
+    height: 33px;
+    padding: 5px;
+}
+
+.table-responsive .field-group.table-search-box.lined.focused:not([class*="readonly"]) .field-cntr,
+.table-responsive .field-group.table-search-box.rounded.focused:not([class*="readonly"]) .field-cntr,
+.table-responsive .field-group.table-search-box.lined:not([class*="focused"]):not([class*="readonly"]):not([class*="error"]) .field-cntr,
+.table-responsive .field-group.table-search-box.rounded:not([class*="focused"]):not([class*="readonly"]):not([class*="error"]) .field-cntr {
+    border: none;
+}
+
+
+.table .dt-td-cell > .field-group,
+.table .dt-th-cell > .field-group {
+    margin-bottom: 0px;
+}
+
+.table .dt-td-cell > .field-group:not([class*="d-checkbox"]) .field-label,
+.table .dt-th-cell > .field-group:not([class*="d-checkbox"]) .field-label {
+    display: none;
+}
+
+.table .dt-td-cell > .field-group .field-cntr,
+.table .dt-th-cell > .field-group .field-cntr {
+    padding: 2px;
+    height: 34px;
+}
+
+.table .dt-td-cell > .field-group .field-cntr .select-button,
+.table .dt-th-cell > .field-group .field-cntr .select-button {
+    line-height: 30px;
 }

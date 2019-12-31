@@ -40,11 +40,11 @@ public class Animation {
     }
 
     public static Animation create(BaseDominoElement element) {
-        return new Animation(element.asElement());
+        return new Animation(element.element());
     }
 
     public static Animation create(IsElement element) {
-        return new Animation(element.asElement());
+        return new Animation(element.element());
     }
 
     public Animation duration(int duration) {
@@ -98,7 +98,7 @@ public class Animation {
     }
 
     private void animateElement() {
-        this.startHandler.beforeStart(element.asElement());
+        this.startHandler.beforeStart(element.element());
         this.stopListener = evt -> stop();
 
         element.addEventListener("webkitAnimationEnd", stopListener);
@@ -135,7 +135,7 @@ public class Animation {
         element.removeEventListener("mozAnimationEnd", stopListener);
         element.removeEventListener("oanimationend", stopListener);
         element.removeEventListener("animationend", stopListener);
-        callback.onComplete(element.asElement());
+        callback.onComplete(element.element());
     }
 
     @FunctionalInterface

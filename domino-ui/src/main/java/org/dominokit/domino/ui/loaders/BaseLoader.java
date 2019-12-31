@@ -12,10 +12,10 @@ public abstract class BaseLoader<T extends BaseLoader<T>> extends BaseDominoElem
             .css(LoaderStyles.WAIT_ME_TEXT)
             .style("color:#555")
             .textContent("Loading...")
-            .asElement();
+            .element();
 
     @Override
     public HTMLDivElement getElement() {
-        return asElement();
+        return element();
     }
 }

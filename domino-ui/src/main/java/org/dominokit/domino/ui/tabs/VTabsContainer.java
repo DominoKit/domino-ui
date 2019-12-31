@@ -25,7 +25,7 @@ class VTabsContainer extends BaseDominoElement<HTMLDivElement, VTabsContainer> i
     private HTMLDivElement element = DominoElement.of(div()
             .add(listContainer)
             .css(TabStyles.VTABS))
-            .asElement();
+            .element();
 
     private VerticalTab activeItem;
 
@@ -40,13 +40,13 @@ class VTabsContainer extends BaseDominoElement<HTMLDivElement, VTabsContainer> i
     }
 
     public VTabsContainer appendChild(VerticalTab tabItem) {
-        listContainer.appendChild(tabItem.asElement());
+        listContainer.appendChild(tabItem.element());
         this.tabItems.add(tabItem);
         return this;
     }
 
     public VTabsContainer appendChild(FillItem fillItem) {
-        listContainer.appendChild(fillItem.asElement());
+        listContainer.appendChild(fillItem.element());
         return this;
     }
 
@@ -86,7 +86,7 @@ class VTabsContainer extends BaseDominoElement<HTMLDivElement, VTabsContainer> i
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

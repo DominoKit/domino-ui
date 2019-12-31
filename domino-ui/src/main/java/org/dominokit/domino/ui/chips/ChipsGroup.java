@@ -13,7 +13,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> implements Switchable<ChipsGroup>, HasSelectionHandler<ChipsGroup, Chip> {
 
-    private HTMLDivElement element = div().asElement();
+    private HTMLDivElement element = div().element();
     private List<Chip> chips = new ArrayList<>();
     private Chip selectedChip;
     private List<SelectionHandler<Chip>> selectionHandlers = new ArrayList<>();
@@ -47,7 +47,7 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> im
             selectionHandlers.forEach(handler -> handler.onSelection(chip));
         });
         chips.add(chip);
-        element.appendChild(chip.asElement());
+        element.appendChild(chip.element());
         return this;
     }
 
@@ -85,7 +85,7 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> im
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 

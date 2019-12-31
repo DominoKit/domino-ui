@@ -11,9 +11,9 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class BouncePulseLoader extends BaseLoader<BouncePulseLoader> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").asElement();
-    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#000").asElement();
-    private HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#000").asElement();
+    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").element();
+    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#000").element();
+    private HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#000").element();
 
     private HTMLDivElement loader = div()
             .css(WAIT_ME_PROGRESS)
@@ -21,7 +21,7 @@ public class BouncePulseLoader extends BaseLoader<BouncePulseLoader> implements 
             .add(progress1)
             .add(progress2)
             .add(progress3)
-            .asElement();
+            .element();
 
     private HTMLDivElement content = div()
             .css(WAIT_ME_CONTENT)
@@ -29,13 +29,13 @@ public class BouncePulseLoader extends BaseLoader<BouncePulseLoader> implements 
             .css(VERTICAL)
             .add(loader)
             .add(loadingText)
-            .asElement();
+            .element();
 
     private HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.7);")
             .add(content)
-            .asElement();
+            .element();
 
     public BouncePulseLoader() {
         init(this);
@@ -66,7 +66,7 @@ public class BouncePulseLoader extends BaseLoader<BouncePulseLoader> implements 
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

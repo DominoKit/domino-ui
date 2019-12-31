@@ -22,19 +22,19 @@ public class Section extends BaseDominoElement<HTMLElement, Section> {
         leftSide = aside()
                 .id("leftsidebar")
                 .css(LayoutStyles.SIDEBAR)
-                .asElement();
+                .element();
 
         rightSide = aside()
                 .id("rightsidebar")
                 .css(LayoutStyles.RIGHT_SIDEBAR)
                 .css(LayoutStyles.OVERLAY_OPEN)
                 .style("height: calc(100vh - 70px); overflow-y: scroll;")
-                .asElement();
+                .element();
 
         section = section()
                 .add(leftSide)
                 .add(rightSide)
-                .asElement();
+                .element();
 
         init(this);
     }
@@ -52,7 +52,7 @@ public class Section extends BaseDominoElement<HTMLElement, Section> {
     }
 
     @Override
-    public HTMLElement asElement() {
+    public HTMLElement element() {
         return section;
     }
 }

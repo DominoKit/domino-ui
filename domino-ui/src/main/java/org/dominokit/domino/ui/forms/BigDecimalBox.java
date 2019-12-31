@@ -4,6 +4,8 @@ import org.dominokit.domino.ui.utils.ElementUtil;
 
 import java.math.BigDecimal;
 
+import static java.util.Objects.nonNull;
+
 public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
 
     public static BigDecimalBox create() {
@@ -30,7 +32,15 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
 
     @Override
     protected BigDecimal parseValue(String value) {
-        return new BigDecimal(value);
+        double dValue = getNumberFormat().parse(value);
+        if (nonNull(getMaxValue())) {
+            double maxBd = getMaxValue().doubleValue();
+
+            if (dValue > maxBd) {
+                throw new NumberFormatException("Exceeded maximum value");
+            }
+        }
+        return new BigDecimal(dValue);
     }
 
     @Override

@@ -171,8 +171,8 @@ public abstract class BasePagination<T extends BasePagination<T>> extends BaseDo
     protected abstract void moveToPage(int page, boolean silent);
 
     @Override
-    public HTMLElement asElement() {
-        return element.asElement();
+    public HTMLElement element() {
+        return element.element();
     }
 
 }

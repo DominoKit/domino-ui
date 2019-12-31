@@ -24,7 +24,7 @@ class DatePickerElement implements Selectable<DatePickerElement> {
     }
 
     public static DatePickerElement createDayHeader(int index, DatePickerElement[][] monthData) {
-        HTMLElement element = th().asElement();
+        HTMLElement element = th().element();
 
         DatePickerElement day = new DatePickerElement(element);
         day.setDay(-1);
@@ -39,7 +39,7 @@ class DatePickerElement implements Selectable<DatePickerElement> {
     }
 
     public static DatePickerElement createDayElement(int indexX, int indexY, DatePickerElement[][] monthData, SelectionHandler selectionHandler) {
-        HTMLElement element = div().asElement();
+        HTMLElement element = div().element();
         DatePickerElement day = new DatePickerElement(element);
         day.setDay(-1);
         day.setMonth(-1);
@@ -64,7 +64,7 @@ class DatePickerElement implements Selectable<DatePickerElement> {
     }
 
     public HTMLElement getElement() {
-        return element.asElement();
+        return element.element();
     }
 
     public void setElement(HTMLElement element) {

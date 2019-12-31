@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.forms;
 
 import com.google.gwt.i18n.client.NumberFormat;
 import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.jboss.gwt.elemento.core.Elements;
 
@@ -27,12 +28,22 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     private void addMaxValueValidator() {
         addValidator(() -> {
             E value = getValue();
-            if (nonNull(value) && isExceedMaxValue(value)) {
-                return ValidationResult.invalid(getMaxValueErrorMessage());
+            if(nonNull(getMaxValue())) {
+                double parsed = getNumberFormat().parse(getInputElement().element().value);
+                if (nonNull(value) && isExceedMaxValue(getMaxDoubleValue(), parsed)) {
+                    return ValidationResult.invalid(getMaxValueErrorMessage());
+                }
             }
             return ValidationResult.valid();
         });
     }
+
+    protected Double getMaxDoubleValue(){
+        if(nonNull(getMaxValue())){
+            return getMaxValue().doubleValue();
+        }
+        return null;
+    };
 
     private void addMinValueValidator() {
         addValidator(() -> {
@@ -48,37 +59,32 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         String stringValue = getStringValue();
         if (nonNull(stringValue) && !stringValue.isEmpty()) {
             double parsedValue = getNumberFormat().parse(stringValue);
-            getInputElement().asElement().value = getNumberFormat().format(parsedValue);
+            getInputElement().element().value = getNumberFormat().format(parsedValue);
         }
     }
 
     @Override
     protected HTMLInputElement createInputElement(String type) {
-        return Elements.input(type).css("form-control").asElement();
+        return Elements.input(type).element();
     }
 
     @Override
     protected void doSetValue(E value) {
         if (nonNull(value)) {
-            getInputElement().asElement().value = String.valueOf(value);
+            getInputElement().element().value = getNumberFormat().format(value);
         } else {
-            getInputElement().asElement().value = "";
+            getInputElement().element().value = "";
         }
     }
 
     @Override
     public E getValue() {
-        String value = getInputElement().asElement().value;
+        String value = getInputElement().element().value;
         try {
             if (value.isEmpty()) {
-                clearInvalid();
                 return null;
             }
-            if (formattingEnabled) {
-                value = getNumberFormat().parse(value) + "";
-            }
             E parsedValue = parseValue(value);
-            clearInvalid();
             return parsedValue;
         } catch (NumberFormatException e) {
             invalidate(value.startsWith("-") ? getMinValueErrorMessage() : getMaxValueErrorMessage());
@@ -88,31 +94,31 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
 
     @Override
     public boolean isEmpty() {
-        return getInputElement().asElement().value.isEmpty();
+        return getInputElement().element().value.isEmpty();
     }
 
     @Override
     public String getStringValue() {
-        return getInputElement().asElement().value;
+        return getInputElement().element().value;
     }
 
     public T setMinValue(E minValue) {
-        getInputElement().asElement().min = minValue + "";
+        getInputElement().element().min = minValue + "";
         return (T) this;
     }
 
     public T setMaxValue(E maxValue) {
-        getInputElement().asElement().max = maxValue + "";
+        getInputElement().element().max = maxValue + "";
         return (T) this;
     }
 
     public T setStep(E step) {
-        getInputElement().asElement().step = step + "";
+        getInputElement().element().step = step + "";
         return (T) this;
     }
 
     public E getMaxValue() {
-        String maxValue = getInputElement().asElement().max;
+        String maxValue = getInputElement().element().max;
         if (isNull(maxValue) || maxValue.isEmpty()) {
             return defaultMaxValue();
         }
@@ -120,7 +126,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     }
 
     public E getMinValue() {
-        String minValue = getInputElement().asElement().min;
+        String minValue = getInputElement().element().min;
         if (isNull(minValue) || minValue.isEmpty()) {
             return defaultMinValue();
         }
@@ -128,7 +134,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     }
 
     public E getStep() {
-        String step = getInputElement().asElement().step;
+        String step = getInputElement().element().step;
         if (isNull(step) || step.isEmpty()) {
             return null;
         }
@@ -158,6 +164,10 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         if (isNull(maxValue))
             return false;
         return isExceedMaxValue(maxValue, value);
+    }
+
+    private boolean isExceedMaxValue(double maxAsDouble, double valueAsDouble) {
+        return valueAsDouble > maxAsDouble;
     }
 
     private boolean isLowerThanMinValue(E value) {
@@ -213,4 +223,9 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     protected abstract boolean isExceedMaxValue(E maxValue, E value);
 
     protected abstract boolean isLowerThanMinValue(E minValue, E value);
+
+    @Override
+    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+        return new InputAutoValidator<>(getInputElement(), autoValidate);
+    }
 }

@@ -1,14 +1,13 @@
 package org.dominokit.domino.ui.forms;
 
 import com.google.gwt.user.client.TakesValue;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLInputElement;
-import elemental2.dom.HTMLLabelElement;
-import elemental2.dom.HTMLParagraphElement;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.*;
+import org.gwtproject.safehtml.shared.SafeHtml;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +18,9 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implements HasName<Radio<T>>, HasValue<Radio<T>, T>, HasLabel<Radio<T>>,
         Switchable<Radio<T>>, Checkable<Radio<T>>, TakesValue<T> {
 
-    private FlexItem container = FlexItem.create().addCss("form-group");
-    private HTMLLabelElement labelElement = label().asElement();
-    private HTMLInputElement inputElement = input("radio").asElement();
+    private FlexItem container = FlexItem.create().addCss("radio-option");
+    private HTMLLabelElement labelElement = label().element();
+    private HTMLInputElement inputElement = input("radio").element();
     private DominoElement<HTMLParagraphElement> helperTextElement = DominoElement.of(p());
     private List<ChangeHandler<? super Boolean>> changeHandlers;
     private Color color;
@@ -135,8 +134,8 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return container.asElement();
+    public HTMLDivElement element() {
+        return container.element();
     }
 
     @Override
@@ -169,8 +168,23 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
     @Override
     public Radio<T> setLabel(String label) {
         labelElement.textContent = label;
-        inputElement.value = label;
         return this;
+    }
+
+    public Radio<T> setLabel(SafeHtml safeHtml) {
+        labelElement.innerHTML = safeHtml.asString();
+        return this;
+    }
+
+    public Radio<T> setLabel(Node node) {
+        DominoElement.of(labelElement)
+                .clearElement()
+                .appendChild(node);
+        return this;
+    }
+
+    public Radio<T> setLabel(IsElement<?> element) {
+       return setLabel(element.element());
     }
 
     @Override
@@ -192,8 +206,8 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
 
     public Radio<T> setHelperText(String text) {
         helperTextElement.setTextContent(text);
-        if (!DominoElement.of(labelElement).contains(helperTextElement.asElement())) {
-            labelElement.appendChild(helperTextElement.asElement());
+        if (!DominoElement.of(labelElement).contains(helperTextElement.element())) {
+            labelElement.appendChild(helperTextElement.element());
         }
         return this;
     }

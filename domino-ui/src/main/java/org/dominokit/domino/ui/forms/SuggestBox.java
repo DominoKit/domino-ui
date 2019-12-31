@@ -1,10 +1,10 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.Element;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLInputElement;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
+import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.loaders.Loader;
 import org.dominokit.domino.ui.loaders.LoaderEffect;
 import org.dominokit.domino.ui.style.Color;
@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static elemental2.dom.DomGlobal.document;
+import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElement, T> implements HasSelectionHandler<SuggestBox<T>, SuggestItem<T>> {
@@ -25,7 +27,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     private DropDownMenu suggestionsMenu;
     private List<SelectionHandler<SuggestItem<T>>> selectionHandlers = new ArrayList<>();
     private SuggestBoxStore<T> store;
-    private HTMLDivElement loaderContainer = div().css("suggest-box-loader").asElement();
+    private HTMLDivElement loaderContainer = div().css("suggest-box-loader").element();
     private Loader loader;
     private boolean emptyAsNull;
     private Color highlightColor;
@@ -59,22 +61,38 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     public SuggestBox(String type, String label, SuggestBoxStore<T> store) {
         super(type, label);
         this.store = store;
-        suggestionsMenu = DropDownMenu.create(asElement());
+        suggestionsMenu = DropDownMenu.create(fieldContainer);
+        suggestionsMenu.setAppendTarget(fieldContainer.element());
+        suggestionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
+        suggestionsMenu.setPosition(new PopupPositionTopDown());
         suggestionsMenu.addCloseHandler(this::focus);
         Element element = document.querySelector(".content");
         if (nonNull(element)) {
             element.addEventListener("transitionend", evt -> {
-                suggestionsMenu.style().setWidth(asElement().offsetWidth + "px");
+                suggestionsMenu.style().setWidth(element().offsetWidth + "px");
             });
         }
         onAttached(mutationRecord -> {
-            suggestionsMenu.style().setWidth(asElement().offsetWidth + "px");
+            suggestionsMenu.style().setWidth(element().offsetWidth + "px");
         });
         getFieldContainer().insertFirst(loaderContainer);
         setLoaderEffect(LoaderEffect.IOS);
 
         delayedTextInput = DelayedTextInput.create(getInputElement(), typeAheadDelay)
                 .setDelayedAction(delayedAction);
+        KeyboardEvents.listenOn(getInputElement())
+                .onArrowDown(evt -> {
+                    suggestionsMenu.focus();
+                    evt.preventDefault();
+                })
+                .onArrowUp(evt -> {
+                    suggestionsMenu.focus();
+                    evt.preventDefault();
+                })
+                .onEscape(evt -> {
+                    focus();
+                    evt.preventDefault();
+                });
     }
 
     public static <T> SuggestBox<T> create(SuggestBoxStore<T> store) {
@@ -104,7 +122,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
 
     @Override
     protected HTMLInputElement createInputElement(String type) {
-        return Elements.input(type).css("form-control").asElement();
+        return Elements.input(type).element();
     }
 
     public int getTypeAheadDelay() {
@@ -143,9 +161,9 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
             store.find(value, suggestItem -> {
                 if (nonNull(suggestItem)) {
                     this.value = value;
-                    getInputElement().asElement().value = suggestItem.getDisplayValue();
+                    getInputElement().element().value = suggestItem.getDisplayValue();
                 } else {
-                    getInputElement().asElement().value = "";
+                    getInputElement().element().value = "";
                 }
             });
         }
@@ -162,13 +180,13 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     }
 
     public SuggestBox<T> setType(String type) {
-        getInputElement().asElement().type = type;
+        getInputElement().element().type = type;
         return this;
     }
 
     @Override
     public String getStringValue() {
-        String stringValue = getInputElement().asElement().value;
+        String stringValue = getInputElement().element().value;
         if (stringValue.isEmpty() && isEmptyAsNull()) {
             return null;
         }
@@ -232,5 +250,77 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     public SuggestBox<T> setHighlightColor(Color highlightColor) {
         this.highlightColor = highlightColor;
         return this;
+    }
+
+    @Override
+    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+        return new SuggestAutoValidator<>(this, autoValidate);
+    }
+
+    public static class PopupPositionTopDown implements DropDownPosition {
+
+        private DropDownPositionUp up = new DropDownPositionUp();
+        private DropDownPositionDown down = new DropDownPositionDown();
+
+        @Override
+        public void position(HTMLElement popup, HTMLElement target) {
+            ClientRect targetRect = target.getBoundingClientRect();
+
+            double distanceToMiddle = ((targetRect.top) - (targetRect.height / 2));
+            double windowMiddle = DomGlobal.window.innerHeight / 2;
+
+            if (distanceToMiddle >= windowMiddle) {
+                up.position(popup, target);
+                popup.setAttribute("popup-direction", "top");
+            } else {
+                down.position(popup, target);
+                popup.setAttribute("popup-direction", "down");
+            }
+
+            popup.style.setProperty("width", targetRect.width + "px");
+        }
+    }
+
+    public static class DropDownPositionUp implements DropDownPosition {
+        @Override
+        public void position(HTMLElement actionsMenu, HTMLElement target) {
+            ClientRect targetRect = target.getBoundingClientRect();
+
+            actionsMenu.style.setProperty("bottom", px.of(((window.innerHeight - targetRect.bottom) - window.pageYOffset + targetRect.height + 5)));
+            actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
+            actionsMenu.style.removeProperty("top");
+        }
+    }
+
+    public static class DropDownPositionDown implements DropDownPosition {
+        @Override
+        public void position(HTMLElement actionsMenu, HTMLElement target) {
+            ClientRect targetRect = target.getBoundingClientRect();
+            actionsMenu.style.setProperty("top", px.of((targetRect.top + window.pageYOffset + targetRect.height)));
+            actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
+            actionsMenu.style.removeProperty("bottom");
+        }
+    }
+
+    private static class SuggestAutoValidator<T> extends AutoValidator {
+
+        private SuggestBox<T> suggestBox;
+        private SelectionHandler<SuggestItem<T>> selectionHandler;
+
+        public SuggestAutoValidator(SuggestBox<T> suggestBox, AutoValidate autoValidate) {
+            super(autoValidate);
+            this.suggestBox = suggestBox;
+        }
+
+        @Override
+        public void attach() {
+            selectionHandler = option -> autoValidate.apply();
+            suggestBox.addSelectionHandler(selectionHandler);
+        }
+
+        @Override
+        public void remove() {
+            suggestBox.removeSelectionHandler(selectionHandler);
+        }
     }
 }

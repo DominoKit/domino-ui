@@ -26,38 +26,38 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
     private String fixedBodyHeight = "400px";
     private boolean lazyLoad = true;
     private boolean multiSelect = true;
-    private RowAppender<T> rowAppender = (dataTable, tableRow) -> dataTable.bodyElement().appendChild(tableRow.asElement());
+    private RowAppender<T> rowAppender = (dataTable, tableRow) -> dataTable.bodyElement().appendChild(tableRow.element());
 
     public void drawHeaders(DataTable<T> dataTable, DominoElement<HTMLTableSectionElement> thead) {
         this.dataTable = dataTable;
         HtmlContentBuilder<HTMLTableRowElement> tr = tr();
-        thead.appendChild(tr.asElement());
+        thead.appendChild(tr.element());
 
         columns.forEach(columnConfig -> {
             //TODO replace with FlexLayout
             Node element = columnConfig.getHeaderElement().asElement(columnConfig.getTitle());
-            columnConfig.contextMenu = div().style("width: 15px; display: none;").asElement();
+            columnConfig.contextMenu = div().style("width: 15px; display: none;").element();
             HtmlContentBuilder<HTMLDivElement> headerContent = div()
                     .style("display: flex;")
                     .add(div()
                             .style("width:100%")
                             .add(element))
                     .add(columnConfig.contextMenu);
-            HtmlContentBuilder<HTMLTableCellElement> th = th().css(DataTableStyles.TABLE_CM_HEADER).add(headerContent.asElement());
+            HtmlContentBuilder<HTMLTableCellElement> th = th().css(DataTableStyles.TABLE_CM_HEADER).add(headerContent.element());
 
-            columnConfig.applyScreenMedia(th.asElement());
+            columnConfig.applyScreenMedia(th.element());
 
             tr.add(th);
-            columnConfig.setHeadElement(th.asElement());
+            columnConfig.setHeadElement(th.element());
             if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
-                fixElementWidth(columnConfig, th.asElement());
+                fixElementWidth(columnConfig, th.element());
             }
 
             if (columnConfig.isShowTooltip()) {
-                Tooltip.create(th.asElement(), columnConfig.getTooltipNode());
+                Tooltip.create(th.element(), columnConfig.getTooltipNode());
             }
             columnConfig.applyHeaderStyle();
-            columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(th.asElement(), true));
+            columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(th.element(), true));
             DominoElement.of(th).toggleDisplay(!columnConfig.isHidden());
 
             plugins.forEach(plugin -> plugin.onHeaderAdded(dataTable, columnConfig));
@@ -81,9 +81,9 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
 
             HTMLTableCellElement cellElement;
             if (columnConfig.isHeader()) {
-                cellElement = th().asElement();
+                cellElement = th().css("dt-th-cell").element();
             } else {
-                cellElement = td().asElement();
+                cellElement = td().css("dt-td-cell").element();
             }
 
             if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
@@ -96,7 +96,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
 
             columnConfig.applyScreenMedia(cellElement);
 
-            tableRow.asElement().appendChild(cellElement);
+            tableRow.element().appendChild(cellElement);
             columnConfig.applyCellStyle(cellElement);
             columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(cellElement));
             DominoElement.of(cellElement).toggleDisplay(!columnConfig.isHidden());

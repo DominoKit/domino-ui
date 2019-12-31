@@ -33,7 +33,7 @@ public class ModalBackDrop {
                 }
             })
             .on(EventType.scroll, Event::stopPropagation)
-            .asElement();
+            .element();
 
     private static void closeCurrentOpen() {
         if (!ModalBackDrop.openedModals.isEmpty()) {

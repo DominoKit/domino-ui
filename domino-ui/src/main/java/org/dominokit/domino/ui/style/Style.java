@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.style;
 
-import elemental2.dom.DOMTokenList;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLBodyElement;
 import elemental2.dom.HTMLElement;
@@ -15,7 +14,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     private T wrapperElement;
 
     public Style(T element) {
-        this.element = element.asElement();
+        this.element = element.element();
         this.wrapperElement = element;
 
     }
@@ -558,7 +557,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>> implements IsE
     }
 
     @Override
-    public E asElement() {
+    public E element() {
         return element;
     }
 

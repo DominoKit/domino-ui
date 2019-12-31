@@ -58,7 +58,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
     }
 
     public InfoBox(BaseIcon<?> icon, String title, String value) {
-        this(icon.asElement(), title, value);
+        this(icon.element(), title, value);
     }
 
     public InfoBox(HTMLElement icon, String title) {
@@ -199,8 +199,8 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return root.asElement();
+    public HTMLDivElement element() {
+        return root.element();
     }
 
     public enum HoverEffect {

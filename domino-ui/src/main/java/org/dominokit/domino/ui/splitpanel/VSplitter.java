@@ -35,8 +35,8 @@ class VSplitter extends BaseSplitter<VSplitter> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
 

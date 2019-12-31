@@ -23,7 +23,7 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     private boolean selected = false;
     private boolean disabled = false;
     private String style;
-    private HTMLAnchorElement element= a().css(ListStyles.LIST_GROUP_ITEM).asElement();
+    private HTMLAnchorElement element= a().css(ListStyles.LIST_GROUP_ITEM).element();
 
     public ListItem(T value) {
         element.setAttribute("tabindex", "0");
@@ -206,12 +206,12 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     }
 
     public ListItem<T> appendChild(Node node) {
-        asElement().appendChild(node);
+        element().appendChild(node);
         return this;
     }
 
     public ListItem<T> appendChild(IsElement isElement) {
-        return appendChild(isElement.asElement());
+        return appendChild(isElement.element());
     }
 
     void setParent(ListGroup<T> parent) {

@@ -16,13 +16,13 @@ public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTML
             .css(Styles.vertical_center)
             .style("margin-top: -18px;")
             .add(loadingText)
-            .asElement();
+            .element();
 
     private HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.9);")
             .add(content)
-            .asElement();
+            .element();
 
     public NoneLoader() {
         init(this);
@@ -52,7 +52,7 @@ public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTML
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

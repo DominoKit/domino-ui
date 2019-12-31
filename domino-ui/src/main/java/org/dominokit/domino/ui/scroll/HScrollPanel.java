@@ -7,7 +7,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class HScrollPanel extends BaseDominoElement<HTMLDivElement, HScrollPanel> {
 
-    private HTMLDivElement element = div().css("h-scroll-panel").asElement();
+    private HTMLDivElement element = div().css("h-scroll-panel").element();
 
     public static HScrollPanel create(){
         return new HScrollPanel();
@@ -18,7 +18,7 @@ public class HScrollPanel extends BaseDominoElement<HTMLDivElement, HScrollPanel
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

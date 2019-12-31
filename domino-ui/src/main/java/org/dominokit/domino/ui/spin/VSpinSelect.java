@@ -23,8 +23,8 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
 
     public VSpinSelect(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {
         super(backIcon, forwardIcon);
-        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.DOWN, main.asElement(), evt -> moveBack());
-        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.UP, main.asElement(), evt -> moveForward());
+        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.DOWN, main.element(), evt -> moveBack());
+        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.UP, main.element(), evt -> moveForward());
         setHeight("50px");
     }
 
@@ -48,8 +48,8 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
 }

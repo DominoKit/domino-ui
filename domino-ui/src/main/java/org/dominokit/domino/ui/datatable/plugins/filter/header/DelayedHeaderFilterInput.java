@@ -60,7 +60,7 @@ public abstract class DelayedHeaderFilterInput<B extends ValueBox, T> implements
     }
 
     @Override
-    public HTMLElement asElement() {
-        return input.asElement();
+    public HTMLElement element() {
+        return input.element();
     }
 }

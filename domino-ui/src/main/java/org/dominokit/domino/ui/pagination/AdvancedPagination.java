@@ -93,7 +93,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
         if (pages > 0) {
             IntStream.rangeClosed(1, pages).forEach(p -> {
                 pagesSelect.appendChild(SelectOption.create(p, p + "")
-                        .apply(element -> allPages.add(DominoElement.of(element.asElement()))));
+                        .apply(element -> allPages.add(DominoElement.of(element.element()))));
             });
         }
 

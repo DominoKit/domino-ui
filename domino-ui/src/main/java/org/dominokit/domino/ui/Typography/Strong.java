@@ -7,7 +7,7 @@ import static org.jboss.gwt.elemento.core.Elements.strong;
 
 public class Strong extends BaseDominoElement<HTMLElement, Strong> {
 
-    private HTMLElement element = strong().asElement();
+    private HTMLElement element = strong().element();
 
     public Strong(String text){
         element.textContent = text;
@@ -19,7 +19,7 @@ public class Strong extends BaseDominoElement<HTMLElement, Strong> {
     }
 
     @Override
-    public HTMLElement asElement() {
+    public HTMLElement element() {
         return element;
     }
 }

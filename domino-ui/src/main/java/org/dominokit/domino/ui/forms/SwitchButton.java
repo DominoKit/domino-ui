@@ -1,38 +1,25 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.util.Objects.isNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implements Checkable<SwitchButton> {
+public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Boolean> implements Checkable<SwitchButton> {
 
-    public static final String READONLY = "readonly";
-    private HTMLDivElement container = div().css("switch").css("form-group").css(Styles.no_wrap).asElement();
-    private HTMLDivElement formLine = div().css("form-line").asElement();
-    private HTMLDivElement formControl = div().css("form-control").asElement();
-    private HTMLLabelElement onOffLabelElement = label().asElement();
-    private HTMLLabelElement labelElement = label().css("form-label", "focused").asElement();
-    private HTMLInputElement inputElement = input("checkbox").asElement();
+    private HTMLLabelElement onOffLabelElement = label().element();
+    private DominoElement<HTMLInputElement> inputElement;
     private DominoElement<HTMLElement> lever = DominoElement.of(span().css("lever"));
-    private List<ChangeHandler<? super Boolean>> changeHandlers = new ArrayList<>();
     private Color color;
     private DominoElement<HTMLElement> onTitleTextRoot = DominoElement.of(span());
     private DominoElement<HTMLElement> offTitleTextRoot = DominoElement.of(span());
     private String checkedReadonlyLabel = "Yes";
     private String unCheckedReadonlyLabel = "No";
-    private boolean autoValidation;
     private String offTitle;
     private String onTitle;
 
@@ -53,24 +40,24 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     public SwitchButton() {
-        Style.of(formControl).setProperty("border-bottom", "0px");
-        formControl.appendChild(onOffLabelElement);
-        onOffLabelElement.appendChild(offTitleTextRoot.asElement());
-        onOffLabelElement.appendChild(inputElement);
-        onOffLabelElement.appendChild(lever.asElement());
-        onOffLabelElement.appendChild(onTitleTextRoot.asElement());
+        super("switch", "");
+        init(this);
+        DominoElement.of(onOffLabelElement).css("switch-label");
+        getInputContainer().appendChild(onOffLabelElement);
+        onOffLabelElement.appendChild(offTitleTextRoot.element());
+        onOffLabelElement.appendChild(getInputElement().element());
+        onOffLabelElement.appendChild(lever.element());
+        onOffLabelElement.appendChild(onTitleTextRoot.element());
         inputElement.addEventListener("change", evt -> {
             evt.stopPropagation();
             if (!isReadOnly()) {
                 onCheck();
-                if (autoValidation)
+                if (isAutoValidation()) {
                     validate();
+                }
             }
         });
-        formLine.appendChild(formControl);
-        formLine.appendChild(labelElement);
-        container.appendChild(formLine);
-        init(this);
+        css("switch");
     }
 
     public static SwitchButton create(String label, String offTitle, String onTitle) {
@@ -97,6 +84,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     @Override
     public SwitchButton value(Boolean value) {
+        super.value(value);
         if (value != null && value) {
             check();
         } else {
@@ -107,7 +95,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     @Override
     public Boolean getValue() {
-        return inputElement.checked;
+        return inputElement.element().checked;
     }
 
     @Override
@@ -133,7 +121,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     @Override
     public SwitchButton check(boolean silent) {
-        inputElement.checked = true;
+        inputElement.element().checked = true;
         if (!silent) {
             onCheck();
             validate();
@@ -144,7 +132,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     @Override
     public SwitchButton uncheck(boolean silent) {
-        inputElement.checked = false;
+        inputElement.element().checked = false;
         if (!silent) {
             onCheck();
             validate();
@@ -155,7 +143,7 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     @Override
     public boolean isChecked() {
-        return inputElement.checked;
+        return inputElement.element().checked;
     }
 
     @Override
@@ -185,22 +173,6 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
 
     }
 
-    @Override
-    public SwitchButton setLabel(String label) {
-        this.labelElement.textContent = label;
-        return this;
-    }
-
-    @Override
-    public String getLabel() {
-        return labelElement.textContent;
-    }
-
-    @Override
-    public DominoElement<HTMLLabelElement> getLabelElement() {
-        return DominoElement.of(labelElement);
-    }
-
     public SwitchButton setOnTitle(String onTitle) {
         onTitleTextRoot
                 .clearElement()
@@ -222,46 +194,15 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     @Override
-    public DominoElement<HTMLInputElement> getInputElement() {
-        return DominoElement.of(inputElement);
-    }
-
-    @Override
-    public DominoElement<HTMLDivElement> getFieldContainer() {
-        return DominoElement.of(formLine);
-    }
-
-    @Override
-    public SwitchButton setAutoValidation(boolean autoValidation) {
-        this.autoValidation = autoValidation;
-        return this;
-    }
-
-    @Override
-    public boolean isAutoValidation() {
-        return autoValidation;
-    }
-
-    @Override
-    public HTMLElement asElement() {
-        return container;
-    }
-
-    public Style<HTMLElement, SwitchButton> style() {
-        return Style.of(this);
-    }
-
-    @Override
     public SwitchButton setReadOnly(boolean readOnly) {
-        inputElement.disabled = readOnly;
+        super.setReadOnly(readOnly);
         if (readOnly) {
-            setAttribute(READONLY, READONLY);
             updateLabel();
         } else {
-            removeAttribute(READONLY);
             setOffTitle(offTitle);
             setOnTitle(onTitle);
         }
+
         return this;
     }
 
@@ -315,12 +256,56 @@ public class SwitchButton extends BasicFormElement<SwitchButton, Boolean> implem
     }
 
     @Override
-    public boolean isReadOnly() {
-        return hasAttribute(READONLY);
+    protected HTMLElement createInputElement(String type) {
+        inputElement = DominoElement.of(input("checkbox"));
+        return inputElement.element();
+    }
+
+    @Override
+    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+        return null;
+    }
+
+    @Override
+    protected void clearValue() {
+        value(false);
+    }
+
+    @Override
+    protected void doSetValue(Boolean value) {
+
     }
 
     @Override
     public String getStringValue() {
         return Boolean.toString(getValue());
     }
+
+    @Override
+    protected boolean isAddFocusColor() {
+        return false;
+    }
+
+    private static class SwitchButtonAutoValidator<T> extends AutoValidator{
+
+        private SwitchButton switchButton;
+        private ChangeHandler<Boolean> changeHandler;
+
+        public SwitchButtonAutoValidator(SwitchButton switchButton, AutoValidate autoValidate) {
+            super(autoValidate);
+            this.switchButton = switchButton;
+        }
+
+        @Override
+        public void attach() {
+            changeHandler = value -> autoValidate.apply();
+            switchButton.addChangeHandler(changeHandler);
+        }
+
+        @Override
+        public void remove() {
+            switchButton.removeChangeHandler(changeHandler);
+        }
+    }
+
 }

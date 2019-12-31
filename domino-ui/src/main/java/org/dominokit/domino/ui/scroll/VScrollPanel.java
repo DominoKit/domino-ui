@@ -7,7 +7,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class VScrollPanel extends BaseDominoElement<HTMLDivElement, VScrollPanel> {
 
-    private HTMLDivElement element = div().css("v-scroll-panel").asElement();
+    private HTMLDivElement element = div().css("v-scroll-panel").element();
 
     public static VScrollPanel create(){
         return new VScrollPanel();
@@ -18,7 +18,7 @@ public class VScrollPanel extends BaseDominoElement<HTMLDivElement, VScrollPanel
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

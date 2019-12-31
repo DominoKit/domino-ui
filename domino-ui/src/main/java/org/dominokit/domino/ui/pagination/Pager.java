@@ -39,7 +39,7 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
                         onNext.onChange();
                 })
                 .textContent("Next")
-                .asElement()));
+                .element()));
 
         HtmlContentBuilder<HTMLAnchorElement> prevAnchor = a();
         this.prevAnchor = DominoElement.of(prevAnchor);
@@ -123,8 +123,8 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
     }
 
     @Override
-    public HTMLElement asElement() {
-        return element.asElement();
+    public HTMLElement element() {
+        return element.element();
     }
 
 

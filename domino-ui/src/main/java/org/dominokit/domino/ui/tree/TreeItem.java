@@ -55,7 +55,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         setIcon(icon);
         this.titleElement = span()
                 .css("title")
-                .textContent(title).asElement();
+                .textContent(title).element();
         this.anchorElement = DominoElement.of(a()
                 .add(this.icon)
                 .add(div()
@@ -147,10 +147,10 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     }
 
     private void init() {
-        this.element = li().asElement();
-        this.element.appendChild(anchorElement.asElement());
-        childrenContainer = ul().css("ml-tree").asElement();
-        asElement().appendChild(childrenContainer);
+        this.element = li().element();
+        this.element.appendChild(anchorElement.element());
+        childrenContainer = ul().css("ml-tree").element();
+        element().appendChild(childrenContainer);
         collapsible = Collapsible.create(childrenContainer)
                 .addHideHandler(() -> {
                     Style.of(anchorElement).remove("toggled");
@@ -183,12 +183,12 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
 
     public TreeItem<T> appendChild(TreeItem<T> treeItem) {
         this.subItems.add(treeItem);
-        childrenContainer.appendChild(treeItem.asElement());
+        childrenContainer.appendChild(treeItem.element());
         Style.of(anchorElement).add("tree-toggle");
         treeItem.parent = this;
         treeItem.setLevel(nextLevel);
         Style.of(treeItem).add("tree-leaf");
-        Style.of(this.asElement()).remove("tree-leaf");
+        Style.of(this.element()).remove("tree-leaf");
         treeItem.setToggleTarget(this.toggleTarget);
         this.style.add("tree-item-parent");
         return this;
@@ -197,7 +197,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     public TreeItem<T> addSeparator() {
         childrenContainer.appendChild(li().css("separator")
                 .add(a())
-                .asElement());
+                .element());
         return this;
     }
 
@@ -297,7 +297,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     }
 
     @Override
-    public HTMLLIElement asElement() {
+    public HTMLLIElement element() {
         return element;
     }
 
@@ -377,7 +377,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
 
     @Override
     public void activate(boolean activateParent) {
-        Style.of(asElement()).add("active");
+        Style.of(element()).add("active");
         if (isNull(expandIcon) || collapsible.isHidden() || !isParent()) {
             replaceIcon(this.activeIcon);
         }
@@ -399,7 +399,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
 
     @Override
     public void deactivate() {
-        Style.of(asElement()).remove("active");
+        Style.of(element()).remove("active");
         if (isNull(expandIcon) || collapsible.isHidden() || !isParent()) {
             restoreIcon();
         }
@@ -425,7 +425,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
 
     @Override
     public HTMLAnchorElement getClickableElement() {
-        return anchorElement.asElement();
+        return anchorElement.element();
     }
 
     public TreeItem<T> addClickListener(EventListener listener) {
@@ -436,7 +436,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     public TreeItem<T> setIcon(BaseIcon<?> icon) {
         this.icon = icon;
         this.originalIcon = icon.copy();
-        if (icon.asElement().style.visibility.equals("hidden")) {
+        if (icon.element().style.visibility.equals("hidden")) {
             this.originalIcon.styler(style -> style.setProperty("visibility", "hidden"));
         }
         this.originalIcon
@@ -530,7 +530,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
 
     @Override
     public HTMLElement getWavesElement() {
-        return anchorElement.asElement();
+        return anchorElement.element();
     }
 
     public boolean isLeaf() {
@@ -584,7 +584,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     }
 
     public TreeItem<T> setIndicatorContent(IsElement<?> element) {
-        setIndicatorContent(element.asElement());
+        setIndicatorContent(element.element());
         return this;
     }
 

@@ -24,7 +24,7 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu> implements HasBackground<DropDownMenu> {
 
-    private MenuNavigation<DropdownAction, HTMLElement> menuNavigation;
+    private MenuNavigation<DropdownAction> menuNavigation;
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(DropDownStyles.DROPDOWN));
     private DominoElement<HTMLUListElement> menuElement = DominoElement.of(ul().css(DropDownStyles.DROPDOWN_MENU));
     private HTMLElement targetElement;
@@ -40,14 +40,19 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     private List<DropdownAction> actions = new ArrayList<>();
     private boolean touchMoved;
     private List<CloseHandler> closeHandlers = new ArrayList<>();
+    private List<OpenHandler> openHandlers = new ArrayList<>();
     private boolean closeOnEscape;
     private boolean searchable;
     private boolean caseSensitiveSearch = false;
     private List<DropdownActionsGroup> groups = new ArrayList<>();
     private Color background;
+    private HTMLElement appendTarget = document.body;
+    private AppendStrategy appendStrategy = AppendStrategy.LAST;
 
     public DropDownMenu(HTMLElement targetElement) {
         this.targetElement = targetElement;
+
+        init(this);
 
         menuElement.setAttribute("role", "listbox");
 
@@ -66,7 +71,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
             touchMoved = false;
         });
 
-        addMenuNavigationListener(targetElement);
+        addMenuNavigationListener();
         searchContainer.addClickListener(evt -> {
             evt.preventDefault();
             evt.stopPropagation();
@@ -97,14 +102,17 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
             }
         });
 
-        init(this);
-
         setNoSearchResultsElement(DominoElement.of(li().css(DropDownStyles.NO_RESULTS))
                 .hide()
-                .asElement());
+                .element());
         menuElement.appendChild(noSearchResultsElement);
 
         titleContainer.addClickListener(Event::stopPropagation);
+
+        DominoElement.of(targetElement)
+                .onDetached(mutationRecord -> close());
+
+        onDetached(mutationRecord -> closeHandlers.forEach(CloseHandler::onClose));
     }
 
     private int firstVisibleActionIndex() {
@@ -126,7 +134,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     private void doSearch() {
-        String searchValue = searchBox.asElement().value;
+        String searchValue = searchBox.element().value;
         boolean thereIsValues = false;
         for (DropdownAction<?> action : actions) {
             boolean contains;
@@ -152,8 +160,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         groups.forEach(DropdownActionsGroup::changeVisibility);
     }
 
-    private void addMenuNavigationListener(HTMLElement targetElement) {
-        menuNavigation = MenuNavigation.create(actions, targetElement)
+    private void addMenuNavigationListener() {
+        menuNavigation = MenuNavigation.create(actions)
                 .onSelect(DropdownAction::select)
                 .focusCondition(item -> !item.isHidden())
                 .onFocus(item -> {
@@ -183,7 +191,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     public static DropDownMenu create(IsElement targetElement) {
-        return new DropDownMenu(targetElement.asElement());
+        return new DropDownMenu(targetElement.element());
     }
 
     public DropDownMenu insertFirst(DropdownAction action) {
@@ -193,7 +201,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
             }
         });
         actions.add(0, action);
-        menuElement.insertFirst(action.asElement());
+        menuElement.insertFirst(action.element());
         return this;
     }
 
@@ -204,7 +212,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
             }
         });
         actions.add(action);
-        menuElement.appendChild(action.asElement());
+        menuElement.appendChild(action.element());
         action.setBackground(this.background);
         return this;
     }
@@ -231,27 +239,31 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
     public void open() {
         if (hasActions()) {
-            if (!document.body.contains(element.asElement())) {
-                document.body.appendChild(element.asElement());
-            }
-            position.position(element.asElement(), targetElement);
-            if (searchable) {
-                searchBox.asElement().focus();
-                clearSearch();
-            }
+            onAttached(mutationRecord -> {
+                position.position(element.element(), targetElement);
+                if (searchable) {
+                    searchBox.element().focus();
+                    clearSearch();
+                }
 
-            element.style().setProperty("z-index", ModalBackDrop.getNextZIndex() + "");
+                element.style().setProperty("z-index", ModalBackDrop.getNextZIndex() + 10 + "");
+                openHandlers.forEach(OpenHandler::onOpen);
+            });
+
+            if (!appendTarget.contains(element.element())) {
+                appendStrategy.onAppend(appendTarget, element.element());
+            }
         }
     }
 
     public void clearSearch() {
-        searchBox.asElement().value = "";
+        searchBox.element().value = "";
         noSearchResultsElement.hide();
         actions.forEach(DropdownAction::show);
     }
 
     public boolean isOpened() {
-        return document.body.contains(element.asElement());
+        return appendTarget.contains(element.element());
     }
 
     public DropDownMenu setPosition(DropDownPosition position) {
@@ -260,8 +272,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     public DropDownMenu clearActions() {
@@ -287,6 +299,21 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         return this;
     }
 
+    public DropDownMenu removeCloseHandler(CloseHandler closeHandler) {
+        closeHandlers.remove(closeHandler);
+        return this;
+    }
+
+    public DropDownMenu addOpenHandler(OpenHandler openHandler) {
+        openHandlers.add(openHandler);
+        return this;
+    }
+
+    public DropDownMenu removeOpenHandler(OpenHandler openHandler) {
+        openHandlers.remove(openHandler);
+        return this;
+    }
+
     public List<DropdownAction> getActions() {
         return actions;
     }
@@ -308,7 +335,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
     public DropDownMenu addGroup(DropdownActionsGroup group) {
         groups.add(group);
-        menuElement.appendChild(group.asElement());
+        menuElement.appendChild(group.element());
         group.bindTo(this);
         return this;
     }
@@ -318,6 +345,28 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
             element.insertFirst(titleContainer.appendChild(h(5).textContent(title)));
         }
         return this;
+    }
+
+    public DropDownMenu setAppendTarget(HTMLElement appendTarget) {
+        if (nonNull(appendTarget)) {
+            this.appendTarget = appendTarget;
+        }
+        return this;
+    }
+
+    public HTMLElement getAppendTarget() {
+        return this.appendTarget;
+    }
+
+    public DropDownMenu setAppendStrategy(AppendStrategy appendStrategy) {
+        if (nonNull(appendStrategy)) {
+            this.appendStrategy = appendStrategy;
+        }
+        return this;
+    }
+
+    public AppendStrategy getAppendStrategy() {
+        return this.appendStrategy;
     }
 
     public DominoElement<HTMLElement> getNoSearchResultsElement() {
@@ -351,8 +400,29 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         return this;
     }
 
+    public DominoElement<HTMLDivElement> getSearchContainer() {
+        return searchContainer;
+    }
+
+    public void focus() {
+        menuNavigation.focusAt(0);
+    }
+
     @FunctionalInterface
     public interface CloseHandler {
         void onClose();
+    }
+
+    @FunctionalInterface
+    public interface OpenHandler {
+        void onOpen();
+    }
+
+    @FunctionalInterface
+    public interface AppendStrategy {
+        void onAppend(HTMLElement target, HTMLElement menu);
+
+        AppendStrategy FIRST = (target, menu) -> DominoElement.of(target).insertFirst(menu);
+        AppendStrategy LAST = (target, menu) -> DominoElement.of(target).appendChild(menu);
     }
 }

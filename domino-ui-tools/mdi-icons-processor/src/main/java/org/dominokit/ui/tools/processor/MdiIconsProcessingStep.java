@@ -35,7 +35,7 @@ import java.util.Set;
 
 public class MdiIconsProcessingStep extends AbstractProcessingStep {
 
-    private static final String MDI_VERSION="v3.7.95";
+    private static final String MDI_VERSION="v4.6.95";
 
     public MdiIconsProcessingStep(ProcessingEnvironment processingEnv) {
         super(processingEnv);

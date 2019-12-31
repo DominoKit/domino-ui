@@ -133,7 +133,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
             open();
             evt.stopPropagation();
         });
-        return buttonElement.asElement();
+        return buttonElement.element();
     }
 
     private void open() {
@@ -154,8 +154,8 @@ public class DropdownButton extends BaseButton<DropdownButton> {
     }
 
     @Override
-    public HTMLElement asElement() {
-        return groupElement.asElement();
+    public HTMLElement element() {
+        return groupElement.element();
     }
 
     public DropdownButton separator() {

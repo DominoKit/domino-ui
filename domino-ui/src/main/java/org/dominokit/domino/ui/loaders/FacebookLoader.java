@@ -11,9 +11,9 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class FacebookLoader extends BaseLoader<FacebookLoader> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555").asElement();
-    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555").asElement();
-    private HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#555").asElement();
+    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555").element();
+    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555").element();
+    private HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#555").element();
 
     private HTMLDivElement loader = div()
             .css(WAIT_ME_PROGRESS)
@@ -21,19 +21,19 @@ public class FacebookLoader extends BaseLoader<FacebookLoader> implements IsElem
             .add(progress1)
             .add(progress2)
             .add(progress3)
-            .asElement();
+            .element();
 
     private HTMLDivElement content = div()
             .css(WAIT_ME_CONTENT)
             .css(Styles.vertical_center)
             .add(loader)
-            .add(loadingText).asElement();
+            .add(loadingText).element();
 
     private HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.9);")
             .add(content)
-            .asElement();
+            .element();
 
     public FacebookLoader() {
         init(this);
@@ -66,7 +66,7 @@ public class FacebookLoader extends BaseLoader<FacebookLoader> implements IsElem
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

@@ -22,13 +22,13 @@ import static org.jboss.gwt.elemento.core.Elements.ul;
 
 public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement element = div().asElement();
+    private HTMLDivElement element = div().element();
     private DominoElement<HTMLUListElement> tabsList = DominoElement.of(ul()
             .css(TabStyles.NAV, TabStyles.NAV_TABS, TabStyles.NAV_TABS_RIGHT)
             .attr("role", "tablist"));
     private HTMLElement tabsContent = div()
             .css(TabStyles.TAB_CONTENT)
-            .asElement();
+            .element();
     private Tab activeTab;
     private Color tabsColor;
     private Transition transition;
@@ -39,7 +39,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
     private final List<Tab.ActivationHandler> activationHandlers = new ArrayList<>();
 
     public TabsPanel() {
-        element.appendChild(tabsList.asElement());
+        element.appendChild(tabsList.element());
         element.appendChild(tabsContent);
         init(this);
         setBackgroundColor(Color.WHITE);
@@ -62,8 +62,8 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
                     this.activeTab = tab;
                 }
             }
-            tabsList.appendChild(tab.asElement());
-            tabsContent.appendChild(tab.getContentContainer().asElement());
+            tabsList.appendChild(tab.element());
+            tabsContent.appendChild(tab.getContentContainer().element());
             tab.getClickableElement().addEventListener("click", evt -> activateTab(tab));
             tab.setParent(this);
         }
@@ -137,7 +137,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 
@@ -156,7 +156,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
     }
 
     public TabsPanel setContentContainer(IsElement contentContainer) {
-        return setContentContainer(contentContainer.asElement());
+        return setContentContainer(contentContainer.element());
     }
 
     public DominoElement<HTMLElement> getTabsContent() {

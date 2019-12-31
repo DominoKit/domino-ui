@@ -2,7 +2,7 @@ sudo: false
 
 language: java
 jdk: openjdk8
-branches: 
+branches:
   only:
   - master
 cache:

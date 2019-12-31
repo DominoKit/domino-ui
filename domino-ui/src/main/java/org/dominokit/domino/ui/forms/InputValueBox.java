@@ -5,6 +5,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLOptionElement;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 
 import java.util.Collection;
@@ -17,7 +18,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<T, HTMLInputElement, String> {
-    private HTMLElement suggestionsDataList = datalist().asElement();
+    private HTMLElement suggestionsDataList = datalist().element();
     private String typeMismatchErrorMessage;
     private Map<String, HTMLOptionElement> suggestedValues = new HashMap<>();
     private String invalidPatternErrorMessage;
@@ -27,7 +28,7 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
         super(type, label);
         suggestionsDataList.id = getDominoId();
         getInputElement().setAttribute("list", getDominoId());
-        getInputElement().asElement().parentNode.appendChild(suggestionsDataList);
+        getInputElement().element().parentNode.appendChild(suggestionsDataList);
         addTypeMismatchValidator();
         addInvalidPatternValidator();
         setAutoValidation(true);
@@ -35,7 +36,7 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
 
     private void addInvalidPatternValidator() {
         addValidator(() -> {
-            HTMLInputElement inputElement = Js.uncheckedCast(getInputElement().asElement());
+            HTMLInputElement inputElement = Js.uncheckedCast(getInputElement().element());
             if (inputElement.validity.patternMismatch) {
                 return ValidationResult.invalid(getInvalidPatternErrorMessage());
             }
@@ -45,7 +46,7 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
 
     private void addTypeMismatchValidator() {
         addValidator(() -> {
-            HTMLInputElement inputElement = Js.uncheckedCast(getInputElement().asElement());
+            HTMLInputElement inputElement = Js.uncheckedCast(getInputElement().element());
             if (inputElement.validity.typeMismatch) {
                 return ValidationResult.invalid(getTypeMismatchErrorMessage());
             }
@@ -55,7 +56,7 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
 
     @Override
     protected HTMLInputElement createInputElement(String type) {
-        return input(type).css("form-control").asElement();
+        return input(type).element();
     }
 
     @Override
@@ -66,15 +67,15 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
     @Override
     protected void doSetValue(String value) {
         if (nonNull(value)) {
-            getInputElement().asElement().value = value;
+            getInputElement().element().value = value;
         } else {
-            getInputElement().asElement().value = "";
+            getInputElement().element().value = "";
         }
     }
 
     @Override
     public String getValue() {
-        String value = getInputElement().asElement().value;
+        String value = getInputElement().element().value;
         if (value.isEmpty() && isEmptyAsNull()) {
             return null;
         }
@@ -82,7 +83,7 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
     }
 
     public T setType(String type) {
-        getInputElement().asElement().type = type;
+        getInputElement().element().type = type;
         return (T) this;
     }
 
@@ -101,7 +102,7 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
     }
 
     public T addSuggestedValue(String suggestedValue) {
-        HTMLOptionElement optionElement = option().attr("value", suggestedValue).asElement();
+        HTMLOptionElement optionElement = option().attr("value", suggestedValue).element();
         suggestionsDataList.appendChild(optionElement);
         suggestedValues.put(suggestedValue, optionElement);
         return (T) this;
@@ -173,5 +174,10 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
 
     public boolean isEmptyAsNull() {
         return emptyAsNull;
+    }
+
+    @Override
+    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+        return new InputAutoValidator<>(getInputElement(), autoValidate);
     }
 }

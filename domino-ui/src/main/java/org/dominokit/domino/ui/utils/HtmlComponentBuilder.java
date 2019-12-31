@@ -12,7 +12,7 @@ public class HtmlComponentBuilder<E extends HTMLElement, T extends IsElement<E>>
     private T component;
 
     public HtmlComponentBuilder(T component) {
-        super(component.asElement());
+        super(component.element());
         this.component = component;
     }
 
@@ -45,19 +45,13 @@ public class HtmlComponentBuilder<E extends HTMLElement, T extends IsElement<E>>
     }
 
     @Override
-    public HtmlComponentBuilder<E, T> addAll(HasElements elements) {
-        super.addAll(elements);
-        return this;
-    }
-
-    @Override
     public HtmlComponentBuilder<E, T> addAll(HTMLElement... elements) {
         super.addAll(elements);
         return this;
     }
 
     @Override
-    public HtmlComponentBuilder<E, T> addAll(Iterable<? extends Node> elements) {
+    public HtmlComponentBuilder<E, T> addAll(Iterable<?> elements) {
         super.addAll(elements);
         return this;
     }

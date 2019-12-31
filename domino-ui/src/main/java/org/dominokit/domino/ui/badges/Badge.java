@@ -33,8 +33,8 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasB
     }
 
     @Override
-    public HTMLElement asElement() {
-        return badgeElement.asElement();
+    public HTMLElement element() {
+        return badgeElement.element();
     }
 
     public Badge setText(String text) {

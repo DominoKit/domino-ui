@@ -10,24 +10,24 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
-    private HTMLLIElement indicatorElement = li().asElement();
-    private HTMLHeadingElement slideLabelElement = h(3).asElement();
-    private HTMLParagraphElement slideDescriptionElement = p().asElement();
+    private HTMLLIElement indicatorElement = li().element();
+    private HTMLHeadingElement slideLabelElement = h(3).element();
+    private HTMLParagraphElement slideDescriptionElement = p().element();
     private HTMLDivElement captionElement = div()
             .add(slideLabelElement)
             .add(slideDescriptionElement)
             .css(CAROUSEL_CAPTION)
-            .asElement();
+            .element();
 
     private HTMLDivElement slideElement = div()
             .css(ITEM)
-            .asElement();
+            .element();
 
     private HTMLImageElement imageElement;
     private boolean active = false;
 
     public Slide(String imageSrc) {
-        this(img(imageSrc).asElement());
+        this(img(imageSrc).element());
     }
 
     public Slide(HTMLImageElement image) {
@@ -37,7 +37,7 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
     }
 
     public Slide(String imageSrc, String label, String description) {
-        this(img(imageSrc).asElement(), label, description);
+        this(img(imageSrc).element(), label, description);
     }
 
     public Slide(HTMLImageElement image, String label, String description) {
@@ -69,7 +69,7 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return slideElement;
     }
 

@@ -11,12 +11,12 @@ import static org.jboss.gwt.elemento.core.Elements.li;
 
 public class TopBarAction extends BaseDominoElement<HTMLLIElement, TopBarAction> {
 
-    private HTMLLIElement element = li().css(Styles.pull_right).asElement();
-    private HTMLAnchorElement clickableElement= a().css("js-right-sidebar").asElement();
+    private HTMLLIElement element = li().css(Styles.pull_right).element();
+    private HTMLAnchorElement clickableElement= a().css("js-right-sidebar").element();
 
     public TopBarAction(BaseIcon<?> icon) {
         element.appendChild(clickableElement);
-        clickableElement.appendChild(icon.asElement());
+        clickableElement.appendChild(icon.element());
         init(this);
     }
 
@@ -25,7 +25,7 @@ public class TopBarAction extends BaseDominoElement<HTMLLIElement, TopBarAction>
     }
 
     @Override
-    public HTMLLIElement asElement() {
+    public HTMLLIElement element() {
         return element;
     }
 

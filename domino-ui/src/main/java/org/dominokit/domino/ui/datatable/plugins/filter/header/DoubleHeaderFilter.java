@@ -25,7 +25,7 @@ public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<DoubleBox, T
 
     @Override
     protected HTMLInputElement getInputElement() {
-        return doubleBox.getInputElement().asElement();
+        return doubleBox.getInputElement().element();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<DoubleBox, T
     public void clear() {
         doubleBox.pauseChangeHandlers();
         doubleBox.clear();
-        doubleBox.getInputElement().asElement().value = "";
+        doubleBox.getInputElement().element().value = "";
         doubleBox.resumeChangeHandlers();
     }
 }

@@ -11,9 +11,9 @@ import static org.jboss.gwt.elemento.core.Elements.span;
 
 public class LabeledIcon extends BaseDominoElement<HTMLDivElement, LabeledIcon> {
 
-    private HTMLDivElement element = div().css(IconsStyles.LABELED_ICON).asElement();
-    private HTMLElement leftSpan = span().css(IconsStyles.LEFT_NODE).asElement();
-    private HTMLElement rightSpan = span().css(IconsStyles.RIGHT_NODE).asElement();
+    private HTMLDivElement element = div().css(IconsStyles.LABELED_ICON).element();
+    private HTMLElement leftSpan = span().css(IconsStyles.LEFT_NODE).element();
+    private HTMLElement rightSpan = span().css(IconsStyles.RIGHT_NODE).element();
 
     public LabeledIcon(BaseIcon icon, String text) {
         this(icon, text, IconPosition.LEFT);
@@ -34,13 +34,13 @@ public class LabeledIcon extends BaseDominoElement<HTMLDivElement, LabeledIcon> 
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 
     public enum IconPosition{
         LEFT((left, right, icon, text) -> {
-            left.appendChild(icon.asElement());
+            left.appendChild(icon.element());
             right.appendChild(text);
             left.classList.add(IconsStyles.ICON_NODE);
             right.classList.add(IconsStyles.TEXT_NODE);
@@ -48,7 +48,7 @@ public class LabeledIcon extends BaseDominoElement<HTMLDivElement, LabeledIcon> 
 
         RIGHT((left, right, icon, text) -> {
             left.appendChild(text);
-            right.appendChild(icon.asElement());
+            right.appendChild(icon.element());
             right.classList.add(IconsStyles.ICON_NODE);
             left.classList.add(IconsStyles.TEXT_NODE);
         });

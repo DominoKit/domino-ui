@@ -28,7 +28,8 @@ public class LongBox extends NumberBox<LongBox, Long> {
 
     @Override
     protected Long parseValue(String value) {
-        return Long.parseLong(value);
+        double dValue = getNumberFormat().parse(value);
+        return new Double(dValue).longValue();
     }
 
     @Override

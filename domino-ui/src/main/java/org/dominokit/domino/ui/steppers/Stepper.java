@@ -21,7 +21,7 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
 
     private static Transition HORIZONTAL_NEXT_STEP_TRANSITION = Transition.SLIDE_IN_RIGHT;
     private static Transition HORIZONTAL_PREV_STEP_TRANSITION = Transition.SLIDE_IN_LEFT;
-    private final HTMLUListElement element = ul().css(stepper).asElement();
+    private final HTMLUListElement element = ul().css(stepper).element();
     private Step activeStep;
     private Color color;
     private List<Step> steps = new ArrayList<>();
@@ -53,7 +53,7 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
     }
 
     public Stepper appendChild(Step step) {
-        element.appendChild(step.asElement());
+        element.appendChild(step.element());
         steps.add(step);
         step.setStepper(this);
         if (isNull(activeStep)) {
@@ -82,7 +82,7 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
     }
 
     @Override
-    public HTMLUListElement asElement() {
+    public HTMLUListElement element() {
         return element;
     }
 

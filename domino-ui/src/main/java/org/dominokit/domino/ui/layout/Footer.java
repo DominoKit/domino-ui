@@ -22,8 +22,8 @@ public class Footer extends BaseDominoElement<HTMLElement, Footer> {
     }
 
     @Override
-    public HTMLElement asElement() {
-        return element.asElement();
+    public HTMLElement element() {
+        return element.element();
     }
 
     public Footer fixed() {
