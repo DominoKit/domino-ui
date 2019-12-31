@@ -94,11 +94,11 @@ public class MessageDialog extends BaseModal<MessageDialog> {
     }
 
     public static MessageDialog createMessage(String message, CloseHandler closeHandler) {
-        return createMessage(Paragraph.create(message).asElement(), closeHandler);
+        return createMessage(Paragraph.create(message).element(), closeHandler);
     }
 
     public MessageDialog success(BaseIcon<?> icon) {
-        this.icon = MessageDialog.createMessageIcon(icon.asElement());
+        this.icon = MessageDialog.createMessageIcon(icon.element());
         this.iconColorStart = Color.ORANGE;
         this.iconColorEnd = Color.LIGHT_GREEN;
         this.iconStartTransition = Transition.ROTATE_IN;
@@ -112,7 +112,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
     }
 
     public MessageDialog error(BaseIcon<?> icon) {
-        this.icon = MessageDialog.createMessageIcon(icon.asElement());
+        this.icon = MessageDialog.createMessageIcon(icon.element());
         this.iconColorStart = Color.GREY;
         this.iconColorEnd = Color.RED;
         this.iconStartTransition = Transition.ROTATE_IN;
@@ -126,7 +126,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
     }
 
     public MessageDialog warning(BaseIcon<?> icon) {
-        this.icon = MessageDialog.createMessageIcon(icon.asElement());
+        this.icon = MessageDialog.createMessageIcon(icon.element());
         this.iconColorStart = Color.GREY;
         this.iconColorEnd = Color.ORANGE;
         this.iconStartTransition = Transition.ROTATE_IN;
@@ -184,6 +184,6 @@ public class MessageDialog extends BaseModal<MessageDialog> {
     }
 
     public MessageDialog appendHeaderChild(IsElement content) {
-        return appendHeaderChild(content.asElement());
+        return appendHeaderChild(content.element());
     }
 }

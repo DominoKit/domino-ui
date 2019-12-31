@@ -63,13 +63,13 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
 
         body.getCollapsible().addHideHandler(() -> {
             if (collapsible) {
-                collapseIcon.asElement().textContent = Icons.ALL.keyboard_arrow_down().getName();
+                collapseIcon.element().textContent = Icons.ALL.keyboard_arrow_down().getName();
             }
         });
 
         body.getCollapsible().addShowHandler(() -> {
             if (collapsible) {
-                collapseIcon.asElement().textContent = Icons.ALL.keyboard_arrow_up().getName();
+                collapseIcon.element().textContent = Icons.ALL.keyboard_arrow_up().getName();
             }
         });
 
@@ -119,7 +119,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     }
 
     public Card appendDescriptionChild(IsElement element) {
-        return appendDescriptionChild(element.asElement());
+        return appendDescriptionChild(element.element());
     }
 
 
@@ -129,7 +129,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     }
 
     public Card appendChild(IsElement element) {
-        getBody().appendChild(element.asElement());
+        getBody().appendChild(element.element());
         return this;
     }
 
@@ -191,7 +191,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     public static HTMLLIElement createIcon(BaseIcon<?> icon) {
         return li().add(
                 a().add(icon))
-                .asElement();
+                .element();
     }
 
     public Card addHeaderAction(BaseIcon<?> icon, EventListener eventListener) {
@@ -204,7 +204,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     }
 
     public Card addHeaderAction(HeaderAction headerAction) {
-        putAction(headerAction.asElement());
+        putAction(headerAction.element());
         return this;
     }
 
@@ -222,7 +222,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
                         .clickable()
                         .styler(style -> style
                                 .add(Styles.pull_right, ACTION_ICON))))
-                .asElement();
+                .element();
     }
 
     public Card setCollapsible() {
@@ -313,7 +313,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     }
 
     public Card setHeaderLogo(IsElement<?> element) {
-        setHeaderLogo(element.asElement());
+        setHeaderLogo(element.element());
         return this;
     }
 
@@ -340,7 +340,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return root.asElement();
+    public HTMLDivElement element() {
+        return root.element();
     }
 }

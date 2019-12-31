@@ -87,7 +87,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
         if (removeTail) {
             int index = items.indexOf(item) + 1;
             while (items.size() > index) {
-                items.get(items.size() - 1).asElement().remove();
+                items.get(items.size() - 1).element().remove();
                 items.remove(items.size() - 1);
             }
         }
@@ -127,8 +127,8 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> 
     }
 
     @Override
-    public HTMLOListElement asElement() {
-        return element.asElement();
+    public HTMLOListElement element() {
+        return element.element();
     }
 
     @Override

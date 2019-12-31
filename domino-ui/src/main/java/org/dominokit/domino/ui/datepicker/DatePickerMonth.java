@@ -35,7 +35,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     private DatePickerElement selectedElement;
     private Color background = Color.LIGHT_BLUE;
 
-    private HTMLDivElement element = div().css(DatePickerStyles.DATE_PICKER_CONTAINER).asElement();
+    private HTMLDivElement element = div().css(DatePickerStyles.DATE_PICKER_CONTAINER).element();
 
     public DatePickerMonth(JsDate date, DateTimeFormatInfo dateTimeFormatInfo, InternalHandler daySelectionHandler) {
         this.date = date;
@@ -124,7 +124,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
 
         );
 
-        element.appendChild(table.asElement());
+        element.appendChild(table.element());
     }
 
     private void update(JsDate jsDate) {
@@ -278,7 +278,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 

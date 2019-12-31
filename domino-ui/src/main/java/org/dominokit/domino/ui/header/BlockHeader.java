@@ -12,8 +12,8 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> {
 
-    private HTMLDivElement element = div().css(BlockHeaderStyles.BLOCK_HEADER).asElement();
-    private HTMLHeadingElement headerElement = h(2).asElement();
+    private HTMLDivElement element = div().css(BlockHeaderStyles.BLOCK_HEADER).element();
+    private HTMLHeadingElement headerElement = h(2).element();
     private HTMLElement descriptionElement;
     private Text headerText = TextNode.empty();
     private Text descriptionText = TextNode.empty();
@@ -35,7 +35,7 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
 
     private void createDescriptionElement(String description) {
         descriptionText.textContent = description;
-        descriptionElement = small().add(descriptionText).asElement();
+        descriptionElement = small().add(descriptionText).element();
         headerElement.appendChild(descriptionElement);
     }
 
@@ -56,7 +56,7 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
     }
 
     public BlockHeader appendChild(IsElement content) {
-        return appendChild(content.asElement());
+        return appendChild(content.element());
     }
 
     public BlockHeader invert() {
@@ -86,7 +86,7 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

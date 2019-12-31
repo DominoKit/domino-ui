@@ -24,7 +24,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     private Map<String, String> flags = new HashMap<>();
     private Map<String, RowMetaObject> metaObjects = new HashMap<>();
 
-    private HTMLTableRowElement element = tr().asElement();
+    private HTMLTableRowElement element = tr().element();
     private List<SelectionHandler<T>> selectionHandlers = new ArrayList<>();
 
     private List<RowListener<T>> listeners = new ArrayList<>();
@@ -96,7 +96,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     }
 
     @Override
-    public HTMLTableRowElement asElement() {
+    public HTMLTableRowElement element() {
         return element;
     }
 

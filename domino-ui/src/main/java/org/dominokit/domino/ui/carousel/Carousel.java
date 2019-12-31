@@ -21,8 +21,8 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
 
-    private HTMLOListElement indicatorsElement = ol().css(CAROUSEL_INDICATORS).asElement();
-    private HTMLDivElement slidesElement = div().css(CAROUSEL_INNER).asElement();
+    private HTMLOListElement indicatorsElement = ol().css(CAROUSEL_INDICATORS).element();
+    private HTMLDivElement slidesElement = div().css(CAROUSEL_INNER).element();
     private boolean autoSlide = false;
 
     private HTMLAnchorElement prevElement = a()
@@ -32,7 +32,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
                     .styler(style -> style
                             .add(Styles.vertical_center)
                             .setFontSize("60px")))
-            .asElement();
+            .element();
 
     private HTMLAnchorElement nextElement = a()
             .css(RIGHT, CAROUSEL_CONTROL)
@@ -41,7 +41,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
                     .styler(style -> style
                             .add(Styles.vertical_center)
                             .setFontSize("60px")))
-            .asElement();
+            .element();
 
     private HTMLDivElement element = div()
             .add(indicatorsElement)
@@ -49,7 +49,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
             .add(prevElement)
             .add(nextElement)
             .css(CAROUSEL, SLIDE)
-            .asElement();
+            .element();
 
     private List<Slide> slides = new ArrayList<>();
     private Slide activeSlide;
@@ -84,14 +84,14 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
     }
 
     private void addDetachListener() {
-        ElementUtil.onDetach(asElement(), mutationRecord -> {
+        ElementUtil.onDetach(element(), mutationRecord -> {
             this.attached = false;
             this.stopAutoSlide();
         });
     }
 
     private void addAttachListener() {
-        ElementUtil.onAttach(this.asElement(), mutationRecord -> {
+        ElementUtil.onAttach(this.element(), mutationRecord -> {
             this.attached = true;
             if (autoSlide) {
                 timer.scheduleRepeating(autoSlideDuration);
@@ -115,18 +115,18 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
 
 
     public Carousel appendChild(Slide slide) {
-        getIndicatorsElement().appendChild(slide.getIndicatorElement().asElement());
-        slidesElement.appendChild(slide.asElement());
+        getIndicatorsElement().appendChild(slide.getIndicatorElement().element());
+        slidesElement.appendChild(slide.element());
         slide.getIndicatorElement().addEventListener("click", evt -> {
             resetTimer();
             gotToSlide(slide, "");
         });
 
-        slide.asElement().addEventListener("webkitTransitionEnd", evt -> removeMotionStyles());
-        slide.asElement().addEventListener("MSTransitionEnd", evt -> removeMotionStyles());
-        slide.asElement().addEventListener("mozTransitionEnd", evt -> removeMotionStyles());
-        slide.asElement().addEventListener("otransitionend", evt -> removeMotionStyles());
-        slide.asElement().addEventListener("transitionend", evt -> removeMotionStyles());
+        slide.element().addEventListener("webkitTransitionEnd", evt -> removeMotionStyles());
+        slide.element().addEventListener("MSTransitionEnd", evt -> removeMotionStyles());
+        slide.element().addEventListener("mozTransitionEnd", evt -> removeMotionStyles());
+        slide.element().addEventListener("otransitionend", evt -> removeMotionStyles());
+        slide.element().addEventListener("transitionend", evt -> removeMotionStyles());
 
         if (slides.isEmpty()) {
             slide.activate();
@@ -134,11 +134,11 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
         }
         slides.add(slide);
 
-        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, slide.asElement(), evt -> {
+        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, slide.element(), evt -> {
             nextSlide();
         });
 
-        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, slide.asElement(), evt -> {
+        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, slide.element(), evt -> {
             prevSlide();
         });
 
@@ -237,7 +237,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 

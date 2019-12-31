@@ -28,7 +28,7 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
                     });
                 })
                 .setPickerStyle(DateBox.PickerStyle.POPOVER)
-                .setPopoverPosition(PopupPosition.TOP_DOWN)
+                .setPopoverPosition(PopupPosition.BEST_FIT)
                 .styler(style -> style.setMarginBottom("0px"));
     }
 
@@ -56,7 +56,7 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
     }
 
     @Override
-    public HTMLElement asElement() {
-        return dateBox.asElement();
+    public HTMLElement element() {
+        return dateBox.element();
     }
 }

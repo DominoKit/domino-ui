@@ -145,6 +145,10 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
                             metaIconInfo.getVersion()
                     );
 
+            if(metaIconInfo.isDeprecated()){
+                iconMethod.addAnnotation(Deprecated.class);
+            }
+
             builder.addMethod(iconMethod.build());
         });
 
@@ -206,6 +210,9 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
                             metaIconInfo.getAuthor(),
                             metaIconInfo.getVersion()
                     );
+            if(metaIconInfo.isDeprecated()){
+                iconMethod.addAnnotation(Deprecated.class);
+            }
             builder.addMethod(iconMethod.build());
             staticInitializer.addStatement("icons.add(()-> tagIcons." + methodName + "())");
         });

@@ -25,7 +25,7 @@ public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalB
 
     @Override
     protected HTMLInputElement getInputElement() {
-        return decimalBox.getInputElement().asElement();
+        return decimalBox.getInputElement().element();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalB
     public void clear() {
         decimalBox.pauseChangeHandlers();
         decimalBox.clear();
-        decimalBox.getInputElement().asElement().value = "";
+        decimalBox.getInputElement().element().value = "";
         decimalBox.resumeChangeHandlers();
     }
 }

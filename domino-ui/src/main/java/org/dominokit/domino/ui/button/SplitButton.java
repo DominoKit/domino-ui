@@ -9,7 +9,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 public class SplitButton extends BaseDominoElement<HTMLElement, SplitButton> {
 
-    private HTMLElement groupElement = ButtonsGroup.create().asElement();
+    private HTMLElement groupElement = ButtonsGroup.create().element();
 
     private SplitButton(String content, StyleType type) {
         addButton(Button.create(content).setButtonType(type));
@@ -27,11 +27,11 @@ public class SplitButton extends BaseDominoElement<HTMLElement, SplitButton> {
     }
 
     private void addButton(Button button) {
-        groupElement.appendChild(button.asElement());
+        groupElement.appendChild(button.element());
     }
 
     @Override
-    public HTMLElement asElement() {
+    public HTMLElement element() {
         return groupElement;
     }
 
@@ -72,7 +72,7 @@ public class SplitButton extends BaseDominoElement<HTMLElement, SplitButton> {
     }
 
     public SplitButton addDropdown(DropdownButton dropdownButton) {
-        groupElement.appendChild(dropdownButton.asElement());
+        groupElement.appendChild(dropdownButton.element());
         return this;
     }
 }

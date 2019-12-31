@@ -61,8 +61,8 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
     }
 
     @Override
-    public HTMLElement asElement() {
-        return navBar.asElement();
+    public HTMLElement element() {
+        return navBar.element();
     }
 
     public DominoElement<HTMLElement> getNavBar() {

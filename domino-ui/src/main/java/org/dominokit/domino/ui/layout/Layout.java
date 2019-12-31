@@ -128,18 +128,18 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
             autoFixLeftPanel();
         }
         if (!root.isAttached()) {
-            document.body.appendChild(root.asElement());
+            document.body.appendChild(root.element());
         }
 
         return this;
     }
 
     private void appendElements() {
-        root.appendChild(overlay.asElement());
-        root.appendChild(navigationBar.asElement());
-        root.appendChild(section.asElement());
-        root.appendChild(content.asElement());
-        root.appendChild(footer.asElement());
+        root.appendChild(overlay.element());
+        root.appendChild(navigationBar.element());
+        root.appendChild(section.element());
+        root.appendChild(content.element());
+        root.appendChild(footer.element());
         navigationBar.title.appendChild(appTitle);
 
         navigationBar.css("nav-fixed");
@@ -336,17 +336,17 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public HTMLElement addActionItem(BaseIcon<?> icon) {
-        return addActionItem(icon.asElement());
+        return addActionItem(icon.element());
     }
 
     public HTMLElement addActionItem(IsElement element) {
-        return addActionItem(element.asElement());
+        return addActionItem(element.element());
     }
 
     public HTMLElement addActionItem(HTMLElement element) {
         LayoutActionItem layoutActionItem = LayoutActionItem.create(element);
         getTopBar().appendChild(layoutActionItem);
-        return layoutActionItem.asElement();
+        return layoutActionItem.element();
     }
 
     public Layout fixLeftPanelPosition() {
@@ -408,19 +408,19 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         if (footer.isAttached()) {
             updateContentBottomPadding();
         } else {
-            ElementUtil.onAttach(footer.asElement(), mutationRecord -> updateContentBottomPadding());
+            ElementUtil.onAttach(footer.element(), mutationRecord -> updateContentBottomPadding());
         }
 
         return this;
     }
 
     private void updateContentBottomPadding() {
-        Style.of(content.asElement()).setPaddingBottom(footer.asElement().clientHeight + "px");
+        Style.of(content.element()).setPaddingBottom(footer.element().clientHeight + "px");
     }
 
     public Layout unfixFooter() {
         footer.unfixed();
-        ElementUtil.onAttach(footer.asElement(), mutationRecord -> Style.of(content.asElement()).removeProperty("padding-bottom"));
+        ElementUtil.onAttach(footer.element(), mutationRecord -> Style.of(content.element()).removeProperty("padding-bottom"));
         return this;
     }
 
@@ -450,7 +450,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public Layout setContent(IsElement element) {
-        setContent(element.asElement());
+        setContent(element.element());
         return this;
     }
 
@@ -494,7 +494,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     public Layout setLogo(IsElement<HTMLImageElement> imageElement) {
-        return setLogo(imageElement.asElement());
+        return setLogo(imageElement.element());
     }
 
     public Layout autoFixLeftPanel() {
@@ -601,8 +601,8 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return root.asElement();
+    public HTMLDivElement element() {
+        return root.element();
     }
 
     public enum LeftPanelSize {

@@ -55,7 +55,7 @@ public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFi
     }
 
     @Override
-    public HTMLElement asElement() {
-        return select.asElement();
+    public HTMLElement element() {
+        return select.element();
     }
 }

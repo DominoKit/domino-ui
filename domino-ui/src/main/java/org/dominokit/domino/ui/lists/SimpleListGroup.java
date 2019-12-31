@@ -14,7 +14,7 @@ public class SimpleListGroup extends BaseDominoElement<HTMLUListElement, SimpleL
     private SimpleListGroup() {
         this.element = ul()
                 .css(ListStyles.LIST_GROUP)
-                .asElement();
+                .element();
         init(this);
         elevate(Elevation.LEVEL_1);
     }
@@ -24,17 +24,17 @@ public class SimpleListGroup extends BaseDominoElement<HTMLUListElement, SimpleL
     }
 
     public SimpleListGroup appendChild(String content) {
-        element.appendChild(SimpleListItem.create(content).asElement());
+        element.appendChild(SimpleListItem.create(content).element());
         return this;
     }
 
     public SimpleListGroup appendChild(SimpleListItem item) {
-        element.appendChild(item.asElement());
+        element.appendChild(item.element());
         return this;
     }
 
     @Override
-    public HTMLUListElement asElement() {
+    public HTMLUListElement element() {
         return element;
     }
 

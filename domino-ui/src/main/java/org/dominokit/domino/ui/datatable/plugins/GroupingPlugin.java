@@ -61,7 +61,7 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
             DataGroup<T> dataGroup = new DataGroup<>(tableRow);
             HTMLTableCellElement cellElement = td()
                     .attr("colspan", dataTable.getTableConfig().getColumns().size() + "")
-                    .asElement();
+                    .element();
             CellRenderer.CellInfo<T> cellInfo = new CellRenderer.CellInfo<>(tableRow, cellElement);
 
             cellElement.appendChild(FlexLayout.create()
@@ -76,18 +76,18 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
                                     .setPaddingLeft(px.of(10)))
                             .setFlexGrow(1)
                             .appendChild(groupRenderer.asElement(cellInfo)))
-                    .asElement());
+                    .element());
 
             dataTable.bodyElement().appendChild(tr().add(cellElement));
-            dataTable.bodyElement().appendChild(tableRow.asElement());
+            dataTable.bodyElement().appendChild(tableRow.element());
             dataGroups.put(groupId, dataGroup);
         } else {
             DataGroup<T> dataGroup = dataGroups.get(groupId);
-            Node nextSibling = dataGroup.lastRow.asElement().nextSibling;
+            Node nextSibling = dataGroup.lastRow.element().nextSibling;
             if (nonNull(nextSibling)) {
-                DominoElement.of(dataTable.bodyElement()).insertBefore(tableRow.asElement(), nextSibling);
+                DominoElement.of(dataTable.bodyElement()).insertBefore(tableRow.element(), nextSibling);
             } else {
-                dataTable.bodyElement().appendChild(tableRow.asElement());
+                dataTable.bodyElement().appendChild(tableRow.element());
             }
 
             dataGroup.lastRow = tableRow;
@@ -116,7 +116,7 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
 
         public void toggleGroup() {
             expanded = !expanded;
-            groupRows.forEach(tableRow -> DominoElement.of(tableRow.asElement())
+            groupRows.forEach(tableRow -> DominoElement.of(tableRow.element())
                     .toggleDisplay(expanded));
 
         }

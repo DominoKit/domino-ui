@@ -101,10 +101,10 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
         if (visible) {
             close();
         } else {
-            document.body.appendChild(element.asElement());
+            document.body.appendChild(element.element());
             element.style().remove("fade", "in");
             element.style().add("fade", "in");
-            popupPosition.position(element.asElement(), target);
+            popupPosition.position(element.element(), target);
             position(popupPosition);
             visible = true;
             if (closeOnEscp) {
@@ -115,7 +115,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
     }
 
     public void close() {
-        asElement().remove();
+        element().remove();
         visible = false;
         document.body.removeEventListener(EventType.keydown.getName(), closeListener);
         ModalBackDrop.popPopOver();
@@ -136,7 +136,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
     }
 
     public static Popover createPicker(IsElement target, IsElement content) {
-        Popover popover = new Popover(target.asElement(), "", content.asElement());
+        Popover popover = new Popover(target.element(), "", content.element());
         popover.getHeadingElement().style().setDisplay("none");
         popover.getContentElement().style().setProperty("padding", "0px");
 
@@ -148,15 +148,15 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
     }
 
     public static Popover create(HTMLElement target, String title, IsElement content) {
-        return new Popover(target, title, content.asElement());
+        return new Popover(target, title, content.element());
     }
 
     public static Popover create(IsElement target, String title, Node content) {
-        return new Popover(target.asElement(), title, content);
+        return new Popover(target.element(), title, content);
     }
 
     public static Popover create(IsElement target, String title, IsElement content) {
-        return new Popover(target.asElement(), title, content.asElement());
+        return new Popover(target.element(), title, content.element());
     }
 
     public Popover position(PopupPosition position) {
@@ -205,8 +205,8 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     public DominoElement<HTMLDivElement> getContentElement() {

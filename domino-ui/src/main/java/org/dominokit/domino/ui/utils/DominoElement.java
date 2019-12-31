@@ -16,7 +16,7 @@ public class DominoElement<E extends HTMLElement> extends BaseDominoElement<E, D
     }
 
     public static <E extends HTMLElement> DominoElement<E> of(IsElement<E> node) {
-        return new DominoElement<>(node.asElement());
+        return new DominoElement<>(node.element());
     }
 
     public static DominoElement<HTMLBodyElement> body() {
@@ -33,7 +33,7 @@ public class DominoElement<E extends HTMLElement> extends BaseDominoElement<E, D
     }
 
     @Override
-    public E asElement() {
+    public E element() {
         return wrappedElement;
     }
 }

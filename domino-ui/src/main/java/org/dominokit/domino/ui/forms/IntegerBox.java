@@ -28,7 +28,8 @@ public class IntegerBox extends NumberBox<IntegerBox, Integer> {
 
     @Override
     protected Integer parseValue(String value) {
-        return Integer.parseInt(value);
+        double dValue = getNumberFormat().parse(value);
+        return new Double(dValue).intValue();
     }
 
     @Override

@@ -23,7 +23,7 @@ public class Loader {
     }
 
     public static Loader create(IsElement target, LoaderEffect effect) {
-        return new Loader(target.asElement(), effect);
+        return new Loader(target.element(), effect);
     }
 
     private Loader(HTMLElement target, LoaderEffect type) {
@@ -85,13 +85,17 @@ public class Loader {
     public Loader setLoadingTextPosition(LoadingTextPosition loadingTextPosition) {
         this.loaderElement.getContentElement().removeCss(this.loadingTextPosition.getStyle());
         this.loadingTextPosition = loadingTextPosition;
-        if(LoadingTextPosition.MIDDLE.equals(loadingTextPosition)){
+        if (LoadingTextPosition.MIDDLE.equals(loadingTextPosition)) {
             this.loaderElement.getContentElement().css(Styles.vertical_center);
-        }else{
+        } else {
             this.loaderElement.getContentElement().removeCss(Styles.vertical_center);
         }
         this.loaderElement.getContentElement().css(this.loadingTextPosition.getStyle());
         return this;
+    }
+
+    public IsLoader getLoaderElement() {
+        return loaderElement;
     }
 
     public enum LoadingTextPosition {

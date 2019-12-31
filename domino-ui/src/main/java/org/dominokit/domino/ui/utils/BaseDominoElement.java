@@ -51,13 +51,13 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     public T setId(String id) {
-        asElement().id = id;
+        element().id = id;
         return element;
     }
 
     @Editor.Ignore
     public String getId() {
-        return asElement().id;
+        return element().id;
     }
 
 
@@ -94,7 +94,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Editor.Ignore
     public T clearElement() {
-        ElementUtil.clear(asElement());
+        ElementUtil.clear(element());
         return element;
     }
 
@@ -108,7 +108,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Override
-    public E asElement() {
+    public E element() {
         return null;
     }
 
@@ -156,14 +156,14 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     @Override
     @Editor.Ignore
     public T appendChild(Node node) {
-        element.asElement().appendChild(node);
+        element.element().appendChild(node);
         return element;
     }
 
     @Override
     @Editor.Ignore
     public T appendChild(IsElement isElement) {
-        element.asElement().appendChild(isElement.asElement());
+        element.element().appendChild(isElement.element());
         return element;
     }
 
@@ -175,90 +175,114 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Editor.Ignore
     public T addEventListener(String type, EventListener listener) {
-        asElement().addEventListener(type, listener);
+        element().addEventListener(type, listener);
         return element;
     }
 
     @Editor.Ignore
     public T addEventListener(EventType type, EventListener listener) {
-        asElement().addEventListener(type.getName(), listener);
+        element().addEventListener(type.getName(), listener);
         return element;
     }
 
     @Editor.Ignore
     public T removeEventListener(EventType type, EventListener listener) {
-        asElement().removeEventListener(type.getName(), listener);
+        element().removeEventListener(type.getName(), listener);
         return element;
     }
 
     @Editor.Ignore
     public T removeEventListener(String type, EventListener listener) {
-        asElement().removeEventListener(type, listener);
+        element().removeEventListener(type, listener);
         return element;
     }
 
     @Editor.Ignore
-    public T insertBefore(Node newNode, Node oldNode) {
-        asElement().insertBefore(newNode, oldNode);
+    public T insertBefore(Node newNode, Node otherNode) {
+        element().insertBefore(newNode, otherNode);
         return (T) this;
     }
 
     @Editor.Ignore
-    public T insertBefore(Node newNode, BaseDominoElement oldNode) {
-        asElement().insertBefore(newNode, oldNode.asElement());
+    public T insertBefore(Node newNode, BaseDominoElement otherNode) {
+        element().insertBefore(newNode, otherNode.element());
         return element;
     }
 
     @Editor.Ignore
-    public T insertBefore(BaseDominoElement newNode, BaseDominoElement oldNode) {
-        asElement().insertBefore(newNode.asElement(), oldNode.asElement());
+    public T insertBefore(BaseDominoElement newNode, BaseDominoElement otherNode) {
+        element().insertBefore(newNode.element(), otherNode.element());
         return element;
     }
 
     @Editor.Ignore
-    public T insertBefore(BaseDominoElement newNode, Node oldNode) {
-        asElement().insertBefore(newNode.asElement(), oldNode);
+    public T insertBefore(BaseDominoElement newNode, Node otherNode) {
+        element().insertBefore(newNode.element(), otherNode);
+        return element;
+    }
+
+    @Editor.Ignore
+    public T insertAfter(Node newNode, Node otherNode) {
+        element().insertBefore(newNode, otherNode.nextSibling);
+        return (T) this;
+    }
+
+    @Editor.Ignore
+    public T insertAfter(Node newNode, BaseDominoElement otherNode) {
+        element().insertBefore(newNode, otherNode.element().nextSibling);
+        return element;
+    }
+
+    @Editor.Ignore
+    public T insertAfter(BaseDominoElement newNode, BaseDominoElement otherNode) {
+        element().insertBefore(newNode.element(), otherNode.element().nextSibling);
+        return element;
+    }
+
+    @Editor.Ignore
+    public T insertAfter(BaseDominoElement newNode, Node otherNode) {
+        element().insertBefore(newNode.element(), otherNode.nextSibling);
         return element;
     }
 
     @Editor.Ignore
     public T insertFirst(Node newNode) {
-        asElement().insertBefore(newNode, asElement().firstChild);
+        element().insertBefore(newNode, element().firstChild);
         return element;
     }
 
     @Editor.Ignore
     public T insertFirst(IsElement element) {
-        return insertFirst(element.asElement());
+        return insertFirst(element.element());
     }
 
     @Editor.Ignore
     public T insertFirst(BaseDominoElement newNode) {
-        asElement().insertBefore(newNode.asElement(), asElement().firstChild);
+        element().insertBefore(newNode.element(), element().firstChild);
         return element;
     }
 
     @Editor.Ignore
     public T setAttribute(String name, String value) {
-        asElement().setAttribute(name, value);
+        element().setAttribute(name, value);
         return element;
     }
 
     @Editor.Ignore
     public T setAttribute(String name, boolean value) {
-        asElement().setAttribute(name, value);
+        element().setAttribute(name, value);
         return element;
     }
 
     @Editor.Ignore
     public T setAttribute(String name, double value) {
-        asElement().setAttribute(name, value);
+        element().setAttribute(name, value);
         return element;
     }
 
     @Editor.Ignore
     public String getAttribute(String name) {
-        return asElement().getAttribute(name);
+        return element().getAttribute(name);
     }
 
     @Editor.Ignore
@@ -279,79 +303,79 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Editor.Ignore
     public T removeAttribute(String name) {
-        asElement().removeAttribute(name);
+        element().removeAttribute(name);
         return element;
     }
 
     @Editor.Ignore
     public boolean hasAttribute(String name) {
-        return asElement().hasAttribute(name);
+        return element().hasAttribute(name);
     }
 
     @Editor.Ignore
     public boolean contains(DominoElement<? extends HTMLElement> node) {
-        return contains(node.asElement());
+        return contains(node.element());
     }
 
     @Editor.Ignore
     public boolean contains(Node node) {
-        return asElement().contains(node);
+        return element().contains(node);
     }
 
     @Editor.Ignore
     public T setTextContent(String text) {
-        asElement().textContent = text;
+        element().textContent = text;
         return element;
     }
 
     @Editor.Ignore
     public T setInnerHtml(String html) {
-        asElement().innerHTML = new SafeHtmlBuilder().appendHtmlConstant(html)
+        element().innerHTML = new SafeHtmlBuilder().appendHtmlConstant(html)
                 .toSafeHtml().asString();
         return element;
     }
 
     @Editor.Ignore
     public T remove() {
-        asElement().remove();
+        element().remove();
         return element;
     }
 
     @Editor.Ignore
     public T removeChild(Node node) {
-        asElement().removeChild(node);
+        element().removeChild(node);
         return element;
     }
 
     @Editor.Ignore
     public T removeChild(IsElement<HTMLElement> elementToRemove) {
-        removeChild(elementToRemove.asElement());
+        removeChild(elementToRemove.element());
         return element;
     }
 
     @Editor.Ignore
     public NodeList<Node> childNodes() {
-        return asElement().childNodes;
+        return element().childNodes;
     }
 
     @Editor.Ignore
     public Node firstChild() {
-        return asElement().firstChild;
+        return element().firstChild;
     }
 
     @Editor.Ignore
     public Node lastChild() {
-        return asElement().lastChild;
+        return element().lastChild;
     }
 
     @Editor.Ignore
     public String getTextContent() {
-        return asElement().textContent;
+        return element().textContent;
     }
 
     @Editor.Ignore
     public T blur() {
-        asElement().blur();
+        element().blur();
         return element;
     }
 
@@ -373,7 +397,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     @Editor.Ignore
     public T setTooltip(Node node, PopupPosition position) {
         if (isNull(tooltip)) {
-            tooltip = Tooltip.create(asElement(), node);
+            tooltip = Tooltip.create(element(), node);
         } else {
             tooltip.setContent(node);
         }
@@ -383,18 +407,18 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Editor.Ignore
     public HTMLElement getClickableElement() {
-        return asElement();
+        return element();
     }
 
     @Editor.Ignore
     public HTMLElement getCollapsibleElement() {
-        return asElement();
+        return element();
     }
 
     @Override
     @Editor.Ignore
     public HTMLElement getWavesElement() {
-        return asElement();
+        return element();
     }
 
     @Editor.Ignore
@@ -436,7 +460,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Editor.Ignore
     public ClientRect getBoundingClientRect() {
-        return element.asElement().getBoundingClientRect();
+        return element.element().getBoundingClientRect();
     }
 
     @Editor.Ignore
@@ -483,12 +507,12 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Editor.Ignore
     public boolean isEqualNode(Node node) {
-        return asElement().isEqualNode(node);
+        return element().isEqualNode(node);
     }
 
     @Editor.Ignore
     public T withWaves() {
-        this.wavesSupport = WavesSupport.addFor(element.asElement());
+        this.wavesSupport = WavesSupport.addFor(element.element());
         return element;
     }
 
@@ -502,7 +526,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Editor.Ignore
     public T withWaves(WavesStyler wavesStyler) {
-        wavesStyler.styleWaves(WavesSupport.addFor(element.asElement()));
+        wavesStyler.styleWaves(WavesSupport.addFor(element.element()));
         return element;
     }
 
@@ -515,7 +539,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Editor.Ignore
     public T setContent(IsElement element) {
-        return setContent(element.asElement());
+        return setContent(element.element());
     }
 
     @Editor.Ignore
@@ -527,7 +551,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Editor.Ignore
     public int getElementsCount() {
-        return new Double(asElement().childElementCount).intValue();
+        return new Double(element().childElementCount).intValue();
     }
 
     @Editor.Ignore
@@ -537,17 +561,17 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Editor.Ignore
     public double getChildElementCount() {
-        return asElement().childElementCount;
+        return element().childElementCount;
     }
 
     @Editor.Ignore
     public Node getFirstChild() {
-        return asElement().firstChild;
+        return element().firstChild;
     }
 
     @Editor.Ignore
     public boolean hasChildNodes() {
-        return asElement().hasChildNodes();
+        return element().hasChildNodes();
     }
 
     @Editor.Ignore
@@ -560,6 +584,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         setAttribute("disabled", "");
         style().add("disabled");
         return element;
+    }
+
+    public boolean isDisabled(){
+        return hasAttribute("disabled");
     }
 
     @Editor.Ignore
@@ -586,7 +614,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         if(nonNull(this.elevation)){
             style.remove(this.elevation.getStyle());
         }else{
-            Elevation.removeFrom(asElement());
+            Elevation.removeFrom(element());
         }
 
         this.elevation = elevation;

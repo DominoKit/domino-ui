@@ -35,27 +35,27 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
         TableConfig<T> tableConfig = dataTable.getTableConfig();
         List<ColumnConfig<T>> columns = tableConfig.getColumns();
         DominoElement<HTMLTableSectionElement> thead = dataTable.headerElement();
-        thead.appendChild(tr.asElement());
+        thead.appendChild(tr.element());
 
         columns.forEach(columnConfig -> {
 
             HtmlContentBuilder<HTMLTableCellElement> th = th().css(DataTableStyles.TABLE_CM_FILTER);
             columnConfig.getHeaderStyler()
-                    .styleCell(th.asElement());
+                    .styleCell(th.element());
 
-            columnConfig.applyScreenMedia(th.asElement());
+            columnConfig.applyScreenMedia(th.element());
 
             tr.add(th);
 
             if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
-                fixElementWidth(columnConfig, th.asElement());
+                fixElementWidth(columnConfig, th.element());
             }
             if (headerFilters.containsKey(columnConfig.getName())) {
                 headerFilters.get(columnConfig.getName()).init(dataTable.getSearchContext(), columnConfig);
                 th.add(headerFilters.get(columnConfig.getName()));
             }
 
-            columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(th.asElement(), true));
+            columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(th.element(), true));
             DominoElement.of(th).toggleDisplay(!columnConfig.isHidden());
         });
 

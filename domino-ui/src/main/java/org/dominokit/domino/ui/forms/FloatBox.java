@@ -29,7 +29,13 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
 
     @Override
     protected Float parseValue(String value) {
-        return Float.parseFloat(value);
+        double dValue = getNumberFormat().parse(value);
+        double maxFloat=new Double(getMaxValue());
+
+        if(dValue > maxFloat){
+            throw new NumberFormatException("Exceeded maximum value");
+        }
+        return new Double(dValue).floatValue();
     }
 
     @Override

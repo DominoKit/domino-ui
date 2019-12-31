@@ -30,7 +30,6 @@ ul.stepper.horizontal.stepper-col${color_base_name} .step.done .step-title:befor
 
 .fc-col${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${main_color};
-    box-shadow: 0px 1px ${main_color};
 }
 .col${color_base_name}{
     color: ${main_color};
@@ -106,7 +105,6 @@ ul.stepper.horizontal.stepper-col-l-1${color_base_name} .step.done .step-title:b
 
 .fc-col-l-1${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${color_l_1};
-    box-shadow: 0px 1px ${color_l_1};
 }
 .col-l-1${color_base_name} {
     color: ${color_l_1};
@@ -177,7 +175,6 @@ ul.stepper.horizontal.stepper-col-l-2${color_base_name} .step.done .step-title:b
 
 .fc-col-l-2${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${color_l_2};
-    box-shadow: 0px 1px ${color_l_2};
 }
 .col-l-2${color_base_name} {
     color: ${color_l_2};
@@ -250,7 +247,6 @@ ul.stepper.horizontal.stepper-col-l-3${color_base_name} .step.done .step-title:b
 
 .fc-col-l-3${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${color_l_3};
-    box-shadow: 0px 1px ${color_l_3};
 }
 
 .col-l-3${color_base_name} {
@@ -323,7 +319,6 @@ ul.stepper.horizontal.stepper-col-l-4${color_base_name} .step.done .step-title:b
 
 .fc-col-l-4${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${color_l_4};
-    box-shadow: 0px 1px ${color_l_4};
 }
 .col-l-4${color_base_name}{
     color: ${color_l_4};
@@ -395,7 +390,6 @@ ul.stepper.horizontal.stepper-col-l-5${color_base_name} .step.done .step-title:b
 
 .fc-col-l-5${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${color_l_5};
-    box-shadow: 0px 1px ${color_l_5};
 }
 .col-l-5${color_base_name} {
     color: ${color_l_5};
@@ -467,7 +461,6 @@ ul.stepper.horizontal.stepper-col-d-1${color_base_name} .step.done .step-title:b
 
 .fc-col-d-1${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${color_d_1};
-    box-shadow: 0px 1px ${color_d_1};
 }
 .col-d-1${color_base_name} {
     color: ${color_d_1};
@@ -539,7 +532,6 @@ ul.stepper.horizontal.stepper-col-d-2${color_base_name} .step.done .step-title:b
 
 .fc-col-d-2${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${color_d_2};
-    box-shadow: 0px 1px ${color_d_2};
 }
 .col-d-2${color_base_name} {
     color: ${color_d_2};
@@ -611,7 +603,6 @@ ul.stepper.horizontal.stepper-col-d-3${color_base_name} .step.done .step-title:b
 
 .fc-col-d-3${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${color_d_3};
-    box-shadow: 0px 1px ${color_d_3};
 }
 .col-d-3${color_base_name}{
     color: ${color_d_3};
@@ -683,7 +674,6 @@ ul.stepper.horizontal.stepper-col-d-4${color_base_name} .step.done .step-title:b
 
 .fc-col-d-4${color_base_name}:not([class*="lever"]) {
     border-bottom: 1px solid ${color_d_4};
-    box-shadow: 0px 1px ${color_d_4};
 }
 .col-d-4${color_base_name}{
     color: ${color_d_4};

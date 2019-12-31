@@ -23,8 +23,8 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
 
     public HSpinSelect(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {
         super(backIcon, forwardIcon);
-        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, main.asElement(), evt -> moveBack());
-        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, main.asElement(), evt -> moveForward());
+        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, main.element(), evt -> moveBack());
+        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, main.element(), evt -> moveForward());
     }
 
     @Override
@@ -47,8 +47,8 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
 

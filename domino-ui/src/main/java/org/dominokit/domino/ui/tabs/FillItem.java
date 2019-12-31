@@ -19,7 +19,7 @@ public class FillItem extends BaseDominoElement<HTMLDivElement, FillItem> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 }

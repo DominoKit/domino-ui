@@ -12,7 +12,7 @@ public class Overlay extends BaseDominoElement<HTMLDivElement, Overlay> implemen
 
     public Overlay() {
         element = div().css(LayoutStyles.OVERLAY)
-                .asElement();
+                .element();
         init(this);
     }
 
@@ -21,7 +21,7 @@ public class Overlay extends BaseDominoElement<HTMLDivElement, Overlay> implemen
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

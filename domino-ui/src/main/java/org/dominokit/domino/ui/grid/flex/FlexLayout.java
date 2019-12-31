@@ -60,7 +60,7 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
 
     public FlexLayout appendChild(FlexItem flexItem) {
         flexItems.add(flexItem);
-        appendChild(flexItem.asElement());
+        appendChild(flexItem.element());
         return this;
     }
 
@@ -84,8 +84,8 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
 }

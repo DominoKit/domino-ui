@@ -3,6 +3,10 @@ package org.dominokit.domino.ui.timepicker;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.ValueBox;
+import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
@@ -29,6 +33,8 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
     private PickerStyle pickerStyle;
     private Date value;
     private EventListener keyboardModalListener;
+    private MdiIcon timeIcon;
+    private FlexItem timeIconContainer;
 
     public TimeBox() {
         this(null);
@@ -68,11 +74,11 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
                 modal.close();
             }
         };
-        ElementUtil.onDetach(asElement(), mutationRecord -> {
+        ElementUtil.onDetach(element(), mutationRecord -> {
             if (nonNull(popover))
                 popover.discard();
             if (nonNull(modal)) {
-                modal.asElement().remove();
+                modal.element().remove();
             }
         });
         timePicker.addCloseHandler(() -> {
@@ -123,9 +129,9 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
     private void setStringValue(Date time, TimePicker picker) {
         if (nonNull(time))
-            this.getInputElement().asElement().value = picker.getFormattedTime();
+            this.getInputElement().element().value = picker.getFormattedTime();
         else
-            this.getInputElement().asElement().value = "";
+            this.getInputElement().element().value = "";
         this.value = time;
     }
 
@@ -137,19 +143,19 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
     @Override
     public String getPlaceholder() {
-        return getInputElement().asElement().placeholder;
+        return getInputElement().element().placeholder;
     }
 
     @Override
     protected HTMLInputElement createInputElement(String type) {
-        return input("text").css("form-control")
+        return input("text")
                 .attr("readOnly", "true")
-                .asElement();
+                .element();
     }
 
     @Override
     public TimeBox setPlaceholder(String placeholder) {
-        getInputElement().asElement().placeholder = placeholder;
+        getInputElement().element().placeholder = placeholder;
         return this;
     }
 
@@ -169,20 +175,20 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
     private void showInPopOver() {
         if (!PickerStyle.POPOVER.equals(this.pickerStyle)) {
             if (nonNull(modal)) {
-                asElement().removeEventListener(EventType.click.getName(), modalListener);
-                asElement().removeEventListener(EventType.keydown.getName(), keyboardModalListener);
+                element().removeEventListener(EventType.click.getName(), modalListener);
+                element().removeEventListener(EventType.keydown.getName(), keyboardModalListener);
                 modal.close();
-                modal.asElement().remove();
+                modal.element().remove();
             }
 
             if (isNull(popover)) {
-                popover = Popover.createPicker(this.asElement(), this.timePicker.asElement());
+                popover = Popover.createPicker(this.element(), this.timePicker.element());
                 popover.getContentElement().style().setPadding("0px", true);
                 popover.getContentElement().style().setWidth("270px", true);
                 popover.position(this.popupPosition)
                         .style().setMaxWidth("none", true);
 
-                asElement().addEventListener(EventType.keydown.getName(), event -> {
+                element().addEventListener(EventType.keydown.getName(), event -> {
                     KeyboardEvent keyboardEvent = Js.cast(event);
                     event.stopPropagation();
                     if (keyboardEvent.code.equals("Enter")) {
@@ -204,11 +210,11 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
             }
 
             if (isNull(modal)) {
-                this.modal = ModalDialog.createPickerModal(getPlaceholder(), this.timePicker.asElement());
-                DomGlobal.document.body.appendChild(modal.asElement());
-                asElement().addEventListener(EventType.click.getName(), modalListener);
+                this.modal = ModalDialog.createPickerModal(getPlaceholder(), this.timePicker.element());
+                DomGlobal.document.body.appendChild(modal.element());
+                element().addEventListener(EventType.click.getName(), modalListener);
 
-                asElement().addEventListener(EventType.keydown.getName(), keyboardModalListener);
+                element().addEventListener(EventType.keydown.getName(), keyboardModalListener);
             }
         }
         this.pickerStyle = PickerStyle.MODAL;
@@ -248,6 +254,36 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
     @Override
     public String getStringValue() {
         return nonNull(value) ? timePicker.getFormattedTime() : "";
+    }
+
+    @Override
+    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+        return new InputAutoValidator<>(getInputElement(), autoValidate);
+    }
+
+    @Override
+    protected FlexItem createMandatoryAddOn() {
+        timeIcon = Icons.ALL.clock_mdi();
+        timeIcon.clickable();
+        timeIconContainer = FlexItem.create();
+        return timeIconContainer
+                .appendChild(timeIcon);
+    }
+
+    public MdiIcon getTimeIcon() {
+        return timeIcon;
+    }
+
+    public void setTimeIcon(MdiIcon timeIcon) {
+        this.timeIcon = timeIcon;
+    }
+
+    public FlexItem getTimeIconContainer() {
+        return timeIconContainer;
+    }
+
+    public void setTimeIconContainer(FlexItem timeIconContainer) {
+        this.timeIconContainer = timeIconContainer;
     }
 
     @Override

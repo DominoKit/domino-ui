@@ -36,10 +36,10 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
 
         targetElement.addEventListener(EventType.mouseenter.getName(), evt -> {
             evt.stopPropagation();
-            document.body.appendChild(element.asElement());
+            document.body.appendChild(element.element());
             element.style().remove("fade", "in");
             element.style().add("fade", "in");
-            popupPosition.position(element.asElement(), targetElement);
+            popupPosition.position(element.element(), targetElement);
             position(popupPosition);
             ElementUtil.onDetach(targetElement, mutationRecord -> hide());
         });
@@ -62,11 +62,11 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
     }
 
     public static Tooltip create(IsElement element, String text) {
-        return new Tooltip(element.asElement(), text);
+        return new Tooltip(element.element(), text);
     }
 
     public static Tooltip create(IsElement element, Node content) {
-        return new Tooltip(element.asElement(), content);
+        return new Tooltip(element.element(), content);
     }
 
     public Tooltip position(PopupPosition position) {
@@ -78,8 +78,8 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     public DominoElement<HTMLDivElement> getArrowElement() {

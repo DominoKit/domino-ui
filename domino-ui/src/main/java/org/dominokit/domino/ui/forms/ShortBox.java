@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
+import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
 public class ShortBox extends NumberBox<ShortBox, Short> {
@@ -28,7 +29,13 @@ public class ShortBox extends NumberBox<ShortBox, Short> {
 
     @Override
     protected Short parseValue(String value) {
-        return Short.parseShort(value);
+        double dValue = getNumberFormat().parse(value);
+        double maxShort=new Double(getMaxValue());
+
+        if(dValue > maxShort){
+            throw new NumberFormatException("Exceeded maximum value");
+        }
+        return new Double(dValue).shortValue();
     }
 
     @Override

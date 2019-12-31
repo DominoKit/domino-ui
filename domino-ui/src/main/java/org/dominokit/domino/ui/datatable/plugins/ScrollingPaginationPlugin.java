@@ -27,7 +27,7 @@ public class ScrollingPaginationPlugin<T> implements DataTablePlugin<T> {
     
     @Override
     public void onAfterAddTable(DataTable<T> dataTable) {
-        dataTable.asElement().appendChild(pagination.asElement());
+        dataTable.element().appendChild(pagination.element());
         pagination.onPageChanged(pageNumber -> dataTable.fireTableEvent(new TablePageChangeEvent(pageNumber, pagination)));
     }
 

@@ -14,7 +14,7 @@ public class Icon extends BaseIcon<Icon> {
     }
 
     public static Icon create(String icon) {
-        Icon iconElement = new Icon(i().css(IconsStyles.MATERIAL_ICONS).textContent(icon).asElement());
+        Icon iconElement = new Icon(i().css(IconsStyles.MATERIAL_ICONS).textContent(icon).element());
         iconElement.name = icon;
         return iconElement;
     }
@@ -45,13 +45,13 @@ public class Icon extends BaseIcon<Icon> {
 
     @Override
     public Icon changeTo(BaseIcon icon) {
-        asElement().textContent = icon.getName();
+        element().textContent = icon.getName();
         return this;
     }
 
     @Override
-    public HTMLElement asElement() {
-        return icon.asElement();
+    public HTMLElement element() {
+        return icon.element();
     }
 
 }

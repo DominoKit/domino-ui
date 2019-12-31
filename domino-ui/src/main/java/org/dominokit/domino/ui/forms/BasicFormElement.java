@@ -1,17 +1,15 @@
 package org.dominokit.domino.ui.forms;
 
 import com.google.gwt.editor.client.EditorError;
-import com.google.gwt.editor.client.adapters.TakesValueEditor;
-import elemental2.dom.Element;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLabelElement;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.forms.validations.ElementValidations;
 import org.dominokit.domino.ui.forms.validations.RequiredValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.IsReadOnly;
+import org.gwtproject.safehtml.shared.SafeHtml;
+import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,13 +17,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.label;
 
 public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> extends BaseDominoElement<HTMLElement, T> implements FormElement<T, V>, IsReadOnly<T>, HasInputElement {
 
     private static final String NAME = "name";
-    private DominoElement<HTMLLabelElement> helperLabel = DominoElement.of(label().css("help-info"));
-    private List<HTMLLabelElement> errorLabels = new ArrayList<>();
     private ElementValidations elementValidations = new ElementValidations(this);
     private RequiredValidator requiredValidator = new RequiredValidator(this);
     private String helperText;
@@ -35,9 +31,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     @Override
     public T setHelperText(String helperText) {
         this.helperText = helperText;
-        if (!getFieldContainer().contains(helperLabel))
-            getFieldContainer().appendChild(helperLabel);
-        helperLabel.setTextContent(helperText);
+        getHelperContainer().setTextContent(helperText);
         return (T) this;
     }
 
@@ -61,6 +55,23 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     public T setLabel(String label) {
         getLabelTextElement().setTextContent(label);
         return (T) this;
+    }
+
+    public T setLabel(Node node) {
+        getLabelTextElement()
+                .clearElement()
+                .appendChild(node);
+        return (T) this;
+    }
+
+    public T setLabel(SafeHtml safeHtml) {
+        getLabelTextElement()
+                .setInnerHtml(safeHtml.asString());
+        return (T) this;
+    }
+
+    public T setLabel(IsElement<?> element) {
+        return setLabel(element.element());
     }
 
     @Override
@@ -115,32 +126,39 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     @Override
     public T invalidate(List<String> errorMessages) {
-        helperLabel.toggleDisplay(errorMessages.isEmpty());
+        getHelperContainer().toggleDisplay(errorMessages.isEmpty());
         removeErrors();
+        getErrorsContainer().toggleDisplay(!errorMessages.isEmpty());
+
+        if (!errorMessages.isEmpty()) {
+            css("error");
+        } else {
+            removeCss("error");
+        }
 
         errorMessages.forEach(message -> {
             HTMLLabelElement errorLabel = makeErrorLabel(message);
-            errorLabels.add(errorLabel);
-            getFieldContainer().appendChild(errorLabel);
+            getErrorsContainer().appendChild(errorLabel);
         });
 
         return (T) this;
     }
 
     protected HTMLLabelElement makeErrorLabel(String message) {
-        return label().css("error").textContent(message).asElement();
+        return label().css("error").textContent(message).element();
     }
 
     @Override
     public T clearInvalid() {
-        helperLabel.show();
+        getHelperContainer().show();
         removeErrors();
+        getErrorsContainer().hide();
         return (T) this;
     }
 
     private void removeErrors() {
-        errorLabels.forEach(Element::remove);
-        errorLabels.clear();
+        getErrorsContainer().clearElement();
+        removeCss("error");
     }
 
     @Override
@@ -195,18 +213,28 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     protected abstract DominoElement<HTMLDivElement> getFieldContainer();
 
+    protected abstract DominoElement<HTMLElement> getHelperContainer();
+
+    protected abstract DominoElement<HTMLElement> getErrorsContainer();
+
     protected abstract DominoElement<HTMLLabelElement> getLabelElement();
 
-    public DominoElement<HTMLElement> getLabelTextElement(){
-        return DominoElement.of(getLabelElement().asElement());
+    public DominoElement<HTMLElement> getLabelTextElement() {
+        return DominoElement.of(getLabelElement().element());
     }
 
     @Override
     public void showErrors(List<EditorError> errors) {
-        invalidate(errors.stream()
+        List<String> editorErrors = errors.stream()
                 .filter(e -> this.equals(e.getEditor()))
                 .map(EditorError::getMessage)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
 
+        if (editorErrors.isEmpty()) {
+            clearInvalid();
+        } else {
+            invalidate(editorErrors);
+        }
     }
+
 }

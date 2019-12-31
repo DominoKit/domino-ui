@@ -64,8 +64,8 @@ public class Paragraph extends BaseDominoElement<HTMLParagraphElement, Paragraph
     }
 
     @Override
-    public HTMLParagraphElement asElement() {
-        return element.asElement();
+    public HTMLParagraphElement element() {
+        return element.element();
     }
 
     public Paragraph bold() {

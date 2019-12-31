@@ -7,7 +7,11 @@ import elemental2.dom.KeyboardEvent;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.FormFieldsStyles;
 import org.dominokit.domino.ui.forms.ValueBox;
+import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
@@ -45,6 +49,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     private boolean openOnFocus = false;
     private boolean focused = false;
     private boolean handlerPaused = false;
+    private FlexItem calendarIconContainer;
+    private MdiIcon calendarIcon;
 
     public DateBox() {
         this(new Date());
@@ -100,7 +106,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 modal.open();
             }
         };
-        ElementUtil.onDetach(asElement(), mutationRecord -> removeBox());
+        ElementUtil.onDetach(element(), mutationRecord -> removeBox());
 
         datePicker.addCloseHandler(this::close);
 
@@ -131,14 +137,14 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 if (isEmpty()) {
                     return ValidationResult.valid();
                 }
-                getFormattedValue(getInputElement().asElement().value);
+                getFormattedValue(getInputElement().element().value);
                 return ValidationResult.valid();
             } catch (IllegalArgumentException e) {
                 return ValidationResult.invalid(invalidFormatMessage);
             }
         });
         getInputElement().addEventListener("change", evt -> {
-            String value = getInputElement().asElement().value;
+            String value = getInputElement().element().value;
             if (value.isEmpty()) {
                 clear();
             } else {
@@ -155,7 +161,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         if (nonNull(popover))
             popover.close();
         if (nonNull(modal)) {
-            modal.asElement().remove();
+            modal.element().remove();
         }
     }
 
@@ -217,7 +223,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     @Override
     public boolean isEmpty() {
-        return isNull(value) && getInputElement().asElement().value.isEmpty();
+        return isNull(value) && getInputElement().element().value.isEmpty();
     }
 
     @Override
@@ -233,7 +239,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             this.handlerPaused = false;
             setStringValue(this.datePicker.getDate(), datePicker.getDateTimeFormatInfo());
             this.value = this.datePicker.getDate();
-        }else{
+        } else {
             setStringValue(value, datePicker.getDateTimeFormatInfo());
             this.value = value;
         }
@@ -241,9 +247,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     private void setStringValue(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
         if (nonNull(date))
-            this.getInputElement().asElement().value = getFormatted(date, dateTimeFormatInfo);
+            this.getInputElement().element().value = getFormatted(date, dateTimeFormatInfo);
         else
-            this.getInputElement().asElement().value = "";
+            this.getInputElement().element().value = "";
         this.value = date;
     }
 
@@ -259,8 +265,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     @Override
     protected HTMLInputElement createInputElement(String type) {
         return input("text")
-                .css(FormFieldsStyles.FORM_CONTROL)
-                .asElement();
+                .element();
     }
 
     @Override
@@ -290,11 +295,11 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     private void showInPopOver() {
         if (!PickerStyle.POPOVER.equals(this.pickerStyle)) {
             if (nonNull(modal)) {
-                asElement().removeEventListener(EventType.click.getName(), modalListener);
+                element().removeEventListener(EventType.click.getName(), modalListener);
                 if (modal.isOpen()) {
                     modal.close();
                 }
-                modal.asElement().remove();
+                modal.element().remove();
             }
 
             if (isNull(popover)) {
@@ -318,8 +323,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             }
 
             if (isNull(modal)) {
-                this.modal = ModalDialog.createPickerModal(getPlaceholder(), this.datePicker.asElement());
-                asElement().addEventListener(EventType.click.getName(), modalListener);
+                this.modal = ModalDialog.createPickerModal(getPlaceholder(), this.datePicker.element());
+                element().addEventListener(EventType.click.getName(), modalListener);
             }
         }
         this.pickerStyle = PickerStyle.MODAL;
@@ -347,7 +352,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         };
         getInputElement().addEventListener(EventType.focus.getName(), getFocusEventListener());
         modal.addCloseListener(() -> {
-            getInputElement().asElement().focus();
+            getInputElement().element().focus();
             getInputElement().addEventListener(EventType.focus.getName(), getFocusEventListener());
         });
 
@@ -403,6 +408,32 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             return Formatter.getFormat(this.pattern, datePicker.getDateTimeFormatInfo()).format(value);
         }
         return null;
+    }
+
+    @Override
+    protected FlexItem createMandatoryAddOn() {
+        calendarIcon = Icons.ALL.calendar_mdi();
+        calendarIcon.clickable()
+                .addClickListener(evt -> {
+                    evt.stopPropagation();
+                    open();
+                });
+        calendarIconContainer = FlexItem.create();
+        return calendarIconContainer
+                .appendChild(calendarIcon);
+    }
+
+    public FlexItem getCalendarIconContainer() {
+        return calendarIconContainer;
+    }
+
+    public MdiIcon getCalendarIcon() {
+        return calendarIcon;
+    }
+
+    @Override
+    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+        return new InputAutoValidator<>(getInputElement(), autoValidate);
     }
 
     public DateBox setInvalidFormatMessage(String invalidFormatMessage) {

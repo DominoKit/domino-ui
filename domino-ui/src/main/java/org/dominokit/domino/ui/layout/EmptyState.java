@@ -16,16 +16,16 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState> {
 
-    private HTMLDivElement element = div().css("empty-state", Styles.align_center, Styles.vertical_center).asElement();
-    private HTMLDivElement iconContainer = div().asElement();
-    private HTMLHeadingElement titleContainer = h(4).asElement();
-    private HTMLParagraphElement descriptionContainer = p().asElement();
+    private HTMLDivElement element = div().css("empty-state", Styles.align_center, Styles.vertical_center).element();
+    private HTMLDivElement iconContainer = div().element();
+    private HTMLHeadingElement titleContainer = h(4).element();
+    private HTMLParagraphElement descriptionContainer = p().element();
     private Color iconColor;
     private Color titleColor;
     private Color descriptionColor;
 
     public EmptyState(BaseIcon<?> icon) {
-        iconContainer.appendChild(icon.asElement());
+        iconContainer.appendChild(icon.element());
         element.appendChild(iconContainer);
         element.appendChild(titleContainer);
         element.appendChild(descriptionContainer);
@@ -86,7 +86,7 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 }

@@ -27,7 +27,7 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
     private final VTabsContainer tabsList = VTabsContainer.create();
     private final FlexItem tabsHeadersContainer;
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(VTABS_PANEL));
-    private HTMLElement tabsContent = div().css(TAB_CONTENT).asElement();
+    private HTMLElement tabsContent = div().css(TAB_CONTENT).element();
     private VerticalTab activeTab;
     private Color tabsColor;
     private Transition transition;
@@ -85,7 +85,7 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
                 }
             }
             tabsList.appendChild(tab);
-            tabsContent.appendChild(tab.getContentContainer().asElement());
+            tabsContent.appendChild(tab.getContentContainer().element());
             tab.getClickableElement().addEventListener("click", evt -> activateTab(tab));
             if (nonNull(textColor)) {
                 tab.setTextColor(textColor);
@@ -201,8 +201,8 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     public VerticalTabsPanel setTransition(Transition transition) {
@@ -220,7 +220,7 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
     }
 
     public VerticalTabsPanel setContentContainer(IsElement contentContainer) {
-        return setContentContainer(contentContainer.asElement());
+        return setContentContainer(contentContainer.element());
     }
 
     public DominoElement<HTMLElement> getTabsContent() {

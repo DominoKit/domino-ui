@@ -11,7 +11,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 
 public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
 
-    private HTMLDivElement element = div().asElement();
+    private HTMLDivElement element = div().element();
 
     private int minSize = 0;
     private int maxSize = -1;
@@ -25,7 +25,7 @@ public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 

@@ -48,8 +48,8 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
             .add(span()
                     .attr("aria-hidden", "true")
                     .textContent("×")
-                    .asElement())
-            .asElement();
+                    .element())
+            .element();
 
     private static Alert create(AlertType type) {
         Alert alert = create();
@@ -66,7 +66,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
 
     public static Alert create() {
         Alert alert = new Alert();
-        alert.closeButton.addEventListener("click", e -> alert.asElement().remove());
+        alert.closeButton.addEventListener("click", e -> alert.element().remove());
         return alert;
     }
 
@@ -96,7 +96,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
     }
 
     public Alert appendChild(Strong strong) {
-        element.appendChild(strong.asElement());
+        element.appendChild(strong.element());
         return this;
     }
 
@@ -115,7 +115,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
     }
 
     public Alert appendChild(AlertLink alertLink) {
-        return appendChild(alertLink.asElement());
+        return appendChild(alertLink.element());
     }
 
     public Alert setDissmissible(boolean dismissible) {
@@ -156,7 +156,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 }

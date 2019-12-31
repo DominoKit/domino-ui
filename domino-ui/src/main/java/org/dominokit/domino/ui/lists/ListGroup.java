@@ -26,7 +26,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
     public ListGroup() {
         this.element = div()
                 .css(ListStyles.LIST_GROUP)
-                .asElement();
+                .element();
         init(this);
         elevate(Elevation.LEVEL_1);
     }
@@ -39,7 +39,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
         ListItem<T> listItem = ListItem.create(value);
         listItem.setParent(this);
         allItems.add(listItem);
-        asElement().appendChild(listItem.asElement());
+        element().appendChild(listItem.element());
         return listItem;
     }
 
@@ -48,14 +48,14 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
         listItem.setParent(this);
         listItem.setText(text);
         allItems.add(listItem);
-        asElement().appendChild(listItem.asElement());
+        element().appendChild(listItem.element());
         return listItem;
     }
 
     public ListGroup<T> appendChild(ListItem<T> listItem) {
         listItem.setParent(this);
         allItems.add(listItem);
-        asElement().appendChild(listItem.asElement());
+        element().appendChild(listItem.element());
         listItem.setParent(this);
         return this;
     }
@@ -88,7 +88,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
     public ListGroup<T> removeSelected() {
         getSelectedItems().forEach(item -> {
             allItems.remove(item);
-            item.asElement().remove();
+            item.element().remove();
         });
         return this;
     }
@@ -96,7 +96,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
     public ListGroup<T> removeItem(ListItem<T> listItem) {
         if (allItems.contains(listItem)) {
             allItems.remove(listItem);
-            listItem.asElement().remove();
+            listItem.element().remove();
         }
         return this;
     }
@@ -157,7 +157,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
     }
 
     @Override
-    public HTMLDivElement asElement() {
+    public HTMLDivElement element() {
         return element;
     }
 

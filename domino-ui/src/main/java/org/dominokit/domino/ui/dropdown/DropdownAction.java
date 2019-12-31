@@ -21,7 +21,7 @@ public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, Dropdown
 
     private static final String IGNORE_CASE_FLAG = "ig";
 
-    private HTMLLIElement liElement = li().asElement();
+    private HTMLLIElement liElement = li().element();
     private T value;
     private BaseIcon<?> icon;
     private DominoElement<HTMLElement> content = DominoElement.of(span());
@@ -40,10 +40,10 @@ public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, Dropdown
         this.icon = icon;
         init();
         if (nonNull(icon)) {
-            aElement.appendChild(icon.asElement());
+            aElement.appendChild(icon.element());
         }
         this.content.setTextContent(displayValue);
-        aElement.appendChild(this.content.asElement());
+        aElement.appendChild(this.content.element());
         init(this);
     }
 
@@ -51,14 +51,14 @@ public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, Dropdown
         this.value = value;
         this.content.appendChild(content);
         init();
-        aElement.appendChild(this.content.asElement());
+        aElement.appendChild(this.content.element());
         init(this);
     }
 
     private void init() {
         aElement = a()
                 .attr("tabindex", "0")
-                .asElement();
+                .element();
         liElement.appendChild(aElement);
 
         liElement.setAttribute("role", "option");
@@ -97,7 +97,7 @@ public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, Dropdown
     }
 
     @Override
-    public HTMLLIElement asElement() {
+    public HTMLLIElement element() {
         return liElement;
     }
 
@@ -118,7 +118,7 @@ public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, Dropdown
     }
 
     public HTMLElement getContent() {
-        return content.asElement();
+        return content.element();
     }
 
     @Override
@@ -190,7 +190,7 @@ public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, Dropdown
                 }
                 return "<strong>" + valueToReplace + "</strong>";
             });
-            innerHtml(this.content.asElement(), new SafeHtmlBuilder().appendHtmlConstant(innerHTML).toSafeHtml());
+            innerHtml(this.content.element(), new SafeHtmlBuilder().appendHtmlConstant(innerHTML).toSafeHtml());
         }
     }
 

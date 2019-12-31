@@ -45,7 +45,7 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
     }
 
     public static <T> SelectOptionGroup<T> create(IsElement titleElement) {
-        return create(titleElement.asElement());
+        return create(titleElement.element());
     }
 
     /**
@@ -74,8 +74,8 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
     }
 
     @Override
-    public HTMLLIElement asElement() {
-        return element.asElement();
+    public HTMLLIElement element() {
+        return element.element();
     }
 
     boolean isAllHidden() {

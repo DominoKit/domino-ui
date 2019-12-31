@@ -15,7 +15,7 @@ import static org.jboss.gwt.elemento.core.Elements.li;
 
 public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbItem> implements HasClickableElement {
 
-    private DominoElement<HTMLLIElement> element = DominoElement.of(li().asElement());
+    private DominoElement<HTMLLIElement> element = DominoElement.of(li().element());
     private DominoElement<HTMLAnchorElement> anchorElement = DominoElement.of(a());
     private Text textElement;
     private BaseIcon icon;
@@ -54,7 +54,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
             textElement.remove();
             anchorElement.remove();
             if (nonNull(icon)) {
-                icon.asElement().remove();
+                icon.element().remove();
                 element.appendChild(icon);
             }
             element.appendChild(textElement);
@@ -89,13 +89,13 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
     }
 
     @Override
-    public HTMLLIElement asElement() {
-        return element.asElement();
+    public HTMLLIElement element() {
+        return element.element();
     }
 
     @Override
     public HTMLAnchorElement getClickableElement() {
-        return anchorElement.asElement();
+        return anchorElement.element();
     }
 
     public Text getTextElement() {

@@ -23,8 +23,8 @@ public class SimplePaginationPlugin<T> implements DataTablePlugin<T> {
 
     @Override
     public void onAfterAddTable(DataTable<T> dataTable) {
-        dataTable.asElement()
-                .appendChild(simplePagination.asElement());
+        dataTable.element()
+                .appendChild(simplePagination.element());
 
         simplePagination.onPageChanged(pageNumber -> dataTable.fireTableEvent(new TablePageChangeEvent(pageNumber, simplePagination)));
     }

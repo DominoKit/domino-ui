@@ -31,19 +31,19 @@ public class ButtonsGroup extends WavesElement<HTMLElement, ButtonsGroup> implem
 
     @Override
     public ButtonsGroup appendChild(Button button) {
-        appendChild(button.asElement());
+        appendChild(button.element());
         return this;
     }
 
     @Override
     public ButtonsGroup appendChild(DropdownButton dropDown) {
-        appendChild(dropDown.asElement());
+        appendChild(dropDown.element());
         return this;
     }
 
     @Override
-    public HTMLElement asElement() {
-        return groupElement.asElement();
+    public HTMLElement element() {
+        return groupElement.element();
     }
 
     public ButtonsGroup setSize(ButtonSize size) {

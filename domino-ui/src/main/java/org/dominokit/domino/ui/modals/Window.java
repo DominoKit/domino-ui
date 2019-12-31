@@ -89,10 +89,10 @@ public class Window extends BaseModal<Window> {
                     mouseX = mouseEvent.clientX;
                     mouseY = mouseEvent.clientY;
 
-                    double left = modalElement.asElement().offsetLeft - deltaX;
-                    double top = modalElement.asElement().offsetTop - deltaY;
+                    double left = modalElement.element().offsetLeft - deltaX;
+                    double top = modalElement.element().offsetTop - deltaY;
 
-                    ClientRect windowRect = modalElement.getModalDialog().asElement().getBoundingClientRect();
+                    ClientRect windowRect = modalElement.getModalDialog().element().getBoundingClientRect();
                     double initialWidth = windowRect.width;
                     double initialHeight = windowRect.height;
 
@@ -100,12 +100,12 @@ public class Window extends BaseModal<Window> {
                     double windowHeight = DomGlobal.window.innerHeight;
 
                     if (left > 0 && left < (windowWidth - initialWidth)) {
-                        modalElement.asElement().style.left = left + "px";
+                        modalElement.element().style.left = left + "px";
                         this.windowLeft = left;
                     }
 
                     if (top > 0 && top < (windowHeight - initialHeight)) {
-                        modalElement.asElement().style.top = top + "px";
+                        modalElement.element().style.top = top + "px";
                         this.windowTop = top;
                     }
                 }
@@ -195,23 +195,23 @@ public class Window extends BaseModal<Window> {
 
     private void updatePosition() {
         if (maximized) {
-            modalElement.asElement().style.left = "0px";
-            modalElement.asElement().style.top = "0px";
+            modalElement.element().style.left = "0px";
+            modalElement.element().style.top = "0px";
         } else {
-            ClientRect windowRect = modalElement.getModalDialog().asElement().getBoundingClientRect();
+            ClientRect windowRect = modalElement.getModalDialog().element().getBoundingClientRect();
             double initialWidth = windowRect.width;
             double windowWidth = DomGlobal.window.innerWidth;
 
             if (windowLeft < 0) {
-                modalElement.asElement().style.left = ((windowWidth - initialWidth) / 2) + ((fixed ? 0 : DomGlobal.window.pageXOffset)) + "px";
+                modalElement.element().style.left = ((windowWidth - initialWidth) / 2) + ((fixed ? 0 : DomGlobal.window.pageXOffset)) + "px";
             } else {
-                modalElement.asElement().style.left = windowLeft + "px";
+                modalElement.element().style.left = windowLeft + "px";
             }
 
             if (windowTop < 0) {
-                modalElement.asElement().style.top = 100 + (fixed ? 0 : DomGlobal.window.pageYOffset) + "px";
+                modalElement.element().style.top = 100 + (fixed ? 0 : DomGlobal.window.pageYOffset) + "px";
             } else {
-                modalElement.asElement().style.top = windowTop + "px";
+                modalElement.element().style.top = windowTop + "px";
             }
         }
     }

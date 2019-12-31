@@ -1,8 +1,10 @@
 package org.dominokit.domino.ui.dropdown;
 
-import elemental2.dom.*;
+import elemental2.dom.Event;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.KeyboardEvent;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.utils.ElementUtil.*;
 
-public class MenuNavigation<V extends IsElement, T extends HTMLElement> implements EventListener {
+public class MenuNavigation<V extends IsElement> implements EventListener {
 
     private final List<V> items;
     private FocusHandler<V> focusHandler;
@@ -18,39 +20,30 @@ public class MenuNavigation<V extends IsElement, T extends HTMLElement> implemen
     private FocusCondition<V> focusCondition;
     private EscapeHandler escapeHandler;
 
-    public MenuNavigation(List<V> items, T menuTargetElement) {
+    public MenuNavigation(List<V> items) {
         this.items = items;
-        KeyboardEvents.listenOn(menuTargetElement)
-                .setDefaultOptions(KeyboardEvents.KeyboardEventOptions.create().setPreventDefault(true))
-                .onArrowUp(evt -> focusAt(items.size() - 1))
-                .onArrowDown(evt -> focusAt(0))
-                .onEscape(evt -> escapeHandler.onEscape());
     }
 
-    public static <V extends IsElement, T extends HTMLElement> MenuNavigation<V, T> create(List<V> items, T menuTargetElement) {
-        return new MenuNavigation<>(items, menuTargetElement);
+    public static <V extends IsElement> MenuNavigation<V> create(List<V> items) {
+        return new MenuNavigation<>(items);
     }
 
-    public static <V extends IsElement, T extends HTMLElement> MenuNavigation<V, T> create(List<V> items, IsElement<T> element) {
-        return create(items, element.asElement());
-    }
-
-    public MenuNavigation<V, T> onFocus(FocusHandler<V> focusHandler) {
+    public MenuNavigation<V> onFocus(FocusHandler<V> focusHandler) {
         this.focusHandler = focusHandler;
         return this;
     }
 
-    public MenuNavigation<V, T> onSelect(SelectHandler<V> selectHandler) {
+    public MenuNavigation<V> onSelect(SelectHandler<V> selectHandler) {
         this.selectHandler = selectHandler;
         return this;
     }
 
-    public MenuNavigation<V, T> onEscape(EscapeHandler escapeHandler) {
+    public MenuNavigation<V> onEscape(EscapeHandler escapeHandler) {
         this.escapeHandler = escapeHandler;
         return this;
     }
 
-    public MenuNavigation<V, T> focusCondition(FocusCondition<V> focusCondition) {
+    public MenuNavigation<V> focusCondition(FocusCondition<V> focusCondition) {
         this.focusCondition = focusCondition;
         return this;
     }
@@ -60,7 +53,7 @@ public class MenuNavigation<V extends IsElement, T extends HTMLElement> implemen
         KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
         HTMLElement element = Js.uncheckedCast(keyboardEvent.target);
         for (V item : items) {
-            if (item.asElement().contains(element)) {
+            if (item.element().contains(element)) {
                 if (isArrowUp(keyboardEvent)) {
                     focusPrevious(item);
                 } else if (isArrowDown(keyboardEvent)) {

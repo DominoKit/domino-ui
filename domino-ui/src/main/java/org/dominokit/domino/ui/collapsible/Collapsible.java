@@ -36,7 +36,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     }
 
     public static Collapsible create(IsElement isElement) {
-        return create(isElement.asElement());
+        return create(isElement.element());
     }
 
     @Override
@@ -153,7 +153,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
 
     @Override
-    public HTMLElement asElement() {
+    public HTMLElement element() {
         return element;
     }
 

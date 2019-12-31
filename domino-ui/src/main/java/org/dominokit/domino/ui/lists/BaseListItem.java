@@ -28,10 +28,10 @@ public abstract class BaseListItem<E extends HTMLElement, T extends BaseListItem
 
     void setHeaderText(String heading) {
         if (isNull(header)) {
-            body = p().css(ListStyles.LIST_GROUP_ITEM_TEXT).asElement();
-            body.innerHTML = asElement().innerHTML;
-            ElementUtil.clear(asElement());
-            header = h(4).css(ListStyles.LIST_GROUP_ITEM_HEADING).asElement();
+            body = p().css(ListStyles.LIST_GROUP_ITEM_TEXT).element();
+            body.innerHTML = element().innerHTML;
+            ElementUtil.clear(element());
+            header = h(4).css(ListStyles.LIST_GROUP_ITEM_HEADING).element();
             header.textContent = heading;
             element.appendChild(header);
             element.appendChild(body);
@@ -48,7 +48,7 @@ public abstract class BaseListItem<E extends HTMLElement, T extends BaseListItem
     }
 
     @Override
-    public E asElement() {
+    public E element() {
         return element;
     }
 
@@ -68,7 +68,7 @@ public abstract class BaseListItem<E extends HTMLElement, T extends BaseListItem
         if (first) {
             insertFirst(badge);
         } else {
-            appendChild(badge.asElement());
+            appendChild(badge.element());
         }
         return (T) this;
     }

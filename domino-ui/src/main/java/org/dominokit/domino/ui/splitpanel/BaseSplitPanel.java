@@ -99,8 +99,8 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T,S>, S extends BaseSplit
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     @Override

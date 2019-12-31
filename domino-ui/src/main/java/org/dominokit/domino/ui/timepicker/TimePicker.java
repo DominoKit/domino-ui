@@ -369,10 +369,17 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     private void drawMinutes() {
         clear(minutesPanel);
-        for (int minute = 0; minute < 60; minute++) {
+        for (int minute = 0; minute < 60; minute += 5) {
             ClockElement clockElement = makeMinuteElement(minute);
             minutesElements.put(minute, clockElement);
             minutesPanel.appendChild(clockElement.getElement());
+        }
+        for (int minute = 0; minute < 60; minute++) {
+            if(minute % 5 != 0) {
+                ClockElement clockElement = makeMinuteElement(minute);
+                minutesElements.put(minute, clockElement);
+                minutesPanel.appendChild(clockElement.getElement());
+            }
         }
     }
 
@@ -680,19 +687,19 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     public TimePicker todayButtonText(String text) {
         this.nowButton.setContent(text);
-        this.nowButton.asElement().title = text;
+        this.nowButton.element().title = text;
         return this;
     }
 
     public TimePicker clearButtonText(String text) {
         this.clearButton.setContent(text);
-        this.clearButton.asElement().title = text;
+        this.clearButton.element().title = text;
         return this;
     }
 
     public TimePicker closeButtonText(String text) {
         this.closeButton.setContent(text);
-        this.closeButton.asElement().title = text;
+        this.closeButton.element().title = text;
         return this;
     }
 
@@ -801,12 +808,12 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     }
 
     public ModalDialog createModal(String title) {
-        return ModalDialog.createPickerModal(title, this.asElement());
+        return ModalDialog.createPickerModal(title, this.element());
     }
 
     @Override
-    public HTMLDivElement asElement() {
-        return element.asElement();
+    public HTMLDivElement element() {
+        return element.element();
     }
 
     TimePicker setColorSchemeHandler(ColorSchemeHandler colorSchemeHandler) {

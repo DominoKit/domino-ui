@@ -14,7 +14,7 @@ public class SimpleListItem extends BaseListItem<HTMLLIElement, SimpleListItem> 
     private String style;
     private HTMLLIElement element = li()
             .css(ListStyles.LIST_GROUP_ITEM)
-            .asElement();
+            .element();
 
     public SimpleListItem() {
         setElement(element);
@@ -57,12 +57,12 @@ public class SimpleListItem extends BaseListItem<HTMLLIElement, SimpleListItem> 
     }
 
     public SimpleListItem appendChild(Node content) {
-        asElement().appendChild(content);
+        element().appendChild(content);
         return this;
     }
 
     public SimpleListItem appendChild(IsElement content) {
-       return appendChild(content.asElement());
+       return appendChild(content.element());
     }
 
 }

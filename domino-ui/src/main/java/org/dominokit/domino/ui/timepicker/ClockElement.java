@@ -55,7 +55,7 @@ class ClockElement {
         this.element = div()
                 .css(elementStyle)
                 .style("position: absolute; left:" + left + "px; top:" + top + "px; color: " + Color.BLUE_GREY_DARKEN_1.getHex() + ";")
-                .textContent(text).asElement();
+                .textContent(text).element();
     }
 
 
