@@ -29,9 +29,12 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         addValidator(() -> {
             E value = getValue();
             if(nonNull(getMaxValue())) {
-                double parsed = getNumberFormat().parse(getInputElement().element().value);
-                if (nonNull(value) && isExceedMaxValue(getMaxDoubleValue(), parsed)) {
-                    return ValidationResult.invalid(getMaxValueErrorMessage());
+                String inputValue = getInputElement().element().value;
+                if(nonNull(inputValue) && !inputValue.isEmpty()) {
+                    double parsed = getNumberFormat().parse(inputValue);
+                    if (nonNull(value) && isExceedMaxValue(getMaxDoubleValue(), parsed)) {
+                        return ValidationResult.invalid(getMaxValueErrorMessage());
+                    }
                 }
             }
             return ValidationResult.valid();
