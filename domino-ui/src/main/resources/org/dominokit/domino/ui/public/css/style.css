@@ -1,4 +1,14 @@
-﻿:focus {
+﻿/* bootstrap replacement */
+.pull-right {
+    float: right !important;
+}
+
+a {
+    text-decoration: none;
+    background-color: transparent;
+}
+
+:focus {
     outline: none;
 }
 .close {
