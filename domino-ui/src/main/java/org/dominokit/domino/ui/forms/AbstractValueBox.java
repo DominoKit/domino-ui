@@ -99,7 +99,7 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
     @Override
     public boolean isEmpty() {
         String stringValue = getStringValue();
-        return isNull(stringValue) || stringValue.isEmpty();
+        return isNull(stringValue) || stringValue.trim().isEmpty();
     }
 
     public T setMinLengthErrorMessage(String minLengthErrorMessage) {
