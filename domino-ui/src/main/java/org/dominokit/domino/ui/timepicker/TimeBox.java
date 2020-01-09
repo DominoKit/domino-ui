@@ -63,6 +63,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
             setStringValue(time, picker);
             changeLabelFloating();
             autoValidate();
+            callChangeHandlers();
         });
         this.modalListener = evt -> modal.open();
         this.keyboardModalListener = event -> {
@@ -248,6 +249,12 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
             enableModal();
             enablePopover();
         }
+        return this;
+    }
+
+    @Override
+    public TimeBox addChangeHandler(ChangeHandler<? super Date> changeHandler) {
+        super.addChangeHandler(changeHandler);
         return this;
     }
 
