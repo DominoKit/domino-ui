@@ -3991,15 +3991,15 @@ a.disabled {
 }
 
 .file-upload {
-    border: 2px solid transparent !important;
+    border: 2px solid transparent;
     background-color: #eee;
     min-height: 150px;
     padding: 20px 20px;
     box-sizing: border-box;
 }
 
-.file-upload-hover {
-    border: 2px dashed #888 !important;
+.file-upload.file-upload-hover {
+    border: 2px dashed #888;
     opacity: 0.5;
 }
 
