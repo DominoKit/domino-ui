@@ -16,7 +16,7 @@ import static org.dominokit.domino.ui.style.Unit.px;
 import static org.dominokit.domino.ui.style.Unit.vh;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
-class VTabsContainer extends BaseDominoElement<HTMLDivElement, VTabsContainer> implements HasActiveItem<VerticalTab>, IsElement<HTMLDivElement> {
+public class VTabsContainer extends BaseDominoElement<HTMLDivElement, VTabsContainer> implements HasActiveItem<VerticalTab>, IsElement<HTMLDivElement> {
 
     private FlexLayout listContainer = FlexLayout.create()
             .setDirection(FlexDirection.TOP_TO_BOTTOM)
