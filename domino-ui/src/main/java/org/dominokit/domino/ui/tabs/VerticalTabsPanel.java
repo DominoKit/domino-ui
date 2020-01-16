@@ -245,6 +245,10 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
         return this;
     }
 
+    public VTabsContainer getTabsContainer(){
+        return tabsList;
+    }
+
     public FlexItem getTabsHeadersContainer() {
         return tabsHeadersContainer;
     }
