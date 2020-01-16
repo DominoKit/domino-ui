@@ -100,11 +100,6 @@
                 <configuration>
                     <moduleName>org.dominokit.domino.ui.DominoUI</moduleName>
                     <moduleShortName>dominoui</moduleShortName>
-                    <compilerArgs>
-                        <compilerArg>-generateJsInteropExports</compilerArg>
-                        <compilerArg>-includeJsInteropExport</compilerArg>
-                        <compilerArg>*</compilerArg>
-                    </compilerArgs>
                 </configuration>
             </plugin>
 

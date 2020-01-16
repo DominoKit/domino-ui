@@ -17,7 +17,6 @@ import org.dominokit.domino.ui.utils.TextNode;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-@JsType
 public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements HasBackground<Alert> {
 
     public enum AlertType {
