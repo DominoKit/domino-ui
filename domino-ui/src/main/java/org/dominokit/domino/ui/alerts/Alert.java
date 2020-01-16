@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.alerts;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLDivElement;
+import jsinterop.annotations.JsType;
 import org.dominokit.domino.ui.Typography.Strong;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Elevation;
@@ -16,6 +17,7 @@ import org.dominokit.domino.ui.utils.TextNode;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
+@JsType
 public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements HasBackground<Alert> {
 
     public enum AlertType {
