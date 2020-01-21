@@ -11,12 +11,12 @@ public class DominoElement<E extends HTMLElement> extends BaseDominoElement<E, D
 
     private final E wrappedElement;
 
-    public static <E extends HTMLElement> DominoElement<E> of(E node) {
-        return new DominoElement<>(node);
+    public static <E extends HTMLElement> DominoElement<E> of(E element) {
+        return new DominoElement<>(element);
     }
 
-    public static <E extends HTMLElement> DominoElement<E> of(IsElement<E> node) {
-        return new DominoElement<>(node.element());
+    public static <E extends HTMLElement> DominoElement<E> of(IsElement<E> element) {
+        return new DominoElement<>(element.element());
     }
 
     public static DominoElement<HTMLBodyElement> body() {

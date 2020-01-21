@@ -39,7 +39,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         if (hasDominoId()) {
             uuid = getAttribute("domino-uuid");
         } else {
-            this.uuid = Elements.createDocumentUniqueId();
+            this.uuid = Elements.uniqueId();
             setAttribute("domino-uuid", this.uuid);
         }
         this.collapsible = Collapsible.create(getCollapsibleElement());
@@ -322,6 +322,14 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return element().contains(node);
     }
 
+    public boolean hasDirectChild(Node node) {
+        Node parentNode = node.parentNode;
+        if(isNull(parentNode)){
+            return false;
+        }
+        return parentNode.equals(element.element());
+    }
+
     @Editor.Ignore
     public T setTextContent(String text) {
         element().textContent = text;
@@ -518,7 +526,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Editor.Ignore
     public T removeWaves() {
-        if(nonNull(this.wavesSupport)) {
+        if (nonNull(this.wavesSupport)) {
             this.wavesSupport.removeWaves();
         }
         return element;
@@ -586,7 +594,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return element;
     }
 
-    public boolean isDisabled(){
+    public boolean isDisabled() {
         return hasAttribute("disabled");
     }
 
@@ -606,14 +614,14 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         }
     }
 
-    public T elevate(int level){
+    public T elevate(int level) {
         return elevate(Elevation.of(level));
     }
 
-    public T elevate(Elevation elevation){
-        if(nonNull(this.elevation)){
+    public T elevate(Elevation elevation) {
+        if (nonNull(this.elevation)) {
             style.remove(this.elevation.getStyle());
-        }else{
+        } else {
             Elevation.removeFrom(element());
         }
 
@@ -651,6 +659,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     /**
      * use {@link #removeShowListener(Collapsible.ShowCompletedHandler)}
+     *
      * @param handler
      * @return
      */
