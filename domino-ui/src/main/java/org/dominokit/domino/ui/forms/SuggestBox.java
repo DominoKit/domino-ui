@@ -4,6 +4,8 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
+import org.dominokit.domino.ui.forms.SuggestBoxStore.MissingEntryProvider;
+import org.dominokit.domino.ui.forms.SuggestBoxStore.MissingSuggestProvider;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.loaders.Loader;
 import org.dominokit.domino.ui.loaders.LoaderEffect;
@@ -111,6 +113,11 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
             suggestionsMenu.close();
             store.filter(getStringValue(), suggestions -> {
                 suggestionsMenu.clearActions();
+
+                if(suggestions.isEmpty()){
+                    applyMissingEntry(getStringValue());
+                }
+
                 suggestions.forEach(suggestion -> {
                     suggestion.highlight(SuggestBox.this.getStringValue(), highlightColor);
                     suggestionsMenu.appendChild(dropdownAction(suggestion));
@@ -164,19 +171,35 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
                     this.value = value;
                     getInputElement().element().value = suggestItem.getDisplayValue();
                 } else {
-                    SuggestBoxStore.MissingSuggestProvider<T> messingSuggestionProvider = store.getMessingSuggestionProvider();
-                    Optional<SuggestItem<T>> messingSuggestion = messingSuggestionProvider.getMessingSuggestion(value);
-                    if (messingSuggestion.isPresent()) {
-                        SuggestItem<T> messingSuggestItem = messingSuggestion.get();
-                        this.value = messingSuggestItem.getValue();
-                        getInputElement().element().value = messingSuggestItem.getDisplayValue();
-                    } else {
+                    if(!applyMissingValue(value)){
                         this.value = null;
                         getInputElement().element().value = "";
                     }
                 }
             });
         }
+    }
+
+    private boolean applyMissingValue(T value) {
+        MissingSuggestProvider<T> messingSuggestionProvider = store.getMessingSuggestionProvider();
+        Optional<SuggestItem<T>> messingSuggestion = messingSuggestionProvider.getMessingSuggestion(value);
+        return applyMissing(messingSuggestion);
+    }
+
+    private boolean applyMissingEntry(String value) {
+        MissingEntryProvider<T> messingEntryProvider = store.getMessingEntryProvider();
+        Optional<SuggestItem<T>> messingSuggestion = messingEntryProvider.getMessingSuggestion(value);
+        return applyMissing(messingSuggestion);
+    }
+
+    private boolean applyMissing(Optional<SuggestItem<T>> messingSuggestion) {
+        if (messingSuggestion.isPresent()) {
+            SuggestItem<T> messingSuggestItem = messingSuggestion.get();
+            this.value = messingSuggestItem.getValue();
+            getInputElement().element().value = messingSuggestItem.getDisplayValue();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -211,6 +234,10 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
             suggestionsMenu.close();
         });
         return dropdownAction;
+    }
+
+    private void setMissingValue() {
+
     }
 
     @Override

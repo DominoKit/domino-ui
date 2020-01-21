@@ -14,23 +14,15 @@ public class LocalSuggestBoxStore<T> implements SuggestBoxStore<T> {
 
     private List<SuggestItem<T>> suggestions;
     private SuggestionFilter<T> suggestionFilter = (searchValue, suggestItem) -> suggestItem.getDisplayValue().toLowerCase().contains(searchValue.toLowerCase());
-    private MissingSuggestProvider<T> missingProvider;
+    private MissingSuggestProvider<T> missingValueProvider;
+    private MissingEntryProvider<T> missingEntryProvider;
 
     public LocalSuggestBoxStore() {
         this(new ArrayList<>());
     }
 
-    public LocalSuggestBoxStore(MissingSuggestProvider<T> missingProvider) {
-        this(new ArrayList<>(), missingProvider);
-    }
-
     public LocalSuggestBoxStore(List<SuggestItem<T>> suggestions) {
         this.suggestions = suggestions;
-    }
-
-    public LocalSuggestBoxStore(List<SuggestItem<T>> suggestions, MissingSuggestProvider<T> missingProvider) {
-        this.suggestions = suggestions;
-        this.missingProvider = missingProvider;
     }
 
     public static <T> LocalSuggestBoxStore<T> create() {
@@ -39,14 +31,6 @@ public class LocalSuggestBoxStore<T> implements SuggestBoxStore<T> {
 
     public static <T> LocalSuggestBoxStore<T> create(List<SuggestItem<T>> suggestions) {
         return new LocalSuggestBoxStore<>(suggestions);
-    }
-
-    public static <T> LocalSuggestBoxStore<T> create(MissingSuggestProvider<T> missingProvider) {
-        return new LocalSuggestBoxStore<T>(missingProvider);
-    }
-
-    public static <T> LocalSuggestBoxStore<T> create(List<SuggestItem<T>> suggestions, MissingSuggestProvider<T> missingProvider) {
-        return new LocalSuggestBoxStore<>(suggestions, missingProvider);
     }
 
     public LocalSuggestBoxStore<T> addSuggestion(SuggestItem<T> suggestion) {
@@ -87,8 +71,10 @@ public class LocalSuggestBoxStore<T> implements SuggestBoxStore<T> {
         for (SuggestItem<T> suggestion : suggestions) {
             if (suggestion.getValue().equals(searchValue)) {
                 handler.accept(suggestion);
+                return;
             }
         }
+        handler.accept(null);
     }
 
     @Override
@@ -107,8 +93,30 @@ public class LocalSuggestBoxStore<T> implements SuggestBoxStore<T> {
         return this;
     }
 
+    public LocalSuggestBoxStore<T> setMissingValueProvider(MissingSuggestProvider<T> missingValueProvider) {
+        this.missingValueProvider = missingValueProvider;
+        return this;
+    }
+
+    public LocalSuggestBoxStore<T> setMissingEntryProvider(MissingEntryProvider<T> missingEntryProvider) {
+        this.missingEntryProvider = missingEntryProvider;
+        return this;
+    }
+
     @Override
     public MissingSuggestProvider<T> getMessingSuggestionProvider() {
-        return missingProvider;
+        return missingValueProvider;
+    }
+
+    @Override
+    public MissingEntryProvider<T> getMessingEntryProvider() {
+        return missingEntryProvider;
+    }
+
+    public LocalSuggestBoxStore<T> setMissingHandlers(MissingSuggestProvider<T> missingSuggestProvider, MissingEntryProvider<T> missingEntryProvider){
+        this.missingValueProvider = missingSuggestProvider;
+        this.missingEntryProvider = missingEntryProvider;
+
+        return this;
     }
 }
