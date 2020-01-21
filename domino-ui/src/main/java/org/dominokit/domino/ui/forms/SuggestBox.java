@@ -14,6 +14,7 @@ import org.jboss.gwt.elemento.core.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static elemental2.dom.DomGlobal.document;
 import static elemental2.dom.DomGlobal.window;
@@ -163,7 +164,16 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
                     this.value = value;
                     getInputElement().element().value = suggestItem.getDisplayValue();
                 } else {
-                    getInputElement().element().value = "";
+                    SuggestBoxStore.MissingSuggestProvider<T> messingSuggestionProvider = store.getMessingSuggestionProvider();
+                    Optional<SuggestItem<T>> messingSuggestion = messingSuggestionProvider.getMessingSuggestion(value);
+                    if (messingSuggestion.isPresent()) {
+                        SuggestItem<T> messingSuggestItem = messingSuggestion.get();
+                        this.value = messingSuggestItem.getValue();
+                        getInputElement().element().value = messingSuggestItem.getDisplayValue();
+                    } else {
+                        this.value = null;
+                        getInputElement().element().value = "";
+                    }
                 }
             });
         }
