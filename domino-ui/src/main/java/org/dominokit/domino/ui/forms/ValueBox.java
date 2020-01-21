@@ -157,7 +157,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
             }
         });
         labelElement.addEventListener("click", evt -> {
-            if(!isDisabled()) {
+            if (!isDisabled()) {
                 focus();
             }
         });
@@ -355,7 +355,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     public T addLeftAddOn(FlexItem addon) {
         leftAddOnsContainer.appendChild(addon);
-        if(!leftAddOnsContainer.isAttached()){
+        if (!leftAddOnsContainer.isAttached()) {
             fieldInnerContainer.insertFirst(leftAddOnsContainer);
         }
         return (T) this;
@@ -391,7 +391,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     public T addRightAddOn(FlexItem rightAddon) {
         rightAddOnsContainer.appendChild(rightAddon);
-        if(!rightAddOnsContainer.isAttached()){
+        if (!rightAddOnsContainer.isAttached()) {
             fieldInnerContainer.appendChild(rightAddOnsContainer);
         }
         return (T) this;
@@ -404,6 +404,65 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     public T addRightAddOn(Node addon) {
         addRightAddOn(FlexItem.create().appendChild(addon));
+        return (T) this;
+    }
+
+    public T removeRightAddOn(FlexItem addon) {
+        return removeRightAddOn(addon.element());
+    }
+
+    public T removeRightAddOn(IsElement<?> addon) {
+        return removeRightAddOn(addon.element());
+    }
+
+    public T removeRightAddOn(Node addon) {
+        return removeAddOn(rightAddOnsContainer, addon);
+    }
+
+    public T removeRightAddOn(int index) {
+        if (index >= 0 && index < rightAddOnsContainer.childNodes().length) {
+            return removeAddOn(rightAddOnsContainer, rightAddOnsContainer.childNodes().getAt(index));
+        }
+        return (T) this;
+    }
+
+    public T removeLeftAddOn(FlexItem addon) {
+        return removeLeftAddOn(addon.element());
+    }
+
+    public T removeLeftAddOn(IsElement<?> addon) {
+        return removeLeftAddOn(addon.element());
+    }
+
+    public T removeLeftAddOn(Node addon) {
+        return removeAddOn(leftAddOnsContainer, addon);
+    }
+
+    public T removeLeftAddOn(int index) {
+        if (index >= 0 && index < leftAddOnsContainer.childNodes().length) {
+            return removeAddOn(leftAddOnsContainer, leftAddOnsContainer.childNodes().getAt(index));
+        }
+        return (T) this;
+    }
+
+    private T removeAddOn(FlexLayout container, Node addon) {
+        if (container.isAttached() && container.contains(addon)) {
+            if (container.hasDirectChild(addon)) {
+                container.removeChild(addon);
+            } else {
+                return removeAddOn(container, addon.parentNode);
+            }
+        }
+        return (T) this;
+    }
+
+    public T removeRightAddOns() {
+        rightAddOnsContainer.clearElement();
+        return (T) this;
+    }
+
+    public T removeLeftAddOns() {
+        leftAddOnsContainer.clearElement();
         return (T) this;
     }
 
@@ -454,15 +513,15 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return super.invalidate(errorMessage);
     }
 
-    public T asTableField(){
+    public T asTableField() {
         setTableField(true);
         return (T) this;
     }
 
-    public T setTableField(boolean asTableField){
-        if(asTableField) {
+    public T setTableField(boolean asTableField) {
+        if (asTableField) {
             css("table-field");
-        }else{
+        } else {
             removeCss("table-field");
         }
         return (T) this;
@@ -660,7 +719,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     public T setPrefix(String prefix) {
-        if(!prefixItem.isAttached()){
+        if (!prefixItem.isAttached()) {
             fieldInnerContainer.insertBefore(prefixItem, inputContainer);
         }
         this.prefixItem.setTextContent(prefix);
@@ -673,7 +732,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     public T setPostFix(String postfix) {
-        if(!postFixItem.isAttached()){
+        if (!postFixItem.isAttached()) {
             fieldInnerContainer.insertAfter(postFixItem, inputContainer);
         }
         this.postFixItem.setTextContent(postfix);
