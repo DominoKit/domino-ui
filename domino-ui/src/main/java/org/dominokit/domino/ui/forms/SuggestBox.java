@@ -20,6 +20,7 @@ import java.util.Optional;
 
 import static elemental2.dom.DomGlobal.document;
 import static elemental2.dom.DomGlobal.window;
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.gwt.elemento.core.Elements.div;
@@ -36,6 +37,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     private Color highlightColor;
     private T value;
     private int typeAheadDelay = 200;
+    private SuggestItem<T> selectedItem;
     private DelayedTextInput delayedTextInput;
     private DelayedTextInput.DelayedAction delayedAction = () -> {
         if (isEmpty()) {
@@ -113,6 +115,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
             suggestionsMenu.clearActions();
             suggestionsMenu.close();
             store.filter(getStringValue(), suggestions -> {
+                selectedItem = null;
                 suggestionsMenu.clearActions();
 
                 if(suggestions.isEmpty()){
@@ -205,6 +208,10 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
 
     @Override
     public T getValue() {
+        if(isNull(selectedItem)){
+            applyMissingEntry(getStringValue());
+        }
+
         return this.value;
     }
 
@@ -230,15 +237,12 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     private DropdownAction<T> dropdownAction(SuggestItem<T> suggestItem) {
         DropdownAction<T> dropdownAction = suggestItem.asDropDownAction();
         dropdownAction.addSelectionHandler(value -> {
+            selectedItem = suggestItem;
             setValue(value);
             selectionHandlers.forEach(handler -> handler.onSelection(suggestItem));
             suggestionsMenu.close();
         });
         return dropdownAction;
-    }
-
-    private void setMissingValue() {
-
     }
 
     @Override
