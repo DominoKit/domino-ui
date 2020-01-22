@@ -12,19 +12,17 @@ public class ColorStylesGenerators {
     public static void main(String[] args) {
         try {
 
-            File file = new File("/mnt/CODE/GIT/domino-kit/domino-ui-master/src/main/resources/color-template.css");
+            File file = new File("/mnt/CODE/GIT/domino-kit/domino-ui/domino-ui/src/main/resources/color-template.css");
             FileInputStream fis = new FileInputStream(file);
             byte[] bytes = new byte[(int) file.length()];
             fis.read(bytes);
             fis.close();
 
-
-            file = new File("/mnt/CODE/GIT/domino-kit/domino-ui-master/src/main/resources/all-colors-section.css");
+            file = new File("/mnt/CODE/GIT/domino-kit/domino-ui/domino-ui/src/main/resources/all-colors-section.css");
             fis = new FileInputStream(file);
             byte[] whiteBytes = new byte[(int) file.length()];
             fis.read(whiteBytes);
             fis.close();
-
 
 
             String templateContent = new String(bytes, UTF_8);

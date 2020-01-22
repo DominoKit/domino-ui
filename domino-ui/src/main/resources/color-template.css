@@ -11,7 +11,7 @@
     color: #fff;
 }
 .bg${color_base_name},
-[type="checkbox"].filled-in:checked.col${color_base_name} + label:after,
+.d-checkbox input[type="checkbox"].filled-in:checked.col${color_base_name} + label:after,
 [type="radio"].with-gap.col${color_base_name}:checked + label:after,
 [type="radio"].col${color_base_name}:checked + label:after,
 .switch label input[type=checkbox]:checked + .lever.col${color_base_name}:after,
@@ -38,11 +38,11 @@ ul.stepper.horizontal.stepper-col${color_base_name} .step.done .step-title:befor
     color: ${main_color};
     border-right: 2px solid ${main_color};
 }
-[type="checkbox"]:checked.col${color_base_name} + label:before {
+.d-checkbox input[type="checkbox"]:checked.col${color_base_name} + label:before {
     border-right: 2px solid ${main_color};
     border-bottom: 2px solid ${main_color};
 }
-[type="checkbox"].filled-in:checked.col${color_base_name} + label:after,
+.d-checkbox input[type="checkbox"].filled-in:checked.col${color_base_name} + label:after,
 [type="radio"].with-gap.col${color_base_name}:checked + label:before,
 [type="radio"].with-gap.col${color_base_name}:checked + label:after{
     border: 2px solid ${main_color};

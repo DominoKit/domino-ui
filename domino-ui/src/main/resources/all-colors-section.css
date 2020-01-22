@@ -4,7 +4,7 @@
 .list-group.bg-white,
 .list-group.bg-white:hover,
 .list-group.bg-white:focus,
-[type="checkbox"].filled-in:checked.col-white + label:after,
+.d-checkbox input[type="checkbox"].filled-in:checked.col-white + label:after,
 [type="radio"].with-gap.col-white:checked + label:after,
 [type="radio"][class*="col-white"]:checked + label:after,
 .switch label input[type=checkbox]:checked + .lever.col-white:after,
@@ -21,11 +21,11 @@
 .breadcrumb.col-white li a{
     color: #202020;
 }
-[type="checkbox"]:checked.col-white + label:before {
+.d-checkbox input[type="checkbox"]:checked.col-white + label:before {
     border-right: 2px solid #FFFFFF;
     border-bottom: 2px solid #FFFFFF;
 }
-[type="checkbox"].filled-in:checked.col-white + label:after,
+.d-checkbox input[type="checkbox"].filled-in:checked.col-white + label:after,
 [type="radio"].with-gap.col-white:checked + label:before,
 [type="radio"].with-gap.col-white + label:after{
     border: 2px solid #FFFFFF;
