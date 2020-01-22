@@ -40,6 +40,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     private DelayedTextInput.DelayedAction delayedAction = () -> {
         if (isEmpty()) {
             suggestionsMenu.close();
+            clearValue();
         } else {
             search();
         }
