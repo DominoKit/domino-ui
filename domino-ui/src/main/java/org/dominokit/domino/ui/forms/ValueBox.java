@@ -366,7 +366,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     public T addLeftAddOn(Node addon) {
-        return addLeftAddOn(leftAddOnsContainer.appendChild(FlexItem.create().appendChild(addon)));
+        return addLeftAddOn(FlexItem.create().appendChild(addon));
     }
 
     /**
