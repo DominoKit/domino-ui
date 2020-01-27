@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.tabs;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
+import elemental2.dom.Node;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.style.Color;
@@ -50,23 +51,38 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
         return new TabsPanel();
     }
 
-    public TabsPanel appendChild(Tab tab) {
-        if (nonNull(tab)) {
-            tabs.add(tab);
-            if (isNull(activeTab)) {
-                this.activeTab = tab;
-                activateTab(this.activeTab);
-            } else {
-                if (tab.isActive()) {
-                    activateTab(tab);
+    public TabsPanel insertAt(int index, Tab tab) {
+        if (index >= 0 && index <= tabs.size()) {
+            if (nonNull(tab)) {
+                tabs.add(index, tab);
+                if (isNull(activeTab)) {
                     this.activeTab = tab;
+                    activateTab(this.activeTab);
+                } else {
+                    if (tab.isActive()) {
+                        activateTab(tab);
+                        this.activeTab = tab;
+                    }
                 }
+                if (index == tabs.size() - 1) {
+                    tabsList.appendChild(tab.element());
+                    tabsContent.appendChild(tab.getContentContainer().element());
+                } else {
+                    tabsList.insertBefore(tab, tabs.get(index + 1));
+                    tabsContent.insertBefore(tab.getContentContainer().element(), tabs.get(index + 1).getContentContainer().element());
+                }
+
+                tab.getClickableElement().addEventListener("click", evt -> activateTab(tab));
+                tab.setParent(this);
             }
-            tabsList.appendChild(tab.element());
-            tabsContent.appendChild(tab.getContentContainer().element());
-            tab.getClickableElement().addEventListener("click", evt -> activateTab(tab));
-            tab.setParent(this);
+            return this;
         }
+
+        throw new IndexOutOfBoundsException("invalid index for tab insert! Index is ["+index+"], acceptable range is [0 - "+tabs.size()+"]");
+    }
+
+    public TabsPanel appendChild(Tab tab) {
+        insertAt(tabs.size(), tab);
         return this;
     }
 
