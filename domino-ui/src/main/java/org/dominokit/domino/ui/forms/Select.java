@@ -26,6 +26,10 @@ import static org.jboss.gwt.elemento.core.Elements.span;
 
 public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
+    public enum SelectDropDownPosition {DROP_DOWN, DROP_UP};
+
+    private SelectDropDownPosition prefferedDropDownPosition = SelectDropDownPosition.DROP_DOWN;
+
     private static final String CLICK_EVENT = "click";
 
     private SelectOption<T> noneOption = SelectOption.create(null, "none", "None");
@@ -102,6 +106,12 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     public Select(String label, List<SelectOption<T>> options) {
         this(label);
         options.forEach(this::appendChild);
+    }
+
+    public Select<T> setPrefferedPopupPosition(SelectDropDownPosition prefferedDropDownPosition)
+    {
+        this.prefferedDropDownPosition = prefferedDropDownPosition;
+        return this;
     }
 
     private void initListeners() {
@@ -612,18 +622,17 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
         @Override
         public void position(HTMLElement popup, HTMLElement target) {
             ClientRect targetRect = target.getBoundingClientRect();
+            int popupHeight = popup.offsetHeight;
 
-            double distanceToMiddle = ((targetRect.top) - (targetRect.height / 2));
-            double windowMiddle = DomGlobal.window.innerHeight / 2;
-
-            if (distanceToMiddle >= windowMiddle) {
-                up.position(popup, target);
-                select.dropup();
-                popup.setAttribute("popup-direction", "top");
-            } else {
+            if ((select.prefferedDropDownPosition == SelectDropDownPosition.DROP_DOWN && (targetRect.bottom + popupHeight) < DomGlobal.window.innerHeight)
+                || (select.prefferedDropDownPosition == SelectDropDownPosition.DROP_UP && (targetRect.top - popupHeight) < 0)) {
                 down.position(popup, target);
                 select.dropdown();
                 popup.setAttribute("popup-direction", "down");
+            } else {
+                up.position(popup, target);
+                select.dropup();
+                popup.setAttribute("popup-direction", "top");
             }
 
             popup.style.setProperty("width", select.popupWidth > 0 ? (select.popupWidth + "px") : (targetRect.width + "px"));
