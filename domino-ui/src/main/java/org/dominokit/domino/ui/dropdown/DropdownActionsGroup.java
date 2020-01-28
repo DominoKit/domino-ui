@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.dropdown;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
@@ -11,7 +10,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static elemental2.dom.DomGlobal.*;
+import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.li;
 
@@ -74,8 +73,8 @@ public class DropdownActionsGroup<T> extends BaseDominoElement<HTMLLIElement, Dr
 
     private void addActionToMenu(DropdownAction<T> action) {
         if (nonNull(menu)) {
-            action.addHideHandler(this::changeVisibility);
-            action.addShowHandler(this::changeVisibility);
+            action.addHideListener(this::changeVisibility);
+            action.addShowListener(this::changeVisibility);
             menu.appendChild(action);
         }
     }

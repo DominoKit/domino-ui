@@ -46,6 +46,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     private boolean clearable;
     private FlexItem arrowIconContainer;
     private int popupWidth = 0;
+    private String dropDirection = "auto";
 
     public static <T> Select<T> create() {
         return new Select<>();
@@ -141,9 +142,6 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     private void doOpen() {
         optionsMenu.open();
         optionsMenu.styler(style -> style.setWidth(getFieldContainer().getBoundingClientRect().width + "px"));
-        if (!searchable) {
-            optionsMenu.focus();
-        }
     }
 
     public void close() {
@@ -220,6 +218,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
     private DropdownAction<T> asDropDownAction(SelectOption<T> option) {
         return DropdownAction.create(option.getValue(), option.element())
+                .setExcludeFromSearchResults(option.isExcludeFromSearchResults())
                 .addSelectionHandler(value -> doSelectOption(option));
     }
 
@@ -322,30 +321,43 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     }
 
     public Select<T> dropup() {
-        optionsMenu.appendChild(optionsMenu.getSearchContainer());
-        optionsMenu
-                .getSearchContainer()
-                .style()
-                .remove("pos-top")
-                .add("pos-bottom");
-        optionsMenu
-                .style()
-                .remove("pos-top")
-                .add("pos-bottom");
+
+        this.dropDirection = "up";
         return this;
     }
 
+    private void onDropup(){
+        if (searchable) {
+            optionsMenu.appendChild(optionsMenu.getSearchContainer());
+            optionsMenu
+                    .getSearchContainer()
+                    .style()
+                    .remove("pos-top")
+                    .add("pos-bottom");
+            optionsMenu
+                    .style()
+                    .remove("pos-top")
+                    .add("pos-bottom");
+        }
+    }
+
     public Select<T> dropdown() {
-        optionsMenu.insertFirst(optionsMenu.getSearchContainer());
-        optionsMenu.getSearchContainer()
-                .style()
-                .remove("pos-bottom")
-                .add("pos-top");
-        optionsMenu
-                .style()
-                .remove("pos-bottom")
-                .add("pos-top");
+        this.dropDirection = "down";
         return this;
+    }
+
+    private void onDropdown(){
+        if (searchable) {
+            optionsMenu.insertFirst(optionsMenu.getSearchContainer());
+            optionsMenu.getSearchContainer()
+                    .style()
+                    .remove("pos-bottom")
+                    .add("pos-top");
+            optionsMenu
+                    .style()
+                    .remove("pos-bottom")
+                    .add("pos-top");
+        }
     }
 
     private MdiIcon getDropdownIcon() {
@@ -569,6 +581,15 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
         return noneOption.getDisplayValue();
     }
 
+    public String getDropDirection() {
+        return dropDirection;
+    }
+
+    public Select<T> setDropPosition(DropDownPosition dropPosition){
+        optionsMenu.setPosition(dropPosition);
+        return this;
+    }
+
     @Override
     protected HTMLElement createInputElement(String type) {
         buttonElement = DominoElement.of(button().attr("type", "button").css("select-button"));
@@ -615,14 +636,20 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
             double distanceToMiddle = ((targetRect.top) - (targetRect.height / 2));
             double windowMiddle = DomGlobal.window.innerHeight / 2;
+            double popupHeight = popup.getBoundingClientRect().height;
+            double distanceToBottom = window.innerHeight - targetRect.top;
+            double distanceToTop = (targetRect.top + targetRect.height);
 
-            if (distanceToMiddle >= windowMiddle) {
+            boolean hasSpaceBelow = distanceToBottom > popupHeight;
+            boolean hasSpaceUp = distanceToTop > popupHeight;
+
+            if (("up".equalsIgnoreCase(select.dropDirection) && hasSpaceUp) || ((distanceToMiddle >= windowMiddle) && !hasSpaceBelow)) {
                 up.position(popup, target);
-                select.dropup();
+                select.onDropup();
                 popup.setAttribute("popup-direction", "top");
             } else {
                 down.position(popup, target);
-                select.dropdown();
+                select.onDropdown();
                 popup.setAttribute("popup-direction", "down");
             }
 
