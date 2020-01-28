@@ -53,8 +53,12 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     @Override
     public T setLabel(String label) {
-        getLabelTextElement().setTextContent(label);
+        updateLabel(label);
         return (T) this;
+    }
+
+    protected void updateLabel(String label){
+        getLabelTextElement().setTextContent(label);
     }
 
     public T setLabel(Node node) {

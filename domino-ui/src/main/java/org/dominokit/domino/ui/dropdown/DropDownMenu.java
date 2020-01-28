@@ -17,6 +17,7 @@ import org.jboss.gwt.elemento.core.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
@@ -92,10 +93,13 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         setSearchable(false);
 
         KeyboardEvents.listenOn(searchBox)
-                .setDefaultOptions(KeyboardEvents.KeyboardEventOptions.create().setPreventDefault(true))
+                .setDefaultOptions(KeyboardEvents.KeyboardEventOptions.create()
+                        .setPreventDefault(true)
+                        .setStopPropagation(true))
                 .onArrowUp(evt -> menuNavigation.focusAt(lastVisibleActionIndex()))
                 .onArrowDown(evt -> menuNavigation.focusAt(firstVisibleActionIndex()))
-                .onEscape(evt -> close());
+                .onEscape(evt -> close())
+                .onEnter(evt -> selectFirstSearchResult());
         searchBox.addEventListener("input", evt -> {
             if (searchable) {
                 doSearch();
@@ -113,6 +117,15 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
                 .onDetached(mutationRecord -> close());
 
         onDetached(mutationRecord -> closeHandlers.forEach(CloseHandler::onClose));
+    }
+
+    private void selectFirstSearchResult() {
+        List<DropdownAction> filteredAction = getFilteredAction();
+        if (!filteredAction.isEmpty()) {
+            selectAt(actions.indexOf(filteredAction.get(0)));
+            filteredAction.get(0)
+                    .select();
+        }
     }
 
     private int firstVisibleActionIndex() {
@@ -138,17 +151,20 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         boolean thereIsValues = false;
         for (DropdownAction<?> action : actions) {
             boolean contains;
+            action.setFilteredOut(false);
             if (caseSensitiveSearch) {
                 contains = action.getContent().textContent.contains(searchValue);
             } else {
                 contains = action.getContent().textContent.toLowerCase().contains(searchValue.toLowerCase());
             }
 
+            contains = contains && !action.isExcludeFromSearchResults();
+
             if (!contains) {
-                action.hide();
+                action.filter();
             } else {
                 thereIsValues = true;
-                action.show();
+                action.deFilter();
             }
         }
         if (thereIsValues) {
@@ -158,6 +174,13 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
             noSearchResultsElement.setTextContent(noMatchSearchResultText + " \"" + searchValue + "\"");
         }
         groups.forEach(DropdownActionsGroup::changeVisibility);
+    }
+
+    public List<DropdownAction> getFilteredAction() {
+        return actions
+                .stream()
+                .filter(dropdownAction -> !dropdownAction.isFilteredOut())
+                .collect(Collectors.toList());
     }
 
     private void addMenuNavigationListener() {
@@ -244,6 +267,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
                 if (searchable) {
                     searchBox.element().focus();
                     clearSearch();
+                }else{
+                    focus();
                 }
 
                 element.style().setProperty("z-index", ModalBackDrop.getNextZIndex() + 10 + "");

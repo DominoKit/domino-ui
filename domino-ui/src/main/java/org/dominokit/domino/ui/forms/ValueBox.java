@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.gwt.elemento.core.Elements.label;
+import static org.jboss.gwt.elemento.core.Elements.span;
 
 public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElement, V> extends BasicFormElement<T, V> implements
         Focusable<T>, HasPlaceHolder<T>, IsReadOnly<T>, HasChangeHandlers<T, V> {
@@ -40,6 +42,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     private FlexItem postFixItem = FlexItem.create();
 
     private DominoElement<HTMLLabelElement> labelElement = DominoElement.of(label().css("field-label"));
+    private DominoElement<HTMLElement> labelTextElement = DominoElement.of(span());
 
     private Color focusColor = Color.BLUE;
     private String placeholder;
@@ -66,7 +69,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         init((T) this);
         inputElement = DominoElement.of(createInputElement(type));
         inputElement.addEventListener("change", evt -> callChangeHandlers());
-        labelElement.setTextContent(label);
+
         layout();
         setFocusColor(focusColor);
         addFocusListeners();
@@ -244,6 +247,36 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         unfloatLabel();
         removeLabelColor(focusColor);
         hidePlaceholder();
+    }
+
+    @Override
+    protected void updateLabel(String label) {
+        if (isNull(labelTextElement)) {
+            labelTextElement = DominoElement.of(span());
+        }
+        labelTextElement.remove();
+        labelTextElement.setTextContent(label);
+        getLabelElement().appendChild(labelTextElement);
+    }
+
+    @Override
+    public DominoElement<HTMLElement> getLabelTextElement() {
+        return labelTextElement;
+    }
+
+    public T hideLabelText(){
+        this.labelTextElement.hide();
+        return (T) this;
+    }
+
+    public T showLabelText(){
+        this.labelTextElement.show();
+        return (T) this;
+    }
+
+    public T setLabelTextVisible(boolean visible){
+        this.labelTextElement.toggleDisplay(visible);
+        return (T) this;
     }
 
     @Override

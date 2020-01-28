@@ -30,6 +30,8 @@ public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, Dropdown
     private List<FocusHandler<T>> focusHandlers = new ArrayList<>();
     private boolean autoClose = true;
     private Color background;
+    private boolean filteredOut = false;
+    private boolean excludeFromSearchResults = false;
 
     public DropdownAction(T value, String displayValue) {
         this(value, displayValue, null);
@@ -158,6 +160,35 @@ public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, Dropdown
 
     public DropdownAction<T> setAutoClose(boolean autoClose) {
         this.autoClose = autoClose;
+        return this;
+    }
+
+    DropdownAction<T> filter(){
+        this.hide();
+        this.setFilteredOut(true);
+        return this;
+    }
+
+    DropdownAction<T> deFilter(){
+        this.show();
+        this.setFilteredOut(false);
+        return this;
+    }
+
+    public boolean isFilteredOut() {
+        return filteredOut;
+    }
+
+    void setFilteredOut(boolean filteredOut) {
+        this.filteredOut = filteredOut;
+    }
+
+    public boolean isExcludeFromSearchResults() {
+        return excludeFromSearchResults;
+    }
+
+    public DropdownAction<T> setExcludeFromSearchResults(boolean excludeFromSearchResults) {
+        this.excludeFromSearchResults = excludeFromSearchResults;
         return this;
     }
 

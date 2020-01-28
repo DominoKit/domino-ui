@@ -32,6 +32,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     private T value;
     private List<Selectable.SelectionHandler<SelectOption>> selectionHandlers = new ArrayList<>();
     private FlexItem checkMarkFlexItem;
+    private boolean excludeFromSearchResults = false;
 
     public SelectOption(T value, String key, String displayValue) {
         setKey(key);
@@ -167,6 +168,15 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     @Override
     public SelectOption<T> value(T value) {
         setValue(value);
+        return this;
+    }
+
+    public boolean isExcludeFromSearchResults() {
+        return excludeFromSearchResults;
+    }
+
+    public SelectOption<T> setExcludeFromSearchResults(boolean excludeFromSearchResults) {
+        this.excludeFromSearchResults = excludeFromSearchResults;
         return this;
     }
 }

@@ -1,16 +1,16 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.*;
+import elemental2.dom.Event;
+import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.gwt.elemento.core.IsElement;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static java.util.Objects.isNull;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.input;
 
 public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> implements Checkable<CheckBox> {
 
@@ -238,7 +238,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
         return new CheckBoxAutoValidator<>(this, autoValidate);
     }
 
-    private static class CheckBoxAutoValidator<T> extends AutoValidator{
+    private static class CheckBoxAutoValidator<T> extends AutoValidator {
 
         private CheckBox checkBox;
         private ChangeHandler<Boolean> changeHandler;
