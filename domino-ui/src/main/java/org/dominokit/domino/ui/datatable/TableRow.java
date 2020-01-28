@@ -7,10 +7,7 @@ import org.dominokit.domino.ui.datatable.store.DataChangedEvent;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.Selectable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.jboss.gwt.elemento.core.Elements.tr;
 
@@ -145,6 +142,10 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
         rowCells.values().forEach(RowCell::updateCell);
         this.dataTable.fireTableEvent(new RowRecordUpdatedEvent<>(this));
         this.dataTable.fireTableEvent(new TableDataUpdatedEvent<>(new ArrayList<>(dataTable.getData()), dataTable.getData().size()));
+    }
+
+    public Map<String, RowCell<T>> getRowCells() {
+        return Collections.unmodifiableMap(rowCells);
     }
 
     @FunctionalInterface
