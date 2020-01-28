@@ -12,7 +12,6 @@ public class RowCell<T> {
     private final ColumnConfig<T> columnConfig;
     private final CellRenderer.CellInfo<T> cellInfo;
 
-
     public RowCell(CellRenderer.CellInfo<T> cellInfo, ColumnConfig<T> columnConfig) {
         this.columnConfig = columnConfig;
         this.cellInfo = cellInfo;
@@ -41,5 +40,9 @@ public class RowCell<T> {
         }
 
         cellInfo.getElement().appendChild(columnConfig.getCellRenderer().asElement(cellInfo));
+    }
+
+    public CellRenderer.CellInfo<T> getCellInfo() {
+        return cellInfo;
     }
 }
