@@ -141,9 +141,6 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     private void doOpen() {
         optionsMenu.open();
         optionsMenu.styler(style -> style.setWidth(getFieldContainer().getBoundingClientRect().width + "px"));
-        if (!searchable) {
-            optionsMenu.focus();
-        }
     }
 
     public void close() {
@@ -220,6 +217,7 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 
     private DropdownAction<T> asDropDownAction(SelectOption<T> option) {
         return DropdownAction.create(option.getValue(), option.element())
+                .setExcludeFromSearchResults(option.isExcludeFromSearchResults())
                 .addSelectionHandler(value -> doSelectOption(option));
     }
 
@@ -322,29 +320,33 @@ public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
     }
 
     public Select<T> dropup() {
-        optionsMenu.appendChild(optionsMenu.getSearchContainer());
-        optionsMenu
-                .getSearchContainer()
-                .style()
-                .remove("pos-top")
-                .add("pos-bottom");
-        optionsMenu
-                .style()
-                .remove("pos-top")
-                .add("pos-bottom");
+        if(searchable) {
+            optionsMenu.appendChild(optionsMenu.getSearchContainer());
+            optionsMenu
+                    .getSearchContainer()
+                    .style()
+                    .remove("pos-top")
+                    .add("pos-bottom");
+            optionsMenu
+                    .style()
+                    .remove("pos-top")
+                    .add("pos-bottom");
+        }
         return this;
     }
 
     public Select<T> dropdown() {
-        optionsMenu.insertFirst(optionsMenu.getSearchContainer());
-        optionsMenu.getSearchContainer()
-                .style()
-                .remove("pos-bottom")
-                .add("pos-top");
-        optionsMenu
-                .style()
-                .remove("pos-bottom")
-                .add("pos-top");
+        if(searchable) {
+            optionsMenu.insertFirst(optionsMenu.getSearchContainer());
+            optionsMenu.getSearchContainer()
+                    .style()
+                    .remove("pos-bottom")
+                    .add("pos-top");
+            optionsMenu
+                    .style()
+                    .remove("pos-bottom")
+                    .add("pos-top");
+        }
         return this;
     }
 

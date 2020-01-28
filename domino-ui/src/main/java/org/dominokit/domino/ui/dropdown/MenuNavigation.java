@@ -51,6 +51,7 @@ public class MenuNavigation<V extends IsElement> implements EventListener {
     @Override
     public void handleEvent(Event evt) {
         KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
+        evt.stopPropagation();
         HTMLElement element = Js.uncheckedCast(keyboardEvent.target);
         for (V item : items) {
             if (item.element().contains(element)) {
