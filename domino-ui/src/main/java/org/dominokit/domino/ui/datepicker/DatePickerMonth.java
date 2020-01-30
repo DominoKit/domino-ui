@@ -133,7 +133,7 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     }
 
     private void update() {
-        MonthContext monthContext = new MonthContext(date.getFullYear(), date.getMonth());
+        MonthContext monthContext = new MonthContext(date.getFullYear(), date.getMonth(), date.getDate());
         fillWeekHeader();
         fillCurrentAndNextMonth(monthContext);
         fillPreviousMonth(monthContext);
@@ -158,7 +158,6 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
     }
 
     private void fillCurrentAndNextMonth(MonthContext monthContext) {
-
 
         int columnIndex = monthContext.getFirstDay() - dateTimeFormatInfo.firstDayOfTheWeek();
         if (columnIndex < 0) {
@@ -323,8 +322,6 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
         }
         informClickHandlers(datePickerElement);
     }
-
-
 
     private void select(DatePickerElement datePickerElement) {
         datePickerElement.select();
