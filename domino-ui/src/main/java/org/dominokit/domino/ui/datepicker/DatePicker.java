@@ -422,7 +422,6 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         this.yearSelect.setValue(this.selectedPickerElement.getYear(), true);
     }
 
-
     public DatePicker showHeaderPanel() {
         headerPanel.show();
         return this;
