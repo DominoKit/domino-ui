@@ -185,6 +185,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         }
         monthSelect.addSelectionHandler(option -> {
             int selectedMonth = option.getValue();
+            jsDate.setDate(DatePickerUtil.getValidMonthDate(jsDate.getFullYear(), selectedMonth, jsDate.getDate()));
             jsDate.setMonth(selectedMonth);
             setDate(jsDate);
         });
@@ -192,7 +193,6 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         Column yearColumn = Column.span5()
                 .condenced()
                 .appendChild(yearSelect.element());
-
 
         Column monthColumn = Column.span5()
                 .condenced()
@@ -391,6 +391,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     @Override
     public void onDaySelected(DatePickerElement datePickerElement) {
         this.selectedPickerElement = datePickerElement;
+        this.jsDate.setTime(datePickerElement.getDate().getTime());
         updatePicker();
         publish();
     }
