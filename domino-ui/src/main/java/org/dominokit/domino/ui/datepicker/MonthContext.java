@@ -12,13 +12,18 @@ public class MonthContext {
     private final int firstDay;
 
     public MonthContext(int year, int month) {
-        JsDate jsDate = new JsDate(year, month);
+        this(year, month, new JsDate().getDate());
+    }
+    public MonthContext(int year, int month, int date) {
+
+        JsDate jsDate = new JsDate(year, month, DatePickerUtil.getValidMonthDate(year, month, date));
+
         this.year = jsDate.getFullYear();
         this.month = jsDate.getMonth();
         this.date = jsDate.getDate();
         this.day = jsDate.getDay();
-        JsDate jsDateCalc = new JsDate(year, month, 32);
-        this.days = (32 - (jsDateCalc.getDate()));
+        this.days = DatePickerUtil.getMonthDays(year, month);
+
         this.firstDay = new JsDate(year, month, 1).getDay();
     }
 
@@ -33,7 +38,7 @@ public class MonthContext {
     }
 
     public MonthContext getMonthBefore() {
-        return new MonthContext(month==0?year-1:year, month==0?11:(month-1));
+        return new MonthContext(month == 0 ? year - 1 : year, month == 0 ? 11 : (month - 1));
     }
 
     public int getYear() {
