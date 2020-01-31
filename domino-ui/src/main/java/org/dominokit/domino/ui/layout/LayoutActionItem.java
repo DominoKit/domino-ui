@@ -7,11 +7,11 @@ import elemental2.dom.Node;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
+import org.jboss.elemento.IsElement;
+import org.jboss.elemento.HtmlContentBuilder;
 
-import static org.jboss.gwt.elemento.core.Elements.a;
-import static org.jboss.gwt.elemento.core.Elements.li;
+import static org.jboss.elemento.Elements.a;
+import static org.jboss.elemento.Elements.li;
 
 public class LayoutActionItem extends BaseDominoElement<HTMLLIElement, LayoutActionItem> {
     private HtmlContentBuilder<HTMLAnchorElement> anchorElement = a().css("js-right-sidebar");

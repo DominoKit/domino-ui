@@ -8,16 +8,16 @@ import org.dominokit.domino.ui.themes.Theme;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.input;
-import static org.jboss.gwt.elemento.core.Elements.*;
-import static org.jboss.gwt.elemento.core.EventType.input;
-import static org.jboss.gwt.elemento.core.EventType.*;
+import static org.jboss.elemento.Elements.input;
+import static org.jboss.elemento.Elements.*;
+import static org.jboss.elemento.EventType.input;
+import static org.jboss.elemento.EventType.*;
 
 public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> implements HasChangeHandlers<Slider, Double> {
 

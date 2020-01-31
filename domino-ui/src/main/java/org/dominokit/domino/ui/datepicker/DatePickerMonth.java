@@ -11,8 +11,8 @@ import org.dominokit.domino.ui.utils.HasSelectSupport;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.dominokit.domino.ui.utils.TextUtil;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
-import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
+import org.jboss.elemento.IsElement;
+import org.jboss.elemento.HtmlContentBuilder;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,7 +21,7 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datepicker.DatePickerElement.createDayElement;
 import static org.dominokit.domino.ui.datepicker.DatePickerElement.createDayHeader;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupport<DatePickerElement>,
         HasValue<DatePickerMonth, Date>, DatePickerElement.SelectionHandler, TakesValue<Date> {

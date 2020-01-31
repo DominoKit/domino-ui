@@ -21,8 +21,8 @@ import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
-import static org.jboss.gwt.elemento.core.Elements.button;
-import static org.jboss.gwt.elemento.core.Elements.span;
+import static org.jboss.elemento.Elements.button;
+import static org.jboss.elemento.Elements.span;
 
 public class Select<T> extends AbstractValueBox<Select<T>, HTMLElement, T> {
 

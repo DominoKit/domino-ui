@@ -15,7 +15,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.steppers.StepperStyles.horizontal;
 import static org.dominokit.domino.ui.steppers.StepperStyles.stepper;
-import static org.jboss.gwt.elemento.core.Elements.ul;
+import static org.jboss.elemento.Elements.ul;
 
 public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
 

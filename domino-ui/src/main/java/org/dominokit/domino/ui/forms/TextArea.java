@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLTextAreaElement;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
-import org.jboss.gwt.elemento.core.Elements;
+import org.jboss.elemento.Elements;
 
 import static java.util.Objects.nonNull;
 

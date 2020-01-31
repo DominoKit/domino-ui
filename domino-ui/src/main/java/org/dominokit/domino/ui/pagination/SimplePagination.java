@@ -6,8 +6,8 @@ import org.dominokit.domino.ui.utils.DominoElement;
 
 import java.util.stream.IntStream;
 
-import static org.jboss.gwt.elemento.core.Elements.a;
-import static org.jboss.gwt.elemento.core.Elements.li;
+import static org.jboss.elemento.Elements.a;
+import static org.jboss.elemento.Elements.li;
 
 public class SimplePagination extends BasePagination<SimplePagination> {
 

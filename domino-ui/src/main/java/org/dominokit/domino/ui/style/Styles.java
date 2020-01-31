@@ -1,8 +1,8 @@
 package org.dominokit.domino.ui.style;
 
 import elemental2.dom.HTMLHeadingElement;
-import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
+import org.jboss.elemento.Elements;
+import org.jboss.elemento.HtmlContentBuilder;
 
 public class Styles {
 

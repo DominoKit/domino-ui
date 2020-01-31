@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.div;
 
 public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
 

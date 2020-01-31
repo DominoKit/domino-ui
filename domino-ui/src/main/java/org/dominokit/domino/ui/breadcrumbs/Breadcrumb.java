@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.ol;
+import static org.jboss.elemento.Elements.ol;
 
 public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb> implements HasBackground<Breadcrumb> {
 

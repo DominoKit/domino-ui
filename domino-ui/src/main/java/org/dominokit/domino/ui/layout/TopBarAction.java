@@ -6,8 +6,8 @@ import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-import static org.jboss.gwt.elemento.core.Elements.a;
-import static org.jboss.gwt.elemento.core.Elements.li;
+import static org.jboss.elemento.Elements.a;
+import static org.jboss.elemento.Elements.li;
 
 public class TopBarAction extends BaseDominoElement<HTMLLIElement, TopBarAction> {
 

@@ -8,8 +8,8 @@ import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
-import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.EventType;
+import org.jboss.elemento.IsElement;
 
 import java.util.*;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implements ParentTreeItem<TreeItem<T>>, CanActivate, CanDeactivate, HasClickableElement {
 

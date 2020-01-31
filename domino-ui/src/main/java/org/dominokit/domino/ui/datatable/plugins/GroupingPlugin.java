@@ -22,8 +22,8 @@ import java.util.function.Supplier;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
-import static org.jboss.gwt.elemento.core.Elements.td;
-import static org.jboss.gwt.elemento.core.Elements.tr;
+import static org.jboss.elemento.Elements.td;
+import static org.jboss.elemento.Elements.tr;
 
 public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowAppender<T> {
 

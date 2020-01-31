@@ -12,7 +12,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 
 import javax.annotation.PostConstruct;
 
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar> {
     private final FlexItem menuToggleItem;

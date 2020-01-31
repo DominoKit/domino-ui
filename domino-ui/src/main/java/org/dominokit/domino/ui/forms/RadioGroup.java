@@ -5,8 +5,8 @@ import elemental2.dom.HTMLLabelElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.grid.flex.FlexDirection;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
-import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.Elements;
+import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
 import java.util.Collections;

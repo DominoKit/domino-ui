@@ -2,7 +2,7 @@ package org.dominokit.domino.ui.datatable.plugins;
 
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableRow;
-import org.jboss.gwt.elemento.core.EventType;
+import org.jboss.elemento.EventType;
 
 public class DoubleClickPlugin<T> implements DataTablePlugin<T> {
 
