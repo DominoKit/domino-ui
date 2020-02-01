@@ -193,7 +193,7 @@
     z-index: 10;
 }
 
-.field-group.rounded.floating:not([class*="switch"]):not([class*="d-checkbox"]) .field-label:not(:empty):after {
+.field-group.rounded.floating:not([class*="switch"]):not([class*="d-checkbox"]) .field-label span:not(:empty):after {
     content: "";
     background-color: #FFFFFF;
     position: absolute;
