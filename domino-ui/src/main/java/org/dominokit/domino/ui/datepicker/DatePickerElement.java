@@ -137,7 +137,16 @@ class DatePickerElement implements Selectable<DatePickerElement> {
     }
 
     public JsDate getDate() {
-        JsDate jsDate = new JsDate(year, month, DatePickerUtil.getValidMonthDate(year, month, day));
+        JsDate tempDate = new JsDate();
+        JsDate jsDate = new JsDate(
+                year,
+                month,
+                DatePickerUtil.getValidMonthDate(year, month, day),
+                tempDate.getHours(),
+                tempDate.getMinutes(),
+                tempDate.getSeconds(),
+                tempDate.getMilliseconds()
+        );
         return jsDate;
     }
 
