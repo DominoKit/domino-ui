@@ -1,0 +1,452 @@
+/* Modals ====================================== */
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+}
+
+.fade.in {
+    opacity: 1;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+.modal-open {
+    overflow: hidden;
+}
+
+.modal {
+    position: fixed;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}
+
+.modal.fade .modal-dialog {
+    -webkit-transition: -webkit-transform .3s ease-out;
+    -o-transition: -o-transform .3s ease-out;
+    transition: transform .3s ease-out;
+    -webkit-transform: translate(0, -25%);
+    -ms-transform: translate(0, -25%);
+    -o-transform: translate(0, -25%);
+    transform: translate(0, -25%);
+}
+
+.modal.in .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.modal-dialog {
+    position: relative;
+    width: auto;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 6px;
+    outline: 0;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000;
+}
+
+.modal-backdrop.fade {
+    filter: alpha(opacity=0);
+    opacity: 0;
+}
+
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+
+.modal-header {
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-header .close {
+    margin-top: -2px;
+}
+
+.modal-title {
+    margin: 0;
+    line-height: 1.42857143;
+}
+
+.modal-body {
+    position: relative;
+    padding: 15px;
+}
+
+.modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+
+.modal-footer .btn + .btn {
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+
+.modal-footer .btn-group .btn + .btn {
+    margin-left: -1px;
+}
+
+.modal-footer .btn-block + .btn-block {
+    margin-left: 0;
+}
+
+.modal-scrollbar-measure {
+    position: absolute;
+    top: -9999px;
+    width: 50px;
+    height: 50px;
+    overflow: scroll;
+}
+
+@media (min-width: 768px) {
+    .modal-dialog {
+        margin: 0px auto;
+    }
+
+    .modal-content {
+        -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    }
+
+    .modal-sm {
+    }
+
+    .modal-alert {
+        width: 500px;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-lg {
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .modal {
+        margin-left: 30%;
+        margin-right: 30%;
+        margin-top: 30px;
+        width: 40%;
+    }
+
+    .modal:not([class*="-sheet"]) {
+        top: 30px;
+    }
+
+    .modal.modal-lg {
+        margin-left: 20%;
+        margin-right: 20%;
+        margin-top: 30px;
+        width: 60%;
+    }
+
+    .modal.modal-sm {
+        margin-left: 40%;
+        margin-right: 40%;
+        margin-top: 30px;
+        width: 20%;
+    }
+
+    .modal.bottom-sheet {
+        margin: 0px;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .modal.top-sheet {
+        margin: 0px;
+        top: 0;
+        width: 100%;
+    }
+
+    .modal.left-sheet {
+        margin: 0px;
+        left: 0;
+        top: 0px;
+        width: 30%;
+    }
+
+    .modal.modal-lg.left-sheet {
+        width: 50%;
+    }
+
+    .modal.modal-sm.left-sheet {
+        width: 20%;
+    }
+
+    .modal.left-sheet .modal-content {
+        height: 100%;
+    }
+
+    .modal.right-sheet {
+        margin: 0px;
+        right: 0;
+        top: 0px;
+        width: 30%;
+    }
+
+    .modal.modal-lg.right-sheet {
+        width: 50%;
+    }
+
+    .modal.modal-sm.right-sheet {
+        width: 20%;
+    }
+
+    .modal.right-sheet .modal-content {
+        height: 100%;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+
+    .modal {
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 30px;
+        width: 90%;
+    }
+
+    .modal:not([class*="-sheet"]) {
+        top: 30px;
+    }
+
+    .modal.modal-lg {
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 30px;
+        width: 90%;
+    }
+
+    .modal.modal-sm {
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 30px;
+        width: 90%;
+    }
+
+    .modal.bottom-sheet {
+        margin: 0px;
+        bottom: 0;
+    }
+
+    .modal.top-sheet {
+        margin: 0px;
+        top: 0;
+        width: 100%;
+    }
+
+    .modal.left-sheet {
+        margin: 0px;
+        left: 0;
+        top: 0px;
+        width: 90%;
+    }
+
+    .modal.modal-lg.left-sheet {
+        width: 90%;
+    }
+
+    .modal.modal-sm.left-sheet {
+        width: 90%;
+    }
+
+    .modal.left-sheet .modal-content {
+        height: 100%;
+    }
+
+    .modal.right-sheet {
+        margin: 0px;
+        right: 0;
+        top: 0px;
+        width: 90%;
+    }
+
+    .modal.modal-lg.right-sheet {
+        width: 90%;
+    }
+
+    .modal.modal-sm.right-sheet {
+        width: 90%;
+    }
+
+    .modal.right-sheet .modal-content {
+        height: 100%;
+    }
+
+    .modal.picker-modal {
+        margin-top: 0px;
+        top: 5px;
+    }
+}
+
+.modal-header:before,
+.modal-header:after,
+.modal-footer:before,
+.modal-footer:after {
+    display: table;
+    content: " ";
+}
+
+.modal-header:after,
+.modal-footer:after {
+    clear: both;
+}
+
+
+.modal .modal-header {
+    border: none;
+    padding: 25px 25px 25px 25px;
+}
+
+.modal .modal-header .modal-title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.modal .modal-content {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    border-radius: 0;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.31) !important;
+    border: none;
+}
+
+.modal .modal-content .modal-body {
+    color: #777;
+    padding: 15px 25px 15px 25px;
+}
+
+.modal .modal-footer {
+    border: none;
+}
+
+.modal-content[class*="col-"] .modal-footer,
+.modal-content[class*="col-"] .modal-footer .btn-link:hover,
+.modal-content[class*="col-"] .modal-footer .btn-link:active,
+.modal-content[class*="col-"] .modal-footer .btn-link:focus {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+.modal.picker-modal {
+    min-width: 275px;
+    width: 275px;
+    margin-left: calc(50% - 137.5px);
+}
+
+.modal.picker-modal .modal-content,
+.modal.picker-modal .modal-dialog {
+    width: 275px;
+}
+
+.modal.picker-modal .modal-header {
+    display: none;
+}
+
+.modal.picker-modal .modal-body,
+.modal.picker-modal .modal-footer {
+    padding: 0px;
+}
+
+.picker-modal-header {
+    padding: 5px !important;
+    text-align: center !important;
+}
+
+.modal.window {
+    border-radius: 4px;
+    margin: auto;
+    position: absolute;
+    top: 100px;
+}
+
+.modal.window.fixed {
+    position: fixed;
+}
+
+.modal.window.maximized {
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+}
+
+.modal.window.maximized .modal-dialog,
+.modal.window.maximized .modal-dialog .modal-content {
+    height: 100%
+}
+
+.modal.window .modal-dialog .modal-content {
+    border-radius: 4px;
+}
+
+.modal.window .modal-dialog .modal-content .modal-header {
+    padding: 5px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.modal-open .modal.right-sheet,
+.modal-open .modal.left-sheet {
+    height: calc(100vh);
+    overflow-y: hidden;
+}
+
+.modal.right-sheet .modal-body,
+.modal.left-sheet .modal-body {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.modal.left-sheet .modal-dialog,
+.modal.right-sheet .modal-dialog  {
+    height: 100%;
+}
+
+.modal.left-sheet .modal-dialog .modal-content,
+.modal.right-sheet .modal-dialog .modal-content {
+    display: flex;
+    flex-flow: column;
+}
+
+.modal.left-sheet .modal-dialog .modal-content .modal-body,
+.modal.right-sheet .modal-dialog .modal-content .modal-body{
+    flex-grow: 1;
+}

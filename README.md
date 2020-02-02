@@ -1,4 +1,4 @@
-<a title="Gitter" href="https://gitter.im/domino-gwt/domino-ui"><img src="https://badges.gitter.im/Join%20Chat.svg"></a>
+<a title="Gitter" href="https://gitter.im/DominoKit/domino"><img src="https://badges.gitter.im/Join%20Chat.svg"></a>
 [![Build Status](https://travis-ci.org/DominoKit/domino-ui.svg?branch=master)](https://travis-ci.org/DominoKit/domino-ui)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.dominokit/domino-ui/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.dominokit/domino-ui)
 ![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/oss.sonatype.org/org.dominokit/domino-ui.svg)
@@ -99,20 +99,22 @@ Add the following css files to your index page:
 - [x] Advanced Select
 - [ ] Multi-Select
 - [x] Tag field
-- [ ] Spinners
+- [x] Spinners
 - [ ] Field masking
 - [x] Simple grids - Table based -
 - [x] Form wizards / Steppers
 - [x] Carousel
 - [x] Sliders
+- [x] Chips
+- [x] Tree
 
 ### Third Party libs and tools integration
 
 - [ ] make sure that domino-ui can be used with other third party tools and libs, this might indicate a standarized API and split between the builders and actual element class.
 
 Sample of third party tools and frameworks:
-- Editors framework.
-- UI Binder
+- [x] Editors framework.
+- [ ] UI Binder
 
 ### Restructure CSS and Theming
 
@@ -140,26 +142,26 @@ Sample of third party tools and frameworks:
 
 DomGlobal.document.body.appendChild(Row.create()
         .addColumn(Column.span4()
-                .addElement(Card.create("CARD TITLE", "Card description")
-                        .appendContent(Paragraph.create("I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe")
-                                .asElement())
+                .appendChild(Card.create("CARD TITLE", "Card description")
+                        .appendChild(Paragraph.create("I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe")
+                                .element())
                         .setHeaderBackground(Color.BLUE)
                         .setBodyBackground(Color.LIGHT_BLUE)
-                        .asElement()))
+                        .element()))
         .addColumn(Column.span4()
-                .addElement(Card.create("CARD TITLE", "Card description")
-                        .appendContent(Paragraph.create("I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe")
-                                .asElement())
+                .appendChild(Card.create("CARD TITLE", "Card description")
+                        .appendChild(Paragraph.create("I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe")
+                                .element())
                         .setHeaderBackground(Color.GREEN)
                         .setBodyBackground(Color.LIGHT_GREEN)
-                        .asElement()))
+                        .element()))
         .addColumn(Column.span4()
-                .addElement(Card.create("CARD TITLE", "Card description")
-                        .appendContent(Paragraph.create("I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe")
-                                .asElement())
+                .appendChild(Card.create("CARD TITLE", "Card description")
+                        .appendChild(Paragraph.create("I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe")
+                                .element())
                         .setHeaderBackground(Color.ORANGE)
                         .setBodyBackground(Color.AMBER)
-                        .asElement()))
-        .asElement());
+                        .element()))
+        .element());
 ```
 ![Imgur](https://i.imgur.com/xaUJXi9.png)

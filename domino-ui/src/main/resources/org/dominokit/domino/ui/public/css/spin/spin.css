@@ -1,0 +1,110 @@
+/* =========================== Horizontal spin ======================== */
+.h-spin {
+    position: relative;
+    width: calc(100% - 80px);
+    margin-left: 40px;
+}
+
+.h-spin .prev {
+    position: absolute;
+    top: calc(50% - 16px);
+    left: -40px;
+}
+
+.h-spin .prev.disabled i {
+    opacity: 0.3;
+    cursor: not-allowed !important;
+}
+
+.h-spin .next {
+    position: absolute;
+    top: calc(50% - 16px);
+    right: -40px;
+}
+
+.h-spin .next.disabled i {
+    opacity: 0.3;
+    cursor: not-allowed !important;
+}
+
+.h-spin .spin-item {
+    position: relative;
+    display: block;
+    float: left;
+}
+
+.h-spin .spin-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.h-spin .spin-content {
+    transition: transform 300ms ease;
+}
+
+.h-spin .spin-content::before {
+    display: table;
+    content: '';
+}
+
+.h-spin .spin-content::after {
+    display: table;
+    content: '';
+}
+
+/*========================= VSPIN ======================== */
+
+.v-spin {
+    position: relative;
+    min-height: 50px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.v-spin .prev {
+    position: absolute;
+    left: calc(50% - 16px);
+    top: -40px;
+}
+
+.v-spin .prev.disabled i {
+    opacity: 0.3;
+    cursor: not-allowed !important;
+}
+
+.v-spin .next {
+    position: absolute;
+    left: calc(50% - 16px);
+    margin-top: 10px;
+}
+
+.v-spin .next.disabled i {
+    opacity: 0.3;
+    cursor: not-allowed !important;
+}
+
+.v-spin .spin-item {
+    position: relative;
+    display: block;
+}
+
+.v-spin .spin-container {
+    position: relative;
+    overflow: hidden;
+    overflow: -moz-hidden-unscrollable;
+    height: 100%;
+}
+
+.v-spin .spin-content {
+    transition: transform 300ms ease;
+}
+
+.v-spin .spin-content::before {
+    display: table;
+    content: '';
+}
+
+.v-spin .spin-content::after {
+    display: table;
+    content: '';
+}

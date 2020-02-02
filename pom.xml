@@ -4,11 +4,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.dominokit</groupId>
-    <artifactId>domino-ui</artifactId>
+    <artifactId>domino-ui-parent</artifactId>
     <version>1.0-j2cl-SNAPSHOT</version>
-    <packaging>gwt-lib</packaging>
+    <packaging>pom</packaging>
     <url>https://github.com/DominoKit/domino</url>
-    <description>Domino parent</description>
+    <name>domino-ui-parent</name>
+    <description>Domino ui parent</description>
+
+    <modules>
+        <module>domino-ui</module>
+        <module>domino-ui-shared</module>
+        <module>domino-ui-tools</module>
+    </modules>
 
     <licenses>
         <license>
@@ -55,7 +62,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <elemento.version>0.8.5</elemento.version>
+        <elemento.version>0.9.6</elemento.version>
         <gwt.version>2.8.2</gwt.version>
     </properties>
 
@@ -64,34 +71,16 @@
             <groupId>org.gwtproject.timer</groupId>
             <artifactId>gwt-timer</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss.gwt.elemento</groupId>
             <artifactId>elemento-core</artifactId>
             <version>${elemento.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss.gwt.elemento</groupId>
             <artifactId>elemento-template-api</artifactId>
             <version>${elemento.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss.gwt.elemento</groupId>
@@ -100,108 +89,37 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.gwtproject</groupId>
-            <artifactId>editors</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.gwtproject</groupId>
-            <artifactId>editors</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.gwtproject</groupId>
-            <artifactId>editors-processor</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.gwtproject.i18n</groupId>
             <artifactId>gwt-cldr</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.gwtproject.i18n</groupId>
             <artifactId>gwt-cldr</artifactId>
             <version>1.0-SNAPSHOT</version>
             <classifier>sources</classifier>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.gwtproject.i18n</groupId>
             <artifactId>gwt-datetimeformat</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.gwtproject.i18n</groupId>
             <artifactId>gwt-datetimeformat</artifactId>
             <version>1.0-SNAPSHOT</version>
             <classifier>sources</classifier>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.google.elemental2</groupId>
             <artifactId>elemental2-svg</artifactId>
             <version>1.0.0-RC1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.google.elemental2</groupId>
             <artifactId>elemental2-svg</artifactId>
             <version>1.0.0-RC1</version>
             <classifier>sources</classifier>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.google.jsinterop</groupId>
-            <artifactId>base</artifactId>
-            <version>1.0.0-RC1</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -219,16 +137,18 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.7.0</version>
+                    <configuration>
+                        <showWarnings>true</showWarnings>
+                        <compilerArgs>
+                            <arg>-Adebug=true</arg>
+                        </compilerArgs>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>net.ltgt.gwt.maven</groupId>
                     <artifactId>gwt-maven-plugin</artifactId>
-                    <version>1.0-rc-9</version>
+                    <version>1.0-rc-10</version>
                     <extensions>true</extensions>
-                    <configuration>
-                        <moduleName>org.dominokit.domino.ui.DominoUI</moduleName>
-                        <moduleShortName>dominoui</moduleShortName>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -303,10 +223,6 @@
                         <artifactId>maven-compiler-plugin</artifactId>
                     </plugin>
                     <plugin>
-                        <groupId>net.ltgt.gwt.maven</groupId>
-                        <artifactId>gwt-maven-plugin</artifactId>
-                    </plugin>
-                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
                     </plugin>
@@ -336,10 +252,6 @@
                         <artifactId>maven-compiler-plugin</artifactId>
                     </plugin>
                     <plugin>
-                        <groupId>net.ltgt.gwt.maven</groupId>
-                        <artifactId>gwt-maven-plugin</artifactId>
-                    </plugin>
-                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
                     </plugin>
@@ -362,16 +274,6 @@
 
     <repositories>
         <repository>
-            <id>vertispan-snapshots</id>
-            <name>Vertispan Snapshots</name>
-            <url>https://repo.vertispan.com/gwt-snapshot/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </snapshots>
-        </repository>
-        <repository>
             <id>sonatype-snapshots-repo</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
             <snapshots>
@@ -379,6 +281,11 @@
                 <updatePolicy>always</updatePolicy>
                 <checksumPolicy>fail</checksumPolicy>
             </snapshots>
+        </repository>
+        <repository>
+            <id>vertispan-snapshots</id>
+            <name>Vertispan Snapshots</name>
+            <url>https://repo.vertispan.com/gwt-snapshot/</url>
         </repository>
     </repositories>
 </project>

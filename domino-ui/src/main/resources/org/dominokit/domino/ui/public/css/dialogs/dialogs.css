@@ -1,0 +1,16 @@
+.message-dialog .modal-content,
+.message-dialog .modal-footer {
+    text-align: center;
+}
+
+.message-dialog .dialog-button{
+    min-width: 120px;
+}
+
+.message-icon {
+    margin-bottom: 15px;
+    font-size: 72px;
+    border-radius: 50%;
+    height: 78px;
+    width: 78px;
+}

@@ -1,0 +1,301 @@
+/* ================ tabs ====================================*/
+
+.nav-tabs > li {
+    float: left;
+    margin-bottom: -1px;
+}
+
+.nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+
+.nav-tabs > li > a:hover {
+    border-color: #eee #eee #ddd;
+}
+
+.nav-tabs.nav-justified {
+    width: 100%;
+    border-bottom: 0;
+}
+
+.nav-tabs.nav-justified > li {
+    float: none;
+}
+
+.nav-tabs.nav-justified > li > a {
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .nav-tabs.nav-justified > li {
+        display: table-cell;
+        width: 1%;
+    }
+
+    .nav-tabs.nav-justified > li > a {
+        margin-bottom: 0;
+    }
+}
+
+.nav-tabs.nav-justified > li > a {
+    margin-right: 0;
+    border-radius: 4px;
+}
+
+.nav-tabs.nav-justified > .active > a,
+.nav-tabs.nav-justified > .active > a:hover,
+.nav-tabs.nav-justified > .active > a:focus {
+    border: 1px solid #ddd;
+}
+
+@media (min-width: 768px) {
+    .nav-tabs.nav-justified > li > a {
+        border-bottom: 1px solid #ddd;
+        border-radius: 4px 4px 0 0;
+    }
+
+    .nav-tabs.nav-justified > .active > a,
+    .nav-tabs.nav-justified > .active > a:hover,
+    .nav-tabs.nav-justified > .active > a:focus {
+        border-bottom-color: #fff;
+    }
+}
+
+@media (min-width: 768px) {
+    .nav-tabs-justified > li > a {
+        border-bottom: 1px solid #ddd;
+        border-radius: 4px 4px 0 0;
+    }
+
+    .nav-tabs-justified > .active > a,
+    .nav-tabs-justified > .active > a:hover,
+    .nav-tabs-justified > .active > a:focus {
+        border-bottom-color: #fff;
+    }
+}
+
+.tab-content > .tab-pane {
+    display: none;
+}
+
+.tab-content > .active {
+    display: block;
+}
+
+/* ================ vertical tabs =========================== */
+.vtabs-panel .tabs {
+    height: 100%;
+}
+
+.vtabs-panel .tabs-container {
+    height: 100%;
+}
+
+.vtabs {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+.vtabs .list {
+    list-style: none;
+    padding-left: 0;
+    height: 100%;
+
+}
+
+.vtabs .list li {
+    border-right: 2px solid transparent;
+}
+
+.vtabs .list i.material-icons {
+    width: 24px;
+}
+
+.vtabs.text-below .list i.material-icons,
+.vtabs.text-below .list i.mdi {
+    margin-left: 8px;
+}
+
+.vtabs.text-below .list a {
+    display: inline-block;
+}
+
+.vtabs.text-below .list a div {
+    text-align: center;
+}
+
+.vtabs .list a {
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+    width: 100%;
+    padding: 10px 10px 10px 0px;
+}
+
+.vtabs .list a:hover, .menu .list a:active, .menu .list a:focus {
+    text-decoration: none !important;
+}
+
+.vtabs .list a small {
+    position: absolute;
+    top: calc(50% - 7.5px);
+    right: 15px;
+}
+
+.vtabs .list a .title {
+    margin: 2px 0px 0px 12px;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.vtabs .tree-leaf a .title {
+    font-weight: 500;
+}
+
+.vtabs .list .ml-tree {
+    list-style: none;
+    padding-left: 0;
+}
+
+.vtabs .list .ml-tree li a {
+    padding-left: 32px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.vtabs .list .ml-tree li.active a.toggled:not(.tree-toggle) {
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.vtabs .list .ml-tree li .ml-tree li a {
+    padding-left: 57px;
+}
+
+.vtabs .list .ml-tree li .ml-tree .ml-tree li a {
+    padding-left: 95px;
+}
+
+.vtabs .flex-item a {
+    border-right: 2px solid transparent;
+}
+
+.right-sidebar .nav-tabs + .tab-content {
+    padding: 0;
+}
+
+/*======================= */
+
+/* Nav Tabs ==================================== */
+.nav-tabs {
+    border-bottom: 1px solid #eee;
+}
+
+.nav-tabs > li {
+    position: relative;
+}
+
+.nav-tabs > li > a {
+    border: none !important;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+
+.nav-tabs > li > a:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 0;
+    border-bottom: 2px solid #2196F3;
+    bottom: 1px;
+    -moz-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    -o-transform: scaleX(0);
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -moz-transition: 0.1s ease-in;
+    -o-transition: 0.1s ease-in;
+    -webkit-transition: 0.1s ease-in;
+    transition: 0.1s ease-in;
+}
+
+.nav-tabs > li > a .material-icons {
+    position: relative;
+    top: 6px;
+    width: 24px;
+}
+
+.nav-tabs > li > a .mdi {
+    position: relative;
+    top: 3px;
+    width: 24px;
+    height: 24px;
+}
+
+.nav-tabs > li > a .mdi:before {
+    line-height: 30px;
+}
+
+.nav-tabs > li > a span {
+    line-height: 36px;
+    margin-left: 5px;
+}
+
+.nav-tabs > li > a .clickable-icon {
+    padding-top: 0px;
+    margin-left: 5px;
+    margin-top: 2px;
+}
+
+.nav-tabs > li > a .clickable-icon::before {
+    line-height: 26px;
+}
+
+.nav-tabs li.active a:before {
+    -moz-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    -o-transform: scaleX(1);
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+
+.nav-tabs + .tab-content {
+    padding: 15px 0;
+}
+
+.tabs-content {
+    border-left: 1px solid #cecece;
+}
+
+.layout .sidebar .vtabs-panel .tabs-content {
+    display: none;
+}
+.layout .sidebar .vtabs-panel .tabs{
+    width: 100%;
+}
+
+.layout .sidebar .vtabs-panel .vtabs .flex-item a {
+    padding: 22px 0;
+}
+
+.layout .sidebar .vtabs-panel .vtabs .flex-item a .title {
+    font-size: 15px;
+    margin: 0;
+}
+
+.layout .sidebar .vtabs-panel .vtabs .flex-item a i {
+    margin: 0;
+}
+
+.layout .sidebar .vtabs-panel .tabs-content {
+    border-left: 0;
+}
