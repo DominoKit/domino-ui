@@ -15,7 +15,7 @@ import java.util.Map;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<T, HTMLInputElement, String> {
     private HTMLElement suggestionsDataList = datalist().element();

@@ -2,11 +2,11 @@ package org.dominokit.domino.ui.code;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLPreElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.code;
-import static org.jboss.gwt.elemento.core.Elements.pre;
+import static org.jboss.elemento.Elements.code;
+import static org.jboss.elemento.Elements.pre;
 
 public class Code{
 

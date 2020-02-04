@@ -6,7 +6,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 import static org.dominokit.domino.ui.carousel.CarouselStyles.*;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 

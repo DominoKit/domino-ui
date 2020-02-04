@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.icons;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.img;
+import static org.jboss.elemento.Elements.img;
 
 public class UrlIcon extends BaseIcon<UrlIcon> {
 

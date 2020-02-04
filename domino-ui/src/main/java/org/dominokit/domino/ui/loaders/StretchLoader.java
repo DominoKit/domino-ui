@@ -4,10 +4,10 @@ import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.div;
 
 public class StretchLoader extends BaseLoader<StretchLoader> implements IsElement<HTMLDivElement> {
 

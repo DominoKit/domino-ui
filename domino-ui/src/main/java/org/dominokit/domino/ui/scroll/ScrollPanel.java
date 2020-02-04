@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.scroll;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.div;
 
 public class ScrollPanel extends BaseDominoElement<HTMLDivElement, ScrollPanel> {
 

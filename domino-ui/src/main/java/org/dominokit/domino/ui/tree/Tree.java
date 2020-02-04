@@ -1,26 +1,28 @@
 package org.dominokit.domino.ui.tree;
 
-import elemental2.dom.*;
-import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.search.Search;
-import org.dominokit.domino.ui.style.*;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ParentTreeItem;
-import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
-
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import elemental2.dom.CSSProperties;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLLIElement;
+import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.search.Search;
+import org.dominokit.domino.ui.style.ColorScheme;
+import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.Unit;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ParentTreeItem;
+import org.jboss.elemento.IsElement;
+
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implements ParentTreeItem<TreeItem<T>>, IsElement<HTMLDivElement> {
 

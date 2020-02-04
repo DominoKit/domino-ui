@@ -9,14 +9,14 @@ import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.tabs.TabStyles.*;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> implements HasClickableElement {
 

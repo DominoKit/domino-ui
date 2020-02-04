@@ -11,13 +11,13 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.*;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.jboss.gwt.elemento.core.Elements.span;
+import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.Elements.span;
 
 public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOption<T>> implements HasValue<SelectOption, T>,
         HasBackground<SelectOption>, Selectable<SelectOption>, TakesValue<T> {

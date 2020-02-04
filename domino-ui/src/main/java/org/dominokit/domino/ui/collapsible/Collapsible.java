@@ -4,7 +4,7 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.IsCollapsible;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;

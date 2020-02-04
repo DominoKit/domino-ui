@@ -6,16 +6,16 @@ import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.*;
-import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.EventType;
+import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
-import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.jboss.gwt.elemento.core.Elements.h;
+import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.Elements.h;
 
 public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implements Switchable<Popover> {
 

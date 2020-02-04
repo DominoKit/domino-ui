@@ -1,6 +1,18 @@
 package org.dominokit.domino.ui.modals;
 
-import elemental2.dom.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import elemental2.dom.DomGlobal;
+import elemental2.dom.Element;
+import elemental2.dom.Event;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLHeadingElement;
+import elemental2.dom.KeyboardEvent;
+import elemental2.dom.Node;
+import elemental2.dom.NodeList;
+import elemental2.dom.Text;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
@@ -9,47 +21,54 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoDom;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Switchable;
-import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import org.jboss.elemento.EventType;
+import org.jboss.elemento.IsElement;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
+import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.Elements.h;
+import static org.jboss.elemento.Elements.setVisible;
 
-public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends BaseDominoElement<HTMLDivElement, T> implements IsModalDialog<T>, Switchable<T> {
+public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends BaseDominoElement<HTMLDivElement, T>
+        implements IsModalDialog<T>, Switchable<T> {
 
     private List<OpenHandler> openHandlers = new ArrayList<>();
     private List<CloseHandler> closeHandlers = new ArrayList<>();
     static int Z_INDEX = 1040;
 
-    @Templated
-    public static abstract class Modal implements IsElement<HTMLDivElement> {
+    public static class Modal implements IsElement<HTMLDivElement> {
 
-        @DataElement
-        HTMLDivElement modalHeader;
+        private final HTMLDivElement root;
+        private final HTMLDivElement modalDialog;
+        private final HTMLDivElement modalHeader;
+        private final HTMLHeadingElement modalTitle;
+        private final HTMLDivElement modalBody;
+        private final HTMLDivElement modalContent;
+        private final HTMLDivElement modalFooter;
 
-        @DataElement
-        HTMLHeadingElement modalTitle;
+        public Modal() {
+            this.root = div().css("model", "fade")
+                    .apply(e -> e.tabIndex = -1)
+                    .attr("role", "dialog")
+                    .add(modalDialog = div().css("modal-dialog")
+                            .apply(e -> e.tabIndex = -1)
+                            .attr("role", "document")
+                            .add(modalContent = div().css("modal-content")
+                                    .add(modalHeader = div().css("modal-header")
+                                            .add(modalTitle = h(4).css("modal-title").element())
+                                            .element())
+                                    .add(modalBody = div().css("modal-body").element())
+                                    .add(modalFooter = div().css("modal-footer").element())
+                                    .element())
+                            .element())
+                    .element();
+            setVisible(root, false);
+        }
 
-        @DataElement
-        HTMLDivElement modalBody;
-
-        @DataElement
-        HTMLDivElement modalDialog;
-
-        @DataElement
-        HTMLDivElement modalContent;
-
-        @DataElement
-        HTMLDivElement modalFooter;
-
-        public static Modal create() {
-            return new Templated_BaseModal_Modal();
+        @Override
+        public HTMLDivElement element() {
+            return root;
         }
 
         public DominoElement<HTMLHeadingElement> getModalTitle() {
@@ -97,7 +116,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     private boolean modal = true;
 
     public BaseModal() {
-        modalElement = Modal.create();
+        modalElement = new Modal();
         modalElement.getModalHeader().hide();
         modalElement.getModalTitle().appendChild(headerText);
 
@@ -248,8 +267,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
                 }
             }
 
-            for (int i = 0; i < openHandlers.size(); i++)
-                openHandlers.get(i).onOpen();
+            for (int i = 0; i < openHandlers.size(); i++) { openHandlers.get(i).onOpen(); }
 
             this.open = true;
             ModalBackDrop.push(this);
@@ -284,7 +302,8 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     }
 
     private void initFocusElements() {
-        NodeList<Element> elementNodeList = element().querySelectorAll("a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex=\"0\"]");
+        NodeList<Element> elementNodeList = element().querySelectorAll(
+                "a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex=\"0\"]");
         List<Element> elements = elementNodeList.asList();
 
         if (elements.size() > 0) {
@@ -301,8 +320,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
         element().classList.remove(ModalStyles.IN);
         element().style.display = "none";
-        if (nonNull(activeElementBeforeOpen))
-            activeElementBeforeOpen.focus();
+        if (nonNull(activeElementBeforeOpen)) { activeElementBeforeOpen.focus(); }
 
 
         if (autoAppendAndRemove) {

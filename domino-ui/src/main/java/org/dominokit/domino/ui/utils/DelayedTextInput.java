@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
 import org.gwtproject.timer.client.Timer;
-import org.jboss.gwt.elemento.core.EventType;
+import org.jboss.elemento.EventType;
 
 import static java.util.Objects.isNull;
 

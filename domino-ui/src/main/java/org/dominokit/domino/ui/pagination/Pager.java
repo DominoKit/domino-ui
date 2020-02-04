@@ -6,10 +6,10 @@ import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
+import org.jboss.elemento.EventType;
+import org.jboss.elemento.HtmlContentBuilder;
 
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class Pager extends BaseDominoElement<HTMLElement, Pager> {
 

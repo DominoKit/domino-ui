@@ -4,7 +4,7 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.i;
+import static org.jboss.elemento.Elements.i;
 
 public class MdiIcon extends BaseIcon<MdiIcon> {
     private MdiSize mdiSize;

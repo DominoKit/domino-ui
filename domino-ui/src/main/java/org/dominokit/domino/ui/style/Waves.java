@@ -5,12 +5,12 @@ import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.jboss.gwt.elemento.core.EventType.mousedown;
+import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.EventType.mousedown;
 
 public class Waves implements IsElement<HTMLElement> {
 

@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.button;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.jboss.gwt.elemento.core.Elements;
+import org.jboss.elemento.Elements;
 
 public class ButtonsToolbar extends BaseDominoElement<HTMLElement, ButtonsToolbar> {
 

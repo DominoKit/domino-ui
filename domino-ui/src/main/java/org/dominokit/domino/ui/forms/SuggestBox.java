@@ -10,7 +10,7 @@ import org.dominokit.domino.ui.loaders.LoaderEffect;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.DelayedTextInput;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
-import org.jboss.gwt.elemento.core.Elements;
+import org.jboss.elemento.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import static elemental2.dom.DomGlobal.document;
 import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.div;
 
 public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElement, T> implements HasSelectionHandler<SuggestBox<T>, SuggestItem<T>> {
 

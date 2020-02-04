@@ -8,13 +8,13 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.gwt.elemento.core.EventType;
+import org.jboss.elemento.EventType;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.Objects.isNull;
-import static org.jboss.gwt.elemento.core.Elements.span;
+import static org.jboss.elemento.Elements.span;
 
 public class SortPlugin<T> implements DataTablePlugin<T> {
 

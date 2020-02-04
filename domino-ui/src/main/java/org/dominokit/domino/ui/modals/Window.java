@@ -10,7 +10,7 @@ import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.style.Color;
-import org.jboss.gwt.elemento.core.EventType;
+import org.jboss.elemento.EventType;
 
 import static org.dominokit.domino.ui.style.Unit.px;
 

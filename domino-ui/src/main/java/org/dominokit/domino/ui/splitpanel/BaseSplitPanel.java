@@ -8,7 +8,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.div;
 
 abstract class BaseSplitPanel<T extends BaseSplitPanel<T,S>, S extends BaseSplitter> extends BaseDominoElement<HTMLDivElement, T> implements HasSize {
 

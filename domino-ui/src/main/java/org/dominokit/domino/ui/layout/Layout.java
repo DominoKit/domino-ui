@@ -7,7 +7,7 @@ import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.themes.Theme;
 import org.dominokit.domino.ui.utils.*;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.div;
 
 public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
 

@@ -13,7 +13,7 @@ import java.util.List;
 
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toList;
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.div;
 
 public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>> implements HasSelectionSupport<ListItem<T>>, HasMultiSelectionSupport {
 

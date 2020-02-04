@@ -11,7 +11,7 @@ import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.TextNode;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.span;
+import static org.jboss.elemento.Elements.span;
 
 public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasBackground<Badge> {
 

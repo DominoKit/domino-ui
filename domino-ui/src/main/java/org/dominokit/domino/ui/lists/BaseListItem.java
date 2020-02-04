@@ -10,8 +10,8 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
 import static java.util.Objects.isNull;
-import static org.jboss.gwt.elemento.core.Elements.h;
-import static org.jboss.gwt.elemento.core.Elements.p;
+import static org.jboss.elemento.Elements.h;
+import static org.jboss.elemento.Elements.p;
 
 public abstract class BaseListItem<E extends HTMLElement, T extends BaseListItem<E, T>> extends BaseDominoElement<E, T> {
 

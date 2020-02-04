@@ -3,11 +3,11 @@ package org.dominokit.domino.ui.loaders;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import static org.dominokit.domino.ui.loaders.LoaderStyles.WAIT_ME;
 import static org.dominokit.domino.ui.loaders.LoaderStyles.WAIT_ME_CONTENT;
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.div;
 
 public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTMLDivElement> {
 

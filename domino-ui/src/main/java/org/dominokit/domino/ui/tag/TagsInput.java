@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.input;
+import static org.jboss.elemento.Elements.input;
 
 public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, List<V>> {
 

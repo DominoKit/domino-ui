@@ -5,7 +5,7 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.div;
 
 public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> {
 
