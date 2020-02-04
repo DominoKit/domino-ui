@@ -8,7 +8,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public abstract class BasePagination<T extends BasePagination<T>> extends BaseDominoElement<HTMLElement, T> implements HasPagination {
 

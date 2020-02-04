@@ -9,7 +9,7 @@ import org.dominokit.domino.ui.utils.Switchable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.div;
 
 public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> implements Switchable<ChipsGroup>, HasSelectionHandler<ChipsGroup, Chip> {
 

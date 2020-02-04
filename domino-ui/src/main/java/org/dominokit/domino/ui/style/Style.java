@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.style;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLBodyElement;
 import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Styles.*;

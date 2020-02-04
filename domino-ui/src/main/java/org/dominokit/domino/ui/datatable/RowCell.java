@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.datatable;
 import elemental2.dom.HTMLTableCellElement;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import static java.util.Objects.nonNull;
 

@@ -6,13 +6,13 @@ import com.google.gwt.i18n.client.constants.NumberConstants;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.HasInputElement;
-import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.core.ObserverCallback;
-import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
+import org.jboss.elemento.EventType;
+import org.jboss.elemento.IsElement;
+import org.jboss.elemento.ObserverCallback;
+import org.jboss.elemento.HtmlContentBuilder;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.a;
+import static org.jboss.elemento.Elements.a;
 
 public class ElementUtil {
 

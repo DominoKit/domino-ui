@@ -2,8 +2,8 @@ package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.*;
 import jsinterop.base.Js;
-import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.ObserverCallback;
+import org.jboss.elemento.Elements;
+import org.jboss.elemento.ObserverCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +121,7 @@ final class BodyObserver {
                                                   String idAttributeName) {
         String elementId = element.getAttribute(idAttributeName);
         if (elementId == null) {
-            element.setAttribute(idAttributeName, Elements.createDocumentUniqueId());
+            element.setAttribute(idAttributeName, Elements.uniqueId());
         }
         return new ElementObserver() {
             @Override

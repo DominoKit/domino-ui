@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.div;
 
 public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
 

@@ -7,12 +7,12 @@ import elemental2.dom.Node;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.EventType;
+import org.jboss.elemento.IsElement;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.div;
 
 public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
 

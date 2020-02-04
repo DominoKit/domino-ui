@@ -4,8 +4,8 @@ import elemental2.dom.Event;
 import elemental2.dom.HTMLDivElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.popover.Popover;
-import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.EventType;
+import org.jboss.elemento.Elements;
+import org.jboss.elemento.EventType;
 
 import java.util.ArrayList;
 import java.util.Deque;

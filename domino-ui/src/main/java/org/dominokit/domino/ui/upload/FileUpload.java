@@ -8,7 +8,7 @@ import org.dominokit.domino.ui.notifications.Notification;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasName;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.jboss.gwt.elemento.core.Elements.input;
+import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.Elements.input;
 
 public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> implements HasName<FileUpload> {
 

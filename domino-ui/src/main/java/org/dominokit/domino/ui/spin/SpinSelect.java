@@ -13,8 +13,8 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.spin.SpinStyles.*;
-import static org.jboss.gwt.elemento.core.Elements.a;
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.a;
+import static org.jboss.elemento.Elements.div;
 
 abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoElement<HTMLDivElement, S> implements HasSelectionHandler<S, SpinItem<T>> {
 

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.*;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>> implements HasSelectionSupport<TableRow<T>> {
 

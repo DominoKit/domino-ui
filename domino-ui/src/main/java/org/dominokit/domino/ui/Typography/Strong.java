@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.Typography;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-import static org.jboss.gwt.elemento.core.Elements.strong;
+import static org.jboss.elemento.Elements.strong;
 
 public class Strong extends BaseDominoElement<HTMLElement, Strong> {
 

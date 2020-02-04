@@ -8,8 +8,8 @@ import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.jboss.gwt.elemento.core.Elements.img;
+import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.Elements.img;
 
 public class FileImage extends BaseDominoElement<HTMLDivElement, FileImage> {
 
