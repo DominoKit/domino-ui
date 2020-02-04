@@ -8,7 +8,7 @@ import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 import static java.util.Objects.isNull;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Boolean> implements Checkable<SwitchButton> {
 

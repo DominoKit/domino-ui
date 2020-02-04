@@ -4,7 +4,7 @@ import elemental2.dom.EventListener;
 import elemental2.dom.KeyboardEvent;
 import elemental2.dom.Node;
 import jsinterop.base.Js;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import java.util.HashMap;
 import java.util.Map;

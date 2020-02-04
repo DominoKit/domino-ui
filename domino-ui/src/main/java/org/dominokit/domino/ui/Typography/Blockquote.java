@@ -7,12 +7,12 @@ import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.blockquote;
-import static org.jboss.gwt.elemento.core.Elements.footer;
+import static org.jboss.elemento.Elements.blockquote;
+import static org.jboss.elemento.Elements.footer;
 
 public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
 

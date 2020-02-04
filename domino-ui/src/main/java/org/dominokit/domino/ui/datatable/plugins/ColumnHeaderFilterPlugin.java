@@ -10,16 +10,16 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
+import org.jboss.elemento.IsElement;
+import org.jboss.elemento.HtmlContentBuilder;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.th;
-import static org.jboss.gwt.elemento.core.Elements.tr;
+import static org.jboss.elemento.Elements.th;
+import static org.jboss.elemento.Elements.tr;
 
 public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 

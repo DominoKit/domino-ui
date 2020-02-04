@@ -9,7 +9,7 @@ import org.dominokit.domino.ui.utils.Selectable;
 
 import java.util.*;
 
-import static org.jboss.gwt.elemento.core.Elements.tr;
+import static org.jboss.elemento.Elements.tr;
 
 public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow<T>> implements Selectable<T> {
     private T record;

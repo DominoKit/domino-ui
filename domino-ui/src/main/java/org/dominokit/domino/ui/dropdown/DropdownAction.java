@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, DropdownAction<T>> implements HasSelectionHandler<DropdownAction<T>, T>, HasBackground<DropdownAction<T>> {
 

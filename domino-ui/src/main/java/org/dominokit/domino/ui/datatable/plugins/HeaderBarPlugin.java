@@ -28,13 +28,13 @@ import org.dominokit.domino.ui.style.Unit;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.TextNode;
 import org.gwtproject.timer.client.Timer;
-import org.jboss.gwt.elemento.core.EventType;
+import org.jboss.elemento.EventType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 

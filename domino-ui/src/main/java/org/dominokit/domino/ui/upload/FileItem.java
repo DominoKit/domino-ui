@@ -12,7 +12,7 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.thumbnails.Thumbnail;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.Elements;
+import org.jboss.elemento.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.upload.UploadOptions.*;
-import static org.jboss.gwt.elemento.core.Elements.h;
+import static org.jboss.elemento.Elements.h;
 
 public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private static final String[] UNITS = {"KB", "MB", "GB", "TB"};
@@ -352,7 +352,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private String getErrorMessage() {
         if (errorMessage != null)
             return errorMessage;
-        
+
         final boolean hasErrorText = request.responseType != null && (request.responseType.isEmpty() || request.responseType.equals("text")) && !request.responseText.isEmpty();
         return hasErrorText ? request.responseText : "Error while sending request";
     }

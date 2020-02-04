@@ -7,13 +7,13 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.safehtml.shared.SafeHtml;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implements HasName<Radio<T>>, HasValue<Radio<T>, T>, HasLabel<Radio<T>>,
         Switchable<Radio<T>>, Checkable<Radio<T>>, TakesValue<T> {

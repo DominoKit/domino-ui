@@ -28,7 +28,7 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.div;
 
 public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> implements HasValue<DatePicker, Date>,
         DatePickerMonth.InternalHandler, TakesValue<Date> {

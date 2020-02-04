@@ -14,7 +14,7 @@ import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.Selectable;
 import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import java.util.stream.Collectors;
 

@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.datatable.plugins;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.EventType;
+import org.jboss.elemento.EventType;
 
 public class RowClickPlugin<T> implements DataTablePlugin<T> {
     private ClickHandler<T> handler;

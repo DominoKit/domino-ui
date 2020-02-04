@@ -3,14 +3,9 @@ package org.dominokit.domino.ui.layout;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
 
-import javax.annotation.PostConstruct;
-
-import static org.jboss.gwt.elemento.core.Elements.*;
-import static org.jboss.gwt.elemento.core.Elements.aside;
+import static org.jboss.elemento.Elements.aside;
+import static org.jboss.elemento.Elements.section;
 
 public class Section extends BaseDominoElement<HTMLElement, Section> {
 

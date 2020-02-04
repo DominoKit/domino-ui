@@ -5,7 +5,7 @@ import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-import static org.jboss.gwt.elemento.core.Elements.ul;
+import static org.jboss.elemento.Elements.ul;
 
 public class SimpleListGroup extends BaseDominoElement<HTMLUListElement, SimpleListGroup> {
 

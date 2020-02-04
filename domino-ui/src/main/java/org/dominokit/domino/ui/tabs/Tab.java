@@ -13,15 +13,15 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.EventType;
+import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasClickableElement {
 

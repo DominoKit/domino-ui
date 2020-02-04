@@ -7,10 +7,10 @@ import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import static java.util.Objects.isNull;
-import static org.jboss.gwt.elemento.core.Elements.input;
+import static org.jboss.elemento.Elements.input;
 
 public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> implements Checkable<CheckBox> {
 

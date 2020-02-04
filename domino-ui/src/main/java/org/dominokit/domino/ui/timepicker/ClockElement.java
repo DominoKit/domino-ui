@@ -7,7 +7,7 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.ColorScheme;
 
 import static org.dominokit.domino.ui.timepicker.ClockStyle._24;
-import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.elemento.Elements.div;
 
 class ClockElement {
 

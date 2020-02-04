@@ -2,7 +2,7 @@ package org.dominokit.domino.ui.style;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 public abstract class WavesElement<E extends HTMLElement, T extends IsElement<E>> extends BaseDominoElement<E,T> implements HasWaveEffect<T> {
 
