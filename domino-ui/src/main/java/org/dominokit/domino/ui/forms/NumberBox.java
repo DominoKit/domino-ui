@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
-import com.google.gwt.i18n.client.NumberFormat;
+//import com.google.gwt.i18n.client.NumberFormat;
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;

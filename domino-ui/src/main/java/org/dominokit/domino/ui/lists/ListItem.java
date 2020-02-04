@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.lists;
 
-import com.google.gwt.user.client.TakesValue;
+import org.gwtproject.editor.client.TakesValue;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.Node;
 
