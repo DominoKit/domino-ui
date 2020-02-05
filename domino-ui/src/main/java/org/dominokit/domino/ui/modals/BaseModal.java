@@ -48,7 +48,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         private final HTMLDivElement modalFooter;
 
         public Modal() {
-            this.root = div().css("model", "fade")
+            this.root = div().css("modal", "fade")
                     .apply(e -> e.tabIndex = -1)
                     .attr("role", "dialog")
                     .add(modalDialog = div().css("modal-dialog")
