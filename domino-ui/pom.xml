@@ -34,6 +34,23 @@
             <artifactId>elemento-core</artifactId>
             <version>${elemento.version}</version>
         </dependency>
+        <!-- Override Elemental2 versions -->
+        <!-- this is a hack to a void the 1.0.0 dependencies coming from elemento that only works for gwt beyond 2.8.2 -->
+        <dependency>
+            <groupId>com.google.elemental2</groupId>
+            <artifactId>elemental2-core</artifactId>
+            <version>${elemental2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.elemental2</groupId>
+            <artifactId>elemental2-dom</artifactId>
+            <version>${elemental2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.elemental2</groupId>
+            <artifactId>elemental2-webstorage</artifactId>
+            <version>${elemental2.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.gwtproject.i18n</groupId>
             <artifactId>gwt-cldr</artifactId>
