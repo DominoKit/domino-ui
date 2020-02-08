@@ -56,4 +56,8 @@ public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalB
         decimalBox.getInputElement().element().value = "";
         decimalBox.resumeChangeHandlers();
     }
+
+    public BigDecimalBox getDecimalBox() {
+        return decimalBox;
+    }
 }

@@ -56,4 +56,8 @@ public class IntegerHeaderFilter<T> extends DelayedHeaderFilterInput<IntegerBox,
         integerBox.getInputElement().element().value = "";
         integerBox.resumeChangeHandlers();
     }
+
+    public IntegerBox getIntegerBox() {
+        return integerBox;
+    }
 }
