@@ -55,4 +55,8 @@ public class SelectHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFil
     public HTMLElement element() {
         return select.element();
     }
+
+    public Select<String> getSelect() {
+        return select;
+    }
 }
