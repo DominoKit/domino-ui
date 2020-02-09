@@ -93,6 +93,23 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
                 .onEscape(evt -> {
                     focus();
                     evt.preventDefault();
+                })
+                .onEnter(evt -> {
+                    if(suggestionsMenu.isOpened() && !suggestionsMenu.getFilteredAction().isEmpty()){
+                        evt.stopPropagation();
+                        evt.preventDefault();
+                        List<DropdownAction> filteredActions = suggestionsMenu.getFilteredAction();
+                        suggestionsMenu.selectAt(suggestionsMenu.getActions().indexOf(filteredActions.get(0)));
+                        filteredActions.get(0).select();
+                        suggestionsMenu.close();
+                    }
+                })
+                .onTab(evt -> {
+                    if(suggestionsMenu.isOpened()){
+                        evt.stopPropagation();
+                        evt.preventDefault();
+                        suggestionsMenu.focus();
+                    }
                 });
     }
 
@@ -115,7 +132,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
                     suggestion.highlight(SuggestBox.this.getStringValue(), highlightColor);
                     suggestionsMenu.appendChild(dropdownAction(suggestion));
                 });
-                suggestionsMenu.open();
+                suggestionsMenu.open(false);
                 loader.stop();
             });
         }
