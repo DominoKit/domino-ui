@@ -56,4 +56,8 @@ public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<DoubleBox, T
         doubleBox.getInputElement().element().value = "";
         doubleBox.resumeChangeHandlers();
     }
+
+    public DoubleBox getDoubleBox() {
+        return doubleBox;
+    }
 }

@@ -54,4 +54,8 @@ public class EnumHeaderFilter<T, E extends Enum> implements ColumnHeaderFilterPl
     public HTMLElement element() {
         return select.element();
     }
+
+    public Select<String> getSelect() {
+        return select;
+    }
 }

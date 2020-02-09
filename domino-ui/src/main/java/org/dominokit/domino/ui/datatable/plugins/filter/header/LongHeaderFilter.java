@@ -56,4 +56,8 @@ public class LongHeaderFilter<T> extends DelayedHeaderFilterInput<LongBox, T> {
         longBox.getInputElement().element().value = "";
         longBox.resumeChangeHandlers();
     }
+
+    public LongBox getLongBox() {
+        return longBox;
+    }
 }

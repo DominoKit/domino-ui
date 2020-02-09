@@ -261,13 +261,17 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     public void open() {
+        open(true);
+    }
+
+    public void open(boolean focus) {
         if (hasActions()) {
             onAttached(mutationRecord -> {
                 position.position(element.element(), targetElement);
                 if (searchable) {
                     searchBox.element().focus();
                     clearSearch();
-                }else{
+                }else if(focus){
                     focus();
                 }
 

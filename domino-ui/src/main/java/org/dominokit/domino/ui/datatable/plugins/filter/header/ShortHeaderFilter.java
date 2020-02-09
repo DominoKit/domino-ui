@@ -55,4 +55,8 @@ public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T> 
         shortBox.getInputElement().element().value = "";
         shortBox.resumeChangeHandlers();
     }
+
+    public ShortBox getShortBox() {
+        return shortBox;
+    }
 }
