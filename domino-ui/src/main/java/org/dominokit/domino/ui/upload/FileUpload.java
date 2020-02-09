@@ -71,14 +71,17 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
                 notifySingleFileError();
             }
             removeHover();
+            evt.stopPropagation();
             evt.preventDefault();
         });
         formElement.addEventListener("dragover", evt -> {
             addHover();
+            evt.stopPropagation();
             evt.preventDefault();
         });
         formElement.addEventListener("dragleave", evt -> {
             removeHover();
+            evt.stopPropagation();
             evt.preventDefault();
         });
         filesContainer.appendChild(row.element());
