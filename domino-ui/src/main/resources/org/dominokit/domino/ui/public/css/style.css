@@ -3821,6 +3821,13 @@ a.disabled {
     font-size: 80px;
 }
 
+.file-upload .file-upload-message, .file-upload .file-upload-message-icon {
+    pointer-events: auto;
+}
+.file-upload-hover .file-upload-message, .file-upload-hover .file-upload-message-icon {
+    pointer-events: none;
+}
+
 .domino-file-preview {
     display: inline-block;
     height: 200px;
