@@ -5,163 +5,42 @@
 
 
 # Domino-ui
-
 A type safe material design with bootstrap builder for java developer with GWT without dependencies on external JavaScript.
 
-## Demo app
+Checkout our  [getting started guide](https://github.com/DominoKit/domino-ui/wiki/Getting-started)
 
-[Domino-ui Demo app](https://vegegoku.github.io/domino-ui/index.html?theme=indigo#home)
+and checkout our [demo app](https://demo.dominokit.org/home)
 
-## Setup
+### Quick insight
 
-### Maven dependency
+#### Type safe
 
-```xml
-<dependency>
-  <groupId>org.dominokit</groupId>
-  <artifactId>domino-ui</artifactId>
-  <version>1.0-SNAPSHOT</version>
-</dependency>
-<dependency>
-  <groupId>org.dominokit</groupId>
-  <artifactId>domino-ui</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <classifier>sources</classifier>
-</dependency>
-```
+Domino-ui is Java based compiled to JavaScript, which means during development of the application you have the power to refactor and keep your app maintainable all the time, but also you develop your application with the mature set of all tool chain java can provide, this include extremely powerful IDEs and mature build tools like maven and gradle, use domino-ui and bring your java team to the frontend world.
 
-> To use the snapshot version without building locally, configure the snapshot repository
-```xml
-<repository>
-   <id>sonatype-snapshots-repo</id>
-   <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-   <snapshots>
-      <enabled>true</enabled>
-      <updatePolicy>always</updatePolicy>
-      <checksumPolicy>fail</checksumPolicy>
-   </snapshots>
-</repository>
-```
-
-### GWT module inheritance
-```xml
-<inherits name="org.dominokit.domino.ui.DominoUI"/>
-```
-
-### Css
-Add the following css files to your index page:
-> Replace [module-short-name] with the proper module name.
-```html
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-<link type="text/css" rel="stylesheet" href="{module-short-name}/css/domino-ui.css">
-<link type="text/css" rel="stylesheet" href="{module-short-name}/css/themes/all-themes.css">
-```
-
-----------------------
-## Domino-ui Release 1.0 Road map
-
-> Checked items are already completed
-
-### Build All basic components :
-
-- [x] Cards
-- [x] Info box
-- [x] Buttons
-- [x] Alerts
-- [x] Badges
-- [x] Labels
-- [x] Modals
-- [x] Lists
-- [x] Loaders
-- [x] Icons
-- [x] Breadcrumbs
-- [x] Collapse
-- [x] Notifications
-- [x] Media Objects
-- [x] Pagination
-- [x] Preloaders
-- [x] Progress bars
-- [x] Tabs
-- [x] Thumbnails
-- [x] Dialogs
-- [x] Tooltips and Popovers
-- [x] Waves
-- [x] Typography
-- [x] Helper classes
-- [x] Colors
-- [x] Animations
-- [x] File upload
-- [x] Date picker
-- [x] Time picker
-- [ ] Date time picker
-- [x] Inputs decorations : Labels, Helper text, validation, Icons
-- [x] Advanced Select
-- [ ] Multi-Select
-- [x] Tag field
-- [x] Spinners
-- [ ] Field masking
-- [x] Simple grids - Table based -
-- [x] Form wizards / Steppers
-- [x] Carousel
-- [x] Sliders
-- [x] Chips
-- [x] Tree
-
-### Third Party libs and tools integration
-
-- [ ] make sure that domino-ui can be used with other third party tools and libs, this might indicate a standarized API and split between the builders and actual element class.
-
-Sample of third party tools and frameworks:
-- [x] Editors framework.
-- [ ] UI Binder
-
-### Restructure CSS and Theming
-
-- [ ] Restructure the CSS allowing easy theming, writing a new theme by the users should be easy.
-
-- [ ] Simplify the injection of the css resources.
-
-### Java docs
-
-- [ ] Make sure all Domino-ui classes has the proper JavaDocs.
+![Imgur](https://raw.githubusercontent.com/DominoKit/documents/master/domino-ui-slide-1.png)
 
 
-### Documentation
+#### Elegant
 
-- [ ] Create a full documentation describing how to use Domino-ui, setup a project and document each element/component on its own, this could be in github pages.
+Domino-ui cares about performance and functionality, but also cares about elegance, enterprise applications could be rich and crowded but when you use domino-ui rich components you will also have neat smooth friendly screens, with proper spacing, consistent color palette and just the right amount of effects and animations you bring the users of the application to love it.
 
-### Build Samples
+![Imgur](https://raw.githubusercontent.com/DominoKit/documents/master/domino-ui-slide-2.png)
 
-- [ ] Implement three samples with different types of contents, the samples should try to use most of the available components.
----------------------------
 
-## Sample
+#### Rich Data table
 
-```java
+Almost every enterprise application uses data tables, domino-ui realise this fact and provides a rich, functional and elegant data table which is extendable with a rich set of ready to use plugins like selection plugin, marker plugin, record details plugin, search plugin and more, but this is not limited since the user can write his own plugins, and even better we are continuously adding more plugins.
 
-DomGlobal.document.body.appendChild(Row.create()
-        .addColumn(Column.span4()
-                .appendChild(Card.create("CARD TITLE", "Card description")
-                        .appendChild(Paragraph.create("I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe")
-                                .element())
-                        .setHeaderBackground(Color.BLUE)
-                        .setBodyBackground(Color.LIGHT_BLUE)
-                        .element()))
-        .addColumn(Column.span4()
-                .appendChild(Card.create("CARD TITLE", "Card description")
-                        .appendChild(Paragraph.create("I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe")
-                                .element())
-                        .setHeaderBackground(Color.GREEN)
-                        .setBodyBackground(Color.LIGHT_GREEN)
-                        .element()))
-        .addColumn(Column.span4()
-                .appendChild(Card.create("CARD TITLE", "Card description")
-                        .appendChild(Paragraph.create("I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe, I love Domino-ui, Domino-ui does not use jquery or js and is typesafe")
-                                .element())
-                        .setHeaderBackground(Color.ORANGE)
-                        .setBodyBackground(Color.AMBER)
-                        .element()))
-        .element());
-```
-![Imgur](https://i.imgur.com/xaUJXi9.png)
+![Imgur](https://raw.githubusercontent.com/DominoKit/documents/master/domino-ui-slide-3.png)
+
+#### Rich forms
+
+Having rich interactive forms is essential for enterprise applications, domino-ui has a rich set of form controls that enables the developer to easily implement both simple and complex form, with the smooth easy to use API making the forms interactive is an easy task, validating user input is a simple call, and of course with a proper data binding mechanism to read and fill form from data objects.
+
+![Imgur](https://raw.githubusercontent.com/DominoKit/documents/master/domino-ui-slide-4.png)
+
+#### Typography & Font icons
+
+Icons and Typography can enhance the user experience of the application, domino-ui has a very good of font icons that can bring forms and other elements in the page into life, and this not only applies for enterprise applications but also for simple application like blogs, in domino-ui creating typography elements is very easy and stylish.
+
+![Imgur](https://raw.githubusercontent.com/DominoKit/documents/master/domino-ui-slide-5.png)
