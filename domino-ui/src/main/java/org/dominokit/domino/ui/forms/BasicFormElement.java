@@ -27,6 +27,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     private String helperText;
 
     private String requiredErrorMessage;
+    private List<HTMLElement> errorLabels = new ArrayList<>();
 
     @Override
     public T setHelperText(String helperText) {
@@ -142,6 +143,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
         errorMessages.forEach(message -> {
             HTMLLabelElement errorLabel = makeErrorLabel(message);
+            errorLabels.add(errorLabel);
             getErrorsContainer().appendChild(errorLabel);
         });
 
@@ -161,8 +163,13 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     }
 
     private void removeErrors() {
+        errorLabels.clear();
         getErrorsContainer().clearElement();
         removeCss("error");
+    }
+
+    public List<HTMLElement> getErrorLabels() {
+        return errorLabels;
     }
 
     @Override

@@ -4,6 +4,8 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
+import org.dominokit.domino.ui.forms.SuggestBoxStore.MissingEntryProvider;
+import org.dominokit.domino.ui.forms.SuggestBoxStore.MissingSuggestProvider;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.loaders.Loader;
 import org.dominokit.domino.ui.loaders.LoaderEffect;
@@ -18,6 +20,7 @@ import java.util.Optional;
 
 import static elemental2.dom.DomGlobal.document;
 import static elemental2.dom.DomGlobal.window;
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.elemento.Elements.div;
@@ -34,10 +37,12 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     private Color highlightColor;
     private T value;
     private int typeAheadDelay = 200;
+    private SuggestItem<T> selectedItem;
     private DelayedTextInput delayedTextInput;
     private DelayedTextInput.DelayedAction delayedAction = () -> {
         if (isEmpty()) {
             suggestionsMenu.close();
+            clearValue();
         } else {
             search();
         }
@@ -127,7 +132,13 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
             suggestionsMenu.clearActions();
             suggestionsMenu.close();
             store.filter(getStringValue(), suggestions -> {
+                selectedItem = null;
                 suggestionsMenu.clearActions();
+
+                if(suggestions.isEmpty()){
+                    applyMissingEntry(getStringValue());
+                }
+
                 suggestions.forEach(suggestion -> {
                     suggestion.highlight(SuggestBox.this.getStringValue(), highlightColor);
                     suggestionsMenu.appendChild(dropdownAction(suggestion));
@@ -181,13 +192,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
                     this.value = value;
                     getInputElement().element().value = suggestItem.getDisplayValue();
                 } else {
-                    SuggestBoxStore.MissingSuggestProvider<T> messingSuggestionProvider = store.getMessingSuggestionProvider();
-                    Optional<SuggestItem<T>> messingSuggestion = messingSuggestionProvider.getMessingSuggestion(value);
-                    if (messingSuggestion.isPresent()) {
-                        SuggestItem<T> messingSuggestItem = messingSuggestion.get();
-                        this.value = messingSuggestItem.getValue();
-                        getInputElement().element().value = messingSuggestItem.getDisplayValue();
-                    } else {
+                    if(!applyMissingValue(value)){
                         this.value = null;
                         getInputElement().element().value = "";
                     }
@@ -196,8 +201,34 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         }
     }
 
+    private boolean applyMissingValue(T value) {
+        MissingSuggestProvider<T> messingSuggestionProvider = store.getMessingSuggestionProvider();
+        Optional<SuggestItem<T>> messingSuggestion = messingSuggestionProvider.getMessingSuggestion(value);
+        return applyMissing(messingSuggestion);
+    }
+
+    private boolean applyMissingEntry(String value) {
+        MissingEntryProvider<T> messingEntryProvider = store.getMessingEntryProvider();
+        Optional<SuggestItem<T>> messingSuggestion = messingEntryProvider.getMessingSuggestion(value);
+        return applyMissing(messingSuggestion);
+    }
+
+    private boolean applyMissing(Optional<SuggestItem<T>> messingSuggestion) {
+        if (messingSuggestion.isPresent()) {
+            SuggestItem<T> messingSuggestItem = messingSuggestion.get();
+            this.value = messingSuggestItem.getValue();
+            getInputElement().element().value = messingSuggestItem.getDisplayValue();
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public T getValue() {
+        if(isNull(selectedItem)){
+            applyMissingEntry(getStringValue());
+        }
+
         return this.value;
     }
 
@@ -223,6 +254,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     private DropdownAction<T> dropdownAction(SuggestItem<T> suggestItem) {
         DropdownAction<T> dropdownAction = suggestItem.asDropDownAction();
         dropdownAction.addSelectionHandler(value -> {
+            selectedItem = suggestItem;
             setValue(value);
             selectionHandlers.forEach(handler -> handler.onSelection(suggestItem));
             suggestionsMenu.close();
