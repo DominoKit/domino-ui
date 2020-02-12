@@ -1,6 +1,8 @@
 package org.dominokit.domino.ui.upload;
 
 import elemental2.dom.*;
+import jsinterop.base.Js;
+
 import org.dominokit.domino.ui.grid.Column;
 import org.dominokit.domino.ui.grid.Row;
 import org.dominokit.domino.ui.icons.BaseIcon;
@@ -80,7 +82,8 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
             evt.preventDefault();
         });
         formElement.addEventListener("dragleave", evt -> {
-            removeHover();
+            if( isFormUploadElement(evt.target) )
+                removeHover();
             evt.stopPropagation();
             evt.preventDefault();
         });
@@ -99,6 +102,11 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
         Notification.createWarning(errorMessage).show();
     }
 
+    private boolean isFormUploadElement(EventTarget target) {
+    	HTMLElement element = Js.uncheckedCast(target);
+    	return element == formElement.element();
+    }
+    
     private void addHover() {
         formElement.style().add("file-upload-hover");
     }
