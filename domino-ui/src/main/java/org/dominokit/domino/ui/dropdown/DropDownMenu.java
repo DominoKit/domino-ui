@@ -112,11 +112,6 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         menuElement.appendChild(noSearchResultsElement);
 
         titleContainer.addClickListener(Event::stopPropagation);
-
-        DominoElement.of(targetElement)
-                .onDetached(mutationRecord -> close());
-
-        onDetached(mutationRecord -> closeHandlers.forEach(CloseHandler::onClose));
     }
 
     private void selectFirstSearchResult() {
@@ -277,6 +272,13 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
                 element.style().setProperty("z-index", ModalBackDrop.getNextZIndex() + 10 + "");
                 openHandlers.forEach(OpenHandler::onOpen);
+
+                DominoElement.of(targetElement)
+                        .onDetached(targetDetach -> close());
+
+                onDetached(detachRecord -> {
+                    closeHandlers.forEach(CloseHandler::onClose);
+                });
             });
 
             if (!appendTarget.contains(element.element())) {

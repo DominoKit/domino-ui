@@ -25,8 +25,13 @@ final class BodyObserver {
         MutationObserver mutationObserver = new MutationObserver(
                 (MutationRecord[] records, MutationObserver observer) -> {
                     for (MutationRecord record : records) {
-                        onElementsRemoved(record);
-                        onElementsAppended(record);
+                        if (!record.removedNodes.asList().isEmpty()) {
+                            onElementsRemoved(record);
+                        }
+
+                        if (!record.addedNodes.asList().isEmpty()) {
+                            onElementsAppended(record);
+                        }
                     }
                     return null;
                 });
@@ -74,7 +79,6 @@ final class BodyObserver {
                 }
             }
         }
-
         detachObservers.removeAll(observed);
     }
 
@@ -138,6 +142,7 @@ final class BodyObserver {
             public ObserverCallback callback() {
                 return callback;
             }
+
         };
     }
 

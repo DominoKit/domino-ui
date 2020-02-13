@@ -13,6 +13,7 @@ import org.jboss.elemento.IsElement;
 import static elemental2.dom.DomGlobal.document;
 import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
 import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.Elements.tr;
 
 public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
 
@@ -21,6 +22,7 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
     private DominoElement<HTMLDivElement> innerElement = DominoElement.of(div().css("tooltip-inner"));
     private PopupPosition popupPosition = TOP;
     private HTMLElement targetElement;
+    private boolean listenerAdded = false;
 
     public Tooltip(HTMLElement targetElement, String text) {
         this(targetElement, DomGlobal.document.createTextNode(text));
@@ -35,13 +37,16 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
         element.style().add(popupPosition.getDirectionClass());
 
         targetElement.addEventListener(EventType.mouseenter.getName(), evt -> {
-            evt.stopPropagation();
-            document.body.appendChild(element.element());
-            element.style().remove("fade", "in");
-            element.style().add("fade", "in");
-            popupPosition.position(element.element(), targetElement);
-            position(popupPosition);
-            ElementUtil.onDetach(targetElement, mutationRecord -> hide());
+            if (!listenerAdded) {
+                evt.stopPropagation();
+                document.body.appendChild(element.element());
+                element.style().remove("fade", "in");
+                element.style().add("fade", "in");
+                popupPosition.position(element.element(), targetElement);
+                position(popupPosition);
+                ElementUtil.onDetach(targetElement, mutationRecord -> hide());
+                listenerAdded = true;
+            }
         });
         targetElement.addEventListener(EventType.mouseleave.getName(), evt1 -> element.remove());
         init(this);
