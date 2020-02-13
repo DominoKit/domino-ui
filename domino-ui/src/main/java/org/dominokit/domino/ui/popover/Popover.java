@@ -44,7 +44,9 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
     private boolean closeOnEscp = true;
     private boolean closeOnScroll = true;
 
-    private EventListener bodyClosListener = evt -> close();
+    static {
+        document.body.addEventListener(EventType.click.getName(), evt-> Popover.closeAll());
+    }
 
     public Popover(HTMLElement target, String title, Node content) {
         this.targetElement = target;
@@ -60,7 +62,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
         };
         target.addEventListener(EventType.click.getName(), showListener);
         closeListener = evt -> closeAll();
-        document.body.addEventListener(EventType.click.getName(), closeListener);
+
         element.addEventListener(EventType.click.getName(), Event::stopPropagation);
         ElementUtil.onDetach(targetElement, mutationRecord -> {
             if (visible) {
@@ -89,11 +91,11 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
         return this;
     }
 
-    private void closeAll() {
+    private static void closeAll() {
         closeOthers();
     }
 
-    private void closeOthers() {
+    private static void closeOthers() {
         ModalBackDrop.closePopovers();
     }
 
