@@ -39,7 +39,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     private String noResultsElementDisplay;
 
     private List<DropdownAction> actions = new ArrayList<>();
-    private boolean touchMoved;
+    private static boolean touchMoved;
     private List<CloseHandler> closeHandlers = new ArrayList<>();
     private List<OpenHandler> openHandlers = new ArrayList<>();
     private boolean closeOnEscape;
@@ -50,6 +50,17 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     private HTMLElement appendTarget = document.body;
     private AppendStrategy appendStrategy = AppendStrategy.LAST;
 
+    static {
+        document.addEventListener(EventType.click.getName(), evt -> DropDownMenu.closeAllMenus());
+        document.addEventListener(EventType.touchmove.getName(), evt -> DropDownMenu.touchMoved = true);
+        document.addEventListener(EventType.touchend.getName(), evt -> {
+            if (!DropDownMenu.touchMoved) {
+                closeAllMenus();
+            }
+            DropDownMenu.touchMoved = false;
+        });
+    }
+
     public DropDownMenu(HTMLElement targetElement) {
         this.targetElement = targetElement;
 
@@ -57,20 +68,9 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
         menuElement.setAttribute("role", "listbox");
 
-        EventListener listener = evt -> closeAllMenus();
-
         element.addEventListener(EventType.touchend, Event::stopPropagation);
         element.addEventListener(EventType.touchmove, Event::stopPropagation);
         element.addEventListener(EventType.touchstart, Event::stopPropagation);
-
-        document.addEventListener(EventType.click.getName(), listener);
-        document.addEventListener(EventType.touchmove.getName(), evt -> this.touchMoved = true);
-        document.addEventListener(EventType.touchend.getName(), evt -> {
-            if (!touchMoved) {
-                closeAllMenus();
-            }
-            touchMoved = false;
-        });
 
         addMenuNavigationListener();
         searchContainer.addClickListener(evt -> {
