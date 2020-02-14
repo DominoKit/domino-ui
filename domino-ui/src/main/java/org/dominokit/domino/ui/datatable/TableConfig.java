@@ -27,6 +27,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
     private boolean lazyLoad = true;
     private boolean multiSelect = true;
     private RowAppender<T> rowAppender = (dataTable, tableRow) -> dataTable.bodyElement().appendChild(tableRow.element());
+    private DirtyRecordProvider<T> dirtyRecordProvider= original -> original;
+    private SaveDirtyRecordHandler<T> saveDirtyRecordHandler = (originalRecord, dirtyRecord) -> {};
 
     public void drawHeaders(DataTable<T> dataTable, DominoElement<HTMLTableSectionElement> thead) {
         this.dataTable = dataTable;
@@ -226,6 +228,20 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
 
     public DataTable<T> getDataTable() {
         return dataTable;
+    }
+
+    public TableConfig<T> setDirtyRecordHandlers(DirtyRecordProvider<T> dirtyRecordProvider, SaveDirtyRecordHandler<T> saveDirtyRecordHandler) {
+        this.dirtyRecordProvider = dirtyRecordProvider;
+        this.saveDirtyRecordHandler = saveDirtyRecordHandler;
+
+        return this;
+    }
+
+    DirtyRecordProvider<T> getDirtyRecordProvider() {
+        return dirtyRecordProvider;
+    }
+    SaveDirtyRecordHandler<T> getSaveDirtyRecordHandler() {
+        return saveDirtyRecordHandler;
     }
 
     @FunctionalInterface

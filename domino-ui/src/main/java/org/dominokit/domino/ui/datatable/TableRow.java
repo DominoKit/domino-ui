@@ -1,9 +1,11 @@
 package org.dominokit.domino.ui.datatable;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLTableRowElement;
 import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.datatable.store.DataChangedEvent;
+import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.Selectable;
 
@@ -25,6 +27,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     private List<SelectionHandler<T>> selectionHandlers = new ArrayList<>();
 
     private List<RowListener<T>> listeners = new ArrayList<>();
+    private boolean editable = false;
 
     public TableRow(T record, int index, DataTable<T> dataTable) {
         this.record = record;
@@ -37,13 +40,21 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
         this.record = record;
     }
 
+    public T getDirtyRecord() {
+        T dirtyRecord = dataTable.getTableConfig()
+                .getDirtyRecordProvider()
+                .createDirtyRecord(record);
+        getRowCells()
+                .forEach((s, rowCell) -> rowCell.getCellInfo().updateDirtyRecord(dirtyRecord));
+        return dirtyRecord;
+    }
+
     @Override
     public T select() {
         if (!hasFalg(DataTable.DATA_TABLE_ROW_FILTERED)) {
             this.selected = true;
             selectionHandlers.forEach(selectionHandler -> selectionHandler.onSelectionChanged(TableRow.this));
         }
-
         return record;
     }
 
@@ -74,6 +85,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     public T getRecord() {
         return record;
     }
+
 
     @Override
     public void addSelectionHandler(SelectionHandler<T> selectionHandler) {
@@ -144,6 +156,20 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
         this.dataTable.fireTableEvent(new TableDataUpdatedEvent<>(new ArrayList<>(dataTable.getData()), dataTable.getData().size()));
     }
 
+    public ValidationResult validate() {
+        Optional<ValidationResult> first = getRowCells()
+                .values()
+                .stream()
+                .map(tRowCell -> tRowCell.getCellInfo().validate())
+                .filter(result -> !result.isValid())
+                .findFirst();
+        if (first.isPresent()) {
+            return ValidationResult.invalid("");
+        } else {
+            return ValidationResult.valid();
+        }
+    }
+
     public Map<String, RowCell<T>> getRowCells() {
         return Collections.unmodifiableMap(rowCells);
     }
@@ -155,5 +181,28 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
     public interface RowMetaObject {
         String getKey();
+    }
+
+    public void edit() {
+        setEditable(true);
+        updateRow();
+    }
+
+    public void save() {
+        if (validate().isValid()) {
+            dataTable.getTableConfig()
+                    .getSaveDirtyRecordHandler()
+                    .saveDirtyRecord(record, getDirtyRecord());
+            this.setEditable(false);
+            updateRow();
+        }
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    private void setEditable(boolean editable) {
+        this.editable = editable;
     }
 }
