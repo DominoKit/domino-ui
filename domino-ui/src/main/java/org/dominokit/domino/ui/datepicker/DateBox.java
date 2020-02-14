@@ -12,16 +12,13 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
-import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.timepicker.Time;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.DateTimeFormatInfo;
-import org.gwtproject.timer.client.Timer;
 import org.jboss.elemento.EventType;
 
 import java.util.Date;
