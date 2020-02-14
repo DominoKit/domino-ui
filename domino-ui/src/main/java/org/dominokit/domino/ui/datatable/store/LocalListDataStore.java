@@ -131,7 +131,6 @@ public class LocalListDataStore<T> implements DataStore<T> {
         }
     }
 
-
     private void onSortChanged(SortEvent<T> event) {
         if (nonNull(this.recordsSorter)) {
             this.lastSort = event;
@@ -147,10 +146,8 @@ public class LocalListDataStore<T> implements DataStore<T> {
     private void loadFirstPage() {
         if (nonNull(pagination)) {
             pagination.updatePagesByTotalCount(filtered.size());
-            fireUpdate();
-        } else {
-            fireUpdate();
         }
+        fireUpdate();
     }
 
     private void onPageChanged() {
@@ -165,7 +162,9 @@ public class LocalListDataStore<T> implements DataStore<T> {
 
     private void fireUpdate() {
         List<T> updateRecords = getUpdateRecords();
-        if (autoSort && nonNull(recordsSorter)) {
+        if (nonNull(this.lastSort) && nonNull(recordsSorter)) {
+            updateRecords.sort(recordsSorter.onSortChange(this.lastSort.getColumnConfig().getName(), this.lastSort.getSortDirection()));
+        } else if (autoSort && nonNull(recordsSorter)) {
             updateRecords.sort(recordsSorter.onSortChange(autoSortBy, autoSortDirection));
         }
         listeners.forEach(dataChangeListener -> dataChangeListener.onDataChanged(new DataChangedEvent<>(updateRecords, filtered.size())));

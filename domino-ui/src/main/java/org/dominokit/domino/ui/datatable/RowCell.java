@@ -39,7 +39,11 @@ public class RowCell<T> {
             columnConfig.getHeadElement().style().setTextAlign(columnConfig.getTextAlign());
         }
 
-        cellInfo.getElement().appendChild(columnConfig.getCellRenderer().asElement(cellInfo));
+        if(cellInfo.getTableRow().isEditable()){
+            cellInfo.getElement().appendChild(columnConfig.getEditableCellRenderer().asElement(cellInfo));
+        }else {
+            cellInfo.getElement().appendChild(columnConfig.getCellRenderer().asElement(cellInfo));
+        }
     }
 
     public CellRenderer.CellInfo<T> getCellInfo() {

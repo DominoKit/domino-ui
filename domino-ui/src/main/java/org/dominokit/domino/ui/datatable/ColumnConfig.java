@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 public class ColumnConfig<T> {
@@ -24,6 +25,7 @@ public class ColumnConfig<T> {
     private String maxWidth;
     private String textAlign;
     private CellRenderer<T> cellRenderer = cell -> TextNode.of("");
+    private CellRenderer<T> editableCellRenderer = cellRenderer;
     private HeaderElement headerElement = TextNode::of;
     private CellStyler<T> headerStyler = element -> {
     };
@@ -164,6 +166,21 @@ public class ColumnConfig<T> {
 
     public ColumnConfig<T> setCellRenderer(CellRenderer<T> cellRenderer) {
         this.cellRenderer = cellRenderer;
+        if(isNull(editableCellRenderer)){
+            this.editableCellRenderer = cellRenderer;
+        }
+        return this;
+    }
+
+    public CellRenderer<T> getEditableCellRenderer() {
+        return editableCellRenderer;
+    }
+
+    public ColumnConfig<T> setEditableCellRenderer(CellRenderer<T> editableCellRenderer) {
+        this.editableCellRenderer = editableCellRenderer;
+        if(isNull(cellRenderer)){
+            this.cellRenderer = editableCellRenderer;
+        }
         return this;
     }
 
