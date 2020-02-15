@@ -1,11 +1,11 @@
 package org.dominokit.domino.ui.utils;
 
-import com.google.gwt.i18n.client.LocaleInfo;
-import com.google.gwt.i18n.client.NumberFormat;
-import com.google.gwt.i18n.client.constants.NumberConstants;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.HasInputElement;
+import org.gwtproject.i18n.client.NumberFormat;
+import org.gwtproject.i18n.shared.cldr.LocaleInfo;
+import org.gwtproject.i18n.shared.cldr.NumberConstants;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 import org.jboss.elemento.ObserverCallback;

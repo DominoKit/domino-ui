@@ -1,7 +1,7 @@
 package org.dominokit.domino.ui.timepicker;
 
 import elemental2.core.JsDate;
-import org.gwtproject.i18n.shared.DateTimeFormatInfo;
+import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
 import java.util.Date;
 
