@@ -10,7 +10,7 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.HasSelectSupport;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.dominokit.domino.ui.utils.TextUtil;
-import org.gwtproject.i18n.shared.DateTimeFormatInfo;
+import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 

@@ -16,7 +16,7 @@ import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.timepicker.Time;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.i18n.shared.DateTimeFormat;
-import org.gwtproject.i18n.shared.DateTimeFormatInfo;
+import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.gwt.elemento.core.EventType;
 
