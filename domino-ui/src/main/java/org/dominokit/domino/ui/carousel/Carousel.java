@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.dominokit.domino.ui.carousel.CarouselStyles.*;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
 

@@ -15,7 +15,7 @@ import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.TextNode;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements HasBackground<Alert> {
 

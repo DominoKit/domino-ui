@@ -58,4 +58,8 @@ public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFi
     public HTMLElement element() {
         return select.element();
     }
+
+    public Select<String> getSelect() {
+        return select;
+    }
 }

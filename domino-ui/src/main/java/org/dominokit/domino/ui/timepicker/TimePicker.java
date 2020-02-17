@@ -13,14 +13,13 @@ import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.pickers.PickerHandler;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.TextNode;
-import org.gwtproject.i18n.shared.DateTimeFormatInfo;
-import org.gwtproject.i18n.shared.impl.cldr.DateTimeFormatInfo_factory;
-import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
+import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
+import org.jboss.elemento.EventType;
+import org.jboss.elemento.IsElement;
 
 import java.util.*;
 
@@ -30,7 +29,7 @@ import static org.dominokit.domino.ui.timepicker.ClockStyle._12;
 import static org.dominokit.domino.ui.timepicker.DayPeriod.AM;
 import static org.dominokit.domino.ui.timepicker.DayPeriod.PM;
 import static org.dominokit.domino.ui.utils.ElementUtil.clear;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class TimePicker implements IsElement<HTMLDivElement> {
 

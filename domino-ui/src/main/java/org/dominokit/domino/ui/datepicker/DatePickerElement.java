@@ -5,10 +5,10 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Selectable;
-import org.jboss.gwt.elemento.core.EventType;
+import org.jboss.elemento.EventType;
 
-import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.jboss.gwt.elemento.core.Elements.th;
+import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.Elements.th;
 
 class DatePickerElement implements Selectable<DatePickerElement> {
     private DominoElement<HTMLElement> element;
@@ -137,7 +137,16 @@ class DatePickerElement implements Selectable<DatePickerElement> {
     }
 
     public JsDate getDate() {
-        JsDate jsDate = new JsDate(year, month, DatePickerUtil.getValidMonthDate(year, month, day));
+        JsDate tempDate = new JsDate();
+        JsDate jsDate = new JsDate(
+                year,
+                month,
+                DatePickerUtil.getValidMonthDate(year, month, day),
+                tempDate.getHours(),
+                tempDate.getMinutes(),
+                tempDate.getSeconds(),
+                tempDate.getMilliseconds()
+        );
         return jsDate;
     }
 

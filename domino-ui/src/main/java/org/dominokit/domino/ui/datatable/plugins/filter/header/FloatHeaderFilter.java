@@ -56,4 +56,8 @@ public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T> 
         floatBox.getInputElement().element().value = "";
         floatBox.resumeChangeHandlers();
     }
+
+    public FloatBox getFloatBox() {
+        return floatBox;
+    }
 }

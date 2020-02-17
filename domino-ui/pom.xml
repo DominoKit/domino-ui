@@ -6,11 +6,11 @@
     <parent>
         <artifactId>domino-ui-parent</artifactId>
         <groupId>org.dominokit</groupId>
-        <version>1.0-j2cl-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>domino-ui</artifactId>
-    <version>1.0-j2cl-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>gwt-lib</packaging>
 
     <dependencies>
@@ -35,22 +35,11 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.gwt.elemento</groupId>
+            <groupId>org.jboss.elemento</groupId>
             <artifactId>elemento-core</artifactId>
             <version>${elemento.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.gwt.elemento</groupId>
-            <artifactId>elemento-template-api</artifactId>
-            <version>${elemento.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.gwt.elemento</groupId>
-            <artifactId>elemento-template-processor</artifactId>
-            <version>${elemento.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.gwtproject.i18n</groupId>
             <artifactId>gwt-cldr</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -68,21 +57,10 @@
         </dependency>
         <dependency>
             <groupId>org.gwtproject.i18n</groupId>
-            <artifactId>gwt-datetimeformat</artifactId>
+            <artifactId>gwt-numberformat</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
         </dependency>
-        <dependency>
-            <groupId>com.google.elemental2</groupId>
-            <artifactId>elemental2-svg</artifactId>
-            <version>1.0.0-RC1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.elemental2</groupId>
-            <artifactId>elemental2-svg</artifactId>
-            <version>1.0.0-RC1</version>
-            <classifier>sources</classifier>
-        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

@@ -4,7 +4,7 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-import static org.jboss.gwt.elemento.core.Elements.footer;
+import static org.jboss.elemento.Elements.footer;
 
 public class Footer extends BaseDominoElement<HTMLElement, Footer> {
 

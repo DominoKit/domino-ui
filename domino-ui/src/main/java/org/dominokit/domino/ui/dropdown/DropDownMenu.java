@@ -12,8 +12,8 @@ import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
-import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.EventType;
+import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu> implements HasBackground<DropDownMenu> {
 
@@ -39,7 +39,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     private String noResultsElementDisplay;
 
     private List<DropdownAction> actions = new ArrayList<>();
-    private boolean touchMoved;
+    private static boolean touchMoved;
     private List<CloseHandler> closeHandlers = new ArrayList<>();
     private List<OpenHandler> openHandlers = new ArrayList<>();
     private boolean closeOnEscape;
@@ -50,6 +50,17 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     private HTMLElement appendTarget = document.body;
     private AppendStrategy appendStrategy = AppendStrategy.LAST;
 
+    static {
+        document.addEventListener(EventType.click.getName(), evt -> DropDownMenu.closeAllMenus());
+        document.addEventListener(EventType.touchmove.getName(), evt -> DropDownMenu.touchMoved = true);
+        document.addEventListener(EventType.touchend.getName(), evt -> {
+            if (!DropDownMenu.touchMoved) {
+                closeAllMenus();
+            }
+            DropDownMenu.touchMoved = false;
+        });
+    }
+
     public DropDownMenu(HTMLElement targetElement) {
         this.targetElement = targetElement;
 
@@ -57,20 +68,9 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
         menuElement.setAttribute("role", "listbox");
 
-        EventListener listener = evt -> closeAllMenus();
-
         element.addEventListener(EventType.touchend, Event::stopPropagation);
         element.addEventListener(EventType.touchmove, Event::stopPropagation);
         element.addEventListener(EventType.touchstart, Event::stopPropagation);
-
-        document.addEventListener(EventType.click.getName(), listener);
-        document.addEventListener(EventType.touchmove.getName(), evt -> this.touchMoved = true);
-        document.addEventListener(EventType.touchend.getName(), evt -> {
-            if (!touchMoved) {
-                closeAllMenus();
-            }
-            touchMoved = false;
-        });
 
         addMenuNavigationListener();
         searchContainer.addClickListener(evt -> {
@@ -112,11 +112,6 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         menuElement.appendChild(noSearchResultsElement);
 
         titleContainer.addClickListener(Event::stopPropagation);
-
-        DominoElement.of(targetElement)
-                .onDetached(mutationRecord -> close());
-
-        onDetached(mutationRecord -> closeHandlers.forEach(CloseHandler::onClose));
     }
 
     private void selectFirstSearchResult() {
@@ -261,18 +256,29 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     public void open() {
+        open(true);
+    }
+
+    public void open(boolean focus) {
         if (hasActions()) {
             onAttached(mutationRecord -> {
                 position.position(element.element(), targetElement);
                 if (searchable) {
                     searchBox.element().focus();
                     clearSearch();
-                }else{
+                }else if(focus){
                     focus();
                 }
 
                 element.style().setProperty("z-index", ModalBackDrop.getNextZIndex() + 10 + "");
                 openHandlers.forEach(OpenHandler::onOpen);
+
+                DominoElement.of(targetElement)
+                        .onDetached(targetDetach -> close());
+
+                onDetached(detachRecord -> {
+                    closeHandlers.forEach(CloseHandler::onClose);
+                });
             });
 
             if (!appendTarget.contains(element.element())) {

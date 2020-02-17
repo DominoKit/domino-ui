@@ -12,17 +12,14 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
-import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.timepicker.Time;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.i18n.shared.DateTimeFormat;
-import org.gwtproject.i18n.shared.DateTimeFormatInfo;
-import org.gwtproject.timer.client.Timer;
-import org.jboss.gwt.elemento.core.EventType;
+import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
+import org.jboss.elemento.EventType;
 
 import java.util.Date;
 
@@ -30,7 +27,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementUtil.isEnterKey;
 import static org.dominokit.domino.ui.utils.ElementUtil.isSpaceKey;
-import static org.jboss.gwt.elemento.core.Elements.input;
+import static org.jboss.elemento.Elements.input;
 
 public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 

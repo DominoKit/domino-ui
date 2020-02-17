@@ -10,12 +10,12 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.steppers.StepperStyles.*;
-import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.jboss.gwt.elemento.core.Elements.li;
+import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.Elements.li;
 
 public class Step extends BaseDominoElement<HTMLLIElement, Step> {
 

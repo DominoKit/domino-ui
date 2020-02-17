@@ -3,9 +3,8 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import org.gwtproject.safehtml.shared.SafeHtml;
-import org.jboss.gwt.elemento.core.HasElements;
-import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
+import org.jboss.elemento.IsElement;
+import org.jboss.elemento.HtmlContentBuilder;
 
 public class HtmlComponentBuilder<E extends HTMLElement, T extends IsElement<E>> extends HtmlContentBuilder<E>{
 

@@ -6,8 +6,8 @@ import elemental2.dom.Text;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.TextNode;
 
-import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.jboss.gwt.elemento.core.Elements.span;
+import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.Elements.span;
 
 public class LabeledIcon extends BaseDominoElement<HTMLDivElement, LabeledIcon> {
 

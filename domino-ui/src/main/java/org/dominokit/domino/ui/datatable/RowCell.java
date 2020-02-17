@@ -3,7 +3,7 @@ package org.dominokit.domino.ui.datatable;
 import elemental2.dom.HTMLTableCellElement;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import static java.util.Objects.nonNull;
 
@@ -39,7 +39,11 @@ public class RowCell<T> {
             columnConfig.getHeadElement().style().setTextAlign(columnConfig.getTextAlign());
         }
 
-        cellInfo.getElement().appendChild(columnConfig.getCellRenderer().asElement(cellInfo));
+        if(cellInfo.getTableRow().isEditable()){
+            cellInfo.getElement().appendChild(columnConfig.getEditableCellRenderer().asElement(cellInfo));
+        }else {
+            cellInfo.getElement().appendChild(columnConfig.getCellRenderer().asElement(cellInfo));
+        }
     }
 
     public CellRenderer.CellInfo<T> getCellInfo() {

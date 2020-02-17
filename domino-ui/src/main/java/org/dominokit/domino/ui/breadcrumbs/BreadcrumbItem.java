@@ -10,8 +10,8 @@ import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.dominokit.domino.ui.utils.TextNode;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.a;
-import static org.jboss.gwt.elemento.core.Elements.li;
+import static org.jboss.elemento.Elements.a;
+import static org.jboss.elemento.Elements.li;
 
 public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbItem> implements HasClickableElement {
 

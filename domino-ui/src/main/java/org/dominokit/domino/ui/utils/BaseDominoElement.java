@@ -9,10 +9,10 @@ import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.WavesSupport;
 import org.gwtproject.safehtml.shared.SafeHtmlBuilder;
-import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.EventType;
-import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.core.ObserverCallback;
+import org.jboss.elemento.Elements;
+import org.jboss.elemento.EventType;
+import org.jboss.elemento.IsElement;
+import org.jboss.elemento.ObserverCallback;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;

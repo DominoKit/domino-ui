@@ -7,9 +7,9 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.timer.client.Timer;
-import org.jboss.gwt.elemento.core.EventType;
+import org.jboss.elemento.EventType;
 
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class Search extends BaseDominoElement<HTMLDivElement, Search> {
 

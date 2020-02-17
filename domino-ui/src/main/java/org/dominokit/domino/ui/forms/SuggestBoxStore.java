@@ -19,6 +19,10 @@ public interface SuggestBoxStore<T> {
         return missingValue -> Optional.empty();
     }
 
+    default MissingEntryProvider<T> getMessingEntryProvider() {
+        return missingValue -> Optional.empty();
+    }
+
     @FunctionalInterface
     interface SuggestionsHandler<T> {
         void onSuggestionsReady(List<SuggestItem<T>> suggestions);
@@ -32,5 +36,10 @@ public interface SuggestBoxStore<T> {
     @FunctionalInterface
     interface MissingSuggestProvider<T>{
         Optional<SuggestItem<T>> getMessingSuggestion(T missingValue);
+    }
+
+    @FunctionalInterface
+    interface MissingEntryProvider<T>{
+        Optional<SuggestItem<T>> getMessingSuggestion(String inputValue);
     }
 }

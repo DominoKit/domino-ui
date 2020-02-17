@@ -1,10 +1,10 @@
 package org.dominokit.domino.ui.forms;
 
-//import com.google.gwt.i18n.client.NumberFormat;
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
-import org.jboss.gwt.elemento.core.Elements;
+import org.gwtproject.i18n.client.NumberFormat;
+import org.jboss.elemento.Elements;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;

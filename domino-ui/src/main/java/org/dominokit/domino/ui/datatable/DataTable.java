@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.*;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>> implements HasSelectionSupport<TableRow<T>> {
 
@@ -184,6 +184,16 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         return this;
     }
 
+    public DataTable<T> edit(){
+        getItems().forEach(TableRow::edit);
+        return this;
+    }
+
+    public DataTable<T> save(){
+        getItems().forEach(TableRow::save);
+        return this;
+    }
+
     public DominoElement<HTMLTableElement> tableElement() {
         return tableElement;
     }
@@ -257,6 +267,20 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     @Override
     public List<TableRow<T>> getItems() {
         return tableRows;
+    }
+
+    public List<T> getRecords(){
+        return getItems()
+                .stream()
+                .map(TableRow::getRecord)
+                .collect(Collectors.toList());
+    }
+
+    public List<T> getDirtyRecords(){
+        return getItems()
+                .stream()
+                .map(TableRow::getDirtyRecord)
+                .collect(Collectors.toList());
     }
 
     @Override

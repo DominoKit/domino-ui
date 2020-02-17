@@ -2,8 +2,8 @@ package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.*;
 import jsinterop.base.Js;
-import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.ObserverCallback;
+import org.jboss.elemento.Elements;
+import org.jboss.elemento.ObserverCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +25,13 @@ final class BodyObserver {
         MutationObserver mutationObserver = new MutationObserver(
                 (MutationRecord[] records, MutationObserver observer) -> {
                     for (MutationRecord record : records) {
-                        onElementsRemoved(record);
-                        onElementsAppended(record);
+                        if (!record.removedNodes.asList().isEmpty()) {
+                            onElementsRemoved(record);
+                        }
+
+                        if (!record.addedNodes.asList().isEmpty()) {
+                            onElementsAppended(record);
+                        }
                     }
                     return null;
                 });
@@ -74,7 +79,6 @@ final class BodyObserver {
                 }
             }
         }
-
         detachObservers.removeAll(observed);
     }
 
@@ -121,7 +125,7 @@ final class BodyObserver {
                                                   String idAttributeName) {
         String elementId = element.getAttribute(idAttributeName);
         if (elementId == null) {
-            element.setAttribute(idAttributeName, Elements.createDocumentUniqueId());
+            element.setAttribute(idAttributeName, Elements.uniqueId());
         }
         return new ElementObserver() {
             @Override
@@ -138,6 +142,7 @@ final class BodyObserver {
             public ObserverCallback callback() {
                 return callback;
             }
+
         };
     }
 

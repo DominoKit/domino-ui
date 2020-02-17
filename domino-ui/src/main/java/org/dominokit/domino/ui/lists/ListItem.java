@@ -10,10 +10,10 @@ import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.dominokit.domino.ui.utils.Selectable;
 import org.dominokit.domino.ui.utils.Switchable;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.a;
+import static org.jboss.elemento.Elements.a;
 
 public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> implements HasValue<ListItem<T>, T>
         , Selectable<ListItem<T>>, HasBackground<ListItem<T>>, Switchable<ListItem<T>>, TakesValue<T> {

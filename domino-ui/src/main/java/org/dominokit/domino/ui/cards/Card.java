@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.cards;
 
 import elemental2.dom.*;
+import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.grid.flex.FlexAlign;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
@@ -14,12 +15,13 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.HtmlContentBuilder;
+import org.jboss.elemento.IsElement;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.cards.CardStyles.*;
-import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.elemento.Elements.*;
 
 public class Card extends BaseDominoElement<HTMLDivElement, Card> implements HasBackground<Card> {
 
@@ -38,6 +40,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     private BaseIcon collapseIcon;
     private Color headerBackground;
     private Color bodyBackground;
+    private HtmlContentBuilder<HTMLAnchorElement> collapseAnchor;
 
     public Card() {
         headerTitle
@@ -217,7 +220,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     }
 
     private HTMLLIElement createHeaderAction(BaseIcon<?> icon) {
-        return li().add(a()
+        return li().add(collapseAnchor = a()
+                .attr("tabindex", "0")
+                .attr("aria-expanded", "true")
+                .attr("href", "#")
                 .add(icon
                         .clickable()
                         .styler(style -> style
@@ -249,8 +255,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         if (collapsible) {
             if (body.getCollapsible().isHidden()) {
                 show();
+                collapseAnchor.element().setAttribute("aria-expanded", "true");
             } else {
                 hide();
+                collapseAnchor.element().setAttribute("aria-expanded", "false");
             }
         }
     }
@@ -328,6 +336,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     public Card setHeaderVisible(boolean headerVisible) {
         this.header.toggleDisplay(headerVisible);
         return this;
+    }
+
+    public BaseIcon getCollapseIcon() {
+        return collapseIcon;
     }
 
     public Style<HTMLDivElement, DominoElement<HTMLDivElement>> bodyStyle() {

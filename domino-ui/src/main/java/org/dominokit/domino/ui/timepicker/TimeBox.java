@@ -12,14 +12,14 @@ import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.gwtproject.i18n.shared.DateTimeFormatInfo;
-import org.jboss.gwt.elemento.core.EventType;
+import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
+import org.jboss.elemento.EventType;
 
 import java.util.Date;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.gwt.elemento.core.Elements.input;
+import static org.jboss.elemento.Elements.input;
 
 public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 

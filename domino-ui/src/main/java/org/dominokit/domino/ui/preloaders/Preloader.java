@@ -4,28 +4,37 @@ import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.template.DataElement;
-import org.jboss.gwt.elemento.template.Templated;
+import org.jboss.elemento.IsElement;
 
-import javax.annotation.PostConstruct;
+import static org.jboss.elemento.Elements.div;
 
-@Templated
-public abstract class Preloader extends BaseDominoElement<HTMLDivElement, Preloader> implements IsElement<HTMLDivElement> {
+public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader> implements IsElement<HTMLDivElement> {
 
-    @DataElement
-    HTMLDivElement spinnerLayer;
+    private final HTMLDivElement root;
+    private final HTMLDivElement spinnerLayer;
 
     private Size size = Size.large;
     private Color color = Color.RED;
 
-    @PostConstruct
-    void init() {
+    public Preloader() {
+        this.root = div().css("preloader", "pl-size-l")
+                .add(spinnerLayer = div().css("spinner-layer", "pl-red")
+                        .add(div().css("circle-clipper", "left")
+                                .add(div().css("circle")))
+                        .add(div().css("circle-clipper", "right")
+                                .add(div().css("circle")))
+                        .element())
+                .element();
         init(this);
     }
 
+    @Override
+    public HTMLDivElement element() {
+        return root;
+    }
+
     public static Preloader create() {
-        return new Templated_Preloader();
+        return new Preloader();
     }
 
     public Preloader setSize(Size size) {
