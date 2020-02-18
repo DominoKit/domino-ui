@@ -6,11 +6,8 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
-import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-
-import javax.annotation.PostConstruct;
 
 import static org.jboss.elemento.Elements.*;
 
@@ -51,7 +48,6 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
         init();
     }
 
-    @PostConstruct
     void init() {
         init(this);
     }
