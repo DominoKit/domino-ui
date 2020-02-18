@@ -89,11 +89,6 @@
             </dependency>
             <dependency>
                 <groupId>org.gwtproject.i18n</groupId>
-                <artifactId>gwt-cldr</artifactId>
-                <version>${gwt.i18n.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.gwtproject.i18n</groupId>
                 <artifactId>gwt-datetimeformat</artifactId>
                 <version>${gwt.i18n.version}</version>
             </dependency>
