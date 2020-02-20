@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.datatable;
 import elemental2.dom.HTMLTableCellElement;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.ElementUtil;
+import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.elemento.IsElement;
 
 import static java.util.Objects.nonNull;
@@ -11,6 +12,7 @@ public class RowCell<T> {
 
     private final ColumnConfig<T> columnConfig;
     private final CellRenderer.CellInfo<T> cellInfo;
+    private CellRenderer<T> defaultCellRenderer=  cell -> TextNode.of("");
 
     public RowCell(CellRenderer.CellInfo<T> cellInfo, ColumnConfig<T> columnConfig) {
         this.columnConfig = columnConfig;
@@ -40,9 +42,17 @@ public class RowCell<T> {
         }
 
         if(cellInfo.getTableRow().isEditable()){
-            cellInfo.getElement().appendChild(columnConfig.getEditableCellRenderer().asElement(cellInfo));
+            if(nonNull(columnConfig.getEditableCellRenderer())) {
+                cellInfo.getElement().appendChild(columnConfig.getEditableCellRenderer().asElement(cellInfo));
+            }else{
+                cellInfo.getElement().appendChild(defaultCellRenderer.asElement(cellInfo));
+            }
         }else {
-            cellInfo.getElement().appendChild(columnConfig.getCellRenderer().asElement(cellInfo));
+            if(nonNull(columnConfig.getCellRenderer())) {
+                cellInfo.getElement().appendChild(columnConfig.getCellRenderer().asElement(cellInfo));
+            }else{
+                cellInfo.getElement().appendChild(defaultCellRenderer.asElement(cellInfo));
+            }
         }
     }
 

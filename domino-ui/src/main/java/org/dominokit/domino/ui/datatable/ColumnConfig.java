@@ -24,8 +24,8 @@ public class ColumnConfig<T> {
     private String minWidth;
     private String maxWidth;
     private String textAlign;
-    private CellRenderer<T> cellRenderer = cell -> TextNode.of("");
-    private CellRenderer<T> editableCellRenderer = cellRenderer;
+    private CellRenderer<T> cellRenderer;
+    private CellRenderer<T> editableCellRenderer;
     private HeaderElement headerElement = TextNode::of;
     private CellStyler<T> headerStyler = element -> {
     };
@@ -173,6 +173,9 @@ public class ColumnConfig<T> {
     }
 
     public CellRenderer<T> getEditableCellRenderer() {
+        if(isNull(editableCellRenderer)){
+            return cellRenderer;
+        }
         return editableCellRenderer;
     }
 

@@ -30,7 +30,6 @@ public class MessageDialog extends BaseModal<MessageDialog> {
     private Transition iconEndTransition;
     private static Button okButton;
 
-
     public MessageDialog() {
         init(this);
     }
@@ -60,7 +59,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
                 .insertBefore(messageDialog.iconContainer, messageDialog.modalElement.getModalHeader().firstChild());
         messageDialog.hideHeader();
         messageDialog.setAutoClose(true);
-        messageDialog.onClose(closeHandler::onClose);
+        messageDialog.addCloseListener(closeHandler::onClose);
         messageDialog.appendChild(content);
         okButton = Button.create("OK")
                 .styler(style -> style.add(MessageDialogStyles.DIALOG_BUTTON))
@@ -103,6 +102,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         this.iconColorEnd = Color.LIGHT_GREEN;
         this.iconStartTransition = Transition.ROTATE_IN;
         this.iconEndTransition = Transition.PULSE;
+        showHeader();
         initIcon();
         return this;
     }
@@ -117,6 +117,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         this.iconColorEnd = Color.RED;
         this.iconStartTransition = Transition.ROTATE_IN;
         this.iconEndTransition = Transition.TADA;
+        showHeader();
         initIcon();
         return this;
     }
@@ -131,6 +132,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         this.iconColorEnd = Color.ORANGE;
         this.iconStartTransition = Transition.ROTATE_IN;
         this.iconEndTransition = Transition.RUBBER_BAND;
+        showHeader();
         initIcon();
         return this;
     }
@@ -148,7 +150,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         iconContainer.clearElement();
         iconContainer.appendChild(icon);
 
-        onOpen(() -> {
+        addOpenListener(() -> {
             icon.style()
                     .remove(iconColorEnd.getStyle())
                     .add(iconColorStart.getStyle())
