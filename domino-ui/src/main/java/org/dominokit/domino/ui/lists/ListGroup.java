@@ -2,12 +2,12 @@ package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
 import org.dominokit.domino.ui.utils.HasSelectionSupport;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,6 +34,13 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
     public static <T> ListGroup<T> create() {
         return new ListGroup<>();
     }
+    
+    public List<ListItem<T>> addItems(List<T> values) {
+        values.forEach((value) -> {
+            addItem(value, value.toString());
+        });
+        return Collections.unmodifiableList(allItems);
+    } 
 
     public ListItem<T> addItem(T value) {
         ListItem<T> listItem = ListItem.create(value);
@@ -58,6 +65,17 @@ public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>
         element().appendChild(listItem.element());
         listItem.setParent(this);
         return this;
+    }
+    
+    public ListGroup<T> appendChilds(List<ListItem<T>> items) {
+        items.forEach((listItem) -> {
+            appendChild(listItem);
+        });
+        return this;
+    }
+    
+    public ListItem<T> createItem(T value) {
+        return createItem(value, value.toString());
     }
 
     public ListItem<T> createItem(T value, String text) {
