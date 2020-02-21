@@ -53,6 +53,10 @@ public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> im
     public static <T> ListItem<T> create(T value) {
         return new ListItem<>(value);
     }
+    
+    public static <T> ListItem<T> create(T value, String text) {
+        return create(value).setText(text);
+    }
 
     @Override
     public ListItem<T> value(T value) {
