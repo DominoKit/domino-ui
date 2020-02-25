@@ -12,8 +12,7 @@ public class ConfirmationDialog extends BaseModal<ConfirmationDialog> {
 
     private ConfirmHandler confirmHandler = (dialog) -> {
     };
-    private RejectHandler rejectHandler = (dialog) -> {
-    };
+    private RejectHandler rejectHandler = BaseModal::close;
 
     public static ConfirmationDialog create(){
         return new ConfirmationDialog();
