@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
-import com.google.gwt.user.client.TakesValue;
+import org.gwtproject.editor.client.TakesValue;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.style.Color;

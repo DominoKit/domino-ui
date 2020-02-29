@@ -15,13 +15,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-user</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.dominokit</groupId>
             <artifactId>domino-ui-shared</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.gwtproject.core</groupId>
+            <artifactId>gwt-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.gwtproject</groupId>
+            <artifactId>editors</artifactId>
         </dependency>
         <dependency>
             <groupId>org.gwtproject.timer</groupId>
