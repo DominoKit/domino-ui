@@ -7,7 +7,6 @@
     <inherits name="org.jboss.elemento.Core"/>
     <inherits name="org.gwtproject.i18n.CLDR"/>
     <inherits name="org.gwtproject.i18n.DateTimeFormat"/>
-    <inherits name="org.gwtproject.i18n.I18N"/>
 
     <source path=""/>
 
