@@ -194,6 +194,11 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         return this;
     }
 
+    public DataTable<T> cancelEditing(){
+        getItems().forEach(TableRow::cancelEditing);
+        return this;
+    }
+
     public DominoElement<HTMLTableElement> tableElement() {
         return tableElement;
     }
