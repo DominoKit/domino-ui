@@ -198,6 +198,11 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
         }
     }
 
+    public void cancelEditing() {
+        this.setEditable(false);
+        updateRow();
+    }
+
     public boolean isEditable() {
         return editable;
     }
