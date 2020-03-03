@@ -47,7 +47,7 @@ public interface Color {
 
         @Override
         public String getHex() {
-            return "#e53935";
+            return "#ef5350";
         }
 
         @Override
@@ -157,7 +157,7 @@ public interface Color {
 
         @Override
         public String getHex() {
-            return "#ef5350";
+            return "#e53935";
         }
 
         @Override
@@ -2709,7 +2709,7 @@ public interface Color {
 
         @Override
         public String getHex() {
-            return "#dce775";
+            return "#fff176";
         }
 
         @Override
