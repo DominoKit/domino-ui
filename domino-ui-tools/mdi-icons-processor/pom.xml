@@ -87,8 +87,20 @@
                                     <shadedPattern>dominoui.shaded.com</shadedPattern>
                                 </relocation>
                                 <relocation>
+                                    <pattern>org.dominokit.domino.apt</pattern>
+                                    <shadedPattern>dominoui.shaded.org.dominokit.domino.apt</shadedPattern>
+                                </relocation>
+                                <relocation>
                                     <pattern>org.apache</pattern>
                                     <shadedPattern>dominoui.shaded.org.apache</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.slf4j</pattern>
+                                    <shadedPattern>dominoui.shaded.org.slf4j</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.dominokit.jacksonapt</pattern>
+                                    <shadedPattern>dominoui.shaded.org.dominokit.jacksonapt</shadedPattern>
                                 </relocation>
                             </relocations>
                             <transformers>
@@ -108,6 +120,7 @@
                                     <artifact>org.dominokit.jackson:jackson-super</artifact>
                                     <excludes>
                                         <exclude>**/*.java</exclude>
+                                        <exclude>java/**</exclude>
                                     </excludes>
                                 </filter>
                             </filters>
