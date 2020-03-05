@@ -3,9 +3,6 @@ package org.dominokit.ui.tools.processor;
 import com.squareup.javapoet.*;
 import org.dominokit.domino.apt.commons.AbstractSourceBuilder;
 import org.dominokit.domino.apt.commons.DominoTypeBuilder;
-import org.dominokit.domino.ui.icons.MdiIcon;
-import org.dominokit.domino.ui.icons.MdiIconsByTagFactory;
-import org.dominokit.domino.ui.icons.MdiMeta;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
@@ -17,6 +14,9 @@ import java.util.stream.Collectors;
 import static java.util.Objects.isNull;
 
 public class MdiIconsSourceWriter extends AbstractSourceBuilder {
+    private static final String MDI_ICON_TYPE = "org.dominokit.domino.ui.icons.MdiIcon";
+    private static final String MDI_ICON_FACTORY_TYPE = "org.dominokit.domino.ui.icons.MdiIconsByTagFactory";
+    private static final String MDI_META_TYPE = "org.dominokit.domino.ui.icons.MdiMeta";
 
     public static final String UNTAGGED = "UnTagged";
     private final List<MetaIconInfo> metaIconInfos;
@@ -62,7 +62,7 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
 
     private TypeSpec.Builder generateMdiByTagFactory(Set<String> tags) {
 
-        ParameterizedTypeName listType = ParameterizedTypeName.get(ClassName.get(List.class), ParameterizedTypeName.get(ClassName.get(Supplier.class), TypeName.get(MdiIcon.class)));
+        ParameterizedTypeName listType = ParameterizedTypeName.get(ClassName.get(List.class), ParameterizedTypeName.get(ClassName.get(Supplier.class), ClassName.bestGuess(MDI_ICON_TYPE)));
 
         TypeSpec.Builder factoryBuilder = DominoTypeBuilder.classBuilder("MdiByTagFactory", MdiIconsProcessor.class)
                 .addModifiers(Modifier.PUBLIC)
@@ -130,11 +130,11 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
                     .replace("-", "_") + "_mdi")
                     .addModifiers(Modifier.PUBLIC)
                     .addModifiers(Modifier.DEFAULT)
-                    .returns(MdiIcon.class)
+                    .returns(ClassName.bestGuess(MDI_ICON_TYPE))
                     .addStatement("return $T.create($S, new $T($S, $S, $T.asList($L), $T.asList($L), $S, $S))",
-                            TypeName.get(MdiIcon.class),
+                            ClassName.bestGuess(MDI_ICON_TYPE),
                             "mdi-" + metaIconInfo.getName(),
-                            TypeName.get(MdiMeta.class),
+                            ClassName.bestGuess(MDI_META_TYPE),
                             metaIconInfo.getName(),
                             metaIconInfo.getCodepoint(),
                             TypeName.get(Arrays.class),
@@ -176,13 +176,13 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
         TypeSpec.Builder builder = DominoTypeBuilder.interfaceBuilder(typeName, MdiIconsProcessor.class)
                 .addModifiers(Modifier.PUBLIC);
 
-        ParameterizedTypeName listType = ParameterizedTypeName.get(ClassName.get(List.class), ParameterizedTypeName.get(ClassName.get(Supplier.class), TypeName.get(MdiIcon.class)));
+        ParameterizedTypeName listType = ParameterizedTypeName.get(ClassName.get(List.class), ParameterizedTypeName.get(ClassName.get(Supplier.class), ClassName.bestGuess(MDI_ICON_TYPE)));
 
         CodeBlock.Builder staticInitializer = CodeBlock.builder();
 
         TypeSpec.Builder factoryBuilder = DominoTypeBuilder.classBuilder(typeName + "_Factory", MdiIconsProcessor.class)
                 .addModifiers(Modifier.PUBLIC)
-                .addSuperinterface(TypeName.get(MdiIconsByTagFactory.class))
+                .addSuperinterface(ClassName.bestGuess(MDI_ICON_FACTORY_TYPE))
                 .addField(FieldSpec.builder(listType, "icons", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
                         .initializer("new $T()", TypeName.get(ArrayList.class))
                         .build())
@@ -196,11 +196,11 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
             MethodSpec.Builder iconMethod = MethodSpec.methodBuilder(methodName)
                     .addModifiers(Modifier.PUBLIC)
                     .addModifiers(Modifier.DEFAULT)
-                    .returns(MdiIcon.class)
+                    .returns(ClassName.bestGuess(MDI_ICON_TYPE))
                     .addStatement("return $T.create($S, new $T($S, $S, $T.asList($L), $T.asList($L), $S, $S))",
-                            TypeName.get(MdiIcon.class),
+                            ClassName.bestGuess(MDI_ICON_TYPE),
                             "mdi-" + metaIconInfo.getName(),
-                            TypeName.get(MdiMeta.class),
+                            ClassName.bestGuess(MDI_META_TYPE),
                             metaIconInfo.getName(),
                             metaIconInfo.getCodepoint(),
                             TypeName.get(Arrays.class),
