@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
-import com.google.gwt.editor.client.Editor;
+import org.gwtproject.editor.client.Editor;
 import org.dominokit.domino.ui.utils.HasAutoValidation;
 import org.dominokit.domino.ui.utils.HasValidation;
 import org.dominokit.domino.ui.utils.IsRequired;

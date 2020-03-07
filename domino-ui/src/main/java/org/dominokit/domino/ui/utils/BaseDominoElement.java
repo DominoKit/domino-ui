@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.utils;
 
-import com.google.gwt.editor.client.Editor;
+import org.gwtproject.editor.client.Editor;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.popover.PopupPosition;
