@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
-import com.google.gwt.editor.client.EditorError;
+import org.gwtproject.editor.client.EditorError;
 import elemental2.dom.*;
 import org.dominokit.domino.ui.forms.validations.ElementValidations;
 import org.dominokit.domino.ui.forms.validations.RequiredValidator;

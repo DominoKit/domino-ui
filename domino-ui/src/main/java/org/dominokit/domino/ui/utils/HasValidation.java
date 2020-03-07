@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.utils;
 
-import com.google.gwt.editor.client.Editor;
+import org.gwtproject.editor.client.Editor;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 
 import java.util.List;

@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.utils;
 
-import com.google.gwt.editor.client.Editor;
+
+import org.gwtproject.editor.client.Editor;
 
 public interface HasAutoValidation<T> {
 

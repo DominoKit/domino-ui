@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.carousel;
 
-import com.google.gwt.core.client.Scheduler;
+import org.gwtproject.core.client.Scheduler;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLOListElement;

@@ -1,6 +1,6 @@
 package org.dominokit.domino.ui.search;
 
-import com.google.gwt.core.client.Scheduler;
+import org.gwtproject.core.client.Scheduler;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.utils.BaseDominoElement;

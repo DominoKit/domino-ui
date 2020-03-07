@@ -1,8 +1,8 @@
 package org.dominokit.domino.ui.forms;
 
-import com.google.gwt.editor.client.HasEditorErrors;
-import com.google.gwt.editor.client.LeafValueEditor;
-import com.google.gwt.user.client.TakesValue;
+import org.gwtproject.editor.client.HasEditorErrors;
+import org.gwtproject.editor.client.LeafValueEditor;
+import org.gwtproject.editor.client.TakesValue;
 import org.dominokit.domino.ui.utils.HasHelperText;
 import org.dominokit.domino.ui.utils.HasLabel;
 import org.dominokit.domino.ui.utils.HasName;
