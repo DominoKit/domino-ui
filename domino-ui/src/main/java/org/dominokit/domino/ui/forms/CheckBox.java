@@ -91,6 +91,8 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
         inputElement.element().checked = true;
         if (!silent)
             onCheck();
+        if (isReadOnly())
+            changeReadOnlyText();
         return this;
     }
 
@@ -99,6 +101,8 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
         inputElement.element().checked = false;
         if (!silent)
             onCheck();
+        if (isReadOnly())
+            changeReadOnlyText();
         return this;
     }
 
@@ -165,28 +169,26 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     }
 
     @Override
-    public CheckBox clear() {
-        super.clear();
-        return this;
-    }
-
-    @Override
     public CheckBox setReadOnly(boolean readOnly) {
         super.setReadOnly(readOnly);
         if (readOnly) {
             getInputElement().setReadOnly(true);
             css(READONLY);
-            if (isChecked()) {
-                getLabelTextElement().setTextContent(label + getCheckedReadonlyLabel());
-            } else {
-                getLabelTextElement().setTextContent(label + getUnCheckedReadonlyLabel());
-            }
+            changeReadOnlyText();
         } else {
             getInputElement().setReadOnly(false);
             removeCss(READONLY);
             getLabelTextElement().setTextContent(label);
         }
         return this;
+    }
+
+    private void changeReadOnlyText() {
+        if (isChecked()) {
+            getLabelTextElement().setTextContent(label + getCheckedReadonlyLabel());
+        } else {
+            getLabelTextElement().setTextContent(label + getUnCheckedReadonlyLabel());
+        }
     }
 
     private String getCheckedReadonlyLabel() {
