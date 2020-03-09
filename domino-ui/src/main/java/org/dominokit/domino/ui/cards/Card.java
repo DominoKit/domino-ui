@@ -1,7 +1,6 @@
 package org.dominokit.domino.ui.cards;
 
 import elemental2.dom.*;
-import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.grid.flex.FlexAlign;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
@@ -15,6 +14,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.TextNode;
+import org.jboss.elemento.EventType;
 import org.jboss.elemento.HtmlContentBuilder;
 import org.jboss.elemento.IsElement;
 
@@ -224,6 +224,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
                 .attr("tabindex", "0")
                 .attr("aria-expanded", "true")
                 .attr("href", "#")
+                .on(EventType.click, Event::preventDefault)
                 .add(icon
                         .clickable()
                         .styler(style -> style
