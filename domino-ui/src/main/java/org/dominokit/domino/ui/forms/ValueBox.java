@@ -41,7 +41,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     private FlexItem prefixItem = FlexItem.create();
     private FlexItem postFixItem = FlexItem.create();
 
-    private DominoElement<HTMLLabelElement> labelElement = DominoElement.of(label().css("field-label"));
+    private DominoElement<HTMLLabelElement> labelElement;
     private DominoElement<HTMLElement> labelTextElement = DominoElement.of(span());
 
     private Color focusColor = Color.BLUE;
@@ -65,6 +65,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         helpItem = FlexItem.create();
         countItem = FlexItem.create().hide();
         errorItem = FlexItem.create();
+        labelElement = createLabelElement();
 
         init((T) this);
         inputElement = DominoElement.of(createInputElement(type));
@@ -156,6 +157,10 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         if (!pauseChangeHandlers) {
             changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(getValue()));
         }
+    }
+
+    protected DominoElement<HTMLLabelElement> createLabelElement(){
+        return DominoElement.of(label().css("field-label"));
     }
 
     protected abstract E createInputElement(String type);

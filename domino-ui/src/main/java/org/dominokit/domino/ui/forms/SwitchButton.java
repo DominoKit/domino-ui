@@ -13,7 +13,7 @@ import static org.jboss.elemento.Elements.*;
 
 public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Boolean> implements Checkable<SwitchButton> {
 
-    private HTMLLabelElement onOffLabelElement = label().element();
+    private HTMLLabelElement onOffLabelElement;
     private DominoElement<HTMLInputElement> inputElement;
     private DominoElement<HTMLElement> lever = DominoElement.of(span().css("lever"));
     private Color color;
@@ -87,7 +87,8 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         if(!inputElement.hasAttribute("id")){
             inputElement.setAttribute("id", inputElement.getAttribute(BaseDominoElement.DOMINO_UUID));
         }
-        onOffLabelElement.setAttribute("for", inputElement.getAttribute("id"));
+
+        getOnOffLabelElement().setAttribute("for", inputElement.getAttribute("id"));
     }
 
     public DominoElement<HTMLElement> getLever() {
@@ -265,6 +266,12 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
     public SwitchButton setUnCheckedReadonlyLabel(String unCheckedReadonlyLabel) {
         this.unCheckedReadonlyLabel = unCheckedReadonlyLabel;
         return this;
+    }
+
+    @Override
+    protected DominoElement<HTMLLabelElement> createLabelElement() {
+        onOffLabelElement = label().element();
+        return DominoElement.of(onOffLabelElement);
     }
 
     @Override
