@@ -30,6 +30,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
 
     public Radio(T value, String label) {
         changeHandlers = new ArrayList<>();
+        linkLabelToField();
         container.appendChild(inputElement);
         container.appendChild(labelElement);
         setLabel(label);
@@ -52,6 +53,14 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
 
     public static <E> Radio<E> create(E value) {
         return new Radio<>(value);
+    }
+
+    private void linkLabelToField() {
+        DominoElement<HTMLInputElement> asDominoElement = DominoElement.of(inputElement);
+        if(!asDominoElement.hasAttribute("id")){
+            inputElement.setAttribute("id", asDominoElement.getAttribute(BaseDominoElement.DOMINO_UUID));
+        }
+        labelElement.setAttribute("for", asDominoElement.getAttribute("id"));
     }
 
     @Override
