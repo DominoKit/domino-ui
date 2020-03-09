@@ -106,6 +106,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         prefixItem.css("field-prefix");
         postFixItem.css("field-postfix");
 
+        linkLabelToField();
+
         fieldInnerContainer = FlexLayout.create();
         fieldGroup
                 .appendChild(fieldContainer
@@ -141,6 +143,13 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
                                 )
                         )
                 );
+    }
+
+    protected void linkLabelToField() {
+        if(!inputElement.hasAttribute("id")){
+            inputElement.setAttribute("id", inputElement.getAttribute(BaseDominoElement.DOMINO_UUID));
+        }
+        labelElement.setAttribute("for", inputElement.getAttribute("id"));
     }
 
     protected void callChangeHandlers() {

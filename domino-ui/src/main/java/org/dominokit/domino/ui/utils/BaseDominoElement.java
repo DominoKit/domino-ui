@@ -19,6 +19,7 @@ import static java.util.Objects.nonNull;
 
 public abstract class BaseDominoElement<E extends HTMLElement, T extends IsElement<E>> implements IsElement<E>, IsCollapsible<T>, HasChildren<T>, HasWavesElement, IsReadOnly<T> {
 
+    public static final String DOMINO_UUID = "domino-uuid";
     @Editor.Ignore
     protected T element;
     private String uuid;
@@ -37,17 +38,17 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         this.element = element;
 
         if (hasDominoId()) {
-            uuid = getAttribute("domino-uuid");
+            uuid = getAttribute(DOMINO_UUID);
         } else {
             this.uuid = Elements.uniqueId();
-            setAttribute("domino-uuid", this.uuid);
+            setAttribute(DOMINO_UUID, this.uuid);
         }
         this.collapsible = Collapsible.create(getCollapsibleElement());
         this.style = Style.of(element);
     }
 
     private boolean hasDominoId() {
-        return hasAttribute("domino-uuid") && nonNull(getAttribute("domino-uuid")) && !getAttribute("domino-uuid").isEmpty();
+        return hasAttribute(DOMINO_UUID) && nonNull(getAttribute(DOMINO_UUID)) && !getAttribute(DOMINO_UUID).isEmpty();
     }
 
     public T setId(String id) {

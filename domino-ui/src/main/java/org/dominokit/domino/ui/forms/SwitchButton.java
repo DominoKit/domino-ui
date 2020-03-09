@@ -4,6 +4,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -48,6 +49,9 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         onOffLabelElement.appendChild(getInputElement().element());
         onOffLabelElement.appendChild(lever.element());
         onOffLabelElement.appendChild(onTitleTextRoot.element());
+
+        linkLabelToField();
+
         inputElement.addEventListener("change", evt -> {
             evt.stopPropagation();
             if (!isReadOnly()) {
@@ -76,6 +80,14 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         for (ChangeHandler<? super Boolean> checkHandler : changeHandlers) {
             checkHandler.onValueChanged(isChecked());
         }
+    }
+
+    @Override
+    protected void linkLabelToField() {
+        if(!inputElement.hasAttribute("id")){
+            inputElement.setAttribute("id", inputElement.getAttribute(BaseDominoElement.DOMINO_UUID));
+        }
+        onOffLabelElement.setAttribute("for", inputElement.getAttribute("id"));
     }
 
     public DominoElement<HTMLElement> getLever() {

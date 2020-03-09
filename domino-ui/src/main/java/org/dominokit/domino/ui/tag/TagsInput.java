@@ -16,6 +16,7 @@ import org.dominokit.domino.ui.keyboard.KeyboardEvents.KeyboardEventOptions;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.tag.store.DynamicLocalTagsStore;
 import org.dominokit.domino.ui.tag.store.TagsStore;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 import java.util.ArrayList;
@@ -153,6 +154,14 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
         } else {
             enableAddValues();
         }
+    }
+
+    @Override
+    protected void linkLabelToField() {
+        if(!tagTextInput.hasAttribute("id")){
+            tagTextInput.setAttribute("id", tagTextInput.getAttribute(BaseDominoElement.DOMINO_UUID));
+        }
+        getLabelElement().setAttribute("for", tagTextInput.getAttribute("id"));
     }
 
     @Override
