@@ -31,8 +31,8 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
     public Radio(T value, String label) {
         changeHandlers = new ArrayList<>();
         linkLabelToField();
-        container.appendChild(inputElement);
         container.appendChild(labelElement);
+        container.appendChild(inputElement);
         setLabel(label);
         value(value);
         container.addEventListener("click", evt -> {
