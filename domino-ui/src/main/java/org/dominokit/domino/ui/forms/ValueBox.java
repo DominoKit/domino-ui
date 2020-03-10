@@ -116,8 +116,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
                                 .appendChild(inputContainer
                                         .css("field-input-cntr")
                                         .setFlexGrow(1)
-                                        .appendChild(inputElement)
                                         .appendChild(labelElement)
+                                        .appendChild(inputElement)
                                 )
                                 .apply(self -> {
                                     mandatoryAddOn = createMandatoryAddOn();

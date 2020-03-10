@@ -21,11 +21,11 @@
 .breadcrumb.col-white li a{
     color: #202020;
 }
-.d-checkbox input[type="checkbox"]:checked.col-white + label:before {
+.d-checkbox.checked.col-white .field-label:before {
     border-right: 2px solid #FFFFFF;
     border-bottom: 2px solid #FFFFFF;
 }
-.d-checkbox input[type="checkbox"].filled-in:checked.col-white + label:after,
+.d-checkbox.filled-in:checked.col-white .field-label:after,
 [type="radio"].with-gap.col-white:checked + label:before,
 [type="radio"].with-gap.col-white + label:after{
     border: 2px solid #FFFFFF;

@@ -20,6 +20,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     private String checkedReadonlyLabel = "Yes";
     private String unCheckedReadonlyLabel = "No";
     private String label;
+    private boolean checked = false;
 
     public CheckBox() {
         this("");
@@ -68,10 +69,13 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     }
 
     public CheckBox toggle() {
-        if (isChecked()) {
+        boolean checked = isChecked();
+        if (checked) {
             uncheck();
+            element.removeCss("checked");
         } else {
             check();
+            element.css("checked");
         }
         return this;
     }
@@ -89,6 +93,8 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     @Override
     public CheckBox check(boolean silent) {
         inputElement.element().checked = true;
+        this.checked = true;
+        element.css("checked");
         if (!silent)
             onCheck();
         if (isReadOnly())
@@ -99,6 +105,8 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     @Override
     public CheckBox uncheck(boolean silent) {
         inputElement.element().checked = false;
+        this.checked = false;
+        element.removeCss("checked");
         if (!silent)
             onCheck();
         if (isReadOnly())
@@ -108,7 +116,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
 
     @Override
     public boolean isChecked() {
-        return inputElement.element().checked;
+        return this.checked;
     }
 
     @Override
@@ -130,20 +138,20 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     }
 
     public CheckBox filledIn() {
-        inputElement.style().add("filled-in");
+        element.style().add("filled-in");
         return this;
     }
 
     public CheckBox filledOut() {
-        inputElement.style().remove("filled-in");
+        element.style().remove("filled-in");
         return this;
     }
 
     public CheckBox setColor(Color color) {
         if (this.color != null) {
-            inputElement.style().remove(this.color.getStyle());
+            element.style().remove(this.color.getStyle());
         }
-        inputElement.style().add(color.getStyle());
+        element.style().add(color.getStyle());
         this.color = color;
         return this;
     }
