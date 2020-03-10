@@ -20,6 +20,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     private String checkedReadonlyLabel = "Yes";
     private String unCheckedReadonlyLabel = "No";
     private String label;
+    private boolean checked = false;
 
     public CheckBox() {
         this("");
@@ -89,6 +90,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     @Override
     public CheckBox check(boolean silent) {
         inputElement.element().checked = true;
+        this.checked = true;
         if (!silent)
             onCheck();
         if (isReadOnly())
@@ -99,6 +101,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     @Override
     public CheckBox uncheck(boolean silent) {
         inputElement.element().checked = false;
+        this.checked = false;
         if (!silent)
             onCheck();
         if (isReadOnly())
@@ -108,7 +111,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
 
     @Override
     public boolean isChecked() {
-        return inputElement.element().checked;
+        return this.checked;
     }
 
     @Override
