@@ -9,6 +9,9 @@ import org.jboss.elemento.IsElement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collapsible> {
 
 
@@ -17,13 +20,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
     private boolean collapsed = false;
 
-    private HideCompletedHandler onHidden = () -> {
-    };
-
-    private ShowCompletedHandler onShown = () -> {
-    };
-
-    private List<HideCompletedHandler> hideHandlers = new ArrayList<>();
+    private List<HideCompletedHandler> hideHandlers;
     private List<ShowCompletedHandler> showHandlers = new ArrayList<>();
 
     public Collapsible(HTMLElement element) {
@@ -58,13 +55,15 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     }
 
     private void onHideCompleted() {
-        onHidden.onHidden();
-        hideHandlers.forEach(HideCompletedHandler::onHidden);
+        if (nonNull(hideHandlers)) {
+            hideHandlers.forEach(HideCompletedHandler::onHidden);
+        }
     }
 
     private void onShowCompleted() {
-        onShown.onShown();
-        showHandlers.forEach(ShowCompletedHandler::onShown);
+        if (nonNull(showHandlers)) {
+            showHandlers.forEach(ShowCompletedHandler::onShown);
+        }
     }
 
     @Override
@@ -91,15 +90,6 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
         }
         return this;
     }
-
-    void setOnHidden(HideCompletedHandler onHidden) {
-        this.onHidden = onHidden;
-    }
-
-    void setOnShown(ShowCompletedHandler onShown) {
-        this.onShown = onShown;
-    }
-
 
     /**
      * @deprecated use {@link #addHideHandler(HideCompletedHandler)}
@@ -134,21 +124,31 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     }
 
     public Collapsible addHideHandler(HideCompletedHandler handler) {
+        if (isNull(hideHandlers)) {
+            hideHandlers = new ArrayList<>();
+        }
         hideHandlers.add(handler);
         return this;
     }
 
     public void removeHideHandler(HideCompletedHandler handler) {
-        hideHandlers.remove(handler);
+        if (nonNull(hideHandlers)) {
+            hideHandlers.remove(handler);
+        }
     }
 
     public Collapsible addShowHandler(ShowCompletedHandler handler) {
+        if (isNull(showHandlers)) {
+            showHandlers = new ArrayList<>();
+        }
         showHandlers.add(handler);
         return this;
     }
 
     public void removeShowHandler(ShowCompletedHandler handler) {
-        showHandlers.remove(handler);
+        if (nonNull(showHandlers)) {
+            showHandlers.remove(handler);
+        }
     }
 
 
