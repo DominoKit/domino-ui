@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.forms;
 
-import org.gwtproject.editor.client.TakesValue;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
@@ -11,6 +10,7 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.*;
+import org.gwtproject.editor.client.TakesValue;
 import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
@@ -23,10 +23,10 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
         HasBackground<SelectOption>, Selectable<SelectOption>, TakesValue<T> {
 
     private static final String SELECTED = "select-option-selected";
+    private static Icon checkMark = Icons.ALL.check().styler(style1 -> style1.add(Styles.pull_right)
+            .add("select-option-check-mark"));
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("select-option"));
     private DominoElement<HTMLElement> valueContainer = DominoElement.of(span().css(Styles.ellipsis_text));
-    private Icon checkMark = Icons.ALL.check().styler(style1 -> style1.add(Styles.pull_right)
-            .add("select-option-check-mark"));
     private String displayValue;
     private String key;
     private T value;
