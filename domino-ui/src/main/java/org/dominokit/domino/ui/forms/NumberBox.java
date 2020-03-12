@@ -14,6 +14,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     private final ChangeHandler<E> formatValueChangeHandler = value -> formatValue();
     private String maxValueErrorMessage;
     private String minValueErrorMessage;
+    private String invalidFormatMessage;
     private boolean formattingEnabled;
     private String pattern = null;
 
@@ -28,12 +29,16 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     private void addMaxValueValidator() {
         addValidator(() -> {
             E value = getValue();
-            if(nonNull(getMaxValue())) {
+            if (nonNull(getMaxValue())) {
                 String inputValue = getInputElement().element().value;
-                if(nonNull(inputValue) && !inputValue.isEmpty()) {
-                    double parsed = getNumberFormat().parse(inputValue);
-                    if (nonNull(value) && isExceedMaxValue(getMaxDoubleValue(), parsed)) {
-                        return ValidationResult.invalid(getMaxValueErrorMessage());
+                if (nonNull(inputValue) && !inputValue.isEmpty()) {
+                    try {
+                        double parsed = getNumberFormat().parse(inputValue);
+                        if (nonNull(value) && isExceedMaxValue(getMaxDoubleValue(), parsed)) {
+                            return ValidationResult.invalid(getMaxValueErrorMessage());
+                        }
+                    } catch (NumberFormatException e) {
+                        return ValidationResult.invalid(getInvalidFormatMessage());
                     }
                 }
             }
@@ -41,12 +46,14 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         });
     }
 
-    protected Double getMaxDoubleValue(){
-        if(nonNull(getMaxValue())){
+    protected Double getMaxDoubleValue() {
+        if (nonNull(getMaxValue())) {
             return getMaxValue().doubleValue();
         }
         return null;
-    };
+    }
+
+    ;
 
     private void addMinValueValidator() {
         addValidator(() -> {
@@ -154,12 +161,21 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         return (T) this;
     }
 
+    public T setInvalidFormatMessage(String invalidFormatMessage) {
+        this.invalidFormatMessage = invalidFormatMessage;
+        return (T) this;
+    }
+
     public String getMaxValueErrorMessage() {
         return isNull(maxValueErrorMessage) ? "Maximum allowed value is [" + getMaxValue() + "]" : maxValueErrorMessage;
     }
 
     public String getMinValueErrorMessage() {
         return isNull(minValueErrorMessage) ? "Minimum allowed value is [" + getMinValue() + "]" : minValueErrorMessage;
+    }
+
+    public String getInvalidFormatMessage() {
+        return isNull(invalidFormatMessage) ? "Invalid number format" : invalidFormatMessage;
     }
 
     private boolean isExceedMaxValue(E value) {
