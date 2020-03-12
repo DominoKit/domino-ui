@@ -142,7 +142,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
 
     public CheckBox setColor(Color color) {
         if (this.color != null) {
-            element.style().remove(this.color.getStyle());
+           element.style().remove(this.color.getStyle());
         }
         element.style().add(color.getStyle());
         this.color = color;
