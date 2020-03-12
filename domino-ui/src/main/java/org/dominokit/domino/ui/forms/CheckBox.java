@@ -2,7 +2,6 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.Event;
 import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.Checkable;
@@ -12,15 +11,13 @@ import org.jboss.elemento.IsElement;
 import static java.util.Objects.isNull;
 import static org.jboss.elemento.Elements.input;
 
-public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> implements Checkable<CheckBox> {
+public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boolean> implements Checkable<CheckBox> {
 
     public static final String READONLY = "readonly";
-    private DominoElement<HTMLInputElement> inputElement;
     private Color color;
     private String checkedReadonlyLabel = "Yes";
     private String unCheckedReadonlyLabel = "No";
     private String label;
-    private boolean checked = false;
 
     public CheckBox() {
         this("");
@@ -31,14 +28,13 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
         this.label = label;
         css("d-checkbox");
         setLabel(label);
-        inputElement.addEventListener("change", evt -> {
-            onCheck();
-        });
+        getInputElement().addEventListener("change", evt -> onCheck());
         getLabelElement().addEventListener("click", evt -> {
+            evt.stopPropagation();
+            evt.preventDefault();
             if (isEnabled() && !isReadOnly())
                 toggle();
         });
-
     }
 
     private void onCheck() {
@@ -89,8 +85,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
 
     @Override
     public CheckBox check(boolean silent) {
-        inputElement.element().checked = true;
-        this.checked = true;
+        getInputElement().element().checked = true;
         if (!silent)
             onCheck();
         if (isReadOnly())
@@ -100,8 +95,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
 
     @Override
     public CheckBox uncheck(boolean silent) {
-        inputElement.element().checked = false;
-        this.checked = false;
+        getInputElement().element().checked = false;
         if (!silent)
             onCheck();
         if (isReadOnly())
@@ -111,7 +105,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
 
     @Override
     public boolean isChecked() {
-        return this.checked;
+        return getInputElement().element().checked;
     }
 
     @Override
@@ -133,20 +127,20 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     }
 
     public CheckBox filledIn() {
-        inputElement.style().add("filled-in");
+        getInputElement().style().add("filled-in");
         return this;
     }
 
     public CheckBox filledOut() {
-        inputElement.style().remove("filled-in");
+        getInputElement().style().remove("filled-in");
         return this;
     }
 
     public CheckBox setColor(Color color) {
         if (this.color != null) {
-            inputElement.style().remove(this.color.getStyle());
+            getInputElement().style().remove(this.color.getStyle());
         }
-        inputElement.style().add(color.getStyle());
+        getInputElement().style().add(color.getStyle());
         this.color = color;
         return this;
     }
@@ -218,9 +212,8 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLElement, Boolean> i
     }
 
     @Override
-    protected HTMLElement createInputElement(String type) {
-        inputElement = DominoElement.of(input("checkbox"));
-        return inputElement.element();
+    protected HTMLInputElement createInputElement(String type) {
+        return DominoElement.of(input("checkbox")).element();
     }
 
     @Override
