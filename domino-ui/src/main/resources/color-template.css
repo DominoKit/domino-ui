@@ -11,9 +11,9 @@
     color: #fff;
 }
 .bg${color_base_name},
-.d-checkbox input[type="checkbox"].filled-in:checked.col${color_base_name} + label:after,
-[type="radio"].with-gap.col${color_base_name}:checked + label:after,
-[type="radio"].col${color_base_name}:checked + label:after,
+.d-checkbox.filled-in.checked.col${color_base_name} .field-label:after,
+.radio-option.with-gap.col${color_base_name}.checked label:after,
+.radio-option.col${color_base_name}.checked label:after,
 .switch label input[type=checkbox]:checked + .lever.col${color_base_name}:after,
 .modal-content.col${color_base_name},
 .panel-group .panel.col${color_base_name} .panel-title,
@@ -38,16 +38,16 @@ ul.stepper.horizontal.stepper-col${color_base_name} .step.done .step-title:befor
     color: ${main_color};
     border-right: 2px solid ${main_color};
 }
-.d-checkbox input[type="checkbox"]:checked.col${color_base_name} + label:before {
+.d-checkbox.checked.col${color_base_name} .field-label:before {
     border-right: 2px solid ${main_color};
     border-bottom: 2px solid ${main_color};
 }
-.d-checkbox input[type="checkbox"].filled-in:checked.col${color_base_name} + label:after,
-[type="radio"].with-gap.col${color_base_name}:checked + label:before,
-[type="radio"].with-gap.col${color_base_name}:checked + label:after{
+.d-checkbox.filled-in.checked.col${color_base_name} .field-label:after,
+.radio-option.with-gap.col${color_base_name}.checked label:before,
+.radio-option.with-gap.col${color_base_name}.checked label:after{
     border: 2px solid ${main_color};
 }
-[type="radio"].col${color_base_name}:checked + label:after {
+.radio-option.col${color_base_name}.checked label:after {
     border-color: ${main_color};
 }
 .nav-tabs.col${color_base_name} > li > a:before{
@@ -86,9 +86,9 @@ ul.stepper.horizontal.stepper-col${color_base_name} .step.done .step-title:befor
 }
 
 .bg-l-1${color_base_name},
-[type="checkbox"].filled-in:checked.col-l-1${color_base_name} + label:after,
-[type="radio"].with-gap.col-l-1${color_base_name}:checked + label:after,
-[type="radio"].col-l-1${color_base_name}:checked + label:after,
+.d-checkbox.filled-in:checked.col-l-1${color_base_name} .field-label:after,
+.radio-option.with-gap.col-l-1${color_base_name}.checked label:after,
+.radio-option.col-l-1${color_base_name}.checked label:after,
 .switch label input[type=checkbox]:checked + .lever.col-l-1${color_base_name}:after,
 .modal-content.col-l-1${color_base_name},
 .panel-group .panel.col-l-1${color_base_name} .panel-title,
@@ -113,16 +113,16 @@ ul.stepper.horizontal.stepper-col-l-1${color_base_name} .step.done .step-title:b
     color: ${color_l_1};
     border-right: 2px solid ${color_l_1};
 }
-[type="checkbox"]:checked.col-l-1${color_base_name} + label:before {
+.d-checkbox.checked.col-l-1${color_base_name} .field-label:before {
     border-right: 2px solid ${color_l_1};
     border-bottom: 2px solid ${color_l_1};
 }
-[type="checkbox"].filled-in:checked.col-l-1${color_base_name} + label:after,
-[type="radio"].with-gap.col-l-1${color_base_name}:checked + label:before,
-[type="radio"].with-gap.col-l-1${color_base_name}:checked + label:after {
+.d-checkbox.filled-in:checked.col-l-1${color_base_name} .field-label:after,
+.radio-option.with-gap.col-l-1${color_base_name}.checked label:before,
+.radio-option.with-gap.col-l-1${color_base_name}.checked label:after {
     border: 2px solid ${color_l_1};
 }
-[type="radio"].col-l-1${color_base_name}:checked + label:after {
+.radio-option.col-l-1${color_base_name}.checked label:after {
     border-color: ${color_l_1};
 }
 .nav-tabs.col-l-1${color_base_name} > li > a:before{
@@ -157,9 +157,9 @@ ul.stepper.horizontal.stepper-col-l-1${color_base_name} .step.done .step-title:b
 }
 
 .bg-l-2${color_base_name},
-[type="checkbox"].filled-in:checked.col-l-2${color_base_name} + label:after,
-[type="radio"].with-gap.col-l-2${color_base_name}:checked + label:after,
-[type="radio"].col-l-2${color_base_name}:checked + label:after,
+.d-checkbox.filled-in:checked.col-l-2${color_base_name} .field-label:after,
+.radio-option.with-gap.col-l-2${color_base_name}.checked label:after,
+.radio-option.col-l-2${color_base_name}.checked label:after,
 .switch label input[type=checkbox]:checked + .lever.col-l-2${color_base_name}:after,
 .modal-content.col-l-2${color_base_name},
 .panel-group .panel.col-l-2${color_base_name} .panel-title,
@@ -183,16 +183,16 @@ ul.stepper.horizontal.stepper-col-l-2${color_base_name} .step.done .step-title:b
     color: ${color_l_2};
     border-right: 2px solid ${color_l_2};
 }
-[type="checkbox"]:checked.col-l-2${color_base_name} + label:before {
+.d-checkbox.checked.col-l-2${color_base_name} .field-label:before {
     border-right: 2px solid ${color_l_2};
     border-bottom: 2px solid ${color_l_2};
 }
-[type="checkbox"].filled-in:checked.col-l-2${color_base_name} + label:after,
-[type="radio"].with-gap.col-l-2${color_base_name}:checked + label:before,
-[type="radio"].with-gap.col-l-2${color_base_name}:checked + label:after {
+.d-checkbox.filled-in:checked.col-l-2${color_base_name} .field-label:after,
+.radio-option.with-gap.col-l-2${color_base_name}.checked label:before,
+.radio-option.with-gap.col-l-2${color_base_name}.checked label:after {
     border: 2px solid ${color_l_2};
 }
-[type="radio"].col-l-2${color_base_name}:checked + label:after {
+.radio-option.col-l-2${color_base_name}.checked label:after {
     border-color: ${color_l_2};
 }
 .nav-tabs.col-l-2${color_base_name} > li > a:before{
@@ -227,10 +227,10 @@ ul.stepper.horizontal.stepper-col-l-2${color_base_name} .step.done .step-title:b
 }
 
 .bg-l-3${color_base_name},
-[type="checkbox"].filled-in:checked.col-l-3${color_base_name} + label:after,
-[type="radio"].with-gap.col-l-3${color_base_name}:checked + label:after,
-[type="radio"].with-gap.col-l-3${color_base_name}:checked + label:after,
-[type="radio"].col-l-3${color_base_name}:checked + label:after,
+.d-checkbox.filled-in:checked.col-l-3${color_base_name} .field-label:after,
+.radio-option.with-gap.col-l-3${color_base_name}.checked label:after,
+.radio-option.with-gap.col-l-3${color_base_name}.checked label:after,
+.radio-option.col-l-3${color_base_name}.checked label:after,
 .switch label input[type=checkbox]:checked + .lever.col-l-3${color_base_name}:after,
 .modal-content.col-l-3${color_base_name},
 .panel-group .panel.col-l-3${color_base_name} .panel-title,
@@ -256,16 +256,16 @@ ul.stepper.horizontal.stepper-col-l-3${color_base_name} .step.done .step-title:b
     color: ${color_l_3};
     border-right: 2px solid ${color_l_3};
 }
-[type="checkbox"]:checked.col-l-3${color_base_name} + label:before {
+.d-checkbox.checked.col-l-3${color_base_name} .field-label:before {
     border-right: 2px solid ${color_l_3};
     border-bottom: 2px solid ${color_l_3};
 }
-[type="checkbox"].filled-in:checked.col-l-3${color_base_name} + label:after,
-[type="radio"].with-gap.col-l-3${color_base_name}:checked + label:before,
-[type="radio"].with-gap.col-l-3${color_base_name}:checked + label:after {
+.d-checkbox.filled-in:checked.col-l-3${color_base_name} .field-label:after,
+.radio-option.with-gap.col-l-3${color_base_name}.checked label:before,
+.radio-option.with-gap.col-l-3${color_base_name}.checked label:after {
     border: 2px solid ${color_l_3};
 }
-[type="radio"].col-l-3${color_base_name}:checked + label:after {
+.radio-option.col-l-3${color_base_name}.checked label:after {
     border-color: ${color_l_3};
 }
 .nav-tabs.col-l-3${color_base_name} > li > a:before{
@@ -300,9 +300,9 @@ ul.stepper.horizontal.stepper-col-l-3${color_base_name} .step.done .step-title:b
 }
 
 .bg-l-4${color_base_name},
-[type="checkbox"].filled-in:checked.col-l-4${color_base_name} + label:after,
-[type="radio"].with-gap.col-l-4${color_base_name}:checked + label:after,
-[type="radio"].col-l-4${color_base_name}:checked + label:after,
+.d-checkbox.filled-in:checked.col-l-4${color_base_name} .field-label:after,
+.radio-option.with-gap.col-l-4${color_base_name}.checked label:after,
+.radio-option.col-l-4${color_base_name}.checked label:after,
 .switch label input[type=checkbox]:checked + .lever.col-l-4${color_base_name}:after,
 .modal-content.col-l-4${color_base_name},
 .panel-group .panel.col-l-4${color_base_name} .panel-title,
@@ -327,16 +327,16 @@ ul.stepper.horizontal.stepper-col-l-4${color_base_name} .step.done .step-title:b
     color: ${color_l_4};
     border-right: 2px solid ${color_l_4};
 }
-[type="checkbox"]:checked.col-l-4${color_base_name} + label:before {
+.d-checkbox.checked.col-l-4${color_base_name} .field-label:before {
     border-right: 2px solid ${color_l_4};
     border-bottom: 2px solid ${color_l_4};
 }
-[type="checkbox"].filled-in:checked.col-l-4${color_base_name} + label:after,
-[type="radio"].with-gap.col-l-4${color_base_name}:checked + label:before,
-[type="radio"].with-gap.col-l-4${color_base_name}:checked + label:after {
+.d-checkbox.filled-in.checked.col-l-4${color_base_name} .field-label:after,
+.radio-option.with-gap.col-l-4${color_base_name}.checked label:before,
+.radio-option.with-gap.col-l-4${color_base_name}.checked label:after {
     border: 2px solid ${color_l_4};
 }
-[type="radio"].col-l-4${color_base_name}:checked + label:after {
+.radio-option.col-l-4${color_base_name}.checked label:after {
     border-color: ${color_l_4};
 }
 .nav-tabs.col-l-4${color_base_name} > li > a:before{
@@ -371,9 +371,9 @@ ul.stepper.horizontal.stepper-col-l-4${color_base_name} .step.done .step-title:b
 }
 
 .bg-l-5${color_base_name} ,
-[type="checkbox"].filled-in:checked.col-l-5${color_base_name} + label:after,
-[type="radio"].with-gap.col-l-5${color_base_name}:checked + label:after,
-[type="radio"].col-l-5${color_base_name}:checked + label:after,
+.d-checkbox.filled-in.checked.col-l-5${color_base_name} .field-label:after,
+.radio-option.with-gap.col-l-5${color_base_name}.checked label:after,
+.radio-option.col-l-5${color_base_name}.checked label:after,
 .switch label input[type=checkbox]:checked + .lever.col-l-5${color_base_name}:after,
 .modal-content.col-l-5${color_base_name},
 .panel-group .panel.col-l-5${color_base_name} .panel-title,
@@ -398,16 +398,16 @@ ul.stepper.horizontal.stepper-col-l-5${color_base_name} .step.done .step-title:b
     color: ${color_l_5};
     border-right: 2px solid ${color_l_5};
 }
-[type="checkbox"]:checked.col-l-5${color_base_name} + label:before {
+.d-checkbox.checked.col-l-5${color_base_name} .field-label:before {
     border-right: 2px solid ${color_l_5};
     border-bottom: 2px solid ${color_l_5};
 }
-[type="checkbox"].filled-in:checked.col-l-5${color_base_name} + label:after,
-[type="radio"].with-gap.col-l-5${color_base_name}:checked + label:before,
-[type="radio"].with-gap.col-l-5${color_base_name}:checked + label:after {
+.d-checkbox.filled-in.checked.col-l-5${color_base_name} .field-label:after,
+.radio-option.with-gap.col-l-5${color_base_name}.checked label:before,
+.radio-option.with-gap.col-l-5${color_base_name}.checked label:after {
     border: 2px solid ${color_l_5};
 }
-[type="radio"].col-l-5${color_base_name}:checked + label:after {
+.radio-option.col-l-5${color_base_name}.checked label:after {
     border-color: ${color_l_5};
 }
 .nav-tabs.col-l-5${color_base_name} > li > a:before{
@@ -442,9 +442,9 @@ ul.stepper.horizontal.stepper-col-l-5${color_base_name} .step.done .step-title:b
 }
 
 .bg-d-1${color_base_name},
-[type="checkbox"].filled-in:checked.col-d-1${color_base_name} + label:after,
-[type="radio"].with-gap.col-d-1${color_base_name}:checked + label:after,
-[type="radio"].col-d-1${color_base_name}:checked + label:after,
+.d-checkbox.filled-in.checked.col-d-1${color_base_name} .field-label:after,
+.radio-option.with-gap.col-d-1${color_base_name}.checked label:after,
+.radio-option.col-d-1${color_base_name}.checked label:after,
 .switch label input[type=checkbox]:checked + .lever.col-d-1${color_base_name}:after,
 .modal-content.col-d-1${color_base_name},
 .panel-group .panel.col-d-1${color_base_name} .panel-title,
@@ -469,16 +469,16 @@ ul.stepper.horizontal.stepper-col-d-1${color_base_name} .step.done .step-title:b
     color: ${color_d_1};
     border-right: 2px solid ${color_d_1};
 }
-[type="checkbox"]:checked.col-d-1${color_base_name} + label:before {
+.d-checkbox.checked.col-d-1${color_base_name} .field-label:before {
     border-right: 2px solid ${color_d_1};
     border-bottom: 2px solid ${color_d_1};
 }
-[type="checkbox"].filled-in:checked.col-d-1${color_base_name} + label:after,
-[type="radio"].with-gap.col-d-1${color_base_name}:checked + label:before,
-[type="radio"].with-gap.col-d-1${color_base_name}:checked + label:after {
+.d-checkbox.filled-in:checked.col-d-1${color_base_name} .field-label:after,
+.radio-option.with-gap.col-d-1${color_base_name}.checked label:before,
+.radio-option.with-gap.col-d-1${color_base_name}.checked label:after {
     border: 2px solid ${color_d_1};
 }
-[type="radio"].col-d-1${color_base_name}:checked + label:after {
+.radio-option.col-d-1${color_base_name}.checked label:after {
     border-color: ${color_d_1};
 }
 .nav-tabs.col-d-1${color_base_name} > li > a:before{
@@ -513,9 +513,9 @@ ul.stepper.horizontal.stepper-col-d-1${color_base_name} .step.done .step-title:b
 }
 
 .bg-d-2${color_base_name},
-[type="checkbox"].filled-in:checked.col-d-2${color_base_name} + label:after,
-[type="radio"].with-gap.col-d-2${color_base_name}:checked + label:after,
-[type="radio"].col-d-2${color_base_name}:checked + label:after,
+.d-checkbox.filled-in:checked.col-d-2${color_base_name} .field-label:after,
+.radio-option.with-gap.col-d-2${color_base_name}.checked label:after,
+.radio-option.col-d-2${color_base_name}.checked label:after,
 .switch label input[type=checkbox]:checked + .lever.col-d-2${color_base_name}:after,
 .modal-content.col-d-2${color_base_name},
 .panel-group .panel.col-d-2${color_base_name} .panel-title,
@@ -540,16 +540,16 @@ ul.stepper.horizontal.stepper-col-d-2${color_base_name} .step.done .step-title:b
     color: ${color_d_2};
     border-right: 2px solid ${color_d_2};
 }
-[type="checkbox"]:checked.col-d-2${color_base_name} + label:before {
+.d-checkbox.checked.col-d-2${color_base_name} .field-label:before {
     border-right: 2px solid ${color_d_2};
     border-bottom: 2px solid ${color_d_2};
 }
-[type="checkbox"].filled-in:checked.col-d-2${color_base_name} + label:after,
-[type="radio"].with-gap.col-d-2${color_base_name}:checked + label:before,
-[type="radio"].with-gap.col-d-2${color_base_name}:checked + label:after {
+.d-checkbox.filled-in.checked.col-d-2${color_base_name} .field-label:after,
+.radio-option.with-gap.col-d-2${color_base_name}.checked label:before,
+.radio-option.with-gap.col-d-2${color_base_name}.checked label:after {
     border: 2px solid ${color_d_2};
 }
-[type="radio"].col-d-2${color_base_name}:checked + label:after {
+.radio-option.col-d-2${color_base_name}.checked label:after {
     border-color: ${color_d_2};
 }
 .nav-tabs.col-d-2${color_base_name} > li > a:before{
@@ -584,9 +584,9 @@ ul.stepper.horizontal.stepper-col-d-2${color_base_name} .step.done .step-title:b
 }
 
 .bg-d-3${color_base_name},
-[type="checkbox"].filled-in:checked.col-d-3${color_base_name} + label:after,
-[type="radio"].with-gap.col-d-3${color_base_name}:checked + label:after,
-[type="radio"].col-d-2${color_base_name}:checked + label:after,
+.d-checkbox.filled-in.checked.col-d-3${color_base_name} .field-label:after,
+.radio-option.with-gap.col-d-3${color_base_name}.checked label:after,
+.radio-option.col-d-2${color_base_name}.checked label:after,
 .switch label input[type=checkbox]:checked + .lever.col-d-3${color_base_name}:after,
 .modal-content.col-d-3${color_base_name},
 .panel-group .panel.col-d-3${color_base_name} .panel-title,
@@ -611,16 +611,16 @@ ul.stepper.horizontal.stepper-col-d-3${color_base_name} .step.done .step-title:b
     color: ${color_d_3};
     border-right: 2px solid ${color_d_3};
 }
-[type="checkbox"]:checked.col-d-3${color_base_name} + label:before {
+.d-checkbox.checked.col-d-3${color_base_name} .field-label:before {
     border-right: 2px solid ${color_d_3};
     border-bottom: 2px solid ${color_d_3};
 }
-[type="checkbox"].filled-in:checked.col-d-3${color_base_name} + label:after,
-[type="radio"].with-gap.col-d-3${color_base_name}:checked + label:before,
-[type="radio"].with-gap.col-d-3${color_base_name}:checked + label:after {
+.d-checkbox.filled-in.checked.col-d-3${color_base_name} .field-label:after,
+.radio-option.with-gap.col-d-3${color_base_name}.checked label:before,
+.radio-option.with-gap.col-d-3${color_base_name}.checked label:after {
     border: 2px solid ${color_d_3};
 }
-[type="radio"].col-d-3${color_base_name}:checked + label:after {
+.radio-option.col-d-3${color_base_name}.checked label:after {
     border-color: ${color_d_3};
 }
 .nav-tabs.col-d-3${color_base_name} > li > a:before{
@@ -655,9 +655,9 @@ ul.stepper.horizontal.stepper-col-d-3${color_base_name} .step.done .step-title:b
 }
 
 .bg-d-4${color_base_name},
-[type="checkbox"].filled-in:checked.col-d-4${color_base_name} + label:after,
-[type="radio"].with-gap.col-d-4${color_base_name}:checked + label:after,
-[type="radio"].col-d-4${color_base_name}:checked + label:after,
+.d-checkbox.filled-in.checked.col-d-4${color_base_name} .field-label:after,
+.radio-option.with-gap.col-d-4${color_base_name}.checked label:after,
+.radio-option.col-d-4${color_base_name}.checked label:after,
 .switch label input[type=checkbox]:checked + .lever.col-d-4${color_base_name}:after,
 .modal-content.col-d-4${color_base_name},
 .panel-group .panel.col-d-4${color_base_name} .panel-title,
@@ -682,16 +682,16 @@ ul.stepper.horizontal.stepper-col-d-4${color_base_name} .step.done .step-title:b
     color: ${color_d_4};
     border-right: 2px solid ${color_d_4};
 }
-[type="checkbox"]:checked.col-d-4${color_base_name} + label:before {
+.d-checkbox.checked.col-d-4${color_base_name} .field-label:before {
     border-right: 2px solid ${color_d_4};
     border-bottom: 2px solid ${color_d_4};
 }
-[type="checkbox"].filled-in:checked.col-d-4${color_base_name} + label:after,
-[type="radio"].with-gap.col-d-4${color_base_name}:checked + label:before,
-[type="radio"].with-gap.col-d-4${color_base_name}:checked + label:after {
+.d-checkbox.filled-in.checked.col-d-4${color_base_name} .field-label:after,
+.radio-option.with-gap.col-d-4${color_base_name}.checked label:before,
+.radio-option.with-gap.col-d-4${color_base_name}.checked label:after {
     border: 2px solid ${color_d_4};
 }
-[type="radio"].col-d-4${color_base_name}:checked + label:after {
+.radio-option.col-d-4${color_base_name}.checked label:after {
     border-color: ${color_d_4};
 }
 .nav-tabs.col-d-4${color_base_name} > li > a:before{

@@ -31,8 +31,8 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
     public Radio(T value, String label) {
         changeHandlers = new ArrayList<>();
         linkLabelToField();
-        container.appendChild(inputElement);
         container.appendChild(labelElement);
+        container.appendChild(inputElement);
         setLabel(label);
         value(value);
         container.addEventListener("click", evt -> {
@@ -100,6 +100,11 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
     private void setChecked(boolean value) {
         inputElement.checked = value;
         this.checked = value;
+        if(this.checked){
+            element.css("checked");
+        }else{
+            element.removeCss("checked");
+        }
     }
 
     @Override
@@ -126,18 +131,21 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
 
     public Radio<T> withGap() {
         Style.of(inputElement).add("with-gap");
+        element.css("with-gap");
         return this;
     }
 
     public Radio<T> withoutGap() {
         Style.of(inputElement).remove("with-gap");
+        element.removeCss("with-gap");
         return this;
     }
 
     public Radio<T> setColor(Color color) {
-        if (this.color != null)
-            Style.of(inputElement).remove(this.color.getStyle());
-        Style.of(inputElement).add(color.getStyle());
+        if (this.color != null) {
+            element.removeCss(this.color.getStyle());
+        }
+        element.css(color.getStyle());
         this.color = color;
         return this;
     }
@@ -204,12 +212,14 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
     @Override
     public Radio<T> enable() {
         inputElement.disabled = false;
+        element.removeCss("disabled");
         return this;
     }
 
     @Override
     public Radio<T> disable() {
         inputElement.disabled = true;
+        element.css("disabled");
         return this;
     }
 
