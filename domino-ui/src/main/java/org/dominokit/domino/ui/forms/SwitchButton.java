@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
+import org.dominokit.domino.ui.notifications.Notification;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.Checkable;
@@ -55,7 +56,6 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         inputElement.addEventListener("change", evt -> {
             evt.stopPropagation();
             if (!isReadOnly()) {
-                onCheck();
                 if (isAutoValidation()) {
                     validate();
                 }
@@ -74,12 +74,6 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
 
     public static SwitchButton create() {
         return new SwitchButton();
-    }
-
-    private void onCheck() {
-        for (ChangeHandler<? super Boolean> checkHandler : changeHandlers) {
-            checkHandler.onValueChanged(isChecked());
-        }
     }
 
     @Override
@@ -136,7 +130,7 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
     public SwitchButton check(boolean silent) {
         inputElement.element().checked = true;
         if (!silent) {
-            onCheck();
+            callChangeHandlers();
             validate();
         }
         updateLabel();
@@ -147,7 +141,7 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
     public SwitchButton uncheck(boolean silent) {
         inputElement.element().checked = false;
         if (!silent) {
-            onCheck();
+            callChangeHandlers();
             validate();
         }
         updateLabel();
