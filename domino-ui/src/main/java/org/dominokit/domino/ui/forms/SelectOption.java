@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.Elements.span;
 
@@ -141,7 +142,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     @Override
     public SelectOption<T> deselect(boolean silent) {
         style().remove(SELECTED);
-        if (element.contains(checkMark.element()))
+        if (nonNull(checkMark) && element.contains(checkMark.element()))
             checkMark.remove();
         return this;
     }
