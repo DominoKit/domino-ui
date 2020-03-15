@@ -4,9 +4,9 @@
 .list-group.bg-white,
 .list-group.bg-white:hover,
 .list-group.bg-white:focus,
-.d-checkbox input[type="checkbox"].filled-in:checked.col-white + label:after,
-[type="radio"].with-gap.col-white:checked + label:after,
-[type="radio"][class*="col-white"]:checked + label:after,
+.d-checkbox.filled-in:checked.col-white .field-label:after,
+.radio-option.with-gap.col-white.checked label:after,
+.radio-option[class*="col-white"].checked label:after,
 .switch label input[type=checkbox]:checked + .lever.col-white:after,
 .modal-content.col-white,
 .panel-group .panel.col-white .panel-title,
@@ -21,16 +21,16 @@
 .breadcrumb.col-white li a{
     color: #202020;
 }
-.d-checkbox input[type="checkbox"]:checked.col-white + label:before {
+.d-checkbox.checked.col-white .field-label:before {
     border-right: 2px solid #FFFFFF;
     border-bottom: 2px solid #FFFFFF;
 }
-.d-checkbox input[type="checkbox"].filled-in:checked.col-white + label:after,
-[type="radio"].with-gap.col-white:checked + label:before,
-[type="radio"].with-gap.col-white + label:after{
+.d-checkbox.filled-in:checked.col-white .field-label:after,
+.radio-option.with-gap.col-white.checked label:before,
+.radio-option.with-gap.col-white label:after{
     border: 2px solid #FFFFFF;
 }
-[type="radio"].col-white:checked + label:after {
+.radio-option.col-white.checked label:after {
     border-color: #FFFFFF;
 }
 .nav-tabs.col-white > li > a:before{

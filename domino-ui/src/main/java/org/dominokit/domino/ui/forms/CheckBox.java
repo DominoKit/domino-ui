@@ -67,8 +67,10 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
     public CheckBox toggle() {
         if (isChecked()) {
             uncheck();
+            element.removeCss("checked");
         } else {
             check();
+            element.css("checked");
         }
         return this;
     }
@@ -86,6 +88,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
     @Override
     public CheckBox check(boolean silent) {
         getInputElement().element().checked = true;
+        element.css("checked");
         if (!silent)
             onCheck();
         if (isReadOnly())
@@ -96,6 +99,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
     @Override
     public CheckBox uncheck(boolean silent) {
         getInputElement().element().checked = false;
+        element.removeCss("checked");
         if (!silent)
             onCheck();
         if (isReadOnly())
@@ -127,20 +131,20 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
     }
 
     public CheckBox filledIn() {
-        getInputElement().style().add("filled-in");
+        element.style().add("filled-in");
         return this;
     }
 
     public CheckBox filledOut() {
-        getInputElement().style().remove("filled-in");
+        element.style().remove("filled-in");
         return this;
     }
 
     public CheckBox setColor(Color color) {
         if (this.color != null) {
-            getInputElement().style().remove(this.color.getStyle());
+           element.style().remove(this.color.getStyle());
         }
-        getInputElement().style().add(color.getStyle());
+        element.style().add(color.getStyle());
         this.color = color;
         return this;
     }
