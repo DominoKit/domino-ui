@@ -15,7 +15,9 @@ import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
+import static java.util.Objects.isNull;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.Elements.span;
 
@@ -23,10 +25,11 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
         HasBackground<SelectOption>, Selectable<SelectOption>, TakesValue<T> {
 
     private static final String SELECTED = "select-option-selected";
-    private static Icon checkMark = Icons.ALL.check().styler(style1 -> style1.add(Styles.pull_right)
-            .add("select-option-check-mark"));
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("select-option"));
     private DominoElement<HTMLElement> valueContainer = DominoElement.of(span().css(Styles.ellipsis_text));
+    private Supplier<Icon> checkMarkSupplier = () -> Icons.ALL.check().styler(style1 -> style1.add(Styles.pull_right)
+            .add("select-option-check-mark"));
+    private Icon checkMark;
     private String displayValue;
     private String key;
     private T value;
@@ -126,6 +129,8 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     @Override
     public SelectOption<T> select(boolean silent) {
         style().add(SELECTED);
+        if (isNull(checkMark))
+            checkMark = checkMarkSupplier.get();
         checkMarkFlexItem.appendChild(checkMark);
         if (!silent) {
             selectionHandlers.forEach(handler -> handler.onSelectionChanged(this));
