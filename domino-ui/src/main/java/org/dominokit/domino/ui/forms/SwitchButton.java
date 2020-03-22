@@ -44,6 +44,7 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
     public SwitchButton() {
         super("switch", "");
         init(this);
+        onOffLabelElement = label().element();
         DominoElement.of(onOffLabelElement).css("switch-label");
         getInputContainer().appendChild(onOffLabelElement);
         onOffLabelElement.appendChild(offTitleTextRoot.element());
@@ -82,7 +83,7 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
             inputElement.setAttribute("id", inputElement.getAttribute(BaseDominoElement.DOMINO_UUID));
         }
 
-        getOnOffLabelElement().setAttribute("for", inputElement.getAttribute("id"));
+        getLabelElement().setAttribute("for", inputElement.getAttribute("id"));
     }
 
     public DominoElement<HTMLElement> getLever() {
@@ -260,12 +261,6 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
     public SwitchButton setUnCheckedReadonlyLabel(String unCheckedReadonlyLabel) {
         this.unCheckedReadonlyLabel = unCheckedReadonlyLabel;
         return this;
-    }
-
-    @Override
-    protected DominoElement<HTMLLabelElement> createLabelElement() {
-        onOffLabelElement = label().element();
-        return DominoElement.of(onOffLabelElement);
     }
 
     @Override
