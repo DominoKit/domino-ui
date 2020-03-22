@@ -104,6 +104,16 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         }
     }
 
+    @Override
+    public S clear() {
+        unfloatLabel();
+        getOptions().forEach(selectOption -> selectOption.deselect(true));
+        buttonValueContainer.setTextContent("");
+        if (isAutoValidation())
+            validate();
+        return (S) this;
+    }
+
     public S open() {
         if (isEnabled() && !isReadOnly()) {
             DropDownMenu.closeAllMenus();
