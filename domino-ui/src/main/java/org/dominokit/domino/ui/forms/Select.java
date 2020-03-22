@@ -90,6 +90,12 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
         return null;
     }
 
+    @Override
+    public Select<T> clear() {
+        this.selectedOption = null;
+        return super.clear();
+    }
+
     public int getSelectedIndex() {
         return options.indexOf(getSelectedOption());
     }

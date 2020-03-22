@@ -111,6 +111,12 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
                 .collect(Collectors.joining(isNull(selectedOptionsSeparator) ? DEFAULT_SEPARATOR : selectedOptionsSeparator));
     }
 
+    @Override
+    public MultiSelect<T> clear() {
+        selectedOptions.clear();
+        return super.clear();
+    }
+
     public List<Integer> getSelectedIndex() {
         return getSelectedOptions()
                 .stream()
