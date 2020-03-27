@@ -339,6 +339,11 @@
     color: #5d5d5d;
 }
 
+.d-checkbox input[type="checkbox"] {
+    width: 1px;
+    height: 1px;
+}
+
 .d-checkbox .field-label:before,
 .d-checkbox:not(.filled-in) .field-label:after {
     content: '';
