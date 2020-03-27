@@ -131,8 +131,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         return data;
     }
 
-    @Override
-    public DataTable<T> show() {
+    public DataTable<T> uncondense() {
         tableElement.style().remove(TABLE_CONDENSED);
         this.condensed = false;
         return this;
