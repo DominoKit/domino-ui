@@ -24,6 +24,7 @@ import static org.jboss.elemento.Elements.tr;
 public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
     private final Map<String, HeaderFilter> headerFilters = new HashMap<>();
+    private DominoElement<HTMLTableRowElement> filtersRowElement = DominoElement.of(tr());
 
     public static <T> ColumnHeaderFilterPlugin<T> create() {
         return new ColumnHeaderFilterPlugin<>();
@@ -31,11 +32,10 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
     @Override
     public void onAfterAddHeaders(DataTable<T> dataTable) {
-        HtmlContentBuilder<HTMLTableRowElement> tr = tr();
         TableConfig<T> tableConfig = dataTable.getTableConfig();
         List<ColumnConfig<T>> columns = tableConfig.getColumns();
         DominoElement<HTMLTableSectionElement> thead = dataTable.headerElement();
-        thead.appendChild(tr.element());
+        thead.appendChild(filtersRowElement);
 
         columns.forEach(columnConfig -> {
 
@@ -45,7 +45,7 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
             columnConfig.applyScreenMedia(th.element());
 
-            tr.add(th);
+            filtersRowElement.appendChild(th);
 
             if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
                 fixElementWidth(columnConfig, th.element());
@@ -100,5 +100,9 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
         void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig);
 
         void clear();
+    }
+
+    public DominoElement<HTMLTableRowElement> getFiltersRowElement() {
+        return filtersRowElement;
     }
 }
