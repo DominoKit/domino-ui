@@ -291,6 +291,12 @@
 
 /*----------- checkbox -------------------*/
 
+.field-group.lined.d-checkbox .field-cntr,
+.field-group.rounded.d-checkbox .field-cntr {
+    padding: 10px;
+    height: 100%;
+}
+
 .field-group.d-checkbox.focused:not([class*="readonly"]) .field-cntr {
     background-color: transparent;
 }
@@ -379,16 +385,6 @@
 .field-group.rounded.d-checkbox.readonly .field-label {
     padding-left: 0px;
 }
-
-/*.d-checkbox input[type="checkbox"].tabbed:focus + label:after {*/
-/*    -webkit-transform: scale(1);*/
-/*    transform: scale(1);*/
-/*    border: 0;*/
-/*    border-radius: 50%;*/
-/*    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.1);*/
-/*    background-color: rgba(0, 0, 0, 0.1);*/
-/*}*/
-
 
 .d-checkbox.checked .field-label:before {
     left: -2px;

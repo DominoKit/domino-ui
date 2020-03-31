@@ -81,7 +81,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         onAttached(mutationRecord -> {
             suggestionsMenu.style().setWidth(element().offsetWidth + "px");
         });
-        getFieldContainer().insertFirst(loaderContainer);
+        getFieldInputContainer().insertFirst(loaderContainer);
         setLoaderEffect(LoaderEffect.IOS);
 
         delayedTextInput = DelayedTextInput.create(getInputElement(), typeAheadDelay)

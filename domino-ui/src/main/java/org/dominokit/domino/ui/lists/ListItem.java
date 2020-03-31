@@ -1,224 +1,150 @@
 package org.dominokit.domino.ui.lists;
 
-import org.gwtproject.editor.client.TakesValue;
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.Node;
-
+import elemental2.dom.Event;
+import elemental2.dom.HTMLLIElement;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.HasBackground;
-import org.dominokit.domino.ui.utils.HasValue;
-import org.dominokit.domino.ui.utils.Selectable;
-import org.dominokit.domino.ui.utils.Switchable;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.a;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-public class ListItem<T> extends BaseListItem<HTMLAnchorElement, ListItem<T>> implements HasValue<ListItem<T>, T>
-        , Selectable<ListItem<T>>, HasBackground<ListItem<T>>, Switchable<ListItem<T>>, TakesValue<T> {
+public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>> {
 
+    private final ListGroup<T> listGroup;
     private T value;
-    private ListGroup<T> parent;
     private boolean selected = false;
-    private boolean disabled = false;
-    private String style;
-    private HTMLAnchorElement element= a().css(ListStyles.LIST_GROUP_ITEM).element();
+    private HTMLLIElement element;
+    private final List<SelectionChangedListener<T>> selectionChangedListeners = new ArrayList<>();
+    private boolean selectable = true;
+    private boolean enabled = true;
+    private boolean selectOnClick = true;
 
-    public ListItem(T value) {
-        element.setAttribute("tabindex", "0");
-        setElement(element);
-        KeyboardEvents.listenOn(element).onEnter(evt -> {
-            setSelectedItem();
-        });
+    public ListItem(ListGroup<T> listGroup, T value, HTMLLIElement element) {
         this.value = value;
-        addEventListener("click", e -> {
-            setSelectedItem();
-        });
+        this.element = element;
+        this.listGroup = listGroup;
         init(this);
+        element.setAttribute("tabindex", "0");
+
+        this.addClickListener(this::trySelect);
+
+        KeyboardEvents.listenOn(element)
+                .onEnter(this::trySelect);
     }
 
-    public void setSelectedItem() {
-        if (!disabled) {
+    private void trySelect(Event evt) {
+        evt.stopPropagation();
+        if (selectable && enabled && selectOnClick) {
             if (isSelected()) {
-                if(parent.isMultiSelect()) {
-                    deselect();
-                }
+                deselect();
             } else {
                 select();
             }
         }
     }
 
-    public static <T> ListItem<T> create(T value) {
-        return new ListItem<>(value);
-    }
-    
-    public static <T> ListItem<T> create(T value, String text) {
-        return create(value).setText(text);
+    @Override
+    public HTMLLIElement element() {
+        return element;
     }
 
-    @Override
-    public ListItem<T> value(T value) {
-        setValue(value);
-        return this;
-    }
-
-    @Override
     public T getValue() {
         return value;
     }
 
-    @Override
     public void setValue(T value) {
         this.value = value;
     }
 
-    @Override
+    public HTMLLIElement getElement() {
+        return element;
+    }
+
+    public void setElement(HTMLLIElement element) {
+        this.element = element;
+    }
+
+    public boolean valueEquals(T value) {
+        return Objects.equals(this.value, value);
+    }
+
     public ListItem<T> select() {
         return select(false);
     }
 
-    @Override
     public ListItem<T> deselect() {
         return deselect(false);
     }
 
-    @Override
     public ListItem<T> select(boolean silent) {
-        if (parent.isSelectable()) {
-            if (!parent.isMultiSelect())
-                parent.getItems().forEach(tListItem -> tListItem.deselect(true));
-            if (!selected) {
-                style().add("active");
-                this.selected = true;
-                if (!silent)
-                    parent.onSelectionChange(this);
-            }
-        }
-
+        this.listGroup.select(this, silent);
         return this;
     }
 
-    @Override
     public ListItem<T> deselect(boolean silent) {
-        if (selected) {
-            style().remove("active");
-            this.selected = false;
-            if (!silent) {
-                parent.onSelectionChange(this);
-            }
-        }
-
+        this.listGroup.deselect(this, silent);
         return this;
     }
 
-    @Override
-    public ListItem<T> disable() {
-        if (!disabled) {
-            deselect();
-            style().add("disabled");
-            this.disabled = true;
-        }
-
-        return this;
-    }
-
-    @Override
-    public ListItem<T> enable() {
-        if (disabled) {
-            style().remove("disabled");
-            this.disabled = false;
-        }
-
-        return this;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return !disabled;
-    }
-
-    public boolean isDisabled() {
-        return disabled;
-    }
-
-    @Override
     public boolean isSelected() {
         return selected;
     }
 
-    public ListItem<T> setStyle(ListGroupStyle itemStyle) {
-        return setStyle(itemStyle.getStyle());
+    public ListItem<T> onSelectionChange(SelectionChangedListener<T> listener) {
+        this.selectionChangedListeners.add(listener);
+        return this;
     }
 
-    private ListItem<T> setStyle(String itemStyle) {
-        if (nonNull(this.style)) {
-            style().remove(this.style);
+    public ListItem<T> setSelectable(boolean selectable) {
+        this.selectable = selectable;
+        if (selectable) {
+            css(ListStyles.SELECTABLE);
+        } else {
+            removeCss(ListStyles.SELECTABLE);
         }
-        style().add(itemStyle);
-        this.style = itemStyle;
         return this;
     }
 
-    public ListItem<T> success() {
-        setStyle(ListGroupStyle.SUCCESS);
+    public boolean isSelectOnClick() {
+        return selectOnClick;
+    }
+
+    public ListItem<T>  setSelectOnClick(boolean selectOnClick) {
+        this.selectOnClick = selectOnClick;
         return this;
     }
 
-    public ListItem<T> warning() {
-        setStyle(ListGroupStyle.WARNING);
-        return this;
-    }
-
-    public ListItem<T> info() {
-        setStyle(ListGroupStyle.INFO);
-        return this;
-    }
-
-    public ListItem<T> error() {
-        setStyle(ListGroupStyle.ERROR);
-        return this;
+    public boolean isEnabled() {
+        return enabled;
     }
 
     @Override
-    public ListItem<T> setBackground(Color background) {
-        setStyle(background.getBackground());
-        return this;
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        ListItem<?> listItem = (ListItem<?>) other;
+        return value.equals(listItem.value);
     }
 
-    public ListItem<T> setHeading(String heading) {
-        setHeaderText(heading);
-        return this;
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 
-    public ListItem<T> setText(String content) {
-        setBodyText(content);
-        return this;
+    void setSelected(boolean selected, boolean silent) {
+        this.selected = selected;
+        removeCss(ListStyles.SELECTED);
+        if(selected){
+            css(ListStyles.SELECTED);
+        }
+        if(!silent) {
+            this.selectionChangedListeners.forEach(listener -> listener.onSelectionChanged(ListItem.this, selected));
+        }
     }
 
-    @Deprecated
-    public ListItem<T> appendContent(Node node) {
-        this.appendChild(node);
-        return this;
-    }
-
-    @Deprecated
-    public ListItem<T> appendContent(IsElement isElement) {
-        this.appendChild(isElement);
-        return this;
-    }
-
-    public ListItem<T> appendChild(Node node) {
-        element().appendChild(node);
-        return this;
-    }
-
-    public ListItem<T> appendChild(IsElement isElement) {
-        return appendChild(isElement.element());
-    }
-
-    void setParent(ListGroup<T> parent) {
-        this.parent = parent;
+    @FunctionalInterface
+    public interface SelectionChangedListener<T> {
+        void onSelectionChanged(ListItem<? extends T> item, boolean selected);
     }
 }
