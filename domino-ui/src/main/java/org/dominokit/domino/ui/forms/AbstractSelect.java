@@ -124,7 +124,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
 
     private void doOpen() {
         optionsMenu.open();
-        optionsMenu.styler(style -> style.setWidth(getFieldContainer().getBoundingClientRect().width + "px"));
+        optionsMenu.styler(style -> style.setWidth(getFieldInputContainer().getBoundingClientRect().width + "px"));
     }
 
     public void close() {

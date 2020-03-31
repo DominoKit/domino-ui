@@ -366,8 +366,13 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     @Override
-    public DominoElement<HTMLDivElement> getFieldContainer() {
+    public DominoElement<HTMLDivElement> getFieldInputContainer() {
         return DominoElement.of(inputContainer);
+    }
+
+    @Override
+    public DominoElement<HTMLDivElement> getFieldContainer() {
+        return DominoElement.of(fieldContainer);
     }
 
     /**

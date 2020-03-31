@@ -138,7 +138,6 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     }
 
     public DataTable<T> condense() {
-        show();
         tableElement.style().add(TABLE_CONDENSED);
         this.condensed = true;
         return this;

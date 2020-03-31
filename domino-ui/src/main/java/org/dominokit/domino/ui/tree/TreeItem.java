@@ -544,7 +544,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
      */
     @Override
     public List<TreeItem<T>> getSubItems() {
-        return subItems;
+        return new ArrayList<>(subItems);
     }
 
     public void select() {

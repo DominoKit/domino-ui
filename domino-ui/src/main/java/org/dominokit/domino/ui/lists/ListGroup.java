@@ -1,209 +1,327 @@
 package org.dominokit.domino.ui.lists;
 
-import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Elevation;
+import elemental2.dom.HTMLLIElement;
+import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
-import org.dominokit.domino.ui.utils.HasSelectionSupport;
+import org.jboss.elemento.Elements;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
-import static java.util.Objects.isNull;
-import static java.util.stream.Collectors.toList;
-import static org.jboss.elemento.Elements.div;
+import static java.util.Objects.nonNull;
+import static org.jboss.elemento.Elements.li;
 
-public class ListGroup<T> extends BaseDominoElement<HTMLDivElement, ListGroup<T>> implements HasSelectionSupport<ListItem<T>>, HasMultiSelectionSupport {
+public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<T>> {
 
-    private final HTMLDivElement element;
-    private List<ListItem<T>> allItems = new LinkedList<>();
+    private HTMLUListElement element;
+    private final List<ListItem<T>> items = new ArrayList<>();
+    private ItemRenderer<T> itemRenderer = (listGroup, item) -> {
+    };
+
+    private final List<RemoveListener<T>> removeListeners = new ArrayList<>();
+    private final List<AddListener<T>> addListeners = new ArrayList<>();
+    private final List<SelectionListener<T>> selectionListeners = new ArrayList<>();
+    private final List<DeSelectionListener<T>> deSelectionListeners = new ArrayList<>();
     private boolean multiSelect = false;
-    private List<SelectionChangeHandler<T>> selectionHandlers = new ArrayList<>();
-    private boolean selectable = true;
-
-    public ListGroup() {
-        this.element = div()
-                .css(ListStyles.LIST_GROUP)
-                .element();
-        init(this);
-        elevate(Elevation.LEVEL_1);
-    }
+    private ListItem<? extends T> lastSelected = null;
 
     public static <T> ListGroup<T> create() {
         return new ListGroup<>();
     }
-    
-    public List<ListItem<T>> addItems(List<T> values) {
-        values.forEach((value) -> {
-            addItem(value, value.toString());
-        });
-        return Collections.unmodifiableList(allItems);
-    } 
 
-    public ListItem<T> addItem(T value) {
-        ListItem<T> listItem = ListItem.create(value);
-        listItem.setParent(this);
-        allItems.add(listItem);
-        element().appendChild(listItem.element());
-        return listItem;
+    public ListGroup() {
+        element = Elements.ul().css(ListStyles.LIST_GROUP, ListStyles.BORDERED).element();
+        init(this);
     }
 
-    public ListItem<T> addItem(T value, String text) {
-        ListItem<T> listItem = ListItem.create(value);
-        listItem.setParent(this);
-        listItem.setText(text);
-        allItems.add(listItem);
-        element().appendChild(listItem.element());
-        return listItem;
-    }
-
-    public ListGroup<T> appendChild(ListItem<T> listItem) {
-        listItem.setParent(this);
-        allItems.add(listItem);
-        element().appendChild(listItem.element());
-        listItem.setParent(this);
-        return this;
-    }
-    
-    public ListGroup<T> appendChilds(List<ListItem<T>> items) {
-        items.forEach((listItem) -> {
-            appendChild(listItem);
-        });
-        return this;
-    }
-    
-    public ListItem<T> createItem(T value) {
-        return createItem(value, value.toString());
-    }
-
-    public ListItem<T> createItem(T value, String text) {
-        ListItem<T> listItem = ListItem.create(value);
-        listItem.setParent(this);
-        listItem.setText(text);
-        return listItem;
-    }
-
-    public ListGroup<T> multiSelect() {
-        setMultiSelect(true);
+    public ListGroup<T> setItemRenderer(ItemRenderer<T> itemRenderer) {
+        this.itemRenderer = itemRenderer;
         return this;
     }
 
-    @Override
-    public List<ListItem<T>> getSelectedItems() {
-        return allItems.stream().filter(ListItem::isSelected).collect(toList());
-    }
-
-    public List<T> getSelectedValues() {
-        List<ListItem<T>> selectedItems = getSelectedItems();
-        if (selectedItems.isEmpty())
-            return new ArrayList<>();
-        else
-            return selectedItems.stream().map(ListItem::getValue).collect(toList());
-    }
-
-    public ListGroup<T> removeSelected() {
-        getSelectedItems().forEach(item -> {
-            allItems.remove(item);
-            item.element().remove();
-        });
+    public ListGroup<T> setItems(List<? extends T> items) {
+        removeAll();
+        items.forEach(this::addItem);
+        addListeners.forEach(listener -> listener.onAdd(new ArrayList<>(this.items)));
         return this;
     }
 
-    public ListGroup<T> removeItem(ListItem<T> listItem) {
-        if (allItems.contains(listItem)) {
-            allItems.remove(listItem);
-            listItem.element().remove();
+    public ListGroup<T> removeAll() {
+        clearElement();
+        List<ListItem<? extends T>> removed = new ArrayList<>(this.items);
+        items.clear();
+        removeListeners.forEach(listener -> listener.onRemove(removed));
+        return this;
+    }
+
+    public ListGroup<T> addItems(List<? extends T> items) {
+        List<ListItem<? extends T>> addedItems = new ArrayList<>();
+        items.forEach(value -> insertAt(this.items.size(), value, true, addedItems::add));
+        if (!addedItems.isEmpty()) {
+            this.addListeners.forEach(listener -> listener.onAdd(addedItems));
         }
         return this;
+    }
+
+    public ListGroup<T> addItem(T value) {
+        return insertAt(items.isEmpty() ? 0 : items.size() - 1, value);
+    }
+
+    public ListGroup<T> insertFirst(T value) {
+        return insertAt(0, value);
+    }
+
+    public ListGroup<T> insertAt(int index, T value) {
+        return insertAt(index, value, false, listItem -> {
+        });
+    }
+
+    private ListGroup<T> insertAt(int index, T value, boolean silent, Consumer<ListItem<T>> onItemAdded) {
+        if (index == 0 || (index >= 0 && index < items.size())) {
+            HTMLLIElement li = li().css(ListStyles.LIST_GROUP_ITEM).element();
+            ListItem<T> listItem = new ListItem<>(this, value, li);
+            itemRenderer.onRender(this, listItem);
+
+            if (!items.isEmpty()) {
+                this.insertAfter(listItem.element(), items.get(index).getElement());
+            } else {
+                this.appendChild(listItem);
+            }
+
+            items.add(index, listItem);
+            onItemAdded.accept(listItem);
+            if (!silent) {
+                List<ListItem<? extends T>> added = new ArrayList<>();
+                added.add(listItem);
+                this.addListeners.forEach(listener -> listener.onAdd(added));
+            }
+        } else {
+            throw new IndexOutOfBoundsException("index : [" + index + "], size : [" + items.size() + "]");
+        }
+
+        return this;
+    }
+
+    public ListGroup<T> removeItemsByValue(List<? extends T> toBeRemoved) {
+        return removeItems(items.stream()
+                .filter(listItem -> toBeRemoved.contains(listItem.getValue()))
+                .collect(Collectors.toList()));
     }
 
     public ListGroup<T> removeItem(T value) {
-        List<ListItem<T>> toBeRemoved = allItems.stream().filter(listItem -> listItem.getValue().equals(value))
-                .collect(toList());
-        return removeItems(toBeRemoved);
-    }
+        Optional<ListItem<T>> first = items.stream()
+                .filter(listItem -> listItem.valueEquals(value))
+                .findFirst();
 
-    public ListGroup<T> removeItemsByValue(List<T> values) {
-        if(isNull(values) || values.isEmpty()){
-            return this;
-        }
-        List<ListItem<T>> toBeRemoved = allItems.stream().filter(listItem -> values.contains(listItem.getValue()))
-                .collect(toList());
-        return removeItems(toBeRemoved);
-    }
-
-    public ListGroup<T> removeItems(List<ListItem<T>> toBeRemoved) {
-        toBeRemoved.forEach(this::removeItem);
+        first.ifPresent(this::removeItem);
         return this;
     }
 
-    @Override
-    public boolean isSelectable() {
-        return selectable;
+    public ListGroup<T> removeItem(ListItem<? extends T> item) {
+        return removeItem(item, false);
     }
 
-    public ListGroup<T> setSelectable(boolean selectable) {
-        this.selectable = selectable;
-        for (ListItem<T> listItem : getSelectedItems()) {
-            if (!selectable) {
-                listItem.deselect(true);
+    public ListGroup<T> removeItems(List<ListItem<? extends T>> items) {
+        items.forEach(listItem -> removeItem(listItem, true));
+        removeListeners.forEach(listener -> listener.onRemove(new ArrayList<>(items)));
+        return this;
+    }
+
+    public ListGroup<T> removeItem(ListItem<? extends T> item, boolean silent) {
+        items.remove(item);
+        item.remove();
+
+        if (!silent) {
+            List<ListItem<? extends T>> items = new ArrayList<>();
+            items.add(item);
+            removeListeners.forEach(listener -> listener.onRemove(items));
+        }
+
+        return this;
+    }
+
+    public ListGroup<T> setBordered(boolean bordered) {
+        if (bordered) {
+            removeCss(ListStyles.BORDERED);
+            css(ListStyles.BORDERED);
+        } else {
+            removeCss(ListStyles.BORDERED);
+        }
+
+        return this;
+    }
+
+    public List<ListItem<T>> getItems() {
+        return items;
+    }
+
+    public List<ListItem<T>> getSelectedItems() {
+        return items.stream()
+                .filter(ListItem::isSelected)
+                .collect(Collectors.toList());
+    }
+
+    public List<T> getSelectedValues() {
+        return items.stream()
+                .filter(ListItem::isSelected)
+                .map(ListItem::getValue)
+                .collect(Collectors.toList());
+    }
+
+    public List<T> getValues() {
+        return items.stream()
+                .map(ListItem::getValue)
+                .collect(Collectors.toList());
+    }
+
+    public ListGroup<T> select(List<ListItem<? extends T>> items) {
+        List<ListItem<? extends T>> selected = new ArrayList<>();
+        items.forEach(listItem -> select(listItem, multiSelect, selected::add));
+        if (!selected.isEmpty() && multiSelect) {
+            this.selectionListeners.forEach(listener -> listener.onSelect(selected));
+        }
+        return this;
+    }
+
+    public ListGroup<T> select(ListItem<T> listItem) {
+        return select(listItem, false);
+    }
+
+    public ListGroup<T> select(ListItem<T> listItem, boolean silent) {
+        return select(listItem, silent, item -> {
+        });
+    }
+
+    private ListGroup<T> select(ListItem<? extends T> listItem, boolean silent, Consumer<ListItem<? extends T>> onSelected) {
+        if (!listItem.isSelected() && this.items.contains(listItem)) {
+            if (!multiSelect) {
+                if (nonNull(lastSelected)) {
+                    lastSelected.deselect();
+                }
+                this.lastSelected = listItem;
+            }
+            listItem.setSelected(true, silent);
+            onSelected.accept(listItem);
+            if (!silent) {
+                List<ListItem<? extends T>> selected = new ArrayList<>();
+                selected.add(listItem);
+                this.selectionListeners.forEach(listener -> listener.onSelect(selected));
             }
         }
-
         return this;
     }
 
-    @Override
+    public ListGroup<T> deselect(List<ListItem<? extends T>> items) {
+        List<ListItem<? extends T>> deselected = new ArrayList<>();
+        items.forEach(listItem -> deselect(listItem, false, deselected::add));
+        if (!deselected.isEmpty()) {
+            this.deSelectionListeners.forEach(listener -> listener.onDeSelect(deselected));
+        }
+        return this;
+    }
+
+    public ListGroup<T> deselect(ListItem<T> listItem) {
+        return deselect(listItem, false);
+    }
+
+    public ListGroup<T> deselect(ListItem<T> listItem, boolean silent) {
+        return deselect(listItem, silent, item -> {
+        });
+    }
+
+    private ListGroup<T> deselect(ListItem<? extends T> listItem, boolean silent, Consumer<ListItem<? extends T>> onDeselected) {
+        if (listItem.isSelected() && this.items.contains(listItem)) {
+            listItem.setSelected(false, silent);
+            onDeselected.accept(listItem);
+            if (!silent) {
+                List<ListItem<? extends T>> deselected = new ArrayList<>();
+                deselected.add(listItem);
+                this.deSelectionListeners.forEach(listener -> listener.onDeSelect(deselected));
+            }
+        }
+        return this;
+    }
+
     public boolean isMultiSelect() {
         return multiSelect;
     }
 
-    @Override
-    public void setMultiSelect(boolean multiSelect) {
+    public ListGroup<T> setMultiSelect(boolean multiSelect) {
         this.multiSelect = multiSelect;
+        return this;
+    }
+
+    public ListGroup<T> addSelectionListener(SelectionListener<T> selectionListener){
+        this.selectionListeners.add(selectionListener);
+        return this;
+    }
+
+    public ListGroup<T> removeSelectionListener(SelectionListener<T> selectionListener){
+        this.selectionListeners.remove(selectionListener);
+        return this;
+    }
+
+    public ListGroup<T> addDeselectionListener(DeSelectionListener<T> deSelectionListener){
+        this.deSelectionListeners.add(deSelectionListener);
+        return this;
+    }
+
+    public ListGroup<T> removeDeselectionListener(DeSelectionListener<T> deSelectionListener){
+        this.selectionListeners.remove(deSelectionListener);
+        return this;
+    }
+
+    public ListGroup<T> addAddListener(AddListener<T> addListener){
+        this.addListeners.add(addListener);
+        return this;
+    }
+
+    public ListGroup<T> removeAddListener(AddListener<T> addListener){
+        this.addListeners.remove(addListener);
+        return this;
+    }
+
+    public ListGroup<T> addRemoveListener(RemoveListener<T> removeListener){
+        this.removeListeners.add(removeListener);
+        return this;
+    }
+
+    public ListGroup<T> removeRemoveListener(RemoveListener<T> removeListener){
+        this.removeListeners.remove(removeListener);
+        return this;
     }
 
     @Override
-    public List<ListItem<T>> getItems() {
-        return allItems;
-    }
-
-    public List<T> getAllValues() {
-        return allItems.stream().map(ListItem::getValue).collect(toList());
-    }
-
-    @Override
-    public HTMLDivElement element() {
+    public HTMLUListElement element() {
         return element;
     }
 
-    @Override
-    public void onSelectionChange(ListItem<T> source) {
-        if (selectable) {
-            for (int i = 0; i < selectionHandlers.size(); i++) {
-                selectionHandlers.get(i).onSelectionChanged(source);
-            }
-        }
+    @FunctionalInterface
+    public interface ItemRenderer<T> {
+
+        void onRender(ListGroup<T> listGroup, ListItem<T> listItem);
     }
 
-    public ListGroup<T> removeAll() {
-        getItems().forEach(this::removeItem);
-        return this;
+    @FunctionalInterface
+    public interface RemoveListener<T> {
+        void onRemove(List<ListItem<? extends T>> removedItems);
     }
 
-    public ListGroup<T> addSelectionChangeHandler(SelectionChangeHandler<T> selectionChangeHandler) {
-        this.selectionHandlers.add(selectionChangeHandler);
-        return this;
+    @FunctionalInterface
+    public interface AddListener<T> {
+        void onAdd(List<ListItem<? extends T>> addedItems);
     }
 
-    public ListGroup<T> removeSelectionChangeHandler(SelectionChangeHandler<T> selectionChangeHandler) {
-        this.selectionHandlers.remove(selectionChangeHandler);
-        return this;
+    @FunctionalInterface
+    public interface SelectionListener<T> {
+        void onSelect(List<ListItem<? extends T>> selectedItems);
     }
 
-    public interface SelectionChangeHandler<T> {
-        void onSelectionChanged(ListItem<T> item);
+    @FunctionalInterface
+    public interface DeSelectionListener<T> {
+        void onDeSelect(List<ListItem<? extends T>> deSelectedItems);
     }
 }

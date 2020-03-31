@@ -222,6 +222,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
         value(value);
     }
 
+    protected abstract DominoElement<HTMLDivElement> getFieldInputContainer();
     protected abstract DominoElement<HTMLDivElement> getFieldContainer();
 
     protected abstract DominoElement<HTMLElement> getHelperContainer();
