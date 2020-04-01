@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static java.util.Objects.nonNull;
+
 public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>> {
 
     private final ListGroup<T> listGroup;
@@ -134,9 +136,15 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>> {
 
     void setSelected(boolean selected, boolean silent) {
         this.selected = selected;
+        if(nonNull(listGroup.getSelectionColor())){
+            removeCss(listGroup.getSelectionColor().getBackground());
+        }
         removeCss(ListStyles.SELECTED);
         if(selected){
             css(ListStyles.SELECTED);
+            if(nonNull(listGroup.getSelectionColor())){
+                css(listGroup.getSelectionColor().getBackground());
+            }
         }
         if(!silent) {
             this.selectionChangedListeners.forEach(listener -> listener.onSelectionChanged(ListItem.this, selected));
