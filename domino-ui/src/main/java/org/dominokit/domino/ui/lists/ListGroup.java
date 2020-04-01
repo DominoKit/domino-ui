@@ -67,7 +67,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
     }
 
     public ListGroup<T> addItem(T value) {
-        return insertAt(items.isEmpty() ? 0 : items.size() - 1, value);
+        return insertAt(items.isEmpty() ? 0 : items.size() , value);
     }
 
     public ListGroup<T> insertFirst(T value) {
@@ -80,11 +80,15 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
     }
 
     private ListGroup<T> insertAt(int index, T value, boolean silent, Consumer<ListItem<T>> onItemAdded) {
-        if (index == 0 || (index >= 0 && index < items.size())) {
+        if (index == 0 || (index >= 0 && index <= items.size())) {
             HTMLLIElement li = li().css(ListStyles.LIST_GROUP_ITEM).element();
             ListItem<T> listItem = new ListItem<>(this, value, li);
 
-            items.add(index, listItem);
+            if(index==items.size()) {
+                items.add(listItem);
+            }else {
+                items.add(index, listItem);
+            }
             if (!items.isEmpty()) {
                 this.insertAfter(listItem.element(), items.get(index).getElement());
             } else {
