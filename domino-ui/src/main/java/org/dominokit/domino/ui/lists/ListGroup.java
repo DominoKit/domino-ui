@@ -308,6 +308,11 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
         return this;
     }
 
+    public ListGroup<T> setSelectable(boolean selectable){
+        getItems().forEach(item -> item.setSelectable(selectable));
+        return this;
+    }
+
     @Override
     public HTMLUListElement element() {
         return element;
