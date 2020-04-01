@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.lists;
 
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.elemento.Elements;
 
@@ -27,6 +28,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
     private final List<DeSelectionListener<T>> deSelectionListeners = new ArrayList<>();
     private boolean multiSelect = false;
     private ListItem<? extends T> lastSelected = null;
+    private Color selectionColor = null;
 
     public static <T> ListGroup<T> create() {
         return new ListGroup<>();
@@ -294,6 +296,15 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
 
     public ListGroup<T> removeRemoveListener(RemoveListener<T> removeListener){
         this.removeListeners.remove(removeListener);
+        return this;
+    }
+
+    public Color getSelectionColor() {
+        return selectionColor;
+    }
+
+    public ListGroup<T>  setSelectionColor(Color selectionColor) {
+        this.selectionColor = selectionColor;
         return this;
     }
 
