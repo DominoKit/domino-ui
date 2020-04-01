@@ -87,6 +87,8 @@ class Clock12 implements Clock {
     public void setHour(int hour) {
         if (hour > 12) {
             this.hour = hour - 12;
+        } else if(hour == 0){
+            this.hour = 12;
         } else {
             this.hour = hour;
         }
@@ -101,6 +103,8 @@ class Clock12 implements Clock {
     public int getCorrectHour(int hour) {
         if (hour > 12) {
             return hour - 12;
+        } else if(hour == 0){
+            return 12;
         } else {
             return hour;
         }
