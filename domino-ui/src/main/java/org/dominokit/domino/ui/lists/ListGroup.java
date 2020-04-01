@@ -84,13 +84,12 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
             HTMLLIElement li = li().css(ListStyles.LIST_GROUP_ITEM).element();
             ListItem<T> listItem = new ListItem<>(this, value, li);
 
+            items.add(index, listItem);
             if (!items.isEmpty()) {
                 this.insertAfter(listItem.element(), items.get(index).getElement());
             } else {
                 this.appendChild(listItem);
             }
-
-            items.add(index, listItem);
             itemRenderer.onRender(this, listItem);
             onItemAdded.accept(listItem);
             if (!silent) {
