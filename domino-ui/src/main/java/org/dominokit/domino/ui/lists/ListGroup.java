@@ -83,7 +83,6 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
         if (index == 0 || (index >= 0 && index < items.size())) {
             HTMLLIElement li = li().css(ListStyles.LIST_GROUP_ITEM).element();
             ListItem<T> listItem = new ListItem<>(this, value, li);
-            itemRenderer.onRender(this, listItem);
 
             if (!items.isEmpty()) {
                 this.insertAfter(listItem.element(), items.get(index).getElement());
@@ -92,6 +91,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
             }
 
             items.add(index, listItem);
+            itemRenderer.onRender(this, listItem);
             onItemAdded.accept(listItem);
             if (!silent) {
                 List<ListItem<? extends T>> added = new ArrayList<>();
