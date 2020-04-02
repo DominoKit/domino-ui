@@ -117,8 +117,8 @@ public class Window extends BaseModal<Window> {
             }
         };
 
-        onOpen(this::addMoveListeners);
-        onClose(this::removeMoveListeners);
+        addOpenListener(this::addMoveListeners);
+        addCloseListener(this::removeMoveListeners);
 
         initPosition();
     }
