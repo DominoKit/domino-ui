@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.lists;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLUListElement;
 import elemental2.dom.MouseEvent;
@@ -224,12 +223,10 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
             int lastIndex = Math.max(itemIndex, lastSelectedIndex);
 
             deselect(getSelectedItems());
-            DomGlobal.console.info("SELECTING RANGE : " + startIndex + " : " + lastIndex);
             List<ListItem<T>> toSelect = getItems().subList(startIndex, lastIndex + 1)
                     .stream()
                     .filter(ListItem::isEnabled)
                     .collect(Collectors.toList());
-            DomGlobal.console.info("SELECTING RANGE SIZE: " + toSelect.size());
             select(toSelect);
         }
     }
