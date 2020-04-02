@@ -2948,6 +2948,7 @@ a.disabled {
 }
 
 .disable-selection {
+    user-select: none;
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer */
     -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
@@ -2965,7 +2966,6 @@ a.disabled {
     left: 0 !important;
     padding-right: 25px;
 }
-
 
 .panel-group .full-body .panel[class*="col-"] .panel-body {
     border-top-color: #fff;
@@ -3077,6 +3077,7 @@ a.disabled {
     td.show-on-small-and-up {
         display: table-cell !important;
     }
+
     .grid-row.show-on-xlarge-only,
     .grid-row.show-on-xlarge-and-up,
     .grid-row.show-on-large-and-up,

@@ -1,7 +1,10 @@
 package org.dominokit.domino.ui.lists;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.Event;
 import elemental2.dom.HTMLLIElement;
+import elemental2.dom.MouseEvent;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
@@ -37,13 +40,34 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>> {
 
     private void trySelect(Event evt) {
         evt.stopPropagation();
+        evt.preventDefault();
+        MouseEvent mouseEvent = Js.uncheckedCast(evt);
+        DomGlobal.console.info("SHIFT KEY PRESSED : "+mouseEvent.shiftKey);
         if (selectable && enabled && selectOnClick) {
             if (isSelected()) {
-                deselect();
+                if (mouseEvent.shiftKey && listGroup.isMultiSelect()) {
+                    deselectRange();
+                } else {
+                    deselect();
+                }
             } else {
-                select();
+                if (mouseEvent.shiftKey && listGroup.isMultiSelect()) {
+                    selectRange();
+                } else {
+                    select();
+                }
             }
         }
+    }
+
+    private ListItem<T> selectRange() {
+        listGroup.selectRange(this);
+        return this;
+    }
+
+    private ListItem<T> deselectRange() {
+        listGroup.deselectRange(this);
+        return this;
     }
 
     @Override
@@ -112,7 +136,7 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>> {
         return selectOnClick;
     }
 
-    public ListItem<T>  setSelectOnClick(boolean selectOnClick) {
+    public ListItem<T> setSelectOnClick(boolean selectOnClick) {
         this.selectOnClick = selectOnClick;
         return this;
     }
@@ -136,19 +160,23 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>> {
 
     void setSelected(boolean selected, boolean silent) {
         this.selected = selected;
-        if(nonNull(listGroup.getSelectionColor())){
+        if (nonNull(listGroup.getSelectionColor())) {
             removeCss(listGroup.getSelectionColor().getBackground());
         }
         removeCss(ListStyles.SELECTED);
-        if(selected){
+        if (selected) {
             css(ListStyles.SELECTED);
-            if(nonNull(listGroup.getSelectionColor())){
+            if (nonNull(listGroup.getSelectionColor())) {
                 css(listGroup.getSelectionColor().getBackground());
             }
         }
-        if(!silent) {
-            this.selectionChangedListeners.forEach(listener -> listener.onSelectionChanged(ListItem.this, selected));
+        if (!silent) {
+            fireSelectionHandlers(selected);
         }
+    }
+
+    void fireSelectionHandlers(boolean selected){
+        this.selectionChangedListeners.forEach(listener -> listener.onSelectionChanged(ListItem.this, selected));
     }
 
     @FunctionalInterface

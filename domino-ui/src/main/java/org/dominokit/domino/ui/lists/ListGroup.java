@@ -1,17 +1,23 @@
 package org.dominokit.domino.ui.lists;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLUListElement;
+import elemental2.dom.MouseEvent;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.elemento.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.li;
 
@@ -37,6 +43,12 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
     public ListGroup() {
         element = Elements.ul().css(ListStyles.LIST_GROUP, ListStyles.BORDERED).element();
         init(this);
+
+        this.addClickListener(evt -> {
+            MouseEvent mouseEvent = Js.uncheckedCast(evt);
+            evt.stopPropagation();
+            evt.preventDefault();
+        });
     }
 
     public ListGroup<T> setItemRenderer(ItemRenderer<T> itemRenderer) {
@@ -69,7 +81,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
     }
 
     public ListGroup<T> addItem(T value) {
-        return insertAt(items.isEmpty() ? 0 : items.size() , value);
+        return insertAt(items.isEmpty() ? 0 : items.size(), value);
     }
 
     public ListGroup<T> insertFirst(T value) {
@@ -86,9 +98,9 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
             HTMLLIElement li = li().css(ListStyles.LIST_GROUP_ITEM).element();
             ListItem<T> listItem = new ListItem<>(this, value, li);
 
-            if(index==items.size()) {
+            if (index == items.size()) {
                 items.add(listItem);
-            }else {
+            } else {
                 items.add(index, listItem);
             }
             if (!items.isEmpty()) {
@@ -182,11 +194,12 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
                 .collect(Collectors.toList());
     }
 
-    public ListGroup<T> select(List<ListItem<? extends T>> items) {
+    public ListGroup<T> select(List<ListItem<T>> items) {
         List<ListItem<? extends T>> selected = new ArrayList<>();
         items.forEach(listItem -> select(listItem, multiSelect, selected::add));
         if (!selected.isEmpty() && multiSelect) {
             this.selectionListeners.forEach(listener -> listener.onSelect(selected));
+            selected.forEach(listItem -> listItem.fireSelectionHandlers(true));
         }
         return this;
     }
@@ -200,14 +213,50 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
         });
     }
 
-    private ListGroup<T> select(ListItem<? extends T> listItem, boolean silent, Consumer<ListItem<? extends T>> onSelected) {
+    void selectRange(ListItem<T> item) {
+        if (isNull(lastSelected) || Objects.equals(lastSelected, item)) {
+            select(item);
+        } else {
+            int itemIndex = getItems().indexOf(item);
+            int lastSelectedIndex = getItems().indexOf(lastSelected);
+
+            int startIndex = Math.min(itemIndex, lastSelectedIndex);
+            int lastIndex = Math.max(itemIndex, lastSelectedIndex);
+
+            deselect(getSelectedItems());
+            DomGlobal.console.info("SELECTING RANGE : " + startIndex + " : " + lastIndex);
+            List<ListItem<T>> toSelect = getItems().subList(startIndex, lastIndex + 1)
+                    .stream()
+                    .filter(ListItem::isEnabled)
+                    .collect(Collectors.toList());
+            DomGlobal.console.info("SELECTING RANGE SIZE: " + toSelect.size());
+            select(toSelect);
+        }
+    }
+
+    void deselectRange(ListItem<T> item) {
+        if (isNull(lastSelected) || Objects.equals(lastSelected, item)) {
+            select(item);
+        } else {
+            int itemIndex = getItems().indexOf(item);
+            int lastSelectedIndex = getItems().indexOf(lastSelected);
+
+            int startIndex = Math.min(itemIndex, lastSelectedIndex);
+            int lastIndex = Math.max(itemIndex, lastSelectedIndex);
+
+            deselect(getSelectedItems());
+            select(getItems().subList(startIndex, lastIndex));
+        }
+    }
+
+    private ListGroup<T> select(ListItem<T> listItem, boolean silent, Consumer<ListItem<? extends T>> onSelected) {
         if (!listItem.isSelected() && this.items.contains(listItem)) {
             if (!multiSelect) {
                 if (nonNull(lastSelected)) {
                     lastSelected.deselect();
                 }
-                this.lastSelected = listItem;
             }
+            this.lastSelected = listItem;
             listItem.setSelected(true, silent);
             onSelected.accept(listItem);
             if (!silent) {
@@ -219,11 +268,12 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
         return this;
     }
 
-    public ListGroup<T> deselect(List<ListItem<? extends T>> items) {
+    public ListGroup<T> deselect(List<ListItem<T>> items) {
         List<ListItem<? extends T>> deselected = new ArrayList<>();
         items.forEach(listItem -> deselect(listItem, false, deselected::add));
         if (!deselected.isEmpty()) {
             this.deSelectionListeners.forEach(listener -> listener.onDeSelect(deselected));
+            deselected.forEach(listItem -> listItem.fireSelectionHandlers(false));
         }
         return this;
     }
@@ -237,7 +287,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
         });
     }
 
-    private ListGroup<T> deselect(ListItem<? extends T> listItem, boolean silent, Consumer<ListItem<? extends T>> onDeselected) {
+    private ListGroup<T> deselect(ListItem<T> listItem, boolean silent, Consumer<ListItem<? extends T>> onDeselected) {
         if (listItem.isSelected() && this.items.contains(listItem)) {
             listItem.setSelected(false, silent);
             onDeselected.accept(listItem);
@@ -256,45 +306,49 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
 
     public ListGroup<T> setMultiSelect(boolean multiSelect) {
         this.multiSelect = multiSelect;
+        removeCss(Styles.disable_selection);
+        if(multiSelect){
+            css(Styles.disable_selection);
+        }
         return this;
     }
 
-    public ListGroup<T> addSelectionListener(SelectionListener<T> selectionListener){
+    public ListGroup<T> addSelectionListener(SelectionListener<T> selectionListener) {
         this.selectionListeners.add(selectionListener);
         return this;
     }
 
-    public ListGroup<T> removeSelectionListener(SelectionListener<T> selectionListener){
+    public ListGroup<T> removeSelectionListener(SelectionListener<T> selectionListener) {
         this.selectionListeners.remove(selectionListener);
         return this;
     }
 
-    public ListGroup<T> addDeselectionListener(DeSelectionListener<T> deSelectionListener){
+    public ListGroup<T> addDeselectionListener(DeSelectionListener<T> deSelectionListener) {
         this.deSelectionListeners.add(deSelectionListener);
         return this;
     }
 
-    public ListGroup<T> removeDeselectionListener(DeSelectionListener<T> deSelectionListener){
+    public ListGroup<T> removeDeselectionListener(DeSelectionListener<T> deSelectionListener) {
         this.selectionListeners.remove(deSelectionListener);
         return this;
     }
 
-    public ListGroup<T> addAddListener(AddListener<T> addListener){
+    public ListGroup<T> addAddListener(AddListener<T> addListener) {
         this.addListeners.add(addListener);
         return this;
     }
 
-    public ListGroup<T> removeAddListener(AddListener<T> addListener){
+    public ListGroup<T> removeAddListener(AddListener<T> addListener) {
         this.addListeners.remove(addListener);
         return this;
     }
 
-    public ListGroup<T> addRemoveListener(RemoveListener<T> removeListener){
+    public ListGroup<T> addRemoveListener(RemoveListener<T> removeListener) {
         this.removeListeners.add(removeListener);
         return this;
     }
 
-    public ListGroup<T> removeRemoveListener(RemoveListener<T> removeListener){
+    public ListGroup<T> removeRemoveListener(RemoveListener<T> removeListener) {
         this.removeListeners.remove(removeListener);
         return this;
     }
@@ -303,12 +357,12 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
         return selectionColor;
     }
 
-    public ListGroup<T>  setSelectionColor(Color selectionColor) {
+    public ListGroup<T> setSelectionColor(Color selectionColor) {
         this.selectionColor = selectionColor;
         return this;
     }
 
-    public ListGroup<T> setSelectable(boolean selectable){
+    public ListGroup<T> setSelectable(boolean selectable) {
         getItems().forEach(item -> item.setSelectable(selectable));
         return this;
     }
