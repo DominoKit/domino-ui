@@ -555,6 +555,18 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         return navigateNext;
     }
 
+    public Button getTodayButton() {
+        return todayButton;
+    }
+
+    public Button getClearButton() {
+        return clearButton;
+    }
+
+    public Button getCloseButton() {
+        return closeButton;
+    }
+
     DatePicker setBackgroundHandler(BackgroundHandler backgroundHandler) {
         if (nonNull(backgroundHandler)) {
             this.backgroundHandler = backgroundHandler;
