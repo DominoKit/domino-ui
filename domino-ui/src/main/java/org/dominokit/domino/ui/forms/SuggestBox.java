@@ -68,7 +68,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         super(type, label);
         this.store = store;
         suggestionsMenu = DropDownMenu.create(fieldContainer);
-        suggestionsMenu.setAppendTarget(fieldContainer.element());
+        suggestionsMenu.setAppendTarget(DomGlobal.document.body);
         suggestionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
         suggestionsMenu.setPosition(new PopupPositionTopDown());
         suggestionsMenu.addCloseHandler(this::focus);
@@ -100,7 +100,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
                     evt.preventDefault();
                 })
                 .onEnter(evt -> {
-                    if(suggestionsMenu.isOpened() && !suggestionsMenu.getFilteredAction().isEmpty()){
+                    if (suggestionsMenu.isOpened() && !suggestionsMenu.getFilteredAction().isEmpty()) {
                         evt.stopPropagation();
                         evt.preventDefault();
                         List<DropdownAction> filteredActions = suggestionsMenu.getFilteredAction();
@@ -110,7 +110,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
                     }
                 })
                 .onTab(evt -> {
-                    if(suggestionsMenu.isOpened()){
+                    if (suggestionsMenu.isOpened()) {
                         evt.stopPropagation();
                         evt.preventDefault();
                         suggestionsMenu.focus();
@@ -135,7 +135,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
                 selectedItem = null;
                 suggestionsMenu.clearActions();
 
-                if(suggestions.isEmpty()){
+                if (suggestions.isEmpty()) {
                     applyMissingEntry(getStringValue());
                 }
 
@@ -192,7 +192,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
                     this.value = value;
                     getInputElement().element().value = suggestItem.getDisplayValue();
                 } else {
-                    if(!applyMissingValue(value)){
+                    if (!applyMissingValue(value)) {
                         this.value = null;
                         getInputElement().element().value = "";
                     }
@@ -225,7 +225,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
 
     @Override
     public T getValue() {
-        if(isNull(selectedItem)){
+        if (isNull(selectedItem)) {
             applyMissingEntry(getStringValue());
         }
 
@@ -326,9 +326,15 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
             ClientRect targetRect = target.getBoundingClientRect();
 
             double distanceToMiddle = ((targetRect.top) - (targetRect.height / 2));
-            double windowMiddle = DomGlobal.window.innerHeight / 2;
+            double windowMiddle = DomGlobal.window.innerHeight;
+            double popupHeight = popup.getBoundingClientRect().height;
+            double distanceToBottom = window.innerHeight - targetRect.top;
+            double distanceToTop = (targetRect.top + targetRect.height);
 
-            if (distanceToMiddle >= windowMiddle) {
+            boolean hasSpaceBelow = distanceToBottom > popupHeight;
+            boolean hasSpaceUp = distanceToTop > popupHeight;
+
+            if (hasSpaceUp || ((distanceToMiddle >= windowMiddle) && !hasSpaceBelow)) {
                 up.position(popup, target);
                 popup.setAttribute("popup-direction", "top");
             } else {
@@ -343,9 +349,10 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     public static class DropDownPositionUp implements DropDownPosition {
         @Override
         public void position(HTMLElement actionsMenu, HTMLElement target) {
+
             ClientRect targetRect = target.getBoundingClientRect();
 
-            actionsMenu.style.setProperty("bottom", px.of(((window.innerHeight - targetRect.bottom) - window.pageYOffset + targetRect.height + 5)));
+            actionsMenu.style.setProperty("bottom", px.of(((window.innerHeight - targetRect.bottom + targetRect.height) - window.pageYOffset)));
             actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
             actionsMenu.style.removeProperty("top");
         }
@@ -354,8 +361,10 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     public static class DropDownPositionDown implements DropDownPosition {
         @Override
         public void position(HTMLElement actionsMenu, HTMLElement target) {
+
             ClientRect targetRect = target.getBoundingClientRect();
-            actionsMenu.style.setProperty("top", px.of((targetRect.top + window.pageYOffset + targetRect.height)));
+
+            actionsMenu.style.setProperty("top", px.of((targetRect.top + targetRect.height + window.pageYOffset)));
             actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
             actionsMenu.style.removeProperty("bottom");
         }
