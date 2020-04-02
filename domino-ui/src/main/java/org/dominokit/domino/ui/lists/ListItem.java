@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.lists;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.Event;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.MouseEvent;
@@ -42,7 +41,6 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>> {
         evt.stopPropagation();
         evt.preventDefault();
         MouseEvent mouseEvent = Js.uncheckedCast(evt);
-        DomGlobal.console.info("SHIFT KEY PRESSED : "+mouseEvent.shiftKey);
         if (selectable && enabled && selectOnClick) {
             if (isSelected()) {
                 if (mouseEvent.shiftKey && listGroup.isMultiSelect()) {
