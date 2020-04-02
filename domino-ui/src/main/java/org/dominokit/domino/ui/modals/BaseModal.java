@@ -1,18 +1,6 @@
 package org.dominokit.domino.ui.modals;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import elemental2.dom.DomGlobal;
-import elemental2.dom.Element;
-import elemental2.dom.Event;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLHeadingElement;
-import elemental2.dom.KeyboardEvent;
-import elemental2.dom.Node;
-import elemental2.dom.NodeList;
-import elemental2.dom.Text;
+import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
@@ -24,11 +12,13 @@ import org.dominokit.domino.ui.utils.Switchable;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.div;
-import static org.jboss.elemento.Elements.h;
-import static org.jboss.elemento.Elements.setVisible;
+import static org.jboss.elemento.Elements.*;
 
 public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends BaseDominoElement<HTMLDivElement, T>
         implements IsModalDialog<T>, Switchable<T> {
@@ -244,16 +234,13 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public T open() {
-
         if (isEnabled()) {
             style().removeProperty("z-index");
             if (autoAppendAndRemove) {
                 element().remove();
                 document.body.appendChild(element());
             }
-
             initFocusElements();
-
             activeElementBeforeOpen = DominoDom.document.activeElement;
             addBackdrop();
             style().add(ModalStyles.IN);
@@ -266,9 +253,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
                     }
                 }
             }
-
-            for (int i = 0; i < openHandlers.size(); i++) { openHandlers.get(i).onOpen(); }
-
+            openHandlers.forEach(OpenHandler::onOpen);
             this.open = true;
             ModalBackDrop.push(this);
         }
@@ -277,7 +262,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     public void addBackdrop() {
         if (modal) {
-            if (ModalBackDrop.openedModalsCount() <= 0) {
+            if (ModalBackDrop.openedModalsCount() <= 0 || !DominoElement.of(ModalBackDrop.INSTANCE).isAttached()) {
                 document.body.appendChild(ModalBackDrop.INSTANCE);
                 DominoElement.of(document.body).style().add(ModalStyles.MODAL_OPEN);
             } else {
@@ -290,7 +275,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     public void removeBackDrop() {
         if (modal) {
-            if (ModalBackDrop.openedModalsCount() <= 1) {
+            if (ModalBackDrop.openedModalsCount() < 1 || ModalBackDrop.allOpenedNotModals()) {
                 ModalBackDrop.INSTANCE.remove();
                 DominoElement.of(document.body).style().remove(ModalStyles.MODAL_OPEN);
             } else {
@@ -317,33 +302,26 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     @Override
     public T close() {
-
         element().classList.remove(ModalStyles.IN);
         element().style.display = "none";
-        if (nonNull(activeElementBeforeOpen)) { activeElementBeforeOpen.focus(); }
-
-
+        if (nonNull(activeElementBeforeOpen)) {
+            activeElementBeforeOpen.focus();
+        }
         if (autoAppendAndRemove) {
             element().remove();
         }
-
         this.open = false;
-        removeBackDrop();
         if (ModalBackDrop.contains(this)) {
             ModalBackDrop.popModal(this);
         }
-
-        for (int i = 0; i < closeHandlers.size(); i++) {
-            closeHandlers.get(i).onClose();
-        }
-
+        removeBackDrop();
+        closeHandlers.forEach(CloseHandler::onClose);
         return (T) this;
     }
 
     public boolean isAutoClose() {
         return autoClose;
     }
-
 
     @Override
     public T hideFooter() {

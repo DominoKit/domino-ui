@@ -98,4 +98,7 @@ public class ModalBackDrop {
         return openedModals.size();
     }
 
+    public static boolean allOpenedNotModals() {
+        return openedModals.stream().noneMatch(BaseModal::isModal);
+    }
 }
