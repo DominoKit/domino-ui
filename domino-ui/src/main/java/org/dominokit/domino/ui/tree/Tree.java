@@ -1,14 +1,6 @@
 package org.dominokit.domino.ui.tree;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import elemental2.dom.CSSProperties;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLIElement;
-import elemental2.dom.HTMLUListElement;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.search.Search;
@@ -20,6 +12,10 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ParentTreeItem;
 import org.jboss.elemento.IsElement;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.*;
@@ -28,6 +24,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
 
     private HTMLElement title = span().css("title").element();
     private ToggleTarget toggleTarget = ToggleTarget.ANY;
+    private TreeItemFilter<TreeItem<T>> filter = (treeItem, searchToken) -> treeItem.getTitle().toLowerCase().contains(searchToken.toLowerCase());
 
     private HTMLLIElement header = li()
             .css("header")
@@ -399,6 +396,16 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
     public void removeItem(TreeItem<T> item) {
         subItems.remove(item);
         item.remove();
+    }
+
+    public Tree<T> setFilter(TreeItemFilter<TreeItem<T>> filter) {
+        this.filter = filter;
+        return this;
+    }
+
+    @Override
+    public TreeItemFilter<TreeItem<T>> getFilter() {
+        return this.filter;
     }
 
     @Override

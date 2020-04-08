@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.utils;
 
 import org.dominokit.domino.ui.tree.Tree;
 import org.dominokit.domino.ui.tree.TreeItem;
+import org.dominokit.domino.ui.tree.TreeItemFilter;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,4 +20,5 @@ public interface ParentTreeItem<T> {
     Optional<T> getParent();
     void removeItem(T item);
     List<T> getSubItems();
+    TreeItemFilter<T> getFilter();
 }

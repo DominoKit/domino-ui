@@ -475,9 +475,9 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     public boolean filter(String searchToken) {
         boolean found;
         if (isParent()) {
-            found = title.toLowerCase().contains(searchToken.toLowerCase()) | filterChildren(searchToken);
+            found = getFilter().filter(this, searchToken) | filterChildren(searchToken);
         } else {
-            found = title.toLowerCase().contains(searchToken.toLowerCase());
+            found = getFilter().filter(this, searchToken);
         }
 
         if (found) {
@@ -503,7 +503,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     }
 
     public boolean filterChildren(String searchToken) {
-        return subItems.stream().filter(treeItem -> treeItem.filter(searchToken)).collect(Collectors.toList()).size() > 0;
+        return subItems.stream().filter(treeItem -> treeItem.filter(searchToken)).count() > 0;
     }
 
     public void collapseAll() {
@@ -591,6 +591,11 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     public TreeItem<T> clearIndicator() {
         indicatorContainer.clearElement();
         return this;
+    }
+
+    @Override
+    public TreeItemFilter<TreeItem<T>> getFilter() {
+        return parent.getFilter();
     }
 
     @Override
