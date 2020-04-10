@@ -176,7 +176,7 @@
     top: 6px;
 }
 
-.field-group.lined.floating:not([class*="switch"]):not([class*="d-checkbox"]) .field-label {
+.field-group.lined.floating:not([class*="switch"]):not([class*="d-checkbox"]):not([class*="radio-group"]) .field-label {
     top: -15px;
 }
 
@@ -541,7 +541,9 @@ label {
 }
 
 .field-group.rounded.switch.focused:not([class*="readonly"]) .field-cntr,
-.field-group.lined.switch.focused:not([class*="readonly"]) .field-cntr {
+.field-group.lined.switch.focused:not([class*="readonly"]) .field-cntr
+.field-group.rounded.radio-group.focused:not([class*="readonly"]) .field-cntr,
+.field-group.lined.radio-group.focused:not([class*="readonly"]) .field-cntr {
     background-color: transparent;
 }
 
@@ -550,6 +552,9 @@ label {
 .field-group.rounded.switch:not([class*="focused"]):not([class*="readonly"]):not([class*="error"]) .field-cntr,
 .field-group.rounded.radio-group:not([class*="focused"]):not([class*="readonly"]):not([class*="error"]) .field-cntr {
     border: none;
+}
+.field-group.lined.radio-group.focused:not([class*="readonly"]) .field-cntr {
+    border-bottom: 0px;
 }
 
 .field-group.radio-group .radio-option {
