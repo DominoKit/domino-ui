@@ -64,6 +64,13 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
         return this;
     }
 
+    public FlexLayout insertFirst(FlexItem flexItem){
+        if(!flexItems.isEmpty()){
+            return appendChildBefore(flexItem, flexItems.get(0));
+        }
+        return appendChild(flexItem);
+    }
+
     public FlexLayout appendChildBefore(FlexItem flexItem, FlexItem existingItem) {
         if (flexItems.contains(existingItem)) {
             flexItems.add(flexItem);

@@ -37,14 +37,16 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     private List<Selectable.SelectionHandler<SelectOption>> selectionHandlers = new ArrayList<>();
     private FlexItem checkMarkFlexItem;
     private boolean excludeFromSearchResults = false;
+    private FlexLayout optionLayoutElement;
 
     public SelectOption(T value, String key, String displayValue) {
         setKey(key);
         setValue(value);
         setDisplayValue(displayValue);
         checkMarkFlexItem = FlexItem.create();
+        optionLayoutElement = FlexLayout.create();
         element
-                .appendChild(FlexLayout.create()
+                .appendChild(optionLayoutElement
                         .appendChild(FlexItem.create()
                                 .css(Styles.ellipsis_text)
                                 .setFlexGrow(1)
@@ -64,14 +66,6 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
 
     public static <T> SelectOption<T> create(T value, String key) {
         return new SelectOption<>(value, key);
-    }
-
-    /**
-     * @deprecated use {@link #appendChild(Node)}
-     */
-    @Deprecated
-    public SelectOption<T> appendContent(Node node) {
-        return appendChild(node);
     }
 
     public SelectOption<T> appendChild(Node node) {
@@ -184,5 +178,9 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     public SelectOption<T> setExcludeFromSearchResults(boolean excludeFromSearchResults) {
         this.excludeFromSearchResults = excludeFromSearchResults;
         return this;
+    }
+
+    public FlexLayout getOptionLayoutElement() {
+        return optionLayoutElement;
     }
 }
