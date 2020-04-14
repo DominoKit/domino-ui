@@ -422,9 +422,8 @@ table th[class*="col-"] {
     padding: 0px !important;
     width: 3px !important;
 }
-.table .select-checkbox.d-checkbox .field-label {
-    left: 7px;
-}
+
+.table .select-checkbox.d-checkbox .field-label,
 .table .table-cm-header .select-checkbox.d-checkbox .field-label {
     left: 3px;
 }
@@ -452,6 +451,12 @@ table th[class*="col-"] {
 .table .dt-td-cell > .field-group:not([class*="d-checkbox"]) .field-label,
 .table .dt-th-cell > .field-group:not([class*="d-checkbox"]) .field-label {
     display: none;
+}
+
+.table th.table-cm-header .field-group.d-checkbox .field-cntr,
+.table .dt-td-cell > .field-group.d-checkbox .field-cntr,
+.table .dt-th-cell > .field-group.d-checkbox .field-cntr {
+    padding: 0px;
 }
 
 .table .dt-td-cell > .field-group .field-cntr,
