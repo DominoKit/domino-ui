@@ -2664,6 +2664,10 @@ a {
     margin-left: 5px;
 }
 
+.menu ul.list li a i.mdi:before {
+    line-height: 24px;
+}
+
 .menu .gap {
     width: 100%;
     margin-top: 5px;
