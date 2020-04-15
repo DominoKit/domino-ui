@@ -137,7 +137,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     }
 
     public S addGroup(SelectOptionGroup<V> group) {
-        DropdownActionsGroup<V> dropdownActionsGroup = DropdownActionsGroup.create(group.getTitleElement());
+        DropdownActionsGroup<SelectOption<V>> dropdownActionsGroup = DropdownActionsGroup.create(group.getTitleElement());
         for (SelectOption<V> option : group.getOptions()) {
             addOptionToGroup(dropdownActionsGroup, option);
         }
@@ -149,7 +149,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
-    private void addOptionToGroup(DropdownActionsGroup<V> dropdownActionsGroup, SelectOption<V> option) {
+    private void addOptionToGroup(DropdownActionsGroup<SelectOption<V>> dropdownActionsGroup, SelectOption<V> option) {
         dropdownActionsGroup.appendChild(asDropDownAction(option));
         options.add(option);
     }
@@ -162,14 +162,6 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     public S setPopupWidth(int width) {
         this.popupWidth = width;
         return (S) this;
-    }
-
-    /**
-     * @deprecated use {@link #appendChild(SelectOption)}
-     */
-    @Deprecated
-    public S addOption(SelectOption<V> option) {
-        return appendChild(option);
     }
 
     public S appendChild(SelectOption<V> option) {
@@ -199,8 +191,8 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         optionsMenu.insertFirst(asDropDownAction(option));
     }
 
-    private DropdownAction<V> asDropDownAction(SelectOption<V> option) {
-        return DropdownAction.create(option.getValue(), option.element())
+    private DropdownAction<SelectOption<V>> asDropDownAction(SelectOption<V> option) {
+        return DropdownAction.create(option, option.element())
                 .setExcludeFromSearchResults(option.isExcludeFromSearchResults())
                 .addSelectionHandler(value -> doSelectOption(option));
     }
@@ -323,22 +315,6 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     }
 
     public abstract S setValue(T value, boolean silent);
-
-    /**
-     * @deprecated use {@link #selectByKey(String)}
-     */
-    @Deprecated
-    public S setKey(String key) {
-        return selectByKey(key);
-    }
-
-    /**
-     * @deprecated use {@link #selectByKey(String, boolean)}
-     */
-    @Deprecated
-    public S setKey(String key, boolean silent) {
-        return selectByKey(key, silent);
-    }
 
     public S removeSelectionHandler(SelectionHandler selectionHandler) {
         if (nonNull(selectionHandler))
@@ -528,6 +504,11 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     @Override
     protected void doSetValue(T value) {
 
+    }
+
+    public S setSearchFilter(DropDownMenu.SearchFilter searchFilter){
+        this.optionsMenu.setSearchFilter(searchFilter);
+        return (S) this;
     }
 
     public static class PopupPositionTopDown<T, V, S extends AbstractSelect<T, V, S>> implements DropDownPosition {
