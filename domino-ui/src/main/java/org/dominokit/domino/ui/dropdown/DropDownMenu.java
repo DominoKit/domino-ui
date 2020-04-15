@@ -36,7 +36,6 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
             .css(DropDownStyles.DROPDOWN_SEARCH_BOX));
     private DominoElement<HTMLElement> noSearchResultsElement;
     private String noMatchSearchResultText = "No results matched";
-    private String noResultsElementDisplay;
 
     private List<DropdownAction> actions = new ArrayList<>();
     private static boolean touchMoved;
@@ -49,6 +48,13 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     private Color background;
     private HTMLElement appendTarget = document.body;
     private AppendStrategy appendStrategy = AppendStrategy.LAST;
+    private SearchFilter searchFilter = (searchText, dropdownAction, caseSensitive) -> {
+        if (caseSensitive) {
+           return dropdownAction.getContent().textContent.contains(searchText);
+        } else {
+            return dropdownAction.getContent().textContent.toLowerCase().contains(searchText.toLowerCase());
+        }
+    };
 
     static {
         document.addEventListener(EventType.click.getName(), evt -> DropDownMenu.closeAllMenus());
@@ -145,14 +151,9 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         String searchValue = searchBox.element().value;
         boolean thereIsValues = false;
         for (DropdownAction<?> action : actions) {
-            boolean contains;
-            action.setFilteredOut(false);
-            if (caseSensitiveSearch) {
-                contains = action.getContent().textContent.contains(searchValue);
-            } else {
-                contains = action.getContent().textContent.toLowerCase().contains(searchValue.toLowerCase());
-            }
 
+            action.setFilteredOut(false);
+            boolean contains =searchFilter.filter(searchValue, action, caseSensitiveSearch);
             contains = contains && !action.isExcludeFromSearchResults();
 
             if (!contains) {
@@ -439,6 +440,17 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         menuNavigation.focusAt(0);
     }
 
+    public SearchFilter getSearchFilter() {
+        return searchFilter;
+    }
+
+    public DropDownMenu setSearchFilter(SearchFilter searchFilter) {
+        if(nonNull(searchFilter)) {
+            this.searchFilter = searchFilter;
+        }
+        return this;
+    }
+
     @FunctionalInterface
     public interface CloseHandler {
         void onClose();
@@ -455,5 +467,10 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
         AppendStrategy FIRST = (target, menu) -> DominoElement.of(target).insertFirst(menu);
         AppendStrategy LAST = (target, menu) -> DominoElement.of(target).appendChild(menu);
+    }
+
+    @FunctionalInterface
+    public interface SearchFilter {
+        boolean filter(String searchText, DropdownAction<?> dropdownAction, boolean caseSensitive);
     }
 }
