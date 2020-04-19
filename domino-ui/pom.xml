@@ -101,7 +101,6 @@
                                 <cssExclude>material-icons.css</cssExclude>
                                 <cssExclude>**/*.min.css</cssExclude>
                                 <cssExclude>**/themes/*.css</cssExclude>
-                                <cssExclude>bootstrap.css</cssExclude>
                                 <cssExclude>waves.css</cssExclude>
                                 <cssExclude>style.css</cssExclude>
                             </cssExcludes>
