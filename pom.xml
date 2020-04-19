@@ -15,6 +15,7 @@
         <module>domino-ui</module>
         <module>domino-ui-shared</module>
         <module>domino-ui-tools</module>
+        <module>domino-ui-webjar</module>
     </modules>
 
     <licenses>
