@@ -47,6 +47,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
             search();
         }
     };
+    private boolean autoSelect = true;
 
     public SuggestBox() {
         this("");
@@ -68,7 +69,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         super(type, label);
         this.store = store;
         suggestionsMenu = DropDownMenu.create(fieldContainer);
-        suggestionsMenu.setAppendTarget(DomGlobal.document.body);
+        suggestionsMenu.setAppendTarget(document.body);
         suggestionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
         suggestionsMenu.setPosition(new PopupPositionTopDown());
         suggestionsMenu.addCloseHandler(this::focus);
@@ -103,10 +104,14 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
                     if (suggestionsMenu.isOpened() && !suggestionsMenu.getFilteredAction().isEmpty()) {
                         evt.stopPropagation();
                         evt.preventDefault();
-                        List<DropdownAction> filteredActions = suggestionsMenu.getFilteredAction();
-                        suggestionsMenu.selectAt(suggestionsMenu.getActions().indexOf(filteredActions.get(0)));
-                        filteredActions.get(0).select();
-                        suggestionsMenu.close();
+                        if(isAutoSelect()) {
+                            List<DropdownAction> filteredActions = suggestionsMenu.getFilteredAction();
+                            suggestionsMenu.selectAt(suggestionsMenu.getActions().indexOf(filteredActions.get(0)));
+                            filteredActions.get(0).select();
+                            suggestionsMenu.close();
+                        }else{
+                            suggestionsMenu.focus();
+                        }
                     }
                 })
                 .onTab(evt -> {
@@ -316,6 +321,15 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         return new SuggestAutoValidator<>(this, autoValidate);
     }
 
+    public boolean isAutoSelect() {
+        return autoSelect;
+    }
+
+    public SuggestBox<T> setAutoSelect(boolean autoSelect) {
+        this.autoSelect = autoSelect;
+        return this;
+    }
+
     public static class PopupPositionTopDown implements DropDownPosition {
 
         private DropDownPositionUp up = new DropDownPositionUp();
@@ -326,7 +340,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
             ClientRect targetRect = target.getBoundingClientRect();
 
             double distanceToMiddle = ((targetRect.top) - (targetRect.height / 2));
-            double windowMiddle = DomGlobal.window.innerHeight;
+            double windowMiddle = window.innerHeight;
             double popupHeight = popup.getBoundingClientRect().height;
             double distanceToBottom = window.innerHeight - targetRect.top;
             double distanceToTop = (targetRect.top + targetRect.height);
