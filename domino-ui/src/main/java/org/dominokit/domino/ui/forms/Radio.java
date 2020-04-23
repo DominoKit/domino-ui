@@ -57,7 +57,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
 
     private void linkLabelToField() {
         DominoElement<HTMLInputElement> asDominoElement = DominoElement.of(inputElement);
-        if(!asDominoElement.hasAttribute("id")){
+        if (!asDominoElement.hasAttribute("id")) {
             inputElement.setAttribute("id", asDominoElement.getAttribute(BaseDominoElement.DOMINO_UUID));
         }
         labelElement.setAttribute("for", asDominoElement.getAttribute("id"));
@@ -75,19 +75,34 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
     @Override
     public Radio<T> check(boolean silent) {
         if (nonNull(radioGroup)) {
-            radioGroup.getRadios().forEach(radio -> radio.setChecked(false));
+            if(!radioGroup.isReadOnly()) {
+                radioGroup.getRadios().forEach(radio -> radio.setChecked(false));
+                setChecked(true);
+                if (!silent)
+                    onCheck();
+            }
+        }else{
+            setChecked(true);
+            if (!silent)
+                onCheck();
         }
-        setChecked(true);
-        if (!silent)
-            onCheck();
         return this;
     }
 
     @Override
     public Radio<T> uncheck(boolean silent) {
-        setChecked(false);
-        if (!silent)
-            onCheck();
+        if (nonNull(radioGroup)) {
+            if (!radioGroup.isReadOnly()) {
+                setChecked(false);
+                if (!silent)
+                    onCheck();
+            }
+        }else {
+            setChecked(false);
+            if (!silent)
+                onCheck();
+        }
+
         return this;
     }
 
@@ -100,9 +115,9 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
     private void setChecked(boolean value) {
         inputElement.checked = value;
         this.checked = value;
-        if(this.checked){
+        if (this.checked) {
             element.css("checked");
-        }else{
+        } else {
             element.removeCss("checked");
         }
     }
@@ -201,7 +216,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
     }
 
     public Radio<T> setLabel(IsElement<?> element) {
-       return setLabel(element.element());
+        return setLabel(element.element());
     }
 
     @Override

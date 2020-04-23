@@ -570,6 +570,20 @@ label {
     width: auto;
 }
 
+.field-group.radio-group.readonly .radio-option:not([class*="checked"]) {
+    display: none;
+}
+
+.field-group.radio-group.readonly .radio-option.checked label {
+    padding-left: 0px;
+}
+
+.field-group.radio-group.readonly .radio-option.checked label::after,
+.field-group.radio-group.readonly .radio-option.checked label::before {
+    display: none;
+}
+
+
 .field-group.switch .field-label,
 .field-group.switch.focused .field-label,
 .field-group.radio-group .field-label,
