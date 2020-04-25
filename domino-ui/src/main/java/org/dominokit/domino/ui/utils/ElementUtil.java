@@ -11,6 +11,8 @@ import org.jboss.elemento.IsElement;
 import org.jboss.elemento.ObserverCallback;
 import org.jboss.elemento.HtmlContentBuilder;
 
+import java.util.Optional;
+
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.a;
 
@@ -75,10 +77,11 @@ public class ElementUtil {
      * @param element  the HTML element which is going to be added to the body
      * @param callback {@link ObserverCallback}
      */
-    public static void onAttach(HTMLElement element, ObserverCallback callback) {
+    public static Optional<ElementObserver> onAttach(HTMLElement element, ObserverCallback callback) {
         if (element != null) {
-            BodyObserver.addAttachObserver(element, callback);
+            return Optional.of(BodyObserver.addAttachObserver(element, callback));
         }
+        return Optional.empty();
     }
 
     /**
@@ -87,10 +90,11 @@ public class ElementUtil {
      * @param element
      * @param callback
      */
-    public static void onAttach(IsElement element, ObserverCallback callback) {
+    public static Optional<ElementObserver> onAttach(IsElement element, ObserverCallback callback) {
         if (element != null) {
-            BodyObserver.addAttachObserver(element.element(), callback);
+            return Optional.of(BodyObserver.addAttachObserver(element.element(), callback));
         }
+        return Optional.empty();
     }
 
     /**
@@ -100,11 +104,11 @@ public class ElementUtil {
      * @param element  the HTML element which is going to be removed from the body
      * @param callback {@link ObserverCallback}
      */
-    public static void onDetach(HTMLElement element, ObserverCallback callback) {
-
+    public static Optional<ElementObserver> onDetach(HTMLElement element, ObserverCallback callback) {
         if (element != null) {
-            BodyObserver.addDetachObserver(element, callback);
+            return Optional.of(BodyObserver.addDetachObserver(element, callback));
         }
+        return Optional.empty();
     }
 
 
@@ -114,11 +118,11 @@ public class ElementUtil {
      * @param element
      * @param callback
      */
-    public static void onDetach(IsElement element, ObserverCallback callback) {
-
+    public static Optional<ElementObserver> onDetach(IsElement element, ObserverCallback callback) {
         if (element != null) {
-            BodyObserver.addDetachObserver(element.element(), callback);
+            return Optional.of(BodyObserver.addDetachObserver(element.element(), callback));
         }
+        return Optional.empty();
     }
 
     public static <T extends HasInputElement> T numbersOnly(T hasInputElement) {

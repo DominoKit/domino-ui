@@ -1,8 +1,5 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.DomGlobal;
-import jsinterop.base.Js;
-import jsinterop.base.JsPropertyMap;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
 public class LongBox extends NumberBox<LongBox, Long> {

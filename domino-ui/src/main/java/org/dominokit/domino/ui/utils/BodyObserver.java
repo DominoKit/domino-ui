@@ -7,6 +7,7 @@ import org.jboss.elemento.ObserverCallback;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.isNull;
@@ -103,30 +104,36 @@ final class BodyObserver {
      * Check if the observer is already started, if not it will start it, then register and callback for when the
      * element is attached to the dom.
      */
-    static void addAttachObserver(HTMLElement element, ObserverCallback callback) {
+    static ElementObserver addAttachObserver(HTMLElement element, ObserverCallback callback) {
         if (!ready) {
             startObserving();
         }
-        attachObservers.add(createObserver(element, callback, ATTACH_UID_KEY));
+        ElementObserver observer = createObserver(element, callback, ATTACH_UID_KEY, elementObserver -> attachObservers.remove(elementObserver));
+        attachObservers.add(observer);
+        return observer;
     }
 
     /**
      * Check if the observer is already started, if not it will start it, then register and callback for when the
      * element is removed from the dom.
      */
-    static void addDetachObserver(HTMLElement element, ObserverCallback callback) {
+    static ElementObserver addDetachObserver(HTMLElement element, ObserverCallback callback) {
         if (!ready) {
             startObserving();
         }
-        detachObservers.add(createObserver(element, callback, DETACH_UID_KEY));
+        ElementObserver observer = createObserver(element, callback, DETACH_UID_KEY, elementObserver -> detachObservers.remove(elementObserver));
+        detachObservers.add(observer);
+
+        return observer;
     }
 
     private static ElementObserver createObserver(HTMLElement element, ObserverCallback callback,
-                                                  String idAttributeName) {
+                                                  String idAttributeName, Consumer<ElementObserver> onRemoveHandler) {
         String elementId = element.getAttribute(idAttributeName);
         if (elementId == null) {
             element.setAttribute(idAttributeName, Elements.uniqueId());
         }
+
         return new ElementObserver() {
             @Override
             public String attachId() {
@@ -143,6 +150,10 @@ final class BodyObserver {
                 return callback;
             }
 
+            @Override
+            public void remove() {
+                onRemoveHandler.accept(this);
+            }
         };
     }
 
@@ -150,12 +161,4 @@ final class BodyObserver {
     }
 
 
-    private interface ElementObserver {
-
-        String attachId();
-
-        HTMLElement observedElement();
-
-        ObserverCallback callback();
-    }
 }
