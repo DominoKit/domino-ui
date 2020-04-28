@@ -135,6 +135,10 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return (B) this;
     }
 
+    public B setEnabled(boolean enabled) {
+        return enabled ? enable() : disable();
+    }
+
     @Override
     public boolean isEnabled() {
         return !buttonElement.hasAttribute(DISABLED);
