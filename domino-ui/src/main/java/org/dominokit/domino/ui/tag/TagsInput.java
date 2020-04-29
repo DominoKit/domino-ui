@@ -18,6 +18,7 @@ import org.dominokit.domino.ui.tag.store.DynamicLocalTagsStore;
 import org.dominokit.domino.ui.tag.store.TagsStore;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.gwtproject.core.client.Scheduler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +94,7 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
                 .onEnter(evt -> {
                     String displayValue = tagTextInput.element().value;
                     if (displayValue.isEmpty()) {
-                        openMenu();
+                    	search();
                     } else {
                         V value = store.getItemByDisplayValue(displayValue);
                         if (nonNull(value)) {
@@ -110,13 +111,10 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
                             .ifPresent(Chip::remove);
                     search();
                 })
-                .onArrowUpDown(evt -> openMenu(), KeyboardEventOptions.create().setPreventDefault(true));
+                .onArrowUpDown(evt -> search(), KeyboardEventOptions.create().setPreventDefault(true));
 
         tagTextInput.addEventListener("input", evt -> search());
-        tagTextInput.addEventListener("focus", evt -> {
-            focus();
-            search();
-        });
+        tagTextInput.addEventListener("click", evt -> search());
         tagTextInput.addEventListener("blur", evt -> unfocus());
     }
 
@@ -140,8 +138,9 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
     }
 
     private void openMenu() {
-        if (dropDownMenu.hasActions()) {
+    	if (dropDownMenu.hasActions()) {
             dropDownMenu.open();
+            Scheduler.get().scheduleDeferred(() -> dropDownMenu.focus());
         }
     }
 
