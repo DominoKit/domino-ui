@@ -75,9 +75,11 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         suggestionsMenu.addCloseHandler(this::focus);
         Element element = document.querySelector(".content");
         if (nonNull(element)) {
-            element.addEventListener("transitionend", evt -> {
+            EventListener eventListener = evt -> {
                 suggestionsMenu.style().setWidth(element().offsetWidth + "px");
-            });
+            };
+            element.addEventListener("transitionend", eventListener);
+            onDetached(mutationRecord -> element.removeEventListener("transitionend", eventListener));
         }
         onAttached(mutationRecord -> {
             suggestionsMenu.style().setWidth(element().offsetWidth + "px");

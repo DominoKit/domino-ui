@@ -14,6 +14,10 @@ import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 import org.jboss.elemento.ObserverCallback;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -32,6 +36,9 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     private ScreenMedia showOn;
     private Elevation elevation;
     private WavesSupport wavesSupport;
+    private Optional<ElementObserver> attachObserver = Optional.empty();
+    private Optional<ElementObserver> detachObserver = Optional.empty();
+    private boolean collapsed = false;
 
     @Editor.Ignore
     protected void init(T element) {
@@ -116,15 +123,33 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     @Editor.Ignore
     public T onAttached(ObserverCallback observerCallback) {
         if (!isAttached()) {
-            ElementUtil.onAttach(element, observerCallback);
+            attachObserver = ElementUtil.onAttach(element, observerCallback);
         }
         return element;
     }
 
     @Editor.Ignore
     public T onDetached(ObserverCallback observerCallback) {
-        ElementUtil.onDetach(element, observerCallback);
+        detachObserver = ElementUtil.onDetach(element, observerCallback);
         return element;
+    }
+
+    public T removeAttachObserver(){
+        attachObserver.ifPresent(ElementObserver::remove);
+        return element;
+    }
+
+    public T removeDetachObserver(){
+        detachObserver.ifPresent(ElementObserver::remove);
+        return element;
+    }
+
+    public Optional<ElementObserver> getAttachObserver() {
+        return attachObserver;
+    }
+
+    public Optional<ElementObserver> getDetachObserver() {
+        return detachObserver;
     }
 
     @Editor.Ignore

@@ -44,6 +44,7 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
             element.style().add("fade", "in");
             popupPosition.position(element.element(), targetElement);
             position(popupPosition);
+            elementObserver.ifPresent(ElementObserver::remove);
             elementObserver = ElementUtil.onDetach(targetElement, mutationRecord -> remove());
 
         };
