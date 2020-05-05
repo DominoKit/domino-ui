@@ -53,7 +53,6 @@ final class BodyObserver {
             } else {
                 if (nodes.contains(elementObserver.observedElement()) || isChildOfAddedNode(record, elementObserver.attachId())) {
                     elementObserver.callback().onObserved(record);
-                    elementObserver.observedElement().removeAttribute(ATTACH_UID_KEY);
                     observed.add(elementObserver);
                 }
             }
@@ -75,7 +74,6 @@ final class BodyObserver {
             } else {
                 if (nodes.contains(elementObserver.observedElement()) || isChildOfRemovedNode(record, elementObserver.attachId())) {
                     elementObserver.callback().onObserved(record);
-                    elementObserver.observedElement().removeAttribute(DETACH_UID_KEY);
                     observed.add(elementObserver);
                 }
             }
