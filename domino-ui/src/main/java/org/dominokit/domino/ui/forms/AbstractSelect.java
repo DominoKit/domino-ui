@@ -9,6 +9,7 @@ import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
+import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -81,6 +82,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     private void initListeners() {
         EventListener clickListener = evt -> {
             pauseFocusValidation();
+            ModalBackDrop.closePopovers();
             open();
             evt.stopPropagation();
         };
