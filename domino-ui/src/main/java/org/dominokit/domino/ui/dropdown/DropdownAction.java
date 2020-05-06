@@ -69,7 +69,10 @@ public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, Dropdown
             select();
             evt.preventDefault();
         });
-        aElement.addEventListener("focus", evt -> focusHandlers.forEach(focusHandler -> focusHandler.onFocus(this)));
+        aElement.addEventListener("focus", evt -> {
+            evt.stopPropagation();
+            focusHandlers.forEach(focusHandler -> focusHandler.onFocus(this));
+        });
     }
 
     public static DropdownAction<String> create(String content) {

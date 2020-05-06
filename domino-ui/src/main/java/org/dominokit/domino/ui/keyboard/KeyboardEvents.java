@@ -18,6 +18,7 @@ public class KeyboardEvents<T extends Node> {
     public static final String ARROWDOWN = "arrowdown";
     public static final String ARROWUP = "arrowup";
     public static final String ENTER = "enter";
+    public static final String DELETE = "delete";
     public static final String SPACE = "space";
     public static final String TAB = "tab";
     public static final String BACKSPACE = "backspace";
@@ -91,13 +92,20 @@ public class KeyboardEvents<T extends Node> {
         return addHandler(ARROWUP, contextOf(arrowUpHandler, options));
     }
 
-
     public KeyboardEvents<T> onEnter(EventListener enterHandler) {
         return onEnter(enterHandler, defaultOptions());
     }
 
     public KeyboardEvents<T> onEnter(EventListener enterHandler, KeyboardEventOptions options) {
         return addHandler(ENTER, contextOf(enterHandler, options));
+    }
+
+    public KeyboardEvents<T> onDelete(EventListener deleteHandler) {
+        return onDelete(deleteHandler, defaultOptions());
+    }
+
+    public KeyboardEvents<T> onDelete(EventListener deleteHandler, KeyboardEventOptions options) {
+        return addHandler(DELETE, contextOf(deleteHandler, options));
     }
 
     public KeyboardEvents<T> onSpace(EventListener spaceHandler) {

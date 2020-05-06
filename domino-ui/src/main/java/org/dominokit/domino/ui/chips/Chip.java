@@ -53,18 +53,20 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         setRemovable(false);
         setBorderColor(Color.INDIGO);
         setValue(value);
-        KeyboardEvents.listenOn(element).onEnter(evt -> {
+        KeyboardEvents.listenOn(element)
+                .onEnter(evt -> {
 
-            if(selectable) {
-                toggleSelect();
-            }
-
-            if (removable) {
-                remove();
-            }
-
-            evt.stopPropagation();
-        });
+                    if (selectable) {
+                        toggleSelect();
+                    }
+                    evt.stopPropagation();
+                })
+                .onDelete(evt -> {
+                    if (removable) {
+                        remove();
+                    }
+                    evt.stopPropagation();
+                });
         element.addEventListener("click", evt -> {
             if (selectable) {
                 toggleSelect();
