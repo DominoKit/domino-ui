@@ -39,6 +39,7 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
     private boolean userInputEnabled = true;
     private FlexItem tagInputTextContainer;
     private FlexLayout tagsContainer;
+    private boolean openOnFocus = true;
 
     public TagsInput(String label, TagsStore<V> store) {
         super("text", label);
@@ -75,11 +76,22 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
                 .addCss(TagStyles.TAG_TEXT_INPUT);
         dropDownMenu = DropDownMenu.create(tagTextInput)
                 .setPosition(DropDownPosition.BOTTOM)
-                .addCloseHandler(() -> tagTextInput.element().focus());
+                .addCloseHandler(() -> {
+                    openOnFocus = false;
+                    tagTextInput.element().focus();
+                    openOnFocus = true;
+                });
         getInputContainer().addEventListener("click", evt -> {
-            tagTextInput.element().focus();
             evt.stopPropagation();
+            openOnFocus = true;
+            tagTextInput.element().focus();
         });
+
+        tagTextInput.addClickListener(evt -> {
+            evt.stopPropagation();
+            search();
+        });
+
         initListeners();
 
         tagInputTextContainer.appendChild(tagTextInput);
@@ -102,20 +114,27 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
                     }
                 })
                 .onTab(evt -> {
-                    dropDownMenu.close();
-                    unfocus();
+                    if(dropDownMenu.isOpened() && dropDownMenu.hasActions()){
+                        evt.preventDefault();
+                        dropDownMenu.focus();
+                    }else{
+                        unfocus();
+                    }
                 })
                 .onCtrlBackspace(evt -> {
                     chips.stream().reduce((first, second) -> second)
                             .ifPresent(Chip::remove);
                     search();
                 })
-                .onArrowUpDown(evt -> openMenu(), KeyboardEventOptions.create().setPreventDefault(true));
+                .onArrowUpDown(evt -> openMenu(true), KeyboardEventOptions.create().setPreventDefault(true))
+                .onEscape(evt -> dropDownMenu.close());
 
         tagTextInput.addEventListener("input", evt -> search());
         tagTextInput.addEventListener("focus", evt -> {
-            focus();
-            search();
+            if (openOnFocus) {
+                focus();
+                search();
+            }
         });
         tagTextInput.addEventListener("blur", evt -> unfocus());
     }
@@ -140,8 +159,16 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
     }
 
     private void openMenu() {
+        openMenu(false);
+    }
+
+    private void openMenu(boolean focus) {
         if (dropDownMenu.hasActions()) {
-            dropDownMenu.open();
+            if (!dropDownMenu.isOpened()) {
+                dropDownMenu.open(focus);
+            } else if (focus) {
+                dropDownMenu.focus();
+            }
         }
     }
 
@@ -158,7 +185,7 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
 
     @Override
     protected void linkLabelToField() {
-        if(!tagTextInput.hasAttribute("id")){
+        if (!tagTextInput.hasAttribute("id")) {
             tagTextInput.setAttribute("id", tagTextInput.getAttribute(BaseDominoElement.DOMINO_UUID));
         }
         getLabelElement().setAttribute("for", tagTextInput.getAttribute("id"));
@@ -189,7 +216,12 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
     public void appendChip(String displayValue, V value) {
         Chip chip = Chip.create(displayValue)
                 .setColorScheme(colorScheme)
-                .setRemovable(true);
+                .setRemovable(true)
+                .addRemoveHandler(() -> dropDownMenu.close())
+                .addClickListener(evt -> {
+                    evt.stopPropagation();
+                    dropDownMenu.close();
+                });
         appendChip(chip, value);
     }
 
