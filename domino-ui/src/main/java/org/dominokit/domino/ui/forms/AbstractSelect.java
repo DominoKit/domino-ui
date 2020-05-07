@@ -513,6 +513,10 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
+    public DropDownMenu getOptionsMenu() {
+        return optionsMenu;
+    }
+    
     public static class PopupPositionTopDown<T, V, S extends AbstractSelect<T, V, S>> implements DropDownPosition {
 
         private DropDownPositionUp up = new DropDownPositionUp();

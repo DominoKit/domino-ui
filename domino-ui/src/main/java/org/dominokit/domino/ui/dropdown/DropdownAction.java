@@ -166,13 +166,13 @@ public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, Dropdown
         return this;
     }
 
-    DropdownAction<T> filter(){
+    public DropdownAction<T> filter(){
         this.hide();
         this.setFilteredOut(true);
         return this;
     }
 
-    DropdownAction<T> deFilter(){
+    public DropdownAction<T> deFilter(){
         this.show();
         this.setFilteredOut(false);
         return this;
