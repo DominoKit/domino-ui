@@ -155,10 +155,11 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     }
 
     private void removeBox() {
-        if (nonNull(popover))
+        if (nonNull(popover)) {
             popover.close();
-        popover.removeAttachObserver();
-        popover.removeDetachObserver();
+            popover.removeAttachObserver();
+            popover.removeDetachObserver();
+        }
         if (nonNull(modal)) {
             modal.element().remove();
         }
