@@ -116,7 +116,6 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
                         .appendChild(Icons.ALL.skip_next()
                                 .clickable())
                         .addClickListener(event -> {
-                            DomGlobal.console.info("going to last page : " + allPages.size());
                             moveToPage(allPages.size(), false);
                         }));
 

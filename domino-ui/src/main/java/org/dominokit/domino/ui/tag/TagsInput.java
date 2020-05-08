@@ -220,7 +220,9 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
                 .addRemoveHandler(() -> dropDownMenu.close())
                 .addClickListener(evt -> {
                     evt.stopPropagation();
-                    dropDownMenu.close();
+                    if(dropDownMenu.isOpened()) {
+                        dropDownMenu.close();
+                    }
                 });
         appendChip(chip, value);
     }
