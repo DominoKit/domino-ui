@@ -39,6 +39,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     private int typeAheadDelay = 200;
     private SuggestItem<T> selectedItem;
     private DelayedTextInput delayedTextInput;
+    private boolean focusOnClose = true;
     private DelayedTextInput.DelayedAction delayedAction = () -> {
         if (isEmpty()) {
             suggestionsMenu.close();
@@ -72,7 +73,11 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         suggestionsMenu.setAppendTarget(document.body);
         suggestionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
         suggestionsMenu.setPosition(new PopupPositionTopDown());
-        suggestionsMenu.addCloseHandler(this::focus);
+        suggestionsMenu.addCloseHandler(() -> {
+            if(focusOnClose){
+                focus();
+            }
+        });
         Element element = document.querySelector(".content");
         if (nonNull(element)) {
             EventListener eventListener = evt -> {
@@ -329,6 +334,15 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
 
     public SuggestBox<T> setAutoSelect(boolean autoSelect) {
         this.autoSelect = autoSelect;
+        return this;
+    }
+
+    public boolean isFocusOnClose() {
+        return focusOnClose;
+    }
+
+    public SuggestBox<T> setFocusOnClose(boolean focusOnClose) {
+        this.focusOnClose = focusOnClose;
         return this;
     }
 
