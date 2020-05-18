@@ -53,8 +53,6 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
         return null;
     }
 
-    ;
-
     private void addMinValueValidator() {
         addValidator(() -> {
             E value = getValue();
@@ -68,8 +66,12 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     private void formatValue() {
         String stringValue = getStringValue();
         if (nonNull(stringValue) && !stringValue.isEmpty()) {
-            double parsedValue = getNumberFormat().parse(stringValue);
-            getInputElement().element().value = getNumberFormat().format(parsedValue);
+            try {
+                double parsedValue = getNumberFormat().parse(stringValue);
+                getInputElement().element().value = getNumberFormat().format(parsedValue);
+            } catch (NumberFormatException e) {
+                // nothing to format, so we do nothing!
+            }
         }
     }
 
