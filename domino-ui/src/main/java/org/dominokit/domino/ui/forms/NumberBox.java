@@ -20,10 +20,23 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
 
     public NumberBox(String label) {
         super("tel", label);
+        addInputStringValidator();
         addMaxValueValidator();
         addMinValueValidator();
         setAutoValidation(true);
         enableFormatting();
+    }
+
+    private void addInputStringValidator() {
+        addValidator(() -> {
+            String inputValue = getInputElement().element().value;
+            try {
+                double parsed = getNumberFormat().parse(inputValue);
+            } catch (NumberFormatException e) {
+                return ValidationResult.invalid(getInvalidFormatMessage());
+            }
+            return ValidationResult.valid();
+        });
     }
 
     private void addMaxValueValidator() {
