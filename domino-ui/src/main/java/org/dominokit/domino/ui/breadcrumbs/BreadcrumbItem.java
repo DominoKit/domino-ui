@@ -38,6 +38,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
         }
         this.anchorElement.appendChild(textElement);
         element.appendChild(anchorElement);
+        anchorElement.setAttribute("tabindex", "0");
     }
 
     public static BreadcrumbItem create(String text) {
