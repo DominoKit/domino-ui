@@ -1,11 +1,14 @@
 package org.dominokit.domino.ui.pagination;
 
 import elemental2.dom.DomGlobal;
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import org.dominokit.domino.ui.forms.Select;
 import org.dominokit.domino.ui.forms.SelectOption;
 import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 import java.util.function.Function;
@@ -55,6 +58,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
         updatePages(pages, pageSize);
     }
 
+    @Override
     public AdvancedPagination updatePages(int pages) {
         return updatePages(pages, pageSize);
     }
@@ -71,16 +75,18 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
                 .appendChild(prevAnchor
                         .setTooltip("Previous page")
                         .appendChild(Icons.ALL.chevron_left()
-                                .clickable())
-                        .addClickListener(event -> moveToPage(index - 1, false)));
+                                .clickable()));
+
+        addListenerToElement(prevAnchor,  event -> moveToPage(index - 1, false));
 
         firstPageAnchor = DominoElement.of(a());
         firstPage = DominoElement.of(li().css("page-nav"))
                 .appendChild(firstPageAnchor
                         .setTooltip("First page")
                         .appendChild(Icons.ALL.skip_previous()
-                                .clickable())
-                        .addClickListener(event -> moveToPage(1, false)));
+                                .clickable()));
+
+        addListenerToElement(firstPageAnchor,  event -> moveToPage(1, false));
 
         pagesElement.clearElement()
                 .appendChild(firstPage)
@@ -105,19 +111,21 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
                 .appendChild(nextAnchor
                         .setTooltip("Next page")
                         .appendChild(Icons.ALL.chevron_right()
-                                .clickable())
-                        .addClickListener(event -> moveToPage(index + 1, false)));
+                                .clickable()));
 
+        addListenerToElement(nextAnchor,  event -> moveToPage(index + 1, false));
 
         lastPageAnchor = DominoElement.of(a());
         lastPage = DominoElement.of(li().css("page-nav"))
                 .appendChild(lastPageAnchor
                         .setTooltip("Last page")
                         .appendChild(Icons.ALL.skip_next()
-                                .clickable())
-                        .addClickListener(event -> {
-                            moveToPage(allPages.size(), false);
-                        }));
+                                .clickable()));
+
+        addListenerToElement(lastPageAnchor, event -> {
+            DomGlobal.console.info("going to last page : " + allPages.size());
+            moveToPage(allPages.size(), false);
+        });
 
         if (pages > 0) {
             moveToPage(1, true);
@@ -133,6 +141,12 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
                 .appendChild(lastPage);
         return this;
     }
+    
+    private void addListenerToElement(DominoElement<? extends HTMLElement> element, EventListener listener) {
+        element.addClickListener(listener);
+        KeyboardEvents.listenOn(element).onEnter(listener);
+        
+    }
 
     @Override
     protected void moveToPage(int page, boolean silent) {
@@ -147,18 +161,30 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
             if (page == pagesCount) {
                 nextElement.disable();
                 lastPage.disable();
+
+                nextAnchor.removeAttribute("tabindex");
+                lastPageAnchor.removeAttribute("tabindex");
             } else {
                 nextElement.enable();
                 lastPage.enable();
+                
+                nextAnchor.setAttribute("tabindex", "0");
+                lastPageAnchor.setAttribute("tabindex", "0");
             }
 
 
             if (page == 1) {
                 prevElement.disable();
                 firstPage.disable();
+                
+                prevAnchor.removeAttribute("tabindex");
+                firstPageAnchor.removeAttribute("tabindex");
             } else {
                 prevElement.enable();
                 firstPage.enable();
+                
+                prevAnchor.setAttribute("tabindex", "0");
+                firstPageAnchor.setAttribute("tabindex", "0");
             }
 
 
