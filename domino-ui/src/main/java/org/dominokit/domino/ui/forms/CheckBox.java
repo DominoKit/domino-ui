@@ -1,8 +1,11 @@
 package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.Event;
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLInputElement;
+
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -29,12 +32,17 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
         css("d-checkbox");
         setLabel(label);
         getInputElement().addEventListener("change", evt -> onCheck());
-        getLabelElement().addEventListener("click", evt -> {
+
+        EventListener listener = evt -> {
             evt.stopPropagation();
             evt.preventDefault();
             if (isEnabled() && !isReadOnly())
                 toggle();
-        });
+        };
+
+        getLabelElement().addEventListener("click", listener);
+
+        KeyboardEvents.listenOn(getInputElement()).onEnter(listener);
     }
 
     private void onCheck() {
