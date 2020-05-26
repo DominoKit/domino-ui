@@ -14,8 +14,7 @@ import java.util.function.Consumer;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.label;
-import static org.jboss.elemento.Elements.span;
+import static org.jboss.elemento.Elements.*;
 
 public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElement, V> extends BasicFormElement<T, V> implements
         Focusable<T>, HasPlaceHolder<T>, IsReadOnly<T>, HasChangeHandlers<T, V> {
@@ -146,8 +145,19 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
                 );
     }
 
+    @Override
+    public T setFixErrorsPosition(boolean fixPosition) {
+        if (fixPosition) {
+            errorItem.show();
+            errorItem.style().setMinHeight("25px");
+        } else {
+            errorItem.style().setMinHeight("0px");
+        }
+        return super.setFixErrorsPosition(fixPosition);
+    }
+
     protected void linkLabelToField() {
-        if(!inputElement.hasAttribute("id")){
+        if (!inputElement.hasAttribute("id")) {
             inputElement.setAttribute("id", inputElement.getAttribute(BaseDominoElement.DOMINO_UUID));
         }
         labelElement.setAttribute("for", inputElement.getAttribute("id"));
@@ -159,7 +169,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         }
     }
 
-    protected DominoElement<HTMLLabelElement> createLabelElement(){
+    protected DominoElement<HTMLLabelElement> createLabelElement() {
         return DominoElement.of(label().css("field-label"));
     }
 
@@ -278,17 +288,17 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return labelTextElement;
     }
 
-    public T hideLabelText(){
+    public T hideLabelText() {
         this.labelTextElement.hide();
         return (T) this;
     }
 
-    public T showLabelText(){
+    public T showLabelText() {
         this.labelTextElement.show();
         return (T) this;
     }
 
-    public T setLabelTextVisible(boolean visible){
+    public T setLabelTextVisible(boolean visible) {
         this.labelTextElement.toggleDisplay(visible);
         return (T) this;
     }

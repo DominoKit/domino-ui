@@ -25,7 +25,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     private ElementValidations elementValidations = new ElementValidations(this);
     private RequiredValidator requiredValidator = new RequiredValidator(this);
     private String helperText;
-
+    private boolean fixErrorsPosition;
     private String requiredErrorMessage;
     private List<HTMLElement> errorLabels = new ArrayList<>();
 
@@ -133,7 +133,11 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     public T invalidate(List<String> errorMessages) {
         getHelperContainer().toggleDisplay(errorMessages.isEmpty());
         removeErrors();
-        getErrorsContainer().toggleDisplay(!errorMessages.isEmpty());
+        if(!fixErrorsPosition) {
+            getErrorsContainer().toggleDisplay(!errorMessages.isEmpty());
+        }else {
+            getErrorsContainer().show();
+        }
 
         if (!errorMessages.isEmpty()) {
             css("error");
@@ -158,7 +162,9 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     public T clearInvalid() {
         getHelperContainer().show();
         removeErrors();
-        getErrorsContainer().hide();
+        if(!fixErrorsPosition) {
+            getErrorsContainer().hide();
+        }
         return (T) this;
     }
 
@@ -220,6 +226,15 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     @Override
     public void setValue(V value) {
         value(value);
+    }
+
+    public boolean isFixErrorsPosition() {
+        return fixErrorsPosition;
+    }
+
+    public T setFixErrorsPosition(boolean fixErrorsPosition) {
+        this.fixErrorsPosition = fixErrorsPosition;
+        return (T) this;
     }
 
     protected abstract DominoElement<HTMLDivElement> getFieldInputContainer();

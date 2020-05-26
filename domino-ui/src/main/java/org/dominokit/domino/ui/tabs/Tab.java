@@ -53,6 +53,10 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
     public Tab(BaseIcon<?> icon) {
         this(icon, null);
     }
+    public Tab(BaseIcon<?> icon, String text, String key) {
+        this(icon, text);
+        setKey(key);
+    }
 
     public Tab(BaseIcon<?> icon, String text) {
         iconContainer = FlexItem.create();
@@ -74,9 +78,7 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
                     close();
 
                 })
-                .addEventListener(EventType.mousedown.getName(), evt -> {
-                    evt.stopPropagation();
-                })
+                .addEventListener(EventType.mousedown.getName(), evt -> evt.stopPropagation())
                 .clickable();
 
         clickableElement.appendChild(tabElementsContainer.element());
@@ -88,12 +90,30 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return new Tab(text);
     }
 
+    public static Tab create(String key, String text) {
+        Tab tab = new Tab(text);
+        tab.setKey(key);
+        return tab;
+    }
+
     public static Tab create(BaseIcon<?> icon) {
         return new Tab(icon);
     }
 
+    public static Tab create(String key, BaseIcon<?> icon) {
+        Tab tab = new Tab(icon);
+        tab.setKey(key);
+        return tab;
+    }
+
     public static Tab create(BaseIcon<?> icon, String text) {
         return new Tab(icon, text);
+    }
+
+    public static Tab create(String key, BaseIcon<?> icon, String text) {
+        Tab tab = new Tab(icon, text);
+        tab.setKey(key);
+        return tab;
     }
 
     public DominoElement<HTMLLIElement> getTab() {
@@ -137,21 +157,33 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
     }
 
     public Tab activate() {
+        return activate(false);
+    }
+
+    public Tab activate(boolean silent) {
         if (nonNull(parent)) {
-            parent.deActivateTab(parent.getActiveTab());
+            parent.deActivateTab(parent.getActiveTab(), silent);
         }
         tab.style().add(TabStyles.ACTIVE);
         contentContainer.style().add(TabStyles.IN, TabStyles.ACTIVE);
         this.active = true;
-        activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, true));
+        if (!silent) {
+            activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, true));
+        }
         return this;
     }
 
     public Tab deActivate() {
+        return deActivate(false);
+    }
+
+    public Tab deActivate(boolean silent) {
         tab.style().remove(TabStyles.ACTIVE);
         contentContainer.style().remove(TabStyles.IN, TabStyles.ACTIVE);
         this.active = false;
-        activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, false));
+        if(!silent) {
+            activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, false));
+        }
         return this;
     }
 

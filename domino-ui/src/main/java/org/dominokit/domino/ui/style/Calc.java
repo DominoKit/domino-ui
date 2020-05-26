@@ -9,4 +9,6 @@ public class Calc {
     public static String sum(String left, String right){
         return "calc("+left+" + "+right+")";
     }
+
+    public static String of(String size){return "calc("+size+")";};
 }

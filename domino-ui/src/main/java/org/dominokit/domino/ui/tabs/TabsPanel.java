@@ -35,6 +35,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
     private Transition transition;
     private List<Tab> tabs = new ArrayList<>();
     private Color background;
+    private boolean autoActivate = true;
 
     private final List<Consumer<Tab>> closeHandlers = new ArrayList<>();
     private final List<Tab.ActivationHandler> activationHandlers = new ArrayList<>();
@@ -55,7 +56,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
         if (index >= 0 && index <= tabs.size()) {
             if (nonNull(tab)) {
                 tabs.add(index, tab);
-                if (isNull(activeTab)) {
+                if (isNull(activeTab) && autoActivate) {
                     this.activeTab = tab;
                     activateTab(this.activeTab);
                 } else {
@@ -103,6 +104,10 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
     }
 
     public void activateTab(Tab tab) {
+        activateTab(tab, false);
+    }
+
+    public void activateTab(Tab tab, boolean silent) {
         if (nonNull(tab) && tabs.contains(tab)) {
             if (nonNull(activeTab)) {
                 deActivateTab(activeTab);
@@ -110,7 +115,9 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
             if (!tab.isActive()) {
                 activeTab = tab;
                 activeTab.activate();
-                activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, true));
+                if(!silent) {
+                    activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, true));
+                }
                 if (nonNull(transition)) {
                     Animation.create(activeTab.getContentContainer())
                             .transition(transition)
@@ -121,10 +128,16 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
     }
 
     public void deActivateTab(Tab tab) {
+       deActivateTab(tab, false);
+    }
+
+    public void deActivateTab(Tab tab, boolean silent) {
         if (nonNull(tab) && tabs.contains(tab)) {
             if (tab.isActive()) {
-                tab.deActivate();
-                activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, false));
+                tab.deActivate(silent);
+                if(!silent) {
+                    activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, false));
+                }
                 if (nonNull(transition)) {
                     Animation.create(activeTab.getContentContainer())
                             .transition(transition)
@@ -236,6 +249,26 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
         if (nonNull(activationHandler)) {
             this.activationHandlers.remove(activationHandler);
         }
+        return this;
+    }
+
+    public TabsPanel activateByKey(String key){
+        return activateByKey(key, false);
+    }
+
+    public TabsPanel activateByKey(String key, boolean silent){
+        tabs.stream().filter(tab -> tab.getKey().equalsIgnoreCase(key))
+                .findFirst()
+                .ifPresent(tab -> activateTab(tab, silent));
+        return this;
+    }
+
+    public boolean isAutoActivate() {
+        return autoActivate;
+    }
+
+    public TabsPanel setAutoActivate(boolean autoActivate) {
+        this.autoActivate = autoActivate;
         return this;
     }
 }
