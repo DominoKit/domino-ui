@@ -3,7 +3,9 @@ package org.dominokit.domino.ui.datatable.plugins;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
+import org.dominokit.domino.ui.datatable.events.DataSortEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
+import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
@@ -19,7 +21,7 @@ import static org.jboss.elemento.Elements.span;
 public class SortPlugin<T> implements DataTablePlugin<T> {
 
     private SortContainer currentContainer;
-    private Map<String, SortContainer> sortContainers=new HashMap<>();
+    private Map<String, SortContainer> sortContainers = new HashMap<>();
     private DataTable<T> dataTable;
 
     @Override
@@ -57,7 +59,7 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
         currentContainer = sortContainer;
     }
 
-    public void sort(SortDirection direction, ColumnConfig<T> column){
+    public void sort(SortDirection direction, ColumnConfig<T> column) {
         SortContainer sortContainer = sortContainers.get(column.getName());
         updateStyles(sortContainer);
         fireSortEvent(direction, column);
@@ -65,6 +67,19 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
 
     private void fireSortEvent(SortDirection direction, ColumnConfig<T> column) {
         dataTable.fireTableEvent(new SortEvent<>(direction, column));
+    }
+
+    @Override
+    public void handleEvent(TableEvent event) {
+        if (DataSortEvent.EVENT.equalsIgnoreCase(event.getType())) {
+            DataSortEvent dataSortEvent = (DataSortEvent) event;
+            if (sortContainers.containsKey(dataSortEvent.getSortColumn())) {
+                SortContainer sortContainer = sortContainers.get(dataSortEvent.getSortColumn());
+                sortContainer.sortDirection = dataSortEvent.getSortDirection();
+                sortContainer.update(true);
+                currentContainer = sortContainer;
+            }
+        }
     }
 
     private class SortContainer {
