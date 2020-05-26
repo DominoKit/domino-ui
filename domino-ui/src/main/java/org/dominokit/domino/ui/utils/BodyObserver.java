@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.utils;
 
+import elemental2.core.JsArray;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.jboss.elemento.Elements;
@@ -24,7 +25,9 @@ final class BodyObserver {
 
     private static void startObserving() {
         MutationObserver mutationObserver = new MutationObserver(
-                (MutationRecord[] records, MutationObserver observer) -> {
+                (JsArray<MutationRecord> jsRecords, MutationObserver observer) -> {
+                    MutationRecord[] records = new MutationRecord[jsRecords.length];
+                    jsRecords.asArray(records);
                     for (MutationRecord record : records) {
                         if (!record.removedNodes.asList().isEmpty()) {
                             onElementsRemoved(record);
