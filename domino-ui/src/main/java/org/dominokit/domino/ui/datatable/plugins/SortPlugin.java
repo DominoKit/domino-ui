@@ -76,7 +76,7 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
             if (sortContainers.containsKey(dataSortEvent.getSortColumn())) {
                 SortContainer sortContainer = sortContainers.get(dataSortEvent.getSortColumn());
                 sortContainer.sortDirection = dataSortEvent.getSortDirection();
-                sortContainer.update(true);
+                sortContainer.update(false);
                 currentContainer = sortContainer;
             }
         }
