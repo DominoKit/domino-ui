@@ -317,6 +317,7 @@
 .field-group.rounded.d-checkbox.focused .field-cntr,
 .field-group.lined.d-checkbox.focused .field-cntr {
     border: none;
+    background-color: transparent;
 }
 
 .field-group.d-checkbox.floating .field-label {
@@ -824,7 +825,7 @@ label {
 
 input[type=checkbox]:checked:not(:disabled) ~ .lever:active::after,
 input[type=checkbox]:checked:not(:disabled).tabbed:focus ~ .lever::after {
-    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(38, 166, 154, 0.1)
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(0, 0, 0, 0.08)
 }
 
 input[type=checkbox]:not(:disabled) ~ .lever:active:after,
