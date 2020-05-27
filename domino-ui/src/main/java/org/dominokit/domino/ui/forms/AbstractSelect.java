@@ -45,6 +45,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     private FlexItem arrowIconContainer;
     private int popupWidth = 0;
     private String dropDirection = "auto";
+    private boolean closePopOverOnOpen = false;
 
     public AbstractSelect() {
         super("button", "");
@@ -82,7 +83,9 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     private void initListeners() {
         EventListener clickListener = evt -> {
             pauseFocusValidation();
-            ModalBackDrop.closePopovers();
+            if (closePopOverOnOpen) {
+                ModalBackDrop.closePopovers();
+            }
             open();
             evt.stopPropagation();
         };
@@ -508,7 +511,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
 
     }
 
-    public S setSearchFilter(DropDownMenu.SearchFilter searchFilter){
+    public S setSearchFilter(DropDownMenu.SearchFilter searchFilter) {
         this.optionsMenu.setSearchFilter(searchFilter);
         return (S) this;
     }
@@ -516,7 +519,16 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     public DropDownMenu getOptionsMenu() {
         return optionsMenu;
     }
-    
+
+    public boolean isClosePopOverOnOpen() {
+        return closePopOverOnOpen;
+    }
+
+    public S setClosePopOverOnOpen(boolean closePopOverOnOpen) {
+        this.closePopOverOnOpen = closePopOverOnOpen;
+        return (S) this;
+    }
+
     public static class PopupPositionTopDown<T, V, S extends AbstractSelect<T, V, S>> implements DropDownPosition {
 
         private DropDownPositionUp up = new DropDownPositionUp();
