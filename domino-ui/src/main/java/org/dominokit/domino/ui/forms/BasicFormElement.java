@@ -96,6 +96,11 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     }
 
     @Override
+    public boolean isDisabled() {
+        return getInputElement().hasAttribute("disabled");
+    }
+
+    @Override
     public T disable() {
         getInputElement().setAttribute("disabled", "disabled");
         return (T) this;
