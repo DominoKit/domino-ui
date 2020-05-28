@@ -147,7 +147,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     protected void linkLabelToField() {
-        if(!inputElement.hasAttribute("id")){
+        if (!inputElement.hasAttribute("id")) {
             inputElement.setAttribute("id", inputElement.getAttribute(BaseDominoElement.DOMINO_UUID));
         }
         labelElement.setAttribute("for", inputElement.getAttribute("id"));
@@ -159,7 +159,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         }
     }
 
-    protected DominoElement<HTMLLabelElement> createLabelElement(){
+    protected DominoElement<HTMLLabelElement> createLabelElement() {
         return DominoElement.of(label().css("field-label"));
     }
 
@@ -174,8 +174,12 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
             }
         });
         labelElement.addEventListener("click", evt -> {
+            DomGlobal.console.info(isDisabled());
             if (!isDisabled()) {
                 focus();
+            } else {
+                evt.stopPropagation();
+                evt.preventDefault();
             }
         });
     }
@@ -213,14 +217,16 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     @Override
     public T focus() {
-        if (!isAttached()) {
-            ElementUtil.onAttach(getInputElement(), mutationRecord -> {
+        if (!isDisabled()) {
+            if (!isAttached()) {
+                ElementUtil.onAttach(getInputElement(), mutationRecord -> {
+                    getInputElement().element().focus();
+                    doFocus();
+                });
+            } else {
                 getInputElement().element().focus();
                 doFocus();
-            });
-        } else {
-            getInputElement().element().focus();
-            doFocus();
+            }
         }
         return (T) this;
     }
@@ -240,15 +246,17 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     protected void doFocus() {
-        fieldGroup.style().add(FOCUSED);
-        floatLabel();
-        if (valid) {
-            if (isAddFocusColor()) {
-                fieldContainer.style().add("fc-" + focusColor.getStyle());
+        if (!isDisabled()) {
+            fieldGroup.style().add(FOCUSED);
+            floatLabel();
+            if (valid) {
+                if (isAddFocusColor()) {
+                    fieldContainer.style().add("fc-" + focusColor.getStyle());
+                }
+                setLabelColor(focusColor);
             }
-            setLabelColor(focusColor);
+            showPlaceholder();
         }
-        showPlaceholder();
     }
 
     protected boolean isAddFocusColor() {
@@ -278,17 +286,17 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return labelTextElement;
     }
 
-    public T hideLabelText(){
+    public T hideLabelText() {
         this.labelTextElement.hide();
         return (T) this;
     }
 
-    public T showLabelText(){
+    public T showLabelText() {
         this.labelTextElement.show();
         return (T) this;
     }
 
-    public T setLabelTextVisible(boolean visible){
+    public T setLabelTextVisible(boolean visible) {
         this.labelTextElement.toggleDisplay(visible);
         return (T) this;
     }
