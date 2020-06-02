@@ -174,7 +174,6 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
             }
         });
         labelElement.addEventListener("click", evt -> {
-            DomGlobal.console.info(isDisabled());
             if (!isDisabled()) {
                 focus();
             } else {
