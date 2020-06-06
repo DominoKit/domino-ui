@@ -49,6 +49,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     private boolean handlerPaused = false;
     private FlexItem calendarIconContainer;
     private MdiIcon calendarIcon;
+    private boolean openOnClick = true;
 
     public DateBox() {
         this(new Date());
@@ -417,7 +418,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         calendarIcon.clickable()
                 .addClickListener(evt -> {
                     evt.stopPropagation();
-                    if(!isDisabled()) {
+                    if (!isDisabled()) {
                         open();
                     }
                 });
@@ -444,12 +445,25 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         return this;
     }
 
-    public Optional<ModalDialog> getModal(){
+    public Optional<ModalDialog> getModal() {
         return Optional.of(this.modal);
     }
 
-    public Optional<Popover> getPopover(){
+    public Optional<Popover> getPopover() {
         return Optional.of(this.popover);
+    }
+
+    public boolean isOpenOnClick() {
+        return openOnClick;
+    }
+
+    public DateBox setOpenOnClick(boolean openOnClick) {
+        this.openOnClick = openOnClick;
+        element().removeEventListener(EventType.click.getName(), modalListener);
+        if(openOnClick){
+            element().addEventListener(EventType.click.getName(), modalListener);
+        }
+        return this;
     }
 
     private void disablePopover() {
