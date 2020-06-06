@@ -186,6 +186,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         labelElement.addEventListener("click", evt -> {
             if (!isDisabled()) {
                 focus();
+            } else {
+                evt.stopPropagation();
+                evt.preventDefault();
             }
         });
     }
@@ -223,14 +226,16 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     @Override
     public T focus() {
-        if (!isAttached()) {
-            ElementUtil.onAttach(getInputElement(), mutationRecord -> {
+        if (!isDisabled()) {
+            if (!isAttached()) {
+                ElementUtil.onAttach(getInputElement(), mutationRecord -> {
+                    getInputElement().element().focus();
+                    doFocus();
+                });
+            } else {
                 getInputElement().element().focus();
                 doFocus();
-            });
-        } else {
-            getInputElement().element().focus();
-            doFocus();
+            }
         }
         return (T) this;
     }
@@ -250,15 +255,17 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     protected void doFocus() {
-        fieldGroup.style().add(FOCUSED);
-        floatLabel();
-        if (valid) {
-            if (isAddFocusColor()) {
-                fieldContainer.style().add("fc-" + focusColor.getStyle());
+        if (!isDisabled()) {
+            fieldGroup.style().add(FOCUSED);
+            floatLabel();
+            if (valid) {
+                if (isAddFocusColor()) {
+                    fieldContainer.style().add("fc-" + focusColor.getStyle());
+                }
+                setLabelColor(focusColor);
             }
-            setLabelColor(focusColor);
+            showPlaceholder();
         }
-        showPlaceholder();
     }
 
     protected boolean isAddFocusColor() {

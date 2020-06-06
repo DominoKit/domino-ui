@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.notifications.Notification;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -54,6 +55,9 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
 
         linkLabelToField();
 
+        inputElement.addEventListener("focus", evt -> inputElement.css("tabbed"));
+        inputElement.addEventListener("blur", evt -> inputElement.removeCss("tabbed"));
+
         inputElement.addEventListener("change", evt -> {
             evt.stopPropagation();
             if (!isReadOnly()) {
@@ -62,6 +66,12 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
                 }
             }
         });
+
+        KeyboardEvents.listenOn(inputElement)
+                .onEnter(evt -> {
+                   evt.stopPropagation();
+                    setValue(!this.getValue());
+                });
         css("switch");
     }
 

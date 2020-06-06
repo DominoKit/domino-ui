@@ -3,10 +3,7 @@ package org.dominokit.domino.ui.datatable;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
-import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
-import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
-import org.dominokit.domino.ui.datatable.events.TableEventListener;
+import org.dominokit.domino.ui.datatable.events.*;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -52,6 +49,10 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         this.addTableEventListner(ANY, dataStore);
         this.dataStore.onDataChanged(dataChangedEvent -> {
             fireTableEvent(new OnBeforeDataChangeEvent<>(this.data, dataChangedEvent.getTotalCount(), dataChangedEvent.isAppend()));
+            if(dataChangedEvent.getSortDir().isPresent() && dataChangedEvent.getSortColumn().isPresent()){
+                fireTableEvent(new DataSortEvent(dataChangedEvent.getSortDir().get(), dataChangedEvent.getSortColumn().get()));
+            }
+
             if (dataChangedEvent.isAppend()) {
                 appendData(dataChangedEvent.getNewData());
             } else {
