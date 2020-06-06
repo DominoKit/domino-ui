@@ -16,6 +16,7 @@ import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.jboss.elemento.EventType;
 
 import java.util.Date;
+import java.util.Optional;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -291,6 +292,14 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
     public void setTimeIconContainer(FlexItem timeIconContainer) {
         this.timeIconContainer = timeIconContainer;
+    }
+
+    public Optional<ModalDialog> getModal(){
+        return Optional.of(this.modal);
+    }
+
+    public Optional<Popover> getPopover(){
+        return Optional.of(this.popover);
     }
 
     @Override

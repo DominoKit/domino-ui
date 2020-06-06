@@ -22,6 +22,7 @@ import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.jboss.elemento.EventType;
 
 import java.util.Date;
+import java.util.Optional;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -441,6 +442,14 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     public DateBox setInvalidFormatMessage(String invalidFormatMessage) {
         this.invalidFormatMessage = invalidFormatMessage;
         return this;
+    }
+
+    public Optional<ModalDialog> getModal(){
+        return Optional.of(this.modal);
+    }
+
+    public Optional<Popover> getPopover(){
+        return Optional.of(this.popover);
     }
 
     private void disablePopover() {
