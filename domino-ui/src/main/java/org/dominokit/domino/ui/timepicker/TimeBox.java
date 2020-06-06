@@ -36,6 +36,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
     private EventListener keyboardModalListener;
     private MdiIcon timeIcon;
     private FlexItem timeIconContainer;
+    private boolean openOnClick = true;
 
     public TimeBox() {
         this(null);
@@ -307,6 +308,19 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
         enableModal();
         enablePopover();
         return super.enable();
+    }
+
+    public boolean isOpenOnClick() {
+        return openOnClick;
+    }
+
+    public TimeBox setOpenOnClick(boolean openOnClick) {
+        this.openOnClick = openOnClick;
+        element().removeEventListener(EventType.click.getName(), modalListener);
+        if(this.openOnClick) {
+            element().addEventListener(EventType.click.getName(), modalListener);
+        }
+        return this;
     }
 
     private void disablePopover() {
