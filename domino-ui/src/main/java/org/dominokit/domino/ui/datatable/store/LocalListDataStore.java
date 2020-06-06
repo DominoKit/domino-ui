@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.datatable.store;
 
+import elemental2.dom.DomGlobal;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
@@ -136,7 +137,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
         if (nonNull(this.recordsSorter)) {
             this.lastSort = event;
             sort(event);
-            fireUpdate();
+            fireUpdate(false);
         }
     }
 
@@ -148,25 +149,27 @@ public class LocalListDataStore<T> implements DataStore<T> {
         if (nonNull(pagination)) {
             pagination.updatePagesByTotalCount(filtered.size());
         }
-        fireUpdate();
+        fireUpdate(true);
     }
 
     private void onPageChanged() {
-        fireUpdate();
+        fireUpdate(true);
     }
 
     @Override
     public void load() {
-        fireUpdate();
+        fireUpdate(true);
         updatePagination();
     }
 
-    private void fireUpdate() {
+    private void fireUpdate(boolean applySort) {
         List<T> updateRecords = getUpdateRecords();
-        if (nonNull(this.lastSort) && nonNull(recordsSorter)) {
-            updateRecords.sort(recordsSorter.onSortChange(this.lastSort.getColumnConfig().getName(), this.lastSort.getSortDirection()));
-        } else if (autoSort && nonNull(recordsSorter)) {
-            updateRecords.sort(recordsSorter.onSortChange(autoSortBy, autoSortDirection));
+        if(applySort) {
+            if (nonNull(this.lastSort) && nonNull(recordsSorter)) {
+                updateRecords.sort(recordsSorter.onSortChange(this.lastSort.getColumnConfig().getName(), this.lastSort.getSortDirection()));
+            } else if (autoSort && nonNull(recordsSorter)) {
+                updateRecords.sort(recordsSorter.onSortChange(autoSortBy, autoSortDirection));
+            }
         }
         if (!autSortApplied) {
             autSortApplied = true;
