@@ -25,9 +25,7 @@ final class BodyObserver {
 
     private static void startObserving() {
         MutationObserver mutationObserver = new MutationObserver(
-                (JsArray<MutationRecord> jsRecords, MutationObserver observer) -> {
-                    MutationRecord[] records = new MutationRecord[jsRecords.length];
-                    jsRecords.asArray(records);
+                (MutationRecord[] records, MutationObserver observer) -> {
                     for (MutationRecord record : records) {
                         if (!record.removedNodes.asList().isEmpty()) {
                             onElementsRemoved(record);
