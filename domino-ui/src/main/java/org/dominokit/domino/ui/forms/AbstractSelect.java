@@ -46,6 +46,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     private int popupWidth = 0;
     private String dropDirection = "auto";
     private boolean closePopOverOnOpen = false;
+    private boolean autoCloseOnSelect = true;
 
     public AbstractSelect() {
         super("button", "");
@@ -184,7 +185,9 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     private void doSelectOption(SelectOption<V> option) {
         if (isEnabled()) {
             select(option);
-            close();
+            if(this.autoCloseOnSelect) {
+                close();
+            }
         }
     }
 
@@ -198,6 +201,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
 
     private DropdownAction<SelectOption<V>> asDropDownAction(SelectOption<V> option) {
         return DropdownAction.create(option, option.element())
+                .setAutoClose(this.autoCloseOnSelect)
                 .setExcludeFromSearchResults(option.isExcludeFromSearchResults())
                 .addSelectionHandler(value -> doSelectOption(option));
     }
@@ -526,6 +530,17 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
 
     public S setClosePopOverOnOpen(boolean closePopOverOnOpen) {
         this.closePopOverOnOpen = closePopOverOnOpen;
+        return (S) this;
+    }
+
+    public boolean isAutoCloseOnSelect() {
+        return autoCloseOnSelect;
+    }
+
+    public S setAutoCloseOnSelect(boolean autoCloseOnSelect) {
+        this.autoCloseOnSelect = autoCloseOnSelect;
+        optionsMenu.getActions()
+                .forEach(dropdownAction -> dropdownAction.setAutoClose(autoCloseOnSelect));
         return (S) this;
     }
 
