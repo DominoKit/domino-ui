@@ -29,6 +29,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
     private boolean autoSort = false;
     private String autoSortBy = "*";
     private SortDirection autoSortDirection = SortDirection.ASC;
+    private boolean autSortApplied = false;
 
     public LocalListDataStore() {
         this.original = new ArrayList<>();
@@ -167,7 +168,12 @@ public class LocalListDataStore<T> implements DataStore<T> {
         } else if (autoSort && nonNull(recordsSorter)) {
             updateRecords.sort(recordsSorter.onSortChange(autoSortBy, autoSortDirection));
         }
-        listeners.forEach(dataChangeListener -> dataChangeListener.onDataChanged(new DataChangedEvent<>(updateRecords, filtered.size())));
+        if (!autSortApplied) {
+            autSortApplied = true;
+            listeners.forEach(dataChangeListener -> dataChangeListener.onDataChanged(new DataChangedEvent<>(updateRecords, filtered.size(), autoSortDirection, autoSortBy)));
+        } else {
+            listeners.forEach(dataChangeListener -> dataChangeListener.onDataChanged(new DataChangedEvent<>(updateRecords, filtered.size())));
+        }
     }
 
     private List<T> getUpdateRecords() {
