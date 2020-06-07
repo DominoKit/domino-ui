@@ -30,10 +30,12 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     private void addInputStringValidator() {
         addValidator(() -> {
             String inputValue = getInputElement().element().value;
-            try {
-                double parsed = getNumberFormat().parse(inputValue);
-            } catch (NumberFormatException e) {
-                return ValidationResult.invalid(getInvalidFormatMessage());
+            if(nonNull(inputValue) && !inputValue.isEmpty()) {
+                try {
+                    getNumberFormat().parse(inputValue);
+                } catch (NumberFormatException e) {
+                    return ValidationResult.invalid(getInvalidFormatMessage());
+                }
             }
             return ValidationResult.valid();
         });
