@@ -350,6 +350,18 @@ fieldset[disabled] .btn.warning.focus {
     top: 3px;
 }
 
+.btn.circle.sm {
+	width: 30px;
+	height: 30px;
+}
+
+.btn.circle.sm i {
+	font-size: 15px;
+	position: relative;
+	left: -2px;
+	top: 3px;
+}
+
 .btn-link {
     font-weight: 700;
     color: #333;
