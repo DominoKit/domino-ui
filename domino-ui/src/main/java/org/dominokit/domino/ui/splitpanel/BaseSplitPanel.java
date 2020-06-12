@@ -1,7 +1,9 @@
 package org.dominokit.domino.ui.splitpanel;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.style.Calc;
 import org.dominokit.domino.ui.style.ColorScheme;
+import org.dominokit.domino.ui.style.Unit;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -26,31 +28,10 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T,S>, S extends BaseSplit
 
     private void updatePanelsSize() {
         double mainPanelSize = getSize();
-
-        double splittersSize = calculateSplittersSize();
-        double maxAllowed = mainPanelSize - splittersSize;
-        double totalSizePercent = splittersSize / mainPanelSize;
-
-        double totalSize = splittersSize;
         for (SplitPanel panel : panels) {
             double panelSize = getPanelSize(panel);
-            int sizePercent = new Double((panelSize / mainPanelSize) * 100).intValue();
-
-            setPanelSize(panel, sizePercent + "%");
-            panelSize = getPanelSize(panel);
-
-            if (totalSize + panelSize >= maxAllowed) {
-                if (totalSize < maxAllowed) {
-                    double newSizehPercent = 100 - totalSizePercent;
-                    setPanelSize(panel, "calc(" + newSizehPercent + "% - " + splittersSize + "px)");
-                } else {
-                    setPanelSize(panel,0 + "%");
-                }
-                totalSize = maxAllowed;
-            } else {
-                totalSize += panelSize;
-            }
-            totalSizePercent += sizePercent;
+            double sizePercent = (panelSize / mainPanelSize) * 100;
+            setPanelSize(panel, Calc.sub(Unit.percent.of(sizePercent), Unit.px.of(splitterSize / 2 * (panels.size() - 1))));
         }
     }
 
@@ -96,6 +77,16 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T,S>, S extends BaseSplit
         this.splitterSize = size;
         splitters.forEach(hSplitter -> hSplitter.setSize(size));
         return (T) this;
+    }
+
+    @Override
+    public int getSplitterSize() {
+        return splitterSize;
+    }
+
+    @Override
+    public int numberOfPanels() {
+        return panels.size();
     }
 
     @Override

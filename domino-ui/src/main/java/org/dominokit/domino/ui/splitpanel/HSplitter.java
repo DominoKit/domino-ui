@@ -2,6 +2,8 @@ package org.dominokit.domino.ui.splitpanel;
 
 import elemental2.dom.MouseEvent;
 import elemental2.dom.TouchEvent;
+import org.dominokit.domino.ui.style.Calc;
+import org.dominokit.domino.ui.style.Unit;
 
 class HSplitter extends BaseSplitter<HSplitter> {
 
@@ -20,9 +22,9 @@ class HSplitter extends BaseSplitter<HSplitter> {
     }
 
     @Override
-    protected void setNewSizes(SplitPanel first, SplitPanel second, double firstPercent, double secondPercent) {
-        first.style().setWidth(firstPercent + "%");
-        second.style().setWidth(secondPercent + "%");
+    protected void setNewSizes(SplitPanel first, SplitPanel second, double firstPercent, double secondPercent, HasSize mainPanel) {
+        first.style().setWidth(Calc.sub(Unit.percent.of(firstPercent), Unit.px.of(mainPanel.getSplitterSize() / 2 * (mainPanel.numberOfPanels() - 1))));
+        second.style().setWidth(Calc.sub(Unit.percent.of(secondPercent), Unit.px.of(mainPanel.getSplitterSize() / 2 * (mainPanel.numberOfPanels() - 1))));
     }
 
     @Override

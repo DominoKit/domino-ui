@@ -36,7 +36,7 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
 
             if (LEFT_BUTTON == mouseEvent.buttons) {
                 double currentPosition = mousePosition(mouseEvent);
-                resize(first, second, currentPosition);
+                resize(first, second, currentPosition, mainPanel);
             }
         };
 
@@ -45,7 +45,7 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
             evt.stopPropagation();
             TouchEvent touchEvent = Js.uncheckedCast(evt);
             double currentPosition = touchPosition(touchEvent);
-            resize(first, second, currentPosition);
+            resize(first, second, currentPosition, mainPanel);
         };
 
         element.addEventListener(EventType.mousedown.getName(), evt -> {
@@ -72,7 +72,7 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
         document.body.addEventListener(EventType.touchend.getName(), evt -> document.body.removeEventListener(EventType.touchmove.getName(), touchResizeListener));
     }
 
-    private void resize(SplitPanel first, SplitPanel second, double currentPosition) {
+    private void resize(SplitPanel first, SplitPanel second, double currentPosition, HasSize mainPanel) {
         double diff = currentPosition - initialStartPosition;
 
         double firstSize = this.firstSize + diff;
@@ -81,7 +81,7 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
         double secondPercent = ((secondSize / fullSize) * 100);
 
         if (withinPanelLimits(first, firstSize, firstPercent) && withinPanelLimits(second, secondSize, secondPercent)) {
-            setNewSizes(first, second, firstPercent, secondPercent);
+            setNewSizes(first, second, firstPercent, secondPercent, mainPanel);
             first.onResize(firstSize, firstPercent);
             second.onResize(secondSize, secondPercent);
         }
@@ -99,7 +99,7 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
 
     protected abstract double getPanelSize(SplitPanel panel);
 
-    protected abstract void setNewSizes(SplitPanel first, SplitPanel second, double firstPercent, double secondPercent);
+    protected abstract void setNewSizes(SplitPanel first, SplitPanel second, double firstPercent, double secondPercent, HasSize mainPanel);
 
     protected abstract double mousePosition(MouseEvent event);
 

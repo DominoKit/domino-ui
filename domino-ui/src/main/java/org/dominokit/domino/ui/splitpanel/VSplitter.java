@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.splitpanel;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.MouseEvent;
 import elemental2.dom.TouchEvent;
+import org.dominokit.domino.ui.style.Unit;
 
 class VSplitter extends BaseSplitter<VSplitter> {
 
@@ -15,9 +16,9 @@ class VSplitter extends BaseSplitter<VSplitter> {
         return new VSplitter(top, right, vSplitPanel);
     }
 
-    protected void setNewSizes(SplitPanel top, SplitPanel bottom, double topPercent, double bottomPercent) {
-        top.style().setHeight(topPercent + "%");
-        bottom.style().setHeight(bottomPercent + "%");
+    protected void setNewSizes(SplitPanel top, SplitPanel bottom, double topPercent, double bottomPercent, HasSize mainPanel) {
+        top.style().setHeight(Unit.percent.of(topPercent));
+        bottom.style().setHeight(Unit.percent.of(bottomPercent));
     }
 
     public double mousePosition(MouseEvent event) {
