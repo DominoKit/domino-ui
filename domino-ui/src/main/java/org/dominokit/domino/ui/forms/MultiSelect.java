@@ -1,10 +1,13 @@
 package org.dominokit.domino.ui.forms;
 
+import org.dominokit.domino.ui.utils.ElementUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
 
@@ -126,6 +129,14 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
 
     public void setValueRenderer(ValueRenderer valueRenderer) {
         this.valueRenderer = valueRenderer;
+    }
+
+    @Override
+    protected void scrollToSelectedOption() {
+        List<SelectOption<T>> selectedOptions = getSelectedOptions();
+        if(nonNull(selectedOptions) && !selectedOptions.isEmpty()){
+            ElementUtil.scrollIntoParent(selectedOptions.get(0).element(), getOptionsMenu().getMenuElement().element());
+        }
     }
 
     @FunctionalInterface

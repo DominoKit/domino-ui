@@ -55,6 +55,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         optionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
         optionsMenu.setPosition(new PopupPositionTopDown<>(this));
         optionsMenu.addOpenHandler(this::resumeFocusValidation);
+        optionsMenu.addOpenHandler(this::scrollToSelectedOption);
         buttonElement.appendChild(buttonValueContainer);
         initListeners();
         dropdown();
@@ -66,6 +67,8 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         });
         css("d-select");
     }
+
+    protected abstract void scrollToSelectedOption();
 
     public AbstractSelect(String label) {
         this();

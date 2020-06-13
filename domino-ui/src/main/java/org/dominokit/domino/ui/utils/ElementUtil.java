@@ -186,4 +186,16 @@ public class ElementUtil {
                 .on(EventType.click, event -> DomGlobal.window.open(targetUrl, "_blank"))
                 .element();
     }
+
+    public static void scrollIntoParent(Element child, Element parent) {
+
+        ClientRect parentRect = parent.getBoundingClientRect();
+        int parentHeight = parent.clientHeight;
+
+        ClientRect childRect = child.getBoundingClientRect();
+        boolean isViewable = ((childRect.top + childRect.height) >= parentRect.top) && ((childRect.top + childRect.height) <= parentRect.top + parentHeight);
+        if (!isViewable) {
+            parent.scrollTop = (childRect.top + parent.scrollTop) - parentRect.top;
+        }
+    }
 }

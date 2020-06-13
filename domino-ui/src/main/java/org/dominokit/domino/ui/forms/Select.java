@@ -1,5 +1,8 @@
 package org.dominokit.domino.ui.forms;
 
+import org.dominokit.domino.ui.dropdown.DropDownMenu;
+import org.dominokit.domino.ui.utils.ElementUtil;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -46,6 +49,11 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
 
     public Select(String label, List<SelectOption<T>> options) {
         super(label, options);
+    }
+
+    @Override
+    public DropDownMenu getOptionsMenu() {
+        return super.getOptionsMenu();
     }
 
     @Override
@@ -98,5 +106,12 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
 
     public int getSelectedIndex() {
         return options.indexOf(getSelectedOption());
+    }
+
+    @Override
+    protected void scrollToSelectedOption() {
+        if(nonNull(selectedOption)){
+            ElementUtil.scrollIntoParent(selectedOption.element(), getOptionsMenu().getMenuElement().element());
+        }
     }
 }
