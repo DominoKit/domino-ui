@@ -75,10 +75,11 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
     private void resize(SplitPanel first, SplitPanel second, double currentPosition, HasSize mainPanel) {
         double diff = currentPosition - initialStartPosition;
 
-        double firstSize = this.firstSize + diff;
-        double secondSize = this.secondSize - diff;
-        double firstPercent = ((firstSize / fullSize) * 100);
-        double secondPercent = ((secondSize / fullSize) * 100);
+        double firstSizeDiff = first.isFirst() ? this.firstSize + diff + (double) mainPanel.getSplitterSize() / 2 : this.firstSize + diff + mainPanel.getSplitterSize();
+        double secondSizeDiff = second.isLast() ? this.secondSize - diff + (double) mainPanel.getSplitterSize() / 2 :  this.secondSize - diff + mainPanel.getSplitterSize();
+
+        double firstPercent = (firstSizeDiff / fullSize * 100);
+        double secondPercent = (secondSizeDiff / fullSize * 100);
 
         if (withinPanelLimits(first, firstSize, firstPercent) && withinPanelLimits(second, secondSize, secondPercent)) {
             setNewSizes(first, second, firstPercent, secondPercent, mainPanel);

@@ -31,20 +31,12 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T,S>, S extends BaseSplit
         for (SplitPanel panel : panels) {
             double panelSize = getPanelSize(panel);
             double sizePercent = (panelSize / mainPanelSize) * 100;
-            setPanelSize(panel, Calc.sub(Unit.percent.of(sizePercent), Unit.px.of(splitterSize / 2 * (panels.size() - 1))));
+            setPanelSize(panel, Calc.sub(Unit.percent.of(sizePercent), Unit.px.of(panel.isFirst() || panel.isLast() ? splitterSize / 2 : splitterSize)));
         }
     }
 
     protected abstract double getPanelSize(SplitPanel panel);
     protected abstract void setPanelSize(SplitPanel panel, String size);
-
-    private double calculateSplittersSize() {
-        double totalSize = 0;
-        for (S splitter : splitters) {
-            totalSize += splitter.getSize();
-        }
-        return totalSize;
-    }
 
     public T appendChild(SplitPanel panel) {
         panels.add(panel);
@@ -55,7 +47,13 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T,S>, S extends BaseSplit
             splitters.add(splitter);
             element.appendChild(splitter);
             element.appendChild(panel);
+
+            SplitPanel secondLast = panels.get(panels.size() - 1);
+            secondLast.setLast(false);
+            panel.setLast(true);
+
         } else {
+            panel.setFirst(true);
             element.appendChild(panel);
         }
         return (T) this;
@@ -82,11 +80,6 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T,S>, S extends BaseSplit
     @Override
     public int getSplitterSize() {
         return splitterSize;
-    }
-
-    @Override
-    public int numberOfPanels() {
-        return panels.size();
     }
 
     @Override

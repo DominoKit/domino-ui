@@ -23,8 +23,8 @@ class HSplitter extends BaseSplitter<HSplitter> {
 
     @Override
     protected void setNewSizes(SplitPanel first, SplitPanel second, double firstPercent, double secondPercent, HasSize mainPanel) {
-        first.style().setWidth(Calc.sub(Unit.percent.of(firstPercent), Unit.px.of(mainPanel.getSplitterSize() / 2 * (mainPanel.numberOfPanels() - 1))));
-        second.style().setWidth(Calc.sub(Unit.percent.of(secondPercent), Unit.px.of(mainPanel.getSplitterSize() / 2 * (mainPanel.numberOfPanels() - 1))));
+        first.style().setWidth(Calc.sub(Unit.percent.of(firstPercent), Unit.px.of(first.isFirst() ?  mainPanel.getSplitterSize() / 2 : mainPanel.getSplitterSize())));
+        second.style().setWidth(Calc.sub(Unit.percent.of(secondPercent), Unit.px.of(second.isLast() ? mainPanel.getSplitterSize() / 2 : mainPanel.getSplitterSize())));
     }
 
     @Override
@@ -43,6 +43,6 @@ class HSplitter extends BaseSplitter<HSplitter> {
     }
 
     public void setSize(int size) {
-        setWidth(size + "px");
+        setWidth(Unit.px.of(size));
     }
 }
