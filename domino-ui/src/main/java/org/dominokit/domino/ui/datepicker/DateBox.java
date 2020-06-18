@@ -50,6 +50,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     private FlexItem calendarIconContainer;
     private MdiIcon calendarIcon;
     private boolean openOnClick = true;
+    private boolean parseStrict;
 
     public DateBox() {
         this(new Date());
@@ -176,6 +177,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     private Date getFormattedValue(String value) throws IllegalArgumentException {
         DateTimeFormatInfo dateTimeFormatInfo = datePicker.getDateTimeFormatInfo();
+        if (parseStrict) {
+            return Formatter.getFormat(this.pattern, dateTimeFormatInfo).parseStrict(value);
+        }
         return Formatter.getFormat(this.pattern, dateTimeFormatInfo).parse(value);
     }
 
@@ -197,6 +201,11 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     public static DateBox create(String label, Date date, DateTimeFormatInfo dateTimeFormatInfo) {
         return new DateBox(label, date, dateTimeFormatInfo);
+    }
+
+    public DateBox setParseStrict(boolean parseStrict) {
+        this.parseStrict = parseStrict;
+        return this;
     }
 
     public DateBox setPattern(Pattern pattern) {
