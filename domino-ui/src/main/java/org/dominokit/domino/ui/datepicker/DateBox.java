@@ -35,6 +35,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     private DatePicker datePicker;
     private String pattern;
 
+    private boolean parseStrict;
+
     private Popover popover;
     private ModalDialog modal;
     private EventListener modalListener;
@@ -176,7 +178,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     private Date getFormattedValue(String value) throws IllegalArgumentException {
         DateTimeFormatInfo dateTimeFormatInfo = datePicker.getDateTimeFormatInfo();
-        return Formatter.getFormat(this.pattern, dateTimeFormatInfo).parse(value);
+        if (parseStrict) return Formatter.getFormat(this.pattern, dateTimeFormatInfo).parseStrict(value);
+        else return Formatter.getFormat(this.pattern, dateTimeFormatInfo).parse(value);
     }
 
     public static DateBox create() {
@@ -198,6 +201,12 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     public static DateBox create(String label, Date date, DateTimeFormatInfo dateTimeFormatInfo) {
         return new DateBox(label, date, dateTimeFormatInfo);
     }
+
+    public DateBox setParseStrict(boolean parseStrict) {
+        this.parseStrict = parseStrict;
+        return this;
+    }
+
 
     public DateBox setPattern(Pattern pattern) {
         switch (pattern) {
