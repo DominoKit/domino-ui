@@ -30,6 +30,10 @@ public class KeyboardEvents<T extends Node> {
     public KeyboardEvents(T element) {
         element.addEventListener(KEYDOWN, evt -> {
             KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+            // ignore events without keycode (browser bug?)
+            // example: picking value by keyboard from Chrome auto-suggest
+            if (keyboardEvent.key == null)
+            	return;
             String key = keyboardEvent.key.toLowerCase();
             HandlerContext handlerContext = null;
             if (keyboardEvent.ctrlKey && ctrlHandlers.containsKey(key)) {
