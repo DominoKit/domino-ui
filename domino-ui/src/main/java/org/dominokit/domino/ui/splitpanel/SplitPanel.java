@@ -16,6 +16,9 @@ public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
     private int minSize = 0;
     private int maxSize = -1;
 
+    private boolean isFirst = false;
+    private boolean isLast = false;
+
     private double minPercent = 0;
     private double maxPercent = 100;
     private final List<ResizeListener> resizeListeners = new ArrayList<>();
@@ -99,6 +102,21 @@ public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
         return this;
     }
 
+    public boolean isFirst() {
+        return isFirst;
+    }
+    public SplitPanel setFirst(boolean first) {
+        isFirst = first;
+        return this;
+    }
+
+    public boolean isLast() {
+        return isLast;
+    }
+    public SplitPanel setLast(boolean last) {
+        isLast = last;
+        return this;
+    }
 
     void onResize(double pixels, double percent) {
         resizeListeners.forEach(resizeListener -> resizeListener.onResize(SplitPanel.this, pixels, percent));
