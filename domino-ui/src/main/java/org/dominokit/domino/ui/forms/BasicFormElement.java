@@ -28,6 +28,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     private boolean fixErrorsPosition;
     private String requiredErrorMessage;
     private List<HTMLElement> errorLabels = new ArrayList<>();
+    private boolean validationDisabled = false;
 
     @Override
     public T setHelperText(String helperText) {
@@ -58,7 +59,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
         return (T) this;
     }
 
-    protected void updateLabel(String label){
+    protected void updateLabel(String label) {
         getLabelTextElement().setTextContent(label);
     }
 
@@ -106,9 +107,22 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
         return (T) this;
     }
 
+    public boolean isValidationDisabled() {
+        return validationDisabled;
+    }
+
+    public T setValidationDisabled(boolean validationDisabled) {
+        this.validationDisabled = validationDisabled;
+        return (T) this;
+    }
+
     @Override
     public ValidationResult validate() {
-        return elementValidations.validate();
+        if (!validationDisabled) {
+            return elementValidations.validate();
+        } else {
+            return ValidationResult.valid();
+        }
     }
 
     @Override
@@ -138,9 +152,9 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     public T invalidate(List<String> errorMessages) {
         getHelperContainer().toggleDisplay(errorMessages.isEmpty());
         removeErrors();
-        if(!fixErrorsPosition) {
+        if (!fixErrorsPosition) {
             getErrorsContainer().toggleDisplay(!errorMessages.isEmpty());
-        }else {
+        } else {
             getErrorsContainer().show();
         }
 
@@ -159,6 +173,17 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
         return (T) this;
     }
 
+    public T withValidationDisabled(FieldHandler<T> fieldHandler) {
+        boolean validationState = this.validationDisabled;
+        try {
+            this.validationDisabled = true;
+            fieldHandler.apply((T) this);
+        } finally {
+            this.validationDisabled = validationState;
+        }
+        return (T) this;
+    }
+
     protected HTMLLabelElement makeErrorLabel(String message) {
         return label().css("error").textContent(message).element();
     }
@@ -167,7 +192,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     public T clearInvalid() {
         getHelperContainer().show();
         removeErrors();
-        if(!fixErrorsPosition) {
+        if (!fixErrorsPosition) {
             getErrorsContainer().hide();
         }
         return (T) this;
@@ -243,6 +268,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     }
 
     protected abstract DominoElement<HTMLDivElement> getFieldInputContainer();
+
     protected abstract DominoElement<HTMLDivElement> getFieldContainer();
 
     protected abstract DominoElement<HTMLElement> getHelperContainer();
@@ -267,6 +293,11 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
         } else {
             invalidate(editorErrors);
         }
+    }
+
+    @FunctionalInterface
+    public interface FieldHandler<T> {
+        void apply(T field);
     }
 
 }
