@@ -103,15 +103,7 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
     private void initListeners() {
         KeyboardEvents.listenOn(tagTextInput)
                 .onEnter(evt -> {
-                    String displayValue = tagTextInput.element().value;
-                    if (displayValue.isEmpty()) {
-                        openMenu();
-                    } else {
-                        V value = store.getItemByDisplayValue(displayValue);
-                        if (nonNull(value)) {
-                            appendChip(displayValue, value);
-                        }
-                    }
+                    addTag();
                 })
                 .onTab(evt -> {
                     if(dropDownMenu.isOpened() && dropDownMenu.hasActions()){
@@ -136,7 +128,22 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
                 search();
             }
         });
-        tagTextInput.addEventListener("blur", evt -> unfocus());
+        tagTextInput.addEventListener("blur", evt -> {
+            addTag();
+            unfocus();
+        });
+    }
+
+    private void addTag() {
+        String displayValue = tagTextInput.element().value;
+        if (displayValue.isEmpty()) {
+            openMenu();
+        } else {
+            V value = store.getItemByDisplayValue(displayValue);
+            if (nonNull(value)) {
+                appendChip(displayValue, value);
+            }
+        }
     }
 
     private void search() {
