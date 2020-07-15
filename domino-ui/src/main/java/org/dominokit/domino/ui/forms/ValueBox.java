@@ -408,7 +408,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
      * @deprecated use {@link #addLeftAddOn(FlexItem)}
      */
     @Deprecated
-    public T setLeftAddon(IsElement leftAddon) {
+    public <E extends HTMLElement> T setLeftAddon(IsElement<E> leftAddon) {
         return addLeftAddOn(FlexItem.create().appendChild(leftAddon.element()));
     }
 
@@ -430,7 +430,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
-    public T addLeftAddOn(IsElement<?> addon) {
+    public <E extends HTMLElement> T addLeftAddOn(IsElement<E> addon) {
         return addLeftAddOn(FlexItem.create().appendChild(addon));
     }
 
@@ -444,7 +444,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
      * @deprecated use {@link #addRightAddOn(FlexItem)}
      */
     @Deprecated
-    public T setRightAddon(IsElement rightAddon) {
+    public <E extends HTMLElement> T setRightAddon(IsElement<E> rightAddon) {
         return addRightAddOn(FlexItem.create().appendChild(rightAddon.element()));
     }
 
@@ -466,7 +466,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
-    public T addRightAddOn(IsElement<?> addon) {
+    public <E extends HTMLElement> T addRightAddOn(IsElement<E> addon) {
         addRightAddOn(FlexItem.create().appendChild(addon));
         return (T) this;
     }
@@ -480,7 +480,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return removeRightAddOn(addon.element());
     }
 
-    public T removeRightAddOn(IsElement<?> addon) {
+    public <E extends HTMLElement> T removeRightAddOn(IsElement<E> addon) {
         return removeRightAddOn(addon.element());
     }
 
@@ -499,7 +499,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return removeLeftAddOn(addon.element());
     }
 
-    public T removeLeftAddOn(IsElement<?> addon) {
+    public <E extends HTMLElement> T removeLeftAddOn(IsElement<E> addon) {
         return removeLeftAddOn(addon.element());
     }
 

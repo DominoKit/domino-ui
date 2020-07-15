@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.tabs;
 
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
@@ -129,12 +130,12 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return this;
     }
 
-    public Tab appendChild(IsElement content) {
+    public <E extends HTMLElement> Tab appendChild(IsElement<E> content) {
         return appendChild(content.element());
     }
 
     @Override
-    public Tab setContent(IsElement element) {
+    public <E extends HTMLElement> Tab setContent(IsElement<E> element) {
         return setContent(element.element());
     }
 

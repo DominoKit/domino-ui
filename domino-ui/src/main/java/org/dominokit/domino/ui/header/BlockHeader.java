@@ -55,7 +55,7 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
         return this;
     }
 
-    public BlockHeader appendChild(IsElement content) {
+    public <E extends HTMLElement> BlockHeader appendChild(IsElement<E> content) {
         return appendChild(content.element());
     }
 

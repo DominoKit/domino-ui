@@ -14,8 +14,6 @@ import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 import org.jboss.elemento.ObserverCallback;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
@@ -38,7 +36,6 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     private WavesSupport wavesSupport;
     private Optional<ElementObserver> attachObserver = Optional.empty();
     private Optional<ElementObserver> detachObserver = Optional.empty();
-    private boolean collapsed = false;
 
     @Editor.Ignore
     protected void init(T element) {
@@ -188,7 +185,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Override
     @Editor.Ignore
-    public T appendChild(IsElement isElement) {
+    public <E2 extends HTMLElement> T appendChild(IsElement<E2> isElement) {
         element.element().appendChild(isElement.element());
         return element;
     }
@@ -206,13 +203,13 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
-    public T addEventListener(EventType type, EventListener listener) {
+    public T addEventListener(EventType<?, ?> type, EventListener listener) {
         element().addEventListener(type.getName(), listener);
         return element;
     }
 
     @Editor.Ignore
-    public T removeEventListener(EventType type, EventListener listener) {
+    public T removeEventListener(EventType<?, ?> type, EventListener listener) {
         element().removeEventListener(type.getName(), listener);
         return element;
     }
@@ -223,50 +220,52 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return element;
     }
 
-    @Editor.Ignore
+	@Editor.Ignore
+    @SuppressWarnings("unchecked")
     public T insertBefore(Node newNode, Node otherNode) {
         element().insertBefore(newNode, otherNode);
         return (T) this;
     }
 
     @Editor.Ignore
-    public T insertBefore(Node newNode, BaseDominoElement otherNode) {
+    public <OE extends HTMLElement, OT extends IsElement<OE>> T insertBefore(Node newNode, BaseDominoElement<OE, OT> otherNode) {
         element().insertBefore(newNode, otherNode.element());
         return element;
     }
 
     @Editor.Ignore
-    public T insertBefore(BaseDominoElement newNode, BaseDominoElement otherNode) {
+    public <NE extends HTMLElement, NT extends IsElement<NE>, OE extends HTMLElement, OT extends IsElement<OE>> T insertBefore(BaseDominoElement<NE, NT> newNode, BaseDominoElement<OE, OT> otherNode) {
         element().insertBefore(newNode.element(), otherNode.element());
         return element;
     }
 
     @Editor.Ignore
-    public T insertBefore(BaseDominoElement newNode, Node otherNode) {
+    public <NE extends HTMLElement, NT extends IsElement<NE>> T insertBefore(BaseDominoElement<NE, NT> newNode, Node otherNode) {
         element().insertBefore(newNode.element(), otherNode);
         return element;
     }
 
-    @Editor.Ignore
+	@Editor.Ignore
+    @SuppressWarnings("unchecked")
     public T insertAfter(Node newNode, Node otherNode) {
         element().insertBefore(newNode, otherNode.nextSibling);
         return (T) this;
     }
 
     @Editor.Ignore
-    public T insertAfter(Node newNode, BaseDominoElement otherNode) {
+    public <NE extends HTMLElement, NT extends IsElement<NE>> T insertAfter(Node newNode, BaseDominoElement<NE, NT> otherNode) {
         element().insertBefore(newNode, otherNode.element().nextSibling);
         return element;
     }
 
     @Editor.Ignore
-    public T insertAfter(BaseDominoElement newNode, BaseDominoElement otherNode) {
+    public <NE extends HTMLElement, NT extends IsElement<NE>, OE extends HTMLElement, OT extends IsElement<OE>> T insertAfter(BaseDominoElement<NE, NT> newNode, BaseDominoElement<OE, OT> otherNode) {
         element().insertBefore(newNode.element(), otherNode.element().nextSibling);
         return element;
     }
 
     @Editor.Ignore
-    public T insertAfter(BaseDominoElement newNode, Node otherNode) {
+    public <NE extends HTMLElement, NT extends IsElement<NE>> T insertAfter(BaseDominoElement<NE, NT> newNode, Node otherNode) {
         element().insertBefore(newNode.element(), otherNode.nextSibling);
         return element;
     }
@@ -278,12 +277,12 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
-    public T insertFirst(IsElement element) {
+    public <E2 extends HTMLElement> T insertFirst(IsElement<E2> element) {
         return insertFirst(element.element());
     }
 
     @Editor.Ignore
-    public T insertFirst(BaseDominoElement newNode) {
+    public <NE extends HTMLElement, NT extends IsElement<NE>> T insertFirst(BaseDominoElement<E, T> newNode) {
         element().insertBefore(newNode.element(), element().firstChild);
         return element;
     }
@@ -572,7 +571,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
 
     @Editor.Ignore
-    public T setContent(IsElement element) {
+    public <E2 extends HTMLElement> T setContent(IsElement<E2> element) {
         return setContent(element.element());
     }
 
@@ -644,6 +643,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return elevate(Elevation.of(level));
     }
 
+    @SuppressWarnings("unchecked")
     public T elevate(Elevation elevation) {
         if (nonNull(this.elevation)) {
             style.remove(this.elevation.getStyle());
@@ -691,30 +691,35 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
      */
     @Deprecated
     @Editor.Ignore
+    @SuppressWarnings("unchecked")
     public T removeShowHandler(Collapsible.ShowCompletedHandler handler) {
         collapsible.removeShowHandler(handler);
         return (T) this;
     }
 
     @Editor.Ignore
+    @SuppressWarnings("unchecked")
     public T addHideListener(Collapsible.HideCompletedHandler handler) {
         collapsible.addHideHandler(handler);
         return (T) this;
     }
 
     @Editor.Ignore
+    @SuppressWarnings("unchecked")
     public T removeHideListener(Collapsible.HideCompletedHandler handler) {
         collapsible.removeHideHandler(handler);
         return (T) this;
     }
 
     @Editor.Ignore
+    @SuppressWarnings("unchecked")
     public T addShowListener(Collapsible.ShowCompletedHandler handler) {
         collapsible.addShowHandler(handler);
         return (T) this;
     }
 
     @Editor.Ignore
+    @SuppressWarnings("unchecked")
     public T removeShowListener(Collapsible.ShowCompletedHandler handler) {
         collapsible.removeShowHandler(handler);
         return (T) this;

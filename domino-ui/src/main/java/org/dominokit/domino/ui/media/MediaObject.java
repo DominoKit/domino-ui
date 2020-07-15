@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.media;
 
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Styles;
@@ -59,7 +60,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
         return this;
     }
 
-    public MediaObject setLeftMedia(IsElement element) {
+    public <E extends HTMLElement> MediaObject setLeftMedia(IsElement<E> element) {
         return setLeftMedia(element.element());
     }
 
@@ -74,7 +75,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
         return this;
     }
 
-    public MediaObject setRightMedia(IsElement element) {
+    public <E extends HTMLElement> MediaObject setRightMedia(IsElement<E> element) {
         return setRightMedia(element.element());
     }
 
@@ -83,7 +84,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
         return this;
     }
 
-    public MediaObject appendChild(IsElement content) {
+    public <E extends HTMLElement> MediaObject appendChild(IsElement<E> content) {
         return appendChild(content.element());
     }
 

@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.modals;
 
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Color;
@@ -11,11 +12,11 @@ public interface IsModalDialog<T> {
 
     T appendChild(Node content);
 
-    T appendChild(IsElement content);
+    <E extends HTMLElement> T appendChild(IsElement<E> content);
 
     T appendFooterChild(Node content);
 
-    T appendFooterChild(IsElement content);
+    <E extends HTMLElement> T appendFooterChild(IsElement<E> content);
 
     T large();
 

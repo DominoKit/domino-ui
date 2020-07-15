@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.steppers;
 
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.animations.Animation;
@@ -75,7 +76,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
         return this;
     }
 
-    public Step appendChild(IsElement content) {
+    public <E extends HTMLElement> Step appendChild(IsElement<E> content) {
         return appendChild(content.element());
     }
 
@@ -84,7 +85,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
         return this;
     }
 
-    public Step appendFooterChild(IsElement content) {
+    public <E extends HTMLElement> Step appendFooterChild(IsElement<E> content) {
         return appendFooterChild(content.element());
     }
 

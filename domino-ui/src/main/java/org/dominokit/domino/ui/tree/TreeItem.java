@@ -583,7 +583,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         return this;
     }
 
-    public TreeItem<T> setIndicatorContent(IsElement<?> element) {
+    public <E extends HTMLElement> TreeItem<T> setIndicatorContent(IsElement<E> element) {
         setIndicatorContent(element.element());
         return this;
     }

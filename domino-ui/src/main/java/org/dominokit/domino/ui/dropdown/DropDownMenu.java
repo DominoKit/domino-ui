@@ -25,7 +25,7 @@ import static org.jboss.elemento.Elements.*;
 
 public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu> implements HasBackground<DropDownMenu> {
 
-    private MenuNavigation<DropdownAction> menuNavigation;
+    private MenuNavigation<DropdownAction<?>> menuNavigation;
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(DropDownStyles.DROPDOWN));
     private DominoElement<HTMLUListElement> menuElement = DominoElement.of(ul().css(DropDownStyles.DROPDOWN_MENU));
     private HTMLElement targetElement;
@@ -37,14 +37,14 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     private DominoElement<HTMLElement> noSearchResultsElement;
     private String noMatchSearchResultText = "No results matched";
 
-    private List<DropdownAction> actions = new ArrayList<>();
+    private List<DropdownAction<?>> actions = new ArrayList<>();
     private static boolean touchMoved;
     private List<CloseHandler> closeHandlers = new ArrayList<>();
     private List<OpenHandler> openHandlers = new ArrayList<>();
     private boolean closeOnEscape;
     private boolean searchable;
     private boolean caseSensitiveSearch = false;
-    private List<DropdownActionsGroup> groups = new ArrayList<>();
+    private List<DropdownActionsGroup<?>> groups = new ArrayList<>();
     private Color background;
     private HTMLElement appendTarget = document.body;
     private AppendStrategy appendStrategy = AppendStrategy.LAST;
@@ -121,7 +121,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     private void selectFirstSearchResult() {
-        List<DropdownAction> filteredAction = getFilteredAction();
+        List<DropdownAction<?>> filteredAction = getFilteredAction();
         if (!filteredAction.isEmpty()) {
             selectAt(actions.indexOf(filteredAction.get(0)));
             filteredAction.get(0)
@@ -172,7 +172,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         groups.forEach(DropdownActionsGroup::changeVisibility);
     }
 
-    public List<DropdownAction> getFilteredAction() {
+    public List<DropdownAction<?>> getFilteredAction() {
         return actions
                 .stream()
                 .filter(dropdownAction -> !dropdownAction.isFilteredOut())
@@ -209,11 +209,11 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         return new DropDownMenu(targetElement);
     }
 
-    public static DropDownMenu create(IsElement targetElement) {
+    public static <E extends HTMLElement> DropDownMenu create(IsElement<E> targetElement) {
         return new DropDownMenu(targetElement.element());
     }
 
-    public DropDownMenu insertFirst(DropdownAction action) {
+    public DropDownMenu insertFirst(DropdownAction<?> action) {
         action.addSelectionHandler(value -> {
             if (action.isAutoClose()) {
                 close();
@@ -224,7 +224,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         return this;
     }
 
-    public DropDownMenu appendChild(DropdownAction action) {
+    public DropDownMenu appendChild(DropdownAction<?> action) {
         action.addSelectionHandler(value -> {
             if (action.isAutoClose()) {
                 close();
@@ -236,7 +236,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         return this;
     }
 
-    public DropDownMenu addAction(DropdownAction action) {
+    public DropDownMenu addAction(DropdownAction<?> action) {
         return appendChild(action);
     }
 
@@ -346,7 +346,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         return this;
     }
 
-    public List<DropdownAction> getActions() {
+    public List<DropdownAction<?>> getActions() {
         return actions;
     }
 
@@ -365,7 +365,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         return this;
     }
 
-    public DropDownMenu addGroup(DropdownActionsGroup group) {
+    public DropDownMenu addGroup(DropdownActionsGroup<?> group) {
         groups.add(group);
         menuElement.appendChild(group.element());
         group.bindTo(this);

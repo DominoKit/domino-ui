@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.spin;
 
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -23,7 +24,7 @@ public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>> 
         setContent(content);
     }
 
-    public SpinItem(T value, IsElement content) {
+    public <E extends HTMLElement> SpinItem(T value, IsElement<E> content) {
         this(value);
         setContent(content);
     }
@@ -36,7 +37,7 @@ public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>> 
         return new SpinItem<>(value, content);
     }
 
-    public static <T> SpinItem<T> create(T value, IsElement content) {
+    public static <T, E extends HTMLElement> SpinItem<T> create(T value, IsElement<E> content) {
         return new SpinItem<>(value, content);
     }
 

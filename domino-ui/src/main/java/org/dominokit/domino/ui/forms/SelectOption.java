@@ -73,7 +73,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
         return this;
     }
 
-    public SelectOption<T> appendChild(IsElement node) {
+    public <E extends HTMLElement> SelectOption<T> appendChild(IsElement<E> node) {
         element.appendChild(node.element());
         return this;
     }

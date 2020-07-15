@@ -97,7 +97,7 @@ public class Row<T extends Row<T>> extends BaseDominoElement<HTMLDivElement, T> 
         return (T) this;
     }
 
-    public T appendChild(IsElement element) {
+    public <E extends HTMLElement> T appendChild(IsElement<E> element) {
         row.appendChild(element.element());
         return (T) this;
     }
