@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.keyboard;
 
 import elemental2.dom.EventListener;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.KeyboardEvent;
 import elemental2.dom.Node;
 import jsinterop.base.Js;
@@ -58,7 +59,7 @@ public class KeyboardEvents<T extends Node> {
         return new KeyboardEvents<>(element);
     }
 
-    public static KeyboardEvents listenOn(IsElement element) {
+    public static <E extends HTMLElement> KeyboardEvents listenOn(IsElement<E> element) {
         return new KeyboardEvents<>(element.element());
     }
 

@@ -185,7 +185,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         return this;
     }
 
-    public MessageDialog appendHeaderChild(IsElement content) {
+    public <E extends HTMLElement> MessageDialog appendHeaderChild(IsElement<E> content) {
         return appendHeaderChild(content.element());
     }
 }

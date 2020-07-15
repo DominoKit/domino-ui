@@ -112,7 +112,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
                         evt.stopPropagation();
                         evt.preventDefault();
                         if(isAutoSelect()) {
-                            List<DropdownAction> filteredActions = suggestionsMenu.getFilteredAction();
+                            List<DropdownAction<?>> filteredActions = suggestionsMenu.getFilteredAction();
                             suggestionsMenu.selectAt(suggestionsMenu.getActions().indexOf(filteredActions.get(0)));
                             filteredActions.get(0).select();
                             suggestionsMenu.close();

@@ -41,7 +41,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
         this.singleSelectIndicator = singleSelectIndicator;
     }
 
-    public SelectionPlugin(ColorScheme colorScheme, IsElement singleSelectIndicator) {
+    public <E extends HTMLElement> SelectionPlugin(ColorScheme colorScheme, IsElement<E> singleSelectIndicator) {
         this(colorScheme, singleSelectIndicator.element());
     }
 

@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.collapsible;
 
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.icons.BaseIcon;
@@ -51,7 +52,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         return new AccordionPanel(title, content);
     }
 
-    public static AccordionPanel create(String title, IsElement content) {
+    public static <E extends HTMLElement> AccordionPanel create(String title, IsElement<E> content) {
         return new AccordionPanel(title, content.element());
     }
 
@@ -80,7 +81,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         return this;
     }
 
-    public AccordionPanel appendChild(IsElement content) {
+    public <E extends HTMLElement> AccordionPanel appendChild(IsElement<E> content) {
         return appendChild(content.element());
     }
 

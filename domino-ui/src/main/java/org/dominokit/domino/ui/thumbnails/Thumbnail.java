@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.thumbnails;
 
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -31,7 +32,7 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
         return this;
     }
 
-    public Thumbnail setContent(IsElement content) {
+    public <E extends HTMLElement> Thumbnail setContent(IsElement<E> content) {
         return setContent(content.element());
     }
 
@@ -50,7 +51,7 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
         return this;
     }
 
-    public Thumbnail appendCaptionChild(IsElement content) {
+    public <E extends HTMLElement> Thumbnail appendCaptionChild(IsElement<E> content) {
         return appendCaptionChild(content.element());
     }
 
