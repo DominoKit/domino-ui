@@ -7,6 +7,7 @@ public class TabStyles {
     public static final String ACTIVE = "active";
     public static final String NAV = "nav";
     public static final String NAV_TABS = "nav-tabs";
+    public static final String TABS_CENTERED = "tabs-centered";
     public static final String NAV_TABS_RIGHT = "nav-tabs-right";
     public static final String TAB_CONTENT = "tab-content";
     public static final String TITLE = "title";

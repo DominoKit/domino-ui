@@ -279,7 +279,8 @@
 .layout .sidebar .vtabs-panel .tabs-content {
     display: none;
 }
-.layout .sidebar .vtabs-panel .tabs{
+
+.layout .sidebar .vtabs-panel .tabs {
     width: 100%;
 }
 
@@ -298,4 +299,19 @@
 
 .layout .sidebar .vtabs-panel .tabs-content {
     border-left: 0;
+}
+
+.tabs-left {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.tabs-center {
+    display: flex;
+    justify-content: center;
+}
+
+.tabs-right {
+    display: flex;
+    justify-content: flex-end;
 }
