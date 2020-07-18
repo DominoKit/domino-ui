@@ -40,7 +40,7 @@ public class DropdownActionsGroup<T> extends BaseDominoElement<HTMLLIElement, Dr
         return create((Node) titleElement);
     }
 
-    public static <T> DropdownActionsGroup<T> create(IsElement titleElement) {
+    public static <T, E extends HTMLElement> DropdownActionsGroup<T> create(IsElement<E> titleElement) {
         return create(titleElement.element());
     }
 

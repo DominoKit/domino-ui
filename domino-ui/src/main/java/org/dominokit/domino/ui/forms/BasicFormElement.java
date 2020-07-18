@@ -76,7 +76,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
         return (T) this;
     }
 
-    public T setLabel(IsElement<?> element) {
+    public <E extends HTMLElement> T setLabel(IsElement<E> element) {
         return setLabel(element.element());
     }
 

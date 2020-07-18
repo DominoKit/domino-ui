@@ -12,7 +12,7 @@ import java.util.List;
 import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.utils.ElementUtil.*;
 
-public class MenuNavigation<V extends IsElement> implements EventListener {
+public class MenuNavigation<V extends IsElement<?>> implements EventListener {
 
     private final List<V> items;
     private FocusHandler<V> focusHandler;
@@ -24,7 +24,7 @@ public class MenuNavigation<V extends IsElement> implements EventListener {
         this.items = items;
     }
 
-    public static <V extends IsElement> MenuNavigation<V> create(List<V> items) {
+    public static <V extends IsElement<E>, E extends HTMLElement> MenuNavigation<V> create(List<V> items) {
         return new MenuNavigation<>(items);
     }
 
@@ -141,12 +141,12 @@ public class MenuNavigation<V extends IsElement> implements EventListener {
     }
 
     @FunctionalInterface
-    public interface FocusHandler<V extends IsElement> {
+    public interface FocusHandler<V> {
         void doFocus(V item);
     }
 
     @FunctionalInterface
-    public interface SelectHandler<V extends IsElement> {
+    public interface SelectHandler<V> {
         void doSelect(V item);
 
     }
@@ -157,7 +157,7 @@ public class MenuNavigation<V extends IsElement> implements EventListener {
     }
 
     @FunctionalInterface
-    public interface FocusCondition<V extends IsElement> {
+    public interface FocusCondition<V> {
         boolean shouldFocus(V item);
     }
 }

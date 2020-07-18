@@ -32,7 +32,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
         return new Collapsible(element);
     }
 
-    public static Collapsible create(IsElement isElement) {
+    public static <E extends HTMLElement> Collapsible create(IsElement<E> isElement) {
         return create(isElement.element());
     }
 

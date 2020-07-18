@@ -191,7 +191,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
         return this;
     }
 
-    public FileUpload appendChild(IsElement child) {
+    public <E extends HTMLElement> FileUpload appendChild(IsElement<E> child) {
         return appendChild(child.element());
     }
 
