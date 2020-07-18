@@ -9,8 +9,7 @@ public class DatePickerStyles {
     public static final String MONTH_NAME = "month-name";
     public static final String DAY_NUMBER = "day-number";
     public static final String YEAR_NUMBER = "year-number";
-    public static final String CLEAR_BUTTON = "clear-button";
-    public static final String CLOSE_BUTTON = "close-button";
+    public static final String CAL_BUTTON = "cal-button";
     public static final String SELECTOR_ROW = "selector-row";
     public static final String SELECTOR = "selector";
     public static final String SELECTED = "selected";

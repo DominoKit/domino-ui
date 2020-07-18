@@ -1,5 +1,9 @@
 package org.dominokit.domino.ui.datepicker;
 
+import org.dominokit.domino.ui.grid.flex.FlexAlign;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.gwtproject.editor.client.TakesValue;
 import elemental2.core.JsDate;
 import elemental2.dom.HTMLDivElement;
@@ -39,7 +43,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
             .elevate(Elevation.LEVEL_1);
     private DominoElement<HTMLDivElement> headerPanel = DominoElement.of(div().css(DatePickerStyles.DATE_PANEL));
     private DominoElement<HTMLDivElement> selectorsPanel = DominoElement.of(div().css(DatePickerStyles.SELECTOR_CONTAINER));
-    private DominoElement<HTMLDivElement> footerPanel = DominoElement.of(div().css(DatePickerStyles.CAL_FOOTER));
+    private FlexLayout footerPanel = FlexLayout.create().css(DatePickerStyles.CAL_FOOTER);
 
     private DominoElement<HTMLDivElement> dayName = DominoElement.of(div().css(DatePickerStyles.DAY_NAME));
     private DominoElement<HTMLDivElement> monthName = DominoElement.of(div().css(DatePickerStyles.MONTH_NAME));
@@ -53,6 +57,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     private Button todayButton;
     private Button clearButton;
     private Button closeButton;
+    private Button resetButton;
 
     private ColorScheme colorScheme = ColorScheme.LIGHT_BLUE;
 
@@ -60,6 +65,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     private DatePickerElement selectedPickerElement;
 
     private List<PickerHandler> closeHandlers = new ArrayList<>();
+    private List<PickerHandler> resetHandlers = new ArrayList<>();
     private List<PickerHandler> clearHandlers = new ArrayList<>();
     private BackgroundHandler backgroundHandler = (oldBackground, newBackground) -> {
     };
@@ -69,6 +75,10 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
     private List<DateSelectionHandler> dateSelectionHandlers = new ArrayList<>();
     private List<DateDayClickedHandler> dateDayClickedHandlers = new ArrayList<>();
+    private FlexItem clearButtonContainer;
+    private FlexItem todayButtonContainer;
+    private FlexItem resetButtonContainer;
+    private FlexItem closeButtonContainer;
 
 
     public DatePicker(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
@@ -123,26 +133,53 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
     private void initFooter() {
 
-        clearButton = Button.create("CLEAR").setColor(colorScheme.color());
-        clearButton.style().add(DatePickerStyles.CLEAR_BUTTON);
+        clearButton = Button.create("CLEAR")
+                .setColor(colorScheme.color())
+                .css(DatePickerStyles.CAL_BUTTON);
 
         clearButton.addClickListener(evt -> {
             clearHandlers.forEach(PickerHandler::handle);
         });
 
-        todayButton = Button.create("TODAY").setColor(colorScheme.color());
+        todayButton = Button.create("TODAY").setColor(colorScheme.color())
+                .css(DatePickerStyles.CAL_BUTTON);
         todayButton.addClickListener(evt -> setDate(new Date()));
 
-        closeButton = Button.create("CLOSE").setColor(colorScheme.color());
-        closeButton.style().add(DatePickerStyles.CLOSE_BUTTON);
+        closeButton = Button.create("CLOSE").setColor(colorScheme.color())
+                .css(DatePickerStyles.CAL_BUTTON);
 
         closeButton.addClickListener(evt -> {
             closeHandlers.forEach(PickerHandler::handle);
         });
 
-        footerPanel.appendChild(clearButton.linkify());
-        footerPanel.appendChild(todayButton.linkify());
-        footerPanel.appendChild(closeButton.linkify());
+        resetButton = Button.create("RESET").setColor(colorScheme.color())
+                .css(DatePickerStyles.CAL_BUTTON);
+
+        resetButton.addClickListener(evt -> {
+            resetHandlers.forEach(PickerHandler::handle);
+        });
+
+        clearButtonContainer = FlexItem.create();
+        todayButtonContainer = FlexItem.create();
+        resetButtonContainer = FlexItem.create();
+        closeButtonContainer = FlexItem.create();
+        footerPanel
+                .setJustifyContent(FlexJustifyContent.SPACE_EVENLY)
+                .setAlignItems(FlexAlign.CENTER)
+                .appendChild(clearButtonContainer
+                        .appendChild(clearButton.linkify())
+                )
+                .appendChild(todayButtonContainer
+                        .appendChild(todayButton.linkify())
+                )
+                .appendChild(this.resetButtonContainer
+                        .appendChild(resetButton.linkify())
+                )
+                .appendChild(closeButtonContainer
+                        .appendChild(closeButton.linkify())
+                );
+
+        hideResetButton();
 
     }
 
@@ -381,6 +418,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         this.todayButton.setColor(colorScheme.color());
         this.closeButton.setColor(colorScheme.color());
         this.clearButton.setColor(colorScheme.color());
+        this.resetButton.setColor(colorScheme.color());
         return this;
     }
 
@@ -433,33 +471,42 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
     public DatePicker showTodayButton() {
-        this.todayButton.show();
+        this.todayButtonContainer.show();
         return this;
     }
 
     public DatePicker hideTodayButton() {
-        this.todayButton.hide();
+        this.todayButtonContainer.hide();
         return this;
     }
 
     public DatePicker showClearButton() {
-        this.clearButton.show();
+        this.clearButtonContainer.show();
         return this;
     }
 
     public DatePicker hideClearButton() {
-        this.clearButton.hide();
+        this.clearButtonContainer.hide();
         return this;
     }
 
-
     public DatePicker showCloseButton() {
-        this.closeButton.show();
+        this.closeButtonContainer.show();
         return this;
     }
 
     public DatePicker hideCloseButton() {
-        this.closeButton.hide();
+        this.closeButtonContainer.hide();
+        return this;
+    }
+
+    public DatePicker showResetButton() {
+        this.resetButtonContainer.show();
+        return this;
+    }
+
+    public DatePicker hideResetButton() {
+        this.resetButtonContainer.hide();
         return this;
     }
 
@@ -473,8 +520,22 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         return this;
     }
 
+    public DatePicker addResetHandler(PickerHandler closeHandler) {
+        this.resetHandlers.add(closeHandler);
+        return this;
+    }
+
+    public DatePicker removeResetHandler(PickerHandler closeHandler) {
+        this.resetHandlers.remove(closeHandler);
+        return this;
+    }
+
     public List<PickerHandler> getCloseHandlers() {
         return this.closeHandlers;
+    }
+
+    public List<PickerHandler> getResetHandlers() {
+        return this.resetHandlers;
     }
 
     public DatePicker addClearHandler(PickerHandler clearHandler) {
@@ -506,6 +567,12 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     public DatePicker closeButtonText(String text) {
         this.closeButton.setContent(text);
         this.closeButton.element().title = text;
+        return this;
+    }
+
+    public DatePicker resetButtonText(String text) {
+        this.resetButton.setContent(text);
+        this.resetButton.element().title = text;
         return this;
     }
 
@@ -565,6 +632,10 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
     public Button getCloseButton() {
         return closeButton;
+    }
+
+    public Button getResetButton() {
+        return resetButton;
     }
 
     DatePicker setBackgroundHandler(BackgroundHandler backgroundHandler) {

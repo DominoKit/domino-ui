@@ -51,6 +51,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     private MdiIcon calendarIcon;
     private boolean openOnClick = true;
     private boolean parseStrict;
+    private Date valueOnOpen;
 
     public DateBox() {
         this(new Date());
@@ -96,6 +97,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             }
         });
 
+        this.valueOnOpen = value;
+
         getInputElement().addEventListener(EventType.focus.getName(), evt -> focused = true);
         getInputElement().addEventListener("focusin", evt -> focused = true);
         getInputElement().addEventListener(EventType.blur.getName(), evt -> focused = false);
@@ -104,11 +107,13 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         this.modalListener = evt -> {
             if (!openOnFocus || focused) {
                 modal.open();
+                this.valueOnOpen = getValue();
             }
         };
         ElementUtil.onDetach(element(), mutationRecord -> removeBox());
 
         datePicker.addCloseHandler(this::close);
+        datePicker.addResetHandler(() -> setValue(valueOnOpen));
 
         datePicker.addClearHandler(() -> value(null));
         setPickerStyle(PickerStyle.MODAL);
@@ -317,6 +322,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 popover = Popover.createPicker(this, this.datePicker)
                         .position(this.popupPosition)
                         .styler(style -> style.add(DatePickerStyles.PICKER_POPOVER));
+
+                popover.addOpenListener(() -> this.valueOnOpen = getValue());
 
                 popover.getHeadingElement()
                         .style()
