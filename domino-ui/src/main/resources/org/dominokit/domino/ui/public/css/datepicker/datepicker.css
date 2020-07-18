@@ -155,12 +155,9 @@
     padding: 2px;
 }
 
-.calendar .clear-button {
-    float: left;
-}
-
-.calendar .close-button {
-    float: right;
+.calendar .cal-button {
+    font-size: 12px;
+    padding: 2px 4px;
 }
 
 .calendar .field-group.selector .field-cntr {
