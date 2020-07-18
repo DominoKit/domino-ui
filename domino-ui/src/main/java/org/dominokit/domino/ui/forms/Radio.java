@@ -215,7 +215,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>> implem
         return this;
     }
 
-    public Radio<T> setLabel(IsElement<?> element) {
+    public <E extends HTMLElement> Radio<T> setLabel(IsElement<E> element) {
         return setLabel(element.element());
     }
 

@@ -80,11 +80,11 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
         return new Tooltip(target, content);
     }
 
-    public static Tooltip create(IsElement element, String text) {
+    public static <E extends HTMLElement> Tooltip create(IsElement<E> element, String text) {
         return new Tooltip(element.element(), text);
     }
 
-    public static Tooltip create(IsElement element, Node content) {
+    public static <E extends HTMLElement> Tooltip create(IsElement<E> element, Node content) {
         return new Tooltip(element.element(), content);
     }
 

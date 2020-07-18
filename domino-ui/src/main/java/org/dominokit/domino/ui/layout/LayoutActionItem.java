@@ -22,7 +22,7 @@ public class LayoutActionItem extends BaseDominoElement<HTMLLIElement, LayoutAct
         this(baseIcon.element());
     }
 
-    public LayoutActionItem(IsElement<?> isElement) {
+    public <E extends HTMLElement> LayoutActionItem(IsElement<E> isElement) {
         this(isElement.element());
     }
 
@@ -30,7 +30,7 @@ public class LayoutActionItem extends BaseDominoElement<HTMLLIElement, LayoutAct
         return new LayoutActionItem(baseIcon);
     }
 
-    public static LayoutActionItem create(IsElement<?> isElement){
+    public static <E extends HTMLElement> LayoutActionItem create(IsElement<E> isElement){
         return new LayoutActionItem(isElement);
     }
 

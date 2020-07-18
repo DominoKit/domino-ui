@@ -267,22 +267,22 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         return this;
     }
 
-    public Slider setLeftAddon(IsElement leftAddon) {
+    public <E extends HTMLElement> Slider setLeftAddon(IsElement<E> leftAddon) {
         return setLeftAddon(leftAddon.element());
     }
 
-    public Slider setLeftAddon(Element leftAddon) {
+    public Slider setLeftAddon(HTMLElement leftAddon) {
         leftAddonContainer.show();
         setAddon(leftAddonContainer.element(), this.leftAddon, leftAddon);
         this.leftAddon = leftAddon;
         return this;
     }
 
-    public Slider setRightAddon(IsElement rightAddon) {
+    public <E extends HTMLElement> Slider setRightAddon(IsElement<E> rightAddon) {
         return setRightAddon(rightAddon.element());
     }
 
-    public Slider setRightAddon(Element rightAddon) {
+    public Slider setRightAddon(HTMLElement rightAddon) {
         rightAddonContainer.show();
         setAddon(rightAddonContainer.element(), this.rightAddon, rightAddon);
         this.rightAddon = rightAddon;

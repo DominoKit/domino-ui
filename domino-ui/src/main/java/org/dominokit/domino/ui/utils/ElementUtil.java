@@ -26,15 +26,15 @@ public class ElementUtil {
                 element.removeChild(element.firstChild);
     }
 
-    public static void clear(IsElement element) {
+    public static <E extends HTMLElement> void clear(IsElement<E> element) {
         clear(element.element());
     }
 
-    public static <T extends HTMLElement> HtmlContentBuilder<T> contentBuilder(T element) {
+    public static <E extends HTMLElement> HtmlContentBuilder<E> contentBuilder(E element) {
         return new HtmlContentBuilder<>(element);
     }
 
-    public static <T extends HTMLElement> HtmlContentBuilder<T> contentBuilder(IsElement<T> element) {
+    public static <E extends HTMLElement> HtmlContentBuilder<E> contentBuilder(IsElement<E> element) {
         return new HtmlContentBuilder<>(element.element());
     }
 
@@ -90,7 +90,7 @@ public class ElementUtil {
      * @param element
      * @param callback
      */
-    public static Optional<ElementObserver> onAttach(IsElement element, ObserverCallback callback) {
+    public static <E extends HTMLElement> Optional<ElementObserver> onAttach(IsElement<E> element, ObserverCallback callback) {
         if (element != null) {
             return Optional.of(BodyObserver.addAttachObserver(element.element(), callback));
         }
@@ -118,7 +118,7 @@ public class ElementUtil {
      * @param element
      * @param callback
      */
-    public static Optional<ElementObserver> onDetach(IsElement element, ObserverCallback callback) {
+    public static <E extends HTMLElement> Optional<ElementObserver> onDetach(IsElement<E> element, ObserverCallback callback) {
         if (element != null) {
             return Optional.of(BodyObserver.addDetachObserver(element.element(), callback));
         }
@@ -172,7 +172,7 @@ public class ElementUtil {
         DomGlobal.document.documentElement.scrollTop = 0;
     }
 
-    public static void scrollToElement(IsElement isElement) {
+    public static <E extends HTMLElement> void scrollToElement(IsElement<E> isElement) {
         scrollToElement(isElement.element());
     }
 

@@ -22,7 +22,7 @@ public class Loader {
         return new Loader(target, effect);
     }
 
-    public static Loader create(IsElement target, LoaderEffect effect) {
+    public static <E extends HTMLElement> Loader create(IsElement<E> target, LoaderEffect effect) {
         return new Loader(target.element(), effect);
     }
 

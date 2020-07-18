@@ -26,7 +26,7 @@ public class HtmlComponentBuilder<E extends HTMLElement, T extends IsElement<E>>
     }
 
     @Override
-    public HtmlComponentBuilder<E, T> add(IsElement element) {
+    public HtmlComponentBuilder<E, T> add(IsElement<?> element) {
         super.add(element);
         return this;
     }
@@ -56,9 +56,9 @@ public class HtmlComponentBuilder<E extends HTMLElement, T extends IsElement<E>>
     }
 
     @Override
-    public HtmlComponentBuilder<E, T> addAll(IsElement... elements) {
-        super.addAll(elements);
-        return this;
+    public <F extends HTMLElement> HtmlComponentBuilder<E, T> addAll(IsElement<?>... elements) {
+      super.addAll(elements);
+      return this;
     }
 
     @Override
@@ -72,4 +72,5 @@ public class HtmlComponentBuilder<E extends HTMLElement, T extends IsElement<E>>
         super.css(classes);
         return this;
     }
+
 }
