@@ -209,7 +209,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         return new DropDownMenu(targetElement);
     }
 
-    public static <E extends HTMLElement> DropDownMenu create(IsElement<E> targetElement) {
+    public static DropDownMenu create(IsElement<?> targetElement) {
         return new DropDownMenu(targetElement.element());
     }
 

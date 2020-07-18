@@ -1,14 +1,9 @@
 package org.dominokit.domino.ui.collapsible;
 
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLHeadingElement;
-import elemental2.dom.Node;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.IsCollapsible;
@@ -52,7 +47,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         return new AccordionPanel(title, content);
     }
 
-    public static <E extends HTMLElement> AccordionPanel create(String title, IsElement<E> content) {
+    public static AccordionPanel create(String title, IsElement<?> content) {
         return new AccordionPanel(title, content.element());
     }
 
@@ -81,7 +76,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         return this;
     }
 
-    public <E extends HTMLElement> AccordionPanel appendChild(IsElement<E> content) {
+    public AccordionPanel appendChild(IsElement<?> content) {
         return appendChild(content.element());
     }
 

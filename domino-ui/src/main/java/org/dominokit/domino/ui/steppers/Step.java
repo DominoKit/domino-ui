@@ -76,7 +76,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
         return this;
     }
 
-    public <E extends HTMLElement> Step appendChild(IsElement<E> content) {
+    public  Step appendChild(IsElement<?> content) {
         return appendChild(content.element());
     }
 
@@ -85,7 +85,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
         return this;
     }
 
-    public <E extends HTMLElement> Step appendFooterChild(IsElement<E> content) {
+    public Step appendFooterChild(IsElement<?> content) {
         return appendFooterChild(content.element());
     }
 

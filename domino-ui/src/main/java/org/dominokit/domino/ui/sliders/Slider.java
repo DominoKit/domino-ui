@@ -267,7 +267,7 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         return this;
     }
 
-    public <E extends HTMLElement> Slider setLeftAddon(IsElement<E> leftAddon) {
+    public Slider setLeftAddon(IsElement<?> leftAddon) {
         return setLeftAddon(leftAddon.element());
     }
 
@@ -278,7 +278,7 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         return this;
     }
 
-    public <E extends HTMLElement> Slider setRightAddon(IsElement<E> rightAddon) {
+    public Slider setRightAddon(IsElement<?> rightAddon) {
         return setRightAddon(rightAddon.element());
     }
 

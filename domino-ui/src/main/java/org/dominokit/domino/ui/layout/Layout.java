@@ -339,7 +339,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         return addActionItem(icon.element());
     }
 
-    public <E extends HTMLElement> HTMLElement addActionItem(IsElement<E> element) {
+    public HTMLElement addActionItem(IsElement<?> element) {
         return addActionItem(element.element());
     }
 
@@ -449,7 +449,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         return this;
     }
 
-    public <E extends HTMLElement> Layout setContent(IsElement<E> element) {
+    public Layout setContent(IsElement<?> element) {
         setContent(element.element());
         return this;
     }

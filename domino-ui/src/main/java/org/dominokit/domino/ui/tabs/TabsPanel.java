@@ -184,7 +184,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
         return this;
     }
 
-    public <E extends HTMLElement> TabsPanel setContentContainer(IsElement<E> contentContainer) {
+    public TabsPanel setContentContainer(IsElement<?> contentContainer) {
         return setContentContainer(contentContainer.element());
     }
 

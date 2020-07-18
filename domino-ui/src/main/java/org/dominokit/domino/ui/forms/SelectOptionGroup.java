@@ -44,7 +44,7 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
         return create((Node) titleElement);
     }
 
-    public static <T, E extends HTMLElement> SelectOptionGroup<T> create(IsElement<E> titleElement) {
+    public static <T> SelectOptionGroup<T> create(IsElement<?> titleElement) {
         return create(titleElement.element());
     }
 

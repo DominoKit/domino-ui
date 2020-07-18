@@ -121,7 +121,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         return this;
     }
 
-    public <E extends HTMLElement> Card appendDescriptionChild(IsElement<E> element) {
+    public Card appendDescriptionChild(IsElement<?> element) {
         return appendDescriptionChild(element.element());
     }
 
@@ -131,7 +131,8 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         return this;
     }
 
-    public <E extends HTMLElement> Card appendChild(IsElement<E> element) {
+    @Override
+    public Card appendChild(IsElement<?> element) {
         getBody().appendChild(element.element());
         return this;
     }
@@ -321,7 +322,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         return this;
     }
 
-    public <E extends HTMLElement> Card setHeaderLogo(IsElement<E> element) {
+    public Card setHeaderLogo(IsElement<?> element) {
         setHeaderLogo(element.element());
         return this;
     }

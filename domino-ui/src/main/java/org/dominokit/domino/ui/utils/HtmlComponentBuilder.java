@@ -72,5 +72,4 @@ public class HtmlComponentBuilder<E extends HTMLElement, T extends IsElement<E>>
         super.css(classes);
         return this;
     }
-
 }
