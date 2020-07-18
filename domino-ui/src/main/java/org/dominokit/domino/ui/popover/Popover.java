@@ -4,7 +4,6 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
@@ -43,6 +42,10 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
     private String positionClass;
     private boolean closeOnEscp = true;
     private boolean closeOnScroll = true;
+
+    private final List<OpenHandler> openHandlers= new ArrayList<>();
+    private final List<CloseHandler> closeHandlers= new ArrayList<>();
+
 
     static {
         document.body.addEventListener(EventType.click.getName(), evt-> Popover.closeAll());
@@ -86,6 +89,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
             open(targetElement);
             element.style().setZIndex(ModalBackDrop.getNextZIndex());
             ModalBackDrop.push(this);
+            openHandlers.forEach(OpenHandler::onOpen);
         }
 
         return this;
@@ -121,6 +125,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
         visible = false;
         document.body.removeEventListener(EventType.keydown.getName(), closeListener);
         ModalBackDrop.popPopOver();
+        closeHandlers.forEach(CloseHandler::onClose);
     }
 
     public void discard() {
@@ -221,5 +226,35 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover> implemen
 
     public boolean isCloseOnScroll() {
         return closeOnScroll;
+    }
+
+    public Popover addOpenListener(OpenHandler openHandler) {
+        this.openHandlers.add(openHandler);
+        return this;
+    }
+
+    public Popover addCloseListener(CloseHandler closeHandler) {
+        this.closeHandlers.add(closeHandler);
+        return this;
+    }
+
+    public Popover removeOpenHandler(OpenHandler openHandler) {
+        this.openHandlers.remove(openHandler);
+        return this;
+    }
+
+    public Popover removeCloseHandler(CloseHandler closeHandler) {
+        this.closeHandlers.remove(closeHandler);
+        return this;
+    }
+
+    @FunctionalInterface
+    public interface OpenHandler {
+        void onOpen();
+    }
+
+    @FunctionalInterface
+    public interface CloseHandler {
+        void onClose();
     }
 }
