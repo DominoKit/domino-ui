@@ -55,6 +55,8 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
 
     private UploadRequestSender requestSender = (XMLHttpRequest::send);
 
+    private DropEffect dropEffect = DropEffect.COPY;
+
     public FileUpload() {
         uploadMessageContainer.appendChild(uploadIconContainer);
         createHiddenInput();
@@ -67,6 +69,9 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
         uploadMessageContainer.addEventListener("click", evt -> hiddenFileInput.click());
         formElement.addEventListener("drop", evt -> {
             FileList files = ((DragEvent) evt).dataTransfer.files;
+            if(files.length > 0) {
+                ((DragEvent) evt).dataTransfer.dropEffect = dropEffect.getEffect();
+            }
             if (!singleFile || files.length == 1) {
                 uploadFiles(files);
             } else {
@@ -77,11 +82,13 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
             evt.preventDefault();
         });
         formElement.addEventListener("dragover", evt -> {
+            ((DragEvent) evt).dataTransfer.dropEffect = dropEffect.getEffect();
             addHover();
             evt.stopPropagation();
             evt.preventDefault();
         });
         formElement.addEventListener("dragleave", evt -> {
+            ((DragEvent) evt).dataTransfer.dropEffect = dropEffect.getEffect();
             if( isFormUploadElement(evt.target) )
                 removeHover();
             evt.stopPropagation();
@@ -191,6 +198,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
         return this;
     }
 
+    @Override
     public FileUpload appendChild(IsElement<?> child) {
         return appendChild(child.element());
     }
@@ -326,6 +334,17 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
 
     public FileUpload setSingleFileErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+        return this;
+    }
+
+    public DropEffect getDropEffect() {
+        return dropEffect;
+    }
+
+    public FileUpload setDropEffect(DropEffect dropEffect) {
+        if(nonNull(dropEffect)) {
+            this.dropEffect = dropEffect;
+        }
         return this;
     }
 
