@@ -79,7 +79,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
             return this;
         }
 
-        throw new IndexOutOfBoundsException("invalid index for tab insert! Index is ["+index+"], acceptable range is [0 - "+tabs.size()+"]");
+        throw new IndexOutOfBoundsException("invalid index for tab insert! Index is [" + index + "], acceptable range is [0 - " + tabs.size() + "]");
     }
 
     public TabsPanel appendChild(Tab tab) {
@@ -115,7 +115,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
             if (!tab.isActive()) {
                 activeTab = tab;
                 activeTab.activate();
-                if(!silent) {
+                if (!silent) {
                     activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, true));
                 }
                 if (nonNull(transition)) {
@@ -128,14 +128,14 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
     }
 
     public void deActivateTab(Tab tab) {
-       deActivateTab(tab, false);
+        deActivateTab(tab, false);
     }
 
     public void deActivateTab(Tab tab, boolean silent) {
         if (nonNull(tab) && tabs.contains(tab)) {
             if (tab.isActive()) {
                 tab.deActivate(silent);
-                if(!silent) {
+                if (!silent) {
                     activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, false));
                 }
                 if (nonNull(transition)) {
@@ -252,11 +252,11 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
         return this;
     }
 
-    public TabsPanel activateByKey(String key){
+    public TabsPanel activateByKey(String key) {
         return activateByKey(key, false);
     }
 
-    public TabsPanel activateByKey(String key, boolean silent){
+    public TabsPanel activateByKey(String key, boolean silent) {
         tabs.stream().filter(tab -> tab.getKey().equalsIgnoreCase(key))
                 .findFirst()
                 .ifPresent(tab -> activateTab(tab, silent));
@@ -269,6 +269,11 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel> impl
 
     public TabsPanel setAutoActivate(boolean autoActivate) {
         this.autoActivate = autoActivate;
+        return this;
+    }
+
+    public TabsPanel setTabsAlign(TabsAlign align) {
+        this.tabsList.css(align.getAlign());
         return this;
     }
 }
