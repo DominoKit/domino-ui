@@ -29,6 +29,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     private String requiredErrorMessage;
     private List<HTMLElement> errorLabels = new ArrayList<>();
     private boolean validationDisabled = false;
+    private Node requiredIndicator = DominoFields.INSTANCE.getRequiredIndicator().get();
 
     @Override
     public T setHelperText(String helperText) {
@@ -212,8 +213,14 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     public T setRequired(boolean required) {
         if (required) {
             addValidator(requiredValidator);
+            Node requiredIndicator = DominoFields.INSTANCE.getRequiredIndicator().get();
+            getLabelElement().appendChild(requiredIndicator);
+            this.requiredIndicator = requiredIndicator;
         } else {
             removeValidator(requiredValidator);
+            if (getLabelElement().contains(this.requiredIndicator)) {
+                getLabelElement().removeChild(this.requiredIndicator);
+            }
         }
         return (T) this;
     }
