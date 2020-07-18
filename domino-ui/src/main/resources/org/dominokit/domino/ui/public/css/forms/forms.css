@@ -537,10 +537,6 @@ label {
     display: none;
 }
 
-.field-group.tags-input .field-cntr {
-    height: auto;
-}
-
 .field-group.rounded.switch.focused:not([class*="readonly"]) .field-cntr,
 .field-group.lined.switch.focused:not([class*="readonly"]) .field-cntr
 .field-group.rounded.radio-group.focused:not([class*="readonly"]) .field-cntr,
@@ -840,4 +836,67 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::after {
 .switch label input[type=checkbox][disabled]+.lever:after,
 .switch label input[type=checkbox][disabled]:checked+.lever:after {
     background-color: #bdbdbd
+}
+
+.field-group.tags-input .field-cntr {
+    height: auto;
+}
+
+.tags-input {
+    min-height: 50px;
+    display: flex;
+    height: 100%;
+    padding-top: 5px;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+
+.tags-input.readonly,
+.tags-input.disabled {
+    pointer-events: none;
+}
+
+.tag-value {
+    margin-right: 5px;
+}
+
+.tags-input.readonly .tag-remove {
+    display: none;
+}
+
+.tag-remove {
+    vertical-align: middle;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.tag-remove[disabled] {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.tags-input.readonly .chip {
+    cursor: default;
+}
+
+.tags-input.readonly .chip-remove {
+    display: none !important;
+}
+
+.tag-text-input {
+    border: none;
+    margin-left: 15px;
+    margin-top: 5px;
+    height: 30px;
+}
+
+.tag-text-input.disabled,
+.tag-text-input.readonly {
+    background: transparent;
+    cursor: not-allowed;
+}
+
+.tags-input.readonly .tag-text-input,
+.tags-input.disabled .tag-text-input{
+    display: none;
 }
