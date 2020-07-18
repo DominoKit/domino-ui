@@ -295,7 +295,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     public boolean isOpened() {
-        return appendTarget.contains(element.element());
+        return element.isAttached();
     }
 
     public DropDownMenu setPosition(DropDownPosition position) {
