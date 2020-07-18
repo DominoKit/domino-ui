@@ -131,7 +131,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this;
     }
 
-    public <E extends HTMLElement> Chip setRemoveIcon(IsElement<E> removeIcon) {
+    public Chip setRemoveIcon(IsElement<?> removeIcon) {
         return setRemoveIcon(removeIcon.element());
     }
 

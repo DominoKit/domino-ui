@@ -24,7 +24,7 @@ public class MenuNavigation<V extends IsElement<?>> implements EventListener {
         this.items = items;
     }
 
-    public static <V extends IsElement<E>, E extends HTMLElement> MenuNavigation<V> create(List<V> items) {
+    public static <V extends IsElement<?>> MenuNavigation<V> create(List<V> items) {
         return new MenuNavigation<>(items);
     }
 

@@ -130,12 +130,12 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return this;
     }
 
-    public <E extends HTMLElement> Tab appendChild(IsElement<E> content) {
+    public Tab appendChild(IsElement<?> content) {
         return appendChild(content.element());
     }
 
     @Override
-    public <E extends HTMLElement> Tab setContent(IsElement<E> element) {
+    public Tab setContent(IsElement<?> element) {
         return setContent(element.element());
     }
 

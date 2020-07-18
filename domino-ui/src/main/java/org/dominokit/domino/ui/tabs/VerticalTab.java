@@ -123,7 +123,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         return this;
     }
 
-    public <E extends HTMLElement> VerticalTab appendChild(IsElement<E> content) {
+    public VerticalTab appendChild(IsElement<?> content) {
         return appendChild(content.element());
     }
 

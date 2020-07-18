@@ -12,11 +12,11 @@ public interface IsModalDialog<T> {
 
     T appendChild(Node content);
 
-    <E extends HTMLElement> T appendChild(IsElement<E> content);
+    T appendChild(IsElement<?> content);
 
     T appendFooterChild(Node content);
 
-    <E extends HTMLElement> T appendFooterChild(IsElement<E> content);
+    T appendFooterChild(IsElement<?> content);
 
     T large();
 

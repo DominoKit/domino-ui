@@ -60,7 +60,7 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
         return this;
     }
 
-    public <E extends HTMLElement> RadioGroup<T> appendChild(Radio<? extends T> radio, IsElement<E> content) {
+    public RadioGroup<T> appendChild(Radio<? extends T> radio, IsElement<?> content) {
         return appendChild(radio, content.element());
     }
 

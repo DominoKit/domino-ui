@@ -34,7 +34,7 @@ public class KeyboardEvents<T extends Node> {
             // ignore events without keycode (browser bug?)
             // example: picking value by keyboard from Chrome auto-suggest
             if (keyboardEvent.key == null)
-            	return;
+                return;
             String key = keyboardEvent.key.toLowerCase();
             HandlerContext handlerContext = null;
             if (keyboardEvent.ctrlKey && ctrlHandlers.containsKey(key)) {
@@ -59,7 +59,7 @@ public class KeyboardEvents<T extends Node> {
         return new KeyboardEvents<>(element);
     }
 
-    public static <E extends HTMLElement> KeyboardEvents listenOn(IsElement<E> element) {
+    public static KeyboardEvents listenOn(IsElement<?> element) {
         return new KeyboardEvents<>(element.element());
     }
 

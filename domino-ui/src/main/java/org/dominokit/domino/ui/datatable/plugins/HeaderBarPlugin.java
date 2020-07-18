@@ -292,8 +292,8 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
             textBox = TextBox.create()
                     .setPlaceholder(searchToolTip)
-                    .setLeftAddon(searchIcon)
-                    .setRightAddon(clearIcon)
+                    .addLeftAddOn(searchIcon)
+                    .addRightAddOn(clearIcon)
                     .styler(style -> style
                             .add("table-search-box")
                             .setMarginBottom("0px")

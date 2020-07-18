@@ -90,7 +90,7 @@ public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
         return this;
     }
 
-    public <E extends HTMLElement> Blockquote appendFooterChild(IsElement<E> content) {
+    public Blockquote appendFooterChild(IsElement<?> content) {
         return appendFooterChild(content.element());
     }
 

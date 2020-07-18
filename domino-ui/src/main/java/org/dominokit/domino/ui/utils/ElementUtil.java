@@ -26,7 +26,7 @@ public class ElementUtil {
                 element.removeChild(element.firstChild);
     }
 
-    public static <E extends HTMLElement> void clear(IsElement<E> element) {
+    public static void clear(IsElement<?> element) {
         clear(element.element());
     }
 
@@ -90,7 +90,7 @@ public class ElementUtil {
      * @param element
      * @param callback
      */
-    public static <E extends HTMLElement> Optional<ElementObserver> onAttach(IsElement<E> element, ObserverCallback callback) {
+    public static Optional<ElementObserver> onAttach(IsElement<?> element, ObserverCallback callback) {
         if (element != null) {
             return Optional.of(BodyObserver.addAttachObserver(element.element(), callback));
         }
@@ -118,7 +118,7 @@ public class ElementUtil {
      * @param element
      * @param callback
      */
-    public static <E extends HTMLElement> Optional<ElementObserver> onDetach(IsElement<E> element, ObserverCallback callback) {
+    public static Optional<ElementObserver> onDetach(IsElement<?> element, ObserverCallback callback) {
         if (element != null) {
             return Optional.of(BodyObserver.addDetachObserver(element.element(), callback));
         }
@@ -172,7 +172,7 @@ public class ElementUtil {
         DomGlobal.document.documentElement.scrollTop = 0;
     }
 
-    public static <E extends HTMLElement> void scrollToElement(IsElement<E> isElement) {
+    public static void scrollToElement(IsElement<?> isElement) {
         scrollToElement(isElement.element());
     }
 

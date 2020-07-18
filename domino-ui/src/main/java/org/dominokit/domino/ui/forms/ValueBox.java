@@ -392,36 +392,6 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return DominoElement.of(fieldContainer);
     }
 
-    /**
-     * @param icon
-     * @return
-     * @deprecated use {@link #addLeftAddOn(FlexItem)}
-     */
-    @Deprecated
-    public T setIcon(BaseIcon<?> icon) {
-        return setLeftAddon(icon.element());
-    }
-
-    /**
-     * @param leftAddon
-     * @return
-     * @deprecated use {@link #addLeftAddOn(FlexItem)}
-     */
-    @Deprecated
-    public <E extends HTMLElement> T setLeftAddon(IsElement<E> leftAddon) {
-        return addLeftAddOn(FlexItem.create().appendChild(leftAddon.element()));
-    }
-
-    /**
-     * @param leftAddon
-     * @return
-     * @deprecated use {@link #addLeftAddOn(FlexItem)}
-     */
-    @Deprecated
-    public T setLeftAddon(Element leftAddon) {
-        return addLeftAddOn(FlexItem.create().appendChild(leftAddon));
-    }
-
     public T addLeftAddOn(FlexItem addon) {
         leftAddOnsContainer.appendChild(addon);
         if (!leftAddOnsContainer.isAttached()) {
@@ -430,32 +400,12 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
-    public <E extends HTMLElement> T addLeftAddOn(IsElement<E> addon) {
+    public T addLeftAddOn(IsElement<?> addon) {
         return addLeftAddOn(FlexItem.create().appendChild(addon));
     }
 
     public T addLeftAddOn(Node addon) {
         return addLeftAddOn(FlexItem.create().appendChild(addon));
-    }
-
-    /**
-     * @param rightAddon
-     * @return
-     * @deprecated use {@link #addRightAddOn(FlexItem)}
-     */
-    @Deprecated
-    public <E extends HTMLElement> T setRightAddon(IsElement<E> rightAddon) {
-        return addRightAddOn(FlexItem.create().appendChild(rightAddon.element()));
-    }
-
-    /**
-     * @param rightAddon
-     * @return
-     * @deprecated use {@link #addRightAddOn(FlexItem)}
-     */
-    @Deprecated
-    public T setRightAddon(Element rightAddon) {
-        return addRightAddOn(FlexItem.create().appendChild(rightAddon));
     }
 
     public T addRightAddOn(FlexItem rightAddon) {
@@ -466,7 +416,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
-    public <E extends HTMLElement> T addRightAddOn(IsElement<E> addon) {
+    public T addRightAddOn(IsElement<?> addon) {
         addRightAddOn(FlexItem.create().appendChild(addon));
         return (T) this;
     }
@@ -480,7 +430,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return removeRightAddOn(addon.element());
     }
 
-    public <E extends HTMLElement> T removeRightAddOn(IsElement<E> addon) {
+    public T removeRightAddOn(IsElement<?> addon) {
         return removeRightAddOn(addon.element());
     }
 
@@ -499,7 +449,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return removeLeftAddOn(addon.element());
     }
 
-    public <E extends HTMLElement> T removeLeftAddOn(IsElement<E> addon) {
+    public T removeLeftAddOn(IsElement<?> addon) {
         return removeLeftAddOn(addon.element());
     }
 

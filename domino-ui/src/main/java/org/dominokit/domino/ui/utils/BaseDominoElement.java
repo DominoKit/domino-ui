@@ -14,6 +14,8 @@ import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 import org.jboss.elemento.ObserverCallback;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
@@ -36,6 +38,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     private WavesSupport wavesSupport;
     private Optional<ElementObserver> attachObserver = Optional.empty();
     private Optional<ElementObserver> detachObserver = Optional.empty();
+    private boolean collapsed = false;
 
     @Editor.Ignore
     protected void init(T element) {
@@ -185,7 +188,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
     @Override
     @Editor.Ignore
-    public <E2 extends HTMLElement> T appendChild(IsElement<E2> isElement) {
+    public T appendChild(IsElement<?> isElement) {
         element.element().appendChild(isElement.element());
         return element;
     }
@@ -228,19 +231,19 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
-    public <OE extends HTMLElement, OT extends IsElement<OE>> T insertBefore(Node newNode, BaseDominoElement<OE, OT> otherNode) {
+    public T insertBefore(Node newNode, BaseDominoElement<? extends HTMLElement, ? extends IsElement<?>> otherNode) {
         element().insertBefore(newNode, otherNode.element());
         return element;
     }
 
     @Editor.Ignore
-    public <NE extends HTMLElement, NT extends IsElement<NE>, OE extends HTMLElement, OT extends IsElement<OE>> T insertBefore(BaseDominoElement<NE, NT> newNode, BaseDominoElement<OE, OT> otherNode) {
+    public T insertBefore(BaseDominoElement<?, ?> newNode, BaseDominoElement<?, ?> otherNode) {
         element().insertBefore(newNode.element(), otherNode.element());
         return element;
     }
 
     @Editor.Ignore
-    public <NE extends HTMLElement, NT extends IsElement<NE>> T insertBefore(BaseDominoElement<NE, NT> newNode, Node otherNode) {
+    public T insertBefore(BaseDominoElement<?, ?> newNode, Node otherNode) {
         element().insertBefore(newNode.element(), otherNode);
         return element;
     }
@@ -253,19 +256,19 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
-    public <NE extends HTMLElement, NT extends IsElement<NE>> T insertAfter(Node newNode, BaseDominoElement<NE, NT> otherNode) {
+    public T insertAfter(Node newNode, BaseDominoElement<?, ?> otherNode) {
         element().insertBefore(newNode, otherNode.element().nextSibling);
         return element;
     }
 
     @Editor.Ignore
-    public <NE extends HTMLElement, NT extends IsElement<NE>, OE extends HTMLElement, OT extends IsElement<OE>> T insertAfter(BaseDominoElement<NE, NT> newNode, BaseDominoElement<OE, OT> otherNode) {
+    public T insertAfter(BaseDominoElement<?, ?> newNode, BaseDominoElement<?, ?> otherNode) {
         element().insertBefore(newNode.element(), otherNode.element().nextSibling);
         return element;
     }
 
     @Editor.Ignore
-    public <NE extends HTMLElement, NT extends IsElement<NE>> T insertAfter(BaseDominoElement<NE, NT> newNode, Node otherNode) {
+    public T insertAfter(BaseDominoElement<?,?> newNode, Node otherNode) {
         element().insertBefore(newNode.element(), otherNode.nextSibling);
         return element;
     }
@@ -277,12 +280,12 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
-    public <E2 extends HTMLElement> T insertFirst(IsElement<E2> element) {
+    public T insertFirst(IsElement<?> element) {
         return insertFirst(element.element());
     }
 
     @Editor.Ignore
-    public <NE extends HTMLElement, NT extends IsElement<NE>> T insertFirst(BaseDominoElement<E, T> newNode) {
+    public  T insertFirst(BaseDominoElement<?, ?> newNode) {
         element().insertBefore(newNode.element(), element().firstChild);
         return element;
     }
@@ -571,7 +574,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
 
     @Editor.Ignore
-    public <E2 extends HTMLElement> T setContent(IsElement<E2> element) {
+    public T setContent(IsElement<?> element) {
         return setContent(element.element());
     }
 

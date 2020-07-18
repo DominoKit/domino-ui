@@ -6,5 +6,5 @@ import org.jboss.elemento.IsElement;
 
 public interface HasChildren<T> {
     T appendChild(Node node);
-    <E extends HTMLElement> T appendChild(IsElement<E> isElement);
+    T appendChild(IsElement<?> isElement);
 }

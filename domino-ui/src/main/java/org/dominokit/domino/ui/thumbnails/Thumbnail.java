@@ -32,7 +32,7 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
         return this;
     }
 
-    public <E extends HTMLElement> Thumbnail setContent(IsElement<E> content) {
+    public Thumbnail setContent(IsElement<?> content) {
         return setContent(content.element());
     }
 
@@ -51,7 +51,7 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
         return this;
     }
 
-    public <E extends HTMLElement> Thumbnail appendCaptionChild(IsElement<E> content) {
+    public Thumbnail appendCaptionChild(IsElement<?> content) {
         return appendCaptionChild(content.element());
     }
 

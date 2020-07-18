@@ -60,7 +60,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
         return this;
     }
 
-    public <E extends HTMLElement> MediaObject setLeftMedia(IsElement<E> element) {
+    public MediaObject setLeftMedia(IsElement<?> element) {
         return setLeftMedia(element.element());
     }
 
@@ -75,7 +75,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
         return this;
     }
 
-    public <E extends HTMLElement> MediaObject setRightMedia(IsElement<E> element) {
+    public MediaObject setRightMedia(IsElement<?> element) {
         return setRightMedia(element.element());
     }
 
@@ -84,7 +84,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
         return this;
     }
 
-    public <E extends HTMLElement> MediaObject appendChild(IsElement<E> content) {
+    public MediaObject appendChild(IsElement<?> content) {
         return appendChild(content.element());
     }
 

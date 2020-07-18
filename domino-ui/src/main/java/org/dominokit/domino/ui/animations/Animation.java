@@ -39,11 +39,7 @@ public class Animation {
         return new Animation(element);
     }
 
-    public static <E extends HTMLElement, T extends IsElement<E>> Animation create(BaseDominoElement<E, T> element) {
-        return new Animation(element.element());
-    }
-
-    public static <E extends HTMLElement> Animation create(IsElement<E> element) {
+    public static Animation create(IsElement<?> element) {
         return new Animation(element.element());
     }
 

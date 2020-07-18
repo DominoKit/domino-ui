@@ -24,7 +24,7 @@ public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>> 
         setContent(content);
     }
 
-    public <E extends HTMLElement> SpinItem(T value, IsElement<E> content) {
+    public SpinItem(T value, IsElement<?> content) {
         this(value);
         setContent(content);
     }
@@ -37,7 +37,7 @@ public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>> 
         return new SpinItem<>(value, content);
     }
 
-    public static <T, E extends HTMLElement> SpinItem<T> create(T value, IsElement<E> content) {
+    public static <T> SpinItem<T> create(T value, IsElement<?> content) {
         return new SpinItem<>(value, content);
     }
 

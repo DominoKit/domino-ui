@@ -171,7 +171,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     }
 
     @Override
-    public <E extends HTMLElement> T appendChild(IsElement<E> content) {
+    public T appendChild(IsElement<?> content) {
         return appendChild(content.element());
     }
 
@@ -182,7 +182,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     }
 
     @Override
-    public <E extends HTMLElement> T appendFooterChild(IsElement<E> content) {
+    public T appendFooterChild(IsElement<?> content) {
         return appendFooterChild(content.element());
     }
 
