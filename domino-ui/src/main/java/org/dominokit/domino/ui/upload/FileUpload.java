@@ -12,9 +12,11 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasName;
 import org.jboss.elemento.IsElement;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import static java.util.Objects.nonNull;
@@ -55,7 +57,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
 
     private UploadRequestSender requestSender = (XMLHttpRequest::send);
 
-    private DropEffect dropEffect = DropEffect.COPY;
+    private Optional<DropEffect> dropEffect = Optional.empty();
 
     public FileUpload() {
         uploadMessageContainer.appendChild(uploadIconContainer);
@@ -69,8 +71,8 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
         uploadMessageContainer.addEventListener("click", evt -> hiddenFileInput.click());
         formElement.addEventListener("drop", evt -> {
             FileList files = ((DragEvent) evt).dataTransfer.files;
-            if(files.length > 0) {
-                ((DragEvent) evt).dataTransfer.dropEffect = dropEffect.getEffect();
+            if(dropEffect.isPresent() && files.length > 0) {
+                ((DragEvent) evt).dataTransfer.dropEffect = dropEffect.get().getEffect();
             }
             if (!singleFile || files.length == 1) {
                 uploadFiles(files);
@@ -82,13 +84,17 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
             evt.preventDefault();
         });
         formElement.addEventListener("dragover", evt -> {
-            ((DragEvent) evt).dataTransfer.dropEffect = dropEffect.getEffect();
+            if(dropEffect.isPresent()) {
+                ((DragEvent) evt).dataTransfer.dropEffect = dropEffect.get().getEffect();
+            }
             addHover();
             evt.stopPropagation();
             evt.preventDefault();
         });
         formElement.addEventListener("dragleave", evt -> {
-            ((DragEvent) evt).dataTransfer.dropEffect = dropEffect.getEffect();
+            if(dropEffect.isPresent()) {
+                ((DragEvent) evt).dataTransfer.dropEffect = dropEffect.get().getEffect();
+            }
             if( isFormUploadElement(evt.target) )
                 removeHover();
             evt.stopPropagation();
@@ -337,13 +343,13 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload> im
         return this;
     }
 
-    public DropEffect getDropEffect() {
+    public Optional<DropEffect> getDropEffect() {
         return dropEffect;
     }
 
     public FileUpload setDropEffect(DropEffect dropEffect) {
         if(nonNull(dropEffect)) {
-            this.dropEffect = dropEffect;
+            this.dropEffect = Optional.of(dropEffect);
         }
         return this;
     }
