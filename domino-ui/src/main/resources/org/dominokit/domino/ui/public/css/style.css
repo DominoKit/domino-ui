@@ -2035,6 +2035,7 @@ h6 {
     font-weight: bold;
 }
 
+textarea,
 button,
 input,
 select,
@@ -2991,7 +2992,6 @@ a.disabled {
     margin-left: auto;
     margin-right: auto;
 }
-
 
 .btn-dropdown {
     width: 100%;
