@@ -50,7 +50,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     private AppendStrategy appendStrategy = AppendStrategy.LAST;
     private SearchFilter searchFilter = (searchText, dropdownAction, caseSensitive) -> {
         if (caseSensitive) {
-           return dropdownAction.getContent().textContent.contains(searchText);
+            return dropdownAction.getContent().textContent.contains(searchText);
         } else {
             return dropdownAction.getContent().textContent.toLowerCase().contains(searchText.toLowerCase());
         }
@@ -85,8 +85,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         });
         searchContainer.appendChild(FlexLayout.create()
                 .appendChild(FlexItem.create()
-                        .appendChild(Icons.ALL.search().styler(style -> style
-                                .add(Styles.vertical_center))))
+                        .appendChild(Icons.ALL.search())
+                )
                 .appendChild(FlexItem.create()
                         .setFlexGrow(1)
                         .appendChild(searchBox)
@@ -153,7 +153,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         for (DropdownAction<?> action : actions) {
 
             action.setFilteredOut(false);
-            boolean contains =searchFilter.filter(searchValue, action, caseSensitiveSearch);
+            boolean contains = searchFilter.filter(searchValue, action, caseSensitiveSearch);
             contains = contains && !action.isExcludeFromSearchResults();
 
             if (!contains) {
@@ -267,7 +267,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
                 if (searchable) {
                     searchBox.element().focus();
                     clearSearch();
-                }else if(focus){
+                } else if (focus) {
                     focus();
                 }
 
@@ -445,7 +445,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     public DropDownMenu setSearchFilter(SearchFilter searchFilter) {
-        if(nonNull(searchFilter)) {
+        if (nonNull(searchFilter)) {
             this.searchFilter = searchFilter;
         }
         return this;
