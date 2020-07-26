@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.label;
 
 public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> extends BaseDominoElement<HTMLElement, T> implements FormElement<T, V>, IsReadOnly<T>, HasInputElement {
@@ -211,16 +212,14 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     @Override
     public T setRequired(boolean required) {
+        if (nonNull(getLabelElement()) && getLabelElement().hasDirectChild(requiredIndicator)) {
+            getLabelElement().removeChild(requiredIndicator);
+        }
         if (required) {
             addValidator(requiredValidator);
-            Node requiredIndicator = DominoFields.INSTANCE.getRequiredIndicator().get();
             getLabelElement().appendChild(requiredIndicator);
-            this.requiredIndicator = requiredIndicator;
         } else {
             removeValidator(requiredValidator);
-            if (getLabelElement().contains(this.requiredIndicator)) {
-                getLabelElement().removeChild(this.requiredIndicator);
-            }
         }
         return (T) this;
     }
