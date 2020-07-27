@@ -122,7 +122,7 @@
             <dependency>
                 <groupId>org.dominokit</groupId>
                 <artifactId>domino-apt-commons</artifactId>
-                <version>1.0-rc.4-SNAPSHOT</version>
+                <version>0.0.1</version>
             </dependency>
             <dependency>
                 <groupId>com.google.auto.service</groupId>
