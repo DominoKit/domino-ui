@@ -92,4 +92,13 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
     public FlexItem getLogoItem() {
         return logoItem;
     }
+
+    public FlexItem getActionBarItem() {
+        return actionBarItem;
+    }
+
+    public FlexItem getTitleItem() {
+        return titleItem;
+    }
+        
 }
