@@ -235,6 +235,10 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return size;
     }
 
+    public DominoElement<HTMLElement> getTextSpan(){
+        return DominoElement.of(textSpan);
+    }
+
     private void applyCircleWaves() {
         applyWaveStyle(WaveStyle.CIRCLE);
         applyWaveStyle(WaveStyle.FLOAT);
