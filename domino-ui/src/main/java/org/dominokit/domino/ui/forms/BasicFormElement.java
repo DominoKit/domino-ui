@@ -31,6 +31,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     private List<HTMLElement> errorLabels = new ArrayList<>();
     private boolean validationDisabled = false;
     private Node requiredIndicator = DominoFields.INSTANCE.getRequiredIndicator().get();
+    private boolean showRequiredIndicator = true;
 
     @Override
     public T setHelperText(String helperText) {
@@ -212,16 +213,22 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     @Override
     public T setRequired(boolean required) {
-        if (nonNull(getLabelElement()) && getLabelElement().hasDirectChild(requiredIndicator)) {
-            getLabelElement().removeChild(requiredIndicator);
-        }
+        removeRequiredIndicator();
         if (required) {
             addValidator(requiredValidator);
-            getLabelElement().appendChild(requiredIndicator);
+            if(this.showRequiredIndicator) {
+                getLabelElement().appendChild(requiredIndicator);
+            }
         } else {
             removeValidator(requiredValidator);
         }
         return (T) this;
+    }
+
+    private void removeRequiredIndicator() {
+        if (nonNull(getLabelElement()) && getLabelElement().hasDirectChild(requiredIndicator)) {
+            getLabelElement().removeChild(requiredIndicator);
+        }
     }
 
     @Override
@@ -245,6 +252,19 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     @Override
     public String getRequiredErrorMessage() {
         return isNull(requiredErrorMessage) ? "* This field is required." : requiredErrorMessage;
+    }
+
+    public T setShowRequiredIndicator(boolean showRequiredIndicator) {
+        this.showRequiredIndicator = showRequiredIndicator;
+        removeRequiredIndicator();
+        if (showRequiredIndicator && isRequired()) {
+                getLabelElement().appendChild(requiredIndicator);
+        }
+        return (T) this;
+    }
+
+    public boolean isShowRequiredIndicator() {
+        return showRequiredIndicator;
     }
 
     @Override
