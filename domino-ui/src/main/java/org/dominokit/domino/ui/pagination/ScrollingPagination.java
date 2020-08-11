@@ -110,13 +110,15 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         if (pages > 0) {
             IntStream.rangeClosed(1, pages).forEach(p -> DominoElement.of(li().css("page"))
                     .apply(element -> {
-                        allPages.add(element);
-                        pagesElement.appendChild(element
+                        element
                                 .appendChild(DominoElement.of(a())
                                         .setTextContent(p + "")
-                                        .addClickListener(evt -> moveToPage(p, false)))
-                                .toggleDisplay(p <= windowSize)
-                        );
+                                        .addClickListener(evt -> moveToPage(p, false))
+                                );
+                        allPages.add(element);
+                        if(p <= windowSize) {
+                            pagesElement.appendChild(element);
+                        }
                     }));
         }
 
@@ -256,7 +258,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
             for (int i = windowMinLimit; i < windowMaxLimit; i++) {
                 if (i < allPages.size()) {
-                    allPages.get(i).hide();
+                    allPages.get(i).remove();
                 }
             }
 
@@ -265,7 +267,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
             for (int i = targetWindowMinLimit; i < targetWindowMaxLimit; i++) {
                 if (i < allPages.size()) {
-                    allPages.get(i).show();
+                    pagesElement.insertBefore(allPages.get(i), dotsElement);
                 }
             }
 

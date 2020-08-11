@@ -216,7 +216,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
         removeRequiredIndicator();
         if (required) {
             addValidator(requiredValidator);
-            if(this.showRequiredIndicator) {
+            if (this.showRequiredIndicator) {
                 getLabelElement().appendChild(requiredIndicator);
             }
         } else {
@@ -258,7 +258,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
         this.showRequiredIndicator = showRequiredIndicator;
         removeRequiredIndicator();
         if (showRequiredIndicator && isRequired()) {
-                getLabelElement().appendChild(requiredIndicator);
+            getLabelElement().appendChild(requiredIndicator);
         }
         return (T) this;
     }
