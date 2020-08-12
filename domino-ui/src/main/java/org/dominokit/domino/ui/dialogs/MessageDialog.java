@@ -16,6 +16,8 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
+import java.util.function.Supplier;
+
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.div;
 
@@ -28,7 +30,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
     private Color iconColorEnd;
     private Transition iconStartTransition;
     private Transition iconEndTransition;
-    private static Button okButton;
+    private Button okButton;
 
     public MessageDialog() {
         init(this);
@@ -39,9 +41,18 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         });
     }
 
+    public static MessageDialog createMessage(Node content, Supplier<Button> okButtonProvider) {
+        return createMessage(content, () -> {}, okButtonProvider);
+    }
+
     public static MessageDialog createMessage(String title, Node content) {
         return createMessage(title, content, () -> {
         });
+    }
+
+    public static MessageDialog createMessage(String title, Node content, Supplier<Button> okButtonProvider) {
+        return createMessage(title, content, () -> {
+        }, okButtonProvider);
     }
 
     public static MessageDialog createMessage(String title, Node content, CloseHandler closeHandler) {
@@ -50,7 +61,19 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         return modalDialog;
     }
 
+    public static MessageDialog createMessage(String title, Node content, CloseHandler closeHandler, Supplier<Button> okButtonProvider) {
+        MessageDialog modalDialog = createMessage(content, closeHandler, okButtonProvider);
+        modalDialog.setTitle(title);
+        return modalDialog;
+    }
+
     public static MessageDialog createMessage(Node content, CloseHandler closeHandler) {
+        return createMessage(content, closeHandler, () -> Button.create("OK")
+                .styler(style -> style.add(MessageDialogStyles.DIALOG_BUTTON))
+                .linkify());
+    }
+
+    public static MessageDialog createMessage(Node content, CloseHandler closeHandler, Supplier<Button> okButtonProvider) {
         MessageDialog messageDialog = new MessageDialog();
         messageDialog.style.add(MessageDialogStyles.MESSAGE_DIALOG);
 
@@ -61,11 +84,9 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         messageDialog.setAutoClose(true);
         messageDialog.addCloseListener(closeHandler::onClose);
         messageDialog.appendChild(content);
-        okButton = Button.create("OK")
-                .styler(style -> style.add(MessageDialogStyles.DIALOG_BUTTON))
-                .linkify();
-        messageDialog.appendFooterChild(okButton);
-        okButton.getClickableElement().addEventListener(EventType.click.getName(), evt -> messageDialog.close());
+        messageDialog.okButton = okButtonProvider.get();
+        messageDialog.appendFooterChild(messageDialog.okButton);
+        messageDialog.okButton.getClickableElement().addEventListener(EventType.click.getName(), evt -> messageDialog.close());
 
         return messageDialog;
     }
@@ -74,7 +95,6 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         okButton.setContent(text);
         return this;
     }
-
 
     public static MessageDialog createMessage(String message) {
         return createMessage(message, () -> {
@@ -94,6 +114,10 @@ public class MessageDialog extends BaseModal<MessageDialog> {
 
     public static MessageDialog createMessage(String message, CloseHandler closeHandler) {
         return createMessage(Paragraph.create(message).element(), closeHandler);
+    }
+
+    public static MessageDialog createMessage(String message, CloseHandler closeHandler, Supplier<Button> okButtonProvider) {
+        return createMessage(Paragraph.create(message).element(), closeHandler, okButtonProvider);
     }
 
     public MessageDialog success(BaseIcon<?> icon) {
@@ -183,6 +207,10 @@ public class MessageDialog extends BaseModal<MessageDialog> {
         }
         modalElement.getModalHeader().insertBefore(content, modalElement.getModalTitle());
         return this;
+    }
+
+    public Button getOkButton() {
+        return okButton;
     }
 
     public MessageDialog appendHeaderChild(IsElement<?> content) {
