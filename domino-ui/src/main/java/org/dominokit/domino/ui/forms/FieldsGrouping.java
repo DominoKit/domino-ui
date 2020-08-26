@@ -12,6 +12,7 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
 
     private List<HasGrouping> formElements = new ArrayList<>();
     private List<Validator> validators = new ArrayList<>();
+    private List<String> errors = new ArrayList<>();
 
     public static FieldsGrouping create() {
         return new FieldsGrouping();
@@ -23,6 +24,7 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
     }
 
     public ValidationResult validate() {
+        this.errors.clear();
         boolean fieldsValid = validateFields();
 
         if (!fieldsValid) {
@@ -46,6 +48,7 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
             ValidationResult result = formElement.validate();
             if (!result.isValid()) {
                 valid = false;
+                this.errors.addAll(formElement.getErrors());
             }
         }
         return valid;
@@ -58,17 +61,18 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
 
     public FieldsGrouping clearInvalid() {
         formElements.forEach(HasGrouping::clearInvalid);
+        this.errors.clear();
         return this;
     }
 
     public FieldsGrouping invalidate(String errorMessage) {
-
         return invalidate(Collections.singletonList(errorMessage));
     }
 
     @Override
     public FieldsGrouping invalidate(List<String> errorMessages) {
         formElements.forEach(formElement -> formElement.invalidate(errorMessages));
+        this.errors.addAll(errorMessages);
         return this;
     }
 
@@ -136,13 +140,18 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
         return validators.contains(validator);
     }
 
-    public FieldsGrouping removeFormElement(HasGrouping hasGrouping){
+    public FieldsGrouping removeFormElement(HasGrouping hasGrouping) {
         formElements.remove(hasGrouping);
         return this;
     }
 
-    public FieldsGrouping removeAllFormElements(){
+    public FieldsGrouping removeAllFormElements() {
         formElements.clear();
         return this;
+    }
+
+    @Override
+    public List<String> getErrors() {
+        return errors;
     }
 }
