@@ -29,6 +29,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     private boolean fixErrorsPosition;
     private String requiredErrorMessage;
     private List<HTMLElement> errorLabels = new ArrayList<>();
+    private List<String> errors = new ArrayList<>();
     private boolean validationDisabled = false;
     private Node requiredIndicator = DominoFields.INSTANCE.getRequiredIndicator().get();
     private boolean showRequiredIndicator = true;
@@ -173,6 +174,9 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
             getErrorsContainer().appendChild(errorLabel);
         });
 
+        this.errors.clear();
+        this.errors.addAll(errorMessages);
+
         return (T) this;
     }
 
@@ -203,8 +207,14 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
 
     private void removeErrors() {
         errorLabels.clear();
+        errors.clear();
         getErrorsContainer().clearElement();
         removeCss("error");
+    }
+
+    @Override
+    public List<String> getErrors() {
+        return errors;
     }
 
     public List<HTMLElement> getErrorLabels() {

@@ -26,6 +26,9 @@ public interface HasValidation<T> {
     T invalidate(List<String> errorMessages);
 
     @Editor.Ignore
+    List<String> getErrors();
+
+    @Editor.Ignore
     T clearInvalid();
 
     @FunctionalInterface
