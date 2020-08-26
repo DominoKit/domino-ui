@@ -4,6 +4,7 @@ import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
+import org.dominokit.domino.ui.utils.HasDeselectionHandler;
 import org.dominokit.domino.ui.utils.Switchable;
 
 import java.util.ArrayList;
@@ -11,12 +12,14 @@ import java.util.List;
 
 import static org.jboss.elemento.Elements.div;
 
-public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> implements Switchable<ChipsGroup>, HasSelectionHandler<ChipsGroup, Chip> {
+public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> implements Switchable<ChipsGroup>, 
+        HasSelectionHandler<ChipsGroup, Chip>, HasDeselectionHandler<ChipsGroup> {
 
     private HTMLDivElement element = div().element();
     private List<Chip> chips = new ArrayList<>();
     private Chip selectedChip;
     private List<SelectionHandler<Chip>> selectionHandlers = new ArrayList<>();
+    private List<DeselectionHandler> deSelectionHandlers = new ArrayList<>();
 
     public ChipsGroup() {
         init(this);
@@ -45,6 +48,10 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> im
             }
             this.selectedChip = chip;
             selectionHandlers.forEach(handler -> handler.onSelection(chip));
+        });
+        chip.addDeselectionHandler(() -> {
+            this.selectedChip = null;
+            deSelectionHandlers.forEach(handler -> handler.onDeselection());
         });
         chips.add(chip);
         element.appendChild(chip.element());
@@ -83,6 +90,12 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> im
         selectionHandlers.remove(selectionHandler);
         return this;
     }
+    
+    @Override
+    public ChipsGroup addDeselectionHandler(DeselectionHandler deselectionHandler) {
+       deSelectionHandlers.add(deselectionHandler);
+       return this;
+    }
 
     @Override
     public HTMLDivElement element() {
@@ -105,5 +118,5 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup> im
         return chips;
     }
 
-
+    
 }
