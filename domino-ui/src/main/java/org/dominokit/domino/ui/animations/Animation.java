@@ -2,7 +2,6 @@ package org.dominokit.domino.ui.animations;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.elemento.IsElement;
