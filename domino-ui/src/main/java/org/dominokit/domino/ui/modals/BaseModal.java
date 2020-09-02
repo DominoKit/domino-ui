@@ -121,18 +121,20 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     void addTabIndexHandler() {
         element().addEventListener(EventType.keydown.getName(), evt -> {
-            initFocusElements();
             KeyboardEvent keyboardEvent = Js.cast(evt);
             switch (keyboardEvent.code) {
                 case "Tab":
+                    initFocusElements();
                     if (focusElements.size() <= 1) {
                         evt.preventDefault();
-                        break;
                     }
                     if (keyboardEvent.shiftKey) {
                         handleBackwardTab(evt);
                     } else {
                         handleForwardTab(evt);
+                    }
+                    if (!focusElements.contains(DominoDom.document.activeElement) && nonNull(firstFocusElement)) {
+                        firstFocusElement.focus();
                     }
                     break;
                 case "Escape":
@@ -142,10 +144,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
                     break;
                 default:
                     break;
-            }
-
-            if (!focusElements.contains(DominoDom.document.activeElement) && nonNull(firstFocusElement)) {
-                firstFocusElement.focus();
             }
         });
     }
