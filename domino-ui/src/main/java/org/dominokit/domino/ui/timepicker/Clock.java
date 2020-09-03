@@ -12,6 +12,8 @@ interface Clock {
     int getHour();
 
     int getMinute();
+    
+    int getSecond();
 
     String format();
 
@@ -26,6 +28,10 @@ interface Clock {
     void setHour(int hour);
 
     void setMinute(int minute);
+    
+    void setSecond(int second);
+    
+    void setShowSeconds(boolean showSecond);
 
     int getCorrectHour(int hour);
 
