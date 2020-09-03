@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.cards;
 
 import elemental2.dom.*;
+import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.grid.flex.FlexAlign;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
@@ -242,9 +243,9 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
             collapseAction = createHeaderAction(collapseIcon);
         }
 
-        KeyboardEvents.listenOn(collapseAction).onEnter(evt -> switchVisibilty());
+        KeyboardEvents.listenOn(collapseAction).onEnter(evt -> switchVisibility());
 
-        collapseAction.addEventListener("click", evt -> switchVisibilty());
+        collapseAction.addEventListener("click", evt -> switchVisibility());
 
         putAction(collapseAction);
 
@@ -253,42 +254,59 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         return this;
     }
 
-    private void switchVisibilty() {
+    private void switchVisibility() {
         if (collapsible) {
             if (body.getCollapsible().isHidden()) {
-                show();
+                expand();
                 collapseAnchor.element().setAttribute("aria-expanded", "true");
             } else {
-                hide();
+                collapse();
                 collapseAnchor.element().setAttribute("aria-expanded", "false");
             }
         }
     }
 
     public Card toggle() {
-        if (isHidden()) {
-            show();
+        if (body.getCollapsible().isHidden()) {
+            expand();
         } else {
-            hide();
+            collapse();
         }
         return this;
     }
 
-    @Override
-    public Card show() {
+    public Card expand() {
         body.getCollapsible().show();
         return this;
     }
 
-    @Override
-    public Card hide() {
+    public Card collapse() {
         body.getCollapsible().hide();
         return this;
     }
 
-    @Override
-    public boolean isHidden() {
+    public boolean isCollapsed() {
         return body.getCollapsible().isHidden();
+    }
+
+    public Card addExpandListener(Collapsible.ShowCompletedHandler listener){
+        body.addShowListener(listener);
+        return this;
+    }
+
+    public Card removeExpandListener(Collapsible.ShowCompletedHandler listener){
+        body.removeShowListener(listener);
+        return this;
+    }
+
+    public Card addCollapseListener(Collapsible.HideCompletedHandler listener){
+        body.addHideListener(listener);
+        return this;
+    }
+
+    public Card removeCollapseListener(Collapsible.HideCompletedHandler listener){
+        body.removeHideListener(listener);
+        return this;
     }
 
     public Card setBodyPadding(String padding) {
