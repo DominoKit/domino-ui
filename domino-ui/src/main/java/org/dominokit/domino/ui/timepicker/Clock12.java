@@ -11,6 +11,8 @@ import static org.dominokit.domino.ui.timepicker.DayPeriod.*;
 class Clock12 implements Clock {
     private int hour;
     private int minute;
+    private int second;
+    private boolean showSecond;
 
     private DayPeriod dayPeriod;
     private DateTimeFormatInfo dateTimeFormatInfo;
@@ -23,6 +25,7 @@ class Clock12 implements Clock {
     Clock12(JsDate jsDate) {
         this.setDayPeriod(jsDate.getHours() > 11 ? PM : AM);
         this.minute = jsDate.getMinutes();
+        this.second = jsDate.getSeconds();
         if (jsDate.getHours() > 12) {
             this.hour = jsDate.getHours() - 12;
         } else if (jsDate.getHours() == 0) {
@@ -48,12 +51,24 @@ class Clock12 implements Clock {
             this.dayPeriod = dayPeriod;
     }
 
+    @Override
     public int getHour() {
         return hour;
     }
 
+    @Override
     public int getMinute() {
         return this.minute;
+    }
+
+    @Override
+    public int getSecond() {
+        return this.second;
+    }
+    
+    @Override
+    public void setShowSeconds(boolean showSecond) {
+        this.showSecond = showSecond;
     }
 
     @Override
@@ -65,7 +80,8 @@ class Clock12 implements Clock {
     public String formatNoPeriod() {
         String hourString = this.hour < 10 ? "0" + this.hour : this.hour + "";
         String minuteString = this.minute < 10 ? "0" + this.minute : this.minute + "";
-        return hourString + ":" + minuteString;
+        String secondString = this.second < 10 ? "0" + this.second : this.second + "";
+        return hourString + ":" + minuteString + (showSecond ?  ":" + secondString : "");
     }
 
     @Override
@@ -100,6 +116,11 @@ class Clock12 implements Clock {
     }
 
     @Override
+    public void setSecond(int second) {
+        this.second = second;
+    }
+
+    @Override
     public int getCorrectHour(int hour) {
         if (hour > 12) {
             return hour - 12;
@@ -120,6 +141,7 @@ class Clock12 implements Clock {
         JsDate jsDate = new JsDate();
         jsDate.setHours(DayPeriod.PM.equals(dayPeriod) ? hour + 12 : hour);
         jsDate.setMinutes(minute);
+        jsDate.setSeconds(second);
         return new Date(new Double(jsDate.getTime()).longValue());
     }
 }

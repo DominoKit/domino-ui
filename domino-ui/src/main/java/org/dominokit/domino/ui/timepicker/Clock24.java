@@ -12,18 +12,22 @@ class Clock24 implements Clock {
     private DayPeriod dayPeriod = NONE;
     private int hour;
     private int minute;
+    private int second;
     private DateTimeFormatInfo dateTimeFormatInfo;
+    private boolean showSecond = false;
 
     public Clock24(DateTimeFormatInfo dateTimeFormatInfo) {
         this.dateTimeFormatInfo = dateTimeFormatInfo;
         JsDate date = new JsDate();
         this.hour = date.getHours();
         this.minute = date.getMinutes();
+        this.second = date.getSeconds();
     }
 
     Clock24(JsDate jsDate) {
         this.hour = jsDate.getHours();
         this.minute = jsDate.getMinutes();
+        this.second = jsDate.getSeconds();
     }
 
     @Override
@@ -37,19 +41,32 @@ class Clock24 implements Clock {
     }
 
 
+    @Override
     public int getHour() {
         return this.hour;
     }
 
+    @Override
     public int getMinute() {
         return this.minute;
     }
+    
+    @Override
+    public int getSecond() {
+        return this.second;
+    }
 
+    @Override
+    public void setShowSeconds(boolean showSecond) {
+        this.showSecond = showSecond;
+    }
+    
     @Override
     public String format() {
         String hourString = this.hour < 10 ? "0" + this.hour : this.hour + "";
         String minuteString = this.minute < 10 ? "0" + this.minute : this.minute + "";
-        return hourString + ":" + minuteString;
+        String secondString = this.second < 10 ? "0" + this.second : this.second + "";
+        return hourString + ":" + minuteString + (showSecond ?  ":" + secondString : "");
     }
 
     @Override
@@ -88,6 +105,11 @@ class Clock24 implements Clock {
     }
 
     @Override
+    public void setSecond(int second) {
+        this.second = second;
+    }
+
+    @Override
     public int getCorrectHour(int hour) {
         return hour;
     }
@@ -102,6 +124,7 @@ class Clock24 implements Clock {
         JsDate jsDate = new JsDate();
         jsDate.setHours(hour);
         jsDate.setMinutes(minute);
+        jsDate.setSeconds(second);
         return new Date(new Double(jsDate.getTime()).longValue());
     }
 }

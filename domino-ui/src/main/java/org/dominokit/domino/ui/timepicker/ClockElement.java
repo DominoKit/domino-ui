@@ -70,6 +70,12 @@ class ClockElement {
         double angle = (3 * Math.PI / 2) + (minute * (Math.PI / 30));
         return new ClockElement(minute, text, angle, outerRadius, colorScheme, true);
     }
+    
+    public static ClockElement createSecond(int second, ColorScheme colorScheme) {
+        String text = second % 5 == 0 ? second + "" : "";
+        double angle = (3 * Math.PI / 2) + (second * (Math.PI / 30));
+        return new ClockElement(second, text, angle, outerRadius, colorScheme, true);
+    }
 
     public int getValue() {
         return value;

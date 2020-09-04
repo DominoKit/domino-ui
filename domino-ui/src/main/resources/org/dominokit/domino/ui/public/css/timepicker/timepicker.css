@@ -36,6 +36,12 @@
     cursor: pointer;
 }
 
+.time-picker .second-text {
+    font-size: 42px;
+    line-height: 60px;
+    cursor: pointer;
+}
+
 .time-picker .am-pm-container {
     cursor: pointer;
     padding-left: 5px;
