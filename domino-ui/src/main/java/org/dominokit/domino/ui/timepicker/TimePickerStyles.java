@@ -6,6 +6,7 @@ public class TimePickerStyles {
     public static final String TIME_PANEL = "time-panel";
     public static final String HOUR_TEXT = "hour-text";
     public static final String MINUTE_TEXT = "minute-text";
+    public static final String SECOND_TEXT = "second-text";
     public static final String AM_PM_CONTAINER = "am-pm-container";
     public static final String AM_PM_TEXT = "am-pm-text";
     public static final String AM_PM_TOP = "am-pm-top";
