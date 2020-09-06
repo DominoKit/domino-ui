@@ -27,16 +27,19 @@ public abstract class BasePagination<T extends BasePagination<T>> extends BaseDo
     protected boolean markActivePage = true;
     protected int pagesCount;
     protected int pageSize = 10;
+    protected int totalCount = 0;
 
     @Override
     public HasPagination updatePagesByTotalCount(int totalCount) {
         int pages = (totalCount / this.pageSize) + (totalCount % this.pageSize > 0 ? 1 : 0);
+        this.totalCount = totalCount;
         return updatePages(pages, this.pageSize);
     }
 
     @Override
     public HasPagination updatePagesByTotalCount(int totalCount, int pageSize) {
         int pages = (totalCount / pageSize) + (totalCount % pageSize > 0 ? 1 : 0);
+        this.totalCount = totalCount;
         return updatePages(pages, pageSize);
     }
 
