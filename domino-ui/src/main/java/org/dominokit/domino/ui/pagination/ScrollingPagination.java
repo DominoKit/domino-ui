@@ -20,6 +20,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
     private DominoElement<HTMLLIElement> dotsElement;
     private DominoElement<HTMLLIElement> pagesCountPageElement;
+    private DominoElement<HTMLLIElement> recordsCountPageElement;
     private DominoElement<HTMLAnchorElement> prevAnchor;
     private DominoElement<HTMLAnchorElement> prevSetAnchor;
     private DominoElement<HTMLAnchorElement> firstPageAnchor;
@@ -30,6 +31,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
     private int windowSize = 10;
     private int windowIndex = 0;
+    private boolean totalRecordVisible = false;
 
     public static ScrollingPagination create() {
         return new ScrollingPagination();
@@ -116,7 +118,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
                                         .addClickListener(evt -> moveToPage(p, false))
                                 );
                         allPages.add(element);
-                        if(p <= windowSize) {
+                        if (p <= windowSize) {
                             pagesElement.appendChild(element);
                         }
                     }));
@@ -135,8 +137,13 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
                     .appendChild(DominoElement.of(a())
                             .setTextContent("" + pages)
                             .addClickListener(evt -> moveToPage(pages, false)));
-            pagesElement.appendChild(pagesCountPageElement
-            );
+            pagesElement.appendChild(pagesCountPageElement);
+
+            recordsCountPageElement = DominoElement.of(li().css("page"))
+                    .appendChild(DominoElement.of(a())
+                            .setTextContent("(" + this.totalCount + ")")
+                    ).toggleDisplay(totalRecordVisible);
+            pagesElement.appendChild(recordsCountPageElement);
         }
 
         nextAnchor = DominoElement.of(a());
@@ -273,6 +280,15 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
             this.windowIndex = index;
         }
+    }
+
+    public boolean isTotalRecordVisible() {
+        return totalRecordVisible;
+    }
+
+    public ScrollingPagination setTotalRecordVisible(boolean totalRecordVisible) {
+        this.totalRecordVisible = totalRecordVisible;
+        return this;
     }
 
     public DominoElement<HTMLAnchorElement> getPrevAnchor() {
