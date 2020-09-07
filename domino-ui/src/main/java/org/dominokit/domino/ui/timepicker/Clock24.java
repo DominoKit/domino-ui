@@ -5,23 +5,11 @@ import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
 import java.util.Date;
 
-import static org.dominokit.domino.ui.timepicker.DayPeriod.NONE;
-
-class Clock24 implements Clock {
-
-    private DayPeriod dayPeriod = NONE;
-    private int hour;
-    private int minute;
-    private int second;
-    private DateTimeFormatInfo dateTimeFormatInfo;
-    private boolean showSecond = false;
+class Clock24 extends AbstractClock {
 
     public Clock24(DateTimeFormatInfo dateTimeFormatInfo) {
+        this(new JsDate());
         this.dateTimeFormatInfo = dateTimeFormatInfo;
-        JsDate date = new JsDate();
-        this.hour = date.getHours();
-        this.minute = date.getMinutes();
-        this.second = date.getSeconds();
     }
 
     Clock24(JsDate jsDate) {
@@ -36,47 +24,16 @@ class Clock24 implements Clock {
     }
 
     @Override
-    public DayPeriod getDayPeriod() {
-        return dayPeriod;
-    }
-
-
-    @Override
-    public int getHour() {
-        return this.hour;
-    }
-
-    @Override
-    public int getMinute() {
-        return this.minute;
-    }
-    
-    @Override
-    public int getSecond() {
-        return this.second;
-    }
-
-    @Override
-    public void setShowSeconds(boolean showSecond) {
-        this.showSecond = showSecond;
-    }
-    
-    @Override
     public String format() {
         String hourString = this.hour < 10 ? "0" + this.hour : this.hour + "";
         String minuteString = this.minute < 10 ? "0" + this.minute : this.minute + "";
         String secondString = this.second < 10 ? "0" + this.second : this.second + "";
-        return hourString + ":" + minuteString + (showSecond ?  ":" + secondString : "");
+        return hourString + ":" + minuteString + (showSecond ? ":" + secondString : "");
     }
 
     @Override
     public String formatNoPeriod() {
         return format();
-    }
-
-    @Override
-    public String formatPeriod() {
-        return "";
     }
 
     @Override
@@ -90,33 +47,8 @@ class Clock24 implements Clock {
     }
 
     @Override
-    public void setDayPeriod(DayPeriod dayPeriod) {
-        this.dayPeriod = NONE;
-    }
-
-    @Override
-    public void setHour(int hour) {
-        this.hour = hour;
-    }
-
-    @Override
-    public void setMinute(int minute) {
-        this.minute = minute;
-    }
-
-    @Override
-    public void setSecond(int second) {
-        this.second = second;
-    }
-
-    @Override
     public int getCorrectHour(int hour) {
         return hour;
-    }
-
-    @Override
-    public void setDateTimeFormatInfo(DateTimeFormatInfo dateTimeFormatInfo) {
-        this.dateTimeFormatInfo = dateTimeFormatInfo;
     }
 
     @Override
@@ -127,4 +59,5 @@ class Clock24 implements Clock {
         jsDate.setSeconds(second);
         return new Date(new Double(jsDate.getTime()).longValue());
     }
+
 }

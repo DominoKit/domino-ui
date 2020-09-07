@@ -7,15 +7,7 @@ import java.util.Date;
 
 import static org.dominokit.domino.ui.timepicker.DayPeriod.*;
 
-
-class Clock12 implements Clock {
-    private int hour;
-    private int minute;
-    private int second;
-    private boolean showSecond;
-
-    private DayPeriod dayPeriod;
-    private DateTimeFormatInfo dateTimeFormatInfo;
+class Clock12 extends AbstractClock {
 
     public Clock12(DateTimeFormatInfo dateTimeFormatInfo) {
         this(new JsDate());
@@ -23,7 +15,7 @@ class Clock12 implements Clock {
     }
 
     Clock12(JsDate jsDate) {
-        this.setDayPeriod(jsDate.getHours() > 11 ? PM : AM);
+        this.dayPeriod = jsDate.getHours() > 11 ? PM : AM;
         this.minute = jsDate.getMinutes();
         this.second = jsDate.getSeconds();
         if (jsDate.getHours() > 12) {
@@ -41,37 +33,6 @@ class Clock12 implements Clock {
     }
 
     @Override
-    public DayPeriod getDayPeriod() {
-        return this.dayPeriod;
-    }
-
-    @Override
-    public void setDayPeriod(DayPeriod dayPeriod) {
-        if (!NONE.equals(dayPeriod))
-            this.dayPeriod = dayPeriod;
-    }
-
-    @Override
-    public int getHour() {
-        return hour;
-    }
-
-    @Override
-    public int getMinute() {
-        return this.minute;
-    }
-
-    @Override
-    public int getSecond() {
-        return this.second;
-    }
-    
-    @Override
-    public void setShowSeconds(boolean showSecond) {
-        this.showSecond = showSecond;
-    }
-
-    @Override
     public String format() {
         return formatNoPeriod() + " " + formatPeriod();
     }
@@ -81,7 +42,7 @@ class Clock12 implements Clock {
         String hourString = this.hour < 10 ? "0" + this.hour : this.hour + "";
         String minuteString = this.minute < 10 ? "0" + this.minute : this.minute + "";
         String secondString = this.second < 10 ? "0" + this.second : this.second + "";
-        return hourString + ":" + minuteString + (showSecond ?  ":" + secondString : "");
+        return hourString + ":" + minuteString + (showSecond ? ":" + secondString : "");
     }
 
     @Override
@@ -103,7 +64,7 @@ class Clock12 implements Clock {
     public void setHour(int hour) {
         if (hour > 12) {
             this.hour = hour - 12;
-        } else if(hour == 0){
+        } else if (hour == 0) {
             this.hour = 12;
         } else {
             this.hour = hour;
@@ -111,29 +72,14 @@ class Clock12 implements Clock {
     }
 
     @Override
-    public void setMinute(int minute) {
-        this.minute = minute;
-    }
-
-    @Override
-    public void setSecond(int second) {
-        this.second = second;
-    }
-
-    @Override
     public int getCorrectHour(int hour) {
         if (hour > 12) {
             return hour - 12;
-        } else if(hour == 0){
+        } else if (hour == 0) {
             return 12;
         } else {
             return hour;
         }
-    }
-
-    @Override
-    public void setDateTimeFormatInfo(DateTimeFormatInfo dateTimeFormatInfo) {
-        this.dateTimeFormatInfo = dateTimeFormatInfo;
     }
 
     @Override
@@ -144,4 +90,5 @@ class Clock12 implements Clock {
         jsDate.setSeconds(second);
         return new Date(new Double(jsDate.getTime()).longValue());
     }
+
 }
