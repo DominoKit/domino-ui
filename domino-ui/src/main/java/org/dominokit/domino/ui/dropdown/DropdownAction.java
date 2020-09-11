@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.dropdown;
 
 import elemental2.core.JsRegExp;
 import elemental2.core.JsString;
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
@@ -32,6 +33,7 @@ public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, Dropdown
     private Color background;
     private boolean filteredOut = false;
     private boolean excludeFromSearchResults = false;
+    public static final JsRegExp REPLACER_REGEX = new JsRegExp("[-\\/\\\\^$*+?.()|[\\]{}]", "g");
 
     public DropdownAction(T value, String displayValue) {
         this(value, displayValue, null);
@@ -166,13 +168,13 @@ public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, Dropdown
         return this;
     }
 
-    public DropdownAction<T> filter(){
+    public DropdownAction<T> filter() {
         this.hide();
         this.setFilteredOut(true);
         return this;
     }
 
-    public DropdownAction<T> deFilter(){
+    public DropdownAction<T> deFilter() {
         this.show();
         this.setFilteredOut(false);
         return this;
@@ -217,7 +219,9 @@ public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, Dropdown
     public void highlight(String displayValue, Color highlightColor) {
         if (nonNull(this.content)) {
             String innerHTML = this.content.getTextContent();
-            JsRegExp regExp = new JsRegExp(displayValue, IGNORE_CASE_FLAG);
+            String escapedSearchValue = new JsString(displayValue).replace(REPLACER_REGEX, "\\$&");
+
+            JsRegExp regExp = new JsRegExp(escapedSearchValue, IGNORE_CASE_FLAG);
             innerHTML = new JsString(innerHTML).replace(regExp, (valueToReplace, p1) -> {
                 if (nonNull(highlightColor)) {
                     return "<strong class=\"" + highlightColor.getStyle() + "\">" + valueToReplace + "</strong>";
