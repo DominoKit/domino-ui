@@ -12,6 +12,7 @@ import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
@@ -68,6 +69,8 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     public Notification() {
         init(this);
         elevate(Elevation.LEVEL_1);
+        style().add(background.getBackground());
+        closeButton.addEventListener(EventType.click.getName(), e -> close());
     }
 
     /**
@@ -119,9 +122,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
      */
     public static Notification create(String message, String type) {
         Notification notification = create(message);
-        notification.style().add(type);
-        notification.type = type;
-        notification.style().remove(notification.background.getBackground());
+        notification.setType(type);
         return notification;
     }
 
@@ -133,9 +134,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
      */
     public static Notification create(String message) {
         Notification notification = new Notification();
-        notification.messageSpan.textContent = message;
-        notification.style().add(notification.background.getBackground());
-        notification.closeButton.addEventListener("click", e -> notification.close());
+        notification.setMessage(message);
         return notification;
     }
 
@@ -205,6 +204,19 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
      */
     public Notification setMessage(String message) {
         this.messageSpan.textContent = message;
+        return this;
+    }
+
+    /**
+     * Sets specified type/style
+     *
+     * @param type    the style to be applied on the notification, predefined types {@value NotificationStyles#ALERT_INFO},{@value NotificationStyles#ALERT_DANGER},{@value NotificationStyles#ALERT_SUCCESS},{@value NotificationStyles#ALERT_WARNING}
+     * @return {@link Notification}
+     */
+    public Notification setType(String type) {
+        this.type = type;
+        style().add(type);
+        style().remove(background.getBackground());
         return this;
     }
 
