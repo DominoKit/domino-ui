@@ -442,6 +442,15 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     }
 
     @Editor.Ignore
+    public T removeTooltip() {
+        if (nonNull(tooltip)) {
+        	tooltip.detach();
+        	tooltip = null;
+        }
+        return element;
+    }
+
+    @Editor.Ignore
     public HTMLElement getClickableElement() {
         return element();
     }
