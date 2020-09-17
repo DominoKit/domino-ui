@@ -75,12 +75,8 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
         tagTextInput = DominoElement.of(input(type))
                 .addCss(TagStyles.TAG_TEXT_INPUT);
         dropDownMenu = DropDownMenu.create(tagTextInput)
-                .setPosition(DropDownPosition.BOTTOM)
-                .addCloseHandler(() -> {
-                    openOnFocus = false;
-                    tagTextInput.element().focus();
-                    openOnFocus = true;
-                });
+                .setPosition(DropDownPosition.BOTTOM);
+
         getInputContainer().addEventListener("click", evt -> {
             evt.stopPropagation();
             openOnFocus = true;
