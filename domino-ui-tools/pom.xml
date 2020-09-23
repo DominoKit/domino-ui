@@ -15,6 +15,7 @@
     <name>domino-ui-tools</name>
     <modules>
         <module>mdi-icons-processor</module>
+        <module>theme-processor</module>
     </modules>
 
 </project>
