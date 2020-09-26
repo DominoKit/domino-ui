@@ -42,8 +42,10 @@ public class ThemeSourceWriter extends AbstractSourceBuilder {
         ColorInfo[] colors = colorsSet.value();
 
         String colorInterfaceName = processorUtil.capitalizeFirstLetter(colorsSet.name()) + "Color";
-        TypeSpec.Builder colorsInterface = TypeSpec.interfaceBuilder(colorInterfaceName);
-        TypeSpec.Builder colorsScheme = TypeSpec.interfaceBuilder(processorUtil.capitalizeFirstLetter(colorsSet.name()) + "ColorScheme");
+        TypeSpec.Builder colorsInterface = TypeSpec.interfaceBuilder(colorInterfaceName)
+                .addModifiers(Modifier.PUBLIC);
+        TypeSpec.Builder colorsScheme = TypeSpec.interfaceBuilder(processorUtil.capitalizeFirstLetter(colorsSet.name()) + "ColorScheme")
+                .addModifiers(Modifier.PUBLIC);
 
         for (ColorInfo colorInfo : colors) {
 

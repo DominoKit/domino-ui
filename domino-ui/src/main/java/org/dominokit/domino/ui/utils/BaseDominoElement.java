@@ -115,10 +115,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return collapsible.isHidden();
     }
 
-    @Override
-    public E element() {
-        return null;
-    }
+    public abstract E element();
 
     @Editor.Ignore
     public T onAttached(ObserverCallback observerCallback) {
