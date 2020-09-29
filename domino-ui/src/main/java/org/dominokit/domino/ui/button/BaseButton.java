@@ -217,17 +217,27 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     }
 
     public B setIcon(BaseIcon<?> icon) {
-        if (nonNull(this.icon)) {
-            this.icon.setTextContent(icon.getName());
-        } else {
-            if (nonNull(content) && !content.isEmpty()) {
-                textSpan.appendChild(textElement);
-                buttonElement.appendChild(textSpan.appendChild(textElement));
+        if (isNull(icon)) {
+            if (nonNull(this.icon)) {
+                this.icon.remove();
+                this.icon = null;
             }
-            this.icon = icon;
-            buttonElement.appendChild(this.icon);
+        } else {
+            if (nonNull(this.icon)) {
+                BaseIcon<?> temp = this.icon;
+                this.insertAfter(icon, this.icon);
+                temp.remove();
+                this.icon = icon;
+            } else {
+                if (nonNull(content) && !content.isEmpty()) {
+                    textSpan.appendChild(textElement);
+                    buttonElement.appendChild(textSpan.appendChild(textElement));
+                }
+                this.icon = icon;
+                buttonElement.appendChild(this.icon);
+            }
+            this.icon.addCss("btn-icon");
         }
-        icon.addCss("btn-icon");
         return (B) this;
     }
 
@@ -235,7 +245,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return size;
     }
 
-    public DominoElement<HTMLElement> getTextSpan(){
+    public DominoElement<HTMLElement> getTextSpan() {
         return DominoElement.of(textSpan);
     }
 
