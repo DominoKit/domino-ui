@@ -138,7 +138,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         return new SuggestBox<T>(label, store);
     }
 
-    private void search() {
+    public final void search() {
         if (store != null) {
             loader.start();
             suggestionsMenu.clearActions();
