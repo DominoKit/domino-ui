@@ -139,12 +139,13 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
                             .addClickListener(evt -> moveToPage(pages, false)));
             pagesElement.appendChild(pagesCountPageElement);
 
-            recordsCountPageElement = DominoElement.of(li().css("page"))
-                    .appendChild(DominoElement.of(a())
-                            .setTextContent("(" + this.totalCount + ")")
-                    ).toggleDisplay(totalRecordVisible);
-            pagesElement.appendChild(recordsCountPageElement);
+
         }
+        recordsCountPageElement = DominoElement.of(li().css("page"))
+                .appendChild(DominoElement.of(a())
+                        .setTextContent("(" + this.totalCount + ")")
+                ).toggleDisplay(totalRecordVisible);
+        pagesElement.appendChild(recordsCountPageElement);
 
         nextAnchor = DominoElement.of(a());
         nextElement = DominoElement.of(li().css("page-nav"))
