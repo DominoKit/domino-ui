@@ -24,8 +24,8 @@
             <artifactId>gwt-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.gwtproject</groupId>
-            <artifactId>editors</artifactId>
+            <groupId>org.gwtproject.editor</groupId>
+            <artifactId>gwt-editor</artifactId>
         </dependency>
         <dependency>
             <groupId>org.gwtproject.timer</groupId>
