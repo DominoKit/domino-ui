@@ -62,6 +62,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     private boolean validateOnFocusLost = true;
     private FieldStyle fieldStyle = DominoFields.INSTANCE.getDefaultFieldsStyle();
     private FlexLayout fieldInnerContainer;
+    private boolean labelFloating;
 
     public ValueBox(String type, String label) {
         helpItem = FlexItem.create();
@@ -71,7 +72,16 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
         init((T) this);
         inputElement = DominoElement.of(createInputElement(type));
-        inputElement.addEventListener("change", evt -> callChangeHandlers());
+        inputElement.addEventListener("change", evt -> {
+                    callChangeHandlers();
+                }
+        );
+        inputElement.addEventListener("input", evt -> {
+                    if (isEmpty()) {
+                        showPlaceholder();
+                    }
+                }
+        );
 
         layout();
         setFocusColor(focusColor);
@@ -232,15 +242,18 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         if (!isDisabled()) {
             if (!isAttached()) {
                 ElementUtil.onAttach(getInputElement(), mutationRecord -> {
-                    getInputElement().element().focus();
-                    doFocus();
+                    tryFocus();
                 });
             } else {
-                getInputElement().element().focus();
-                doFocus();
+                tryFocus();
             }
         }
         return (T) this;
+    }
+
+    private void tryFocus() {
+        getInputElement().element().focus();
+        doFocus();
     }
 
     @Override
@@ -367,7 +380,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     private boolean shouldShowPlaceholder() {
-        return getLabel().isEmpty() || isFloating();
+        return isEmpty() && labelFloating;
     }
 
     @Override
@@ -669,12 +682,14 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     protected void floatLabel() {
         if (!floating) {
             fieldGroup.style().add(FLOATING);
+            this.labelFloating = true;
         }
     }
 
     protected void unfloatLabel() {
         if (!floating && isEmpty()) {
             fieldGroup.style().remove(FLOATING);
+            this.labelFloating = false;
         }
     }
 
