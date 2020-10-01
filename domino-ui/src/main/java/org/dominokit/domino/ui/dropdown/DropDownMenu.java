@@ -312,6 +312,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         menuElement.clearElement();
         actions.clear();
         groups.clear();
+        menuElement.appendChild(noSearchResultsElement);
         return this;
     }
 
