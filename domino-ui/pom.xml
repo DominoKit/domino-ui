@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>domino-ui-parent</artifactId>
         <groupId>org.dominokit</groupId>
+        <artifactId>domino-ui-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
