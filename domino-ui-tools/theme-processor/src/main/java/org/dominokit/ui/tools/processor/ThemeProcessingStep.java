@@ -76,7 +76,7 @@ public class ThemeProcessingStep extends AbstractProcessingStep {
 
                 Template themeTemplate = configuration.getTemplate("theme.ftl");
 
-                FileObject resource = filer.createResource(StandardLocation.SOURCE_OUTPUT, publicPackage, "public/theme-" + color.name.toLowerCase() + ".css");
+                FileObject resource = filer.createResource(StandardLocation.SOURCE_OUTPUT, publicPackage, "public/"+colorsSet.name()+"-theme-" + color.name.toLowerCase() + ".css");
                 Writer out = resource.openWriter();
                 themeTemplate.process(parameters, out);
                 out.flush();

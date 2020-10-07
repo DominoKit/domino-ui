@@ -62,7 +62,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     private boolean validateOnFocusLost = true;
     private FieldStyle fieldStyle = DominoFields.INSTANCE.getDefaultFieldsStyle();
     private FlexLayout fieldInnerContainer;
-    private boolean labelFloating;
+    private boolean permaFloating = false;
 
     public ValueBox(String type, String label) {
         helpItem = FlexItem.create();
@@ -216,16 +216,16 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     public T floating() {
-        fieldGroup.style().add(FLOATING);
+        floatLabel();
+        this.permaFloating = true;
         showPlaceholder();
-        this.floating = true;
         return (T) this;
     }
 
     public T nonfloating() {
-        labelElement.style().remove(FOCUSED);
+        unfloatLabel();
+        this.permaFloating = false;
         hidePlaceholder();
-        this.floating = false;
         return (T) this;
     }
 
@@ -380,7 +380,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     private boolean shouldShowPlaceholder() {
-        return isEmpty() && labelFloating;
+        return isEmpty() && floating;
     }
 
     @Override
@@ -680,16 +680,16 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     protected void floatLabel() {
-        if (!floating) {
+        if (!floating || permaFloating) {
             fieldGroup.style().add(FLOATING);
-            this.labelFloating = true;
+            this.floating = true;
         }
     }
 
     protected void unfloatLabel() {
-        if (!floating && isEmpty()) {
+        if ((floating && !permaFloating) && isEmpty()) {
             fieldGroup.style().remove(FLOATING);
-            this.labelFloating = false;
+            this.floating = false;
         }
     }
 
