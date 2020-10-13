@@ -1,14 +1,20 @@
 package org.dominokit.domino.ui.utils;
 
-import org.gwtproject.editor.client.Editor;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
+import org.gwtproject.editor.client.Editor;
 
+import java.util.Collections;
 import java.util.List;
 
 public interface HasValidation<T> {
 
     @Editor.Ignore
     ValidationResult validate();
+
+    @Editor.Ignore
+    default List<ValidationResult> validateAll(){
+        return Collections.singletonList(validate());
+    }
 
     @Editor.Ignore
     T addValidator(Validator validator);
