@@ -63,6 +63,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     private FieldStyle fieldStyle = DominoFields.INSTANCE.getDefaultFieldsStyle();
     private FlexLayout fieldInnerContainer;
     private boolean permaFloating = false;
+    private FlexLayout additionalInfoContainer;
 
     public ValueBox(String type, String label) {
         helpItem = FlexItem.create();
@@ -122,6 +123,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         linkLabelToField();
 
         fieldInnerContainer = FlexLayout.create();
+        additionalInfoContainer = FlexLayout.create();
         fieldGroup
                 .appendChild(fieldContainer
                         .appendChild(fieldInnerContainer
@@ -141,7 +143,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
                 )
                 .appendChild(notesContainer
                         .css("field-note")
-                        .appendChild(FlexLayout.create()
+                        .appendChild(additionalInfoContainer
                                 .appendChild(helpItem
                                         .css("field-helper")
                                         .setFlexGrow(1)
@@ -790,6 +792,11 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return notesContainer;
     }
 
+    @Override
+    public DominoElement<HTMLDivElement> getAdditionalInfoContainer() {
+        return DominoElement.of(additionalInfoContainer);
+    }
+
     public FlexLayout getLeftAddOnsContainer() {
         return leftAddOnsContainer;
     }
@@ -829,7 +836,6 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     protected abstract void clearValue();
 
     protected abstract void doSetValue(V value);
-
 
     public T condense() {
         removeCss("condensed");
