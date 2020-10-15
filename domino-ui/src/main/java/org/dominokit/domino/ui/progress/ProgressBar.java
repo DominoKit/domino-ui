@@ -109,6 +109,12 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
         return maxValue;
     }
 
+    public ProgressBar setMaxValue(double maxValue) {
+        this.maxValue = maxValue;
+        setValue(this.value);
+        return this;
+    }
+    
     public ProgressBar textExpression(String expression) {
         this.textExpression = expression;
         updateText();
