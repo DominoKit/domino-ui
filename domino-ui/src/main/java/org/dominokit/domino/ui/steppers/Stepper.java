@@ -17,6 +17,10 @@ import static org.dominokit.domino.ui.steppers.StepperStyles.horizontal;
 import static org.dominokit.domino.ui.steppers.StepperStyles.stepper;
 import static org.jboss.elemento.Elements.ul;
 
+/**
+ * @deprecated use {@link org.dominokit.domino.ui.stepper.Stepper}
+ */
+@Deprecated
 public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
 
     private static Transition HORIZONTAL_NEXT_STEP_TRANSITION = Transition.SLIDE_IN_RIGHT;

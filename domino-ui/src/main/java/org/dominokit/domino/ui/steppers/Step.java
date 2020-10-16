@@ -18,6 +18,10 @@ import static org.dominokit.domino.ui.steppers.StepperStyles.*;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.Elements.li;
 
+/**
+ * @deprecated use {@link org.dominokit.domino.ui.stepper.Step}
+ */
+@Deprecated
 public class Step extends BaseDominoElement<HTMLLIElement, Step> {
 
     private final HTMLLIElement element = li().css(step).element();
