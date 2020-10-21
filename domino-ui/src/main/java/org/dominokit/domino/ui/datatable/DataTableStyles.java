@@ -9,6 +9,7 @@ public class DataTableStyles {
     public static final String TABLE_BORDERED = "table-bordered";
     public static final String TABLE_ROW_FILTERED = "table-row-filtered";
     public static final String TABLE_FIXED = "table-fixed";
+    public static final String THEAD_FIXED = "thead-fixed";
     public static final String TBODY_FIXED = "tbody-fixed";
     public static final String TABLE_CM_HEADER = "table-cm-header";
     public static final String TABLE_CM_FILTER = "table-cm-filter";

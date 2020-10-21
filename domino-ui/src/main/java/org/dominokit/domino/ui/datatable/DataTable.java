@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.*;
+import static org.dominokit.domino.ui.style.Unit.*;
 import static org.jboss.elemento.Elements.*;
 
 public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>> implements HasSelectionSupport<TableRow<T>> {
@@ -75,6 +76,11 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         tableConfig.onAfterHeaders(this);
         tableElement.appendChild(tbody);
         tableConfig.getPlugins().forEach(plugin -> plugin.onBodyAdded(DataTable.this));
+        tableElement.addEventListener("scroll", e -> {
+            final long w = tableElement.element().offsetWidth + Math.round(tableElement.element().scrollLeft);
+            thead.setWidth(px.of(w));
+            tbody.setWidth(px.of(w));
+        });
         root.appendChild(tableElement);
         tableConfig.getPlugins().forEach(plugin -> plugin.onAfterAddTable(DataTable.this));
         if (!tableConfig.isLazyLoad()) {
@@ -82,6 +88,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         }
         if (tableConfig.isFixed()) {
             root.style().add(TABLE_FIXED);
+            thead.style().add(THEAD_FIXED);
             tbody.style()
                     .add(TBODY_FIXED)
                     .setMaxHeight(tableConfig.getFixedBodyHeight());

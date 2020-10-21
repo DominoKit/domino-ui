@@ -222,16 +222,16 @@ table th[class*="col-"] {
 }
 
 .table-responsive.table-fixed {
-    position: relative;
-    overflow-y: hidden;
+    /*position: relative;*/
+    overflow: hidden !important;
 }
 
-.table-responsive.table-fixed thead {
+.table-responsive.table-fixed .table {
     display: block;
+    overflow-x: auto;
 }
 
 .table .fixed-width {
-    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -408,10 +408,23 @@ table th[class*="col-"] {
     margin-top: 4px !important;
 }
 
+.thead-fixed {
+    display: table;
+    table-layout:fixed;
+    width:100%;
+}
+
 .tbody-fixed {
     display: block;
-    overflow: auto;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
     /*border-bottom: 1px solid #eee;*/
+}
+
+.thead-fixed > tr, .tbody-fixed > tr {
+    display: table;
+    table-layout:fixed;
+    width:100%;
 }
 
 .details-td {
