@@ -245,14 +245,18 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         }
         return this;
     }
-
-    public Stepper next() {
+    
+     public Stepper activate(Step step) {
+        return nextStep(step);
+    }
+     
+    private Stepper nextStep(Step step) {
         int activeStepIndex = this.steps.indexOf(activeStep);
-        if (activeStepIndex < (this.steps.size() - 1)) {
-            Step nextActiveStep = getNextActiveStep();
+        if (activeStepIndex < (this.steps.size() - 1) || activeStepIndex > 0) {
+            Step nextActiveStep = step;
             if (!nextActiveStep.equals(activeStep)) {
                 this.activeStepNumber = (steps.indexOf(nextActiveStep) * 2) + 1;
-                this.activeStep.deactivate(step -> {
+                this.activeStep.deactivate(s -> {
                     this.activeStep = nextActiveStep;
                     this.activeStep.activate();
                     if (StepperDirection.VERTICAL == this.direction) {
@@ -262,6 +266,10 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
             }
         }
         return this;
+    }
+
+    public Stepper next() {
+        return nextStep(getNextActiveStep());
     }
 
     private Step getNextActiveStep() {
@@ -276,21 +284,7 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
     }
 
     public Stepper previouse() {
-        int activeStepIndex = this.steps.indexOf(activeStep);
-        if (activeStepIndex > 0) {
-            Step prevActiveStep = getPrevActiveStep();
-            if (!prevActiveStep.equals(activeStep)) {
-                this.activeStep.deactivate(step -> {
-                    this.activeStep = prevActiveStep;
-                    this.activeStep.activate();
-                    this.activeStepNumber = (steps.indexOf(prevActiveStep) * 2) + 1;
-                    if (StepperDirection.VERTICAL == this.direction) {
-                        this.content.setOrder(this.activeStepNumber + 1);
-                    }
-                });
-            }
-        }
-        return this;
+        return nextStep(getPrevActiveStep());
     }
 
     private Step getPrevActiveStep() {
