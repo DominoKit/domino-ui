@@ -509,7 +509,10 @@
     display: inline-block;
     height: 25px;
     line-height: 25px;
-    font-size: 1rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: .009375em;
+    font-family: Roboto,sans-serif;
     -webkit-user-select: none;
     /* webkit (safari, chrome) browsers */
     -moz-user-select: none;
@@ -650,7 +653,10 @@ label {
     display: inline-block;
     height: 25px;
     line-height: 25px;
-    font-size: 1rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: .009375em;
+    font-family: Roboto,sans-serif;
     transition: .28s ease;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -745,20 +751,15 @@ label {
     border-color: #bdbdbd
 }
 
-.radio-option:not(.checked) label {
-    padding-left: 26px;
-    height: 25px;
-    line-height: 25px;
-    font-size: 13px;
-    font-weight: normal;
-}
-
+.radio-option:not(.checked) label,
 .radio-option.checked label {
     padding-left: 26px;
     height: 25px;
     line-height: 25px;
-    font-size: 13px;
-    font-weight: normal;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: .009375em;
+    font-family: Roboto,sans-serif;
 }
 
 .radio-option[class*="col-"]{
@@ -899,4 +900,43 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::after {
 .tags-input.readonly .tag-text-input,
 .tags-input.disabled .tag-text-input{
     display: none;
+}
+
+.switch label {
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: .009375em;
+    font-family: Roboto,sans-serif;
+}
+
+.switch label .lever {
+    margin: 0 14px;
+}
+
+.switch[readonly] .lever {
+    display: none;
+}
+
+.switch label input[type=checkbox]:checked:not(:disabled) ~ .lever.switch-col-black:active:after {
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.switch label input[type=checkbox]:checked + .lever.switch-col-black {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.switch label input[type=checkbox]:checked + .lever.switch-col-black:after {
+    background-color: #000000;
+}
+
+.switch label input[type=checkbox]:checked:not(:disabled) ~ .lever.switch-col-white:active:after {
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.switch label input[type=checkbox]:checked + .lever.switch-col-white {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.switch label input[type=checkbox]:checked + .lever.switch-col-white:after {
+    background-color: #ffffff;
 }
