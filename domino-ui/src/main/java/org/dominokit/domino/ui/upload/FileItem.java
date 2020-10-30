@@ -188,7 +188,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     }
 
     private String formatSize(double size) {
-        int threshold = 1000;
+        int threshold = 1024;
         if (Math.abs(size) < threshold)
             return size + " B";
 
