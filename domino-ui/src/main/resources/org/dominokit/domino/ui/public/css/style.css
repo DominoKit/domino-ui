@@ -2061,51 +2061,12 @@ a {
     animation: none !important;
 }
 
-
-.switch label {
-    font-weight: normal;
-    font-size: 13px;
-}
-
-.switch label .lever {
-    margin: 0 14px;
-}
-
-.switch[readonly] .lever {
-    display: none;
-}
-
 .help-info {
     font-size: 12px;
     margin-top: 5px;
     color: #999;
     font-weight: normal;
 }
-
-.switch label input[type=checkbox]:checked:not(:disabled) ~ .lever.switch-col-black:active:after {
-    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-.switch label input[type=checkbox]:checked + .lever.switch-col-black {
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.switch label input[type=checkbox]:checked + .lever.switch-col-black:after {
-    background-color: #000000;
-}
-
-.switch label input[type=checkbox]:checked:not(:disabled) ~ .lever.switch-col-white:active:after {
-    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(255, 255, 255, 0.1);
-}
-
-.switch label input[type=checkbox]:checked + .lever.switch-col-white {
-    background-color: rgba(255, 255, 255, 0.5);
-}
-
-.switch label input[type=checkbox]:checked + .lever.switch-col-white:after {
-    background-color: #ffffff;
-}
-
 /* Thumbnails ================================== */
 .thumbnail {
     -webkit-border-radius: 0;
