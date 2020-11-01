@@ -256,6 +256,13 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return this;
     }
 
+    public Step setActive(){
+        if(nonNull(this.stepper)){
+            this.stepper.activateStep(this);
+        }
+        return this;
+    }
+
     public Step setEnabled(Stepper.StepState targetState) {
         setState(targetState, true);
         return this;
