@@ -121,7 +121,7 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
                 .appendChild(FlexItem.create()
                         .appendChild(Button.createPrimary(Icons.ALL.arrow_left_bold_mdi())
                                 .setTextContent("Back")
-                                .addClickListener(evt -> previouse())
+                                .addClickListener(evt -> previous())
                         )
                 )
                 .appendChild(FlexItem.create()
@@ -249,11 +249,17 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
     public Stepper next() {
         int activeStepIndex = this.steps.indexOf(activeStep);
         if (activeStepIndex < (this.steps.size() - 1)) {
-            Step nextActiveStep = getNextActiveStep();
-            if (!nextActiveStep.equals(activeStep)) {
-                this.activeStepNumber = (steps.indexOf(nextActiveStep) * 2) + 1;
+            activateStep(getNextActiveStep());
+        }
+        return this;
+    }
+
+    public Stepper activateStep(Step stepToActivate) {
+        if (StepState.DISABLED != stepToActivate.getState()) {
+            if (!stepToActivate.equals(activeStep)) {
+                this.activeStepNumber = (steps.indexOf(stepToActivate) * 2) + 1;
                 this.activeStep.deactivate(step -> {
-                    this.activeStep = nextActiveStep;
+                    this.activeStep = stepToActivate;
                     this.activeStep.activate();
                     if (StepperDirection.VERTICAL == this.direction) {
                         this.content.setOrder(this.activeStepNumber + 1);
@@ -261,6 +267,15 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
                 });
             }
         }
+
+        return this;
+    }
+
+    public Stepper activateStep(int index) {
+        if (index >= 0 && index < steps.size()) {
+            activateStep(steps.get(index));
+        }
+
         return this;
     }
 
@@ -275,7 +290,7 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return activeStep;
     }
 
-    public Stepper previouse() {
+    public Stepper previous() {
         int activeStepIndex = this.steps.indexOf(activeStep);
         if (activeStepIndex > 0) {
             Step prevActiveStep = getPrevActiveStep();
