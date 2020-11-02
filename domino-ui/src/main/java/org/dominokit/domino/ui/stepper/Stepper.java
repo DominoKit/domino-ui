@@ -85,7 +85,7 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         }
     };
 
-    public static Stepper create(){
+    public static Stepper create() {
         return new Stepper();
     }
 
@@ -425,6 +425,12 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
 
     public Step getActiveStep() {
         return this.activeStep;
+    }
+
+    public Stepper reset() {
+        steps.forEach(Step::reset);
+        activateStep(0);
+        return this;
     }
 
     public enum StepperDirection {
