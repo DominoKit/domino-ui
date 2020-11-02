@@ -76,11 +76,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         tableConfig.onAfterHeaders(this);
         tableElement.appendChild(tbody);
         tableConfig.getPlugins().forEach(plugin -> plugin.onBodyAdded(DataTable.this));
-        tableElement.addEventListener("scroll", e -> {
-            final long w = tableElement.element().offsetWidth + Math.round(tableElement.element().scrollLeft);
-            thead.setWidth(px.of(w));
-            tbody.setWidth(px.of(w));
-        });
+        tableElement.addEventListener("scroll", e -> updateTableWidth());
+        tableElement.addEventListener("resize", e -> updateTableWidth());
         root.appendChild(tableElement);
         tableConfig.getPlugins().forEach(plugin -> plugin.onAfterAddTable(DataTable.this));
         if (!tableConfig.isLazyLoad()) {
@@ -95,6 +92,12 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         }
         super.init(this);
         return this;
+    }
+    
+    private void updateTableWidth() {
+        final long w = tableElement.element().offsetWidth + Math.round(tableElement.element().scrollLeft);
+        thead.setWidth(px.of(w));
+        tbody.setWidth(px.of(w));
     }
 
     public void load() {
