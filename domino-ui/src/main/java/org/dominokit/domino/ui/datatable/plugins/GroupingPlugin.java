@@ -99,20 +99,18 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
         }
     }
 
-    public void expandAllGroups() {
+    public void expandAll() {
         for (DataGroup<T> dataGroup : dataGroups.values()) {
-            if (!dataGroup.expanded)
-            {
+            if (!dataGroup.expanded) {
                 dataGroup.toggleGroup();
                 dataGroup.getGroupIconSupplier().toggleIcon();
             }
         }
     }
 
-    public void collapseAllGroups() {
+    public void collapseAll() {
         for (DataGroup<T> dataGroup : dataGroups.values()) {
-            if (dataGroup.expanded)
-            {
+            if (dataGroup.expanded) {
                 dataGroup.toggleGroup();
                 dataGroup.getGroupIconSupplier().toggleIcon();
             }
@@ -148,13 +146,11 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
             groupRows.add(tableRow);
         }
 
-        private void setGroupIconSupplier(BaseIcon<?> groupIconSupplier)
-        {
+        private void setGroupIconSupplier(BaseIcon<?> groupIconSupplier) {
             this.groupIconSupplier = groupIconSupplier;
         }
 
-        private BaseIcon<?> getGroupIconSupplier()
-        {
+        private BaseIcon<?> getGroupIconSupplier() {
             return this.groupIconSupplier;
         }
     }
