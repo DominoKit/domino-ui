@@ -64,13 +64,16 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
                     .element();
             CellRenderer.CellInfo<T> cellInfo = new CellRenderer.CellInfo<>(tableRow, cellElement);
 
+            BaseIcon<?> groupIconSupplier = groupExpandedIconSupplier.get()
+                  .clickable()
+                  .setToggleIcon(groupCollapsedIconSupplier.get())
+                  .toggleOnClick(true)
+                  .addClickListener(evt -> dataGroup.toggleGroup());
+            dataGroup.setGroupIconSupplier(groupIconSupplier);
+
             cellElement.appendChild(FlexLayout.create()
                     .appendChild(FlexItem.create()
-                            .appendChild(groupExpandedIconSupplier.get()
-                                    .clickable()
-                                    .setToggleIcon(groupCollapsedIconSupplier.get())
-                                    .toggleOnClick(true)
-                                    .addClickListener(evt -> dataGroup.toggleGroup())))
+                            .appendChild(groupIconSupplier))
                     .appendChild(FlexItem.create()
                             .styler(style -> style.setLineHeight(px.of(35))
                                     .setPaddingLeft(px.of(10)))
@@ -96,6 +99,24 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
         }
     }
 
+    public void expandAll() {
+        for (DataGroup<T> dataGroup : dataGroups.values()) {
+            if (!dataGroup.expanded) {
+                dataGroup.toggleGroup();
+                dataGroup.getGroupIconSupplier().toggleIcon();
+            }
+        }
+    }
+
+    public void collapseAll() {
+        for (DataGroup<T> dataGroup : dataGroups.values()) {
+            if (dataGroup.expanded) {
+                dataGroup.toggleGroup();
+                dataGroup.getGroupIconSupplier().toggleIcon();
+            }
+        }
+    }
+
     @Override
     public void handleEvent(TableEvent event) {
         if (event.getType().equalsIgnoreCase(OnBeforeDataChangeEvent.ON_BEFORE_DATA_CHANGE)) {
@@ -108,6 +129,7 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
         private List<TableRow<T>> groupRows = new ArrayList<>();
         private TableRow<T> lastRow;
         private boolean expanded = true;
+        private BaseIcon<?> groupIconSupplier;
 
         public DataGroup(TableRow<T> lastRow) {
             this.lastRow = lastRow;
@@ -118,13 +140,19 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
             expanded = !expanded;
             groupRows.forEach(tableRow -> DominoElement.of(tableRow.element())
                     .toggleDisplay(expanded));
-
         }
 
         public void addRow(TableRow<T> tableRow) {
             groupRows.add(tableRow);
         }
 
+        private void setGroupIconSupplier(BaseIcon<?> groupIconSupplier) {
+            this.groupIconSupplier = groupIconSupplier;
+        }
+
+        private BaseIcon<?> getGroupIconSupplier() {
+            return this.groupIconSupplier;
+        }
     }
 
     @FunctionalInterface
