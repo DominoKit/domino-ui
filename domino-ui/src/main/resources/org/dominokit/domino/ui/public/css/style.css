@@ -3250,6 +3250,17 @@ a.disabled {
     overflow-x: scroll;
 }
 
+.auto-scroll-panel {
+    overflow: auto;
+}
+
+.auto-v-scroll-panel {
+    overflow-y: auto;
+}
+
+.auto-h-scroll-panel {
+    overflow-x: auto;
+}
 
 .no-wrap {
     white-space: nowrap;
