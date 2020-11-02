@@ -47,6 +47,7 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
     private Stepper.StepState state;
     private Stepper.StepState nonErrorState;
     private FlexItem stepNumberFlexItem;
+    private Stepper.StepState initialState;
 
     public static Step create(String title) {
         return new Step(title);
@@ -56,26 +57,27 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return new Step(title, description);
     }
 
-    public Step(String title, String description) {
-        this(title);
-        setDescription(description);
+    public static Step create(String title, String description, Stepper.StepState initialState) {
+        return new Step(title, description, initialState);
     }
 
-    public Step(String title) {
+    public Step(String title, String description, Stepper.StepState initialState) {
         init(this);
-        state = Stepper.StepState.INACTIVE;
-        nonErrorState = Stepper.StepState.INACTIVE;
+        this.initialState = initialState;
+        this.state = Stepper.StepState.INACTIVE;
+        this.nonErrorState = Stepper.StepState.INACTIVE;
         this.stepStateChangeListeners = new ArrayList<>();
         this.titleSpan = DominoElement.of(span());
         this.descriptionSpan = DominoElement.of(span()).hide();
+        this.setDescription(description);
         this.horizontalBarSpan = DominoElement.of(span().css(barColor.getBackground()));
         this.verticalBarSpan = DominoElement.of(span().css(barColor.getBackground()));
         this.header = FlexLayout.create();
         this.content = DominoElement.div();
 
-        errorMessagesFlexItem = FlexItem.create();
-        stepNumberFlexItem = FlexItem.create();
-        root.appendChild(header
+        this.errorMessagesFlexItem = FlexItem.create();
+        this.stepNumberFlexItem = FlexItem.create();
+        this.root.appendChild(header
                 .appendChild(FlexItem.create()
                         .appendChild(FlexLayout.create()
                                 .css(STEP_NUMBER_CNTR)
@@ -122,7 +124,15 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
                 )
         );
 
-        root.appendChild(header);
+        this.root.appendChild(header);
+    }
+
+    public Step(String title, String description) {
+        this(title, description, Stepper.StepState.INACTIVE);
+    }
+
+    public Step(String title) {
+        this(title, null);
     }
 
     public Step setTitle(String title) {
@@ -239,6 +249,10 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         }
         setState(Stepper.StepState.COMPLETED);
         return this;
+    }
+
+    void reset(){
+        setState(this.initialState, true);
     }
 
     @Override
@@ -415,5 +429,13 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
 
     public boolean isActive() {
         return Stepper.StepState.ACTIVE == this.state;
+    }
+
+    public Stepper.StepState getInitialState() {
+        return initialState;
+    }
+
+    public void setInitialState(Stepper.StepState initialState) {
+        this.initialState = initialState;
     }
 }
