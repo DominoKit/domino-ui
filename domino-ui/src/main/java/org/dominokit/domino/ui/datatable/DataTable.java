@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.datatable;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
@@ -9,6 +10,7 @@ import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionSupport;
+import org.jboss.elemento.EventType;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -76,8 +78,6 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         tableConfig.onAfterHeaders(this);
         tableElement.appendChild(tbody);
         tableConfig.getPlugins().forEach(plugin -> plugin.onBodyAdded(DataTable.this));
-        tableElement.addEventListener("scroll", e -> updateTableWidth());
-        tableElement.addEventListener("resize", e -> updateTableWidth());
         root.appendChild(tableElement);
         tableConfig.getPlugins().forEach(plugin -> plugin.onAfterAddTable(DataTable.this));
         if (!tableConfig.isLazyLoad()) {
@@ -89,6 +89,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
             tbody.style()
                     .add(TBODY_FIXED)
                     .setMaxHeight(tableConfig.getFixedBodyHeight());
+            tableElement.addEventListener(EventType.scroll, e -> updateTableWidth());
+            DomGlobal.window.addEventListener(EventType.resize.getName(), e -> updateTableWidth());
         }
         super.init(this);
         return this;
