@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.datatable;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
@@ -9,12 +10,14 @@ import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionSupport;
+import org.jboss.elemento.EventType;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.*;
+import static org.dominokit.domino.ui.style.Unit.*;
 import static org.jboss.elemento.Elements.*;
 
 public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>> implements HasSelectionSupport<TableRow<T>> {
@@ -82,12 +85,21 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         }
         if (tableConfig.isFixed()) {
             root.style().add(TABLE_FIXED);
+            thead.style().add(THEAD_FIXED);
             tbody.style()
                     .add(TBODY_FIXED)
                     .setMaxHeight(tableConfig.getFixedBodyHeight());
+            tableElement.addEventListener(EventType.scroll, e -> updateTableWidth());
+            DomGlobal.window.addEventListener(EventType.resize.getName(), e -> updateTableWidth());
         }
         super.init(this);
         return this;
+    }
+    
+    private void updateTableWidth() {
+        final long w = tableElement.element().offsetWidth + Math.round(tableElement.element().scrollLeft);
+        thead.setWidth(px.of(w));
+        tbody.setWidth(px.of(w));
     }
 
     public void load() {
