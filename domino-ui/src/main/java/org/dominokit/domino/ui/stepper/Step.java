@@ -378,10 +378,12 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
 
     @Override
     public Step clearInvalid() {
-        setState(nonErrorState);
-        this.errors.clear();
-        this.errorMessagesFlexItem.clearElement();
-        this.removeCss(STEP_INVALID);
+        if(!errors.isEmpty()) {
+            setState(nonErrorState);
+            this.errors.clear();
+            this.errorMessagesFlexItem.clearElement();
+            this.removeCss(STEP_INVALID);
+        }
         return this;
     }
 
