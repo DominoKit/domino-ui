@@ -8,7 +8,6 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
@@ -21,6 +20,7 @@ import java.util.stream.Collectors;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
+import org.dominokit.domino.ui.utils.ElementUtil;
 import static org.jboss.elemento.Elements.*;
 
 public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu> implements HasBackground<DropDownMenu> {
@@ -35,7 +35,9 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     private DominoElement<HTMLInputElement> searchBox = DominoElement.of(input("text")
             .css(DropDownStyles.DROPDOWN_SEARCH_BOX));
     private DominoElement<HTMLElement> noSearchResultsElement;
+    private DominoElement<HTMLElement> createNewValueElement;
     private String noMatchSearchResultText = "No results matched";
+    private String createEntryText = "Create";
 
     private List<DropdownAction<?>> actions = new ArrayList<>();
     private static boolean touchMoved;
@@ -43,6 +45,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     private List<OpenHandler> openHandlers = new ArrayList<>();
     private boolean closeOnEscape;
     private boolean searchable;
+    private boolean creatable = false;
     private boolean caseSensitiveSearch = false;
     private List<DropdownActionsGroup<?>> groups = new ArrayList<>();
     private Color background;
@@ -54,6 +57,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         } else {
             return dropdownAction.getContent().textContent.toLowerCase().contains(searchText.toLowerCase());
         }
+    };
+    private CreationHandler createHandler = (String searchText) -> {
     };
 
     static {
@@ -115,7 +120,21 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         setNoSearchResultsElement(DominoElement.of(li().css(DropDownStyles.NO_RESULTS))
                 .hide()
                 .element());
+        
+        createNewValueElement = DominoElement.of(DominoElement.of(li().css(DropDownStyles.NO_RESULTS))
+                .hide()
+                .element());
+        
+        createNewValueElement.addClickListener(new EventListener() {
+            @Override
+            public void handleEvent(Event evt) {
+                createHandler.create(searchBox.element().value);
+                createNewValueElement.hide();
+            }
+        });
+        
         menuElement.appendChild(noSearchResultsElement);
+        menuElement.appendChild(createNewValueElement);
 
         titleContainer.addClickListener(Event::stopPropagation);
     }
@@ -165,6 +184,10 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         }
         if (thereIsValues) {
             noSearchResultsElement.hide();
+            createNewValueElement.hide();
+        } else if(creatable) {
+            createNewValueElement.show();
+            createNewValueElement.setTextContent(createEntryText + " \"" + searchValue + "\"");
         } else {
             noSearchResultsElement.show();
             noSearchResultsElement.setTextContent(noMatchSearchResultText + " \"" + searchValue + "\"");
@@ -261,7 +284,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     }
 
     public void open(boolean focus) {
-        if (hasActions()) {
+        if (hasActions() || creatable) {
             onAttached(mutationRecord -> {
                 position.position(element.element(), targetElement);
                 if (searchable) {
@@ -313,6 +336,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         actions.clear();
         groups.clear();
         menuElement.appendChild(noSearchResultsElement);
+        menuElement.appendChild(createNewValueElement);
         return this;
     }
 
@@ -363,6 +387,11 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         } else {
             searchContainer.hide();
         }
+        return this;
+    }
+    
+    public DropDownMenu setCreateable(boolean createable) {
+        this.creatable = createable;
         return this;
     }
 
@@ -451,6 +480,18 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         }
         return this;
     }
+    
+    public DropDownMenu setCreateHandler(CreationHandler handler) {
+        if (nonNull(handler)) {
+            this.createHandler = handler;
+        }
+        return this;
+    }
+    
+    public DropDownMenu setCreateEntryText(String createEntryText) {
+        this.createEntryText = createEntryText;
+        return this;
+    }
 
     @FunctionalInterface
     public interface CloseHandler {
@@ -474,4 +515,10 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     public interface SearchFilter {
         boolean filter(String searchText, DropdownAction<?> dropdownAction, boolean caseSensitive);
     }
+    
+    @FunctionalInterface
+    public interface CreationHandler {
+        void create(String searchText);
+    }
+    
 }
