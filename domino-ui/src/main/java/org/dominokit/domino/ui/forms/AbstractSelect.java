@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -41,6 +42,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     private BaseIcon<?> arrowIcon;
 
     private boolean searchable;
+    private boolean creatable;
     private boolean clearable;
     private FlexItem arrowIconContainer;
     private int popupWidth = 0;
@@ -60,6 +62,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         initListeners();
         dropdown();
         setSearchable(true);
+        setCreatable(false);
         addChangeHandler(value -> {
             if (isNull(value)) {
                 clear();
@@ -431,9 +434,39 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         this.searchable = searchable;
         return (S) this;
     }
+    
+    public S setCreatable(boolean creatable) {
+        optionsMenu.setCreatable(creatable);
+        this.creatable = creatable;
+        return (S) this;
+    }
+    
+    public S setOnAddOptionHandler(OnAddOptionHandler<V> onAddOptionHandler) {
+        if (!isNull(onAddOptionHandler)) {
+            optionsMenu.setOnAddListener((String input) -> {
+                onAddOptionHandler.onAddOption(input, createdOption -> {
+                    if (!isNull(createdOption)) {
+                        appendChild(createdOption);
+                        select(createdOption);
+                    }
+                });
+            });
+        }
+        return (S) this;
+    }
+
+    public S closeMenu(CloseMenuHandler closeMenuHandler){
+        optionsMenu.close();
+        closeMenuHandler.onMenuClosed();
+        return (S) this;
+    }
 
     public boolean isSearchable() {
         return searchable;
+    }
+    
+    public boolean isCreatable() {
+        return creatable;
     }
 
     public static void closeAllSelects() {
@@ -629,5 +662,15 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         public void remove() {
             select.removeSelectionHandler(selectionHandler);
         }
+    }
+
+    @FunctionalInterface
+    public interface OnAddOptionHandler<V> {
+        void onAddOption(String input, Consumer<SelectOption<V>> completeHandler);
+    }
+
+    @FunctionalInterface
+    public interface CloseMenuHandler<V> {
+        void onMenuClosed();
     }
 }
