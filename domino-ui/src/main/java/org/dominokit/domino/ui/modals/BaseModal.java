@@ -121,29 +121,31 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
 
     void addTabIndexHandler() {
         element().addEventListener(EventType.keydown.getName(), evt -> {
-            KeyboardEvent keyboardEvent = Js.cast(evt);
-            switch (keyboardEvent.code) {
-                case "Tab":
-                    initFocusElements();
-                    if (focusElements.size() <= 1) {
-                        evt.preventDefault();
-                    }
-                    if (keyboardEvent.shiftKey) {
-                        handleBackwardTab(evt);
-                    } else {
-                        handleForwardTab(evt);
-                    }
-                    if (!focusElements.contains(DominoDom.document.activeElement) && nonNull(firstFocusElement)) {
-                        firstFocusElement.focus();
-                    }
-                    break;
-                case "Escape":
-                    if (isAutoClose()) {
-                        close();
-                    }
-                    break;
-                default:
-                    break;
+            if(evt instanceof KeyboardEvent) {
+                KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
+                switch (keyboardEvent.code) {
+                    case "Tab":
+                        initFocusElements();
+                        if (focusElements.size() <= 1) {
+                            evt.preventDefault();
+                        }
+                        if (keyboardEvent.shiftKey) {
+                            handleBackwardTab(evt);
+                        } else {
+                            handleForwardTab(evt);
+                        }
+                        if (!focusElements.contains(DominoDom.document.activeElement) && nonNull(firstFocusElement)) {
+                            firstFocusElement.focus();
+                        }
+                        break;
+                    case "Escape":
+                        if (isAutoClose()) {
+                            close();
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
         });
     }
