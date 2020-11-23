@@ -404,6 +404,17 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         }
         return this;
     }
+    
+    /**
+     * Set the text which is displayed in case nothing is found at a searchable {@link DropDownMenu}
+     * Default is "No results matched".
+     * @param text
+     * @return 
+     */
+    public DropDownMenu setNoMatchSearchResultText(String text) {
+        this.noMatchSearchResultText = text;
+        return this;
+    }
 
     public DropDownMenu setOnAddListener(OnAdd onAdd) {
         this.addListener = onAdd;
