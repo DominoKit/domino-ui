@@ -49,10 +49,10 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     public void onBeforeAddHeaders(DataTable<T> dataTable) {
         dataTable.getTableConfig().insertColumnFirst(ColumnConfig.<T>create("data-table-select-cm")
                 .setSortable(false)
-                .setWidth(dataTable.getTableConfig().isMultiSelect() ? "20px" : "25px")
+                .setWidth(dataTable.getTableConfig().isMultiSelect() ? "35px" : "40px")
                 .styleCell(element -> Style.of(element)
-                        .setMaxWidth(dataTable.getTableConfig().isMultiSelect() ? "20px" : "25px")
-                        .setWidth(dataTable.getTableConfig().isMultiSelect() ? "20px" : "25px")
+                                           .setMaxWidth(dataTable.getTableConfig().isMultiSelect() ? "35px" : "40px")
+                                           .setWidth(dataTable.getTableConfig().isMultiSelect() ? "35px" : "40px")
                 )
                 .setTooltipNode(DomGlobal.document.createTextNode("Select"))
                 .setHeaderElement(columnTitle -> {
