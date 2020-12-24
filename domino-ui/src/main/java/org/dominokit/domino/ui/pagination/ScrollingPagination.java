@@ -275,7 +275,13 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
             for (int i = targetWindowMinLimit; i < targetWindowMaxLimit; i++) {
                 if (i < allPages.size()) {
-                    pagesElement.insertBefore(allPages.get(i), dotsElement);
+                    if(pagesElement.contains(dotsElement)) {
+                        pagesElement.insertBefore(allPages.get(i), dotsElement);
+                    }else if(pagesElement.contains(pagesCountPageElement)){
+                        pagesElement.insertBefore(allPages.get(i), pagesCountPageElement);
+                    }else{
+                        pagesElement.appendChild(allPages.get(i));
+                    }
                 }
             }
 
