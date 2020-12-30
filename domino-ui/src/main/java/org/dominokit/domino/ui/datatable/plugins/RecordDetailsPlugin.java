@@ -10,6 +10,7 @@ import org.dominokit.domino.ui.datatable.events.ExpandRecordEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.elemento.IsElement;
 
@@ -28,7 +29,6 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     private final CellRenderer<T> cellRenderer;
     private DetailsButtonElement buttonElement;
     private DataTable<T> dataTable;
-
 
     public RecordDetailsPlugin(CellRenderer<T> cellRenderer) {
         this(cellRenderer, Icons.ALL.fullscreen_exit(), Icons.ALL.fullscreen());
@@ -99,32 +99,29 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     }
 
     public static class DetailsButtonElement<T> implements IsElement<HTMLElement>, TableRow.RowMetaObject {
-        private final Button button;
+        private final DominoElement<HTMLDivElement> element;
         private final CellRenderer.CellInfo<T> cellInfo;
         private final BaseIcon<?> expandIcon;
         private final BaseIcon<?> collapseIcon;
         private RecordDetailsPlugin<?> recordDetailsPlugin;
-        private boolean expanded = false;
 
         public DetailsButtonElement(BaseIcon<?> expandIcon, BaseIcon<?> collapseIcon, RecordDetailsPlugin<?> recordDetailsPlugin, CellRenderer.CellInfo<T> cellInfo) {
-            this.expandIcon = expandIcon;
-            this.collapseIcon = collapseIcon;
+            this.expandIcon = expandIcon.copy();
+            this.collapseIcon = collapseIcon.copy();
             this.recordDetailsPlugin = recordDetailsPlugin;
             this.cellInfo = cellInfo;
-            this.button = Button.create(expandIcon.copy()).linkify();
-            button.style()
+            this.element = DominoElement.div();
+            this.element
+                    .appendChild(this.expandIcon.clickable())
+                    .appendChild(this.collapseIcon.clickable().hide());
+            element.style()
                     .setProperty("padding", "0px")
                     .setHeight("27px")
                     .setPaddingLeft("2px")
                     .setPaddingRight("2px");
 
-            button.addClickListener(evt -> {
-                if (expanded) {
-                    collapse();
-                } else {
-                    expand();
-                }
-            });
+            this.expandIcon.addClickListener(evt -> expand());
+            this.collapseIcon.addClickListener(evt -> collapse());
         }
 
         public CellRenderer.CellInfo<T> getCellInfo() {
@@ -132,20 +129,20 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
         }
 
         public void expand() {
-            button.setIcon(collapseIcon.copy());
-            expanded = true;
+            expandIcon.hide();
+            collapseIcon.show();
             recordDetailsPlugin.setExpanded(this);
         }
 
         public void collapse() {
-            button.setIcon(expandIcon.copy());
-            expanded = false;
+            expandIcon.show();
+            collapseIcon.hide();
             recordDetailsPlugin.clear();
         }
 
         @Override
         public HTMLElement element() {
-            return button.element();
+            return element.element();
         }
 
         @Override
