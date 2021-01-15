@@ -30,7 +30,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     private void addInputStringValidator() {
         addValidator(() -> {
             String inputValue = getInputElement().element().value;
-            if(nonNull(inputValue) && !inputValue.isEmpty()) {
+            if (nonNull(inputValue) && !inputValue.isEmpty()) {
                 try {
                     getNumberFormat().parse(inputValue);
                 } catch (NumberFormatException e) {
@@ -130,17 +130,17 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number> ext
     }
 
     public T setMinValue(E minValue) {
-        getInputElement().element().min = minValue + "";
+        getInputElement().element().min = getNumberFormat().format(minValue);
         return (T) this;
     }
 
     public T setMaxValue(E maxValue) {
-        getInputElement().element().max = maxValue + "";
+        getInputElement().element().max = getNumberFormat().format(maxValue);
         return (T) this;
     }
 
     public T setStep(E step) {
-        getInputElement().element().step = step + "";
+        getInputElement().element().step = getNumberFormat().format(step);
         return (T) this;
     }
 
