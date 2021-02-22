@@ -27,7 +27,7 @@ import static org.jboss.elemento.Elements.*;
  *     <li>Error</li>
  * </ul>
  * <p>
- * Each one of these types has default style and can be customized by overwriting css classes provided in {@link AlertStyles}
+ * Customize the component can be done by overwriting classes provided by {@link AlertStyles}
  *
  * <p>For example:</p>
  * <pre>
@@ -172,7 +172,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
      * Adds {@link Strong} as a child
      *
      * @param strong the element to add
-     * @return same instance to support builder pattern
+     * @return same instance
      */
     public Alert appendChild(Strong strong) {
         element.appendChild(strong.element());
@@ -183,7 +183,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
      * Adds text as a child, the {@code text} will be added in {@link TextNode}
      *
      * @param text the content
-     * @return same instance to support builder pattern
+     * @return same instance
      */
     public Alert appendChild(String text) {
         element.appendChild(TextNode.of(text));
@@ -194,7 +194,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
      * Adds anchor element as a child, this method adds {@link Styles#alert_link} style to anchor element by default
      *
      * @param anchorElement the element
-     * @return same instance to support builder pattern
+     * @return same instance
      */
     public Alert appendChild(HTMLAnchorElement anchorElement) {
         if (nonNull(anchorElement)) {
@@ -208,7 +208,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
      * Adds {@link AlertLink} as a child
      *
      * @param alertLink the element
-     * @return same instance to support builder pattern
+     * @return same instance
      * @see AlertLink
      */
     public Alert appendChild(AlertLink alertLink) {
@@ -227,7 +227,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
      * Passing true means that the alert will be closable and a close button will be added to the element to hide it
      *
      * @param dismissible true to set it as closable, false otherwise
-     * @return same instance to support builder pattern
+     * @return same instance
      */
     public Alert setDismissible(boolean dismissible) {
         if (dismissible) {
@@ -240,7 +240,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
     /**
      * Sets the alert to closable and a close button will be added to the element to hide it
      *
-     * @return same instance to support builder pattern
+     * @return same instance
      */
     public Alert dismissible() {
         if (!dismissible) {
@@ -257,7 +257,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> implements H
     /**
      * Sets the alert to not closable and the close button will be removed if exist, the alert can be hidden programmatically using {@link Alert#remove()}
      *
-     * @return same instance to support builder pattern
+     * @return same instance
      */
     public Alert unDismissible() {
         if (dismissible) {

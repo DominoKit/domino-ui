@@ -64,7 +64,7 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasB
      * Sets the text content of the badge
      *
      * @param text the new content
-     * @return same instance to support builder pattern
+     * @return same instance
      */
     public Badge setText(String text) {
         textNode.textContent = text;
@@ -74,7 +74,7 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasB
     /**
      * Position the element to the right of its parent
      *
-     * @return same instance to support builder pattern
+     * @return same instance
      */
     public Badge pullRight() {
         style().pullRight();
