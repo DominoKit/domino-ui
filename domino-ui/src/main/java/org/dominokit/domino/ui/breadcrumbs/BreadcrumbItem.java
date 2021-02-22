@@ -13,12 +13,29 @@ import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.a;
 import static org.jboss.elemento.Elements.li;
 
+/**
+ * A component for {@link Breadcrumb} location.
+ * <p>
+ * This component provides basic styles of a location and functionalities that allows switching between location statuses
+ * <p>
+ * Customize the component can be done by overwriting classes provided by {@link BreadcrumbStyles}
+ *
+ * <p>For example: </p>
+ * <pre>
+ *     Breadcrumb.create()
+ *               .appendChild(BreadcrumbItem.create(" Home "))
+ * </pre>
+ *
+ * @see Breadcrumb
+ * @see BaseDominoElement
+ * @see HasClickableElement
+ */
 public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbItem> implements HasClickableElement {
 
-    private DominoElement<HTMLLIElement> element = DominoElement.of(li().element());
-    private DominoElement<HTMLAnchorElement> anchorElement = DominoElement.of(a());
+    private final DominoElement<HTMLLIElement> element = DominoElement.of(li().element());
+    private final DominoElement<HTMLAnchorElement> anchorElement = DominoElement.of(a());
     private Text textElement;
-    private BaseIcon icon;
+    private BaseIcon<?> icon;
     private boolean active = false;
 
     private BreadcrumbItem(String text) {
@@ -41,14 +58,32 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
         anchorElement.setAttribute("tabindex", "0");
     }
 
+    /**
+     * Creates location with text content
+     *
+     * @param text the content of the item
+     * @return new instance
+     */
     public static BreadcrumbItem create(String text) {
         return new BreadcrumbItem(text);
     }
 
+    /**
+     * Creates item with text content and icon
+     *
+     * @param icon the {@link BaseIcon} of the item
+     * @param text the content of the item
+     * @return new instance
+     */
     public static BreadcrumbItem create(BaseIcon<?> icon, String text) {
         return new BreadcrumbItem(text, icon);
     }
 
+    /**
+     * Sets item as active, customizing the active style can be done by overwriting {@link BreadcrumbStyles#ACTIVE} CSS class
+     *
+     * @return same instance
+     */
     public BreadcrumbItem activate() {
         if (!active) {
             element.style().add(BreadcrumbStyles.ACTIVE);
@@ -65,6 +100,11 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
         return this;
     }
 
+    /**
+     * Sets item as inactive
+     *
+     * @return same instance
+     */
     public BreadcrumbItem deActivate() {
         if (active) {
             element.style().remove(BreadcrumbStyles.ACTIVE);
@@ -81,6 +121,12 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
         return this;
     }
 
+    /**
+     * If true, sets the status to active, otherwise sets the status to inactive
+     *
+     * @param active the boolean to set the status
+     * @return same instance
+     */
     public BreadcrumbItem setActive(boolean active) {
         if (active) {
             return activate();
@@ -89,24 +135,39 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLLIElement element() {
         return element.element();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLAnchorElement getClickableElement() {
         return anchorElement.element();
     }
 
+    /**
+     * @return the {@link Text} content
+     */
     public Text getTextElement() {
         return textElement;
     }
 
-    public BaseIcon getIcon() {
+    /**
+     * @return the {@link BaseIcon}
+     */
+    public BaseIcon<?> getIcon() {
         return icon;
     }
 
+    /**
+     * @return true if the item is active, false otherwise
+     */
     public boolean isActive() {
         return active;
     }
