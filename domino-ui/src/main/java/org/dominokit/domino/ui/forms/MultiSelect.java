@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
+import org.dominokit.domino.ui.chips.Chip;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
 import java.util.ArrayList;
