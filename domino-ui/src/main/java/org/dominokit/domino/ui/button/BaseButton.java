@@ -12,13 +12,19 @@ import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.button;
 import static org.jboss.elemento.Elements.span;
 
+/**
+ * A base component to implement buttons
+ * <p>
+ *     this class provides commons functionality and methods used in different implementations of a button
+ * </p>
+ * @param <B>
+ */
 public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<HTMLElement, B> implements
         HasClickableElement, Sizable<B>, HasBackground<B>,
         HasContent<B>, Switchable<B> {
 
     private static final String DISABLED = "disabled";
 
-    protected final DominoElement<HTMLButtonElement> buttonElement = DominoElement.of(button().css(ButtonStyles.BUTTON));
     private StyleType type;
     private Color background;
     private Color color;
@@ -29,35 +35,71 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     private Text textElement = TextNode.empty();
     private Elevation beforeLinkifyElevation = Elevation.LEVEL_1;
 
+    /**
+     * The default element that represent the button HTMLElement.
+     */
+    protected final DominoElement<HTMLButtonElement> buttonElement = DominoElement.of(button().css(ButtonStyles.BUTTON));
+
+    /**
+     * creates a button with default size {@link ButtonSize#MEDIUM}
+     */
     protected BaseButton() {
         setSize(ButtonSize.MEDIUM);
     }
 
+    /**
+     * creates a button with text and default size {@link ButtonSize#MEDIUM}
+     * @param content String text
+     */
     protected BaseButton(String content) {
         this();
         setContent(content);
     }
 
+    /**
+     * creates a button with an icon and default size {@link ButtonSize#MEDIUM}
+     * @param icon {@link BaseIcon}
+     */
     protected BaseButton(BaseIcon icon) {
         this();
         setIcon(icon);
     }
 
+    /**
+     * creates a button with an icon and default size {@link ButtonSize#MEDIUM} and apply a predefined {@link StyleType}
+     * @param content String text
+     * @param type {@link StyleType}
+     */
     protected BaseButton(String content, StyleType type) {
         this(content);
         setButtonType(type);
     }
 
+    /**
+     * creates a button with an icon and default size {@link ButtonSize#MEDIUM} and apply a predefined {@link StyleType}
+     * @param icon {@link BaseIcon}
+     * @param type {@link StyleType}
+     */
     protected BaseButton(BaseIcon icon, StyleType type) {
         this(icon);
         setButtonType(type);
     }
 
+    /**
+     * creates a button with a text and default size {@link ButtonSize#MEDIUM} and apply a custom background {@link Color}
+     * @param content String text
+     * @param background {@link Color} the background color
+     */
     public BaseButton(String content, Color background) {
         this(content);
         setBackground(background);
     }
 
+    /**
+     * replaces the current text of the button
+     * @param content String, the new text
+     * @return same instance
+     */
     @Override
     public B setContent(String content) {
         this.content = content;
@@ -71,12 +113,23 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return (B) this;
     }
 
+    /**
+     * same as {@link #setContent(String)}
+     *
+     * @param text String, the new text
+     * @return same instance
+     */
     @Override
     public B setTextContent(String text) {
         setContent(text);
         return (B) this;
     }
 
+    /**
+     * change the size of the button
+     * @param size {@link ButtonSize}
+     * @return same instance
+     */
     public B setSize(ButtonSize size) {
         if (nonNull(size)) {
             if (nonNull(this.size)) {
@@ -88,6 +141,11 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return (B) this;
     }
 
+    /**
+     * sets or remove the {@link ButtonStyles#BUTTON_BLOCK}
+     * @param block boolean if true add the style otherwise remove it
+     * @return same instance
+     */
     public B setBlock(boolean block) {
         if (block)
             buttonElement.style().add(ButtonStyles.BUTTON_BLOCK);
@@ -96,6 +154,11 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return (B) this;
     }
 
+    /**
+     * change the button background color
+     * @param background the {@link Color} of the new background
+     * @return same instance
+     */
     @Override
     public B setBackground(Color background) {
         if (nonNull(this.type))
@@ -107,6 +170,11 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return (B) this;
     }
 
+    /**
+     * Changes the text color of a button
+     * @param color the new {@link Color}
+     * @return same instance
+     */
     public B setColor(Color color) {
         if (nonNull(this.color))
             style().remove(this.color.getStyle());
@@ -115,6 +183,11 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return (B) this;
     }
 
+    /**
+     * changes the button style type
+     * @param type the new {@link StyleType}
+     * @return same instance
+     */
     public B setButtonType(StyleType type) {
         if (nonNull(this.type))
             buttonElement.style().remove(this.type.getStyle());
@@ -123,61 +196,106 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return (B) this;
     }
 
+    /**
+     * disables the button, this will effectively set the button HTMLElement disable attribute
+     * @return same instance
+     */
     @Override
     public B disable() {
         buttonElement.setAttribute(DISABLED, DISABLED);
         return (B) this;
     }
 
+    /**
+     * enables the button, this will effectively remove the button HTMLElement disable attribute
+     * @return same instance
+     */
     @Override
     public B enable() {
         buttonElement.removeAttribute(DISABLED);
         return (B) this;
     }
 
+    /**
+     * delegate to {@link #disable()} or {@link #enable()} based on the flag
+     * @param enabled boolean, if true call {@link #enable()} else call {@link #disable()}
+     * @return same instance
+     */
     public B setEnabled(boolean enabled) {
         return enabled ? enable() : disable();
     }
 
+    /**
+     * check if the button is enabled or not
+     * @return boolean, true if the button is enabled else return false
+     */
     @Override
     public boolean isEnabled() {
         return !buttonElement.hasAttribute(DISABLED);
     }
 
+    /**
+     * return the clickable {@link HTMLElement} of this component, which the component button element.
+     * @return {@link HTMLElement} of this button instance
+     */
     @Override
     public HTMLElement getClickableElement() {
         return element();
     }
 
+    /**
+     * change the button size to {@link ButtonSize#LARGE}
+     * @return same instance
+     */
     @Override
     public B large() {
         setSize(ButtonSize.LARGE);
         return (B) this;
     }
 
+    /**
+     * change the button size to {@link ButtonSize#MEDIUM}
+     * @return same instance
+     */
     @Override
     public B medium() {
         setSize(ButtonSize.MEDIUM);
         return (B) this;
     }
 
+    /**
+     * change the button size to {@link ButtonSize#SMALL}
+     * @return same instance
+     */
     @Override
     public B small() {
         setSize(ButtonSize.SMALL);
         return (B) this;
     }
 
+    /**
+     * change the button size to {@link ButtonSize#XSMALL}
+     * @return same instance
+     */
     @Override
     public B xSmall() {
         setSize(ButtonSize.XSMALL);
         return (B) this;
     }
 
+    /**
+     * delegate to {@link #setBlock(boolean)} with true
+     * @return same instance
+     */
     public B block() {
         setBlock(true);
         return (B) this;
     }
 
+    /**
+     * changes the button to look like a link by applying {@link ButtonStyles#BUTTON_LINK} and remove the {@link Elevation}
+     * @return same instance
+     */
     public B linkify() {
         buttonElement.style().add(ButtonStyles.BUTTON_LINK);
         beforeLinkifyElevation = nonNull(buttonElement.getElevation()) ? buttonElement.getElevation() : Elevation.LEVEL_1;
@@ -185,12 +303,20 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return (B) this;
     }
 
+    /**
+     * Revert a linkify(ed) button to look like a button by removing {@link ButtonStyles#BUTTON_LINK} and restore the previous {@link Elevation}
+     * @return same instance
+     */
     public B deLinkify() {
         buttonElement.style().remove(ButtonStyles.BUTTON_LINK);
         buttonElement.elevate(beforeLinkifyElevation);
         return (B) this;
     }
 
+    /**
+     * adds a border to the button by applying the {@link ButtonStyles#BUTTON_BORDERED} and removes the {@link Elevation}
+     * @return same instance
+     */
     public B bordered() {
         buttonElement.style().add(ButtonStyles.BUTTON_BORDERED);
         beforeLinkifyElevation = nonNull(buttonElement.getElevation()) ? buttonElement.getElevation() : Elevation.LEVEL_1;
@@ -198,24 +324,42 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return (B) this;
     }
 
+    /**
+     * sets the border color for a bordered button
+     * @param borderColor the {@link Color} of the border
+     * @return same instance
+     */
     public B bordered(Color borderColor) {
         bordered();
         buttonElement.style().setBorderColor(borderColor.getHex());
         return (B) this;
     }
 
+    /**
+     * removes the button border applied by {@link #bordered()} and restore previous {@link Elevation}
+     * @return same instance
+     */
     public B nonBordered() {
         buttonElement.style().remove(ButtonStyles.BUTTON_BORDERED);
         buttonElement.elevate(beforeLinkifyElevation);
         return (B) this;
     }
 
+    /**
+     * changes the button to a circle button by applying {@link ButtonStyles#BUTTON_CIRCLE}
+     * @return same instance
+     */
     public B circle() {
         buttonElement.style().add(ButtonStyles.BUTTON_CIRCLE);
         applyCircleWaves();
         return (B) this;
     }
 
+    /**
+     * sets the button icon replacing the current icon.
+     * @param icon the new {@link BaseIcon}
+     * @return same instance
+     */
     public B setIcon(BaseIcon<?> icon) {
         if (isNull(icon)) {
             if (nonNull(this.icon)) {
@@ -241,10 +385,18 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
         return (B) this;
     }
 
+    /**
+     *
+     * @return the current applied {@link ButtonSize}
+     */
     public ButtonSize getSize() {
         return size;
     }
 
+    /**
+     *
+     * @return {@link DominoElement} of {@link HTMLElement} that wrap the button text
+     */
     public DominoElement<HTMLElement> getTextSpan() {
         return DominoElement.of(textSpan);
     }
