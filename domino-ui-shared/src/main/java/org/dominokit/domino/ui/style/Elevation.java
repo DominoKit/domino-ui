@@ -4,6 +4,17 @@ import elemental2.dom.HTMLElement;
 
 import static java.util.Objects.nonNull;
 
+/**
+ * A class to apply a box-shadow to any element
+ * <p>
+ *     This enum list a set of predefined of box-shadow effects css classes, each enum values is a css class name
+ *     Example
+ *     <pre>
+ *     someDominoElement.elevate(Elevation.LEVEL_3)
+ *     </pre>
+ *
+ * </p>
+ */
 public enum Elevation {
 
     NONE("elevation-none"),
@@ -35,14 +46,27 @@ public enum Elevation {
 
     private String style;
 
+    /**
+     *
+     * @param style String, The css class name for the box-shadow effect
+     */
     Elevation(String style) {
         this.style = style;
     }
 
+    /**
+     *
+     * @return String, the elevation css class name
+     */
     public String getStyle() {
         return style;
     }
 
+    /**
+     * a factory method to get an Elevation enum value from an int value.
+     * @param level
+     * @return
+     */
     public static Elevation of(int level) {
         switch (level) {
             case 0:
@@ -104,6 +128,10 @@ public enum Elevation {
         }
     }
 
+    /**
+     * Removes all elevation css classes from an element
+     * @param element an {@link HTMLElement} to remove the css classes from.
+     */
     public static void removeFrom(HTMLElement element){
         String elevationClass = "";
         for (int i = 0; i < element.classList.length; i++) {

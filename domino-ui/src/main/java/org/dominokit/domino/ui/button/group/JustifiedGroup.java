@@ -7,7 +7,11 @@ import org.dominokit.domino.ui.button.DropdownButton;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.Sizable;
 
-public class JustifiedGroup extends BaseDominoElement<HTMLElement, JustifiedGroup> implements IsGroup<HTMLElement>, Sizable<JustifiedGroup> {
+/**
+ * to be removed
+ */
+@Deprecated
+public class JustifiedGroup extends BaseDominoElement<HTMLElement, JustifiedGroup> implements IsGroup<JustifiedGroup>, Sizable<JustifiedGroup> {
 
     private ButtonsGroup group = ButtonsGroup.create();
 
@@ -21,27 +25,25 @@ public class JustifiedGroup extends BaseDominoElement<HTMLElement, JustifiedGrou
     }
 
     @Override
-    public HTMLElement appendChild(Button button) {
-        HTMLElement justify = button.element();
-        group.appendChild(justify);
-        return justify;
+    public JustifiedGroup appendChild(Button button) {
+        group.appendChild(button);
+        return this;
     }
 
     @Override
-    public HTMLElement appendChild(DropdownButton dropDown) {
-        HTMLElement justify = dropDown.element();
-        group.appendChild(justify);
-        return justify;
+    public JustifiedGroup appendChild(DropdownButton dropDown) {
+        group.appendChild(dropDown);
+        return this;
     }
 
     @Override
-    public IsGroup<HTMLElement> verticalAlign() {
+    public JustifiedGroup verticalAlign() {
         group.verticalAlign();
         return this;
     }
 
     @Override
-    public IsGroup<HTMLElement> horizontalAlign() {
+    public JustifiedGroup horizontalAlign() {
         group.horizontalAlign();
         return this;
     }
