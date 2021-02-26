@@ -75,7 +75,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         suggestionsMenu = DropDownMenu.create(fieldContainer);
         suggestionsMenu.setAppendTarget(document.body);
         suggestionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
-        suggestionsMenu.setPosition(new PopupPositionTopDown());
+        suggestionsMenu.setPosition(DominoFields.INSTANCE.getDefaultSuggestPopupPosition().createPosition(this));
         suggestionsMenu.addCloseHandler(() -> {
             if(focusOnClose){
                 focus();

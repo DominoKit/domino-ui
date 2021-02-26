@@ -2,6 +2,7 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.Node;
 import org.checkerframework.checker.nullness.Opt;
+import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.TextNode;
 
@@ -38,6 +39,9 @@ public class DominoFields {
 
     private GlobalValidationHandler globalValidationHandler = new GlobalValidationHandler() {
     };
+
+    private DropdownPositionProvider<AbstractSelect<?, ?, ?>> defaultSelectPopupPosition = AbstractSelect.PopupPositionTopDown::new;
+    private DropdownPositionProvider<SuggestBox<?>> defaultSuggestPopupPosition = field -> new SuggestBox.PopupPositionTopDown();
 
     private DominoFields() {
     }
@@ -96,14 +100,14 @@ public class DominoFields {
     }
 
     public DominoFields setDefaultRequiredMessage(String defaultRequiredMessage) {
-        if(nonNull(defaultRequiredMessage) && !defaultRequiredMessage.isEmpty()){
+        if (nonNull(defaultRequiredMessage) && !defaultRequiredMessage.isEmpty()) {
             this.defaultRequiredMessage = defaultRequiredMessage;
         }
         return this;
     }
 
     public DominoFields setRequiredIndicatorRenderer(RequiredIndicatorRenderer requiredIndicatorRenderer) {
-        if(nonNull(requiredIndicatorRenderer)) {
+        if (nonNull(requiredIndicatorRenderer)) {
             this.requiredIndicatorRenderer = requiredIndicatorRenderer;
         }
         return this;
@@ -114,19 +118,53 @@ public class DominoFields {
     }
 
     public DominoFields setGlobalValidationHandler(GlobalValidationHandler globalValidationHandler) {
-        if(nonNull(globalValidationHandler)) {
+        if (nonNull(globalValidationHandler)) {
             this.globalValidationHandler = globalValidationHandler;
         }
         return this;
     }
 
+    public DropdownPositionProvider<AbstractSelect<?, ?, ?>> getDefaultSelectPopupPosition() {
+        return defaultSelectPopupPosition;
+    }
+
+    public DominoFields setDefaultSelectPopupPosition(DropdownPositionProvider<AbstractSelect<?, ?, ?>> defaultSelectPopupPosition) {
+        if(nonNull(defaultSelectPopupPosition)) {
+            this.defaultSelectPopupPosition = defaultSelectPopupPosition;
+        }
+        return this;
+    }
+
+    public DropdownPositionProvider<SuggestBox<?>> getDefaultSuggestPopupPosition() {
+        return defaultSuggestPopupPosition;
+    }
+
+    public DominoFields setDefaultSuggestPopupPosition(DropdownPositionProvider<SuggestBox<?>> defaultSuggestPopupPosition) {
+        if (nonNull(defaultSuggestPopupPosition)) {
+            this.defaultSuggestPopupPosition = defaultSuggestPopupPosition;
+        }
+        return this;
+    }
+
     public interface RequiredIndicatorRenderer {
-        <T extends BasicFormElement<?,?>> void appendRequiredIndicator(T valueBox, Node requiredIndicator);
-        <T extends BasicFormElement<?,?>> void removeRequiredIndicator(T valueBox, Node requiredIndicator);
+        <T extends BasicFormElement<?, ?>> void appendRequiredIndicator(T valueBox, Node requiredIndicator);
+
+        <T extends BasicFormElement<?, ?>> void removeRequiredIndicator(T valueBox, Node requiredIndicator);
     }
 
     public interface GlobalValidationHandler {
-        default <T extends ValueBox<?,?,?>> void onInvalidate(T valueBox, List<String> errors){};
-        default <T extends ValueBox<?,?,?>> void onClearValidation(T valueBox) {};
+        default <T extends ValueBox<?, ?, ?>> void onInvalidate(T valueBox, List<String> errors) {
+        }
+
+        ;
+
+        default <T extends ValueBox<?, ?, ?>> void onClearValidation(T valueBox) {
+        }
+
+        ;
+    }
+
+    public interface DropdownPositionProvider<T> {
+        DropDownPosition createPosition(T field);
     }
 }
