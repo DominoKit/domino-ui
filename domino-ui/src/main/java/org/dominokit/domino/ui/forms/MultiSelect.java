@@ -1,5 +1,10 @@
 package org.dominokit.domino.ui.forms;
 
+import org.dominokit.domino.ui.chips.Chip;
+import org.dominokit.domino.ui.grid.flex.FlexDirection;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
 import java.util.ArrayList;
@@ -85,7 +90,19 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
     }
 
     private void renderSelectedOptions() {
-        buttonValueContainer.setTextContent(getStringValue());
+        FlexLayout flexLayout = FlexLayout.create()
+                .setDirection(FlexDirection.LEFT_TO_RIGHT);
+        selectedOptions.stream()
+                .map(tSelectOption -> Chip.create(tSelectOption.getDisplayValue())
+                        .setRemovable(true)
+                        .elevate(Elevation.NONE)
+                        .addRemoveHandler(() -> {
+                            tSelectOption.deselect();
+                            selectedOptions.remove(tSelectOption);
+                        }))
+                .forEach(chip -> flexLayout.appendChild(FlexItem.create().appendChild(chip)));
+
+        buttonValueContainer.clearElement().appendChild(flexLayout);
     }
 
     public List<SelectOption<T>> getSelectedOptions() {
@@ -134,7 +151,7 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
     @Override
     protected void scrollToSelectedOption() {
         List<SelectOption<T>> selectedOptions = getSelectedOptions();
-        if(nonNull(selectedOptions) && !selectedOptions.isEmpty()){
+        if (nonNull(selectedOptions) && !selectedOptions.isEmpty()) {
             ElementUtil.scrollIntoParent(selectedOptions.get(0).element(), getOptionsMenu().getMenuElement().element());
         }
     }

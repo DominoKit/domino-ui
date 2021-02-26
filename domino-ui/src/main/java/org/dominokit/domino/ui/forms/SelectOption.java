@@ -5,8 +5,6 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
-import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.*;
@@ -28,9 +26,8 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     private static final String SELECTED = "select-option-selected";
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("select-option"));
     private DominoElement<HTMLElement> valueContainer = DominoElement.of(span().css(Styles.ellipsis_text));
-    private Supplier<Icon> checkMarkSupplier = () -> Icons.ALL.check().styler(style1 -> style1.add(Styles.pull_right)
-            .add("select-option-check-mark"));
-    private Icon checkMark;
+    private Supplier<CheckBox> checkMarkSupplier = CheckBox::create;
+    private CheckBox checkMark;
     private String displayValue;
     private String key;
     private T value;
@@ -44,14 +41,16 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
         setValue(value);
         setDisplayValue(displayValue);
         checkMarkFlexItem = FlexItem.create();
+        checkMark = checkMarkSupplier.get();
+        checkMarkFlexItem.appendChild(checkMark);
         optionLayoutElement = FlexLayout.create();
         element
                 .appendChild(optionLayoutElement
+                        .appendChild(checkMarkFlexItem)
                         .appendChild(FlexItem.create()
                                 .css(Styles.ellipsis_text)
                                 .setFlexGrow(1)
                                 .appendChild(valueContainer))
-                        .appendChild(checkMarkFlexItem)
                 );
         init(this);
     }
@@ -124,9 +123,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     @Override
     public SelectOption<T> select(boolean silent) {
         style().add(SELECTED);
-        if (isNull(checkMark))
-            checkMark = checkMarkSupplier.get();
-        checkMarkFlexItem.appendChild(checkMark);
+        checkMark.check(silent);
         if (!silent) {
             selectionHandlers.forEach(handler -> handler.onSelectionChanged(this));
         }
@@ -136,8 +133,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     @Override
     public SelectOption<T> deselect(boolean silent) {
         style().remove(SELECTED);
-        if (nonNull(checkMark) && element.contains(checkMark.element()))
-            checkMark.remove();
+        checkMark.uncheck(silent);
         return this;
     }
 
@@ -157,7 +153,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
         return element.element();
     }
 
-    public Icon getCheckMark() {
+    public CheckBox getCheckMark() {
         return checkMark;
     }
 
