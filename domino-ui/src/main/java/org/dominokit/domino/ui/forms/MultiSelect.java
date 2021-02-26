@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.forms;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.chips.Chip;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
@@ -20,6 +21,7 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
     private ValueRenderer valueRenderer = this::renderSelectedOptions;
     private List<SelectOption<T>> selectedOptions = new ArrayList<>();
     private String selectedOptionsSeparator;
+    private Color color = Color.THEME;
 
     public static <T> MultiSelect<T> create() {
         return new MultiSelect<>();
@@ -104,6 +106,8 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
                 .map(tSelectOption -> {
                     Chip chip = Chip.create(tSelectOption.getDisplayValue())
                             .setRemovable(true)
+                            .setColor(color)
+                            .setBorderColor(color)
                             .elevate(Elevation.NONE);
                     chip.addRemoveHandler(() -> {
                         tSelectOption.deselect();
@@ -170,6 +174,11 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
         }
     }
 
+    public MultiSelect<T> setColor(Color color) {
+        this.color = color;
+        return this;
+    }
+
     @FunctionalInterface
     public interface ValueRenderer {
         void render();
@@ -179,7 +188,7 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
 
         @Override
         public HTMLElement element(SelectOption<T> option) {
-            CheckBox checkMark = CheckBox.create().filledIn();
+            CheckBox checkMark = CheckBox.create().setColor(color).filledIn();
             FlexItem checkMarkFlexItem = FlexItem.create();
             checkMarkFlexItem.appendChild(checkMark);
             option.getOptionLayoutElement()
