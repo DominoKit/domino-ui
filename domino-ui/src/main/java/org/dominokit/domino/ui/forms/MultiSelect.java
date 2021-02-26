@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.chips.Chip;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
@@ -193,8 +194,15 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
             checkMarkFlexItem.appendChild(checkMark);
             option.getOptionLayoutElement()
                     .insertFirst(checkMarkFlexItem);
-            checkMark.setValue(option.isSelected());
-            option.addSelectionHandler(selectable -> checkMark.setValue(selectable.isSelected()));
+            option.addSelectionHandler(selectable -> {
+                DomGlobal.console.info("select handler");
+                if (selectable.isSelected()) {
+                    checkMark.check(true);
+                } else {
+                    checkMark.uncheck(true);
+                }
+            });
+            checkMark.addChangeHandler(value -> select(option));
             return option.element();
         }
     }
