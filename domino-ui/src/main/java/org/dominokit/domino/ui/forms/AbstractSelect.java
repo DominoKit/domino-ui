@@ -57,7 +57,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         optionsMenu = DropDownMenu.create(fieldContainer).styler(style1 -> style1.add("select-option-menu"));
         optionsMenu.setAppendTarget(DomGlobal.document.body);
         optionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
-        optionsMenu.setPosition(new PopupPositionTopDown<>(this));
+        optionsMenu.setPosition(DominoFields.INSTANCE.getDefaultSelectPopupPosition().createPosition(this));
         optionsMenu.addOpenHandler(this::resumeFocusValidation);
         optionsMenu.addOpenHandler(this::scrollToSelectedOption);
         buttonElement.appendChild(buttonValueContainer);
