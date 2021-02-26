@@ -11,6 +11,7 @@ import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -90,6 +91,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         setLabel(label);
         setSpellCheck(true);
         fieldStyle.apply(this);
+        DominoFields.INSTANCE.getFixErrorsPosition().ifPresent(this::setFixErrorsPosition);
+        DominoFields.INSTANCE.getFloatLabels().ifPresent(this::setFloating);
     }
 
     public FieldStyle getFieldStyle() {
@@ -547,6 +550,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     public T invalidate(String errorMessage) {
         this.valid = false;
         updateValidationStyles();
+        DominoFields.INSTANCE.getGlobalValidationHandler().onInvalidate(this, Collections.singletonList(errorMessage));
         return super.invalidate(errorMessage);
     }
 
@@ -568,6 +572,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     public T invalidate(List<String> errorMessages) {
         this.valid = false;
         updateValidationStyles();
+        DominoFields.INSTANCE.getGlobalValidationHandler().onInvalidate(this, errorMessages);
         return super.invalidate(errorMessages);
     }
 
@@ -601,6 +606,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
             doUnfocus();
         }
         changeLabelFloating();
+        DominoFields.INSTANCE.getGlobalValidationHandler().onClearValidation(this);
         return super.clearInvalid();
     }
 

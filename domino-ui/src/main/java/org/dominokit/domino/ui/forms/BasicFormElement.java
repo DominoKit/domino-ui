@@ -227,7 +227,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
         if (required) {
             addValidator(requiredValidator);
             if (this.showRequiredIndicator) {
-                getLabelElement().appendChild(requiredIndicator);
+                DominoFields.INSTANCE.getRequiredIndicatorRenderer().appendRequiredIndicator((T) this, requiredIndicator);;
             }
         } else {
             removeValidator(requiredValidator);
@@ -236,9 +236,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     }
 
     private void removeRequiredIndicator() {
-        if (nonNull(getLabelElement()) && getLabelElement().hasDirectChild(requiredIndicator)) {
-            getLabelElement().removeChild(requiredIndicator);
-        }
+        DominoFields.INSTANCE.getRequiredIndicatorRenderer().removeRequiredIndicator(this, requiredIndicator);
     }
 
     @Override
