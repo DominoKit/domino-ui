@@ -20,6 +20,7 @@ public class DominoFields {
     private String defaultRequiredMessage = "* This field is required";
     private Optional<Boolean> fixErrorsPosition = Optional.empty();
     private Optional<Boolean> floatLabels = Optional.empty();
+    private Optional<Boolean> condensed = Optional.empty();
     private RequiredIndicatorRenderer requiredIndicatorRenderer = new RequiredIndicatorRenderer() {
         @Override
         public <T extends BasicFormElement<?, ?>> void appendRequiredIndicator(T valueBox, Node requiredIndicator) {
@@ -65,6 +66,15 @@ public class DominoFields {
 
     public DominoFields setFloatLabels(boolean floatLabels) {
         this.floatLabels = Optional.of(floatLabels);
+        return this;
+    }
+
+    public Optional<Boolean> getCondensed() {
+        return condensed;
+    }
+
+    public DominoFields setCondensed(boolean condensed) {
+        this.condensed = Optional.of(condensed);
         return this;
     }
 
