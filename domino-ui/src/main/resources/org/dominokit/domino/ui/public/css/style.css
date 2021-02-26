@@ -3377,6 +3377,10 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
     cursor: pointer !important;
 }
 
+.select-placeholder {
+    color: #555;
+}
+
 .mdi:focus,
 .material-icons:focus {
     outline: none;

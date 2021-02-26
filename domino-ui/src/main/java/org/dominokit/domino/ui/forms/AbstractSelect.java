@@ -35,12 +35,14 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
 
     private DominoElement<HTMLButtonElement> buttonElement;
     protected DominoElement<HTMLElement> buttonValueContainer = DominoElement.of(span().css("select-value", Styles.ellipsis_text));
+    private final DominoElement<HTMLElement> placeholderNode = DominoElement.of(span()).css("select-placeholder");
+    protected final DominoElement<HTMLElement> valuesContainer = DominoElement.of(span());
     protected LinkedList<SelectOption<V>> options = new LinkedList<>();
     private DropDownMenu optionsMenu;
     private List<SelectionHandler<V>> selectionHandlers = new ArrayList<>();
     private Supplier<BaseIcon<?>> arrowIconSupplier = Icons.ALL::menu_down_mdi;
     private BaseIcon<?> arrowIcon;
-
+    private OptionRenderer<V> optionRenderer = SelectOption::element;
     private boolean searchable;
     private boolean creatable;
     private boolean clearable;
@@ -59,6 +61,8 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         optionsMenu.addOpenHandler(this::resumeFocusValidation);
         optionsMenu.addOpenHandler(this::scrollToSelectedOption);
         buttonElement.appendChild(buttonValueContainer);
+        buttonValueContainer.appendChild(placeholderNode);
+        buttonValueContainer.appendChild(valuesContainer);
         initListeners();
         dropdown();
         setSearchable(true);
@@ -120,7 +124,8 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     public S clear() {
         unfloatLabel();
         getOptions().forEach(selectOption -> selectOption.deselect(true));
-        buttonValueContainer.setTextContent("");
+        valuesContainer.setTextContent("");
+        showPlaceholder();
         if (isAutoValidation())
             validate();
         return (S) this;
@@ -191,7 +196,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     private void doSelectOption(SelectOption<V> option) {
         if (isEnabled()) {
             select(option);
-            if(this.autoCloseOnSelect) {
+            if (this.autoCloseOnSelect) {
                 close();
             }
         }
@@ -206,7 +211,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     }
 
     private DropdownAction<SelectOption<V>> asDropDownAction(SelectOption<V> option) {
-        return DropdownAction.create(option, option.element())
+        return DropdownAction.create(option, optionRenderer.element(option))
                 .setAutoClose(this.autoCloseOnSelect)
                 .setExcludeFromSearchResults(option.isExcludeFromSearchResults())
                 .addSelectionHandler(value -> doSelectOption(option));
@@ -378,6 +383,11 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
+    public S setOptionRenderer(OptionRenderer<V> optionRenderer) {
+        this.optionRenderer = optionRenderer;
+        return (S) this;
+    }
+
     @FunctionalInterface
     public interface SelectionHandler<V> {
         void onSelection(SelectOption<V> option);
@@ -434,13 +444,13 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         this.searchable = searchable;
         return (S) this;
     }
-    
+
     public S setCreatable(boolean creatable) {
         optionsMenu.setCreatable(creatable);
         this.creatable = creatable;
         return (S) this;
     }
-    
+
     public S setOnAddOptionHandler(OnAddOptionHandler<V> onAddOptionHandler) {
         if (!isNull(onAddOptionHandler)) {
             optionsMenu.setOnAddListener((String input) -> {
@@ -455,7 +465,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
-    public S closeMenu(CloseMenuHandler closeMenuHandler){
+    public S closeMenu(CloseMenuHandler closeMenuHandler) {
         optionsMenu.close();
         closeMenuHandler.onMenuClosed();
         return (S) this;
@@ -464,7 +474,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     public boolean isSearchable() {
         return searchable;
     }
-    
+
     public boolean isCreatable() {
         return creatable;
     }
@@ -526,6 +536,20 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     protected HTMLElement createInputElement(String type) {
         buttonElement = DominoElement.of(button().attr("type", "button").css("select-button"));
         return buttonElement.element();
+    }
+
+    @Override
+    protected void showPlaceholder() {
+        if (getPlaceholder() != null && shouldShowPlaceholder()) {
+            placeholderNode.setTextContent(getPlaceholder());
+        }
+    }
+
+    @Override
+    protected void hidePlaceholder() {
+        if (getPlaceholder() != null && !shouldShowPlaceholder()) {
+            placeholderNode.clearElement();
+        }
     }
 
     @Override
@@ -672,5 +696,10 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     @FunctionalInterface
     public interface CloseMenuHandler<V> {
         void onMenuClosed();
+    }
+
+    @FunctionalInterface
+    public interface OptionRenderer<T> {
+        HTMLElement element(SelectOption<T> option);
     }
 }

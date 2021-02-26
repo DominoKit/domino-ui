@@ -372,19 +372,19 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
-    private void showPlaceholder() {
+    protected void showPlaceholder() {
         if (placeholder != null && shouldShowPlaceholder()) {
             inputElement.setAttribute("placeholder", placeholder);
         }
     }
 
-    private void hidePlaceholder() {
+    protected void hidePlaceholder() {
         if (placeholder != null && !shouldShowPlaceholder()) {
             inputElement.removeAttribute("placeholder");
         }
     }
 
-    private boolean shouldShowPlaceholder() {
+    protected boolean shouldShowPlaceholder() {
         return isEmpty() && floating;
     }
 
