@@ -93,6 +93,11 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         fieldStyle.apply(this);
         DominoFields.INSTANCE.getFixErrorsPosition().ifPresent(this::setFixErrorsPosition);
         DominoFields.INSTANCE.getFloatLabels().ifPresent(this::setFloating);
+        DominoFields.INSTANCE.getCondensed().ifPresent(shouldCondense -> {
+            if(shouldCondense){
+                condense();
+            }
+        });
     }
 
     public FieldStyle getFieldStyle() {
