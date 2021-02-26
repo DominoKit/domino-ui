@@ -59,11 +59,11 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <elemento.version>1.0.0-rc3</elemento.version>
-        <elemental2.version>1.0.0-RC1</elemental2.version>
-        <gwt.version>2.8.2</gwt.version>
-        <jackson.apt.version>1.0-SNAPSHOT</jackson.apt.version>
-        <gwt.i18n.version>1.0-SNAPSHOT</gwt.i18n.version>
+        <elemento.version>1.0.3</elemento.version>
+        <elemental2.version>1.1.0</elemental2.version>
+        <gwt.version>2.9.0</gwt.version>
+        <jackson.apt.version>1.0.0-beta-2</jackson.apt.version>
+        <gwt.i18n.version>1.0</gwt.i18n.version>
     </properties>
 
     <dependencyManagement>
@@ -72,17 +72,17 @@
             <dependency>
                 <groupId>org.gwtproject.editor</groupId>
                 <artifactId>gwt-editor</artifactId>
-                <version>HEAD-SNAPSHOT</version>
+                <version>1.0.0-RC1</version>
             </dependency>
             <dependency>
                 <groupId>org.gwtproject.core</groupId>
                 <artifactId>gwt-core</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0.0-RC1</version>
             </dependency>
             <dependency>
                 <groupId>org.gwtproject.timer</groupId>
                 <artifactId>gwt-timer</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0.0-RC1</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.elemento</groupId>
@@ -90,12 +90,12 @@
                 <version>${elemento.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.gwtproject.i18n</groupId>
+                <groupId>org.dominokit.i18n</groupId>
                 <artifactId>gwt-datetimeformat</artifactId>
                 <version>${gwt.i18n.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.gwtproject.i18n</groupId>
+                <groupId>org.dominokit.i18n</groupId>
                 <artifactId>gwt-numberformat</artifactId>
                 <version>${gwt.i18n.version}</version>
             </dependency>
@@ -132,13 +132,13 @@
                 <version>1.9.0</version>
             </dependency>
             <dependency>
-                <groupId>org.dominokit.jackson</groupId>
-                <artifactId>jackson-apt</artifactId>
+                <groupId>org.dominokit</groupId>
+                <artifactId>domino-jackson</artifactId>
                 <version>${jackson.apt.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.dominokit.jackson</groupId>
-                <artifactId>jackson-apt-processor</artifactId>
+                <groupId>org.dominokit</groupId>
+                <artifactId>domino-jackson-processor</artifactId>
                 <version>${jackson.apt.version}</version>
                 <scope>provided</scope>
             </dependency>

@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.utils;
 
 import elemental2.core.JsArray;
+import elemental2.core.JsNumber;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.jboss.elemento.Elements;
@@ -25,8 +26,9 @@ final class BodyObserver {
 
     private static void startObserving() {
         MutationObserver mutationObserver = new MutationObserver(
-                (MutationRecord[] records, MutationObserver observer) -> {
-                    for (MutationRecord record : records) {
+                (JsArray<MutationRecord> records, MutationObserver observer) -> {
+                    MutationRecord[] recordsArray =Js.uncheckedCast(records.asArray(new MutationRecord[records.length]));
+                    for (MutationRecord record : recordsArray) {
                         if (!record.removedNodes.asList().isEmpty()) {
                             onElementsRemoved(record);
                         }
@@ -158,6 +160,4 @@ final class BodyObserver {
 
     private BodyObserver() {
     }
-
-
 }
