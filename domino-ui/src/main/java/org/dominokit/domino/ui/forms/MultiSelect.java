@@ -1,9 +1,8 @@
 package org.dominokit.domino.ui.forms;
 
+import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.chips.Chip;
-import org.dominokit.domino.ui.grid.flex.FlexDirection;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
@@ -47,18 +46,27 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
     }
 
     public MultiSelect() {
+        super();
+        setup();
     }
 
     public MultiSelect(String label) {
         super(label);
+        setup();
     }
 
     public MultiSelect(String label, List<SelectOption<T>> options) {
         super(label, options);
+        setup();
     }
 
     public MultiSelect(List<SelectOption<T>> options) {
         super(options);
+        setup();
+    }
+
+    private void setup() {
+        setOptionRenderer(new MultiOptionRenderer());
     }
 
     @Override
@@ -72,6 +80,7 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
             option.select();
         }
         valueRenderer.render();
+        hidePlaceholder();
         if (!silent)
             onSelection(option);
         return this;
@@ -90,19 +99,24 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
     }
 
     private void renderSelectedOptions() {
-        FlexLayout flexLayout = FlexLayout.create()
-                .setDirection(FlexDirection.LEFT_TO_RIGHT);
+        valuesContainer.clearElement();
         selectedOptions.stream()
-                .map(tSelectOption -> Chip.create(tSelectOption.getDisplayValue())
-                        .setRemovable(true)
-                        .elevate(Elevation.NONE)
-                        .addRemoveHandler(() -> {
-                            tSelectOption.deselect();
-                            selectedOptions.remove(tSelectOption);
-                        }))
-                .forEach(chip -> flexLayout.appendChild(FlexItem.create().appendChild(chip)));
+                .map(tSelectOption -> {
+                    Chip chip = Chip.create(tSelectOption.getDisplayValue())
+                            .setRemovable(true)
+                            .elevate(Elevation.NONE);
+                    chip.addRemoveHandler(() -> {
+                        tSelectOption.deselect();
+                        selectedOptions.remove(tSelectOption);
+                        chip.remove(true);
+                        showPlaceholder();
+                        if (isAutoValidation())
+                            validate();
+                    });
 
-        buttonValueContainer.clearElement().appendChild(flexLayout);
+                    return chip;
+                })
+                .forEach(valuesContainer::appendChild);
     }
 
     public List<SelectOption<T>> getSelectedOptions() {
@@ -159,5 +173,20 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
     @FunctionalInterface
     public interface ValueRenderer {
         void render();
+    }
+
+    private class MultiOptionRenderer implements OptionRenderer<T> {
+
+        @Override
+        public HTMLElement element(SelectOption<T> option) {
+            CheckBox checkMark = CheckBox.create().filledIn();
+            FlexItem checkMarkFlexItem = FlexItem.create();
+            checkMarkFlexItem.appendChild(checkMark);
+            option.getOptionLayoutElement()
+                    .insertFirst(checkMarkFlexItem);
+            checkMark.setValue(option.isSelected());
+            option.addSelectionHandler(selectable -> checkMark.setValue(selectable.isSelected()));
+            return option.element();
+        }
     }
 }

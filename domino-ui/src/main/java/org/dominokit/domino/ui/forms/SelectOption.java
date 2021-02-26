@@ -13,26 +13,20 @@ import org.jboss.elemento.IsElement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.Elements.span;
 
-public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOption<T>> implements HasValue<SelectOption, T>,
-        HasBackground<SelectOption>, Selectable<SelectOption>, TakesValue<T> {
+public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOption<T>> implements HasValue<SelectOption<T>, T>,
+        HasBackground<SelectOption<T>>, Selectable<SelectOption<T>>, TakesValue<T> {
 
     private static final String SELECTED = "select-option-selected";
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css("select-option"));
     private DominoElement<HTMLElement> valueContainer = DominoElement.of(span().css(Styles.ellipsis_text));
-    private Supplier<CheckBox> checkMarkSupplier = CheckBox::create;
-    private CheckBox checkMark;
     private String displayValue;
     private String key;
     private T value;
-    private List<Selectable.SelectionHandler<SelectOption>> selectionHandlers = new ArrayList<>();
-    private FlexItem checkMarkFlexItem;
+    private List<Selectable.SelectionHandler<SelectOption<T>>> selectionHandlers = new ArrayList<>();
     private boolean excludeFromSearchResults = false;
     private FlexLayout optionLayoutElement;
 
@@ -40,13 +34,9 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
         setKey(key);
         setValue(value);
         setDisplayValue(displayValue);
-        checkMarkFlexItem = FlexItem.create();
-        checkMark = checkMarkSupplier.get();
-        checkMarkFlexItem.appendChild(checkMark);
         optionLayoutElement = FlexLayout.create();
         element
                 .appendChild(optionLayoutElement
-                        .appendChild(checkMarkFlexItem)
                         .appendChild(FlexItem.create()
                                 .css(Styles.ellipsis_text)
                                 .setFlexGrow(1)
@@ -96,7 +86,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     }
 
     @Override
-    public void addSelectionHandler(Selectable.SelectionHandler<SelectOption> selectionHandler) {
+    public void addSelectionHandler(Selectable.SelectionHandler<SelectOption<T>> selectionHandler) {
         selectionHandlers.add(selectionHandler);
     }
 
@@ -123,7 +113,6 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     @Override
     public SelectOption<T> select(boolean silent) {
         style().add(SELECTED);
-        checkMark.check(silent);
         if (!silent) {
             selectionHandlers.forEach(handler -> handler.onSelectionChanged(this));
         }
@@ -133,7 +122,10 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     @Override
     public SelectOption<T> deselect(boolean silent) {
         style().remove(SELECTED);
-        checkMark.uncheck(silent);
+        if (!silent) {
+            selectionHandlers.forEach(handler -> handler.onSelectionChanged(this));
+        }
+
         return this;
     }
 
@@ -151,10 +143,6 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     @Override
     public HTMLDivElement element() {
         return element.element();
-    }
-
-    public CheckBox getCheckMark() {
-        return checkMark;
     }
 
     public DominoElement<HTMLElement> getValueContainer() {
