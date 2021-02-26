@@ -6,11 +6,11 @@
     <parent>
         <groupId>org.dominokit</groupId>
         <artifactId>domino-ui-parent</artifactId>
-        <version>1.0-SNAPSHOT-custom-design</version>
+        <version>1.0.0-SNAPSHOT-custom-design</version>
     </parent>
 
     <artifactId>domino-ui</artifactId>
-    <version>1.0-SNAPSHOT-custom-design</version>
+    <version>1.0.0-SNAPSHOT-custom-design</version>
     <packaging>gwt-lib</packaging>
 
     <dependencies>
