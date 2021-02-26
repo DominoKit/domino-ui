@@ -36,11 +36,11 @@
             <artifactId>elemento-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.gwtproject.i18n</groupId>
+            <groupId>org.dominokit.i18n</groupId>
             <artifactId>gwt-datetimeformat</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.gwtproject.i18n</groupId>
+            <groupId>org.dominokit.i18n</groupId>
             <artifactId>gwt-numberformat</artifactId>
         </dependency>
 
