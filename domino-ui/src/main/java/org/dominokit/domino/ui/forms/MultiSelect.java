@@ -195,7 +195,6 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
             option.getOptionLayoutElement()
                     .insertFirst(checkMarkFlexItem);
             option.addSelectionHandler(selectable -> {
-                DomGlobal.console.info("select handler");
                 if (selectable.isSelected()) {
                     checkMark.check(true);
                 } else {
