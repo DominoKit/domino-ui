@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.carousel;
 
-import org.gwtproject.core.client.Scheduler;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLOListElement;
@@ -11,6 +10,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.SwipeUtil;
+import org.gwtproject.core.client.Scheduler;
 import org.gwtproject.timer.client.Timer;
 
 import java.util.ArrayList;
@@ -19,13 +19,48 @@ import java.util.List;
 import static org.dominokit.domino.ui.carousel.CarouselStyles.*;
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * A slideshow component for cycling through elements.
+ * <p>
+ * The component provides APIs for going through all the elements by next/previous indicators.
+ * Also, it provides automatic sliding with configurable duration.
+ * <p>
+ * Customize the component can be done by overwriting classes provided by {@link CarouselStyles}
+ *
+ * <p>For example: </p>
+ * <pre>
+ *     Carousel.create()
+ *             .appendChild(
+ *                 Slide.create(
+ *                     GWT.getModuleBaseURL()
+ *                         + "/images/image-gallery/11.jpg"))
+ *             .appendChild(
+ *                 Slide.create(
+ *                     GWT.getModuleBaseURL()
+ *                         + "/images/image-gallery/12.jpg"))
+ *             .appendChild(
+ *                 Slide.create(
+ *                     GWT.getModuleBaseURL()
+ *                         + "/images/image-gallery/19.jpg"))
+ *             .appendChild(
+ *                 Slide.create(
+ *                     GWT.getModuleBaseURL() + "/images/image-gallery/9.jpg"))
+ *             .appendChild(
+ *                 Slide.create(
+ *                     GWT.getModuleBaseURL()
+ *                         + "/images/image-gallery/6.jpg")))
+ * </pre>
+ *
+ * @see BaseDominoElement
+ * @see CarouselStyles
+ */
 public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
 
-    private HTMLOListElement indicatorsElement = ol().css(CAROUSEL_INDICATORS).element();
-    private HTMLDivElement slidesElement = div().css(CAROUSEL_INNER).element();
+    private final HTMLOListElement indicatorsElement = ol().css(CAROUSEL_INDICATORS).element();
+    private final HTMLDivElement slidesElement = div().css(CAROUSEL_INNER).element();
     private boolean autoSlide = false;
 
-    private HTMLAnchorElement prevElement = a()
+    private final HTMLAnchorElement prevElement = a()
             .css(LEFT, CAROUSEL_CONTROL)
             .attr("role", "button")
             .add(Icons.ALL.chevron_left()
@@ -34,7 +69,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
                             .setFontSize("60px")))
             .element();
 
-    private HTMLAnchorElement nextElement = a()
+    private final HTMLAnchorElement nextElement = a()
             .css(RIGHT, CAROUSEL_CONTROL)
             .attr("role", "button")
             .add(Icons.ALL.chevron_right()
@@ -43,18 +78,18 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
                             .setFontSize("60px")))
             .element();
 
-    private HTMLDivElement element = div()
+    private final HTMLDivElement element = div()
             .add(indicatorsElement)
             .add(slidesElement)
             .add(prevElement)
             .add(nextElement)
-            .css(CAROUSEL, SLIDE)
+            .css(CAROUSEL)
             .element();
 
-    private List<Slide> slides = new ArrayList<>();
+    private final List<Slide> slides = new ArrayList<>();
+    private final Timer timer;
     private Slide activeSlide;
     private Slide targetSlide;
-    private Timer timer;
     private int autoSlideDuration = 3000;
     private boolean attached = false;
 
@@ -101,6 +136,11 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
         });
     }
 
+    /**
+     * Creates new carousel
+     *
+     * @return new instance
+     */
     public static Carousel create() {
         return new Carousel();
     }
@@ -113,13 +153,18 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
         return appendChild(slide);
     }
 
-
+    /**
+     * Adds new {@link Slide}, event listeners will be added to the slide for removing the motion styles
+     *
+     * @param slide a {@link Slide} to be added
+     * @return same instance
+     */
     public Carousel appendChild(Slide slide) {
         getIndicatorsElement().appendChild(slide.getIndicatorElement().element());
         slidesElement.appendChild(slide.element());
         slide.getIndicatorElement().addEventListener("click", evt -> {
             resetTimer();
-            gotToSlide(slide, "");
+            goToSlide(slide, "");
         });
 
         slide.element().addEventListener("webkitTransitionEnd", evt -> removeMotionStyles());
@@ -134,14 +179,8 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
         }
         slides.add(slide);
 
-        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, slide.element(), evt -> {
-            nextSlide();
-        });
-
-        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, slide.element(), evt -> {
-            prevSlide();
-        });
-
+        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, slide.element(), evt -> nextSlide());
+        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, slide.element(), evt -> prevSlide());
         return this;
     }
 
@@ -153,7 +192,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
             nextSlide = slides.get(0);
         }
 
-        gotToSlide(nextSlide, NEXT);
+        goToSlide(nextSlide, NEXT);
     }
 
     private void prevSlide() {
@@ -164,15 +203,15 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
             prevSlide = slides.get(slides.size() - 1);
         }
 
-        gotToSlide(prevSlide, PREV);
+        goToSlide(prevSlide, PREV);
     }
 
-    private void gotToSlide(Slide slide, String source) {
+    private void goToSlide(Slide slide, String source) {
         if (!slide.hasActiveStyle()) {
             this.targetSlide = slide;
             slide.getIndicatorElement().style().add(ACTIVE);
             activeSlide.getIndicatorElement().style().remove(ACTIVE);
-            slide.style().add(getPostionStyle(slide, source));
+            slide.style().add(getPositionStyle(slide, source));
             Scheduler.get().scheduleFixedDelay(() -> {
                 activeSlide.getIndicatorElement().style().remove(ACTIVE);
                 String directionStyle = getDirectionStyle(slide, source);
@@ -184,7 +223,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
         }
     }
 
-    private String getPostionStyle(Slide target, String source) {
+    private String getPositionStyle(Slide target, String source) {
         if ((slides.indexOf(target) > slides.indexOf(activeSlide) && !PREV.equals(source)) || (NEXT.equals(source))) {
             return NEXT;
         } else {
@@ -217,6 +256,12 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
         this.activeSlide = targetSlide;
     }
 
+    /**
+     * Slides through items every {@code slideDuration}
+     *
+     * @param slideDuration the time between slide between each element
+     * @return same instance
+     */
     public Carousel startAutoSlide(int slideDuration) {
         this.autoSlide = true;
         this.autoSlideDuration = slideDuration;
@@ -227,6 +272,11 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
         return this;
     }
 
+    /**
+     * Stops the automatic sliding
+     *
+     * @return same instance
+     */
     public Carousel stopAutoSlide() {
         if (timer.isRunning()) {
             timer.cancel();
@@ -236,23 +286,38 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element;
     }
 
+    /**
+     * @return the indicator element
+     */
     public DominoElement<HTMLOListElement> getIndicatorsElement() {
         return DominoElement.of(indicatorsElement);
     }
 
+    /**
+     * @return the slides element which has all the slides
+     */
     public DominoElement<HTMLDivElement> getSlidesElement() {
         return DominoElement.of(slidesElement);
     }
 
+    /**
+     * @return All the added slides
+     */
     public List<Slide> getSlides() {
         return slides;
     }
 
+    /**
+     * @return the currently active slide
+     */
     public Slide getActiveSlide() {
         return activeSlide;
     }
