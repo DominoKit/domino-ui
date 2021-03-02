@@ -24,24 +24,23 @@ import static org.jboss.elemento.Elements.span;
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements HasSelectionHandler<Chip, String>, HasDeselectionHandler<Chip>,
         Switchable<Chip>, HasRemoveHandler<Chip> {
 
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(CHIP));
-    private HTMLDivElement textContainer = div().css(CHIP_VALUE).element();
-    private HTMLDivElement leftAddonContainer = div().css(CHIP_ADDON).element();
-    private HTMLDivElement removeIconContainer = div().css(CHIP_REMOVE).element();
+    private final DominoElement<HTMLDivElement> element = DominoElement.of(div().css(CHIP));
+    private final HTMLDivElement textContainer = div().css(CHIP_VALUE).element();
+    private final HTMLDivElement leftAddonContainer = div().css(CHIP_ADDON).element();
+    private final HTMLDivElement removeIconContainer = div().css(CHIP_REMOVE).element();
     private ColorScheme colorScheme = ColorScheme.INDIGO;
     private Color color = Color.INDIGO;
-    private Color borderColor;
     private DominoElement<HTMLElement> removeIcon = DominoElement.of(Icons.ALL.close().element());
-    private List<SelectionHandler<String>> selectionHandlers = new ArrayList<>();
-    private List<DeselectionHandler> deselectionHandlers = new ArrayList<>();
-    private List<RemoveHandler> removeHandlers = new ArrayList<>();
+    private final List<SelectionHandler<String>> selectionHandlers = new ArrayList<>();
+    private final List<DeselectionHandler> deselectionHandlers = new ArrayList<>();
+    private final List<RemoveHandler> removeHandlers = new ArrayList<>();
     private boolean selected;
     private boolean enabled;
     private HTMLElement leftAddon;
     private boolean selectable;
     private boolean removable;
     private Color leftBackground;
-    private Theme.ThemeChangeHandler themeListener = (oldTheme, newTheme) -> style.setBorderColor(newTheme.getScheme().color().getHex());
+    private final Theme.ThemeChangeHandler themeListener = (oldTheme, newTheme) -> style.setBorderColor(newTheme.getScheme().color().getHex());
 
     public Chip(String value) {
         element.appendChild(leftAddonContainer);
@@ -55,7 +54,6 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         setValue(value);
         KeyboardEvents.listenOn(element)
                 .onEnter(evt -> {
-
                     if (selectable) {
                         toggleSelect();
                     }
@@ -304,7 +302,6 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
             Theme.removeThemeChangeHandler(themeListener);
         }
 
-        this.borderColor = borderColor;
         Style.of(element).setBorderColor(borderColor.getHex());
         return this;
     }
