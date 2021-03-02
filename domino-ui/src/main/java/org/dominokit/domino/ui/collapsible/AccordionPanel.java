@@ -12,6 +12,14 @@ import org.jboss.elemento.IsElement;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * A component to show/hide content inside an {@link Accordion}
+ * <p>
+ *     The accordion panel can be appended to an Accordion to show/hide some content when the user clicks on the panel header
+ * </p>
+ *
+ * @see Accordion
+ */
 public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionPanel> implements IsCollapsible<AccordionPanel> {
 
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(CollapsibleStyles.PANEL))
@@ -28,25 +36,51 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     private Color bodyColor;
     private BaseIcon<?> panelIcon;
 
+    /**
+     *
+     * @param title String, the accordion panel header title
+     */
     public AccordionPanel(String title) {
         clickableElement.setTextContent(title);
         init();
     }
 
+    /**
+     *
+     * @param title String, the accordion panel header title
+     * @param content {@link Node} the content of the panel body
+     */
     public AccordionPanel(String title, Node content) {
         clickableElement.setTextContent(title);
         bodyElement.appendChild(content);
         init();
     }
 
+    /**
+     * A factory to create Accordion panel with a title
+     * @param title String, the accordion panel header title
+     * @return new Accordion instance
+     */
     public static AccordionPanel create(String title) {
         return new AccordionPanel(title);
     }
 
+    /**
+     * A factory to create Accordion panel with a title and content
+     * @param title String, the accordion panel header title
+     * @param content  {@link Node} the content of the panel body
+     * @return new Accordion instance
+     */
     public static AccordionPanel create(String title, Node content) {
         return new AccordionPanel(title, content);
     }
 
+    /**
+     * A factory to create Accordion panel with a title and content
+     * @param title String, the accordion panel header title
+     * @param content  {@link IsElement} the content of the panel body
+     * @return new Accordion instance
+     */
     public static AccordionPanel create(String title, IsElement<?> content) {
         return new AccordionPanel(title, content.element());
     }
@@ -61,70 +95,130 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         hide();
     }
 
+    /**
+     * Change the panel header title.
+     * @param title String, the accordion panel header title
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel setTitle(String title) {
         clickableElement.setTextContent(title);
         return this;
     }
 
+    /**
+     * Change the panel body content. replacing existing content with the one.
+     * @param content {@link Node}, the accordion panel body content
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel setContent(Node content) {
         bodyElement.setTextContent("");
         return appendChild(content);
     }
 
+    /**
+     * add content to the panel body without removing existing content
+     * @param content {@link Node}, the accordion panel body content
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel appendChild(Node content) {
         bodyElement.appendChild(content);
         return this;
     }
 
+    /**
+     * add content to the panel body without removing existing content
+     * @param content {@link IsElement}, the accordion panel body content
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel appendChild(IsElement<?> content) {
         return appendChild(content.element());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element.element();
     }
 
+    /**
+     * Set the header background to {@link Color#BLUE}
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel primary() {
         return setHeaderBackground(Color.BLUE);
     }
 
+    /**
+     * Set the header background to {@link Color#GREEN}
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel success() {
         return setHeaderBackground(Color.GREEN);
     }
 
+    /**
+     * Set the header background to {@link Color#ORANGE}
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel warning() {
         return setHeaderBackground(Color.ORANGE);
     }
 
+    /**
+     * Set the header background to {@link Color#RED}
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel danger() {
         return setHeaderBackground(Color.RED);
     }
 
+    /**
+     * Set the header and body background to {@link Color#BLUE}
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel primaryFull() {
         setHeaderBackground(Color.BLUE);
         setBodyBackground(Color.BLUE);
         return this;
     }
 
+    /**
+     * Set the header and body background to {@link Color#GREEN}
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel successFull() {
         setHeaderBackground(Color.GREEN);
         setBodyBackground(Color.GREEN);
         return this;
     }
 
+    /**
+     * Set the header and body background to {@link Color#ORANGE}
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel warningFull() {
         setHeaderBackground(Color.ORANGE);
         setBodyBackground(Color.ORANGE);
         return this;
     }
 
+    /**
+     * Set the header and body background to {@link Color#RED}
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel dangerFull() {
         setHeaderBackground(Color.RED);
         setBodyBackground(Color.RED);
         return this;
     }
 
+    /**
+     * Set the header background to a custom color
+     * @param color {@link Color} the new background color
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel setHeaderBackground(Color color) {
         if(nonNull(this.headerColor)){
             getHeaderElement().style().remove(this.headerColor.getBackground());
@@ -136,6 +230,11 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         return this;
     }
 
+    /**
+     * Set the body background to a custom color
+     * @param color {@link Color} the new background color
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel setBodyBackground(Color color) {
         if(nonNull(this.bodyColor)){
             getBodyElement().style().remove(this.bodyColor.getBackground());
@@ -147,6 +246,11 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         return this;
     }
 
+    /**
+     * Set the Accordion panel header icon
+     * @param icon {@link BaseIcon}
+     * @return same AccordionPanel instance
+     */
     public AccordionPanel setIcon(BaseIcon<?> icon) {
         if (nonNull(this.panelIcon)) {
             panelIcon.remove();
@@ -158,40 +262,74 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         return this;
     }
 
+    /**
+     * @deprecated
+     * @return the {@link DominoElement} represent the body element.
+     */
+    @Deprecated
     public DominoElement<HTMLDivElement> getBody() {
         return DominoElement.of(bodyElement);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLAnchorElement getClickableElement() {
         return clickableElement.element();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement getCollapsibleElement() {
         return collapsibleElement.element();
     }
 
+    /**
+     *
+     * @return the {@link DominoElement} represent the header element.
+     */
     public DominoElement<HTMLDivElement> getHeaderElement() {
         return headerElement;
     }
 
+    /**
+     *
+     * @return the {@link DominoElement} represent the element that contains the header text.
+     */
     public DominoElement<HTMLHeadingElement> getHeadingElement() {
         return headingElement;
     }
 
+    /**
+     * @return the {@link DominoElement} represent the body element.
+     */
     public DominoElement<HTMLDivElement> getBodyElement() {
         return bodyElement;
     }
 
+    /**
+     *
+     * @return the panel icon
+     */
     public BaseIcon<?> getPanelIcon() {
         return panelIcon;
     }
 
+    /**
+     *
+     * @return the panel header background color
+     */
     public Color getHeaderColor() {
         return headerColor;
     }
 
+    /**
+     *
+     * @return the panel body background color
+     */
     public Color getBodyColor() {
         return bodyColor;
     }
