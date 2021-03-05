@@ -2,6 +2,9 @@ package org.dominokit.domino.ui.datatable.model;
 
 import java.util.Objects;
 
+/**
+ * A class to define filter operators, each operator is a simple name string
+ */
 public class Operator {
 
     public static final Operator isEqualTo = new Operator("equals");
@@ -26,17 +29,27 @@ public class Operator {
     public static final Operator like = new Operator("like");
     public static final Operator notLike = new Operator("notLike");
 
-
     private final String name;
 
+    /**
+     *
+     * @param name String, the operator name
+     */
     public Operator(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return String, the operator name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,6 +58,9 @@ public class Operator {
         return Objects.equals(getName(), operator.getName());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getName());
