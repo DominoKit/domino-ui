@@ -96,9 +96,27 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
         }
     }
 
+    /**
+     * An interface for implementing HeaderFilters
+     * @param <T> the type of data table records
+     */
     public interface HeaderFilter<T> extends IsElement<HTMLElement> {
+        /**
+         * Initializes the header filter with the data table search context and the column config to which the filter is being added
+         * <p></p>
+         * this will be called by the {@link ColumnHeaderFilterPlugin}
+         *
+         * @param searchContext {@link SearchContext}
+         * @param columnConfig {@link ColumnConfig}
+         */
         void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig);
 
+        /**
+         * Clears the header filter component value
+         * <p></p>
+         *
+         * this will be called by the {@link ColumnHeaderFilterPlugin}
+         */
         void clear();
     }
 
