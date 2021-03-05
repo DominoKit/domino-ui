@@ -1,14 +1,9 @@
-package org.dominokit.domino.ui.datatable.events;
+package org.dominokit.domino.ui.datatable.plugins;
 
 import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
+import org.dominokit.domino.ui.datatable.events.TablePageChangeEvent;
 import org.dominokit.domino.ui.pagination.SimplePagination;
 
-/**
- * @deprecated use {@link org.dominokit.domino.ui.datatable.plugins.SimplePaginationPlugin}
- * @param <T>
- */
-@Deprecated
 public class SimplePaginationPlugin<T> implements DataTablePlugin<T> {
 
     private SimplePagination simplePagination;
