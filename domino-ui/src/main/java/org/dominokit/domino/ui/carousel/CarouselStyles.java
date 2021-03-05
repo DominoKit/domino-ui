@@ -1,7 +1,5 @@
 package org.dominokit.domino.ui.carousel;
 
-import javax.swing.text.html.CSS;
-
 /**
  * Default CSS classes for {@link Carousel}
  */
