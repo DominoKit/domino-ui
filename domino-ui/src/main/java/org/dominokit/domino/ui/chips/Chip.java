@@ -21,6 +21,37 @@ import static org.dominokit.domino.ui.chips.ChipStyles.*;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.Elements.span;
 
+/**
+ * A removable container which can have image, text, icon, letters and a customizable remove icon.
+ * <p>
+ * This component provides a clickable container that allows adding text and an image along with a remove icon to remove the container.
+ * <p>
+ * Customize the component can be done by overwriting classes provided by {@link ChipStyles}
+ *
+ * <p>For example: </p>
+ * <pre>
+ *     Chip.create()
+ *         .setValue("Yay! I\'ll be there")
+ *         .setColorScheme(ColorScheme.RED)
+ *
+ *     Chip.create()
+ *         .setRemovable(true)
+ *         .setColorScheme(ColorScheme.GREY)
+ *         .setValue("Restaurants")
+ *
+ *     Chip.create()
+ *         .setValue("Schroeder Coleman")
+ *         .setColorScheme(ColorScheme.TRANSPARENT)
+ *         .setBorderColor(Color.INDIGO)
+ *         .setLeftImg(img("https://randomuser.me/api/portraits/med/men/0.jpg"))
+ * </pre>
+ *
+ * @see BaseDominoElement
+ * @see HasSelectionHandler
+ * @see HasDeselectionHandler
+ * @see Switchable
+ * @see HasRemoveHandler
+ */
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements HasSelectionHandler<Chip, String>, HasDeselectionHandler<Chip>,
         Switchable<Chip>, HasRemoveHandler<Chip> {
 
@@ -74,14 +105,27 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         init(this);
     }
 
+    /**
+     * @return new instance with empty text
+     */
     public static Chip create() {
         return create("");
     }
 
+    /**
+     * @return new instance with {@code value} text
+     */
     public static Chip create(String value) {
         return new Chip(value);
     }
 
+    /**
+     * Marks the chip as selected.
+     * <p>
+     * Selecting the chip will trigger all the {@link SelectionHandler} added to it. Also, it will change the background based on the {@link ColorScheme} configured
+     *
+     * @return same instance
+     */
     public Chip select() {
         this.selected = true;
         Style.of(element).replaceCss(getBackgroundStyle(), getDarkerColor());
@@ -90,6 +134,13 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this;
     }
 
+    /**
+     * Marks the chip as deselected.
+     * <p>
+     * Deselecting the chip will trigger all the {@link DeselectionHandler} added to it. Also, it will change the background based on the {@link ColorScheme} configured
+     *
+     * @return same instance
+     */
     public Chip deselect() {
         this.selected = false;
         Style.of(element).replaceCss(getDarkerColor(), getBackgroundStyle());
@@ -98,6 +149,13 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this;
     }
 
+    /**
+     * Selects/Deselects the chip based on its current status (i.e. if selected, then deselect)
+     *
+     * @return same instance
+     * @see Chip#select()
+     * @see Chip#deselect()
+     */
     public Chip toggleSelect() {
         if (selected) {
             deselect();
@@ -107,6 +165,12 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this;
     }
 
+    /**
+     * Sets the remove icon element. This will add click {@link elemental2.dom.EventListener} to the {@code removeIcon} that removes the chip
+     *
+     * @param removeIcon the new remove {@link HTMLElement}
+     * @return same instance
+     */
     public Chip setRemoveIcon(HTMLElement removeIcon) {
         this.removeIcon = DominoElement.of(removeIcon);
         ElementUtil.clear(removeIconContainer);
@@ -118,10 +182,22 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Chip remove() {
         return remove(false);
     }
 
+    /**
+     * Removes the chip.
+     * <p>
+     * Accepts {@code silent} flag to call all the {@link RemoveHandler} added to it.
+     *
+     * @param silent if true, then this will call all the {@link RemoveHandler}
+     * @return same instance
+     */
     public Chip remove(boolean silent) {
         element.remove();
         if (!silent)
@@ -129,10 +205,24 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this;
     }
 
+    /**
+     * Same as {@link Chip#setRemoveIcon(HTMLElement)} but accepts a wrapper {@link IsElement}
+     *
+     * @param removeIcon the new remove icon {@link IsElement} to set
+     * @return same instance
+     */
     public Chip setRemoveIcon(IsElement<?> removeIcon) {
         return setRemoveIcon(removeIcon.element());
     }
 
+    /**
+     * Sets the color scheme for this component.
+     * <p>
+     * The color scheme will be used for changing the color based on the chip status if it is selected or not.
+     *
+     * @param colorScheme the new {@link ColorScheme} to set
+     * @return same instance
+     */
     public Chip setColorScheme(ColorScheme colorScheme) {
         removeCurrentBackground();
 
@@ -142,13 +232,13 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this;
     }
 
-    public void applyColor() {
+    private void applyColor() {
         element.style().add(this.color.getBackground());
         removeIcon.style().add(this.color.getBackground());
         setBorderColor(this.color);
     }
 
-    public void removeCurrentBackground() {
+    private void removeCurrentBackground() {
         if (nonNull(this.colorScheme)) {
             element.style().remove(getBackgroundStyle());
             removeIcon.style().remove(getBackgroundStyle());
@@ -160,6 +250,13 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         }
     }
 
+    /**
+     * Sets the color.
+     *
+     * The color is used to get the background color to be set to this chip, if not set then the color will be configured using the {@link ColorScheme} set.
+     * @param color the new {@link Color} to set
+     * @return same instance
+     */
     public Chip setColor(Color color) {
         if (nonNull(this.colorScheme)) {
             element.style().remove(getBackgroundStyle());
@@ -187,6 +284,13 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this.color.getBackground();
     }
 
+    /**
+     * Sets if this chip can be removed or not.
+     *
+     * Setting this to removable will add the remove icon configured for this component
+     * @param removable true if the chip can be removed
+     * @return same instance
+     */
     public Chip setRemovable(boolean removable) {
         this.removable = removable;
         if (removable) {
@@ -197,25 +301,54 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this;
     }
 
+    /**
+     * Sets the text of the chip.
+     *
+     * @param value the new text
+     * @return same instance
+     */
     public Chip setValue(String value) {
         textContainer.textContent = value;
         return this;
     }
 
+    /**
+     * Sets the left icon of the chip
+     * @param icon the new {@link BaseIcon}
+     * @return same instance
+     */
     public Chip setLeftIcon(BaseIcon<?> icon) {
         setLeftAddon(icon.element());
         return this;
     }
 
+    /**
+     * Sets the left image of the chip.
+     *
+     * @param imageElement the new {@link HTMLImageElement}
+     * @return same instance
+     */
     public Chip setLeftImg(HTMLImageElement imageElement) {
         setLeftAddon(imageElement);
         return this;
     }
 
+    /**
+     * Same as {@link Chip#setLeftImg(HTMLImageElement)} but with a wrapper {@link IsElement<HTMLImageElement>}
+     *
+     * @param imageElement the new {@link IsElement<HTMLImageElement>}
+     * @return same instance
+     */
     public Chip setLeftImg(IsElement<HTMLImageElement> imageElement) {
         return setLeftImg(imageElement.element());
     }
 
+    /**
+     * Sets the left element as a letter.
+     *
+     * @param text the letter to set
+     * @return same instance
+     */
     public Chip setLeftLetter(String text) {
         setLeftAddon(span().textContent(text).element());
         return this;
@@ -228,6 +361,12 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         updateLeftAddonBackground();
     }
 
+    /**
+     * Sets the left container background
+     *
+     * @param leftBackground the {@link Color}
+     * @return same instance
+     */
     public Chip setLeftBackground(Color leftBackground) {
         this.leftBackground = leftBackground;
         updateLeftAddonBackground();
@@ -240,29 +379,44 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element.element();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Chip addSelectionHandler(SelectionHandler<String> selectionHandler) {
         selectionHandlers.add(selectionHandler);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Chip addDeselectionHandler(DeselectionHandler deselectionHandler) {
         deselectionHandlers.add(deselectionHandler);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Chip removeSelectionHandler(SelectionHandler<String> selectionHandler) {
         selectionHandlers.remove(selectionHandler);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Chip enable() {
         this.enabled = true;
@@ -271,6 +425,9 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Chip disable() {
         this.enabled = false;
@@ -279,22 +436,39 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEnabled() {
         return enabled;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Chip addRemoveHandler(RemoveHandler removeHandler) {
         removeHandlers.add(removeHandler);
         return this;
     }
 
+    /**
+     * Sets if the chip can be selected or not.
+     *
+     * @param selectable true if the chip can be selected
+     * @return same instance
+     */
     public Chip setSelectable(boolean selectable) {
         this.selectable = selectable;
         return this;
     }
 
+    /**
+     * Sets the border {@link Color}
+     * @param borderColor the {@link Color} to set
+     * @return same instance
+     */
     public Chip setBorderColor(Color borderColor) {
         if (Color.THEME.equals(color)) {
             Theme.addThemeChangeHandler(themeListener);
@@ -306,31 +480,54 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip> implements Has
         return this;
     }
 
+    /**
+     * Removes the left element.
+     *
+     * @return same instance
+     */
     public Chip removeLeftAddon() {
         ElementUtil.clear(leftAddonContainer);
         return this;
     }
 
+    /**
+     * @return The text of the chip
+     */
     public String getValue() {
         return textContainer.textContent;
     }
 
+    /**
+     * @return The text container
+     */
     public DominoElement<HTMLDivElement> getTextContainer() {
         return DominoElement.of(textContainer);
     }
 
+    /**
+     * @return The left element container
+     */
     public DominoElement<HTMLDivElement> getLeftAddonContainer() {
         return DominoElement.of(leftAddonContainer);
     }
 
+    /**
+     * @return The remove element container
+     */
     public DominoElement<HTMLDivElement> getRemoveIconContainer() {
         return DominoElement.of(removeIconContainer);
     }
 
+    /**
+     * @return The remove element
+     */
     public DominoElement<HTMLElement> getRemoveIcon() {
         return DominoElement.of(removeIcon);
     }
 
+    /**
+     * @return The left element
+     */
     public DominoElement<HTMLElement> getLeftAddon() {
         return DominoElement.of(leftAddon);
     }
