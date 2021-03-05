@@ -105,11 +105,17 @@ public class LocalSuggestBoxStore<T> implements SuggestBoxStore<T> {
 
     @Override
     public MissingSuggestProvider<T> getMessingSuggestionProvider() {
+        if(isNull(missingValueProvider)){
+            return missingValue -> Optional.empty();
+        }
         return missingValueProvider;
     }
 
     @Override
     public MissingEntryProvider<T> getMessingEntryProvider() {
+        if(isNull(missingEntryProvider)){
+            return inputValue -> Optional.empty();
+        }
         return missingEntryProvider;
     }
 
