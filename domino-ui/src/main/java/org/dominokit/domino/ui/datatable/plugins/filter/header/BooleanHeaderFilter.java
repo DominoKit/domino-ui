@@ -10,22 +10,48 @@ import org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin;
 import org.dominokit.domino.ui.forms.Select;
 import org.dominokit.domino.ui.forms.SelectOption;
 
+/**
+ * Boolean column header filter component that is rendered as a {@link Select} component
+ * @param <T> type of data table records
+ */
 public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
     private final Select<String> select;
 
+    /**
+     * Creates an instance with default labels <b>ALL</b>,</b><b>Yes</b>,<b>No</b>
+     * @param <T> the data table records type
+     * @return new instance
+     */
     public static <T> BooleanHeaderFilter<T> create() {
         return new BooleanHeaderFilter<>();
     }
-
+    /**
+     * Creates an instance with specified labels
+     * @param trueLabel String, the label for the Yes option
+     * @param falseLabel String, the label for the No option
+     * @param bothLabel  String, the label for the ALL option
+     * @param <T> the data table records type
+     * @return new instance
+     */
     public static <T> BooleanHeaderFilter<T> create(String trueLabel, String falseLabel, String bothLabel) {
         return new BooleanHeaderFilter<>(trueLabel, falseLabel, bothLabel);
     }
 
+    /**
+     * @see BooleanHeaderFilter#create() 
+     */
     public BooleanHeaderFilter() {
         this("Yes", "No", "ALL");
     }
 
+    /**
+     * @see BooleanHeaderFilter#create(String, String, String)
+     *
+     * @param trueLabel String, the label for the Yes option
+     * @param falseLabel String, the label for the No option
+     * @param bothLabel  String, the label for the ALL option
+     */
     public BooleanHeaderFilter(String trueLabel, String falseLabel, String bothLabel) {
         select = Select.<String>create()
                 .appendChild(SelectOption.create("", bothLabel))
@@ -37,6 +63,9 @@ public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFi
         select.styler(style -> style.setMarginBottom("0px"));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
         searchContext.addBeforeSearchHandler(context -> {
@@ -49,16 +78,26 @@ public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFi
         select.addSelectionHandler(option -> searchContext.fireSearchEvent());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clear() {
         select.selectAt(0, true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLElement element() {
         return select.element();
     }
 
+    /**
+     *
+     * @return the {@link Select} component wrapped in this filter
+     */
     public Select<String> getSelect() {
         return select;
     }

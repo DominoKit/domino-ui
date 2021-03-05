@@ -13,14 +13,27 @@ import org.dominokit.domino.ui.utils.DelayedTextInput;
 
 import static java.util.Objects.nonNull;
 
+/**
+ * An abstract implementation of the {@link org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin.HeaderFilter}
+ * for text input based filters that add a delay for triggering the search while the user is typing
+ * @param <B> the type of the component that extends from {@link ValueBox} and is wrapped in the implementation
+ * @param <T> the type of the data table records
+ */
 public abstract class DelayedHeaderFilterInput<B extends ValueBox, T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
     private B input;
     private DelayedTextInput delayedTextInput;
 
+    /**
+     * A constructor that initialized with a default placeholder <pre>Search</pre>
+     */
     public DelayedHeaderFilterInput() {
         this("Search");
     }
 
+    /**
+     * A constructor to specify a custom placeholder
+     * @param placeHolder String
+     */
     public DelayedHeaderFilterInput(String placeHolder) {
         input = createValueBox();
 
@@ -32,6 +45,9 @@ public abstract class DelayedHeaderFilterInput<B extends ValueBox, T> implements
         delayedTextInput = DelayedTextInput.create(getInputElement(), 200);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
         searchContext.addBeforeSearchHandler(tSearchContext -> {
@@ -50,15 +66,47 @@ public abstract class DelayedHeaderFilterInput<B extends ValueBox, T> implements
         });
     }
 
+    /**
+     *
+     * @return the {@link HTMLInputElement} wrapped inside the ValueBox component
+     */
     protected abstract HTMLInputElement getInputElement();
+
+    /**
+     *
+     * @return a new instance of the wrapped component type
+     */
     protected abstract B createValueBox();
+
+    /**
+     *
+     * @return boolean, true if the wrapped component is empty
+     */
     protected abstract boolean isEmpty();
+
+    /**
+     *
+     * @return String value of the wrapped component
+     */
     protected abstract String getValue();
+
+    /**
+     *
+     * @return The type of the filter
+     */
     protected abstract FilterTypes getType();
+
+    /**
+     *
+     * @return the wrapped component instance
+     */
     public B getField(){
         return input;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLElement element() {
         return input.element();
