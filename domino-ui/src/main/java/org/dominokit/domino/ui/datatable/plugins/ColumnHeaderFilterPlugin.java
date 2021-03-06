@@ -10,8 +10,8 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
 import org.jboss.elemento.HtmlContentBuilder;
+import org.jboss.elemento.IsElement;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,15 +21,35 @@ import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.th;
 import static org.jboss.elemento.Elements.tr;
 
+/**
+ * This plugin adds header filters to table columns headers
+ * <pre>
+ * tableConfig
+ *         .addPlugin(ColumnHeaderFilterPlugin.<Person>create()
+ *                 .addHeaderFilter("id", IntegerHeaderFilter.create())
+ *                 .addHeaderFilter("name", TextHeaderFilter.create()));
+ * </pre>
+ *
+ * @param <T> the type of the data table records
+ */
 public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
     private final Map<String, HeaderFilter> headerFilters = new HashMap<>();
     private DominoElement<HTMLTableRowElement> filtersRowElement = DominoElement.of(tr());
 
+    /**
+     * Create a new instance
+     *
+     * @param <T> the type of the data table records
+     * @return new instance
+     */
     public static <T> ColumnHeaderFilterPlugin<T> create() {
         return new ColumnHeaderFilterPlugin<>();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAfterAddHeaders(DataTable<T> dataTable) {
         TableConfig<T> tableConfig = dataTable.getTableConfig();
@@ -72,7 +92,8 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
     }
 
-    String bestFitWidth(ColumnConfig<T> columnConfig) {
+
+    private String bestFitWidth(ColumnConfig<T> columnConfig) {
         if (nonNull(columnConfig.getWidth()) && !columnConfig.getWidth().isEmpty()) {
             return columnConfig.getWidth();
         } else if (nonNull(columnConfig.getMinWidth()) && !columnConfig.getMinWidth().isEmpty()) {
@@ -84,11 +105,20 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
         }
     }
 
+    /**
+     * Adds a new header filter to the plugin
+     * @param columnName String, the name of the column we are adding the header filter to.
+     * @param headerFilter the {@link HeaderFilter}
+     * @return same instance
+     */
     public ColumnHeaderFilterPlugin<T> addHeaderFilter(String columnName, HeaderFilter headerFilter) {
         headerFilters.put(columnName, headerFilter);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleEvent(TableEvent event) {
         if (SearchClearedEvent.SEARCH_EVENT_CLEARED.equals(event.getType())) {
@@ -97,7 +127,17 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
     }
 
     /**
+     *
+     * @return The table row element that contains the header filters components
+     */
+    public DominoElement<HTMLTableRowElement> getFiltersRowElement() {
+        return filtersRowElement;
+    }
+
+
+    /**
      * An interface for implementing HeaderFilters
+     *
      * @param <T> the type of data table records
      */
     public interface HeaderFilter<T> extends IsElement<HTMLElement> {
@@ -107,20 +147,16 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
          * this will be called by the {@link ColumnHeaderFilterPlugin}
          *
          * @param searchContext {@link SearchContext}
-         * @param columnConfig {@link ColumnConfig}
+         * @param columnConfig  {@link ColumnConfig}
          */
         void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig);
 
         /**
          * Clears the header filter component value
          * <p></p>
-         *
+         * <p>
          * this will be called by the {@link ColumnHeaderFilterPlugin}
          */
         void clear();
-    }
-
-    public DominoElement<HTMLTableRowElement> getFiltersRowElement() {
-        return filtersRowElement;
     }
 }
