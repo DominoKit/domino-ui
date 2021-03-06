@@ -15,6 +15,11 @@ import static org.dominokit.domino.ui.datatable.events.BodyScrollEvent.BODY_SCRO
 import static org.dominokit.domino.ui.datatable.events.SortEvent.SORT_EVENT;
 import static org.dominokit.domino.ui.datatable.events.SearchEvent.SEARCH_EVENT;
 
+/**
+ * An implementation of the {@link DataStore} that wraps an in-memory/local list of records allowing the data table to use
+ * features like pagination and sorting and will keep load data into the data table in append mode as we scroll to the bottom of the data table
+ * @param <T> the type of the data table records
+ */
 public class LocalListScrollingDataSource<T> implements DataStore<T> {
 
     private final List<T> original;
@@ -26,34 +31,66 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
     private RecordsSorter<T> recordsSorter;
     private SortEvent<T> lastSort;
 
+    /**
+     * Creates and instance with a custom page size and empty data list
+     * @param pageSize int, Page size
+     */
     public LocalListScrollingDataSource(int pageSize) {
         this.original = new ArrayList<>();
         this.pageSize = pageSize;
     }
 
+    /**
+     * Creates and instance with an initial data list and a custom page size
+     * @param data {@link List} of records
+     * @param pageSize int
+     */
     public LocalListScrollingDataSource(List<T> data, int pageSize) {
         this.original = data;
         this.pageSize = pageSize;
         this.filtered.addAll(data);
     }
 
+    /**
+     *
+     * @return a reference to the current applied {@link SearchFilter} if exists, otherwise return null
+     */
     public SearchFilter<T> getSearchFilter() {
         return searchFilter;
     }
 
+    /**
+     * Sets a search filter, when ever the data store receives a {@link SearchEvent} it will use this search filter to filter the data list
+     * @param searchFilter {@link SearchFilter}
+     * @return same instance
+     */
     public LocalListScrollingDataSource<T> setSearchFilter(SearchFilter<T> searchFilter) {
         this.searchFilter = searchFilter;
         return this;
     }
+
+    /**
+     *
+     * @return the {@link RecordsSorter} used in this data store
+     */
     public RecordsSorter<T> getRecordsSorter() {
         return recordsSorter;
     }
 
+    /**
+     * Sets the records sorting for this data store
+     * @param recordsSorter {@link RecordsSorter}
+     * @return same instance
+     */
     public LocalListScrollingDataSource<T> setRecordsSorter(RecordsSorter<T> recordsSorter) {
         this.recordsSorter = recordsSorter;
         return this;
     }
 
+    /**
+     * sets new data list overriding the existing one, and clears all filters, then loads it in the data table
+     * @param data the new {@link List} of records
+     */
     public void setData(List<T> data){
         this.original.clear();
         this.original.addAll(data);
@@ -61,16 +98,25 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
         this.filtered.addAll(original);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onDataChanged(StoreDataChangeListener<T> dataChangeListener) {
         listeners.add(dataChangeListener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeDataChangeListener(StoreDataChangeListener<T> dataChangeListener) {
         listeners.remove(dataChangeListener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void load() {
         pageIndex = 0;
@@ -84,6 +130,13 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
         listeners.forEach(dataChangeListener -> dataChangeListener.onDataChanged(new DataChangedEvent<>(new ArrayList<>(filtered.subList(fromIndex, toIndex)), append, filtered.size())));
     }
 
+    /**
+     * {@inheritDoc}
+     * this store will listen to the following events
+     * <pre>BodyScrollEvent</pre>
+     * <pre>SortEvent</pre>
+     * <pre>TablePageChangeEvent</pre>
+     */
     @Override
     public void handleEvent(TableEvent event) {
         switch (event.getType()) {
@@ -131,6 +184,10 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
         }
     }
 
+    /**
+     *
+     * @return an immutable list obtained from the data records from the data store that match the current applied filters
+     */
     public List<T> getFiltered() {
         return new ArrayList<>(filtered);
     }
