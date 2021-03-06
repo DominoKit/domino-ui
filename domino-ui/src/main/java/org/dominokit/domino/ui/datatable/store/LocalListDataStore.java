@@ -1,6 +1,5 @@
 package org.dominokit.domino.ui.datatable.store;
 
-import elemental2.dom.DomGlobal;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
@@ -17,6 +16,11 @@ import static org.dominokit.domino.ui.datatable.events.SearchEvent.SEARCH_EVENT;
 import static org.dominokit.domino.ui.datatable.events.SortEvent.SORT_EVENT;
 import static org.dominokit.domino.ui.datatable.events.TablePageChangeEvent.PAGINATION_EVENT;
 
+/**
+ * An implementation of the {@link DataStore} that wraps an in-memory/local list of records allowing the data table to use
+ * features like pagination and sorting
+ * @param <T> the type of the data table records
+ */
 public class LocalListDataStore<T> implements DataStore<T> {
 
     private List<StoreDataChangeListener<T>> listeners = new ArrayList<>();
@@ -32,16 +36,27 @@ public class LocalListDataStore<T> implements DataStore<T> {
     private SortDirection autoSortDirection = SortDirection.ASC;
     private boolean autSortApplied = false;
 
+    /**
+     * Creates an instance initialized with empty list
+     */
     public LocalListDataStore() {
         this.original = new ArrayList<>();
         this.filtered = new ArrayList<>();
     }
 
+    /**
+     * Creates an instance initialized with a custom list of data
+     * @param data {@link List} of records
+     */
     public LocalListDataStore(List<T> data) {
         this.original = data;
         this.filtered = new ArrayList<>(data);
     }
 
+    /**
+     * sets new data list overriding the existing one, and clears all filters, then loads it in the data table
+     * @param data the new {@link List} of records
+     */
     public void setData(List<T> data) {
         this.original.clear();
         this.original.addAll(data);
@@ -50,43 +65,85 @@ public class LocalListDataStore<T> implements DataStore<T> {
         load();
     }
 
+    /**
+     *
+     * @return a reference to the current applied {@link SearchFilter} if exists, otherwise return null
+     */
     public SearchFilter<T> getSearchFilter() {
         return searchFilter;
     }
 
+    /**
+     * Sets a search filter, when ever the data store receives a {@link SearchEvent} it will use this search filter to filter the data list
+     * @param searchFilter {@link SearchFilter}
+     * @return same instance
+     */
     public LocalListDataStore<T> setSearchFilter(SearchFilter<T> searchFilter) {
         this.searchFilter = searchFilter;
         return this;
     }
 
+    /**
+     *
+     * @param autoSort if true the data store will automatically sort the data list list before loading it into the data table
+     * @return same instance
+     */
     public LocalListDataStore<T> setAutoSort(boolean autoSort) {
         this.autoSort = autoSort;
         return this;
     }
 
+    /**
+     * set the default column name to initially sort the data list by.
+     * @param autoSortBy String, the name of initial sort column
+     * @return same instance
+     */
     public LocalListDataStore<T> setAutoSortBy(String autoSortBy) {
         this.autoSortBy = autoSortBy;
         return this;
     }
 
+    /**
+     * set the default sort direction to initially sort the data list by.
+     * @param autoSortDirection {@link SortDirection}
+     * @return same instance
+     */
     public LocalListDataStore<T> setAutoSortDirection(SortDirection autoSortDirection) {
         this.autoSortDirection = autoSortDirection;
         return this;
     }
 
+    /**
+     *
+     * @return the {@link HasPagination} component used in this data store
+     */
     public HasPagination getPagination() {
         return pagination;
     }
 
+    /**
+     * set the pagination component to be used by the data store
+     * @param pagination {@link HasPagination}
+     * @return same instance
+     */
     public LocalListDataStore<T> setPagination(HasPagination pagination) {
         this.pagination = pagination;
         return this;
     }
 
+    /**
+     *
+     * @return the {@link RecordsSorter} used in this data store
+     */
     public RecordsSorter<T> getRecordsSorter() {
         return recordsSorter;
     }
 
+    /**
+     * Sets the records sorting for this data store
+     * @param recordsSorter {@link RecordsSorter}
+     * @return same instance
+     */
     public LocalListDataStore<T> setRecordsSorter(RecordsSorter<T> recordsSorter) {
         this.recordsSorter = recordsSorter;
         return this;
@@ -98,16 +155,29 @@ public class LocalListDataStore<T> implements DataStore<T> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onDataChanged(StoreDataChangeListener<T> dataChangeListener) {
         listeners.add(dataChangeListener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeDataChangeListener(StoreDataChangeListener<T> dataChangeListener) {
         listeners.remove(dataChangeListener);
     }
 
+    /**
+     * {@inheritDoc}
+     * this store will listen to the following events
+     * <pre>SearchEvent</pre>
+     * <pre>SortEvent</pre>
+     * <pre>TablePageChangeEvent</pre>
+     */
     @Override
     public void handleEvent(TableEvent event) {
         switch (event.getType()) {
@@ -156,6 +226,9 @@ public class LocalListDataStore<T> implements DataStore<T> {
         fireUpdate(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void load() {
         fireUpdate(true);
@@ -189,12 +262,20 @@ public class LocalListDataStore<T> implements DataStore<T> {
         }
     }
 
+    /**
+     * adds a single record to the current list and updates the data table accordingly
+     * @param record T the new record being added
+     */
     public void addRecord(T record) {
         original.add(record);
         List<T> newData = new ArrayList<>(original);
         setData(newData);
     }
 
+    /**
+     * removes a single record from the current list and updates the data table accordingly
+     * @param record T the record being removed
+     */
     public void removeRecord(T record) {
         if (original.contains(record)) {
             original.remove(record);
@@ -203,22 +284,38 @@ public class LocalListDataStore<T> implements DataStore<T> {
         }
     }
 
+    /**
+     * adds a list of records to the current list and updates the data table accordingly
+     * @param records {@link Collection} of records
+     */
     public void addRecords(Collection<T> records) {
         original.addAll(records);
         List<T> newData = new ArrayList<>(original);
         setData(newData);
     }
 
+    /**
+     * removes a list of records from the current list and updates the data table accordingly
+     * @param records {@link Collection} of records
+     */
     public void removeRecord(Collection<T> records) {
         original.removeAll(records);
         filtered.removeAll(records);
         load();
     }
 
+    /**
+     *
+     * @return an immutable list obtained from the data records from the data store
+     */
     public List<T> getRecords() {
         return new ArrayList<>(original);
     }
 
+    /**
+     *
+     * @return an immutable list obtained from the data records from the data store that match the current applied filters
+     */
     public List<T> getFilteredRecords() {
         return new ArrayList<>(filtered);
     }
