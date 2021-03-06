@@ -17,6 +17,10 @@ import org.jboss.elemento.IsElement;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * This plugin add the capability to expand a row in the table to display more information about its record beneath the row itself
+ * @param <T> the type of the data table records
+ */
 public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
 
     public static final String DATA_TABLE_DETAILS_CM = "data-table-details-cm";
@@ -30,16 +34,29 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     private DetailsButtonElement buttonElement;
     private DataTable<T> dataTable;
 
+    /**
+     * Creates an instance with custom renderer and default expand/collapse icons
+     * @param cellRenderer the {@link CellRenderer}
+     */
     public RecordDetailsPlugin(CellRenderer<T> cellRenderer) {
         this(cellRenderer, Icons.ALL.fullscreen_exit(), Icons.ALL.fullscreen());
     }
 
+    /**
+     * Creates an instance with custom renderer and expand/collapse icons
+     * @param cellRenderer the {@link CellRenderer}
+     * @param collapseIcon {@link BaseIcon}
+     * @param expandIcon {@link BaseIcon}
+     */
     public RecordDetailsPlugin(CellRenderer<T> cellRenderer, BaseIcon<?> collapseIcon, BaseIcon<?> expandIcon) {
         this.cellRenderer = cellRenderer;
         this.collapseIcon = collapseIcon;
         this.expandIcon = expandIcon;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onBeforeAddHeaders(DataTable<T> dataTable) {
         this.dataTable = dataTable;
@@ -68,6 +85,9 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
         dataTable.getTableConfig().insertColumnFirst(column);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleEvent(TableEvent event) {
         if (ExpandRecordEvent.EXPAND_RECORD.equals(event.getType())) {
@@ -80,14 +100,26 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
         setExpanded(detailsButtonElement);
     }
 
+    /**
+     *
+     * @return the root {@link HTMLDivElement} of this component
+     */
     public HTMLDivElement getElement() {
         return element;
     }
 
+    /**
+     *
+     * @return the {@link HTMLTableCellElement} that contains the records details
+     */
     public HTMLTableCellElement getTd() {
         return td;
     }
 
+    /**
+     *
+     * @return the {@link HTMLTableRowElement} that contains the records details
+     */
     public HTMLTableRowElement getTr() {
         return tr;
     }
@@ -95,10 +127,14 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     public void applyStyles(CellRenderer.CellInfo<T> cellInfo) {
     }
 
+    /**
+     * A hook method to customize the column of the expand/collapse icons
+     * @param column {@link ColumnConfig}
+     */
     public void setupColumn(ColumnConfig<T> column) {
     }
 
-    public static class DetailsButtonElement<T> implements IsElement<HTMLElement>, TableRow.RowMetaObject {
+    private static class DetailsButtonElement<T> implements IsElement<HTMLElement>, TableRow.RowMetaObject {
         private final DominoElement<HTMLDivElement> element;
         private final CellRenderer.CellInfo<T> cellInfo;
         private final BaseIcon<?> expandIcon;

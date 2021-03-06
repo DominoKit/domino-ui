@@ -21,6 +21,11 @@ import java.util.stream.Collectors;
 import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
 
+/**
+ * This plugin allow selecting/deselecting single or multiple rows based on the {@link TableConfig#isMultiSelect()}
+ * and fires table selection change events when the user changes the selection.
+ * @param <T> the type of the data table records
+ */
 public class SelectionPlugin<T> implements DataTablePlugin<T> {
 
     private ColorScheme colorScheme;
@@ -29,22 +34,42 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     private SelectionCondition<T> selectionCondition = (table, row) -> true;
     private TableRow<T> lastSelected;
 
+    /**
+     * creates an instance with default configurations
+     */
     public SelectionPlugin() {
     }
 
+    /**
+     * create an instance that changes the selected row background color
+     * @param colorScheme {@link ColorScheme} the selected row background color
+     */
     public SelectionPlugin(ColorScheme colorScheme) {
         this.colorScheme = colorScheme;
     }
 
+    /**
+     * create an instance that changes the selected row background color and use a custom selection indicator icon
+     * @param colorScheme {@link ColorScheme} the selected row background color
+     * @param singleSelectIndicator {@link HTMLElement} to use a selection indicator
+     */
     public SelectionPlugin(ColorScheme colorScheme, HTMLElement singleSelectIndicator) {
         this(colorScheme);
         this.singleSelectIndicator = singleSelectIndicator;
     }
 
+    /**
+     * create an instance that changes the selected row background color and use a custom selection indicator icon
+     * @param colorScheme {@link ColorScheme} the selected row background color
+     * @param singleSelectIndicator {@link IsElement} to use a selection indicator
+     */
     public SelectionPlugin(ColorScheme colorScheme, IsElement<?> singleSelectIndicator) {
         this(colorScheme, singleSelectIndicator.element());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onBeforeAddHeaders(DataTable<T> dataTable) {
         dataTable.getTableConfig().insertColumnFirst(ColumnConfig.<T>create("data-table-select-cm")
@@ -218,6 +243,11 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
         return checkBox.element();
     }
 
+    /**
+     * Change the single selection indicator icon
+     * @param singleSelectIcon {@link BaseIcon}
+     * @return same plugin instance
+     */
     public SelectionPlugin<T> setSingleSelectIcon(BaseIcon<?> singleSelectIcon) {
         return this;
     }
@@ -231,6 +261,11 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
         return checkBox;
     }
 
+    /**
+     * Set a condition to use to determine if a row should be selectable or not
+     * @param selectionCondition {@link SelectionCondition}
+     * @return Same plugin instance
+     */
     public SelectionPlugin<T> setSelectionCondition(SelectionCondition<T> selectionCondition) {
         if (nonNull(selectionCondition)) {
             this.selectionCondition = selectionCondition;

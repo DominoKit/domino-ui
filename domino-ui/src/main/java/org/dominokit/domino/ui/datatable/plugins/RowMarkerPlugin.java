@@ -10,10 +10,17 @@ import org.dominokit.domino.ui.style.Style;
 
 import static java.util.Objects.nonNull;
 
+/**
+ * This plugin adds a thin colored border to the left of a row based on custom criteria
+ * @param <T> the type of the data table records
+ */
 public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
 
     private final MarkerColor<T> markerColor;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onBeforeAddHeaders(DataTable<T> dataTable) {
         dataTable.getTableConfig().insertColumnFirst(ColumnConfig.<T>create("data-table-marker-cm")
@@ -32,13 +39,25 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
                     return DomGlobal.document.createTextNode("");
                 }));
     }
-
+    /**
+     * creates an instance with a custom marker color
+     * @param markerColor {@link MarkerColor}
+     */
     public RowMarkerPlugin(MarkerColor<T> markerColor) {
         this.markerColor = markerColor;
     }
 
+    /**
+     * An interface to implement different color markers
+     * @param <T> the type of the table row record
+     */
     @FunctionalInterface
     public interface MarkerColor<T> {
+        /**
+         * determines the Color scheme from the cell info
+         * @param tableCellInfo {@link org.dominokit.domino.ui.datatable.CellRenderer.CellInfo}
+         * @return the {@link ColorScheme}
+         */
         ColorScheme getColorScheme(CellRenderer.CellInfo<T> tableCellInfo);
     }
 }

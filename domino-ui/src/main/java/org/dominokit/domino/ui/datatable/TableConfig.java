@@ -244,11 +244,24 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
         return saveDirtyRecordHandler;
     }
 
+    /**
+     * An interface to provide an alternative implementation of how rows should be appended to the table
+     * @param <T> the type of the row record
+     */
     @FunctionalInterface
     public interface RowAppender<T> {
+        /**
+         * Appends a row to the data table
+         * @param dataTable the {@link DataTable}
+         * @param tableRow the {@link TableRow} being appended
+         */
         void appendRow(DataTable<T> dataTable, TableRow<T> tableRow);
     }
 
+    /**
+     * This exception is thrown when performing action that looks up a column by its name
+     * but the column does not exist in the current {@link TableConfig}
+     */
     public static class ColumnNofFoundException extends RuntimeException {
         public ColumnNofFoundException(String name) {
             super(name);

@@ -25,6 +25,10 @@ import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.elemento.Elements.td;
 import static org.jboss.elemento.Elements.tr;
 
+/**
+ * This plugin renders the table rows in groups.
+ * @param <T> the type of the data table records
+ */
 public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowAppender<T> {
 
     private Map<String, DataGroup<T>> dataGroups = new HashMap<>();
@@ -33,27 +37,50 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     private Supplier<BaseIcon<?>> groupExpandedIconSupplier = Icons.ALL::minus_box_mdi;
     private Supplier<BaseIcon<?>> groupCollapsedIconSupplier = Icons.ALL::plus_box_mdi;
 
+    /**
+     * Create an instance with custom group supplier and group cell renderer
+     * @param groupSupplier the {@link GroupSupplier}
+     * @param groupRenderer the {@link CellRenderer}
+     */
     public GroupingPlugin(GroupSupplier<T> groupSupplier, CellRenderer<T> groupRenderer) {
         this.groupSupplier = groupSupplier;
         this.groupRenderer = groupRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init(DataTable<T> dataTable) {
         dataTable.getTableConfig()
                 .setRowAppender(this);
     }
 
+    /**
+     * Changes the group expand icon
+     * @param groupExpandedIconSupplier Supplier of {@link BaseIcon} to change the icon
+     * @return same plugin instance
+     */
     public GroupingPlugin<T> setGroupExpandedIcon(Supplier<BaseIcon<?>> groupExpandedIconSupplier){
         this.groupExpandedIconSupplier = groupExpandedIconSupplier;
         return this;
     }
 
+    /**
+     * Changes the group collapse icon
+     * @param groupCollapsedIconSupplier Supplier of {@link BaseIcon} to change the icon
+     * @return same plugin instance
+     */
     public GroupingPlugin<T> setGroupCollapsedIcon(Supplier<BaseIcon<?>> groupCollapsedIconSupplier){
         this.groupCollapsedIconSupplier = groupCollapsedIconSupplier;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * the plugin will create a group based on the GroupSupplier and will append rows to the first group matching the criteria
+     */
     @Override
     public void appendRow(DataTable<T> dataTable, TableRow<T> tableRow) {
         String groupId = groupSupplier.getRecordGroupId(tableRow);
@@ -99,6 +126,9 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
         }
     }
 
+    /**
+     * Expands all the current groups in the data table
+     */
     public void expandAll() {
         for (DataGroup<T> dataGroup : dataGroups.values()) {
             if (!dataGroup.expanded) {
@@ -108,6 +138,9 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
         }
     }
 
+    /**
+     * Collapse all the current groups in the data table
+     */
     public void collapseAll() {
         for (DataGroup<T> dataGroup : dataGroups.values()) {
             if (dataGroup.expanded) {
@@ -117,6 +150,9 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleEvent(TableEvent event) {
         if (event.getType().equalsIgnoreCase(OnBeforeDataChangeEvent.ON_BEFORE_DATA_CHANGE)) {
@@ -155,9 +191,17 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
         }
     }
 
+    /**
+     * this interface is to provide an implementation to define each row group
+     * @param <T> the type of the table row record
+     */
     @FunctionalInterface
     public interface GroupSupplier<T> {
+        /**
+         * determines the row group
+         * @param tableRow the {@link TableRow}
+         * @return String group name the table row belongs to
+         */
         String getRecordGroupId(TableRow<T> tableRow);
     }
-
 }
