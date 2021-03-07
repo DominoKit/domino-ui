@@ -20,9 +20,19 @@ import static org.dominokit.domino.ui.datatable.DataTableStyles.*;
 import static org.dominokit.domino.ui.style.Unit.*;
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * The data table component
+ * @param <T> the type of the data table records
+ */
 public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>> implements HasSelectionSupport<TableRow<T>> {
 
+    /**
+     * Use this constant to register a table event listener that listen to all events
+     */
     public static final String ANY = "*";
+    /**
+     * Use this constant as flag value to check if a row in the data tables have been filtered out
+     */
     public static final String DATA_TABLE_ROW_FILTERED = "data-table-row-filtered";
 
     private final DataStore<T> dataStore;
@@ -45,11 +55,16 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
     private final SearchContext<T> searchContext = new SearchContext<>(this);
 
+    /**
+     * Creates a new data table instance
+     * @param tableConfig the {@link TableConfig}
+     * @param dataStore the {@link DataStore}
+     */
     public DataTable(TableConfig<T> tableConfig, DataStore<T> dataStore) {
         this.tableConfig = tableConfig;
         this.events.put(ANY, new ArrayList<>());
         this.dataStore = dataStore;
-        this.addTableEventListner(ANY, dataStore);
+        this.addTableEventListener(ANY, dataStore);
         this.dataStore.onDataChanged(dataChangedEvent -> {
             fireTableEvent(new OnBeforeDataChangeEvent<>(this.data, dataChangedEvent.getTotalCount(), dataChangedEvent.isAppend()));
             if(dataChangedEvent.getSortDir().isPresent() && dataChangedEvent.getSortColumn().isPresent()){
@@ -69,7 +84,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
     private DataTable<T> init() {
         tableConfig.getPlugins().forEach(plugin -> {
-            DataTable.this.addTableEventListner("*", plugin);
+            DataTable.this.addTableEventListener("*", plugin);
             plugin.init(DataTable.this);
             plugin.onBeforeAddTable(DataTable.this);
         });
@@ -102,10 +117,17 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         tbody.setWidth(px.of(w));
     }
 
+    /**
+     * Force load the data into the table
+     */
     public void load() {
         this.dataStore.load();
     }
 
+    /**
+     * Set the table data
+     * @param data {@link List} of T
+     */
     public void setData(List<T> data) {
         this.data = data;
         tableRows.clear();
@@ -117,6 +139,10 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         tbody.element().scrollTop = 0.0;
     }
 
+    /**
+     * Appends more records to the current data list of the table
+     * @param newData {@link List} of T
+     */
     public void appendData(List<T> newData) {
         if (nonNull(this.data)) {
             addRows(newData, this.data.size());
@@ -128,7 +154,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
     private void addRows(List<T> data, int initialIndex) {
         tableConfig.getColumns()
-                .forEach(ColumnConfig::clearShowHideListners);
+                .forEach(ColumnConfig::clearShowHideListeners);
 
         for (int index = 0; index < data.size(); index++) {
             TableRow<T> tableRow = new TableRow<>(data.get(index), initialIndex + index, this);
@@ -140,28 +166,48 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         tableConfig.getPlugins().forEach(plugin -> plugin.onAllRowsAdded(DataTable.this));
     }
 
+    /**
+     *
+     * @return the {@link Collection} of T that is the current data in the table
+     */
     public Collection<T> getData() {
         return data;
     }
 
+    /**
+     * Increases the height of the data table rows
+     * @return same DataTable instance
+     */
     public DataTable<T> uncondense() {
         tableElement.style().remove(TABLE_CONDENSED);
         this.condensed = false;
         return this;
     }
 
+    /**
+     * Decreases the height of the data table rows
+     * @return same DataTable instance
+     */
     public DataTable<T> condense() {
         tableElement.style().add(TABLE_CONDENSED);
         this.condensed = true;
         return this;
     }
 
+    /**
+     * removes the hover effect from data table rows
+     * @return same DataTable instance
+     */
     public DataTable<T> noHover() {
         tableElement.style().remove(TABLE_HOVER);
         this.hoverable = false;
         return this;
     }
 
+    /**
+     * Adds the hover effect to the data table rows
+     * @return same DataTable instance
+     */
     public DataTable<T> hovered() {
         noHover();
         tableElement.style().add(TABLE_HOVER);
@@ -169,12 +215,20 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         return this;
     }
 
+    /**
+     * Remove the borders from the data table rows
+     * @return same DataTable instance
+     */
     public DataTable<T> noBorder() {
         tableElement.style().remove(TABLE_BORDERED);
         this.bordered = false;
         return this;
     }
 
+    /**
+     * Adds borders from the data table rows
+     * @return same DataTable instance
+     */
     public DataTable<T> bordered() {
         noBorder();
         tableElement.style().add(TABLE_BORDERED);
@@ -182,12 +236,20 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         return this;
     }
 
+    /**
+     * Remove the background alternation from the data table rows
+     * @return same DataTable instance
+     */
     public DataTable<T> noStripes() {
         tableElement.style().remove(TABLE_STRIPED);
         this.striped = false;
         return this;
     }
 
+    /**
+     * Adds background alternation from the data table rows
+     * @return same DataTable instance
+     */
     public DataTable<T> striped() {
         noStripes();
         tableElement.style().add(TABLE_STRIPED);
@@ -195,53 +257,101 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         return this;
     }
 
+    /**
+     * Render all table rows in editable mode
+     * @return same DataTable instance
+     */
     public DataTable<T> edit(){
         getItems().forEach(TableRow::edit);
         return this;
     }
 
+    /**
+     * Saves all editable table rows changes
+     * @return same DataTable instance
+     */
     public DataTable<T> save(){
         getItems().forEach(TableRow::save);
         return this;
     }
 
+    /**
+     * Cancel editing of all table rows
+     * @return same DataTable instance
+     */
     public DataTable<T> cancelEditing(){
         getItems().forEach(TableRow::cancelEditing);
         return this;
     }
 
+    /**
+     *
+     * @return the {@link HTMLTableElement} wrapped as {@link DominoElement}
+     */
     public DominoElement<HTMLTableElement> tableElement() {
         return tableElement;
     }
 
+    /**
+     *
+     * @return the {@link HTMLTableSectionElement} -tbody- wrapped as {@link DominoElement}
+     */
     public DominoElement<HTMLTableSectionElement> bodyElement() {
         return tbody;
     }
 
+    /**
+     *
+     * @return the {@link HTMLTableSectionElement} -thead- wrapped as {@link DominoElement}
+     */
     public DominoElement<HTMLTableSectionElement> headerElement() {
         return thead;
     }
 
+    /**
+     *
+     * @return the applied {@link TableConfig} of this table
+     */
     public TableConfig<T> getTableConfig() {
         return tableConfig;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public boolean isCondensed() {
         return condensed;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public boolean isHoverable() {
         return hoverable;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public boolean isStriped() {
         return striped;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public boolean isBordered() {
         return bordered;
     }
 
+    /**
+     * Immediately filter the current table rows using the the specified filter
+     * @param rowFilter {@link LocalRowFilter}
+     */
     public void filterRows(LocalRowFilter<T> rowFilter) {
         tableRows.forEach(tableRow -> {
             if (rowFilter.filter(tableRow)) {
@@ -257,6 +367,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         });
     }
 
+    /**
+     * Clear all filtration applied using {@link #filterRows(LocalRowFilter)}
+     */
     public void clearRowFilters() {
         tableRows.stream().filter(tableRow -> nonNull(tableRow.getFlag(DATA_TABLE_ROW_FILTERED)))
                 .forEach(tableRow -> {
@@ -266,11 +379,18 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
                 });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return root.element();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<TableRow<T>> getSelectedItems() {
         return tableRows.stream().filter(TableRow::isSelected).collect(Collectors.toList());
@@ -338,32 +458,66 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isSelectable() {
         return this.selectable;
     }
 
+    /**
+     * Add a listener to listen to data table selection changes
+     * @param selectionChangeListener  {@link SelectionChangeListener}
+     */
     public void addSelectionListener(SelectionChangeListener<T> selectionChangeListener) {
         this.selectionChangeListeners.add(selectionChangeListener);
     }
 
+
+    /**
+     *
+     * @param selectionChangeListener  {@link SelectionChangeListener}
+     */
     public void removeSelectionListener(SelectionChangeListener<T> selectionChangeListener) {
         this.selectionChangeListeners.remove(selectionChangeListener);
     }
 
+    /**
+     * @deprecated use {@link #addTableEventListener(String, TableEventListener)}
+     */
+    @Deprecated
     public void addTableEventListner(String type, TableEventListener listener) {
+        addTableEventListener(type, listener);
+    }
+
+    /**
+     * Adds a table event listener by event type
+     * @param type String type of the event
+     * @param listener {@link TableEventListener}
+     */
+    public void addTableEventListener(String type, TableEventListener listener) {
         if (!events.containsKey(type)) {
             events.put(type, new ArrayList<>());
         }
         events.get(type).add(listener);
     }
 
+    /**
+     * Removes a table event listener by event type
+     * @param type String type of the event
+     * @param listener {@link TableEventListener}
+     */
     public void removeTableListener(String type, TableEventListener listener) {
         if (events.containsKey(type)) {
             events.get(type).remove(listener);
         }
     }
 
+    /**
+     * Manually fire a table event
+     * @param tableEvent {@link TableEvent}
+     */
     public void fireTableEvent(TableEvent tableEvent) {
         if (events.containsKey(tableEvent.getType())) {
             events.get(tableEvent.getType()).forEach(listener -> listener.handleEvent(tableEvent));
@@ -372,16 +526,38 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         events.get(ANY).forEach(listener -> listener.handleEvent(tableEvent));
     }
 
+    /**
+     *
+     * @return the current {@link SearchContext} of the data table
+     */
     public SearchContext getSearchContext() {
         return searchContext;
     }
 
+    /**
+     * Listens to changes in the table rows selection
+     * @param <T> the type of the data table records
+     */
     @FunctionalInterface
     public interface SelectionChangeListener<T> {
+        /**
+         *
+         * @param selectedTableRows {@link List} of {@link TableRow}s that has that are selected
+         * @param selectedRecords {@link List} of T records of the rows being selected
+         */
         void onSelectionChanged(List<TableRow<T>> selectedTableRows, List<T> selectedRecords);
     }
 
+    /**
+     * Use implement Table row filter
+     * @param <T> the type of the data table records
+     */
     public interface LocalRowFilter<T> {
+        /**
+         *
+         * @param tableRow {@link TableRow}
+         * @return boolean, true if the table row should be hidden else false.
+         */
         boolean filter(TableRow<T> tableRow);
     }
 
