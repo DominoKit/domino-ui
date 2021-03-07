@@ -114,7 +114,14 @@ public interface IsModalDialog<T> {
         void onOpen();
     }
 
+    /**
+     * An interface to implement handlers for closing a dialog
+     */
+    @FunctionalInterface
     interface CloseHandler {
+        /**
+         * Will be called when the dialog is closed
+         */
         void onClose();
     }
 }

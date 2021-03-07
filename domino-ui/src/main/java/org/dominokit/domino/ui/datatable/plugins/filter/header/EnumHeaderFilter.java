@@ -12,18 +12,41 @@ import org.dominokit.domino.ui.forms.SelectOption;
 
 import java.util.Arrays;
 
+/**
+ * Enum column header filter component that is rendered as a {@link Select} component
+ * @param <T> type of data table records
+ * @param <E> the enum type
+ */
 public class EnumHeaderFilter<T, E extends Enum> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
     private final Select<String> select;
 
+    /**
+     * Creates a filter from an array of enum values and default label <b>ALL</b> for all option
+     * @param values Array of enum values
+     * @param <T> type of data table records
+     * @param <E> the enum type
+     * @return new instance
+     */
     public static <T, E extends Enum> EnumHeaderFilter<T, E> create(E[] values) {
         return new EnumHeaderFilter<>(values, "ALL");
     }
 
+    /**
+     * Creates a filter from an array of enum values and a custom label for all option
+     * @param values Array of enum values
+     * @param <T> type of data table records
+     * @param <E> the enum type
+     * @return new instance
+     */
     public static <T, E extends Enum> EnumHeaderFilter<T, E> create(E[] values, String allLabel) {
         return new EnumHeaderFilter<>(values, allLabel);
     }
 
+    /**
+     * Creates a filter from an array of enum values and a custom label for all option
+     * @param values Array of enum values
+     */
     public EnumHeaderFilter(E[] values, String allLabel) {
         select = Select.<String>create()
                 .appendChild(SelectOption.create("", allLabel))
@@ -33,6 +56,9 @@ public class EnumHeaderFilter<T, E extends Enum> implements ColumnHeaderFilterPl
         select.styler(style -> style.setMarginBottom("0px"));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
         searchContext.addBeforeSearchHandler(context -> {
@@ -45,16 +71,26 @@ public class EnumHeaderFilter<T, E extends Enum> implements ColumnHeaderFilterPl
         select.addSelectionHandler(option -> searchContext.fireSearchEvent());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clear() {
         select.selectAt(0, true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLElement element() {
         return select.element();
     }
 
+    /**
+     *
+     * @return the {@link Select} wrapped in this component
+     */
     public Select<String> getSelect() {
         return select;
     }
