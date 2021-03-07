@@ -506,7 +506,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
             this.dataTable = dataTable;
-            dataTable.addTableEventListner(SearchClearedEvent.SEARCH_EVENT_CLEARED, this);
+            dataTable.addTableEventListener(SearchClearedEvent.SEARCH_EVENT_CLEARED, this);
             return element;
         }
 

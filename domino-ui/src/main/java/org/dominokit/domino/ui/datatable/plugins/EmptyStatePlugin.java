@@ -34,7 +34,7 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
      */
     @Override
     public void onAfterAddTable(DataTable dataTable) {
-        dataTable.addTableEventListner(TableDataUpdatedEvent.DATA_UPDATED, event -> {
+        dataTable.addTableEventListener(TableDataUpdatedEvent.DATA_UPDATED, event -> {
             TableDataUpdatedEvent tableDataUpdatedEvent = (TableDataUpdatedEvent) event;
             if (tableDataUpdatedEvent.getTotalCount() == 0) {
                 emptyState.show();
