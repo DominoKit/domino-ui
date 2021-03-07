@@ -1,5 +1,8 @@
 package org.dominokit.domino.ui.dialogs;
 
+/**
+ * Constants for dialogs css classes names
+ */
 public class MessageDialogStyles {
     public static final String MESSAGE_DIALOG = "message-dialog";
     public static final String DIALOG_BUTTON = "dialog-button";
