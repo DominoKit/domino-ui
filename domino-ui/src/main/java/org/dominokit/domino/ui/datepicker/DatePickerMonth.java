@@ -23,19 +23,29 @@ import static org.dominokit.domino.ui.datepicker.DatePickerElement.createDayElem
 import static org.dominokit.domino.ui.datepicker.DatePickerElement.createDayHeader;
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * A component represents a month element on {@link DatePicker}
+ *
+ * @see IsElement
+ * @see DatePicker
+ * @see HasSelectSupport
+ * @see HasValue
+ * @see org.dominokit.domino.ui.datepicker.DatePickerElement.SelectionHandler
+ * @see TakesValue
+ */
 public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupport<DatePickerElement>,
         HasValue<DatePickerMonth, Date>, DatePickerElement.SelectionHandler, TakesValue<Date> {
 
-    private InternalHandler internalHandler;
+    private final InternalHandler internalHandler;
     private JsDate date;
     private DateTimeFormatInfo dateTimeFormatInfo;
-    private DatePickerElement[][] monthData = new DatePickerElement[7][7];
-    private List<DaySelectionHandler> daySelectionHandlers = new ArrayList<>();
-    private List<DayClickHandler> dayClickHandlers = new ArrayList<>();
+    private final DatePickerElement[][] monthData = new DatePickerElement[7][7];
+    private final List<DaySelectionHandler> daySelectionHandlers = new ArrayList<>();
+    private final List<DayClickHandler> dayClickHandlers = new ArrayList<>();
     private DatePickerElement selectedElement;
     private Color background = Color.LIGHT_BLUE;
 
-    private HTMLDivElement element = div().css(DatePickerStyles.DATE_PICKER_CONTAINER).element();
+    private final HTMLDivElement element = div().css(DatePickerStyles.DATE_PICKER_CONTAINER).element();
 
     public DatePickerMonth(JsDate date, DateTimeFormatInfo dateTimeFormatInfo, InternalHandler daySelectionHandler) {
         this.date = date;
@@ -43,11 +53,22 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
         this.internalHandler = daySelectionHandler;
     }
 
+    /**
+     * Initialize the element by creating the content elements and update it with the provided date
+     */
     public void init() {
         createMarkup();
         update();
     }
 
+    /**
+     * Creates month element passing the current date and date time format along with a handler for selecting a day
+     *
+     * @param date the current date
+     * @param dateTimeFormatInfo the {@link DateTimeFormatInfo}
+     * @param daySelectionHandler the day selection handler to be called when selecting the day
+     * @return new instance
+     */
     public static DatePickerMonth create(JsDate date, DateTimeFormatInfo dateTimeFormatInfo, InternalHandler daySelectionHandler) {
         return new DatePickerMonth(date, dateTimeFormatInfo, daySelectionHandler);
     }
@@ -243,60 +264,107 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
                 .add(DatePickerStyles.CURRENT_MONTH);
     }
 
+    /**
+     * Adds a day selection handler
+     *
+     * @param daySelectionHandler A {@link DaySelectionHandler} to be called when selecting the day
+     */
     public void addDaySelectionHandler(DaySelectionHandler daySelectionHandler) {
         this.daySelectionHandlers.add(daySelectionHandler);
     }
 
+    /**
+     * Remove a day selection handler
+     *
+     * @param daySelectionHandler A {@link DaySelectionHandler} to remove
+     */
     public void removeDaySelectionHandler(DaySelectionHandler daySelectionHandler) {
         this.daySelectionHandlers.remove(daySelectionHandler);
     }
 
+    /**
+     * @return All the day selection handlers
+     */
     public List<DaySelectionHandler> getDaySelectionHandlers() {
         return this.daySelectionHandlers;
     }
 
+    /**
+     * Clears all the day selection handlers
+     */
     public void clearDaySelectionHandlers() {
         this.daySelectionHandlers.clear();
     }
 
 
+    /**
+     * Adds a day click handler
+     *
+     * @param dayClickHandler A {@link DayClickHandler} to add
+     */
     public void addDayClickHandler(DayClickHandler dayClickHandler) {
         this.dayClickHandlers.add(dayClickHandler);
     }
 
+    /**
+     * Removes a day click handler
+     *
+     * @param dayClickHandler A {@link DayClickHandler} to remove
+     */
     public void removeDayClickHandler(DayClickHandler dayClickHandler) {
         this.dayClickHandlers.remove(dayClickHandler);
     }
 
+    /**
+     * @return All the day click handlers
+     */
     public List<DayClickHandler> getDayClickHandlers() {
         return this.dayClickHandlers;
     }
 
+    /**
+     * Clears all the day click handlers
+     */
     public void clearDayClickHandlers() {
         this.dayClickHandlers.clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DatePickerElement getSelectedItem() {
         return selectedElement;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DatePickerMonth value(Date value) {
         setValue(value);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Date getValue() {
         return new Date(new Double(getSelectedItem().getDate().getTime()).longValue());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setValue(Date value) {
         JsDate jsDate = new JsDate((double)value.getTime());
@@ -305,6 +373,9 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
         update(jsDate);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void selectElement(DatePickerElement datePickerElement) {
         if (date.getFullYear() == datePickerElement.getDate().getFullYear() && date.getMonth() == datePickerElement.getDate().getMonth()) {
@@ -315,6 +386,9 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onElementClick(DatePickerElement datePickerElement) {
         if (nonNull(internalHandler)) {
@@ -351,28 +425,55 @@ public class DatePickerMonth implements IsElement<HTMLDivElement>, HasSelectSupp
         });
     }
 
+    /**
+     * Sets the date time format
+     *
+     * @param dateTimeFormatInfo A new {@link DateTimeFormatInfo}
+     */
     public void setDateTimeFormatInfo(DateTimeFormatInfo dateTimeFormatInfo) {
         this.dateTimeFormatInfo = dateTimeFormatInfo;
         update();
     }
 
+    /**
+     * @return The current {@link DateTimeFormatInfo}
+     */
     public DateTimeFormatInfo getDateTimeFormatInfo() {
         return dateTimeFormatInfo;
     }
 
+    /**
+     * Sets the background of this month
+     *
+     * @param background A background {@link Color}
+     */
     public void setBackground(Color background) {
         getSelectedItem().style().remove(this.background.getBackground());
         this.background = background;
         getSelectedItem().style().add(this.background.getBackground());
     }
 
+    /**
+     * A handler that will be called when the day is selected
+     */
     @FunctionalInterface
     interface DaySelectionHandler {
+        /**
+         * Called when the day is selected
+         * @param datePickerElement The selected day {@link DatePickerElement}
+         */
         void onDaySelected(DatePickerElement datePickerElement);
     }
 
+    /**
+     * A handler that will be called when the day is clicked
+     */
     @FunctionalInterface
     interface DayClickHandler {
+        /**
+         * Called when the day is clicked
+         * @param datePickerElement The clicked day {@link DatePickerElement}
+         */
         void onDayClicked(DatePickerElement datePickerElement);
     }
 

@@ -1,10 +1,5 @@
 package org.dominokit.domino.ui.datepicker;
 
-import org.dominokit.domino.ui.grid.flex.FlexAlign;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
-import org.dominokit.domino.ui.grid.flex.FlexLayout;
-import org.gwtproject.editor.client.TakesValue;
 import elemental2.core.JsDate;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.button.Button;
@@ -12,6 +7,11 @@ import org.dominokit.domino.ui.forms.Select;
 import org.dominokit.domino.ui.forms.SelectOption;
 import org.dominokit.domino.ui.grid.Column;
 import org.dominokit.domino.ui.grid.Row;
+import org.dominokit.domino.ui.grid.Row_12;
+import org.dominokit.domino.ui.grid.flex.FlexAlign;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.ModalDialog;
@@ -22,6 +22,7 @@ import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasValue;
+import org.gwtproject.editor.client.TakesValue;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
@@ -34,21 +35,41 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.elemento.Elements.div;
 
+/**
+ * A component to pick a date
+ * <p>
+ * Customize the component can be done by overwriting classes provided by {@link DatePickerStyles}
+ *
+ * <p>For example: </p>
+ * <pre>
+ *     DatePicker.create()
+ *               .hideClearButton()
+ *               .hideCloseButton()
+ *               .fixedWidth("265px")
+ *               .showBorder()
+ *               .addDateSelectionHandler((date, dateTimeFormatInfo) -> {})
+ * </pre>
+ *
+ * @see BaseDominoElement
+ * @see HasValue
+ * @see DatePickerMonth.InternalHandler
+ * @see TakesValue
+ */
 public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> implements HasValue<DatePicker, Date>,
         DatePickerMonth.InternalHandler, TakesValue<Date> {
 
     private final JsDate jsDate;
-    private DominoElement<HTMLDivElement> element = DominoElement.of(div()
+    private final DominoElement<HTMLDivElement> element = DominoElement.of(div()
             .css(DatePickerStyles.CALENDAR))
             .elevate(Elevation.LEVEL_1);
-    private DominoElement<HTMLDivElement> headerPanel = DominoElement.of(div().css(DatePickerStyles.DATE_PANEL));
-    private DominoElement<HTMLDivElement> selectorsPanel = DominoElement.of(div().css(DatePickerStyles.SELECTOR_CONTAINER));
-    private FlexLayout footerPanel = FlexLayout.create().css(DatePickerStyles.CAL_FOOTER);
+    private final DominoElement<HTMLDivElement> headerPanel = DominoElement.of(div().css(DatePickerStyles.DATE_PANEL));
+    private final DominoElement<HTMLDivElement> selectorsPanel = DominoElement.of(div().css(DatePickerStyles.SELECTOR_CONTAINER));
+    private final FlexLayout footerPanel = FlexLayout.create().css(DatePickerStyles.CAL_FOOTER);
 
-    private DominoElement<HTMLDivElement> dayName = DominoElement.of(div().css(DatePickerStyles.DAY_NAME));
-    private DominoElement<HTMLDivElement> monthName = DominoElement.of(div().css(DatePickerStyles.MONTH_NAME));
-    private DominoElement<HTMLDivElement> dateNumber = DominoElement.of(div().css(DatePickerStyles.DAY_NUMBER));
-    private DominoElement<HTMLDivElement> yearNumber = DominoElement.of(div().css(DatePickerStyles.YEAR_NUMBER));
+    private final DominoElement<HTMLDivElement> dayName = DominoElement.of(div().css(DatePickerStyles.DAY_NAME));
+    private final DominoElement<HTMLDivElement> monthName = DominoElement.of(div().css(DatePickerStyles.MONTH_NAME));
+    private final DominoElement<HTMLDivElement> dateNumber = DominoElement.of(div().css(DatePickerStyles.DAY_NUMBER));
+    private final DominoElement<HTMLDivElement> yearNumber = DominoElement.of(div().css(DatePickerStyles.YEAR_NUMBER));
     private Icon navigateBefore;
     private Icon navigateNext;
 
@@ -64,17 +85,17 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     private final DatePickerMonth datePickerMonth;
     private DatePickerElement selectedPickerElement;
 
-    private List<PickerHandler> closeHandlers = new ArrayList<>();
-    private List<PickerHandler> resetHandlers = new ArrayList<>();
-    private List<PickerHandler> clearHandlers = new ArrayList<>();
+    private final List<PickerHandler> closeHandlers = new ArrayList<>();
+    private final List<PickerHandler> resetHandlers = new ArrayList<>();
+    private final List<PickerHandler> clearHandlers = new ArrayList<>();
     private BackgroundHandler backgroundHandler = (oldBackground, newBackground) -> {
     };
 
-    private JsDate minDate;
-    private JsDate maxDate;
+    private final JsDate minDate;
+    private final JsDate maxDate;
 
-    private List<DateSelectionHandler> dateSelectionHandlers = new ArrayList<>();
-    private List<DateDayClickedHandler> dateDayClickedHandlers = new ArrayList<>();
+    private final List<DateSelectionHandler> dateSelectionHandlers = new ArrayList<>();
+    private final List<DateDayClickedHandler> dateDayClickedHandlers = new ArrayList<>();
     private FlexItem clearButtonContainer;
     private FlexItem todayButtonContainer;
     private FlexItem resetButtonContainer;
@@ -82,13 +103,11 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
 
 
     public DatePicker(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
-
         this.jsDate = new JsDate((double) date.getTime());
-
         this.minDate = new JsDate((double) date.getTime());
-        minDate.setFullYear(minDate.getFullYear() - 50);
-
         this.maxDate = new JsDate((double) date.getTime());
+
+        minDate.setFullYear(minDate.getFullYear() - 50);
         maxDate.setFullYear(maxDate.getFullYear() + 50);
 
         datePickerMonth = DatePickerMonth.create(this.jsDate, dateTimeFormatInfo, this);
@@ -112,7 +131,6 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
     private void build() {
-
         element.appendChild(headerPanel);
         headerPanel.style().add(colorScheme.color().getBackground());
         dayName.style().add(colorScheme.darker_2().getBackground());
@@ -130,9 +148,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         datePickerMonth.init();
     }
 
-
     private void initFooter() {
-
         clearButton = Button.create("CLEAR")
                 .setColor(colorScheme.color())
                 .css(DatePickerStyles.CAL_BUTTON);
@@ -184,7 +200,6 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
     private void initSelectors() {
-
         int year = jsDate.getFullYear();
         yearSelect = Select.<Integer>create()
                 .css(DatePickerStyles.SELECTOR);
@@ -241,7 +256,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         Column forwardColumn = Column.span1()
                 .condenced();
 
-        Row row = Row.create()
+        Row_12 row = Row.create()
                 .setGap(px.of(5))
                 .styler(style -> style
                         .add(DatePickerStyles.SELECTOR_ROW));
@@ -290,123 +305,249 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
     }
 
 
+    /**
+     * Creates new date picker with {@link DateTimeFormatInfo} based on the defined system property locale and {@code now} date
+     *
+     * @return new instance
+     */
     public static DatePicker create() {
         DateTimeFormatInfo dateTimeFormatInfo = DateTimeFormatInfo_factory.create();
 
         return new DatePicker(new Date(), dateTimeFormatInfo);
     }
 
+    /**
+     * Creates new date picker with {@link DateTimeFormatInfo} based on the defined system property locale and a {@code date}
+     *
+     * @param date the date
+     * @return new instance
+     */
     public static DatePicker create(Date date) {
         DateTimeFormatInfo dateTimeFormatInfo = DateTimeFormatInfo_factory.create();
         return new DatePicker(date, dateTimeFormatInfo);
     }
 
+    /**
+     * Creates new date picker with {@link DateTimeFormatInfo} based on the defined system property locale, {@code now} date and min/max dates to show in the component
+     *
+     * @param date the date
+     * @param maxDate the maximum date
+     * @param minDate the minimum date
+     * @return new instance
+     */
     public static DatePicker create(Date date, Date minDate, Date maxDate) {
         DateTimeFormatInfo dateTimeFormatInfo = DateTimeFormatInfo_factory.create();
         return new DatePicker(date, dateTimeFormatInfo, minDate, maxDate);
     }
 
+    /**
+     * Creates new date picker with {@code dateTimeFormatInfo} and a {@code date}
+     *
+     * @param date the date
+     * @param dateTimeFormatInfo the date time format
+     * @return new instance
+     */
     public static DatePicker create(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
         return new DatePicker(date, dateTimeFormatInfo);
     }
 
+    /**
+     * Creates new date picker with {@code dateTimeFormatInfo}, a {@code date} and min/max dates to show in the component
+     *
+     * @param date the date
+     * @param dateTimeFormatInfo the date time format
+     * @param minDate the minimum date
+     * @param maxDate the maximum date
+     * @return new instance
+     */
     public static DatePicker create(Date date, DateTimeFormatInfo dateTimeFormatInfo, Date minDate, Date maxDate) {
         return new DatePicker(date, dateTimeFormatInfo, minDate, maxDate);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element.element();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DatePicker value(Date value) {
         setValue(value);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Date getValue() {
         return datePickerMonth.getValue();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setValue(Date value) {
         datePickerMonth.value(value);
     }
 
+    /**
+     * Sets the date for the picker
+     *
+     * @param date the value
+     * @return same instance
+     */
     public DatePicker setDate(Date date) {
         this.value(date);
         return this;
     }
 
+    /**
+     * @return The current date value
+     */
     public Date getDate() {
         return this.getValue();
     }
 
+    /**
+     * Same as {@link DatePicker#setDate(Date)} but with {@link JsDate}
+     *
+     * @param jsDate the js date value
+     * @return same instance
+     */
     public DatePicker setDate(JsDate jsDate) {
         this.value(new Date(new Double(jsDate.getTime()).longValue()));
         return this;
     }
 
+    /**
+     * @return The value as {@link JsDate}
+     */
     public JsDate getJsDate() {
         return new JsDate((double) getValue().getTime());
     }
 
+    /**
+     * Adds a selection handler for date.
+     *
+     * The handler will be called when selecting any date
+     *
+     * @param dateSelectionHandler the {@link DateSelectionHandler}
+     * @return same instance
+     */
     public DatePicker addDateSelectionHandler(DateSelectionHandler dateSelectionHandler) {
         this.dateSelectionHandlers.add(dateSelectionHandler);
         return this;
     }
 
+    /**
+     * Removes a selection handler
+     *
+     * @param dateSelectionHandler a {@link DateSelectionHandler} to be removed
+     * @return same instance
+     */
     public DatePicker removeDateSelectionHandler(DateSelectionHandler dateSelectionHandler) {
         this.dateSelectionHandlers.remove(dateSelectionHandler);
         return this;
     }
 
+    /**
+     * @return All the selection handlers added
+     */
     public List<DateSelectionHandler> getDateSelectionHandlers() {
         return this.dateSelectionHandlers;
     }
 
+    /**
+     * Removes all the selection handlers added
+     *
+     * @return same instance
+     */
     public DatePicker clearDaySelectionHandlers() {
         this.dateSelectionHandlers.clear();
         return this;
     }
 
-
+    /**
+     * Adds a new {@link DateDayClickedHandler}
+     *
+     * @param dateDayClickedHandler The new {@link DateDayClickedHandler} to add
+     * @return same instance
+     */
     public DatePicker addDateDayClickHandler(DateDayClickedHandler dateDayClickedHandler) {
         this.dateDayClickedHandlers.add(dateDayClickedHandler);
         return this;
     }
 
+    /**
+     * Removes a {@link DateDayClickedHandler}
+     *
+     * @param dateClickedHandler The {@link DateDayClickedHandler} to remove
+     * @return same instance
+     */
     public DatePicker removeDateDayClickedHandler(DateDayClickedHandler dateClickedHandler) {
         this.dateDayClickedHandlers.remove(dateClickedHandler);
         return this;
     }
 
+    /**
+     * @return All the {@link DateDayClickedHandler} defined
+     */
     public List<DateDayClickedHandler> getDateDayClickedHandlers() {
         return this.dateDayClickedHandlers;
     }
 
+    /**
+     * Removes all the {@link DateDayClickedHandler} defined
+     *
+     * @return same instance
+     */
     public DatePicker clearDateDayClickedHandlers() {
         this.dateDayClickedHandlers.clear();
         return this;
     }
 
+    /**
+     * Sets a new {@link DateTimeFormatInfo}
+     *
+     * @param dateTimeFormatInfo the new {@link DateTimeFormatInfo}
+     * @return same instance
+     */
     public DatePicker setDateTimeFormatInfo(DateTimeFormatInfo dateTimeFormatInfo) {
         this.datePickerMonth.setDateTimeFormatInfo(dateTimeFormatInfo);
         updatePicker();
         return this;
     }
 
+    /**
+     * @return The {@link DateTimeFormatInfo} defined
+     */
     public DateTimeFormatInfo getDateTimeFormatInfo() {
         return datePickerMonth.getDateTimeFormatInfo();
     }
 
+    /**
+     * Adds border to the picker with a color defined in {@link ColorScheme} set for this picker
+     *
+     * @return same instance
+     */
     public DatePicker showBorder() {
         element.style().setBorder("1px solid " + colorScheme.color().getHex());
         return this;
     }
 
+    /**
+     * Sets the {@link ColorScheme}, the color scheme will be used to set the colors for header, body, and buttons defined in this picker
+     *
+     * @param colorScheme the new {@link ColorScheme}
+     * @return same instance
+     */
     public DatePicker setColorScheme(ColorScheme colorScheme) {
         backgroundHandler.onBackgroundChanged(getColorScheme(), colorScheme);
         this.headerPanel.style().remove(this.colorScheme.color().getBackground());
@@ -422,10 +563,16 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         return this;
     }
 
+    /**
+     * @return The {@link ColorScheme} defined
+     */
     public ColorScheme getColorScheme() {
         return colorScheme;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onDaySelected(DatePickerElement datePickerElement) {
         this.selectedPickerElement = datePickerElement;
@@ -434,16 +581,19 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         publish();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onDayClicked(DatePickerElement datePickerElement) {
-        for (int i = 0; i < dateDayClickedHandlers.size(); i++) {
-            dateDayClickedHandlers.get(i).onDateDayClicked(getDate(), getDateTimeFormatInfo());
+        for (DateDayClickedHandler dateDayClickedHandler : dateDayClickedHandlers) {
+            dateDayClickedHandler.onDateDayClicked(getDate(), getDateTimeFormatInfo());
         }
     }
 
     private void publish() {
-        for (int i = 0; i < dateSelectionHandlers.size(); i++) {
-            dateSelectionHandlers.get(i).onDateSelected(getDate(), getDateTimeFormatInfo());
+        for (DateSelectionHandler dateSelectionHandler : dateSelectionHandlers) {
+            dateSelectionHandler.onDateSelected(getDate(), getDateTimeFormatInfo());
         }
     }
 
@@ -460,180 +610,348 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         this.yearSelect.setValue(this.selectedPickerElement.getYear(), true);
     }
 
+    /**
+     * Shows the header of the picker
+     *
+     * @return same instance
+     */
     public DatePicker showHeaderPanel() {
         headerPanel.show();
         return this;
     }
 
+    /**
+     * Hides the header of the picker
+     *
+     * @return same instance
+     */
     public DatePicker hideHeaderPanel() {
         headerPanel.hide();
         return this;
     }
 
+    /**
+     * Shows {@code today} button which selects the current date
+     *
+     * @return same instance
+     */
     public DatePicker showTodayButton() {
         this.todayButtonContainer.show();
         return this;
     }
 
+    /**
+     * Hides the {@code today} button
+     *
+     * @return same instance
+     */
     public DatePicker hideTodayButton() {
         this.todayButtonContainer.hide();
         return this;
     }
 
+    /**
+     * Shows the {@code clear} button which clears the selected value of the picker
+     *
+     * @return same instance
+     */
     public DatePicker showClearButton() {
         this.clearButtonContainer.show();
         return this;
     }
 
+    /**
+     * Hides the {@code clear} button
+     *
+     * @return same instance
+     */
     public DatePicker hideClearButton() {
         this.clearButtonContainer.hide();
         return this;
     }
 
+    /**
+     * Shows the {@code close} button which closes the picker
+     *
+     * @return same instance
+     */
     public DatePicker showCloseButton() {
         this.closeButtonContainer.show();
         return this;
     }
 
+    /**
+     * Hides the {@code close} button
+     *
+     * @return same instance
+     */
     public DatePicker hideCloseButton() {
         this.closeButtonContainer.hide();
         return this;
     }
 
+    /**
+     * Shows the {@code reset} button which calls {@link DatePicker#resetHandlers} for resetting the value
+     *
+     * @return same instance
+     */
     public DatePicker showResetButton() {
         this.resetButtonContainer.show();
         return this;
     }
 
+    /**
+     * Hides the {@code reset} button
+     *
+     * @return same instance
+     */
     public DatePicker hideResetButton() {
         this.resetButtonContainer.hide();
         return this;
     }
 
+    /**
+     * Adds a close handler which will be called when the picker is closed
+     *
+     * @param closeHandler the new close {@link PickerHandler} to add
+     * @return same instance
+     */
     public DatePicker addCloseHandler(PickerHandler closeHandler) {
         this.closeHandlers.add(closeHandler);
         return this;
     }
 
+    /**
+     * Removes a close handler
+     * @param closeHandler the close {@link PickerHandler} to remove
+     * @return
+     */
     public DatePicker removeCloseHandler(PickerHandler closeHandler) {
         this.closeHandlers.remove(closeHandler);
         return this;
     }
 
+    /**
+     * Adds new reset handler to be called when reset button is clicked
+     *
+     * @param closeHandler the new reset {@link PickerHandler} to add
+     * @return same instance
+     */
     public DatePicker addResetHandler(PickerHandler closeHandler) {
         this.resetHandlers.add(closeHandler);
         return this;
     }
 
+    /**
+     * Removes a reset handler
+     *
+     * @param closeHandler the reset {@link PickerHandler} to remove
+     * @return same instance
+     */
     public DatePicker removeResetHandler(PickerHandler closeHandler) {
         this.resetHandlers.remove(closeHandler);
         return this;
     }
 
+    /**
+     * @return All the close handlers
+     */
     public List<PickerHandler> getCloseHandlers() {
         return this.closeHandlers;
     }
 
+    /**
+     * @return All the reset handlers
+     */
     public List<PickerHandler> getResetHandlers() {
         return this.resetHandlers;
     }
 
+    /**
+     * Adds clear handler to be called when clearing the picker value
+     *
+     * @param clearHandler the new clear {@link PickerHandler} to add
+     * @return same instance
+     */
     public DatePicker addClearHandler(PickerHandler clearHandler) {
         this.clearHandlers.add(clearHandler);
         return this;
     }
 
+    /**
+     * Removes a clear handler
+     *
+     * @param clearHandler the clear {@link PickerHandler} to remove
+     * @return same instance
+     */
     public DatePicker removeClearHandler(PickerHandler clearHandler) {
         this.clearHandlers.remove(clearHandler);
         return this;
     }
 
+    /**
+     * @return All the clear handlers
+     */
     public List<PickerHandler> getClearHandlers() {
         return this.clearHandlers;
     }
 
+    /**
+     * Sets the text for {@code today} button
+     *
+     * @param text the new text
+     * @return same instance
+     */
     public DatePicker todayButtonText(String text) {
         this.todayButton.setContent(text);
         this.todayButton.element().title = text;
         return this;
     }
 
+    /**
+     * Sets the text for {@code clear} button
+     *
+     * @param text the new text
+     * @return same instance
+     */
     public DatePicker clearButtonText(String text) {
         this.clearButton.setContent(text);
         this.clearButton.element().title = text;
         return this;
     }
 
+    /**
+     * Sets the text for {@code close} button
+     *
+     * @param text the new text
+     * @return same instance
+     */
     public DatePicker closeButtonText(String text) {
         this.closeButton.setContent(text);
         this.closeButton.element().title = text;
         return this;
     }
 
+    /**
+     * Sets the text for {@code reset} button
+     *
+     * @param text the new text
+     * @return same instance
+     */
     public DatePicker resetButtonText(String text) {
         this.resetButton.setContent(text);
         this.resetButton.element().title = text;
         return this;
     }
 
+    /**
+     * Sets the width of the picker as fixed and equals to the default value {@code 300px}
+     *
+     * @return same instance
+     */
     public DatePicker fixedWidth() {
         element.style().setWidth(px.of(300), true);
         return this;
     }
 
+    /**
+     * Sets the width of the picker as fixed and equals to {@code width}
+     *
+     * @param width the new width
+     * @return same instance
+     */
     public DatePicker fixedWidth(String width) {
         element.style().setWidth(width, true);
         return this;
     }
 
+    /**
+     * @return The header panel
+     */
     public DominoElement<HTMLDivElement> getHeaderPanel() {
         return DominoElement.of(headerPanel);
     }
 
+    /**
+     * @return The selectors panel
+     */
     public DominoElement<HTMLDivElement> getSelectorsPanel() {
         return DominoElement.of(selectorsPanel);
     }
 
+    /**
+     * @return The footer panel
+     */
     public DominoElement<HTMLDivElement> getFooterPanel() {
         return DominoElement.of(footerPanel);
     }
 
+    /**
+     * @return the day name panel
+     */
     public DominoElement<HTMLDivElement> getDayNamePanel() {
         return DominoElement.of(dayName);
     }
 
+    /**
+     * @return The month name panel
+     */
     public DominoElement<HTMLDivElement> getMonthNamePanel() {
         return DominoElement.of(monthName);
     }
 
+    /**
+     * @return The date number panel
+     */
     public DominoElement<HTMLDivElement> getDateNumberPanel() {
         return DominoElement.of(dateNumber);
     }
 
+    /**
+     * @return The year number panel
+     */
     public DominoElement<HTMLDivElement> getYearNumberPanel() {
         return DominoElement.of(yearNumber);
     }
 
+    /**
+     * @return The navigate before icon
+     */
     public Icon getNavigateBefore() {
         return navigateBefore;
     }
 
+    /**
+     * @return The navigate next icon
+     */
     public Icon getNavigateNext() {
         return navigateNext;
     }
 
+    /**
+     * @return The today button
+     */
     public Button getTodayButton() {
         return todayButton;
     }
 
+    /**
+     * @return The clear button
+     */
     public Button getClearButton() {
         return clearButton;
     }
 
+    /**
+     * @return The close button
+     */
     public Button getCloseButton() {
         return closeButton;
     }
 
+    /**
+     * @return The reset button
+     */
     public Button getResetButton() {
         return resetButton;
     }
@@ -645,6 +963,12 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         return this;
     }
 
+    /**
+     * Creates a modal from this picker.
+     *
+     * @param title the title of the modal
+     * @return A new {@link ModalDialog} with date picker inside
+     */
     public ModalDialog createModal(String title) {
         return ModalDialog.createPickerModal(title, this.element());
     }
@@ -654,16 +978,35 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
         void onBackgroundChanged(ColorScheme oldColorScheme, ColorScheme newColorScheme);
     }
 
+    /**
+     * A handler which will be called when date is selected
+     */
     @FunctionalInterface
     public interface DateSelectionHandler {
+        /**
+         * This method will be called when the date is selected passing the selected date and the format used in the picker
+         * @param date the selected date
+         * @param dateTimeFormatInfo the format
+         */
         void onDateSelected(Date date, DateTimeFormatInfo dateTimeFormatInfo);
     }
 
+    /**
+     * A handler which will be called when the day is clicked
+     */
     @FunctionalInterface
     public interface DateDayClickedHandler {
+        /**
+         * This method will be called when the day is clicked passing the selected date and the format used in the picker
+         * @param date the selected date
+         * @param dateTimeFormatInfo the format
+         */
         void onDateDayClicked(Date date, DateTimeFormatInfo dateTimeFormatInfo);
     }
 
+    /**
+     * A Wrapper class which creates {@link DateTimeFormat}
+     */
     public static class Formatter extends DateTimeFormat {
 
         protected Formatter(String pattern) {
@@ -674,6 +1017,13 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker> im
             super(pattern, dtfi);
         }
 
+        /**
+         * Creates {@link DateTimeFormat} based on the patter and the format information
+         *
+         * @param pattern the pattern
+         * @param dateTimeFormatInfo the {@link DateTimeFormatInfo}
+         * @return new {@link DateTimeFormat} instance
+         */
         public static DateTimeFormat getFormat(String pattern, DateTimeFormatInfo dateTimeFormatInfo) {
             return DateTimeFormat.getFormat(pattern, dateTimeFormatInfo);
         }

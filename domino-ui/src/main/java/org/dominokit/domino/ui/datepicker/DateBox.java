@@ -30,9 +30,28 @@ import static org.dominokit.domino.ui.utils.ElementUtil.isEnterKey;
 import static org.dominokit.domino.ui.utils.ElementUtil.isSpaceKey;
 import static org.jboss.elemento.Elements.input;
 
+/**
+ * An text box for representing a {@link Date} which opens {@link DatePicker} when selecting it.
+ *
+ * This component provides either selecting the date using the {@link DatePicker} or typing the date based on the pattern configured to convert it to a valid {@link Date} object
+ *
+ * <p>For example: </p>
+ * <pre>
+ *     DateBox.create("Birth date").setPattern("yyyy/MM/dd")
+ *
+ *     DateBox.create("Birth date", new Date(), new DateTimeFormatInfoImpl_fr())
+ *
+ *     DateBox.create("Birth date")
+ *             .setPopoverPosition(PopupPosition.TOP)
+ *             .setPickerStyle(DateBox.PickerStyle.POPOVER)
+ * </pre>
+ *
+ * @see ValueBox
+ * @see DatePicker
+ */
 public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
-    private DatePicker datePicker;
+    private final DatePicker datePicker;
     private String pattern;
 
     private Popover popover;
@@ -188,31 +207,77 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         return Formatter.getFormat(this.pattern, dateTimeFormatInfo).parse(value);
     }
 
+    /**
+     * Creates date box with no label
+     *
+     * @return new instance
+     */
     public static DateBox create() {
         return new DateBox();
     }
 
+    /**
+     * Creates date box with a {@code label}
+     *
+     * @param label the field label
+     * @return new instance
+     */
     public static DateBox create(String label) {
         return new DateBox(label);
     }
 
+    /**
+     * Creates date box with a {@link Date}
+     *
+     * @param date the field value
+     * @return new instance
+     */
     public static DateBox create(Date date) {
         return new DateBox(date);
     }
 
+    /**
+     * Creates date box with label and {@link Date}
+     *
+     * @param label the field label
+     * @param date the field value
+     * @return new instance
+     */
     public static DateBox create(String label, Date date) {
         return new DateBox(label, date);
     }
 
+    /**
+     * Creates date box with label, {@link Date} and a date time format
+     *
+     * @param label the field label
+     * @param date the field value
+     * @param dateTimeFormatInfo the {@link DateTimeFormatInfo}
+     * @return new instance
+     */
     public static DateBox create(String label, Date date, DateTimeFormatInfo dateTimeFormatInfo) {
         return new DateBox(label, date, dateTimeFormatInfo);
     }
 
+    /**
+     * Parse strict means that if the value is not valid, then an exception will be thrown, otherwise the value will wrapped around as needed
+     *
+     * @param parseStrict true to enable parse strict
+     * @return same instance
+     * @see DateTimeFormat#parseStrict(String)
+     * @see DateTimeFormat#parse(String)
+     */
     public DateBox setParseStrict(boolean parseStrict) {
         this.parseStrict = parseStrict;
         return this;
     }
 
+    /**
+     * Sets the {@link Pattern} of the field
+     *
+     * @param pattern the new {@link Pattern}
+     * @return same instance
+     */
     public DateBox setPattern(Pattern pattern) {
         switch (pattern) {
             case FULL:
@@ -232,21 +297,38 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         }
     }
 
+    /**
+     * Sets a custom pattern.
+     * <p>
+     * More information of defining the pattern can be found under <a href="http://www.gwtproject.org/javadoc/latest/com/google/gwt/i18n/client/DateTimeFormat.html">GWT DateTimeFormat</a>
+     *
+     * @param pattern the new pattern
+     * @return same instance
+     */
     public DateBox setPattern(String pattern) {
         this.pattern = pattern;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEmpty() {
         return isNull(value) && getInputElement().element().value.isEmpty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void clearValue() {
         value(null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void doSetValue(Date value) {
         if (nonNull(value)) {
@@ -256,8 +338,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             setStringValue(this.datePicker.getDate(), datePicker.getDateTimeFormatInfo());
             this.value = this.datePicker.getDate();
         } else {
-            setStringValue(value, datePicker.getDateTimeFormatInfo());
-            this.value = value;
+            setStringValue(null, datePicker.getDateTimeFormatInfo());
+            this.value = null;
         }
     }
 
@@ -273,6 +355,10 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         return Formatter.getFormat(this.pattern, dateTimeFormatInfo).format(date);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Date getValue() {
         return this.value;
@@ -284,6 +370,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 .element();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DateBox setPlaceholder(String placeholder) {
         super.setPlaceholder(placeholder);
@@ -299,6 +388,12 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         return this;
     }
 
+    /**
+     * Sets the {@link PickerStyle}
+     *
+     * @param pickerStyle the new {@link PickerStyle}
+     * @return same instance
+     */
     public DateBox setPickerStyle(PickerStyle pickerStyle) {
         if (PickerStyle.MODAL.equals(pickerStyle)) {
             showInModal();
@@ -348,10 +443,19 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         this.pickerStyle = PickerStyle.MODAL;
     }
 
+    /**
+     * @return The {@link DatePicker}
+     */
     public DatePicker getDatePicker() {
         return datePicker;
     }
 
+    /**
+     * Sets the position of the model if the {@link PickerStyle} is {@link PickerStyle#POPOVER}
+     *
+     * @param popoverPosition the new {@link PopupPosition}
+     * @return same instance
+     */
     public DateBox setPopoverPosition(PopupPosition popoverPosition) {
         this.popupPosition = popoverPosition;
         if (nonNull(this.popover))
@@ -359,6 +463,11 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         return this;
     }
 
+    /**
+     * Opens the date picker when the element is focused
+     *
+     * @return same instance
+     */
     public DateBox openOnFocus() {
         this.openOnFocus = true;
         if (nonNull(getFocusEventListener())) {
@@ -374,9 +483,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             getInputElement().addEventListener(EventType.focus.getName(), getFocusEventListener());
         });
 
-        modal.addOpenListener(() -> {
-            getInputElement().removeEventListener(EventType.focus.getName(), getFocusEventListener());
-        });
+        modal.addOpenListener(() -> getInputElement().removeEventListener(EventType.focus.getName(), getFocusEventListener()));
         return this;
     }
 
@@ -384,6 +491,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         return focusListener;
     }
 
+    /**
+     * Opens the date picker based on the {@link PickerStyle} defined
+     */
     public void open() {
         if (PickerStyle.MODAL.equals(this.pickerStyle)) {
             modal.open();
@@ -392,6 +502,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DateBox disable() {
         disableModal();
@@ -399,6 +512,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         return super.disable();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DateBox setReadOnly(boolean readOnly) {
         super.setReadOnly(readOnly);
@@ -413,6 +529,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DateBox enable() {
         enableModal();
@@ -420,6 +539,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         return super.enable();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getStringValue() {
         if (nonNull(value)) {
@@ -428,6 +550,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected FlexItem createMandatoryAddOn() {
         calendarIcon = Icons.ALL.calendar_mdi();
@@ -443,36 +568,66 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 .appendChild(calendarIcon);
     }
 
+    /**
+     * @return The calendar icon container element
+     */
     public FlexItem getCalendarIconContainer() {
         return calendarIconContainer;
     }
 
+    /**
+     * @return The calendar icon element
+     */
     public MdiIcon getCalendarIcon() {
         return calendarIcon;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
         return new InputAutoValidator<>(getInputElement(), autoValidate);
     }
 
+    /**
+     * Sets the error message when the date is not well formatted
+     *
+     * @param invalidFormatMessage the new message
+     * @return same instance
+     */
     public DateBox setInvalidFormatMessage(String invalidFormatMessage) {
         this.invalidFormatMessage = invalidFormatMessage;
         return this;
     }
 
+    /**
+     * @return The {@link ModalDialog} of the date picker
+     */
     public Optional<ModalDialog> getModal() {
         return Optional.of(this.modal);
     }
 
+    /**
+     * @return The {@link Popover} of the date picker
+     */
     public Optional<Popover> getPopover() {
         return Optional.of(this.popover);
     }
 
+    /**
+     * @return true if the date picker should be opened when clicking on the field, false otherwise
+     */
     public boolean isOpenOnClick() {
         return openOnClick;
     }
 
+    /**
+     * Sets if the date picker should be opened when clicking on the field
+     *
+     * @param openOnClick true to open the date picker when clicking on the field
+     * @return same instance
+     */
     public DateBox setOpenOnClick(boolean openOnClick) {
         this.openOnClick = openOnClick;
         element().removeEventListener(EventType.click.getName(), modalListener);
@@ -521,15 +676,41 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         }
     }
 
+    /**
+     * A predefined patterns for the date
+     *
+     * see <a href="http://cldr.unicode.org/translation/date-time-1/date-time-patterns">CLDR date time patterns</a> for more details
+     */
     public enum Pattern {
+        /**
+         * A full date format
+         */
         FULL,
+        /**
+         * A long date format
+         */
         LONG,
+        /**
+         * A medium date format
+         */
         MEDIUM,
+        /**
+         * A short date format
+         */
         SHORT
     }
 
+    /**
+     * The style of the date picker
+     */
     public enum PickerStyle {
+        /**
+         * Shows the date picker in a model
+         */
         MODAL,
+        /**
+         * Shows the date picker in a popover
+         */
         POPOVER
     }
 
