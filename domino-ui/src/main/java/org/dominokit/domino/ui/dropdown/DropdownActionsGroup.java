@@ -14,9 +14,29 @@ import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.li;
 
+/**
+ * A component represents A group of actions to be added to the {@link DropDownMenu}
+ * <p>
+ * This component provides grouping facility to group a list of actions and a title for them
+ * <p>
+ * Customize the component can be done by overwriting classes provided by {@link DropDownStyles}
+ *
+ * <p>For example: </p>
+ * <pre>
+ *      DropdownActionsGroup.create("America")
+ *         .appendChild(DropdownAction.create("United States of America"))
+ *         .appendChild(DropdownAction.create("Brazil"))
+ *         .appendChild(DropdownAction.create("Argentina"));
+ * </pre>
+ *
+ * @param <T> The value type of the actions inside the group
+ * @see BaseDominoElement
+ * @see DropDownMenu
+ * @see DropdownAction
+ */
 public class DropdownActionsGroup<T> extends BaseDominoElement<HTMLLIElement, DropdownActionsGroup<T>> {
-    private DominoElement<HTMLLIElement> element = DominoElement.of(li().css(DropDownStyles.DROPDOWN_HEADER));
-    private List<DropdownAction<T>> actions = new ArrayList<>();
+    private final DominoElement<HTMLLIElement> element = DominoElement.of(li().css(DropDownStyles.DROPDOWN_HEADER));
+    private final List<DropdownAction<T>> actions = new ArrayList<>();
     private DropDownMenu menu;
 
     public DropdownActionsGroup(Node titleElement) {
@@ -28,33 +48,72 @@ public class DropdownActionsGroup<T> extends BaseDominoElement<HTMLLIElement, Dr
         init(this);
     }
 
+    /**
+     * Creates an empty group with a text {@code title}
+     *
+     * @param title the title of the group
+     * @param <T> the value type of the actions inside the group
+     * @return new instance
+     */
     public static <T> DropdownActionsGroup<T> create(String title) {
         return create(document.createTextNode(title));
     }
 
+    /**
+     * Creates an empty group with an element {@code title}
+     *
+     * @param titleElement the title {@link Node} of the group
+     * @param <T> the value type of the actions inside the group
+     * @return new instance
+     */
     public static <T> DropdownActionsGroup<T> create(Node titleElement) {
         return new DropdownActionsGroup<>(titleElement);
     }
 
+    /**
+     * Creates an empty group with an element {@code title}
+     *
+     * @param titleElement the title {@link HTMLElement} of the group
+     * @param <T> the value type of the actions inside the group
+     * @return new instance
+     */
     public static <T> DropdownActionsGroup<T> create(HTMLElement titleElement) {
         return create((Node) titleElement);
     }
 
+    /**
+     * Creates an empty group with an element {@code title}
+     *
+     * @param titleElement the title {@link IsElement} of the group
+     * @param <T> the value type of the actions inside the group
+     * @return new instance
+     */
     public static <T> DropdownActionsGroup<T> create(IsElement<?> titleElement) {
         return create(titleElement.element());
     }
 
-
+    /**
+     * Adds action to the group
+     *
+     * @param action the {@link DropdownAction} to add
+     * @return same instance
+     */
     public DropdownActionsGroup<T> appendChild(DropdownAction<T> action) {
         actions.add(action);
         addActionToMenu(action);
         return this;
     }
 
+    /**
+     * @return All the actions of the group
+     */
     public List<DropdownAction<T>> getActions() {
         return actions;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLLIElement element() {
         return element.element();
@@ -64,9 +123,14 @@ public class DropdownActionsGroup<T> extends BaseDominoElement<HTMLLIElement, Dr
         return actions.stream().allMatch(DropdownAction::isHidden);
     }
 
+    /**
+     * Appends this group to a {@code menu}, this will add all the actions to the menu without the title
+     *
+     * @param menu the menu to bind to
+     */
     public void bindTo(DropDownMenu menu) {
         this.menu = menu;
-        for (DropdownAction action : actions) {
+        for (DropdownAction<T> action : actions) {
             addActionToMenu(action);
         }
     }
