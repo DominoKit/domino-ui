@@ -28,6 +28,12 @@ import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.elemento.Elements.button;
 import static org.jboss.elemento.Elements.span;
 
+/**
+ *
+ * @param <T>
+ * @param <V>
+ * @param <S>
+ */
 public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> extends AbstractValueBox<S, HTMLElement, T> {
     private static final String CLICK_EVENT = "click";
 
@@ -71,20 +77,18 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         css("d-select");
     }
 
-    protected abstract void scrollToSelectedOption();
-
     public AbstractSelect(String label) {
         this();
         setLabel(label);
     }
 
-    public AbstractSelect(List<SelectOption<V>> options) {
-        this("", options);
-    }
-
     public AbstractSelect(String label, List<SelectOption<V>> options) {
         this(label);
         options.forEach(this::appendChild);
+    }
+
+    public AbstractSelect(List<SelectOption<V>> options) {
+        this("", options);
     }
 
     private void initListeners() {
@@ -191,7 +195,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     private void doSelectOption(SelectOption<V> option) {
         if (isEnabled()) {
             select(option);
-            if(this.autoCloseOnSelect) {
+            if (this.autoCloseOnSelect) {
                 close();
             }
         }
@@ -434,13 +438,13 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         this.searchable = searchable;
         return (S) this;
     }
-    
+
     public S setCreatable(boolean creatable) {
         optionsMenu.setCreatable(creatable);
         this.creatable = creatable;
         return (S) this;
     }
-    
+
     public S setOnAddOptionHandler(OnAddOptionHandler<V> onAddOptionHandler) {
         if (!isNull(onAddOptionHandler)) {
             optionsMenu.setOnAddListener((String input) -> {
@@ -455,7 +459,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
-    public S closeMenu(CloseMenuHandler closeMenuHandler){
+    public S closeMenu(CloseMenuHandler closeMenuHandler) {
         optionsMenu.close();
         closeMenuHandler.onMenuClosed();
         return (S) this;
@@ -464,7 +468,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     public boolean isSearchable() {
         return searchable;
     }
-    
+
     public boolean isCreatable() {
         return creatable;
     }
@@ -580,6 +584,8 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
+    protected abstract void scrollToSelectedOption();
+
     public static class PopupPositionTopDown<T, V, S extends AbstractSelect<T, V, S>> implements DropDownPosition {
 
         private DropDownPositionUp up = new DropDownPositionUp();
@@ -593,7 +599,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
 
         @Override
         public void position(HTMLElement popup, HTMLElement target) {
-            ClientRect targetRect = target.getBoundingClientRect();
+            DOMRect targetRect = target.getBoundingClientRect();
 
             double distanceToMiddle = ((targetRect.top) - (targetRect.height / 2));
             double windowMiddle = DomGlobal.window.innerHeight / 2;
@@ -622,7 +628,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         @Override
         public void position(HTMLElement actionsMenu, HTMLElement target) {
 
-            ClientRect targetRect = target.getBoundingClientRect();
+            DOMRect targetRect = target.getBoundingClientRect();
 
             actionsMenu.style.setProperty("bottom", px.of(((window.innerHeight - targetRect.bottom) - window.pageYOffset)));
             actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
@@ -634,7 +640,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         @Override
         public void position(HTMLElement actionsMenu, HTMLElement target) {
 
-            ClientRect targetRect = target.getBoundingClientRect();
+            DOMRect targetRect = target.getBoundingClientRect();
 
             actionsMenu.style.setProperty("top", px.of((targetRect.top + window.pageYOffset)));
             actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));

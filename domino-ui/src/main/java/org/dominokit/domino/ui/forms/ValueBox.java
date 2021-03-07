@@ -635,6 +635,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T value(V value) {
         doSetValue(value);
@@ -852,19 +855,38 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return null;
     }
 
+    /**
+     * Implementations of this interface will apply the validations for a component
+     */
     public interface AutoValidate {
+        /**
+         * Applies the validations
+         */
         void apply();
     }
 
+    /**
+     * A class to wrap an {@link AutoValidate} and provide the ability to attach/remove it from a component
+     */
     public abstract static class AutoValidator {
         protected AutoValidate autoValidate;
 
+        /**
+         *
+         * @param autoValidate {@link AutoValidate}
+         */
         public AutoValidator(AutoValidate autoValidate) {
             this.autoValidate = autoValidate;
         }
 
+        /**
+         * Attach the {@link AutoValidate} to the component
+         */
         public abstract void attach();
 
+        /**
+         * Remove the {@link AutoValidate} from the component
+         */
         public abstract void remove();
     }
 }
