@@ -6,7 +6,9 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.DataSortEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
+import org.dominokit.domino.ui.datatable.events.TablePageChangeEvent;
 import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.pagination.AdvancedPagination;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.ElementUtil;
@@ -18,17 +20,28 @@ import java.util.Map;
 import static java.util.Objects.isNull;
 import static org.jboss.elemento.Elements.span;
 
+/**
+ * This plugin adds sort capability to column headers on click
+ *
+ * @param <T> the type of the data table records
+ */
 public class SortPlugin<T> implements DataTablePlugin<T> {
 
     private SortContainer currentContainer;
     private Map<String, SortContainer> sortContainers = new HashMap<>();
     private DataTable<T> dataTable;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init(DataTable<T> dataTable) {
         this.dataTable = dataTable;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
         if (column.isSortable()) {
@@ -59,6 +72,11 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
         currentContainer = sortContainer;
     }
 
+    /**
+     * manually sort the table by the specified column and fires the {@link SortEvent}
+     * @param direction the {@link SortDirection}
+     * @param column the sort {@link ColumnConfig}
+     */
     public void sort(SortDirection direction, ColumnConfig<T> column) {
         SortContainer sortContainer = sortContainers.get(column.getName());
         updateStyles(sortContainer);
@@ -69,6 +87,9 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
         dataTable.fireTableEvent(new SortEvent<>(direction, column));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleEvent(TableEvent event) {
         if (DataSortEvent.EVENT.equalsIgnoreCase(event.getType())) {

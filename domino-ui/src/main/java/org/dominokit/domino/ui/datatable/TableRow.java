@@ -1,10 +1,8 @@
 package org.dominokit.domino.ui.datatable;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLTableRowElement;
 import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
-import org.dominokit.domino.ui.datatable.store.DataChangedEvent;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.Selectable;
@@ -174,20 +172,42 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
         return Collections.unmodifiableMap(rowCells);
     }
 
+    /**
+     * An interface to implement listeners for Table row changes
+     * @param <T> the type of the data table records
+     */
     @FunctionalInterface
     public interface RowListener<T> {
+        /**
+         *
+         * @param tableRow the changed {@link TableRow}
+         */
         void onChange(TableRow<T> tableRow);
     }
 
+    /**
+     * this interface is used to implement custom meta object for rows with a unique key
+     * then later these meta object can be added to the row and can be used for any kind of logic.
+     */
     public interface RowMetaObject {
+        /**
+         *
+         * @return String, a unique key for the meta object
+         */
         String getKey();
     }
 
+    /**
+     * Convert the row the editable mode
+     */
     public void edit() {
         setEditable(true);
         updateRow();
     }
 
+    /**
+     * Save the editable row changes and switch to normal mode
+     */
     public void save() {
         if (validate().isValid()) {
             dataTable.getTableConfig()
@@ -198,15 +218,26 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
         }
     }
 
+    /**
+     * Cancel the current edit operation and switch to the normal mode
+     */
     public void cancelEditing() {
         this.setEditable(false);
         updateRow();
     }
 
+    /**
+     *
+     * @return boolean, true if the row is editable, otherwise false
+     */
     public boolean isEditable() {
         return editable;
     }
 
+    /**
+     *
+     * @param editable boolean, true if this row should be editable, otherwise it is not
+     */
     private void setEditable(boolean editable) {
         this.editable = editable;
     }

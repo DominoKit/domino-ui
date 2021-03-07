@@ -2,52 +2,92 @@ package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.datatable.model.FilterTypes;
+import org.dominokit.domino.ui.forms.DoubleBox;
 import org.dominokit.domino.ui.forms.ShortBox;
 
+/**
+ * Short number column header filter component that is rendered as a {@link ShortBox} component
+ * @param <T> type of data table records
+ */
 public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T> {
 
     private ShortBox shortBox;
+
+    /**
+     * Default constructor
+     */
     public ShortHeaderFilter() {
     }
 
+    /**
+     * Create and instance with custom placeholder
+     * @param placeholder String
+     */
     public ShortHeaderFilter(String placeholder) {
         super(placeholder);
     }
 
+    /**
+     * create a new instance
+     */
     public static <T> ShortHeaderFilter<T> create() {
         return new ShortHeaderFilter<>();
     }
 
+    /**
+     * creates a new instance with custom placeholder
+     * @param placeholder String
+     * @param <T> type of the data table records
+     * @return new instance
+     */
     public static <T> ShortHeaderFilter<T> create(String placeholder) {
         return new ShortHeaderFilter<>(placeholder);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected HTMLInputElement getInputElement() {
         return shortBox.getInputElement().element();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected ShortBox createValueBox() {
         this.shortBox = ShortBox.create();
         return this.shortBox;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected boolean isEmpty() {
         return this.shortBox.isEmpty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected String getValue() {
         return this.shortBox.getValue()+"";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected FilterTypes getType() {
         return FilterTypes.SHORT;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clear() {
         shortBox.pauseChangeHandlers();
@@ -56,6 +96,10 @@ public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T> 
         shortBox.resumeChangeHandlers();
     }
 
+    /**
+     *
+     * @return the {@link ShortBox} wrapped in this component
+     */
     public ShortBox getShortBox() {
         return shortBox;
     }
