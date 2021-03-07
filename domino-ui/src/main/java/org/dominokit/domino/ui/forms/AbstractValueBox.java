@@ -7,6 +7,12 @@ import org.dominokit.domino.ui.utils.HasLength;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+/**
+ * A base implementation for all form field that can have a value
+ * @param <T> The type of the class extending from this class- for fluent API pattern
+ * @param <E> The type of the root HTMLElement from the extending class
+ * @param <V> The value type for the field
+ */
 public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E extends HTMLElement, V>
         extends ValueBox<T, E, V> implements HasLength<T> {
 
@@ -15,6 +21,11 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
     private String minLengthErrorMessage;
     private MinLengthValidator minLengthValidator = new MinLengthValidator(this);
 
+    /**
+     * Creates and instance initialized with the input field type and a label
+     * @param type String type, <b>text</b>,<b>password</b>,<b>telephone</b>.. etc
+     * @param label String
+     */
     public AbstractValueBox(String type, String label) {
         super(type, label);
         addInputEvent();
@@ -24,6 +35,10 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
         getInputElement().addEventListener("input", evt -> updateCharacterCount());
     }
 
+    /**
+     * {@inheritDoc}
+     * this will also set the <b>maxlength</b> attribute on the html element
+     */
     @Override
     public T setMaxLength(int maxLength) {
         this.maxLength = maxLength;
@@ -38,6 +53,11 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
         return (T) this;
     }
 
+    /**
+     *
+     * @param value
+     * @return
+     */
     @Override
     public T value(V value) {
         super.value(value);
