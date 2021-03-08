@@ -54,9 +54,9 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
     }
 
     /**
-     *
-     * @param value
-     * @return
+     * set the filed value
+     * @param value V
+     * @return same component instance
      */
     @Override
     public T value(V value) {
@@ -65,6 +65,9 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
         return (T) this;
     }
 
+    /**
+     * Updates the character count based on field string value
+     */
     protected void updateCharacterCount() {
         if (maxLength > 0 || minLength > 0) {
             getCountItem().show();
@@ -83,11 +86,17 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getMaxLength() {
         return this.maxLength;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T setMinLength(int minLength) {
         this.minLength = minLength;
@@ -104,11 +113,17 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getMinLength() {
         return minLength;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T setReadOnly(boolean readOnly) {
         getCountItem()
@@ -116,17 +131,29 @@ public abstract class AbstractValueBox<T extends AbstractValueBox<T, E, V>, E ex
         return super.setReadOnly(readOnly);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEmpty() {
         String stringValue = getStringValue();
         return isNull(stringValue) || stringValue.trim().isEmpty();
     }
 
+    /**
+     *
+     * @param minLengthErrorMessage String minimum length validation message
+     * @return same component instance
+     */
     public T setMinLengthErrorMessage(String minLengthErrorMessage) {
         this.minLengthErrorMessage = minLengthErrorMessage;
         return (T) this;
     }
 
+    /**
+     *
+     * @return String minimum length validation message, if null return default message
+     */
     public String getMinLengthErrorMessage() {
         return isNull(minLengthErrorMessage) ? "Minimum length is " + minLength : minLengthErrorMessage;
     }
