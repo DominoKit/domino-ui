@@ -21,7 +21,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.label;
 
 /**
- * A base implementation for Form fields
+ * A base implementation for Form elements
  * @param <T> the type of form field extending from this class
  * @param <V> the type of the form field value
  */
@@ -438,7 +438,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
     /**
      *
      * @param fixErrorsPosition boolean, if true the errors message container size will be fixed and wont change the spacing between the fileds
-     *                          when an error messge is shown.
+     *                          when an error message is shown.
      * @return same form element instance
      */
     public T setFixErrorsPosition(boolean fixErrorsPosition) {
@@ -483,6 +483,10 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V> exte
      */
     public abstract DominoElement<HTMLDivElement> getAdditionalInfoContainer();
 
+    /**
+     *
+     * @return the {@link HTMLElement} that contains the label text wrapped as {@link DominoElement}
+     */
     public DominoElement<HTMLElement> getLabelTextElement() {
         return DominoElement.of(getLabelElement().element());
     }

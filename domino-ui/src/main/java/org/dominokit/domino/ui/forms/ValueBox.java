@@ -19,11 +19,28 @@ import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.label;
 import static org.jboss.elemento.Elements.span;
 
+/**
+ * A base implementation for form elements that can have a value with extra features like focus, placeholders, change handlers
+ * @param <T> The type of the component extending form this class
+ * @param <E> The type of the HTML element that represent the root element of the component
+ * @param <V> The type of the component value
+ */
 public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElement, V> extends BasicFormElement<T, V> implements
         Focusable<T>, HasPlaceHolder<T>, IsReadOnly<T>, HasChangeHandlers<T, V> {
 
+    /**
+     * Constant css class name for a focused component
+     */
     public static final String FOCUSED = "focused";
+
+    /**
+     * Constant css class name for a component that has its labels floating above it
+     */
     public static final String FLOATING = "floating";
+
+    /**
+     * Constant css class name for a focused component
+     */
     public static final String DISABLED = "disabled";
 
     private DominoElement<E> inputElement;
@@ -65,6 +82,11 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     private boolean permaFloating = false;
     private FlexLayout additionalInfoContainer;
 
+    /**
+     *
+     * @param type String type of the field input element
+     * @param label String
+     */
     public ValueBox(String type, String label) {
         helpItem = FlexItem.create();
         countItem = FlexItem.create().hide();
@@ -92,10 +114,19 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         fieldStyle.apply(this);
     }
 
+    /**
+     *
+     * @return the {@link FieldStyle}
+     */
     public FieldStyle getFieldStyle() {
         return fieldStyle;
     }
 
+    /**
+     * Change the style of the field
+     * @param fieldStyle {@link FieldStyle}
+     * @return same implementing component
+     */
     public T setFieldStyle(FieldStyle fieldStyle) {
         if (nonNull(fieldStyle)) {
             fieldStyle.apply(this);
@@ -160,6 +191,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
                 );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T setFixErrorsPosition(boolean fixPosition) {
         if (fixPosition) {
@@ -171,6 +205,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return super.setFixErrorsPosition(fixPosition);
     }
 
+    /**
+     * this will set the attribute <b>for</b> on the label with the field id as a value
+     */
     protected void linkLabelToField() {
         if (!inputElement.hasAttribute("id")) {
             inputElement.setAttribute("id", inputElement.getAttribute(BaseDominoElement.DOMINO_UUID));
@@ -178,16 +215,28 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         labelElement.setAttribute("for", inputElement.getAttribute("id"));
     }
 
+    /**
+     * manually call the change handlers if they are not paused
+     */
     protected void callChangeHandlers() {
         if (!pauseChangeHandlers) {
             changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(getValue()));
         }
     }
 
+    /**
+     * create the label element for this component
+     * @return an {@link HTMLLabelElement} wrapped as {@link DominoElement}
+     */
     protected DominoElement<HTMLLabelElement> createLabelElement() {
         return DominoElement.of(label().css("field-label"));
     }
 
+    /**
+     * Creates an input element with the specified type
+     * @param type String the input element type
+     * @return E the input html element
+     */
     protected abstract E createInputElement(String type);
 
     private void addFocusListeners() {
@@ -208,6 +257,10 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         });
     }
 
+    /**
+     * @param floating boolean, if true delegate to {@link #floating()} otherwise delegate to {@link #nonfloating()}
+     * @return same component instance
+     */
     public T setFloating(boolean floating) {
         if (floating) {
             floating();
@@ -217,6 +270,10 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     * Make the label always floating over the field even if the value is empty
+     * @return same component instance
+     */
     public T floating() {
         floatLabel();
         this.permaFloating = true;
@@ -224,6 +281,10 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     * Make the label floating over the field only when it has value
+     * @return same component instance
+     */
     public T nonfloating() {
         unfloatLabel();
         this.permaFloating = false;
@@ -231,14 +292,25 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     *
+     * @return boolean, the current status of floating label
+     */
     public boolean isFloating() {
         return floating;
     }
 
+    /**
+     *
+     * @return the {@link FlexItem} that is added as a mandatoryAddOn
+     */
     public FlexItem getMandatoryAddOn() {
         return mandatoryAddOn;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T focus() {
         if (!isDisabled()) {
@@ -258,6 +330,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         doFocus();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T unfocus() {
         if (!isAttached()) {
@@ -272,6 +347,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     * Focus the element and apply focus styles
+     */
     protected void doFocus() {
         if (!isDisabled()) {
             fieldGroup.style().add(FOCUSED);
@@ -286,10 +364,17 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         }
     }
 
+    /**
+     *
+     * @return boolean, true if the field will add a focus color when focused, default to true
+     */
     protected boolean isAddFocusColor() {
         return true;
     }
 
+    /**
+     * Unfocus the component and remove the focus styles
+     */
     protected void doUnfocus() {
         fieldGroup.style().remove(FOCUSED);
         fieldContainer.style().remove("fc-" + focusColor.getStyle(), FOCUSED);
@@ -298,6 +383,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         hidePlaceholder();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void updateLabel(String label) {
         if (isNull(labelTextElement)) {
@@ -308,26 +396,45 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         getLabelElement().appendChild(labelTextElement);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLElement> getLabelTextElement() {
         return labelTextElement;
     }
 
+    /**
+     *
+     * @return same component instance
+     */
     public T hideLabelText() {
         this.labelTextElement.hide();
         return (T) this;
     }
 
+    /**
+     *
+     * @return same component instance
+     */
     public T showLabelText() {
         this.labelTextElement.show();
         return (T) this;
     }
 
+    /**
+     * Show/hide the label element text
+     * @param visible boolean
+     * @return same component instance
+     */
     public T setLabelTextVisible(boolean visible) {
         this.labelTextElement.toggleDisplay(visible);
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isFocused() {
         return fieldGroup.style().contains(FOCUSED);
@@ -341,6 +448,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         labelElement.style().remove(color.getStyle());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T enable() {
         super.enable();
@@ -348,6 +458,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T disable() {
         super.disable();
@@ -355,6 +468,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T setLabel(String label) {
         super.setLabel(label);
@@ -362,6 +478,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
@@ -385,11 +504,17 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return isEmpty() && floating;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getPlaceholder() {
         return this.placeholder;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T setFocusColor(Color focusColor) {
         removeLabelColor(this.focusColor);
@@ -400,16 +525,27 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLDivElement> getFieldInputContainer() {
         return DominoElement.of(inputContainer);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLDivElement> getFieldContainer() {
         return DominoElement.of(fieldContainer);
     }
 
+    /**
+     * Adds an element as an add on to the component at left side
+     * @param addon {@link FlexItem} that contains the add on element
+     * @return same component instance
+     */
     public T addLeftAddOn(FlexItem addon) {
         leftAddOnsContainer.appendChild(addon);
         if (!leftAddOnsContainer.isAttached()) {
@@ -418,14 +554,29 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     * wrap the element in a {@link FlexItem} and delegate to {@link #addLeftAddOn(FlexItem)}
+     * @param addon {@link IsElement}
+     * @return same component instance
+     */
     public T addLeftAddOn(IsElement<?> addon) {
         return addLeftAddOn(FlexItem.create().appendChild(addon));
     }
 
+    /**
+     * wrap the node in a {@link FlexItem} and delegate to {@link #addLeftAddOn(FlexItem)}
+     * @param addon {@link IsElement}
+     * @return same component instance
+     */
     public T addLeftAddOn(Node addon) {
         return addLeftAddOn(FlexItem.create().appendChild(addon));
     }
 
+    /**
+     * Adds an element as an add on to the component at left side
+     * @param rightAddon {@link FlexItem} that contains the add on element
+     * @return same component instance
+     */
     public T addRightAddOn(FlexItem rightAddon) {
         rightAddOnsContainer.appendChild(rightAddon);
         if (!rightAddOnsContainer.isAttached()) {
@@ -434,28 +585,59 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+
+    /**
+     * wrap the element in a {@link FlexItem} and delegate to {@link #addRightAddOn(FlexItem)}
+     * @param addon {@link IsElement}
+     * @return same component instance
+     */
     public T addRightAddOn(IsElement<?> addon) {
         addRightAddOn(FlexItem.create().appendChild(addon));
         return (T) this;
     }
 
+    /**
+     * wrap the node in a {@link FlexItem} and delegate to {@link #addRightAddOn(FlexItem)}
+     * @param addon {@link IsElement}
+     * @return same component instance
+     */
     public T addRightAddOn(Node addon) {
         addRightAddOn(FlexItem.create().appendChild(addon));
         return (T) this;
     }
 
+    /**
+     *
+     * @param addon {@link FlexItem}
+     * @return same component instance
+     */
     public T removeRightAddOn(FlexItem addon) {
         return removeRightAddOn(addon.element());
     }
 
+    /**
+     *
+     * @param addon {@link IsElement}
+     * @return same component instance
+     */
     public T removeRightAddOn(IsElement<?> addon) {
         return removeRightAddOn(addon.element());
     }
 
+    /**
+     *
+     * @param addon {@link Node}
+     * @return same component instance
+     */
     public T removeRightAddOn(Node addon) {
         return removeAddOn(rightAddOnsContainer, addon);
     }
 
+    /**
+     *
+     * @param index int index of the addon to remove
+     * @return same component instance
+     */
     public T removeRightAddOn(int index) {
         if (index >= 0 && index < rightAddOnsContainer.childNodes().length) {
             return removeAddOn(rightAddOnsContainer, rightAddOnsContainer.childNodes().getAt(index));
@@ -463,18 +645,38 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     *
+     * @param addon {@link FlexItem}
+     * @return same component instance
+     */
     public T removeLeftAddOn(FlexItem addon) {
         return removeLeftAddOn(addon.element());
     }
 
+    /**
+     *
+     * @param addon {@link IsElement}
+     * @return same component instance
+     */
     public T removeLeftAddOn(IsElement<?> addon) {
         return removeLeftAddOn(addon.element());
     }
 
+    /**
+     *
+     * @param addon {@link Node}
+     * @return same component instance
+     */
     public T removeLeftAddOn(Node addon) {
         return removeAddOn(leftAddOnsContainer, addon);
     }
 
+    /**
+     *
+     * @param index int index of the addon to remove
+     * @return same component instance
+     */
     public T removeLeftAddOn(int index) {
         if (index >= 0 && index < leftAddOnsContainer.childNodes().length) {
             return removeAddOn(leftAddOnsContainer, leftAddOnsContainer.childNodes().getAt(index));
@@ -493,56 +695,91 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     * Remove all right addons
+     * @return same component instance
+     */
     public T removeRightAddOns() {
         rightAddOnsContainer.clearElement();
         return (T) this;
     }
 
+    /**
+     * Remove all left addons
+     * @return same component instance
+     */
     public T removeLeftAddOns() {
         leftAddOnsContainer.clearElement();
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<E> getInputElement() {
         return DominoElement.of(inputElement);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected DominoElement<HTMLElement> getHelperContainer() {
         return DominoElement.of(helpItem.element());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected DominoElement<HTMLElement> getErrorsContainer() {
         return DominoElement.of(errorItem.element());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public V getValue() {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEmpty() {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getStringValue() {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLLabelElement> getLabelElement() {
         return DominoElement.of(labelElement);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLElement element() {
         return fieldGroup.element();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T invalidate(String errorMessage) {
         this.valid = false;
@@ -550,11 +787,20 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return super.invalidate(errorMessage);
     }
 
+    /**
+     * flag the field to be used inside a table row
+     * @return same component instance
+     */
     public T asTableField() {
         setTableField(true);
         return (T) this;
     }
 
+    /**
+     * based on the flag styles will be added or removed to make inside or outside of a table row
+     * @param asTableField boolean, if true adds the styles, otherwise removes them
+     * @return same component instance
+     */
     public T setTableField(boolean asTableField) {
         if (asTableField) {
             css("table-field");
@@ -564,6 +810,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T invalidate(List<String> errorMessages) {
         this.valid = false;
@@ -579,16 +828,27 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         changeLabelFloating();
     }
 
+    /**
+     * pauses the validation when the field loses focus so they wont trigger
+     * @return same component instance
+     */
     public T pauseFocusValidation() {
         this.validateOnFocusLost = false;
         return (T) this;
     }
 
+    /**
+     * resume the validation when the field loses focus so they trigger
+     * @return same component instance
+     */
     public T resumeFocusValidation() {
         this.validateOnFocusLost = true;
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T clearInvalid() {
         this.valid = true;
@@ -604,6 +864,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return super.clearInvalid();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T setAutoValidation(boolean autoValidation) {
         if (autoValidation) {
@@ -620,13 +883,24 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isAutoValidation() {
         return nonNull(autoValidator);
     }
 
+    /**
+     * Create an AutoValidator that will automatically validate the component when it loses focus
+     * @param autoValidate {@link AutoValidate}
+     * @return same component instance
+     */
     protected abstract AutoValidator createAutoValidator(AutoValidate autoValidate);
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T clear() {
         clearValue();
@@ -647,6 +921,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
@@ -672,11 +949,17 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isReadOnly() {
         return readOnly;
     }
 
+    /**
+     * Changes the label floating state when the field get focus or lose focus
+     */
     protected void changeLabelFloating() {
         if (!isEmpty() || isFocused())
             floatLabel();
@@ -684,6 +967,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
             unfloatLabel();
     }
 
+    /**
+     * Make the label float over the component
+     */
     protected void floatLabel() {
         if (!floating || permaFloating) {
             fieldGroup.style().add(FLOATING);
@@ -691,6 +977,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         }
     }
 
+    /**
+     * unfloat a floating label
+     */
     protected void unfloatLabel() {
         if ((floating && !permaFloating) && isEmpty()) {
             fieldGroup.style().remove(FLOATING);
@@ -698,68 +987,125 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         }
     }
 
+    /**
+     * validate the component if auto validation is enabled
+     */
     protected void autoValidate() {
         if (isAutoValidation())
             validate();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T addChangeHandler(ChangeHandler<? super V> changeHandler) {
         changeHandlers.add(changeHandler);
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T removeChangeHandler(ChangeHandler<? super V> changeHandler) {
         changeHandlers.remove(changeHandler);
         return (T) this;
     }
 
+    /**
+     * Disable/Enable change handlers
+     * @param pauseChangeHandlers boolean, true to pause the change handlers, false to enable them
+     * @return same component instance
+     */
     public T setPauseChangeHandlers(boolean pauseChangeHandlers) {
         this.pauseChangeHandlers = pauseChangeHandlers;
         return (T) this;
     }
 
+    /**
+     * Delagete to {@link #setPauseChangeHandlers(boolean)} with value true
+     * @return same component instance
+     */
     public T pauseChangeHandlers() {
         return setPauseChangeHandlers(true);
     }
 
+    /**
+     * Delagete to {@link #setPauseChangeHandlers(boolean)} with value false
+     * @return same component instance
+     */
     public T resumeChangeHandlers() {
         return setPauseChangeHandlers(false);
     }
 
+    /**
+     *
+     * @return the {@link FlexLayout} element that contains all left addons
+     */
     public FlexLayout getLeftAddonContainer() {
         return leftAddOnsContainer;
     }
 
+    /**
+     *
+     * @return the {@link FlexLayout} element that contains all right addons
+     */
     public FlexLayout getRightAddonContainer() {
         return rightAddOnsContainer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasChangeHandler(ChangeHandler<? super V> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 
+    /**
+     * Enable/Disable spellcheck for the component, sets the <b>spellcheck</b> attribute
+     * @param spellCheck boolean, true to enable spellcheck, false to diable it
+     * @return same component instance
+     */
     public T setSpellCheck(boolean spellCheck) {
         inputElement.setAttribute("spellcheck", spellCheck);
         return (T) this;
     }
 
+    /**
+     * Adds a handler that will be called when the field value is cleared
+     * @param onClearHandler {@link Consumer} of T
+     * @return same component instance
+     */
     public T addOnClearHandler(Consumer<T> onClearHandler) {
         this.onClearHandlers.add(onClearHandler);
         return (T) this;
     }
 
+    /**
+     *
+     * @param onClearHandler {@link Consumer} of T
+     * @return same component instance
+     */
     public T removeOnClearHandler(Consumer<T> onClearHandler) {
         this.onClearHandlers.remove(onClearHandler);
         return (T) this;
     }
 
+    /**
+     *
+     * @return a List of the clear handler for this component
+     */
     public List<Consumer<T>> getOnClearHandlers() {
         return new ArrayList<>(onClearHandlers);
     }
 
+    /**
+     * Adds a prefix text that will be a mandatory part of the field string value
+     * @param prefix String
+     * @return same component instance
+     */
     public T setPrefix(String prefix) {
         if (!prefixItem.isAttached()) {
             fieldInnerContainer.insertBefore(prefixItem, inputContainer);
@@ -769,10 +1115,19 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     *
+     * @return String
+     */
     public String getPrefix() {
         return prefix;
     }
 
+    /**
+     * Adds a postfix text that will be a mandatory part of the field string value
+     * @param postfix String
+     * @return same component instance
+     */
     public T setPostFix(String postfix) {
         if (!postFixItem.isAttached()) {
             fieldInnerContainer.insertAfter(postFixItem, inputContainer);
@@ -783,74 +1138,144 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         return (T) this;
     }
 
+    /**
+     *
+     * @return the {@link HTMLDivElement} that groups the different elements of this component
+     */
     public DominoElement<HTMLDivElement> getFieldGroup() {
         return fieldGroup;
     }
 
+    /**
+     *
+     * @return the {@link FlexItem} that contains the input element of this component
+     */
     public FlexItem getInputContainer() {
         return inputContainer;
     }
 
+    /**
+     *
+     * @return the {@link HTMLDivElement} that contains the notes of this component
+     */
     public DominoElement<HTMLDivElement> getNotesContainer() {
         return notesContainer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLDivElement> getAdditionalInfoContainer() {
         return DominoElement.of(additionalInfoContainer);
     }
 
+    /**
+     *
+     * @return the {@link FlexLayout} that contains all the left addons
+     */
     public FlexLayout getLeftAddOnsContainer() {
         return leftAddOnsContainer;
     }
 
+    /**
+     *
+     * @return the {@link FlexLayout} that contains all the right addons
+     */
     public FlexLayout getRightAddOnsContainer() {
         return rightAddOnsContainer;
     }
 
+    /**
+     *
+     * @return the {@link FlexItem} that contains the helper text of this component
+     */
     public FlexItem getHelpItem() {
         return helpItem;
     }
 
+    /**
+     *
+     * @return the {@link FlexItem} that contains the character count for this component
+     */
     public FlexItem getCountItem() {
         return countItem;
     }
 
+    /**
+     *
+     * @return the {@link FlexItem} that contains the error messages for this component
+     */
     public FlexItem getErrorItem() {
         return errorItem;
     }
 
+    /**
+     *
+     * @return the {@link FlexItem} that contains the prefix text for this component
+     */
     public FlexItem getPrefixItem() {
         return prefixItem;
     }
 
+    /**
+     *
+     * @return the {@link FlexItem} that contains the postfix for this component
+     */
     public FlexItem getPostFixItem() {
         return postFixItem;
     }
 
+    /**
+     *
+     * @return the {@link Color} used to indicate focus of this field
+     */
     public Color getFocusColor() {
         return focusColor;
     }
 
+    /**
+     *
+     * @return String
+     */
     public String getPostfix() {
         return postfix;
     }
 
+    /**
+     * clear the field value
+     */
     protected abstract void clearValue();
 
+    /**
+     *
+     * @param value V the value to set for this field
+     */
     protected abstract void doSetValue(V value);
 
+    /**
+     * Reduces the vertical spaces for this component to reduce its height
+     * @return same component instance
+     */
     public T condense() {
         removeCss("condensed");
         css("condensed");
         return (T) this;
     }
 
+    /**
+     * Increase the vertical spaces for this component to increase its height
+     * @return same component instance
+     */
     public T spread() {
         removeCss("condensed");
         return (T) this;
     }
 
+    /**
+     *
+     * @return the {@link FlexItem} that contains the mandatory addons
+     */
     protected FlexItem createMandatoryAddOn() {
         return null;
     }

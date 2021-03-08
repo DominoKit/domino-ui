@@ -29,10 +29,10 @@ import static org.jboss.elemento.Elements.button;
 import static org.jboss.elemento.Elements.span;
 
 /**
- *
- * @param <T>
- * @param <V>
- * @param <S>
+ * The base implementation for dropdown select form fields components
+ * @param <T> The type of the field value
+ * @param <V> The type of the single option value
+ * @param <S> The type of the field extending from this class
  */
 public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> extends AbstractValueBox<S, HTMLElement, T> {
     private static final String CLICK_EVENT = "click";
@@ -56,6 +56,9 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
     private boolean closePopOverOnOpen = false;
     private boolean autoCloseOnSelect = true;
 
+    /**
+     * Creates an empty select
+     */
     public AbstractSelect() {
         super("button", "");
         optionsMenu = DropDownMenu.create(fieldContainer).styler(style1 -> style1.add("select-option-menu"));
@@ -77,16 +80,29 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         css("d-select");
     }
 
+    /**
+     * Create an empty select with a lable
+     * @param label String
+     */
     public AbstractSelect(String label) {
         this();
         setLabel(label);
     }
 
+    /**
+     * Create a select field with a label and an initial options list
+     * @param label String
+     * @param options List of {@link SelectOption}
+     */
     public AbstractSelect(String label, List<SelectOption<V>> options) {
         this(label);
         options.forEach(this::appendChild);
     }
 
+    /**
+     * Ceate a select with empty label and a list of initial options
+     * @param options List of {@link SelectOption}
+     */
     public AbstractSelect(List<SelectOption<V>> options) {
         this("", options);
     }
@@ -114,12 +130,19 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         });
     }
 
+    /**
+     * Sets a supplier for an icon to use as the dropdown arrow
+     * @param arrowIconSupplier Supplier for {@link BaseIcon}
+     */
     public void setArrowIconSupplier(Supplier<BaseIcon<?>> arrowIconSupplier) {
         if (nonNull(arrowIconSupplier)) {
             this.arrowIconSupplier = arrowIconSupplier;
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public S clear() {
         unfloatLabel();
@@ -130,6 +153,10 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
+    /**
+     * Opens the select dropdown menu
+     * @return same component instance
+     */
     public S open() {
         if (isEnabled() && !isReadOnly()) {
             DropDownMenu.closeAllMenus();
@@ -143,15 +170,28 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         optionsMenu.styler(style -> style.setWidth(getFieldInputContainer().getBoundingClientRect().width + "px"));
     }
 
-    public void close() {
+    /**
+     * Closes the select dropdown menu
+     */
+    public S close() {
         optionsMenu.close();
+        return (S) this;
     }
 
+    /**
+     * Adds a separator item between the select option in the dropdown menu
+     * @return same select instance
+     */
     public S divider() {
         optionsMenu.separator();
         return (S) this;
     }
 
+    /**
+     * Adds a select options group to the dropdown menu
+     * @param group {@link SelectOptionGroup}
+     * @return same select instance
+     */
     public S addGroup(SelectOptionGroup<V> group) {
         DropdownActionsGroup<SelectOption<V>> dropdownActionsGroup = DropdownActionsGroup.create(group.getTitleElement());
         for (SelectOption<V> option : group.getOptions()) {
@@ -170,22 +210,42 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         options.add(option);
     }
 
+    /**
+     * Adds a List of options to the select dropdown menu
+     * @param options List of {@link SelectOption}
+     * @return same select instance
+     */
     public S addOptions(List<SelectOption<V>> options) {
         options.forEach(this::appendChild);
         return (S) this;
     }
 
+    /**
+     * Sets the dropdown menu width
+     * @param width int
+     * @return same select instance
+     */
     public S setPopupWidth(int width) {
         this.popupWidth = width;
         return (S) this;
     }
 
+    /**
+     * Adds an option to the select dropdown menu
+     * @param option {@link SelectOption}
+     * @return same select instance
+     */
     public S appendChild(SelectOption<V> option) {
         options.add(option);
         appendOptionValue(option);
         return (S) this;
     }
 
+    /**
+     * Insert an option as the first option in the dropdown menu
+     * @param option {@link SelectOption}
+     * @return same select instance
+     */
     public S insertFirst(SelectOption<V> option) {
         options.add(0, option);
         insertFirstOptionValue(option);
@@ -216,36 +276,75 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
                 .addSelectionHandler(value -> doSelectOption(option));
     }
 
+    /**
+     * Selects the option at the specified index if exists and set its value as the select value
+     * @param index int
+     * @return same select instance
+     */
     public S selectAt(int index) {
         return selectAt(index, false);
     }
 
+    /**
+     * Selects the option at the specified index if exists and set its value as the select value
+     * @param index int
+     * @param silent boolean, true to avoid triggering change handlers
+     * @return same select instance
+     */
     public S selectAt(int index, boolean silent) {
         if (index < options.size() && index >= 0)
             select(options.get(index), silent);
         return (S) this;
     }
 
+    /**
+     *
+     * @param index int
+     * @return the {@link SelectOption} at the specified index if exists or else null
+     */
     public SelectOption<V> getOptionAt(int index) {
         if (index < options.size() && index >= 0)
             return options.get(index);
         return null;
     }
 
+    /**
+     *
+     * @return a List of all {@link SelectOption}s of this select component
+     */
     public List<SelectOption<V>> getOptions() {
         return options;
     }
 
+    /**
+     * Selects the specified option if it is one of this select options
+     * @param option {@link SelectOption}
+     * @return same select instance
+     */
     public S select(SelectOption<V> option) {
         return select(option, false);
     }
 
+    /**
+     * Selects the option at the specified index if exists and set its value as the select value
+     * @param option {@link SelectOption}
+     * @param silent boolean, true to avoid triggering change handlers
+     * @return same select instance
+     */
     public abstract S select(SelectOption<V> option, boolean silent);
 
+    /**
+     *
+     * @return boolean, true if the select has a selected option
+     */
     public boolean isSelected() {
         return !isEmpty();
     }
 
+    /**
+     * By default this will call the Selection Handlers and the Change handlers
+     * @param option the new selected {@link SelectOption}
+     */
     protected void onSelection(SelectOption<V> option) {
         for (SelectionHandler<V> handler : selectionHandlers) {
             handler.onSelection(option);
@@ -255,11 +354,19 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         }
     }
 
+    /**
+     *
+     * @param selectionHandler {@link SelectionHandler}
+     * @return same select instance
+     */
     public S addSelectionHandler(SelectionHandler<V> selectionHandler) {
         selectionHandlers.add(selectionHandler);
         return (S) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public S enable() {
         super.enable();
@@ -268,6 +375,9 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public S disable() {
         super.disable();
@@ -276,11 +386,18 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEnabled() {
         return !buttonElement.hasAttribute("disabled");
     }
 
+    /**
+     * force open the select dropdown menu to open up by default
+     * @return same select instance
+     */
     public S dropup() {
         this.dropDirection = "up";
         return (S) this;
@@ -301,6 +418,10 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         }
     }
 
+    /**
+     * force open the select dropdown menu to open down by default
+     * @return same select instance
+     */
     public S dropdown() {
         this.dropDirection = "down";
         return (S) this;
