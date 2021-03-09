@@ -39,6 +39,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     private Optional<ElementObserver> attachObserver = Optional.empty();
     private Optional<ElementObserver> detachObserver = Optional.empty();
     private boolean collapsed = false;
+    private boolean forceHidden = false;
 
     @Editor.Ignore
     protected void init(T element) {
@@ -92,6 +93,15 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     @Override
     public T hide() {
         collapsible.hide();
+        return element;
+    }
+
+    public boolean isForceHidden() {
+        return collapsible.isForceHidden();
+    }
+
+    public T setForceHidden(boolean forceHidden) {
+        collapsible.setForceHidden(forceHidden);
         return element;
     }
 
