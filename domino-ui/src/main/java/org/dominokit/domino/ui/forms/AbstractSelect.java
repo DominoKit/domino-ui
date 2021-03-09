@@ -455,19 +455,38 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return Icons.ALL.menu_up_mdi();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public S value(T value) {
         return setValue(value, false);
     }
 
+    /**
+     * Set the value with the ability to do so without triggering change handlers
+     * @param value T
+     * @param silent boolean, true to avoid triggering change handlers
+     * @return same select instance
+     */
     public abstract S setValue(T value, boolean silent);
 
+    /**
+     *
+     * @param selectionHandler {@link SelectionHandler}
+     * @return same select instance
+     */
     public S removeSelectionHandler(SelectionHandler selectionHandler) {
         if (nonNull(selectionHandler))
             selectionHandlers.remove(selectionHandler);
         return (S) this;
     }
 
+    /**
+     * Removes an option from the select dropdown menu
+     * @param option {@link SelectOption}
+     * @return same select instance
+     */
     public S removeOption(SelectOption<V> option) {
         if (nonNull(option) && getOptions().contains(option)) {
             option.deselect(true);
@@ -476,6 +495,11 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
+    /**
+     * Removes a list of options from the select dropdown menu
+     * @param options collection of {@link SelectOption}
+     * @return same select instance
+     */
     public S removeOptions(Collection<SelectOption<V>> options) {
         if (nonNull(options) && !options.isEmpty() && !this.options.isEmpty()) {
             options.forEach(this::removeOption);
@@ -483,6 +507,10 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
+    /**
+     * Removes all options from the select dropdown menu
+     * @return same select instance
+     */
     public S removeAllOptions() {
         options.clear();
         optionsMenu.clearActions();
@@ -493,6 +521,9 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public S setReadOnly(boolean readOnly) {
         super.setReadOnly(readOnly);
@@ -509,19 +540,40 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
+    /**
+     * A function to implement logic that will be called when the user change the selection in the select
+     * @param <V> The type of the select value
+     */
     @FunctionalInterface
     public interface SelectionHandler<V> {
+        /**
+         *
+         * @param option the selected {@link SelectOption}
+         */
         void onSelection(SelectOption<V> option);
     }
 
+    /**
+     * the select box is actually rendered with a button
+     * @return the {@link HTMLButtonElement} that is actually displaying the selected option
+     */
     public DominoElement<HTMLButtonElement> getSelectButton() {
         return buttonElement;
     }
 
+    /**
+     *
+     * @return the {@link HTMLLabelElement} of the select wrapped as {@link DominoElement}
+     */
     public DominoElement<HTMLLabelElement> getSelectLabel() {
         return getLabelElement();
     }
 
+    /**
+     * {@inheritDoc}
+     * @param autoValidate {@link AutoValidate}
+     * @return the {@link AutoValidator} implementation for the select which is {@link SelectAutoValidator}
+     */
     @Override
     protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
         return new SelectAutoValidator<>(this, autoValidate);
@@ -544,34 +596,67 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         }
     }
 
+    /**
+     *
+     * @return a List of all V values from all the options of this select
+     */
     public List<V> getValues() {
         return options.stream().map(SelectOption::getValue).collect(Collectors.toList());
     }
 
+    /**
+     *
+     * @return a List of all String keys of all the options of this select
+     */
     public List<String> getKeys() {
         return options.stream().map(SelectOption::getKey).collect(Collectors.toList());
     }
 
+    /**
+     * Check if the select has an option with the specified key
+     * @param key String
+     * @return boolean, true of option with that key exists
+     */
     public boolean containsKey(String key) {
         return getKeys().contains(key);
     }
 
+    /**
+     * Check if the select has an option with the specified value
+     * @param value V
+     * @return boolean, true of option with that value exists
+     */
     public boolean containsValue(V value) {
         return getValues().contains(value);
     }
 
+    /**
+     * Disable/Enable search for the select.
+     * @param searchable boolean, if true a text box will show up in the dropdown menu to search for options
+     * @return same select instance
+     */
     public S setSearchable(boolean searchable) {
         optionsMenu.setSearchable(searchable);
         this.searchable = searchable;
         return (S) this;
     }
 
+    /**
+     * Enable/Disable on the fly option creation
+     * @param creatable boolean, if true a button will show up to allow the user to create a new select option and add it to the dropdown list
+     * @return same select instance
+     */
     public S setCreatable(boolean creatable) {
         optionsMenu.setCreatable(creatable);
         this.creatable = creatable;
         return (S) this;
     }
 
+    /**
+     * Adds a handler that will be called whenever we add a new option to the select using the {@link #setCreatable(boolean)} feature
+     * @param onAddOptionHandler {@link OnAddOptionHandler}
+     * @return same select instance
+     */
     public S setOnAddOptionHandler(OnAddOptionHandler<V> onAddOptionHandler) {
         if (!isNull(onAddOptionHandler)) {
             optionsMenu.setOnAddListener((String input) -> {
@@ -586,28 +671,55 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
+    /**
+     * Closes the dropdown menu and call the handler
+     * @param closeMenuHandler {@link CloseMenuHandler}
+     * @return same select instance
+     */
     public S closeMenu(CloseMenuHandler closeMenuHandler) {
         optionsMenu.close();
         closeMenuHandler.onMenuClosed();
         return (S) this;
     }
 
+    /**
+     *
+     * @return boolean, true if search is enabled on this select
+     */
     public boolean isSearchable() {
         return searchable;
     }
 
+    /**
+     *
+     * @return boolean, true is creatable feature is enabled on this select
+     */
     public boolean isCreatable() {
         return creatable;
     }
 
+    /**
+     * closes all currently opened selects dropdown menus
+     */
     public static void closeAllSelects() {
         DropDownMenu.closeAllMenus();
     }
 
+    /**
+     * Selects an option by its key if exists
+     * @param key String
+     * @return same select instance
+     */
     public S selectByKey(String key) {
         return selectByKey(key, false);
     }
 
+    /**
+     * Selects an option by its key if exists with ability to avoid triggering change handlers
+     * @param key String
+     * @param silent boolean, true to avoid triggering change handlers
+     * @return same select instance
+     */
     public S selectByKey(String key, boolean silent) {
         for (SelectOption<V> option : getOptions()) {
             if (option.getKey().equals(key)) {
@@ -617,6 +729,11 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
+    /**
+     * Enable/Disable the none option in the field
+     * @param clearable boolean, if true a none option will added to the select as the first option, when selected it actually nulls the select value
+     * @return same select instance
+     */
     public S setClearable(boolean clearable) {
         this.clearable = clearable;
         if (clearable && !options.contains(noneOption)) {
@@ -627,38 +744,72 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
+    /**
+     *
+     * @return boolean, true if this select value can be cleared
+     */
     public boolean isClearable() {
         return clearable;
     }
 
+    /**
+     * sets the text display for the none option from the {@link #setClearable(boolean)}
+     * @param clearableText String
+     * @return same select instance
+     */
     public S setClearableText(String clearableText) {
         noneOption.setDisplayValue(clearableText);
         return (S) this;
     }
 
+    /**
+     *
+     * @return String display value of the none option when {@link #setClearable(boolean)} is enabled
+     */
     public String getClearableText() {
         return noneOption.getDisplayValue();
     }
 
+    /**
+     *
+     * @return String dropdown direction <b>up</b> or <b>down</b>
+     */
     public String getDropDirection() {
         return dropDirection;
     }
 
+    /**
+     *
+     * @return the {@link HTMLElement} that contains the button of this select
+     */
     public DominoElement<HTMLElement> getButtonValueContainer() {
         return buttonValueContainer;
     }
 
+    /**
+     * Sets a custom dropdown position for this select
+     * @param dropPosition {@link DropDownPosition}
+     * @return same select instance
+     */
     public S setDropPosition(DropDownPosition dropPosition) {
         optionsMenu.setPosition(dropPosition);
         return (S) this;
     }
 
+    /**
+     * {@inheritDoc}
+     * for the select this will create a button element
+     */
     @Override
     protected HTMLElement createInputElement(String type) {
         buttonElement = DominoElement.of(button().attr("type", "button").css("select-button"));
         return buttonElement.element();
     }
 
+    /**
+     * {@inheritDoc}
+     * for thes select this creates the dropdown menu arrow
+     */
     @Override
     protected FlexItem createMandatoryAddOn() {
         if (isNull(arrowIconSupplier)) {
@@ -672,38 +823,71 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return arrowIconContainer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void clearValue() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void doSetValue(T value) {
 
     }
 
+    /**
+     * Sets a custom search filter to be used when {@link #setSearchable(boolean)} is enabled
+     * @param searchFilter {@link org.dominokit.domino.ui.dropdown.DropDownMenu.SearchFilter}
+     * @return same select instance
+     */
     public S setSearchFilter(DropDownMenu.SearchFilter searchFilter) {
         this.optionsMenu.setSearchFilter(searchFilter);
         return (S) this;
     }
 
+    /**
+     *
+     * @return the {@link DropDownMenu} of this select
+     */
     public DropDownMenu getOptionsMenu() {
         return optionsMenu;
     }
 
+    /**
+     *
+     * @return boolean, true if closePopOverOnOpen is enabled
+     */
     public boolean isClosePopOverOnOpen() {
         return closePopOverOnOpen;
     }
 
+    /**
+     * Enable/Disable closing other popups in the screen when opens the select dropdown menu
+     * @param closePopOverOnOpen boolean, true to close other popups
+     * @return same select instance
+     */
     public S setClosePopOverOnOpen(boolean closePopOverOnOpen) {
         this.closePopOverOnOpen = closePopOverOnOpen;
         return (S) this;
     }
 
+    /**
+     *
+     * @return boolean, true if the dropdown menu should close after selecting an option
+     */
     public boolean isAutoCloseOnSelect() {
         return autoCloseOnSelect;
     }
 
+    /**
+     *
+     * @param autoCloseOnSelect boolean, if true the dropdown menu will close after selecting an option otherwise it remains open
+     * @return same select instance
+     */
     public S setAutoCloseOnSelect(boolean autoCloseOnSelect) {
         this.autoCloseOnSelect = autoCloseOnSelect;
         optionsMenu.getActions()
@@ -711,8 +895,17 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         return (S) this;
     }
 
+    /**
+     * implementation of this method will determine how the select will scroll to the selected option when opens the dropdown menu
+     */
     protected abstract void scrollToSelectedOption();
 
+    /**
+     * A {@link DropDownPosition} that opens the select dropdown menu up or down based on the largest space available, the menu will show where the is more space
+     * @param <T> The type of the field value
+     * @param <V> The type of the single option value
+     * @param <S> The type of the field extending from this class
+     */
     public static class PopupPositionTopDown<T, V, S extends AbstractSelect<T, V, S>> implements DropDownPosition {
 
         private DropDownPositionUp up = new DropDownPositionUp();
@@ -751,6 +944,10 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         }
     }
 
+
+    /**
+     * A {@link DropDownPosition} that opens the select dropdown menu always up
+     */
     public static class DropDownPositionUp implements DropDownPosition {
         @Override
         public void position(HTMLElement actionsMenu, HTMLElement target) {
@@ -763,6 +960,9 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         }
     }
 
+    /**
+     * A {@link DropDownPosition} that opens the select dropdown menu always down
+     */
     public static class DropDownPositionDown implements DropDownPosition {
         @Override
         public void position(HTMLElement actionsMenu, HTMLElement target) {
@@ -785,25 +985,47 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
             this.select = select;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void attach() {
             selectionHandler = option -> autoValidate.apply();
             select.addSelectionHandler(selectionHandler);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void remove() {
             select.removeSelectionHandler(selectionHandler);
         }
     }
 
+    /**
+     * A function for implementing logic to be executed when a new option is added on the fly using the {@link #setCreatable(boolean)} feature
+     * @param <V> the type of the select value
+     */
     @FunctionalInterface
     public interface OnAddOptionHandler<V> {
+        /**
+         * Takes the user input and convert it into a SelectOption
+         * @param input String user input
+         * @param completeHandler a callback Consumer of a {@link SelectOption} that should be called after creating the option
+         */
         void onAddOption(String input, Consumer<SelectOption<V>> completeHandler);
     }
 
+    /**
+     * A function for implementing logic that will be executed whenever the select dropdown is closed
+     * @param <V> the type of the select value
+     */
     @FunctionalInterface
     public interface CloseMenuHandler<V> {
+        /**
+         *
+         */
         void onMenuClosed();
     }
 }
