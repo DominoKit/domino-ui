@@ -236,8 +236,12 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
      * @return same select instance
      */
     public S appendChild(SelectOption<V> option) {
+       return appendChild(option, selectOptionDropdownAction -> {});
+    }
+
+    public S appendChild(SelectOption<V> option, Consumer<DropdownAction<SelectOption<V>>> andThen) {
         options.add(option);
-        appendOptionValue(option);
+        appendOptionValue(option, andThen);
         return (S) this;
     }
 
@@ -261,8 +265,10 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>> ex
         }
     }
 
-    private void appendOptionValue(SelectOption<V> option) {
-        optionsMenu.appendChild(asDropDownAction(option));
+    private void appendOptionValue(SelectOption<V> option, Consumer<DropdownAction<SelectOption<V>>> andThen) {
+        DropdownAction<SelectOption<V>> action = asDropDownAction(option);
+        optionsMenu.appendChild(action);
+        andThen.accept(action);
     }
 
     private void insertFirstOptionValue(SelectOption<V> option) {
