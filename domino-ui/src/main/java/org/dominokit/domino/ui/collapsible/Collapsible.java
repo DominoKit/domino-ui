@@ -19,6 +19,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     private final Style<HTMLElement, IsElement<HTMLElement>> style;
 
     private boolean collapsed = false;
+    private boolean forceHidden = false;
 
     private List<HideCompletedHandler> hideHandlers;
     private List<ShowCompletedHandler> showHandlers = new ArrayList<>();
@@ -36,21 +37,50 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
         return create(isElement.element());
     }
 
+    /**
+     *
+     * @return boolean, if true the element is hidden and wont be shown even if we call {@link #show()}
+     */
+    public boolean isForceHidden() {
+        return forceHidden;
+    }
+
+    /**
+     * Disable/Enable force hidden
+     * @param forceHidden boolean, if true it will hide the element if it is visible and wont allow the element to be shown unless it is turned off, when turned off the element will remain hidden until we call {@link #show()}
+     * @return same collapsible element
+     */
+    public Collapsible setForceHidden(boolean forceHidden) {
+        if(!isHidden()){
+            hide();
+        }
+        this.forceHidden = forceHidden;
+        return this;
+    }
+
+    /**
+     * Make the element visible and call any attached show handlers
+     * @return same collapsible instance
+     */
     @Override
     public Collapsible show() {
-        onShowCompleted();
-        style.removeProperty("display");
-        DominoElement.of(element).removeAttribute("d-collapsed");
-        this.collapsed = false;
+        if(!forceHidden) {
+            onShowCompleted();
+            style.removeProperty("display");
+            DominoElement.of(element).removeAttribute("d-collapsed");
+            this.collapsed = false;
+        }
         return this;
     }
 
     @Override
     public Collapsible hide() {
-        style.setDisplay("none");
-        DominoElement.of(element).setAttribute("d-collapsed", "true");
-        onHideCompleted();
-        this.collapsed = true;
+        if(!forceHidden) {
+            style.setDisplay("none");
+            DominoElement.of(element).setAttribute("d-collapsed", "true");
+            onHideCompleted();
+            this.collapsed = true;
+        }
         return this;
     }
 
