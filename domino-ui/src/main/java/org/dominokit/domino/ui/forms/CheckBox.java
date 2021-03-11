@@ -14,18 +14,28 @@ import org.jboss.elemento.IsElement;
 import static java.util.Objects.isNull;
 import static org.jboss.elemento.Elements.input;
 
+/**
+ * A checkbox component that takes/provide a boolean value
+ */
 public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boolean> implements Checkable<CheckBox> {
 
-    public static final String READONLY = "readonly";
+    private static final String READONLY = "readonly";
     private Color color;
     private String checkedReadonlyLabel = "Yes";
     private String unCheckedReadonlyLabel = "No";
     private String label;
 
+    /**
+     * Creates a checkbox without a label
+     */
     public CheckBox() {
         this("");
     }
 
+    /**
+     * Creates a checkox with a label
+     * @param label String
+     */
     public CheckBox(String label) {
         super("checkbox", label);
         this.label = label;
@@ -49,22 +59,46 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
         changeHandlers.forEach(handler -> handler.onValueChanged(isChecked()));
     }
 
+    /**
+     * Creates a checkbox with a label
+     * @param label String
+     * @return new CheckBox instance
+     */
     public static CheckBox create(String label) {
         return new CheckBox(label);
     }
 
+    /**
+     * Creates a CheckBox without a label
+     * @return new CheckBox instance
+     */
     public static CheckBox create() {
         return new CheckBox();
     }
 
+    /**
+     * Creates a CheckBox with a clickable link as a label
+     * @param link {@link HTMLAnchorElement} wrapped as {@link IsElement}
+     * @return new CheckBox instance
+     */
     public static CheckBox create(IsElement<HTMLAnchorElement> link) {
         return create(DominoElement.of(link));
     }
 
+    /**
+     * Creates a CheckBox with a clickable link as a label
+     * @param link {@link HTMLAnchorElement}
+     * @return new CheckBox instance
+     */
     public static CheckBox create(HTMLAnchorElement link) {
         return create(DominoElement.of(link));
     }
 
+    /**
+     * Creates a CheckBox with a clickable link as a label
+     * @param link {@link HTMLAnchorElement} wrapped as {@link DominoElement}
+     * @return new CheckBox instance
+     */
     public static CheckBox create(DominoElement<HTMLAnchorElement> link) {
         CheckBox checkBox = new CheckBox();
         checkBox.setLabel(link.element());
@@ -72,6 +106,10 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
         return checkBox;
     }
 
+    /**
+     * Toggle the current state of the CheckBox, if it is checked it will be unchecked, and if it is unchecked it will be checked
+     * @return same CheckBox instance
+     */
     public CheckBox toggle() {
         if (isChecked()) {
             uncheck();
@@ -83,16 +121,25 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CheckBox check() {
         return check(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CheckBox uncheck() {
         return uncheck(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CheckBox check(boolean silent) {
         getInputElement().element().checked = true;
@@ -104,6 +151,9 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CheckBox uncheck(boolean silent) {
         getInputElement().element().checked = false;
@@ -115,17 +165,26 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isChecked() {
         return getInputElement().element().checked;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CheckBox addChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CheckBox removeChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         if (changeHandler != null)
@@ -133,21 +192,37 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 
+    /**
+     * The CheckBox will be filled  with its color instead of a white background
+     * @return same CheckBox instance
+     */
     public CheckBox filledIn() {
         element.style().add("filled-in");
         return this;
     }
 
+    /**
+     * The CheckBox will be filled  with a white background, this is the default
+     * @return same CheckBox instance
+     */
     public CheckBox filledOut() {
         element.style().remove("filled-in");
         return this;
     }
 
+    /**
+     * This color will be used for the check mark in the CheckBox or the background for a {@link #filledIn()} CheckBox
+     * @param color {@link Color}
+     * @return same CheckBox instance
+     */
     public CheckBox setColor(Color color) {
         if (this.color != null) {
            element.style().remove(this.color.getStyle());
@@ -157,6 +232,10 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     * This will check/uncheck the CheckBox based on the boolean value
+     */
     @Override
     public CheckBox value(Boolean value) {
         if (value != null && value) {
@@ -167,16 +246,29 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return boolean, true if checked, false if unchecked
+     */
     @Override
     public Boolean getValue() {
         return isChecked();
     }
 
+    /**
+     * {@inheritDoc}
+     * @return boolean, CheckBox cant be empty so this actually is true if the CheckBox is unchecked.
+     */
     @Override
     public boolean isEmpty() {
         return !isChecked();
     }
 
+    /**
+     * This should render the checkbox as a label based on {@link #setCheckedReadonlyLabel(String)} and {@link #setUnCheckedReadonlyLabel(String)}
+     * @param readOnly boolean
+     * @return same CheckBox instance
+     */
     @Override
     public CheckBox setReadOnly(boolean readOnly) {
         super.setReadOnly(readOnly);
@@ -208,41 +300,72 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
         return isNull(unCheckedReadonlyLabel) || unCheckedReadonlyLabel.isEmpty() ? "" : ": " + unCheckedReadonlyLabel;
     }
 
+    /**
+     *
+     * @param checkedReadonlyLabel String label to be used in checked readonly mode
+     * @return same CheckBox instance
+     */
     public CheckBox setCheckedReadonlyLabel(String checkedReadonlyLabel) {
         this.checkedReadonlyLabel = checkedReadonlyLabel;
         return this;
     }
 
+    /**
+     *
+     * @param unCheckedReadonlyLabel String label to be used in unchecked readonly mode
+     * @return same CheckBox instance
+     */
     public CheckBox setUnCheckedReadonlyLabel(String unCheckedReadonlyLabel) {
         this.unCheckedReadonlyLabel = unCheckedReadonlyLabel;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return String boolean value
+     */
     @Override
     public String getStringValue() {
         return Boolean.toString(getValue());
     }
 
+    /**
+     * {@inheritDoc}
+     * creates a <b>checkbox</b> input element
+     */
     @Override
     protected HTMLInputElement createInputElement(String type) {
         return DominoElement.of(input("checkbox")).element();
     }
 
+    /**
+     * {@inheritDoc}
+     * this will uncheck the CheckBox if it is checked
+     */
     @Override
     protected void clearValue() {
         value(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void doSetValue(Boolean value) {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected boolean isAddFocusColor() {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
         return new CheckBoxAutoValidator<>(this, autoValidate);
