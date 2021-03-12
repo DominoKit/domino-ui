@@ -7,7 +7,7 @@ package org.dominokit.domino.ui.utils;
 public interface IsReadOnly<T> {
     /**
      *
-     * @param readOnly boolean, if true switch the component to readonly mode, otherwise switch out of readonly mode
+     * @param readOnly boolean, if true switch the component to readonly mode, otherwise switch out off readonly mode
      * @return same instance of the implementing class
      */
     T setReadOnly(boolean readOnly);
