@@ -1,5 +1,8 @@
 package org.dominokit.domino.ui.grid;
 
+/**
+ * An enum representing the number of columns a row can have
+ */
 public enum Columns {
     _12(GridStyles.ROW_12, 12),
     _16(GridStyles.ROW_16, 16),
@@ -15,10 +18,16 @@ public enum Columns {
         this.count = count;
     }
 
+    /**
+     * @return The style of the row based on the columns count
+     */
     public String getColumnsStyle() {
         return columnsStyle;
     }
 
+    /**
+     * @return The number of columns
+     */
     public int getCount() {
         return count;
     }

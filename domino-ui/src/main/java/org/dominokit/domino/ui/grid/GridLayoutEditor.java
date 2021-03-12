@@ -1,5 +1,8 @@
 package org.dominokit.domino.ui.grid;
 
+/**
+ * A utility class to redraw grid layout based on the configuration provided in {@link GridLayout}
+ */
 class GridLayoutEditor {
 
     private static final String G_CONTENT = "g-content";
@@ -8,7 +11,7 @@ class GridLayoutEditor {
     private static final String G_HEADER = "g-header";
     private static final String G_FOOTER = "g-footer";
 
-    private String[][] gridTemplateAreas = new String[][]{
+    private final String[][] gridTemplateAreas = new String[][]{
             {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
             {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
             {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
@@ -22,8 +25,6 @@ class GridLayoutEditor {
             {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT},
             {G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT}
     };
-
-
     private SectionSpan headerSectionSpan = SectionSpan._1;
     private SectionSpan footerSectionSpan = SectionSpan._1;
     private SectionSpan leftSectionSpan = SectionSpan._3;
