@@ -30,13 +30,10 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
 
     @Override
     public List<TypeSpec.Builder> asTypeBuilder() {
-        List<TypeSpec.Builder> types = new ArrayList<>();
-        types.addAll(generateIconsByTag());
-        return types;
+        return new ArrayList<>(generateIconsByTag());
     }
 
     private List<TypeSpec.Builder> generateIconsByTag() {
-
         List<TypeSpec.Builder> types = new ArrayList<>();
 
         Set<String> tags = metaIconInfos.stream()
@@ -64,7 +61,7 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
 
         ParameterizedTypeName listType = ParameterizedTypeName.get(ClassName.get(List.class), ParameterizedTypeName.get(ClassName.get(Supplier.class), ClassName.bestGuess(MDI_ICON_TYPE)));
 
-        TypeSpec.Builder factoryBuilder = DominoTypeBuilder.classBuilder("MdiByTagFactory", MdiIconsProcessor.class)
+        return DominoTypeBuilder.classBuilder("MdiByTagFactory", MdiIconsProcessor.class)
                 .addModifiers(Modifier.PUBLIC)
                 .addMethod(MethodSpec.methodBuilder("get")
                         .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
@@ -73,8 +70,6 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
                                 .build())
                         .addCode(switchCodeBuilder(tags).build())
                         .build());
-
-        return factoryBuilder;
     }
 
     private CodeBlock.Builder switchCodeBuilder(Set<String> tags) {

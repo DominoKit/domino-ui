@@ -5,6 +5,9 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.img;
 
+/**
+ * Url icon implementation
+ */
 public class UrlIcon extends BaseIcon<UrlIcon> {
 
     private final String url;
@@ -16,15 +19,28 @@ public class UrlIcon extends BaseIcon<UrlIcon> {
         init(this);
     }
 
+    /**
+     * Creates an icon with a specific {@code url} and a name
+     *
+     * @param url  the url of the icon to load from
+     * @param name the name of the icon
+     * @return new instance
+     */
     public static UrlIcon create(String url, String name) {
         return new UrlIcon(url, name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UrlIcon copy() {
         return new UrlIcon(url, name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected UrlIcon doToggle() {
         if (nonNull(toggleName)) {
@@ -39,8 +55,11 @@ public class UrlIcon extends BaseIcon<UrlIcon> {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public UrlIcon changeTo(BaseIcon icon) {
+    public UrlIcon changeTo(BaseIcon<UrlIcon> icon) {
         style.remove(getName());
         style.add(icon.getName());
         return null;
