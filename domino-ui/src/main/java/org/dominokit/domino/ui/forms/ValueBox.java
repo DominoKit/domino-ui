@@ -373,7 +373,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     }
 
     /**
-     * Unfocus the component and remove the focus styles
+     * un-focus the component and remove the focus styles
      */
     protected void doUnfocus() {
         fieldGroup.style().remove(FOCUSED);

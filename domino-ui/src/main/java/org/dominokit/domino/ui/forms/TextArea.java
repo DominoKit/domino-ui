@@ -7,6 +7,9 @@ import org.jboss.elemento.Elements;
 
 import static java.util.Objects.nonNull;
 
+/**
+ * a component that takes/provide a multi-line String values
+ */
 public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, String> {
 
     private EventListener autosizeListener = evt -> adjustHeight();
@@ -15,10 +18,17 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
     private boolean emptyAsNull;
     private boolean floating;
 
+    /**
+     *
+     */
     public TextArea() {
         this("");
     }
 
+    /**
+     *
+     * @param label String
+     */
     public TextArea(String label) {
         super("", label);
         setRows(4);
@@ -26,19 +36,34 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
         onAttached(mutationRecord -> adjustHeight());
     }
 
+    /**
+     *
+     * @return new TextArea instance
+     */
     public static TextArea create() {
         return new TextArea();
     }
-
+    /**
+     * @param label String
+     * @return new TextArea instance
+     */
     public static TextArea create(String label) {
         return new TextArea(label);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected HTMLTextAreaElement createInputElement(String type) {
         return Elements.textarea().css("no-resize").element();
     }
 
+    /**
+     *
+     * @param rows int default number of rows of the TextArea
+     * @return same TextArea instance
+     */
     public TextArea setRows(int rows) {
         this.rows = rows;
         updateRows(rows);
@@ -59,6 +84,9 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
         getInputElement().setAttribute("rows", rows + "");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void doSetValue(String value) {
         if (nonNull(value)) {
@@ -71,11 +99,17 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void clearValue() {
         value("");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getValue() {
         String value = getInputElement().element().value;
@@ -85,6 +119,9 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
         return value;
     }
 
+    /**
+     * The TextArea will start with initial number of rows and will automatically grow if more lines are added instead of showing scrollbars
+     */
     public TextArea autoSize() {
         getInputElement().addEventListener("input", autosizeListener);
         getInputElement().style().setOverFlow("hidden");
@@ -93,6 +130,10 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
         return this;
     }
 
+    /**
+     * The TextArea will show scrollbars when the text rows exceeds the rows from {@link #setRows(int)}
+     * @return same TextArea instance
+     */
     public TextArea fixedSize() {
         getInputElement().removeEventListener("input", autosizeListener);
         getInputElement().style().setOverFlow("");
@@ -112,20 +153,35 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getStringValue() {
         return getValue();
     }
 
+    /**
+     *
+     * @param emptyAsNull boolean, if true empty value will be considered null otherwise its normal empty String
+     * @return same TextArea instance
+     */
     public TextArea setEmptyAsNull(boolean emptyAsNull) {
         this.emptyAsNull = emptyAsNull;
         return this;
     }
 
+    /**
+     *
+     * @return boolean, true is {@link #setEmptyAsNull(boolean)}
+     */
     public boolean isEmptyAsNull() {
         return emptyAsNull;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
         return new InputAutoValidator<>(getInputElement(), autoValidate);

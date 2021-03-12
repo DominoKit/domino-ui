@@ -9,6 +9,10 @@ import java.util.stream.Collectors;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+/**
+ * A component that allow selecting multiple options from a DropDownMenu
+ * @param <T> The type of a single option value
+ */
 public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
 
     private static final String DEFAULT_SEPARATOR = ",";
@@ -17,22 +21,53 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
     private List<SelectOption<T>> selectedOptions = new ArrayList<>();
     private String selectedOptionsSeparator;
 
+    /**
+     * Creates an instance without a label
+     * @param <T> Type the select options value
+     * @return new MultiSelect instance
+     */
     public static <T> MultiSelect<T> create() {
         return new MultiSelect<>();
     }
 
+    /**
+     * Creates an instance with a label
+     * @param label String
+     * @param <T> Type the select options value
+     * @return new MultiSelect instance
+     */
     public static <T> MultiSelect<T> create(String label) {
         return new MultiSelect<>(label);
     }
 
+    /**
+     * Creates an instance with a label and initialized with a list of options
+     * @param label String
+     * @param options List of {@link SelectOption}
+     * @param <T> Type the select options value
+     * @return new MultiSelect instance
+     */
     public static <T> MultiSelect<T> create(String label, List<SelectOption<T>> options) {
         return new MultiSelect<>(label, options);
     }
 
+    /**
+     * Creates an instance without a label and initialized with a list of options
+     * @param options List of {@link SelectOption}
+     * @param <T> Type the select options value
+     * @return new MultiSelect instance
+     */
     public static <T> MultiSelect<T> create(List<SelectOption<T>> options) {
         return new MultiSelect<>(options);
     }
 
+    /**
+     * Creates an instance with a label and initialized with options from an enum values
+     * @param label String
+     * @param values T[] of enum values
+     * @param <T> type of the enum
+     * @return new MultiSelect instance
+     */
     public static <T extends Enum<T>> MultiSelect<T> ofEnum(String label, T[] values) {
         MultiSelect<T> select = create(label);
         for (T value : values) {
@@ -41,21 +76,40 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
         return select;
     }
 
+    /**
+     * Creates an instance without a label
+     */
     public MultiSelect() {
     }
 
+    /**
+     * Creates an instance with a label
+     * @param label String
+     */
     public MultiSelect(String label) {
         super(label);
     }
 
+    /**
+     * Creates an instance with a label and initialized with a list of options
+     * @param label String
+     * @param options List of {@link SelectOption}
+     */
     public MultiSelect(String label, List<SelectOption<T>> options) {
         super(label, options);
     }
 
+    /**
+     * Creates an instance without a label and initialized with a list of options
+     * @param options List of {@link SelectOption}
+     */
     public MultiSelect(List<SelectOption<T>> options) {
         super(options);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MultiSelect<T> select(SelectOption<T> option, boolean silent) {
         floatLabel();
@@ -72,6 +126,9 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MultiSelect<T> setValue(List<T> value, boolean silent) {
         if (isNull(value))
@@ -88,10 +145,17 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
         buttonValueContainer.setTextContent(getStringValue());
     }
 
+    /**
+     *
+     * @return a List of all {@link SelectOption} selected
+     */
     public List<SelectOption<T>> getSelectedOptions() {
         return selectedOptions;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<T> getValue() {
         return selectedOptions.stream()
@@ -99,14 +163,26 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
                 .collect(Collectors.toList());
     }
 
+    /**
+     *
+     * @return String separator to display selected options
+     */
     public String getSelectedOptionsSeparator() {
         return selectedOptionsSeparator;
     }
 
+    /**
+     *
+     * @param selectedOptionsSeparator String separator to display selected options
+     */
     public void setSelectedOptionsSeparator(String selectedOptionsSeparator) {
         this.selectedOptionsSeparator = selectedOptionsSeparator;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return A comma separated string of all selected options
+     */
     @Override
     public String getStringValue() {
         return selectedOptions.stream()
@@ -114,12 +190,19 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
                 .collect(Collectors.joining(isNull(selectedOptionsSeparator) ? DEFAULT_SEPARATOR : selectedOptionsSeparator));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MultiSelect<T> clear() {
         selectedOptions.clear();
         return super.clear();
     }
 
+    /**
+     *
+     * @return List of Integer indices of all select options
+     */
     public List<Integer> getSelectedIndex() {
         return getSelectedOptions()
                 .stream()
@@ -127,10 +210,17 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
                 .collect(Collectors.toList());
     }
 
+    /**
+     *
+     * @param valueRenderer {@link ValueRenderer}
+     */
     public void setValueRenderer(ValueRenderer valueRenderer) {
         this.valueRenderer = valueRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void scrollToSelectedOption() {
         List<SelectOption<T>> selectedOptions = getSelectedOptions();
@@ -139,6 +229,9 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
         }
     }
 
+    /**
+     * a Function to define how we should render the select value
+     */
     @FunctionalInterface
     public interface ValueRenderer {
         void render();

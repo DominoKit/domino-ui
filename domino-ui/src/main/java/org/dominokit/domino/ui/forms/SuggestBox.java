@@ -25,6 +25,10 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.elemento.Elements.div;
 
+/**
+ * A component that dynamically loads suggestions from a {@link SuggestBoxStore} while the user is typing
+ * @param <T> the type of the SuggestBox value
+ */
 public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElement, T> implements HasSelectionHandler<SuggestBox<T>, SuggestItem<T>> {
 
     private static final String TEXT = "text";
@@ -50,22 +54,44 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
     };
     private boolean autoSelect = true;
 
+    /**
+     * Creates an instance without a label and a null store
+     */
     public SuggestBox() {
         this("");
     }
 
+    /**
+     * Creates an instance with a label and a null store
+     * @param label String label
+     */
     public SuggestBox(String label) {
         this(label, null);
     }
 
+    /**
+     * Creates an instance without a label and initialized with a store
+     * @param store {@link SuggestBoxStore}
+     */
     public SuggestBox(SuggestBoxStore<T> store) {
         this("", store);
     }
 
+    /**
+     * Creates an instance with a label and initialized with a store
+     * @param label String
+     * @param store {@link SuggestBoxStore}
+     */
     public SuggestBox(String label, SuggestBoxStore<T> store) {
         this(TEXT, label, store);
     }
 
+    /**
+     * Creates an instance with a label and initialized with the input type and a store
+     * @param type String input element type
+     * @param label String
+     * @param store {@link SuggestBoxStore}
+     */
     public SuggestBox(String type, String label, SuggestBoxStore<T> store) {
         super(type, label);
         this.store = store;
@@ -130,14 +156,32 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
                 });
     }
 
+    /**
+     *
+     * Creates an instance without a label and initialized with a store
+     * @param store {@link SuggestBoxStore}
+     * @param <T> the type of the SuggestBox value
+     * @return new SuggestBox instance
+     */
     public static <T> SuggestBox<T> create(SuggestBoxStore<T> store) {
         return new SuggestBox<>(store);
     }
 
+    /**
+     *
+     * Creates an instance with a label and initialized with a store
+     * @param label String
+     * @param store {@link SuggestBoxStore}
+     * @param <T> the type of the SuggestBox value
+     * @return new SuggestBox instance
+     */
     public static <T> SuggestBox<T> create(String label, SuggestBoxStore<T> store) {
         return new SuggestBox<T>(label, store);
     }
 
+    /**
+     * Filter the items based on the currently typed text in the SuggestBox
+     */
     public final void search() {
         if (store != null) {
             loader.start();
@@ -161,41 +205,73 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected HTMLInputElement createInputElement(String type) {
         return Elements.input(type).element();
     }
 
+    /**
+     *
+     * @return int delay in milliseconds before triggering the search after the user stops typing
+     */
     public int getTypeAheadDelay() {
         return typeAheadDelay;
     }
 
+    /**
+     *
+     * @param delayMilliseconds int delay in milliseconds before triggering the search after the user stops typing
+     * @return same SuggestBox instance
+     */
     public SuggestBox<T> setTypeAheadDelay(int delayMilliseconds) {
         this.typeAheadDelay = delayMilliseconds;
         this.delayedTextInput.setDelay(delayMilliseconds);
         return this;
     }
 
+    /**
+     *
+     * @return the {@link org.dominokit.domino.ui.utils.DelayedTextInput.DelayedAction}
+     */
     public DelayedTextInput.DelayedAction getDelayedAction() {
         return delayedAction;
     }
 
+    /**
+     * Set a custom action to be executed after the user stops typing that override the default search action
+     * @param delayedAction {@link org.dominokit.domino.ui.utils.DelayedTextInput.DelayedAction}
+     * @return same SuggestBox instance
+     */
     public SuggestBox<T> setDelayedAction(DelayedTextInput.DelayedAction delayedAction) {
         this.delayedAction = delayedAction;
         this.delayedTextInput.setDelayedAction(delayedAction);
         return this;
     }
 
+    /**
+     * Sets the action to be executed when the user press Enter to override the default search action
+     * @param onEnterAction {@link org.dominokit.domino.ui.utils.DelayedTextInput.DelayedAction}
+     * @return same SuggestBox instance
+     */
     public SuggestBox<T> setOnEnterAction(DelayedTextInput.DelayedAction onEnterAction) {
         this.delayedTextInput.setOnEnterAction(onEnterAction);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void clearValue() {
         value(null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void doSetValue(T value) {
         if (nonNull(store)) {
@@ -235,6 +311,9 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T getValue() {
         if (isNull(selectedItem)) {
@@ -244,16 +323,29 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         return this.value;
     }
 
+    /**
+     *
+     * @param store {@link SuggestBoxStore}
+     * @return same SuggestBox instance
+     */
     public SuggestBox<T> setSuggestBoxStore(SuggestBoxStore<T> store) {
         this.store = store;
         return this;
     }
 
+    /**
+     *
+     * @param type String type of the htmml input element
+     * @return same SuggestBox instance
+     */
     public SuggestBox<T> setType(String type) {
         getInputElement().element().type = type;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getStringValue() {
         String stringValue = getInputElement().element().value;
@@ -274,18 +366,29 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         return dropdownAction;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SuggestBox<T> addSelectionHandler(SelectionHandler<SuggestItem<T>> selectionHandler) {
         selectionHandlers.add(selectionHandler);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SuggestBox<T> removeSelectionHandler(SelectionHandler<SuggestItem<T>> selectionHandler) {
         selectionHandlers.remove(selectionHandler);
         return this;
     }
 
+    /**
+     * Sets a custom loader effect to be visible while the store is retrieving the suggestions
+     * @param loaderEffect {@link LoaderEffect}
+     * @return same SuggestBox instance
+     */
     public SuggestBox<T> setLoaderEffect(LoaderEffect loaderEffect) {
         loader = Loader.create(loaderContainer, loaderEffect)
                 .setSize("20px", "20px")
@@ -293,67 +396,124 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         return this;
     }
 
+    /**
+     *
+     * @return the {@link Loader} used by the SuggestBox
+     */
     public Loader getLoader() {
         return loader;
     }
 
+    /**
+     *
+     * @param emptyAsNull boolean, if ture empty value will be considered null otherwise it is an empty String
+     * @return same SuggestBox instance
+     */
     public SuggestBox<T> setEmptyAsNull(boolean emptyAsNull) {
         this.emptyAsNull = emptyAsNull;
         return this;
     }
 
+    /**
+     *
+     * @return boolean, true if empty value will be considered null otherwise false
+     */
     public boolean isEmptyAsNull() {
         return emptyAsNull;
     }
 
+    /**
+     *
+     * @return the {@link SuggestBoxStore} of this SuggestBox
+     */
     public SuggestBoxStore<T> getStore() {
         return store;
     }
 
+    /**
+     *
+     * @return the {@link DelayedTextInput} of this SuggestBox
+     */
     public DelayedTextInput getDelayedTextInput() {
         return delayedTextInput;
     }
 
+    /**
+     *
+     * @return the {@link DropDownMenu} of the SuggestBox
+     */
     public DropDownMenu getSuggestionsMenu() {
         return suggestionsMenu;
     }
 
+    /**
+     * Set the color to be used to highlight parts of the SuggestItems that matches the typed String in the text input
+     * @param highlightColor {@link Color}
+     * @return same SuggestBox instance
+     */
     public SuggestBox<T> setHighlightColor(Color highlightColor) {
         this.highlightColor = highlightColor;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
         return new SuggestAutoValidator<>(this, autoValidate);
     }
 
+    /**
+     *
+     * @return boolean, true if autoSelect is enabled
+     */
     public boolean isAutoSelect() {
         return autoSelect;
     }
 
+    /**
+     *
+     * @param autoSelect boolean, if true pressing enter will automatically select the first entry from the Suggestions menu
+     * @return same SuggestBox instance
+     */
     public SuggestBox<T> setAutoSelect(boolean autoSelect) {
         this.autoSelect = autoSelect;
         return this;
     }
 
+    /**
+     *
+     * @return boolean, true if the focusOnClose is enabled
+     */
     public boolean isFocusOnClose() {
         return focusOnClose;
     }
 
+    /**
+     *
+     * @param focusOnClose boolean, if true after closing the suggestions menu the focus will go back to the suggest box input
+     * @return same SuggestBox instance
+     */
     public SuggestBox<T> setFocusOnClose(boolean focusOnClose) {
         this.focusOnClose = focusOnClose;
         return this;
     }
 
+    /**
+     * A {@link DropDownPosition} that opens the suggestion dropdown menu up or down based on the largest space available, the menu will show where the is more space
+     */
     public static class PopupPositionTopDown implements DropDownPosition {
 
         private DropDownPositionUp up = new DropDownPositionUp();
         private DropDownPositionDown down = new DropDownPositionDown();
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void position(HTMLElement popup, HTMLElement target) {
-            ClientRect targetRect = target.getBoundingClientRect();
+            DOMRect targetRect = target.getBoundingClientRect();
 
             double distanceToMiddle = ((targetRect.top) - (targetRect.height / 2));
             double windowMiddle = window.innerHeight;
@@ -376,11 +536,17 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         }
     }
 
+    /**
+     * A {@link DropDownPosition} that opens the suggestion dropdown menu up
+     */
     public static class DropDownPositionUp implements DropDownPosition {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void position(HTMLElement actionsMenu, HTMLElement target) {
 
-            ClientRect targetRect = target.getBoundingClientRect();
+            DOMRect targetRect = target.getBoundingClientRect();
 
             actionsMenu.style.setProperty("bottom", px.of(((window.innerHeight - targetRect.bottom + targetRect.height) - window.pageYOffset)));
             actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
@@ -388,11 +554,18 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
         }
     }
 
+    /**
+     * A {@link DropDownPosition} that opens the suggestion dropdown menu down
+     */
     public static class DropDownPositionDown implements DropDownPosition {
+
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void position(HTMLElement actionsMenu, HTMLElement target) {
 
-            ClientRect targetRect = target.getBoundingClientRect();
+            DOMRect targetRect = target.getBoundingClientRect();
 
             actionsMenu.style.setProperty("top", px.of((targetRect.top + targetRect.height + window.pageYOffset)));
             actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));

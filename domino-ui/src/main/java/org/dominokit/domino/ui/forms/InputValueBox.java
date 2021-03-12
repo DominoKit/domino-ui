@@ -17,6 +17,12 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * A Base implementation for special type components with text input
+ * @param <T> The type of the component extending from this class
+ * @see TelephoneBox
+ * @see EmailBox
+ */
 public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<T, HTMLInputElement, String> {
     private HTMLElement suggestionsDataList = datalist().element();
     private String typeMismatchErrorMessage;
@@ -24,6 +30,11 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
     private String invalidPatternErrorMessage;
     private boolean emptyAsNull;
 
+    /**
+     * Creates an instance of the specified type with a label
+     * @param type String HTMLInputElement type
+     * @param label String
+     */
     public InputValueBox(String type, String label) {
         super(type, label);
         suggestionsDataList.id = getDominoId();
@@ -94,6 +105,11 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
         return value;
     }
 
+    /**
+     * Sets the type for the HTMLInputElement of this component
+     * @param type String
+     * @return same implementing component instance
+     */
     public T setType(String type) {
         getInputElement().element().type = type;
         return (T) this;
@@ -116,6 +132,11 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
         return isNull(typeMismatchErrorMessage) ? "Invalid value" : typeMismatchErrorMessage;
     }
 
+    /**
+     * Adds a String value as a suggested value {@link HTMLOptionElement} for this input
+     * @param suggestedValue
+     * @return same implementing component instance
+     */
     public T addSuggestedValue(String suggestedValue) {
         HTMLOptionElement optionElement = option().attr("value", suggestedValue).element();
         suggestionsDataList.appendChild(optionElement);
@@ -123,12 +144,22 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
         return (T) this;
     }
 
+    /**
+     * Adds a List of String values as a suggested values {@link HTMLOptionElement} for this input
+     * @param suggestedValues List of String
+     * @return same implementing component instance
+     */
     public T setSuggestedValues(List<String> suggestedValues) {
         clearSuggestions();
         suggestedValues.forEach(this::addSuggestedValue);
         return (T) this;
     }
 
+    /**
+     * Removes a suggested value {@link HTMLOptionElement} from this input
+     * @param suggestedValue String
+     * @return same implementing component instance
+     */
     public T removeSuggestedValue(String suggestedValue) {
         if (this.suggestedValues.containsKey(suggestedValue)) {
             this.suggestedValues.get(suggestedValue).remove();
@@ -137,40 +168,77 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
         return (T) this;
     }
 
+    /**
+     *
+     * @return a List of all suggested values of this component
+     */
     public Collection<String> getSuggestedValues() {
         return suggestedValues.keySet();
     }
 
+    /**
+     * removes all suggested values
+     * @return same implementing component
+     */
     public T clearSuggestions() {
         suggestedValues.values().forEach(Element::remove);
         suggestedValues.clear();
         return (T) this;
     }
 
+    /**
+     * Sets a pattern to be used for formatting this component value, this is the <b>pattern</b> html attribute
+     * @param pattern String
+     * @return same implementing component
+     */
     public T setPattern(String pattern) {
         getInputElement().setAttribute("pattern", pattern);
         return (T) this;
     }
 
+    /**
+     * Sets a pattern to be used for formatting this component value, this is the <b>pattern</b> html attribute
+     * @param pattern String
+     * @param errorMessage String error message to be used when the field value does not match the provided pattern
+     * @return same implementing component
+     */
     public T setPattern(String pattern, String errorMessage) {
         setPattern(pattern);
         setInvalidPatternErrorMessage(errorMessage);
         return (T) this;
     }
 
+    /**
+     *
+     * @return the value of the <b>pattern</b> attribute of this component input element
+     */
     public String getPattern() {
         return getInputElement().getAttribute("pattern");
     }
 
+    /**
+     *
+     * @param invalidPatternErrorMessage String error message to be used when the field value does not match the provided pattern
+     * @return same implementing component instance
+     */
     public T setInvalidPatternErrorMessage(String invalidPatternErrorMessage) {
         this.invalidPatternErrorMessage = invalidPatternErrorMessage;
         return (T) this;
     }
 
+    /**
+     *
+     * @return the String error message to be used when the field value does not match the provided pattern
+     */
     public String getInvalidPatternErrorMessage() {
         return isNull(invalidPatternErrorMessage) ? "Value mismatch pattern [" + getPattern() + "]" : invalidPatternErrorMessage;
     }
 
+    /**
+     *
+     * @param enableSuggestions boolean, if true the component will show suggested values, otherwise it will not.
+     * @return same implementing component instance
+     */
     public T setEnableSuggestions(boolean enableSuggestions) {
         if (enableSuggestions) {
             getInputElement().setAttribute("list", getDominoId());
@@ -182,11 +250,20 @@ public class InputValueBox<T extends InputValueBox<T>> extends AbstractValueBox<
         return (T) this;
     }
 
+    /**
+     *
+     * @param emptyAsNull boolean, if true empty value will be treated as null otherwise it is empty string
+     * @return same implementing component instance
+     */
     public T setEmptyAsNull(boolean emptyAsNull) {
         this.emptyAsNull = emptyAsNull;
         return (T) this;
     }
 
+    /**
+     *
+     * @return boolean, if true empty value will be treated as null otherwise it is empty string
+     */
     public boolean isEmptyAsNull() {
         return emptyAsNull;
     }

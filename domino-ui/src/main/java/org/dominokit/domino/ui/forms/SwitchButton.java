@@ -13,6 +13,9 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import static java.util.Objects.isNull;
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * A component that can switch between two boolean values with different labels
+ */
 public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Boolean> implements Checkable<SwitchButton> {
 
     private HTMLLabelElement onOffLabelElement;
@@ -26,22 +29,40 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
     private String offTitle;
     private String onTitle;
 
+    /**
+     *
+     * @param label String label describing the switch
+     * @param offTitle String label for the OFF state
+     * @param onTitle String label for the ON state
+     */
     public SwitchButton(String label, String offTitle, String onTitle) {
         this(label);
         setOffTitle(offTitle);
         setOnTitle(onTitle);
     }
 
+    /**
+     *
+     * @param label String label describing the switch
+     * @param onOffTitle String label for the ON/OFF state
+     */
     public SwitchButton(String label, String onOffTitle) {
         this(label);
         setOffTitle(onOffTitle);
     }
 
+    /**
+     *
+     * @param label String label describing the switch
+     */
     public SwitchButton(String label) {
         this();
         setLabel(label);
     }
 
+    /**
+     * Creates a switch without a label
+     */
     public SwitchButton() {
         super("switch", "");
         init(this);
@@ -75,10 +96,23 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         css("switch");
     }
 
+    /**
+     *
+     * @param label String label describing the switch
+     * @param offTitle String label for the OFF state
+     * @param onTitle String label for the ON state
+     * @return new SwitchButton instance
+     */
     public static SwitchButton create(String label, String offTitle, String onTitle) {
         return new SwitchButton(label, offTitle, onTitle);
     }
 
+    /**
+     *
+     * @param label String label describing the switch
+     * @param onOffTitle String label for the OFF state
+     * @return new SwitchButton instance
+     */
     public static SwitchButton create(String label, String onOffTitle) {
         return new SwitchButton(label, onOffTitle);
     }
@@ -87,6 +121,9 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         return new SwitchButton();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void linkLabelToField() {
         if(!inputElement.hasAttribute("id")){
@@ -96,10 +133,17 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         getLabelElement().setAttribute("for", inputElement.getAttribute("id"));
     }
 
+    /**
+     *
+     * @return the lever {@link HTMLElement}
+     */
     public DominoElement<HTMLElement> getLever() {
         return lever;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SwitchButton value(Boolean value) {
         super.value(value);
@@ -111,32 +155,51 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return boolean, true if ON false if OFF
+     */
     @Override
     public Boolean getValue() {
         return inputElement.element().checked;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEmpty() {
         return !isChecked();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SwitchButton clear() {
         value(false);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SwitchButton check() {
         return check(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SwitchButton uncheck() {
         return uncheck(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SwitchButton check(boolean silent) {
         inputElement.element().checked = true;
@@ -148,6 +211,9 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SwitchButton uncheck(boolean silent) {
         inputElement.element().checked = false;
@@ -159,17 +225,26 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isChecked() {
         return inputElement.element().checked;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SwitchButton addChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SwitchButton removeChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         if (changeHandler != null)
@@ -177,11 +252,19 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 
+    /**
+     * Sets the color of the Switch when it is ON
+     * @param color {@link Color}
+     * @return same Switch instance
+     */
     public SwitchButton setColor(Color color) {
         if (this.color != null)
             lever.style().remove(this.color.getStyle());
@@ -191,6 +274,11 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
 
     }
 
+    /**
+     *
+     * @param onTitle String title for the ON switch state
+     * @return same SwitchButton instance
+     */
     public SwitchButton setOnTitle(String onTitle) {
         onTitleTextRoot
                 .clearElement()
@@ -199,6 +287,12 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         return this;
     }
 
+
+    /**
+     *
+     * @param offTitle String title for the OFF switch state
+     * @return same SwitchButton instance
+     */
     public SwitchButton setOffTitle(String offTitle) {
         offTitleTextRoot
                 .clearElement()
@@ -207,10 +301,17 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         return this;
     }
 
+    /**
+     *
+     * @return HTMLLabelElement
+     */
     public DominoElement<HTMLLabelElement> getOnOffLabelElement() {
         return DominoElement.of(onOffLabelElement);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SwitchButton setReadOnly(boolean readOnly) {
         super.setReadOnly(readOnly);
@@ -254,7 +355,6 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         return isNull(onTitle) || onTitle.isEmpty();
     }
 
-
     private String getCheckedReadonlyLabel() {
         return isNull(checkedReadonlyLabel) || checkedReadonlyLabel.isEmpty() ? "" : ": " + checkedReadonlyLabel;
     }
@@ -263,42 +363,70 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
         return isNull(unCheckedReadonlyLabel) || unCheckedReadonlyLabel.isEmpty() ? "" : ": " + unCheckedReadonlyLabel;
     }
 
+    /**
+     * Set the label when the state is ON but the switch is readonly
+     * @param checkedReadonlyLabel String
+     * @return same SwitchButton instance
+     */
     public SwitchButton setCheckedReadonlyLabel(String checkedReadonlyLabel) {
         this.checkedReadonlyLabel = checkedReadonlyLabel;
         return this;
     }
 
+    /**
+     * Set the label when the state is OFF but the switch is readonly
+     * @param unCheckedReadonlyLabel String
+     * @return same SwitchButton instance
+     */
     public SwitchButton setUnCheckedReadonlyLabel(String unCheckedReadonlyLabel) {
         this.unCheckedReadonlyLabel = unCheckedReadonlyLabel;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected HTMLElement createInputElement(String type) {
         inputElement = DominoElement.of(input("checkbox"));
         return inputElement.element();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void clearValue() {
         value(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void doSetValue(Boolean value) {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getStringValue() {
         return Boolean.toString(getValue());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected boolean isAddFocusColor() {
         return false;
@@ -325,5 +453,4 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
             switchButton.removeChangeHandler(changeHandler);
         }
     }
-
 }

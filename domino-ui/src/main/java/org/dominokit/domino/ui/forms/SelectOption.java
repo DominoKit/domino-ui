@@ -22,6 +22,10 @@ import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.Elements.span;
 
+/**
+ * A component for a single select option in the select component DropDownMenu
+ * @param <T> The type of the SelectOption value
+ */
 public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOption<T>> implements HasValue<SelectOption, T>,
         HasBackground<SelectOption>, Selectable<SelectOption>, TakesValue<T> {
 
@@ -39,6 +43,12 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     private boolean excludeFromSearchResults = false;
     private FlexLayout optionLayoutElement;
 
+    /**
+     *
+     * @param value T the SelectOption value
+     * @param key String key unique identifier for the SelectOption
+     * @param displayValue String
+     */
     public SelectOption(T value, String key, String displayValue) {
         setKey(key);
         setValue(value);
@@ -56,71 +66,136 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
         init(this);
     }
 
+
+    /**
+     * @param value T the SelectOption value
+     * @param key String key unique identifier for the SelectOption and also the display value
+     */
     public SelectOption(T value, String key) {
         this(value, key, key);
     }
 
+    /**
+     *
+     * @param value T the SelectOption value
+     * @param key String key unique identifier for the SelectOption
+     * @param displayValue String
+     * @param <T> type of the SelectOption value
+     * @return new SelectOption instance
+     */
     public static <T> SelectOption<T> create(T value, String key, String displayValue) {
         return new SelectOption<>(value, key, displayValue);
     }
 
+    /**
+     *
+     * @param value T the SelectOption value
+     * @param key String key unique identifier for the SelectOption and also the display string
+     * @param <T> type of the SelectOption value
+     * @return new SelectOption instance
+     */
     public static <T> SelectOption<T> create(T value, String key) {
         return new SelectOption<>(value, key);
     }
 
+    /**
+     *
+     * @param node {@link Node} to be appended to this SelectOption
+     * @return same SelectOption instance
+     */
     public SelectOption<T> appendChild(Node node) {
         element.appendChild(node);
         return this;
     }
 
+    /**
+     *
+     * @param node {@link IsElement} to be appended to this SelectOption
+     * @return same SelectOption instance
+     */
     public SelectOption<T> appendChild(IsElement<?> node) {
         element.appendChild(node.element());
         return this;
     }
 
+    /**
+     *
+     * @return String key identifier of this SelectOption
+     */
     public String getKey() {
         return key;
     }
 
+    /**
+     *
+     * @param key String key identifier for this SelectOption
+     */
     public void setKey(String key) {
         this.key = key;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T getValue() {
         return this.value;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setValue(T value) {
         this.value = value;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public void addSelectionHandler(Selectable.SelectionHandler<SelectOption> selectionHandler) {
         selectionHandlers.add(selectionHandler);
     }
 
+    /**
+     *
+     * @return String
+     */
     public String getDisplayValue() {
         return displayValue;
     }
 
+    /**
+     *
+     * @param displayValue String
+     * @return same SelectionOption instance
+     */
     public SelectOption<T> setDisplayValue(String displayValue) {
         this.displayValue = displayValue;
         valueContainer.setTextContent(displayValue);
         return this;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public SelectOption<T> select() {
         return select(false);
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public SelectOption<T> deselect() {
         return deselect(false);
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public SelectOption<T> select(boolean silent) {
         style().add(SELECTED);
@@ -133,6 +208,9 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
         return this;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public SelectOption<T> deselect(boolean silent) {
         style().remove(SELECTED);
@@ -141,45 +219,78 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
         return this;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public boolean isSelected() {
         return style().contains(SELECTED);
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public SelectOption<T> setBackground(Color background) {
         style().add(background.getBackground());
         return this;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element.element();
     }
 
+    /**
+     *
+     * @return The {@link Icon} that indicate the SelectOption is selected
+     */
     public Icon getCheckMark() {
         return checkMark;
     }
 
+    /**
+     *
+     * @return the {@link HTMLElement} that contains the display value text wrapped as {@link DominoElement}
+     */
     public DominoElement<HTMLElement> getValueContainer() {
         return valueContainer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SelectOption<T> value(T value) {
         setValue(value);
         return this;
     }
 
+    /**
+     *
+     * @return boolean, true if this option is excluded from showing in the search results
+     */
     public boolean isExcludeFromSearchResults() {
         return excludeFromSearchResults;
     }
 
+    /**
+     * Enable/Disable exclusion from search result
+     * @param excludeFromSearchResults boolean, if true then even if this SelectOption matches the search criteria it wont be included in the search results
+     * @return same {@link SelectOption}
+     */
     public SelectOption<T> setExcludeFromSearchResults(boolean excludeFromSearchResults) {
         this.excludeFromSearchResults = excludeFromSearchResults;
         return this;
     }
 
+    /**
+     *
+     * @return the {@link FlexLayout} that contains the different elements in the SelectOption
+     */
     public FlexLayout getOptionLayoutElement() {
         return optionLayoutElement;
     }

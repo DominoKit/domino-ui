@@ -5,7 +5,6 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.KeyboardEvent;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.forms.FormFieldsStyles;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
@@ -51,6 +50,7 @@ import static org.jboss.elemento.Elements.input;
  */
 public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
+    private static final String READONLY = "readonly";
     private final DatePicker datePicker;
     private String pattern;
 
@@ -519,7 +519,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     public DateBox setReadOnly(boolean readOnly) {
         super.setReadOnly(readOnly);
         if (readOnly) {
-            getInputElement().style().add(FormFieldsStyles.READONLY);
+            getInputElement().style().add(READONLY);
             disableModal();
             disablePopover();
         } else if (isEnabled()) {
