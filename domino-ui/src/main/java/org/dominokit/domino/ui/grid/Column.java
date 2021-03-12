@@ -1,21 +1,34 @@
 package org.dominokit.domino.ui.grid;
 
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
 
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.div;
 
+/**
+ * A component which provides an abstract level of the CSS grid column which will inherit the styles for the CSS grid column by default
+ * <p>
+ * More information can be found in <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column">MDN official documentation</a>
+ * <p>
+ * Customize the component can be done by overwriting classes provided by {@link GridStyles}
+ *
+ * <p>For example: </p>
+ * <pre>
+ *     Column.span1();
+ *     Column.offset1();
+ * </pre>
+ *
+ * @see BaseDominoElement
+ * @see Cloneable
+ */
 public class Column extends BaseDominoElement<HTMLDivElement, Column> implements Cloneable {
 
     private static final int FULL_SPAN = -1;
     private static final int NO_OFFSET = -1;
-    private DominoElement<HTMLDivElement> column;
+    private final DominoElement<HTMLDivElement> column;
     private OnXLarge onXLargeStyle;
     private OnLarge onLargeStyle;
     private OnMedium onMediumStyle;
@@ -32,10 +45,25 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         init(this);
     }
 
+    /**
+     * Creates new column with default size
+     *
+     * @return new instance
+     */
     public static Column span() {
         return new Column();
     }
 
+    /**
+     * Creates new column with providing sizes for different screens sizes
+     *
+     * @param xLarge the size of the column when the screen is X large
+     * @param large  the size of the column when the screen is large
+     * @param medium the size of the column when the screen is medium
+     * @param small  the size of the column when the screen is small
+     * @param xsmall the size of the column when the screen is X small
+     * @return new instance
+     */
     public static Column span(int xLarge, int large, int medium, int small, int xsmall) {
         return span()
                 .onXLarge(OnXLarge.of(xLarge))
@@ -45,14 +73,36 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
                 .onXSmall(OnXSmall.of(xsmall));
     }
 
+    /**
+     * Creates new column with providing sizes for different screens sizes
+     *
+     * @param large  the size of the column when the screen is large
+     * @param medium the size of the column when the screen is medium
+     * @param small  the size of the column when the screen is small
+     * @param xsmall the size of the column when the screen is X small
+     * @return new instance
+     */
     public static Column span(int large, int medium, int small, int xsmall) {
         return span(large, large, medium, small, xsmall);
     }
 
+    /**
+     * Creates new column with providing sizes for different screens sizes as a range
+     *
+     * @param mediumAnUp the size of the column when the screen is larger or equal medium size
+     * @param smallAndDown the size of the column when the screen is smaller or equal small size
+     * @return new instance
+     */
     public static Column span(int mediumAnUp, int smallAndDown) {
         return span(mediumAnUp, mediumAnUp, mediumAnUp, smallAndDown, smallAndDown);
     }
 
+    /**
+     * Creates new column with providing the same size for all different screens sizes
+     *
+     * @param columnsOnAllScreens the size of the column for all screens
+     * @return new instance
+     */
     public static Column span(int columnsOnAllScreens) {
         return span()
                 .onXLarge(OnXLarge.of(columnsOnAllScreens))
@@ -62,263 +112,592 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
                 .onXSmall(OnXSmall.of(columnsOnAllScreens));
     }
 
+    /**
+     * Creates new column with size of 1 column for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span1() {
         return span(1, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 2 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span2() {
         return span(2, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 3 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span3() {
         return span(3, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 4 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span4() {
         return span(4, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 5 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span5() {
         return span(5, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 6 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span6() {
         return span(6, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 7 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span7() {
         return span(7, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 8 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span8() {
         return span(8, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 9 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span9() {
         return span(9, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 10 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span10() {
         return span(10, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 11 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span11() {
         return span(11, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 12 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span12() {
         return span(12, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 13 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span13() {
         return span(13, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 14 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span14() {
         return span(14, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 15 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span15() {
         return span(15, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 16 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span16() {
         return span(16, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 17 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span17() {
         return span(17, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 18 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span18() {
         return span(18, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 19 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span19() {
         return span(19, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 20 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span20() {
         return span(20, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 21 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span21() {
         return span(21, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 22 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span22() {
         return span(22, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 23 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span23() {
         return span(23, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 24 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span24() {
         return span(24, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 25 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span25() {
         return span(25, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 26 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span26() {
         return span(26, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 27 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span27() {
         return span(27, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 28 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span28() {
         return span(28, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 29 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span29() {
         return span(29, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 30 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span30() {
         return span(30, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 31 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span31() {
         return span(31, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with size of 32 columns for screens that are larger or equal medium and size of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
     public static Column span32() {
         return span(32, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with 0 column distance from the start
+     *
+     * @return new instance
+     */
     public Column offset0() {
         return offset(0, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with 1 column distance from the start
+     *
+     * @return new instance
+     */
     public Column offset1() {
         return offset(1, FULL_SPAN);
     }
 
+    /**
+     * Creates new column with 2 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset2() {
         return offset(2, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 3 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset3() {
         return offset(3, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 4 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset4() {
         return offset(4, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 5 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset5() {
         return offset(5, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 6 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset6() {
         return offset(6, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 7 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset7() {
         return offset(7, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 8 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset8() {
         return offset(8, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 9 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset9() {
         return offset(9, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 10 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset10() {
         return offset(10, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 11 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset11() {
         return offset(11, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 12 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset12() {
         return offset(12, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 13 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset13() {
         return offset(13, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 14 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset14() {
         return offset(14, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 15 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset15() {
         return offset(15, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 16 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset16() {
         return offset(16, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 17 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset17() {
         return offset(17, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 18 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset18() {
         return offset(18, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 19 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset19() {
         return offset(19, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 20 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset20() {
         return offset(20, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 21 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset21() {
         return offset(21, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 22 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset22() {
         return offset(22, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 23 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset23() {
         return offset(23, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 24 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset24() {
         return offset(24, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 25 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset25() {
         return offset(25, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 26 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset26() {
         return offset(26, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 27 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset27() {
         return offset(27, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 28 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset28() {
         return offset(28, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 29 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset29() {
         return offset(29, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 30 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset30() {
         return offset(30, NO_OFFSET);
     }
 
+    /**
+     * Creates new column with 31 columns distance from the start
+     *
+     * @return new instance
+     */
     public Column offset31() {
         return offset(31, NO_OFFSET);
     }
 
-
+    /**
+     * Creates new column with providing offsets on all different screens sizes
+     *
+     * @param xLarge the offset of the column when the screen is X large
+     * @param large the offset of the column when the screen is large
+     * @param medium the offset of the column when the screen is medium
+     * @param small the offset of the column when the screen is small
+     * @param xsmall the offset of the column when the screen is X small
+     * @return new instance
+     */
     public Column offset(int xLarge, int large, int medium, int small, int xsmall) {
         return onXLargeOffset(OnXLargeOffset.of(xLarge))
                 .onLargeOffset(OnLargeOffset.of(large))
@@ -327,14 +706,36 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
                 .onXSmallOffset(OnXSmallOffset.of(xsmall));
     }
 
+    /**
+     * Creates new column with providing offsets on all different screens sizes
+     *
+     * @param large the offset of the column when the screen is large
+     * @param medium the offset of the column when the screen is medium
+     * @param small the offset of the column when the screen is small
+     * @param xsmall the offset of the column when the screen is X small
+     * @return new instance
+     */
     public Column offset(int large, int medium, int small, int xsmall) {
         return offset(large, large, medium, small, xsmall);
     }
 
+    /**
+     * Creates new column with providing offsets for different screens sizes as a range
+     *
+     * @param mediumAnUp the offset of the column when the screen is larger or equal medium size
+     * @param smallAndDown the offset of the column when the screen is smaller or equal small size
+     * @return new instance
+     */
     public Column offset(int mediumAnUp, int smallAndDown) {
         return offset(mediumAnUp, mediumAnUp, mediumAnUp, smallAndDown, smallAndDown);
     }
 
+    /**
+     * Creates new column with providing the same offset for all different screens sizes
+     *
+     * @param columnsOnAllScreens the offset of the column for all screens
+     * @return new instance
+     */
     public Column offset(int columnsOnAllScreens) {
         return onXLargeOffset(OnXLargeOffset.of(columnsOnAllScreens))
                 .onLargeOffset(OnLargeOffset.of(columnsOnAllScreens))
@@ -343,6 +744,11 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
                 .onXSmallOffset(OnXSmallOffset.of(columnsOnAllScreens));
     }
 
+    /**
+     * Copy this instance
+     *
+     * @return a new instance same as {@code this}
+     */
     public Column copy() {
         Column column = Column.span();
         if (nonNull(this.onXLargeStyle))
@@ -373,6 +779,12 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return column;
     }
 
+    /**
+     * Sets the size of the column when the screen is X large
+     *
+     * @param onXLarge the new {@link OnXLarge} size
+     * @return same instance
+     */
     public Column onXLarge(OnXLarge onXLarge) {
         if (nonNull(this.onXLargeStyle)) {
             style().remove(this.onXLargeStyle.getStyle());
@@ -382,6 +794,12 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return this;
     }
 
+    /**
+     * Sets the size of the column when the screen is large
+     *
+     * @param onLarge the new {@link OnLarge} size
+     * @return same instance
+     */
     public Column onLarge(OnLarge onLarge) {
         if (nonNull(this.onLargeStyle)) {
             style().remove(this.onLargeStyle.getStyle());
@@ -391,6 +809,12 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return this;
     }
 
+    /**
+     * Sets the size of the column when the screen is medium
+     *
+     * @param onMedium the new {@link OnMedium} size
+     * @return same instance
+     */
     public Column onMedium(OnMedium onMedium) {
         if (nonNull(this.onMediumStyle)) {
             style().remove(this.onMediumStyle.getStyle());
@@ -400,6 +824,12 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return this;
     }
 
+    /**
+     * Sets the size of the column when the screen is small
+     *
+     * @param onSmall the new {@link OnSmall} size
+     * @return same instance
+     */
     public Column onSmall(OnSmall onSmall) {
         if (nonNull(this.onSmallStyle)) {
             style().remove(this.onSmallStyle.getStyle());
@@ -409,6 +839,12 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return this;
     }
 
+    /**
+     * Sets the size of the column when the screen is X small
+     *
+     * @param onXSmall the new {@link OnXSmall} size
+     * @return same instance
+     */
     public Column onXSmall(OnXSmall onXSmall) {
         if (nonNull(this.onXSmallStyle)) {
             style().remove(this.onXSmallStyle.getStyle());
@@ -418,6 +854,12 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return this;
     }
 
+    /**
+     * Sets the offset of the column when the screen is X large
+     *
+     * @param onXLarge the new {@link OnXLargeOffset} offset
+     * @return same instance
+     */
     public Column onXLargeOffset(OnXLargeOffset onXLarge) {
         if (nonNull(this.onXLargeOffsetStyle)) {
             style().remove(this.onXLargeOffsetStyle.getStyle());
@@ -427,6 +869,12 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return this;
     }
 
+    /**
+     * Sets the offset of the column when the screen is large
+     *
+     * @param onLarge the new {@link OnLargeOffset} offset
+     * @return same instance
+     */
     public Column onLargeOffset(OnLargeOffset onLarge) {
         if (nonNull(this.onLargeOffsetStyle)) {
             style().remove(this.onLargeOffsetStyle.getStyle());
@@ -436,6 +884,12 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return this;
     }
 
+    /**
+     * Sets the offset of the column when the screen is medium
+     *
+     * @param onMedium the new {@link OnMediumOffset} offset
+     * @return same instance
+     */
     public Column onMediumOffset(OnMediumOffset onMedium) {
         if (nonNull(this.onMediumOffsetStyle)) {
             style().remove(this.onMediumOffsetStyle.getStyle());
@@ -445,6 +899,12 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return this;
     }
 
+    /**
+     * Sets the offset of the column when the screen is small
+     *
+     * @param onSmall the new {@link OnSmallOffset} offset
+     * @return same instance
+     */
     public Column onSmallOffset(OnSmallOffset onSmall) {
         if (nonNull(this.onSmallOffsetStyle)) {
             style().remove(this.onSmallOffsetStyle.getStyle());
@@ -454,6 +914,12 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return this;
     }
 
+    /**
+     * Sets the offset of the column when the screen is X small
+     *
+     * @param onXSmall the new {@link OnXSmallOffset} offset
+     * @return same instance
+     */
     public Column onXSmallOffset(OnXSmallOffset onXSmall) {
         if (nonNull(this.onXSmallOffsetStyle)) {
             style().remove(this.onXSmallOffsetStyle.getStyle());
@@ -463,69 +929,130 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return this;
     }
 
+    /**
+     * Centers the content of the column
+     *
+     * @return same instance
+     */
     public Column centerContent() {
         style().add(Styles.align_center);
         return this;
     }
 
+    /**
+     * De-centers the content of the column, the content will take place based on the default container
+     *
+     * @return same instance
+     */
     public Column deCenterContent() {
         style().remove(Styles.align_center);
         return this;
     }
 
+    /**
+     * Removes margins for the column
+     *
+     * @return same instance
+     */
+    public Column condensed() {
+        style().remove(GridStyles.CONDENSE)
+                .add(GridStyles.CONDENSE);
+        return this;
+    }
+
+    /**
+     * @deprecated Use {@link Column#condensed()} instead
+     */
+    @Deprecated
     public Column condenced() {
         style().remove(GridStyles.CONDENSE)
                 .add(GridStyles.CONDENSE);
         return this;
     }
 
+    /**
+     * @return The {@link OnXLarge} size
+     */
     public OnXLarge getOnXLargeStyle() {
         return onXLargeStyle;
     }
 
+    /**
+     * @return The {@link OnLarge} size
+     */
     public OnLarge getOnLargeStyle() {
         return onLargeStyle;
     }
 
+    /**
+     * @return The {@link OnMedium} size
+     */
     public OnMedium getOnMediumStyle() {
         return onMediumStyle;
     }
 
+    /**
+     * @return The {@link OnSmall} size
+     */
     public OnSmall getOnSmallStyle() {
         return onSmallStyle;
     }
 
+    /**
+     * @return The {@link OnXSmall} size
+     */
     public OnXSmall getOnXSmallStyle() {
         return onXSmallStyle;
     }
 
+    /**
+     * @return The {@link OnMediumOffset} offset
+     */
     public OnMediumOffset getOnMediumOffsetStyle() {
         return onMediumOffsetStyle;
     }
 
+    /**
+     * @return The {@link OnXSmallOffset} offset
+     */
     public OnXSmallOffset getOnXSmallOffsetStyle() {
         return onXSmallOffsetStyle;
     }
 
+    /**
+     * @return The {@link OnXLargeOffset} offset
+     */
     public OnXLargeOffset getOnXLargeOffsetStyle() {
         return onXLargeOffsetStyle;
     }
 
+    /**
+     * @return The {@link OnLargeOffset} offset
+     */
     public OnLargeOffset getOnLargeOffsetStyle() {
         return onLargeOffsetStyle;
     }
 
+    /**
+     * @return The {@link OnSmallOffset} offset
+     */
     public OnSmallOffset getOnSmallOffsetStyle() {
         return onSmallOffsetStyle;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return column.element();
     }
 
+    /**
+     * This class represents the size of the column when the screen is X large
+     */
     public static class OnXLarge {
-        private Span span;
+        private final Span span;
 
         OnXLarge(Span span) {
             this.span = span;
@@ -535,21 +1062,36 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
             return new OnXLarge(span);
         }
 
+        /**
+         * Creates the size based on integer value from 1 to 32
+         *
+         * @param xlarge the integer value representing the size
+         * @return new instance
+         */
         public static OnXLarge of(int xlarge) {
             return new OnXLarge(Span.of(xlarge));
         }
 
+        /**
+         * @return The CSS style of this size
+         */
         public String getStyle() {
             return GridStyles.SPAN_XL + span.postfix;
         }
 
+        /**
+         * @return The {@link Span} size
+         */
         public Span getSpan() {
             return span;
         }
     }
 
+    /**
+     * This class represents the size of the column when the screen is large
+     */
     public static class OnLarge {
-        private Span span;
+        private final Span span;
 
         OnLarge(Span span) {
             this.span = span;
@@ -559,21 +1101,36 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
             return new OnLarge(span);
         }
 
+        /**
+         * Creates the size based on integer value from 1 to 32
+         *
+         * @param large the integer value representing the size
+         * @return new instance
+         */
         public static OnLarge of(int large) {
             return new OnLarge(Span.of(large));
         }
 
+        /**
+         * @return The CSS style of this size
+         */
         public String getStyle() {
             return GridStyles.SPAN_L + span.postfix;
         }
 
+        /**
+         * @return The {@link Span} size
+         */
         public Span getSpan() {
             return span;
         }
     }
 
+    /**
+     * This class represents the size of the column when the screen is medium
+     */
     public static class OnMedium {
-        private Span span;
+        private final Span span;
 
         OnMedium(Span span) {
             this.span = span;
@@ -583,21 +1140,36 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
             return new OnMedium(span);
         }
 
+        /**
+         * Creates the size based on integer value from 1 to 32
+         *
+         * @param medium the integer value representing the size
+         * @return new instance
+         */
         public static OnMedium of(int medium) {
             return new OnMedium(Span.of(medium));
         }
 
+        /**
+         * @return The CSS style of this size
+         */
         public String getStyle() {
             return GridStyles.SPAN_M + span.postfix;
         }
 
+        /**
+         * @return The {@link Span} size
+         */
         public Span getSpan() {
             return span;
         }
     }
 
+    /**
+     * This class represents the size of the column when the screen is small
+     */
     public static class OnSmall {
-        private Span span;
+        private final Span span;
 
         OnSmall(Span span) {
             this.span = span;
@@ -607,22 +1179,37 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
             return new OnSmall(span);
         }
 
+        /**
+         * Creates the size based on integer value from 1 to 32
+         *
+         * @param small the integer value representing the size
+         * @return new instance
+         */
         public static OnSmall of(int small) {
             return new OnSmall(Span.of(small));
         }
 
+        /**
+         * @return The CSS style of this size
+         */
         public String getStyle() {
             return GridStyles.SPAN_S + span.postfix;
         }
 
+        /**
+         * @return The {@link Span} size
+         */
         public Span getSpan() {
             return span;
         }
     }
 
+    /**
+     * This class represents the size of the column when the screen is X small
+     */
     public static class OnXSmall {
 
-        private Span span;
+        private final Span span;
 
         OnXSmall(Span span) {
             this.span = span;
@@ -632,21 +1219,36 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
             return new OnXSmall(span);
         }
 
+        /**
+         * Creates the size based on integer value from 1 to 32
+         *
+         * @param xsmall the integer value representing the size
+         * @return new instance
+         */
         public static OnXSmall of(int xsmall) {
             return new OnXSmall(Span.of(xsmall));
         }
 
+        /**
+         * @return The CSS style of this size
+         */
         public String getStyle() {
             return GridStyles.SPAN_XS + span.postfix;
         }
 
+        /**
+         * @return The {@link Span} size
+         */
         public Span getSpan() {
             return span;
         }
     }
 
+    /**
+     * This class represents the offset of the column when the screen is X large
+     */
     public static class OnXLargeOffset {
-        private Offset offset;
+        private final Offset offset;
 
         OnXLargeOffset(Offset offset) {
             this.offset = offset;
@@ -656,21 +1258,36 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
             return new OnXLargeOffset(offset);
         }
 
+        /**
+         * Creates the offset based on integer value from 0 to 31
+         *
+         * @param xlarge the integer value representing the offset
+         * @return new instance
+         */
         public static OnXLargeOffset of(int xlarge) {
             return new OnXLargeOffset(Offset.of(xlarge));
         }
 
+        /**
+         * @return The CSS style of this offset
+         */
         public String getStyle() {
             return GridStyles.OFFSET_XL + offset.postfix;
         }
 
+        /**
+         * @return The {@link Offset} size
+         */
         public Offset getOffset() {
             return offset;
         }
     }
 
+    /**
+     * This class represents the offset of the column when the screen is large
+     */
     public static class OnLargeOffset {
-        private Offset offset;
+        private final Offset offset;
 
         OnLargeOffset(Offset offset) {
             this.offset = offset;
@@ -680,21 +1297,36 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
             return new OnLargeOffset(offset);
         }
 
+        /**
+         * Creates the offset based on integer value from 0 to 31
+         *
+         * @param large the integer value representing the offset
+         * @return new instance
+         */
         public static OnLargeOffset of(int large) {
             return new OnLargeOffset(Offset.of(large));
         }
 
+        /**
+         * @return The CSS style of this offset
+         */
         public String getStyle() {
             return GridStyles.OFFSET_L + offset.postfix;
         }
 
+        /**
+         * @return The {@link Offset} size
+         */
         public Offset getOffset() {
             return offset;
         }
     }
 
+    /**
+     * This class represents the offset of the column when the screen is medium
+     */
     public static class OnMediumOffset {
-        private Offset offset;
+        private final Offset offset;
 
         OnMediumOffset(Offset offset) {
             this.offset = offset;
@@ -704,21 +1336,36 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
             return new OnMediumOffset(offset);
         }
 
+        /**
+         * Creates the offset based on integer value from 0 to 31
+         *
+         * @param medium the integer value representing the offset
+         * @return new instance
+         */
         public static OnMediumOffset of(int medium) {
             return new OnMediumOffset(Offset.of(medium));
         }
 
+        /**
+         * @return The CSS style of this offset
+         */
         public String getStyle() {
             return GridStyles.OFFSET_M + offset.postfix;
         }
 
+        /**
+         * @return The {@link Offset} size
+         */
         public Offset getOffset() {
             return offset;
         }
     }
 
+    /**
+     * This class represents the offset of the column when the screen is small
+     */
     public static class OnSmallOffset {
-        private Offset offset;
+        private final Offset offset;
 
         OnSmallOffset(Offset offset) {
             this.offset = offset;
@@ -728,22 +1375,37 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
             return new OnSmallOffset(offset);
         }
 
+        /**
+         * Creates the offset based on integer value from 0 to 31
+         *
+         * @param small the integer value representing the offset
+         * @return new instance
+         */
         public static OnSmallOffset of(int small) {
             return new OnSmallOffset(Offset.of(small));
         }
 
+        /**
+         * @return The CSS style of this offset
+         */
         public String getStyle() {
             return GridStyles.OFFSET_S + offset.postfix;
         }
 
+        /**
+         * @return The {@link Offset} size
+         */
         public Offset getOffset() {
             return offset;
         }
     }
 
+    /**
+     * This class represents the offset of the column when the screen is X small
+     */
     public static class OnXSmallOffset {
 
-        private Offset offset;
+        private final Offset offset;
 
         OnXSmallOffset(Offset offset) {
             this.offset = offset;
@@ -753,19 +1415,34 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
             return new OnXSmallOffset(offset);
         }
 
+        /**
+         * Creates the offset based on integer value from 0 to 31
+         *
+         * @param xsmall the integer value representing the offset
+         * @return new instance
+         */
         public static OnXSmallOffset of(int xsmall) {
             return new OnXSmallOffset(Offset.of(xsmall));
         }
 
+        /**
+         * @return The CSS style of this offset
+         */
         public String getStyle() {
             return GridStyles.OFFSET_XS + offset.postfix;
         }
 
+        /**
+         * @return The {@link Offset} size
+         */
         public Offset getOffset() {
             return offset;
         }
     }
 
+    /**
+     * An enum representing the size of a column can have
+     */
     public enum Span {
         _1("-1", 1),
         _2("-2", 2),
@@ -773,7 +1450,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         _4("-4", 4),
         _5("-5", 5),
         _6("-6", 6),
-        _7("-7",7),
+        _7("-7", 7),
         _8("-8", 8),
         _9("-9", 9),
         _10("-10", 10),
@@ -809,6 +1486,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
             this.value = value;
         }
 
+        /**
+         * @return The size as integer value
+         */
         public int getValue() {
             return value;
         }
@@ -885,13 +1565,16 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         }
     }
 
+    /**
+     * An enum representing the offset that a column can have
+     */
     public enum Offset {
         _0("-0", 0),
         _1("-1", 1),
         _2("-2", 2),
         _3("-3", 3),
         _4("-4", 4),
-        _5("-5",5),
+        _5("-5", 5),
         _6("-6", 6),
         _7("-7", 7),
         _8("-8", 8),
@@ -928,6 +1611,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
             this.value = value;
         }
 
+        /**
+         * @return The offset integer value
+         */
         public int getValue() {
             return value;
         }
