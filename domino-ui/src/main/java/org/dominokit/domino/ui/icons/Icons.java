@@ -1,5 +1,8 @@
 package org.dominokit.domino.ui.icons;
 
+/**
+ * A factory class for all icons supported
+ */
 public class Icons implements ActionIcons, AlertIcons, AvIcons, CommunicationIcons, ContentIcons, DeviceIcons, EditorIcons, HardwareIcons, FileIcons, ImageIcons, MapsIcons, NavigationIcons, NotificationIcons, PlacesIcons, SocialIcons, ToggleIcons, MdiIcons {
 
     private Icons() {
@@ -25,8 +28,14 @@ public class Icons implements ActionIcons, AlertIcons, AvIcons, CommunicationIco
     public static final ToggleIcons TOGGLE_ICONS = ALL;
     public static final MdiIcons MDI_ICONS = ALL;
 
-    public static BaseIcon<?> of(String name){
-        if(name.startsWith("mdi")){
+    /**
+     * A factory method which creates icon based on the {@code name}
+     *
+     * @param name the name of the icon
+     * @return new instance
+     */
+    public static BaseIcon<?> of(String name) {
+        if (name.startsWith("mdi")) {
             return MdiIcon.create(name);
         }
         return Icon.create(name);
