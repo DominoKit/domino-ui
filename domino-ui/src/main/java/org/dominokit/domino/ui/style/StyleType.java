@@ -32,7 +32,7 @@ public enum StyleType {
      */
     DANGER("danger");
 
-    private String style;
+    private final String style;
 
     /**
      *
