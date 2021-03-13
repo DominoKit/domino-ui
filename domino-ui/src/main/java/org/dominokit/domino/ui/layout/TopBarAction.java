@@ -9,6 +9,10 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import static org.jboss.elemento.Elements.a;
 import static org.jboss.elemento.Elements.li;
 
+/**
+ * @deprecated use {@link LayoutActionItem}
+ */
+@Deprecated
 public class TopBarAction extends BaseDominoElement<HTMLLIElement, TopBarAction> {
 
     private HTMLLIElement element = li().css(Styles.pull_right).element();
