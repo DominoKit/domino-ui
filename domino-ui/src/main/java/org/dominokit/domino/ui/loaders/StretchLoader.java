@@ -9,15 +9,18 @@ import org.jboss.elemento.IsElement;
 import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
 import static org.jboss.elemento.Elements.div;
 
+/**
+ * Stretch loader implementation
+ */
 public class StretchLoader extends BaseLoader<StretchLoader> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555;").element();
-    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555;").element();
-    private HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#555;").element();
-    private HTMLDivElement progress4 = div().css(WAIT_ME_PROGRESS_ELEM_4).style("background-color:#555;").element();
-    private HTMLDivElement progress5 = div().css(WAIT_ME_PROGRESS_ELEM_5).style("background-color:#555;").element();
+    private final HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555;").element();
+    private final HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555;").element();
+    private final HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#555;").element();
+    private final HTMLDivElement progress4 = div().css(WAIT_ME_PROGRESS_ELEM_4).style("background-color:#555;").element();
+    private final HTMLDivElement progress5 = div().css(WAIT_ME_PROGRESS_ELEM_5).style("background-color:#555;").element();
 
-    private HTMLDivElement loader = div()
+    private final HTMLDivElement loader = div()
             .css(WAIT_ME_PROGRESS)
             .css(STRETCH)
             .add(progress1)
@@ -27,14 +30,14 @@ public class StretchLoader extends BaseLoader<StretchLoader> implements IsElemen
             .add(progress5)
             .element();
 
-    private HTMLDivElement content = div()
+    private final HTMLDivElement content = div()
             .css(WAIT_ME_CONTENT)
             .css(Styles.vertical_center)
             .add(loader)
             .add(loadingText)
             .element();
 
-    private HTMLDivElement element = div()
+    private final HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.9);")
             .add(content)
@@ -48,11 +51,17 @@ public class StretchLoader extends BaseLoader<StretchLoader> implements IsElemen
         return new StretchLoader();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setLoadingText(String text) {
         loadingText.textContent = text;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setSize(String width, String height) {
         onAttached(mutationRecord -> {
@@ -60,16 +69,25 @@ public class StretchLoader extends BaseLoader<StretchLoader> implements IsElemen
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeLoadingText() {
         onAttached(mutationRecord -> loadingText.remove());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLDivElement> getContentElement() {
         return DominoElement.of(content);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element;

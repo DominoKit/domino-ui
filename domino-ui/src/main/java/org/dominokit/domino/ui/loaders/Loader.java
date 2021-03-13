@@ -7,21 +7,47 @@ import org.jboss.elemento.IsElement;
 
 import static java.util.Objects.nonNull;
 
+/**
+ * A component which provides a loader mask on a target element
+ * <p>
+ * Customize the component can be done by overwriting classes provided by {@link LoaderStyles}
+ *
+ * <p>For example: </p>
+ * <pre>
+ *     Loader.create(element, LoaderEffect.PULSE)
+ *           .setLoadingText("Loading ...")
+ *           .start();
+ * </pre>
+ */
 public class Loader {
 
+    private final DominoElement<HTMLElement> target;
+    private final IsLoader loaderElement;
     private boolean started = false;
-    private DominoElement<HTMLElement> target;
-    private IsLoader loaderElement;
     private String width;
     private String height;
     private boolean removeLoadingText = false;
 
     private LoadingTextPosition loadingTextPosition = LoadingTextPosition.MIDDLE;
 
+    /**
+     * Creates a loader for a target element with an effect
+     *
+     * @param target the target element
+     * @param effect the {@link LoaderEffect}
+     * @return new instance
+     */
     public static Loader create(HTMLElement target, LoaderEffect effect) {
         return new Loader(target, effect);
     }
 
+    /**
+     * Creates a loader for a target element with an effect
+     *
+     * @param target the target element
+     * @param effect the {@link LoaderEffect}
+     * @return new instance
+     */
     public static Loader create(IsElement<?> target, LoaderEffect effect) {
         return new Loader(target.element(), effect);
     }
@@ -32,6 +58,11 @@ public class Loader {
         this.loaderElement.getContentElement().css(loadingTextPosition.getStyle());
     }
 
+    /**
+     * Starts the loading, the loader will keep loading until {@link Loader#stop()} is called
+     *
+     * @return same instance
+     */
     public Loader start() {
         stop();
         if (nonNull(width) && nonNull(height)) {
@@ -48,6 +79,11 @@ public class Loader {
         return this;
     }
 
+    /**
+     * Stops the loading
+     *
+     * @return same instance
+     */
     public Loader stop() {
         if (started) {
             loaderElement.getElement().remove();
@@ -58,30 +94,61 @@ public class Loader {
         return this;
     }
 
+    /**
+     * Sets a loading text which will be shown when the loader starts loading
+     *
+     * @param text the loading text
+     * @return same instance
+     */
     public Loader setLoadingText(String text) {
         loaderElement.setLoadingText(text);
         return this;
     }
 
+    /**
+     * Sets the width and height for the loader
+     *
+     * @param width  the width
+     * @param height the height
+     * @return same instance
+     */
     public Loader setSize(String width, String height) {
         this.width = width;
         this.height = height;
         return this;
     }
 
+    /**
+     * Removes the loading text when loader is shown
+     *
+     * @param removeLoadingText true to remove the loading text, false otherwise
+     * @return same instance
+     */
     public Loader setRemoveLoadingText(boolean removeLoadingText) {
         this.removeLoadingText = removeLoadingText;
         return this;
     }
 
+    /**
+     * @return True if the loader is started, false otherwise
+     */
     public boolean isStarted() {
         return started;
     }
 
+    /**
+     * @return The {@link LoadingTextPosition}
+     */
     public LoadingTextPosition getLoadingTextPosition() {
         return loadingTextPosition;
     }
 
+    /**
+     * Sets the position of the loading text
+     *
+     * @param loadingTextPosition the {@link LoadingTextPosition}
+     * @return same instance
+     */
     public Loader setLoadingTextPosition(LoadingTextPosition loadingTextPosition) {
         this.loaderElement.getContentElement().removeCss(this.loadingTextPosition.getStyle());
         this.loadingTextPosition = loadingTextPosition;
@@ -94,19 +161,28 @@ public class Loader {
         return this;
     }
 
+    /**
+     * @return The loader element
+     */
     public IsLoader getLoaderElement() {
         return loaderElement;
     }
 
+    /**
+     * An enum representing the position of the loading text based on the loader effect
+     */
     public enum LoadingTextPosition {
         TOP(LoaderStyles.LOADING_TOP), MIDDLE(LoaderStyles.LOADING_MIDDLE), BOTTOM(LoaderStyles.LOADING_BOTTOM);
 
-        private String style;
+        private final String style;
 
         LoadingTextPosition(String style) {
             this.style = style;
         }
 
+        /**
+         * @return The css style of the position
+         */
         public String getStyle() {
             return style;
         }

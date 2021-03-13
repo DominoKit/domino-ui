@@ -9,17 +9,20 @@ import org.jboss.elemento.IsElement;
 import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
 import static org.jboss.elemento.Elements.div;
 
+/**
+ * Progress bar loader implementation
+ */
 public class ProgressBarLoader extends BaseLoader<ProgressBarLoader> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").element();
+    private final HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").element();
 
-    private HTMLDivElement loader = div()
+    private final HTMLDivElement loader = div()
             .css(WAIT_ME_PROGRESS)
             .css(PROGRESS_BAR)
             .add(progress1)
             .element();
 
-    private HTMLDivElement content = div()
+    private final HTMLDivElement content = div()
             .css(WAIT_ME_CONTENT)
             .css(Styles.vertical_center)
             .css(VERTICAL)
@@ -27,7 +30,7 @@ public class ProgressBarLoader extends BaseLoader<ProgressBarLoader> implements 
             .add(loadingText)
             .element();
 
-    private HTMLDivElement element = div()
+    private final HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.7);")
             .add(content)
@@ -41,26 +44,41 @@ public class ProgressBarLoader extends BaseLoader<ProgressBarLoader> implements 
         return new ProgressBarLoader();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setLoadingText(String text) {
         loadingText.textContent = text;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setSize(String width, String height) {
         onAttached(mutationRecord -> Style.of(loader).setWidth(width).setHeight(height));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeLoadingText() {
         onAttached(mutationRecord -> loadingText.remove());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLDivElement> getContentElement() {
         return DominoElement.of(content);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element;
