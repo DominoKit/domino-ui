@@ -1,9 +1,12 @@
 package org.dominokit.domino.ui.loaders;
 
+/**
+ * A factory for creating loaders based on their type
+ */
 public class LoaderFactory {
 
     public static IsLoader make(LoaderEffect type) {
-        switch (type){
+        switch (type) {
             case BOUNCE:
                 return BounceLoader.create();
             case ROTATE_PLANE:

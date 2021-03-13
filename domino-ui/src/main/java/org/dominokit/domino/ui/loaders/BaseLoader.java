@@ -6,6 +6,13 @@ import org.jboss.elemento.IsElement;
 
 import static org.jboss.elemento.Elements.div;
 
+/**
+ * Base loader implementation
+ *
+ * @param <T> the type of the loader
+ * @see BaseDominoElement
+ * @see IsLoader
+ */
 public abstract class BaseLoader<T extends BaseLoader<T>> extends BaseDominoElement<HTMLDivElement, T> implements IsLoader, IsElement<HTMLDivElement> {
 
     protected HTMLDivElement loadingText = div()
@@ -14,6 +21,9 @@ public abstract class BaseLoader<T extends BaseLoader<T>> extends BaseDominoElem
             .textContent("Loading...")
             .element();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement getElement() {
         return element();

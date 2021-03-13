@@ -9,22 +9,25 @@ import org.jboss.elemento.IsElement;
 import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
 import static org.jboss.elemento.Elements.div;
 
+/**
+ * IOS loader implementation
+ */
 public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555").element();
-    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555").element();
-    private HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#555").element();
-    private HTMLDivElement progress4 = div().css(WAIT_ME_PROGRESS_ELEM_4).style("background-color:#555").element();
-    private HTMLDivElement progress5 = div().css(WAIT_ME_PROGRESS_ELEM_5).style("background-color:#555").element();
-    private HTMLDivElement progress6 = div().css(WAIT_ME_PROGRESS_ELEM_6).style("background-color:#555").element();
-    private HTMLDivElement progress7 = div().css(WAIT_ME_PROGRESS_ELEM_7).style("background-color:#555").element();
-    private HTMLDivElement progress8 = div().css(WAIT_ME_PROGRESS_ELEM_8).style("background-color:#555").element();
-    private HTMLDivElement progress9 = div().css(WAIT_ME_PROGRESS_ELEM_9).style("background-color:#555").element();
-    private HTMLDivElement progress10 = div().css(WAIT_ME_PROGRESS_ELEM_10).style("background-color:#555").element();
-    private HTMLDivElement progress11 = div().css(WAIT_ME_PROGRESS_ELEM_11).style("background-color:#555").element();
-    private HTMLDivElement progress12 = div().css(WAIT_ME_PROGRESS_ELEM_12).style("background-color:#555").element();
+    private final HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555").element();
+    private final HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555").element();
+    private final HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#555").element();
+    private final HTMLDivElement progress4 = div().css(WAIT_ME_PROGRESS_ELEM_4).style("background-color:#555").element();
+    private final HTMLDivElement progress5 = div().css(WAIT_ME_PROGRESS_ELEM_5).style("background-color:#555").element();
+    private final HTMLDivElement progress6 = div().css(WAIT_ME_PROGRESS_ELEM_6).style("background-color:#555").element();
+    private final HTMLDivElement progress7 = div().css(WAIT_ME_PROGRESS_ELEM_7).style("background-color:#555").element();
+    private final HTMLDivElement progress8 = div().css(WAIT_ME_PROGRESS_ELEM_8).style("background-color:#555").element();
+    private final HTMLDivElement progress9 = div().css(WAIT_ME_PROGRESS_ELEM_9).style("background-color:#555").element();
+    private final HTMLDivElement progress10 = div().css(WAIT_ME_PROGRESS_ELEM_10).style("background-color:#555").element();
+    private final HTMLDivElement progress11 = div().css(WAIT_ME_PROGRESS_ELEM_11).style("background-color:#555").element();
+    private final HTMLDivElement progress12 = div().css(WAIT_ME_PROGRESS_ELEM_12).style("background-color:#555").element();
 
-    private HTMLDivElement loader = div()
+    private final HTMLDivElement loader = div()
             .css(WAIT_ME_PROGRESS)
             .css(IOS)
             .add(progress1)
@@ -41,7 +44,7 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
             .add(progress12)
             .element();
 
-    private HTMLDivElement content = div()
+    private final HTMLDivElement content = div()
             .css(WAIT_ME_CONTENT)
             .css(Styles.vertical_center)
             .add(div()
@@ -49,7 +52,7 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
                     .add(loadingText)
             ).element();
 
-    private HTMLDivElement element = div()
+    private final HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.9);")
             .add(content)
@@ -63,11 +66,17 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
         return new IosLoader();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setLoadingText(String text) {
         loadingText.textContent = text;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setSize(String width, String height) {
         onAttached(mutationRecord -> {
@@ -75,16 +84,25 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeLoadingText() {
         onAttached(mutationRecord -> loadingText.remove());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLDivElement> getContentElement() {
         return DominoElement.of(content);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element;

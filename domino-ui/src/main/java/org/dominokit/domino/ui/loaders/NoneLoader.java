@@ -9,16 +9,19 @@ import static org.dominokit.domino.ui.loaders.LoaderStyles.WAIT_ME;
 import static org.dominokit.domino.ui.loaders.LoaderStyles.WAIT_ME_CONTENT;
 import static org.jboss.elemento.Elements.div;
 
+/**
+ * A none loader implementation
+ */
 public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement content = div()
+    private final HTMLDivElement content = div()
             .css(WAIT_ME_CONTENT)
             .css(Styles.vertical_center)
             .style("margin-top: -18px;")
             .add(loadingText)
             .element();
 
-    private HTMLDivElement element = div()
+    private final HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.9);")
             .add(content)
@@ -32,25 +35,40 @@ public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTML
         return new NoneLoader();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setLoadingText(String text) {
         loadingText.textContent = text;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setSize(String width, String height) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeLoadingText() {
         onAttached(mutationRecord -> loadingText.remove());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLDivElement> getContentElement() {
         return DominoElement.of(content);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element;

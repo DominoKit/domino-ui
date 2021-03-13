@@ -9,13 +9,16 @@ import org.jboss.elemento.IsElement;
 import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
 import static org.jboss.elemento.Elements.div;
 
+/**
+ * Bounce pulse loader implementation
+ */
 public class BouncePulseLoader extends BaseLoader<BouncePulseLoader> implements IsElement<HTMLDivElement> {
 
-    private HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").element();
-    private HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#000").element();
-    private HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#000").element();
+    private final HTMLDivElement progress1 = div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").element();
+    private final HTMLDivElement progress2 = div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#000").element();
+    private final HTMLDivElement progress3 = div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#000").element();
 
-    private HTMLDivElement loader = div()
+    private final HTMLDivElement loader = div()
             .css(WAIT_ME_PROGRESS)
             .css(BOUNCE_PULSE)
             .add(progress1)
@@ -23,7 +26,7 @@ public class BouncePulseLoader extends BaseLoader<BouncePulseLoader> implements 
             .add(progress3)
             .element();
 
-    private HTMLDivElement content = div()
+    private final HTMLDivElement content = div()
             .css(WAIT_ME_CONTENT)
             .css(Styles.vertical_center)
             .css(VERTICAL)
@@ -31,7 +34,7 @@ public class BouncePulseLoader extends BaseLoader<BouncePulseLoader> implements 
             .add(loadingText)
             .element();
 
-    private HTMLDivElement element = div()
+    private final HTMLDivElement element = div()
             .css(WAIT_ME)
             .style("background: rgba(255, 255, 255, 0.7);")
             .add(content)
@@ -45,26 +48,41 @@ public class BouncePulseLoader extends BaseLoader<BouncePulseLoader> implements 
         return new BouncePulseLoader();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setLoadingText(String text) {
         loadingText.textContent = text;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setSize(String width, String height) {
         onAttached(mutationRecord -> Style.of(loader).setWidth(width).setHeight(height));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeLoadingText() {
         onAttached(mutationRecord -> loadingText.remove());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLDivElement> getContentElement() {
         return DominoElement.of(content);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element;
