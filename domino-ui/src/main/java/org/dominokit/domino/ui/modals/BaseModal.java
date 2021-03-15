@@ -20,6 +20,10 @@ import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * A base implementaton for components to show a pop-up
+ * @param <T> the type of the component extending from this class
+ */
 public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends BaseDominoElement<HTMLDivElement, T>
         implements IsModalDialog<T>, Switchable<T> {
 
@@ -27,6 +31,9 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     private List<CloseHandler> closeHandlers = new ArrayList<>();
     static int Z_INDEX = 1040;
 
+    /**
+     * a component that contains the modal elements
+     */
     public static class Modal implements IsElement<HTMLDivElement> {
 
         private final HTMLDivElement root;
@@ -37,6 +44,9 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         private final HTMLDivElement modalContent;
         private final HTMLDivElement modalFooter;
 
+        /**
+         *
+         */
         public Modal() {
             this.root = div().css("modal", "fade")
                     .apply(e -> e.tabIndex = -1)
@@ -56,31 +66,58 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
             setVisible(root, false);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public HTMLDivElement element() {
             return root;
         }
 
+        /**
+         *
+         * @return the {@link HTMLHeadingElement} that contains the title text wrapped as {@link DominoElement}
+         */
         public DominoElement<HTMLHeadingElement> getModalTitle() {
             return DominoElement.of(modalTitle);
         }
 
+        /**
+         *
+         * @return the {@link HTMLDivElement} of the modal body wrapped as a {@link DominoElement}
+         */
         public DominoElement<HTMLDivElement> getModalBody() {
             return DominoElement.of(modalBody);
         }
 
+        /**
+         *
+         * @return the {@link HTMLDivElement} that contains the the header and the body wrapped as {@link DominoElement}
+         */
         public DominoElement<HTMLDivElement> getModalDialog() {
             return DominoElement.of(modalDialog);
         }
 
+        /**
+         *
+         * @return the {@link HTMLDivElement} that has content container inside the modal body wrapped as {@link DominoElement}
+         */
         public DominoElement<HTMLDivElement> getModalContent() {
             return DominoElement.of(modalContent);
         }
 
+        /**
+         *
+         * @return the {@link HTMLDivElement} footer element wrapped as {@link DominoElement}
+         */
         public DominoElement<HTMLDivElement> getModalFooter() {
             return DominoElement.of(modalFooter);
         }
 
+        /**
+         *
+         * @return the {@link HTMLDivElement} that contains the heading element that contains the title text wrapped as {@link DominoElement}
+         */
         public DominoElement<HTMLDivElement> getModalHeader() {
             return DominoElement.of(modalHeader);
         }
@@ -113,12 +150,19 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         addTabIndexHandler();
     }
 
+    /**
+     *
+     * @param title String modal header title
+     */
     public BaseModal(String title) {
         this();
         showHeader();
         modalElement.modalTitle.textContent = title;
     }
 
+    /**
+     * Force the tab to navigate inside the modal dialog only
+     */
     void addTabIndexHandler() {
         element().addEventListener(EventType.keydown.getName(), evt -> {
             if(evt instanceof KeyboardEvent) {
@@ -164,38 +208,65 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         }
     }
 
+    /**
+     * Appends to the Modal body
+     * {@inheritDoc}
+     */
     @Override
     public T appendChild(Node content) {
         modalElement.modalBody.appendChild(content);
         return (T) this;
     }
 
+    /**
+     * Appends to the Modal body
+     * {@inheritDoc}
+     */
     @Override
     public T appendChild(IsElement<?> content) {
         return appendChild(content.element());
     }
 
+
+    /**
+     * Appends to the Modal body
+     * {@inheritDoc}
+     */
     @Override
     public T appendFooterChild(Node content) {
         modalElement.modalFooter.appendChild(content);
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T appendFooterChild(IsElement<?> content) {
         return appendFooterChild(content.element());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T large() {
         return setSize(ModalSize.LARGE);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T small() {
         return setSize(ModalSize.SMALL);
     }
 
+    /**
+     *
+     * @param size {@link org.dominokit.domino.ui.modals.IsModalDialog.ModalSize}
+     * @return same Dialog instance
+     */
     public T setSize(ModalSize size) {
         DominoElement<HTMLDivElement> modalElement = DominoElement.of(this.modalElement);
         if (nonNull(modalSize)) {
@@ -206,6 +277,11 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         return (T) this;
     }
 
+    /**
+     *
+     * @param type {@link org.dominokit.domino.ui.modals.IsModalDialog.ModalType}
+     * @return same dialog instance
+     */
     public T setType(ModalType type) {
         DominoElement<HTMLDivElement> modalElement = DominoElement.of(this.modalElement);
         if (nonNull(modalType)) {
@@ -216,6 +292,9 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T setModalColor(Color color) {
         if (nonNull(this.color)) {
@@ -226,12 +305,18 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T setAutoClose(boolean autoClose) {
         this.autoClose = autoClose;
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T open() {
         if (isEnabled()) {
@@ -260,7 +345,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         return (T) this;
     }
 
-    public void addBackdrop() {
+    private void addBackdrop() {
         if (modal) {
             if (ModalBackDrop.openedModalsCount() <= 0 || !DominoElement.of(ModalBackDrop.INSTANCE).isAttached()) {
                 document.body.appendChild(ModalBackDrop.INSTANCE);
@@ -273,7 +358,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         }
     }
 
-    public void removeBackDrop() {
+    private void removeBackDrop() {
         if (modal) {
             if (ModalBackDrop.openedModalsCount() < 1 || ModalBackDrop.allOpenedNotModals()) {
                 ModalBackDrop.INSTANCE.remove();
@@ -300,6 +385,9 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T close() {
         element().classList.remove(ModalStyles.IN);
@@ -319,47 +407,71 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         return (T) this;
     }
 
+    /**
+     * @see #setAutoClose(boolean)
+     * @return boolean
+     */
     public boolean isAutoClose() {
         return autoClose;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T hideFooter() {
         modalElement.getModalFooter().style().setDisplay("none");
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T showFooter() {
         modalElement.getModalFooter().style().setDisplay("block");
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T hideHeader() {
         modalElement.getModalHeader().hide();
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T showHeader() {
         modalElement.getModalHeader().show();
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T hideTitle() {
         modalElement.getModalTitle().hide();
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T showTitle() {
         modalElement.getModalTitle().show();
         return (T) this;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T setTitle(String title) {
         showHeader();
@@ -369,50 +481,65 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLDivElement> getDialogElement() {
         return DominoElement.of(modalElement.modalDialog);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLDivElement> getContentElement() {
         return DominoElement.of(modalElement.modalContent);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLHeadingElement> getHeaderElement() {
         return DominoElement.of(modalElement.modalTitle);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLDivElement> getHeaderContainerElement() {
         return DominoElement.of(modalElement.modalHeader);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLDivElement> getBodyElement() {
         return DominoElement.of(modalElement.modalBody);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DominoElement<HTMLDivElement> getFooterElement() {
         return DominoElement.of(modalElement.modalFooter);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return modalElement.element();
     }
 
     /**
-     * use {@link #addOpenListener(OpenHandler)}
+     * {@inheritDoc}
      */
-    @Override
-    @Deprecated
-    public T onOpen(OpenHandler openHandler) {
-        return addOpenListener(openHandler);
-    }
-
     @Override
     public T addOpenListener(OpenHandler openHandler) {
         this.openHandlers.add(openHandler);
@@ -420,80 +547,114 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>> extends Bas
     }
 
     /**
-     * use {@link #addCloseListener(CloseHandler)}
+     * {@inheritDoc}
      */
-    @Override
-    @Deprecated
-    public T onClose(CloseHandler closeHandler) {
-        return addCloseListener(closeHandler);
-    }
-
     @Override
     public T addCloseListener(CloseHandler closeHandler) {
         this.closeHandlers.add(closeHandler);
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T removeOpenHandler(OpenHandler openHandler) {
         this.openHandlers.remove(openHandler);
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T removeCloseHandler(CloseHandler closeHandler) {
         this.closeHandlers.remove(closeHandler);
         return (T) this;
     }
 
+    /**
+     *
+     * @return boolean, true if the modal is currently open
+     */
     public boolean isOpen() {
         return open;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T enable() {
         this.disabled = false;
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T disable() {
         this.disabled = true;
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEnabled() {
         return !disabled;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T setAutoAppendAndRemove(boolean autoAppendAndRemove) {
         this.autoAppendAndRemove = autoAppendAndRemove;
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T centerVertically() {
         Style.of(modalElement.modalDialog).add(Styles.vertical_center);
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T deCenterVertically() {
         Style.of(modalElement.modalDialog).remove(Styles.vertical_center);
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean getAutoAppendAndRemove() {
         return this.autoAppendAndRemove;
     }
 
+    /**
+     *
+     * @return boolean, true if this modal will show an overlay to block the content behind it.
+     */
     public boolean isModal() {
         return modal;
     }
 
+    /**
+     *
+     * @param modal boolean,true to make this modal show an overlay to block the content behind it when it is open
+     * @return same dialog instance
+     */
     public T setModal(boolean modal) {
         this.modal = modal;
         return (T) this;
