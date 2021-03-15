@@ -1,9 +1,6 @@
 package org.dominokit.domino.ui.modals;
 
-import elemental2.dom.ClientRect;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.EventListener;
-import elemental2.dom.MouseEvent;
+import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
@@ -14,6 +11,9 @@ import org.jboss.elemento.EventType;
 
 import static org.dominokit.domino.ui.style.Unit.px;
 
+/**
+ * A component that open a pop-up that acts like a window with close/maximize/minimize controls and can be dragged across the page
+ */
 public class Window extends BaseModal<Window> {
 
     private final MdiIcon restoreIcon;
@@ -38,10 +38,19 @@ public class Window extends BaseModal<Window> {
     private boolean draggable = true;
     private boolean fixed;
 
+    /**
+     *
+     * @param title String window title
+     * @return new Window instance
+     */
     public static Window create(String title) {
         return new Window(title);
     }
 
+    /**
+     *
+     * @param title String window title
+     */
     public Window(String title) {
         super(title);
         init(this);
@@ -92,7 +101,7 @@ public class Window extends BaseModal<Window> {
                     double left = modalElement.element().offsetLeft - deltaX;
                     double top = modalElement.element().offsetTop - deltaY;
 
-                    ClientRect windowRect = modalElement.getModalDialog().element().getBoundingClientRect();
+                    DOMRect windowRect = modalElement.getModalDialog().element().getBoundingClientRect();
                     double initialWidth = windowRect.width;
                     double initialHeight = windowRect.height;
 
@@ -123,15 +132,28 @@ public class Window extends BaseModal<Window> {
         initPosition();
     }
 
+    /**
+     *
+     * @return boolean, true if this window can be dragged across the screen
+     */
     public boolean isDraggable() {
         return draggable;
     }
 
+    /**
+     *
+     * @param draggable boolean true to make this window instance draggable
+     * @return same Window instance
+     */
     public Window setDraggable(boolean draggable) {
         this.draggable = draggable;
         return this;
     }
 
+    /**
+     * Stretch the window to cover the full screen
+     * @return same Window instance
+     */
     public Window maximize() {
         maximizeIcon.hide();
         restoreIcon.show();
@@ -142,6 +164,10 @@ public class Window extends BaseModal<Window> {
         return this;
     }
 
+    /**
+     * If maximized restore the Window to its original size
+     * @return same Window instance
+     */
     public Window restore() {
         restoreIcon.hide();
         maximizeIcon.show();
@@ -152,6 +178,11 @@ public class Window extends BaseModal<Window> {
         return this;
     }
 
+    /**
+     *
+     * @param color {@link Color} of the window title bar
+     * @return same Window instance
+     */
     public Window setHeaderBackground(Color color) {
         modalElement.getModalHeader().removeCss(headerBackGround);
         modalElement.getModalHeader().css(color.getBackground());
@@ -160,6 +191,10 @@ public class Window extends BaseModal<Window> {
         return this;
     }
 
+    /**
+     * Make the position of the Window fixed allowing the content of the page to scroll while the window stay in its position
+     * @return same Window instance
+     */
     public Window setFixed() {
         css("fixed");
         this.fixed = true;
@@ -167,30 +202,52 @@ public class Window extends BaseModal<Window> {
         return this;
     }
 
+    /**
+     *
+     * @return boolean, true if the Window is maximized
+     */
     public boolean isMaximized() {
         return maximized;
     }
 
+    /**
+     *
+     * @return the double left position of the window
+     */
     public double getWindowLeft() {
         return windowLeft;
     }
 
+    /**
+     *
+     * @param windowLeft double window left position
+     * @return same Window instance
+     */
     public Window setWindowLeft(double windowLeft) {
         this.windowLeft = windowLeft;
         return this;
     }
 
+    /**
+     *
+     * @return double top position of the window
+     */
     public double getWindowTop() {
         return windowTop;
     }
 
+    /**
+     *
+     * @param windowTop double top position of the window
+     * @return same Window instance
+     */
     public Window setWindowTop(double windowTop) {
         this.windowTop = windowTop;
         return this;
     }
 
     private void initPosition() {
-        onOpen(this::updatePosition);
+        addOpenListener(this::updatePosition);
     }
 
     private void updatePosition() {
@@ -198,7 +255,7 @@ public class Window extends BaseModal<Window> {
             modalElement.element().style.left = "0px";
             modalElement.element().style.top = "0px";
         } else {
-            ClientRect windowRect = modalElement.getModalDialog().element().getBoundingClientRect();
+            DOMRect windowRect = modalElement.getModalDialog().element().getBoundingClientRect();
             double initialWidth = windowRect.width;
             double windowWidth = DomGlobal.window.innerWidth;
 
@@ -248,12 +305,20 @@ public class Window extends BaseModal<Window> {
                 .addEventListener(EventType.mouseup.getName(), stopMoveListener);
     }
 
+    /**
+     * Hides the resize controls from the title bar
+     * @return same Window instance
+     */
     public Window hideResizing() {
         restoreIcon.hide();
         maximizeIcon.hide();
         return this;
     }
 
+    /**
+     * Show the resize controls in the title bar
+     * @return same Window instance
+     */
     public Window showResizing() {
         if (maximized) {
             maximizeIcon.hide();
@@ -265,24 +330,44 @@ public class Window extends BaseModal<Window> {
         return this;
     }
 
+    /**
+     * Hides the close control from the title bar
+     * @return same Window instance
+     */
     public Window hideClosing() {
         closeIcon.hide();
         return this;
     }
 
+    /**
+     * Show the close control in the title bar
+     * @return same Window instance
+     */
     public Window showClosing() {
         closeIcon.show();
         return this;
     }
 
+    /**
+     *
+     * @return the {@link MdiIcon} of the restore window size control
+     */
     public MdiIcon getRestoreIcon() {
         return restoreIcon;
     }
 
+    /**
+     *
+     * @return the {@link MdiIcon} of the maximize window size control
+     */
     public MdiIcon getMaximizeIcon() {
         return maximizeIcon;
     }
 
+    /**
+     *
+     * @return the {@link MdiIcon} of the close window control
+     */
     public MdiIcon getCloseIcon() {
         return closeIcon;
     }
