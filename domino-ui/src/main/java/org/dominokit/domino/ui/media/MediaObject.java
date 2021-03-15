@@ -1,7 +1,6 @@
 package org.dominokit.domino.ui.media;
 
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.style.Styles;
@@ -14,18 +13,38 @@ import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.Elements.h;
 
+/**
+ * A component to display media such as images, video and audio
+ * <p>
+ * Customize the component can be done by overwriting classes provided by {@link MediaStyles}
+ *
+ * <p>For example: </p>
+ * <pre>
+ *     MediaObject.create()
+ *                .setHeader("Media heading")
+ *                .setLeftMedia(a().add(
+ *                                  img("http://placehold.it/64x64")
+ *                                      .attr("width", "64")
+ *                                      .attr("height", "64")
+ *                             )
+ *                )
+ *                .appendChild(TextNode.of(SAMPLE_TEXT))
+ * </pre>
+ *
+ * @see BaseDominoElement
+ */
 public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> implements IsElement<HTMLDivElement> {
 
-    private HTMLHeadingElement mediaHeader = h(4)
+    private final HTMLHeadingElement mediaHeader = h(4)
             .css(MediaStyles.MEDIA_HEADING)
             .element();
 
-    private HTMLDivElement mediaBody = div()
+    private final HTMLDivElement mediaBody = div()
             .css(MediaStyles.MEDIA_BODY)
             .add(mediaHeader)
             .element();
 
-    private HTMLDivElement element = div()
+    private final HTMLDivElement element = div()
             .css(MediaStyles.MEDIA)
             .add(mediaBody)
             .element();
@@ -40,15 +59,30 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
         init(this);
     }
 
+    /**
+     * @return new instance
+     */
     public static MediaObject create() {
         return new MediaObject();
     }
 
+    /**
+     * Sets the header title of the media object
+     *
+     * @param header the header text
+     * @return same instance
+     */
     public MediaObject setHeader(String header) {
         mediaHeader.textContent = header;
         return this;
     }
 
+    /**
+     * Sets the media node at the left of this component
+     *
+     * @param content A media {@link Node}
+     * @return same instance
+     */
     public MediaObject setLeftMedia(Node content) {
         if (isNull(leftMedia)) {
             leftMedia = DominoElement.of(div().css(MediaStyles.MEDIA_LEFT));
@@ -60,10 +94,22 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
         return this;
     }
 
+    /**
+     * Same as {@link MediaObject#setLeftMedia(Node)} but uses {@link IsElement} wrapper
+     *
+     * @param element A media {@link IsElement}
+     * @return same instance
+     */
     public MediaObject setLeftMedia(IsElement<?> element) {
         return setLeftMedia(element.element());
     }
 
+    /**
+     * Sets the media node at the right of this component
+     *
+     * @param content A media {@link Node}
+     * @return same instance
+     */
     public MediaObject setRightMedia(Node content) {
         if (isNull(rightMedia)) {
             rightMedia = DominoElement.of(div().css(MediaStyles.MEDIA_RIGHT).css(Styles.pull_right));
@@ -75,19 +121,39 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
         return this;
     }
 
+    /**
+     * Same as {@link MediaObject#setRightMedia(Node)} but uses {@link IsElement} wrapper
+     *
+     * @param element A media {@link IsElement}
+     * @return same instance
+     */
     public MediaObject setRightMedia(IsElement<?> element) {
         return setRightMedia(element.element());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public MediaObject appendChild(Node content) {
         mediaBody.appendChild(content);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public MediaObject appendChild(IsElement<?> content) {
         return appendChild(content.element());
     }
 
+    /**
+     * Sets the alignment of the left media element
+     *
+     * @param align the {@link MediaAlign}
+     * @return same instance
+     */
     public MediaObject alignLeftMedia(MediaAlign align) {
         if (nonNull(leftMedia)) {
             leftMedia.style().remove(leftAlign.style);
@@ -97,6 +163,12 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
         return this;
     }
 
+    /**
+     * Sets the alignment of the right media element
+     *
+     * @param align the {@link MediaAlign}
+     * @return same instance
+     */
     public MediaObject alignRightMedia(MediaAlign align) {
         if (nonNull(rightMedia)) {
             rightMedia.style().remove(rightAlign.style);
@@ -106,27 +178,45 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject> 
         return this;
     }
 
+    /**
+     * @return The media element body
+     */
     public DominoElement<HTMLDivElement> getMediaBody() {
         return DominoElement.of(mediaBody);
     }
 
+    /**
+     * @return The media header element
+     */
     public DominoElement<HTMLHeadingElement> getMediaHeader() {
         return DominoElement.of(mediaHeader);
     }
 
+    /**
+     * @return The left media element
+     */
     public DominoElement<HTMLDivElement> getLeftMedia() {
         return leftMedia;
     }
 
+    /**
+     * @return The right media element
+     */
     public DominoElement<HTMLDivElement> getRightMedia() {
         return rightMedia;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element;
     }
 
+    /**
+     * An enum representing the alignment of the media elements
+     */
     public enum MediaAlign {
         MIDDLE(MediaStyles.MEDIA_MIDDLE),
         BOTTOM(MediaStyles.MEDIA_BOTTOM),
