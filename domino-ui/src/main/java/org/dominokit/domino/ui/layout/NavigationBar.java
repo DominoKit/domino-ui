@@ -11,6 +11,9 @@ import org.dominokit.domino.ui.utils.DominoElement;
 
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * A component that is part of the {@link Layout} header
+ */
 public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar> {
     private final FlexItem menuToggleItem;
     private final FlexItem titleItem;
@@ -31,6 +34,9 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
     DominoElement<HTMLDivElement> topBarContainer = DominoElement.div().appendChild(topBar);
     DominoElement<HTMLDivElement> navBarHeader = DominoElement.div().css("navbar-header");
 
+    /**
+     *
+     */
     public NavigationBar() {
         menuToggleItem = FlexItem.create().css("menu-toggle");
         logoItem = FlexItem.create();
@@ -43,8 +49,10 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
                         .appendChild(title))
                 .appendChild(actionBarItem.appendChild(topBarContainer));
 
-        navBar.appendChild(navBarHeader
-                .appendChild(container));
+        navBar
+                .appendChild(navBarHeader
+                        .appendChild(container)
+                );
         init();
     }
 
@@ -52,23 +60,38 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
         init(this);
     }
 
+    /**
+     * @return new NavigationBar instance
+     */
     public static NavigationBar create() {
         return new NavigationBar();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLElement element() {
         return navBar.element();
     }
 
+    /**
+     * @return the {@link HTMLElement} of this component wrapped as {@link DominoElement}
+     */
     public DominoElement<HTMLElement> getNavBar() {
         return navBar;
     }
 
+    /**
+     * @return the title {@link HTMLAnchorElement} wrapped as {@link DominoElement}
+     */
     public DominoElement<HTMLAnchorElement> getTitle() {
         return title;
     }
 
+    /**
+     * @return the Menu icon {@link HTMLAnchorElement} wrapped as {@link DominoElement}
+     */
     public DominoElement<HTMLAnchorElement> getMenu() {
         return menu;
     }
@@ -77,28 +100,50 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
         return topBar;
     }
 
+    /**
+     * @return the action container {@link HTMLDivElement} at the right side wrapped as {@link DominoElement}
+     */
     public DominoElement<HTMLDivElement> getTopBarContainer() {
         return topBarContainer;
     }
 
+    /**
+     * @return the main container {@link HTMLDivElement} wrapped as {@link DominoElement}
+     */
     public DominoElement<HTMLDivElement> getNavBarHeader() {
         return navBarHeader;
     }
 
+    /**
+     *
+     * @return the {@link FlexItem} that contains the menu toggle icon
+     */
     public FlexItem getMenuToggleItem() {
         return menuToggleItem;
     }
 
+    /**
+     *
+     * @return the {@link FlexItem} that contains the logoItem
+     */
     public FlexItem getLogoItem() {
         return logoItem;
     }
 
+    /**
+     *
+     * @return The {@link FlexItem} conatins the actions bar
+     */
     public FlexItem getActionBarItem() {
         return actionBarItem;
     }
 
+    /**
+     *
+     * @return the {@link FlexItem} contains the title
+     */
     public FlexItem getTitleItem() {
         return titleItem;
     }
-        
+
 }
