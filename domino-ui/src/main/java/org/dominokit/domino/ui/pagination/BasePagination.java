@@ -10,6 +10,10 @@ import java.util.List;
 
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * Base implementation for pagination
+ * @param <T> the type of the pagination
+ */
 public abstract class BasePagination<T extends BasePagination<T>> extends BaseDominoElement<HTMLElement, T> implements HasPagination {
 
     protected DominoElement<HTMLUListElement> pagesElement = DominoElement.of(ul().css("pagination"));
@@ -29,6 +33,9 @@ public abstract class BasePagination<T extends BasePagination<T>> extends BaseDo
     protected int pageSize = 10;
     protected int totalCount = 0;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HasPagination updatePagesByTotalCount(int totalCount) {
         int pages = (totalCount / this.pageSize) + (totalCount % this.pageSize > 0 ? 1 : 0);
@@ -36,6 +43,9 @@ public abstract class BasePagination<T extends BasePagination<T>> extends BaseDo
         return updatePages(pages, this.pageSize);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HasPagination updatePagesByTotalCount(int totalCount, int pageSize) {
         int pages = (totalCount / pageSize) + (totalCount % pageSize > 0 ? 1 : 0);
@@ -43,11 +53,17 @@ public abstract class BasePagination<T extends BasePagination<T>> extends BaseDo
         return updatePages(pages, pageSize);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T gotoPage(int page) {
         return gotoPage(page, false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T gotoPage(int page, boolean silent) {
         if (page > 0 && page <= pagesCount) {
@@ -56,38 +72,59 @@ public abstract class BasePagination<T extends BasePagination<T>> extends BaseDo
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T nextPage() {
         return nextPage(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T previousPage() {
         return previousPage(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T nextPage(boolean silent) {
         moveToPage(index + 1, silent);
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T previousPage(boolean silent) {
         moveToPage(index - 1, silent);
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T gotoFirst() {
         return gotoFirst(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T gotoLast() {
         return gotoLast(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T gotoFirst(boolean silent) {
         if (this.pagesCount > 0) {
@@ -96,6 +133,9 @@ public abstract class BasePagination<T extends BasePagination<T>> extends BaseDo
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T gotoLast(boolean silent) {
         if (this.pagesCount > 0) {
@@ -104,6 +144,9 @@ public abstract class BasePagination<T extends BasePagination<T>> extends BaseDo
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T markActivePage() {
         this.markActivePage = true;
@@ -111,6 +154,12 @@ public abstract class BasePagination<T extends BasePagination<T>> extends BaseDo
         return (T) this;
     }
 
+    /**
+     * A boolean to mark the active page automatically
+     *
+     * @param markActivePage true to mark the active page automatically, false otherwise
+     * @return same instance
+     */
     public T setMarkActivePage(boolean markActivePage) {
         this.markActivePage = markActivePage;
         if (!markActivePage) {
@@ -128,17 +177,29 @@ public abstract class BasePagination<T extends BasePagination<T>> extends BaseDo
         }
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T onPageChanged(PageChangedCallBack pageChangedCallBack) {
         this.pageChangedCallBack = pageChangedCallBack;
         return (T) this;
     }
 
+    /**
+     * Sets the size to large
+     *
+     * @return same instance
+     */
     public T large() {
         return setSize("pagination-lg");
     }
 
+    /**
+     * Sets the size to small
+     *
+     * @return same instance
+     */
     public T small() {
         return setSize("pagination-sm");
     }
@@ -150,22 +211,34 @@ public abstract class BasePagination<T extends BasePagination<T>> extends BaseDo
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T setPageSize(int pageSize) {
         this.pageSize = pageSize;
         return (T) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getPageSize() {
         return this.pageSize;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int activePage() {
         return index;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getPagesCount() {
         return pagesCount;
@@ -173,9 +246,11 @@ public abstract class BasePagination<T extends BasePagination<T>> extends BaseDo
 
     protected abstract void moveToPage(int page, boolean silent);
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLElement element() {
         return element.element();
     }
-
 }

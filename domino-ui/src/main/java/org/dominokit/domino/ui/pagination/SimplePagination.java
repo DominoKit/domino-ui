@@ -9,19 +9,34 @@ import java.util.stream.IntStream;
 import static org.jboss.elemento.Elements.a;
 import static org.jboss.elemento.Elements.li;
 
+/**
+ * A simple pagination implementation
+ */
 public class SimplePagination extends BasePagination<SimplePagination> {
 
     private DominoElement<HTMLAnchorElement> prevAnchor;
     private DominoElement<HTMLAnchorElement> nextAnchor;
 
+    /**
+     * @return new instance
+     */
     public static SimplePagination create() {
         return new SimplePagination();
     }
 
+    /**
+     * @param pages the number of pages
+     * @return new instance
+     */
     public static SimplePagination create(int pages) {
         return new SimplePagination(pages);
     }
 
+    /**
+     * @param pages    the number of pages
+     * @param pageSize the page size
+     * @return new instance
+     */
     public static SimplePagination create(int pages, int pageSize) {
         return new SimplePagination(pages, pageSize);
     }
@@ -41,10 +56,18 @@ public class SimplePagination extends BasePagination<SimplePagination> {
         updatePages(pages, pageSize);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public SimplePagination updatePages(int pages) {
         return updatePages(pages, pageSize);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public SimplePagination updatePages(int pages, int pageSize) {
         this.pageSize = pageSize;
         this.pagesCount = pages;
@@ -95,7 +118,9 @@ public class SimplePagination extends BasePagination<SimplePagination> {
         return this;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void moveToPage(int page, boolean silent) {
         if (page > 0 && page <= pagesCount) {
@@ -120,10 +145,16 @@ public class SimplePagination extends BasePagination<SimplePagination> {
         }
     }
 
+    /**
+     * @return The previous element
+     */
     public DominoElement<HTMLAnchorElement> getPrevAnchor() {
         return prevAnchor;
     }
 
+    /**
+     * @return The next element
+     */
     public DominoElement<HTMLAnchorElement> getNextAnchor() {
         return nextAnchor;
     }

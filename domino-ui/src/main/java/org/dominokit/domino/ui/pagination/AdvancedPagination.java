@@ -1,10 +1,6 @@
 package org.dominokit.domino.ui.pagination;
 
-import elemental2.dom.DomGlobal;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLIElement;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.forms.Select;
 import org.dominokit.domino.ui.forms.SelectOption;
 import org.dominokit.domino.ui.icons.Icons;
@@ -17,6 +13,9 @@ import java.util.stream.IntStream;
 import static org.jboss.elemento.Elements.a;
 import static org.jboss.elemento.Elements.li;
 
+/**
+ * An advanced pagination implementation
+ */
 public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 
     private DominoElement<HTMLLIElement> firstPage;
@@ -30,14 +29,26 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 
     private Function<Integer, String> pagesCountTextHandler = pagesCount -> " of " + pagesCount + " Pages";
 
+    /**
+     * @return new instance
+     */
     public static AdvancedPagination create() {
         return new AdvancedPagination();
     }
 
+    /**
+     * @param pages the number of pages
+     * @return new instance
+     */
     public static AdvancedPagination create(int pages) {
         return new AdvancedPagination(pages);
     }
 
+    /**
+     * @param pages    the number of pages
+     * @param pageSize the page size
+     * @return new instance
+     */
     public static AdvancedPagination create(int pages, int pageSize) {
         return new AdvancedPagination(pages, pageSize);
     }
@@ -58,11 +69,17 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
         updatePages(pages, pageSize);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public AdvancedPagination updatePages(int pages) {
         return updatePages(pages, pageSize);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public AdvancedPagination updatePages(int pages, int pageSize) {
         this.pageSize = pageSize;
@@ -77,7 +94,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
                         .appendChild(Icons.ALL.chevron_left()
                                 .clickable()));
 
-        addListenerToElement(prevAnchor,  event -> moveToPage(index - 1, false));
+        addListenerToElement(prevAnchor, event -> moveToPage(index - 1, false));
 
         firstPageAnchor = DominoElement.of(a());
         firstPage = DominoElement.of(li().css("page-nav"))
@@ -86,7 +103,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
                         .appendChild(Icons.ALL.skip_previous()
                                 .clickable()));
 
-        addListenerToElement(firstPageAnchor,  event -> moveToPage(1, false));
+        addListenerToElement(firstPageAnchor, event -> moveToPage(1, false));
 
         pagesElement.clearElement()
                 .appendChild(firstPage)
@@ -113,7 +130,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
                         .appendChild(Icons.ALL.chevron_right()
                                 .clickable()));
 
-        addListenerToElement(nextAnchor,  event -> moveToPage(index + 1, false));
+        addListenerToElement(nextAnchor, event -> moveToPage(index + 1, false));
 
         lastPageAnchor = DominoElement.of(a());
         lastPage = DominoElement.of(li().css("page-nav"))
@@ -141,13 +158,16 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
                 .appendChild(lastPage);
         return this;
     }
-    
+
     private void addListenerToElement(DominoElement<? extends HTMLElement> element, EventListener listener) {
         element.addClickListener(listener);
         KeyboardEvents.listenOn(element).onEnter(listener);
-        
+
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void moveToPage(int page, boolean silent) {
         if (page > 0 && page <= pagesCount) {
@@ -167,7 +187,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
             } else {
                 nextElement.enable();
                 lastPage.enable();
-                
+
                 nextAnchor.setAttribute("tabindex", "0");
                 lastPageAnchor.setAttribute("tabindex", "0");
             }
@@ -176,13 +196,13 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
             if (page == 1) {
                 prevElement.disable();
                 firstPage.disable();
-                
+
                 prevAnchor.removeAttribute("tabindex");
                 firstPageAnchor.removeAttribute("tabindex");
             } else {
                 prevElement.enable();
                 firstPage.enable();
-                
+
                 prevAnchor.setAttribute("tabindex", "0");
                 firstPageAnchor.setAttribute("tabindex", "0");
             }
@@ -193,22 +213,39 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
         }
     }
 
+    /**
+     * @return the previous element
+     */
     public DominoElement<HTMLAnchorElement> getPrevAnchor() {
         return prevAnchor;
     }
 
+    /**
+     * @return the first page element
+     */
     public DominoElement<HTMLAnchorElement> getFirstPageAnchor() {
         return firstPageAnchor;
     }
 
+    /**
+     * @return the next element
+     */
     public DominoElement<HTMLAnchorElement> getNextAnchor() {
         return nextAnchor;
     }
 
+    /**
+     * @return the last page element
+     */
     public DominoElement<HTMLAnchorElement> getLastPageAnchor() {
         return lastPageAnchor;
     }
 
+    /**
+     * Sets the text of total number of pages
+     *
+     * @param pagesCountTextHandler a {@link Function} that returns the text based on the current page
+     */
     public void setPagesCountTextHandler(Function<Integer, String> pagesCountTextHandler) {
         this.pagesCountTextHandler = pagesCountTextHandler;
     }
