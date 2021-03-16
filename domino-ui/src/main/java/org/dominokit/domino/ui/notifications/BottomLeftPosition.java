@@ -1,13 +1,10 @@
 package org.dominokit.domino.ui.notifications;
 
-import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
-import jsinterop.base.Js;
 
-import java.util.List;
-
-import static elemental2.dom.DomGlobal.document;
-
+/**
+ * Display notification in bottom left
+ */
 public class BottomLeftPosition extends NotificationPosition {
 
     public BottomLeftPosition() {

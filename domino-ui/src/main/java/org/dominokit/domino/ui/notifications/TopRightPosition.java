@@ -2,6 +2,9 @@ package org.dominokit.domino.ui.notifications;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * Display notification in top right
+ */
 public class TopRightPosition extends NotificationPosition {
 
     TopRightPosition() {
