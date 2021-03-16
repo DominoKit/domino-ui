@@ -10,114 +10,223 @@ import java.util.Map;
 
 import static elemental2.dom.DomGlobal.window;
 
+/**
+ * A utility class to add media query listeners
+ * <p>
+ * This component provides APIs for adding listeners for multiple media queries defined,
+ * each listener will be called when media query is changed.
+ *
+ * <p>For example: </p>
+ * <pre>
+ *     MediaQuery.addOnXLargeListener(() -> {});
+ *     MediaQuery.addOnLargeListener(() -> {});
+ *     MediaQuery.addOnMediumListener(() -> {});
+ *     MediaQuery.addOnSmallListener(() -> {});
+ *     MediaQuery.addOnXSmallListener(() -> {});
+ * </pre>
+ * <p>
+ * Media query sizes defined as follows:
+ * <ul>
+ *     <li>{@code min-width} is larger than 1800px, the size is X large</li>
+ *     <li>{@code min-width} is between 1200px and 1800px, the size is large</li>
+ *     <li>{@code min-width} is between 992px and 1200px, the size is medium</li>
+ *     <li>{@code min-width} is between 768px and 992px, the size is small</li>
+ *     <li>{@code min-width} is less than 768px, the size is X small</li>
+ * </ul>
+ */
 public class MediaQuery {
 
-    private static final String XLARGE_MEDIA_QUERY = "(min-width: 1800px)";
+    private static final String X_LARGE_MEDIA_QUERY = "(min-width: 1800px)";
     private static final String LARGE_MEDIA_QUERY = "(min-width: 1200px) and (max-width: 1800px)";
     private static final String MEDIUM_MEDIA_QUERY = "(min-width: 992px) and (max-width: 1200px)";
     private static final String SMALL_MEDIA_QUERY = "(min-width: 768px) and (max-width: 992px)";
-    private static final String XSMALL_MEDIA_QUERY = "(max-width: 768px)";
+    private static final String X_SMALL_MEDIA_QUERY = "(max-width: 768px)";
 
-    private static final String XLARGE_AND_UP_MEDIA_QUERY = "(min-width: 1800px)";
+    private static final String X_LARGE_AND_UP_MEDIA_QUERY = "(min-width: 1800px)";
     private static final String LARGE_AND_UP_MEDIA_QUERY = "(min-width: 1200px)";
     private static final String MEDIUM_AND_UP_MEDIA_QUERY = "(min-width: 992px)";
     private static final String SMALL_AND_UP_MEDIA_QUERY = "(min-width: 768px)";
-    private static final String XSMALL_AND_UP_MEDIA_QUERY = "(min-width: 0x)";
+    private static final String X_SMALL_AND_UP_MEDIA_QUERY = "(min-width: 0x)";
 
-    private static final String XLARGE_AND_DOWN_MEDIA_QUERY = "(max-width: 1800px)";
+    private static final String X_LARGE_AND_DOWN_MEDIA_QUERY = "(max-width: 1800px)";
     private static final String LARGE_AND_DOWN_MEDIA_QUERY = "(max-width: 1800px)";
-    private static final String MEDIUM_AND_DPOWN_MEDIA_QUERY = "(max-width: 1200px)";
+    private static final String MEDIUM_AND_DOWN_MEDIA_QUERY = "(max-width: 1200px)";
     private static final String SMALL_AND_DOWN_MEDIA_QUERY = "(max-width: 992px)";
-    private static final String XSMALL_AND_DOWN_MEDIA_QUERY = "(max-width: 768px)";
+    private static final String X_SMALL_AND_DOWN_MEDIA_QUERY = "(max-width: 768px)";
 
-    private static MediaQueryList xlargeMediaQueryList = window.matchMedia(XLARGE_MEDIA_QUERY);
-    private static MediaQueryList largeMediaQueryList = window.matchMedia(LARGE_MEDIA_QUERY);
-    private static MediaQueryList mediumMediaQueryList = window.matchMedia(MEDIUM_MEDIA_QUERY);
-    private static MediaQueryList smallMediaQueryList = window.matchMedia(SMALL_MEDIA_QUERY);
-    private static MediaQueryList xsmallMediaQueryList = window.matchMedia(XSMALL_MEDIA_QUERY);
+    private static final MediaQueryList xLargeMediaQueryList = window.matchMedia(X_LARGE_MEDIA_QUERY);
+    private static final MediaQueryList largeMediaQueryList = window.matchMedia(LARGE_MEDIA_QUERY);
+    private static final MediaQueryList mediumMediaQueryList = window.matchMedia(MEDIUM_MEDIA_QUERY);
+    private static final MediaQueryList smallMediaQueryList = window.matchMedia(SMALL_MEDIA_QUERY);
+    private static final MediaQueryList xSmallMediaQueryList = window.matchMedia(X_SMALL_MEDIA_QUERY);
 
-    private static MediaQueryList xlargeAndUpMediaQueryList = window.matchMedia(XLARGE_AND_UP_MEDIA_QUERY);
-    private static MediaQueryList largeAndUpMediaQueryList = window.matchMedia(LARGE_AND_UP_MEDIA_QUERY);
-    private static MediaQueryList mediumAndUpMediaQueryList = window.matchMedia(MEDIUM_AND_UP_MEDIA_QUERY);
-    private static MediaQueryList smallAndUpMediaQueryList = window.matchMedia(SMALL_AND_UP_MEDIA_QUERY);
-    private static MediaQueryList xsmallAndUpMediaQueryList = window.matchMedia(XSMALL_AND_UP_MEDIA_QUERY);
+    private static final MediaQueryList xLargeAndUpMediaQueryList = window.matchMedia(X_LARGE_AND_UP_MEDIA_QUERY);
+    private static final MediaQueryList largeAndUpMediaQueryList = window.matchMedia(LARGE_AND_UP_MEDIA_QUERY);
+    private static final MediaQueryList mediumAndUpMediaQueryList = window.matchMedia(MEDIUM_AND_UP_MEDIA_QUERY);
+    private static final MediaQueryList smallAndUpMediaQueryList = window.matchMedia(SMALL_AND_UP_MEDIA_QUERY);
+    private static final MediaQueryList xSmallAndUpMediaQueryList = window.matchMedia(X_SMALL_AND_UP_MEDIA_QUERY);
 
-    private static MediaQueryList xlargeAndDownMediaQueryList = window.matchMedia(XLARGE_AND_DOWN_MEDIA_QUERY);
-    private static MediaQueryList largeAndDownMediaQueryList = window.matchMedia(LARGE_AND_DOWN_MEDIA_QUERY);
-    private static MediaQueryList mediumAndDownMediaQueryList = window.matchMedia(MEDIUM_AND_DPOWN_MEDIA_QUERY);
-    private static MediaQueryList smallAndDownMediaQueryList = window.matchMedia(SMALL_AND_DOWN_MEDIA_QUERY);
-    private static MediaQueryList xsmallAndDownMediaQueryList = window.matchMedia(XSMALL_AND_DOWN_MEDIA_QUERY);
+    private static final MediaQueryList xLargeAndDownMediaQueryList = window.matchMedia(X_LARGE_AND_DOWN_MEDIA_QUERY);
+    private static final MediaQueryList largeAndDownMediaQueryList = window.matchMedia(LARGE_AND_DOWN_MEDIA_QUERY);
+    private static final MediaQueryList mediumAndDownMediaQueryList = window.matchMedia(MEDIUM_AND_DOWN_MEDIA_QUERY);
+    private static final MediaQueryList smallAndDownMediaQueryList = window.matchMedia(SMALL_AND_DOWN_MEDIA_QUERY);
+    private static final MediaQueryList xSmallAndDownMediaQueryList = window.matchMedia(X_SMALL_AND_DOWN_MEDIA_QUERY);
 
 
-    private static Map<MediaQueryListener, MediaQueryListListener> listenersMap = new HashMap<>();
-    private static Map<String, MediaQueryList> mediaQueries = new HashMap<>();
+    private static final Map<MediaQueryListener, MediaQueryListListener> LISTENERS = new HashMap<>();
+    private static final Map<String, MediaQueryList> MEDIA_QUERIES = new HashMap<>();
 
+    /**
+     * Adds listener when media query is X large
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnXLargeListener(MediaQueryListener listener) {
-        addListener(listener, xlargeMediaQueryList);
+        addListener(listener, xLargeMediaQueryList);
     }
 
+    /**
+     * Adds listener when media query is large
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnLargeListener(MediaQueryListener listener) {
         addListener(listener, largeMediaQueryList);
     }
 
+    /**
+     * Adds listener when media query is medium
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnMediumListener(MediaQueryListener listener) {
         addListener(listener, mediumMediaQueryList);
     }
 
+    /**
+     * Adds listener when media query is small
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnSmallListener(MediaQueryListener listener) {
         addListener(listener, smallMediaQueryList);
     }
 
+    /**
+     * Adds listener when media query is X small
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnXSmallListener(MediaQueryListener listener) {
-        addListener(listener, xsmallMediaQueryList);
+        addListener(listener, xSmallMediaQueryList);
     }
 
+    /**
+     * Adds listener when media query is X large and more
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnXLargeAndUpListener(MediaQueryListener listener) {
-        addListener(listener, xlargeAndUpMediaQueryList);
+        addListener(listener, xLargeAndUpMediaQueryList);
     }
 
+    /**
+     * Adds listener when media query is large and more
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnLargeAndUpListener(MediaQueryListener listener) {
         addListener(listener, largeAndUpMediaQueryList);
     }
 
+    /**
+     * Adds listener when media query is medium and more
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnMediumAndUpListener(MediaQueryListener listener) {
         addListener(listener, mediumAndUpMediaQueryList);
     }
 
+    /**
+     * Adds listener when media query is small and more
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnSmallAndUpListener(MediaQueryListener listener) {
         addListener(listener, smallAndUpMediaQueryList);
     }
 
+    /**
+     * Adds listener when media query is X small and more
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnXSmallAndUpListener(MediaQueryListener listener) {
-        addListener(listener, xsmallAndUpMediaQueryList);
+        addListener(listener, xSmallAndUpMediaQueryList);
     }
 
+    /**
+     * Adds listener when media query orientation is portrait
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addPortraitOrientationListener(MediaQueryListener listener) {
         addCustomQueryListener("(orientation : portrait)", listener);
     }
 
+    /**
+     * Adds listener when media query orientation is landscape
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addLandscapeOrientationListener(MediaQueryListener listener) {
         addCustomQueryListener("(orientation : landscape)", listener);
     }
 
+    /**
+     * Adds listener when media query is X large and less
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnXLargeAndDownListener(MediaQueryListener listener) {
-        addListener(listener, xlargeAndDownMediaQueryList);
+        addListener(listener, xLargeAndDownMediaQueryList);
     }
 
+    /**
+     * Adds listener when media query is large and less
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnLargeAndDownListener(MediaQueryListener listener) {
         addListener(listener, largeAndDownMediaQueryList);
     }
 
+    /**
+     * Adds listener when media query is medium and less
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnMediumAndDownListener(MediaQueryListener listener) {
         addListener(listener, mediumAndDownMediaQueryList);
     }
 
+    /**
+     * Adds listener when media query is small and less
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnSmallAndDownListener(MediaQueryListener listener) {
         addListener(listener, smallAndDownMediaQueryList);
     }
 
+    /**
+     * Adds listener when media query is X small and less
+     *
+     * @param listener A {@link MediaQueryListener}
+     */
     public static void addOnXSmallAndDownListener(MediaQueryListener listener) {
-        addListener(listener, xsmallAndDownMediaQueryList);
+        addListener(listener, xSmallAndDownMediaQueryList);
     }
 
     private static void addListener(MediaQueryListener listener, MediaQueryList mediaQueryList) {
@@ -127,95 +236,187 @@ public class MediaQuery {
             }
         };
         mediaQueryList.addListener(mediaQueryListListener);
-        listenersMap.put(listener, mediaQueryListListener);
+        LISTENERS.put(listener, mediaQueryListListener);
         mediaQueryListListener.onInvoke(mediaQueryList);
     }
 
+    /**
+     * Removes X large listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnXLargeListener(MediaQueryListener listener) {
-        removeListener(listener, xlargeMediaQueryList);
+        removeListener(listener, xLargeMediaQueryList);
     }
 
+    /**
+     * Removes large listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnLargeListener(MediaQueryListener listener) {
         removeListener(listener, largeMediaQueryList);
     }
 
+    /**
+     * Removes medium listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnMediumListener(MediaQueryListener listener) {
         removeListener(listener, mediumMediaQueryList);
     }
 
+    /**
+     * Removes small listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnSmallListener(MediaQueryListener listener) {
         removeListener(listener, smallMediaQueryList);
     }
 
+    /**
+     * Removes X small listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnXSmallListener(MediaQueryListener listener) {
-        removeListener(listener, xsmallMediaQueryList);
+        removeListener(listener, xSmallMediaQueryList);
     }
 
+    /**
+     * Removes X large and more listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnXLargeAndUpListener(MediaQueryListener listener) {
-        removeListener(listener, xlargeAndUpMediaQueryList);
+        removeListener(listener, xLargeAndUpMediaQueryList);
     }
 
+    /**
+     * Removes large and more listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnLargeAndUpListener(MediaQueryListener listener) {
         removeListener(listener, largeAndUpMediaQueryList);
     }
 
+    /**
+     * Removes medium and more listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnMediumAndUpListener(MediaQueryListener listener) {
         removeListener(listener, mediumAndUpMediaQueryList);
     }
 
+    /**
+     * Removes small and more listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnSmallAndUpListener(MediaQueryListener listener) {
         removeListener(listener, smallAndUpMediaQueryList);
     }
 
+    /**
+     * Removes X small and more listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnXSmallAndUpListener(MediaQueryListener listener) {
-        removeListener(listener, xsmallMediaQueryList);
+        removeListener(listener, xSmallMediaQueryList);
     }
 
-
+    /**
+     * Removes X large and less listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnXLargeAndDownListener(MediaQueryListener listener) {
-        removeListener(listener, xlargeAndDownMediaQueryList);
+        removeListener(listener, xLargeAndDownMediaQueryList);
     }
 
+    /**
+     * Removes large and less listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnLargeAndDownListener(MediaQueryListener listener) {
         removeListener(listener, largeAndDownMediaQueryList);
     }
 
+    /**
+     * Removes medium and less listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnMediumAndDownListener(MediaQueryListener listener) {
         removeListener(listener, mediumAndDownMediaQueryList);
     }
 
+    /**
+     * Removes small and less listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnSmallAndDownListener(MediaQueryListener listener) {
         removeListener(listener, smallAndDownMediaQueryList);
     }
 
+    /**
+     * Removes X small and less listener
+     *
+     * @param listener the {@link MediaQueryListener} to remove
+     */
     public static void removeOnXSmallAndDownListener(MediaQueryListener listener) {
-        removeListener(listener, xsmallAndDownMediaQueryList);
+        removeListener(listener, xSmallAndDownMediaQueryList);
     }
 
     private static void removeListener(MediaQueryListener listener, MediaQueryList mediaQueryList) {
-        if (listenersMap.containsKey(listener)) {
-            mediaQueryList.removeListener(listenersMap.get(listener));
-            listenersMap.remove(listener);
+        if (LISTENERS.containsKey(listener)) {
+            mediaQueryList.removeListener(LISTENERS.get(listener));
+            LISTENERS.remove(listener);
         }
     }
 
+    /**
+     * Adds media query listener with custom size based on the CSS conventions
+     *
+     * @param mediaQuery A text representing the custom query
+     * @param listener A {@link MediaQueryListener} to add
+     */
     public static void addCustomQueryListener(String mediaQuery, MediaQueryListener listener) {
-        if (!mediaQueries.containsKey(mediaQuery)) {
+        if (!MEDIA_QUERIES.containsKey(mediaQuery)) {
             MediaQueryList mediaQueryList = window.matchMedia(mediaQuery);
-            mediaQueries.put(mediaQuery, mediaQueryList);
+            MEDIA_QUERIES.put(mediaQuery, mediaQueryList);
         }
-        EventTarget mediaQueryList = mediaQueries.get(mediaQuery);
+        EventTarget mediaQueryList = MEDIA_QUERIES.get(mediaQuery);
         addListener(listener, Js.uncheckedCast(mediaQueryList));
     }
 
+    /**
+     * Removes custom media query listener
+     *
+     * @param mediaQuery A text representing the custom query
+     * @param listener A {@link MediaQueryListener} to add
+     */
     public static void removeCustomQueryListener(String mediaQuery, MediaQueryListener listener) {
-        if (mediaQueries.containsKey(mediaQuery)) {
-            removeListener(listener, mediaQueries.get(mediaQuery));
+        if (MEDIA_QUERIES.containsKey(mediaQuery)) {
+            removeListener(listener, MEDIA_QUERIES.get(mediaQuery));
         }
     }
 
+    /**
+     * A listener that will be called when media query matches
+     */
     @FunctionalInterface
     public interface MediaQueryListener {
+        /**
+         * on match the query
+         */
         void onMatch();
     }
 }
