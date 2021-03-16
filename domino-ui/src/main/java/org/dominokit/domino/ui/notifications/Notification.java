@@ -1,10 +1,6 @@
 package org.dominokit.domino.ui.notifications;
 
-import elemental2.dom.DomGlobal;
-import elemental2.dom.HTMLButtonElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.Node;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.style.Color;
@@ -19,21 +15,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.button;
-import static org.jboss.elemento.Elements.div;
-import static org.jboss.elemento.Elements.span;
+import static org.jboss.elemento.Elements.*;
 
+/**
+ * A component for showing notifications on different position with custom content
+ * <p>
+ * Customize the component can be done by overwriting classes provided by {@link NotificationStyles}
+ *
+ * <p>For example: </p>
+ * <pre>
+ *     Notification.createSuccess("Everything is okay");
+ * </pre>
+ *
+ * @see BaseDominoElement
+ */
 public class Notification extends BaseDominoElement<HTMLDivElement, Notification> implements IsElement<HTMLDivElement> {
 
+    /**
+     * Top left position
+     */
     public static final Position TOP_LEFT = new TopLeftPosition();
+    /**
+     * Top center position
+     */
     public static final Position TOP_CENTER = new TopCenterPosition();
+    /**
+     * Top right position
+     */
     public static final Position TOP_RIGHT = new TopRightPosition();
-
+    /**
+     * Bottom left position
+     */
     public static final Position BOTTOM_LEFT = new BottomLeftPosition();
+    /**
+     * Bottom center position
+     */
     public static final Position BOTTOM_CENTER = new BottomCenterPosition();
+    /**
+     * Bottom right position
+     */
     public static final Position BOTTOM_RIGHT = new BottomRightPosition();
 
-    private HTMLButtonElement closeButton = button()
+    private final HTMLButtonElement closeButton = button()
             .attr("type", "button")
             .attr("aria-hidden", "true")
             .css(NotificationStyles.CLOSE)
@@ -41,9 +64,9 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
             .textContent("×")
             .element();
 
-    private HTMLElement messageSpan = span().element();
+    private final HTMLElement messageSpan = span().element();
 
-    private HTMLDivElement element = div()
+    private final HTMLDivElement element = div()
             .css(NotificationStyles.BOOTSTRAP_NOTIFY_CONTAINER)
             .css(NotificationStyles.ALERT)
             .css(NotificationStyles.ALERT_DISMISSIBLE)
@@ -76,7 +99,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     /**
      * Creates a notification with danger style (red background) indicating a failed operation.
      *
-     * @param message
+     * @param message the content message
      * @return {@link Notification}
      */
     public static Notification createDanger(String message) {
@@ -86,7 +109,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     /**
      * Creates a notification with success style (green background) indicating a success operation.
      *
-     * @param message
+     * @param message the content message
      * @return {@link Notification}
      */
     public static Notification createSuccess(String message) {
@@ -96,7 +119,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     /**
      * Creates a notification with success style (green background) to show warnings.
      *
-     * @param message
+     * @param message the content message
      * @return {@link Notification}
      */
     public static Notification createWarning(String message) {
@@ -106,7 +129,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     /**
      * Creates a notification with success style (green background) to informative message.
      *
-     * @param message
+     * @param message the content message
      * @return {@link Notification}
      */
     public static Notification createInfo(String message) {
@@ -116,7 +139,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     /**
      * Creates a notification for the message with the specified type/style
      *
-     * @param message
+     * @param message the content message
      * @param type    the style to be applied on the notification, predefined types {@value NotificationStyles#ALERT_INFO},{@value NotificationStyles#ALERT_DANGER},{@value NotificationStyles#ALERT_SUCCESS},{@value NotificationStyles#ALERT_WARNING}
      * @return {@link Notification}
      */
@@ -129,7 +152,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     /**
      * Creates a notification for the message with no specific type and default black bacjground.
      *
-     * @param message
+     * @param message the content message
      * @return {@link Notification}
      */
     public static Notification create(String message) {
@@ -199,7 +222,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     /**
      * The text content of the notification
      *
-     * @param message
+     * @param message the content message
      * @return {@link Notification}
      */
     public Notification setMessage(String message) {
@@ -210,7 +233,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     /**
      * Sets specified type/style
      *
-     * @param type    the style to be applied on the notification, predefined types {@value NotificationStyles#ALERT_INFO},{@value NotificationStyles#ALERT_DANGER},{@value NotificationStyles#ALERT_SUCCESS},{@value NotificationStyles#ALERT_WARNING}
+     * @param type the style to be applied on the notification, predefined types {@value NotificationStyles#ALERT_INFO},{@value NotificationStyles#ALERT_DANGER},{@value NotificationStyles#ALERT_SUCCESS},{@value NotificationStyles#ALERT_WARNING}
      * @return {@link Notification}
      */
     public Notification setType(String type) {
@@ -263,7 +286,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     /**
      * When true, duration will be ignored, and the notification will only close if the {@link Notification#close()} is called or close button is clicked.
      *
-     * @param infinite
+     * @param infinite true to close manually only, false otherwise
      * @return {@link Notification}
      */
     public Notification setInfinite(boolean infinite) {
@@ -308,10 +331,11 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
 
     /**
      * Closes the notification based on the applied notification position and apply the close animation after the specified duration.
+     *
      * @param after time to wait before starting the close animation in milliseconds
      */
     public final void close(int after) {
-        if(!closed) {
+        if (!closed) {
             int dataPosition = Integer.parseInt(element().getAttribute("data-position"));
             int height = element().offsetHeight;
             animateClose(after, () -> {
@@ -323,7 +347,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     }
 
     private void animateClose(int after, Runnable onComplete) {
-       Animation.create(element())
+        Animation.create(element())
                 .delay(after)
                 .transition(outTransition)
                 .callback(e2 -> {
@@ -333,7 +357,6 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     }
 
     /**
-     *
      * @return List of {@link CloseHandler} to be called when a notification is closed.
      */
     public List<CloseHandler> getCloseHandlers() {
@@ -342,11 +365,12 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
 
     /**
      * Add a handler to be called when a notification is closed
+     *
      * @param closeHandler {@link CloseHandler}
      * @return {@link Notification}
      */
-    public Notification addCloseHandler(CloseHandler closeHandler){
-        if(nonNull(closeHandler)){
+    public Notification addCloseHandler(CloseHandler closeHandler) {
+        if (nonNull(closeHandler)) {
             closeHandlers.add(closeHandler);
         }
         return this;
@@ -354,11 +378,12 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
 
     /**
      * Removes a {@link CloseHandler} from the currently existing close handlers.
-     * @param closeHandler
+     *
+     * @param closeHandler A {@link CloseHandler}
      * @return {@link Notification}
      */
-    public Notification removeCloseHandler(CloseHandler closeHandler){
-        if(nonNull(closeHandler)){
+    public Notification removeCloseHandler(CloseHandler closeHandler) {
+        if (nonNull(closeHandler)) {
             closeHandlers.remove(closeHandler);
         }
         return this;
@@ -400,7 +425,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     }
 
     /**
-     * functionl interface to handle close event
+     * functional interface to handle close event
      */
     @FunctionalInterface
     public interface CloseHandler {

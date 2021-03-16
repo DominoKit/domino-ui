@@ -8,18 +8,24 @@ import java.util.List;
 
 import static elemental2.dom.DomGlobal.document;
 
+/**
+ * Abstract class for placing the notification in a specific position
+ */
 public abstract class NotificationPosition implements Notification.Position {
 
     public static final String DATA_POSITION = "data-position";
 
     private final String selector;
-    private final String positionProprety;
+    private final String positionProperty;
 
-    protected NotificationPosition(String selector, String positionProprety) {
+    protected NotificationPosition(String selector, String positionProperty) {
         this.selector = selector;
-        this.positionProprety = positionProprety;
+        this.positionProperty = positionProperty;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onBeforeAttach(HTMLElement element) {
         element.setAttribute(DATA_POSITION, "20");
@@ -29,16 +35,19 @@ public abstract class NotificationPosition implements Notification.Position {
 
     protected abstract void onBeforePosition(HTMLElement element);
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onNewElement(HTMLElement element) {
         List<Element> elements = getElements();
         elements.forEach(e -> {
-            HTMLElement htmlElement = (HTMLElement) Js.cast(e);
+            HTMLElement htmlElement = Js.cast(e);
             int position = getDataPosition(htmlElement);
             if (htmlElement != element) {
                 int newPosition = position + (element.offsetHeight + getOffsetPosition(element));
                 htmlElement.setAttribute(DATA_POSITION, newPosition);
-                htmlElement.style.setProperty(positionProprety, newPosition + "px");
+                htmlElement.style.setProperty(positionProperty, newPosition + "px");
             }
         });
     }
@@ -53,6 +62,9 @@ public abstract class NotificationPosition implements Notification.Position {
         return document.querySelectorAll("div[data-notify-position=" + selector + "]").asList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onRemoveElement(int dataPosition, int height) {
         List<Element> elements = getElements();
@@ -62,7 +74,7 @@ public abstract class NotificationPosition implements Notification.Position {
             if (position > dataPosition) {
                 int newPosition = position - height - 20;
                 e.setAttribute(DATA_POSITION, newPosition);
-                htmlElement.style.setProperty(positionProprety, newPosition + "px");
+                htmlElement.style.setProperty(positionProperty, newPosition + "px");
             }
         });
     }
