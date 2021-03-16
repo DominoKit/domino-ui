@@ -7,6 +7,17 @@ import org.dominokit.domino.ui.utils.DominoElement;
 
 import static org.jboss.elemento.Elements.div;
 
+/**
+ * A component to show the progress for a single operation within a {@link Progress}
+ * <p>example</p>
+ *
+ * <pre>
+ * Progress.create()
+ *         .appendChild(ProgressBar.create(100).setValue(50));
+ * </pre>
+ *
+ * @see Progress
+ */
 public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> {
 
     private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(ProgressStyles.progress_bar).attr("role", "progressbar"));
@@ -16,10 +27,23 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
     private boolean showText = false;
     private String style = ProgressStyles.progress_bar_success;
 
+    /**
+     *
+     * @param maxValue int max value of the operation progress
+     */
     public ProgressBar(int maxValue) {
         this(maxValue, "{percent}%");
     }
 
+    /**
+     *
+     * @param maxValue int max value of the operation progress
+     * @param textExpression String that contains the parameter one or all of the parameters <b>percent</b>,<b>value</b>,<b>maxValue</b>
+     *                       <p>example</p>
+     *                       <pre>
+     *                           "Finished {percent}% of the items - {value}/{maxValue}"
+     *                       </pre>
+     */
     public ProgressBar(int maxValue, String textExpression) {
         this.maxValue = maxValue;
         this.textExpression = textExpression;
@@ -27,25 +51,46 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
         init(this);
     }
 
+    /**
+     *
+     * @param maxValue int max value of the operation progress
+     * @return new ProgressBar instance
+     */
     public static ProgressBar create(int maxValue) {
         return new ProgressBar(maxValue);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element.element();
     }
 
+    /**
+     *
+     * @return double current progress value
+     */
     public double getValue() {
         return value;
     }
 
+    /**
+     * Make progress text visible on the ProgressBar
+     * @return same Progressbar instance
+     */
     public ProgressBar showText() {
         this.showText = true;
         updateText();
         return this;
     }
 
+    /**
+     *
+     * @param value double value of progress
+     * @return same Progressbar instance
+     */
     public ProgressBar setValue(double value) {
         if (value >= 0 && value <= maxValue) {
             this.value = value;
@@ -65,30 +110,54 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
         }
     }
 
+    /**
+     * Adds an animation effect to the ProgressBar
+     * @return same ProgressBar instance
+     */
     public ProgressBar animate() {
         striped();
         element.style().add(ProgressStyles.active);
         return this;
     }
 
+    /**
+     * Apply the {@link ProgressStyles#progress_bar_success}
+     * @return same Progressbar instance
+     */
     public ProgressBar striped() {
         element.style().remove(ProgressStyles.progress_bar_striped);
         element.style().add(ProgressStyles.progress_bar_striped);
         return this;
     }
 
+    /**
+     * Apply the {@link ProgressStyles#progress_bar_success}
+     * @return same Progressbar instance
+     */
     public ProgressBar success() {
         return setStyle(ProgressStyles.progress_bar_success);
     }
 
+    /**
+     * Apply the {@link ProgressStyles#progress_bar_warning}
+     * @return same Progressbar instance
+     */
     public ProgressBar warning() {
         return setStyle(ProgressStyles.progress_bar_warning);
     }
 
+    /**
+     * Apply the {@link ProgressStyles#progress_bar_info}
+     * @return same Progressbar instance
+     */
     public ProgressBar info() {
         return setStyle(ProgressStyles.progress_bar_info);
     }
 
+    /**
+     * Apply the {@link ProgressStyles#progress_bar_danger}
+     * @return same Progressbar instance
+     */
     public ProgressBar danger() {
         return setStyle(ProgressStyles.progress_bar_danger);
     }
@@ -100,21 +169,44 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
         return this;
     }
 
+    /**
+     *
+     * @param background {@link Color} of the Progressbar
+     * @return same ProgressBar instance
+     */
     public ProgressBar setBackground(Color background) {
         setStyle(background.getBackground());
         return this;
     }
 
+    /**
+     *
+     * @return double max value
+     */
     public double getMaxValue() {
         return maxValue;
     }
 
+    /**
+     *
+     * @param maxValue double
+     * @return same ProgressBar instance
+     */
     public ProgressBar setMaxValue(double maxValue) {
         this.maxValue = maxValue;
         setValue(this.value);
         return this;
     }
-    
+
+    /**
+     *
+     * @param expression String that contains the parameter one or all of the parameters <b>percent</b>,<b>value</b>,<b>maxValue</b>
+     *                       <p>example</p>
+     *                       <pre>
+     *                           "Finished {percent}% of the items - {value}/{maxValue}"
+     *                       </pre>
+     * @return same ProgressBar instance
+     */
     public ProgressBar textExpression(String expression) {
         this.textExpression = expression;
         updateText();
