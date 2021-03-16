@@ -11,6 +11,9 @@ import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.a;
 import static org.jboss.elemento.Elements.li;
 
+/**
+ * A scrolling pagination implementation
+ */
 public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
     private DominoElement<HTMLLIElement> prevSet;
@@ -20,7 +23,6 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
     private DominoElement<HTMLLIElement> dotsElement;
     private DominoElement<HTMLLIElement> pagesCountPageElement;
-    private DominoElement<HTMLLIElement> recordsCountPageElement;
     private DominoElement<HTMLAnchorElement> prevAnchor;
     private DominoElement<HTMLAnchorElement> prevSetAnchor;
     private DominoElement<HTMLAnchorElement> firstPageAnchor;
@@ -29,22 +31,40 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     private DominoElement<HTMLAnchorElement> nextSetAnchor;
     private DominoElement<HTMLAnchorElement> lastPageAnchor;
 
-    private int windowSize = 10;
+    private final int windowSize;
     private int windowIndex = 0;
     private boolean totalRecordVisible = false;
 
+    /**
+     * @return new instance
+     */
     public static ScrollingPagination create() {
         return new ScrollingPagination();
     }
 
+    /**
+     * @param pages the number of pages
+     * @return new instance
+     */
     public static ScrollingPagination create(int pages) {
         return new ScrollingPagination(pages);
     }
 
+    /**
+     * @param pages    the number of pages
+     * @param pageSize the page size
+     * @return new instance
+     */
     public static ScrollingPagination create(int pages, int pageSize) {
         return new ScrollingPagination(pages, pageSize);
     }
 
+    /**
+     * @param pages      the number of pages
+     * @param pageSize   the page size
+     * @param windowSize the number of pages to show in a window
+     * @return new instance
+     */
     public static ScrollingPagination create(int pages, int pageSize, int windowSize) {
         return new ScrollingPagination(pages, pageSize, windowSize);
     }
@@ -69,10 +89,17 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         updatePages(pages, pageSize);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public ScrollingPagination updatePages(int pages) {
         return updatePages(pages, pageSize);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ScrollingPagination updatePages(int pages, int pageSize) {
         this.pageSize = pageSize;
@@ -141,7 +168,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
 
         }
-        recordsCountPageElement = DominoElement.of(li().css("page"))
+        DominoElement<HTMLLIElement> recordsCountPageElement = DominoElement.of(li().css("page"))
                 .appendChild(DominoElement.of(a())
                         .setTextContent("(" + this.totalCount + ")")
                 ).toggleDisplay(totalRecordVisible);
@@ -188,6 +215,9 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void moveToPage(int page, boolean silent) {
         if (page > 0 && page <= pagesCount) {
@@ -275,11 +305,11 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
             for (int i = targetWindowMinLimit; i < targetWindowMaxLimit; i++) {
                 if (i < allPages.size()) {
-                    if(pagesElement.contains(dotsElement)) {
+                    if (pagesElement.contains(dotsElement)) {
                         pagesElement.insertBefore(allPages.get(i), dotsElement);
-                    }else if(pagesElement.contains(pagesCountPageElement)){
+                    } else if (pagesElement.contains(pagesCountPageElement)) {
                         pagesElement.insertBefore(allPages.get(i), pagesCountPageElement);
-                    }else{
+                    } else {
                         pagesElement.appendChild(allPages.get(i));
                     }
                 }
@@ -289,39 +319,67 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         }
     }
 
+    /**
+     * @return true if the total number of records is visible, false otherwise
+     */
     public boolean isTotalRecordVisible() {
         return totalRecordVisible;
     }
 
+    /**
+     * @param totalRecordVisible true to show the total number of records
+     * @return same instance
+     */
     public ScrollingPagination setTotalRecordVisible(boolean totalRecordVisible) {
         this.totalRecordVisible = totalRecordVisible;
         return this;
     }
 
+    /**
+     * @return the previous element
+     */
     public DominoElement<HTMLAnchorElement> getPrevAnchor() {
         return prevAnchor;
     }
 
+    /**
+     * @return the previous window element
+     */
     public DominoElement<HTMLAnchorElement> getPrevSetAnchor() {
         return prevSetAnchor;
     }
 
+    /**
+     * @return the first page element
+     */
     public DominoElement<HTMLAnchorElement> getFirstPageAnchor() {
         return firstPageAnchor;
     }
 
+    /**
+     * @return the dots element
+     */
     public DominoElement<HTMLAnchorElement> getDotsAnchor() {
         return dotsAnchor;
     }
 
+    /**
+     * @return the next element
+     */
     public DominoElement<HTMLAnchorElement> getNextAnchor() {
         return nextAnchor;
     }
 
+    /**
+     * @return the next window element
+     */
     public DominoElement<HTMLAnchorElement> getNextSetAnchor() {
         return nextSetAnchor;
     }
 
+    /**
+     * @return the last page element
+     */
     public DominoElement<HTMLAnchorElement> getLastPageAnchor() {
         return lastPageAnchor;
     }
