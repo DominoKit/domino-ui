@@ -11,6 +11,19 @@ import org.jboss.elemento.EventType;
 
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * A search component that can fit into another component with fixed height, this component will be hidden by default and can be revealed by a trigger.
+ * <p></p>
+ * also the component provide callback and a type ahead delay, and provides a close button to hide the component
+ *
+ * <pre>
+ *Search.create(true)
+ *                 .setSearchPlaceHolder("Search")
+ *                 .styler(style -> style.setHeight(Unit.px.of(40)))
+ *                 .onSearch(searchToken -> Notification.create("Inline searching for : " + searchToken).show())
+ *                 .onClose(() -> Notification.create("Closing inline search : ").show());
+ * </pre>
+ */
 public class Search extends BaseDominoElement<HTMLDivElement, Search> {
 
     private final HTMLElement closeIcon = i()
@@ -40,6 +53,10 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
 
     private Timer autoSearchTimer;
 
+    /**
+     *
+     * @param autoSearch boolean, true to trigger the search while the user is typing with 200ms delay, false to trigger the search only when the user press ENTER
+     */
     public Search(boolean autoSearch) {
         this.autoSearch = autoSearch;
         this.closeIcon.addEventListener("click", evt -> {
@@ -78,14 +95,27 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
         style.setHeight("100%");
     }
 
+    /**
+     *
+     * @return new Search instance
+     */
     public static Search create() {
         return new Search(false);
     }
 
+    /**
+     *
+     * @param autoSearch boolean, true to trigger the search while the user is typing with 200ms delay
+     * @return new Search instance
+     */
     public static Search create(boolean autoSearch) {
         return new Search(autoSearch);
     }
 
+    /**
+     * Show the search if it is hidden
+     * @return same Search instance
+     */
     public Search open() {
         style()
                 .setDisplay("inline-block");
@@ -98,6 +128,10 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
         return this;
     }
 
+    /**
+     * Hides the search if it is open
+     * @return same Search instance
+     */
     public Search close() {
         style().remove(SearchStyles.open);
         Scheduler.get().scheduleFixedDelay(() -> {
@@ -111,58 +145,113 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
         return this;
     }
 
+    /**
+     *
+     * @param handler {@link SearchHandler}
+     * @return same Search instance
+     */
     public Search onSearch(SearchHandler handler) {
         this.searchHandler = handler;
         return this;
     }
 
+    /**
+     *
+     * @param handler {@link SearchCloseHandler}
+     * @return same Search instance
+     */
     public Search onClose(SearchCloseHandler handler) {
         this.closeHandler = handler;
         return this;
     }
 
+    /**
+     *
+     * @param placeHolder String placeholder text for the search input
+     * @return same Search instance
+     */
     public Search setSearchPlaceHolder(String placeHolder){
         DominoElement.of(searchInput)
                 .setAttribute("placeholder", placeHolder);
         return this;
     }
 
+    /**
+     *
+     * @return boolean, true if auto search is enabled
+     */
     public boolean isAutoSearch() {
         return autoSearch;
     }
 
+    /**
+     *
+     * @return the {@link SearchHandler}
+     */
     public SearchHandler getSearchHandler() {
         return searchHandler;
     }
 
+    /**
+     *
+     * @param searchHandler {@link SearchHandler}
+     */
     public void setSearchHandler(SearchHandler searchHandler) {
         this.searchHandler = searchHandler;
     }
 
+    /**
+     *
+     * @return the {@link SearchCloseHandler}
+     */
     public SearchCloseHandler getCloseHandler() {
         return closeHandler;
     }
 
+    /**
+     *
+     * @param closeHandler {@link SearchCloseHandler}
+     */
     public void setCloseHandler(SearchCloseHandler closeHandler) {
         this.closeHandler = closeHandler;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element;
     }
 
+    /**
+     *
+     * @return the {@link HTMLInputElement} of this search component wrapped as {@link DominoElement}
+     */
     public DominoElement<HTMLInputElement> getInputElement() {
         return DominoElement.of(searchInput);
     }
 
+    /**
+     * A functional interface to implement the search logic
+     */
     @FunctionalInterface
     public interface SearchHandler {
+        /**
+         *
+         * @param searchToken String value of the search input
+         */
         void onSearch(String searchToken);
     }
 
+    /**
+     * A functional interface to handle closing of the Search component
+     */
     @FunctionalInterface
     public interface SearchCloseHandler {
+        /**
+         * Will be called when the search is closed
+         */
         void onClose();
     }
 }
