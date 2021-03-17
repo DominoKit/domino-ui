@@ -19,6 +19,14 @@ import static org.jboss.elemento.Elements.*;
 import static org.jboss.elemento.EventType.input;
 import static org.jboss.elemento.EventType.*;
 
+/**
+ * A component with min/max value and its value can be changed by sliding a pointer through the component
+ * <pre>
+ *     Slider.create(100, 0)
+ *         .setStep(1)
+ *         .setWithThumb(true);
+ * </pre>
+ */
 public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> implements HasChangeHandlers<Slider, Double> {
 
     private DominoElement<HTMLParagraphElement> sliderContainer = DominoElement.of(p().css(SliderStyles.slide_container));
@@ -36,18 +44,43 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
     private Element leftAddon;
     private Element rightAddon;
 
+    /**
+     *
+     * @param max double value
+     * @return new Slider instance initialized with the max value and its value is 0, also its min value is 0
+     */
     public static Slider create(double max) {
         return create(max, 0, 0);
     }
 
+    /**
+     *
+     * @param max double
+     * @param min double
+     * @return new Slider instance initialized with the max and min values and its value is 0
+     */
     public static Slider create(double max, double min) {
         return create(max, min, 0);
     }
 
+    /**
+     *
+     * @param max double
+     * @param min double
+     * @param value double
+     * @return new Slider instance initialized with the max and min values and sets its initial value
+     */
     public static Slider create(double max, double min, double value) {
         return new Slider(max, min, value);
     }
 
+    /**
+     *
+     * initialize the slider with the max and min values and sets its initial value
+     * @param max double
+     * @param min double
+     * @param value double
+     */
     public Slider(double max, double min, double value) {
         sliderContainer.appendChild(FlexLayout.create()
                 .appendChild(leftAddonContainer
@@ -155,16 +188,33 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         }
     }
 
+    /**
+     *
+     * @param max double max value
+     * @return same Slider instance
+     */
     public Slider setMaxValue(double max) {
         slider.element().max = max + "";
         return this;
     }
 
+    /**
+     *
+     * @param min double min value
+     * @return same Slider instance
+     */
     public Slider setMinValue(double min) {
         slider.element().min = min + "";
         return this;
     }
 
+
+    /**
+     *
+     * @param newValue double value
+     * @param silent boolean, if true change handler wont be triggered
+     * @return same Slider instance
+     */
     public Slider setValue(double newValue, boolean silent) {
         slider.element().value = newValue + "";
         updateThumbValue();
@@ -174,79 +224,145 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         return this;
     }
 
+    /**
+     *
+     * @param newValue double value
+     * @return same Slider instance
+     */
     public Slider setValue(double newValue) {
         return setValue(newValue, false);
     }
 
+    /**
+     *
+     * @param step double value increment while dragging the pointer
+     * @return same Slider instance
+     */
     public Slider setStep(double step) {
         slider.element().step = step + "";
         return this;
     }
 
+    /**
+     * The slider will allow any value between min and max values without specific increment
+     * @return same Slider instance
+     */
     public Slider anyStep() {
         slider.element().step = "any";
         return this;
     }
 
+    /**
+     *
+     * @return double max value of this Slider
+     */
     public double getMax() {
         return Double.parseDouble(slider.element().max);
     }
 
+    /**
+     *
+     * @return double min value of this Slider
+     */
     public double getMin() {
         return Double.parseDouble(slider.element().min);
     }
 
+    /**
+     *
+     * @return double value of the Slider
+     */
     public double getValue() {
         return slider.element().valueAsNumber;
     }
 
+    /**
+     * Show a thumb over the slider pointer that show the value while dragging
+     * @return same Slider instance
+     */
     public Slider withThumb() {
         setWithThumb(true);
         return this;
     }
 
+    /**
+     * Wont show a thumb over the slider pointer that show the value while dragging
+     * @return same Slider instance
+     */
     public Slider withoutThumb() {
         setWithThumb(false);
         return this;
     }
 
+    /**
+     *
+     * @param withThumb boolean, if true the slider will show a thumb over the pointer that shows the slider value while dragging
+     * @return same Slider instance
+     */
     public Slider setWithThumb(boolean withThumb) {
         this.withThumb = withThumb;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLParagraphElement element() {
         return sliderContainer.element();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Slider addChangeHandler(ChangeHandler<? super Double> changeHandler) {
         changeHandlers.add(changeHandler);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Slider removeChangeHandler(ChangeHandler<? super Double> changeHandler) {
         changeHandlers.remove(changeHandler);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasChangeHandler(ChangeHandler<? super Double> changeHandler) {
         return changeHandlers.contains(changeHandler);
     }
 
+    /**
+     *
+     * @param slideHandler {@link SlideHandler}
+     * @return same Slider instance
+     */
     public Slider addSlideHandler(SlideHandler slideHandler) {
         slideHandlers.add(slideHandler);
         return this;
     }
 
+    /**
+     *
+     * @param slideHandler {@link SlideHandler}
+     * @return same Slider instance
+     */
     public Slider removeSlideHandler(SlideHandler slideHandler) {
         slideHandlers.remove(slideHandler);
         return this;
     }
 
+    /**
+     *
+     * @param backgroundColor {@link Color} of the Slider
+     * @return same Slider instance
+     */
     public Slider setBackgroundColor(Color backgroundColor) {
         if (nonNull(this.backgroundColor)) {
             slider.style().remove("slider-" + this.backgroundColor.getBackground());
@@ -256,6 +372,11 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         return this;
     }
 
+    /**
+     *
+     * @param thumbColor {@link Color} of the thumb
+     * @return same Slider instance
+     */
     public Slider setThumbColor(Color thumbColor) {
         if (nonNull(this.thumbColor)) {
             slider.style().remove("thumb-" + this.thumbColor.getBackground());
@@ -267,10 +388,20 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         return this;
     }
 
+    /**
+     *
+     * @param leftAddon {@link IsElement} to be added as an addon to the left of the slider
+     * @return same Slider instance
+     */
     public Slider setLeftAddon(IsElement<?> leftAddon) {
         return setLeftAddon(leftAddon.element());
     }
 
+    /**
+     *
+     * @param leftAddon {@link HTMLElement} to be added as an addon to the left of the slider
+     * @return same Slider instance
+     */
     public Slider setLeftAddon(HTMLElement leftAddon) {
         leftAddonContainer.show();
         setAddon(leftAddonContainer.element(), this.leftAddon, leftAddon);
@@ -278,10 +409,20 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         return this;
     }
 
+    /**
+     *
+     * @param rightAddon {@link IsElement} to be added as an addon to the right of the slider
+     * @return same Slider instance
+     */
     public Slider setRightAddon(IsElement<?> rightAddon) {
         return setRightAddon(rightAddon.element());
     }
 
+    /**
+     *
+     * @param rightAddon {@link HTMLElement} to be added as an addon to the right of the slider
+     * @return same Slider instance
+     */
     public Slider setRightAddon(HTMLElement rightAddon) {
         rightAddonContainer.show();
         setAddon(rightAddonContainer.element(), this.rightAddon, rightAddon);
@@ -289,6 +430,10 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         return this;
     }
 
+    /**
+     *
+     * @return same Slider instance
+     */
     public Slider removeRightAddon() {
         if (nonNull(rightAddon)) {
             rightAddon.remove();
@@ -297,6 +442,10 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         return this;
     }
 
+    /**
+     *
+     * @return same Slider instance
+     */
     public Slider removeLeftAddon() {
         if (nonNull(leftAddon)) {
             leftAddon.remove();
@@ -321,8 +470,15 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider> impl
         }
     }
 
+    /**
+     * A function to implement logic that will be called while dragging the slider pointer
+     */
     @FunctionalInterface
     public interface SlideHandler {
+        /**
+         *
+         * @param value double value for the current position of the slider pointer
+         */
         void onSlide(double value);
     }
 }
