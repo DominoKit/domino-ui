@@ -12,6 +12,9 @@ import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.EventType.mousedown;
 
+/**
+ * Adds the required events to add waves for a target element
+ */
 public class Waves implements IsElement<HTMLElement> {
 
     private final DominoElement<? extends HTMLElement> target;
@@ -20,7 +23,7 @@ public class Waves implements IsElement<HTMLElement> {
     private Timer delayTimer;
     private Timer removeTimer;
     private final int duration = 750;
-    private WavesEventListener wavesEventListener = new WavesEventListener();
+    private final WavesEventListener wavesEventListener = new WavesEventListener();
 
     public Waves(HTMLElement target) {
         this(DominoElement.of(target));
@@ -30,14 +33,29 @@ public class Waves implements IsElement<HTMLElement> {
         this.target = target;
     }
 
+    /**
+     * Creates waves for a specific target element
+     *
+     * @param target the {@link HTMLElement} to add waves to
+     * @return new instance
+     */
     public static Waves create(HTMLElement target) {
         return new Waves(target);
     }
 
+    /**
+     * Creates waves for a specific target element
+     *
+     * @param target the {@link DominoElement} to add waves to
+     * @return new instance
+     */
     public static Waves create(DominoElement<? extends HTMLElement> target) {
         return new Waves(target);
     }
 
+    /**
+     * Initialize the required event listeners for waves
+     */
     public void initWaves() {
         if (isTargetDisabled())
             return;
@@ -45,6 +63,9 @@ public class Waves implements IsElement<HTMLElement> {
         target.addEventListener(mousedown.getName(), wavesEventListener);
     }
 
+    /**
+     * Removes the event listeners that adds waves
+     */
     public void removeWaves() {
         target.removeEventListener(mousedown.getName(), wavesEventListener);
     }
@@ -87,28 +108,25 @@ public class Waves implements IsElement<HTMLElement> {
 
     private String convertStyle(JsPropertyMap<String> rippleStyle) {
         StringBuilder style = new StringBuilder();
-        rippleStyle.forEach(key -> {
-            style.append(key + ":" + rippleStyle.get(key) + ";");
-        });
+        rippleStyle.forEach(key -> style.append(key).append(":").append(rippleStyle.get(key)).append(";"));
 
         return style.toString();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLElement element() {
         return target.element();
     }
 
     private ElementOffset offset(HTMLElement target) {
-
         Element docElem = target.ownerDocument.documentElement;
-        ClientRect box = target.getBoundingClientRect();
-
+        DOMRect box = target.getBoundingClientRect();
         ElementOffset position = new ElementOffset();
-
         position.top = box.top + window.pageYOffset - docElem.clientTop;
         position.left = box.left + window.pageXOffset - docElem.clientLeft;
-
         return position;
     }
 
