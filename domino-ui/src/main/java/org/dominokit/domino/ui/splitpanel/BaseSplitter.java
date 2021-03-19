@@ -17,8 +17,8 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
 
     private static final int LEFT_BUTTON = 1;
 
-    protected DominoElement<HTMLDivElement> element = DominoElement.of(div().css(SplitStyles.splitter));
-    private DominoElement<HTMLDivElement> handleElement = DominoElement.of(div().css(SplitStyles.split_handle));
+    protected DominoElement<HTMLDivElement> element = DominoElement.of(div().css(SplitStyles.SPLITTER));
+    private final DominoElement<HTMLDivElement> handleElement = DominoElement.of(div().css(SplitStyles.SPLIT_HANDLE));
 
     private double fullSize = 0;
     private double initialStartPosition = 0;
@@ -76,7 +76,7 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
         double diff = currentPosition - initialStartPosition;
 
         double firstSizeDiff = first.isFirst() ? this.firstSize + diff + (double) mainPanel.getSplitterSize() / 2 : this.firstSize + diff + mainPanel.getSplitterSize();
-        double secondSizeDiff = second.isLast() ? this.secondSize - diff + (double) mainPanel.getSplitterSize() / 2 :  this.secondSize - diff + mainPanel.getSplitterSize();
+        double secondSizeDiff = second.isLast() ? this.secondSize - diff + (double) mainPanel.getSplitterSize() / 2 : this.secondSize - diff + mainPanel.getSplitterSize();
 
         double firstPercent = (firstSizeDiff / fullSize * 100);
         double secondPercent = (secondSizeDiff / fullSize * 100);
