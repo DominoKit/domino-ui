@@ -27,6 +27,34 @@ import java.util.stream.Collectors;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.input;
 
+/**
+ * A component provides an input field which represents the data in tags
+ * <p>
+ * This component provides an input field which takes multiple values and each value is represented in a tag.
+ * It also provides a suggestion feature to list all the items in a store for the user to select from it.
+ * <p>
+ * Customize the component can be done by overwriting classes provided by {@link TagStyles}
+ *
+ * <p>For example: </p>
+ * <pre>
+ *     TagsInput.create("Free tag")
+ *              .setPlaceholder("Type anything...")
+ *              .value(Collections.singletonList("Hey! how are you?"))
+ *
+ *     // with a store
+ *     Person schroeder_coleman = new Person(1, "Schroeder Coleman");
+ *     LocalTagsStore personsStore =
+ *         LocalTagsStore.create()
+ *             .addItem("Schroeder Coleman", schroeder_coleman)
+ *             .addItem("Renee Mcintyre", new Person(2, "Renee Mcintyre"))
+ *             .addItem("Casey Garza", new Person(3, "Casey Garza"));
+ *     TagsInput objectTags = TagsInput.create("Friends", personsStore);
+ *     objectTags.setValue(Collections.singletonList(schroeder_coleman));
+ * </pre>
+ *
+ * @param <V> the type of the object inside the input
+ * @see AbstractValueBox
+ */
 public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, List<V>> {
 
     private DominoElement<HTMLInputElement> tagTextInput;
@@ -49,18 +77,30 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
         floating();
     }
 
+    /**
+     * @return new instance of {@link String} type with empty label and a dynamic store that accepts any value
+     */
     public static TagsInput<String> create() {
         return create("");
     }
 
+    /**
+     * @return new instance of {@link String} type with a label and a dynamic store that accepts any value
+     */
     public static TagsInput<String> create(String label) {
         return create(label, new DynamicLocalTagsStore());
     }
 
+    /**
+     * @return new instance with empty label and a {@link TagsStore}
+     */
     public static <V> TagsInput<V> create(TagsStore<V> store) {
         return create("", store);
     }
 
+    /**
+     * @return new instance with a label and a {@link TagsStore}
+     */
     public static <V> TagsInput<V> create(String label, TagsStore<V> store) {
         return new TagsInput<>(label, store);
     }
@@ -102,10 +142,10 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
                     addTag();
                 })
                 .onTab(evt -> {
-                    if(dropDownMenu.isOpened() && dropDownMenu.hasActions()){
+                    if (dropDownMenu.isOpened() && dropDownMenu.hasActions()) {
                         evt.preventDefault();
                         dropDownMenu.focus();
-                    }else{
+                    } else {
                         unfocus();
                     }
                 })
@@ -153,7 +193,7 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
     private void addDropDownAction(String displayValue, V value) {
         if (!selectedItems.contains(value)) {
             dropDownMenu
-                    .addAction(DropdownAction.create(displayValue, displayValue)
+                    .appendChild(DropdownAction.create(displayValue, displayValue)
                             .addSelectionHandler(selectedValue -> {
                                 appendChip(displayValue, value);
                                 tagTextInput.element().focus();
@@ -210,12 +250,26 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
         }
     }
 
+    /**
+     * Adds a new value.
+     * <p>
+     * The {@code value} itself should be exist in the store, in case of dynamic store, the value will be string and will be added automatically
+     *
+     * @param value the new value to add
+     * @return same instance
+     */
     public TagsInput<V> addValue(V value) {
         String displayValue = store.getDisplayValue(value);
         appendChip(displayValue, value);
         return this;
     }
 
+    /**
+     * Appends a value as a chip with a display value
+     *
+     * @param displayValue the display of the value
+     * @param value        the value object
+     */
     public void appendChip(String displayValue, V value) {
         Chip chip = Chip.create(displayValue)
                 .setColorScheme(colorScheme)
@@ -223,13 +277,19 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
                 .addRemoveHandler(() -> dropDownMenu.close())
                 .addClickListener(evt -> {
                     evt.stopPropagation();
-                    if(dropDownMenu.isOpened()) {
+                    if (dropDownMenu.isOpened()) {
                         dropDownMenu.close();
                     }
                 });
         appendChip(chip, value);
     }
 
+    /**
+     * Appends a new chip representing to the value
+     *
+     * @param chip  the {@link Chip}
+     * @param value the value object
+     */
     public void appendChip(Chip chip, V value) {
         if (!isExceedsMaxSize()) {
             chip.addRemoveHandler(() -> {
@@ -248,27 +308,45 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
         return maxSize >= 0 && chips.size() >= maxSize;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEmpty() {
         return selectedItems.isEmpty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<V> getValue() {
         return selectedItems;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TagsInput<V> setPlaceholder(String placeholder) {
         tagTextInput.setAttribute("placeholder", placeholder);
         return this;
     }
 
+    /**
+     * Sets the position of the suggestion drop down
+     *
+     * @param position the {@link DropDownPosition}
+     * @return same instance
+     */
     public TagsInput<V> setDropDownPosition(DropDownPosition position) {
         dropDownMenu.setPosition(position);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TagsInput<V> disable() {
         chips.forEach(Chip::disable);
@@ -276,6 +354,9 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
         return super.disable();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TagsInput<V> enable() {
         chips.forEach(Chip::enable);
@@ -283,6 +364,12 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
         return super.enable();
     }
 
+    /**
+     * Sets the color scheme that will be used for tags
+     *
+     * @param colorScheme the {@link ColorScheme}
+     * @return same instance
+     */
     public TagsInput<V> setTagsColor(ColorScheme colorScheme) {
         this.colorScheme = colorScheme;
         chips.forEach(chip -> chip.setColorScheme(this.colorScheme));
@@ -299,22 +386,41 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
             tagTextInput.show();
     }
 
+    /**
+     * Sets the maximum number of selected values
+     *
+     * @param maxSize the maximum size
+     * @return same instance
+     */
     public TagsInput<V> setMaxValue(int maxSize) {
         this.maxSize = maxSize;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getStringValue() {
         return getValue().stream().map(Object::toString).collect(Collectors.joining(","));
     }
 
+    /**
+     * Disables the ability for typing in the input field and all values should be selected from the suggestion drop down
+     *
+     * @return same instance
+     */
     public TagsInput<V> disableUserInput() {
         userInputEnabled = false;
         tagTextInput.hide();
         return this;
     }
 
+    /**
+     * Enables the ability for typing in the input field
+     *
+     * @return same instance
+     */
     public TagsInput<V> enableUserInput() {
         userInputEnabled = true;
         tagTextInput.show();
