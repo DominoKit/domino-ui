@@ -1,5 +1,8 @@
 package org.dominokit.domino.ui.timepicker;
 
+/**
+ * Constants class for time picker components css classes names
+ */
 public class TimePickerStyles {
     public static final String PICKER_WIDTH = "270px";
     public static final String TIME_PICKER = "time-picker";

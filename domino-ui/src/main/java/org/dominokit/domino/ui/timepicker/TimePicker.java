@@ -31,6 +31,9 @@ import static org.dominokit.domino.ui.timepicker.DayPeriod.PM;
 import static org.dominokit.domino.ui.utils.ElementUtil.clear;
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * A component that allows the user to pick time from a clock like element
+ */
 public class TimePicker implements IsElement<HTMLDivElement> {
 
     private DominoElement<HTMLDivElement> pickerContentContainer;
@@ -110,10 +113,19 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     };
     private boolean borderVisible = false;
 
+    /**
+     *
+     * @return new instance
+     */
     public static TimePicker create() {
         return new TimePicker();
     }
 
+    /**
+     *
+     * @param dateTimeFormatInfo {@link DateTimeFormatInfo} to format the time
+     * @return new instance
+     */
     public static TimePicker create(DateTimeFormatInfo dateTimeFormatInfo) {
         return new TimePicker(dateTimeFormatInfo);
     }
@@ -122,6 +134,10 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         this(DateTimeFormatInfo_factory.create());
     }
 
+    /**
+     *
+     * @param dateTimeFormatInfo {@link DateTimeFormatInfo} to format the time
+     */
     public TimePicker(DateTimeFormatInfo dateTimeFormatInfo) {
 
         this.dateTimeFormatInfo = dateTimeFormatInfo;
@@ -134,7 +150,6 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         initFooter();
         preventTextSelection();
     }
-
 
     private void initFooter() {
         element.appendChild(footerPanel);
@@ -170,7 +185,6 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         footerPanel.appendChild(closeButton);
     }
 
-
     private void switchPeriod() {
         if (AM.equals(clock.getDayPeriod())) {
             clock.setDayPeriod(PM);
@@ -190,14 +204,22 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         onTimeChanged();
     }
 
+    /**
+     * Show a border for the clock picker element
+     * @return same instance
+     */
     public TimePicker showBorder() {
         this.borderVisible = true;
         element.style().setBorder("1px solid " + colorScheme.color().getHex());
         return this;
     }
-    
+
+    /**
+     *
+     * @param showSeconds boolean, true to show second picker and show seconds in the time
+     * @return same instance
+     */
     public TimePicker setShowSeconds(boolean showSeconds) {
-        
         if(showSeconds) {
             secondsText.show();
             minuteSecondDelimiter.show();
@@ -212,6 +234,10 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         return this;
     }
 
+    /**
+     *
+     * @return boolean, true if this picker shows seconds
+     */
     public boolean isShowSeconds() {
         return showSeconds;
     }
@@ -352,7 +378,10 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         selectSecond(this.clock.getSecond());
     }
 
-
+    /**
+     *
+     * @param time {@link Date} time value
+     */
     public void setTime(Date time) {
         JsDate jsDate = new JsDate((double) time.getTime());
         this.clock.setHour(jsDate.getHours());
@@ -366,6 +395,11 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         onTimeChanged();
     }
 
+    /**
+     *
+     * @param colorScheme {@link ColorScheme} to color different picker clock elements
+     * @return same instance
+     */
     public TimePicker setColorScheme(ColorScheme colorScheme) {
         createCenterCircles(colorScheme);
 
@@ -761,14 +795,34 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         }
     }
 
+    /**
+     *
+     * @param hour int
+     */
     public void setHour(int hour) {
         selectHour(hour);
     }
 
+    /**
+     * @deprecated use {@link #setMinute(int)}
+     */
+    @Deprecated
     public void setminute(int minute) {
+        setMinute(minute);
+    }
+
+    /**
+     *
+     * @param minute int
+     */
+    public void setMinute(int minute) {
         selectMinute(minute);
     }
-    
+
+    /**
+     *
+     * @param second int
+     */
     public void setSecond(int second) {
         selectSecond(second);
     }
@@ -777,75 +831,140 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         this.clock.setHour(hour);
     }
 
+    /**
+     * Shows a button to set the time to the current time
+     * @return same instance
+     */
     public TimePicker showNowButton() {
         this.nowButton.show();
         return this;
     }
 
+    /**
+     * hides the button to set the time to the current time
+     * @return same instance
+     */
     public TimePicker hideNowButton() {
         this.nowButton.hide();
         return this;
     }
 
+    /**
+     * Shows a button that clears the picker value
+     * @return same instance
+     */
     public TimePicker showClearButton() {
         this.clearButton.show();
         return this;
     }
 
+    /**
+     * hides the button that clears the picker value
+     * @return same instance
+     */
     public TimePicker hideClearButton() {
         this.clearButton.hide();
         return this;
     }
 
-
+    /**
+     * Shows a button that close the picker
+     * @return same instance
+     */
     public TimePicker showCloseButton() {
         this.closeButton.show();
         return this;
     }
 
+    /**
+     * Shows the button that close the picker
+     * @return same instance
+     */
     public TimePicker hideCloseButton() {
         this.closeButton.hide();
         return this;
     }
 
+    /**
+     *
+     * @param closeHandler {@link PickerHandler} to be called when the picker is closed
+     * @return same instance
+     */
     public TimePicker addCloseHandler(PickerHandler closeHandler) {
         this.closeHandlers.add(closeHandler);
         return this;
     }
 
+    /**
+     *
+     * @param closeHandler {@link PickerHandler} to be removed
+     * @return same instance
+     */
     public TimePicker removeCloseHandler(PickerHandler closeHandler) {
         this.closeHandlers.remove(closeHandler);
         return this;
     }
 
+    /**
+     *
+     * @return List of {@link PickerHandler}s that handles the close of the picker
+     */
     public List<PickerHandler> getCloseHandlers() {
         return this.closeHandlers;
     }
 
+    /**
+     *
+     * @param showMinutesHandler {@link PickerHandler} to be called when the picker shows the minutes panel
+     * @return same instance
+     */
     public TimePicker addShowMinutesHandler(PickerHandler showMinutesHandler) {
         this.showMinutesHandlers.add(showMinutesHandler);
         return this;
     }
 
+    /**
+     *
+     * @param showMinutesHandler {@link PickerHandler} to be removed
+     * @return same instance
+     */
     public TimePicker removeShowMinutesHandler(PickerHandler showMinutesHandler) {
         this.showMinutesHandlers.remove(showMinutesHandler);
         return this;
     }
 
+    /**
+     *
+     * @return List of {@link PickerHandler}s that handles the picker shows the minutes panel
+     */
     public List<PickerHandler> getShowMinutesHandlers() {
         return this.showMinutesHandlers;
     }
 
+    /**
+     *
+     * @param showHoursHandler {@link PickerHandler} to be called when the picker shows the hours panel
+     * @return same instance
+     */
     public TimePicker addShowHoursHandler(PickerHandler showHoursHandler) {
         this.showHoursHandlers.add(showHoursHandler);
         return this;
     }
 
+    /**
+     *
+     * @param showHoursHandler {@link PickerHandler} to be removed
+     * @return same instance
+     */
     public TimePicker removeShowHoursHandler(PickerHandler showHoursHandler) {
         this.showHoursHandlers.remove(showHoursHandler);
         return this;
     }
 
+    /**
+     *
+     * @return List of {@link PickerHandler}s that handles the picker shows the hours panel
+     */
     public List<PickerHandler> getShowHoursHandlers() {
         return this.showHoursHandlers;
     }
@@ -855,82 +974,158 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         return this;
     }
 
+    /**
+     *
+     * @param clearHandler {@link PickerHandler} to be removed
+     * @return same instance
+     */
     public TimePicker removeClearHandler(PickerHandler clearHandler) {
         this.clearHandlers.remove(clearHandler);
         return this;
     }
 
+    /**
+     *
+     * @return List of {@link PickerHandler}s that should be called when the picker is cleared
+     */
     public List<PickerHandler> getClearHandlers() {
         return this.clearHandlers;
     }
 
+    /**
+     *
+     * @param timeSelectionHandler {@link TimeSelectionHandler}
+     * @return same instance
+     */
     public TimePicker addTimeSelectionHandler(TimeSelectionHandler timeSelectionHandler) {
         this.timeSelectionHandlers.add(timeSelectionHandler);
         return this;
     }
 
+    /**
+     *
+     * @param timeSelectionHandler {@link TimeSelectionHandler}
+     * @return same instance
+     */
     public TimePicker removeTimeSelectionHandler(TimeSelectionHandler timeSelectionHandler) {
         this.timeSelectionHandlers.remove(timeSelectionHandler);
         return this;
     }
 
+    /**
+     *
+     * @return List of {@link TimeSelectionHandler}s
+     */
     public List<TimeSelectionHandler> getTimeSelectionHandlers() {
         return this.timeSelectionHandlers;
     }
 
+    /**
+     * remove all {@link TimeSelectionHandler}s
+     * @return same instance
+     */
     public TimePicker clearTimeSelectionHandlers() {
         this.timeSelectionHandlers.clear();
         return this;
     }
 
+    /**
+     *
+     * @param text String text of the today button
+     * @return same instance
+     */
     public TimePicker todayButtonText(String text) {
         this.nowButton.setContent(text);
         this.nowButton.element().title = text;
         return this;
     }
 
+    /**
+     *
+     * @param text String text of the clear button
+     * @return same instance
+     */
     public TimePicker clearButtonText(String text) {
         this.clearButton.setContent(text);
         this.clearButton.element().title = text;
         return this;
     }
 
+    /**
+     *
+     * @param text String text of the close button
+     * @return same instance
+     */
     public TimePicker closeButtonText(String text) {
         this.closeButton.setContent(text);
         this.closeButton.element().title = text;
         return this;
     }
 
+    /**
+     * Fix the picker width with a default value
+     * @return same instance
+     */
     public TimePicker fixedWidth() {
         element.style().setWidth(TimePickerStyles.PICKER_WIDTH, true);
         return this;
     }
 
+    /**
+     * Fix the picker width with a provided value
+     * @param width String css width
+     * @return same instance
+     */
     public TimePicker fixedWidth(String width) {
         element.style().setWidth(width, true);
         return this;
     }
 
+    /**
+     *
+     * @return the {@link HTMLDivElement} that contains the hours selection elements
+     */
     public DominoElement<HTMLDivElement> getHoursPanel() {
         return hoursPanel;
     }
 
+    /**
+     *
+     * @return the {@link HTMLDivElement} that contains the minutes selection elements
+     */
     public DominoElement<HTMLDivElement> getMinutesPanel() {
         return minutesPanel;
     }
 
+    /**
+     *
+     * @return the {@link HTMLDivElement} main content container
+     */
     public DominoElement<HTMLDivElement> getPickerContentContainer() {
         return pickerContentContainer;
     }
 
+    /**
+     *
+     * @return the {@link HTMLDivElement} that contains the current selected time values
+     */
     public DominoElement<HTMLDivElement> getClockPanel() {
         return clockPanel;
     }
 
+    /**
+     *
+     * @return boolean, true if the elements to switch between hour/minutes selection are visible
+     */
     public boolean isShowSwitchers() {
         return showSwitchers;
     }
 
+    /**
+     *
+     * @param showSwitchers boolean, true to show elements to switch between hour/minutes selection
+     * @return same instance
+     */
     public TimePicker setShowSwitchers(boolean showSwitchers) {
         if (showSwitchers) {
             backToHours.show();
@@ -944,6 +1139,11 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         return this;
     }
 
+    /**
+     *
+     * @param clockStyle {@link ClockStyle}
+     * @return same instance
+     */
     public TimePicker setClockStyle(ClockStyle clockStyle) {
         this.clockStyle = clockStyle;
         if (_12.equals(clockStyle)) {
@@ -959,10 +1159,18 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         return this;
     }
 
+    /**
+     *
+     * @return the {@link DateTimeFormatInfo} used to format the time
+     */
     public DateTimeFormatInfo getDateTimeFormatInfo() {
         return dateTimeFormatInfo;
     }
 
+    /**
+     *
+     * @param dateTimeFormatInfo {@link DateTimeFormatInfo} to format the time
+     */
     public void setDateTimeFormatInfo(DateTimeFormatInfo dateTimeFormatInfo) {
         this.dateTimeFormatInfo = dateTimeFormatInfo;
         this.clock.setDateTimeFormatInfo(dateTimeFormatInfo);
@@ -985,44 +1193,85 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         return dateTimeFormatInfo.ampms()[1];
     }
 
+    /**
+     *
+     * @return the picker {@link ColorScheme}
+     */
     public ColorScheme getColorScheme() {
         return colorScheme;
     }
 
+    /**
+     *
+     * @return the {@link Date} value
+     */
     public Date getTime() {
         return this.clock.getTime();
     }
 
-
+    /**
+     *
+     * @return String formatted time with the DateTimeFormatInfo
+     */
     public String getFormattedTime() {
         return this.clock.format();
     }
 
+    /**
+     *
+     * @return boolean, true if selecting an hour will automatically switch to minutes selection
+     */
     public boolean isAutoSwitchMinutes() {
         return autoSwitchMinutes;
     }
 
+    /**
+     *
+     * @param autoSwitchMinutes boolean, true to make selecting an hour automatically switch to minutes selection
+     */
     public void setAutoSwitchMinutes(boolean autoSwitchMinutes) {
         this.autoSwitchMinutes = autoSwitchMinutes;
     }
-    
+
+
+    /**
+     *
+     * @return boolean, true if selecting a minute will automatically switch to seconds selection
+     */
     public boolean isAutoSwitchSeconds() {
         return autoSwitchSeconds;
     }
 
+    /**
+     *
+     * @param autoSwitchSeconds boolean, true to make selecting a minute automatically switch to seconds selection
+     */
     public void setAutoSwitchSeconds(boolean autoSwitchSeconds) {
         this.autoSwitchSeconds = autoSwitchSeconds;
     }
 
+    /**
+     * Creates a modal that can be used to show this picker as a modal dialog
+     * @param title String title
+     * @return new ModalDialog instance
+     */
     public ModalDialog createModal(String title) {
         return ModalDialog.createPickerModal(title, this.element());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element.element();
     }
 
+    /**
+     *
+     * @param colorSchemeHandler {@link ColorSchemeHandler}
+     * @return same instance
+     */
     TimePicker setColorSchemeHandler(ColorSchemeHandler colorSchemeHandler) {
         if (nonNull(colorSchemeHandler))
             this.colorSchemeHandler = colorSchemeHandler;
@@ -1030,14 +1279,30 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         return this;
     }
 
+    /**
+     * A function to implement a handler for picker ColorScheme changes
+     */
     @FunctionalInterface
     interface ColorSchemeHandler {
+        /**
+         *
+         * @param oldColorScheme {@link ColorScheme}
+         * @param newColorScheme {@link ColorScheme}
+         */
         void onColorSchemeChanged(ColorScheme oldColorScheme, ColorScheme newColorScheme);
     }
 
+    /**
+     * A function to implement handlers for time selection changes
+     */
     @FunctionalInterface
     public interface TimeSelectionHandler {
+        /**
+         *
+         * @param time {@link Date} new picker value
+         * @param dateTimeFormatInfo {@link DateTimeFormatInfo} from the picker
+         * @param picker {@link TimePicker} instance
+         */
         void onTimeSelected(Date time, DateTimeFormatInfo dateTimeFormatInfo, TimePicker picker);
     }
-
 }

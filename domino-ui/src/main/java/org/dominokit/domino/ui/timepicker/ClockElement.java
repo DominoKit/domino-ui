@@ -9,6 +9,9 @@ import org.dominokit.domino.ui.style.ColorScheme;
 import static org.dominokit.domino.ui.timepicker.ClockStyle._24;
 import static org.jboss.elemento.Elements.div;
 
+/**
+ * The class is responsible of rendering a clock as svg elements
+ */
 class ClockElement {
 
     private static final double outerRadius = 92;
@@ -58,41 +61,78 @@ class ClockElement {
                 .textContent(text).element();
     }
 
-
+    /**
+     * Draws an hour number element on the clock
+     * @param hour int
+     * @param clockStyle {@link ClockStyle}
+     * @param colorScheme The {@link ColorScheme} used to define different clock elements colors
+     * @return new ClockElement instance
+     */
     public static ClockElement createHour(int hour, ClockStyle clockStyle, ColorScheme colorScheme) {
         double angle = (3 * Math.PI / 2) + (hour * 5 * (Math.PI / 30));
         double drawRadius = (_24.equals(clockStyle) && hour <= 12 && hour > 0) ? innerRadius : outerRadius;
         return new ClockElement(hour, hour + "", angle, drawRadius, colorScheme, false);
     }
 
+    /**
+     * Draws a minute number element on the clock
+     * @param minute int
+     * @param colorScheme The {@link ColorScheme} used to define different clock elements colors
+     * @return new ClockElement instance
+     */
     public static ClockElement createMinute(int minute, ColorScheme colorScheme) {
         String text = minute % 5 == 0 ? minute + "" : "";
         double angle = (3 * Math.PI / 2) + (minute * (Math.PI / 30));
         return new ClockElement(minute, text, angle, outerRadius, colorScheme, true);
     }
-    
+
+    /**
+     * Draws a second number element on the clock
+     * @param second int
+     * @param colorScheme The {@link ColorScheme} used to define different clock elements colors
+     * @return new ClockElement instance
+     */
     public static ClockElement createSecond(int second, ColorScheme colorScheme) {
         String text = second % 5 == 0 ? second + "" : "";
         double angle = (3 * Math.PI / 2) + (second * (Math.PI / 30));
         return new ClockElement(second, text, angle, outerRadius, colorScheme, true);
     }
 
+    /**
+     *
+     * @return the int value of the element drawn bu this clock element
+     */
     public int getValue() {
         return value;
     }
 
+    /**
+     *
+     * @return the {@link SVGCircleElement} outer circle
+     */
     public SVGCircleElement getCircle() {
         return circle;
     }
-
+    /**
+     *
+     * @return the {@link SVGCircleElement} inner circle
+     */
     public SVGCircleElement getInnerCircle() {
         return innerCircle;
     }
 
+    /**
+     *
+     * @return the {@link SVGCircleElement} line
+     */
     public SVGLineElement getLine() {
         return line;
     }
 
+    /**
+     *
+     * @return the {@link HTMLDivElement} that contains the SVG element
+     */
     public HTMLDivElement getElement() {
         return element;
     }
