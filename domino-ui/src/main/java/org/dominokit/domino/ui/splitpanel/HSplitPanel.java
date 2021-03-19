@@ -1,9 +1,33 @@
 package org.dominokit.domino.ui.splitpanel;
 
+/**
+ * A horizontal split panel implementation
+ *
+ * <p>For example: </p>
+ * <pre>
+ *     HSplitPanel.create()
+ *                     .appendChild(
+ *                         SplitPanel.create()
+ *                             .appendChild(
+ *                                 div()
+ *                                     .css("demo-split-div", Color.INDIGO_LIGHTEN_5.getBackground())))
+ *                     .appendChild(
+ *                         SplitPanel.create()
+ *                             .appendChild(
+ *                                 div()
+ *                                     .css(
+ *                                         "demo-split-div",
+ *                                         Color.BLUE_GREY_LIGHTEN_5.getBackground())))
+ *                     .setHeight("400px")
+ * </pre>
+ *
+ * @see BaseSplitPanel
+ * @see HasSize
+ */
 public class HSplitPanel extends BaseSplitPanel<HSplitPanel, HSplitter> implements HasSize {
 
     public HSplitPanel() {
-        super(SplitStyles.horizontal);
+        super(SplitStyles.HORIZONTAL);
         init(this);
     }
 
@@ -22,10 +46,16 @@ public class HSplitPanel extends BaseSplitPanel<HSplitPanel, HSplitter> implemen
         panel.style().setWidth(size);
     }
 
+    /**
+     * @return new instance
+     */
     public static HSplitPanel create() {
         return new HSplitPanel();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getSize() {
         return getBoundingClientRect().width;
