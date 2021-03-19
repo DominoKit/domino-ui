@@ -22,6 +22,31 @@ import static org.dominokit.domino.ui.tabs.TabStyles.TAB_CONTENT;
 import static org.dominokit.domino.ui.tabs.TabStyles.VTABS_PANEL;
 import static org.jboss.elemento.Elements.div;
 
+/**
+ * A component to create tabs where only one {@link VerticalTab} can be active at a time
+ * <p>The tabs in this component will be always aligned vertically</p>
+ * <pre>
+ *     VerticalTabsPanel.create()
+ *         .apply((element) -> element.getTabsContent().css(Styles.p_l_10))
+ *         .appendChild(
+ *                 VerticalTab.create("HOME")
+ *                         .appendChild(b().textContent("Home Content"))
+ *                         .appendChild(Paragraph.create("SAMPLE_TEXT")))
+ *         .appendChild(
+ *                 VerticalTab.create("PROFILE")
+ *                         .appendChild(b().textContent("Profile Content"))
+ *                         .appendChild(Paragraph.create("SAMPLE_TEXT")))
+ *         .appendChild(
+ *                 VerticalTab.create("MESSAGES")
+ *                         .appendChild(b().textContent("Messages Content"))
+ *                         .appendChild(Paragraph.create("SAMPLE_TEXT"))
+ *                         .activate())
+ *         .appendChild(
+ *                 VerticalTab.create("SETTINGS")
+ *                         .appendChild(b().textContent("Settings Content"))
+ *                         .appendChild(Paragraph.create("SAMPLE_TEXT")));
+ * </pre>
+ */
 public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, VerticalTabsPanel> {
 
     private final VTabsContainer tabsList = VTabsContainer.create();
@@ -63,6 +88,11 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
         setColor(Color.BLUE);
     }
 
+    /**
+     *
+     * @param fillItem {@link FillItem} to be added between tabs to make more space between them
+     * @return same VerticalTabsPanel instance
+     */
     public VerticalTabsPanel appendChild(FillItem fillItem) {
         if (nonNull(fillItem)) {
             tabsList.appendChild(fillItem);
@@ -70,6 +100,11 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
         return this;
     }
 
+    /**
+     *
+     * @param tab {@link VerticalTab} to be added to the TabsPanel, the tab will be added as the last Tab
+     * @return same VerticalTabsPanel instance
+     */
     public VerticalTabsPanel appendChild(VerticalTab tab) {
         if (nonNull(tab)) {
             tabs.add(tab);
@@ -98,26 +133,48 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
         return this;
     }
 
+    /**
+     *
+     * @return the {@link Color} of the tab header text
+     */
     public Color getTextColor() {
         return textColor;
     }
 
+    /**
+     *
+     * @param textColor {@link Color} of the Tab header title
+     * @return same VerticalTabsPanel instance
+     */
     public VerticalTabsPanel setTextColor(Color textColor) {
         this.textColor = textColor;
         getTabs().forEach(verticalTab -> verticalTab.setTextColor(textColor));
         return this;
     }
 
+    /**
+     *
+     * @return the {@link Color} of the tab header icon
+     */
     public Color getIconColor() {
         return iconColor;
     }
 
+    /**
+     *
+     * @param iconColor {@link Color} of the tab header icon
+     * @return same VerticalTabsPanel instance
+     */
     public VerticalTabsPanel setIconColor(Color iconColor) {
         this.iconColor = iconColor;
         getTabs().forEach(verticalTab -> verticalTab.setIconColor(iconColor));
         return this;
     }
 
+    /**
+     *
+     * @param index int index of the Tab to be activated, this will show the tab content
+     */
     public void activateTab(int index) {
         if (!tabs.isEmpty() && index < tabs.size() && index >= 0) {
             activateTab(tabs.get(index));
@@ -126,6 +183,10 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
         }
     }
 
+    /**
+     *
+     * @param tab {@link VerticalTab} to be activated, this will show the tab content
+     */
     public void activateTab(VerticalTab tab) {
         if (nonNull(tab) && tabs.contains(tab)) {
             if(activeTabColored){
@@ -147,6 +208,10 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
         }
     }
 
+    /**
+     *
+     * @param tab {@link VerticalTab} to be deactivated, this will hide the tab content
+     */
     public void deactivateTab(VerticalTab tab) {
         if (nonNull(tab) && tabs.contains(tab)) {
             if (tab.isActive()) {
@@ -161,6 +226,11 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
         }
     }
 
+    /**
+     *
+     * @param color {@link Color} of the Tabs headers
+     * @return same VerticalTabsPanel instance
+     */
     public VerticalTabsPanel setColor(Color color) {
         if (nonNull(this.tabsColor)) {
             tabsList.style().remove(tabsColor.getStyle());
@@ -174,10 +244,19 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
         return this;
     }
 
+    /**
+     *
+     * @return boolean, true if the active tab will have the color from {@link #setColor(Color)}
+     */
     public boolean isActiveTabColored() {
         return activeTabColored;
     }
 
+    /**
+     *
+     * @param activeTabColored boolean, if true the active tab will have the color from {@link #setColor(Color)}
+     * @return same VerticalTabsPanel instance
+     */
     public VerticalTabsPanel setActiveTabColored(boolean activeTabColored) {
         this.activeTabColored = activeTabColored;
         if(activeTabColored) {
@@ -191,6 +270,11 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
         return this;
     }
 
+    /**
+     *
+     * @param background {@link Color} of tabs panel header
+     * @return same VerticalTabsPanel instance
+     */
     public VerticalTabsPanel setBackgroundColor(Color background) {
         if (nonNull(this.background)) {
             tabsList.style().remove(this.background.getBackground());
@@ -200,16 +284,29 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element.element();
     }
 
+    /**
+     *
+     * @param transition {@link Transition} for activating/deactivating tabs animations
+     * @return same VerticalTabsPanel instance
+     */
     public VerticalTabsPanel setTransition(Transition transition) {
         this.transition = transition;
         return this;
     }
 
+    /**
+     *
+     * @param contentContainer {@link HTMLElement} to used as a container element to render active tab content
+     * @return same VerticalTabsPanel instance
+     */
     public VerticalTabsPanel setContentContainer(HTMLElement contentContainer) {
         if (element.contains(tabsContent)) {
             tabsContent.remove();
@@ -219,40 +316,78 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
         return this;
     }
 
+    /**
+     *
+     * @param contentContainer {@link IsElement} to used as a container element to render active tab content
+     * @return same VerticalTabsPanel instance
+     */
     public VerticalTabsPanel setContentContainer(IsElement<?> contentContainer) {
         return setContentContainer(contentContainer.element());
     }
 
+    /**
+     *
+     * @return the {@link HTMLElement} that is used to as a container element to render active tab content wrapped as {@link DominoElement}
+     */
     public DominoElement<HTMLElement> getTabsContent() {
         return DominoElement.of(tabsContent);
     }
 
+    /**
+     *
+     * @return the current active {@link VerticalTab}
+     */
     public VerticalTab getActiveTab() {
         return activeTab;
     }
 
+    /**
+     *
+     * @return List of all {@link VerticalTab}s
+     */
     public List<VerticalTab> getTabs() {
         return tabs;
     }
 
+    /**
+     * render the tab header title under the tab head icon
+     * @return same VerticalTabsPanel instance
+     */
     public VerticalTabsPanel textBelowIcon() {
         tabsList.style().add("text-below");
         return this;
     }
 
+    /**
+     * render the tab header title horizontally with the tab header icon
+     * @return same VerticalTabsPanel instance
+     */
     public VerticalTabsPanel textBesideIcon() {
         tabsList.style().remove("text-below");
         return this;
     }
 
+    /**
+     *
+     * @return the {@link VTabsContainer}
+     */
     public VTabsContainer getTabsContainer(){
         return tabsList;
     }
 
+    /**
+     *
+     * @return the {@link FlexItem} that contains the Tabs headers
+     */
     public FlexItem getTabsHeadersContainer() {
         return tabsHeadersContainer;
     }
 
+    /**
+     *
+     * @param activationHandler {@link org.dominokit.domino.ui.tabs.VerticalTab.ActivationHandler}
+     * @return same instance
+     */
     public VerticalTabsPanel addActivationHandler(VerticalTab.ActivationHandler activationHandler) {
         if (nonNull(activationHandler)) {
             this.activationHandlers.add(activationHandler);
@@ -260,6 +395,11 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
         return this;
     }
 
+    /**
+     *
+     * @param activationHandler {@link org.dominokit.domino.ui.tabs.VerticalTab.ActivationHandler}
+     * @return same instance
+     */
     public VerticalTabsPanel removeActivationHandler(VerticalTab.ActivationHandler activationHandler) {
         if (nonNull(activationHandler)) {
             this.activationHandlers.remove(activationHandler);
