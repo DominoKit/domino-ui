@@ -24,6 +24,10 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.stepper.StepperStyles.*;
 import static org.jboss.elemento.Elements.span;
 
+/**
+ * A component that is a single step inside a {@link Stepper}
+ *
+ */
 public class Step extends BaseDominoElement<HTMLDivElement, Step> implements HasValidation<Step> {
 
     private final DominoElement<HTMLElement> titleSpan;
@@ -49,18 +53,42 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
     private FlexItem stepNumberFlexItem;
     private Stepper.StepState initialState;
 
+    /**
+     *
+     * @param title String title of the step
+     * @return new Step instance
+     */
     public static Step create(String title) {
         return new Step(title);
     }
 
+    /**
+     *
+     * @param title String title of the step
+     * @param description String to describe the step that show up under the title
+     * @return new Step instance
+     */
     public static Step create(String title, String description) {
         return new Step(title, description);
     }
 
+    /**
+     *
+     * @param title String title of the step
+     * @param description String to describe the step that show up under the title
+     * @param initialState {@link Stepper.StepState} to be used by default as the step state
+     * @return new Step instance
+     */
     public static Step create(String title, String description, Stepper.StepState initialState) {
         return new Step(title, description, initialState);
     }
 
+    /**
+     *
+     * @param title String title of the step
+     * @param description String to describe the step that show up under the title
+     * @param initialState {@link Stepper.StepState} to be used by default as the step state
+     */
     public Step(String title, String description, Stepper.StepState initialState) {
         init(this);
         this.initialState = initialState;
@@ -127,23 +155,46 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         this.root.appendChild(header);
     }
 
+    /**
+     *
+     * @param title String title of the step
+     * @param description String to describe the step that show up under the title
+     */
     public Step(String title, String description) {
         this(title, description, Stepper.StepState.INACTIVE);
     }
 
+    /**
+     *
+     * @param title String title of the step
+     */
     public Step(String title) {
         this(title, null);
     }
 
+    /**
+     *
+     * @param title String new title for the step
+     * @return same Step instance
+     */
     public Step setTitle(String title) {
         this.titleSpan.setTextContent(title);
         return this;
     }
 
+    /**
+     *
+     * @return String
+     */
     public String getTitle() {
         return titleSpan.element().textContent;
     }
 
+    /**
+     *
+     * @param description String new description
+     * @return same Step instance
+     */
     public Step setDescription(String description) {
         if (nonNull(description) && !description.isEmpty()) {
             this.descriptionSpan.setTextContent(description);
@@ -155,20 +206,37 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return this;
     }
 
+    /**
+     *
+     * @return String
+     */
+    public String getDescription() {
+        return this.descriptionSpan.getTextContent();
+    }
+
+    /**
+     * this will append the element to the step content element
+     * {@inheritDoc}
+     */
     public Step appendChild(IsElement<?> element) {
         this.content.appendChild(element);
         return this;
     }
 
+    /**
+     * this will append the element to the step content element
+     * {@inheritDoc}
+     */
     public Step appendChild(Node node) {
         this.content.appendChild(node);
         return this;
     }
 
-    public String getDescription() {
-        return this.descriptionSpan.getTextContent();
-    }
-
+    /**
+     * Change the order of the step in the stepper
+     * @param stepNumber int
+     * @return same Step instance
+     */
     public Step setStepNumber(int stepNumber) {
         this.stepNumber = stepNumber;
         renderNumber();
@@ -176,10 +244,18 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return this;
     }
 
+    /**
+     *
+     * @return int step number in the stepper
+     */
     public int getStepNumber() {
         return this.stepNumber;
     }
 
+    /**
+     * Make the step the current active step in the stepper, this show the step content and hide other steps content, this will put the step in {@link Stepper.StepState#ACTIVE}
+     * @return same Step instance
+     */
     Step activate() {
         if (stepper.getSteps().isEmpty()) {
             this.stepper.getStepContentFlexItem().setContent(this.content);
@@ -220,12 +296,20 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         setState(state, false);
     }
 
+    /**
+     * renders the step number based on the step state
+     */
     void renderNumber() {
         if (nonNull(stepper)) {
             this.stepNumberFlexItem.setContent(this.state.render(this, stepper.getStepStateColors(), stepper.getStepNumberRenderer()));
         }
     }
 
+    /**
+     * deactivate the step and call the provided handler, this will put the step in {@link Stepper.StepState#INACTIVE}
+     * @param handler Consumer of Step
+     * @return same Step instance
+     */
     Step deactivate(Consumer<Step> handler) {
         Animation.create(this.content)
                 .duration(stepper.getDeactivateStepTransitionDuration())
@@ -241,6 +325,10 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return this;
     }
 
+    /**
+     * Mark the step as completed
+     * @return same Step instance
+     */
     public Step complete() {
         this.clearInvalid();
         int stepIndex = stepper.getSteps().indexOf(this);
@@ -251,25 +339,45 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return this;
     }
 
+    /**
+     * Revert the Step to its initial state, if initial state is not specified in the construction, this will be active state for first step and inactive for other steps
+     */
     void reset(){
         setState(this.initialState, true);
     }
 
+    /**
+     * This will put the step in {@link Stepper.StepState#DISABLED}
+     * {@inheritDoc}
+     */
     @Override
     public Step disable() {
         return setDisabled();
     }
 
+    /**
+     * This will not make the step active but will enable the step so it is clickable and can be stepped into with the stepper
+     * and by default will put the step in the {@link Stepper.StepState#INACTIVE}
+     * {@inheritDoc}
+     */
     @Override
     public Step enable() {
         return setEnabled(Stepper.StepState.INACTIVE);
     }
 
+    /**
+     * This will put the step in {@link Stepper.StepState#DISABLED}
+     * @return the same Step instance
+     */
     public Step setDisabled() {
         setState(Stepper.StepState.DISABLED);
         return this;
     }
 
+    /**
+     * This will put the step in {@link Stepper.StepState#ACTIVE}
+     * @return the same Step instance
+     */
     public Step setActive(){
         if(nonNull(this.stepper)){
             this.stepper.activateStep(this);
@@ -277,16 +385,30 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return this;
     }
 
+    /**
+     * This will not make the step active unless specified,but will enable the step so it is clickable and can be stepped into with the stepper
+     * and will put the step in the provided state
+     * @param targetState {@link Stepper.StepState}
+     * @return the same Step instance
+     */
     public Step setEnabled(Stepper.StepState targetState) {
         setState(targetState, true);
         return this;
     }
 
+    /**
+     *
+     * @param stepper {@link Stepper} the step belongs to
+     */
     void setStepper(Stepper stepper) {
         this.stepper = stepper;
         renderNumber();
     }
 
+    /**
+     *
+     * @param barColor {@link Color} of the bar connecting the step with the next step
+     */
     void setBarColor(Color barColor) {
         this.horizontalBarSpan.removeCss(this.barColor.getBackground());
         this.verticalBarSpan.removeCss(this.barColor.getBackground());
@@ -295,11 +417,18 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         this.verticalBarSpan.css(this.barColor.getBackground());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return root.element();
     }
 
+    /**
+     * if the step is invalid it will be put in the {@link Stepper.StepState#ERROR}
+     * {@inheritDoc}
+     */
     @Override
     public ValidationResult validate() {
         clearInvalid();
@@ -313,6 +442,10 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return ValidationResult.valid();
     }
 
+    /**
+     * if the step is invalid it will be put in the {@link Stepper.StepState#ERROR}
+     * {@inheritDoc}
+     */
     @Override
     public List<ValidationResult> validateAll() {
         clearInvalid();
@@ -330,6 +463,9 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return validationResults;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Step addValidator(Validator validator) {
         if (nonNull(validator)) {
@@ -338,6 +474,9 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Step removeValidator(Validator validator) {
         if (nonNull(validator)) {
@@ -346,16 +485,27 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasValidator(Validator validator) {
         return validators.contains(validator);
     }
 
+    /**
+     * this will be put the step in the {@link Stepper.StepState#ERROR}
+     * {@inheritDoc}
+     */
     @Override
     public Step invalidate(String errorMessage) {
         return invalidate(Collections.singletonList(errorMessage));
     }
 
+    /**
+     * this will be put the step in the {@link Stepper.StepState#ERROR}
+     * {@inheritDoc}
+     */
     @Override
     public Step invalidate(List<String> errorMessages) {
         clearInvalid();
@@ -371,11 +521,18 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> getErrors() {
         return new ArrayList<>(errors);
     }
 
+    /**
+     * This will clear the step error and change it back to the state it had before it was invalidation
+     * {@inheritDoc}
+     */
     @Override
     public Step clearInvalid() {
         if(!errors.isEmpty()) {
@@ -387,10 +544,19 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return this;
     }
 
+    /**
+     *
+     * @return the {@link Stepper} this step belongs to
+     */
     public Stepper getStepper() {
         return stepper;
     }
 
+    /**
+     *
+     * @param listener {@link Stepper.StepStateChangeListener}
+     * @return same Step instance
+     */
     public Step addStateChangeListener(Stepper.StepStateChangeListener listener) {
         if (nonNull(listener)) {
             this.stepStateChangeListeners.add(listener);
@@ -398,6 +564,11 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return this;
     }
 
+    /**
+     *
+     * @param listener {@link Stepper.StepStateChangeListener}
+     * @return same Step instance
+     */
     public Step removeStateChangeListener(Stepper.StepStateChangeListener listener) {
         if (nonNull(listener)) {
             this.stepStateChangeListeners.remove(listener);
@@ -405,38 +576,75 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
         return this;
     }
 
+    /**
+     *
+     * @param flexGrow int Flex grow of the flex item that is used as the root element for this step
+     */
     void setFlexGrow(int flexGrow) {
         root.setFlexGrow(flexGrow);
     }
+
+    /**
+     *
+     * @return List of all {@link Stepper.StepStateChangeListener} added to this step
+     */
 
     public List<Stepper.StepStateChangeListener> getStepStateChangeListeners() {
         return stepStateChangeListeners;
     }
 
+    /**
+     *
+     * @return int index of the step within the stepper
+     */
     public int getIndex() {
         return this.stepper.getSteps().indexOf(this);
     }
 
+    /**
+     *
+     * @return boolean, true if the step index is 0
+     */
     public boolean isFirstStep() {
         return getIndex() == 0;
     }
 
+    /**
+     *
+     * @return boolean, true if the step is last step in the stepper
+     */
     public boolean isLastStep() {
         return getIndex() == stepper.getSteps().size() - 1;
     }
 
+    /**
+     *
+     * @return the current {@link Stepper.StepState} of the step
+     */
     public Stepper.StepState getState() {
         return this.state;
     }
 
+    /**
+     *
+     * @return boolean, true if the step state is {@link Stepper.StepState#ACTIVE}
+     */
     public boolean isActive() {
         return Stepper.StepState.ACTIVE == this.state;
     }
 
+    /**
+     *
+     * @return the {@link Stepper.StepState} this step was initially constructed with
+     */
     public Stepper.StepState getInitialState() {
         return initialState;
     }
 
+    /**
+     *
+     * @param initialState {@link Stepper.StepState} to be used as default initial state for the step
+     */
     public void setInitialState(Stepper.StepState initialState) {
         this.initialState = initialState;
     }
