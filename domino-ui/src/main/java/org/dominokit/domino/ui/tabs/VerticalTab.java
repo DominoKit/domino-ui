@@ -18,6 +18,9 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.tabs.TabStyles.*;
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * A component for a single Tab in the {@link VerticalTabsPanel}
+ */
 public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> implements HasClickableElement {
 
     private String title;
@@ -44,6 +47,11 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
 
     private Color color = Color.GREY_DARKEN_3;
 
+    /**
+     *
+     * @param title String tab header title
+     * @param icon icon {@link BaseIcon} for the tab header
+     */
     public VerticalTab(String title, BaseIcon<?> icon) {
         this.title = title;
         setIcon(icon);
@@ -54,6 +62,10 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         init();
     }
 
+    /**
+     *
+     * @param title String title for the tab
+     */
     public VerticalTab(String title) {
         this.title = title;
         this.titleElement = DominoElement.of(span().css(TITLE).textContent(title));
@@ -63,6 +75,10 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         init();
     }
 
+    /**
+     *
+     * @param icon {@link BaseIcon} for the tab header
+     */
     public VerticalTab(BaseIcon<?> icon) {
         setIcon(icon);
         this.anchorElement = a()
@@ -72,14 +88,29 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         init();
     }
 
+    /**
+     *
+     * @param title String tab header title
+     * @return new instance
+     */
     public static VerticalTab create(String title) {
         return new VerticalTab(title);
     }
 
+    /**
+     *
+     * @param title String title for the tab header
+     * @param icon icon {@link BaseIcon} for the tab header
+     * @return new instance
+     */
     public static VerticalTab create(String title, BaseIcon<?> icon) {
         return new VerticalTab(title, icon);
     }
 
+    /**
+     * @param icon icon {@link BaseIcon} for the tab header
+     * @return new instance
+     */
     public static VerticalTab create(BaseIcon<?> icon) {
         return new VerticalTab(icon);
     }
@@ -93,10 +124,19 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         applyWaveStyle(WaveStyle.BLOCK);
     }
 
+    /**
+     *
+     * @return the {@link HTMLDivElement} that contains the VerticalTab content
+     */
     public DominoElement<HTMLDivElement> getContentContainer() {
         return DominoElement.of(contentContainer);
     }
 
+
+    /**
+     * make the tab active and show its content in the TabsPanel
+     * @return same instance
+     */
     public VerticalTab activate() {
         Style.of(element()).add(ACTIVE);
         contentContainer.style().add(IN, ACTIVE);
@@ -105,6 +145,10 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         return this;
     }
 
+    /**
+     * make the tab inactive and hide its content in the TabsPanel
+     * @return same instance
+     */
     public VerticalTab deactivate() {
         Style.of(element()).remove(ACTIVE);
         contentContainer.style().remove(IN, ACTIVE);
@@ -113,25 +157,48 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         return this;
     }
 
+    /**
+     *
+     * @param content {@link Node} to be appended to the tab contentContainer
+     * @return same instance
+     */
     public VerticalTab appendChild(Node content) {
         contentContainer.appendChild(content);
         return this;
     }
 
+    /**
+     *
+     * @param title String new tab header title
+     * @return same instance
+     */
     public VerticalTab setTitle(String title) {
         titleElement.setTextContent(title);
         return this;
     }
 
+    /**
+     *
+     * @param content {@link IsElement} to be appended to the tab contentContainer
+     * @return same instance
+     */
     public VerticalTab appendChild(IsElement<?> content) {
         return appendChild(content.element());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLAnchorElement getClickableElement() {
         return anchorElement;
     }
 
+    /**
+     *
+     * @param icon the new {@link BaseIcon} for the tab header
+     * @return same instance
+     */
     public VerticalTab setIcon(BaseIcon<?> icon) {
         this.icon = icon;
         iconContainer.clearElement();
@@ -139,28 +206,53 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         return this;
     }
 
+    /**
+     *
+     * @return String tab header title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @return boolean, true if the tab is currently active
+     */
     public boolean isActive() {
         return active;
     }
 
+    /**
+     *
+     * @return the {@link HTMLElement} that contains the tab header title
+     */
     public DominoElement<HTMLElement> getTitleElement() {
         return DominoElement.of(titleElement);
     }
 
+    /**
+     *
+     * @return the {@link HTMLElement} that has the waves effect
+     */
     @Override
     public HTMLElement getWavesElement() {
         return anchorElement;
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element.element();
     }
 
+    /**
+     *
+     * @param textColor {@link org.dominokit.domino.ui.icons.Color} of the tab title text
+     * @return same instance
+     */
     public VerticalTab setTextColor(Color textColor) {
         if (!textColorOverridden && nonNull(title)) {
             if (nonNull(this.textColor)) {
@@ -172,6 +264,11 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         return this;
     }
 
+    /**
+     *
+     * @param iconColor {@link org.dominokit.domino.ui.icons.Color} of the tab header icon
+     * @return same instance
+     */
     public VerticalTab setIconColor(Color iconColor) {
         if (!iconColorOverridden && nonNull(icon)) {
             if (nonNull(this.iconColor)) {
@@ -183,18 +280,33 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         return this;
     }
 
+    /**
+     * Override the tab title text color and prevent it from changing with {@link #setTextColor(Color)}
+     * @param textColor {@link org.dominokit.domino.ui.icons.Color}
+     * @return same instance
+     */
     public VerticalTab setTextColorOverride(Color textColor) {
         setTextColor(textColor);
         this.textColorOverridden = true;
         return this;
     }
 
+    /**
+     * Override the tab icon color and prevent it from changing with {@link #setIconColor(Color)}
+     * @param iconColor {@link org.dominokit.domino.ui.icons.Color}
+     * @return same instance
+     */
     public VerticalTab setIconColorOverride(Color iconColor) {
         setIconColor(iconColor);
         this.iconColorOverridden = true;
         return this;
     }
 
+    /**
+     *
+     * @param activationHandler {@link ActivationHandler}
+     * @return same instance
+     */
     public VerticalTab addActivationHandler(VerticalTab.ActivationHandler activationHandler) {
         if (nonNull(activationHandler)) {
             this.activationHandlers.add(activationHandler);
@@ -202,6 +314,11 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         return this;
     }
 
+    /**
+     *
+     * @param activationHandler {@link ActivationHandler}
+     * @return same instance
+     */
     public VerticalTab removeActivationHandler(VerticalTab.ActivationHandler activationHandler) {
         if (nonNull(activationHandler)) {
             this.activationHandlers.remove(activationHandler);
@@ -209,6 +326,11 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         return this;
     }
 
+    /**
+     *
+     * @param color {@link org.dominokit.domino.ui.icons.Color} of the tab header
+     * @return same instance
+     */
     public VerticalTab setColor(Color color) {
         element.removeCss(this.color.getStyle());
         element.css(color.getStyle());
@@ -216,6 +338,10 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         return this;
     }
 
+    /**
+     * Restores the tab color to the default
+     * @return same instance
+     */
     public VerticalTab resetColor() {
         element.removeCss(this.color.getStyle());
         element.css(Color.GREY_DARKEN_3.getStyle());
@@ -223,8 +349,16 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab> imple
         return this;
     }
 
+    /**
+     * A function to handle tab activation/deactivation
+     */
     @FunctionalInterface
     public interface ActivationHandler {
+        /**
+         *
+         * @param tab the {@link VerticalTab} that has its activation state changed
+         * @param active boolean, true if new state is active, false if inactive
+         */
         void onActiveStateChanged(VerticalTab tab, boolean active);
     }
 }
