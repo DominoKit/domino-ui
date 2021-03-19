@@ -1,5 +1,8 @@
 package org.dominokit.domino.ui.style;
 
+/**
+ * An enum representing the waves colors supported
+ */
 public enum WaveColor {
 
     RED("waves-red"),
@@ -32,6 +35,9 @@ public enum WaveColor {
         this.style=style;
     }
 
+    /**
+     * @return the style of the color
+     */
     public String getStyle() {
         return style;
     }

@@ -7,13 +7,16 @@ import org.dominokit.domino.ui.utils.HasWavesElement;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-public class WavesSupport {
+/**
+ * A utility class for configuring waves for a specific element
+ */
+public class WavesSupport implements HasWaveEffect<WavesSupport> {
 
     private static final String WAVES_EFFECT = "waves-effect";
-    private DominoElement<HTMLElement> element;
+    private final DominoElement<HTMLElement> element;
 
     private String waveColor;
-    private Waves wavesElement;
+    private final Waves wavesElement;
 
     private WavesSupport(HasWavesElement targetElement) {
         this(targetElement.getWavesElement());
@@ -24,14 +27,30 @@ public class WavesSupport {
         wavesElement = Waves.create(this.element);
     }
 
+    /**
+     * Adds waves support for a specific element
+     *
+     * @param element the {@link HasWavesElement}
+     * @return new instance
+     */
     public static WavesSupport addFor(HasWavesElement element) {
         return new WavesSupport(element).initWaves();
     }
 
+    /**
+     * Adds waves support for a specific element
+     *
+     * @param element the {@link HTMLElement}
+     * @return new instance
+     */
     public static WavesSupport addFor(HTMLElement element) {
         return new WavesSupport(element).initWaves();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public WavesSupport initWaves() {
         if (!hasWavesEffect())
             element.style().add(WAVES_EFFECT);
@@ -44,7 +63,19 @@ public class WavesSupport {
         return element.style().contains(WAVES_EFFECT);
     }
 
+    /**
+     * Use {@link WavesSupport#setWaveColor(WaveColor)} instead
+     */
+    @Deprecated
     public WavesSupport setWavesColor(WaveColor waveColor) {
+        return setWaveColor(waveColor);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public WavesSupport setWaveColor(WaveColor waveColor) {
         if (!hasWavesEffect())
             initWaves();
         if (isNull(this.waveColor))
@@ -57,6 +88,10 @@ public class WavesSupport {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public WavesSupport applyWaveStyle(WaveStyle waveStyle) {
         if (!hasWavesEffect())
             initWaves();
@@ -65,6 +100,10 @@ public class WavesSupport {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public WavesSupport removeWaves() {
         if (hasWavesEffect())
             element.style().remove(WAVES_EFFECT);
