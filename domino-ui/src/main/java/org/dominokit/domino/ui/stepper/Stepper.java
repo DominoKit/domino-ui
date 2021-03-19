@@ -22,6 +22,10 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.stepper.StepperStyles.*;
 import static org.jboss.elemento.Elements.span;
 
+/**
+ * A Wizard like component that can have multiple {@link Step}s while only one step can be activated at a time
+ * @see <a href="https://demo.dominokit.org/forms/steppers">Steppers sample</a>
+ */
 public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
 
     private final FlexItem content;
@@ -155,6 +159,11 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         });
     }
 
+    /**
+     *
+     * @param stepNumberRenderer {@link StepNumberRenderer} to override the default one
+     * @return same Stepper instance
+     */
     public Stepper setStepNumberRenderer(StepNumberRenderer stepNumberRenderer) {
         if (nonNull(stepNumberRenderer)) {
             this.stepNumberRenderer = stepNumberRenderer;
@@ -163,6 +172,11 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return this;
     }
 
+    /**
+     *
+     * @param stepStateColors {@link StepStateColors} to override the default one
+     * @return same Stepper instance
+     */
     public Stepper setStepStateColors(StepStateColors stepStateColors) {
         if (nonNull(stepStateColors)) {
             this.stepStateColors = stepStateColors;
@@ -171,24 +185,48 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return this;
     }
 
+    /**
+     *
+     * @param footerElement {@link IsElement} that will be used a footer for all steps
+     * @return same Stepper instance
+     */
     public Stepper setStepFooter(IsElement<?> footerElement) {
         return setStepFooter(footerElement.element());
     }
 
+    /**
+     *
+     * @param footerElement {@link Node} that will be used a footer for all steps
+     * @return same Stepper instance
+     */
     public Stepper setStepFooter(Node footerElement) {
         stepFooter.setContent(footerElement);
         return this;
     }
 
+    /**
+     * Marks the Stepper as completed and call the stepper complete handlers
+     * @return same Stepper instance
+     */
     public Stepper complete() {
         completeListeners.forEach(listener -> listener.onComplete(this));
         return this;
     }
 
+    /**
+     * Marks the Stepper as completed and call the stepper complete handlers
+     * @param completeContent {@link IsElement} to show up in the stepper as a completed indicator of to finalize the stepper process
+     * @return same Stepper instance
+     */
     public Stepper complete(IsElement<?> completeContent) {
         return complete(completeContent.element());
     }
 
+    /**
+     * Marks the Stepper as completed and call the stepper complete handlers
+     * @param completeContent {@link Node} to show up in the stepper as a completed indicator of to finalize the stepper process
+     * @return same Stepper instance
+     */
     public Stepper complete(Node completeContent) {
         complete();
         content.setContent(completeContent);
@@ -196,15 +234,28 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return this;
     }
 
+    /**
+     *
+     * @return the current active {@link Step}
+     */
     public Step getCurrentStep() {
         return activeStep;
     }
 
+    /**
+     * Complete the current active step, if there is more steps this will also move the stepper to the next enabled non-completed step
+     * @return same Stepper instance
+     */
     public Stepper completeActiveStep() {
         this.activeStep.complete();
         return this;
     }
 
+    /**
+     *
+     * @param step {@link Step} to be added to this Stepper instance
+     * @return same Stepper instance
+     */
     public Stepper appendChild(Step step) {
         if (!steps.contains(step)) {
             step.setStepper(this);
@@ -225,6 +276,11 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return this;
     }
 
+    /**
+     *
+     * @param direction {@link StepperDirection}
+     * @return same Stepper instance
+     */
     public Stepper setDirection(StepperDirection direction) {
 
         if (forceVertical && StepperDirection.VERTICAL != direction) {
@@ -246,6 +302,10 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return this;
     }
 
+    /**
+     * Move the stepper to the next enabled non-completed step
+     * @return same Stepper instance
+     */
     public Stepper next() {
         int activeStepIndex = this.steps.indexOf(activeStep);
         if (activeStepIndex < (this.steps.size() - 1)) {
@@ -254,6 +314,11 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return this;
     }
 
+    /**
+     *
+     * @param stepToActivate {@link Step} to be activated, the step should not disabled
+     * @return same Stepper instance
+     */
     public Stepper activateStep(Step stepToActivate) {
         if (StepState.DISABLED != stepToActivate.getState()) {
             if (!stepToActivate.equals(activeStep)) {
@@ -271,6 +336,11 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return this;
     }
 
+    /**
+     *
+     * @param index int index of the step to be activated, the step should not disabled
+     * @return same Stepper instance
+     */
     public Stepper activateStep(int index) {
         if (index >= 0 && index < steps.size()) {
             activateStep(steps.get(index));
@@ -290,6 +360,10 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return activeStep;
     }
 
+    /**
+     * Move the stepper back tp the previous step that is not disabled
+     * @return same Stepper instance
+     */
     public Stepper previous() {
         int activeStepIndex = this.steps.indexOf(activeStep);
         if (activeStepIndex > 0) {
@@ -319,6 +393,11 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return activeStep;
     }
 
+    /**
+     *
+     * @param color {@link Color} the color of the bar connecting a step with the next step
+     * @return same Stepper instance
+     */
     public Stepper setBarColor(Color color) {
         steps.forEach(step -> step.setBarColor(color));
         this.content.styler(style -> style.setBorderColor(color.getHex()));
@@ -326,6 +405,11 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return this;
     }
 
+    /**
+     * Adds a listener that listen to state changes of Stepper steps
+     * @param listener {@link StepStateChangeListener}
+     * @return same Stepper instance
+     */
     public Stepper addStateChangeListener(StepStateChangeListener listener) {
         if (nonNull(listener)) {
             this.stepStateChangeListeners.add(listener);
@@ -333,6 +417,10 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return this;
     }
 
+    /**
+     * @param listener {@link StepStateChangeListener}
+     * @return same Stepper instance
+     */
     public Stepper removeStateChangeListener(StepStateChangeListener listener) {
         if (nonNull(listener)) {
             this.stepStateChangeListeners.remove(listener);
@@ -340,10 +428,19 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return this;
     }
 
+    /**
+     *
+     * @return List of all {@link StepStateChangeListener}s of this Stepper
+     */
     public List<StepStateChangeListener> getStepStateChangeListeners() {
         return stepStateChangeListeners;
     }
 
+    /**
+     *
+     * @param listener {@link StepperCompleteListener}
+     * @return same Stepper instance
+     */
     public Stepper addCompleteListener(StepperCompleteListener listener) {
         if (nonNull(listener)) {
             this.completeListeners.add(listener);
@@ -351,6 +448,11 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return this;
     }
 
+    /**
+     *
+     * @param listener {@link StepperCompleteListener}
+     * @return same Stepper instance
+     */
     public Stepper removeCompleteListener(StepperCompleteListener listener) {
         if (nonNull(listener)) {
             this.completeListeners.remove(listener);
@@ -358,14 +460,27 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return this;
     }
 
+    /**
+     *
+     * @return a List of {@link StepperCompleteListener}s
+     */
     public List<StepperCompleteListener> getCompleteListeners() {
         return completeListeners;
     }
 
+    /**
+     *
+     * @return the animation {@link Transition} currently used for activating a step
+     */
     public Transition getActivateStepTransition() {
         return activateStepTransition;
     }
 
+    /**
+     *
+     * @param activateStepTransition {@link Transition} for the animation of activating a step
+     * @return same Stepper instance
+     */
     public Stepper setActivateStepTransition(Transition activateStepTransition) {
         if (nonNull(activateStepTransition)) {
             this.activateStepTransition = activateStepTransition;
@@ -373,10 +488,19 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return this;
     }
 
+    /**
+     *
+     * @return the animation {@link Transition} currently used for deactivating a step
+     */
     public Transition getDeactivateStepTransition() {
         return deactivateStepTransition;
     }
 
+    /**
+     *
+     * @param deactivateStepTransition {@link Transition} for the animation of deactivating a step
+     * @return same Stepper instance
+     */
     public Stepper setDeactivateStepTransition(Transition deactivateStepTransition) {
         if (nonNull(deactivateStepTransition)) {
             this.deactivateStepTransition = deactivateStepTransition;
@@ -384,88 +508,186 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         return this;
     }
 
+    /**
+     *
+     * @return int duration in milli-seconds for activating a step animation
+     */
     public int getActivateStepTransitionDuration() {
         return activateStepTransitionDuration;
     }
 
+    /**
+     * @param activateStepTransitionDuration int duration in milli-seconds for activating a step animation
+     * @return same Stepper instance
+     */
     public Stepper setActivateStepTransitionDuration(int activateStepTransitionDuration) {
         this.activateStepTransitionDuration = activateStepTransitionDuration;
         return this;
     }
 
+    /**
+     *
+     * @return int duration in milli-seconds for deactivating a step animation
+     */
     public int getDeactivateStepTransitionDuration() {
         return deactivateStepTransitionDuration;
     }
 
+    /**
+     * @param deactivateStepTransitionDuration int duration in milli-seconds for deactivating a step animation
+     * @return same Stepper instance
+     */
     public Stepper setDeactivateStepTransitionDuration(int deactivateStepTransitionDuration) {
         this.deactivateStepTransitionDuration = deactivateStepTransitionDuration;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return root.element();
     }
 
+    /**
+     *
+     * @return List of all {@link Step}s
+     */
     public List<Step> getSteps() {
         return steps;
     }
 
+    /**
+     *
+     * @return the {@link FlexItem} that wraps the active step content
+     */
     public FlexItem getStepContentFlexItem() {
         return stepContentFlexItem;
     }
 
+    /**
+     *
+     * @return the {@link StepStateColors}
+     */
     public StepStateColors getStepStateColors() {
         return this.stepStateColors;
     }
 
+    /**
+     *
+     * @return the {@link StepNumberRenderer}
+     */
     public StepNumberRenderer getStepNumberRenderer() {
         return this.stepNumberRenderer;
     }
 
+    /**
+     *
+     * @return the current active {@link Step}
+     */
     public Step getActiveStep() {
         return this.activeStep;
     }
 
+    /**
+     * Activates he first step and reset all steps to the initial state
+     * @return
+     */
     public Stepper reset() {
         steps.forEach(Step::reset);
         activateStep(0);
         return this;
     }
 
+    /**
+     * An enum of possible Stepper directions
+     */
     public enum StepperDirection {
-        HORIZONTAL(FlexDirection.LEFT_TO_RIGHT, HORIZONTAL_STEPPER), VERTICAL(FlexDirection.TOP_TO_BOTTOM, VERTICAL_STEPPER);
+        /**
+         * The steps in the Stepper header will be aligned Horizontally
+         */
+        HORIZONTAL(FlexDirection.LEFT_TO_RIGHT, HORIZONTAL_STEPPER),
+        /**
+         * The steps in the Stepper header will be aligned Veritically
+         */
+        VERTICAL(FlexDirection.TOP_TO_BOTTOM, VERTICAL_STEPPER);
 
         private FlexDirection flexDirection;
         private String style;
 
+        /**
+         *
+         * @param flexDirection {@link FlexDirection} of the Stepper Flex layout
+         * @param style String css class name for the direction
+         */
         StepperDirection(FlexDirection flexDirection, String style) {
             this.flexDirection = flexDirection;
             this.style = style;
         }
 
+        /**
+         *
+         * @return the FlexDirection
+         */
         public FlexDirection getFlexDirection() {
             return flexDirection;
         }
 
+        /**
+         *
+         * @return String css class name
+         */
         public String getStyle() {
             return style;
         }
     }
 
+    /**
+     * A function to implement listeners to be called whenever the step state is changed
+     */
     public interface StepStateChangeListener {
+        /**
+         *
+         * @param oldState {@link StepState}
+         * @param step {@link Step} new state can be obtained from the this step instance
+         * @param stepper {@link Stepper} the step belongs to
+         */
         void onStateChanged(StepState oldState, Step step, Stepper stepper);
     }
 
+    /**
+     * An interface that can implemented to provide different colors for different {@link Step} states other than the default colors
+     */
     public interface StepStateColors {
+        /**
+         *
+         * @return the {@link Color} for inactive steps
+         */
         Color inactive();
 
+        /**
+         *
+         * @return the {@link Color} for active steps
+         */
         Color active();
 
+        /**
+         *
+         * @return the {@link Color} for steps that has validation errors
+         */
         Color error();
 
+        /**
+         *
+         * @return the {@link Color} for completed steps
+         */
         Color completed();
 
+        /**
+         *
+         * @return the {@link Color} for disabled steps
+         */
         Color disabled();
     }
 
@@ -530,27 +752,74 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
         }
     }
 
+    /**
+     * An interface to provide a different implementation for rendering steps numbers
+     */
     public interface StepNumberRenderer {
+        /**
+         * Renders the number for inactive steps
+         * @param step {@link Step} we are rendering the number for
+         * @param stepStateColors {@link StepStateColors}
+         * @return the {@link Node} to be used as the step number element
+         */
         Node inactiveElement(Step step, StepStateColors stepStateColors);
 
+        /**
+         * Renders the number for active steps
+         * @param step {@link Step} we are rendering the number for
+         * @param stepStateColors {@link StepStateColors}
+         * @return the {@link Node} to be used as the step number element
+         */
         Node activeElement(Step step, StepStateColors stepStateColors);
 
+        /**
+         * Renders the number for steps with errors
+         * @param step {@link Step} we are rendering the number for
+         * @param stepStateColors {@link StepStateColors}
+         * @return the {@link Node} to be used as the step number element
+         */
         Node errorElement(Step step, StepStateColors stepStateColors);
 
+        /**
+         * Renders the number for completed steps
+         * @param step {@link Step} we are rendering the number for
+         * @param stepStateColors {@link StepStateColors}
+         * @return the {@link Node} to be used as the step number element
+         */
         Node completedElement(Step step, StepStateColors stepStateColors);
 
+        /**
+         * Renders the number for disabled steps
+         * @param step {@link Step} we are rendering the number for
+         * @param stepStateColors {@link StepStateColors}
+         * @return the {@link Node} to be used as the step number element
+         */
         Node disabledElement(Step step, StepStateColors stepStateColors);
     }
 
+    /**
+     * An enum to list the {@link Step} possible states
+     */
     public enum StepState {
         ACTIVE(STEP_ACTIVE), INACTIVE(STEP_INACTIVE), ERROR(STEP_ERROR), COMPLETED(STEP_COMPLETED), DISABLED(STEP_DISABLED);
 
         private String style;
 
+        /**
+         *
+         * @param style String css class name for the state, the css class name will be applied to the step when it is in the state
+         */
         StepState(String style) {
             this.style = style;
         }
 
+        /**
+         * This method will be called whenever the Step state is changed, the method will use the {@link StepNumberRenderer} to render the step number based on the new step state
+         * @param step {@link Step} that has it is state changed
+         * @param colors {@link StepStateColors}
+         * @param stepNumberRenderer {@link StepNumberRenderer}
+         * @return the {@link Node} to be used as the step number element
+         */
         public Node render(Step step, StepStateColors colors, StepNumberRenderer stepNumberRenderer) {
             switch (step.getState()) {
                 case ACTIVE:
@@ -567,12 +836,23 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
             }
         }
 
+        /**
+         *
+         * @return String css class name
+         */
         public String getStyle() {
             return style;
         }
     }
 
+    /**
+     * A function to implement logic that will be called when a step is marked as completed
+     */
     public interface StepperCompleteListener {
+        /**
+         *
+         * @param stepper {@link Stepper} that the completed step belongs to
+         */
         void onComplete(Stepper stepper);
     }
 
