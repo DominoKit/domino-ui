@@ -509,9 +509,8 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         return element;
     }
 
-
     @Editor.Ignore
-    public ClientRect getBoundingClientRect() {
+    public DOMRect getBoundingClientRect() {
         return element.element().getBoundingClientRect();
     }
 
