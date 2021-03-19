@@ -1,8 +1,7 @@
 package org.dominokit.domino.ui.tree;
 
-import elemental2.dom.*;
 import elemental2.dom.EventListener;
-import org.dominokit.domino.ui.badges.Badge;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
@@ -12,20 +11,28 @@ import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
 import java.util.*;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * A component representing the tree item
+ *
+ * @param <T> the type of the value object inside the item
+ * @see WavesElement
+ * @see ParentTreeItem
+ * @see CanActivate
+ * @see CanDeactivate
+ * @see HasClickableElement
+ */
 public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implements ParentTreeItem<TreeItem<T>>, CanActivate, CanDeactivate, HasClickableElement {
 
     private String title;
     private HTMLLIElement element;
-    private DominoElement<HTMLAnchorElement> anchorElement;
-    private List<TreeItem<T>> subItems = new LinkedList<>();
+    private final DominoElement<HTMLAnchorElement> anchorElement;
+    private final List<TreeItem<T>> subItems = new LinkedList<>();
     private TreeItem<T> activeTreeItem;
     private ParentTreeItem<TreeItem<T>> parent;
     private Collapsible collapsible;
@@ -34,7 +41,6 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     private BaseIcon<?> icon;
     private BaseIcon<?> activeIcon;
     private BaseIcon<?> originalIcon;
-    private HTMLElement titleElement;
 
     private BaseIcon<?> expandIcon;
 
@@ -43,19 +49,19 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     private int nextLevel = 1;
 
     private ToggleTarget toggleTarget = ToggleTarget.ANY;
-    private DominoElement<HTMLElement> toggleContainer = DominoElement.of(span()
-            .css("tree-tgl-icn")
-    );
-    private DominoElement<HTMLElement> indicatorContainer = DominoElement.of(span()
+    private final DominoElement<HTMLElement> indicatorContainer = DominoElement.of(span()
             .css("tree-indicator")
     );
 
     public TreeItem(String title, BaseIcon<?> icon) {
         this.title = title;
         setIcon(icon);
-        this.titleElement = span()
+        HTMLElement titleElement = span()
                 .css("title")
                 .textContent(title).element();
+        DominoElement<HTMLElement> toggleContainer = DominoElement.of(span()
+                .css("tree-tgl-icn")
+        );
         this.anchorElement = DominoElement.of(a()
                 .add(this.icon)
                 .add(div()
@@ -116,32 +122,76 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         this.value = value;
     }
 
+    /**
+     * Creates new tree item with a title
+     *
+     * @param title the title of the item
+     * @return new instance
+     */
     public static TreeItem<String> create(String title) {
         TreeItem<String> treeItem = new TreeItem<>(title);
         treeItem.value = title;
         return treeItem;
     }
 
+    /**
+     * Creates new tree item with a title and an icon
+     *
+     * @param title the title of the item
+     * @param icon  the item's {@link BaseIcon}
+     * @return new instance
+     */
     public static TreeItem<String> create(String title, BaseIcon<?> icon) {
         TreeItem<String> treeItem = new TreeItem<>(title, icon);
         treeItem.value = title;
         return treeItem;
     }
 
+    /**
+     * Creates new tree item with an icon
+     *
+     * @param icon the item's {@link BaseIcon}
+     * @return new instance
+     */
     public static TreeItem<String> create(BaseIcon<?> icon) {
         TreeItem<String> treeItem = new TreeItem<>(icon);
         treeItem.value = "";
         return treeItem;
     }
 
+    /**
+     * Creates new tree item with a title and a value
+     *
+     * @param title the title of the item
+     * @param value the value of the item
+     * @param <T>   the type of the value
+     * @return new instance
+     */
     public static <T> TreeItem<T> create(String title, T value) {
         return new TreeItem<>(title, value);
     }
 
+    /**
+     * Creates new tree item with a title, an icon and a value
+     *
+     * @param title the title of the item
+     * @param icon  the item's {@link BaseIcon}
+     * @param value the value of the item
+     * @param <T>   the type of the value
+     * @return new instance
+     */
     public static <T> TreeItem<T> create(String title, BaseIcon<?> icon, T value) {
         return new TreeItem<>(title, icon, value);
     }
 
+    /**
+     * Creates new tree item with an icon and a value
+     *
+     * @param icon  the item's {@link BaseIcon}
+     * @param value the value of the item
+     * @param <T>   the type of the value
+     * @return new instance
+     */
     public static <T> TreeItem<T> create(BaseIcon<?> icon, T value) {
         return new TreeItem<>(icon, value);
     }
@@ -181,6 +231,12 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         parent.setActiveItem(TreeItem.this);
     }
 
+    /**
+     * Adds a child item to this one
+     *
+     * @param treeItem the child {@link TreeItem}
+     * @return same instance
+     */
     public TreeItem<T> appendChild(TreeItem<T> treeItem) {
         this.subItems.add(treeItem);
         childrenContainer.appendChild(treeItem.element());
@@ -194,6 +250,11 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         return this;
     }
 
+    /**
+     * Adds new separator
+     *
+     * @return same instance
+     */
     public TreeItem<T> addSeparator() {
         childrenContainer.appendChild(li().css("separator")
                 .add(a())
@@ -201,6 +262,12 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         return this;
     }
 
+    /**
+     * Sets what is the target for toggling an item
+     *
+     * @param toggleTarget the {@link ToggleTarget}
+     * @return same instance
+     */
     public TreeItem<T> setToggleTarget(ToggleTarget toggleTarget) {
         if (nonNull(toggleTarget)) {
             if (nonNull(this.toggleTarget)) {
@@ -230,29 +297,50 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public TreeItem<T> show() {
         return show(false);
     }
 
+    /**
+     * Shows the item
+     *
+     * @param expandParent true to expand the parent of the item
+     * @return same instance
+     */
     public TreeItem<T> show(boolean expandParent) {
         if (isParent()) {
             collapsible.show();
         }
         if (expandParent && nonNull(parent)) {
-            parent.expand(expandParent);
+            parent.expand(true);
         }
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public ParentTreeItem expand() {
+    public TreeItem<T> expand() {
         return show();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public TreeItem<T> expand(boolean expandParent) {
         return show(expandParent);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public TreeItem<T> hide() {
         if (isParent()) {
             collapsible.hide();
@@ -260,6 +348,10 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public TreeItem<T> toggleDisplay() {
         if (isParent()) {
             collapsible.toggleDisplay();
@@ -267,50 +359,77 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isHidden() {
         return collapsible.isHidden();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TreeItem<T> addHideHandler(Collapsible.HideCompletedHandler handler) {
         collapsible.addHideHandler(handler);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TreeItem<T> removeHideHandler(Collapsible.HideCompletedHandler handler) {
         collapsible.removeHideHandler(handler);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TreeItem<T> addShowHandler(Collapsible.ShowCompletedHandler handler) {
         collapsible.addShowHandler(handler);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TreeItem<T> removeShowHandler(Collapsible.ShowCompletedHandler handler) {
         collapsible.removeShowHandler(handler);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLLIElement element() {
         return element;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TreeItem<T> getActiveItem() {
         return activeTreeItem;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Tree getTreeRoot() {
         return parent.getTreeRoot();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<TreeItem<T>> getParent() {
         if (parent instanceof TreeItem) {
@@ -320,11 +439,17 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setActiveItem(TreeItem<T> activeItem) {
         setActiveItem(activeItem, false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setActiveItem(TreeItem<T> activeItem, boolean silent) {
         if (nonNull(activeItem)) {
@@ -340,6 +465,9 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         }
     }
 
+    /**
+     * @return A list of tree items representing the path for this item
+     */
     public List<TreeItem<T>> getPath() {
         List<TreeItem<T>> items = new ArrayList<>();
         items.add(this);
@@ -355,6 +483,9 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         return items;
     }
 
+    /**
+     * @return A list of values representing the path for this item
+     */
     public List<T> getPathValues() {
         List<T> values = new ArrayList<>();
         values.add(this.getValue());
@@ -370,11 +501,17 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         return values;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void activate() {
         activate(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void activate(boolean activateParent) {
         Style.of(element()).add("active");
@@ -397,6 +534,9 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deactivate() {
         Style.of(element()).remove("active");
@@ -423,16 +563,28 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLAnchorElement getClickableElement() {
         return anchorElement.element();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public TreeItem<T> addClickListener(EventListener listener) {
         getClickableElement().addEventListener(EventType.click.getName(), listener);
         return this;
     }
 
+    /**
+     * Sets the icon of the item
+     *
+     * @param icon the new {@link BaseIcon}
+     * @return same instance
+     */
     public TreeItem<T> setIcon(BaseIcon<?> icon) {
         this.icon = icon;
         this.originalIcon = icon.copy();
@@ -450,11 +602,23 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         return this;
     }
 
+    /**
+     * Sets the icon that will be shown when the item is active
+     *
+     * @param activeIcon the {@link BaseIcon}
+     * @return same instance
+     */
     public TreeItem<T> setActiveIcon(BaseIcon<?> activeIcon) {
-        this.activeIcon = this.activeIcon;
+        this.activeIcon = activeIcon;
         return this;
     }
 
+    /**
+     * Sets the expand icon
+     *
+     * @param expandIcon the {@link BaseIcon}
+     * @return same instance
+     */
     public TreeItem<T> setExpandIcon(BaseIcon<?> expandIcon) {
         this.expandIcon = expandIcon;
         return this;
@@ -468,10 +632,19 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         this.parent = parentMenu;
     }
 
+    /**
+     * @return the title of the item
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Filter this item based on the search token
+     *
+     * @param searchToken the search token
+     * @return true if this item should be shown, false otherwise
+     */
     public boolean filter(String searchToken) {
         boolean found;
         if (isParent()) {
@@ -492,20 +665,35 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isAutoExpandFound() {
         return parent.isAutoExpandFound();
     }
 
+    /**
+     * Clears the filter applied
+     */
     public void clearFilter() {
         Style.of(element).removeProperty("display");
         subItems.forEach(TreeItem::clearFilter);
     }
 
+    /**
+     * Filters the children
+     *
+     * @param searchToken the search token
+     * @return true of one of the children matches the search token, false otherwise
+     */
     public boolean filterChildren(String searchToken) {
-        return subItems.stream().filter(treeItem -> treeItem.filter(searchToken)).count() > 0;
+        return subItems.stream().anyMatch(treeItem -> treeItem.filter(searchToken));
     }
 
+    /**
+     * Collapse all children
+     */
     public void collapseAll() {
         if (isParent() && !collapsible.isHidden()) {
             hide();
@@ -513,6 +701,9 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         }
     }
 
+    /**
+     * Expand all children
+     */
     public void expandAll() {
         if (isParent() && collapsible.isHidden()) {
             show();
@@ -520,6 +711,11 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         }
     }
 
+    /**
+     * Sets the level of this item
+     *
+     * @param level the new level
+     */
     public void setLevel(int level) {
         this.nextLevel = level + 1;
         if (isParent()) {
@@ -528,43 +724,65 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         anchorElement.style().setPaddingLeft(px.of(nextLevel * 15));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLElement getWavesElement() {
         return anchorElement.element();
     }
 
+    /**
+     * @return true if this item does not have children, false otherwise
+     */
     public boolean isLeaf() {
         return subItems.isEmpty();
     }
 
     /**
-     * Returns the list of all sub {@link TreeItem}
-     *
-     * @return
+     * @return the list of all sub {@link TreeItem}
      */
     @Override
     public List<TreeItem<T>> getSubItems() {
         return new ArrayList<>(subItems);
     }
 
+    /**
+     * Selects this item, the item will be shown and activated
+     */
     public void select() {
         this.show(true).activate(true);
     }
 
+    /**
+     * @return the value of the item
+     */
     public T getValue() {
         return value;
     }
 
+    /**
+     * Sets the value of the item
+     *
+     * @param value the value
+     */
     public void setValue(T value) {
         this.value = value;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeItem(TreeItem<T> item) {
         subItems.remove(item);
         item.remove();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public TreeItem<T> remove() {
         if (parent.getSubItems().contains(this)) {
             parent.removeItem(this);
@@ -575,6 +793,12 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         return super.remove();
     }
 
+    /**
+     * Sets the content indicator for this item
+     *
+     * @param indicatorContent a {@link Node}
+     * @return same instance
+     */
     public TreeItem<T> setIndicatorContent(Node indicatorContent) {
         indicatorContainer.clearElement();
         if (nonNull(indicatorContent)) {
@@ -583,26 +807,46 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         return this;
     }
 
+    /**
+     * Sets the content indicator for this item
+     *
+     * @param element a {@link IsElement}
+     * @return same instance
+     */
     public TreeItem<T> setIndicatorContent(IsElement<?> element) {
         setIndicatorContent(element.element());
         return this;
     }
 
+    /**
+     * Clears the content indicator
+     *
+     * @return same instance
+     */
     public TreeItem<T> clearIndicator() {
         indicatorContainer.clearElement();
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TreeItemFilter<TreeItem<T>> getFilter() {
         return parent.getFilter();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collapsible getCollapsible() {
         return collapsible;
     }
 
+    /**
+     * @return the content indicator container
+     */
     public DominoElement<HTMLElement> getIndicatorContainer() {
         return indicatorContainer;
     }
