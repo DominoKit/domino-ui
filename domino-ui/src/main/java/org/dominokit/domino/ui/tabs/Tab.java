@@ -1,10 +1,6 @@
 package org.dominokit.domino.ui.tabs;
 
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLIElement;
-import elemental2.dom.Node;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.BaseIcon;
@@ -24,6 +20,9 @@ import java.util.function.Consumer;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * A component for a single Tab in the {@link TabsPanel}
+ */
 public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasClickableElement {
 
     private HTMLAnchorElement clickableElement = a().element();
@@ -47,19 +46,39 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
     private FlexItem iconContainer;
     private FlexItem textContainer;
 
-    public Tab(String text) {
-        this(null, text);
+    /**
+     *
+     * @param title String title for the tab
+     */
+    public Tab(String title) {
+        this(null, title);
     }
 
+    /**
+     *
+     * @param icon {@link BaseIcon} for the tab header
+     */
     public Tab(BaseIcon<?> icon) {
         this(icon, null);
     }
-    public Tab(BaseIcon<?> icon, String text, String key) {
-        this(icon, text);
+
+    /**
+     *
+     * @param icon icon {@link BaseIcon} for the tab header
+     * @param title String tab header title
+     * @param key String unique identifier for the tab
+     */
+    public Tab(BaseIcon<?> icon, String title, String key) {
+        this(icon, title);
         setKey(key);
     }
 
-    public Tab(BaseIcon<?> icon, String text) {
+    /**
+     *
+     * @param icon icon {@link BaseIcon} for the tab header
+     * @param title String tab header title
+     */
+    public Tab(BaseIcon<?> icon, String title) {
         iconContainer = FlexItem.create();
         textContainer = FlexItem.create();
         tabElementsContainer = FlexLayout.create();
@@ -68,8 +87,8 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
             tabElementsContainer
                     .appendChild(iconContainer.appendChild(icon));
         }
-        if (nonNull(text)) {
-            tabElementsContainer.appendChild(textContainer.appendChild(span().add(TextNode.of(text))));
+        if (nonNull(title)) {
+            tabElementsContainer.appendChild(textContainer.appendChild(span().add(TextNode.of(title))));
         }
 
         closeIcon = Icons.ALL.close_mdi()
@@ -79,7 +98,7 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
                     close();
 
                 })
-                .addEventListener(EventType.mousedown.getName(), evt -> evt.stopPropagation())
+                .addEventListener(EventType.mousedown.getName(), Event::stopPropagation)
                 .clickable();
 
         clickableElement.appendChild(tabElementsContainer.element());
@@ -87,80 +106,158 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         withWaves();
     }
 
-    public static Tab create(String text) {
-        return new Tab(text);
+    /**
+     *
+     * @param title String tab header title
+     * @return new Tab instance
+     */
+    public static Tab create(String title) {
+        return new Tab(title);
     }
 
-    public static Tab create(String key, String text) {
-        Tab tab = new Tab(text);
+    /**
+     *
+     * @param key String unique identifier for the tab
+     * @param title String tab header title
+     * @return new Tab instance
+     */
+    public static Tab create(String key, String title) {
+        Tab tab = new Tab(title);
         tab.setKey(key);
         return tab;
     }
 
+    /**
+     * @param icon icon {@link BaseIcon} for the tab header
+     * @return new Tab instance
+     */
     public static Tab create(BaseIcon<?> icon) {
         return new Tab(icon);
     }
 
+    /**
+     *
+     * @param key String unique identifier for the tab
+     * @param icon icon {@link BaseIcon} for the tab header
+     * @return new Tab instance
+     */
     public static Tab create(String key, BaseIcon<?> icon) {
         Tab tab = new Tab(icon);
         tab.setKey(key);
         return tab;
     }
 
-    public static Tab create(BaseIcon<?> icon, String text) {
-        return new Tab(icon, text);
+    /**
+     *
+     * @param icon icon {@link BaseIcon} for the tab header
+     * @param title String title for the tab header
+     * @return new Tab instance
+     */
+    public static Tab create(BaseIcon<?> icon, String title) {
+        return new Tab(icon, title);
     }
 
-    public static Tab create(String key, BaseIcon<?> icon, String text) {
-        Tab tab = new Tab(icon, text);
+    /**
+     * @param key String unique identifier for the tab
+     * @param icon icon {@link BaseIcon} for the tab header
+     * @param title String title for the tab header
+     * @return new Tab instance
+     */
+    public static Tab create(String key, BaseIcon<?> icon, String title) {
+        Tab tab = new Tab(icon, title);
         tab.setKey(key);
         return tab;
     }
 
+    /**
+     *
+     * @return the Tab {@link HTMLLIElement} wrapped as {@link DominoElement}
+     */
     public DominoElement<HTMLLIElement> getTab() {
         return DominoElement.of(tab);
     }
 
+    /**
+     *
+     * @return the {@link HTMLDivElement} that contains the Tab content
+     */
     public DominoElement<HTMLDivElement> getContentContainer() {
         return DominoElement.of(contentContainer);
     }
 
+    /**
+     *
+     * @param content {@link Node} to be appended to the tab contentContainer
+     * @return same Tab instance
+     */
     public Tab appendChild(Node content) {
         contentContainer.appendChild(content);
         return this;
     }
 
+    /**
+     *
+     * @param content {@link IsElement} to be appended to the tab contentContainer
+     * @return same Tab instance
+     */
     public Tab appendChild(IsElement<?> content) {
         return appendChild(content.element());
     }
 
+    /**
+     * this will replace the content of the tab contentContainer
+     * {@inheritDoc}
+     */
     @Override
     public Tab setContent(IsElement<?> element) {
         return setContent(element.element());
     }
 
+    /**
+     * this will replace the content of the tab contentContainer
+     * {@inheritDoc}
+     */
     @Override
     public Tab setContent(Node content) {
-        clearElement();
+        contentContainer.clearElement();
         return appendChild(content);
     }
 
+    /**
+     *
+     * @param title String new tab header title
+     * @return same Tab instance
+     */
     public Tab setTitle(String title) {
         textContainer.clearElement();
         textContainer.appendChild(span().add(TextNode.of(title)));
         return this;
     }
 
+    /**
+     *
+     * @param icon the new {@link BaseIcon} for the tab header
+     * @return same Tab instance
+     */
     public Tab setIcon(BaseIcon<?> icon) {
         iconContainer.clearElement();
         iconContainer.appendChild(icon);
         return this;
     }
 
+    /**
+     * make the tab active and show its content in the TabsPanel
+     * @return same Tab instance
+     */
     public Tab activate() {
         return activate(false);
     }
 
+    /**
+     * make the tab active and show its content in the TabsPanel
+     * @param silent boolean, if true then activate the tab without triggering the {@link ActivationHandler}s
+     * @return same Tab instance
+     */
     public Tab activate(boolean silent) {
         if (nonNull(parent)) {
             parent.deActivateTab(parent.getActiveTab(), silent);
@@ -174,10 +271,19 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return this;
     }
 
+    /**
+     * make the tab inactive and hide its content in the TabsPanel
+     * @return same Tab instance
+     */
     public Tab deActivate() {
         return deActivate(false);
     }
 
+    /**
+     * make the tab inactive and hides its content in the TabsPanel
+     * @param silent boolean, if true then activate the tab without triggering the {@link ActivationHandler}s
+     * @return same Tab instance
+     */
     public Tab deActivate(boolean silent) {
         tab.style().remove(TabStyles.ACTIVE);
         contentContainer.style().remove(TabStyles.IN, TabStyles.ACTIVE);
@@ -188,6 +294,11 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return this;
     }
 
+    /**
+     *
+     * @param closable boolean, if true it adds a close element to the tab header that when clicked it removes the tab from the TabsPanel
+     * @return same Tab instance
+     */
     public Tab setClosable(boolean closable) {
         if (closable) {
             closeContainer.clearElement();
@@ -200,6 +311,10 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return this;
     }
 
+    /**
+     * Remove the Tab from the TabsPanel
+     * @return same Tab instance
+     */
     public Tab close() {
         if (nonNull(parent)) {
             if (closeHandler.onBeforeClose(this)) {
@@ -211,14 +326,27 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return this;
     }
 
+    /**
+     * delegate to {@link #setClosable(boolean)} with true
+     * @return same Tab instance
+     */
     public Tab closable() {
         return setClosable(true);
     }
 
+    /**
+     * delegate to {@link #setClosable(boolean)} with false
+     * @return same Tab instance
+     */
     public Tab notClosable() {
         return setClosable(false);
     }
 
+    /**
+     *
+     * @param closeHandler {@link CloseHandler}
+     * @return same Tab instance
+     */
     public Tab setOnBeforeCloseHandler(CloseHandler closeHandler) {
         if (nonNull(closeHandler)) {
             this.closeHandler = closeHandler;
@@ -226,6 +354,11 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return this;
     }
 
+    /**
+     *
+     * @param closeHandler Consumer of {@link Tab} to be called when the tab is closed
+     * @return same Tab instance
+     */
     public Tab addCloseHandler(Consumer<Tab> closeHandler) {
         if (nonNull(closeHandler)) {
             this.closeHandlers.add(closeHandler);
@@ -233,6 +366,11 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return this;
     }
 
+    /**
+     *
+     * @param closeHandler Consumer of {@link Tab} to be called when the tab is closed
+     * @return same Tab instance
+     */
     public Tab removeCloseHandler(Consumer<Tab> closeHandler) {
         if (nonNull(closeHandler)) {
             this.closeHandlers.remove(closeHandler);
@@ -240,6 +378,11 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return this;
     }
 
+    /**
+     *
+     * @param activationHandler {@link ActivationHandler}
+     * @return same Tab instance
+     */
     public Tab addActivationHandler(ActivationHandler activationHandler) {
         if (nonNull(activationHandler)) {
             this.activationHandlers.add(activationHandler);
@@ -247,6 +390,11 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return this;
     }
 
+    /**
+     *
+     * @param activationHandler {@link ActivationHandler}
+     * @return same Tab instance
+     */
     public Tab removeActivationHandler(ActivationHandler activationHandler) {
         if (nonNull(activationHandler)) {
             this.activationHandlers.remove(activationHandler);
@@ -254,45 +402,88 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
         return this;
     }
 
+    /**
+     *
+     * @return boolean, true if the tab is currently active
+     */
     public boolean isActive() {
         return active;
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public HTMLAnchorElement getClickableElement() {
         return clickableElement;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLLIElement element() {
         return tab.element();
     }
 
+    /**
+     *
+     * @param tabsPanel the {@link TabsPanel} this tab belongs to
+     */
     void setParent(TabsPanel tabsPanel) {
         this.parent = tabsPanel;
     }
 
+    /**
+     *
+     * @return String unique identifier of this Tab
+     */
     public String getKey() {
         return key;
     }
 
+    /**
+     *
+     * @param key String unique identifier of this Tab
+     * @return same Tab instance
+     */
     public Tab setKey(String key) {
         this.key = key;
         return this;
     }
 
+    /**
+     * Removes the tab from the TabsPanel, this is different from closing the tab and wont trigger the close handlers
+     */
     public void removeTab() {
         this.remove();
         contentContainer.remove();
     }
 
+    /**
+     * A function to handle closing of tab before the tab is closed, this could be used to confirm closing the Tab
+     */
     @FunctionalInterface
     public interface CloseHandler {
+        /**
+         *
+         * @param tab {@link Tab} that is about to be closed
+         * @return boolean, true if the tab should be actually closed, false if the tab should not be cloased
+         */
         boolean onBeforeClose(Tab tab);
     }
 
+    /**
+     * A function to handle Tab activation state change
+     */
     @FunctionalInterface
     public interface ActivationHandler {
+        /**
+         *
+         * @param tab {@link Tab} that has its state changed
+         * @param active boolean, true if the atb is activated, false if it is deactivated
+         */
         void onActiveStateChanged(Tab tab, boolean active);
     }
 }
