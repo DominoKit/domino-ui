@@ -16,18 +16,22 @@ import static org.dominokit.domino.ui.spin.SpinStyles.*;
 import static org.jboss.elemento.Elements.a;
 import static org.jboss.elemento.Elements.div;
 
+/**
+ * Abstract implementation for spin
+ *
+ * @param <T> the type of the object inside the spin
+ * @param <S> the type of the spin
+ */
 abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoElement<HTMLDivElement, S> implements HasSelectionHandler<S, SpinItem<T>> {
 
     protected DominoElement<HTMLDivElement> element = DominoElement.of(div().css(getStyle()));
-
-    private DominoElement<HTMLAnchorElement> prevAnchor = DominoElement.of(a().css(prev).css(disabled));
-
-    private DominoElement<HTMLAnchorElement> nextAnchor = DominoElement.of(a().css(next));
-    protected DominoElement<HTMLDivElement> contentPanel = DominoElement.of(div().css(spin_content));
-    protected DominoElement<HTMLDivElement> main = DominoElement.of(div().add(contentPanel).css(spin_container));
+    private final DominoElement<HTMLAnchorElement> prevAnchor = DominoElement.of(a().css(PREV).css(DISABLED));
+    private final DominoElement<HTMLAnchorElement> nextAnchor = DominoElement.of(a().css(NEXT));
+    protected DominoElement<HTMLDivElement> contentPanel = DominoElement.of(div().css(SPIN_CONTENT));
+    protected DominoElement<HTMLDivElement> main = DominoElement.of(div().add(contentPanel).css(SPIN_CONTAINER));
     protected List<SpinItem<T>> items = new ArrayList<>();
     private SpinItem<T> activeItem;
-    private List<HasSelectionHandler.SelectionHandler<SpinItem<T>>> selectionHandlers = new ArrayList<>();
+    private final List<HasSelectionHandler.SelectionHandler<SpinItem<T>>> selectionHandlers = new ArrayList<>();
     private NavigationHandler navigationHandler = direction -> {
     };
 
@@ -53,16 +57,32 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
         SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, main.element(), evt -> moveForward());
     }
 
+    /**
+     * Move to the next item
+     *
+     * @return same instance
+     */
     public S moveForward() {
         moveToIndex(items.indexOf(this.activeItem) + 1);
         return (S) this;
     }
 
+    /**
+     * Move back to the previous item
+     *
+     * @return same instance
+     */
     public S moveBack() {
         moveToIndex(items.indexOf(this.activeItem) - 1);
         return (S) this;
     }
 
+    /**
+     * Move to item at a specific index
+     *
+     * @param targetIndex the index of the item
+     * @return same instance
+     */
     public S moveToIndex(int targetIndex) {
         if (targetIndex < items.size() && targetIndex >= 0) {
             int activeIndex = items.indexOf(activeItem);
@@ -78,6 +98,12 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
         return (S) this;
     }
 
+    /**
+     * Move to a specific item
+     *
+     * @param item the {@link SpinItem}
+     * @return same instance
+     */
     public S moveToItem(SpinItem<T> item) {
         if (items.contains(item)) {
             return moveToIndex(items.indexOf(item));
@@ -87,18 +113,24 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
 
     private void updateArrowsVisibility() {
         if (items.indexOf(this.activeItem) == items.size() - 1) {
-            nextAnchor.style().add(disabled);
+            nextAnchor.style().add(DISABLED);
         } else {
-            nextAnchor.style().remove(disabled);
+            nextAnchor.style().remove(DISABLED);
         }
 
         if (items.indexOf(this.activeItem) < 1) {
-            prevAnchor.style().add(disabled);
+            prevAnchor.style().add(DISABLED);
         } else {
-            prevAnchor.style().remove(disabled);
+            prevAnchor.style().remove(DISABLED);
         }
     }
 
+    /**
+     * Adds a new item
+     *
+     * @param spinItem A {@link SpinItem} to add
+     * @return same instance
+     */
     public S appendChild(SpinItem<T> spinItem) {
         if (items.isEmpty()) {
             this.activeItem = spinItem;
@@ -108,6 +140,9 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
         return (S) this;
     }
 
+    /**
+     * @return the current active item
+     */
     public SpinItem<T> getActiveItem() {
         return activeItem;
     }
@@ -116,22 +151,35 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
         selectionHandlers.forEach(spinItemSelectionHandler -> spinItemSelectionHandler.onSelection(this.activeItem));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public S addSelectionHandler(SelectionHandler<SpinItem<T>> selectionHandler) {
         selectionHandlers.add(selectionHandler);
         return (S) this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public S removeSelectionHandler(SelectionHandler<SpinItem<T>> selectionHandler) {
         selectionHandlers.remove(selectionHandler);
         return (S) this;
     }
 
+    /**
+     * @return All the items
+     */
     public List<SpinItem<T>> getItems() {
         return items;
     }
 
+    /**
+     * @param item the {@link SpinItem}
+     * @return the index of the item inside the spin
+     */
     public int indexOf(SpinItem<T> item) {
         if (items.contains(item)) {
             return items.indexOf(item);
@@ -140,36 +188,55 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
         }
     }
 
+    /**
+     * @return the total number of items inside the spin
+     */
     public int itemsCount() {
         return items.size();
     }
 
+    /**
+     * @param item the {@link SpinItem}
+     * @return true if the item is the last item, false otherwise
+     */
     public boolean isLastItem(SpinItem<T> item) {
-        if (items.contains(item) && indexOf(item) == (itemsCount() - 1)) {
-            return true;
-        } else {
-            return false;
-        }
+        return items.contains(item) && indexOf(item) == (itemsCount() - 1);
     }
 
+    /**
+     * @param item the {@link SpinItem}
+     * @return true if the item is the first item, false otherwise
+     */
     public boolean isFirstItem(SpinItem<T> item) {
-        if (items.contains(item) && indexOf(item) == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return items.contains(item) && indexOf(item) == 0;
     }
 
+    /**
+     * Move to the first item
+     *
+     * @return same instance
+     */
     public S gotoFirst() {
         moveToIndex(0);
         return (S) this;
     }
 
+    /**
+     * Move to the last item
+     *
+     * @return same instance
+     */
     public S gotoLast() {
         moveToIndex(itemsCount() - 1);
         return (S) this;
     }
 
+    /**
+     * Adds a handler which will be called when navigating between items
+     *
+     * @param navigationHandler A {@link NavigationHandler} to add
+     * @return same instance
+     */
     public S onNavigate(NavigationHandler navigationHandler) {
         if (nonNull(navigationHandler)) {
             this.navigationHandler = navigationHandler;
@@ -177,14 +244,23 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
         return (S) this;
     }
 
+    /**
+     * @return the previous element
+     */
     public DominoElement<HTMLAnchorElement> getPrevAnchor() {
         return prevAnchor;
     }
 
+    /**
+     * @return the next element
+     */
     public DominoElement<HTMLAnchorElement> getNextAnchor() {
         return nextAnchor;
     }
 
+    /**
+     * @return the content panel
+     */
     public DominoElement<HTMLDivElement> getContentPanel() {
         return contentPanel;
     }
@@ -194,5 +270,4 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>> extends BaseDominoEleme
     protected abstract void setTransformProperty(double offset);
 
     protected abstract String getStyle();
-
 }

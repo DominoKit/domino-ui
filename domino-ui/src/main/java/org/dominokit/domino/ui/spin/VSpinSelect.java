@@ -1,18 +1,36 @@
 package org.dominokit.domino.ui.spin;
 
-import elemental2.dom.ClientRect;
+import elemental2.dom.DOMRect;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 
+/**
+ * A component provides vertical spin
+ *
+ * @param <T> the type of the object inside the spin
+ */
 public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
 
-
+    /**
+     * Creates new instance
+     *
+     * @param <T> the type of the object inside the spin
+     * @return new instance
+     */
     public static <T> VSpinSelect<T> create() {
         return new VSpinSelect<>();
     }
 
+    /**
+     * Creates new instance with back/forward icons
+     *
+     * @param backIcon    the back {@link BaseIcon}
+     * @param forwardIcon the forward {@link BaseIcon}
+     * @param <T>         the type of the object inside the spin
+     * @return new instance
+     */
     public static <T> VSpinSelect<T> create(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {
         return new VSpinSelect<>(backIcon, forwardIcon);
     }
@@ -35,21 +53,23 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
 
     @Override
     protected String getStyle() {
-        return SpinStyles.v_spin;
+        return SpinStyles.V_SPIN;
     }
 
     @Override
     protected void fixElementsWidth() {
-        ClientRect boundingClientRect = main.getBoundingClientRect();
+        DOMRect boundingClientRect = main.getBoundingClientRect();
         double totalHeight = boundingClientRect.height * items.size();
         contentPanel.setHeight(100 * items.size() + "%");
 
         items.forEach(spinItem -> spinItem.setHeight(((boundingClientRect.height / totalHeight) * 100) + "%"));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return element.element();
     }
-
 }
