@@ -1,6 +1,11 @@
 package org.dominokit.domino.ui.tag;
 
+/**
+ * Default CSS classes for {@link TagsInput}
+ */
 public class TagStyles {
-    public static final String TAGS_INPUT = "tags-input";
+    /**
+     * CSS class for input field
+     */
     public static final String TAG_TEXT_INPUT = "tag-text-input";
 }
