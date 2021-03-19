@@ -18,37 +18,78 @@ import java.util.Optional;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.tree.TreeStyles.*;
 import static org.jboss.elemento.Elements.*;
 
+/**
+ * A component provides a tree representation of elements
+ * <p>
+ * Customize the component can be done by overwriting classes provided by {@link TreeStyles}
+ *
+ * <p>For example: </p>
+ * <pre>
+ *     Tree hardwareTree =
+ *         Tree.create("HARDWARE")
+ *             .setToggleTarget(ToggleTarget.ICON)
+ *             .addItemClickListener((treeItem) -> DomGlobal.console.info(treeItem.getValue()))
+ *             .appendChild(
+ *                 TreeItem.create("Computer", Icons.ALL.laptop_mdi())
+ *                     .addClickListener((evt) -> Notification.create("Computer").show()))
+ *             .appendChild(
+ *                 TreeItem.create("Headset", Icons.ALL.headset_mdi())
+ *                     .addClickListener((evt) -> Notification.create("Headset").show()))
+ *             .appendChild(
+ *                 TreeItem.create("Keyboard", Icons.ALL.keyboard_mdi())
+ *                     .addClickListener((evt) -> Notification.create("Keyboard").show()))
+ *             .appendChild(
+ *                 TreeItem.create("Mouse", Icons.ALL.mouse_mdi())
+ *                     .addClickListener((evt) -> Notification.create("Mouse").show()))
+ *             .addSeparator()
+ *             .appendChild(
+ *                 TreeItem.create("Laptop", Icons.ALL.laptop_mdi())
+ *                     .addClickListener((evt) -> Notification.create("Laptop").show()))
+ *             .appendChild(
+ *                 TreeItem.create("Smart phone", Icons.ALL.cellphone_mdi())
+ *                     .addClickListener((evt) -> Notification.create("Smart phone").show()))
+ *             .appendChild(
+ *                 TreeItem.create("Tablet", Icons.ALL.tablet_mdi())
+ *                     .addClickListener((evt) -> Notification.create("Tablet").show()))
+ *             .appendChild(
+ *                 TreeItem.create("Speaker", Icons.ALL.speaker_mdi())
+ *                     .addClickListener((evt) -> Notification.create("Speaker").show()));
+ * </pre>
+ *
+ * @param <T> the type of the object
+ * @see BaseDominoElement
+ * @see ParentTreeItem
+ */
 public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implements ParentTreeItem<TreeItem<T>>, IsElement<HTMLDivElement> {
 
-    private HTMLElement title = span().css("title").element();
+    private final HTMLElement title = span().css(TITLE).element();
     private ToggleTarget toggleTarget = ToggleTarget.ANY;
     private TreeItemFilter<TreeItem<T>> filter = (treeItem, searchToken) -> treeItem.getTitle().toLowerCase().contains(searchToken.toLowerCase());
 
-    private HTMLLIElement header = li()
-            .css("header")
-            .css("menu-header")
+    private final HTMLLIElement header = li()
+            .css(HEADER)
+            .css(MENU_HEADER)
             .add(title)
             .element();
 
-    private HTMLUListElement root = ul()
+    private final HTMLUListElement root = ul()
             .add(header)
-            .css("list")
+            .css(LIST)
             .element();
 
-    private HTMLDivElement menu = div().style("overflow-x: hidden")
-            .css("menu")
+    private final HTMLDivElement menu = div().style("overflow-x: hidden")
+            .css(MENU)
             .add(root)
             .element();
 
 
-    private final int nextLevel = 1;
-
     private TreeItem<T> activeTreeItem;
 
     private boolean autoCollapse = true;
-    private List<TreeItem<T>> subItems = new ArrayList<>();
+    private final List<TreeItem<T>> subItems = new ArrayList<>();
     private boolean autoExpandFound;
     private ColorScheme colorScheme;
     private Search search;
@@ -83,37 +124,62 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         this.value = value;
     }
 
+    /**
+     * @param title the title of the tree
+     * @return new instance
+     */
     public static Tree<String> create(String title) {
-        Tree<String> tree = new Tree<>(title);
-        return tree;
+        return new Tree<>(title);
     }
 
+    /**
+     * @return new instance without title
+     */
     public static Tree<String> create() {
         Tree<String> tree = new Tree<>();
-        DominoElement.of(tree.header)
-                .hide();
+        DominoElement.of(tree.header).hide();
         return tree;
     }
 
+    /**
+     * @param title the title of the tree
+     * @param value the default selected value
+     * @param <T>   the type of the object
+     * @return new instance
+     */
     public static <T> Tree<T> create(String title, T value) {
-        Tree<T> tree = new Tree<>(title, value);
-        return tree;
+        return new Tree<>(title, value);
     }
 
+    /**
+     * @param value the default selected value
+     * @param <T>   the type of the object
+     * @return new instance
+     */
     public static <T> Tree<T> create(T value) {
-        Tree<T> tree = new Tree<>(value);
-        return tree;
+        return new Tree<>(value);
     }
 
+    /**
+     * Adds a new tree item
+     *
+     * @param treeItem a new {@link TreeItem}
+     * @return same instance
+     */
     public Tree<T> appendChild(TreeItem<T> treeItem) {
         root.appendChild(treeItem.element());
         treeItem.setParent(this);
-        treeItem.setLevel(nextLevel);
+        treeItem.setLevel(1);
         treeItem.setToggleTarget(this.toggleTarget);
         this.subItems.add(treeItem);
         return this;
     }
 
+    /**
+     * Adds a new separator
+     *
+     * @return same instance
+     */
     public Tree<T> addSeparator() {
         root.appendChild(li()
                 .css("gap")
@@ -123,6 +189,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         return this;
     }
 
+    /**
+     * Adds spaces between items
+     *
+     * @return same instance
+     */
     public Tree<T> addGap() {
         root.appendChild(li()
                 .css("gap")
@@ -131,6 +202,12 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         return this;
     }
 
+    /**
+     * Sets what is the target for toggling an item
+     *
+     * @param toggleTarget the {@link ToggleTarget}
+     * @return same instance
+     */
     public Tree<T> setToggleTarget(ToggleTarget toggleTarget) {
         if (nonNull(toggleTarget)) {
             subItems.forEach(item -> item.setToggleTarget(toggleTarget));
@@ -139,7 +216,13 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         return this;
     }
 
-    public Tree setColorScheme(ColorScheme colorScheme) {
+    /**
+     * Sets the color scheme for the tree
+     *
+     * @param colorScheme the {@link ColorScheme}
+     * @return same instance
+     */
+    public Tree<T> setColorScheme(ColorScheme colorScheme) {
         if (nonNull(this.colorScheme)) {
             style.remove(colorScheme.color().getBackground());
             DominoElement.of(header).style().remove(this.colorScheme.darker_3().getBackground());
@@ -148,21 +231,28 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
 
         style.add(colorScheme.color().getBackground());
         DominoElement.of(header).style().add(this.colorScheme.darker_3().getBackground());
-
         return this;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TreeItem<T> getActiveItem() {
         return activeTreeItem;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setActiveItem(TreeItem<T> activeItem) {
         setActiveItem(activeItem, false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setActiveItem(TreeItem<T> activeItem, boolean silent) {
         if (nonNull(this.activeTreeItem) && !this.activeTreeItem.equals(activeItem)) {
@@ -176,30 +266,55 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         }
     }
 
+    /**
+     * @return the header element
+     */
     public DominoElement<HTMLLIElement> getHeader() {
         return DominoElement.of(header);
     }
 
+    /**
+     * @return the root element
+     */
     public DominoElement<HTMLUListElement> getRoot() {
         return DominoElement.of(root);
     }
 
+    /**
+     * @return the title element
+     */
     public DominoElement<HTMLElement> getTitle() {
         return DominoElement.of(title);
     }
 
+    /**
+     * Sets the height of the tree to be automatic based on the content
+     *
+     * @return same instance
+     */
     public Tree<T> autoHeight() {
         root.style.height = CSSProperties.HeightUnionType.of("calc(100vh - 83px)");
         element().style.height = CSSProperties.HeightUnionType.of("calc(100vh - 70px)");
         return this;
     }
 
+    /**
+     * Sets the height of the tree to be automatic based on the content with an offset
+     *
+     * @param offset the offset value
+     * @return same instance
+     */
     public Tree<T> autoHeight(int offset) {
         root.style.height = CSSProperties.HeightUnionType.of("calc(100vh - " + offset + 13 + "px)");
         element().style.height = CSSProperties.HeightUnionType.of("calc(100vh - " + offset + "px)");
         return this;
     }
 
+    /**
+     * Enables the search
+     *
+     * @return same instance
+     */
     public Tree<T> enableSearch() {
         search = Search.create(true)
                 .styler(style -> style.setHeight(Unit.px.of(40)))
@@ -221,6 +336,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         return this;
     }
 
+    /**
+     * Adds the ability to expand/collapse all items
+     *
+     * @return same instance
+     */
     public Tree<T> enableFolding() {
         collapseAllIcon = Icons.ALL.fullscreen_exit()
                 .style()
@@ -231,7 +351,6 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
                 .get();
 
         collapseAllIcon.element().addEventListener("click", evt -> collapseAll());
-
 
         expandAllIcon = Icons.ALL.fullscreen()
                 .style()
@@ -248,50 +367,95 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         return this;
     }
 
+    /**
+     * Expand all items
+     */
     public void expandAll() {
         getSubItems().forEach(TreeItem::expandAll);
     }
 
+    /**
+     * Collapse all items
+     */
     public void collapseAll() {
         getSubItems().forEach(TreeItem::collapseAll);
     }
 
+    /**
+     * Deactivate all items
+     */
     public void deactivateAll() {
         getSubItems().forEach(TreeItem::deactivate);
     }
 
+    /**
+     * Expand the items found by the search automatically
+     *
+     * @return same instance
+     */
     public Tree<T> autoExpandFound() {
         this.autoExpandFound = true;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isAutoExpandFound() {
         return autoExpandFound;
     }
 
+    /**
+     * Sets if the items found by the search should be expanded automatically
+     *
+     * @param autoExpandFound true to expand automatically, false otherwise
+     */
     public void setAutoExpandFound(boolean autoExpandFound) {
         this.autoExpandFound = autoExpandFound;
     }
 
+    /**
+     * Clears all the filters
+     */
     public void clearFilter() {
         subItems.forEach(TreeItem::clearFilter);
     }
 
+    /**
+     * Filter based on the search query
+     *
+     * @param searchToken the query
+     */
     public void filter(String searchToken) {
         subItems.forEach(treeItem -> treeItem.filter(searchToken));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Tree<T> getTreeRoot() {
         return this;
     }
 
+    /**
+     * Sets if item should be collapsed automatically when it is deactivated
+     *
+     * @param autoCollapse true to collapse automatically, false otherwise
+     * @return same instance
+     */
     public Tree<T> setAutoCollapse(boolean autoCollapse) {
         this.autoCollapse = autoCollapse;
         return this;
     }
 
+    /**
+     * Sets the title of the tree
+     *
+     * @param title the title text
+     * @return same instance
+     */
     public Tree<T> setTitle(String title) {
         getTitle().setTextContent(title);
         if (getHeader().isHidden()) {
@@ -300,67 +464,122 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         return this;
     }
 
+    /**
+     * @return true if deactivated items should be collapsed automatically
+     */
     public boolean isAutoCollapse() {
         return autoCollapse;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<TreeItem<T>> getSubItems() {
         return new ArrayList<>(subItems);
     }
 
-    public ParentTreeItem expand(boolean expandParent) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Tree<T> expand(boolean expandParent) {
         return this;
     }
 
-    public ParentTreeItem expand() {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Tree<T> expand() {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<TreeItem<T>> getParent() {
         return Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void activate() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void activate(boolean activateParent) {
 
     }
 
+    /**
+     * @return the search element
+     */
     public Search getSearch() {
         return search;
     }
 
+    /**
+     * @return the search icon
+     */
     public Icon getSearchIcon() {
         return searchIcon;
     }
 
+    /**
+     * @return the collapse all icon
+     */
     public Icon getCollapseAllIcon() {
         return collapseAllIcon;
     }
 
+    /**
+     * @return the expand all icon
+     */
     public Icon getExpandAllIcon() {
         return expandAllIcon;
     }
 
+    /**
+     * @return the current value
+     */
     public T getValue() {
         return value;
     }
 
+    /**
+     * Sets the value
+     *
+     * @param value the new value
+     */
     public void setValue(T value) {
         this.value = value;
     }
 
+    /**
+     * Adds a click listener to be called when item is clicked
+     *
+     * @param itemClickListener a {@link ItemClickListener}
+     * @return same instance
+     */
     public Tree<T> addItemClickListener(ItemClickListener<T> itemClickListener) {
         this.itemsClickListeners.add(itemClickListener);
         return this;
     }
 
+    /**
+     * Removes a click listener
+     *
+     * @param itemClickListener a {@link ItemClickListener} to be removed
+     * @return same instance
+     */
     public Tree<T> removeItemClickListener(ItemClickListener<T> itemClickListener) {
         this.itemsClickListeners.remove(itemClickListener);
         return this;
@@ -370,6 +589,9 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         this.itemsClickListeners.forEach(itemClickListener -> itemClickListener.onTreeItemClicked(treeItem));
     }
 
+    /**
+     * @return the list of the items in the current active path
+     */
     public List<TreeItem<T>> getActivePath() {
         List<TreeItem<T>> activeItems = new ArrayList<>();
         TreeItem<T> activeItem = getActiveItem();
@@ -381,6 +603,9 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         return activeItems;
     }
 
+    /**
+     * @return the list of values in the current active path
+     */
     public List<T> getActivePathValues() {
         List<T> activeValues = new ArrayList<>();
         TreeItem<T> activeItem = getActiveItem();
@@ -392,27 +617,47 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>> implemen
         return activeValues;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeItem(TreeItem<T> item) {
         subItems.remove(item);
         item.remove();
     }
 
+    /**
+     * Sets the filter that will be used when searching items, the default filter searches using the title of the items
+     *
+     * @param filter a {@link TreeItemFilter}
+     * @return same instance
+     */
     public Tree<T> setFilter(TreeItemFilter<TreeItem<T>> filter) {
         this.filter = filter;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TreeItemFilter<TreeItem<T>> getFilter() {
         return this.filter;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return menu;
     }
 
+    /**
+     * A listener to be called when clicking on item
+     *
+     * @param <T> the type of the object
+     */
     public interface ItemClickListener<T> {
         void onTreeItemClicked(TreeItem<T> treeItem);
     }
