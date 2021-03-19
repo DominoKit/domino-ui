@@ -22,6 +22,9 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.input;
 
+/**
+ * A form element that takes and provide date value as time
+ */
 public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
     private TimePicker timePicker;
@@ -42,14 +45,28 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
         this(null);
     }
 
+    /**
+     *
+     * @param time {@link Date} initial time
+     */
     public TimeBox(Date time) {
         this(null, time);
     }
 
+    /**
+     * @param label String field label
+     * @param time {@link Date} initial time
+     */
     public TimeBox(String label, Date time) {
         this(label, time, null);
     }
 
+    /**
+     *
+     * @param label String field label
+     * @param time {@link Date} initial time
+     * @param dateTimeFormatInfo {@link DateTimeFormatInfo} to be used to format the time value in the text input
+     */
     public TimeBox(String label, Date time, DateTimeFormatInfo dateTimeFormatInfo) {
         super("text", label);
         if (nonNull(dateTimeFormatInfo))
@@ -98,29 +115,54 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
         return new TimeBox();
     }
 
+    /**
+     *
+     * @param time {@link Date} initial time
+     * @return new instance
+     */
     public static TimeBox create(Date time) {
         return new TimeBox(time);
     }
 
-    public static TimeBox create(String placeHolder, Date time) {
-        return new TimeBox(placeHolder, time);
+    /**
+     * @param label String field label
+     * @param time {@link Date} initial time
+     * @return new instance
+     */
+    public static TimeBox create(String label, Date time) {
+        return new TimeBox(label, time);
     }
 
-    public static TimeBox create(String placeholder, Date time, DateTimeFormatInfo dateTimeFormatInfo) {
-        return new TimeBox(placeholder, time, dateTimeFormatInfo);
+    /**
+     *
+     * @param label String field label
+     * @param time {@link Date} initial time
+     * @param dateTimeFormatInfo {@link DateTimeFormatInfo} to be used to format the time value in the text input
+     */
+    public static TimeBox create(String label, Date time, DateTimeFormatInfo dateTimeFormatInfo) {
+        return new TimeBox(label, time, dateTimeFormatInfo);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEmpty() {
         String stringValue = getStringValue();
         return isNull(stringValue) || stringValue.isEmpty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void clearValue() {
         value(null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void doSetValue(Date value) {
         if (nonNull(value)) {
@@ -138,17 +180,25 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
         this.value = time;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Date getValue() {
         return this.value;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getPlaceholder() {
         return getInputElement().element().placeholder;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected HTMLInputElement createInputElement(String type) {
         return input("text")
@@ -156,12 +206,20 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
                 .element();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TimeBox setPlaceholder(String placeholder) {
         getInputElement().element().placeholder = placeholder;
         return this;
     }
 
+    /**
+     *
+     * @param pickerStyle {@link PickerStyle}
+     * @return same instance
+     */
     public TimeBox setPickerStyle(PickerStyle pickerStyle) {
         if (PickerStyle.MODAL.equals(pickerStyle)) {
             showInModal();
@@ -169,10 +227,6 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
             showInPopOver();
         }
         return this;
-    }
-
-    public Style<HTMLElement, TimeBox> style() {
-        return Style.of(this);
     }
 
     private void showInPopOver() {
@@ -223,10 +277,19 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
         this.pickerStyle = PickerStyle.MODAL;
     }
 
+    /**
+     *
+     * @return the {@link TimePicker} of this TimeBox
+     */
     public TimePicker getTimePicker() {
         return timePicker;
     }
 
+    /**
+     *
+     * @param popoverPosition {@link PopupPosition} if the {@link PickerStyle#POPOVER} is used
+     * @return same instance
+     */
     public TimeBox setPopoverPosition(PopupPosition popoverPosition) {
         this.popupPosition = popoverPosition;
         if (nonNull(this.popover))
@@ -234,6 +297,9 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TimeBox disable() {
         disableModal();
@@ -241,6 +307,9 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
         return super.disable();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TimeBox setReadOnly(boolean readOnly) {
         super.setReadOnly(readOnly);
@@ -254,22 +323,34 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TimeBox addChangeHandler(ChangeHandler<? super Date> changeHandler) {
         super.addChangeHandler(changeHandler);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getStringValue() {
         return nonNull(value) ? timePicker.getFormattedTime() : "";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
         return new InputAutoValidator<>(getInputElement(), autoValidate);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected FlexItem createMandatoryAddOn() {
         timeIcon = Icons.ALL.clock_mdi();
@@ -279,30 +360,57 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
                 .appendChild(timeIcon);
     }
 
+    /**
+     *
+     * @return the {@link MdiIcon} that opens the picker
+     */
     public MdiIcon getTimeIcon() {
         return timeIcon;
     }
 
+    /**
+     *
+     * @param timeIcon the {@link MdiIcon} that opens the picker
+     */
     public void setTimeIcon(MdiIcon timeIcon) {
         this.timeIcon = timeIcon;
     }
 
+    /**
+     *
+     * @return The {@link FlexItem} that contains the time icon
+     */
     public FlexItem getTimeIconContainer() {
         return timeIconContainer;
     }
 
+    /**
+     *
+     * @param timeIconContainer The {@link FlexItem} that contains the time icon
+     */
     public void setTimeIconContainer(FlexItem timeIconContainer) {
         this.timeIconContainer = timeIconContainer;
     }
 
+    /**
+     *
+     * @return the an Optional {@link ModalDialog} if {@link PickerStyle#MODAL} is used
+     */
     public Optional<ModalDialog> getModal(){
         return Optional.of(this.modal);
     }
 
+    /**
+     *
+     * @return the an Optional {@link Popover} if {@link PickerStyle#POPOVER} is used
+     */
     public Optional<Popover> getPopover(){
         return Optional.of(this.popover);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TimeBox enable() {
         enableModal();
@@ -310,10 +418,19 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
         return super.enable();
     }
 
+    /**
+     *
+     * @return boolean, true if clicking on the box input element will open the picker
+     */
     public boolean isOpenOnClick() {
         return openOnClick;
     }
 
+    /**
+     *
+     * @param openOnClick boolean, true if clicking on the box input element will open the picker
+     * @return same instance
+     */
     public TimeBox setOpenOnClick(boolean openOnClick) {
         this.openOnClick = openOnClick;
         element().removeEventListener(EventType.click.getName(), modalListener);
@@ -347,8 +464,19 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
         }
     }
 
+    /**
+     * Enum for time picking styles
+     */
     public enum PickerStyle {
+        /**
+         * Opens the picker in a modal
+         * @see org.dominokit.domino.ui.modals.BaseModal.Modal
+         */
         MODAL,
+        /**
+         * Opens the picker in a popover
+         * @see Popover
+         */
         POPOVER
     }
 }

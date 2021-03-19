@@ -6,7 +6,9 @@ import java.util.Objects;
 
 import static org.dominokit.domino.ui.timepicker.DayPeriod.NONE;
 
-
+/**
+ * A class for time value in specific {@link DayPeriod}
+ */
 public class Time {
     private int hour;
     private int minute;
@@ -19,6 +21,12 @@ public class Time {
         this.dayPeriod = clock12.getDayPeriod();
     }
 
+    /**
+     *
+     * @param hour int
+     * @param minute int
+     * @param dayPeriod {@link DayPeriod}
+     */
     public Time(int hour, int minute, DayPeriod dayPeriod) {
         JsDate jsDate=new JsDate();
         jsDate.setHours(hour);
@@ -34,26 +42,49 @@ public class Time {
         this.dayPeriod = dayPeriod;
     }
 
+    /**
+     *
+     * @return int hour
+     */
     public int getHour() {
         return hour;
     }
 
+    /**
+     *
+     * @param hour int
+     */
     public void setHour(int hour) {
         this.hour = hour;
     }
-
+    /**
+     *
+     * @return int minute
+     */
     public int getMinute() {
         return minute;
     }
 
+    /**
+     *
+     * @param minute int
+     */
     public void setMinute(int minute) {
         this.minute = minute;
     }
 
+    /**
+     *
+     * @return the {@link DayPeriod}
+     */
     public DayPeriod getDayPeriod() {
         return dayPeriod;
     }
 
+    /**
+     *
+     * @param dayPeriod {@link DayPeriod}
+     */
     public void setDayPeriod(DayPeriod dayPeriod) {
         this.dayPeriod = dayPeriod;
     }
