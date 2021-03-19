@@ -1,8 +1,9 @@
 package org.dominokit.domino.ui.stepper;
 
+/**
+ * A constants class for Steppers css classes names
+ */
 public class StepperStyles {
-
-
     public static final String D_STEPPER = "d-stepper";
     public static final String STEP_CONTENT = "step-content";
     public static final String LAST_STEP = "last-step";
