@@ -2,9 +2,21 @@ package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * An interface for the required API to implement new position classes for popover
+ */
 public interface PopupPosition {
+    /**
+     * Positions the popover based on the target element
+     *
+     * @param tooltip the popover element
+     * @param target  the target element
+     */
     void position(HTMLElement tooltip, HTMLElement target);
 
+    /**
+     * @return the CSS class for the position
+     */
     String getDirectionClass();
 
     PopupPosition RIGHT = new PopupPositionRight();

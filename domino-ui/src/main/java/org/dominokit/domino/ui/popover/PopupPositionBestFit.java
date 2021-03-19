@@ -1,16 +1,24 @@
 package org.dominokit.domino.ui.popover;
 
-import elemental2.dom.ClientRect;
+import elemental2.dom.DOMRect;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 
+/**
+ * Position the popover on the better position based on the target element location in the screen.
+ * <p>
+ * I.e. if the popover will exceed the window from the bottom, then it will be better to show it on the top
+ */
 public class PopupPositionBestFit implements PopupPosition {
 
     private String positionClass;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void position(HTMLElement popup, HTMLElement target) {
-        ClientRect targetRect = target.getBoundingClientRect();
+        DOMRect targetRect = target.getBoundingClientRect();
         double bottom = targetRect.bottom + popup.getBoundingClientRect().height;
         double right = targetRect.right + popup.getBoundingClientRect().height;
 
@@ -34,6 +42,9 @@ public class PopupPositionBestFit implements PopupPosition {
         this.positionClass = popupPosition.getDirectionClass();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDirectionClass() {
         return positionClass;

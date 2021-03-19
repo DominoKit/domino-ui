@@ -12,12 +12,15 @@ public class PopupPositionTopDown implements PopupPosition {
 
     private String positionClass;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void position(HTMLElement popup, HTMLElement target) {
         ClientRect targetRect = target.getBoundingClientRect();
 
         double distanceToMiddle = ((targetRect.top) - (targetRect.height / 2));
-        double windowMiddle = DomGlobal.window.innerHeight / 2;
+        double windowMiddle = DomGlobal.window.innerHeight >> 1;
 
         if (distanceToMiddle >= windowMiddle) {
             PopupPosition.TOP.position(popup, target);
@@ -28,6 +31,9 @@ public class PopupPositionTopDown implements PopupPosition {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDirectionClass() {
         return positionClass;
