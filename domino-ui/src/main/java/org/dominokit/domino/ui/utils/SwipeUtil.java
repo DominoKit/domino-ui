@@ -7,8 +7,17 @@ import java.util.Date;
 
 import static org.dominokit.domino.ui.utils.SwipeUtil.SwipeDirection.*;
 
+/**
+ * A utility class to register swap events listeners on elements
+ */
 public class SwipeUtil {
 
+    /**
+     * Adds a swap listener on an element
+     * @param direction {@link SwipeDirection}
+     * @param element the target {@link HTMLElement}
+     * @param listener {@link EventListener}
+     */
     public static void addSwipeListener(SwipeDirection direction, HTMLElement element, EventListener listener) {
         HTMLElement touchsurface = element;
 
@@ -60,14 +69,33 @@ public class SwipeUtil {
         double startTime;
     }
 
+    /**
+     * Predefined swap directions
+     */
     public enum SwipeDirection {
+        /**
+         * Swipe from right to left
+         */
         LEFT("left"),
+        /**
+         * Swipe from left to right
+         */
         RIGHT("RIGHT"),
+        /**
+         * Swipe from down to up
+         */
         UP("UP"),
+        /**
+         * Swipe from up to down
+         */
         DOWN("DOWN");
 
         String direction;
 
+        /**
+         *
+         * @param direction String
+         */
         SwipeDirection(String direction) {
             this.direction = direction;
         }

@@ -14,26 +14,26 @@ import java.lang.annotation.*;
 public @interface ColorsSet {
     /**
      * A prefix to be used for classes names and css files names.
-     * @return
+     * @return String theme name prefix
      */
     String name() default "App";
 
     /**
      * the target package to generate the CSS resources, this should point to the <b>public</b> root package.
      * classes will be generated to the same package as the package-info class.
-     * @return
+     * @return String package name
      */
     String publicPackage() default "";
 
     /**
      * Use this to specify the info for each color in this this color set
-     * @return
+     * @return the {@link ColorInfo} array
      */
     ColorInfo[] value();
 
     /**
      * Option to specify if a demo html page should be generated or not.
-     * @return
+     * @return boolean, true to generate demo page
      */
     boolean generateDemoPage() default true;
 }

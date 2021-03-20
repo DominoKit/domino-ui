@@ -13,19 +13,19 @@ public @interface ColorInfo {
 
     /**
      * The color name, avoid using names already used by domino-ui core or other ColorSets to avoid css classes clashes.
-     * @return
+     * @return String color name
      */
     String name();
 
     /**
      * The hex value for the base color, this will be used to generate different shades in case a shade is not specified in the {@link ColorShades}
-     * @return
+     * @return String color hex value
      */
     String hex();
 
     /**
      * Use to manually specify a specific shade for the base color and avoid the generated shade.
-     * @return
+     * @return the {@link ColorShades}
      */
     ColorShades shades() default @ColorShades;
 

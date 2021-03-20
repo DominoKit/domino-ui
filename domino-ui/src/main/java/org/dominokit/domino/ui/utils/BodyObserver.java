@@ -1,10 +1,9 @@
 package org.dominokit.domino.ui.utils;
 
 import elemental2.core.JsArray;
-import elemental2.core.JsNumber;
 import elemental2.dom.*;
 import jsinterop.base.Js;
-import org.jboss.elemento.Elements;
+import org.jboss.elemento.Id;
 import org.jboss.elemento.ObserverCallback;
 
 import java.util.ArrayList;
@@ -15,6 +14,11 @@ import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+/**
+ * This class allows us to listen to the elements attach/detach life cycle
+ * <p>the class will register a {@link MutationObserver} on the document body element only and uses query selectors to get attached/detached elements from the dom</p>
+ * <p>When we register an attach/detach listener on an element we assign it a special id attribute <b>on-attach-uid</b>/<b>on-detach-uid</b> to help locating elements from the {@link MutationRecord}s</p>
+ */
 final class BodyObserver {
 
     private static String ATTACH_UID_KEY = "on-attach-uid";
@@ -23,6 +27,9 @@ final class BodyObserver {
     private static List<ElementObserver> detachObservers = new ArrayList<>();
     private static List<ElementObserver> attachObservers = new ArrayList<>();
     private static boolean ready = false;
+
+    private BodyObserver() {
+    }
 
     private static void startObserving() {
         MutationObserver mutationObserver = new MutationObserver(
@@ -104,6 +111,9 @@ final class BodyObserver {
     /**
      * Check if the observer is already started, if not it will start it, then register and callback for when the
      * element is attached to the dom.
+     * @param element the {@link HTMLElement} we want to know when it get attached to the DOM
+     * @param callback {@link ObserverCallback} to be called when the element is attached to the DOM
+     * @return the {@link ElementObserver} that has attach information of the element and also can be used to remove the listener
      */
     static ElementObserver addAttachObserver(HTMLElement element, ObserverCallback callback) {
         if (!ready) {
@@ -117,6 +127,9 @@ final class BodyObserver {
     /**
      * Check if the observer is already started, if not it will start it, then register and callback for when the
      * element is removed from the dom.
+     * @param element the {@link HTMLElement} we want to know when it get detached from the DOM
+     * @param callback {@link ObserverCallback} to be called when the element is detached from the DOM
+     * @return the {@link ElementObserver} that has detach information of the element and also can be used to remove the listener
      */
     static ElementObserver addDetachObserver(HTMLElement element, ObserverCallback callback) {
         if (!ready) {
@@ -132,7 +145,7 @@ final class BodyObserver {
                                                   String idAttributeName, Consumer<ElementObserver> onRemoveHandler) {
         String elementId = element.getAttribute(idAttributeName);
         if (elementId == null) {
-            element.setAttribute(idAttributeName, Elements.uniqueId());
+            element.setAttribute(idAttributeName, Id.unique());
         }
 
         return new ElementObserver() {
@@ -156,8 +169,5 @@ final class BodyObserver {
                 onRemoveHandler.accept(this);
             }
         };
-    }
-
-    private BodyObserver() {
     }
 }
