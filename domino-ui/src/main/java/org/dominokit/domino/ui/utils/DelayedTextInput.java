@@ -7,6 +7,15 @@ import org.jboss.elemento.EventType;
 
 import static java.util.Objects.isNull;
 
+/**
+ * A component that wraps an {@link HTMLInputElement} and performs an action when the user stops typing in the input after a configurable delay
+ *<pre>
+ * TextBox search = TextBox.create("Search");
+ * DelayedTextInput.create(search.getInputElement(), 300)
+ *         .setDelayedAction(() -> Notification.create(search.getValue()).show());
+ *</pre>
+ *
+ */
 public class DelayedTextInput {
 
     private int delay;
@@ -16,24 +25,54 @@ public class DelayedTextInput {
     };
     private DelayedAction onEnterAction = () -> delayedAction.doAction();
 
+    /**
+     *
+     * @param inputElement {@link HTMLInputElement}
+     * @param delay int delay in milli-seconds
+     * @param delayedAction {@link DelayedAction}
+     * @return new instance
+     */
     public static DelayedTextInput create(HTMLInputElement inputElement, int delay, DelayedAction delayedAction) {
         return new DelayedTextInput(inputElement, delay, delayedAction);
     }
 
+    /**
+     *
+     * @param inputElement {@link HTMLInputElement}
+     * @param delay int delay in milli-seconds
+     * @return new instance
+     */
     public static DelayedTextInput create(HTMLInputElement inputElement, int delay) {
         return new DelayedTextInput(inputElement, delay);
     }
 
+    /**
+     *
+     * @param inputElement {@link HTMLInputElement} wrapped as {@link DominoElement}
+     * @param delay int delay in milli-seconds
+     * @return new instance
+     */
     public static DelayedTextInput create(DominoElement<HTMLInputElement> inputElement, int delay) {
         return create(inputElement.element(), delay);
     }
 
+    /**
+     *
+     * @param inputElement {@link HTMLInputElement}
+     * @param delay int delay in milli-seconds
+     */
     public DelayedTextInput(HTMLInputElement inputElement, int delay) {
         this.inputElement = inputElement;
         this.delay = delay;
         prepare();
     }
 
+    /**
+     *
+     * @param inputElement {@link HTMLInputElement}
+     * @param delay int delay in milli-seconds
+     * @param delayedAction {@link DelayedAction}
+     */
     public DelayedTextInput(HTMLInputElement inputElement, int delay, DelayedAction delayedAction) {
         this.inputElement = inputElement;
         this.delay = delay;
@@ -42,6 +81,9 @@ public class DelayedTextInput {
         prepare();
     }
 
+    /**
+     * Initialize the component and the delay timer
+     */
     protected void prepare() {
         autoActionTimer = new Timer() {
             @Override
@@ -62,15 +104,28 @@ public class DelayedTextInput {
         });
     }
 
+    /**
+     *
+     * @param delayedAction {@link DelayedAction} that will be executed when the user stop typing
+     * @return same instance
+     */
     public DelayedTextInput setDelayedAction(DelayedAction delayedAction) {
         this.delayedAction = delayedAction;
         return this;
     }
-
+    /**
+     *
+     * @return the {@link DelayedAction} that will be executed when the user press Enter key
+     */
     public DelayedAction getOnEnterAction() {
         return onEnterAction;
     }
 
+    /**
+     *
+     * @param onEnterAction {@link DelayedAction} that will be executed when the user press Enter key
+     * @return same instance
+     */
     public DelayedTextInput setOnEnterAction(DelayedAction onEnterAction) {
         if (isNull(onEnterAction)) {
             this.onEnterAction = delayedAction;
@@ -81,16 +136,30 @@ public class DelayedTextInput {
         return this;
     }
 
+    /**
+     *
+     * @return int delay in milli-seconds before executing the {@link DelayedAction} after the user stops typing
+     */
     public int getDelay() {
         return delay;
     }
 
+    /**
+     *
+     * @param delay int delay in milli-seconds before executing the {@link DelayedAction} after the user stops typing
+     */
     public void setDelay(int delay) {
         this.delay = delay;
     }
 
+    /**
+     * A function to implement the action to be taken for {@link DelayedTextInput}
+     */
     @FunctionalInterface
     public interface DelayedAction {
+        /**
+         *
+         */
         void doAction();
     }
 }
