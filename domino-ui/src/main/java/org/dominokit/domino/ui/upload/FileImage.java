@@ -11,6 +11,11 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.Elements.img;
 
+/**
+ * A component for file item image
+ *
+ * @see FileItem
+ */
 public class FileImage extends BaseDominoElement<HTMLDivElement, FileImage> {
 
     private DominoElement<HTMLDivElement> fileImageContainer;
@@ -50,19 +55,35 @@ public class FileImage extends BaseDominoElement<HTMLDivElement, FileImage> {
                 .setDisplay("flex");
     }
 
+    /**
+     * @param file the image file
+     * @return new instance
+     */
     public static FileImage createImageFile(File file) {
         return new FileImage(file);
     }
 
+    /**
+     * @return new instance with default image for non-image files
+     */
     public static FileImage createDefault() {
         return new FileImage();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return fileImageContainer.element();
     }
 
+    /**
+     * Sets the image for this file
+     *
+     * @param image the image element
+     * @return same instance
+     */
     public FileImage setImage(HTMLElement image) {
         fileImageContainer.appendChild(image);
         return this;
