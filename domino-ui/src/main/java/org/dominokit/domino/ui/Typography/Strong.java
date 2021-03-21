@@ -5,19 +5,31 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 import static org.jboss.elemento.Elements.strong;
 
+/**
+ * A wrapper component for <strong>strong</strong> HTML tag
+ */
 public class Strong extends BaseDominoElement<HTMLElement, Strong> {
 
-    private HTMLElement element = strong().element();
+    private final HTMLElement element = strong().element();
 
-    public Strong(String text){
+    public Strong(String text) {
         element.textContent = text;
         init(this);
     }
 
-    public static Strong of(String text){
+    /**
+     * Creates new instance with text
+     *
+     * @param text the value
+     * @return new instance
+     */
+    public static Strong of(String text) {
         return new Strong(text);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLElement element() {
         return element;

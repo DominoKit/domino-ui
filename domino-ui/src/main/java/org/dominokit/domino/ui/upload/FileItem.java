@@ -16,40 +16,43 @@ import org.jboss.elemento.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.upload.UploadOptions.*;
 import static org.jboss.elemento.Elements.h;
 
+/**
+ * A component representing the upload file
+ *
+ * @see BaseDominoElement
+ * @see FileUpload
+ */
 public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private static final String[] UNITS = {"KB", "MB", "GB", "TB"};
     private static final String ELLIPSIS_TEXT = "ellipsis-text";
 
-    private Thumbnail thumbnail = Thumbnail.create();
+    private final Thumbnail thumbnail = Thumbnail.create();
     private FileImage fileImage;
     private HTMLParagraphElement fileSizeParagraph;
     private HTMLHeadingElement fileNameTitleContainer;
-    private HTMLDivElement footerContainer = Elements.div().element();
-    private HTMLElement messageContainer = Elements.p().css(ELLIPSIS_TEXT).element();
+    private final HTMLDivElement footerContainer = Elements.div().element();
+    private final HTMLElement messageContainer = Elements.p().css(ELLIPSIS_TEXT).element();
     private HTMLDivElement progressElement;
     private ProgressBar progressBar;
-    private HTMLElement deleteIcon = Icons.ALL.delete().element();
-    private HTMLElement cancelIcon = Icons.ALL.cancel().element();
-    private HTMLElement refreshIcon = Icons.ALL.refresh().element();
+    private final HTMLElement deleteIcon = Icons.ALL.delete().element();
+    private final HTMLElement cancelIcon = Icons.ALL.cancel().element();
+    private final HTMLElement refreshIcon = Icons.ALL.refresh().element();
 
-    private File file;
-    private UploadOptions options;
+    private final File file;
+    private final UploadOptions options;
 
-    private List<RemoveFileHandler> removeHandlers = new ArrayList<>();
-    private List<ErrorHandler> errorHandlers = new ArrayList<>();
-    private List<ProgressHandler> progressHandlers = new ArrayList<>();
-    private List<BeforeUploadHandler> beforeUploadHandlers = new ArrayList<>();
-    private List<SuccessUploadHandler> successUploadHandlers = new ArrayList<>();
-    private List<CancelHandler> cancelHandlers = new ArrayList<>();
+    private final List<RemoveFileHandler> removeHandlers = new ArrayList<>();
+    private final List<ErrorHandler> errorHandlers = new ArrayList<>();
+    private final List<ProgressHandler> progressHandlers = new ArrayList<>();
+    private final List<BeforeUploadHandler> beforeUploadHandlers = new ArrayList<>();
+    private final List<SuccessUploadHandler> successUploadHandlers = new ArrayList<>();
+    private final List<CancelHandler> cancelHandlers = new ArrayList<>();
     private String successMessage;
     private String errorMessage;
-    private String unsentMessage = "Error while sending request";
     private XMLHttpRequest request;
     private boolean canceled;
     private boolean removed;
@@ -57,6 +60,11 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private String fileName;
     private UploadRequestSender requestSender;
 
+    /**
+     * @param file    the {@link File}
+     * @param options the {@link UploadOptions}
+     * @return new instance
+     */
     public static FileItem create(File file, UploadOptions options) {
         return new FileItem(file, options);
     }
@@ -86,6 +94,9 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
             fileImage = FileImage.createDefault();
     }
 
+    /**
+     * @return true if the uploaded file is image
+     */
     public boolean isImage() {
         return file.type.startsWith("image");
     }
@@ -165,6 +176,9 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         thumbnail.getContentElement().remove();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return thumbnail.element();
@@ -174,15 +188,27 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         thumbnail.element().style.border = "1px solid " + red.getHex();
     }
 
+    /**
+     * @return the {@link File}
+     */
     public File getFile() {
         return file;
     }
 
+    /**
+     * The title of the file size
+     *
+     * @param sizeTitle the title
+     * @return same instance
+     */
     public FileItem setSizeTitle(String sizeTitle) {
         fileSizeParagraph.textContent = sizeTitle;
         return this;
     }
 
+    /**
+     * @return the size of the file in a readable format
+     */
     public String readableFileSize() {
         return formatSize(file.size);
     }
@@ -205,36 +231,75 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         progressHandlers.forEach(handler -> handler.onProgress(loaded, request));
     }
 
+    /**
+     * Adds a handler to be called when removing the file
+     *
+     * @param removeHandler A {@link RemoveFileHandler}
+     * @return same instance
+     */
     public FileItem addRemoveHandler(RemoveFileHandler removeHandler) {
         removeHandlers.add(removeHandler);
         return this;
     }
 
+    /**
+     * Adds a handler to be called when an error happens while uploading the file
+     *
+     * @param errorHandler A {@link ErrorHandler}
+     * @return same instance
+     */
     public FileItem addErrorHandler(ErrorHandler errorHandler) {
         errorHandlers.add(errorHandler);
         return this;
     }
 
+    /**
+     * Adds a handler to be called when file is uploading providing the progress
+     *
+     * @param progressHandler A {@link ProgressHandler}
+     * @return same instance
+     */
     public FileItem addProgressHandler(ProgressHandler progressHandler) {
         progressHandlers.add(progressHandler);
         return this;
     }
 
+    /**
+     * Adds a handler to be called before uploading the file
+     *
+     * @param beforeUploadHandler\ A {@link BeforeUploadHandler}
+     * @return same instance
+     */
     public FileItem addBeforeUploadHandler(BeforeUploadHandler beforeUploadHandler) {
         beforeUploadHandlers.add(beforeUploadHandler);
         return this;
     }
 
+    /**
+     * Adds a handler to be called when the file is uploaded successfully
+     *
+     * @param successUploadHandler A {@link SuccessUploadHandler}
+     * @return same instance
+     */
     public FileItem addSuccessUploadHandler(SuccessUploadHandler successUploadHandler) {
         successUploadHandlers.add(successUploadHandler);
         return this;
     }
 
+    /**
+     * Adds a handler to be called when uploading the file is canceled
+     *
+     * @param cancelHandler A {@link CancelHandler}
+     * @return same instance
+     */
     public FileItem addCancelHandler(CancelHandler cancelHandler) {
         cancelHandlers.add(cancelHandler);
         return this;
     }
 
+    /**
+     * Uploads the file
+     */
     public void upload() {
         if (nonNull(requestSender)) {
             upload(requestSender);
@@ -243,6 +308,11 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         }
     }
 
+    /**
+     * Uploads the file
+     *
+     * @param requestSender a {@link UploadRequestSender} to use for sending the request
+     */
     public void upload(UploadRequestSender requestSender) {
         this.requestSender = requestSender;
         if (!isExceedsMaxFile() && !uploaded && !isCanceled()) {
@@ -299,6 +369,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     private void hideDeleteIcon() {
         deleteIcon.style.display = "none";
     }
+
     private void showDeleteIcon() {
         deleteIcon.style.display = "inline-block";
     }
@@ -357,6 +428,11 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         return hasErrorText ? request.responseText : "Error while sending request";
     }
 
+    /**
+     * Invalidates the file preview with an error message
+     *
+     * @param message the error message
+     */
     public void invalidate(String message) {
         setThumbnailBorder(Color.RED);
         setMessage(message, Color.RED);
@@ -372,6 +448,9 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         progressBar.setBackground(background);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public FileItem remove() {
         super.remove();
@@ -380,86 +459,151 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         return this;
     }
 
+    /**
+     * Sets the url of the server
+     *
+     * @param url the server url
+     * @return same instance
+     */
     public FileItem setUrl(String url) {
         options.setUrl(url);
         return this;
     }
 
+    /**
+     * @return the file name
+     */
     public String getFileName() {
         return fileName;
     }
 
+    /**
+     * Sets the file name
+     *
+     * @param fileName the new file name
+     */
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
+    /**
+     * @return the {@link FileImage} element
+     */
     public FileImage getFileImage() {
         return fileImage;
     }
 
+    /**
+     * @return the file size element
+     */
     public DominoElement<HTMLParagraphElement> getFileSizeParagraph() {
         return DominoElement.of(fileSizeParagraph);
     }
 
+    /**
+     * @return the file name container
+     */
     public DominoElement<HTMLHeadingElement> getFileNameTitleContainer() {
         return DominoElement.of(fileNameTitleContainer);
     }
 
+    /**
+     * @return the footer container
+     */
     public DominoElement<HTMLDivElement> getFooterContainer() {
         return DominoElement.of(footerContainer);
     }
 
+    /**
+     * @return the delete icon
+     */
     public DominoElement<HTMLElement> getDeleteIcon() {
         return DominoElement.of(deleteIcon);
     }
 
+    /**
+     * @return the message container
+     */
     public DominoElement<HTMLElement> getMessageContainer() {
         return DominoElement.of(messageContainer);
     }
 
+    /**
+     * @return the progress element
+     */
     public DominoElement<HTMLDivElement> getProgressElement() {
         return DominoElement.of(progressElement);
     }
 
+    /**
+     * @return the {@link ProgressBar}
+     */
     public ProgressBar getProgressBar() {
         return progressBar;
     }
 
+    /**
+     * @return all the {@link RemoveFileHandler}
+     */
     public List<RemoveFileHandler> getRemoveHandlers() {
         return removeHandlers;
     }
 
+    /**
+     * @return all the {@link ErrorHandler}
+     */
     public List<ErrorHandler> getErrorHandlers() {
         return errorHandlers;
     }
 
+    /**
+     * @return all the {@link ProgressHandler}
+     */
     public List<ProgressHandler> getProgressHandlers() {
         return progressHandlers;
     }
 
+    /**
+     * @return all the {@link BeforeUploadHandler}
+     */
     public List<BeforeUploadHandler> getBeforeUploadHandlers() {
         return beforeUploadHandlers;
     }
 
+    /**
+     * @return all the {@link SuccessUploadHandler}
+     */
     public List<SuccessUploadHandler> getSuccessUploadHandlers() {
         return successUploadHandlers;
     }
 
+    /**
+     * Sets the message to be shown when the file is uploaded
+     *
+     * @param successMessage the message
+     * @return same instance
+     */
     public FileItem setSuccessUploadMessage(String successMessage) {
         this.successMessage = successMessage;
         return this;
     }
 
+    /**
+     * Sets the message to be shown when uploading file fails
+     *
+     * @param errorMessage the message
+     * @return same instance
+     */
     public FileItem setErrorUploadMessage(String errorMessage) {
         this.errorMessage = errorMessage;
         return this;
     }
 
-    public FileItem setUnsentMessage(String unsentMessage) {
-        this.unsentMessage = unsentMessage;
-        return this;
-    }
-
+    /**
+     * Cancels the upload request
+     *
+     * @return same instance
+     */
     public FileItem cancel() {
         if (request != null) {
             canceled = true;
@@ -468,55 +612,92 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
         return this;
     }
 
+    /**
+     * @return the cancel icon
+     */
     public DominoElement<HTMLElement> getCancelIcon() {
         return DominoElement.of(cancelIcon);
     }
 
+    /**
+     * @return all the {@link CancelHandler}
+     */
     public List<CancelHandler> getCancelHandlers() {
         return cancelHandlers;
     }
 
-    public String getUnsentMessage() {
-        return unsentMessage;
-    }
-
+    /**
+     * @return true if the upload request is canceled
+     */
     public boolean isCanceled() {
         return canceled;
     }
 
+    /**
+     * @return true if the file is removed
+     */
     public boolean isRemoved() {
         return removed;
     }
 
+    /**
+     * @return true if the file is uploaded
+     */
     public boolean isUploaded() {
         return uploaded;
     }
 
+    /**
+     * A handler to be called when the file is removed
+     */
     @FunctionalInterface
     public interface RemoveFileHandler {
         void onRemoveFile(File file);
     }
 
+    /**
+     * A handler to be called when the upload request fails
+     */
     @FunctionalInterface
     public interface ErrorHandler {
         void onError(XMLHttpRequest request);
     }
 
+    /**
+     * A handler which provides the upload progress
+     */
     @FunctionalInterface
     public interface ProgressHandler {
+        /**
+         * @param loaded  the loaded bytes
+         * @param request the request
+         */
         void onProgress(double loaded, XMLHttpRequest request);
     }
 
+    /**
+     * A handler to be called before uploading the file
+     */
     @FunctionalInterface
     public interface BeforeUploadHandler {
+        /**
+         * @param request  the request
+         * @param formData a form data for adding extra information needed
+         */
         void onBeforeUpload(XMLHttpRequest request, FormData formData);
     }
 
+    /**
+     * A handler to be called when the file is successfully uploaded
+     */
     @FunctionalInterface
     public interface SuccessUploadHandler {
         void onSuccessUpload(XMLHttpRequest request);
     }
 
+    /**
+     * A handler to be called when the upload request is canceled
+     */
     @FunctionalInterface
     public interface CancelHandler {
         void onCancel(XMLHttpRequest request);
