@@ -104,6 +104,10 @@
     opacity: 0.7;
 }
 
+.card .header .logo{
+    margin-right: 10px;
+}
+
 .card .body {
     font-size: 14px;
     padding: 20px;

@@ -75,7 +75,6 @@
                                     <exclude>javax.annotation:javax.annotation-api</exclude>
                                     <exclude>org.dominokit:domino-ui-shared</exclude>
                                     <exclude>org.dominokit:domino-jackson-processor</exclude>
-
                                     <exclude>com.google.code.findbugs:jsr305</exclude>
                                     <exclude>com.google.j2objc:j2objc-annotations</exclude>
                                     <exclude>com.google.errorprone:error_prone_annotations</exclude>
