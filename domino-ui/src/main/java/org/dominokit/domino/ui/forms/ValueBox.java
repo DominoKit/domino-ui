@@ -25,6 +25,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLabelElement;
 import elemental2.dom.Node;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
@@ -124,6 +125,16 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     setLabel(label);
     setSpellCheck(true);
     fieldStyle.apply(this);
+    DominoFields.INSTANCE.getFixErrorsPosition().ifPresent(this::setFixErrorsPosition);
+    DominoFields.INSTANCE.getFloatLabels().ifPresent(this::setFloating);
+    DominoFields.INSTANCE
+        .getCondensed()
+        .ifPresent(
+            shouldCondense -> {
+              if (shouldCondense) {
+                condense();
+              }
+            });
   }
 
   /** @return the {@link FieldStyle} */
@@ -456,19 +467,19 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     return (T) this;
   }
 
-  private void showPlaceholder() {
+  protected void showPlaceholder() {
     if (placeholder != null && shouldShowPlaceholder()) {
       inputElement.setAttribute("placeholder", placeholder);
     }
   }
 
-  private void hidePlaceholder() {
+  protected void hidePlaceholder() {
     if (placeholder != null && !shouldShowPlaceholder()) {
       inputElement.removeAttribute("placeholder");
     }
   }
 
-  private boolean shouldShowPlaceholder() {
+  protected boolean shouldShowPlaceholder() {
     return isEmpty() && floating;
   }
 
@@ -725,6 +736,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   public T invalidate(String errorMessage) {
     this.valid = false;
     updateValidationStyles();
+    DominoFields.INSTANCE
+        .getGlobalValidationHandler()
+        .onInvalidate(this, Collections.singletonList(errorMessage));
     return super.invalidate(errorMessage);
   }
 
@@ -758,6 +772,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   public T invalidate(List<String> errorMessages) {
     this.valid = false;
     updateValidationStyles();
+    DominoFields.INSTANCE.getGlobalValidationHandler().onInvalidate(this, errorMessages);
     return super.invalidate(errorMessages);
   }
 
@@ -802,6 +817,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
       doUnfocus();
     }
     changeLabelFloating();
+    DominoFields.INSTANCE.getGlobalValidationHandler().onClearValidation(this);
     return super.clearInvalid();
   }
 

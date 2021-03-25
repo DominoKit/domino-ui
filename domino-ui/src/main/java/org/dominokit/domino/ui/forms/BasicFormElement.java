@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.label;
 
 import elemental2.dom.*;
@@ -306,7 +305,9 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
     if (required) {
       addValidator(requiredValidator);
       if (this.showRequiredIndicator) {
-        getLabelElement().appendChild(requiredIndicator);
+        DominoFields.INSTANCE
+            .getRequiredIndicatorRenderer()
+            .appendRequiredIndicator((T) this, requiredIndicator);
       }
     } else {
       removeValidator(requiredValidator);
@@ -315,9 +316,9 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
   }
 
   private void removeRequiredIndicator() {
-    if (nonNull(getLabelElement()) && getLabelElement().hasDirectChild(requiredIndicator)) {
-      getLabelElement().removeChild(requiredIndicator);
-    }
+    DominoFields.INSTANCE
+        .getRequiredIndicatorRenderer()
+        .removeRequiredIndicator(this, requiredIndicator);
   }
 
   /** {@inheritDoc} */

@@ -58,12 +58,15 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   private DominoElement<HTMLButtonElement> buttonElement;
   protected DominoElement<HTMLElement> buttonValueContainer =
       DominoElement.of(span().css("select-value", Styles.ellipsis_text));
+  private final DominoElement<HTMLElement> placeholderNode =
+      DominoElement.of(span()).css("select-placeholder");
+  protected final DominoElement<HTMLElement> valuesContainer = DominoElement.of(span());
   protected LinkedList<SelectOption<V>> options = new LinkedList<>();
   private DropDownMenu optionsMenu;
   private List<SelectionHandler<V>> selectionHandlers = new ArrayList<>();
   private Supplier<BaseIcon<?>> arrowIconSupplier = Icons.ALL::menu_down_mdi;
   private BaseIcon<?> arrowIcon;
-
+  private OptionRenderer<V> optionRenderer = SelectOption::element;
   private boolean searchable;
   private boolean creatable;
   private boolean clearable;
@@ -80,10 +83,13 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
         DropDownMenu.create(fieldContainer).styler(style1 -> style1.add("select-option-menu"));
     optionsMenu.setAppendTarget(DomGlobal.document.body);
     optionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
-    optionsMenu.setPosition(new PopupPositionTopDown<>(this));
+    optionsMenu.setPosition(
+        DominoFields.INSTANCE.getDefaultSelectPopupPosition().createPosition(this));
     optionsMenu.addOpenHandler(this::resumeFocusValidation);
     optionsMenu.addOpenHandler(this::scrollToSelectedOption);
     buttonElement.appendChild(buttonValueContainer);
+    buttonValueContainer.appendChild(placeholderNode);
+    buttonValueContainer.appendChild(valuesContainer);
     initListeners();
     dropdown();
     setSearchable(true);
@@ -168,7 +174,8 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   public S clear() {
     unfloatLabel();
     getOptions().forEach(selectOption -> selectOption.deselect(true));
-    buttonValueContainer.setTextContent("");
+    valuesContainer.setTextContent("");
+    showPlaceholder();
     if (isAutoValidation()) validate();
     return (S) this;
   }
@@ -306,7 +313,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   }
 
   private DropdownAction<SelectOption<V>> asDropDownAction(SelectOption<V> option) {
-    return DropdownAction.create(option, option.element())
+    return DropdownAction.create(option, optionRenderer.element(option))
         .setAutoClose(this.autoCloseOnSelect)
         .setExcludeFromSearchResults(option.isExcludeFromSearchResults())
         .addSelectionHandler(value -> doSelectOption(option));
@@ -543,6 +550,11 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
       }
     }
     buttonElement.setReadOnly(readOnly);
+    return (S) this;
+  }
+
+  public S setOptionRenderer(OptionRenderer<V> optionRenderer) {
+    this.optionRenderer = optionRenderer;
     return (S) this;
   }
 
@@ -803,6 +815,20 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     return buttonElement.element();
   }
 
+  @Override
+  protected void showPlaceholder() {
+    if (getPlaceholder() != null && shouldShowPlaceholder()) {
+      placeholderNode.setTextContent(getPlaceholder());
+    }
+  }
+
+  @Override
+  protected void hidePlaceholder() {
+    if (getPlaceholder() != null && !shouldShowPlaceholder()) {
+      placeholderNode.clearElement();
+    }
+  }
+
   /** {@inheritDoc} for thes select this creates the dropdown menu arrow */
   @Override
   protected FlexItem createMandatoryAddOn() {
@@ -1007,5 +1033,10 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   public interface CloseMenuHandler<V> {
     /** */
     void onMenuClosed();
+  }
+
+  @FunctionalInterface
+  public interface OptionRenderer<T> {
+    HTMLElement element(SelectOption<T> option);
   }
 }
