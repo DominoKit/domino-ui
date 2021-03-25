@@ -821,9 +821,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     return buttonElement.element();
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   protected void showPlaceholder() {
     if (getPlaceholder() != null && shouldShowPlaceholder()) {
@@ -831,9 +829,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   protected void hidePlaceholder() {
     if (getPlaceholder() != null && !shouldShowPlaceholder()) {
@@ -1049,6 +1045,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
 
   /**
    * An interface for rendering the {@link SelectOption}
+   *
    * @param <T> the type of the object inside the option
    */
   @FunctionalInterface
