@@ -1,16 +1,30 @@
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.dominokit.domino.ui.dropdown;
+
+import static java.util.Objects.isNull;
+import static org.dominokit.domino.ui.utils.ElementUtil.*;
 
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.KeyboardEvent;
+import java.util.List;
 import jsinterop.base.Js;
 import org.jboss.elemento.IsElement;
-
-import java.util.List;
-
-import static java.util.Objects.isNull;
-import static org.dominokit.domino.ui.utils.ElementUtil.*;
 
 /**
  * A helper class to ease the keyboard navigation of a menu
@@ -21,226 +35,217 @@ import static org.dominokit.domino.ui.utils.ElementUtil.*;
  */
 public class MenuNavigation<V extends IsElement<?>> implements EventListener {
 
-    private final List<V> items;
-    private FocusHandler<V> focusHandler;
-    private SelectHandler<V> selectHandler;
-    private FocusCondition<V> focusCondition;
-    private EscapeHandler escapeHandler;
+  private final List<V> items;
+  private FocusHandler<V> focusHandler;
+  private SelectHandler<V> selectHandler;
+  private FocusCondition<V> focusCondition;
+  private EscapeHandler escapeHandler;
 
-    public MenuNavigation(List<V> items) {
-        this.items = items;
-    }
+  public MenuNavigation(List<V> items) {
+    this.items = items;
+  }
 
-    /**
-     * Creates new navigation for a menu contains a list of items
-     *
-     * @param items the items of the menu
-     * @param <V>   the element type
-     * @return new instance
-     */
-    public static <V extends IsElement<?>> MenuNavigation<V> create(List<V> items) {
-        return new MenuNavigation<>(items);
-    }
+  /**
+   * Creates new navigation for a menu contains a list of items
+   *
+   * @param items the items of the menu
+   * @param <V> the element type
+   * @return new instance
+   */
+  public static <V extends IsElement<?>> MenuNavigation<V> create(List<V> items) {
+    return new MenuNavigation<>(items);
+  }
 
-    /**
-     * Sets a handler which will be called when an item gets focused
-     *
-     * @param focusHandler A {@link FocusHandler}
-     * @return same instance
-     */
-    public MenuNavigation<V> onFocus(FocusHandler<V> focusHandler) {
-        this.focusHandler = focusHandler;
-        return this;
-    }
+  /**
+   * Sets a handler which will be called when an item gets focused
+   *
+   * @param focusHandler A {@link FocusHandler}
+   * @return same instance
+   */
+  public MenuNavigation<V> onFocus(FocusHandler<V> focusHandler) {
+    this.focusHandler = focusHandler;
+    return this;
+  }
 
-    /**
-     * Sets a handler which will be called when an item gets selected
-     *
-     * @param selectHandler A {@link SelectHandler}
-     * @return same instance
-     */
-    public MenuNavigation<V> onSelect(SelectHandler<V> selectHandler) {
-        this.selectHandler = selectHandler;
-        return this;
-    }
+  /**
+   * Sets a handler which will be called when an item gets selected
+   *
+   * @param selectHandler A {@link SelectHandler}
+   * @return same instance
+   */
+  public MenuNavigation<V> onSelect(SelectHandler<V> selectHandler) {
+    this.selectHandler = selectHandler;
+    return this;
+  }
 
-    /**
-     * Sets a handler which will be called when escape key is pressed
-     *
-     * @param escapeHandler A {@link EscapeHandler}
-     * @return same instance
-     */
-    public MenuNavigation<V> onEscape(EscapeHandler escapeHandler) {
-        this.escapeHandler = escapeHandler;
-        return this;
-    }
+  /**
+   * Sets a handler which will be called when escape key is pressed
+   *
+   * @param escapeHandler A {@link EscapeHandler}
+   * @return same instance
+   */
+  public MenuNavigation<V> onEscape(EscapeHandler escapeHandler) {
+    this.escapeHandler = escapeHandler;
+    return this;
+  }
 
-    /**
-     * Adds a condition which evaluates if an item should be focused or not
-     *
-     * @param focusCondition a condition returns true if an item should be focused, false otherwise
-     * @return same instance
-     */
-    public MenuNavigation<V> focusCondition(FocusCondition<V> focusCondition) {
-        this.focusCondition = focusCondition;
-        return this;
-    }
+  /**
+   * Adds a condition which evaluates if an item should be focused or not
+   *
+   * @param focusCondition a condition returns true if an item should be focused, false otherwise
+   * @return same instance
+   */
+  public MenuNavigation<V> focusCondition(FocusCondition<V> focusCondition) {
+    this.focusCondition = focusCondition;
+    return this;
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void handleEvent(Event evt) {
-        KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
-        evt.stopPropagation();
-        HTMLElement element = Js.uncheckedCast(keyboardEvent.target);
-        for (V item : items) {
-            if (item.element().contains(element)) {
-                if (isArrowUp(keyboardEvent)) {
-                    focusPrevious(item);
-                } else if (isArrowDown(keyboardEvent)) {
-                    focusNext(item);
-                } else if (isEscapeKey(keyboardEvent)) {
-                    escapeHandler.onEscape();
-                }
-
-                if (isEnterKey(keyboardEvent) ||
-                        isSpaceKey(keyboardEvent)
-                        || isTabKey(keyboardEvent)) {
-                    selectHandler.doSelect(item);
-                }
-                evt.preventDefault();
-            }
+  /** {@inheritDoc} */
+  @Override
+  public void handleEvent(Event evt) {
+    KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
+    evt.stopPropagation();
+    HTMLElement element = Js.uncheckedCast(keyboardEvent.target);
+    for (V item : items) {
+      if (item.element().contains(element)) {
+        if (isArrowUp(keyboardEvent)) {
+          focusPrevious(item);
+        } else if (isArrowDown(keyboardEvent)) {
+          focusNext(item);
+        } else if (isEscapeKey(keyboardEvent)) {
+          escapeHandler.onEscape();
         }
-    }
 
-    private void focusNext(V item) {
-        int nextIndex = items.indexOf(item) + 1;
-        int size = items.size();
-        if (nextIndex >= size) {
-            focusTopFocusableItem();
-        } else {
-            for (int i = nextIndex; i < size; i++) {
-                V itemToFocus = items.get(i);
-                if (shouldFocus((V) itemToFocus)) {
-                    doFocus(itemToFocus);
-                    return;
-                }
-            }
-            focusTopFocusableItem();
+        if (isEnterKey(keyboardEvent) || isSpaceKey(keyboardEvent) || isTabKey(keyboardEvent)) {
+          selectHandler.doSelect(item);
         }
+        evt.preventDefault();
+      }
     }
+  }
 
-    private boolean shouldFocus(V itemToFocus) {
-        return isNull(focusCondition) || focusCondition.shouldFocus(itemToFocus);
-    }
-
-    private void focusTopFocusableItem() {
-        for (V item : items) {
-            if (shouldFocus(item)) {
-                doFocus(item);
-                break;
-            }
+  private void focusNext(V item) {
+    int nextIndex = items.indexOf(item) + 1;
+    int size = items.size();
+    if (nextIndex >= size) {
+      focusTopFocusableItem();
+    } else {
+      for (int i = nextIndex; i < size; i++) {
+        V itemToFocus = items.get(i);
+        if (shouldFocus((V) itemToFocus)) {
+          doFocus(itemToFocus);
+          return;
         }
+      }
+      focusTopFocusableItem();
     }
+  }
 
-    private void focusBottomFocusableItem() {
-        for (int i = items.size() - 1; i >= 0; i--) {
-            V itemToFocus = items.get(i);
-            if (shouldFocus(itemToFocus)) {
-                doFocus(itemToFocus);
-                break;
-            }
+  private boolean shouldFocus(V itemToFocus) {
+    return isNull(focusCondition) || focusCondition.shouldFocus(itemToFocus);
+  }
+
+  private void focusTopFocusableItem() {
+    for (V item : items) {
+      if (shouldFocus(item)) {
+        doFocus(item);
+        break;
+      }
+    }
+  }
+
+  private void focusBottomFocusableItem() {
+    for (int i = items.size() - 1; i >= 0; i--) {
+      V itemToFocus = items.get(i);
+      if (shouldFocus(itemToFocus)) {
+        doFocus(itemToFocus);
+        break;
+      }
+    }
+  }
+
+  private void focusPrevious(V item) {
+    int nextIndex = items.indexOf(item) - 1;
+    if (nextIndex < 0) {
+      focusBottomFocusableItem();
+    } else {
+      for (int i = nextIndex; i >= 0; i--) {
+        V itemToFocus = items.get(i);
+        if (shouldFocus(itemToFocus)) {
+          doFocus(itemToFocus);
+          return;
         }
+      }
+      focusBottomFocusableItem();
     }
+  }
 
-    private void focusPrevious(V item) {
-        int nextIndex = items.indexOf(item) - 1;
-        if (nextIndex < 0) {
-            focusBottomFocusableItem();
-        } else {
-            for (int i = nextIndex; i >= 0; i--) {
-                V itemToFocus = items.get(i);
-                if (shouldFocus(itemToFocus)) {
-                    doFocus(itemToFocus);
-                    return;
-                }
-            }
-            focusBottomFocusableItem();
-        }
+  private void doFocus(V item) {
+    focusHandler.doFocus(item);
+  }
+
+  /**
+   * Focuses an item at a specific {@code index}
+   *
+   * @param index the index of the item
+   */
+  public void focusAt(int index) {
+    if (!items.isEmpty()) {
+      V item = items.get(index);
+      doFocus(item);
     }
+  }
 
-    private void doFocus(V item) {
-        focusHandler.doFocus(item);
-    }
-
+  /**
+   * Focus handler to be called when an item gets focused
+   *
+   * @param <V> the item type
+   */
+  @FunctionalInterface
+  public interface FocusHandler<V> {
     /**
-     * Focuses an item at a specific {@code index}
+     * Will be called when {@code item} gets focused
      *
-     * @param index the index of the item
+     * @param item the focused item
      */
-    public void focusAt(int index) {
-        if (!items.isEmpty()) {
-            V item = items.get(index);
-            doFocus(item);
-        }
-    }
+    void doFocus(V item);
+  }
 
+  /**
+   * Selection handler to be called when an item gets selected
+   *
+   * @param <V> the item type
+   */
+  @FunctionalInterface
+  public interface SelectHandler<V> {
     /**
-     * Focus handler to be called when an item gets focused
+     * Will be called when {@code item} gets selected
      *
-     * @param <V> the item type
+     * @param item the selected item
      */
-    @FunctionalInterface
-    public interface FocusHandler<V> {
-        /**
-         * Will be called when {@code item} gets focused
-         *
-         * @param item the focused item
-         */
-        void doFocus(V item);
-    }
+    void doSelect(V item);
+  }
 
+  /** Escape handler to be called when escape key is pressed */
+  @FunctionalInterface
+  public interface EscapeHandler {
+    /** Will be called when the escape key is pressed */
+    void onEscape();
+  }
+
+  /**
+   * A condition which evaluates if an item should be focused or not
+   *
+   * @param <V> the item type
+   */
+  @FunctionalInterface
+  public interface FocusCondition<V> {
     /**
-     * Selection handler to be called when an item gets selected
+     * Returns true if the item should be focused, false otherwise
      *
-     * @param <V> the item type
+     * @param item the item
+     * @return true if the item should be focused, false otherwise
      */
-    @FunctionalInterface
-    public interface SelectHandler<V> {
-        /**
-         * Will be called when {@code item} gets selected
-         *
-         * @param item the selected item
-         */
-        void doSelect(V item);
-
-    }
-
-    /**
-     * Escape handler to be called when escape key is pressed
-     */
-    @FunctionalInterface
-    public interface EscapeHandler {
-        /**
-         * Will be called when the escape key is pressed
-         */
-        void onEscape();
-    }
-
-    /**
-     * A condition which evaluates if an item should be focused or not
-     *
-     * @param <V> the item type
-     */
-    @FunctionalInterface
-    public interface FocusCondition<V> {
-        /**
-         * Returns true if the item should be focused, false otherwise
-         *
-         * @param item the item
-         * @return true if the item should be focused, false otherwise
-         */
-        boolean shouldFocus(V item);
-    }
+    boolean shouldFocus(V item);
+  }
 }

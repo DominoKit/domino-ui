@@ -1,252 +1,256 @@
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.dominokit.domino.ui.pagination;
 
+import static org.jboss.elemento.Elements.a;
+import static org.jboss.elemento.Elements.li;
+
 import elemental2.dom.*;
+import java.util.function.Function;
+import java.util.stream.IntStream;
 import org.dominokit.domino.ui.forms.Select;
 import org.dominokit.domino.ui.forms.SelectOption;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-import java.util.function.Function;
-import java.util.stream.IntStream;
-
-import static org.jboss.elemento.Elements.a;
-import static org.jboss.elemento.Elements.li;
-
-/**
- * An advanced pagination implementation
- */
+/** An advanced pagination implementation */
 public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 
-    private DominoElement<HTMLLIElement> firstPage;
-    private DominoElement<HTMLLIElement> lastPage;
+  private DominoElement<HTMLLIElement> firstPage;
+  private DominoElement<HTMLLIElement> lastPage;
 
-    private DominoElement<HTMLAnchorElement> prevAnchor;
-    private DominoElement<HTMLAnchorElement> firstPageAnchor;
-    private DominoElement<HTMLAnchorElement> nextAnchor;
-    private DominoElement<HTMLAnchorElement> lastPageAnchor;
-    private Select<Integer> pagesSelect;
+  private DominoElement<HTMLAnchorElement> prevAnchor;
+  private DominoElement<HTMLAnchorElement> firstPageAnchor;
+  private DominoElement<HTMLAnchorElement> nextAnchor;
+  private DominoElement<HTMLAnchorElement> lastPageAnchor;
+  private Select<Integer> pagesSelect;
 
-    private Function<Integer, String> pagesCountTextHandler = pagesCount -> " of " + pagesCount + " Pages";
+  private Function<Integer, String> pagesCountTextHandler =
+      pagesCount -> " of " + pagesCount + " Pages";
 
-    /**
-     * @return new instance
-     */
-    public static AdvancedPagination create() {
-        return new AdvancedPagination();
-    }
+  /** @return new instance */
+  public static AdvancedPagination create() {
+    return new AdvancedPagination();
+  }
 
-    /**
-     * @param pages the number of pages
-     * @return new instance
-     */
-    public static AdvancedPagination create(int pages) {
-        return new AdvancedPagination(pages);
-    }
+  /**
+   * @param pages the number of pages
+   * @return new instance
+   */
+  public static AdvancedPagination create(int pages) {
+    return new AdvancedPagination(pages);
+  }
 
-    /**
-     * @param pages    the number of pages
-     * @param pageSize the page size
-     * @return new instance
-     */
-    public static AdvancedPagination create(int pages, int pageSize) {
-        return new AdvancedPagination(pages, pageSize);
-    }
+  /**
+   * @param pages the number of pages
+   * @param pageSize the page size
+   * @return new instance
+   */
+  public static AdvancedPagination create(int pages, int pageSize) {
+    return new AdvancedPagination(pages, pageSize);
+  }
 
-    public AdvancedPagination() {
-        this(0, 10);
-    }
+  public AdvancedPagination() {
+    this(0, 10);
+  }
 
-    public AdvancedPagination(int pages) {
-        this(pages, 10);
-    }
+  public AdvancedPagination(int pages) {
+    this(pages, 10);
+  }
 
+  public AdvancedPagination(int pages, int pageSize) {
+    this.pagesCount = pages;
+    this.pageSize = pageSize;
+    init(this);
+    updatePages(pages, pageSize);
+  }
 
-    public AdvancedPagination(int pages, int pageSize) {
-        this.pagesCount = pages;
-        this.pageSize = pageSize;
-        init(this);
-        updatePages(pages, pageSize);
-    }
+  /** {@inheritDoc} */
+  @Override
+  public AdvancedPagination updatePages(int pages) {
+    return updatePages(pages, pageSize);
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public AdvancedPagination updatePages(int pages) {
-        return updatePages(pages, pageSize);
-    }
+  /** {@inheritDoc} */
+  @Override
+  public AdvancedPagination updatePages(int pages, int pageSize) {
+    this.pageSize = pageSize;
+    this.pagesCount = pages;
+    this.index = 1;
+    allPages.clear();
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public AdvancedPagination updatePages(int pages, int pageSize) {
-        this.pageSize = pageSize;
-        this.pagesCount = pages;
-        this.index = 1;
-        allPages.clear();
+    prevAnchor = DominoElement.of(a());
+    prevElement =
+        DominoElement.of(li().css("page-nav"))
+            .appendChild(
+                prevAnchor
+                    .setTooltip("Previous page")
+                    .appendChild(Icons.ALL.chevron_left().clickable()));
 
-        prevAnchor = DominoElement.of(a());
-        prevElement = DominoElement.of(li().css("page-nav"))
-                .appendChild(prevAnchor
-                        .setTooltip("Previous page")
-                        .appendChild(Icons.ALL.chevron_left()
-                                .clickable()));
+    addListenerToElement(prevAnchor, event -> moveToPage(index - 1, false));
 
-        addListenerToElement(prevAnchor, event -> moveToPage(index - 1, false));
+    firstPageAnchor = DominoElement.of(a());
+    firstPage =
+        DominoElement.of(li().css("page-nav"))
+            .appendChild(
+                firstPageAnchor
+                    .setTooltip("First page")
+                    .appendChild(Icons.ALL.skip_previous().clickable()));
 
-        firstPageAnchor = DominoElement.of(a());
-        firstPage = DominoElement.of(li().css("page-nav"))
-                .appendChild(firstPageAnchor
-                        .setTooltip("First page")
-                        .appendChild(Icons.ALL.skip_previous()
-                                .clickable()));
+    addListenerToElement(firstPageAnchor, event -> moveToPage(1, false));
 
-        addListenerToElement(firstPageAnchor, event -> moveToPage(1, false));
+    pagesElement.clearElement().appendChild(firstPage).appendChild(prevElement);
 
-        pagesElement.clearElement()
-                .appendChild(firstPage)
-                .appendChild(prevElement);
+    pagesSelect =
+        Select.<Integer>create()
+            .styler(style -> style.setMarginBottom("0px"))
+            .addSelectionHandler(option -> moveToPage(option.getValue(), false));
 
-        pagesSelect = Select.<Integer>create()
-                .styler(style -> style.setMarginBottom("0px"))
-                .addSelectionHandler(option -> moveToPage(option.getValue(), false));
-
-        if (pages > 0) {
-            IntStream.rangeClosed(1, pages).forEach(p -> {
-                pagesSelect.appendChild(SelectOption.create(p, p + "")
+    if (pages > 0) {
+      IntStream.rangeClosed(1, pages)
+          .forEach(
+              p -> {
+                pagesSelect.appendChild(
+                    SelectOption.create(p, p + "")
                         .apply(element -> allPages.add(DominoElement.of(element.element()))));
-            });
-        }
+              });
+    }
 
-        pagesElement.appendChild(DominoElement.of(li()).appendChild(a().style("margin-left: 10px; margin-right: 10px;").add(pagesSelect)));
-        pagesElement.appendChild(DominoElement.of(li()).appendChild(a().css("adv-page-count").textContent(pagesCountTextHandler.apply(pages))));
+    pagesElement.appendChild(
+        DominoElement.of(li())
+            .appendChild(a().style("margin-left: 10px; margin-right: 10px;").add(pagesSelect)));
+    pagesElement.appendChild(
+        DominoElement.of(li())
+            .appendChild(
+                a().css("adv-page-count").textContent(pagesCountTextHandler.apply(pages))));
 
-        nextAnchor = DominoElement.of(a());
-        nextElement = DominoElement.of(li().css("page-nav"))
-                .appendChild(nextAnchor
-                        .setTooltip("Next page")
-                        .appendChild(Icons.ALL.chevron_right()
-                                .clickable()));
+    nextAnchor = DominoElement.of(a());
+    nextElement =
+        DominoElement.of(li().css("page-nav"))
+            .appendChild(
+                nextAnchor
+                    .setTooltip("Next page")
+                    .appendChild(Icons.ALL.chevron_right().clickable()));
 
-        addListenerToElement(nextAnchor, event -> moveToPage(index + 1, false));
+    addListenerToElement(nextAnchor, event -> moveToPage(index + 1, false));
 
-        lastPageAnchor = DominoElement.of(a());
-        lastPage = DominoElement.of(li().css("page-nav"))
-                .appendChild(lastPageAnchor
-                        .setTooltip("Last page")
-                        .appendChild(Icons.ALL.skip_next()
-                                .clickable()));
+    lastPageAnchor = DominoElement.of(a());
+    lastPage =
+        DominoElement.of(li().css("page-nav"))
+            .appendChild(
+                lastPageAnchor
+                    .setTooltip("Last page")
+                    .appendChild(Icons.ALL.skip_next().clickable()));
 
-        addListenerToElement(lastPageAnchor, event -> {
-            DomGlobal.console.info("going to last page : " + allPages.size());
-            moveToPage(allPages.size(), false);
+    addListenerToElement(
+        lastPageAnchor,
+        event -> {
+          DomGlobal.console.info("going to last page : " + allPages.size());
+          moveToPage(allPages.size(), false);
         });
 
-        if (pages > 0) {
-            moveToPage(1, true);
-        }
-
-        if (pages <= 0) {
-            nextElement.disable();
-            prevElement.disable();
-        }
-
-        pagesElement
-                .appendChild(nextElement)
-                .appendChild(lastPage);
-        return this;
+    if (pages > 0) {
+      moveToPage(1, true);
     }
 
-    private void addListenerToElement(DominoElement<? extends HTMLElement> element, EventListener listener) {
-        element.addClickListener(listener);
-        KeyboardEvents.listenOn(element).onEnter(listener);
-
+    if (pages <= 0) {
+      nextElement.disable();
+      prevElement.disable();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void moveToPage(int page, boolean silent) {
-        if (page > 0 && page <= pagesCount) {
+    pagesElement.appendChild(nextElement).appendChild(lastPage);
+    return this;
+  }
 
-            index = page;
+  private void addListenerToElement(
+      DominoElement<? extends HTMLElement> element, EventListener listener) {
+    element.addClickListener(listener);
+    KeyboardEvents.listenOn(element).onEnter(listener);
+  }
 
-            if (!silent) {
-                pageChangedCallBack.onPageChanged(page);
-            }
+  /** {@inheritDoc} */
+  @Override
+  protected void moveToPage(int page, boolean silent) {
+    if (page > 0 && page <= pagesCount) {
 
-            if (page == pagesCount) {
-                nextElement.disable();
-                lastPage.disable();
+      index = page;
 
-                nextAnchor.removeAttribute("tabindex");
-                lastPageAnchor.removeAttribute("tabindex");
-            } else {
-                nextElement.enable();
-                lastPage.enable();
+      if (!silent) {
+        pageChangedCallBack.onPageChanged(page);
+      }
 
-                nextAnchor.setAttribute("tabindex", "0");
-                lastPageAnchor.setAttribute("tabindex", "0");
-            }
+      if (page == pagesCount) {
+        nextElement.disable();
+        lastPage.disable();
 
+        nextAnchor.removeAttribute("tabindex");
+        lastPageAnchor.removeAttribute("tabindex");
+      } else {
+        nextElement.enable();
+        lastPage.enable();
 
-            if (page == 1) {
-                prevElement.disable();
-                firstPage.disable();
+        nextAnchor.setAttribute("tabindex", "0");
+        lastPageAnchor.setAttribute("tabindex", "0");
+      }
 
-                prevAnchor.removeAttribute("tabindex");
-                firstPageAnchor.removeAttribute("tabindex");
-            } else {
-                prevElement.enable();
-                firstPage.enable();
+      if (page == 1) {
+        prevElement.disable();
+        firstPage.disable();
 
-                prevAnchor.setAttribute("tabindex", "0");
-                firstPageAnchor.setAttribute("tabindex", "0");
-            }
+        prevAnchor.removeAttribute("tabindex");
+        firstPageAnchor.removeAttribute("tabindex");
+      } else {
+        prevElement.enable();
+        firstPage.enable();
 
+        prevAnchor.setAttribute("tabindex", "0");
+        firstPageAnchor.setAttribute("tabindex", "0");
+      }
 
-            pagesSelect.selectAt(page - 1, true);
-
-        }
+      pagesSelect.selectAt(page - 1, true);
     }
+  }
 
-    /**
-     * @return the previous element
-     */
-    public DominoElement<HTMLAnchorElement> getPrevAnchor() {
-        return prevAnchor;
-    }
+  /** @return the previous element */
+  public DominoElement<HTMLAnchorElement> getPrevAnchor() {
+    return prevAnchor;
+  }
 
-    /**
-     * @return the first page element
-     */
-    public DominoElement<HTMLAnchorElement> getFirstPageAnchor() {
-        return firstPageAnchor;
-    }
+  /** @return the first page element */
+  public DominoElement<HTMLAnchorElement> getFirstPageAnchor() {
+    return firstPageAnchor;
+  }
 
-    /**
-     * @return the next element
-     */
-    public DominoElement<HTMLAnchorElement> getNextAnchor() {
-        return nextAnchor;
-    }
+  /** @return the next element */
+  public DominoElement<HTMLAnchorElement> getNextAnchor() {
+    return nextAnchor;
+  }
 
-    /**
-     * @return the last page element
-     */
-    public DominoElement<HTMLAnchorElement> getLastPageAnchor() {
-        return lastPageAnchor;
-    }
+  /** @return the last page element */
+  public DominoElement<HTMLAnchorElement> getLastPageAnchor() {
+    return lastPageAnchor;
+  }
 
-    /**
-     * Sets the text of total number of pages
-     *
-     * @param pagesCountTextHandler a {@link Function} that returns the text based on the current page
-     */
-    public void setPagesCountTextHandler(Function<Integer, String> pagesCountTextHandler) {
-        this.pagesCountTextHandler = pagesCountTextHandler;
-    }
+  /**
+   * Sets the text of total number of pages
+   *
+   * @param pagesCountTextHandler a {@link Function} that returns the text based on the current page
+   */
+  public void setPagesCountTextHandler(Function<Integer, String> pagesCountTextHandler) {
+    this.pagesCountTextHandler = pagesCountTextHandler;
+  }
 }
