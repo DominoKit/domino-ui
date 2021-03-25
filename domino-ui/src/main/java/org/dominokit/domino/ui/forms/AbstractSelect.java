@@ -553,6 +553,12 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     return (S) this;
   }
 
+  /**
+   * Sets the option renderer
+   *
+   * @param optionRenderer the {@link OptionRenderer}
+   * @return same instance
+   */
   public S setOptionRenderer(OptionRenderer<V> optionRenderer) {
     this.optionRenderer = optionRenderer;
     return (S) this;
@@ -815,6 +821,9 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     return buttonElement.element();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void showPlaceholder() {
     if (getPlaceholder() != null && shouldShowPlaceholder()) {
@@ -822,6 +831,9 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void hidePlaceholder() {
     if (getPlaceholder() != null && !shouldShowPlaceholder()) {
@@ -1035,8 +1047,16 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     void onMenuClosed();
   }
 
+  /**
+   * An interface for rendering the {@link SelectOption}
+   * @param <T> the type of the object inside the option
+   */
   @FunctionalInterface
   public interface OptionRenderer<T> {
+    /**
+     * @param option the option to render
+     * @return the {@link HTMLElement} representing the option
+     */
     HTMLElement element(SelectOption<T> option);
   }
 }
