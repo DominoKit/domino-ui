@@ -5,7 +5,7 @@
 
     <groupId>org.dominokit</groupId>
     <artifactId>domino-ui-parent</artifactId>
-    <version>1.0.0-SNAPSHOT-custom-design</version>
+    <version>HEAD-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>domino-ui-parent</name>

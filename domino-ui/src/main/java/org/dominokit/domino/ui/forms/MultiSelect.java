@@ -260,6 +260,12 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
     }
   }
 
+  /**
+   * Sets the color of the options and the display values
+   *
+   * @param color A {@link Color}
+   * @return same instance
+   */
   public MultiSelect<T> setColor(Color color) {
     this.color = color;
     return this;

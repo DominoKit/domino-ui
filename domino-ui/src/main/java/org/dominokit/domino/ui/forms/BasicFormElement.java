@@ -395,7 +395,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
 
   /**
    * @param fixErrorsPosition boolean, if true the errors message container size will be fixed and
-   *     wont change the spacing between the fileds when an error message is shown.
+   *     wont change the spacing between the fields when an error message is shown.
    * @return same form element instance
    */
   public T setFixErrorsPosition(boolean fixErrorsPosition) {
