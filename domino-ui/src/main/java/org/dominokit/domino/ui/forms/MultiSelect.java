@@ -18,9 +18,14 @@ package org.dominokit.domino.ui.forms;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+import elemental2.dom.HTMLElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.dominokit.domino.ui.chips.Chip;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
 /**
@@ -35,6 +40,7 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
   private ValueRenderer valueRenderer = this::renderSelectedOptions;
   private List<SelectOption<T>> selectedOptions = new ArrayList<>();
   private String selectedOptionsSeparator;
+  private Color color = Color.THEME;
 
   /**
    * Creates an instance without a label
@@ -97,7 +103,9 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
   }
 
   /** Creates an instance without a label */
-  public MultiSelect() {}
+  public MultiSelect() {
+    setup();
+  }
 
   /**
    * Creates an instance with a label
@@ -106,6 +114,7 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
    */
   public MultiSelect(String label) {
     super(label);
+    setup();
   }
 
   /**
@@ -116,6 +125,7 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
    */
   public MultiSelect(String label, List<SelectOption<T>> options) {
     super(label, options);
+    setup();
   }
 
   /**
@@ -125,6 +135,11 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
    */
   public MultiSelect(List<SelectOption<T>> options) {
     super(options);
+    setup();
+  }
+
+  private void setup() {
+    setOptionRenderer(new MultiOptionRenderer());
   }
 
   /** {@inheritDoc} */
@@ -139,6 +154,7 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
       option.select();
     }
     valueRenderer.render();
+    hidePlaceholder();
     if (!silent) onSelection(option);
     return this;
   }
@@ -156,7 +172,28 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
   }
 
   private void renderSelectedOptions() {
-    buttonValueContainer.setTextContent(getStringValue());
+    valuesContainer.clearElement();
+    selectedOptions.stream()
+        .map(
+            tSelectOption -> {
+              Chip chip =
+                  Chip.create(tSelectOption.getDisplayValue())
+                      .setRemovable(true)
+                      .setColor(color)
+                      .setBorderColor(color)
+                      .elevate(Elevation.NONE);
+              chip.addRemoveHandler(
+                  () -> {
+                    tSelectOption.deselect();
+                    selectedOptions.remove(tSelectOption);
+                    chip.remove(true);
+                    showPlaceholder();
+                    if (isAutoValidation()) validate();
+                  });
+
+              return chip;
+            })
+        .forEach(valuesContainer::appendChild);
   }
 
   /** @return a List of all {@link SelectOption} selected */
@@ -223,9 +260,35 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
     }
   }
 
+  public MultiSelect<T> setColor(Color color) {
+    this.color = color;
+    return this;
+  }
+
   /** a Function to define how we should render the select value */
   @FunctionalInterface
   public interface ValueRenderer {
     void render();
+  }
+
+  private class MultiOptionRenderer implements OptionRenderer<T> {
+
+    @Override
+    public HTMLElement element(SelectOption<T> option) {
+      CheckBox checkMark = CheckBox.create().setColor(color).filledIn();
+      FlexItem checkMarkFlexItem = FlexItem.create();
+      checkMarkFlexItem.appendChild(checkMark);
+      option.getOptionLayoutElement().insertFirst(checkMarkFlexItem);
+      option.addSelectionHandler(
+          selectable -> {
+            if (selectable.isSelected()) {
+              checkMark.check(true);
+            } else {
+              checkMark.uncheck(true);
+            }
+          });
+      checkMark.addChangeHandler(value -> select(option));
+      return option.element();
+    }
   }
 }

@@ -17,9 +17,14 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
 
+import elemental2.dom.HTMLElement;
 import java.util.List;
 import java.util.Objects;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
 /**
@@ -84,7 +89,9 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
   }
 
   /** Creates an instance without a label */
-  public Select() {}
+  public Select() {
+    setOptionRenderer(new SingleOptionRenderer());
+  }
 
   /**
    * Creates an instance with a label
@@ -93,6 +100,7 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
    */
   public Select(String label) {
     super(label);
+    setOptionRenderer(new SingleOptionRenderer());
   }
 
   /**
@@ -102,6 +110,7 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
    */
   public Select(List<SelectOption<T>> options) {
     super(options);
+    setOptionRenderer(new SingleOptionRenderer());
   }
 
   /**
@@ -112,6 +121,7 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
    */
   public Select(String label, List<SelectOption<T>> options) {
     super(label, options);
+    setOptionRenderer(new SingleOptionRenderer());
   }
 
   /** {@inheritDoc} */
@@ -128,7 +138,8 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
     floatLabel();
     this.selectedOption = option;
     option.select();
-    buttonValueContainer.setTextContent(option.getDisplayValue());
+    valuesContainer.setTextContent(option.getDisplayValue());
+    hidePlaceholder();
     if (!silent) onSelection(option);
     return this;
   }
@@ -183,6 +194,24 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
     if (nonNull(selectedOption)) {
       ElementUtil.scrollIntoParent(
           selectedOption.element(), getOptionsMenu().getMenuElement().element());
+    }
+  }
+
+  private class SingleOptionRenderer implements OptionRenderer<T> {
+
+    @Override
+    public HTMLElement element(SelectOption<T> option) {
+      Icon checkMark =
+          Icons.ALL
+              .check()
+              .styler(style1 -> style1.add(Styles.pull_right).add("select-option-check-mark"));
+      FlexItem checkMarkFlexItem = FlexItem.create();
+      checkMarkFlexItem.appendChild(checkMark);
+      option.getOptionLayoutElement().appendChild(checkMarkFlexItem);
+
+      checkMark.toggleDisplay(option.isSelected());
+      option.addSelectionHandler(selectable -> checkMark.toggleDisplay(selectable.isSelected()));
+      return option.element();
     }
   }
 }

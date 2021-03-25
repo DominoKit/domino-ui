@@ -50,7 +50,7 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
 
   private static final String TEXT = "text";
   private DropDownMenu suggestionsMenu;
-  private List<SelectionHandler<SuggestItem<T>>> selectionHandlers = new ArrayList<>();
+  private List<SelectionHandler<SuggestItem<T>>> selectionHandlers;
   private SuggestBoxStore<T> store;
   private HTMLDivElement loaderContainer = div().css("suggest-box-loader").element();
   private Loader loader;
@@ -115,10 +115,14 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
   public SuggestBox(String type, String label, SuggestBoxStore<T> store) {
     super(type, label);
     this.store = store;
+    if (isNull(selectionHandlers)) {
+      selectionHandlers = new ArrayList<>();
+    }
     suggestionsMenu = DropDownMenu.create(fieldContainer);
     suggestionsMenu.setAppendTarget(document.body);
     suggestionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
-    suggestionsMenu.setPosition(new PopupPositionTopDown());
+    suggestionsMenu.setPosition(
+        DominoFields.INSTANCE.getDefaultSuggestPopupPosition().createPosition(this));
     suggestionsMenu.addCloseHandler(
         () -> {
           if (focusOnClose) {
@@ -388,6 +392,9 @@ public class SuggestBox<T> extends AbstractValueBox<SuggestBox<T>, HTMLInputElem
   /** {@inheritDoc} */
   @Override
   public SuggestBox<T> addSelectionHandler(SelectionHandler<SuggestItem<T>> selectionHandler) {
+    if (isNull(selectionHandlers)) {
+      selectionHandlers = new ArrayList<>();
+    }
     selectionHandlers.add(selectionHandler);
     return this;
   }
