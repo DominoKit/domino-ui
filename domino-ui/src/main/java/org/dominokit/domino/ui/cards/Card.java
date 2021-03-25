@@ -85,10 +85,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
   public Card() {
     headerTitle.appendChild(title).appendChild(headerDescription);
 
-    logoContainer = FlexItem.create();
+    logoContainer = FlexItem.create().css("logo").hide();
     header.appendChild(
         FlexLayout.create()
-            .appendChild(logoContainer.css(Styles.m_r_10).setAlignSelf(FlexAlign.CENTER))
+            .appendChild(logoContainer.setAlignSelf(FlexAlign.CENTER))
             .appendChild(
                 FlexItem.create()
                     .setAlignSelf(FlexAlign.CENTER)
@@ -563,23 +563,41 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
   /**
    * Sets the header logo, this will removes the previous logo if set.
    *
-   * @param node the element to be set in the logo container
+   * @param node the element to be set in the logo container,if null logo container become hidden
    * @return same instance
    */
   public Card setHeaderLogo(Node node) {
-    logoContainer.clearElement();
-    logoContainer.appendChild(node);
+    if (nonNull(node)) {
+      logoContainer.clearElement().appendChild(node).show();
+    } else {
+      removeHeaderLogo();
+    }
+    return this;
+  }
+
+  /**
+   * Removes the card header logo and hides its container
+   *
+   * @return same instance
+   */
+  public Card removeHeaderLogo() {
+    logoContainer.clearElement().hide();
     return this;
   }
 
   /**
    * Same as {@link Card#setHeaderLogo(Node)} but accepts {@link IsElement}
    *
-   * @param element the element to be set in the logo container
+   * @param element the element to be set in the logo container,if null it will hide the logo
+   *     container
    * @return same instance
    */
   public Card setHeaderLogo(IsElement<?> element) {
-    setHeaderLogo(element.element());
+    if (nonNull(element)) {
+      setHeaderLogo(element.element());
+    } else {
+      setHeaderLogo((Node) null);
+    }
     return this;
   }
 
