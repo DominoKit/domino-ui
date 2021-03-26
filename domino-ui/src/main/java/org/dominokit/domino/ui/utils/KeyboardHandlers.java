@@ -1,24 +1,44 @@
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.dominokit.domino.ui.utils;
 
+/** A component that should provide handlers for keyboard events should implement this interface */
 public interface KeyboardHandlers {
 
-    @FunctionalInterface
-    interface EscapeHandler {
-        void onEscape();
-    }
+  /** a function to handle the Escape key */
+  @FunctionalInterface
+  interface EscapeHandler {
+    void onEscape();
+  }
 
-    @FunctionalInterface
-    interface ArrowDownHandler {
-        void onArrowDown();
-    }
+  /** a function to handle the Arrow down key */
+  @FunctionalInterface
+  interface ArrowDownHandler {
+    void onArrowDown();
+  }
 
-    @FunctionalInterface
-    interface ArrowUpHandler {
-        void onArrowUp();
-    }
+  /** a function to handle the Arrow up key */
+  @FunctionalInterface
+  interface ArrowUpHandler {
+    void onArrowUp();
+  }
 
-    @FunctionalInterface
-    interface TabHandler {
-        void onTab();
-    }
+  /** a function to handle the Tab key */
+  @FunctionalInterface
+  interface TabHandler {
+    void onTab();
+  }
 }

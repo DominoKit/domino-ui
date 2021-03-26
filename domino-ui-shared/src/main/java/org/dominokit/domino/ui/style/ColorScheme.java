@@ -1,1531 +1,1562 @@
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.dominokit.domino.ui.style;
 
 import org.dominokit.domino.ui.themes.Theme;
 
 public interface ColorScheme {
 
-    Color lighten_5();
+  Color lighten_5();
 
-    Color lighten_4();
+  Color lighten_4();
 
-    Color lighten_3();
+  Color lighten_3();
 
-    Color lighten_2();
+  Color lighten_2();
 
-    Color lighten_1();
+  Color lighten_1();
 
-    Color color();
+  Color color();
 
-    Color darker_1();
+  Color darker_1();
 
-    Color darker_2();
+  Color darker_2();
 
-    Color darker_3();
+  Color darker_3();
 
-    Color darker_4();
+  Color darker_4();
 
-    String rgba_1();
+  String rgba_1();
 
-    String rgba_2();
+  String rgba_2();
 
-    default Theme theme() {
-        return new Theme(this);
+  default Theme theme() {
+    return new Theme(this);
+  }
+
+  static ColorScheme valueOf(String name) {
+    switch (name) {
+      case "RED":
+        return ColorScheme.RED;
+      case "AMBER":
+        return ColorScheme.AMBER;
+      case "BLACK":
+        return ColorScheme.BLACK;
+      case "BLUE":
+        return ColorScheme.BLUE;
+      case "BROWN":
+        return ColorScheme.BROWN;
+      case "BLUE GREY":
+        return ColorScheme.BLUE_GREY;
+      case "CYAN":
+        return ColorScheme.CYAN;
+      case "DEEP ORANGE":
+        return ColorScheme.DEEP_ORANGE;
+      case "DEEP PURPLE":
+        return ColorScheme.DEEP_PURPLE;
+      case "GREEN":
+        return ColorScheme.GREEN;
+      case "GREY":
+        return ColorScheme.GREY;
+      case "INDIGO":
+        return ColorScheme.INDIGO;
+      case "LIGHT BLUE":
+        return ColorScheme.LIGHT_BLUE;
+      case "LIGHT GREEN":
+        return ColorScheme.LIGHT_GREEN;
+      case "LIME":
+        return ColorScheme.LIME;
+      case "ORANGE":
+        return ColorScheme.ORANGE;
+      case "PINK":
+        return ColorScheme.PINK;
+      case "PURPLE":
+        return ColorScheme.PURPLE;
+      case "TEAL":
+        return ColorScheme.TEAL;
+      case "TRANSPARENT":
+        return ColorScheme.TRANSPARENT;
+      case "WHITE":
+        return ColorScheme.WHITE;
+      case "YELLOW":
+        return ColorScheme.YELLOW;
+      default:
+        return Theme.currentTheme.getScheme();
     }
+  }
 
-    static ColorScheme valueOf(String name) {
-        switch (name) {
-            case "RED":
-                return ColorScheme.RED;
-            case "AMBER":
-                return ColorScheme.AMBER;
-            case "BLACK":
-                return ColorScheme.BLACK;
-            case "BLUE":
-                return ColorScheme.BLUE;
-            case "BROWN":
-                return ColorScheme.BROWN;
-            case "BLUE GREY":
-                return ColorScheme.BLUE_GREY;
-            case "CYAN":
-                return ColorScheme.CYAN;
-            case "DEEP ORANGE":
-                return ColorScheme.DEEP_ORANGE;
-            case "DEEP PURPLE":
-                return ColorScheme.DEEP_PURPLE;
-            case "GREEN":
-                return ColorScheme.GREEN;
-            case "GREY":
-                return ColorScheme.GREY;
-            case "INDIGO":
-                return ColorScheme.INDIGO;
-            case "LIGHT BLUE":
-                return ColorScheme.LIGHT_BLUE;
-            case "LIGHT GREEN":
-                return ColorScheme.LIGHT_GREEN;
-            case "LIME":
-                return ColorScheme.LIME;
-            case "ORANGE":
-                return ColorScheme.ORANGE;
-            case "PINK":
-                return ColorScheme.PINK;
-            case "PURPLE":
-                return ColorScheme.PURPLE;
-            case "TEAL":
-                return ColorScheme.TEAL;
-            case "TRANSPARENT":
-                return ColorScheme.TRANSPARENT;
-            case "WHITE":
-                return ColorScheme.WHITE;
-            case "YELLOW":
-                return ColorScheme.YELLOW;
-            default:
-                return Theme.currentTheme.getScheme();
-        }
-    }
-
-    ColorScheme RED = new ColorScheme() {
+  ColorScheme RED =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.RED_LIGHTEN_5;
+          return Color.RED_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.RED_LIGHTEN_4;
+          return Color.RED_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.RED_LIGHTEN_3;
+          return Color.RED_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.RED_LIGHTEN_2;
+          return Color.RED_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.RED_LIGHTEN_1;
+          return Color.RED_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.RED;
+          return Color.RED;
         }
 
         @Override
         public Color darker_1() {
-            return Color.RED_DARKEN_1;
+          return Color.RED_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.RED_DARKEN_2;
+          return Color.RED_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.RED_DARKEN_3;
+          return Color.RED_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.RED_DARKEN_4;
+          return Color.RED_DARKEN_4;
         }
 
         public String getName() {
-            return "RED";
+          return "RED";
         }
 
         @Override
         public String rgba_1() {
-            return "244, 67, 54, 0.1";
+          return "244, 67, 54, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "244, 67, 54, 0.5";
+          return "244, 67, 54, 0.5";
         }
-    };
+      };
 
-    ColorScheme PINK = new ColorScheme() {
+  ColorScheme PINK =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.PINK_LIGHTEN_5;
+          return Color.PINK_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.PINK_LIGHTEN_4;
+          return Color.PINK_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.PINK_LIGHTEN_3;
+          return Color.PINK_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.PINK_LIGHTEN_2;
+          return Color.PINK_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.PINK_LIGHTEN_1;
+          return Color.PINK_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.PINK;
+          return Color.PINK;
         }
 
         @Override
         public Color darker_1() {
-            return Color.PINK_DARKEN_1;
+          return Color.PINK_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.PINK_DARKEN_2;
+          return Color.PINK_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.PINK_DARKEN_3;
+          return Color.PINK_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.PINK_DARKEN_4;
+          return Color.PINK_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "233, 30, 99, 0.1";
+          return "233, 30, 99, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "233, 30, 99, 0.5";
+          return "233, 30, 99, 0.5";
         }
+      };
 
-    };
-
-    ColorScheme PURPLE = new ColorScheme() {
+  ColorScheme PURPLE =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.PURPLE_LIGHTEN_5;
+          return Color.PURPLE_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.PURPLE_LIGHTEN_4;
+          return Color.PURPLE_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.PURPLE_LIGHTEN_3;
+          return Color.PURPLE_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.PURPLE_LIGHTEN_2;
+          return Color.PURPLE_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.PURPLE_LIGHTEN_1;
+          return Color.PURPLE_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.PURPLE;
+          return Color.PURPLE;
         }
 
         @Override
         public Color darker_1() {
-            return Color.PURPLE_DARKEN_1;
+          return Color.PURPLE_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.PURPLE_DARKEN_2;
+          return Color.PURPLE_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.PURPLE_DARKEN_3;
+          return Color.PURPLE_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.PURPLE_DARKEN_4;
+          return Color.PURPLE_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "156, 39, 176, 0.1";
+          return "156, 39, 176, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "156, 39, 176, 0.5";
+          return "156, 39, 176, 0.5";
         }
-    };
+      };
 
-    ColorScheme DEEP_PURPLE = new ColorScheme() {
+  ColorScheme DEEP_PURPLE =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.DEEP_PURPLE_LIGHTEN_5;
+          return Color.DEEP_PURPLE_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.DEEP_PURPLE_LIGHTEN_4;
+          return Color.DEEP_PURPLE_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.DEEP_PURPLE_LIGHTEN_3;
+          return Color.DEEP_PURPLE_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.DEEP_PURPLE_LIGHTEN_2;
+          return Color.DEEP_PURPLE_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.DEEP_PURPLE_LIGHTEN_1;
+          return Color.DEEP_PURPLE_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.DEEP_PURPLE;
+          return Color.DEEP_PURPLE;
         }
 
         @Override
         public Color darker_1() {
-            return Color.DEEP_PURPLE_DARKEN_1;
+          return Color.DEEP_PURPLE_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.DEEP_PURPLE_DARKEN_2;
+          return Color.DEEP_PURPLE_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.DEEP_PURPLE_DARKEN_3;
+          return Color.DEEP_PURPLE_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.DEEP_PURPLE_DARKEN_4;
+          return Color.DEEP_PURPLE_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "103, 58, 183, 0.1";
+          return "103, 58, 183, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "103, 58, 183, 0.5";
+          return "103, 58, 183, 0.5";
         }
+      };
 
-    };
-
-    ColorScheme INDIGO = new ColorScheme() {
+  ColorScheme INDIGO =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.INDIGO_LIGHTEN_5;
+          return Color.INDIGO_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.INDIGO_LIGHTEN_4;
+          return Color.INDIGO_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.INDIGO_LIGHTEN_3;
+          return Color.INDIGO_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.INDIGO_LIGHTEN_2;
+          return Color.INDIGO_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.INDIGO_LIGHTEN_1;
+          return Color.INDIGO_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.INDIGO;
+          return Color.INDIGO;
         }
 
         @Override
         public Color darker_1() {
-            return Color.INDIGO_DARKEN_1;
+          return Color.INDIGO_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.INDIGO_DARKEN_2;
+          return Color.INDIGO_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.INDIGO_DARKEN_3;
+          return Color.INDIGO_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.INDIGO_DARKEN_4;
+          return Color.INDIGO_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "63, 81, 181, 0.1";
+          return "63, 81, 181, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "63, 81, 181, 0.5";
+          return "63, 81, 181, 0.5";
         }
+      };
 
-    };
-
-    ColorScheme BLUE = new ColorScheme() {
+  ColorScheme BLUE =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.BLUE_LIGHTEN_5;
+          return Color.BLUE_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.BLUE_LIGHTEN_4;
+          return Color.BLUE_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.BLUE_LIGHTEN_3;
+          return Color.BLUE_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.BLUE_LIGHTEN_2;
+          return Color.BLUE_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.BLUE_LIGHTEN_1;
+          return Color.BLUE_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.BLUE;
+          return Color.BLUE;
         }
 
         @Override
         public Color darker_1() {
-            return Color.BLUE_DARKEN_1;
+          return Color.BLUE_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.BLUE_DARKEN_2;
+          return Color.BLUE_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.BLUE_DARKEN_3;
+          return Color.BLUE_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.BLUE_DARKEN_4;
+          return Color.BLUE_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "33, 150, 243, 0.1";
+          return "33, 150, 243, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "33, 150, 243, 0.5";
+          return "33, 150, 243, 0.5";
         }
+      };
 
-    };
-
-    ColorScheme LIGHT_BLUE = new ColorScheme() {
+  ColorScheme LIGHT_BLUE =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.LIGHT_BLUE_LIGHTEN_5;
+          return Color.LIGHT_BLUE_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.LIGHT_BLUE_LIGHTEN_4;
+          return Color.LIGHT_BLUE_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.LIGHT_BLUE_LIGHTEN_3;
+          return Color.LIGHT_BLUE_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.LIGHT_BLUE_LIGHTEN_2;
+          return Color.LIGHT_BLUE_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.LIGHT_BLUE_LIGHTEN_1;
+          return Color.LIGHT_BLUE_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.LIGHT_BLUE;
+          return Color.LIGHT_BLUE;
         }
 
         @Override
         public Color darker_1() {
-            return Color.LIGHT_BLUE_DARKEN_1;
+          return Color.LIGHT_BLUE_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.LIGHT_BLUE_DARKEN_2;
+          return Color.LIGHT_BLUE_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.LIGHT_BLUE_DARKEN_3;
+          return Color.LIGHT_BLUE_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.LIGHT_BLUE_DARKEN_4;
+          return Color.LIGHT_BLUE_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "3, 169, 244, 0.1";
+          return "3, 169, 244, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "3, 169, 244, 0.5";
+          return "3, 169, 244, 0.5";
         }
-    };
+      };
 
-    ColorScheme CYAN = new ColorScheme() {
+  ColorScheme CYAN =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.CYAN_LIGHTEN_5;
+          return Color.CYAN_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.CYAN_LIGHTEN_4;
+          return Color.CYAN_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.CYAN_LIGHTEN_3;
+          return Color.CYAN_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.CYAN_LIGHTEN_2;
+          return Color.CYAN_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.CYAN_LIGHTEN_1;
+          return Color.CYAN_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.CYAN;
+          return Color.CYAN;
         }
 
         @Override
         public Color darker_1() {
-            return Color.CYAN_DARKEN_1;
+          return Color.CYAN_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.CYAN_DARKEN_2;
+          return Color.CYAN_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.CYAN_DARKEN_3;
+          return Color.CYAN_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.CYAN_DARKEN_4;
+          return Color.CYAN_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "0, 188, 212, 0.1";
+          return "0, 188, 212, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "0, 188, 212, 0.5";
+          return "0, 188, 212, 0.5";
         }
-    };
+      };
 
-    ColorScheme TEAL = new ColorScheme() {
+  ColorScheme TEAL =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.TEAL_LIGHTEN_5;
+          return Color.TEAL_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.TEAL_LIGHTEN_4;
+          return Color.TEAL_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.TEAL_LIGHTEN_3;
+          return Color.TEAL_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.TEAL_LIGHTEN_2;
+          return Color.TEAL_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.TEAL_LIGHTEN_1;
+          return Color.TEAL_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.TEAL;
+          return Color.TEAL;
         }
 
         @Override
         public Color darker_1() {
-            return Color.TEAL_DARKEN_1;
+          return Color.TEAL_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.TEAL_DARKEN_2;
+          return Color.TEAL_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.TEAL_DARKEN_3;
+          return Color.TEAL_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.TEAL_DARKEN_4;
+          return Color.TEAL_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "0, 150, 136, 0.1";
+          return "0, 150, 136, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "0, 150, 136, 0.5";
+          return "0, 150, 136, 0.5";
         }
-    };
+      };
 
-    ColorScheme GREEN = new ColorScheme() {
+  ColorScheme GREEN =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.GREEN_LIGHTEN_5;
+          return Color.GREEN_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.GREEN_LIGHTEN_4;
+          return Color.GREEN_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.GREEN_LIGHTEN_3;
+          return Color.GREEN_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.GREEN_LIGHTEN_2;
+          return Color.GREEN_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.GREEN_LIGHTEN_1;
+          return Color.GREEN_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.GREEN;
+          return Color.GREEN;
         }
 
         @Override
         public Color darker_1() {
-            return Color.GREEN_DARKEN_1;
+          return Color.GREEN_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.GREEN_DARKEN_2;
+          return Color.GREEN_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.GREEN_DARKEN_3;
+          return Color.GREEN_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.GREEN_DARKEN_4;
+          return Color.GREEN_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "76, 175, 80, 0.1";
+          return "76, 175, 80, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "76, 175, 80, 0.5";
+          return "76, 175, 80, 0.5";
         }
-    };
+      };
 
-    ColorScheme LIGHT_GREEN = new ColorScheme() {
+  ColorScheme LIGHT_GREEN =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.LIGHT_GREEN_LIGHTEN_5;
+          return Color.LIGHT_GREEN_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.LIGHT_GREEN_LIGHTEN_4;
+          return Color.LIGHT_GREEN_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.LIGHT_GREEN_LIGHTEN_3;
+          return Color.LIGHT_GREEN_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.LIGHT_GREEN_LIGHTEN_2;
+          return Color.LIGHT_GREEN_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.LIGHT_GREEN_LIGHTEN_1;
+          return Color.LIGHT_GREEN_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.LIGHT_GREEN;
+          return Color.LIGHT_GREEN;
         }
 
         @Override
         public Color darker_1() {
-            return Color.LIGHT_GREEN_DARKEN_1;
+          return Color.LIGHT_GREEN_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.LIGHT_GREEN_DARKEN_2;
+          return Color.LIGHT_GREEN_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.LIGHT_GREEN_DARKEN_3;
+          return Color.LIGHT_GREEN_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.LIGHT_GREEN_DARKEN_4;
+          return Color.LIGHT_GREEN_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "139, 195, 74, 0.1";
+          return "139, 195, 74, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "139, 195, 74, 0.5";
+          return "139, 195, 74, 0.5";
         }
-    };
+      };
 
-    ColorScheme LIME = new ColorScheme() {
+  ColorScheme LIME =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.LIME_LIGHTEN_5;
+          return Color.LIME_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.LIME_LIGHTEN_4;
+          return Color.LIME_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.LIME_LIGHTEN_3;
+          return Color.LIME_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.LIME_LIGHTEN_2;
+          return Color.LIME_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.LIME_LIGHTEN_1;
+          return Color.LIME_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.LIME;
+          return Color.LIME;
         }
 
         @Override
         public Color darker_1() {
-            return Color.LIME_DARKEN_1;
+          return Color.LIME_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.LIME_DARKEN_2;
+          return Color.LIME_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.LIME_DARKEN_3;
+          return Color.LIME_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.LIME_DARKEN_4;
+          return Color.LIME_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "205, 220, 57, 0.1";
+          return "205, 220, 57, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "205, 220, 57, 0.5";
+          return "205, 220, 57, 0.5";
         }
-    };
+      };
 
-    ColorScheme YELLOW = new ColorScheme() {
+  ColorScheme YELLOW =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.YELLOW_LIGHTEN_5;
+          return Color.YELLOW_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.YELLOW_LIGHTEN_4;
+          return Color.YELLOW_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.YELLOW_LIGHTEN_3;
+          return Color.YELLOW_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.YELLOW_LIGHTEN_2;
+          return Color.YELLOW_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.YELLOW_LIGHTEN_1;
+          return Color.YELLOW_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.YELLOW;
+          return Color.YELLOW;
         }
 
         @Override
         public Color darker_1() {
-            return Color.YELLOW_DARKEN_1;
+          return Color.YELLOW_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.YELLOW_DARKEN_2;
+          return Color.YELLOW_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.YELLOW_DARKEN_3;
+          return Color.YELLOW_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.YELLOW_DARKEN_4;
+          return Color.YELLOW_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "255, 232, 33, 0.1";
+          return "255, 232, 33, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "255, 232, 33, 0.5";
+          return "255, 232, 33, 0.5";
         }
-    };
+      };
 
-    ColorScheme AMBER = new ColorScheme() {
+  ColorScheme AMBER =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.AMBER_LIGHTEN_5;
+          return Color.AMBER_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.AMBER_LIGHTEN_4;
+          return Color.AMBER_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.AMBER_LIGHTEN_3;
+          return Color.AMBER_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.AMBER_LIGHTEN_2;
+          return Color.AMBER_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.AMBER_LIGHTEN_1;
+          return Color.AMBER_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.AMBER;
+          return Color.AMBER;
         }
 
         @Override
         public Color darker_1() {
-            return Color.AMBER_DARKEN_1;
+          return Color.AMBER_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.AMBER_DARKEN_2;
+          return Color.AMBER_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.AMBER_DARKEN_3;
+          return Color.AMBER_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.AMBER_DARKEN_4;
+          return Color.AMBER_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "255, 193, 7, 0.1";
+          return "255, 193, 7, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "255, 193, 7, 0.5";
+          return "255, 193, 7, 0.5";
         }
-    };
+      };
 
-    ColorScheme ORANGE = new ColorScheme() {
+  ColorScheme ORANGE =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.ORANGE_LIGHTEN_5;
+          return Color.ORANGE_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.ORANGE_LIGHTEN_4;
+          return Color.ORANGE_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.ORANGE_LIGHTEN_3;
+          return Color.ORANGE_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.ORANGE_LIGHTEN_2;
+          return Color.ORANGE_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.ORANGE_LIGHTEN_1;
+          return Color.ORANGE_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.ORANGE;
+          return Color.ORANGE;
         }
 
         @Override
         public Color darker_1() {
-            return Color.ORANGE_DARKEN_1;
+          return Color.ORANGE_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.ORANGE_DARKEN_2;
+          return Color.ORANGE_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.ORANGE_DARKEN_3;
+          return Color.ORANGE_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.ORANGE_DARKEN_4;
+          return Color.ORANGE_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "255, 152, 0, 0.1";
+          return "255, 152, 0, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "255, 152, 0, 0.5";
+          return "255, 152, 0, 0.5";
         }
+      };
 
-    };
-
-    ColorScheme DEEP_ORANGE = new ColorScheme() {
+  ColorScheme DEEP_ORANGE =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.DEEP_ORANGE_LIGHTEN_5;
+          return Color.DEEP_ORANGE_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.DEEP_ORANGE_LIGHTEN_4;
+          return Color.DEEP_ORANGE_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.DEEP_ORANGE_LIGHTEN_3;
+          return Color.DEEP_ORANGE_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.DEEP_ORANGE_LIGHTEN_2;
+          return Color.DEEP_ORANGE_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.DEEP_ORANGE_LIGHTEN_1;
+          return Color.DEEP_ORANGE_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.DEEP_ORANGE;
+          return Color.DEEP_ORANGE;
         }
 
         @Override
         public Color darker_1() {
-            return Color.DEEP_ORANGE_DARKEN_1;
+          return Color.DEEP_ORANGE_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.DEEP_ORANGE_DARKEN_2;
+          return Color.DEEP_ORANGE_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.DEEP_ORANGE_DARKEN_3;
+          return Color.DEEP_ORANGE_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.DEEP_ORANGE_DARKEN_4;
+          return Color.DEEP_ORANGE_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "255, 87, 34, 0.1";
+          return "255, 87, 34, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "255, 87, 34, 0.5";
+          return "255, 87, 34, 0.5";
         }
-    };
+      };
 
-    ColorScheme BROWN = new ColorScheme() {
+  ColorScheme BROWN =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.BROWN_LIGHTEN_5;
+          return Color.BROWN_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.BROWN_LIGHTEN_4;
+          return Color.BROWN_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.BROWN_LIGHTEN_3;
+          return Color.BROWN_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.BROWN_LIGHTEN_2;
+          return Color.BROWN_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.BROWN_LIGHTEN_1;
+          return Color.BROWN_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.BROWN;
+          return Color.BROWN;
         }
 
         @Override
         public Color darker_1() {
-            return Color.BROWN_DARKEN_1;
+          return Color.BROWN_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.BROWN_DARKEN_2;
+          return Color.BROWN_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.BROWN_DARKEN_3;
+          return Color.BROWN_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.BROWN_DARKEN_4;
+          return Color.BROWN_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "121, 85, 72, 0.1";
+          return "121, 85, 72, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "121, 85, 72, 0.5";
+          return "121, 85, 72, 0.5";
         }
-    };
+      };
 
-    ColorScheme GREY = new ColorScheme() {
+  ColorScheme GREY =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.GREY_LIGHTEN_5;
+          return Color.GREY_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.GREY_LIGHTEN_4;
+          return Color.GREY_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.GREY_LIGHTEN_3;
+          return Color.GREY_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.GREY_LIGHTEN_2;
+          return Color.GREY_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.GREY_LIGHTEN_1;
+          return Color.GREY_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.GREY;
+          return Color.GREY;
         }
 
         @Override
         public Color darker_1() {
-            return Color.GREY_DARKEN_1;
+          return Color.GREY_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.GREY_DARKEN_2;
+          return Color.GREY_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.GREY_DARKEN_3;
+          return Color.GREY_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.GREY_DARKEN_4;
+          return Color.GREY_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "158, 158, 158, 0.1";
+          return "158, 158, 158, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "158, 158, 158, 0.5";
+          return "158, 158, 158, 0.5";
         }
-    };
+      };
 
-    ColorScheme BLUE_GREY = new ColorScheme() {
+  ColorScheme BLUE_GREY =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.BLUE_GREY_LIGHTEN_5;
+          return Color.BLUE_GREY_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.BLUE_GREY_LIGHTEN_4;
+          return Color.BLUE_GREY_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.BLUE_GREY_LIGHTEN_3;
+          return Color.BLUE_GREY_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.BLUE_GREY_LIGHTEN_2;
+          return Color.BLUE_GREY_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.BLUE_GREY_LIGHTEN_1;
+          return Color.BLUE_GREY_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.BLUE_GREY;
+          return Color.BLUE_GREY;
         }
 
         @Override
         public Color darker_1() {
-            return Color.BLUE_GREY_DARKEN_1;
+          return Color.BLUE_GREY_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.BLUE_GREY_DARKEN_2;
+          return Color.BLUE_GREY_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.BLUE_GREY_DARKEN_3;
+          return Color.BLUE_GREY_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.BLUE_GREY_DARKEN_4;
+          return Color.BLUE_GREY_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "96, 125, 139, 0.1";
+          return "96, 125, 139, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "96, 125, 139, 0.5";
+          return "96, 125, 139, 0.5";
         }
-    };
+      };
 
-    ColorScheme BLACK = new ColorScheme() {
+  ColorScheme BLACK =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.BLACK_LIGHTEN_5;
+          return Color.BLACK_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.BLACK_LIGHTEN_4;
+          return Color.BLACK_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.BLACK_LIGHTEN_3;
+          return Color.BLACK_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.BLACK_LIGHTEN_2;
+          return Color.BLACK_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.BLACK_LIGHTEN_1;
+          return Color.BLACK_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.BLACK;
+          return Color.BLACK;
         }
 
         @Override
         public Color darker_1() {
-            return Color.BLACK_DARKEN_1;
+          return Color.BLACK_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.BLACK_DARKEN_2;
+          return Color.BLACK_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.BLACK_DARKEN_3;
+          return Color.BLACK_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.BLACK_DARKEN_4;
+          return Color.BLACK_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "0, 0, 0, 0.1";
+          return "0, 0, 0, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "0, 0, 0, 0.5";
+          return "0, 0, 0, 0.5";
         }
-    };
+      };
 
-    ColorScheme WHITE = new ColorScheme() {
+  ColorScheme WHITE =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.WHITE_LIGHTEN_5;
+          return Color.WHITE_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.WHITE_LIGHTEN_4;
+          return Color.WHITE_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.WHITE_LIGHTEN_3;
+          return Color.WHITE_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.WHITE_LIGHTEN_2;
+          return Color.WHITE_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.WHITE_LIGHTEN_1;
+          return Color.WHITE_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.WHITE;
+          return Color.WHITE;
         }
 
         @Override
         public Color darker_1() {
-            return Color.WHITE_DARKEN_1;
+          return Color.WHITE_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.WHITE_DARKEN_2;
+          return Color.WHITE_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.WHITE_DARKEN_3;
+          return Color.WHITE_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.WHITE_DARKEN_4;
+          return Color.WHITE_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "255, 255, 255, 0.1";
+          return "255, 255, 255, 0.1";
         }
 
         @Override
         public String rgba_2() {
-            return "255, 255, 255, 0.5";
+          return "255, 255, 255, 0.5";
         }
-    };
+      };
 
-    ColorScheme TRANSPARENT = new ColorScheme() {
+  ColorScheme TRANSPARENT =
+      new ColorScheme() {
         @Override
         public Color lighten_5() {
-            return Color.TRANSPARENT_LIGHTEN_5;
+          return Color.TRANSPARENT_LIGHTEN_5;
         }
 
         @Override
         public Color lighten_4() {
-            return Color.TRANSPARENT_LIGHTEN_4;
+          return Color.TRANSPARENT_LIGHTEN_4;
         }
 
         @Override
         public Color lighten_3() {
-            return Color.TRANSPARENT_LIGHTEN_3;
+          return Color.TRANSPARENT_LIGHTEN_3;
         }
 
         @Override
         public Color lighten_2() {
-            return Color.TRANSPARENT_LIGHTEN_2;
+          return Color.TRANSPARENT_LIGHTEN_2;
         }
 
         @Override
         public Color lighten_1() {
-            return Color.TRANSPARENT_LIGHTEN_1;
+          return Color.TRANSPARENT_LIGHTEN_1;
         }
 
         @Override
         public Color color() {
-            return Color.TRANSPARENT;
+          return Color.TRANSPARENT;
         }
 
         @Override
         public Color darker_1() {
-            return Color.TRANSPARENT_DARKEN_1;
+          return Color.TRANSPARENT_DARKEN_1;
         }
 
         @Override
         public Color darker_2() {
-            return Color.TRANSPARENT_DARKEN_2;
+          return Color.TRANSPARENT_DARKEN_2;
         }
 
         @Override
         public Color darker_3() {
-            return Color.TRANSPARENT_DARKEN_3;
+          return Color.TRANSPARENT_DARKEN_3;
         }
 
         @Override
         public Color darker_4() {
-            return Color.TRANSPARENT_DARKEN_4;
+          return Color.TRANSPARENT_DARKEN_4;
         }
 
         @Override
         public String rgba_1() {
-            return "";
+          return "";
         }
 
         @Override
         public String rgba_2() {
-            return "";
+          return "";
         }
-    };
+      };
 
-    static ColorScheme of(String name) {
-        switch (name) {
-            case "RED":
-                return ColorScheme.RED;
+  static ColorScheme of(String name) {
+    switch (name) {
+      case "RED":
+        return ColorScheme.RED;
 
-            case "PINK":
-                return ColorScheme.PINK;
+      case "PINK":
+        return ColorScheme.PINK;
 
-            case "PURPLE":
-                return ColorScheme.PURPLE;
+      case "PURPLE":
+        return ColorScheme.PURPLE;
 
-            case "DEEP PURPLE":
-                return ColorScheme.DEEP_PURPLE;
+      case "DEEP PURPLE":
+        return ColorScheme.DEEP_PURPLE;
 
-            case "INDIGO":
-                return ColorScheme.INDIGO;
+      case "INDIGO":
+        return ColorScheme.INDIGO;
 
-            case "BLUE":
-                return ColorScheme.BLUE;
+      case "BLUE":
+        return ColorScheme.BLUE;
 
-            case "LIGHT BLUE":
-                return ColorScheme.LIGHT_BLUE;
+      case "LIGHT BLUE":
+        return ColorScheme.LIGHT_BLUE;
 
-            case "CYAN":
-                return ColorScheme.CYAN;
+      case "CYAN":
+        return ColorScheme.CYAN;
 
-            case "TEAL":
-                return ColorScheme.TEAL;
+      case "TEAL":
+        return ColorScheme.TEAL;
 
-            case "GREEN":
-                return ColorScheme.GREEN;
+      case "GREEN":
+        return ColorScheme.GREEN;
 
-            case "LIGHT GREEN":
-                return ColorScheme.LIGHT_GREEN;
+      case "LIGHT GREEN":
+        return ColorScheme.LIGHT_GREEN;
 
-            case "LIME":
-                return ColorScheme.LIME;
+      case "LIME":
+        return ColorScheme.LIME;
 
-            case "YELLOW":
-                return ColorScheme.YELLOW;
+      case "YELLOW":
+        return ColorScheme.YELLOW;
 
-            case "AMBER":
-                return ColorScheme.AMBER;
+      case "AMBER":
+        return ColorScheme.AMBER;
 
-            case "ORANGE":
-                return ColorScheme.ORANGE;
+      case "ORANGE":
+        return ColorScheme.ORANGE;
 
-            case "DEEP ORANGE":
-                return ColorScheme.DEEP_ORANGE;
+      case "DEEP ORANGE":
+        return ColorScheme.DEEP_ORANGE;
 
-            case "BROWN":
-                return ColorScheme.BROWN;
+      case "BROWN":
+        return ColorScheme.BROWN;
 
-            case "GREY":
-                return ColorScheme.GREY;
+      case "GREY":
+        return ColorScheme.GREY;
 
-            case "BLUE GREY":
-                return ColorScheme.BLUE_GREY;
+      case "BLUE GREY":
+        return ColorScheme.BLUE_GREY;
 
-            case "BLACK":
-                return ColorScheme.BLACK;
+      case "BLACK":
+        return ColorScheme.BLACK;
 
-            case "WHITE":
-                return ColorScheme.WHITE;
+      case "WHITE":
+        return ColorScheme.WHITE;
 
-            case "TRANSPARENT":
-                return ColorScheme.TRANSPARENT;
-            default:
-                throw new IllegalArgumentException("ColorScheme [" + name + "] not found!.");
-        }
+      case "TRANSPARENT":
+        return ColorScheme.TRANSPARENT;
+      default:
+        throw new IllegalArgumentException("ColorScheme [" + name + "] not found!.");
     }
-
+  }
 }

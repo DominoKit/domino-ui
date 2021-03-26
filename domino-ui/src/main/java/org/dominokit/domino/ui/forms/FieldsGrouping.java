@@ -1,157 +1,274 @@
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.dominokit.domino.ui.forms;
-
-import jsinterop.base.Js;
-import org.dominokit.domino.ui.forms.validations.ValidationResult;
-import org.dominokit.domino.ui.utils.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import jsinterop.base.Js;
+import org.dominokit.domino.ui.forms.validations.ValidationResult;
+import org.dominokit.domino.ui.utils.*;
 
+/**
+ * This class can logically group a set of components that implements {@link HasGrouping} interface
+ *
+ * <p>The same component can be grouped using multiple FieldGrouping instances
+ *
+ * <p>The FieldsGrouping can be used to perform common logic to all grouped component with a single
+ * call
+ *
+ * <p>example
+ *
+ * <pre>
+ *     FieldsGrouping.create()
+ *         .addFormElement(nameTextBox)
+ *         .addFormElement(phoneTextBox)
+ *         .addFormElement(emailBox)
+ *         .setRequired(true)
+ *         .setAutoValidation(true);
+ * </pre>
+ */
 public class FieldsGrouping implements HasValidation<FieldsGrouping> {
 
-    private List<HasGrouping> formElements = new ArrayList<>();
-    private List<Validator> validators = new ArrayList<>();
-    private List<String> errors = new ArrayList<>();
+  private List<HasGrouping> formElements = new ArrayList<>();
+  private List<Validator> validators = new ArrayList<>();
+  private List<String> errors = new ArrayList<>();
 
-    public static FieldsGrouping create() {
-        return new FieldsGrouping();
+  /** @return a new instance */
+  public static FieldsGrouping create() {
+    return new FieldsGrouping();
+  }
+
+  /**
+   * Adds a component that implements {@link HasGrouping}
+   *
+   * @param formElement {@link HasGrouping}
+   * @return same FieldGrouping instance
+   */
+  public FieldsGrouping addFormElement(HasGrouping formElement) {
+    formElements.add(formElement);
+    return this;
+  }
+
+  /** {@inheritDoc} validate all components grouped by this FieldsGrouping in fail-fast mode */
+  @Override
+  public ValidationResult validate() {
+    this.errors.clear();
+    boolean fieldsValid = validateFields();
+
+    if (!fieldsValid) {
+      return new ValidationResult(false, "Invalid fields");
     }
 
-    public FieldsGrouping addFormElement(HasGrouping formElement) {
-        formElements.add(formElement);
-        return this;
+    for (Validator validator : validators) {
+      ValidationResult result = validator.isValid();
+      if (!result.isValid()) {
+        return result;
+      }
     }
+    return ValidationResult.valid();
+  }
 
-    public ValidationResult validate() {
-        this.errors.clear();
-        boolean fieldsValid = validateFields();
+  private boolean validateFields() {
 
-        if (!fieldsValid) {
-            return new ValidationResult(false, "Invalid fields");
-        }
+    boolean valid = true;
 
-        for (Validator validator : validators) {
-            ValidationResult result = validator.isValid();
-            if (!result.isValid()) {
-                return result;
-            }
-        }
-        return ValidationResult.valid();
+    for (HasGrouping formElement : formElements) {
+      ValidationResult result = formElement.validate();
+      if (!result.isValid()) {
+        valid = false;
+        this.errors.addAll(formElement.getErrors());
+      }
     }
+    return valid;
+  }
 
-    private boolean validateFields() {
+  /**
+   * Clears all the grouped components
+   *
+   * @return same FieldsGrouping instance
+   */
+  public FieldsGrouping clear() {
+    formElements.forEach(HasGrouping::clear);
+    return this;
+  }
 
-        boolean valid = true;
+  /** {@inheritDoc} Remove all validation messages from all grouped components */
+  @Override
+  public FieldsGrouping clearInvalid() {
+    formElements.forEach(HasGrouping::clearInvalid);
+    this.errors.clear();
+    return this;
+  }
 
-        for (HasGrouping formElement : formElements) {
-            ValidationResult result = formElement.validate();
-            if (!result.isValid()) {
-                valid = false;
-                this.errors.addAll(formElement.getErrors());
-            }
-        }
-        return valid;
-    }
+  /** {@inheritDoc} Invalidate all the grouped components using the provided errorMessage */
+  @Override
+  public FieldsGrouping invalidate(String errorMessage) {
+    return invalidate(Collections.singletonList(errorMessage));
+  }
 
-    public FieldsGrouping clear() {
-        formElements.forEach(HasGrouping::clear);
-        return this;
-    }
+  /**
+   * {@inheritDoc} Invalidate all the grouped components using the provided list of errorMessages
+   */
+  @Override
+  public FieldsGrouping invalidate(List<String> errorMessages) {
+    formElements.forEach(formElement -> formElement.invalidate(errorMessages));
+    this.errors.addAll(errorMessages);
+    return this;
+  }
 
-    public FieldsGrouping clearInvalid() {
-        formElements.forEach(HasGrouping::clearInvalid);
-        this.errors.clear();
-        return this;
-    }
+  /**
+   * change the readonly mode for all grouped components
+   *
+   * @param readOnly boolean, if true change all grouped components to readonly mode, otherwise
+   *     switch them out of readonly mode
+   * @return same FieldsGrouping instance
+   */
+  public FieldsGrouping setReadOnly(boolean readOnly) {
+    formElements.stream()
+        .filter(formElement -> formElement instanceof IsReadOnly)
+        .map(Js::<IsReadOnly>cast)
+        .forEach(isReadOnly -> isReadOnly.setReadOnly(readOnly));
+    return this;
+  }
 
-    public FieldsGrouping invalidate(String errorMessage) {
-        return invalidate(Collections.singletonList(errorMessage));
-    }
+  /**
+   * Disable all grouped components
+   *
+   * @return same FieldsGrouping instance
+   */
+  public FieldsGrouping disable() {
+    formElements.forEach(Switchable::disable);
+    return this;
+  }
 
-    @Override
-    public FieldsGrouping invalidate(List<String> errorMessages) {
-        formElements.forEach(formElement -> formElement.invalidate(errorMessages));
-        this.errors.addAll(errorMessages);
-        return this;
-    }
+  /**
+   * Enable all grouped components
+   *
+   * @return same FieldsGrouping instance
+   */
+  public FieldsGrouping enable() {
+    formElements.forEach(Switchable::enable);
+    return this;
+  }
 
-    public FieldsGrouping setReadOnly(boolean readOnly) {
-        formElements.stream().filter(formElement -> formElement instanceof IsReadOnly)
-                .map(Js::<IsReadOnly>cast)
-                .forEach(isReadOnly -> isReadOnly.setReadOnly(readOnly));
-        return this;
-    }
+  /** @return boolean, true if all grouped components are enabled, otherwise false */
+  public boolean isEnabled() {
+    return formElements.stream().allMatch(Switchable::isEnabled);
+  }
 
-    public FieldsGrouping disable() {
-        formElements.forEach(Switchable::disable);
-        return this;
-    }
+  /**
+   * @param autoValidation boolean, if true enables autoValidation for all grouped components,
+   *     otherwise disable autoValidation
+   * @return
+   */
+  public FieldsGrouping setAutoValidation(boolean autoValidation) {
+    formElements.forEach(formElement -> formElement.setAutoValidation(autoValidation));
+    return this;
+  }
 
-    public FieldsGrouping enable() {
-        formElements.forEach(Switchable::enable);
-        return this;
-    }
+  /** @return boolean, true if all grouped components has autoValidation enabled */
+  public boolean isAutoValidation() {
+    return formElements.stream().allMatch(HasAutoValidation::isAutoValidation);
+  }
 
-    public boolean isEnabled() {
-        return formElements.stream().allMatch(Switchable::isEnabled);
-    }
+  /**
+   * Disable/Enable required for all grouped components
+   *
+   * @param required boolean, if true set all grouped components to required, otherwise to not
+   *     required
+   * @return same FieldsGrouping instance
+   */
+  public FieldsGrouping setRequired(boolean required) {
+    formElements.forEach(formElement -> formElement.setRequired(required));
+    return this;
+  }
 
-    public FieldsGrouping setAutoValidation(boolean autoValidation) {
-        formElements.forEach(formElement -> formElement.setAutoValidation(autoValidation));
-        return this;
-    }
+  /**
+   * Disable/Enable required for all grouped components with a custom required message
+   *
+   * @param required boolean, if true set all grouped components to required, otherwise to not
+   *     required
+   * @param message String required validation message
+   * @return same FieldsGrouping instance
+   */
+  public FieldsGrouping setRequired(boolean required, String message) {
+    formElements.forEach(formElement -> formElement.setRequired(required, message));
+    return this;
+  }
 
-    public boolean isAutoValidation() {
-        return formElements.stream().allMatch(HasAutoValidation::isAutoValidation);
-    }
+  /** @return boolean, true if all grouped components are required */
+  public boolean isRequired() {
+    return formElements.stream().allMatch(IsRequired::isRequired);
+  }
 
-    public FieldsGrouping setRequired(boolean required) {
-        formElements.forEach(formElement -> formElement.setRequired(required));
-        return this;
-    }
+  /** @return the grouped components as a List of {@link HasGrouping} */
+  public List<HasGrouping> getFormElements() {
+    return formElements;
+  }
 
-    public FieldsGrouping setRequired(boolean required, String message) {
-        formElements.forEach(formElement -> formElement.setRequired(required, message));
-        return this;
-    }
+  /**
+   * {@inheritDoc} Adds a validator to this FieldsGrouping, the validator will be applied to all
+   * grouped elements when {@link #validate()} is called
+   *
+   * @param validator {@link Validator}
+   * @return same FieldsGrouping instance
+   */
+  public FieldsGrouping addValidator(Validator validator) {
+    validators.add(validator);
+    return this;
+  }
 
-    public boolean isRequired() {
-        return formElements.stream().allMatch(IsRequired::isRequired);
-    }
+  /** {@inheritDoc} */
+  @Override
+  public FieldsGrouping removeValidator(Validator validator) {
+    validators.remove(validator);
+    return this;
+  }
 
-    public List<HasGrouping> getFormElements() {
-        return formElements;
-    }
+  /** {@inheritDoc} */
+  @Override
+  public boolean hasValidator(Validator validator) {
+    return validators.contains(validator);
+  }
 
-    public FieldsGrouping addValidator(Validator validator) {
-        validators.add(validator);
-        return this;
-    }
+  /**
+   * Removes a grouped component from this FieldsGrouping
+   *
+   * @param hasGrouping {@link HasGrouping}
+   * @return same FieldsGrouping instance
+   */
+  public FieldsGrouping removeFormElement(HasGrouping hasGrouping) {
+    formElements.remove(hasGrouping);
+    return this;
+  }
 
-    @Override
-    public FieldsGrouping removeValidator(Validator validator) {
-        validators.remove(validator);
-        return this;
-    }
+  /**
+   * Removes all grouped components from this FieldsGrouping
+   *
+   * @return same FieldsGrouping insatnce
+   */
+  public FieldsGrouping removeAllFormElements() {
+    formElements.clear();
+    return this;
+  }
 
-    @Override
-    public boolean hasValidator(Validator validator) {
-        return validators.contains(validator);
-    }
-
-    public FieldsGrouping removeFormElement(HasGrouping hasGrouping) {
-        formElements.remove(hasGrouping);
-        return this;
-    }
-
-    public FieldsGrouping removeAllFormElements() {
-        formElements.clear();
-        return this;
-    }
-
-    @Override
-    public List<String> getErrors() {
-        return errors;
-    }
+  /** {@inheritDoc} */
+  @Override
+  public List<String> getErrors() {
+    return errors;
+  }
 }

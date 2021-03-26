@@ -5,7 +5,7 @@
     <parent>
         <artifactId>domino-ui-tools</artifactId>
         <groupId>org.dominokit</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0-RC1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -28,26 +28,26 @@
             <artifactId>javapoet</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.dominokit.jackson</groupId>
-            <artifactId>jackson-apt</artifactId>
+            <groupId>org.dominokit</groupId>
+            <artifactId>domino-jackson</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>com.google.elemental2</groupId>
                     <artifactId>elemental2-core</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.gwtproject.i18n</groupId>
+                    <groupId>org.dominokit.i18n</groupId>
                     <artifactId>gwt-cldr</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.gwtproject.i18n</groupId>
+                    <groupId>org.dominokit.i18n</groupId>
                     <artifactId>gwt-datetimeformat</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.dominokit.jackson</groupId>
-            <artifactId>jackson-apt-processor</artifactId>
+            <groupId>org.dominokit</groupId>
+            <artifactId>domino-jackson-processor</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -74,8 +74,7 @@
                                 <excludes>
                                     <exclude>javax.annotation:javax.annotation-api</exclude>
                                     <exclude>org.dominokit:domino-ui-shared</exclude>
-                                    <exclude>org.dominokit.jackson:jackson-apt-processor</exclude>
-
+                                    <exclude>org.dominokit:domino-jackson-processor</exclude>
                                     <exclude>com.google.code.findbugs:jsr305</exclude>
                                     <exclude>com.google.j2objc:j2objc-annotations</exclude>
                                     <exclude>com.google.errorprone:error_prone_annotations</exclude>
@@ -99,8 +98,8 @@
                                     <shadedPattern>dominoui.shaded.org.slf4j</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>org.dominokit.jacksonapt</pattern>
-                                    <shadedPattern>dominoui.shaded.org.dominokit.jacksonapt</shadedPattern>
+                                    <pattern>org.dominokit.jackson</pattern>
+                                    <shadedPattern>dominoui.shaded.org.dominokit.jackson</shadedPattern>
                                 </relocation>
                             </relocations>
                             <transformers>
@@ -109,7 +108,7 @@
                             <createSourcesJar>true</createSourcesJar>
                             <filters>
                                 <filter>
-                                    <artifact>org.dominokit.jackson:jackson-apt</artifact>
+                                    <artifact>org.dominokit:domino-jackson</artifact>
                                     <excludes>
                                         <exclude>**/*.java</exclude>
                                         <exclude>**/*.gwt.xml</exclude>
@@ -117,7 +116,7 @@
                                     </excludes>
                                 </filter>
                                 <filter>
-                                    <artifact>org.dominokit.jackson:jackson-super</artifact>
+                                    <artifact>org.dominokit:domino-jackson-super</artifact>
                                     <excludes>
                                         <exclude>**/*.java</exclude>
                                         <exclude>java/**</exclude>
