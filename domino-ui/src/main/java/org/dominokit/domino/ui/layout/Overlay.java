@@ -1,27 +1,46 @@
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.dominokit.domino.ui.layout;
+
+import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.elemento.IsElement;
 
-import static org.jboss.elemento.Elements.div;
+/** The component that masks the content panel when the left panel of the {@link Layout} is open */
+public class Overlay extends BaseDominoElement<HTMLDivElement, Overlay>
+    implements IsElement<HTMLDivElement> {
 
-public class Overlay extends BaseDominoElement<HTMLDivElement, Overlay> implements IsElement<HTMLDivElement> {
+  private HTMLDivElement element;
 
-    private HTMLDivElement element;
+  /** */
+  public Overlay() {
+    element = div().css(LayoutStyles.OVERLAY).element();
+    init(this);
+  }
 
-    public Overlay() {
-        element = div().css(LayoutStyles.OVERLAY)
-                .element();
-        init(this);
-    }
+  /** @return new Overlay instance */
+  public static Overlay create() {
+    return new Overlay();
+  }
 
-    public static Overlay create(){
-        return new Overlay();
-    }
-
-    @Override
-    public HTMLDivElement element() {
-        return element;
-    }
+  /** {@inheritDoc} */
+  @Override
+  public HTMLDivElement element() {
+    return element;
+  }
 }

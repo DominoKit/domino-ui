@@ -1,134 +1,181 @@
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.dominokit.domino.ui.forms;
+
+import static java.util.Objects.nonNull;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLTextAreaElement;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.jboss.elemento.Elements;
 
-import static java.util.Objects.nonNull;
-
+/** a component that takes/provide a multi-line String values */
 public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, String> {
 
-    private EventListener autosizeListener = evt -> adjustHeight();
-    private int rows;
-    private boolean autoSize = false;
-    private boolean emptyAsNull;
-    private boolean floating;
+  private EventListener autosizeListener = evt -> adjustHeight();
+  private int rows;
+  private boolean autoSize = false;
+  private boolean emptyAsNull;
+  private boolean floating;
 
-    public TextArea() {
-        this("");
+  /** */
+  public TextArea() {
+    this("");
+  }
+
+  /** @param label String */
+  public TextArea(String label) {
+    super("", label);
+    setRows(4);
+    css("auto-height");
+    onAttached(mutationRecord -> adjustHeight());
+  }
+
+  /** @return new TextArea instance */
+  public static TextArea create() {
+    return new TextArea();
+  }
+  /**
+   * @param label String
+   * @return new TextArea instance
+   */
+  public static TextArea create(String label) {
+    return new TextArea(label);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected HTMLTextAreaElement createInputElement(String type) {
+    return Elements.textarea().css("no-resize").element();
+  }
+
+  /**
+   * @param rows int default number of rows of the TextArea
+   * @return same TextArea instance
+   */
+  public TextArea setRows(int rows) {
+    this.rows = rows;
+    updateRows(rows);
+    return this;
+  }
+
+  private void updateRows(int rows) {
+    if (rows > 1) {
+      floating = isFloating();
+      floating();
+    } else {
+      if (floating) {
+        floating();
+      } else {
+        nonfloating();
+      }
     }
+    getInputElement().setAttribute("rows", rows + "");
+  }
 
-    public TextArea(String label) {
-        super("", label);
-        setRows(4);
-        css("auto-height");
-        onAttached(mutationRecord -> adjustHeight());
+  /** {@inheritDoc} */
+  @Override
+  protected void doSetValue(String value) {
+    if (nonNull(value)) {
+      getInputElement().element().value = value;
+      if (isAttached()) {
+        adjustHeight();
+      }
+    } else {
+      getInputElement().element().value = "";
     }
+  }
 
-    public static TextArea create() {
-        return new TextArea();
+  /** {@inheritDoc} */
+  @Override
+  protected void clearValue() {
+    value("");
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public String getValue() {
+    String value = getInputElement().element().value;
+    if (value.isEmpty() && isEmptyAsNull()) {
+      return null;
     }
+    return value;
+  }
 
-    public static TextArea create(String label) {
-        return new TextArea(label);
+  /**
+   * The TextArea will start with initial number of rows and will automatically grow if more lines
+   * are added instead of showing scrollbars
+   */
+  public TextArea autoSize() {
+    getInputElement().addEventListener("input", autosizeListener);
+    getInputElement().style().setOverFlow("hidden");
+    updateRows(1);
+    this.autoSize = true;
+    return this;
+  }
+
+  /**
+   * The TextArea will show scrollbars when the text rows exceeds the rows from {@link
+   * #setRows(int)}
+   *
+   * @return same TextArea instance
+   */
+  public TextArea fixedSize() {
+    getInputElement().removeEventListener("input", autosizeListener);
+    getInputElement().style().setOverFlow("");
+    setRows(rows);
+    this.autoSize = false;
+    return this;
+  }
+
+  private void adjustHeight() {
+    getInputElement().style().setHeight("auto");
+    int scrollHeight = getInputElement().element().scrollHeight;
+    if (scrollHeight < 30) {
+      scrollHeight = 22;
     }
-
-    @Override
-    protected HTMLTextAreaElement createInputElement(String type) {
-        return Elements.textarea().css("no-resize").element();
+    if (autoSize) {
+      getInputElement().style().setHeight(scrollHeight + "px");
     }
+  }
 
-    public TextArea setRows(int rows) {
-        this.rows = rows;
-        updateRows(rows);
-        return this;
-    }
+  /** {@inheritDoc} */
+  @Override
+  public String getStringValue() {
+    return getValue();
+  }
 
-    private void updateRows(int rows) {
-        if (rows > 1) {
-            floating = isFloating();
-            floating();
-        } else {
-            if (floating) {
-                floating();
-            } else {
-                nonfloating();
-            }
-        }
-        getInputElement().setAttribute("rows", rows + "");
-    }
+  /**
+   * @param emptyAsNull boolean, if true empty value will be considered null otherwise its normal
+   *     empty String
+   * @return same TextArea instance
+   */
+  public TextArea setEmptyAsNull(boolean emptyAsNull) {
+    this.emptyAsNull = emptyAsNull;
+    return this;
+  }
 
-    @Override
-    protected void doSetValue(String value) {
-        if (nonNull(value)) {
-            getInputElement().element().value = value;
-                if (isAttached()) {
-                    adjustHeight();
-                }
-        } else {
-            getInputElement().element().value = "";
-        }
-    }
+  /** @return boolean, true is {@link #setEmptyAsNull(boolean)} */
+  public boolean isEmptyAsNull() {
+    return emptyAsNull;
+  }
 
-    @Override
-    protected void clearValue() {
-        value("");
-    }
-
-    @Override
-    public String getValue() {
-        String value = getInputElement().element().value;
-        if (value.isEmpty() && isEmptyAsNull()) {
-            return null;
-        }
-        return value;
-    }
-
-    public TextArea autoSize() {
-        getInputElement().addEventListener("input", autosizeListener);
-        getInputElement().style().setOverFlow("hidden");
-        updateRows(1);
-        this.autoSize = true;
-        return this;
-    }
-
-    public TextArea fixedSize() {
-        getInputElement().removeEventListener("input", autosizeListener);
-        getInputElement().style().setOverFlow("");
-        setRows(rows);
-        this.autoSize = false;
-        return this;
-    }
-
-    private void adjustHeight() {
-        getInputElement().style().setHeight("auto");
-        int scrollHeight = getInputElement().element().scrollHeight;
-        if (scrollHeight < 30) {
-            scrollHeight = 22;
-        }
-        if (autoSize) {
-            getInputElement().style().setHeight(scrollHeight + "px");
-        }
-    }
-
-    @Override
-    public String getStringValue() {
-        return getValue();
-    }
-
-    public TextArea setEmptyAsNull(boolean emptyAsNull) {
-        this.emptyAsNull = emptyAsNull;
-        return this;
-    }
-
-    public boolean isEmptyAsNull() {
-        return emptyAsNull;
-    }
-
-    @Override
-    protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
-        return new InputAutoValidator<>(getInputElement(), autoValidate);
-    }
-
+  /** {@inheritDoc} */
+  @Override
+  protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
+    return new InputAutoValidator<>(getInputElement(), autoValidate);
+  }
 }

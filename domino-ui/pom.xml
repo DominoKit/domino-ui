@@ -6,11 +6,10 @@
     <parent>
         <groupId>org.dominokit</groupId>
         <artifactId>domino-ui-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0-RC1</version>
     </parent>
 
     <artifactId>domino-ui</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>gwt-lib</packaging>
 
     <dependencies>
@@ -36,11 +35,11 @@
             <artifactId>elemento-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.gwtproject.i18n</groupId>
+            <groupId>org.dominokit.i18n</groupId>
             <artifactId>gwt-datetimeformat</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.gwtproject.i18n</groupId>
+            <groupId>org.dominokit.i18n</groupId>
             <artifactId>gwt-numberformat</artifactId>
         </dependency>
 
