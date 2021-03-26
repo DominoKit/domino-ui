@@ -67,6 +67,8 @@
     </modules>
 
     <properties>
+        <snapshot.version>HEAD-SNAPSHOT</snapshot.version>
+        <next.release.version>1.0.0-RC1</next.release.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
@@ -84,7 +86,7 @@
         <elemento.version>1.0.3</elemento.version>
         <elemental2.version>1.1.0</elemental2.version>
         <gwt.version>2.9.0</gwt.version>
-        <jackson.apt.version>1.0.0-RC1</jackson.apt.version>
+        <jackson.apt.version>1.0.0-RC2</jackson.apt.version>
         <gwt.i18n.version>1.0</gwt.i18n.version>
     </properties>
 
@@ -149,7 +151,7 @@
             <dependency>
                 <groupId>org.dominokit</groupId>
                 <artifactId>domino-apt-commons</artifactId>
-                <version>0.0.1</version>
+                <version>1.0.3</version>
             </dependency>
             <dependency>
                 <groupId>com.google.auto.service</groupId>
