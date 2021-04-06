@@ -21,8 +21,10 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.HTMLElement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.chips.Chip;
+import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Elevation;
@@ -139,7 +141,15 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
   }
 
   private void setup() {
+    fieldGroup.addCss("multi-select");
     setOptionRenderer(new MultiOptionRenderer());
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public MultiSelect<T> appendChild(SelectOption<T> option, Consumer<DropdownAction<SelectOption<T>>> andThen) {
+    option.addCss("multi-select-option");
+    return super.appendChild(option, andThen);
   }
 
   /** {@inheritDoc} */
