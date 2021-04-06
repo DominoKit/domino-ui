@@ -223,6 +223,40 @@
     line-height: 35px;
 }
 
+.multi-select-option .field-group.lined.d-checkbox .field-cntr {
+    padding: 0;
+}
+
+.multi-select-option .field-group.lined.d-checkbox .field-note {
+    display: none;
+}
+
+.multi-select-option .select-option-value {
+    line-height: 39px;
+}
+
+.multi-select-option.select-option-selected {
+    background-color: unset;
+}
+
+.multi-select .select-value .chip {
+    font-size: 12px;
+    margin-top: 0;
+    height: 25px;
+    padding-right: 5px;
+    text-indent: 0;
+}
+
+.multi-select .select-value .chip .chip-remove {
+    height: 32px;
+}
+
+.multi-select .select-value .chip .chip-remove .material-icons {
+    height: 20px;
+    width: 20px;
+    font-size: 15px;
+}
+
 .field-group input,
 .field-group textarea {
     width: 100%;
