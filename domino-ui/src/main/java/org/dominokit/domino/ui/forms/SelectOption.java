@@ -43,13 +43,15 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
         TakesValue<T> {
 
   private static final String SELECTED = "select-option-selected";
-  private final DominoElement<HTMLDivElement> element = DominoElement.of(div().css("select-option"));
+  private final DominoElement<HTMLDivElement> element =
+      DominoElement.of(div().css("select-option"));
   private final DominoElement<HTMLElement> valueContainer =
       DominoElement.of(span().css("select-option-value", Styles.ellipsis_text));
   private String displayValue;
   private String key;
   private T value;
-  private final List<Selectable.SelectionHandler<SelectOption>> selectionHandlers = new ArrayList<>();
+  private final List<Selectable.SelectionHandler<SelectOption>> selectionHandlers =
+      new ArrayList<>();
   private boolean excludeFromSearchResults = false;
   private final FlexLayout optionLayoutElement;
 
