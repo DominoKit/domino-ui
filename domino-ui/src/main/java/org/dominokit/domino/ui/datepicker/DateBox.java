@@ -21,10 +21,7 @@ import static org.dominokit.domino.ui.utils.ElementUtil.isEnterKey;
 import static org.dominokit.domino.ui.utils.ElementUtil.isSpaceKey;
 import static org.jboss.elemento.Elements.input;
 
-import elemental2.dom.DomGlobal;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLInputElement;
-import elemental2.dom.KeyboardEvent;
+import elemental2.dom.*;
 import java.util.Date;
 import java.util.Optional;
 import jsinterop.base.Js;
@@ -82,7 +79,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   private boolean openOnFocus = false;
   private boolean focused = false;
   private boolean handlerPaused = false;
-  private FlexItem calendarIconContainer;
+  private FlexItem<HTMLDivElement> calendarIconContainer;
   private MdiIcon calendarIcon;
   private boolean openOnClick = true;
   private boolean parseStrict;
@@ -560,7 +557,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
   /** {@inheritDoc} */
   @Override
-  protected FlexItem createMandatoryAddOn() {
+  protected FlexItem<HTMLDivElement> createMandatoryAddOn() {
     calendarIcon = Icons.ALL.calendar_mdi();
     calendarIcon
         .clickable()
@@ -576,7 +573,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   }
 
   /** @return The calendar icon container element */
-  public FlexItem getCalendarIconContainer() {
+  public FlexItem<HTMLDivElement> getCalendarIconContainer() {
     return calendarIconContainer;
   }
 

@@ -37,7 +37,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab>
     implements HasClickableElement {
 
   private String title;
-  private FlexItem element;
+  private FlexItem<HTMLDivElement> element;
   private HTMLAnchorElement anchorElement;
 
   private BaseIcon<?> icon;

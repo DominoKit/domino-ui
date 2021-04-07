@@ -22,7 +22,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 /** A component that adds a space between {@link VerticalTab}s in the {@link VerticalTabsPanel} */
 public class FillItem extends BaseDominoElement<HTMLDivElement, FillItem> {
 
-  private FlexItem element;
+  private FlexItem<HTMLDivElement> element;
 
   public FillItem() {
     this.element = FlexItem.create().setFlexGrow(1);

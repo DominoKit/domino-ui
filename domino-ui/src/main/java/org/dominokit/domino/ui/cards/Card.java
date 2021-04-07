@@ -64,7 +64,7 @@ import org.jboss.elemento.IsElement;
  */
 public class Card extends BaseDominoElement<HTMLDivElement, Card> implements HasBackground<Card> {
 
-  private final FlexItem logoContainer;
+  private final FlexItem<HTMLDivElement> logoContainer;
   private final DominoElement<HTMLDivElement> root = DominoElement.div().addCss(CARD);
   private final DominoElement<HTMLDivElement> header = DominoElement.div().addCss(HEADER);
   private final DominoElement<HTMLHeadingElement> headerTitle = DominoElement.of(h(2));
