@@ -147,7 +147,8 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
 
   /** {@inheritDoc} */
   @Override
-  public MultiSelect<T> appendChild(SelectOption<T> option, Consumer<DropdownAction<SelectOption<T>>> andThen) {
+  public MultiSelect<T> appendChild(
+      SelectOption<T> option, Consumer<DropdownAction<SelectOption<T>>> andThen) {
     option.addCss("multi-select-option");
     return super.appendChild(option, andThen);
   }
