@@ -45,11 +45,11 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
   private final DominoElement<HTMLElement> descriptionSpan;
   private final DominoElement<HTMLElement> horizontalBarSpan;
   private final DominoElement<HTMLElement> verticalBarSpan;
-  private final FlexItem errorMessagesFlexItem;
+  private final FlexItem<HTMLDivElement> errorMessagesFlexItem;
   private final FlexLayout header;
   private final DominoElement<HTMLDivElement> content;
   private Stepper stepper;
-  private final FlexItem root = FlexItem.create().css(STEP_HEADER);
+  private final FlexItem<HTMLDivElement> root = FlexItem.create().css(STEP_HEADER);
 
   private int stepNumber;
   private Color barColor = Color.GREY;
@@ -60,7 +60,7 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
 
   private Stepper.StepState state;
   private Stepper.StepState nonErrorState;
-  private FlexItem stepNumberFlexItem;
+  private FlexItem<HTMLDivElement> stepNumberFlexItem;
   private Stepper.StepState initialState;
 
   /**

@@ -51,8 +51,8 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
   private DominoElement<HTMLInputElement> slider =
       DominoElement.of(input("range").css(SliderStyles.slider));
   private DominoElement<HTMLElement> thumb = DominoElement.of(span().css(SliderStyles.thumb));
-  private FlexItem leftAddonContainer = FlexItem.create();
-  private FlexItem rightAddonContainer = FlexItem.create();
+  private FlexItem<HTMLDivElement> leftAddonContainer = FlexItem.create();
+  private FlexItem<HTMLDivElement> rightAddonContainer = FlexItem.create();
   private DominoElement<HTMLElement> thumbValue = DominoElement.of(span().css("value"));
   private List<ChangeHandler<? super Double>> changeHandlers = new ArrayList<>();
   private List<SlideHandler> slideHandlers = new ArrayList<>();

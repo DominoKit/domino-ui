@@ -43,7 +43,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
         TakesValue<T>,
         HasHelperText<Radio<T>> {
 
-  private FlexItem container = FlexItem.create().addCss("radio-option");
+  private FlexItem<HTMLDivElement> container = FlexItem.create().addCss("radio-option");
   private HTMLLabelElement labelElement = label().element();
   private HTMLInputElement inputElement = input("radio").element();
   private DominoElement<HTMLParagraphElement> helperTextElement = DominoElement.of(p());
