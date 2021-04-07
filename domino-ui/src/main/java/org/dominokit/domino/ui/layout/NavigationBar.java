@@ -28,10 +28,10 @@ import org.dominokit.domino.ui.utils.DominoElement;
 
 /** A component that is part of the {@link Layout} header */
 public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar> {
-  private final FlexItem menuToggleItem;
-  private final FlexItem titleItem;
-  private final FlexItem logoItem;
-  private final FlexItem actionBarItem;
+  private final FlexItem<HTMLDivElement> menuToggleItem;
+  private final FlexItem<HTMLDivElement> titleItem;
+  private final FlexItem<HTMLDivElement> logoItem;
+  private final FlexItem<HTMLDivElement> actionBarItem;
 
   private DominoElement<HTMLElement> navBar =
       DominoElement.of(nav().css("navbar").css("ls-closed"));
@@ -108,22 +108,22 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
   }
 
   /** @return the {@link FlexItem} that contains the menu toggle icon */
-  public FlexItem getMenuToggleItem() {
+  public FlexItem<HTMLDivElement> getMenuToggleItem() {
     return menuToggleItem;
   }
 
   /** @return the {@link FlexItem} that contains the logoItem */
-  public FlexItem getLogoItem() {
+  public FlexItem<HTMLDivElement> getLogoItem() {
     return logoItem;
   }
 
   /** @return The {@link FlexItem} conatins the actions bar */
-  public FlexItem getActionBarItem() {
+  public FlexItem<HTMLDivElement> getActionBarItem() {
     return actionBarItem;
   }
 
   /** @return the {@link FlexItem} contains the title */
-  public FlexItem getTitleItem() {
+  public FlexItem<HTMLDivElement> getTitleItem() {
     return titleItem;
   }
 }

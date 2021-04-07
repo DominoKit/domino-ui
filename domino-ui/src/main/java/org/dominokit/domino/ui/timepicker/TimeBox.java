@@ -49,7 +49,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
   private Date value;
   private EventListener keyboardModalListener;
   private MdiIcon timeIcon;
-  private FlexItem timeIconContainer;
+  private FlexItem<HTMLDivElement> timeIconContainer;
   private boolean openOnClick = true;
 
   public TimeBox() {

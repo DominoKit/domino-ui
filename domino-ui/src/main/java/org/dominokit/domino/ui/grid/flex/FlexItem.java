@@ -18,7 +18,9 @@ package org.dominokit.domino.ui.grid.flex;
 import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.jboss.elemento.IsElement;
 
 /**
  * A component which provides an abstract level of the CSS flex item which will inherit the styles
@@ -38,9 +40,9 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * @see BaseDominoElement
  * @see FlexLayout
  */
-public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
+public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexItem<T>> {
 
-  private final HTMLDivElement element;
+  private final T element;
   private int order;
   private int flexGrow;
   private int flexShrink;
@@ -48,10 +50,10 @@ public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
   private FlexAlign alignSelf;
 
   public FlexItem() {
-    this(div().element());
+    this((T) div().element());
   }
 
-  public FlexItem(HTMLDivElement root) {
+  public FlexItem(T root) {
     element = root;
     init(this);
     css(FlexStyles.FLEX_ITEM);
@@ -62,8 +64,28 @@ public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
    *
    * @return new instance
    */
-  public static FlexItem create() {
-    return new FlexItem();
+  public static FlexItem<HTMLDivElement> create() {
+    return new FlexItem<>();
+  }
+
+  /**
+   * @deprecated use {@link #of(HTMLElement)} Creates new flex item with {@code element} inside it
+   * @param element the child element
+   * @return new instance
+   */
+  @Deprecated
+  public static <T extends HTMLElement> FlexItem<T> from(T element) {
+    return new FlexItem<>(element);
+  }
+
+  /**
+   * @deprecated use {@link #of(IsElement)} Creates new flex item with {@code element} inside it
+   * @param element the child element
+   * @return new instance
+   */
+  @Deprecated
+  public static <T extends HTMLElement> FlexItem<T> from(IsElement<T> element) {
+    return new FlexItem<>(element.element());
   }
 
   /**
@@ -72,8 +94,18 @@ public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
    * @param element the child element
    * @return new instance
    */
-  public static FlexItem from(HTMLDivElement element) {
-    return new FlexItem(element);
+  public static <T extends HTMLElement> FlexItem<T> of(T element) {
+    return new FlexItem<>(element);
+  }
+
+  /**
+   * Creates new flex item with {@code element} inside it
+   *
+   * @param element the child element
+   * @return new instance
+   */
+  public static <T extends HTMLElement> FlexItem<T> of(IsElement<T> element) {
+    return new FlexItem<>(element.element());
   }
 
   /**
@@ -83,7 +115,7 @@ public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
    * @param order the position of the item inside the layout
    * @return same instance
    */
-  public FlexItem setOrder(int order) {
+  public FlexItem<T> setOrder(int order) {
     this.order = order;
     style().setProperty("order", String.valueOf(order));
     return this;
@@ -104,7 +136,7 @@ public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
    * @param flexGrow the value of the grow of this item
    * @return same instance
    */
-  public FlexItem setFlexGrow(int flexGrow) {
+  public FlexItem<T> setFlexGrow(int flexGrow) {
     this.flexGrow = flexGrow;
     style().setProperty("flex-grow", String.valueOf(flexGrow));
     return this;
@@ -120,7 +152,7 @@ public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
    * @param flexShrink the value of the shrink of this item
    * @return same instance
    */
-  public FlexItem setFlexShrink(int flexShrink) {
+  public FlexItem<T> setFlexShrink(int flexShrink) {
     this.flexShrink = flexShrink;
     style().setProperty("flex-shrink", String.valueOf(flexShrink));
     return this;
@@ -136,7 +168,7 @@ public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
    * @param flexBasis the value of the basis of this item
    * @return same instance
    */
-  public FlexItem setFlexBasis(String flexBasis) {
+  public FlexItem<T> setFlexBasis(String flexBasis) {
     this.flexBasis = flexBasis;
     style().setProperty("flex-basis", flexBasis);
     return this;
@@ -148,7 +180,7 @@ public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
    * @param alignSelf the {@link FlexAlign}
    * @return same instance
    */
-  public FlexItem setAlignSelf(FlexAlign alignSelf) {
+  public FlexItem<T> setAlignSelf(FlexAlign alignSelf) {
     this.alignSelf = alignSelf;
     style().setProperty("align-self", alignSelf.getValue());
     return this;
@@ -159,7 +191,7 @@ public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
    *
    * @return same instance
    */
-  public FlexItem setAutoAlign() {
+  public FlexItem<T> setAutoAlign() {
     style().setProperty("align-self", "auto");
     return this;
   }
@@ -186,7 +218,7 @@ public class FlexItem extends BaseDominoElement<HTMLDivElement, FlexItem> {
 
   /** {@inheritDoc} */
   @Override
-  public HTMLDivElement element() {
+  public T element() {
     return element;
   }
 }
