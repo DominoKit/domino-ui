@@ -432,6 +432,10 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     return size;
   }
 
+  public Color getBackground() {
+    return background;
+  }
+
   /** @return {@link DominoElement} of {@link HTMLElement} that wrap the button text */
   public DominoElement<HTMLElement> getTextSpan() {
     return DominoElement.of(textSpan);

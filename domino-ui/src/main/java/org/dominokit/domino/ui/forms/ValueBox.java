@@ -59,18 +59,18 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
   protected DominoElement<HTMLDivElement> fieldGroup = DominoElement.div();
   protected DominoElement<HTMLDivElement> fieldContainer = DominoElement.div();
-  protected FlexItem inputContainer = FlexItem.create();
+  protected FlexItem<HTMLDivElement> inputContainer = FlexItem.create();
   private DominoElement<HTMLDivElement> notesContainer = DominoElement.div();
 
   private FlexLayout leftAddOnsContainer = FlexLayout.create();
   private FlexLayout rightAddOnsContainer = FlexLayout.create();
 
-  private FlexItem helpItem;
-  private FlexItem countItem;
-  private FlexItem errorItem;
+  private FlexItem<HTMLDivElement> helpItem;
+  private FlexItem<HTMLDivElement> countItem;
+  private FlexItem<HTMLDivElement> errorItem;
 
-  private FlexItem prefixItem = FlexItem.create();
-  private FlexItem postFixItem = FlexItem.create();
+  private FlexItem<HTMLDivElement> prefixItem = FlexItem.create();
+  private FlexItem<HTMLDivElement> postFixItem = FlexItem.create();
 
   private DominoElement<HTMLLabelElement> labelElement;
   private DominoElement<HTMLElement> labelTextElement = DominoElement.of(span());
@@ -87,7 +87,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   private boolean readOnly;
   private String prefix;
   private String postfix;
-  private FlexItem mandatoryAddOn;
+  private FlexItem<HTMLDivElement> mandatoryAddOn;
   private boolean validateOnFocusLost = true;
   private FieldStyle fieldStyle = DominoFields.INSTANCE.getDefaultFieldsStyle();
   private FlexLayout fieldInnerContainer;
@@ -518,7 +518,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
    * @param addon {@link FlexItem} that contains the add on element
    * @return same component instance
    */
-  public T addLeftAddOn(FlexItem addon) {
+  public T addLeftAddOn(FlexItem<?> addon) {
     leftAddOnsContainer.appendChild(addon);
     if (!leftAddOnsContainer.isAttached()) {
       fieldInnerContainer.insertFirst(leftAddOnsContainer);
@@ -552,7 +552,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
    * @param rightAddon {@link FlexItem} that contains the add on element
    * @return same component instance
    */
-  public T addRightAddOn(FlexItem rightAddon) {
+  public T addRightAddOn(FlexItem<?> rightAddon) {
     rightAddOnsContainer.appendChild(rightAddon);
     if (!rightAddOnsContainer.isAttached()) {
       fieldInnerContainer.appendChild(rightAddOnsContainer);

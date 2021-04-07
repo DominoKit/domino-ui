@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.grid.flex;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.div;
 
@@ -48,7 +49,7 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
 
   private final DominoElement<HTMLDivElement> element =
       DominoElement.of(div().css(FlexStyles.FLEX_LAYOUT));
-  private final List<FlexItem> flexItems = new ArrayList<>();
+  private final List<FlexItem<?>> flexItems = new ArrayList<>();
   private FlexDirection flexDirection;
   private FlexWrap flexWrap;
   private FlexJustifyContent flexJustifyContent;
@@ -134,7 +135,7 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
    * @param flexItem the new {@link FlexItem} to add
    * @return same instance
    */
-  public FlexLayout appendChild(FlexItem flexItem) {
+  public FlexLayout appendChild(FlexItem<?> flexItem) {
     flexItems.add(flexItem);
     appendChild(flexItem.element());
     return this;
@@ -146,7 +147,7 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
    * @param flexItem the new {@link FlexItem} to add
    * @return same instance
    */
-  public FlexLayout insertFirst(FlexItem flexItem) {
+  public FlexLayout insertFirst(FlexItem<?> flexItem) {
     if (!flexItems.isEmpty()) {
       return appendChildBefore(flexItem, flexItems.get(0));
     }
@@ -160,11 +161,35 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
    * @param existingItem the existing {@link FlexItem}
    * @return same instance
    */
-  public FlexLayout appendChildBefore(FlexItem flexItem, FlexItem existingItem) {
+  public FlexLayout appendChildBefore(FlexItem<?> flexItem, FlexItem<?> existingItem) {
     if (flexItems.contains(existingItem)) {
       flexItems.add(flexItem);
       insertBefore(flexItem, existingItem);
     }
+    return this;
+  }
+
+  /**
+   * Adds a gap between all flex items of this flex layout
+   *
+   * @param gap String css value to be used as a gap between the flex items
+   * @return same instance
+   */
+  public FlexLayout setGap(String gap) {
+    if (isNull(gap) || gap.isEmpty()) {
+      return removeGap();
+    }
+    style.setProperty("gap", gap);
+    return this;
+  }
+
+  /**
+   * removes the gap between the flex items of this flex layout
+   *
+   * @return same instance
+   */
+  public FlexLayout removeGap() {
+    style.removeProperty("gap");
     return this;
   }
 
@@ -176,7 +201,7 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
   }
 
   /** @return All the flex items */
-  public List<FlexItem> getFlexItems() {
+  public List<FlexItem<?>> getFlexItems() {
     return flexItems;
   }
 
