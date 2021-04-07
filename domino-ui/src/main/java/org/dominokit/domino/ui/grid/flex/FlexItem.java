@@ -69,9 +69,7 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
   }
 
   /**
-   * @deprecated use {@link #of(HTMLElement)}
-   * Creates new flex item with {@code element} inside it
-   *
+   * @deprecated use {@link #of(HTMLElement)} Creates new flex item with {@code element} inside it
    * @param element the child element
    * @return new instance
    */
@@ -81,9 +79,7 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
   }
 
   /**
-   * @deprecated use {@link #of(IsElement)}
-   * Creates new flex item with {@code element} inside it
-   *
+   * @deprecated use {@link #of(IsElement)} Creates new flex item with {@code element} inside it
    * @param element the child element
    * @return new instance
    */
