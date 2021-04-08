@@ -356,7 +356,7 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
     return stringValue;
   }
 
-  private DropdownAction<V> dropdownAction(SuggestItem<V> suggestItem) {
+  protected final DropdownAction<V> dropdownAction(SuggestItem<V> suggestItem) {
     DropdownAction<V> dropdownAction = suggestItem.asDropDownAction();
     dropdownAction.addSelectionHandler(
         value -> {
@@ -432,6 +432,13 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
   /** @return the {@link DropDownMenu} of the AbstractSuggestBox */
   public DropDownMenu getSuggestionsMenu() {
     return suggestionsMenu;
+  }
+
+  /**
+   * @return color to be used to highlight parts of the SuggestItems that matches the typed string
+   */
+  public Color getHighlightColor() {
+    return highlightColor;
   }
 
   /**
