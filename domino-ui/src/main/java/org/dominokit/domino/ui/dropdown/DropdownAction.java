@@ -352,26 +352,28 @@ public class DropdownAction<T> extends BaseDominoElement<HTMLLIElement, Dropdown
    * @param highlightColor the highlight {@link Color}
    */
   public void highlight(String displayValue, Color highlightColor) {
-    String innerHTML = this.content.getTextContent();
-    String escapedSearchValue = new JsString(displayValue).replace(REPLACER_REGEX, "\\$&");
+    if (nonNull(displayValue) && displayValue.length() > 0) {
+      String innerHTML = this.content.getTextContent();
+      String escapedSearchValue = new JsString(displayValue).replace(REPLACER_REGEX, "\\$&");
 
-    JsRegExp regExp = new JsRegExp(escapedSearchValue, IGNORE_CASE_FLAG);
-    innerHTML =
-        new JsString(innerHTML)
-            .replace(
-                regExp,
-                (valueToReplace, p1) -> {
-                  if (nonNull(highlightColor)) {
-                    return "<strong class=\""
-                        + highlightColor.getStyle()
-                        + "\">"
-                        + valueToReplace
-                        + "</strong>";
-                  }
-                  return "<strong>" + valueToReplace + "</strong>";
-                });
-    innerHtml(
-        this.content.element(), new SafeHtmlBuilder().appendHtmlConstant(innerHTML).toSafeHtml());
+      JsRegExp regExp = new JsRegExp(escapedSearchValue, IGNORE_CASE_FLAG);
+      innerHTML =
+          new JsString(innerHTML)
+              .replace(
+                  regExp,
+                  (valueToReplace, p1) -> {
+                    if (nonNull(highlightColor)) {
+                      return "<strong class=\""
+                          + highlightColor.getStyle()
+                          + "\">"
+                          + valueToReplace
+                          + "</strong>";
+                    }
+                    return "<strong>" + valueToReplace + "</strong>";
+                  });
+      innerHtml(
+          this.content.element(), new SafeHtmlBuilder().appendHtmlConstant(innerHTML).toSafeHtml());
+    }
   }
 
   /**
