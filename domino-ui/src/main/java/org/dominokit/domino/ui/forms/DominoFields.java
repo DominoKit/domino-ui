@@ -64,8 +64,8 @@ public class DominoFields {
 
   private DropdownPositionProvider<AbstractSelect<?, ?, ?>> defaultSelectPopupPosition =
       AbstractSelect.PopupPositionTopDown::new;
-  private DropdownPositionProvider<SuggestBox<?>> defaultSuggestPopupPosition =
-      field -> new SuggestBox.PopupPositionTopDown();
+  private DropdownPositionProvider<AbstractSuggestBox<?, ?>> defaultSuggestPopupPosition =
+      field -> new AbstractSuggestBox.PopupPositionTopDown();
 
   private DominoFields() {}
 
@@ -215,8 +215,8 @@ public class DominoFields {
     return this;
   }
 
-  /** @return the default {@link DropdownPositionProvider} for {@link SuggestBox} */
-  public DropdownPositionProvider<SuggestBox<?>> getDefaultSuggestPopupPosition() {
+  /** @return the default {@link DropdownPositionProvider} for {@link AbstractSuggestBox} */
+  public DropdownPositionProvider<AbstractSuggestBox<?, ?>> getDefaultSuggestPopupPosition() {
     return defaultSuggestPopupPosition;
   }
 
@@ -227,7 +227,7 @@ public class DominoFields {
    * @return same instance
    */
   public DominoFields setDefaultSuggestPopupPosition(
-      DropdownPositionProvider<SuggestBox<?>> defaultSuggestPopupPosition) {
+      DropdownPositionProvider<AbstractSuggestBox<?, ?>> defaultSuggestPopupPosition) {
     if (nonNull(defaultSuggestPopupPosition)) {
       this.defaultSuggestPopupPosition = defaultSuggestPopupPosition;
     }
