@@ -503,16 +503,16 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
     public void position(HTMLElement popup, HTMLElement target) {
       DOMRect targetRect = target.getBoundingClientRect();
 
-      double distanceToMiddle = ((targetRect.top) - (targetRect.height / 2));
-      double windowMiddle = window.innerHeight;
+      double distanceToMiddle = targetRect.top + (targetRect.height / 2);
+      double windowMiddle = window.innerHeight / 2;
       double popupHeight = popup.getBoundingClientRect().height;
-      double distanceToBottom = window.innerHeight - targetRect.top;
-      double distanceToTop = (targetRect.top + targetRect.height);
+      double distanceToBottom = window.innerHeight - targetRect.bottom;
+      double distanceToTop = targetRect.top;
 
       boolean hasSpaceBelow = distanceToBottom > popupHeight;
       boolean hasSpaceUp = distanceToTop > popupHeight;
 
-      if (hasSpaceUp || ((distanceToMiddle >= windowMiddle) && !hasSpaceBelow)) {
+      if ((distanceToMiddle >= windowMiddle) && hasSpaceUp) {
         up.position(popup, target);
         popup.setAttribute("popup-direction", "top");
       } else {
@@ -533,10 +533,9 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
       DOMRect targetRect = target.getBoundingClientRect();
 
       actionsMenu.style.setProperty(
-          "bottom",
-          px.of(
-              ((window.innerHeight - targetRect.bottom + targetRect.height) - window.pageYOffset)));
-      actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
+          "bottom", 
+          px.of(window.innerHeight - targetRect.top - window.pageYOffset));
+      actionsMenu.style.setProperty("left", px.of(targetRect.left + window.pageXOffset));
       actionsMenu.style.removeProperty("top");
     }
   }
@@ -550,9 +549,8 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
 
       DOMRect targetRect = target.getBoundingClientRect();
 
-      actionsMenu.style.setProperty(
-          "top", px.of((targetRect.top + targetRect.height + window.pageYOffset)));
-      actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
+      actionsMenu.style.setProperty("top", px.of(targetRect.bottom + window.pageYOffset));
+      actionsMenu.style.setProperty("left", px.of(targetRect.left + window.pageXOffset));
       actionsMenu.style.removeProperty("bottom");
     }
   }
