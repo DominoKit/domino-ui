@@ -73,6 +73,7 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
         }
       };
   private boolean autoSelect = true;
+  private String dropdownMaxWidth = null;
 
   /** Creates an instance without a label and a null store */
   public AbstractSuggestBox() {
@@ -135,14 +136,22 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
     if (nonNull(element)) {
       EventListener eventListener =
           evt -> {
-            suggestionsMenu.style().setWidth(element().offsetWidth + "px");
+            suggestionsMenu
+                .style()
+                .setMinWidth(element().offsetWidth + "px")
+                .setMaxWidth(
+                    nonNull(dropdownMaxWidth) ? dropdownMaxWidth : element().offsetWidth + "px");
           };
       element.addEventListener("transitionend", eventListener);
       onDetached(mutationRecord -> element.removeEventListener("transitionend", eventListener));
     }
     onAttached(
         mutationRecord -> {
-          suggestionsMenu.style().setWidth(element().offsetWidth + "px");
+          suggestionsMenu
+              .style()
+              .setMinWidth(element().offsetWidth + "px")
+              .setMaxWidth(
+                  nonNull(dropdownMaxWidth) ? dropdownMaxWidth : element().offsetWidth + "px");
         });
     getFieldInputContainer().insertFirst(loaderContainer);
     setLoaderEffect(LoaderEffect.IOS);
@@ -474,6 +483,20 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
     return (T) this;
   }
 
+  /** @return maximal width of dropdown */
+  public String getDropdownMaxWidth() {
+    return dropdownMaxWidth;
+  }
+
+  /**
+   * @param dropdownMaxWidth maximal width of dropdown. if null - equals width of control
+   * @return same AbstractSuggestBox instance
+   */
+  public T setDropdownMaxWidth(String dropdownMaxWidth) {
+    this.dropdownMaxWidth = dropdownMaxWidth;
+    return (T) this;
+  }
+
   /** @return boolean, true if the focusOnClose is enabled */
   public boolean isFocusOnClose() {
     return focusOnClose;
@@ -497,6 +520,11 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
 
     private DropDownPositionUp up = new DropDownPositionUp();
     private DropDownPositionDown down = new DropDownPositionDown();
+    private AbstractSuggestBox<?, ?> suggestBox;
+
+    public PopupPositionTopDown(AbstractSuggestBox<?, ?> suggestBox) {
+      this.suggestBox = suggestBox;
+    }
 
     /** {@inheritDoc} */
     @Override
@@ -520,7 +548,12 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
         popup.setAttribute("popup-direction", "down");
       }
 
-      popup.style.setProperty("width", targetRect.width + "px");
+      popup.style.setProperty("min-width", targetRect.width + "px");
+      popup.style.setProperty(
+          "max-width",
+          nonNull(suggestBox.dropdownMaxWidth)
+              ? suggestBox.dropdownMaxWidth
+              : targetRect.width + "px");
     }
   }
 
@@ -533,8 +566,7 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
       DOMRect targetRect = target.getBoundingClientRect();
 
       actionsMenu.style.setProperty(
-          "bottom", 
-          px.of(window.innerHeight - targetRect.top - window.pageYOffset));
+          "bottom", px.of(window.innerHeight - targetRect.top - window.pageYOffset));
       actionsMenu.style.setProperty("left", px.of(targetRect.left + window.pageXOffset));
       actionsMenu.style.removeProperty("top");
     }

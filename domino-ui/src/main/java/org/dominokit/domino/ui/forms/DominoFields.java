@@ -65,7 +65,7 @@ public class DominoFields {
   private DropdownPositionProvider<AbstractSelect<?, ?, ?>> defaultSelectPopupPosition =
       AbstractSelect.PopupPositionTopDown::new;
   private DropdownPositionProvider<AbstractSuggestBox<?, ?>> defaultSuggestPopupPosition =
-      field -> new AbstractSuggestBox.PopupPositionTopDown();
+      field -> new AbstractSuggestBox.PopupPositionTopDown(field);
 
   private DominoFields() {}
 
