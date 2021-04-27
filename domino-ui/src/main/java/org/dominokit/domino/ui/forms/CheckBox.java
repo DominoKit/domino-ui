@@ -50,9 +50,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
    */
   public CheckBox(String label) {
     super("checkbox", label);
-    this.label = label;
     css("d-checkbox");
-    setLabel(label);
     getInputElement().addEventListener("change", evt -> onCheck());
 
     EventListener listener =
@@ -176,6 +174,15 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
   @Override
   public boolean isChecked() {
     return getInputElement().element().checked;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public CheckBox setLabel(String label) {
+    super.setLabel(label);
+    this.label = label;
+    if (isReadOnly()) changeReadOnlyText();
+    return this;
   }
 
   /** {@inheritDoc} */
