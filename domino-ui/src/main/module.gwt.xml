@@ -17,14 +17,56 @@
 
 -->
 <module>
-    <inherits name="org.gwtproject.core.Core"/>
-    <inherits name="elemental2.svg.Svg"/>
-    <inherits name="elemental2.core.Core"/>
-    <inherits name="elemental2.dom.Dom"/>
-    <inherits name="org.jboss.elemento.Core"/>
-    <inherits name="org.gwtproject.i18n.CLDR"/>
-    <inherits name="org.gwtproject.i18n.DateTimeFormat"/>
-
-    <source path=""/>
-
+  <inherits name="org.dominokit.domino.ui.alerts.Alerts" />
+  <inherits name="org.dominokit.domino.ui.animations.Animations" />
+  <inherits name="org.dominokit.domino.ui.badges.Badges" />
+  <inherits name="org.dominokit.domino.ui.breadcrumbs.Breadcrumbs" />
+  <inherits name="org.dominokit.domino.ui.button.Button" />
+  <inherits name="org.dominokit.domino.ui.cards.Cards" />
+  <inherits name="org.dominokit.domino.ui.carousel.Carousel" />
+  <inherits name="org.dominokit.domino.ui.chips.Chips" />
+  <inherits name="org.dominokit.domino.ui.code.Code" />
+  <inherits name="org.dominokit.domino.ui.collapsible.Collapsible" />
+  <inherits name="org.dominokit.domino.ui.counter.Counter" />
+  <inherits name="org.dominokit.domino.ui.datatable.DataTable" />
+  <inherits name="org.dominokit.domino.ui.datepicker.DatePicker" />
+  <inherits name="org.dominokit.domino.ui.dialogs.Dialogs" />
+  <inherits name="org.dominokit.domino.ui.dropdown.DropDown" />
+  <inherits name="org.dominokit.domino.ui.forms.Forms" />
+  <inherits name="org.dominokit.domino.ui.grid.Grid" />
+  <inherits name="org.dominokit.domino.ui.header.Header" />
+  <inherits name="org.dominokit.domino.ui.icons.Icons" />
+  <inherits name="org.dominokit.domino.ui.infoboxes.InfoBoxes" />
+  <inherits name="org.dominokit.domino.ui.keyboard.Keyboard" />
+  <inherits name="org.dominokit.domino.ui.labels.Labels" />
+  <inherits name="org.dominokit.domino.ui.layout.Layout" />
+  <inherits name="org.dominokit.domino.ui.lists.Lists" />
+  <inherits name="org.dominokit.domino.ui.loaders.Loaders" />
+  <inherits name="org.dominokit.domino.ui.media.Media" />
+  <inherits name="org.dominokit.domino.ui.mediaquery.MediaQuery" />
+  <inherits name="org.dominokit.domino.ui.modals.Modals" />
+  <inherits name="org.dominokit.domino.ui.notifications.Notifications" />
+  <inherits name="org.dominokit.domino.ui.pagination.Pagination" />
+  <inherits name="org.dominokit.domino.ui.pickers.Pickers" />
+  <inherits name="org.dominokit.domino.ui.popover.Popover" />
+  <inherits name="org.dominokit.domino.ui.preloaders.Preloaders" />
+  <inherits name="org.dominokit.domino.ui.progress.Progress" />
+  <inherits name="org.dominokit.domino.ui.scroll.Scroll" />
+  <inherits name="org.dominokit.domino.ui.search.Search" />
+  <inherits name="org.dominokit.domino.ui.sliders.Sliders" />
+  <inherits name="org.dominokit.domino.ui.spin.Spin" />
+  <inherits name="org.dominokit.domino.ui.splitpanel.SplitPanel" />
+  <inherits name="org.dominokit.domino.ui.stepper.Stepper" />
+  <inherits name="org.dominokit.domino.ui.steppers.Steppers" />
+  <inherits name="org.dominokit.domino.ui.style.Style" />
+  <inherits name="org.dominokit.domino.ui.tabs.Tabs" />
+  <inherits name="org.dominokit.domino.ui.tag.Tag" />
+  <inherits name="org.dominokit.domino.ui.themes.Themes" />
+  <inherits name="org.dominokit.domino.ui.thumbnails.Thumbnails" />
+  <inherits name="org.dominokit.domino.ui.timepicker.TimePicker" />
+  <inherits name="org.dominokit.domino.ui.tree.Tree" />
+  <inherits name="org.dominokit.domino.ui.Typography.Typography" />
+  <inherits name="org.dominokit.domino.ui.upload.Upload" />
+  <inherits name="org.dominokit.domino.ui.utils.Utils" />
+  <source path=""/>
 </module>
