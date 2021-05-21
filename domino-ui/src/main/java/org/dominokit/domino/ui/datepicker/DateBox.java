@@ -23,6 +23,7 @@ import static org.jboss.elemento.Elements.input;
 
 import elemental2.dom.*;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.ValueBox;
@@ -303,17 +304,13 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   public DateBox setPattern(Pattern pattern) {
     switch (pattern) {
       case FULL:
-        this.pattern = datePicker.getDateTimeFormatInfo().dateFormatFull();
-        return this;
+        return setPattern(datePicker.getDateTimeFormatInfo().dateFormatFull());
       case LONG:
-        this.pattern = datePicker.getDateTimeFormatInfo().dateFormatLong();
-        return this;
+        return setPattern(datePicker.getDateTimeFormatInfo().dateFormatLong());
       case MEDIUM:
-        this.pattern = datePicker.getDateTimeFormatInfo().dateFormatMedium();
-        return this;
+        return setPattern(datePicker.getDateTimeFormatInfo().dateFormatMedium());
       case SHORT:
-        this.pattern = datePicker.getDateTimeFormatInfo().dateFormatShort();
-        return this;
+        return setPattern(datePicker.getDateTimeFormatInfo().dateFormatShort());
       default:
         return this;
     }
@@ -330,7 +327,10 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
    * @return same instance
    */
   public DateBox setPattern(String pattern) {
-    this.pattern = pattern;
+    if (!Objects.equals(this.pattern, pattern)) {
+      this.pattern = pattern;
+      setStringValue(datePicker.getDate(), datePicker.getDateTimeFormatInfo());
+    }
     return this;
   }
 
@@ -365,7 +365,6 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     if (nonNull(date))
       this.getInputElement().element().value = getFormatted(date, dateTimeFormatInfo);
     else this.getInputElement().element().value = "";
-    this.value = date;
   }
 
   private String getFormatted(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
