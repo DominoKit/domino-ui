@@ -55,13 +55,7 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
   /** {@inheritDoc} */
   @Override
   protected Float parseValue(String value) {
-    double dValue = getNumberFormat().parse(value);
-    double maxFloat = new Double(getMaxValue());
-
-    if (dValue > maxFloat) {
-      throw new NumberFormatException("Exceeded maximum value");
-    }
-    return new Double(dValue).floatValue();
+    return Double.valueOf(parseDouble(value)).floatValue();
   }
 
   /** {@inheritDoc} */

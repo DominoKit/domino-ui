@@ -64,15 +64,7 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
    */
   @Override
   protected BigDecimal parseValue(String value) {
-    double dValue = getNumberFormat().parse(value);
-    if (nonNull(getMaxValue())) {
-      double maxBd = getMaxValue().doubleValue();
-
-      if (dValue > maxBd) {
-        throw new NumberFormatException("Exceeded maximum value");
-      }
-    }
-    return new BigDecimal(dValue);
+    return new BigDecimal(parseDouble(value));
   }
 
   /** {@inheritDoc} */

@@ -24,6 +24,8 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.gwtproject.i18n.client.NumberFormat;
 import org.jboss.elemento.Elements;
 
+import java.util.Objects;
+
 /**
  * A Base implementation for form inputs that takes/provide numeric values
  *
@@ -47,77 +49,47 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    */
   public NumberBox(String label) {
     super("tel", label);
-    addInputStringValidator();
-    addMaxValueValidator();
-    addMinValueValidator();
+    addValidator(this::validateInputString);
+    addValidator(this::validateMaxValue);
+    addValidator(this::validateMinValue);
     setAutoValidation(true);
     enableFormatting();
   }
 
-  private void addInputStringValidator() {
-    addValidator(
-        () -> {
-          String inputValue = getInputElement().element().value;
-          if (nonNull(inputValue) && !inputValue.isEmpty()) {
-            try {
-              getNumberFormat().parse(inputValue);
-            } catch (NumberFormatException e) {
-              return ValidationResult.invalid(getInvalidFormatMessage());
-            }
-          }
-          return ValidationResult.valid();
-        });
-  }
-
-  private void addMaxValueValidator() {
-    addValidator(
-        () -> {
-          E value = getValue();
-          if (nonNull(getMaxValue())) {
-            String inputValue = getInputElement().element().value;
-            if (nonNull(inputValue) && !inputValue.isEmpty()) {
-              try {
-                double parsed = getNumberFormat().parse(inputValue);
-                if (nonNull(value) && isExceedMaxValue(getMaxDoubleValue(), parsed)) {
-                  return ValidationResult.invalid(getMaxValueErrorMessage());
-                }
-              } catch (NumberFormatException e) {
-                return ValidationResult.invalid(getInvalidFormatMessage());
-              }
-            }
-          }
-          return ValidationResult.valid();
-        });
-  }
-
-  /** @return the max value of the field as double if exists or else null */
-  protected Double getMaxDoubleValue() {
-    if (nonNull(getMaxValue())) {
-      return getMaxValue().doubleValue();
+  private ValidationResult validateInputString() {
+    try {
+      tryGetValue();
+    } catch (NumberFormatException e) {
+      return ValidationResult.invalid(getInvalidFormatMessage());
     }
-    return null;
+    return ValidationResult.valid();
   }
 
-  private void addMinValueValidator() {
-    addValidator(
-        () -> {
-          E value = getValue();
-          if (nonNull(value) && isLowerThanMinValue(value)) {
-            return ValidationResult.invalid(getMinValueErrorMessage());
-          }
-          return ValidationResult.valid();
-        });
+  private ValidationResult validateMaxValue() {
+    E value = getValue();
+    if (nonNull(value) && isExceedMaxValue(value)) {
+      return ValidationResult.invalid(getMaxValueErrorMessage());
+    }
+    return ValidationResult.valid();
+  }
+
+  private ValidationResult validateMinValue() {
+    E value = getValue();
+    if (nonNull(value) && isLowerThanMinValue(value)) {
+      return ValidationResult.invalid(getMinValueErrorMessage());
+    }
+    return ValidationResult.valid();
+  }
+
+  private void formatValue(E value) {
+    getInputElement().element().value = nonNull(value) ? getNumberFormat().format(value) : "";
   }
 
   private void formatValue() {
-    String stringValue = getStringValue();
-    if (nonNull(stringValue) && !stringValue.isEmpty()) {
-      try {
-        double parsedValue = getNumberFormat().parse(stringValue);
-        getInputElement().element().value = getNumberFormat().format(parsedValue);
-      } catch (NumberFormatException e) {
-        // nothing to format, so we do nothing!
-      }
+    try {
+      formatValue(tryGetValue());
+    } catch (NumberFormatException e) {
+      // nothing to format, so we do nothing!
     }
   }
 
@@ -141,18 +113,21 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     }
   }
 
+  private E tryGetValue() {
+    String value = getStringValue();
+    if (value.isEmpty()) {
+      return null;
+    }
+    return parseValue(value);
+  }
+
   /** {@inheritDoc} */
   @Override
   public E getValue() {
-    String value = getInputElement().element().value;
     try {
-      if (value.isEmpty()) {
-        return null;
-      }
-      E parsedValue = parseValue(value);
-      return parsedValue;
+      return tryGetValue();
     } catch (NumberFormatException e) {
-      invalidate(value.startsWith("-") ? getMinValueErrorMessage() : getMaxValueErrorMessage());
+      invalidate(getStringValue().startsWith("-") ? getMinValueErrorMessage() : getMaxValueErrorMessage());
       return null;
     }
   }
@@ -300,10 +275,6 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     return isExceedMaxValue(maxValue, value);
   }
 
-  private boolean isExceedMaxValue(double maxAsDouble, double valueAsDouble) {
-    return valueAsDouble > maxAsDouble;
-  }
-
   private boolean isLowerThanMinValue(E value) {
     E minValue = getMinValue();
     if (isNull(minValue)) return false;
@@ -361,8 +332,23 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    * @return same field instance
    */
   public T setPattern(String pattern) {
-    this.pattern = pattern;
+    if (!Objects.equals(this.pattern, pattern)) {
+      E value = getValue();
+      this.pattern = pattern;
+      formatValue(value);
+    }
     return (T) this;
+  }
+
+  protected double parseDouble(String value) {
+    try {
+      return getNumberFormat().parse(value);
+    } catch (NumberFormatException e) {
+      if (nonNull(getPattern())) {
+        return NumberFormat.getDecimalFormat().parse(value);
+      }
+      throw e;
+    }
   }
 
   /**

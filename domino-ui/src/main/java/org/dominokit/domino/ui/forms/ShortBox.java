@@ -57,13 +57,7 @@ public class ShortBox extends NumberBox<ShortBox, Short> {
   /** {@inheritDoc} */
   @Override
   protected Short parseValue(String value) {
-    double dValue = getNumberFormat().parse(value);
-    double maxShort = new Double(getMaxValue());
-
-    if (dValue > maxShort) {
-      throw new NumberFormatException("Exceeded maximum value");
-    }
-    return new Double(dValue).shortValue();
+    return Double.valueOf(parseDouble(value)).shortValue();
   }
 
   /** {@inheritDoc} */
