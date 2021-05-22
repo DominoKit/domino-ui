@@ -15,11 +15,6 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import org.dominokit.domino.ui.utils.ElementUtil;
-import org.gwtproject.i18n.client.NumberFormat;
-
-import static java.util.Objects.nonNull;
-
 /** A component that has an input to take/provide Double value */
 public class DoubleBox extends NumberBox<DoubleBox, Double> {
 

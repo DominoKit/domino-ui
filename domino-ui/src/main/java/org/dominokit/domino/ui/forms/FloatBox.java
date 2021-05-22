@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.forms;
 
 import elemental2.core.JsNumber;
-import org.dominokit.domino.ui.utils.ElementUtil;
 
 /** A component that has an input to take/provide float value */
 public class FloatBox extends NumberBox<FloatBox, Float> {

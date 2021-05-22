@@ -15,10 +15,7 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import static java.util.Objects.nonNull;
-
 import java.math.BigDecimal;
-import org.dominokit.domino.ui.utils.ElementUtil;
 
 /** A component that has an input to take/provide BigDecimal value */
 public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {

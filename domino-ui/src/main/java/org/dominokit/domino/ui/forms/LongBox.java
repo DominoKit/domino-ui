@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import org.dominokit.domino.ui.utils.ElementUtil;
-
 /** A component that has an input to take/provide Long value */
 public class LongBox extends NumberBox<LongBox, Long> {
 
