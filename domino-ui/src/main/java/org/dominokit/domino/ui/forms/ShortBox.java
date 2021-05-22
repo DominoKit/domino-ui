@@ -45,7 +45,6 @@ public class ShortBox extends NumberBox<ShortBox, Short> {
    */
   public ShortBox(String label) {
     super(label);
-    ElementUtil.numbersOnly(this);
   }
 
   /** {@inheritDoc} */

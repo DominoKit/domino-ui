@@ -48,7 +48,6 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
    */
   public BigDecimalBox(String label) {
     super(label);
-    ElementUtil.decimalOnly(this);
   }
 
   /** {@inheritDoc} clears the field and set the value to BigDecimal.ZERO */
@@ -65,6 +64,12 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
   @Override
   protected BigDecimal parseValue(String value) {
     return new BigDecimal(parseDouble(value));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected boolean hasDecimalSeparator() {
+    return true;
   }
 
   /** {@inheritDoc} */

@@ -45,7 +45,6 @@ public class IntegerBox extends NumberBox<IntegerBox, Integer> {
    */
   public IntegerBox(String label) {
     super(label);
-    ElementUtil.numbersOnly(this);
   }
 
   /** {@inheritDoc} */

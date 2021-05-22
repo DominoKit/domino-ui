@@ -43,7 +43,6 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
    */
   public FloatBox(String label) {
     super(label);
-    ElementUtil.decimalOnly(this);
   }
 
   /** {@inheritDoc} */
@@ -56,6 +55,12 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
   @Override
   protected Float parseValue(String value) {
     return Double.valueOf(parseDouble(value)).floatValue();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected boolean hasDecimalSeparator() {
+    return true;
   }
 
   /** {@inheritDoc} */

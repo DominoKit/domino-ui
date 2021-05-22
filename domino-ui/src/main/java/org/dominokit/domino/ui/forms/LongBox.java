@@ -45,7 +45,6 @@ public class LongBox extends NumberBox<LongBox, Long> {
    */
   public LongBox(String label) {
     super(label);
-    ElementUtil.numbersOnly(this);
   }
 
   /** {@inheritDoc} */

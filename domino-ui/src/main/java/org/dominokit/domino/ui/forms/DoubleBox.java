@@ -45,7 +45,6 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
    */
   public DoubleBox(String label) {
     super(label);
-    ElementUtil.decimalOnly(this);
   }
 
   /** {@inheritDoc} */
@@ -58,6 +57,12 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
   @Override
   protected Double parseValue(String value) {
     return parseDouble(value);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected boolean hasDecimalSeparator() {
+    return true;
   }
 
   /** {@inheritDoc} */

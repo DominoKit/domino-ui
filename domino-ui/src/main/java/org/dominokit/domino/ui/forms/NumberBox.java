@@ -18,11 +18,15 @@ package org.dominokit.domino.ui.forms;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.HTMLInputElement;
+import elemental2.dom.*;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.gwtproject.i18n.client.NumberFormat;
+import org.gwtproject.i18n.shared.cldr.LocaleInfo;
+import org.gwtproject.i18n.shared.cldr.NumberConstants;
 import org.jboss.elemento.Elements;
+import org.jboss.elemento.EventType;
 
 import java.util.Objects;
 
@@ -52,8 +56,12 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     addValidator(this::validateInputString);
     addValidator(this::validateMaxValue);
     addValidator(this::validateMinValue);
+
     setAutoValidation(true);
     enableFormatting();
+
+    getInputElement().addEventListener(EventType.keypress, this::onKeyPress);
+    getInputElement().addEventListener(EventType.paste, this::onPaste);
   }
 
   private ValidationResult validateInputString() {
@@ -79,6 +87,45 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
       return ValidationResult.invalid(getMinValueErrorMessage());
     }
     return ValidationResult.valid();
+  }
+
+  protected boolean hasDecimalSeparator() {
+    return false;
+  }
+
+  protected String createKeyMatch() {
+    StringBuilder sB = new StringBuilder();
+
+    sB.append("[0-9");
+
+    NumberConstants numberConstants = LocaleInfo.getCurrentLocale().getNumberConstants();
+    sB.append(numberConstants.minusSign());
+
+    if (hasDecimalSeparator())
+      sB.append(numberConstants.decimalSeparator());
+
+    // If pattern is defined, except predefined digits, decimal separator and minus sign, append all other characters
+    if (pattern != null)
+      sB.append(pattern.replaceAll("[0#.-]", ""));
+
+    sB.append(']');
+
+    return sB.toString();
+  }
+
+  protected void onKeyPress(Event event) {
+    KeyboardEvent keyboardEvent = Js.uncheckedCast(event);
+    if (!keyboardEvent.key.matches(createKeyMatch()))
+      event.preventDefault();
+  }
+
+  protected void onPaste(Event event) {
+    ClipboardEvent clipboardEvent = Js.uncheckedCast(event);
+    try {
+      parseValue(clipboardEvent.clipboardData.getData("text"));
+    } catch (NumberFormatException e) {
+      event.preventDefault();
+    }
   }
 
   private void formatValue(E value) {
@@ -333,7 +380,10 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    */
   public T setPattern(String pattern) {
     if (!Objects.equals(this.pattern, pattern)) {
+      // It is important get the current numeric value based on old pattern
       E value = getValue();
+
+      // Update the pattern now and format value with new pattern
       this.pattern = pattern;
       formatValue(value);
     }
