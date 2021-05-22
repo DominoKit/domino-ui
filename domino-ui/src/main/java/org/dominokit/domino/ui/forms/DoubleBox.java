@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import org.dominokit.domino.ui.utils.ElementUtil;
-
 /** A component that has an input to take/provide Double value */
 public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
@@ -42,7 +40,6 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
    */
   public DoubleBox(String label) {
     super(label);
-    ElementUtil.decimalOnly(this);
   }
 
   /** {@inheritDoc} */
@@ -54,7 +51,13 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
   /** {@inheritDoc} */
   @Override
   protected Double parseValue(String value) {
-    return getNumberFormat().parse(value);
+    return parseDouble(value);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected boolean hasDecimalSeparator() {
+    return true;
   }
 
   /** {@inheritDoc} */

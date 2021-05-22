@@ -15,10 +15,7 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import static java.util.Objects.nonNull;
-
 import java.math.BigDecimal;
-import org.dominokit.domino.ui.utils.ElementUtil;
 
 /** A component that has an input to take/provide BigDecimal value */
 public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
@@ -48,7 +45,6 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
    */
   public BigDecimalBox(String label) {
     super(label);
-    ElementUtil.decimalOnly(this);
   }
 
   /** {@inheritDoc} clears the field and set the value to BigDecimal.ZERO */
@@ -64,15 +60,13 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
    */
   @Override
   protected BigDecimal parseValue(String value) {
-    double dValue = getNumberFormat().parse(value);
-    if (nonNull(getMaxValue())) {
-      double maxBd = getMaxValue().doubleValue();
+    return new BigDecimal(parseDouble(value));
+  }
 
-      if (dValue > maxBd) {
-        throw new NumberFormatException("Exceeded maximum value");
-      }
-    }
-    return new BigDecimal(dValue);
+  /** {@inheritDoc} */
+  @Override
+  protected boolean hasDecimalSeparator() {
+    return true;
   }
 
   /** {@inheritDoc} */
