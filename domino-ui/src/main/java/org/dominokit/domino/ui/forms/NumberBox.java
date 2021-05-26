@@ -131,7 +131,11 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
   @Override
   protected void doSetValue(E value) {
     if (nonNull(value)) {
-      getInputElement().element().value = getNumberFormat().format(value);
+      if (this.formattingEnabled) {
+        getInputElement().element().value = getNumberFormat().format(value);
+      } else {
+        getInputElement().element().value = String.valueOf(value);
+      }
     } else {
       getInputElement().element().value = "";
     }
