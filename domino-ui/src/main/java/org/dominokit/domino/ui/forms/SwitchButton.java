@@ -148,9 +148,9 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
   public SwitchButton value(Boolean value) {
     super.value(value);
     if (value != null && value) {
-      check();
+      check(true);
     } else {
-      uncheck();
+      uncheck(true);
     }
     return this;
   }

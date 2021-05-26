@@ -179,7 +179,6 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
   @Override
   public CheckBox setLabel(String label) {
     super.setLabel(label);
-    this.label = label;
     if (isReadOnly()) changeReadOnlyText();
     return this;
   }
