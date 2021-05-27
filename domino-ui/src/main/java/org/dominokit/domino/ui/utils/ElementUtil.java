@@ -212,11 +212,7 @@ public class ElementUtil {
    * @param hasInputElement {@link HasInputElement}
    * @param <T> The type of the component that extends from {@link HasInputElement}
    * @return same component
-   *
-   * @deprecated
-   * This static method was used by NumberBox, but it is deprecated, since it does not take care when a pattern is set.
    */
-  @Deprecated
   public static <T extends HasInputElement> T numbersOnly(T hasInputElement) {
     hasInputElement
         .getInputElement()
@@ -249,11 +245,7 @@ public class ElementUtil {
    * @param hasInputElement {@link HasInputElement}
    * @param <T> The type of the component that extends from {@link HasInputElement}
    * @return same component
-   *
-   * @deprecated
-   * This static method was used by NumberBox, but it is deprecated, since it does not take care when a pattern is set.
    */
-  @Deprecated
   public static <T extends HasInputElement> T decimalOnly(T hasInputElement) {
     hasInputElement
         .getInputElement()
