@@ -36,7 +36,6 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
   private Color color;
   private String checkedReadonlyLabel = "Yes";
   private String unCheckedReadonlyLabel = "No";
-  private String label;
 
   /** Creates a checkbox without a label */
   public CheckBox() {
@@ -50,7 +49,6 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
    */
   public CheckBox(String label) {
     super("checkbox", label);
-    this.label = label;
     css("d-checkbox");
     setLabel(label);
     getInputElement().addEventListener("change", evt -> onCheck());
@@ -282,16 +280,16 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
     } else {
       getInputElement().setReadOnly(false);
       removeCss(READONLY);
-      getLabelTextElement().setTextContent(label);
+      getLabelTextElement().setTextContent(getLabel());
     }
     return this;
   }
 
   private void changeReadOnlyText() {
     if (isChecked()) {
-      getLabelTextElement().setTextContent(label + getCheckedReadonlyLabel());
+      getLabelTextElement().setTextContent(getLabel() + getCheckedReadonlyLabel());
     } else {
-      getLabelTextElement().setTextContent(label + getUnCheckedReadonlyLabel());
+      getLabelTextElement().setTextContent(getLabel() + getUnCheckedReadonlyLabel());
     }
   }
 
