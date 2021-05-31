@@ -19,6 +19,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.*;
+import java.util.Objects;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
@@ -27,8 +28,6 @@ import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
 import org.jboss.elemento.Elements;
 import org.jboss.elemento.EventType;
-
-import java.util.Objects;
 
 /**
  * A Base implementation for form inputs that takes/provide numeric values
@@ -101,12 +100,11 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     NumberConstants numberConstants = LocaleInfo.getCurrentLocale().getNumberConstants();
     sB.append(numberConstants.minusSign());
 
-    if (hasDecimalSeparator())
-      sB.append(numberConstants.decimalSeparator());
+    if (hasDecimalSeparator()) sB.append(numberConstants.decimalSeparator());
 
-    // If pattern is defined, except predefined digits, decimal separator and minus sign, append all other characters
-    if (pattern != null)
-      sB.append(pattern.replaceAll("[0#.-]", ""));
+    // If pattern is defined, except predefined digits, decimal separator and minus sign, append all
+    // other characters
+    if (pattern != null) sB.append(pattern.replaceAll("[0#.-]", ""));
 
     sB.append(']');
 
@@ -115,8 +113,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
 
   protected void onKeyPress(Event event) {
     KeyboardEvent keyboardEvent = Js.uncheckedCast(event);
-    if (!keyboardEvent.key.matches(createKeyMatch()))
-      event.preventDefault();
+    if (!keyboardEvent.key.matches(createKeyMatch())) event.preventDefault();
   }
 
   protected void onPaste(Event event) {
@@ -174,7 +171,8 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     try {
       return tryGetValue();
     } catch (NumberFormatException e) {
-      invalidate(getStringValue().startsWith("-") ? getMinValueErrorMessage() : getMaxValueErrorMessage());
+      invalidate(
+          getStringValue().startsWith("-") ? getMinValueErrorMessage() : getMaxValueErrorMessage());
       return null;
     }
   }
