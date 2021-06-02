@@ -214,6 +214,7 @@
                 <version>${maven.javadoc.plugin}</version>
                 <configuration>
                     <failOnError>false</failOnError>
+                    <source>8</source>
                 </configuration>
                 <executions>
                     <execution>
