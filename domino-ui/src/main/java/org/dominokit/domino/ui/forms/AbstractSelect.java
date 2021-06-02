@@ -53,7 +53,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     extends AbstractValueBox<S, HTMLElement, T> {
   private static final String CLICK_EVENT = "click";
 
-  private SelectOption<V> noneOption = SelectOption.create(null, "none", "None");
+  protected SelectOption<V> noneOption = SelectOption.create(null, "none", "None");
 
   private DominoElement<HTMLButtonElement> buttonElement;
   protected DominoElement<HTMLElement> buttonValueContainer =

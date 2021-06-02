@@ -231,6 +231,14 @@
     display: none;
 }
 
+.multi-select-option .field-group.rounded.d-checkbox .field-cntr {
+    padding: 0;
+}
+
+.multi-select-option .field-group.rounded.d-checkbox .field-note {
+    display: none;
+}
+
 .multi-select-option .select-option-value {
     line-height: 39px;
 }

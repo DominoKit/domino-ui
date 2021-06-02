@@ -142,6 +142,7 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
 
   private void setup() {
     fieldGroup.addCss("multi-select");
+    noneOption.addCss("multi-select-option");
     setOptionRenderer(new MultiOptionRenderer());
   }
 
