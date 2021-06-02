@@ -104,6 +104,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   private Icon searchIcon;
   private Icon collapseAllIcon;
   private Icon expandAllIcon;
+  private int levelPadding = 15;
 
   private T value;
 
@@ -175,6 +176,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     root.appendChild(treeItem.element());
     treeItem.setParent(this);
     treeItem.setLevel(1);
+    treeItem.setLevelPadding(levelPadding);
     treeItem.setToggleTarget(this.toggleTarget);
     this.subItems.add(treeItem);
     return this;
@@ -211,6 +213,19 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
       subItems.forEach(item -> item.setToggleTarget(toggleTarget));
       this.toggleTarget = toggleTarget;
     }
+    return this;
+  }
+
+  /**
+   * Sets level padding for item
+   *
+   * @param levelPadding string with padding for item
+   * @return same instance
+   */
+  public Tree<T> setLevelPadding(int levelPadding) {
+    this.levelPadding = levelPadding;
+    subItems.forEach(item -> item.setLevelPadding(levelPadding));
+
     return this;
   }
 

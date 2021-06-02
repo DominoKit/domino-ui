@@ -61,7 +61,8 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   private T value;
 
-  private int nextLevel = 1;
+  private int level = 1;
+  private int levelPadding = 15;
 
   private ToggleTarget toggleTarget = ToggleTarget.ANY;
   private final DominoElement<HTMLElement> indicatorContainer =
@@ -256,10 +257,11 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     childrenContainer.appendChild(treeItem.element());
     Style.of(anchorElement).add("tree-toggle");
     treeItem.parent = this;
-    treeItem.setLevel(nextLevel);
+    treeItem.setLevel(level + 1);
     Style.of(treeItem).add("tree-leaf");
     Style.of(this.element()).remove("tree-leaf");
     treeItem.setToggleTarget(this.toggleTarget);
+    treeItem.setLevelPadding(levelPadding);
     this.style.add("tree-item-parent");
     return this;
   }
@@ -671,13 +673,38 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
    * Sets the level of this item
    *
    * @param level the new level
+   * @return same instance
    */
-  public void setLevel(int level) {
-    this.nextLevel = level + 1;
+  public TreeItem<T> setLevel(int level) {
+    this.level = level;
+    updateLevelPadding();
+
     if (isParent()) {
-      subItems.forEach(treeItem -> treeItem.setLevel(nextLevel));
+      subItems.forEach(treeItem -> treeItem.setLevel(level + 1));
     }
-    anchorElement.style().setPaddingLeft(px.of(nextLevel * 15));
+
+    return this;
+  }
+
+  /**
+   * Sets the level padding of this item
+   *
+   * @param levelPadding the new level padding
+   * @return same instance
+   */
+  public TreeItem<T> setLevelPadding(int levelPadding) {
+    this.levelPadding = levelPadding;
+    updateLevelPadding();
+
+    if (isParent()) {
+      subItems.forEach(treeItem -> treeItem.setLevelPadding(levelPadding));
+    }
+
+    return this;
+  }
+
+  private void updateLevelPadding() {
+    anchorElement.style().setPaddingLeft(px.of(level * levelPadding));
   }
 
   /** {@inheritDoc} */
