@@ -247,21 +247,13 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
    * @param value {@link Radio}
    */
   public void setValue(Radio<T> value) {
-    Radio radioToSelect =
-        radios.stream().filter(radio -> radio.getValue().equals(value)).findFirst().orElse(null);
-    if (nonNull(radioToSelect)) {
-      radioToSelect.check();
-    }
+    setValue(value.getValue());
   }
 
   /** {@inheritDoc} */
   @Override
   public void setValue(T value) {
-    Radio radioToSelect =
-        radios.stream().filter(radio -> radio.getValue().equals(value)).findFirst().orElse(null);
-    if (nonNull(radioToSelect)) {
-      radioToSelect.check();
-    }
+    radios.stream().filter(radio -> radio.getValue().equals(value)).findFirst().ifPresent(Radio::check);
   }
 
   /** @return the checked {@link Radio} */
