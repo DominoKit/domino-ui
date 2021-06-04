@@ -125,9 +125,28 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
     return appendChild(radio, content.element());
   }
 
+  private void removeRadioImpl(Radio<? extends T> radio, boolean silent) {
+    radio.uncheck(silent);
+    flexLayout.removeChild(radio);
+  }
+
+  public RadioGroup<T> removeRadio(Radio<? extends T> radio, boolean silent) {
+    if (radios.remove(radio))
+      removeRadioImpl(radio, silent);
+
+    return this;
+  }
+
+  public RadioGroup<T> removeAllRadios(boolean silent) {
+    radios.forEach(radio -> removeRadioImpl(radio, silent));
+    radios.clear();
+
+    return this;
+  }
+
   private void onCheck(Radio<? extends T> selectedRadio) {
     for (ChangeHandler<? super T> changeHandler : changeHandlers) {
-      changeHandler.onValueChanged(selectedRadio.getValue());
+      changeHandler.onValueChanged(selectedRadio.isChecked() ? selectedRadio.getValue() : null);
     }
   }
 
