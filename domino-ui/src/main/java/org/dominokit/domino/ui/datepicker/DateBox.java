@@ -329,7 +329,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   public DateBox setPattern(String pattern) {
     if (!Objects.equals(this.pattern, pattern)) {
       this.pattern = pattern;
-      setStringValue(datePicker.getDate(), datePicker.getDateTimeFormatInfo());
+      setStringValue(value, datePicker.getDateTimeFormatInfo());
     }
     return this;
   }
