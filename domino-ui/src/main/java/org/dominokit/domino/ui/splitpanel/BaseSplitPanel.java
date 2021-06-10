@@ -50,9 +50,16 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
 
   private void updatePanelsSize() {
     double mainPanelSize = getSize();
+
+    double totalPercent = (getSplitterSize() / mainPanelSize) * 100;
     for (SplitPanel panel : panels) {
       double panelSize = getPanelSize(panel);
       double sizePercent = (panelSize / mainPanelSize) * 100;
+      double newTotalPercent = totalPercent + sizePercent;
+      if (newTotalPercent >= 100) {
+        sizePercent = sizePercent - (newTotalPercent - 100);
+      }
+      totalPercent = newTotalPercent;
       setPanelSize(
           panel,
           Calc.sub(

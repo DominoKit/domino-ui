@@ -18,10 +18,7 @@ package org.dominokit.domino.ui.splitpanel;
 import static elemental2.dom.DomGlobal.document;
 import static org.jboss.elemento.Elements.div;
 
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.MouseEvent;
-import elemental2.dom.TouchEvent;
+import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -44,6 +41,9 @@ abstract class BaseSplitter<T extends BaseSplitter<?>>
   private double secondSize = 0;
 
   private ColorScheme colorScheme = ColorScheme.INDIGO;
+
+  private static final boolean LEFT = true;
+  private static final boolean RIGHT = false;
 
   BaseSplitter(SplitPanel first, SplitPanel second, HasSize mainPanel) {
     element.appendChild(handleElement);
@@ -119,13 +119,28 @@ abstract class BaseSplitter<T extends BaseSplitter<?>>
 
     double firstPercent = (firstSizeDiff / fullSize * 100);
     double secondPercent = (secondSizeDiff / fullSize * 100);
+    double splitterPercent = mainPanel.getSplitterSize() / fullSize * 100;
 
-    if (withinPanelLimits(first, firstSize, firstPercent)
-        && withinPanelLimits(second, secondSize, secondPercent)) {
+    firstPercent = adjustPercent(firstPercent, splitterPercent);
+    secondPercent = adjustPercent(secondPercent, splitterPercent);
+
+    if (withinPanelLimits(first, firstSize, firstPercent, diff, LEFT)
+        && withinPanelLimits(second, secondSize, secondPercent, diff, RIGHT)) {
       setNewSizes(first, second, firstPercent, secondPercent, mainPanel);
       first.onResize(firstSize, firstPercent);
       second.onResize(secondSize, secondPercent);
     }
+  }
+
+  static double adjustPercent(double percent, double splitterPercent) {
+    double splitterShare = (splitterPercent / 2);
+    if (percent < 0) {
+      return 0;
+    }
+    if (percent > (100 - splitterShare)) {
+      return 100 - splitterShare;
+    }
+    return percent;
   }
 
   private void startResize(SplitPanel first, SplitPanel second, HasSize mainPanel) {
@@ -151,17 +166,19 @@ abstract class BaseSplitter<T extends BaseSplitter<?>>
 
   protected abstract double touchPosition(TouchEvent event);
 
-  private boolean withinPanelLimits(SplitPanel panel, double topSize, double topPercent) {
-    return withinPanelSize(panel, topSize) && withinPanelPercent(panel, topPercent);
+  private boolean withinPanelLimits(
+      SplitPanel panel, double topSize, double topPercent, double diff, boolean left) {
+    return withinPanelSize(panel, topSize, diff, left)
+        && withinPanelPercent(panel, topPercent, diff, left);
   }
 
-  private boolean withinPanelSize(SplitPanel panel, double newSize) {
-    return newSize > panel.getMinSize()
+  private boolean withinPanelSize(SplitPanel panel, double newSize, double diff, boolean left) {
+    return (newSize > panel.getMinSize() || ((diff > 0 && left) || (diff < 0 && !left)))
         && (((panel.getMaxSize() > -1) && newSize < panel.getMaxSize()) || panel.getMaxSize() < 0);
   }
 
-  private boolean withinPanelPercent(SplitPanel panel, double percent) {
-    return percent > panel.getMinPercent()
+  private boolean withinPanelPercent(SplitPanel panel, double percent, double diff, boolean left) {
+    return (percent > panel.getMinPercent() || ((diff > 0 && left) || (diff < 0 && !left)))
         && (((panel.getMaxPercent() > -1) && percent < panel.getMaxPercent())
             || panel.getMaxPercent() < 0);
   }
