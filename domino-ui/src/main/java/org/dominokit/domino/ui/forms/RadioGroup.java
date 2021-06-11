@@ -131,8 +131,9 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
   }
 
   public RadioGroup<T> removeRadio(Radio<? extends T> radio, boolean silent) {
-    if (radios.remove(radio))
+    if (radios.remove(radio)) {
       removeRadioImpl(radio, silent);
+    }
 
     return this;
   }
