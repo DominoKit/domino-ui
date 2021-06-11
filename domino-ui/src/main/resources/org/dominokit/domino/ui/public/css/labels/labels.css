@@ -1,25 +1,25 @@
 /* Labels ====================================== */
-.label-default {
+.label-dom-ui-default {
     background-color: #777;
 }
 
-.label-primary {
+.label-dom-ui-primary {
     background-color: #1f91f3;
 }
 
-.label-success {
+.label-dom-ui-success {
     background-color: #2b982b;
 }
 
-.label-info {
+.label-dom-ui-info {
     background-color: #00b0e4;
 }
 
-.label-warning {
+.label-dom-ui-warning {
     background-color: #ff9600;
 }
 
-.label-danger {
+.label-dom-ui-danger {
     background-color: #fb483a;
 }
 
