@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 import org.dominokit.domino.ui.grid.flex.FlexDirection;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.jboss.elemento.Elements;
@@ -244,21 +243,26 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
   }
 
   /**
-   * Sets the value from the specific Radio
+   * Sets the value from the specific Radio. When the radio self is null, clearValue will be
+   * executed.
    *
    * @param value {@link Radio}
    */
   public void setValue(Radio<T> value) {
-    if (value == null)
+    if (value == null) {
       clearValue();
-    else
+    } else {
       setValue(value.getValue());
+    }
   }
 
   /** {@inheritDoc} */
   @Override
   public void setValue(T value) {
-    radios.stream().filter(radio -> radio.getValue().equals(value)).findFirst().ifPresent(Radio::check);
+    radios.stream()
+        .filter(radio -> radio.getValue().equals(value))
+        .findFirst()
+        .ifPresent(Radio::check);
   }
 
   protected Optional<Radio<? extends T>> getSelectedRadioImpl() {
