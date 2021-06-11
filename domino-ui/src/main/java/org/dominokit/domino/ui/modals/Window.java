@@ -91,7 +91,7 @@ public class Window extends BaseModal<Window> {
                         .appendChild(
                             maximizeIcon.size18().clickable().addClickListener(evt -> maximize()))
                         .appendChild(
-                            closeIcon.size18().clickable().addClickListener(evt -> close()))));
+                            closeIcon.size18().clickable().addClickListener(this::onClickClose))));
 
     moveListener =
         evt -> {
@@ -138,6 +138,10 @@ public class Window extends BaseModal<Window> {
     addCloseListener(this::removeMoveListeners);
 
     initPosition();
+  }
+
+  protected void onClickClose(Event event) {
+    close();
   }
 
   /** @return boolean, true if this window can be dragged across the screen */
