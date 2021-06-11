@@ -1908,7 +1908,7 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small
 }
 
 /* Demo ======================================== */
-.demo-button-sizes .btn {
+.demo-button-sizes .dom-ui-btn {
     margin-bottom: 5px;
 }
 
@@ -2958,10 +2958,6 @@ a.disabled {
     margin-right: auto;
 }
 
-.btn-dropdown {
-    width: 100%;
-}
-
 /*x-Large screens*/
 @media screen and (min-width: 1800px) {
     .hide-on-xlarge-only,
@@ -3449,7 +3445,7 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
     line-height: 24px;
 }
 
-.close {
+.dom-ui-close {
     float: right;
     font-size: 21px;
     font-weight: bold;

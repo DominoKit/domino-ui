@@ -18,7 +18,7 @@ package org.dominokit.domino.ui.notifications;
 /** Default CSS classes for {@link Notification} */
 public class NotificationStyles {
   /** CSS class for close button */
-  public static final String CLOSE = "close";
+  public static final String CLOSE = "dom-ui-close";
   /** CSS class for notification container */
   public static final String BOOTSTRAP_NOTIFY_CONTAINER = "bootstrap-notify-container";
   /** CSS class for notification container */

@@ -29,7 +29,7 @@ public class AlertStyles {
   /** CSS class for alert with error severity */
   public static final String ERROR = "alert-danger";
   /** CSS class for the close button */
-  public static final String CLOSE = "close";
+  public static final String CLOSE = "dom-ui-close";
   /** CSS class for setting the alert as dismissible */
   public static final String ALERT_DISMISSIBLE = "alert-dismissible";
   /** CSS class for links inside alert */

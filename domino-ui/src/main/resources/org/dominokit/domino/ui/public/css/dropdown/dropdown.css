@@ -74,7 +74,7 @@
     margin-top: -40px;
 }
 
-.form-group .form-control.readonly .btn.dropdown-toggle {
+.form-group .form-control.readonly .dom-ui-btn.dropdown-toggle {
     cursor: text !important;
 }
 

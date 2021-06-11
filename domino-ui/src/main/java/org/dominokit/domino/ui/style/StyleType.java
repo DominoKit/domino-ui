@@ -22,17 +22,17 @@ package org.dominokit.domino.ui.style;
  */
 public enum StyleType {
   /** a default style that indicate no special information */
-  DEFAULT("default"),
+  DEFAULT("dom-ui-default"),
   /** marks an element as a primary. */
-  PRIMARY("primary"),
+  PRIMARY("dom-ui-primary"),
   /** indicates a success operation */
-  SUCCESS("success"),
+  SUCCESS("dom-ui-success"),
   /** mark an element as one that has some information */
-  INFO("info"),
+  INFO("dom-ui-info"),
   /** mark an element as one that requires user attention */
-  WARNING("warning"),
+  WARNING("dom-ui-warning"),
   /** indicates an error or something went wrong */
-  DANGER("danger");
+  DANGER("dom-ui-danger");
 
   private final String style;
 

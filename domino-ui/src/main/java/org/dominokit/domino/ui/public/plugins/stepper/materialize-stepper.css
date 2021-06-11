@@ -346,12 +346,12 @@ ul.stepper .step-actions {
     justify-content: flex-start;
 }
 
-ul.stepper .step-actions .btn:not(:last-child), ul.stepper .step-actions .btn-flat:not(:last-child), ul.stepper .step-actions .btn-large:not(:last-child) {
+ul.stepper .step-actions .dom-ui-btn:not(:last-child), ul.stepper .step-actions .dom-ui-btn-flat:not(:last-child), ul.stepper .step-actions .dom-ui-btn-large:not(:last-child) {
     margin-right: 5px;
 }
 
 @media only screen and (min-width: 993px) {
-    ul.stepper.horizontal .step-actions .btn:not(:last-child), ul.stepper.horizontal .step-actions .btn-flat:not(:last-child), ul.stepper.horizontal .step-actions .btn-large:not(:last-child) {
+    ul.stepper.horizontal .step-actions .dom-ui-btn:not(:last-child), ul.stepper.horizontal .step-actions .dom-ui-btn-flat:not(:last-child), ul.stepper.horizontal .step-actions .dom-ui-btn-large:not(:last-child) {
         margin-left: 5px;
         margin-right: 0;
     }

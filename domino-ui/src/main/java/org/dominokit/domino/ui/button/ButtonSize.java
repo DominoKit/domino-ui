@@ -21,13 +21,13 @@ package org.dominokit.domino.ui.button;
  */
 public enum ButtonSize {
   /** Large height */
-  LARGE("lg"),
+  LARGE("dom-ui-lg"),
   /** Medium height */
-  MEDIUM("md"),
+  MEDIUM("dom-ui-md"),
   /** Small height */
-  SMALL("sm"),
+  SMALL("dom-ui-sm"),
   /** Extra small height */
-  XSMALL("xs");
+  XSMALL("dom-ui-xs");
 
   private String style;
 

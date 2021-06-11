@@ -112,16 +112,16 @@ body.modal-open {
     border-top: 1px solid #e5e5e5;
 }
 
-.modal-footer .btn + .btn {
+.modal-footer .dom-ui-btn + .dom-ui-btn {
     margin-bottom: 0;
     margin-left: 5px;
 }
 
-.modal-footer .btn-group .btn + .btn {
+.modal-footer .dom-ui-btn-group .dom-ui-btn + .dom-ui-btn {
     margin-left: -1px;
 }
 
-.modal-footer .btn-block + .btn-block {
+.modal-footer .dom-ui-btn-block + .dom-ui-btn-block {
     margin-left: 0;
 }
 
@@ -358,9 +358,9 @@ body.modal-open {
 }
 
 .modal-content[class*="col-"] .modal-footer,
-.modal-content[class*="col-"] .modal-footer .btn-link:hover,
-.modal-content[class*="col-"] .modal-footer .btn-link:active,
-.modal-content[class*="col-"] .modal-footer .btn-link:focus {
+.modal-content[class*="col-"] .modal-footer .dom-ui-btn-link:hover,
+.modal-content[class*="col-"] .modal-footer .dom-ui-btn-link:active,
+.modal-content[class*="col-"] .modal-footer .dom-ui-btn-link:focus {
     background-color: rgba(0, 0, 0, 0.12);
 }
 

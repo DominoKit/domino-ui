@@ -18,7 +18,7 @@
     margin-top: 5px;
 }
 
-.alert-dismissible .close {
+.alert-dismissible .dom-ui-close {
     color: #fff;
     opacity: 1;
     border: none;
