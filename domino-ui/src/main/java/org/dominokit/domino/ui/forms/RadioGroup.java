@@ -23,6 +23,8 @@ import elemental2.dom.Node;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 import org.dominokit.domino.ui.grid.flex.FlexDirection;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.jboss.elemento.Elements;
@@ -247,7 +249,10 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
    * @param value {@link Radio}
    */
   public void setValue(Radio<T> value) {
-    setValue(value.getValue());
+    if (value == null)
+      clearValue();
+    else
+      setValue(value.getValue());
   }
 
   /** {@inheritDoc} */
@@ -256,10 +261,13 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
     radios.stream().filter(radio -> radio.getValue().equals(value)).findFirst().ifPresent(Radio::check);
   }
 
+  protected Optional<Radio<? extends T>> getSelectedRadioImpl() {
+    return radios.stream().filter(Radio::isChecked).findFirst();
+  }
+
   /** @return the checked {@link Radio} */
-  @SuppressWarnings("unchecked")
-  public Radio<T> getSelectedRadio() {
-    return (Radio<T>) radios.stream().filter(Radio::isChecked).findFirst().orElse(null);
+  public Radio<? extends T> getSelectedRadio() {
+    return getSelectedRadioImpl().orElse(null);
   }
 
   /** {@inheritDoc} */
@@ -304,11 +312,15 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {}
+  protected void clearValue() {
+    getSelectedRadioImpl().ifPresent(Radio::uncheck);
+  }
 
   /** {@inheritDoc} */
   @Override
-  protected void doSetValue(T value) {}
+  protected void doSetValue(T value) {
+    setValue(value);
+  }
 
   private static class RadioAutoValidator<T> extends AutoValidator {
 
