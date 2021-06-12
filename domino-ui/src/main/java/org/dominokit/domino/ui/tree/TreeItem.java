@@ -815,17 +815,16 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     return indicatorContainer;
   }
 
-  /**
-   *
-   * @return The {@link HTMLElement} that contains the title of this TreeItem
-   */
+  /** @return The {@link HTMLElement} that contains the title of this TreeItem */
   public DominoElement<HTMLElement> getTitleElement() {
     return DominoElement.of(titleElement);
   }
 
   /**
-   * Change the title of a TreeItem, If the TreeItem was created without a value and the title is used as a value then it will not change when the title is changed
-   * to change the value a call to {@link #setValue(T)} should be called
+   * Change the title of a TreeItem, If the TreeItem was created without a value and the title is
+   * used as a value then it will not change when the title is changed to change the value a call to
+   * {@link #setValue(T)} should be called
+   *
    * @param title String title to set
    * @return same TreeItem instance
    */
