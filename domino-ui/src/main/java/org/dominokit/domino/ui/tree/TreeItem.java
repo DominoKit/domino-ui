@@ -67,11 +67,12 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   private ToggleTarget toggleTarget = ToggleTarget.ANY;
   private final DominoElement<HTMLElement> indicatorContainer =
       DominoElement.of(span().css("tree-indicator"));
+  private HTMLElement titleElement;
 
   public TreeItem(String title, BaseIcon<?> icon) {
     this.title = title;
     setIcon(icon);
-    HTMLElement titleElement = span().css("title").textContent(title).element();
+    titleElement = span().css("title").textContent(title).element();
     DominoElement<HTMLElement> toggleContainer = DominoElement.of(span().css("tree-tgl-icn"));
     this.anchorElement =
         DominoElement.of(
@@ -812,5 +813,24 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   /** @return the content indicator container */
   public DominoElement<HTMLElement> getIndicatorContainer() {
     return indicatorContainer;
+  }
+
+  /** @return The {@link HTMLElement} that contains the title of this TreeItem */
+  public DominoElement<HTMLElement> getTitleElement() {
+    return DominoElement.of(titleElement);
+  }
+
+  /**
+   * Change the title of a TreeItem, If the TreeItem was created without a value and the title is
+   * used as a value then it will not change when the title is changed to change the value a call to
+   * {@link #setValue(T)} should be called
+   *
+   * @param title String title to set
+   * @return same TreeItem instance
+   */
+  public TreeItem<T> setTitle(String title) {
+    this.title = title;
+    getTitleElement().setTextContent(title);
+    return this;
   }
 }

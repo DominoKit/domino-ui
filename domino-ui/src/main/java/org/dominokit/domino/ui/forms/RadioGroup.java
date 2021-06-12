@@ -23,6 +23,7 @@ import elemental2.dom.Node;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import org.dominokit.domino.ui.grid.flex.FlexDirection;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.jboss.elemento.Elements;
@@ -125,9 +126,29 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
     return appendChild(radio, content.element());
   }
 
+  private void removeRadioImpl(Radio<? extends T> radio, boolean silent) {
+    radio.uncheck(silent);
+    flexLayout.removeChild(radio);
+  }
+
+  public RadioGroup<T> removeRadio(Radio<? extends T> radio, boolean silent) {
+    if (radios.remove(radio)) {
+      removeRadioImpl(radio, silent);
+    }
+
+    return this;
+  }
+
+  public RadioGroup<T> removeAllRadios(boolean silent) {
+    radios.forEach(radio -> removeRadioImpl(radio, silent));
+    radios.clear();
+
+    return this;
+  }
+
   private void onCheck(Radio<? extends T> selectedRadio) {
     for (ChangeHandler<? super T> changeHandler : changeHandlers) {
-      changeHandler.onValueChanged(selectedRadio.getValue());
+      changeHandler.onValueChanged(selectedRadio.isChecked() ? selectedRadio.getValue() : null);
     }
   }
 
@@ -242,32 +263,35 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
   }
 
   /**
-   * Sets the value from the specific Radio
+   * Sets the value from the specific Radio. When the radio self is null, clearValue will be
+   * executed.
    *
    * @param value {@link Radio}
    */
   public void setValue(Radio<T> value) {
-    Radio radioToSelect =
-        radios.stream().filter(radio -> radio.getValue().equals(value)).findFirst().orElse(null);
-    if (nonNull(radioToSelect)) {
-      radioToSelect.check();
+    if (value == null) {
+      clearValue();
+    } else {
+      setValue(value.getValue());
     }
   }
 
   /** {@inheritDoc} */
   @Override
   public void setValue(T value) {
-    Radio radioToSelect =
-        radios.stream().filter(radio -> radio.getValue().equals(value)).findFirst().orElse(null);
-    if (nonNull(radioToSelect)) {
-      radioToSelect.check();
-    }
+    radios.stream()
+        .filter(radio -> radio.getValue().equals(value))
+        .findFirst()
+        .ifPresent(Radio::check);
+  }
+
+  protected Optional<Radio<? extends T>> getSelectedRadioImpl() {
+    return radios.stream().filter(Radio::isChecked).findFirst();
   }
 
   /** @return the checked {@link Radio} */
-  @SuppressWarnings("unchecked")
-  public Radio<T> getSelectedRadio() {
-    return (Radio<T>) radios.stream().filter(Radio::isChecked).findFirst().orElse(null);
+  public Radio<? extends T> getSelectedRadio() {
+    return getSelectedRadioImpl().orElse(null);
   }
 
   /** {@inheritDoc} */
@@ -312,11 +336,15 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {}
+  protected void clearValue() {
+    getSelectedRadioImpl().ifPresent(Radio::uncheck);
+  }
 
   /** {@inheritDoc} */
   @Override
-  protected void doSetValue(T value) {}
+  protected void doSetValue(T value) {
+    setValue(value);
+  }
 
   private static class RadioAutoValidator<T> extends AutoValidator {
 

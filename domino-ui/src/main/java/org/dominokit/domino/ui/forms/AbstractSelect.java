@@ -501,7 +501,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
    * @return same select instance
    */
   public S removeOption(SelectOption<V> option) {
-    if (nonNull(option) && getOptions().contains(option)) {
+    if (nonNull(option) && getOptions().remove(option)) {
       option.deselect(true);
       option.element().remove();
     }
