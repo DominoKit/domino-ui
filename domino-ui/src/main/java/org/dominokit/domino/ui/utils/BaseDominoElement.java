@@ -695,7 +695,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    * @return same component
    */
   @Editor.Ignore
-  public T removeChild(IsElement<HTMLElement> elementToRemove) {
+  public T removeChild(IsElement<?> elementToRemove) {
     removeChild(elementToRemove.element());
     return element;
   }
