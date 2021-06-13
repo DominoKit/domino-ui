@@ -17,11 +17,9 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
 import static org.jboss.elemento.Elements.input;
+import static org.jboss.elemento.Elements.span;
 
-import elemental2.dom.Event;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLInputElement;
+import elemental2.dom.*;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.Checkable;
@@ -36,6 +34,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
   private Color color;
   private String checkedReadonlyLabel = "Yes";
   private String unCheckedReadonlyLabel = "No";
+  private DominoElement<HTMLElement> readOnlyLabelElement = DominoElement.of(span());
 
   /** Creates a checkbox without a label */
   public CheckBox() {
@@ -287,17 +286,19 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
     } else {
       getInputElement().setReadOnly(false);
       removeCss(READONLY);
-      getLabelTextElement().setTextContent(getLabel());
+      readOnlyLabelElement.remove();
     }
     return this;
   }
 
   private void changeReadOnlyText() {
+    readOnlyLabelElement.remove();
     if (isChecked()) {
-      getLabelTextElement().setTextContent(getLabel() + getCheckedReadonlyLabel());
+      readOnlyLabelElement.setTextContent(getCheckedReadonlyLabel());
     } else {
-      getLabelTextElement().setTextContent(getLabel() + getUnCheckedReadonlyLabel());
+      readOnlyLabelElement.setTextContent(getUnCheckedReadonlyLabel());
     }
+    getLabelElement().appendChild(readOnlyLabelElement);
   }
 
   private String getCheckedReadonlyLabel() {
