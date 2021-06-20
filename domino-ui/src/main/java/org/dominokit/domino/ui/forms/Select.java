@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
 
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import java.util.List;
 import java.util.Objects;
@@ -133,8 +134,9 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
   /** {@inheritDoc} */
   @Override
   public Select<T> select(SelectOption<T> option, boolean silent) {
-    if (selectedOption != null)
-      if (!option.isEqualNode(selectedOption.element())) selectedOption.deselect();
+    if (nonNull(selectedOption) && !option.isEqualNode(selectedOption.element())) {
+      selectedOption.deselect();
+    }
     floatLabel();
     this.selectedOption = option;
     option.select();
@@ -178,9 +180,11 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
 
   /** {@inheritDoc} */
   @Override
-  public Select<T> clear() {
-    this.selectedOption = null;
-    return super.clear();
+  protected void doClear() {
+    if (nonNull(selectedOption)) {
+      selectedOption.deselect();
+      selectedOption = null;
+    }
   }
 
   /** @return int index of selected {@link SelectOption} */
@@ -205,7 +209,7 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
           Icons.ALL
               .check()
               .styler(style1 -> style1.add(Styles.pull_right).add("select-option-check-mark"));
-      FlexItem checkMarkFlexItem = FlexItem.create();
+      FlexItem<HTMLDivElement> checkMarkFlexItem = FlexItem.create();
       checkMarkFlexItem.appendChild(checkMark);
       option.getOptionLayoutElement().appendChild(checkMarkFlexItem);
 
