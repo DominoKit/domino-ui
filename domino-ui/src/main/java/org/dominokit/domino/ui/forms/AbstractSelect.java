@@ -173,12 +173,15 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   @Override
   public S clear() {
     unfloatLabel();
-    getOptions().forEach(selectOption -> selectOption.deselect(true));
+    doClear();
     valuesContainer.setTextContent("");
     showPlaceholder();
     if (isAutoValidation()) validate();
     return (S) this;
   }
+
+  /** Clear the current selection based on the implementation */
+  protected abstract void doClear();
 
   /**
    * Opens the select dropdown menu
