@@ -154,9 +154,20 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
   /** {@inheritDoc} */
   @Override
   public Select<T> setValue(T value, boolean silent) {
-    for (SelectOption<T> option : getOptions()) {
-      if (Objects.equals(option.getValue(), value)) {
-        select(option, silent);
+    if (isNull(value)) {
+      // same as clear & doClear but pass silent to deselect
+      if (nonNull(selectedOption)) {
+        unfloatLabel();
+        selectedOption.deselect(silent);
+        selectedOption = null;
+        valuesContainer.setTextContent("");
+        showPlaceholder();
+      }
+    } else {
+      for (SelectOption<T> option : getOptions()) {
+        if (Objects.equals(option.getValue(), value)) {
+          select(option, silent);
+        }
       }
     }
     return this;
