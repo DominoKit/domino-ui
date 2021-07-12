@@ -424,17 +424,10 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
       }
 
       if (isNull(popover)) {
-        if (openOnClick) {
-          popover =
-              Popover.createPicker(this, this.datePicker)
-                  .position(this.popupPosition)
-                  .styler(style -> style.add(DatePickerStyles.PICKER_POPOVER));
-        } else {
-          popover =
-              Popover.createPicker(this.calendarIcon, this.datePicker)
-                  .position(this.popupPosition)
-                  .styler(style -> style.add(DatePickerStyles.PICKER_POPOVER));
-        }
+        popover =
+            Popover.createPicker(openOnClick ? this : this.calendarIcon, this.datePicker)
+                .position(this.popupPosition)
+                .styler(style -> style.add(DatePickerStyles.PICKER_POPOVER));
         popover.addOpenListener(() -> this.valueOnOpen = getValue());
 
         popover
