@@ -626,7 +626,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     if (openOnClick) {
       element().addEventListener(EventType.click.getName(), modalListener);
     }
-    // in case a popover exists, we meed to discard and recreate it.
+    // in case a popover exists,we need to discard and recreate it.
     if (nonNull(popover)) {
       this.popover.discard();
       showInPopOver();
