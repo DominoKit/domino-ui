@@ -942,7 +942,8 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
 
       double distanceToMiddle = ((targetRect.top) - (targetRect.height / 2));
       double windowMiddle = DomGlobal.window.innerHeight / 2;
-      double popupHeight = popup.getElementsByClassName("dropdown-menu").getAt(0).getBoundingClientRect().height;
+      double popupHeight =
+          popup.getElementsByClassName("dropdown-menu").getAt(0).getBoundingClientRect().height;
       double distanceToBottom = window.innerHeight - targetRect.bottom;
       double distanceToTop = (targetRect.top + targetRect.height);
 
