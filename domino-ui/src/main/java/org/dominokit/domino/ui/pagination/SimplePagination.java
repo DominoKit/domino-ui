@@ -85,7 +85,6 @@ public class SimplePagination extends BasePagination<SimplePagination> {
         DominoElement.of(li().css("page-nav"))
             .appendChild(
                 prevAnchor
-                    .setTooltip("Previous page")
                     .appendChild(Icons.ALL.chevron_left().clickable())
                     .addClickListener(event -> moveToPage(index - 1, false)));
 
@@ -111,7 +110,6 @@ public class SimplePagination extends BasePagination<SimplePagination> {
         DominoElement.of(li().css("page-nav"))
             .appendChild(
                 nextAnchor
-                    .setTooltip("Next page")
                     .appendChild(Icons.ALL.chevron_right().clickable())
                     .addClickListener(event -> moveToPage(index + 1, false)));
 
