@@ -96,20 +96,14 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
     prevAnchor = DominoElement.of(a());
     prevElement =
         DominoElement.of(li().css("page-nav"))
-            .appendChild(
-                prevAnchor
-                    .setTooltip("Previous page")
-                    .appendChild(Icons.ALL.chevron_left().clickable()));
+            .appendChild(prevAnchor.appendChild(Icons.ALL.chevron_left().clickable()));
 
     addListenerToElement(prevAnchor, event -> moveToPage(index - 1, false));
 
     firstPageAnchor = DominoElement.of(a());
     firstPage =
         DominoElement.of(li().css("page-nav"))
-            .appendChild(
-                firstPageAnchor
-                    .setTooltip("First page")
-                    .appendChild(Icons.ALL.skip_previous().clickable()));
+            .appendChild(firstPageAnchor.appendChild(Icons.ALL.skip_previous().clickable()));
 
     addListenerToElement(firstPageAnchor, event -> moveToPage(1, false));
 
@@ -141,20 +135,14 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
     nextAnchor = DominoElement.of(a());
     nextElement =
         DominoElement.of(li().css("page-nav"))
-            .appendChild(
-                nextAnchor
-                    .setTooltip("Next page")
-                    .appendChild(Icons.ALL.chevron_right().clickable()));
+            .appendChild(nextAnchor.appendChild(Icons.ALL.chevron_right().clickable()));
 
     addListenerToElement(nextAnchor, event -> moveToPage(index + 1, false));
 
     lastPageAnchor = DominoElement.of(a());
     lastPage =
         DominoElement.of(li().css("page-nav"))
-            .appendChild(
-                lastPageAnchor
-                    .setTooltip("Last page")
-                    .appendChild(Icons.ALL.skip_next().clickable()));
+            .appendChild(lastPageAnchor.appendChild(Icons.ALL.skip_next().clickable()));
 
     addListenerToElement(
         lastPageAnchor,

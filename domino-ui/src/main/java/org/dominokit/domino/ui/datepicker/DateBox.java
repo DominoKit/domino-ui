@@ -85,6 +85,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   private boolean openOnClick = true;
   private boolean parseStrict;
   private Date valueOnOpen;
+  private Formatter formatter = new DefaultFormatter();
 
   public DateBox() {
     this(new Date());
@@ -224,9 +225,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   private Date getFormattedValue(String value) throws IllegalArgumentException {
     DateTimeFormatInfo dateTimeFormatInfo = datePicker.getDateTimeFormatInfo();
     if (parseStrict) {
-      return Formatter.getFormat(this.pattern, dateTimeFormatInfo).parseStrict(value);
+      return formatter.parseStrict(this.pattern, dateTimeFormatInfo, value);
     }
-    return Formatter.getFormat(this.pattern, dateTimeFormatInfo).parse(value);
+    return formatter.parse(this.pattern, dateTimeFormatInfo, value);
   }
 
   /**
@@ -368,7 +369,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   }
 
   private String getFormatted(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
-    return Formatter.getFormat(this.pattern, dateTimeFormatInfo).format(date);
+    return formatter.format(this.pattern, dateTimeFormatInfo, date);
   }
 
   /** {@inheritDoc} */
@@ -548,7 +549,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   @Override
   public String getStringValue() {
     if (nonNull(value)) {
-      return Formatter.getFormat(this.pattern, datePicker.getDateTimeFormatInfo()).format(value);
+      return formatter.format(this.pattern, datePicker.getDateTimeFormatInfo(), value);
     }
     return null;
   }
@@ -634,6 +635,23 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     return this;
   }
 
+  /** @return Formatter */
+  public Formatter getFormatter() {
+    return formatter;
+  }
+
+  /**
+   * Set a custom {@link Formatter} to use with this DateBox
+   *
+   * @param formatter {@link Formatter}
+   */
+  public void setFormatter(Formatter formatter) {
+    if (isNull(formatter)) {
+      throw new IllegalArgumentException("formatter cannot be null");
+    }
+    this.formatter = formatter;
+  }
+
   private void disablePopover() {
     if (nonNull(popover)) {
       popover.disable();
@@ -658,18 +676,30 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     }
   }
 
-  private static class Formatter extends DateTimeFormat {
+  /**
+   * An internal implementation of the {@link Formatter} that used GWT {@link DateTimeFormat} to
+   * format and parse the date.
+   */
+  private static class DefaultFormatter extends DateTimeFormat implements Formatter {
 
-    protected Formatter(String pattern) {
-      super(pattern);
+    protected DefaultFormatter() {
+      super(null);
     }
 
-    protected Formatter(String pattern, DateTimeFormatInfo dtfi) {
-      super(pattern, dtfi);
+    /** {@inheritDoc} */
+    @Override
+    public Date parseStrict(String pattern, DateTimeFormatInfo dtfi, String value) {
+      return getFormat(pattern, dtfi).parseStrict(value);
     }
-
-    public static DateTimeFormat getFormat(String pattern, DateTimeFormatInfo dateTimeFormatInfo) {
-      return DateTimeFormat.getFormat(pattern, dateTimeFormatInfo);
+    /** {@inheritDoc} */
+    @Override
+    public Date parse(String pattern, DateTimeFormatInfo dtfi, String value) {
+      return getFormat(pattern, dtfi).parse(value);
+    }
+    /** {@inheritDoc} */
+    @Override
+    public String format(String pattern, DateTimeFormatInfo dtfi, Date date) {
+      return getFormat(pattern, dtfi).format(date);
     }
   }
 
