@@ -426,7 +426,21 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    * @param searchToken the query
    */
   public void filter(String searchToken) {
-    subItems.forEach(treeItem -> treeItem.filter(searchToken));
+    doFilterRecursive(subItems, searchToken);
+  }
+  
+  /**
+   * Recursive loop and filter over all treeitems.
+   *
+   * @param subItems the items to loop
+   * @param searchToken the token to filter
+   */
+  private void doFilterRecursive(List<TreeItem<T>> subItems, String searchToken) {
+    subItems.forEach(treeItem -> {
+      treeItem.filter(searchToken);
+      if (treeItem.isParent()) 
+        doFilterRecursive(treeItem.getSubItems(), searchToken);
+    });
   }
 
   /** {@inheritDoc} */
