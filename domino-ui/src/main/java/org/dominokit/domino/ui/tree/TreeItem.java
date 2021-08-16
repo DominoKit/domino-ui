@@ -645,13 +645,15 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Filters the children
+   * Filters the children and make sure the filter is applied to all children
    *
    * @param searchToken the search token
    * @return true of one of the children matches the search token, false otherwise
    */
   public boolean filterChildren(String searchToken) {
-    return subItems.stream().anyMatch(treeItem -> treeItem.filter(searchToken));
+    // We use the noneMatch here instead of anyMatch to make sure we are looping all children
+    // instead of early exit on first matching one
+    return subItems.stream().filter(treeItem -> treeItem.filter(searchToken)).count() > 0;
   }
 
   /** Collapse all children */
