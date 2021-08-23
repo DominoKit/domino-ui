@@ -27,7 +27,7 @@ import org.dominokit.domino.ui.forms.SelectOption;
 
 /**
  * A Single option select column header filter component that is rendered as a {@link Select}
- * component * @param <T> type of data table records
+ * component * @param <T&gt; type of data table records
  */
 public class SelectHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 

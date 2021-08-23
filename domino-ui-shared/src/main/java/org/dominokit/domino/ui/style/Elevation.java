@@ -72,8 +72,8 @@ public enum Elevation {
   /**
    * a factory method to get an Elevation enum value from an int value.
    *
-   * @param level
-   * @return
+   * @param level int value the larger the value the larger the shadow
+   * @return Elevation
    */
   public static Elevation of(int level) {
     switch (level) {

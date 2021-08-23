@@ -36,9 +36,9 @@ import org.jboss.elemento.EventType;
  * <pre>
  * Search.create(true)
  *                 .setSearchPlaceHolder("Search")
- *                 .styler(style -> style.setHeight(Unit.px.of(40)))
- *                 .onSearch(searchToken -> Notification.create("Inline searching for : " + searchToken).show())
- *                 .onClose(() -> Notification.create("Closing inline search : ").show());
+ *                 .styler(style -&gt; style.setHeight(Unit.px.of(40)))
+ *                 .onSearch(searchToken -&gt; Notification.create("Inline searching for : " + searchToken).show())
+ *                 .onClose(() -&gt; Notification.create("Closing inline search : ").show());
  * </pre>
  */
 public class Search extends BaseDominoElement<HTMLDivElement, Search> {

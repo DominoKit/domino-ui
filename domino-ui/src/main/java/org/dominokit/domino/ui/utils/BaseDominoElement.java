@@ -20,9 +20,11 @@ import static java.util.Objects.nonNull;
 
 import elemental2.dom.*;
 import java.util.Optional;
+import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.popover.Tooltip;
+import org.dominokit.domino.ui.style.DominoStyle;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.WavesSupport;
@@ -37,12 +39,17 @@ import org.jboss.elemento.*;
  *
  * <p>also the class can wrap any html element to treat it as a domino component
  *
- * @see DominoElement
  * @param <E> The type of the HTML element of the component extending from this class
  * @param <T> The type of the component extending from this class
+ * @see DominoElement
  */
 public abstract class BaseDominoElement<E extends HTMLElement, T extends IsElement<E>>
-    implements IsElement<E>, IsCollapsible<T>, HasChildren<T>, HasWavesElement, IsReadOnly<T> {
+    implements IsElement<E>,
+        IsCollapsible<T>,
+        HasChildren<T>,
+        HasWavesElement,
+        IsReadOnly<T>,
+        DominoStyle<E, T, T> {
 
   /** The name of the attribute that holds a unique id for the component */
   public static final String DOMINO_UUID = "domino-uuid";
@@ -59,8 +66,6 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   private WavesSupport wavesSupport;
   private Optional<ElementObserver> attachObserver = Optional.empty();
   private Optional<ElementObserver> detachObserver = Optional.empty();
-  private boolean collapsed = false;
-  private boolean forceHidden = false;
 
   /**
    * initialize the component using its root element giving it a unique id, a {@link Style} and also
@@ -108,8 +113,8 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /**
    * if the component is visible hide it, else show it
    *
-   * @see Collapsible#toggleDisplay()
    * @return same component
+   * @see Collapsible#toggleDisplay()
    */
   @Override
   @Editor.Ignore
@@ -119,9 +124,9 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   /**
-   * @see Collapsible#toggleDisplay(boolean)
    * @param state boolean, if true show the component otherwise hide it
    * @return same component
+   * @see Collapsible#toggleDisplay(boolean)
    */
   @Override
   @Editor.Ignore
@@ -133,8 +138,8 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /**
    * Show the item if it is hidden
    *
-   * @see Collapsible#show()
    * @return same component
+   * @see Collapsible#show()
    */
   @Override
   public T show() {
@@ -145,8 +150,8 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /**
    * Hides the item if it is visible
    *
-   * @see Collapsible#hide()
    * @return same component
+   * @see Collapsible#hide()
    */
   @Override
   public T hide() {
@@ -155,17 +160,17 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   /**
+   * @return boolean, true if force hidden is enabled
    * @see Collapsible#setForceHidden(boolean)
-   * @return boolean,true if force hidden is enabled
    */
   public boolean isForceHidden() {
     return collapsible.isForceHidden();
   }
 
   /**
-   * @see Collapsible#setForceHidden(boolean)
    * @param forceHidden boolean, true to force hiding the component
    * @return same component
+   * @see Collapsible#setForceHidden(boolean)
    */
   public T setForceHidden(boolean forceHidden) {
     collapsible.setForceHidden(forceHidden);
@@ -176,6 +181,18 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   public Collapsible getCollapsible() {
     return collapsible;
+  }
+
+  /**
+   * Change the {@link CollapseStrategy} for the element
+   *
+   * @param strategy the {@link CollapseStrategy}
+   * @return same component
+   */
+  @Editor.Ignore
+  public T setCollapseStrategy(CollapseStrategy strategy) {
+    this.collapsible.setStrategy(strategy);
+    return (T) this;
   }
 
   /**
@@ -548,6 +565,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     element().setAttribute(name, value);
     return element;
   }
+
   /**
    * Sets a double attribute value on the element
    *
@@ -736,9 +754,9 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   /**
-   * @see Tooltip
    * @param text String tooltip
    * @return same component
+   * @see Tooltip
    */
   @Editor.Ignore
   public T setTooltip(String text) {
@@ -746,19 +764,20 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   /**
-   * @see Tooltip
    * @param text String tooltip
    * @param position {@link PopupPosition}
    * @return same component
+   * @see Tooltip
    */
   @Editor.Ignore
   public T setTooltip(String text, PopupPosition position) {
     return setTooltip(TextNode.of(text), position);
   }
+
   /**
-   * @see Tooltip
    * @param node {@link Node} tooltip content
    * @return same component
+   * @see Tooltip
    */
   @Editor.Ignore
   public T setTooltip(Node node) {
@@ -766,10 +785,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   /**
-   * @see Tooltip
    * @param node {@link Node} tooltip content
    * @param position {@link PopupPosition}
    * @return same component
+   * @see Tooltip
    */
   @Editor.Ignore
   public T setTooltip(Node node, PopupPosition position) {
@@ -1118,6 +1137,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   public T elevate(int level) {
     return elevate(Elevation.of(level));
   }
+
   /**
    * Adds a box-shadow to the component
    *
@@ -1138,9 +1158,9 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   /**
-   * @see Collapsible#addHideHandler(Collapsible.HideCompletedHandler)
    * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.HideCompletedHandler}
    * @return same component
+   * @see Collapsible#addHideHandler(Collapsible.HideCompletedHandler)
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
@@ -1150,9 +1170,9 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   /**
-   * @see Collapsible#removeHideHandler(Collapsible.HideCompletedHandler)
    * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.HideCompletedHandler}
    * @return same component
+   * @see Collapsible#removeHideHandler(Collapsible.HideCompletedHandler)
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
@@ -1162,9 +1182,9 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   /**
-   * @see Collapsible#addShowHandler(Collapsible.ShowCompletedHandler)
    * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ShowCompletedHandler}
    * @return same component
+   * @see Collapsible#addShowHandler(Collapsible.ShowCompletedHandler)
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
@@ -1174,9 +1194,9 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   /**
-   * @see Collapsible#removeShowHandler(Collapsible.ShowCompletedHandler)
    * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ShowCompletedHandler}
    * @return same component
+   * @see Collapsible#removeShowHandler(Collapsible.ShowCompletedHandler)
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
@@ -1193,6 +1213,519 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /** @return the component {@link Tooltip} */
   public Tooltip getTooltip() {
     return tooltip;
+  }
+
+  @Override
+  public T setProperty(String name, String value) {
+    style().setProperty(name, value);
+    return (T) this;
+  }
+
+  @Override
+  public T setProperty(String name, String value, boolean important) {
+    style().setProperty(name, value, important);
+    return (T) this;
+  }
+
+  @Override
+  public T removeProperty(String name) {
+    style().removeProperty(name);
+    return (T) this;
+  }
+
+  @Override
+  public T add(String cssClass) {
+    style().add(cssClass);
+    return (T) this;
+  }
+
+  @Override
+  public T add(String... cssClasses) {
+    style().add(cssClasses);
+    return (T) this;
+  }
+
+  @Override
+  public T remove(String cssClass) {
+    style().remove(cssClass);
+    return (T) this;
+  }
+
+  @Override
+  public T remove(String... cssClasses) {
+    style().remove(cssClasses);
+    return (T) this;
+  }
+
+  @Override
+  public T replaceCss(String cssClass, String replacementClass) {
+    style().replaceCss(cssClass, replacementClass);
+    return (T) this;
+  }
+
+  @Override
+  public T replace(String cssClass, String replacementClass) {
+    style().replace(cssClass, replacementClass);
+    return (T) this;
+  }
+
+  @Override
+  public T setBorder(String border) {
+    style().setBorder(border);
+    return (T) this;
+  }
+
+  @Override
+  public T setBorderColor(String borderColor) {
+    style().setBorderColor(borderColor);
+    return (T) this;
+  }
+
+  @Override
+  public T setWidth(String width, boolean important) {
+    style().setWidth(width, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMinWidth(String width) {
+    style().setMinWidth(width);
+    return (T) this;
+  }
+
+  @Override
+  public T setMinWidth(String width, boolean important) {
+    style().setMinWidth(width, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMaxWidth(String width) {
+    style().setMaxWidth(width);
+    return (T) this;
+  }
+
+  @Override
+  public T setMaxWidth(String width, boolean important) {
+    style().setMaxWidth(width, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setHeight(String height, boolean important) {
+    style().setHeight(height, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMinHeight(String height) {
+    style().setMinHeight(height);
+    return (T) this;
+  }
+
+  @Override
+  public T setMinHeight(String height, boolean important) {
+    style().setMinHeight(height, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMaxHeight(String height) {
+    style().setMaxHeight(height);
+    return (T) this;
+  }
+
+  @Override
+  public T setMaxHeight(String height, boolean important) {
+    style().setMaxHeight(height, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setTextAlign(String textAlign) {
+    style().setTextAlign(textAlign);
+    return (T) this;
+  }
+
+  @Override
+  public T setTextAlign(String textAlign, boolean important) {
+    style().setTextAlign(textAlign, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setColor(String color) {
+    style().setColor(color);
+    return (T) this;
+  }
+
+  @Override
+  public T setColor(String color, boolean important) {
+    style().setColor(color, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setBackgroundColor(String color) {
+    style().setBackgroundColor(color);
+    return (T) this;
+  }
+
+  @Override
+  public T setBackgroundColor(String color, boolean important) {
+    style().setBackgroundColor(color, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMargin(String margin) {
+    style().setMargin(margin);
+    return (T) this;
+  }
+
+  @Override
+  public T setMargin(String margin, boolean important) {
+    style().setMargin(margin, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMarginTop(String margin) {
+    style().setMarginTop(margin);
+    return (T) this;
+  }
+
+  @Override
+  public T setMarginTop(String margin, boolean important) {
+    style().setMarginTop(margin, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMarginBottom(String margin) {
+    style().setMarginBottom(margin);
+    return (T) this;
+  }
+
+  @Override
+  public T setMarginBottom(String margin, boolean important) {
+    style().setMarginBottom(margin, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMarginLeft(String margin) {
+    style().setMarginLeft(margin);
+    return (T) this;
+  }
+
+  @Override
+  public T setMarginLeft(String margin, boolean important) {
+    style().setMarginLeft(margin, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMarginRight(String margin) {
+    style().setMarginRight(margin);
+    return (T) this;
+  }
+
+  @Override
+  public T setMarginRight(String margin, boolean important) {
+    style().setMarginRight(margin, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setPaddingRight(String padding) {
+    style().setPaddingRight(padding);
+    return (T) this;
+  }
+
+  @Override
+  public T setPaddingRight(String padding, boolean important) {
+    style().setPaddingRight(padding, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setPaddingLeft(String padding) {
+    style().setPaddingLeft(padding);
+    return (T) this;
+  }
+
+  @Override
+  public T setPaddingLeft(String padding, boolean important) {
+    style().setPaddingLeft(padding, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setPaddingBottom(String padding) {
+    style().setPaddingBottom(padding);
+    return (T) this;
+  }
+
+  @Override
+  public T setPaddingBottom(String padding, boolean important) {
+    style().setPaddingBottom(padding, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setPaddingTop(String padding) {
+    style().setPaddingTop(padding);
+    return (T) this;
+  }
+
+  @Override
+  public T setPaddingTop(String padding, boolean important) {
+    style().setPaddingTop(padding, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setPadding(String padding) {
+    style().setPadding(padding);
+    return (T) this;
+  }
+
+  @Override
+  public T setPadding(String padding, boolean important) {
+    style().setPadding(padding, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setDisplay(String display) {
+    style().setDisplay(display);
+    return (T) this;
+  }
+
+  @Override
+  public T setDisplay(String display, boolean important) {
+    style().setDisplay(display, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setFontSize(String fontSize) {
+    style().setFontSize(fontSize);
+    return (T) this;
+  }
+
+  @Override
+  public T setFontSize(String fontSize, boolean important) {
+    style().setFontSize(fontSize, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setFloat(String cssFloat) {
+    style().setFloat(cssFloat);
+    return (T) this;
+  }
+
+  @Override
+  public T setFloat(String cssFloat, boolean important) {
+    style().setFloat(cssFloat, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setLineHeight(String lineHeight) {
+    style().setLineHeight(lineHeight);
+    return (T) this;
+  }
+
+  @Override
+  public T setLineHeight(String lineHeight, boolean important) {
+    style().setLineHeight(lineHeight, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setOverFlow(String overFlow) {
+    style().setOverFlow(overFlow);
+    return (T) this;
+  }
+
+  @Override
+  public T setOverFlow(String overFlow, boolean important) {
+    style().setOverFlow(overFlow, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setCursor(String cursor) {
+    style().setCursor(cursor);
+    return (T) this;
+  }
+
+  @Override
+  public T setCursor(String cursor, boolean important) {
+    style().setCursor(cursor, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setPosition(String position) {
+    style().setPosition(position);
+    return (T) this;
+  }
+
+  @Override
+  public T setPosition(String position, boolean important) {
+    style().setPosition(position, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setLeft(String left) {
+    style().setLeft(left);
+    return (T) this;
+  }
+
+  @Override
+  public T setLeft(String left, boolean important) {
+    style().setLeft(left, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setRight(String right) {
+    style().setRight(right);
+    return (T) this;
+  }
+
+  @Override
+  public T setRight(String right, boolean important) {
+    style().setRight(right, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setTop(String top) {
+    style().setTop(top);
+    return (T) this;
+  }
+
+  @Override
+  public T setTop(String top, boolean important) {
+    style().setTop(top, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setBottom(String bottom) {
+    style().setBottom(bottom);
+    return (T) this;
+  }
+
+  @Override
+  public T setBottom(String bottom, boolean important) {
+    style().setBottom(bottom, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setZIndex(int zindex) {
+    style().setZIndex(zindex);
+    return (T) this;
+  }
+
+  @Override
+  public boolean contains(String cssClass) {
+    style().contains(cssClass);
+    return false;
+  }
+
+  @Override
+  public T pullRight() {
+    style().pullRight();
+    return (T) this;
+  }
+
+  @Override
+  public T pullLeft() {
+    style().pullLeft();
+    return (T) this;
+  }
+
+  @Override
+  public T alignCenter() {
+    style().alignCenter();
+    return (T) this;
+  }
+
+  @Override
+  public T alignRight() {
+    style().alignRight();
+    return (T) this;
+  }
+
+  @Override
+  public T cssText(String cssText) {
+    style().cssText(cssText);
+    return (T) this;
+  }
+
+  @Override
+  public int length() {
+    return cssClassesCount();
+  }
+
+  @Override
+  @Deprecated
+  public String item(int index) {
+    return style().cssClassByIndex(index);
+  }
+
+  @Override
+  public int cssClassesCount() {
+    return style().cssClassesCount();
+  }
+
+  @Override
+  public String cssClassByIndex(int index) {
+    return style().cssClassByIndex(index);
+  }
+
+  @Override
+  public T setPointerEvents(String pointerEvents) {
+    style().setPointerEvents(pointerEvents);
+    return (T) this;
+  }
+
+  @Override
+  public T setAlignItems(String alignItems) {
+    style().setAlignItems(alignItems);
+    return (T) this;
+  }
+
+  @Override
+  public T setOverFlowY(String overflow) {
+    style().setOverFlowY(overflow);
+    return (T) this;
+  }
+
+  @Override
+  public T setBoxShadow(String boxShadow) {
+    style().setBoxShadow(boxShadow);
+    return (T) this;
+  }
+
+  @Override
+  public T setTransitionDuration(String transactionDuration) {
+    style().setTransitionDuration(transactionDuration);
+    return (T) this;
+  }
+
+  @Override
+  public T setFlex(String flex) {
+    style().setFlex(flex);
+    return (T) this;
   }
 
   /**
