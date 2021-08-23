@@ -92,7 +92,7 @@ public interface SuggestBoxStore<T> {
     void onSuggestionsReady(List<SuggestItem<T>> suggestions);
   }
 
-  /** @param <T> */
+  /** @param <T> The type of the suggest box records */
   @FunctionalInterface
   interface SuggestionFilter<T> {
     boolean filter(String searchValue, SuggestItem<T> suggestItem);

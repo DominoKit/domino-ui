@@ -95,6 +95,7 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
   private boolean multiOpen = false;
   private Color headerColor;
   private Color bodyColor;
+  private CollapseStrategy panelsCollapseStrategy;
 
   /** Default constructor */
   public Accordion() {
@@ -130,6 +131,9 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
    */
   public Accordion appendChild(AccordionPanel panel, boolean overrideColors) {
     panels.add(panel);
+    if (nonNull(panelsCollapseStrategy)) {
+      panel.setCollapseStrategy(panelsCollapseStrategy);
+    }
     if (overrideColors) {
       if (nonNull(headerColor)) {
         panel.setHeaderBackground(headerColor);
@@ -290,6 +294,13 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
   public Accordion setBodyBackground(Color color) {
     panels.forEach(p -> p.setBodyBackground(color));
     this.bodyColor = color;
+    return this;
+  }
+
+  public Accordion setPanelCollapseStrategy(CollapseStrategy strategy) {
+    this.panelsCollapseStrategy = strategy;
+    panels.forEach(
+        accordionPanel -> accordionPanel.setCollapseStrategy(this.panelsCollapseStrategy));
     return this;
   }
 

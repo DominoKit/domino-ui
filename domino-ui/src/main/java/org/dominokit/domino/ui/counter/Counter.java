@@ -32,7 +32,7 @@ import org.gwtproject.timer.client.Timer;
  *                 .countTo(100)
  *                 .every(1000)
  *                 .incrementBy(1)
- *                 .onCount(count -> DomGlobal.console.info(count))
+ *                 .onCount(count -&gt; DomGlobal.console.info(count))
  *                 .startCounting();
  *     </pre>
  */

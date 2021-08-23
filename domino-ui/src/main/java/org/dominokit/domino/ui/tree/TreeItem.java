@@ -24,6 +24,7 @@ import elemental2.dom.*;
 import elemental2.dom.EventListener;
 import java.util.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
+import org.dominokit.domino.ui.collapsible.HeightCollapseStrategy;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.*;
@@ -214,6 +215,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     element().appendChild(childrenContainer);
     collapsible =
         Collapsible.create(childrenContainer)
+            .setStrategy(new HeightCollapseStrategy())
             .addHideHandler(
                 () -> {
                   Style.of(anchorElement).remove("toggled");

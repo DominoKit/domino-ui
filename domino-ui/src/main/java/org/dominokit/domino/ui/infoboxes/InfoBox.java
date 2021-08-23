@@ -268,7 +268,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
    * @return same instance
    */
   public InfoBox removeShadow() {
-    style().removeShadow();
+    Elevation.removeFrom(this.element());
     return this;
   }
 

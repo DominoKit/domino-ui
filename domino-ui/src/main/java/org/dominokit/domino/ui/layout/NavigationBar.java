@@ -117,7 +117,7 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
     return logoItem;
   }
 
-  /** @return The {@link FlexItem} conatins the actions bar */
+  /** @return The {@link FlexItem} contains the actions bar */
   public FlexItem<HTMLDivElement> getActionBarItem() {
     return actionBarItem;
   }

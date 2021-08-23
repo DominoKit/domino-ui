@@ -30,7 +30,7 @@
 
 .card .header {
     color: #555;
-    padding: 20px;
+    padding: 16px;
     position: relative;
 }
 
@@ -39,17 +39,20 @@
 }
 
 .card .header .header-actions {
-    position: absolute;
-    top: 10px;
-    right: 15px;
     list-style: none;
-    margin-right: -5px;
+    padding-left: 0;
 }
 
 .card .header .header-actions li {
     display: inline-block;
     margin-left: 2px;
     margin-right: 2px;
+}
+
+.card .header ul,
+.card .header ol {
+    margin-top: 0;
+    margin-bottom: 0px;
 }
 
 .card .header .header-actions i {

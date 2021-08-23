@@ -644,12 +644,14 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
    * Set a custom {@link Formatter} to use with this DateBox
    *
    * @param formatter {@link Formatter}
+   * @return same datebox instance
    */
-  public void setFormatter(Formatter formatter) {
+  public DateBox setFormatter(Formatter formatter) {
     if (isNull(formatter)) {
       throw new IllegalArgumentException("formatter cannot be null");
     }
     this.formatter = formatter;
+    return this;
   }
 
   private void disablePopover() {
@@ -683,7 +685,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   private static class DefaultFormatter extends DateTimeFormat implements Formatter {
 
     protected DefaultFormatter() {
-      super(null);
+      super(DateTimeFormat.getFormat(PredefinedFormat.DATE_SHORT).getPattern());
     }
 
     /** {@inheritDoc} */
