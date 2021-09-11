@@ -692,7 +692,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
   }
 
   /**
-   * @param imageElement {@link HTMLImageElement} logo to show at the left side
+   * @param imageElement {@link HTMLImageElement} logo to show on the left side
    * @return same Layout instance
    */
   public Layout setLogo(HTMLImageElement imageElement) {
@@ -701,7 +701,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
   }
 
   /**
-   * @param imageElement {@link HTMLImageElement} wrapped as {@link IsElement} logo to show at the
+   * @param imageElement {@link HTMLImageElement} wrapped as {@link IsElement} logo to show on the
    *     left side
    * @return same Layout instance
    */
