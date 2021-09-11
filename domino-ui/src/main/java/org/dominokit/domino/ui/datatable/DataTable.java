@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.datatable;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.*;
 import static org.dominokit.domino.ui.style.Unit.*;
@@ -24,11 +25,16 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.events.*;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.store.DataStore;
+import org.dominokit.domino.ui.style.Unit;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionSupport;
@@ -67,6 +73,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   private Map<String, List<TableEventListener>> events = new HashMap<>();
 
   private final SearchContext<T> searchContext = new SearchContext<>(this);
+
+  private double scrollBarWidth = -1;
 
   /**
    * Creates a new data table instance
@@ -129,6 +137,18 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
       DomGlobal.window.addEventListener(EventType.resize.getName(), e -> updateTableWidth());
     }
     super.init(this);
+
+    onResize(
+        (target, observer, entries) -> {
+          DomGlobal.requestAnimationFrame(
+              timestamp -> {
+                if (isNull(entries) || entries.length <= 0) {
+                  return;
+                }
+                updateTableWidth();
+              });
+        });
+
     return this;
   }
 
@@ -137,9 +157,12 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         tableElement.element().offsetWidth + Math.round(tableElement.element().scrollLeft);
     thead.setWidth(px.of(w));
     tbody.setWidth(px.of(w));
+    if (tableConfig.isFixed()) {
+      updateHeadWidth(false);
+    }
   }
 
-  /** Force load the data into the table */
+  /** Force loading the data into the table */
   public void load() {
     this.dataStore.load();
   }
@@ -157,7 +180,53 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
       addRows(data, 0);
     }
 
-    tbody.element().scrollTop = 0.0;
+    updateHeadWidth(true);
+  }
+
+  private void updateHeadWidth(boolean scrollTop) {
+    if (hasVScrollBar()) {
+      if (scrollTop) {
+        tbody.element().scrollTop = 0.0;
+      }
+      if (tableConfig.isFixed()) {
+        thead.setWidth(Unit.px.of(tbody.element().offsetWidth - getScrollWidth() - 2));
+        tbody.setWidth(Unit.px.of(tbody.element().offsetWidth - 2));
+      }
+    }
+  }
+
+  private boolean hasVScrollBar() {
+    if (tbody.element().scrollTop > 0) {
+      return true;
+    }
+    tbody.element().scrollTop = 1.0;
+    double scrollTop = tbody.element().scrollTop;
+    return scrollTop > 0.0;
+  }
+
+  private double getScrollWidth() {
+    if (scrollBarWidth == -1) {
+      DominoElement<HTMLDivElement> outer =
+          DominoElement.div()
+              .setTop("-1000px")
+              .setLeft("-1000px")
+              .setWidth("100px")
+              .setHeight("50px")
+              .setOverFlow("hidden")
+              .setProperty("-ms-overflow-style", "hidden");
+
+      DominoElement<HTMLDivElement> inner = DominoElement.div().setHeight("200px");
+
+      outer.appendChild(inner);
+      DominoElement.body().appendChild(outer);
+      double noScrollWidth = inner.element().offsetWidth;
+      outer.setOverFlow("auto").setProperty("-ms-overflow-style", "scrollbar");
+      double widthWithScroll = inner.element().clientWidth;
+      outer.remove();
+      scrollBarWidth = noScrollWidth - widthWithScroll;
+    }
+
+    return scrollBarWidth;
   }
 
   /**

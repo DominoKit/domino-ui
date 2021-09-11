@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.utils;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+import elemental2.core.JsArray;
 import elemental2.dom.*;
 import java.util.Optional;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
@@ -66,6 +67,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   private WavesSupport wavesSupport;
   private Optional<ElementObserver> attachObserver = Optional.empty();
   private Optional<ElementObserver> detachObserver = Optional.empty();
+  private Optional<ResizeObserver> resizeObserverOptional = Optional.empty();
 
   /**
    * initialize the component using its root element giving it a unique id, a {@link Style} and also
@@ -279,6 +281,44 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   public boolean isAttached() {
     return nonNull(DomGlobal.document.body.querySelector("[domino-uuid='" + uuid + "']"));
+  }
+
+  /**
+   * Register a call back to listen to element size changes, the observation will only start after
+   * the element is attached and will be stopped when the element is detached
+   *
+   * @param resizeHandler {@link ResizeHandler}
+   * @return same component instance
+   */
+  @Editor.Ignore
+  public T onResize(ResizeHandler<T> resizeHandler) {
+    resizeObserverOptional.ifPresent(
+        observer -> {
+          observer.unobserve(element());
+          observer.disconnect();
+        });
+    onAttached(
+        mutationRecord -> {
+          ResizeObserver resizeObserver =
+              new ResizeObserver(
+                  entries -> {
+                    resizeHandler.onResize(
+                        (T) BaseDominoElement.this, resizeObserverOptional.get(), entries);
+                  });
+          this.resizeObserverOptional = Optional.of(resizeObserver);
+          resizeObserver.observe(this.element());
+        });
+
+    onDetached(
+        mutationRecord -> {
+          resizeObserverOptional.ifPresent(
+              observer -> {
+                observer.unobserve(element());
+                observer.disconnect();
+              });
+          resizeObserverOptional = Optional.empty();
+        });
+    return (T) this;
   }
 
   /** @return the {@link Style} of the component */
@@ -1756,5 +1796,18 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   public interface ElementHandler<T> {
     /** @param self the T component instance */
     void handleElement(T self);
+  }
+
+  /**
+   * A function to be called when element is resized
+   *
+   * @param <T> the type of the component
+   */
+  @FunctionalInterface
+  public interface ResizeHandler<T> {
+    /** @param element the resized element */
+    /** @param observer the {@link ResizeObserver} triggering this event */
+    /** @param entries a {@link JsArray} of {@link ResizeObserverEntry} */
+    void onResize(T element, ResizeObserver observer, JsArray<ResizeObserverEntry> entries);
   }
 }
