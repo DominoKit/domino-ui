@@ -217,7 +217,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
     yearSelect = Select.<Integer>create().css(DatePickerStyles.SELECTOR);
 
     yearSelect.getLeftAddonContainer().remove();
-    yearSelect.getMandatoryAddOn().css(Styles.m_l_40);
+    yearSelect.getMandatoryAddOn();
     yearSelect.setPopupWidth(150);
 
     for (int i = minDate.getFullYear(); i <= maxDate.getFullYear(); i++) {
@@ -236,7 +236,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
     int month = jsDate.getMonth();
     monthSelect = Select.<Integer>create().css(DatePickerStyles.SELECTOR);
     monthSelect.getLeftAddonContainer().remove();
-    monthSelect.getMandatoryAddOn().css(Styles.m_l_40);
+    monthSelect.getMandatoryAddOn();
     monthSelect.setPopupWidth(150);
 
     String[] months = getDateTimeFormatInfo().monthsShort();

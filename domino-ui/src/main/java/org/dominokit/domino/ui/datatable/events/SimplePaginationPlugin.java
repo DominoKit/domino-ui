@@ -21,7 +21,7 @@ import org.dominokit.domino.ui.pagination.SimplePagination;
 
 /**
  * @deprecated use {@link org.dominokit.domino.ui.datatable.plugins.SimplePaginationPlugin}
- * @param <T>
+ * @param <T> The type of data table records
  */
 @Deprecated
 public class SimplePaginationPlugin<T> implements DataTablePlugin<T> {

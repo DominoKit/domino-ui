@@ -381,20 +381,22 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   /** {@inheritDoc} */
   @Override
   public T close() {
-    element().classList.remove(ModalStyles.IN);
-    element().style.display = "none";
-    if (nonNull(activeElementBeforeOpen)) {
-      activeElementBeforeOpen.focus();
+    if (this.open) {
+      element().classList.remove(ModalStyles.IN);
+      element().style.display = "none";
+      if (nonNull(activeElementBeforeOpen)) {
+        activeElementBeforeOpen.focus();
+      }
+      if (autoAppendAndRemove) {
+        element().remove();
+      }
+      this.open = false;
+      if (ModalBackDrop.contains(this)) {
+        ModalBackDrop.popModal(this);
+      }
+      removeBackDrop();
+      closeHandlers.forEach(CloseHandler::onClose);
     }
-    if (autoAppendAndRemove) {
-      element().remove();
-    }
-    this.open = false;
-    if (ModalBackDrop.contains(this)) {
-      ModalBackDrop.popModal(this);
-    }
-    removeBackDrop();
-    closeHandlers.forEach(CloseHandler::onClose);
     return (T) this;
   }
 

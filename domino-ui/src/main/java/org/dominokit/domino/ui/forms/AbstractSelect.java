@@ -942,15 +942,17 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
 
       double distanceToMiddle = ((targetRect.top) - (targetRect.height / 2));
       double windowMiddle = DomGlobal.window.innerHeight / 2;
-      double popupHeight = popup.getBoundingClientRect().height;
-      double distanceToBottom = window.innerHeight - targetRect.top;
+      double popupHeight =
+          popup.getElementsByClassName("dropdown-menu").getAt(0).getBoundingClientRect().height;
+      double distanceToBottom = window.innerHeight - targetRect.bottom;
       double distanceToTop = (targetRect.top + targetRect.height);
 
       boolean hasSpaceBelow = distanceToBottom > popupHeight;
       boolean hasSpaceUp = distanceToTop > popupHeight;
 
       if (("up".equalsIgnoreCase(select.dropDirection) && hasSpaceUp)
-          || ((distanceToMiddle >= windowMiddle) && !hasSpaceBelow)) {
+          || ((distanceToMiddle >= windowMiddle) && !hasSpaceBelow)
+          || (hasSpaceUp && !hasSpaceBelow)) {
         up.position(popup, target);
         select.onDropup();
         popup.setAttribute("popup-direction", "top");

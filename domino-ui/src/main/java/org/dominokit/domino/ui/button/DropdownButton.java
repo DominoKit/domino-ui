@@ -103,6 +103,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * Creates a Dropdown button with a text
    *
    * @param text String, the button text
+   * @return DropdownButton
    */
   public static DropdownButton create(String text) {
     return new DropdownButton(text);
@@ -113,6 +114,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    *
    * @param text String, the button text
    * @param background {@link Color}
+   * @return DropdownButton
    */
   public static DropdownButton create(String text, Color background) {
     return new DropdownButton(text, background);
@@ -123,6 +125,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    *
    * @param text String, the button text
    * @param type {@link StyleType}
+   * @return DropdownButton
    */
   public static DropdownButton create(String text, StyleType type) {
     return new DropdownButton(text, type);
@@ -132,6 +135,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * Creates a Dropdown button with a text and apply a {@link StyleType#DEFAULT}
    *
    * @param text String, the button text
+   * @return DropdownButton
    */
   public static DropdownButton createDefault(String text) {
     return create(text, StyleType.DEFAULT);
@@ -141,6 +145,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * Creates a Dropdown button with a text and apply a {@link StyleType#PRIMARY}
    *
    * @param text String, the button text
+   * @return DropdownButton
    */
   public static DropdownButton createPrimary(String text) {
     return create(text, StyleType.PRIMARY);
@@ -150,6 +155,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * Creates a Dropdown button with a text and apply a {@link StyleType#SUCCESS}
    *
    * @param text String, the button text
+   * @return DropdownButton
    */
   public static DropdownButton createSuccess(String text) {
     return create(text, StyleType.SUCCESS);
@@ -159,6 +165,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * Creates a Dropdown button with a text and apply a {@link StyleType#INFO}
    *
    * @param text String, the button text
+   * @return DropdownButton
    */
   public static DropdownButton createInfo(String text) {
     return create(text, StyleType.INFO);
@@ -168,6 +175,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * Creates a Dropdown button with a text and apply a {@link StyleType#WARNING}
    *
    * @param text String, the button text
+   * @return DropdownButton
    */
   public static DropdownButton createWarning(String text) {
     return create(text, StyleType.WARNING);
@@ -177,6 +185,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * Creates a Dropdown button with a text and apply a {@link StyleType#DANGER}
    *
    * @param text String, the button text
+   * @return DropdownButton
    */
   public static DropdownButton createDanger(String text) {
     return create(text, StyleType.DANGER);
@@ -187,6 +196,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    *
    * @param icon {@link BaseIcon}, the button icon
    * @param type {@link StyleType}
+   * @return DropdownButton
    */
   public static DropdownButton create(BaseIcon<?> icon, StyleType type) {
     return new DropdownButton(icon, type);
@@ -196,6 +206,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * Creates a Dropdown button with an icon
    *
    * @param icon {@link BaseIcon}, the button icon
+   * @return DropdownButton
    */
   public static DropdownButton create(BaseIcon<?> icon) {
     return new DropdownButton(icon);
@@ -205,6 +216,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * Creates a Dropdown button with an icon and apply a {@link StyleType#DEFAULT}
    *
    * @param icon {@link BaseIcon}, the button icon
+   * @return DropdownButton
    */
   public static DropdownButton createDefault(BaseIcon<?> icon) {
     return create(icon, StyleType.DEFAULT);
@@ -214,6 +226,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * Creates a Dropdown button with an icon and apply a {@link StyleType#PRIMARY}
    *
    * @param icon {@link BaseIcon}, the button icon
+   * @return DropdownButton
    */
   public static DropdownButton createPrimary(BaseIcon<?> icon) {
     return create(icon, StyleType.PRIMARY);
@@ -223,6 +236,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * Creates a Dropdown button with an icon and apply a {@link StyleType#SUCCESS}
    *
    * @param icon {@link BaseIcon}, the button icon
+   * @return DropdownButton
    */
   public static DropdownButton createSuccess(BaseIcon<?> icon) {
     return create(icon, StyleType.SUCCESS);
@@ -232,6 +246,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * Creates a Dropdown button with an icon and apply a {@link StyleType#INFO}
    *
    * @param icon {@link BaseIcon}, the button icon
+   * @return DropdownButton
    */
   public static DropdownButton createInfo(BaseIcon<?> icon) {
     return create(icon, StyleType.INFO);
@@ -241,6 +256,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * Creates a Dropdown button with an icon and apply a {@link StyleType#WARNING}
    *
    * @param icon {@link BaseIcon}, the button icon
+   * @return DropdownButton
    */
   public static DropdownButton createWarning(BaseIcon<?> icon) {
     return create(icon, StyleType.WARNING);
@@ -250,6 +266,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * Creates a Dropdown button with an icon and apply a {@link StyleType#DANGER}
    *
    * @param icon {@link BaseIcon}, the button icon
+   * @return DropdownButton
    */
   public static DropdownButton createDanger(BaseIcon<?> icon) {
     return create(icon, StyleType.DANGER);

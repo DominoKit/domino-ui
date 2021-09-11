@@ -34,21 +34,21 @@ import org.jboss.elemento.HtmlContentBuilder;
  * This class is responsible of configuring the data table
  *
  * <pre>
- *     TableConfig<Contact> tableConfig = new TableConfig<>();
+ *     TableConfig&lt;Contact&gt; tableConfig = new TableConfig&lt;&gt;();
  * tableConfig
- *         .addColumn(ColumnConfig.<Contact>create("id", "#")
+ *         .addColumn(ColumnConfig.<Contact&gt;create("id", "#")
  *                 .textAlign("right")
  *                 .asHeader()
- *                 .setCellRenderer(cell -> TextNode.of(cell.getTableRow().getRecord().getIndex() + 1 + "")))
- *         .addColumn(ColumnConfig.<Contact>create("firstName", "First name")
- *                 .setCellRenderer(cell -> TextNode.of(cell.getTableRow().getRecord().getName())))
- *         .addColumn(ColumnConfig.<Contact>create("email", "Email")
- *                 .setCellRenderer(cell -> TextNode.of(cell.getTableRow().getRecord().getEmail())))
- *         .addColumn(ColumnConfig.<Contact>create("phone", "Phone")
- *                 .setCellRenderer(cell -> TextNode.of(cell.getTableRow().getRecord().getPhone())))
- *         .addColumn(ColumnConfig.<Contact>create("badges", "Badges")
- *                 .setCellRenderer(cell -> {
- *                     if (cell.getTableRow().getRecord().getAge() < 35) {
+ *                 .setCellRenderer(cell -&gt; TextNode.of(cell.getTableRow().getRecord().getIndex() + 1 + "")))
+ *         .addColumn(ColumnConfig.<Contact&gt;create("firstName", "First name")
+ *                 .setCellRenderer(cell -&gt; TextNode.of(cell.getTableRow().getRecord().getName())))
+ *         .addColumn(ColumnConfig.<Contact&gt;create("email", "Email")
+ *                 .setCellRenderer(cell -&gt; TextNode.of(cell.getTableRow().getRecord().getEmail())))
+ *         .addColumn(ColumnConfig.<Contact&gt;create("phone", "Phone")
+ *                 .setCellRenderer(cell -&gt; TextNode.of(cell.getTableRow().getRecord().getPhone())))
+ *         .addColumn(ColumnConfig.<Contact&gt;create("badges", "Badges")
+ *                 .setCellRenderer(cell -&gt; {
+ *                     if (cell.getTableRow().getRecord().getAge() &lt; 35) {
  *                         return Badge.create("Young")
  *                                 .setBackground(ColorScheme.GREEN.color()).element();
  *                     }

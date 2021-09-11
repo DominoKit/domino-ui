@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.datatable;
+package org.dominokit.domino.ui.utils;
 
-/**
- * The implementations of this interface will determine if a row in the table should be selectable
- * or not
- *
- * @param <T> The type of the data table records
- */
-public interface SelectionCondition<T> {
-  /**
-   * @param table {@link DataTable}
-   * @param tableRow {@link TableRow}
-   * @return boolean, true if the row should be selectable otherwise it will not be selectable
-   */
-  boolean isAllowSelection(DataTable<T> table, TableRow<T> tableRow);
+import elemental2.core.JsArray;
+import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
+
+@JsType(isNative = true, namespace = JsPackage.GLOBAL)
+public class ResizeObserverEntry {
+
+  public JsArray<ResizeObserverSize> borderBoxSize;
+  public JsArray<ResizeObserverSize> contentBoxSize;
+  public DOMRect contentRect;
+  public Element target;
 }

@@ -170,12 +170,6 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
     return new Carousel();
   }
 
-  /** @deprecated use {@link #appendChild(Slide)} */
-  @Deprecated
-  public Carousel addSlide(Slide slide) {
-    return appendChild(slide);
-  }
-
   /**
    * Adds new {@link Slide}, event listeners will be added to the slide for removing the motion
    * styles

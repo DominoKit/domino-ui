@@ -34,12 +34,13 @@ import org.jboss.elemento.IsElement;
  *
  * <pre>
  *         Collapsible.create(DominoElement.div().setTextContent("Hello world"))
- *         .addShowHandler(() -> DomGlobal.console.info("Div visible"))
- *         .addHideHandler(() -> DomGlobal.console.info("Div visible"));
+ *         .addShowHandler(() -&gt; DomGlobal.console.info("Div visible"))
+ *         .addHideHandler(() -&gt; DomGlobal.console.info("Div visible"));
  *     </pre>
  */
 public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collapsible> {
 
+  public static final String DOM_UI_SCROLL_HEIGHT = "dom-ui-scroll-height";
   private final HTMLElement element;
   private final Style<HTMLElement, IsElement<HTMLElement>> style;
 
@@ -48,6 +49,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
   private List<HideCompletedHandler> hideHandlers;
   private List<ShowCompletedHandler> showHandlers = new ArrayList<>();
+  private CollapseStrategy strategy = new DisplayCollapseStrategy();
 
   /**
    * Creates a collapsible wrapping the element
@@ -109,9 +111,8 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   @Override
   public Collapsible show() {
     if (!forceHidden) {
+      strategy.show(element, style);
       onShowCompleted();
-      style.removeProperty("display");
-      DominoElement.of(element).removeAttribute("d-collapsed");
       this.collapsed = false;
     }
     return this;
@@ -125,8 +126,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   @Override
   public Collapsible hide() {
     if (!forceHidden) {
-      style.setDisplay("none");
-      DominoElement.of(element).setAttribute("d-collapsed", "true");
+      strategy.hide(element, style);
       onHideCompleted();
       this.collapsed = true;
     }
@@ -162,8 +162,11 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
    */
   @Override
   public Collapsible toggleDisplay() {
-    if (isHidden()) show();
-    else hide();
+    if (isHidden()) {
+      show();
+    } else {
+      hide();
+    }
     return this;
   }
 
@@ -233,6 +236,21 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     if (nonNull(showHandlers)) {
       showHandlers.remove(handler);
     }
+  }
+
+  /** @return the current {@link CollapseStrategy} used by this Collapsible */
+  public CollapseStrategy getStrategy() {
+    return strategy;
+  }
+
+  /**
+   * @param strategy {@link CollapseStrategy} to be used with this collapsible
+   * @return same Collapsible instance
+   */
+  public Collapsible setStrategy(CollapseStrategy strategy) {
+    this.strategy = strategy;
+    this.strategy.init(element, style);
+    return this;
   }
 
   /** {@inheritDoc} */

@@ -151,6 +151,7 @@ public class SplitButton extends BaseDominoElement<HTMLElement, SplitButton> {
   /**
    * appends a dropdown button the SplitButton group.
    *
+   * @param dropdownButton The {@link DropdownButton} to wrap
    * @return same SplitButton instance
    */
   public SplitButton addDropdown(DropdownButton dropdownButton) {

@@ -878,7 +878,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     if (readOnly) {
       getInputElement().setAttribute(DISABLED, "true");
       getInputElement().setAttribute("readonly", "true");
-      getInputElement().setAttribute(FLOATING, isFloating());
+      getInputElement().setAttribute(FLOATING, permaFloating);
       css("readonly");
       floating();
     } else {
@@ -889,7 +889,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
       if (getInputElement().hasAttribute(FLOATING)) {
         floating = Boolean.parseBoolean(getInputElement().getAttribute(FLOATING));
       } else {
-        floating = isFloating();
+        floating = permaFloating;
       }
       setFloating(floating);
       changeLabelFloating();

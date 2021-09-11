@@ -45,11 +45,13 @@ import org.jboss.elemento.Elements;
  * <p>For example:
  *
  * <pre>
+ *     <code>
  *     ListGroup.create()
- *              .setItemRenderer((listGroup, item) -> {
+ *              .setItemRenderer((listGroup, item) -&gt; {
  *                  item.appendChild(Label.createPrimary(item.getValue())
  *              })
  *              .setItems(Arrays.asList("first item", "second item"));
+ *              </code>
  * </pre>
  *
  * @param <T> the type of the value object inside the element

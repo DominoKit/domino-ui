@@ -28,17 +28,17 @@ import org.dominokit.domino.ui.style.StyleType;
  *
  * <pre>
  *         Button.create("submit")
- *              .addClickListener(evt-> //handle the event);
+ *              .addClickListener(evt-&gt; //handle the event);
  *     </pre>
  *
  * <pre>
  *         Button.create(Icons.ALL.content_save_mdi(), "Save")
- *              .addClickListener(evt-> //handle the event);
+ *              .addClickListener(evt-&gt; //handle the event);
  *     </pre>
  *
  * <pre>
  *         Button.createPrimary("Approve")
- *              .addClickListener(evt-> //handle the event);
+ *              .addClickListener(evt-&gt; //handle the event);
  *     </pre>
  */
 public class Button extends BaseButton<Button> {
@@ -73,7 +73,7 @@ public class Button extends BaseButton<Button> {
   /**
    * creates a Button with an icon and {@link Elevation#LEVEL_1}
    *
-   * @param icon
+   * @param icon The button icon
    */
   public Button(BaseIcon<?> icon) {
     super(icon);
@@ -84,7 +84,8 @@ public class Button extends BaseButton<Button> {
   /**
    * creates a Button with an icon and apply a {@link StyleType}
    *
-   * @param icon
+   * @param icon the button icon
+   * @param type {@link StyleType}
    */
   public Button(BaseIcon<?> icon, StyleType type) {
     this(icon);
@@ -107,6 +108,7 @@ public class Button extends BaseButton<Button> {
   /**
    * create a button using {@link Button#Button(String)}
    *
+   * @param text String button text
    * @return new Button instance
    */
   public static Button create(String text) {

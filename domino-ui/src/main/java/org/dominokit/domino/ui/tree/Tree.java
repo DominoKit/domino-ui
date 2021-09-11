@@ -46,32 +46,32 @@ import org.jboss.elemento.IsElement;
  *     Tree hardwareTree =
  *         Tree.create("HARDWARE")
  *             .setToggleTarget(ToggleTarget.ICON)
- *             .addItemClickListener((treeItem) -> DomGlobal.console.info(treeItem.getValue()))
+ *             .addItemClickListener((treeItem) -&gt; DomGlobal.console.info(treeItem.getValue()))
  *             .appendChild(
  *                 TreeItem.create("Computer", Icons.ALL.laptop_mdi())
- *                     .addClickListener((evt) -> Notification.create("Computer").show()))
+ *                     .addClickListener((evt) -&gt; Notification.create("Computer").show()))
  *             .appendChild(
  *                 TreeItem.create("Headset", Icons.ALL.headset_mdi())
- *                     .addClickListener((evt) -> Notification.create("Headset").show()))
+ *                     .addClickListener((evt) -&gt; Notification.create("Headset").show()))
  *             .appendChild(
  *                 TreeItem.create("Keyboard", Icons.ALL.keyboard_mdi())
- *                     .addClickListener((evt) -> Notification.create("Keyboard").show()))
+ *                     .addClickListener((evt) -&gt; Notification.create("Keyboard").show()))
  *             .appendChild(
  *                 TreeItem.create("Mouse", Icons.ALL.mouse_mdi())
- *                     .addClickListener((evt) -> Notification.create("Mouse").show()))
+ *                     .addClickListener((evt) -&gt; Notification.create("Mouse").show()))
  *             .addSeparator()
  *             .appendChild(
  *                 TreeItem.create("Laptop", Icons.ALL.laptop_mdi())
- *                     .addClickListener((evt) -> Notification.create("Laptop").show()))
+ *                     .addClickListener((evt) -&gt; Notification.create("Laptop").show()))
  *             .appendChild(
  *                 TreeItem.create("Smart phone", Icons.ALL.cellphone_mdi())
- *                     .addClickListener((evt) -> Notification.create("Smart phone").show()))
+ *                     .addClickListener((evt) -&gt; Notification.create("Smart phone").show()))
  *             .appendChild(
  *                 TreeItem.create("Tablet", Icons.ALL.tablet_mdi())
- *                     .addClickListener((evt) -> Notification.create("Tablet").show()))
+ *                     .addClickListener((evt) -&gt; Notification.create("Tablet").show()))
  *             .appendChild(
  *                 TreeItem.create("Speaker", Icons.ALL.speaker_mdi())
- *                     .addClickListener((evt) -> Notification.create("Speaker").show()));
+ *                     .addClickListener((evt) -&gt; Notification.create("Speaker").show()));
  * </pre>
  *
  * @param <T> the type of the object

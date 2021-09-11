@@ -22,6 +22,7 @@ import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
+import org.dominokit.domino.ui.collapsible.HeightCollapseStrategy;
 import org.dominokit.domino.ui.grid.flex.FlexAlign;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
@@ -54,7 +55,7 @@ import org.jboss.elemento.IsElement;
  * <pre>
  *     Card.create("Card Title", "Description text here...")
  *             .appendChild(TextNode.of(SAMPLE_CONTENT))
- *             .addHeaderAction(Icons.ALL.more_vert(), (event) -> {
+ *             .addHeaderAction(Icons.ALL.more_vert(), (event) -&gt; {
  *                 DomGlobal.console.info("More action selected");
  *             })
  * </pre>
@@ -71,7 +72,8 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
   private final DominoElement<HTMLElement> headerDescription = DominoElement.of(small());
   private final DominoElement<HTMLUListElement> headerBar =
       DominoElement.of(ul()).addCss(HEADER_ACTIONS);
-  private final DominoElement<HTMLDivElement> body = DominoElement.div().addCss(BODY);
+  private final DominoElement<HTMLDivElement> body =
+      DominoElement.div().addCss(BODY).setCollapseStrategy(new HeightCollapseStrategy());
 
   private final Text title = TextNode.empty();
   private final Text description = TextNode.empty();

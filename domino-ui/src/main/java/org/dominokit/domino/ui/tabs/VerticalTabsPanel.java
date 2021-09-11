@@ -43,7 +43,7 @@ import org.jboss.elemento.IsElement;
  *
  * <pre>
  *     VerticalTabsPanel.create()
- *         .apply((element) -> element.getTabsContent().css(Styles.p_l_10))
+ *         .apply((element) -&gt; element.getTabsContent().css(Styles.p_l_10))
  *         .appendChild(
  *                 VerticalTab.create("HOME")
  *                         .appendChild(b().textContent("Home Content"))

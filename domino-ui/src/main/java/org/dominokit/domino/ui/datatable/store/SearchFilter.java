@@ -20,7 +20,7 @@ import org.dominokit.domino.ui.datatable.events.SearchEvent;
 /**
  * An interface to write implementation for filtering {@link LocalListDataStore} records
  *
- * @param <T>
+ * @param <T> the type of the datatable records
  */
 @FunctionalInterface
 public interface SearchFilter<T> {

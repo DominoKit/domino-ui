@@ -196,7 +196,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    * @return same component instance
    */
   public T setMinValue(E minValue) {
-    getInputElement().element().min = getNumberFormat().format(minValue);
+    getInputElement().element().min = nonNull(minValue) ? getNumberFormat().format(minValue) : null;
     return (T) this;
   }
 
@@ -207,7 +207,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    * @return same component instance
    */
   public T setMaxValue(E maxValue) {
-    getInputElement().element().max = getNumberFormat().format(maxValue);
+    getInputElement().element().max = nonNull(maxValue) ? getNumberFormat().format(maxValue) : null;
     return (T) this;
   }
 
@@ -220,7 +220,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    * @return same field instance
    */
   public T setStep(E step) {
-    getInputElement().element().step = getNumberFormat().format(step);
+    getInputElement().element().step = nonNull(step) ? getNumberFormat().format(step) : null;
     return (T) this;
   }
 

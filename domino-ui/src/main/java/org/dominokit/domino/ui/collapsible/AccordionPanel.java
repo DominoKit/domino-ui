@@ -109,6 +109,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     collapsibleElement.appendChild(bodyElement);
     element.appendChild(collapsibleElement);
     init(this);
+    setCollapseStrategy(new HeightCollapseStrategy());
     hide();
   }
 

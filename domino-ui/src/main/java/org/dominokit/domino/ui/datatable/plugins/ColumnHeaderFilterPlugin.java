@@ -40,7 +40,7 @@ import org.jboss.elemento.IsElement;
  *
  * <pre>
  * tableConfig
- *         .addPlugin(ColumnHeaderFilterPlugin.<Person>create()
+ *         .addPlugin(ColumnHeaderFilterPlugin.<Person&gt;create()
  *                 .addHeaderFilter("id", IntegerHeaderFilter.create())
  *                 .addHeaderFilter("name", TextHeaderFilter.create()));
  * </pre>

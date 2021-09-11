@@ -24,4 +24,6 @@ public class CollapsibleStyles {
   public static final String PANEL_TITLE = "panel-title";
   public static final String PANEL_COLLAPSE = "panel-collapse";
   public static final String PANEL_BODY = "panel-body";
+  public static final String HEIGHT_COLLAPSED = "height-collapsed";
+  public static final String HEIGHT_COLLAPSED_OVERFLOW = "height-collapsed-overflow";
 }

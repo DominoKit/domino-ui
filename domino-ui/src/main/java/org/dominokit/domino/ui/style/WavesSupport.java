@@ -111,8 +111,8 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
   }
 
   private void removeWaveStyles() {
-    for (int i = 0; i < element.style().length(); ++i) {
-      String style = element.style().item(i);
+    for (int i = 0; i < element.style().cssClassesCount(); ++i) {
+      String style = element.style().cssClassByIndex(i);
       if (style.contains("waves-")) element.style().remove(style);
     }
   }

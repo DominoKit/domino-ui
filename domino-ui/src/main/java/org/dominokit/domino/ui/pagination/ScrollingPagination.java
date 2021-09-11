@@ -118,7 +118,6 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         DominoElement.of(li().css("page-nav"))
             .appendChild(
                 prevAnchor
-                    .setTooltip("Previous page")
                     .appendChild(Icons.ALL.chevron_left().clickable())
                     .addClickListener(event -> moveToPage(index - 1, false)));
 
@@ -127,7 +126,6 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         DominoElement.of(li().css("page-nav"))
             .appendChild(
                 prevSetAnchor
-                    .setTooltip("Previous pages set")
                     .appendChild(Icons.ALL.first_page().clickable())
                     .addClickListener(event -> moveToPage((windowIndex * windowSize), false)));
 
@@ -136,7 +134,6 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         DominoElement.of(li().css("page-nav"))
             .appendChild(
                 firstPageAnchor
-                    .setTooltip("First page")
                     .appendChild(Icons.ALL.skip_previous().clickable())
                     .addClickListener(event -> moveToPage(1, false)));
 
@@ -170,7 +167,6 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
           DominoElement.of(li().css("page"))
               .appendChild(
                   dotsAnchor
-                      .setTooltip("Next pages set")
                       .setTextContent("...")
                       .addClickListener(
                           evt -> moveToPage((windowIndex * windowSize) + windowSize + 1, false)));
@@ -194,7 +190,6 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         DominoElement.of(li().css("page-nav"))
             .appendChild(
                 nextAnchor
-                    .setTooltip("Next page")
                     .appendChild(Icons.ALL.chevron_right().clickable())
                     .addClickListener(event -> moveToPage(index + 1, false)));
 
@@ -203,7 +198,6 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         DominoElement.of(li().css("page-nav"))
             .appendChild(
                 nextSetAnchor
-                    .setTooltip("Next pages set")
                     .appendChild(Icons.ALL.last_page().clickable())
                     .addClickListener(
                         event -> moveToPage((windowIndex * windowSize) + windowSize + 1, false)));
@@ -213,7 +207,6 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         DominoElement.of(li().css("page-nav"))
             .appendChild(
                 lastPageAnchor
-                    .setTooltip("Last page")
                     .appendChild(Icons.ALL.skip_next().clickable())
                     .addClickListener(event -> moveToPage(allPages.size(), false)));
 
