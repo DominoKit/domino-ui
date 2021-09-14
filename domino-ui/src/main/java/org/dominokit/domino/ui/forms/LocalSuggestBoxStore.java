@@ -188,7 +188,7 @@ public class LocalSuggestBoxStore<T> implements SuggestBoxStore<T> {
   /** {@inheritDoc} */
   @Override
   public MissingSuggestProvider<T> getMessingSuggestionProvider() {
-    if (isNull(missingEntryProvider)) {
+    if (isNull(missingValueProvider)) {
       return missingValue -> Optional.empty();
     }
     return missingValueProvider;
