@@ -362,6 +362,13 @@ fieldset[disabled] .btn.warning.focus {
 	top: 3px;
 }
 
+.btn.circle.lg i.mdi {
+        font-size: 26px;
+        position: relative;
+        left: 1px;
+        top: -1px;
+}
+
 .btn.circle.sm i.mdi {
 	font-size: 15px;
 	position: relative;
