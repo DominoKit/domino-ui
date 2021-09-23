@@ -994,15 +994,20 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    * Removes margins for the column
    *
    * @return same instance
+   * @deprecated use {@link #condensed()}
    */
+  @Deprecated
   public Column condensed() {
     style().remove(GridStyles.CONDENSE).add(GridStyles.CONDENSE);
     return this;
   }
 
-  /** @deprecated Use {@link Column#condensed()} instead */
-  @Deprecated
-  public Column condenced() {
+  /**
+   * Removes margins for the column
+   *
+   * @return same instance
+   */
+  public Column condense() {
     style().remove(GridStyles.CONDENSE).add(GridStyles.CONDENSE);
     return this;
   }

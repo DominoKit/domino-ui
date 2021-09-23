@@ -255,13 +255,13 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
           setDate(jsDate);
         });
 
-    Column yearColumn = Column.span5().condenced().appendChild(yearSelect.element());
+    Column yearColumn = Column.span5().condense().appendChild(yearSelect.element());
 
-    Column monthColumn = Column.span5().condenced().appendChild(monthSelect.element());
+    Column monthColumn = Column.span5().condense().appendChild(monthSelect.element());
 
-    Column backColumn = Column.span1().condenced();
+    Column backColumn = Column.span1().condense();
 
-    Column forwardColumn = Column.span1().condenced();
+    Column forwardColumn = Column.span1().condense();
 
     Row_12 row =
         Row.create().setGap(px.of(5)).styler(style -> style.add(DatePickerStyles.SELECTOR_ROW));
