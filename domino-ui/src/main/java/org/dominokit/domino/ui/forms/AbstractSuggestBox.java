@@ -158,7 +158,7 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
 
     delayedTextInput =
         DelayedTextInput.create(getInputElement(), typeAheadDelay).setDelayedAction(delayedAction);
-    KeyboardEvents.listenOn(getInputElement())
+    KeyboardEvents.listenOnKeyDown(getInputElement())
         .onArrowDown(
             evt -> {
               suggestionsMenu.focus();

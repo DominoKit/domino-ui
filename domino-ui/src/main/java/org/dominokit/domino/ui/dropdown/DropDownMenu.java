@@ -149,14 +149,14 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     setSearchable(false);
     setCreatable(false);
 
-    KeyboardEvents.listenOn(createIcon)
+    KeyboardEvents.listenOnKeyDown(createIcon)
         .setDefaultOptions(
             KeyboardEvents.KeyboardEventOptions.create()
                 .setPreventDefault(true)
                 .setStopPropagation(true))
         .onEnter(evt -> addListener.onAdd(searchBox.element().value));
 
-    KeyboardEvents.listenOn(searchBox)
+    KeyboardEvents.listenOnKeyDown(searchBox)
         .setDefaultOptions(
             KeyboardEvents.KeyboardEventOptions.create()
                 .setPreventDefault(true)
