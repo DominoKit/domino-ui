@@ -60,7 +60,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
 
     getLabelElement().addEventListener("click", listener);
 
-    KeyboardEvents.listenOn(getInputElement()).onEnter(listener);
+    KeyboardEvents.listenOnKeyDown(getInputElement()).onEnter(listener);
   }
 
   private void onCheck() {

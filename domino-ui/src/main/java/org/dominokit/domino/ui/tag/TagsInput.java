@@ -151,7 +151,7 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
   }
 
   private void initListeners() {
-    KeyboardEvents.listenOn(tagTextInput)
+    KeyboardEvents.listenOnKeyDown(tagTextInput)
         .onEnter(
             evt -> {
               addTag();

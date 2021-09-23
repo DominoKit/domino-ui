@@ -388,7 +388,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
       collapseAction = createHeaderAction(collapseIcon);
     }
 
-    KeyboardEvents.listenOn(collapseAction).onEnter(evt -> switchVisibility());
+    KeyboardEvents.listenOnKeyDown(collapseAction).onEnter(evt -> switchVisibility());
 
     collapseAction.addEventListener("click", evt -> switchVisibility());
 

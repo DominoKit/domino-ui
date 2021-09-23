@@ -96,7 +96,7 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
           }
         });
 
-    KeyboardEvents.listenOn(inputElement)
+    KeyboardEvents.listenOnKeyDown(inputElement)
         .onEnter(
             evt -> {
               evt.stopPropagation();
