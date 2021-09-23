@@ -50,42 +50,38 @@ public class KeyboardEvents<T extends Node> {
   private KeyboardEventOptions defaultOptions = KeyboardEventOptions.create();
 
   /**
-   *
    * @param eventType The eventType that will trigger the handlers
    * @param element the target element
    */
   public KeyboardEvents(String eventType, T element) {
     element.addEventListener(
-            eventType,
-            evt -> {
-              KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-              // ignore events without keycode (browser bug?)
-              // example: picking value by keyboard from Chrome auto-suggest
-              if (keyboardEvent.key == null) return;
-              String key = keyboardEvent.key.toLowerCase();
-              HandlerContext handlerContext = null;
-              if (keyboardEvent.ctrlKey && ctrlHandlers.containsKey(key)) {
-                handlerContext = ctrlHandlers.get(key);
-              } else if (handlers.containsKey(key)) {
-                handlerContext = handlers.get(key);
-              }
+        eventType,
+        evt -> {
+          KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+          // ignore events without keycode (browser bug?)
+          // example: picking value by keyboard from Chrome auto-suggest
+          if (keyboardEvent.key == null) return;
+          String key = keyboardEvent.key.toLowerCase();
+          HandlerContext handlerContext = null;
+          if (keyboardEvent.ctrlKey && ctrlHandlers.containsKey(key)) {
+            handlerContext = ctrlHandlers.get(key);
+          } else if (handlers.containsKey(key)) {
+            handlerContext = handlers.get(key);
+          }
 
-              if (nonNull(handlerContext)) {
-                handlerContext.handler.handleEvent(evt);
-                if (handlerContext.options.preventDefault) {
-                  evt.preventDefault();
-                }
-                if (handlerContext.options.stopPropagation) {
-                  evt.stopPropagation();
-                }
-              }
-            });
+          if (nonNull(handlerContext)) {
+            handlerContext.handler.handleEvent(evt);
+            if (handlerContext.options.preventDefault) {
+              evt.preventDefault();
+            }
+            if (handlerContext.options.stopPropagation) {
+              evt.stopPropagation();
+            }
+          }
+        });
   }
 
-  /**
-   *
-   * @param element the target element
-   */
+  /** @param element the target element */
   public KeyboardEvents(T element) {
     this(KEYDOWN, element);
   }
@@ -96,7 +92,8 @@ public class KeyboardEvents<T extends Node> {
    * @param element the target element
    * @param <T> the type of the element
    * @return new instance
-   * @deprecated use {@link #listenOnKeyDown(Node)}, {@link #listenOnKeyUp(Node)}, {@link #listenOnKeyPress(Node)}
+   * @deprecated use {@link #listenOnKeyDown(Node)}, {@link #listenOnKeyUp(Node)}, {@link
+   *     #listenOnKeyPress(Node)}
    */
   @Deprecated
   public static <T extends Node> KeyboardEvents<T> listenOn(T element) {
@@ -109,7 +106,8 @@ public class KeyboardEvents<T extends Node> {
    * @param element the target {@link IsElement}
    * @param <T> the type of the element
    * @return new instance
-   * @deprecated use {@link #listenOnKeyDown(IsElement)}, {@link #listenOnKeyUp(IsElement)}, {@link #listenOnKeyPress(IsElement)}
+   * @deprecated use {@link #listenOnKeyDown(IsElement)}, {@link #listenOnKeyUp(IsElement)}, {@link
+   *     #listenOnKeyPress(IsElement)}
    */
   @Deprecated
   public static <T extends HTMLElement> KeyboardEvents<T> listenOn(IsElement<T> element) {
