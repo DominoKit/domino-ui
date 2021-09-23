@@ -167,7 +167,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
   private void addListenerToElement(
       DominoElement<? extends HTMLElement> element, EventListener listener) {
     element.addClickListener(listener);
-    KeyboardEvents.listenOn(element).onEnter(listener);
+    KeyboardEvents.listenOnKeyDown(element).onEnter(listener);
   }
 
   /** {@inheritDoc} */

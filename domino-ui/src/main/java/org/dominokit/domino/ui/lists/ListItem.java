@@ -54,7 +54,7 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>> {
 
     this.addClickListener(this::trySelect);
 
-    KeyboardEvents.listenOn(element).onEnter(this::trySelect);
+    KeyboardEvents.listenOnKeyDown(element).onEnter(this::trySelect);
   }
 
   private void trySelect(Event evt) {

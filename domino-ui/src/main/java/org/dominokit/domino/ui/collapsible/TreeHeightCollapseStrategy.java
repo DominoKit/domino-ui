@@ -24,6 +24,7 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.tree.TreeItem;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
@@ -31,16 +32,19 @@ import org.jboss.elemento.IsElement;
  * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show the
  * collapsible element
  */
-public class HeightCollapseStrategy implements CollapseStrategy {
+public class TreeHeightCollapseStrategy implements CollapseStrategy {
 
   public static final String D_COLLAPSED = "d-collapsed";
   private final CollapseDuration transition;
+  private final TreeItem<?> treeItem;
 
-  public HeightCollapseStrategy() {
+  public TreeHeightCollapseStrategy(TreeItem<?> treeItem) {
+    this.treeItem = treeItem;
     this.transition = CollapseDuration._200ms;
   }
 
-  public HeightCollapseStrategy(CollapseDuration transition) {
+  public TreeHeightCollapseStrategy(TreeItem<?> treeItem, CollapseDuration transition) {
+    this.treeItem = treeItem;
     this.transition = transition;
   }
 
@@ -74,12 +78,12 @@ public class HeightCollapseStrategy implements CollapseStrategy {
     if (!theElement.contains(CollapsibleStyles.HEIGHT_COLLAPSED)) {
       theElement.css(CollapsibleStyles.HEIGHT_COLLAPSED);
     }
-
     EventListener stopListener =
         evt -> {
           String collapseHeight = element.getAttribute("dom-ui-collapse-height");
           theElement.removeAttribute("dom-ui-collapse-height");
           element.style.height = CSSProperties.HeightUnionType.of(collapseHeight);
+          resetParentHeight(treeItem);
         };
     String scrollHeight = element.getAttribute(DOM_UI_SCROLL_HEIGHT);
     AddEventListenerOptions addEventListenerOptions = AddEventListenerOptions.create();
@@ -89,6 +93,7 @@ public class HeightCollapseStrategy implements CollapseStrategy {
     element.addEventListener("mozTransitionEnd", stopListener, addEventListenerOptions);
     element.addEventListener("oanimationend", stopListener, addEventListenerOptions);
     element.addEventListener("animationend", stopListener, addEventListenerOptions);
+
     int desiredHeight =
         isNull(scrollHeight)
             ? element.scrollHeight
@@ -96,6 +101,16 @@ public class HeightCollapseStrategy implements CollapseStrategy {
     element.style.height = CSSProperties.HeightUnionType.of(desiredHeight + "px");
     style.remove(CollapsibleStyles.HEIGHT_COLLAPSED);
     theElement.removeAttribute(D_COLLAPSED).removeAttribute(DOM_UI_SCROLL_HEIGHT);
+  }
+
+  private void resetParentHeight(TreeItem<?> treeItem) {
+    treeItem
+        .getParent()
+        .ifPresent(
+            parent -> {
+              parent.getChildrenContainer().style.height = null;
+              parent.getParent().ifPresent(treeItem1 -> resetParentHeight(parent));
+            });
   }
 
   /** {@inheritDoc} */
@@ -144,8 +159,8 @@ public class HeightCollapseStrategy implements CollapseStrategy {
       style.add(CollapsibleStyles.HEIGHT_COLLAPSED);
       elementToCollapse
           .setAttribute("dom-ui-collapse-height", originalHeight.asString())
-          .setAttribute(D_COLLAPSED, "true")
-          .setAttribute(DOM_UI_SCROLL_HEIGHT, scrollHeight);
+          .setAttribute(D_COLLAPSED, "true");
+      style.removeProperty("height");
     }
   }
 }

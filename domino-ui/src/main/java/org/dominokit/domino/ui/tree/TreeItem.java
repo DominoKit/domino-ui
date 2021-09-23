@@ -18,17 +18,37 @@ package org.dominokit.domino.ui.tree;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.Unit.px;
-import static org.jboss.elemento.Elements.*;
+import static org.jboss.elemento.Elements.a;
+import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.Elements.li;
+import static org.jboss.elemento.Elements.span;
+import static org.jboss.elemento.Elements.ul;
 
-import elemental2.dom.*;
 import elemental2.dom.EventListener;
-import java.util.*;
+import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLLIElement;
+import elemental2.dom.HTMLUListElement;
+import elemental2.dom.Node;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 import org.dominokit.domino.ui.collapsible.Collapsible;
-import org.dominokit.domino.ui.collapsible.HeightCollapseStrategy;
+import org.dominokit.domino.ui.collapsible.TreeHeightCollapseStrategy;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.style.*;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.WaveColor;
+import org.dominokit.domino.ui.style.WaveStyle;
+import org.dominokit.domino.ui.style.WavesElement;
+import org.dominokit.domino.ui.utils.CanActivate;
+import org.dominokit.domino.ui.utils.CanDeactivate;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.HasClickableElement;
+import org.dominokit.domino.ui.utils.ParentTreeItem;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -215,7 +235,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     element().appendChild(childrenContainer);
     collapsible =
         Collapsible.create(childrenContainer)
-            .setStrategy(new HeightCollapseStrategy())
+            .setStrategy(new TreeHeightCollapseStrategy(this))
             .addHideHandler(
                 () -> {
                   Style.of(anchorElement).remove("toggled");
@@ -836,5 +856,9 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     this.title = title;
     getTitleElement().setTextContent(title);
     return this;
+  }
+
+  public HTMLUListElement getChildrenContainer() {
+    return childrenContainer;
   }
 }

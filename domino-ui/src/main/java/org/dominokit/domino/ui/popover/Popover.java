@@ -147,7 +147,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
       position(popupPosition);
       visible = true;
       if (closeOnEscape) {
-        KeyboardEvents.listenOn(document.body).onEscape(closeListener);
+        KeyboardEvents.listenOnKeyDown(document.body).onEscape(closeListener);
       }
     }
   }

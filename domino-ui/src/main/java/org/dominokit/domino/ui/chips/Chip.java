@@ -103,7 +103,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     setRemovable(false);
     setBorderColor(Color.INDIGO);
     setValue(value);
-    KeyboardEvents.listenOn(element)
+    KeyboardEvents.listenOnKeyDown(element)
         .onEnter(
             evt -> {
               if (selectable) {

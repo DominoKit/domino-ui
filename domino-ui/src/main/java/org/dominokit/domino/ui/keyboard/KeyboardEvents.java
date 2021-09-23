@@ -35,6 +35,8 @@ public class KeyboardEvents<T extends Node> {
 
   public static final String ESCAPE = "escape";
   public static final String KEYDOWN = "keydown";
+  public static final String KEYUP = "keyup";
+  public static final String KEYPRESS = "keypress";
   public static final String ARROWDOWN = "arrowdown";
   public static final String ARROWUP = "arrowup";
   public static final String ENTER = "enter";
@@ -47,9 +49,13 @@ public class KeyboardEvents<T extends Node> {
   private final Map<String, HandlerContext> ctrlHandlers = new HashMap<>();
   private KeyboardEventOptions defaultOptions = KeyboardEventOptions.create();
 
-  public KeyboardEvents(T element) {
+  /**
+   * @param eventType The eventType that will trigger the handlers
+   * @param element the target element
+   */
+  public KeyboardEvents(String eventType, T element) {
     element.addEventListener(
-        KEYDOWN,
+        eventType,
         evt -> {
           KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
           // ignore events without keycode (browser bug?)
@@ -75,13 +81,21 @@ public class KeyboardEvents<T extends Node> {
         });
   }
 
+  /** @param element the target element */
+  public KeyboardEvents(T element) {
+    this(KEYDOWN, element);
+  }
+
   /**
    * Static factory for creation keyboard event listener
    *
    * @param element the target element
    * @param <T> the type of the element
    * @return new instance
+   * @deprecated use {@link #listenOnKeyDown(Node)}, {@link #listenOnKeyUp(Node)}, {@link
+   *     #listenOnKeyPress(Node)}
    */
+  @Deprecated
   public static <T extends Node> KeyboardEvents<T> listenOn(T element) {
     return new KeyboardEvents<>(element);
   }
@@ -92,9 +106,78 @@ public class KeyboardEvents<T extends Node> {
    * @param element the target {@link IsElement}
    * @param <T> the type of the element
    * @return new instance
+   * @deprecated use {@link #listenOnKeyDown(IsElement)}, {@link #listenOnKeyUp(IsElement)}, {@link
+   *     #listenOnKeyPress(IsElement)}
    */
+  @Deprecated
   public static <T extends HTMLElement> KeyboardEvents<T> listenOn(IsElement<T> element) {
     return new KeyboardEvents<>(element.element());
+  }
+
+  /**
+   * Static factory for creation keyboard keydown event listener
+   *
+   * @param element the target element
+   * @param <T> the type of the element
+   * @return new instance
+   */
+  public static <T extends Node> KeyboardEvents<T> listenOnKeyDown(T element) {
+    return new KeyboardEvents<>(KEYDOWN, element);
+  }
+
+  /**
+   * Same as {@link KeyboardEvents#listenOnKeyDown(Node)} but with wrapper {@link IsElement}
+   *
+   * @param element the target {@link IsElement}
+   * @param <T> the type of the element
+   * @return new instance
+   */
+  public static <T extends HTMLElement> KeyboardEvents<T> listenOnKeyDown(IsElement<T> element) {
+    return new KeyboardEvents<>(KEYDOWN, element.element());
+  }
+
+  /**
+   * Static factory for creation keyboard keyUp event listener
+   *
+   * @param element the target element
+   * @param <T> the type of the element
+   * @return new instance
+   */
+  public static <T extends Node> KeyboardEvents<T> listenOnKeyUp(T element) {
+    return new KeyboardEvents<>(KEYUP, element);
+  }
+
+  /**
+   * Same as {@link KeyboardEvents#listenOnKeyUp(Node)} but with wrapper {@link IsElement}
+   *
+   * @param element the target {@link IsElement}
+   * @param <T> the type of the element
+   * @return new instance
+   */
+  public static <T extends HTMLElement> KeyboardEvents<T> listenOnKeyUp(IsElement<T> element) {
+    return new KeyboardEvents<>(KEYUP, element.element());
+  }
+
+  /**
+   * Static factory for creation keyboard keyPress event listener
+   *
+   * @param element the target element
+   * @param <T> the type of the element
+   * @return new instance
+   */
+  public static <T extends Node> KeyboardEvents<T> listenOnKeyPress(T element) {
+    return new KeyboardEvents<>(KEYPRESS, element);
+  }
+
+  /**
+   * Same as {@link KeyboardEvents#listenOnKeyPress(Node)} but with wrapper {@link IsElement}
+   *
+   * @param element the target {@link IsElement}
+   * @param <T> the type of the element
+   * @return new instance
+   */
+  public static <T extends HTMLElement> KeyboardEvents<T> listenOnKeyPress(IsElement<T> element) {
+    return new KeyboardEvents<>(KEYPRESS, element.element());
   }
 
   /**
@@ -266,6 +349,27 @@ public class KeyboardEvents<T extends Node> {
    */
   public KeyboardEvents<T> onTab(EventListener tabHandler, KeyboardEventOptions options) {
     return addHandler(TAB, contextOf(tabHandler, options));
+  }
+
+  /**
+   * On key button pressed with options
+   *
+   * @param handler the {@link EventListener} to call
+   * @param options the {@link KeyboardEventOptions}
+   * @return same instance
+   */
+  public KeyboardEvents<T> on(String key, EventListener handler, KeyboardEventOptions options) {
+    return addHandler(key, contextOf(handler, options));
+  }
+
+  /**
+   * On key button pressed
+   *
+   * @param handler the {@link EventListener} to call
+   * @return same instance
+   */
+  public KeyboardEvents<T> on(String key, EventListener handler) {
+    return on(key, handler, defaultOptions());
   }
 
   private KeyboardEvents<T> addHandler(String type, HandlerContext handlerContext) {
