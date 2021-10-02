@@ -18,7 +18,7 @@ package org.dominokit.domino.ui.utils;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-@JsType(isNative = true, name = JsPackage.GLOBAL)
+@JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class ResizeObserverSize {
 
   public double blockSize;

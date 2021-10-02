@@ -36,7 +36,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import org.dominokit.domino.ui.collapsible.Collapsible;
-import org.dominokit.domino.ui.collapsible.TreeHeightCollapseStrategy;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Style;
@@ -47,6 +46,7 @@ import org.dominokit.domino.ui.style.WavesElement;
 import org.dominokit.domino.ui.utils.CanActivate;
 import org.dominokit.domino.ui.utils.CanDeactivate;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.dominokit.domino.ui.utils.ParentTreeItem;
 import org.jboss.elemento.EventType;
@@ -235,7 +235,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     element().appendChild(childrenContainer);
     collapsible =
         Collapsible.create(childrenContainer)
-            .setStrategy(new TreeHeightCollapseStrategy(this))
+            .setStrategy(DominoUIConfig.INSTANCE.getDefaultTreeCollapseStrategySupplier().get(this))
             .addHideHandler(
                 () -> {
                   Style.of(anchorElement).remove("toggled");

@@ -36,6 +36,7 @@ import org.dominokit.domino.ui.loaders.Loader;
 import org.dominokit.domino.ui.loaders.LoaderEffect;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.DelayedTextInput;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
 import org.jboss.elemento.Elements;
 
@@ -125,7 +126,7 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
     suggestionsMenu.setAppendTarget(document.body);
     suggestionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
     suggestionsMenu.setPosition(
-        DominoFields.INSTANCE.getDefaultSuggestPopupPosition().createPosition(this));
+        DominoUIConfig.INSTANCE.getDefaultSuggestPopupPosition().createPosition(this));
     suggestionsMenu.addCloseHandler(
         () -> {
           if (focusOnClose) {

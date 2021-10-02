@@ -248,6 +248,9 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
    * @return same Collapsible instance
    */
   public Collapsible setStrategy(CollapseStrategy strategy) {
+    if (nonNull(this.strategy)) {
+      this.strategy.cleanup(element, style);
+    }
     this.strategy = strategy;
     this.strategy.init(element, style);
     return this;

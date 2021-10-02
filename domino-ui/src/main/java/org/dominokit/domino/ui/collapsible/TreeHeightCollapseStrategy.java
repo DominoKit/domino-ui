@@ -54,6 +54,13 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
     style.add(transition.getStyle());
   }
 
+  @Override
+  public void cleanup(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
+    style.add(CollapsibleStyles.HEIGHT_COLLAPSED_OVERFLOW);
+    style.add(transition.getStyle());
+    element.removeAttribute("dom-ui-collapse-height");
+  }
+
   /** {@inheritDoc} */
   @Override
   public void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {

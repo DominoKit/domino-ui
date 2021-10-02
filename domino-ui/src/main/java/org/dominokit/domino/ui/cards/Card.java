@@ -21,8 +21,8 @@ import static org.dominokit.domino.ui.cards.CardStyles.*;
 import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.*;
+import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.Collapsible;
-import org.dominokit.domino.ui.collapsible.HeightCollapseStrategy;
 import org.dominokit.domino.ui.grid.flex.FlexAlign;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
@@ -35,6 +35,7 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.elemento.EventType;
@@ -73,7 +74,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
   private final DominoElement<HTMLUListElement> headerBar =
       DominoElement.of(ul()).addCss(HEADER_ACTIONS);
   private final DominoElement<HTMLDivElement> body =
-      DominoElement.div().addCss(BODY).setCollapseStrategy(new HeightCollapseStrategy());
+      DominoElement.div()
+          .addCss(BODY)
+          .setCollapseStrategy(
+              DominoUIConfig.INSTANCE.getDefaultCardCollapseStrategySupplier().get());
 
   private final Text title = TextNode.empty();
   private final Text description = TextNode.empty();
@@ -649,6 +653,16 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card clearBody() {
     getBody().clearElement();
+    return this;
+  }
+
+  /**
+   * Set the card body collapse strategy
+   *
+   * @return same instance
+   */
+  public Card setBodyCollapseStrategy(CollapseStrategy strategy) {
+    getBody().setCollapseStrategy(strategy);
     return this;
   }
 

@@ -24,6 +24,7 @@ import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.search.Search;
@@ -109,6 +110,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   private T value;
 
   private final List<ItemClickListener<T>> itemsClickListeners = new ArrayList<>();
+  private CollapseStrategy collapseStrategy;
 
   public Tree() {
     this("");
@@ -178,6 +180,9 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     treeItem.setLevel(1);
     treeItem.setLevelPadding(levelPadding);
     treeItem.setToggleTarget(this.toggleTarget);
+    if (nonNull(collapseStrategy)) {
+      treeItem.setCollapseStrategy(collapseStrategy);
+    }
     this.subItems.add(treeItem);
     return this;
   }
@@ -605,6 +610,16 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   @Override
   public TreeItemFilter<TreeItem<T>> getFilter() {
     return this.filter;
+  }
+
+  public Tree<T> setCollapseStrategy(CollapseStrategy collapseStrategy) {
+    getSubItems().forEach(tTreeItem -> setCollapseStrategy(collapseStrategy));
+    this.collapseStrategy = collapseStrategy;
+    return this;
+  }
+
+  public CollapseStrategy getCollapseStrategy() {
+    return collapseStrategy;
   }
 
   /** {@inheritDoc} */

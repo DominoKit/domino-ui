@@ -47,4 +47,13 @@ public interface CollapseStrategy {
    * @param style the {@link Style} of the element
    */
   void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style);
+
+  /**
+   * Implement this method to clean up any attributes or styles added the strategy when we switch to
+   * a different one.
+   *
+   * @param element The collapsible {@link HTMLElement}
+   * @param style the {@link Style} of the element
+   */
+  default void cleanup(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {};
 }

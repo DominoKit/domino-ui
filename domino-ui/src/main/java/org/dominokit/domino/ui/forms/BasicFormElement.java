@@ -28,6 +28,7 @@ import org.dominokit.domino.ui.forms.validations.RequiredValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.IsReadOnly;
 import org.gwtproject.editor.client.EditorError;
 import org.gwtproject.safehtml.shared.SafeHtml;
@@ -52,7 +53,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
   private List<HTMLElement> errorLabels = new ArrayList<>();
   private List<String> errors = new ArrayList<>();
   private boolean validationDisabled = false;
-  private Node requiredIndicator = DominoFields.INSTANCE.getRequiredIndicator().get();
+  private Node requiredIndicator = DominoUIConfig.INSTANCE.getRequiredIndicator().get();
   private boolean showRequiredIndicator = true;
 
   /** {@inheritDoc} */
@@ -305,7 +306,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
     if (required) {
       addValidator(requiredValidator);
       if (this.showRequiredIndicator) {
-        DominoFields.INSTANCE
+        DominoUIConfig.INSTANCE
             .getRequiredIndicatorRenderer()
             .appendRequiredIndicator((T) this, requiredIndicator);
       }
@@ -316,7 +317,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
   }
 
   private void removeRequiredIndicator() {
-    DominoFields.INSTANCE
+    DominoUIConfig.INSTANCE
         .getRequiredIndicatorRenderer()
         .removeRequiredIndicator(this, requiredIndicator);
   }
@@ -427,7 +428,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
   protected abstract DominoElement<HTMLElement> getErrorsContainer();
 
   /** @return the field {@link HTMLLabelElement} wrapped as {@link DominoElement} */
-  protected abstract DominoElement<HTMLLabelElement> getLabelElement();
+  public abstract DominoElement<HTMLLabelElement> getLabelElement();
 
   /**
    * @return the {@link HTMLDivElement} that contains this field additional info element wrapped as
