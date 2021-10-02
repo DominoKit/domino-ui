@@ -63,7 +63,7 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
 
   @Override
   protected void setTransformProperty(double offset) {
-    contentPanel.style().setProperty("transform", "translate3d(0px, -" + offset + "%, 0px)");
+    contentPanel.setCssProperty("transform", "translate3d(0px, -" + offset + "%, 0px)");
   }
 
   @Override

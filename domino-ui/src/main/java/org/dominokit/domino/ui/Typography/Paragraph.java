@@ -73,7 +73,7 @@ public class Paragraph extends BaseDominoElement<HTMLParagraphElement, Paragraph
    * @return same instance
    */
   public Paragraph lead() {
-    element.style().add(Styles.LEAD);
+    element.addCss(Styles.LEAD);
     return this;
   }
 
@@ -84,10 +84,10 @@ public class Paragraph extends BaseDominoElement<HTMLParagraphElement, Paragraph
    * @return same instance
    */
   public Paragraph setColor(Color color) {
-    if (nonNull(colorStyle)) element.style().remove(color.getStyle());
+    if (nonNull(colorStyle)) element.removeCss(color.getStyle());
 
     this.colorStyle = color;
-    element.style().add(colorStyle.getStyle());
+    element.addCss(colorStyle.getStyle());
     return this;
   }
 
@@ -110,8 +110,8 @@ public class Paragraph extends BaseDominoElement<HTMLParagraphElement, Paragraph
    * @return same instance
    */
   public Paragraph bold() {
-    element.style().remove(Styles.font_bold);
-    element.style().add(Styles.font_bold);
+    element.removeCss(Styles.font_bold);
+    element.addCss(Styles.font_bold);
     return this;
   }
 
@@ -121,8 +121,8 @@ public class Paragraph extends BaseDominoElement<HTMLParagraphElement, Paragraph
    * @return same instance
    */
   public Paragraph italic() {
-    element.style().remove(Styles.font_italic);
-    element.style().add(Styles.font_italic);
+    element.removeCss(Styles.font_italic);
+    element.addCss(Styles.font_italic);
     return this;
   }
 
@@ -132,8 +132,8 @@ public class Paragraph extends BaseDominoElement<HTMLParagraphElement, Paragraph
    * @return same instance
    */
   public Paragraph underLine() {
-    element.style().remove(Styles.font_under_line);
-    element.style().add(Styles.font_under_line);
+    element.removeCss(Styles.font_under_line);
+    element.addCss(Styles.font_under_line);
     return this;
   }
 
@@ -143,8 +143,8 @@ public class Paragraph extends BaseDominoElement<HTMLParagraphElement, Paragraph
    * @return same instance
    */
   public Paragraph overLine() {
-    element.style().remove(Styles.font_over_line);
-    element.style().add(Styles.font_over_line);
+    element.removeCss(Styles.font_over_line);
+    element.addCss(Styles.font_over_line);
     return this;
   }
 
@@ -154,8 +154,8 @@ public class Paragraph extends BaseDominoElement<HTMLParagraphElement, Paragraph
    * @return same instance
    */
   public Paragraph lineThrough() {
-    element.style().remove(Styles.font_line_through);
-    element.style().add(Styles.font_line_through);
+    element.removeCss(Styles.font_line_through);
+    element.addCss(Styles.font_line_through);
     return this;
   }
 
@@ -196,8 +196,8 @@ public class Paragraph extends BaseDominoElement<HTMLParagraphElement, Paragraph
   }
 
   private Paragraph align(String alignment) {
-    element.style().remove(this.alignment);
-    element.style().add(alignment);
+    element.removeCss(this.alignment);
+    element.addCss(alignment);
     this.alignment = alignment;
     return this;
   }

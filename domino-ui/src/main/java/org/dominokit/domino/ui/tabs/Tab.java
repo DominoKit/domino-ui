@@ -248,8 +248,8 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
     if (nonNull(parent)) {
       parent.deActivateTab(parent.getActiveTab(), silent);
     }
-    tab.style().add(TabStyles.ACTIVE);
-    contentContainer.style().add(TabStyles.IN, TabStyles.ACTIVE);
+    tab.addCss(TabStyles.ACTIVE);
+    contentContainer.addCss(TabStyles.IN, TabStyles.ACTIVE);
     this.active = true;
     if (!silent) {
       activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, true));
@@ -274,8 +274,8 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
    * @return same Tab instance
    */
   public Tab deActivate(boolean silent) {
-    tab.style().remove(TabStyles.ACTIVE);
-    contentContainer.style().remove(TabStyles.IN, TabStyles.ACTIVE);
+    tab.removeCss(TabStyles.ACTIVE);
+    contentContainer.removeCss(TabStyles.IN, TabStyles.ACTIVE);
     this.active = false;
     if (!silent) {
       activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, false));

@@ -108,7 +108,8 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
         actionElement ->
             actionsBar.appendChild(
                 FlexItem.create()
-                    .styler(style -> style.add(Styles.m_r_5).add(Styles.m_l_5))
+                    .addCss(Styles.m_r_5)
+                    .addCss(Styles.m_l_5)
                     .appendChild(actionElement.asElement(dataTable))
                     .element()));
     dataTable.element().appendChild(element);
@@ -442,13 +443,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
               .setPlaceholder(searchToolTip)
               .addLeftAddOn(searchIcon)
               .addRightAddOn(clearIcon)
-              .styler(
-                  style ->
-                      style
-                          .add("table-search-box")
-                          .setMarginBottom("0px")
-                          .setMaxWidth("300px")
-                          .add(Styles.pull_right));
+              .addCss("table-search-box")
+              .setMarginBottom("0px")
+              .setMaxWidth("300px")
+              .addCss(Styles.pull_right);
 
       clearIcon.addClickListener(
           evt -> {

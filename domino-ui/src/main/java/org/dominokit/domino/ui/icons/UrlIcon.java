@@ -54,11 +54,11 @@ public class UrlIcon extends BaseIcon<UrlIcon> {
   protected UrlIcon doToggle() {
     if (nonNull(toggleName)) {
       if (this.style.contains(originalName)) {
-        this.style.remove(originalName);
-        this.style.add(toggleName);
+        this.style.removeCss(originalName);
+        this.style.addCss(toggleName);
       } else {
-        this.style.add(originalName);
-        this.style.remove(toggleName);
+        this.style.addCss(originalName);
+        this.style.removeCss(toggleName);
       }
     }
     return this;
@@ -67,8 +67,8 @@ public class UrlIcon extends BaseIcon<UrlIcon> {
   /** {@inheritDoc} */
   @Override
   public UrlIcon changeTo(BaseIcon<UrlIcon> icon) {
-    style.remove(getName());
-    style.add(icon.getName());
+    removeCss(getName());
+    addCss(icon.getName());
     return null;
   }
 }

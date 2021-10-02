@@ -97,7 +97,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
 
   private static Alert create(AlertType type) {
     Alert alert = create();
-    alert.element.style().add(type.style);
+    alert.element.addCss(type.style);
     return alert;
   }
 
@@ -109,7 +109,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
    */
   public static Alert create(Color background) {
     Alert alert = create();
-    alert.style().add(background.getBackground());
+    alert.addCss(background.getBackground());
     alert.background = background;
     return alert;
   }
@@ -164,9 +164,9 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
   /** {@inheritDoc} */
   @Override
   public Alert setBackground(Color background) {
-    if (nonNull(background)) element.style().remove(this.background.getBackground());
+    if (nonNull(background)) element.removeCss(this.background.getBackground());
     this.background = background;
-    element.style().add(this.background.getBackground());
+    element.addCss(this.background.getBackground());
     return this;
   }
 
@@ -201,7 +201,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
    */
   public Alert appendChild(HTMLAnchorElement anchorElement) {
     if (nonNull(anchorElement)) {
-      Style.of(anchorElement).add(Styles.alert_link);
+      Style.of(anchorElement).addCss(Styles.alert_link);
       element.appendChild(anchorElement);
     }
     return this;
@@ -246,7 +246,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
    */
   public Alert dismissible() {
     if (!dismissible) {
-      element.style().add(AlertStyles.ALERT_DISMISSIBLE);
+      element.addCss(AlertStyles.ALERT_DISMISSIBLE);
       if (element.getChildElementCount() > 0) element.insertFirst(closeButton);
       else element.appendChild(closeButton);
     }
@@ -262,7 +262,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
    */
   public Alert unDismissible() {
     if (dismissible) {
-      element.style().remove(AlertStyles.ALERT_DISMISSIBLE);
+      element.removeCss(AlertStyles.ALERT_DISMISSIBLE);
       element.removeChild(closeButton);
     }
     dismissible = false;

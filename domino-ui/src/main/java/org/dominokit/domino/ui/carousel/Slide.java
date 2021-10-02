@@ -129,10 +129,10 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   public Slide activate() {
     this.active = true;
     if (!Style.of(indicatorElement).contains(ACTIVE)) {
-      Style.of(indicatorElement).add(ACTIVE);
+      Style.of(indicatorElement).addCss(ACTIVE);
     }
     if (!style().contains(ACTIVE)) {
-      style().add(ACTIVE);
+      addCss(ACTIVE);
     }
 
     return this;
@@ -140,8 +140,8 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
   void deActivate() {
     this.active = false;
-    Style.of(indicatorElement).remove(ACTIVE);
-    style().remove(ACTIVE);
+    Style.of(indicatorElement).removeCss(ACTIVE);
+    removeCss(ACTIVE);
   }
 
   /**

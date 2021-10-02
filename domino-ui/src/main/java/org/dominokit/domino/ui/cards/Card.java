@@ -247,10 +247,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card setHeaderBackground(Color headerBackground) {
     if (nonNull(this.headerBackground)) {
-      header.style().remove(this.headerBackground.getBackground());
+      header.removeCss(this.headerBackground.getBackground());
     }
     this.headerBackground = headerBackground;
-    header.style().add(headerBackground.getBackground());
+    header.addCss(headerBackground.getBackground());
     return this;
   }
 
@@ -262,10 +262,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card setBodyBackground(Color bodyBackground) {
     if (nonNull(this.bodyBackground)) {
-      body.style().remove(this.bodyBackground.getBackground());
+      body.removeCss(this.bodyBackground.getBackground());
     }
     this.bodyBackground = bodyBackground;
-    body.style().add(bodyBackground.getBackground());
+    body.addCss(bodyBackground.getBackground());
     return this;
   }
 
@@ -276,7 +276,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    * @return same instance
    */
   public Card fitContent() {
-    style.add(FIT_CONTENT);
+    style.addCss(FIT_CONTENT);
     return this;
   }
 
@@ -286,7 +286,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    * @return same instance
    */
   public Card unFitContent() {
-    style.remove(FIT_CONTENT);
+    removeCss(FIT_CONTENT);
     return this;
   }
 
@@ -370,9 +370,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
                     .attr("aria-expanded", "true")
                     .attr("href", "#")
                     .on(EventType.click, Event::preventDefault)
-                    .add(
-                        icon.clickable()
-                            .styler(style -> style.add(Styles.pull_right, ACTION_ICON))))
+                    .add(icon.clickable().addCss(Styles.pull_right, ACTION_ICON)))
         .element();
   }
 

@@ -80,8 +80,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   /** Creates an empty select */
   public AbstractSelect() {
     super("button", "");
-    optionsMenu =
-        DropDownMenu.create(fieldContainer).styler(style1 -> style1.add("select-option-menu"));
+    optionsMenu = DropDownMenu.create(fieldContainer).addCss("select-option-menu");
     optionsMenu.setAppendTarget(DomGlobal.document.body);
     optionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
     optionsMenu.setPosition(
@@ -443,8 +442,8 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   private void onDropup() {
     if (searchable) {
       optionsMenu.appendChild(optionsMenu.getSearchContainer());
-      optionsMenu.getSearchContainer().style().remove("pos-top").add("pos-bottom");
-      optionsMenu.style().remove("pos-top").add("pos-bottom");
+      optionsMenu.getSearchContainer().removeCss("pos-top").addCss("pos-bottom");
+      optionsMenu.removeCss("pos-top").addCss("pos-bottom");
     }
   }
 
@@ -461,8 +460,8 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   private void onDropdown() {
     if (searchable) {
       optionsMenu.insertFirst(optionsMenu.getSearchContainer());
-      optionsMenu.getSearchContainer().style().remove("pos-bottom").add("pos-top");
-      optionsMenu.style().remove("pos-bottom").add("pos-top");
+      optionsMenu.getSearchContainer().removeCss("pos-bottom").addCss("pos-top");
+      optionsMenu.removeCss("pos-bottom").addCss("pos-top");
     }
   }
 

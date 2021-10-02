@@ -215,7 +215,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
    * @return same CheckBox instance
    */
   public CheckBox filledIn() {
-    element.style().add("filled-in");
+    element.addCss("filled-in");
     return this;
   }
 
@@ -225,7 +225,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
    * @return same CheckBox instance
    */
   public CheckBox filledOut() {
-    element.style().remove("filled-in");
+    element.removeCss("filled-in");
     return this;
   }
 
@@ -238,9 +238,9 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
    */
   public CheckBox setColor(Color color) {
     if (this.color != null) {
-      element.style().remove(this.color.getStyle());
+      element.removeCss(this.color.getStyle());
     }
-    element.style().add(color.getStyle());
+    element.addCss(color.getStyle());
     this.color = color;
     return this;
   }

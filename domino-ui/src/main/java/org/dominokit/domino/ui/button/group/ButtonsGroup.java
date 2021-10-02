@@ -97,8 +97,8 @@ public class ButtonsGroup extends WavesElement<HTMLElement, ButtonsGroup>
    * @return same ButtonsGroup instance
    */
   public ButtonsGroup setSize(ButtonSize size) {
-    if (nonNull(this.size)) groupElement.style().remove(this.size.getStyle());
-    groupElement.style().add(size.getStyle());
+    if (nonNull(this.size)) groupElement.removeCss(this.size.getStyle());
+    groupElement.addCss(size.getStyle());
     this.size = size;
     return this;
   }
@@ -116,7 +116,7 @@ public class ButtonsGroup extends WavesElement<HTMLElement, ButtonsGroup>
   }
 
   private ButtonsGroup switchClasses(String toRemove, String toAdd) {
-    groupElement.style().remove(toRemove).add(toAdd);
+    groupElement.removeCss(toRemove).addCss(toAdd);
     return this;
   }
 

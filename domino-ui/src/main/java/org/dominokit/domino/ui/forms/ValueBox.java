@@ -359,11 +359,11 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** Focus the element and apply focus styles */
   protected void doFocus() {
     if (!isDisabled()) {
-      fieldGroup.style().add(FOCUSED);
+      fieldGroup.addCss(FOCUSED);
       floatLabel();
       if (valid) {
         if (isAddFocusColor()) {
-          fieldContainer.style().add("fc-" + focusColor.getStyle());
+          fieldContainer.addCss("fc-" + focusColor.getStyle());
         }
         setLabelColor(focusColor);
       }
@@ -378,8 +378,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
   /** un-focus the component and remove the focus styles */
   protected void doUnfocus() {
-    fieldGroup.style().remove(FOCUSED);
-    fieldContainer.style().remove("fc-" + focusColor.getStyle(), FOCUSED);
+    fieldGroup.removeCss(FOCUSED);
+    fieldContainer.removeCss("fc-" + focusColor.getStyle(), FOCUSED);
     unfloatLabel();
     removeLabelColor(focusColor);
     hidePlaceholder();
@@ -432,18 +432,18 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   }
 
   private void setLabelColor(Color color) {
-    labelElement.style().add(color.getStyle());
+    labelElement.addCss(color.getStyle());
   }
 
   private void removeLabelColor(Color color) {
-    labelElement.style().remove(color.getStyle());
+    labelElement.removeCss(color.getStyle());
   }
 
   /** {@inheritDoc} */
   @Override
   public T enable() {
     super.enable();
-    fieldGroup.style().remove(DISABLED);
+    fieldGroup.removeCss(DISABLED);
     return (T) this;
   }
 
@@ -451,7 +451,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   @Override
   public T disable() {
     super.disable();
-    fieldGroup.style().add(DISABLED);
+    fieldGroup.addCss(DISABLED);
     return (T) this;
   }
 
@@ -781,8 +781,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   }
 
   private void updateValidationStyles() {
-    fieldContainer.style().remove("fc-" + focusColor.getStyle());
-    fieldContainer.style().add("fc-" + Color.RED.getStyle());
+    fieldContainer.removeCss("fc-" + focusColor.getStyle());
+    fieldContainer.addCss("fc-" + Color.RED.getStyle());
     removeLabelColor(focusColor);
     setLabelColor(Color.RED);
     changeLabelFloating();
@@ -812,8 +812,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   @Override
   public T clearInvalid() {
     this.valid = true;
-    fieldContainer.style().add("fc-" + focusColor.getStyle());
-    fieldContainer.style().remove("fc-" + Color.RED.getStyle());
+    fieldContainer.addCss("fc-" + focusColor.getStyle());
+    fieldContainer.removeCss("fc-" + Color.RED.getStyle());
     removeLabelColor(Color.RED);
     if (isFocused()) {
       doFocus();
@@ -916,7 +916,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** Make the label float over the component */
   protected void floatLabel() {
     if (!floating || permaFloating) {
-      fieldGroup.style().add(FLOATING);
+      fieldGroup.addCss(FLOATING);
       this.floating = true;
     }
   }
@@ -924,7 +924,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** unfloat a floating label */
   protected void unfloatLabel() {
     if ((floating && !permaFloating) && isEmpty()) {
-      fieldGroup.style().remove(FLOATING);
+      fieldGroup.removeCss(FLOATING);
       this.floating = false;
     }
   }

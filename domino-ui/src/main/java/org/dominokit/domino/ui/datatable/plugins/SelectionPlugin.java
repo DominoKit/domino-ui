@@ -151,14 +151,13 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
                   Style.of(clonedIndicator).setDisplay("inline-block");
                   if (nonNull(colorScheme)) {
                     Style.of(((TableRow<T>) selectable).element())
-                        .add(colorScheme.lighten_5().getBackground());
+                        .addCss(colorScheme.lighten_5().getBackground());
                   }
                   selectedRow = selectable;
                 } else {
                   Style.of(clonedIndicator).setDisplay("none");
                   if (nonNull(colorScheme)) {
-                    Style.of(((TableRow<T>) selectable).element())
-                        .remove(colorScheme.lighten_5().getBackground());
+                    ((TableRow<T>) selectable).removeCss(colorScheme.lighten_5().getBackground());
                   }
                   selectedRow = null;
                 }
@@ -179,13 +178,12 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
               checkBox.check(true);
               if (nonNull(colorScheme)) {
                 Style.of(((TableRow<T>) selectable).element())
-                    .add(colorScheme.lighten_5().getBackground());
+                    .addCss(colorScheme.lighten_5().getBackground());
               }
             } else {
               checkBox.uncheck(true);
               if (nonNull(colorScheme)) {
-                Style.of(((TableRow<T>) selectable).element())
-                    .remove(colorScheme.lighten_5().getBackground());
+                ((TableRow<T>) selectable).removeCss(colorScheme.lighten_5().getBackground());
               }
             }
           }
@@ -216,7 +214,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
             } else {
               tableRow.deselect();
               if (nonNull(colorScheme)) {
-                Style.of(tableRow.element()).remove(colorScheme.lighten_5().getBackground());
+                tableRow.removeCss(colorScheme.lighten_5().getBackground());
               }
               dataTable.onSelectionChange(tableRow);
             }
@@ -240,7 +238,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private void selectRow(DataTable<T> dataTable, TableRow<T> tableRow) {
     tableRow.select();
     if (nonNull(colorScheme)) {
-      Style.of(tableRow.element()).add(colorScheme.lighten_5().getBackground());
+      Style.of(tableRow.element()).addCss(colorScheme.lighten_5().getBackground());
     }
     dataTable.onSelectionChange(tableRow);
   }
@@ -248,7 +246,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private void deselectRow(DataTable<T> dataTable, TableRow<T> tableRow) {
     tableRow.deselect();
     if (nonNull(colorScheme)) {
-      Style.of(tableRow.element()).remove(colorScheme.lighten_5().getBackground());
+      Style.of(tableRow.element()).removeCss(colorScheme.lighten_5().getBackground());
     }
     dataTable.onSelectionChange(tableRow);
   }
@@ -293,7 +291,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     if (nonNull(colorScheme)) {
       checkBox.setColor(colorScheme.color());
     }
-    Style.of(checkBox).add(DataTableStyles.SELECT_CHECKBOX);
+    checkBox.addCss(DataTableStyles.SELECT_CHECKBOX);
     return checkBox;
   }
 

@@ -135,15 +135,15 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>>
 
   private void updateArrowsVisibility() {
     if (items.indexOf(this.activeItem) == items.size() - 1) {
-      nextAnchor.style().add(DISABLED);
+      nextAnchor.addCss(DISABLED);
     } else {
-      nextAnchor.style().remove(DISABLED);
+      nextAnchor.removeCss(DISABLED);
     }
 
     if (items.indexOf(this.activeItem) < 1) {
-      prevAnchor.style().add(DISABLED);
+      prevAnchor.addCss(DISABLED);
     } else {
-      prevAnchor.style().remove(DISABLED);
+      prevAnchor.removeCss(DISABLED);
     }
   }
 

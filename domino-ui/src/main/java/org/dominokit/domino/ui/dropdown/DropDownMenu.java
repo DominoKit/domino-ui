@@ -384,7 +384,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
               focus();
             }
 
-            element.style().setProperty("z-index", ModalBackDrop.getNextZIndex() + 10 + "");
+            element.setCssProperty("z-index", ModalBackDrop.getNextZIndex() + 10 + "");
             openHandlers.forEach(OpenHandler::onOpen);
 
             DominoElement.of(targetElement).onDetached(targetDetach -> close());

@@ -117,7 +117,7 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
    */
   public FlexItem<T> setOrder(int order) {
     this.order = order;
-    style().setProperty("order", String.valueOf(order));
+    setCssProperty("order", String.valueOf(order));
     return this;
   }
 
@@ -138,7 +138,7 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
    */
   public FlexItem<T> setFlexGrow(int flexGrow) {
     this.flexGrow = flexGrow;
-    style().setProperty("flex-grow", String.valueOf(flexGrow));
+    setCssProperty("flex-grow", String.valueOf(flexGrow));
     return this;
   }
 
@@ -154,7 +154,7 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
    */
   public FlexItem<T> setFlexShrink(int flexShrink) {
     this.flexShrink = flexShrink;
-    style().setProperty("flex-shrink", String.valueOf(flexShrink));
+    setCssProperty("flex-shrink", String.valueOf(flexShrink));
     return this;
   }
 
@@ -170,7 +170,7 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
    */
   public FlexItem<T> setFlexBasis(String flexBasis) {
     this.flexBasis = flexBasis;
-    style().setProperty("flex-basis", flexBasis);
+    setCssProperty("flex-basis", flexBasis);
     return this;
   }
 
@@ -182,7 +182,7 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
    */
   public FlexItem<T> setAlignSelf(FlexAlign alignSelf) {
     this.alignSelf = alignSelf;
-    style().setProperty("align-self", alignSelf.getValue());
+    setCssProperty("align-self", alignSelf.getValue());
     return this;
   }
 
@@ -192,7 +192,7 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
    * @return same instance
    */
   public FlexItem<T> setAutoAlign() {
-    style().setProperty("align-self", "auto");
+    setCssProperty("align-self", "auto");
     return this;
   }
 

@@ -116,8 +116,8 @@ public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
    * @return same instance
    */
   public Blockquote reverse() {
-    element.style().remove(Styles.BLOCKQUOTE_REVERSE);
-    element.style().add(Styles.BLOCKQUOTE_REVERSE);
+    element.removeCss(Styles.BLOCKQUOTE_REVERSE);
+    element.addCss(Styles.BLOCKQUOTE_REVERSE);
     return this;
   }
 

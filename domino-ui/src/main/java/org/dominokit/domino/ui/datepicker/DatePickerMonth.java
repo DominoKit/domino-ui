@@ -278,14 +278,14 @@ public class DatePickerMonth
 
   private void styleOtherMonth(DatePickerElement datePickerElement) {
     Style.of(datePickerElement.getElement())
-        .remove(DatePickerStyles.OTHER_MONTH, DatePickerStyles.CURRENT_MONTH)
-        .add(DatePickerStyles.OTHER_MONTH);
+        .removeCss(DatePickerStyles.OTHER_MONTH, DatePickerStyles.CURRENT_MONTH)
+        .addCss(DatePickerStyles.OTHER_MONTH);
   }
 
   private void styleCurrentMonth(DatePickerElement datePickerElement) {
     Style.of(datePickerElement.getElement())
-        .remove(DatePickerStyles.OTHER_MONTH, DatePickerStyles.CURRENT_MONTH)
-        .add(DatePickerStyles.CURRENT_MONTH);
+        .removeCss(DatePickerStyles.OTHER_MONTH, DatePickerStyles.CURRENT_MONTH)
+        .addCss(DatePickerStyles.CURRENT_MONTH);
   }
 
   /**
@@ -405,7 +405,7 @@ public class DatePickerMonth
 
   private void select(DatePickerElement datePickerElement) {
     datePickerElement.select();
-    datePickerElement.style().add(this.background.getBackground());
+    datePickerElement.style().addCss(this.background.getBackground());
     this.selectedElement = datePickerElement;
     if (nonNull(internalHandler)) internalHandler.onDaySelected(datePickerElement);
     informSelectionHandlers(datePickerElement);
@@ -414,7 +414,7 @@ public class DatePickerMonth
   private void deselect() {
     if (nonNull(selectedElement)) {
       selectedElement.deselect();
-      selectedElement.style().remove(this.background.getBackground());
+      selectedElement.style().removeCss(this.background.getBackground());
     }
   }
 
@@ -455,9 +455,9 @@ public class DatePickerMonth
    * @param background A background {@link Color}
    */
   public void setBackground(Color background) {
-    getSelectedItem().style().remove(this.background.getBackground());
+    getSelectedItem().style().removeCss(this.background.getBackground());
     this.background = background;
-    getSelectedItem().style().add(this.background.getBackground());
+    getSelectedItem().style().addCss(this.background.getBackground());
   }
 
   /** A handler that will be called when the day is selected */

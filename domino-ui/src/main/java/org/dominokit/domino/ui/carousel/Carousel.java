@@ -24,7 +24,6 @@ import elemental2.dom.HTMLOListElement;
 import java.util.ArrayList;
 import java.util.List;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -78,19 +77,13 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   private final HTMLAnchorElement prevElement =
       a().css(LEFT, CAROUSEL_CONTROL)
           .attr("role", "button")
-          .add(
-              Icons.ALL
-                  .chevron_left()
-                  .styler(style -> style.add(Styles.vertical_center).setFontSize("60px")))
+          .add(Icons.ALL.chevron_left().addCss(Styles.vertical_center).setFontSize("60px"))
           .element();
 
   private final HTMLAnchorElement nextElement =
       a().css(RIGHT, CAROUSEL_CONTROL)
           .attr("role", "button")
-          .add(
-              Icons.ALL
-                  .chevron_right()
-                  .styler(style -> style.add(Styles.vertical_center).setFontSize("60px")))
+          .add(Icons.ALL.chevron_right().addCss(Styles.vertical_center).setFontSize("60px"))
           .element();
 
   private final HTMLDivElement element =
@@ -231,16 +224,16 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   private void goToSlide(Slide slide, String source) {
     if (!slide.hasActiveStyle()) {
       this.targetSlide = slide;
-      slide.getIndicatorElement().style().add(ACTIVE);
-      activeSlide.getIndicatorElement().style().remove(ACTIVE);
-      slide.style().add(getPositionStyle(slide, source));
+      slide.getIndicatorElement().addCss(ACTIVE);
+      activeSlide.getIndicatorElement().removeCss(ACTIVE);
+      slide.addCss(getPositionStyle(slide, source));
       Scheduler.get()
           .scheduleFixedDelay(
               () -> {
-                activeSlide.getIndicatorElement().style().remove(ACTIVE);
+                activeSlide.getIndicatorElement().removeCss(ACTIVE);
                 String directionStyle = getDirectionStyle(slide, source);
-                Style.of(slide).add(directionStyle);
-                Style.of(activeSlide).add(directionStyle);
+                slide.addCss(directionStyle);
+                activeSlide.addCss(directionStyle);
                 return false;
               },
               50);
@@ -266,9 +259,9 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   }
 
   private void removeMotionStyles() {
-    Style.of(activeSlide).remove(LEFT).remove(RIGHT).remove(NEXT).remove(PREV);
+    activeSlide.removeCss(LEFT).removeCss(RIGHT).removeCss(NEXT).removeCss(PREV);
     activeSlide.deActivate();
-    Style.of(targetSlide).remove(LEFT).remove(RIGHT).remove(NEXT).remove(PREV);
+    targetSlide.removeCss(LEFT).removeCss(RIGHT).removeCss(NEXT).removeCss(PREV);
 
     targetSlide.activate();
     this.activeSlide = targetSlide;

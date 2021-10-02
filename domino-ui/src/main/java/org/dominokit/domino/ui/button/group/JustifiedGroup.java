@@ -34,7 +34,7 @@ public class JustifiedGroup extends BaseDominoElement<HTMLElement, JustifiedGrou
   }
 
   private JustifiedGroup() {
-    group.style().add(ButtonStyles.JUSTIFIED);
+    group.addCss(ButtonStyles.JUSTIFIED);
     init(this);
   }
 

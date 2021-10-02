@@ -189,13 +189,11 @@ abstract class BaseSplitter<T extends BaseSplitter<?>>
 
   public T setColorScheme(ColorScheme colorScheme) {
     element
-        .style()
-        .remove(this.colorScheme.lighten_4().getBackground())
-        .add(colorScheme.lighten_4().getBackground());
+        .removeCss(this.colorScheme.lighten_4().getBackground())
+        .addCss(colorScheme.lighten_4().getBackground());
     handleElement
-        .style()
-        .remove(this.colorScheme.color().getBackground())
-        .add(colorScheme.color().getBackground());
+        .removeCss(this.colorScheme.color().getBackground())
+        .addCss(colorScheme.color().getBackground());
 
     this.colorScheme = colorScheme;
     return (T) this;

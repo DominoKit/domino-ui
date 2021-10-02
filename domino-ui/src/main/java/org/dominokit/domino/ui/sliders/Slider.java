@@ -130,7 +130,7 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
     setValue(value);
     EventListener downEvent =
         mouseDownEvent -> {
-          slider.style().add(SliderStyles.active);
+          slider.addCss(SliderStyles.active);
           this.mouseDown = true;
           if (withThumb) {
             showThumb();
@@ -152,7 +152,7 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
     EventListener upEvent =
         mouseUpEvent -> {
           mouseDown = false;
-          slider.style().remove(SliderStyles.active);
+          slider.removeCss(SliderStyles.active);
           hideThumb();
         };
     slider.addEventListener(change.getName(), evt -> callChangeHandlers());
@@ -196,12 +196,12 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
   }
 
   private void showThumb() {
-    thumb.style().add(SliderStyles.active);
+    thumb.addCss(SliderStyles.active);
     updateThumbValue();
   }
 
   private void hideThumb() {
-    thumb.style().remove(SliderStyles.active);
+    thumb.removeCss(SliderStyles.active);
   }
 
   private void evaluateThumbPosition() {
@@ -364,9 +364,9 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
    */
   public Slider setBackgroundColor(Color backgroundColor) {
     if (nonNull(this.backgroundColor)) {
-      slider.style().remove("slider-" + this.backgroundColor.getBackground());
+      slider.removeCss("slider-" + this.backgroundColor.getBackground());
     }
-    slider.style().add("slider-" + backgroundColor.getBackground());
+    slider.addCss("slider-" + backgroundColor.getBackground());
     this.backgroundColor = backgroundColor;
     return this;
   }
@@ -377,11 +377,11 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
    */
   public Slider setThumbColor(Color thumbColor) {
     if (nonNull(this.thumbColor)) {
-      slider.style().remove("thumb-" + this.thumbColor.getBackground());
-      thumb.style().remove(this.thumbColor.getBackground());
+      slider.removeCss("thumb-" + this.thumbColor.getBackground());
+      thumb.removeCss(this.thumbColor.getBackground());
     }
-    slider.style().add("thumb-" + thumbColor.getBackground());
-    thumb.style().add(thumbColor.getBackground());
+    slider.addCss("thumb-" + thumbColor.getBackground());
+    thumb.addCss(thumbColor.getBackground());
     this.thumbColor = thumbColor;
     return this;
   }

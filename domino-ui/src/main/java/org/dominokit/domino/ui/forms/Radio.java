@@ -208,7 +208,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
    * @return same Radio instance
    */
   public Radio<T> withGap() {
-    Style.of(inputElement).add("with-gap");
+    Style.of(inputElement).addCss("with-gap");
     element.css("with-gap");
     return this;
   }
@@ -219,7 +219,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
    * @return same Radio instance
    */
   public Radio<T> withoutGap() {
-    Style.of(inputElement).remove("with-gap");
+    Style.of(inputElement).removeCss("with-gap");
     element.removeCss("with-gap");
     return this;
   }

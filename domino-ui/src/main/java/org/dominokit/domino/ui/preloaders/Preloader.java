@@ -76,9 +76,9 @@ public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
    * @return same Preloader instance
    */
   public Preloader setSize(Size size) {
-    style().remove(this.size.style);
+    removeCss(this.size.style);
     this.size = size;
-    style().add(this.size.style);
+    addCss(this.size.style);
     return this;
   }
 
@@ -87,9 +87,9 @@ public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
    * @return same Preloader instance
    */
   public Preloader setColor(Color color) {
-    spinnerStyle().remove(this.color.getStyle().replace("col-", "pl-"));
+    spinnerStyle().removeCss(this.color.getStyle().replace("col-", "pl-"));
     this.color = color;
-    spinnerStyle().add(this.color.getStyle().replace("col-", "pl-"));
+    spinnerStyle().addCss(this.color.getStyle().replace("col-", "pl-"));
     return this;
   }
 

@@ -46,14 +46,50 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
     return Style.of(DomGlobal.document.body);
   }
 
+  /**
+   * @deprecated use {@link #setCssProperty(String, String)}
+   * @param name css property name
+   * @param value css property value
+   * @return same style instance
+   */
+  @Deprecated
   @Override
   public Style<E, T> setProperty(String name, String value) {
+    return setCssProperty(name, value);
+  }
+
+  /**
+   * @param name css property name
+   * @param value css property value
+   * @return same style instance
+   */
+  @Override
+  public Style<E, T> setCssProperty(String name, String value) {
     element.style.setProperty(name, value);
     return this;
   }
 
+  /**
+   * @deprecated use {@link #setCssProperty(String, String, boolean)}
+   * @param name css property name
+   * @param value css property value
+   * @param important if true adds !important
+   * @return same style instance
+   */
+  @Deprecated
   @Override
   public Style<E, T> setProperty(String name, String value, boolean important) {
+    return setCssProperty(name, value, important);
+  }
+
+  /**
+   * @param name css property name
+   * @param value css property value
+   * @param important if true adds !important
+   * @return same style instance
+   */
+  @Override
+  public Style<E, T> setCssProperty(String name, String value, boolean important) {
     if (important) {
       element.style.setProperty(name, value, "important");
     } else {
@@ -62,70 +98,156 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
     return this;
   }
 
+  /**
+   * @deprecated use {@link #removeCssProperty(String)}
+   * @param name css property name
+   * @return same style instance
+   */
+  @Deprecated
   @Override
   public Style<E, T> removeProperty(String name) {
+    return removeCssProperty(name);
+  }
+
+  /**
+   * @param name css property name
+   * @return same style instance
+   */
+  @Override
+  public Style<E, T> removeCssProperty(String name) {
     element.style.removeProperty(name);
     return this;
   }
 
+  /**
+   * @deprecated use {@link #addCss(String)}
+   * @param cssClass css class name
+   * @return same style instance
+   */
+  @Deprecated
   @Override
   public Style<E, T> add(String cssClass) {
+    return addCss(cssClass);
+  }
+
+  /**
+   * @param cssClass css class name
+   * @return same style instance
+   */
+  @Override
+  public Style<E, T> addCss(String cssClass) {
     if (nonNull(cssClass) && !cssClass.isEmpty()) element.classList.add(cssClass);
     return this;
   }
 
+  /**
+   * @deprecated use {@link #addCss(String...)}
+   * @param cssClasses css classes names
+   * @return same style instance
+   */
+  @Deprecated
   @Override
   public Style<E, T> add(String... cssClasses) {
+    return addCss(cssClasses);
+  }
+
+  /**
+   * @param cssClasses css classes names
+   * @return same style instance
+   */
+  @Override
+  public Style<E, T> addCss(String... cssClasses) {
     if (nonNull(cssClasses) && cssClasses.length > 0) {
       // add(String... arr) is not supported in IE11, so looping over the array solving the problem
       for (String cssClass : cssClasses) {
-        add(cssClass);
+        addCss(cssClass);
       }
     }
     return this;
   }
 
+  /**
+   * @deprecated use {@link #removeCss(String)}
+   * @param cssClass css class name
+   * @return same style instance
+   */
+  @Deprecated
   @Override
   public Style<E, T> remove(String cssClass) {
+    return removeCss(cssClass);
+  }
+  /**
+   * @param cssClass css class name
+   * @return same style instance
+   */
+  @Override
+  public Style<E, T> removeCss(String cssClass) {
     if (nonNull(cssClass) && !cssClass.isEmpty()) element.classList.remove(cssClass);
     return this;
   }
 
+  /**
+   * @deprecated use {@link #removeCss(String...)}
+   * @param cssClasses css classes names
+   * @return same style instance
+   */
+  @Deprecated
   @Override
   public Style<E, T> remove(String... cssClasses) {
+    return removeCss(cssClasses);
+  }
+
+  /**
+   * @param cssClasses css classes names
+   * @return same style instance
+   */
+  @Override
+  public Style<E, T> removeCss(String... cssClasses) {
     if (nonNull(cssClasses) && cssClasses.length > 0) {
       // remove(String... arr) is not supported in IE11, so looping over the array solving the
       // problem
       for (String cssClass : cssClasses) {
-        remove(cssClass);
+        removeCss(cssClass);
       }
     }
     return this;
   }
 
+  /**
+   * @param cssClass css class name to be removed
+   * @param replacementClass cdd class name to be added
+   * @return same style instance
+   */
   @Override
   public Style<E, T> replaceCss(String cssClass, String replacementClass) {
-    return replace(cssClass, replacementClass);
-  }
-
-  @Override
-  public Style<E, T> replace(String cssClass, String replacementClass) {
     if (contains(cssClass)) {
-      remove(cssClass);
-      add(replacementClass);
+      removeCss(cssClass);
+      addCss(replacementClass);
     }
     return this;
   }
 
+  /**
+   * @deprecated use {@link #replaceCss(String, String)}
+   * @param cssClass css class name to be removed
+   * @param replacementClass cdd class name to be added
+   * @return same style instance
+   */
+  @Deprecated
+  @Override
+  public Style<E, T> replace(String cssClass, String replacementClass) {
+    return replaceCss(cssClass, replacementClass);
+  }
+
   @Override
   public Style<E, T> setBorder(String border) {
-    setProperty("border", border);
+    setCssProperty("border", border);
     return this;
   }
 
   @Override
   public Style<E, T> setBorderColor(String borderColor) {
-    setProperty("border-color", borderColor);
+    setCssProperty("border-color", borderColor);
     return this;
   }
 
@@ -137,7 +259,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setWidth(String width, boolean important) {
-    setProperty("width", width, important);
+    setCssProperty("width", width, important);
     return this;
   }
 
@@ -149,7 +271,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setMinWidth(String width, boolean important) {
-    setProperty("min-width", width, important);
+    setCssProperty("min-width", width, important);
     return this;
   }
 
@@ -161,7 +283,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setMaxWidth(String width, boolean important) {
-    setProperty("max-width", width, important);
+    setCssProperty("max-width", width, important);
     return this;
   }
 
@@ -173,7 +295,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setHeight(String height, boolean important) {
-    setProperty("height", height, important);
+    setCssProperty("height", height, important);
     return this;
   }
 
@@ -185,7 +307,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setMinHeight(String height, boolean important) {
-    setProperty("min-height", height, important);
+    setCssProperty("min-height", height, important);
     return this;
   }
 
@@ -197,7 +319,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setMaxHeight(String height, boolean important) {
-    setProperty("max-height", height, important);
+    setCssProperty("max-height", height, important);
     return this;
   }
 
@@ -209,7 +331,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setTextAlign(String textAlign, boolean important) {
-    setProperty("text-align", textAlign, important);
+    setCssProperty("text-align", textAlign, important);
     return this;
   }
 
@@ -221,7 +343,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setColor(String color, boolean important) {
-    setProperty("color", color, important);
+    setCssProperty("color", color, important);
     return this;
   }
 
@@ -233,7 +355,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setBackgroundColor(String color, boolean important) {
-    setProperty("background-color", color, important);
+    setCssProperty("background-color", color, important);
     return this;
   }
 
@@ -245,7 +367,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setMargin(String margin, boolean important) {
-    setProperty("margin", margin, important);
+    setCssProperty("margin", margin, important);
     return this;
   }
 
@@ -257,7 +379,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setMarginTop(String margin, boolean important) {
-    setProperty("margin-top", margin, important);
+    setCssProperty("margin-top", margin, important);
     return this;
   }
 
@@ -269,7 +391,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setMarginBottom(String margin, boolean important) {
-    setProperty("margin-bottom", margin, important);
+    setCssProperty("margin-bottom", margin, important);
     return this;
   }
 
@@ -281,7 +403,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setMarginLeft(String margin, boolean important) {
-    setProperty("margin-left", margin, important);
+    setCssProperty("margin-left", margin, important);
     return this;
   }
 
@@ -293,7 +415,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setMarginRight(String margin, boolean important) {
-    setProperty("margin-right", margin, important);
+    setCssProperty("margin-right", margin, important);
     return this;
   }
 
@@ -305,7 +427,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setPaddingRight(String padding, boolean important) {
-    setProperty("padding-right", padding, important);
+    setCssProperty("padding-right", padding, important);
     return this;
   }
 
@@ -317,7 +439,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setPaddingLeft(String padding, boolean important) {
-    setProperty("padding-left", padding, important);
+    setCssProperty("padding-left", padding, important);
     return this;
   }
 
@@ -329,7 +451,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setPaddingBottom(String padding, boolean important) {
-    setProperty("padding-bottom", padding, important);
+    setCssProperty("padding-bottom", padding, important);
     return this;
   }
 
@@ -341,7 +463,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setPaddingTop(String padding, boolean important) {
-    setProperty("padding-top", padding, important);
+    setCssProperty("padding-top", padding, important);
     return this;
   }
 
@@ -353,7 +475,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setPadding(String padding, boolean important) {
-    setProperty("padding", padding, important);
+    setCssProperty("padding", padding, important);
     return this;
   }
 
@@ -365,7 +487,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setDisplay(String display, boolean important) {
-    setProperty("display", display, important);
+    setCssProperty("display", display, important);
     return this;
   }
 
@@ -377,7 +499,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setFontSize(String fontSize, boolean important) {
-    setProperty("font-size", fontSize, important);
+    setCssProperty("font-size", fontSize, important);
     return this;
   }
 
@@ -389,7 +511,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setFloat(String cssFloat, boolean important) {
-    setProperty("float", cssFloat, important);
+    setCssProperty("float", cssFloat, important);
     return this;
   }
 
@@ -401,7 +523,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setLineHeight(String lineHeight, boolean important) {
-    setProperty("line-height", lineHeight, important);
+    setCssProperty("line-height", lineHeight, important);
     return this;
   }
 
@@ -413,7 +535,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setOverFlow(String overFlow, boolean important) {
-    setProperty("overflow", overFlow, important);
+    setCssProperty("overflow", overFlow, important);
     return this;
   }
 
@@ -425,7 +547,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setCursor(String cursor, boolean important) {
-    setProperty("cursor", cursor, important);
+    setCssProperty("cursor", cursor, important);
     return this;
   }
 
@@ -437,7 +559,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setPosition(String position, boolean important) {
-    setProperty("position", position, important);
+    setCssProperty("position", position, important);
     return this;
   }
 
@@ -449,7 +571,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setLeft(String left, boolean important) {
-    setProperty("left", left, important);
+    setCssProperty("left", left, important);
     return this;
   }
 
@@ -461,7 +583,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setRight(String right, boolean important) {
-    setProperty("right", right, important);
+    setCssProperty("right", right, important);
     return this;
   }
 
@@ -473,7 +595,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setTop(String top, boolean important) {
-    setProperty("top", top, important);
+    setCssProperty("top", top, important);
     return this;
   }
 
@@ -485,13 +607,13 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setBottom(String bottom, boolean important) {
-    setProperty("bottom", bottom, important);
+    setCssProperty("bottom", bottom, important);
     return this;
   }
 
   @Override
   public Style<E, T> setZIndex(int zindex) {
-    setProperty("z-index", zindex + "");
+    setCssProperty("z-index", zindex + "");
     return this;
   }
 
@@ -506,7 +628,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   @Override
   public Style<E, T> pullRight() {
     if (!contains(pull_right)) {
-      add(pull_right);
+      addCss(pull_right);
     }
 
     return this;
@@ -515,7 +637,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   @Override
   public Style<E, T> pullLeft() {
     if (!contains(pull_left)) {
-      add(pull_left);
+      addCss(pull_left);
     }
 
     return this;
@@ -524,18 +646,18 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   @Override
   public Style<E, T> alignCenter() {
     if (contains(align_center)) {
-      remove(align_center);
+      removeCss(align_center);
     }
-    add(align_center);
+    addCss(align_center);
     return this;
   }
 
   @Override
   public Style<E, T> alignRight() {
     if (contains(align_right)) {
-      remove(align_right);
+      removeCss(align_right);
     }
-    add(align_right);
+    addCss(align_right);
     return this;
   }
 
@@ -558,7 +680,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   @Override
   @Deprecated
   public int length() {
-    return element.classList.length;
+    return cssClassesCount();
   }
 
   @Override
@@ -580,31 +702,41 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> setPointerEvents(String pointerEvents) {
-    return setProperty("pointer-events", pointerEvents);
+    return setCssProperty("pointer-events", pointerEvents);
   }
 
   @Override
   public Style<E, T> setAlignItems(String alignItems) {
-    return setProperty("align-items", alignItems);
+    return setCssProperty("align-items", alignItems);
   }
 
   @Override
   public Style<E, T> setOverFlowY(String overflow) {
-    return setProperty("overflow-y", overflow);
+    return setCssProperty("overflow-y", overflow);
   }
 
   @Override
   public Style<E, T> setBoxShadow(String boxShadow) {
-    return setProperty("box-shadow", boxShadow);
+    return setCssProperty("box-shadow", boxShadow);
   }
 
   @Override
   public Style<E, T> setTransitionDuration(String transactionDuration) {
-    return setProperty("transaction-duration", transactionDuration);
+    return setCssProperty("transaction-duration", transactionDuration);
   }
 
   @Override
   public Style<E, T> setFlex(String flex) {
-    return setProperty("flex", flex);
+    return setCssProperty("flex", flex);
+  }
+
+  @Override
+  public Style<E, T> setOpacity(double opacity) {
+    return setCssProperty("opacity", opacity + "");
+  }
+
+  @Override
+  public Style<E, T> setOpacity(double opacity, boolean important) {
+    return setCssProperty("opacity", opacity + "", important);
   }
 }

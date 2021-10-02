@@ -140,7 +140,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
     Scheduler.get()
         .scheduleFixedDelay(
             () -> {
-              style().add(SearchStyles.open);
+              addCss(SearchStyles.open);
               return false;
             },
             50);
@@ -155,7 +155,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
    * @return same Search instance
    */
   public Search close() {
-    style().remove(SearchStyles.open);
+    removeCss(SearchStyles.open);
     Scheduler.get()
         .scheduleFixedDelay(
             () -> {

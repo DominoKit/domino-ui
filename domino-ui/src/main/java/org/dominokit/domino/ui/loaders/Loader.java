@@ -89,7 +89,7 @@ public class Loader {
     }
 
     target.appendChild(loaderElement.getElement());
-    target.style().add("waitMe_container");
+    target.addCss("waitMe_container");
     started = true;
 
     return this;
@@ -103,7 +103,7 @@ public class Loader {
   public Loader stop() {
     if (started) {
       loaderElement.getElement().remove();
-      target.style().remove("waitMe_container");
+      target.removeCss("waitMe_container");
       started = false;
     }
 

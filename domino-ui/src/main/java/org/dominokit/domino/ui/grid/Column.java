@@ -827,10 +827,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    */
   public Column onXLarge(OnXLarge onXLarge) {
     if (nonNull(this.onXLargeStyle)) {
-      style().remove(this.onXLargeStyle.getStyle());
+      removeCss(this.onXLargeStyle.getStyle());
     }
     this.onXLargeStyle = onXLarge;
-    style().add(this.onXLargeStyle.getStyle());
+    addCss(this.onXLargeStyle.getStyle());
     return this;
   }
 
@@ -842,10 +842,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    */
   public Column onLarge(OnLarge onLarge) {
     if (nonNull(this.onLargeStyle)) {
-      style().remove(this.onLargeStyle.getStyle());
+      removeCss(this.onLargeStyle.getStyle());
     }
     this.onLargeStyle = onLarge;
-    style().add(this.onLargeStyle.getStyle());
+    addCss(this.onLargeStyle.getStyle());
     return this;
   }
 
@@ -857,10 +857,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    */
   public Column onMedium(OnMedium onMedium) {
     if (nonNull(this.onMediumStyle)) {
-      style().remove(this.onMediumStyle.getStyle());
+      removeCss(this.onMediumStyle.getStyle());
     }
     this.onMediumStyle = onMedium;
-    style().add(this.onMediumStyle.getStyle());
+    addCss(this.onMediumStyle.getStyle());
     return this;
   }
 
@@ -872,10 +872,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    */
   public Column onSmall(OnSmall onSmall) {
     if (nonNull(this.onSmallStyle)) {
-      style().remove(this.onSmallStyle.getStyle());
+      removeCss(this.onSmallStyle.getStyle());
     }
     this.onSmallStyle = onSmall;
-    style().add(this.onSmallStyle.getStyle());
+    addCss(this.onSmallStyle.getStyle());
     return this;
   }
 
@@ -887,10 +887,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    */
   public Column onXSmall(OnXSmall onXSmall) {
     if (nonNull(this.onXSmallStyle)) {
-      style().remove(this.onXSmallStyle.getStyle());
+      removeCss(this.onXSmallStyle.getStyle());
     }
     this.onXSmallStyle = onXSmall;
-    style().add(this.onXSmallStyle.getStyle());
+    addCss(this.onXSmallStyle.getStyle());
     return this;
   }
 
@@ -902,10 +902,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    */
   public Column onXLargeOffset(OnXLargeOffset onXLarge) {
     if (nonNull(this.onXLargeOffsetStyle)) {
-      style().remove(this.onXLargeOffsetStyle.getStyle());
+      removeCss(this.onXLargeOffsetStyle.getStyle());
     }
     this.onXLargeOffsetStyle = onXLarge;
-    style().add(this.onXLargeOffsetStyle.getStyle());
+    addCss(this.onXLargeOffsetStyle.getStyle());
     return this;
   }
 
@@ -917,10 +917,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    */
   public Column onLargeOffset(OnLargeOffset onLarge) {
     if (nonNull(this.onLargeOffsetStyle)) {
-      style().remove(this.onLargeOffsetStyle.getStyle());
+      removeCss(this.onLargeOffsetStyle.getStyle());
     }
     this.onLargeOffsetStyle = onLarge;
-    style().add(this.onLargeOffsetStyle.getStyle());
+    addCss(this.onLargeOffsetStyle.getStyle());
     return this;
   }
 
@@ -932,10 +932,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    */
   public Column onMediumOffset(OnMediumOffset onMedium) {
     if (nonNull(this.onMediumOffsetStyle)) {
-      style().remove(this.onMediumOffsetStyle.getStyle());
+      removeCss(this.onMediumOffsetStyle.getStyle());
     }
     this.onMediumOffsetStyle = onMedium;
-    style().add(this.onMediumOffsetStyle.getStyle());
+    addCss(this.onMediumOffsetStyle.getStyle());
     return this;
   }
 
@@ -947,10 +947,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    */
   public Column onSmallOffset(OnSmallOffset onSmall) {
     if (nonNull(this.onSmallOffsetStyle)) {
-      style().remove(this.onSmallOffsetStyle.getStyle());
+      removeCss(this.onSmallOffsetStyle.getStyle());
     }
     this.onSmallOffsetStyle = onSmall;
-    style().add(this.onSmallOffsetStyle.getStyle());
+    addCss(this.onSmallOffsetStyle.getStyle());
     return this;
   }
 
@@ -962,10 +962,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    */
   public Column onXSmallOffset(OnXSmallOffset onXSmall) {
     if (nonNull(this.onXSmallOffsetStyle)) {
-      style().remove(this.onXSmallOffsetStyle.getStyle());
+      removeCss(this.onXSmallOffsetStyle.getStyle());
     }
     this.onXSmallOffsetStyle = onXSmall;
-    style().add(this.onXSmallOffsetStyle.getStyle());
+    addCss(this.onXSmallOffsetStyle.getStyle());
     return this;
   }
 
@@ -975,7 +975,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    * @return same instance
    */
   public Column centerContent() {
-    style().add(Styles.align_center);
+    addCss(Styles.align_center);
     return this;
   }
 
@@ -986,7 +986,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    * @return same instance
    */
   public Column deCenterContent() {
-    style().remove(Styles.align_center);
+    removeCss(Styles.align_center);
     return this;
   }
 
@@ -998,7 +998,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    */
   @Deprecated
   public Column condensed() {
-    style().remove(GridStyles.CONDENSE).add(GridStyles.CONDENSE);
+    removeCss(GridStyles.CONDENSE).addCss(GridStyles.CONDENSE);
     return this;
   }
 
@@ -1008,7 +1008,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
    * @return same instance
    */
   public Column condense() {
-    style().remove(GridStyles.CONDENSE).add(GridStyles.CONDENSE);
+    removeCss(GridStyles.CONDENSE).addCss(GridStyles.CONDENSE);
     return this;
   }
 

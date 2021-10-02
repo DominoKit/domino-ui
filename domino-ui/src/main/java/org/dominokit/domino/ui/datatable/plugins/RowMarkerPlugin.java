@@ -51,7 +51,7 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
                       ColorScheme colorScheme = markerColor.getColorScheme(cell);
                       if (nonNull(colorScheme)) {
                         Style.of(cell.getElement())
-                            .add(markerColor.getColorScheme(cell).color().getBackground());
+                            .addCss(markerColor.getColorScheme(cell).color().getBackground());
                       }
                       return DomGlobal.document.createTextNode("");
                     }));

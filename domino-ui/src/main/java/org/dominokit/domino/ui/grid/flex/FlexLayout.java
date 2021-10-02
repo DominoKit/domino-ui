@@ -179,7 +179,7 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
     if (isNull(gap) || gap.isEmpty()) {
       return removeGap();
     }
-    style.setProperty("gap", gap);
+    setCssProperty("gap", gap);
     return this;
   }
 
@@ -189,15 +189,15 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
    * @return same instance
    */
   public FlexLayout removeGap() {
-    style.removeProperty("gap");
+    removeCssProperty("gap");
     return this;
   }
 
   private void replaceCssClass(IsCssClass original, IsCssClass replacement) {
     if (nonNull(original)) {
-      element.style().remove(original.getStyle());
+      element.removeCss(original.getStyle());
     }
-    element.style().add(replacement.getStyle());
+    element.addCss(replacement.getStyle());
   }
 
   /** @return All the flex items */

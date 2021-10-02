@@ -242,13 +242,13 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    */
   public Tree<T> setColorScheme(ColorScheme colorScheme) {
     if (nonNull(this.colorScheme)) {
-      style.remove(colorScheme.color().getBackground());
-      DominoElement.of(header).style().remove(this.colorScheme.darker_3().getBackground());
+      removeCss(colorScheme.color().getBackground());
+      DominoElement.of(header).removeCss(this.colorScheme.darker_3().getBackground());
     }
     this.colorScheme = colorScheme;
 
-    style.add(colorScheme.color().getBackground());
-    DominoElement.of(header).style().add(this.colorScheme.darker_3().getBackground());
+    addCss(colorScheme.color().getBackground());
+    DominoElement.of(header).addCss(this.colorScheme.darker_3().getBackground());
     return this;
   }
 
@@ -331,12 +331,10 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     searchIcon =
         Icons.ALL
             .search()
-            .style()
             .setMarginBottom("0px")
             .setMarginTop("0px")
-            .add(Styles.pull_right)
-            .setProperty("cursor", "pointer")
-            .get();
+            .addCss(Styles.pull_right)
+            .setCssProperty("cursor", "pointer");
 
     this.header.appendChild(search.element());
     this.header.appendChild(searchIcon.element());
@@ -354,24 +352,20 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     collapseAllIcon =
         Icons.ALL
             .fullscreen_exit()
-            .style()
             .setMarginBottom("0px")
             .setMarginTop("0px")
-            .add(Styles.pull_right)
-            .setProperty("cursor", "pointer")
-            .get();
+            .addCss(Styles.pull_right)
+            .setCssProperty("cursor", "pointer");
 
     collapseAllIcon.element().addEventListener("click", evt -> collapseAll());
 
     expandAllIcon =
         Icons.ALL
             .fullscreen()
-            .style()
             .setMarginBottom("0px")
             .setMarginTop("0px")
-            .add(Styles.pull_right)
-            .setProperty("cursor", "pointer")
-            .get();
+            .addCss(Styles.pull_right)
+            .setCssProperty("cursor", "pointer");
 
     expandAllIcon.element().addEventListener("click", evt -> expandAll());
 

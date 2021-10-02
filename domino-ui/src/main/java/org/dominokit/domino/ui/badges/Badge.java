@@ -97,11 +97,11 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasB
   @Override
   public Badge setBackground(Color badgeBackground) {
     if (nonNull(this.badgeBackground)) {
-      badgeElement.style().remove(this.badgeBackground.getBackground());
+      badgeElement.removeCss(this.badgeBackground.getBackground());
     }
 
     this.badgeBackground = badgeBackground;
-    badgeElement.style().add(this.badgeBackground.getBackground());
+    badgeElement.addCss(this.badgeBackground.getBackground());
     return this;
   }
 }

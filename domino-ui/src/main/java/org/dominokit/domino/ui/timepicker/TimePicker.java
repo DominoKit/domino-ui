@@ -166,7 +166,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         Button.createDefault("CLEAR")
             .linkify()
             .setColor(colorScheme.color())
-            .styler(style -> style.add(TimePickerStyles.CLEAR_BUTTON))
+            .addCss(TimePickerStyles.CLEAR_BUTTON)
             .addClickListener(
                 evt -> {
                   for (int i = 0; i < clearHandlers.size(); i++) {
@@ -178,14 +178,14 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         Button.createDefault("NOW")
             .linkify()
             .setColor(colorScheme.color())
-            .styler(style -> style.add(TimePickerStyles.NOW_BUTTON))
+            .addCss(TimePickerStyles.NOW_BUTTON)
             .addClickListener(evt -> setTime(new Date()));
 
     closeButton =
         Button.createDefault("CLOSE")
             .linkify()
             .setColor(colorScheme.color())
-            .styler(style -> style.add(TimePickerStyles.CLOSE_BUTTON))
+            .addCss(TimePickerStyles.CLOSE_BUTTON)
             .addClickListener(
                 evt -> {
                   for (int i = 0; i < closeHandlers.size(); i++) {
@@ -285,7 +285,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     element.appendChild(headerPanel);
 
-    headerPanel.style().add(colorScheme.color().getBackground());
+    headerPanel.addCss(colorScheme.color().getBackground());
     headerPanel.appendChild(clockPanel);
 
     clockPanel.appendChild(backToHours);
@@ -300,7 +300,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
     amPmContainer.appendChild(amPmSpanBottom);
 
     minutesText
-        .styler(style -> style.add(colorScheme.lighten_4().getStyle()))
+        .addCss(colorScheme.lighten_4().getStyle())
         .addClickListener(
             evt -> {
               if (!minutesVisible) showMinutes();
@@ -312,7 +312,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
         });
 
     secondsText
-        .styler(style -> style.add(colorScheme.lighten_4().getStyle()))
+        .addCss(colorScheme.lighten_4().getStyle())
         .addClickListener(
             evt -> {
               if (!secondsVisible) showSeconds();
@@ -415,25 +415,25 @@ public class TimePicker implements IsElement<HTMLDivElement> {
   public TimePicker setColorScheme(ColorScheme colorScheme) {
     createCenterCircles(colorScheme);
 
-    headerPanel.style().remove(this.colorScheme.color().getBackground());
-    headerPanel.style().add(colorScheme.color().getBackground());
+    headerPanel.removeCss(this.colorScheme.color().getBackground());
+    headerPanel.addCss(colorScheme.color().getBackground());
 
     clearButton.setColor(colorScheme.color());
     nowButton.setColor(colorScheme.color());
     closeButton.setColor(colorScheme.color());
-    secondsText.style().remove(this.colorScheme.lighten_4().getStyle());
-    minutesText.style().remove(this.colorScheme.lighten_4().getStyle());
-    hoursText.style().remove(this.colorScheme.lighten_4().getStyle());
+    secondsText.removeCss(this.colorScheme.lighten_4().getStyle());
+    minutesText.removeCss(this.colorScheme.lighten_4().getStyle());
+    hoursText.removeCss(this.colorScheme.lighten_4().getStyle());
 
     if (secondsVisible) {
-      hoursText.style().add(colorScheme.lighten_4().getStyle());
-      minutesText.style().add(colorScheme.lighten_4().getStyle());
+      hoursText.addCss(colorScheme.lighten_4().getStyle());
+      minutesText.addCss(colorScheme.lighten_4().getStyle());
     } else if (minutesVisible) {
-      hoursText.style().add(colorScheme.lighten_4().getStyle());
-      secondsText.style().add(colorScheme.lighten_4().getStyle());
+      hoursText.addCss(colorScheme.lighten_4().getStyle());
+      secondsText.addCss(colorScheme.lighten_4().getStyle());
     } else {
-      minutesText.style().add(colorScheme.lighten_4().getStyle());
-      secondsText.style().add(colorScheme.lighten_4().getStyle());
+      minutesText.addCss(colorScheme.lighten_4().getStyle());
+      secondsText.addCss(colorScheme.lighten_4().getStyle());
     }
 
     this.colorSchemeHandler.onColorSchemeChanged(this.colorScheme, colorScheme);
@@ -743,9 +743,9 @@ public class TimePicker implements IsElement<HTMLDivElement> {
       showMinutesHandlers.get(i).handle();
     }
 
-    minutesText.style().remove(colorScheme.lighten_4().getStyle());
-    hoursText.style().add(colorScheme.lighten_4().getStyle());
-    secondsText.style().add(colorScheme.lighten_4().getStyle());
+    minutesText.removeCss(colorScheme.lighten_4().getStyle());
+    hoursText.addCss(colorScheme.lighten_4().getStyle());
+    secondsText.addCss(colorScheme.lighten_4().getStyle());
     animateClock();
   }
 
@@ -766,9 +766,9 @@ public class TimePicker implements IsElement<HTMLDivElement> {
       showSecondsHandlers.get(i).handle();
     }
 
-    secondsText.style().remove(colorScheme.lighten_4().getStyle());
-    hoursText.style().add(colorScheme.lighten_4().getStyle());
-    minutesText.style().add(colorScheme.lighten_4().getStyle());
+    secondsText.removeCss(colorScheme.lighten_4().getStyle());
+    hoursText.addCss(colorScheme.lighten_4().getStyle());
+    minutesText.addCss(colorScheme.lighten_4().getStyle());
     animateClock();
   }
 
@@ -795,9 +795,9 @@ public class TimePicker implements IsElement<HTMLDivElement> {
       showHoursHandlers.get(i).handle();
     }
 
-    hoursText.style().remove(colorScheme.lighten_4().getStyle());
-    minutesText.style().add(colorScheme.lighten_4().getStyle());
-    secondsText.style().add(colorScheme.lighten_4().getStyle());
+    hoursText.removeCss(colorScheme.lighten_4().getStyle());
+    minutesText.addCss(colorScheme.lighten_4().getStyle());
+    secondsText.addCss(colorScheme.lighten_4().getStyle());
     animateClock();
   }
 

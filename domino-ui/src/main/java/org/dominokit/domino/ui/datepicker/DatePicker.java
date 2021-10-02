@@ -152,8 +152,8 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
 
   private void build() {
     element.appendChild(headerPanel);
-    headerPanel.style().add(colorScheme.color().getBackground());
-    dayName.style().add(colorScheme.darker_2().getBackground());
+    headerPanel.addCss(colorScheme.color().getBackground());
+    dayName.addCss(colorScheme.darker_2().getBackground());
     headerPanel.appendChild(dayName);
     headerPanel.appendChild(monthName);
     headerPanel.appendChild(dateNumber);
@@ -263,13 +263,12 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
 
     Column forwardColumn = Column.span1().condense();
 
-    Row_12 row =
-        Row.create().setGap(px.of(5)).styler(style -> style.add(DatePickerStyles.SELECTOR_ROW));
+    Row_12 row = Row.create().setGap(px.of(5)).addCss(DatePickerStyles.SELECTOR_ROW);
     navigateBefore =
         Icons.ALL
             .navigate_before()
             .clickable()
-            .styler(style -> style.add(Styles.m_r_5))
+            .addCss(Styles.m_r_5)
             .addClickListener(
                 evt -> {
                   JsDate jsDate = getJsDate();
@@ -290,7 +289,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
         Icons.ALL
             .navigate_next()
             .clickable()
-            .styler(style -> style.add(Styles.m_l_5))
+            .addCss(Styles.m_l_5)
             .addClickListener(
                 evt -> {
                   JsDate jsDate = getJsDate();
@@ -547,11 +546,11 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
    */
   public DatePicker setColorScheme(ColorScheme colorScheme) {
     backgroundHandler.onBackgroundChanged(getColorScheme(), colorScheme);
-    this.headerPanel.style().remove(this.colorScheme.color().getBackground());
-    this.dayName.style().remove(this.colorScheme.darker_2().getBackground());
+    this.headerPanel.removeCss(this.colorScheme.color().getBackground());
+    this.dayName.removeCss(this.colorScheme.darker_2().getBackground());
     this.colorScheme = colorScheme;
-    this.headerPanel.style().add(this.colorScheme.color().getBackground());
-    this.dayName.style().add(this.colorScheme.darker_2().getBackground());
+    this.headerPanel.addCss(this.colorScheme.color().getBackground());
+    this.dayName.addCss(this.colorScheme.darker_2().getBackground());
     this.datePickerMonth.setBackground(colorScheme.color());
     this.todayButton.setColor(colorScheme.color());
     this.closeButton.setColor(colorScheme.color());

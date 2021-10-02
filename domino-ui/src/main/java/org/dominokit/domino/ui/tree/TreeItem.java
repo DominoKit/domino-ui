@@ -130,7 +130,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   }
 
   public TreeItem(String title) {
-    this(title, Icons.ALL.folder().styler(style -> style.setProperty("visibility", "hidden")));
+    this(title, Icons.ALL.folder().setCssProperty("visibility", "hidden"));
   }
 
   public TreeItem(BaseIcon<?> icon) {
@@ -238,12 +238,12 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
             .setStrategy(DominoUIConfig.INSTANCE.getDefaultTreeCollapseStrategySupplier().get(this))
             .addHideHandler(
                 () -> {
-                  Style.of(anchorElement).remove("toggled");
+                  anchorElement.removeCss("toggled");
                   restoreIcon();
                 })
             .addShowHandler(
                 () -> {
-                  Style.of(anchorElement).add("toggled");
+                  anchorElement.addCss("toggled");
                   replaceIcon(expandIcon);
                 })
             .hide();
@@ -278,14 +278,14 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   public TreeItem<T> appendChild(TreeItem<T> treeItem) {
     this.subItems.add(treeItem);
     childrenContainer.appendChild(treeItem.element());
-    Style.of(anchorElement).add("tree-toggle");
+    anchorElement.addCss("tree-toggle");
     treeItem.parent = this;
     treeItem.setLevel(level + 1);
-    Style.of(treeItem).add("tree-leaf");
-    Style.of(this.element()).remove("tree-leaf");
+    treeItem.addCss("tree-leaf");
+    Style.of(this.element()).removeCss("tree-leaf");
     treeItem.setToggleTarget(this.toggleTarget);
     treeItem.setLevelPadding(levelPadding);
-    this.style.add("tree-item-parent");
+    this.style.addCss("tree-item-parent");
     return this;
   }
 
@@ -511,7 +511,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   /** {@inheritDoc} */
   @Override
   public void activate(boolean activateParent) {
-    Style.of(element()).add("active");
+    Style.of(element()).addCss("active");
     if (isNull(expandIcon) || collapsible.isHidden() || !isParent()) {
       replaceIcon(this.activeIcon);
     }
@@ -534,7 +534,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   /** {@inheritDoc} */
   @Override
   public void deactivate() {
-    Style.of(element()).remove("active");
+    Style.of(element()).removeCss("active");
     if (isNull(expandIcon) || collapsible.isHidden() || !isParent()) {
       restoreIcon();
     }
@@ -580,7 +580,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     this.icon = icon;
     this.originalIcon = icon.copy();
     if (icon.element().style.visibility.equals("hidden")) {
-      this.originalIcon.styler(style -> style.setProperty("visibility", "hidden"));
+      this.originalIcon.setCssProperty("visibility", "hidden");
     }
     this.originalIcon.addClickListener(
         evt -> {
@@ -643,7 +643,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     }
 
     if (found) {
-      Style.of(element).removeProperty("display");
+      Style.of(element).removeCssProperty("display");
       if (isParent() && isAutoExpandFound() && collapsible.isHidden()) {
         collapsible.show();
       }
@@ -662,7 +662,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   /** Clears the filter applied */
   public void clearFilter() {
-    Style.of(element).removeProperty("display");
+    Style.of(element).removeCssProperty("display");
     subItems.forEach(TreeItem::clearFilter);
   }
 
@@ -781,7 +781,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     if (parent.getSubItems().contains(this)) {
       parent.removeItem(this);
       if (parent.getSubItems().isEmpty() && parent instanceof TreeItem) {
-        ((TreeItem<T>) parent).style.remove("tree-item-parent");
+        ((TreeItem<T>) parent).style.removeCss("tree-item-parent");
       }
     }
     return super.remove();

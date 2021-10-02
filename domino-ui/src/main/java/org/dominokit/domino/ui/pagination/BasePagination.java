@@ -152,17 +152,17 @@ public abstract class BasePagination<T extends BasePagination<T>>
   public T setMarkActivePage(boolean markActivePage) {
     this.markActivePage = markActivePage;
     if (!markActivePage) {
-      activePage.style().remove("active");
+      activePage.removeCss("active");
     }
 
     return (T) this;
   }
 
   void gotoPage(DominoElement<? extends HTMLElement> li) {
-    activePage.style().remove("active");
+    activePage.removeCss("active");
     activePage = li;
     if (markActivePage) {
-      activePage.style().add("active");
+      activePage.addCss("active");
     }
   }
 
@@ -192,8 +192,8 @@ public abstract class BasePagination<T extends BasePagination<T>>
   }
 
   private T setSize(String sizeStyle) {
-    pagesElement.style().remove(size);
-    pagesElement.style().add(sizeStyle);
+    pagesElement.removeCss(size);
+    pagesElement.addCss(sizeStyle);
     size = sizeStyle;
     return (T) this;
   }
