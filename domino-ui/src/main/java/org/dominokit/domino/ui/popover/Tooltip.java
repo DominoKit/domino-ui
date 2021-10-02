@@ -66,14 +66,14 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
     element.appendChild(innerElement);
     innerElement.appendChild(content);
 
-    element.style().add(popupPosition.getDirectionClass());
+    element.addCss(popupPosition.getDirectionClass());
 
     showToolTipListener =
         evt -> {
           evt.stopPropagation();
           document.body.appendChild(element.element());
-          element.style().remove("fade", "in");
-          element.style().add("fade", "in");
+          element.removeCss("fade", "in");
+          element.addCss("fade", "in");
           popupPosition.position(element.element(), targetElement);
           position(popupPosition);
           elementObserver.ifPresent(ElementObserver::remove);
@@ -157,9 +157,9 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
    * @return same instance
    */
   public Tooltip position(PopupPosition position) {
-    this.element.style().remove(popupPosition.getDirectionClass());
+    this.element.removeCss(popupPosition.getDirectionClass());
     this.popupPosition = position;
-    this.element.style().add(popupPosition.getDirectionClass());
+    this.element.addCss(popupPosition.getDirectionClass());
 
     return this;
   }

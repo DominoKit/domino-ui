@@ -141,8 +141,8 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
       close();
     } else {
       document.body.appendChild(element.element());
-      element.style().remove(FADE, IN);
-      element.style().add(FADE, IN);
+      element.removeCss(FADE, IN);
+      element.addCss(FADE, IN);
       popupPosition.position(element.element(), target);
       position(popupPosition);
       visible = true;
@@ -181,8 +181,8 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
    */
   public static Popover createPicker(HTMLElement target, Node content) {
     Popover popover = new Popover(target, "", content);
-    popover.getHeadingElement().style().setDisplay("none");
-    popover.getContentElement().style().setProperty("padding", "0px");
+    popover.getHeadingElement().setDisplay("none");
+    popover.getContentElement().setCssProperty("padding", "0px");
 
     return popover;
   }
@@ -196,8 +196,8 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
    */
   public static Popover createPicker(IsElement<?> target, IsElement<?> content) {
     Popover popover = new Popover(target.element(), "", content.element());
-    popover.getHeadingElement().style().setDisplay("none");
-    popover.getContentElement().style().setProperty("padding", "0px");
+    popover.getHeadingElement().setDisplay("none");
+    popover.getContentElement().setCssProperty("padding", "0px");
 
     return popover;
   }
@@ -257,10 +257,10 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
    * @return same instance
    */
   public Popover position(PopupPosition position) {
-    this.element.style().remove(this.positionClass);
+    this.element.removeCss(this.positionClass);
     this.popupPosition = position;
     this.positionClass = position.getDirectionClass();
-    this.element.style().add(this.positionClass);
+    this.element.addCss(this.positionClass);
 
     return this;
   }

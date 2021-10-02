@@ -58,7 +58,7 @@ public class Label extends BaseDominoElement<HTMLElement, Label>
   }
 
   private void setType(StyleType type) {
-    span.style().add("label-" + type.getStyle());
+    span.addCss("label-" + type.getStyle());
   }
 
   /**
@@ -158,8 +158,8 @@ public class Label extends BaseDominoElement<HTMLElement, Label>
   /** {@inheritDoc} */
   @Override
   public Label setBackground(Color background) {
-    if (nonNull(this.background)) span.style().remove(this.background.getBackground());
-    span.style().add(background.getBackground());
+    if (nonNull(this.background)) span.removeCss(this.background.getBackground());
+    span.addCss(background.getBackground());
     this.background = background;
     return this;
   }

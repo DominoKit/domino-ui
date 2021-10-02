@@ -142,8 +142,8 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
   /** {@inheritDoc} */
   @Override
   public InfoBox setBackground(Color background) {
-    if (nonNull(counterBackground)) style().remove(counterBackground.getBackground());
-    style().add(background.getBackground());
+    if (nonNull(counterBackground)) removeCss(counterBackground.getBackground());
+    addCss(background.getBackground());
     this.counterBackground = background;
 
     return this;
@@ -156,8 +156,10 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
    * @return same instance
    */
   public InfoBox setIconBackground(Color background) {
-    if (nonNull(iconBackground)) Style.of(iconElement).remove(iconBackground.getBackground());
-    Style.of(iconElement).add(background.getBackground());
+    if (nonNull(iconBackground)) {
+      iconElement.removeCss(iconBackground.getBackground());
+    }
+    iconElement.addCss(background.getBackground());
     this.iconBackground = background;
 
     return this;
@@ -170,9 +172,9 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
    * @return same instance
    */
   public InfoBox setHoverEffect(HoverEffect effect) {
-    if (nonNull(hoverEffect)) style().remove(hoverEffect.effectStyle);
+    if (nonNull(hoverEffect)) removeCss(hoverEffect.effectStyle);
     this.hoverEffect = effect;
-    style().add(hoverEffect.effectStyle);
+    addCss(hoverEffect.effectStyle);
 
     return this;
   }
@@ -184,7 +186,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
    */
   public InfoBox removeHoverEffect() {
     if (nonNull(hoverEffect)) {
-      style().remove(hoverEffect.effectStyle);
+      removeCss(hoverEffect.effectStyle);
       this.hoverEffect = null;
     }
 
@@ -197,9 +199,9 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
    * @return same instance
    */
   public InfoBox flipLeft() {
-    style().remove(flip.flipStyle);
+    removeCss(flip.flipStyle);
     this.flip = Flip.LEFT;
-    style().add(this.flip.flipStyle);
+    addCss(this.flip.flipStyle);
 
     return this;
   }
@@ -210,9 +212,9 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
    * @return same instance
    */
   public InfoBox flipRight() {
-    style().remove(flip.flipStyle);
+    removeCss(flip.flipStyle);
     this.flip = Flip.RIGHT;
-    style().add(this.flip.flipStyle);
+    addCss(this.flip.flipStyle);
     return this;
   }
 
@@ -223,13 +225,13 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
    * @return same instance
    */
   public InfoBox flip() {
-    style().remove(flip.flipStyle);
+    removeCss(flip.flipStyle);
     if (Flip.LEFT.equals(this.flip)) {
       this.flip = Flip.RIGHT;
     } else {
       this.flip = Flip.LEFT;
     }
-    style().add(this.flip.flipStyle);
+    addCss(this.flip.flipStyle);
 
     return this;
   }
@@ -241,10 +243,12 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
    * @return same instance
    */
   public InfoBox setIconColor(Color color) {
-    if (nonNull(iconColor) && nonNull(icon)) Style.of(icon).remove(iconColor.getStyle());
+    if (nonNull(iconColor) && nonNull(icon)) {
+      Style.of(icon).removeCss(iconColor.getStyle());
+    }
     if (nonNull(icon)) {
       this.iconColor = color;
-      Style.of(icon).add(this.iconColor.getStyle());
+      Style.of(icon).addCss(this.iconColor.getStyle());
     }
 
     return this;

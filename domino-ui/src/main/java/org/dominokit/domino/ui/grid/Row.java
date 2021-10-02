@@ -172,7 +172,7 @@ public class Row<T extends Row<T>> extends BaseDominoElement<HTMLDivElement, T> 
    * @return same instance
    */
   public T setGap(String gap) {
-    Style.of(row).setProperty("grid-gap", gap);
+    Style.of(row).setCssProperty("grid-gap", gap);
     return (T) this;
   }
 

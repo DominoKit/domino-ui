@@ -78,7 +78,7 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
   }
 
   private void updateGridLayout() {
-    style.setProperty("grid-template-areas", editor.gridAreasAsString());
+    setCssProperty("grid-template-areas", editor.gridAreasAsString());
   }
 
   /**
@@ -105,7 +105,7 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
    * @return same instance
    */
   public GridLayout setGap(String gap) {
-    style.setProperty("grid-gap", gap);
+    setCssProperty("grid-gap", gap);
     return this;
   }
 

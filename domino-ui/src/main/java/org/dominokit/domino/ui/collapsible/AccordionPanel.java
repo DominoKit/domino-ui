@@ -252,9 +252,9 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
    */
   public AccordionPanel setHeaderBackground(Color color) {
     if (nonNull(this.headerColor)) {
-      getHeaderElement().style().remove(this.headerColor.getBackground());
+      getHeaderElement().removeCss(this.headerColor.getBackground());
     }
-    getHeaderElement().style().add(color.getBackground());
+    getHeaderElement().addCss(color.getBackground());
 
     this.headerColor = color;
 
@@ -269,9 +269,9 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
    */
   public AccordionPanel setBodyBackground(Color color) {
     if (nonNull(this.bodyColor)) {
-      getBodyElement().style().remove(this.bodyColor.getBackground());
+      getBodyElement().removeCss(this.bodyColor.getBackground());
     }
-    getBodyElement().style().add(color.getBackground());
+    getBodyElement().addCss(color.getBackground());
 
     this.bodyColor = color;
 

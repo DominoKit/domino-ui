@@ -192,7 +192,7 @@ class DatePickerElement implements Selectable<DatePickerElement> {
   @Override
   public DatePickerElement select(boolean silent) {
     this.selected = true;
-    this.element.style().add(DatePickerStyles.SELECTED);
+    this.element.addCss(DatePickerStyles.SELECTED);
     return this;
   }
 
@@ -200,7 +200,7 @@ class DatePickerElement implements Selectable<DatePickerElement> {
   @Override
   public DatePickerElement deselect(boolean silent) {
     this.selected = false;
-    this.element.style().remove(DatePickerStyles.SELECTED);
+    this.element.removeCss(DatePickerStyles.SELECTED);
     return this;
   }
 

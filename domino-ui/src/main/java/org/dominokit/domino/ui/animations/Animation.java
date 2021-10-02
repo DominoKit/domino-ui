@@ -206,30 +206,30 @@ public class Animation {
     element.addEventListener("oanimationend", stopListener);
     element.addEventListener("animationend", stopListener);
 
-    element.style().setTransitionDuration(duration + "ms");
-    element.style().setProperty("animation-duration", duration + "ms");
-    element.style().setProperty("-webkit-animation-duration", duration + "ms");
+    element.setTransitionDuration(duration + "ms");
+    element.setCssProperty("animation-duration", duration + "ms");
+    element.setCssProperty("-webkit-animation-duration", duration + "ms");
     if (infinite) {
-      element.style().add("infinite");
+      element.addCss("infinite");
     }
 
     if (repeatCount != 1) {
-      element.style().setProperty("animation-iteration-count", repeatCount + "");
+      element.setCssProperty("animation-iteration-count", repeatCount + "");
     }
 
-    element.style().add("animated");
-    element.style().add("ease-in-out");
-    element.style().add(transition.getStyle());
+    element.addCss("animated");
+    element.addCss("ease-in-out");
+    element.addCss(transition.getStyle());
   }
 
   /** stops the animation and calls the {@link CompleteCallback} if it is set. */
   public void stop() {
-    element.style().remove(transition.getStyle());
-    element.style().remove("animated");
-    element.style().remove("infinite");
-    element.style().remove("ease-in-out");
-    element.style().removeProperty("animation-duration");
-    element.style().removeProperty("-webkit-animation-duration");
+    element.removeCss(transition.getStyle());
+    element.removeCss("animated");
+    element.removeCss("infinite");
+    element.removeCss("ease-in-out");
+    element.removeCssProperty("animation-duration");
+    element.removeCssProperty("-webkit-animation-duration");
     element.removeEventListener("webkitAnimationEnd", stopListener);
     element.removeEventListener("MSAnimationEnd", stopListener);
     element.removeEventListener("mozAnimationEnd", stopListener);

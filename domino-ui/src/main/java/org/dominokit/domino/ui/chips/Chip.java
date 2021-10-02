@@ -149,8 +149,8 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
    */
   public Chip select() {
     this.selected = true;
-    Style.of(element).replaceCss(getBackgroundStyle(), getDarkerColor());
-    Style.of(removeIcon).add(getDarkerColor());
+    element.replaceCss(getBackgroundStyle(), getDarkerColor());
+    removeIcon.addCss(getDarkerColor());
     selectionHandlers.forEach(selectionHandler -> selectionHandler.onSelection(getValue()));
     return this;
   }
@@ -165,8 +165,8 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
    */
   public Chip deselect() {
     this.selected = false;
-    Style.of(element).replaceCss(getDarkerColor(), getBackgroundStyle());
-    Style.of(removeIcon).remove(getDarkerColor());
+    element.replaceCss(getDarkerColor(), getBackgroundStyle());
+    removeIcon.removeCss(getDarkerColor());
     deselectionHandlers.forEach(DeselectionHandler::onDeselection);
     return this;
   }
@@ -256,20 +256,20 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
   }
 
   private void applyColor() {
-    element.style().add(this.color.getBackground());
-    removeIcon.style().add(this.color.getBackground());
+    element.addCss(this.color.getBackground());
+    removeIcon.addCss(this.color.getBackground());
     setBorderColor(this.color);
   }
 
   private void removeCurrentBackground() {
     if (nonNull(this.colorScheme)) {
-      element.style().remove(getBackgroundStyle());
-      removeIcon.style().remove(getBackgroundStyle());
+      element.removeCss(getBackgroundStyle());
+      removeIcon.removeCss(getBackgroundStyle());
     }
 
     if (nonNull(this.color)) {
-      element.style().remove(color.getBackground());
-      removeIcon.style().remove(color.getBackground());
+      element.removeCss(color.getBackground());
+      removeIcon.removeCss(color.getBackground());
     }
   }
 
@@ -284,13 +284,13 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
    */
   public Chip setColor(Color color) {
     if (nonNull(this.colorScheme)) {
-      element.style().remove(getBackgroundStyle());
-      removeIcon.style().remove(getBackgroundStyle());
+      element.removeCss(getBackgroundStyle());
+      removeIcon.removeCss(getBackgroundStyle());
     }
 
     if (nonNull(this.color)) {
-      element.style().remove(color.getBackground());
-      removeIcon.style().remove(color.getBackground());
+      element.removeCss(color.getBackground());
+      removeIcon.removeCss(color.getBackground());
     }
     this.color = color;
     applyColor();
@@ -403,7 +403,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
 
   private void updateLeftAddonBackground() {
     if (nonNull(leftAddon) && nonNull(leftBackground)) {
-      Style.of(leftAddon).add(leftBackground.getBackground());
+      Style.of(leftAddon).addCss(leftBackground.getBackground());
     }
   }
 

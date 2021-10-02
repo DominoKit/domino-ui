@@ -50,14 +50,14 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
 
   @Override
   public void init(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
-    style.add(CollapsibleStyles.HEIGHT_COLLAPSED_OVERFLOW);
-    style.add(transition.getStyle());
+    style.addCss(CollapsibleStyles.HEIGHT_COLLAPSED_OVERFLOW);
+    style.addCss(transition.getStyle());
   }
 
   @Override
   public void cleanup(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
-    style.add(CollapsibleStyles.HEIGHT_COLLAPSED_OVERFLOW);
-    style.add(transition.getStyle());
+    style.addCss(CollapsibleStyles.HEIGHT_COLLAPSED_OVERFLOW);
+    style.addCss(transition.getStyle());
     element.removeAttribute("dom-ui-collapse-height");
   }
 
@@ -106,7 +106,7 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
             ? element.scrollHeight
             : Math.max(Integer.parseInt(scrollHeight), element.scrollHeight);
     element.style.height = CSSProperties.HeightUnionType.of(desiredHeight + "px");
-    style.remove(CollapsibleStyles.HEIGHT_COLLAPSED);
+    style.removeCss(CollapsibleStyles.HEIGHT_COLLAPSED);
     theElement.removeAttribute(D_COLLAPSED).removeAttribute(DOM_UI_SCROLL_HEIGHT);
   }
 
@@ -131,9 +131,9 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
               } else {
                 self.onAttached(
                     mutationRecord -> {
-                      style.remove(transition.getStyle());
+                      style.removeCss(transition.getStyle());
                       collapseElement(element, style, false);
-                      style.add(transition.getStyle());
+                      style.addCss(transition.getStyle());
                     });
               }
             });
@@ -145,29 +145,29 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
       boolean useAnimationFrame) {
     DominoElement<HTMLElement> elementToCollapse = DominoElement.of(element);
     int scrollHeight = element.scrollHeight;
-    style.remove(CollapsibleStyles.HEIGHT_COLLAPSED_OVERFLOW);
+    style.removeCss(CollapsibleStyles.HEIGHT_COLLAPSED_OVERFLOW);
 
     CSSProperties.HeightUnionType originalHeight = element.style.height;
     element.style.height = CSSProperties.HeightUnionType.of(scrollHeight + "px");
     if (useAnimationFrame) {
       DomGlobal.requestAnimationFrame(
           timestamp -> {
-            style.add(CollapsibleStyles.HEIGHT_COLLAPSED_OVERFLOW);
+            style.addCss(CollapsibleStyles.HEIGHT_COLLAPSED_OVERFLOW);
 
-            style.add(CollapsibleStyles.HEIGHT_COLLAPSED);
+            style.addCss(CollapsibleStyles.HEIGHT_COLLAPSED);
             elementToCollapse
                 .setAttribute("dom-ui-collapse-height", originalHeight.asString())
                 .setAttribute(D_COLLAPSED, "true")
                 .setAttribute(DOM_UI_SCROLL_HEIGHT, scrollHeight);
           });
     } else {
-      style.add(CollapsibleStyles.HEIGHT_COLLAPSED_OVERFLOW);
+      style.addCss(CollapsibleStyles.HEIGHT_COLLAPSED_OVERFLOW);
 
-      style.add(CollapsibleStyles.HEIGHT_COLLAPSED);
+      style.addCss(CollapsibleStyles.HEIGHT_COLLAPSED);
       elementToCollapse
           .setAttribute("dom-ui-collapse-height", originalHeight.asString())
           .setAttribute(D_COLLAPSED, "true");
-      style.removeProperty("height");
+      style.removeCssProperty("height");
     }
   }
 }

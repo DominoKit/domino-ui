@@ -195,9 +195,9 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
   }
 
   public Stepper setHorizontal(boolean horizontal) {
-    style().remove(StepperStyles.horizontal);
+    removeCss(StepperStyles.horizontal);
     if (horizontal) {
-      style().add(StepperStyles.horizontal);
+      addCss(StepperStyles.horizontal);
     }
 
     return this;
@@ -210,9 +210,9 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
 
   public Stepper setColor(Color color) {
     if (nonNull(this.color)) {
-      style().remove("stepper-" + this.color.getStyle());
+      removeCss("stepper-" + this.color.getStyle());
     }
-    style().add("stepper-" + color.getStyle());
+    addCss("stepper-" + color.getStyle());
     this.color = color;
 
     return this;

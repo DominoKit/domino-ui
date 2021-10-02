@@ -55,9 +55,9 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
    */
   public T setColor(Color color) {
     if (isNull(color)) return (T) this;
-    if (nonNull(this.color)) icon.style().remove(this.color.getStyle());
+    if (nonNull(this.color)) icon.removeCss(this.color.getStyle());
 
-    icon.style().add(color.getStyle());
+    icon.addCss(color.getStyle());
     this.color = color;
     return (T) this;
   }
@@ -143,7 +143,7 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
    * @return same instance
    */
   public T clickable() {
-    style.add(IconsStyles.CLICKABLE_ICON);
+    addCss(IconsStyles.CLICKABLE_ICON);
     withWaves();
     return (T) this;
   }
@@ -158,7 +158,7 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
     if (clickable) {
       clickable();
     } else {
-      style.remove(IconsStyles.CLICKABLE_ICON);
+      removeCss(IconsStyles.CLICKABLE_ICON);
       removeWaves();
     }
     return (T) this;

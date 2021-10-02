@@ -123,10 +123,10 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
    */
   public Breadcrumb setAllowNavigation(boolean allowNavigation) {
     this.allowNavigation = allowNavigation;
-    style.remove(BreadcrumbStyles.NAV_DISABLED);
+    removeCss(BreadcrumbStyles.NAV_DISABLED);
 
     if (!allowNavigation) {
-      style.add(BreadcrumbStyles.NAV_DISABLED);
+      addCss(BreadcrumbStyles.NAV_DISABLED);
     }
     return this;
   }
@@ -197,9 +197,9 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
    * @return same instance
    */
   public Breadcrumb setColor(Color color) {
-    if (nonNull(this.activeColor)) element.style().remove(color.getStyle());
+    if (nonNull(this.activeColor)) element.removeCss(color.getStyle());
     this.activeColor = color;
-    element.style().add(color.getStyle());
+    element.addCss(color.getStyle());
 
     return this;
   }
@@ -245,9 +245,9 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   /** {@inheritDoc} */
   @Override
   public Breadcrumb setBackground(Color background) {
-    if (nonNull(this.activeBackground)) element.style().remove(background.getBackground());
+    if (nonNull(this.activeBackground)) element.removeCss(background.getBackground());
     this.activeBackground = background;
-    element.style().add(background.getBackground());
+    element.addCss(background.getBackground());
 
     return this;
   }

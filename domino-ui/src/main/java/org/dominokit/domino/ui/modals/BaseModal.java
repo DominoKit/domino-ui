@@ -267,9 +267,9 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   public T setSize(ModalSize size) {
     DominoElement<HTMLDivElement> modalElement = DominoElement.of(this.modalElement);
     if (nonNull(modalSize)) {
-      modalElement.style().remove(modalSize.style);
+      modalElement.removeCss(modalSize.style);
     }
-    modalElement.style().add(size.style);
+    modalElement.addCss(size.style);
     this.modalSize = size;
     return (T) this;
   }
@@ -281,9 +281,9 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   public T setType(ModalType type) {
     DominoElement<HTMLDivElement> modalElement = DominoElement.of(this.modalElement);
     if (nonNull(modalType)) {
-      modalElement.style().remove(modalType.style);
+      modalElement.removeCss(modalType.style);
     }
-    modalElement.style().add(type.style);
+    modalElement.addCss(type.style);
     this.modalType = type;
     return (T) this;
   }
@@ -292,9 +292,9 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   @Override
   public T setModalColor(Color color) {
     if (nonNull(this.color)) {
-      modalElement.getModalContent().style().remove(this.color.getStyle());
+      modalElement.getModalContent().removeCss(this.color.getStyle());
     }
-    modalElement.getModalContent().style().add(color.getStyle());
+    modalElement.getModalContent().addCss(color.getStyle());
     this.color = color;
     return (T) this;
   }
@@ -310,7 +310,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   @Override
   public T open() {
     if (isEnabled()) {
-      style().removeProperty("z-index");
+      removeCssProperty("z-index");
       if (autoAppendAndRemove) {
         element().remove();
         document.body.appendChild(element());
@@ -318,7 +318,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       initFocusElements();
       activeElementBeforeOpen = DominoDom.document.activeElement;
       addBackdrop();
-      style().add(ModalStyles.IN);
+      style().addCss(ModalStyles.IN);
       style().setDisplay("block");
       if (nonNull(firstFocusElement)) {
         firstFocusElement.focus();
@@ -340,7 +340,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       if (ModalBackDrop.openedModalsCount() <= 0
           || !DominoElement.of(ModalBackDrop.INSTANCE).isAttached()) {
         document.body.appendChild(ModalBackDrop.INSTANCE);
-        DominoElement.of(document.body).style().add(ModalStyles.MODAL_OPEN);
+        DominoElement.of(document.body).addCss(ModalStyles.MODAL_OPEN);
       } else {
         Z_INDEX = Z_INDEX + 10;
         ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
@@ -353,7 +353,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     if (modal) {
       if (ModalBackDrop.openedModalsCount() < 1 || ModalBackDrop.allOpenedNotModals()) {
         ModalBackDrop.INSTANCE.remove();
-        DominoElement.of(document.body).style().remove(ModalStyles.MODAL_OPEN);
+        DominoElement.of(document.body).removeCss(ModalStyles.MODAL_OPEN);
       } else {
         Z_INDEX = Z_INDEX - 10;
         ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
@@ -565,14 +565,14 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   /** {@inheritDoc} */
   @Override
   public T centerVertically() {
-    Style.of(modalElement.modalDialog).add(Styles.vertical_center);
+    Style.of(modalElement.modalDialog).addCss(Styles.vertical_center);
     return (T) this;
   }
 
   /** {@inheritDoc} */
   @Override
   public T deCenterVertically() {
-    Style.of(modalElement.modalDialog).remove(Styles.vertical_center);
+    Style.of(modalElement.modalDialog).removeCss(Styles.vertical_center);
     return (T) this;
   }
 

@@ -247,8 +247,8 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
    * @return same Switch instance
    */
   public SwitchButton setColor(Color color) {
-    if (this.color != null) lever.style().remove(this.color.getStyle());
-    lever.style().add(color.getStyle());
+    if (this.color != null) lever.removeCss(this.color.getStyle());
+    lever.addCss(color.getStyle());
     this.color = color;
     return this;
   }

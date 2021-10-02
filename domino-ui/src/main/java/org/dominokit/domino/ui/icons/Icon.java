@@ -67,7 +67,7 @@ public class Icon extends BaseIcon<Icon> {
    * @return same instance
    */
   public Icon small() {
-    style.add(IconsStyles.SMALL_ICON);
+    addCss(IconsStyles.SMALL_ICON);
     return this;
   }
 

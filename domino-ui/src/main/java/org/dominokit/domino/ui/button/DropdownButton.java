@@ -273,7 +273,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
   }
 
   private void initDropDown() {
-    buttonElement.style().add(ButtonStyles.BUTTON_DROPDOWN);
+    buttonElement.addCss(ButtonStyles.BUTTON_DROPDOWN);
     dropDownMenu = DropDownMenu.create(groupElement);
     groupElement.appendChild(asDropDown());
     caretIcon.addCss(Styles.pull_right);
@@ -283,7 +283,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
   }
 
   private HTMLElement asDropDown() {
-    buttonElement.style().add(ButtonStyles.DROPDOWN_TOGGLE);
+    buttonElement.addCss(ButtonStyles.DROPDOWN_TOGGLE);
     buttonElement.setAttribute("data-toggle", "dropdown");
     buttonElement.setAttribute("aria-haspopup", true);
     buttonElement.setAttribute("aria-expanded", true);
@@ -354,7 +354,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * @return same dropdown instance
    */
   public DropdownButton linkify() {
-    groupElement.style().add(ButtonStyles.LINK);
+    groupElement.addCss(ButtonStyles.LINK);
     super.linkify();
     return this;
   }
@@ -365,7 +365,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
    * @return same dropdown instance
    */
   public DropdownButton delinkify() {
-    groupElement.style().remove(ButtonStyles.LINK);
+    groupElement.removeCss(ButtonStyles.LINK);
     super.deLinkify();
     return this;
   }

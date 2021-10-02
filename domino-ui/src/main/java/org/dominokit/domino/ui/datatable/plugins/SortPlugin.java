@@ -29,6 +29,7 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.elemento.EventType;
 
@@ -56,7 +57,7 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
       SortContainer sortContainer = new SortContainer(column.getName());
       sortContainers.put(column.getName(), sortContainer);
 
-      column.getHeadElement().style().add(Styles.cursor_pointer, Styles.disable_selection);
+      column.getHeadElement().addCss(Styles.cursor_pointer, Styles.disable_selection);
       column.contextMenu.appendChild(sortContainer.sortElement);
       Style.of(column.contextMenu).setDisplay("block");
       column
@@ -71,9 +72,9 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
   }
 
   private void updateStyles(SortContainer sortContainer) {
-    Style.of(sortContainer.sortElement)
-        .setProperty("right", "15px")
-        .setProperty("list-style", "none");
+    DominoElement.of(sortContainer.sortElement)
+        .setCssProperty("right", "15px")
+        .setCssProperty("list-style", "none");
     sortContainer.clear();
     if (isNull(currentContainer)) {
       sortContainer.update(false);
@@ -121,7 +122,7 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
         Style.of(
                 ElementUtil.contentBuilder(Icons.ALL.arrow_upward().element())
                     .textContent("import_export"))
-            .add(Styles.font_15)
+            .addCss(Styles.font_15)
             .element();
     private HTMLElement sortElement =
         span().css(Styles.pull_right).add(directionElement).style("min-width: 15px;").element();

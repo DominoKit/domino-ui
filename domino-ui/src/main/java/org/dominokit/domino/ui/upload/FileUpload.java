@@ -155,7 +155,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   private void addHover() {
-    formElement.style().add("file-upload-hover");
+    formElement.addCss("file-upload-hover");
   }
 
   private void uploadFiles(FileList files) {
@@ -220,7 +220,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   private void removeHover() {
-    formElement.style().remove("file-upload-hover");
+    formElement.removeCss("file-upload-hover");
   }
 
   private void createHiddenInput() {

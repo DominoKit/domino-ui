@@ -224,7 +224,7 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>> {
   public ListItem<T> setEnabled(boolean enabled) {
     if (!enabled) {
       deselect();
-      style().add("disabled");
+      addCss("disabled");
       this.enabled = false;
     }
     return this;

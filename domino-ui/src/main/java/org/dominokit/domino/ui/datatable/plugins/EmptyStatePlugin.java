@@ -44,7 +44,7 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
             .setTitle(title)
             .setIconColor(Color.GREY)
             .setTitleColor(Color.GREY)
-            .styler(style -> style.remove(Styles.vertical_center));
+            .removeCss(Styles.vertical_center);
   }
 
   /** {@inheritDoc} */

@@ -38,7 +38,7 @@ public class FileImage extends BaseDominoElement<HTMLDivElement, FileImage> {
   public FileImage() {
     initFileContainer();
     Icon icon = Icons.EDITOR_ICONS.insert_drive_file().setColor(Color.GREY);
-    icon.style().add("md-inactive");
+    icon.addCss("md-inactive");
     icon.style().setCursor("default").setFontSize("100px").setWidth("100%").setTextAlign("center");
     setImage(icon.element());
     init(this);

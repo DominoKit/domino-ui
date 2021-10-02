@@ -42,7 +42,7 @@ public class ScrollTop extends BaseButton<ScrollTop> {
     circle();
     setSize(ButtonSize.LARGE);
     setBackground(Color.THEME);
-    style.add("top-scroller");
+    addCss("top-scroller");
     hide();
     addClickListener(evt -> ElementUtil.scrollTop());
 

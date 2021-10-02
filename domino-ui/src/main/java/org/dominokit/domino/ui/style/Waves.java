@@ -95,7 +95,7 @@ public class Waves implements IsElement<HTMLElement> {
                 new Timer() {
                   @Override
                   public void run() {
-                    ripple.style().remove("waves-rippling");
+                    ripple.removeCss("waves-rippling");
                     ripple.remove();
                   }
                 };
@@ -151,7 +151,7 @@ public class Waves implements IsElement<HTMLElement> {
 
       stopCurrentWave();
 
-      ripple = DominoElement.of(div()).style().add("waves-ripple", "waves-rippling").get();
+      ripple = DominoElement.of(div()).addCss("waves-ripple", "waves-rippling");
       target.appendChild(ripple);
 
       ElementOffset position = offset(target.element());
@@ -171,11 +171,11 @@ public class Waves implements IsElement<HTMLElement> {
 
       rippleStyle.set("top", relativeY + "px");
       rippleStyle.set("left", relativeX + "px");
-      ripple.style().add("waves-notransition");
+      ripple.addCss("waves-notransition");
 
       ripple.setAttribute("style", convertStyle(rippleStyle));
 
-      ripple.style().remove("waves-notransition");
+      ripple.removeCss("waves-notransition");
 
       rippleStyle.set("-webkit-transform", scale + " " + translate);
       rippleStyle.set("-moz-transform", scale + " " + translate);

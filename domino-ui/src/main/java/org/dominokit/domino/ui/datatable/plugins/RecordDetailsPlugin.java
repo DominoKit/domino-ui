@@ -98,8 +98,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
                     Button.create(expandIcon.copy())
                         .linkify()
                         .disable()
-                        .style()
-                        .setProperty("padding", "0px")
+                        .setCssProperty("padding", "0px")
                         .setHeight("24px")
                         .element())
             .asHeader()
@@ -169,8 +168,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
           .appendChild(this.expandIcon.clickable())
           .appendChild(this.collapseIcon.clickable().hide());
       element
-          .style()
-          .setProperty("padding", "0px")
+          .setCssProperty("padding", "0px")
           .setHeight("27px")
           .setPaddingLeft("2px")
           .setPaddingRight("2px");

@@ -19,23 +19,61 @@ import elemental2.dom.HTMLElement;
 import org.jboss.elemento.IsElement;
 
 public interface DominoStyle<E extends HTMLElement, T extends IsElement<E>, R> {
-  R setProperty(String name, String value);
+  @Deprecated
+  default R setProperty(String name, String value) {
+    return setCssProperty(name, value);
+  }
 
-  R setProperty(String name, String value, boolean important);
+  R setCssProperty(String name, String value);
 
-  R removeProperty(String name);
+  @Deprecated
+  default R setProperty(String name, String value, boolean important) {
+    return setCssProperty(name, value, important);
+  }
 
-  R add(String cssClass);
+  R setCssProperty(String name, String value, boolean important);
 
-  R add(String... cssClasses);
+  @Deprecated
+  default R removeProperty(String name) {
+    return removeCssProperty(name);
+  }
 
-  R remove(String cssClass);
+  R removeCssProperty(String name);
 
-  R remove(String... cssClasses);
+  @Deprecated
+  default R add(String cssClass) {
+    return addCss(cssClass);
+  }
+
+  R addCss(String cssClass);
+
+  @Deprecated
+  default R add(String... cssClasses) {
+    return addCss(cssClasses);
+  }
+
+  R addCss(String... cssClasses);
+
+  @Deprecated
+  default R remove(String cssClass) {
+    return removeCss(cssClass);
+  }
+
+  R removeCss(String cssClass);
+
+  @Deprecated
+  default R remove(String... cssClasses) {
+    return removeCss(cssClasses);
+  }
+
+  R removeCss(String... cssClasses);
 
   R replaceCss(String cssClass, String replacementClass);
 
-  R replace(String cssClass, String replacementClass);
+  @Deprecated
+  default R replace(String cssClass, String replacementClass) {
+    return removeCss(cssClass, replacementClass);
+  }
 
   R setBorder(String border);
 
@@ -163,6 +201,10 @@ public interface DominoStyle<E extends HTMLElement, T extends IsElement<E>, R> {
 
   R setZIndex(int zindex);
 
+  R setOpacity(double opacity);
+
+  R setOpacity(double opacity, boolean important);
+
   boolean contains(String cssClass);
 
   R pullRight();
@@ -176,8 +218,8 @@ public interface DominoStyle<E extends HTMLElement, T extends IsElement<E>, R> {
   R cssText(String cssText);
 
   /**
-   * @deprecated use {@link #cssClassesCount()}
    * @return the count of applied css classes
+   * @deprecated use {@link #cssClassesCount()}
    */
   @Deprecated
   int length();
@@ -185,12 +227,14 @@ public interface DominoStyle<E extends HTMLElement, T extends IsElement<E>, R> {
   int cssClassesCount();
 
   /**
-   * @deprecated use {@link #cssClassByIndex(int)}
    * @param index of css class
    * @return name of the css class at that index
+   * @deprecated use {@link #cssClassByIndex(int)}
    */
   @Deprecated
-  String item(int index);
+  default String item(int index) {
+    return cssClassByIndex(index);
+  }
 
   String cssClassByIndex(int index);
 

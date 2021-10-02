@@ -105,7 +105,7 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
    * @return same SelectOptionGroup instance
    */
   public SelectOptionGroup<T> appendChild(SelectOption<T> option) {
-    option.style().add("opt");
+    option.addCss("opt");
     options.add(option);
     if (nonNull(addOptionConsumer)) {
       addOptionConsumer.accept(option);

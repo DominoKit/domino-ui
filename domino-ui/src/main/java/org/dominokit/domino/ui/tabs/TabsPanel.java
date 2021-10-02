@@ -231,9 +231,9 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    */
   public TabsPanel setColor(Color color) {
     if (nonNull(this.tabsColor)) {
-      tabsList.style().remove(tabsColor.getStyle());
+      tabsList.removeCss(tabsColor.getStyle());
     }
-    tabsList.style().add(color.getStyle());
+    tabsList.addCss(color.getStyle());
     this.tabsColor = color;
     return this;
   }
@@ -244,9 +244,9 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    */
   public TabsPanel setBackgroundColor(Color background) {
     if (nonNull(this.background)) {
-      tabsList.style().remove(this.background.getBackground());
+      tabsList.removeCss(this.background.getBackground());
     }
-    tabsList.style().add(background.getBackground());
+    tabsList.addCss(background.getBackground());
     this.background = background;
     return this;
   }
@@ -275,7 +275,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     if (element.contains(tabsContent)) {
       tabsContent.remove();
     }
-    Style.of(contentContainer).add(TabStyles.TAB_CONTENT);
+    Style.of(contentContainer).addCss(TabStyles.TAB_CONTENT);
     this.tabsContent = contentContainer;
     return this;
   }

@@ -134,8 +134,8 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab>
    * @return same instance
    */
   public VerticalTab activate() {
-    Style.of(element()).add(ACTIVE);
-    contentContainer.style().add(IN, ACTIVE);
+    Style.of(element()).addCss(ACTIVE);
+    contentContainer.addCss(IN, ACTIVE);
     this.active = true;
     activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, true));
     return this;
@@ -147,8 +147,8 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab>
    * @return same instance
    */
   public VerticalTab deactivate() {
-    Style.of(element()).remove(ACTIVE);
-    contentContainer.style().remove(IN, ACTIVE);
+    Style.of(element()).removeCss(ACTIVE);
+    contentContainer.removeCss(IN, ACTIVE);
     this.active = false;
     activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, false));
     return this;
