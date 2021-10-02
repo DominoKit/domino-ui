@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.IsCollapsible;
 import org.jboss.elemento.IsElement;
 
@@ -109,7 +110,8 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     collapsibleElement.appendChild(bodyElement);
     element.appendChild(collapsibleElement);
     init(this);
-    setCollapseStrategy(new HeightCollapseStrategy());
+    setCollapseStrategy(
+        DominoUIConfig.INSTANCE.getDefaultAccordionCollapseStrategySupplier().get());
     hide();
   }
 

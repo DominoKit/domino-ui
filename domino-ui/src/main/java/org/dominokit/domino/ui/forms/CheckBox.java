@@ -42,14 +42,13 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
   }
 
   /**
-   * Creates a checkox with a label
+   * Creates a checkbox with a label
    *
    * @param label String
    */
   public CheckBox(String label) {
     super("checkbox", label);
     css("d-checkbox");
-    getInputElement().addEventListener("change", evt -> onCheck());
 
     EventListener listener =
         evt -> {
@@ -58,8 +57,16 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
           if (isEnabled() && !isReadOnly()) toggle();
         };
 
+    getInputElement()
+        .removeEventListener("change", changeListener)
+        .addEventListener(
+            "change",
+            evt -> {
+              if (isEnabled() && !isReadOnly()) {
+                setValue(isChecked());
+              }
+            });
     getLabelElement().addEventListener("click", listener);
-
     KeyboardEvents.listenOnKeyDown(getInputElement()).onEnter(listener);
   }
 

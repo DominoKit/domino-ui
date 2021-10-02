@@ -20,6 +20,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.label;
 import static org.jboss.elemento.Elements.span;
 
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLabelElement;
@@ -55,6 +56,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** Constant css class name for a focused component */
   public static final String DISABLED = "disabled";
 
+  protected final EventListener changeListener;
+  protected final EventListener inputListener;
+
   private DominoElement<E> inputElement;
 
   protected DominoElement<HTMLDivElement> fieldGroup = DominoElement.div();
@@ -89,7 +93,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   private String postfix;
   private FlexItem<HTMLDivElement> mandatoryAddOn;
   private boolean validateOnFocusLost = true;
-  private FieldStyle fieldStyle = DominoFields.INSTANCE.getDefaultFieldsStyle();
+  private FieldStyle fieldStyle = DominoUIConfig.INSTANCE.getDefaultFieldsStyle();
   private FlexLayout fieldInnerContainer;
   private boolean permaFloating = false;
   private FlexLayout additionalInfoContainer;
@@ -106,18 +110,18 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     init((T) this);
     inputElement = DominoElement.of(createInputElement(type));
-    inputElement.addEventListener(
-        "change",
+    changeListener =
         evt -> {
           callChangeHandlers();
-        });
-    inputElement.addEventListener(
-        "input",
+        };
+    inputElement.addEventListener("change", changeListener);
+    inputListener =
         evt -> {
           if (isEmpty()) {
             showPlaceholder();
           }
-        });
+        };
+    inputElement.addEventListener("input", inputListener);
 
     layout();
     setFocusColor(focusColor);
@@ -125,9 +129,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     setLabel(label);
     setSpellCheck(true);
     fieldStyle.apply(this);
-    DominoFields.INSTANCE.getFixErrorsPosition().ifPresent(this::setFixErrorsPosition);
-    DominoFields.INSTANCE.getFloatLabels().ifPresent(this::setFloating);
-    DominoFields.INSTANCE
+    DominoUIConfig.INSTANCE.getFixErrorsPosition().ifPresent(this::setFixErrorsPosition);
+    DominoUIConfig.INSTANCE.getFloatLabels().ifPresent(this::setFloating);
+    DominoUIConfig.INSTANCE
         .getCondensed()
         .ifPresent(
             shouldCondense -> {
@@ -736,7 +740,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   public T invalidate(String errorMessage) {
     this.valid = false;
     updateValidationStyles();
-    DominoFields.INSTANCE
+    DominoUIConfig.INSTANCE
         .getGlobalValidationHandler()
         .onInvalidate(this, Collections.singletonList(errorMessage));
     return super.invalidate(errorMessage);
@@ -772,7 +776,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   public T invalidate(List<String> errorMessages) {
     this.valid = false;
     updateValidationStyles();
-    DominoFields.INSTANCE.getGlobalValidationHandler().onInvalidate(this, errorMessages);
+    DominoUIConfig.INSTANCE.getGlobalValidationHandler().onInvalidate(this, errorMessages);
     return super.invalidate(errorMessages);
   }
 
@@ -817,7 +821,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
       doUnfocus();
     }
     changeLabelFloating();
-    DominoFields.INSTANCE.getGlobalValidationHandler().onClearValidation(this);
+    DominoUIConfig.INSTANCE.getGlobalValidationHandler().onClearValidation(this);
     return super.clearInvalid();
   }
 

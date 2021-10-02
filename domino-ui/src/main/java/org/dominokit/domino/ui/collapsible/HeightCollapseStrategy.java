@@ -48,6 +48,13 @@ public class HeightCollapseStrategy implements CollapseStrategy {
   public void init(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
     style.add(CollapsibleStyles.HEIGHT_COLLAPSED_OVERFLOW);
     style.add(transition.getStyle());
+    element.removeAttribute("dom-ui-collapse-height");
+  }
+
+  @Override
+  public void cleanup(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
+    style.remove(CollapsibleStyles.HEIGHT_COLLAPSED_OVERFLOW);
+    style.remove(transition.getStyle());
   }
 
   /** {@inheritDoc} */

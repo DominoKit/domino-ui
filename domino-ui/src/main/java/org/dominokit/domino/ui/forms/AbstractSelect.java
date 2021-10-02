@@ -41,6 +41,7 @@ import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * The base implementation for dropdown select form fields components
@@ -84,7 +85,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     optionsMenu.setAppendTarget(DomGlobal.document.body);
     optionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
     optionsMenu.setPosition(
-        DominoFields.INSTANCE.getDefaultSelectPopupPosition().createPosition(this));
+        DominoUIConfig.INSTANCE.getDefaultSelectPopupPosition().createPosition(this));
     optionsMenu.addOpenHandler(this::resumeFocusValidation);
     optionsMenu.addOpenHandler(this::scrollToSelectedOption);
     buttonElement.appendChild(buttonValueContainer);
