@@ -186,6 +186,9 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card setTitle(String titleText) {
     title.textContent = titleText;
+    if (nonNull(titleText) && !titleText.isEmpty()) {
+      header.show();
+    }
     return this;
   }
 
@@ -197,6 +200,9 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card setDescription(String descriptionText) {
     description.textContent = descriptionText;
+    if (nonNull(descriptionText) && !descriptionText.isEmpty()) {
+      header.show();
+    }
     return this;
   }
 
@@ -208,6 +214,9 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card appendDescriptionChild(Node node) {
     headerDescription.appendChild(node);
+    if (nonNull(node)) {
+      header.show();
+    }
     return this;
   }
 
@@ -323,11 +332,6 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     return headerDescription;
   }
 
-  @Deprecated
-  public static HTMLLIElement createIcon(BaseIcon<?> icon) {
-    return li().add(a().add(icon)).element();
-  }
-
   /**
    * Adds new header action to card header passing the {@code icon} and the {@code eventListener}.
    *
@@ -361,6 +365,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     } else {
       headerBar.appendChild(actionItem);
     }
+    header.show();
   }
 
   private HTMLLIElement createHeaderAction(BaseIcon<?> icon) {
@@ -397,6 +402,8 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     putAction(collapseAction);
 
     this.collapsible = true;
+
+    header.show();
 
     return this;
   }
@@ -573,6 +580,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
   public Card setHeaderLogo(Node node) {
     if (nonNull(node)) {
       logoContainer.clearElement().appendChild(node).show();
+      header.show();
     } else {
       removeHeaderLogo();
     }
