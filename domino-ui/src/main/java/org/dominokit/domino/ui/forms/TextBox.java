@@ -142,6 +142,6 @@ public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String>
   /** {@inheritDoc} */
   @Override
   protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
-    return new InputAutoValidator<>(getInputElement(), autoValidate);
+    return new InputAutoValidator<>(autoValidate);
   }
 }

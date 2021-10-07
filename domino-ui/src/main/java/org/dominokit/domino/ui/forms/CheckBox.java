@@ -388,7 +388,6 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
 
     @Override
     public void attach() {
-
       changeHandler = value -> autoValidate.apply();
       checkBox.addChangeHandler(changeHandler);
     }

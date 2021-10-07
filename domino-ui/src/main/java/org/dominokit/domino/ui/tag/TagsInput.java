@@ -441,6 +441,6 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
 
   @Override
   protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
-    return new InputAutoValidator<>(getInputElement(), autoValidate);
+    return new InputAutoValidator<>(autoValidate);
   }
 }

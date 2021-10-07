@@ -283,6 +283,6 @@ public class InputValueBox<T extends InputValueBox<T>>
   /** {@inheritDoc} */
   @Override
   protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
-    return new InputAutoValidator<>(getInputElement(), autoValidate);
+    return new InputAutoValidator<>(autoValidate);
   }
 }

@@ -29,28 +29,21 @@ import org.jboss.elemento.EventType;
  */
 public class InputAutoValidator<E extends HTMLElement> extends ValueBox.AutoValidator {
 
-  private final DominoElement<E> inputElement;
-  private EventListener eventListener;
 
   /**
-   * @param inputElement {@link DominoElement}
    * @param autoValidate {@link org.dominokit.domino.ui.forms.ValueBox.AutoValidate}
    */
-  public InputAutoValidator(DominoElement<E> inputElement, ValueBox.AutoValidate autoValidate) {
+  public InputAutoValidator(ValueBox.AutoValidate autoValidate) {
     super(autoValidate);
-    this.inputElement = inputElement;
   }
 
   /** {@inheritDoc} */
   @Override
   public void attach() {
-    eventListener = evt -> autoValidate.apply();
-    inputElement.addEventListener(EventType.blur, eventListener);
   }
 
   /** {@inheritDoc} */
   @Override
   public void remove() {
-    inputElement.removeEventListener(EventType.blur, eventListener);
   }
 }
