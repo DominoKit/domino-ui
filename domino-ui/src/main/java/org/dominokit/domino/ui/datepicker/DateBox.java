@@ -583,7 +583,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   /** {@inheritDoc} */
   @Override
   protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
-    return new InputAutoValidator<>(getInputElement(), autoValidate);
+    return new InputAutoValidator<>(autoValidate);
   }
 
   /**
