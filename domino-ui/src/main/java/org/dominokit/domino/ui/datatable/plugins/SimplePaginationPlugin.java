@@ -29,8 +29,6 @@ public class SimplePaginationPlugin<T> implements DataTablePlugin<T> {
 
   private SimplePagination simplePagination;
 
-  private final int pageSize;
-
   /** Creates and instance with default page size of 10 */
   public SimplePaginationPlugin() {
     this(10);
@@ -42,7 +40,6 @@ public class SimplePaginationPlugin<T> implements DataTablePlugin<T> {
    * @param pageSize int, Page size
    */
   public SimplePaginationPlugin(int pageSize) {
-    this.pageSize = pageSize;
     this.simplePagination = SimplePagination.create(0, pageSize).markActivePage().gotoPage(1);
   }
 

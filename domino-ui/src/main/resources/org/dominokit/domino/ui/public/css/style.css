@@ -3374,7 +3374,6 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
     position: absolute !important;
     top: 0px !important;
     left: 0 !important;
-    padding-right: 40px;
 }
 
 .select-label {
