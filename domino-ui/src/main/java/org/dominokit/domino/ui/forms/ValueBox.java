@@ -917,7 +917,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** Make the label float over the component */
   protected void floatLabel() {
     if (!floating || permaFloating) {
-      if (!fieldGroup.containsCss(FLOATING)) {
+      if (!fieldGroup.contains(FLOATING)) {
         fieldGroup.addCss(FLOATING);
       }
       this.floating = true;
