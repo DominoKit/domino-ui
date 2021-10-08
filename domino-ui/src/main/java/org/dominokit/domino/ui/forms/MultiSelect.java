@@ -190,7 +190,7 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
             tSelectOption -> {
               Chip chip =
                   Chip.create(tSelectOption.getDisplayValue())
-                      .setRemovable(true)
+                      .setRemovable(!isReadOnly())
                       .setColor(color)
                       .setBorderColor(color)
                       .elevate(Elevation.NONE);
@@ -280,6 +280,13 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
    */
   public MultiSelect<T> setColor(Color color) {
     this.color = color;
+    return this;
+  }
+
+  @Override
+  public MultiSelect<T> setReadOnly(boolean readOnly) {
+    super.setReadOnly(readOnly);
+    valueRenderer.render();
     return this;
   }
 
