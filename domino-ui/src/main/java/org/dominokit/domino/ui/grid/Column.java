@@ -814,7 +814,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
     if (nonNull(this.onSmallOffsetStyle)) column.onSmallOffset(this.onSmallOffsetStyle);
     if (nonNull(this.onXSmallOffsetStyle)) column.onXSmallOffset(this.onXSmallOffsetStyle);
 
-    if (style.contains(Styles.align_center)) column.centerContent();
+    if (style.containsCss(Styles.align_center)) column.centerContent();
 
     return column;
   }

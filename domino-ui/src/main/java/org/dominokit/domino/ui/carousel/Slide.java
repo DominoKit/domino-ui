@@ -128,10 +128,10 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
    */
   public Slide activate() {
     this.active = true;
-    if (!Style.of(indicatorElement).contains(ACTIVE)) {
+    if (!Style.of(indicatorElement).containsCss(ACTIVE)) {
       Style.of(indicatorElement).addCss(ACTIVE);
     }
-    if (!style().contains(ACTIVE)) {
+    if (!style().containsCss(ACTIVE)) {
       addCss(ACTIVE);
     }
 
@@ -164,7 +164,7 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
    * @return true if the slide has active style, false otherwise
    */
   public boolean hasActiveStyle() {
-    return style().contains(ACTIVE);
+    return style().containsCss(ACTIVE);
   }
 
   /** @return The slide label element */

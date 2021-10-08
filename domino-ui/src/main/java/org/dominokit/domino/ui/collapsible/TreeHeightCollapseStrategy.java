@@ -82,7 +82,7 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
       HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
 
     DominoElement<HTMLElement> theElement = DominoElement.of(element);
-    if (!theElement.contains(CollapsibleStyles.HEIGHT_COLLAPSED)) {
+    if (!theElement.containsCss(CollapsibleStyles.HEIGHT_COLLAPSED)) {
       theElement.css(CollapsibleStyles.HEIGHT_COLLAPSED);
     }
     EventListener stopListener =

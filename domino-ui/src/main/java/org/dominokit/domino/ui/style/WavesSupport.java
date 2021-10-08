@@ -70,7 +70,7 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
   }
 
   private boolean hasWavesEffect() {
-    return element.style().contains(WAVES_EFFECT);
+    return element.style().containsCss(WAVES_EFFECT);
   }
 
   /** Use {@link WavesSupport#setWaveColor(WaveColor)} instead */
@@ -96,7 +96,7 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
   @Override
   public WavesSupport applyWaveStyle(WaveStyle waveStyle) {
     if (!hasWavesEffect()) initWaves();
-    if (!element.style().contains(waveStyle.getStyle())) element.addCss(waveStyle.getStyle());
+    if (!element.style().containsCss(waveStyle.getStyle())) element.addCss(waveStyle.getStyle());
     return this;
   }
 
