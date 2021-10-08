@@ -53,7 +53,7 @@ public class ShortBox extends NumberBox<ShortBox, Short> {
 
   /** {@inheritDoc} */
   @Override
-  protected Short parseValue(String value) {
+  protected Short defaultValueParser(String value) {
     return Double.valueOf(parseDouble(value)).shortValue();
   }
 
