@@ -115,6 +115,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
           callChangeHandlers();
         };
     inputElement.addEventListener("change", changeListener);
+    inputElement.addEventListener("change", evt -> changeLabelFloating());
     inputListener =
         evt -> {
           if (isEmpty()) {
@@ -916,7 +917,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** Make the label float over the component */
   protected void floatLabel() {
     if (!floating || permaFloating) {
-      fieldGroup.addCss(FLOATING);
+      if (!fieldGroup.containsCss(FLOATING)) {
+        fieldGroup.addCss(FLOATING);
+      }
       this.floating = true;
     }
   }
