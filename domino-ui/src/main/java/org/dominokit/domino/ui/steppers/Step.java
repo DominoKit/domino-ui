@@ -153,7 +153,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
   }
 
   public void invalidate() {
-    if (!style().contains(wrong)) {
+    if (!style().containsCss(wrong)) {
       addCss(wrong);
     }
   }
@@ -186,7 +186,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
   }
 
   public boolean isActive() {
-    return Style.of(element).contains(active);
+    return Style.of(element).containsCss(active);
   }
 
   @Override

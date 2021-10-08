@@ -429,7 +429,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** {@inheritDoc} */
   @Override
   public boolean isFocused() {
-    return fieldGroup.style().contains(FOCUSED);
+    return fieldGroup.style().containsCss(FOCUSED);
   }
 
   private void setLabelColor(Color color) {
@@ -917,7 +917,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** Make the label float over the component */
   protected void floatLabel() {
     if (!floating || permaFloating) {
-      if (!fieldGroup.contains(FLOATING)) {
+      if (!fieldGroup.containsCss(FLOATING)) {
         fieldGroup.addCss(FLOATING);
       }
       this.floating = true;

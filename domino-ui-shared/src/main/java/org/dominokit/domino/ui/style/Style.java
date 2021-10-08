@@ -220,7 +220,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    */
   @Override
   public Style<E, T> replaceCss(String cssClass, String replacementClass) {
-    if (contains(cssClass)) {
+    if (containsCss(cssClass)) {
       removeCss(cssClass);
       addCss(replacementClass);
     }
@@ -617,8 +617,23 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
     return this;
   }
 
+  /**
+   * @deprecated use {@link #containsCss(String)}
+   * @param cssClass css class name under check
+   * @return same style instance
+   */
+  @Deprecated
   @Override
   public boolean contains(String cssClass) {
+    return containsCss(cssClass);
+  }
+
+  /**
+   * @param cssClass css class name under check
+   * @return same style instance
+   */
+  @Override
+  public boolean containsCss(String cssClass) {
     if (nonNull(cssClass) && !cssClass.isEmpty()) {
       return element.classList.contains(cssClass);
     }
@@ -627,7 +642,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> pullRight() {
-    if (!contains(pull_right)) {
+    if (!containsCss(pull_right)) {
       addCss(pull_right);
     }
 
@@ -636,7 +651,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> pullLeft() {
-    if (!contains(pull_left)) {
+    if (!containsCss(pull_left)) {
       addCss(pull_left);
     }
 
@@ -645,7 +660,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> alignCenter() {
-    if (contains(align_center)) {
+    if (containsCss(align_center)) {
       removeCss(align_center);
     }
     addCss(align_center);
@@ -654,7 +669,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   @Override
   public Style<E, T> alignRight() {
-    if (contains(align_right)) {
+    if (containsCss(align_right)) {
       removeCss(align_right);
     }
     addCss(align_right);

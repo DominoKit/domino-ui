@@ -199,7 +199,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
   /** {@inheritDoc} */
   @Override
   public boolean isSelected() {
-    return style().contains(SELECTED);
+    return style().containsCss(SELECTED);
   }
 
   /** {@inheritDoc} */

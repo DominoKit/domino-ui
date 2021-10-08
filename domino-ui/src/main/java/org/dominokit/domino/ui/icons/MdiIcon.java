@@ -79,7 +79,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   @Override
   protected MdiIcon doToggle() {
     if (nonNull(toggleName)) {
-      if (this.style.contains(originalName)) {
+      if (this.style.containsCss(originalName)) {
         this.style.removeCss(originalName);
         this.style.addCss(toggleName);
       } else {

@@ -79,7 +79,7 @@ public class Waves implements IsElement<HTMLElement> {
   }
 
   private boolean isTargetDisabled() {
-    return target.getAttribute("disabled") != null || target.style().contains("disabled");
+    return target.getAttribute("disabled") != null || target.style().containsCss("disabled");
   }
 
   private void setupStopTimers() {

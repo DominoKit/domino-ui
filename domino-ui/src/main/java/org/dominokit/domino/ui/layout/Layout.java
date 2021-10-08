@@ -100,7 +100,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     appendElements();
     initElementsPosition();
     addExpandListeners();
-    if (!bodyStyle().contains("ls-hidden")) bodyStyle().addCss("ls-closed");
+    if (!bodyStyle().containsCss("ls-hidden")) bodyStyle().addCss("ls-closed");
     new Theme(Theme.INDIGO).apply();
 
     DominoElement.of(document.body).addCss(leftPanelSize.getSize());
@@ -510,7 +510,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     if (!leftPanelDisabled) {
       showLeftPanel();
       hideOverlay();
-      if (bodyStyle().contains("ls-closed")) bodyStyle().removeCss("ls-closed");
+      if (bodyStyle().containsCss("ls-closed")) bodyStyle().removeCss("ls-closed");
       this.fixedLeftPanel = true;
       DominoElement.body().addCss("l-fixed");
     }
@@ -524,7 +524,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    */
   public Layout unfixLeftPanelPosition() {
     if (!leftPanelDisabled) {
-      if (!bodyStyle().contains("ls-closed")) bodyStyle().addCss("ls-closed");
+      if (!bodyStyle().containsCss("ls-closed")) bodyStyle().addCss("ls-closed");
       this.fixedLeftPanel = false;
       DominoElement.body().style().removeCss("l-fixed");
     }

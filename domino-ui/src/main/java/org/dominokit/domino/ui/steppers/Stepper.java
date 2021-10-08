@@ -140,7 +140,7 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
   }
 
   private boolean isHorizontal() {
-    return Style.of(this).contains(horizontal);
+    return Style.of(this).containsCss(horizontal);
   }
 
   public Stepper invalidate() {

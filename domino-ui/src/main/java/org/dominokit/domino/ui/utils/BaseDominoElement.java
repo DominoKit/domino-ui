@@ -1637,10 +1637,15 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     return (T) this;
   }
 
+  @Deprecated
   @Override
   public boolean contains(String cssClass) {
-    style().contains(cssClass);
-    return false;
+    return containsCss(cssClass);
+  }
+
+  @Override
+  public boolean containsCss(String cssClass) {
+    return style().containsCss(cssClass);
   }
 
   @Override

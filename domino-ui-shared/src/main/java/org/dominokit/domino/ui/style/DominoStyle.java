@@ -205,7 +205,12 @@ public interface DominoStyle<E extends HTMLElement, T extends IsElement<E>, R> {
 
   R setOpacity(double opacity, boolean important);
 
-  boolean contains(String cssClass);
+  @Deprecated
+  default boolean contains(String cssClass) {
+    return containsCss(cssClass);
+  }
+
+  boolean containsCss(String cssClass);
 
   R pullRight();
 
