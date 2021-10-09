@@ -18,8 +18,10 @@ package org.dominokit.domino.ui.utils;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.Node;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.DisplayCollapseStrategy;
@@ -29,7 +31,13 @@ import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.forms.AbstractSelect;
 import org.dominokit.domino.ui.forms.AbstractSuggestBox;
 import org.dominokit.domino.ui.forms.BasicFormElement;
+import org.dominokit.domino.ui.forms.BigDecimalBox;
+import org.dominokit.domino.ui.forms.DoubleBox;
 import org.dominokit.domino.ui.forms.FieldStyle;
+import org.dominokit.domino.ui.forms.FloatBox;
+import org.dominokit.domino.ui.forms.IntegerBox;
+import org.dominokit.domino.ui.forms.LongBox;
+import org.dominokit.domino.ui.forms.ShortBox;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.tree.TreeItem;
 
@@ -83,6 +91,8 @@ public class DominoUIConfig {
       HeightCollapseStrategy::new;
   private TreeCollapseSupplier defaultTreeCollapseStrategySupplier =
       TreeHeightCollapseStrategy::new;
+
+  private NumberParsers numberParsers = new NumberParsers() {};
 
   protected DominoUIConfig() {}
 
@@ -292,6 +302,17 @@ public class DominoUIConfig {
     return this;
   }
 
+  public NumberParsers getNumberParsers() {
+    return numberParsers;
+  }
+
+  public DominoUIConfig setNumberParsers(NumberParsers numberParsers) {
+    if (nonNull(numberParsers)) {
+      this.numberParsers = numberParsers;
+    }
+    return this;
+  }
+
   /** An interface for rendering the required indicator on fields */
   public interface RequiredIndicatorRenderer {
     /**
@@ -330,5 +351,31 @@ public class DominoUIConfig {
   /** A provider for creating {@link CollapseStrategy} for TreeItem(s) */
   public interface TreeCollapseSupplier {
     CollapseStrategy get(TreeItem<?> treeItem);
+  }
+
+  public interface NumberParsers {
+    default Function<String, BigDecimal> bigDecimalParser(BigDecimalBox field) {
+      return value -> BigDecimal.valueOf(field.parseDouble(value));
+    }
+
+    default Function<String, Double> doubleParser(DoubleBox field) {
+      return field::parseDouble;
+    }
+
+    default Function<String, Integer> integerParser(IntegerBox field) {
+      return value -> Double.valueOf(field.parseDouble(value)).intValue();
+    }
+
+    default Function<String, Float> floatParser(FloatBox field) {
+      return value -> Double.valueOf(field.parseDouble(value)).floatValue();
+    }
+
+    default Function<String, Long> longParser(LongBox field) {
+      return value -> Double.valueOf(field.parseDouble(value)).longValue();
+    }
+
+    default Function<String, Short> shortParser(ShortBox field) {
+      return value -> Double.valueOf(field.parseDouble(value)).shortValue();
+    }
   }
 }

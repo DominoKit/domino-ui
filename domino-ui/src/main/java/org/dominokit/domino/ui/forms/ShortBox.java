@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /** A component that has an input to take/provide Short value */
 public class ShortBox extends NumberBox<ShortBox, Short> {
@@ -56,7 +57,7 @@ public class ShortBox extends NumberBox<ShortBox, Short> {
   /** {@inheritDoc} */
   @Override
   protected Function<String, Short> defaultValueParser() {
-    return value -> Double.valueOf(parseDouble(value)).shortValue();
+    return DominoUIConfig.INSTANCE.getNumberParsers().shortParser(this);
   }
 
   /** {@inheritDoc} */

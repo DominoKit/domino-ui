@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /** A component that has an input to take/provide Long value */
 public class LongBox extends NumberBox<LongBox, Long> {
@@ -56,7 +57,7 @@ public class LongBox extends NumberBox<LongBox, Long> {
   /** {@inheritDoc} */
   @Override
   protected Function<String, Long> defaultValueParser() {
-    return value -> Double.valueOf(parseDouble(value)).longValue();
+    return DominoUIConfig.INSTANCE.getNumberParsers().longParser(this);
   }
 
   /** {@inheritDoc} */
