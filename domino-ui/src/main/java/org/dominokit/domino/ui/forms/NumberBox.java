@@ -20,6 +20,7 @@ import static java.util.Objects.nonNull;
 
 import elemental2.dom.*;
 import java.util.Objects;
+import java.util.function.Function;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
@@ -39,6 +40,8 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     extends AbstractValueBox<T, HTMLInputElement, E> {
 
   private final ChangeHandler<E> formatValueChangeHandler = value -> formatValue();
+  private Function<String, E> valueParser;
+
   private String maxValueErrorMessage;
   private String minValueErrorMessage;
   private String invalidFormatMessage;
@@ -405,13 +408,24 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    * @param value String numeric value
    * @return E the Numeric value from the input String
    */
-  protected abstract E parseValue(String value);
+  protected E parseValue(String value) {
+    return isNull(valueParser)
+      ?  defaultValueParser(value)
+      :  valueParser.apply(value);
+  }
+
+  protected abstract E defaultValueParser(String value);
 
   /** @return E numeric max value as a default in case {@link #setMaxValue(Number)} is not called */
   protected abstract E defaultMaxValue();
 
   /** @return E numeric min value as a default in case {@link #setMinValue(Number)} is not called */
   protected abstract E defaultMinValue();
+
+  public T setValueParser(Function<String, E> valueParser) {
+    this.valueParser = valueParser;
+    return (T) this;
+  }
 
   /**
    * Checks if a a given value is actually greater than the maximum allowed value

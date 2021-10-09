@@ -53,7 +53,7 @@ public class LongBox extends NumberBox<LongBox, Long> {
 
   /** {@inheritDoc} */
   @Override
-  protected Long parseValue(String value) {
+  protected Long defaultValueParser(String value) {
     return Double.valueOf(parseDouble(value)).longValue();
   }
 

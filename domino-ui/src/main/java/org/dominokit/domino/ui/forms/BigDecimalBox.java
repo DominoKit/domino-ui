@@ -59,7 +59,7 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
    * @return
    */
   @Override
-  protected BigDecimal parseValue(String value) {
+  protected BigDecimal defaultValueParser(String value) {
     return new BigDecimal(parseDouble(value));
   }
 

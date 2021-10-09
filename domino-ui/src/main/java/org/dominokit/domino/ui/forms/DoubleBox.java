@@ -50,7 +50,7 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
   /** {@inheritDoc} */
   @Override
-  protected Double parseValue(String value) {
+  protected Double defaultValueParser(String value) {
     return parseDouble(value);
   }
 

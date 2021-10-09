@@ -52,7 +52,7 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
 
   /** {@inheritDoc} */
   @Override
-  protected Float parseValue(String value) {
+  protected Float defaultValueParser(String value) {
     return Double.valueOf(parseDouble(value)).floatValue();
   }
 
