@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.core.JsNumber;
 import java.util.function.Function;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /** A component that has an input to take/provide float value */
 public class FloatBox extends NumberBox<FloatBox, Float> {
@@ -54,7 +55,7 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
   /** {@inheritDoc} */
   @Override
   protected Function<String, Float> defaultValueParser() {
-    return value -> Double.valueOf(parseDouble(value)).floatValue();
+    return DominoUIConfig.INSTANCE.getNumberParsers().floatParser(this);
   }
 
   /** {@inheritDoc} */

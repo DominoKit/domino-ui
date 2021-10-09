@@ -391,7 +391,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     return (T) this;
   }
 
-  protected double parseDouble(String value) {
+  public double parseDouble(String value) {
     try {
       return getNumberFormat().parse(value);
     } catch (NumberFormatException e) {
