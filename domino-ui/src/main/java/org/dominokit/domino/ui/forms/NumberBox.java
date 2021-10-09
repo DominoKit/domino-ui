@@ -40,7 +40,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     extends AbstractValueBox<T, HTMLInputElement, E> {
 
   private final ChangeHandler<E> formatValueChangeHandler = value -> formatValue();
-  private Function<String, E> valueParser;
+  private Function<String, E> valueParser = defaultValueParser();
 
   private String maxValueErrorMessage;
   private String minValueErrorMessage;
@@ -409,12 +409,10 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    * @return E the Numeric value from the input String
    */
   protected E parseValue(String value) {
-    return isNull(valueParser)
-      ?  defaultValueParser(value)
-      :  valueParser.apply(value);
+    return valueParser.apply(value);
   }
 
-  protected abstract E defaultValueParser(String value);
+  protected abstract Function<String, E> defaultValueParser();
 
   /** @return E numeric max value as a default in case {@link #setMaxValue(Number)} is not called */
   protected abstract E defaultMaxValue();
@@ -423,7 +421,9 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
   protected abstract E defaultMinValue();
 
   public T setValueParser(Function<String, E> valueParser) {
-    this.valueParser = valueParser;
+    if (nonNull(valueParser)) {
+      this.valueParser = valueParser;
+    }
     return (T) this;
   }
 

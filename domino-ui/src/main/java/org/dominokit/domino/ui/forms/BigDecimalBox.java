@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.forms;
 
 import java.math.BigDecimal;
+import java.util.function.Function;
 
 /** A component that has an input to take/provide BigDecimal value */
 public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
@@ -59,8 +60,8 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
    * @return
    */
   @Override
-  protected BigDecimal defaultValueParser(String value) {
-    return new BigDecimal(parseDouble(value));
+  protected Function<String, BigDecimal> defaultValueParser() {
+    return value -> BigDecimal.valueOf(parseDouble(value));
   }
 
   /** {@inheritDoc} */
