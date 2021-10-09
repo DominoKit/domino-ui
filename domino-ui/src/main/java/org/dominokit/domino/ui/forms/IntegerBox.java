@@ -53,7 +53,7 @@ public class IntegerBox extends NumberBox<IntegerBox, Integer> {
 
   /** {@inheritDoc} */
   @Override
-  protected Integer parseValue(String value) {
+  protected Integer defaultValueParser(String value) {
     return Double.valueOf(parseDouble(value)).intValue();
   }
 
