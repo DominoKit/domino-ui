@@ -128,9 +128,12 @@
 }
 
 .carousel-inner>.item>img,
-.carousel-inner>.item>a>img {
+.carousel-inner>.item>a>img,
+.carousel-inner>.item>picture img,
+.carousel-inner>.item>a>picture img {
 	display: block;
 	max-width: 100%;
+	width: 100%;
 	height: auto;
 	vertical-align: middle;
 	border: 0;

@@ -128,8 +128,10 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   }
 
   private void resetTimer() {
-    timer.cancel();
-    timer.scheduleRepeating(autoSlideDuration);
+    if (autoSlide) {
+      timer.cancel();
+      timer.scheduleRepeating(autoSlideDuration);
+    }
   }
 
   private void addDetachListener() {
