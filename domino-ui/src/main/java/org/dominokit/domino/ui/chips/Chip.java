@@ -187,9 +187,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     return this;
   }
 
-  /**
-   * @return True if this chip is selected, false otherwise
-   */
+  /** @return True if this chip is selected, false otherwise */
   public boolean isSelected() {
     return selected;
   }
