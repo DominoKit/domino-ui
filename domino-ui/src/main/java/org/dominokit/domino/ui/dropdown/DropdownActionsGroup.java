@@ -135,7 +135,7 @@ public class DropdownActionsGroup<T>
   }
 
   boolean isAllHidden() {
-    return actions.stream().allMatch(DropdownAction::isHidden);
+    return actions.stream().allMatch(DropdownAction::isCollapsed);
   }
 
   /**

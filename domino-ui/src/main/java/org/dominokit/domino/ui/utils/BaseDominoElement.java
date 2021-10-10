@@ -208,14 +208,25 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     return element;
   }
 
+  /**
+   * @deprecated use {@link #isCollapsed()}
+   * @return boolean, true if the component is not visible
+   */
+  @Override
+  @Editor.Ignore
+  @Deprecated
+  public boolean isHidden() {
+    return isCollapsed();
+  }
+
   /** @return boolean, true if the component is not visible */
   @Override
   @Editor.Ignore
-  public boolean isHidden() {
+  public boolean isCollapsed() {
     if (isNull(collapsible)) {
       return false;
     }
-    return collapsible.isHidden();
+    return collapsible.isCollapsed();
   }
 
   /** @return the HTML element of type E which is the root element of the component */
