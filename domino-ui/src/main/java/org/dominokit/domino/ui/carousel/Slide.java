@@ -41,7 +41,7 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
   private final HTMLDivElement slideElement = div().css(ITEM).element();
 
-  private final HTMLImageElement imageElement;
+  private final HTMLElement imageElement;
   private boolean active = false;
 
   public Slide(String imageSrc) {
@@ -54,12 +54,26 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
     init(this);
   }
 
+  public Slide(HTMLPictureElement pictureElement) {
+    imageElement = pictureElement;
+    slideElement.appendChild(pictureElement);
+    init(this);
+  }
+
   public Slide(String imageSrc, String label, String description) {
     this(img(imageSrc).element(), label, description);
   }
 
   public Slide(HTMLImageElement image, String label, String description) {
     this(image);
+    slideLabelElement.textContent = label;
+    slideDescriptionElement.textContent = description;
+    slideElement.appendChild(captionElement);
+    init(this);
+  }
+
+  public Slide(HTMLPictureElement pictureElement, String label, String description) {
+    this(pictureElement);
     slideLabelElement.textContent = label;
     slideDescriptionElement.textContent = description;
     slideElement.appendChild(captionElement);
@@ -96,6 +110,28 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
    */
   public static Slide create(HTMLImageElement image) {
     return new Slide(image);
+  }
+
+  /**
+   * Creates new slide with {@link HTMLPictureElement}
+   *
+   * @param pictureElement the {@link HTMLPictureElement}
+   * @return new instance
+   */
+  public static Slide create(HTMLPictureElement pictureElement) {
+    return new Slide(pictureElement);
+  }
+
+  /**
+   * Creates new slide with {@link HTMLPictureElement}, label and description
+   *
+   * @param pictureElement the {@link HTMLPictureElement}
+   * @param label the image label
+   * @param description the image description
+   * @return new instance
+   */
+  public static Slide create(HTMLPictureElement pictureElement, String label, String description) {
+    return new Slide(pictureElement, label, description);
   }
 
   /**
@@ -183,7 +219,7 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   }
 
   /** @return The image element */
-  public DominoElement<HTMLImageElement> getImageElement() {
+  public DominoElement<HTMLElement> getImageElement() {
     return DominoElement.of(imageElement);
   }
 }
