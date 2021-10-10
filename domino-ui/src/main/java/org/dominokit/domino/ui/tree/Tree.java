@@ -453,7 +453,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    */
   public Tree<T> setTitle(String title) {
     getTitle().setTextContent(title);
-    if (getHeader().isHidden()) {
+    if (getHeader().isCollapsed()) {
       getHeader().show();
     }
     return this;

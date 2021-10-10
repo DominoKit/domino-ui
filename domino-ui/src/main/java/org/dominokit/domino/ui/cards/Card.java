@@ -410,7 +410,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
 
   private void switchVisibility() {
     if (collapsible) {
-      if (body.getCollapsible().isHidden()) {
+      if (body.getCollapsible().isCollapsed()) {
         expand();
         collapseAnchor.element().setAttribute("aria-expanded", "true");
       } else {
@@ -427,7 +427,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    * @return same instance
    */
   public Card toggle() {
-    if (body.getCollapsible().isHidden()) {
+    if (body.getCollapsible().isCollapsed()) {
       expand();
     } else {
       collapse();
@@ -461,7 +461,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    * @return true if the body is hidden, false otherwise
    */
   public boolean isCollapsed() {
-    return body.getCollapsible().isHidden();
+    return body.getCollapsible().isCollapsed();
   }
 
   /**

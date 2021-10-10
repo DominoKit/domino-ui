@@ -34,6 +34,7 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
+import org.dominokit.domino.ui.utils.IsCollapsible;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -190,7 +191,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
   private int firstVisibleActionIndex() {
     for (int i = 0; i < actions.size(); i++) {
-      if (!actions.get(i).isHidden()) {
+      if (actions.get(i).isExpanded()) {
         return i;
       }
     }
@@ -199,7 +200,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
   private int lastVisibleActionIndex() {
     for (int i = actions.size() - 1; i >= 0; i--) {
-      if (!actions.get(i).isHidden()) {
+      if (actions.get(i).isExpanded()) {
         return i;
       }
     }
@@ -249,7 +250,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     menuNavigation =
         MenuNavigation.create(actions)
             .onSelect(DropdownAction::select)
-            .focusCondition(item -> !item.isHidden())
+            .focusCondition(IsCollapsible::isExpanded)
             .onFocus(
                 item -> {
                   if (isOpened()) {

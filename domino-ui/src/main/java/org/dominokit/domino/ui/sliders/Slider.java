@@ -179,7 +179,7 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
     int width = slider.element().offsetWidth - 15;
     double percent = (getValue() - getMin()) / (getMax() - getMin());
     double rangeOffset = percent * width;
-    if (!leftAddonContainer.isHidden()) {
+    if (leftAddonContainer.isExpanded()) {
       rangeOffset += leftAddonContainer.element().offsetWidth + 9;
     }
     return rangeOffset;

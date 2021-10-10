@@ -96,7 +96,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
    * @return same instance
    */
   public Collapsible setForceHidden(boolean forceHidden) {
-    if (!isHidden()) {
+    if (!isCollapsed()) {
       hide();
     }
     this.forceHidden = forceHidden;
@@ -151,7 +151,18 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
    * @return boolean, true if the element is hidden.
    */
   @Override
+  @Deprecated
   public boolean isHidden() {
+    return isCollapsed();
+  }
+
+  /**
+   * checks if the wrapped element is collapsed
+   *
+   * @return boolean, true if the element is collapsed.
+   */
+  @Override
+  public boolean isCollapsed() {
     return this.collapsed || DominoElement.of(element).hasAttribute("d-collapsed");
   }
 
@@ -162,7 +173,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
    */
   @Override
   public Collapsible toggleDisplay() {
-    if (isHidden()) {
+    if (isCollapsed()) {
       show();
     } else {
       hide();

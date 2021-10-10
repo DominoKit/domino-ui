@@ -135,7 +135,7 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
 
   /** @return boolean, true if all the options in the group are hidden */
   boolean isAllHidden() {
-    return options.stream().allMatch(SelectOption::isHidden);
+    return options.stream().allMatch(SelectOption::isCollapsed);
   }
 
   /**
