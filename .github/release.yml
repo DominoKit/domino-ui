@@ -36,6 +36,9 @@ changelog:
       labels:
         - enhancement
         - Feature
+    - title: Bug fixes 🛠
+      labels:
+        - bug
     - title: Other Changes
       labels:
         - "*"
