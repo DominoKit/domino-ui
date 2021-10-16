@@ -5,7 +5,7 @@
     <parent>
         <artifactId>domino-ui-tools</artifactId>
         <groupId>org.dominokit</groupId>
-        <version>1.0.0-RC9</version>
+        <version>HEAD-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
