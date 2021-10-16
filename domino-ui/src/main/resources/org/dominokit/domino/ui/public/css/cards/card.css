@@ -34,7 +34,7 @@
     position: relative;
 }
 
-.card .header:not([class*="bg-"]) {
+.card:not([class*="dom-ui-collapsed"]) .header:not([class*="bg-"]) {
     border-bottom: 1px solid rgba(204, 204, 204, 0.35);
 }
 

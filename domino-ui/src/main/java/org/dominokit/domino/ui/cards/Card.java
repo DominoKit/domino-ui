@@ -442,6 +442,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card expand() {
     body.getCollapsible().show();
+    removeCss("dom-ui-collapsed");
     return this;
   }
 
@@ -452,6 +453,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card collapse() {
     body.getCollapsible().hide();
+    addCss("dom-ui-collapsed");
     return this;
   }
 
