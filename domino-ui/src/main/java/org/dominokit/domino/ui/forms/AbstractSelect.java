@@ -378,9 +378,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   public abstract S select(SelectOption<V> option, boolean silent);
 
   /** @return boolean, true if the select has a selected option */
-  public boolean isSelected() {
-    return !isEmptyIgnoreSpaces();
-  }
+  public abstract boolean isSelected();
 
   /**
    * By default this will call the Selection Handlers and the Change handlers

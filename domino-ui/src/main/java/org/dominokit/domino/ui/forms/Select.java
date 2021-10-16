@@ -223,6 +223,11 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
     return isEmpty();
   }
 
+  @Override
+  public boolean isSelected() {
+    return nonNull(selectedOption);
+  }
+
   private class SingleOptionRenderer implements OptionRenderer<T> {
 
     @Override

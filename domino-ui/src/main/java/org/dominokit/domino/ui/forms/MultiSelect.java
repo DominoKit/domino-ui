@@ -300,6 +300,11 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
     return isEmpty();
   }
 
+  @Override
+  public boolean isSelected() {
+    return nonNull(getSelectedOptions()) && !getSelectedOptions().isEmpty();
+  }
+
   /** a Function to define how we should render the select value */
   @FunctionalInterface
   public interface ValueRenderer {
