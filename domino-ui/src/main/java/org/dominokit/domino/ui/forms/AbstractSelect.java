@@ -379,7 +379,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
 
   /** @return boolean, true if the select has a selected option */
   public boolean isSelected() {
-    return !isEmpty();
+    return !isEmptyIgnoreSpaces();
   }
 
   /**
@@ -548,7 +548,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
       floatLabel();
     } else {
       arrowIconContainer.show();
-      if (isEmpty()) {
+      if (isEmptyIgnoreSpaces()) {
         unfloatLabel();
       }
     }

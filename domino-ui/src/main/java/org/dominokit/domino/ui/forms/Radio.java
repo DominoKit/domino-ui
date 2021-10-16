@@ -41,7 +41,8 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
         Switchable<Radio<T>>,
         Checkable<Radio<T>>,
         TakesValue<T>,
-        HasHelperText<Radio<T>> {
+        HasHelperText<Radio<T>>,
+        HasInputElement {
 
   private FlexItem<HTMLDivElement> container = FlexItem.create().addCss("radio-option");
   private HTMLLabelElement labelElement = label().element();
@@ -348,5 +349,17 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   /** @param radioGroup {@link RadioGroup} this radio belongs to */
   void setGroup(RadioGroup<? super T> radioGroup) {
     this.radioGroup = radioGroup;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public DominoElement<HTMLInputElement> getInputElement() {
+    return DominoElement.of(inputElement);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public String getStringValue() {
+    return String.valueOf(getValue());
   }
 }

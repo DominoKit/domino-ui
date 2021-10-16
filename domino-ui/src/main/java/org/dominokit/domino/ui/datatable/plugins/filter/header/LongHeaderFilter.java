@@ -72,7 +72,7 @@ public class LongHeaderFilter<T> extends DelayedHeaderFilterInput<LongBox, T> {
   /** {@inheritDoc} */
   @Override
   protected boolean isEmpty() {
-    return this.longBox.isEmpty();
+    return this.longBox.isEmptyIgnoreSpaces();
   }
 
   /** {@inheritDoc} */

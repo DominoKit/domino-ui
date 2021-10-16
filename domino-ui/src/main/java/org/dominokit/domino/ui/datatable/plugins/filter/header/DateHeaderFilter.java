@@ -74,7 +74,7 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
   public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
     searchContext.addBeforeSearchHandler(
         context -> {
-          if (dateBox.isEmpty()) {
+          if (dateBox.isEmptyIgnoreSpaces()) {
             searchContext.remove(columnConfig.getName(), Category.HEADER_FILTER);
           } else {
             searchContext.add(

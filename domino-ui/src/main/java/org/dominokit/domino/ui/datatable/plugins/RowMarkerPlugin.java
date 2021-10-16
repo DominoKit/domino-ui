@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.datatable.plugins;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.DomGlobal;
+import java.util.Optional;
 import org.dominokit.domino.ui.datatable.CellRenderer;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
@@ -50,6 +51,12 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
                     cell -> {
                       ColorScheme colorScheme = markerColor.getColorScheme(cell);
                       if (nonNull(colorScheme)) {
+                        Optional<String> first =
+                            cell.getElement().classList.asList().stream()
+                                .filter(cssClass -> cssClass.startsWith("bg-"))
+                                .findFirst();
+                        first.ifPresent(
+                            cssClass -> Style.of(cell.getElement()).removeCss(cssClass));
                         Style.of(cell.getElement())
                             .addCss(markerColor.getColorScheme(cell).color().getBackground());
                       }

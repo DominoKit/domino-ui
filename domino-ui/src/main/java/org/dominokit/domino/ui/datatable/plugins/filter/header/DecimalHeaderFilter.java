@@ -70,7 +70,7 @@ public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalB
 
   @Override
   protected boolean isEmpty() {
-    return this.decimalBox.isEmpty();
+    return this.decimalBox.isEmptyIgnoreSpaces();
   }
 
   /** {@inheritDoc} */

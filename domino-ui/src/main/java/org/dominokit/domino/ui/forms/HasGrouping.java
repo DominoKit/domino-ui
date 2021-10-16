@@ -51,6 +51,10 @@ public interface HasGrouping<T>
   @Editor.Ignore
   boolean isEmpty();
 
+  /** @return boolean, true if the component value is empty after trimming spaces */
+  @Editor.Ignore
+  boolean isEmptyIgnoreSpaces();
+
   /** @return same implementing component instance */
   @Editor.Ignore
   T clear();

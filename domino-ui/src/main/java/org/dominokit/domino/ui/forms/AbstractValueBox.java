@@ -139,7 +139,14 @@ public abstract class AbstractValueBox<
   @Override
   public boolean isEmpty() {
     String stringValue = getStringValue();
-    return isNull(stringValue) || stringValue.trim().isEmpty();
+    return isNull(stringValue) || stringValue.isEmpty();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isEmptyIgnoreSpaces() {
+    String stringValue = getStringValue();
+    return isEmpty() || stringValue.trim().isEmpty();
   }
 
   /**
