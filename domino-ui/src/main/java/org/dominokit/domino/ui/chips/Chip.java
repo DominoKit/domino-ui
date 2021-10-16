@@ -187,6 +187,11 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     return this;
   }
 
+  /** @return True if this chip is selected, false otherwise */
+  public boolean isSelected() {
+    return selected;
+  }
+
   /**
    * Sets the remove icon element. This will add click {@link elemental2.dom.EventListener} to the
    * {@code removeIcon} that removes the chip
