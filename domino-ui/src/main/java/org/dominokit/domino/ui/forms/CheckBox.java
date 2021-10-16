@@ -276,6 +276,11 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
     return !isChecked();
   }
 
+  @Override
+  public boolean isEmptyIgnoreSpaces() {
+    return isEmpty();
+  }
+
   /**
    * This should render the checkbox as a label based on {@link #setCheckedReadonlyLabel(String)}
    * and {@link #setUnCheckedReadonlyLabel(String)}

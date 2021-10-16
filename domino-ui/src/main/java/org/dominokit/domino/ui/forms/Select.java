@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLDivElement;
@@ -210,6 +211,16 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
       ElementUtil.scrollIntoParent(
           selectedOption.element(), getOptionsMenu().getMenuElement().element());
     }
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return isNull(getValue());
+  }
+
+  @Override
+  public boolean isEmptyIgnoreSpaces() {
+    return isEmpty();
   }
 
   private class SingleOptionRenderer implements OptionRenderer<T> {

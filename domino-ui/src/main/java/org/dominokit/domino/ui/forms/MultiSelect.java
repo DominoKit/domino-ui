@@ -290,6 +290,16 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
     return this;
   }
 
+  @Override
+  public boolean isEmpty() {
+    return isNull(getValue()) || getValue().isEmpty();
+  }
+
+  @Override
+  public boolean isEmptyIgnoreSpaces() {
+    return isEmpty();
+  }
+
   /** a Function to define how we should render the select value */
   @FunctionalInterface
   public interface ValueRenderer {

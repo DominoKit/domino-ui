@@ -721,7 +721,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** {@inheritDoc} */
   @Override
   public boolean isEmptyIgnoreSpaces() {
-    return false;
+    return isEmpty();
   }
 
   /** {@inheritDoc} */

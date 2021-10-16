@@ -173,6 +173,12 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
 
   /** {@inheritDoc} */
   @Override
+  public boolean isEmptyIgnoreSpaces() {
+    return isEmpty();
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public SwitchButton clear() {
     value(false);
     return this;
