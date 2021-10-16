@@ -208,14 +208,25 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     return element;
   }
 
+  /**
+   * @deprecated use {@link #isCollapsed()}
+   * @return boolean, true if the component is not visible
+   */
+  @Override
+  @Editor.Ignore
+  @Deprecated
+  public boolean isHidden() {
+    return isCollapsed();
+  }
+
   /** @return boolean, true if the component is not visible */
   @Override
   @Editor.Ignore
-  public boolean isHidden() {
+  public boolean isCollapsed() {
     if (isNull(collapsible)) {
       return false;
     }
-    return collapsible.isHidden();
+    return collapsible.isCollapsed();
   }
 
   /** @return the HTML element of type E which is the root element of the component */
@@ -333,7 +344,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    */
   @Editor.Ignore
   public T css(String cssClass) {
-    style.add(cssClass);
+    addCss(cssClass);
     return element;
   }
 
@@ -343,7 +354,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    */
   @Editor.Ignore
   public T css(String... cssClasses) {
-    style.add(cssClasses);
+    addCss(cssClasses);
     return element;
   }
 
@@ -891,7 +902,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   public T hideOn(ScreenMedia screenMedia) {
     removeHideOn();
     this.hideOn = screenMedia;
-    style.add("hide-on-" + this.hideOn.getStyle());
+    addCss("hide-on-" + this.hideOn.getStyle());
 
     return element;
   }
@@ -904,7 +915,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   public T removeHideOn() {
     if (nonNull(hideOn)) {
-      style.remove("hide-on-" + hideOn.getStyle());
+      removeCss("hide-on-" + hideOn.getStyle());
     }
 
     return element;
@@ -920,8 +931,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   public T showOn(ScreenMedia screenMedia) {
     removeShowOn();
     this.showOn = screenMedia;
-    style.add("show-on-" + this.showOn.getStyle());
-
+    addCss("show-on-" + this.showOn.getStyle());
     return element;
   }
 
@@ -933,7 +943,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   public T removeShowOn() {
     if (nonNull(showOn)) {
-      style.remove("show-on-" + showOn.getStyle());
+      removeCss("show-on-" + showOn.getStyle());
     }
 
     return element;
@@ -958,32 +968,12 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   /**
-   * @param cssClass String css class name
-   * @return same component
-   */
-  @Editor.Ignore
-  public T addCss(String cssClass) {
-    style().add(cssClass);
-    return element;
-  }
-
-  /**
    * @param cssClass String args of css classes names
    * @return same component
    */
   @Editor.Ignore
   public T addCss(String... cssClass) {
-    style().add(cssClass);
-    return element;
-  }
-
-  /**
-   * @param cssClass String css class name
-   * @return same component
-   */
-  @Editor.Ignore
-  public T removeCss(String cssClass) {
-    style().remove(cssClass);
+    style().addCss(cssClass);
     return element;
   }
 
@@ -993,7 +983,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    */
   @Editor.Ignore
   public T removeCss(String... cssClass) {
-    style().remove(cssClass);
+    style().removeCss(cssClass);
     return element;
   }
 
@@ -1136,7 +1126,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   public T disable() {
     setAttribute("disabled", "");
-    style().add("disabled");
+    addCss("disabled");
     return element;
   }
 
@@ -1149,7 +1139,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   public T enable() {
     removeAttribute("disabled");
-    style().remove("disabled");
+    removeCss("disabled");
     return element;
   }
 
@@ -1187,13 +1177,13 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @SuppressWarnings("unchecked")
   public T elevate(Elevation elevation) {
     if (nonNull(this.elevation)) {
-      style.remove(this.elevation.getStyle());
+      removeCss(this.elevation.getStyle());
     } else {
       Elevation.removeFrom(element());
     }
 
     this.elevation = elevation;
-    style.add(this.elevation.getStyle());
+    addCss(this.elevation.getStyle());
     return (T) this;
   }
 
@@ -1256,56 +1246,39 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   @Override
-  public T setProperty(String name, String value) {
-    style().setProperty(name, value);
+  public T setCssProperty(String name, String value) {
+    style().setCssProperty(name, value);
     return (T) this;
   }
 
   @Override
-  public T setProperty(String name, String value, boolean important) {
-    style().setProperty(name, value, important);
+  public T setCssProperty(String name, String value, boolean important) {
+    style().setCssProperty(name, value, important);
     return (T) this;
   }
 
   @Override
-  public T removeProperty(String name) {
-    style().removeProperty(name);
+  public T removeCssProperty(String name) {
+    style().removeCssProperty(name);
+    return (T) this;
+  }
+
+  @Editor.Ignore
+  @Override
+  public T addCss(String cssClass) {
+    style().addCss(cssClass);
     return (T) this;
   }
 
   @Override
-  public T add(String cssClass) {
-    style().add(cssClass);
-    return (T) this;
-  }
-
-  @Override
-  public T add(String... cssClasses) {
-    style().add(cssClasses);
-    return (T) this;
-  }
-
-  @Override
-  public T remove(String cssClass) {
-    style().remove(cssClass);
-    return (T) this;
-  }
-
-  @Override
-  public T remove(String... cssClasses) {
-    style().remove(cssClasses);
+  public T removeCss(String cssClass) {
+    style().removeCss(cssClass);
     return (T) this;
   }
 
   @Override
   public T replaceCss(String cssClass, String replacementClass) {
     style().replaceCss(cssClass, replacementClass);
-    return (T) this;
-  }
-
-  @Override
-  public T replace(String cssClass, String replacementClass) {
-    style().replace(cssClass, replacementClass);
     return (T) this;
   }
 
@@ -1675,10 +1648,15 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     return (T) this;
   }
 
+  @Deprecated
   @Override
   public boolean contains(String cssClass) {
-    style().contains(cssClass);
-    return false;
+    return containsCss(cssClass);
+  }
+
+  @Override
+  public boolean containsCss(String cssClass) {
+    return style().containsCss(cssClass);
   }
 
   @Override
@@ -1766,6 +1744,17 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   public T setFlex(String flex) {
     style().setFlex(flex);
     return (T) this;
+  }
+
+  @Override
+  public T setOpacity(double opacity) {
+    style().setOpacity(opacity);
+    return (T) this;
+  }
+
+  @Override
+  public T setOpacity(double opacity, boolean important) {
+    return null;
   }
 
   /**

@@ -160,8 +160,8 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
    */
   public MediaObject alignLeftMedia(MediaAlign align) {
     if (nonNull(leftMedia)) {
-      leftMedia.style().remove(leftAlign.style);
-      leftMedia.style().add(align.style);
+      leftMedia.removeCss(leftAlign.style);
+      leftMedia.addCss(align.style);
       this.leftAlign = align;
     }
     return this;
@@ -175,8 +175,8 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
    */
   public MediaObject alignRightMedia(MediaAlign align) {
     if (nonNull(rightMedia)) {
-      rightMedia.style().remove(rightAlign.style);
-      rightMedia.style().add(align.style);
+      rightMedia.removeCss(rightAlign.style);
+      rightMedia.addCss(align.style);
       this.rightAlign = align;
     }
     return this;

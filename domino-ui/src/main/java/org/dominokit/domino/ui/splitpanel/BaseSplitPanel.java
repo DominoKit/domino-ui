@@ -44,7 +44,7 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
   private int splitterSize = 10;
 
   public BaseSplitPanel(String splitterStyle) {
-    element.style().add(splitterStyle);
+    element.addCss(splitterStyle);
     element.onAttached(mutationRecord -> updatePanelsSize());
   }
 

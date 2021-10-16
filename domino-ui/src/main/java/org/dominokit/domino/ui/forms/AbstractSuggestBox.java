@@ -36,6 +36,7 @@ import org.dominokit.domino.ui.loaders.Loader;
 import org.dominokit.domino.ui.loaders.LoaderEffect;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.DelayedTextInput;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
 import org.jboss.elemento.Elements;
 
@@ -65,7 +66,7 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
   private boolean focusOnClose = true;
   private DelayedTextInput.DelayedAction delayedAction =
       () -> {
-        if (isEmpty()) {
+        if (isEmptyIgnoreSpaces()) {
           suggestionsMenu.close();
           clearValue();
         } else {
@@ -125,7 +126,7 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
     suggestionsMenu.setAppendTarget(document.body);
     suggestionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
     suggestionsMenu.setPosition(
-        DominoFields.INSTANCE.getDefaultSuggestPopupPosition().createPosition(this));
+        DominoUIConfig.INSTANCE.getDefaultSuggestPopupPosition().createPosition(this));
     suggestionsMenu.addCloseHandler(
         () -> {
           if (focusOnClose) {
@@ -510,6 +511,16 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
   public T setFocusOnClose(boolean focusOnClose) {
     this.focusOnClose = focusOnClose;
     return (T) this;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return isNull(getValue());
+  }
+
+  @Override
+  public boolean isEmptyIgnoreSpaces() {
+    return isEmpty();
   }
 
   /**

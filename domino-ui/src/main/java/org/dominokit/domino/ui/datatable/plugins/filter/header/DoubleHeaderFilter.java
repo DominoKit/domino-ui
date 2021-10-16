@@ -72,7 +72,7 @@ public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<DoubleBox, T
   /** {@inheritDoc} */
   @Override
   protected boolean isEmpty() {
-    return this.doubleBox.isEmpty();
+    return this.doubleBox.isEmptyIgnoreSpaces();
   }
 
   /** {@inheritDoc} */

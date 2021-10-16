@@ -158,13 +158,13 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     datePicker.setBackgroundHandler(
         (oldBackground, newBackground) -> {
           if (nonNull(modal)) {
-            modal.getHeaderContainerElement().style().remove(oldBackground.color().getStyle());
-            modal.getHeaderContainerElement().style().add(newBackground.color().getStyle());
+            modal.getHeaderContainerElement().removeCss(oldBackground.color().getStyle());
+            modal.getHeaderContainerElement().addCss(newBackground.color().getStyle());
           }
 
           if (nonNull(popover)) {
-            popover.getHeadingElement().style().remove(oldBackground.color().getStyle());
-            popover.getHeadingElement().style().add(newBackground.color().getStyle());
+            popover.getHeadingElement().removeCss(oldBackground.color().getStyle());
+            popover.getHeadingElement().addCss(newBackground.color().getStyle());
           }
         });
 
@@ -180,7 +180,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     addValidator(
         () -> {
           try {
-            if (isEmpty()) {
+            if (isEmptyIgnoreSpaces()) {
               return ValidationResult.valid();
             }
             getFormattedValue(getInputElement().element().value);
@@ -343,6 +343,13 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
   /** {@inheritDoc} */
   @Override
+  public boolean isEmptyIgnoreSpaces() {
+    String value = getInputElement().element().value;
+    return isEmpty() || value.trim().isEmpty();
+  }
+
+  /** {@inheritDoc} */
+  @Override
   protected void clearValue() {
     value(null);
   }
@@ -389,12 +396,12 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     super.setPlaceholder(placeholder);
     if (nonNull(modal)) {
       modal.setTitle(placeholder);
-      modal.getHeaderContainerElement().style().add(datePicker.getColorScheme().color().getStyle());
+      modal.getHeaderContainerElement().addCss(datePicker.getColorScheme().color().getStyle());
     }
 
     if (nonNull(popover)) {
       popover.getHeaderText().textContent = placeholder;
-      popover.getHeadingElement().style().add(datePicker.getColorScheme().color().getStyle());
+      popover.getHeadingElement().addCss(datePicker.getColorScheme().color().getStyle());
     }
     return this;
   }
@@ -428,13 +435,12 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         popover =
             Popover.createPicker(openOnClick ? this : this.calendarIcon, this.datePicker)
                 .position(this.popupPosition)
-                .styler(style -> style.add(DatePickerStyles.PICKER_POPOVER));
+                .addCss(DatePickerStyles.PICKER_POPOVER);
         popover.addOpenListener(() -> this.valueOnOpen = getValue());
 
         popover
             .getHeadingElement()
-            .style()
-            .add(Styles.align_center, datePicker.getColorScheme().color().getStyle());
+            .addCss(Styles.align_center, datePicker.getColorScheme().color().getStyle());
       }
     }
 
@@ -527,7 +533,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   public DateBox setReadOnly(boolean readOnly) {
     super.setReadOnly(readOnly);
     if (readOnly) {
-      getInputElement().style().add(READONLY);
+      getInputElement().addCss(READONLY);
       disableModal();
       disablePopover();
     } else if (isEnabled()) {
@@ -584,7 +590,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   /** {@inheritDoc} */
   @Override
   protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
-    return new InputAutoValidator<>(getInputElement(), autoValidate);
+    return new InputAutoValidator<>(autoValidate);
   }
 
   /**

@@ -155,9 +155,9 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
   public B setSize(ButtonSize size) {
     if (nonNull(size)) {
       if (nonNull(this.size)) {
-        buttonElement.style().remove(this.size.getStyle());
+        buttonElement.style().removeCss(this.size.getStyle());
       }
-      buttonElement.style().add(size.getStyle());
+      buttonElement.addCss(size.getStyle());
       this.size = size;
     }
     return (B) this;
@@ -170,8 +170,8 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
    * @return same instance
    */
   public B setBlock(boolean block) {
-    if (block) buttonElement.style().add(ButtonStyles.BUTTON_BLOCK);
-    else buttonElement.style().remove(ButtonStyles.BUTTON_BLOCK);
+    if (block) buttonElement.addCss(ButtonStyles.BUTTON_BLOCK);
+    else buttonElement.removeCss(ButtonStyles.BUTTON_BLOCK);
     return (B) this;
   }
 
@@ -183,9 +183,9 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
    */
   @Override
   public B setBackground(Color background) {
-    if (nonNull(this.type)) buttonElement.style().remove(this.type.getStyle());
-    if (nonNull(this.background)) buttonElement.style().remove(this.background.getBackground());
-    buttonElement.style().add(background.getBackground());
+    if (nonNull(this.type)) buttonElement.removeCss(this.type.getStyle());
+    if (nonNull(this.background)) buttonElement.removeCss(this.background.getBackground());
+    buttonElement.addCss(background.getBackground());
     this.background = background;
     return (B) this;
   }
@@ -197,9 +197,9 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
    * @return same instance
    */
   public B setColor(Color color) {
-    if (nonNull(this.color)) style().remove(this.color.getStyle());
+    if (nonNull(this.color)) removeCss(this.color.getStyle());
     this.color = color;
-    style().add(this.color.getStyle());
+    addCss(this.color.getStyle());
     return (B) this;
   }
 
@@ -210,8 +210,8 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
    * @return same instance
    */
   public B setButtonType(StyleType type) {
-    if (nonNull(this.type)) buttonElement.style().remove(this.type.getStyle());
-    buttonElement.style().add(type.getStyle());
+    if (nonNull(this.type)) buttonElement.removeCss(this.type.getStyle());
+    buttonElement.addCss(type.getStyle());
     this.type = type;
     return (B) this;
   }
@@ -329,7 +329,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
    * @return same instance
    */
   public B linkify() {
-    buttonElement.style().add(ButtonStyles.BUTTON_LINK);
+    buttonElement.addCss(ButtonStyles.BUTTON_LINK);
     beforeLinkifyElevation =
         nonNull(buttonElement.getElevation()) ? buttonElement.getElevation() : Elevation.LEVEL_1;
     buttonElement.elevate(Elevation.NONE);
@@ -343,7 +343,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
    * @return same instance
    */
   public B deLinkify() {
-    buttonElement.style().remove(ButtonStyles.BUTTON_LINK);
+    buttonElement.removeCss(ButtonStyles.BUTTON_LINK);
     buttonElement.elevate(beforeLinkifyElevation);
     return (B) this;
   }
@@ -355,7 +355,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
    * @return same instance
    */
   public B bordered() {
-    buttonElement.style().add(ButtonStyles.BUTTON_BORDERED);
+    buttonElement.addCss(ButtonStyles.BUTTON_BORDERED);
     beforeLinkifyElevation =
         nonNull(buttonElement.getElevation()) ? buttonElement.getElevation() : Elevation.LEVEL_1;
     buttonElement.elevate(Elevation.NONE);
@@ -380,7 +380,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
    * @return same instance
    */
   public B nonBordered() {
-    buttonElement.style().remove(ButtonStyles.BUTTON_BORDERED);
+    buttonElement.removeCss(ButtonStyles.BUTTON_BORDERED);
     buttonElement.elevate(beforeLinkifyElevation);
     return (B) this;
   }
@@ -391,7 +391,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
    * @return same instance
    */
   public B circle() {
-    buttonElement.style().add(ButtonStyles.BUTTON_CIRCLE);
+    buttonElement.addCss(ButtonStyles.BUTTON_CIRCLE);
     applyCircleWaves();
     return (B) this;
   }

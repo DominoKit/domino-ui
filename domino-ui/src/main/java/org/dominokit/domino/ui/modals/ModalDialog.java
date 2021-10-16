@@ -40,7 +40,7 @@ public class ModalDialog extends BaseModal<ModalDialog> {
   public static ModalDialog createPickerModal(String title, Node content) {
     ModalDialog modal =
         ModalDialog.create(title)
-            .styler(style -> style.add(ModalStyles.PICKER_MODAL))
+            .addCss(ModalStyles.PICKER_MODAL)
             .small()
             .setAutoClose(true)
             .appendChild(content);

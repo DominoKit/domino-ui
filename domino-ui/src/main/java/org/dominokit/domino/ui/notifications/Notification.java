@@ -100,7 +100,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   public Notification() {
     init(this);
     elevate(Elevation.LEVEL_1);
-    style().add(background.getBackground());
+    addCss(background.getBackground());
     closeButton.addEventListener(EventType.click.getName(), e -> close());
   }
 
@@ -249,8 +249,8 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    */
   public Notification setType(String type) {
     this.type = type;
-    style().add(type);
-    style().remove(background.getBackground());
+    addCss(type);
+    removeCss(background.getBackground());
     return this;
   }
 
@@ -286,11 +286,11 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    */
   public Notification setBackground(Color background) {
     if (nonNull(type)) {
-      style().remove(type);
+      removeCss(type);
     }
 
-    style().remove(this.background.getBackground());
-    style().add(background.getBackground());
+    removeCss(this.background.getBackground());
+    addCss(background.getBackground());
     this.background = background;
     return this;
   }

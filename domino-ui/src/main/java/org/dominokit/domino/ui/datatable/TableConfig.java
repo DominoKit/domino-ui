@@ -126,7 +126,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
         .setWidth(fixedWidth)
         .setMinWidth(fixedWidth)
         .setMaxWidth(fixedWidth)
-        .add(DataTableStyles.FIXED_WIDTH);
+        .addCss(DataTableStyles.FIXED_WIDTH);
   }
 
   /**

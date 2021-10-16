@@ -126,8 +126,8 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
    */
   public Pager disableNext() {
     this.allowNext = false;
-    nextElement.style().remove("disabled");
-    nextElement.style().add("disabled");
+    nextElement.removeCss("disabled");
+    nextElement.addCss("disabled");
 
     return this;
   }
@@ -139,8 +139,8 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
    */
   public Pager disablePrevious() {
     this.allowPrev = false;
-    prevElement.style().remove("disabled");
-    prevElement.style().add("disabled");
+    prevElement.removeCss("disabled");
+    prevElement.addCss("disabled");
 
     return this;
   }
@@ -152,7 +152,7 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
    */
   public Pager enableNext() {
     this.allowNext = true;
-    nextElement.style().remove("disabled");
+    nextElement.removeCss("disabled");
 
     return this;
   }
@@ -164,7 +164,7 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
    */
   public Pager enablePrevious() {
     this.allowPrev = true;
-    prevElement.style().remove("disabled");
+    prevElement.removeCss("disabled");
 
     return this;
   }
@@ -194,8 +194,8 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
   /** {@inheritDoc} */
   @Override
   public Pager show() {
-    nextElement.style().add("next");
-    prevElement.style().add("previous");
+    nextElement.addCss("next");
+    prevElement.addCss("previous");
     return this;
   }
 

@@ -100,10 +100,10 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     appendElements();
     initElementsPosition();
     addExpandListeners();
-    if (!bodyStyle().contains("ls-hidden")) bodyStyle().add("ls-closed");
+    if (!bodyStyle().containsCss("ls-hidden")) bodyStyle().addCss("ls-closed");
     new Theme(Theme.INDIGO).apply();
 
-    DominoElement.of(document.body).style().add(leftPanelSize.getSize());
+    DominoElement.of(document.body).addCss(leftPanelSize.getSize());
 
     MediaQuery.addOnSmallAndDownListener(
         () -> {
@@ -208,7 +208,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     navigationBar.title.appendChild(appTitle);
 
     navigationBar.css("nav-fixed");
-    navigationBar.style().remove("ls-closed");
+    navigationBar.removeCss("ls-closed");
   }
 
   /**
@@ -233,9 +233,9 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
   }
 
   private void initElementsPosition() {
-    getLeftPanel().style().add(SLIDE_OUT_LEFT);
+    getLeftPanel().addCss(SLIDE_OUT_LEFT);
 
-    getRightPanel().style().add(SLIDE_OUT_RIGHT);
+    getRightPanel().addCss(SLIDE_OUT_RIGHT);
   }
 
   private void addExpandListeners() {
@@ -275,8 +275,8 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
   private Layout updateLeftPanel(String style, String hiddenStyle, String visibleStyle) {
     navigationBar.menu.style().setDisplay(style);
     getLeftPanel().style().setDisplay(style);
-    bodyStyle().remove(hiddenStyle);
-    bodyStyle().add(visibleStyle);
+    bodyStyle().removeCss(hiddenStyle);
+    bodyStyle().addCss(visibleStyle);
 
     return this;
   }
@@ -309,7 +309,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     if (leftPanelVisible) {
       hideLeftPanel();
     }
-    getRightPanel().style().remove(SLIDE_OUT_RIGHT);
+    getRightPanel().removeCss(SLIDE_OUT_RIGHT);
     rightPanelVisible = true;
     showOverlay();
 
@@ -322,7 +322,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    * @return same Layout instance
    */
   public Layout hideRightPanel() {
-    getRightPanel().style().add(SLIDE_OUT_RIGHT);
+    getRightPanel().addCss(SLIDE_OUT_RIGHT);
     rightPanelVisible = false;
     hideOverlay();
 
@@ -362,9 +362,9 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    * @return same Layout instance
    */
   public Layout setLeftPanelSize(LeftPanelSize leftPanelSize) {
-    DominoElement.of(document.body).style().remove(this.leftPanelSize.getSize());
+    DominoElement.of(document.body).removeCss(this.leftPanelSize.getSize());
     this.leftPanelSize = leftPanelSize;
-    DominoElement.of(document.body).style().add(this.leftPanelSize.getSize());
+    DominoElement.of(document.body).addCss(this.leftPanelSize.getSize());
     return this;
   }
 
@@ -376,10 +376,10 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
   public Layout showLeftPanel() {
     if (!leftPanelDisabled) {
       if (rightPanelVisible) hideRightPanel();
-      getLeftPanel().style().remove(SLIDE_OUT_LEFT);
+      getLeftPanel().removeCss(SLIDE_OUT_LEFT);
       leftPanelVisible = true;
       showOverlay();
-      DominoElement.of(document.body).styler(style -> style.add("panel-open"));
+      DominoElement.of(document.body).addCss("panel-open");
       leftPanelHandlers.forEach(handler -> handler.accept(true));
     }
 
@@ -393,10 +393,10 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    */
   public Layout hideLeftPanel() {
     if (!fixedLeftPanel && !leftPanelDisabled) {
-      getLeftPanel().style().add(SLIDE_OUT_LEFT);
+      getLeftPanel().addCss(SLIDE_OUT_LEFT);
       leftPanelVisible = false;
       hideOverlay();
-      DominoElement.of(document.body).styler(style -> style.remove("panel-open"));
+      DominoElement.of(document.body).removeCss("panel-open");
       leftPanelHandlers.forEach(handler -> handler.accept(false));
     }
 
@@ -510,9 +510,9 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     if (!leftPanelDisabled) {
       showLeftPanel();
       hideOverlay();
-      if (bodyStyle().contains("ls-closed")) bodyStyle().remove("ls-closed");
+      if (bodyStyle().containsCss("ls-closed")) bodyStyle().removeCss("ls-closed");
       this.fixedLeftPanel = true;
-      DominoElement.body().style().add("l-fixed");
+      DominoElement.body().addCss("l-fixed");
     }
     return this;
   }
@@ -524,9 +524,9 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    */
   public Layout unfixLeftPanelPosition() {
     if (!leftPanelDisabled) {
-      if (!bodyStyle().contains("ls-closed")) bodyStyle().add("ls-closed");
+      if (!bodyStyle().containsCss("ls-closed")) bodyStyle().addCss("ls-closed");
       this.fixedLeftPanel = false;
-      DominoElement.body().style().remove("l-fixed");
+      DominoElement.body().style().removeCss("l-fixed");
     }
     return this;
   }
@@ -538,7 +538,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    * @return same Layout instance
    */
   public Layout spanLeftPanelUp() {
-    DominoElement.body().style().add("l-panel-span-up");
+    DominoElement.body().addCss("l-panel-span-up");
     return this;
   }
 
@@ -555,7 +555,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     unfixLeftPanelPosition();
     hideLeftPanel();
     getLeftPanel().style().setDisplay("none");
-    navigationBar.menu.style().remove("bars").setDisplay("none");
+    navigationBar.menu.removeCss("bars").setDisplay("none");
     this.leftPanelDisabled = true;
     return this;
   }
@@ -566,8 +566,8 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    * @return same Layout instance
    */
   public Layout enableLeftPanel() {
-    getLeftPanel().style().removeProperty("display");
-    navigationBar.menu.style().add("bars").removeProperty("display");
+    getLeftPanel().removeCssProperty("display");
+    navigationBar.menu.addCss("bars").removeCssProperty("display");
     this.leftPanelDisabled = false;
     return this;
   }
@@ -599,7 +599,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     footer.unfixed();
     ElementUtil.onAttach(
         footer.element(),
-        mutationRecord -> Style.of(content.element()).removeProperty("padding-bottom"));
+        mutationRecord -> Style.of(content.element()).removeCssProperty("padding-bottom"));
     return this;
   }
 
@@ -799,8 +799,8 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    * @return same Layout instance
    */
   public Layout fitWidth() {
-    content.styler(style -> style.add(FIT_WIDTH));
-    getContentPanel().styler(style -> style.add(FIT_WIDTH));
+    content.addCss(FIT_WIDTH);
+    getContentPanel().addCss(FIT_WIDTH);
     return this;
   }
 
@@ -810,8 +810,8 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    * @return same Layout instance
    */
   public Layout unfitWidth() {
-    content.styler(style -> style.remove(FIT_WIDTH));
-    getContentPanel().styler(style -> style.remove(FIT_WIDTH));
+    content.removeCss(FIT_WIDTH);
+    getContentPanel().removeCss(FIT_WIDTH);
     return this;
   }
 
@@ -821,8 +821,8 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    * @return same Layout instance
    */
   public Layout fitHeight() {
-    content.styler(style -> style.add(FIT_HEIGHT));
-    getFooter().styler(style -> style.add(FIT_HEIGHT));
+    content.addCss(FIT_HEIGHT);
+    getFooter().addCss(FIT_HEIGHT);
     return this;
   }
 
@@ -832,14 +832,14 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    * @return same Layout instance
    */
   public Layout unfitHeight() {
-    content.styler(style -> style.remove(FIT_HEIGHT));
-    getFooter().styler(style -> style.remove(FIT_HEIGHT));
+    content.removeCss(FIT_HEIGHT);
+    getFooter().removeCss(FIT_HEIGHT);
     return this;
   }
 
   private void updateContentMargin() {
     double margin = navigationBar.getBoundingClientRect().height + 30;
-    content.style().setMarginTop(margin + "px");
+    content.setMarginTop(margin + "px");
   }
 
   /** @return boolean, true if the left panel is visible and open */

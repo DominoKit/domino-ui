@@ -20,6 +20,7 @@ import static java.util.Objects.nonNull;
 
 import elemental2.dom.*;
 import java.util.Objects;
+import java.util.function.Function;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
@@ -39,6 +40,8 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     extends AbstractValueBox<T, HTMLInputElement, E> {
 
   private final ChangeHandler<E> formatValueChangeHandler = value -> formatValue();
+  private Function<String, E> valueParser = defaultValueParser();
+
   private String maxValueErrorMessage;
   private String minValueErrorMessage;
   private String invalidFormatMessage;
@@ -180,7 +183,15 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
   /** {@inheritDoc} */
   @Override
   public boolean isEmpty() {
-    return getInputElement().element().value.isEmpty();
+    String value = getInputElement().element().value;
+    return value.isEmpty();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isEmptyIgnoreSpaces() {
+    String value = getInputElement().element().value;
+    return isEmpty() || value.trim().isEmpty();
   }
 
   /** {@inheritDoc} */
@@ -388,7 +399,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     return (T) this;
   }
 
-  protected double parseDouble(String value) {
+  public double parseDouble(String value) {
     try {
       return getNumberFormat().parse(value);
     } catch (NumberFormatException e) {
@@ -405,13 +416,24 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    * @param value String numeric value
    * @return E the Numeric value from the input String
    */
-  protected abstract E parseValue(String value);
+  protected E parseValue(String value) {
+    return valueParser.apply(value);
+  }
+
+  protected abstract Function<String, E> defaultValueParser();
 
   /** @return E numeric max value as a default in case {@link #setMaxValue(Number)} is not called */
   protected abstract E defaultMaxValue();
 
   /** @return E numeric min value as a default in case {@link #setMinValue(Number)} is not called */
   protected abstract E defaultMinValue();
+
+  public T setValueParser(Function<String, E> valueParser) {
+    if (nonNull(valueParser)) {
+      this.valueParser = valueParser;
+    }
+    return (T) this;
+  }
 
   /**
    * Checks if a a given value is actually greater than the maximum allowed value
@@ -434,6 +456,6 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
   /** {@inheritDoc} */
   @Override
   protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
-    return new InputAutoValidator<>(getInputElement(), autoValidate);
+    return new InputAutoValidator<>(autoValidate);
   }
 }

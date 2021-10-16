@@ -29,7 +29,7 @@ public class DisplayCollapseStrategy implements CollapseStrategy {
   /** {@inheritDoc} */
   @Override
   public void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
-    style.removeProperty("display");
+    style.removeCssProperty("display");
     DominoElement.of(element).removeAttribute("d-collapsed");
   }
 

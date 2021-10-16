@@ -21,8 +21,8 @@ import static org.dominokit.domino.ui.cards.CardStyles.*;
 import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.*;
+import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.Collapsible;
-import org.dominokit.domino.ui.collapsible.HeightCollapseStrategy;
 import org.dominokit.domino.ui.grid.flex.FlexAlign;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
@@ -35,6 +35,7 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.elemento.EventType;
@@ -73,7 +74,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
   private final DominoElement<HTMLUListElement> headerBar =
       DominoElement.of(ul()).addCss(HEADER_ACTIONS);
   private final DominoElement<HTMLDivElement> body =
-      DominoElement.div().addCss(BODY).setCollapseStrategy(new HeightCollapseStrategy());
+      DominoElement.div()
+          .addCss(BODY)
+          .setCollapseStrategy(
+              DominoUIConfig.INSTANCE.getDefaultCardCollapseStrategySupplier().get());
 
   private final Text title = TextNode.empty();
   private final Text description = TextNode.empty();
@@ -182,6 +186,9 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card setTitle(String titleText) {
     title.textContent = titleText;
+    if (nonNull(titleText) && !titleText.isEmpty()) {
+      header.show();
+    }
     return this;
   }
 
@@ -193,6 +200,9 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card setDescription(String descriptionText) {
     description.textContent = descriptionText;
+    if (nonNull(descriptionText) && !descriptionText.isEmpty()) {
+      header.show();
+    }
     return this;
   }
 
@@ -204,6 +214,9 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card appendDescriptionChild(Node node) {
     headerDescription.appendChild(node);
+    if (nonNull(node)) {
+      header.show();
+    }
     return this;
   }
 
@@ -243,10 +256,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card setHeaderBackground(Color headerBackground) {
     if (nonNull(this.headerBackground)) {
-      header.style().remove(this.headerBackground.getBackground());
+      header.removeCss(this.headerBackground.getBackground());
     }
     this.headerBackground = headerBackground;
-    header.style().add(headerBackground.getBackground());
+    header.addCss(headerBackground.getBackground());
     return this;
   }
 
@@ -258,10 +271,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card setBodyBackground(Color bodyBackground) {
     if (nonNull(this.bodyBackground)) {
-      body.style().remove(this.bodyBackground.getBackground());
+      body.removeCss(this.bodyBackground.getBackground());
     }
     this.bodyBackground = bodyBackground;
-    body.style().add(bodyBackground.getBackground());
+    body.addCss(bodyBackground.getBackground());
     return this;
   }
 
@@ -272,7 +285,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    * @return same instance
    */
   public Card fitContent() {
-    style.add(FIT_CONTENT);
+    style.addCss(FIT_CONTENT);
     return this;
   }
 
@@ -282,7 +295,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    * @return same instance
    */
   public Card unFitContent() {
-    style.remove(FIT_CONTENT);
+    removeCss(FIT_CONTENT);
     return this;
   }
 
@@ -319,11 +332,6 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     return headerDescription;
   }
 
-  @Deprecated
-  public static HTMLLIElement createIcon(BaseIcon<?> icon) {
-    return li().add(a().add(icon)).element();
-  }
-
   /**
    * Adds new header action to card header passing the {@code icon} and the {@code eventListener}.
    *
@@ -357,6 +365,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
     } else {
       headerBar.appendChild(actionItem);
     }
+    header.show();
   }
 
   private HTMLLIElement createHeaderAction(BaseIcon<?> icon) {
@@ -366,9 +375,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
                     .attr("aria-expanded", "true")
                     .attr("href", "#")
                     .on(EventType.click, Event::preventDefault)
-                    .add(
-                        icon.clickable()
-                            .styler(style -> style.add(Styles.pull_right, ACTION_ICON))))
+                    .add(icon.clickable().addCss(Styles.pull_right, ACTION_ICON)))
         .element();
   }
 
@@ -396,12 +403,14 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
 
     this.collapsible = true;
 
+    header.show();
+
     return this;
   }
 
   private void switchVisibility() {
     if (collapsible) {
-      if (body.getCollapsible().isHidden()) {
+      if (body.getCollapsible().isCollapsed()) {
         expand();
         collapseAnchor.element().setAttribute("aria-expanded", "true");
       } else {
@@ -418,7 +427,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    * @return same instance
    */
   public Card toggle() {
-    if (body.getCollapsible().isHidden()) {
+    if (body.getCollapsible().isCollapsed()) {
       expand();
     } else {
       collapse();
@@ -433,6 +442,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card expand() {
     body.getCollapsible().show();
+    removeCss("dom-ui-collapsed");
     return this;
   }
 
@@ -443,6 +453,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card collapse() {
     body.getCollapsible().hide();
+    addCss("dom-ui-collapsed");
     return this;
   }
 
@@ -452,7 +463,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    * @return true if the body is hidden, false otherwise
    */
   public boolean isCollapsed() {
-    return body.getCollapsible().isHidden();
+    return body.getCollapsible().isCollapsed();
   }
 
   /**
@@ -571,6 +582,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
   public Card setHeaderLogo(Node node) {
     if (nonNull(node)) {
       logoContainer.clearElement().appendChild(node).show();
+      header.show();
     } else {
       removeHeaderLogo();
     }
@@ -649,6 +661,16 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card clearBody() {
     getBody().clearElement();
+    return this;
+  }
+
+  /**
+   * Set the card body collapse strategy
+   *
+   * @return same instance
+   */
+  public Card setBodyCollapseStrategy(CollapseStrategy strategy) {
+    getBody().setCollapseStrategy(strategy);
     return this;
   }
 

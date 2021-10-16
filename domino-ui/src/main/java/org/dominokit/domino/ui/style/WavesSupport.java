@@ -63,14 +63,14 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
   /** {@inheritDoc} */
   @Override
   public WavesSupport initWaves() {
-    if (!hasWavesEffect()) element.style().add(WAVES_EFFECT);
+    if (!hasWavesEffect()) element.addCss(WAVES_EFFECT);
 
     wavesElement.initWaves();
     return this;
   }
 
   private boolean hasWavesEffect() {
-    return element.style().contains(WAVES_EFFECT);
+    return element.style().containsCss(WAVES_EFFECT);
   }
 
   /** Use {@link WavesSupport#setWaveColor(WaveColor)} instead */
@@ -83,10 +83,10 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
   @Override
   public WavesSupport setWaveColor(WaveColor waveColor) {
     if (!hasWavesEffect()) initWaves();
-    if (isNull(this.waveColor)) element.style().add(waveColor.getStyle());
+    if (isNull(this.waveColor)) element.addCss(waveColor.getStyle());
     else {
-      element.style().remove(this.waveColor);
-      element.style().add(waveColor.getStyle());
+      element.removeCss(this.waveColor);
+      element.addCss(waveColor.getStyle());
     }
     this.waveColor = waveColor.getStyle();
     return this;
@@ -96,15 +96,15 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
   @Override
   public WavesSupport applyWaveStyle(WaveStyle waveStyle) {
     if (!hasWavesEffect()) initWaves();
-    if (!element.style().contains(waveStyle.getStyle())) element.style().add(waveStyle.getStyle());
+    if (!element.style().containsCss(waveStyle.getStyle())) element.addCss(waveStyle.getStyle());
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public WavesSupport removeWaves() {
-    if (hasWavesEffect()) element.style().remove(WAVES_EFFECT);
-    if (nonNull(waveColor)) element.style().remove(waveColor);
+    if (hasWavesEffect()) element.removeCss(WAVES_EFFECT);
+    if (nonNull(waveColor)) element.removeCss(waveColor);
     removeWaveStyles();
     wavesElement.removeWaves();
     return this;
@@ -113,7 +113,7 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
   private void removeWaveStyles() {
     for (int i = 0; i < element.style().cssClassesCount(); ++i) {
       String style = element.style().cssClassByIndex(i);
-      if (style.contains("waves-")) element.style().remove(style);
+      if (style.contains("waves-")) element.removeCss(style);
     }
   }
 }

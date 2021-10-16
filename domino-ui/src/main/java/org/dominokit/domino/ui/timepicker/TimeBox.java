@@ -159,6 +159,13 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
   /** {@inheritDoc} */
   @Override
+  public boolean isEmptyIgnoreSpaces() {
+    String stringValue = getStringValue();
+    return isEmpty() || stringValue.trim().isEmpty();
+  }
+
+  /** {@inheritDoc} */
+  @Override
   protected void clearValue() {
     value(null);
   }
@@ -320,7 +327,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
   /** {@inheritDoc} */
   @Override
   protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
-    return new InputAutoValidator<>(getInputElement(), autoValidate);
+    return new InputAutoValidator<>(autoValidate);
   }
 
   /** {@inheritDoc} */
@@ -410,6 +417,11 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
     if (nonNull(modal)) {
       modal.enable();
     }
+  }
+
+  public void close() {
+    if (nonNull(popover)) popover.close();
+    if (nonNull(modal) && modal.isOpen()) modal.close();
   }
 
   /** Enum for time picking styles */

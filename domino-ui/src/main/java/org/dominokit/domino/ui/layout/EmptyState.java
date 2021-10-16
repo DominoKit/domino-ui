@@ -91,10 +91,10 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState> {
    */
   public EmptyState setIconColor(Color iconColor) {
     if (nonNull(this.iconColor)) {
-      Style.of(iconContainer).remove(this.iconColor.getStyle());
+      Style.of(iconContainer).removeCss(this.iconColor.getStyle());
     }
     this.iconColor = iconColor;
-    Style.of(iconContainer).add(iconColor.getStyle());
+    Style.of(iconContainer).addCss(iconColor.getStyle());
     return this;
   }
 
@@ -104,10 +104,10 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState> {
    */
   public EmptyState setTitleColor(Color titleColor) {
     if (nonNull(this.titleColor)) {
-      Style.of(titleContainer).remove(this.titleColor.getStyle());
+      Style.of(titleContainer).removeCss(this.titleColor.getStyle());
     }
     this.titleColor = titleColor;
-    Style.of(titleContainer).add(titleColor.getStyle());
+    Style.of(titleContainer).addCss(titleColor.getStyle());
     return this;
   }
 
@@ -117,10 +117,10 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState> {
    */
   public EmptyState setDescriptionColor(Color descriptionColor) {
     if (nonNull(this.descriptionColor)) {
-      Style.of(descriptionContainer).remove(this.descriptionColor.getStyle());
+      Style.of(descriptionContainer).removeCss(this.descriptionColor.getStyle());
     }
     this.descriptionColor = descriptionColor;
-    Style.of(descriptionContainer).add(descriptionColor.getStyle());
+    Style.of(descriptionContainer).addCss(descriptionColor.getStyle());
     return this;
   }
 

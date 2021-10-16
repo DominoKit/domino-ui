@@ -127,7 +127,7 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
    */
   public ProgressBar animate() {
     striped();
-    element.style().add(ProgressStyles.active);
+    element.addCss(ProgressStyles.active);
     return this;
   }
 
@@ -137,8 +137,8 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
    * @return same Progressbar instance
    */
   public ProgressBar striped() {
-    element.style().remove(ProgressStyles.progress_bar_striped);
-    element.style().add(ProgressStyles.progress_bar_striped);
+    element.removeCss(ProgressStyles.progress_bar_striped);
+    element.addCss(ProgressStyles.progress_bar_striped);
     return this;
   }
 
@@ -179,8 +179,8 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
   }
 
   private ProgressBar setStyle(String style) {
-    element.style().remove(this.style);
-    element.style().add(style);
+    element.removeCss(this.style);
+    element.addCss(style);
     this.style = style;
     return this;
   }

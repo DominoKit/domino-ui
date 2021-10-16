@@ -107,7 +107,7 @@ public class Theme {
     Theme oldTheme = currentTheme;
     if (nonNull(currentTheme)) document.body.classList.remove(currentTheme.themeStyle);
     this.currentTheme = this;
-    bodyStyle().add(themeStyle);
+    bodyStyle().addCss(themeStyle);
     themeChangeHandlers.forEach(
         themeChangeHandler -> themeChangeHandler.onThemeChanged(oldTheme, this));
   }

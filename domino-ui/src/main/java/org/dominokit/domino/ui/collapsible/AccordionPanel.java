@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.IsCollapsible;
 import org.jboss.elemento.IsElement;
 
@@ -109,7 +110,8 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     collapsibleElement.appendChild(bodyElement);
     element.appendChild(collapsibleElement);
     init(this);
-    setCollapseStrategy(new HeightCollapseStrategy());
+    setCollapseStrategy(
+        DominoUIConfig.INSTANCE.getDefaultAccordionCollapseStrategySupplier().get());
     hide();
   }
 
@@ -250,9 +252,9 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
    */
   public AccordionPanel setHeaderBackground(Color color) {
     if (nonNull(this.headerColor)) {
-      getHeaderElement().style().remove(this.headerColor.getBackground());
+      getHeaderElement().removeCss(this.headerColor.getBackground());
     }
-    getHeaderElement().style().add(color.getBackground());
+    getHeaderElement().addCss(color.getBackground());
 
     this.headerColor = color;
 
@@ -267,9 +269,9 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
    */
   public AccordionPanel setBodyBackground(Color color) {
     if (nonNull(this.bodyColor)) {
-      getBodyElement().style().remove(this.bodyColor.getBackground());
+      getBodyElement().removeCss(this.bodyColor.getBackground());
     }
-    getBodyElement().style().add(color.getBackground());
+    getBodyElement().addCss(color.getBackground());
 
     this.bodyColor = color;
 

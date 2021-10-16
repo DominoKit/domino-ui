@@ -20,6 +20,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.label;
 import static org.jboss.elemento.Elements.span;
 
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLabelElement;
@@ -55,6 +56,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** Constant css class name for a focused component */
   public static final String DISABLED = "disabled";
 
+  protected final EventListener changeListener;
+  protected final EventListener inputListener;
+
   private DominoElement<E> inputElement;
 
   protected DominoElement<HTMLDivElement> fieldGroup = DominoElement.div();
@@ -89,7 +93,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   private String postfix;
   private FlexItem<HTMLDivElement> mandatoryAddOn;
   private boolean validateOnFocusLost = true;
-  private FieldStyle fieldStyle = DominoFields.INSTANCE.getDefaultFieldsStyle();
+  private FieldStyle fieldStyle = DominoUIConfig.INSTANCE.getDefaultFieldsStyle();
   private FlexLayout fieldInnerContainer;
   private boolean permaFloating = false;
   private FlexLayout additionalInfoContainer;
@@ -106,18 +110,19 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
     init((T) this);
     inputElement = DominoElement.of(createInputElement(type));
-    inputElement.addEventListener(
-        "change",
+    changeListener =
         evt -> {
           callChangeHandlers();
-        });
-    inputElement.addEventListener(
-        "input",
+        };
+    inputElement.addEventListener("change", changeListener);
+    inputElement.addEventListener("change", evt -> changeLabelFloating());
+    inputListener =
         evt -> {
           if (isEmpty()) {
             showPlaceholder();
           }
-        });
+        };
+    inputElement.addEventListener("input", inputListener);
 
     layout();
     setFocusColor(focusColor);
@@ -125,9 +130,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     setLabel(label);
     setSpellCheck(true);
     fieldStyle.apply(this);
-    DominoFields.INSTANCE.getFixErrorsPosition().ifPresent(this::setFixErrorsPosition);
-    DominoFields.INSTANCE.getFloatLabels().ifPresent(this::setFloating);
-    DominoFields.INSTANCE
+    DominoUIConfig.INSTANCE.getFixErrorsPosition().ifPresent(this::setFixErrorsPosition);
+    DominoUIConfig.INSTANCE.getFloatLabels().ifPresent(this::setFloating);
+    DominoUIConfig.INSTANCE
         .getCondensed()
         .ifPresent(
             shouldCondense -> {
@@ -355,11 +360,11 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** Focus the element and apply focus styles */
   protected void doFocus() {
     if (!isDisabled()) {
-      fieldGroup.style().add(FOCUSED);
+      fieldGroup.addCss(FOCUSED);
       floatLabel();
       if (valid) {
         if (isAddFocusColor()) {
-          fieldContainer.style().add("fc-" + focusColor.getStyle());
+          fieldContainer.addCss("fc-" + focusColor.getStyle());
         }
         setLabelColor(focusColor);
       }
@@ -374,8 +379,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
   /** un-focus the component and remove the focus styles */
   protected void doUnfocus() {
-    fieldGroup.style().remove(FOCUSED);
-    fieldContainer.style().remove("fc-" + focusColor.getStyle(), FOCUSED);
+    fieldGroup.removeCss(FOCUSED);
+    fieldContainer.removeCss("fc-" + focusColor.getStyle(), FOCUSED);
     unfloatLabel();
     removeLabelColor(focusColor);
     hidePlaceholder();
@@ -424,22 +429,22 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** {@inheritDoc} */
   @Override
   public boolean isFocused() {
-    return fieldGroup.style().contains(FOCUSED);
+    return fieldGroup.style().containsCss(FOCUSED);
   }
 
   private void setLabelColor(Color color) {
-    labelElement.style().add(color.getStyle());
+    labelElement.addCss(color.getStyle());
   }
 
   private void removeLabelColor(Color color) {
-    labelElement.style().remove(color.getStyle());
+    labelElement.removeCss(color.getStyle());
   }
 
   /** {@inheritDoc} */
   @Override
   public T enable() {
     super.enable();
-    fieldGroup.style().remove(DISABLED);
+    fieldGroup.removeCss(DISABLED);
     return (T) this;
   }
 
@@ -447,7 +452,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   @Override
   public T disable() {
     super.disable();
-    fieldGroup.style().add(DISABLED);
+    fieldGroup.addCss(DISABLED);
     return (T) this;
   }
 
@@ -715,6 +720,12 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
   /** {@inheritDoc} */
   @Override
+  public boolean isEmptyIgnoreSpaces() {
+    return isEmpty();
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public String getStringValue() {
     return null;
   }
@@ -736,7 +747,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   public T invalidate(String errorMessage) {
     this.valid = false;
     updateValidationStyles();
-    DominoFields.INSTANCE
+    DominoUIConfig.INSTANCE
         .getGlobalValidationHandler()
         .onInvalidate(this, Collections.singletonList(errorMessage));
     return super.invalidate(errorMessage);
@@ -772,13 +783,13 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   public T invalidate(List<String> errorMessages) {
     this.valid = false;
     updateValidationStyles();
-    DominoFields.INSTANCE.getGlobalValidationHandler().onInvalidate(this, errorMessages);
+    DominoUIConfig.INSTANCE.getGlobalValidationHandler().onInvalidate(this, errorMessages);
     return super.invalidate(errorMessages);
   }
 
   private void updateValidationStyles() {
-    fieldContainer.style().remove("fc-" + focusColor.getStyle());
-    fieldContainer.style().add("fc-" + Color.RED.getStyle());
+    fieldContainer.removeCss("fc-" + focusColor.getStyle());
+    fieldContainer.addCss("fc-" + Color.RED.getStyle());
     removeLabelColor(focusColor);
     setLabelColor(Color.RED);
     changeLabelFloating();
@@ -808,8 +819,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   @Override
   public T clearInvalid() {
     this.valid = true;
-    fieldContainer.style().add("fc-" + focusColor.getStyle());
-    fieldContainer.style().remove("fc-" + Color.RED.getStyle());
+    fieldContainer.addCss("fc-" + focusColor.getStyle());
+    fieldContainer.removeCss("fc-" + Color.RED.getStyle());
     removeLabelColor(Color.RED);
     if (isFocused()) {
       doFocus();
@@ -817,7 +828,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
       doUnfocus();
     }
     changeLabelFloating();
-    DominoFields.INSTANCE.getGlobalValidationHandler().onClearValidation(this);
+    DominoUIConfig.INSTANCE.getGlobalValidationHandler().onClearValidation(this);
     return super.clearInvalid();
   }
 
@@ -912,7 +923,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** Make the label float over the component */
   protected void floatLabel() {
     if (!floating || permaFloating) {
-      fieldGroup.style().add(FLOATING);
+      if (!fieldGroup.containsCss(FLOATING)) {
+        fieldGroup.addCss(FLOATING);
+      }
       this.floating = true;
     }
   }
@@ -920,7 +933,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** unfloat a floating label */
   protected void unfloatLabel() {
     if ((floating && !permaFloating) && isEmpty()) {
-      fieldGroup.style().remove(FLOATING);
+      fieldGroup.removeCss(FLOATING);
       this.floating = false;
     }
   }

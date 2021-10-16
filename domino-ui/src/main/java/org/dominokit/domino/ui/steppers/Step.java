@@ -107,7 +107,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
 
   Step activate(Transition transition) {
     clearInvalid();
-    Style.of(element).add(active);
+    Style.of(element).addCss(active);
     collapsible.show();
     this.expanded = true;
     Animation.create(contentElement)
@@ -125,7 +125,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
 
   Step deActivate() {
     clearInvalid();
-    Style.of(element).remove(active);
+    Style.of(element).removeCss(active);
     collapsible.hide();
     this.expanded = false;
     if (nonNull(deActivationHandler)) {
@@ -146,20 +146,20 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
   }
 
   public void setDone(boolean done) {
-    style().remove(StepperStyles.done);
+    removeCss(StepperStyles.done);
     if (done) {
-      style().add(StepperStyles.done);
+      addCss(StepperStyles.done);
     }
   }
 
   public void invalidate() {
-    if (!style().contains(wrong)) {
-      style().add(wrong);
+    if (!style().containsCss(wrong)) {
+      addCss(wrong);
     }
   }
 
   public void clearInvalid() {
-    style().remove(wrong);
+    removeCss(wrong);
   }
 
   public DominoElement<HTMLDivElement> getStepBody() {
@@ -186,7 +186,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
   }
 
   public boolean isActive() {
-    return Style.of(element).contains(active);
+    return Style.of(element).containsCss(active);
   }
 
   @Override

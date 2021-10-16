@@ -257,10 +257,10 @@ public class InputValueBox<T extends InputValueBox<T>>
   public T setEnableSuggestions(boolean enableSuggestions) {
     if (enableSuggestions) {
       getInputElement().setAttribute("list", getDominoId());
-      getInputElement().style().remove("disabled-suggestions");
+      getInputElement().removeCss("disabled-suggestions");
     } else {
       getInputElement().removeAttribute("list");
-      getInputElement().style().add("disabled-suggestions");
+      getInputElement().addCss("disabled-suggestions");
     }
     return (T) this;
   }
@@ -283,6 +283,6 @@ public class InputValueBox<T extends InputValueBox<T>>
   /** {@inheritDoc} */
   @Override
   protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
-    return new InputAutoValidator<>(getInputElement(), autoValidate);
+    return new InputAutoValidator<>(autoValidate);
   }
 }

@@ -54,7 +54,7 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
         .transition(showTransition)
         .beforeStart(
             theElement -> {
-              style.removeProperty("display");
+              style.removeCssProperty("display");
               DominoElement.of(element).removeAttribute("d-collapsed");
             })
         .animate();

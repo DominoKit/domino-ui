@@ -15,6 +15,9 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import java.util.function.Function;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
+
 /** A component that has an input to take/provide Integer value */
 public class IntegerBox extends NumberBox<IntegerBox, Integer> {
 
@@ -53,8 +56,8 @@ public class IntegerBox extends NumberBox<IntegerBox, Integer> {
 
   /** {@inheritDoc} */
   @Override
-  protected Integer parseValue(String value) {
-    return Double.valueOf(parseDouble(value)).intValue();
+  protected Function<String, Integer> defaultValueParser() {
+    return DominoUIConfig.INSTANCE.getNumberParsers().integerParser(this);
   }
 
   /** {@inheritDoc} */

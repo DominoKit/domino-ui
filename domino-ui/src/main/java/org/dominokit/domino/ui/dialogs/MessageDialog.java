@@ -147,10 +147,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
     return createMessage(
         content,
         closeHandler,
-        () ->
-            Button.create("OK")
-                .styler(style -> style.add(MessageDialogStyles.DIALOG_BUTTON))
-                .linkify());
+        () -> Button.create("OK").addCss(MessageDialogStyles.DIALOG_BUTTON).linkify());
   }
 
   /**
@@ -165,7 +162,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
   public static MessageDialog createMessage(
       Node content, CloseHandler closeHandler, Supplier<Button> okButtonProvider) {
     MessageDialog messageDialog = new MessageDialog();
-    messageDialog.style.add(MessageDialogStyles.MESSAGE_DIALOG);
+    messageDialog.style.addCss(MessageDialogStyles.MESSAGE_DIALOG);
 
     messageDialog.setSize(ModalSize.ALERT);
     messageDialog
@@ -341,7 +338,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
   }
 
   private static DominoElement<HTMLElement> createMessageIcon(HTMLElement element) {
-    return DominoElement.of(element).styler(style -> style.add(MessageDialogStyles.MESSAGE_ICON));
+    return DominoElement.of(element).addCss(MessageDialogStyles.MESSAGE_ICON);
   }
 
   private void initIcon() {
@@ -350,9 +347,8 @@ public class MessageDialog extends BaseModal<MessageDialog> {
 
     addOpenListener(
         () -> {
-          icon.style()
-              .remove(iconColorEnd.getStyle())
-              .add(iconColorStart.getStyle())
+          icon.removeCss(iconColorEnd.getStyle())
+              .addCss(iconColorStart.getStyle())
               .setBorder("3px solid " + iconColorStart.getHex());
           Animation.create(icon)
               .transition(iconStartTransition)
@@ -360,8 +356,8 @@ public class MessageDialog extends BaseModal<MessageDialog> {
               .callback(
                   element -> {
                     Style.of(element)
-                        .remove(iconColorStart.getStyle())
-                        .add(iconColorEnd.getStyle())
+                        .removeCss(iconColorStart.getStyle())
+                        .addCss(iconColorEnd.getStyle())
                         .setBorder("3px solid " + iconColorEnd.getHex());
                     Animation.create(icon).transition(iconEndTransition).animate();
                   })

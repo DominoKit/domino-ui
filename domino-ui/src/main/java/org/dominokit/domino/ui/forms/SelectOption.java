@@ -179,7 +179,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
   /** {@inheritDoc} */
   @Override
   public SelectOption<T> select(boolean silent) {
-    style().add(SELECTED);
+    addCss(SELECTED);
     if (!silent) {
       selectionHandlers.forEach(handler -> handler.onSelectionChanged(this));
     }
@@ -189,7 +189,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
   /** {@inheritDoc} */
   @Override
   public SelectOption<T> deselect(boolean silent) {
-    style().remove(SELECTED);
+    removeCss(SELECTED);
     if (!silent) {
       selectionHandlers.forEach(handler -> handler.onSelectionChanged(this));
     }
@@ -199,13 +199,13 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
   /** {@inheritDoc} */
   @Override
   public boolean isSelected() {
-    return style().contains(SELECTED);
+    return style().containsCss(SELECTED);
   }
 
   /** {@inheritDoc} */
   @Override
   public SelectOption<T> setBackground(Color background) {
-    style().add(background.getBackground());
+    addCss(background.getBackground());
     return this;
   }
 

@@ -72,7 +72,7 @@ public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T> 
   /** {@inheritDoc} */
   @Override
   protected boolean isEmpty() {
-    return this.shortBox.isEmpty();
+    return this.shortBox.isEmptyIgnoreSpaces();
   }
 
   /** {@inheritDoc} */

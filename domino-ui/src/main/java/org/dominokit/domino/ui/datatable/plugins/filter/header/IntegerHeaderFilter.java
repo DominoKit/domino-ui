@@ -72,7 +72,7 @@ public class IntegerHeaderFilter<T> extends DelayedHeaderFilterInput<IntegerBox,
   /** {@inheritDoc} */
   @Override
   protected boolean isEmpty() {
-    return this.integerBox.isEmpty();
+    return this.integerBox.isEmptyIgnoreSpaces();
   }
 
   /** {@inheritDoc} */

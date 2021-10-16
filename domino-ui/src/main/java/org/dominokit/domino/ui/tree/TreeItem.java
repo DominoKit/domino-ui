@@ -24,6 +24,7 @@ import static org.jboss.elemento.Elements.li;
 import static org.jboss.elemento.Elements.span;
 import static org.jboss.elemento.Elements.ul;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
@@ -36,7 +37,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import org.dominokit.domino.ui.collapsible.Collapsible;
-import org.dominokit.domino.ui.collapsible.TreeHeightCollapseStrategy;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Style;
@@ -47,6 +47,7 @@ import org.dominokit.domino.ui.style.WavesElement;
 import org.dominokit.domino.ui.utils.CanActivate;
 import org.dominokit.domino.ui.utils.CanDeactivate;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.dominokit.domino.ui.utils.ParentTreeItem;
 import org.jboss.elemento.EventType;
@@ -89,6 +90,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   private final DominoElement<HTMLElement> indicatorContainer =
       DominoElement.of(span().css("tree-indicator"));
   private HTMLElement titleElement;
+  private OriginalState originalState;
 
   public TreeItem(String title, BaseIcon<?> icon) {
     this.title = title;
@@ -130,7 +132,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   }
 
   public TreeItem(String title) {
-    this(title, Icons.ALL.folder().styler(style -> style.setProperty("visibility", "hidden")));
+    this(title, Icons.ALL.folder().setCssProperty("visibility", "hidden"));
   }
 
   public TreeItem(BaseIcon<?> icon) {
@@ -235,15 +237,15 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     element().appendChild(childrenContainer);
     collapsible =
         Collapsible.create(childrenContainer)
-            .setStrategy(new TreeHeightCollapseStrategy(this))
+            .setStrategy(DominoUIConfig.INSTANCE.getDefaultTreeCollapseStrategySupplier().get(this))
             .addHideHandler(
                 () -> {
-                  Style.of(anchorElement).remove("toggled");
+                  anchorElement.removeCss("toggled");
                   restoreIcon();
                 })
             .addShowHandler(
                 () -> {
-                  Style.of(anchorElement).add("toggled");
+                  anchorElement.addCss("toggled");
                   replaceIcon(expandIcon);
                 })
             .hide();
@@ -278,14 +280,14 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   public TreeItem<T> appendChild(TreeItem<T> treeItem) {
     this.subItems.add(treeItem);
     childrenContainer.appendChild(treeItem.element());
-    Style.of(anchorElement).add("tree-toggle");
+    anchorElement.addCss("tree-toggle");
     treeItem.parent = this;
     treeItem.setLevel(level + 1);
-    Style.of(treeItem).add("tree-leaf");
-    Style.of(this.element()).remove("tree-leaf");
+    treeItem.addCss("tree-leaf");
+    Style.of(this.element()).removeCss("tree-leaf");
     treeItem.setToggleTarget(this.toggleTarget);
     treeItem.setLevelPadding(levelPadding);
-    this.style.add("tree-item-parent");
+    this.style.addCss("tree-item-parent");
     return this;
   }
 
@@ -386,10 +388,17 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     return this;
   }
 
+  /** @deprecated use {@link #isCollapsed()} {@inheritDoc} */
+  @Override
+  @Deprecated
+  public boolean isHidden() {
+    return collapsible.isCollapsed();
+  }
+
   /** {@inheritDoc} */
   @Override
-  public boolean isHidden() {
-    return collapsible.isHidden();
+  public boolean isCollapsed() {
+    return collapsible.isCollapsed();
   }
 
   /** {@inheritDoc} */
@@ -511,8 +520,8 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   /** {@inheritDoc} */
   @Override
   public void activate(boolean activateParent) {
-    Style.of(element()).add("active");
-    if (isNull(expandIcon) || collapsible.isHidden() || !isParent()) {
+    Style.of(element()).addCss("active");
+    if (isNull(expandIcon) || collapsible.isCollapsed() || !isParent()) {
       replaceIcon(this.activeIcon);
     }
 
@@ -534,8 +543,8 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   /** {@inheritDoc} */
   @Override
   public void deactivate() {
-    Style.of(element()).remove("active");
-    if (isNull(expandIcon) || collapsible.isHidden() || !isParent()) {
+    Style.of(element()).removeCss("active");
+    if (isNull(expandIcon) || collapsible.isCollapsed() || !isParent()) {
       restoreIcon();
     }
     if (isParent()) {
@@ -580,7 +589,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     this.icon = icon;
     this.originalIcon = icon.copy();
     if (icon.element().style.visibility.equals("hidden")) {
-      this.originalIcon.styler(style -> style.setProperty("visibility", "hidden"));
+      this.originalIcon.setCssProperty("visibility", "hidden");
     }
     this.originalIcon.addClickListener(
         evt -> {
@@ -636,6 +645,10 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
    */
   public boolean filter(String searchToken) {
     boolean found;
+    if (isNull(this.originalState)) {
+      this.originalState = new OriginalState(collapsible.isExpanded());
+    }
+
     if (isParent()) {
       found = getFilter().filter(this, searchToken) | filterChildren(searchToken);
     } else {
@@ -643,8 +656,8 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     }
 
     if (found) {
-      Style.of(element).removeProperty("display");
-      if (isParent() && isAutoExpandFound() && collapsible.isHidden()) {
+      Style.of(element).removeCssProperty("display");
+      if (isParent() && isAutoExpandFound() && collapsible.isCollapsed()) {
         collapsible.show();
       }
       return true;
@@ -662,7 +675,20 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   /** Clears the filter applied */
   public void clearFilter() {
-    Style.of(element).removeProperty("display");
+    if (nonNull(originalState)) {
+      DomGlobal.requestAnimationFrame(
+          timestamp -> {
+            if (collapsible.isExpanded() != originalState.expanded) {
+              if (this.equals(this.getTreeRoot().getActiveItem())) {
+                collapsible.show();
+              } else {
+                collapsible.toggleDisplay(originalState.expanded);
+              }
+            }
+            this.originalState = null;
+          });
+    }
+    Style.of(element).removeCssProperty("display");
     subItems.forEach(TreeItem::clearFilter);
   }
 
@@ -680,7 +706,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   /** Collapse all children */
   public void collapseAll() {
-    if (isParent() && !collapsible.isHidden()) {
+    if (isParent() && !collapsible.isCollapsed()) {
       hide();
       subItems.forEach(TreeItem::collapseAll);
     }
@@ -688,7 +714,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   /** Expand all children */
   public void expandAll() {
-    if (isParent() && collapsible.isHidden()) {
+    if (isParent() && collapsible.isExpanded()) {
       show();
       subItems.forEach(TreeItem::expandAll);
     }
@@ -781,7 +807,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     if (parent.getSubItems().contains(this)) {
       parent.removeItem(this);
       if (parent.getSubItems().isEmpty() && parent instanceof TreeItem) {
-        ((TreeItem<T>) parent).style.remove("tree-item-parent");
+        ((TreeItem<T>) parent).style.removeCss("tree-item-parent");
       }
     }
     return super.remove();
@@ -860,5 +886,13 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   public HTMLUListElement getChildrenContainer() {
     return childrenContainer;
+  }
+
+  private static class OriginalState {
+    private boolean expanded;
+
+    public OriginalState(boolean expanded) {
+      this.expanded = expanded;
+    }
   }
 }

@@ -89,14 +89,10 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
     tabsHeadersContainer = FlexItem.create();
     element.appendChild(
         FlexLayout.create()
-            .styler(style -> style.add(TABS_CONTAINER))
+            .addCss(TABS_CONTAINER)
+            .appendChild(tabsHeadersContainer.addCss(TABS).appendChild(tabsList))
             .appendChild(
-                tabsHeadersContainer.styler(style -> style.add(TABS)).appendChild(tabsList))
-            .appendChild(
-                FlexItem.create()
-                    .styler(style -> style.add(TABS_CONTENT))
-                    .setFlexGrow(1)
-                    .appendChild(tabsContent)));
+                FlexItem.create().addCss(TABS_CONTENT).setFlexGrow(1).appendChild(tabsContent)));
 
     init(this);
     setColor(Color.BLUE);
@@ -229,9 +225,9 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
    */
   public VerticalTabsPanel setColor(Color color) {
     if (nonNull(this.tabsColor)) {
-      tabsList.style().remove(tabsColor.getStyle());
+      tabsList.removeCss(tabsColor.getStyle());
     }
-    tabsList.style().add(color.getStyle());
+    tabsList.addCss(color.getStyle());
     this.tabsColor = color;
 
     if (activeTabColored && nonNull(this.activeTab)) {
@@ -269,9 +265,9 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
    */
   public VerticalTabsPanel setBackgroundColor(Color background) {
     if (nonNull(this.background)) {
-      tabsList.style().remove(this.background.getBackground());
+      tabsList.removeCss(this.background.getBackground());
     }
-    tabsList.style().add(background.getBackground());
+    tabsList.addCss(background.getBackground());
     this.background = background;
     return this;
   }
@@ -300,7 +296,7 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
     if (element.contains(tabsContent)) {
       tabsContent.remove();
     }
-    Style.of(contentContainer).add("tab-content");
+    Style.of(contentContainer).addCss("tab-content");
     this.tabsContent = contentContainer;
     return this;
   }
@@ -338,7 +334,7 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
    * @return same VerticalTabsPanel instance
    */
   public VerticalTabsPanel textBelowIcon() {
-    tabsList.style().add("text-below");
+    tabsList.addCss("text-below");
     return this;
   }
 
@@ -348,7 +344,7 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
    * @return same VerticalTabsPanel instance
    */
   public VerticalTabsPanel textBesideIcon() {
-    tabsList.style().remove("text-below");
+    tabsList.removeCss("text-below");
     return this;
   }
 

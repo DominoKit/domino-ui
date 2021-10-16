@@ -15,10 +15,13 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import elemental2.dom.DomGlobal;
+import static elemental2.dom.DomGlobal.document;
+
 import elemental2.dom.HTMLBodyElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLPictureElement;
+import jsinterop.base.Js;
 import org.jboss.elemento.Elements;
 import org.jboss.elemento.IsElement;
 
@@ -51,12 +54,18 @@ public class DominoElement<E extends HTMLElement> extends BaseDominoElement<E, D
 
   /** @return a {@link DominoElement} wrapping the document {@link HTMLBodyElement} */
   public static DominoElement<HTMLBodyElement> body() {
-    return new DominoElement<>(DomGlobal.document.body);
+    return new DominoElement<>(document.body);
   }
 
   /** @return a new {@link HTMLDivElement} wrapped as a {@link DominoElement} */
   public static DominoElement<HTMLDivElement> div() {
     return DominoElement.of(Elements.div());
+  }
+
+  /** @return a new {@link HTMLDivElement} wrapped as a {@link DominoElement} */
+  public static DominoElement<HTMLPictureElement> picture() {
+    return DominoElement.of(
+        Js.<HTMLPictureElement>uncheckedCast(document.createElement("picture")));
   }
 
   /** @param element the E element extending from {@link HTMLElement} */

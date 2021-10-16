@@ -15,6 +15,9 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import java.util.function.Function;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
+
 /** A component that has an input to take/provide Double value */
 public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
@@ -50,8 +53,8 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
   /** {@inheritDoc} */
   @Override
-  protected Double parseValue(String value) {
-    return parseDouble(value);
+  protected Function<String, Double> defaultValueParser() {
+    return DominoUIConfig.INSTANCE.getNumberParsers().doubleParser(this);
   }
 
   /** {@inheritDoc} */

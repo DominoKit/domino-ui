@@ -79,12 +79,12 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   @Override
   protected MdiIcon doToggle() {
     if (nonNull(toggleName)) {
-      if (this.style.contains(originalName)) {
-        this.style.remove(originalName);
-        this.style.add(toggleName);
+      if (this.style.containsCss(originalName)) {
+        this.style.removeCss(originalName);
+        this.style.addCss(toggleName);
       } else {
-        this.style.add(originalName);
-        this.style.remove(toggleName);
+        this.style.addCss(originalName);
+        this.style.removeCss(toggleName);
       }
     }
     return this;
@@ -93,8 +93,8 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   /** {@inheritDoc} */
   @Override
   public MdiIcon changeTo(BaseIcon<MdiIcon> icon) {
-    style.remove(getName());
-    style.add(icon.getName());
+    removeCss(getName());
+    addCss(icon.getName());
     return this;
   }
 
@@ -106,10 +106,10 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    */
   public MdiIcon setSize(MdiSize mdiSize) {
     if (nonNull(this.mdiSize)) {
-      style.remove(this.mdiSize.getStyle());
+      removeCss(this.mdiSize.getStyle());
     }
     this.mdiSize = mdiSize;
-    style.add(this.mdiSize.getStyle());
+    addCss(this.mdiSize.getStyle());
     return this;
   }
 
@@ -156,7 +156,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    */
   public MdiIcon sizeNone() {
     if (nonNull(this.mdiSize)) {
-      style.remove(this.mdiSize.getStyle());
+      removeCss(this.mdiSize.getStyle());
     }
     return this;
   }
@@ -169,10 +169,10 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    */
   public MdiIcon setRotate(MdiRotate mdiRotate) {
     if (nonNull(this.mdiRotate)) {
-      style.remove(this.mdiRotate.getStyle());
+      removeCss(this.mdiRotate.getStyle());
     }
     this.mdiRotate = mdiRotate;
-    style.add(this.mdiRotate.getStyle());
+    addCss(this.mdiRotate.getStyle());
     return this;
   }
 
@@ -246,7 +246,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    */
   public MdiIcon rotateNone() {
     if (nonNull(this.mdiRotate)) {
-      style.remove(this.mdiRotate.getStyle());
+      removeCss(this.mdiRotate.getStyle());
     }
     return this;
   }
@@ -259,10 +259,10 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    */
   public MdiIcon setFlip(MdiFlip mdiFlip) {
     if (nonNull(this.mdiFlip)) {
-      style.remove(this.mdiFlip.getStyle());
+      removeCss(this.mdiFlip.getStyle());
     }
     this.mdiFlip = mdiFlip;
-    style.add(this.mdiFlip.getStyle());
+    addCss(this.mdiFlip.getStyle());
     return this;
   }
 
@@ -291,7 +291,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    */
   public MdiIcon flipNone() {
     if (nonNull(this.mdiFlip)) {
-      style.remove(this.mdiFlip.getStyle());
+      removeCss(this.mdiFlip.getStyle());
     }
     return this;
   }
@@ -303,9 +303,9 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon setSpin(boolean spin) {
-    style.remove("mdi-spin");
+    removeCss("mdi-spin");
     if (spin) {
-      style.add("mdi-spin");
+      addCss("mdi-spin");
     }
 
     return this;
@@ -336,9 +336,9 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon setActive(boolean active) {
-    style.remove("mdi-inactive");
+    removeCss("mdi-inactive");
     if (!active) {
-      style.add("mdi-inactive");
+      addCss("mdi-inactive");
     }
 
     return this;
@@ -370,10 +370,10 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    */
   public MdiIcon setContrast(MdiContrast mdiContrast) {
     if (nonNull(this.mdiContrast)) {
-      style.remove(this.mdiContrast.getStyle());
+      removeCss(this.mdiContrast.getStyle());
     }
     this.mdiContrast = mdiContrast;
-    style.add(this.mdiContrast.getStyle());
+    addCss(this.mdiContrast.getStyle());
     return this;
   }
 
@@ -402,7 +402,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    */
   public MdiIcon noContrast() {
     if (nonNull(this.mdiContrast)) {
-      style.remove(this.mdiContrast.getStyle());
+      removeCss(this.mdiContrast.getStyle());
     }
     return this;
   }

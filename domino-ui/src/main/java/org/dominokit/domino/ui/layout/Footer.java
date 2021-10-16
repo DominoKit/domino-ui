@@ -52,7 +52,7 @@ public class Footer extends BaseDominoElement<HTMLElement, Footer> {
    * @return same Footer instance
    */
   public Footer fixed() {
-    element.style().add("fixed");
+    element.addCss("fixed");
     this.fixed = true;
     return this;
   }
@@ -64,7 +64,7 @@ public class Footer extends BaseDominoElement<HTMLElement, Footer> {
    * @return same Footer instance
    */
   public Footer unfixed() {
-    element.style().remove("fixed");
+    element.removeCss("fixed");
     this.fixed = false;
     return this;
   }

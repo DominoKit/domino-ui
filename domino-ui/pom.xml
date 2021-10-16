@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.dominokit</groupId>
         <artifactId>domino-ui-parent</artifactId>
-        <version>1.0.0-RC8</version>
+        <version>1.0.0-RC9</version>
     </parent>
 
     <artifactId>domino-ui</artifactId>

@@ -72,7 +72,7 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
 
   @Override
   protected void setTransformProperty(double offset) {
-    contentPanel.style().setProperty("transform", "translate3d(-" + offset + "%, 0px, 0px)");
+    contentPanel.setCssProperty("transform", "translate3d(-" + offset + "%, 0px, 0px)");
   }
 
   @Override

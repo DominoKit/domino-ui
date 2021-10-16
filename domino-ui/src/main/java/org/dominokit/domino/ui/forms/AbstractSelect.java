@@ -41,6 +41,7 @@ import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * The base implementation for dropdown select form fields components
@@ -79,12 +80,11 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   /** Creates an empty select */
   public AbstractSelect() {
     super("button", "");
-    optionsMenu =
-        DropDownMenu.create(fieldContainer).styler(style1 -> style1.add("select-option-menu"));
+    optionsMenu = DropDownMenu.create(fieldContainer).addCss("select-option-menu");
     optionsMenu.setAppendTarget(DomGlobal.document.body);
     optionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
     optionsMenu.setPosition(
-        DominoFields.INSTANCE.getDefaultSelectPopupPosition().createPosition(this));
+        DominoUIConfig.INSTANCE.getDefaultSelectPopupPosition().createPosition(this));
     optionsMenu.addOpenHandler(this::resumeFocusValidation);
     optionsMenu.addOpenHandler(this::scrollToSelectedOption);
     buttonElement.appendChild(buttonValueContainer);
@@ -379,7 +379,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
 
   /** @return boolean, true if the select has a selected option */
   public boolean isSelected() {
-    return !isEmpty();
+    return !isEmptyIgnoreSpaces();
   }
 
   /**
@@ -442,8 +442,8 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   private void onDropup() {
     if (searchable) {
       optionsMenu.appendChild(optionsMenu.getSearchContainer());
-      optionsMenu.getSearchContainer().style().remove("pos-top").add("pos-bottom");
-      optionsMenu.style().remove("pos-top").add("pos-bottom");
+      optionsMenu.getSearchContainer().removeCss("pos-top").addCss("pos-bottom");
+      optionsMenu.removeCss("pos-top").addCss("pos-bottom");
     }
   }
 
@@ -460,8 +460,8 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   private void onDropdown() {
     if (searchable) {
       optionsMenu.insertFirst(optionsMenu.getSearchContainer());
-      optionsMenu.getSearchContainer().style().remove("pos-bottom").add("pos-top");
-      optionsMenu.style().remove("pos-bottom").add("pos-top");
+      optionsMenu.getSearchContainer().removeCss("pos-bottom").addCss("pos-top");
+      optionsMenu.removeCss("pos-bottom").addCss("pos-top");
     }
   }
 
@@ -548,7 +548,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
       floatLabel();
     } else {
       arrowIconContainer.show();
-      if (isEmpty()) {
+      if (isEmptyIgnoreSpaces()) {
         unfloatLabel();
       }
     }

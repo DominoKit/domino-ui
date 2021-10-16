@@ -105,7 +105,7 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
    * @return same SelectOptionGroup instance
    */
   public SelectOptionGroup<T> appendChild(SelectOption<T> option) {
-    option.style().add("opt");
+    option.addCss("opt");
     options.add(option);
     if (nonNull(addOptionConsumer)) {
       addOptionConsumer.accept(option);
@@ -135,7 +135,7 @@ public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, Selec
 
   /** @return boolean, true if all the options in the group are hidden */
   boolean isAllHidden() {
-    return options.stream().allMatch(SelectOption::isHidden);
+    return options.stream().allMatch(SelectOption::isCollapsed);
   }
 
   /**

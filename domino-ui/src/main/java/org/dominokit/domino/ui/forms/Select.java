@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLDivElement;
@@ -212,14 +213,22 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
     }
   }
 
+  @Override
+  public boolean isEmpty() {
+    return isNull(getValue());
+  }
+
+  @Override
+  public boolean isEmptyIgnoreSpaces() {
+    return isEmpty();
+  }
+
   private class SingleOptionRenderer implements OptionRenderer<T> {
 
     @Override
     public HTMLElement element(SelectOption<T> option) {
       Icon checkMark =
-          Icons.ALL
-              .check()
-              .styler(style1 -> style1.add(Styles.pull_right).add("select-option-check-mark"));
+          Icons.ALL.check().addCss(Styles.pull_right).addCss("select-option-check-mark");
       FlexItem<HTMLDivElement> checkMarkFlexItem = FlexItem.create();
       checkMarkFlexItem.appendChild(checkMark);
       option.getOptionLayoutElement().appendChild(checkMarkFlexItem);

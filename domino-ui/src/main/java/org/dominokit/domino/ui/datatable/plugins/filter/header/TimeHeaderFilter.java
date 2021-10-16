@@ -22,17 +22,17 @@ import org.dominokit.domino.ui.datatable.model.Filter;
 import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin;
-import org.dominokit.domino.ui.datepicker.DateBox;
 import org.dominokit.domino.ui.popover.PopupPosition;
+import org.dominokit.domino.ui.timepicker.TimeBox;
 
 /**
- * Date column header filter component that is rendered as a {@link DateBox} component
+ * Date column header filter component that is rendered as a {@link TimeBox} component
  *
  * @param <T> type of data table records
  */
-public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
+public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
-  private DateBox dateBox;
+  private TimeBox timeBox;
 
   /**
    * Static factory to create a new instance
@@ -40,33 +40,30 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
    * @param <T> the type of the data table records
    * @return new instance
    */
-  public static <T> DateHeaderFilter<T> create() {
-    return new DateHeaderFilter<>();
+  public static <T> TimeHeaderFilter<T> create() {
+    return new TimeHeaderFilter<>();
   }
 
-  /** @see DateHeaderFilter#create() */
-  public DateHeaderFilter() {
-    this.dateBox =
-        DateBox.create()
+  /** @see TimeHeaderFilter#create() */
+  public TimeHeaderFilter() {
+    this.timeBox =
+        TimeBox.create()
             .setPlaceholder("Search")
             .apply(
                 element -> {
-                  element.getDatePicker().hideHeaderPanel();
                   element
-                      .getDatePicker()
-                      .addDateDayClickHandler(
-                          (date, dateTimeFormatInfo) -> {
-                            element.close();
-                          });
+                      .getTimePicker()
+                      .addTimeSelectionHandler(
+                          (time, dateTimeFormatInfo, picker) -> timeBox.close());
                 })
-            .setPickerStyle(DateBox.PickerStyle.POPOVER)
+            .setPickerStyle(TimeBox.PickerStyle.POPOVER)
             .setPopoverPosition(PopupPosition.BEST_FIT)
             .styler(style -> style.setMarginBottom("0px"));
   }
 
-  /** @return the {@link DateBox} wrapped in this filter component */
-  public DateBox getDateBox() {
-    return dateBox;
+  /** @return the {@link TimeBox} wrapped in this filter component */
+  public TimeBox getTimeBox() {
+    return timeBox;
   }
 
   /** {@inheritDoc} */
@@ -74,31 +71,31 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
   public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
     searchContext.addBeforeSearchHandler(
         context -> {
-          if (dateBox.isEmptyIgnoreSpaces()) {
+          if (timeBox.isEmptyIgnoreSpaces()) {
             searchContext.remove(columnConfig.getName(), Category.HEADER_FILTER);
           } else {
             searchContext.add(
                 Filter.create(
                     columnConfig.getName(),
-                    dateBox.getValue().getTime() + "",
+                    timeBox.getValue().getTime() + "",
                     Category.HEADER_FILTER,
-                    FilterTypes.DATE));
+                    FilterTypes.TIME));
           }
         });
-    dateBox.addChangeHandler(value -> searchContext.fireSearchEvent());
+    timeBox.addChangeHandler(value -> searchContext.fireSearchEvent());
   }
 
   /** {@inheritDoc} */
   @Override
   public void clear() {
-    dateBox.pauseChangeHandlers();
-    dateBox.clear();
-    dateBox.resumeChangeHandlers();
+    timeBox.pauseChangeHandlers();
+    timeBox.clear();
+    timeBox.resumeChangeHandlers();
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLElement element() {
-    return dateBox.element();
+    return timeBox.element();
   }
 }

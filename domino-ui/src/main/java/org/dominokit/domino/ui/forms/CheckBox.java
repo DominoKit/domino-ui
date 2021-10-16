@@ -42,14 +42,13 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
   }
 
   /**
-   * Creates a checkox with a label
+   * Creates a checkbox with a label
    *
    * @param label String
    */
   public CheckBox(String label) {
     super("checkbox", label);
     css("d-checkbox");
-    getInputElement().addEventListener("change", evt -> onCheck());
 
     EventListener listener =
         evt -> {
@@ -58,8 +57,16 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
           if (isEnabled() && !isReadOnly()) toggle();
         };
 
+    getInputElement()
+        .removeEventListener("change", changeListener)
+        .addEventListener(
+            "change",
+            evt -> {
+              if (isEnabled() && !isReadOnly()) {
+                setValue(isChecked());
+              }
+            });
     getLabelElement().addEventListener("click", listener);
-
     KeyboardEvents.listenOnKeyDown(getInputElement()).onEnter(listener);
   }
 
@@ -208,7 +215,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
    * @return same CheckBox instance
    */
   public CheckBox filledIn() {
-    element.style().add("filled-in");
+    element.addCss("filled-in");
     return this;
   }
 
@@ -218,7 +225,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
    * @return same CheckBox instance
    */
   public CheckBox filledOut() {
-    element.style().remove("filled-in");
+    element.removeCss("filled-in");
     return this;
   }
 
@@ -231,9 +238,9 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
    */
   public CheckBox setColor(Color color) {
     if (this.color != null) {
-      element.style().remove(this.color.getStyle());
+      element.removeCss(this.color.getStyle());
     }
-    element.style().add(color.getStyle());
+    element.addCss(color.getStyle());
     this.color = color;
     return this;
   }
@@ -267,6 +274,11 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
   @Override
   public boolean isEmpty() {
     return !isChecked();
+  }
+
+  @Override
+  public boolean isEmptyIgnoreSpaces() {
+    return isEmpty();
   }
 
   /**
@@ -381,7 +393,6 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
 
     @Override
     public void attach() {
-
       changeHandler = value -> autoValidate.apply();
       checkBox.addChangeHandler(changeHandler);
     }

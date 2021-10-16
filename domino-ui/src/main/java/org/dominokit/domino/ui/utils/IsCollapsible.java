@@ -52,6 +52,18 @@ public interface IsCollapsible<T> {
    */
   T toggleDisplay(boolean state);
 
-  /** @return boolean, true if the component is hidden */
+  /**
+   * @deprecated use {@link #isCollapsed()}
+   * @return boolean, true if the component is hidden
+   */
+  @Deprecated
   boolean isHidden();
+
+  /** @return boolean, true if the component is collapsed */
+  boolean isCollapsed();
+
+  /** @return boolean, true if the component is expanded */
+  default boolean isExpanded() {
+    return !isCollapsed();
+  }
 }

@@ -26,5 +26,6 @@ public enum FilterTypes {
   DECIMAL,
   BOOLEAN,
   DATE,
+  TIME,
   ENUM
 }
