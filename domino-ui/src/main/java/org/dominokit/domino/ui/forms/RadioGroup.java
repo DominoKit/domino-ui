@@ -210,6 +210,12 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
 
   /** {@inheritDoc} */
   @Override
+  public boolean isEmptyIgnoreSpaces() {
+    return isEmpty();
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public RadioGroup<T> clear() {
     radios.forEach(Radio::uncheck);
     return this;

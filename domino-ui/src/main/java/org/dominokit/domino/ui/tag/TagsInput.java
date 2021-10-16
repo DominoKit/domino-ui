@@ -338,6 +338,11 @@ public class TagsInput<V> extends AbstractValueBox<TagsInput<V>, HTMLElement, Li
   public boolean isEmpty() {
     return selectedItems.isEmpty();
   }
+  /** {@inheritDoc} */
+  @Override
+  public boolean isEmptyIgnoreSpaces() {
+    return isEmpty();
+  }
 
   /** {@inheritDoc} */
   @Override

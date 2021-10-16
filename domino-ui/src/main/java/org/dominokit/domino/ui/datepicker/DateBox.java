@@ -343,6 +343,13 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
   /** {@inheritDoc} */
   @Override
+  public boolean isEmptyIgnoreSpaces() {
+    String value = getInputElement().element().value;
+    return isEmpty() || value.trim().isEmpty();
+  }
+
+  /** {@inheritDoc} */
+  @Override
   protected void clearValue() {
     value(null);
   }

@@ -183,7 +183,15 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
   /** {@inheritDoc} */
   @Override
   public boolean isEmpty() {
-    return getInputElement().element().value.isEmpty();
+    String value = getInputElement().element().value;
+    return value.isEmpty();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isEmptyIgnoreSpaces() {
+    String value = getInputElement().element().value;
+    return isEmpty() || value.trim().isEmpty();
   }
 
   /** {@inheritDoc} */
