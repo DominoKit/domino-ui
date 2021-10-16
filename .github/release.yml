@@ -1,0 +1,25 @@
+# release.yml
+changelog:
+  exclude:
+    labels:
+      - dependencies
+      - discussion
+      - duplicate
+      - help wanted
+      - invalid
+      - maintenance
+      - needs investigation
+      - Polls
+      - question
+      - wontfix
+  categories:
+    - title: Breaking Changes 🛠
+      labels:
+        - breaking-change
+    - title: Exciting New Features 🎉
+      labels:
+        - enhancement
+        - Feature
+    - title: Other Changes
+      labels:
+        - "*"
