@@ -72,7 +72,7 @@ public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T> 
   /** {@inheritDoc} */
   @Override
   protected boolean isEmpty() {
-    return this.floatBox.isEmpty();
+    return this.floatBox.isEmptyIgnoreSpaces();
   }
 
   /** {@inheritDoc} */

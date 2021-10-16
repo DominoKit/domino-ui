@@ -72,7 +72,7 @@ public class TextHeaderFilter<T> extends DelayedHeaderFilterInput<TextBox, T> {
   /** {@inheritDoc} */
   @Override
   protected boolean isEmpty() {
-    return this.textBox.isEmpty();
+    return this.textBox.isEmptyIgnoreSpaces();
   }
 
   /** {@inheritDoc} */

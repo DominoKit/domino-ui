@@ -180,7 +180,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     addValidator(
         () -> {
           try {
-            if (isEmpty()) {
+            if (isEmptyIgnoreSpaces()) {
               return ValidationResult.valid();
             }
             getFormattedValue(getInputElement().element().value);
