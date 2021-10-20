@@ -66,7 +66,7 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
   private boolean focusOnClose = true;
   private DelayedTextInput.DelayedAction delayedAction =
       () -> {
-        if (isEmptyIgnoreSpaces()) {
+        if (Optional.ofNullable(getStringValue()).map(String::trim).map(String::isEmpty).orElse(true)) {
           suggestionsMenu.close();
           clearValue();
         } else {
