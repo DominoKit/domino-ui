@@ -523,6 +523,18 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
     return isEmpty();
   }
 
+  @Override
+  protected void changeLabelFloating() {
+    if (!Optional.ofNullable(getStringValue()).map(String::trim).map(String::isEmpty).orElse(true) || isFocused()) floatLabel();
+    else unfloatLabel();
+  }
+
+  @Override
+  protected void doUnfocus() {
+    doSetValue(getValue());
+    super.doUnfocus();
+  }
+
   /**
    * A {@link DropDownPosition} that opens the suggestion dropdown menu up or down based on the
    * largest space available, the menu will show where the is more space
