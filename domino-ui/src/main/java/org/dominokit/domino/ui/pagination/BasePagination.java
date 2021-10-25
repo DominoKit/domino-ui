@@ -200,6 +200,12 @@ public abstract class BasePagination<T extends BasePagination<T>>
 
   /** {@inheritDoc} */
   @Override
+  public int getTotalCount() {
+    return this.totalCount;
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public T setPageSize(int pageSize) {
     this.pageSize = pageSize;
     return (T) this;
