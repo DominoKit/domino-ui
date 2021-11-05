@@ -37,24 +37,22 @@ import org.jboss.elemento.IsElement;
 /** A component for a single Tab in the {@link TabsPanel} */
 public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasClickableElement {
 
+  private final FlexItem closeContainer = FlexItem.create();
+  private final FlexLayout tabElementsContainer;
+  private final MdiIcon closeIcon;
+  private final List<Consumer<Tab>> closeHandlers = new ArrayList<>();
+  private final List<ActivationHandler> activationHandlers = new ArrayList<>();
+  private final FlexItem iconContainer;
+  private final FlexItem textContainer;
   private HTMLAnchorElement clickableElement = a().element();
   private DominoElement<HTMLLIElement> tab =
       DominoElement.of(li().attr("role", "presentation").add(clickableElement));
-
   private DominoElement<HTMLDivElement> contentContainer =
       DominoElement.of(div().attr("role", "tabpanel").css(TabStyles.TAB_PANE, TabStyles.FADE));
-
-  private FlexItem closeContainer = FlexItem.create();
-  private FlexLayout tabElementsContainer;
   private boolean active;
-  private MdiIcon closeIcon;
   private TabsPanel parent;
   private String key = "";
   private CloseHandler closeHandler = tab -> true;
-  private final List<Consumer<Tab>> closeHandlers = new ArrayList<>();
-  private final List<ActivationHandler> activationHandlers = new ArrayList<>();
-  private FlexItem iconContainer;
-  private FlexItem textContainer;
 
   /** @param title String title for the tab */
   public Tab(String title) {
@@ -86,7 +84,10 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
     tabElementsContainer = FlexLayout.create();
 
     if (nonNull(icon)) {
-      tabElementsContainer.appendChild(iconContainer.appendChild(icon));
+      String SPACE_SEPARATOR = "&nbsp;";
+      tabElementsContainer
+          .appendChild(iconContainer.appendChild(icon))
+          .appendChild(iconContainer.appendChild(TextNode.of(SPACE_SEPARATOR)));
     }
     if (nonNull(title)) {
       tabElementsContainer.appendChild(textContainer.appendChild(span().add(TextNode.of(title))));
