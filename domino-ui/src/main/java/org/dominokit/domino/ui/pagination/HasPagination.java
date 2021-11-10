@@ -136,6 +136,9 @@ public interface HasPagination {
    */
   HasPagination updatePagesByTotalCount(int totalCount, int pageSize);
 
+  /** @return the total number of items */
+  int getTotalCount();
+
   /**
    * Sets the page size
    *
