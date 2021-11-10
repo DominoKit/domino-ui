@@ -714,7 +714,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   /** Expand all children */
   public void expandAll() {
-    if (isParent() && collapsible.isExpanded()) {
+    if (isParent() && collapsible.isCollapsed()) {
       show();
       subItems.forEach(TreeItem::expandAll);
     }
