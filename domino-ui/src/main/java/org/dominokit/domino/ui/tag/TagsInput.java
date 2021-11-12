@@ -74,7 +74,6 @@ public class TagsInput<V> extends AbstractTagsInput<TagsInput<V>, V> {
   }
 
   protected TagsInput(final String label, final TagsStore<V> store) {
-      super(label, store);
+    super(label, store);
   }
-
 }

@@ -18,11 +18,13 @@ package org.dominokit.domino.ui.tag;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.input;
 
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import org.dominokit.domino.ui.chips.Chip;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
@@ -38,10 +40,6 @@ import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.tag.store.TagsStore;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLInputElement;
 
 /**
  * A component provides an input field which represents the data in tags
@@ -73,7 +71,8 @@ import elemental2.dom.HTMLInputElement;
  * @param <V> the type of the object inside the input
  * @see AbstractValueBox
  */
-public abstract class AbstractTagsInput<T extends AbstractTagsInput<T, V>, V> extends AbstractValueBox<T, HTMLElement, List<V>> {
+public abstract class AbstractTagsInput<T extends AbstractTagsInput<T, V>, V>
+    extends AbstractValueBox<T, HTMLElement, List<V>> {
 
   private DominoElement<HTMLInputElement> tagTextInput;
   private final List<Chip> chips = new ArrayList<>();
@@ -258,9 +257,7 @@ public abstract class AbstractTagsInput<T extends AbstractTagsInput<T, V>, V> ex
     return (T) this;
   }
 
-  /**
-   * @return store {@link TagsStore}
-   */
+  /** @return store {@link TagsStore} */
   public TagsStore<V> getTagsStore() {
     return store;
   }
@@ -409,10 +406,10 @@ public abstract class AbstractTagsInput<T extends AbstractTagsInput<T, V>, V> ex
     this.maxSize = maxSize;
 
     if (isExceedsMaxSize()) {
-        disableAddValues();
-      } else {
-        enableAddValues();
-      }
+      disableAddValues();
+    } else {
+      enableAddValues();
+    }
 
     return (T) this;
   }
@@ -423,8 +420,8 @@ public abstract class AbstractTagsInput<T extends AbstractTagsInput<T, V>, V> ex
    * @return the maximum size
    */
   public int getMaxValue() {
-      return maxSize;
-    }
+    return maxSize;
+  }
 
   /** {@inheritDoc} */
   @Override
