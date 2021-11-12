@@ -21,6 +21,7 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
 import elemental2.dom.Node;
+import java.util.function.Supplier;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.forms.CheckBox;
@@ -46,6 +47,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private HTMLElement singleSelectIndicator = Icons.ALL.check().element();
   private SelectionCondition<T> selectionCondition = (table, row) -> true;
   private TableRow<T> lastSelected;
+  private Supplier<CheckBox> checkBoxCreator = CheckBox::create;
 
   /** creates an instance with default configurations */
   public SelectionPlugin() {}
@@ -287,7 +289,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   }
 
   private CheckBox createCheckBox() {
-    CheckBox checkBox = CheckBox.create();
+    CheckBox checkBox = checkBoxCreator.get();
     if (nonNull(colorScheme)) {
       checkBox.setColor(colorScheme.color());
     }
@@ -304,6 +306,19 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   public SelectionPlugin<T> setSelectionCondition(SelectionCondition<T> selectionCondition) {
     if (nonNull(selectionCondition)) {
       this.selectionCondition = selectionCondition;
+    }
+    return this;
+  }
+
+  /**
+   * A setter to to give the user the ability to customize the selection checkbox
+   *
+   * @param checkBoxCreator {@link Supplier} of {@link CheckBox}
+   * @return same plugin instance
+   */
+  public SelectionPlugin<T> setCheckBoxCreator(Supplier<CheckBox> checkBoxCreator) {
+    if (nonNull(checkBoxCreator)) {
+      this.checkBoxCreator = checkBoxCreator;
     }
     return this;
   }
