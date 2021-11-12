@@ -46,3 +46,6 @@ Having rich interactive forms is essential for enterprise applications, domino-u
 Icons and Typography can enhance the user experience of the application, domino-ui has a very good of font icons that can bring forms and other elements in the page into life, and this not only applies for enterprise applications but also for simple application like blogs, in domino-ui creating typography elements is very easy and stylish.
 
 ![Imgur](https://raw.githubusercontent.com/DominoKit/documents/master/domino-ui-slide-5.png)
+
+## License
+[Apache License 2.0]([]https://github.com/DominoKit/domino-ui/blob/master/LICENSE)
