@@ -101,13 +101,13 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
   /** {@inheritDoc} */
   @Override
-  public ScrollingPagination updatePages(int pages) {
-    return updatePages(pages, pageSize);
+  public ScrollingPagination updatePages(int pages, boolean silent) {
+    return updatePages(pages, pageSize, silent);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ScrollingPagination updatePages(int pages, int pageSize) {
+  public ScrollingPagination updatePages(int pages, int pageSize, boolean silent) {
     this.pageSize = pageSize;
     this.pagesCount = pages;
     this.index = 1;
@@ -211,12 +211,19 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
                     .addClickListener(event -> moveToPage(allPages.size(), false)));
 
     if (pages > 0) {
-      moveToPage(1, true);
+      moveToPage(1, silent);
     }
 
     if (pages <= 0) {
       nextElement.disable();
+      nextSet.disable();
+      lastPage.disable();
       prevElement.disable();
+      prevSet.disable();
+      firstPage.disable();
+      if (!silent) {
+        pageChangedCallBack.onPageChanged(0);
+      }
     }
 
     pagesElement.appendChild(nextElement).appendChild(nextSet).appendChild(lastPage);

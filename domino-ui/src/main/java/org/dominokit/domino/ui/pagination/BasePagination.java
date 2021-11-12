@@ -51,17 +51,39 @@ public abstract class BasePagination<T extends BasePagination<T>>
   /** {@inheritDoc} */
   @Override
   public HasPagination updatePagesByTotalCount(int totalCount) {
+    return updatePagesByTotalCount(totalCount, true);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public HasPagination updatePagesByTotalCount(int totalCount, boolean silent) {
     int pages = (totalCount / this.pageSize) + (totalCount % this.pageSize > 0 ? 1 : 0);
     this.totalCount = totalCount;
-    return updatePages(pages, this.pageSize);
+    return updatePages(pages, this.pageSize, silent);
   }
 
   /** {@inheritDoc} */
   @Override
   public HasPagination updatePagesByTotalCount(int totalCount, int pageSize) {
+    return updatePagesByTotalCount(totalCount, pageSize, true);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public HasPagination updatePagesByTotalCount(int totalCount, int pageSize, boolean silent) {
     int pages = (totalCount / pageSize) + (totalCount % pageSize > 0 ? 1 : 0);
     this.totalCount = totalCount;
-    return updatePages(pages, pageSize);
+    return updatePages(pages, pageSize, silent);
+  }
+
+  @Override
+  public HasPagination updatePages(int pages) {
+    return updatePages(pages, true);
+  }
+
+  @Override
+  public HasPagination updatePages(int pages, int pageSize) {
+    return updatePages(pages, pageSize, true);
   }
 
   /** {@inheritDoc} */

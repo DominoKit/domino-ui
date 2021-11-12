@@ -110,6 +110,15 @@ public interface HasPagination {
   HasPagination updatePages(int pages);
 
   /**
+   * Updates the number of pages for this pagination
+   *
+   * @param pages the new number of pages
+   * @param silent boolean flag to switch triggering the callback on/off for this call
+   * @return same instance
+   */
+  HasPagination updatePages(int pages, boolean silent);
+
+  /**
    * Updates the number of pages and the page size for this pagination
    *
    * @param pages the new number of pages
@@ -117,6 +126,16 @@ public interface HasPagination {
    * @return same instance
    */
   HasPagination updatePages(int pages, int pageSize);
+
+  /**
+   * Updates the number of pages and the page size for this pagination
+   *
+   * @param pages the new number of pages
+   * @param pageSize the new page size
+   * @param silent boolean flag to switch triggering the callback on/off for this call
+   * @return same instance
+   */
+  HasPagination updatePages(int pages, int pageSize, boolean silent);
 
   /**
    * Updates the number of pages by providing the total number of items, the calculation will be
@@ -128,6 +147,16 @@ public interface HasPagination {
   HasPagination updatePagesByTotalCount(int totalCount);
 
   /**
+   * Updates the number of pages by providing the total number of items, the calculation will be
+   * based on the page size
+   *
+   * @param totalCount the total number of items
+   * @param silent boolean flag to switch triggering the callback on/off for this call
+   * @return same instance
+   */
+  HasPagination updatePagesByTotalCount(int totalCount, boolean silent);
+
+  /**
    * Updates the number of pages by providing the total number of items and the page size
    *
    * @param totalCount the total number of items
@@ -135,6 +164,16 @@ public interface HasPagination {
    * @return same instance
    */
   HasPagination updatePagesByTotalCount(int totalCount, int pageSize);
+
+  /**
+   * Updates the number of pages by providing the total number of items and the page size
+   *
+   * @param totalCount the total number of items
+   * @param pageSize the new page size
+   * @param silent boolean flag to switch triggering the callback on/off for this call
+   * @return same instance
+   */
+  HasPagination updatePagesByTotalCount(int totalCount, int pageSize, boolean silent);
 
   /** @return the total number of items */
   int getTotalCount();

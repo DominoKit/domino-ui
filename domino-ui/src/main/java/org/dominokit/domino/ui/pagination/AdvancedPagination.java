@@ -81,13 +81,13 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 
   /** {@inheritDoc} */
   @Override
-  public AdvancedPagination updatePages(int pages) {
-    return updatePages(pages, pageSize);
+  public AdvancedPagination updatePages(int pages, boolean silent) {
+    return updatePages(pages, pageSize, silent);
   }
 
   /** {@inheritDoc} */
   @Override
-  public AdvancedPagination updatePages(int pages, int pageSize) {
+  public AdvancedPagination updatePages(int pages, int pageSize, boolean silent) {
     this.pageSize = pageSize;
     this.pagesCount = pages;
     this.index = 1;
@@ -152,12 +152,15 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
         });
 
     if (pages > 0) {
-      moveToPage(1, true);
+      moveToPage(1, silent);
     }
 
     if (pages <= 0) {
       nextElement.disable();
       prevElement.disable();
+      if (!silent) {
+        pageChangedCallBack.onPageChanged(0);
+      }
     }
 
     pagesElement.appendChild(nextElement).appendChild(lastPage);
