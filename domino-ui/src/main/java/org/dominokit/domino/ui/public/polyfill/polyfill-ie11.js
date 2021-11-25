@@ -60,3 +60,73 @@
         get: scrollingElement
     })
 })()
+
+/**
+ * polyfill for ResizeObserver
+ * based on https://codepen.io/dgca/pen/WoJoNB
+ */
+ (function () {
+    if (typeof ResizeObserver !== 'undefined') {
+        return;
+    }
+
+    window.ResizeObserver = function (callback) {
+        this.observables = [];
+
+        this.boundCheck = this.check.bind(this)
+        this.callback = callback;
+        this.af = 0;
+    }
+
+    ResizeObserver.prototype.observe = function (el) {
+        if (this.observables.some(function (observable) { observable.el === el })) {
+            return;
+        }
+        const newObservable = {
+            el: el,
+            size: {
+                height: el.clientHeight,
+                width: el.clientWidth
+            }
+        }
+        this.observables.push(newObservable);
+        if (!this.af) {
+            this.boundCheck();
+        }
+    }
+
+    ResizeObserver.prototype.unobserve = function (el) {
+        this.observables = this.observables.filter(function (obj) { obj.el !== el });
+
+        if (!this.observables.length && this.af) {
+            window.cancelAnimationFrame(this.af);
+            this.af = 0;
+        }
+    }
+
+    ResizeObserver.prototype.disconnect = function () {
+        this.observables = [];
+        if (this.af) {
+            window.cancelAnimationFrame(this.af);
+            this.af = 0;
+        }
+    }
+
+    ResizeObserver.prototype.check = function () {
+        const changedEntries = this.observables
+            .filter(function (obj) {
+            const currentHeight = obj.el.clientHeight;
+            const currentWidth = obj.el.clientWidth;
+            if (obj.size.height !== currentHeight || obj.size.width !== currentWidth) {
+                obj.size.height = currentHeight;
+                obj.size.width = currentWidth;
+                return true;
+            }
+            })
+            .map(function (obj) { obj.el });
+        if (changedEntries.length > 0) {
+            this.callback(changedEntries);
+        }
+        this.af = window.requestAnimationFrame(this.boundCheck);
+    }
+})()
