@@ -189,8 +189,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         tbody.element().scrollTop = 0.0;
       }
       if (tableConfig.isFixed()) {
-        thead.setWidth(Unit.px.of(tbody.element().offsetWidth - getScrollWidth() - 2));
-        tbody.setWidth(Unit.px.of(tbody.element().offsetWidth - 2));
+        thead.setWidth(Unit.px.of(tbody.element().offsetWidth - getScrollWidth()));
+        tbody.setWidth(Unit.px.of(tbody.element().offsetWidth));
       }
     }
   }
