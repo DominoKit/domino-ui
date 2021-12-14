@@ -15,14 +15,18 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-import static org.jboss.elemento.Elements.tr;
+import static java.util.Objects.isNull;
+import static org.dominokit.domino.ui.datatable.ColumnUtils.fixElementWidth;
+import static org.jboss.elemento.Elements.*;
 
+import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableRowElement;
 import java.util.*;
 import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Selectable;
 
 public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow<T>>
@@ -41,6 +45,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
   private List<RowListener<T>> listeners = new ArrayList<>();
   private boolean editable = false;
+  private RowRenderer<T> rowRenderer = new DefaultRowRenderer<>();
 
   public TableRow(T record, int index, DataTable<T> dataTable) {
     this.record = record;
@@ -186,6 +191,10 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     return Collections.unmodifiableMap(rowCells);
   }
 
+  public void render() {
+    rowRenderer.render(dataTable, this);
+  }
+
   /**
    * An interface to implement listeners for Table row changes
    *
@@ -238,5 +247,51 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   /** @param editable boolean, true if this row should be editable, otherwise it is not */
   private void setEditable(boolean editable) {
     this.editable = editable;
+  }
+
+  public void setRowRenderer(RowRenderer<T> rowRenderer) {
+    if (isNull(rowRenderer)) {
+      this.rowRenderer = new DefaultRowRenderer<>();
+    } else {
+      this.rowRenderer = rowRenderer;
+    }
+  }
+
+  public void renderCell(ColumnConfig<T> columnConfig) {
+    HTMLTableCellElement cellElement;
+    if (columnConfig.isHeader()) {
+      cellElement = th().css("dt-th-cell").element();
+    } else {
+      cellElement = td().css("dt-td-cell").element();
+    }
+
+    if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
+      fixElementWidth(
+          columnConfig, cellElement, dataTable.getTableConfig().getFixedDefaultColumnWidth());
+    }
+
+    RowCell<T> rowCell =
+        new RowCell<>(new CellRenderer.CellInfo<>(this, cellElement), columnConfig);
+    rowCell.updateCell();
+    addCell(rowCell);
+
+    columnConfig.applyScreenMedia(cellElement);
+
+    element().appendChild(cellElement);
+    columnConfig.applyCellStyle(cellElement);
+    columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(cellElement));
+    DominoElement.of(cellElement).toggleDisplay(!columnConfig.isHidden());
+  }
+
+  public interface RowRenderer<T> {
+    void render(DataTable<T> dataTable, TableRow<T> tableRow);
+  }
+
+  private static class DefaultRowRenderer<T> implements RowRenderer<T> {
+
+    @Override
+    public void render(DataTable<T> dataTable, TableRow<T> tableRow) {
+      dataTable.getTableConfig().getColumns().forEach(tableRow::renderCell);
+    }
   }
 }

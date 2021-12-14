@@ -53,9 +53,8 @@ public class ColumnConfig<T> {
   private boolean fixed = false;
   private Node tooltipNode;
   private boolean showTooltip = true;
-
   private boolean hidden = false;
-
+  private boolean pluginColumn;
   private ScreenMedia showOn;
   private ScreenMedia hideOn;
 
@@ -555,6 +554,15 @@ public class ColumnConfig<T> {
   /** @return boolean, true if the column is already hidden, otherwise false */
   public boolean isHidden() {
     return hidden;
+  }
+
+  public boolean isPluginColumn() {
+    return pluginColumn;
+  }
+
+  public ColumnConfig<T> setPluginColumn(boolean pluginColumn) {
+    this.pluginColumn = pluginColumn;
+    return this;
   }
 
   /**

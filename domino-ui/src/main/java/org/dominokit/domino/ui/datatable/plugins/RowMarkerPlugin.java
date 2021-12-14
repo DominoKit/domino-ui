@@ -42,6 +42,7 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
         .insertColumnFirst(
             ColumnConfig.<T>create("data-table-marker-cm")
                 .setSortable(false)
+                .setPluginColumn(true)
                 .maxWidth("3px")
                 .styleHeader(
                     element -> Style.of(element).setPadding("0px", true).setWidth("3px", true))
@@ -63,6 +64,7 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
                       return DomGlobal.document.createTextNode("");
                     }));
   }
+
   /**
    * creates an instance with a custom marker color
    *

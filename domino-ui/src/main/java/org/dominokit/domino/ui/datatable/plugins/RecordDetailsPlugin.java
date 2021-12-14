@@ -83,6 +83,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
             .setSortable(false)
             .setWidth("60px")
             .setFixed(true)
+            .setPluginColumn(true)
             .setCellRenderer(
                 cell -> {
                   applyStyles(cell);

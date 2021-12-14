@@ -92,6 +92,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
         .insertColumnFirst(
             ColumnConfig.<T>create("data-table-select-cm")
                 .setSortable(false)
+                .setPluginColumn(true)
                 .setWidth(dataTable.getTableConfig().isMultiSelect() ? "35px" : "40px")
                 .styleCell(
                     element ->

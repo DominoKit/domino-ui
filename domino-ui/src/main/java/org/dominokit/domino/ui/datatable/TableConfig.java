@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.datatable.ColumnUtils.fixElementWidth;
 import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.*;
@@ -25,7 +26,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.popover.Tooltip;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
 import org.jboss.elemento.HtmlContentBuilder;
@@ -104,7 +104,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
           tr.add(th);
           columnConfig.setHeadElement(th.element());
           if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
-            fixElementWidth(columnConfig, th.element());
+            fixElementWidth(columnConfig, th.element(), fixedDefaultColumnWidth);
           }
 
           if (columnConfig.isShowTooltip()) {
@@ -120,15 +120,6 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
     dataTable.tableElement().appendChild(thead);
   }
 
-  private void fixElementWidth(ColumnConfig<T> column, HTMLElement element) {
-    String fixedWidth = bestFitWidth(column);
-    Style.of(element)
-        .setWidth(fixedWidth)
-        .setMinWidth(fixedWidth)
-        .setMaxWidth(fixedWidth)
-        .addCss(DataTableStyles.FIXED_WIDTH);
-  }
-
   /**
    * Draw a record as a row in the data table, row information is obtained from the TableRow
    *
@@ -136,31 +127,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
    * @param tableRow the {@link TableRow} we are adding to the table
    */
   public void drawRecord(DataTable<T> dataTable, TableRow<T> tableRow) {
-    columns.forEach(
-        columnConfig -> {
-          HTMLTableCellElement cellElement;
-          if (columnConfig.isHeader()) {
-            cellElement = th().css("dt-th-cell").element();
-          } else {
-            cellElement = td().css("dt-td-cell").element();
-          }
-
-          if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
-            fixElementWidth(columnConfig, cellElement);
-          }
-
-          RowCell<T> rowCell =
-              new RowCell<>(new CellRenderer.CellInfo<>(tableRow, cellElement), columnConfig);
-          rowCell.updateCell();
-          tableRow.addCell(rowCell);
-
-          columnConfig.applyScreenMedia(cellElement);
-
-          tableRow.element().appendChild(cellElement);
-          columnConfig.applyCellStyle(cellElement);
-          columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(cellElement));
-          DominoElement.of(cellElement).toggleDisplay(!columnConfig.isHidden());
-        });
+    tableRow.render();
     rowAppender.appendRow(dataTable, tableRow);
 
     plugins.forEach(plugin -> plugin.onRowAdded(dataTable, tableRow));
@@ -283,23 +250,6 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
   public TableConfig<T> setFixedDefaultColumnWidth(String fixedDefaultColumnWidth) {
     this.fixedDefaultColumnWidth = fixedDefaultColumnWidth;
     return this;
-  }
-
-  /**
-   * @param columnConfig String value of preferred width to be used for a column from its width.
-   *     min-width, max-width or default fixedDefaultColumnWidth
-   * @return same TableConfig instance
-   */
-  String bestFitWidth(ColumnConfig<T> columnConfig) {
-    if (nonNull(columnConfig.getWidth()) && !columnConfig.getWidth().isEmpty()) {
-      return columnConfig.getWidth();
-    } else if (nonNull(columnConfig.getMinWidth()) && !columnConfig.getMinWidth().isEmpty()) {
-      return columnConfig.getMinWidth();
-    } else if (nonNull(columnConfig.getMaxWidth()) && !columnConfig.getMaxWidth().isEmpty()) {
-      return columnConfig.getMaxWidth();
-    } else {
-      return fixedDefaultColumnWidth;
-    }
   }
 
   /** {@inheritDoc} */
