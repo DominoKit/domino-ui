@@ -18,18 +18,14 @@ package org.dominokit.domino.ui.datatable;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.*;
-import static org.dominokit.domino.ui.style.Unit.*;
+import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.events.*;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
@@ -249,6 +245,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     for (int index = 0; index < data.size(); index++) {
       TableRow<T> tableRow = new TableRow<>(data.get(index), initialIndex + index, this);
       tableConfig.getPlugins().forEach(plugin -> plugin.onBeforeAddRow(DataTable.this, tableRow));
+
       tableConfig.drawRecord(DataTable.this, tableRow);
       tableRows.add(tableRow);
     }

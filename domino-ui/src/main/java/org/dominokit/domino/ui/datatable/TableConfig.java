@@ -25,7 +25,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
+import org.dominokit.domino.ui.grid.flex.FlexAlign;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.popover.Tooltip;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
 import org.jboss.elemento.HtmlContentBuilder;
@@ -72,6 +77,37 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
       (dataTable, tableRow) -> dataTable.bodyElement().appendChild(tableRow.element());
   private DirtyRecordProvider<T> dirtyRecordProvider = original -> original;
   private SaveDirtyRecordHandler<T> saveDirtyRecordHandler = (originalRecord, dirtyRecord) -> {};
+
+  private final ColumnConfig<T> pluginUtilityColumn =
+      ColumnConfig.<T>create("plugin-utility-column")
+          .styleHeader(element -> Style.of(element).setWidth("3px", true))
+          .styleCell(element -> Style.of(element).setWidth("3px", true))
+          .setCellRenderer(
+              cellInfo -> {
+                FlexLayout flexLayout =
+                    FlexLayout.create().setJustifyContent(FlexJustifyContent.CENTER);
+                getPlugins().stream()
+                    .map(plugin -> plugin.getUtilityElement(dataTable, cellInfo))
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .forEach(node -> flexLayout.appendChild(FlexItem.create().setAlignSelf(FlexAlign.CENTER).appendChild(node)));
+                return flexLayout.element();
+              })
+          .setHeaderElement(
+              columnTitle -> {
+                FlexLayout flexLayout =
+                    FlexLayout.create().setJustifyContent(FlexJustifyContent.CENTER);
+                getPlugins().stream()
+                    .map(plugin -> plugin.getUtilityHeaderElement(dataTable, columnTitle))
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .forEach(node -> flexLayout.appendChild(FlexItem.create().setAlignSelf(FlexAlign.CENTER).appendChild(node)));
+                return flexLayout.element();
+              });
+
+  public TableConfig() {
+    addColumn(pluginUtilityColumn);
+  }
 
   /**
    * This method will draw the table columns header elements for all columns and append them to the

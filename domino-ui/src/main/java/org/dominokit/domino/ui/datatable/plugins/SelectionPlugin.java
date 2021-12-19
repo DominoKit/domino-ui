@@ -17,10 +17,9 @@ package org.dominokit.domino.ui.datatable.plugins;
 
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
-import elemental2.dom.Node;
+import java.util.Optional;
 import java.util.function.Supplier;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
@@ -30,7 +29,6 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.Selectable;
-import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.elemento.IsElement;
 
 /**
@@ -84,50 +82,34 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     this(colorScheme, singleSelectIndicator.element());
   }
 
-  /** {@inheritDoc} */
   @Override
-  public void onBeforeAddHeaders(DataTable<T> dataTable) {
-    dataTable
-        .getTableConfig()
-        .insertColumnFirst(
-            ColumnConfig.<T>create("data-table-select-cm")
-                .setSortable(false)
-                .setPluginColumn(true)
-                .setWidth(dataTable.getTableConfig().isMultiSelect() ? "35px" : "40px")
-                .styleCell(
-                    element ->
-                        Style.of(element)
-                            .setMaxWidth(
-                                dataTable.getTableConfig().isMultiSelect() ? "35px" : "40px")
-                            .setWidth(dataTable.getTableConfig().isMultiSelect() ? "35px" : "40px"))
-                .setTooltipNode(DomGlobal.document.createTextNode("Select"))
-                .setHeaderElement(
-                    columnTitle -> {
-                      if (dataTable.getTableConfig().isMultiSelect()) {
-                        return createMultiSelectHeader(dataTable);
-                      } else {
-                        return createSingleSelectHeader();
-                      }
-                    })
-                .setCellRenderer(
-                    cell -> {
-                      if (selectionCondition.isAllowSelection(dataTable, cell.getTableRow())) {
-                        if (dataTable.getTableConfig().isMultiSelect()) {
-                          return createMultiSelectCell(dataTable, cell);
-                        } else {
-                          return createSingleSelectCell(dataTable, cell);
-                        }
-                      } else {
-                        return TextNode.empty();
-                      }
-                    }));
+  public Optional<HTMLElement> getUtilityElement(
+      DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
+    if (selectionCondition.isAllowSelection(dataTable, cellInfo.getTableRow())) {
+      if (dataTable.getTableConfig().isMultiSelect()) {
+        return Optional.of(createMultiSelectCell(dataTable, cellInfo));
+      } else {
+        return Optional.of(createSingleSelectCell(dataTable, cellInfo));
+      }
+    }
+    return Optional.empty();
   }
 
-  private Node createSingleSelectHeader() {
-    return singleSelectIndicator.cloneNode(true);
+  @Override
+  public Optional<HTMLElement> getUtilityHeaderElement(DataTable<T> dataTable, String columnTitle) {
+    if (dataTable.getTableConfig().isMultiSelect()) {
+      return Optional.of(createMultiSelectHeader(dataTable));
+    } else {
+      return Optional.of(createSingleSelectHeader());
+    }
   }
 
-  private Node createSingleSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
+  private HTMLElement createSingleSelectHeader() {
+    return (HTMLElement) singleSelectIndicator.cloneNode(true);
+  }
+
+  private HTMLElement createSingleSelectCell(
+      DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
     HTMLElement clonedIndicator = Js.uncheckedCast(singleSelectIndicator.cloneNode(true));
     cell.getTableRow()
         .element()
@@ -170,7 +152,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     return clonedIndicator;
   }
 
-  private Node createMultiSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
+  private HTMLElement createMultiSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
     CheckBox checkBox = createCheckBox();
 
     TableRow<T> tableRow = cell.getTableRow();
@@ -254,7 +236,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     dataTable.onSelectionChange(tableRow);
   }
 
-  private Node createMultiSelectHeader(DataTable<T> dataTable) {
+  private HTMLElement createMultiSelectHeader(DataTable<T> dataTable) {
     CheckBox checkBox = createCheckBox();
     checkBox.addChangeHandler(
         checked -> {
