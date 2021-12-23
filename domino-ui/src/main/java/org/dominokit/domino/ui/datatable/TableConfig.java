@@ -20,6 +20,7 @@ import static org.dominokit.domino.ui.datatable.ColumnUtils.fixElementWidth;
 import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.*;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +34,7 @@ import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
+import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.elemento.HtmlContentBuilder;
 
 /**
@@ -82,26 +84,54 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
       ColumnConfig.<T>create("plugin-utility-column")
           .styleHeader(element -> Style.of(element).setWidth("3px", true))
           .styleCell(element -> Style.of(element).setWidth("3px", true))
+          .setShowTooltip(false)
           .setCellRenderer(
               cellInfo -> {
                 FlexLayout flexLayout =
-                    FlexLayout.create().setJustifyContent(FlexJustifyContent.CENTER);
+                    FlexLayout.create().setJustifyContent(FlexJustifyContent.START);
                 getPlugins().stream()
-                    .map(plugin -> plugin.getUtilityElement(dataTable, cellInfo))
+                    .map(plugin -> plugin.getUtilityElements(dataTable, cellInfo))
                     .filter(Optional::isPresent)
                     .map(Optional::get)
-                    .forEach(node -> flexLayout.appendChild(FlexItem.create().setAlignSelf(FlexAlign.CENTER).appendChild(node)));
+                    .flatMap(Collection::stream)
+                    .forEach(
+                        node -> {
+                          String order =
+                              Optional.ofNullable(DominoElement.of(node).getAttribute("order"))
+                                  .orElse("0");
+                          flexLayout.appendChild(
+                              FlexItem.create()
+                                  .setOrder(Integer.parseInt(order))
+                                  .setAlignSelf(FlexAlign.CENTER)
+                                  .appendChild(node));
+                        });
                 return flexLayout.element();
               })
           .setHeaderElement(
               columnTitle -> {
                 FlexLayout flexLayout =
-                    FlexLayout.create().setJustifyContent(FlexJustifyContent.CENTER);
+                    FlexLayout.create().setJustifyContent(FlexJustifyContent.START);
                 getPlugins().stream()
-                    .map(plugin -> plugin.getUtilityHeaderElement(dataTable, columnTitle))
+                    .map(plugin -> plugin.getUtilityHeaderElements(dataTable, columnTitle))
                     .filter(Optional::isPresent)
                     .map(Optional::get)
-                    .forEach(node -> flexLayout.appendChild(FlexItem.create().setAlignSelf(FlexAlign.CENTER).appendChild(node)));
+                    .flatMap(Collection::stream)
+                    .forEach(
+                        node -> {
+                          String order =
+                              Optional.ofNullable(DominoElement.of(node).getAttribute("order"))
+                                  .orElse("0");
+                          flexLayout.appendChild(
+                              FlexItem.create()
+                                  .setOrder(Integer.parseInt(order))
+                                  .setAlignSelf(FlexAlign.CENTER)
+                                  .appendChild(node));
+                        });
+                flexLayout.appendChild(
+                    FlexItem.create()
+                        .setOrder(100)
+                        .setAlignSelf(FlexAlign.CENTER)
+                        .appendChild(TextNode.of(columnTitle)));
                 return flexLayout.element();
               });
 
@@ -362,6 +392,13 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
     } else {
       throw new ColumnNofFoundException(name);
     }
+  }
+
+  public TableConfig<T> setUtilityColumnTitle(String title) {
+    if (nonNull(title)) {
+      pluginUtilityColumn.setTitle(title);
+    }
+    return this;
   }
 
   /** @return the {@link DataTable} initialized with this configuration */

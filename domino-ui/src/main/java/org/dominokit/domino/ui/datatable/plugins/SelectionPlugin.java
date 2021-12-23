@@ -15,10 +15,12 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
+import static java.util.Collections.singletonList;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 import jsinterop.base.Js;
@@ -28,6 +30,7 @@ import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Selectable;
 import org.jboss.elemento.IsElement;
 
@@ -83,24 +86,30 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   }
 
   @Override
-  public Optional<HTMLElement> getUtilityElement(
+  public Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
     if (selectionCondition.isAllowSelection(dataTable, cellInfo.getTableRow())) {
       if (dataTable.getTableConfig().isMultiSelect()) {
-        return Optional.of(createMultiSelectCell(dataTable, cellInfo));
+        return Optional.of(singletonList(createMultiSelectCell(dataTable, cellInfo)));
       } else {
-        return Optional.of(createSingleSelectCell(dataTable, cellInfo));
+        return Optional.of(
+            singletonList(
+                DominoElement.div()
+                    .setMinWidth("24px")
+                    .appendChild(createSingleSelectCell(dataTable, cellInfo))
+                    .element()));
       }
     }
     return Optional.empty();
   }
 
   @Override
-  public Optional<HTMLElement> getUtilityHeaderElement(DataTable<T> dataTable, String columnTitle) {
+  public Optional<List<HTMLElement>> getUtilityHeaderElements(
+      DataTable<T> dataTable, String columnTitle) {
     if (dataTable.getTableConfig().isMultiSelect()) {
-      return Optional.of(createMultiSelectHeader(dataTable));
+      return Optional.of(singletonList(createMultiSelectHeader(dataTable)));
     } else {
-      return Optional.of(createSingleSelectHeader());
+      return Optional.of(singletonList(createSingleSelectHeader()));
     }
   }
 
@@ -149,6 +158,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
               }
             });
     Style.of(clonedIndicator).setDisplay("none");
+    clonedIndicator.setAttribute("order", "20");
     return clonedIndicator;
   }
 
@@ -184,7 +194,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
             for (int i = startIndex;
                 startIndex < endIndex ? i <= endIndex : i >= endIndex;
                 i += increment) {
-              TableRow<T> row = dataTable.getItems().get(i);
+              TableRow<T> row = dataTable.getRows().get(i);
               selectRow(dataTable, row);
             }
           } else {
@@ -205,7 +215,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
             }
           }
         });
-    return checkBox.element();
+    return checkBox.setAttribute("order", "20").element();
   }
 
   private int getStartSelectionIndex(DataTable<T> dataTable) {
@@ -250,7 +260,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     dataTable.addSelectionListener(
         (selectedRows, selectedRecords) -> {
           if (selectedRows.size()
-              != dataTable.getItems().stream()
+              != dataTable.getRows().stream()
                   .filter(tableRow -> selectionCondition.isAllowSelection(dataTable, tableRow))
                   .count()) {
             checkBox.uncheck(true);
@@ -258,7 +268,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
             checkBox.check(true);
           }
         });
-    return checkBox.element();
+    return checkBox.setAttribute("order", "20").element();
   }
 
   /**

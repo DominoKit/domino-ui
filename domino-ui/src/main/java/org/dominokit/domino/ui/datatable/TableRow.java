@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.ColumnUtils.fixElementWidth;
 import static org.jboss.elemento.Elements.*;
 
@@ -46,6 +47,8 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   private List<RowListener<T>> listeners = new ArrayList<>();
   private boolean editable = false;
   private RowRenderer<T> rowRenderer = new DefaultRowRenderer<>();
+  private TableRow<T> parent;
+  private List<TableRow<T>> children = new ArrayList<>();
 
   public TableRow(T record, int index, DataTable<T> dataTable) {
     this.record = record;
@@ -281,6 +284,36 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     columnConfig.applyCellStyle(cellElement);
     columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(cellElement));
     DominoElement.of(cellElement).toggleDisplay(!columnConfig.isHidden());
+  }
+
+  public TableRow<T> getParent() {
+    return parent;
+  }
+
+  public void setParent(TableRow<T> parent) {
+    this.parent = parent;
+  }
+
+  public List<TableRow<T>> getChildren() {
+    return children;
+  }
+
+  public void setChildren(List<TableRow<T>> children) {
+    if (nonNull(children)) {
+      this.children = children;
+    }
+  }
+
+  public boolean isParent() {
+    return !getChildren().isEmpty();
+  }
+
+  public boolean isChild() {
+    return nonNull(parent);
+  }
+
+  public boolean isRoot() {
+    return isNull(parent);
   }
 
   public interface RowRenderer<T> {

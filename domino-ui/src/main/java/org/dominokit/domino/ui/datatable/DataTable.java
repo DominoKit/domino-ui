@@ -355,7 +355,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * @return same DataTable instance
    */
   public DataTable<T> edit() {
-    getItems().forEach(TableRow::edit);
+    getRows().forEach(TableRow::edit);
     return this;
   }
 
@@ -365,7 +365,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * @return same DataTable instance
    */
   public DataTable<T> save() {
-    getItems().forEach(TableRow::save);
+    getRows().forEach(TableRow::save);
     return this;
   }
 
@@ -375,7 +375,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * @return same DataTable instance
    */
   public DataTable<T> cancelEditing() {
-    getItems().forEach(TableRow::cancelEditing);
+    getRows().forEach(TableRow::cancelEditing);
     return this;
   }
 
@@ -465,20 +465,36 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   public List<T> getSelectedRecords() {
-    return getSelectedItems().stream().map(TableRow::getRecord).collect(Collectors.toList());
+    return tableRows.stream()
+        .filter(TableRow::isSelected)
+        .map(TableRow::getRecord)
+        .collect(Collectors.toList());
   }
 
   @Override
+  @Deprecated
   public List<TableRow<T>> getItems() {
+    return getRows();
+  }
+
+  @Override
+  public List<TableRow<T>> getRows() {
     return tableRows;
   }
 
+  public List<TableRow<T>> getRootRows() {
+    return getRows().stream().filter(TableRow::isRoot).collect(Collectors.toList());
+  }
+
   public List<T> getRecords() {
-    return getItems().stream().map(TableRow::getRecord).collect(Collectors.toList());
+    return getRows().stream()
+        .filter(TableRow::isRoot)
+        .map(TableRow::getRecord)
+        .collect(Collectors.toList());
   }
 
   public List<T> getDirtyRecords() {
-    return getItems().stream().map(TableRow::getDirtyRecord).collect(Collectors.toList());
+    return getRows().stream().map(TableRow::getDirtyRecord).collect(Collectors.toList());
   }
 
   @Override
