@@ -22,6 +22,7 @@ import static org.dominokit.domino.ui.datatable.events.TablePageChangeEvent.PAGI
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
@@ -45,6 +46,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
   private HasPagination pagination;
   private SearchFilter<T> searchFilter;
   private RecordsSorter<T> recordsSorter;
+  private SortFunction<T> sortFunction;
   private SortEvent<T> lastSort;
   private boolean autoSort = false;
   private String autoSortBy = "*";
@@ -161,8 +163,19 @@ public class LocalListDataStore<T> implements DataStore<T> {
    * @return same instance
    */
   public LocalListDataStore<T> setRecordsSorter(RecordsSorter<T> recordsSorter) {
-    this.recordsSorter = recordsSorter;
+    setRecordsSorter(recordsSorter, List::sort);
     return this;
+  }
+
+  public LocalListDataStore<T> setRecordsSorter(
+      RecordsSorter<T> recordsSorter, SortFunction<T> sortFunction) {
+    this.recordsSorter = recordsSorter;
+    this.sortFunction = sortFunction;
+    return this;
+  }
+
+  public interface SortFunction<T> {
+    void sort(List<T> items, Comparator<T> comparator);
   }
 
   private void updatePagination() {
@@ -229,8 +242,9 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   private void sort(SortEvent<T> event) {
-    filtered.sort(
-        recordsSorter.onSortChange(event.getColumnConfig().getName(), event.getSortDirection()));
+    sortFunction.sort(
+        filtered,
+        recordsSorter.onSortChange(event.getColumnConfig().getSortKey(), event.getSortDirection()));
   }
 
   private void loadFirstPage() {
@@ -257,7 +271,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
       if (nonNull(this.lastSort) && nonNull(recordsSorter)) {
         updateRecords.sort(
             recordsSorter.onSortChange(
-                this.lastSort.getColumnConfig().getName(), this.lastSort.getSortDirection()));
+                this.lastSort.getColumnConfig().getSortKey(), this.lastSort.getSortDirection()));
       } else if (autoSort && nonNull(recordsSorter)) {
         updateRecords.sort(recordsSorter.onSortChange(autoSortBy, autoSortDirection));
       }

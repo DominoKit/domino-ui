@@ -69,17 +69,45 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
   @Override
   public T select() {
+    return doSelect(true);
+  }
+
+  private T doSelect(boolean selectChildren) {
     if (!hasFalg(DataTable.DATA_TABLE_ROW_FILTERED)) {
       this.selected = true;
+      if (selectChildren) {
+        getChildren().forEach(TableRow::select);
+      }
+      Optional.ofNullable(parent)
+          .ifPresent(
+              tableRow -> {
+                if (tableRow.shouldBeSelected()) {
+                  tableRow.doSelect(false);
+                }
+              });
       selectionHandlers.forEach(
           selectionHandler -> selectionHandler.onSelectionChanged(TableRow.this));
     }
     return record;
   }
 
+  private boolean shouldBeSelected() {
+    return getChildren().stream().allMatch(TableRow::isSelected);
+  }
+
   @Override
   public T deselect() {
+    return doDeselect(true, true);
+  }
+
+  private T doDeselect(boolean deselectParent, boolean deselectChildren) {
     this.selected = false;
+    if (deselectChildren) {
+      getChildren().forEach(tableRow -> tableRow.doDeselect(false, true));
+    }
+    if (deselectParent) {
+      Optional.ofNullable(parent).ifPresent(tableRow -> tableRow.doDeselect(true, false));
+    }
     selectionHandlers.forEach(
         selectionHandler -> selectionHandler.onSelectionChanged(TableRow.this));
     return record;

@@ -86,6 +86,11 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   }
 
   @Override
+  public boolean requiresUtilityColumn() {
+    return true;
+  }
+
+  @Override
   public Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
     if (selectionCondition.isAllowSelection(dataTable, cellInfo.getTableRow())) {

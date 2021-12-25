@@ -85,6 +85,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
           .styleHeader(element -> Style.of(element).setWidth("3px", true))
           .styleCell(element -> Style.of(element).setWidth("3px", true))
           .setShowTooltip(false)
+          .setSortable(true)
           .setCellRenderer(
               cellInfo -> {
                 FlexLayout flexLayout =
@@ -134,10 +135,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
                         .appendChild(TextNode.of(columnTitle)));
                 return flexLayout.element();
               });
-
-  public TableConfig() {
-    addColumn(pluginUtilityColumn);
-  }
+  private UtilityColumnHandler<T> utilityColumnHandler = utilityColumn -> {};
 
   /**
    * This method will draw the table columns header elements for all columns and append them to the
@@ -242,7 +240,21 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
    */
   public TableConfig<T> addPlugin(DataTablePlugin<T> plugin) {
     this.plugins.add(plugin);
+    if (plugin.requiresUtilityColumn() && !columns.contains(pluginUtilityColumn)) {
+      insertColumnFirst(pluginUtilityColumn);
+      utilityColumnHandler.handle(pluginUtilityColumn);
+    }
     return this;
+  }
+
+  public TableConfig<T> onUtilityColumn(UtilityColumnHandler<T> utilityColumnHandler) {
+    this.utilityColumnHandler = utilityColumnHandler;
+    return this;
+  }
+
+  @FunctionalInterface
+  public interface UtilityColumnHandler<T> {
+    void handle(ColumnConfig<T> utilityColumn);
   }
 
   /**

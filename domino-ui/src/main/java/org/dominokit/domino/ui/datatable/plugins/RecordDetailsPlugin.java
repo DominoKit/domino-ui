@@ -22,6 +22,9 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableRowElement;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.ExpandRecordEvent;
@@ -74,39 +77,40 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     this.expandIcon = expandIcon;
   }
 
-  /** {@inheritDoc} */
+  @Override
+  public boolean requiresUtilityColumn() {
+    return true;
+  }
+
+  @Override
+  public Optional<List<HTMLElement>> getUtilityElements(
+      DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
+    applyStyles(cell);
+    DetailsButtonElement<T> detailsButtonElement =
+        new DetailsButtonElement<>(expandIcon, collapseIcon, RecordDetailsPlugin.this, cell);
+    cell.getTableRow().addMetaObject(detailsButtonElement);
+    applyStyles(cell);
+    detailsButtonElement.element.setAttribute("order", "30");
+    return Optional.of(Collections.singletonList(detailsButtonElement.element()));
+  }
+
+  @Override
+  public Optional<List<HTMLElement>> getUtilityHeaderElements(
+      DataTable<T> dataTable, String columnTitle) {
+    return Optional.of(
+        Collections.singletonList(
+            Button.create(expandIcon.copy())
+                .linkify()
+                .disable()
+                .setCssProperty("padding", "0px")
+                .setHeight("24px")
+                .setAttribute("order", "30")
+                .element()));
+  }
+
   @Override
   public void onBeforeAddHeaders(DataTable<T> dataTable) {
     this.dataTable = dataTable;
-    ColumnConfig<T> column =
-        ColumnConfig.<T>create(DATA_TABLE_DETAILS_CM)
-            .setSortable(false)
-            .setWidth("60px")
-            .setFixed(true)
-            .setPluginColumn(true)
-            .setCellRenderer(
-                cell -> {
-                  applyStyles(cell);
-                  DetailsButtonElement<T> detailsButtonElement =
-                      new DetailsButtonElement<>(
-                          expandIcon, collapseIcon, RecordDetailsPlugin.this, cell);
-                  cell.getTableRow().addMetaObject(detailsButtonElement);
-                  applyStyles(cell);
-                  return detailsButtonElement.element();
-                })
-            .setHeaderElement(
-                columnTitle ->
-                    Button.create(expandIcon.copy())
-                        .linkify()
-                        .disable()
-                        .setCssProperty("padding", "0px")
-                        .setHeight("24px")
-                        .element())
-            .asHeader()
-            .textAlign("center");
-    setupColumn(column);
-
-    dataTable.getTableConfig().insertColumnFirst(column);
   }
 
   /** {@inheritDoc} */

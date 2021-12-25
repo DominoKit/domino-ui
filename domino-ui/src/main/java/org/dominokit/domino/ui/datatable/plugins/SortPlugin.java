@@ -54,8 +54,8 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (column.isSortable()) {
-      SortContainer sortContainer = new SortContainer(column.getName());
-      sortContainers.put(column.getName(), sortContainer);
+      SortContainer sortContainer = new SortContainer(column.getSortKey());
+      sortContainers.put(column.getSortKey(), sortContainer);
 
       column.getHeadElement().addCss(Styles.cursor_pointer, Styles.disable_selection);
       column.contextMenu.appendChild(sortContainer.sortElement);
@@ -92,7 +92,7 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
    * @param column the sort {@link ColumnConfig}
    */
   public void sort(SortDirection direction, ColumnConfig<T> column) {
-    SortContainer sortContainer = sortContainers.get(column.getName());
+    SortContainer sortContainer = sortContainers.get(column.getSortKey());
     updateStyles(sortContainer);
     fireSortEvent(direction, column);
   }

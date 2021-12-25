@@ -49,6 +49,7 @@ public class ColumnConfig<T> {
   private CellStyler<T> headerStyler = element -> {};
   private CellStyler<T> cellStyler = element -> {};
   private boolean sortable = false;
+  private String sortKey;
   private String width;
   private boolean fixed = false;
   private Node tooltipNode;
@@ -349,6 +350,19 @@ public class ColumnConfig<T> {
    */
   public ColumnConfig<T> setSortable(boolean sortable) {
     this.sortable = sortable;
+    this.sortKey = name;
+    return this;
+  }
+
+  /**
+   * set wither the column can be used to sort the data or not
+   *
+   * @param sortable boolean, if true then data can be sorted with this column, otherwise it cant
+   * @return same ColumnConfig instance
+   */
+  public ColumnConfig<T> setSortable(boolean sortable, String sortKey) {
+    this.sortable = sortable;
+    this.sortKey = sortKey;
     return this;
   }
 
@@ -563,6 +577,10 @@ public class ColumnConfig<T> {
   public ColumnConfig<T> setPluginColumn(boolean pluginColumn) {
     this.pluginColumn = pluginColumn;
     return this;
+  }
+
+  public String getSortKey() {
+    return sortKey;
   }
 
   /**

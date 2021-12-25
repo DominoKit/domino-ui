@@ -112,6 +112,10 @@ public interface DataTablePlugin<T> extends TableEventListener {
   @Override
   default void handleEvent(TableEvent event) {}
 
+  default boolean requiresUtilityColumn() {
+    return false;
+  }
+
   default Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
     return Optional.empty();
