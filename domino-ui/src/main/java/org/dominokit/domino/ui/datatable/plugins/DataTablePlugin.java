@@ -120,9 +120,4 @@ public interface DataTablePlugin<T> extends TableEventListener {
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
     return Optional.empty();
   }
-
-  default Optional<List<HTMLElement>> getUtilityHeaderElements(
-      DataTable<T> dataTable, String columnTitle) {
-    return Optional.empty();
-  }
 }

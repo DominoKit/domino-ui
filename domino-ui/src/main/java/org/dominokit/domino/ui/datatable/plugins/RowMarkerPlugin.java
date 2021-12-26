@@ -43,6 +43,7 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
             ColumnConfig.<T>create("data-table-marker-cm")
                 .setSortable(false)
                 .setPluginColumn(true)
+                .setShowTooltip(false)
                 .maxWidth("3px")
                 .styleHeader(
                     element -> Style.of(element).setPadding("0px", true).setWidth("3px", true))

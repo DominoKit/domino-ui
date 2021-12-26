@@ -25,10 +25,10 @@ import elemental2.dom.HTMLTableRowElement;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.ExpandRecordEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -60,7 +60,10 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
    * @param cellRenderer the {@link CellRenderer}
    */
   public RecordDetailsPlugin(CellRenderer<T> cellRenderer) {
-    this(cellRenderer, Icons.ALL.fullscreen_exit(), Icons.ALL.fullscreen());
+    this(
+        cellRenderer,
+        Icons.ALL.fullscreen_exit_mdi().clickable(),
+        Icons.ALL.fullscreen_mdi().clickable());
   }
 
   /**
@@ -95,17 +98,12 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
   }
 
   @Override
-  public Optional<List<HTMLElement>> getUtilityHeaderElements(
-      DataTable<T> dataTable, String columnTitle) {
-    return Optional.of(
-        Collections.singletonList(
-            Button.create(expandIcon.copy())
-                .linkify()
-                .disable()
-                .setCssProperty("padding", "0px")
-                .setHeight("24px")
-                .setAttribute("order", "30")
-                .element()));
+  public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
+    if (column.isUtilityColumn()) {
+      column
+          .getHeaderLayout()
+          .appendChild(FlexItem.create().setOrder(30).appendChild(expandIcon.copy().clickable()));
+    }
   }
 
   @Override
@@ -172,11 +170,6 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
       this.element
           .appendChild(this.expandIcon.clickable())
           .appendChild(this.collapseIcon.clickable().hide());
-      element
-          .setCssProperty("padding", "0px")
-          .setHeight("27px")
-          .setPaddingLeft("2px")
-          .setPaddingRight("2px");
 
       this.expandIcon.addClickListener(evt -> expand());
       this.collapseIcon.addClickListener(evt -> collapse());

@@ -26,11 +26,11 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.DataSortEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.elemento.EventType;
 
 /**
@@ -57,9 +57,10 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
       SortContainer sortContainer = new SortContainer(column.getSortKey());
       sortContainers.put(column.getSortKey(), sortContainer);
 
+      column
+          .getHeaderLayout()
+          .appendChild(FlexItem.create().setOrder(100).appendChild(sortContainer.sortElement));
       column.getHeadElement().addCss(Styles.cursor_pointer, Styles.disable_selection);
-      column.contextMenu.appendChild(sortContainer.sortElement);
-      Style.of(column.contextMenu).setDisplay("block");
       column
           .getHeadElement()
           .addEventListener(
@@ -115,24 +116,18 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
-  private class SortContainer {
+  private static class SortContainer {
     private final String columnName;
     private SortDirection sortDirection = SortDirection.DESC;
-    private HTMLElement directionElement =
-        Style.of(
-                ElementUtil.contentBuilder(Icons.ALL.arrow_upward().element())
-                    .textContent("import_export"))
-            .addCss(Styles.font_15)
-            .element();
-    private HTMLElement sortElement =
-        span().css(Styles.pull_right).add(directionElement).style("min-width: 15px;").element();
+    private DominoElement<HTMLElement> sortElement =
+        DominoElement.of(span()).appendChild(Icons.ALL.sort_mdi()).setMinWidth("15px");
 
     public SortContainer(String columnName) {
       this.columnName = columnName;
     }
 
     public void clear() {
-      directionElement.textContent = "import_export";
+      sortElement.clearElement().appendChild(Icons.ALL.sort_mdi());
     }
 
     public void update(boolean flip) {
@@ -144,14 +139,14 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
         }
       }
       clear();
-      directionElement.textContent = getSortArrow();
+      sortElement.clearElement().appendChild(getSortArrow());
     }
 
-    public String getSortArrow() {
+    public BaseIcon<?> getSortArrow() {
       if (SortDirection.ASC.equals(sortDirection)) {
-        return Icons.ALL.arrow_upward().getName();
+        return Icons.ALL.sort_ascending_mdi();
       } else {
-        return Icons.ALL.arrow_downward().getName();
+        return Icons.ALL.sort_descending_mdi();
       }
     }
   }

@@ -26,6 +26,7 @@ import java.util.function.Supplier;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.forms.CheckBox;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.ColorScheme;
@@ -109,12 +110,18 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   }
 
   @Override
-  public Optional<List<HTMLElement>> getUtilityHeaderElements(
-      DataTable<T> dataTable, String columnTitle) {
-    if (dataTable.getTableConfig().isMultiSelect()) {
-      return Optional.of(singletonList(createMultiSelectHeader(dataTable)));
-    } else {
-      return Optional.of(singletonList(createSingleSelectHeader()));
+  public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
+    if (column.isUtilityColumn()) {
+      if (dataTable.getTableConfig().isMultiSelect()) {
+        column
+            .getHeaderLayout()
+            .appendChild(
+                FlexItem.create().setOrder(20).appendChild(createMultiSelectHeader(dataTable)));
+      } else {
+        column
+            .getHeaderLayout()
+            .appendChild(FlexItem.create().setOrder(20).appendChild(createSingleSelectHeader()));
+      }
     }
   }
 
@@ -163,7 +170,6 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
               }
             });
     Style.of(clonedIndicator).setDisplay("none");
-    clonedIndicator.setAttribute("order", "20");
     return clonedIndicator;
   }
 
@@ -273,7 +279,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
             checkBox.check(true);
           }
         });
-    return checkBox.setAttribute("order", "20").element();
+    return checkBox.element();
   }
 
   /**

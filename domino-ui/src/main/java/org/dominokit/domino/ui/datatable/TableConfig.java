@@ -34,8 +34,6 @@ import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
-import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.elemento.HtmlContentBuilder;
 
 /**
  * This class is responsible of configuring the data table
@@ -86,10 +84,13 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
           .styleCell(element -> Style.of(element).setWidth("3px", true))
           .setShowTooltip(false)
           .setSortable(true)
+          .setDrawTitle(false)
           .setCellRenderer(
               cellInfo -> {
                 FlexLayout flexLayout =
-                    FlexLayout.create().setJustifyContent(FlexJustifyContent.START);
+                    FlexLayout.create()
+                        .setAlignItems(FlexAlign.CENTER)
+                        .setJustifyContent(FlexJustifyContent.START);
                 getPlugins().stream()
                     .map(plugin -> plugin.getUtilityElements(dataTable, cellInfo))
                     .filter(Optional::isPresent)
@@ -107,33 +108,6 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
                                   .appendChild(node));
                         });
                 return flexLayout.element();
-              })
-          .setHeaderElement(
-              columnTitle -> {
-                FlexLayout flexLayout =
-                    FlexLayout.create().setJustifyContent(FlexJustifyContent.START);
-                getPlugins().stream()
-                    .map(plugin -> plugin.getUtilityHeaderElements(dataTable, columnTitle))
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
-                    .flatMap(Collection::stream)
-                    .forEach(
-                        node -> {
-                          String order =
-                              Optional.ofNullable(DominoElement.of(node).getAttribute("order"))
-                                  .orElse("0");
-                          flexLayout.appendChild(
-                              FlexItem.create()
-                                  .setOrder(Integer.parseInt(order))
-                                  .setAlignSelf(FlexAlign.CENTER)
-                                  .appendChild(node));
-                        });
-                flexLayout.appendChild(
-                    FlexItem.create()
-                        .setOrder(100)
-                        .setAlignSelf(FlexAlign.CENTER)
-                        .appendChild(TextNode.of(columnTitle)));
-                return flexLayout.element();
               });
   private UtilityColumnHandler<T> utilityColumnHandler = utilityColumn -> {};
 
@@ -147,26 +121,33 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
    */
   public void drawHeaders(DataTable<T> dataTable, DominoElement<HTMLTableSectionElement> thead) {
     this.dataTable = dataTable;
-    HtmlContentBuilder<HTMLTableRowElement> tr = tr();
+    DominoElement<HTMLTableRowElement> tr = DominoElement.of(tr());
     thead.appendChild(tr.element());
 
     columns.forEach(
         columnConfig -> {
-          // TODO replace with FlexLayout
-          Node element = columnConfig.getHeaderElement().asElement(columnConfig.getTitle());
-          columnConfig.contextMenu = div().style("width: 15px; display: none;").element();
-          HtmlContentBuilder<HTMLDivElement> headerContent =
-              div()
-                  .style("display: flex;")
-                  .add(div().style("width:100%").add(element))
-                  .add(columnConfig.contextMenu);
-          HtmlContentBuilder<HTMLTableCellElement> th =
-              th().css(DataTableStyles.TABLE_CM_HEADER).add(headerContent.element());
+          FlexLayout flexLayout = FlexLayout.create().setAlignItems(FlexAlign.CENTER);
+          if (columnConfig.isDrawTitle()) {
+            flexLayout.appendChild(
+                FlexItem.of(DominoElement.div())
+                    .setOrder(50)
+                    .setFlexGrow(1)
+                    .appendChild(
+                        columnConfig
+                            .getHeaderElementSupplier()
+                            .asElement(columnConfig.getTitle())));
+          }
+
+          DominoElement<HTMLTableCellElement> th =
+              DominoElement.of(th())
+                  .addCss(DataTableStyles.TABLE_CM_HEADER)
+                  .appendChild(flexLayout);
 
           columnConfig.applyScreenMedia(th.element());
 
-          tr.add(th);
+          tr.appendChild(th);
           columnConfig.setHeadElement(th.element());
+          columnConfig.setHeaderLayout(flexLayout);
           if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
             fixElementWidth(columnConfig, th.element(), fixedDefaultColumnWidth);
           }

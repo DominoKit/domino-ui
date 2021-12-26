@@ -442,6 +442,11 @@ table th[class*="col-"] {
     left: 3px;
 }
 
+.table .field-group.select-checkbox.lined.d-checkbox .field-cntr,
+.table .field-group.select-checkbox.rounded.d-checkbox .field-cntr{
+    padding: 0;
+}
+
 .table-responsive .field-group.table-search-box .field-cntr {
     background-color: #efefef;
     border-radius: 3px;
