@@ -80,13 +80,13 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
 
   private final ColumnConfig<T> pluginUtilityColumn =
       ColumnConfig.<T>create("plugin-utility-column")
-          .styleHeader(element -> Style.of(element).setWidth("3px", true))
-          .styleCell(element -> Style.of(element).setWidth("3px", true))
           .setShowTooltip(false)
           .setSortable(true)
           .setDrawTitle(false)
+              .setPluginColumn(true)
           .setCellRenderer(
               cellInfo -> {
+                DominoElement.of(cellInfo.getElement()).css("dt-cm-utility");
                 FlexLayout flexLayout =
                     FlexLayout.create()
                         .setAlignItems(FlexAlign.CENTER)
@@ -140,7 +140,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
 
           DominoElement<HTMLTableCellElement> th =
               DominoElement.of(th())
-                  .addCss(DataTableStyles.TABLE_CM_HEADER)
+                  .addCss(DataTableStyles.TABLE_CM_HEADER, "dt-cm-utility")
                   .appendChild(flexLayout);
 
           columnConfig.applyScreenMedia(th.element());
@@ -222,8 +222,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
   public TableConfig<T> addPlugin(DataTablePlugin<T> plugin) {
     this.plugins.add(plugin);
     if (plugin.requiresUtilityColumn() && !columns.contains(pluginUtilityColumn)) {
-      insertColumnFirst(pluginUtilityColumn);
       utilityColumnHandler.handle(pluginUtilityColumn);
+      insertColumnFirst(pluginUtilityColumn);
     }
     return this;
   }
