@@ -128,7 +128,7 @@ public class Loader {
       loaderElement.getElement().remove();
       target.removeCss("waitMe_container");
       started = false;
-      if (timeOutTimer.isRunning()) {
+      if (nonNull(timeOutTimer) && timeOutTimer.isRunning()) {
         timeOutTimer.cancel();
       }
     }
