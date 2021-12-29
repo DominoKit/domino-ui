@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.datatable;
+package org.dominokit.domino.ui.datatable.plugins;
 
-/** An interface to provide different implementations for a column header content */
-@FunctionalInterface
-@Deprecated
-public interface HeaderElement extends HeaderElementSupplier {}
+import java.util.List;
+
+public interface TreeNode<T> {
+  List<T> getItems();
+}

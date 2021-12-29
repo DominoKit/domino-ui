@@ -15,22 +15,24 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
+import static java.util.Collections.singletonList;
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
-import elemental2.dom.Node;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.forms.CheckBox;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Selectable;
-import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.elemento.IsElement;
 
 /**
@@ -84,49 +86,51 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     this(colorScheme, singleSelectIndicator.element());
   }
 
-  /** {@inheritDoc} */
   @Override
-  public void onBeforeAddHeaders(DataTable<T> dataTable) {
-    dataTable
-        .getTableConfig()
-        .insertColumnFirst(
-            ColumnConfig.<T>create("data-table-select-cm")
-                .setSortable(false)
-                .setWidth(dataTable.getTableConfig().isMultiSelect() ? "35px" : "40px")
-                .styleCell(
-                    element ->
-                        Style.of(element)
-                            .setMaxWidth(
-                                dataTable.getTableConfig().isMultiSelect() ? "35px" : "40px")
-                            .setWidth(dataTable.getTableConfig().isMultiSelect() ? "35px" : "40px"))
-                .setTooltipNode(DomGlobal.document.createTextNode("Select"))
-                .setHeaderElement(
-                    columnTitle -> {
-                      if (dataTable.getTableConfig().isMultiSelect()) {
-                        return createMultiSelectHeader(dataTable);
-                      } else {
-                        return createSingleSelectHeader();
-                      }
-                    })
-                .setCellRenderer(
-                    cell -> {
-                      if (selectionCondition.isAllowSelection(dataTable, cell.getTableRow())) {
-                        if (dataTable.getTableConfig().isMultiSelect()) {
-                          return createMultiSelectCell(dataTable, cell);
-                        } else {
-                          return createSingleSelectCell(dataTable, cell);
-                        }
-                      } else {
-                        return TextNode.empty();
-                      }
-                    }));
+  public boolean requiresUtilityColumn() {
+    return true;
   }
 
-  private Node createSingleSelectHeader() {
-    return singleSelectIndicator.cloneNode(true);
+  @Override
+  public Optional<List<HTMLElement>> getUtilityElements(
+      DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
+    if (selectionCondition.isAllowSelection(dataTable, cellInfo.getTableRow())) {
+      if (dataTable.getTableConfig().isMultiSelect()) {
+        return Optional.of(singletonList(createMultiSelectCell(dataTable, cellInfo)));
+      } else {
+        return Optional.of(
+            singletonList(
+                DominoElement.div()
+                    .setMinWidth("24px")
+                    .appendChild(createSingleSelectCell(dataTable, cellInfo))
+                    .element()));
+      }
+    }
+    return Optional.empty();
   }
 
-  private Node createSingleSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
+  @Override
+  public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
+    if (column.isUtilityColumn()) {
+      if (dataTable.getTableConfig().isMultiSelect()) {
+        column
+            .getHeaderLayout()
+            .appendChild(
+                FlexItem.create().setOrder(20).appendChild(createMultiSelectHeader(dataTable)));
+      } else {
+        column
+            .getHeaderLayout()
+            .appendChild(FlexItem.create().setOrder(20).appendChild(createSingleSelectHeader()));
+      }
+    }
+  }
+
+  private HTMLElement createSingleSelectHeader() {
+    return (HTMLElement) singleSelectIndicator.cloneNode(true);
+  }
+
+  private HTMLElement createSingleSelectCell(
+      DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
     HTMLElement clonedIndicator = Js.uncheckedCast(singleSelectIndicator.cloneNode(true));
     cell.getTableRow()
         .element()
@@ -169,7 +173,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     return clonedIndicator;
   }
 
-  private Node createMultiSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
+  private HTMLElement createMultiSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
     CheckBox checkBox = createCheckBox();
 
     TableRow<T> tableRow = cell.getTableRow();
@@ -201,7 +205,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
             for (int i = startIndex;
                 startIndex < endIndex ? i <= endIndex : i >= endIndex;
                 i += increment) {
-              TableRow<T> row = dataTable.getItems().get(i);
+              TableRow<T> row = dataTable.getRows().get(i);
               selectRow(dataTable, row);
             }
           } else {
@@ -222,7 +226,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
             }
           }
         });
-    return checkBox.element();
+    return checkBox.setAttribute("order", "20").element();
   }
 
   private int getStartSelectionIndex(DataTable<T> dataTable) {
@@ -253,7 +257,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     dataTable.onSelectionChange(tableRow);
   }
 
-  private Node createMultiSelectHeader(DataTable<T> dataTable) {
+  private HTMLElement createMultiSelectHeader(DataTable<T> dataTable) {
     CheckBox checkBox = createCheckBox();
     checkBox.addChangeHandler(
         checked -> {
@@ -267,7 +271,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     dataTable.addSelectionListener(
         (selectedRows, selectedRecords) -> {
           if (selectedRows.size()
-              != dataTable.getItems().stream()
+              != dataTable.getRows().stream()
                   .filter(tableRow -> selectionCondition.isAllowSelection(dataTable, tableRow))
                   .count()) {
             checkBox.uncheck(true);

@@ -18,12 +18,13 @@ package org.dominokit.domino.ui.datatable;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.Node;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ScreenMedia;
 import org.dominokit.domino.ui.utils.TextNode;
@@ -38,26 +39,36 @@ public class ColumnConfig<T> {
   private final String name;
   private String title;
   private HTMLTableCellElement headElement;
-  public HTMLDivElement contextMenu;
+  private FlexLayout headerLayout;
   private boolean header = false;
   private String minWidth;
   private String maxWidth;
   private String textAlign;
   private CellRenderer<T> cellRenderer;
   private CellRenderer<T> editableCellRenderer;
-  private HeaderElement headerElement = TextNode::of;
+  private HeaderElementSupplier headerElementSupplier =
+      columnTitle -> {
+        return FlexLayout.create()
+            .appendChild(
+                FlexItem.of(DominoElement.div())
+                    .setOrder(50)
+                    .setFlexGrow(1)
+                    .appendChild(TextNode.of(columnTitle)))
+            .element();
+      };
   private CellStyler<T> headerStyler = element -> {};
   private CellStyler<T> cellStyler = element -> {};
   private boolean sortable = false;
+  private String sortKey;
   private String width;
   private boolean fixed = false;
   private Node tooltipNode;
   private boolean showTooltip = true;
-
   private boolean hidden = false;
-
+  private boolean pluginColumn;
   private ScreenMedia showOn;
   private ScreenMedia hideOn;
+  private boolean drawTitle = true;
 
   private final List<ColumnShowHideListener> showHideListeners = new ArrayList<>();
 
@@ -194,19 +205,36 @@ public class ColumnConfig<T> {
     return this;
   }
 
-  /** @return the {@link HeaderElement} of the column */
-  public HeaderElement getHeaderElement() {
-    return headerElement;
+  /** @return the {@link HeaderElementSupplier} of the column */
+  @Deprecated
+  public HeaderElementSupplier getHeaderElement() {
+    return getHeaderElementSupplier();
+  }
+
+  /** @return the {@link HeaderElementSupplier} of the column */
+  public HeaderElementSupplier getHeaderElementSupplier() {
+    return headerElementSupplier;
   }
 
   /**
    * Sets a custom header element for the column
    *
-   * @param headerElement the {@link HeaderElement}
+   * @param headerElement the {@link HeaderElementSupplier}
    * @return same ColumnConfig instance
    */
-  public ColumnConfig<T> setHeaderElement(HeaderElement headerElement) {
-    this.headerElement = headerElement;
+  @Deprecated
+  public ColumnConfig<T> setHeaderElement(HeaderElementSupplier headerElement) {
+    return setHeaderElementSupplier(headerElement);
+  }
+
+  /**
+   * Sets a custom header element for the column
+   *
+   * @param headerElement the {@link HeaderElementSupplier}
+   * @return same ColumnConfig instance
+   */
+  public ColumnConfig<T> setHeaderElementSupplier(HeaderElementSupplier headerElement) {
+    this.headerElementSupplier = headerElement;
     return this;
   }
 
@@ -350,6 +378,19 @@ public class ColumnConfig<T> {
    */
   public ColumnConfig<T> setSortable(boolean sortable) {
     this.sortable = sortable;
+    this.sortKey = name;
+    return this;
+  }
+
+  /**
+   * set wither the column can be used to sort the data or not
+   *
+   * @param sortable boolean, if true then data can be sorted with this column, otherwise it cant
+   * @return same ColumnConfig instance
+   */
+  public ColumnConfig<T> setSortable(boolean sortable, String sortKey) {
+    this.sortable = sortable;
+    this.sortKey = sortKey;
     return this;
   }
 
@@ -387,7 +428,7 @@ public class ColumnConfig<T> {
   public Node getTooltipNode() {
     if (nonNull(tooltipNode)) return tooltipNode;
     else {
-      return getHeaderElement().asElement(title);
+      return getHeaderElementSupplier().asElement(title);
     }
   }
 
@@ -555,6 +596,40 @@ public class ColumnConfig<T> {
   /** @return boolean, true if the column is already hidden, otherwise false */
   public boolean isHidden() {
     return hidden;
+  }
+
+  public boolean isPluginColumn() {
+    return pluginColumn;
+  }
+
+  public ColumnConfig<T> setPluginColumn(boolean pluginColumn) {
+    this.pluginColumn = pluginColumn;
+    return this;
+  }
+
+  public String getSortKey() {
+    return sortKey;
+  }
+
+  public FlexLayout getHeaderLayout() {
+    return headerLayout;
+  }
+
+  void setHeaderLayout(FlexLayout headerLayout) {
+    this.headerLayout = headerLayout;
+  }
+
+  public boolean isUtilityColumn() {
+    return "plugin-utility-column".equals(name);
+  }
+
+  public boolean isDrawTitle() {
+    return drawTitle;
+  }
+
+  public ColumnConfig<T> setDrawTitle(boolean drawTitle) {
+    this.drawTitle = drawTitle;
+    return this;
   }
 
   /**

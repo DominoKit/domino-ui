@@ -27,8 +27,12 @@ public interface HasSelectionSupport<T> {
   /** @return a List of all currently selected items */
   List<T> getSelectedItems();
 
-  /** @return a List of all selected and not selected items */
+  /** @deprecated use {@link #getRows()} */
+  @Deprecated
   List<T> getItems();
+
+  /** @return a List of all selected and not selected items */
+  List<T> getRows();
 
   /**
    * Called when an item selection is changed, implementation can delegate to a list listeners

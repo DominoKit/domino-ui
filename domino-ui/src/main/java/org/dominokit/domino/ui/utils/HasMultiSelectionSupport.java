@@ -16,7 +16,7 @@
 package org.dominokit.domino.ui.utils;
 
 /** This interface is used to implement multi-select capability to a component */
-public interface HasMultiSelectionSupport {
+public interface HasMultiSelectionSupport<T extends HasMultiSelectionSupport<T>> {
   /** @return boolean, true if the component supports multi-selection, otherwise false */
   boolean isMultiSelect();
 
@@ -24,5 +24,5 @@ public interface HasMultiSelectionSupport {
    * @param multiSelect boolean, true if the component should support multi-selection, otherwise
    *     false
    */
-  void setMultiSelect(boolean multiSelect);
+  T setMultiSelect(boolean multiSelect);
 }

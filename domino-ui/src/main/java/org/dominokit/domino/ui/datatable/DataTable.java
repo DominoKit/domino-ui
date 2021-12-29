@@ -18,18 +18,14 @@ package org.dominokit.domino.ui.datatable;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.*;
-import static org.dominokit.domino.ui.style.Unit.*;
+import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.events.*;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
@@ -83,6 +79,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * @param dataStore the {@link DataStore}
    */
   public DataTable(TableConfig<T> tableConfig, DataStore<T> dataStore) {
+    super.init(this);
     this.tableConfig = tableConfig;
     this.events.put(ANY, new ArrayList<>());
     this.dataStore = dataStore;
@@ -136,7 +133,6 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
       tableElement.addEventListener(EventType.scroll, e -> updateTableWidth());
       DomGlobal.window.addEventListener(EventType.resize.getName(), e -> updateTableWidth());
     }
-    super.init(this);
 
     onResize(
         (target, observer, entries) -> {
@@ -249,6 +245,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     for (int index = 0; index < data.size(); index++) {
       TableRow<T> tableRow = new TableRow<>(data.get(index), initialIndex + index, this);
       tableConfig.getPlugins().forEach(plugin -> plugin.onBeforeAddRow(DataTable.this, tableRow));
+
       tableConfig.drawRecord(DataTable.this, tableRow);
       tableRows.add(tableRow);
     }
@@ -358,7 +355,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * @return same DataTable instance
    */
   public DataTable<T> edit() {
-    getItems().forEach(TableRow::edit);
+    getRows().forEach(TableRow::edit);
     return this;
   }
 
@@ -368,7 +365,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * @return same DataTable instance
    */
   public DataTable<T> save() {
-    getItems().forEach(TableRow::save);
+    getRows().forEach(TableRow::save);
     return this;
   }
 
@@ -378,7 +375,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * @return same DataTable instance
    */
   public DataTable<T> cancelEditing() {
-    getItems().forEach(TableRow::cancelEditing);
+    getRows().forEach(TableRow::cancelEditing);
     return this;
   }
 
@@ -468,20 +465,36 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   public List<T> getSelectedRecords() {
-    return getSelectedItems().stream().map(TableRow::getRecord).collect(Collectors.toList());
+    return tableRows.stream()
+        .filter(TableRow::isSelected)
+        .map(TableRow::getRecord)
+        .collect(Collectors.toList());
   }
 
   @Override
+  @Deprecated
   public List<TableRow<T>> getItems() {
+    return getRows();
+  }
+
+  @Override
+  public List<TableRow<T>> getRows() {
     return tableRows;
   }
 
+  public List<TableRow<T>> getRootRows() {
+    return getRows().stream().filter(TableRow::isRoot).collect(Collectors.toList());
+  }
+
   public List<T> getRecords() {
-    return getItems().stream().map(TableRow::getRecord).collect(Collectors.toList());
+    return getRows().stream()
+        .filter(TableRow::isRoot)
+        .map(TableRow::getRecord)
+        .collect(Collectors.toList());
   }
 
   public List<T> getDirtyRecords() {
-    return getItems().stream().map(TableRow::getDirtyRecord).collect(Collectors.toList());
+    return getRows().stream().map(TableRow::getDirtyRecord).collect(Collectors.toList());
   }
 
   @Override

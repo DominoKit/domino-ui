@@ -333,11 +333,6 @@ table th[class*="col-"] {
     border-top: 1px solid #eee;
 }
 
-
-.table-striped > tbody > tr:nth-of-type(odd):not([class*="details-tr"]):not([class*="bg-"]) {
-    background-color: #f9f9f9;
-}
-
 .table-hover > tbody > tr:hover:not([class*="details-tr"]):not([class*="bg-"]) {
     background-color: #f5f5f5;
 }
@@ -442,6 +437,11 @@ table th[class*="col-"] {
     left: 3px;
 }
 
+.table .field-group.select-checkbox.lined.d-checkbox .field-cntr,
+.table .field-group.select-checkbox.rounded.d-checkbox .field-cntr{
+    padding: 0;
+}
+
 .table-responsive .field-group.table-search-box .field-cntr {
     background-color: #efefef;
     border-radius: 3px;
@@ -483,3 +483,23 @@ table th[class*="col-"] {
 .table .dt-th-cell > .field-group .field-cntr .select-button {
     line-height: 30px;
 }
+
+.table-striped > tbody > tr.dom-ui-dt-tr-odd:not([class*="details-tr"]):not([class*="bg-"]) {
+    background-color: #f9f9f9;
+}
+
+.table.dt-row-marker tbody tr,
+.table.dt-row-marker thead tr {
+    border-left-width: 5px;
+    border-left-style: solid;
+}
+
+.table.dt-row-marker tbody tr.details-tr,
+.table.dt-row-marker thead tr {
+    border-left-color: transparent;
+}
+
+.dt-cm-utility {
+    white-space: nowrap;
+}
+
