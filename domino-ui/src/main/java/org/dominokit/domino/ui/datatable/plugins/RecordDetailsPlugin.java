@@ -43,7 +43,6 @@ import org.jboss.elemento.IsElement;
  */
 public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
 
-  public static final String DATA_TABLE_DETAILS_CM = "data-table-details-cm";
   private final BaseIcon<?> collapseIcon;
   private final BaseIcon<?> expandIcon;
   private HTMLDivElement element = div().element();
@@ -92,6 +91,14 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     DetailsButtonElement<T> detailsButtonElement =
         new DetailsButtonElement<>(expandIcon, collapseIcon, RecordDetailsPlugin.this, cell);
     cell.getTableRow().addMetaObject(detailsButtonElement);
+    cell.getTableRow()
+        .addHideListener(
+            () -> {
+              if (nonNull(buttonElement)
+                  && cell.getTableRow().equals(buttonElement.getCellInfo().getTableRow())) {
+                buttonElement.collapse();
+              }
+            });
     applyStyles(cell);
     detailsButtonElement.element.setAttribute("order", "30");
     return Optional.of(Collections.singletonList(detailsButtonElement.element()));

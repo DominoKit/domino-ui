@@ -79,6 +79,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * @param dataStore the {@link DataStore}
    */
   public DataTable(TableConfig<T> tableConfig, DataStore<T> dataStore) {
+    super.init(this);
     this.tableConfig = tableConfig;
     this.events.put(ANY, new ArrayList<>());
     this.dataStore = dataStore;
@@ -132,7 +133,6 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
       tableElement.addEventListener(EventType.scroll, e -> updateTableWidth());
       DomGlobal.window.addEventListener(EventType.resize.getName(), e -> updateTableWidth());
     }
-    super.init(this);
 
     onResize(
         (target, observer, entries) -> {

@@ -31,7 +31,6 @@ import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.popover.Tooltip;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
 
@@ -63,7 +62,7 @@ import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
  *
  * @param <T> the type of the data table records
  */
-public class TableConfig<T> implements HasMultiSelectionSupport {
+public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> {
 
   private List<ColumnConfig<T>> columns = new LinkedList<>();
   private List<DataTablePlugin<T>> plugins = new LinkedList<>();
@@ -83,7 +82,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
           .setShowTooltip(false)
           .setSortable(true)
           .setDrawTitle(false)
-              .setPluginColumn(true)
+          .setPluginColumn(true)
           .setCellRenderer(
               cellInfo -> {
                 DominoElement.of(cellInfo.getElement()).css("dt-cm-utility");
@@ -173,9 +172,14 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
    */
   public void drawRecord(DataTable<T> dataTable, TableRow<T> tableRow) {
     tableRow.render();
+    tableRow.addCss(isOdd(tableRow.getIndex()) ? "dom-ui-dt-tr-odd" : "dom-ui-dt-tr-even");
     rowAppender.appendRow(dataTable, tableRow);
 
     plugins.forEach(plugin -> plugin.onRowAdded(dataTable, tableRow));
+  }
+
+  private boolean isOdd(int index) {
+    return index % 2 > 0;
   }
 
   /**
@@ -319,8 +323,9 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
 
   /** {@inheritDoc} */
   @Override
-  public void setMultiSelect(boolean multiSelect) {
+  public TableConfig<T> setMultiSelect(boolean multiSelect) {
     this.multiSelect = multiSelect;
+    return this;
   }
 
   /**

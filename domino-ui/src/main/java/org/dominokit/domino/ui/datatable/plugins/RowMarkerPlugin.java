@@ -15,15 +15,13 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
-import static java.util.Objects.nonNull;
-
-import elemental2.dom.DomGlobal;
 import java.util.Optional;
-import org.dominokit.domino.ui.datatable.CellRenderer;
-import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
+import org.dominokit.domino.ui.datatable.TableRow;
+import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
+import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.style.ColorScheme;
-import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * This plugin adds a thin colored border to the left of a row based on custom criteria
@@ -34,36 +32,36 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
 
   private final MarkerColor<T> markerColor;
 
-  /** {@inheritDoc} */
   @Override
-  public void onBeforeAddHeaders(DataTable<T> dataTable) {
-    dataTable
-        .getTableConfig()
-        .insertColumnFirst(
-            ColumnConfig.<T>create("data-table-marker-cm")
-                .setSortable(false)
-                .setPluginColumn(true)
-                .setShowTooltip(false)
-                .maxWidth("3px")
-                .styleHeader(
-                    element -> Style.of(element).setPadding("0px", true).setWidth("3px", true))
-                .styleCell(
-                    element -> Style.of(element).setPadding("0px", true).setWidth("3px", true))
-                .setCellRenderer(
-                    cell -> {
-                      ColorScheme colorScheme = markerColor.getColorScheme(cell);
-                      if (nonNull(colorScheme)) {
-                        Optional<String> first =
-                            cell.getElement().classList.asList().stream()
-                                .filter(cssClass -> cssClass.startsWith("bg-"))
-                                .findFirst();
-                        first.ifPresent(
-                            cssClass -> Style.of(cell.getElement()).removeCss(cssClass));
-                        Style.of(cell.getElement())
-                            .addCss(markerColor.getColorScheme(cell).color().getBackground());
-                      }
-                      return DomGlobal.document.createTextNode("");
-                    }));
+  public void onBeforeAddTable(DataTable<T> dataTable) {
+    dataTable.tableElement().styler(style -> style.addCss("dt-row-marker"));
+  }
+
+  @Override
+  public void onAfterAddHeaders(DataTable<T> dataTable) {}
+
+  @Override
+  public void onBeforeAddRow(DataTable<T> dataTable, TableRow<T> tableRow) {}
+
+  @Override
+  public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
+    setStyle(tableRow);
+  }
+
+  private void setStyle(TableRow<T> tableRow) {
+    ColorScheme colorScheme = markerColor.getColorScheme(tableRow);
+    String color =
+        Optional.ofNullable(colorScheme)
+            .map(scheme -> colorScheme.color().getHex())
+            .orElse("transparent");
+    DominoElement.of(tableRow.element()).setCssProperty("border-left-color", color);
+  }
+
+  @Override
+  public void handleEvent(TableEvent event) {
+    if (RowRecordUpdatedEvent.RECORD_UPDATED.equals(event.getType())) {
+      setStyle(((RowRecordUpdatedEvent<T>) event).getTableRow());
+    }
   }
 
   /**
@@ -85,9 +83,9 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
     /**
      * determines the Color scheme from the cell info
      *
-     * @param tableCellInfo {@link org.dominokit.domino.ui.datatable.CellRenderer.CellInfo}
+     * @param tableRow {@link org.dominokit.domino.ui.datatable.TableRow}
      * @return the {@link ColorScheme}
      */
-    ColorScheme getColorScheme(CellRenderer.CellInfo<T> tableCellInfo);
+    ColorScheme getColorScheme(TableRow<T> tableRow);
   }
 }
