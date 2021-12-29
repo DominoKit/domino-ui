@@ -47,7 +47,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   private boolean collapsed = false;
   private boolean forceHidden = false;
 
-  private List<HideCompletedHandler> hideHandlers;
+  private List<HideCompletedHandler> hideHandlers = new ArrayList<>();
   private List<ShowCompletedHandler> showHandlers = new ArrayList<>();
   private CollapseStrategy strategy = new DisplayCollapseStrategy();
 

@@ -204,7 +204,8 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
     if (nonNull(this.recordsSorter)) {
       this.lastSort = event;
       filtered.sort(
-          recordsSorter.onSortChange(event.getColumnConfig().getName(), event.getSortDirection()));
+          recordsSorter.onSortChange(
+              event.getColumnConfig().getSortKey(), event.getSortDirection()));
       pageIndex = 0;
       fireUpdate(false);
     }

@@ -16,19 +16,23 @@
 package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.datatable.ColumnUtils.fixElementWidth;
 import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.*;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
+import org.dominokit.domino.ui.grid.flex.FlexAlign;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.popover.Tooltip;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
-import org.jboss.elemento.HtmlContentBuilder;
 
 /**
  * This class is responsible of configuring the data table
@@ -58,7 +62,7 @@ import org.jboss.elemento.HtmlContentBuilder;
  *
  * @param <T> the type of the data table records
  */
-public class TableConfig<T> implements HasMultiSelectionSupport {
+public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> {
 
   private List<ColumnConfig<T>> columns = new LinkedList<>();
   private List<DataTablePlugin<T>> plugins = new LinkedList<>();
@@ -73,6 +77,39 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
   private DirtyRecordProvider<T> dirtyRecordProvider = original -> original;
   private SaveDirtyRecordHandler<T> saveDirtyRecordHandler = (originalRecord, dirtyRecord) -> {};
 
+  private final ColumnConfig<T> pluginUtilityColumn =
+      ColumnConfig.<T>create("plugin-utility-column")
+          .setShowTooltip(false)
+          .setSortable(true)
+          .setDrawTitle(false)
+          .setPluginColumn(true)
+          .setCellRenderer(
+              cellInfo -> {
+                DominoElement.of(cellInfo.getElement()).css("dt-cm-utility");
+                FlexLayout flexLayout =
+                    FlexLayout.create()
+                        .setAlignItems(FlexAlign.CENTER)
+                        .setJustifyContent(FlexJustifyContent.START);
+                getPlugins().stream()
+                    .map(plugin -> plugin.getUtilityElements(dataTable, cellInfo))
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .flatMap(Collection::stream)
+                    .forEach(
+                        node -> {
+                          String order =
+                              Optional.ofNullable(DominoElement.of(node).getAttribute("order"))
+                                  .orElse("0");
+                          flexLayout.appendChild(
+                              FlexItem.create()
+                                  .setOrder(Integer.parseInt(order))
+                                  .setAlignSelf(FlexAlign.CENTER)
+                                  .appendChild(node));
+                        });
+                return flexLayout.element();
+              });
+  private UtilityColumnHandler<T> utilityColumnHandler = utilityColumn -> {};
+
   /**
    * This method will draw the table columns header elements for all columns and append them to the
    * table head element
@@ -83,28 +120,35 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
    */
   public void drawHeaders(DataTable<T> dataTable, DominoElement<HTMLTableSectionElement> thead) {
     this.dataTable = dataTable;
-    HtmlContentBuilder<HTMLTableRowElement> tr = tr();
+    DominoElement<HTMLTableRowElement> tr = DominoElement.of(tr());
     thead.appendChild(tr.element());
 
     columns.forEach(
         columnConfig -> {
-          // TODO replace with FlexLayout
-          Node element = columnConfig.getHeaderElement().asElement(columnConfig.getTitle());
-          columnConfig.contextMenu = div().style("width: 15px; display: none;").element();
-          HtmlContentBuilder<HTMLDivElement> headerContent =
-              div()
-                  .style("display: flex;")
-                  .add(div().style("width:100%").add(element))
-                  .add(columnConfig.contextMenu);
-          HtmlContentBuilder<HTMLTableCellElement> th =
-              th().css(DataTableStyles.TABLE_CM_HEADER).add(headerContent.element());
+          FlexLayout flexLayout = FlexLayout.create().setAlignItems(FlexAlign.CENTER);
+          if (columnConfig.isDrawTitle()) {
+            flexLayout.appendChild(
+                FlexItem.of(DominoElement.div())
+                    .setOrder(50)
+                    .setFlexGrow(1)
+                    .appendChild(
+                        columnConfig
+                            .getHeaderElementSupplier()
+                            .asElement(columnConfig.getTitle())));
+          }
+
+          DominoElement<HTMLTableCellElement> th =
+              DominoElement.of(th())
+                  .addCss(DataTableStyles.TABLE_CM_HEADER, "dt-cm-utility")
+                  .appendChild(flexLayout);
 
           columnConfig.applyScreenMedia(th.element());
 
-          tr.add(th);
+          tr.appendChild(th);
           columnConfig.setHeadElement(th.element());
+          columnConfig.setHeaderLayout(flexLayout);
           if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
-            fixElementWidth(columnConfig, th.element());
+            fixElementWidth(columnConfig, th.element(), fixedDefaultColumnWidth);
           }
 
           if (columnConfig.isShowTooltip()) {
@@ -120,15 +164,6 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
     dataTable.tableElement().appendChild(thead);
   }
 
-  private void fixElementWidth(ColumnConfig<T> column, HTMLElement element) {
-    String fixedWidth = bestFitWidth(column);
-    Style.of(element)
-        .setWidth(fixedWidth)
-        .setMinWidth(fixedWidth)
-        .setMaxWidth(fixedWidth)
-        .addCss(DataTableStyles.FIXED_WIDTH);
-  }
-
   /**
    * Draw a record as a row in the data table, row information is obtained from the TableRow
    *
@@ -136,34 +171,15 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
    * @param tableRow the {@link TableRow} we are adding to the table
    */
   public void drawRecord(DataTable<T> dataTable, TableRow<T> tableRow) {
-    columns.forEach(
-        columnConfig -> {
-          HTMLTableCellElement cellElement;
-          if (columnConfig.isHeader()) {
-            cellElement = th().css("dt-th-cell").element();
-          } else {
-            cellElement = td().css("dt-td-cell").element();
-          }
-
-          if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
-            fixElementWidth(columnConfig, cellElement);
-          }
-
-          RowCell<T> rowCell =
-              new RowCell<>(new CellRenderer.CellInfo<>(tableRow, cellElement), columnConfig);
-          rowCell.updateCell();
-          tableRow.addCell(rowCell);
-
-          columnConfig.applyScreenMedia(cellElement);
-
-          tableRow.element().appendChild(cellElement);
-          columnConfig.applyCellStyle(cellElement);
-          columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(cellElement));
-          DominoElement.of(cellElement).toggleDisplay(!columnConfig.isHidden());
-        });
+    tableRow.render();
+    tableRow.addCss(isOdd(tableRow.getIndex()) ? "dom-ui-dt-tr-odd" : "dom-ui-dt-tr-even");
     rowAppender.appendRow(dataTable, tableRow);
 
     plugins.forEach(plugin -> plugin.onRowAdded(dataTable, tableRow));
+  }
+
+  private boolean isOdd(int index) {
+    return index % 2 > 0;
   }
 
   /**
@@ -209,7 +225,21 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
    */
   public TableConfig<T> addPlugin(DataTablePlugin<T> plugin) {
     this.plugins.add(plugin);
+    if (plugin.requiresUtilityColumn() && !columns.contains(pluginUtilityColumn)) {
+      utilityColumnHandler.handle(pluginUtilityColumn);
+      insertColumnFirst(pluginUtilityColumn);
+    }
     return this;
+  }
+
+  public TableConfig<T> onUtilityColumn(UtilityColumnHandler<T> utilityColumnHandler) {
+    this.utilityColumnHandler = utilityColumnHandler;
+    return this;
+  }
+
+  @FunctionalInterface
+  public interface UtilityColumnHandler<T> {
+    void handle(ColumnConfig<T> utilityColumn);
   }
 
   /**
@@ -285,23 +315,6 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
     return this;
   }
 
-  /**
-   * @param columnConfig String value of preferred width to be used for a column from its width.
-   *     min-width, max-width or default fixedDefaultColumnWidth
-   * @return same TableConfig instance
-   */
-  String bestFitWidth(ColumnConfig<T> columnConfig) {
-    if (nonNull(columnConfig.getWidth()) && !columnConfig.getWidth().isEmpty()) {
-      return columnConfig.getWidth();
-    } else if (nonNull(columnConfig.getMinWidth()) && !columnConfig.getMinWidth().isEmpty()) {
-      return columnConfig.getMinWidth();
-    } else if (nonNull(columnConfig.getMaxWidth()) && !columnConfig.getMaxWidth().isEmpty()) {
-      return columnConfig.getMaxWidth();
-    } else {
-      return fixedDefaultColumnWidth;
-    }
-  }
-
   /** {@inheritDoc} */
   @Override
   public boolean isMultiSelect() {
@@ -310,8 +323,9 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
 
   /** {@inheritDoc} */
   @Override
-  public void setMultiSelect(boolean multiSelect) {
+  public TableConfig<T> setMultiSelect(boolean multiSelect) {
     this.multiSelect = multiSelect;
+    return this;
   }
 
   /**
@@ -376,6 +390,13 @@ public class TableConfig<T> implements HasMultiSelectionSupport {
     } else {
       throw new ColumnNofFoundException(name);
     }
+  }
+
+  public TableConfig<T> setUtilityColumnTitle(String title) {
+    if (nonNull(title)) {
+      pluginUtilityColumn.setTitle(title);
+    }
+    return this;
   }
 
   /** @return the {@link DataTable} initialized with this configuration */
