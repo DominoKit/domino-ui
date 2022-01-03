@@ -401,6 +401,7 @@ public class ColumnConfig<T> {
    */
   public ColumnConfig<T> sortable() {
     this.sortable = true;
+    this.sortKey = this.name;
     return this;
   }
 
