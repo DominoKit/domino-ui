@@ -145,6 +145,9 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
   public T clickable() {
     addCss(IconsStyles.CLICKABLE_ICON);
     withWaves();
+    setAttribute("tabindex", "0");
+    setAttribute("aria-expanded", "true");
+    setAttribute("href", "#");
     return (T) this;
   }
 

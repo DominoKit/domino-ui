@@ -249,7 +249,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
   private void addMenuNavigationListener() {
     menuNavigation =
         MenuNavigation.create(actions)
-            .onSelect(DropdownAction::select)
+            .onSelect((event, dropdownAction) -> dropdownAction.select())
             .focusCondition(IsCollapsible::isExpanded)
             .onFocus(
                 item -> {

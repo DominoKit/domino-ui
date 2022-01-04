@@ -16,13 +16,22 @@
 package org.dominokit.domino.ui.dropdown;
 
 import static java.util.Objects.isNull;
-import static org.dominokit.domino.ui.utils.ElementUtil.*;
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.ElementUtil.isArrowDown;
+import static org.dominokit.domino.ui.utils.ElementUtil.isArrowUp;
+import static org.dominokit.domino.ui.utils.ElementUtil.isEnterKey;
+import static org.dominokit.domino.ui.utils.ElementUtil.isEscapeKey;
+import static org.dominokit.domino.ui.utils.ElementUtil.isSpaceKey;
+import static org.dominokit.domino.ui.utils.ElementUtil.isTabKey;
 
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.KeyboardEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import jsinterop.base.Js;
 import org.jboss.elemento.IsElement;
 
@@ -37,9 +46,17 @@ public class MenuNavigation<V extends IsElement<?>> implements EventListener {
 
   private final List<V> items;
   private FocusHandler<V> focusHandler;
-  private SelectHandler<V> selectHandler;
+  private ItemNavigationHandler<V> selectHandler = (event, item) -> {};
+  private ItemNavigationHandler<V> enterHandler;
+  private ItemNavigationHandler<V> tabHandler;
+  private ItemNavigationHandler<V> spaceHandler;
+  private final Map<String, List<ItemNavigationHandler<V>>> navigationHandlers = new HashMap<>();
   private FocusCondition<V> focusCondition;
   private EscapeHandler escapeHandler;
+  private EventOptions globalOptions = new EventOptions(true, true);
+  private EventOptions enterOptions = new EventOptions(true, true);
+  private EventOptions tabOptions = new EventOptions(true, true);
+  private EventOptions spaceOptions = new EventOptions(true, true);
 
   public MenuNavigation(List<V> items) {
     this.items = items;
@@ -70,10 +87,10 @@ public class MenuNavigation<V extends IsElement<?>> implements EventListener {
   /**
    * Sets a handler which will be called when an item gets selected
    *
-   * @param selectHandler A {@link SelectHandler}
+   * @param selectHandler A {@link ItemNavigationHandler}
    * @return same instance
    */
-  public MenuNavigation<V> onSelect(SelectHandler<V> selectHandler) {
+  public MenuNavigation<V> onSelect(ItemNavigationHandler<V> selectHandler) {
     this.selectHandler = selectHandler;
     return this;
   }
@@ -104,27 +121,91 @@ public class MenuNavigation<V extends IsElement<?>> implements EventListener {
   @Override
   public void handleEvent(Event evt) {
     KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
-    evt.stopPropagation();
+
     HTMLElement element = Js.uncheckedCast(keyboardEvent.target);
     for (V item : items) {
       if (item.element().contains(element)) {
         if (isArrowUp(keyboardEvent)) {
-          focusPrevious(item);
+          doEvent(evt, globalOptions, () -> focusPrevious(item));
         } else if (isArrowDown(keyboardEvent)) {
-          focusNext(item);
+          doEvent(evt, globalOptions, () -> focusNext(item));
         } else if (isEscapeKey(keyboardEvent)) {
-          escapeHandler.onEscape();
+          doEvent(evt, globalOptions, () -> escapeHandler.onEscape());
         }
 
-        if (isEnterKey(keyboardEvent) || isSpaceKey(keyboardEvent) || isTabKey(keyboardEvent)) {
-          selectHandler.doSelect(item);
+        if (isEnterKey(keyboardEvent)) {
+          doEvent(keyboardEvent, enterOptions, () -> onEnter(keyboardEvent, item));
         }
-        evt.preventDefault();
+
+        if (isSpaceKey(keyboardEvent)) {
+          doEvent(keyboardEvent, spaceOptions, () -> onSpace(keyboardEvent, item));
+        }
+
+        if (isTabKey(keyboardEvent)) {
+          doEvent(keyboardEvent, tabOptions, () -> onTab(keyboardEvent, item));
+        }
+
+        onCustomHandler(keyboardEvent, item);
       }
     }
   }
 
-  private void focusNext(V item) {
+  private void onCustomHandler(KeyboardEvent event, V item) {
+    if (navigationHandlers.containsKey(event.key.toLowerCase())) {
+      navigationHandlers
+          .get(event.key.toLowerCase())
+          .forEach(handler -> handler.onItemNavigation(event, item));
+    }
+  }
+
+  private void onEnter(KeyboardEvent event, V item) {
+    (nonNull(enterHandler) ? enterHandler : selectHandler).onItemNavigation(event, item);
+  }
+
+  private void onSpace(KeyboardEvent event, V item) {
+    (nonNull(spaceHandler) ? spaceHandler : selectHandler).onItemNavigation(event, item);
+  }
+
+  private void onTab(KeyboardEvent event, V item) {
+    (nonNull(tabHandler) ? tabHandler : selectHandler).onItemNavigation(event, item);
+  }
+
+  public MenuNavigation<V> setEnterHandler(ItemNavigationHandler<V> enterHandler) {
+    this.enterHandler = enterHandler;
+    return this;
+  }
+
+  public MenuNavigation<V> setTabHandler(ItemNavigationHandler<V> tabHandler) {
+    this.tabHandler = tabHandler;
+    return this;
+  }
+
+  public MenuNavigation<V> setSpaceHandler(ItemNavigationHandler<V> spaceHandler) {
+    this.spaceHandler = spaceHandler;
+    return this;
+  }
+
+  public MenuNavigation<V> setGlobalOptions(EventOptions globalOptions) {
+    this.globalOptions = globalOptions;
+    return this;
+  }
+
+  public MenuNavigation<V> setEnterOptions(EventOptions enterOptions) {
+    this.enterOptions = enterOptions;
+    return this;
+  }
+
+  public MenuNavigation<V> setTabOptions(EventOptions tabOptions) {
+    this.tabOptions = tabOptions;
+    return this;
+  }
+
+  public MenuNavigation<V> setSpaceOptions(EventOptions spaceOptions) {
+    this.spaceOptions = spaceOptions;
+    return this;
+  }
+
+  public void focusNext(V item) {
     int nextIndex = items.indexOf(item) + 1;
     int size = items.size();
     if (nextIndex >= size) {
@@ -141,11 +222,21 @@ public class MenuNavigation<V extends IsElement<?>> implements EventListener {
     }
   }
 
+  public boolean isLastFocusableItem(V item) {
+    int nextIndex = items.indexOf(item) + 1;
+    int size = items.size();
+    if (nextIndex >= size) {
+      return true;
+    } else {
+      return !items.subList(nextIndex, size).stream().anyMatch(this::shouldFocus);
+    }
+  }
+
   private boolean shouldFocus(V itemToFocus) {
     return isNull(focusCondition) || focusCondition.shouldFocus(itemToFocus);
   }
 
-  private void focusTopFocusableItem() {
+  public void focusTopFocusableItem() {
     for (V item : items) {
       if (shouldFocus(item)) {
         doFocus(item);
@@ -164,7 +255,7 @@ public class MenuNavigation<V extends IsElement<?>> implements EventListener {
     }
   }
 
-  private void focusPrevious(V item) {
+  public void focusPrevious(V item) {
     int nextIndex = items.indexOf(item) - 1;
     if (nextIndex < 0) {
       focusBottomFocusableItem();
@@ -196,6 +287,43 @@ public class MenuNavigation<V extends IsElement<?>> implements EventListener {
     }
   }
 
+  private void doEvent(Event event, EventOptions options, EventExecutor executor) {
+    if (options.stopPropagation) {
+      event.stopPropagation();
+    }
+    executor.execute();
+    if (options.preventDefault) {
+      event.preventDefault();
+    }
+  }
+
+  /**
+   * @param keyCode String keyboard key code
+   * @param navigationHandler the navigation handler to be registered
+   * @return same instance
+   */
+  public MenuNavigation<V> registerNavigationHandler(
+      String keyCode, ItemNavigationHandler<V> navigationHandler) {
+    if (!navigationHandlers.containsKey(keyCode)) {
+      navigationHandlers.put(keyCode.toLowerCase(), new ArrayList<>());
+    }
+    navigationHandlers.get(keyCode.toLowerCase()).add(navigationHandler);
+    return this;
+  }
+
+  /**
+   * @param keyCode String keyboard key code
+   * @param navigationHandler the navigation handler to be removed
+   * @return same instance
+   */
+  public MenuNavigation<V> removeNavigationHandler(
+      String keyCode, ItemNavigationHandler<V> navigationHandler) {
+    if (navigationHandlers.containsKey(keyCode.toLowerCase())) {
+      navigationHandlers.get(keyCode.toLowerCase()).remove(navigationHandler);
+    }
+    return this;
+  }
+
   /**
    * Focus handler to be called when an item gets focused
    *
@@ -217,13 +345,13 @@ public class MenuNavigation<V extends IsElement<?>> implements EventListener {
    * @param <V> the item type
    */
   @FunctionalInterface
-  public interface SelectHandler<V> {
+  public interface ItemNavigationHandler<V> {
     /**
      * Will be called when {@code item} gets selected
      *
      * @param item the selected item
      */
-    void doSelect(V item);
+    void onItemNavigation(KeyboardEvent event, V item);
   }
 
   /** Escape handler to be called when escape key is pressed */
@@ -247,5 +375,19 @@ public class MenuNavigation<V extends IsElement<?>> implements EventListener {
      * @return true if the item should be focused, false otherwise
      */
     boolean shouldFocus(V item);
+  }
+
+  private interface EventExecutor {
+    void execute();
+  }
+
+  public static final class EventOptions {
+    private boolean preventDefault;
+    private boolean stopPropagation;
+
+    public EventOptions(boolean preventDefault, boolean stopPropagation) {
+      this.preventDefault = preventDefault;
+      this.stopPropagation = stopPropagation;
+    }
   }
 }
