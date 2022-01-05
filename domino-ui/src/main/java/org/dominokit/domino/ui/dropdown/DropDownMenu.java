@@ -359,8 +359,10 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
   /** Closes the menu */
   public void close() {
-    element.remove();
-    closeHandlers.forEach(CloseHandler::onClose);
+    if (isOpened()) {
+      element.remove();
+      closeHandlers.forEach(CloseHandler::onClose);
+    }
   }
 
   /** Opens the menu */
