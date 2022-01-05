@@ -22,6 +22,7 @@ import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.Node;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
@@ -377,9 +378,7 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> setSortable(boolean sortable) {
-    this.sortable = sortable;
-    this.sortKey = name;
-    return this;
+    return setSortable(sortable, name);
   }
 
   /**
@@ -400,8 +399,17 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> sortable() {
-    this.sortable = true;
-    return this;
+    return setSortable(true, name);
+  }
+
+  /**
+   * a shortcut for {@link #setSortable(boolean)} with value true
+   *
+   * @param sortKey String key for sort property
+   * @return same ColumnConfig instance
+   */
+  public ColumnConfig<T> sortable(String sortKey) {
+    return setSortable(true, sortKey);
   }
 
   /**
@@ -608,7 +616,7 @@ public class ColumnConfig<T> {
   }
 
   public String getSortKey() {
-    return sortKey;
+    return Optional.ofNullable(sortKey).orElse(name);
   }
 
   public FlexLayout getHeaderLayout() {
