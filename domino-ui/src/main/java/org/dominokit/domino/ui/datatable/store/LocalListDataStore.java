@@ -363,12 +363,12 @@ public class LocalListDataStore<T> implements DataStore<T> {
    *
    * @param records records to be updated
    */
-  public void updateRecords(int index, Collection<T> records) {
+  public void updateRecords(int startIndex, Collection<T> records) {
     for (T record : records) {
-      if (index >= original.size()) {
+      if (startIndex >= original.size()) {
         break;
       }
-      internalUpdate(index++, record, false);
+      internalUpdate(startIndex++, record, false);
     }
     load();
   }
