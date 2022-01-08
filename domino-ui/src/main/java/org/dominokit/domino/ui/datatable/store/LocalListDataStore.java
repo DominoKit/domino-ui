@@ -335,7 +335,8 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * updates a single record at a specific index in the current list and updates the data table accordingly
+   * updates a single record at a specific index in the current list and updates the data table
+   * accordingly
    *
    * @param record T the record being updated
    * @param index the index of the record to be updated
@@ -357,9 +358,10 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * updates records from the current list starting from a specific index and updates the data table accordingly
+   * updates records from the current list starting from a specific index and updates the data table
+   * accordingly
    *
-   * While updating the records, if the index is out of range then the process will stop.
+   * <p>While updating the records, if the index is out of range then the process will stop.
    *
    * @param records records to be updated
    */
