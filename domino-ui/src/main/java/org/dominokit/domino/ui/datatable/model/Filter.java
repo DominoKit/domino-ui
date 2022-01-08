@@ -25,11 +25,11 @@ import java.util.Objects;
  */
 public class Filter {
 
-  private final String fieldName;
-  private final FilterTypes type;
-  private final Operator operator;
-  private final List<String> values;
-  private final Category category;
+  private String fieldName;
+  private FilterTypes type;
+  private Operator operator;
+  private List<String> values;
+  private Category category;
 
   /**
    * Creates a Filter of {@link FilterTypes#STRING} and {@link Operator#like}
@@ -117,6 +117,31 @@ public class Filter {
   /** @return the {@link Category} */
   public Category getCategory() {
     return category;
+  }
+
+  /** @param fieldName the field name to be set */
+  public void setFieldName(String fieldName) {
+    this.fieldName = fieldName;
+  }
+
+  /** @param type the type to be set */
+  public void setType(FilterTypes type) {
+    this.type = type;
+  }
+
+  /** @param operator the operator to be set */
+  public void setOperator(Operator operator) {
+    this.operator = operator;
+  }
+
+  /** @param values the values to be set */
+  public void setValues(List<String> values) {
+    this.values = values;
+  }
+
+  /** @param category the category to be set */
+  public void setCategory(Category category) {
+    this.category = category;
   }
 
   /** {@inheritDoc} */
