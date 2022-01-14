@@ -43,7 +43,7 @@ public interface Selectable<T> {
   T select(boolean silent);
 
   /**
-   * deselecy\t the component without triggering the selection/change handlers
+   * deselect the component without triggering the selection/change handlers
    *
    * @return same implementing component instance
    */
@@ -61,7 +61,7 @@ public interface Selectable<T> {
   default void addSelectionHandler(SelectionHandler<T> selectionHandler) {}
 
   /**
-   * A fucntion to implement logic to be executed when a {@link Selectable} component selection
+   * A function to implement logic to be executed when a {@link Selectable} component selection
    * changed
    *
    * @param <T> The type of the component implementing {@link Selectable}

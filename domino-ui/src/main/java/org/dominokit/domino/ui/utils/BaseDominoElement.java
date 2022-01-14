@@ -19,10 +19,17 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import elemental2.core.JsArray;
-import elemental2.dom.*;
+import elemental2.dom.DOMRect;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.Node;
+import elemental2.dom.NodeList;
+import java.util.Arrays;
 import java.util.Optional;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.Collapsible;
+import org.dominokit.domino.ui.menu.AbstractDropMenu;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.DominoStyle;
@@ -31,7 +38,10 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.WavesSupport;
 import org.gwtproject.editor.client.Editor;
 import org.gwtproject.safehtml.shared.SafeHtmlBuilder;
-import org.jboss.elemento.*;
+import org.jboss.elemento.EventType;
+import org.jboss.elemento.Id;
+import org.jboss.elemento.IsElement;
+import org.jboss.elemento.ObserverCallback;
 
 /**
  * This is the base implementation for all domino components.
@@ -407,6 +417,24 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   public T addEventListener(String type, EventListener listener) {
     element().addEventListener(type, listener);
+    return element;
+  }
+
+  /**
+   * Adds a listener for the provided event type
+   *
+   * @param listener {@link EventListener}
+   * @param events String array of event types
+   * @return same component
+   */
+  @Editor.Ignore
+  public T addEventsListener(EventListener listener, String... events) {
+    Arrays.asList(events)
+        .forEach(
+            eventName -> {
+              element().addEventListener(eventName, listener);
+            });
+
     return element;
   }
 
@@ -1754,7 +1782,21 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
   @Override
   public T setOpacity(double opacity, boolean important) {
-    return null;
+    style().setOpacity(opacity, important);
+    return (T) this;
+  }
+
+  /**
+   * Set this element as the target element for the provided Drop menu
+   *
+   * @param dropMenu {@link AbstractDropMenu}
+   * @return same component
+   */
+  public T setDropMenu(AbstractDropMenu<?, ?> dropMenu) {
+    if (nonNull(dropMenu)) {
+      dropMenu.setTargetElement(this);
+    }
+    return (T) this;
   }
 
   /**

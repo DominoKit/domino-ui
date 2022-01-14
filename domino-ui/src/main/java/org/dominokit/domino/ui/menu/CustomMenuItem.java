@@ -13,25 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.dropdown;
+package org.dominokit.domino.ui.menu;
 
-import elemental2.dom.EventListener;
-import java.util.List;
-import org.dominokit.domino.ui.utils.KeyboardNavigation;
-import org.jboss.elemento.IsElement;
+/** An implementation of {@link AbstractMenuItem} that can take custom content */
+public class CustomMenuItem extends AbstractMenuItem<String, CustomMenuItem> {
 
-/**
- * A helper class to ease the keyboard navigation of a menu
- *
- * @deprecated use {@link KeyboardNavigation}
- * @param <V> The element type
- * @see IsElement
- * @see EventListener
- */
-@Deprecated
-public class MenuNavigation<V extends IsElement<?>> extends KeyboardNavigation<V> {
-
-  public MenuNavigation(List<V> items) {
-    super(items);
+  public static CustomMenuItem create() {
+    return new CustomMenuItem();
   }
 }
