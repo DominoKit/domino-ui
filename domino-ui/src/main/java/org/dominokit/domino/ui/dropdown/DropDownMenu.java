@@ -17,9 +17,20 @@ package org.dominokit.domino.ui.dropdown;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.*;
+import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.Elements.h;
+import static org.jboss.elemento.Elements.input;
+import static org.jboss.elemento.Elements.li;
+import static org.jboss.elemento.Elements.ul;
 
-import elemental2.dom.*;
+import elemental2.dom.Element;
+import elemental2.dom.Event;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
+import elemental2.dom.HTMLUListElement;
+import elemental2.dom.Node;
+import elemental2.dom.NodeList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,10 +42,12 @@ import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.AppendStrategy;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.IsCollapsible;
+import org.dominokit.domino.ui.utils.KeyboardNavigation;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -59,7 +72,7 @@ import org.jboss.elemento.IsElement;
 public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu>
     implements HasBackground<DropDownMenu> {
 
-  private MenuNavigation<DropdownAction<?>> menuNavigation;
+  private KeyboardNavigation<DropdownAction<?>> keyboardNavigation;
   private final DominoElement<HTMLDivElement> element =
       DominoElement.of(div().css(DropDownStyles.DROPDOWN));
   private final DominoElement<HTMLUListElement> menuElement =
@@ -162,8 +175,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
             KeyboardEvents.KeyboardEventOptions.create()
                 .setPreventDefault(true)
                 .setStopPropagation(true))
-        .onArrowUp(evt -> menuNavigation.focusAt(lastVisibleActionIndex()))
-        .onArrowDown(evt -> menuNavigation.focusAt(firstVisibleActionIndex()))
+        .onArrowUp(evt -> keyboardNavigation.focusAt(lastVisibleActionIndex()))
+        .onArrowDown(evt -> keyboardNavigation.focusAt(firstVisibleActionIndex()))
         .onEscape(evt -> close())
         .onEnter(evt -> selectFirstSearchResult());
     searchBox.addEventListener(
@@ -247,9 +260,9 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
   }
 
   private void addMenuNavigationListener() {
-    menuNavigation =
-        MenuNavigation.create(actions)
-            .onSelect(DropdownAction::select)
+    keyboardNavigation =
+        KeyboardNavigation.create(actions)
+            .onSelect((event, dropdownAction) -> dropdownAction.select())
             .focusCondition(IsCollapsible::isExpanded)
             .onFocus(
                 item -> {
@@ -259,7 +272,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
                 })
             .onEscape(this::close);
 
-    element.addEventListener("keydown", menuNavigation);
+    element.addEventListener("keydown", keyboardNavigation);
   }
 
   /** Closes all current opened menus */
@@ -460,7 +473,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    */
   public DropDownMenu selectAt(int index) {
     if (index >= 0 && index < actions.size()) {
-      menuNavigation.focusAt(index);
+      keyboardNavigation.focusAt(index);
     }
     return this;
   }
@@ -688,7 +701,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
   /** Sets focus at the first element of the menu */
   public void focus() {
-    menuNavigation.focusAt(0);
+    keyboardNavigation.focusAt(0);
   }
 
   /** @return The current search filter */
@@ -722,29 +735,6 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
   public interface OpenHandler {
     /** Will be called when the menu is opened */
     void onOpen();
-  }
-
-  /** The strategy for appending the menu to the target element */
-  @FunctionalInterface
-  public interface AppendStrategy {
-    /**
-     * Will be called to append the menu to the target element
-     *
-     * @param target the target element
-     * @param menu the menu element
-     */
-    void onAppend(HTMLElement target, HTMLElement menu);
-
-    /**
-     * {@code FIRST} strategy means that the menu will be added at the first index of the target
-     * element
-     */
-    AppendStrategy FIRST = (target, menu) -> DominoElement.of(target).insertFirst(menu);
-    /**
-     * {@code LAST} strategy means that the menu will be added at the last index of the target
-     * element
-     */
-    AppendStrategy LAST = (target, menu) -> DominoElement.of(target).appendChild(menu);
   }
 
   /** The search filter strategy which will filter the actions based on the search criteria */

@@ -13,25 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.dropdown;
+package org.dominokit.domino.ui.utils;
 
-import elemental2.dom.EventListener;
-import java.util.List;
-import org.dominokit.domino.ui.utils.KeyboardNavigation;
-import org.jboss.elemento.IsElement;
+import org.gwtproject.timer.client.Timer;
 
-/**
- * A helper class to ease the keyboard navigation of a menu
- *
- * @deprecated use {@link KeyboardNavigation}
- * @param <V> The element type
- * @see IsElement
- * @see EventListener
- */
-@Deprecated
-public class MenuNavigation<V extends IsElement<?>> extends KeyboardNavigation<V> {
+/** A utility class that allow execution of logic after a specific delay */
+public class DelayedExecution {
 
-  public MenuNavigation(List<V> items) {
-    super(items);
+  public static void execute(DelayedAction delayedAction, int delay) {
+    new Timer() {
+      @Override
+      public void run() {
+        delayedAction.doAction();
+      }
+    }.schedule(delay);
+  }
+
+  /** A function to implement the action to be taken for {@link DelayedTextInput} */
+  @FunctionalInterface
+  public interface DelayedAction {
+    /** */
+    void doAction();
   }
 }
