@@ -40,6 +40,7 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.AppendStrategy;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
@@ -82,7 +83,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     super("button", "");
     optionsMenu = DropDownMenu.create(fieldContainer).addCss("select-option-menu");
     optionsMenu.setAppendTarget(DomGlobal.document.body);
-    optionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
+    optionsMenu.setAppendStrategy(AppendStrategy.FIRST);
     optionsMenu.setPosition(
         DominoUIConfig.INSTANCE.getDefaultSelectPopupPosition().createPosition(this));
     optionsMenu.addOpenHandler(this::resumeFocusValidation);

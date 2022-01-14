@@ -13,25 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.dropdown;
-
-import elemental2.dom.EventListener;
-import java.util.List;
-import org.dominokit.domino.ui.utils.KeyboardNavigation;
-import org.jboss.elemento.IsElement;
+package org.dominokit.domino.ui.menu;
 
 /**
- * A helper class to ease the keyboard navigation of a menu
+ * A functional interface to handle missing items when search is applied
  *
- * @deprecated use {@link KeyboardNavigation}
- * @param <V> The element type
- * @see IsElement
- * @see EventListener
+ * @param <T> The type of the menu on which the search was applied
  */
-@Deprecated
-public class MenuNavigation<V extends IsElement<?>> extends KeyboardNavigation<V> {
-
-  public MenuNavigation(List<V> items) {
-    super(items);
-  }
+@FunctionalInterface
+public interface MissingItemHandler<T> {
+  /**
+   * @param token String search token
+   * @param menu the target menu
+   */
+  void onMissingItem(String token, T menu);
 }

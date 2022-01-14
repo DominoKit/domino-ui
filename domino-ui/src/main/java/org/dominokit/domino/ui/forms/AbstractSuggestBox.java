@@ -35,6 +35,7 @@ import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.loaders.Loader;
 import org.dominokit.domino.ui.loaders.LoaderEffect;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.AppendStrategy;
 import org.dominokit.domino.ui.utils.DelayedTextInput;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
@@ -124,7 +125,7 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
     }
     suggestionsMenu = DropDownMenu.create(fieldContainer);
     suggestionsMenu.setAppendTarget(document.body);
-    suggestionsMenu.setAppendStrategy(DropDownMenu.AppendStrategy.FIRST);
+    suggestionsMenu.setAppendStrategy(AppendStrategy.FIRST);
     suggestionsMenu.setPosition(
         DominoUIConfig.INSTANCE.getDefaultSuggestPopupPosition().createPosition(this));
     suggestionsMenu.addCloseHandler(
