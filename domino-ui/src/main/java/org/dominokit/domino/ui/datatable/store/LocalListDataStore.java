@@ -326,6 +326,69 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
+   * updates existing record from the current list and updates the data table accordingly
+   *
+   * @param record T the record being updated
+   */
+  public void updateRecord(T record) {
+    updateRecord(original.indexOf(record), record);
+  }
+
+  /**
+   * updates a single record at a specific index in the current list and updates the data table
+   * accordingly
+   *
+   * @param record T the record being updated
+   * @param index the index of the record to be updated
+   */
+  public void updateRecord(int index, T record) {
+    internalUpdate(index, record, true);
+  }
+
+  /**
+   * updates existing records from the current list and updates the data table accordingly
+   *
+   * @param records records to be updated
+   */
+  public void updateRecords(Collection<T> records) {
+    for (T record : records) {
+      internalUpdate(original.indexOf(record), record, false);
+    }
+    load();
+  }
+
+  /**
+   * updates records from the current list starting from a specific index and updates the data table
+   * accordingly
+   *
+   * <p>While updating the records, if the index is out of range then the process will stop.
+   *
+   * @param records records to be updated
+   */
+  public void updateRecords(int startIndex, Collection<T> records) {
+    for (T record : records) {
+      if (startIndex >= original.size()) {
+        break;
+      }
+      internalUpdate(startIndex++, record, false);
+    }
+    load();
+  }
+
+  private void internalUpdate(int index, T record, boolean load) {
+    if (index >= 0 && index < original.size()) {
+      T oldRecord = original.get(index);
+      original.set(index, record);
+      if (filtered.contains(oldRecord)) {
+        filtered.set(filtered.indexOf(oldRecord), record);
+      }
+      if (load) {
+        load();
+      }
+    }
+  }
+
+  /**
    * adds a list of records to the current list and updates the data table accordingly
    *
    * @param records {@link Collection} of records
@@ -336,12 +399,20 @@ public class LocalListDataStore<T> implements DataStore<T> {
     setData(newData);
   }
 
+  /** @deprecated use {@link #removeRecords} */
+  @Deprecated
+  public void removeRecord(Collection<T> records) {
+    original.removeAll(records);
+    filtered.removeAll(records);
+    load();
+  }
+
   /**
    * removes a list of records from the current list and updates the data table accordingly
    *
    * @param records {@link Collection} of records
    */
-  public void removeRecord(Collection<T> records) {
+  public void removeRecords(Collection<T> records) {
     original.removeAll(records);
     filtered.removeAll(records);
     load();
