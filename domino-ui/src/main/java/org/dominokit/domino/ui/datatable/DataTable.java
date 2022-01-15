@@ -464,6 +464,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return tableRows.stream().filter(TableRow::isSelected).collect(Collectors.toList());
   }
 
+  /** @return a {@link List} of the currently selected records including a row selected children */
   public List<T> getSelectedRecords() {
     return tableRows.stream()
         .filter(TableRow::isSelected)
@@ -471,12 +472,14 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         .collect(Collectors.toList());
   }
 
+  /** @return a {@link List} of {@link TableRow}s including the child rows */
   @Override
   @Deprecated
   public List<TableRow<T>> getItems() {
     return getRows();
   }
 
+  /** @return a {@link List} of {@link TableRow}s including the child rows */
   @Override
   public List<TableRow<T>> getRows() {
     return tableRows;
@@ -486,6 +489,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return getRows().stream().filter(TableRow::isRoot).collect(Collectors.toList());
   }
 
+  /** @return a {@link List} of {@link TableRow}s excluding the child rows */
   public List<T> getRecords() {
     return getRows().stream()
         .filter(TableRow::isRoot)
@@ -493,6 +497,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         .collect(Collectors.toList());
   }
 
+  /** @return a {@link List} of {@link TableRow}s that are being edited and still not saved */
   public List<T> getDirtyRecords() {
     return getRows().stream().map(TableRow::getDirtyRecord).collect(Collectors.toList());
   }
@@ -504,11 +509,13 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
             selectionChangeListener.onSelectionChanged(getSelectedItems(), getSelectedRecords()));
   }
 
+  /** Select all table rows */
   @Override
   public void selectAll() {
     selectAll((table, tableRow) -> true);
   }
 
+  /** Select all table rows that match a condition */
   public void selectAll(SelectionCondition<T> selectionCondition) {
     if (tableConfig.isMultiSelect() && !tableRows.isEmpty()) {
       for (TableRow<T> tableRow : tableRows) {
@@ -520,11 +527,13 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     }
   }
 
+  /** Deselect all table rows */
   @Override
   public void deselectAll() {
     deselectAll((table, tableRow) -> true);
   }
 
+  /** Deselect all table rows that match a condition */
   public void deselectAll(SelectionCondition<T> selectionCondition) {
     if (!tableRows.isEmpty()) {
       for (TableRow<T> tableRow : tableRows) {

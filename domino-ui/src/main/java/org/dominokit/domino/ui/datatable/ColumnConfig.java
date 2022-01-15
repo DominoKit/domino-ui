@@ -54,6 +54,7 @@ public class ColumnConfig<T> {
                 FlexItem.of(DominoElement.div())
                     .setOrder(50)
                     .setFlexGrow(1)
+                    .styler(style -> style.setCssProperty("text-indent", "2px"))
                     .appendChild(TextNode.of(columnTitle)))
             .element();
       };
@@ -258,6 +259,7 @@ public class ColumnConfig<T> {
   public String getMaxWidth() {
     return maxWidth;
   }
+
   /** @return the String text align we set with {@link #textAlign(String)} */
   public String getTextAlign() {
     return textAlign;
@@ -606,35 +608,57 @@ public class ColumnConfig<T> {
     return hidden;
   }
 
+  /** @return boolean, true if the column is registered by a plugin, else false */
   public boolean isPluginColumn() {
     return pluginColumn;
   }
 
+  /**
+   * flags the columns as a plugin column or not
+   *
+   * @param pluginColumn boolean, true if the column is being registered by a plugin, else false
+   * @return same ColumnConfig instance
+   */
   public ColumnConfig<T> setPluginColumn(boolean pluginColumn) {
     this.pluginColumn = pluginColumn;
     return this;
   }
 
+  /** @return String key of the column */
   public String getSortKey() {
     return Optional.ofNullable(sortKey).orElse(name);
   }
 
+  /** @return The {@link FlexLayout} of the column header */
   public FlexLayout getHeaderLayout() {
     return headerLayout;
   }
 
+  /**
+   * Use to set a custom header layout
+   *
+   * @param headerLayout {@link FlexLayout}
+   */
   void setHeaderLayout(FlexLayout headerLayout) {
     this.headerLayout = headerLayout;
   }
 
-  public boolean isUtilityColumn() {
+  /** @return boolean, true of the column is the plugins utility column, otherwise return false */
+  public final boolean isUtilityColumn() {
     return "plugin-utility-column".equals(name);
   }
 
+  /** @return boolean, true if the column show render the title */
   public boolean isDrawTitle() {
     return drawTitle;
   }
 
+  /**
+   * Set if the column should render its title or not
+   *
+   * @param drawTitle boolean
+   * @return same ColumnConfig instance
+   */
   public ColumnConfig<T> setDrawTitle(boolean drawTitle) {
     this.drawTitle = drawTitle;
     return this;

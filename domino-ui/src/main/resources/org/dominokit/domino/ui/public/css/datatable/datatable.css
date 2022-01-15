@@ -325,6 +325,7 @@ table th[class*="col-"] {
 }
 
 .table thead tr th {
+    vertical-align: middle;
     padding: 10px;
     border-bottom: 1px solid #eee;
 }
@@ -442,6 +443,10 @@ table th[class*="col-"] {
     padding: 0;
 }
 
+.table-responsive .table .d-checkbox.select-checkbox {
+    margin: 2px 0 0;
+}
+
 .table-responsive .field-group.table-search-box .field-cntr {
     background-color: #efefef;
     border-radius: 3px;
@@ -503,3 +508,18 @@ table th[class*="col-"] {
     white-space: nowrap;
 }
 
+.dt-tree-grid-leaf {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    padding-top: 2px;
+    border-radius: 50%;
+    text-align: center;
+}
+.dt-tree-grid-leaf.small-icon {
+    width: 16px;
+    height: 16px;
+    line-height: 8px;
+    padding-left: 1px;
+    text-align: center;
+}
