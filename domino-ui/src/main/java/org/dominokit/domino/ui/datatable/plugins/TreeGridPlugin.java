@@ -67,21 +67,69 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
   private int indent = DEFAULT_INDENT;
   private BaseIcon<?> headerIcon;
   private int expandedCount = 0;
+  private DataTable<T> dataTable;
 
   public TreeGridPlugin(SubItemsProvider<T> subItemsProvider) {
     this.subItemsProvider = subItemsProvider;
   }
 
+  /** {@inheritDoc} */
+  @Override
+  public void init(DataTable<T> dataTable) {
+    this.dataTable = dataTable;
+  }
+
+  /** {@inheritDoc} */
   @Override
   public boolean requiresUtilityColumn() {
     return true;
   }
 
-  private void expand(TableRow<T> row) {
-    expand(row, true);
+  /**
+   * If the row has children it will expand the row, and based on recursive value it might also
+   * expand its children sub-children
+   *
+   * @param row {@link TableRow} to be expanded
+   * @param recursive boolean, if true will recursively expand the row children
+   */
+  public final void expandRow(TableRow<T> row, boolean recursive) {
+    expand(row, recursive);
     if (row.isRoot()) {
       increment();
     }
+  }
+
+  /**
+   * If the row has children it will expand the row and recursively expand the row children
+   *
+   * @param row {@link TableRow} to be expanded
+   */
+  public final void expandRow(TableRow<T> row) {
+    expandRow(row, true);
+  }
+
+  /**
+   * Expand all table rows, and based on recursive value it might also recursively expand all
+   * children
+   *
+   * @param recursive boolean, if true will recursively expand the row children
+   */
+  public final void expandAllRows(boolean recursive) {
+    dataTable.getRows().forEach(tableRow -> expandRow(tableRow, recursive));
+  }
+
+  /**
+   * If the row has children it will collapse the row.
+   *
+   * @param row {@link TableRow} to be collapsed
+   */
+  public final void collapseRow(TableRow<T> row) {
+    collapse(row);
+  }
+
+  /** Collapse all table row */
+  public final void collapseAllRows() {
+    dataTable.getRows().forEach(this::collapseRow);
   }
 
   private void expand(TableRow<T> row, boolean recursive) {
@@ -134,6 +182,7 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
             .getElement());
   }
 
+  /** Adds the expand/collapse/leaf icons to the plugins utility columns cells {@inheritDoc} */
   @Override
   public Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
@@ -144,7 +193,7 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
           TableRow<T> tableRow = cellInfo.getTableRow();
           BaseIcon<?> icon;
           if (!isParent(items)) {
-            icon = leafIconSupplier.get();
+            icon = leafIconSupplier.get().css("dt-tree-grid-leaf");
           } else {
             icon = expandIconSupplier.get().setToggleIcon(collapseIconSupplier.get()).clickable();
             icon.addClickListener(
@@ -152,7 +201,7 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
                   if (icon.isToggled()) {
                     collapse(tableRow);
                   } else {
-                    expand(tableRow);
+                    expandRow(tableRow);
                   }
                   evt.stopPropagation();
                 });
@@ -179,6 +228,7 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
+  /** Adds the Expand all/collpase all to the plugins utility column header {@inheritDoc} */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (column.isUtilityColumn()) {
@@ -187,9 +237,9 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
       baseIcon.addClickListener(
           evt -> {
             if (baseIcon.isToggled()) {
-              dataTable.getRows().forEach(this::collapse);
+              collapseAllRows();
             } else {
-              dataTable.getRows().forEach(this::expand);
+              expandAllRows(true);
             }
             evt.stopPropagation();
           });
@@ -198,6 +248,7 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onBeforeAddRow(DataTable<T> dataTable, TableRow<T> tableRow) {
     if (nonNull(parentRowCellsSupplier)) {
@@ -211,6 +262,7 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
     getSubRecords(
@@ -245,6 +297,7 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
         });
   }
 
+  /** {@inheritDoc} */
   @Override
   public void handleEvent(TableEvent event) {
     switch (event.getType()) {
@@ -262,12 +315,25 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
+  /**
+   * Set a supplier that provides cells to be rendered in a parent row cells, this can be used to
+   * provide a custom UI for parent rows
+   *
+   * @param parentRowCellsSupplier {@link ParentRowCellsSupplier}
+   * @return Same plugin instance
+   */
   public TreeGridPlugin<T> setParentRowCellsSupplier(
       ParentRowCellsSupplier<T> parentRowCellsSupplier) {
     this.parentRowCellsSupplier = parentRowCellsSupplier;
     return this;
   }
 
+  /**
+   * Sets a supplier for a custom expand icon instead of the default one
+   *
+   * @param expandIconSupplier {@link Supplier} of {@link BaseIcon}
+   * @return Same plugin instance
+   */
   public TreeGridPlugin<T> setExpandIconSupplier(Supplier<BaseIcon<?>> expandIconSupplier) {
     if (isNull(expandIconSupplier)) {
       this.expandIconSupplier = () -> Icons.ALL.plus_mdi().size18();
@@ -277,6 +343,12 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
     return this;
   }
 
+  /**
+   * Sets a supplier for a custom collapse icon instead of the default one
+   *
+   * @param collapseIconSupplier {@link Supplier} of {@link BaseIcon}
+   * @return Same plugin instance
+   */
   public TreeGridPlugin<T> setCollapseIconSupplier(Supplier<BaseIcon<?>> collapseIconSupplier) {
     if (isNull(collapseIconSupplier)) {
       this.collapseIconSupplier = () -> Icons.ALL.minus_mdi().size18();
@@ -286,6 +358,12 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
     return this;
   }
 
+  /**
+   * Sets a supplier for a custom leaf row icon instead of the default one
+   *
+   * @param leafIconSupplier {@link Supplier} of {@link BaseIcon}
+   * @return Same plugin instance
+   */
   public TreeGridPlugin<T> setLeafIconSupplier(Supplier<BaseIcon<?>> leafIconSupplier) {
     if (isNull(leafIconSupplier)) {
       this.leafIconSupplier = () -> Icons.ALL.circle_medium_mdi().size18();
@@ -295,6 +373,12 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
     return this;
   }
 
+  /**
+   * Sets indent value to be added for each tree gird level
+   *
+   * @param indent int
+   * @return Same plugin instance
+   */
   public TreeGridPlugin<T> setIndent(int indent) {
     if (indent < 0) {
       this.indent = DEFAULT_INDENT;
@@ -304,12 +388,21 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
     return this;
   }
 
+  /**
+   * Sets a supplier of elements to be appended to the tree grid indent column as part of the
+   * utility columns cells
+   *
+   * @param indentColumnElementSupplier {@link Function} that takes a {@link TableRow} and return a
+   *     {@link Node}
+   * @return same plugin instance
+   */
   public TreeGridPlugin<T> setIndentColumnElementSupplier(
       Function<TableRow<T>, Node> indentColumnElementSupplier) {
     if (isNull(indentColumnElementSupplier)) {
       this.indentColumnElementSupplier = tableRow -> TextNode.empty();
+    } else {
+      this.indentColumnElementSupplier = indentColumnElementSupplier;
     }
-    this.indentColumnElementSupplier = indentColumnElementSupplier;
     return this;
   }
 
@@ -317,12 +410,27 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
     return items.isPresent() && !items.get().isEmpty();
   }
 
+  /**
+   * Functional interface to provide the cells to be rendered in a parent row
+   *
+   * @param <T> Type of the table records
+   */
   @FunctionalInterface
   public interface ParentRowCellsSupplier<T> {
     List<RowCell<T>> get(DataTable<T> dataTable, TableRow<T> tableRow);
   }
 
-  public static class TreeGridRowLevel implements TableRow.RowMetaObject {
+  /**
+   * A functional interface to supply record children
+   *
+   * @param <T> Type of table records.
+   */
+  @FunctionalInterface
+  public interface SubItemsProvider<T> {
+    void get(T parent, Consumer<Optional<Collection<T>>> itemsConsumer);
+  }
+
+  private static class TreeGridRowLevel implements TableRow.RowMetaObject {
     private final int level;
 
     public TreeGridRowLevel(int level) {
@@ -348,7 +456,7 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
-  public static class TreeGridRowToggleIcon implements TableRow.RowMetaObject {
+  private static class TreeGridRowToggleIcon implements TableRow.RowMetaObject {
     private final BaseIcon<?> icon;
 
     public TreeGridRowToggleIcon(BaseIcon<?> icon) {
@@ -374,10 +482,5 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
             tableRow.element().appendChild(rowCell.getCellInfo().getElement());
           });
     }
-  }
-
-  @FunctionalInterface
-  public interface SubItemsProvider<T> {
-    void get(T parent, Consumer<Optional<Collection<T>>> itemsConsumer);
   }
 }
