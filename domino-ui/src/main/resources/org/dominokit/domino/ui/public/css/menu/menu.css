@@ -182,16 +182,6 @@
     display: block;
 }
 
-.dom-ui.menu[domino-ui-root-menu] .back-arrow-icon{
-    display: none;
-}
-
-@media screen and (min-width: 1200px) {
-    .dom-ui.menu[domino-sub-menu] .back-arrow-icon{
-        display: none;
-    }
-}
-
 .dom-ui.menu .menu-search .create-missing {
     color: #777;
     display: list-item;

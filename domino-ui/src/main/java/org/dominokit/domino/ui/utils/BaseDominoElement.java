@@ -29,7 +29,7 @@ import java.util.Arrays;
 import java.util.Optional;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.Collapsible;
-import org.dominokit.domino.ui.menu.AbstractDropMenu;
+import org.dominokit.domino.ui.menu.AbstractMenu;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.DominoStyle;
@@ -1789,10 +1789,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /**
    * Set this element as the target element for the provided Drop menu
    *
-   * @param dropMenu {@link AbstractDropMenu}
+   * @param dropMenu {@link org.dominokit.domino.ui.menu.AbstractMenu}
    * @return same component
    */
-  public T setDropMenu(AbstractDropMenu<?, ?> dropMenu) {
+  public T setDropMenu(AbstractMenu<?, ?> dropMenu) {
     if (nonNull(dropMenu)) {
       dropMenu.setTargetElement(this);
     }
