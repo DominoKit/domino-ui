@@ -17,17 +17,37 @@ package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.*;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_BORDERED;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_CONDENSED;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_FIXED;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_HOVER;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_RESPONSIVE;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_ROW_FILTERED;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_STRIPED;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TBODY_FIXED;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.THEAD_FIXED;
 import static org.dominokit.domino.ui.style.Unit.px;
-import static org.jboss.elemento.Elements.*;
+import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.Elements.table;
+import static org.jboss.elemento.Elements.tbody;
+import static org.jboss.elemento.Elements.thead;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-import org.dominokit.domino.ui.datatable.events.*;
+import org.dominokit.domino.ui.datatable.events.DataSortEvent;
+import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
+import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
+import org.dominokit.domino.ui.datatable.events.TableEvent;
+import org.dominokit.domino.ui.datatable.events.TableEventListener;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.style.Unit;
@@ -126,12 +146,18 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     if (!tableConfig.isLazyLoad()) {
       this.dataStore.load();
     }
+
     if (tableConfig.isFixed()) {
       root.addCss(TABLE_FIXED);
       thead.addCss(THEAD_FIXED);
       tbody.addCss(TBODY_FIXED).setMaxHeight(tableConfig.getFixedBodyHeight());
       tableElement.addEventListener(EventType.scroll, e -> updateTableWidth());
-      DomGlobal.window.addEventListener(EventType.resize.getName(), e -> updateTableWidth());
+      DomGlobal.window.addEventListener(
+          EventType.resize.getName(),
+          e -> {
+            this.scrollBarWidth = -1;
+            updateTableWidth();
+          });
     }
 
     onResize(
@@ -151,8 +177,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   private void updateTableWidth() {
     final long w =
         tableElement.element().offsetWidth + Math.round(tableElement.element().scrollLeft);
-    thead.setWidth(px.of(w));
-    tbody.setWidth(px.of(w));
+    thead.setWidth(px.of(w - 2));
+    tbody.setWidth(px.of(w - 2));
     if (tableConfig.isFixed()) {
       updateHeadWidth(false);
     }
@@ -185,8 +211,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         tbody.element().scrollTop = 0.0;
       }
       if (tableConfig.isFixed()) {
-        thead.setWidth(Unit.px.of(tbody.element().offsetWidth - getScrollWidth() - 2));
-        tbody.setWidth(Unit.px.of(tbody.element().offsetWidth - 2));
+        thead.setWidth(Unit.px.of(tbody.element().offsetWidth - getScrollWidth()));
+        tbody.setWidth(Unit.px.of(tbody.element().offsetWidth));
       }
     }
   }
