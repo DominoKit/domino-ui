@@ -20,6 +20,7 @@ import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.a;
 import static org.jboss.elemento.Elements.li;
 
+import elemental2.dom.Event;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
@@ -30,10 +31,15 @@ import java.util.List;
 import java.util.Optional;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
+import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.MdiIcon;
+import org.dominokit.domino.ui.menu.direction.BestFitSideDropDirection;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DelayedExecution;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasDeselectionHandler;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
+import org.dominokit.domino.ui.utils.PopupsCloser;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -67,6 +73,15 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   private String key;
   private V value;
 
+  private final MdiIcon indicatorIcon = Icons.ALL.menu_right_mdi();
+  private FlexItem<?> nestingIndicator =
+      FlexItem.create().css("ddi-indicator").setOrder(Integer.MAX_VALUE).appendChild(indicatorIcon);
+
+  private FlexItem<?> noIndicator =
+      FlexItem.create().css("ddi-indicator").setOrder(Integer.MAX_VALUE);
+
+  AbstractDropMenu<V, ?> menu;
+
   public AbstractMenuItem() {
     init((T) this);
     mainContainer
@@ -76,16 +91,23 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
         .appendChild(FlexItem.create().appendChild(rightAddOnsContainer));
     contentContainer.appendChild(mainContainer);
     root.appendChild(linkElement.appendChild(contentContainer));
-    addEventsListener(
-        evt -> {
-          evt.stopPropagation();
-          evt.preventDefault();
-          select();
-          parent.onItemSelected(this);
-        },
-        EventType.touchstart.getName(),
-        EventType.touchend.getName(),
-        EventType.click.getName());
+
+    this.addEventListener(EventType.touchstart.getName(), evt -> {
+      evt.stopPropagation();
+      evt.preventDefault();
+      focus();
+      openSubMenu();
+    });
+    this.addEventListener(EventType.touchend.getName(), this::onSelected);
+    this.addEventListener(EventType.click.getName(), this::onSelected);
+    this.addEventListener(EventType.mouseenter.getName(), evt -> openSubMenu());
+    addRightAddOn(noIndicator);
+  }
+
+  private void onSelected(Event evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    select();
   }
 
   /**
@@ -161,7 +183,9 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
    * @return same menu item instance
    */
   public T select() {
-    return select(false);
+    T select = select(false);
+    parent.onItemSelected(this);
+    return select;
   }
 
   /**
@@ -279,9 +303,110 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
     return (T) this;
   }
 
-  /** @return boolean, true if this item has a sub-menu, false if not */
+  /** @return the {@link FlexItem} that represent the current menu nesting indication. */
+  public FlexItem<?> getNestingIndicator() {
+    return nestingIndicator;
+  }
+
+  /**
+   * Sets a custom menu nesting indicator
+   *
+   * @param nestingIndicator {@link FlexItem}
+   * @return same menu item
+   */
+  public T setNestingIndicator(FlexItem<?> nestingIndicator) {
+    if (nonNull(nestingIndicator)) {
+      if (this.nestingIndicator.isAttached()) {
+        nestingIndicator.remove();
+      }
+
+      noIndicator.remove();
+      addRightAddOn(nestingIndicator.setOrder(Integer.MAX_VALUE).css("ddi-indicator"));
+      this.nestingIndicator = nestingIndicator;
+    }
+
+    return (T) this;
+  }
+
+  /**
+   * Sets the sub-menu of the menu item
+   *
+   * @param menu {@link AbstractDropMenu}
+   * @return same menu item
+   */
+  public T setMenu(AbstractDropMenu<V, ?> menu) {
+    this.menu = menu;
+    if (nonNull(menu)) {
+      this.menu.setAttribute("domino-sub-menu", true);
+      this.menu.removeAttribute("domino-ui-root-menu");
+      setNestingIndicator(nestingIndicator);
+      this.menu.setTargetElement(this);
+      this.menu.setDropDirection(new BestFitSideDropDirection());
+    } else {
+      this.nestingIndicator.remove();
+    }
+    this.menu.setParentItem(this);
+
+    return (T) this;
+  }
+
+  /** Opens the sub-menu of the menu item */
+  public void openSubMenu() {
+    if (nonNull(menu)) {
+      DelayedExecution.execute(
+          () -> {
+            if (nonNull(parent)) {
+              this.menu.setParent(parent);
+              if (parent instanceof AbstractDropMenu<?, ?>) {
+                AbstractDropMenu<V, ?> parentDropDown = (AbstractDropMenu<V, ?>) this.parent;
+                if (parentDropDown.isOpened()) {
+                  parentDropDown.openSubMenu(this.menu);
+                }
+              } else {
+                openSelfMenu();
+              }
+            }
+          },
+          200);
+    }else {
+      DelayedExecution.execute(() -> {
+        if (nonNull(parent)) {
+          parent.closeCurrentOpen();
+        }
+      }, 200);
+    }
+  }
+
+  private void openSelfMenu() {
+    PopupsCloser.close();
+    this.menu.open();
+    this.parent.setCurrentOpen(this.menu);
+  }
+
+  void onParentClosed() {
+    closeSubMenu();
+  }
+
+  /**
+   * Close the item sub-menu
+   *
+   * @return same menu item instance
+   */
+  public T closeSubMenu() {
+    if (nonNull(this.menu)) {
+      this.menu.close();
+    }
+    return (T) this;
+  }
+
+  /** @return The parent {@link AbstractMenu} of the menu item */
+  public AbstractMenu<V, ?> getParent() {
+    return this.parent;
+  }
+
+  /** {@inheritDoc} */
   public boolean hasMenu() {
-    return false;
+    return nonNull(this.menu);
   }
 
   /** {@inheritDoc} */

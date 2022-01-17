@@ -58,7 +58,7 @@ public class AbstractDropMenu<V, T extends AbstractDropMenu<V, T>> extends Abstr
   private final List<CloseHandler> closeHandlers = new ArrayList<>();
   private final List<OpenHandler> openHandlers = new ArrayList<>();
 
-  private AbstractDropMenu<V, ?> currentOpen;
+
   private AbstractMenu<V, ?> parent;
   private AbstractMenuItem<V, ?> parentItem;
   private EventListener openListener =
@@ -256,21 +256,6 @@ public class AbstractDropMenu<V, T extends AbstractDropMenu<V, T>> extends Abstr
   }
 
   /**
-   * Opens a sub menu that has this menu as its parent
-   *
-   * @param dropMenu {@link AbstractDropMenu} to open
-   * @return same menu instance
-   */
-  public T openSubMenu(AbstractDropMenu<V, ?> dropMenu) {
-    if (nonNull(currentOpen)) {
-      currentOpen.close();
-    }
-    dropMenu.open();
-    this.currentOpen = dropMenu;
-    return (T) this;
-  }
-
-  /**
    * Close the menu
    *
    * @return same menu instance
@@ -280,13 +265,7 @@ public class AbstractDropMenu<V, T extends AbstractDropMenu<V, T>> extends Abstr
       this.remove();
       getTargetElement().focus();
       searchBox.clearSearch();
-      menuItems.forEach(
-          menuItem -> {
-            if (menuItem instanceof AbstractDropMenuItem<?, ?>) {
-              AbstractDropMenuItem<V, ?> dropMenuItem = (AbstractDropMenuItem<V, ?>) menuItem;
-              dropMenuItem.onParentClosed();
-            }
-          });
+      menuItems.forEach(AbstractMenuItem::onParentClosed);
       closeHandlers.forEach(CloseHandler::onClose);
       if (smallScreen && nonNull(parent) && parent instanceof AbstractDropMenu) {
         parent.show();
@@ -381,12 +360,7 @@ public class AbstractDropMenu<V, T extends AbstractDropMenu<V, T>> extends Abstr
   /** {@inheritDoc} */
   @Override
   public boolean onSearch(String token) {
-    this.menuItems.forEach(
-        menuItem -> {
-          if (menuItem instanceof AbstractDropMenuItem<?, ?>) {
-            ((AbstractDropMenuItem<V, ?>) menuItem).closeSubMenu();
-          }
-        });
+    this.menuItems.forEach(AbstractMenuItem::closeSubMenu);
     return super.onSearch(token);
   }
 
