@@ -100,14 +100,14 @@
 
                             <cssExcludes>
                                 <cssExclude>domino-ui.css</cssExclude>
-                                <cssExclude>colors.css</cssExclude>
-                                <cssExclude>loaders/waitMe.css</cssExclude>
-                                <cssExclude>grid.css</cssExclude>
+                                <cssExclude>domino-ui-colors.css</cssExclude>
+                                <cssExclude>loaders/domino-ui-waitMe.css</cssExclude>
+                                <cssExclude>domino-ui-grid.css</cssExclude>
                                 <cssExclude>material-icons.css</cssExclude>
                                 <cssExclude>**/*.min.css</cssExclude>
                                 <cssExclude>**/themes/*.css</cssExclude>
-                                <cssExclude>waves.css</cssExclude>
-                                <cssExclude>style.css</cssExclude>
+                                <cssExclude>domino-ui-waves.css</cssExclude>
+                                <cssExclude>domino-ui-style.css</cssExclude>
                             </cssExcludes>
 
                             <webappSourceDir>${basedir}/src/main/resources</webappSourceDir>
