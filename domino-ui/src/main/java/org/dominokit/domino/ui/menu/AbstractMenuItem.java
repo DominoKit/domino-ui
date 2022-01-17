@@ -80,7 +80,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   private FlexItem<?> noIndicator =
       FlexItem.create().css("ddi-indicator").setOrder(Integer.MAX_VALUE);
 
-  AbstractDropMenu<V, ?> menu;
+  AbstractMenu<V, ?> menu;
 
   public AbstractMenuItem() {
     init((T) this);
@@ -92,12 +92,14 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
     contentContainer.appendChild(mainContainer);
     root.appendChild(linkElement.appendChild(contentContainer));
 
-    this.addEventListener(EventType.touchstart.getName(), evt -> {
-      evt.stopPropagation();
-      evt.preventDefault();
-      focus();
-      openSubMenu();
-    });
+    this.addEventListener(
+        EventType.touchstart.getName(),
+        evt -> {
+          evt.stopPropagation();
+          evt.preventDefault();
+          focus();
+          openSubMenu();
+        });
     this.addEventListener(EventType.touchend.getName(), this::onSelected);
     this.addEventListener(EventType.click.getName(), this::onSelected);
     this.addEventListener(EventType.mouseenter.getName(), evt -> openSubMenu());
@@ -331,22 +333,21 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   /**
    * Sets the sub-menu of the menu item
    *
-   * @param menu {@link AbstractDropMenu}
+   * @param menu {@link AbstractMenu}
    * @return same menu item
    */
-  public T setMenu(AbstractDropMenu<V, ?> menu) {
+  public T setMenu(AbstractMenu<V, ?> menu) {
     this.menu = menu;
-    if (nonNull(menu)) {
+    if (nonNull(this.menu)) {
       this.menu.setAttribute("domino-sub-menu", true);
       this.menu.removeAttribute("domino-ui-root-menu");
       setNestingIndicator(nestingIndicator);
       this.menu.setTargetElement(this);
       this.menu.setDropDirection(new BestFitSideDropDirection());
+      this.menu.setParentItem(this);
     } else {
       this.nestingIndicator.remove();
     }
-    this.menu.setParentItem(this);
-
     return (T) this;
   }
 
@@ -357,23 +358,21 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
           () -> {
             if (nonNull(parent)) {
               this.menu.setParent(parent);
-              if (parent instanceof AbstractDropMenu<?, ?>) {
-                AbstractDropMenu<V, ?> parentDropDown = (AbstractDropMenu<V, ?>) this.parent;
-                if (parentDropDown.isOpened()) {
-                  parentDropDown.openSubMenu(this.menu);
-                }
-              } else {
-                openSelfMenu();
+              if (!this.parent.isDropDown()
+                  || (this.parent.isDropDown() && this.parent.isOpened())) {
+                this.parent.openSubMenu(this.menu);
               }
             }
           },
           200);
-    }else {
-      DelayedExecution.execute(() -> {
-        if (nonNull(parent)) {
-          parent.closeCurrentOpen();
-        }
-      }, 200);
+    } else {
+      DelayedExecution.execute(
+          () -> {
+            if (nonNull(parent)) {
+              parent.closeCurrentOpen();
+            }
+          },
+          200);
     }
   }
 
