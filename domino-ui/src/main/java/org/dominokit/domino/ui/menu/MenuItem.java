@@ -28,24 +28,24 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * An implementation og the {@link AbstractMenuItem} for a menu item that can have a main text and a
  * description {@inheritDoc}
  */
-public class SimpleMenuItem<V> extends AbstractMenuItem<V, SimpleMenuItem<V>> {
+public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
 
   private DominoElement<HTMLElement> descriptionElement = DominoElement.of(small());
   private DominoElement<HTMLHeadingElement> textElement = DominoElement.of(h(5));
 
-  public static <V> SimpleMenuItem<V> create(String text) {
-    return new SimpleMenuItem<>(text);
+  public static <V> MenuItem<V> create(String text) {
+    return new MenuItem<>(text);
   }
 
-  public static <V> SimpleMenuItem<V> create(String text, String description) {
-    return new SimpleMenuItem<>(text, description);
+  public static <V> MenuItem<V> create(String text, String description) {
+    return new MenuItem<>(text, description);
   }
 
-  public SimpleMenuItem(String text) {
+  public MenuItem(String text) {
     this(text, null);
   }
 
-  public SimpleMenuItem(String text, String description) {
+  public MenuItem(String text, String description) {
     css("simple-menu-item");
     if (nonNull(text)) {
       textElement.setTextContent(text);
