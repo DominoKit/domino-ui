@@ -287,7 +287,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     Style.of(this.element()).removeCss("tree-leaf");
     treeItem.setToggleTarget(this.toggleTarget);
     treeItem.setLevelPadding(levelPadding);
-    this.style.addCss("tree-item-parent");
+    this.style().addCss("tree-item-parent");
     return this;
   }
 
@@ -807,7 +807,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     if (parent.getSubItems().contains(this)) {
       parent.removeItem(this);
       if (parent.getSubItems().isEmpty() && parent instanceof TreeItem) {
-        ((TreeItem<T>) parent).style.removeCss("tree-item-parent");
+        ((TreeItem<T>) parent).style().removeCss("tree-item-parent");
       }
     }
     return super.remove();

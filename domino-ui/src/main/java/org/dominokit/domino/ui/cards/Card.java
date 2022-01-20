@@ -285,7 +285,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    * @return same instance
    */
   public Card fitContent() {
-    style.addCss(FIT_CONTENT);
+    style().addCss(FIT_CONTENT);
     return this;
   }
 

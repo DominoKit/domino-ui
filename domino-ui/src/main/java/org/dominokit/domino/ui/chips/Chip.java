@@ -91,7 +91,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
   private boolean removable;
   private Color leftBackground;
   private final Theme.ThemeChangeHandler themeListener =
-      (oldTheme, newTheme) -> style.setBorderColor(newTheme.getScheme().color().getHex());
+      (oldTheme, newTheme) -> style().setBorderColor(newTheme.getScheme().color().getHex());
 
   public Chip(String value) {
     element.appendChild(leftAddonContainer);

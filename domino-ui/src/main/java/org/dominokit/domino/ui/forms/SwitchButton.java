@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.HTMLElement;
@@ -23,9 +24,9 @@ import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.LambdaFunction;
 
 /** A component that can switch between two boolean values with different labels */
 public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Boolean>
@@ -41,6 +42,8 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
   private String unCheckedReadonlyLabel = "No";
   private String offTitle;
   private String onTitle;
+  private LambdaFunction offLabelInitializer;
+  private LambdaFunction onLabelInitializer;
 
   /**
    * @param label String label describing the switch
@@ -75,10 +78,8 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
     onOffLabelElement = label().element();
     DominoElement.of(onOffLabelElement).css("switch-label");
     getInputContainer().appendChild(onOffLabelElement);
-    onOffLabelElement.appendChild(offTitleTextRoot.element());
     onOffLabelElement.appendChild(getInputElement().element());
     onOffLabelElement.appendChild(lever.element());
-    onOffLabelElement.appendChild(onTitleTextRoot.element());
 
     linkLabelToField();
 
@@ -103,6 +104,16 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
               setValue(!this.getValue());
             });
     css("switch");
+    onLabelInitializer =
+        () -> {
+          onOffLabelElement.appendChild(onTitleTextRoot.element());
+          onLabelInitializer = () -> {};
+        };
+    offLabelInitializer =
+        () -> {
+          onOffLabelElement.insertBefore(offTitleTextRoot.element(), inputElement.element());
+          offLabelInitializer = () -> {};
+        };
   }
 
   /**
@@ -128,16 +139,6 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
     return new SwitchButton();
   }
 
-  /** {@inheritDoc} */
-  @Override
-  protected void linkLabelToField() {
-    if (!inputElement.hasAttribute("id")) {
-      inputElement.setAttribute("id", inputElement.getAttribute(BaseDominoElement.DOMINO_UUID));
-    }
-
-    getLabelElement().setAttribute("for", inputElement.getAttribute("id"));
-  }
-
   /** @return the lever {@link HTMLElement} */
   public DominoElement<HTMLElement> getLever() {
     return lever;
@@ -153,6 +154,11 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
     }
     super.value(value);
     return this;
+  }
+
+  @Override
+  protected void updateCharacterCount() {
+    // Do nothing, Switch does not have character count
   }
 
   /**
@@ -264,8 +270,11 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
    * @return same SwitchButton instance
    */
   public SwitchButton setOnTitle(String onTitle) {
-    onTitleTextRoot.clearElement().appendChild(span().textContent(onTitle));
-    this.onTitle = onTitle;
+    if (nonNull(onTitle) && !onTitle.isEmpty()) {
+      onLabelInitializer.apply();
+      onTitleTextRoot.clearElement().appendChild(span().textContent(onTitle));
+      this.onTitle = onTitle;
+    }
     return this;
   }
 
@@ -274,8 +283,11 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
    * @return same SwitchButton instance
    */
   public SwitchButton setOffTitle(String offTitle) {
-    offTitleTextRoot.clearElement().appendChild(span().textContent(offTitle));
-    this.offTitle = offTitle;
+    if (nonNull(offTitle) && !offTitle.isEmpty()) {
+      offLabelInitializer.apply();
+      offTitleTextRoot.clearElement().appendChild(span().textContent(offTitle));
+      this.offTitle = offTitle;
+    }
     return this;
   }
 
