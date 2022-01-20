@@ -41,6 +41,7 @@ import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.AppendStrategy;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
@@ -149,7 +150,8 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     }
 
     buttonElement.addEventListener(CLICK_EVENT, clickListener);
-    getLabelElement().addEventListener(CLICK_EVENT, clickListener);
+    getLabelElement()
+        .ifPresent(labelElement -> labelElement.addEventListener(CLICK_EVENT, clickListener));
     buttonElement.addEventListener("focus", evt -> focus());
     buttonElement.addEventListener("blur", evt -> unfocus());
     optionsMenu.addCloseHandler(
@@ -409,7 +411,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   public S enable() {
     super.enable();
     buttonElement.enable();
-    getLabelElement().enable();
+    getLabelElement().ifPresent(BaseDominoElement::enable);
     return (S) this;
   }
 
@@ -418,7 +420,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   public S disable() {
     super.disable();
     buttonElement.disable();
-    getLabelElement().disable();
+    getLabelElement().ifPresent(BaseDominoElement::disable);
     return (S) this;
   }
 
@@ -587,9 +589,13 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     return buttonElement;
   }
 
-  /** @return the {@link HTMLLabelElement} of the select wrapped as {@link DominoElement} */
+  /**
+   * @deprecated use {@link #getLabelElement()}
+   * @return the {@link HTMLLabelElement} of the select wrapped as {@link DominoElement}
+   */
+  @Deprecated
   public DominoElement<HTMLLabelElement> getSelectLabel() {
-    return getLabelElement();
+    return getLabelElement().get();
   }
 
   /**

@@ -66,7 +66,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
                 setValue(isChecked());
               }
             });
-    getLabelElement().addEventListener("click", listener);
+    getLabelElement().ifPresent(labelElement -> labelElement.addEventListener("click", listener));
     KeyboardEvents.listenOnKeyDown(getInputElement()).onEnter(listener);
   }
 
@@ -310,7 +310,7 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
     } else {
       readOnlyLabelElement.setTextContent(getUnCheckedReadonlyLabel());
     }
-    getLabelElement().appendChild(readOnlyLabelElement);
+    getLabelElement().ifPresent(labelElement -> labelElement.appendChild(readOnlyLabelElement));
   }
 
   private String getCheckedReadonlyLabel() {

@@ -63,14 +63,14 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         DominoStyle<E, T, T> {
 
   /** The name of the attribute that holds a unique id for the component */
-  public static final String DOMINO_UUID = "domino-uuid";
+  private static final String DOMINO_UUID = "domino-uuid";
 
   @Editor.Ignore protected T element;
   private String uuid;
   private Tooltip tooltip;
   private Collapsible collapsible;
-  @Editor.Ignore protected Style<E, T> style;
-
+  @Editor.Ignore private Style<E, T> style;
+  private LambdaFunction styleInitializer;
   private ScreenMedia hideOn;
   private ScreenMedia showOn;
   private Elevation elevation;
@@ -78,6 +78,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   private Optional<ElementObserver> attachObserver = Optional.empty();
   private Optional<ElementObserver> detachObserver = Optional.empty();
   private Optional<ResizeObserver> resizeObserverOptional = Optional.empty();
+  private LambdaFunction dominoUuidInitializer;
 
   /**
    * initialize the component using its root element giving it a unique id, a {@link Style} and also
@@ -89,20 +90,35 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   protected void init(T element) {
     this.element = element;
 
-    if (hasDominoId()) {
-      uuid = getAttribute(DOMINO_UUID);
-    } else {
-      this.uuid = Id.unique();
-      setAttribute(DOMINO_UUID, this.uuid);
-    }
-    this.collapsible = Collapsible.create(getCollapsibleElement());
-    this.style = Style.of(element);
+    dominoUuidInitializer =
+        () -> {
+          if (hasDominoId()) {
+            uuid = getAttribute(DOMINO_UUID);
+          } else {
+            this.uuid = Id.unique();
+            setAttribute(DOMINO_UUID, this.uuid);
+            if (!hasId()) {
+              element().id = this.uuid;
+            }
+          }
+          dominoUuidInitializer = () -> {};
+        };
+
+    styleInitializer =
+        () -> {
+          this.style = Style.of(element);
+          styleInitializer = () -> {};
+        };
   }
 
   private boolean hasDominoId() {
     return hasAttribute(DOMINO_UUID)
         && nonNull(getAttribute(DOMINO_UUID))
         && !getAttribute(DOMINO_UUID).isEmpty();
+  }
+
+  private boolean hasId() {
+    return hasAttribute("id") && nonNull(getAttribute("id")) && !getAttribute("id").isEmpty();
   }
 
   /**
@@ -131,7 +147,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Override
   @Editor.Ignore
   public T toggleDisplay() {
-    collapsible.toggleDisplay();
+    getCollapsible().toggleDisplay();
     return element;
   }
 
@@ -143,7 +159,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Override
   @Editor.Ignore
   public T toggleDisplay(boolean state) {
-    collapsible.toggleDisplay(state);
+    getCollapsible().toggleDisplay(state);
     return element;
   }
 
@@ -155,7 +171,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    */
   @Override
   public T show() {
-    collapsible.show();
+    getCollapsible().show();
     return element;
   }
 
@@ -167,7 +183,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    */
   @Override
   public T hide() {
-    collapsible.hide();
+    getCollapsible().hide();
     return element;
   }
 
@@ -176,7 +192,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    * @see Collapsible#setForceHidden(boolean)
    */
   public boolean isForceHidden() {
-    return collapsible.isForceHidden();
+    return getCollapsible().isForceHidden();
   }
 
   /**
@@ -185,13 +201,16 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    * @see Collapsible#setForceHidden(boolean)
    */
   public T setForceHidden(boolean forceHidden) {
-    collapsible.setForceHidden(forceHidden);
+    getCollapsible().setForceHidden(forceHidden);
     return element;
   }
 
   /** @return the {@link Collapsible} of the component */
   @Editor.Ignore
   public Collapsible getCollapsible() {
+    if (isNull(this.collapsible)) {
+      this.collapsible = Collapsible.create(getCollapsibleElement());
+    }
     return collapsible;
   }
 
@@ -203,7 +222,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    */
   @Editor.Ignore
   public T setCollapseStrategy(CollapseStrategy strategy) {
-    this.collapsible.setStrategy(strategy);
+    this.getCollapsible().setStrategy(strategy);
     return (T) this;
   }
 
@@ -233,10 +252,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Override
   @Editor.Ignore
   public boolean isCollapsed() {
-    if (isNull(collapsible)) {
-      return false;
-    }
-    return collapsible.isCollapsed();
+    return getCollapsible().isCollapsed();
   }
 
   /** @return the HTML element of type E which is the root element of the component */
@@ -301,6 +317,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /** @return boolean, true if the element is currently attached to the DOM tree */
   @Editor.Ignore
   public boolean isAttached() {
+    dominoUuidInitializer.apply();
     return nonNull(DomGlobal.document.body.querySelector("[domino-uuid='" + uuid + "']"));
   }
 
@@ -345,6 +362,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /** @return the {@link Style} of the component */
   @Editor.Ignore
   public Style<E, T> style() {
+    styleInitializer.apply();
     return style;
   }
 
@@ -1147,6 +1165,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /** @return String, the assigned unique domino-uuid to the component */
   @Editor.Ignore
   public String getDominoId() {
+    dominoUuidInitializer.apply();
     return uuid;
   }
 
@@ -1223,7 +1242,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   @SuppressWarnings("unchecked")
   public T addHideListener(Collapsible.HideCompletedHandler handler) {
-    collapsible.addHideHandler(handler);
+    getCollapsible().addHideHandler(handler);
     return (T) this;
   }
 
@@ -1235,7 +1254,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   @SuppressWarnings("unchecked")
   public T removeHideListener(Collapsible.HideCompletedHandler handler) {
-    collapsible.removeHideHandler(handler);
+    getCollapsible().removeHideHandler(handler);
     return (T) this;
   }
 
@@ -1247,7 +1266,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   @SuppressWarnings("unchecked")
   public T addShowListener(Collapsible.ShowCompletedHandler handler) {
-    collapsible.addShowHandler(handler);
+    getCollapsible().addShowHandler(handler);
     return (T) this;
   }
 
@@ -1259,7 +1278,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   @SuppressWarnings("unchecked")
   public T removeShowListener(Collapsible.ShowCompletedHandler handler) {
-    collapsible.removeShowHandler(handler);
+    getCollapsible().removeShowHandler(handler);
     return (T) this;
   }
 

@@ -114,7 +114,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
         });
 
     init(this);
-    style.setHeight("100%");
+    style().setHeight("100%");
   }
 
   /** @return new Search instance */

@@ -21,6 +21,7 @@ import static org.jboss.elemento.Elements.*;
 import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
@@ -113,7 +114,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   private void linkLabelToField() {
     DominoElement<HTMLInputElement> asDominoElement = DominoElement.of(inputElement);
     if (!asDominoElement.hasAttribute("id")) {
-      inputElement.setAttribute("id", asDominoElement.getAttribute(BaseDominoElement.DOMINO_UUID));
+      inputElement.setAttribute("id", asDominoElement.getDominoId());
     }
     labelElement.setAttribute("for", asDominoElement.getAttribute("id"));
   }
@@ -304,8 +305,8 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
 
   /** {@inheritDoc} */
   @Override
-  public String getLabel() {
-    return labelElement.textContent;
+  public Optional<String> getLabel() {
+    return Optional.of(labelElement.textContent);
   }
 
   /** {@inheritDoc} */

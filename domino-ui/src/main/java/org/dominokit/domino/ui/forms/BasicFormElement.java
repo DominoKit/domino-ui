@@ -22,6 +22,7 @@ import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.forms.validations.ElementValidations;
 import org.dominokit.domino.ui.forms.validations.RequiredValidator;
@@ -92,7 +93,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
 
   /** @param label String new label to replace the old one */
   protected void updateLabel(String label) {
-    getLabelTextElement().setTextContent(label);
+    getLabelTextElement().ifPresent(labelElement -> labelElement.setTextContent(label));
   }
 
   /**
@@ -102,7 +103,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
    * @return same form element class
    */
   public T setLabel(Node node) {
-    getLabelTextElement().clearElement().appendChild(node);
+    getLabelTextElement().ifPresent(labelElement -> labelElement.clearElement().appendChild(node));
     return (T) this;
   }
 
@@ -113,7 +114,8 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
    * @return same form element class
    */
   public T setLabel(SafeHtml safeHtml) {
-    getLabelTextElement().setInnerHtml(safeHtml.asString());
+    getLabelTextElement()
+        .ifPresent(labelElement -> labelElement.clearElement().setInnerHtml(safeHtml.asString()));
     return (T) this;
   }
 
@@ -129,8 +131,11 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
 
   /** {@inheritDoc} */
   @Override
-  public String getLabel() {
-    return getLabelTextElement().getTextContent();
+  public Optional<String> getLabel() {
+    if (getLabelTextElement().isPresent()) {
+      return Optional.of(getLabelTextElement().get().getTextContent());
+    }
+    return Optional.empty();
   }
 
   /** {@inheritDoc} */
@@ -359,7 +364,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
     this.showRequiredIndicator = showRequiredIndicator;
     removeRequiredIndicator();
     if (showRequiredIndicator && isRequired()) {
-      getLabelElement().appendChild(requiredIndicator);
+      getLabelElement().ifPresent(labelElement -> labelElement.appendChild(requiredIndicator));
     }
     return (T) this;
   }
@@ -428,7 +433,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
   protected abstract DominoElement<HTMLElement> getErrorsContainer();
 
   /** @return the field {@link HTMLLabelElement} wrapped as {@link DominoElement} */
-  public abstract DominoElement<HTMLLabelElement> getLabelElement();
+  public abstract Optional<DominoElement<HTMLLabelElement>> getLabelElement();
 
   /**
    * @return the {@link HTMLDivElement} that contains this field additional info element wrapped as
@@ -439,8 +444,11 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
   /**
    * @return the {@link HTMLElement} that contains the label text wrapped as {@link DominoElement}
    */
-  public DominoElement<HTMLElement> getLabelTextElement() {
-    return DominoElement.of(getLabelElement().element());
+  public Optional<DominoElement<HTMLElement>> getLabelTextElement() {
+    if (getLabelElement().isPresent()) {
+      return Optional.of(DominoElement.of(getLabelElement().get().element()));
+    }
+    return Optional.empty();
   }
 
   /** {@inheritDoc} */
