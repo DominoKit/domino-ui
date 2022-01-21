@@ -34,7 +34,6 @@ import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.dropdown.DropdownActionsGroup;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
@@ -60,7 +59,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
 
   private DominoElement<HTMLButtonElement> buttonElement;
   protected DominoElement<HTMLElement> buttonValueContainer =
-      DominoElement.of(span().css("select-value", Styles.ellipsis_text));
+      DominoElement.of(span()).css("select-value", Styles.ellipsis_text);
   private final DominoElement<HTMLElement> placeholderNode =
       DominoElement.of(span()).css("select-placeholder");
   protected final DominoElement<HTMLElement> valuesContainer = DominoElement.of(span());
@@ -73,7 +72,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   private boolean searchable;
   private boolean creatable;
   private boolean clearable;
-  private FlexItem arrowIconContainer;
+  private DominoElement<HTMLDivElement> arrowIconContainer;
   private int popupWidth = 0;
   private String dropDirection = "auto";
   private boolean closePopOverOnOpen = false;
@@ -545,10 +544,10 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   public S setReadOnly(boolean readOnly) {
     super.setReadOnly(readOnly);
     if (readOnly) {
-      arrowIconContainer.hide();
+      DominoElement.of(arrowIconContainer).hide();
       floatLabel();
     } else {
-      arrowIconContainer.show();
+      DominoElement.of(arrowIconContainer).show();
       if (isEmptyIgnoreSpaces()) {
         unfloatLabel();
       }
@@ -825,7 +824,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   /** {@inheritDoc} for the select this will create a button element */
   @Override
   protected HTMLElement createInputElement(String type) {
-    buttonElement = DominoElement.of(button().attr("type", "button").css("select-button"));
+    buttonElement = DominoElement.of(button()).attr("type", "button").css("select-button");
     return buttonElement.element();
   }
 
@@ -847,13 +846,13 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
 
   /** {@inheritDoc} for thes select this creates the dropdown menu arrow */
   @Override
-  protected FlexItem createMandatoryAddOn() {
+  protected DominoElement<HTMLDivElement> createMandatoryAddOn() {
     if (isNull(arrowIconSupplier)) {
       arrowIcon = Icons.ALL.menu_down_mdi().clickable();
     } else {
       arrowIcon = arrowIconSupplier.get().clickable();
     }
-    arrowIconContainer = FlexItem.create().appendChild(arrowIcon);
+    arrowIconContainer = DominoElement.div().appendChild(arrowIcon);
     return arrowIconContainer;
   }
 

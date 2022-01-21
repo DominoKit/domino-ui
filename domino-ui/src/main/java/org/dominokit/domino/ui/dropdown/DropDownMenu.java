@@ -48,6 +48,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.IsCollapsible;
 import org.dominokit.domino.ui.utils.KeyboardNavigation;
+import org.dominokit.domino.ui.utils.LazyInitializer;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -74,27 +75,27 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
   private KeyboardNavigation<DropdownAction<?>> keyboardNavigation;
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div().css(DropDownStyles.DROPDOWN));
+      DominoElement.of(div()).css(DropDownStyles.DROPDOWN);
   private final DominoElement<HTMLUListElement> menuElement =
-      DominoElement.of(ul().css(DropDownStyles.DROPDOWN_MENU));
+      DominoElement.of(ul()).css(DropDownStyles.DROPDOWN_MENU);
   private final HTMLElement targetElement;
   private DropDownPosition position = DropDownPosition.BOTTOM;
   private final DominoElement<HTMLDivElement> titleContainer =
       DominoElement.of(div()).addCss(DropDownStyles.DROPDOWN_TITLE_CONTAINER);
   private final DominoElement<HTMLDivElement> searchContainer =
-      DominoElement.of(div().css(DropDownStyles.DROPDOWN_SEARCH_CONTAINER));
+      DominoElement.of(div()).css(DropDownStyles.DROPDOWN_SEARCH_CONTAINER);
   private final DominoElement<HTMLInputElement> searchBox =
-      DominoElement.of(input("text").css(DropDownStyles.DROPDOWN_SEARCH_BOX));
+      DominoElement.of(input("text")).css(DropDownStyles.DROPDOWN_SEARCH_BOX);
   private DominoElement<HTMLElement> noSearchResultsElement;
-  private final MdiIcon createIcon = Icons.ALL.plus_mdi().clickable();
+  private MdiIcon createIcon;
   private String noMatchSearchResultText = "No results matched";
 
   private final List<DropdownAction<?>> actions = new ArrayList<>();
   private static boolean touchMoved;
   private final List<CloseHandler> closeHandlers = new ArrayList<>();
   private final List<OpenHandler> openHandlers = new ArrayList<>();
-  private boolean searchable;
-  private boolean creatable;
+  private boolean searchable = false;
+  private boolean creatable = false;
   private boolean caseSensitiveSearch = false;
   private final List<DropdownActionsGroup<?>> groups = new ArrayList<>();
   private Color background;
@@ -114,6 +115,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
       };
   private OnAdd addListener = (String search) -> {};
 
+  private LazyInitializer dropDownMenuInitializer;
+
   static {
     document.addEventListener(EventType.click.getName(), evt -> DropDownMenu.closeAllMenus());
     document.addEventListener(EventType.touchmove.getName(), evt -> DropDownMenu.touchMoved = true);
@@ -132,66 +135,71 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
     init(this);
 
-    menuElement.setAttribute("role", "listbox");
+    dropDownMenuInitializer =
+        new LazyInitializer(
+            () -> {
+              element.appendChild(searchContainer).appendChild(menuElement);
+              menuElement.setAttribute("role", "listbox");
+              element.addEventListener(EventType.touchend, Event::stopPropagation);
+              element.addEventListener(EventType.touchmove, Event::stopPropagation);
+              element.addEventListener(EventType.touchstart, Event::stopPropagation);
 
-    element.addEventListener(EventType.touchend, Event::stopPropagation);
-    element.addEventListener(EventType.touchmove, Event::stopPropagation);
-    element.addEventListener(EventType.touchstart, Event::stopPropagation);
+              addMenuNavigationListener();
+              searchContainer.addClickListener(
+                  evt -> {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                  });
+              createIcon = Icons.ALL.plus_mdi().clickable();
+              searchContainer
+                  .toggleDisplay(this.searchable)
+                  .appendChild(
+                      FlexLayout.create()
+                          .appendChild(
+                              FlexItem.create().appendChild(Icons.ALL.magnify_mdi().clickable()))
+                          .appendChild(FlexItem.create().setFlexGrow(1).appendChild(searchBox))
+                          .appendChild(
+                              FlexItem.create()
+                                  .appendChild(
+                                      createIcon
+                                          .setAttribute("tabindex", "0")
+                                          .setAttribute("aria-expanded", "true")
+                                          .setAttribute("href", "#")
+                                          .toggleDisplay(this.creatable)
+                                          .addClickListener(
+                                              evt ->
+                                                  addListener.onAdd(searchBox.element().value)))));
 
-    addMenuNavigationListener();
-    searchContainer.addClickListener(
-        evt -> {
-          evt.preventDefault();
-          evt.stopPropagation();
-        });
-    searchContainer.appendChild(
-        FlexLayout.create()
-            .appendChild(FlexItem.create().appendChild(Icons.ALL.magnify_mdi().clickable()))
-            .appendChild(FlexItem.create().setFlexGrow(1).appendChild(searchBox))
-            .appendChild(
-                FlexItem.create()
-                    .appendChild(
-                        createIcon
-                            .setAttribute("tabindex", "0")
-                            .setAttribute("aria-expanded", "true")
-                            .setAttribute("href", "#")
-                            .addClickListener(
-                                evt -> addListener.onAdd(searchBox.element().value)))));
+              KeyboardEvents.listenOnKeyDown(createIcon)
+                  .setDefaultOptions(
+                      KeyboardEvents.KeyboardEventOptions.create()
+                          .setPreventDefault(true)
+                          .setStopPropagation(true))
+                  .onEnter(evt -> addListener.onAdd(searchBox.element().value));
 
-    element.appendChild(searchContainer).appendChild(menuElement);
+              KeyboardEvents.listenOnKeyDown(searchBox)
+                  .setDefaultOptions(
+                      KeyboardEvents.KeyboardEventOptions.create()
+                          .setPreventDefault(true)
+                          .setStopPropagation(true))
+                  .onArrowUp(evt -> keyboardNavigation.focusAt(lastVisibleActionIndex()))
+                  .onArrowDown(evt -> keyboardNavigation.focusAt(firstVisibleActionIndex()))
+                  .onEscape(evt -> close())
+                  .onEnter(evt -> selectFirstSearchResult());
+              searchBox.addEventListener(
+                  "input",
+                  evt -> {
+                    if (searchable) {
+                      doSearch();
+                    }
+                  });
 
-    setSearchable(false);
-    setCreatable(false);
+              setNoSearchResultsElement(
+                  DominoElement.of(li()).css(DropDownStyles.NO_RESULTS).hide().element());
+              menuElement.appendChild(noSearchResultsElement);
 
-    KeyboardEvents.listenOnKeyDown(createIcon)
-        .setDefaultOptions(
-            KeyboardEvents.KeyboardEventOptions.create()
-                .setPreventDefault(true)
-                .setStopPropagation(true))
-        .onEnter(evt -> addListener.onAdd(searchBox.element().value));
-
-    KeyboardEvents.listenOnKeyDown(searchBox)
-        .setDefaultOptions(
-            KeyboardEvents.KeyboardEventOptions.create()
-                .setPreventDefault(true)
-                .setStopPropagation(true))
-        .onArrowUp(evt -> keyboardNavigation.focusAt(lastVisibleActionIndex()))
-        .onArrowDown(evt -> keyboardNavigation.focusAt(firstVisibleActionIndex()))
-        .onEscape(evt -> close())
-        .onEnter(evt -> selectFirstSearchResult());
-    searchBox.addEventListener(
-        "input",
-        evt -> {
-          if (searchable) {
-            doSearch();
-          }
-        });
-
-    setNoSearchResultsElement(
-        DominoElement.of(li().css(DropDownStyles.NO_RESULTS)).hide().element());
-    menuElement.appendChild(noSearchResultsElement);
-
-    titleContainer.addClickListener(Event::stopPropagation);
+              titleContainer.addClickListener(Event::stopPropagation);
+            });
   }
 
   private void selectFirstSearchResult() {
@@ -317,14 +325,17 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    * @return same instance
    */
   public DropDownMenu insertFirst(DropdownAction<?> action) {
-    action.addSelectionHandler(
-        value -> {
-          if (action.isAutoClose()) {
-            close();
-          }
+    dropDownMenuInitializer.doOnce(
+        () -> {
+          action.addSelectionHandler(
+              value -> {
+                if (action.isAutoClose()) {
+                  close();
+                }
+              });
+          actions.add(0, action);
+          menuElement.insertFirst(action.element());
         });
-    actions.add(0, action);
-    menuElement.insertFirst(action.element());
     return this;
   }
 
@@ -335,15 +346,18 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    * @return same instance
    */
   public DropDownMenu appendChild(DropdownAction<?> action) {
-    action.addSelectionHandler(
-        value -> {
-          if (action.isAutoClose()) {
-            close();
-          }
+    dropDownMenuInitializer.doOnce(
+        () -> {
+          action.addSelectionHandler(
+              value -> {
+                if (action.isAutoClose()) {
+                  close();
+                }
+              });
+          actions.add(action);
+          action.setBackground(this.background);
+          menuElement.appendChild(action.element());
         });
-    actions.add(action);
-    menuElement.appendChild(action.element());
-    action.setBackground(this.background);
     return this;
   }
 
@@ -359,7 +373,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    * @return same instance
    */
   public DropDownMenu separator() {
-    menuElement.appendChild(li().attr("role", "separator").css(DropDownStyles.DIVIDER));
+    menuElement.appendChild(li()).attr("role", "separator").css(DropDownStyles.DIVIDER);
     return this;
   }
 
@@ -389,6 +403,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    * @param focus true to focus the first element
    */
   public void open(boolean focus) {
+    dropDownMenuInitializer.apply();
     if (hasActions() || creatable) {
       onAttached(
           mutationRecord -> {
@@ -419,10 +434,13 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
   /** Clears the current search */
   public void clearSearch() {
-    searchBox.element().value = "";
-    noSearchResultsElement.hide();
-    createIcon.inactive();
-    actions.forEach(DropdownAction::show);
+    dropDownMenuInitializer.ifInitialized(
+        () -> {
+          searchBox.element().value = "";
+          noSearchResultsElement.hide();
+          createIcon.inactive();
+          actions.forEach(DropdownAction::show);
+        });
   }
 
   /** @return True if the menu is opened, false otherwise */
@@ -453,6 +471,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    * @return same instance
    */
   public DropDownMenu clearActions() {
+    dropDownMenuInitializer.apply();
     menuElement.clearElement();
     actions.clear();
     groups.clear();
@@ -536,11 +555,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    */
   public DropDownMenu setSearchable(boolean searchable) {
     this.searchable = searchable;
-    if (searchable) {
-      searchContainer.show();
-    } else {
-      searchContainer.hide();
-    }
+    dropDownMenuInitializer.whenInitialized(() -> searchContainer.toggleDisplay(this.searchable));
     return this;
   }
 
@@ -555,11 +570,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    */
   public DropDownMenu setCreatable(boolean creatable) {
     this.creatable = creatable;
-    if (creatable) {
-      createIcon.show();
-    } else {
-      createIcon.hide();
-    }
+    dropDownMenuInitializer.ifInitialized(() -> createIcon.toggleDisplay(this.creatable));
+
     return this;
   }
 

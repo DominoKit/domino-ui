@@ -45,9 +45,11 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
 
   private final BaseIcon<?> collapseIcon;
   private final BaseIcon<?> expandIcon;
-  private HTMLDivElement element = div().element();
-  private HTMLTableCellElement td = td().css(DataTableStyles.DETAILS_TD).add(element).element();
-  private HTMLTableRowElement tr = tr().css(DataTableStyles.DETAILS_TR).add(td).element();
+  private HTMLDivElement element = DominoElement.of(div()).element();
+  private HTMLTableCellElement td =
+      DominoElement.of(td()).css(DataTableStyles.DETAILS_TD).add(element).element();
+  private HTMLTableRowElement tr =
+      DominoElement.of(tr()).css(DataTableStyles.DETAILS_TR).add(td).element();
 
   private final CellRenderer<T> cellRenderer;
   private DetailsButtonElement buttonElement;

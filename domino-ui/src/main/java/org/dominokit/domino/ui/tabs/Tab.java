@@ -42,7 +42,7 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
       DominoElement.of(li().attr("role", "presentation").add(clickableElement));
 
   private DominoElement<HTMLDivElement> contentContainer =
-      DominoElement.of(div().attr("role", "tabpanel").css(TabStyles.TAB_PANE, TabStyles.FADE));
+      DominoElement.of(div()).attr("role", "tabpanel").css(TabStyles.TAB_PANE, TabStyles.FADE);
 
   private FlexItem closeContainer = FlexItem.create();
   private FlexLayout tabElementsContainer;

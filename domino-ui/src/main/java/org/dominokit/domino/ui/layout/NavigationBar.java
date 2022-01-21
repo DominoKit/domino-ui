@@ -34,13 +34,13 @@ public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar>
   private final FlexItem<HTMLDivElement> actionBarItem;
 
   private DominoElement<HTMLElement> navBar =
-      DominoElement.of(nav().css("navbar").css("ls-closed"));
+      DominoElement.of(nav()).css("navbar").css("ls-closed");
   private FlexLayout container = FlexLayout.create().css("container-fluid");
 
-  DominoElement<HTMLAnchorElement> title = DominoElement.of(a().css("navbar-brand"));
-  DominoElement<HTMLAnchorElement> menu = DominoElement.of(a().css("bars"));
+  DominoElement<HTMLAnchorElement> title = DominoElement.of(a()).css("navbar-brand");
+  DominoElement<HTMLAnchorElement> menu = DominoElement.of(a()).css("bars");
   DominoElement<HTMLUListElement> topBar =
-      DominoElement.of(ul().css("nav").css("navbar-nav").css("navbar-right"));
+      DominoElement.of(ul()).css("nav").css("navbar-nav").css("navbar-right");
   DominoElement<HTMLDivElement> topBarContainer = DominoElement.div().appendChild(topBar);
   DominoElement<HTMLDivElement> navBarHeader = DominoElement.div().css("navbar-header");
 

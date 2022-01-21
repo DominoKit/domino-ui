@@ -381,6 +381,11 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
     return new CheckBoxAutoValidator<>(this, autoValidate);
   }
 
+  @Override
+  protected boolean allowEmptyLabel() {
+    return true;
+  }
+
   private static class CheckBoxAutoValidator<T> extends AutoValidator {
 
     private CheckBox checkBox;

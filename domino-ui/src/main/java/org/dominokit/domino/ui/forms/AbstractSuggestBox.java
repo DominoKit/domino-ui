@@ -37,6 +37,7 @@ import org.dominokit.domino.ui.loaders.LoaderEffect;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.AppendStrategy;
 import org.dominokit.domino.ui.utils.DelayedTextInput;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
 import org.jboss.elemento.Elements;
@@ -56,7 +57,8 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
   private DropDownMenu suggestionsMenu;
   private List<SelectionHandler<SuggestItem<V>>> selectionHandlers;
   private SuggestBoxStore<V> store;
-  private HTMLDivElement loaderContainer = div().css("suggest-box-loader").element();
+  private HTMLDivElement loaderContainer =
+      DominoElement.of(div()).css("suggest-box-loader").element();
   private Loader loader;
   private boolean emptyAsNull;
   private Color highlightColor;

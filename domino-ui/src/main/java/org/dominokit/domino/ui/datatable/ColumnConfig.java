@@ -23,7 +23,6 @@ import elemental2.dom.Node;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -73,6 +72,7 @@ public class ColumnConfig<T> {
   private boolean drawTitle = true;
 
   private final List<ColumnShowHideListener> showHideListeners = new ArrayList<>();
+  private final List<ColumnShowHideListener> permanentHideListeners = new ArrayList<>();
 
   /**
    * Creates an instance with a name which will also be used as a title
@@ -538,7 +538,11 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> addShowHideListener(ColumnShowHideListener showHideListener) {
-    this.showHideListeners.add(showHideListener);
+    if (showHideListener.isPermanent()) {
+      this.permanentHideListeners.add(showHideListener);
+    } else {
+      this.showHideListeners.add(showHideListener);
+    }
     return this;
   }
 
@@ -549,7 +553,11 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> removeShowHideListener(ColumnShowHideListener showHideListener) {
-    this.showHideListeners.remove(showHideListener);
+    if (showHideListener.isPermanent()) {
+      this.permanentHideListeners.remove(showHideListener);
+    } else {
+      this.showHideListeners.remove(showHideListener);
+    }
     return this;
   }
 
@@ -559,6 +567,7 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> show() {
+    this.permanentHideListeners.forEach(showHideListener -> showHideListener.onShowHide(true));
     this.showHideListeners.forEach(showHideListener -> showHideListener.onShowHide(true));
     this.hidden = false;
     return this;
@@ -570,6 +579,7 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> hide() {
+    this.permanentHideListeners.forEach(showHideListener -> showHideListener.onShowHide(false));
     this.showHideListeners.forEach(showHideListener -> showHideListener.onShowHide(false));
     this.hidden = true;
     return this;
@@ -595,12 +605,7 @@ public class ColumnConfig<T> {
 
   /** removes all {@link ColumnShowHideListener}s of this column except the permanent listeners */
   public void clearShowHideListeners() {
-    List<ColumnShowHideListener> nonPermanent =
-        showHideListeners.stream()
-            .filter(listener -> !listener.isPermanent())
-            .collect(Collectors.toList());
-
-    showHideListeners.removeAll(nonPermanent);
+    showHideListeners.clear();
   }
 
   /** @return boolean, true if the column is already hidden, otherwise false */

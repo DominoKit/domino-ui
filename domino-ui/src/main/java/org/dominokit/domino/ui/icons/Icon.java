@@ -36,7 +36,8 @@ public class Icon extends BaseIcon<Icon> {
    * @return new instance
    */
   public static Icon create(String icon) {
-    Icon iconElement = new Icon(i().css(IconsStyles.MATERIAL_ICONS).textContent(icon).element());
+    Icon iconElement =
+        new Icon(DominoElement.of(i()).css(IconsStyles.MATERIAL_ICONS).textContent(icon).element());
     iconElement.name = icon;
     return iconElement;
   }

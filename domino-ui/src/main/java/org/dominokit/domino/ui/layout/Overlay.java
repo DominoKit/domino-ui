@@ -19,6 +19,7 @@ import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** The component that masks the content panel when the left panel of the {@link Layout} is open */
@@ -29,7 +30,7 @@ public class Overlay extends BaseDominoElement<HTMLDivElement, Overlay>
 
   /** */
   public Overlay() {
-    element = div().css(LayoutStyles.OVERLAY).element();
+    element = DominoElement.of(div()).css(LayoutStyles.OVERLAY).element();
     init(this);
   }
 

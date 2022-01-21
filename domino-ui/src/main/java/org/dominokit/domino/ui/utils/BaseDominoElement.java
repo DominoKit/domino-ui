@@ -132,6 +132,27 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     return element;
   }
 
+  /**
+   * sets the element tabIndex attribute
+   *
+   * @param tabIndex int tabIndex
+   * @return same component
+   */
+  public T setTabIndex(int tabIndex) {
+    element().tabIndex = tabIndex;
+    return element;
+  }
+
+  /**
+   * sets the element id attribute
+   *
+   * @param id String custom id
+   * @return same component
+   */
+  public T id(String id) {
+    return setId(id);
+  }
+
   /** @return String value of the element id attribute */
   @Editor.Ignore
   public String getId() {
@@ -365,9 +386,13 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     styleInitializer.apply();
     return style;
   }
-
+  /** Sets the CSS style of the element. */
+  public T style(String style) {
+    element().style.cssText = style;
+    return (T) this;
+  }
   /**
-   * @param cssClass String css class name to add to the compponent
+   * @param cssClass String css class name to add to the component
    * @return same component
    */
   @Editor.Ignore
@@ -384,12 +409,6 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   public T css(String... cssClasses) {
     addCss(cssClasses);
     return element;
-  }
-
-  /** @return the {@link HtmlComponentBuilder} */
-  @Editor.Ignore
-  public HtmlComponentBuilder<E, T> builder() {
-    return ElementUtil.componentBuilder(element);
   }
 
   /**
@@ -412,6 +431,14 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   public T appendChild(IsElement<?> isElement) {
     element.element().appendChild(isElement.element());
     return element;
+  }
+
+  public T add(IsElement<?> isElement) {
+    return appendChild(isElement);
+  }
+
+  public T add(Node element) {
+    return appendChild(element);
   }
 
   /**
@@ -651,6 +678,18 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   /**
+   * Sets a String attribute value on the element
+   *
+   * @param name String attribute name
+   * @param value String
+   * @return same component
+   */
+  @Editor.Ignore
+  public T attr(String name, String value) {
+    return setAttribute(name, value);
+  }
+
+  /**
    * Sets a boolean attribute value on the element
    *
    * @param name String attribute name
@@ -766,6 +805,16 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    */
   @Editor.Ignore
   public T setTextContent(String text) {
+    element().textContent = text;
+    return element;
+  }
+
+  /**
+   * @param text String text content
+   * @return same component
+   */
+  @Editor.Ignore
+  public T textContent(String text) {
     element().textContent = text;
     return element;
   }

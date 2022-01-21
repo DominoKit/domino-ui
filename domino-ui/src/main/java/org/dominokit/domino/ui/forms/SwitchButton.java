@@ -34,7 +34,7 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
 
   private HTMLLabelElement onOffLabelElement;
   private DominoElement<HTMLInputElement> inputElement;
-  private DominoElement<HTMLElement> lever = DominoElement.of(span().css("lever"));
+  private DominoElement<HTMLElement> lever = DominoElement.of(span()).css("lever");
   private Color color;
   private DominoElement<HTMLElement> onTitleTextRoot = DominoElement.of(span());
   private DominoElement<HTMLElement> offTitleTextRoot = DominoElement.of(span());

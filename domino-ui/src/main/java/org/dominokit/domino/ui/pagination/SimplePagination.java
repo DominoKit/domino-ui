@@ -82,7 +82,8 @@ public class SimplePagination extends BasePagination<SimplePagination> {
     pagesElement.clearElement();
     prevAnchor = DominoElement.of(a());
     prevElement =
-        DominoElement.of(li().css("page-nav"))
+        DominoElement.of(li())
+            .css("page-nav")
             .appendChild(
                 prevAnchor
                     .appendChild(Icons.ALL.chevron_left().clickable())
@@ -93,7 +94,8 @@ public class SimplePagination extends BasePagination<SimplePagination> {
       IntStream.rangeClosed(1, pages)
           .forEach(
               p ->
-                  DominoElement.of(li().css("page"))
+                  DominoElement.of(li())
+                      .css("page")
                       .apply(
                           element -> {
                             allPages.add(element);
@@ -107,7 +109,8 @@ public class SimplePagination extends BasePagination<SimplePagination> {
 
     nextAnchor = DominoElement.of(a());
     nextElement =
-        DominoElement.of(li().css("page-nav"))
+        DominoElement.of(li())
+            .css("page-nav")
             .appendChild(
                 nextAnchor
                     .appendChild(Icons.ALL.chevron_right().clickable())

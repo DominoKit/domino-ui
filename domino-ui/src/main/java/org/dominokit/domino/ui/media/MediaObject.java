@@ -52,12 +52,14 @@ import org.jboss.elemento.IsElement;
 public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
     implements IsElement<HTMLDivElement> {
 
-  private final HTMLHeadingElement mediaHeader = h(4).css(MediaStyles.MEDIA_HEADING).element();
+  private final HTMLHeadingElement mediaHeader =
+      DominoElement.of(h(4)).css(MediaStyles.MEDIA_HEADING).element();
 
   private final HTMLDivElement mediaBody =
-      div().css(MediaStyles.MEDIA_BODY).add(mediaHeader).element();
+      DominoElement.of(div()).css(MediaStyles.MEDIA_BODY).add(mediaHeader).element();
 
-  private final HTMLDivElement element = div().css(MediaStyles.MEDIA).add(mediaBody).element();
+  private final HTMLDivElement element =
+      DominoElement.of(div()).css(MediaStyles.MEDIA).add(mediaBody).element();
 
   private DominoElement<HTMLDivElement> leftMedia;
   private DominoElement<HTMLDivElement> rightMedia;
@@ -93,7 +95,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
    */
   public MediaObject setLeftMedia(Node content) {
     if (isNull(leftMedia)) {
-      leftMedia = DominoElement.of(div().css(MediaStyles.MEDIA_LEFT));
+      leftMedia = DominoElement.of(div()).css(MediaStyles.MEDIA_LEFT);
       insertBefore(leftMedia, mediaBody);
     }
 
@@ -120,7 +122,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
    */
   public MediaObject setRightMedia(Node content) {
     if (isNull(rightMedia)) {
-      rightMedia = DominoElement.of(div().css(MediaStyles.MEDIA_RIGHT).css(Styles.pull_right));
+      rightMedia = DominoElement.of(div()).css(MediaStyles.MEDIA_RIGHT).css(Styles.pull_right);
       appendChild(rightMedia);
     }
 

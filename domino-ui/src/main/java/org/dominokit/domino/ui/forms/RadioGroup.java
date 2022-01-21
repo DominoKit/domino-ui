@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import org.dominokit.domino.ui.grid.flex.FlexDirection;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.Elements;
 import org.jboss.elemento.IsElement;
 
@@ -184,7 +185,7 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
 
   /** {@inheritDoc} */
   protected HTMLLabelElement makeErrorLabel(String message) {
-    return Elements.label().css("error").textContent(message).element();
+    return DominoElement.of(Elements.label()).css("error").textContent(message).element();
   }
 
   /** @return List of {@link Radio} that belongs to this RadioGroup */

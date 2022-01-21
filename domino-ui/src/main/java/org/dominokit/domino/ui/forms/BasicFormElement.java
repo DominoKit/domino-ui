@@ -272,7 +272,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
    * @return same form element instance
    */
   protected HTMLLabelElement makeErrorLabel(String message) {
-    return label().css("error").textContent(message).element();
+    return DominoElement.of(label()).css("error").textContent(message).element();
   }
 
   /** {@inheritDoc} */

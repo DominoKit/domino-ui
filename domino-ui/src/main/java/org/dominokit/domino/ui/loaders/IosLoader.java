@@ -28,32 +28,41 @@ import org.jboss.elemento.IsElement;
 public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDivElement> {
 
   private final HTMLDivElement progress1 =
-      div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555").element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555").element();
   private final HTMLDivElement progress2 =
-      div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555").element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555").element();
   private final HTMLDivElement progress3 =
-      div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#555").element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#555").element();
   private final HTMLDivElement progress4 =
-      div().css(WAIT_ME_PROGRESS_ELEM_4).style("background-color:#555").element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_4).style("background-color:#555").element();
   private final HTMLDivElement progress5 =
-      div().css(WAIT_ME_PROGRESS_ELEM_5).style("background-color:#555").element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_5).style("background-color:#555").element();
   private final HTMLDivElement progress6 =
-      div().css(WAIT_ME_PROGRESS_ELEM_6).style("background-color:#555").element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_6).style("background-color:#555").element();
   private final HTMLDivElement progress7 =
-      div().css(WAIT_ME_PROGRESS_ELEM_7).style("background-color:#555").element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_7).style("background-color:#555").element();
   private final HTMLDivElement progress8 =
-      div().css(WAIT_ME_PROGRESS_ELEM_8).style("background-color:#555").element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_8).style("background-color:#555").element();
   private final HTMLDivElement progress9 =
-      div().css(WAIT_ME_PROGRESS_ELEM_9).style("background-color:#555").element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_9).style("background-color:#555").element();
   private final HTMLDivElement progress10 =
-      div().css(WAIT_ME_PROGRESS_ELEM_10).style("background-color:#555").element();
+      DominoElement.of(div())
+          .css(WAIT_ME_PROGRESS_ELEM_10)
+          .style("background-color:#555")
+          .element();
   private final HTMLDivElement progress11 =
-      div().css(WAIT_ME_PROGRESS_ELEM_11).style("background-color:#555").element();
+      DominoElement.of(div())
+          .css(WAIT_ME_PROGRESS_ELEM_11)
+          .style("background-color:#555")
+          .element();
   private final HTMLDivElement progress12 =
-      div().css(WAIT_ME_PROGRESS_ELEM_12).style("background-color:#555").element();
+      DominoElement.of(div())
+          .css(WAIT_ME_PROGRESS_ELEM_12)
+          .style("background-color:#555")
+          .element();
 
   private final HTMLDivElement loader =
-      div()
+      DominoElement.of(div())
           .css(WAIT_ME_PROGRESS)
           .css(IOS)
           .add(progress1)
@@ -71,14 +80,18 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
           .element();
 
   private final HTMLDivElement content =
-      div()
+      DominoElement.of(div())
           .css(WAIT_ME_CONTENT)
           .css(Styles.vertical_center)
-          .add(div().add(loader).add(loadingText))
+          .add(DominoElement.of(div()).add(loader).add(loadingText))
           .element();
 
   private final HTMLDivElement element =
-      div().css(WAIT_ME).style("background: rgba(255, 255, 255, 0.9);").add(content).element();
+      DominoElement.of(div())
+          .css(WAIT_ME)
+          .style("background: rgba(255, 255, 255, 0.9);")
+          .add(content)
+          .element();
 
   public IosLoader() {
     init(this);

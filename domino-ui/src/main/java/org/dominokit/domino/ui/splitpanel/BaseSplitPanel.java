@@ -36,7 +36,7 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
     extends BaseDominoElement<HTMLDivElement, T> implements HasSize {
 
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div().css(SplitStyles.SPLIT_PANEL));
+      DominoElement.of(div()).css(SplitStyles.SPLIT_PANEL);
 
   private final List<SplitPanel> panels = new LinkedList<>();
   private final List<S> splitters = new LinkedList<>();

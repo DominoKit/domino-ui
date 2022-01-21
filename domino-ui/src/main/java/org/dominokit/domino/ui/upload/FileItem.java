@@ -49,7 +49,8 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
   private HTMLParagraphElement fileSizeParagraph;
   private HTMLHeadingElement fileNameTitleContainer;
   private final HTMLDivElement footerContainer = Elements.div().element();
-  private final HTMLElement messageContainer = Elements.p().css(ELLIPSIS_TEXT).element();
+  private final HTMLElement messageContainer =
+      DominoElement.of(Elements.p()).css(ELLIPSIS_TEXT).element();
   private HTMLDivElement progressElement;
   private ProgressBar progressBar;
   private final HTMLElement deleteIcon = Icons.ALL.delete().element();
@@ -112,7 +113,8 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
   }
 
   private void initFileTitle() {
-    fileNameTitleContainer = h(3).css(ELLIPSIS_TEXT).textContent(file.name).element();
+    fileNameTitleContainer =
+        DominoElement.of(h(3)).css(ELLIPSIS_TEXT).textContent(file.name).element();
     fileNameTitleContainer.style.margin = CSSProperties.MarginUnionType.of("0px");
     Tooltip.create(fileNameTitleContainer, file.name);
   }

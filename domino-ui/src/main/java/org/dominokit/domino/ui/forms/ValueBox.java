@@ -30,10 +30,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
+import org.dominokit.domino.ui.utils.ElementUtil;
+import org.dominokit.domino.ui.utils.Focusable;
+import org.dominokit.domino.ui.utils.HasChangeHandlers;
+import org.dominokit.domino.ui.utils.HasPlaceHolder;
+import org.dominokit.domino.ui.utils.IsReadOnly;
+import org.dominokit.domino.ui.utils.LambdaFunction;
 import org.gwtproject.safehtml.shared.SafeHtml;
 import org.jboss.elemento.IsElement;
 
@@ -93,7 +101,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   private boolean readOnly;
   private String prefix;
   private String postfix;
-  private FlexItem<HTMLDivElement> mandatoryAddOn;
+  private DominoElement<HTMLDivElement> mandatoryAddOn;
   private boolean validateOnFocusLost = true;
   private FieldStyle fieldStyle = DominoUIConfig.INSTANCE.getDefaultFieldsStyle();
   private FlexLayout fieldInnerContainer;
@@ -118,7 +126,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     labelInitializer =
         () -> {
           labelElement = createLabelElement();
-          inputContainer.insertBefore(labelElement, inputElement);
+          DominoElement.of(Js.<HTMLElement>uncheckedCast(getInputElement().element().parentElement))
+              .insertBefore(labelElement, inputElement);
           linkLabelToField();
           labelElement.addEventListener(
               "click",
@@ -188,19 +197,18 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   private void layout() {
 
     fieldInnerContainer = FlexLayout.create();
+    fieldInnerContainer.appendChild(
+        inputContainer.css("field-input-cntr").setFlexGrow(1).appendChild(inputElement));
 
     fieldGroup.appendChild(
         fieldContainer.appendChild(
-            fieldInnerContainer
-                .appendChild(
-                    inputContainer.css("field-input-cntr").setFlexGrow(1).appendChild(inputElement))
-                .apply(
-                    self -> {
-                      mandatoryAddOn = createMandatoryAddOn();
-                      if (nonNull(mandatoryAddOn)) {
-                        self.appendChild(mandatoryAddOn.css("field-mandatory-addon"));
-                      }
-                    })));
+            fieldInnerContainer.apply(
+                self -> {
+                  mandatoryAddOn = createMandatoryAddOn();
+                  if (nonNull(mandatoryAddOn)) {
+                    self.appendChild(DominoElement.of(mandatoryAddOn).css("field-mandatory-addon"));
+                  }
+                })));
   }
 
   private void initNotesContainer() {
@@ -251,7 +259,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
    * @return an {@link HTMLLabelElement} wrapped as {@link DominoElement}
    */
   protected DominoElement<HTMLLabelElement> createLabelElement() {
-    return DominoElement.of(label().css("field-label"));
+    return DominoElement.of(label()).css("field-label");
   }
 
   /**
@@ -318,7 +326,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   }
 
   /** @return the {@link FlexItem} that is added as a mandatoryAddOn */
-  public FlexItem getMandatoryAddOn() {
+  public DominoElement<HTMLDivElement> getMandatoryAddOn() {
     return mandatoryAddOn;
   }
 
@@ -467,10 +475,16 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** {@inheritDoc} */
   @Override
   public T setLabel(String label) {
-    labelInitializer.apply();
-    super.setLabel(label);
-    hidePlaceholder();
+    if (nonNull(label) && !label.isEmpty() || allowEmptyLabel()) {
+      labelInitializer.apply();
+      super.setLabel(label);
+      hidePlaceholder();
+    }
     return (T) this;
+  }
+
+  protected boolean allowEmptyLabel() {
+    return false;
   }
 
   /**
@@ -480,8 +494,10 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
    * @return same form element class
    */
   public T setLabel(Node node) {
-    labelInitializer.apply();
-    super.setLabel(node);
+    if (nonNull(node)) {
+      labelInitializer.apply();
+      super.setLabel(node);
+    }
     return (T) this;
   }
 
@@ -492,8 +508,10 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
    * @return same form element class
    */
   public T setLabel(SafeHtml safeHtml) {
-    labelInitializer.apply();
-    super.setLabel(safeHtml);
+    if (nonNull(safeHtml)) {
+      labelInitializer.apply();
+      super.setLabel(safeHtml);
+    }
     return (T) this;
   }
 
@@ -1221,7 +1239,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   }
 
   /** @return the {@link FlexItem} that contains the mandatory addons */
-  protected FlexItem createMandatoryAddOn() {
+  protected DominoElement<HTMLDivElement> createMandatoryAddOn() {
     return null;
   }
 

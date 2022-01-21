@@ -115,7 +115,8 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
     prevAnchor = DominoElement.of(a());
     prevElement =
-        DominoElement.of(li().css("page-nav"))
+        DominoElement.of(li())
+            .css("page-nav")
             .appendChild(
                 prevAnchor
                     .appendChild(Icons.ALL.chevron_left().clickable())
@@ -123,7 +124,8 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
     prevSetAnchor = DominoElement.of(a());
     prevSet =
-        DominoElement.of(li().css("page-nav"))
+        DominoElement.of(li())
+            .css("page-nav")
             .appendChild(
                 prevSetAnchor
                     .appendChild(Icons.ALL.first_page().clickable())
@@ -131,7 +133,8 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
     firstPageAnchor = DominoElement.of(a());
     firstPage =
-        DominoElement.of(li().css("page-nav"))
+        DominoElement.of(li())
+            .css("page-nav")
             .appendChild(
                 firstPageAnchor
                     .appendChild(Icons.ALL.skip_previous().clickable())
@@ -147,7 +150,8 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
       IntStream.rangeClosed(1, pages)
           .forEach(
               p ->
-                  DominoElement.of(li().css("page"))
+                  DominoElement.of(li())
+                      .css("page")
                       .apply(
                           element -> {
                             element.appendChild(
@@ -164,7 +168,8 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     if (pages > windowSize) {
       dotsAnchor = DominoElement.of(a());
       dotsElement =
-          DominoElement.of(li().css("page"))
+          DominoElement.of(li())
+              .css("page")
               .appendChild(
                   dotsAnchor
                       .setTextContent("...")
@@ -172,7 +177,8 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
                           evt -> moveToPage((windowIndex * windowSize) + windowSize + 1, false)));
       pagesElement.appendChild(dotsElement);
       pagesCountPageElement =
-          DominoElement.of(li().css("page"))
+          DominoElement.of(li())
+              .css("page")
               .appendChild(
                   DominoElement.of(a())
                       .setTextContent("" + pages)
@@ -180,14 +186,16 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
       pagesElement.appendChild(pagesCountPageElement);
     }
     DominoElement<HTMLLIElement> recordsCountPageElement =
-        DominoElement.of(li().css("page"))
+        DominoElement.of(li())
+            .css("page")
             .appendChild(DominoElement.of(a()).setTextContent("(" + this.totalCount + ")"))
             .toggleDisplay(totalRecordVisible);
     pagesElement.appendChild(recordsCountPageElement);
 
     nextAnchor = DominoElement.of(a());
     nextElement =
-        DominoElement.of(li().css("page-nav"))
+        DominoElement.of(li())
+            .css("page-nav")
             .appendChild(
                 nextAnchor
                     .appendChild(Icons.ALL.chevron_right().clickable())
@@ -195,7 +203,8 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
     nextSetAnchor = DominoElement.of(a());
     nextSet =
-        DominoElement.of(li().css("page-nav"))
+        DominoElement.of(li())
+            .css("page-nav")
             .appendChild(
                 nextSetAnchor
                     .appendChild(Icons.ALL.last_page().clickable())
@@ -204,7 +213,8 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
     lastPageAnchor = DominoElement.of(a());
     lastPage =
-        DominoElement.of(li().css("page-nav"))
+        DominoElement.of(li())
+            .css("page-nav")
             .appendChild(
                 lastPageAnchor
                     .appendChild(Icons.ALL.skip_next().clickable())

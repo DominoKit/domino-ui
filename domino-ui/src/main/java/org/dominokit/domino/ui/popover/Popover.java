@@ -54,12 +54,15 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
   private final HTMLElement targetElement;
 
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div().css(POPOVER).attr("role", "tooltip").style("display: block;"))
+      DominoElement.of(div())
+          .css(POPOVER)
+          .attr("role", "tooltip")
+          .style("display: block;")
           .elevate(Elevation.LEVEL_1);
   private final DominoElement<HTMLHeadingElement> headingElement =
-      DominoElement.of(h(3).css(POPOVER_TITLE));
+      DominoElement.of(h(3)).css(POPOVER_TITLE);
   private final DominoElement<HTMLDivElement> contentElement =
-      DominoElement.of(div().css(POPOVER_CONTENT));
+      DominoElement.of(div()).css(POPOVER_CONTENT);
 
   private PopupPosition popupPosition = TOP;
 
@@ -82,7 +85,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
 
   public Popover(HTMLElement target, String title, Node content) {
     this.targetElement = target;
-    DominoElement<HTMLDivElement> arrowElement = DominoElement.of(div().css(ARROW));
+    DominoElement<HTMLDivElement> arrowElement = DominoElement.of(div()).css(ARROW);
     element.appendChild(arrowElement);
     element.appendChild(headingElement);
     element.appendChild(contentElement);

@@ -136,7 +136,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
      */
     @Override
     public Style<E, T> addCss(String cssClass) {
-        if (nonNull(cssClass) && !cssClass.isEmpty()){
+        if (nonNull(cssClass) && !cssClass.isEmpty()) {
             element.classList.add(cssClass);
         }
         return this;
@@ -160,7 +160,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
     @Override
     public Style<E, T> addCss(String... cssClasses) {
         if (nonNull(cssClasses) && cssClasses.length > 0) {
-            // add(String... arr) is not supported in IE11, so looping over the array solving the problem
+//       add(String... arr) is not supported in IE11, so looping over the array solving the problem
             for (String cssClass : cssClasses) {
                 addCss(cssClass);
             }

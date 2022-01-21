@@ -54,7 +54,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     implements HasBackground<Breadcrumb> {
 
   private final DominoElement<HTMLOListElement> element =
-      DominoElement.of(ol().css(BreadcrumbStyles.BREADCRUMB));
+      DominoElement.of(ol()).css(BreadcrumbStyles.BREADCRUMB);
   private final List<BreadcrumbItem> items = new LinkedList<>();
   private BreadcrumbItem activeItem;
   private boolean removeTail = false;

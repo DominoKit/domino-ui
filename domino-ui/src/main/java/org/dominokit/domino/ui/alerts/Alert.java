@@ -81,18 +81,18 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
   private Color background;
   private boolean dismissible = false;
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div().css(AlertStyles.ALERT)).elevate(Elevation.LEVEL_1);
+      DominoElement.of(div()).css(AlertStyles.ALERT).elevate(Elevation.LEVEL_1);
 
   public Alert() {
     init(this);
   }
 
   private final HTMLButtonElement closeButton =
-      button()
+      DominoElement.of(button())
           .attr("type", "button")
           .css(AlertStyles.CLOSE)
           .attr("aria-label", "Close")
-          .add(span().attr("aria-hidden", "true").textContent("×").element())
+          .add(span().attr("aria-hidden", "true").textContent("×"))
           .element();
 
   private static Alert create(AlertType type) {

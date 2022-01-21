@@ -19,6 +19,7 @@ import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * A component that can show the progress for one or more operation
@@ -34,7 +35,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  */
 public class Progress extends BaseDominoElement<HTMLDivElement, Progress> {
 
-  private HTMLDivElement element = div().css(ProgressStyles.progress).element();
+  private HTMLDivElement element = DominoElement.of(div()).css(ProgressStyles.progress).element();
 
   /** */
   public Progress() {

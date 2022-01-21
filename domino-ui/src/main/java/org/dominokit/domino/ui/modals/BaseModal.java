@@ -59,30 +59,36 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     /** */
     public Modal() {
       this.root =
-          div()
+          DominoElement.of(div())
               .css("modal", "fade")
-              .apply(e -> e.tabIndex = -1)
+              .apply(e -> e.setTabIndex(-1))
               .attr("role", "dialog")
               .add(
                   modalDialog =
-                      div()
+                      DominoElement.of(div())
                           .css("modal-dialog")
-                          .apply(e -> e.tabIndex = -1)
+                          .apply(e -> e.setTabIndex(-1))
                           .attr("role", "document")
                           .add(
                               modalContent =
-                                  div()
+                                  DominoElement.of(div())
                                       .css("modal-content")
                                       .add(
                                           modalHeader =
-                                              div()
+                                              DominoElement.of(div())
                                                   .css("modal-header")
                                                   .add(
                                                       modalTitle =
-                                                          h(4).css("modal-title").element())
+                                                          DominoElement.of(h(4))
+                                                              .css("modal-title")
+                                                              .element())
                                                   .element())
-                                      .add(modalBody = div().css("modal-body").element())
-                                      .add(modalFooter = div().css("modal-footer").element())
+                                      .add(
+                                          modalBody =
+                                              DominoElement.of(div()).css("modal-body").element())
+                                      .add(
+                                          modalFooter =
+                                              DominoElement.of(div()).css("modal-footer").element())
                                       .element())
                           .element())
               .element();

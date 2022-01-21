@@ -52,7 +52,7 @@ import org.jboss.elemento.IsElement;
 public class DropdownActionsGroup<T>
     extends BaseDominoElement<HTMLLIElement, DropdownActionsGroup<T>> {
   private final DominoElement<HTMLLIElement> element =
-      DominoElement.of(li().css(DropDownStyles.DROPDOWN_HEADER));
+      DominoElement.of(li()).css(DropDownStyles.DROPDOWN_HEADER);
   private final List<DropdownAction<T>> actions = new ArrayList<>();
   private DropDownMenu menu;
 

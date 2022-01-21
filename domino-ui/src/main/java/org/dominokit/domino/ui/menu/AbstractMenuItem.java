@@ -53,7 +53,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
     extends BaseDominoElement<HTMLLIElement, T>
     implements HasSelectionHandler<T, T>, HasDeselectionHandler<T> {
 
-  private final DominoElement<HTMLLIElement> root = DominoElement.of(li().css("menu-item"));
+  private final DominoElement<HTMLLIElement> root = DominoElement.of(li()).css("menu-item");
   private final DominoElement<HTMLAnchorElement> linkElement =
       DominoElement.of(a())
           .setAttribute("tabindex", "0")

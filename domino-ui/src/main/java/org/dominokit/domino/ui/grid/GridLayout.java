@@ -63,12 +63,18 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
 
-  private final HTMLDivElement element = div().css(GridStyles.LAYOUT_GRID).element();
-  private final HTMLDivElement contentElement = div().css(GridStyles.LAYOUT_CONTENT).element();
-  private final HTMLDivElement headerElement = div().css(GridStyles.LAYOUT_HEADER).element();
-  private final HTMLDivElement footerElement = div().css(GridStyles.LAYOUT_FOOTER).element();
-  private final HTMLDivElement leftElement = div().css(GridStyles.LAYOUT_LEFT).element();
-  private final HTMLDivElement rightElement = div().css(GridStyles.LAYOUT_RIGHT).element();
+  private final HTMLDivElement element =
+      DominoElement.of(div()).css(GridStyles.LAYOUT_GRID).element();
+  private final HTMLDivElement contentElement =
+      DominoElement.of(div()).css(GridStyles.LAYOUT_CONTENT).element();
+  private final HTMLDivElement headerElement =
+      DominoElement.of(div()).css(GridStyles.LAYOUT_HEADER).element();
+  private final HTMLDivElement footerElement =
+      DominoElement.of(div()).css(GridStyles.LAYOUT_FOOTER).element();
+  private final HTMLDivElement leftElement =
+      DominoElement.of(div()).css(GridStyles.LAYOUT_LEFT).element();
+  private final HTMLDivElement rightElement =
+      DominoElement.of(div()).css(GridStyles.LAYOUT_RIGHT).element();
   private final GridLayoutEditor editor = new GridLayoutEditor();
 
   public GridLayout() {

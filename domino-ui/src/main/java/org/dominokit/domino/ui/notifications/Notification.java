@@ -62,7 +62,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   public static final Position BOTTOM_RIGHT = new BottomRightPosition();
 
   private final HTMLButtonElement closeButton =
-      button()
+      DominoElement.of(button())
           .attr("type", "button")
           .attr("aria-hidden", "true")
           .css(NotificationStyles.CLOSE)
@@ -73,7 +73,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   private final HTMLElement messageSpan = span().element();
 
   private final HTMLDivElement element =
-      div()
+      DominoElement.of(div())
           .css(NotificationStyles.BOOTSTRAP_NOTIFY_CONTAINER)
           .css(NotificationStyles.ALERT)
           .css(NotificationStyles.ALERT_DISMISSIBLE)

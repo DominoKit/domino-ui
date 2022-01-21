@@ -91,7 +91,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   protected boolean caseSensitive = false;
   protected String createMissingLabel = "Create ";
   private MissingItemHandler<T> missingItemHandler;
-  private DominoElement<HTMLLIElement> noResultElement = DominoElement.of(li().css("no-results"));
+  private DominoElement<HTMLLIElement> noResultElement = DominoElement.of(li()).css("no-results");
 
   protected List<AbstractMenuItem<V, ?>> menuItems = new ArrayList<>();
   protected boolean autoCloseOnSelect = true;
@@ -347,7 +347,8 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    * @return same menu instance
    */
   public T appendSeparator() {
-    this.itemsContainer.appendChild(DominoElement.of(li().add(span().css("ddi-separator"))));
+    this.itemsContainer.appendChild(
+        DominoElement.of(li()).add(DominoElement.of(span()).css("ddi-separator")));
     return (T) this;
   }
 

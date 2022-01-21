@@ -291,9 +291,9 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   public void renderCell(ColumnConfig<T> columnConfig) {
     HTMLTableCellElement cellElement;
     if (columnConfig.isHeader()) {
-      cellElement = th().css("dt-th-cell").element();
+      cellElement = DominoElement.of(th()).css("dt-th-cell").element();
     } else {
-      cellElement = td().css("dt-td-cell").element();
+      cellElement = DominoElement.of(td()).css("dt-td-cell").element();
     }
 
     if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
@@ -309,7 +309,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     columnConfig.applyScreenMedia(cellElement);
 
     columnConfig.applyCellStyle(cellElement);
-    if(columnConfig.isHidden()){
+    if (columnConfig.isHidden()) {
       DominoElement.of(cellElement).hide();
     }
     element().appendChild(cellElement);
