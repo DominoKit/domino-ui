@@ -22,6 +22,7 @@ import elemental2.dom.HTMLElement;
 import java.util.function.Consumer;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /**
@@ -54,7 +55,8 @@ public class Row<T extends Row<T>> extends BaseDominoElement<HTMLDivElement, T> 
   protected HTMLDivElement row;
 
   public Row(Columns columns) {
-    this.row = div().css(GridStyles.GRID_ROW).css(columns.getColumnsStyle()).element();
+    this.row =
+        DominoElement.of(div()).css(GridStyles.GRID_ROW).css(columns.getColumnsStyle()).element();
     this.columns = columns;
   }
 

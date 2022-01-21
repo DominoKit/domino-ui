@@ -70,24 +70,28 @@ import org.gwtproject.timer.client.Timer;
  */
 public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
 
-  private final HTMLOListElement indicatorsElement = ol().css(CAROUSEL_INDICATORS).element();
-  private final HTMLDivElement slidesElement = div().css(CAROUSEL_INNER).element();
+  private final HTMLOListElement indicatorsElement =
+      DominoElement.of(ol()).css(CAROUSEL_INDICATORS).element();
+  private final HTMLDivElement slidesElement =
+      DominoElement.of(div()).css(CAROUSEL_INNER).element();
   private boolean autoSlide = false;
 
   private final HTMLAnchorElement prevElement =
-      a().css(LEFT, CAROUSEL_CONTROL)
+      DominoElement.of(a())
+          .css(LEFT, CAROUSEL_CONTROL)
           .attr("role", "button")
           .add(Icons.ALL.chevron_left().addCss(Styles.vertical_center).setFontSize("60px"))
           .element();
 
   private final HTMLAnchorElement nextElement =
-      a().css(RIGHT, CAROUSEL_CONTROL)
+      DominoElement.of(a())
+          .css(RIGHT, CAROUSEL_CONTROL)
           .attr("role", "button")
           .add(Icons.ALL.chevron_right().addCss(Styles.vertical_center).setFontSize("60px"))
           .element();
 
   private final HTMLDivElement element =
-      div()
+      DominoElement.of(div())
           .add(indicatorsElement)
           .add(slidesElement)
           .add(prevElement)

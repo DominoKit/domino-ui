@@ -444,7 +444,7 @@ table th[class*="col-"] {
 }
 
 .table-responsive .table .d-checkbox.select-checkbox {
-    margin: -1px 0 0;
+    margin: -2px 0 0;
 }
 
 .table-responsive .field-group.table-search-box .field-cntr {

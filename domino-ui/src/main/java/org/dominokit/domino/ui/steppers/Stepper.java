@@ -30,6 +30,7 @@ import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 /** @deprecated use {@link org.dominokit.domino.ui.stepper.Stepper} */
 @Deprecated
@@ -37,7 +38,7 @@ public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
 
   private static Transition HORIZONTAL_NEXT_STEP_TRANSITION = Transition.SLIDE_IN_RIGHT;
   private static Transition HORIZONTAL_PREV_STEP_TRANSITION = Transition.SLIDE_IN_LEFT;
-  private final HTMLUListElement element = ul().css(stepper).element();
+  private final HTMLUListElement element = DominoElement.of(ul()).css(stepper).element();
   private Step activeStep;
   private Color color;
   private List<Step> steps = new ArrayList<>();

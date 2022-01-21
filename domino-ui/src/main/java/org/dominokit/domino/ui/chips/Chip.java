@@ -75,9 +75,11 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
         HasRemoveHandler<Chip> {
 
   private final DominoElement<HTMLDivElement> element = DominoElement.of(div().css(CHIP));
-  private final HTMLDivElement textContainer = div().css(CHIP_VALUE).element();
-  private final HTMLDivElement leftAddonContainer = div().css(CHIP_ADDON).element();
-  private final HTMLDivElement removeIconContainer = div().css(CHIP_REMOVE).element();
+  private final HTMLDivElement textContainer = DominoElement.of(div()).css(CHIP_VALUE).element();
+  private final HTMLDivElement leftAddonContainer =
+      DominoElement.of(div()).css(CHIP_ADDON).element();
+  private final HTMLDivElement removeIconContainer =
+      DominoElement.of(div()).css(CHIP_REMOVE).element();
   private ColorScheme colorScheme = ColorScheme.INDIGO;
   private Color color = Color.INDIGO;
   private DominoElement<HTMLElement> removeIcon = DominoElement.of(Icons.ALL.close().element());

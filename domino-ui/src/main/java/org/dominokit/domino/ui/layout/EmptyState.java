@@ -42,7 +42,9 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState> {
 
   private HTMLDivElement element =
-      div().css("empty-state", Styles.align_center, Styles.vertical_center).element();
+      DominoElement.of(div())
+          .css("empty-state", Styles.align_center, Styles.vertical_center)
+          .element();
   private HTMLDivElement iconContainer = div().element();
   private HTMLHeadingElement titleContainer = h(4).element();
   private HTMLParagraphElement descriptionContainer = p().element();

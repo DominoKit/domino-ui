@@ -32,8 +32,8 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public abstract class BasePagination<T extends BasePagination<T>>
     extends BaseDominoElement<HTMLElement, T> implements HasPagination {
 
-  protected DominoElement<HTMLUListElement> pagesElement = DominoElement.of(ul().css("pagination"));
-  protected DominoElement<HTMLElement> element = DominoElement.of(nav().add(pagesElement));
+  protected DominoElement<HTMLUListElement> pagesElement = DominoElement.of(ul()).css("pagination");
+  protected DominoElement<HTMLElement> element = DominoElement.of(nav()).add(pagesElement);
   protected DominoElement<? extends HTMLElement> activePage = DominoElement.of(li());
   protected DominoElement<? extends HTMLElement> prevElement;
   protected DominoElement<? extends HTMLElement> nextElement;

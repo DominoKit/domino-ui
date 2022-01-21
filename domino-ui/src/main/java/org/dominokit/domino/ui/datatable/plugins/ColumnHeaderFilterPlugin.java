@@ -32,7 +32,6 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.HtmlContentBuilder;
 import org.jboss.elemento.IsElement;
 
 /**
@@ -72,7 +71,8 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
     columns.forEach(
         columnConfig -> {
-          HtmlContentBuilder<HTMLTableCellElement> th = th().css(DataTableStyles.TABLE_CM_FILTER);
+          DominoElement<HTMLTableCellElement> th =
+              DominoElement.of(th()).css(DataTableStyles.TABLE_CM_FILTER);
           columnConfig.getHeaderStyler().styleCell(th.element());
 
           columnConfig.applyScreenMedia(th.element());

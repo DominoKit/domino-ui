@@ -29,13 +29,13 @@ public class ProgressBarLoader extends BaseLoader<ProgressBarLoader>
     implements IsElement<HTMLDivElement> {
 
   private final HTMLDivElement progress1 =
-      div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").element();
 
   private final HTMLDivElement loader =
-      div().css(WAIT_ME_PROGRESS).css(PROGRESS_BAR).add(progress1).element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS).css(PROGRESS_BAR).add(progress1).element();
 
   private final HTMLDivElement content =
-      div()
+      DominoElement.of(div())
           .css(WAIT_ME_CONTENT)
           .css(Styles.vertical_center)
           .css(VERTICAL)
@@ -44,7 +44,11 @@ public class ProgressBarLoader extends BaseLoader<ProgressBarLoader>
           .element();
 
   private final HTMLDivElement element =
-      div().css(WAIT_ME).style("background: rgba(255, 255, 255, 0.7);").add(content).element();
+      DominoElement.of(div())
+          .css(WAIT_ME)
+          .style("background: rgba(255, 255, 255, 0.7);")
+          .add(content)
+          .element();
 
   public ProgressBarLoader() {
     init(this);

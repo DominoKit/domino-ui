@@ -43,21 +43,22 @@ import org.jboss.elemento.EventType;
  */
 public class Search extends BaseDominoElement<HTMLDivElement, Search> {
 
-  private final HTMLElement closeIcon = i().css("material-icons").textContent("close").element();
+  private final HTMLElement closeIcon =
+      DominoElement.of(i()).css("material-icons").textContent("close").element();
 
   private final HTMLInputElement searchInput =
-      input("text").attr("placeholder", "START TYPING...").element();
+      DominoElement.of(input("text")).attr("placeholder", "START TYPING...").element();
 
   private HTMLDivElement element =
-      div()
+      DominoElement.of(div())
           .style("display: none;")
           .css(SearchStyles.search_bar)
           .add(
-              div()
+              DominoElement.of(div())
                   .css(SearchStyles.search_icon)
-                  .add(i().css("material-icons").textContent("search")))
+                  .add(DominoElement.of(i()).css("material-icons").textContent("search")))
           .add(searchInput)
-          .add(div().css(SearchStyles.close_search).add(closeIcon))
+          .add(DominoElement.of(div()).css(SearchStyles.close_search).add(closeIcon))
           .element();
 
   private SearchHandler searchHandler = searchToken -> {};

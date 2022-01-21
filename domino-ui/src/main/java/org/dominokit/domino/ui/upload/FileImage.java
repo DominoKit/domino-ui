@@ -46,7 +46,7 @@ public class FileImage extends BaseDominoElement<HTMLDivElement, FileImage> {
 
   public FileImage(File file) {
     initFileContainer();
-    DominoElement<HTMLImageElement> image = DominoElement.of(img().css(Styles.img_responsive));
+    DominoElement<HTMLImageElement> image = DominoElement.of(img()).css(Styles.img_responsive);
     image.element().alt = file.name;
     image
         .style()

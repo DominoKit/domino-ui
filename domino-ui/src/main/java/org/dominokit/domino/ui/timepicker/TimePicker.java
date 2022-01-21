@@ -74,32 +74,32 @@ public class TimePicker implements IsElement<HTMLDivElement> {
   private DominoElement<HTMLDivElement> secondsPanel;
 
   private DominoElement<HTMLDivElement> element =
-      DominoElement.of(div().css(TimePickerStyles.TIME_PICKER)).elevate(Elevation.LEVEL_1);
+      DominoElement.of(div()).css(TimePickerStyles.TIME_PICKER).elevate(Elevation.LEVEL_1);
 
   private DominoElement<HTMLDivElement> headerPanel =
-      DominoElement.of(div().css(TimePickerStyles.TIME_PANEL));
+      DominoElement.of(div()).css(TimePickerStyles.TIME_PANEL);
   private Text hourMinuteDelimiter = TextNode.of(":");
   private DominoElement<HTMLDivElement> minuteSecondDelimiter = DominoElement.of(div().add(":"));
   private DominoElement<HTMLDivElement> hoursText =
-      DominoElement.of(div().css(TimePickerStyles.HOUR_TEXT));
+      DominoElement.of(div()).css(TimePickerStyles.HOUR_TEXT);
   private DominoElement<HTMLDivElement> minutesText =
-      DominoElement.of(div().css(TimePickerStyles.MINUTE_TEXT));
+      DominoElement.of(div()).css(TimePickerStyles.MINUTE_TEXT);
   private DominoElement<HTMLDivElement> secondsText =
-      DominoElement.of(div().css(TimePickerStyles.SECOND_TEXT));
+      DominoElement.of(div()).css(TimePickerStyles.SECOND_TEXT);
   private DominoElement<HTMLDivElement> amPmContainer =
-      DominoElement.of(div().css(TimePickerStyles.AM_PM_CONTAINER));
+      DominoElement.of(div()).css(TimePickerStyles.AM_PM_CONTAINER);
   private DominoElement<HTMLElement> amPmSpanTop =
-      DominoElement.of(span().css(TimePickerStyles.AM_PM_TEXT).css(TimePickerStyles.AM_PM_TOP));
+      DominoElement.of(span()).css(TimePickerStyles.AM_PM_TEXT).css(TimePickerStyles.AM_PM_TOP);
   private DominoElement<HTMLElement> amPmSpanBottom =
-      DominoElement.of(span().css(TimePickerStyles.AM_PM_TEXT).css(TimePickerStyles.AM_PM_BOTTOM));
+      DominoElement.of(span()).css(TimePickerStyles.AM_PM_TEXT).css(TimePickerStyles.AM_PM_BOTTOM);
 
   private DominoElement<HTMLAnchorElement> backToHours;
   private DominoElement<HTMLAnchorElement> backToMinutes;
 
   private DominoElement<HTMLDivElement> clockPanel =
-      DominoElement.of(div().css(TimePickerStyles.TIME_DISPLAY_LARGE));
+      DominoElement.of(div()).css(TimePickerStyles.TIME_DISPLAY_LARGE);
   private DominoElement<HTMLDivElement> footerPanel =
-      DominoElement.of(div().css(TimePickerStyles.TIME_FOOTER));
+      DominoElement.of(div()).css(TimePickerStyles.TIME_FOOTER);
 
   private ColorScheme colorScheme = ColorScheme.BLUE;
 
@@ -252,35 +252,35 @@ public class TimePicker implements IsElement<HTMLDivElement> {
   private void initPickerElements() {
 
     backToHours =
-        DominoElement.of(
-                a().css(TimePickerStyles.NAVIGATE)
-                    .css(TimePickerStyles.NAVIGATE_LEFT)
-                    .on(
-                        EventType.click,
-                        event -> {
-                          if (minutesVisible) {
-                            showHours();
-                          } else if (secondsVisible) {
-                            showMinutes();
-                          }
-                        })
-                    .add(Icons.ALL.navigate_before()))
+        DominoElement.of(a())
+            .css(TimePickerStyles.NAVIGATE)
+            .css(TimePickerStyles.NAVIGATE_LEFT)
+            .addEventListener(
+                EventType.click,
+                event -> {
+                  if (minutesVisible) {
+                    showHours();
+                  } else if (secondsVisible) {
+                    showMinutes();
+                  }
+                })
+            .add(Icons.ALL.navigate_before())
             .hide();
 
     backToMinutes =
-        DominoElement.of(
-                a().css(TimePickerStyles.NAVIGATE)
-                    .css(TimePickerStyles.NAVIGATE_RIGHT)
-                    .on(
-                        EventType.click,
-                        event -> {
-                          if (!minutesVisible && !secondsVisible) {
-                            showMinutes();
-                          } else if (!secondsVisible && showSeconds) {
-                            showSeconds();
-                          }
-                        })
-                    .add(Icons.ALL.navigate_next()))
+        DominoElement.of(a())
+            .css(TimePickerStyles.NAVIGATE)
+            .css(TimePickerStyles.NAVIGATE_RIGHT)
+            .addEventListener(
+                EventType.click,
+                event -> {
+                  if (!minutesVisible && !secondsVisible) {
+                    showMinutes();
+                  } else if (!secondsVisible && showSeconds) {
+                    showSeconds();
+                  }
+                })
+            .add(Icons.ALL.navigate_next())
             .hide();
 
     element.appendChild(headerPanel);
@@ -320,11 +320,11 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
     amPmContainer.addClickListener(evt -> switchPeriod());
 
-    pickerContentContainer = DominoElement.of(div().css(TimePickerStyles.PICKER_CONTENT));
+    pickerContentContainer = DominoElement.of(div()).css(TimePickerStyles.PICKER_CONTENT);
 
-    hoursPanel = DominoElement.of(div().css(TimePickerStyles.CLOCK_PICKER));
-    minutesPanel = DominoElement.of(div().css(TimePickerStyles.CLOCK_PICKER));
-    secondsPanel = DominoElement.of(div().css(TimePickerStyles.CLOCK_PICKER));
+    hoursPanel = DominoElement.of(div()).css(TimePickerStyles.CLOCK_PICKER);
+    minutesPanel = DominoElement.of(div()).css(TimePickerStyles.CLOCK_PICKER);
+    secondsPanel = DominoElement.of(div()).css(TimePickerStyles.CLOCK_PICKER);
 
     minutesPanel.hide();
     secondsPanel.hide();

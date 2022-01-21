@@ -28,18 +28,38 @@ import org.jboss.elemento.IsElement;
 public class OrbitLoader extends BaseLoader<OrbitLoader> implements IsElement<HTMLDivElement> {
 
   private final HTMLDivElement progress1 =
-      div().css(WAIT_ME_PROGRESS_ELEM_1).add(div().style("background-color:#000")).element();
+      DominoElement.of(div())
+          .css(WAIT_ME_PROGRESS_ELEM_1)
+          .add(DominoElement.of(div()).style("background-color:#000"))
+          .element();
   private final HTMLDivElement progress2 =
-      div().css(WAIT_ME_PROGRESS_ELEM_2).add(div().style("background-color:#000")).element();
+      DominoElement.of(div())
+          .css(WAIT_ME_PROGRESS_ELEM_2)
+          .add(DominoElement.of(div()).style("background-color:#000"))
+          .element();
 
   private final HTMLDivElement loader =
-      div().css(WAIT_ME_PROGRESS).css(ORBIT).add(progress1).add(progress2).element();
+      DominoElement.of(div())
+          .css(WAIT_ME_PROGRESS)
+          .css(ORBIT)
+          .add(progress1)
+          .add(progress2)
+          .element();
 
   private final HTMLDivElement content =
-      div().css(WAIT_ME_CONTENT).css(Styles.vertical_center).add(loader).add(loadingText).element();
+      DominoElement.of(div())
+          .css(WAIT_ME_CONTENT)
+          .css(Styles.vertical_center)
+          .add(loader)
+          .add(loadingText)
+          .element();
 
   private final HTMLDivElement element =
-      div().css(WAIT_ME).style("background: rgba(255, 255, 255, 0.9);").add(content).element();
+      DominoElement.of(div())
+          .css(WAIT_ME)
+          .style("background: rgba(255, 255, 255, 0.9);")
+          .add(content)
+          .element();
 
   public OrbitLoader() {
     init(this);

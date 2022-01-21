@@ -52,7 +52,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
   /** The default element that represent the button HTMLElement. */
   protected final DominoElement<HTMLButtonElement> buttonElement =
-      DominoElement.of(button().css(ButtonStyles.BUTTON));
+      DominoElement.of(button()).css(ButtonStyles.BUTTON);
 
   /** creates a button with default size {@link ButtonSize#MEDIUM} */
   protected BaseButton() {

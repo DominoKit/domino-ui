@@ -60,7 +60,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
   private OnSmallOffset onSmallOffsetStyle;
 
   private Column() {
-    this.column = DominoElement.of(div().css(GridStyles.GRID_COL));
+    this.column = DominoElement.of(div()).css(GridStyles.GRID_COL);
     init(this);
   }
 

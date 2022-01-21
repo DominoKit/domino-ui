@@ -81,6 +81,7 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
 
     types.add(generateMdiTagsConstants(tags));
     types.add(generateMdiByTagFactory(tags));
+    types.add(generateAllMdiIconsWithMetaInterface());
 
     return types;
   }
@@ -189,6 +190,33 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
                   .addModifiers(Modifier.DEFAULT)
                   .returns(ClassName.bestGuess(MDI_ICON_TYPE))
                   .addStatement(
+                      "return $T.create($S)",
+                      ClassName.bestGuess(MDI_ICON_TYPE),
+                      "mdi-" + metaIconInfo.getName());
+
+          if (metaIconInfo.isDeprecated()) {
+            iconMethod.addAnnotation(Deprecated.class);
+          }
+
+          builder.addMethod(iconMethod.build());
+        });
+
+    return builder;
+  }
+
+  private TypeSpec.Builder generateAllMdiIconsWithMetaInterface() {
+    TypeSpec.Builder builder =
+        DominoTypeBuilder.interfaceBuilder("MdiIconsWithMeta", MdiIconsProcessor.class)
+            .addModifiers(Modifier.PUBLIC);
+
+    metaIconInfos.forEach(
+        metaIconInfo -> {
+          MethodSpec.Builder iconMethod =
+              MethodSpec.methodBuilder(metaIconInfo.getName().replace("-", "_") + "_mdi")
+                  .addModifiers(Modifier.PUBLIC)
+                  .addModifiers(Modifier.DEFAULT)
+                  .returns(ClassName.bestGuess(MDI_ICON_TYPE))
+                  .addStatement(
                       "return $T.create($S, new $T($S, $S, $T.asList($L), $T.asList($L), $S, $S))",
                       ClassName.bestGuess(MDI_ICON_TYPE),
                       "mdi-" + metaIconInfo.getName(),
@@ -275,18 +303,9 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
                   .addModifiers(Modifier.DEFAULT)
                   .returns(ClassName.bestGuess(MDI_ICON_TYPE))
                   .addStatement(
-                      "return $T.create($S, new $T($S, $S, $T.asList($L), $T.asList($L), $S, $S))",
+                      "return $T.create($S)",
                       ClassName.bestGuess(MDI_ICON_TYPE),
-                      "mdi-" + metaIconInfo.getName(),
-                      ClassName.bestGuess(MDI_META_TYPE),
-                      metaIconInfo.getName(),
-                      metaIconInfo.getCodepoint(),
-                      TypeName.get(Arrays.class),
-                      getStringLiteral(metaIconInfo.getTags()),
-                      TypeName.get(Arrays.class),
-                      getStringLiteral(metaIconInfo.getAliases()),
-                      metaIconInfo.getAuthor(),
-                      metaIconInfo.getVersion());
+                      "mdi-" + metaIconInfo.getName());
           if (metaIconInfo.isDeprecated()) {
             iconMethod.addAnnotation(Deprecated.class);
           }

@@ -31,17 +31,17 @@ public class Section extends BaseDominoElement<HTMLElement, Section> {
 
   /** */
   public Section() {
-    leftSide = aside().id("leftsidebar").css(LayoutStyles.SIDEBAR).element();
+    leftSide = DominoElement.of(aside()).id("leftsidebar").css(LayoutStyles.SIDEBAR).element();
 
     rightSide =
-        aside()
+        DominoElement.of(aside())
             .id("rightsidebar")
             .css(LayoutStyles.RIGHT_SIDEBAR)
             .css(LayoutStyles.OVERLAY_OPEN)
             .style("height: calc(100vh - 70px); overflow-y: scroll;")
             .element();
 
-    section = section().add(leftSide).add(rightSide).element();
+    section = DominoElement.of(section()).add(leftSide).add(rightSide).element();
 
     init(this);
   }

@@ -104,8 +104,8 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
     this.titleSpan = DominoElement.of(span());
     this.descriptionSpan = DominoElement.of(span()).hide();
     this.setDescription(description);
-    this.horizontalBarSpan = DominoElement.of(span().css(barColor.getBackground()));
-    this.verticalBarSpan = DominoElement.of(span().css(barColor.getBackground()));
+    this.horizontalBarSpan = DominoElement.of(span()).css(barColor.getBackground());
+    this.verticalBarSpan = DominoElement.of(span()).css(barColor.getBackground());
     this.header = FlexLayout.create();
     this.content = DominoElement.div();
 

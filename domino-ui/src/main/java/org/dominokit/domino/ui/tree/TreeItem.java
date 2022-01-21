@@ -88,46 +88,50 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   private ToggleTarget toggleTarget = ToggleTarget.ANY;
   private final DominoElement<HTMLElement> indicatorContainer =
-      DominoElement.of(span().css("tree-indicator"));
+      DominoElement.of(span()).css("tree-indicator");
   private HTMLElement titleElement;
   private OriginalState originalState;
 
   public TreeItem(String title, BaseIcon<?> icon) {
     this.title = title;
     setIcon(icon);
-    titleElement = span().css("title").textContent(title).element();
-    DominoElement<HTMLElement> toggleContainer = DominoElement.of(span().css("tree-tgl-icn"));
+    titleElement = DominoElement.of(span()).css("title").textContent(title).element();
+    DominoElement<HTMLElement> toggleContainer = DominoElement.of(span()).css("tree-tgl-icn");
     this.anchorElement =
-        DominoElement.of(
-            a().add(this.icon)
-                .add(div().css(Styles.ellipsis_text).style("margin-top: 2px;").add(titleElement))
-                .add(
-                    toggleContainer
-                        .appendChild(
-                            Icons.ALL
-                                .plus_mdi()
-                                .size18()
-                                .css("tree-tgl-collapsed")
-                                .clickable()
-                                .addClickListener(
-                                    evt -> {
-                                      evt.stopPropagation();
-                                      toggle();
-                                      activateItem();
-                                    }))
-                        .appendChild(
-                            Icons.ALL
-                                .minus_mdi()
-                                .size18()
-                                .css("tree-tgl-expanded")
-                                .clickable()
-                                .addClickListener(
-                                    evt -> {
-                                      evt.stopPropagation();
-                                      toggle();
-                                      activateItem();
-                                    })))
-                .add(indicatorContainer));
+        DominoElement.of(a())
+            .add(this.icon)
+            .add(
+                DominoElement.of(div())
+                    .css(Styles.ellipsis_text)
+                    .style("margin-top: 2px;")
+                    .add(titleElement))
+            .add(
+                toggleContainer
+                    .appendChild(
+                        Icons.ALL
+                            .plus_mdi()
+                            .size18()
+                            .css("tree-tgl-collapsed")
+                            .clickable()
+                            .addClickListener(
+                                evt -> {
+                                  evt.stopPropagation();
+                                  toggle();
+                                  activateItem();
+                                }))
+                    .appendChild(
+                        Icons.ALL
+                            .minus_mdi()
+                            .size18()
+                            .css("tree-tgl-expanded")
+                            .clickable()
+                            .addClickListener(
+                                evt -> {
+                                  evt.stopPropagation();
+                                  toggle();
+                                  activateItem();
+                                })))
+            .add(indicatorContainer);
     init();
   }
 
@@ -233,7 +237,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   private void init() {
     this.element = li().element();
     this.element.appendChild(anchorElement.element());
-    childrenContainer = ul().css("ml-tree").element();
+    childrenContainer = DominoElement.of(ul()).css("ml-tree").element();
     element().appendChild(childrenContainer);
     collapsible =
         Collapsible.create(childrenContainer)
@@ -297,7 +301,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
    * @return same instance
    */
   public TreeItem<T> addSeparator() {
-    childrenContainer.appendChild(li().css("separator").add(a()).element());
+    childrenContainer.appendChild(DominoElement.of(li()).css("separator").add(a()).element());
     return this;
   }
 

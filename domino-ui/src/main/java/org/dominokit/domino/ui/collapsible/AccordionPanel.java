@@ -40,17 +40,17 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     implements IsCollapsible<AccordionPanel> {
 
   private DominoElement<HTMLDivElement> element =
-      DominoElement.of(div().css(CollapsibleStyles.PANEL)).elevate(Elevation.LEVEL_1);
+      DominoElement.of(div()).css(CollapsibleStyles.PANEL).elevate(Elevation.LEVEL_1);
   private DominoElement<HTMLDivElement> headerElement =
-      DominoElement.of(div().css(CollapsibleStyles.PANEL_HEADING).attr("role", "tab"));
+      DominoElement.of(div()).css(CollapsibleStyles.PANEL_HEADING).attr("role", "tab");
   private DominoElement<HTMLHeadingElement> headingElement =
-      DominoElement.of(h(4).css(CollapsibleStyles.PANEL_TITLE));
+      DominoElement.of(h(4)).css(CollapsibleStyles.PANEL_TITLE);
   private DominoElement<HTMLAnchorElement> clickableElement =
-      DominoElement.of(a().attr("role", "button"));
+      DominoElement.of(a()).attr("role", "button");
   private DominoElement<HTMLDivElement> collapsibleElement =
-      DominoElement.of(div().css(CollapsibleStyles.PANEL_COLLAPSE));
+      DominoElement.of(div()).css(CollapsibleStyles.PANEL_COLLAPSE);
   private DominoElement<HTMLDivElement> bodyElement =
-      DominoElement.of(div().css(CollapsibleStyles.PANEL_BODY));
+      DominoElement.of(div()).css(CollapsibleStyles.PANEL_BODY);
   private Color headerColor;
   private Color bodyColor;
   private BaseIcon<?> panelIcon;

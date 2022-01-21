@@ -42,8 +42,8 @@ import org.jboss.elemento.HtmlContentBuilder;
  */
 public class Pager extends BaseDominoElement<HTMLElement, Pager> {
 
-  private final DominoElement<HTMLUListElement> pagerElement = DominoElement.of(ul().css("pager"));
-  private final DominoElement<HTMLElement> element = DominoElement.of(nav().add(pagerElement));
+  private final DominoElement<HTMLUListElement> pagerElement = DominoElement.of(ul()).css("pager");
+  private final DominoElement<HTMLElement> element = DominoElement.of(nav()).add(pagerElement);
 
   private final DominoElement<HTMLLIElement> nextElement;
   private final DominoElement<HTMLLIElement> prevElement;
@@ -63,9 +63,9 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
     nextElement =
         DominoElement.of(
             li().add(
-                    nextAnchor
+                    DominoElement.of(nextAnchor)
                         .css("wave-effect")
-                        .on(
+                        .addEventListener(
                             EventType.click,
                             event -> {
                               if (allowNext) onNext.onChange();
@@ -78,9 +78,9 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
     prevElement =
         DominoElement.of(
             li().add(
-                    prevAnchor
+                    DominoElement.of(prevAnchor)
                         .css("wave-effect")
-                        .on(
+                        .addEventListener(
                             EventType.click,
                             event -> {
                               if (allowPrev) onPrev.onChange();

@@ -47,13 +47,13 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
     implements HasChangeHandlers<Slider, Double> {
 
   private DominoElement<HTMLParagraphElement> sliderContainer =
-      DominoElement.of(p().css(SliderStyles.slide_container));
+      DominoElement.of(p()).css(SliderStyles.slide_container);
   private DominoElement<HTMLInputElement> slider =
-      DominoElement.of(input("range").css(SliderStyles.slider));
-  private DominoElement<HTMLElement> thumb = DominoElement.of(span().css(SliderStyles.thumb));
+      DominoElement.of(input("range")).css(SliderStyles.slider);
+  private DominoElement<HTMLElement> thumb = DominoElement.of(span()).css(SliderStyles.thumb);
   private FlexItem<HTMLDivElement> leftAddonContainer = FlexItem.create();
   private FlexItem<HTMLDivElement> rightAddonContainer = FlexItem.create();
-  private DominoElement<HTMLElement> thumbValue = DominoElement.of(span().css("value"));
+  private DominoElement<HTMLElement> thumbValue = DominoElement.of(span()).css("value");
   private List<ChangeHandler<? super Double>> changeHandlers = new ArrayList<>();
   private List<SlideHandler> slideHandlers = new ArrayList<>();
   private boolean mouseDown;
