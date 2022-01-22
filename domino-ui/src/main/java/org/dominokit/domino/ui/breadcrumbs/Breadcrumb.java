@@ -139,15 +139,15 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   private void addNewItem(BreadcrumbItem... items) {
     for (BreadcrumbItem item : items) {
       this.items.add(item);
-    element.appendChild(item);
-    DominoElement.of(item.getClickableElement())
-        .addClickListener(
-            e -> {
-              if (allowNavigation) {
-                setActiveItem(item);
-              }
-            });
-  }
+      element.appendChild(item);
+      DominoElement.of(item.getClickableElement())
+          .addClickListener(
+              e -> {
+                if (allowNavigation) {
+                  setActiveItem(item);
+                }
+              });
+    }
     setActiveItem(items[items.length - 1]);
   }
 
