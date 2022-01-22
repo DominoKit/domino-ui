@@ -107,12 +107,14 @@ public abstract class AbstractTagsInput<T extends AbstractTagsInput<T, V>, V>
             evt -> {
               evt.stopPropagation();
               openOnFocus = true;
+              DropDownMenu.closeAllMenus();
               tagTextInput.element().focus();
             });
 
     tagTextInput.addClickListener(
         evt -> {
           evt.stopPropagation();
+          DropDownMenu.closeAllMenus();
           search();
         });
 
@@ -152,7 +154,7 @@ public abstract class AbstractTagsInput<T extends AbstractTagsInput<T, V>, V>
         "focus",
         evt -> {
           if (openOnFocus) {
-            focus();
+            doFocus();
             search();
           }
         });
