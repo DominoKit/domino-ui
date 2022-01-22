@@ -107,11 +107,11 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   /**
    * Adds new location by providing {@link BreadcrumbItem}
    *
-   * @param item the {@link BreadcrumbItem} location to be added
+   * @param items the {@link BreadcrumbItem} location to be added
    * @return same instance
    */
-  public Breadcrumb appendChild(BreadcrumbItem item) {
-    addNewItem(item);
+  public Breadcrumb appendChild(BreadcrumbItem... items) {
+    addNewItem(items);
     return this;
   }
 
@@ -136,9 +136,9 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     return allowNavigation;
   }
 
-  private void addNewItem(BreadcrumbItem item) {
-    items.add(item);
-    setActiveItem(item);
+  private void addNewItem(BreadcrumbItem... items) {
+    for (BreadcrumbItem item : items) {
+      this.items.add(item);
     element.appendChild(item);
     DominoElement.of(item.getClickableElement())
         .addClickListener(
@@ -147,6 +147,8 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
                 setActiveItem(item);
               }
             });
+  }
+    setActiveItem(items[items.length - 1]);
   }
 
   private Breadcrumb setActiveItem(BreadcrumbItem item) {
