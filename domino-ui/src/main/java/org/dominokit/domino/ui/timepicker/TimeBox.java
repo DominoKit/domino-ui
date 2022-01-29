@@ -35,7 +35,7 @@ import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.jboss.elemento.EventType;
 
-/** A form element that takes and provide date value as time */
+/** A form element that takes and provide date value as time using a picker element */
 public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
   private TimePicker timePicker;
