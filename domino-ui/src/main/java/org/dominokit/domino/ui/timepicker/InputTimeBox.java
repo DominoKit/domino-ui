@@ -94,6 +94,8 @@ public class InputTimeBox extends ValueBox<InputTimeBox, HTMLInputElement, Date>
     super("text", label);
     if (isNull(dateTimeFormatInfo)) {
       this.dateTimeFormatInfo = DateTimeFormatInfo_factory.create();
+    } else {
+      this.dateTimeFormatInfo = dateTimeFormatInfo;
     }
     mask =
         Mask.of(this)
@@ -113,8 +115,9 @@ public class InputTimeBox extends ValueBox<InputTimeBox, HTMLInputElement, Date>
     mask.onPatternNotMatched(
         value ->
             invalidate(notMatchedErrorMessage + " " + PATTERNS_MESSAGE.get(mask.getPattern())));
-    setValue(time);
     setClockStyle(_12);
+    setValue(time);
+    setFloating(true);
   }
 
   private void setStringValue(String value) {
