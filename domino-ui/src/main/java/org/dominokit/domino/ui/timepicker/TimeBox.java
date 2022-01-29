@@ -350,12 +350,12 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
     this.timeIcon = timeIcon;
   }
 
-  /** @return The {@link FlexItem} that contains the time icon */
+  /** @return The {@link DominoElement} that contains the time icon */
   public DominoElement<HTMLDivElement> getTimeIconContainer() {
     return timeIconContainer;
   }
 
-  /** @param timeIconContainer The {@link FlexItem} that contains the time icon */
+  /** @param timeIconContainer The {@link DominoElement} that contains the time icon */
   public void setTimeIconContainer(DominoElement<HTMLDivElement> timeIconContainer) {
     this.timeIconContainer = timeIconContainer;
   }
