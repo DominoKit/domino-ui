@@ -27,12 +27,16 @@ class Clock24 extends AbstractClock {
    * @see #setDateTimeFormatInfo(DateTimeFormatInfo)
    */
   public Clock24(DateTimeFormatInfo dateTimeFormatInfo) {
-    this(new JsDate());
+    this(new JsDate(), dateTimeFormatInfo);
     this.dateTimeFormatInfo = dateTimeFormatInfo;
   }
 
-  /** @param jsDate {@link JsDate} as initial time value */
-  Clock24(JsDate jsDate) {
+  /**
+   * @param jsDate {@link JsDate} as initial time value
+   * @param dateTimeFormatInfo {@link DateTimeFormatInfo}
+   */
+  Clock24(JsDate jsDate, DateTimeFormatInfo dateTimeFormatInfo) {
+    this.dateTimeFormatInfo = dateTimeFormatInfo;
     this.hour = jsDate.getHours();
     this.minute = jsDate.getMinutes();
     this.second = jsDate.getSeconds();
@@ -41,7 +45,7 @@ class Clock24 extends AbstractClock {
   /** {@inheritDoc} */
   @Override
   public Clock getFor(JsDate jsDate) {
-    return new Clock24(jsDate);
+    return new Clock24(jsDate, dateTimeFormatInfo);
   }
 
   /** {@inheritDoc} */
@@ -83,6 +87,6 @@ class Clock24 extends AbstractClock {
     jsDate.setHours(hour);
     jsDate.setMinutes(minute);
     jsDate.setSeconds(second);
-    return new Date(new Double(jsDate.getTime()).longValue());
+    return new Date((long) jsDate.getTime());
   }
 }

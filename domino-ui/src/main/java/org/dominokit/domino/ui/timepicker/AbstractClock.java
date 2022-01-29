@@ -108,11 +108,6 @@ abstract class AbstractClock implements Clock {
     this.dateTimeFormatInfo = dateTimeFormatInfo;
   }
 
-  /** @return boolean, true if should show seconds */
-  public boolean isShowSeconds() {
-    return showSecond;
-  }
-
   /** {@inheritDoc} */
   @Override
   public void setShowSeconds(boolean showSecond) {
