@@ -25,7 +25,6 @@ import java.util.Optional;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.modals.ModalDialog;
