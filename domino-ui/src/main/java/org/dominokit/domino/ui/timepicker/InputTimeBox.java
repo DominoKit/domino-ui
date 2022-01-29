@@ -28,9 +28,9 @@ import java.util.HashMap;
 import java.util.Map;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Mask;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
@@ -63,7 +63,7 @@ public class InputTimeBox extends ValueBox<InputTimeBox, HTMLInputElement, Date>
   private DateTimeFormatInfo dateTimeFormatInfo;
   private boolean showSeconds;
   private MdiIcon timeIcon;
-  private FlexItem<HTMLDivElement> timeIconContainer;
+  private DominoElement<HTMLDivElement> timeIconContainer;
   private ClockStyle clockStyle;
   private String notMatchedErrorMessage = DEFAULT_NOT_MATCHED_MESSAGE;
 
@@ -230,10 +230,10 @@ public class InputTimeBox extends ValueBox<InputTimeBox, HTMLInputElement, Date>
 
   /** {@inheritDoc} */
   @Override
-  protected FlexItem<HTMLDivElement> createMandatoryAddOn() {
+  protected DominoElement<HTMLDivElement> createMandatoryAddOn() {
     timeIcon = Icons.ALL.clock_mdi();
     timeIcon.clickable();
-    timeIconContainer = FlexItem.create();
+    timeIconContainer = DominoElement.div();
     return timeIconContainer.appendChild(timeIcon);
   }
 
@@ -247,13 +247,13 @@ public class InputTimeBox extends ValueBox<InputTimeBox, HTMLInputElement, Date>
     this.timeIcon = timeIcon;
   }
 
-  /** @return The {@link FlexItem} that contains the time icon */
-  public FlexItem<HTMLDivElement> getTimeIconContainer() {
+  /** @return The {@link DominoElement} that contains the time icon */
+  public DominoElement<HTMLDivElement> getTimeIconContainer() {
     return timeIconContainer;
   }
 
-  /** @param timeIconContainer The {@link FlexItem} that contains the time icon */
-  public void setTimeIconContainer(FlexItem<HTMLDivElement> timeIconContainer) {
+  /** @param timeIconContainer The {@link DominoElement} that contains the time icon */
+  public void setTimeIconContainer(DominoElement<HTMLDivElement> timeIconContainer) {
     this.timeIconContainer = timeIconContainer;
   }
 
