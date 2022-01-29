@@ -77,17 +77,6 @@ public class ElementUtil {
   }
 
   /**
-   * @param element the target element
-   * @param <E> the type extending from {@link HTMLElement}
-   * @param <T> the type extending from {@link IsElement}
-   * @return new {@link HtmlComponentBuilder} for the target element
-   */
-  public static <E extends HTMLElement, T extends IsElement<E>>
-      HtmlComponentBuilder<E, T> componentBuilder(T element) {
-    return new HtmlComponentBuilder<>(element);
-  }
-
-  /**
    * @param keyCode String keyboard key code
    * @param keyboardEvent {@link KeyboardEvent}
    * @return boolean, true if the the KeyCode is same as the key of the KeyboradEvent

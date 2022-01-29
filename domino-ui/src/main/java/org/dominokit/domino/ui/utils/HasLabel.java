@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import java.util.Optional;
+
 /**
  * Components that can have a label should implement this interface
  *
@@ -29,5 +31,5 @@ public interface HasLabel<T> {
   T setLabel(String label);
 
   /** @return String component label */
-  String getLabel();
+  Optional<String> getLabel();
 }

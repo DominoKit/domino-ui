@@ -38,7 +38,7 @@ public class VTabsContainer extends BaseDominoElement<HTMLDivElement, VTabsConta
       FlexLayout.create().setDirection(FlexDirection.TOP_TO_BOTTOM).css(TabStyles.LIST);
 
   private HTMLDivElement element =
-      DominoElement.of(div().add(listContainer).css(TabStyles.VTABS)).element();
+      DominoElement.of(div()).add(listContainer).css(TabStyles.VTABS).element();
 
   private VerticalTab activeItem;
 

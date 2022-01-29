@@ -18,10 +18,8 @@ package org.dominokit.domino.ui.datatable;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLTableCellElement;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.ElementUtil;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.elemento.IsElement;
 
 /**
  * This class represent a single cell in a data table row and it contains information about the cell
@@ -58,37 +56,35 @@ public class RowCell<T> {
    * field.
    */
   public void updateCell() {
-    ElementUtil.clear(cellInfo.getElement());
-    Style<HTMLTableCellElement, IsElement<HTMLTableCellElement>> style =
-        Style.of(cellInfo.getElement());
+    DominoElement<HTMLTableCellElement> cellElement = DominoElement.of(cellInfo.getElement());
+    cellElement.clearElement();
+
     if (nonNull(columnConfig.getMinWidth())) {
-      style.setMinWidth(columnConfig.getMinWidth());
+      cellElement.setMinWidth(columnConfig.getMinWidth());
       columnConfig.getHeadElement().style().setMinWidth(columnConfig.getMinWidth());
     }
 
     if (nonNull(columnConfig.getMaxWidth())) {
-      style.setMaxWidth(columnConfig.getMaxWidth());
+      cellElement.setMaxWidth(columnConfig.getMaxWidth());
       columnConfig.getHeadElement().style().setMaxWidth(columnConfig.getMaxWidth());
     }
 
     if (nonNull(columnConfig.getTextAlign())) {
-      style.setTextAlign(columnConfig.getTextAlign());
+      cellElement.setTextAlign(columnConfig.getTextAlign());
       columnConfig.getHeadElement().style().setTextAlign(columnConfig.getTextAlign());
     }
 
     if (cellInfo.getTableRow().isEditable()) {
       if (nonNull(columnConfig.getEditableCellRenderer())) {
-        cellInfo
-            .getElement()
-            .appendChild(columnConfig.getEditableCellRenderer().asElement(cellInfo));
+        cellElement.appendChild(columnConfig.getEditableCellRenderer().asElement(cellInfo));
       } else {
-        cellInfo.getElement().appendChild(defaultCellRenderer.asElement(cellInfo));
+        cellElement.appendChild(defaultCellRenderer.asElement(cellInfo));
       }
     } else {
       if (nonNull(columnConfig.getCellRenderer())) {
-        cellInfo.getElement().appendChild(columnConfig.getCellRenderer().asElement(cellInfo));
+        cellElement.appendChild(columnConfig.getCellRenderer().asElement(cellInfo));
       } else {
-        cellInfo.getElement().appendChild(defaultCellRenderer.asElement(cellInfo));
+        cellElement.appendChild(defaultCellRenderer.asElement(cellInfo));
       }
     }
   }

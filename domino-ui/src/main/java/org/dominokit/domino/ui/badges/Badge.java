@@ -45,7 +45,7 @@ import org.dominokit.domino.ui.utils.TextNode;
 public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasBackground<Badge> {
 
   private final DominoElement<HTMLElement> badgeElement =
-      DominoElement.of(span().css(BadgeStyles.BADGE)).elevate(Elevation.LEVEL_1);
+      DominoElement.of(span()).css(BadgeStyles.BADGE).elevate(Elevation.LEVEL_1);
   private final Text textNode = TextNode.empty();
   private Color badgeBackground;
 

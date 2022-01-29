@@ -19,11 +19,12 @@ import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 /** A component that wraps the {@link HTMLDivElement} to make it scrollable by default */
 public class ScrollPanel extends BaseDominoElement<HTMLDivElement, ScrollPanel> {
 
-  private HTMLDivElement element = div().css("scroll-panel").element();
+  private HTMLDivElement element = DominoElement.of(div()).css("scroll-panel").element();
 
   /** @return new AutoHScrollPanel instance */
   public static ScrollPanel create() {

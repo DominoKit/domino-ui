@@ -36,11 +36,11 @@ import org.jboss.elemento.IsElement;
 @Deprecated
 public class Step extends BaseDominoElement<HTMLLIElement, Step> {
 
-  private final HTMLLIElement element = li().css(step).element();
-  private final HTMLDivElement contentElement = div().css(step_content).element();
+  private final HTMLLIElement element = DominoElement.of(li()).css(step).element();
+  private final HTMLDivElement contentElement = DominoElement.of(div()).css(step_content).element();
   private HTMLDivElement stepHeader;
-  private HTMLDivElement bodyElement = div().css(step_body).element();
-  private HTMLDivElement footerElement = div().css(step_footer).element();
+  private HTMLDivElement bodyElement = DominoElement.of(div()).css(step_body).element();
+  private HTMLDivElement footerElement = DominoElement.of(div()).css(step_footer).element();
   private boolean expanded = false;
   private StepCompletedValidator stepCompletedValidator = () -> true;
   private Collapsible collapsible = Collapsible.create(contentElement);

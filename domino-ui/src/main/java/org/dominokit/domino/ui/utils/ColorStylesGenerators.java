@@ -88,7 +88,7 @@ public class ColorStylesGenerators {
           .append(allOtherColorsTemplate)
           .append("\n");
 
-      file = new File("colors.css");
+      file = new File("domino-ui-colors.css");
       FileOutputStream fos = new FileOutputStream(file);
       fos.write(sb.toString().getBytes());
       System.out.println(file.getAbsoluteFile());

@@ -28,13 +28,13 @@ import org.jboss.elemento.IsElement;
 public class PulseLoader extends BaseLoader<PulseLoader> implements IsElement<HTMLDivElement> {
 
   private final HTMLDivElement progress1 =
-      div().css(WAIT_ME_PROGRESS_ELEM_1).style("border-color:#000;").element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_1).style("border-color:#000;").element();
 
   private final HTMLDivElement loader =
-      div().css(WAIT_ME_PROGRESS).css(PULSE).add(progress1).element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS).css(PULSE).add(progress1).element();
 
   private final HTMLDivElement content =
-      div()
+      DominoElement.of(div())
           .css(WAIT_ME_CONTENT)
           .css(Styles.vertical_center)
           .css(VERTICAL)
@@ -43,7 +43,11 @@ public class PulseLoader extends BaseLoader<PulseLoader> implements IsElement<HT
           .element();
 
   private final HTMLDivElement element =
-      div().css(WAIT_ME).style("background: rgba(255, 255, 255, 0.7);").add(content).element();
+      DominoElement.of(div())
+          .css(WAIT_ME)
+          .style("background: rgba(255, 255, 255, 0.7);")
+          .add(content)
+          .element();
 
   public PulseLoader() {
     init(this);

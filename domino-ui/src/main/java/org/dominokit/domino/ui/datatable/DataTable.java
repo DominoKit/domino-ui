@@ -17,20 +17,39 @@ package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.*;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_BORDERED;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_CONDENSED;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_FIXED;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_HOVER;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_RESPONSIVE;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_ROW_FILTERED;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_STRIPED;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.TBODY_FIXED;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.THEAD_FIXED;
 import static org.dominokit.domino.ui.style.Unit.px;
-import static org.jboss.elemento.Elements.*;
+import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.Elements.table;
+import static org.jboss.elemento.Elements.tbody;
+import static org.jboss.elemento.Elements.thead;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-import org.dominokit.domino.ui.datatable.events.*;
+import org.dominokit.domino.ui.datatable.events.DataSortEvent;
+import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
+import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
+import org.dominokit.domino.ui.datatable.events.TableEvent;
+import org.dominokit.domino.ui.datatable.events.TableEventListener;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.store.DataStore;
-import org.dominokit.domino.ui.style.Unit;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionSupport;
@@ -50,9 +69,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   public static final String DATA_TABLE_ROW_FILTERED = "data-table-row-filtered";
 
   private final DataStore<T> dataStore;
-  private DominoElement<HTMLDivElement> root = DominoElement.of(div().css(TABLE_RESPONSIVE));
+  private DominoElement<HTMLDivElement> root = DominoElement.of(div()).css(TABLE_RESPONSIVE);
   private DominoElement<HTMLTableElement> tableElement =
-      DominoElement.of(table().css(TABLE, TABLE_HOVER, TABLE_STRIPED));
+      DominoElement.of(table()).css(TABLE, TABLE_HOVER, TABLE_STRIPED);
   private TableConfig<T> tableConfig;
   private DominoElement<HTMLTableSectionElement> tbody = DominoElement.of(tbody());
   private DominoElement<HTMLTableSectionElement> thead = DominoElement.of(thead());
@@ -126,12 +145,18 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     if (!tableConfig.isLazyLoad()) {
       this.dataStore.load();
     }
+
     if (tableConfig.isFixed()) {
       root.addCss(TABLE_FIXED);
       thead.addCss(THEAD_FIXED);
       tbody.addCss(TBODY_FIXED).setMaxHeight(tableConfig.getFixedBodyHeight());
       tableElement.addEventListener(EventType.scroll, e -> updateTableWidth());
-      DomGlobal.window.addEventListener(EventType.resize.getName(), e -> updateTableWidth());
+      DomGlobal.window.addEventListener(
+          EventType.resize.getName(),
+          e -> {
+            this.scrollBarWidth = -1;
+            updateTableWidth();
+          });
     }
 
     onResize(
@@ -151,8 +176,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   private void updateTableWidth() {
     final long w =
         tableElement.element().offsetWidth + Math.round(tableElement.element().scrollLeft);
-    thead.setWidth(px.of(w));
-    tbody.setWidth(px.of(w));
+    thead.setWidth(px.of(w - 2));
+    tbody.setWidth(px.of(w - 2));
     if (tableConfig.isFixed()) {
       updateHeadWidth(false);
     }
@@ -180,24 +205,25 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   private void updateHeadWidth(boolean scrollTop) {
-    if (hasVScrollBar()) {
-      if (scrollTop) {
-        tbody.element().scrollTop = 0.0;
-      }
-      if (tableConfig.isFixed()) {
-        thead.setWidth(Unit.px.of(tbody.element().offsetWidth - getScrollWidth() - 2));
-        tbody.setWidth(Unit.px.of(tbody.element().offsetWidth - 2));
-      }
-    }
+    DomGlobal.requestAnimationFrame(
+        timestamp -> {
+          DomGlobal.setTimeout(
+              p0 -> {
+                if (hasVScrollBar()) {
+                  if (scrollTop) {
+                    tbody.element().scrollTop = 0.0;
+                  }
+                  if (tableConfig.isFixed()) {
+                    thead.setWidth(px.of(tbody.element().offsetWidth - getScrollWidth()));
+                    tbody.setWidth(px.of(tbody.element().offsetWidth));
+                  }
+                }
+              });
+        });
   }
 
   private boolean hasVScrollBar() {
-    if (tbody.element().scrollTop > 0) {
-      return true;
-    }
-    tbody.element().scrollTop = 1.0;
-    double scrollTop = tbody.element().scrollTop;
-    return scrollTop > 0.0;
+    return tbody.element().scrollHeight > tbody.element().clientHeight;
   }
 
   private double getScrollWidth() {
@@ -464,6 +490,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return tableRows.stream().filter(TableRow::isSelected).collect(Collectors.toList());
   }
 
+  /** @return a {@link List} of the currently selected records including a row selected children */
   public List<T> getSelectedRecords() {
     return tableRows.stream()
         .filter(TableRow::isSelected)
@@ -471,12 +498,14 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         .collect(Collectors.toList());
   }
 
+  /** @return a {@link List} of {@link TableRow}s including the child rows */
   @Override
   @Deprecated
   public List<TableRow<T>> getItems() {
     return getRows();
   }
 
+  /** @return a {@link List} of {@link TableRow}s including the child rows */
   @Override
   public List<TableRow<T>> getRows() {
     return tableRows;
@@ -486,6 +515,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return getRows().stream().filter(TableRow::isRoot).collect(Collectors.toList());
   }
 
+  /** @return a {@link List} of {@link TableRow}s excluding the child rows */
   public List<T> getRecords() {
     return getRows().stream()
         .filter(TableRow::isRoot)
@@ -493,6 +523,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         .collect(Collectors.toList());
   }
 
+  /** @return a {@link List} of {@link TableRow}s that are being edited and still not saved */
   public List<T> getDirtyRecords() {
     return getRows().stream().map(TableRow::getDirtyRecord).collect(Collectors.toList());
   }
@@ -504,11 +535,13 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
             selectionChangeListener.onSelectionChanged(getSelectedItems(), getSelectedRecords()));
   }
 
+  /** Select all table rows */
   @Override
   public void selectAll() {
     selectAll((table, tableRow) -> true);
   }
 
+  /** Select all table rows that match a condition */
   public void selectAll(SelectionCondition<T> selectionCondition) {
     if (tableConfig.isMultiSelect() && !tableRows.isEmpty()) {
       for (TableRow<T> tableRow : tableRows) {
@@ -520,11 +553,13 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     }
   }
 
+  /** Deselect all table rows */
   @Override
   public void deselectAll() {
     deselectAll((table, tableRow) -> true);
   }
 
+  /** Deselect all table rows that match a condition */
   public void deselectAll(SelectionCondition<T> selectionCondition) {
     if (!tableRows.isEmpty()) {
       for (TableRow<T> tableRow : tableRows) {

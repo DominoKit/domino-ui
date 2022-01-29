@@ -19,6 +19,7 @@ import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * A component that wraps the {@link HTMLDivElement} to make it auto scrollable when the content
@@ -26,7 +27,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  */
 public class AutoScrollPanel extends BaseDominoElement<HTMLDivElement, AutoScrollPanel> {
 
-  private HTMLDivElement element = div().css("auto-scroll-panel").element();
+  private HTMLDivElement element = DominoElement.of(div()).css("auto-scroll-panel").element();
 
   /** @return new AutoScrollPanel instance */
   public static AutoScrollPanel create() {

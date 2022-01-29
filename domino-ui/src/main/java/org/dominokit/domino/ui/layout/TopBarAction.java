@@ -23,13 +23,15 @@ import elemental2.dom.HTMLLIElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 /** @deprecated use {@link LayoutActionItem} */
 @Deprecated
 public class TopBarAction extends BaseDominoElement<HTMLLIElement, TopBarAction> {
 
-  private HTMLLIElement element = li().css(Styles.pull_right).element();
-  private HTMLAnchorElement clickableElement = a().css("js-right-sidebar").element();
+  private HTMLLIElement element = DominoElement.of(li()).css(Styles.pull_right).element();
+  private HTMLAnchorElement clickableElement =
+      DominoElement.of(a()).css("js-right-sidebar").element();
 
   public TopBarAction(BaseIcon<?> icon) {
     element.appendChild(clickableElement);

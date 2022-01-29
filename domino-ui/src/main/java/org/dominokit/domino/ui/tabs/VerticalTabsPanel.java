@@ -67,8 +67,8 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
 
   private final VTabsContainer tabsList = VTabsContainer.create();
   private final FlexItem<HTMLDivElement> tabsHeadersContainer;
-  private DominoElement<HTMLDivElement> element = DominoElement.of(div().css(VTABS_PANEL));
-  private HTMLElement tabsContent = div().css(TAB_CONTENT).element();
+  private DominoElement<HTMLDivElement> element = DominoElement.of(div()).css(VTABS_PANEL);
+  private HTMLElement tabsContent = DominoElement.of(div()).css(TAB_CONTENT).element();
   private VerticalTab activeTab;
   private Color tabsColor;
   private Transition transition;

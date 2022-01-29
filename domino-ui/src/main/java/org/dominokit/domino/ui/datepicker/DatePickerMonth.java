@@ -29,6 +29,7 @@ import java.util.Date;
 import java.util.List;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasSelectSupport;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.dominokit.domino.ui.utils.TextUtil;
@@ -64,7 +65,7 @@ public class DatePickerMonth
   private Color background = Color.LIGHT_BLUE;
 
   private final HTMLDivElement element =
-      div().css(DatePickerStyles.DATE_PICKER_CONTAINER).element();
+      DominoElement.of(div()).css(DatePickerStyles.DATE_PICKER_CONTAINER).element();
 
   public DatePickerMonth(
       JsDate date, DateTimeFormatInfo dateTimeFormatInfo, InternalHandler daySelectionHandler) {

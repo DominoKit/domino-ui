@@ -82,18 +82,19 @@ import org.jboss.elemento.IsElement;
 public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     implements ParentTreeItem<TreeItem<T>>, IsElement<HTMLDivElement> {
 
-  private final HTMLElement title = span().css(TITLE).element();
+  private final HTMLElement title = DominoElement.of(span()).css(TITLE).element();
   private ToggleTarget toggleTarget = ToggleTarget.ANY;
   private TreeItemFilter<TreeItem<T>> filter =
       (treeItem, searchToken) ->
           treeItem.getTitle().toLowerCase().contains(searchToken.toLowerCase());
 
-  private final HTMLLIElement header = li().css(HEADER).css(MENU_HEADER).add(title).element();
+  private final HTMLLIElement header =
+      DominoElement.of(li()).css(HEADER).css(MENU_HEADER).add(title).element();
 
-  private final HTMLUListElement root = ul().add(header).css(LIST).element();
+  private final HTMLUListElement root = DominoElement.of(ul()).add(header).css(LIST).element();
 
   private final HTMLDivElement menu =
-      div().style("overflow-x: hidden").css(MENU).add(root).element();
+      DominoElement.of(div()).style("overflow-x: hidden").css(MENU).add(root).element();
 
   private TreeItem<T> activeTreeItem;
 
@@ -193,7 +194,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    * @return same instance
    */
   public Tree<T> addSeparator() {
-    root.appendChild(li().css("gap").css("separator").add(a()).element());
+    root.appendChild(DominoElement.of(li()).css("gap").css("separator").add(a()).element());
     return this;
   }
 
@@ -203,7 +204,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    * @return same instance
    */
   public Tree<T> addGap() {
-    root.appendChild(li().css("gap").add(a()).element());
+    root.appendChild(DominoElement.of(li()).css("gap").add(a()).element());
     return this;
   }
 

@@ -75,9 +75,11 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
         HasRemoveHandler<Chip> {
 
   private final DominoElement<HTMLDivElement> element = DominoElement.of(div().css(CHIP));
-  private final HTMLDivElement textContainer = div().css(CHIP_VALUE).element();
-  private final HTMLDivElement leftAddonContainer = div().css(CHIP_ADDON).element();
-  private final HTMLDivElement removeIconContainer = div().css(CHIP_REMOVE).element();
+  private final HTMLDivElement textContainer = DominoElement.of(div()).css(CHIP_VALUE).element();
+  private final HTMLDivElement leftAddonContainer =
+      DominoElement.of(div()).css(CHIP_ADDON).element();
+  private final HTMLDivElement removeIconContainer =
+      DominoElement.of(div()).css(CHIP_REMOVE).element();
   private ColorScheme colorScheme = ColorScheme.INDIGO;
   private Color color = Color.INDIGO;
   private DominoElement<HTMLElement> removeIcon = DominoElement.of(Icons.ALL.close().element());
@@ -91,7 +93,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
   private boolean removable;
   private Color leftBackground;
   private final Theme.ThemeChangeHandler themeListener =
-      (oldTheme, newTheme) -> style.setBorderColor(newTheme.getScheme().color().getHex());
+      (oldTheme, newTheme) -> style().setBorderColor(newTheme.getScheme().color().getHex());
 
   public Chip(String value) {
     element.appendChild(leftAddonContainer);

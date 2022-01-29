@@ -29,14 +29,14 @@ public class BouncePulseLoader extends BaseLoader<BouncePulseLoader>
     implements IsElement<HTMLDivElement> {
 
   private final HTMLDivElement progress1 =
-      div().css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").element();
   private final HTMLDivElement progress2 =
-      div().css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#000").element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#000").element();
   private final HTMLDivElement progress3 =
-      div().css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#000").element();
+      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#000").element();
 
   private final HTMLDivElement loader =
-      div()
+      DominoElement.of(div())
           .css(WAIT_ME_PROGRESS)
           .css(BOUNCE_PULSE)
           .add(progress1)
@@ -45,7 +45,7 @@ public class BouncePulseLoader extends BaseLoader<BouncePulseLoader>
           .element();
 
   private final HTMLDivElement content =
-      div()
+      DominoElement.of(div())
           .css(WAIT_ME_CONTENT)
           .css(Styles.vertical_center)
           .css(VERTICAL)
@@ -54,7 +54,11 @@ public class BouncePulseLoader extends BaseLoader<BouncePulseLoader>
           .element();
 
   private final HTMLDivElement element =
-      div().css(WAIT_ME).style("background: rgba(255, 255, 255, 0.7);").add(content).element();
+      DominoElement.of(div())
+          .css(WAIT_ME)
+          .style("background: rgba(255, 255, 255, 0.7);")
+          .add(content)
+          .element();
 
   public BouncePulseLoader() {
     init(this);

@@ -21,6 +21,7 @@ import static org.jboss.elemento.Elements.section;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 /** a component that represent the Content part of the {@link Layout} */
 public class Content extends BaseDominoElement<HTMLElement, Content> {
@@ -30,8 +31,9 @@ public class Content extends BaseDominoElement<HTMLElement, Content> {
 
   /** */
   public Content() {
-    contentContainer = div().css(LayoutStyles.CONTENT_PANEL).element();
-    section = section().css(LayoutStyles.CONTENT).add(contentContainer).element();
+    contentContainer = DominoElement.of(div()).css(LayoutStyles.CONTENT_PANEL).element();
+    section = DominoElement.of(section()).css(LayoutStyles.CONTENT).add(contentContainer).element();
+
     init(this);
   }
 

@@ -36,7 +36,7 @@ import org.jboss.elemento.IsElement;
  */
 public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, SelectOptionGroup<T>> {
 
-  private DominoElement<HTMLLIElement> element = DominoElement.of(li().css("dropdown-header"));
+  private DominoElement<HTMLLIElement> element = DominoElement.of(li()).css("dropdown-header");
   private List<SelectOption<T>> options = new ArrayList<>();
   private Node titleElement;
   private Consumer<SelectOption<T>> addOptionConsumer = (option) -> {};

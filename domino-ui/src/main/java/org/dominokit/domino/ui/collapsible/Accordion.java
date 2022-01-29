@@ -90,7 +90,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
 
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div().css(CollapsibleStyles.PANEL_GROUP));
+      DominoElement.of(div()).css(CollapsibleStyles.PANEL_GROUP);
   private List<AccordionPanel> panels = new LinkedList<>();
   private boolean multiOpen = false;
   private Color headerColor;
