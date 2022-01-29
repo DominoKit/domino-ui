@@ -64,12 +64,12 @@ import org.jboss.elemento.IsElement;
 public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     implements IsElement<HTMLDivElement> {
 
-  private HTMLDivElement element = div().element();
+  private HTMLDivElement element = DominoElement.of(div()).element();
   private DominoElement<HTMLUListElement> tabsList =
-      DominoElement.of(
-          ul().css(TabStyles.NAV, TabStyles.NAV_TABS, TabStyles.NAV_TABS_RIGHT)
-              .attr("role", "tablist"));
-  private HTMLElement tabsContent = div().css(TabStyles.TAB_CONTENT).element();
+      DominoElement.of(ul())
+          .css(TabStyles.NAV, TabStyles.NAV_TABS, TabStyles.NAV_TABS_RIGHT)
+          .attr("role", "tablist");
+  private HTMLElement tabsContent = DominoElement.of(div()).css(TabStyles.TAB_CONTENT).element();
   private Tab activeTab;
   private Color tabsColor;
   private Transition transition;

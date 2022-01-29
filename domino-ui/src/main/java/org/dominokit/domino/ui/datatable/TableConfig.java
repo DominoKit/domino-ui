@@ -81,7 +81,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
       ColumnConfig.<T>create("plugin-utility-column")
           .setShowTooltip(false)
           .setSortable(true)
-          .setDrawTitle(false)
+          .setDrawTitle(true)
           .setPluginColumn(true)
           .setCellRenderer(
               cellInfo -> {
@@ -126,7 +126,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
     columns.forEach(
         columnConfig -> {
           FlexLayout flexLayout = FlexLayout.create().setAlignItems(FlexAlign.CENTER);
-          if (columnConfig.isDrawTitle()) {
+          if (columnConfig.isDrawTitle() && nonNull(columnConfig.getTitle())) {
             flexLayout.appendChild(
                 FlexItem.of(DominoElement.div())
                     .setOrder(50)

@@ -19,10 +19,17 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import elemental2.core.JsArray;
-import elemental2.dom.*;
+import elemental2.dom.DOMRect;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.Node;
+import elemental2.dom.NodeList;
+import java.util.Arrays;
 import java.util.Optional;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.Collapsible;
+import org.dominokit.domino.ui.menu.AbstractMenu;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.DominoStyle;
@@ -31,7 +38,10 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.WavesSupport;
 import org.gwtproject.editor.client.Editor;
 import org.gwtproject.safehtml.shared.SafeHtmlBuilder;
-import org.jboss.elemento.*;
+import org.jboss.elemento.EventType;
+import org.jboss.elemento.Id;
+import org.jboss.elemento.IsElement;
+import org.jboss.elemento.ObserverCallback;
 
 /**
  * This is the base implementation for all domino components.
@@ -53,14 +63,14 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         DominoStyle<E, T, T> {
 
   /** The name of the attribute that holds a unique id for the component */
-  public static final String DOMINO_UUID = "domino-uuid";
+  private static final String DOMINO_UUID = "domino-uuid";
 
   @Editor.Ignore protected T element;
   private String uuid;
   private Tooltip tooltip;
   private Collapsible collapsible;
-  @Editor.Ignore protected Style<E, T> style;
-
+  @Editor.Ignore private Style<E, T> style;
+  private LambdaFunction styleInitializer;
   private ScreenMedia hideOn;
   private ScreenMedia showOn;
   private Elevation elevation;
@@ -68,6 +78,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   private Optional<ElementObserver> attachObserver = Optional.empty();
   private Optional<ElementObserver> detachObserver = Optional.empty();
   private Optional<ResizeObserver> resizeObserverOptional = Optional.empty();
+  private LambdaFunction dominoUuidInitializer;
 
   /**
    * initialize the component using its root element giving it a unique id, a {@link Style} and also
@@ -79,20 +90,35 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   protected void init(T element) {
     this.element = element;
 
-    if (hasDominoId()) {
-      uuid = getAttribute(DOMINO_UUID);
-    } else {
-      this.uuid = Id.unique();
-      setAttribute(DOMINO_UUID, this.uuid);
-    }
-    this.collapsible = Collapsible.create(getCollapsibleElement());
-    this.style = Style.of(element);
+    dominoUuidInitializer =
+        () -> {
+          if (hasDominoId()) {
+            uuid = getAttribute(DOMINO_UUID);
+          } else {
+            this.uuid = Id.unique();
+            setAttribute(DOMINO_UUID, this.uuid);
+            if (!hasId()) {
+              element().id = this.uuid;
+            }
+          }
+          dominoUuidInitializer = () -> {};
+        };
+
+    styleInitializer =
+        () -> {
+          this.style = Style.of(element);
+          styleInitializer = () -> {};
+        };
   }
 
   private boolean hasDominoId() {
     return hasAttribute(DOMINO_UUID)
         && nonNull(getAttribute(DOMINO_UUID))
         && !getAttribute(DOMINO_UUID).isEmpty();
+  }
+
+  private boolean hasId() {
+    return hasAttribute("id") && nonNull(getAttribute("id")) && !getAttribute("id").isEmpty();
   }
 
   /**
@@ -104,6 +130,27 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   public T setId(String id) {
     element().id = id;
     return element;
+  }
+
+  /**
+   * sets the element tabIndex attribute
+   *
+   * @param tabIndex int tabIndex
+   * @return same component
+   */
+  public T setTabIndex(int tabIndex) {
+    element().tabIndex = tabIndex;
+    return element;
+  }
+
+  /**
+   * sets the element id attribute
+   *
+   * @param id String custom id
+   * @return same component
+   */
+  public T id(String id) {
+    return setId(id);
   }
 
   /** @return String value of the element id attribute */
@@ -121,7 +168,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Override
   @Editor.Ignore
   public T toggleDisplay() {
-    collapsible.toggleDisplay();
+    getCollapsible().toggleDisplay();
     return element;
   }
 
@@ -133,7 +180,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Override
   @Editor.Ignore
   public T toggleDisplay(boolean state) {
-    collapsible.toggleDisplay(state);
+    getCollapsible().toggleDisplay(state);
     return element;
   }
 
@@ -145,7 +192,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    */
   @Override
   public T show() {
-    collapsible.show();
+    getCollapsible().show();
     return element;
   }
 
@@ -157,7 +204,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    */
   @Override
   public T hide() {
-    collapsible.hide();
+    getCollapsible().hide();
     return element;
   }
 
@@ -166,7 +213,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    * @see Collapsible#setForceHidden(boolean)
    */
   public boolean isForceHidden() {
-    return collapsible.isForceHidden();
+    return getCollapsible().isForceHidden();
   }
 
   /**
@@ -175,13 +222,16 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    * @see Collapsible#setForceHidden(boolean)
    */
   public T setForceHidden(boolean forceHidden) {
-    collapsible.setForceHidden(forceHidden);
+    getCollapsible().setForceHidden(forceHidden);
     return element;
   }
 
   /** @return the {@link Collapsible} of the component */
   @Editor.Ignore
   public Collapsible getCollapsible() {
+    if (isNull(this.collapsible)) {
+      this.collapsible = Collapsible.create(getCollapsibleElement());
+    }
     return collapsible;
   }
 
@@ -193,7 +243,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    */
   @Editor.Ignore
   public T setCollapseStrategy(CollapseStrategy strategy) {
-    this.collapsible.setStrategy(strategy);
+    this.getCollapsible().setStrategy(strategy);
     return (T) this;
   }
 
@@ -223,10 +273,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Override
   @Editor.Ignore
   public boolean isCollapsed() {
-    if (isNull(collapsible)) {
-      return false;
-    }
-    return collapsible.isCollapsed();
+    return getCollapsible().isCollapsed();
   }
 
   /** @return the HTML element of type E which is the root element of the component */
@@ -291,6 +338,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /** @return boolean, true if the element is currently attached to the DOM tree */
   @Editor.Ignore
   public boolean isAttached() {
+    dominoUuidInitializer.apply();
     return nonNull(DomGlobal.document.body.querySelector("[domino-uuid='" + uuid + "']"));
   }
 
@@ -335,11 +383,16 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /** @return the {@link Style} of the component */
   @Editor.Ignore
   public Style<E, T> style() {
+    styleInitializer.apply();
     return style;
   }
-
+  /** Sets the CSS style of the element. */
+  public T style(String style) {
+    element().style.cssText = style;
+    return (T) this;
+  }
   /**
-   * @param cssClass String css class name to add to the compponent
+   * @param cssClass String css class name to add to the component
    * @return same component
    */
   @Editor.Ignore
@@ -356,12 +409,6 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   public T css(String... cssClasses) {
     addCss(cssClasses);
     return element;
-  }
-
-  /** @return the {@link HtmlComponentBuilder} */
-  @Editor.Ignore
-  public HtmlComponentBuilder<E, T> builder() {
-    return ElementUtil.componentBuilder(element);
   }
 
   /**
@@ -386,6 +433,14 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     return element;
   }
 
+  public T add(IsElement<?> isElement) {
+    return appendChild(isElement);
+  }
+
+  public T add(Node element) {
+    return appendChild(element);
+  }
+
   /**
    * @param listener {@link EventListener} to be added to the click event of the component clickable
    *     element
@@ -407,6 +462,24 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   public T addEventListener(String type, EventListener listener) {
     element().addEventListener(type, listener);
+    return element;
+  }
+
+  /**
+   * Adds a listener for the provided event type
+   *
+   * @param listener {@link EventListener}
+   * @param events String array of event types
+   * @return same component
+   */
+  @Editor.Ignore
+  public T addEventsListener(EventListener listener, String... events) {
+    Arrays.asList(events)
+        .forEach(
+            eventName -> {
+              element().addEventListener(eventName, listener);
+            });
+
     return element;
   }
 
@@ -605,6 +678,18 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   /**
+   * Sets a String attribute value on the element
+   *
+   * @param name String attribute name
+   * @param value String
+   * @return same component
+   */
+  @Editor.Ignore
+  public T attr(String name, String value) {
+    return setAttribute(name, value);
+  }
+
+  /**
    * Sets a boolean attribute value on the element
    *
    * @param name String attribute name
@@ -720,6 +805,16 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    */
   @Editor.Ignore
   public T setTextContent(String text) {
+    element().textContent = text;
+    return element;
+  }
+
+  /**
+   * @param text String text content
+   * @return same component
+   */
+  @Editor.Ignore
+  public T textContent(String text) {
     element().textContent = text;
     return element;
   }
@@ -1119,6 +1214,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /** @return String, the assigned unique domino-uuid to the component */
   @Editor.Ignore
   public String getDominoId() {
+    dominoUuidInitializer.apply();
     return uuid;
   }
 
@@ -1195,7 +1291,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   @SuppressWarnings("unchecked")
   public T addHideListener(Collapsible.HideCompletedHandler handler) {
-    collapsible.addHideHandler(handler);
+    getCollapsible().addHideHandler(handler);
     return (T) this;
   }
 
@@ -1207,7 +1303,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   @SuppressWarnings("unchecked")
   public T removeHideListener(Collapsible.HideCompletedHandler handler) {
-    collapsible.removeHideHandler(handler);
+    getCollapsible().removeHideHandler(handler);
     return (T) this;
   }
 
@@ -1219,7 +1315,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   @SuppressWarnings("unchecked")
   public T addShowListener(Collapsible.ShowCompletedHandler handler) {
-    collapsible.addShowHandler(handler);
+    getCollapsible().addShowHandler(handler);
     return (T) this;
   }
 
@@ -1231,7 +1327,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   @SuppressWarnings("unchecked")
   public T removeShowListener(Collapsible.ShowCompletedHandler handler) {
-    collapsible.removeShowHandler(handler);
+    getCollapsible().removeShowHandler(handler);
     return (T) this;
   }
 
@@ -1754,7 +1850,21 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
   @Override
   public T setOpacity(double opacity, boolean important) {
-    return null;
+    style().setOpacity(opacity, important);
+    return (T) this;
+  }
+
+  /**
+   * Set this element as the target element for the provided Drop menu
+   *
+   * @param dropMenu {@link org.dominokit.domino.ui.menu.AbstractMenu}
+   * @return same component
+   */
+  public T setDropMenu(AbstractMenu<?, ?> dropMenu) {
+    if (nonNull(dropMenu)) {
+      dropMenu.setTargetElement(this);
+    }
+    return (T) this;
   }
 
   /**

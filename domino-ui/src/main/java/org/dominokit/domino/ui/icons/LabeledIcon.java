@@ -22,6 +22,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Text;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.TextNode;
 
 /**
@@ -40,8 +41,8 @@ public class LabeledIcon extends BaseDominoElement<HTMLDivElement, LabeledIcon> 
   }
 
   public LabeledIcon(BaseIcon<?> icon, String text, IconPosition position) {
-    HTMLElement leftSpan = span().css(IconsStyles.LEFT_NODE).element();
-    HTMLElement rightSpan = span().css(IconsStyles.RIGHT_NODE).element();
+    HTMLElement leftSpan = DominoElement.of(span()).css(IconsStyles.LEFT_NODE).element();
+    HTMLElement rightSpan = DominoElement.of(span()).css(IconsStyles.RIGHT_NODE).element();
     position.placeElements(leftSpan, rightSpan, icon, TextNode.of(text));
     element.appendChild(leftSpan);
     element.appendChild(rightSpan);

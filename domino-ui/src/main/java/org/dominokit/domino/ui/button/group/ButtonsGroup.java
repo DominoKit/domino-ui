@@ -46,7 +46,7 @@ public class ButtonsGroup extends WavesElement<HTMLElement, ButtonsGroup>
     implements IsGroup<ButtonsGroup>, Sizable<ButtonsGroup> {
 
   private DominoElement<HTMLDivElement> groupElement =
-      DominoElement.of(div().css(ButtonStyles.BTN_GROUP).attr("role", "group"));
+      DominoElement.of(div()).css(ButtonStyles.BTN_GROUP).attr("role", "group");
   private ButtonSize size;
 
   /** default constructor */

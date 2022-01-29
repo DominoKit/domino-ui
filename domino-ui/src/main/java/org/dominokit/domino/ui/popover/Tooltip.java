@@ -46,11 +46,11 @@ import org.jboss.elemento.IsElement;
 public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
 
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div().css(TOOLTIP).attr("role", "tooltip"));
+      DominoElement.of(div()).css(TOOLTIP).attr("role", "tooltip");
   private final DominoElement<HTMLDivElement> arrowElement =
-      DominoElement.of(div().css(TOOLTIP_ARROW));
+      DominoElement.of(div()).css(TOOLTIP_ARROW);
   private final DominoElement<HTMLDivElement> innerElement =
-      DominoElement.of(div().css(TOOLTIP_INNER));
+      DominoElement.of(div()).css(TOOLTIP_INNER);
   private PopupPosition popupPosition = TOP;
   private final EventListener showToolTipListener;
   private final Consumer<Tooltip> removeHandler;

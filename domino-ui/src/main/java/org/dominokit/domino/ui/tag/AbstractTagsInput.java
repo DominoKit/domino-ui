@@ -38,7 +38,6 @@ import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents.KeyboardEventOptions;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.tag.store.TagsStore;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
@@ -108,12 +107,14 @@ public abstract class AbstractTagsInput<T extends AbstractTagsInput<T, V>, V>
             evt -> {
               evt.stopPropagation();
               openOnFocus = true;
+              DropDownMenu.closeAllMenus();
               tagTextInput.element().focus();
             });
 
     tagTextInput.addClickListener(
         evt -> {
           evt.stopPropagation();
+          DropDownMenu.closeAllMenus();
           search();
         });
 
@@ -153,7 +154,7 @@ public abstract class AbstractTagsInput<T extends AbstractTagsInput<T, V>, V>
         "focus",
         evt -> {
           if (openOnFocus) {
-            focus();
+            doFocus();
             search();
           }
         });
@@ -220,14 +221,6 @@ public abstract class AbstractTagsInput<T extends AbstractTagsInput<T, V>, V>
     } else {
       enableAddValues();
     }
-  }
-
-  @Override
-  protected void linkLabelToField() {
-    if (!tagTextInput.hasAttribute("id")) {
-      tagTextInput.setAttribute("id", tagTextInput.getAttribute(BaseDominoElement.DOMINO_UUID));
-    }
-    getLabelElement().setAttribute("for", tagTextInput.getAttribute("id"));
   }
 
   @Override

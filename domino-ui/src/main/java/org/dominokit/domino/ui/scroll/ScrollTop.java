@@ -62,7 +62,7 @@ public class ScrollTop extends BaseButton<ScrollTop> {
    * @return same ScrollTop instance
    */
   public ScrollTop setBottom(int bottom) {
-    style.setBottom(bottom + "px");
+    style().setBottom(bottom + "px");
     return this;
   }
 
@@ -71,7 +71,7 @@ public class ScrollTop extends BaseButton<ScrollTop> {
    * @return same ScrollTop instance
    */
   public ScrollTop setRight(int right) {
-    style.setRight(right + "px");
+    style().setRight(right + "px");
     return this;
   }
 

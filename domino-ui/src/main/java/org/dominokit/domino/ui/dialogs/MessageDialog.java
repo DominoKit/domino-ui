@@ -162,7 +162,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
   public static MessageDialog createMessage(
       Node content, CloseHandler closeHandler, Supplier<Button> okButtonProvider) {
     MessageDialog messageDialog = new MessageDialog();
-    messageDialog.style.addCss(MessageDialogStyles.MESSAGE_DIALOG);
+    messageDialog.style().addCss(MessageDialogStyles.MESSAGE_DIALOG);
 
     messageDialog.setSize(ModalSize.ALERT);
     messageDialog

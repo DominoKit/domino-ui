@@ -112,10 +112,18 @@ public interface DataTablePlugin<T> extends TableEventListener {
   @Override
   default void handleEvent(TableEvent event) {}
 
+  /** @return boolean, true if the plugin should use the plugins utility column else false */
   default boolean requiresUtilityColumn() {
     return false;
   }
 
+  /**
+   * @param dataTable {@link DataTable}
+   * @param cellInfo {@link org.dominokit.domino.ui.datatable.CellRenderer.CellInfo}
+   * @return return an {@link Optional} {@link List} of {@link HTMLElement}s to be used as part of
+   *     the plugins utility column, elements returned from this method will be rendered as flex
+   *     items inside the utility cell.
+   */
   default Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
     return Optional.empty();

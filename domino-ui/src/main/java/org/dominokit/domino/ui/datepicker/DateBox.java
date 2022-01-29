@@ -29,13 +29,13 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
@@ -80,7 +80,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   private boolean openOnFocus = false;
   private boolean focused = false;
   private boolean handlerPaused = false;
-  private FlexItem<HTMLDivElement> calendarIconContainer;
+  private DominoElement<HTMLDivElement> calendarIconContainer;
   private MdiIcon calendarIcon;
   private boolean openOnClick = true;
   private boolean parseStrict;
@@ -562,7 +562,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
   /** {@inheritDoc} */
   @Override
-  protected FlexItem<HTMLDivElement> createMandatoryAddOn() {
+  protected DominoElement<HTMLDivElement> createMandatoryAddOn() {
     calendarIcon = Icons.ALL.calendar_mdi();
     calendarIcon
         .clickable()
@@ -573,12 +573,12 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 open();
               }
             });
-    calendarIconContainer = FlexItem.create();
+    calendarIconContainer = DominoElement.div();
     return calendarIconContainer.appendChild(calendarIcon);
   }
 
   /** @return The calendar icon container element */
-  public FlexItem<HTMLDivElement> getCalendarIconContainer() {
+  public DominoElement<HTMLDivElement> getCalendarIconContainer() {
     return calendarIconContainer;
   }
 

@@ -59,11 +59,11 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   private int thumbOffsetXSmall = -1;
 
   private final DominoElement<HTMLDivElement> formElement =
-      DominoElement.of(div().css("file-upload"));
+      DominoElement.of(div()).css("file-upload");
   private final DominoElement<HTMLDivElement> uploadMessageContainer =
-      DominoElement.of(div().css("file-upload-message"));
+      DominoElement.of(div()).css("file-upload-message");
   private final DominoElement<HTMLDivElement> uploadIconContainer =
-      DominoElement.of(div().css("file-upload-message-icon"));
+      DominoElement.of(div()).css("file-upload-message-icon");
   private HTMLInputElement hiddenFileInput;
   private final DominoElement<HTMLDivElement> filesContainer = DominoElement.of(div());
   private final List<FileItem> addedFileItems = new ArrayList<>();

@@ -44,7 +44,7 @@ import org.dominokit.domino.ui.utils.HasContent;
 public class Label extends BaseDominoElement<HTMLElement, Label>
     implements HasContent<Label>, HasBackground<Label> {
 
-  private final DominoElement<HTMLElement> span = DominoElement.of(span().css("label"));
+  private final DominoElement<HTMLElement> span = DominoElement.of(span()).css("label");
   private Color background;
 
   private Label(String content) {

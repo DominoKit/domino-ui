@@ -28,7 +28,7 @@ import org.jboss.elemento.IsElement;
 public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTMLDivElement> {
 
   private final HTMLDivElement content =
-      div()
+      DominoElement.of(div())
           .css(WAIT_ME_CONTENT)
           .css(Styles.vertical_center)
           .style("margin-top: -18px;")
@@ -36,7 +36,11 @@ public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTML
           .element();
 
   private final HTMLDivElement element =
-      div().css(WAIT_ME).style("background: rgba(255, 255, 255, 0.9);").add(content).element();
+      DominoElement.of(div())
+          .css(WAIT_ME)
+          .style("background: rgba(255, 255, 255, 0.9);")
+          .add(content)
+          .element();
 
   public NoneLoader() {
     init(this);

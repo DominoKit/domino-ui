@@ -21,6 +21,7 @@ import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /**
@@ -47,14 +48,20 @@ public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
   /** */
   public Preloader() {
     this.root =
-        div()
+        DominoElement.of(div())
             .css("preloader", "pl-size-l")
             .add(
                 spinnerLayer =
-                    div()
+                    DominoElement.of(div())
                         .css("spinner-layer", "pl-red")
-                        .add(div().css("circle-clipper", "left").add(div().css("circle")))
-                        .add(div().css("circle-clipper", "right").add(div().css("circle")))
+                        .add(
+                            DominoElement.of(div())
+                                .css("circle-clipper", "left")
+                                .add(DominoElement.of(div()).css("circle")))
+                        .add(
+                            DominoElement.of(div())
+                                .css("circle-clipper", "right")
+                                .add(DominoElement.of(div()).css("circle")))
                         .element())
             .element();
     init(this);

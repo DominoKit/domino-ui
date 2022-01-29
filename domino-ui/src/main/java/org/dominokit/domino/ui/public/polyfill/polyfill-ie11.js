@@ -58,8 +58,8 @@
     }
     Object.defineProperty(document, 'scrollingElement', {
         get: scrollingElement
-    })
-})()
+    });
+})();
 
 /**
  * polyfill for ResizeObserver
@@ -76,7 +76,7 @@
         this.boundCheck = this.check.bind(this)
         this.callback = callback;
         this.af = 0;
-    }
+    };
 
     ResizeObserver.prototype.observe = function (el) {
         if (this.observables.some(function (observable) { observable.el === el })) {
@@ -93,7 +93,7 @@
         if (!this.af) {
             this.boundCheck();
         }
-    }
+    };
 
     ResizeObserver.prototype.unobserve = function (el) {
         this.observables = this.observables.filter(function (obj) { obj.el !== el });
@@ -102,7 +102,7 @@
             window.cancelAnimationFrame(this.af);
             this.af = 0;
         }
-    }
+    };
 
     ResizeObserver.prototype.disconnect = function () {
         this.observables = [];
@@ -110,7 +110,7 @@
             window.cancelAnimationFrame(this.af);
             this.af = 0;
         }
-    }
+    };
 
     ResizeObserver.prototype.check = function () {
         const changedEntries = this.observables
@@ -128,5 +128,5 @@
             this.callback(changedEntries);
         }
         this.af = window.requestAnimationFrame(this.boundCheck);
-    }
-})()
+    };
+})();

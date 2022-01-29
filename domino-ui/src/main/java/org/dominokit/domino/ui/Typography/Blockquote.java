@@ -33,7 +33,7 @@ import org.jboss.elemento.IsElement;
 public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
 
   private final DominoElement<HTMLQuoteElement> element =
-      DominoElement.of(blockquote().css(Styles.m_b_25));
+      DominoElement.of(blockquote()).css(Styles.m_b_25);
   private Paragraph paragraph = Paragraph.create();
   private DominoElement<HTMLElement> footer;
 

@@ -37,7 +37,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> {
 
   private DominoElement<HTMLDivElement> element =
-      DominoElement.of(div().css(ProgressStyles.progress_bar).attr("role", "progressbar"));
+      DominoElement.of(div()).css(ProgressStyles.progress_bar).attr("role", "progressbar");
   private double maxValue;
   private double value = 0;
   private String textExpression;

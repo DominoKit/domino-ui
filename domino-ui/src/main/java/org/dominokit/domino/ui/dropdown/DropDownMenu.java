@@ -17,9 +17,20 @@ package org.dominokit.domino.ui.dropdown;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.*;
+import static org.jboss.elemento.Elements.div;
+import static org.jboss.elemento.Elements.h;
+import static org.jboss.elemento.Elements.input;
+import static org.jboss.elemento.Elements.li;
+import static org.jboss.elemento.Elements.ul;
 
-import elemental2.dom.*;
+import elemental2.dom.Element;
+import elemental2.dom.Event;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
+import elemental2.dom.HTMLUListElement;
+import elemental2.dom.Node;
+import elemental2.dom.NodeList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,10 +42,13 @@ import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.AppendStrategy;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.IsCollapsible;
+import org.dominokit.domino.ui.utils.KeyboardNavigation;
+import org.dominokit.domino.ui.utils.LazyInitializer;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -59,29 +73,29 @@ import org.jboss.elemento.IsElement;
 public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu>
     implements HasBackground<DropDownMenu> {
 
-  private MenuNavigation<DropdownAction<?>> menuNavigation;
+  private KeyboardNavigation<DropdownAction<?>> keyboardNavigation;
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div().css(DropDownStyles.DROPDOWN));
+      DominoElement.of(div()).css(DropDownStyles.DROPDOWN);
   private final DominoElement<HTMLUListElement> menuElement =
-      DominoElement.of(ul().css(DropDownStyles.DROPDOWN_MENU));
+      DominoElement.of(ul()).css(DropDownStyles.DROPDOWN_MENU);
   private final HTMLElement targetElement;
   private DropDownPosition position = DropDownPosition.BOTTOM;
   private final DominoElement<HTMLDivElement> titleContainer =
       DominoElement.of(div()).addCss(DropDownStyles.DROPDOWN_TITLE_CONTAINER);
   private final DominoElement<HTMLDivElement> searchContainer =
-      DominoElement.of(div().css(DropDownStyles.DROPDOWN_SEARCH_CONTAINER));
+      DominoElement.of(div()).css(DropDownStyles.DROPDOWN_SEARCH_CONTAINER);
   private final DominoElement<HTMLInputElement> searchBox =
-      DominoElement.of(input("text").css(DropDownStyles.DROPDOWN_SEARCH_BOX));
+      DominoElement.of(input("text")).css(DropDownStyles.DROPDOWN_SEARCH_BOX);
   private DominoElement<HTMLElement> noSearchResultsElement;
-  private final MdiIcon createIcon = Icons.ALL.plus_mdi().clickable();
+  private MdiIcon createIcon;
   private String noMatchSearchResultText = "No results matched";
 
   private final List<DropdownAction<?>> actions = new ArrayList<>();
   private static boolean touchMoved;
   private final List<CloseHandler> closeHandlers = new ArrayList<>();
   private final List<OpenHandler> openHandlers = new ArrayList<>();
-  private boolean searchable;
-  private boolean creatable;
+  private boolean searchable = false;
+  private boolean creatable = false;
   private boolean caseSensitiveSearch = false;
   private final List<DropdownActionsGroup<?>> groups = new ArrayList<>();
   private Color background;
@@ -101,6 +115,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
       };
   private OnAdd addListener = (String search) -> {};
 
+  private LazyInitializer dropDownMenuInitializer;
+
   static {
     document.addEventListener(EventType.click.getName(), evt -> DropDownMenu.closeAllMenus());
     document.addEventListener(EventType.touchmove.getName(), evt -> DropDownMenu.touchMoved = true);
@@ -119,66 +135,71 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
     init(this);
 
-    menuElement.setAttribute("role", "listbox");
+    dropDownMenuInitializer =
+        new LazyInitializer(
+            () -> {
+              element.appendChild(searchContainer).appendChild(menuElement);
+              menuElement.setAttribute("role", "listbox");
+              element.addEventListener(EventType.touchend, Event::stopPropagation);
+              element.addEventListener(EventType.touchmove, Event::stopPropagation);
+              element.addEventListener(EventType.touchstart, Event::stopPropagation);
 
-    element.addEventListener(EventType.touchend, Event::stopPropagation);
-    element.addEventListener(EventType.touchmove, Event::stopPropagation);
-    element.addEventListener(EventType.touchstart, Event::stopPropagation);
+              addMenuNavigationListener();
+              searchContainer.addClickListener(
+                  evt -> {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                  });
+              createIcon = Icons.ALL.plus_mdi().clickable();
+              searchContainer
+                  .toggleDisplay(this.searchable)
+                  .appendChild(
+                      FlexLayout.create()
+                          .appendChild(
+                              FlexItem.create().appendChild(Icons.ALL.magnify_mdi().clickable()))
+                          .appendChild(FlexItem.create().setFlexGrow(1).appendChild(searchBox))
+                          .appendChild(
+                              FlexItem.create()
+                                  .appendChild(
+                                      createIcon
+                                          .setAttribute("tabindex", "0")
+                                          .setAttribute("aria-expanded", "true")
+                                          .setAttribute("href", "#")
+                                          .toggleDisplay(this.creatable)
+                                          .addClickListener(
+                                              evt ->
+                                                  addListener.onAdd(searchBox.element().value)))));
 
-    addMenuNavigationListener();
-    searchContainer.addClickListener(
-        evt -> {
-          evt.preventDefault();
-          evt.stopPropagation();
-        });
-    searchContainer.appendChild(
-        FlexLayout.create()
-            .appendChild(FlexItem.create().appendChild(Icons.ALL.magnify_mdi().clickable()))
-            .appendChild(FlexItem.create().setFlexGrow(1).appendChild(searchBox))
-            .appendChild(
-                FlexItem.create()
-                    .appendChild(
-                        createIcon
-                            .setAttribute("tabindex", "0")
-                            .setAttribute("aria-expanded", "true")
-                            .setAttribute("href", "#")
-                            .addClickListener(
-                                evt -> addListener.onAdd(searchBox.element().value)))));
+              KeyboardEvents.listenOnKeyDown(createIcon)
+                  .setDefaultOptions(
+                      KeyboardEvents.KeyboardEventOptions.create()
+                          .setPreventDefault(true)
+                          .setStopPropagation(true))
+                  .onEnter(evt -> addListener.onAdd(searchBox.element().value));
 
-    element.appendChild(searchContainer).appendChild(menuElement);
+              KeyboardEvents.listenOnKeyDown(searchBox)
+                  .setDefaultOptions(
+                      KeyboardEvents.KeyboardEventOptions.create()
+                          .setPreventDefault(true)
+                          .setStopPropagation(true))
+                  .onArrowUp(evt -> keyboardNavigation.focusAt(lastVisibleActionIndex()))
+                  .onArrowDown(evt -> keyboardNavigation.focusAt(firstVisibleActionIndex()))
+                  .onEscape(evt -> close())
+                  .onEnter(evt -> selectFirstSearchResult());
+              searchBox.addEventListener(
+                  "input",
+                  evt -> {
+                    if (searchable) {
+                      doSearch();
+                    }
+                  });
 
-    setSearchable(false);
-    setCreatable(false);
+              setNoSearchResultsElement(
+                  DominoElement.of(li()).css(DropDownStyles.NO_RESULTS).hide().element());
+              menuElement.appendChild(noSearchResultsElement);
 
-    KeyboardEvents.listenOnKeyDown(createIcon)
-        .setDefaultOptions(
-            KeyboardEvents.KeyboardEventOptions.create()
-                .setPreventDefault(true)
-                .setStopPropagation(true))
-        .onEnter(evt -> addListener.onAdd(searchBox.element().value));
-
-    KeyboardEvents.listenOnKeyDown(searchBox)
-        .setDefaultOptions(
-            KeyboardEvents.KeyboardEventOptions.create()
-                .setPreventDefault(true)
-                .setStopPropagation(true))
-        .onArrowUp(evt -> menuNavigation.focusAt(lastVisibleActionIndex()))
-        .onArrowDown(evt -> menuNavigation.focusAt(firstVisibleActionIndex()))
-        .onEscape(evt -> close())
-        .onEnter(evt -> selectFirstSearchResult());
-    searchBox.addEventListener(
-        "input",
-        evt -> {
-          if (searchable) {
-            doSearch();
-          }
-        });
-
-    setNoSearchResultsElement(
-        DominoElement.of(li().css(DropDownStyles.NO_RESULTS)).hide().element());
-    menuElement.appendChild(noSearchResultsElement);
-
-    titleContainer.addClickListener(Event::stopPropagation);
+              titleContainer.addClickListener(Event::stopPropagation);
+            });
   }
 
   private void selectFirstSearchResult() {
@@ -247,9 +268,9 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
   }
 
   private void addMenuNavigationListener() {
-    menuNavigation =
-        MenuNavigation.create(actions)
-            .onSelect(DropdownAction::select)
+    keyboardNavigation =
+        KeyboardNavigation.create(actions)
+            .onSelect((event, dropdownAction) -> dropdownAction.select())
             .focusCondition(IsCollapsible::isExpanded)
             .onFocus(
                 item -> {
@@ -259,7 +280,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
                 })
             .onEscape(this::close);
 
-    element.addEventListener("keydown", menuNavigation);
+    element.addEventListener("keydown", keyboardNavigation);
   }
 
   /** Closes all current opened menus */
@@ -304,14 +325,17 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    * @return same instance
    */
   public DropDownMenu insertFirst(DropdownAction<?> action) {
-    action.addSelectionHandler(
-        value -> {
-          if (action.isAutoClose()) {
-            close();
-          }
+    dropDownMenuInitializer.doOnce(
+        () -> {
+          action.addSelectionHandler(
+              value -> {
+                if (action.isAutoClose()) {
+                  close();
+                }
+              });
+          actions.add(0, action);
+          menuElement.insertFirst(action.element());
         });
-    actions.add(0, action);
-    menuElement.insertFirst(action.element());
     return this;
   }
 
@@ -322,15 +346,18 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    * @return same instance
    */
   public DropDownMenu appendChild(DropdownAction<?> action) {
-    action.addSelectionHandler(
-        value -> {
-          if (action.isAutoClose()) {
-            close();
-          }
+    dropDownMenuInitializer.doOnce(
+        () -> {
+          action.addSelectionHandler(
+              value -> {
+                if (action.isAutoClose()) {
+                  close();
+                }
+              });
+          actions.add(action);
+          action.setBackground(this.background);
+          menuElement.appendChild(action.element());
         });
-    actions.add(action);
-    menuElement.appendChild(action.element());
-    action.setBackground(this.background);
     return this;
   }
 
@@ -346,7 +373,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    * @return same instance
    */
   public DropDownMenu separator() {
-    menuElement.appendChild(li().attr("role", "separator").css(DropDownStyles.DIVIDER));
+    menuElement.appendChild(li()).attr("role", "separator").css(DropDownStyles.DIVIDER);
     return this;
   }
 
@@ -376,6 +403,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    * @param focus true to focus the first element
    */
   public void open(boolean focus) {
+    dropDownMenuInitializer.apply();
     if (hasActions() || creatable) {
       onAttached(
           mutationRecord -> {
@@ -406,10 +434,13 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
   /** Clears the current search */
   public void clearSearch() {
-    searchBox.element().value = "";
-    noSearchResultsElement.hide();
-    createIcon.inactive();
-    actions.forEach(DropdownAction::show);
+    dropDownMenuInitializer.ifInitialized(
+        () -> {
+          searchBox.element().value = "";
+          noSearchResultsElement.hide();
+          createIcon.inactive();
+          actions.forEach(DropdownAction::show);
+        });
   }
 
   /** @return True if the menu is opened, false otherwise */
@@ -440,6 +471,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    * @return same instance
    */
   public DropDownMenu clearActions() {
+    dropDownMenuInitializer.apply();
     menuElement.clearElement();
     actions.clear();
     groups.clear();
@@ -460,7 +492,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    */
   public DropDownMenu selectAt(int index) {
     if (index >= 0 && index < actions.size()) {
-      menuNavigation.focusAt(index);
+      keyboardNavigation.focusAt(index);
     }
     return this;
   }
@@ -523,11 +555,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    */
   public DropDownMenu setSearchable(boolean searchable) {
     this.searchable = searchable;
-    if (searchable) {
-      searchContainer.show();
-    } else {
-      searchContainer.hide();
-    }
+    dropDownMenuInitializer.whenInitialized(() -> searchContainer.toggleDisplay(this.searchable));
     return this;
   }
 
@@ -542,11 +570,8 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    */
   public DropDownMenu setCreatable(boolean creatable) {
     this.creatable = creatable;
-    if (creatable) {
-      createIcon.show();
-    } else {
-      createIcon.hide();
-    }
+    dropDownMenuInitializer.ifInitialized(() -> createIcon.toggleDisplay(this.creatable));
+
     return this;
   }
 
@@ -688,7 +713,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
   /** Sets focus at the first element of the menu */
   public void focus() {
-    menuNavigation.focusAt(0);
+    keyboardNavigation.focusAt(0);
   }
 
   /** @return The current search filter */
@@ -722,29 +747,6 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
   public interface OpenHandler {
     /** Will be called when the menu is opened */
     void onOpen();
-  }
-
-  /** The strategy for appending the menu to the target element */
-  @FunctionalInterface
-  public interface AppendStrategy {
-    /**
-     * Will be called to append the menu to the target element
-     *
-     * @param target the target element
-     * @param menu the menu element
-     */
-    void onAppend(HTMLElement target, HTMLElement menu);
-
-    /**
-     * {@code FIRST} strategy means that the menu will be added at the first index of the target
-     * element
-     */
-    AppendStrategy FIRST = (target, menu) -> DominoElement.of(target).insertFirst(menu);
-    /**
-     * {@code LAST} strategy means that the menu will be added at the last index of the target
-     * element
-     */
-    AppendStrategy LAST = (target, menu) -> DominoElement.of(target).appendChild(menu);
   }
 
   /** The search filter strategy which will filter the actions based on the search criteria */

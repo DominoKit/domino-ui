@@ -46,9 +46,9 @@ import org.jboss.elemento.IsElement;
  */
 public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
 
-  private final HTMLDivElement element = div().css(THUMBNAIL).element();
-  private final HTMLDivElement contentElement = div().element();
-  private final HTMLDivElement captionElement = div().css(CAPTION).element();
+  private final HTMLDivElement element = DominoElement.of(div()).css(THUMBNAIL).element();
+  private final HTMLDivElement contentElement = DominoElement.of(div()).element();
+  private final HTMLDivElement captionElement = DominoElement.of(div()).css(CAPTION).element();
 
   public Thumbnail() {
     element.appendChild(contentElement);

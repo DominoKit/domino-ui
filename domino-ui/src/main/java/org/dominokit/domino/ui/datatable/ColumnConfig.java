@@ -23,7 +23,6 @@ import elemental2.dom.Node;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -54,6 +53,7 @@ public class ColumnConfig<T> {
                 FlexItem.of(DominoElement.div())
                     .setOrder(50)
                     .setFlexGrow(1)
+                    .styler(style -> style.setCssProperty("text-indent", "2px"))
                     .appendChild(TextNode.of(columnTitle)))
             .element();
       };
@@ -72,6 +72,7 @@ public class ColumnConfig<T> {
   private boolean drawTitle = true;
 
   private final List<ColumnShowHideListener> showHideListeners = new ArrayList<>();
+  private final List<ColumnShowHideListener> permanentHideListeners = new ArrayList<>();
 
   /**
    * Creates an instance with a name which will also be used as a title
@@ -258,6 +259,7 @@ public class ColumnConfig<T> {
   public String getMaxWidth() {
     return maxWidth;
   }
+
   /** @return the String text align we set with {@link #textAlign(String)} */
   public String getTextAlign() {
     return textAlign;
@@ -536,7 +538,11 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> addShowHideListener(ColumnShowHideListener showHideListener) {
-    this.showHideListeners.add(showHideListener);
+    if (showHideListener.isPermanent()) {
+      this.permanentHideListeners.add(showHideListener);
+    } else {
+      this.showHideListeners.add(showHideListener);
+    }
     return this;
   }
 
@@ -547,7 +553,11 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> removeShowHideListener(ColumnShowHideListener showHideListener) {
-    this.showHideListeners.remove(showHideListener);
+    if (showHideListener.isPermanent()) {
+      this.permanentHideListeners.remove(showHideListener);
+    } else {
+      this.showHideListeners.remove(showHideListener);
+    }
     return this;
   }
 
@@ -557,6 +567,7 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> show() {
+    this.permanentHideListeners.forEach(showHideListener -> showHideListener.onShowHide(true));
     this.showHideListeners.forEach(showHideListener -> showHideListener.onShowHide(true));
     this.hidden = false;
     return this;
@@ -568,6 +579,7 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> hide() {
+    this.permanentHideListeners.forEach(showHideListener -> showHideListener.onShowHide(false));
     this.showHideListeners.forEach(showHideListener -> showHideListener.onShowHide(false));
     this.hidden = true;
     return this;
@@ -593,12 +605,7 @@ public class ColumnConfig<T> {
 
   /** removes all {@link ColumnShowHideListener}s of this column except the permanent listeners */
   public void clearShowHideListeners() {
-    List<ColumnShowHideListener> nonPermanent =
-        showHideListeners.stream()
-            .filter(listener -> !listener.isPermanent())
-            .collect(Collectors.toList());
-
-    showHideListeners.removeAll(nonPermanent);
+    showHideListeners.clear();
   }
 
   /** @return boolean, true if the column is already hidden, otherwise false */
@@ -606,35 +613,57 @@ public class ColumnConfig<T> {
     return hidden;
   }
 
+  /** @return boolean, true if the column is registered by a plugin, else false */
   public boolean isPluginColumn() {
     return pluginColumn;
   }
 
+  /**
+   * flags the columns as a plugin column or not
+   *
+   * @param pluginColumn boolean, true if the column is being registered by a plugin, else false
+   * @return same ColumnConfig instance
+   */
   public ColumnConfig<T> setPluginColumn(boolean pluginColumn) {
     this.pluginColumn = pluginColumn;
     return this;
   }
 
+  /** @return String key of the column */
   public String getSortKey() {
     return Optional.ofNullable(sortKey).orElse(name);
   }
 
+  /** @return The {@link FlexLayout} of the column header */
   public FlexLayout getHeaderLayout() {
     return headerLayout;
   }
 
+  /**
+   * Use to set a custom header layout
+   *
+   * @param headerLayout {@link FlexLayout}
+   */
   void setHeaderLayout(FlexLayout headerLayout) {
     this.headerLayout = headerLayout;
   }
 
-  public boolean isUtilityColumn() {
+  /** @return boolean, true of the column is the plugins utility column, otherwise return false */
+  public final boolean isUtilityColumn() {
     return "plugin-utility-column".equals(name);
   }
 
+  /** @return boolean, true if the column show render the title */
   public boolean isDrawTitle() {
     return drawTitle;
   }
 
+  /**
+   * Set if the column should render its title or not
+   *
+   * @param drawTitle boolean
+   * @return same ColumnConfig instance
+   */
   public ColumnConfig<T> setDrawTitle(boolean drawTitle) {
     this.drawTitle = drawTitle;
     return this;

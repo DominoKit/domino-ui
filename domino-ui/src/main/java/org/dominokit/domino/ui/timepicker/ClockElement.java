@@ -23,6 +23,7 @@ import elemental2.svg.SVGCircleElement;
 import elemental2.svg.SVGLineElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.ColorScheme;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 /** The class is responsible of rendering a clock as svg elements */
 class ClockElement {
@@ -75,7 +76,7 @@ class ClockElement {
     this.innerCircle = SVGUtil.createCircle(x, y, 2, innerColor.getHex());
     this.line = SVGUtil.createLine(centerX, centerY, x, y, colorScheme.lighten_4().getHex());
     this.element =
-        div()
+        DominoElement.of(div())
             .css(elementStyle)
             .style(
                 "position: absolute; left:"

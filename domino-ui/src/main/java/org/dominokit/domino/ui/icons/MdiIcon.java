@@ -31,9 +31,9 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   private MdiMeta metaInfo;
 
   private MdiIcon(HTMLElement icon) {
-    this.icon = DominoElement.of(icon);
+    this.icon = DominoElement.of(icon).css(MdiSize.mdi24.style);
+    this.mdiSize = MdiSize.mdi24;
     init(this);
-    size24();
   }
 
   private MdiIcon(String icon) {
@@ -41,7 +41,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   }
 
   private MdiIcon(String icon, MdiMeta mdiMeta) {
-    this.icon = DominoElement.of(i().css("mdi").css(icon).element());
+    this.icon = DominoElement.of(i()).css("mdi").css(icon);
     this.name = icon;
     this.metaInfo = mdiMeta;
     init(this);
@@ -79,12 +79,12 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   @Override
   protected MdiIcon doToggle() {
     if (nonNull(toggleName)) {
-      if (this.style.containsCss(originalName)) {
-        this.style.removeCss(originalName);
-        this.style.addCss(toggleName);
+      if (this.style().containsCss(originalName)) {
+        this.style().removeCss(originalName);
+        this.style().addCss(toggleName);
       } else {
-        this.style.addCss(originalName);
-        this.style.removeCss(toggleName);
+        this.style().addCss(originalName);
+        this.style().removeCss(toggleName);
       }
     }
     return this;

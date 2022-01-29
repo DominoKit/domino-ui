@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.popover.Popover;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.Elements;
 import org.jboss.elemento.EventType;
 
@@ -42,25 +43,25 @@ public class ModalBackDrop {
   private static Integer NEXT_Z_INDEX = 1040;
   /** The single instance of the overlay backdrop element */
   public static final HTMLDivElement INSTANCE =
-      Elements.div()
+      DominoElement.of(Elements.div())
           .css(ModalStyles.MODAL_BACKDROP)
           .css(ModalStyles.FADE)
           .css(ModalStyles.IN)
-          .on(
+          .addEventListener(
               EventType.click,
               event -> {
                 if (ModalBackDrop.INSTANCE.isEqualNode(Js.uncheckedCast(event.target))) {
                   closeCurrentOpen();
                 }
               })
-          .on(
+          .addEventListener(
               EventType.keypress,
               event -> {
                 if (ModalBackDrop.INSTANCE.isEqualNode(Js.uncheckedCast(event.target))) {
                   closeCurrentOpen();
                 }
               })
-          .on(EventType.scroll, Event::stopPropagation)
+          .addEventListener(EventType.scroll, Event::stopPropagation)
           .element();
 
   private static void closeCurrentOpen() {
