@@ -697,12 +697,14 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
   /** {@inheritDoc} */
   @Override
   public DropDownMenu setBackground(Color background) {
-    if (nonNull(this.background)) {
-      getMenuElement().removeCss(this.background.getBackground());
+    if (nonNull(background)) {
+      if (nonNull(this.background)) {
+        getMenuElement().removeCss(this.background.getBackground());
+      }
+      getMenuElement().addCss(background.getBackground());
+      this.background = background;
+      actions.forEach(dropdownAction -> dropdownAction.setBackground(background));
     }
-    getMenuElement().addCss(background.getBackground());
-    this.background = background;
-    actions.forEach(dropdownAction -> dropdownAction.setBackground(background));
     return this;
   }
 

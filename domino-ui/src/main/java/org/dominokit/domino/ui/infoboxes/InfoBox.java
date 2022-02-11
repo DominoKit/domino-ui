@@ -142,10 +142,11 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
   /** {@inheritDoc} */
   @Override
   public InfoBox setBackground(Color background) {
-    if (nonNull(counterBackground)) removeCss(counterBackground.getBackground());
-    addCss(background.getBackground());
-    this.counterBackground = background;
-
+    if (nonNull(background)) {
+      if (nonNull(counterBackground)) removeCss(counterBackground.getBackground());
+      addCss(background.getBackground());
+      this.counterBackground = background;
+    }
     return this;
   }
 
