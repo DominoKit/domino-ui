@@ -164,7 +164,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
   /** {@inheritDoc} */
   @Override
   public Alert setBackground(Color background) {
-    if (nonNull(background)) element.removeCss(this.background.getBackground());
+    if (nonNull(this.background)) element.removeCss(this.background.getBackground());
     this.background = background;
     element.addCss(this.background.getBackground());
     return this;
