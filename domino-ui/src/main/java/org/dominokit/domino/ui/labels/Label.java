@@ -158,9 +158,11 @@ public class Label extends BaseDominoElement<HTMLElement, Label>
   /** {@inheritDoc} */
   @Override
   public Label setBackground(Color background) {
-    if (nonNull(this.background)) span.removeCss(this.background.getBackground());
-    span.addCss(background.getBackground());
-    this.background = background;
+    if (nonNull(background)) {
+      if (nonNull(this.background)) span.removeCss(this.background.getBackground());
+      span.addCss(background.getBackground());
+      this.background = background;
+    }
     return this;
   }
 }

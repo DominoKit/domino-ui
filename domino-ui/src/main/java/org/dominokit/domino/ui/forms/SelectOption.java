@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.Elements.span;
 
@@ -205,7 +206,9 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
   /** {@inheritDoc} */
   @Override
   public SelectOption<T> setBackground(Color background) {
-    addCss(background.getBackground());
+    if (nonNull(background)) {
+      addCss(background.getBackground());
+    }
     return this;
   }
 

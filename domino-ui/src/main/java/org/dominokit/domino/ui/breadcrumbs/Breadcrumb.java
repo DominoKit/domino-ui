@@ -263,10 +263,11 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   /** {@inheritDoc} */
   @Override
   public Breadcrumb setBackground(Color background) {
-    if (nonNull(this.activeBackground)) element.removeCss(background.getBackground());
-    this.activeBackground = background;
-    element.addCss(background.getBackground());
-
+    if (nonNull(background)) {
+      if (nonNull(this.activeBackground)) element.removeCss(background.getBackground());
+      this.activeBackground = background;
+      element.addCss(background.getBackground());
+    }
     return this;
   }
 

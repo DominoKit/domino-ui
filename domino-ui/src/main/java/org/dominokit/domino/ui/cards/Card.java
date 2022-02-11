@@ -255,11 +255,13 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    * @return same instance
    */
   public Card setHeaderBackground(Color headerBackground) {
-    if (nonNull(this.headerBackground)) {
-      header.removeCss(this.headerBackground.getBackground());
+    if (nonNull(headerBackground)) {
+      if (nonNull(this.headerBackground)) {
+        header.removeCss(this.headerBackground.getBackground());
+      }
+      this.headerBackground = headerBackground;
+      header.addCss(headerBackground.getBackground());
     }
-    this.headerBackground = headerBackground;
-    header.addCss(headerBackground.getBackground());
     return this;
   }
 
@@ -270,11 +272,13 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    * @return same instance
    */
   public Card setBodyBackground(Color bodyBackground) {
-    if (nonNull(this.bodyBackground)) {
-      body.removeCss(this.bodyBackground.getBackground());
+    if (nonNull(bodyBackground)) {
+      if (nonNull(this.bodyBackground)) {
+        body.removeCss(this.bodyBackground.getBackground());
+      }
+      this.bodyBackground = bodyBackground;
+      body.addCss(bodyBackground.getBackground());
     }
-    this.bodyBackground = bodyBackground;
-    body.addCss(bodyBackground.getBackground());
     return this;
   }
 
