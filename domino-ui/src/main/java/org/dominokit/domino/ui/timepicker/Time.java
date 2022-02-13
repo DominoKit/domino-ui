@@ -19,6 +19,8 @@ import static org.dominokit.domino.ui.timepicker.DayPeriod.NONE;
 
 import elemental2.core.JsDate;
 import java.util.Objects;
+import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
+import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
 /** A class for time value in specific {@link DayPeriod} */
 public class Time {
@@ -26,8 +28,22 @@ public class Time {
   private int minute;
   private DayPeriod dayPeriod;
 
+  /**
+   * create with default date time format information
+   *
+   * @see DateTimeFormatInfo_factory
+   */
   public Time() {
-    Clock12 clock12 = new Clock12(new JsDate());
+    this(DateTimeFormatInfo_factory.create());
+  }
+
+  /**
+   * create with date time format information
+   *
+   * @param dateTimeFormatInfo {@link DateTimeFormatInfo}
+   */
+  public Time(DateTimeFormatInfo dateTimeFormatInfo) {
+    Clock12 clock12 = new Clock12(new JsDate(), dateTimeFormatInfo);
     this.hour = clock12.getHour();
     this.minute = clock12.getMinute();
     this.dayPeriod = clock12.getDayPeriod();
@@ -39,14 +55,23 @@ public class Time {
    * @param dayPeriod {@link DayPeriod}
    */
   public Time(int hour, int minute, DayPeriod dayPeriod) {
+    this(hour, minute, dayPeriod, DateTimeFormatInfo_factory.create());
+  }
+
+  /**
+   * @param hour int
+   * @param minute int
+   * @param dayPeriod {@link DayPeriod}
+   */
+  public Time(int hour, int minute, DayPeriod dayPeriod, DateTimeFormatInfo dateTimeFormatInfo) {
     JsDate jsDate = new JsDate();
     jsDate.setHours(hour);
     jsDate.setMinutes(minute);
     Clock clock;
     if (NONE.equals(dayPeriod)) {
-      clock = new Clock24(jsDate);
+      clock = new Clock24(jsDate, dateTimeFormatInfo);
     } else {
-      clock = new Clock12(jsDate);
+      clock = new Clock12(jsDate, dateTimeFormatInfo);
     }
     this.hour = clock.getHour();
     this.minute = clock.getMinute();

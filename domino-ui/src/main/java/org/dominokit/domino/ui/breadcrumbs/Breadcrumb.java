@@ -54,7 +54,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     implements HasBackground<Breadcrumb> {
 
   private final DominoElement<HTMLOListElement> element =
-      DominoElement.of(ol().css(BreadcrumbStyles.BREADCRUMB));
+      DominoElement.of(ol()).css(BreadcrumbStyles.BREADCRUMB);
   private final List<BreadcrumbItem> items = new LinkedList<>();
   private BreadcrumbItem activeItem;
   private boolean removeTail = false;
@@ -107,6 +107,17 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   /**
    * Adds new location by providing {@link BreadcrumbItem}
    *
+   * @param items the {@link BreadcrumbItem} location to be added
+   * @return same instance
+   */
+  public Breadcrumb appendChild(BreadcrumbItem... items) {
+    addNewItems(items);
+    return this;
+  }
+
+  /**
+   * Adds new location by providing {@link BreadcrumbItem}
+   *
    * @param item the {@link BreadcrumbItem} location to be added
    * @return same instance
    */
@@ -134,6 +145,13 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   /** @return true if the breadcrumb supports navigation, false otherwise */
   public boolean isAllowNavigation() {
     return allowNavigation;
+  }
+
+  private void addNewItems(BreadcrumbItem... items) {
+    for (BreadcrumbItem item : items) {
+      addNewItem(item);
+    }
+    setActiveItem(items[items.length - 1]);
   }
 
   private void addNewItem(BreadcrumbItem item) {
@@ -245,10 +263,11 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   /** {@inheritDoc} */
   @Override
   public Breadcrumb setBackground(Color background) {
-    if (nonNull(this.activeBackground)) element.removeCss(background.getBackground());
-    this.activeBackground = background;
-    element.addCss(background.getBackground());
-
+    if (nonNull(background)) {
+      if (nonNull(this.activeBackground)) element.removeCss(background.getBackground());
+      this.activeBackground = background;
+      element.addCss(background.getBackground());
+    }
     return this;
   }
 

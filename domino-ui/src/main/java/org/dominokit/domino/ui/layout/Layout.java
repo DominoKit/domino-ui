@@ -57,7 +57,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
   public static final String FIT_WIDTH = "fit-width";
   public static final String FIT_HEIGHT = "fit-height";
 
-  private DominoElement<HTMLDivElement> root = DominoElement.of(div().css("layout"));
+  private DominoElement<HTMLDivElement> root = DominoElement.of(div()).css("layout");
 
   private final NavigationBar navigationBar = NavigationBar.create();
   private final Section section = Section.create();

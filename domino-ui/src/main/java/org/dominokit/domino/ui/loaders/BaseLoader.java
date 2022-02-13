@@ -19,6 +19,7 @@ import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /**
@@ -32,7 +33,11 @@ public abstract class BaseLoader<T extends BaseLoader<T>>
     extends BaseDominoElement<HTMLDivElement, T> implements IsLoader, IsElement<HTMLDivElement> {
 
   protected HTMLDivElement loadingText =
-      div().css(LoaderStyles.WAIT_ME_TEXT).style("color:#555").textContent("Loading...").element();
+      DominoElement.of(div())
+          .css(LoaderStyles.WAIT_ME_TEXT)
+          .style("color:#555")
+          .textContent("Loading...")
+          .element();
 
   /** {@inheritDoc} */
   @Override

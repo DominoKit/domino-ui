@@ -47,7 +47,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   private boolean collapsed = false;
   private boolean forceHidden = false;
 
-  private List<HideCompletedHandler> hideHandlers;
+  private List<HideCompletedHandler> hideHandlers = new ArrayList<>();
   private List<ShowCompletedHandler> showHandlers = new ArrayList<>();
   private CollapseStrategy strategy = new DisplayCollapseStrategy();
 
@@ -113,6 +113,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
     if (!forceHidden) {
       strategy.show(element, style);
       onShowCompleted();
+      element.setAttribute("aria-expanded", "true");
       this.collapsed = false;
     }
     return this;
@@ -127,6 +128,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   public Collapsible hide() {
     if (!forceHidden) {
       strategy.hide(element, style);
+      element.setAttribute("aria-expanded", "false");
       onHideCompleted();
       this.collapsed = true;
     }

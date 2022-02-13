@@ -22,10 +22,13 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableRowElement;
-import org.dominokit.domino.ui.button.Button;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.ExpandRecordEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -40,12 +43,13 @@ import org.jboss.elemento.IsElement;
  */
 public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
 
-  public static final String DATA_TABLE_DETAILS_CM = "data-table-details-cm";
   private final BaseIcon<?> collapseIcon;
   private final BaseIcon<?> expandIcon;
-  private HTMLDivElement element = div().element();
-  private HTMLTableCellElement td = td().css(DataTableStyles.DETAILS_TD).add(element).element();
-  private HTMLTableRowElement tr = tr().css(DataTableStyles.DETAILS_TR).add(td).element();
+  private HTMLDivElement element = DominoElement.of(div()).element();
+  private HTMLTableCellElement td =
+      DominoElement.of(td()).css(DataTableStyles.DETAILS_TD).add(element).element();
+  private HTMLTableRowElement tr =
+      DominoElement.of(tr()).css(DataTableStyles.DETAILS_TR).add(td).element();
 
   private final CellRenderer<T> cellRenderer;
   private DetailsButtonElement buttonElement;
@@ -57,7 +61,10 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
    * @param cellRenderer the {@link CellRenderer}
    */
   public RecordDetailsPlugin(CellRenderer<T> cellRenderer) {
-    this(cellRenderer, Icons.ALL.fullscreen_exit(), Icons.ALL.fullscreen());
+    this(
+        cellRenderer,
+        Icons.ALL.fullscreen_exit_mdi().clickable(),
+        Icons.ALL.fullscreen_mdi().clickable());
   }
 
   /**
@@ -74,38 +81,43 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     this.expandIcon = expandIcon;
   }
 
-  /** {@inheritDoc} */
+  @Override
+  public boolean requiresUtilityColumn() {
+    return true;
+  }
+
+  @Override
+  public Optional<List<HTMLElement>> getUtilityElements(
+      DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
+    applyStyles(cell);
+    DetailsButtonElement<T> detailsButtonElement =
+        new DetailsButtonElement<>(expandIcon, collapseIcon, RecordDetailsPlugin.this, cell);
+    cell.getTableRow().addMetaObject(detailsButtonElement);
+    cell.getTableRow()
+        .addHideListener(
+            () -> {
+              if (nonNull(buttonElement)
+                  && cell.getTableRow().equals(buttonElement.getCellInfo().getTableRow())) {
+                buttonElement.collapse();
+              }
+            });
+    applyStyles(cell);
+    detailsButtonElement.element.setAttribute("order", "30");
+    return Optional.of(Collections.singletonList(detailsButtonElement.element()));
+  }
+
+  @Override
+  public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
+    if (column.isUtilityColumn()) {
+      column
+          .getHeaderLayout()
+          .appendChild(FlexItem.create().setOrder(30).appendChild(expandIcon.copy().clickable()));
+    }
+  }
+
   @Override
   public void onBeforeAddHeaders(DataTable<T> dataTable) {
     this.dataTable = dataTable;
-    ColumnConfig<T> column =
-        ColumnConfig.<T>create(DATA_TABLE_DETAILS_CM)
-            .setSortable(false)
-            .setWidth("60px")
-            .setFixed(true)
-            .setCellRenderer(
-                cell -> {
-                  applyStyles(cell);
-                  DetailsButtonElement<T> detailsButtonElement =
-                      new DetailsButtonElement<>(
-                          expandIcon, collapseIcon, RecordDetailsPlugin.this, cell);
-                  cell.getTableRow().addMetaObject(detailsButtonElement);
-                  applyStyles(cell);
-                  return detailsButtonElement.element();
-                })
-            .setHeaderElement(
-                columnTitle ->
-                    Button.create(expandIcon.copy())
-                        .linkify()
-                        .disable()
-                        .setCssProperty("padding", "0px")
-                        .setHeight("24px")
-                        .element())
-            .asHeader()
-            .textAlign("center");
-    setupColumn(column);
-
-    dataTable.getTableConfig().insertColumnFirst(column);
   }
 
   /** {@inheritDoc} */
@@ -167,11 +179,6 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
       this.element
           .appendChild(this.expandIcon.clickable())
           .appendChild(this.collapseIcon.clickable().hide());
-      element
-          .setCssProperty("padding", "0px")
-          .setHeight("27px")
-          .setPaddingLeft("2px")
-          .setPaddingRight("2px");
 
       this.expandIcon.addClickListener(evt -> expand());
       this.collapseIcon.addClickListener(evt -> collapse());

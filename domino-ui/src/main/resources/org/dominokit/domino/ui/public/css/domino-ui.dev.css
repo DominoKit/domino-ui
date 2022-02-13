@@ -1,8 +1,8 @@
-@import url(../font/material-icons.css);
-@import url(./mdi/css/materialdesignicons.css);
-@import url(../plugins/node-waves/waves.css);
-@import url(loaders/waitMe.css);
-@import url(grid.css);
-@import url(domino-ui-components.css);
-@import url(style.css);
-@import url(colors.css);
+@import url(../font/material-icons.css?v=${project.version});
+@import url(./mdi/css/materialdesignicons.css?v=${project.version});
+@import url(../plugins/node-waves/domino-ui-waves.css?v=${project.version});
+@import url(loaders/domino-ui-waitMe.css?v=${project.version});
+@import url(domino-ui-grid.css?v=${project.version});
+@import url(domino-ui-components.css?v=${project.version});
+@import url(domino-ui-style.css?v=${project.version});
+@import url(domino-ui-colors.css?v=${project.version});

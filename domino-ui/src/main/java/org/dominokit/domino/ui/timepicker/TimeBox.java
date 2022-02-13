@@ -25,17 +25,17 @@ import java.util.Optional;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.jboss.elemento.EventType;
 
-/** A form element that takes and provide date value as time */
+/** A form element that takes and provide date value as time using a picker element */
 public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
   private TimePicker timePicker;
@@ -49,7 +49,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
   private Date value;
   private EventListener keyboardModalListener;
   private MdiIcon timeIcon;
-  private FlexItem<HTMLDivElement> timeIconContainer;
+  private DominoElement<HTMLDivElement> timeIconContainer;
   private boolean openOnClick = true;
 
   public TimeBox() {
@@ -332,10 +332,10 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
   /** {@inheritDoc} */
   @Override
-  protected FlexItem createMandatoryAddOn() {
+  protected DominoElement<HTMLDivElement> createMandatoryAddOn() {
     timeIcon = Icons.ALL.clock_mdi();
     timeIcon.clickable();
-    timeIconContainer = FlexItem.create();
+    timeIconContainer = DominoElement.div();
     return timeIconContainer.appendChild(timeIcon);
   }
 
@@ -349,13 +349,13 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
     this.timeIcon = timeIcon;
   }
 
-  /** @return The {@link FlexItem} that contains the time icon */
-  public FlexItem getTimeIconContainer() {
+  /** @return The {@link DominoElement} that contains the time icon */
+  public DominoElement<HTMLDivElement> getTimeIconContainer() {
     return timeIconContainer;
   }
 
-  /** @param timeIconContainer The {@link FlexItem} that contains the time icon */
-  public void setTimeIconContainer(FlexItem timeIconContainer) {
+  /** @param timeIconContainer The {@link DominoElement} that contains the time icon */
+  public void setTimeIconContainer(DominoElement<HTMLDivElement> timeIconContainer) {
     this.timeIconContainer = timeIconContainer;
   }
 

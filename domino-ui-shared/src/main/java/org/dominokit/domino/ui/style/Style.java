@@ -47,10 +47,10 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   /**
-   * @deprecated use {@link #setCssProperty(String, String)}
    * @param name css property name
    * @param value css property value
    * @return same style instance
+   * @deprecated use {@link #setCssProperty(String, String)}
    */
   @Deprecated
   @Override
@@ -70,11 +70,11 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   /**
-   * @deprecated use {@link #setCssProperty(String, String, boolean)}
    * @param name css property name
    * @param value css property value
    * @param important if true adds !important
    * @return same style instance
+   * @deprecated use {@link #setCssProperty(String, String, boolean)}
    */
   @Deprecated
   @Override
@@ -99,9 +99,9 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   /**
-   * @deprecated use {@link #removeCssProperty(String)}
    * @param name css property name
    * @return same style instance
+   * @deprecated use {@link #removeCssProperty(String)}
    */
   @Deprecated
   @Override
@@ -120,9 +120,9 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   /**
-   * @deprecated use {@link #addCss(String)}
    * @param cssClass css class name
    * @return same style instance
+   * @deprecated use {@link #addCss(String)}
    */
   @Deprecated
   @Override
@@ -136,14 +136,16 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    */
   @Override
   public Style<E, T> addCss(String cssClass) {
-    if (nonNull(cssClass) && !cssClass.isEmpty()) element.classList.add(cssClass);
+    if (nonNull(cssClass) && !cssClass.isEmpty()) {
+      element.classList.add(cssClass);
+    }
     return this;
   }
 
   /**
-   * @deprecated use {@link #addCss(String...)}
    * @param cssClasses css classes names
    * @return same style instance
+   * @deprecated use {@link #addCss(String...)}
    */
   @Deprecated
   @Override
@@ -158,7 +160,8 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   @Override
   public Style<E, T> addCss(String... cssClasses) {
     if (nonNull(cssClasses) && cssClasses.length > 0) {
-      // add(String... arr) is not supported in IE11, so looping over the array solving the problem
+      //       add(String... arr) is not supported in IE11, so looping over the array solving the
+      // problem
       for (String cssClass : cssClasses) {
         addCss(cssClass);
       }
@@ -167,15 +170,16 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   /**
-   * @deprecated use {@link #removeCss(String)}
    * @param cssClass css class name
    * @return same style instance
+   * @deprecated use {@link #removeCss(String)}
    */
   @Deprecated
   @Override
   public Style<E, T> remove(String cssClass) {
     return removeCss(cssClass);
   }
+
   /**
    * @param cssClass css class name
    * @return same style instance
@@ -187,9 +191,9 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   /**
-   * @deprecated use {@link #removeCss(String...)}
    * @param cssClasses css classes names
    * @return same style instance
+   * @deprecated use {@link #removeCss(String...)}
    */
   @Deprecated
   @Override
@@ -228,10 +232,10 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   /**
-   * @deprecated use {@link #replaceCss(String, String)}
    * @param cssClass css class name to be removed
    * @param replacementClass cdd class name to be added
    * @return same style instance
+   * @deprecated use {@link #replaceCss(String, String)}
    */
   @Deprecated
   @Override
@@ -618,9 +622,9 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   /**
-   * @deprecated use {@link #containsCss(String)}
    * @param cssClass css class name under check
    * @return same style instance
+   * @deprecated use {@link #containsCss(String)}
    */
   @Deprecated
   @Override

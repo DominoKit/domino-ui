@@ -32,6 +32,7 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.Elements;
 
 /**
@@ -82,7 +83,8 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   }
 
   public ListGroup() {
-    element = Elements.ul().css(ListStyles.LIST_GROUP, ListStyles.BORDERED).element();
+    element =
+        DominoElement.of(Elements.ul()).css(ListStyles.LIST_GROUP, ListStyles.BORDERED).element();
     init(this);
 
     this.addClickListener(
@@ -179,7 +181,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   private ListGroup<T> insertAt(
       int index, T value, boolean silent, Consumer<ListItem<T>> onItemAdded) {
     if (index == 0 || (index >= 0 && index <= items.size())) {
-      HTMLLIElement li = li().css(ListStyles.LIST_GROUP_ITEM).element();
+      HTMLLIElement li = DominoElement.of(li()).css(ListStyles.LIST_GROUP_ITEM).element();
       ListItem<T> listItem = new ListItem<>(this, value, li);
 
       if (index == items.size()) {

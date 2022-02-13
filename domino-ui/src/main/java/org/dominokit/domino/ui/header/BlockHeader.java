@@ -41,8 +41,9 @@ import org.jboss.elemento.IsElement;
  */
 public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> {
 
-  private final HTMLDivElement element = div().css(BlockHeaderStyles.BLOCK_HEADER).element();
-  private final HTMLHeadingElement headerElement = h(2).element();
+  private final HTMLDivElement element =
+      DominoElement.of(div()).css(BlockHeaderStyles.BLOCK_HEADER).element();
+  private final HTMLHeadingElement headerElement = DominoElement.of(h(2)).element();
   private HTMLElement descriptionElement;
   private final Text headerText = TextNode.empty();
   private final Text descriptionText = TextNode.empty();

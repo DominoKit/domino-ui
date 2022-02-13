@@ -64,15 +64,20 @@ public class DominoUIConfig {
         public <T extends BasicFormElement<?, ?>> void appendRequiredIndicator(
             T valueBox, Node requiredIndicator) {
           removeRequiredIndicator(valueBox, requiredIndicator);
-          valueBox.getLabelElement().appendChild(requiredIndicator);
+          valueBox
+              .getLabelElement()
+              .ifPresent(labelElement -> labelElement.appendChild(requiredIndicator));
         }
 
         @Override
         public <T extends BasicFormElement<?, ?>> void removeRequiredIndicator(
             T valueBox, Node requiredIndicator) {
           if (nonNull(valueBox.getLabelElement())
-              && valueBox.getLabelElement().hasDirectChild(requiredIndicator)) {
-            valueBox.getLabelElement().removeChild(requiredIndicator);
+              && valueBox.getLabelElement().isPresent()
+              && valueBox.getLabelElement().get().hasDirectChild(requiredIndicator)) {
+            valueBox
+                .getLabelElement()
+                .ifPresent(labelElement -> labelElement.removeChild(requiredIndicator));
           }
         }
       };

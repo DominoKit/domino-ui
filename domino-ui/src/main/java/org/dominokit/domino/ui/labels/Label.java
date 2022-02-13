@@ -44,7 +44,7 @@ import org.dominokit.domino.ui.utils.HasContent;
 public class Label extends BaseDominoElement<HTMLElement, Label>
     implements HasContent<Label>, HasBackground<Label> {
 
-  private final DominoElement<HTMLElement> span = DominoElement.of(span().css("label"));
+  private final DominoElement<HTMLElement> span = DominoElement.of(span()).css("label");
   private Color background;
 
   private Label(String content) {
@@ -158,9 +158,11 @@ public class Label extends BaseDominoElement<HTMLElement, Label>
   /** {@inheritDoc} */
   @Override
   public Label setBackground(Color background) {
-    if (nonNull(this.background)) span.removeCss(this.background.getBackground());
-    span.addCss(background.getBackground());
-    this.background = background;
+    if (nonNull(background)) {
+      if (nonNull(this.background)) span.removeCss(this.background.getBackground());
+      span.addCss(background.getBackground());
+      this.background = background;
+    }
     return this;
   }
 }

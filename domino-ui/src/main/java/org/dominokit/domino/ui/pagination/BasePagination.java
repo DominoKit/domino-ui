@@ -32,8 +32,8 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public abstract class BasePagination<T extends BasePagination<T>>
     extends BaseDominoElement<HTMLElement, T> implements HasPagination {
 
-  protected DominoElement<HTMLUListElement> pagesElement = DominoElement.of(ul().css("pagination"));
-  protected DominoElement<HTMLElement> element = DominoElement.of(nav().add(pagesElement));
+  protected DominoElement<HTMLUListElement> pagesElement = DominoElement.of(ul()).css("pagination");
+  protected DominoElement<HTMLElement> element = DominoElement.of(nav()).add(pagesElement);
   protected DominoElement<? extends HTMLElement> activePage = DominoElement.of(li());
   protected DominoElement<? extends HTMLElement> prevElement;
   protected DominoElement<? extends HTMLElement> nextElement;
@@ -51,17 +51,39 @@ public abstract class BasePagination<T extends BasePagination<T>>
   /** {@inheritDoc} */
   @Override
   public HasPagination updatePagesByTotalCount(int totalCount) {
+    return updatePagesByTotalCount(totalCount, true);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public HasPagination updatePagesByTotalCount(int totalCount, boolean silent) {
     int pages = (totalCount / this.pageSize) + (totalCount % this.pageSize > 0 ? 1 : 0);
     this.totalCount = totalCount;
-    return updatePages(pages, this.pageSize);
+    return updatePages(pages, this.pageSize, silent);
   }
 
   /** {@inheritDoc} */
   @Override
   public HasPagination updatePagesByTotalCount(int totalCount, int pageSize) {
+    return updatePagesByTotalCount(totalCount, pageSize, true);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public HasPagination updatePagesByTotalCount(int totalCount, int pageSize, boolean silent) {
     int pages = (totalCount / pageSize) + (totalCount % pageSize > 0 ? 1 : 0);
     this.totalCount = totalCount;
-    return updatePages(pages, pageSize);
+    return updatePages(pages, pageSize, silent);
+  }
+
+  @Override
+  public HasPagination updatePages(int pages) {
+    return updatePages(pages, true);
+  }
+
+  @Override
+  public HasPagination updatePages(int pages, int pageSize) {
+    return updatePages(pages, pageSize, true);
   }
 
   /** {@inheritDoc} */
@@ -196,6 +218,12 @@ public abstract class BasePagination<T extends BasePagination<T>>
     pagesElement.addCss(sizeStyle);
     size = sizeStyle;
     return (T) this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public int getTotalCount() {
+    return this.totalCount;
   }
 
   /** {@inheritDoc} */

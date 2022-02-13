@@ -45,6 +45,7 @@ import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.style.Unit;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.TextNode;
 import org.gwtproject.timer.client.Timer;
@@ -64,7 +65,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
   private FlexLayout actionsBar = FlexLayout.create().setJustifyContent(FlexJustifyContent.END);
 
   private HTMLDivElement element =
-      div()
+      DominoElement.of(div())
           .add(
               Row.create()
                   .appendChild(titleColumn.appendChild(title))
@@ -410,7 +411,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     private String clearSearchToolTip = "Clear search";
 
     private int autoSearchDelay = 200;
-    private HTMLDivElement element = div().css("search-new").element();
+    private HTMLDivElement element = DominoElement.of(div()).css("search-new").element();
     private DataTable<T> dataTable;
     private final TextBox textBox;
     private boolean autoSearch = true;

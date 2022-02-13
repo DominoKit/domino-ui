@@ -32,7 +32,7 @@ public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>> 
 
   private final T value;
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div().css(SpinStyles.SPIN_ITEM));
+      DominoElement.of(div()).css(SpinStyles.SPIN_ITEM);
 
   public SpinItem(T value) {
     this.value = value;

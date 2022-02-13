@@ -68,13 +68,13 @@ public class SimplePagination extends BasePagination<SimplePagination> {
 
   /** {@inheritDoc} */
   @Override
-  public SimplePagination updatePages(int pages) {
-    return updatePages(pages, pageSize);
+  public SimplePagination updatePages(int pages, boolean silent) {
+    return updatePages(pages, pageSize, silent);
   }
 
   /** {@inheritDoc} */
   @Override
-  public SimplePagination updatePages(int pages, int pageSize) {
+  public SimplePagination updatePages(int pages, int pageSize, boolean silent) {
     this.pageSize = pageSize;
     this.pagesCount = pages;
     this.index = 1;
@@ -82,7 +82,8 @@ public class SimplePagination extends BasePagination<SimplePagination> {
     pagesElement.clearElement();
     prevAnchor = DominoElement.of(a());
     prevElement =
-        DominoElement.of(li().css("page-nav"))
+        DominoElement.of(li())
+            .css("page-nav")
             .appendChild(
                 prevAnchor
                     .appendChild(Icons.ALL.chevron_left().clickable())
@@ -93,7 +94,8 @@ public class SimplePagination extends BasePagination<SimplePagination> {
       IntStream.rangeClosed(1, pages)
           .forEach(
               p ->
-                  DominoElement.of(li().css("page"))
+                  DominoElement.of(li())
+                      .css("page")
                       .apply(
                           element -> {
                             allPages.add(element);
@@ -107,19 +109,23 @@ public class SimplePagination extends BasePagination<SimplePagination> {
 
     nextAnchor = DominoElement.of(a());
     nextElement =
-        DominoElement.of(li().css("page-nav"))
+        DominoElement.of(li())
+            .css("page-nav")
             .appendChild(
                 nextAnchor
                     .appendChild(Icons.ALL.chevron_right().clickable())
                     .addClickListener(event -> moveToPage(index + 1, false)));
 
     if (pages > 0) {
-      moveToPage(1, true);
+      moveToPage(1, silent);
     }
 
     if (pages <= 0) {
       nextElement.disable();
       prevElement.disable();
+      if (!silent) {
+        pageChangedCallBack.onPageChanged(0);
+      }
     }
 
     pagesElement.appendChild(nextElement);

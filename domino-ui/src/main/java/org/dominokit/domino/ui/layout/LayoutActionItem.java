@@ -25,14 +25,14 @@ import elemental2.dom.Node;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.HtmlContentBuilder;
 import org.jboss.elemento.IsElement;
 
 /** A component to add an action item to the {@link Layout} right side of the header */
 public class LayoutActionItem extends BaseDominoElement<HTMLLIElement, LayoutActionItem> {
-  private HtmlContentBuilder<HTMLAnchorElement> anchorElement = a().css("js-right-sidebar");
+  private DominoElement<HTMLAnchorElement> anchorElement =
+      DominoElement.of(a()).css("js-right-sidebar");
   private DominoElement<HTMLLIElement> li =
-      DominoElement.of(li().css("pull-right").add(anchorElement));
+      DominoElement.of(li()).css("pull-right").add(anchorElement);
 
   /** @param baseIcon {@link BaseIcon} for the action */
   public LayoutActionItem(BaseIcon<?> baseIcon) {

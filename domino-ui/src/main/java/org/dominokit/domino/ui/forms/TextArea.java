@@ -20,6 +20,7 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLTextAreaElement;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.Elements;
 
 /** a component that takes/provide a multi-line String values */
@@ -59,7 +60,7 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
   /** {@inheritDoc} */
   @Override
   protected HTMLTextAreaElement createInputElement(String type) {
-    return Elements.textarea().css("no-resize").element();
+    return DominoElement.of(Elements.textarea()).css("no-resize").element();
   }
 
   /**

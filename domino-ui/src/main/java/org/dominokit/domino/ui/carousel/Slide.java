@@ -37,9 +37,13 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   private final HTMLHeadingElement slideLabelElement = h(3).element();
   private final HTMLParagraphElement slideDescriptionElement = p().element();
   private final HTMLDivElement captionElement =
-      div().add(slideLabelElement).add(slideDescriptionElement).css(CAROUSEL_CAPTION).element();
+      DominoElement.of(div())
+          .add(slideLabelElement)
+          .add(slideDescriptionElement)
+          .css(CAROUSEL_CAPTION)
+          .element();
 
-  private final HTMLDivElement slideElement = div().css(ITEM).element();
+  private final HTMLDivElement slideElement = DominoElement.of(div()).css(ITEM).element();
 
   private final HTMLElement imageElement;
   private boolean active = false;

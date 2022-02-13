@@ -81,13 +81,13 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 
   /** {@inheritDoc} */
   @Override
-  public AdvancedPagination updatePages(int pages) {
-    return updatePages(pages, pageSize);
+  public AdvancedPagination updatePages(int pages, boolean silent) {
+    return updatePages(pages, pageSize, silent);
   }
 
   /** {@inheritDoc} */
   @Override
-  public AdvancedPagination updatePages(int pages, int pageSize) {
+  public AdvancedPagination updatePages(int pages, int pageSize, boolean silent) {
     this.pageSize = pageSize;
     this.pagesCount = pages;
     this.index = 1;
@@ -95,14 +95,16 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 
     prevAnchor = DominoElement.of(a());
     prevElement =
-        DominoElement.of(li().css("page-nav"))
+        DominoElement.of(li())
+            .css("page-nav")
             .appendChild(prevAnchor.appendChild(Icons.ALL.chevron_left().clickable()));
 
     addListenerToElement(prevAnchor, event -> moveToPage(index - 1, false));
 
     firstPageAnchor = DominoElement.of(a());
     firstPage =
-        DominoElement.of(li().css("page-nav"))
+        DominoElement.of(li())
+            .css("page-nav")
             .appendChild(firstPageAnchor.appendChild(Icons.ALL.skip_previous().clickable()));
 
     addListenerToElement(firstPageAnchor, event -> moveToPage(1, false));
@@ -130,18 +132,22 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
     pagesElement.appendChild(
         DominoElement.of(li())
             .appendChild(
-                a().css("adv-page-count").textContent(pagesCountTextHandler.apply(pages))));
+                DominoElement.of(a())
+                    .css("adv-page-count")
+                    .textContent(pagesCountTextHandler.apply(pages))));
 
     nextAnchor = DominoElement.of(a());
     nextElement =
-        DominoElement.of(li().css("page-nav"))
+        DominoElement.of(li())
+            .css("page-nav")
             .appendChild(nextAnchor.appendChild(Icons.ALL.chevron_right().clickable()));
 
     addListenerToElement(nextAnchor, event -> moveToPage(index + 1, false));
 
     lastPageAnchor = DominoElement.of(a());
     lastPage =
-        DominoElement.of(li().css("page-nav"))
+        DominoElement.of(li())
+            .css("page-nav")
             .appendChild(lastPageAnchor.appendChild(Icons.ALL.skip_next().clickable()));
 
     addListenerToElement(
@@ -152,12 +158,15 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
         });
 
     if (pages > 0) {
-      moveToPage(1, true);
+      moveToPage(1, silent);
     }
 
     if (pages <= 0) {
       nextElement.disable();
       prevElement.disable();
+      if (!silent) {
+        pageChangedCallBack.onPageChanged(0);
+      }
     }
 
     pagesElement.appendChild(nextElement).appendChild(lastPage);

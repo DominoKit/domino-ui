@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.Elements.span;
 
@@ -44,9 +45,9 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
 
   private static final String SELECTED = "select-option-selected";
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div().css("select-option"));
+      DominoElement.of(div()).css("select-option");
   private final DominoElement<HTMLElement> valueContainer =
-      DominoElement.of(span().css("select-option-value", Styles.ellipsis_text));
+      DominoElement.of(span()).css("select-option-value", Styles.ellipsis_text);
   private String displayValue;
   private String key;
   private T value;
@@ -205,7 +206,9 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
   /** {@inheritDoc} */
   @Override
   public SelectOption<T> setBackground(Color background) {
-    addCss(background.getBackground());
+    if (nonNull(background)) {
+      addCss(background.getBackground());
+    }
     return this;
   }
 

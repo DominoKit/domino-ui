@@ -20,6 +20,7 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.gwtproject.timer.client.Timer;
 import org.jboss.elemento.IsElement;
 
 /**
@@ -45,6 +46,7 @@ public class Loader {
   private boolean removeLoadingText = false;
 
   private LoadingTextPosition loadingTextPosition = LoadingTextPosition.MIDDLE;
+  private Timer timeOutTimer;
 
   /**
    * Creates a loader for a target element with an effect
@@ -80,7 +82,17 @@ public class Loader {
    * @return same instance
    */
   public Loader start() {
+    return start(0);
+  }
+  /**
+   * Starts the loading, the loader will keep loading until {@link Loader#stop()} is called
+   *
+   * @param timeout int delay in milliseconds before automatically stopping the loader.
+   * @return same instance
+   */
+  public Loader start(int timeout) {
     stop();
+
     if (nonNull(width) && nonNull(height)) {
       loaderElement.setSize(width, height);
     }
@@ -91,6 +103,17 @@ public class Loader {
     target.appendChild(loaderElement.getElement());
     target.addCss("waitMe_container");
     started = true;
+
+    if (timeout > 0) {
+      timeOutTimer =
+          new Timer() {
+            @Override
+            public void run() {
+              stop();
+            }
+          };
+      timeOutTimer.schedule(timeout);
+    }
 
     return this;
   }
@@ -105,6 +128,9 @@ public class Loader {
       loaderElement.getElement().remove();
       target.removeCss("waitMe_container");
       started = false;
+      if (nonNull(timeOutTimer) && timeOutTimer.isRunning()) {
+        timeOutTimer.cancel();
+      }
     }
 
     return this;

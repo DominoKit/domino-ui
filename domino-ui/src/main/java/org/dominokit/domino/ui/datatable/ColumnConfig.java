@@ -18,12 +18,13 @@ package org.dominokit.domino.ui.datatable;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.Node;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ScreenMedia;
 import org.dominokit.domino.ui.utils.TextNode;
@@ -38,28 +39,40 @@ public class ColumnConfig<T> {
   private final String name;
   private String title;
   private HTMLTableCellElement headElement;
-  public HTMLDivElement contextMenu;
+  private FlexLayout headerLayout;
   private boolean header = false;
   private String minWidth;
   private String maxWidth;
   private String textAlign;
   private CellRenderer<T> cellRenderer;
   private CellRenderer<T> editableCellRenderer;
-  private HeaderElement headerElement = TextNode::of;
+  private HeaderElementSupplier headerElementSupplier =
+      columnTitle -> {
+        return FlexLayout.create()
+            .appendChild(
+                FlexItem.of(DominoElement.div())
+                    .setOrder(50)
+                    .setFlexGrow(1)
+                    .styler(style -> style.setCssProperty("text-indent", "2px"))
+                    .appendChild(TextNode.of(columnTitle)))
+            .element();
+      };
   private CellStyler<T> headerStyler = element -> {};
   private CellStyler<T> cellStyler = element -> {};
   private boolean sortable = false;
+  private String sortKey;
   private String width;
   private boolean fixed = false;
   private Node tooltipNode;
   private boolean showTooltip = true;
-
   private boolean hidden = false;
-
+  private boolean pluginColumn;
   private ScreenMedia showOn;
   private ScreenMedia hideOn;
+  private boolean drawTitle = true;
 
   private final List<ColumnShowHideListener> showHideListeners = new ArrayList<>();
+  private final List<ColumnShowHideListener> permanentHideListeners = new ArrayList<>();
 
   /**
    * Creates an instance with a name which will also be used as a title
@@ -194,19 +207,36 @@ public class ColumnConfig<T> {
     return this;
   }
 
-  /** @return the {@link HeaderElement} of the column */
-  public HeaderElement getHeaderElement() {
-    return headerElement;
+  /** @return the {@link HeaderElementSupplier} of the column */
+  @Deprecated
+  public HeaderElementSupplier getHeaderElement() {
+    return getHeaderElementSupplier();
+  }
+
+  /** @return the {@link HeaderElementSupplier} of the column */
+  public HeaderElementSupplier getHeaderElementSupplier() {
+    return headerElementSupplier;
   }
 
   /**
    * Sets a custom header element for the column
    *
-   * @param headerElement the {@link HeaderElement}
+   * @param headerElement the {@link HeaderElementSupplier}
    * @return same ColumnConfig instance
    */
-  public ColumnConfig<T> setHeaderElement(HeaderElement headerElement) {
-    this.headerElement = headerElement;
+  @Deprecated
+  public ColumnConfig<T> setHeaderElement(HeaderElementSupplier headerElement) {
+    return setHeaderElementSupplier(headerElement);
+  }
+
+  /**
+   * Sets a custom header element for the column
+   *
+   * @param headerElement the {@link HeaderElementSupplier}
+   * @return same ColumnConfig instance
+   */
+  public ColumnConfig<T> setHeaderElementSupplier(HeaderElementSupplier headerElement) {
+    this.headerElementSupplier = headerElement;
     return this;
   }
 
@@ -229,6 +259,7 @@ public class ColumnConfig<T> {
   public String getMaxWidth() {
     return maxWidth;
   }
+
   /** @return the String text align we set with {@link #textAlign(String)} */
   public String getTextAlign() {
     return textAlign;
@@ -349,7 +380,18 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> setSortable(boolean sortable) {
+    return setSortable(sortable, name);
+  }
+
+  /**
+   * set wither the column can be used to sort the data or not
+   *
+   * @param sortable boolean, if true then data can be sorted with this column, otherwise it cant
+   * @return same ColumnConfig instance
+   */
+  public ColumnConfig<T> setSortable(boolean sortable, String sortKey) {
     this.sortable = sortable;
+    this.sortKey = sortKey;
     return this;
   }
 
@@ -359,8 +401,17 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> sortable() {
-    this.sortable = true;
-    return this;
+    return setSortable(true, name);
+  }
+
+  /**
+   * a shortcut for {@link #setSortable(boolean)} with value true
+   *
+   * @param sortKey String key for sort property
+   * @return same ColumnConfig instance
+   */
+  public ColumnConfig<T> sortable(String sortKey) {
+    return setSortable(true, sortKey);
   }
 
   /**
@@ -387,7 +438,7 @@ public class ColumnConfig<T> {
   public Node getTooltipNode() {
     if (nonNull(tooltipNode)) return tooltipNode;
     else {
-      return getHeaderElement().asElement(title);
+      return getHeaderElementSupplier().asElement(title);
     }
   }
 
@@ -487,7 +538,11 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> addShowHideListener(ColumnShowHideListener showHideListener) {
-    this.showHideListeners.add(showHideListener);
+    if (showHideListener.isPermanent()) {
+      this.permanentHideListeners.add(showHideListener);
+    } else {
+      this.showHideListeners.add(showHideListener);
+    }
     return this;
   }
 
@@ -498,7 +553,11 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> removeShowHideListener(ColumnShowHideListener showHideListener) {
-    this.showHideListeners.remove(showHideListener);
+    if (showHideListener.isPermanent()) {
+      this.permanentHideListeners.remove(showHideListener);
+    } else {
+      this.showHideListeners.remove(showHideListener);
+    }
     return this;
   }
 
@@ -508,6 +567,7 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> show() {
+    this.permanentHideListeners.forEach(showHideListener -> showHideListener.onShowHide(true));
     this.showHideListeners.forEach(showHideListener -> showHideListener.onShowHide(true));
     this.hidden = false;
     return this;
@@ -519,6 +579,7 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> hide() {
+    this.permanentHideListeners.forEach(showHideListener -> showHideListener.onShowHide(false));
     this.showHideListeners.forEach(showHideListener -> showHideListener.onShowHide(false));
     this.hidden = true;
     return this;
@@ -544,17 +605,68 @@ public class ColumnConfig<T> {
 
   /** removes all {@link ColumnShowHideListener}s of this column except the permanent listeners */
   public void clearShowHideListeners() {
-    List<ColumnShowHideListener> nonPermanent =
-        showHideListeners.stream()
-            .filter(listener -> !listener.isPermanent())
-            .collect(Collectors.toList());
-
-    showHideListeners.removeAll(nonPermanent);
+    showHideListeners.clear();
   }
 
   /** @return boolean, true if the column is already hidden, otherwise false */
   public boolean isHidden() {
     return hidden;
+  }
+
+  /** @return boolean, true if the column is registered by a plugin, else false */
+  public boolean isPluginColumn() {
+    return pluginColumn;
+  }
+
+  /**
+   * flags the columns as a plugin column or not
+   *
+   * @param pluginColumn boolean, true if the column is being registered by a plugin, else false
+   * @return same ColumnConfig instance
+   */
+  public ColumnConfig<T> setPluginColumn(boolean pluginColumn) {
+    this.pluginColumn = pluginColumn;
+    return this;
+  }
+
+  /** @return String key of the column */
+  public String getSortKey() {
+    return Optional.ofNullable(sortKey).orElse(name);
+  }
+
+  /** @return The {@link FlexLayout} of the column header */
+  public FlexLayout getHeaderLayout() {
+    return headerLayout;
+  }
+
+  /**
+   * Use to set a custom header layout
+   *
+   * @param headerLayout {@link FlexLayout}
+   */
+  void setHeaderLayout(FlexLayout headerLayout) {
+    this.headerLayout = headerLayout;
+  }
+
+  /** @return boolean, true of the column is the plugins utility column, otherwise return false */
+  public final boolean isUtilityColumn() {
+    return "plugin-utility-column".equals(name);
+  }
+
+  /** @return boolean, true if the column show render the title */
+  public boolean isDrawTitle() {
+    return drawTitle;
+  }
+
+  /**
+   * Set if the column should render its title or not
+   *
+   * @param drawTitle boolean
+   * @return same ColumnConfig instance
+   */
+  public ColumnConfig<T> setDrawTitle(boolean drawTitle) {
+    this.drawTitle = drawTitle;
+    return this;
   }
 
   /**

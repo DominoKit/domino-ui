@@ -76,21 +76,21 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
 
   private final JsDate jsDate;
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div().css(DatePickerStyles.CALENDAR)).elevate(Elevation.LEVEL_1);
+      DominoElement.of(div()).css(DatePickerStyles.CALENDAR).elevate(Elevation.LEVEL_1);
   private final DominoElement<HTMLDivElement> headerPanel =
-      DominoElement.of(div().css(DatePickerStyles.DATE_PANEL));
+      DominoElement.of(div()).css(DatePickerStyles.DATE_PANEL);
   private final DominoElement<HTMLDivElement> selectorsPanel =
-      DominoElement.of(div().css(DatePickerStyles.SELECTOR_CONTAINER));
+      DominoElement.of(div()).css(DatePickerStyles.SELECTOR_CONTAINER);
   private final FlexLayout footerPanel = FlexLayout.create().css(DatePickerStyles.CAL_FOOTER);
 
   private final DominoElement<HTMLDivElement> dayName =
-      DominoElement.of(div().css(DatePickerStyles.DAY_NAME));
+      DominoElement.of(div()).css(DatePickerStyles.DAY_NAME);
   private final DominoElement<HTMLDivElement> monthName =
-      DominoElement.of(div().css(DatePickerStyles.MONTH_NAME));
+      DominoElement.of(div()).css(DatePickerStyles.MONTH_NAME);
   private final DominoElement<HTMLDivElement> dateNumber =
-      DominoElement.of(div().css(DatePickerStyles.DAY_NUMBER));
+      DominoElement.of(div()).css(DatePickerStyles.DAY_NUMBER);
   private final DominoElement<HTMLDivElement> yearNumber =
-      DominoElement.of(div().css(DatePickerStyles.YEAR_NUMBER));
+      DominoElement.of(div()).css(DatePickerStyles.YEAR_NUMBER);
   private Icon navigateBefore;
   private Icon navigateNext;
 

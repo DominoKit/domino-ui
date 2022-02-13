@@ -52,7 +52,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
   /** The default element that represent the button HTMLElement. */
   protected final DominoElement<HTMLButtonElement> buttonElement =
-      DominoElement.of(button().css(ButtonStyles.BUTTON));
+      DominoElement.of(button()).css(ButtonStyles.BUTTON);
 
   /** creates a button with default size {@link ButtonSize#MEDIUM} */
   protected BaseButton() {
@@ -183,10 +183,12 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
    */
   @Override
   public B setBackground(Color background) {
-    if (nonNull(this.type)) buttonElement.removeCss(this.type.getStyle());
-    if (nonNull(this.background)) buttonElement.removeCss(this.background.getBackground());
-    buttonElement.addCss(background.getBackground());
-    this.background = background;
+    if (nonNull(background)) {
+      if (nonNull(this.type)) buttonElement.removeCss(this.type.getStyle());
+      if (nonNull(this.background)) buttonElement.removeCss(this.background.getBackground());
+      buttonElement.addCss(background.getBackground());
+      this.background = background;
+    }
     return (B) this;
   }
 

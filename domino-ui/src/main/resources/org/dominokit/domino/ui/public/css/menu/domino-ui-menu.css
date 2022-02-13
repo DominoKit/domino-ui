@@ -1,0 +1,196 @@
+/* Menu */
+.dom-ui.menu {
+    background-color: #fff;
+    overflow-y: hidden;
+    max-height: calc(100vh);
+    max-width: calc(100vw);
+}
+
+.dom-ui.menu.menu-bordered {
+    border: 1px solid #efefef;
+}
+
+.dom-ui.menu.drop-menu {
+    position: absolute;
+    border-radius: 3px;
+}
+
+.dom-ui.menu ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.dom-ui.menu .menu-container {
+    width: 100%;
+}
+
+.dom-ui.menu .menu-container.menu-head {
+    border-bottom: 1px solid rgba(204, 204, 204, 0.35);
+}
+
+.dom-ui.menu .menu-container.menu-search {
+    padding: 5px;
+}
+
+.dom-ui.menu .menu-container.menu-search {
+    border-bottom: 1px solid rgba(204, 204, 204, 0.35);
+    padding: 5px;
+}
+
+.dom-ui.menu .menu-container.menu-search:empty,
+.dom-ui.menu .menu-container.menu-subheader:empty {
+    display: none;
+}
+
+.dom-ui.menu .menu-header {
+    line-height: 28px;
+    padding: 5px;
+}
+
+.dom-ui.menu .menu-header .header-icon:empty {
+    display: none;
+}
+
+.dom-ui.menu .menu-header .back-arrow-icon,
+.dom-ui.menu .menu-header .header-icon {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 3px;
+}
+
+.dom-ui.menu .menu-header .header-title:empty {
+    display: none;
+}
+
+.dom-ui.menu .menu-header .header-title {
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 34px;
+}
+
+.dom-ui.menu .menu-header .actions-element:empty {
+    display: none;
+}
+
+.dom-ui.menu .menu-header .actions-element {
+    margin-left: 25px;
+}
+
+.dom-ui.menu .menu-header .actions-element .header-action {
+
+}
+
+.dom-ui.menu .menu-container.menu-main {
+    overflow-y: auto;
+}
+
+.search-box .field-group.lined.focused:not([class*="readonly"]) .field-cntr,
+.search-box .field-group.rounded.focused:not([class*="readonly"]) .field-cntr,
+.search-box .field-group.lined:not([class*="focused"]):not([class*="readonly"]):not([class*="error"]) .field-cntr,
+.search-box .field-group.rounded:not([class*="focused"]):not([class*="readonly"]):not([class*="error"]) .field-cntr {
+    border: none;
+}
+
+.search-box .field-group .notes-cntr.field-note {
+    padding-top: 0px;
+}
+
+.search-box .field-group .field-cntr {
+    background-color: #efefef;
+    border-radius: 3px;
+    border: none;
+    height: 36px;
+    padding: 5px;
+}
+
+.search-box .field-group input {
+    height: 24px;
+}
+
+.dom-ui.menu .menu-item {
+    cursor: pointer;
+}
+
+.dom-ui.menu .menu-item:focus,
+.dom-ui.menu .menu-item:focus-visible,
+.dom-ui.menu .menu-item a:focus,
+.dom-ui.menu .menu-item a:focus-visible,
+.dom-ui.menu .menu-item:hover,
+.dom-ui.menu .menu-item a:hover {
+    background-color: #efefef;
+    outline: none;
+}
+.dom-ui.menu .menu-item[disabled] a,
+.dom-ui.menu .menu-item[disabled] {
+    cursor: not-allowed !important;
+    opacity: 0.5;
+}
+
+.dom-ui.menu .menu-item .ddi-left-addon,
+.dom-ui.menu .menu-item .ddi-right-addon,
+.dom-ui.menu .menu-item .ddi-indicator {
+    min-width: 24px;
+}
+
+.dom-ui.menu .simple-menu-item{
+    text-align: left;
+}
+
+.dom-ui.menu .menu-item.simple-menu-item h5 {
+    font-size: 14px;
+    margin: 0px;
+    font-weight: 400;
+    line-height: 30px;
+}
+
+.dom-ui.menu .menu-item.simple-menu-item small {
+    display: block;
+    color: #595959;
+}
+
+.dom-ui.menu .ddi-separator {
+    border-bottom: 1px solid #efefef;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    display: block;
+}
+
+.dom-ui.menu.has-search .ddi-separator {
+    display: none;
+}
+
+.mdi-18px.clickable-icon {
+    padding-top: 2px;
+    padding-left: 2px;
+}
+
+.dom-ui.menu li.no-results {
+    color: #777;
+    display: list-item;
+    background: #f4f4f4;
+    padding: 10px;
+    text-align: left;
+}
+
+.dom-ui.menu .menu-item:not([class*="bg-"]) a {
+    color: #333;
+}
+
+.dom-ui.menu .menu-item a {
+    padding: 5px;
+    display: block;
+}
+
+.dom-ui.menu .menu-search .create-missing {
+    color: #777;
+    display: list-item;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 3px;
+    text-align: left;
+}
+
+.dom-ui.menu .menu-search .create-missing:focus {
+    background: #f4f4f4;
+}

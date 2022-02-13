@@ -43,7 +43,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab>
   private BaseIcon<?> icon;
   private DominoElement<HTMLElement> titleElement;
   private DominoElement<HTMLDivElement> contentContainer =
-      DominoElement.of(div().attr("role", "tabpanel").css(TAB_PANE, FADE));
+      DominoElement.of(div()).attr("role", "tabpanel").css(TAB_PANE, FADE);
   private boolean active;
   private DominoElement<HTMLDivElement> iconContainer = DominoElement.div();
   private DominoElement<HTMLDivElement> textContainer =
@@ -66,9 +66,10 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab>
   public VerticalTab(String title, BaseIcon<?> icon) {
     this.title = title;
     setIcon(icon);
-    this.titleElement = DominoElement.of(span().css(TITLE).textContent(title));
+    this.titleElement = DominoElement.of(span()).css(TITLE).textContent(title);
     this.anchorElement =
-        a().add(iconContainer.appendChild(this.icon))
+        DominoElement.of(a())
+            .add(iconContainer.appendChild(this.icon))
             .add(textContainer.appendChild(titleElement))
             .element();
     init();
@@ -77,9 +78,12 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab>
   /** @param title String title for the tab */
   public VerticalTab(String title) {
     this.title = title;
-    this.titleElement = DominoElement.of(span().css(TITLE).textContent(title));
+    this.titleElement = DominoElement.of(span()).css(TITLE).textContent(title);
     this.anchorElement =
-        a().add(iconContainer).add(textContainer.appendChild(titleElement)).element();
+        DominoElement.of(a())
+            .add(iconContainer)
+            .add(textContainer.appendChild(titleElement))
+            .element();
     init();
   }
 
