@@ -373,7 +373,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    * @return same instance
    */
   public DropDownMenu separator() {
-    menuElement.appendChild(li()).attr("role", "separator").css(DropDownStyles.DIVIDER);
+    menuElement.appendChild(DominoElement.of(li()).attr("role", "separator").css(DropDownStyles.DIVIDER));
     return this;
   }
 
