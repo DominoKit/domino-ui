@@ -582,6 +582,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return activeValues;
   }
 
+  public void clear() {
+    subItems.stream().forEach(TreeItem::clear);
+    subItems.clear();
+  }
+
   /** {@inheritDoc} */
   @Override
   public void removeItem(TreeItem<T> item) {

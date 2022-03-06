@@ -798,6 +798,13 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     this.value = value;
   }
 
+  public void clear() {
+    subItems.stream().forEach(TreeItem::clear);
+    subItems.clear();
+
+    super.remove();
+  }
+
   /** {@inheritDoc} */
   @Override
   public void removeItem(TreeItem<T> item) {
