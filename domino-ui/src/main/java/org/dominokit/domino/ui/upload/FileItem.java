@@ -399,7 +399,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     updateProgressBackground(Color.BLUE);
   }
 
-  private boolean isExceedsMaxFile() {
+  public boolean isExceedsMaxFile() {
     return options.getMaxFileSize() > 0 && file.size > options.getMaxFileSize();
   }
 
