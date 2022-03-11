@@ -113,11 +113,7 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
               .setToggleIcon(groupCollapsedIconSupplier.get())
               .toggleOnClick(true)
               .addClickListener(evt -> dataGroup.toggleGroup());
-      dataGroup
-          .setGroupIconSupplier(groupIconSupplier)
-          .setGroupRenderer(groupRenderer)
-          .render()
-          ;
+      dataGroup.setGroupIconSupplier(groupIconSupplier).setGroupRenderer(groupRenderer).render();
 
       dataTable.bodyElement().appendChild(tr().add(cellElement));
       dataTable.bodyElement().appendChild(tableRow.element());
@@ -209,14 +205,14 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     public void render() {
       DominoElement.of(cellInfo.getElement())
           .clearElement()
-          .appendChild(FlexLayout.create()
-              .appendChild(FlexItem.create().appendChild(groupIconSupplier))
-              .appendChild(
-                  FlexItem.create()
-                      .styler(style -> style.setLineHeight(px.of(35)).setPaddingLeft(px.of(10)))
-                      .setFlexGrow(1)
-                      .appendChild(groupRenderer.asElement(cellInfo)))
-              );
+          .appendChild(
+              FlexLayout.create()
+                  .appendChild(FlexItem.create().appendChild(groupIconSupplier))
+                  .appendChild(
+                      FlexItem.create()
+                          .styler(style -> style.setLineHeight(px.of(35)).setPaddingLeft(px.of(10)))
+                          .setFlexGrow(1)
+                          .appendChild(groupRenderer.asElement(cellInfo))));
     }
   }
 
