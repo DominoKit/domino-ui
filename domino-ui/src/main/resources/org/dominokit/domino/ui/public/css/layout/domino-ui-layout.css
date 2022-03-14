@@ -16,11 +16,13 @@ footer {
     position: fixed;
     top: 0;
     z-index: 12;
-    width: 100%;
-
     min-height: 50px;
     margin-bottom: 20px;
     border: 1px solid transparent;
+}
+
+.ls-closed .navbar {
+    width: 100%;
 }
 
 .navbar .navbar-brand {
@@ -175,7 +177,10 @@ section.content.fit-height {
     }
 }
 
-.ls-closed .bars:after, .ls-closed .bars:before {
+.ls-closed .bars:after,
+.ls-closed .bars:before,
+.l-shrink .bars:after,
+.l-shrink .bars:before {
     font-family: 'Material Icons';
     font-size: 24px;
     position: absolute;
@@ -193,7 +198,8 @@ section.content.fit-height {
     transition: all 0.3s;
 }
 
-.ls-closed .bars:before {
+.ls-closed .bars:before,
+.l-shrink .bars:before {
     content: '\E5D2';
     -moz-transform: scale(1);
     -ms-transform: scale(1);
@@ -202,7 +208,8 @@ section.content.fit-height {
     transform: scale(1);
 }
 
-.ls-closed .bars:after {
+.ls-closed .bars:after,
+.l-shrink .bars:after {
     content: '\E5C4';
     -moz-transform: scale(0);
     -ms-transform: scale(0);
@@ -293,11 +300,13 @@ section.content.fit-height {
     right: -300px;
 }
 
-.panel-open.md.l-fixed .content {
+.panel-open.md.l-fixed .content,
+.panel-open.md.l-shrink .content{
     margin-left: 315px;
 }
 
-.panel-open.md.l-fixed .content.fit-width {
+.panel-open.md.l-fixed .content.fit-width,
+.panel-open.md.l-shrink .content.fit-width{
     margin-left: 300px;
 }
 
@@ -305,11 +314,13 @@ section.content.fit-height {
     width: 300px;
 }
 
-.panel-open.sm.l-fixed .content {
+.panel-open.sm.l-fixed .content,
+.panel-open.sm.l-shrink .content{
     margin-left: 115px;
 }
 
-.panel-open.sm.l-fixed .content.fit-width {
+.panel-open.sm.l-fixed .content.fit-width,
+.panel-open.sm.l-shrink .content.fit-width{
     margin-left: 100px;
 }
 
@@ -317,11 +328,13 @@ section.content.fit-height {
     width: 100px;
 }
 
-.panel-open.lg.l-fixed .content {
+.panel-open.lg.l-fixed .content,
+.panel-open.lg.l-shrink .content{
     margin-left: 415px;
 }
 
-.panel-open.lg.l-fixed .content.fit-width {
+.panel-open.lg.l-fixed .content.fit-width,
+.panel-open.lg.l-shrink .content.fit-width{
     margin-left: 400px;
 }
 
@@ -387,6 +400,13 @@ section.content.fit-height {
 .navbar.nav-fixed {
     position: fixed;
     z-index: 12;
+    transition: left 0.5s, width 0.5s;
+    right: 0px;
+    left: 0px;
+    -moz-transition: left 0.5s, width 0.5s;
+    -o-transition: left 0.5s, width 0.5s;
+    -webkit-transition: left 0.5s, width 0.5s;
+    transition: left 0.5s, width 0.5s;
 }
 
 .navbar .navbar-brand {
@@ -715,17 +735,17 @@ section.content.fit-height {
 
 .l-panel-span-up.panel-open.sm .navbar.nav-fixed {
     left: 100px;
-    width: calc(100vw - 100px);
+    width: calc(100% - 100px);
 }
 
 .l-panel-span-up.panel-open.md .navbar.nav-fixed {
     left: 300px;
-    width: calc(100vw - 300px);
+    width: calc(100% - 300px);
 }
 
 .l-panel-span-up.panel-open.lg .navbar.nav-fixed {
     left: 400px;
-    width: calc(100vw - 400px);
+    width: calc(100% - 400px);
 }
 
 .sm .navbar.nav-fixed {
@@ -733,15 +753,4 @@ section.content.fit-height {
     -o-transition: left 0.2s;
     -webkit-transition: left 0.2s;
     transition: left 0.2s;
-}
-
-.navbar.nav-fixed {
-    right: 0px;
-}
-
-.navbar.nav-fixed {
-    -moz-transition: left 0.5s;
-    -o-transition: left 0.5s;
-    -webkit-transition: left 0.5s;
-    transition: left 0.5s;
 }
