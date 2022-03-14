@@ -74,6 +74,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
   private boolean uploaded;
   private String fileName;
   private UploadRequestSender requestSender;
+  private Tooltip tooltip;
 
   /**
    * @param file the {@link File}
@@ -398,7 +399,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     updateProgressBackground(Color.BLUE);
   }
 
-  private boolean isExceedsMaxFile() {
+  public boolean isExceedsMaxFile() {
     return options.getMaxFileSize() > 0 && file.size > options.getMaxFileSize();
   }
 
@@ -450,7 +451,11 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
   private void setMessage(String message, Color color) {
     messageContainer.textContent = message;
     messageContainer.style.color = color.getHex();
-    Tooltip.create(messageContainer, message).position(PopupPosition.BOTTOM);
+    if (nonNull(tooltip)) {
+      tooltip.setContent(DomGlobal.document.createTextNode(message));
+    } else {
+      tooltip = Tooltip.create(messageContainer, message).position(PopupPosition.BOTTOM);
+    }
   }
 
   private void updateProgressBackground(Color background) {
