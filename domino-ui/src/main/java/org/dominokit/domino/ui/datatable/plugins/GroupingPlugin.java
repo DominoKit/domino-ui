@@ -164,7 +164,9 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     }
   }
 
-  public class DataGroup<T> {
+  public static class DataGroup<T> implements TableRow.RowMetaObject {
+
+    private static final String KEY = "dataGroup";
 
     private List<TableRow<T>> groupRows = new ArrayList<>();
     private TableRow<T> lastRow;
@@ -176,7 +178,11 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     public DataGroup(TableRow<T> lastRow, CellRenderer.CellInfo<T> cellInfo) {
       this.lastRow = lastRow;
       this.cellInfo = cellInfo;
-      groupRows.add(lastRow);
+      addRow(lastRow);
+    }
+
+    public static <T> DataGroup<T> fromRow(TableRow<T> tableRow) {
+      return tableRow.getMetaObject(KEY);
     }
 
     public void toggleGroup() {
@@ -186,6 +192,7 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
 
     public void addRow(TableRow<T> tableRow) {
       groupRows.add(tableRow);
+      tableRow.addMetaObject(this);
     }
 
     private DataGroup<T> setGroupIconSupplier(BaseIcon<?> groupIconSupplier) {
@@ -200,6 +207,11 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     private DataGroup<T> setGroupRenderer(CellRenderer<T> groupRenderer) {
       this.groupRenderer = groupRenderer;
       return this;
+    }
+
+    @Override
+    public String getKey() {
+      return KEY;
     }
 
     public void render() {
