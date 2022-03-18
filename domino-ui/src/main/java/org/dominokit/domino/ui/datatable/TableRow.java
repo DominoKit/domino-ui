@@ -134,6 +134,10 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     return record;
   }
 
+  public DataTable<T> getDataTable() {
+    return dataTable;
+  }
+
   @Override
   public void addSelectionHandler(SelectionHandler<T> selectionHandler) {
     this.selectionHandlers.add(selectionHandler);

@@ -126,6 +126,10 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     init();
   }
 
+  public DataStore<T> getDataStore() {
+    return dataStore;
+  }
+
   private DataTable<T> init() {
     tableConfig
         .getPlugins()
