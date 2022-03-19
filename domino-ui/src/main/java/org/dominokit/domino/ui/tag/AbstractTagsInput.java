@@ -224,11 +224,13 @@ public abstract class AbstractTagsInput<T extends AbstractTagsInput<T, V>, V>
   }
 
   @Override
-  protected void clearValue() {
+  protected void clearValue(boolean silent) {
     chips.forEach(chip -> chip.remove(true));
     chips.clear();
     selectedItems.clear();
-    fireChangeEvent();
+    if (!silent) {
+      fireChangeEvent();
+    }
   }
 
   @Override

@@ -50,8 +50,8 @@ public class LongBox extends NumberBox<LongBox, Long> {
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {
-    value(0L);
+  protected void clearValue(boolean silent) {
+    value(0L, silent);
   }
 
   /** {@inheritDoc} */

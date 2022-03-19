@@ -171,19 +171,15 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     }
   }
 
-  /** {@inheritDoc} */
   @Override
-  public S clear() {
+  public S clear(boolean silent) {
     unfloatLabel();
-    doClear();
+    clearValue(silent);
     valuesContainer.setTextContent("");
     showPlaceholder();
     if (isAutoValidation()) validate();
     return (S) this;
   }
-
-  /** Clear the current selection based on the implementation */
-  protected abstract void doClear();
 
   /**
    * Opens the select dropdown menu
@@ -855,10 +851,6 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     arrowIconContainer = DominoElement.div().appendChild(arrowIcon);
     return arrowIconContainer;
   }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void clearValue() {}
 
   /** {@inheritDoc} */
   @Override
