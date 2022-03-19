@@ -55,7 +55,20 @@ public interface HasGrouping<T>
   @Editor.Ignore
   boolean isEmptyIgnoreSpaces();
 
-  /** @return same implementing component instance */
+  /**
+   * Clears the field value and trigger the change handlers
+   *
+   * @return same implementing component instance
+   */
   @Editor.Ignore
   T clear();
+
+  /**
+   * Clears the field value and only triggers the change handlers if silent flag is true
+   *
+   * @param silent boolean, if false clear the value without triggering the change handlers
+   * @return same implementing component instance
+   */
+  @Editor.Ignore
+  T clear(boolean silent);
 }

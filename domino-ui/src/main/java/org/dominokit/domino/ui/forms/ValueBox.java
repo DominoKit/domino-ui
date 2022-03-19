@@ -932,7 +932,13 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** {@inheritDoc} */
   @Override
   public T clear() {
-    clearValue();
+    return clear(false);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public T clear(boolean silent) {
+    clearValue(silent);
     autoValidate();
     onClearHandlers.forEach(handler -> handler.accept((T) ValueBox.this));
     return (T) this;
@@ -941,10 +947,18 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** {@inheritDoc} */
   @Override
   public T value(V value) {
+    return value(value, false);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public T value(V value, boolean silent) {
     doSetValue(value);
     changeLabelFloating();
     autoValidate();
-    callChangeHandlers();
+    if (!silent) {
+      callChangeHandlers();
+    }
     return (T) this;
   }
 
@@ -1212,7 +1226,12 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   }
 
   /** clear the field value */
-  protected abstract void clearValue();
+  protected void clearValue() {
+    clearValue(false);
+  };
+
+  /** clear the field value */
+  protected abstract void clearValue(boolean silent);
 
   /** @param value V the value to set for this field */
   protected abstract void doSetValue(V value);

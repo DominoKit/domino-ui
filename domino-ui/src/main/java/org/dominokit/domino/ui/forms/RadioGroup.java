@@ -343,8 +343,8 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {
-    getSelectedRadioImpl().ifPresent(Radio::uncheck);
+  protected void clearValue(boolean silent) {
+    getSelectedRadioImpl().ifPresent(radio -> radio.uncheck(silent));
   }
 
   /** {@inheritDoc} */

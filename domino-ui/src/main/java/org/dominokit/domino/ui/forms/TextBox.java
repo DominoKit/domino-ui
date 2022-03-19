@@ -83,10 +83,9 @@ public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String>
     return Elements.input(type).element();
   }
 
-  /** {@inheritDoc} */
   @Override
-  protected void clearValue() {
-    value("");
+  protected void clearValue(boolean silent) {
+    value("", silent);
   }
 
   /** {@inheritDoc} */

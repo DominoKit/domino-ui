@@ -204,8 +204,8 @@ public class InputTimeBox extends ValueBox<InputTimeBox, HTMLInputElement, Date>
   }
 
   @Override
-  protected void clearValue() {
-    value(null);
+  protected void clearValue(boolean silent) {
+    value(null, silent);
   }
 
   @Override

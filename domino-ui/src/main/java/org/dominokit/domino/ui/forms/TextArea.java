@@ -102,8 +102,8 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {
-    value("");
+  protected void clearValue(boolean silent) {
+    value("", silent);
   }
 
   /** {@inheritDoc} */

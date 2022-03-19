@@ -106,6 +106,17 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
     return this;
   }
 
+  /**
+   * Clears all the grouped components
+   *
+   * @param silent if true clear the fields without triggering the change handlers
+   * @return same FieldsGrouping instance
+   */
+  public FieldsGrouping clear(boolean silent) {
+    formElements.forEach(hasGrouping -> hasGrouping.clear(silent));
+    return this;
+  }
+
   /** {@inheritDoc} Remove all validation messages from all grouped components */
   @Override
   public FieldsGrouping clearInvalid() {

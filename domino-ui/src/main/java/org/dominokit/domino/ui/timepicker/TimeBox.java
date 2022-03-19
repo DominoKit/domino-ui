@@ -166,8 +166,8 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {
-    value(null);
+  protected void clearValue(boolean silent) {
+    value(null, silent);
   }
 
   /** {@inheritDoc} */
