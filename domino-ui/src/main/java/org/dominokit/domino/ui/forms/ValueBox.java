@@ -243,7 +243,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   protected void linkLabelToField() {
     getLabelElement()
         .ifPresent(
-            labelElement -> labelElement.setAttribute("for", getInputElement().getAttribute("id")));
+            labelElement -> labelElement.setAttribute("for", DominoElement.of(getInputElement()).getAttribute("id")));
   }
 
   /** manually call the change handlers if they are not paused */
