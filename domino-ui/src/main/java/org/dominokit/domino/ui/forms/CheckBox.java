@@ -361,8 +361,8 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
 
   /** {@inheritDoc} this will uncheck the CheckBox if it is checked */
   @Override
-  protected void clearValue() {
-    value(false);
+  protected void clearValue(boolean silent) {
+    value(false, silent);
   }
 
   /** {@inheritDoc} */

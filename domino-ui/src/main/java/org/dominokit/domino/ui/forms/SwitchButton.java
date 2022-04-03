@@ -389,8 +389,8 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {
-    value(false);
+  protected void clearValue(boolean silent) {
+    value(false, silent);
   }
 
   /** {@inheritDoc} */

@@ -245,8 +245,8 @@ public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
 
   /** {@inheritDoc} */
   @Override
-  protected void doClear() {
-    selectedOptions.forEach(SelectOption::deselect);
+  protected void clearValue(boolean silent) {
+    selectedOptions.forEach(option -> option.deselect(silent));
     selectedOptions.clear();
   }
 

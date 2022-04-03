@@ -48,8 +48,8 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {
-    value(0.0F);
+  protected void clearValue(boolean silent) {
+    value(0.0F, silent);
   }
 
   /** {@inheritDoc} */

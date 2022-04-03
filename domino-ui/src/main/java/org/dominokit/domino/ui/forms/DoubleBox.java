@@ -47,8 +47,8 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {
-    value(0.0);
+  protected void clearValue(boolean silent) {
+    value(0.0, silent);
   }
 
   /** {@inheritDoc} */

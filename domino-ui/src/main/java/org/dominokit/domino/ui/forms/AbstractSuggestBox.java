@@ -284,8 +284,8 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {
-    value(null);
+  protected void clearValue(boolean silent) {
+    value(null, silent);
   }
 
   /** {@inheritDoc} */

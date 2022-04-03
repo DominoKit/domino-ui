@@ -162,6 +162,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   private boolean disabled = false;
   private boolean autoAppendAndRemove = true;
   private boolean modal = true;
+  private boolean autoFocus = true;
 
   public BaseModal() {
     modalElement = new Modal();
@@ -326,7 +327,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       addBackdrop();
       style().addCss(ModalStyles.IN);
       style().setDisplay("block");
-      if (nonNull(firstFocusElement)) {
+      if (nonNull(firstFocusElement) && isAutoFocus()) {
         firstFocusElement.focus();
         if (!Objects.equals(DominoDom.document.activeElement, firstFocusElement)) {
           if (nonNull(lastFocusElement)) {
@@ -600,6 +601,21 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
    */
   public T setModal(boolean modal) {
     this.modal = modal;
+    return (T) this;
+  }
+
+  /** @return boolean, true if the modal should auto-focus first focusable element when opened. */
+  public boolean isAutoFocus() {
+    return autoFocus;
+  }
+
+  /**
+   * @param autoFocus boolean, true if the modal should auto-focus first focusable element when
+   *     opened.
+   * @return same dialog instance
+   */
+  public T setAutoFocus(boolean autoFocus) {
+    this.autoFocus = autoFocus;
     return (T) this;
   }
 }

@@ -50,8 +50,8 @@ public class ShortBox extends NumberBox<ShortBox, Short> {
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {
-    value((short) 0);
+  protected void clearValue(boolean silent) {
+    value((short) 0, silent);
   }
 
   /** {@inheritDoc} */
