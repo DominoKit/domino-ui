@@ -244,8 +244,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     getLabelElement()
         .ifPresent(
             labelElement ->
-                labelElement.setAttribute(
-                    "for", DominoElement.of(getInputElement()).getAttribute("id")));
+                labelElement.setAttribute("for", DominoElement.of(getInputElement()).getId()));
   }
 
   /** manually call the change handlers if they are not paused */
