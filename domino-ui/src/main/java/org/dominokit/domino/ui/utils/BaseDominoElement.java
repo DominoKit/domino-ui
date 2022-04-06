@@ -156,6 +156,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /** @return String value of the element id attribute */
   @Editor.Ignore
   public String getId() {
+    dominoUuidInitializer.apply();
     return element().id;
   }
 
