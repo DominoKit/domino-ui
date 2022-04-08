@@ -75,6 +75,8 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
   private boolean fixedLeftPanel;
   private boolean fixedFooter = false;
   private LeftPanelSize leftPanelSize = LeftPanelSize.DEFAULT;
+  private LeftPanelOpenStyle leftPanelOpenStyle = LeftPanelOpenStyle.OVERLAY;
+  private boolean smallScreen = false;
 
   private LayoutHandler onShowHandler = layout -> {};
 
@@ -111,14 +113,11 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
             fixedFooter = true;
             unfixFooter();
           }
-        });
-
-    MediaQuery.addOnSmallAndDownListener(
-        () -> {
           if (footer.isAutoUnFixForSmallScreens() && isFooterVisible()) {
             fixedFooter = true;
             unfixFooter();
           }
+          this.smallScreen = true;
         });
 
     MediaQuery.addOnMediumAndUpListener(
@@ -129,6 +128,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
               && isFooterVisible()) {
             fixFooter();
           }
+          this.smallScreen = false;
         });
 
     if (nonNull(onShowHandler)) {
@@ -368,6 +368,27 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     return this;
   }
 
+  public LeftPanelOpenStyle getLeftPanelOpenStyle() {
+    return leftPanelOpenStyle;
+  }
+
+  /**
+   * Change the behavior of the left open/close
+   *
+   * @param leftPanelOpenStyle {@link LeftPanelOpenStyle}
+   */
+  public Layout setLeftPanelOpenStyle(LeftPanelOpenStyle leftPanelOpenStyle) {
+    this.leftPanelOpenStyle = leftPanelOpenStyle;
+    return this;
+  }
+
+  private LeftPanelOpenStyle getEffectiveLeftPanelOpenStyle() {
+    if (smallScreen) {
+      return LeftPanelOpenStyle.OVERLAY;
+    }
+    return leftPanelOpenStyle;
+  }
+
   /**
    * Opens the left panel
    *
@@ -378,7 +399,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
       if (rightPanelVisible) hideRightPanel();
       getLeftPanel().removeCss(SLIDE_OUT_LEFT);
       leftPanelVisible = true;
-      showOverlay();
+      getEffectiveLeftPanelOpenStyle().onOpen(this);
       DominoElement.of(document.body).addCss("panel-open");
       leftPanelHandlers.forEach(handler -> handler.accept(true));
     }
@@ -395,7 +416,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     if (!fixedLeftPanel && !leftPanelDisabled) {
       getLeftPanel().addCss(SLIDE_OUT_LEFT);
       leftPanelVisible = false;
-      hideOverlay();
+      getEffectiveLeftPanelOpenStyle().onClose(this);
       DominoElement.of(document.body).removeCss("panel-open");
       leftPanelHandlers.forEach(handler -> handler.accept(false));
     }
@@ -573,8 +594,8 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
   }
 
   /**
-   * @see {@link Footer#fixed()}
    * @return same Layout instance
+   * @see {@link Footer#fixed()}
    */
   public Layout fixFooter() {
     footer.fixed();
@@ -592,8 +613,8 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
   }
 
   /**
-   * @see {@link Footer#unfixed()}
    * @return same Layout instance
+   * @see {@link Footer#unfixed()}
    */
   public Layout unfixFooter() {
     footer.unfixed();
@@ -902,6 +923,44 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     /** @return String css class name for the panel size */
     public String getSize() {
       return size;
+    }
+  }
+
+  /** An enum to list left panel open behaviors */
+  public enum LeftPanelOpenStyle {
+    /** Opens the left panel on top of content panel and show an overlay */
+    OVERLAY(
+        layout -> {
+          layout.showOverlay();
+        },
+        layout -> {
+          layout.hideOverlay();
+        }),
+    /** Opens the left panel and shrinks the content panel */
+    SHRINK_CONTENT(
+        layout -> {
+          DominoElement.of(document.body).addCss("l-shrink");
+          DominoElement.of(document.body).removeCss("ls-closed");
+        },
+        layout -> {
+          DominoElement.of(document.body).removeCss("l-shrink");
+          DominoElement.of(document.body).addCss("ls-closed");
+        });
+
+    private final LayoutHandler openHandler;
+    private final LayoutHandler closeHandler;
+
+    LeftPanelOpenStyle(LayoutHandler openHandler, LayoutHandler closeHandler) {
+      this.openHandler = openHandler;
+      this.closeHandler = closeHandler;
+    }
+
+    public void onOpen(Layout layout) {
+      this.openHandler.handleLayout(layout);
+    }
+
+    public void onClose(Layout layout) {
+      closeHandler.handleLayout(layout);
     }
   }
 

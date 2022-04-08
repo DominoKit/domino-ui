@@ -373,7 +373,11 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    * @return same instance
    */
   public DropDownMenu separator() {
-    menuElement.appendChild(li()).attr("role", "separator").css(DropDownStyles.DIVIDER);
+    dropDownMenuInitializer.doOnce(
+        () ->
+            menuElement.appendChild(
+                DominoElement.of(li()).attr("role", "separator").css(DropDownStyles.DIVIDER)));
+
     return this;
   }
 
@@ -605,8 +609,11 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    * @return same instance
    */
   public DropDownMenu addGroup(DropdownActionsGroup<?> group) {
-    groups.add(group);
-    menuElement.appendChild(group.element());
+    dropDownMenuInitializer.doOnce(
+        () -> {
+          groups.add(group);
+          menuElement.appendChild(group.element());
+        });
     group.bindTo(this);
     return this;
   }

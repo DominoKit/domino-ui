@@ -51,8 +51,8 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
 
   /** {@inheritDoc} clears the field and set the value to BigDecimal.ZERO */
   @Override
-  protected void clearValue() {
-    value(BigDecimal.ZERO);
+  protected void clearValue(boolean silent) {
+    value(BigDecimal.ZERO, silent);
   }
 
   /**

@@ -263,6 +263,12 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   /** {@inheritDoc} */
   @Override
   public Radio<T> value(T value) {
+    return value(value, false);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Radio<T> value(T value, boolean silent) {
     setValue(value);
     return this;
   }

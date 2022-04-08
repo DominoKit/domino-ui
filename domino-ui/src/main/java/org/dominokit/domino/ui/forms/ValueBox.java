@@ -243,7 +243,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   protected void linkLabelToField() {
     getLabelElement()
         .ifPresent(
-            labelElement -> labelElement.setAttribute("for", getInputElement().getAttribute("id")));
+            labelElement ->
+                labelElement.setAttribute(
+                    "for", DominoElement.of(getInputElement()).getAttribute("id")));
   }
 
   /** manually call the change handlers if they are not paused */
@@ -932,7 +934,13 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** {@inheritDoc} */
   @Override
   public T clear() {
-    clearValue();
+    return clear(false);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public T clear(boolean silent) {
+    clearValue(silent);
     autoValidate();
     onClearHandlers.forEach(handler -> handler.accept((T) ValueBox.this));
     return (T) this;
@@ -941,10 +949,18 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** {@inheritDoc} */
   @Override
   public T value(V value) {
+    return value(value, false);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public T value(V value, boolean silent) {
     doSetValue(value);
     changeLabelFloating();
     autoValidate();
-    callChangeHandlers();
+    if (!silent) {
+      callChangeHandlers();
+    }
     return (T) this;
   }
 
@@ -1212,7 +1228,12 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   }
 
   /** clear the field value */
-  protected abstract void clearValue();
+  protected void clearValue() {
+    clearValue(false);
+  };
+
+  /** clear the field value */
+  protected abstract void clearValue(boolean silent);
 
   /** @param value V the value to set for this field */
   protected abstract void doSetValue(V value);

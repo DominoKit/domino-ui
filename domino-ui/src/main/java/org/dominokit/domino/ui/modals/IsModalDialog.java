@@ -207,6 +207,16 @@ public interface IsModalDialog<T> {
    */
   T deCenterVertically();
 
+  /** @return boolean, true if the modal should auto-focus first focusable element when opened. */
+  boolean isAutoFocus();
+
+  /**
+   * @param autoFocus boolean, true if the modal should auto-focus first focusable element when
+   *     opened.
+   * @return same dialog instance
+   */
+  T setAutoFocus(boolean autoFocus);
+
   /** An enum to list modal possible zises */
   enum ModalSize {
     /** Large modal with wider width */

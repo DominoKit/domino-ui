@@ -192,9 +192,9 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
 
   /** {@inheritDoc} */
   @Override
-  protected void doClear() {
+  protected void clearValue(boolean silent) {
     if (nonNull(selectedOption)) {
-      selectedOption.deselect();
+      selectedOption.deselect(silent);
       selectedOption = null;
     }
   }
