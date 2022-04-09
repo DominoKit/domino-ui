@@ -99,6 +99,8 @@ public class DominoUIConfig {
 
   private NumberParsers numberParsers = new NumberParsers() {};
 
+  private boolean focusNextFieldOnEnter = false;
+
   protected DominoUIConfig() {}
 
   /**
@@ -315,6 +317,21 @@ public class DominoUIConfig {
     if (nonNull(numberParsers)) {
       this.numberParsers = numberParsers;
     }
+    return this;
+  }
+
+  /** @return true if press enter key will move the focus to the next input field if exists */
+  public boolean isFocusNextFieldOnEnter() {
+    return focusNextFieldOnEnter;
+  }
+
+  /**
+   * @param focusNextFieldOnEnter boolean, true to enable moving the focus to next field on enter
+   *     key press, false to disable it.
+   * @return same {@link DominoUIConfig} instance
+   */
+  public DominoUIConfig setFocusNextFieldOnEnter(boolean focusNextFieldOnEnter) {
+    this.focusNextFieldOnEnter = focusNextFieldOnEnter;
     return this;
   }
 

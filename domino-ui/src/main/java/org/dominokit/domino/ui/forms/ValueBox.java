@@ -17,12 +17,15 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.keyboard.KeyboardEvents.*;
 import static org.jboss.elemento.Elements.label;
 import static org.jboss.elemento.Elements.span;
 
+import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import elemental2.dom.Node;
 import java.util.ArrayList;
@@ -155,6 +158,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
           }
         };
     inputElement.addEventListener("input", inputListener);
+    onEnterKey();
 
     layout();
     setFocusColor(focusColor);
@@ -170,6 +174,24 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
             shouldCondense -> {
               if (shouldCondense) {
                 condense();
+              }
+            });
+  }
+
+  protected void onEnterKey() {
+    listenOnKeyPress(getInputElement().element())
+        .onEnter(
+            evt -> {
+              if (DominoUIConfig.INSTANCE.isFocusNextFieldOnEnter()) {
+                getInputElement().blur();
+                List<Element> elements =
+                    DominoElement.body().element().querySelectorAll(".field-group").asList();
+                int i = elements.indexOf(this.element());
+                if (i < elements.size() - 1) {
+                  Element element = elements.get(i + 1);
+                  Element input = element.querySelector("input");
+                  Js.<HTMLInputElement>uncheckedCast(input).focus();
+                }
               }
             });
   }
