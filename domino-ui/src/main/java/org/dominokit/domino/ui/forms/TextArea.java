@@ -179,4 +179,9 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
   protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
     return new InputAutoValidator<>(autoValidate);
   }
+
+  @Override
+  protected void onEnterKey() {
+    // do nothing for a text area.
+  }
 }

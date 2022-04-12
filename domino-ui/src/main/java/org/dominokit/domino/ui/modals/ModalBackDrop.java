@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.modals;
 
 import elemental2.dom.Event;
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -155,5 +156,19 @@ public class ModalBackDrop {
   /** @return boolean true if all opened dialogs are not modals */
   public static boolean allOpenedNotModals() {
     return openedModals.stream().noneMatch(BaseModal::isModal);
+  }
+
+  public static void showHideBodyScrolls() {
+    List<DominoElement<HTMLElement>> openedDialogs =
+        DominoElement.body()
+            .querySelectorAll(
+                ".modal.fade.in:not([class*='window']), .modal.fade.in.window.maximized");
+    if (openedDialogs.isEmpty()) {
+      DominoElement.body().removeCss(ModalStyles.MODAL_OPEN);
+    } else {
+      if (!DominoElement.body().containsCss(ModalStyles.MODAL_OPEN)) {
+        DominoElement.body().addCss(ModalStyles.MODAL_OPEN);
+      }
+    }
   }
 }
