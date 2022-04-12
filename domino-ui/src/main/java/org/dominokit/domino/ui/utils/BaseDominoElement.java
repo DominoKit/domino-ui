@@ -21,12 +21,16 @@ import static java.util.Objects.nonNull;
 import elemental2.core.JsArray;
 import elemental2.dom.DOMRect;
 import elemental2.dom.DomGlobal;
+import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import elemental2.dom.NodeList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.menu.AbstractMenu;
@@ -1866,6 +1870,19 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
       dropMenu.setTargetElement(this);
     }
     return (T) this;
+  }
+
+  public DominoElement<HTMLElement> querySelector(String selectors) {
+    Element element = this.element.element().querySelector(selectors);
+    return DominoElement.of(Js.<HTMLElement>uncheckedCast(element));
+  }
+
+  public List<DominoElement<HTMLElement>> querySelectorAll(String selectors) {
+    NodeList<Element> elements = this.element.element().querySelectorAll(selectors);
+    return elements.asList().stream()
+        .map(Js::<HTMLElement>uncheckedCast)
+        .map(DominoElement::of)
+        .collect(Collectors.toList());
   }
 
   /**
