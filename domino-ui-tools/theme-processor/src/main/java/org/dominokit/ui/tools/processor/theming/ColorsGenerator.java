@@ -457,8 +457,11 @@ public class ColorsGenerator {
                 Color.of("blue-grey-a700", "#455A64"),
 
                 Color.of("black", "#000"),
+                Color.of("white", "#FFF"),
 
-                Color.of("white", "#FFF")
+                Color.of("inherit", "inherit"),
+                Color.of("current", "currentColor"),
+                Color.of("transparent", "transparent")
         );
 
 //        List<Media> mediaList = Arrays.asList(
