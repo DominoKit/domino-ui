@@ -722,7 +722,6 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
   /** Sets focus at the first element of the menu */
   public void focus() {
-      dropDownMenuInitializer.apply();
     keyboardNavigation.focusAt(0);
   }
 
