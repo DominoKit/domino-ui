@@ -556,6 +556,128 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   /**
+   * Insert a child in the specified position in the target element
+   *
+   * @param where String position, one of [beforebegin|afterbegin|beforeend|afterend]
+   * @param otherNode {@link BaseDominoElement}
+   * @return same component
+   */
+  @Editor.Ignore
+  public T insertAdjacentElement(String where, BaseDominoElement<?, ?> otherNode) {
+    element().insertAdjacentElement(where, otherNode.element());
+    return element;
+  }
+
+  /**
+   * Insert a child in the specified position in the target element
+   *
+   * @param where String position, one of [beforebegin|afterbegin|beforeend|afterend]
+   * @param e {@link Element}
+   * @return same component
+   */
+  @Editor.Ignore
+  public T insertAdjacentElement(String where, Element e) {
+    element().insertAdjacentElement(where, e);
+    return element;
+  }
+
+  /**
+   * Insert a child right before the begin tag of an element
+   *
+   * @param otherNode {@link BaseDominoElement}
+   * @return same component
+   */
+  @Editor.Ignore
+  public T insertBeforeBegin(BaseDominoElement<?, ?> otherNode) {
+    element().insertAdjacentElement("beforebegin", otherNode.element());
+    return element;
+  }
+
+  /**
+   * Insert a child right before the begin tag of an element
+   *
+   * @param e {@link Element}
+   * @return same component
+   */
+  @Editor.Ignore
+  public T insertBeforeBegin(Element e) {
+    element().insertAdjacentElement("beforebegin", e);
+    return element;
+  }
+
+  /**
+   * Insert a child right after the begin tag of an element
+   *
+   * @param otherNode {@link BaseDominoElement}
+   * @return same component
+   */
+  @Editor.Ignore
+  public T insertAfterBegin(BaseDominoElement<?, ?> otherNode) {
+    element().insertAdjacentElement("afterbegin", otherNode.element());
+    return element;
+  }
+
+  /**
+   * Insert a child right after the begin tag of an element
+   *
+   * @param e {@link Element}
+   * @return same component
+   */
+  @Editor.Ignore
+  public T insertAfterBegin(Element e) {
+    element().insertAdjacentElement("afterbegin", e);
+    return element;
+  }
+
+  /**
+   * Insert a child right before the end tag of an element
+   *
+   * @param otherNode {@link BaseDominoElement}
+   * @return same component
+   */
+  @Editor.Ignore
+  public T insertBeforeEnd(BaseDominoElement<?, ?> otherNode) {
+    element().insertAdjacentElement("beforeend", otherNode.element());
+    return element;
+  }
+
+  /**
+   * Insert a child right before the end tag of an element
+   *
+   * @param e {@link Element}
+   * @return same component
+   */
+  @Editor.Ignore
+  public T insertBeforeEnd(Element e) {
+    element().insertAdjacentElement("beforeend", e);
+    return element;
+  }
+
+  /**
+   * Insert a child right after the end tag of an element
+   *
+   * @param otherNode {@link BaseDominoElement}
+   * @return same component
+   */
+  @Editor.Ignore
+  public T insertAfterEnd(BaseDominoElement<?, ?> otherNode) {
+    element().insertAdjacentElement("afterend", otherNode.element());
+    return element;
+  }
+
+  /**
+   * Insert a child right after the end tag of an element
+   *
+   * @param e {@link Element}
+   * @return same component
+   */
+  @Editor.Ignore
+  public T insertAfterEnd(Element e) {
+    element().insertAdjacentElement("afterend", e);
+    return element;
+  }
+
+  /**
    * Insert a child node before another child node
    *
    * @param newNode {@link BaseDominoElement}

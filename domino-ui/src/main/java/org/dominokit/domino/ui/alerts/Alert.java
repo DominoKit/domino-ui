@@ -249,8 +249,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
   public Alert dismissible() {
     if (!dismissible) {
       element.addCss(AlertStyles.ALERT_DISMISSIBLE);
-      if (element.getChildElementCount() > 0) element.insertFirst(closeButton);
-      else element.appendChild(closeButton);
+      element.insertAfterBegin(closeButton);
     }
     dismissible = true;
     return this;

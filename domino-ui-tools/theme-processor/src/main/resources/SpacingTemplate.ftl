@@ -1,4 +1,9 @@
 :root {
+
+--dui-font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+--dui-font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+--dui-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
 <#list spacings as spacig>
     --dui-spc-${spacig.name}:${spacig.value};
 </#list>

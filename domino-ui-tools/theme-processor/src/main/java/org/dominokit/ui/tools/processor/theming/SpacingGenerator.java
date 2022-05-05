@@ -698,10 +698,9 @@ public class SpacingGenerator {
                 SimpleCss.of("max-h-max", "max-height: max-content;"),
                 SimpleCss.of("max-h-fit", "max-height: fit-content;"),
 
-                SimpleCss.of("font-sans", "font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";"),
-                SimpleCss.of("font-serif", "font-family: ui-serif, Georgia, Cambria, \"Times New Roman\", Times, serif;"),
-                SimpleCss.of("font-mono", "font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;"),
-
+                SimpleCss.of("font-sans", "var(--dui-font-sans);"),
+                SimpleCss.of("font-serif", "var(--dui-font-serif);"),
+                SimpleCss.of("font-mono", "var(--dui-font-mono);"),
 
                 SimpleCss.of("text-xs", "font-size: 0.75rem;\n\tline-height: 1rem;"),
                 SimpleCss.of("text-sm", "font-size: 0.875rem;\n\tline-height: 1.25rem;"),

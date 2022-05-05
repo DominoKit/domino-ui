@@ -17,24 +17,39 @@ import java.util.Map;
 
 public class ColorsGenerator {
     public static void main(String[] args) throws IOException, TemplateException {
-
+//accent, background
         List<Color> colors = Arrays.asList(
-                Color.of("default-50", "#FAFAFA"),
-                Color.of("default-100", "#FAFAFA"),
-                Color.of("default-200", "#EEEEEE"),
-                Color.of("default-300", "#E0E0E0"),
-                Color.of("default-400", "#BDBDBD"),
-                Color.of("default-500", "#9E9E9E"),
-                Color.of("default-600", "#757575"),
-                Color.of("default-700", "#616161"),
-                Color.of("default-800", "#424242"),
-                Color.of("default-900", "#212121"),
+                Color.of("dominant-50", "#FAFAFA"),
+                Color.of("dominant-100", "#FAFAFA"),
+                Color.of("dominant-200", "#EEEEEE"),
+                Color.of("dominant-300", "#E0E0E0"),
+                Color.of("dominant-400", "#BDBDBD"),
+                Color.of("dominant-500", "#9E9E9E"),
+                Color.of("dominant-600", "#757575"),
+                Color.of("dominant-700", "#616161"),
+                Color.of("dominant-800", "#424242"),
+                Color.of("dominant-900", "#212121"),
 
-                Color.of("default-a100", "#FAFAFA"),
-                Color.of("default-a200", "#EEEEEE"),
-                Color.of("default-a400", "#BDBDBD"),
-                Color.of("default-a700", "#616161"),
+                Color.of("dominant-a100", "#FAFAFA"),
+                Color.of("dominant-a200", "#EEEEEE"),
+                Color.of("dominant-a400", "#BDBDBD"),
+                Color.of("dominant-a700", "#616161"),
 
+                Color.of("accent-50", "#FAFAFA"),
+                Color.of("accent-100", "#FAFAFA"),
+                Color.of("accent-200", "#EEEEEE"),
+                Color.of("accent-300", "#E0E0E0"),
+                Color.of("accent-400", "#BDBDBD"),
+                Color.of("accent-500", "#9E9E9E"),
+                Color.of("accent-600", "#757575"),
+                Color.of("accent-700", "#616161"),
+                Color.of("accent-800", "#424242"),
+                Color.of("accent-900", "#212121"),
+
+                Color.of("accent-a100", "#FAFAFA"),
+                Color.of("accent-a200", "#EEEEEE"),
+                Color.of("accent-a400", "#BDBDBD"),
+                Color.of("accent-a700", "#616161"),
 
                 Color.of("primary-50", "#E8EAF6"),
                 Color.of("primary-100", "#C5CAE9"),
@@ -51,7 +66,6 @@ public class ColorsGenerator {
                 Color.of("primary-a200", "#536DFE"),
                 Color.of("primary-a400", "#3D5AFE"),
                 Color.of("primary-a700", "#304FFE"),
-
 
                 Color.of("secondary-50", "#ECEFF1"),
                 Color.of("secondary-100", "#CFD8DC"),
@@ -439,7 +453,6 @@ public class ColorsGenerator {
                 Color.of("grey-a400", "#BDBDBD"),
                 Color.of("grey-a700", "#616161"),
 
-
                 Color.of("blue-grey-50", "#ECEFF1"),
                 Color.of("blue-grey-100", "#CFD8DC"),
                 Color.of("blue-grey-200", "#B0BEC5"),
@@ -456,12 +469,77 @@ public class ColorsGenerator {
                 Color.of("blue-grey-a400", "#78909C"),
                 Color.of("blue-grey-a700", "#455A64"),
 
-                Color.of("black", "#000"),
+
+               Color.of("white-50","#FAFAFA"),
+       Color.of("white-100","#FAFAFA"),
+       Color.of("white-200","#EEEEEE"),
+       Color.of("white-300","#E0E0E0"),
+       Color.of("white-400","#BDBDBD"),
+       Color.of("white-500","#FFFFFF"),
+       Color.of("white-600","#FAFAFA"),
+       Color.of("white-700","#EEEEEE"),
+       Color.of("white-800","#E0E0E0"),
+       Color.of("white-900","#BDBDBD"),
+       Color.of("white-a100","#FAFAFA"),
+       Color.of("white-a200","#EEEEEE"),
+       Color.of("white-a400","#BDBDBD"),
+       Color.of("white-a700","#616161"),
+
+       Color.of("black-50","#BDBDBD"),
+       Color.of("black-100","#757575"),
+       Color.of("black-200","#616161"),
+       Color.of("black-300","#424242"),
+       Color.of("black-400","#212121"),
+       Color.of("black-500","#000000"),
+       Color.of("black-600","#757575"),
+       Color.of("black-700","#616161"),
+       Color.of("black-800","#424242"),
+       Color.of("black-900","#212121"),
+       Color.of("black-a100","#757575"),
+       Color.of("black-a200","#616161"),
+       Color.of("black-a400","#212121"),
+       Color.of("black-a700","#616161"),
+
+
+        Color.of("black", "#000"),
                 Color.of("white", "#FFF"),
 
                 Color.of("inherit", "inherit"),
                 Color.of("current", "currentColor"),
                 Color.of("transparent", "transparent")
+        );
+
+        List<ColorName> colorNames= Arrays.asList(
+                ColorName.of("dominant"),
+                ColorName.of("accent"),
+                ColorName.of("primary"),
+                ColorName.of("secondary"),
+                ColorName.of("success"),
+                ColorName.of("warning"),
+                ColorName.of("info"),
+                ColorName.of("error"),
+                ColorName.of("red"),
+                ColorName.of("pink"),
+                ColorName.of("purple"),
+                ColorName.of("deep-purple"),
+                ColorName.of("indigo"),
+                ColorName.of("indigo"),
+                ColorName.of("blue"),
+                ColorName.of("light-blue"),
+                ColorName.of("cyan"),
+                ColorName.of("teal"),
+                ColorName.of("green"),
+                ColorName.of("light-green"),
+                ColorName.of("lime"),
+                ColorName.of("yellow"),
+                ColorName.of("amber"),
+                ColorName.of("orange"),
+                ColorName.of("deep-orange"),
+                ColorName.of("brown"),
+                ColorName.of("grey"),
+                ColorName.of("blue-grey"),
+                ColorName.of("white"),
+                ColorName.of("black")
         );
 
 //        List<Media> mediaList = Arrays.asList(
@@ -495,6 +573,7 @@ public class ColorsGenerator {
         Template themeTemplate = configuration.getTemplate("ColorTemplate.ftl");
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("colors", colors);
+        parameters.put("colorsNames", colorNames);
 
 
         Path source = Paths.get(ColorsGenerator.class.getResource("/").getPath());
