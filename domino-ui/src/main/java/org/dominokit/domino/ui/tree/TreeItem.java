@@ -798,9 +798,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     this.value = value;
   }
 
-  /**
-   * Clear all direct children of the item, also remove the item element from the DOM tree
-   */
+  /** Clear all direct children of the item, also remove the item element from the DOM tree */
   public void clear() {
     subItems.stream().forEach(TreeItem::clear);
     subItems.clear();

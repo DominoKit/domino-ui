@@ -582,9 +582,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return activeValues;
   }
 
-  /**
-   * Clear all direct children of the tree, effectively reset the tree
-   */
+  /** Clear all direct children of the tree, effectively reset the tree */
   public void clear() {
     subItems.stream().forEach(TreeItem::clear);
     subItems.clear();
