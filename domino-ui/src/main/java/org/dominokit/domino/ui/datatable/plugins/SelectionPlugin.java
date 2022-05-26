@@ -49,7 +49,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private HTMLElement singleSelectIndicator = Icons.ALL.check().element();
   private SelectionCondition<T> selectionCondition = (table, row) -> true;
   private TableRow<T> lastSelected;
-  private Supplier<CheckBox> checkBoxCreator = CheckBox::create;
+  private CheckBoxCreator<T> checkBoxCreator = tableRow -> CheckBox.create();
 
   /** creates an instance with default configurations */
   public SelectionPlugin() {}
@@ -174,7 +174,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   }
 
   private HTMLElement createMultiSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
-    CheckBox checkBox = createCheckBox();
+    CheckBox checkBox = createCheckBox(Optional.ofNullable(cell.getTableRow()));
 
     TableRow<T> tableRow = cell.getTableRow();
     tableRow.addSelectionHandler(
@@ -258,7 +258,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   }
 
   private HTMLElement createMultiSelectHeader(DataTable<T> dataTable) {
-    CheckBox checkBox = createCheckBox();
+    CheckBox checkBox = createCheckBox(Optional.empty());
     checkBox.addChangeHandler(
         checked -> {
           if (checked) {
@@ -292,8 +292,8 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     return this;
   }
 
-  private CheckBox createCheckBox() {
-    CheckBox checkBox = checkBoxCreator.get();
+  private CheckBox createCheckBox(Optional<TableRow<T>> tableRow) {
+    CheckBox checkBox = checkBoxCreator.get(tableRow);
     if (nonNull(colorScheme)) {
       checkBox.setColor(colorScheme.color());
     }
@@ -315,15 +315,19 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * A setter to to give the user the ability to customize the selection checkbox
+   * A setter to give the user the ability to customize the selection checkbox
    *
    * @param checkBoxCreator {@link Supplier} of {@link CheckBox}
    * @return same plugin instance
    */
-  public SelectionPlugin<T> setCheckBoxCreator(Supplier<CheckBox> checkBoxCreator) {
+  public SelectionPlugin<T> setCheckBoxCreator(CheckBoxCreator<T> checkBoxCreator) {
     if (nonNull(checkBoxCreator)) {
       this.checkBoxCreator = checkBoxCreator;
     }
     return this;
+  }
+
+  public interface CheckBoxCreator<T> {
+    CheckBox get(Optional<TableRow<T>> row);
   }
 }

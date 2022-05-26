@@ -21,8 +21,11 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.KeyboardEvent;
 import elemental2.dom.Node;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.jboss.elemento.IsElement;
 
@@ -51,133 +54,205 @@ public class KeyboardEvents<T extends Node> {
 
   /**
    * @param eventType The eventType that will trigger the handlers
-   * @param element the target element
+   * @param elements varargs of the target elements
    */
-  public KeyboardEvents(String eventType, T element) {
-    element.addEventListener(
-        eventType,
-        evt -> {
-          KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-          // ignore events without keycode (browser bug?)
-          // example: picking value by keyboard from Chrome auto-suggest
-          if (keyboardEvent.key == null) return;
-          String key = keyboardEvent.key.toLowerCase();
-          HandlerContext handlerContext = null;
-          if (keyboardEvent.ctrlKey && ctrlHandlers.containsKey(key)) {
-            handlerContext = ctrlHandlers.get(key);
-          } else if (handlers.containsKey(key)) {
-            handlerContext = handlers.get(key);
-          }
-
-          if (nonNull(handlerContext)) {
-            handlerContext.handler.handleEvent(evt);
-            if (handlerContext.options.preventDefault) {
-              evt.preventDefault();
-            }
-            if (handlerContext.options.stopPropagation) {
-              evt.stopPropagation();
-            }
-          }
-        });
+  @SuppressWarnings("unchecked")
+  public KeyboardEvents(String eventType, T... elements) {
+    this(eventType, Arrays.asList(elements));
   }
 
-  /** @param element the target element */
-  public KeyboardEvents(T element) {
-    this(KEYDOWN, element);
+  /**
+   * @param eventType The eventType that will trigger the handlers
+   * @param elements varargs of the target elements
+   */
+  @SuppressWarnings("unchecked")
+  public KeyboardEvents(String eventType, List<T> elements) {
+    for (T element : elements) {
+      element.addEventListener(
+          eventType,
+          evt -> {
+            KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+            // ignore events without keycode (browser bug?)
+            // example: picking value by keyboard from Chrome auto-suggest
+            if (keyboardEvent.key == null) return;
+            String key = keyboardEvent.key.toLowerCase();
+            HandlerContext handlerContext = null;
+            if (keyboardEvent.ctrlKey && ctrlHandlers.containsKey(key)) {
+              handlerContext = ctrlHandlers.get(key);
+            } else if (handlers.containsKey(key)) {
+              handlerContext = handlers.get(key);
+            }
+
+            if (nonNull(handlerContext)) {
+              handlerContext.handler.handleEvent(evt);
+              if (handlerContext.options.preventDefault) {
+                evt.preventDefault();
+              }
+              if (handlerContext.options.stopPropagation) {
+                evt.stopPropagation();
+              }
+            }
+          });
+    }
+  }
+
+  /** @param elements the target elements */
+  @SuppressWarnings("unchecked")
+  public KeyboardEvents(T... elements) {
+    this(KEYDOWN, elements);
+  }
+
+  /** @param elements the target elements */
+  public KeyboardEvents(List<T> elements) {
+    this(KEYDOWN, elements);
   }
 
   /**
    * Static factory for creation keyboard event listener
    *
-   * @param element the target element
+   * @param elements the target elements
    * @param <T> the type of the element
    * @return new instance
-   * @deprecated use {@link #listenOnKeyDown(Node)}, {@link #listenOnKeyUp(Node)}, {@link
-   *     #listenOnKeyPress(Node)}
+   * @deprecated use {@link #listenOnKeyDown(Node...)}, {@link #listenOnKeyUp(Node...)}, {@link
+   *     #listenOnKeyPress(Node...)}
    */
   @Deprecated
-  public static <T extends Node> KeyboardEvents<T> listenOn(T element) {
-    return new KeyboardEvents<>(element);
+  public static <T extends Node> KeyboardEvents<T> listenOn(T... elements) {
+    return new KeyboardEvents<>(elements);
   }
 
   /**
-   * Same as {@link KeyboardEvents#listenOn(Node)} but with wrapper {@link IsElement}
+   * Same as {@link KeyboardEvents#listenOn(Node...)} but with wrapper {@link IsElement}
    *
-   * @param element the target {@link IsElement}
-   * @param <T> the type of the element
+   * @param elements the target {@link IsElement}
+   * @param <E> the type of the element
    * @return new instance
-   * @deprecated use {@link #listenOnKeyDown(IsElement)}, {@link #listenOnKeyUp(IsElement)}, {@link
-   *     #listenOnKeyPress(IsElement)}
+   * @deprecated use {@link #listenOnKeyDown(IsElement...)}, {@link #listenOnKeyUp(IsElement...)},
+   *     {@link #listenOnKeyPress(IsElement...)}
    */
   @Deprecated
-  public static <T extends HTMLElement> KeyboardEvents<T> listenOn(IsElement<T> element) {
-    return new KeyboardEvents<>(element.element());
+  public static <E extends HTMLElement> KeyboardEvents<E> listenOn(IsElement<E>... elements) {
+    return new KeyboardEvents<>(
+        Arrays.stream(elements).map(IsElement::element).collect(Collectors.toList()));
   }
 
   /**
    * Static factory for creation keyboard keydown event listener
    *
-   * @param element the target element
+   * @param elements the target element
    * @param <T> the type of the element
    * @return new instance
    */
-  public static <T extends Node> KeyboardEvents<T> listenOnKeyDown(T element) {
-    return new KeyboardEvents<>(KEYDOWN, element);
+  @SuppressWarnings("unchecked")
+  public static <T extends Node> KeyboardEvents<T> listenOnKeyDown(T... elements) {
+    return new KeyboardEvents<>(KEYDOWN, elements);
   }
 
   /**
-   * Same as {@link KeyboardEvents#listenOnKeyDown(Node)} but with wrapper {@link IsElement}
+   * Same as {@link KeyboardEvents#listenOnKeyDown(Node...)} but with wrapper {@link IsElement}
    *
-   * @param element the target {@link IsElement}
+   * @param elements the target {@link IsElement}
    * @param <T> the type of the element
    * @return new instance
    */
-  public static <T extends HTMLElement> KeyboardEvents<T> listenOnKeyDown(IsElement<T> element) {
-    return new KeyboardEvents<>(KEYDOWN, element.element());
+  @SuppressWarnings("unchecked")
+  public static <T extends HTMLElement> KeyboardEvents<T> listenOnKeyDown(
+      IsElement<T>... elements) {
+    return new KeyboardEvents<>(
+        KEYDOWN, Arrays.stream(elements).map(IsElement::element).collect(Collectors.toList()));
+  }
+
+  /**
+   * Same as {@link KeyboardEvents#listenOnKeyDown(Node...)} but with wrapper {@link IsElement}
+   *
+   * @param elements the target {@link IsElement}
+   * @param <T> the type of the element
+   * @return new instance
+   */
+  @SuppressWarnings("unchecked")
+  public static <T extends HTMLElement> KeyboardEvents<T> listenOnKeyDown(
+      List<IsElement<T>> elements) {
+    return new KeyboardEvents<>(
+        KEYDOWN, elements.stream().map(IsElement::element).collect(Collectors.toList()));
   }
 
   /**
    * Static factory for creation keyboard keyUp event listener
    *
-   * @param element the target element
+   * @param elements the target element
    * @param <T> the type of the element
    * @return new instance
    */
-  public static <T extends Node> KeyboardEvents<T> listenOnKeyUp(T element) {
-    return new KeyboardEvents<>(KEYUP, element);
+  @SuppressWarnings("unchecked")
+  public static <T extends Node> KeyboardEvents<T> listenOnKeyUp(T... elements) {
+    return new KeyboardEvents<>(KEYUP, elements);
   }
 
   /**
-   * Same as {@link KeyboardEvents#listenOnKeyUp(Node)} but with wrapper {@link IsElement}
+   * Same as {@link KeyboardEvents#listenOnKeyUp(Node...)} but with wrapper {@link IsElement}
    *
-   * @param element the target {@link IsElement}
+   * @param elements the target {@link IsElement}
    * @param <T> the type of the element
    * @return new instance
    */
-  public static <T extends HTMLElement> KeyboardEvents<T> listenOnKeyUp(IsElement<T> element) {
-    return new KeyboardEvents<>(KEYUP, element.element());
+  @SuppressWarnings("unchecked")
+  public static <T extends HTMLElement> KeyboardEvents<T> listenOnKeyUp(IsElement<T>... elements) {
+    return new KeyboardEvents<>(
+        KEYUP, Arrays.stream(elements).map(IsElement::element).collect(Collectors.toList()));
+  }
+
+  /**
+   * Same as {@link KeyboardEvents#listenOnKeyUp(Node...)} but with wrapper {@link IsElement}
+   *
+   * @param elements the target {@link IsElement}
+   * @param <T> the type of the element
+   * @return new instance
+   */
+  @SuppressWarnings("unchecked")
+  public static <T extends HTMLElement> KeyboardEvents<T> listenOnKeyUp(
+      List<IsElement<T>> elements) {
+    return new KeyboardEvents<>(
+        KEYUP, elements.stream().map(IsElement::element).collect(Collectors.toList()));
   }
 
   /**
    * Static factory for creation keyboard keyPress event listener
    *
-   * @param element the target element
+   * @param elements the target element
    * @param <T> the type of the element
    * @return new instance
    */
-  public static <T extends Node> KeyboardEvents<T> listenOnKeyPress(T element) {
-    return new KeyboardEvents<>(KEYPRESS, element);
+  @SuppressWarnings("unchecked")
+  public static <T extends Node> KeyboardEvents<T> listenOnKeyPress(T... elements) {
+    return new KeyboardEvents<>(KEYPRESS, elements);
   }
 
   /**
-   * Same as {@link KeyboardEvents#listenOnKeyPress(Node)} but with wrapper {@link IsElement}
+   * Same as {@link KeyboardEvents#listenOnKeyPress(Node...)} but with wrapper {@link IsElement}
    *
-   * @param element the target {@link IsElement}
+   * @param elements the target {@link IsElement}
    * @param <T> the type of the element
    * @return new instance
    */
-  public static <T extends HTMLElement> KeyboardEvents<T> listenOnKeyPress(IsElement<T> element) {
-    return new KeyboardEvents<>(KEYPRESS, element.element());
+  @SuppressWarnings("unchecked")
+  public static <T extends HTMLElement> KeyboardEvents<T> listenOnKeyPress(
+      IsElement<T>... elements) {
+    return new KeyboardEvents<>(
+        KEYPRESS, Arrays.stream(elements).map(IsElement::element).collect(Collectors.toList()));
+  }
+
+  /**
+   * Same as {@link KeyboardEvents#listenOnKeyPress(Node...)} but with wrapper {@link IsElement}
+   *
+   * @param elements the target {@link IsElement}
+   * @param <T> the type of the element
+   * @return new instance
+   */
+  @SuppressWarnings("unchecked")
+  public static <T extends HTMLElement> KeyboardEvents<T> listenOnKeyPress(
+      List<IsElement<T>> elements) {
+    return new KeyboardEvents<>(
+        KEYPRESS, elements.stream().map(IsElement::element).collect(Collectors.toList()));
   }
 
   /**
