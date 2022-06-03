@@ -776,7 +776,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   /** @return the list of all sub {@link TreeItem} */
   @Override
   public List<TreeItem<T>> getSubItems() {
-    return new ArrayList<>(subItems);
+    return subItems;
   }
 
   /** Selects this item, the item will be shown and activated */
@@ -796,13 +796,6 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
    */
   public void setValue(T value) {
     this.value = value;
-  }
-
-  public void clear() {
-    subItems.stream().forEach(TreeItem::clear);
-    subItems.clear();
-
-    super.remove();
   }
 
   /** {@inheritDoc} */

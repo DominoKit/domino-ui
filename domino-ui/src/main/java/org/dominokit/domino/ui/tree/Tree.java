@@ -468,7 +468,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   /** {@inheritDoc} */
   @Override
   public List<TreeItem<T>> getSubItems() {
-    return new ArrayList<>(subItems);
+    return subItems;
   }
 
   /** {@inheritDoc} */
@@ -580,11 +580,6 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     }
 
     return activeValues;
-  }
-
-  public void clear() {
-    subItems.stream().forEach(TreeItem::clear);
-    subItems.clear();
   }
 
   /** {@inheritDoc} */
