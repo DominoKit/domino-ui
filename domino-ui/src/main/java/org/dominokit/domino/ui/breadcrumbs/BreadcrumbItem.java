@@ -57,11 +57,11 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   private BaseIcon<?> icon;
   private boolean active = false;
 
-  private BreadcrumbItem(String text) {
+  protected BreadcrumbItem(String text) {
     init(text, null);
   }
 
-  private BreadcrumbItem(String text, BaseIcon<?> icon) {
+  protected BreadcrumbItem(String text, BaseIcon<?> icon) {
     init(text, icon);
   }
 

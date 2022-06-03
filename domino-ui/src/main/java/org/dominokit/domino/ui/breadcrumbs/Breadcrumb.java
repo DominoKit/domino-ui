@@ -20,7 +20,7 @@ import static org.jboss.elemento.Elements.ol;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLOListElement;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
@@ -55,7 +55,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
 
   private final DominoElement<HTMLOListElement> element =
       DominoElement.of(ol()).css(BreadcrumbStyles.BREADCRUMB);
-  private final List<BreadcrumbItem> items = new LinkedList<>();
+  private final List<BreadcrumbItem> items = new ArrayList<>();
   private BreadcrumbItem activeItem;
   private boolean removeTail = false;
   private Color activeColor;
@@ -127,6 +127,27 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   }
 
   /**
+   * Remove child BreadcrumbItems from a given index, inclusive.
+   *
+   * @param itemFromIndex the {@link BreadcrumbItem} index from which and all its siblings are
+   *     removed.
+   * @return same instance
+   */
+  public Breadcrumb removeChildFrom(int itemFromIndex) {
+    List<BreadcrumbItem> removedItems = items.subList(itemFromIndex, items.size());
+    removedItems.forEach(BaseDominoElement::remove);
+
+    items.removeAll(removedItems);
+
+    if (activeItem != null && !items.contains(activeItem)) {
+      if (items.isEmpty()) activeItem = null;
+      else setActiveItem(items.get(items.size() - 1));
+    }
+
+    return this;
+  }
+
+  /**
    * Sets if the breadcrumb supports navigation between its locations
    *
    * @param allowNavigation true to allow navigation, false otherwise
@@ -151,7 +172,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     for (BreadcrumbItem item : items) {
       addNewItem(item);
     }
-    setActiveItem(items[items.length - 1]);
+    setActiveItem(this.items.get(this.items.size() - 1));
   }
 
   private void addNewItem(BreadcrumbItem item) {
@@ -171,7 +192,6 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     if (nonNull(activeItem)) activeItem.deActivate();
     item.activate();
     this.activeItem = item;
-    item.activate();
     if (removeTail) {
       int index = items.indexOf(item) + 1;
       while (items.size() > index) {
