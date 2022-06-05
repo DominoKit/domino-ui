@@ -86,8 +86,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
    */
   public Breadcrumb appendChild(String text, EventListener onClick) {
     BreadcrumbItem item = BreadcrumbItem.create(text);
-    addNewItem(item);
-    setActiveItem(item);
+    addAndActivateNewItem(item);
     item.addClickListener(onClick);
     return this;
   }
@@ -102,20 +101,27 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
    */
   public Breadcrumb appendChild(BaseIcon<?> icon, String text, EventListener onClick) {
     BreadcrumbItem item = BreadcrumbItem.create(icon, text);
-    addNewItem(item);
-    setActiveItem(item);
+    addAndActivateNewItem(item);
     item.addClickListener(onClick);
     return this;
+  }
+
+  public Breadcrumb appendChild(BreadcrumbItem... items) {
+    return appendChild(false, items);
   }
 
   /**
    * Adds new location by providing {@link BreadcrumbItem}
    *
+   * @param silent boolean, if true dont trigger change handlers
    * @param items the {@link BreadcrumbItem} location to be added
    * @return same instance
    */
-  public Breadcrumb appendChild(BreadcrumbItem... items) {
-    addNewItems(items);
+  public Breadcrumb appendChild(boolean silent, BreadcrumbItem... items) {
+    for (BreadcrumbItem item : items) {
+      addNewItem(item);
+    }
+    setActiveItem(this.items.get(this.items.size() - 1), silent);
     return this;
   }
 
@@ -126,8 +132,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
    * @return same instance
    */
   public Breadcrumb appendChild(BreadcrumbItem item) {
-    addNewItem(item);
-    setActiveItem(item);
+    addAndActivateNewItem(item);
     return this;
   }
 
@@ -174,11 +179,9 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     return allowNavigation;
   }
 
-  private void addNewItems(BreadcrumbItem... items) {
-    for (BreadcrumbItem item : items) {
-      addNewItem(item);
-    }
-    setActiveItem(this.items.get(this.items.size() - 1));
+  private void addAndActivateNewItem(BreadcrumbItem item) {
+    addNewItem(item);
+    setActiveItem(item);
   }
 
   private void addNewItem(BreadcrumbItem item) {
