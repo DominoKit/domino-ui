@@ -57,11 +57,11 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   private BaseIcon<?> icon;
   private boolean active = false;
 
-  private BreadcrumbItem(String text) {
+  protected BreadcrumbItem(String text) {
     init(text, null);
   }
 
-  private BreadcrumbItem(String text, BaseIcon<?> icon) {
+  protected BreadcrumbItem(String text, BaseIcon<?> icon) {
     init(text, icon);
   }
 
@@ -104,7 +104,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
    *
    * @return same instance
    */
-  public BreadcrumbItem activate() {
+  protected BreadcrumbItem activate() {
     if (!active) {
       element.addCss(BreadcrumbStyles.ACTIVE);
       textElement.remove();
@@ -125,7 +125,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
    *
    * @return same instance
    */
-  public BreadcrumbItem deActivate() {
+  protected BreadcrumbItem deActivate() {
     if (active) {
       element.removeCss(BreadcrumbStyles.ACTIVE);
       textElement.remove();
@@ -147,6 +147,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
    * @param active the boolean to set the status
    * @return same instance
    */
+  @Deprecated
   public BreadcrumbItem setActive(boolean active) {
     if (active) {
       return activate();

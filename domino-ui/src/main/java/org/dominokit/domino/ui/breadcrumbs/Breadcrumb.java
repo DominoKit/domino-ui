@@ -20,13 +20,14 @@ import static org.jboss.elemento.Elements.ol;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLOListElement;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
+import org.dominokit.domino.ui.utils.HasChangeHandlers;
 
 /**
  * Provides current location in a navigational hierarchy.
@@ -51,11 +52,12 @@ import org.dominokit.domino.ui.utils.HasBackground;
  * @see BreadcrumbItem
  */
 public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
-    implements HasBackground<Breadcrumb> {
+    implements HasBackground<Breadcrumb>, HasChangeHandlers<Breadcrumb, BreadcrumbItem> {
 
   private final DominoElement<HTMLOListElement> element =
       DominoElement.of(ol()).css(BreadcrumbStyles.BREADCRUMB);
-  private final List<BreadcrumbItem> items = new LinkedList<>();
+  private final List<BreadcrumbItem> items = new ArrayList<>();
+  private final List<ChangeHandler<? super BreadcrumbItem>> changeHandlers = new ArrayList<>();
   private BreadcrumbItem activeItem;
   private boolean removeTail = false;
   private Color activeColor;
@@ -85,6 +87,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   public Breadcrumb appendChild(String text, EventListener onClick) {
     BreadcrumbItem item = BreadcrumbItem.create(text);
     addNewItem(item);
+    setActiveItem(item);
     item.addClickListener(onClick);
     return this;
   }
@@ -100,6 +103,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   public Breadcrumb appendChild(BaseIcon<?> icon, String text, EventListener onClick) {
     BreadcrumbItem item = BreadcrumbItem.create(icon, text);
     addNewItem(item);
+    setActiveItem(item);
     item.addClickListener(onClick);
     return this;
   }
@@ -123,6 +127,28 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
    */
   public Breadcrumb appendChild(BreadcrumbItem item) {
     addNewItem(item);
+    setActiveItem(item);
+    return this;
+  }
+
+  /**
+   * Remove child BreadcrumbItems from a given index, inclusive.
+   *
+   * @param itemFromIndex the {@link BreadcrumbItem} index from which and all its siblings are
+   *     removed.
+   * @return same instance
+   */
+  public Breadcrumb removeChildFrom(int itemFromIndex) {
+    List<BreadcrumbItem> removedItems = items.subList(itemFromIndex, items.size());
+    removedItems.forEach(BaseDominoElement::remove);
+
+    items.removeAll(removedItems);
+
+    if (activeItem != null && !items.contains(activeItem)) {
+      if (items.isEmpty()) activeItem = null;
+      else setActiveItem(items.get(items.size() - 1));
+    }
+
     return this;
   }
 
@@ -151,12 +177,11 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     for (BreadcrumbItem item : items) {
       addNewItem(item);
     }
-    setActiveItem(items[items.length - 1]);
+    setActiveItem(this.items.get(this.items.size() - 1));
   }
 
   private void addNewItem(BreadcrumbItem item) {
     items.add(item);
-    setActiveItem(item);
     element.appendChild(item);
     DominoElement.of(item.getClickableElement())
         .addClickListener(
@@ -167,11 +192,19 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
             });
   }
 
-  private Breadcrumb setActiveItem(BreadcrumbItem item) {
+  /**
+   * Set a given item as the active item of the breadcrumb
+   *
+   * @param item The item be set as active one
+   * @return same instance
+   */
+  public Breadcrumb setActiveItem(BreadcrumbItem item) {
+    // If item is already active, do nothing here.
+    if (item.isActive()) return this;
+
     if (nonNull(activeItem)) activeItem.deActivate();
     item.activate();
-    this.activeItem = item;
-    item.activate();
+    activeItem = item;
     if (removeTail) {
       int index = items.indexOf(item) + 1;
       while (items.size() > index) {
@@ -179,6 +212,8 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
         items.remove(items.size() - 1);
       }
     }
+
+    changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(activeItem));
 
     return this;
   }
@@ -279,5 +314,25 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   /** @return All {@link BreadcrumbItem} locations */
   public List<BreadcrumbItem> getItems() {
     return items;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Breadcrumb addChangeHandler(ChangeHandler<? super BreadcrumbItem> changeHandler) {
+    changeHandlers.add(changeHandler);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Breadcrumb removeChangeHandler(ChangeHandler<? super BreadcrumbItem> changeHandler) {
+    changeHandlers.remove(changeHandler);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean hasChangeHandler(ChangeHandler<? super BreadcrumbItem> changeHandler) {
+    return changeHandlers.contains(changeHandler);
   }
 }
