@@ -136,9 +136,10 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
    *
    * @param itemFromIndex the {@link BreadcrumbItem} index from which and all its siblings are
    *     removed.
+   * @param silent boolean, if true dont trigger change handlers
    * @return same instance
    */
-  public Breadcrumb removeChildFrom(int itemFromIndex) {
+  public Breadcrumb removeChildFrom(int itemFromIndex, boolean silent) {
     List<BreadcrumbItem> removedItems = items.subList(itemFromIndex, items.size());
     removedItems.forEach(BaseDominoElement::remove);
 
@@ -146,7 +147,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
 
     if (activeItem != null && !items.contains(activeItem)) {
       if (items.isEmpty()) activeItem = null;
-      else setActiveItem(items.get(items.size() - 1));
+      else setActiveItem(items.get(items.size() - 1), silent);
     }
 
     return this;
@@ -192,13 +193,18 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
             });
   }
 
+  public Breadcrumb setActiveItem(BreadcrumbItem item) {
+    return setActiveItem(item, false);
+  }
+
   /**
    * Set a given item as the active item of the breadcrumb
    *
    * @param item The item be set as active one
+   * @param silent boolean, if true dont trigger change handlers
    * @return same instance
    */
-  public Breadcrumb setActiveItem(BreadcrumbItem item) {
+  public Breadcrumb setActiveItem(BreadcrumbItem item, boolean silent) {
     // If item is already active, do nothing here.
     if (item.isActive()) return this;
 
@@ -213,7 +219,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
       }
     }
 
-    changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(activeItem));
+    if (!silent) changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(activeItem));
 
     return this;
   }
