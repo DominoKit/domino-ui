@@ -590,6 +590,16 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   }
 
   /**
+   * Remove all tree nodes
+   *
+   * @return same Tree instance
+   */
+  public Tree<T> clear() {
+    subItems.forEach(TreeItem::remove);
+    return this;
+  }
+
+  /**
    * Sets the filter that will be used when searching items, the default filter searches using the
    * title of the items
    *
