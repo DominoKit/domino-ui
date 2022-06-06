@@ -104,7 +104,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
    *
    * @return same instance
    */
-  protected BreadcrumbItem activate() {
+  BreadcrumbItem activate() {
     if (!active) {
       element.addCss(BreadcrumbStyles.ACTIVE);
       textElement.remove();
@@ -125,7 +125,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
    *
    * @return same instance
    */
-  protected BreadcrumbItem deActivate() {
+  BreadcrumbItem deActivate() {
     if (active) {
       element.removeCss(BreadcrumbStyles.ACTIVE);
       textElement.remove();
@@ -144,6 +144,8 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   /**
    * If true, sets the status to active, otherwise sets the status to inactive
    *
+   * @deprecated This method should be no longer used directly. Use {@link
+   *     Breadcrumb#setActiveItem(BreadcrumbItem)} instead
    * @param active the boolean to set the status
    * @return same instance
    */

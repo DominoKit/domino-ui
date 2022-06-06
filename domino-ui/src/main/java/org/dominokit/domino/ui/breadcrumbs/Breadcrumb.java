@@ -106,6 +106,12 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     return this;
   }
 
+  /**
+   * Adds new location by providing {@link BreadcrumbItem}, change handler can be triggered
+   *
+   * @param items the {@link BreadcrumbItem} location to be added
+   * @return same instance
+   */
   public Breadcrumb appendChild(BreadcrumbItem... items) {
     return appendChild(false, items);
   }
@@ -196,6 +202,12 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
             });
   }
 
+  /**
+   * Set a given item as the active item of the breadcrumb, change handler can be triggered
+   *
+   * @param item The item be set as active one
+   * @return same instance
+   */
   public Breadcrumb setActiveItem(BreadcrumbItem item) {
     return setActiveItem(item, false);
   }
