@@ -800,10 +800,14 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   /** Clear all direct children of the item, also remove the item element from the DOM tree */
   public void clear() {
-    subItems.stream().forEach(TreeItem::clear);
+    subItems.stream().forEach(TreeItem::remove);
     subItems.clear();
 
-    super.remove();
+    removeParentStyle();
+  }
+
+  private void removeParentStyle() {
+    style().removeCss("tree-item-parent");
   }
 
   /** {@inheritDoc} */
@@ -811,18 +815,8 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   public void removeItem(TreeItem<T> item) {
     subItems.remove(item);
     item.remove();
-  }
 
-  /** {@inheritDoc} */
-  @Override
-  public TreeItem<T> remove() {
-    if (parent.getSubItems().contains(this)) {
-      parent.removeItem(this);
-      if (parent.getSubItems().isEmpty() && parent instanceof TreeItem) {
-        ((TreeItem<T>) parent).style().removeCss("tree-item-parent");
-      }
-    }
-    return super.remove();
+    if (subItems.isEmpty()) removeParentStyle();
   }
 
   /**
