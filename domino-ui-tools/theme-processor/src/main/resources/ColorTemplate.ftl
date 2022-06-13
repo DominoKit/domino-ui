@@ -56,47 +56,60 @@
 </#list>
 <#list colors as color>
 .dui.dui-fg-${color.name} {
+    --dui-fg-clr: var(--dui-clr-${color.name});
     color: var(--dui-clr-${color.name});
 }
 .dui.dui-bg-${color.name} {
+    --dui-bg-clr: var(--dui-clr-${color.name});
     background-color: var(--dui-clr-${color.name});
 }
 .dui.dui-accent-${color.name} {
+    --dui-accent-clr: var(--dui-clr-${color.name});
     accent-color: var(--dui-clr-${color.name});
 }
 .dui.dui-shadow-${color.name} {
     --dui-shadow-clr: var(--dui-clr-${color.name});
 }
 .dui.dui-text-decoration-${color.name}{
+    --dui-text-decoration-clr: var(--dui-clr-${color.name});
     text-decoration-color: var(--dui-clr-${color.name});
 }
 .dui.dui-border-${color.name}{
+    --dui-border-clr: var(--dui-clr-${color.name});
     border-color: var(--dui-clr-${color.name});
 }
 .dui.dui-border-x-${color.name}{
+    --dui-border-x-clr: var(--dui-clr-${color.name});
     border-left-color: var(--dui-clr-${color.name});
     border-right-color: var(--dui-clr-${color.name});
 }
 .dui.dui-border-y-${color.name}{
+    --dui-border-y-clr: var(--dui-clr-${color.name});
     border-top-color: var(--dui-clr-${color.name});
     border-bottom-color: var(--dui-clr-${color.name});
 }
 .dui.dui-border-t-${color.name}{
+    --dui-border-t-clr: var(--dui-clr-${color.name});
     border-top-color: var(--dui-clr-${color.name});
 }
 .dui.dui-border-r-${color.name}{
+    --dui-border-r-clr: var(--dui-clr-${color.name});
     border-right-color: var(--dui-clr-${color.name});
 }
 .dui.dui-border-b-${color.name}{
+    --dui-border-b-clr: var(--dui-clr-${color.name});
     border-bottom-color: var(--dui-clr-${color.name});
 }
 .dui.dui-border-l-${color.name}{
+    --dui-border-l-clr: var(--dui-clr-${color.name});
     border-left-color: var(--dui-clr-${color.name});
 }
 .dui.dui-divide-${color.name} > * + *{
+    --dui-border-clr: var(--dui-clr-${color.name});
     border-color: var(--dui-clr-${color.name});
 }
 .dui.dui-outline-${color.name}{
+    --dui-outline-clr: var(--dui-clr-${color.name});
     outline-color: var(--dui-clr-${color.name});
 }
 </#list>
