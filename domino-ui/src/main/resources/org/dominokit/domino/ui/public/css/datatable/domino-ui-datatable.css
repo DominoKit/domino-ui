@@ -493,6 +493,10 @@ table th[class*="col-"] {
     background-color: #f9f9f9;
 }
 
+.table-striped > tbody > tr.dom-ui-dt-tr-even:not([class*="details-tr"]):not([class*="bg-"]) {
+    background-color: #ffffff;
+}
+
 .table.dt-row-marker tbody tr,
 .table.dt-row-marker thead tr {
     border-left-width: 5px;
