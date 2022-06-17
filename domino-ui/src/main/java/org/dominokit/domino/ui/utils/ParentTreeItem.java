@@ -23,8 +23,10 @@ import org.dominokit.domino.ui.tree.TreeItemFilter;
 /**
  * An interface representing a parent tree item
  *
+ * @deprecated Use {@link TreeNode} instead
  * @param <T> the type of the object
  */
+@Deprecated
 public interface ParentTreeItem<T> {
   /** @return The current active value */
   T getActiveItem();

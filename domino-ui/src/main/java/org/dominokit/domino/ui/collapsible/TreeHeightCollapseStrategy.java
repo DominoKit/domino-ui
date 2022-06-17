@@ -26,6 +26,7 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.tree.TreeItem;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.TreeNode;
 import org.jboss.elemento.IsElement;
 
 /**
@@ -70,10 +71,7 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
               if (self.isAttached()) {
                 expandElement(element, style);
               } else {
-                self.onAttached(
-                    mutationRecord -> {
-                      expandElement(element, style);
-                    });
+                self.onAttached(mutationRecord -> expandElement(element, style));
               }
             });
   }
@@ -111,13 +109,14 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
   }
 
   private void resetParentHeight(TreeItem<?> treeItem) {
-    treeItem
-        .getParent()
-        .ifPresent(
-            parent -> {
-              parent.getChildrenContainer().style.height = null;
-              parent.getParent().ifPresent(treeItem1 -> resetParentHeight(parent));
-            });
+    TreeNode<?> parentNode = treeItem.getParentNode();
+    if (parentNode instanceof TreeItem) {
+      ((TreeItem<?>) parentNode).getChildrenContainer().style.height = null;
+      parentNode = parentNode.getParentNode();
+      if (parentNode instanceof TreeItem) {
+        resetParentHeight((TreeItem<?>) parentNode);
+      }
+    }
   }
 
   /** {@inheritDoc} */

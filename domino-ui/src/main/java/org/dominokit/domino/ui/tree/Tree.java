@@ -21,9 +21,8 @@ import static org.dominokit.domino.ui.tree.TreeStyles.*;
 import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Consumer;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
@@ -33,8 +32,8 @@ import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.style.Unit;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ParentTreeItem;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.utils.HasChangeHandlers;
+import org.dominokit.domino.ui.utils.TreeNode;
 
 /**
  * A component provides a tree representation of elements
@@ -77,10 +76,9 @@ import org.jboss.elemento.IsElement;
  *
  * @param <T> the type of the object
  * @see BaseDominoElement
- * @see ParentTreeItem
  */
 public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
-    implements ParentTreeItem<TreeItem<T>>, IsElement<HTMLDivElement> {
+    implements TreeNode<TreeItem<T>>, HasChangeHandlers<Tree<T>, TreeItem<T>> {
 
   private final HTMLElement title = DominoElement.of(span()).css(TITLE).element();
   private ToggleTarget toggleTarget = ToggleTarget.ANY;
@@ -96,10 +94,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   private final HTMLDivElement menu =
       DominoElement.of(div()).style("overflow-x: hidden").css(MENU).add(root).element();
 
+  /* The real active tree item, not necessary being a direct child but well a descendant of the tree. */
   private TreeItem<T> activeTreeItem;
 
   private boolean autoCollapse = true;
-  private final List<TreeItem<T>> subItems = new ArrayList<>();
+  private final List<TreeItem<T>> childTreeItems = new ArrayList<>();
   private boolean autoExpandFound;
   private ColorScheme colorScheme;
   private Search search;
@@ -110,7 +109,8 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
 
   private T value;
 
-  private final List<ItemClickListener<T>> itemsClickListeners = new ArrayList<>();
+  private final List<ChangeHandler<? super TreeItem<T>>> changeHandlers = new ArrayList<>();
+  @Deprecated private final List<ItemClickListener<T>> itemsClickListeners = new ArrayList<>();
   private CollapseStrategy collapseStrategy;
 
   public Tree() {
@@ -184,7 +184,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     if (nonNull(collapseStrategy)) {
       treeItem.setCollapseStrategy(collapseStrategy);
     }
-    this.subItems.add(treeItem);
+    this.childTreeItems.add(treeItem);
     return this;
   }
 
@@ -216,7 +216,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    */
   public Tree<T> setToggleTarget(ToggleTarget toggleTarget) {
     if (nonNull(toggleTarget)) {
-      subItems.forEach(item -> item.setToggleTarget(toggleTarget));
+      childTreeItems.forEach(item -> item.setToggleTarget(toggleTarget));
       this.toggleTarget = toggleTarget;
     }
     return this;
@@ -230,7 +230,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    */
   public Tree<T> setLevelPadding(int levelPadding) {
     this.levelPadding = levelPadding;
-    subItems.forEach(item -> item.setLevelPadding(levelPadding));
+    childTreeItems.forEach(item -> item.setLevelPadding(levelPadding));
 
     return this;
   }
@@ -253,30 +253,54 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
-  @Override
+  /** @return The current active value */
   public TreeItem<T> getActiveItem() {
     return activeTreeItem;
   }
 
-  /** {@inheritDoc} */
-  @Override
+  /**
+   * Activates the item representing the value
+   *
+   * @param activeItem the value of the item to activate
+   */
   public void setActiveItem(TreeItem<T> activeItem) {
     setActiveItem(activeItem, false);
   }
 
-  /** {@inheritDoc} */
-  @Override
-  public void setActiveItem(TreeItem<T> activeItem, boolean silent) {
-    if (nonNull(this.activeTreeItem) && !this.activeTreeItem.equals(activeItem)) {
-      this.activeTreeItem.deactivate();
-    }
+  /**
+   * Activates the activeTreeItem representing the value
+   *
+   * @param activeTreeItem the value of the activeTreeItem to activate
+   * @param silent true to not notify listeners
+   */
+  public void setActiveItem(TreeItem<T> activeTreeItem, boolean silent) {
+    // The contains operation is not cheap, check it only by debug mode when assert is enabled.
+    assert contains(activeTreeItem);
 
-    this.activeTreeItem = activeItem;
-    this.activeTreeItem.activate();
+    if (Objects.equals(this.activeTreeItem, activeTreeItem)) return;
+
+    if (nonNull(this.activeTreeItem)) this.activeTreeItem.deactivate(autoCollapse);
+
+    this.activeTreeItem = activeTreeItem;
+
+    iterateActiveTreeItem(TreeItem::activate);
+
     if (!silent) {
-      onTreeItemClicked(activeItem);
+      changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(this.activeTreeItem));
+      /* Backward compatibility, can be deleted if deprecated interface/method is removed in new release. */
+      itemsClickListeners.forEach(
+          itemClickListener -> itemClickListener.onTreeItemClicked(this.activeTreeItem));
     }
+  }
+
+  protected void iterateTreeItem(TreeNode treeNode, Consumer<TreeItem<T>> consumer) {
+    do {
+      consumer.accept((TreeItem<T>) treeNode);
+    } while ((treeNode = treeNode.getParentNode()) instanceof TreeItem);
+  }
+
+  protected void iterateActiveTreeItem(Consumer<TreeItem<T>> consumer) {
+    iterateTreeItem(activeTreeItem, consumer);
   }
 
   /** @return the header element */
@@ -377,17 +401,17 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
 
   /** Expand all items */
   public void expandAll() {
-    getSubItems().forEach(TreeItem::expandAll);
+    getChildNodes().forEach(TreeItem::expandAll);
   }
 
   /** Collapse all items */
   public void collapseAll() {
-    getSubItems().forEach(TreeItem::collapseAll);
+    getChildNodes().forEach(TreeItem::collapseAll);
   }
 
   /** Deactivate all items */
   public void deactivateAll() {
-    getSubItems().forEach(TreeItem::deactivate);
+    getChildNodes().forEach(subItem -> subItem.deactivate(autoCollapse));
   }
 
   /**
@@ -400,8 +424,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
-  @Override
+  /** @return true if automatic expanding is enabled when finding items in search */
   public boolean isAutoExpandFound() {
     return autoExpandFound;
   }
@@ -417,7 +440,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
 
   /** Clears all the filters */
   public void clearFilter() {
-    subItems.forEach(TreeItem::clearFilter);
+    childTreeItems.forEach(TreeItem::clearFilter);
   }
 
   /**
@@ -426,11 +449,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    * @param searchToken the query
    */
   public void filter(String searchToken) {
-    subItems.forEach(treeItem -> treeItem.filter(searchToken));
+    childTreeItems.forEach(treeItem -> treeItem.filter(searchToken, getFilter()));
   }
 
-  /** {@inheritDoc} */
-  @Override
+  /** @deprecated No replacement */
+  @Deprecated
   public Tree<T> getTreeRoot() {
     return this;
   }
@@ -465,36 +488,39 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return autoCollapse;
   }
 
-  /** {@inheritDoc} */
-  @Override
+  /**
+   * @deprecated Use {@link #getChildNodes()} instead
+   * @return the children of this item
+   */
+  @Deprecated
   public List<TreeItem<T>> getSubItems() {
-    return subItems;
+    return getChildNodes();
   }
 
-  /** {@inheritDoc} */
-  @Override
+  /** @deprecated No replacement */
+  @Deprecated
   public Tree<T> expand(boolean expandParent) {
     return this;
   }
 
-  /** {@inheritDoc} */
-  @Override
+  /** @deprecated No replacement */
+  @Deprecated
   public Tree<T> expand() {
     return this;
   }
 
-  /** {@inheritDoc} */
-  @Override
+  /** @deprecated No replacement */
+  @Deprecated
   public Optional<TreeItem<T>> getParent() {
     return Optional.empty();
   }
 
-  /** {@inheritDoc} */
-  @Override
+  /** @deprecated No replacement */
+  @Deprecated
   public void activate() {}
 
-  /** {@inheritDoc} */
-  @Override
+  /** @deprecated No replacement */
+  @Deprecated
   public void activate(boolean activateParent) {}
 
   /** @return the search element */
@@ -534,9 +560,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   /**
    * Adds a click listener to be called when item is clicked
    *
+   * @deprecated Use {@link HasChangeHandlers#addChangeHandler(ChangeHandler)} instead
    * @param itemClickListener a {@link ItemClickListener}
    * @return same instance
    */
+  @Deprecated
   public Tree<T> addItemClickListener(ItemClickListener<T> itemClickListener) {
     this.itemsClickListeners.add(itemClickListener);
     return this;
@@ -545,54 +573,83 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   /**
    * Removes a click listener
    *
+   * @deprecated Use {@link HasChangeHandlers#removeChangeHandler(ChangeHandler)} instead
    * @param itemClickListener a {@link ItemClickListener} to be removed
    * @return same instance
    */
+  @Deprecated
   public Tree<T> removeItemClickListener(ItemClickListener<T> itemClickListener) {
     this.itemsClickListeners.remove(itemClickListener);
     return this;
   }
 
-  void onTreeItemClicked(TreeItem<T> treeItem) {
-    this.itemsClickListeners.forEach(
-        itemClickListener -> itemClickListener.onTreeItemClicked(treeItem));
-  }
-
   /** @return the list of the items in the current active path */
   public List<TreeItem<T>> getActivePath() {
+    List<TreeItem<T>> activeItems = getBubblingPath(activeTreeItem);
+
+    Collections.reverse(activeItems);
+
+    return activeItems;
+  }
+
+  /**
+   * @param treeNode The start item, inclusive.
+   * @return the list of the items in the current active path, from inner TreeItem to outermost
+   *     TreeItem
+   */
+  public List<TreeItem<T>> getBubblingPath(TreeNode treeNode) {
     List<TreeItem<T>> activeItems = new ArrayList<>();
-    TreeItem<T> activeItem = getActiveItem();
-    while (nonNull(activeItem)) {
-      activeItems.add(activeItem);
-      activeItem = activeItem.getActiveItem();
-    }
+
+    iterateTreeItem(treeNode, activeItems::add);
 
     return activeItems;
   }
 
   /** @return the list of values in the current active path */
   public List<T> getActivePathValues() {
+    List<T> activeValues = getBubblingPathValues(activeTreeItem);
+
+    Collections.reverse(activeValues);
+
+    return activeValues;
+  }
+
+  /**
+   * @param treeNode The start item, inclusive.
+   * @return the list of values in the current active path, from inner TreeItem value to outermost
+   *     TreeItem value
+   */
+  public List<T> getBubblingPathValues(TreeNode treeNode) {
     List<T> activeValues = new ArrayList<>();
-    TreeItem<T> activeItem = getActiveItem();
-    while (nonNull(activeItem)) {
-      activeValues.add(activeItem.getValue());
-      activeItem = activeItem.getActiveItem();
-    }
+
+    iterateTreeItem(treeNode, item -> activeValues.add(item.getValue()));
 
     return activeValues;
   }
 
   /** Clear all direct children of the tree, effectively reset the tree */
   public void clear() {
-    subItems.stream().forEach(TreeItem::clear);
-    subItems.clear();
+    childTreeItems.stream().forEach(TreeItem::remove);
+    childTreeItems.clear();
+  }
+
+  /**
+   * Removes item
+   *
+   * @deprecated Use {@link #removeChild(TreeItem<T>)} instead
+   * @param item the item value
+   */
+  @Deprecated
+  public void removeItem(TreeItem<T> item) {
+    removeChild(item);
   }
 
   /** {@inheritDoc} */
   @Override
-  public void removeItem(TreeItem<T> item) {
-    subItems.remove(item);
-    item.remove();
+  public TreeItem<T> removeChild(TreeItem<T> node) {
+    getChildNodes().remove(node);
+
+    return node.remove();
   }
 
   /**
@@ -607,14 +664,13 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
-  @Override
+  /** @return the {@link TreeItemFilter} */
   public TreeItemFilter<TreeItem<T>> getFilter() {
     return this.filter;
   }
 
   public Tree<T> setCollapseStrategy(CollapseStrategy collapseStrategy) {
-    getSubItems().forEach(tTreeItem -> setCollapseStrategy(collapseStrategy));
+    getChildNodes().forEach(tTreeItem -> setCollapseStrategy(collapseStrategy));
     this.collapseStrategy = collapseStrategy;
     return this;
   }
@@ -629,11 +685,44 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return menu;
   }
 
+  /** {@inheritDoc} */
+  @Override
+  public Tree<T> addChangeHandler(ChangeHandler<? super TreeItem<T>> changeHandler) {
+    changeHandlers.add(changeHandler);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Tree<T> removeChangeHandler(ChangeHandler<? super TreeItem<T>> changeHandler) {
+    changeHandlers.remove(changeHandler);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean hasChangeHandler(ChangeHandler<? super TreeItem<T>> changeHandler) {
+    return changeHandlers.contains(changeHandler);
+  }
+
+  @Override
+  public TreeNode<TreeItem<T>> getParentNode() {
+    // A tree instance does not have a parent node
+    return null;
+  }
+
+  @Override
+  public List<TreeItem<T>> getChildNodes() {
+    return childTreeItems;
+  }
+
   /**
    * A listener to be called when clicking on item
    *
+   * @deprecated Use {@link ChangeHandler#onValueChanged(Object)} instead
    * @param <T> the type of the object
    */
+  @Deprecated
   public interface ItemClickListener<T> {
     void onTreeItemClicked(TreeItem<T> treeItem);
   }
