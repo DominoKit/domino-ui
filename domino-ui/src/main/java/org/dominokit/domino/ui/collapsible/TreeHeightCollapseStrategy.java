@@ -109,7 +109,7 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
   }
 
   private void resetParentHeight(TreeItem<?> treeItem) {
-    TreeNode<?> parentNode = treeItem.getParentNode();
+    TreeNode parentNode = treeItem.getParentNode();
     if (parentNode instanceof TreeItem) {
       ((TreeItem<?>) parentNode).getChildrenContainer().style.height = null;
       parentNode = parentNode.getParentNode();
