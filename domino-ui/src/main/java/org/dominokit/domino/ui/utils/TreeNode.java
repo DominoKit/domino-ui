@@ -81,9 +81,20 @@ public interface TreeNode {
     return parentNode.getParentNode();
   }
 
-  /** @return a boolean value indicating of this tree node has child nodes or not */
+  /** @return a boolean value indicating of this tree node has child tree nodes or not */
   default boolean hasChildNodes() {
     return getChildNodes().size() > 0;
+  }
+
+  /**
+   * @param node a child tree node to be appended to the end of the child tree node list of this
+   *     tree node
+   * @return the appended tree node
+   */
+  default TreeNode appendChild(TreeNode node) {
+    getChildNodes().add(node);
+
+    return node;
   }
 
   /**

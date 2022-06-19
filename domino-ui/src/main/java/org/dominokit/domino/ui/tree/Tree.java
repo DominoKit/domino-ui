@@ -165,8 +165,18 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    *
    * @param treeItem a new {@link TreeItem}
    * @return same instance
+   * @deprecated use {@link #appendChild(TreeNode)} instead
    */
+  @Deprecated
   public Tree<T> appendChild(TreeItem<T> treeItem) {
+    appendChild((TreeNode) treeItem);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TreeNode appendChild(TreeNode node) {
+    TreeItem<T> treeItem = (TreeItem<T>) node;
     root.appendChild(treeItem.element());
     treeItem.setParent(this);
     treeItem.setLevel(1);
@@ -176,7 +186,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
       treeItem.setCollapseStrategy(collapseStrategy);
     }
     this.childTreeItems.add(treeItem);
-    return this;
+    return node;
   }
 
   /**

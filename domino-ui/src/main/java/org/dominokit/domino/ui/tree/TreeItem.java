@@ -256,8 +256,18 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
    *
    * @param treeItem the child {@link TreeItem}
    * @return same instance
+   * @deprecated use {@link #appendChild(TreeNode)} instead
    */
+  @Deprecated
   public TreeItem<T> appendChild(TreeItem<T> treeItem) {
+    appendChild((TreeNode) treeItem);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TreeNode appendChild(TreeNode node) {
+    TreeItem<T> treeItem = (TreeItem<T>) node;
     this.childTreeItems.add(treeItem);
     childrenContainer.appendChild(treeItem.element());
     anchorElement.addCss("tree-toggle");
@@ -268,7 +278,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     treeItem.setToggleTarget(this.toggleTarget);
     treeItem.setLevelPadding(levelPadding);
     this.style().addCss("tree-item-parent");
-    return this;
+    return node;
   }
 
   /**
