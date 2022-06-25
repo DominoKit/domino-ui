@@ -19,6 +19,7 @@ import static org.dominokit.domino.ui.style.Unit.px;
 
 import elemental2.dom.*;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.Icons;
@@ -26,6 +27,7 @@ import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.style.Calc;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.PopupsCloser;
 import org.jboss.elemento.EventType;
 
 /**
@@ -308,6 +310,8 @@ public class Window extends BaseModal<Window> {
             EventType.mousedown,
             evt -> {
               if (draggable) {
+                DropDownMenu.closeAllMenus();
+                PopupsCloser.close();
                 MouseEvent mouseEvent = Js.uncheckedCast(evt);
                 if (!startMoving && mouseEvent.button == 0) {
                   mouseEvent.stopPropagation();
