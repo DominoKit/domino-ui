@@ -679,9 +679,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
         });
   }
 
-  /**
-   * @return true if automatic expanding is enabled when finding items in search
-   */
+  /** @return true if automatic expanding is enabled when finding items in search */
   public boolean isAutoExpandFound() {
     return getRootNode().isAutoExpandFound();
   }
