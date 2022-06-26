@@ -328,10 +328,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   /** {@inheritDoc} */
   @Override
   public TreeItem<T> show() {
-    if (isParent()) {
-      collapsible.show();
-    }
-    return this;
+    return show(false);
   }
 
   /**
@@ -339,12 +336,14 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
    *
    * @param expandParent true to expand the parent of the item
    * @return same instance
-   * @deprecated use either {@link #show()} or {@link Tree#setActiveItem(TreeItem)} instead
    */
-  @Deprecated
   public TreeItem<T> show(boolean expandParent) {
-    if (expandParent) setActiveItem();
-    else show();
+    if (isParent()) {
+      collapsible.show();
+    }
+    if (expandParent) {
+      getParent().ifPresent(parent -> parent.expand(true));
+    }
     return this;
   }
 
@@ -362,13 +361,9 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
    *
    * @param expandParent true to expand the parent of the item
    * @return same instance
-   * @deprecated use either {@link #show()} or {@link Tree#setActiveItem(TreeItem)} instead
    */
-  @Deprecated
   public TreeItem<T> expand(boolean expandParent) {
-    if (expandParent) setActiveItem();
-    else show();
-    return this;
+    return show(expandParent);
   }
 
   /** {@inheritDoc} */
@@ -387,6 +382,19 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
       collapsible.toggleDisplay();
     }
     return this;
+  }
+
+  /** @deprecated use {@link #isCollapsed()} {@inheritDoc} */
+  @Override
+  @Deprecated
+  public boolean isHidden() {
+    return collapsible.isCollapsed();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isCollapsed() {
+    return collapsible.isCollapsed();
   }
 
   /** {@inheritDoc} */
@@ -439,7 +447,6 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   /** @return the parent item */
   public Optional<TreeItem<T>> getParent() {
-    TreeNode parentNode = getParentNode();
     if (parentNode instanceof TreeItem) {
       return Optional.of((TreeItem<T>) parentNode);
     } else {
@@ -472,7 +479,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   /** @return A list of tree items representing the path for this item */
   public List<TreeItem<T>> getPath() {
-    List<TreeItem<T>> items = getRootNode().getBubblingPath(this);
+    List<TreeItem<T>> items = Tree.getBubblingPath(this);
 
     Collections.reverse(items);
 
@@ -481,7 +488,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   /** @return A list of values representing the path for this item */
   public List<T> getPathValues() {
-    List<T> values = getRootNode().getBubblingPathValues(this);
+    List<T> values = Tree.getBubblingPathValues(this);
 
     Collections.reverse(values);
 
@@ -922,13 +929,8 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     return this;
   }
 
-  /** @return the {@link TreeItemFilter} */
-  public TreeItemFilter<TreeItem<T>> getFilter() {
-    return getRootNode().getFilter();
-  }
-
   public Predicate<TreeNode> createFilterPredicate(String searchToken) {
-    return getRootNode().createFilter(searchToken);
+    return getRootNode().createFilterPredicate(searchToken);
   }
 
   /** {@inheritDoc} */

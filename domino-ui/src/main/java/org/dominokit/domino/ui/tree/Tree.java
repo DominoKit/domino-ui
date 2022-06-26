@@ -67,16 +67,17 @@ import org.dominokit.domino.ui.utils.TreeNode;
  */
 public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     implements TreeNode, HasChangeHandlers<Tree<T>, TreeItem<T>> {
+  public static final Predicate<TreeNode> treeItemOnly = node -> node instanceof TreeItem;
 
   private final HTMLElement title = DominoElement.of(span()).css(TITLE).element();
   private ToggleTarget toggleTarget = ToggleTarget.ANY;
 
+  // Used by filter method based on a searcht token primary provided by a user input, can be a
+  // relaxed search like case-insensitive
   private Function<String, Predicate<TreeNode>> filter;
 
-  @Deprecated
-  private TreeItemFilter<TreeItem<T>> filterOld =
-      (treeItem, searchToken) ->
-          treeItem.getTitle().toLowerCase().contains(searchToken.toLowerCase());
+  // Used primary by a programma, based on <T> value test, hence corresponding with the data model
+  private Function<T, Predicate<TreeNode>> finder;
 
   private final HTMLLIElement header =
       DominoElement.of(li()).css(HEADER).css(MENU_HEADER).add(title).element();
@@ -491,43 +492,6 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     childItems.forEach(TreeItem::clearFilter);
   }
 
-  /**
-   * Find any descendant tree item matching the given item value
-   *
-   * @param value a value being searched
-   * @return an {@code Optional} tree item matching the given item value
-   */
-  public Optional<TreeItem<T>> findAny(T value) {
-    return findAny(createPredicate(value));
-  }
-
-  /**
-   * @param values argument values to test with
-   * @return an {@code Optional} tree item with a path matching exactly the given item values
-   */
-  public Optional<TreeItem<T>> findExact(Object... values) {
-    return findExact(createPredicates(this::createPredicate));
-  }
-
-  /**
-   * @param value argument value to test with
-   * @return a predicate, indicating if a give tree node matching the given value
-   */
-  protected Predicate<TreeNode> createPredicate(Object value) {
-    return node ->
-        node instanceof TreeItem && Objects.equals(((TreeItem<?>) node).getValue(), value);
-  }
-
-  /**
-   * Filter based on the search query
-   *
-   * @param searchToken the query
-   */
-  public void filter(String searchToken) {
-    Predicate<TreeNode> predicate = createFilter(searchToken);
-    childItems.forEach(treeItem -> treeItem.filter(predicate));
-  }
-
   /** @return The {@link Tree} */
   public Tree<T> getTreeRoot() {
     return this;
@@ -670,37 +634,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return getBubblingPath(activeItem);
   }
 
-  /**
-   * @param treeNode the start item, inclusive.
-   * @return the list of the items in the current active path, from inner tree item to outermost
-   *     tree item
-   */
-  public List<TreeItem<T>> getBubblingPath(TreeNode treeNode) {
-    List<TreeItem<T>> activeItems = new ArrayList<>();
-
-    iterateTreeItem(treeNode, activeItems::add);
-
-    return activeItems;
-  }
-
   /** @return the list of values in the current active path */
   public List<T> getActivePathValues() {
     List<T> activeValues = getBubblingPathValues(activeItem);
 
     Collections.reverse(activeValues);
-
-    return activeValues;
-  }
-
-  /**
-   * @param treeNode the start item, inclusive.
-   * @return the list of values in the current active path, from inner tree item value to outermost
-   *     tree item value
-   */
-  public List<T> getBubblingPathValues(TreeNode treeNode) {
-    List<T> activeValues = new ArrayList<>();
-
-    iterateTreeItem(treeNode, item -> activeValues.add(item.getValue()));
 
     return activeValues;
   }
@@ -751,30 +689,70 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    */
   @Deprecated
   public Tree<T> setFilter(TreeItemFilter<TreeItem<T>> filter) {
-    this.filterOld = filter;
+    // Do nothing
     return this;
   }
 
+  /**
+   * Filter based on the search query
+   *
+   * @param searchToken the query
+   */
+  public void filter(String searchToken) {
+    Predicate<TreeNode> predicate = createFilterPredicate(searchToken);
+    childItems.forEach(treeItem -> treeItem.filter(predicate));
+  }
+
+  public Predicate<TreeNode> createFilterPredicate(String searchToken) {
+    return filter == null ? createDefaultFilterPredicate(searchToken) : filter.apply(searchToken);
+  }
+
+  /**
+   * Set a specific finder of the tree
+   *
+   * @param filter create predicates used by filter method of the tree
+   * @return same instance
+   */
   public Tree<T> setFilter(Function<String, Predicate<TreeNode>> filter) {
     this.filter = filter;
     return this;
   }
 
   /**
-   * @return the {@link TreeItemFilter}
-   * @deprecated use {@link #createFilter(String)} instead
+   * Find any descendant tree item matching the given item value
+   *
+   * @param value a value being searched
+   * @return an {@code Optional} tree item matching the given item value
    */
-  @Deprecated
-  public TreeItemFilter<TreeItem<T>> getFilter() {
-    return this.filterOld;
+  public Optional<TreeItem<T>> findAny(T value) {
+    return findAny(createFinderPredicate(value));
   }
 
-  public Predicate<TreeNode> createFilter(String searchToken) {
-    if (filter == null)
-      return treeNode ->
-          ((TreeItem<?>) treeNode).getTitle().toLowerCase().contains(searchToken.toLowerCase());
+  /**
+   * @param values argument values to test with
+   * @return an {@code Optional} tree item with a path matching exactly the given item values
+   */
+  public Optional<TreeItem<T>> findExact(T... values) {
+    return findExact(createPredicates(this::createFinderPredicate, values));
+  }
 
-    return filter.apply(searchToken);
+  /**
+   * @param value argument value to test with
+   * @return a predicate, indicating if a give tree node matching the given value
+   */
+  public Predicate<TreeNode> createFinderPredicate(T value) {
+    return finder == null ? createDefaultFinderPredicate(value) : finder.apply(value);
+  }
+
+  /**
+   * Set a specific finder of the tree
+   *
+   * @param finder create predicates used by find methods of the tree
+   * @return same instance
+   */
+  public Tree<T> setFinder(Function<T, Predicate<TreeNode>> finder) {
+    this.finder = finder;
+    return this;
   }
 
   public Tree<T> setCollapseStrategy(CollapseStrategy collapseStrategy) {
@@ -841,5 +819,55 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   @Deprecated
   public interface ItemClickListener<T> {
     void onTreeItemClicked(TreeItem<T> treeItem);
+  }
+
+  /**
+   * @param treeNode the start item, inclusive.
+   * @return the list of the items in the current active path, from inner tree item to outermost
+   *     tree item
+   */
+  public static <T> List<TreeItem<T>> getBubblingPath(TreeNode treeNode) {
+    List<TreeItem<T>> activeItems = new ArrayList<>();
+
+    TreeNode.iterate(treeNode, treeItemOnly, node -> activeItems.add((TreeItem<T>) node));
+
+    return activeItems;
+  }
+
+  /**
+   * @param treeNode the start item, inclusive.
+   * @return the list of values in the current active path, from inner tree item value to outermost
+   *     tree item value
+   */
+  public static <T> List<T> getBubblingPathValues(TreeNode treeNode) {
+    List<T> activeValues = new ArrayList<>();
+
+    TreeNode.iterate(
+        treeNode, treeItemOnly, node -> activeValues.add(((TreeItem<T>) node).getValue()));
+
+    return activeValues;
+  }
+
+  /**
+   * Create default predicates used by filter method of the tree
+   *
+   * @param searchToken the query to test with
+   * @return a default predicate used to test given query
+   */
+  public static Predicate<TreeNode> createDefaultFilterPredicate(String searchToken) {
+    String lowerCase = searchToken.toLowerCase();
+
+    return treeItemOnly.or(
+        node -> ((TreeItem<?>) node).getTitle().toLowerCase().contains(lowerCase));
+  }
+
+  /**
+   * Create default predicates used by find methods of the tree
+   *
+   * @param value the value to test with
+   * @return a default predicate used to test given value
+   */
+  public static Predicate<TreeNode> createDefaultFinderPredicate(Object value) {
+    return treeItemOnly.or(node -> Objects.equals(((TreeItem<?>) node).getValue(), value));
   }
 }

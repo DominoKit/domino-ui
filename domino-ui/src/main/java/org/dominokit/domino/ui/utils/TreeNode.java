@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.utils;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiPredicate;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -73,8 +74,8 @@ public interface TreeNode {
    * @param values predicate argument
    * @return an array of predicate, created by given creator and given values
    */
-  default Predicate<TreeNode>[] createPredicates(
-      Function<Object, Predicate<TreeNode>> creator, Object... values) {
+  default <T> Predicate<TreeNode>[] createPredicates(
+      Function<T, Predicate<TreeNode>> creator, T... values) {
     Predicate<TreeNode>[] predicates = new Predicate[values.length];
 
     for (int i = 0; i < values.length; i++) {
@@ -176,5 +177,20 @@ public interface TreeNode {
     getChildNodes().remove(node);
 
     return node;
+  }
+
+  /**
+   * Iterate from the give tree node towards its ancestor node
+   *
+   * @param treeNode the start tree node, inclusive
+   * @param predicate the predicate to test with
+   * @param consumer the consumer to use with
+   */
+  static void iterate(
+      TreeNode treeNode, Predicate<TreeNode> predicate, Consumer<TreeNode> consumer) {
+    while (predicate.test(treeNode)) {
+      consumer.accept(treeNode);
+      treeNode = treeNode.getParentNode();
+    }
   }
 }
