@@ -130,6 +130,10 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
     setValue(value);
     EventListener downEvent =
         mouseDownEvent -> {
+          if (slider.isReadOnly()) {
+            onReadOnly(mouseDownEvent);
+            return;
+          }
           slider.addCss(SliderStyles.active);
           this.mouseDown = true;
           if (withThumb) {
@@ -139,6 +143,10 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
         };
     EventListener moveMouseListener =
         mouseMoveEvent -> {
+          if (slider.isReadOnly()) {
+            onReadOnly(mouseMoveEvent);
+            return;
+          }
           if (mouseDown) {
             if (withThumb) {
               evaluateThumbPosition();
@@ -151,6 +159,10 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
 
     EventListener upEvent =
         mouseUpEvent -> {
+          if (slider.isReadOnly()) {
+            onReadOnly(mouseUpEvent);
+            return;
+          }
           mouseDown = false;
           slider.removeCss(SliderStyles.active);
           hideThumb();
@@ -173,6 +185,15 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
     setThumbColor(Theme.currentTheme.getScheme().color());
 
     init(this);
+  }
+
+  private void onReadOnly(Event mouseUpEvent) {
+    mouseUpEvent.preventDefault();
+    if (withThumb) {
+      moveThumb();
+      showThumb();
+      updateThumbValue();
+    }
   }
 
   private double calculateRangeOffset() {
@@ -206,8 +227,12 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
 
   private void evaluateThumbPosition() {
     if (mouseDown) {
-      thumb.style().setLeft(calculateRangeOffset() + "px");
+      moveThumb();
     }
+  }
+
+  private void moveThumb() {
+    thumb.style().setLeft(calculateRangeOffset() + "px");
   }
 
   /**
@@ -239,6 +264,46 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
     if (!silent) {
       callChangeHandlers();
     }
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Slider setReadOnly(boolean readOnly) {
+    slider.setReadOnly(readOnly);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isReadOnly() {
+    return slider.isReadOnly();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Slider setDisabled(boolean disabled) {
+    slider.setDisabled(disabled);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isDisabled() {
+    return slider.isDisabled();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Slider disable() {
+    slider.disable();
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Slider enable() {
+    slider.enable();
     return this;
   }
 
@@ -456,6 +521,13 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
       }
       container.appendChild(addon);
     }
+  }
+
+  /**
+   * @return the {@link HTMLInputElement} that wrapped by this slider as a {@link DominoElement} .
+   */
+  public DominoElement<HTMLInputElement> getSlider() {
+    return slider;
   }
 
   /** A function to implement logic that will be called while dragging the slider pointer */

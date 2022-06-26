@@ -250,6 +250,15 @@ body.modal-open {
         width: 90%;
     }
 
+    .modal.window,
+    .modal.modal-lg.window,
+    .modal.modal-md.window,
+    .modal.modal-sm.window {
+        left: auto !important;
+        margin: 0 5% 0 5%;
+        top: 30px !important;
+    }
+
     .modal:not([class*="-sheet"]) {
         top: 30px;
     }
