@@ -22,7 +22,6 @@ import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.*;
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -342,14 +341,6 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    */
   public void resetItemIfActive(TreeItem<T> item, boolean silent) {
     if (getActiveBubblingPath().contains(this)) setActiveItem(null, silent);
-  }
-
-  protected void iterateTreeItem(TreeNode treeNode, Consumer<TreeItem<T>> consumer) {
-    while (treeNode instanceof TreeItem) {
-      consumer.accept((TreeItem<T>) treeNode);
-
-      treeNode = treeNode.getParentNode();
-    }
   }
 
   /** @return the header element */
