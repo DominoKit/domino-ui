@@ -41,13 +41,14 @@ import org.jboss.elemento.IsElement;
  * @see CanDeactivate
  * @see HasClickableElement
  */
-public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implements TreeNode {
+public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
+    implements TreeNode, CanActivate, CanDeactivate {
 
   private String title;
   private HTMLLIElement element;
   private final DominoElement<HTMLAnchorElement> anchorElement;
-  private final List<TreeItem<T>> childTreeItems = new ArrayList<>();
-  private TreeNode parentTreeNode;
+  private final List<TreeItem<T>> childItems = new ArrayList<>();
+  private TreeNode parentNode;
   private Collapsible collapsible;
 
   private HTMLUListElement childrenContainer;
@@ -93,7 +94,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
                                 evt -> {
                                   evt.stopPropagation();
                                   toggle();
-                                  activateItem();
+                                  setActiveItem();
                                 }))
                     .appendChild(
                         Icons.ALL
@@ -105,7 +106,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
                                 evt -> {
                                   evt.stopPropagation();
                                   toggle();
-                                  activateItem();
+                                  setActiveItem();
                                 })))
             .add(indicatorContainer);
     init();
@@ -235,7 +236,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
           if (ToggleTarget.ANY.equals(this.toggleTarget) && isParent()) {
             toggle();
           }
-          activateItem();
+          setActiveItem();
         });
     init(this);
     setToggleTarget(ToggleTarget.ANY);
@@ -244,10 +245,10 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
   }
 
   /**
-   * This method is internally used by the tree item self to notify its root note {@link Tree} that
-   * the item should be active
+   * This method is internally used by a tree item self to notify its root node {@link Tree} that
+   * this item should be the active one in the tree.
    */
-  private void activateItem() {
+  private void setActiveItem() {
     getRootNode().setActiveItem(this);
   }
 
@@ -256,9 +257,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
    *
    * @param treeItem the child {@link TreeItem}
    * @return same instance
-   * @deprecated use {@link #appendChild(TreeNode)} instead
    */
-  @Deprecated
   public TreeItem<T> appendChild(TreeItem<T> treeItem) {
     appendChild((TreeNode) treeItem);
     return this;
@@ -268,10 +267,10 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
   @Override
   public TreeNode appendChild(TreeNode node) {
     TreeItem<T> treeItem = (TreeItem<T>) node;
-    this.childTreeItems.add(treeItem);
+    this.childItems.add(treeItem);
     childrenContainer.appendChild(treeItem.element());
     anchorElement.addCss("tree-toggle");
-    treeItem.parentTreeNode = this;
+    treeItem.parentNode = this;
     treeItem.setLevel(level + 1);
     treeItem.addCss("tree-leaf");
     Style.of(this.element()).removeCss("tree-leaf");
@@ -315,7 +314,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
         }
       }
 
-      childTreeItems.forEach(item -> item.setToggleTarget(toggleTarget));
+      childItems.forEach(item -> item.setToggleTarget(toggleTarget));
     }
     return this;
   }
@@ -340,11 +339,11 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
    *
    * @param expandParent true to expand the parent of the item
    * @return same instance
-   * @deprecated use {@link Tree#setActiveItem(TreeItem)} instead
+   * @deprecated use either {@link #show()} or {@link Tree#setActiveItem(TreeItem)} instead
    */
   @Deprecated
   public TreeItem<T> show(boolean expandParent) {
-    if (expandParent) activateItem();
+    if (expandParent) setActiveItem();
     else show();
     return this;
   }
@@ -353,9 +352,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
    * Expands the tree item
    *
    * @return same instance
-   * @deprecated use {@link #show()} instead
    */
-  @Deprecated
   public TreeItem<T> expand() {
     return show();
   }
@@ -365,11 +362,13 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
    *
    * @param expandParent true to expand the parent of the item
    * @return same instance
-   * @deprecated use {@link Tree#setActiveItem(TreeItem)} instead
+   * @deprecated use either {@link #show()} or {@link Tree#setActiveItem(TreeItem)} instead
    */
   @Deprecated
   public TreeItem<T> expand(boolean expandParent) {
-    return show(expandParent);
+    if (expandParent) setActiveItem();
+    else show();
+    return this;
   }
 
   /** {@inheritDoc} */
@@ -433,20 +432,12 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     return getRootNode().getActiveItem();
   }
 
-  /**
-   * @return the {@link Tree}
-   * @deprecated use {@link #getRootNode()} instead
-   */
-  @Deprecated
+  /** @return The {@link Tree} */
   public Tree<T> getTreeRoot() {
     return getRootNode();
   }
 
-  /**
-   * @return the parent item
-   * @deprecated use {@link #getParentNode()} instead
-   */
-  @Deprecated
+  /** @return the parent item */
   public Optional<TreeItem<T>> getParent() {
     TreeNode parentNode = getParentNode();
     if (parentNode instanceof TreeItem) {
@@ -497,26 +488,25 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     return values;
   }
 
-  /**
-   * This package protected method is mainly used by its root node {@link Tree} when this tree item
-   * or one of its descendant is active
-   */
-  void activate() {
+  /** Activates the component, GUI effect only */
+  @Override
+  public void activate() {
     Style.of(element()).addCss("active");
     if (isNull(expandIcon) || collapsible.isCollapsed() || !isParent()) {
       replaceIcon(this.activeIcon);
     }
+    if (isParent() && collapsible.isCollapsed()) collapsible.show();
   }
 
   /**
    * Activates the item
    *
    * @param activateParent true to activate parent
-   * @deprecated use {@link Tree#setActiveItem(TreeItem)} instead
+   * @deprecated use either {@link #activate()} or {@link Tree#setActiveItem(TreeItem)} instead
    */
   @Deprecated
   public void activate(boolean activateParent) {
-    if (activateParent) activateItem();
+    if (activateParent) setActiveItem();
     else activate();
   }
 
@@ -530,29 +520,24 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     }
   }
 
-  /**
-   * Deactivate the component
-   *
-   * @deprecated use {@link #deactivate(boolean)} instead
-   */
-  @Deprecated
+  /** Deactivate the component, GUI effect only */
+  @Override
   public void deactivate() {
     deactivate(getRootNode().isAutoCollapse());
   }
 
   /**
-   * This package protected method is mainly used by its root node {@link Tree} when this tree item
-   * is no more active
+   * Deactivate the component, GUI effect only
    *
    * @param autoCollapse indicator if item should be collapsed automatically
    */
-  void deactivate(boolean autoCollapse) {
+  public void deactivate(boolean autoCollapse) {
     Style.of(element()).removeCss("active");
     if (isNull(expandIcon) || collapsible.isCollapsed() || !isParent()) {
       restoreIcon();
     }
     if (isParent()) {
-      childTreeItems.forEach(subItem -> subItem.deactivate(autoCollapse));
+      childItems.forEach(subItem -> subItem.deactivate(autoCollapse));
       if (autoCollapse) {
         collapsible.hide();
       }
@@ -601,7 +586,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
             evt.stopPropagation();
             toggle();
           }
-          activateItem();
+          setActiveItem();
         });
     return this;
   }
@@ -629,11 +614,11 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
   }
 
   boolean isParent() {
-    return !childTreeItems.isEmpty();
+    return !childItems.isEmpty();
   }
 
   void setParent(TreeNode parentTreeNode) {
-    this.parentTreeNode = parentTreeNode;
+    this.parentNode = parentTreeNode;
   }
 
   /** @return the title of the item */
@@ -712,7 +697,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
           });
     }
     Style.of(element).removeCssProperty("display");
-    childTreeItems.forEach(TreeItem::clearFilter);
+    childItems.forEach(TreeItem::clearFilter);
   }
 
   /**
@@ -731,7 +716,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
   public void collapseAll() {
     if (isParent() && !collapsible.isCollapsed()) {
       hide();
-      childTreeItems.forEach(TreeItem::collapseAll);
+      childItems.forEach(TreeItem::collapseAll);
     }
   }
 
@@ -739,7 +724,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
   public void expandAll() {
     if (isParent() && collapsible.isCollapsed()) {
       show();
-      childTreeItems.forEach(TreeItem::expandAll);
+      childItems.forEach(TreeItem::expandAll);
     }
   }
 
@@ -754,7 +739,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     updateLevelPadding();
 
     if (isParent()) {
-      childTreeItems.forEach(treeItem -> treeItem.setLevel(level + 1));
+      childItems.forEach(treeItem -> treeItem.setLevel(level + 1));
     }
 
     return this;
@@ -771,7 +756,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     updateLevelPadding();
 
     if (isParent()) {
-      childTreeItems.forEach(treeItem -> treeItem.setLevelPadding(levelPadding));
+      childItems.forEach(treeItem -> treeItem.setLevelPadding(levelPadding));
     }
 
     return this;
@@ -789,26 +774,20 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
 
   /** @return true if this item does not have children, false otherwise */
   public boolean isLeaf() {
-    return childTreeItems.isEmpty();
+    return childItems.isEmpty();
   }
 
-  /**
-   * @return the list of all sub {@link TreeItem}
-   * @deprecated use {@link #getChildNodes()} instead
-   */
-  @Deprecated
+  /** @return the children of this item */
   public List<TreeItem<T>> getSubItems() {
     return getChildNodes();
   }
 
   /**
-   * Selects this item, the item will be shown and activated
-   *
-   * @deprecated use {@link Tree#setActiveItem(TreeItem)} instead
+   * Selects this item, the item will be shown and activated, effectively set this tree item as the
+   * active one of the tree
    */
-  @Deprecated
   public void select() {
-    activateItem();
+    setActiveItem();
   }
 
   /** @return the value of the item */
@@ -829,9 +808,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
    * Removes item
    *
    * @param item the item value
-   * @deprecated use {@link #removeChild(TreeNode)} instead
    */
-  @Deprecated
   public void removeItem(TreeItem<T> item) {
     removeChild((TreeNode) item);
   }
@@ -852,9 +829,9 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     List<TreeItem<T>> activePath = tree.getActiveBubblingPath();
 
     // Update HTML DOM
-    childTreeItems.stream().forEach(TreeItem::remove);
+    childItems.stream().forEach(TreeItem::remove);
 
-    childTreeItems.clear();
+    childItems.clear();
 
     removeParentStyle();
 
@@ -874,11 +851,11 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
     // Remember the current active path of the root tree
     List<TreeItem<T>> activePath = tree.getActiveBubblingPath();
 
-    if (childTreeItems.remove(node)) {
+    if (childItems.remove(node)) {
       // Update HTML DOM
       ((TreeItem<T>) node).remove();
 
-      if (childTreeItems.isEmpty()) removeParentStyle();
+      if (childItems.isEmpty()) removeParentStyle();
 
       // Either the node being removed or one of its descendants is the active tree item of the root
       // tree. Since the node is removed, its parent node, namely this one, should be automatically
@@ -991,13 +968,13 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>> implem
   /** {@inheritDoc} */
   @Override
   public TreeNode getParentNode() {
-    return parentTreeNode;
+    return parentNode;
   }
 
   /** {@inheritDoc} */
   @Override
   public List<TreeItem<T>> getChildNodes() {
-    return childTreeItems;
+    return childItems;
   }
 
   /** {@inheritDoc} */

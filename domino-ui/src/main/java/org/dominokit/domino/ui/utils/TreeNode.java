@@ -18,9 +18,14 @@ package org.dominokit.domino.ui.utils;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
-/** An interface representing a tree node */
+/**
+ * An interface representing a tree node. The interface does not contain any client specific code,
+ * hence it is also suitable for backend java code.
+ */
 public interface TreeNode {
   /** @return the parent of this tree node */
   TreeNode getParentNode();
@@ -29,8 +34,6 @@ public interface TreeNode {
   <T extends TreeNode> List<T> getChildNodes();
 
   /**
-   * Returns an {@link Optional} tree node if it matches the given predicate
-   *
    * @param predicate a predicate to test with
    * @return an {@code Optional} tree node matching the given predicate
    */
@@ -41,6 +44,74 @@ public interface TreeNode {
       Optional<T> found = childNode.findAny(predicate);
 
       if (found.isPresent()) return found;
+    }
+
+    return Optional.empty();
+
+    // Maybe just use java stream findAny method, or it has here poor performance?
+    // return this.<T>flatMap().filter(predicate).findAny();
+  }
+
+  /**
+   * @param predicate a predicate to test with
+   * @return a {@code Stream} of descendant tree nodes matching the given predicate
+   */
+  default <T extends TreeNode> Stream<T> findAll(Predicate<TreeNode> predicate) {
+    return this.<T>flatMap().filter(predicate);
+  }
+
+  /** @return a {@code Stream} of descendant tree nodes of this tree node */
+  default <T extends TreeNode> Stream<T> flatMap() {
+    return Stream.concat(Stream.of((T) this), getChildNodes().stream().flatMap(TreeNode::flatMap));
+  }
+
+  /**
+   * Create an array of predicate, based on a single creator, each predicate in array corresponding
+   * with the value with the same index of the given values array.
+   *
+   * @param creator predicate creator
+   * @param values predicate argument
+   * @return an array of predicate, created by given creator and given values
+   */
+  default Predicate<TreeNode>[] createPredicates(
+      Function<Object, Predicate<TreeNode>> creator, Object... values) {
+    Predicate<TreeNode>[] predicates = new Predicate[values.length];
+
+    for (int i = 0; i < values.length; i++) {
+      predicates[i] = creator.apply(values[i]);
+    }
+
+    return predicates;
+  }
+
+  /** @see #findExact(int, Predicate[]) */
+  default <T extends TreeNode> Optional<T> findExact(Predicate<TreeNode>... predicates) {
+    return findExact(0, predicates);
+  }
+
+  /**
+   * Find an {@link Optional} tree node matching the last predicate of given predicates array, while
+   * its parent matching the second-to-last, its grandparent matching the third-to-last, etc.
+   *
+   * <p>You may consider using predicates array similar to a file path /root/child1/grandchild,
+   * which allows you to find the grandchild under child1, not the grandchild under child2.
+   *
+   * <p>If your tree model is set up that all your tree nodes can be unique identified by a
+   * predicate, you may consider using {@link #findAny(Predicate)} instead.
+   *
+   * @param level corresponding with the index of a predicates array
+   * @param predicates a predicates array to test with
+   * @return an {@code Optional} tree node matching the last predicate of the given predicates array
+   */
+  default <T extends TreeNode> Optional<T> findExact(int level, Predicate<TreeNode>... predicates) {
+    if (level < predicates.length && predicates[level].test(this)) {
+      if (++level == predicates.length) return Optional.of((T) this);
+
+      for (TreeNode childNode : getChildNodes()) {
+        Optional<T> found = childNode.findExact(level, predicates);
+
+        if (found.isPresent()) return found;
+      }
     }
 
     return Optional.empty();
@@ -78,7 +149,7 @@ public interface TreeNode {
 
     if (parentNode == null) return this;
 
-    return parentNode.getParentNode();
+    return parentNode.getRootNode();
   }
 
   /** @return a boolean value indicating of this tree node has child tree nodes or not */

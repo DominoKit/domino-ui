@@ -15,12 +15,16 @@
  */
 package org.dominokit.domino.ui.tree;
 
+import java.util.function.BiPredicate;
+
 /**
  * An interface for filtering the tree item based on a search token
  *
  * @param <T> the type of the value
+ * @deprecated use {@link BiPredicate} instead
  */
 @FunctionalInterface
+@Deprecated
 public interface TreeItemFilter<T> {
   /**
    * @param treeItem the tree item to filter
