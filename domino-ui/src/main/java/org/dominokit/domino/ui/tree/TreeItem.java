@@ -639,8 +639,8 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
    * @param value a value being searched
    * @return an {@code Optional} tree item matching the given item value
    */
-  public Optional<TreeItem<T>> find(T value) {
-    return findAny(item -> Objects.equals(value, ((TreeItem<?>) item).getValue()));
+  public Optional<TreeItem<T>> findAny(T value) {
+    return findAny(getRootNode().createFinderPredicate(value));
   }
 
   /**
@@ -681,9 +681,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   /**
    * @return true if automatic expanding is enabled when finding items in search
-   * @deprecated use {@link Tree#isAutoExpandFound()} instead
    */
-  @Deprecated
   public boolean isAutoExpandFound() {
     return getRootNode().isAutoExpandFound();
   }
@@ -712,11 +710,11 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
    *
    * @param searchToken the search token
    * @return true of one of the children matches the search token, false otherwise
-   * @deprecated use {@link #filter(String)} instead
    */
-  @Deprecated
   public boolean filterChildren(String searchToken) {
-    return filter(searchToken);
+    // We use the noneMatch here instead of anyMatch to make sure we are looping all children
+    // instead of early exit on first matching one
+    return childItems.stream().filter(treeItem -> treeItem.filter(searchToken)).count() > 0;
   }
 
   /** Collapse all children */
