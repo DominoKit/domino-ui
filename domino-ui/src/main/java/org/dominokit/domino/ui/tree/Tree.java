@@ -857,7 +857,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   public static Predicate<TreeNode> createDefaultFilterPredicate(String searchToken) {
     String lowerCase = searchToken.toLowerCase();
 
-    return treeItemOnly.or(
+    return treeItemOnly.and(
         node -> ((TreeItem<?>) node).getTitle().toLowerCase().contains(lowerCase));
   }
 
@@ -868,6 +868,6 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    * @return a default predicate used to test given value
    */
   public static Predicate<TreeNode> createDefaultFinderPredicate(Object value) {
-    return treeItemOnly.or(node -> Objects.equals(((TreeItem<?>) node).getValue(), value));
+    return treeItemOnly.and(node -> Objects.equals(((TreeItem<?>) node).getValue(), value));
   }
 }
