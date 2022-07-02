@@ -283,7 +283,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    */
   public void setActiveItem(TreeItem<T> activeItem, boolean silent) {
     // The contains operation is not free, check it only by debug mode when assert is enabled.
-    assert contains(activeItem);
+    assert activeItem == null || contains(activeItem);
 
     if (Objects.equals(this.activeItem, activeItem)) return;
 
@@ -635,10 +635,10 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
 
   /** Clear all direct children of the tree, effectively reset the tree */
   public void clear() {
+    setActiveItem(null);
+
     childItems.forEach(TreeItem::remove);
     childItems.clear();
-
-    setActiveItem(null);
   }
 
   /**
