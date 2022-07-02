@@ -39,7 +39,7 @@ public interface TreeNode {
    * @return an {@code Optional} tree node matching the given predicate
    */
   default <T extends TreeNode> Optional<T> findAny(Predicate<TreeNode> predicate) {
-    if (predicate.test(this)) return Optional.of((T) this);
+    if (!skipped() && predicate.test(this)) return Optional.of((T) this);
 
     for (TreeNode childNode : getChildNodes()) {
       Optional<T> found = childNode.findAny(predicate);
@@ -63,7 +63,11 @@ public interface TreeNode {
 
   /** @return a {@code Stream} of descendant tree nodes of this tree node */
   default <T extends TreeNode> Stream<T> flatMap() {
-    return Stream.concat(Stream.of((T) this), getChildNodes().stream().flatMap(TreeNode::flatMap));
+    Stream<T> stream = getChildNodes().stream().flatMap(TreeNode::flatMap);
+
+    if (skipped()) return stream;
+
+    return Stream.concat(Stream.of((T) this), stream);
   }
 
   /**
@@ -105,8 +109,8 @@ public interface TreeNode {
    * @return an {@code Optional} tree node matching the last predicate of the given predicates array
    */
   default <T extends TreeNode> Optional<T> findExact(int level, Predicate<TreeNode>... predicates) {
-    if (level < predicates.length && predicates[level].test(this)) {
-      if (++level == predicates.length) return Optional.of((T) this);
+    if (skipped() || level < predicates.length && predicates[level].test(this)) {
+      if (!skipped() && ++level == predicates.length) return Optional.of((T) this);
 
       for (TreeNode childNode : getChildNodes()) {
         Optional<T> found = childNode.findExact(level, predicates);
@@ -116,6 +120,15 @@ public interface TreeNode {
     }
 
     return Optional.empty();
+  }
+
+  /**
+   * @return if this tree node should be excluded by diverse loop operations like {@link
+   *     #flatMap()}, {@link #findAny(Predicate)}, {@link #findExact(int, Predicate[])}, {@link
+   *     #search(BiPredicate)}. Usually a root node should be excluded by a loop operation.
+   */
+  default boolean skipped() {
+    return false;
   }
 
   /**
@@ -141,7 +154,7 @@ public interface TreeNode {
       found |= childNode.search(predicate);
     }
 
-    return predicate.test(this, found);
+    return !skipped() && predicate.test(this, found);
   }
 
   /** @return the root of this tree node */

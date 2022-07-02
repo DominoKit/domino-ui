@@ -24,7 +24,6 @@ import elemental2.dom.*;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
@@ -727,6 +726,12 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return findExact(createPredicates(this::createFinderPredicate, values));
   }
 
+  /** {@inheritDoc} */
+  @Override
+  public boolean skipped() {
+    return true;
+  }
+
   /**
    * @param value argument value to test with
    * @return a predicate, indicating if a give tree node matching the given value
@@ -793,12 +798,6 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   @Override
   public List<TreeItem<T>> getChildNodes() {
     return childItems;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Stream<TreeItem<T>> flatMap() {
-    return getChildNodes().stream().flatMap(TreeNode::flatMap);
   }
 
   /**

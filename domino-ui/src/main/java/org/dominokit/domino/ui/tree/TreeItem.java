@@ -959,6 +959,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     return this;
   }
 
+  /** @return the {@link HTMLUListElement} that contains the tree items */
   public HTMLUListElement getChildrenContainer() {
     return childrenContainer;
   }
