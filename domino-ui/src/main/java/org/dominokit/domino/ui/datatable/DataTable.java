@@ -39,7 +39,6 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -288,8 +287,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     tableConfig.getPlugins().forEach(plugin -> plugin.onAllRowsAdded(DataTable.this));
   }
 
-  /** @return the {@link Collection} of T that is the current data in the table */
-  public Collection<T> getData() {
+  /** @return the {@link List} of T that is the current data in the table */
+  public List<T> getData() {
     return data;
   }
 
