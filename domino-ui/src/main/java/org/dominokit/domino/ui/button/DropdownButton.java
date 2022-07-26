@@ -290,9 +290,11 @@ public class DropdownButton extends BaseButton<DropdownButton> {
     buttonElement.setAttribute("type", "button");
     addClickListener(
         evt -> {
-          DropDownMenu.closeAllMenus();
-          open();
-          evt.stopPropagation();
+          if (isEnabled()) {
+            DropDownMenu.closeAllMenus();
+            open();
+            evt.stopPropagation();
+          }  
         });
     return buttonElement.element();
   }
