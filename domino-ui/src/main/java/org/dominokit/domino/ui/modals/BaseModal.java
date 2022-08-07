@@ -23,6 +23,9 @@ import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.dominokit.domino.ui.grid.flex.FlexDirection;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
@@ -46,57 +49,40 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   /** a component that contains the modal elements */
   public static class Modal implements IsElement<HTMLDivElement> {
 
-    private final HTMLDivElement root;
-    private final HTMLDivElement modalDialog;
-    private final HTMLDivElement modalHeader;
-    private final HTMLHeadingElement modalTitle;
-    private final HTMLDivElement modalBody;
-    private final HTMLDivElement modalContent;
-    private final HTMLDivElement modalFooter;
+    private final DominoElement<HTMLDivElement> root;
+    private final DominoElement<HTMLDivElement> modalDialog;
+    private final FlexLayout modalContent;
+    private final FlexItem<HTMLDivElement> modalHeader;
+    private final DominoElement<HTMLHeadingElement> modalTitle;
+    private final FlexItem<HTMLDivElement> modalBody;
+    private final FlexItem<HTMLDivElement> modalFooter;
 
     /** */
     public Modal() {
-      this.root =
-          DominoElement.of(div())
-              .css("modal")
-              .apply(e -> e.setTabIndex(-1))
-              .attr("role", "dialog")
-              .add(
-                  modalDialog =
-                      DominoElement.of(div())
-                          .css("modal-dialog")
-                          .apply(e -> e.setTabIndex(-1))
-                          .attr("role", "document")
-                          .add(
-                              modalContent =
-                                  DominoElement.of(div())
-                                      .css("modal-content")
-                                      .add(
-                                          modalHeader =
-                                              DominoElement.of(div())
-                                                  .css("modal-header")
-                                                  .add(
-                                                      modalTitle =
-                                                          DominoElement.of(h(4))
-                                                              .css("modal-title")
-                                                              .element())
-                                                  .element())
-                                      .add(
-                                          modalBody =
-                                              DominoElement.of(div()).css("modal-body").element())
-                                      .add(
-                                          modalFooter =
-                                              DominoElement.of(div()).css("modal-footer").element())
-                                      .element())
-                          .element())
-              .element();
-      setVisible(root, false);
+      root = DominoElement.div().setTabIndex(-1).css("modal").setAttribute("role", "dialog");
+      modalDialog =
+          DominoElement.div().setTabIndex(-1).css("modal-dialog").setAttribute("role", "document");
+      modalContent =
+          FlexLayout.create().setDirection(FlexDirection.TOP_TO_BOTTOM).css("modal-content");
+      modalHeader = FlexItem.create().css("modal-header");
+      modalTitle = DominoElement.of(h(4)).css("modal-title");
+      modalBody = FlexItem.create().setFlexGrow(1).css("modal-body");
+      modalFooter = FlexItem.create().css("modal-footer");
+
+      root.appendChild(
+          modalDialog.appendChild(
+              modalContent
+                  .appendChild(modalHeader.appendChild(modalTitle))
+                  .appendChild(modalBody)
+                  .appendChild(modalFooter)));
+
+      root.hide();
     }
 
     /** {@inheritDoc} */
     @Override
     public HTMLDivElement element() {
-      return root;
+      return root.element();
     }
 
     /**
@@ -175,7 +161,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   public BaseModal(String title) {
     this();
     showHeader();
-    modalElement.modalTitle.textContent = title;
+    modalElement.modalTitle.setTextContent(title);
   }
 
   /** Force the tab to navigate inside the modal dialog only */
@@ -338,6 +324,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       ModalBackDrop.push(this);
       opacityTransition.show();
     }
+    ModalBackDrop.showHideBodyScrolls();
     return (T) this;
   }
 
@@ -345,8 +332,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     if (modal) {
       if (ModalBackDrop.openedModalsCount() <= 0
           || !DominoElement.of(ModalBackDrop.INSTANCE).isAttached()) {
-        document.body.appendChild(ModalBackDrop.INSTANCE);
-        DominoElement.of(document.body).addCss(ModalStyles.MODAL_OPEN);
+        DominoElement.body().appendChild(ModalBackDrop.INSTANCE);
       } else {
         Z_INDEX = Z_INDEX + 10;
         ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
@@ -359,7 +345,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     if (modal) {
       if (ModalBackDrop.openedModalsCount() < 1 || ModalBackDrop.allOpenedNotModals()) {
         ModalBackDrop.INSTANCE.remove();
-        DominoElement.of(document.body).removeCss(ModalStyles.MODAL_OPEN);
       } else {
         Z_INDEX = Z_INDEX - 10;
         ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
@@ -380,7 +365,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       firstFocusElement = focusElements.get(0);
       lastFocusElement = elements.get(elements.size() - 1);
     } else {
-      lastFocusElement = modalElement.modalContent;
+      lastFocusElement = modalElement.modalContent.element();
     }
   }
 
@@ -390,6 +375,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     if (this.open) {
       opacityTransition.hide();
     }
+    ModalBackDrop.showHideBodyScrolls();
     return (T) this;
   }
 

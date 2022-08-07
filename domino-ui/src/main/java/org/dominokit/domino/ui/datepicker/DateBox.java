@@ -350,8 +350,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {
-    value(null);
+  protected void clearValue(boolean silent) {
+    value(null, silent);
   }
 
   /** {@inheritDoc} */

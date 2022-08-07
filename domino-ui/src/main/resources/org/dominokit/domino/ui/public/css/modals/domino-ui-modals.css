@@ -30,11 +30,13 @@ body.modal-open {
 .modal-open .modal {
     overflow-x: hidden;
     overflow-y: auto;
+    max-height: calc(100vh);
 }
 
 .modal-dialog {
     position: relative;
     width: auto;
+    max-height: calc(100vh);
 }
 
 .modal-content {
@@ -47,6 +49,7 @@ body.modal-open {
     outline: 0;
     -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
     box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    max-height: calc(100vh);
 }
 
 .modal-backdrop {
@@ -86,12 +89,17 @@ body.modal-open {
 .modal-body {
     position: relative;
     padding: 15px;
+    overflow: auto;
 }
 
 .modal-footer {
     padding: 15px;
     text-align: right;
     border-top: 1px solid #e5e5e5;
+}
+
+.modal-footer:empty{
+    display: none;
 }
 
 .modal-footer .btn + .btn {
@@ -222,6 +230,15 @@ body.modal-open {
         margin-right: 5%;
         margin-top: 30px;
         width: 90%;
+    }
+
+    .modal.window,
+    .modal.modal-lg.window,
+    .modal.modal-md.window,
+    .modal.modal-sm.window {
+        left: auto !important;
+        margin: 0 5% 0 5%;
+        top: 30px !important;
     }
 
     .modal:not([class*="-sheet"]) {

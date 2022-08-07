@@ -101,10 +101,10 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
   public void appendRow(DataTable<T> dataTable, TableRow<T> tableRow) {
     String groupId = groupSupplier.getRecordGroupId(tableRow);
     if (!dataGroups.containsKey(groupId)) {
-      DataGroup<T> dataGroup = new DataGroup<>(tableRow);
       HTMLTableCellElement cellElement =
           td().attr("colspan", dataTable.getTableConfig().getColumns().size() + "").element();
       CellRenderer.CellInfo<T> cellInfo = new CellRenderer.CellInfo<>(tableRow, cellElement);
+      DataGroup<T> dataGroup = new DataGroup<>(tableRow, cellInfo);
 
       BaseIcon<?> groupIconSupplier =
           groupExpandedIconSupplier
@@ -113,17 +113,7 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
               .setToggleIcon(groupCollapsedIconSupplier.get())
               .toggleOnClick(true)
               .addClickListener(evt -> dataGroup.toggleGroup());
-      dataGroup.setGroupIconSupplier(groupIconSupplier);
-
-      cellElement.appendChild(
-          FlexLayout.create()
-              .appendChild(FlexItem.create().appendChild(groupIconSupplier))
-              .appendChild(
-                  FlexItem.create()
-                      .styler(style -> style.setLineHeight(px.of(35)).setPaddingLeft(px.of(10)))
-                      .setFlexGrow(1)
-                      .appendChild(groupRenderer.asElement(cellInfo)))
-              .element());
+      dataGroup.setGroupIconSupplier(groupIconSupplier).setGroupRenderer(groupRenderer).render();
 
       dataTable.bodyElement().appendChild(tr().add(cellElement));
       dataTable.bodyElement().appendChild(tableRow.element());
@@ -162,6 +152,10 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     }
   }
 
+  public Map<String, DataGroup<T>> getDataGroups() {
+    return dataGroups;
+  }
+
   /** {@inheritDoc} */
   @Override
   public void handleEvent(TableEvent event) {
@@ -170,16 +164,25 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     }
   }
 
-  private class DataGroup<T> {
+  public static class DataGroup<T> implements TableRow.RowMetaObject {
+
+    private static final String KEY = "dataGroup";
 
     private List<TableRow<T>> groupRows = new ArrayList<>();
     private TableRow<T> lastRow;
+    private CellRenderer.CellInfo<T> cellInfo;
     private boolean expanded = true;
     private BaseIcon<?> groupIconSupplier;
+    private CellRenderer<T> groupRenderer;
 
-    public DataGroup(TableRow<T> lastRow) {
+    public DataGroup(TableRow<T> lastRow, CellRenderer.CellInfo<T> cellInfo) {
       this.lastRow = lastRow;
-      groupRows.add(lastRow);
+      this.cellInfo = cellInfo;
+      addRow(lastRow);
+    }
+
+    public static <T> DataGroup<T> fromRow(TableRow<T> tableRow) {
+      return tableRow.getMetaObject(KEY);
     }
 
     public void toggleGroup() {
@@ -189,14 +192,39 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
 
     public void addRow(TableRow<T> tableRow) {
       groupRows.add(tableRow);
+      tableRow.addMetaObject(this);
     }
 
-    private void setGroupIconSupplier(BaseIcon<?> groupIconSupplier) {
+    private DataGroup<T> setGroupIconSupplier(BaseIcon<?> groupIconSupplier) {
       this.groupIconSupplier = groupIconSupplier;
+      return this;
     }
 
     private BaseIcon<?> getGroupIconSupplier() {
       return this.groupIconSupplier;
+    }
+
+    private DataGroup<T> setGroupRenderer(CellRenderer<T> groupRenderer) {
+      this.groupRenderer = groupRenderer;
+      return this;
+    }
+
+    @Override
+    public String getKey() {
+      return KEY;
+    }
+
+    public void render() {
+      DominoElement.of(cellInfo.getElement())
+          .clearElement()
+          .appendChild(
+              FlexLayout.create()
+                  .appendChild(FlexItem.create().appendChild(groupIconSupplier))
+                  .appendChild(
+                      FlexItem.create()
+                          .styler(style -> style.setLineHeight(px.of(35)).setPaddingLeft(px.of(10)))
+                          .setFlexGrow(1)
+                          .appendChild(groupRenderer.asElement(cellInfo))));
     }
   }
 

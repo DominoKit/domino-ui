@@ -17,12 +17,15 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.keyboard.KeyboardEvents.*;
 import static org.jboss.elemento.Elements.label;
 import static org.jboss.elemento.Elements.span;
 
+import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import elemental2.dom.Node;
 import java.util.ArrayList;
@@ -155,6 +158,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
           }
         };
     inputElement.addEventListener("input", inputListener);
+    onEnterKey();
 
     layout();
     setFocusColor(focusColor);
@@ -170,6 +174,24 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
             shouldCondense -> {
               if (shouldCondense) {
                 condense();
+              }
+            });
+  }
+
+  protected void onEnterKey() {
+    listenOnKeyPress(getInputElement().element())
+        .onEnter(
+            evt -> {
+              if (DominoUIConfig.INSTANCE.isFocusNextFieldOnEnter()) {
+                getInputElement().blur();
+                List<Element> elements =
+                    DominoElement.body().element().querySelectorAll(".field-group").asList();
+                int i = elements.indexOf(this.element());
+                if (i < elements.size() - 1) {
+                  Element element = elements.get(i + 1);
+                  Element input = element.querySelector("input");
+                  Js.<HTMLInputElement>uncheckedCast(input).focus();
+                }
               }
             });
   }
@@ -243,7 +265,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   protected void linkLabelToField() {
     getLabelElement()
         .ifPresent(
-            labelElement -> labelElement.setAttribute("for", getInputElement().getAttribute("id")));
+            labelElement ->
+                labelElement.setAttribute("for", DominoElement.of(getInputElement()).getId()));
   }
 
   /** manually call the change handlers if they are not paused */
@@ -932,7 +955,13 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** {@inheritDoc} */
   @Override
   public T clear() {
-    clearValue();
+    return clear(false);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public T clear(boolean silent) {
+    clearValue(silent);
     autoValidate();
     onClearHandlers.forEach(handler -> handler.accept((T) ValueBox.this));
     return (T) this;
@@ -941,10 +970,18 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   /** {@inheritDoc} */
   @Override
   public T value(V value) {
+    return value(value, false);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public T value(V value, boolean silent) {
     doSetValue(value);
     changeLabelFloating();
     autoValidate();
-    callChangeHandlers();
+    if (!silent) {
+      callChangeHandlers();
+    }
     return (T) this;
   }
 
@@ -1212,7 +1249,12 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   }
 
   /** clear the field value */
-  protected abstract void clearValue();
+  protected void clearValue() {
+    clearValue(false);
+  };
+
+  /** clear the field value */
+  protected abstract void clearValue(boolean silent);
 
   /** @param value V the value to set for this field */
   protected abstract void doSetValue(V value);

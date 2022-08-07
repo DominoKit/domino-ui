@@ -15,11 +15,15 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import static java.util.Objects.nonNull;
+
+import elemental2.dom.HTMLElement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.utils.*;
 
 /**
@@ -43,7 +47,7 @@ import org.dominokit.domino.ui.utils.*;
  */
 public class FieldsGrouping implements HasValidation<FieldsGrouping> {
 
-  private List<HasGrouping> formElements = new ArrayList<>();
+  private List<HasGrouping<?>> formElements = new ArrayList<>();
   private List<Validator> validators = new ArrayList<>();
   private List<String> errors = new ArrayList<>();
 
@@ -58,8 +62,23 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
    * @param formElement {@link HasGrouping}
    * @return same FieldGrouping instance
    */
-  public FieldsGrouping addFormElement(HasGrouping formElement) {
+  public FieldsGrouping addFormElement(HasGrouping<?> formElement) {
     formElements.add(formElement);
+    return this;
+  }
+
+  /**
+   * Adds a component that implements {@link HasGrouping}
+   *
+   * @param formElements a vararg of {@link HasGrouping}
+   * @return same FieldGrouping instance
+   */
+  public FieldsGrouping group(HasGrouping<?>... formElements) {
+    if (nonNull(formElements) && formElements.length > 0) {
+      for (HasGrouping<?> formElement : formElements) {
+        addFormElement(formElement);
+      }
+    }
     return this;
   }
 
@@ -86,7 +105,7 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
 
     boolean valid = true;
 
-    for (HasGrouping formElement : formElements) {
+    for (HasGrouping<?> formElement : formElements) {
       ValidationResult result = formElement.validate();
       if (!result.isValid()) {
         valid = false;
@@ -103,6 +122,17 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
    */
   public FieldsGrouping clear() {
     formElements.forEach(HasGrouping::clear);
+    return this;
+  }
+
+  /**
+   * Clears all the grouped components
+   *
+   * @param silent if true clear the fields without triggering the change handlers
+   * @return same FieldsGrouping instance
+   */
+  public FieldsGrouping clear(boolean silent) {
+    formElements.forEach(hasGrouping -> hasGrouping.clear(silent));
     return this;
   }
 
@@ -216,7 +246,7 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
   }
 
   /** @return the grouped components as a List of {@link HasGrouping} */
-  public List<HasGrouping> getFormElements() {
+  public List<HasGrouping<?>> getFormElements() {
     return formElements;
   }
 
@@ -270,5 +300,37 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
   @Override
   public List<String> getErrors() {
     return errors;
+  }
+
+  public FieldsGrouping onKeyDown(KeyboardEventsHandler handler) {
+    HTMLElement[] elements = getInputElements();
+    handler.accept(KeyboardEvents.listenOnKeyDown(elements));
+    return this;
+  }
+
+  public FieldsGrouping onKeyUp(KeyboardEventsHandler handler) {
+    HTMLElement[] elements = getInputElements();
+    handler.accept(KeyboardEvents.listenOnKeyUp(elements));
+    return this;
+  }
+
+  public FieldsGrouping onKeyPress(KeyboardEventsHandler handler) {
+    HTMLElement[] elements = getInputElements();
+    handler.accept(KeyboardEvents.listenOnKeyPress(elements));
+    return this;
+  }
+
+  private HTMLElement[] getInputElements() {
+    HTMLElement[] elements =
+        formElements.stream()
+            .filter(hasGrouping -> hasGrouping instanceof HasInputElement)
+            .map(hasGrouping -> (HasInputElement) hasGrouping)
+            .map(hasInputElement -> hasInputElement.getInputElement().element())
+            .toArray(HTMLElement[]::new);
+    return elements;
+  }
+
+  public interface KeyboardEventsHandler {
+    void accept(KeyboardEvents<? extends HTMLElement> keyboardEvents);
   }
 }

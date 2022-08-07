@@ -229,6 +229,11 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
   /** {@inheritDoc} */
   @Override
   public SelectOption<T> value(T value) {
+    return value(value, false);
+  }
+
+  @Override
+  public SelectOption value(T value, boolean silent) {
     setValue(value);
     return this;
   }

@@ -50,8 +50,8 @@ public class IntegerBox extends NumberBox<IntegerBox, Integer> {
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {
-    value(0);
+  protected void clearValue(boolean silent) {
+    value(0, silent);
   }
 
   /** {@inheritDoc} */

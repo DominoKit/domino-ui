@@ -776,7 +776,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   /** @return the list of all sub {@link TreeItem} */
   @Override
   public List<TreeItem<T>> getSubItems() {
-    return new ArrayList<>(subItems);
+    return subItems;
   }
 
   /** Selects this item, the item will be shown and activated */
@@ -801,15 +801,26 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   /** {@inheritDoc} */
   @Override
   public void removeItem(TreeItem<T> item) {
-    subItems.remove(item);
-    item.remove();
+    if (subItems.contains(item)) {
+      item.remove();
+    }
+  }
+
+  /**
+   * Remove all the TreeItem sub-items.
+   *
+   * @return same TreeItem instance
+   */
+  public TreeItem<T> clear() {
+    new ArrayList<>(subItems).forEach(TreeItem::remove);
+    return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public TreeItem<T> remove() {
     if (parent.getSubItems().contains(this)) {
-      parent.removeItem(this);
+      parent.getSubItems().remove(this);
       if (parent.getSubItems().isEmpty() && parent instanceof TreeItem) {
         ((TreeItem<T>) parent).style().removeCss("tree-item-parent");
       }
@@ -888,6 +899,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     return this;
   }
 
+  /** @return the {@link HTMLUListElement} that contains the tree items */
   public HTMLUListElement getChildrenContainer() {
     return childrenContainer;
   }

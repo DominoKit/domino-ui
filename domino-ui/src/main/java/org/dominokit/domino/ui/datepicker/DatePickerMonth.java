@@ -360,6 +360,12 @@ public class DatePickerMonth
   /** {@inheritDoc} */
   @Override
   public DatePickerMonth value(Date value) {
+    return value(value, false);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public DatePickerMonth value(Date value, boolean silent) {
     setValue(value);
     return this;
   }

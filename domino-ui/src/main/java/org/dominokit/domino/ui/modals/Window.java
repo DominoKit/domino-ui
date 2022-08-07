@@ -19,11 +19,15 @@ import static org.dominokit.domino.ui.style.Unit.px;
 
 import elemental2.dom.*;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
+import org.dominokit.domino.ui.style.Calc;
 import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.PopupsCloser;
 import org.jboss.elemento.EventType;
 
 /**
@@ -53,6 +57,7 @@ public class Window extends BaseModal<Window> {
 
   private boolean draggable = true;
   private boolean fixed;
+  private boolean maximizing = false;
 
   /**
    * @param title String window title
@@ -93,40 +98,7 @@ public class Window extends BaseModal<Window> {
                         .appendChild(
                             closeIcon.size18().clickable().addClickListener(evt -> close()))));
 
-    moveListener =
-        evt -> {
-          if (draggable) {
-            MouseEvent mouseEvent = Js.uncheckedCast(evt);
-
-            if (startMoving && mouseEvent.button == 0 && !maximized) {
-              evt.preventDefault();
-              deltaX = mouseX - mouseEvent.clientX;
-              deltaY = mouseY - mouseEvent.clientY;
-              mouseX = mouseEvent.clientX;
-              mouseY = mouseEvent.clientY;
-
-              double left = modalElement.element().offsetLeft - deltaX;
-              double top = modalElement.element().offsetTop - deltaY;
-
-              DOMRect windowRect = modalElement.getModalDialog().element().getBoundingClientRect();
-              double initialWidth = windowRect.width;
-              double initialHeight = windowRect.height;
-
-              double windowWidth = DomGlobal.window.innerWidth;
-              double windowHeight = DomGlobal.window.innerHeight;
-
-              if (left > 0 && left < (windowWidth - initialWidth)) {
-                modalElement.element().style.left = left + "px";
-                this.windowLeft = left;
-              }
-
-              if (top > 0 && top < (windowHeight - initialHeight)) {
-                modalElement.element().style.top = top + "px";
-                this.windowTop = top;
-              }
-            }
-          }
-        };
+    moveListener = this::onMove;
     stopMoveListener =
         evt -> {
           if (draggable) {
@@ -137,7 +109,55 @@ public class Window extends BaseModal<Window> {
     addOpenListener(this::addMoveListeners);
     addCloseListener(this::removeMoveListeners);
 
+    onResize(
+        (element1, observer, entries) -> {
+          double top = modalElement.element().offsetTop - deltaY;
+          if (!maximizing) {
+            DominoElement.of(modalElement.element()).setMaxHeight(Calc.sub("100vh", top + "px"));
+            modalElement.getModalDialog().setMaxHeight(Calc.sub("100vh", top + "px"));
+            modalElement.getModalContent().setMaxHeight(Calc.sub("100vh", top + "px"));
+          } else {
+            DominoElement.of(modalElement.element()).setMaxHeight(Calc.of("100vh"));
+            modalElement.getModalDialog().setMaxHeight(Calc.of("100vh"));
+            modalElement.getModalContent().setMaxHeight(Calc.of("100vh"));
+          }
+        });
+
     initPosition();
+  }
+
+  private void onMove(Event evt) {
+    if (draggable) {
+      MouseEvent mouseEvent = Js.uncheckedCast(evt);
+
+      if (startMoving && mouseEvent.button == 0 && !maximized) {
+        evt.preventDefault();
+        deltaX = mouseX - mouseEvent.clientX;
+        deltaY = mouseY - mouseEvent.clientY;
+        mouseX = mouseEvent.clientX;
+        mouseY = mouseEvent.clientY;
+
+        double left = modalElement.element().offsetLeft - deltaX;
+        double top = modalElement.element().offsetTop - deltaY;
+
+        DOMRect windowRect = modalElement.getModalDialog().element().getBoundingClientRect();
+        double initialWidth = windowRect.width;
+        double initialHeight = windowRect.height;
+
+        double windowWidth = DomGlobal.window.innerWidth;
+        double windowHeight = DomGlobal.window.innerHeight;
+
+        if (left > 0 && left < (windowWidth - initialWidth)) {
+          modalElement.element().style.left = left + "px";
+          this.windowLeft = left;
+        }
+
+        if (top > 0 && top < (windowHeight - initialHeight)) {
+          modalElement.element().style.top = top + "px";
+          this.windowTop = top;
+        }
+      }
+    }
   }
 
   /** @return boolean, true if this window can be dragged across the screen */
@@ -160,12 +180,14 @@ public class Window extends BaseModal<Window> {
    * @return same Window instance
    */
   public Window maximize() {
+    maximizing = true;
     maximizeIcon.hide();
     restoreIcon.show();
     maximized = true;
     updatePosition();
     Window.this.css("maximized");
-
+    ModalBackDrop.showHideBodyScrolls();
+    maximizing = false;
     return this;
   }
 
@@ -180,7 +202,7 @@ public class Window extends BaseModal<Window> {
     maximized = false;
     Window.this.removeCss("maximized");
     updatePosition();
-
+    ModalBackDrop.showHideBodyScrolls();
     return this;
   }
 
@@ -288,6 +310,8 @@ public class Window extends BaseModal<Window> {
             EventType.mousedown,
             evt -> {
               if (draggable) {
+                DropDownMenu.closeAllMenus();
+                PopupsCloser.close();
                 MouseEvent mouseEvent = Js.uncheckedCast(evt);
                 if (!startMoving && mouseEvent.button == 0) {
                   mouseEvent.stopPropagation();

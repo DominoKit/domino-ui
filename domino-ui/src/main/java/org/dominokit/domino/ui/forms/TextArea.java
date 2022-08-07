@@ -102,8 +102,8 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {
-    value("");
+  protected void clearValue(boolean silent) {
+    value("", silent);
   }
 
   /** {@inheritDoc} */
@@ -178,5 +178,10 @@ public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, St
   @Override
   protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
     return new InputAutoValidator<>(autoValidate);
+  }
+
+  @Override
+  protected void onEnterKey() {
+    // do nothing for a text area.
   }
 }

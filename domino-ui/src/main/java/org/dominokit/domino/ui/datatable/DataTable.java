@@ -34,6 +34,7 @@ import static org.jboss.elemento.Elements.tbody;
 import static org.jboss.elemento.Elements.thead;
 
 import elemental2.dom.DomGlobal;
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
@@ -126,6 +127,10 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     init();
   }
 
+  public DataStore<T> getDataStore() {
+    return dataStore;
+  }
+
   private DataTable<T> init() {
     tableConfig
         .getPlugins()
@@ -151,12 +156,16 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
       thead.addCss(THEAD_FIXED);
       tbody.addCss(TBODY_FIXED).setMaxHeight(tableConfig.getFixedBodyHeight());
       tableElement.addEventListener(EventType.scroll, e -> updateTableWidth());
-      DomGlobal.window.addEventListener(
-          EventType.resize.getName(),
+      EventListener resizeListener =
           e -> {
             this.scrollBarWidth = -1;
             updateTableWidth();
-          });
+          };
+      DomGlobal.window.addEventListener(EventType.resize.getName(), resizeListener);
+
+      onDetached(
+          mutationRecord ->
+              DomGlobal.window.removeEventListener(EventType.resize.getName(), resizeListener));
     }
 
     onResize(

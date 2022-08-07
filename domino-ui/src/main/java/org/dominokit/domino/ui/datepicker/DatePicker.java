@@ -386,6 +386,12 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
   /** {@inheritDoc} */
   @Override
   public DatePicker value(Date value) {
+    return value(value, false);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public DatePicker value(Date value, boolean silent) {
     setValue(value);
     return this;
   }

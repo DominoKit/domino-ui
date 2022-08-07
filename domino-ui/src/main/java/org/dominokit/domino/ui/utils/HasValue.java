@@ -27,4 +27,11 @@ public interface HasValue<T, V> {
    * @return same implementing component instance
    */
   T value(V value);
+
+  /**
+   * @param value V to set as a value of the component
+   * @param silent boolean if true set the value without triggering change handlers
+   * @return same implementing component instance
+   */
+  T value(V value, boolean silent);
 }

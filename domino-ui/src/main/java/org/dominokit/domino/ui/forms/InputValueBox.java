@@ -92,8 +92,8 @@ public class InputValueBox<T extends InputValueBox<T>>
 
   /** {@inheritDoc} */
   @Override
-  protected void clearValue() {
-    value("");
+  protected void clearValue(boolean silent) {
+    value("", silent);
   }
 
   /** {@inheritDoc} */
