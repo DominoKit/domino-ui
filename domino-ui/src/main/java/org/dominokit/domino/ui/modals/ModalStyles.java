@@ -32,4 +32,5 @@ public class ModalStyles {
   public static final String FADE = "fade";
   public static final String IN = "in";
   public static final String PICKER_MODAL = "picker-modal";
+  public static final String CENTER = "center";
 }
