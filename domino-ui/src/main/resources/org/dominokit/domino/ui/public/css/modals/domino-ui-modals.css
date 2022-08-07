@@ -1,9 +1,9 @@
 /* Modals ====================================== */
 .fade {
     opacity: 0;
-    -webkit-transition: opacity .15s linear;
-    -o-transition: opacity .15s linear;
-    transition: opacity .15s linear;
+    -webkit-transition: opacity 0.15s ease-in-out;
+    -o-transition: opacity 0.15s ease-in-out;
+    transition: opacity 0.15s ease-in-out;
 }
 
 .fade.in {
@@ -27,23 +27,6 @@ body.modal-open {
     outline: 0;
 }
 
-.modal.fade .modal-dialog {
-    -webkit-transition: -webkit-transform .3s ease-out;
-    -o-transition: -o-transform .3s ease-out;
-    transition: transform .3s ease-out;
-    -webkit-transform: translate(0, -25%);
-    -ms-transform: translate(0, -25%);
-    -o-transform: translate(0, -25%);
-    transform: translate(0, -25%);
-}
-
-.modal.in .modal-dialog {
-    -webkit-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-}
-
 .modal-open .modal {
     overflow-x: hidden;
     overflow-y: auto;
@@ -62,7 +45,6 @@ body.modal-open {
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
     border: 1px solid #999;
-    border: 1px solid rgba(0, 0, 0, .2);
     border-radius: 6px;
     outline: 0;
     -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
@@ -143,7 +125,7 @@ body.modal-open {
 
 @media (min-width: 768px) {
     .modal-dialog {
-        margin: 0px auto;
+        margin: 0 auto;
     }
 
     .modal-content {
@@ -191,21 +173,21 @@ body.modal-open {
     }
 
     .modal.bottom-sheet {
-        margin: 0px;
+        margin: 0;
         bottom: 0;
         width: 100%;
     }
 
     .modal.top-sheet {
-        margin: 0px;
+        margin: 0;
         top: 0;
         width: 100%;
     }
 
     .modal.left-sheet {
-        margin: 0px;
+        margin: 0;
         left: 0;
-        top: 0px;
+        top: 0;
         width: 30%;
     }
 
@@ -222,9 +204,9 @@ body.modal-open {
     }
 
     .modal.right-sheet {
-        margin: 0px;
+        margin: 0;
         right: 0;
-        top: 0px;
+        top: 0;
         width: 30%;
     }
 
@@ -278,20 +260,20 @@ body.modal-open {
     }
 
     .modal.bottom-sheet {
-        margin: 0px;
+        margin: 0;
         bottom: 0;
     }
 
     .modal.top-sheet {
-        margin: 0px;
+        margin: 0;
         top: 0;
         width: 100%;
     }
 
     .modal.left-sheet {
-        margin: 0px;
+        margin: 0;
         left: 0;
-        top: 0px;
+        top: 0;
         width: 90%;
     }
 
@@ -308,9 +290,9 @@ body.modal-open {
     }
 
     .modal.right-sheet {
-        margin: 0px;
+        margin: 0;
         right: 0;
-        top: 0px;
+        top: 0;
         width: 90%;
     }
 
@@ -327,7 +309,7 @@ body.modal-open {
     }
 
     .modal.picker-modal {
-        margin-top: 0px;
+        margin-top: 0;
         top: 5px;
     }
 }
@@ -398,7 +380,7 @@ body.modal-open {
 
 .modal.picker-modal .modal-body,
 .modal.picker-modal .modal-footer {
-    padding: 0px;
+    padding: 0;
 }
 
 .picker-modal-header {
@@ -420,8 +402,8 @@ body.modal-open {
 .modal.window.maximized {
     width: 100%;
     position: fixed;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     height: 100%;
 }
 

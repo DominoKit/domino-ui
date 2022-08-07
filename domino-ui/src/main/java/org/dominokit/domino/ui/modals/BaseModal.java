@@ -29,10 +29,7 @@ import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoDom;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.Switchable;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -44,9 +41,10 @@ import org.jboss.elemento.IsElement;
 public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     extends BaseDominoElement<HTMLDivElement, T> implements IsModalDialog<T>, Switchable<T> {
 
-  private List<OpenHandler> openHandlers = new ArrayList<>();
-  private List<CloseHandler> closeHandlers = new ArrayList<>();
+  private final List<OpenHandler> openHandlers = new ArrayList<>();
+  private final List<CloseHandler> closeHandlers = new ArrayList<>();
   static int Z_INDEX = 1040;
+  private final OpacityTransition opacityTransition;
 
   /** a component that contains the modal elements */
   public static class Modal implements IsElement<HTMLDivElement> {
@@ -61,8 +59,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
 
     /** */
     public Modal() {
-      root =
-          DominoElement.div().setTabIndex(-1).css("modal", "fade").setAttribute("role", "dialog");
+      root = DominoElement.div().setTabIndex(-1).css("modal").setAttribute("role", "dialog");
       modalDialog =
           DominoElement.div().setTabIndex(-1).css("modal-dialog").setAttribute("role", "document");
       modalContent =
@@ -144,7 +141,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   private Element lastFocusElement;
   private Element activeElementBeforeOpen;
   private List<Element> focusElements = new ArrayList<>();
-  private Text headerText = DomGlobal.document.createTextNode("");
+  private final Text headerText = DomGlobal.document.createTextNode("");
   private boolean open = false;
   private boolean disabled = false;
   private boolean autoAppendAndRemove = true;
@@ -157,6 +154,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     modalElement.getModalTitle().appendChild(headerText);
 
     addTabIndexHandler();
+    opacityTransition = new OpacityTransition(element(), evt -> doClose());
   }
 
   /** @param title String modal header title */
@@ -312,8 +310,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       initFocusElements();
       activeElementBeforeOpen = DominoDom.document.activeElement;
       addBackdrop();
-      style().addCss(ModalStyles.IN);
-      style().setDisplay("block");
+      setDisplay("block");
       if (nonNull(firstFocusElement) && isAutoFocus()) {
         firstFocusElement.focus();
         if (!Objects.equals(DominoDom.document.activeElement, firstFocusElement)) {
@@ -325,6 +322,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       openHandlers.forEach(OpenHandler::onOpen);
       this.open = true;
       ModalBackDrop.push(this);
+      opacityTransition.show();
     }
     ModalBackDrop.showHideBodyScrolls();
     return (T) this;
@@ -375,23 +373,26 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   @Override
   public T close() {
     if (this.open) {
-      element().classList.remove(ModalStyles.IN);
-      element().style.display = "none";
-      if (nonNull(activeElementBeforeOpen)) {
-        activeElementBeforeOpen.focus();
-      }
-      if (autoAppendAndRemove) {
-        element().remove();
-      }
-      this.open = false;
-      if (ModalBackDrop.contains(this)) {
-        ModalBackDrop.popModal(this);
-      }
-      removeBackDrop();
-      closeHandlers.forEach(CloseHandler::onClose);
+      opacityTransition.hide();
     }
     ModalBackDrop.showHideBodyScrolls();
     return (T) this;
+  }
+
+  private void doClose() {
+    setDisplay("none");
+    if (nonNull(activeElementBeforeOpen)) {
+      activeElementBeforeOpen.focus();
+    }
+    if (autoAppendAndRemove) {
+      element().remove();
+    }
+    this.open = false;
+    if (ModalBackDrop.contains(this)) {
+      ModalBackDrop.popModal(this);
+    }
+    removeBackDrop();
+    closeHandlers.forEach(CloseHandler::onClose);
   }
 
   /**
