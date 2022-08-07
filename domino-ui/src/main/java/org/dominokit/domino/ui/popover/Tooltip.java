@@ -43,11 +43,11 @@ import org.jboss.elemento.IsElement;
 public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
 
   private final DominoElement<HTMLDivElement> element =
-          DominoElement.of(div()).css(TOOLTIP).attr("role", "tooltip");
+      DominoElement.of(div()).css(TOOLTIP).attr("role", "tooltip");
   private final DominoElement<HTMLDivElement> arrowElement =
-          DominoElement.of(div()).css(TOOLTIP_ARROW);
+      DominoElement.of(div()).css(TOOLTIP_ARROW);
   private final DominoElement<HTMLDivElement> innerElement =
-          DominoElement.of(div()).css(TOOLTIP_INNER);
+      DominoElement.of(div()).css(TOOLTIP_INNER);
   private PopupPosition popupPosition = TOP;
   private final EventListener showToolTipListener;
   private final Consumer<Tooltip> removeHandler;
@@ -67,26 +67,26 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
     element.addCss(popupPosition.getDirectionClass());
 
     showToolTipListener =
-            evt -> {
-              evt.stopPropagation();
-              document.body.appendChild(element.element());
-              popupPosition.position(element.element(), targetElement);
-              position(popupPosition);
-              elementObserver.ifPresent(ElementObserver::remove);
-              elementObserver = ElementUtil.onDetach(targetElement, mutationRecord -> remove());
-              opacityTransition.show();
-            };
+        evt -> {
+          evt.stopPropagation();
+          document.body.appendChild(element.element());
+          popupPosition.position(element.element(), targetElement);
+          position(popupPosition);
+          elementObserver.ifPresent(ElementObserver::remove);
+          elementObserver = ElementUtil.onDetach(targetElement, mutationRecord -> remove());
+          opacityTransition.show();
+        };
     removeToolTipListener = evt -> opacityTransition.hide();
     targetElement.addEventListener(EventType.mouseenter.getName(), showToolTipListener);
     targetElement.addEventListener(EventType.mouseleave.getName(), removeToolTipListener);
     init(this);
 
     removeHandler =
-            tooltip -> {
-              targetElement.removeEventListener(EventType.mouseenter.getName(), showToolTipListener);
-              targetElement.removeEventListener(EventType.mouseleave.getName(), removeToolTipListener);
-              elementObserver.ifPresent(ElementObserver::remove);
-            };
+        tooltip -> {
+          targetElement.removeEventListener(EventType.mouseenter.getName(), showToolTipListener);
+          targetElement.removeEventListener(EventType.mouseleave.getName(), removeToolTipListener);
+          elementObserver.ifPresent(ElementObserver::remove);
+        };
   }
 
   private void doClose() {

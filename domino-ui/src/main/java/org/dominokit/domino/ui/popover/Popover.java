@@ -48,21 +48,21 @@ import org.jboss.elemento.IsElement;
  * @see Switchable
  */
 public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
-        implements Switchable<Popover> {
+    implements Switchable<Popover> {
 
   private final Text headerText;
   private final HTMLElement targetElement;
 
   private final DominoElement<HTMLDivElement> element =
-          DominoElement.of(div())
-                       .css(POPOVER)
-                       .attr("role", "tooltip")
-                       .style("display: block;")
-                       .elevate(Elevation.LEVEL_1);
+      DominoElement.of(div())
+          .css(POPOVER)
+          .attr("role", "tooltip")
+          .style("display: block;")
+          .elevate(Elevation.LEVEL_1);
   private final DominoElement<HTMLHeadingElement> headingElement =
-          DominoElement.of(h(3)).css(POPOVER_TITLE);
+      DominoElement.of(h(3)).css(POPOVER_TITLE);
   private final DominoElement<HTMLDivElement> contentElement =
-          DominoElement.of(div()).css(POPOVER_CONTENT);
+      DominoElement.of(div()).css(POPOVER_CONTENT);
   private final OpacityTransition opacityTransition;
 
   private PopupPosition popupPosition = TOP;
@@ -94,26 +94,26 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
     headingElement.appendChild(headerText);
     contentElement.appendChild(content);
     showListener =
-            evt -> {
-              evt.stopPropagation();
-              show();
-            };
+        evt -> {
+          evt.stopPropagation();
+          show();
+        };
     target.addEventListener(EventType.click.getName(), showListener);
     closeListener = evt -> closeAll();
     element.addEventListener(EventType.click.getName(), Event::stopPropagation);
     ElementUtil.onDetach(
-            targetElement,
-            mutationRecord -> {
-              if (visible) {
-                close();
-              }
-              element.remove();
-            });
+        targetElement,
+        mutationRecord -> {
+          if (visible) {
+            close();
+          }
+          element.remove();
+        });
     init(this);
     opacityTransition = new OpacityTransition(element(), evt -> doClose());
     onDetached(
-            mutationRecord ->
-                    document.body.removeEventListener(EventType.keydown.getName(), closeListener));
+        mutationRecord ->
+            document.body.removeEventListener(EventType.keydown.getName(), closeListener));
   }
 
   /** {@inheritDoc} */
