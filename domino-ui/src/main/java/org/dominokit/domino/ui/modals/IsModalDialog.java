@@ -207,6 +207,9 @@ public interface IsModalDialog<T> {
    */
   T deCenterVertically();
 
+  /** @return true if modal is centered vertically, otherwise false */
+  boolean isCenteredVertically();
+
   /** @return boolean, true if the modal should auto-focus first focusable element when opened. */
   boolean isAutoFocus();
 

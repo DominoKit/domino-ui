@@ -287,7 +287,12 @@ public class Window extends BaseModal<Window> {
       }
 
       if (windowTop < 0) {
-        modalElement.element().style.top = 100 + (fixed ? 0 : DomGlobal.window.pageYOffset) + "px";
+        if (isCenteredVertically()) {
+          modalElement.element().style.top = "50%";
+        } else {
+          modalElement.element().style.top =
+              100 + (fixed ? 0 : DomGlobal.window.pageYOffset) + "px";
+        }
       } else {
         modalElement.element().style.top = windowTop + "px";
       }
