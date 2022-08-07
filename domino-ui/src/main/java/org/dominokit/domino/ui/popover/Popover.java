@@ -48,21 +48,22 @@ import org.jboss.elemento.IsElement;
  * @see Switchable
  */
 public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
-    implements Switchable<Popover> {
+        implements Switchable<Popover> {
 
   private final Text headerText;
   private final HTMLElement targetElement;
 
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div())
-          .css(POPOVER)
-          .attr("role", "tooltip")
-          .style("display: block;")
-          .elevate(Elevation.LEVEL_1);
+          DominoElement.of(div())
+                       .css(POPOVER)
+                       .attr("role", "tooltip")
+                       .style("display: block;")
+                       .elevate(Elevation.LEVEL_1);
   private final DominoElement<HTMLHeadingElement> headingElement =
-      DominoElement.of(h(3)).css(POPOVER_TITLE);
+          DominoElement.of(h(3)).css(POPOVER_TITLE);
   private final DominoElement<HTMLDivElement> contentElement =
-      DominoElement.of(div()).css(POPOVER_CONTENT);
+          DominoElement.of(div()).css(POPOVER_CONTENT);
+  private final OpacityTransition opacityTransition;
 
   private PopupPosition popupPosition = TOP;
 
@@ -93,26 +94,26 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
     headingElement.appendChild(headerText);
     contentElement.appendChild(content);
     showListener =
-        evt -> {
-          evt.stopPropagation();
-          show();
-        };
+            evt -> {
+              evt.stopPropagation();
+              show();
+            };
     target.addEventListener(EventType.click.getName(), showListener);
     closeListener = evt -> closeAll();
-
     element.addEventListener(EventType.click.getName(), Event::stopPropagation);
     ElementUtil.onDetach(
-        targetElement,
-        mutationRecord -> {
-          if (visible) {
-            close();
-          }
-          element.remove();
-        });
+            targetElement,
+            mutationRecord -> {
+              if (visible) {
+                close();
+              }
+              element.remove();
+            });
     init(this);
+    opacityTransition = new OpacityTransition(element(), evt -> doClose());
     onDetached(
-        mutationRecord ->
-            document.body.removeEventListener(EventType.keydown.getName(), closeListener));
+            mutationRecord ->
+                    document.body.removeEventListener(EventType.keydown.getName(), closeListener));
   }
 
   /** {@inheritDoc} */
@@ -122,7 +123,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
       if (closeOthers) {
         closeOthers();
       }
-      open(targetElement);
+      open();
       element.style().setZIndex(ModalBackDrop.getNextZIndex());
       ModalBackDrop.push(this);
       openHandlers.forEach(OpenHandler::onOpen);
@@ -139,24 +140,27 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
     ModalBackDrop.closePopovers();
   }
 
-  private void open(HTMLElement target) {
+  private void open() {
     if (visible) {
       close();
     } else {
       document.body.appendChild(element.element());
-      element.removeCss(FADE, IN);
-      element.addCss(FADE, IN);
-      popupPosition.position(element.element(), target);
+      popupPosition.position(element.element(), targetElement);
       position(popupPosition);
       visible = true;
       if (closeOnEscape) {
         KeyboardEvents.listenOnKeyDown(document.body).onEscape(closeListener);
       }
+      opacityTransition.show();
     }
   }
 
   /** Closes the popover */
   public void close() {
+    opacityTransition.hide();
+  }
+
+  private void doClose() {
     element().remove();
     visible = false;
     document.body.removeEventListener(EventType.keydown.getName(), closeListener);
