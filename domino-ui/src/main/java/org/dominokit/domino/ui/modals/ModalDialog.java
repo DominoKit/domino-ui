@@ -38,12 +38,10 @@ public class ModalDialog extends BaseModal<ModalDialog> {
   }
 
   public static ModalDialog createPickerModal(String title, Node content) {
-    ModalDialog modal =
-        ModalDialog.create(title)
-            .addCss(ModalStyles.PICKER_MODAL)
-            .small()
-            .setAutoClose(true)
-            .appendChild(content);
-    return modal;
+    return ModalDialog.create(title)
+        .addCss(ModalStyles.PICKER_MODAL)
+        .small()
+        .setAutoClose(true)
+        .appendChild(content);
   }
 }
