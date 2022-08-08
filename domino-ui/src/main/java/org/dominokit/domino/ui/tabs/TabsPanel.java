@@ -65,8 +65,8 @@ import org.jboss.elemento.IsElement;
 public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     implements IsElement<HTMLDivElement> {
 
-  private HTMLDivElement element = DominoElement.of(div()).element();
-  private DominoElement<HTMLUListElement> tabsList =
+  private final HTMLDivElement element = DominoElement.of(div()).element();
+  private final DominoElement<HTMLUListElement> tabsList =
       DominoElement.of(ul())
           .css(TabStyles.NAV, TabStyles.NAV_TABS, TabStyles.NAV_TABS_RIGHT)
           .attr("role", "tablist");
@@ -74,7 +74,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   private Tab activeTab;
   private Color tabsColor;
   private Transition transition;
-  private List<Tab> tabs = new ArrayList<>();
+  private final List<Tab> tabs = new ArrayList<>();
   private Color background;
   private boolean autoActivate = true;
 
@@ -425,6 +425,20 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    */
   public TabsPanel setTabsAlign(TabsAlign align) {
     this.tabsList.css(align.getAlign());
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TabsPanel disable() {
+    tabs.forEach(Tab::disable);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TabsPanel enable() {
+    tabs.forEach(Tab::enable);
     return this;
   }
 }

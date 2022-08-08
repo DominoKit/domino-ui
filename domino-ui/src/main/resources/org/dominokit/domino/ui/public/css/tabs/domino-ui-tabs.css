@@ -319,3 +319,9 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.nav-tabs .disabled,
+.vtabs .list .disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
