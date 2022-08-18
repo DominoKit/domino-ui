@@ -1,56 +1,50 @@
 :root {
+--dui-color:var(--dui-clr-black);
+--dui-alternate-color:var(--dui-clr-white);
+--dui-text-color: var(--dui-color);
+color: var(--dui-color);
+
 <#list colors as color>
     --dui-clr-${color.name}:${color.hex};
 </#list>
 }
 <#list colorsNames as colorName>
-.dui[class*="dui-fg-${colorName.name}-"]{
-    --dui-fg-50:var(--dui-clr-${colorName.name}-50);
-    --dui-fg-100:var(--dui-clr-${colorName.name}-100);
-    --dui-fg-200:var(--dui-clr-${colorName.name}-200);
-    --dui-fg-300:var(--dui-clr-${colorName.name}-300);
-    --dui-fg-400:var(--dui-clr-${colorName.name}-400);
-    --dui-fg-500:var(--dui-clr-${colorName.name}-500);
-    --dui-fg-600:var(--dui-clr-${colorName.name}-600);
-    --dui-fg-700:var(--dui-clr-${colorName.name}-700);
-    --dui-fg-800:var(--dui-clr-${colorName.name}-800);
-    --dui-fg-900:var(--dui-clr-${colorName.name}-900);
-    --dui-fg-a100:var(--dui-clr-${colorName.name}-a100);
-    --dui-fg-a200:var(--dui-clr-${colorName.name}-a200);
-    --dui-fg-a400:var(--dui-clr-${colorName.name}-a400);
-    --dui-fg-a700:var(--dui-clr-${colorName.name}-a700);
+.dui[class*="dui-fg-${colorName.name}"]{
+    --dui-fg-l-5:var(--dui-clr-${colorName.name}-l-5);
+    --dui-fg-l-4:var(--dui-clr-${colorName.name}-l-4);
+    --dui-fg-l-3:var(--dui-clr-${colorName.name}-l-3);
+    --dui-fg-l-2:var(--dui-clr-${colorName.name}-l-2);
+    --dui-fg-l-1:var(--dui-clr-${colorName.name}-l-1);
+    --dui-fg:var(--dui-clr-${colorName.name});
+    --dui-fg-d-1:var(--dui-clr-${colorName.name}-d-1);
+    --dui-fg-d-2:var(--dui-clr-${colorName.name}-d-2);
+    --dui-fg-d-3:var(--dui-clr-${colorName.name}-d-3);
+    --dui-fg-d-4:var(--dui-clr-${colorName.name}-d-4);
 }
-.dui[class*="dui-bg-${colorName.name}-"]{
-    --dui-bg-50:var(--dui-clr-${colorName.name}-50);
-    --dui-bg-100:var(--dui-clr-${colorName.name}-100);
-    --dui-bg-200:var(--dui-clr-${colorName.name}-200);
-    --dui-bg-300:var(--dui-clr-${colorName.name}-300);
-    --dui-bg-400:var(--dui-clr-${colorName.name}-400);
-    --dui-bg-500:var(--dui-clr-${colorName.name}-500);
-    --dui-bg-600:var(--dui-clr-${colorName.name}-600);
-    --dui-bg-700:var(--dui-clr-${colorName.name}-700);
-    --dui-bg-800:var(--dui-clr-${colorName.name}-800);
-    --dui-bg-900:var(--dui-clr-${colorName.name}-900);
-    --dui-bg-a100:var(--dui-clr-${colorName.name}-a100);
-    --dui-bg-a200:var(--dui-clr-${colorName.name}-a200);
-    --dui-bg-a400:var(--dui-clr-${colorName.name}-a400);
-    --dui-bg-a700:var(--dui-clr-${colorName.name}-a700);
+.dui[class*="dui-bg-${colorName.name}"]{
+    --dui-bg-l-5:var(--dui-clr-${colorName.name}-l-5);
+    --dui-bg-l-4:var(--dui-clr-${colorName.name}-l-4);
+    --dui-bg-l-3:var(--dui-clr-${colorName.name}-l-3);
+    --dui-bg-l-2:var(--dui-clr-${colorName.name}-l-2);
+    --dui-bg-l-1:var(--dui-clr-${colorName.name}-l-1);
+    --dui-bg:var(--dui-clr-${colorName.name});
+    --dui-bg-d-1:var(--dui-clr-${colorName.name}-d-1);
+    --dui-bg-d-2:var(--dui-clr-${colorName.name}-d-2);
+    --dui-bg-d-3:var(--dui-clr-${colorName.name}-d-3);
+    --dui-bg-d-4:var(--dui-clr-${colorName.name}-d-4);
+
 }
-.dui[class*="dui-accent-${colorName.name}-"]{
-    --dui-accent-50:var(--dui-clr-${colorName.name}-50);
-    --dui-accent-100:var(--dui-clr-${colorName.name}-100);
-    --dui-accent-200:var(--dui-clr-${colorName.name}-200);
-    --dui-accent-300:var(--dui-clr-${colorName.name}-300);
-    --dui-accent-400:var(--dui-clr-${colorName.name}-400);
-    --dui-accent-500:var(--dui-clr-${colorName.name}-500);
-    --dui-accent-600:var(--dui-clr-${colorName.name}-600);
-    --dui-accent-700:var(--dui-clr-${colorName.name}-700);
-    --dui-accent-800:var(--dui-clr-${colorName.name}-800);
-    --dui-accent-900:var(--dui-clr-${colorName.name}-900);
-    --dui-accent-a100:var(--dui-clr-${colorName.name}-a100);
-    --dui-accent-a200:var(--dui-clr-${colorName.name}-a200);
-    --dui-accent-a400:var(--dui-clr-${colorName.name}-a400);
-    --dui-accent-a700:var(--dui-clr-${colorName.name}-a700);
+.dui[class*="dui-accent-${colorName.name}"]{
+    --dui-accent-l-5:var(--dui-clr-${colorName.name}-l-5);
+    --dui-accent-l-4:var(--dui-clr-${colorName.name}-l-4);
+    --dui-accent-l-3:var(--dui-clr-${colorName.name}-l-3);
+    --dui-accent-l-2:var(--dui-clr-${colorName.name}-l-2);
+    --dui-accent-l-1:var(--dui-clr-${colorName.name}-l-1);
+    --dui-accent:var(--dui-clr-${colorName.name});
+    --dui-accent-d-1:var(--dui-clr-${colorName.name}-d-1);
+    --dui-accent-d-2:var(--dui-clr-${colorName.name}-d-2);
+    --dui-accent-d-3:var(--dui-clr-${colorName.name}-d-3);
+    --dui-accent-d-4:var(--dui-clr-${colorName.name}-d-4);
 }
 
 </#list>
@@ -61,6 +55,11 @@
 }
 .dui.dui-bg-${color.name} {
     --dui-bg-clr: var(--dui-clr-${color.name});
+    <#if (color.name?ends_with("-l-5") ||  color.name?ends_with("-l-4") || color.name?ends_with("-l-3") || color.name?ends_with("-l-2") || color.name?contains("white")) && color.name?contains("black") == false>
+    --dui-text-color: var(--dui-color);
+    <#else>
+    --dui-text-color: var(--dui-alternate-color);
+    </#if>
     background-color: var(--dui-clr-${color.name});
 }
 .dui.dui-accent-${color.name} {
