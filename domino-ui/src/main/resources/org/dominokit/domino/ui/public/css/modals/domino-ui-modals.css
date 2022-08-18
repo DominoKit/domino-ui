@@ -1,3 +1,4 @@
+
 /* Modals ====================================== */
 .fade {
     opacity: 0;
@@ -150,7 +151,6 @@ body.modal-open {
     .modal {
         margin-left: 30%;
         margin-right: 30%;
-        margin-top: 30px;
         width: 40%;
     }
 
@@ -158,17 +158,20 @@ body.modal-open {
         top: 30px;
     }
 
+    .modal.center:not([class*="-sheet"]) {
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+
     .modal.modal-lg {
         margin-left: 20%;
         margin-right: 20%;
-        margin-top: 30px;
         width: 60%;
     }
 
     .modal.modal-sm {
         margin-left: 40%;
         margin-right: 40%;
-        margin-top: 30px;
         width: 20%;
     }
 
@@ -228,7 +231,6 @@ body.modal-open {
     .modal {
         margin-left: 5%;
         margin-right: 5%;
-        margin-top: 30px;
         width: 90%;
     }
 
@@ -241,21 +243,29 @@ body.modal-open {
         top: 30px !important;
     }
 
+    .modal.center.window {
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+
     .modal:not([class*="-sheet"]) {
         top: 30px;
+    }
+
+    .modal.center:not([class*="-sheet"]) {
+        top: 50%;
+        transform: translate(0, -50%);
     }
 
     .modal.modal-lg {
         margin-left: 5%;
         margin-right: 5%;
-        margin-top: 30px;
         width: 90%;
     }
 
     .modal.modal-sm {
         margin-left: 5%;
         margin-right: 5%;
-        margin-top: 30px;
         width: 90%;
     }
 
@@ -407,6 +417,10 @@ body.modal-open {
     height: 100%;
 }
 
+.modal.window.maximized.center {
+    transform: none;
+}
+
 .modal.window.maximized .modal-dialog,
 .modal.window.maximized .modal-dialog .modal-content {
     height: 100%
@@ -449,3 +463,4 @@ body.modal-open {
 .modal.right-sheet .modal-dialog .modal-content .modal-body{
     flex-grow: 1;
 }
+

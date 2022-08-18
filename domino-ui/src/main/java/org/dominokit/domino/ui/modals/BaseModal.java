@@ -27,8 +27,6 @@ import org.dominokit.domino.ui.grid.flex.FlexDirection;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
@@ -560,15 +558,20 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   /** {@inheritDoc} */
   @Override
   public T centerVertically() {
-    Style.of(modalElement.modalDialog).addCss(Styles.vertical_center);
+    modalElement.root.addCss(ModalStyles.CENTER);
     return (T) this;
   }
 
   /** {@inheritDoc} */
   @Override
   public T deCenterVertically() {
-    Style.of(modalElement.modalDialog).removeCss(Styles.vertical_center);
+    modalElement.root.removeCss(ModalStyles.CENTER);
     return (T) this;
+  }
+
+  @Override
+  public boolean isCenteredVertically() {
+    return modalElement.root.containsCss(ModalStyles.CENTER);
   }
 
   /** {@inheritDoc} */

@@ -990,13 +990,11 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   public T setReadOnly(boolean readOnly) {
     this.readOnly = readOnly;
     if (readOnly) {
-      getInputElement().setAttribute(DISABLED, "true");
       getInputElement().setAttribute("readonly", "true");
       getInputElement().setAttribute(FLOATING, permaFloating);
       css("readonly");
       floating();
     } else {
-      getInputElement().removeAttribute(DISABLED);
       getInputElement().removeAttribute("readonly");
       removeCss("readonly");
       boolean floating;
