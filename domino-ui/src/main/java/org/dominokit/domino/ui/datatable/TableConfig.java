@@ -161,7 +161,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
 
           plugins.forEach(plugin -> plugin.onHeaderAdded(dataTable, columnConfig));
         });
-    if(!thead.isAttached()) {
+    if (!thead.isAttached()) {
       dataTable.tableElement().appendChild(thead);
     }
   }

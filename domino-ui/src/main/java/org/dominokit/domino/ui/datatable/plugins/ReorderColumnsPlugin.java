@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
+import java.util.function.Supplier;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.dnd.DragSource;
@@ -23,8 +24,6 @@ import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 
-import java.util.function.Supplier;
-
 /**
  * this plugin allows reordering columns of a data table
  *
@@ -32,35 +31,35 @@ import java.util.function.Supplier;
  */
 public class ReorderColumnsPlugin<T> implements DataTablePlugin<T> {
 
-    private final DropZone dropZone = new DropZone();
-    private final DragSource dragSource = new DragSource();
-    private Supplier<BaseIcon<?>> headerIconSupplier = Icons.ALL::drag_horizontal_mdi;
+  private final DropZone dropZone = new DropZone();
+  private final DragSource dragSource = new DragSource();
+  private Supplier<BaseIcon<?>> headerIconSupplier = Icons.ALL::drag_horizontal_mdi;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
-        if (!column.isUtilityColumn()) {
-            dropZone.addDropTarget(column.getHeadElement(), draggableName -> {
-                ColumnConfig<T> movedColumn = dataTable.getTableConfig().getColumnByName(draggableName);
-                int movedIndex = dataTable.getTableConfig().getColumns().indexOf(movedColumn);
-                int toIndex = dataTable.getTableConfig().getColumns().indexOf(column);
-                dataTable.getTableConfig().getColumns().remove(movedIndex);
-                dataTable.getTableConfig().getColumns().add(toIndex, movedColumn);
-                dataTable.getTableConfig().drawHeaders(dataTable, dataTable.headerElement());
-                dataTable.load();
-            });
+  /** {@inheritDoc} */
+  @Override
+  public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
+    if (!column.isUtilityColumn()) {
+      dropZone.addDropTarget(
+          column.getHeadElement(),
+          draggableName -> {
+            ColumnConfig<T> movedColumn = dataTable.getTableConfig().getColumnByName(draggableName);
+            int movedIndex = dataTable.getTableConfig().getColumns().indexOf(movedColumn);
+            int toIndex = dataTable.getTableConfig().getColumns().indexOf(column);
+            dataTable.getTableConfig().getColumns().remove(movedIndex);
+            dataTable.getTableConfig().getColumns().add(toIndex, movedColumn);
+            dataTable.getTableConfig().drawHeaders(dataTable, dataTable.headerElement());
+            dataTable.load();
+          });
 
-            dragSource.addDraggable(column.getName(), column.getHeadElement());
-            column.getHeaderLayout().appendChild(FlexItem.create().setOrder(100).appendChild(headerIconSupplier.get()));
-        }
+      dragSource.addDraggable(column.getName(), column.getHeadElement());
+      column
+          .getHeaderLayout()
+          .appendChild(FlexItem.create().setOrder(100).appendChild(headerIconSupplier.get()));
     }
+  }
 
-    /**
-     * @param headerIconSupplier header icon supplier
-     */
-    public void setHeaderIconSupplier(Supplier<BaseIcon<?>> headerIconSupplier) {
-        this.headerIconSupplier = headerIconSupplier;
-    }
+  /** @param headerIconSupplier header icon supplier */
+  public void setHeaderIconSupplier(Supplier<BaseIcon<?>> headerIconSupplier) {
+    this.headerIconSupplier = headerIconSupplier;
+  }
 }
