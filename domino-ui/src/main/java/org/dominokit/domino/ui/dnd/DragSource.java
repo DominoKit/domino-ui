@@ -37,9 +37,7 @@ public class DragSource {
    */
   public void addDraggable(HTMLElement draggable) {
     DominoElement<? extends HTMLElement> dominoElement = DominoElement.of(draggable);
-
-    draggable.draggable = true;
-    dominoElement.addEventListener("dragstart", evt -> onDragStart(evt, dominoElement));
+    addDraggable(dominoElement.getDominoId(), draggable);
   }
 
   /**
@@ -51,10 +49,33 @@ public class DragSource {
     addDraggable(draggable.element());
   }
 
-  private void onDragStart(Event evt, DominoElement<? extends HTMLElement> draggable) {
+  /**
+   * Defines element as draggable
+   *
+   * @param draggable the element
+   * @param id element id that will be passed to drop zone whenever this draggable has been dropped
+   */
+  public void addDraggable(String id, IsElement<? extends HTMLElement> draggable) {
+    addDraggable(id, draggable.element());
+  }
+
+  /**
+   * Defines element as draggable
+   *
+   * @param draggable the element
+   * @param id element id that will be passed to drop zone whenever this draggable has been dropped
+   */
+  public void addDraggable(String id, HTMLElement draggable) {
+    DominoElement<? extends HTMLElement> dominoElement = DominoElement.of(draggable);
+
+    draggable.draggable = true;
+    dominoElement.addEventListener("dragstart", evt -> onDragStart(evt, draggable, id));
+  }
+
+  private void onDragStart(Event evt, HTMLElement draggable, String id) {
     DragEvent e = (DragEvent) evt;
-    e.dataTransfer.setData("draggable_id", draggable.getDominoId());
+    e.dataTransfer.setData("draggable_id", id);
     e.dataTransfer.dropEffect = "move";
-    draggable.element().classList.add(DRAGGING);
+    draggable.classList.add(DRAGGING);
   }
 }
