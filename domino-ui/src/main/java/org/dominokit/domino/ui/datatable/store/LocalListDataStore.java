@@ -16,6 +16,8 @@
 package org.dominokit.domino.ui.datatable.store;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.datatable.events.RecordMoveEvent.MOVE_EVENT;
+import static org.dominokit.domino.ui.datatable.events.RecordRemovedEvent.REMOVED_EVENT;
 import static org.dominokit.domino.ui.datatable.events.SearchEvent.SEARCH_EVENT;
 import static org.dominokit.domino.ui.datatable.events.SortEvent.SORT_EVENT;
 import static org.dominokit.domino.ui.datatable.events.TablePageChangeEvent.PAGINATION_EVENT;
@@ -25,9 +27,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.dominokit.domino.ui.datatable.events.SearchEvent;
-import org.dominokit.domino.ui.datatable.events.SortEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
+import org.dominokit.domino.ui.datatable.events.*;
 import org.dominokit.domino.ui.datatable.plugins.SortDirection;
 import org.dominokit.domino.ui.pagination.HasPagination;
 
@@ -39,7 +39,7 @@ import org.dominokit.domino.ui.pagination.HasPagination;
  */
 public class LocalListDataStore<T> implements DataStore<T> {
 
-  private List<StoreDataChangeListener<T>> listeners = new ArrayList<>();
+  private final List<StoreDataChangeListener<T>> listeners = new ArrayList<>();
 
   private final List<T> original;
   private List<T> filtered;
@@ -52,6 +52,32 @@ public class LocalListDataStore<T> implements DataStore<T> {
   private String autoSortBy = "*";
   private SortDirection autoSortDirection = SortDirection.ASC;
   private boolean autSortApplied = false;
+
+  private RecordActions<T> recordActions =
+      new RecordActions<T>() {
+        @Override
+        public void move(T recordToMove, T target) {
+          int movedIndex = filtered.indexOf(recordToMove);
+          int targetIndex = filtered.size();
+          if (nonNull(target)) {
+            targetIndex = filtered.indexOf(target);
+          }
+          if (movedIndex > -1) {
+            filtered.remove(movedIndex);
+          }
+          if (targetIndex > -1) {
+            filtered.add(targetIndex, recordToMove);
+          }
+        }
+
+        @Override
+        public void remove(T rowToRemove) {
+          int removedIndex = filtered.indexOf(rowToRemove);
+          if (removedIndex > -1) {
+            filtered.remove(removedIndex);
+          }
+        }
+      };
 
   /** Creates an instance initialized with empty list */
   public LocalListDataStore() {
@@ -217,7 +243,30 @@ public class LocalListDataStore<T> implements DataStore<T> {
       case PAGINATION_EVENT:
         onPageChanged();
         break;
+      case MOVE_EVENT:
+        handleMoveEvent((RecordMoveEvent<T>) event);
+        break;
+      case REMOVED_EVENT:
+        handleRemoveEvent((RecordRemovedEvent<T>) event);
+        break;
     }
+  }
+
+  private void handleRemoveEvent(RecordRemovedEvent<T> event) {
+    T rowToRemove = event.getRecordToRemove();
+
+    recordActions.remove(rowToRemove);
+
+    fireUpdate(true);
+  }
+
+  private void handleMoveEvent(RecordMoveEvent<T> event) {
+    T movedRow = event.getMovedRecord();
+    T targetRow = event.getTargetRecord();
+
+    recordActions.move(movedRow, targetRow);
+
+    fireUpdate(true);
   }
 
   private void onSearchChanged(SearchEvent event) {
@@ -429,5 +478,32 @@ public class LocalListDataStore<T> implements DataStore<T> {
    */
   public List<T> getFilteredRecords() {
     return new ArrayList<>(filtered);
+  }
+
+  /** @param recordActions the {@link RecordActions} handler */
+  public void setRecordActions(RecordActions<T> recordActions) {
+    this.recordActions = recordActions;
+  }
+
+  /**
+   * An interface that allows applying actions on a record such as moving and removing it
+   *
+   * @param <T> the type of the data table records
+   */
+  public interface RecordActions<T> {
+    /**
+     * Move record to a target
+     *
+     * @param recordToMove the record to be moved
+     * @param target the target record to move to
+     */
+    void move(T recordToMove, T target);
+
+    /**
+     * Remove record
+     *
+     * @param rowToRemove the record to remove
+     */
+    void remove(T rowToRemove);
   }
 }
