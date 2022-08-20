@@ -28,33 +28,54 @@ import org.jboss.elemento.IsElement;
  */
 public class DragSource {
 
-  private static final String DRAGGING = "dragging";
+    private static final String DRAGGING = "dragging";
 
-  /**
-   * Defines element as draggable
-   *
-   * @param draggable the element
-   */
-  public void addDraggable(HTMLElement draggable) {
-    DominoElement<? extends HTMLElement> dominoElement = DominoElement.of(draggable);
+    /**
+     * Defines element as draggable
+     *
+     * @param draggable the element
+     */
+    public void addDraggable(HTMLElement draggable) {
+        DominoElement<? extends HTMLElement> dominoElement = DominoElement.of(draggable);
+        addDraggable(dominoElement.getDominoId(), draggable);
+    }
 
-    draggable.draggable = true;
-    dominoElement.addEventListener("dragstart", evt -> onDragStart(evt, dominoElement));
-  }
+    /**
+     * Defines element as draggable
+     *
+     * @param draggable the element
+     */
+    public void addDraggable(IsElement<? extends HTMLElement> draggable) {
+        addDraggable(draggable.element());
+    }
 
-  /**
-   * Defines element as draggable
-   *
-   * @param draggable the element
-   */
-  public void addDraggable(IsElement<? extends HTMLElement> draggable) {
-    addDraggable(draggable.element());
-  }
+    /**
+     * Defines element as draggable
+     *
+     * @param draggable the element
+     * @param id        element id that will be passed to drop zone whenever this draggable has been dropped
+     */
+    public void addDraggable(String id, IsElement<? extends HTMLElement> draggable) {
+        addDraggable(id, draggable.element());
+    }
 
-  private void onDragStart(Event evt, DominoElement<? extends HTMLElement> draggable) {
-    DragEvent e = (DragEvent) evt;
-    e.dataTransfer.setData("draggable_id", draggable.getDominoId());
-    e.dataTransfer.dropEffect = "move";
-    draggable.element().classList.add(DRAGGING);
-  }
+    /**
+     * Defines element as draggable
+     *
+     * @param draggable the element
+     * @param id        element id that will be passed to drop zone whenever this draggable has been dropped
+     */
+    public void addDraggable(String id, HTMLElement draggable) {
+        DominoElement<? extends HTMLElement> dominoElement = DominoElement.of(draggable);
+
+        draggable.draggable = true;
+        dominoElement.addEventListener("dragstart", evt -> onDragStart(evt, draggable, id));
+    }
+
+    private void onDragStart(Event evt, HTMLElement draggable, String id) {
+        DragEvent e = (DragEvent) evt;
+        e.dataTransfer.setData("draggable_id", id);
+        e.dataTransfer.dropEffect = "move";
+        draggable.classList.add(DRAGGING);
+    }
 }
