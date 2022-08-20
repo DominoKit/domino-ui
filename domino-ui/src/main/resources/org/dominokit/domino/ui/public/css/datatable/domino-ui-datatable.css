@@ -527,3 +527,22 @@ table th[class*="col-"] {
     padding-left: 1px;
     text-align: center;
 }
+
+.default-drop-area {
+    display: block;
+    width: 100%;
+}
+
+.default-drop-area > div {
+    height: 50px;
+    border: 1px dashed #8c8c8c;
+    border-radius: 2px;
+}
+
+.dragging {
+    opacity: 1;
+}
+
+.drag-over {
+    opacity: 0.5;
+}
