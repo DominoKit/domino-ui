@@ -35,4 +35,5 @@ public class DataTableStyles {
   public static final String DETAILS_TD = "details-td";
   public static final String DETAILS_TR = "details-tr";
   public static final String SELECT_CHECKBOX = "select-checkbox";
+  public static final String COLUMN_RESIZER = "col-resizer";
 }
