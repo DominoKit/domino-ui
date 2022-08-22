@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
+import static java.util.Objects.nonNull;
+
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Text;
 import java.util.ArrayList;
@@ -26,8 +28,9 @@ import org.dominokit.domino.ui.datatable.CellRenderer;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableRow;
-import org.dominokit.domino.ui.datatable.events.RecordMoveEvent;
-import org.dominokit.domino.ui.datatable.events.RecordRemovedEvent;
+import org.dominokit.domino.ui.datatable.events.RecordDraggedOutEvent;
+import org.dominokit.domino.ui.datatable.events.RecordDroppedEvent;
+import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.dnd.DragSource;
 import org.dominokit.domino.ui.dnd.DropZone;
 import org.dominokit.domino.ui.grid.flex.FlexAlign;
@@ -57,6 +60,12 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   @Override
   public void init(DataTable<T> dataTable) {
     this.dataTable = dataTable;
+    dropZone = new DropZone();
+    dragSource = new DragSource();
+    initEmptyDropArea(dataTable);
+  }
+
+  private void initEmptyDropArea(DataTable<T> dataTable) {
     emptyDropText = TextNode.of("Drop items here");
     emptyDropArea =
         FlexLayout.create()
@@ -71,8 +80,8 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
                             .appendChild(FlexItem.create().appendChild(emptyDropText))));
     emptyDropRow = new TableRow<>(null, -1, dataTable).css("default-drop-area");
     emptyDropRow.appendChild(emptyDropArea);
-    dropZone = new DropZone();
-    dragSource = new DragSource();
+    dropZone.addDropTarget(emptyDropRow, draggableId -> moveItem(dataTable, null, draggableId));
+    emptyDropRow.hide();
   }
 
   /** {@inheritDoc} */
@@ -110,24 +119,38 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
     Optional<TableRow<T>> optionalTableRow = find(draggableId, dataTable);
 
     if (optionalTableRow.isPresent()) {
-      dataTable.fireTableEvent(new RecordMoveEvent<>(optionalTableRow.get().getRecord(), record));
+      dataTable.fireTableEvent(
+          new RecordDroppedEvent<>(optionalTableRow.get().getRecord(), record));
     } else {
       for (DataTable<T> otherDataTable : otherDataTables) {
         optionalTableRow = find(draggableId, otherDataTable);
         if (optionalTableRow.isPresent()) {
           otherDataTable.fireTableEvent(
-              new RecordRemovedEvent<>(optionalTableRow.get().getRecord()));
+              new RecordDraggedOutEvent<>(optionalTableRow.get().getRecord()));
           dataTable.fireTableEvent(
-              new RecordMoveEvent<>(optionalTableRow.get().getRecord(), record));
+              new RecordDroppedEvent<>(optionalTableRow.get().getRecord(), record));
         }
       }
     }
   }
 
+  @Override
+  public void handleEvent(TableEvent event) {
+    if (event instanceof RecordDraggedOutEvent) {
+      emptyDropRow.toggleDisplay(dataTable.getRows().isEmpty());
+    }
+    if (event instanceof RecordDroppedEvent) {
+      emptyDropRow.hide();
+    }
+  }
+
   private Optional<TableRow<T>> find(String draggableId, DataTable<T> dataTable) {
-    return dataTable.getRows().stream()
-        .filter(row -> row.getDominoId().equals(draggableId))
-        .findFirst();
+    if (nonNull(dataTable.querySelector("[domino-uuid='" + draggableId + "']"))) {
+      return dataTable.getRows().stream()
+          .filter(row -> row.getDominoId().equals(draggableId))
+          .findFirst();
+    }
+    return Optional.empty();
   }
 
   /**
@@ -137,9 +160,8 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
    */
   public void linkWith(DataTable<T> other) {
     otherDataTables.add(other);
-    if (!emptyDropArea.isAttached()) {
+    if (!emptyDropRow.isAttached()) {
       dataTable.appendChild(emptyDropRow);
-      dropZone.addDropTarget(emptyDropRow, draggableId -> moveItem(dataTable, null, draggableId));
     }
   }
 

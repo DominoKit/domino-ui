@@ -16,8 +16,8 @@
 package org.dominokit.domino.ui.datatable.store;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.datatable.events.RecordMoveEvent.MOVE_EVENT;
-import static org.dominokit.domino.ui.datatable.events.RecordRemovedEvent.REMOVED_EVENT;
+import static org.dominokit.domino.ui.datatable.events.RecordDraggedOutEvent.RECORD_DRAGGED_OUT;
+import static org.dominokit.domino.ui.datatable.events.RecordDroppedEvent.RECORD_DROPPED;
 import static org.dominokit.domino.ui.datatable.events.SearchEvent.SEARCH_EVENT;
 import static org.dominokit.domino.ui.datatable.events.SortEvent.SORT_EVENT;
 import static org.dominokit.domino.ui.datatable.events.TablePageChangeEvent.PAGINATION_EVENT;
@@ -53,11 +53,11 @@ public class LocalListDataStore<T> implements DataStore<T> {
   private SortDirection autoSortDirection = SortDirection.ASC;
   private boolean autSortApplied = false;
 
-  private RecordActions<T> recordActions =
-      new RecordActions<T>() {
+  private DragDropRecordActions<T> dragDropRecordActions =
+      new DragDropRecordActions<T>() {
         @Override
-        public void move(T recordToMove, T target) {
-          int movedIndex = filtered.indexOf(recordToMove);
+        public void onDropped(T droppedRecord, T target) {
+          int movedIndex = filtered.indexOf(droppedRecord);
           int targetIndex = filtered.size();
           if (nonNull(target)) {
             targetIndex = filtered.indexOf(target);
@@ -66,13 +66,13 @@ public class LocalListDataStore<T> implements DataStore<T> {
             filtered.remove(movedIndex);
           }
           if (targetIndex > -1) {
-            filtered.add(targetIndex, recordToMove);
+            filtered.add(targetIndex, droppedRecord);
           }
         }
 
         @Override
-        public void remove(T rowToRemove) {
-          int removedIndex = filtered.indexOf(rowToRemove);
+        public void onDraggedOut(T draggedOutRecord) {
+          int removedIndex = filtered.indexOf(draggedOutRecord);
           if (removedIndex > -1) {
             filtered.remove(removedIndex);
           }
@@ -243,28 +243,28 @@ public class LocalListDataStore<T> implements DataStore<T> {
       case PAGINATION_EVENT:
         onPageChanged();
         break;
-      case MOVE_EVENT:
-        handleMoveEvent((RecordMoveEvent<T>) event);
+      case RECORD_DROPPED:
+        handleDropEvent((RecordDroppedEvent<T>) event);
         break;
-      case REMOVED_EVENT:
-        handleRemoveEvent((RecordRemovedEvent<T>) event);
+      case RECORD_DRAGGED_OUT:
+        handleDraggedOutEvent((RecordDraggedOutEvent<T>) event);
         break;
     }
   }
 
-  private void handleRemoveEvent(RecordRemovedEvent<T> event) {
-    T rowToRemove = event.getRecordToRemove();
+  private void handleDraggedOutEvent(RecordDraggedOutEvent<T> event) {
+    T rowToRemove = event.getDraggedOutRecord();
 
-    recordActions.remove(rowToRemove);
+    dragDropRecordActions.onDraggedOut(rowToRemove);
 
     fireUpdate(true);
   }
 
-  private void handleMoveEvent(RecordMoveEvent<T> event) {
-    T movedRow = event.getMovedRecord();
+  private void handleDropEvent(RecordDroppedEvent<T> event) {
+    T movedRow = event.getDroppedRecord();
     T targetRow = event.getTargetRecord();
 
-    recordActions.move(movedRow, targetRow);
+    dragDropRecordActions.onDropped(movedRow, targetRow);
 
     fireUpdate(true);
   }
@@ -480,9 +480,9 @@ public class LocalListDataStore<T> implements DataStore<T> {
     return new ArrayList<>(filtered);
   }
 
-  /** @param recordActions the {@link RecordActions} handler */
-  public void setRecordActions(RecordActions<T> recordActions) {
-    this.recordActions = recordActions;
+  /** @param dragDropRecordActions the {@link DragDropRecordActions} handler */
+  public void setDragDropRecordActions(DragDropRecordActions<T> dragDropRecordActions) {
+    this.dragDropRecordActions = dragDropRecordActions;
   }
 
   /**
@@ -490,20 +490,20 @@ public class LocalListDataStore<T> implements DataStore<T> {
    *
    * @param <T> the type of the data table records
    */
-  public interface RecordActions<T> {
+  public interface DragDropRecordActions<T> {
     /**
-     * Move record to a target
+     * On record gets dropped to a target
      *
-     * @param recordToMove the record to be moved
+     * @param droppedRecord the record to be moved
      * @param target the target record to move to
      */
-    void move(T recordToMove, T target);
+    void onDropped(T droppedRecord, T target);
 
     /**
-     * Remove record
+     * On record gets dragged out
      *
-     * @param rowToRemove the record to remove
+     * @param draggedOutRecord the record to remove
      */
-    void remove(T rowToRemove);
+    void onDraggedOut(T draggedOutRecord);
   }
 }

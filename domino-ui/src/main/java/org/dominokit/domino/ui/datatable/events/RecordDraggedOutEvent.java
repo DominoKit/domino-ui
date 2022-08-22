@@ -16,27 +16,27 @@
 package org.dominokit.domino.ui.datatable.events;
 
 /**
- * This event will be fired when a record gets removed
+ * This event will be fired when a record gets dragged out
  *
  * @param <T> the type of the record
  */
-public class RecordRemovedEvent<T> implements TableEvent {
+public class RecordDraggedOutEvent<T> implements TableEvent {
 
-  public static final String REMOVED_EVENT = "record-removed";
+  public static final String RECORD_DRAGGED_OUT = "record-dragged-out";
 
-  private final T recordToRemove;
+  private final T draggedOutRecord;
 
-  public RecordRemovedEvent(T recordToRemove) {
-    this.recordToRemove = recordToRemove;
+  public RecordDraggedOutEvent(T draggedOutRecord) {
+    this.draggedOutRecord = draggedOutRecord;
   }
 
   @Override
   public String getType() {
-    return REMOVED_EVENT;
+    return RECORD_DRAGGED_OUT;
   }
 
-  /** @return the record to remove */
-  public T getRecordToRemove() {
-    return recordToRemove;
+  /** @return dragged out record */
+  public T getDraggedOutRecord() {
+    return draggedOutRecord;
   }
 }

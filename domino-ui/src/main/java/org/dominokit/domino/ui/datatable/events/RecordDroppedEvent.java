@@ -16,30 +16,30 @@
 package org.dominokit.domino.ui.datatable.events;
 
 /**
- * This event will be fired when a record gets moved
+ * This event will be fired when a record gets dropped
  *
  * @param <T> the type of the record
  */
-public class RecordMoveEvent<T> implements TableEvent {
+public class RecordDroppedEvent<T> implements TableEvent {
 
-  public static final String MOVE_EVENT = "record-moved";
+  public static final String RECORD_DROPPED = "record-dropped";
 
-  private final T movedRecord;
+  private final T droppedRecord;
   private final T targetRecord;
 
-  public RecordMoveEvent(T movedRecord, T targetRecord) {
-    this.movedRecord = movedRecord;
+  public RecordDroppedEvent(T droppedRecord, T targetRecord) {
+    this.droppedRecord = droppedRecord;
     this.targetRecord = targetRecord;
   }
 
   @Override
   public String getType() {
-    return MOVE_EVENT;
+    return RECORD_DROPPED;
   }
 
-  /** @return the moved record */
-  public T getMovedRecord() {
-    return movedRecord;
+  /** @return the dropped record */
+  public T getDroppedRecord() {
+    return droppedRecord;
   }
 
   /** @return the target record */

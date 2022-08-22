@@ -421,7 +421,6 @@ table th[class*="col-"] {
 .thead-fixed > tr, .tbody-fixed > tr {
     display: table;
     table-layout:fixed;
-    width:100%;
 }
 
 .details-td {
@@ -545,4 +544,13 @@ table th[class*="col-"] {
 
 .drag-over {
     opacity: 0.5;
+}
+
+.col-resizer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    cursor: col-resize;
+    height: 100%;
 }
