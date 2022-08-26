@@ -83,7 +83,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
           .setSortable(true)
           .setDrawTitle(true)
           .setPluginColumn(true)
-                  .setWidth("100px")
+          .setWidth("100px")
           .setCellRenderer(
               cellInfo -> {
                 DominoElement.of(cellInfo.getElement()).css("dt-cm-utility");

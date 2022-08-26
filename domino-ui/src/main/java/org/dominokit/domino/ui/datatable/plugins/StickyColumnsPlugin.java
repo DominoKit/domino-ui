@@ -15,7 +15,19 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.datatable.events.ColumnResizedEvent.COLUMN_RESIZED;
+import static org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent.DATA_UPDATED;
+import static org.dominokit.domino.ui.datatable.plugins.StickyColumnsPlugin.Direction.LEFT;
+import static org.dominokit.domino.ui.datatable.plugins.StickyColumnsPlugin.Direction.RIGHT;
+
 import elemental2.dom.HTMLElement;
+import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableRow;
@@ -25,19 +37,6 @@ import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuItem;
 import org.dominokit.domino.ui.menu.direction.TopMiddleDropDirection;
 import org.dominokit.domino.ui.utils.DominoElement;
-
-import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.datatable.events.ColumnResizedEvent.COLUMN_RESIZED;
-import static org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent.DATA_UPDATED;
-import static org.dominokit.domino.ui.datatable.plugins.StickyColumnsPlugin.Direction.LEFT;
-import static org.dominokit.domino.ui.datatable.plugins.StickyColumnsPlugin.Direction.RIGHT;
 
 /**
  * this plugin allows marking columns as sticky ones
@@ -89,7 +88,7 @@ public class StickyColumnsPlugin<T> implements DataTablePlugin<T> {
         columnMenu.unstickColumn();
       }
     }
-    if(COLUMN_RESIZED.equals(event.getType()) && nonNull(currentSticked)){
+    if (COLUMN_RESIZED.equals(event.getType()) && nonNull(currentSticked)) {
       currentSticked.stickColumn(currentDirection);
     }
   }
@@ -141,9 +140,11 @@ public class StickyColumnsPlugin<T> implements DataTablePlugin<T> {
 
     private static class Breaker {
       private boolean shouldBreak = false;
+
       public void stop() {
         shouldBreak = true;
       }
+
       boolean get() {
         return shouldBreak;
       }
@@ -208,7 +209,8 @@ public class StickyColumnsPlugin<T> implements DataTablePlugin<T> {
       dataTable.fireTableEvent(new StickyColumnsEvent<>(new ArrayList<>(effectedColumns.values())));
       for (TableRow<T> row : dataTable.getRows()) {
         final double[] summedLeftCell = {0};
-        direction.forEach(new ArrayList<>(row.getRowCells().values()),
+        direction.forEach(
+            new ArrayList<>(row.getRowCells().values()),
             rowCell -> rowCell.getColumnConfig().getName().equals(column.getName()),
             cell -> {
               direction.stick(cell.getCellInfo().getElement(), summedLeftCell[0] + PX);
@@ -219,18 +221,22 @@ public class StickyColumnsPlugin<T> implements DataTablePlugin<T> {
       currentDirection = direction;
     }
 
-    private double columnWidth(ColumnConfig<T> column){
+    private double columnWidth(ColumnConfig<T> column) {
       return column.getHeadElement().getBoundingClientRect().width;
     }
 
     private void unstickColumn() {
-      if(currentDirection != null) {
+      if (currentDirection != null) {
         List<ColumnConfig<T>> columns = dataTable.getTableConfig().getColumns();
-        currentDirection.forEach(columns, c -> false, column -> currentDirection.unstick(column.getHeadElement().element()));
+        currentDirection.forEach(
+            columns,
+            c -> false,
+            column -> currentDirection.unstick(column.getHeadElement().element()));
         for (TableRow<T> row : dataTable.getRows()) {
-          currentDirection.forEach(new ArrayList<>(row.getRowCells().values()), rowCell -> false, cell -> currentDirection.unstick(cell
-                  .getCellInfo()
-                  .getElement()));
+          currentDirection.forEach(
+              new ArrayList<>(row.getRowCells().values()),
+              rowCell -> false,
+              cell -> currentDirection.unstick(cell.getCellInfo().getElement()));
         }
         currentSticked = null;
       }

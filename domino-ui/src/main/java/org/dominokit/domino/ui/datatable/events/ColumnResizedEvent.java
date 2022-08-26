@@ -15,14 +15,12 @@
  */
 package org.dominokit.domino.ui.datatable.events;
 
-/**
- * This event will be fired when a column gets resized
- */
+/** This event will be fired when a column gets resized */
 public class ColumnResizedEvent implements TableEvent {
-    public static final String COLUMN_RESIZED = "column-resized";
+  public static final String COLUMN_RESIZED = "column-resized";
 
-    @Override
-    public String getType() {
-        return COLUMN_RESIZED;
-    }
+  @Override
+  public String getType() {
+    return COLUMN_RESIZED;
+  }
 }
