@@ -53,6 +53,7 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   private TableRow<T> emptyDropRow;
   private DataTable<T> dataTable;
   private Supplier<BaseIcon<?>> emptyDropIconSupplier = Icons.ALL::plus_mdi;
+  private Supplier<BaseIcon<?>> dragDropIconSupplier = Icons.ALL::drag_vertical_mdi;
   private FlexLayout emptyDropArea;
   private Text emptyDropText;
   private final List<DataTable<T>> otherDataTables = new ArrayList<>();
@@ -94,7 +95,7 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   @Override
   public Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
-    return Optional.of(Collections.singletonList(Icons.ALL.dots_vertical_mdi().element()));
+    return Optional.of(Collections.singletonList(dragDropIconSupplier.get().element()));
   }
 
   /** {@inheritDoc} */
@@ -103,7 +104,7 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
     if (column.isUtilityColumn()) {
       column
           .getHeaderLayout()
-          .appendChild(FlexItem.create().appendChild(Icons.ALL.dots_vertical_mdi()));
+          .appendChild(FlexItem.create().appendChild(dragDropIconSupplier.get()));
     }
   }
 
@@ -168,6 +169,11 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   /** @param emptyDropIconSupplier supplier to create icon for the empty drop area */
   public void setEmptyDropIconSupplier(Supplier<BaseIcon<?>> emptyDropIconSupplier) {
     this.emptyDropIconSupplier = emptyDropIconSupplier;
+  }
+
+  /** @param dragDropIconSupplier supplier to create icon for each draggable row */
+  public void setDragDropIconSupplier(Supplier<BaseIcon<?>> dragDropIconSupplier) {
+    this.dragDropIconSupplier = dragDropIconSupplier;
   }
 
   /** @return the element of empty drop */

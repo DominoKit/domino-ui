@@ -554,3 +554,14 @@ table th[class*="col-"] {
     cursor: col-resize;
     height: 100%;
 }
+
+.sticky-col {
+    position: -webkit-sticky;
+    position: sticky !important;
+    background-color: white;
+    z-index: 10;
+}
+
+.sticky-col:hover {
+    background-color: white !important;
+}

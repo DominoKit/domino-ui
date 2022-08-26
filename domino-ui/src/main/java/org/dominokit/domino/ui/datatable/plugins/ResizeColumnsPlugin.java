@@ -31,6 +31,7 @@ import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.RowCell;
 import org.dominokit.domino.ui.datatable.TableRow;
+import org.dominokit.domino.ui.datatable.events.ColumnResizedEvent;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.EventType;
 
@@ -69,6 +70,7 @@ public class ResizeColumnsPlugin<T> implements DataTablePlugin<T> {
                             .setMaxWidth(width)
                             .setMinWidth(width));
           }
+          dataTable.fireTableEvent(new ColumnResizedEvent());
         };
 
     resizeElement.addEventListener(
