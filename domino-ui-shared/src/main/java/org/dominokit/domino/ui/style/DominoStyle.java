@@ -249,6 +249,12 @@ public interface DominoStyle<E extends HTMLElement, T extends IsElement<E>, R> {
 
   R setOverFlowY(String overflow);
 
+  R setOverFlowY(String overflow, boolean important);
+
+  R setOverFlowX(String overflow);
+
+  R setOverFlowX(String overflow, boolean important);
+
   R setBoxShadow(String boxShadow);
 
   R setTransitionDuration(String transactionDuration);

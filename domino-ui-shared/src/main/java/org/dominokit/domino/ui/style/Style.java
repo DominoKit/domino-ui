@@ -735,6 +735,21 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   @Override
+  public Style<E, T> setOverFlowY(String overflow, boolean important) {
+    return setCssProperty("overflow-y", overflow, important);
+  }
+
+  @Override
+  public Style<E, T> setOverFlowX(String overflow) {
+    return setCssProperty("overflow-x", overflow);
+  }
+
+  @Override
+  public Style<E, T> setOverFlowX(String overflow, boolean important) {
+    return setCssProperty("overflow-x", overflow, important);
+  }
+
+  @Override
   public Style<E, T> setBoxShadow(String boxShadow) {
     return setCssProperty("box-shadow", boxShadow);
   }

@@ -421,7 +421,6 @@ table th[class*="col-"] {
 .thead-fixed > tr, .tbody-fixed > tr {
     display: table;
     table-layout:fixed;
-    width:100%;
 }
 
 .details-td {
@@ -526,4 +525,43 @@ table th[class*="col-"] {
     line-height: 8px;
     padding-left: 1px;
     text-align: center;
+}
+
+.default-drop-area {
+    display: block;
+    width: 100%;
+}
+
+.default-drop-area > div {
+    height: 50px;
+    border: 1px dashed #8c8c8c;
+    border-radius: 2px;
+}
+
+.dragging {
+    opacity: 1;
+}
+
+.drag-over {
+    opacity: 0.5;
+}
+
+.col-resizer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    cursor: col-resize;
+    height: 100%;
+}
+
+.sticky-col {
+    position: -webkit-sticky;
+    position: sticky !important;
+    background-color: white;
+    z-index: 10;
+}
+
+.sticky-col:hover {
+    background-color: white !important;
 }
