@@ -36,13 +36,13 @@ public class SuggestItem<T> {
    * @param displayValue String
    */
   public SuggestItem(T value, String displayValue) {
-    this(value, displayValue, Icons.ALL.text_fields());
+    this(value, displayValue, Icons.ALL.text_mdi());
   }
 
   /**
    * @param value T
    * @param displayValue String
-   * @param icon {@link org.dominokit.domino.ui.icons.Icon}
+   * @param icon {@link org.dominokit.domino.ui.icons.MdiIcon}
    */
   public SuggestItem(T value, String displayValue, BaseIcon<?> icon) {
     element = DropdownAction.create(value, displayValue, icon);
@@ -73,7 +73,7 @@ public class SuggestItem<T> {
   /**
    * @param value T
    * @param displayValue String
-   * @param icon {@link org.dominokit.domino.ui.icons.Icon}
+   * @param icon {@link BaseIcon<?>}
    * @param <T> the type of the SuggestItem value
    * @return new SuggestItem instance
    */

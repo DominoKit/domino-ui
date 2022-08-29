@@ -15,46 +15,42 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.div;
-import static org.jboss.elemento.Elements.span;
 
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.Node;
-import java.util.ArrayList;
-import java.util.List;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.grid.flex.FlexLayout;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.menu.AbstractMenuItem;
+import org.dominokit.domino.ui.menu.MenuStyles;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.HasValue;
 import org.gwtproject.editor.client.TakesValue;
-import org.jboss.elemento.IsElement;
 
 /**
  * A component for a single select option in the select component DropDownMenu
  *
  * @param <T> The type of the SelectOption value
  */
-public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOption<T>>
-    implements HasValue<SelectOption, T>,
-        HasBackground<SelectOption>,
-        Selectable<SelectOption>,
-        TakesValue<T> {
-
-  private static final String SELECTED = "select-option-selected";
-  private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div()).css("select-option");
-  private final DominoElement<HTMLElement> valueContainer =
-      DominoElement.of(span()).css("select-option-value", Styles.ellipsis_text);
+public class SelectOption<T> extends AbstractMenuItem<T, SelectOption<T>>
+    implements HasValue<SelectOption<T>, T>, TakesValue<T>, IsSelectOption<T> {
   private String displayValue;
-  private String key;
-  private T value;
-  private final List<Selectable.SelectionHandler<SelectOption>> selectionHandlers =
-      new ArrayList<>();
   private boolean excludeFromSearchResults = false;
-  private final FlexLayout optionLayoutElement;
+  private SelectSearchFilter<T> selectSearchFilter =
+      (token, caseSensitive, selectOption) -> {
+        if (selectOption.isExcludeFromSearchResults()) {
+          return false;
+        }
+        if (isNull(token) || token.isEmpty()) {
+          return true;
+        }
+        if (caseSensitive) {
+          return selectOption.getDisplayValue().contains(token);
+        } else {
+          return selectOption.getDisplayValue().toLowerCase().contains(token.toLowerCase());
+        }
+      };
+
+  private DominoElement<HTMLDivElement> body =
+      DominoElement.div().addCss(MenuStyles.MENU_ITEM_BODY);
 
   /**
    * @param value T the SelectOption value
@@ -65,14 +61,7 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     setKey(key);
     setValue(value);
     setDisplayValue(displayValue);
-    optionLayoutElement = FlexLayout.create();
-    element.appendChild(
-        optionLayoutElement.appendChild(
-            FlexItem.create()
-                .css(Styles.ellipsis_text)
-                .setFlexGrow(1)
-                .appendChild(valueContainer)));
-    init(this);
+    appendChild(body);
   }
 
   /**
@@ -104,52 +93,6 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     return new SelectOption<>(value, key);
   }
 
-  /**
-   * @param node {@link Node} to be appended to this SelectOption
-   * @return same SelectOption instance
-   */
-  public SelectOption<T> appendChild(Node node) {
-    element.appendChild(node);
-    return this;
-  }
-
-  /**
-   * @param node {@link IsElement} to be appended to this SelectOption
-   * @return same SelectOption instance
-   */
-  public SelectOption<T> appendChild(IsElement<?> node) {
-    element.appendChild(node.element());
-    return this;
-  }
-
-  /** @return String key identifier of this SelectOption */
-  public String getKey() {
-    return key;
-  }
-
-  /** @param key String key identifier for this SelectOption */
-  public void setKey(String key) {
-    this.key = key;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public T getValue() {
-    return this.value;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public void setValue(T value) {
-    this.value = value;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public void addSelectionHandler(Selectable.SelectionHandler<SelectOption> selectionHandler) {
-    selectionHandlers.add(selectionHandler);
-  }
-
   /** @return String */
   public String getDisplayValue() {
     return displayValue;
@@ -161,7 +104,6 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
    */
   public SelectOption<T> setDisplayValue(String displayValue) {
     this.displayValue = displayValue;
-    valueContainer.setTextContent(displayValue);
     return this;
   }
 
@@ -175,55 +117,6 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
   @Override
   public SelectOption<T> deselect() {
     return deselect(false);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public SelectOption<T> select(boolean silent) {
-    addCss(SELECTED);
-    if (!silent) {
-      selectionHandlers.forEach(handler -> handler.onSelectionChanged(this));
-    }
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public SelectOption<T> deselect(boolean silent) {
-    removeCss(SELECTED);
-    if (!silent) {
-      selectionHandlers.forEach(handler -> handler.onSelectionChanged(this));
-    }
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public boolean isSelected() {
-    return style().containsCss(SELECTED);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public SelectOption<T> setBackground(Color background) {
-    if (nonNull(background)) {
-      addCss(background.getBackground());
-    }
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return element.element();
-  }
-
-  /**
-   * @return the {@link HTMLElement} that contains the display value text wrapped as {@link
-   *     DominoElement}
-   */
-  public DominoElement<HTMLElement> getValueContainer() {
-    return valueContainer;
   }
 
   /** {@inheritDoc} */
@@ -255,8 +148,22 @@ public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOpt
     return this;
   }
 
-  /** @return the {@link FlexLayout} that contains the different elements in the SelectOption */
-  public FlexLayout getOptionLayoutElement() {
-    return optionLayoutElement;
+  @Override
+  public boolean onSearch(String token, boolean caseSensitive) {
+    return selectSearchFilter.onSearch(token, caseSensitive, this);
+  }
+
+  @Override
+  public SelectOption<T> render(SelectOptionRenderer<T> renderer) {
+    body.clearElement().appendChild(renderer.render(getValue(), getKey(), getDisplayValue()));
+    return this;
+  }
+
+  @Override
+  public SelectOption<T> setSearchFilter(SelectSearchFilter selectSearchFilter) {
+    if (nonNull(selectSearchFilter)) {
+      this.selectSearchFilter = selectSearchFilter;
+    }
+    return this;
   }
 }

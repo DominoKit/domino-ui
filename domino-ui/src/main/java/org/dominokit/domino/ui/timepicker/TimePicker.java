@@ -264,7 +264,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
                     showMinutes();
                   }
                 })
-            .add(Icons.ALL.navigate_before())
+            .add(Icons.ALL.chevron_left_mdi())
             .hide();
 
     backToMinutes =
@@ -280,7 +280,7 @@ public class TimePicker implements IsElement<HTMLDivElement> {
                     showSeconds();
                   }
                 })
-            .add(Icons.ALL.navigate_next())
+            .add(Icons.ALL.chevron_right_mdi())
             .hide();
 
     element.appendChild(headerPanel);

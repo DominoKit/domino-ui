@@ -86,7 +86,7 @@ public class SimplePagination extends BasePagination<SimplePagination> {
             .css("page-nav")
             .appendChild(
                 prevAnchor
-                    .appendChild(Icons.ALL.chevron_left().clickable())
+                    .appendChild(Icons.ALL.chevron_left_mdi().clickable())
                     .addClickListener(event -> moveToPage(index - 1, false)));
 
     pagesElement.appendChild(prevElement);
@@ -113,7 +113,7 @@ public class SimplePagination extends BasePagination<SimplePagination> {
             .css("page-nav")
             .appendChild(
                 nextAnchor
-                    .appendChild(Icons.ALL.chevron_right().clickable())
+                    .appendChild(Icons.ALL.chevron_right_mdi().clickable())
                     .addClickListener(event -> moveToPage(index + 1, false)));
 
     if (pages > 0) {

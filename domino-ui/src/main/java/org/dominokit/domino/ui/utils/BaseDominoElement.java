@@ -36,10 +36,7 @@ import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.menu.AbstractMenu;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.popover.Tooltip;
-import org.dominokit.domino.ui.style.DominoStyle;
-import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.WavesSupport;
+import org.dominokit.domino.ui.style.*;
 import org.gwtproject.editor.client.Editor;
 import org.gwtproject.safehtml.shared.SafeHtmlBuilder;
 import org.jboss.elemento.EventType;
@@ -63,7 +60,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         IsCollapsible<T>,
         HasChildren<T>,
         HasWavesElement,
-        IsReadOnly<T>,
+        AcceptReadOnly<T>,
         DominoStyle<E, T, T> {
 
   /** The name of the attribute that holds a unique id for the component */
@@ -261,17 +258,6 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   public T clearElement() {
     ElementUtil.clear(element());
     return element;
-  }
-
-  /**
-   * @deprecated use {@link #isCollapsed()}
-   * @return boolean, true if the component is not visible
-   */
-  @Override
-  @Editor.Ignore
-  @Deprecated
-  public boolean isHidden() {
-    return isCollapsed();
   }
 
   /** @return boolean, true if the component is not visible */
@@ -1009,6 +995,12 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     return element().lastChild;
   }
 
+  /** @return the parent element of the component */
+  @Editor.Ignore
+  public DominoElement<HTMLElement> parent() {
+    return DominoElement.of(Js.<HTMLElement>uncheckedCast(element().parentElement));
+  }
+
   /** @return String text content of the component */
   @Editor.Ignore
   public String getTextContent() {
@@ -1493,8 +1485,42 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     return (T) this;
   }
 
+  @Editor.Ignore
+  @Override
+  public T addCss(CssClass cssClass) {
+    style().addCss(cssClass);
+    return (T) this;
+  }
+
+  @Editor.Ignore
+  @Override
+  public T addCss(HasCssClass hasCssClass) {
+    addCss(hasCssClass.getCssClass());
+    return (T) this;
+  }
+
+  @Editor.Ignore
+  @Override
+  public T addCss(CssClass... cssClasses) {
+    style().addCss(cssClasses);
+    return (T) this;
+  }
+
+  @Editor.Ignore
+  @Override
+  public T addCss(HasCssClasses hasCssClasses) {
+    addCss(hasCssClasses.getCssClasses());
+    return (T) this;
+  }
+
   @Override
   public T removeCss(String cssClass) {
+    style().removeCss(cssClass);
+    return (T) this;
+  }
+
+  @Override
+  public T removeCss(CssClass cssClass) {
     style().removeCss(cssClass);
     return (T) this;
   }
@@ -1871,12 +1897,6 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     return (T) this;
   }
 
-  @Deprecated
-  @Override
-  public boolean contains(String cssClass) {
-    return containsCss(cssClass);
-  }
-
   @Override
   public boolean containsCss(String cssClass) {
     return style().containsCss(cssClass);
@@ -1910,17 +1930,6 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   public T cssText(String cssText) {
     style().cssText(cssText);
     return (T) this;
-  }
-
-  @Override
-  public int length() {
-    return cssClassesCount();
-  }
-
-  @Override
-  @Deprecated
-  public String item(int index) {
-    return style().cssClassByIndex(index);
   }
 
   @Override
@@ -1996,7 +2005,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
   public DominoElement<HTMLElement> querySelector(String selectors) {
     Element element = this.element.element().querySelector(selectors);
-    return DominoElement.of(Js.<HTMLElement>uncheckedCast(element));
+    if (nonNull(element)) {
+      return DominoElement.of(Js.<HTMLElement>uncheckedCast(element));
+    }
+    return null;
   }
 
   public List<DominoElement<HTMLElement>> querySelectorAll(String selectors) {

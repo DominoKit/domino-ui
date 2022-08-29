@@ -205,6 +205,7 @@ public class ElementUtil {
   public static <T extends HasInputElement> T numbersOnly(T hasInputElement) {
     hasInputElement
         .getInputElement()
+            .get()
         .addEventListener(
             "keypress",
             evt -> {
@@ -215,6 +216,7 @@ public class ElementUtil {
             });
     hasInputElement
         .getInputElement()
+            .get()
         .addEventListener(
             "paste",
             evt -> {
@@ -238,6 +240,7 @@ public class ElementUtil {
   public static <T extends HasInputElement> T decimalOnly(T hasInputElement) {
     hasInputElement
         .getInputElement()
+            .get()
         .addEventListener(
             "keypress",
             evt -> {
@@ -251,6 +254,7 @@ public class ElementUtil {
             });
     hasInputElement
         .getInputElement()
+            .get()
         .addEventListener(
             "paste",
             evt -> {

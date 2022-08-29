@@ -30,6 +30,7 @@ import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.forms.AbstractValueBox;
+import org.dominokit.domino.ui.forms.AutoValidator;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;

@@ -21,7 +21,6 @@ import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Elevation;
@@ -42,7 +41,7 @@ import org.dominokit.domino.ui.style.Styles;
  */
 public class DropdownButton extends BaseButton<DropdownButton> {
 
-  private Icon caretIcon = Icons.ALL.keyboard_arrow_down();
+  private BaseIcon<?> caretIcon = Icons.ALL.menu_down_mdi();
   private ButtonsGroup groupElement = ButtonsGroup.create();
   private DropDownMenu dropDownMenu;
 
@@ -395,8 +394,8 @@ public class DropdownButton extends BaseButton<DropdownButton> {
     return this;
   }
 
-  /** @return the caret {@link Icon} */
-  public Icon getCaretIcon() {
+  /** @return the caret {@link BaseIcon} */
+  public BaseIcon<?> getCaretIcon() {
     return caretIcon;
   }
 

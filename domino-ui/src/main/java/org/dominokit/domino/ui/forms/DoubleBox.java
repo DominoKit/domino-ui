@@ -33,7 +33,7 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
   /** Creates a DoubleBox with empty label */
   public DoubleBox() {
-    this("");
+    setDefaultValue(0.0);
   }
 
   /**
@@ -42,19 +42,14 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
    * @param label String
    */
   public DoubleBox(String label) {
-    super(label);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void clearValue(boolean silent) {
-    value(0.0, silent);
+    this();
+    setLabel(label);
   }
 
   /** {@inheritDoc} */
   @Override
   protected Function<String, Double> defaultValueParser() {
-    return DominoUIConfig.INSTANCE.getNumberParsers().doubleParser(this);
+    return DominoUIConfig.CONFIG.getNumberParsers().doubleParser(this);
   }
 
   /** {@inheritDoc} */

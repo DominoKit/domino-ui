@@ -82,7 +82,7 @@ public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
                     FilterTypes.TIME));
           }
         });
-    timeBox.addChangeHandler(value -> searchContext.fireSearchEvent());
+    timeBox.addChangeListener(value -> searchContext.fireSearchEvent());
   }
 
   /** {@inheritDoc} */

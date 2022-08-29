@@ -18,10 +18,7 @@ package org.dominokit.domino.ui.menu;
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.a;
-import static org.jboss.elemento.Elements.li;
-import static org.jboss.elemento.Elements.span;
-import static org.jboss.elemento.Elements.ul;
+import static org.dominokit.domino.ui.menu.MenuStyles.*;
 
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
@@ -33,11 +30,10 @@ import elemental2.dom.HTMLUListElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import org.dominokit.domino.ui.grid.flex.FlexDirection;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.menu.direction.BestSideUpDownDropDirection;
@@ -47,11 +43,7 @@ import org.dominokit.domino.ui.menu.direction.MouseBestFitDirection;
 import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.search.SearchBox;
 import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.utils.AppendStrategy;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.KeyboardNavigation;
-import org.dominokit.domino.ui.utils.PopupsCloser;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -64,26 +56,17 @@ import org.jboss.elemento.IsElement;
 public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
     extends BaseDominoElement<HTMLDivElement, T> {
 
-  protected final SearchBox searchBox;
-  protected FlexLayout menuElement = FlexLayout.create();
+  private final LazyChild<MenuHeader> menuHeader;
+  private final LazyChild<DominoElement<HTMLDivElement>> menuSearchContainer;
+  private final LazyChild<SearchBox> searchBox;
+  private final LazyChild<DominoElement<HTMLDivElement>> menuSubHeader;
+  private final DominoElement<HTMLUListElement> menuItemsList;
+  private final DominoElement<HTMLDivElement> menuBody;
+  private final LazyChild<DominoElement<HTMLAnchorElement>> createMissingElement;
+  private final LazyChild<MdiIcon> backIcon;
+  private LazyChild<DominoElement<HTMLLIElement>> noResultElement;
+  protected DominoElement<HTMLDivElement> menuElement;
 
-  protected final FlexItem<HTMLDivElement> headContainer =
-      FlexItem.create().css("menu-container", "menu-head");
-  protected final FlexItem<HTMLDivElement> searchContainer =
-      FlexItem.create().css("menu-container", "menu-search");
-  protected final FlexItem<HTMLDivElement> subHeaderContainer =
-      FlexItem.create().css("menu-container", "menu-subheader");
-  protected final FlexItem<HTMLDivElement> mainContainer =
-      FlexItem.create().css("menu-container", "menu-main");
-  protected final DominoElement<HTMLUListElement> itemsContainer = DominoElement.of(ul());
-  protected final DominoElement<HTMLAnchorElement> addMissingElement =
-      DominoElement.of(a())
-          .css("create-missing")
-          .setAttribute("tabindex", "0")
-          .setAttribute("aria-expanded", "true")
-          .setAttribute("href", "#");
-
-  protected final MenuHeader<V, T> menuHeader;
   private HTMLElement focusElement;
   protected KeyboardNavigation<AbstractMenuItem<V, ?>> keyboardNavigation;
 
@@ -91,7 +74,6 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   protected boolean caseSensitive = false;
   protected String createMissingLabel = "Create ";
   private MissingItemHandler<T> missingItemHandler;
-  private DominoElement<HTMLLIElement> noResultElement = DominoElement.of(li()).css("no-results");
 
   protected List<AbstractMenuItem<V, ?>> menuItems = new ArrayList<>();
   protected boolean autoCloseOnSelect = true;
@@ -126,17 +108,60 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   private boolean useSmallScreensDirection = true;
   private boolean dropDown = false;
 
-  public AbstractMenu() {
-    init((T) this);
-    menuHeader = new MenuHeader<>(this);
-    menuElement.setDirection(FlexDirection.TOP_TO_BOTTOM);
-    searchBox = SearchBox.create().addSearchListener(this::onSearch);
+  private OnAddItemHandler<V, T> onAddItemHandler = (menu, menuItem) -> {};
 
-    this.appendChild(headContainer.hide().appendChild(menuHeader))
-        .appendChild(searchContainer)
-        .appendChild(subHeaderContainer)
-        .appendChild(mainContainer.setFlexGrow(1).appendChild(itemsContainer));
-    menuElement.css("dom-ui", "menu", "menu-bordered");
+  public AbstractMenu() {
+    menuElement = DominoElement.div().addCss(MENU);
+    menuHeader = LazyChild.of(new MenuHeader(), menuElement);
+    menuSearchContainer = LazyChild.of(DominoElement.div().addCss(MENU_SEARCH), menuElement);
+    searchBox = LazyChild.of(SearchBox.create(), menuSearchContainer);
+
+    createMissingElement =
+        LazyChild.of(
+            DominoElement.a("#")
+                .setAttribute("tabindex", "0")
+                .setAttribute("aria-expanded", "true")
+                .addCss(MENU_CREATE_MISSING),
+            menuSearchContainer);
+    createMissingElement.whenInitialized(
+        () -> {
+          createMissingElement
+              .get()
+              .addClickListener(
+                  evt -> {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                    onAddMissingElement();
+                  });
+
+          KeyboardEvents.listenOnKeyDown(createMissingElement.get())
+              .onEnter(
+                  evt -> {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                    onAddMissingElement();
+                  });
+        });
+    searchBox.whenInitialized(
+        () -> {
+          searchBox.get().addSearchListener(this::onSearch);
+          KeyboardEvents.listenOnKeyDown(this.searchBox.get().getTextBox().getInputElement())
+              .onArrowDown(
+                  evt -> {
+                    if (isAllowCreateMissing() && createMissingElement.get().isAttached()) {
+                      createMissingElement.get().element().focus();
+                    } else {
+                      keyboardNavigation.focusAt(0);
+                    }
+                  });
+        });
+
+    menuSubHeader = LazyChild.of(DominoElement.div().addCss(MENU_SUB_HEADER), menuElement);
+
+    menuItemsList = DominoElement.ul().addCss(MENU_ITEMS_LIST);
+    noResultElement = LazyChild.of(DominoElement.li().addCss(MENU_NO_RESULTS), menuItemsList);
+    menuBody = DominoElement.div().addCss(MENU_BODY);
+    menuElement.appendChild(menuBody.appendChild(menuItemsList));
 
     keyboardNavigation =
         KeyboardNavigation.create(menuItems)
@@ -146,7 +171,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
                   if (keyboardNavigation.isLastFocusableItem(item)) {
                     event.preventDefault();
                     if (isSearchable()) {
-                      searchBox.getTextBox().getInputElement().element().focus();
+                      this.searchBox.get().getTextBox().getInputElement().element().focus();
                     } else {
                       keyboardNavigation.focusTopFocusableItem();
                     }
@@ -178,30 +203,6 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
 
     element.addEventListener("keydown", keyboardNavigation);
 
-    KeyboardEvents.listenOnKeyDown(searchBox.getTextBox().getInputElement())
-        .onArrowDown(
-            evt -> {
-              if (nonNull(missingItemHandler) && addMissingElement.isAttached()) {
-                addMissingElement.element().focus();
-              } else {
-                keyboardNavigation.focusAt(0);
-              }
-            });
-
-    addMissingElement.addClickListener(
-        evt -> {
-          evt.preventDefault();
-          evt.stopPropagation();
-          onAddMissingElement();
-        });
-    KeyboardEvents.listenOnKeyDown(addMissingElement)
-        .onEnter(
-            evt -> {
-              evt.preventDefault();
-              evt.stopPropagation();
-              onAddMissingElement();
-            });
-
     MediaQuery.addOnMediumAndDownListener(
         () -> {
           this.smallScreen = true;
@@ -209,24 +210,24 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
     MediaQuery.addOnLargeAndUpListener(
         () -> {
           this.smallScreen = false;
-          headContainer.toggleDisplay(headerVisible);
+          menuHeader.get().toggleDisplay(headerVisible);
           backArrowContainer.hide();
         });
-
-    backArrowContainer.appendChild(
-        Icons.ALL
-            .keyboard_backspace()
-            .clickable()
-            .addClickListener(this::backToParent)
-            .addEventListener("touchend", this::backToParent)
-            .addEventListener("touchstart", Event::stopPropagation));
-
-    menuHeader.leftAddOnsContainer.appendChild(backArrowContainer);
+    backIcon = LazyChild.of(Icons.ALL.keyboard_backspace_mdi().addCss(MENU_BACK_ICON), menuHeader);
+    backIcon.whenInitialized(
+        () -> {
+          backIcon
+              .get()
+              .clickable()
+              .addClickListener(this::backToParent)
+              .addEventListener("touchend", this::backToParent)
+              .addEventListener("touchstart", Event::stopPropagation);
+        });
   }
 
   private void onAddMissingElement() {
-    missingItemHandler.onMissingItem(searchBox.getTextBox().getValue(), (T) this);
-    onSearch(searchBox.getTextBox().getValue());
+    missingItemHandler.onMissingItem(searchBox.get().getTextBox().getValue(), (T) this);
+    onSearch(searchBox.get().getTextBox().getValue());
   }
 
   /**
@@ -237,8 +238,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    * @return the same menu instance
    */
   public T setIcon(BaseIcon<?> icon) {
-    menuHeader.setIcon(icon);
-    setHeaderVisible(true);
+    menuHeader.get().setIcon(icon);
     return (T) this;
   }
 
@@ -250,8 +250,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    * @return same menu instance
    */
   public T setTitle(String title) {
-    menuHeader.setTitle(title);
-    setHeaderVisible(true);
+    menuHeader.get().setTitle(title);
     return (T) this;
   }
 
@@ -263,8 +262,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    * @return same menu instance
    */
   public T appendAction(HTMLElement element) {
-    menuHeader.appendAction(element);
-    setHeaderVisible(true);
+    menuHeader.get().appendAction(element);
     return (T) this;
   }
 
@@ -276,8 +274,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    * @return same menu instance
    */
   public T appendAction(IsElement<?> element) {
-    menuHeader.appendAction(element);
-    setHeaderVisible(true);
+    menuHeader.get().appendAction(element);
     return (T) this;
   }
 
@@ -289,8 +286,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    * @return same menu instance
    */
   public T appendSubHeaderChild(HTMLElement element) {
-    subHeaderContainer.appendChild(element);
-    autoHideShowSubHeader();
+    menuSubHeader.get().appendChild(element);
     return (T) this;
   }
 
@@ -302,13 +298,8 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    * @return same menu instance
    */
   public T appendSunHeaderChild(IsElement<?> element) {
-    subHeaderContainer.appendChild(element);
-    autoHideShowSubHeader();
+    menuSubHeader.get().appendChild(element);
     return (T) this;
-  }
-
-  private void autoHideShowSubHeader() {
-    subHeaderContainer.toggleDisplay(!subHeaderContainer.isEmptyElement());
   }
 
   /**
@@ -319,9 +310,27 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    */
   public T appendChild(AbstractMenuItem<V, ?> menuItem) {
     if (nonNull(menuItem)) {
-      itemsContainer.appendChild(menuItem);
+      menuItemsList.appendChild(menuItem);
       menuItems.add(menuItem);
       menuItem.setParent(this);
+      onAddItemHandler.onAdded(this, menuItem);
+    }
+    return (T) this;
+  }
+
+  /**
+   * Appends a menu item to this menu
+   *
+   * @param menuGroup {@link MenuItemsGroup}
+   * @return same menu instance
+   */
+  public <I extends AbstractMenuItem<V, I>, G extends MenuItemsGroup<V, I, G>> T appendGroup(
+      G menuGroup, MenuItemsGroupHandler<V, I, G> groupHandler) {
+    if (nonNull(menuGroup)) {
+      menuItemsList.appendChild(menuGroup);
+      menuItems.add(menuGroup);
+      menuGroup.setParent(this);
+      groupHandler.handle(menuGroup);
     }
     return (T) this;
   }
@@ -337,7 +346,19 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
       menuItem.remove();
       this.menuItems.remove(menuItem);
     }
+    return (T) this;
+  }
 
+  /**
+   * Removes all menu items from this menu
+   *
+   * @return same menu instance
+   */
+  public T removeAll() {
+    menuItems.forEach(BaseDominoElement::remove);
+    menuItems.clear();
+    closeCurrentOpen();
+    currentOpen = null;
     return (T) this;
   }
 
@@ -347,24 +368,9 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    * @return same menu instance
    */
   public T appendSeparator() {
-    this.itemsContainer.appendChild(
-        DominoElement.of(li()).add(DominoElement.of(span()).css("ddi-separator")));
+    this.menuItemsList.appendChild(
+        DominoElement.li().add(DominoElement.span().addCss(MENU_SEPARATOR)));
     return (T) this;
-  }
-
-  /** @return the {@link FlexItem} containing the {@link MenuHeader} component */
-  public FlexItem<HTMLDivElement> getHeadContainer() {
-    return headContainer;
-  }
-
-  /** @return The {@link FlexItem} containing the sub-header the menu */
-  public FlexItem<HTMLDivElement> getSubHeaderContainer() {
-    return subHeaderContainer;
-  }
-
-  /** @return the {@link FlexItem} that wrap this menu items container */
-  public FlexItem<HTMLDivElement> getMainContainer() {
-    return mainContainer;
   }
 
   /** {@inheritDoc} */
@@ -374,7 +380,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   }
 
   private void clearSearch() {
-    searchBox.clearSearch();
+    searchBox.get().clearSearch();
   }
 
   /**
@@ -388,23 +394,20 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
     this.menuItems.forEach(AbstractMenuItem::closeSubMenu);
     boolean emptyToken = emptyToken(token);
     if (emptyToken) {
-      this.removeCss("has-search");
-      this.addMissingElement.remove();
-    } else {
-      this.css("has-search");
+      this.createMissingElement.remove();
     }
-    if (nonNull(missingItemHandler) && !emptyToken) {
-      addMissingElement.setInnerHtml(getCreateMissingLabel() + "<b>" + token + "</b>");
-      searchContainer.appendChild(addMissingElement);
+    if (isAllowCreateMissing() && !emptyToken) {
+      createMissingElement.get().setInnerHtml(getCreateMissingLabel() + "<b>" + token + "</b>");
     }
     long count =
         this.menuItems.stream()
+            .filter(menuItem -> !menuItem.isGrouped())
             .filter(dropDownItem -> dropDownItem.onSearch(token, isCaseSensitive()))
             .count();
 
     if (count < 1 && menuItems.size() > 0) {
-      this.itemsContainer.appendChild(
-          noResultElement.setInnerHtml("No results matched " + " <b>" + token + "</b>"));
+      this.menuItemsList.appendChild(
+          noResultElement.get().setInnerHtml("No results matched " + " <b>" + token + "</b>"));
     } else {
       noResultElement.remove();
     }
@@ -444,7 +447,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    * @return The {@link DominoElement} of the {@link HTMLLIElement} that is used to represent no
    *     results when search is applied
    */
-  public DominoElement<HTMLLIElement> getNoResultElement() {
+  public LazyChild<DominoElement<HTMLLIElement>> getNoResultElement() {
     return noResultElement;
   }
 
@@ -456,7 +459,9 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    */
   public T setNoResultElement(HTMLLIElement noResultElement) {
     if (nonNull(noResultElement)) {
-      this.noResultElement = DominoElement.of(noResultElement);
+      this.noResultElement.remove();
+      this.noResultElement =
+          LazyChild.of(DominoElement.of(noResultElement).addCss(MENU_NO_RESULTS), menuItemsList);
     }
     return (T) this;
   }
@@ -488,11 +493,11 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   public HTMLElement getFocusElement() {
     if (isNull(this.focusElement)) {
       if (isSearchable()) {
-        return this.searchBox.getTextBox().getInputElement().element();
+        return this.searchBox.get().getTextBox().getInputElement().element();
       } else if (!this.menuItems.isEmpty()) {
         return menuItems.get(0).getClickableElement();
       } else {
-        return this.itemsContainer.element();
+        return this.menuItemsList.element();
       }
     }
     return focusElement;
@@ -521,19 +526,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
 
   /** @return the {@link SearchBox} of the menu */
   public SearchBox getSearchBox() {
-    return searchBox;
-  }
-
-  /** @return The {@link FlexItem} that contains the search box of the menu */
-  public FlexItem<HTMLDivElement> getSearchContainer() {
-    return searchContainer;
-  }
-
-  /**
-   * @return The {@link DominoElement} of the {@link HTMLUListElement} that contains the menu items.
-   */
-  public DominoElement<HTMLUListElement> getItemsContainer() {
-    return itemsContainer;
+    return searchBox.get();
   }
 
   /** @return The {@link KeyboardNavigation} of the menu */
@@ -542,8 +535,8 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   }
 
   /** @return The {@link MenuHeader} component of the menu */
-  public MenuHeader<V, T> getMenuHeader() {
-    return menuHeader;
+  public MenuHeader getMenuHeader() {
+    return menuHeader.get();
   }
 
   /**
@@ -553,7 +546,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    * @return same menu instance
    */
   public T setHeaderVisible(boolean visible) {
-    headContainer.toggleDisplay(visible);
+    menuHeader.get().toggleDisplay(visible);
     this.headerVisible = visible;
     return (T) this;
   }
@@ -561,6 +554,11 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   /** @return boolean, true if search is enabled */
   public boolean isSearchable() {
     return searchable;
+  }
+
+  /** @return boolean, true if search is enabled */
+  public boolean isAllowCreateMissing() {
+    return nonNull(missingItemHandler);
   }
 
   /**
@@ -572,9 +570,9 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    */
   public T setSearchable(boolean searchable) {
     if (searchable) {
-      searchContainer.appendChild(searchBox);
+      menuSearchContainer.get();
     } else {
-      searchContainer.clearElement();
+      menuSearchContainer.remove();
     }
     this.searchable = searchable;
     return (T) this;
@@ -769,7 +767,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
         getEffectiveDropDirection().position(element.element(), getTargetElement());
       } else {
         closeOthers();
-        searchBox.clearSearch();
+        searchBox.get().clearSearch();
         onAttached(
             mutationRecord -> {
               getEffectiveDropDirection().position(element.element(), getTargetElement());
@@ -786,7 +784,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
         onDetached(record -> close());
         if (smallScreen && nonNull(parent) && parent.isDropDown()) {
           parent.hide();
-          headContainer.show();
+          menuHeader.get().show();
           backArrowContainer.show();
         }
         show();
@@ -898,7 +896,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
       if (isOpened()) {
         this.remove();
         getTargetElement().focus();
-        searchBox.clearSearch();
+        searchBox.get().clearSearch();
         menuItems.forEach(AbstractMenuItem::onParentClosed);
         closeHandlers.forEach(CloseHandler::onClose);
         if (smallScreen && nonNull(parent) && parent.isDropDown()) {
@@ -1073,6 +1071,13 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
     this.dropDown = dropdown;
   }
 
+  public T setOnAddItemHandler(OnAddItemHandler<V, T> onAddItemHandler) {
+    if (nonNull(onAddItemHandler)) {
+      this.onAddItemHandler = onAddItemHandler;
+    }
+    return (T) this;
+  }
+
   /** A handler that will be called when closing the menu */
   @FunctionalInterface
   public interface CloseHandler {
@@ -1100,5 +1105,16 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
      * @param menuItem The {@link AbstractMenuItem} selected
      */
     void onItemSelected(AbstractMenuItem<V, ?> menuItem);
+  }
+
+  @FunctionalInterface
+  public interface MenuItemsGroupHandler<
+      V, I extends AbstractMenuItem<V, I>, T extends MenuItemsGroup<V, I, T>> {
+    void handle(MenuItemsGroup<V, I, T> initializedGroup);
+  }
+
+  public interface OnAddItemHandler<V, T extends AbstractMenu<V, T>> {
+    void onAdded(
+        AbstractMenu<V, T> menu, AbstractMenuItem<V, ? extends AbstractMenuItem<V, ?>> menuItem);
   }
 }

@@ -280,7 +280,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
    * @return same MessageDialog instance
    */
   public MessageDialog success() {
-    return success(Icons.ALL.done());
+    return success(Icons.ALL.check_mdi());
   }
 
   /**
@@ -307,7 +307,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
    * @return same MessageDialog instance
    */
   public MessageDialog error() {
-    return error(Icons.ALL.error());
+    return error(Icons.ALL.close_box_mdi());
   }
 
   /**
@@ -334,7 +334,7 @@ public class MessageDialog extends BaseModal<MessageDialog> {
    * @return same MessageDialog instance
    */
   public MessageDialog warning() {
-    return warning(Icons.ALL.clear());
+    return warning(Icons.ALL.format_clear_mdi());
   }
 
   private static DominoElement<HTMLElement> createMessageIcon(HTMLElement element) {

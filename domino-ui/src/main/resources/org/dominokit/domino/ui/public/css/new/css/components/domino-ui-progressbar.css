@@ -1,0 +1,32 @@
+.dui-progress {
+    height: var(--dui-progress-hight);
+    margin: var(--dui-progress-margin);
+    overflow: hidden;
+    background-color: var(--dui-progress-background);
+    border-radius: var(--dui-progress-radius);
+    box-shadow: var(--dui-progress-box-shadow);
+}
+
+.dui-progress-bar {
+    line-height: var(--dui-progress-bar-line-hight);
+    box-shadow: var(--dui-progress-bar-box-shadow);
+    float: var(--dui-progress-bar-float);
+    width: 0;
+    height: 100%;
+    font: var(--dui-progress-bar-font);
+    line-height: var(--dui-progress-bar-line-hight);
+    color: var(--dui-progress-bar-color);
+    text-align: var(--dui-progress-bar-text-align);
+    transition: width 16ms ease;
+    background-color: var(--dui-progress-bar-default-baclground);
+    border-radius: var(--dui-progress-radius);
+}
+
+.dui-progress-bar-striped {
+    background-image: var(--dui-progress-bar-striped-bg-image);
+    background-size: var(--dui-progress-bar-striped-bg-size);
+}
+
+.dui-progress-bar.dui-active {
+    animation: dui-progress-bar-stripes 2s linear infinite;
+}

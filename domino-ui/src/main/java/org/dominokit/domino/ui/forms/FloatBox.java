@@ -34,7 +34,7 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
 
   /** Create instance without a label */
   public FloatBox() {
-    this("");
+    setDefaultValue(0.0F);
   }
 
   /**
@@ -43,19 +43,14 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
    * @param label String
    */
   public FloatBox(String label) {
-    super(label);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void clearValue(boolean silent) {
-    value(0.0F, silent);
+    this();
+    setLabel(label);
   }
 
   /** {@inheritDoc} */
   @Override
   protected Function<String, Float> defaultValueParser() {
-    return DominoUIConfig.INSTANCE.getNumberParsers().floatParser(this);
+    return DominoUIConfig.CONFIG.getNumberParsers().floatParser(this);
   }
 
   /** {@inheritDoc} */

@@ -15,19 +15,16 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
+import org.dominokit.domino.ui.dropdown.DropDownMenu;
+import org.dominokit.domino.ui.menu.Menu;
+import org.dominokit.domino.ui.utils.ElementUtil;
+import org.jboss.elemento.IsElement;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
 import java.util.List;
 import java.util.Objects;
-import org.dominokit.domino.ui.dropdown.DropDownMenu;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.ElementUtil;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 /**
  * A component that allow selecting a single option from a DropDownMenu
@@ -128,17 +125,10 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
 
   /** {@inheritDoc} */
   @Override
-  public DropDownMenu getOptionsMenu() {
-    return super.getOptionsMenu();
-  }
-
-  /** {@inheritDoc} */
-  @Override
   public Select<T> select(SelectOption<T> option, boolean silent) {
     if (nonNull(selectedOption) && !option.isEqualNode(selectedOption.element())) {
       selectedOption.deselect();
     }
-    floatLabel();
     this.selectedOption = option;
     option.select();
     valuesContainer.setTextContent(option.getDisplayValue());
@@ -164,7 +154,6 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
 
     // if not found, then same as clear & doClear but pass silent to deselect
     if (nonNull(selectedOption)) {
-      unfloatLabel();
       selectedOption.deselect(silent);
       selectedOption = null;
       valuesContainer.setTextContent("");
@@ -201,7 +190,7 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
 
   /** @return int index of selected {@link SelectOption} */
   public int getSelectedIndex() {
-    return options.indexOf(getSelectedOption());
+    return getOptions().indexOf(getSelectedOption());
   }
 
   /** {@inheritDoc} */
@@ -209,7 +198,7 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
   protected void scrollToSelectedOption() {
     if (nonNull(selectedOption)) {
       ElementUtil.scrollIntoParent(
-          selectedOption.element(), getOptionsMenu().getMenuElement().element());
+          selectedOption.element(), getOptionsMenu().element());
     }
   }
 
@@ -228,19 +217,24 @@ public class Select<T> extends AbstractSelect<T, T, Select<T>> {
     return nonNull(selectedOption);
   }
 
-  private class SingleOptionRenderer implements OptionRenderer<T> {
+  private class SingleOptionRenderer implements SelectOptionRenderer<T> {
+//
+//    @Override
+//    public HTMLElement element(SelectOption<T> option) {
+//      MdiIcon checkMark =
+//          Icons.ALL.check_mdi().addCss(Styles.pull_right).addCss("select-option-check-mark");
+//      FlexItem<HTMLDivElement> checkMarkFlexItem = FlexItem.create();
+//      checkMarkFlexItem.appendChild(checkMark);
+//      option.getOptionLayoutElement().appendChild(checkMarkFlexItem);
+//
+//      checkMark.toggleDisplay(option.isSelected());
+//      option.addSelectionHandler(selectable -> checkMark.toggleDisplay(selectable.isSelected()));
+//      return option.element();
+//    }
 
-    @Override
-    public HTMLElement element(SelectOption<T> option) {
-      Icon checkMark =
-          Icons.ALL.check().addCss(Styles.pull_right).addCss("select-option-check-mark");
-      FlexItem<HTMLDivElement> checkMarkFlexItem = FlexItem.create();
-      checkMarkFlexItem.appendChild(checkMark);
-      option.getOptionLayoutElement().appendChild(checkMarkFlexItem);
-
-      checkMark.toggleDisplay(option.isSelected());
-      option.addSelectionHandler(selectable -> checkMark.toggleDisplay(selectable.isSelected()));
-      return option.element();
-    }
+      @Override
+      public IsElement<?> render(T value, String key, String displayValue) {
+          return null;
+      }
   }
 }

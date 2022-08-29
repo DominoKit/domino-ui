@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.forms;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLabelElement;
 import elemental2.dom.Node;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import java.util.Optional;
 import org.dominokit.domino.ui.grid.flex.FlexDirection;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.LazyChild;
 import org.jboss.elemento.Elements;
 import org.jboss.elemento.IsElement;
 
@@ -104,7 +106,7 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
    */
   public RadioGroup<T> appendChild(Radio<? extends T> radio, Node content) {
     radio.setName(name);
-    radio.addChangeHandler(value -> onCheck(radio));
+    radio.addChangeListener(value -> onCheck(radio));
     radio.setGroup(this);
     if (radio.isChecked()) {
       radios.forEach(r -> r.uncheck(true));
@@ -148,8 +150,8 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
   }
 
   private void onCheck(Radio<? extends T> selectedRadio) {
-    for (ChangeHandler<? super T> changeHandler : changeHandlers) {
-      changeHandler.onValueChanged(selectedRadio.isChecked() ? selectedRadio.getValue() : null);
+    for (ChangeListener<? super T> changeListener : changeListeners) {
+      changeListener.onValueChanged(selectedRadio.isChecked() ? selectedRadio.getValue() : null);
     }
   }
 
@@ -301,12 +303,19 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
     return getSelectedRadioImpl().orElse(null);
   }
 
-  /** {@inheritDoc} */
   @Override
-  protected HTMLElement createInputElement(String type) {
-    flexLayout = FlexLayout.create();
-    return flexLayout.element();
+  protected LazyChild<DominoElement<HTMLInputElement>> createInputElement(String type) {
+    return LazyChild.of(DominoElement.input("text"), inputWrapper);
   }
+
+  //
+//
+//  /** {@inheritDoc} */
+//  @Override
+//  protected HTMLElement createInputElement(String type) {
+//    flexLayout = FlexLayout.create();
+//    return flexLayout.element();
+//  }
 
   /** {@inheritDoc} */
   @Override
@@ -356,7 +365,7 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
   private static class RadioAutoValidator<T> extends AutoValidator {
 
     private RadioGroup<T> radioGroup;
-    private ChangeHandler<Boolean> changeHandler;
+    private ChangeListener<Boolean> changeListener;
 
     public RadioAutoValidator(RadioGroup<T> radioGroup, AutoValidate autoValidate) {
       super(autoValidate);
@@ -365,13 +374,13 @@ public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, 
 
     @Override
     public void attach() {
-      changeHandler = value -> autoValidate.apply();
-      radioGroup.getRadios().forEach(radio -> radio.addChangeHandler(changeHandler));
+      changeListener = value -> autoValidate.apply();
+      radioGroup.getRadios().forEach(radio -> radio.addChangeListener(changeListener));
     }
 
     @Override
     public void remove() {
-      radioGroup.getRadios().forEach(radio -> radio.removeChangeHandler(changeHandler));
+      radioGroup.getRadios().forEach(radio -> radio.removeChangeListener(changeListener));
     }
   }
 }

@@ -15,13 +15,13 @@
  */
 package org.dominokit.domino.ui.icons;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.style.Styles.CLICKABLE;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import java.util.function.Consumer;
-import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.EventType;
@@ -34,32 +34,17 @@ import org.jboss.elemento.EventType;
 public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<HTMLElement, T> {
 
   protected DominoElement<HTMLElement> icon;
-  protected String name;
-  protected Color color;
-  protected String originalName;
-  protected String toggleName;
+  protected CssClass name = CssClass.NONE;
+  protected BaseIcon<?> toggleIcon;
+  protected SwapCssClass toggleName = SwapCssClass.of(name);
   protected boolean toggleOnClick = false;
   private boolean toggled = false;
+
   private Consumer<T> onToggleHandler = icon -> {};
 
   /** @return The name of the icon */
   public String getName() {
-    return name;
-  }
-
-  /**
-   * Sets the color of the icon
-   *
-   * @param color The {@link Color} of the icon
-   * @return same instance
-   */
-  public T setColor(Color color) {
-    if (isNull(color)) return (T) this;
-    if (nonNull(this.color)) icon.removeCss(this.color.getStyle());
-
-    icon.addCss(color.getStyle());
-    this.color = color;
-    return (T) this;
+    return name.getCssClass();
   }
 
   /**
@@ -83,8 +68,7 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
    * @return same instance
    */
   public T setToggleIcon(BaseIcon<?> icon) {
-    this.originalName = this.getName();
-    this.toggleName = icon.getName();
+    this.toggleIcon = icon;
     addClickListener(
         evt -> {
           if (toggleOnClick) {
@@ -143,7 +127,7 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
    * @return same instance
    */
   public T clickable() {
-    addCss(IconsStyles.CLICKABLE_ICON);
+    addCss(CLICKABLE);
     withWaves();
     setAttribute("tabindex", "0");
     setAttribute("aria-expanded", "true");
@@ -161,7 +145,10 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
     if (clickable) {
       clickable();
     } else {
-      removeCss(IconsStyles.CLICKABLE_ICON);
+      CLICKABLE.remove(this);
+      removeAttribute("tabindex");
+      removeAttribute("aria-expanded");
+      removeAttribute("href");
       removeWaves();
     }
     return (T) this;

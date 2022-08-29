@@ -16,14 +16,12 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.*;
+import static org.dominokit.domino.ui.forms.FormsStyles.*;
 
 import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.TakesValue;
@@ -39,18 +37,16 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     implements HasName<Radio<T>>,
         HasValue<Radio<T>, T>,
         HasLabel<Radio<T>>,
-        Switchable<Radio<T>>,
-        Checkable<Radio<T>>,
-        TakesValue<T>,
         HasHelperText<Radio<T>>,
-        HasInputElement {
+        AcceptDisable<Radio<T>>,
+        Checkable<Radio<T>>,
+        TakesValue<T> {
 
-  private FlexItem<HTMLDivElement> container = FlexItem.create().addCss("radio-option");
-  private HTMLLabelElement labelElement = label().element();
-  private HTMLInputElement inputElement = input("radio").element();
-  private DominoElement<HTMLParagraphElement> helperTextElement = DominoElement.of(p());
-  private List<ChangeHandler<? super Boolean>> changeHandlers;
-  private Color color;
+  private DominoElement<HTMLDivElement> root;
+  private DominoElement<HTMLInputElement> inputElement;
+  private DominoElement<HTMLLabelElement> labelElement;
+  private LazyChild<DominoElement<HTMLElement>> noteElement;
+  private List<ChangeListener<? super Boolean>> changeListeners = new ArrayList<>();
   private boolean checked = false;
   private RadioGroup<? super T> radioGroup;
   private T value;
@@ -62,13 +58,17 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
    * @param label String
    */
   public Radio(T value, String label) {
-    changeHandlers = new ArrayList<>();
-    linkLabelToField();
-    container.appendChild(labelElement);
-    container.appendChild(inputElement);
+
+    root =
+        DominoElement.div()
+            .addCss(FORM_RADIO)
+            .appendChild(inputElement = DominoElement.input("radio").addCss(HIDDEN_INPUT))
+            .appendChild(labelElement = DominoElement.label().addCss(FORM_RADIO_LABEL));
+    noteElement = LazyChild.of(DominoElement.small().addCss(FORM_RADIO_NOTE), root);
     setLabel(label);
+    linkLabelToField();
     value(value);
-    container.addEventListener(
+    root.addEventListener(
         "click",
         evt -> {
           if (isEnabled() && !isChecked()) check();
@@ -165,13 +165,13 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
 
   /** {@inheritDoc} */
   @Override
-  public Radio<T> addChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
-    changeHandlers.add(changeHandler);
+  public Radio<T> addChangeListener(ChangeListener<? super Boolean> changeListener) {
+    changeListeners.add(changeListener);
     return this;
   }
 
   private void setChecked(boolean value) {
-    inputElement.checked = value;
+    inputElement.element().checked = value;
     this.checked = value;
     if (this.checked) {
       element.css("checked");
@@ -182,19 +182,19 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
 
   /** {@inheritDoc} */
   @Override
-  public Radio<T> removeChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
-    if (changeHandler != null) changeHandlers.remove(changeHandler);
+  public Radio<T> removeChangeListener(ChangeListener<? super Boolean> changeListener) {
+    if (changeListener != null) changeListeners.remove(changeListener);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public boolean hasChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
-    return changeHandlers.contains(changeHandler);
+  public boolean hasChangeListener(ChangeListener<? super Boolean> changeListener) {
+    return changeListeners.contains(changeListener);
   }
 
   private void onCheck() {
-    for (ChangeHandler<? super Boolean> checkHandler : changeHandlers)
+    for (ChangeListener<? super Boolean> checkHandler : changeListeners)
       checkHandler.onValueChanged(isChecked());
   }
 
@@ -226,37 +226,22 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return this;
   }
 
-  /**
-   * Sets the color of the radio border and filling
-   *
-   * @param color {@link Color}
-   * @return same Radio instance
-   */
-  public Radio<T> setColor(Color color) {
-    if (this.color != null) {
-      element.removeCss(this.color.getStyle());
-    }
-    element.css(color.getStyle());
-    this.color = color;
-    return this;
-  }
-
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return container.element();
+    return root.element();
   }
 
   /** {@inheritDoc} */
   @Override
   public String getName() {
-    return inputElement.name;
+    return inputElement.element().name;
   }
 
   /** {@inheritDoc} */
   @Override
   public Radio<T> setName(String name) {
-    inputElement.name = name;
+    inputElement.element().name = name;
     return this;
   }
 
@@ -288,13 +273,13 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   /** {@inheritDoc} */
   @Override
   public Radio<T> setLabel(String label) {
-    labelElement.textContent = label;
+    labelElement.clearElement().appendChild(DominoElement.span().textContent(label));
     return this;
   }
 
   /** @param safeHtml {@link SafeHtml} to be used as a label */
   public Radio<T> setLabel(SafeHtml safeHtml) {
-    labelElement.innerHTML = safeHtml.asString();
+    labelElement.clearElement().setInnerHtml(safeHtml.asString());
     return this;
   }
 
@@ -312,45 +297,40 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   /** {@inheritDoc} */
   @Override
   public Optional<String> getLabel() {
-    return Optional.of(labelElement.textContent);
+    return Optional.of(labelElement.element().textContent);
   }
 
   /** {@inheritDoc} */
   @Override
   public Radio<T> enable() {
-    inputElement.disabled = false;
-    element.removeCss("disabled");
+    inputElement.enable();
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public Radio<T> disable() {
-    inputElement.disabled = true;
-    element.css("disabled");
+    inputElement.disable();
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public String getHelperText() {
-    return helperTextElement.getTextContent();
+    return noteElement.get().getTextContent();
   }
 
   /** {@inheritDoc} */
   @Override
   public Radio<T> setHelperText(String text) {
-    helperTextElement.setTextContent(text);
-    if (!DominoElement.of(labelElement).contains(helperTextElement.element())) {
-      labelElement.appendChild(helperTextElement.element());
-    }
+    noteElement.get().setTextContent(text);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public boolean isEnabled() {
-    return !inputElement.disabled;
+    return !inputElement.isDisabled();
   }
 
   /** @param radioGroup {@link RadioGroup} this radio belongs to */
@@ -359,13 +339,11 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   }
 
   /** {@inheritDoc} */
-  @Override
   public DominoElement<HTMLInputElement> getInputElement() {
-    return DominoElement.of(inputElement);
+    return inputElement;
   }
 
   /** {@inheritDoc} */
-  @Override
   public String getStringValue() {
     return String.valueOf(getValue());
   }

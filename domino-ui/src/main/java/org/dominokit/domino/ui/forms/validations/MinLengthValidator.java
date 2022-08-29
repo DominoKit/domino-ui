@@ -15,28 +15,33 @@
  */
 package org.dominokit.domino.ui.forms.validations;
 
-import elemental2.dom.HTMLInputElement;
-import jsinterop.base.Js;
-import org.dominokit.domino.ui.forms.AbstractValueBox;
+import org.dominokit.domino.ui.forms.HasInputElement;
+import org.dominokit.domino.ui.i18n.FormsLabels;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
+import org.dominokit.domino.ui.utils.HasMinMaxLength;
 import org.dominokit.domino.ui.utils.HasValidation;
 
 /** A predefined validator that validate the minimum value of a field */
-public class MinLengthValidator implements HasValidation.Validator {
+public class MinLengthValidator<T> implements HasValidation.Validator {
 
-  private AbstractValueBox valueBox;
+  private HasInputElement<T> inputElement;
+  private final FormsLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
 
-  /** @param valueBox the {@link AbstractValueBox} we are attaching this validator to */
-  public MinLengthValidator(AbstractValueBox valueBox) {
-    this.valueBox = valueBox;
+  /** @param inputElement the {@link HasInputElement} we are attaching this validator to */
+  public MinLengthValidator(HasInputElement<T> inputElement) {
+    this.inputElement = inputElement;
   }
 
   /** {@inheritDoc} */
   @Override
   public ValidationResult isValid() {
-    if (Js.<HTMLInputElement>uncheckedCast(valueBox.getInputElement().element())
-        .validity
-        .tooShort) {
-      return ValidationResult.invalid(valueBox.getMinLengthErrorMessage());
+    if (inputElement.getInputElement().element()
+            .validity
+            .tooShort) {
+      if(inputElement instanceof HasMinMaxLength){
+        HasMinMaxLength<T> hasLength = (HasMinMaxLength<T>) inputElement;
+        return ValidationResult.invalid(labels.getMinErrorMessage(hasLength.getMinLength(), hasLength.getLength()));
+      }
     }
     return ValidationResult.valid();
   }

@@ -15,10 +15,10 @@
  */
 package org.dominokit.domino.ui.grid.flex;
 
-import org.dominokit.domino.ui.style.IsCssClass;
+import org.dominokit.domino.ui.style.IsCss;
 
 /** Am enum representing the alignment of flex */
-public enum FlexAlign implements IsCssClass {
+public enum FlexAlign implements IsCss {
   /** The alignment will be at the start of the layout */
   START(FlexStyles.FLEX_ALIGN_START, "flex-start"),
   /** The alignment will be at the end of the layout */

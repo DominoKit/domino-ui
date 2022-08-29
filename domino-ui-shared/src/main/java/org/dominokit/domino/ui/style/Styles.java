@@ -21,6 +21,24 @@ import org.jboss.elemento.HtmlContentBuilder;
 
 public class Styles {
 
+  public static final CssClass DUI = () -> "dui";
+  public static final CssClass ORDER_NONE = () -> "dui-order-none";
+  public static final CssClass ORDER_1 = () -> "dui-order-1";
+  public static final CssClass ORDER_2 = () -> "dui-order-2";
+  public static final CssClass ORDER_3 = () -> "dui-order-3";
+  public static final CssClass ORDER_4 = () -> "dui-order-4";
+  public static final CssClass ORDER_5 = () -> "dui-order-5";
+  public static final CssClass ORDER_6 = () -> "dui-order-6";
+  public static final CssClass ORDER_7 = () -> "dui-order-7";
+  public static final CssClass ORDER_8 = () -> "dui-order-8";
+  public static final CssClass ORDER_9 = () -> "dui-order-9";
+  public static final CssClass ORDER_10 = () -> "dui-order-10";
+  public static final CssClass ORDER_11 = () -> "dui-order-11";
+  public static final CssClass ORDER_12 = () -> "dui-order-12";
+  public static final CssClass ORDER_FIRST = () -> "dui-order-first";
+  public static final CssClass ORDER_LAST = () -> "dui-order-last";
+  public static final CssClass OVERLAY = () -> "dui-overlay";
+
   public static final String font_6 = "font-6";
   public static final String font_10 = "font-10";
   public static final String font_12 = "font-12";
@@ -435,6 +453,7 @@ public class Styles {
   public static final String b_l_0 = "b-l-0";
   public static final String b_r_0 = "b-r-0";
   public static final String b_0 = "b-0";
+  public static final CssClass CLICKABLE = () -> "dui-clickable";
 
   HtmlContentBuilder<HTMLHeadingElement> header =
       Elements.h(1).style("text-align: left;").textContent("Example heading ");

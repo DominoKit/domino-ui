@@ -33,13 +33,11 @@ import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
-import org.dominokit.domino.ui.forms.TextBox;
 import org.dominokit.domino.ui.grid.Column;
 import org.dominokit.domino.ui.grid.Row;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
-import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.style.Style;
@@ -139,12 +137,12 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     /** {@inheritDoc} */
     @Override
     public Node asElement(DataTable<T> dataTable) {
-      Icon condenseIcon =
+      MdiIcon condenseIcon =
           Icons.ALL
-              .line_weight()
+              .format_line_weight_mdi()
               .clickable()
               .setTooltip(condenseToolTip)
-              .setToggleIcon(Icons.ALL.format_line_spacing())
+              .setToggleIcon(Icons.ALL.format_line_spacing_mdi())
               .toggleOnClick(true)
               .apply(
                   icon ->
@@ -198,11 +196,11 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     /** {@inheritDoc} */
     @Override
     public Node asElement(DataTable<T> dataTable) {
-      Icon stripesIcon =
+      MdiIcon stripesIcon =
           Icons.ALL
-              .format_line_spacing()
+              .format_line_spacing_mdi()
               .clickable()
-              .setToggleIcon(Icons.ALL.power_input())
+              .setToggleIcon(Icons.ALL.power_on_mdi())
               .setTooltip(noStripsToolTip)
               .toggleOnClick(true)
               .apply(
@@ -258,11 +256,11 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     @Override
     public Node asElement(DataTable<T> dataTable) {
 
-      Icon bordersIcon =
+      MdiIcon bordersIcon =
           Icons.ALL
-              .border_vertical()
+              .border_vertical_mdi()
               .clickable()
-              .setToggleIcon(Icons.ALL.border_clear())
+              .setToggleIcon(Icons.ALL.border_none_mdi())
               .toggleOnClick(true)
               .setTooltip(borderedToolTip)
               .apply(
@@ -318,11 +316,11 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     @Override
     public Node asElement(DataTable<T> dataTable) {
 
-      Icon hoverIcon =
+      MdiIcon hoverIcon =
           Icons.ALL
-              .blur_off()
+              .blur_off_mdi()
               .clickable()
-              .setToggleIcon(Icons.ALL.blur_on())
+              .setToggleIcon(Icons.ALL.blur_mdi())
               .toggleOnClick(true)
               .setTooltip(noHoverToolTip)
               .apply(
@@ -417,15 +415,15 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     private boolean autoSearch = true;
     private Timer autoSearchTimer;
     private EventListener autoSearchEventListener;
-    private final Icon searchIcon;
-    private final Icon clearIcon;
+    private final MdiIcon searchIcon;
+    private final MdiIcon clearIcon;
 
     /** creates a new instance */
     public SearchTableAction() {
 
       searchIcon =
           Icons.ALL
-              .search()
+              .magnify_mdi()
               .addClickListener(
                   evt -> {
                     autoSearchTimer.cancel();
@@ -437,7 +435,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
               .get();
 
       clearIcon =
-          Icons.ALL.clear().setTooltip(clearSearchToolTip).style().setCursor("pointer").get();
+          Icons.ALL.close_mdi().setTooltip(clearSearchToolTip).style().setCursor("pointer").get();
 
       textBox =
           TextBox.create()
@@ -580,7 +578,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     /** {@inheritDoc} */
     @Override
     public Node asElement(DataTable<T> dataTable) {
-      Icon columnsIcon = Icons.ALL.view_column().clickable();
+      MdiIcon columnsIcon = Icons.ALL.view_column_mdi().clickable();
 
       DropDownMenu dropDownMenu = DropDownMenu.create(columnsIcon);
       dropDownMenu
@@ -592,7 +590,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                       .getColumns()
                       .forEach(
                           columnConfig -> {
-                            Icon checkIcon = Icons.ALL.check();
+                            MdiIcon checkIcon = Icons.ALL.check_mdi();
                             columnConfig.addShowHideListener(
                                 DefaultColumnShowHideListener.of(checkIcon.element(), true));
                             FlexLayout itemElement =

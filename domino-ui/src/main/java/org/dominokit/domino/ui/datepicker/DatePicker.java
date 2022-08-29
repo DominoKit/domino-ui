@@ -34,8 +34,8 @@ import org.dominokit.domino.ui.grid.flex.FlexAlign;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
-import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.pickers.PickerHandler;
 import org.dominokit.domino.ui.style.ColorScheme;
@@ -91,8 +91,8 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
       DominoElement.of(div()).css(DatePickerStyles.DAY_NUMBER);
   private final DominoElement<HTMLDivElement> yearNumber =
       DominoElement.of(div()).css(DatePickerStyles.YEAR_NUMBER);
-  private Icon navigateBefore;
-  private Icon navigateNext;
+  private MdiIcon navigateBefore;
+  private MdiIcon navigateNext;
 
   private Select<Integer> yearSelect;
   private Select<Integer> monthSelect;
@@ -215,10 +215,10 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
   private void initSelectors() {
     int year = jsDate.getFullYear();
     yearSelect = Select.<Integer>create().css(DatePickerStyles.SELECTOR);
-
-    yearSelect.getLeftAddonContainer().remove();
-    yearSelect.getMandatoryAddOn();
-    yearSelect.setPopupWidth(150);
+//
+//    yearSelect.getLeftAddonContainer().remove();
+//    yearSelect.getMandatoryAddOn();
+//    yearSelect.setPopupWidth(150);
 
     for (int i = minDate.getFullYear(); i <= maxDate.getFullYear(); i++) {
       SelectOption<Integer> yearOption = SelectOption.create(i, i + "");
@@ -235,9 +235,9 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
 
     int month = jsDate.getMonth();
     monthSelect = Select.<Integer>create().css(DatePickerStyles.SELECTOR);
-    monthSelect.getLeftAddonContainer().remove();
-    monthSelect.getMandatoryAddOn();
-    monthSelect.setPopupWidth(150);
+//    monthSelect.getLeftAddonContainer().remove();
+//    monthSelect.getMandatoryAddOn();
+//    monthSelect.setPopupWidth(150);
 
     String[] months = getDateTimeFormatInfo().monthsShort();
     for (int i = 0; i < months.length; i++) {
@@ -266,7 +266,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
     Row_12 row = Row.create().setGap(px.of(5)).addCss(DatePickerStyles.SELECTOR_ROW);
     navigateBefore =
         Icons.ALL
-            .navigate_before()
+            .menu_left_mdi()
             .clickable()
             .addCss(Styles.m_r_5)
             .addClickListener(
@@ -287,7 +287,7 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
 
     navigateNext =
         Icons.ALL
-            .navigate_next()
+            .menu_right_mdi()
             .clickable()
             .addCss(Styles.m_l_5)
             .addClickListener(
@@ -896,12 +896,12 @@ public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
   }
 
   /** @return The navigate before icon */
-  public Icon getNavigateBefore() {
+  public MdiIcon getNavigateBefore() {
     return navigateBefore;
   }
 
   /** @return The navigate next icon */
-  public Icon getNavigateNext() {
+  public MdiIcon getNavigateNext() {
     return navigateNext;
   }
 

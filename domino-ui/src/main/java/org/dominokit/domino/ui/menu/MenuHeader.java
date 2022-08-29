@@ -15,46 +15,31 @@
  */
 package org.dominokit.domino.ui.menu;
 
-import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.menu.MenuStyles.*;
+import static org.dominokit.domino.ui.style.Styles.CLICKABLE;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.grid.flex.FlexDirection;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.TextNode;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.LazyChild;
 import org.jboss.elemento.IsElement;
 
 /**
  * Menu header component for {@link AbstractMenu}, the header is hidden by default unless it is
  * explicitly set to visible or the user attached any header element.
  */
-public class MenuHeader<V, T extends AbstractMenu<V, T>>
-    extends BaseDominoElement<HTMLDivElement, MenuHeader<V, T>> {
+public class MenuHeader extends BaseDominoElement<HTMLDivElement, MenuHeader> {
 
-  private final FlexLayout root = FlexLayout.create().css("menu-header");
+  private final DominoElement<HTMLDivElement> root;
+  private final LazyChild<DominoElement<HTMLElement>> titleElement;
 
-  private final FlexItem<HTMLDivElement> iconContainer =
-      FlexItem.create().setOrder(1).css("header-icon");
-  protected final FlexLayout leftAddOnsContainer = FlexLayout.create();
-  private final FlexItem<HTMLDivElement> titleContainer =
-      FlexItem.create().setOrder(2).css("header-title");
-  private final FlexItem<HTMLDivElement> actionsContainer =
-      FlexItem.create().setOrder(3).css("header-actions");
-  private final FlexLayout actionsElement =
-      FlexLayout.create().css("actions-element").setGap("4px");
-  private AbstractMenu<V, T> menu;
-
-  public MenuHeader(AbstractMenu<V, T> menu) {
+  public MenuHeader() {
+    root = DominoElement.div().addCss(MENU_HEADER_BAR);
+    titleElement = LazyChild.of(DominoElement.span().addCss(MENU_TITLE), root);
     init(this);
-    this.menu = menu;
-
-    root.setDirection(FlexDirection.LEFT_TO_RIGHT)
-        .appendChild(FlexItem.create().appendChild(leftAddOnsContainer.appendChild(iconContainer)))
-        .appendChild(titleContainer.setFlexGrow(1))
-        .appendChild(actionsContainer.appendChild(actionsElement));
   }
 
   /**
@@ -63,12 +48,8 @@ public class MenuHeader<V, T extends AbstractMenu<V, T>>
    * @param icon {@link BaseIcon}
    * @return same header instance
    */
-  public MenuHeader<V, T> setIcon(BaseIcon<?> icon) {
-    if (isNull(icon)) {
-      iconContainer.clearElement();
-    } else {
-      iconContainer.appendChild(icon);
-    }
+  public MenuHeader setIcon(BaseIcon<?> icon) {
+    root.appendChild(icon.addCss(MENU_ICON));
     return this;
   }
 
@@ -78,11 +59,11 @@ public class MenuHeader<V, T extends AbstractMenu<V, T>>
    * @param title String
    * @return same header instance
    */
-  public MenuHeader<V, T> setTitle(String title) {
-    if (isNull(title)) {
-      titleContainer.clearElement();
-    } else {
-      titleContainer.clearElement().appendChild(TextNode.of(title));
+  public MenuHeader setTitle(String title) {
+    if (nonNull(title) && !title.isEmpty()) {
+      titleElement.get().setTextContent(title);
+    } else if (titleElement.isInitialized()) {
+      titleElement.remove();
     }
     return this;
   }
@@ -93,8 +74,8 @@ public class MenuHeader<V, T extends AbstractMenu<V, T>>
    * @param element {@link HTMLElement}
    * @return same header instance
    */
-  public MenuHeader<V, T> appendAction(HTMLElement element) {
-    actionsElement.appendChild(FlexItem.of(element).css("header-action"));
+  public MenuHeader appendAction(HTMLElement element) {
+    appendAction(() -> element);
     return this;
   }
 
@@ -104,34 +85,9 @@ public class MenuHeader<V, T extends AbstractMenu<V, T>>
    * @param element {@link IsElement}
    * @return same header instance
    */
-  public MenuHeader<V, T> appendAction(IsElement<?> element) {
-    actionsElement.appendChild(FlexItem.of(element).css("header-action"));
+  public MenuHeader appendAction(IsElement<?> element) {
+    root.appendChild(DominoElement.of(element).addCss(MENU_UTILITY, CLICKABLE));
     return this;
-  }
-
-  /** @return The {@link FlexItem} containing the header icon */
-  public FlexItem<HTMLDivElement> getIconContainer() {
-    return iconContainer;
-  }
-
-  /** @return The {@link FlexItem} containing the header title */
-  public FlexItem<HTMLDivElement> getTitleContainer() {
-    return titleContainer;
-  }
-
-  /** @return The {@link FlexItem} that warps the header actions container */
-  public FlexItem<HTMLDivElement> getActionsContainer() {
-    return actionsContainer;
-  }
-
-  /** @return The {@link FlexItem} containing the header actions elements */
-  public FlexLayout getActionsElement() {
-    return actionsElement;
-  }
-
-  /** @return The {@link AbstractMenu} of the header component */
-  public AbstractMenu<V, T> getMenu() {
-    return menu;
   }
 
   /** {@inheritDoc} */

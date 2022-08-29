@@ -16,6 +16,8 @@
 package org.dominokit.domino.ui.search;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.search.SearchStyles.QUICK_SEARCH;
+import static org.dominokit.domino.ui.utils.DominoUIConfig.CONFIG;
 
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
@@ -24,6 +26,7 @@ import java.util.HashSet;
 import java.util.Set;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.TextBox;
+import org.dominokit.domino.ui.i18n.QuickSearchLabels;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
@@ -36,17 +39,16 @@ import org.jboss.elemento.EventType;
 /** A simple search box that is triggered while the user is typing */
 public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
 
-  private String searchToolTip = "Search";
-  private String clearSearchToolTip = "Clear search";
-
   private int autoSearchDelay = 200;
-  private DominoElement<HTMLDivElement> root = DominoElement.div().css("search-box");
+  private DominoElement<HTMLDivElement> root = DominoElement.div().addCss(QUICK_SEARCH);
   private final TextBox textBox;
   private boolean autoSearch = true;
   private Timer autoSearchTimer;
   private EventListener autoSearchEventListener;
   private final BaseIcon<?> searchIcon;
   private final BaseIcon<?> clearIcon;
+
+  private QuickSearchLabels labels = CONFIG.getDominoUILabels();
 
   private Set<SearchListener> searchListeners = new HashSet<>();
 
@@ -66,16 +68,13 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
                   autoSearchTimer.cancel();
                   doSearch();
                 })
-            .setTooltip(searchToolTip);
+            .setTooltip(labels.defaultQuickSearchPlaceHolder());
 
     clearIcon =
         Icons.ALL
             .window_close_mdi()
-            .setAttribute("tabindex", "0")
-            .setAttribute("aria-expanded", "true")
-            .setAttribute("href", "#")
             .clickable()
-            .setTooltip(clearSearchToolTip)
+            .setTooltip(labels.defaultQuickSearchClearToolTip())
             .addClickListener(
                 evt -> {
                   clearSearch();
@@ -94,11 +93,9 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
 
     textBox =
         TextBox.create()
-            .floating()
-            .setPlaceholder(searchToolTip)
+            .setPlaceholder(labels.defaultQuickSearchPlaceHolder())
             .addLeftAddOn(searchIcon)
-            .addRightAddOn(clearIcon)
-            .setMarginBottom("0px");
+            .addRightAddOn(clearIcon);
 
     root.appendChild(textBox.element());
 
@@ -179,31 +176,13 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
     searchListeners.forEach(searchListener -> searchListener.onSearch(textBox.getValue()));
   }
 
-  /**
-   * Set the search icon tooltip
-   *
-   * @param searchToolTip String
-   * @return same action instance
-   */
-  public SearchBox setSearchToolTip(String searchToolTip) {
-    this.searchToolTip = searchToolTip;
-    searchIcon.setTooltip(searchToolTip);
-    textBox.setPlaceholder(searchToolTip);
+  public SearchBox setLabels(QuickSearchLabels quickSearchLabels) {
+    this.labels = quickSearchLabels;
+    this.searchIcon.setTooltip(labels.defaultQuickSearchClearToolTip());
+    this.clearIcon.setTooltip(labels.defaultQuickSearchClearToolTip());
+    this.textBox.setPlaceholder(labels.defaultQuickSearchPlaceHolder());
     return this;
   }
-
-  /**
-   * Set the clear search icon tooltip
-   *
-   * @param clearSearchToolTip String
-   * @return same action instance
-   */
-  public SearchBox setClearSearchToolTip(String clearSearchToolTip) {
-    this.clearSearchToolTip = clearSearchToolTip;
-    clearIcon.setTooltip(clearSearchToolTip);
-    return this;
-  }
-
   /**
    * Adds a search listener to the search box component
    *
@@ -238,16 +217,6 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
   public SearchBox clearSearchListeners() {
     this.searchListeners.clear();
     return this;
-  }
-
-  /** @return String tooltip of the search icon */
-  public String getSearchToolTip() {
-    return searchToolTip;
-  }
-
-  /** @return String tooltip of the clear search icon */
-  public String getClearSearchToolTip() {
-    return clearSearchToolTip;
   }
 
   /** @return The search {@link TextBox} */

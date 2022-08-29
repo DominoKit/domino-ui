@@ -1,0 +1,9 @@
+.dui-fields-set {
+    --dui-fields-set-padding: 5px;
+    --dui-fields-set-border-radius: 3px;
+    --dui-fields-set-border: 1px solid var(--dui-clr-accent-l-2);
+
+    padding: var(--dui-fields-set-padding);
+    border: var(--dui-fields-set-border);
+    border-radius: var(--dui-fields-set-border-radius);
+}

@@ -15,10 +15,7 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import org.dominokit.domino.ui.utils.HasAutoValidation;
-import org.dominokit.domino.ui.utils.HasValidation;
-import org.dominokit.domino.ui.utils.IsRequired;
-import org.dominokit.domino.ui.utils.Switchable;
+import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.Editor;
 
 /**
@@ -27,7 +24,7 @@ import org.gwtproject.editor.client.Editor;
  * @param <T> the type of the component implementing this interface
  */
 public interface HasGrouping<T>
-    extends Switchable<T>, IsRequired<T>, HasValidation<T>, HasAutoValidation<T> {
+    extends AcceptDisable<T>, AcceptReadOnly<T>, IsRequired<T>, HasValidation<T>, Clearable<T> {
 
   /**
    * Adds the component to the specified fields group
@@ -55,20 +52,8 @@ public interface HasGrouping<T>
   @Editor.Ignore
   boolean isEmptyIgnoreSpaces();
 
-  /**
-   * Clears the field value and trigger the change handlers
-   *
-   * @return same implementing component instance
-   */
   @Editor.Ignore
-  T clear();
+  T fixErrorsPosition(boolean fixErrorsPosition);
 
-  /**
-   * Clears the field value and only triggers the change handlers if silent flag is true
-   *
-   * @param silent boolean, if false clear the value without triggering the change handlers
-   * @return same implementing component instance
-   */
-  @Editor.Ignore
-  T clear(boolean silent);
+
 }

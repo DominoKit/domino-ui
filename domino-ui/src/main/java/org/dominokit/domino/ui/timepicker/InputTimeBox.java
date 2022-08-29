@@ -26,6 +26,8 @@ import elemental2.dom.HTMLInputElement;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.dominokit.domino.ui.forms.AutoValidator;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.icons.Icons;

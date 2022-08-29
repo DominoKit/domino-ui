@@ -44,7 +44,6 @@ public class ColorsGenerator {
             Color.of("dominant-d-2", "#616161"),
             Color.of("dominant-d-3", "#424242"),
             Color.of("dominant-d-4", "#212121"),
-
             Color.of("accent-l-5", "#FAFAFA"),
             Color.of("accent-l-4", "#FAFAFA"),
             Color.of("accent-l-3", "#EEEEEE"),
@@ -55,7 +54,6 @@ public class ColorsGenerator {
             Color.of("accent-d-2", "#616161"),
             Color.of("accent-d-3", "#424242"),
             Color.of("accent-d-4", "#212121"),
-
             Color.of("primary-l-5", "#E8EAF6"),
             Color.of("primary-l-4", "#C5CAE9"),
             Color.of("primary-l-3", "#9FA8DA"),
@@ -66,7 +64,6 @@ public class ColorsGenerator {
             Color.of("primary-d-2", "#303F9F"),
             Color.of("primary-d-3", "#283593"),
             Color.of("primary-d-4", "#1A237E"),
-
             Color.of("secondary-l-5", "#ECEFF1"),
             Color.of("secondary-l-4", "#CFD8DC"),
             Color.of("secondary-l-3", "#B0BEC5"),
@@ -77,7 +74,6 @@ public class ColorsGenerator {
             Color.of("secondary-d-2", "#455A64"),
             Color.of("secondary-d-3", "#37474F"),
             Color.of("secondary-d-4", "#263238"),
-            
             Color.of("success-l-5", "#E8F5E9"),
             Color.of("success-l-4", "#C8E6C9"),
             Color.of("success-l-3", "#A5D6A7"),
@@ -88,7 +84,6 @@ public class ColorsGenerator {
             Color.of("success-d-2", "#388E3C"),
             Color.of("success-d-3", "#2E7D32"),
             Color.of("success-d-4", "#1B5E20"),
-
             Color.of("warning-l-5", "#FFF3E0"),
             Color.of("warning-l-4", "#FFE0B2"),
             Color.of("warning-l-3", "#FFCC80"),
@@ -99,7 +94,6 @@ public class ColorsGenerator {
             Color.of("warning-d-2", "#F57C00"),
             Color.of("warning-d-3", "#EF6C00"),
             Color.of("warning-d-4", "#E65100"),
-
             Color.of("info-l-5", "#E3F2FD"),
             Color.of("info-l-4", "#BBDEFB"),
             Color.of("info-l-3", "#90CAF9"),
@@ -110,7 +104,6 @@ public class ColorsGenerator {
             Color.of("info-d-2", "#1976D2"),
             Color.of("info-d-3", "#1565C0"),
             Color.of("info-d-4", "#0D47A1"),
-
             Color.of("error-l-5", "#FFEBEE"),
             Color.of("error-l-4", "#FFCDD2"),
             Color.of("error-l-3", "#EF9A9A"),
@@ -121,7 +114,6 @@ public class ColorsGenerator {
             Color.of("error-d-2", "#D32F2F"),
             Color.of("error-d-3", "#C62828"),
             Color.of("error-d-4", "#B71C1C"),
-
             Color.of("red-l-5", "#FFEBEE"),
             Color.of("red-l-4", "#FFCDD2"),
             Color.of("red-l-3", "#EF9A9A"),
@@ -132,7 +124,6 @@ public class ColorsGenerator {
             Color.of("red-d-2", "#D32F2F"),
             Color.of("red-d-3", "#C62828"),
             Color.of("red-d-4", "#B71C1C"),
-
             Color.of("pink-l-5", "#FCE4EC"),
             Color.of("pink-l-4", "#F8BBD0"),
             Color.of("pink-l-3", "#F48FB1"),
@@ -143,7 +134,6 @@ public class ColorsGenerator {
             Color.of("pink-d-2", "#C2185B"),
             Color.of("pink-d-3", "#AD1457"),
             Color.of("pink-d-4", "#880E4F"),
-
             Color.of("purple-l-5", "#F3E5F5"),
             Color.of("purple-l-4", "#E1BEE7"),
             Color.of("purple-l-3", "#CE93D8"),
@@ -154,7 +144,6 @@ public class ColorsGenerator {
             Color.of("purple-d-2", "#7B1FA2"),
             Color.of("purple-d-3", "#6A1B9A"),
             Color.of("purple-d-4", "#4A148C"),
-
             Color.of("deep-purple-l-5", "#EDE7F6"),
             Color.of("deep-purple-l-4", "#D1C4E9"),
             Color.of("deep-purple-l-3", "#B39DDB"),
@@ -165,7 +154,6 @@ public class ColorsGenerator {
             Color.of("deep-purple-d-2", "#512DA8"),
             Color.of("deep-purple-d-3", "#4527A0"),
             Color.of("deep-purple-d-4", "#311B92"),
-
             Color.of("indigo-l-5", "#E8EAF6"),
             Color.of("indigo-l-4", "#C5CAE9"),
             Color.of("indigo-l-3", "#9FA8DA"),
@@ -176,7 +164,6 @@ public class ColorsGenerator {
             Color.of("indigo-d-2", "#303F9F"),
             Color.of("indigo-d-3", "#283593"),
             Color.of("indigo-d-4", "#1A237E"),
-
             Color.of("blue-l-5", "#E3F2FD"),
             Color.of("blue-l-4", "#BBDEFB"),
             Color.of("blue-l-3", "#90CAF9"),
@@ -187,7 +174,6 @@ public class ColorsGenerator {
             Color.of("blue-d-2", "#1976D2"),
             Color.of("blue-d-3", "#1565C0"),
             Color.of("blue-d-4", "#0D47A1"),
-
             Color.of("light-blue-l-5", "#E1F5FE"),
             Color.of("light-blue-l-4", "#B3E5FC"),
             Color.of("light-blue-l-3", "#81D4FA"),
@@ -198,7 +184,6 @@ public class ColorsGenerator {
             Color.of("light-blue-d-2", "#0288D1"),
             Color.of("light-blue-d-3", "#0277BD"),
             Color.of("light-blue-d-4", "#01579B"),
-
             Color.of("cyan-l-5", "#E0F7FA"),
             Color.of("cyan-l-4", "#B2EBF2"),
             Color.of("cyan-l-3", "#80DEEA"),
@@ -209,7 +194,6 @@ public class ColorsGenerator {
             Color.of("cyan-d-2", "#0097A7"),
             Color.of("cyan-d-3", "#00838F"),
             Color.of("cyan-d-4", "#006064"),
-
             Color.of("teal-l-5", "#E0F2F1"),
             Color.of("teal-l-4", "#B2DFDB"),
             Color.of("teal-l-3", "#80CBC4"),
@@ -220,7 +204,6 @@ public class ColorsGenerator {
             Color.of("teal-d-2", "#00796B"),
             Color.of("teal-d-3", "#00695C"),
             Color.of("teal-d-4", "#004D40"),
-
             Color.of("green-l-5", "#E8F5E9"),
             Color.of("green-l-4", "#C8E6C9"),
             Color.of("green-l-3", "#A5D6A7"),
@@ -231,7 +214,6 @@ public class ColorsGenerator {
             Color.of("green-d-2", "#388E3C"),
             Color.of("green-d-3", "#2E7D32"),
             Color.of("green-d-4", "#1B5E20"),
-
             Color.of("light-green-l-5", "#F1F8E9"),
             Color.of("light-green-l-4", "#DCEDC8"),
             Color.of("light-green-l-3", "#C5E1A5"),
@@ -242,7 +224,6 @@ public class ColorsGenerator {
             Color.of("light-green-d-2", "#689F38"),
             Color.of("light-green-d-3", "#558B2F"),
             Color.of("light-green-d-4", "#33691E"),
-
             Color.of("lime-l-4", "#F0F4C3"),
             Color.of("lime-l-3", "#E6EE9C"),
             Color.of("lime-l-2", "#DCE775"),
@@ -252,7 +233,6 @@ public class ColorsGenerator {
             Color.of("lime-d-2", "#AFB42B"),
             Color.of("lime-d-3", "#9E9D24"),
             Color.of("lime-d-4", "#827717"),
-
             Color.of("yellow-l-5", "#FFFDE7"),
             Color.of("yellow-l-4", "#FFF9C4"),
             Color.of("yellow-l-3", "#FFF59D"),
@@ -263,7 +243,6 @@ public class ColorsGenerator {
             Color.of("yellow-d-2", "#FBC02D"),
             Color.of("yellow-d-3", "#F9A825"),
             Color.of("yellow-d-4", "#F57F17"),
-
             Color.of("amber-l-5", "#FFF8E1"),
             Color.of("amber-l-4", "#FFECB3"),
             Color.of("amber-l-3", "#FFE082"),
@@ -274,7 +253,6 @@ public class ColorsGenerator {
             Color.of("amber-d-2", "#FFA000"),
             Color.of("amber-d-3", "#FF8F00"),
             Color.of("amber-d-4", "#FF6F00"),
-
             Color.of("orange-l-5", "#FFF3E0"),
             Color.of("orange-l-4", "#FFE0B2"),
             Color.of("orange-l-3", "#FFCC80"),
@@ -285,7 +263,6 @@ public class ColorsGenerator {
             Color.of("orange-d-2", "#F57C00"),
             Color.of("orange-d-3", "#EF6C00"),
             Color.of("orange-d-4", "#E65100"),
-
             Color.of("deep-orange-l-5", "#FBE9E7"),
             Color.of("deep-orange-l-4", "#FFCCBC"),
             Color.of("deep-orange-l-3", "#FFAB91"),
@@ -296,7 +273,6 @@ public class ColorsGenerator {
             Color.of("deep-orange-d-2", "#E64A19"),
             Color.of("deep-orange-d-3", "#D84315"),
             Color.of("deep-orange-d-4", "#BF360C"),
-
             Color.of("brown-l-5", "#EFEBE9"),
             Color.of("brown-l-4", "#D7CCC8"),
             Color.of("brown-l-3", "#BCAAA4"),
@@ -307,7 +283,6 @@ public class ColorsGenerator {
             Color.of("brown-d-2", "#5D4037"),
             Color.of("brown-d-3", "#4E342E"),
             Color.of("brown-d-4", "#3E2723"),
-
             Color.of("grey-l-5", "#FAFAFA"),
             Color.of("grey-l-4", "#FAFAFA"),
             Color.of("grey-l-3", "#EEEEEE"),
@@ -318,7 +293,6 @@ public class ColorsGenerator {
             Color.of("grey-d-2", "#616161"),
             Color.of("grey-d-3", "#424242"),
             Color.of("grey-d-4", "#212121"),
-
             Color.of("blue-grey-l-5", "#ECEFF1"),
             Color.of("blue-grey-l-4", "#CFD8DC"),
             Color.of("blue-grey-l-3", "#B0BEC5"),
@@ -329,7 +303,6 @@ public class ColorsGenerator {
             Color.of("blue-grey-d-2", "#455A64"),
             Color.of("blue-grey-d-3", "#37474F"),
             Color.of("blue-grey-d-4", "#263238"),
-
             Color.of("white-l-5", "#FAFAFA"),
             Color.of("white-l-4", "#FAFAFA"),
             Color.of("white-l-3", "#EEEEEE"),
@@ -340,7 +313,6 @@ public class ColorsGenerator {
             Color.of("white-d-2", "#EEEEEE"),
             Color.of("white-d-3", "#E0E0E0"),
             Color.of("white-d-4", "#BDBDBD"),
-
             Color.of("black-l-5", "#BDBDBD"),
             Color.of("black-l-4", "#757575"),
             Color.of("black-l-3", "#616161"),
@@ -351,7 +323,6 @@ public class ColorsGenerator {
             Color.of("black-d-2", "#616161"),
             Color.of("black-d-3", "#424242"),
             Color.of("black-d-4", "#212121"),
-
             Color.of("black", "#000"),
             Color.of("white", "#FFF"),
             Color.of("inherit", "inherit"),
@@ -390,7 +361,6 @@ public class ColorsGenerator {
             ColorName.of("blue-grey"),
             ColorName.of("white"),
             ColorName.of("black"));
-    
 
     Configuration configuration = new Configuration(Configuration.VERSION_2_3_29);
     configuration.setClassForTemplateLoading(ColorsGenerator.class, "/");
@@ -412,7 +382,6 @@ public class ColorsGenerator {
 
     themeTemplate.process(parameters, fileWriter);
 
-
     Template sampleTemplate = configuration.getTemplate("ColorsSample.ftl");
     Map<String, Object> sampleParameters = new HashMap<>();
     sampleParameters.put("colors", colors);
@@ -420,7 +389,8 @@ public class ColorsGenerator {
 
     Path sampleSource = Paths.get(ColorsGenerator.class.getResource("/").getPath());
 
-    File sampleFile = Paths.get(sampleSource.toAbsolutePath().toString(), "ColorsSample.html").toFile();
+    File sampleFile =
+        Paths.get(sampleSource.toAbsolutePath().toString(), "ColorsSample.html").toFile();
     FileWriter sampleFileWriter = new FileWriter(sampleFile);
 
     sampleTemplate.process(sampleParameters, sampleFileWriter);

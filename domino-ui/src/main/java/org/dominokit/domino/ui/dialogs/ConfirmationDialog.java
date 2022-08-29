@@ -57,7 +57,7 @@ public class ConfirmationDialog extends BaseModal<ConfirmationDialog> {
 
   private void appendButtons() {
     rejectButton =
-        Button.create(Icons.ALL.clear())
+        Button.create(Icons.ALL.format_clear_mdi())
             .linkify()
             .setContent("No")
             .styler(style -> style.setMinWidth("120px"))
@@ -69,7 +69,7 @@ public class ConfirmationDialog extends BaseModal<ConfirmationDialog> {
                 });
 
     confirmButton =
-        Button.create(Icons.ALL.check())
+        Button.create(Icons.ALL.check_mdi())
             .linkify()
             .setContent("Yes")
             .styler(style -> style.setMinWidth("120px"))

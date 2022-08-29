@@ -15,10 +15,10 @@
  */
 package org.dominokit.domino.ui.grid.flex;
 
-import org.dominokit.domino.ui.style.IsCssClass;
+import org.dominokit.domino.ui.style.IsCss;
 
 /** An enum representing the direction of the items inside the flex layout */
-public enum FlexDirection implements IsCssClass {
+public enum FlexDirection implements IsCss {
   LEFT_TO_RIGHT(FlexStyles.FLEX_DIR_ROW),
   RIGHT_TO_LEFT(FlexStyles.FLEX_DIR_ROW_REVERSE),
   TOP_TO_BOTTOM(FlexStyles.FLEX_DIR_COLUMN),

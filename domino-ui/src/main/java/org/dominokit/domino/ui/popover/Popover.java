@@ -45,10 +45,10 @@ import org.jboss.elemento.IsElement;
  * </pre>
  *
  * @see BaseDominoElement
- * @see Switchable
+ * @see AcceptDisable
  */
 public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
-    implements Switchable<Popover> {
+    implements AcceptDisable<Popover> {
 
   private final Text headerText;
   private final HTMLElement targetElement;

@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.nonNull;
 
+import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,17 +29,9 @@ import org.dominokit.domino.ui.collapsible.DisplayCollapseStrategy;
 import org.dominokit.domino.ui.collapsible.HeightCollapseStrategy;
 import org.dominokit.domino.ui.collapsible.TreeHeightCollapseStrategy;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
-import org.dominokit.domino.ui.forms.AbstractSelect;
-import org.dominokit.domino.ui.forms.AbstractSuggestBox;
-import org.dominokit.domino.ui.forms.BasicFormElement;
-import org.dominokit.domino.ui.forms.BigDecimalBox;
-import org.dominokit.domino.ui.forms.DoubleBox;
-import org.dominokit.domino.ui.forms.FieldStyle;
-import org.dominokit.domino.ui.forms.FloatBox;
-import org.dominokit.domino.ui.forms.IntegerBox;
-import org.dominokit.domino.ui.forms.LongBox;
-import org.dominokit.domino.ui.forms.ShortBox;
-import org.dominokit.domino.ui.forms.ValueBox;
+import org.dominokit.domino.ui.forms.*;
+import org.dominokit.domino.ui.i18n.DefaultDominoUILabels;
+import org.dominokit.domino.ui.i18n.DominoUILabels;
 import org.dominokit.domino.ui.tree.TreeItem;
 
 /**
@@ -49,43 +42,32 @@ import org.dominokit.domino.ui.tree.TreeItem;
 public class DominoUIConfig {
 
   /** The DominoFields single INSTANCE for global access. */
-  public static final DominoUIConfig INSTANCE = new DominoUIConfig();
+  public static final DominoUIConfig CONFIG = new DominoUIConfig();
 
-  private FieldStyle fieldsStyle = FieldStyle.LINED;
-  private FieldStyle DEFAULT = () -> fieldsStyle.getStyle();
-  private Supplier<Node> requiredIndicator = () -> TextNode.of(" * ");
+  private DominoUILabels dominoUILabels = new DefaultDominoUILabels();
+  private Supplier<HTMLElement> requiredIndicator = () -> DominoElement.span().textContent("*").element();
   private String defaultRequiredMessage = "* This field is required";
-  private Optional<Boolean> fixErrorsPosition = Optional.empty();
-  private Optional<Boolean> floatLabels = Optional.empty();
-  private Optional<Boolean> condensed = Optional.empty();
+  private boolean fixErrorsPosition = false;
   private RequiredIndicatorRenderer requiredIndicatorRenderer =
       new RequiredIndicatorRenderer() {
         @Override
         public <T extends BasicFormElement<?, ?>> void appendRequiredIndicator(
             T valueBox, Node requiredIndicator) {
           removeRequiredIndicator(valueBox, requiredIndicator);
-          valueBox
-              .getLabelElement()
-              .ifPresent(labelElement -> labelElement.appendChild(requiredIndicator));
+          valueBox.getLabelElement().appendChild(requiredIndicator);
         }
 
         @Override
         public <T extends BasicFormElement<?, ?>> void removeRequiredIndicator(
             T valueBox, Node requiredIndicator) {
-          if (nonNull(valueBox.getLabelElement())
-              && valueBox.getLabelElement().isPresent()
-              && valueBox.getLabelElement().get().hasDirectChild(requiredIndicator)) {
-            valueBox
-                .getLabelElement()
-                .ifPresent(labelElement -> labelElement.removeChild(requiredIndicator));
+          if (valueBox.getLabelElement().hasDirectChild(requiredIndicator)) {
+            valueBox.getLabelElement().removeChild(requiredIndicator);
           }
         }
       };
 
   private GlobalValidationHandler globalValidationHandler = new GlobalValidationHandler() {};
 
-  private DropdownPositionProvider<AbstractSelect<?, ?, ?>> defaultSelectPopupPosition =
-      AbstractSelect.PopupPositionTopDown::new;
   private DropdownPositionProvider<AbstractSuggestBox<?, ?>> defaultSuggestPopupPosition =
       field -> new AbstractSuggestBox.PopupPositionTopDown(field);
 
@@ -100,26 +82,12 @@ public class DominoUIConfig {
   private NumberParsers numberParsers = new NumberParsers() {};
 
   private boolean focusNextFieldOnEnter = false;
+  private boolean spellCheck;
 
   protected DominoUIConfig() {}
 
-  /**
-   * Globally change the form fields style
-   *
-   * @param fieldsStyle {@link FieldStyle}
-   */
-  public DominoUIConfig setDefaultFieldsStyle(FieldStyle fieldsStyle) {
-    this.fieldsStyle = fieldsStyle;
-    return this;
-  }
-
-  /** @return Default {@link FieldStyle} */
-  public FieldStyle getDefaultFieldsStyle() {
-    return DEFAULT;
-  }
-
   /** @return {@link Optional} representing if the errors position should be fixed */
-  public Optional<Boolean> getFixErrorsPosition() {
+  public boolean getFixErrorsPosition() {
     return fixErrorsPosition;
   }
 
@@ -128,37 +96,7 @@ public class DominoUIConfig {
    * @return same instance
    */
   public DominoUIConfig setFixErrorsPosition(boolean fixErrorsPosition) {
-    this.fixErrorsPosition = Optional.of(fixErrorsPosition);
-    return this;
-  }
-
-  /** @return {@link Optional} representing if the labels should be floated */
-  public Optional<Boolean> getFloatLabels() {
-    return floatLabels;
-  }
-
-  /**
-   * @param floatLabels true to float labels
-   * @return same instance
-   */
-  public DominoUIConfig setFloatLabels(boolean floatLabels) {
-    this.floatLabels = Optional.of(floatLabels);
-    return this;
-  }
-
-  /**
-   * @return {@link Optional} representing if the spaces should be reduced to reduce element height
-   */
-  public Optional<Boolean> getCondensed() {
-    return condensed;
-  }
-
-  /**
-   * @param condensed true to reduce spaces
-   * @return same instance
-   */
-  public DominoUIConfig setCondensed(boolean condensed) {
-    this.condensed = Optional.of(condensed);
+    this.fixErrorsPosition = fixErrorsPosition;
     return this;
   }
 
@@ -167,7 +105,7 @@ public class DominoUIConfig {
    *     and that will be used as a required field indicator the default will supply a text node of
    *     <b>*</b>
    */
-  public Supplier<Node> getRequiredIndicator() {
+  public Supplier<HTMLElement> getRequiredIndicator() {
     return requiredIndicator;
   }
 
@@ -176,7 +114,7 @@ public class DominoUIConfig {
    *
    * @param requiredIndicator {@link Node} Supplier
    */
-  public DominoUIConfig setRequiredIndicator(Supplier<Node> requiredIndicator) {
+  public DominoUIConfig setRequiredIndicator(Supplier<HTMLElement> requiredIndicator) {
     this.requiredIndicator = requiredIndicator;
     return this;
   }
@@ -227,25 +165,6 @@ public class DominoUIConfig {
       GlobalValidationHandler globalValidationHandler) {
     if (nonNull(globalValidationHandler)) {
       this.globalValidationHandler = globalValidationHandler;
-    }
-    return this;
-  }
-
-  /** @return the default {@link DropdownPositionProvider} for {@link AbstractSelect} */
-  public DropdownPositionProvider<AbstractSelect<?, ?, ?>> getDefaultSelectPopupPosition() {
-    return defaultSelectPopupPosition;
-  }
-
-  /**
-   * Sets the default dropdown position for select
-   *
-   * @param defaultSelectPopupPosition the {@link DropdownPositionProvider}
-   * @return same instance
-   */
-  public DominoUIConfig setDefaultSelectPopupPosition(
-      DropdownPositionProvider<AbstractSelect<?, ?, ?>> defaultSelectPopupPosition) {
-    if (nonNull(defaultSelectPopupPosition)) {
-      this.defaultSelectPopupPosition = defaultSelectPopupPosition;
     }
     return this;
   }
@@ -332,6 +251,26 @@ public class DominoUIConfig {
    */
   public DominoUIConfig setFocusNextFieldOnEnter(boolean focusNextFieldOnEnter) {
     this.focusNextFieldOnEnter = focusNextFieldOnEnter;
+    return this;
+  }
+
+  public boolean getSpellCheck() {
+    return this.spellCheck;
+  }
+
+  public DominoUIConfig setSpellCheck(boolean spellCheck) {
+    this.spellCheck = spellCheck;
+    return this;
+  }
+
+  public DominoUILabels getDominoUILabels() {
+    return dominoUILabels;
+  }
+
+  public DominoUIConfig setDominoUILabels(DominoUILabels dominoUILabels) {
+    if (nonNull(dominoUILabels)) {
+      this.dominoUILabels = dominoUILabels;
+    }
     return this;
   }
 

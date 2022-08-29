@@ -15,61 +15,9 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import java.util.HashSet;
-import java.util.Set;
-
-public class LazyInitializer {
-
-  private LambdaFunction function;
-  private LambdaFunction doOnceFunction;
-  private boolean initialized = false;
-  private Set<LambdaFunction> functions = new HashSet<>();
-  private Set<LambdaFunction> doOnce = new HashSet<>();
+public class LazyInitializer extends BaseLazyInitializer<LazyInitializer> {
 
   public LazyInitializer(LambdaFunction function) {
-    this.function = function;
-    this.doOnceFunction =
-        () -> {
-          for (LambdaFunction func : doOnce) {
-            func.apply();
-          }
-          this.doOnceFunction = () -> {};
-        };
-  }
-
-  public void apply() {
-    function.apply();
-    function = () -> {};
-    this.doOnceFunction.apply();
-    for (LambdaFunction func : functions) {
-      func.apply();
-    }
-    this.initialized = true;
-  }
-
-  public void ifInitialized(LambdaFunction lambdaFunction) {
-    if (isInitialized()) {
-      lambdaFunction.apply();
-    }
-  }
-
-  public void whenInitialized(LambdaFunction function) {
-    if (isInitialized()) {
-      function.apply();
-    } else {
-      functions.add(function);
-    }
-  }
-
-  public void doOnce(LambdaFunction function) {
-    if (isInitialized()) {
-      function.apply();
-    } else {
-      doOnce.add(function);
-    }
-  }
-
-  public boolean isInitialized() {
-    return initialized;
+    super(function);
   }
 }

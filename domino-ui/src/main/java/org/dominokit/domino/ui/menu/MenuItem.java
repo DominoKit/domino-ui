@@ -17,11 +17,12 @@ package org.dominokit.domino.ui.menu;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.h;
-import static org.jboss.elemento.Elements.small;
+import static org.dominokit.domino.ui.menu.MenuStyles.*;
 
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLHeadingElement;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
@@ -30,8 +31,8 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
 
-  private DominoElement<HTMLElement> descriptionElement = DominoElement.of(small());
-  private DominoElement<HTMLHeadingElement> textElement = DominoElement.of(h(5));
+  private DominoElement<HTMLElement> descriptionElement;
+  private DominoElement<HTMLElement> textElement;
 
   public static <V> MenuItem<V> create(String text) {
     return new MenuItem<>(text);
@@ -42,21 +43,18 @@ public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
   }
 
   public MenuItem(String text) {
-    this(text, null);
+    if (nonNull(text) && !text.isEmpty()) {
+      textElement = DominoElement.span().addCss(MENU_ITEM_BODY).setTextContent(text);
+      appendChild(textElement);
+    }
   }
 
   public MenuItem(String text, String description) {
-    css("simple-menu-item");
-    if (nonNull(text)) {
-      textElement.setTextContent(text);
-    }
+    this(text);
 
-    if (nonNull(description)) {
-      descriptionElement.setTextContent(description);
-      textElement.appendChild(descriptionElement);
+    if (nonNull(description) && !description.isEmpty()) {
+      descriptionElement = DominoElement.small().addCss(MENU_ITEM_HINT).setTextContent(text);
     }
-
-    appendChild(textElement);
   }
 
   /** @return The description element */
@@ -65,7 +63,7 @@ public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
   }
 
   /** @return the main text element */
-  public DominoElement<HTMLHeadingElement> getTextElement() {
+  public DominoElement<HTMLElement> getTextElement() {
     return textElement;
   }
 
@@ -95,14 +93,18 @@ public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
   }
 
   private boolean containsToken(String token, boolean caseSensitive) {
-    String textContent = textElement.getTextContent();
+    String textContent =
+        Arrays.asList(Optional.ofNullable(textElement), Optional.ofNullable(descriptionElement))
+            .stream()
+            .filter(Optional::isPresent)
+            .map(element -> element.get().getTextContent())
+            .collect(Collectors.joining(" "));
     if (isNull(textContent) || textContent.isEmpty()) {
       return false;
     }
     if (caseSensitive) {
-      return textContent.contains(token) || descriptionElement.getTextContent().contains(token);
+      return textContent.contains(token);
     }
-    return textContent.toLowerCase().contains(token.toLowerCase())
-        || descriptionElement.getTextContent().toLowerCase().contains(token.toLowerCase());
+    return textContent.toLowerCase().contains(token.toLowerCase());
   }
 }

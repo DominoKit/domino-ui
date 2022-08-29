@@ -16,23 +16,28 @@
 package org.dominokit.domino.ui.icons;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.icons.IconsStyles.*;
+import static org.dominokit.domino.ui.style.Styles.DUI;
 import static org.jboss.elemento.Elements.i;
 
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.HasCssClass;
+import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** <a href="https://materialdesignicons.com/">MDI</a> icons implementation */
 public class MdiIcon extends BaseIcon<MdiIcon> {
-  private MdiSize mdiSize;
-  private MdiRotate mdiRotate;
-  private MdiFlip mdiFlip;
-  private MdiContrast mdiContrast;
 
   private MdiMeta metaInfo;
 
+  private SwapCssClass sizeClass = new SwapCssClass();
+  private SwapCssClass rotateClass = new SwapCssClass();
+  private SwapCssClass contrastClass = new SwapCssClass();
+
   private MdiIcon(HTMLElement icon) {
-    this.icon = DominoElement.of(icon).css(MdiSize.mdi24.style);
-    this.mdiSize = MdiSize.mdi24;
+    this.icon = DominoElement.of(icon);
     init(this);
   }
 
@@ -40,9 +45,18 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
     this(icon, new MdiMeta(icon.replace("mdi-", "")));
   }
 
+  private MdiIcon(CssClass icon) {
+    this(icon, new MdiMeta(icon.getCssClass().replace("mdi-", "")));
+  }
+
   private MdiIcon(String icon, MdiMeta mdiMeta) {
-    this.icon = DominoElement.of(i()).css("mdi").css(icon);
+    this(() -> icon, mdiMeta);
+  }
+
+  private MdiIcon(CssClass icon, MdiMeta mdiMeta) {
+    this.icon = DominoElement.of(i()).addCss(DUI, MDI, icon);
     this.name = icon;
+    this.toggleName = SwapCssClass.of(name);
     this.metaInfo = mdiMeta;
     init(this);
     size24();
@@ -55,6 +69,15 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return new instance
    */
   public static MdiIcon create(String icon) {
+    return new MdiIcon(icon);
+  }
+  /**
+   * Creates a new icon
+   *
+   * @param icon the name of the icon
+   * @return new instance
+   */
+  public static MdiIcon create(CssClass icon) {
     return new MdiIcon(icon);
   }
 
@@ -72,19 +95,17 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   /** {@inheritDoc} */
   @Override
   public MdiIcon copy() {
-    return MdiIcon.create(this.getName()).setColor(this.color);
+    return MdiIcon.create(this.getName());
   }
 
   /** {@inheritDoc} */
   @Override
   protected MdiIcon doToggle() {
-    if (nonNull(toggleName)) {
-      if (this.style().containsCss(originalName)) {
-        this.style().removeCss(originalName);
-        this.style().addCss(toggleName);
+    if (nonNull(toggleIcon)) {
+      if (name.isAppliedTo(this)) {
+        addCss(toggleName.replaceWith(toggleIcon.name));
       } else {
-        this.style().addCss(originalName);
-        this.style().removeCss(toggleName);
+        addCss(toggleName.replaceWith(name));
       }
     }
     return this;
@@ -93,8 +114,8 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   /** {@inheritDoc} */
   @Override
   public MdiIcon changeTo(BaseIcon<MdiIcon> icon) {
-    removeCss(getName());
-    addCss(icon.getName());
+    toggleName.replaceWith(icon.name);
+    this.name = icon.name;
     return this;
   }
 
@@ -105,11 +126,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon setSize(MdiSize mdiSize) {
-    if (nonNull(this.mdiSize)) {
-      removeCss(this.mdiSize.getStyle());
-    }
-    this.mdiSize = mdiSize;
-    addCss(this.mdiSize.getStyle());
+    addCss(sizeClass.replaceWith(mdiSize));
     return this;
   }
 
@@ -155,9 +172,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon sizeNone() {
-    if (nonNull(this.mdiSize)) {
-      removeCss(this.mdiSize.getStyle());
-    }
+    sizeClass.remove(this);
     return this;
   }
 
@@ -168,11 +183,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon setRotate(MdiRotate mdiRotate) {
-    if (nonNull(this.mdiRotate)) {
-      removeCss(this.mdiRotate.getStyle());
-    }
-    this.mdiRotate = mdiRotate;
-    addCss(this.mdiRotate.getStyle());
+    addCss(rotateClass.replaceWith(mdiRotate));
     return this;
   }
 
@@ -245,9 +256,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon rotateNone() {
-    if (nonNull(this.mdiRotate)) {
-      removeCss(this.mdiRotate.getStyle());
-    }
+    rotateClass.remove(this);
     return this;
   }
 
@@ -258,11 +267,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon setFlip(MdiFlip mdiFlip) {
-    if (nonNull(this.mdiFlip)) {
-      removeCss(this.mdiFlip.getStyle());
-    }
-    this.mdiFlip = mdiFlip;
-    addCss(this.mdiFlip.getStyle());
+    addCss(mdiFlip);
     return this;
   }
 
@@ -290,9 +295,8 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon flipNone() {
-    if (nonNull(this.mdiFlip)) {
-      removeCss(this.mdiFlip.getStyle());
-    }
+    FLIP_V.remove(this);
+    FLIP_H.remove(this);
     return this;
   }
 
@@ -303,11 +307,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon setSpin(boolean spin) {
-    removeCss("mdi-spin");
-    if (spin) {
-      addCss("mdi-spin");
-    }
-
+    addCss(BooleanCssClass.of(SPIN, spin));
     return this;
   }
 
@@ -336,11 +336,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon setActive(boolean active) {
-    removeCss("mdi-inactive");
-    if (!active) {
-      addCss("mdi-inactive");
-    }
-
+    addCss(BooleanCssClass.of(INACTIVE, !active));
     return this;
   }
 
@@ -369,11 +365,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon setContrast(MdiContrast mdiContrast) {
-    if (nonNull(this.mdiContrast)) {
-      removeCss(this.mdiContrast.getStyle());
-    }
-    this.mdiContrast = mdiContrast;
-    addCss(this.mdiContrast.getStyle());
+    addCss(contrastClass.replaceWith(mdiContrast));
     return this;
   }
 
@@ -401,9 +393,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon noContrast() {
-    if (nonNull(this.mdiContrast)) {
-      removeCss(this.mdiContrast.getStyle());
-    }
+    contrastClass.remove(this);
     return this;
   }
 
@@ -414,59 +404,60 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   }
 
   /** An enum representing the sizes of the icon */
-  public enum MdiSize {
-    mdi18(IconsStyles.MDI_18_PX),
-    mdi24(IconsStyles.MDI_24_PX),
-    mdi36(IconsStyles.MDI_36_PX),
-    mdi48(IconsStyles.MDI_48_PX);
+  public enum MdiSize implements HasCssClass {
+    mdi18(IconsStyles._18PX),
+    mdi24(IconsStyles._24PX),
+    mdi36(IconsStyles._36PX),
+    mdi48(IconsStyles._48PX);
 
-    private final String style;
+    private final CssClass style;
 
-    MdiSize(String style) {
+    MdiSize(CssClass style) {
       this.style = style;
     }
 
     /** @return The style of the size */
-    public String getStyle() {
+    @Override
+    public CssClass getCssClass() {
       return style;
     }
   }
 
   /** An enum representing the rotation degree of the icon */
-  public enum MdiRotate {
-    rotate45(IconsStyles.MDI_ROTATE_45),
-    rotate90(IconsStyles.MDI_ROTATE_90),
-    rotate135(IconsStyles.MDI_ROTATE_135),
-    rotate180(IconsStyles.MDI_ROTATE_180),
-    rotate225(IconsStyles.MDI_ROTATE_225),
-    rotate270(IconsStyles.MDI_ROTATE_270),
-    rotate315(IconsStyles.MDI_ROTATE_315);
+  public enum MdiRotate implements HasCssClass {
+    rotate45(IconsStyles.ROTATE_45),
+    rotate90(IconsStyles.ROTATE_90),
+    rotate135(IconsStyles.ROTATE_135),
+    rotate180(IconsStyles.ROTATE_180),
+    rotate225(IconsStyles.ROTATE_225),
+    rotate270(IconsStyles.ROTATE_270),
+    rotate315(IconsStyles.ROTATE_315);
 
-    private final String style;
+    private final CssClass style;
 
-    MdiRotate(String style) {
+    MdiRotate(CssClass style) {
       this.style = style;
     }
 
     /** @return The style of the rotation */
-    public String getStyle() {
+    public CssClass getCssClass() {
       return style;
     }
   }
 
   /** An enum representing the flip of the icon */
-  public enum MdiFlip {
-    flipV(IconsStyles.MDI_FLIP_V),
-    flipH(IconsStyles.MDI_FLIP_H);
+  public enum MdiFlip implements HasCssClass {
+    flipV(FLIP_V),
+    flipH(IconsStyles.FLIP_H);
 
-    private final String style;
+    private final CssClass style;
 
-    MdiFlip(String style) {
+    MdiFlip(CssClass style) {
       this.style = style;
     }
 
     /** @return The style of the flip */
-    public String getStyle() {
+    public CssClass getCssClass() {
       return style;
     }
   }
@@ -477,18 +468,18 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   }
 
   /** An enum representing the contrast of the icon */
-  public enum MdiContrast {
-    light(IconsStyles.MDI_LIGHT),
-    dark(IconsStyles.MDI_DARK);
+  public enum MdiContrast implements HasCssClass {
+    light(IconsStyles.LIGHT),
+    dark(IconsStyles.DARK);
 
-    private final String style;
+    private final CssClass style;
 
-    MdiContrast(String style) {
+    MdiContrast(CssClass style) {
       this.style = style;
     }
 
     /** @return The style of the contrast */
-    public String getStyle() {
+    public CssClass getCssClass() {
       return style;
     }
   }

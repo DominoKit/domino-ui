@@ -51,7 +51,7 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
   }
 
   public HSpinSelect() {
-    this(Icons.ALL.keyboard_arrow_left(), Icons.ALL.keyboard_arrow_right());
+    this(Icons.ALL.arrow_left_mdi(), Icons.ALL.arrow_right_mdi());
   }
 
   public HSpinSelect(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {

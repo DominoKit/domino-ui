@@ -65,13 +65,13 @@ import org.jboss.elemento.IsElement;
  * @see BaseDominoElement
  * @see HasSelectionHandler
  * @see HasDeselectionHandler
- * @see Switchable
+ * @see AcceptDisable
  * @see HasRemoveHandler
  */
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     implements HasSelectionHandler<Chip, String>,
         HasDeselectionHandler<Chip>,
-        Switchable<Chip>,
+        AcceptDisable<Chip>,
         HasRemoveHandler<Chip> {
 
   private final DominoElement<HTMLDivElement> element = DominoElement.of(div().css(CHIP));
@@ -82,7 +82,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
       DominoElement.of(div()).css(CHIP_REMOVE).element();
   private ColorScheme colorScheme = ColorScheme.INDIGO;
   private Color color = Color.INDIGO;
-  private DominoElement<HTMLElement> removeIcon = DominoElement.of(Icons.ALL.close().element());
+  private DominoElement<HTMLElement> removeIcon = DominoElement.of(Icons.ALL.close_mdi().element());
   private final List<SelectionHandler<String>> selectionHandlers = new ArrayList<>();
   private final List<DeselectionHandler> deselectionHandlers = new ArrayList<>();
   private final List<RemoveHandler> removeHandlers = new ArrayList<>();

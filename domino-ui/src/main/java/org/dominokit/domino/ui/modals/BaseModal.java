@@ -32,7 +32,7 @@ import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoDom;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.Switchable;
+import org.dominokit.domino.ui.utils.AcceptDisable;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -42,7 +42,7 @@ import org.jboss.elemento.IsElement;
  * @param <T> the type of the component extending from this class
  */
 public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
-    extends BaseDominoElement<HTMLDivElement, T> implements IsModalDialog<T>, Switchable<T> {
+    extends BaseDominoElement<HTMLDivElement, T> implements IsModalDialog<T>, AcceptDisable<T> {
 
   private List<OpenHandler> openHandlers = new ArrayList<>();
   private List<CloseHandler> closeHandlers = new ArrayList<>();

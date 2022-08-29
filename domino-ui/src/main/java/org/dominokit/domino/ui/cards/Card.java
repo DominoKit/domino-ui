@@ -27,7 +27,6 @@ import org.dominokit.domino.ui.grid.flex.FlexAlign;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.HardwareIcons;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.style.Color;
@@ -77,7 +76,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
       DominoElement.div()
           .addCss(BODY)
           .setCollapseStrategy(
-              DominoUIConfig.INSTANCE.getDefaultCardCollapseStrategySupplier().get());
+              DominoUIConfig.CONFIG.getDefaultCardCollapseStrategySupplier().get());
 
   private final Text title = TextNode.empty();
   private final Text description = TextNode.empty();
@@ -110,7 +109,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         .addHideHandler(
             () -> {
               if (collapsible) {
-                collapseIcon.element().textContent = Icons.ALL.keyboard_arrow_down().getName();
+                collapseIcon.element().textContent = Icons.ALL.arrow_down_mdi().getName();
               }
             });
 
@@ -118,7 +117,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
         .addShowHandler(
             () -> {
               if (collapsible) {
-                collapseIcon.element().textContent = Icons.ALL.keyboard_arrow_up().getName();
+                collapseIcon.element().textContent = Icons.ALL.arrow_up_mdi().getName();
               }
             });
 
@@ -385,13 +384,12 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
 
   /**
    * Enables the ability to hide/show the body by adding header action to the card. This method will
-   * set the header action icon to {@link HardwareIcons#keyboard_arrow_up()} and adds a listener to
-   * hide and show the body.
+   * set the header action icon to arrow_up_mdi and adds a listener to hide and show the body.
    *
    * @return same instance
    */
   public Card setCollapsible() {
-    collapseIcon = Icons.ALL.keyboard_arrow_up();
+    collapseIcon = Icons.ALL.arrow_up_mdi();
 
     collapseIcon.setAttribute("tabindex", "0");
 

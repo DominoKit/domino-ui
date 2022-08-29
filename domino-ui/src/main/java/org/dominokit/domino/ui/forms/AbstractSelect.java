@@ -15,34 +15,26 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.style.Unit.px;
-import static org.jboss.elemento.Elements.button;
+import static org.dominokit.domino.ui.forms.FormsStyles.*;
 import static org.jboss.elemento.Elements.span;
 
 import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
-import org.dominokit.domino.ui.dropdown.DropDownPosition;
-import org.dominokit.domino.ui.dropdown.DropdownAction;
-import org.dominokit.domino.ui.dropdown.DropdownActionsGroup;
-import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
+import org.dominokit.domino.ui.menu.AbstractMenu;
+import org.dominokit.domino.ui.menu.Menu;
+import org.dominokit.domino.ui.menu.direction.BestMiddleUpDownDropDirection;
 import org.dominokit.domino.ui.modals.ModalBackDrop;
-import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.AppendStrategy;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
+import org.dominokit.domino.ui.utils.*;
+import org.jboss.elemento.IsElement;
 
 /**
  * The base implementation for dropdown select form fields components
@@ -52,56 +44,60 @@ import org.dominokit.domino.ui.utils.DominoUIConfig;
  * @param <S> The type of the field extending from this class
  */
 public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
-    extends AbstractValueBox<S, HTMLElement, T> {
-  private static final String CLICK_EVENT = "click";
-
-  protected SelectOption<V> noneOption = SelectOption.create(null, "none", "None");
-
-  private DominoElement<HTMLButtonElement> buttonElement;
-  protected DominoElement<HTMLElement> buttonValueContainer =
-      DominoElement.of(span()).css("select-value", Styles.ellipsis_text);
-  private final DominoElement<HTMLElement> placeholderNode =
-      DominoElement.of(span()).css("select-placeholder");
+    extends AbstractValueBox<S, HTMLElement, T>
+    implements SelectOptionRenderer<V>, SelectSearchFilter<V>, CanInitSelectOption<V> {
   protected final DominoElement<HTMLElement> valuesContainer = DominoElement.of(span());
-  protected LinkedList<SelectOption<V>> options = new LinkedList<>();
-  private DropDownMenu optionsMenu;
+  private Menu<V> optionsMenu;
   private List<SelectionHandler<V>> selectionHandlers = new ArrayList<>();
-  private Supplier<BaseIcon<?>> arrowIconSupplier = Icons.ALL::menu_down_mdi;
-  private BaseIcon<?> arrowIcon;
-  private OptionRenderer<V> optionRenderer = SelectOption::element;
-  private boolean searchable;
-  private boolean creatable;
   private boolean clearable;
-  private DominoElement<HTMLDivElement> arrowIconContainer;
-  private int popupWidth = 0;
-  private String dropDirection = "auto";
   private boolean closePopOverOnOpen = false;
-  private boolean autoCloseOnSelect = true;
+  private DominoElement<HTMLElement> placeHolderElement;
+  private DominoElement<HTMLDivElement> fieldInput;
+  private MdiIcon clearIcon;
+  private MdiIcon dropIcon;
+  private SelectOptionRenderer<V> optionRenderer;
+  private SelectSearchFilter searchFilter =
+      (token, caseSensitive, selectOption) -> {
+        if (selectOption.isExcludeFromSearchResults()) {
+          return false;
+        }
+        if (isNull(token) || token.isEmpty()) {
+          return true;
+        }
+        if (caseSensitive) {
+          return selectOption.getDisplayValue().contains(token);
+        } else {
+          return selectOption.getDisplayValue().toLowerCase().contains(token.toLowerCase());
+        }
+      };;
 
   /** Creates an empty select */
   public AbstractSelect() {
-    super("button", "");
-    optionsMenu = DropDownMenu.create(fieldContainer).addCss("select-option-menu");
-    optionsMenu.setAppendTarget(DomGlobal.document.body);
-    optionsMenu.setAppendStrategy(AppendStrategy.FIRST);
-    optionsMenu.setPosition(
-        DominoUIConfig.INSTANCE.getDefaultSelectPopupPosition().createPosition(this));
+    super("text");
+    addCss(FORM_SELECT);
+    optionsMenu =
+        Menu.<V>create()
+            .setTargetElement(this)
+            .setAppendTarget(DomGlobal.document.body)
+            .setDropDirection(new BestMiddleUpDownDropDirection());
+
     optionsMenu.addOpenHandler(this::resumeFocusValidation);
     optionsMenu.addOpenHandler(this::scrollToSelectedOption);
-    buttonElement.appendChild(buttonValueContainer);
-    buttonValueContainer.appendChild(placeholderNode);
-    buttonValueContainer.appendChild(valuesContainer);
+
     initListeners();
-    dropdown();
     setSearchable(true);
-    setCreatable(false);
-    addChangeHandler(
+    addChangeListener(
         value -> {
           if (isNull(value)) {
             clear();
           }
         });
-    css("d-select");
+  }
+
+  /** Creates an empty select */
+  public AbstractSelect(SelectOptionRenderer<V> optionRenderer) {
+    this();
+    setOptionRenderer(optionRenderer);
   }
 
   /**
@@ -112,6 +108,17 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   public AbstractSelect(String label) {
     this();
     setLabel(label);
+  }
+
+  /**
+   * Create an empty select with a lable
+   *
+   * @param label String
+   */
+  public AbstractSelect(String label, SelectOptionRenderer<V> optionRenderer) {
+    this();
+    setLabel(label);
+    setOptionRenderer(optionRenderer);
   }
 
   /**
@@ -126,12 +133,37 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   }
 
   /**
+   * Create a select field with a label and an initial options list
+   *
+   * @param label String
+   * @param options List of {@link SelectOption}
+   */
+  public AbstractSelect(
+      String label, List<SelectOption<V>> options, SelectOptionRenderer<V> optionRenderer) {
+    this(label);
+    setOptionRenderer(optionRenderer);
+    options.forEach(this::appendChild);
+  }
+
+  /**
    * Ceate a select with empty label and a list of initial options
    *
    * @param options List of {@link SelectOption}
    */
   public AbstractSelect(List<SelectOption<V>> options) {
-    this("", options);
+    this();
+    options.forEach(this::appendChild);
+  }
+
+  /**
+   * Ceate a select with empty label and a list of initial options
+   *
+   * @param options List of {@link SelectOption}
+   */
+  public AbstractSelect(List<SelectOption<V>> options, SelectOptionRenderer<V> optionRenderer) {
+    this();
+    setOptionRenderer(optionRenderer);
+    options.forEach(this::appendChild);
   }
 
   private void initListeners() {
@@ -144,15 +176,16 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
           open();
           evt.stopPropagation();
         };
-    if (nonNull(arrowIcon)) {
-      arrowIcon.addClickListener(clickListener);
-    }
 
-    buttonElement.addEventListener(CLICK_EVENT, clickListener);
-    getLabelElement()
-        .ifPresent(labelElement -> labelElement.addEventListener(CLICK_EVENT, clickListener));
-    buttonElement.addEventListener("focus", evt -> focus());
-    buttonElement.addEventListener("blur", evt -> unfocus());
+    withMandatoryAddOn(
+        dropIcon = Icons.ALL.chevron_down_mdi().clickable().addClickListener(clickListener));
+
+    withMandatoryAddOn(
+        clearIcon = Icons.ALL.eraser_mdi().clickable().hide().addClickListener(evt -> clear()));
+
+    fieldInput.addEventListener("click", clickListener);
+    inputElement.get().addEventListener("focus", evt -> focus());
+    inputElement.get().addEventListener("blur", evt -> unfocus());
     optionsMenu.addCloseHandler(
         () -> {
           this.focus();
@@ -160,23 +193,10 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
         });
   }
 
-  /**
-   * Sets a supplier for an icon to use as the dropdown arrow
-   *
-   * @param arrowIconSupplier Supplier for {@link BaseIcon}
-   */
-  public void setArrowIconSupplier(Supplier<BaseIcon<?>> arrowIconSupplier) {
-    if (nonNull(arrowIconSupplier)) {
-      this.arrowIconSupplier = arrowIconSupplier;
-    }
-  }
-
   @Override
   public S clear(boolean silent) {
-    unfloatLabel();
     clearValue(silent);
     valuesContainer.setTextContent("");
-    showPlaceholder();
     if (isAutoValidation()) validate();
     return (S) this;
   }
@@ -196,8 +216,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
 
   private void doOpen() {
     optionsMenu.open();
-    optionsMenu.styler(
-        style -> style.setWidth(getFieldInputContainer().getBoundingClientRect().width + "px"));
+    optionsMenu.styler(style -> style.setWidth(inputWrapper.getBoundingClientRect().width + "px"));
   }
 
   /** Closes the select dropdown menu */
@@ -212,7 +231,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
    * @return same select instance
    */
   public S divider() {
-    optionsMenu.separator();
+    optionsMenu.appendSeparator();
     return (S) this;
   }
 
@@ -222,25 +241,11 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
    * @param group {@link SelectOptionGroup}
    * @return same select instance
    */
-  public S addGroup(SelectOptionGroup<V> group) {
-    DropdownActionsGroup<SelectOption<V>> dropdownActionsGroup =
-        DropdownActionsGroup.create(group.getTitleElement());
-    for (SelectOption<V> option : group.getOptions()) {
-      addOptionToGroup(dropdownActionsGroup, option);
-    }
-    group.setAddOptionConsumer(
-        selectOption -> {
-          addOptionToGroup(dropdownActionsGroup, selectOption);
-        });
-
-    optionsMenu.addGroup(dropdownActionsGroup);
+  public S addGroup(
+      SelectOptionGroup<V> group,
+      AbstractMenu.MenuItemsGroupHandler<V, SelectOption<V>, SelectOptionGroup<V>> handler) {
+    optionsMenu.appendGroup(group, handler);
     return (S) this;
-  }
-
-  private void addOptionToGroup(
-      DropdownActionsGroup<SelectOption<V>> dropdownActionsGroup, SelectOption<V> option) {
-    dropdownActionsGroup.appendChild(asDropDownAction(option));
-    options.add(option);
   }
 
   /**
@@ -255,69 +260,27 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   }
 
   /**
-   * Sets the dropdown menu width
-   *
-   * @param width int
-   * @return same select instance
-   */
-  public S setPopupWidth(int width) {
-    this.popupWidth = width;
-    return (S) this;
-  }
-
-  /**
    * Adds an option to the select dropdown menu
    *
    * @param option {@link SelectOption}
    * @return same select instance
    */
   public S appendChild(SelectOption<V> option) {
-    return appendChild(option, selectOptionDropdownAction -> {});
-  }
-
-  public S appendChild(SelectOption<V> option, Consumer<DropdownAction<SelectOption<V>>> andThen) {
-    options.add(option);
-    appendOptionValue(option, andThen);
+    initOption(option);
+    optionsMenu.appendChild(option);
     return (S) this;
   }
 
-  /**
-   * Insert an option as the first option in the dropdown menu
-   *
-   * @param option {@link SelectOption}
-   * @return same select instance
-   */
-  public S insertFirst(SelectOption<V> option) {
-    options.add(0, option);
-    insertFirstOptionValue(option);
-    return (S) this;
+  @Override
+  public void initOption(SelectOption<V> option) {
+    option.setSearchFilter(this);
+    option.render(this);
   }
 
   private void doSelectOption(SelectOption<V> option) {
     if (isEnabled()) {
       select(option);
-      if (this.autoCloseOnSelect) {
-        close();
-      }
     }
-  }
-
-  private void appendOptionValue(
-      SelectOption<V> option, Consumer<DropdownAction<SelectOption<V>>> andThen) {
-    DropdownAction<SelectOption<V>> action = asDropDownAction(option);
-    optionsMenu.appendChild(action);
-    andThen.accept(action);
-  }
-
-  private void insertFirstOptionValue(SelectOption<V> option) {
-    optionsMenu.insertFirst(asDropDownAction(option));
-  }
-
-  private DropdownAction<SelectOption<V>> asDropDownAction(SelectOption<V> option) {
-    return DropdownAction.create(option, optionRenderer.element(option))
-        .setAutoClose(this.autoCloseOnSelect)
-        .setExcludeFromSearchResults(option.isExcludeFromSearchResults())
-        .addSelectionHandler(value -> doSelectOption(option));
   }
 
   /**
@@ -338,7 +301,9 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
    * @return same select instance
    */
   public S selectAt(int index, boolean silent) {
-    if (index < options.size() && index >= 0) select(options.get(index), silent);
+    if (index < optionsMenu.getMenuItems().size() && index >= 0) {
+      optionsMenu.getMenuItems().get(index).select(silent);
+    }
     return (S) this;
   }
 
@@ -347,13 +312,18 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
    * @return the {@link SelectOption} at the specified index if exists or else null
    */
   public SelectOption<V> getOptionAt(int index) {
-    if (index < options.size() && index >= 0) return options.get(index);
+    if (index < optionsMenu.getMenuItems().size() && index >= 0) {
+      return (SelectOption<V>) optionsMenu.getMenuItems().get(index);
+    }
     return null;
   }
 
   /** @return a List of all {@link SelectOption}s of this select component */
   public List<SelectOption<V>> getOptions() {
-    return options;
+    return optionsMenu.getMenuItems().stream()
+        .filter(menuItem -> !menuItem.isItemsGroup())
+        .map(menuItem -> (SelectOption<V>) menuItem)
+        .collect(Collectors.toList());
   }
 
   /**
@@ -387,7 +357,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     for (SelectionHandler<V> handler : selectionHandlers) {
       handler.onSelection(option);
     }
-    for (ChangeHandler<? super T> c : changeHandlers) {
+    for (ChangeListener<? super T> c : changeListeners) {
       c.onValueChanged(getValue());
     }
   }
@@ -405,8 +375,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   @Override
   public S enable() {
     super.enable();
-    buttonElement.enable();
-    getLabelElement().ifPresent(BaseDominoElement::enable);
+    inputElement.get().enable();
     return (S) this;
   }
 
@@ -414,59 +383,14 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   @Override
   public S disable() {
     super.disable();
-    buttonElement.disable();
-    getLabelElement().ifPresent(BaseDominoElement::disable);
+    inputElement.get().disable();
     return (S) this;
   }
 
   /** {@inheritDoc} */
   @Override
   public boolean isEnabled() {
-    return !buttonElement.hasAttribute("disabled");
-  }
-
-  /**
-   * force open the select dropdown menu to open up by default
-   *
-   * @return same select instance
-   */
-  public S dropup() {
-    this.dropDirection = "up";
-    return (S) this;
-  }
-
-  private void onDropup() {
-    if (searchable) {
-      optionsMenu.appendChild(optionsMenu.getSearchContainer());
-      optionsMenu.getSearchContainer().removeCss("pos-top").addCss("pos-bottom");
-      optionsMenu.removeCss("pos-top").addCss("pos-bottom");
-    }
-  }
-
-  /**
-   * force open the select dropdown menu to open down by default
-   *
-   * @return same select instance
-   */
-  public S dropdown() {
-    this.dropDirection = "down";
-    return (S) this;
-  }
-
-  private void onDropdown() {
-    if (searchable) {
-      optionsMenu.insertFirst(optionsMenu.getSearchContainer());
-      optionsMenu.getSearchContainer().removeCss("pos-bottom").addCss("pos-top");
-      optionsMenu.removeCss("pos-bottom").addCss("pos-top");
-    }
-  }
-
-  private MdiIcon getDropdownIcon() {
-    return Icons.ALL.menu_down_mdi();
-  }
-
-  private MdiIcon getDropupIcon() {
-    return Icons.ALL.menu_up_mdi();
+    return !inputElement.get().isDisabled();
   }
 
   /** {@inheritDoc} */
@@ -502,7 +426,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   public S removeOption(SelectOption<V> option) {
     if (nonNull(option) && getOptions().remove(option)) {
       option.deselect(true);
-      option.element().remove();
+      option.remove();
     }
     return (S) this;
   }
@@ -514,7 +438,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
    * @return same select instance
    */
   public S removeOptions(Collection<SelectOption<V>> options) {
-    if (nonNull(options) && !options.isEmpty() && !this.options.isEmpty()) {
+    if (nonNull(options) && !options.isEmpty() && !getOptions().isEmpty()) {
       options.forEach(this::removeOption);
     }
     return (S) this;
@@ -526,8 +450,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
    * @return same select instance
    */
   public S removeAllOptions() {
-    options.clear();
-    optionsMenu.clearActions();
+    optionsMenu.removeAll();
     clear();
     if (isClearable()) {
       setClearable(true);
@@ -540,25 +463,23 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   public S setReadOnly(boolean readOnly) {
     super.setReadOnly(readOnly);
     if (readOnly) {
-      DominoElement.of(arrowIconContainer).hide();
-      floatLabel();
+      dropIcon.hide();
+      clearIcon.hide();
     } else {
-      DominoElement.of(arrowIconContainer).show();
-      if (isEmptyIgnoreSpaces()) {
-        unfloatLabel();
-      }
+      dropIcon.show();
+      clearIcon.toggleDisplay(clearable);
     }
-    buttonElement.setReadOnly(readOnly);
+    inputElement.get().setReadOnly(readOnly);
     return (S) this;
   }
 
   /**
    * Sets the option renderer
    *
-   * @param optionRenderer the {@link OptionRenderer}
+   * @param optionRenderer the {@link SelectOptionRenderer}
    * @return same instance
    */
-  public S setOptionRenderer(OptionRenderer<V> optionRenderer) {
+  public S setOptionRenderer(SelectOptionRenderer<V> optionRenderer) {
     this.optionRenderer = optionRenderer;
     return (S) this;
   }
@@ -573,24 +494,6 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   public interface SelectionHandler<V> {
     /** @param option the selected {@link SelectOption} */
     void onSelection(SelectOption<V> option);
-  }
-
-  /**
-   * the select box is actually rendered with a button
-   *
-   * @return the {@link HTMLButtonElement} that is actually displaying the selected option
-   */
-  public DominoElement<HTMLButtonElement> getSelectButton() {
-    return buttonElement;
-  }
-
-  /**
-   * @deprecated use {@link #getLabelElement()}
-   * @return the {@link HTMLLabelElement} of the select wrapped as {@link DominoElement}
-   */
-  @Deprecated
-  public DominoElement<HTMLLabelElement> getSelectLabel() {
-    return getLabelElement().get();
   }
 
   /**
@@ -625,12 +528,12 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
 
   /** @return a List of all V values from all the options of this select */
   public List<V> getValues() {
-    return options.stream().map(SelectOption::getValue).collect(Collectors.toList());
+    return getOptions().stream().map(SelectOption::getValue).collect(Collectors.toList());
   }
 
   /** @return a List of all String keys of all the options of this select */
   public List<String> getKeys() {
-    return options.stream().map(SelectOption::getKey).collect(Collectors.toList());
+    return getOptions().stream().map(SelectOption::getKey).collect(Collectors.toList());
   }
 
   /**
@@ -662,43 +565,19 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
    */
   public S setSearchable(boolean searchable) {
     optionsMenu.setSearchable(searchable);
-    this.searchable = searchable;
-    return (S) this;
-  }
-
-  /**
-   * Enable/Disable on the fly option creation
-   *
-   * @param creatable boolean, if true a button will show up to allow the user to create a new
-   *     select option and add it to the dropdown list
-   * @return same select instance
-   */
-  public S setCreatable(boolean creatable) {
-    optionsMenu.setCreatable(creatable);
-    this.creatable = creatable;
     return (S) this;
   }
 
   /**
    * Adds a handler that will be called whenever we add a new option to the select using the {@link
-   * #setCreatable(boolean)} feature
    *
    * @param onAddOptionHandler {@link OnAddOptionHandler}
    * @return same select instance
    */
   public S setOnAddOptionHandler(OnAddOptionHandler<V> onAddOptionHandler) {
     if (!isNull(onAddOptionHandler)) {
-      optionsMenu.setOnAddListener(
-          (String input) -> {
-            onAddOptionHandler.onAddOption(
-                input,
-                createdOption -> {
-                  if (!isNull(createdOption)) {
-                    appendChild(createdOption);
-                    select(createdOption);
-                  }
-                });
-          });
+      optionsMenu.setMissingItemHandler(
+          (token, menu) -> onAddOptionHandler.onAddOption(token, menu::appendChild));
     }
     return (S) this;
   }
@@ -717,12 +596,12 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
 
   /** @return boolean, true if search is enabled on this select */
   public boolean isSearchable() {
-    return searchable;
+    return optionsMenu.isSearchable();
   }
 
   /** @return boolean, true is creatable feature is enabled on this select */
   public boolean isCreatable() {
-    return creatable;
+    return optionsMenu.isAllowCreateMissing();
   }
 
   /** closes all currently opened selects dropdown menus */
@@ -765,11 +644,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
    */
   public S setClearable(boolean clearable) {
     this.clearable = clearable;
-    if (clearable && !options.contains(noneOption)) {
-      insertFirst(noneOption);
-    } else {
-      removeOption(noneOption);
-    }
+    this.clearIcon.toggleDisplay(clearable);
     return (S) this;
   }
 
@@ -778,78 +653,21 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     return clearable;
   }
 
-  /**
-   * sets the text display for the none option from the {@link #setClearable(boolean)}
-   *
-   * @param clearableText String
-   * @return same select instance
-   */
-  public S setClearableText(String clearableText) {
-    noneOption.setDisplayValue(clearableText);
-    return (S) this;
-  }
-
-  /**
-   * @return String display value of the none option when {@link #setClearable(boolean)} is enabled
-   */
-  public String getClearableText() {
-    return noneOption.getDisplayValue();
-  }
-
-  /** @return String dropdown direction <b>up</b> or <b>down</b> */
-  public String getDropDirection() {
-    return dropDirection;
-  }
-
-  /** @return the {@link HTMLElement} that contains the button of this select */
-  public DominoElement<HTMLElement> getButtonValueContainer() {
-    return buttonValueContainer;
-  }
-
-  /**
-   * Sets a custom dropdown position for this select
-   *
-   * @param dropPosition {@link DropDownPosition}
-   * @return same select instance
-   */
-  public S setDropPosition(DropDownPosition dropPosition) {
-    optionsMenu.setPosition(dropPosition);
-    return (S) this;
-  }
-
   /** {@inheritDoc} for the select this will create a button element */
   @Override
-  protected HTMLElement createInputElement(String type) {
-    buttonElement = DominoElement.of(button()).attr("type", "button").css("select-button");
-    return buttonElement.element();
+  protected LazyChild<DominoElement<HTMLInputElement>> createInputElement(String type) {
+    LazyChild<DominoElement<HTMLInputElement>> inputElement =
+        LazyChild.of(DominoElement.input(type).addCss(HIDDEN_INPUT), inputWrapper);
+    placeHolderElement = DominoElement.span().addCss(FIELD_PLACEHOLDER);
+    fieldInput = DominoElement.div().addCss(FIELD_INPUT);
+    inputWrapper.appendChild(fieldInput.appendChild(placeHolderElement));
+    return inputElement;
   }
 
-  /** {@inheritDoc} */
   @Override
-  protected void showPlaceholder() {
-    if (getPlaceholder() != null && shouldShowPlaceholder()) {
-      placeholderNode.setTextContent(getPlaceholder());
-    }
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void hidePlaceholder() {
-    if (getPlaceholder() != null && !shouldShowPlaceholder()) {
-      placeholderNode.clearElement();
-    }
-  }
-
-  /** {@inheritDoc} for thes select this creates the dropdown menu arrow */
-  @Override
-  protected DominoElement<HTMLDivElement> createMandatoryAddOn() {
-    if (isNull(arrowIconSupplier)) {
-      arrowIcon = Icons.ALL.menu_down_mdi().clickable();
-    } else {
-      arrowIcon = arrowIconSupplier.get().clickable();
-    }
-    arrowIconContainer = DominoElement.div().appendChild(arrowIcon);
-    return arrowIconContainer;
+  public S setPlaceholder(String placeholder) {
+    placeHolderElement.setTextContent(placeholder);
+    return (S) this;
   }
 
   /** {@inheritDoc} */
@@ -862,35 +680,26 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
    * @param searchFilter {@link org.dominokit.domino.ui.dropdown.DropDownMenu.SearchFilter}
    * @return same select instance
    */
-  public S setSearchFilter(DropDownMenu.SearchFilter searchFilter) {
-    this.optionsMenu.setSearchFilter(searchFilter);
+  public S setSearchFilter(SelectSearchFilter<V> searchFilter) {
+    if (nonNull(searchFilter)) {
+      this.searchFilter = searchFilter;
+    }
     return (S) this;
+  }
+
+  @Override
+  public boolean onSearch(String token, boolean caseSensitive, SelectOption<V> selectOption) {
+    return searchFilter.onSearch(token, caseSensitive, selectOption);
   }
 
   /** @return the {@link DropDownMenu} of this select */
-  public DropDownMenu getOptionsMenu() {
+  public Menu<V> getOptionsMenu() {
     return optionsMenu;
-  }
-
-  /** @return boolean, true if closePopOverOnOpen is enabled */
-  public boolean isClosePopOverOnOpen() {
-    return closePopOverOnOpen;
-  }
-
-  /**
-   * Enable/Disable closing other popups in the screen when opens the select dropdown menu
-   *
-   * @param closePopOverOnOpen boolean, true to close other popups
-   * @return same select instance
-   */
-  public S setClosePopOverOnOpen(boolean closePopOverOnOpen) {
-    this.closePopOverOnOpen = closePopOverOnOpen;
-    return (S) this;
   }
 
   /** @return boolean, true if the dropdown menu should close after selecting an option */
   public boolean isAutoCloseOnSelect() {
-    return autoCloseOnSelect;
+    return optionsMenu.isAutoCloseOnSelect();
   }
 
   /**
@@ -899,11 +708,13 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
    * @return same select instance
    */
   public S setAutoCloseOnSelect(boolean autoCloseOnSelect) {
-    this.autoCloseOnSelect = autoCloseOnSelect;
-    optionsMenu
-        .getActions()
-        .forEach(dropdownAction -> dropdownAction.setAutoClose(autoCloseOnSelect));
+    optionsMenu.setAutoCloseOnSelect(true);
     return (S) this;
+  }
+
+  @Override
+  public IsElement<?> render(V value, String key, String displayValue) {
+    return DominoElement.span().setTextContent(displayValue);
   }
 
   /**
@@ -911,84 +722,6 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
    * when opens the dropdown menu
    */
   protected abstract void scrollToSelectedOption();
-
-  /**
-   * A {@link DropDownPosition} that opens the select dropdown menu up or down based on the largest
-   * space available, the menu will show where the is more space
-   *
-   * @param <T> The type of the field value
-   * @param <V> The type of the single option value
-   * @param <S> The type of the field extending from this class
-   */
-  public static class PopupPositionTopDown<T, V, S extends AbstractSelect<T, V, S>>
-      implements DropDownPosition {
-
-    private DropDownPositionUp up = new DropDownPositionUp();
-    private DropDownPositionDown down = new DropDownPositionDown();
-
-    private final AbstractSelect<T, V, S> select;
-
-    public PopupPositionTopDown(AbstractSelect<T, V, S> select) {
-      this.select = select;
-    }
-
-    @Override
-    public void position(HTMLElement popup, HTMLElement target) {
-      DOMRect targetRect = target.getBoundingClientRect();
-
-      double distanceToMiddle = ((targetRect.top) - (targetRect.height / 2));
-      double windowMiddle = DomGlobal.window.innerHeight / 2;
-      double popupHeight =
-          popup.getElementsByClassName("dropdown-menu").getAt(0).getBoundingClientRect().height;
-      double distanceToBottom = window.innerHeight - targetRect.bottom;
-      double distanceToTop = (targetRect.top + targetRect.height);
-
-      boolean hasSpaceBelow = distanceToBottom > popupHeight;
-      boolean hasSpaceUp = distanceToTop > popupHeight;
-
-      if (("up".equalsIgnoreCase(select.dropDirection) && hasSpaceUp)
-          || ((distanceToMiddle >= windowMiddle) && !hasSpaceBelow)
-          || (hasSpaceUp && !hasSpaceBelow)) {
-        up.position(popup, target);
-        select.onDropup();
-        popup.setAttribute("popup-direction", "top");
-      } else {
-        down.position(popup, target);
-        select.onDropdown();
-        popup.setAttribute("popup-direction", "down");
-      }
-
-      popup.style.setProperty(
-          "width", select.popupWidth > 0 ? (select.popupWidth + "px") : (targetRect.width + "px"));
-    }
-  }
-
-  /** A {@link DropDownPosition} that opens the select dropdown menu always up */
-  public static class DropDownPositionUp implements DropDownPosition {
-    @Override
-    public void position(HTMLElement actionsMenu, HTMLElement target) {
-
-      DOMRect targetRect = target.getBoundingClientRect();
-
-      actionsMenu.style.setProperty(
-          "bottom", px.of(((window.innerHeight - targetRect.bottom) - window.pageYOffset)));
-      actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
-      actionsMenu.style.removeProperty("top");
-    }
-  }
-
-  /** A {@link DropDownPosition} that opens the select dropdown menu always down */
-  public static class DropDownPositionDown implements DropDownPosition {
-    @Override
-    public void position(HTMLElement actionsMenu, HTMLElement target) {
-
-      DOMRect targetRect = target.getBoundingClientRect();
-
-      actionsMenu.style.setProperty("top", px.of((targetRect.top + window.pageYOffset)));
-      actionsMenu.style.setProperty("left", px.of((targetRect.left + window.pageXOffset)));
-      actionsMenu.style.removeProperty("bottom");
-    }
-  }
 
   private static class SelectAutoValidator<T, V, S extends AbstractSelect<T, V, S>>
       extends AutoValidator {
@@ -1017,7 +750,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
 
   /**
    * A function for implementing logic to be executed when a new option is added on the fly using
-   * the {@link #setCreatable(boolean)} feature
+   * the {@link #setClearable(boolean)} (boolean)} feature
    *
    * @param <V> the type of the select value
    */
@@ -1042,19 +775,5 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   public interface CloseMenuHandler<V> {
     /** */
     void onMenuClosed();
-  }
-
-  /**
-   * An interface for rendering the {@link SelectOption}
-   *
-   * @param <T> the type of the object inside the option
-   */
-  @FunctionalInterface
-  public interface OptionRenderer<T> {
-    /**
-     * @param option the option to render
-     * @return the {@link HTMLElement} representing the option
-     */
-    HTMLElement element(SelectOption<T> option);
   }
 }

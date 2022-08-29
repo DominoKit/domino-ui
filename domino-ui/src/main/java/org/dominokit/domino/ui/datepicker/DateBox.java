@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.forms.AutoValidator;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
@@ -37,6 +38,7 @@ import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
+import org.dominokit.domino.ui.utils.LazyChild;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.jboss.elemento.EventType;
@@ -80,7 +82,6 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   private boolean openOnFocus = false;
   private boolean focused = false;
   private boolean handlerPaused = false;
-  private DominoElement<HTMLDivElement> calendarIconContainer;
   private MdiIcon calendarIcon;
   private boolean openOnClick = true;
   private boolean parseStrict;
@@ -135,10 +136,10 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     this.valueOnOpen = value;
 
-    getInputElement().addEventListener(EventType.focus.getName(), evt -> focused = true);
-    getInputElement().addEventListener("focusin", evt -> focused = true);
-    getInputElement().addEventListener(EventType.blur.getName(), evt -> focused = false);
-    getInputElement().addEventListener("focusout", evt -> focused = false);
+    getInputElement().get().addEventListener(EventType.focus.getName(), evt -> focused = true);
+    getInputElement().get().addEventListener("focusin", evt -> focused = true);
+    getInputElement().get().addEventListener(EventType.blur.getName(), evt -> focused = false);
+    getInputElement().get().addEventListener("focusout", evt -> focused = false);
 
     this.modalListener =
         evt -> {
@@ -168,7 +169,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
           }
         });
 
-    getInputElement()
+    getInputElement().get()
         .addEventListener(
             EventType.keypress.getName(),
             evt -> {
@@ -183,17 +184,17 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             if (isEmptyIgnoreSpaces()) {
               return ValidationResult.valid();
             }
-            getFormattedValue(getInputElement().element().value);
+            getFormattedValue(getInputElement().get().element().value);
             return ValidationResult.valid();
           } catch (IllegalArgumentException e) {
             return ValidationResult.invalid(invalidFormatMessage);
           }
         });
-    getInputElement()
+    getInputElement().get()
         .addEventListener(
             "change",
             evt -> {
-              String value = getInputElement().element().value;
+              String value = getInputElement().get().element().value;
               if (value.isEmpty()) {
                 clear();
               } else {
@@ -204,6 +205,20 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
                 }
               }
             });
+
+    calendarIcon =
+        Icons.ALL
+            .calendar_mdi()
+            .clickable()
+            .addClickListener(
+                evt -> {
+                  evt.stopPropagation();
+                  if (!isDisabled()) {
+                    open();
+                  }
+                });
+
+    withMandatoryAddOn(calendarIcon);
   }
 
   private void removeBox() {
@@ -338,13 +353,13 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   /** {@inheritDoc} */
   @Override
   public boolean isEmpty() {
-    return isNull(value) && getInputElement().element().value.isEmpty();
+    return isNull(value) && getInputElement().get().element().value.isEmpty();
   }
 
   /** {@inheritDoc} */
   @Override
   public boolean isEmptyIgnoreSpaces() {
-    String value = getInputElement().element().value;
+    String value = getInputElement().get().element().value;
     return isEmpty() || value.trim().isEmpty();
   }
 
@@ -371,8 +386,8 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
   private void setStringValue(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
     if (nonNull(date))
-      this.getInputElement().element().value = getFormatted(date, dateTimeFormatInfo);
-    else this.getInputElement().element().value = "";
+      this.getInputElement().get().element().value = getFormatted(date, dateTimeFormatInfo);
+    else this.getInputElement().get().element().value = "";
   }
 
   private String getFormatted(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
@@ -386,9 +401,15 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   }
 
   @Override
-  protected HTMLInputElement createInputElement(String type) {
-    return input("text").element();
+  protected LazyChild<DominoElement<HTMLInputElement>> createInputElement(String type) {
+    return LazyChild.of(DominoElement.input("text"), inputWrapper);
   }
+
+  //
+//  @Override
+//  protected HTMLInputElement createInputElement(String type) {
+//    return input("text").element();
+//  }
 
   /** {@inheritDoc} */
   @Override
@@ -486,23 +507,23 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   public DateBox openOnFocus() {
     this.openOnFocus = true;
     if (nonNull(getFocusEventListener())) {
-      getInputElement().removeEventListener(EventType.focus.getName(), getFocusEventListener());
+      getInputElement().get().removeEventListener(EventType.focus.getName(), getFocusEventListener());
     }
     focusListener =
         evt -> {
-          getInputElement().removeEventListener(EventType.focus.getName(), getFocusEventListener());
+          getInputElement().get().removeEventListener(EventType.focus.getName(), getFocusEventListener());
           open();
         };
-    getInputElement().addEventListener(EventType.focus.getName(), getFocusEventListener());
+    getInputElement().get().addEventListener(EventType.focus.getName(), getFocusEventListener());
     modal.addCloseListener(
         () -> {
-          getInputElement().element().focus();
-          getInputElement().addEventListener(EventType.focus.getName(), getFocusEventListener());
+          getInputElement().get().element().focus();
+          getInputElement().get().addEventListener(EventType.focus.getName(), getFocusEventListener());
         });
 
     modal.addOpenListener(
         () ->
-            getInputElement()
+            getInputElement().get()
                 .removeEventListener(EventType.focus.getName(), getFocusEventListener()));
     return this;
   }
@@ -533,7 +554,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   public DateBox setReadOnly(boolean readOnly) {
     super.setReadOnly(readOnly);
     if (readOnly) {
-      getInputElement().addCss(READONLY);
+      getInputElement().get().addCss(READONLY);
       disableModal();
       disablePopover();
     } else if (isEnabled()) {
@@ -558,28 +579,6 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
       return formatter.format(this.pattern, datePicker.getDateTimeFormatInfo(), value);
     }
     return null;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected DominoElement<HTMLDivElement> createMandatoryAddOn() {
-    calendarIcon = Icons.ALL.calendar_mdi();
-    calendarIcon
-        .clickable()
-        .addClickListener(
-            evt -> {
-              evt.stopPropagation();
-              if (!isDisabled()) {
-                open();
-              }
-            });
-    calendarIconContainer = DominoElement.div();
-    return calendarIconContainer.appendChild(calendarIcon);
-  }
-
-  /** @return The calendar icon container element */
-  public DominoElement<HTMLDivElement> getCalendarIconContainer() {
-    return calendarIconContainer;
   }
 
   /** @return The calendar icon element */

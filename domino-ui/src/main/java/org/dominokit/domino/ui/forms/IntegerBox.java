@@ -36,7 +36,7 @@ public class IntegerBox extends NumberBox<IntegerBox, Integer> {
 
   /** Create instance without a label */
   public IntegerBox() {
-    this("");
+    setDefaultValue(0);
   }
 
   /**
@@ -45,19 +45,14 @@ public class IntegerBox extends NumberBox<IntegerBox, Integer> {
    * @param label String
    */
   public IntegerBox(String label) {
-    super(label);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void clearValue(boolean silent) {
-    value(0, silent);
+    this();
+    setLabel(label);
   }
 
   /** {@inheritDoc} */
   @Override
   protected Function<String, Integer> defaultValueParser() {
-    return DominoUIConfig.INSTANCE.getNumberParsers().integerParser(this);
+    return DominoUIConfig.CONFIG.getNumberParsers().integerParser(this);
   }
 
   /** {@inheritDoc} */

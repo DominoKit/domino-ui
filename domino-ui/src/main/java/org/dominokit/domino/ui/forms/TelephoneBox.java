@@ -16,16 +16,19 @@
 package org.dominokit.domino.ui.forms;
 
 /** A component to input phone numbers */
-public class TelephoneBox extends InputValueBox<TelephoneBox> {
+public class TelephoneBox extends CustomInputBox<TelephoneBox> {
+
+  public TelephoneBox() {
+  }
 
   /** @param label String */
   public TelephoneBox(String label) {
-    super("tel", label);
+    super(label);
   }
 
   /** @return new TelephoneBox instance */
   public static TelephoneBox create() {
-    return create("");
+    return new TelephoneBox();
   }
 
   /**
@@ -34,5 +37,10 @@ public class TelephoneBox extends InputValueBox<TelephoneBox> {
    */
   public static TelephoneBox create(String label) {
     return new TelephoneBox(label);
+  }
+
+  @Override
+  public String getType() {
+    return "tel";
   }
 }

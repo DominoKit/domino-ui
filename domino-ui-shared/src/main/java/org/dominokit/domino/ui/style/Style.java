@@ -21,6 +21,7 @@ import static org.dominokit.domino.ui.style.Styles.*;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLBodyElement;
 import elemental2.dom.HTMLElement;
+import java.util.Arrays;
 import org.jboss.elemento.IsElement;
 
 public class Style<E extends HTMLElement, T extends IsElement<E>>
@@ -50,36 +51,11 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @param name css property name
    * @param value css property value
    * @return same style instance
-   * @deprecated use {@link #setCssProperty(String, String)}
-   */
-  @Deprecated
-  @Override
-  public Style<E, T> setProperty(String name, String value) {
-    return setCssProperty(name, value);
-  }
-
-  /**
-   * @param name css property name
-   * @param value css property value
-   * @return same style instance
    */
   @Override
   public Style<E, T> setCssProperty(String name, String value) {
     element.style.setProperty(name, value);
     return this;
-  }
-
-  /**
-   * @param name css property name
-   * @param value css property value
-   * @param important if true adds !important
-   * @return same style instance
-   * @deprecated use {@link #setCssProperty(String, String, boolean)}
-   */
-  @Deprecated
-  @Override
-  public Style<E, T> setProperty(String name, String value, boolean important) {
-    return setCssProperty(name, value, important);
   }
 
   /**
@@ -101,33 +77,11 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   /**
    * @param name css property name
    * @return same style instance
-   * @deprecated use {@link #removeCssProperty(String)}
-   */
-  @Deprecated
-  @Override
-  public Style<E, T> removeProperty(String name) {
-    return removeCssProperty(name);
-  }
-
-  /**
-   * @param name css property name
-   * @return same style instance
    */
   @Override
   public Style<E, T> removeCssProperty(String name) {
     element.style.removeProperty(name);
     return this;
-  }
-
-  /**
-   * @param cssClass css class name
-   * @return same style instance
-   * @deprecated use {@link #addCss(String)}
-   */
-  @Deprecated
-  @Override
-  public Style<E, T> add(String cssClass) {
-    return addCss(cssClass);
   }
 
   /**
@@ -145,12 +99,13 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   /**
    * @param cssClasses css classes names
    * @return same style instance
-   * @deprecated use {@link #addCss(String...)}
    */
-  @Deprecated
   @Override
-  public Style<E, T> add(String... cssClasses) {
-    return addCss(cssClasses);
+  public Style<E, T> addCss(String... cssClasses) {
+    if (nonNull(cssClasses) && cssClasses.length > 0) {
+      element().classList.add(cssClasses);
+    }
+    return this;
   }
 
   /**
@@ -158,26 +113,39 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @return same style instance
    */
   @Override
-  public Style<E, T> addCss(String... cssClasses) {
-    if (nonNull(cssClasses) && cssClasses.length > 0) {
-      //       add(String... arr) is not supported in IE11, so looping over the array solving the
-      // problem
-      for (String cssClass : cssClasses) {
-        addCss(cssClass);
-      }
-    }
+  public Style<E, T> addCss(CssClass cssClasses) {
+    cssClasses.apply(element());
     return this;
   }
 
   /**
-   * @param cssClass css class name
+   * @param hasCssClass css classes names
    * @return same style instance
-   * @deprecated use {@link #removeCss(String)}
    */
-  @Deprecated
   @Override
-  public Style<E, T> remove(String cssClass) {
-    return removeCss(cssClass);
+  public Style<E, T> addCss(HasCssClass hasCssClass) {
+    addCss(hasCssClass.getCssClass());
+    return this;
+  }
+
+  /**
+   * @param cssClasses css classes names
+   * @return same style instance
+   */
+  @Override
+  public Style<E, T> addCss(CssClass... cssClasses) {
+    Arrays.asList(cssClasses).forEach(this::addCss);
+    return this;
+  }
+
+  /**
+   * @param hasCssClasses css classes names
+   * @return same style instance
+   */
+  @Override
+  public Style<E, T> addCss(HasCssClasses hasCssClasses) {
+    addCss(hasCssClasses.getCssClasses());
+    return this;
   }
 
   /**
@@ -191,14 +159,13 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   /**
-   * @param cssClasses css classes names
+   * @param cssClass css class name
    * @return same style instance
-   * @deprecated use {@link #removeCss(String...)}
    */
-  @Deprecated
   @Override
-  public Style<E, T> remove(String... cssClasses) {
-    return removeCss(cssClasses);
+  public Style<E, T> removeCss(CssClass cssClass) {
+    cssClass.remove(element());
+    return this;
   }
 
   /**
@@ -229,18 +196,6 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
       addCss(replacementClass);
     }
     return this;
-  }
-
-  /**
-   * @param cssClass css class name to be removed
-   * @param replacementClass cdd class name to be added
-   * @return same style instance
-   * @deprecated use {@link #replaceCss(String, String)}
-   */
-  @Deprecated
-  @Override
-  public Style<E, T> replace(String cssClass, String replacementClass) {
-    return replaceCss(cssClass, replacementClass);
   }
 
   @Override
@@ -624,17 +579,6 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   /**
    * @param cssClass css class name under check
    * @return same style instance
-   * @deprecated use {@link #containsCss(String)}
-   */
-  @Deprecated
-  @Override
-  public boolean contains(String cssClass) {
-    return containsCss(cssClass);
-  }
-
-  /**
-   * @param cssClass css class name under check
-   * @return same style instance
    */
   @Override
   public boolean containsCss(String cssClass) {
@@ -695,23 +639,9 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
     return wrapperElement;
   }
 
-  /** {@inheritDoc} */
-  @Override
-  @Deprecated
-  public int length() {
-    return cssClassesCount();
-  }
-
   @Override
   public int cssClassesCount() {
     return element.classList.length;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  @Deprecated
-  public String item(int index) {
-    return cssClassByIndex(index);
   }
 
   @Override

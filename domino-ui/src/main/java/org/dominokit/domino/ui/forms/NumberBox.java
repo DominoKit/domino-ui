@@ -15,32 +15,39 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-
-import elemental2.dom.*;
-import java.util.Objects;
-import java.util.function.Function;
+import elemental2.dom.ClipboardEvent;
+import elemental2.dom.Event;
+import elemental2.dom.HTMLInputElement;
+import elemental2.dom.KeyboardEvent;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
+import org.dominokit.domino.ui.utils.Function;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.HasMinMaxValue;
+import org.dominokit.domino.ui.utils.HasStep;
 import org.gwtproject.i18n.client.NumberFormat;
 import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
-import org.jboss.elemento.Elements;
 import org.jboss.elemento.EventType;
+
+import java.util.Objects;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.forms.FormsStyles.FIELD_INPUT;
 
 /**
  * A Base implementation for form inputs that takes/provide numeric values
  *
  * @param <T> The type of the class extending from this base class
- * @param <E> The Numeric type of the component value
+ * @param <V> The Numeric type of the component value
  */
-public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
-    extends AbstractValueBox<T, HTMLInputElement, E> {
+public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
+        extends InputFormField<T, HTMLInputElement, V> implements HasMinMaxValue<T, V>, HasStep<T,V> {
 
-  private final ChangeHandler<E> formatValueChangeHandler = value -> formatValue();
-  private Function<String, E> valueParser = defaultValueParser();
+  private final ChangeListener<V> formatValueChangeListener =(oldValue, newValue) -> formatValue(newValue);
+  private java.util.function.Function<String, V> valueParser = defaultValueParser();
 
   private String maxValueErrorMessage;
   private String minValueErrorMessage;
@@ -51,10 +58,9 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
   /**
    * Create an instance with a label
    *
-   * @param label String
    */
-  public NumberBox(String label) {
-    super("tel", label);
+  public NumberBox() {
+    super();
     addValidator(this::validateInputString);
     addValidator(this::validateMaxValue);
     addValidator(this::validateMinValue);
@@ -64,6 +70,27 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
 
     getInputElement().addEventListener(EventType.keypress, this::onKeyPress);
     getInputElement().addEventListener(EventType.paste, this::onPaste);
+  }
+
+  /**
+   * Create an instance with a label
+   *
+   * @param label String
+   */
+  public NumberBox(String label) {
+    this();
+    setLabel(label);
+  }
+
+  @Override
+  public String getType() {
+    return "tel";
+  }
+
+  @Override
+  protected DominoElement<HTMLInputElement> createInputElement(String type) {
+    return DominoElement.input(type)
+            .addCss(FIELD_INPUT);
   }
 
   private ValidationResult validateInputString() {
@@ -76,7 +103,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
   }
 
   private ValidationResult validateMaxValue() {
-    E value = getValue();
+    V value = getValue();
     if (nonNull(value) && isExceedMaxValue(value)) {
       return ValidationResult.invalid(getMaxValueErrorMessage());
     }
@@ -84,7 +111,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
   }
 
   private ValidationResult validateMinValue() {
-    E value = getValue();
+    V value = getValue();
     if (nonNull(value) && isLowerThanMinValue(value)) {
       return ValidationResult.invalid(getMinValueErrorMessage());
     }
@@ -128,7 +155,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     }
   }
 
-  private void formatValue(E value) {
+  private void formatValue(V value) {
     getInputElement().element().value = nonNull(value) ? getNumberFormat().format(value) : "";
   }
 
@@ -142,13 +169,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
 
   /** {@inheritDoc} */
   @Override
-  protected HTMLInputElement createInputElement(String type) {
-    return Elements.input(type).element();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void doSetValue(E value) {
+  protected void doSetValue(V value) {
     if (nonNull(value)) {
       if (this.formattingEnabled) {
         getInputElement().element().value = getNumberFormat().format(value);
@@ -160,7 +181,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     }
   }
 
-  private E tryGetValue() {
+  private V tryGetValue() {
     String value = getStringValue();
     if (value.isEmpty()) {
       return null;
@@ -170,7 +191,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
 
   /** {@inheritDoc} */
   @Override
-  public E getValue() {
+  public V getValue() {
     try {
       return tryGetValue();
     } catch (NumberFormatException e) {
@@ -206,7 +227,8 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    * @param minValue E minimum value
    * @return same component instance
    */
-  public T setMinValue(E minValue) {
+  @Override
+  public T setMinValue(V minValue) {
     getInputElement().element().min = nonNull(minValue) ? getNumberFormat().format(minValue) : null;
     return (T) this;
   }
@@ -217,7 +239,8 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    * @param maxValue E maximum value
    * @return same component instance
    */
-  public T setMaxValue(E maxValue) {
+  @Override
+  public T setMaxValue(V maxValue) {
     getInputElement().element().max = nonNull(maxValue) ? getNumberFormat().format(maxValue) : null;
     return (T) this;
   }
@@ -230,16 +253,18 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    * @param step E numeric value
    * @return same field instance
    */
-  public T setStep(E step) {
+  @Override
+  public T setStep(V step) {
     getInputElement().element().step = nonNull(step) ? getNumberFormat().format(step) : null;
     return (T) this;
   }
 
   /**
-   * @returnthe maximum allowed value for the field if exists or else return {@link
+   * @return the maximum allowed value for the field if exists or else return {@link
    *     #defaultMaxValue()}
    */
-  public E getMaxValue() {
+  @Override
+  public V getMaxValue() {
     String maxValue = getInputElement().element().max;
     if (isNull(maxValue) || maxValue.isEmpty()) {
       return defaultMaxValue();
@@ -248,10 +273,11 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
   }
 
   /**
-   * @returnthe minimum allowed value for the field if exists or else return {@link
+   * @return the minimum allowed value for the field if exists or else return {@link
    *     #defaultMinValue()}
    */
-  public E getMinValue() {
+  @Override
+  public V getMinValue() {
     String minValue = getInputElement().element().min;
     if (isNull(minValue) || minValue.isEmpty()) {
       return defaultMinValue();
@@ -263,7 +289,8 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    * @return the step value for the field if exists or else return null
    * @see #setStep(Number)
    */
-  public E getStep() {
+  @Override
+  public V getStep() {
     String step = getInputElement().element().step;
     if (isNull(step) || step.isEmpty()) {
       return null;
@@ -325,14 +352,14 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     return isNull(invalidFormatMessage) ? "Invalid number format" : invalidFormatMessage;
   }
 
-  private boolean isExceedMaxValue(E value) {
-    E maxValue = getMaxValue();
+  private boolean isExceedMaxValue(V value) {
+    V maxValue = getMaxValue();
     if (isNull(maxValue)) return false;
     return isExceedMaxValue(maxValue, value);
   }
 
-  private boolean isLowerThanMinValue(E value) {
-    E minValue = getMinValue();
+  private boolean isLowerThanMinValue(V value) {
+    V minValue = getMinValue();
     if (isNull(minValue)) return false;
     return isLowerThanMinValue(minValue, value);
   }
@@ -360,11 +387,11 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
   private T setFormattingEnabled(boolean formattingEnabled) {
     this.formattingEnabled = formattingEnabled;
     if (formattingEnabled) {
-      if (!hasChangeHandler(formatValueChangeHandler)) {
-        addChangeHandler(formatValueChangeHandler);
+      if (!hasChangeListener(formatValueChangeListener)) {
+        addChangeListener(formatValueChangeListener);
       }
     } else {
-      removeChangeHandler(formatValueChangeHandler);
+      removeChangeListener(formatValueChangeListener);
     }
     return (T) this;
   }
@@ -390,7 +417,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
   public T setPattern(String pattern) {
     if (!Objects.equals(this.pattern, pattern)) {
       // It is important get the current numeric value based on old pattern
-      E value = getValue();
+      V value = getValue();
 
       // Update the pattern now and format value with new pattern
       this.pattern = pattern;
@@ -416,19 +443,19 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    * @param value String numeric value
    * @return E the Numeric value from the input String
    */
-  protected E parseValue(String value) {
+  protected V parseValue(String value) {
     return valueParser.apply(value);
   }
 
-  protected abstract Function<String, E> defaultValueParser();
+  protected abstract java.util.function.Function<String, V> defaultValueParser();
 
   /** @return E numeric max value as a default in case {@link #setMaxValue(Number)} is not called */
-  protected abstract E defaultMaxValue();
+  protected abstract V defaultMaxValue();
 
   /** @return E numeric min value as a default in case {@link #setMinValue(Number)} is not called */
-  protected abstract E defaultMinValue();
+  protected abstract V defaultMinValue();
 
-  public T setValueParser(Function<String, E> valueParser) {
+  public T setValueParser(java.util.function.Function<String, V> valueParser) {
     if (nonNull(valueParser)) {
       this.valueParser = valueParser;
     }
@@ -442,7 +469,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    * @param value E numeric value
    * @return boolean, true if the value is greater than maxValue
    */
-  protected abstract boolean isExceedMaxValue(E maxValue, E value);
+  protected abstract boolean isExceedMaxValue(V maxValue, V value);
 
   /**
    * Checks if a a given value is actually less than the minimum allowed value
@@ -451,11 +478,12 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
    * @param value E numeric value
    * @return boolean, true if the value is less than minValue
    */
-  protected abstract boolean isLowerThanMinValue(E minValue, E value);
+  protected abstract boolean isLowerThanMinValue(V minValue, V value);
 
   /** {@inheritDoc} */
   @Override
-  protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
-    return new InputAutoValidator<>(autoValidate);
+  public AutoValidator createAutoValidator(Function autoValidate) {
+    return new InputAutoValidator(autoValidate);
   }
+
 }

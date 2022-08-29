@@ -31,5 +31,7 @@ public interface HasLabel<T> {
   T setLabel(String label);
 
   /** @return String component label */
-  Optional<String> getLabel();
+  String getLabel();
+
+  T labelForId(String id);
 }

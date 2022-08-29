@@ -1,0 +1,110 @@
+.dui-card {
+    display: flex;
+    flex-direction: var(--dui-card-direction, column);
+    min-height: var(--dui-card-min-height);
+    box-shadow: var(--dui-card-box-shadow);
+    margin: var(--dui-card-margin);
+    border-radius: var(--dui-card-border-radius);
+}
+.dui-card-reversed {
+    --dui-card-direction: column-reverse;
+    --dui-card-head-border-width: var(--dui-card-header-border-reversed-width);
+}
+.dui-card-main-title,
+.dui-card-description,
+.dui-card-header .dui.mdi:not(:hover) {
+    color: inherit;
+}
+
+.dui-card-header {
+    display: flex;
+    flex-direction: var(--dui-card-direction, column);
+    padding: var(--dui-card-header-padding);
+    position: relative;
+    border-width: var(--dui-card-head-border-width, var(--dui-card-header-border-width));
+    border-style:var(--dui-card-header-border-style);
+    border-color: var(--dui-bg-clr, var(--dui-accent-l-5));
+}
+
+.dui-card:not(.dui-card-reversed) .dui-card-header{
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}
+
+.dui-card.dui-card-reversed .dui-card-header{
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+}
+
+.dui-card-main-header {
+    display: flex;
+    align-items: center;
+    gap: var(--dui-card-header-gap);
+}
+
+.dui-card-title {
+    flex-grow: 1;
+    align-self: center;
+}
+
+.dui-card-main-title {
+    margin: var(--dui-card-header-title-margin);
+    font: var(--dui-card-header-title-font);
+    color: var(--dui-fg-d-4);
+}
+
+.dui-card-description {
+    display: block;
+    font: var(--dui-card-description-font);
+    margin: var(--dui-card-description-margin);
+    color: var(--dui-card-description-color);
+    line-height: var(--dui-card-description-line-height);
+}
+
+.dui-card-description:empty {
+    display: none;
+}
+
+.dui-card-header {
+    order: 1;
+}
+
+.dui-card-logo {
+    order: 1;
+}
+
+.dui-card-icon {
+    order: 2;
+}
+
+.dui-card-title {
+    order: 3;
+}
+.dui-card-utility {
+    order: 4;
+}
+
+.dui-card-subheader{
+    padding: 0;
+}
+
+.dui-card-subheader:empty{
+    display: none;
+}
+
+.dui-card-body {
+    order: 2;
+    font: var(--dui-card-body-font);
+    padding: var(--dui-card-body-padding);
+
+}
+
+.dui-card:not(.dui-card-reversed) .dui-card-body{
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+}
+
+.dui-card.dui-card-reversed .dui-card-body{
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}

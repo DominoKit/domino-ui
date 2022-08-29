@@ -36,7 +36,7 @@ public class LongBox extends NumberBox<LongBox, Long> {
 
   /** Create instance without a label */
   public LongBox() {
-    this("");
+    setDefaultValue(0L);
   }
 
   /**
@@ -45,19 +45,14 @@ public class LongBox extends NumberBox<LongBox, Long> {
    * @param label String
    */
   public LongBox(String label) {
-    super(label);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void clearValue(boolean silent) {
-    value(0L, silent);
+    this();
+    setLabel(label);
   }
 
   /** {@inheritDoc} */
   @Override
   protected Function<String, Long> defaultValueParser() {
-    return DominoUIConfig.INSTANCE.getNumberParsers().longParser(this);
+    return DominoUIConfig.CONFIG.getNumberParsers().longParser(this);
   }
 
   /** {@inheritDoc} */

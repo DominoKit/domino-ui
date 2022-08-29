@@ -16,13 +16,13 @@
 package org.dominokit.domino.ui.utils;
 
 import static elemental2.dom.DomGlobal.document;
+import static org.dominokit.domino.ui.style.Styles.DUI;
 
-import elemental2.dom.HTMLBodyElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLPictureElement;
+import elemental2.dom.*;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.style.DominoStyle;
 import org.jboss.elemento.Elements;
+import org.jboss.elemento.Id;
 import org.jboss.elemento.IsElement;
 
 /**
@@ -40,7 +40,7 @@ public class DominoElement<E extends HTMLElement> extends BaseDominoElement<E, D
    * @return the {@link DominoElement} wrapping the provided element
    */
   public static <E extends HTMLElement> DominoElement<E> of(E element) {
-    return new DominoElement<>(element);
+    return new DominoElement<>(element).addCss(DUI);
   }
 
   /**
@@ -48,8 +48,8 @@ public class DominoElement<E extends HTMLElement> extends BaseDominoElement<E, D
    * @param <E> extends from {@link HTMLElement}
    * @return the {@link DominoElement} wrapping the provided element
    */
-  public static <E extends HTMLElement> DominoElement<E> of(IsElement<E> element) {
-    return new DominoElement<>(element.element());
+  public static <T extends HTMLElement, E extends IsElement<T>> DominoElement<T> of(E element) {
+    return new DominoElement<>(element.element()).addCss(DUI);
   }
 
   /** @return a {@link DominoElement} wrapping the document {@link HTMLBodyElement} */
@@ -62,10 +62,38 @@ public class DominoElement<E extends HTMLElement> extends BaseDominoElement<E, D
     return DominoElement.of(Elements.div());
   }
 
+  public static DominoElement<HTMLElement> nav() {
+    return DominoElement.of(Elements.nav());
+  }
+
+  public static DominoElement<HTMLHeadingElement> h4() {
+    return DominoElement.of(Elements.h(4));
+  }
+
+  public static DominoElement<HTMLLabelElement> label() {
+    return DominoElement.of(Elements.label());
+  }
+
+  public static DominoElement<HTMLElement> span() {
+    return DominoElement.of(Elements.span());
+  }
+
+  public static DominoElement<HTMLElement> section() {
+    return DominoElement.of(Elements.section());
+  }
+
+  public static DominoElement<HTMLElement> aside() {
+    return DominoElement.of(Elements.aside());
+  }
+
+  public static DominoElement<HTMLElement> header() {
+    return DominoElement.of(Elements.header());
+  }
+
   /** @return a new {@link HTMLDivElement} wrapped as a {@link DominoElement} */
   public static DominoElement<HTMLPictureElement> picture() {
-    return DominoElement.of(
-        Js.<HTMLPictureElement>uncheckedCast(document.createElement("picture")));
+    return DominoElement.of(Js.<HTMLPictureElement>uncheckedCast(document.createElement("picture")))
+        .addCss(DUI);
   }
 
   /** @param element the E element extending from {@link HTMLElement} */
@@ -74,7 +102,39 @@ public class DominoElement<E extends HTMLElement> extends BaseDominoElement<E, D
     init(this);
   }
 
-  /**
+  public static DominoElement<HTMLInputElement> input(String type) {
+    return DominoElement.of(Elements.input(type));
+  }
+
+  public static DominoElement<HTMLUListElement> ul() {
+    return DominoElement.of(Elements.ul());
+  }
+
+  public static DominoElement<HTMLAnchorElement> a() {
+    return DominoElement.of(Elements.a());
+  }
+
+  public static DominoElement<HTMLAnchorElement> a(String href) {
+    return DominoElement.of(Elements.a(href));
+  }
+
+  public static DominoElement<HTMLLIElement> li() {
+    return DominoElement.of(Elements.li());
+  }
+
+  public static DominoElement<HTMLElement> small() {
+    return DominoElement.of(Elements.small());
+  }
+
+    public static DominoElement<HTMLFieldSetElement> fieldSet() {
+    return DominoElement.of(Elements.fieldset());
+    }
+
+    public static String getUniqueId(){
+      return Id.unique();
+    }
+
+    /**
    * @return the E element that is extending from {@link HTMLElement} wrapped in this DominoElement
    */
   @Override

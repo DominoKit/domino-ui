@@ -19,61 +19,31 @@ import elemental2.dom.HTMLElement;
 import org.jboss.elemento.IsElement;
 
 public interface DominoStyle<E extends HTMLElement, T extends IsElement<E>, R> {
-  @Deprecated
-  default R setProperty(String name, String value) {
-    return setCssProperty(name, value);
-  }
-
   R setCssProperty(String name, String value);
-
-  @Deprecated
-  default R setProperty(String name, String value, boolean important) {
-    return setCssProperty(name, value, important);
-  }
 
   R setCssProperty(String name, String value, boolean important);
 
-  @Deprecated
-  default R removeProperty(String name) {
-    return removeCssProperty(name);
-  }
-
   R removeCssProperty(String name);
-
-  @Deprecated
-  default R add(String cssClass) {
-    return addCss(cssClass);
-  }
 
   R addCss(String cssClass);
 
-  @Deprecated
-  default R add(String... cssClasses) {
-    return addCss(cssClasses);
-  }
-
   R addCss(String... cssClasses);
 
-  @Deprecated
-  default R remove(String cssClass) {
-    return removeCss(cssClass);
-  }
+  R addCss(CssClass cssClass);
+
+  R addCss(HasCssClass hasCssClass);
+
+  R addCss(CssClass... cssClasses);
+
+  R addCss(HasCssClasses hasCssClasses);
 
   R removeCss(String cssClass);
 
-  @Deprecated
-  default R remove(String... cssClasses) {
-    return removeCss(cssClasses);
-  }
+  R removeCss(CssClass cssClass);
 
   R removeCss(String... cssClasses);
 
   R replaceCss(String cssClass, String replacementClass);
-
-  @Deprecated
-  default R replace(String cssClass, String replacementClass) {
-    return removeCss(cssClass, replacementClass);
-  }
 
   R setBorder(String border);
 
@@ -205,11 +175,6 @@ public interface DominoStyle<E extends HTMLElement, T extends IsElement<E>, R> {
 
   R setOpacity(double opacity, boolean important);
 
-  @Deprecated
-  default boolean contains(String cssClass) {
-    return containsCss(cssClass);
-  }
-
   boolean containsCss(String cssClass);
 
   R pullRight();
@@ -222,24 +187,7 @@ public interface DominoStyle<E extends HTMLElement, T extends IsElement<E>, R> {
 
   R cssText(String cssText);
 
-  /**
-   * @return the count of applied css classes
-   * @deprecated use {@link #cssClassesCount()}
-   */
-  @Deprecated
-  int length();
-
   int cssClassesCount();
-
-  /**
-   * @param index of css class
-   * @return name of the css class at that index
-   * @deprecated use {@link #cssClassByIndex(int)}
-   */
-  @Deprecated
-  default String item(int index) {
-    return cssClassByIndex(index);
-  }
 
   String cssClassByIndex(int index);
 

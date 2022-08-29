@@ -17,29 +17,19 @@ package org.dominokit.domino.ui.menu;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.menu.MenuStyles.*;
+import static org.dominokit.domino.ui.style.Styles.CLICKABLE;
 import static org.jboss.elemento.Elements.a;
-import static org.jboss.elemento.Elements.li;
 
-import elemental2.dom.Event;
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLIElement;
-import elemental2.dom.Node;
+import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.menu.direction.BestFitSideDropDirection;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DelayedExecution;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasDeselectionHandler;
-import org.dominokit.domino.ui.utils.HasSelectionHandler;
-import org.dominokit.domino.ui.utils.PopupsCloser;
+import org.dominokit.domino.ui.utils.*;
+import org.gwtproject.editor.client.TakesValue;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -51,19 +41,10 @@ import org.jboss.elemento.IsElement;
  */
 public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
     extends BaseDominoElement<HTMLLIElement, T>
-    implements HasSelectionHandler<T, T>, HasDeselectionHandler<T> {
+    implements HasSelectionHandler<T, T>, HasDeselectionHandler<T>, TakesValue<V> {
 
-  private final DominoElement<HTMLLIElement> root = DominoElement.of(li()).css("menu-item");
-  private final DominoElement<HTMLAnchorElement> linkElement =
-      DominoElement.of(a())
-          .setAttribute("tabindex", "0")
-          .setAttribute("aria-expanded", "true")
-          .setAttribute("href", "#");
-  private final FlexItem<HTMLDivElement> contentContainer = FlexItem.create();
-  private final FlexLayout mainContainer = FlexLayout.create().css("menu-item-cntnr");
-  private final FlexLayout leftAddOnsContainer = FlexLayout.create().css("ddi-left-addon");
-  private final FlexItem<HTMLDivElement> contentElement = FlexItem.create().css("ddi-content");
-  private final FlexLayout rightAddOnsContainer = FlexLayout.create().css("ddi-right-addon");
+  private final DominoElement<HTMLLIElement> root;
+  private final DominoElement<HTMLAnchorElement> linkElement;
 
   protected AbstractMenu<V, ?> parent;
 
@@ -73,24 +54,23 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   private String key;
   private V value;
 
-  private final MdiIcon indicatorIcon = Icons.ALL.menu_right_mdi();
-  private FlexItem<?> nestingIndicator =
-      FlexItem.create().css("ddi-indicator").setOrder(Integer.MAX_VALUE).appendChild(indicatorIcon);
-
-  private FlexItem<?> noIndicator =
-      FlexItem.create().css("ddi-indicator").setOrder(Integer.MAX_VALUE);
+  private LazyChild<IsElement<?>> indicatorIcon;
 
   AbstractMenu<V, ?> menu;
+  Optional<MenuItemsGroup<V, ?, ?>> itemGroup = Optional.empty();
 
   public AbstractMenuItem() {
+    root = DominoElement.li().addCss(MENU_ITEM);
+
+    linkElement =
+        DominoElement.of(a("#"))
+            .setAttribute("tabindex", "0")
+            .setAttribute("aria-expanded", "true");
+    root.appendChild(linkElement);
+
+    indicatorIcon = createIndicator(Icons.ALL.menu_right_mdi());
+
     init((T) this);
-    mainContainer
-        .setGap("4px")
-        .appendChild(FlexItem.create().appendChild(leftAddOnsContainer))
-        .appendChild(contentElement.setFlexGrow(1))
-        .appendChild(FlexItem.create().appendChild(rightAddOnsContainer));
-    contentContainer.appendChild(mainContainer);
-    root.appendChild(linkElement.appendChild(contentContainer));
 
     this.addEventListener(
         EventType.touchstart.getName(),
@@ -103,7 +83,10 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
     this.addEventListener(EventType.touchend.getName(), this::onSelected);
     this.addEventListener(EventType.click.getName(), this::onSelected);
     this.addEventListener(EventType.mouseenter.getName(), evt -> openSubMenu());
-    addRightAddOn(noIndicator);
+  }
+
+  private LazyChild<IsElement<?>> createIndicator(IsElement<?> element) {
+    return LazyChild.of(DominoElement.of(element).addCss(MENU_ITEM_ANCHOR, CLICKABLE), root);
   }
 
   private void onSelected(Event evt) {
@@ -118,8 +101,10 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
    * @param addOn {@link FlexItem}
    * @return same menu item instance
    */
-  public T addLeftAddOn(FlexItem<?> addOn) {
-    leftAddOnsContainer.appendChild(addOn);
+  public T addLeftAddOn(IsElement<?> addOn) {
+    if (nonNull(addOn)) {
+      root.appendChild(DominoElement.of(addOn).addCss(MENU_ITEM_ICON));
+    }
     return (T) this;
   }
 
@@ -129,26 +114,16 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
    * @param addOn {@link FlexItem}
    * @return same menu item instance
    */
-  public T addRightAddOn(FlexItem<?> addOn) {
-    rightAddOnsContainer.appendChild(addOn);
+  public T addRightAddOn(IsElement<?> addOn) {
+    if (nonNull(addOn)) {
+      root.appendChild(DominoElement.of(addOn).addCss(MENU_ITEM_UTILITY));
+    }
     return (T) this;
   }
 
-  /** @return The {@link FlexItem} of the main content conatiner */
-  public FlexItem<HTMLDivElement> getContentElement() {
-    return contentElement;
-  }
-
-  /**
-   * Appends a {@link Node} to the contentElement
-   *
-   * @param node {@link Node} to be appended to the component
-   * @return same menu item instance
-   */
   @Override
   public T appendChild(Node node) {
-    contentElement.appendChild(node);
-    return (T) this;
+    return super.appendChild(node);
   }
 
   /**
@@ -159,7 +134,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
    */
   @Override
   public T appendChild(IsElement<?> element) {
-    contentElement.appendChild(element);
+    appendChild(DominoElement.of(element));
     return (T) this;
   }
 
@@ -207,6 +182,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
    */
   public T select(boolean silent) {
     if (!isDisabled()) {
+      addCss(MENU_ITEM_SELECTED);
       setAttribute("selected", true);
       if (!silent) {
         selectionHandlers.forEach(handler -> handler.onSelection((T) this));
@@ -223,6 +199,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
    */
   public T deselect(boolean silent) {
     if (!isDisabled()) {
+      MENU_ITEM_SELECTED.remove(this);
       setAttribute("selected", false);
       if (!silent) {
         deselectionHandlers.forEach(DeselectionHandler::onDeselection);
@@ -300,14 +277,22 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
    * @param value the value of the meu item
    * @return same menu item instance
    */
-  public T setValue(V value) {
+  public void setValue(V value) {
     this.value = value;
+  }
+
+  /**
+   * @param value the value of the meu item
+   * @return same menu item instance
+   */
+  public T value(V value) {
+    setValue(value);
     return (T) this;
   }
 
   /** @return the {@link FlexItem} that represent the current menu nesting indication. */
-  public FlexItem<?> getNestingIndicator() {
-    return nestingIndicator;
+  public LazyChild<IsElement<?>> getNestingIndicator() {
+    return indicatorIcon;
   }
 
   /**
@@ -316,17 +301,12 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
    * @param nestingIndicator {@link FlexItem}
    * @return same menu item
    */
-  public T setNestingIndicator(FlexItem<?> nestingIndicator) {
+  public T setNestingIndicator(IsElement<?> nestingIndicator) {
     if (nonNull(nestingIndicator)) {
-      if (this.nestingIndicator.isAttached()) {
-        nestingIndicator.remove();
-      }
-
-      noIndicator.remove();
-      addRightAddOn(nestingIndicator.setOrder(Integer.MAX_VALUE).css("ddi-indicator"));
-      this.nestingIndicator = nestingIndicator;
+      indicatorIcon.remove();
+      indicatorIcon = createIndicator(DominoElement.of(nestingIndicator));
+      indicatorIcon.get();
     }
-
     return (T) this;
   }
 
@@ -341,12 +321,12 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
     if (nonNull(this.menu)) {
       this.menu.setAttribute("domino-sub-menu", true);
       this.menu.removeAttribute("domino-ui-root-menu");
-      setNestingIndicator(nestingIndicator);
+      indicatorIcon.get();
       this.menu.setTargetElement(this);
       this.menu.setDropDirection(new BestFitSideDropDirection());
       this.menu.setParentItem(this);
     } else {
-      this.nestingIndicator.remove();
+      this.indicatorIcon.remove();
     }
     return (T) this;
   }
@@ -396,6 +376,24 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
       this.menu.close();
     }
     return (T) this;
+  }
+
+  T bindToGroup(MenuItemsGroup<V, ?, ?> group) {
+    this.itemGroup = Optional.ofNullable(group);
+    return (T) this;
+  }
+
+  T unbindGroup() {
+    this.itemGroup = Optional.empty();
+    return (T) this;
+  }
+
+  public boolean isGrouped() {
+    return this.itemGroup.isPresent();
+  }
+
+  public boolean isItemsGroup() {
+    return false;
   }
 
   /** @return The parent {@link AbstractMenu} of the menu item */

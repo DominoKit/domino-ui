@@ -30,7 +30,7 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.themes.Theme;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasChangeHandlers;
+import org.dominokit.domino.ui.utils.HasChangeListeners;
 import org.jboss.elemento.IsElement;
 
 /**
@@ -44,7 +44,7 @@ import org.jboss.elemento.IsElement;
  * </pre>
  */
 public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
-    implements HasChangeHandlers<Slider, Double> {
+    implements HasChangeListeners<Slider, Double> {
 
   private DominoElement<HTMLParagraphElement> sliderContainer =
       DominoElement.of(p()).css(SliderStyles.slide_container);
@@ -54,7 +54,7 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
   private FlexItem<HTMLDivElement> leftAddonContainer = FlexItem.create();
   private FlexItem<HTMLDivElement> rightAddonContainer = FlexItem.create();
   private DominoElement<HTMLElement> thumbValue = DominoElement.of(span()).css("value");
-  private List<ChangeHandler<? super Double>> changeHandlers = new ArrayList<>();
+  private List<ChangeListener<? super Double>> changeListeners = new ArrayList<>();
   private List<SlideHandler> slideHandlers = new ArrayList<>();
   private boolean mouseDown;
   private boolean withThumb;
@@ -186,7 +186,7 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
   }
 
   private void callChangeHandlers() {
-    changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(getValue()));
+    changeListeners.forEach(changeHandler -> changeHandler.onValueChanged(getValue()));
   }
 
   private void updateThumbValue() {
@@ -322,22 +322,22 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
 
   /** {@inheritDoc} */
   @Override
-  public Slider addChangeHandler(ChangeHandler<? super Double> changeHandler) {
-    changeHandlers.add(changeHandler);
+  public Slider addChangeListener(ChangeListener<? super Double> changeListener) {
+    changeListeners.add(changeListener);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public Slider removeChangeHandler(ChangeHandler<? super Double> changeHandler) {
-    changeHandlers.remove(changeHandler);
+  public Slider removeChangeListener(ChangeListener<? super Double> changeListener) {
+    changeListeners.remove(changeListener);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public boolean hasChangeHandler(ChangeHandler<? super Double> changeHandler) {
-    return changeHandlers.contains(changeHandler);
+  public boolean hasChangeListener(ChangeListener<? super Double> changeListener) {
+    return changeListeners.contains(changeListener);
   }
 
   /**

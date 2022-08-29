@@ -1,0 +1,41 @@
+.dui-media {
+    margin: var(--dui-media-margin);
+    overflow: hidden;
+}
+
+.dui-media-body {
+    color: var(--dui-media-body-color);
+    font: var(--dui-media-body-font);
+}
+
+.dui-media-heading {
+    font: var(--dui-media-heading-font);
+    color: var(--dui-media-heading-color);
+}
+
+.dui-media-body {
+    width: 100%;
+    overflow: hidden;
+}
+
+.dui-media-object {
+    padding: var(--dui-media-object-padding);
+}
+
+.dui-media-object,
+.dui-media-body {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.dui-media-middle {
+    vertical-align: middle;
+}
+
+.dui-media-bottom {
+    vertical-align: bottom;
+}
+
+.dui-media-heading {
+    margin: var(--dui-media-heading-maring);
+}

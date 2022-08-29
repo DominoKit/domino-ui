@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.icons;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.img;
 
+import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** Url icon implementation */
@@ -26,6 +27,10 @@ public class UrlIcon extends BaseIcon<UrlIcon> {
   private final String url;
 
   private UrlIcon(String url, String name) {
+    this(url, () -> name);
+  }
+
+  private UrlIcon(String url, CssClass name) {
     this.url = url;
     this.name = name;
     this.icon = DominoElement.of(img(url).element());
@@ -52,13 +57,11 @@ public class UrlIcon extends BaseIcon<UrlIcon> {
   /** {@inheritDoc} */
   @Override
   protected UrlIcon doToggle() {
-    if (nonNull(toggleName)) {
-      if (this.style().containsCss(originalName)) {
-        this.style().removeCss(originalName);
-        this.style().addCss(toggleName);
+    if (nonNull(toggleIcon)) {
+      if (name.isAppliedTo(this)) {
+        addCss(toggleName.replaceWith(toggleIcon.name));
       } else {
-        this.style().addCss(originalName);
-        this.style().removeCss(toggleName);
+        addCss(toggleName.replaceWith(name));
       }
     }
     return this;

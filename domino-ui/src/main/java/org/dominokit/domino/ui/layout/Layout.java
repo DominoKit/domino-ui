@@ -36,7 +36,7 @@ import org.jboss.elemento.IsElement;
  *
  * <ul>
  *   <li>Header Bar
- *   <li>Lwft panel
+ *   <li>Left panel
  *   <li>Content panel
  *   <li>Optional right panel
  *   <li>Optional footer
@@ -136,6 +136,11 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     }
   }
 
+  @Override
+  public boolean isCollapsed() {
+    return false;
+  }
+
   /** @return new Layout instance without a title in the header */
   public static Layout create() {
     return new Layout();
@@ -181,9 +186,9 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    * Reveal the layout and append it to the page body and apply the specified theme color
    *
    * @param theme {@link ColorScheme}
-   * @param autoFixLeftPanel boolean, if true left panel will be fixed and and the user wont be able
-   *     to hide it using the hamburger menu icon while we open the application on large device
-   *     screen, while it will be collapsible when opened on small screens
+   * @param autoFixLeftPanel boolean, if true left panel will be fixed and the user wont be able to
+   *     hide it using the hamburger menu icon while we open the application on large device screen,
+   *     while it will be collapsible when opened on small screens
    * @return same Layout instance
    */
   public Layout show(ColorScheme theme, boolean autoFixLeftPanel) {

@@ -46,7 +46,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
 
   private ColorScheme colorScheme;
   private Selectable<T> selectedRow;
-  private HTMLElement singleSelectIndicator = Icons.ALL.check().element();
+  private HTMLElement singleSelectIndicator = Icons.ALL.check_mdi().element();
   private SelectionCondition<T> selectionCondition = (table, row) -> true;
   private TableRow<T> lastSelected;
   private CheckBoxCreator<T> checkBoxCreator = tableRow -> CheckBox.create();
@@ -212,7 +212,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
             this.lastSelected = tableRow;
           }
         });
-    checkBox.addChangeHandler(
+    checkBox.addChangeListener(
         checked -> {
           if (selectionCondition.isAllowSelection(dataTable, tableRow)) {
             if (checked) {
@@ -259,7 +259,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
 
   private HTMLElement createMultiSelectHeader(DataTable<T> dataTable) {
     CheckBox checkBox = createCheckBox(Optional.empty());
-    checkBox.addChangeHandler(
+    checkBox.addChangeListener(
         checked -> {
           if (checked) {
             dataTable.selectAll(selectionCondition);

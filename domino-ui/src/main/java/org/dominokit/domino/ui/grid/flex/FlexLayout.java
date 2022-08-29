@@ -22,7 +22,7 @@ import static org.jboss.elemento.Elements.div;
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
 import java.util.List;
-import org.dominokit.domino.ui.style.IsCssClass;
+import org.dominokit.domino.ui.style.IsCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -193,7 +193,7 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
     return this;
   }
 
-  private void replaceCssClass(IsCssClass original, IsCssClass replacement) {
+  private void replaceCssClass(IsCss original, IsCss replacement) {
     if (nonNull(original)) {
       element.removeCss(original.getStyle());
     }

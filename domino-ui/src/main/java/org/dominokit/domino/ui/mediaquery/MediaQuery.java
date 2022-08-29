@@ -62,7 +62,7 @@ public class MediaQuery {
   private static final String LARGE_AND_UP_MEDIA_QUERY = "(min-width: 1200px)";
   private static final String MEDIUM_AND_UP_MEDIA_QUERY = "(min-width: 992px)";
   private static final String SMALL_AND_UP_MEDIA_QUERY = "(min-width: 768px)";
-  private static final String X_SMALL_AND_UP_MEDIA_QUERY = "(min-width: 0x)";
+  private static final String X_SMALL_AND_UP_MEDIA_QUERY = "(min-width: 0px)";
 
   private static final String X_LARGE_AND_DOWN_MEDIA_QUERY = "(max-width: 1800px)";
   private static final String LARGE_AND_DOWN_MEDIA_QUERY = "(max-width: 1800px)";

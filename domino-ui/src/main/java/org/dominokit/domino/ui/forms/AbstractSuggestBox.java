@@ -129,7 +129,7 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
     suggestionsMenu.setAppendTarget(document.body);
     suggestionsMenu.setAppendStrategy(AppendStrategy.FIRST);
     suggestionsMenu.setPosition(
-        DominoUIConfig.INSTANCE.getDefaultSuggestPopupPosition().createPosition(this));
+        DominoUIConfig.CONFIG.getDefaultSuggestPopupPosition().createPosition(this));
     suggestionsMenu.addCloseHandler(
         () -> {
           if (focusOnClose) {

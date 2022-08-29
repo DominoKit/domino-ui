@@ -36,7 +36,7 @@ import org.dominokit.domino.ui.utils.*;
  * @param <B> The button subclass being wrapped
  */
 public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<HTMLElement, B>
-    implements HasClickableElement, Sizable<B>, HasBackground<B>, HasContent<B>, Switchable<B> {
+    implements HasClickableElement, Sizable<B>, HasBackground<B>, HasContent<B>, AcceptDisable<B> {
 
   private static final String DISABLED = "disabled";
 

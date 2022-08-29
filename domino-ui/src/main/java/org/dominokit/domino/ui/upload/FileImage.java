@@ -19,8 +19,8 @@ import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.Elements.img;
 
 import elemental2.dom.*;
-import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -37,7 +37,7 @@ public class FileImage extends BaseDominoElement<HTMLDivElement, FileImage> {
 
   public FileImage() {
     initFileContainer();
-    Icon icon = Icons.EDITOR_ICONS.insert_drive_file().setColor(Color.GREY);
+    MdiIcon icon = Icons.ALL.file_upload_mdi().setColor(Color.GREY);
     icon.addCss("md-inactive");
     icon.style().setCursor("default").setFontSize("100px").setWidth("100%").setTextAlign("center");
     setImage(icon.element());

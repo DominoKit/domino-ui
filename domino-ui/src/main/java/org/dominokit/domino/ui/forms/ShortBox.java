@@ -36,7 +36,7 @@ public class ShortBox extends NumberBox<ShortBox, Short> {
 
   /** Create instance without a label */
   public ShortBox() {
-    this("");
+    setDefaultValue((short)0);
   }
 
   /**
@@ -45,19 +45,14 @@ public class ShortBox extends NumberBox<ShortBox, Short> {
    * @param label String
    */
   public ShortBox(String label) {
-    super(label);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void clearValue(boolean silent) {
-    value((short) 0, silent);
+    this();
+    setLabel(label);
   }
 
   /** {@inheritDoc} */
   @Override
   protected Function<String, Short> defaultValueParser() {
-    return DominoUIConfig.INSTANCE.getNumberParsers().shortParser(this);
+    return DominoUIConfig.CONFIG.getNumberParsers().shortParser(this);
   }
 
   /** {@inheritDoc} */

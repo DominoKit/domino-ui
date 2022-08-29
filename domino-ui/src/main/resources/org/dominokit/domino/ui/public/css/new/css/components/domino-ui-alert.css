@@ -1,0 +1,38 @@
+.dui-alert {
+    padding: var(--dui-alert-padding);
+    margin: var(--dui-alert-margin);
+    border-radius: var(--dui-alert-border-radius);
+    border: var(--dui-alert-border);
+    color: var(--dui-alert-color);
+    background-color: var(--dui-alert-background);
+    font: var(--dui-alert-font);
+    box-shadow: var(--dui-alert-box-shadow);
+    display: flex;
+    align-items: center;
+}
+.dui-alert h4.dui {
+    margin-top: var(--dui-spc-0);
+    color: inherit;
+}
+
+.dui-alert > p.dui,
+.dui-alert > ul.dui {
+    margin-bottom: var(--dui-spc-0);
+}
+.dui-alert > p.du + p.dui {
+    margin-top: var(--dui-spc-1_5);
+}
+
+.dui-alert .dui-close{
+    order: 9999;
+    margin: 0 2px;
+}
+.dui-alert-body {
+    order: 1;
+    flex-grow: 1;
+}
+.dui-alert-link {
+    color: var(--dui-alert-link-color);
+    text-decoration: var(--dui-alert-link-decoration);
+    font: var(--dui-alert-link-font);
+}

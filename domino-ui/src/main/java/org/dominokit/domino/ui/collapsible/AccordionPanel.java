@@ -110,8 +110,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     collapsibleElement.appendChild(bodyElement);
     element.appendChild(collapsibleElement);
     init(this);
-    setCollapseStrategy(
-        DominoUIConfig.INSTANCE.getDefaultAccordionCollapseStrategySupplier().get());
+    setCollapseStrategy(DominoUIConfig.CONFIG.getDefaultAccordionCollapseStrategySupplier().get());
     hide();
   }
 

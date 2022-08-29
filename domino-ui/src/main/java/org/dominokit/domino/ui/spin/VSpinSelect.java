@@ -51,7 +51,7 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
   }
 
   public VSpinSelect() {
-    this(Icons.ALL.keyboard_arrow_up(), Icons.ALL.keyboard_arrow_down());
+    this(Icons.ALL.arrow_up_mdi(), Icons.ALL.arrow_down_mdi());
   }
 
   public VSpinSelect(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {

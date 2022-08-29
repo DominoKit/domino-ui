@@ -23,6 +23,7 @@ import elemental2.dom.*;
 import java.util.Date;
 import java.util.Optional;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.forms.AutoValidator;
 import org.dominokit.domino.ui.forms.ValueBox;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.icons.Icons;
@@ -313,8 +314,8 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
   /** {@inheritDoc} */
   @Override
-  public TimeBox addChangeHandler(ChangeHandler<? super Date> changeHandler) {
-    super.addChangeHandler(changeHandler);
+  public TimeBox addChangeListener(ChangeListener<? super Date> changeListener) {
+    super.addChangeListener(changeListener);
     return this;
   }
 

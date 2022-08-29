@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.search.Search;
 import org.dominokit.domino.ui.style.ColorScheme;
@@ -103,9 +103,9 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   private boolean autoExpandFound;
   private ColorScheme colorScheme;
   private Search search;
-  private Icon searchIcon;
-  private Icon collapseAllIcon;
-  private Icon expandAllIcon;
+  private BaseIcon<?> searchIcon;
+  private BaseIcon<?> collapseAllIcon;
+  private BaseIcon<?> expandAllIcon;
   private int levelPadding = 15;
 
   private T value;
@@ -331,7 +331,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
 
     searchIcon =
         Icons.ALL
-            .search()
+            .magnify_mdi()
             .setMarginBottom("0px")
             .setMarginTop("0px")
             .addCss(Styles.pull_right)
@@ -352,7 +352,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   public Tree<T> enableFolding() {
     collapseAllIcon =
         Icons.ALL
-            .fullscreen_exit()
+            .fullscreen_mdi()
             .setMarginBottom("0px")
             .setMarginTop("0px")
             .addCss(Styles.pull_right)
@@ -362,7 +362,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
 
     expandAllIcon =
         Icons.ALL
-            .fullscreen()
+            .fullscreen_mdi()
             .setMarginBottom("0px")
             .setMarginTop("0px")
             .addCss(Styles.pull_right)
@@ -503,17 +503,17 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   }
 
   /** @return the search icon */
-  public Icon getSearchIcon() {
+  public BaseIcon<?> getSearchIcon() {
     return searchIcon;
   }
 
   /** @return the collapse all icon */
-  public Icon getCollapseAllIcon() {
+  public BaseIcon<?> getCollapseAllIcon() {
     return collapseAllIcon;
   }
 
   /** @return the expand all icon */
-  public Icon getExpandAllIcon() {
+  public BaseIcon<?> getExpandAllIcon() {
     return expandAllIcon;
   }
 

@@ -1,146 +1,61 @@
-/*
- * Copyright © 2019 Dominokit
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.dominokit.domino.ui.forms;
 
-import static java.util.Objects.nonNull;
-
 import elemental2.dom.HTMLInputElement;
-import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
-import org.jboss.elemento.Elements;
+import org.dominokit.domino.ui.utils.DominoElement;
 
-/** A component that take/provide a single line String values */
-public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String> {
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.forms.FormsStyles.FIELD_INPUT;
 
-  private static final String TEXT = "text";
-  private boolean emptyAsNull;
+public class TextBox extends TextInputFormField<TextBox, HTMLInputElement, String> {
 
-  /** */
-  public TextBox() {
-    this(TEXT, "");
-  }
-
-  /** @param label String */
-  public TextBox(String label) {
-    this(TEXT, label);
-  }
-
-  /**
-   * @param type String html input element type
-   * @param label String
-   */
-  public TextBox(String type, String label) {
-    super(type, label);
-  }
-
-  /** @return new TextBox instance */
-  public static TextBox create() {
-    return new TextBox();
-  }
-
-  /**
-   * @param label String
-   * @return new TextBox instance
-   */
-  public static TextBox create(String label) {
-    return new TextBox(label);
-  }
-
-  /**
-   * Creates a password field, input type <b>password</b>
-   *
-   * @param label String label
-   * @return new TextBox instance
-   */
-  public static TextBox password(String label) {
-    return new TextBox("password", label);
-  }
-
-  /**
-   * Creates a password field, input type <b>password</b>
-   *
-   * @return new TextBox instance
-   */
-  public static TextBox password() {
-    return new TextBox("password", "");
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected HTMLInputElement createInputElement(String type) {
-    return Elements.input(type).element();
-  }
-
-  @Override
-  protected void clearValue(boolean silent) {
-    value("", silent);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void doSetValue(String value) {
-    if (nonNull(value)) {
-      getInputElement().element().value = value;
-    } else {
-      getInputElement().element().value = "";
+    public static TextBox create(){
+        return new TextBox();
     }
-  }
 
-  /** {@inheritDoc} */
-  @Override
-  public String getValue() {
-    String value = getInputElement().element().value;
-    if (value.isEmpty() && isEmptyAsNull()) {
-      return null;
+    public static TextBox create(String label){
+        return new TextBox(label);
     }
-    return value;
-  }
 
-  /**
-   * @param type String html input type
-   * @return same TextBox instance
-   */
-  public TextBox setType(String type) {
-    getInputElement().element().type = type;
-    return this;
-  }
+    public TextBox() {
+        setDefaultValue("");
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public String getStringValue() {
-    return getValue();
-  }
+    public TextBox(String label) {
+        this();
+        setLabel(label);
+    }
 
-  /**
-   * @param emptyAsNull boolean, if true empty value will be considered null otherwise its normal
-   *     empty String
-   * @return same TextBox instance
-   */
-  public TextBox setEmptyAsNull(boolean emptyAsNull) {
-    this.emptyAsNull = emptyAsNull;
-    return this;
-  }
+    @Override
+    public String getType() {
+        return "text";
+    }
 
-  /** @return boolean, true is {@link #setEmptyAsNull(boolean)} */
-  public boolean isEmptyAsNull() {
-    return emptyAsNull;
-  }
+    @Override
+    protected DominoElement<HTMLInputElement> createInputElement(String type) {
+        return DominoElement.input(type)
+                .addCss(FIELD_INPUT);
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
-    return new InputAutoValidator<>(autoValidate);
-  }
+    @Override
+    public String getStringValue() {
+        return getValue();
+    }
+
+    @Override
+    protected void doSetValue(String value) {
+        if (nonNull(value)) {
+            getInputElement().element().value = value;
+        } else {
+            getInputElement().element().value = "";
+        }
+    }
+
+    @Override
+    public String getValue() {
+        String value = getInputElement().element().value;
+        if (value.isEmpty() && isEmptyAsNull()) {
+            return null;
+        }
+        return value;
+    }
 }

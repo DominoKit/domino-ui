@@ -24,7 +24,7 @@ import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasDeselectionHandler;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
-import org.dominokit.domino.ui.utils.Switchable;
+import org.dominokit.domino.ui.utils.AcceptDisable;
 
 /**
  * This component provides a group of {@link Chip} which handles the selection behaviour between
@@ -50,10 +50,10 @@ import org.dominokit.domino.ui.utils.Switchable;
  * @see Chip
  * @see HasSelectionHandler
  * @see HasDeselectionHandler
- * @see Switchable
+ * @see AcceptDisable
  */
 public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
-    implements Switchable<ChipsGroup>,
+    implements AcceptDisable<ChipsGroup>,
         HasSelectionHandler<ChipsGroup, Chip>,
         HasDeselectionHandler<ChipsGroup> {
 

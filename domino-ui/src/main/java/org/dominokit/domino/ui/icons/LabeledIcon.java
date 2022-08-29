@@ -15,15 +15,11 @@
  */
 package org.dominokit.domino.ui.icons;
 
-import static org.jboss.elemento.Elements.div;
-import static org.jboss.elemento.Elements.span;
+import static org.dominokit.domino.ui.icons.IconsStyles.*;
 
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import elemental2.dom.Text;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.TextNode;
 
 /**
  * Icon with a label
@@ -32,20 +28,18 @@ import org.dominokit.domino.ui.utils.TextNode;
  *
  * @see BaseDominoElement
  */
-public class LabeledIcon extends BaseDominoElement<HTMLDivElement, LabeledIcon> {
+public class LabeledIcon extends BaseDominoElement<HTMLElement, LabeledIcon> {
 
-  private final HTMLDivElement element = div().css(IconsStyles.LABELED_ICON).element();
+  private final DominoElement<HTMLElement> element = DominoElement.span().addCss(LABELED_ICON);
 
   public LabeledIcon(BaseIcon<?> icon, String text) {
     this(icon, text, IconPosition.LEFT);
   }
 
   public LabeledIcon(BaseIcon<?> icon, String text, IconPosition position) {
-    HTMLElement leftSpan = DominoElement.of(span()).css(IconsStyles.LEFT_NODE).element();
-    HTMLElement rightSpan = DominoElement.of(span()).css(IconsStyles.RIGHT_NODE).element();
-    position.placeElements(leftSpan, rightSpan, icon, TextNode.of(text));
-    element.appendChild(leftSpan);
-    element.appendChild(rightSpan);
+    element.appendChild(icon);
+    element.appendChild(DominoElement.span().addCss(ICON_TEXT).textContent(text));
+    position.apply(this);
   }
 
   /**
@@ -74,28 +68,22 @@ public class LabeledIcon extends BaseDominoElement<HTMLDivElement, LabeledIcon> 
 
   /** {@inheritDoc} */
   @Override
-  public HTMLDivElement element() {
-    return element;
+  public HTMLElement element() {
+    return element.element();
   }
 
   /** An enum representing the position of the icon related to the label */
   public enum IconPosition {
     /** position the icon to the left */
     LEFT(
-        (left, right, icon, text) -> {
-          left.appendChild(icon.element());
-          right.appendChild(text);
-          left.classList.add(IconsStyles.ICON_NODE);
-          right.classList.add(IconsStyles.TEXT_NODE);
+        (labeledIcon) -> {
+          labeledIcon.addCss(REVERSED);
         }),
 
     /** position the icon to the right */
     RIGHT(
-        (left, right, icon, text) -> {
-          left.appendChild(text);
-          right.appendChild(icon.element());
-          right.classList.add(IconsStyles.ICON_NODE);
-          left.classList.add(IconsStyles.TEXT_NODE);
+        (labeledIcon) -> {
+          REVERSED.remove(labeledIcon);
         });
 
     private final ElementsPlacement elementsPlacement;
@@ -107,18 +95,15 @@ public class LabeledIcon extends BaseDominoElement<HTMLDivElement, LabeledIcon> 
     /**
      * Position the elements
      *
-     * @param left the left container
-     * @param right the right container
-     * @param icon the icon
-     * @param text the label
+     * @param labeledIcon the ${@link LabeledIcon} to apply the position on
      */
-    public void placeElements(HTMLElement left, HTMLElement right, BaseIcon<?> icon, Text text) {
-      elementsPlacement.placeElements(left, right, icon, text);
+    public void apply(LabeledIcon labeledIcon) {
+      elementsPlacement.apply(labeledIcon);
     }
   }
 
   @FunctionalInterface
-  private interface ElementsPlacement {
-    void placeElements(HTMLElement left, HTMLElement right, BaseIcon<?> icon, Text text);
+  public interface ElementsPlacement {
+    void apply(LabeledIcon labeledIcon);
   }
 }

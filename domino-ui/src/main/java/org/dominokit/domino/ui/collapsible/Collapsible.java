@@ -148,17 +148,6 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   }
 
   /**
-   * checks if the wrapped element is hidden
-   *
-   * @return boolean, true if the element is hidden.
-   */
-  @Override
-  @Deprecated
-  public boolean isHidden() {
-    return isCollapsed();
-  }
-
-  /**
    * checks if the wrapped element is collapsed
    *
    * @return boolean, true if the element is collapsed.

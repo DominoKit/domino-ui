@@ -119,7 +119,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
             .css("page-nav")
             .appendChild(
                 prevAnchor
-                    .appendChild(Icons.ALL.chevron_left().clickable())
+                    .appendChild(Icons.ALL.chevron_left_mdi().clickable())
                     .addClickListener(event -> moveToPage(index - 1, false)));
 
     prevSetAnchor = DominoElement.of(a());
@@ -128,7 +128,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
             .css("page-nav")
             .appendChild(
                 prevSetAnchor
-                    .appendChild(Icons.ALL.first_page().clickable())
+                    .appendChild(Icons.ALL.page_first_mdi().clickable())
                     .addClickListener(event -> moveToPage((windowIndex * windowSize), false)));
 
     firstPageAnchor = DominoElement.of(a());
@@ -137,7 +137,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
             .css("page-nav")
             .appendChild(
                 firstPageAnchor
-                    .appendChild(Icons.ALL.skip_previous().clickable())
+                    .appendChild(Icons.ALL.skip_previous_mdi().clickable())
                     .addClickListener(event -> moveToPage(1, false)));
 
     pagesElement
@@ -198,7 +198,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
             .css("page-nav")
             .appendChild(
                 nextAnchor
-                    .appendChild(Icons.ALL.chevron_right().clickable())
+                    .appendChild(Icons.ALL.chevron_right_mdi().clickable())
                     .addClickListener(event -> moveToPage(index + 1, false)));
 
     nextSetAnchor = DominoElement.of(a());
@@ -207,7 +207,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
             .css("page-nav")
             .appendChild(
                 nextSetAnchor
-                    .appendChild(Icons.ALL.last_page().clickable())
+                    .appendChild(Icons.ALL.page_last_mdi().clickable())
                     .addClickListener(
                         event -> moveToPage((windowIndex * windowSize) + windowSize + 1, false)));
 
@@ -217,7 +217,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
             .css("page-nav")
             .appendChild(
                 lastPageAnchor
-                    .appendChild(Icons.ALL.skip_next().clickable())
+                    .appendChild(Icons.ALL.skip_next_mdi().clickable())
                     .addClickListener(event -> moveToPage(allPages.size(), false)));
 
     if (pages > 0) {

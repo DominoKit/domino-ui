@@ -15,10 +15,10 @@
  */
 package org.dominokit.domino.ui.grid.flex;
 
-import org.dominokit.domino.ui.style.IsCssClass;
+import org.dominokit.domino.ui.style.IsCss;
 
 /** An enum representing how content is distributed inside the layout */
-public enum FlexJustifyContent implements IsCssClass {
+public enum FlexJustifyContent implements IsCss {
   /** At the start of the layout */
   START(FlexStyles.FLEX_JUST_START),
   /** At the end of the layout */

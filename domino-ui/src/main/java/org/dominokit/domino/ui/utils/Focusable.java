@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import org.dominokit.domino.ui.style.Color;
 
 /**
  * Components that can be focused should implement this interface
@@ -39,12 +38,4 @@ public interface Focusable<T> {
 
   /** @return boolean, true if the component is focused */
   boolean isFocused();
-
-  /**
-   * Set a color to use for focus indicators
-   *
-   * @param focusColor {@link Color}
-   * @return same implementing class
-   */
-  T setFocusColor(Color focusColor);
 }

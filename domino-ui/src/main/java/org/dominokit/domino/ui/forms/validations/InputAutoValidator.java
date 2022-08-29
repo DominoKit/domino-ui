@@ -15,20 +15,19 @@
  */
 package org.dominokit.domino.ui.forms.validations;
 
-import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.forms.ValueBox;
+import org.dominokit.domino.ui.forms.AutoValidator;
+import org.dominokit.domino.ui.utils.Function;
 import org.jboss.elemento.EventType;
 
 /**
  * this class attach an {@link org.dominokit.domino.ui.forms.ValueBox.AutoValidate} to a component
  * and bind the validation the {@link EventType#blur}
  *
- * @param <E> the type of the HTMLElement
  */
-public class InputAutoValidator<E extends HTMLElement> extends ValueBox.AutoValidator {
+public class InputAutoValidator extends AutoValidator {
 
-  /** @param autoValidate {@link org.dominokit.domino.ui.forms.ValueBox.AutoValidate} */
-  public InputAutoValidator(ValueBox.AutoValidate autoValidate) {
+  /** @param autoValidate {@link Function} */
+  public InputAutoValidator(Function autoValidate) {
     super(autoValidate);
   }
 

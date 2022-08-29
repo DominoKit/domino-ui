@@ -53,9 +53,9 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
       DominoElement.of(Elements.p()).css(ELLIPSIS_TEXT).element();
   private HTMLDivElement progressElement;
   private ProgressBar progressBar;
-  private final HTMLElement deleteIcon = Icons.ALL.delete().element();
-  private final HTMLElement cancelIcon = Icons.ALL.cancel().element();
-  private final HTMLElement refreshIcon = Icons.ALL.refresh().element();
+  private final HTMLElement deleteIcon = Icons.ALL.delete_mdi().element();
+  private final HTMLElement cancelIcon = Icons.ALL.cancel_mdi().element();
+  private final HTMLElement refreshIcon = Icons.ALL.refresh_mdi().element();
 
   private final File file;
   private final UploadOptions options;

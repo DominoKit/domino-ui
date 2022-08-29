@@ -27,7 +27,7 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
-import org.dominokit.domino.ui.utils.HasChangeHandlers;
+import org.dominokit.domino.ui.utils.HasChangeListeners;
 
 /**
  * Provides current location in a navigational hierarchy.
@@ -52,12 +52,12 @@ import org.dominokit.domino.ui.utils.HasChangeHandlers;
  * @see BreadcrumbItem
  */
 public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
-    implements HasBackground<Breadcrumb>, HasChangeHandlers<Breadcrumb, BreadcrumbItem> {
+    implements HasBackground<Breadcrumb>, HasChangeListeners<Breadcrumb, BreadcrumbItem> {
 
   private final DominoElement<HTMLOListElement> element =
       DominoElement.of(ol()).css(BreadcrumbStyles.BREADCRUMB);
   private final List<BreadcrumbItem> items = new ArrayList<>();
-  private final List<ChangeHandler<? super BreadcrumbItem>> changeHandlers = new ArrayList<>();
+  private final List<ChangeListener<? super BreadcrumbItem>> changeListeners = new ArrayList<>();
   private BreadcrumbItem activeItem;
   private boolean removeTail = false;
   private Color activeColor;
@@ -234,7 +234,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
       }
     }
 
-    if (!silent) changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(activeItem));
+    if (!silent) changeListeners.forEach(changeHandler -> changeHandler.onValueChanged(activeItem));
 
     return this;
   }
@@ -339,21 +339,21 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
 
   /** {@inheritDoc} */
   @Override
-  public Breadcrumb addChangeHandler(ChangeHandler<? super BreadcrumbItem> changeHandler) {
-    changeHandlers.add(changeHandler);
+  public Breadcrumb addChangeListener(ChangeListener<? super BreadcrumbItem> changeListener) {
+    changeListeners.add(changeListener);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public Breadcrumb removeChangeHandler(ChangeHandler<? super BreadcrumbItem> changeHandler) {
-    changeHandlers.remove(changeHandler);
+  public Breadcrumb removeChangeListener(ChangeListener<? super BreadcrumbItem> changeListener) {
+    changeListeners.remove(changeListener);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public boolean hasChangeHandler(ChangeHandler<? super BreadcrumbItem> changeHandler) {
-    return changeHandlers.contains(changeHandler);
+  public boolean hasChangeListener(ChangeListener<? super BreadcrumbItem> changeListener) {
+    return changeListeners.contains(changeListener);
   }
 }

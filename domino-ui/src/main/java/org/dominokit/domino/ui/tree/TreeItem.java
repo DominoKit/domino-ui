@@ -136,7 +136,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
   }
 
   public TreeItem(String title) {
-    this(title, Icons.ALL.folder().setCssProperty("visibility", "hidden"));
+    this(title, Icons.ALL.folder_mdi().setCssProperty("visibility", "hidden"));
   }
 
   public TreeItem(BaseIcon<?> icon) {
@@ -241,7 +241,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     element().appendChild(childrenContainer);
     collapsible =
         Collapsible.create(childrenContainer)
-            .setStrategy(DominoUIConfig.INSTANCE.getDefaultTreeCollapseStrategySupplier().get(this))
+            .setStrategy(DominoUIConfig.CONFIG.getDefaultTreeCollapseStrategySupplier().get(this))
             .addHideHandler(
                 () -> {
                   anchorElement.removeCss("toggled");
@@ -390,13 +390,6 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
       collapsible.toggleDisplay();
     }
     return this;
-  }
-
-  /** @deprecated use {@link #isCollapsed()} {@inheritDoc} */
-  @Override
-  @Deprecated
-  public boolean isHidden() {
-    return collapsible.isCollapsed();
   }
 
   /** {@inheritDoc} */

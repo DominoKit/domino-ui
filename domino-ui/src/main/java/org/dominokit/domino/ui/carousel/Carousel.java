@@ -80,14 +80,14 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
       DominoElement.of(a())
           .css(LEFT, CAROUSEL_CONTROL)
           .attr("role", "button")
-          .add(Icons.ALL.chevron_left().addCss(Styles.vertical_center).setFontSize("60px"))
+          .add(Icons.ALL.chevron_left_mdi().addCss(Styles.vertical_center).setFontSize("60px"))
           .element();
 
   private final HTMLAnchorElement nextElement =
       DominoElement.of(a())
           .css(RIGHT, CAROUSEL_CONTROL)
           .attr("role", "button")
-          .add(Icons.ALL.chevron_right().addCss(Styles.vertical_center).setFontSize("60px"))
+          .add(Icons.ALL.chevron_right_mdi().addCss(Styles.vertical_center).setFontSize("60px"))
           .element();
 
   private final HTMLDivElement element =

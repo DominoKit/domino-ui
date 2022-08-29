@@ -16,21 +16,17 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
-import static org.jboss.elemento.Elements.label;
+import static org.dominokit.domino.ui.forms.FormsStyles.FIELD_ERROR;
 
 import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.forms.validations.ElementValidations;
 import org.dominokit.domino.ui.forms.validations.RequiredValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
-import org.dominokit.domino.ui.utils.IsReadOnly;
+import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.EditorError;
 import org.gwtproject.safehtml.shared.SafeHtml;
 import org.jboss.elemento.IsElement;
@@ -43,7 +39,7 @@ import org.jboss.elemento.IsElement;
  */
 public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
     extends BaseDominoElement<HTMLElement, T>
-    implements FormElement<T, V>, IsReadOnly<T>, HasInputElement {
+    implements FormElement<T, V>, AcceptReadOnly<T>, HasInputElement {
 
   private static final String NAME = "name";
   private ElementValidations elementValidations = new ElementValidations(this);
@@ -51,10 +47,9 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
   private String helperText;
   private boolean fixErrorsPosition;
   private String requiredErrorMessage;
-  private List<HTMLElement> errorLabels = new ArrayList<>();
   private List<String> errors = new ArrayList<>();
   private boolean validationDisabled = false;
-  private Node requiredIndicator = DominoUIConfig.INSTANCE.getRequiredIndicator().get();
+  private Node requiredIndicator = DominoUIConfig.CONFIG.getRequiredIndicator().get();
   private boolean showRequiredIndicator = true;
 
   /** {@inheritDoc} */
@@ -86,15 +81,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
 
   /** {@inheritDoc} */
   @Override
-  public T setLabel(String label) {
-    updateLabel(label);
-    return (T) this;
-  }
-
-  /** @param label String new label to replace the old one */
-  protected void updateLabel(String label) {
-    getLabelTextElement().ifPresent(labelElement -> labelElement.setTextContent(label));
-  }
+  public abstract T setLabel(String label);
 
   /**
    * Sets the label as a custom element
@@ -102,10 +89,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
    * @param node {@link Node} label element
    * @return same form element class
    */
-  public T setLabel(Node node) {
-    getLabelTextElement().ifPresent(labelElement -> labelElement.clearElement().appendChild(node));
-    return (T) this;
-  }
+  public abstract T setLabel(Node node);
 
   /**
    * Sets the label from html
@@ -113,11 +97,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
    * @param safeHtml {@link SafeHtml}
    * @return same form element class
    */
-  public T setLabel(SafeHtml safeHtml) {
-    getLabelTextElement()
-        .ifPresent(labelElement -> labelElement.clearElement().setInnerHtml(safeHtml.asString()));
-    return (T) this;
-  }
+  public abstract T setLabel(SafeHtml safeHtml);
 
   /**
    * Sets the label from an element
@@ -125,18 +105,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
    * @param element {@link IsElement}
    * @return same form element class
    */
-  public T setLabel(IsElement<?> element) {
-    return setLabel(element.element());
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Optional<String> getLabel() {
-    if (getLabelTextElement().isPresent()) {
-      return Optional.of(getLabelTextElement().get().getTextContent());
-    }
-    return Optional.empty();
-  }
+  public abstract T setLabel(IsElement<?> element);
 
   /** {@inheritDoc} */
   @Override
@@ -220,77 +189,45 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
   /** {@inheritDoc} */
   @Override
   public T invalidate(List<String> errorMessages) {
-    getHelperContainer().toggleDisplay(errorMessages.isEmpty());
     removeErrors();
-    if (!fixErrorsPosition) {
-      getErrorsContainer().toggleDisplay(!errorMessages.isEmpty());
-    } else {
-      getErrorsContainer().show();
-    }
-
-    if (!errorMessages.isEmpty()) {
-      css("error");
-    } else {
-      removeCss("error");
-    }
-
     errorMessages.forEach(
         message -> {
-          HTMLLabelElement errorLabel = makeErrorLabel(message);
-          errorLabels.add(errorLabel);
-          getErrorsContainer().appendChild(errorLabel);
+          this.errors.add(message);
+          getHelperContainer()
+              .appendChild(DominoElement.span().addCss(FIELD_ERROR).textContent(message).element());
         });
-
-    this.errors.clear();
-    this.errors.addAll(errorMessages);
 
     return (T) this;
   }
 
   /**
-   * Temporary disable validation then apply the {@link FieldHandler} logic then restore the
+   * Temporary disable validation then apply the {@link Handler} logic then restore the
    * validationDisabled original state
    *
-   * @param fieldHandler {@link FieldHandler}
+   * @param handler {@link Handler}
    * @return same form element class
    */
-  public T withValidationDisabled(FieldHandler<T> fieldHandler) {
+  public T withValidationDisabled(Handler<T> handler) {
     boolean validationState = this.validationDisabled;
     try {
       this.validationDisabled = true;
-      fieldHandler.apply((T) this);
+      handler.apply((T) this);
     } finally {
       this.validationDisabled = validationState;
     }
     return (T) this;
   }
 
-  /**
-   * Creates a label and apply error styles on it
-   *
-   * @param message String error message
-   * @return same form element instance
-   */
-  protected HTMLLabelElement makeErrorLabel(String message) {
-    return DominoElement.of(label()).css("error").textContent(message).element();
-  }
-
   /** {@inheritDoc} */
   @Override
   public T clearInvalid() {
-    getHelperContainer().show();
     removeErrors();
-    if (!fixErrorsPosition) {
-      getErrorsContainer().hide();
-    }
     return (T) this;
   }
 
   private void removeErrors() {
-    errorLabels.clear();
     errors.clear();
-    getErrorsContainer().clearElement();
-    removeCss("error");
+    getHelperContainer().querySelectorAll("." + FIELD_ERROR).forEach(BaseDominoElement::remove);
   }
 
   /** {@inheritDoc} */
@@ -301,7 +238,9 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
 
   /** */
   public List<HTMLElement> getErrorLabels() {
-    return errorLabels;
+    return getHelperContainer().querySelectorAll("." + FIELD_ERROR).stream()
+        .map(DominoElement::element)
+        .collect(Collectors.toList());
   }
 
   /** {@inheritDoc} */
@@ -311,7 +250,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
     if (required) {
       addValidator(requiredValidator);
       if (this.showRequiredIndicator) {
-        DominoUIConfig.INSTANCE
+        DominoUIConfig.CONFIG
             .getRequiredIndicatorRenderer()
             .appendRequiredIndicator((T) this, requiredIndicator);
       }
@@ -322,7 +261,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
   }
 
   private void removeRequiredIndicator() {
-    DominoUIConfig.INSTANCE
+    DominoUIConfig.CONFIG
         .getRequiredIndicatorRenderer()
         .removeRequiredIndicator(this, requiredIndicator);
   }
@@ -364,7 +303,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
     this.showRequiredIndicator = showRequiredIndicator;
     removeRequiredIndicator();
     if (showRequiredIndicator && isRequired()) {
-      getLabelElement().ifPresent(labelElement -> labelElement.appendChild(requiredIndicator));
+      getLabelElement().appendChild(requiredIndicator);
     }
     return (T) this;
   }
@@ -410,46 +349,18 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
   }
 
   /**
-   * @return the {@link HTMLDivElement} that contains this field input element wrapped as {@link
-   *     DominoElement}
-   */
-  protected abstract DominoElement<HTMLDivElement> getFieldInputContainer();
-
-  /**
-   * @return the {@link HTMLDivElement} that contains this field wrapped as {@link DominoElement}
-   */
-  protected abstract DominoElement<HTMLDivElement> getFieldContainer();
-
-  /**
    * @return the {@link HTMLElement} that contains this field helper text element wrapped as {@link
    *     DominoElement}
    */
   protected abstract DominoElement<HTMLElement> getHelperContainer();
 
-  /**
-   * @return the {@link HTMLElement} that contains this field errors element wrapped as {@link
-   *     DominoElement}
-   */
-  protected abstract DominoElement<HTMLElement> getErrorsContainer();
-
   /** @return the field {@link HTMLLabelElement} wrapped as {@link DominoElement} */
-  public abstract Optional<DominoElement<HTMLLabelElement>> getLabelElement();
-
-  /**
-   * @return the {@link HTMLDivElement} that contains this field additional info element wrapped as
-   *     {@link DominoElement}
-   */
-  public abstract DominoElement<HTMLDivElement> getAdditionalInfoContainer();
+  public abstract DominoElement<HTMLLabelElement> getLabelElement();
 
   /**
    * @return the {@link HTMLElement} that contains the label text wrapped as {@link DominoElement}
    */
-  public Optional<DominoElement<HTMLElement>> getLabelTextElement() {
-    if (getLabelElement().isPresent()) {
-      return Optional.of(DominoElement.of(getLabelElement().get().element()));
-    }
-    return Optional.empty();
-  }
+  public abstract DominoElement<HTMLElement> getLabelTextElement();
 
   /** {@inheritDoc} */
   @Override
@@ -467,14 +378,4 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
     }
   }
 
-  /**
-   * a Generic function to apply some logic on a field without triggering validation
-   *
-   * @param <T> the the field
-   */
-  @FunctionalInterface
-  public interface FieldHandler<T> {
-    /** @param field T the field we apply the logic on */
-    void apply(T field);
-  }
 }

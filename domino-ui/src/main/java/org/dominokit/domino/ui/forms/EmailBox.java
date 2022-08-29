@@ -21,7 +21,14 @@ package org.dominokit.domino.ui.forms;
  * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email">Email input
  *     on MDN</a>
  */
-public class EmailBox extends InputValueBox<EmailBox> {
+public class EmailBox extends TextBox {
+
+  /**
+   * Creates a new instance with a label
+   *
+   */
+  public EmailBox() {
+  }
 
   /**
    * Creates a new instance with a label
@@ -29,17 +36,23 @@ public class EmailBox extends InputValueBox<EmailBox> {
    * @param label String
    */
   public EmailBox(String label) {
-    super("email", label);
+    super(label);
   }
 
   /** @return a new instance without a label */
   public static EmailBox create() {
-    return create("");
+    return new EmailBox();
   }
 
   /** @return a new instance with a label */
   public static EmailBox create(String label) {
     return new EmailBox(label);
+  }
+
+
+  @Override
+  public String getType() {
+    return "email";
   }
 
   /**

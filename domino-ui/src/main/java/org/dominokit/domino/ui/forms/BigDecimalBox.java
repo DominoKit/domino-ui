@@ -37,7 +37,7 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
 
   /** Create instance without a label */
   public BigDecimalBox() {
-    this("");
+    setDefaultValue(BigDecimal.ZERO);
   }
 
   /**
@@ -46,13 +46,8 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
    * @param label String
    */
   public BigDecimalBox(String label) {
-    super(label);
-  }
-
-  /** {@inheritDoc} clears the field and set the value to BigDecimal.ZERO */
-  @Override
-  protected void clearValue(boolean silent) {
-    value(BigDecimal.ZERO, silent);
+    this();
+    setLabel(label);
   }
 
   /**
@@ -62,7 +57,7 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
    */
   @Override
   protected Function<String, BigDecimal> defaultValueParser() {
-    return DominoUIConfig.INSTANCE.getNumberParsers().bigDecimalParser(this);
+    return DominoUIConfig.CONFIG.getNumberParsers().bigDecimalParser(this);
   }
 
   /** {@inheritDoc} */

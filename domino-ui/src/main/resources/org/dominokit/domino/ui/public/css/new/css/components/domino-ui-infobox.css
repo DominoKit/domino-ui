@@ -1,0 +1,116 @@
+.dui-info-box {
+    height: auto;
+    display: flex;
+    cursor: default;
+    background-color: var(--dui-info-background-color);
+    position: relative;
+    overflow: hidden;
+    margin: var(--dui-info-margin);
+    color: var(--dui-info-color);
+}
+
+.dui-info-flipped {
+    height: var(--dui-info-flipped-height);
+}
+
+.dui-info-icon {
+    display: inline-block;
+    text-align: center;
+    min-width: var(--dui-info-icon-size);
+    width: var(--dui-info-icon-size);
+    color: var(--dui-info-icon-color);
+}
+
+.dui-info-flipped .dui-info-icon {
+    position: absolute;
+    right: var(--dui-info-flipped-icon-right);
+    min-width: var(--dui-info-flipped-icon-size);
+}
+
+.dui-info-icon i.dui {
+    min-width: var(--dui-info-icon-size);
+    min-height: var(--dui-info-icon-size);
+}
+
+.dui-info-icon i.dui.mdi,
+.dui-info-icon i.dui.mdi:before {
+    font-size: var(--dui-info-icon-font-size);
+    min-width: var(--dui-info-icon-size);
+    line-height: var(--dui-info-icon-size);
+}
+
+.dui-info-content {
+    display: inline-block;
+    padding: var(--dui-info-content-padding);
+}
+
+.dui-info-text {
+    font-size: var(--dui-info-text-font-size);
+    margin: var(--dui-info-text-margin);
+}
+
+.dui-info-number {
+    font: var(--dui-info-number-font);
+    margin: var(--dui-info-number-margin);
+}
+
+.dui-info-flipped .dui-info-content {
+    padding: var(--dui-info-flipped-content-padding);
+}
+
+.dui-info-hover-zoom .dui-info-icon {
+    overflow: hidden;
+}
+
+.dui-info-hover-zoom .dui-info-icon i.dui,
+.dui-info-hover-zoom .dui-info-icon i.dui.mdi:before {
+    transition: all var(--dui-info-hover-duration) ease;
+}
+
+.dui-info-hover-zoom:hover .dui-info-icon i.dui,
+.dui-info-hover-zooms:hover .dui-info-icon i.dui.mdi:before {
+    opacity: 0.4;
+    transform: rotate(var(--dui-info-hover-rotation)) scale(var(--dui-info-hover-scale));
+}
+
+.dui-info-hover-expand:after {
+    background-color: rgba(0, 0, 0, 0.05);
+    content: ".";
+    position: absolute;
+    left: 70px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    color: transparent;
+    -moz-transition: all var(--dui-info-expand-duration);
+    -o-transition: all var(--dui-info-expand-duration);
+    -webkit-transition: all var(--dui-info-expand-duration);
+    transition: all var(--dui-info-expand-duration);
+}
+
+.dui-info-hover-expand:hover:after {
+    width: 100%;
+}
+
+.dui-info-flipped.dui-info-hover-zoom .dui-info-icon i.dui,
+.dui-info-flipped.dui-info-hover-zoom .dui-info-icon i.dui.mdi:before {
+    transition: all var(--dui-info-hover-duration) ease;
+}
+
+.dui-info-flipped.dui-info-hover-zoom:hover .dui-info-icon i.dui,
+.dui-info-flipped.dui-info-hover-zoom:hover .dui-info-icon i.dui.mdi:before {
+    opacity: 0.4;
+    transform: rotate(var(--dui-info-hover-rotation)) scale(var(--dui-info-hover-scale));
+}
+
+.dui-info-flipped.dui-info-hover-expand:after {
+    background-color: rgba(0, 0, 0, 0.05);
+    content: ".";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    color: transparent;
+    transition: all var(--dui-info-expand-duration);
+}

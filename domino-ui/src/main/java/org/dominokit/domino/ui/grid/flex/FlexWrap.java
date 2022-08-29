@@ -15,10 +15,10 @@
  */
 package org.dominokit.domino.ui.grid.flex;
 
-import org.dominokit.domino.ui.style.IsCssClass;
+import org.dominokit.domino.ui.style.IsCss;
 
 /** An enum representing the wrapping of the layout */
-public enum FlexWrap implements IsCssClass {
+public enum FlexWrap implements IsCss {
   /** No wrap of the items */
   NO_WRAP(FlexStyles.FLEX_WRAP_NOWRAP),
   /** Wrap the items from top to bottom */

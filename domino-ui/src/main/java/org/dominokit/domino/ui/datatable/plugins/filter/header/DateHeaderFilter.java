@@ -85,7 +85,7 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
                     FilterTypes.DATE));
           }
         });
-    dateBox.addChangeHandler(value -> searchContext.fireSearchEvent());
+    dateBox.addChangeListener(value -> searchContext.fireSearchEvent());
   }
 
   /** {@inheritDoc} */
