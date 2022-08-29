@@ -177,6 +177,13 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return this;
   }
 
+  public void redraw() {
+    tableConfig.onBeforeHeaders(this);
+    tableConfig.drawHeaders(this, thead);
+    tableConfig.onAfterHeaders(this);
+    load();
+  }
+
   private void updateTableWidth() {
     final long w =
         tableElement.element().offsetWidth + Math.round(tableElement.element().scrollLeft);

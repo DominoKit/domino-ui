@@ -16,6 +16,8 @@
 package org.dominokit.domino.ui.datatable.store;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.datatable.events.RecordDraggedOutEvent.RECORD_DRAGGED_OUT;
+import static org.dominokit.domino.ui.datatable.events.RecordDroppedEvent.RECORD_DROPPED;
 import static org.dominokit.domino.ui.datatable.events.SearchEvent.SEARCH_EVENT;
 import static org.dominokit.domino.ui.datatable.events.SortEvent.SORT_EVENT;
 import static org.dominokit.domino.ui.datatable.events.TablePageChangeEvent.PAGINATION_EVENT;
@@ -25,9 +27,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.dominokit.domino.ui.datatable.events.SearchEvent;
-import org.dominokit.domino.ui.datatable.events.SortEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
+import org.dominokit.domino.ui.datatable.events.*;
 import org.dominokit.domino.ui.datatable.plugins.SortDirection;
 import org.dominokit.domino.ui.pagination.HasPagination;
 
@@ -39,7 +39,7 @@ import org.dominokit.domino.ui.pagination.HasPagination;
  */
 public class LocalListDataStore<T> implements DataStore<T> {
 
-  private List<StoreDataChangeListener<T>> listeners = new ArrayList<>();
+  private final List<StoreDataChangeListener<T>> listeners = new ArrayList<>();
 
   private final List<T> original;
   private List<T> filtered;
@@ -52,6 +52,32 @@ public class LocalListDataStore<T> implements DataStore<T> {
   private String autoSortBy = "*";
   private SortDirection autoSortDirection = SortDirection.ASC;
   private boolean autSortApplied = false;
+
+  private DragDropRecordActions<T> dragDropRecordActions =
+      new DragDropRecordActions<T>() {
+        @Override
+        public void onDropped(T droppedRecord, T target) {
+          int movedIndex = filtered.indexOf(droppedRecord);
+          int targetIndex = filtered.size();
+          if (nonNull(target)) {
+            targetIndex = filtered.indexOf(target);
+          }
+          if (movedIndex > -1) {
+            filtered.remove(movedIndex);
+          }
+          if (targetIndex > -1) {
+            filtered.add(targetIndex, droppedRecord);
+          }
+        }
+
+        @Override
+        public void onDraggedOut(T draggedOutRecord) {
+          int removedIndex = filtered.indexOf(draggedOutRecord);
+          if (removedIndex > -1) {
+            filtered.remove(removedIndex);
+          }
+        }
+      };
 
   /** Creates an instance initialized with empty list */
   public LocalListDataStore() {
@@ -217,7 +243,30 @@ public class LocalListDataStore<T> implements DataStore<T> {
       case PAGINATION_EVENT:
         onPageChanged();
         break;
+      case RECORD_DROPPED:
+        handleDropEvent((RecordDroppedEvent<T>) event);
+        break;
+      case RECORD_DRAGGED_OUT:
+        handleDraggedOutEvent((RecordDraggedOutEvent<T>) event);
+        break;
     }
+  }
+
+  private void handleDraggedOutEvent(RecordDraggedOutEvent<T> event) {
+    T rowToRemove = event.getDraggedOutRecord();
+
+    dragDropRecordActions.onDraggedOut(rowToRemove);
+
+    fireUpdate(true);
+  }
+
+  private void handleDropEvent(RecordDroppedEvent<T> event) {
+    T movedRow = event.getDroppedRecord();
+    T targetRow = event.getTargetRecord();
+
+    dragDropRecordActions.onDropped(movedRow, targetRow);
+
+    fireUpdate(true);
   }
 
   private void onSearchChanged(SearchEvent event) {
@@ -429,5 +478,32 @@ public class LocalListDataStore<T> implements DataStore<T> {
    */
   public List<T> getFilteredRecords() {
     return new ArrayList<>(filtered);
+  }
+
+  /** @param dragDropRecordActions the {@link DragDropRecordActions} handler */
+  public void setDragDropRecordActions(DragDropRecordActions<T> dragDropRecordActions) {
+    this.dragDropRecordActions = dragDropRecordActions;
+  }
+
+  /**
+   * An interface that allows applying actions on a record such as moving and removing it
+   *
+   * @param <T> the type of the data table records
+   */
+  public interface DragDropRecordActions<T> {
+    /**
+     * On record gets dropped to a target
+     *
+     * @param droppedRecord the record to be moved
+     * @param target the target record to move to
+     */
+    void onDropped(T droppedRecord, T target);
+
+    /**
+     * On record gets dragged out
+     *
+     * @param draggedOutRecord the record to remove
+     */
+    void onDraggedOut(T draggedOutRecord);
   }
 }

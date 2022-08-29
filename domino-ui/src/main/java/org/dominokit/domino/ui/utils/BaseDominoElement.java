@@ -1961,6 +1961,24 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   @Override
+  public T setOverFlowY(String overflow, boolean important) {
+    style().setOverFlowY(overflow, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setOverFlowX(String overflow) {
+    style().setOverFlowX(overflow);
+    return (T) this;
+  }
+
+  @Override
+  public T setOverFlowX(String overflow, boolean important) {
+    style().setOverFlowX(overflow, important);
+    return (T) this;
+  }
+
+  @Override
   public T setBoxShadow(String boxShadow) {
     style().setBoxShadow(boxShadow);
     return (T) this;

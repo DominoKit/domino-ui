@@ -15,28 +15,32 @@
  */
 package org.dominokit.domino.ui.style;
 
+import static java.util.Objects.isNull;
+
 /** An enum representing the css units */
 public enum Unit {
-  px(value -> value + "px"),
-  q(value -> value + "q"),
-  mm(value -> value + "mm"),
-  cm(value -> value + "cm"),
-  in(value -> value + "in"),
-  pt(value -> value + "pt"),
-  pc(value -> value + "pc"),
-  em(value -> value + "em"),
-  rem(value -> value + "rem"),
-  ex(value -> value + "ex"),
-  ch(value -> value + "ch"),
-  vw(value -> value + "vw"),
-  vh(value -> value + "vh"),
-  percent(value -> value + "%"),
-  none(value -> value + "");
+  px(value -> value + "px", Constants.parser(2)),
+  q(value -> value + "q", Constants.parser(1)),
+  mm(value -> value + "mm", Constants.parser(2)),
+  cm(value -> value + "cm", Constants.parser(2)),
+  in(value -> value + "in", Constants.parser(2)),
+  pt(value -> value + "pt", Constants.parser(2)),
+  pc(value -> value + "pc", Constants.parser(2)),
+  em(value -> value + "em", Constants.parser(2)),
+  rem(value -> value + "rem", Constants.parser(3)),
+  ex(value -> value + "ex", Constants.parser(2)),
+  ch(value -> value + "ch", Constants.parser(2)),
+  vw(value -> value + "vw", Constants.parser(2)),
+  vh(value -> value + "vh", Constants.parser(2)),
+  percent(value -> value + "%", Constants.parser(1)),
+  none(value -> value + "", Constants.parser(0));
 
   private final UnitFormatter unitFormatter;
+  private final UnitParser unitParser;
 
-  Unit(UnitFormatter unitFormatter) {
+  Unit(UnitFormatter unitFormatter, UnitParser unitParser) {
     this.unitFormatter = unitFormatter;
+    this.unitParser = unitParser;
   }
 
   /**
@@ -49,9 +53,31 @@ public enum Unit {
     return unitFormatter.format(value);
   }
 
+  /**
+   * Parses the string based on the unit
+   *
+   * @param value the string value
+   * @return the number value
+   */
+  public Number parse(String value) {
+    return unitParser.parse(value);
+  }
+
   /** A formatter for formatting the number value based on the unit */
   @FunctionalInterface
   public interface UnitFormatter {
     String format(Number value);
+  }
+  /** A formatter for formatting the number value based on the unit */
+  @FunctionalInterface
+  public interface UnitParser {
+    Number parse(String value);
+  }
+
+  private static class Constants {
+    private static UnitParser parser(int numOfChars) {
+      return value ->
+          isNull(value) ? 0 : Double.parseDouble(value.substring(0, value.length() - numOfChars));
+    }
   }
 }
