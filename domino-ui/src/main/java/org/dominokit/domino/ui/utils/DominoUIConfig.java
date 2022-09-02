@@ -39,6 +39,7 @@ import org.dominokit.domino.ui.forms.IntegerBox;
 import org.dominokit.domino.ui.forms.LongBox;
 import org.dominokit.domino.ui.forms.ShortBox;
 import org.dominokit.domino.ui.forms.ValueBox;
+import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.tree.TreeItem;
 
 /**
@@ -100,6 +101,7 @@ public class DominoUIConfig {
   private NumberParsers numberParsers = new NumberParsers() {};
 
   private boolean focusNextFieldOnEnter = false;
+  private int defaultButtonElevation = 1;
 
   protected DominoUIConfig() {}
 
@@ -332,6 +334,15 @@ public class DominoUIConfig {
    */
   public DominoUIConfig setFocusNextFieldOnEnter(boolean focusNextFieldOnEnter) {
     this.focusNextFieldOnEnter = focusNextFieldOnEnter;
+    return this;
+  }
+
+  public int getDefaultButtonElevation() {
+    return defaultButtonElevation;
+  }
+
+  public DominoUIConfig setDefaultButtonElevation(int defaultButtonElevation) {
+    this.defaultButtonElevation = defaultButtonElevation;
     return this;
   }
 
