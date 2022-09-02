@@ -100,6 +100,7 @@ public class DominoUIConfig {
   private NumberParsers numberParsers = new NumberParsers() {};
 
   private boolean focusNextFieldOnEnter = false;
+  private int defaultButtonElevation = 1;
 
   protected DominoUIConfig() {}
 
@@ -332,6 +333,15 @@ public class DominoUIConfig {
    */
   public DominoUIConfig setFocusNextFieldOnEnter(boolean focusNextFieldOnEnter) {
     this.focusNextFieldOnEnter = focusNextFieldOnEnter;
+    return this;
+  }
+
+  public int getDefaultButtonElevation() {
+    return defaultButtonElevation;
+  }
+
+  public DominoUIConfig setDefaultButtonElevation(int defaultButtonElevation) {
+    this.defaultButtonElevation = defaultButtonElevation;
     return this;
   }
 
