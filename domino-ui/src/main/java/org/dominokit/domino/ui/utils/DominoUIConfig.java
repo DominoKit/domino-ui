@@ -39,7 +39,6 @@ import org.dominokit.domino.ui.forms.IntegerBox;
 import org.dominokit.domino.ui.forms.LongBox;
 import org.dominokit.domino.ui.forms.ShortBox;
 import org.dominokit.domino.ui.forms.ValueBox;
-import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.tree.TreeItem;
 
 /**

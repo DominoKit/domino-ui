@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.scroll;
 
+import static elemental2.dom.DomGlobal.document;
+
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.BaseButton;
 import org.dominokit.domino.ui.button.ButtonSize;
@@ -23,8 +25,6 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.elemento.EventType;
-
-import static elemental2.dom.DomGlobal.document;
 
 /**
  * A component that show up in a specific position on the screen only when the user scrolls down and
