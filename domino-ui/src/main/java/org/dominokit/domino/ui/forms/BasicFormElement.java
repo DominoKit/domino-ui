@@ -351,7 +351,9 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
   /** {@inheritDoc} */
   @Override
   public String getRequiredErrorMessage() {
-    return isNull(requiredErrorMessage) ? "* This field is required." : requiredErrorMessage;
+    return isNull(requiredErrorMessage)
+        ? DominoUIConfig.INSTANCE.getDefaultRequiredMessage()
+        : requiredErrorMessage;
   }
 
   /**
