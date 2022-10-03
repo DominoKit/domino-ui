@@ -436,8 +436,8 @@ body.modal-open {
     border-top-right-radius: 4px;
 }
 
-.modal-open .modal.right-sheet,
-.modal-open .modal.left-sheet {
+.modal.right-sheet.fade.in,
+.modal.left-sheet.fade.in {
     height: calc(100vh);
     overflow-y: hidden;
 }
