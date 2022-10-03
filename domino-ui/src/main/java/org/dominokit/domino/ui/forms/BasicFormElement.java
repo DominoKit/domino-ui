@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import static java.util.Objects.isNull;
 import static org.jboss.elemento.Elements.label;
 
 import elemental2.dom.*;
@@ -50,7 +49,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
   private RequiredValidator requiredValidator = new RequiredValidator(this);
   private String helperText;
   private boolean fixErrorsPosition;
-  private String requiredErrorMessage;
+  private String requiredErrorMessage = DominoUIConfig.INSTANCE.getDefaultRequiredMessage();
   private List<HTMLElement> errorLabels = new ArrayList<>();
   private List<String> errors = new ArrayList<>();
   private boolean validationDisabled = false;
@@ -351,7 +350,7 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
   /** {@inheritDoc} */
   @Override
   public String getRequiredErrorMessage() {
-    return isNull(requiredErrorMessage) ? "* This field is required." : requiredErrorMessage;
+    return requiredErrorMessage;
   }
 
   /**
