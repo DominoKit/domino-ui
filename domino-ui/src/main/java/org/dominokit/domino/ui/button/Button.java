@@ -19,6 +19,7 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.StyleType;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * a simple button component
@@ -46,7 +47,7 @@ public class Button extends BaseButton<Button> {
   /** creates a Button without a text and with {@link Elevation#LEVEL_1} */
   public Button() {
     init(this);
-    elevate(Elevation.LEVEL_1);
+    elevate(DominoUIConfig.INSTANCE.getDefaultButtonElevation());
   }
 
   /**

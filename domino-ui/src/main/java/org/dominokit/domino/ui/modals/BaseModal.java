@@ -124,6 +124,56 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     public DominoElement<HTMLDivElement> getModalHeader() {
       return DominoElement.of(modalHeader);
     }
+
+    public void setMinWidth(String width) {
+      modalDialog.setMinWidth(width);
+      modalContent.setMinWidth(width);
+    }
+
+    public void setMinWidth(String width, boolean important) {
+      modalDialog.setMinWidth(width, important);
+      modalContent.setMinWidth(width, important);
+    }
+
+    public void setMinHeight(String height) {
+      modalDialog.setMinHeight(height);
+      modalContent.setMinHeight(height);
+    }
+
+    public void setMinHeight(String height, boolean important) {
+      modalDialog.setMinHeight(height, important);
+      modalContent.setMinHeight(height, important);
+    }
+
+    public void setWidth(String width) {
+      modalDialog.setWidth(width);
+      modalContent.setWidth(width);
+    }
+
+    public void setWidth(String width, boolean important) {
+      modalDialog.setWidth(width, important);
+      modalContent.setWidth(width, important);
+    }
+
+    public void setMaxWidth(String width) {
+      modalDialog.setMaxWidth(width);
+      modalContent.setMaxWidth(width);
+    }
+
+    public void setMaxWidth(String width, boolean important) {
+      modalDialog.setMaxWidth(width, important);
+      modalContent.setMaxWidth(width, important);
+    }
+
+    public void setMaxHeight(String height) {
+      modalDialog.setMaxHeight(height);
+      modalContent.setMaxHeight(height);
+    }
+
+    public void setMaxHeight(String height, boolean important) {
+      modalDialog.setMaxHeight(height, important);
+      modalContent.setMaxHeight(height, important);
+    }
   }
 
   protected Modal modalElement;
@@ -607,6 +657,76 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
    */
   public T setAutoFocus(boolean autoFocus) {
     this.autoFocus = autoFocus;
+    return (T) this;
+  }
+
+  @Override
+  public T setWidth(String width) {
+    super.setWidth(width);
+    modalElement.setWidth(width);
+    return (T) this;
+  }
+
+  @Override
+  public T setWidth(String width, boolean important) {
+    super.setWidth(width, important);
+    modalElement.setWidth(width, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMaxWidth(String width) {
+    super.setMaxWidth(width);
+    modalElement.setMaxWidth(width);
+    return (T) this;
+  }
+
+  @Override
+  public T setMaxWidth(String width, boolean important) {
+    super.setMaxWidth(width, important);
+    modalElement.setMaxWidth(width, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMaxHeight(String height) {
+    super.setMaxHeight(height);
+    modalElement.setMaxHeight(height);
+    return (T) this;
+  }
+
+  @Override
+  public T setMaxHeight(String height, boolean important) {
+    super.setMaxHeight(height, important);
+    modalElement.setMaxHeight(height, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMinWidth(String width) {
+    super.setMinWidth(width);
+    modalElement.setMinWidth(width);
+    return (T) this;
+  }
+
+  @Override
+  public T setMinWidth(String width, boolean important) {
+    super.setMinWidth(width, important);
+    modalElement.setMinWidth(width, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMinHeight(String height) {
+    super.setMinHeight(height);
+    modalElement.setMinHeight(height);
+    return (T) this;
+  }
+
+  @Override
+  public T setMinHeight(String height, boolean important) {
+    super.setMinHeight(height, important);
+    modalElement.setMinHeight(height, important);
     return (T) this;
   }
 }

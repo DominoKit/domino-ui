@@ -24,9 +24,9 @@ import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.StyleType;
 import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * A Button with dropdown menu component
@@ -279,7 +279,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
     caretIcon.addCss(Styles.pull_right);
     buttonElement.appendChild(caretIcon);
     init(this);
-    elevate(Elevation.LEVEL_1);
+    elevate(DominoUIConfig.INSTANCE.getDefaultButtonElevation());
   }
 
   private HTMLElement asDropDown() {
