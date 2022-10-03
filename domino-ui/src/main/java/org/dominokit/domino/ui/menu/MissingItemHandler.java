@@ -26,5 +26,5 @@ public interface MissingItemHandler<T> {
    * @param token String search token
    * @param menu the target menu
    */
-  void onMissingItem(String token, T menu);
+  void onMissingItem(String token, Menu<T> menu);
 }

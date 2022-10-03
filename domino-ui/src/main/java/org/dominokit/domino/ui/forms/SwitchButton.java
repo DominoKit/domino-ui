@@ -24,7 +24,7 @@ import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.Function;
+import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 import java.util.Optional;
@@ -236,7 +236,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
 
   /** {@inheritDoc} */
   @Override
-  public AutoValidator createAutoValidator(Function autoValidate) {
+  public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
     return new SwitchButtonAutoValidator(this,autoValidate);
   }
 
@@ -359,7 +359,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
     private SwitchButton switchButton;
     private ChangeListener<Boolean> changeListener;
 
-    public SwitchButtonAutoValidator(SwitchButton switchButton, Function autoValidate) {
+    public SwitchButtonAutoValidator(SwitchButton switchButton, ApplyFunction autoValidate) {
       super(autoValidate);
       this.switchButton = switchButton;
     }

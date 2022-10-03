@@ -5,7 +5,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
-import org.dominokit.domino.ui.utils.Function;
+import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
@@ -21,6 +21,7 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
 
     public InputFormField() {
         inputElement = createInputElement(getType());
+        labelForId(inputElement.getDominoId());
         wrapperElement.appendChild(inputElement);
         InputFieldInitializer.create((T) this)
                 .init(this);
@@ -63,8 +64,8 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
     }
 
     @Override
-    public AutoValidator createAutoValidator(Function autoValidate) {
-        return new InputAutoValidator(autoValidate);
+    public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
+        return new InputAutoValidator(autoValidate, getInputElement());
     }
 
     @Override
@@ -120,7 +121,7 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
 
     @Override
     public boolean isDisabled() {
-        return this.isDisabled() || getInputElement().isDisabled();
+        return super.isDisabled() || getInputElement().isDisabled();
     }
 
     @Override

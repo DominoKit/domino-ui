@@ -19,7 +19,7 @@ import elemental2.dom.HTMLElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-import org.dominokit.domino.ui.utils.Function;
+import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.*;
 
 import java.util.*;
@@ -367,15 +367,9 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping>, AcceptRead
     }
 
     @Override
-    public AutoValidator createAutoValidator(Function autoValidate) {
+    public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
         formElements.forEach(formElement -> formElement.createAutoValidator(autoValidate));
-        return new AutoValidator(autoValidate){
-            @Override
-            public void attach() {}
-
-            @Override
-            public void remove() {}
-        };
+        return new AutoValidator(autoValidate){};
     }
 
     @Override

@@ -215,6 +215,7 @@
                 <configuration>
                     <failOnError>false</failOnError>
                     <source>8</source>
+                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -229,6 +230,9 @@
                 <groupId>com.coveo</groupId>
                 <artifactId>fmt-maven-plugin</artifactId>
                 <version>${maven.fmt.plugin}</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -242,6 +246,7 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <version>${maven.license.plugin}</version>
                 <configuration>
+                    <skip>true</skip>
                     <header>LICENSE.header</header>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <skipExistingHeaders>true</skipExistingHeaders>

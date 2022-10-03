@@ -38,8 +38,6 @@ public interface FormElement<T, V>
         HasGrouping<T>,
         HasEditorErrors<V>,
         HasAddOns<T>,
-        HasPostfix<T>,
-        HasPrefix<T>,
         HasChangeListeners<T, V>,
         HasClearListeners<T, V>,
         AcceptDisable<T>,

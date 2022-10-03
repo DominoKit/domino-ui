@@ -19,7 +19,7 @@ import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.utils.*;
 
 /** Component that has input elements should implement this interface */
-public interface HasInputElement<T> extends Focusable<T>, CanChange<T> {
+public interface HasInputElement<T> extends Focusable<T>, CanChange {
   /** @return E the input element wrapped as {@link DominoElement} */
   DominoElement<HTMLInputElement> getInputElement();
 

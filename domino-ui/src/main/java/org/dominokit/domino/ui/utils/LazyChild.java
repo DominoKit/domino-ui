@@ -51,6 +51,10 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
     return this;
   }
 
+  public T element(){
+    return element;
+  }
+
   public LazyChild<T> initOrRemove(boolean state){
     if(state){
       get();

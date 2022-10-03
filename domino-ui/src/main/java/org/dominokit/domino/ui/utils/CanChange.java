@@ -5,8 +5,7 @@ import elemental2.dom.Event;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public interface CanChange<T> {
-
+public interface CanChange {
     default Optional<Consumer<Event>> onChange(){
         return Optional.empty();
     }

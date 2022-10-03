@@ -15,8 +15,11 @@
  */
 package org.dominokit.domino.ui.forms.validations;
 
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.forms.AutoValidator;
-import org.dominokit.domino.ui.utils.Function;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.jboss.elemento.EventType;
 
 /**
@@ -26,16 +29,29 @@ import org.jboss.elemento.EventType;
  */
 public class InputAutoValidator extends AutoValidator {
 
-  /** @param autoValidate {@link Function} */
-  public InputAutoValidator(Function autoValidate) {
+  private final DominoElement<HTMLInputElement> inputElement;
+  private final EventListener eventListener;
+
+  /**
+   * @param autoValidate {@link ApplyFunction}
+   * @param inputElement
+   */
+  public InputAutoValidator(ApplyFunction autoValidate, DominoElement<HTMLInputElement> inputElement) {
     super(autoValidate);
+    this.inputElement = inputElement;
+    eventListener = evt -> autoValidate.apply();
   }
 
   /** {@inheritDoc} */
   @Override
-  public void attach() {}
+  public void attach() {
+
+    inputElement.addEventListener("blur", eventListener);
+  }
 
   /** {@inheritDoc} */
   @Override
-  public void remove() {}
+  public void remove() {
+    inputElement.removeEventListener("blur", eventListener);
+  }
 }

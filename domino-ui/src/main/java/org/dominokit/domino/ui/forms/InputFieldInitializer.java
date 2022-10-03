@@ -1,7 +1,6 @@
 package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.Element;
-import elemental2.dom.Event;
 import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -10,8 +9,6 @@ import org.dominokit.domino.ui.utils.HasCounter;
 import org.dominokit.domino.ui.utils.HasMinMaxLength;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
 
 import static org.dominokit.domino.ui.forms.FormsStyles.FORM_FIELD;
 import static org.dominokit.domino.ui.keyboard.KeyboardEvents.listenOnKeyPress;
@@ -33,7 +30,6 @@ public class InputFieldInitializer<T extends FormElement<T, V> , V> {
     public InputFieldInitializer<T,V> init(HasInputElement<T> hasInput){
         DominoElement<HTMLInputElement> inputElement = hasInput.getInputElement();
         inputElement.addEventListener("change", evt -> {
-
             if(hasInput.onChange().isPresent()){
                 hasInput.onChange().get().accept(evt);
             }else {

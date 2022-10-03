@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import java.util.List;
 import java.util.Set;
 
 /**

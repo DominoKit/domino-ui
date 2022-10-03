@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.Collapsible;
-import org.dominokit.domino.ui.menu.AbstractMenu;
+import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.*;
@@ -1358,6 +1358,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     return element;
   }
 
+  /** @return boolean, true if the component is disabled */
+  public boolean isEnabled() {
+    return !isDisabled();
+  }
   /**
    * Disable/Enable the component base on provided flag
    *
@@ -2011,10 +2015,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /**
    * Set this element as the target element for the provided Drop menu
    *
-   * @param dropMenu {@link org.dominokit.domino.ui.menu.AbstractMenu}
+   * @param dropMenu {@link Menu}
    * @return same component
    */
-  public T setDropMenu(AbstractMenu<?, ?> dropMenu) {
+  public T setDropMenu(Menu<?> dropMenu) {
     if (nonNull(dropMenu)) {
       dropMenu.setTargetElement(this);
     }

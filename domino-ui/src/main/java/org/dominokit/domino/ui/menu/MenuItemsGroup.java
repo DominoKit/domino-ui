@@ -15,25 +15,51 @@
  */
 package org.dominokit.domino.ui.menu;
 
+import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.LazyChild;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MenuItemsGroup<
-        V, I extends AbstractMenuItem<V, I>, T extends MenuItemsGroup<V, I, T>>
-    extends AbstractMenuItem<V, MenuItemsGroup<V, I, T>> {
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.menu.MenuStyles.*;
 
+public class MenuItemsGroup<V, I extends AbstractMenuItem<V, I>>
+    extends AbstractMenuItem<V, MenuItemsGroup<V, I>> {
+
+  private final Menu<V> menu;
   private List<I> menuItems = new ArrayList<>();
 
-  public T appendChild(I menuItem) {
-    menuItem.bindToGroup(this);
-    getParent().appendChild(menuItem);
-    return (T) this;
+  private LazyChild<DominoElement<HTMLUListElement>> itemsListElement;
+
+  public MenuItemsGroup(Menu<V> menu) {
+    this.menu = menu;
+    removeCss(MENU_ITEM);
+    addCss(MENU_GROUP);
+    linkElement.removeCss(MENU_ITEM_ANCHOR);
+    linkElement.addCss(MENU_GROUP_HEADER);
+    itemsListElement = LazyChild.of(DominoElement.ul().addCss(MENU_ITEMS_LIST), root);
   }
 
-  public T removeItem(I menuItem) {
-    menuItem.unbindGroup();
-    parent.removeItem(menuItem);
-    return (T) this;
+  public MenuItemsGroup<V,I> appendChild(I menuItem) {
+    if (nonNull(menuItem)) {
+      menuItem.bindToGroup(this);
+      itemsListElement.get().appendChild(menuItem);
+      menuItems.add(menuItem);
+      menuItem.setParent(menu);
+      menu.onItemAdded(menuItem);
+    }
+    return this;
+  }
+
+  public MenuItemsGroup<V,I> removeItem(I menuItem) {
+    if (this.menuItems.contains(menuItem)) {
+      menuItem.unbindGroup();
+      menuItem.remove();
+      this.menuItems.remove(menuItem);
+    }
+    return this;
   }
 
   public List<I> getMenuItems() {
@@ -41,13 +67,7 @@ public abstract class MenuItemsGroup<
   }
 
   @Override
-  public boolean isItemsGroup() {
-    return true;
-  }
-
-  @Override
   public boolean onSearch(String token, boolean caseSensitive) {
-    return menuItems.stream().filter(menuItem -> menuItem.onSearch(token, caseSensitive)).count()
-        > 0;
+    return menuItems.stream().anyMatch(menuItem -> menuItem.onSearch(token, caseSensitive));
   }
 }

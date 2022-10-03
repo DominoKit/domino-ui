@@ -40,4 +40,8 @@ public class MenuStyles {
   public static final CssClass MENU_NO_RESULTS = () -> "dui-menu-no-results";
   public static final CssClass MENU_ITEM_SELECTED = () -> "dui-menu-item-selected";
   public static final CssClass MENU_ITEM_HINT = () -> "dui-menu-item-hint";
+  public static final CssClass MENU_GROUP = () -> "dui-menu-group";
+  public static final CssClass MENU_GROUP_HEADER = () -> "dui-menu-group-header";
+  public static final CssClass MENU_DROP = () -> "dui-menu-drop";
+
 }

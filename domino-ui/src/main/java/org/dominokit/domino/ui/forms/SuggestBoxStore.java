@@ -44,20 +44,20 @@ public interface SuggestBoxStore<T> {
    * suggestion
    *
    * @param searchValue T
-   * @param handler Consumer of {@link SuggestItem}
+   * @param handler Consumer of {@link SelectOption}
    */
-  void find(T searchValue, Consumer<SuggestItem<T>> handler);
+  void find(T searchValue, Consumer<SelectOption<T>> handler);
 
   /**
    * Defines how to check a single SuggestItem against the search text, default to SuggestItem
    * lowercase display text contains the search text
    *
    * @param searchValue String
-   * @param suggestItem {@link SuggestItem}
-   * @return boolean, true if the {@link SuggestItem} match the search text
+   * @param suggestItem {@link SelectOption}
+   * @return boolean, true if the {@link SelectOption} match the search text
    */
-  default boolean filterItem(String searchValue, SuggestItem<T> suggestItem) {
-    return suggestItem.getDisplayValue().toLowerCase().contains(searchValue.toLowerCase());
+  default boolean filterItem(String searchValue, SelectOption<T> suggestItem) {
+    return suggestItem.onSearch(searchValue, false);
   }
 
   /**
@@ -77,7 +77,7 @@ public interface SuggestBoxStore<T> {
   }
 
   /**
-   * A function to provide a List of {@link SuggestItem} to the {@link
+   * A function to provide a List of {@link SelectOption} to the {@link
    * SuggestBoxStore#filter(String, SuggestionsHandler)}
    *
    * @param <T> the type of the SuggestBox value
@@ -87,15 +87,15 @@ public interface SuggestBoxStore<T> {
     /**
      * This should be called once the suggestions are ready to be fed to the SuggestBox
      *
-     * @param suggestions List of {@link SuggestItem}
+     * @param suggestions List of {@link SelectOption}
      */
-    void onSuggestionsReady(List<SuggestItem<T>> suggestions);
+    void onSuggestionsReady(List<SelectOption<T>> suggestions);
   }
 
   /** @param <T> The type of the suggest box records */
   @FunctionalInterface
   interface SuggestionFilter<T> {
-    boolean filter(String searchValue, SuggestItem<T> suggestItem);
+    boolean filter(String searchValue, SelectOption<T> suggestItem);
   }
 
   /**
@@ -108,10 +108,10 @@ public interface SuggestBoxStore<T> {
   interface MissingSuggestProvider<T> {
     /**
      * @param missingValue T the value that does not match any suggestion
-     * @return Optional of {@link SuggestItem}, this could be an inline created suggestion or
+     * @return Optional of {@link SelectOption}, this could be an inline created suggestion or
      *     Optional.empty(), consider invalidating the field in this case
      */
-    Optional<SuggestItem<T>> getMessingSuggestion(T missingValue);
+    Optional<SelectOption<T>> getMessingSuggestion(T missingValue);
   }
 
   /**
@@ -128,6 +128,6 @@ public interface SuggestBoxStore<T> {
      *     in this case will be considered as a null value. also consider invalidating the
      *     SuggestBox if it should return Optional.empty()
      */
-    Optional<SuggestItem<T>> getMessingSuggestion(String inputValue);
+    Optional<SelectOption<T>> getMessingSuggestion(String inputValue);
   }
 }

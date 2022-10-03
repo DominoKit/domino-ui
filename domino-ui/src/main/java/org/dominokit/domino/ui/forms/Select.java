@@ -1,240 +1,28 @@
-/*
- * Copyright © 2019 Dominokit
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.dominokit.domino.ui.forms;
 
-import org.dominokit.domino.ui.dropdown.DropDownMenu;
-import org.dominokit.domino.ui.menu.Menu;
-import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.elemento.IsElement;
-
-import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Function;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
+public class Select<V, S> extends AbstractSelect<V, S, V, Select<V, S>> {
 
-/**
- * A component that allow selecting a single option from a DropDownMenu
- *
- * @param <T> The type of a single option value
- */
-public class Select<T> extends AbstractSelect<T, T, Select<T>> {
-
-  private SelectOption<T> selectedOption;
-
-  /**
-   * Creates an instance without a label
-   *
-   * @param <T> Type the select options value
-   * @return new Select instance
-   */
-  public static <T> Select<T> create() {
-    return new Select<>();
-  }
-
-  /**
-   * Creates an instance with a label
-   *
-   * @param label String
-   * @param <T> Type the select options value
-   * @return new Select instance
-   */
-  public static <T> Select<T> create(String label) {
-    return new Select<>(label);
-  }
-
-  /**
-   * Creates an instance with a label and initialized with a list of options
-   *
-   * @param label String
-   * @param options List of {@link SelectOption}
-   * @param <T> Type the select options value
-   * @return new Select instance
-   */
-  public static <T> Select<T> create(String label, List<SelectOption<T>> options) {
-    return new Select<>(label, options);
-  }
-
-  /**
-   * Creates an instance without a label and initialized with a list of options
-   *
-   * @param options List of {@link SelectOption}
-   * @param <T> Type the select options value
-   * @return new Select instance
-   */
-  public static <T> Select<T> create(List<SelectOption<T>> options) {
-    return new Select<>(options);
-  }
-
-  public static <T extends Enum<T>> Select<T> ofEnum(String label, T[] values) {
-    Select<T> select = create(label);
-    for (T value : values) {
-      select.appendChild(SelectOption.create(value, value.name(), value.toString()));
-    }
-    return select;
-  }
-
-  /** Creates an instance without a label */
-  public Select() {
-    setOptionRenderer(new SingleOptionRenderer());
-  }
-
-  /**
-   * Creates an instance with a label
-   *
-   * @param label String
-   */
-  public Select(String label) {
-    super(label);
-    setOptionRenderer(new SingleOptionRenderer());
-  }
-
-  /**
-   * Creates an instance without a label and initialized with a list of options
-   *
-   * @param options List of {@link SelectOption}
-   */
-  public Select(List<SelectOption<T>> options) {
-    super(options);
-    setOptionRenderer(new SingleOptionRenderer());
-  }
-
-  /**
-   * Creates an instance with a label and initialized with a list of options
-   *
-   * @param label String
-   * @param options List of {@link SelectOption}
-   */
-  public Select(String label, List<SelectOption<T>> options) {
-    super(label, options);
-    setOptionRenderer(new SingleOptionRenderer());
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Select<T> select(SelectOption<T> option, boolean silent) {
-    if (nonNull(selectedOption) && !option.isEqualNode(selectedOption.element())) {
-      selectedOption.deselect();
-    }
-    this.selectedOption = option;
-    option.select();
-    valuesContainer.setTextContent(option.getDisplayValue());
-    hidePlaceholder();
-    if (!silent) onSelection(option);
-    return this;
-  }
-
-  /** @return The currently Select {@link SelectOption} */
-  public SelectOption<T> getSelectedOption() {
-    return selectedOption;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Select<T> setValue(T value, boolean silent) {
-    for (SelectOption<T> option : getOptions()) {
-      if (Objects.equals(option.getValue(), value)) {
-        select(option, silent);
-        return this;
-      }
+     public Select(Function<S, Optional<SelectOption<V>>> optionMapper) {
+        super(optionMapper);
     }
 
-    // if not found, then same as clear & doClear but pass silent to deselect
-    if (nonNull(selectedOption)) {
-      selectedOption.deselect(silent);
-      selectedOption = null;
-      valuesContainer.setTextContent("");
-      showPlaceholder();
+    protected void doSetValue(V value) {
+        optionsMenu.getMenuItems()
+                .stream()
+                .filter(menuItem -> Objects.equals(value, menuItem.getValue()))
+                .findFirst()
+                .ifPresent(menuItem -> optionsMenu.select(menuItem));
     }
 
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public T getValue() {
-    return isSelected() ? getSelectedOption().getValue() : null;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public String getStringValue() {
-    SelectOption<T> selectedOption = getSelectedOption();
-    if (nonNull(selectedOption)) {
-      return selectedOption.getDisplayValue();
+    @Override
+    public V getValue() {
+        if (!optionsMenu.getSelected().isEmpty()) {
+            return optionsMenu.getSelected().get(0).getValue();
+        }
+        return null;
     }
-    return null;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void clearValue(boolean silent) {
-    if (nonNull(selectedOption)) {
-      selectedOption.deselect(silent);
-      selectedOption = null;
-    }
-  }
-
-  /** @return int index of selected {@link SelectOption} */
-  public int getSelectedIndex() {
-    return getOptions().indexOf(getSelectedOption());
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void scrollToSelectedOption() {
-    if (nonNull(selectedOption)) {
-      ElementUtil.scrollIntoParent(
-          selectedOption.element(), getOptionsMenu().element());
-    }
-  }
-
-  @Override
-  public boolean isEmpty() {
-    return isNull(getValue());
-  }
-
-  @Override
-  public boolean isEmptyIgnoreSpaces() {
-    return isEmpty();
-  }
-
-  @Override
-  public boolean isSelected() {
-    return nonNull(selectedOption);
-  }
-
-  private class SingleOptionRenderer implements SelectOptionRenderer<T> {
-//
-//    @Override
-//    public HTMLElement element(SelectOption<T> option) {
-//      MdiIcon checkMark =
-//          Icons.ALL.check_mdi().addCss(Styles.pull_right).addCss("select-option-check-mark");
-//      FlexItem<HTMLDivElement> checkMarkFlexItem = FlexItem.create();
-//      checkMarkFlexItem.appendChild(checkMark);
-//      option.getOptionLayoutElement().appendChild(checkMarkFlexItem);
-//
-//      checkMark.toggleDisplay(option.isSelected());
-//      option.addSelectionHandler(selectable -> checkMark.toggleDisplay(selectable.isSelected()));
-//      return option.element();
-//    }
-
-      @Override
-      public IsElement<?> render(T value, String key, String displayValue) {
-          return null;
-      }
-  }
 }

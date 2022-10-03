@@ -31,7 +31,7 @@ import java.util.Map;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
-import org.dominokit.domino.ui.utils.Function;
+import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
@@ -289,7 +289,7 @@ public abstract class CustomInputBox<T extends CustomInputBox<T>>
 
   /** {@inheritDoc} */
   @Override
-  public AutoValidator createAutoValidator(Function autoValidate) {
-    return new InputAutoValidator(autoValidate);
+  public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
+    return new InputAutoValidator(autoValidate, getInputElement());
   }
 }

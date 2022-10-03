@@ -41,9 +41,9 @@ public interface HasAutoValidation<T> {
   /**
    * Create an AutoValidator that will automatically validate the component when it loses focus
    *
-   * @param autoValidate {@link Function}
+   * @param autoValidate {@link ApplyFunction}
    * @return same component instance
    */
-  AutoValidator createAutoValidator(Function autoValidate);
+  AutoValidator createAutoValidator(ApplyFunction autoValidate);
 
 }

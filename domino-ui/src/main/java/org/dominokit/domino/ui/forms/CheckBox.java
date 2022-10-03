@@ -306,7 +306,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
      * {@inheritDoc}
      */
     @Override
-    public AutoValidator createAutoValidator(Function autoValidate) {
+    public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
         return new CheckBoxAutoValidator(this, autoValidate);
     }
 
@@ -315,7 +315,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
         private CheckBox checkBox;
         private ChangeListener<Boolean> changeListener;
 
-        public CheckBoxAutoValidator(CheckBox checkBox, Function autoValidate) {
+        public CheckBoxAutoValidator(CheckBox checkBox, ApplyFunction autoValidate) {
             super(autoValidate);
             this.checkBox = checkBox;
         }

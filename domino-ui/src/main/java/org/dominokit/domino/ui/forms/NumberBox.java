@@ -15,17 +15,11 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.ClipboardEvent;
-import elemental2.dom.Event;
-import elemental2.dom.HTMLInputElement;
-import elemental2.dom.KeyboardEvent;
+import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
-import org.dominokit.domino.ui.utils.Function;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasMinMaxValue;
-import org.dominokit.domino.ui.utils.HasStep;
+import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.i18n.client.NumberFormat;
 import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
@@ -35,7 +29,7 @@ import java.util.Objects;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.FIELD_INPUT;
+import static org.dominokit.domino.ui.forms.FormsStyles.*;
 
 /**
  * A Base implementation for form inputs that takes/provide numeric values
@@ -44,8 +38,15 @@ import static org.dominokit.domino.ui.forms.FormsStyles.FIELD_INPUT;
  * @param <V> The Numeric type of the component value
  */
 public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
-        extends InputFormField<T, HTMLInputElement, V> implements HasMinMaxValue<T, V>, HasStep<T,V> {
+        extends InputFormField<T, HTMLInputElement, V> implements
+        HasMinMaxValue<T, V>,
+        HasStep<T,V>,
+        HasPostfix<T>,
+        HasPrefix<T>  {
 
+
+  protected final LazyChild<DominoElement<HTMLDivElement>> prefixElement;
+  protected final LazyChild<DominoElement<HTMLDivElement>> postfixElement;
   private final ChangeListener<V> formatValueChangeListener =(oldValue, newValue) -> formatValue(newValue);
   private java.util.function.Function<String, V> valueParser = defaultValueParser();
 
@@ -61,6 +62,8 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
    */
   public NumberBox() {
     super();
+    prefixElement = LazyChild.of(DominoElement.div().addCss(FIELD_PREFIX), wrapperElement);
+    postfixElement = LazyChild.of(DominoElement.div().addCss(FIELD_POSTFIX), wrapperElement);
     addValidator(this::validateInputString);
     addValidator(this::validateMaxValue);
     addValidator(this::validateMinValue);
@@ -482,8 +485,65 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
 
   /** {@inheritDoc} */
   @Override
-  public AutoValidator createAutoValidator(Function autoValidate) {
-    return new InputAutoValidator(autoValidate);
+  public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
+    return new InputAutoValidator(autoValidate, getInputElement());
+  }
+
+
+  @Override
+  public T setPostfix(String postfix) {
+    postfixElement.get().setTextContent(postfix);
+    return (T) this;
+  }
+
+  @Override
+  public String getPostfix() {
+    if (postfixElement.isInitialized()) {
+      return postfixElement.get().getTextContent();
+    }
+    return "";
+  }
+
+  @Override
+  public T setPrefix(String prefix) {
+    prefixElement.get().setTextContent(prefix);
+    return (T) this;
+  }
+
+  @Override
+  public String getPrefix() {
+    if (prefixElement.isInitialized()) {
+      return prefixElement.get().getTextContent();
+    }
+    return "";
+  }
+
+  public DominoElement<HTMLDivElement> getPrefixElement() {
+    return prefixElement.get();
+  }
+
+  public DominoElement<HTMLDivElement> getPostfixElement() {
+    return postfixElement.get();
+  }
+
+  public T withPrefixElement() {
+    prefixElement.get();
+    return (T) this;
+  }
+
+  public T withPrefixElement(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
+    handler.apply((T) this, prefixElement.get());
+    return (T) this;
+  }
+
+  public T withPostfixElement() {
+    postfixElement.get();
+    return (T) this;
+  }
+
+  public T withPostfixElement(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
+    handler.apply((T) this, postfixElement.get());
+    return (T) this;
   }
 
 }

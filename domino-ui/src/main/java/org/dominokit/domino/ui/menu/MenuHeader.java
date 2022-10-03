@@ -28,7 +28,7 @@ import org.dominokit.domino.ui.utils.LazyChild;
 import org.jboss.elemento.IsElement;
 
 /**
- * Menu header component for {@link AbstractMenu}, the header is hidden by default unless it is
+ * Menu header component for {@link Menu}, the header is hidden by default unless it is
  * explicitly set to visible or the user attached any header element.
  */
 public class MenuHeader extends BaseDominoElement<HTMLDivElement, MenuHeader> {

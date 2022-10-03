@@ -90,6 +90,7 @@
 .dui.dui-inset-0 {
     inset: var(--dui-spc-0);
 }
+
 .dui.dui-inset-x-0 {
     left: var(--dui-spc-0);
     right: var(--dui-spc-0);
@@ -5300,12 +5301,6 @@
 }
 .dui.dui-sticky {
     position: sticky;
-}
-.dui.dui-inset-0 {
-    top: var(--dui-spc-0);
-	right: var(--dui-spc-0);
-	bottom: var(--dui-spc-0);
-	left: var(--dui-spc-0);
 }
 .dui.dui-inset-x-0 {
     left: var(--dui-spc-0);

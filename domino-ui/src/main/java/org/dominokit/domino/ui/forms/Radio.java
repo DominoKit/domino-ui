@@ -15,18 +15,19 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.*;
-
 import elemental2.dom.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import org.dominokit.domino.ui.style.Style;
+import jsinterop.base.Js;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.TakesValue;
 import org.gwtproject.safehtml.shared.SafeHtml;
 import org.jboss.elemento.IsElement;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.forms.FormsStyles.*;
 
 /**
  * A component that represent a single option in a {@link RadioGroup}
@@ -34,317 +35,475 @@ import org.jboss.elemento.IsElement;
  * @param <T> The type fo the radio value
  */
 public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
-    implements HasName<Radio<T>>,
+        implements
+        HasType,
         HasValue<Radio<T>, T>,
         HasLabel<Radio<T>>,
         HasHelperText<Radio<T>>,
         AcceptDisable<Radio<T>>,
+        AcceptReadOnly<Radio<T>>,
         Checkable<Radio<T>>,
-        TakesValue<T> {
+        TakesValue<T>,
+        HasChangeListeners<Radio<T>, Boolean>,
+        HasInputElement<Radio<T>> {
 
-  private DominoElement<HTMLDivElement> root;
-  private DominoElement<HTMLInputElement> inputElement;
-  private DominoElement<HTMLLabelElement> labelElement;
-  private LazyChild<DominoElement<HTMLElement>> noteElement;
-  private List<ChangeListener<? super Boolean>> changeListeners = new ArrayList<>();
-  private boolean checked = false;
-  private RadioGroup<? super T> radioGroup;
-  private T value;
+    private DominoElement<HTMLDivElement> radioElement;
+    private DominoElement<HTMLInputElement> inputElement;
+    private DominoElement<HTMLDivElement> fieldInput;
+    private DominoElement<HTMLLabelElement> labelElement;
+    private LazyChild<DominoElement<HTMLElement>> noteElement;
+    private RadioGroup<? super T> radioGroup;
+    private T value;
 
-  /**
-   * Creates an instance for the specified value with a label
-   *
-   * @param value T
-   * @param label String
-   */
-  public Radio(T value, String label) {
+    private Set<ChangeListener<? super Boolean>> changeListeners = new LinkedHashSet<>();
+    private boolean changeListenersPaused = false;
+    /**
+     * Creates an instance for the specified value with a label
+     *
+     * @param value T
+     * @param label String
+     */
+    public Radio(T value, String label) {
 
-    root =
-        DominoElement.div()
-            .addCss(FORM_RADIO)
-            .appendChild(inputElement = DominoElement.input("radio").addCss(HIDDEN_INPUT))
-            .appendChild(labelElement = DominoElement.label().addCss(FORM_RADIO_LABEL));
-    noteElement = LazyChild.of(DominoElement.small().addCss(FORM_RADIO_NOTE), root);
-    setLabel(label);
-    linkLabelToField();
-    value(value);
-    root.addEventListener(
-        "click",
-        evt -> {
-          if (isEnabled() && !isChecked()) check();
+        radioElement =
+                DominoElement.div()
+                        .addCss(FORM_RADIO)
+                        .appendChild(inputElement = DominoElement.input(getType()).addCss(HIDDEN_INPUT))
+                        .appendChild(fieldInput = DominoElement.div().addCss(FIELD_INPUT)
+                                .appendChild(labelElement = DominoElement.label().addCss(FORM_RADIO_LABEL))
+                        );
+        noteElement = LazyChild.of(DominoElement.small().addCss(FORM_RADIO_NOTE), radioElement);
+        setLabel(label);
+        labelForId(inputElement.getDominoId());
+        withValue(value);
+        EventListener listener = evt -> {
+            if (isEnabled() && !isChecked()) {
+                check();
+            }
+        };
+        radioElement.addEventListener("click", listener);
+        inputElement.addEventListener("change", evt -> {
+            if (isEnabled() && !isReadOnly()) {
+                setChecked(isChecked(), isChangeListenersPaused());
+            }
         });
-    inputElement.addEventListener("change", evt -> onCheck());
-    init(this);
-  }
-
-  /**
-   * Creates an instance for the specified value without a label, the label will be the
-   * String.valueOf(value)
-   *
-   * @param value T
-   */
-  public Radio(T value) {
-    this(value, String.valueOf(value));
-  }
-
-  /**
-   * Creates an instance for the specified value with a label
-   *
-   * @param value T
-   * @param label String
-   * @param <E> the type of the value
-   * @return new Radio instance
-   */
-  public static <E> Radio<E> create(E value, String label) {
-    return new Radio<>(value, label);
-  }
-
-  /**
-   * Creates an instance for the specified value without a label, the label will be the
-   * String.valueOf(value)
-   *
-   * @param value T
-   * @param <E> the type of value
-   * @return new Radio instance
-   */
-  public static <E> Radio<E> create(E value) {
-    return new Radio<>(value);
-  }
-
-  private void linkLabelToField() {
-    DominoElement<HTMLInputElement> asDominoElement = DominoElement.of(inputElement);
-    if (!asDominoElement.hasAttribute("id")) {
-      inputElement.setAttribute("id", asDominoElement.getDominoId());
-    }
-    labelElement.setAttribute("for", asDominoElement.getAttribute("id"));
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Radio<T> check() {
-    return check(false);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Radio<T> uncheck() {
-    return uncheck(false);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Radio<T> check(boolean silent) {
-    if (nonNull(radioGroup)) {
-      if (!radioGroup.isReadOnly()) {
-        radioGroup.getRadios().forEach(radio -> radio.setChecked(false));
-        setChecked(true);
-        if (!silent) onCheck();
-      }
-    } else {
-      setChecked(true);
-      if (!silent) onCheck();
-    }
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Radio<T> uncheck(boolean silent) {
-    if (nonNull(radioGroup)) {
-      if (!radioGroup.isReadOnly()) {
-        setChecked(false);
-        if (!silent) onCheck();
-      }
-    } else {
-      setChecked(false);
-      if (!silent) onCheck();
+        KeyboardEvents.listenOnKeyDown(getInputElement()).onEnter(listener);
+        init(this);
     }
 
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Radio<T> addChangeListener(ChangeListener<? super Boolean> changeListener) {
-    changeListeners.add(changeListener);
-    return this;
-  }
-
-  private void setChecked(boolean value) {
-    inputElement.element().checked = value;
-    this.checked = value;
-    if (this.checked) {
-      element.css("checked");
-    } else {
-      element.removeCss("checked");
+    /**
+     * Creates an instance for the specified value without a label, the label will be the
+     * String.valueOf(value)
+     *
+     * @param value T
+     */
+    public Radio(T value) {
+        this(value, String.valueOf(value));
     }
-  }
 
-  /** {@inheritDoc} */
-  @Override
-  public Radio<T> removeChangeListener(ChangeListener<? super Boolean> changeListener) {
-    if (changeListener != null) changeListeners.remove(changeListener);
-    return this;
-  }
+    /**
+     * Creates an instance for the specified value with a label
+     *
+     * @param value T
+     * @param label String
+     * @param <E>   the type of the value
+     * @return new Radio instance
+     */
+    public static <E> Radio<E> create(E value, String label) {
+        return new Radio<>(value, label);
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public boolean hasChangeListener(ChangeListener<? super Boolean> changeListener) {
-    return changeListeners.contains(changeListener);
-  }
+    /**
+     * Creates an instance for the specified value without a label, the label will be the
+     * String.valueOf(value)
+     *
+     * @param value T
+     * @param <E>   the type of value
+     * @return new Radio instance
+     */
+    public static <E> Radio<E> create(E value) {
+        return new Radio<>(value);
+    }
 
-  private void onCheck() {
-    for (ChangeListener<? super Boolean> checkHandler : changeListeners)
-      checkHandler.onValueChanged(isChecked());
-  }
+    @Override
+    public String getType() {
+        return "radio";
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public boolean isChecked() {
-    return this.checked;
-  }
+    private void linkLabelToField() {
+        DominoElement<HTMLInputElement> asDominoElement = DominoElement.of(inputElement);
+        if (!asDominoElement.hasAttribute("id")) {
+            inputElement.setAttribute("id", asDominoElement.getDominoId());
+        }
+        labelElement.setAttribute("for", asDominoElement.getAttribute("id"));
+    }
 
-  /**
-   * Introduce a small white gap between the radio border and its check mark filling
-   *
-   * @return same Radio instance
-   */
-  public Radio<T> withGap() {
-    Style.of(inputElement).addCss("with-gap");
-    element.css("with-gap");
-    return this;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Radio<T> check() {
+        return check(isChangeListenersPaused());
+    }
 
-  /**
-   * Removesthe small white gap between the radio border and its check mark filling
-   *
-   * @return same Radio instance
-   */
-  public Radio<T> withoutGap() {
-    Style.of(inputElement).removeCss("with-gap");
-    element.removeCss("with-gap");
-    return this;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Radio<T> uncheck() {
+        return uncheck(isChangeListenersPaused());
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return root.element();
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Radio<T> check(boolean silent) {
+        return setChecked(true, silent);
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public String getName() {
-    return inputElement.element().name;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Radio<T> uncheck(boolean silent) {
+        return setChecked(false, silent);
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public Radio<T> setName(String name) {
-    inputElement.element().name = name;
-    return this;
-  }
+    @Override
+    public Radio<T> toggleChecked(boolean silent) {
+        return setChecked(!isChecked(), silent);
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public Radio<T> value(T value) {
-    return value(value, false);
-  }
+    @Override
+    public Radio<T> toggleChecked(boolean checkedState, boolean silent) {
+        return setChecked(checkedState, silent);
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public Radio<T> value(T value, boolean silent) {
-    setValue(value);
-    return this;
-  }
+    @Override
+    public Radio<T> toggleChecked() {
+        return setChecked(!isChecked(), isChangeListenersPaused());
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public void setValue(T value) {
-    this.value = value;
-  }
+    private Radio<T> setChecked(boolean value, boolean silent) {
+        boolean oldState = isChecked();
+        if (value == oldState) {
+            return this;
+        }
+        if (nonNull(radioGroup)) {
+            if (!(radioGroup.isReadOnly() || radioGroup.isDisabled())) {
+                T oldValue = (T) radioGroup.getValue();
+                radioGroup.getRadios().forEach(radio -> radio.setChecked(false, silent));
+                inputElement.element().checked = value;
+                if (!silent) {
+                    triggerChangeListeners(oldState, isChecked());
+                }
+                radioGroup.onSelectionChanged(oldValue, this, silent);
+            }
+        } else {
+            inputElement.element().checked = value;
+            if (!silent) {
+                triggerChangeListeners(oldState, isChecked());
+            }
+            radioGroup.onSelectionChanged(null, this, silent);
+        }
+        return this;
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public T getValue() {
-    return this.value;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isChecked() {
+        return inputElement.element().checked;
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public Radio<T> setLabel(String label) {
-    labelElement.clearElement().appendChild(DominoElement.span().textContent(label));
-    return this;
-  }
 
-  /** @param safeHtml {@link SafeHtml} to be used as a label */
-  public Radio<T> setLabel(SafeHtml safeHtml) {
-    labelElement.clearElement().setInnerHtml(safeHtml.asString());
-    return this;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HTMLDivElement element() {
+        return radioElement.element();
+    }
 
-  /** @param node {@link Node} to be used as a label */
-  public Radio<T> setLabel(Node node) {
-    DominoElement.of(labelElement).clearElement().appendChild(node);
-    return this;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    String getName() {
+        return inputElement.element().name;
+    }
 
-  /** @param element {@link IsElement} to be used as a label */
-  public Radio<T> setLabel(IsElement<?> element) {
-    return setLabel(element.element());
-  }
+    /**
+     * {@inheritDoc}
+     */
+    Radio<T> setName(String name) {
+        inputElement.element().name = name;
+        return this;
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public Optional<String> getLabel() {
-    return Optional.of(labelElement.element().textContent);
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Radio<T> withValue(T value) {
+        return withValue(value, isChangeListenersPaused());
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public Radio<T> enable() {
-    inputElement.enable();
-    return this;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Radio<T> withValue(T value, boolean silent) {
+        setValue(value);
+        return this;
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public Radio<T> disable() {
-    inputElement.disable();
-    return this;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setValue(T value) {
+        this.value = value;
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public String getHelperText() {
-    return noteElement.get().getTextContent();
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T getValue() {
+        return this.value;
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public Radio<T> setHelperText(String text) {
-    noteElement.get().setTextContent(text);
-    return this;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Radio<T> setLabel(String label) {
+        labelElement.textContent(label);
+        return this;
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public boolean isEnabled() {
-    return !inputElement.isDisabled();
-  }
+    /**
+     * @param safeHtml {@link SafeHtml} to be used as a label
+     */
+    public Radio<T> setLabel(SafeHtml safeHtml) {
+        labelElement.clearElement().setInnerHtml(safeHtml.asString());
+        return this;
+    }
 
-  /** @param radioGroup {@link RadioGroup} this radio belongs to */
-  void setGroup(RadioGroup<? super T> radioGroup) {
-    this.radioGroup = radioGroup;
-  }
+    /**
+     * @param node {@link Node} to be used as a label
+     */
+    public Radio<T> setLabel(Node node) {
+        DominoElement.of(labelElement).clearElement().appendChild(node);
+        return this;
+    }
 
-  /** {@inheritDoc} */
-  public DominoElement<HTMLInputElement> getInputElement() {
-    return inputElement;
-  }
+    /**
+     * @param element {@link IsElement} to be used as a label
+     */
+    public Radio<T> setLabel(IsElement<?> element) {
+        return setLabel(element.element());
+    }
 
-  /** {@inheritDoc} */
-  public String getStringValue() {
-    return String.valueOf(getValue());
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getLabel() {
+        return labelElement.element().textContent;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Radio<T> enable() {
+        radioElement.enable();
+        inputElement.enable();
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Radio<T> disable() {
+        radioElement.disable();
+        inputElement.disable();
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getHelperText() {
+        return noteElement.get().getTextContent();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Radio<T> setHelperText(String text) {
+        noteElement.get().setTextContent(text);
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isEnabled() {
+        return !(inputElement.isDisabled() || radioElement.isDisabled() || radioGroup.isDisabled());
+    }
+
+    /**
+     * @param radioGroup {@link RadioGroup} this radio belongs to
+     */
+    void setGroup(RadioGroup<? super T> radioGroup) {
+        this.radioGroup = radioGroup;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public DominoElement<HTMLInputElement> getInputElement() {
+        return inputElement;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getStringValue() {
+        return String.valueOf(getValue());
+    }
+
+    @Override
+    public Radio<T> focus() {
+        if (!isDisabled()) {
+            if (!isAttached()) {
+                ElementUtil.onAttach(
+                        getInputElement(),
+                        mutationRecord -> getInputElement().element().focus());
+            } else {
+                getInputElement().element().focus();
+            }
+        }
+        return this;
+    }
+
+    @Override
+    public Radio<T> unfocus() {
+        if (!isAttached()) {
+            ElementUtil.onAttach(
+                    getInputElement(),
+                    mutationRecord -> {
+                        getInputElement().element().blur();
+                    });
+        } else {
+            getInputElement().element().blur();
+        }
+        return this;
+    }
+
+    @Override
+    public boolean isFocused() {
+        if (nonNull(DomGlobal.document.activeElement)) {
+            String dominoId =
+                    DominoElement.of(Js.<HTMLElement>uncheckedCast(DomGlobal.document.activeElement))
+                            .getDominoId();
+            return nonNull(radioElement.querySelector("[domino-uuid=\"" + dominoId + "\"]"));
+        }
+        return false;
+    }
+
+    @Override
+    public Radio<T> labelForId(String id) {
+        DominoElement<HTMLInputElement> asDominoElement = DominoElement.of(inputElement);
+        if (!asDominoElement.hasAttribute("id")) {
+            inputElement.setAttribute("id", asDominoElement.getDominoId());
+        }
+        labelElement.setAttribute("for", asDominoElement.getAttribute("id"));
+        return this;
+    }
+
+    @Override
+    public Radio<T> pauseChangeListeners() {
+        this.changeListenersPaused = true;
+        return this;
+    }
+
+    @Override
+    public Radio<T> resumeChangeListeners() {
+        this.changeListenersPaused = false;
+        return this;
+    }
+
+    @Override
+    public Radio<T> togglePauseChangeListeners(boolean toggle) {
+        this.changeListenersPaused = toggle;
+        return this;
+    }
+
+    @Override
+    public Set<ChangeListener<? super Boolean>> getChangeListeners() {
+        return changeListeners;
+    }
+
+    @Override
+    public boolean isChangeListenersPaused() {
+        return this.changeListenersPaused;
+    }
+
+    @Override
+    public Radio<T> triggerChangeListeners(Boolean oldValue, Boolean newValue) {
+        changeListeners.forEach(listener -> listener.onValueChanged(oldValue, newValue));
+        return this;
+    }
+
+    @Override
+    public Radio<T> setReadOnly(boolean readOnly) {
+        getInputElement().setReadOnly(readOnly);
+        return super.setReadOnly(readOnly);
+    }
+
+    public DominoElement<HTMLDivElement> getFieldInput() {
+        return fieldInput;
+    }
+
+    public DominoElement<HTMLLabelElement> getLabelElement() {
+        return labelElement;
+    }
+
+    public DominoElement<HTMLElement> getNoteElement() {
+        return noteElement.get();
+    }
+
+    public RadioGroup<? super T> getRadioGroup() {
+        return radioGroup;
+    }
+
+    public T withFieldInput(ChildHandler<Radio<T>, DominoElement<HTMLDivElement>> handler) {
+        handler.apply(this, fieldInput);
+        return (T) this;
+    }
+
+    public T withLabelElement(ChildHandler<Radio<T>, DominoElement<HTMLLabelElement>> handler) {
+        handler.apply(this, labelElement);
+        return (T) this;
+    }
+
+    public T withNoteElement(ChildHandler<Radio<T>, DominoElement<HTMLElement>> handler) {
+        handler.apply(this, noteElement.get());
+        return (T) this;
+    }
+
+    public T withRadioGroup(ChildHandler<Radio<T>, RadioGroup<? super T>> handler) {
+        handler.apply(this, radioGroup);
+        return (T) this;
+    }
+
 }

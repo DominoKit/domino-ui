@@ -34,7 +34,7 @@ import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
 /**
- * The base implementation for {@link AbstractMenu} items
+ * The base implementation for {@link Menu} items
  *
  * @param <V> The type of the menu item value
  * @param <T> The type of the class extending from this class
@@ -43,10 +43,10 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
     extends BaseDominoElement<HTMLLIElement, T>
     implements HasSelectionHandler<T, T>, HasDeselectionHandler<T>, TakesValue<V> {
 
-  private final DominoElement<HTMLLIElement> root;
-  private final DominoElement<HTMLAnchorElement> linkElement;
+  protected final DominoElement<HTMLLIElement> root;
+  protected final DominoElement<HTMLAnchorElement> linkElement;
 
-  protected AbstractMenu<V, ?> parent;
+  protected Menu<V> parent;
 
   private final List<HasSelectionHandler.SelectionHandler<T>> selectionHandlers = new ArrayList<>();
   private final List<HasDeselectionHandler.DeselectionHandler> deselectionHandlers =
@@ -56,8 +56,8 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
 
   private LazyChild<IsElement<?>> indicatorIcon;
 
-  AbstractMenu<V, ?> menu;
-  Optional<MenuItemsGroup<V, ?, ?>> itemGroup = Optional.empty();
+  Menu<V> menu;
+  MenuItemsGroup<V, T> itemGroup;
 
   public AbstractMenuItem() {
     root = DominoElement.li().addCss(MENU_ITEM);
@@ -65,7 +65,8 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
     linkElement =
         DominoElement.of(a("#"))
             .setAttribute("tabindex", "0")
-            .setAttribute("aria-expanded", "true");
+            .setAttribute("aria-expanded", "true")
+                .addCss(MENU_ITEM_ANCHOR);
     root.appendChild(linkElement);
 
     indicatorIcon = createIndicator(Icons.ALL.menu_right_mdi());
@@ -92,38 +93,11 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   private void onSelected(Event evt) {
     evt.stopPropagation();
     evt.preventDefault();
-    select();
-  }
-
-  /**
-   * Adds an element as an add-on to the left
-   *
-   * @param addOn {@link FlexItem}
-   * @return same menu item instance
-   */
-  public T addLeftAddOn(IsElement<?> addOn) {
-    if (nonNull(addOn)) {
-      root.appendChild(DominoElement.of(addOn).addCss(MENU_ITEM_ICON));
+    if(parent.isMultiSelect() && isSelected()){
+      deselect();
+    }else {
+      select();
     }
-    return (T) this;
-  }
-
-  /**
-   * Adds an element as an add-on to the right
-   *
-   * @param addOn {@link FlexItem}
-   * @return same menu item instance
-   */
-  public T addRightAddOn(IsElement<?> addOn) {
-    if (nonNull(addOn)) {
-      root.appendChild(DominoElement.of(addOn).addCss(MENU_ITEM_UTILITY));
-    }
-    return (T) this;
-  }
-
-  @Override
-  public T appendChild(Node node) {
-    return super.appendChild(node);
   }
 
   /**
@@ -134,7 +108,13 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
    */
   @Override
   public T appendChild(IsElement<?> element) {
-    appendChild(DominoElement.of(element));
+    linkElement.appendChild(DominoElement.of(element));
+    return (T) this;
+  }
+
+  @Override
+  public T appendChild(Node node) {
+    linkElement.appendChild(node);
     return (T) this;
   }
 
@@ -160,9 +140,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
    * @return same menu item instance
    */
   public T select() {
-    T select = select(false);
-    parent.onItemSelected(this);
-    return select;
+    return select(false);
   }
 
   /**
@@ -187,6 +165,9 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
       if (!silent) {
         selectionHandlers.forEach(handler -> handler.onSelection((T) this));
       }
+      if(nonNull(parent)) {
+        parent.onItemSelected(this);
+      }
     }
     return (T) this;
   }
@@ -203,6 +184,9 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
       setAttribute("selected", false);
       if (!silent) {
         deselectionHandlers.forEach(DeselectionHandler::onDeselection);
+      }
+      if(nonNull(parent)) {
+        parent.onItemDeselected(this);
       }
     }
     return (T) this;
@@ -250,7 +234,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
     return (T) this;
   }
 
-  void setParent(AbstractMenu<V, ?> menu) {
+  void setParent(Menu<V> menu) {
     this.parent = menu;
   }
 
@@ -313,10 +297,10 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   /**
    * Sets the sub-menu of the menu item
    *
-   * @param menu {@link AbstractMenu}
+   * @param menu {@link Menu}
    * @return same menu item
    */
-  public T setMenu(AbstractMenu<V, ?> menu) {
+  public T setMenu(Menu<V> menu) {
     this.menu = menu;
     if (nonNull(this.menu)) {
       this.menu.setAttribute("domino-sub-menu", true);
@@ -378,26 +362,22 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
     return (T) this;
   }
 
-  T bindToGroup(MenuItemsGroup<V, ?, ?> group) {
-    this.itemGroup = Optional.ofNullable(group);
+  T bindToGroup(MenuItemsGroup<V, T> group) {
+    this.itemGroup = group;
     return (T) this;
   }
 
   T unbindGroup() {
-    this.itemGroup = Optional.empty();
+    this.itemGroup= null;
     return (T) this;
   }
 
   public boolean isGrouped() {
-    return this.itemGroup.isPresent();
+    return Optional.ofNullable(this.itemGroup).isPresent();
   }
 
-  public boolean isItemsGroup() {
-    return false;
-  }
-
-  /** @return The parent {@link AbstractMenu} of the menu item */
-  public AbstractMenu<V, ?> getParent() {
+  /** @return The parent {@link Menu} of the menu item */
+  public Menu<V> getParent() {
     return this.parent;
   }
 

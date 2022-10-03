@@ -15,372 +15,380 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import static java.util.Objects.nonNull;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.ApplyFunction;
 
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLInputElement;
-import elemental2.dom.HTMLLabelElement;
-import elemental2.dom.Node;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
-import org.dominokit.domino.ui.grid.flex.FlexDirection;
-import org.dominokit.domino.ui.grid.flex.FlexLayout;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.LazyChild;
-import org.jboss.elemento.Elements;
-import org.jboss.elemento.IsElement;
+
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.forms.FormsStyles.*;
 
 /**
  * A component to group a set of {@link Radio} component as one field, only one Radio can be checked
- * from the this radio group.
+ * from this radio group.
  *
  * @param <T> The type of the RadioGroup value
  */
-public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, T> {
+public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
 
-  private List<Radio<? extends T>> radios = new ArrayList<>();
-  private String name;
-  private FlexLayout flexLayout;
+    private List<Radio<? extends T>> radios = new ArrayList<>();
 
-  /**
-   * Creates a new group with a name and empty label
-   *
-   * @param name String
-   */
-  public RadioGroup(String name) {
-    this(name, "");
-  }
+    private String name;
 
-  /**
-   * Creates a new group with a name and a label
-   *
-   * @param name String
-   * @param label String
-   */
-  public RadioGroup(String name, String label) {
-    super("RadioGroup", label);
-    init(this);
-    css("radio-group");
-    setLabel(label);
-    setName(name);
-    vertical();
-  }
-
-  /**
-   * Creates a new group with a name and empty label
-   *
-   * @param name String
-   * @param <T> type of the RadioGroup value
-   * @return new RadioGroup instance
-   */
-  public static <T> RadioGroup<T> create(String name) {
-    return new RadioGroup<>(name);
-  }
-
-  /**
-   * Creates a new group with a name and a label
-   *
-   * @param name String
-   * @param label String
-   * @param <T> type of the RadioGroup value
-   * @return new RadioGroup instance
-   */
-  public static <T> RadioGroup<T> create(String name, String label) {
-    return new RadioGroup<>(name, label);
-  }
-
-  /**
-   * @param radio {@link Radio}
-   * @return same RadioGroup instance
-   */
-  public RadioGroup<T> appendChild(Radio<? extends T> radio) {
-    return appendChild(radio, (Node) null);
-  }
-
-  /**
-   * @param radio {@link Radio}
-   * @param content {@link Node} to be appended to the Radio after it is appended to the RadioGroup
-   * @return same RadioGroup instance
-   */
-  public RadioGroup<T> appendChild(Radio<? extends T> radio, Node content) {
-    radio.setName(name);
-    radio.addChangeListener(value -> onCheck(radio));
-    radio.setGroup(this);
-    if (radio.isChecked()) {
-      radios.forEach(r -> r.uncheck(true));
-    }
-    radios.add(radio);
-    if (nonNull(content)) {
-      radio.appendChild(content);
-    }
-    flexLayout.appendChild(radio);
-    return this;
-  }
-
-  /**
-   * @param radio {@link Radio}
-   * @param content {@link IsElement} to be appended to the Radio after it is appended to the
-   *     RadioGroup
-   * @return same RadioGroup instance
-   */
-  public RadioGroup<T> appendChild(Radio<? extends T> radio, IsElement<?> content) {
-    return appendChild(radio, content.element());
-  }
-
-  private void removeRadioImpl(Radio<? extends T> radio, boolean silent) {
-    radio.uncheck(silent);
-    flexLayout.removeChild(radio);
-  }
-
-  public RadioGroup<T> removeRadio(Radio<? extends T> radio, boolean silent) {
-    if (radios.remove(radio)) {
-      removeRadioImpl(radio, silent);
+    /**
+     * Creates a new group with a name and empty label
+     *
+     * @param name String
+     */
+    public RadioGroup(String name) {
+        init(this);
+        addCss(FORM_RADIO_GROUP);
+        setName(name);
     }
 
-    return this;
-  }
-
-  public RadioGroup<T> removeAllRadios(boolean silent) {
-    radios.forEach(radio -> removeRadioImpl(radio, silent));
-    radios.clear();
-
-    return this;
-  }
-
-  private void onCheck(Radio<? extends T> selectedRadio) {
-    for (ChangeListener<? super T> changeListener : changeListeners) {
-      changeListener.onValueChanged(selectedRadio.isChecked() ? selectedRadio.getValue() : null);
+    /**
+     * Creates a new group with a name and a label
+     *
+     * @param name  String
+     * @param label String
+     */
+    public RadioGroup(String name, String label) {
+        this(name);
+        setLabel(label);
     }
-  }
 
-  /**
-   * Aligns the radios in this group horizontally
-   *
-   * @return same RadioGroup instance
-   */
-  public RadioGroup<T> horizontal() {
-    flexLayout.setDirection(FlexDirection.LEFT_TO_RIGHT);
-    removeCss("horizontal");
-    css("horizontal");
-    return this;
-  }
-
-  /**
-   * Aligns the radios in this group vertically
-   *
-   * @return same RadioGroup instance
-   */
-  public RadioGroup<T> vertical() {
-    flexLayout.setDirection(FlexDirection.TOP_TO_BOTTOM);
-    removeCss("horizontal");
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public RadioGroup<T> invalidate(String errorMessage) {
-    invalidate(Collections.singletonList(errorMessage));
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  protected HTMLLabelElement makeErrorLabel(String message) {
-    return DominoElement.of(Elements.label()).css("error").textContent(message).element();
-  }
-
-  /** @return List of {@link Radio} that belongs to this RadioGroup */
-  public List<Radio<? extends T>> getRadios() {
-    return radios;
-  }
-
-  /** @return boolean, true only if there is a checked radio in this RadioGroup */
-  public boolean isSelected() {
-    return getValue() != null;
-  }
-
-  /** @return T value of the first checked Radio in this RadioGroup */
-  public T getValue() {
-    return radios.stream().filter(Radio::isChecked).map(Radio::getValue).findFirst().orElse(null);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public boolean isEmpty() {
-    return !isSelected();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public boolean isEmptyIgnoreSpaces() {
-    return isEmpty();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public RadioGroup<T> clear() {
-    radios.forEach(Radio::uncheck);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public RadioGroup<T> groupBy(FieldsGrouping fieldsGrouping) {
-    fieldsGrouping.addFormElement(this);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public RadioGroup<T> ungroup(FieldsGrouping fieldsGrouping) {
-    fieldsGrouping.removeFormElement(this);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public RadioGroup<T> setName(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public RadioGroup<T> enable() {
-    radios.forEach(Radio::enable);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public RadioGroup<T> disable() {
-    radios.forEach(Radio::disable);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public boolean isEnabled() {
-    return radios.stream().allMatch(Radio::isEnabled);
-  }
-
-  /**
-   * Sets the value from the specific Radio. When the radio self is null, clearValue will be
-   * executed.
-   *
-   * @param value {@link Radio}
-   */
-  public void setValue(Radio<T> value) {
-    if (value == null) {
-      clearValue();
-    } else {
-      setValue(value.getValue());
+    /**
+     * Creates a new group with a name and empty label
+     *
+     * @param name String
+     * @param <T>  type of the RadioGroup value
+     * @return new RadioGroup instance
+     */
+    public static <T> RadioGroup<T> create(String name) {
+        return new RadioGroup<>(name);
     }
-  }
 
-  /** {@inheritDoc} */
-  @Override
-  public void setValue(T value) {
-    radios.stream()
-        .filter(radio -> radio.getValue().equals(value))
-        .findFirst()
-        .ifPresent(Radio::check);
-  }
-
-  protected Optional<Radio<? extends T>> getSelectedRadioImpl() {
-    return radios.stream().filter(Radio::isChecked).findFirst();
-  }
-
-  /** @return the checked {@link Radio} */
-  public Radio<? extends T> getSelectedRadio() {
-    return getSelectedRadioImpl().orElse(null);
-  }
-
-  @Override
-  protected LazyChild<DominoElement<HTMLInputElement>> createInputElement(String type) {
-    return LazyChild.of(DominoElement.input("text"), inputWrapper);
-  }
-
-  //
-//
-//  /** {@inheritDoc} */
-//  @Override
-//  protected HTMLElement createInputElement(String type) {
-//    flexLayout = FlexLayout.create();
-//    return flexLayout.element();
-//  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
-    return new RadioAutoValidator<>(this, autoValidate);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public RadioGroup<T> condense() {
-    removeCss("condensed");
-    css("condensed");
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  public RadioGroup<T> spread() {
-    removeCss("condensed");
-    return this;
-  }
-
-  /**
-   * @param condensed boolean. if true delegate to {@link #condense()}, otherwise delegate to {@link
-   *     #spread()}
-   * @return same RadioGroup instance
-   */
-  public RadioGroup<T> setCondensed(boolean condensed) {
-    if (condensed) {
-      return condense();
-    } else {
-      return spread();
+    /**
+     * Creates a new group with a name and a label
+     *
+     * @param name  String
+     * @param label String
+     * @param <T>   type of the RadioGroup value
+     * @return new RadioGroup instance
+     */
+    public static <T> RadioGroup<T> create(String name, String label) {
+        return new RadioGroup<>(name, label);
     }
-  }
 
-  /** {@inheritDoc} */
-  @Override
-  protected void clearValue(boolean silent) {
-    getSelectedRadioImpl().ifPresent(radio -> radio.uncheck(silent));
-  }
+    public RadioGroup<T> withGap(boolean withGap){
+        addCss(BooleanCssClass.of(FORM_RADIO_GROUP_GAP, withGap));
+        return this;
+    }
+    /**
+     * @param radio {@link Radio}
+     * @return same RadioGroup instance
+     */
+    public RadioGroup<T> appendChild(Radio<? extends T> radio) {
+        wrapperElement.appendChild(radio);
+        radio.setName(getName());
+        radio.setGroup(this);
+        if (radio.isChecked()) {
+            radios.forEach(r -> r.uncheck(true));
+        }
+        radios.add(radio);
+        return this;
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  protected void doSetValue(T value) {
-    setValue(value);
-  }
+    public RadioGroup<T> removeRadio(Radio<? extends T> radio, boolean silent) {
+        if (radios.remove(radio)) {
+            radio.uncheck(silent);
+            radio.remove();
+        }
+        return this;
+    }
 
-  private static class RadioAutoValidator<T> extends AutoValidator {
-
-    private RadioGroup<T> radioGroup;
-    private ChangeListener<Boolean> changeListener;
-
-    public RadioAutoValidator(RadioGroup<T> radioGroup, AutoValidate autoValidate) {
-      super(autoValidate);
-      this.radioGroup = radioGroup;
+    public RadioGroup<T> removeAllRadios(boolean silent) {
+        new ArrayList<>(radios).forEach(radio -> removeRadio(radio, silent));
+        radios.clear();
+        return this;
     }
 
     @Override
-    public void attach() {
-      changeListener = value -> autoValidate.apply();
-      radioGroup.getRadios().forEach(radio -> radio.addChangeListener(changeListener));
+    public RadioGroup<T> clear(boolean silent) {
+        if (radios.isEmpty()) {
+            return this;
+        }
+
+        if (nonNull(defaultValue)) {
+            Optional<Radio<? extends T>> first = radios.stream().filter(radio -> Objects.equals(defaultValue, radio.getValue()))
+                    .findFirst();
+            if (first.isPresent()) {
+                T oldValue = getValue();
+                first.get().check(silent);
+                if (!silent) {
+                    triggerClearListeners(oldValue);
+                }
+            } else {
+                selectFirst(silent);
+            }
+
+        } else {
+            radios.get(0).check(silent);
+        }
+        return this;
+    }
+
+    private void selectFirst(boolean silent) {
+        T oldValue = getValue();
+        radios.get(0).check(silent);
+        if (!silent) {
+            triggerClearListeners(oldValue);
+        }
     }
 
     @Override
-    public void remove() {
-      radioGroup.getRadios().forEach(radio -> radio.removeChangeListener(changeListener));
+    public RadioGroup<T> triggerChangeListeners(T oldValue, T newValue) {
+        changeListeners.forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
+        return this;
     }
-  }
+
+    @Override
+    public RadioGroup<T> triggerClearListeners(T oldValue) {
+        clearListeners.forEach(clearListener -> clearListener.onValueCleared(oldValue));
+        return this;
+    }
+
+    @Override
+    public String getType() {
+        return "RadioGroup";
+    }
+
+    @Override
+    public RadioGroup<T> withValue(T value) {
+        return withValue(value, isChangeListenersPaused());
+    }
+
+    @Override
+    public RadioGroup<T> withValue(T value, boolean silent) {
+        radios.stream().filter(radio -> Objects.equals(value, radio.getValue()))
+                .findFirst()
+                .ifPresent(radio -> radio.check(silent));
+        return this;
+    }
+
+    /**
+     * Aligns the radios in this group vertically
+     *
+     * @return same RadioGroup instance
+     */
+    public RadioGroup<T> vertical() {
+        return vertical(true);
+    }
+
+    /**
+     * Aligns the radios in this group horizontal
+     *
+     * @return same RadioGroup instance
+     */
+    public RadioGroup<T> horizontal() {
+        return vertical(false);
+    }
+
+    /**
+     * Aligns the radios in this group vertically
+     *
+     * @return same RadioGroup instance
+     */
+    public RadioGroup<T> vertical(boolean vertical) {
+        addCss(BooleanCssClass.of(FORM_RADIO_GROUP_VERTICAL, vertical));
+        return this;
+    }
+
+    /**
+     * @return List of {@link Radio} that belongs to this RadioGroup
+     */
+    public List<Radio<? extends T>> getRadios() {
+        return radios;
+    }
+
+    /**
+     * Apply a function on the current Radio group radio buttons
+     *
+     * @return same radio group instance
+     */
+    public RadioGroup<T> withRadios(ChildHandler<RadioGroup<T>, List<Radio<? extends T>>> handler) {
+        handler.apply(this, getRadios());
+        return this;
+    }
+
+    /**
+     * @return boolean, true only if there is a checked radio in this RadioGroup
+     */
+    public boolean isSelected() {
+        return getValue() != null;
+    }
+
+    /**
+     * @return T value of the first checked Radio in this RadioGroup
+     */
+    public T getValue() {
+        return radios.stream().filter(Radio::isChecked).map(Radio::getValue).findFirst().orElse(null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isEmpty() {
+        return !isSelected();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isEmptyIgnoreSpaces() {
+        return isEmpty();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public RadioGroup<T> clear() {
+        return clear(isClearListenersPaused());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public RadioGroup<T> setName(String name) {
+        this.name = name;
+        radios.forEach(radio -> radio.setName(name));
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public RadioGroup<T> enable() {
+        radios.forEach(Radio::enable);
+        return super.enable();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public RadioGroup<T> disable() {
+        radios.forEach(Radio::disable);
+        return super.disable();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isEnabled() {
+        return !formElement.isDisabled() && radios.stream().allMatch(Radio::isEnabled);
+    }
+
+    /**
+     * Sets the value from the specific Radio. When the radio self is null, clearValue will be
+     * executed.
+     *
+     * @param value {@link Radio}
+     */
+    public void setValue(Radio<T> value) {
+        if (value == null) {
+            clear(isClearListenersPaused());
+        } else {
+            setValue(value.getValue());
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setValue(T value) {
+        setValue(value, isChangeListenersPaused());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setValue(T value, boolean silent) {
+        radios.stream()
+                .filter(radio -> radio.getValue().equals(value))
+                .findFirst()
+                .ifPresent(radio -> {
+                    T oldValue = getValue();
+                    radio.check();
+                    if (!silent) {
+                        triggerChangeListeners(oldValue, getValue());
+                    }
+                });
+    }
+
+    protected Optional<Radio<? extends T>> getSelectedRadioImpl() {
+        return radios.stream().filter(Radio::isChecked).findFirst();
+    }
+
+    /**
+     * @return the checked {@link Radio}
+     */
+    public Radio<? extends T> getSelectedRadio() {
+        return getSelectedRadioImpl().orElse(null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
+        return new RadioAutoValidator(this, autoValidate);
+    }
+
+    void onSelectionChanged(T oldValue, Radio<? extends T> selectedRadio, boolean silent) {
+        if (!silent) {
+            changeListeners.forEach(listener -> listener.onValueChanged(oldValue, selectedRadio.getValue()));
+        }
+    }
+
+    private static class RadioAutoValidator<T> extends AutoValidator {
+
+        private RadioGroup<T> radioGroup;
+        private ChangeListener<Boolean> changeListener;
+
+        public RadioAutoValidator(RadioGroup<T> radioGroup, ApplyFunction autoValidate) {
+            super(autoValidate);
+            this.radioGroup = radioGroup;
+        }
+
+        @Override
+        public void attach() {
+            changeListener = (oldValue, newValue) -> autoValidate.apply();
+            radioGroup.getRadios().forEach(radio -> radio.addChangeListener(changeListener));
+        }
+
+        @Override
+        public void remove() {
+            radioGroup.getRadios().forEach(radio -> radio.removeChangeListener(changeListener));
+        }
+    }
 }

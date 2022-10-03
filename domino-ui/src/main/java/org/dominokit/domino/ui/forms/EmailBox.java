@@ -56,8 +56,8 @@ public class EmailBox extends TextBox {
   }
 
   /**
-   * @param multiple boolean, Whether or not to allow multiple, comma-separated, e-mail addresses to
-   *     be entered
+   * @param multiple boolean, Whether to allow multiple comma-separated e-mail addresses to
+   * be entered
    * @return Same EmailBox instance
    */
   public EmailBox setMultiple(boolean multiple) {

@@ -1,28 +1,28 @@
 package org.dominokit.domino.ui.forms;
 
-import org.dominokit.domino.ui.utils.Function;
+import org.dominokit.domino.ui.utils.ApplyFunction;
 
 /**
- * A class to wrap an {@link ValueBox.AutoValidate} and provide the ability to attach/remove it from a
+ * A class to wrap an {@link ApplyFunction} and provide the ability to attach/remove it from a
  * component
  */
 public abstract class AutoValidator {
-    protected Function autoValidate;
+    protected ApplyFunction autoValidate;
 
     /**
-     * @param autoValidate {@link Function}
+     * @param autoValidate {@link ApplyFunction}
      */
-    public AutoValidator(Function autoValidate) {
+    public AutoValidator(ApplyFunction autoValidate) {
         this.autoValidate = autoValidate;
     }
 
     /**
-     * Attach the {@link Function} to the component
+     * Attach the {@link ApplyFunction} to the component
      */
-    public abstract void attach();
+    public void attach(){}
 
     /**
-     * Remove the {@link Function} from the component
+     * Remove the {@link ApplyFunction} from the component
      */
-    public abstract void remove();
+    public void remove(){}
 }

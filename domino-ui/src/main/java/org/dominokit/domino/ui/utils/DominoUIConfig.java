@@ -27,12 +27,12 @@ import java.util.function.Supplier;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.DisplayCollapseStrategy;
 import org.dominokit.domino.ui.collapsible.HeightCollapseStrategy;
-import org.dominokit.domino.ui.collapsible.TreeHeightCollapseStrategy;
+//import org.dominokit.domino.ui.collapsible.TreeHeightCollapseStrategy;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.forms.*;
 import org.dominokit.domino.ui.i18n.DefaultDominoUILabels;
 import org.dominokit.domino.ui.i18n.DominoUILabels;
-import org.dominokit.domino.ui.tree.TreeItem;
+//import org.dominokit.domino.ui.tree.TreeItem;
 
 /**
  * This class provides global configuration for form fields
@@ -48,36 +48,36 @@ public class DominoUIConfig {
   private Supplier<HTMLElement> requiredIndicator = () -> DominoElement.span().textContent("*").element();
   private String defaultRequiredMessage = "* This field is required";
   private boolean fixErrorsPosition = false;
-  private RequiredIndicatorRenderer requiredIndicatorRenderer =
-      new RequiredIndicatorRenderer() {
-        @Override
-        public <T extends BasicFormElement<?, ?>> void appendRequiredIndicator(
-            T valueBox, Node requiredIndicator) {
-          removeRequiredIndicator(valueBox, requiredIndicator);
-          valueBox.getLabelElement().appendChild(requiredIndicator);
-        }
+//  private RequiredIndicatorRenderer requiredIndicatorRenderer =
+//      new RequiredIndicatorRenderer() {
+//        @Override
+//        public <T extends BasicFormElement<?, ?>> void appendRequiredIndicator(
+//            T valueBox, Node requiredIndicator) {
+//          removeRequiredIndicator(valueBox, requiredIndicator);
+//          valueBox.getLabelElement().appendChild(requiredIndicator);
+//        }
+//
+//        @Override
+//        public <T extends BasicFormElement<?, ?>> void removeRequiredIndicator(
+//            T valueBox, Node requiredIndicator) {
+//          if (valueBox.getLabelElement().hasDirectChild(requiredIndicator)) {
+//            valueBox.getLabelElement().removeChild(requiredIndicator);
+//          }
+//        }
+//      };
 
-        @Override
-        public <T extends BasicFormElement<?, ?>> void removeRequiredIndicator(
-            T valueBox, Node requiredIndicator) {
-          if (valueBox.getLabelElement().hasDirectChild(requiredIndicator)) {
-            valueBox.getLabelElement().removeChild(requiredIndicator);
-          }
-        }
-      };
-
-  private GlobalValidationHandler globalValidationHandler = new GlobalValidationHandler() {};
-
-  private DropdownPositionProvider<AbstractSuggestBox<?, ?>> defaultSuggestPopupPosition =
-      field -> new AbstractSuggestBox.PopupPositionTopDown(field);
+//  private GlobalValidationHandler globalValidationHandler = new GlobalValidationHandler() {};
+//
+//  private DropdownPositionProvider<AbstractSuggestBox<?, ?>> defaultSuggestPopupPosition =
+//      field -> new AbstractSuggestBox.PopupPositionTopDown(field);
 
   private Supplier<CollapseStrategy> defaultCollapseStrategySupplier = DisplayCollapseStrategy::new;
   private Supplier<CollapseStrategy> defaultCardCollapseStrategySupplier =
       HeightCollapseStrategy::new;
   private Supplier<CollapseStrategy> defaultAccordionCollapseStrategySupplier =
       HeightCollapseStrategy::new;
-  private TreeCollapseSupplier defaultTreeCollapseStrategySupplier =
-      TreeHeightCollapseStrategy::new;
+//  private TreeCollapseSupplier defaultTreeCollapseStrategySupplier =
+//      TreeHeightCollapseStrategy::new;
 
   private NumberParsers numberParsers = new NumberParsers() {};
 
@@ -118,11 +118,11 @@ public class DominoUIConfig {
     this.requiredIndicator = requiredIndicator;
     return this;
   }
-
-  /** @return the {@link RequiredIndicatorRenderer} */
-  public RequiredIndicatorRenderer getRequiredIndicatorRenderer() {
-    return requiredIndicatorRenderer;
-  }
+//
+//  /** @return the {@link RequiredIndicatorRenderer} */
+//  public RequiredIndicatorRenderer getRequiredIndicatorRenderer() {
+//    return requiredIndicatorRenderer;
+//  }
 
   /** @return the default required message */
   public String getDefaultRequiredMessage() {
@@ -140,53 +140,53 @@ public class DominoUIConfig {
     return this;
   }
 
-  /**
-   * @param requiredIndicatorRenderer A {@link RequiredIndicatorRenderer}
-   * @return same instance
-   */
-  public DominoUIConfig setRequiredIndicatorRenderer(
-      RequiredIndicatorRenderer requiredIndicatorRenderer) {
-    if (nonNull(requiredIndicatorRenderer)) {
-      this.requiredIndicatorRenderer = requiredIndicatorRenderer;
-    }
-    return this;
-  }
+//  /**
+//   * @param requiredIndicatorRenderer A {@link RequiredIndicatorRenderer}
+//   * @return same instance
+//   */
+//  public DominoUIConfig setRequiredIndicatorRenderer(
+//      RequiredIndicatorRenderer requiredIndicatorRenderer) {
+//    if (nonNull(requiredIndicatorRenderer)) {
+//      this.requiredIndicatorRenderer = requiredIndicatorRenderer;
+//    }
+//    return this;
+//  }
+//
+//  /** @return the {@link GlobalValidationHandler} */
+//  public GlobalValidationHandler getGlobalValidationHandler() {
+//    return globalValidationHandler;
+//  }
+//
+//  /**
+//   * @param globalValidationHandler A {@link GlobalValidationHandler}
+//   * @return same instance
+//   */
+//  public DominoUIConfig setGlobalValidationHandler(
+//      GlobalValidationHandler globalValidationHandler) {
+//    if (nonNull(globalValidationHandler)) {
+//      this.globalValidationHandler = globalValidationHandler;
+//    }
+//    return this;
+//  }
+//
+//  /** @return the default {@link DropdownPositionProvider} for {@link AbstractSuggestBox} */
+//  public DropdownPositionProvider<AbstractSuggestBox<?, ?>> getDefaultSuggestPopupPosition() {
+//    return defaultSuggestPopupPosition;
+//  }
 
-  /** @return the {@link GlobalValidationHandler} */
-  public GlobalValidationHandler getGlobalValidationHandler() {
-    return globalValidationHandler;
-  }
-
-  /**
-   * @param globalValidationHandler A {@link GlobalValidationHandler}
-   * @return same instance
-   */
-  public DominoUIConfig setGlobalValidationHandler(
-      GlobalValidationHandler globalValidationHandler) {
-    if (nonNull(globalValidationHandler)) {
-      this.globalValidationHandler = globalValidationHandler;
-    }
-    return this;
-  }
-
-  /** @return the default {@link DropdownPositionProvider} for {@link AbstractSuggestBox} */
-  public DropdownPositionProvider<AbstractSuggestBox<?, ?>> getDefaultSuggestPopupPosition() {
-    return defaultSuggestPopupPosition;
-  }
-
-  /**
-   * Sets the default dropdown position for suggest box
-   *
-   * @param defaultSuggestPopupPosition the {@link DropdownPositionProvider}
-   * @return same instance
-   */
-  public DominoUIConfig setDefaultSuggestPopupPosition(
-      DropdownPositionProvider<AbstractSuggestBox<?, ?>> defaultSuggestPopupPosition) {
-    if (nonNull(defaultSuggestPopupPosition)) {
-      this.defaultSuggestPopupPosition = defaultSuggestPopupPosition;
-    }
-    return this;
-  }
+//  /**
+//   * Sets the default dropdown position for suggest box
+//   *
+//   * @param defaultSuggestPopupPosition the {@link DropdownPositionProvider}
+//   * @return same instance
+//   */
+//  public DominoUIConfig setDefaultSuggestPopupPosition(
+//      DropdownPositionProvider<AbstractSuggestBox<?, ?>> defaultSuggestPopupPosition) {
+//    if (nonNull(defaultSuggestPopupPosition)) {
+//      this.defaultSuggestPopupPosition = defaultSuggestPopupPosition;
+//    }
+//    return this;
+//  }
 
   public Supplier<CollapseStrategy> getDefaultCollapseStrategySupplier() {
     return defaultCollapseStrategySupplier;
@@ -207,16 +207,16 @@ public class DominoUIConfig {
     this.defaultCardCollapseStrategySupplier = defaultCardCollapseStrategySupplier;
     return this;
   }
-
-  public TreeCollapseSupplier getDefaultTreeCollapseStrategySupplier() {
-    return defaultTreeCollapseStrategySupplier;
-  }
-
-  public DominoUIConfig setDefaultTreeCollapseStrategySupplier(
-      TreeCollapseSupplier defaultTreeCollapseStrategySupplier) {
-    this.defaultTreeCollapseStrategySupplier = defaultTreeCollapseStrategySupplier;
-    return this;
-  }
+//
+//  public TreeCollapseSupplier getDefaultTreeCollapseStrategySupplier() {
+//    return defaultTreeCollapseStrategySupplier;
+//  }
+//
+//  public DominoUIConfig setDefaultTreeCollapseStrategySupplier(
+//      TreeCollapseSupplier defaultTreeCollapseStrategySupplier) {
+//    this.defaultTreeCollapseStrategySupplier = defaultTreeCollapseStrategySupplier;
+//    return this;
+//  }
 
   public Supplier<CollapseStrategy> getDefaultAccordionCollapseStrategySupplier() {
     return defaultAccordionCollapseStrategySupplier;
@@ -273,32 +273,32 @@ public class DominoUIConfig {
     }
     return this;
   }
-
-  /** An interface for rendering the required indicator on fields */
-  public interface RequiredIndicatorRenderer {
-    /**
-     * @param valueBox the {@link BasicFormElement} to append required to
-     * @param requiredIndicator the node for required indicator
-     * @param <T> the type of the form field
-     */
-    <T extends BasicFormElement<?, ?>> void appendRequiredIndicator(
-        T valueBox, Node requiredIndicator);
-
-    /**
-     * @param valueBox the {@link BasicFormElement} to remove required from
-     * @param requiredIndicator the node for required indicator
-     * @param <T> the type of the form field
-     */
-    <T extends BasicFormElement<?, ?>> void removeRequiredIndicator(
-        T valueBox, Node requiredIndicator);
-  }
-
-  /** A global validation handler that will be called when a form field gets validated */
-  public interface GlobalValidationHandler {
-    default <T extends ValueBox<?, ?, ?>> void onInvalidate(T valueBox, List<String> errors) {}
-
-    default <T extends ValueBox<?, ?, ?>> void onClearValidation(T valueBox) {}
-  }
+//
+//  /** An interface for rendering the required indicator on fields */
+//  public interface RequiredIndicatorRenderer {
+//    /**
+//     * @param valueBox the {@link BasicFormElement} to append required to
+//     * @param requiredIndicator the node for required indicator
+//     * @param <T> the type of the form field
+//     */
+//    <T extends BasicFormElement<?, ?>> void appendRequiredIndicator(
+//        T valueBox, Node requiredIndicator);
+//
+//    /**
+//     * @param valueBox the {@link BasicFormElement} to remove required from
+//     * @param requiredIndicator the node for required indicator
+//     * @param <T> the type of the form field
+//     */
+//    <T extends BasicFormElement<?, ?>> void removeRequiredIndicator(
+//        T valueBox, Node requiredIndicator);
+//  }
+//
+//  /** A global validation handler that will be called when a form field gets validated */
+//  public interface GlobalValidationHandler {
+//    default <T extends ValueBox<?, ?, ?>> void onInvalidate(T valueBox, List<String> errors) {}
+//
+//    default <T extends ValueBox<?, ?, ?>> void onClearValidation(T valueBox) {}
+//  }
 
   /**
    * A provider for creating {@link DropDownPosition}
@@ -308,11 +308,11 @@ public class DominoUIConfig {
   public interface DropdownPositionProvider<T> {
     DropDownPosition createPosition(T field);
   }
-
-  /** A provider for creating {@link CollapseStrategy} for TreeItem(s) */
-  public interface TreeCollapseSupplier {
-    CollapseStrategy get(TreeItem<?> treeItem);
-  }
+//
+//  /** A provider for creating {@link CollapseStrategy} for TreeItem(s) */
+//  public interface TreeCollapseSupplier {
+//    CollapseStrategy get(TreeItem<?> treeItem);
+//  }
 
   public interface NumberParsers {
     default Function<String, BigDecimal> bigDecimalParser(BigDecimalBox field) {

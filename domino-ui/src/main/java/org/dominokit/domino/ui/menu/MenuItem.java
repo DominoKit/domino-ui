@@ -23,7 +23,10 @@ import elemental2.dom.HTMLElement;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.jboss.elemento.IsElement;
 
 /**
  * An implementation og the {@link AbstractMenuItem} for a menu item that can have a main text and a
@@ -54,6 +57,7 @@ public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
 
     if (nonNull(description) && !description.isEmpty()) {
       descriptionElement = DominoElement.small().addCss(MENU_ITEM_HINT).setTextContent(text);
+      textElement.appendChild(descriptionElement);
     }
   }
 
@@ -106,5 +110,32 @@ public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
       return textContent.contains(token);
     }
     return textContent.toLowerCase().contains(token.toLowerCase());
+  }
+
+
+  /**
+   * Adds an element as an add-on to the left
+   *
+   * @param addOn {@link FlexItem}
+   * @return same menu item instance
+   */
+  public MenuItem<V> addLeftAddOn(IsElement<?> addOn) {
+    if (nonNull(addOn)) {
+      linkElement.appendChild(DominoElement.of(addOn).addCss(MENU_ITEM_ICON));
+    }
+    return this;
+  }
+
+  /**
+   * Adds an element as an add-on to the right
+   *
+   * @param addOn {@link FlexItem}
+   * @return same menu item instance
+   */
+  public MenuItem<V> addRightAddOn(IsElement<?> addOn) {
+    if (nonNull(addOn)) {
+      linkElement.appendChild(DominoElement.of(addOn).addCss(MENU_ITEM_UTILITY));
+    }
+    return this;
   }
 }

@@ -29,8 +29,6 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     protected final LazyChild<DominoElement<HTMLLabelElement>> labelElement;
     protected final LazyChild<DominoElement<HTMLElement>> requiredElement;
     protected final DominoElement<HTMLDivElement> wrapperElement;
-    protected final LazyChild<DominoElement<HTMLDivElement>> prefixElement;
-    protected final LazyChild<DominoElement<HTMLDivElement>> postfixElement;
     protected final LazyChild<DominoElement<HTMLDivElement>> messagesWrapper;
     protected final LazyChild<DominoElement<HTMLElement>> helperTextElement;
     protected Function<String, DominoElement<HTMLElement>> errorElementSupplier;
@@ -62,13 +60,10 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
                         .appendChild(wrapperElement = DominoElement.div().addCss(INPUT_WRAPPER))
                 );
         labelElement = LazyChild.of(DominoElement.label().addCss(FIELD_LABEL), formElement);
-        prefixElement = LazyChild.of(DominoElement.div().addCss(FIELD_PREFIX), wrapperElement);
-        postfixElement = LazyChild.of(DominoElement.div().addCss(FIELD_POSTFIX), wrapperElement);
-
         messagesWrapper = LazyChild.of(DominoElement.div().addCss(MESSAGES_WRAPPER), bodyElement);
         helperTextElement = LazyChild.of(DominoElement.span().addCss(FIELD_HELPER), messagesWrapper);
         errorElementSupplier = errorMessage -> DominoElement.span().addCss(FIELD_ERROR).setTextContent(errorMessage);
-        requiredElement = LazyChild.of(DominoElement.of(DominoUIConfig.CONFIG.getRequiredIndicator().get()), labelElement);
+        requiredElement = LazyChild.of(DominoElement.of(DominoUIConfig.CONFIG.getRequiredIndicator().get()).addCss(FIELD_REQUIRED_INDICATOR), labelElement);
         requiredValidator = new RequiredValidator(this);
         init((T) this);
 
@@ -81,7 +76,7 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
 
     @Override
     public T labelForId(String id) {
-        labelElement.doOnce(() -> labelElement.get().setAttribute("for", id));
+        labelElement.doOnce(() -> labelElement.element().setAttribute("for", id));
         return (T) this;
     }
 
@@ -221,34 +216,6 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     }
 
     @Override
-    public T setPostfix(String postfix) {
-        postfixElement.get().setTextContent(postfix);
-        return (T) this;
-    }
-
-    @Override
-    public String getPostfix() {
-        if (postfixElement.isInitialized()) {
-            return postfixElement.get().getTextContent();
-        }
-        return "";
-    }
-
-    @Override
-    public T setPrefix(String prefix) {
-        prefixElement.get().setTextContent(prefix);
-        return (T) this;
-    }
-
-    @Override
-    public String getPrefix() {
-        if (prefixElement.isInitialized()) {
-            return prefixElement.get().getTextContent();
-        }
-        return "";
-    }
-
-    @Override
     public ValidationResult validate() {
         if (!validationsPaused) {
             return doValidate();
@@ -272,7 +239,8 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
         if (!element.isEnabled()) {
             return ValidationResult.valid();
         }
-        for (Validator validator : validators) {
+        Set<Validator> validators1 = getValidators();
+        for (Validator validator : validators1) {
             ValidationResult result = validator.isValid();
             if (!result.isValid()) {
                 element.invalidate(result.getErrorMessage());
@@ -307,7 +275,7 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
 
     private void removeErrors() {
         errors.clear();
-        messagesWrapper.get().querySelectorAll("." + FIELD_ERROR).forEach(BaseDominoElement::remove);
+        messagesWrapper.get().querySelectorAll("." + FIELD_ERROR.getCssClass()).forEach(BaseDominoElement::remove);
         FIELD_INVALID.remove(this);
     }
 
@@ -468,14 +436,6 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
         return wrapperElement;
     }
 
-    public DominoElement<HTMLDivElement> getPrefixElement() {
-        return prefixElement.get();
-    }
-
-    public DominoElement<HTMLDivElement> getPostfixElement() {
-        return postfixElement.get();
-    }
-
     public DominoElement<HTMLDivElement> getMessagesWrapperElement() {
         return messagesWrapper.get();
     }
@@ -504,25 +464,6 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
         return (T) this;
     }
 
-    public T withPrefixElement() {
-        prefixElement.get();
-        return (T) this;
-    }
-
-    public T withPrefixElement(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
-        handler.apply((T) this, prefixElement.get());
-        return (T) this;
-    }
-
-    public T withPostfixElement() {
-        postfixElement.get();
-        return (T) this;
-    }
-
-    public T withPostfixElement(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
-        handler.apply((T) this, postfixElement.get());
-        return (T) this;
-    }
 
     public T withMessagesWrapperElement() {
         messagesWrapper.get();
