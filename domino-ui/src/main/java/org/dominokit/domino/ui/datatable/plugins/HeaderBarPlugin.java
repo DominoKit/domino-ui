@@ -570,23 +570,17 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
       return this;
     }
 
-    /**
-     * @return the search box
-     */
+    /** @return the search box */
     public TextBox getTextBox() {
       return textBox;
     }
 
-    /**
-     * @return the search icon
-     */
+    /** @return the search icon */
     public Icon getSearchIcon() {
       return searchIcon;
     }
 
-    /**
-     * @return the clear icon
-     */
+    /** @return the clear icon */
     public Icon getClearIcon() {
       return clearIcon;
     }
