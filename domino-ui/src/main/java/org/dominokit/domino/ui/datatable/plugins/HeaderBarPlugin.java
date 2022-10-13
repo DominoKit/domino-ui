@@ -454,6 +454,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
             textBox.clear();
             autoSearchTimer.cancel();
             doSearch();
+            textBox.focus();
           });
 
       element.appendChild(textBox.element());
@@ -567,6 +568,27 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
       this.clearSearchToolTip = clearSearchToolTip;
       clearIcon.setTooltip(clearSearchToolTip);
       return this;
+    }
+
+    /**
+     * @return the search box
+     */
+    public TextBox getTextBox() {
+      return textBox;
+    }
+
+    /**
+     * @return the search icon
+     */
+    public Icon getSearchIcon() {
+      return searchIcon;
+    }
+
+    /**
+     * @return the clear icon
+     */
+    public Icon getClearIcon() {
+      return clearIcon;
     }
   }
 
