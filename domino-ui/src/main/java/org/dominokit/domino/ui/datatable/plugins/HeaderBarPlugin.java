@@ -22,6 +22,7 @@ import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.List;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.DataTableStyles;
 import org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener;
@@ -587,12 +588,12 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
           .setPosition(DropDownPosition.BOTTOM_LEFT)
           .apply(
               columnsMenu ->
-                  dataTable
-                      .getTableConfig()
-                      .getColumns()
+                  dataTable.getTableConfig().getColumns().stream()
+                      .filter(this::notUtility)
                       .forEach(
                           columnConfig -> {
-                            Icon checkIcon = Icons.ALL.check();
+                            Icon checkIcon =
+                                Icons.ALL.check().toggleDisplay(!columnConfig.isHidden());
                             columnConfig.addShowHideListener(
                                 DefaultColumnShowHideListener.of(checkIcon.element(), true));
                             FlexLayout itemElement =
@@ -605,7 +606,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                                         FlexItem.create()
                                             .appendChild(TextNode.of(columnConfig.getTitle())));
 
-                            columnsMenu.addAction(
+                            columnsMenu.appendChild(
                                 DropdownAction.create(columnConfig.getName(), itemElement.element())
                                     .setAutoClose(false)
                                     .addSelectionHandler(
@@ -619,6 +620,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
             evt.stopPropagation();
           });
       return columnsIcon.element();
+    }
+
+    private boolean notUtility(ColumnConfig<T> column) {
+      return !column.isUtilityColumn();
     }
 
     /** {@inheritDoc} */
