@@ -287,6 +287,9 @@ table th[class*="col-"] {
     .table-responsive > .table-bordered > tfoot > tr:last-child > td {
         border-bottom: 0;
     }
+    .table-responsive .table-header > .flex-layout {
+        flex-direction: column;
+    }
 }
 
 .table tbody tr.table-row-filtered {
@@ -564,4 +567,12 @@ table th[class*="col-"] {
 
 .sticky-col:hover {
     background-color: white !important;
+}
+
+.header-bar-title-container {
+    margin-bottom: 0;
+}
+
+.header-bar-actions-container {
+    margin-bottom: 0;
 }

@@ -35,8 +35,6 @@ import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
 import org.dominokit.domino.ui.forms.TextBox;
-import org.dominokit.domino.ui.grid.Column;
-import org.dominokit.domino.ui.grid.Row;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
@@ -59,19 +57,21 @@ import org.jboss.elemento.EventType;
  */
 public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
-  private Column titleColumn = Column.span6();
-  private Column actionsBarColumn = Column.span6();
+  private final HTMLHeadingElement title = Style.of(h(2)).setMarginBottom("0px").element();
+  private final FlexLayout actionsBar =
+      FlexLayout.create().setJustifyContent(FlexJustifyContent.END);
 
-  private HTMLHeadingElement title = Style.of(h(2)).setMarginBottom("0px").element();
-  private FlexLayout actionsBar = FlexLayout.create().setJustifyContent(FlexJustifyContent.END);
-
-  private HTMLDivElement element =
+  private final HTMLDivElement element =
       DominoElement.of(div())
-          .add(
-              Row.create()
-                  .appendChild(titleColumn.appendChild(title))
-                  .appendChild(actionsBarColumn.appendChild(actionsBar))
-                  .element())
+          .appendChild(
+              FlexLayout.create()
+                  .setJustifyContent(FlexJustifyContent.SPACE_BETWEEN)
+                  .appendChild(
+                      FlexItem.create().css("header-bar-title-container").appendChild(title))
+                  .appendChild(
+                      FlexItem.create()
+                          .css("header-bar-actions-container")
+                          .appendChild(actionsBar)))
           .css(DataTableStyles.HEADER)
           .style("padding-bottom: 5px;")
           .element();
@@ -98,9 +98,6 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     if (nonNull(description) && !description.isEmpty()) {
       this.title.appendChild(small().textContent(description).element());
     }
-
-    Style.of(titleColumn).setMarginBottom("0px");
-    Style.of(actionsBarColumn).setMarginBottom("0px");
   }
 
   /** {@inheritDoc} */
@@ -113,6 +110,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                     .addCss(Styles.m_r_5)
                     .addCss(Styles.m_l_5)
                     .appendChild(actionElement.asElement(dataTable))
+                    .apply(actionElement::applyStyles)
                     .element()));
     dataTable.element().appendChild(element);
   }
@@ -412,7 +410,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     private String clearSearchToolTip = "Clear search";
 
     private int autoSearchDelay = 200;
-    private HTMLDivElement element = DominoElement.of(div()).css("search-new").element();
+    private final HTMLDivElement element = DominoElement.of(div()).css("search-new").element();
     private DataTable<T> dataTable;
     private final TextBox textBox;
     private boolean autoSearch = true;
@@ -447,7 +445,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
               .addRightAddOn(clearIcon)
               .addCss("table-search-box")
               .setMarginBottom("0px")
-              .setMaxWidth("300px")
+              .setWidth("100%")
               .addCss(Styles.pull_right);
 
       clearIcon.addClickListener(evt -> clear());
@@ -546,6 +544,11 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
       this.dataTable = dataTable;
       dataTable.addTableEventListener(SearchClearedEvent.SEARCH_EVENT_CLEARED, this);
       return element;
+    }
+
+    @Override
+    public void applyStyles(FlexItem<? extends HTMLElement> self) {
+      self.setFlexGrow(1);
     }
 
     /**
