@@ -15,20 +15,16 @@
  */
 package org.dominokit.domino.ui.layout;
 
-import static org.dominokit.domino.ui.layout.AppLayoutStyles.*;
-import static org.dominokit.domino.ui.style.Styles.ORDER_FIRST;
-import static org.dominokit.domino.ui.style.Styles.ORDER_LAST;
-
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.SwapCssClass;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.utils.*;
+
+import static org.dominokit.domino.ui.layout.AppLayoutStyles.*;
+import static org.dominokit.domino.ui.layout.NavBarStyles.nav_utility;
 
 public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout> {
 
@@ -45,7 +41,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout> {
   private final LazyChild<DominoElement<HTMLDivElement>> overlay;
   private LazyChild<NavBarAddOn> leftDrawerToggle;
   private BaseIcon<?> leftToggleIcon = Icons.ALL.menu_mdi();
-  private LazyChild<NavBarUtility> rightDrawerToggle;
+  private LazyChild<UtilityElement<HTMLElement>> rightDrawerToggle;
   private BaseIcon<?> rightToggleIcon = Icons.ALL.menu_open_mdi();
 
   private boolean autoCloseLeftDrawer = true;
@@ -89,7 +85,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout> {
         LazyChild.of(DominoElement.section().addCss(RIGHT_DRAWER), layout)
             .whenInitialized(rightDrawerToggle::get);
     rightDrawerContent = LazyChild.of(DominoElement.section().addCss(LAYOUT_MENU), rightDrawer);
-    overlay = LazyChild.of(DominoElement.div().addCss(Styles.OVERLAY), layout);
+    overlay = LazyChild.of(DominoElement.div().addCss(GenericCss.dui_overlay), layout);
 
     init(this);
 
@@ -119,11 +115,11 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout> {
                           evt.stopPropagation();
                           toggleLeftDrawer();
                         })
-                    .addCss(ORDER_FIRST));
+                    .addCss(dui_order_first));
   }
 
-  private LazyChild<NavBarUtility> initRightDrawerToggle(BaseIcon<?> icon) {
-    return LazyChild.of(NavBarUtility.of(icon), navBar)
+  private LazyChild<UtilityElement<HTMLElement>> initRightDrawerToggle(BaseIcon<?> icon) {
+    return LazyChild.of(UtilityElement.of(icon).addCss(nav_utility), navBar)
         .whenInitialized(
             () ->
                 icon.clickable()
@@ -132,7 +128,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout> {
                           evt.stopPropagation();
                           toggleRightDrawer();
                         })
-                    .addCss(ORDER_LAST));
+                    .addCss(dui_order_last));
   }
 
   public AppLayout(String title) {

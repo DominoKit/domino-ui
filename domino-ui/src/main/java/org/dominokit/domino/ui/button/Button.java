@@ -15,10 +15,10 @@
  */
 package org.dominokit.domino.ui.button;
 
-import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLButtonElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.style.StyleType;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * a simple button component
@@ -41,12 +41,10 @@ import org.dominokit.domino.ui.style.StyleType;
  *              .addClickListener(evt-&gt; //handle the event);
  *     </pre>
  */
-public class Button extends BaseButton<Button> {
+public class Button extends BaseButton<HTMLButtonElement, Button> {
 
   /** creates a Button without a text and with {@link Elevation#LEVEL_1} */
   public Button() {
-    init(this);
-    elevate(Elevation.LEVEL_1);
   }
 
   /**
@@ -55,19 +53,7 @@ public class Button extends BaseButton<Button> {
    * @param text String, the button text
    */
   public Button(String text) {
-    this();
-    setContent(text);
-  }
-
-  /**
-   * creates a Button with a text and apply a {@link StyleType}
-   *
-   * @param text String, the button text
-   * @param type {@link StyleType}
-   */
-  public Button(String text, StyleType type) {
-    this(text);
-    setButtonType(type);
+    super(text);
   }
 
   /**
@@ -77,23 +63,9 @@ public class Button extends BaseButton<Button> {
    */
   public Button(BaseIcon<?> icon) {
     super(icon);
-    init(this);
-    elevate(Elevation.LEVEL_1);
   }
-
-  /**
-   * creates a Button with an icon and apply a {@link StyleType}
-   *
-   * @param icon the button icon
-   * @param type {@link StyleType}
-   */
-  public Button(BaseIcon<?> icon, StyleType type) {
-    this(icon);
-    setButtonType(type);
-  }
-
-  private static Button create(String text, StyleType type) {
-    return new Button(text, type);
+  public Button(String text, BaseIcon<?> icon) {
+    super(text, icon);
   }
 
   /**
@@ -116,66 +88,6 @@ public class Button extends BaseButton<Button> {
   }
 
   /**
-   * creates a Button with a text and apply {@link StyleType#DEFAULT}
-   *
-   * @param text String, the button text
-   * @return new Button instance
-   */
-  public static Button createDefault(String text) {
-    return create(text, StyleType.DEFAULT);
-  }
-
-  /**
-   * creates a Button with a text and apply {@link StyleType#PRIMARY}
-   *
-   * @param text String, the button text
-   * @return new Button instance
-   */
-  public static Button createPrimary(String text) {
-    return create(text, StyleType.PRIMARY);
-  }
-
-  /**
-   * creates a Button with a text and apply {@link StyleType#SUCCESS}
-   *
-   * @param text String, the button text
-   * @return new Button instance
-   */
-  public static Button createSuccess(String text) {
-    return create(text, StyleType.SUCCESS);
-  }
-
-  /**
-   * creates a Button with a text and apply {@link StyleType#INFO}
-   *
-   * @param text String, the button text
-   * @return new Button instance
-   */
-  public static Button createInfo(String text) {
-    return create(text, StyleType.INFO);
-  }
-
-  /**
-   * creates a Button with a text and apply {@link StyleType#WARNING}
-   *
-   * @param text String, the button text
-   * @return new Button instance
-   */
-  public static Button createWarning(String text) {
-    return create(text, StyleType.WARNING);
-  }
-
-  /**
-   * creates a Button with a text and apply {@link StyleType#DANGER}
-   *
-   * @param text String, the button text
-   * @return new Button instance
-   */
-  public static Button createDanger(String text) {
-    return create(text, StyleType.DANGER);
-  }
-
-  /**
    * creates a Button with an icon by calling {@link Button#Button(BaseIcon)}
    *
    * @param icon {@link BaseIcon}, the button icon
@@ -185,73 +97,28 @@ public class Button extends BaseButton<Button> {
     return new Button(icon);
   }
 
-  private static Button create(BaseIcon<?> icon, StyleType type) {
-    return new Button(icon, type);
-  }
-
   /**
-   * creates a Button with an icon and apply {@link StyleType#DEFAULT}
+   * creates a Button with an icon by calling {@link Button#Button(BaseIcon)}
    *
    * @param icon {@link BaseIcon}, the button icon
    * @return new Button instance
    */
-  public static Button createDefault(BaseIcon<?> icon) {
-    return create(icon, StyleType.DEFAULT);
+  public static Button create(String text, BaseIcon<?> icon) {
+    return new Button(text, icon);
   }
 
-  /**
-   * creates a Button with an icon and apply {@link StyleType#PRIMARY}
+/**
+   * creates a Button with an icon by calling {@link Button#Button(BaseIcon)}
    *
    * @param icon {@link BaseIcon}, the button icon
    * @return new Button instance
    */
-  public static Button createPrimary(BaseIcon<?> icon) {
-    return create(icon, StyleType.PRIMARY);
+  public static Button create(BaseIcon<?> icon, String text) {
+    return new Button(text, icon);
   }
 
-  /**
-   * creates a Button with an icon and apply {@link StyleType#SUCCESS}
-   *
-   * @param icon {@link BaseIcon}, the button icon
-   * @return new Button instance
-   */
-  public static Button createSuccess(BaseIcon<?> icon) {
-    return create(icon, StyleType.SUCCESS);
-  }
-
-  /**
-   * creates a Button with an icon and apply {@link StyleType#INFO}
-   *
-   * @param icon {@link BaseIcon}, the button icon
-   * @return new Button instance
-   */
-  public static Button createInfo(BaseIcon<?> icon) {
-    return create(icon, StyleType.INFO);
-  }
-
-  /**
-   * creates a Button with an icon and apply {@link StyleType#WARNING}
-   *
-   * @param icon {@link BaseIcon}, the button icon
-   * @return new Button instance
-   */
-  public static Button createWarning(BaseIcon<?> icon) {
-    return create(icon, StyleType.WARNING);
-  }
-
-  /**
-   * creates a Button with an icon and apply {@link StyleType#DANGER}
-   *
-   * @param icon {@link BaseIcon}, the button icon
-   * @return new Button instance
-   */
-  public static Button createDanger(BaseIcon<?> icon) {
-    return create(icon, StyleType.DANGER);
-  }
-
-  /** {@inheritDoc} */
   @Override
-  public HTMLElement element() {
-    return buttonElement.element();
+  protected DominoElement<HTMLButtonElement> createButtonElement() {
+    return DominoElement.button();
   }
 }

@@ -30,7 +30,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.Elements;
@@ -478,9 +478,9 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
    */
   public ListGroup<T> setMultiSelect(boolean multiSelect) {
     this.multiSelect = multiSelect;
-    removeCss(Styles.disable_selection);
+    removeCss(GenericCss.disable_selection);
     if (multiSelect) {
-      css(Styles.disable_selection);
+      css(GenericCss.disable_selection);
     }
     return this;
   }

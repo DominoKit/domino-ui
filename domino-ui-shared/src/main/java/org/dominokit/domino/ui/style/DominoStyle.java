@@ -16,9 +16,8 @@
 package org.dominokit.domino.ui.style;
 
 import elemental2.dom.HTMLElement;
-import org.jboss.elemento.IsElement;
 
-public interface DominoStyle<E extends HTMLElement, T extends IsElement<E>, R> {
+public interface DominoStyle<E extends HTMLElement, R> {
   R setCssProperty(String name, String value);
 
   R setCssProperty(String name, String value, boolean important);

@@ -47,7 +47,7 @@ public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
 
   public MenuItem(String text) {
     if (nonNull(text) && !text.isEmpty()) {
-      textElement = DominoElement.span().addCss(MENU_ITEM_BODY).setTextContent(text);
+      textElement = DominoElement.span().addCss(menu_item_body).setTextContent(text);
       appendChild(textElement);
     }
   }
@@ -56,7 +56,7 @@ public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
     this(text);
 
     if (nonNull(description) && !description.isEmpty()) {
-      descriptionElement = DominoElement.small().addCss(MENU_ITEM_HINT).setTextContent(text);
+      descriptionElement = DominoElement.small().addCss(menu_item_hint).setTextContent(text);
       textElement.appendChild(descriptionElement);
     }
   }
@@ -121,7 +121,7 @@ public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
    */
   public MenuItem<V> addLeftAddOn(IsElement<?> addOn) {
     if (nonNull(addOn)) {
-      linkElement.appendChild(DominoElement.of(addOn).addCss(MENU_ITEM_ICON));
+      linkElement.appendChild(DominoElement.of(addOn).addCss(menu_item_icon));
     }
     return this;
   }
@@ -134,7 +134,7 @@ public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
    */
   public MenuItem<V> addRightAddOn(IsElement<?> addOn) {
     if (nonNull(addOn)) {
-      linkElement.appendChild(DominoElement.of(addOn).addCss(MENU_ITEM_UTILITY));
+      linkElement.appendChild(DominoElement.of(addOn).addCss(menu_item_utility));
     }
     return this;
   }

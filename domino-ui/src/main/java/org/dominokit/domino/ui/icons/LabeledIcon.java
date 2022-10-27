@@ -30,7 +30,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class LabeledIcon extends BaseDominoElement<HTMLElement, LabeledIcon> {
 
-  private final DominoElement<HTMLElement> element = DominoElement.span().addCss(LABELED_ICON);
+  private final DominoElement<HTMLElement> element = DominoElement.span().addCss(dui_labeled_icon);
 
   public LabeledIcon(BaseIcon<?> icon, String text) {
     this(icon, text, IconPosition.LEFT);
@@ -38,7 +38,7 @@ public class LabeledIcon extends BaseDominoElement<HTMLElement, LabeledIcon> {
 
   public LabeledIcon(BaseIcon<?> icon, String text, IconPosition position) {
     element.appendChild(icon);
-    element.appendChild(DominoElement.span().addCss(ICON_TEXT).textContent(text));
+    element.appendChild(DominoElement.span().addCss(dui_icon_text).textContent(text));
     position.apply(this);
   }
 
@@ -77,13 +77,13 @@ public class LabeledIcon extends BaseDominoElement<HTMLElement, LabeledIcon> {
     /** position the icon to the left */
     LEFT(
         (labeledIcon) -> {
-          labeledIcon.addCss(REVERSED);
+          labeledIcon.addCss(dui_reversed);
         }),
 
     /** position the icon to the right */
     RIGHT(
         (labeledIcon) -> {
-          REVERSED.remove(labeledIcon);
+          dui_reversed.remove(labeledIcon);
         });
 
     private final ElementsPlacement elementsPlacement;

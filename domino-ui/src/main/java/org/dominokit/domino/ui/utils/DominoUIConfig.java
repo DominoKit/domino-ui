@@ -15,23 +15,23 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import static java.util.Objects.nonNull;
-
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.DisplayCollapseStrategy;
 import org.dominokit.domino.ui.collapsible.HeightCollapseStrategy;
-//import org.dominokit.domino.ui.collapsible.TreeHeightCollapseStrategy;
-import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.forms.*;
 import org.dominokit.domino.ui.i18n.DefaultDominoUILabels;
 import org.dominokit.domino.ui.i18n.DominoUILabels;
+import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.icons.Icons;
+
+import java.math.BigDecimal;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static java.util.Objects.nonNull;
 //import org.dominokit.domino.ui.tree.TreeItem;
 
 /**
@@ -83,6 +83,9 @@ public class DominoUIConfig {
 
   private boolean focusNextFieldOnEnter = false;
   private boolean spellCheck;
+
+  private Supplier<BaseIcon<?>> cardCollapseIconSupplier = Icons.ALL::chevron_up_mdi;
+  private Supplier<BaseIcon<?>> cardExpandIconSupplier = Icons.ALL::chevron_down_mdi;
 
   protected DominoUIConfig() {}
 
@@ -300,13 +303,18 @@ public class DominoUIConfig {
 //    default <T extends ValueBox<?, ?, ?>> void onClearValidation(T valueBox) {}
 //  }
 
-  /**
-   * A provider for creating {@link DropDownPosition}
-   *
-   * @param <T> the type of the element
-   */
-  public interface DropdownPositionProvider<T> {
-    DropDownPosition createPosition(T field);
+  public DominoUIConfig setCardCollapseIcons(Supplier<BaseIcon<?>> collapseIcon, Supplier<BaseIcon<?>> expandIcon){
+    this.cardCollapseIconSupplier = collapseIcon;
+    this.cardExpandIconSupplier = expandIcon;
+    return this;
+  }
+
+  public BaseIcon<?> getCardCollapseIcon(){
+    return this.cardCollapseIconSupplier.get();
+  }
+
+  public BaseIcon<?> getCardExpandIcon(){
+    return this.cardExpandIconSupplier.get();
   }
 //
 //  /** A provider for creating {@link CollapseStrategy} for TreeItem(s) */

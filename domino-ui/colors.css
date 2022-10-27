@@ -18,7 +18,7 @@
     color: #FFF;
 }
 .modal-content.col-red:not([class*="col-white"]) .modal-body,
-.modal-content.col-red:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-red:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-red:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-red:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-red:not([class*="col-white"]) .panel-body,
@@ -752,7 +752,7 @@ ul.stepper.horizontal.stepper-col-d-4-red .step.done .step-title:before  {
     color: #FFF;
 }
 .modal-content.col-pink:not([class*="col-white"]) .modal-body,
-.modal-content.col-pink:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-pink:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-pink:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-pink:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-pink:not([class*="col-white"]) .panel-body,
@@ -1486,7 +1486,7 @@ ul.stepper.horizontal.stepper-col-d-4-pink .step.done .step-title:before  {
     color: #FFF;
 }
 .modal-content.col-purple:not([class*="col-white"]) .modal-body,
-.modal-content.col-purple:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-purple:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-purple:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-purple:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-purple:not([class*="col-white"]) .panel-body,
@@ -2220,7 +2220,7 @@ ul.stepper.horizontal.stepper-col-d-4-purple .step.done .step-title:before  {
     color: #FFF;
 }
 .modal-content.col-deep-purple:not([class*="col-white"]) .modal-body,
-.modal-content.col-deep-purple:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-deep-purple:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-deep-purple:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-deep-purple:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-deep-purple:not([class*="col-white"]) .panel-body,
@@ -2954,7 +2954,7 @@ ul.stepper.horizontal.stepper-col-d-4-deep-purple .step.done .step-title:before 
     color: #FFF;
 }
 .modal-content.col-indigo:not([class*="col-white"]) .modal-body,
-.modal-content.col-indigo:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-indigo:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-indigo:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-indigo:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-indigo:not([class*="col-white"]) .panel-body,
@@ -3688,7 +3688,7 @@ ul.stepper.horizontal.stepper-col-d-4-indigo .step.done .step-title:before  {
     color: #FFF;
 }
 .modal-content.col-blue:not([class*="col-white"]) .modal-body,
-.modal-content.col-blue:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-blue:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-blue:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-blue:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-blue:not([class*="col-white"]) .panel-body,
@@ -4422,7 +4422,7 @@ ul.stepper.horizontal.stepper-col-d-4-blue .step.done .step-title:before  {
     color: #FFF;
 }
 .modal-content.col-light-blue:not([class*="col-white"]) .modal-body,
-.modal-content.col-light-blue:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-light-blue:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-light-blue:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-light-blue:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-light-blue:not([class*="col-white"]) .panel-body,
@@ -5156,7 +5156,7 @@ ul.stepper.horizontal.stepper-col-d-4-light-blue .step.done .step-title:before  
     color: #FFF;
 }
 .modal-content.col-cyan:not([class*="col-white"]) .modal-body,
-.modal-content.col-cyan:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-cyan:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-cyan:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-cyan:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-cyan:not([class*="col-white"]) .panel-body,
@@ -5890,7 +5890,7 @@ ul.stepper.horizontal.stepper-col-d-4-cyan .step.done .step-title:before  {
     color: #FFF;
 }
 .modal-content.col-teal:not([class*="col-white"]) .modal-body,
-.modal-content.col-teal:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-teal:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-teal:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-teal:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-teal:not([class*="col-white"]) .panel-body,
@@ -6624,7 +6624,7 @@ ul.stepper.horizontal.stepper-col-d-4-teal .step.done .step-title:before  {
     color: #FFF;
 }
 .modal-content.col-green:not([class*="col-white"]) .modal-body,
-.modal-content.col-green:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-green:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-green:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-green:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-green:not([class*="col-white"]) .panel-body,
@@ -7358,7 +7358,7 @@ ul.stepper.horizontal.stepper-col-d-4-green .step.done .step-title:before  {
     color: #FFF;
 }
 .modal-content.col-light-green:not([class*="col-white"]) .modal-body,
-.modal-content.col-light-green:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-light-green:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-light-green:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-light-green:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-light-green:not([class*="col-white"]) .panel-body,
@@ -8092,7 +8092,7 @@ ul.stepper.horizontal.stepper-col-d-4-light-green .step.done .step-title:before 
     color: #FFF;
 }
 .modal-content.col-lime:not([class*="col-white"]) .modal-body,
-.modal-content.col-lime:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-lime:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-lime:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-lime:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-lime:not([class*="col-white"]) .panel-body,
@@ -8826,7 +8826,7 @@ ul.stepper.horizontal.stepper-col-d-4-lime .step.done .step-title:before  {
     color: #FFF;
 }
 .modal-content.col-yellow:not([class*="col-white"]) .modal-body,
-.modal-content.col-yellow:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-yellow:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-yellow:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-yellow:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-yellow:not([class*="col-white"]) .panel-body,
@@ -9560,7 +9560,7 @@ ul.stepper.horizontal.stepper-col-d-4-yellow .step.done .step-title:before  {
     color: #FFF;
 }
 .modal-content.col-amber:not([class*="col-white"]) .modal-body,
-.modal-content.col-amber:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-amber:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-amber:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-amber:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-amber:not([class*="col-white"]) .panel-body,
@@ -10294,7 +10294,7 @@ ul.stepper.horizontal.stepper-col-d-4-amber .step.done .step-title:before  {
     color: #FFF;
 }
 .modal-content.col-orange:not([class*="col-white"]) .modal-body,
-.modal-content.col-orange:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-orange:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-orange:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-orange:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-orange:not([class*="col-white"]) .panel-body,
@@ -11028,7 +11028,7 @@ ul.stepper.horizontal.stepper-col-d-4-orange .step.done .step-title:before  {
     color: #FFF;
 }
 .modal-content.col-deep-orange:not([class*="col-white"]) .modal-body,
-.modal-content.col-deep-orange:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-deep-orange:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-deep-orange:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-deep-orange:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-deep-orange:not([class*="col-white"]) .panel-body,
@@ -11762,7 +11762,7 @@ ul.stepper.horizontal.stepper-col-d-4-deep-orange .step.done .step-title:before 
     color: #FFF;
 }
 .modal-content.col-brown:not([class*="col-white"]) .modal-body,
-.modal-content.col-brown:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-brown:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-brown:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-brown:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-brown:not([class*="col-white"]) .panel-body,
@@ -12496,7 +12496,7 @@ ul.stepper.horizontal.stepper-col-d-4-brown .step.done .step-title:before  {
     color: #FFF;
 }
 .modal-content.col-grey:not([class*="col-white"]) .modal-body,
-.modal-content.col-grey:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-grey:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-grey:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-grey:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-grey:not([class*="col-white"]) .panel-body,
@@ -13230,7 +13230,7 @@ ul.stepper.horizontal.stepper-col-d-4-grey .step.done .step-title:before  {
     color: #FFF;
 }
 .modal-content.col-blue-grey:not([class*="col-white"]) .modal-body,
-.modal-content.col-blue-grey:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col-blue-grey:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col-blue-grey:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col-blue-grey:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col-blue-grey:not([class*="col-white"]) .panel-body,
@@ -14008,7 +14008,7 @@ ul.stepper.horizontal.stepper-col-d-4-blue-grey .step.done .step-title:before  {
 .list-group.bg-white:hover,
 .list-group.bg-white:focus,
 .modal-content.col-white .modal-body,
-.modal-content.col-white .modal-footer .btn-link,
+.modal-content.col-white .modal-footer .dom-ui-btn-link,
 .modal-content.col-white .modal-title,
 .panel-group .panel.col-white .panel-title,
 .panel-group.full-body .panel.col-white .panel-body{
@@ -14124,12 +14124,12 @@ ul.stepper.horizontal.stepper-col-d-4-blue-grey .step.done .step-title:before  {
 .modal-content[class*="col-d-3"]:not([class*="col-white"]) .modal-body,
 .modal-content[class*="col-d-4"]:not([class*="col-white"]) .modal-body,
 
-.modal-content[class*="col-l-1"]:not([class*="col-white"]) .modal-footer .btn-link,
-.modal-content[class*="col-l-2"]:not([class*="col-white"]) .modal-footer .btn-link,
-.modal-content[class*="col-d-1"]:not([class*="col-white"]) .modal-footer .btn-link,
-.modal-content[class*="col-d-2"]:not([class*="col-white"]) .modal-footer .btn-link,
-.modal-content[class*="col-d-3"]:not([class*="col-white"]) .modal-footer .btn-link,
-.modal-content[class*="col-d-4"]:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content[class*="col-l-1"]:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
+.modal-content[class*="col-l-2"]:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
+.modal-content[class*="col-d-1"]:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
+.modal-content[class*="col-d-2"]:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
+.modal-content[class*="col-d-3"]:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
+.modal-content[class*="col-d-4"]:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 
 .modal-content[class*="col-l-1"]:not([class*="col-white"]) .modal-title,
 .modal-content[class*="col-l-2"]:not([class*="col-white"]) .modal-title,
@@ -14183,9 +14183,9 @@ ul.stepper.horizontal.stepper-col-d-4-blue-grey .step.done .step-title:before  {
 .modal-content[class*="col-l-4"] .modal-body,
 .modal-content[class*="col-l-5"] .modal-body,
 
-.modal-content[class*="col-l-3"] .modal-footer .btn-link,
-.modal-content[class*="col-l-4"] .modal-footer .btn-link,
-.modal-content[class*="col-l-5"] .modal-footer .btn-link,
+.modal-content[class*="col-l-3"] .modal-footer .dom-ui-btn-link,
+.modal-content[class*="col-l-4"] .modal-footer .dom-ui-btn-link,
+.modal-content[class*="col-l-5"] .modal-footer .dom-ui-btn-link,
 
 .modal-content[class*="col-l-3"] .modal-title,
 .modal-content[class*="col-l-4"] .modal-title,

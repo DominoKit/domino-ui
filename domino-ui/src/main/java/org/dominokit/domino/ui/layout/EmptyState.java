@@ -24,7 +24,7 @@ import elemental2.dom.HTMLParagraphElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -43,7 +43,7 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState> {
 
   private HTMLDivElement element =
       DominoElement.of(div())
-          .css("empty-state", Styles.align_center, Styles.vertical_center)
+          .css("empty-state", GenericCss.align_center, GenericCss.vertical_center)
           .element();
   private HTMLDivElement iconContainer = div().element();
   private HTMLHeadingElement titleContainer = h(4).element();

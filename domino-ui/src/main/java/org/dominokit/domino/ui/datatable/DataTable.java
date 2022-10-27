@@ -50,6 +50,7 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TableEventListener;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.store.DataStore;
+import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionSupport;
@@ -71,7 +72,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   private final DataStore<T> dataStore;
   private DominoElement<HTMLDivElement> root = DominoElement.of(div()).css(TABLE_RESPONSIVE);
   private DominoElement<HTMLTableElement> tableElement =
-      DominoElement.of(table()).css(TABLE, TABLE_HOVER, TABLE_STRIPED);
+      DominoElement.of(table()).css(DataTableStyles.TABLE, TABLE_HOVER, TABLE_STRIPED);
   private TableConfig<T> tableConfig;
   private DominoElement<HTMLTableSectionElement> tbody = DominoElement.of(tbody());
   private DominoElement<HTMLTableSectionElement> thead = DominoElement.of(thead());

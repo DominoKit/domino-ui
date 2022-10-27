@@ -15,11 +15,14 @@
  */
 package org.dominokit.domino.ui.button;
 
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.Elements;
+
+import java.util.Arrays;
 
 /**
  * a component for a toolbar that has many buttons
@@ -44,16 +47,16 @@ import org.jboss.elemento.Elements;
  *                    );
  *     </pre>
  */
-public class ButtonsToolbar extends BaseDominoElement<HTMLElement, ButtonsToolbar> {
+public class ButtonsToolbar extends BaseDominoElement<HTMLDivElement, ButtonsToolbar> {
 
-  private HTMLElement toolbarElement =
-      DominoElement.of(Elements.div())
-          .css(ButtonStyles.BUTTON_TOOLBAR)
-          .attr("role", "toolbar")
-          .element();
+  private DominoElement<HTMLDivElement> toolbarElement;
 
   /** default constructor */
   public ButtonsToolbar() {
+    toolbarElement =
+    DominoElement.div()
+            .addCss(ButtonStyles.dui_button_toolbar)
+            .setAttribute("role", "toolbar");
     init(this);
   }
 
@@ -63,19 +66,40 @@ public class ButtonsToolbar extends BaseDominoElement<HTMLElement, ButtonsToolba
   }
 
   /**
-   * Adds a a ButtonsGroup to the toolbar
+   * Adds a ButtonsGroup to the toolbar
    *
    * @param group {@link ButtonsGroup}
    * @return new ButtonsToolbar instance
    */
-  public ButtonsToolbar addGroup(ButtonsGroup group) {
+  public ButtonsToolbar appendChild(ButtonsGroup group) {
     toolbarElement.appendChild(group.element());
+    return this;
+  }
+
+  /**
+   * Adds a ButtonsGroup to the toolbar
+   *
+   * @param groups {@link ButtonsGroup}
+   * @return new ButtonsToolbar instance
+   */
+  public ButtonsToolbar appendChild(ButtonsGroup... groups) {
+    Arrays.stream(groups).forEach(this::appendChild);
+    return this;
+  }
+  /**
+   * Adds a ButtonsGroup to the toolbar
+   *
+   * @param buttons {@link IsButton<?>}
+   * @return new ButtonsToolbar instance
+   */
+  public ButtonsToolbar appendChild(IsButton<?>... buttons) {
+    Arrays.stream(buttons).forEach(this::appendChild);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public HTMLElement element() {
-    return toolbarElement;
+  public HTMLDivElement element() {
+    return toolbarElement.element();
   }
 }

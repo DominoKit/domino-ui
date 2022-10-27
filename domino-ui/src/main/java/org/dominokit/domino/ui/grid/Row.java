@@ -15,15 +15,13 @@
  */
 package org.dominokit.domino.ui.grid;
 
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import java.util.function.Consumer;
-import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.PostfixCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+
+import static org.dominokit.domino.ui.grid.Columns.*;
+
 
 /**
  * A component which provides an abstract level of the CSS grid row which will inherit the styles
@@ -41,129 +39,72 @@ import org.jboss.elemento.IsElement;
  *        .appendChild(element);
  * </pre>
  *
- * @param <T> the derivative Row type
  * @see BaseDominoElement
- * @see Row_12
- * @see Row_16
- * @see Row_18
- * @see Row_24
- * @see Row_32
  */
-public class Row<T extends Row<T>> extends BaseDominoElement<HTMLDivElement, T> {
+public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridStyles{
 
-  protected final Columns columns;
-  protected HTMLDivElement row;
+  protected DominoElement<HTMLDivElement> row;
+
+  private PostfixCssClass rowColumns = PostfixCssClass.of("dui-row", _12.getCount());
 
   public Row(Columns columns) {
     this.row =
-        DominoElement.of(div()).css(GridStyles.GRID_ROW).css(columns.getColumnsStyle()).element();
-    this.columns = columns;
+        DominoElement.div().addCss(dui_grid_row, rowColumns.postfix(columns.getCount()));
+    init(this);
   }
 
   /**
    * Creates a grid row with default 12 columns
    *
-   * @return new instance of {@link Row_12}
+   * @return new instance of {@link Row}
    */
-  public static Row_12 create() {
-    return new Row_12();
+  public static Row create() {
+    return new Row(_12);
   }
 
   /**
    * Creates a grid row with 12 columns
    *
-   * @return new instance of {@link Row_12}
+   * @return new instance of {@link Row}
    */
-  public static Row_12 of12Columns() {
-    return new Row_12();
-  }
-
-  /** @deprecated Use {@link Row#of12Columns()} instead */
-  @Deprecated
-  public static Row_12 of12Colmns() {
-    return new Row_12();
+  public static Row of12Columns() {
+    return new Row(_12);
   }
 
   /**
    * Creates a grid row with 16 columns
    *
-   * @return new instance of {@link Row_16}
+   * @return new instance of {@link Row}
    */
-  public static Row_16 of16Columns() {
-    return new Row_16();
-  }
-
-  /** @deprecated Use {@link Row#of16Columns()} instead */
-  @Deprecated
-  public static Row_16 of16Colmns() {
-    return new Row_16();
+  public static Row of16Columns() {
+    return new Row(_16);
   }
 
   /**
    * Creates a grid row with 18 columns
    *
-   * @return new instance of {@link Row_18}
+   * @return new instance of {@link Row}
    */
-  public static Row_18 of18Columns() {
-    return new Row_18();
-  }
-
-  /** @deprecated Use {@link Row#of18Columns()} instead */
-  @Deprecated
-  public static Row_18 of18Colmns() {
-    return new Row_18();
+  public static Row of18Columns() {
+    return new Row(_18);
   }
 
   /**
    * Creates a grid row with 24 columns
    *
-   * @return new instance of {@link Row_24}
+   * @return new instance of {@link Row}
    */
-  public static Row_24 of24Columns() {
-    return new Row_24();
-  }
-
-  /** @deprecated Use {@link Row#of24Columns()} instead */
-  @Deprecated
-  public static Row_24 of24Colmns() {
-    return new Row_24();
+  public static Row of24Columns() {
+    return new Row(_24);
   }
 
   /**
    * Creates a grid row with 32 columns
    *
-   * @return new instance of {@link Row_32}
+   * @return new instance of {@link Row}
    */
-  public static Row_32 of32Columns() {
-    return new Row_32();
-  }
-
-  /** @deprecated Use {@link Row#of32Columns()} instead */
-  @Deprecated
-  public static Row_32 of32Colmns() {
-    return new Row_32();
-  }
-
-  /**
-   * Creates a grid row with {@code columns} count
-   *
-   * @param columns the number of columns
-   * @param <T> the type of row
-   * @return new instance of {@link Row} based on the number of columns
-   */
-  public static <T extends Row<T>> T create(Columns columns) {
-    switch (columns) {
-      case _16:
-        return (T) new Row_16();
-      case _18:
-        return (T) new Row_18();
-      case _24:
-        return (T) new Row_24();
-      case _32:
-        return (T) new Row_32();
-      default:
-        return (T) new Row_12();
-    }
+  public static Row of32Columns() {
+    return new Row(_32);
   }
 
   /**
@@ -173,9 +114,9 @@ public class Row<T extends Row<T>> extends BaseDominoElement<HTMLDivElement, T> 
    *     href="https://developer.mozilla.org/en-US/docs/Web/CSS/gap">CSS gap format</a>
    * @return same instance
    */
-  public T setGap(String gap) {
-    Style.of(row).setCssProperty("grid-gap", gap);
-    return (T) this;
+  public Row setGap(String gap) {
+    setCssProperty("grid-gap", gap);
+    return this;
   }
 
   /**
@@ -184,36 +125,9 @@ public class Row<T extends Row<T>> extends BaseDominoElement<HTMLDivElement, T> 
    * @param column A new {@link Column} to add
    * @return same instance
    */
-  public T addColumn(Column column) {
-    return appendChild(column);
-  }
-
-  /**
-   * Adds new column
-   *
-   * @param column A new {@link Column} to add
-   * @return same instance
-   */
-  public T appendChild(Column column) {
+  public Row appendChild(Column column) {
     row.appendChild(column.element());
-    return (T) this;
-  }
-
-  /**
-   * Adds a column which cover all the row
-   *
-   * @param consumer a {@link Consumer} that provides the created column
-   * @return same instance
-   */
-  public T fullSpan(Consumer<Column> consumer) {
-    consumer.accept(addAutoSpanColumn(columns.getCount()));
-    return (T) this;
-  }
-
-  protected Column addAutoSpanColumn(int span) {
-    Column column = Column.span(span, columns.getCount());
-    appendChild(column);
-    return column;
+    return this;
   }
 
   /**
@@ -221,41 +135,7 @@ public class Row<T extends Row<T>> extends BaseDominoElement<HTMLDivElement, T> 
    */
   @Override
   public HTMLDivElement element() {
-    return row;
+    return row.element();
   }
 
-  /**
-   * Adds a new element to the row
-   *
-   * @param element the {@link HTMLElement} to add
-   * @return same instance
-   */
-  public T appendChild(HTMLElement element) {
-    row.appendChild(element);
-    return (T) this;
-  }
-
-  /**
-   * {@inheritDoc
-   */
-  @Override
-  public T appendChild(IsElement<?> element) {
-    row.appendChild(element.element());
-    return (T) this;
-  }
-
-  /**
-   * Fits the columns to match the row size without any margin
-   *
-   * @return same instance
-   */
-  public T condensed() {
-    return style().setMarginBottom("0px").get();
-  }
-
-  /** @deprecated Use {@link Row#condensed()} ()} instead */
-  @Deprecated
-  public T condenced() {
-    return style().setMarginBottom("0px").get();
-  }
 }

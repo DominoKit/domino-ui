@@ -15,15 +15,14 @@
  */
 package org.dominokit.domino.ui.header;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.*;
-
-import elemental2.dom.*;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLHeadingElement;
+import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
  * A component provides a header text with a description in a predefined style
@@ -39,45 +38,38 @@ import org.jboss.elemento.IsElement;
  *
  * @see BaseDominoElement
  */
-public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> {
+public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> implements BlockHeaderStyles{
 
-  private final HTMLDivElement element =
-      DominoElement.of(div()).css(BlockHeaderStyles.BLOCK_HEADER).element();
-  private final HTMLHeadingElement headerElement = DominoElement.of(h(2)).element();
-  private HTMLElement descriptionElement;
-  private final Text headerText = TextNode.empty();
-  private final Text descriptionText = TextNode.empty();
+  private final DominoElement<HTMLDivElement> element;
+  private final DominoElement<HTMLHeadingElement> headerElement;
+  private LazyChild<DominoElement<HTMLElement>> descriptionElement;
 
-  private BlockHeader(String header) {
-    this(header, null);
-  }
-
-  private BlockHeader(String header, String description) {
-    headerText.textContent = header;
-    headerElement.appendChild(headerText);
-    element.appendChild(headerElement);
-
-    if (nonNull(description)) {
-      createDescriptionElement(description);
-    }
+  private BlockHeader(String title) {
+    element = DominoElement.div().addCss(dui_block_header)
+            .appendChild(headerElement = DominoElement.h(2).addCss(dui_block_header_title).textContent(title));
+    descriptionElement = LazyChild.of(DominoElement.small().addCss(dui_block_header_description), element);
     init(this);
   }
 
-  private void createDescriptionElement(String description) {
-    descriptionText.textContent = description;
-    descriptionElement = small().add(descriptionText).element();
-    headerElement.appendChild(descriptionElement);
+  private BlockHeader(String title, String description) {
+    this(title);
+    setDescription(description);
+  }
+
+  public BlockHeader setDescription(String description) {
+    descriptionElement.get().setTextContent(description);
+    return  this;
   }
 
   /**
    * Creates a header with a description
    *
-   * @param header the header text
+   * @param title the header text
    * @param description the description text
    * @return new instance
    */
-  public static BlockHeader create(String header, String description) {
-    return new BlockHeader(header, description);
+  public static BlockHeader create(String title, String description) {
+    return new BlockHeader(title, description);
   }
 
   /**
@@ -90,43 +82,10 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
     return new BlockHeader(header);
   }
 
-  /** {@inheritDoc} */
-  @Override
-  public BlockHeader appendChild(Node content) {
-    if (isNull(descriptionElement)) createDescriptionElement("");
-    descriptionElement.appendChild(content);
+
+  public BlockHeader setReversed(boolean reversed){
+    addCss(BooleanCssClass.of(dui_block_header_reversed, reversed));
     return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public BlockHeader appendChild(IsElement<?> content) {
-    return appendChild(content.element());
-  }
-
-  /**
-   * Change the positions of the header and description elements by setting the header under the
-   * description
-   *
-   * @return same instance
-   */
-  public BlockHeader invert() {
-    if (nonNull(descriptionElement)) {
-      descriptionElement.remove();
-      element.insertBefore(descriptionElement, headerElement);
-    }
-
-    return this;
-  }
-
-  /**
-   * Adds text as a child to this component
-   *
-   * @param text the text
-   * @return same instance
-   */
-  public BlockHeader appendText(String text) {
-    return appendChild(DomGlobal.document.createTextNode(text));
   }
 
   /**
@@ -136,23 +95,42 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
    * @return same instance
    */
   public BlockHeader setHeader(String header) {
-    headerText.textContent = header;
+    headerElement.setTextContent(header);
     return this;
   }
 
   /** @return The header element */
   public DominoElement<HTMLHeadingElement> getHeaderElement() {
-    return DominoElement.of(headerElement);
+    return headerElement;
+  }
+
+  public BlockHeader withHeaderElement(ChildHandler<BlockHeader, DominoElement<HTMLHeadingElement>> handler) {
+    handler.apply(this, headerElement);
+    return this;
   }
 
   /** @return The description element */
   public DominoElement<HTMLElement> getDescriptionElement() {
-    return DominoElement.of(descriptionElement);
+    return descriptionElement.get();
   }
+
+  /** @return The description element */
+  public BlockHeader withDescriptionElement() {
+    descriptionElement.get();
+    return this;
+  }
+
+  /** @return The description element */
+  public BlockHeader withDescriptionElement(ChildHandler<BlockHeader, DominoElement<HTMLElement>> handler) {
+    handler.apply(this, descriptionElement.get());
+    return this;
+  }
+
+
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 }

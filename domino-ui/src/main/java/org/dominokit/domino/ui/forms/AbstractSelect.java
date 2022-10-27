@@ -11,6 +11,7 @@ import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuItemsGroup;
 import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.*;
 
 import java.util.*;
@@ -19,23 +20,17 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.forms.FormsStyles.*;
-import static org.dominokit.domino.ui.style.Styles.CLEARABLE;
 
-public abstract class AbstractSelect<T, S, V, C extends AbstractSelect<T, S, V, C>> extends AbstractFormElement<AbstractSelect<T, S, V, C>, V>
-        implements HasInputElement<AbstractSelect<T, S, V, C>>, HasPlaceHolder<AbstractSelect<T, S, V, C>> {
+public abstract class AbstractSelect<T, V, S extends Option<T>, C extends AbstractSelect<T, V, S, C>> extends AbstractFormElement<AbstractSelect<T, V,S, C>, V>
+        implements HasInputElement<AbstractSelect<T, V, S, C>, HTMLInputElement>, HasPlaceHolder<AbstractSelect<T, V, S, C>> {
 
     protected Menu<T> optionsMenu;
     private DominoElement<HTMLDivElement> fieldInput;
     private DominoElement<HTMLElement> placeHolderElement = DominoElement.span();
     private DominoElement<HTMLInputElement> inputElement;
 
-    private Function<S, Optional<SelectOption<T>>> optionMapper;
-
-    private SelectValueRenderer<T, S, V, C> selectValueRenderer = (select, option) -> DominoElement.span().setTextContent(String.valueOf(option.getValue())).element();
-
-    public AbstractSelect(Function<S, Optional<SelectOption<T>>> optionMapper) {
+    public AbstractSelect() {
         addCss(FORM_SELECT);
-        this.optionMapper = optionMapper;
         wrapperElement
                 .appendChild(fieldInput = DominoElement.div()
                         .addCss(FIELD_INPUT)
@@ -45,11 +40,12 @@ public abstract class AbstractSelect<T, S, V, C extends AbstractSelect<T, S, V, 
         labelForId(inputElement.getDominoId());
 
         optionsMenu = Menu.<T>create()
-                .setAppendTarget(getWrapperElement().element())
+                .setMenuAppendTarget(getWrapperElement().element())
                 .setTargetElement(getWrapperElement())
                 .setFitToTargetWidth(true)
                 .addSelectionListener((source, selection) -> updateTextValue())
-                .addCloseHandler(this::focus);
+                .addCloseHandler(() -> focus())
+                .addOnAddItemHandler((menu, menuItem) -> ((S)menuItem).bindValueTarget(fieldInput));
 
         KeyboardEvents.listenOnKeyDown(getInputElement().element())
                 .onEnter(evt -> optionsMenu.open(true))
@@ -73,14 +69,14 @@ public abstract class AbstractSelect<T, S, V, C extends AbstractSelect<T, S, V, 
     }
 
     private void updateTextValue() {
-        getInputElement().element().value= getStringValue();
+        getInputElement().element().value = getStringValue();
     }
 
     protected C clearValue(boolean silent) {
-        if (!optionsMenu.getSelected().isEmpty()) {
+        if (!optionsMenu.getSelection().isEmpty()) {
             V oldValue = getValue();
-            optionsMenu.withPauseSelectionListenersToggle(true, (field, handler) -> {
-                List<AbstractMenuItem<T, ?>> selected = optionsMenu.getSelected();
+            optionsMenu.withPauseSelectionListenersToggle(true, field -> {
+                List<AbstractMenuItem<T, ?>> selected = optionsMenu.getSelection();
                 new ArrayList<>(selected)
                         .forEach(AbstractMenuItem::deselect);
             });
@@ -98,40 +94,40 @@ public abstract class AbstractSelect<T, S, V, C extends AbstractSelect<T, S, V, 
         return (C) this;
     }
 
-    public C addItem(S item) {
-        optionMapper.apply(item).ifPresent(this::appendOption);
-        return (C) this;
-    }
 
-    public C appendOption(SelectOption<T> option) {
-        if(nonNull(option)) {
-            option.setValueElement(LazyChild.of(DominoElement.of(selectValueRenderer.element((C) this, option)), fieldInput));
+    public C appendChild(S option) {
+        if (nonNull(option)) {
             optionsMenu.appendChild(option);
         }
         return (C) this;
     }
 
-    public C appendOption(Collection<SelectOption<T>> options) {
-        if(nonNull(options)) {
-            options.forEach(this::appendOption);
+    public C appendOptions(Collection<S> options) {
+        if (nonNull(options)) {
+            options.forEach(this::appendChild);
         }
         return (C) this;
     }
 
-    public C appendOption(SelectOption<T>... options) {
-        if(nonNull(options)) {
-           appendOption(Arrays.asList(options));
+    public C appendOptions(S... options) {
+        if (nonNull(options)) {
+            appendOptions(Arrays.asList(options));
         }
         return (C) this;
     }
 
-    public C addItems(Collection<S> items) {
-        items.forEach(this::addItem);
+    public <I> C appendItem(Function<I, S> mapper, I item){
+        return appendChild(mapper.apply(item));
+    }
+
+    public <I> C appendItems(Function<I, S> mapper, Collection<I> items){
+        items.forEach(item -> appendItem(mapper, item));
         return (C) this;
     }
 
-    public C addItems(S... items) {
-        return addItems(Arrays.asList(items));
+    public <I> C appendItems(Function<I, S> mapper, I... items){
+        appendItems(mapper, Arrays.asList(items));
+        return (C) this;
     }
 
     @Override
@@ -152,7 +148,7 @@ public abstract class AbstractSelect<T, S, V, C extends AbstractSelect<T, S, V, 
 
     @Override
     public String getStringValue() {
-        return optionsMenu.getSelected()
+        return optionsMenu.getSelection()
                 .stream()
                 .map(option -> String.valueOf(option.getValue()))
                 .collect(Collectors.joining(","));
@@ -183,7 +179,7 @@ public abstract class AbstractSelect<T, S, V, C extends AbstractSelect<T, S, V, 
 
     @Override
     public boolean isEmpty() {
-        return optionsMenu.getSelected().isEmpty();
+        return optionsMenu.getSelection().isEmpty();
     }
 
     @Override
@@ -208,7 +204,7 @@ public abstract class AbstractSelect<T, S, V, C extends AbstractSelect<T, S, V, 
 
     @Override
     public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
-        return new SelectAutoValidator<>((C)this, autoValidate);
+        return new SelectAutoValidator<>((C) this, autoValidate);
     }
 
     @Override
@@ -246,19 +242,16 @@ public abstract class AbstractSelect<T, S, V, C extends AbstractSelect<T, S, V, 
         return withValue(value, isChangeListenersPaused());
     }
 
-    public C addOptionsGroup(List<S> items, Menu.MenuItemsGroupHandler<T, SelectOption<T>> groupHandler) {
-        MenuItemsGroup<T, SelectOption<T>> optionsGroup = new MenuItemsGroup<>(optionsMenu);
+    public C addOptionsGroup(List<Option<T>> options, Menu.MenuItemsGroupHandler<T, Option<T>> groupHandler) {
+        MenuItemsGroup<T, Option<T>> optionsGroup = new MenuItemsGroup<>(optionsMenu);
         optionsMenu.appendGroup(optionsGroup, groupHandler);
-        items.forEach(item -> addItemToGroup(optionsGroup, item));
+        options.forEach(option -> addItemToGroup(optionsGroup, option));
         return (C) this;
 
     }
 
-    private void addItemToGroup(MenuItemsGroup<T, SelectOption<T>> optionsGroup, S item) {
-        optionMapper.apply(item).ifPresent(option -> {
-            option.setValueElement(LazyChild.of(DominoElement.of(selectValueRenderer.element((C) this, option)), fieldInput));
-            optionsGroup.appendChild(option);
-        });
+    private void addItemToGroup(MenuItemsGroup<T, Option<T>> optionsGroup, Option<T> option) {
+        optionsGroup.appendChild(option);
     }
 
     @Override
@@ -282,108 +275,102 @@ public abstract class AbstractSelect<T, S, V, C extends AbstractSelect<T, S, V, 
         withValue(value);
     }
 
-    public C selectOption(SelectOption<T> option) {
+    public C selectOption(S option) {
         findOption(option)
                 .ifPresent(menuItem -> menuItem.select(isChangeListenersPaused()));
 
         return (C) this;
     }
 
-    public Optional<SelectOption<T>> findOption(SelectOption<T> option) {
+    public Optional<S> findOption(S option) {
         return Optional.ofNullable(option)
                 .flatMap(vSelectionOption -> optionsMenu.getMenuItems()
                         .stream()
                         .filter(menuItem -> Objects.equals(option.getKey(), menuItem.getKey()))
-                        .map(menuItem -> (SelectOption<T>)menuItem)
+                        .map(menuItem -> (S) menuItem)
                         .findFirst()
                 );
     }
 
-    public Optional<SelectOption<T>> findOptionByKey(String key) {
+    public Optional<S> findOptionByKey(String key) {
         return optionsMenu.getMenuItems()
-                        .stream()
-                        .filter(menuItem -> Objects.equals(key, menuItem.getKey()))
-                        .map(menuItem -> (SelectOption<T>)menuItem)
-                        .findFirst();
+                .stream()
+                .filter(menuItem -> Objects.equals(key, menuItem.getKey()))
+                .map(menuItem -> (S) menuItem)
+                .findFirst();
     }
 
-    public Optional<SelectOption<T>> findOptionByValue(T value) {
+    public Optional<S> findOptionByValue(T value) {
         return optionsMenu.getMenuItems()
-                        .stream()
-                        .filter(menuItem -> Objects.equals(value, menuItem.getValue()))
-                        .map(menuItem -> (SelectOption<T>)menuItem)
-                        .findFirst();
+                .stream()
+                .filter(menuItem -> Objects.equals(value, menuItem.getValue()))
+                .map(menuItem -> (S) menuItem)
+                .findFirst();
     }
 
-    public Optional<SelectOption<T>> findOptionByIndex(int index) {
-        if (index < optionsMenu.getMenuItems().size() && index >= 0){
-            return Optional.of((SelectOption<T>)optionsMenu.getMenuItems().get(index));
+    public Optional<S> findOptionByIndex(int index) {
+        if (index < optionsMenu.getMenuItems().size() && index >= 0) {
+            return Optional.of((S) optionsMenu.getMenuItems().get(index));
         }
         return Optional.empty();
     }
 
-    public C selectAt(int index){
+    public C selectAt(int index) {
         findOptionByIndex(index).ifPresent(option -> option.select(isChangeListenersPaused()));
         return (C) this;
     }
 
-    public C selectByKey(String key){
+    public C selectByKey(String key) {
         findOptionByKey(key).ifPresent(option -> option.select(isChangeListenersPaused()));
         return (C) this;
     }
 
-    public C selectByValue(T value){
+    public C selectByValue(T value) {
         findOptionByValue(value).ifPresent(option -> option.select(isChangeListenersPaused()));
         return (C) this;
     }
 
-    public boolean containsKey(String key){
+    public boolean containsKey(String key) {
         return findOptionByKey(key).isPresent();
     }
 
-    public boolean containsValue(T value){
+    public boolean containsValue(T value) {
         return findOptionByValue(value).isPresent();
     }
 
-    public C setOptionValueRenderer(SelectValueRenderer<T, S, V, C> selectValueRenderer) {
-        if (nonNull(selectValueRenderer)) {
-            this.selectValueRenderer = selectValueRenderer;
-        }
-        return (C) this;
-    }
-
     public C setClearable(boolean clearable) {
-        addCss(BooleanCssClass.of(CLEARABLE, clearable));
+        addCss(BooleanCssClass.of(dui_clearable, clearable));
         return (C) this;
     }
 
-    public boolean isClearable(){
-        return containsCss(CLEARABLE.getCssClass());
+    public boolean isClearable() {
+        return containsCss(dui_clearable.getCssClass());
     }
 
-    public C setAutoCloseOnSelect(boolean autoClose){
+    public C setAutoCloseOnSelect(boolean autoClose) {
         optionsMenu.setAutoCloseOnSelect(autoClose);
         return (C) this;
     }
 
-    public boolean isAutoCloseOnSelect(){
+    public boolean isAutoCloseOnSelect() {
         return optionsMenu.isAutoCloseOnSelect();
     }
+
     public C setSearchable(boolean searchable) {
         optionsMenu.setSearchable(searchable);
         return (C) this;
     }
 
-    public boolean isSearchable(){
+    public boolean isSearchable() {
         return optionsMenu.isSearchable();
     }
 
-    public C setSearchFilter(){
+    public C setSearchFilter() {
 
         return (C) this;
     }
 
-    public boolean isAllowCreateMissing(){
+    public boolean isAllowCreateMissing() {
         return optionsMenu.isAllowCreateMissing();
     }
 
@@ -391,7 +378,7 @@ public abstract class AbstractSelect<T, S, V, C extends AbstractSelect<T, S, V, 
         return optionsMenu;
     }
 
-    public C withOptionsMenu(ChildHandler<C, Menu<T>> handler){
+    public C withOptionsMenu(ChildHandler<C, Menu<T>> handler) {
         handler.apply((C) this, optionsMenu);
         return (C) this;
     }
@@ -407,35 +394,31 @@ public abstract class AbstractSelect<T, S, V, C extends AbstractSelect<T, S, V, 
         return (C) this;
     }
 
-    public C removeOption(SelectOption<T> option){
+    public C removeOption(S option) {
         findOption(option).ifPresent(found -> optionsMenu.removeItem(found));
         return (C) this;
     }
 
-    public C removeOptions(Collection<SelectOption<T>> options){
+    public C removeOptions(Collection<S> options) {
         options.forEach(this::removeOption);
         return (C) this;
     }
 
-    public C removeOptions(SelectOption<T>... options){
+    public C removeOptions(S... options) {
         Arrays.asList(options).forEach(this::removeOption);
         return (C) this;
     }
 
-    public C removeAllOptions(){
-        optionsMenu.getMenuItems().forEach(menuItem -> removeOption((SelectOption<T>) menuItem));
+    public C removeAllOptions() {
+        optionsMenu.getMenuItems().forEach(menuItem -> removeOption((S) menuItem));
         return (C) this;
-    }
-    
-    public interface SelectValueRenderer<T, S, V, C extends AbstractSelect<T, S, V, C>> {
-        HTMLElement element(C select, SelectOption<T> option);
     }
 
     public interface MissingOptionHandler<V> {
-        SelectOption<V> onMissingItem(String token);
+        Option<V> onMissingItem(String token);
     }
 
-    private static class SelectAutoValidator<T, S, V, C extends AbstractSelect<T, S, V, C>>
+    private static class SelectAutoValidator<T, V, S extends Option<T>, C extends AbstractSelect<T, V, S, C>>
             extends AutoValidator {
 
         private C select;

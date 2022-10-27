@@ -15,18 +15,18 @@
  */
 package org.dominokit.domino.ui.button.group;
 
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.button.ButtonSize;
 import org.dominokit.domino.ui.button.ButtonStyles;
-import org.dominokit.domino.ui.button.DropdownButton;
+import org.dominokit.domino.ui.button.IsButton;
+import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.style.WavesElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.Sizable;
+
+import java.util.Arrays;
+
+import static org.dominokit.domino.ui.button.ButtonStyles.*;
 
 /**
  * a component to group a set of buttons.
@@ -42,45 +42,41 @@ import org.dominokit.domino.ui.utils.Sizable;
  *            .setSize(ButtonSize.LARGE);
  *     </pre>
  */
-public class ButtonsGroup extends WavesElement<HTMLElement, ButtonsGroup>
-    implements IsGroup<ButtonsGroup>, Sizable<ButtonsGroup> {
+public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup>
+     {
 
-  private DominoElement<HTMLDivElement> groupElement =
-      DominoElement.of(div()).css(ButtonStyles.BTN_GROUP).attr("role", "group");
-  private ButtonSize size;
+  private DominoElement<HTMLDivElement> groupElement;
 
   /** default constructor */
   public ButtonsGroup() {
+    groupElement  =
+    DominoElement.div().addCss(dui_button_group).setAttribute("role", "group");
     init(this);
-    initWaves();
   }
+
+  /** default constructor */
+  public ButtonsGroup(IsButton<?>... buttons) {
+    this();
+    appendChild(buttons);
+  }
+
 
   /** @return a new ButtonsGroup instance */
   public static ButtonsGroup create() {
     return new ButtonsGroup();
   }
 
-  /**
-   * adds a Button to the ButtonsGroup
-   *
-   * @param button {@link Button}
-   * @return same ButtonsGroup instance
-   */
-  @Override
-  public ButtonsGroup appendChild(Button button) {
-    appendChild(button.element());
-    return this;
+  /** @return a new ButtonsGroup instance */
+  public static ButtonsGroup create(IsButton<?>... buttons) {
+    return new ButtonsGroup(buttons);
   }
 
-  /**
-   * adds a DropdownButton to the ButtonsGroup
-   *
-   * @param dropDown {@link DropdownButton}
-   * @return same ButtonsGroup instance
-   */
-  @Override
-  public ButtonsGroup appendChild(DropdownButton dropDown) {
-    appendChild(dropDown.element());
+  public ButtonsGroup appendChild(IsButton<?> button) {
+    appendChild(button.asButton().element());
+    return this;
+  }
+  public ButtonsGroup appendChild(IsButton<?>... buttons) {
+    Arrays.stream(buttons).forEach(this::appendChild);
     return this;
   }
 
@@ -90,57 +86,20 @@ public class ButtonsGroup extends WavesElement<HTMLElement, ButtonsGroup>
     return groupElement.element();
   }
 
-  /**
-   * Apply a size to all buttons in the ButtonsGroup
-   *
-   * @param size {@link ButtonSize}
-   * @return same ButtonsGroup instance
-   */
-  public ButtonsGroup setSize(ButtonSize size) {
-    if (nonNull(this.size)) groupElement.removeCss(this.size.getStyle());
-    groupElement.addCss(size.getStyle());
-    this.size = size;
+  public ButtonsGroup setVertical(boolean vertical){
+    addCss(BooleanCssClass.of(dui_vertical, vertical));
     return this;
   }
 
   /** {@inheritDoc} */
-  @Override
-  public ButtonsGroup verticalAlign() {
-    return switchClasses(ButtonStyles.BTN_GROUP, ButtonStyles.BTN_GROUP_VERTICAL);
+  public ButtonsGroup vertical() {
+    return addCss(dui_vertical);
   }
 
   /** {@inheritDoc} */
-  @Override
-  public ButtonsGroup horizontalAlign() {
-    return switchClasses(ButtonStyles.BTN_GROUP_VERTICAL, ButtonStyles.BTN_GROUP);
-  }
-
-  private ButtonsGroup switchClasses(String toRemove, String toAdd) {
-    groupElement.removeCss(toRemove).addCss(toAdd);
+  public ButtonsGroup horizontal() {
+    dui_vertical.remove(this.element());
     return this;
   }
 
-  /** {@inheritDoc} */
-  @Override
-  public ButtonsGroup large() {
-    return setSize(ButtonSize.LARGE);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public ButtonsGroup medium() {
-    return setSize(ButtonSize.MEDIUM);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public ButtonsGroup small() {
-    return setSize(ButtonSize.SMALL);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public ButtonsGroup xSmall() {
-    return setSize(ButtonSize.XSMALL);
-  }
 }

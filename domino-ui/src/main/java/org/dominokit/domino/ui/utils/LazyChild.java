@@ -17,11 +17,17 @@ package org.dominokit.domino.ui.utils;
 
 import org.jboss.elemento.IsElement;
 
+import java.util.function.Supplier;
+
 public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyChild<T>> {
 
   private T element;
 
   public static <T extends IsElement<?>> LazyChild<T> of(T element, IsElement<?> parent) {
+    return new LazyChild<T>(element, ()->parent);
+  }
+
+  public static <T extends IsElement<?>> LazyChild<T> of(T element, Supplier<IsElement<?>> parent) {
     return new LazyChild<T>(element, parent);
   }
 
@@ -29,8 +35,8 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
     return new LazyChild<T>(element, parent);
   }
 
-  public LazyChild(T element, IsElement<?> parent) {
-    super(() -> parent.element().append(element.element()));
+  public LazyChild(T element, Supplier<IsElement<?>> parent) {
+    super(() -> parent.get().element().append(element.element()));
     this.element = element;
   }
 

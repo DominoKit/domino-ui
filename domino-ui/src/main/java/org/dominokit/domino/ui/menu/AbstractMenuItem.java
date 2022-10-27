@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.menu;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.menu.MenuStyles.*;
-import static org.dominokit.domino.ui.style.Styles.CLICKABLE;
 import static org.jboss.elemento.Elements.a;
 
 import elemental2.dom.*;
@@ -60,13 +59,13 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   MenuItemsGroup<V, T> itemGroup;
 
   public AbstractMenuItem() {
-    root = DominoElement.li().addCss(MENU_ITEM);
+    root = DominoElement.li().addCss(menu_item);
 
     linkElement =
         DominoElement.of(a("#"))
             .setAttribute("tabindex", "0")
             .setAttribute("aria-expanded", "true")
-                .addCss(MENU_ITEM_ANCHOR);
+                .addCss(menu_item_anchor);
     root.appendChild(linkElement);
 
     indicatorIcon = createIndicator(Icons.ALL.menu_right_mdi());
@@ -87,7 +86,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   }
 
   private LazyChild<IsElement<?>> createIndicator(IsElement<?> element) {
-    return LazyChild.of(DominoElement.of(element).addCss(MENU_ITEM_ANCHOR, CLICKABLE), root);
+    return LazyChild.of(DominoElement.of(element).addCss(menu_item_anchor, dui_clickable), root);
   }
 
   private void onSelected(Event evt) {
@@ -160,7 +159,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
    */
   public T select(boolean silent) {
     if (!isDisabled()) {
-      addCss(MENU_ITEM_SELECTED);
+      addCss(menu_item_selected);
       setAttribute("selected", true);
       if (!silent) {
         selectionHandlers.forEach(handler -> handler.onSelection((T) this));
@@ -180,7 +179,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
    */
   public T deselect(boolean silent) {
     if (!isDisabled()) {
-      MENU_ITEM_SELECTED.remove(this);
+      menu_item_selected.remove(this);
       setAttribute("selected", false);
       if (!silent) {
         deselectionHandlers.forEach(DeselectionHandler::onDeselection);

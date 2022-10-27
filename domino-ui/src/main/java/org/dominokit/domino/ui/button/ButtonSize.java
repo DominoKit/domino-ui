@@ -15,29 +15,33 @@
  */
 package org.dominokit.domino.ui.button;
 
+import org.dominokit.domino.ui.style.CssClass;
+
+import static org.dominokit.domino.ui.style.GenericCss.*;
+
 /**
  * An enum that lists all predefined button sizes. each enum value represent one css class that
  * changes the button height.
  */
 public enum ButtonSize {
   /** Large height */
-  LARGE("lg"),
+  LARGE(dui_large),
   /** Medium height */
-  MEDIUM("md"),
+  MEDIUM(dui_medium),
   /** Small height */
-  SMALL("sm"),
-  /** Extra small height */
-  XSMALL("xs");
+  SMALL(dui_small),
+  /** smaller height */
+  XSMALL(dui_xsmall);
 
-  private String style;
+  private CssClass style;
 
   /** @param style String css class name */
-  ButtonSize(String style) {
+  ButtonSize(CssClass style) {
     this.style = style;
   }
 
   /** @return String css class name for a button size */
-  public String getStyle() {
+  public CssClass getStyle() {
     return style;
   }
 }

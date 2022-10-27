@@ -23,10 +23,7 @@ import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
-import org.dominokit.domino.ui.utils.HasBackground;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.IsElement;
 
 /**
@@ -46,7 +43,17 @@ import org.jboss.elemento.IsElement;
  * @see HasBackground
  */
 public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
-    implements HasBackground<InfoBox>, IsElement<HTMLDivElement> {
+    implements InfoBoxStyles {
+
+  /*
+  <div class="dui dui-info-box dui-elevation-sm">
+    <div class="dui dui-info-content">
+        <div class="dui dui-info-number">125</div>
+        <div class="dui dui-info-text">NEW ORDERS</div>
+    </div>
+    <div class="dui dui-info-icon dui-bg-red"><i class="dui mdi mdi-cart"></i></div>
+</div>
+   */
 
   private final DominoElement<HTMLDivElement> iconElement = DominoElement.div().css("icon");
   private final DominoElement<HTMLDivElement> titleElement = DominoElement.div().css("text");
@@ -55,21 +62,22 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
   private final DominoElement<HTMLDivElement> infoContent =
       DominoElement.div().css("info-content").appendChild(titleElement).appendChild(valueElement);
 
-  private final DominoElement<HTMLDivElement> root =
-      DominoElement.div()
-          .css("info-box")
-          .elevate(Elevation.LEVEL_1)
-          .appendChild(iconElement)
-          .appendChild(infoContent);
+  private final DominoElement<HTMLDivElement> root;
+  private final LazyChild<DominoElement<HTMLDivElement>> contentElement;
+  private final LazyChild<DominoElement<HTMLDivElement>> titleElement;
 
-  private final HTMLElement icon;
+  private final LazyChild<DominoElement<HTMLElement>> icon = NullLazyChild.of();
 
-  private Color counterBackground;
 
-  private Color iconBackground;
   private HoverEffect hoverEffect;
   private Flip flip = Flip.LEFT;
-  private Color iconColor;
+
+  public InfoBox(){
+    root  = DominoElement.div().addCss(dui_info_box);
+    contentElement = LazyChild.of(DominoElement.div().addCss(dui_info_content), root);
+
+
+  }
 
   public InfoBox(HTMLElement icon, String title, String value) {
     iconElement.appendChild(icon);

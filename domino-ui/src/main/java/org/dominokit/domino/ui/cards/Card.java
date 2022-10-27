@@ -29,9 +29,8 @@ import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
@@ -63,7 +62,7 @@ import org.jboss.elemento.IsElement;
  * @see BaseDominoElement
  * @see HasBackground
  */
-public class Card extends BaseDominoElement<HTMLDivElement, Card> implements HasBackground<Card> {
+public class Card extends BaseDominoElement<HTMLDivElement, Card>  {
 
   private final FlexItem<HTMLDivElement> logoContainer;
   private final DominoElement<HTMLDivElement> root = DominoElement.div().addCss(CARD);
@@ -83,8 +82,6 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
   private boolean collapsible = false;
   private HTMLLIElement collapseAction;
   private BaseIcon<?> collapseIcon;
-  private Color headerBackground;
-  private Color bodyBackground;
   private HtmlContentBuilder<HTMLAnchorElement> collapseAnchor;
 
   public Card() {
@@ -162,22 +159,6 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
   }
 
   /**
-   * Profile is a special case of a card which has {@code margin-bottom} to {@code 0px} and @link
-   * Color#THEME} as a background
-   *
-   * @param name the title of the header of the profile
-   * @param info the description of the header of the profile
-   * @return new instance
-   * @see Card#create(String, String)
-   */
-  public static Card createProfile(String name, String info) {
-    Card profileCard = Card.create(name, info);
-    profileCard.style().setMarginBottom("0px");
-    profileCard.setBackground(Color.THEME);
-    return profileCard;
-  }
-
-  /**
    * Sets the title of the card
    *
    * @param titleText the title of the header
@@ -248,40 +229,6 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
   }
 
   /**
-   * Sets the background {@link Color} of the header
-   *
-   * @param headerBackground a {@link Color} to set as a background to the header
-   * @return same instance
-   */
-  public Card setHeaderBackground(Color headerBackground) {
-    if (nonNull(headerBackground)) {
-      if (nonNull(this.headerBackground)) {
-        header.removeCss(this.headerBackground.getBackground());
-      }
-      this.headerBackground = headerBackground;
-      header.addCss(headerBackground.getBackground());
-    }
-    return this;
-  }
-
-  /**
-   * Sets the background {@link Color} of the body
-   *
-   * @param bodyBackground a {@link Color} to set as a background to the body
-   * @return same instance
-   */
-  public Card setBodyBackground(Color bodyBackground) {
-    if (nonNull(bodyBackground)) {
-      if (nonNull(this.bodyBackground)) {
-        body.removeCss(this.bodyBackground.getBackground());
-      }
-      this.bodyBackground = bodyBackground;
-      body.addCss(bodyBackground.getBackground());
-    }
-    return this;
-  }
-
-  /**
    * Removes spaces inside the card and fit the body to its content, check {@link
    * CardStyles#FIT_CONTENT}
    *
@@ -299,14 +246,6 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    */
   public Card unFitContent() {
     removeCss(FIT_CONTENT);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Card setBackground(Color background) {
-    setHeaderBackground(background);
-    setBodyBackground(background);
     return this;
   }
 
@@ -378,7 +317,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
                     .attr("aria-expanded", "true")
                     .attr("href", "#")
                     .on(EventType.click, Event::preventDefault)
-                    .add(icon.clickable().addCss(Styles.pull_right, ACTION_ICON)))
+                    .add(icon.clickable().addCss(GenericCss.pull_right, ACTION_ICON)))
         .element();
   }
 
@@ -649,11 +588,6 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
   /** @return the collapse icon element */
   public BaseIcon<?> getCollapseIcon() {
     return collapseIcon;
-  }
-
-  /** @return The {@link Style} of the body */
-  public Style<HTMLDivElement, DominoElement<HTMLDivElement>> bodyStyle() {
-    return body.style();
   }
 
   /**

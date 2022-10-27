@@ -15,36 +15,29 @@
  */
 package org.dominokit.domino.ui.style;
 
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.style.Styles.*;
-
-import elemental2.dom.DomGlobal;
-import elemental2.dom.HTMLBodyElement;
 import elemental2.dom.HTMLElement;
-import java.util.Arrays;
 import org.jboss.elemento.IsElement;
 
-public class Style<E extends HTMLElement, T extends IsElement<E>>
-    implements IsElement<E>, DominoStyle<E, T, Style<E, T>> {
+import java.util.Arrays;
+
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.style.GenericCss.*;
+
+public class Style<E extends HTMLElement>
+    implements DominoStyle<E, Style<E>> {
 
   private E element;
-  private T wrapperElement;
 
-  public Style(T element) {
-    this.element = element.element();
-    this.wrapperElement = element;
+  public Style(E element) {
+    this.element = element;
   }
 
-  public static <E extends HTMLElement, T extends IsElement<E>> Style<E, T> of(E htmlElement) {
-    return new Style<>((T) (IsElement<E>) () -> htmlElement);
-  }
-
-  public static <E extends HTMLElement, T extends IsElement<E>> Style<E, T> of(T htmlElement) {
+  public static <E extends HTMLElement> Style<E> of(E htmlElement) {
     return new Style<>(htmlElement);
   }
 
-  public static Style<HTMLBodyElement, IsElement<HTMLBodyElement>> bodyStyle() {
-    return Style.of(DomGlobal.document.body);
+  public static <E extends HTMLElement, T extends IsElement<E>> Style<E> of(T isElement) {
+    return new Style<>(isElement.element());
   }
 
   /**
@@ -53,7 +46,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @return same style instance
    */
   @Override
-  public Style<E, T> setCssProperty(String name, String value) {
+  public Style<E> setCssProperty(String name, String value) {
     element.style.setProperty(name, value);
     return this;
   }
@@ -65,7 +58,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @return same style instance
    */
   @Override
-  public Style<E, T> setCssProperty(String name, String value, boolean important) {
+  public Style<E> setCssProperty(String name, String value, boolean important) {
     if (important) {
       element.style.setProperty(name, value, "important");
     } else {
@@ -79,7 +72,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @return same style instance
    */
   @Override
-  public Style<E, T> removeCssProperty(String name) {
+  public Style<E> removeCssProperty(String name) {
     element.style.removeProperty(name);
     return this;
   }
@@ -89,7 +82,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @return same style instance
    */
   @Override
-  public Style<E, T> addCss(String cssClass) {
+  public Style<E> addCss(String cssClass) {
     if (nonNull(cssClass) && !cssClass.isEmpty()) {
       element.classList.add(cssClass);
     }
@@ -101,9 +94,9 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @return same style instance
    */
   @Override
-  public Style<E, T> addCss(String... cssClasses) {
+  public Style<E> addCss(String... cssClasses) {
     if (nonNull(cssClasses) && cssClasses.length > 0) {
-      element().classList.add(cssClasses);
+      element.classList.add(cssClasses);
     }
     return this;
   }
@@ -113,8 +106,8 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @return same style instance
    */
   @Override
-  public Style<E, T> addCss(CssClass cssClasses) {
-    cssClasses.apply(element());
+  public Style<E> addCss(CssClass cssClasses) {
+    cssClasses.apply(element);
     return this;
   }
 
@@ -123,7 +116,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @return same style instance
    */
   @Override
-  public Style<E, T> addCss(HasCssClass hasCssClass) {
+  public Style<E> addCss(HasCssClass hasCssClass) {
     addCss(hasCssClass.getCssClass());
     return this;
   }
@@ -133,7 +126,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @return same style instance
    */
   @Override
-  public Style<E, T> addCss(CssClass... cssClasses) {
+  public Style<E> addCss(CssClass... cssClasses) {
     Arrays.asList(cssClasses).forEach(this::addCss);
     return this;
   }
@@ -143,7 +136,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @return same style instance
    */
   @Override
-  public Style<E, T> addCss(HasCssClasses hasCssClasses) {
+  public Style<E> addCss(HasCssClasses hasCssClasses) {
     addCss(hasCssClasses.getCssClasses());
     return this;
   }
@@ -153,7 +146,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @return same style instance
    */
   @Override
-  public Style<E, T> removeCss(String cssClass) {
+  public Style<E> removeCss(String cssClass) {
     if (nonNull(cssClass) && !cssClass.isEmpty()) element.classList.remove(cssClass);
     return this;
   }
@@ -163,8 +156,8 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @return same style instance
    */
   @Override
-  public Style<E, T> removeCss(CssClass cssClass) {
-    cssClass.remove(element());
+  public Style<E> removeCss(CssClass cssClass) {
+    cssClass.remove(element);
     return this;
   }
 
@@ -173,7 +166,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @return same style instance
    */
   @Override
-  public Style<E, T> removeCss(String... cssClasses) {
+  public Style<E> removeCss(String... cssClasses) {
     if (nonNull(cssClasses) && cssClasses.length > 0) {
       // remove(String... arr) is not supported in IE11, so looping over the array solving the
       // problem
@@ -190,7 +183,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
    * @return same style instance
    */
   @Override
-  public Style<E, T> replaceCss(String cssClass, String replacementClass) {
+  public Style<E> replaceCss(String cssClass, String replacementClass) {
     if (containsCss(cssClass)) {
       removeCss(cssClass);
       addCss(replacementClass);
@@ -199,379 +192,379 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   @Override
-  public Style<E, T> setBorder(String border) {
+  public Style<E> setBorder(String border) {
     setCssProperty("border", border);
     return this;
   }
 
   @Override
-  public Style<E, T> setBorderColor(String borderColor) {
+  public Style<E> setBorderColor(String borderColor) {
     setCssProperty("border-color", borderColor);
     return this;
   }
 
   @Override
-  public Style<E, T> setWidth(String width) {
+  public Style<E> setWidth(String width) {
     setWidth(width, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setWidth(String width, boolean important) {
+  public Style<E> setWidth(String width, boolean important) {
     setCssProperty("width", width, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setMinWidth(String width) {
+  public Style<E> setMinWidth(String width) {
     setMinWidth(width, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setMinWidth(String width, boolean important) {
+  public Style<E> setMinWidth(String width, boolean important) {
     setCssProperty("min-width", width, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setMaxWidth(String width) {
+  public Style<E> setMaxWidth(String width) {
     setMaxWidth(width, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setMaxWidth(String width, boolean important) {
+  public Style<E> setMaxWidth(String width, boolean important) {
     setCssProperty("max-width", width, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setHeight(String height) {
+  public Style<E> setHeight(String height) {
     setHeight(height, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setHeight(String height, boolean important) {
+  public Style<E> setHeight(String height, boolean important) {
     setCssProperty("height", height, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setMinHeight(String height) {
+  public Style<E> setMinHeight(String height) {
     setMinHeight(height, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setMinHeight(String height, boolean important) {
+  public Style<E> setMinHeight(String height, boolean important) {
     setCssProperty("min-height", height, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setMaxHeight(String height) {
+  public Style<E> setMaxHeight(String height) {
     setMaxHeight(height, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setMaxHeight(String height, boolean important) {
+  public Style<E> setMaxHeight(String height, boolean important) {
     setCssProperty("max-height", height, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setTextAlign(String textAlign) {
+  public Style<E> setTextAlign(String textAlign) {
     setTextAlign(textAlign, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setTextAlign(String textAlign, boolean important) {
+  public Style<E> setTextAlign(String textAlign, boolean important) {
     setCssProperty("text-align", textAlign, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setColor(String color) {
+  public Style<E> setColor(String color) {
     setColor(color, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setColor(String color, boolean important) {
+  public Style<E> setColor(String color, boolean important) {
     setCssProperty("color", color, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setBackgroundColor(String color) {
+  public Style<E> setBackgroundColor(String color) {
     setBackgroundColor(color, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setBackgroundColor(String color, boolean important) {
+  public Style<E> setBackgroundColor(String color, boolean important) {
     setCssProperty("background-color", color, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setMargin(String margin) {
+  public Style<E> setMargin(String margin) {
     setMargin(margin, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setMargin(String margin, boolean important) {
+  public Style<E> setMargin(String margin, boolean important) {
     setCssProperty("margin", margin, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setMarginTop(String margin) {
+  public Style<E> setMarginTop(String margin) {
     setMarginTop(margin, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setMarginTop(String margin, boolean important) {
+  public Style<E> setMarginTop(String margin, boolean important) {
     setCssProperty("margin-top", margin, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setMarginBottom(String margin) {
+  public Style<E> setMarginBottom(String margin) {
     setMarginBottom(margin, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setMarginBottom(String margin, boolean important) {
+  public Style<E> setMarginBottom(String margin, boolean important) {
     setCssProperty("margin-bottom", margin, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setMarginLeft(String margin) {
+  public Style<E> setMarginLeft(String margin) {
     setMarginLeft(margin, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setMarginLeft(String margin, boolean important) {
+  public Style<E> setMarginLeft(String margin, boolean important) {
     setCssProperty("margin-left", margin, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setMarginRight(String margin) {
+  public Style<E> setMarginRight(String margin) {
     setMarginRight(margin, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setMarginRight(String margin, boolean important) {
+  public Style<E> setMarginRight(String margin, boolean important) {
     setCssProperty("margin-right", margin, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setPaddingRight(String padding) {
+  public Style<E> setPaddingRight(String padding) {
     setPaddingRight(padding, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setPaddingRight(String padding, boolean important) {
+  public Style<E> setPaddingRight(String padding, boolean important) {
     setCssProperty("padding-right", padding, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setPaddingLeft(String padding) {
+  public Style<E> setPaddingLeft(String padding) {
     setPaddingLeft(padding, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setPaddingLeft(String padding, boolean important) {
+  public Style<E> setPaddingLeft(String padding, boolean important) {
     setCssProperty("padding-left", padding, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setPaddingBottom(String padding) {
+  public Style<E> setPaddingBottom(String padding) {
     setPaddingBottom(padding, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setPaddingBottom(String padding, boolean important) {
+  public Style<E> setPaddingBottom(String padding, boolean important) {
     setCssProperty("padding-bottom", padding, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setPaddingTop(String padding) {
+  public Style<E> setPaddingTop(String padding) {
     setPaddingTop(padding, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setPaddingTop(String padding, boolean important) {
+  public Style<E> setPaddingTop(String padding, boolean important) {
     setCssProperty("padding-top", padding, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setPadding(String padding) {
+  public Style<E> setPadding(String padding) {
     setPadding(padding, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setPadding(String padding, boolean important) {
+  public Style<E> setPadding(String padding, boolean important) {
     setCssProperty("padding", padding, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setDisplay(String display) {
+  public Style<E> setDisplay(String display) {
     setDisplay(display, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setDisplay(String display, boolean important) {
+  public Style<E> setDisplay(String display, boolean important) {
     setCssProperty("display", display, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setFontSize(String fontSize) {
+  public Style<E> setFontSize(String fontSize) {
     setFontSize(fontSize, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setFontSize(String fontSize, boolean important) {
+  public Style<E> setFontSize(String fontSize, boolean important) {
     setCssProperty("font-size", fontSize, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setFloat(String cssFloat) {
+  public Style<E> setFloat(String cssFloat) {
     setFloat(cssFloat, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setFloat(String cssFloat, boolean important) {
+  public Style<E> setFloat(String cssFloat, boolean important) {
     setCssProperty("float", cssFloat, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setLineHeight(String lineHeight) {
+  public Style<E> setLineHeight(String lineHeight) {
     setLineHeight(lineHeight, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setLineHeight(String lineHeight, boolean important) {
+  public Style<E> setLineHeight(String lineHeight, boolean important) {
     setCssProperty("line-height", lineHeight, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setOverFlow(String overFlow) {
+  public Style<E> setOverFlow(String overFlow) {
     setOverFlow(overFlow, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setOverFlow(String overFlow, boolean important) {
+  public Style<E> setOverFlow(String overFlow, boolean important) {
     setCssProperty("overflow", overFlow, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setCursor(String cursor) {
+  public Style<E> setCursor(String cursor) {
     setCursor(cursor, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setCursor(String cursor, boolean important) {
+  public Style<E> setCursor(String cursor, boolean important) {
     setCssProperty("cursor", cursor, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setPosition(String position) {
+  public Style<E> setPosition(String position) {
     setPosition(position, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setPosition(String position, boolean important) {
+  public Style<E> setPosition(String position, boolean important) {
     setCssProperty("position", position, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setLeft(String left) {
+  public Style<E> setLeft(String left) {
     setLeft(left, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setLeft(String left, boolean important) {
+  public Style<E> setLeft(String left, boolean important) {
     setCssProperty("left", left, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setRight(String right) {
+  public Style<E> setRight(String right) {
     setRight(right, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setRight(String right, boolean important) {
+  public Style<E> setRight(String right, boolean important) {
     setCssProperty("right", right, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setTop(String top) {
+  public Style<E> setTop(String top) {
     setTop(top, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setTop(String top, boolean important) {
+  public Style<E> setTop(String top, boolean important) {
     setCssProperty("top", top, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setBottom(String bottom) {
+  public Style<E> setBottom(String bottom) {
     setBottom(bottom, false);
     return this;
   }
 
   @Override
-  public Style<E, T> setBottom(String bottom, boolean important) {
+  public Style<E> setBottom(String bottom, boolean important) {
     setCssProperty("bottom", bottom, important);
     return this;
   }
 
   @Override
-  public Style<E, T> setZIndex(int zindex) {
+  public Style<E> setZIndex(int zindex) {
     setCssProperty("z-index", zindex + "");
     return this;
   }
@@ -589,7 +582,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   @Override
-  public Style<E, T> pullRight() {
+  public Style<E> pullRight() {
     if (!containsCss(pull_right)) {
       addCss(pull_right);
     }
@@ -598,7 +591,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   @Override
-  public Style<E, T> pullLeft() {
+  public Style<E> pullLeft() {
     if (!containsCss(pull_left)) {
       addCss(pull_left);
     }
@@ -607,7 +600,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   @Override
-  public Style<E, T> alignCenter() {
+  public Style<E> alignCenter() {
     if (containsCss(align_center)) {
       removeCss(align_center);
     }
@@ -616,7 +609,7 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   @Override
-  public Style<E, T> alignRight() {
+  public Style<E> alignRight() {
     if (containsCss(align_right)) {
       removeCss(align_right);
     }
@@ -625,18 +618,9 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   @Override
-  public Style<E, T> cssText(String cssText) {
+  public Style<E> cssText(String cssText) {
     element.style.cssText = cssText;
     return this;
-  }
-
-  @Override
-  public E element() {
-    return element;
-  }
-
-  public T get() {
-    return wrapperElement;
   }
 
   @Override
@@ -650,57 +634,57 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
   }
 
   @Override
-  public Style<E, T> setPointerEvents(String pointerEvents) {
+  public Style<E> setPointerEvents(String pointerEvents) {
     return setCssProperty("pointer-events", pointerEvents);
   }
 
   @Override
-  public Style<E, T> setAlignItems(String alignItems) {
+  public Style<E> setAlignItems(String alignItems) {
     return setCssProperty("align-items", alignItems);
   }
 
   @Override
-  public Style<E, T> setOverFlowY(String overflow) {
+  public Style<E> setOverFlowY(String overflow) {
     return setCssProperty("overflow-y", overflow);
   }
 
   @Override
-  public Style<E, T> setOverFlowY(String overflow, boolean important) {
+  public Style<E> setOverFlowY(String overflow, boolean important) {
     return setCssProperty("overflow-y", overflow, important);
   }
 
   @Override
-  public Style<E, T> setOverFlowX(String overflow) {
+  public Style<E> setOverFlowX(String overflow) {
     return setCssProperty("overflow-x", overflow);
   }
 
   @Override
-  public Style<E, T> setOverFlowX(String overflow, boolean important) {
+  public Style<E> setOverFlowX(String overflow, boolean important) {
     return setCssProperty("overflow-x", overflow, important);
   }
 
   @Override
-  public Style<E, T> setBoxShadow(String boxShadow) {
+  public Style<E> setBoxShadow(String boxShadow) {
     return setCssProperty("box-shadow", boxShadow);
   }
 
   @Override
-  public Style<E, T> setTransitionDuration(String transactionDuration) {
+  public Style<E> setTransitionDuration(String transactionDuration) {
     return setCssProperty("transaction-duration", transactionDuration);
   }
 
   @Override
-  public Style<E, T> setFlex(String flex) {
+  public Style<E> setFlex(String flex) {
     return setCssProperty("flex", flex);
   }
 
   @Override
-  public Style<E, T> setOpacity(double opacity) {
+  public Style<E> setOpacity(double opacity) {
     return setCssProperty("opacity", opacity + "");
   }
 
   @Override
-  public Style<E, T> setOpacity(double opacity, boolean important) {
+  public Style<E> setOpacity(double opacity, boolean important) {
     return setCssProperty("opacity", opacity + "", important);
   }
 }

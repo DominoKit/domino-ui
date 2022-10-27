@@ -23,7 +23,7 @@ import static org.jboss.elemento.Elements.h;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
@@ -122,7 +122,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
    */
   public MediaObject setRightMedia(Node content) {
     if (isNull(rightMedia)) {
-      rightMedia = DominoElement.of(div()).css(MediaStyles.MEDIA_RIGHT).css(Styles.pull_right);
+      rightMedia = DominoElement.of(div()).css(MediaStyles.MEDIA_RIGHT).css(GenericCss.pull_right);
       appendChild(rightMedia);
     }
 

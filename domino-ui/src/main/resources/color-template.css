@@ -3,7 +3,7 @@
     color: #FFF;
 }
 .modal-content.col${color_base_name}:not([class*="col-white"]) .modal-body,
-.modal-content.col${color_base_name}:not([class*="col-white"]) .modal-footer .btn-link,
+.modal-content.col${color_base_name}:not([class*="col-white"]) .modal-footer .dom-ui-btn-link,
 .modal-content.col${color_base_name}:not([class*="col-white"]) .modal-title,
 .panel-group .panel.col${color_base_name}:not([class*="col-white"]) .panel-title,
 .panel-group.full-body .panel.col${color_base_name}:not([class*="col-white"]) .panel-body,

@@ -310,6 +310,17 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
         return new CheckBoxAutoValidator(this, autoValidate);
     }
 
+    @Override
+    public String getName() {
+        return getInputElement().element().name;
+    }
+
+    @Override
+    public CheckBox setName(String name) {
+        getInputElement().element().name = name;
+        return this;
+    }
+
     private static class CheckBoxAutoValidator extends AutoValidator {
 
         private CheckBox checkBox;

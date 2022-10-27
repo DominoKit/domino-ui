@@ -34,7 +34,7 @@
 // */
 //public class TreeHeightCollapseStrategy implements CollapseStrategy {
 //
-//  public static final String D_COLLAPSED = "d-collapsed";
+//  public static final String D_COLLAPSED = "dui-collapsed";
 //  private final CollapseDuration transition;
 //  private final TreeItem<?> treeItem;
 //

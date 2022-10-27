@@ -15,10 +15,26 @@
  */
 package org.dominokit.domino.ui.cards;
 
+import org.dominokit.domino.ui.style.CssClass;
+
 /** Default CSS classes for {@link Card} */
 public class CardStyles {
 
-  /** CSS class for card */
+    public static final CssClass card = () -> "dui-card";
+    public static final CssClass card_reversed = () -> "dui-card-reversed";
+    public static final CssClass card_main_title = () -> "dui-card-main-title";
+    public static final CssClass card_title = () -> "dui-card-title";
+    public static final CssClass card_description = () -> "dui-card-description";
+    public static final CssClass card_header = () -> "dui-card-header";
+    public static final CssClass card_main_header = () -> "dui-card-main-header";
+    public static final CssClass card_sub_header = () -> "dui-card-subheader";
+    public static final CssClass card_logo = () -> "dui-card-logo";
+    public static final CssClass card_icon = () -> "dui-card-icon";
+    public static final CssClass card_utility = () -> "dui-card-utility";
+    public static final CssClass card_body = () -> "dui-card-body";
+
+
+    /** CSS class for card */
   public static final String CARD = "card";
   /** CSS class for card header */
   public static final String HEADER = "header";

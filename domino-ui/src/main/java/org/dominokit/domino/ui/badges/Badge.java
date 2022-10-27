@@ -15,17 +15,13 @@
  */
 package org.dominokit.domino.ui.badges;
 
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.span;
-
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Text;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasBackground;
-import org.dominokit.domino.ui.utils.TextNode;
+import org.dominokit.domino.ui.alerts.Alert;
+import org.dominokit.domino.ui.button.RemoveButton;
+import org.dominokit.domino.ui.utils.*;
+
+import static org.dominokit.domino.ui.badges.BadgeStyles.dui_badge;
 
 /**
  * Displays small label with color.
@@ -42,17 +38,12 @@ import org.dominokit.domino.ui.utils.TextNode;
  * @see BaseDominoElement
  * @see HasBackground
  */
-public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasBackground<Badge> {
-
-  private final DominoElement<HTMLElement> badgeElement =
-      DominoElement.of(span()).css(BadgeStyles.BADGE).elevate(Elevation.LEVEL_1);
+public class Badge extends BaseDominoElement<HTMLElement, Badge> {
   private final Text textNode = TextNode.empty();
-  private Color badgeBackground;
 
-  public Badge() {
-    init(this);
-    appendChild(textNode);
-  }
+  private boolean removable = false;
+  private final DominoElement<HTMLElement> element;
+  private LazyChild<RemoveButton> removeButton;
 
   /**
    * Creates badge with {@code content}
@@ -66,10 +57,82 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasB
     return badge;
   }
 
+  public Badge() {
+    element = DominoElement.span().addCss(dui_badge);
+    removeButton = LazyChild.of(RemoveButton.create()
+                    .addClickListener(evt -> remove())
+            , element);
+    init(this);
+    appendChild(textNode);
+  }
+
   /** {@inheritDoc} */
   @Override
   public HTMLElement element() {
-    return badgeElement.element();
+    return element.element();
+  }
+
+
+  /**
+   * Passing true means that the alert will be closable and a close button will be added to the
+   * element to hide it
+   *
+   * @param removable true to set it as closable, false otherwise
+   * @return same instance
+   */
+  public Badge setRemovable(boolean removable) {
+    if (removable) {
+      return removable();
+    } else {
+      return unRemovable();
+    }
+  }
+
+  /**
+   * Sets the alert to closable and a close button will be added to the element to hide it
+   *
+   * @return same instance
+   */
+  public Badge removable() {
+    removable = true;
+    removeButton.get();
+    return this;
+  }
+
+  /**
+   * Sets the alert to not closable and the close button will be removed if exist, the alert can be
+   * hidden programmatically using {@link Alert#remove()}
+   *
+   * @return same instance
+   */
+  public Badge unRemovable() {
+    removable = false;
+    removeButton.remove();
+    return this;
+  }
+
+  /** @return true if the alert is closable, false otherwise */
+  public boolean isRemovable() {
+    return removable;
+  }
+
+  /**
+   * Returns the close button for customization
+   *
+   * @return the close button element
+   */
+  public RemoveButton getCloseButton() {
+    return removeButton.get();
+  }
+
+  public Badge withCloseButton(ChildHandler<Badge, RemoveButton> handler) {
+    handler.apply(this, removeButton.get());
+    return this;
+  }
+
+  public Badge withCloseButton() {
+    removeButton.get();
+    return this;
   }
 
   /**
@@ -83,27 +146,4 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasB
     return this;
   }
 
-  /**
-   * Position the element to the right of its parent
-   *
-   * @return same instance
-   */
-  public Badge pullRight() {
-    style().pullRight();
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Badge setBackground(Color badgeBackground) {
-    if (nonNull(badgeBackground)) {
-      if (nonNull(this.badgeBackground)) {
-        badgeElement.removeCss(this.badgeBackground.getBackground());
-      }
-
-      this.badgeBackground = badgeBackground;
-      badgeElement.addCss(this.badgeBackground.getBackground());
-    }
-    return this;
-  }
 }

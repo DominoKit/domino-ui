@@ -15,33 +15,32 @@
  */
 package org.dominokit.domino.ui.scroll;
 
-import static elemental2.dom.DomGlobal.document;
-
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.button.BaseButton;
+import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.ButtonSize;
 import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.elemento.EventType;
+
+import static elemental2.dom.DomGlobal.document;
 
 /**
  * A component that show up in a specific position on the screen only when the user scrolls down and
  * allow the user to click it to scroll to the top of the page
  */
-public class ScrollTop extends BaseButton<ScrollTop> {
+public class ScrollTop extends Button {
 
   private int showOffset = 60;
 
   /** @param icon {@link BaseIcon} to show in the component */
   public ScrollTop(BaseIcon<?> icon) {
     super(icon);
-    init(this);
     elevate(Elevation.LEVEL_1);
     circle();
     setSize(ButtonSize.LARGE);
-    setBackground(Color.THEME);
+    addCss(ColorsCss.dui_bg_accent);
     addCss("top-scroller");
     hide();
     addClickListener(evt -> ElementUtil.scrollTop());

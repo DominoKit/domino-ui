@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 //import org.dominokit.domino.ui.datepicker.DateBox;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-import org.dominokit.domino.ui.modals.ModalBackDrop;
+import org.dominokit.domino.ui.dialogs.ModalBackDrop;
 import org.dominokit.domino.ui.style.Elevation;
 //import org.dominokit.domino.ui.timepicker.TimeBox;
 import org.dominokit.domino.ui.utils.*;

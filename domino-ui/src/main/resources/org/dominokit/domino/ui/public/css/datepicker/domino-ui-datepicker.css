@@ -148,7 +148,7 @@
     text-align: center;
 }
 
-.calendar .cal-footer .btn {
+.calendar .cal-footer .dom-ui-btn {
     text-transform: uppercase;
     text-overflow: ellipsis;
     max-width: 85px;

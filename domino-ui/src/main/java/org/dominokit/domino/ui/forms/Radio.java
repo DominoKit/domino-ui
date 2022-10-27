@@ -45,7 +45,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
         Checkable<Radio<T>>,
         TakesValue<T>,
         HasChangeListeners<Radio<T>, Boolean>,
-        HasInputElement<Radio<T>> {
+        HasInputElement<Radio<T>, HTMLInputElement> {
 
     private DominoElement<HTMLDivElement> radioElement;
     private DominoElement<HTMLInputElement> inputElement;
@@ -170,6 +170,14 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
         return setChecked(false, silent);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    Radio<T> uncheckSelf() {
+        inputElement.element().checked = false;
+        return this;
+    }
+
     @Override
     public Radio<T> toggleChecked(boolean silent) {
         return setChecked(!isChecked(), silent);
@@ -193,7 +201,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
         if (nonNull(radioGroup)) {
             if (!(radioGroup.isReadOnly() || radioGroup.isDisabled())) {
                 T oldValue = (T) radioGroup.getValue();
-                radioGroup.getRadios().forEach(radio -> radio.setChecked(false, silent));
+                radioGroup.getRadios().stream().filter(Radio::isChecked).findFirst().ifPresent(radio -> radio.uncheckSelf());
                 inputElement.element().checked = value;
                 if (!silent) {
                     triggerChangeListeners(oldState, isChecked());
@@ -505,5 +513,4 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
         handler.apply(this, radioGroup);
         return (T) this;
     }
-
 }

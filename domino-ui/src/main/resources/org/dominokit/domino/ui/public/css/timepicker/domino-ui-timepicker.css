@@ -147,7 +147,7 @@
     text-align: center;
 }
 
-.time-picker .time-footer .btn {
+.time-picker .time-footer .dom-ui-btn {
     text-transform: uppercase;
     text-overflow: ellipsis;
     max-width: 85px;

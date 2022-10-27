@@ -69,7 +69,7 @@ public class UrlIcon extends BaseIcon<UrlIcon> {
 
   /** {@inheritDoc} */
   @Override
-  public UrlIcon changeTo(BaseIcon<UrlIcon> icon) {
+  public UrlIcon changeTo(BaseIcon<?> icon) {
     removeCss(getName());
     addCss(icon.getName());
     return null;

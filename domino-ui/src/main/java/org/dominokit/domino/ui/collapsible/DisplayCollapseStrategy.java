@@ -16,27 +16,30 @@
 package org.dominokit.domino.ui.collapsible;
 
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.DominoCss;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+
+import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSED;
 
 /**
  * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show the
  * collapsible element
  */
-public class DisplayCollapseStrategy implements CollapseStrategy {
+public class DisplayCollapseStrategy implements CollapseStrategy, CollapsibleStyles, DominoCss {
 
   /** {@inheritDoc} */
   @Override
-  public void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
-    style.removeCssProperty("display");
-    DominoElement.of(element).removeAttribute("d-collapsed");
+  public void show(HTMLElement element) {
+    DominoElement.of(element)
+            .removeCss(dui_hidden)
+            .removeAttribute(DUI_COLLAPSED);
   }
 
   /** {@inheritDoc} */
   @Override
-  public void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
-    style.setDisplay("none");
-    DominoElement.of(element).setAttribute("d-collapsed", "true");
+  public void hide(HTMLElement element) {
+    DominoElement.of(element)
+            .addCss(dui_hidden)
+            .setAttribute(DUI_COLLAPSED, "true");
   }
 }

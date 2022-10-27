@@ -35,11 +35,11 @@ public class MenuItemsGroup<V, I extends AbstractMenuItem<V, I>>
 
   public MenuItemsGroup(Menu<V> menu) {
     this.menu = menu;
-    removeCss(MENU_ITEM);
-    addCss(MENU_GROUP);
-    linkElement.removeCss(MENU_ITEM_ANCHOR);
-    linkElement.addCss(MENU_GROUP_HEADER);
-    itemsListElement = LazyChild.of(DominoElement.ul().addCss(MENU_ITEMS_LIST), root);
+    removeCss(menu_item);
+    addCss(menu_group);
+    linkElement.removeCss(menu_item_anchor);
+    linkElement.addCss(menu_group_header);
+    itemsListElement = LazyChild.of(DominoElement.ul().addCss(menu_items_list), root);
   }
 
   public MenuItemsGroup<V,I> appendChild(I menuItem) {

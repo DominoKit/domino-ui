@@ -568,7 +568,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     return this;
   }
 
-  private Style<HTMLBodyElement, IsElement<HTMLBodyElement>> bodyStyle() {
+  private Style<HTMLBodyElement> bodyStyle() {
     return Style.of(document.body);
   }
 

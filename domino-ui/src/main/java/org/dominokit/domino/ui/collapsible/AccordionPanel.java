@@ -22,10 +22,8 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
-import org.dominokit.domino.ui.utils.IsCollapsible;
+import org.dominokit.domino.ui.utils.*;
+import org.gwtproject.editor.client.Editor;
 import org.jboss.elemento.IsElement;
 
 /**
@@ -37,311 +35,184 @@ import org.jboss.elemento.IsElement;
  * @see Accordion
  */
 public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionPanel>
-    implements IsCollapsible<AccordionPanel> {
+        implements IsCollapsible<AccordionPanel>, CollapsibleStyles {
 
-  private DominoElement<HTMLDivElement> element =
-      DominoElement.of(div()).css(CollapsibleStyles.PANEL).elevate(Elevation.LEVEL_1);
-  private DominoElement<HTMLDivElement> headerElement =
-      DominoElement.of(div()).css(CollapsibleStyles.PANEL_HEADING).attr("role", "tab");
-  private DominoElement<HTMLHeadingElement> headingElement =
-      DominoElement.of(h(4)).css(CollapsibleStyles.PANEL_TITLE);
-  private DominoElement<HTMLAnchorElement> clickableElement =
-      DominoElement.of(a()).attr("role", "button");
-  private DominoElement<HTMLDivElement> collapsibleElement =
-      DominoElement.of(div()).css(CollapsibleStyles.PANEL_COLLAPSE);
-  private DominoElement<HTMLDivElement> bodyElement =
-      DominoElement.of(div()).css(CollapsibleStyles.PANEL_BODY);
-  private Color headerColor;
-  private Color bodyColor;
-  private BaseIcon<?> panelIcon;
+    private DominoElement<HTMLDivElement> element;
+    private LazyChild<DominoElement<HTMLDivElement>> headerElement;
+    private LazyChild<DominoElement<HTMLElement>> titleElement;
+    private LazyChild<BaseIcon<?>> panelIcon = NullLazyChild.of();
+    private DominoElement<HTMLDivElement> contentElement;
+    private DominoElement<HTMLDivElement> bodyElement;
+    private LazyChild<DominoElement<HTMLDivElement>> contentHeader;
+    private LazyChild<DominoElement<HTMLDivElement>> contentFooter;
 
-  /** @param title String, the accordion panel header title */
-  public AccordionPanel(String title) {
-    clickableElement.setTextContent(title);
-    init();
-  }
+    public AccordionPanel() {
+        element = DominoElement.div()
+                .addCss(dui_collapse_panel)
+                .appendChild(contentElement = DominoElement.div()
+                        .addCss(dui_panel_content)
+                        .appendChild(bodyElement = DominoElement.div().addCss(dui_panel_body))
+                );
+        init(this);
 
-  /**
-   * @param title String, the accordion panel header title
-   * @param content {@link Node} the content of the panel body
-   */
-  public AccordionPanel(String title, Node content) {
-    clickableElement.setTextContent(title);
-    bodyElement.appendChild(content);
-    init();
-  }
+        headerElement = LazyChild.of(DominoElement.div()
+                .addCss(dui_panel_header)
+                .setAttribute("role", "tab"), element);
 
-  /**
-   * A factory to create Accordion panel with a title
-   *
-   * @param title String, the accordion panel header title
-   * @return new Accordion instance
-   */
-  public static AccordionPanel create(String title) {
-    return new AccordionPanel(title);
-  }
+        titleElement = LazyChild.of(DominoElement.span().addCss(dui_panel_title), headerElement);
+        contentHeader = LazyChild.of(DominoElement.div().addCss(dui_panel_content_header), contentElement);
+        contentFooter = LazyChild.of(DominoElement.div().addCss(dui_panel_footer), contentElement);
+        setCollapseStrategy(DominoUIConfig.CONFIG.getDefaultAccordionCollapseStrategySupplier().get());
 
-  /**
-   * A factory to create Accordion panel with a title and content
-   *
-   * @param title String, the accordion panel header title
-   * @param content {@link Node} the content of the panel body
-   * @return new Accordion instance
-   */
-  public static AccordionPanel create(String title, Node content) {
-    return new AccordionPanel(title, content);
-  }
-
-  /**
-   * A factory to create Accordion panel with a title and content
-   *
-   * @param title String, the accordion panel header title
-   * @param content {@link IsElement} the content of the panel body
-   * @return new Accordion instance
-   */
-  public static AccordionPanel create(String title, IsElement<?> content) {
-    return new AccordionPanel(title, content.element());
-  }
-
-  private void init() {
-    element.appendChild(headerElement);
-    headerElement.appendChild(headingElement);
-    headingElement.appendChild(clickableElement);
-    collapsibleElement.appendChild(bodyElement);
-    element.appendChild(collapsibleElement);
-    init(this);
-    setCollapseStrategy(DominoUIConfig.CONFIG.getDefaultAccordionCollapseStrategySupplier().get());
-    hide();
-  }
-
-  /**
-   * Change the panel header title.
-   *
-   * @param title String, the accordion panel header title
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel setTitle(String title) {
-    clickableElement.setTextContent(title);
-    return this;
-  }
-
-  /**
-   * Change the panel body content. replacing existing content with the one.
-   *
-   * @param content {@link Node}, the accordion panel body content
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel setContent(Node content) {
-    bodyElement.setTextContent("");
-    return appendChild(content);
-  }
-
-  /**
-   * add content to the panel body without removing existing content
-   *
-   * @param content {@link Node}, the accordion panel body content
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel appendChild(Node content) {
-    bodyElement.appendChild(content);
-    return this;
-  }
-
-  /**
-   * add content to the panel body without removing existing content
-   *
-   * @param content {@link IsElement}, the accordion panel body content
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel appendChild(IsElement<?> content) {
-    return appendChild(content.element());
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return element.element();
-  }
-
-  /**
-   * Set the header background to {@link Color#BLUE}
-   *
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel primary() {
-    return setHeaderBackground(Color.BLUE);
-  }
-
-  /**
-   * Set the header background to {@link Color#GREEN}
-   *
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel success() {
-    return setHeaderBackground(Color.GREEN);
-  }
-
-  /**
-   * Set the header background to {@link Color#ORANGE}
-   *
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel warning() {
-    return setHeaderBackground(Color.ORANGE);
-  }
-
-  /**
-   * Set the header background to {@link Color#RED}
-   *
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel danger() {
-    return setHeaderBackground(Color.RED);
-  }
-
-  /**
-   * Set the header and body background to {@link Color#BLUE}
-   *
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel primaryFull() {
-    setHeaderBackground(Color.BLUE);
-    setBodyBackground(Color.BLUE);
-    return this;
-  }
-
-  /**
-   * Set the header and body background to {@link Color#GREEN}
-   *
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel successFull() {
-    setHeaderBackground(Color.GREEN);
-    setBodyBackground(Color.GREEN);
-    return this;
-  }
-
-  /**
-   * Set the header and body background to {@link Color#ORANGE}
-   *
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel warningFull() {
-    setHeaderBackground(Color.ORANGE);
-    setBodyBackground(Color.ORANGE);
-    return this;
-  }
-
-  /**
-   * Set the header and body background to {@link Color#RED}
-   *
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel dangerFull() {
-    setHeaderBackground(Color.RED);
-    setBodyBackground(Color.RED);
-    return this;
-  }
-
-  /**
-   * Set the header background to a custom color
-   *
-   * @param color {@link Color} the new background color
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel setHeaderBackground(Color color) {
-    if (nonNull(this.headerColor)) {
-      getHeaderElement().removeCss(this.headerColor.getBackground());
-    }
-    getHeaderElement().addCss(color.getBackground());
-
-    this.headerColor = color;
-
-    return this;
-  }
-
-  /**
-   * Set the body background to a custom color
-   *
-   * @param color {@link Color} the new background color
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel setBodyBackground(Color color) {
-    if (nonNull(this.bodyColor)) {
-      getBodyElement().removeCss(this.bodyColor.getBackground());
-    }
-    getBodyElement().addCss(color.getBackground());
-
-    this.bodyColor = color;
-
-    return this;
-  }
-
-  /**
-   * Set the Accordion panel header icon
-   *
-   * @param icon {@link BaseIcon}
-   * @return same AccordionPanel instance
-   */
-  public AccordionPanel setIcon(BaseIcon<?> icon) {
-    if (nonNull(this.panelIcon)) {
-      panelIcon.remove();
+        addShowListener(() -> addCss(dui_active_element));
+        addHideListener(() -> removeCss(dui_active_element));
+        hide();
     }
 
-    panelIcon = icon;
-    clickableElement.insertFirst(icon);
+    /**
+     * @param title String, the accordion panel header title
+     */
+    public AccordionPanel(String title) {
+        this();
+        setTitle(title);
+    }
 
-    return this;
-  }
+    /**
+     * A factory to create Accordion panel with a title
+     *
+     * @param title String, the accordion panel header title
+     * @return new Accordion instance
+     */
+    public static AccordionPanel create(String title) {
+        return new AccordionPanel(title);
+    }
 
-  /**
-   * @deprecated
-   * @return the {@link DominoElement} represent the body element.
-   */
-  @Deprecated
-  public DominoElement<HTMLDivElement> getBody() {
-    return DominoElement.of(bodyElement);
-  }
+    @Override
+    protected HTMLElement getAppendTarget() {
+        return bodyElement.element();
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public HTMLAnchorElement getClickableElement() {
-    return clickableElement.element();
-  }
+    public AccordionPanel appendChild(UtilityElement<?> element) {
+        headerElement.get().appendChild(element.addCss(dui_panel_utility));
+        return this;
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement getCollapsibleElement() {
-    return collapsibleElement.element();
-  }
+    public AccordionPanel appendChild(HeaderElement<?> element) {
+        contentHeader.get().appendChild(element);
+        return this;
+    }
 
-  /** @return the {@link DominoElement} represent the header element. */
-  public DominoElement<HTMLDivElement> getHeaderElement() {
-    return headerElement;
-  }
+    public AccordionPanel appendChild(FooterElement<?> element) {
+        contentFooter.get().appendChild(element);
+        return this;
+    }
 
-  /** @return the {@link DominoElement} represent the element that contains the header text. */
-  public DominoElement<HTMLHeadingElement> getHeadingElement() {
-    return headingElement;
-  }
+    @Override
+    public HTMLElement getCollapsibleElement() {
+        return contentElement.element();
+    }
 
-  /** @return the {@link DominoElement} represent the body element. */
-  public DominoElement<HTMLDivElement> getBodyElement() {
-    return bodyElement;
-  }
+    /**
+     * Change the panel header title.
+     *
+     * @param title String, the accordion panel header title
+     * @return same AccordionPanel instance
+     */
+    public AccordionPanel setTitle(String title) {
+        titleElement.get().setTextContent(title);
+        return this;
+    }
 
-  /** @return the panel icon */
-  public BaseIcon<?> getPanelIcon() {
-    return panelIcon;
-  }
+    /**
+     * Change the panel header title.
+     *
+     * @param title String, the accordion panel header title
+     * @return same AccordionPanel instance
+     */
+    public AccordionPanel withTitle(String title) {
+        return setTitle(title);
+    }
 
-  /** @return the panel header background color */
-  public Color getHeaderColor() {
-    return headerColor;
-  }
+    public AccordionPanel withTitleElement(ChildHandler<AccordionPanel, DominoElement<HTMLElement>> handler) {
+        handler.apply(this, titleElement.get());
+        return this;
+    }
 
-  /** @return the panel body background color */
-  public Color getBodyColor() {
-    return bodyColor;
-  }
+    public DominoElement<HTMLElement> getTitleElement() {
+        return titleElement.get();
+    }
+    public AccordionPanel withHeaderElement(ChildHandler<AccordionPanel, DominoElement<HTMLDivElement>> handler) {
+        handler.apply(this, headerElement.get());
+        return this;
+    }
+
+    public DominoElement<HTMLDivElement> getHeaderElement() {
+        return headerElement.get();
+    }
+
+    public AccordionPanel setIcon(BaseIcon<?> icon) {
+        panelIcon.remove();
+        panelIcon = LazyChild.of(icon.addCss(dui_panel_icon), headerElement);
+        panelIcon.get();
+        return this;
+    }
+
+    public AccordionPanel withIcon(BaseIcon<?> icon) {
+        return setIcon(icon);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HTMLDivElement element() {
+        return element.element();
+    }
+
+    public DominoElement<HTMLDivElement> getContentBody() {
+        return bodyElement;
+    }
+
+    public AccordionPanel withContentBody(ChildHandler<AccordionPanel, DominoElement<HTMLDivElement>> handler){
+        handler.apply(this, bodyElement);
+        return this;
+    }
+
+    public DominoElement<HTMLDivElement> getContentElement() {
+        return contentElement;
+    }
+
+    public AccordionPanel withContentElement(ChildHandler<AccordionPanel, DominoElement<HTMLDivElement>> handler){
+        handler.apply(this, contentElement);
+        return this;
+    }
+
+    public DominoElement<HTMLDivElement> getContentHeader(){
+        return contentHeader.get();
+    }
+
+    public AccordionPanel withContentHeader(ChildHandler<AccordionPanel, DominoElement<HTMLDivElement>> handler){
+        handler.apply(this, contentHeader.get());
+        return this;
+    }
+
+    public AccordionPanel withContentHeader(){
+        contentHeader.get();
+        return this;
+    }
+
+    public DominoElement<HTMLDivElement> getContentFooter(){
+        return contentFooter.get();
+    }
+
+    public AccordionPanel withContentFooter(ChildHandler<AccordionPanel, DominoElement<HTMLDivElement>> handler){
+        handler.apply(this, contentFooter.get());
+        return this;
+    }
+
+    public AccordionPanel withContentFooter(){
+        contentFooter.get();
+        return this;
+    }
+
 }

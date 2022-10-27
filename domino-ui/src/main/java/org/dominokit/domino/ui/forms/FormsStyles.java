@@ -61,4 +61,7 @@ public class FormsStyles {
     public static final CssClass CHECK_BOX_FILLED = () -> "dui-form-checkbox-filled";
     public static final CssClass SWITCH_GROW = () -> "dui-switch-grow";
     public static final CssClass SWITCH_CONDENSE = () -> "dui-switch-condense-labels";
+    public static final CssClass FORM_TAGS_INPUT = () -> "dui-form-tags-input";
+    public static final CssClass FORM_TEXT_AREA = () -> "dui-form-text-area";
+    public static final CssClass FORM_TEXT_AREA_GAP = () -> "dui-text-area-gap";
 }

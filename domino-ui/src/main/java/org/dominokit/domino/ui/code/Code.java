@@ -16,11 +16,15 @@
 package org.dominokit.domino.ui.code;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.style.DisplayCss.dui_overflow_x_scroll;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_whitespace_pre;
 import static org.jboss.elemento.Elements.code;
 import static org.jboss.elemento.Elements.pre;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLPreElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /**
@@ -29,105 +33,118 @@ import org.jboss.elemento.IsElement;
  * <p>This component wraps a string inside a
  *
  * <pre>pre</pre>
- *
+ * <p>
  * and
  *
  * <pre>code</pre>
- *
+ * <p>
  * element
  */
 public class Code {
 
-  private static final String CODE_STYLE = "overflow-x: scroll; white-space: pre;";
+    /**
+     * Wraps a string inside
+     *
+     * <pre>pre</pre>
+     * <p>
+     * element
+     */
+    public static class Block extends BaseDominoElement<HTMLPreElement, Block> {
+        private final DominoElement<HTMLPreElement> element;
 
-  /**
-   * Wraps a string inside
-   *
-   * <pre>pre</pre>
-   *
-   * element
-   */
-  public static class Block implements IsElement<HTMLPreElement> {
-    private final HTMLPreElement element;
+        private Block(HTMLPreElement element) {
+            this.element = DominoElement.of(element);
+            init(this);
+        }
 
-    private Block(HTMLPreElement element) {
-      this.element = element;
+        /**
+         * set the code to be wrapped inside the element
+         *
+         * <pre>pre</pre>
+         * <p>
+         * and
+         *
+         * <pre>code</pre>
+         * <p>
+         * elements
+         *
+         * @param code String, the code string
+         * @return same Block instance
+         */
+        public Block setCode(String code) {
+            if (nonNull(element.getFirstChild())) element.removeChild(element.getFirstChild());
+            element.appendChild(DominoElement.code().addCss(dui_overflow_x_scroll, dui_whitespace_pre)
+                    .textContent(code));
+            return this;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public HTMLPreElement element() {
+            return element.element();
+        }
     }
 
     /**
-     * set the code to be wrapped inside the the
-     *
-     * <pre>pre</pre>
-     *
-     * and
+     * Wrap a single line string into a
      *
      * <pre>code</pre>
-     *
-     * elements
-     *
-     * @param code String, the code string
-     * @return same Block instance
+     * <p>
+     * element
      */
-    public Block setCode(String code) {
-      if (nonNull(element.firstChild)) element.removeChild(element.firstChild);
-      element.appendChild(code().style(CODE_STYLE).textContent(code).element());
-      return this;
+    public static class Statement extends BaseDominoElement<HTMLElement, Statement> {
+        private final DominoElement<HTMLElement> element;
+
+        private Statement(HTMLElement element) {
+            this.element = DominoElement.of(element);
+            init(this);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public HTMLElement element() {
+            return element.element();
+        }
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public HTMLPreElement element() {
-      return element;
-    }
-  }
-
-  /**
-   * Wrap a single line string into a
-   *
-   * <pre>code</pre>
-   *
-   * element
-   */
-  public static class Statement implements IsElement<HTMLElement> {
-    private final HTMLElement element;
-
-    private Statement(HTMLElement element) {
-      this.element = element;
+    /**
+     * Factory to create code Block
+     *
+     * @param code The code String
+     * @return new Block instance
+     */
+    public static Block block(String code) {
+        return new Block(DominoElement.pre()
+                .appendChild(DominoElement.code()
+                        .addCss(dui_overflow_x_scroll, dui_whitespace_pre)
+                        .textContent(code)).element()
+        );
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public HTMLElement element() {
-      return element;
+    /**
+     * creates a empty code Block
+     *
+     * @return new empty Block instance
+     */
+    public static Block block() {
+        return new Block(pre().element());
     }
-  }
 
-  /**
-   * Factory to create code Block
-   *
-   * @param code The code String
-   * @return new Block instance
-   */
-  public static Block block(String code) {
-    return new Block(pre().add(code().style(CODE_STYLE).textContent(code)).element());
-  }
-
-  /**
-   * creates a empty code Block
-   *
-   * @return new empty Block instance
-   */
-  public static Block block() {
-    return new Block(pre().element());
-  }
-
-  /**
-   * factory to create a single statement code block
-   *
-   * @param code The code string
-   * @return new Statement instance
-   */
-  public static Statement statement(String code) {
-    return new Statement(code().style(CODE_STYLE).textContent(code).element());
-  }
+    /**
+     * factory to create a single statement code block
+     *
+     * @param code The code string
+     * @return new Statement instance
+     */
+    public static Statement statement(String code) {
+        return new Statement(DominoElement.code()
+                .addCss(dui_overflow_x_scroll, dui_whitespace_pre)
+                .textContent(code)
+                .element()
+        );
+    }
 }

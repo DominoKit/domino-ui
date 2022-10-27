@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.icons;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.icons.IconsStyles.*;
-import static org.dominokit.domino.ui.style.Styles.DUI;
 import static org.jboss.elemento.Elements.i;
 
 import elemental2.dom.HTMLElement;
@@ -31,7 +30,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class MdiIcon extends BaseIcon<MdiIcon> {
 
   private MdiMeta metaInfo;
-
   private SwapCssClass sizeClass = new SwapCssClass();
   private SwapCssClass rotateClass = new SwapCssClass();
   private SwapCssClass contrastClass = new SwapCssClass();
@@ -54,7 +52,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   }
 
   private MdiIcon(CssClass icon, MdiMeta mdiMeta) {
-    this.icon = DominoElement.of(i()).addCss(DUI, MDI, icon);
+    this.icon = DominoElement.of(i()).addCss(dui, dui_mdi, icon);
     this.name = icon;
     this.toggleName = SwapCssClass.of(name);
     this.metaInfo = mdiMeta;
@@ -113,8 +111,9 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
 
   /** {@inheritDoc} */
   @Override
-  public MdiIcon changeTo(BaseIcon<MdiIcon> icon) {
+  public MdiIcon changeTo(BaseIcon<?> icon) {
     toggleName.replaceWith(icon.name);
+    addCss(toggleName);
     this.name = icon.name;
     return this;
   }
@@ -295,8 +294,8 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon flipNone() {
-    FLIP_V.remove(this);
-    FLIP_H.remove(this);
+    mdi_flip_v.remove(this);
+    mdi_flip_h.remove(this);
     return this;
   }
 
@@ -307,7 +306,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon setSpin(boolean spin) {
-    addCss(BooleanCssClass.of(SPIN, spin));
+    addCss(BooleanCssClass.of(mdi_spin, spin));
     return this;
   }
 
@@ -336,7 +335,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon setActive(boolean active) {
-    addCss(BooleanCssClass.of(INACTIVE, !active));
+    addCss(BooleanCssClass.of(mdi_inactive, !active));
     return this;
   }
 
@@ -405,10 +404,10 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
 
   /** An enum representing the sizes of the icon */
   public enum MdiSize implements HasCssClass {
-    mdi18(IconsStyles._18PX),
-    mdi24(IconsStyles._24PX),
-    mdi36(IconsStyles._36PX),
-    mdi48(IconsStyles._48PX);
+    mdi18(IconsStyles.mdi_18px),
+    mdi24(IconsStyles.mdi_24px),
+    mdi36(IconsStyles.mdi_36px),
+    mdi48(IconsStyles.mdi_48px);
 
     private final CssClass style;
 
@@ -425,13 +424,13 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
 
   /** An enum representing the rotation degree of the icon */
   public enum MdiRotate implements HasCssClass {
-    rotate45(IconsStyles.ROTATE_45),
-    rotate90(IconsStyles.ROTATE_90),
-    rotate135(IconsStyles.ROTATE_135),
-    rotate180(IconsStyles.ROTATE_180),
-    rotate225(IconsStyles.ROTATE_225),
-    rotate270(IconsStyles.ROTATE_270),
-    rotate315(IconsStyles.ROTATE_315);
+    rotate45(IconsStyles.mdi_rotate_45),
+    rotate90(IconsStyles.mdi_rotate_90),
+    rotate135(IconsStyles.mdi_rotate_135),
+    rotate180(IconsStyles.mdi_rotate_180),
+    rotate225(IconsStyles.mdi_rotate_225),
+    rotate270(IconsStyles.mdi_rotate_270),
+    rotate315(IconsStyles.mdi_rotate_315);
 
     private final CssClass style;
 
@@ -447,8 +446,8 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
 
   /** An enum representing the flip of the icon */
   public enum MdiFlip implements HasCssClass {
-    flipV(FLIP_V),
-    flipH(IconsStyles.FLIP_H);
+    flipV(mdi_flip_v),
+    flipH(IconsStyles.mdi_flip_h);
 
     private final CssClass style;
 
@@ -469,8 +468,8 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
 
   /** An enum representing the contrast of the icon */
   public enum MdiContrast implements HasCssClass {
-    light(IconsStyles.LIGHT),
-    dark(IconsStyles.DARK);
+    light(IconsStyles.mdi_light),
+    dark(IconsStyles.mdi_dark);
 
     private final CssClass style;
 

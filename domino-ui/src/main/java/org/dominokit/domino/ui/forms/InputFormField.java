@@ -14,23 +14,23 @@ import java.util.Objects;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-public abstract class InputFormField<T extends InputFormField<T, E, V>, E extends HTMLInputElement, V>
-        extends AbstractFormElement<T, V> implements HasInputElement<T> {
+public abstract class InputFormField<T extends InputFormField<T, E, V>, E extends HTMLElement, V>
+        extends AbstractFormElement<T, V> implements HasInputElement<T, E> {
 
-    private DominoElement<HTMLInputElement> inputElement;
+    private DominoElement<E> inputElement;
 
     public InputFormField() {
         inputElement = createInputElement(getType());
         labelForId(inputElement.getDominoId());
         wrapperElement.appendChild(inputElement);
         InputFieldInitializer.create((T) this)
-                .init(this);
+                .init((HasInputElement<T, HTMLElement>) this);
     }
 
-    protected abstract DominoElement<HTMLInputElement> createInputElement(String type);
+    protected abstract DominoElement<E> createInputElement(String type);
 
     @Override
-    public DominoElement<HTMLInputElement> getInputElement() {
+    public DominoElement<E> getInputElement() {
         return inputElement;
     }
 
@@ -79,18 +79,6 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
     public T triggerClearListeners(V oldValue) {
         getClearListeners()
                 .forEach(clearListener -> clearListener.onValueCleared(oldValue));
-        return (T) this;
-    }
-
-
-    @Override
-    public String getName() {
-        return getInputElement().element().name;
-    }
-
-    @Override
-    public T setName(String name) {
-        getInputElement().element().name = name;
         return (T) this;
     }
 

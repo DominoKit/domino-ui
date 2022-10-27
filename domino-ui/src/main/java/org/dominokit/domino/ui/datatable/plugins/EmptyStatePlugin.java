@@ -20,7 +20,7 @@ import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.layout.EmptyState;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.GenericCss;
 
 /**
  * This plugin attache a pre-defined {@link EmptyState} component elements to the data table when
@@ -44,7 +44,7 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
             .setTitle(title)
             .setIconColor(Color.GREY)
             .setTitleColor(Color.GREY)
-            .removeCss(Styles.vertical_center);
+            .removeCss(GenericCss.vertical_center);
   }
 
   /** {@inheritDoc} */

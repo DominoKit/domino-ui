@@ -15,21 +15,13 @@
  */
 package org.dominokit.domino.ui.alerts;
 
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.*;
+import static org.dominokit.domino.ui.alerts.AlertStyles.dui_alert;
+import static org.dominokit.domino.ui.alerts.AlertStyles.dui_alert_body;
 
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.Typography.Strong;
+import org.dominokit.domino.ui.button.RemoveButton;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasBackground;
-import org.dominokit.domino.ui.utils.TextNode;
+import org.dominokit.domino.ui.utils.*;
 
 /**
  * Displays messages on the screen.
@@ -57,61 +49,22 @@ import org.dominokit.domino.ui.utils.TextNode;
  * @see HasBackground
  * @see Color
  */
-public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
-    implements HasBackground<Alert> {
+public class Alert extends BaseDominoElement<HTMLDivElement, Alert>{
 
-  /** Alert severity levels */
-  public enum AlertType {
-    /** Success severity */
-    SUCCESS(AlertStyles.SUCCESS),
-    /** Info severity */
-    INFO(AlertStyles.INFO),
-    /** Warning severity */
-    WARNING(AlertStyles.WARNING),
-    /** Error severity */
-    ERROR(AlertStyles.ERROR);
-
-    private final String style;
-
-    AlertType(String style) {
-      this.style = style;
-    }
-  }
-
-  private Color background;
   private boolean dismissible = false;
-  private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div()).css(AlertStyles.ALERT).elevate(Elevation.LEVEL_1);
+  private final DominoElement<HTMLDivElement> element;
+  private final DominoElement<HTMLDivElement> bodyElement;
+  private LazyChild<RemoveButton> removeButton;
 
   public Alert() {
+     element = DominoElement.div()
+             .addCss(dui_alert)
+             .appendChild(bodyElement = DominoElement.div().addCss(dui_alert_body));
+    removeButton = LazyChild.of(RemoveButton.create()
+                    .addClickListener(evt -> remove())
+            , element);
+
     init(this);
-  }
-
-  private final HTMLButtonElement closeButton =
-      DominoElement.of(button())
-          .attr("type", "button")
-          .css(AlertStyles.CLOSE)
-          .attr("aria-label", "Close")
-          .add(span().attr("aria-hidden", "true").textContent("×"))
-          .element();
-
-  private static Alert create(AlertType type) {
-    Alert alert = create();
-    alert.element.addCss(type.style);
-    return alert;
-  }
-
-  /**
-   * Creates alert with background color
-   *
-   * @param background the background color
-   * @return new alert instance
-   */
-  public static Alert create(Color background) {
-    Alert alert = create();
-    alert.addCss(background.getBackground());
-    alert.background = background;
-    return alert;
   }
 
   /**
@@ -120,67 +73,70 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
    * @return new alert instance
    */
   public static Alert create() {
-    Alert alert = new Alert();
-    alert.closeButton.addEventListener("click", e -> alert.element().remove());
-    return alert;
+    return new Alert();
   }
 
   /**
-   * Creates alert with success severity
+   * Creates alert with primary context
+   *
+   * @return new alert instance
+   */
+  public static Alert primary() {
+    return create().addCss(dui_primary);
+  }
+
+  /**
+   * Creates alert with secondary context
+   *
+   * @return new alert instance
+   */
+  public static Alert secondary() {
+    return create().addCss(dui_secondary);
+  }
+
+  /**
+   * Creates alert with dominant context
+   *
+   * @return new alert instance
+   */
+  public static Alert dominant() {
+    return create().addCss(dui_dominant);
+  }
+
+  /**
+   * Creates alert with success context
    *
    * @return new alert instance
    */
   public static Alert success() {
-    return create(AlertType.SUCCESS);
+    return create().addCss(dui_success);
   }
 
   /**
-   * Creates alert with info severity
+   * Creates alert with info context
    *
    * @return new alert instance
    */
   public static Alert info() {
-    return create(AlertType.INFO);
+    return create().addCss(dui_info);
   }
 
   /**
-   * Creates alert with warning severity
+   * Creates alert with warning context
    *
    * @return new alert instance
    */
   public static Alert warning() {
-    return create(AlertType.WARNING);
+    return create().addCss(dui_warning);
   }
 
   /**
-   * Creates alert with error severity
+   * Creates alert with error context
    *
    * @return new alert instance
    */
   public static Alert error() {
-    return create(AlertType.ERROR);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Alert setBackground(Color background) {
-    if (nonNull(background)) {
-      if (nonNull(this.background)) element.removeCss(this.background.getBackground());
-      this.background = background;
-      element.addCss(this.background.getBackground());
-    }
-    return this;
-  }
-
-  /**
-   * Adds {@link Strong} as a child
-   *
-   * @param strong the element to add
-   * @return same instance
-   */
-  public Alert appendChild(Strong strong) {
-    element.appendChild(strong.element());
-    return this;
+    return create().addCss(dui_error);
   }
 
   /**
@@ -190,40 +146,8 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
    * @return same instance
    */
   public Alert appendChild(String text) {
-    element.appendChild(TextNode.of(text));
+    bodyElement.appendChild(TextNode.of(text));
     return this;
-  }
-
-  /**
-   * Adds anchor element as a child, this method adds {@link Styles#alert_link} style to anchor
-   * element by default
-   *
-   * @param anchorElement the element
-   * @return same instance
-   */
-  public Alert appendChild(HTMLAnchorElement anchorElement) {
-    if (nonNull(anchorElement)) {
-      Style.of(anchorElement).addCss(Styles.alert_link);
-      element.appendChild(anchorElement);
-    }
-    return this;
-  }
-
-  /**
-   * Adds {@link AlertLink} as a child
-   *
-   * @param alertLink the element
-   * @return same instance
-   * @see AlertLink
-   */
-  public Alert appendChild(AlertLink alertLink) {
-    return appendChild(alertLink.element());
-  }
-
-  /** use {@link Alert#setDismissible(boolean)} instead */
-  @Deprecated
-  public Alert setDissmissible(boolean dismissible) {
-    return setDismissible(dismissible);
   }
 
   /**
@@ -247,11 +171,8 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
    * @return same instance
    */
   public Alert dismissible() {
-    if (!dismissible) {
-      element.addCss(AlertStyles.ALERT_DISMISSIBLE);
-      element.insertAfterBegin(closeButton);
-    }
     dismissible = true;
+    removeButton.get();
     return this;
   }
 
@@ -262,11 +183,8 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
    * @return same instance
    */
   public Alert unDismissible() {
-    if (dismissible) {
-      element.removeCss(AlertStyles.ALERT_DISMISSIBLE);
-      element.removeChild(closeButton);
-    }
     dismissible = false;
+    removeButton.remove();
     return this;
   }
 
@@ -280,8 +198,18 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
    *
    * @return the close button element
    */
-  public HTMLButtonElement getCloseButton() {
-    return closeButton;
+  public RemoveButton getCloseButton() {
+    return removeButton.get();
+  }
+
+  public Alert withCloseButton(ChildHandler<Alert, RemoveButton> handler) {
+    handler.apply(this, removeButton.get());
+    return this;
+  }
+
+  public Alert withCloseButton() {
+    removeButton.get();
+    return this;
   }
 
   /** {@inheritDoc} */

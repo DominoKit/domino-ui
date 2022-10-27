@@ -23,7 +23,7 @@ import static org.jboss.elemento.Elements.footer;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLQuoteElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.TextNode;
@@ -33,7 +33,7 @@ import org.jboss.elemento.IsElement;
 public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
 
   private final DominoElement<HTMLQuoteElement> element =
-      DominoElement.of(blockquote()).css(Styles.m_b_25);
+      DominoElement.of(blockquote()).css(m_b_25);
   private Paragraph paragraph = Paragraph.create();
   private DominoElement<HTMLElement> footer;
 
@@ -116,8 +116,8 @@ public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
    * @return same instance
    */
   public Blockquote reverse() {
-    element.removeCss(Styles.BLOCKQUOTE_REVERSE);
-    element.addCss(Styles.BLOCKQUOTE_REVERSE);
+    element.removeCss(blockquote_reverse);
+    element.addCss(blockquote_reverse);
     return this;
   }
 

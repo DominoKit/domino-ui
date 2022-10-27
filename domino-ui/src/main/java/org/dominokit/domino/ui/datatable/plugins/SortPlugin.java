@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import static java.util.Objects.isNull;
+import static org.dominokit.domino.ui.style.DisplayCss.dui_cursor_pointer;
 import static org.jboss.elemento.Elements.span;
 
 import elemental2.dom.HTMLElement;
@@ -29,7 +30,7 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.EventType;
 
@@ -60,7 +61,9 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
       column
           .getHeaderLayout()
           .appendChild(FlexItem.create().setOrder(100).appendChild(sortContainer.sortElement));
-      column.getHeadElement().addCss(Styles.cursor_pointer, Styles.disable_selection);
+      column.getHeadElement()
+              .addCss(dui_cursor_pointer)
+              .css(GenericCss.disable_selection);
       column
           .getHeadElement()
           .addEventListener(

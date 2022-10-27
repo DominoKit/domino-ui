@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import org.dominokit.domino.ui.menu.AbstractMenuItem;
-
 import java.util.Optional;
 import java.util.Set;
 
@@ -130,7 +128,7 @@ public interface HasSelectionListeners<T, V, S> {
      * @param toggle boolean, true to pause the selection listeners, false to enable them
      * @return same component instance
      */
-    default T withPauseSelectionListenersToggle(boolean toggle, AsyncHandler<T> handler) {
+    default T withPauseSelectionListenersToggleAsync(boolean toggle, AsyncHandler<T> handler) {
         boolean oldState = isSelectionListenersPaused();
         togglePauseSelectionListeners(toggle);
         try {
@@ -153,7 +151,7 @@ public interface HasSelectionListeners<T, V, S> {
 
     T triggerDeselectionListeners(V source, S selection);
 
-    S getSelected();
+    S getSelection();
 
     /**
      * @param <V> the type of the component value

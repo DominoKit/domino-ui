@@ -21,6 +21,7 @@ import static org.jboss.elemento.Elements.div;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
  * A layout which is a 12 columns grid based with a required content section and 4 other optional
@@ -61,24 +62,23 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * @see BaseDominoElement
  */
-public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
+public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> implements GridStyles{
 
-  private final HTMLDivElement element =
-      DominoElement.of(div()).css(GridStyles.LAYOUT_GRID).element();
-  private final HTMLDivElement contentElement =
-      DominoElement.of(div()).css(GridStyles.LAYOUT_CONTENT).element();
-  private final HTMLDivElement headerElement =
-      DominoElement.of(div()).css(GridStyles.LAYOUT_HEADER).element();
-  private final HTMLDivElement footerElement =
-      DominoElement.of(div()).css(GridStyles.LAYOUT_FOOTER).element();
-  private final HTMLDivElement leftElement =
-      DominoElement.of(div()).css(GridStyles.LAYOUT_LEFT).element();
-  private final HTMLDivElement rightElement =
-      DominoElement.of(div()).css(GridStyles.LAYOUT_RIGHT).element();
+  private final DominoElement<HTMLDivElement> element;
+  private final DominoElement<HTMLDivElement> contentElement;
+  private final LazyChild<DominoElement<HTMLDivElement>> headerElement;
+  private final LazyChild<DominoElement<HTMLDivElement>> footerElement;
+  private final LazyChild<DominoElement<HTMLDivElement>> leftElement;
+  private final LazyChild<DominoElement<HTMLDivElement>> rightElement;
   private final GridLayoutEditor editor = new GridLayoutEditor();
 
   public GridLayout() {
-    element.appendChild(contentElement);
+    element =  DominoElement.div().addCss(dui_layout_grid)
+            .appendChild(contentElement = DominoElement.div().addCss(dui_grid_content));
+    headerElement = LazyChild.of(DominoElement.div().addCss(dui_grid_header), element);
+    footerElement = LazyChild.of(DominoElement.div().addCss(dui_grid_footer), element);
+    leftElement = LazyChild.of(DominoElement.div().addCss(dui_grid_left), element);
+    rightElement = LazyChild.of(DominoElement.div().addCss(dui_grid_right), element);
     init(this);
     updateGridLayout();
   }
@@ -123,7 +123,7 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
    */
   public GridLayout setHeaderSpan(SectionSpan sectionSpan) {
     editor.addHeader(sectionSpan);
-    element.appendChild(headerElement);
+    headerElement.get();
     updateGridLayout();
     return this;
   }
@@ -153,13 +153,13 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
    */
   public GridLayout setRightSpan(SectionSpan sectionSpan, boolean spanUp, boolean spanDown) {
     editor.addRight(sectionSpan, spanUp, spanDown);
-    element.appendChild(rightElement);
+    rightElement.get();
     updateGridLayout();
     return this;
   }
 
   private boolean hasFooter() {
-    return nonNull(footerElement.parentNode);
+    return footerElement.element().isAttached();
   }
 
   /**
@@ -186,7 +186,7 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
    */
   public GridLayout setLeftSpan(SectionSpan sectionSpan, boolean spanUp, boolean spanDown) {
     editor.addLeft(sectionSpan, spanUp, spanDown);
-    element.appendChild(leftElement);
+    leftElement.get();
     updateGridLayout();
     return this;
   }
@@ -211,7 +211,7 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
    */
   public GridLayout setFooterSpan(SectionSpan sectionSpan) {
     editor.addFooter(sectionSpan);
-    element.appendChild(footerElement);
+    footerElement.get();
     updateGridLayout();
 
     return this;
@@ -230,45 +230,46 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
   }
 
   private boolean hasHeader() {
-    return nonNull(headerElement.parentNode);
+    return headerElement.element().isAttached();
   }
 
   private boolean hasLeft() {
-    return nonNull(leftElement.parentNode);
+    return leftElement.element().isAttached();
   }
 
   private boolean hasRight() {
-    return nonNull(rightElement.parentNode);
+    return rightElement.element().isAttached();
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 
   /** @return The content section */
   public DominoElement<HTMLDivElement> getContentElement() {
-    return DominoElement.of(contentElement);
+    return contentElement;
   }
 
   /** @return The header section */
   public DominoElement<HTMLDivElement> getHeaderElement() {
-    return DominoElement.of(headerElement);
+    return headerElement.get();
   }
 
   /** @return The footer section */
   public DominoElement<HTMLDivElement> getFooterElement() {
-    return DominoElement.of(footerElement);
+    return footerElement.get();
   }
 
   /** @return The left section */
   public DominoElement<HTMLDivElement> getLeftElement() {
-    return DominoElement.of(leftElement);
+    return leftElement.get();
   }
 
   /** @return The right section */
   public DominoElement<HTMLDivElement> getRightElement() {
-    return DominoElement.of(rightElement);
+    return rightElement.get();
   }
+
 }

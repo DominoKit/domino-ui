@@ -1,71 +1,155 @@
 package org.dominokit.domino.ui.forms;
 
-import elemental2.dom.DomGlobal;
-import elemental2.dom.Node;
-import org.dominokit.domino.ui.menu.AbstractMenuItem;
+import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
-import org.dominokit.domino.ui.utils.MatchHighlighter;
+import org.dominokit.domino.ui.utils.NullLazyChild;
+import org.jboss.elemento.IsElement;
+
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.menu.MenuStyles.*;
 
-public abstract class SelectOption<V> extends AbstractMenuItem<V, SelectOption<V>> {
-    private LazyChild<DominoElement<?>> valueElement;
+public class SelectOption<V> extends Option<V> {
 
-    public SelectOption() {
+    private String text;
+    private DominoElement<HTMLElement> descriptionElement;
+    private DominoElement<HTMLElement> textElement;
+
+    private DominoElement<HTMLElement> valueElement;
+    private LazyChild<DominoElement<HTMLElement>> lazyValueElement = NullLazyChild.of();
+
+    public static <V> SelectOption<V> create(V value, String key, String text) {
+        return new SelectOption<>(value, key, text);
+    }
+
+    public static <V> SelectOption<V> create(V value) {
+        return new SelectOption<>(value, String.valueOf(value), String.valueOf(value));
+    }
+
+    public static <V> SelectOption<V> create(V value, String key, String text, String description) {
+        return new SelectOption<>(value, key, text, description);
+    }
+
+    public SelectOption(V value, String key, String text, String description) {
+        this(value, key, text);
+        if (nonNull(description) && !description.isEmpty()) {
+            descriptionElement = DominoElement.small().addCss(menu_item_hint).setTextContent(text);
+            textElement.appendChild(descriptionElement);
+        }
+    }
+
+    public SelectOption(V value, String key, String text) {
+        setKey(key);
+        setValue(value);
+        valueElement = createValueElement(value, key, text);
+        if (nonNull(text) && !text.isEmpty()) {
+            textElement = DominoElement.span().addCss(menu_item_body).setTextContent(text);
+            appendChild(textElement);
+        }
+    }
+
+    protected DominoElement<HTMLElement> createValueElement(V value, String key, String text){
+        return DominoElement.span().textContent(text).addCss(dui_m_r_1);
     }
 
     @Override
-    public SelectOption<V> select(boolean silent) {
-        if (nonNull(valueElement)) {
-            valueElement.get();
+    protected void onSelected() {
+        if(!lazyValueElement.isInitialized()){
+            lazyValueElement = LazyChild.of(valueElement, getValueTarget());
+            lazyValueElement.get();
         }
-        return super.select(silent);
     }
 
     @Override
-    public SelectOption<V> deselect(boolean silent) {
-        valueElement.remove();
-        return super.deselect(silent);
+    protected void onDeselected() {
+        lazyValueElement.remove();
     }
 
-    void setValueElement(LazyChild<DominoElement<?>> valueElement) {
-        if(isNull(this.valueElement)) {
-            this.valueElement = valueElement;
+    /**
+     * @return The description element
+     */
+    public DominoElement<HTMLElement> getDescriptionElement() {
+        return descriptionElement;
+    }
+
+    /**
+     * @return the main text element
+     */
+    public DominoElement<HTMLElement> getTextElement() {
+        return textElement;
+    }
+
+    /**
+     * match the search token with both the text and description of the menu item
+     *
+     * @param token         String search text
+     * @param caseSensitive boolean, true if the search is case-sensitive
+     * @return boolean, true if the item matches the search
+     */
+    @Override
+    public boolean onSearch(String token, boolean caseSensitive) {
+        if (isNull(token) || token.isEmpty()) {
+            this.show();
+            return true;
         }
-    }
-
-    public void highlight(String displayValue) {
-        if (nonNull(displayValue) && displayValue.length() > 0) {
-            highlightNode(this.linkElement.element(), displayValue);
-        }
-    }
-
-    private void highlightNode(Node node, String searchTerm) {
-        cleanHighlight(node);
-        if (node.nodeType == DomGlobal.document.TEXT_NODE) {
-            String text = node.nodeValue;
-            String highlighted = MatchHighlighter.highlight(text, searchTerm);
-            node.parentElement.appendChild(DominoElement.span().setInnerHtml(highlighted).element());
-            node.parentElement.removeChild(node);
-        } else if (node.nodeType == DomGlobal.document.ELEMENT_NODE) {
-            for (int i = 0; i < node.childNodes.length; i++) {
-                highlightNode(node.childNodes.getAt(i), searchTerm);
+        if (containsToken(token, caseSensitive)) {
+            if (this.isCollapsed()) {
+                this.show();
             }
+            return true;
         }
+        if (this.isExpanded()) {
+            this.hide();
+        }
+        return false;
     }
 
-    private void cleanHighlight(Node node){
-        if(node.nodeType == DomGlobal.document.ELEMENT_NODE){
-            if(node.nodeName.equalsIgnoreCase("mark")) {
-                node.parentElement.textContent = node.parentElement.textContent.replace("<mark>", "").replace("</mark>", "");
-            }else {
-                for (int i = 0; i < node.childNodes.length; i++) {
-                    cleanHighlight(node.childNodes.getAt(i));
-                }
-            }
+    private boolean containsToken(String token, boolean caseSensitive) {
+        String textContent =
+                Arrays.asList(Optional.ofNullable(textElement), Optional.ofNullable(descriptionElement))
+                        .stream()
+                        .filter(Optional::isPresent)
+                        .map(element -> element.get().getTextContent())
+                        .collect(Collectors.joining(" "));
+        if (isNull(textContent) || textContent.isEmpty()) {
+            return false;
         }
+        if (caseSensitive) {
+            return textContent.contains(token);
+        }
+        return textContent.toLowerCase().contains(token.toLowerCase());
     }
 
+
+    /**
+     * Adds an element as an add-on to the left
+     *
+     * @param addOn {@link FlexItem}
+     * @return same menu item instance
+     */
+    public SelectOption<V> addLeftAddOn(IsElement<?> addOn) {
+        if (nonNull(addOn)) {
+            linkElement.appendChild(DominoElement.of(addOn).addCss(menu_item_icon));
+        }
+        return this;
+    }
+
+    /**
+     * Adds an element as an add-on to the right
+     *
+     * @param addOn {@link FlexItem}
+     * @return same menu item instance
+     */
+    public SelectOption<V> addRightAddOn(IsElement<?> addOn) {
+        if (nonNull(addOn)) {
+            linkElement.appendChild(DominoElement.of(addOn).addCss(menu_item_utility));
+        }
+        return this;
+    }
 }

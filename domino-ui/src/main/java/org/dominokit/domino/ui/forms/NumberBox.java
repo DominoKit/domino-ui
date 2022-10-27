@@ -44,7 +44,6 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
         HasPostfix<T>,
         HasPrefix<T>  {
 
-
   protected final LazyChild<DominoElement<HTMLDivElement>> prefixElement;
   protected final LazyChild<DominoElement<HTMLDivElement>> postfixElement;
   private final ChangeListener<V> formatValueChangeListener =(oldValue, newValue) -> formatValue(newValue);
@@ -543,6 +542,17 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
 
   public T withPostfixElement(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
     handler.apply((T) this, postfixElement.get());
+    return (T) this;
+  }
+
+  @Override
+  public String getName() {
+    return getInputElement().element().name;
+  }
+
+  @Override
+  public T setName(String name) {
+    getInputElement().element().name = name;
     return (T) this;
   }
 

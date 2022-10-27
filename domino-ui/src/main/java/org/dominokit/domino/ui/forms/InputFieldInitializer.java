@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.Element;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -13,12 +14,12 @@ import java.util.List;
 import static org.dominokit.domino.ui.forms.FormsStyles.FORM_FIELD;
 import static org.dominokit.domino.ui.keyboard.KeyboardEvents.listenOnKeyPress;
 
-public class InputFieldInitializer<T extends FormElement<T, V> , V> {
+public class InputFieldInitializer<T extends FormElement<T, V> , V, E extends HTMLElement> {
 
     private final T formElement;
     private V oldValue;
 
-    public static <T extends FormElement<T, V> , V> InputFieldInitializer<T, V> create(T formElement){
+    public static <T extends FormElement<T, V> , V, E extends HTMLElement> InputFieldInitializer<T, V, E> create(T formElement){
         return new InputFieldInitializer<>(formElement);
     }
 
@@ -27,8 +28,8 @@ public class InputFieldInitializer<T extends FormElement<T, V> , V> {
         this.oldValue = formElement.getValue();
     }
 
-    public InputFieldInitializer<T,V> init(HasInputElement<T> hasInput){
-        DominoElement<HTMLInputElement> inputElement = hasInput.getInputElement();
+    public InputFieldInitializer<T,V,E> init(HasInputElement<T, E> hasInput){
+        DominoElement<E> inputElement = hasInput.getInputElement();
         inputElement.addEventListener("change", evt -> {
             if(hasInput.onChange().isPresent()){
                 hasInput.onChange().get().accept(evt);

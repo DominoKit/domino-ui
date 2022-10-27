@@ -28,7 +28,7 @@ import java.util.function.Consumer;
  * @param <T> the type of the SuggestBox value
  * @see LocalSuggestBoxStore
  */
-public interface SuggestBoxStore<T> {
+public interface SuggestBoxStore<T, S extends Option<T>> {
 
   /**
    * Takes the current typed text in the SuggestBox and provide a List of matching suggestion
@@ -36,7 +36,7 @@ public interface SuggestBoxStore<T> {
    * @param value String text in the SuggestBox
    * @param suggestionsHandler {@link SuggestionsHandler}
    */
-  void filter(String value, SuggestionsHandler<T> suggestionsHandler);
+  void filter(String value, SuggestionsHandler<T, S> suggestionsHandler);
 
   /**
    * Takes a value of T and find the matching SuggestItem for this value, this is used when we
@@ -44,19 +44,19 @@ public interface SuggestBoxStore<T> {
    * suggestion
    *
    * @param searchValue T
-   * @param handler Consumer of {@link SelectOption}
+   * @param handler Consumer of {@link Option}
    */
-  void find(T searchValue, Consumer<SelectOption<T>> handler);
+  void find(T searchValue, Consumer<S> handler);
 
   /**
    * Defines how to check a single SuggestItem against the search text, default to SuggestItem
    * lowercase display text contains the search text
    *
    * @param searchValue String
-   * @param suggestItem {@link SelectOption}
-   * @return boolean, true if the {@link SelectOption} match the search text
+   * @param suggestItem {@link Option}
+   * @return boolean, true if the {@link Option} match the search text
    */
-  default boolean filterItem(String searchValue, SelectOption<T> suggestItem) {
+  default boolean filterItem(String searchValue, S suggestItem) {
     return suggestItem.onSearch(searchValue, false);
   }
 
@@ -64,7 +64,7 @@ public interface SuggestBoxStore<T> {
    * @return the {@link MissingSuggestProvider} to handle missing suggestions for a value this is
    *     default to Optional.empty()
    */
-  default MissingSuggestProvider<T> getMessingSuggestionProvider() {
+  default MissingSuggestProvider<T, S> getMessingSuggestionProvider() {
     return missingValue -> Optional.empty();
   }
 
@@ -72,30 +72,30 @@ public interface SuggestBoxStore<T> {
    * @return the {@link MissingEntryProvider} to handle missing suggestions for a text typed in the
    *     SuggestBox this is default to Optional.empty()
    */
-  default MissingEntryProvider<T> getMessingEntryProvider() {
+  default MissingEntryProvider<T, S> getMessingEntryProvider() {
     return missingValue -> Optional.empty();
   }
 
   /**
-   * A function to provide a List of {@link SelectOption} to the {@link
+   * A function to provide a List of {@link Option} to the {@link
    * SuggestBoxStore#filter(String, SuggestionsHandler)}
    *
    * @param <T> the type of the SuggestBox value
    */
   @FunctionalInterface
-  interface SuggestionsHandler<T> {
+  interface SuggestionsHandler<T, S extends Option<T>> {
     /**
      * This should be called once the suggestions are ready to be fed to the SuggestBox
      *
-     * @param suggestions List of {@link SelectOption}
+     * @param suggestions List of {@link Option}
      */
-    void onSuggestionsReady(List<SelectOption<T>> suggestions);
+    void onSuggestionsReady(List<S> suggestions);
   }
 
   /** @param <T> The type of the suggest box records */
   @FunctionalInterface
-  interface SuggestionFilter<T> {
-    boolean filter(String searchValue, SelectOption<T> suggestItem);
+  interface SuggestionFilter<T, S extends Option<T>> {
+    boolean filter(String searchValue, S suggestItem);
   }
 
   /**
@@ -105,13 +105,13 @@ public interface SuggestBoxStore<T> {
    * @param <T> the type of the SuggestBox value
    */
   @FunctionalInterface
-  interface MissingSuggestProvider<T> {
+  interface MissingSuggestProvider<T, S extends Option<T>> {
     /**
      * @param missingValue T the value that does not match any suggestion
-     * @return Optional of {@link SelectOption}, this could be an inline created suggestion or
+     * @return Optional of {@link Option}, this could be an inline created suggestion or
      *     Optional.empty(), consider invalidating the field in this case
      */
-    Optional<SelectOption<T>> getMessingSuggestion(T missingValue);
+    Optional<S> getMessingSuggestion(T missingValue);
   }
 
   /**
@@ -121,13 +121,13 @@ public interface SuggestBoxStore<T> {
    * @param <T> the type of the SuggestBox value
    */
   @FunctionalInterface
-  interface MissingEntryProvider<T> {
+  interface MissingEntryProvider<T, S extends Option<T>> {
     /**
      * @param inputValue String value represent what is typed in the SuggestBox
      * @return Optional SuggestItem, this could an inline created item or an Optional of empty which
      *     in this case will be considered as a null value. also consider invalidating the
      *     SuggestBox if it should return Optional.empty()
      */
-    Optional<SelectOption<T>> getMessingSuggestion(String inputValue);
+    Optional<S> getMessingSuggestion(String inputValue);
   }
 }

@@ -100,7 +100,7 @@ public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
     return this;
   }
 
-  private Style<HTMLDivElement, IsElement<HTMLDivElement>> spinnerStyle() {
+  private Style<HTMLDivElement> spinnerStyle() {
     return Style.of(spinnerLayer);
   }
 

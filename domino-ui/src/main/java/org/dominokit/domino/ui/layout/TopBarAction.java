@@ -21,7 +21,7 @@ import static org.jboss.elemento.Elements.li;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLLIElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -29,7 +29,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 @Deprecated
 public class TopBarAction extends BaseDominoElement<HTMLLIElement, TopBarAction> {
 
-  private HTMLLIElement element = DominoElement.of(li()).css(Styles.pull_right).element();
+  private HTMLLIElement element = DominoElement.of(li()).css(GenericCss.pull_right).element();
   private HTMLAnchorElement clickableElement =
       DominoElement.of(a()).css("js-right-sidebar").element();
 

@@ -87,18 +87,16 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * @see AccordionPanel
  */
-public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
+public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> implements CollapsibleStyles{
 
-  private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div()).css(CollapsibleStyles.PANEL_GROUP);
+  private final DominoElement<HTMLDivElement> element;
   private List<AccordionPanel> panels = new LinkedList<>();
   private boolean multiOpen = false;
-  private Color headerColor;
-  private Color bodyColor;
   private CollapseStrategy panelsCollapseStrategy;
 
   /** Default constructor */
   public Accordion() {
+    element = DominoElement.div().addCss(dui_collapse_group);
     init(this);
   }
 
@@ -112,39 +110,21 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
   }
 
   /**
-   * Adds an Accordion panel to the Accordion
-   *
-   * @param panel {@link AccordionPanel}
-   * @return same instance
-   */
-  public Accordion appendChild(AccordionPanel panel) {
-    return appendChild(panel, true);
-  }
-
-  /**
    * Adds an accordion panel to the accordion and allow overriding the accordion panel colors with
    * the colors from the Accordion
    *
    * @param panel {@link AccordionPanel}
-   * @param overrideColors boolean, true to override the colors.
    * @return same accordion instance
    */
-  public Accordion appendChild(AccordionPanel panel, boolean overrideColors) {
+  public Accordion appendChild(AccordionPanel panel) {
     panels.add(panel);
     if (nonNull(panelsCollapseStrategy)) {
       panel.setCollapseStrategy(panelsCollapseStrategy);
     }
-    if (overrideColors) {
-      if (nonNull(headerColor)) {
-        panel.setHeaderBackground(headerColor);
-      }
-
-      if (nonNull(bodyColor)) {
-        panel.setBodyBackground(bodyColor);
-      }
-    }
     element.appendChild(panel);
-    DominoElement.of(panel.getClickableElement()).addClickListener(evt -> togglePanel(panel));
+    panel.withHeaderElement((accordionPanel, header) -> {
+      header.addClickListener(evt -> togglePanel(panel));
+    });
     return this;
   }
 
@@ -186,114 +166,6 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
    */
   public Accordion multiOpen() {
     this.multiOpen = true;
-    return this;
-  }
-
-  /**
-   * Set the header background to {@link Color#BLUE}
-   *
-   * @return same accordion instance
-   */
-  public Accordion primary() {
-    return setHeaderBackground(Color.BLUE);
-  }
-
-  /**
-   * Set the header background to {@link Color#GREEN}
-   *
-   * @return same accordion instance
-   */
-  public Accordion success() {
-    return setHeaderBackground(Color.GREEN);
-  }
-
-  /**
-   * Set the header background to {@link Color#ORANGE}
-   *
-   * @return same accordion instance
-   */
-  public Accordion warning() {
-    return setHeaderBackground(Color.ORANGE);
-  }
-
-  /**
-   * Set the header background to {@link Color#RED}
-   *
-   * @return same accordion instance
-   */
-  public Accordion danger() {
-    return setHeaderBackground(Color.RED);
-  }
-
-  /**
-   * Set the header and body background to {@link Color#BLUE}
-   *
-   * @return same accordion instance
-   */
-  public Accordion primaryFull() {
-    setHeaderBackground(Color.BLUE);
-    setBodyBackground(Color.BLUE);
-
-    return this;
-  }
-
-  /**
-   * Set the header and body background to {@link Color#GREEN}
-   *
-   * @return same accordion instance
-   */
-  public Accordion successFull() {
-    setHeaderBackground(Color.GREEN);
-    setBodyBackground(Color.GREEN);
-
-    return this;
-  }
-
-  /**
-   * Set the header and body background to {@link Color#ORANGE}
-   *
-   * @return same accordion instance
-   */
-  public Accordion warningFull() {
-    setHeaderBackground(Color.ORANGE);
-    setBodyBackground(Color.ORANGE);
-
-    return this;
-  }
-
-  /**
-   * Set the header and body background to {@link Color#RED}
-   *
-   * @return same accordion instance
-   */
-  public Accordion dangerFull() {
-    setHeaderBackground(Color.RED);
-    setBodyBackground(Color.RED);
-
-    return this;
-  }
-
-  /**
-   * Set the header background to a custom color
-   *
-   * @param color {@link Color}
-   * @return same accordion instance
-   */
-  public Accordion setHeaderBackground(Color color) {
-    panels.forEach(p -> p.setHeaderBackground(color));
-    this.headerColor = color;
-    return this;
-  }
-
-  /**
-   * Set the body background to a custom color
-   *
-   * @param color {@link Color}
-   * @return same accordion instance
-   */
-  public Accordion setBodyBackground(Color color) {
-    panels.forEach(p -> p.setBodyBackground(color));
-    this.bodyColor = color;
     return this;
   }
 

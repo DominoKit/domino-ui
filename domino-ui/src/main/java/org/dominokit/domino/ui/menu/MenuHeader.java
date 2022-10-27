@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.menu;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.menu.MenuStyles.*;
-import static org.dominokit.domino.ui.style.Styles.CLICKABLE;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
@@ -37,8 +36,8 @@ public class MenuHeader extends BaseDominoElement<HTMLDivElement, MenuHeader> {
   private final LazyChild<DominoElement<HTMLElement>> titleElement;
 
   public MenuHeader() {
-    root = DominoElement.div().addCss(MENU_HEADER_BAR);
-    titleElement = LazyChild.of(DominoElement.span().addCss(MENU_TITLE), root);
+    root = DominoElement.div().addCss(menu_header_bar);
+    titleElement = LazyChild.of(DominoElement.span().addCss(menu_title), root);
     init(this);
   }
 
@@ -49,7 +48,7 @@ public class MenuHeader extends BaseDominoElement<HTMLDivElement, MenuHeader> {
    * @return same header instance
    */
   public MenuHeader setIcon(BaseIcon<?> icon) {
-    root.appendChild(icon.addCss(MENU_ICON));
+    root.appendChild(icon.addCss(menu_icon));
     return this;
   }
 
@@ -86,7 +85,7 @@ public class MenuHeader extends BaseDominoElement<HTMLDivElement, MenuHeader> {
    * @return same header instance
    */
   public MenuHeader appendAction(IsElement<?> element) {
-    root.appendChild(DominoElement.of(element).addCss(MENU_UTILITY, CLICKABLE));
+    root.appendChild(DominoElement.of(element).addCss(menu_utility, dui_clickable));
     return this;
   }
 

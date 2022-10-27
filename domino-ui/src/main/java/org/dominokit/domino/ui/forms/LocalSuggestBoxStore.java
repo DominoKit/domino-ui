@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import org.checkerframework.checker.units.qual.C;
-
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -29,16 +27,16 @@ import java.util.function.Function;
  *
  * @param <T> The type of the SuggestBox value
  */
-public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
+public class LocalSuggestBoxStore<T, S extends Option<T>> implements SuggestBoxStore<T, S> {
 
-    private List<SelectOption<T>> suggestions;
-    private SuggestionFilter<T> suggestionFilter =
+    private List<S> suggestions;
+    private SuggestionFilter<T, S> suggestionFilter =
             (searchValue, suggestItem) ->
                     suggestItem.onSearch(searchValue, false);
-    private MissingSuggestProvider<T> missingValueProvider;
-    private MissingEntryProvider<T> missingEntryProvider;
+    private MissingSuggestProvider<T, S> missingValueProvider;
+    private MissingEntryProvider<T, S> missingEntryProvider;
 
-    private Function<S, Optional<SelectOption<T>>> optionMapper;
+    private Function<T, Optional<S>> optionMapper;
 
     /**
      * Creates a store initialized with an empty List
@@ -50,9 +48,9 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
     /**
      * Creates a store initialized with a List of Suggestions
      *
-     * @param suggestions List of {@link SelectOption}
+     * @param suggestions List of {@link Option}
      */
-    public LocalSuggestBoxStore(List<SelectOption<T>> suggestions) {
+    public LocalSuggestBoxStore(List<S> suggestions) {
         this.suggestions = suggestions;
     }
 
@@ -62,33 +60,33 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
      * @param <T> the type of the SuggestBox value
      * @return new store instance
      */
-    public static <S, T> LocalSuggestBoxStore<S,T> create() {
+    public static <T, S extends Option<T>> LocalSuggestBoxStore<T, S> create() {
         return new LocalSuggestBoxStore<>();
     }
 
     /**
      * Creates a store initialized with a List of suggestions
      *
-     * @param suggestions List of {@link SelectOption}
+     * @param suggestions List of {@link Option}
      * @param <T>         the type of the SuggestBox value
      * @return new store instance
      */
-    public static <S, T> LocalSuggestBoxStore<S, T> create(List<SelectOption<T>> suggestions) {
+    public static <T, S extends Option<T>> LocalSuggestBoxStore<T,S> create(List<S> suggestions) {
         return new LocalSuggestBoxStore<>(suggestions);
     }
 
-    public static <S, T> LocalSuggestBoxStore<S, T> create(Function<S, Optional<SelectOption<T>>> optionMapper, Collection<S> items) {
-        LocalSuggestBoxStore<S, T> store =create(optionMapper);
+    public static <T, S extends Option<T>> LocalSuggestBoxStore<T,S> create(Function<T, Optional<S>> optionMapper, Collection<T> items) {
+        LocalSuggestBoxStore<T, S> store =create(optionMapper);
         store.addItem(items);
         return store;
     }
 
-    public static <S, T> LocalSuggestBoxStore<S, T> create(Function<S, Optional<SelectOption<T>>> optionMapper, S... items) {
+    public static <T, S extends Option<T>> LocalSuggestBoxStore<T,S> create(Function<T, Optional<S>> optionMapper, T... items) {
         return create(optionMapper, Arrays.asList(items));
     }
 
-    public static <S, T> LocalSuggestBoxStore<S, T> create(Function<S, Optional<SelectOption<T>>> optionMapper) {
-        LocalSuggestBoxStore<S, T> store = new LocalSuggestBoxStore<>();
+    public static <T, S extends Option<T>> LocalSuggestBoxStore<T,S> create(Function<T, Optional<S>> optionMapper) {
+        LocalSuggestBoxStore<T,S> store = new LocalSuggestBoxStore<>();
         store.setOptionMapper(optionMapper);
         return store;
     }
@@ -96,10 +94,10 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
     /**
      * Adds a suggestion the suggestions List
      *
-     * @param suggestion {@link SelectOption}
+     * @param suggestion {@link Option}
      * @return same store instance
      */
-    public LocalSuggestBoxStore<S, T> addSuggestion(SelectOption<T> suggestion) {
+    public LocalSuggestBoxStore<T,S> addSuggestion(S suggestion) {
         suggestions.add(suggestion);
         return this;
     }
@@ -107,10 +105,10 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
     /**
      * Adds a suggestion the suggestions List
      *
-     * @param suggestions {@link SelectOption}
+     * @param suggestions {@link Option}
      * @return same store instance
      */
-    public LocalSuggestBoxStore<S, T> addSuggestions(Collection<SelectOption<T>> suggestions) {
+    public LocalSuggestBoxStore<T,S> addSuggestions(Collection<S> suggestions) {
         if(nonNull(suggestions)) {
             suggestions.forEach(this::addSuggestion);
         }
@@ -120,10 +118,10 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
     /**
      * Adds a suggestion the suggestions List
      *
-     * @param suggestions {@link SelectOption}
+     * @param suggestions {@link Option}
      * @return same store instance
      */
-    public LocalSuggestBoxStore<S, T> addSuggestions(SelectOption<T>... suggestions) {
+    public LocalSuggestBoxStore<T,S> addSuggestions(S... suggestions) {
         if(nonNull(suggestions)) {
             addSuggestions(Arrays.asList(suggestions));
         }
@@ -133,36 +131,36 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
     /**
      * Adds a List of suggestions to the store suggestions
      *
-     * @param suggestions List of {@link SelectOption}
+     * @param suggestions List of {@link Option}
      * @return same store instance
      */
-    public LocalSuggestBoxStore<S, T> addSuggestions(List<SelectOption<T>> suggestions) {
+    public LocalSuggestBoxStore<T,S> addSuggestions(List<S> suggestions) {
         this.suggestions.addAll(suggestions);
         return this;
     }
 
-    public LocalSuggestBoxStore<S, T> removeOption(SelectOption<T> option){
+    public LocalSuggestBoxStore<T,S> removeOption(S option){
         findOption(option).ifPresent(found -> suggestions.remove(found));
         return this;
     }
 
-    public LocalSuggestBoxStore<S, T> removeOptions(Collection<SelectOption<T>> options){
+    public LocalSuggestBoxStore<T,S> removeOptions(Collection<S> options){
         options.forEach(this::removeOption);
         return this;
     }
 
-    public LocalSuggestBoxStore<S, T> removeOptions(SelectOption<T>... options){
+    public LocalSuggestBoxStore<T,S> removeOptions(S... options){
         Arrays.asList(options).forEach(this::removeOption);
         return this;
     }
 
-    public LocalSuggestBoxStore<S, T> removeAllOptions(){
+    public LocalSuggestBoxStore<T,S> removeAllOptions(){
         suggestions.forEach(this::removeOption);
         return this;
     }
 
 
-    public Optional<SelectOption<T>> findOption(SelectOption<T> option) {
+    public Optional<S> findOption(S option) {
         return Optional.ofNullable(option)
                 .flatMap(vSelectionOption -> suggestions
                         .stream()
@@ -171,23 +169,21 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
                 );
     }
 
-    public Optional<SelectOption<T>> findOptionByKey(String key) {
+    public Optional<S> findOptionByKey(String key) {
         return suggestions
                 .stream()
                 .filter(menuItem -> Objects.equals(key, menuItem.getKey()))
-                .map(menuItem -> menuItem)
                 .findFirst();
     }
 
-    public Optional<SelectOption<T>> findOptionByValue(T value) {
+    public Optional<S> findOptionByValue(T value) {
         return suggestions
                 .stream()
                 .filter(menuItem -> Objects.equals(value, menuItem.getValue()))
-                .map(menuItem -> menuItem)
                 .findFirst();
     }
 
-    public Optional<SelectOption<T>> findOptionByIndex(int index) {
+    public Optional<S> findOptionByIndex(int index) {
         if (index < suggestions.size() && index >= 0){
             return Optional.of(suggestions.get(index));
         }
@@ -206,18 +202,18 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
     /**
      * replace the store suggestions with the provided List
      *
-     * @param suggestions List of new {@link SelectOption}
+     * @param suggestions List of new {@link Option}
      * @return same store instance
      */
-    public LocalSuggestBoxStore<S, T> setSuggestions(List<SelectOption<T>> suggestions) {
+    public LocalSuggestBoxStore<T,S> setSuggestions(List<S> suggestions) {
         this.suggestions = new ArrayList<>(suggestions);
         return this;
     }
 
     /**
-     * @return List of {@link SelectOption} in this store
+     * @return List of {@link Option} in this store
      */
-    public List<SelectOption<T>> getSuggestions() {
+    public List<S> getSuggestions() {
         return suggestions;
     }
 
@@ -225,9 +221,9 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
      * {@inheritDoc}
      */
     @Override
-    public void filter(String searchValue, SuggestionsHandler<T> suggestionsHandler) {
-        List<SelectOption<T>> filteredSuggestions = new ArrayList<>();
-        for (SelectOption<T> suggestion : suggestions) {
+    public void filter(String searchValue, SuggestionsHandler<T, S> suggestionsHandler) {
+        List<S> filteredSuggestions = new ArrayList<>();
+        for (S suggestion : suggestions) {
             if (filterItem(searchValue, suggestion)) {
                 filteredSuggestions.add(suggestion);
             }
@@ -239,11 +235,11 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
      * {@inheritDoc}
      */
     @Override
-    public void find(T searchValue, Consumer<SelectOption<T>> handler) {
+    public void find(T searchValue, Consumer<S> handler) {
         if (isNull(searchValue)) {
             handler.accept(null);
         }
-        for (SelectOption<T> suggestion : suggestions) {
+        for (S suggestion : suggestions) {
             if (Objects.equals(suggestion.getValue(), searchValue)) {
                 handler.accept(suggestion);
                 return;
@@ -256,14 +252,14 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
      * {@inheritDoc}
      */
     @Override
-    public boolean filterItem(String searchValue, SelectOption<T> suggestItem) {
+    public boolean filterItem(String searchValue, S suggestItem) {
         return suggestionFilter.filter(searchValue, suggestItem);
     }
 
     /**
      * @return the {@link SuggestionFilter} used by this store
      */
-    public SuggestionFilter<T> getSuggestionFilter() {
+    public SuggestionFilter<T,S> getSuggestionFilter() {
         return suggestionFilter;
     }
 
@@ -273,7 +269,7 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
      * @param suggestionFilter {@link SuggestionFilter}
      * @return same store instance
      */
-    public LocalSuggestBoxStore<S, T> setSuggestionFilter(SuggestionFilter<T> suggestionFilter) {
+    public LocalSuggestBoxStore<T,S> setSuggestionFilter(SuggestionFilter<T,S> suggestionFilter) {
         if (nonNull(suggestionFilter)) {
             this.suggestionFilter = suggestionFilter;
         }
@@ -286,8 +282,8 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
      * @param missingValueProvider {@link MissingSuggestProvider}
      * @return same store instance
      */
-    public LocalSuggestBoxStore<S, T> setMissingValueProvider(
-            MissingSuggestProvider<T> missingValueProvider) {
+    public LocalSuggestBoxStore<T,S> setMissingValueProvider(
+            MissingSuggestProvider<T,S> missingValueProvider) {
         this.missingValueProvider = missingValueProvider;
         return this;
     }
@@ -298,8 +294,8 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
      * @param missingEntryProvider {@link MissingEntryProvider}
      * @return same store instance
      */
-    public LocalSuggestBoxStore<S, T> setMissingEntryProvider(
-            MissingEntryProvider<T> missingEntryProvider) {
+    public LocalSuggestBoxStore<T,S> setMissingEntryProvider(
+            MissingEntryProvider<T,S> missingEntryProvider) {
         this.missingEntryProvider = missingEntryProvider;
         return this;
     }
@@ -308,7 +304,7 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
      * {@inheritDoc}
      */
     @Override
-    public MissingSuggestProvider<T> getMessingSuggestionProvider() {
+    public MissingSuggestProvider<T,S> getMessingSuggestionProvider() {
         if (isNull(missingValueProvider)) {
             return missingValue -> Optional.empty();
         }
@@ -319,19 +315,19 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
      * {@inheritDoc}
      */
     @Override
-    public MissingEntryProvider<T> getMessingEntryProvider() {
+    public MissingEntryProvider<T,S> getMessingEntryProvider() {
         if (isNull(missingEntryProvider)) {
             return inputValue -> Optional.empty();
         }
         return missingEntryProvider;
     }
 
-    public LocalSuggestBoxStore<S, T> setOptionMapper(Function<S, Optional<SelectOption<T>>> optionMapper){
+    public LocalSuggestBoxStore<T,S> setOptionMapper(Function<T, Optional<S>> optionMapper){
         this.optionMapper = optionMapper;
         return this;
     }
 
-    public LocalSuggestBoxStore<S, T> addItem(S item){
+    public LocalSuggestBoxStore<T,S> addItem(T item){
         if(isNull(optionMapper)){
             throw new IllegalArgumentException("Option mapper is not initialized, consider setting an option mapper for the store");
         }
@@ -339,12 +335,12 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
         return this;
     }
 
-    public LocalSuggestBoxStore<S, T> addItem(Collection<S> items){
+    public LocalSuggestBoxStore<T,S> addItem(Collection<T> items){
         items.forEach(this::addItem);
         return this;
     }
 
-    public LocalSuggestBoxStore<S, T> addItem(S... items){
+    public LocalSuggestBoxStore<T,S> addItem(T... items){
         addItem(Arrays.asList(items));
         return this;
     }
@@ -356,9 +352,9 @@ public class LocalSuggestBoxStore<S, T> implements SuggestBoxStore<T> {
      * @param missingEntryProvider   {@link MissingEntryProvider}
      * @return same store instance
      */
-    public LocalSuggestBoxStore<S, T> setMissingHandlers(
-            MissingSuggestProvider<T> missingSuggestProvider,
-            MissingEntryProvider<T> missingEntryProvider) {
+    public LocalSuggestBoxStore<T,S> setMissingHandlers(
+            MissingSuggestProvider<T,S> missingSuggestProvider,
+            MissingEntryProvider<T,S> missingEntryProvider) {
         this.missingValueProvider = missingSuggestProvider;
         this.missingEntryProvider = missingEntryProvider;
 

@@ -15,15 +15,36 @@
  */
 package org.dominokit.domino.ui.infoboxes;
 
-/** Default CSS classes for {@link InfoBox} */
-public class InfoBoxStyles {
+import org.dominokit.domino.ui.style.CssClass;
 
-  /** CSS class for zoom hover effect */
-  public static final String HOVER_ZOOM_EFFECT = "hover-zoom-effect";
-  /** CSS class for expand hover effect */
-  public static final String HOVER_EXPAND_EFFECT = "hover-expand-effect";
-  /** CSS class for right flip */
-  public static final String INFO_BOX_3 = "info-box-3";
-  /** CSS class for left flip */
-  public static final String INFO_BOX = "info-box";
+/**
+ * Default CSS classes for {@link InfoBox}
+ */
+public interface InfoBoxStyles {
+
+    CssClass dui_info_box = () -> "dui-info-box";
+    CssClass dui_info_flipped = () -> "dui-info-flipped";
+    CssClass dui_info_icon = () -> "dui-info-icon";
+    CssClass dui_info_content = () -> "dui-info-content";
+    CssClass dui_info_title = () -> "dui-info-title";
+    CssClass dui_info_value = () -> "dui-info-value";
+    CssClass dui_info_hover_zoom = () -> "dui-info-hover-zoom";
+    CssClass dui_info_hover_expand = () -> "dui-info-hover-expand";
+
+    /**
+     * CSS class for zoom hover effect
+     */
+    String HOVER_ZOOM_EFFECT = "hover-zoom-effect";
+    /**
+     * CSS class for expand hover effect
+     */
+    String HOVER_EXPAND_EFFECT = "hover-expand-effect";
+    /**
+     * CSS class for right flip
+     */
+    String INFO_BOX_3 = "info-box-3";
+    /**
+     * CSS class for left flip
+     */
+    String INFO_BOX = "info-box";
 }

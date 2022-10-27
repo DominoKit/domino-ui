@@ -20,7 +20,7 @@ import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
@@ -47,7 +47,7 @@ public class FacebookLoader extends BaseLoader<FacebookLoader>
   private final HTMLDivElement content =
       DominoElement.of(div())
           .css(WAIT_ME_CONTENT)
-          .css(Styles.vertical_center)
+          .css(GenericCss.vertical_center)
           .add(loader)
           .add(loadingText)
           .element();

@@ -15,12 +15,12 @@
  */
 package org.dominokit.domino.ui.icons;
 
-import static org.dominokit.domino.ui.style.Styles.CLICKABLE;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import java.util.function.Consumer;
 import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -127,7 +127,7 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
    * @return same instance
    */
   public T clickable() {
-    addCss(CLICKABLE);
+    addCss(dui_clickable);
     withWaves();
     setAttribute("tabindex", "0");
     setAttribute("aria-expanded", "true");
@@ -145,7 +145,7 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
     if (clickable) {
       clickable();
     } else {
-      CLICKABLE.remove(this);
+      GenericCss.dui_clickable.remove(this);
       removeAttribute("tabindex");
       removeAttribute("aria-expanded");
       removeAttribute("href");
@@ -160,7 +160,7 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
    * @param icon the new {@link BaseIcon}
    * @return same instance
    */
-  public abstract T changeTo(BaseIcon<T> icon);
+  public abstract T changeTo(BaseIcon<?> icon);
 
   /** {@inheritDoc} */
   @Override

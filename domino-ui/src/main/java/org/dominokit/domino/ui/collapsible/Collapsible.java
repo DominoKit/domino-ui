@@ -40,9 +40,10 @@ import org.jboss.elemento.IsElement;
  */
 public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collapsible> {
 
-  public static final String DOM_UI_SCROLL_HEIGHT = "dom-ui-scroll-height";
+  public static final String DUI_SCROLL_HEIGHT = "dui-scroll-height";
+  public static final String DUI_COLLAPSE_HEIGHT = "dom-ui-collapse-height";
+  public static final String DUI_COLLAPSED = "dui-collapsed";
   private final HTMLElement element;
-  private final Style<HTMLElement, IsElement<HTMLElement>> style;
 
   private boolean collapsed = false;
   private boolean forceHidden = false;
@@ -58,7 +59,6 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
    */
   public Collapsible(HTMLElement element) {
     this.element = element;
-    style = Style.of(element);
   }
 
   /**
@@ -80,7 +80,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   }
 
   /**
-   * @return boolean, if true the element is hidden and wont be shown even if we call {@link
+   * @return boolean, if true the element is hidden and will not be shown even if we call {@link
    *     #show()}
    */
   public boolean isForceHidden() {
@@ -90,7 +90,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   /**
    * Disable/Enable force hidden
    *
-   * @param forceHidden boolean, if true it will hide the element if it is visible and wont allow
+   * @param forceHidden boolean, if true it will hide the element if it is visible and will not allow
    *     the element to be shown unless it is turned off, when turned off the element will remain
    *     hidden until we call {@link #show()}
    * @return same instance
@@ -111,7 +111,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   @Override
   public Collapsible show() {
     if (!forceHidden) {
-      strategy.show(element, style);
+      strategy.show(element);
       onShowCompleted();
       element.setAttribute("aria-expanded", "true");
       this.collapsed = false;
@@ -127,7 +127,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   @Override
   public Collapsible hide() {
     if (!forceHidden) {
-      strategy.hide(element, style);
+      strategy.hide(element);
       element.setAttribute("aria-expanded", "false");
       onHideCompleted();
       this.collapsed = true;
@@ -154,7 +154,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
    */
   @Override
   public boolean isCollapsed() {
-    return this.collapsed || DominoElement.of(element).hasAttribute("d-collapsed");
+    return this.collapsed || DominoElement.of(element).hasAttribute(DUI_COLLAPSED);
   }
 
   /**
@@ -251,10 +251,10 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
    */
   public Collapsible setStrategy(CollapseStrategy strategy) {
     if (nonNull(this.strategy)) {
-      this.strategy.cleanup(element, style);
+      this.strategy.cleanup(element);
     }
     this.strategy = strategy;
-    this.strategy.init(element, style);
+    this.strategy.init(element);
     return this;
   }
 

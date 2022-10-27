@@ -15,13 +15,15 @@
  */
 package org.dominokit.domino.ui.carousel;
 
-import static org.dominokit.domino.ui.carousel.CarouselStyles.*;
-import static org.jboss.elemento.Elements.*;
-
 import elemental2.dom.*;
-import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.LazyChild;
+
+import static org.dominokit.domino.ui.carousel.CarouselStyles.*;
+import static org.jboss.elemento.Elements.img;
 
 /**
  * A component for an element for {@link Carousel}
@@ -33,197 +35,171 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
-  private final HTMLLIElement indicatorElement = li().element();
-  private final HTMLHeadingElement slideLabelElement = h(3).element();
-  private final HTMLParagraphElement slideDescriptionElement = p().element();
-  private final HTMLDivElement captionElement =
-      DominoElement.of(div())
-          .add(slideLabelElement)
-          .add(slideDescriptionElement)
-          .css(CAROUSEL_CAPTION)
-          .element();
+    private final DominoElement<HTMLLIElement> indicatorElement;
+    private final LazyChild<DominoElement<HTMLHeadingElement>> slideLabelElement;
+    private final LazyChild<DominoElement<HTMLParagraphElement>> slideDescriptionElement;
+    private final LazyChild<DominoElement<HTMLDivElement>> captionElement;
 
-  private final HTMLDivElement slideElement = DominoElement.of(div()).css(ITEM).element();
+    private final DominoElement<HTMLDivElement> slideElement;
 
-  private final HTMLElement imageElement;
-  private boolean active = false;
+    private final DominoElement<HTMLElement> imageElement;
 
-  public Slide(String imageSrc) {
-    this(img(imageSrc).element());
-  }
+    private Slide(HTMLElement element) {
+        slideElement = DominoElement.div()
+                .addCss(slide)
+                .appendChild(imageElement = DominoElement.of(element));
 
-  public Slide(HTMLImageElement image) {
-    imageElement = image;
-    slideElement.appendChild(image);
-    init(this);
-  }
+        indicatorElement = DominoElement.li().addCss(slide_indicator);
 
-  public Slide(HTMLPictureElement pictureElement) {
-    imageElement = pictureElement;
-    slideElement.appendChild(pictureElement);
-    init(this);
-  }
-
-  public Slide(String imageSrc, String label, String description) {
-    this(img(imageSrc).element(), label, description);
-  }
-
-  public Slide(HTMLImageElement image, String label, String description) {
-    this(image);
-    slideLabelElement.textContent = label;
-    slideDescriptionElement.textContent = description;
-    slideElement.appendChild(captionElement);
-    init(this);
-  }
-
-  public Slide(HTMLPictureElement pictureElement, String label, String description) {
-    this(pictureElement);
-    slideLabelElement.textContent = label;
-    slideDescriptionElement.textContent = description;
-    slideElement.appendChild(captionElement);
-    init(this);
-  }
-
-  /**
-   * Creates new slide with image source
-   *
-   * @param imageSrc the url for the image
-   * @return new instance
-   */
-  public static Slide create(String imageSrc) {
-    return new Slide(imageSrc);
-  }
-
-  /**
-   * Creates new slide with image source, label and description
-   *
-   * @param imageSrc the url for the image
-   * @param label the image label
-   * @param description the image description
-   * @return new instance
-   */
-  public static Slide create(String imageSrc, String label, String description) {
-    return new Slide(imageSrc, label, description);
-  }
-
-  /**
-   * Creates new slide with {@link HTMLImageElement}
-   *
-   * @param image the {@link HTMLImageElement}
-   * @return new instance
-   */
-  public static Slide create(HTMLImageElement image) {
-    return new Slide(image);
-  }
-
-  /**
-   * Creates new slide with {@link HTMLPictureElement}
-   *
-   * @param pictureElement the {@link HTMLPictureElement}
-   * @return new instance
-   */
-  public static Slide create(HTMLPictureElement pictureElement) {
-    return new Slide(pictureElement);
-  }
-
-  /**
-   * Creates new slide with {@link HTMLPictureElement}, label and description
-   *
-   * @param pictureElement the {@link HTMLPictureElement}
-   * @param label the image label
-   * @param description the image description
-   * @return new instance
-   */
-  public static Slide create(HTMLPictureElement pictureElement, String label, String description) {
-    return new Slide(pictureElement, label, description);
-  }
-
-  /**
-   * Creates new slide with {@link HTMLImageElement}, label and description
-   *
-   * @param image the {@link HTMLImageElement}
-   * @param label the image label
-   * @param description the image description
-   * @return new instance
-   */
-  public static Slide create(HTMLImageElement image, String label, String description) {
-    return new Slide(image, label, description);
-  }
-
-  /** @return The indicator element */
-  public DominoElement<HTMLLIElement> getIndicatorElement() {
-    return DominoElement.of(indicatorElement);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return slideElement;
-  }
-
-  /**
-   * Activates this slide. This will add {@link CarouselStyles#ACTIVE} style to the slide
-   *
-   * @return same instance
-   */
-  public Slide activate() {
-    this.active = true;
-    if (!Style.of(indicatorElement).containsCss(ACTIVE)) {
-      Style.of(indicatorElement).addCss(ACTIVE);
-    }
-    if (!style().containsCss(ACTIVE)) {
-      addCss(ACTIVE);
+        captionElement = LazyChild.of(DominoElement.div().addCss(slide_caption), slideElement);
+        slideLabelElement = LazyChild.of(DominoElement.h(3), captionElement);
+        slideDescriptionElement = LazyChild.of(DominoElement.p(), captionElement);
+        init(this);
     }
 
-    return this;
-  }
+    public Slide(String imageSrc) {
+        this(img(imageSrc).element());
+    }
 
-  void deActivate() {
-    this.active = false;
-    Style.of(indicatorElement).removeCss(ACTIVE);
-    removeCss(ACTIVE);
-  }
+    public Slide(HTMLImageElement image) {
+        this((HTMLElement) image);
+    }
 
-  /**
-   * Sets the slide to active without changing the styles
-   *
-   * @param active a boolean that indicates this slide is active
-   */
-  public void setActiveFlag(boolean active) {
-    this.active = active;
-  }
+    public Slide(HTMLPictureElement pictureElement) {
+        this((HTMLElement) pictureElement);
+    }
 
-  /** @return True if this slide is active, false otherwise */
-  public boolean isActive() {
-    return active;
-  }
 
-  /**
-   * Checks if this slide has {@link CarouselStyles#ACTIVE} style
-   *
-   * @return true if the slide has active style, false otherwise
-   */
-  public boolean hasActiveStyle() {
-    return style().containsCss(ACTIVE);
-  }
+    /**
+     * Creates new slide with image source
+     *
+     * @param imageSrc the url for the image
+     * @return new instance
+     */
+    public static Slide create(String imageSrc) {
+        return new Slide(imageSrc);
+    }
 
-  /** @return The slide label element */
-  public DominoElement<HTMLHeadingElement> getSlideLabelElement() {
-    return DominoElement.of(slideLabelElement);
-  }
+    /**
+     * Creates new slide with {@link HTMLImageElement}
+     *
+     * @param image the {@link HTMLImageElement}
+     * @return new instance
+     */
+    public static Slide create(HTMLImageElement image) {
+        return new Slide(image);
+    }
 
-  /** @return The slide description element */
-  public DominoElement<HTMLParagraphElement> getSlideDescriptionElement() {
-    return DominoElement.of(slideDescriptionElement);
-  }
+    /**
+     * Creates new slide with {@link HTMLPictureElement}
+     *
+     * @param pictureElement the {@link HTMLPictureElement}
+     * @return new instance
+     */
+    public static Slide create(HTMLPictureElement pictureElement) {
+        return new Slide(pictureElement);
+    }
 
-  /** @return The slide caption element */
-  public DominoElement<HTMLDivElement> getCaptionElement() {
-    return DominoElement.of(captionElement);
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HTMLDivElement element() {
+        return slideElement.element();
+    }
 
-  /** @return The image element */
-  public DominoElement<HTMLElement> getImageElement() {
-    return DominoElement.of(imageElement);
-  }
+    /**
+     * Activates this slide. This will add {@link org.dominokit.domino.ui.style.GenericCss#dui_active_element} style to the slide
+     *
+     * @return same instance
+     */
+    public Slide activate() {
+        setActive(true);
+        return this;
+    }
+
+    void deActivate() {
+        setActive(false);
+    }
+
+    /**
+     * Sets the slide to active without changing the styles
+     *
+     * @param active a boolean that indicates this slide is active
+     */
+    public void setActive(boolean active) {
+        indicatorElement.addCss(BooleanCssClass.of(dui_active_element, active));
+        addCss(BooleanCssClass.of(dui_active_element, active));
+    }
+
+    /**
+     * @return True if this slide is active, false otherwise
+     */
+    public boolean isActive() {
+        return dui_active_element.isAppliedTo(element());
+    }
+
+    /**
+     * @return The indicator element
+     */
+    public DominoElement<HTMLLIElement> getIndicatorElement() {
+        return DominoElement.of(indicatorElement);
+    }
+
+    public Slide setLabel(String text){
+        slideLabelElement.get().textContent(text);
+        return this;
+    }
+
+    public Slide setDescription(String text){
+        slideDescriptionElement.get().textContent(text);
+        return this;
+    }
+
+    /**
+     * @return The slide label element
+     */
+    public DominoElement<HTMLHeadingElement> getSlideLabelElement() {
+        return slideLabelElement.get();
+    }
+
+    /**
+     * @return The slide label element
+     */
+    public Slide withSlideLabelElement(ChildHandler<Slide, DominoElement<HTMLHeadingElement>> handler) {
+        handler.apply(this, slideLabelElement.get());
+        return this;
+    }
+
+    /**
+     * @return The slide description element
+     */
+    public DominoElement<HTMLParagraphElement> getSlideDescriptionElement() {
+        return slideDescriptionElement.get();
+    }
+
+    public Slide withSlideDescriptionElement(ChildHandler<Slide, DominoElement<HTMLParagraphElement>> handler) {
+        handler.apply(this, slideDescriptionElement.get());
+        return this;
+    }
+
+
+    public Slide withSlideCaptionElement(ChildHandler<Slide, DominoElement<HTMLDivElement>> handler) {
+        handler.apply(this, captionElement.get());
+        return this;
+    }
+
+    /**
+     * @return The slide caption element
+     */
+    public DominoElement<HTMLDivElement> getCaptionElement() {
+        return captionElement.get();
+    }
+
+    /**
+     * @return The image element
+     */
+    public DominoElement<HTMLElement> getImageElement() {
+        return DominoElement.of(imageElement);
+    }
 }

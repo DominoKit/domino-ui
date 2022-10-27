@@ -15,15 +15,11 @@
  */
 package org.dominokit.domino.ui.layout;
 
-import static org.dominokit.domino.ui.layout.NavBarStyles.NAV_BAR;
-import static org.dominokit.domino.ui.layout.NavBarStyles.TITLE;
-
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.utils.*;
+
+import static org.dominokit.domino.ui.layout.NavBarStyles.*;
 
 public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   private DominoElement<HTMLElement> root;
@@ -38,8 +34,8 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   }
 
   public NavBar() {
-    root = DominoElement.nav().addCss(NAV_BAR);
-    lazyTitle = LazyChild.of(DominoElement.h4().addCss(TITLE), root);
+    root = DominoElement.nav().addCss(nav_bar);
+    lazyTitle = LazyChild.of(DominoElement.h4().addCss(nav_title), root);
     init(this);
   }
 
@@ -64,6 +60,11 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
 
   public String getTitle() {
     return lazyTitle.get().getTextContent();
+  }
+
+  public NavBar appendChild(UtilityElement<?> utilityElement){
+    appendChild(utilityElement.addCss(nav_utility).element());
+    return this;
   }
 
   @Override

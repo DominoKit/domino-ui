@@ -352,7 +352,16 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
     return this;
   }
 
+  @Override
+  public String getName() {
+    return getInputElement().element().name;
+  }
 
+  @Override
+  public SwitchButton setName(String name) {
+    getInputElement().element().name = name;
+    return this;
+  }
 
   private static class SwitchButtonAutoValidator extends AutoValidator {
 
