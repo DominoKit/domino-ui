@@ -15,13 +15,14 @@
  */
 package org.dominokit.domino.ui.themes;
 
-import static elemental2.dom.DomGlobal.document;
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.style.Style.bodyStyle;
+import org.dominokit.domino.ui.style.ColorScheme;
+import org.dominokit.domino.ui.style.Style;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.dominokit.domino.ui.style.ColorScheme;
+
+import static elemental2.dom.DomGlobal.document;
+import static java.util.Objects.nonNull;
 
 public class Theme {
 
@@ -107,7 +108,7 @@ public class Theme {
     Theme oldTheme = currentTheme;
     if (nonNull(currentTheme)) document.body.classList.remove(currentTheme.themeStyle);
     this.currentTheme = this;
-    bodyStyle().addCss(themeStyle);
+    Style.of(document.body).addCss(themeStyle);
     themeChangeHandlers.forEach(
         themeChangeHandler -> themeChangeHandler.onThemeChanged(oldTheme, this));
   }

@@ -15,14 +15,10 @@
  */
 package org.dominokit.domino.ui.infoboxes;
 
-import static java.util.Objects.nonNull;
-
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.IsElement;
 
@@ -43,323 +39,275 @@ import org.jboss.elemento.IsElement;
  * @see HasBackground
  */
 public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
-    implements InfoBoxStyles {
+        implements InfoBoxStyles {
 
-  /*
-  <div class="dui dui-info-box dui-elevation-sm">
-    <div class="dui dui-info-content">
-        <div class="dui dui-info-number">125</div>
-        <div class="dui dui-info-text">NEW ORDERS</div>
-    </div>
-    <div class="dui dui-info-icon dui-bg-red"><i class="dui mdi mdi-cart"></i></div>
-</div>
-   */
+    private final DominoElement<HTMLDivElement> root;
+    private final LazyChild<DominoElement<HTMLDivElement>> contentElement;
+    private final LazyChild<DominoElement<HTMLDivElement>> titleElement;
+    private final LazyChild<DominoElement<HTMLDivElement>> valueElement;
 
-  private final DominoElement<HTMLDivElement> iconElement = DominoElement.div().css("icon");
-  private final DominoElement<HTMLDivElement> titleElement = DominoElement.div().css("text");
-  private final DominoElement<HTMLDivElement> valueElement =
-      DominoElement.div().css("number").css("count-to");
-  private final DominoElement<HTMLDivElement> infoContent =
-      DominoElement.div().css("info-content").appendChild(titleElement).appendChild(valueElement);
-
-  private final DominoElement<HTMLDivElement> root;
-  private final LazyChild<DominoElement<HTMLDivElement>> contentElement;
-  private final LazyChild<DominoElement<HTMLDivElement>> titleElement;
-
-  private final LazyChild<DominoElement<HTMLElement>> icon = NullLazyChild.of();
+    private LazyChild<DominoElement<HTMLElement>> iconElement = NullLazyChild.of();
 
 
-  private HoverEffect hoverEffect;
-  private Flip flip = Flip.LEFT;
-
-  public InfoBox(){
-    root  = DominoElement.div().addCss(dui_info_box);
-    contentElement = LazyChild.of(DominoElement.div().addCss(dui_info_content), root);
+    private SwapCssClass hoverEffect = SwapCssClass.of(HoverEffect.ZOOM.effectStyle);
 
 
-  }
-
-  public InfoBox(HTMLElement icon, String title, String value) {
-    iconElement.appendChild(icon);
-    titleElement.setTextContent(title);
-    if (nonNull(value)) {
-      valueElement.setTextContent(value);
-    }
-    init(this);
-    this.icon = icon;
-  }
-
-  public InfoBox(BaseIcon<?> icon, String title, String value) {
-    this(icon.element(), title, value);
-  }
-
-  public InfoBox(HTMLElement icon, String title) {
-    this(icon, title, null);
-  }
-
-  public InfoBox(BaseIcon<?> icon, String title) {
-    this(icon, title, null);
-  }
-
-  /**
-   * Creates info box with icon, title and value
-   *
-   * @param icon The {@link BaseIcon}
-   * @param title the title
-   * @param value the value
-   * @return new instance
-   */
-  public static InfoBox create(BaseIcon<?> icon, String title, String value) {
-    return new InfoBox(icon, title, value);
-  }
-
-  /**
-   * Creates info box with icon element, title and value
-   *
-   * @param icon The {@link HTMLElement} icon
-   * @param title the title
-   * @param value the value
-   * @return new instance
-   */
-  public static InfoBox create(HTMLElement icon, String title, String value) {
-    return new InfoBox(icon, title, value);
-  }
-
-  /**
-   * Creates info box with icon and title
-   *
-   * @param icon The {@link HTMLElement} icon
-   * @param title the title
-   * @return new instance
-   */
-  public static InfoBox create(HTMLElement icon, String title) {
-    return new InfoBox(icon, title);
-  }
-
-  /**
-   * Creates info box with icon and title
-   *
-   * @param icon The {@link BaseIcon}
-   * @param title the title
-   * @return new instance
-   */
-  public static InfoBox create(BaseIcon<?> icon, String title) {
-    return new InfoBox(icon, title);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public InfoBox setBackground(Color background) {
-    if (nonNull(background)) {
-      if (nonNull(counterBackground)) removeCss(counterBackground.getBackground());
-      addCss(background.getBackground());
-      this.counterBackground = background;
-    }
-    return this;
-  }
-
-  /**
-   * Sets the background of the icon element
-   *
-   * @param background The {@link Color} of the icon
-   * @return same instance
-   */
-  public InfoBox setIconBackground(Color background) {
-    if (nonNull(iconBackground)) {
-      iconElement.removeCss(iconBackground.getBackground());
-    }
-    iconElement.addCss(background.getBackground());
-    this.iconBackground = background;
-
-    return this;
-  }
-
-  /**
-   * Sets the hover effect
-   *
-   * @param effect the {@link HoverEffect}
-   * @return same instance
-   */
-  public InfoBox setHoverEffect(HoverEffect effect) {
-    if (nonNull(hoverEffect)) removeCss(hoverEffect.effectStyle);
-    this.hoverEffect = effect;
-    addCss(hoverEffect.effectStyle);
-
-    return this;
-  }
-
-  /**
-   * Removes the hover effects
-   *
-   * @return same instance
-   */
-  public InfoBox removeHoverEffect() {
-    if (nonNull(hoverEffect)) {
-      removeCss(hoverEffect.effectStyle);
-      this.hoverEffect = null;
+    public InfoBox() {
+        root = DominoElement.div().addCss(dui_info_box, hoverEffect);
+        contentElement = LazyChild.of(DominoElement.div().addCss(dui_info_content), root);
+        titleElement = LazyChild.of(DominoElement.div().addCss(dui_info_title), contentElement);
+        valueElement = LazyChild.of(DominoElement.div().addCss(dui_info_value), contentElement);
+        init(this);
     }
 
-    return this;
-  }
-
-  /**
-   * Puts the icon on the left and the title on the right
-   *
-   * @return same instance
-   */
-  public InfoBox flipLeft() {
-    removeCss(flip.flipStyle);
-    this.flip = Flip.LEFT;
-    addCss(this.flip.flipStyle);
-
-    return this;
-  }
-
-  /**
-   * Puts the icon on the right and the title on the left
-   *
-   * @return same instance
-   */
-  public InfoBox flipRight() {
-    removeCss(flip.flipStyle);
-    this.flip = Flip.RIGHT;
-    addCss(this.flip.flipStyle);
-    return this;
-  }
-
-  /**
-   * Changes the position of the icon and title based on the current position; i.e. if the icon is
-   * left, position it to right
-   *
-   * @return same instance
-   */
-  public InfoBox flip() {
-    removeCss(flip.flipStyle);
-    if (Flip.LEFT.equals(this.flip)) {
-      this.flip = Flip.RIGHT;
-    } else {
-      this.flip = Flip.LEFT;
-    }
-    addCss(this.flip.flipStyle);
-
-    return this;
-  }
-
-  /**
-   * Sets the color of the icon
-   *
-   * @param color The {@link Color} of the icon
-   * @return same instance
-   */
-  public InfoBox setIconColor(Color color) {
-    if (nonNull(iconColor) && nonNull(icon)) {
-      Style.of(icon).removeCss(iconColor.getStyle());
-    }
-    if (nonNull(icon)) {
-      this.iconColor = color;
-      Style.of(icon).addCss(this.iconColor.getStyle());
+    public InfoBox(IsElement<HTMLElement> icon) {
+        this();
+        setIcon(icon);
     }
 
-    return this;
-  }
-
-  /**
-   * Sets the icon
-   *
-   * @param element the {@link HTMLElement} icon
-   * @return same instance
-   */
-  public InfoBox setIcon(HTMLElement element) {
-    ElementUtil.clear(iconElement);
-    iconElement.appendChild(element);
-    return this;
-  }
-
-  /**
-   * Removes the shadow of the box
-   *
-   * @return same instance
-   */
-  public InfoBox removeShadow() {
-    Elevation.removeFrom(this.element());
-    return this;
-  }
-
-  /**
-   * Sets the value
-   *
-   * @param value the new value
-   * @return same instance
-   */
-  public InfoBox setValue(String value) {
-    getValueElement().setTextContent(value);
-    return this;
-  }
-
-  /**
-   * Sets the title
-   *
-   * @param title the new title
-   * @return same instance
-   */
-  public InfoBox setTitle(String title) {
-    getTitleElement().setTextContent(title);
-    return this;
-  }
-
-  /**
-   * Sets the icon
-   *
-   * @param icon the {@link BaseIcon}
-   * @return same instance
-   */
-  public InfoBox setIcon(BaseIcon<?> icon) {
-    getIconElement().clearElement().appendChild(icon);
-    return this;
-  }
-
-  /** @return The icon element */
-  public DominoElement<HTMLDivElement> getIconElement() {
-    return iconElement;
-  }
-
-  /** @return The title element */
-  public DominoElement<HTMLDivElement> getTitleElement() {
-    return titleElement;
-  }
-
-  /** @return The value element */
-  public DominoElement<HTMLDivElement> getValueElement() {
-    return valueElement;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return root.element();
-  }
-
-  /** An enum representing the hover effect */
-  public enum HoverEffect {
-    ZOOM(InfoBoxStyles.HOVER_ZOOM_EFFECT),
-    EXPAND(InfoBoxStyles.HOVER_EXPAND_EFFECT);
-
-    private final String effectStyle;
-
-    HoverEffect(String effectStyle) {
-      this.effectStyle = effectStyle;
+    public InfoBox(IsElement<HTMLElement> icon, String title) {
+        this(icon);
+        setTitle(title);
     }
-  }
 
-  /** An enum representing the direction of the flip done on the icon and the title elements */
-  public enum Flip {
-    RIGHT(InfoBoxStyles.INFO_BOX_3),
-    LEFT(InfoBoxStyles.INFO_BOX);
-
-    private final String flipStyle;
-
-    Flip(String flipStyle) {
-      this.flipStyle = flipStyle;
+    public InfoBox(IsElement<HTMLElement> icon, String title, String value) {
+        this(icon, title);
+        setValue(value);
     }
-  }
+
+    /**
+     * Creates info box with icon, title and value
+     *
+     * @param icon  The {@link BaseIcon}
+     * @param title the title
+     * @param value the value
+     * @return new instance
+     */
+    public static InfoBox create(BaseIcon<?> icon, String title, String value) {
+        return new InfoBox(icon, title, value);
+    }
+
+    /**
+     * Creates info box with icon, title and value
+     *
+     * @param icon  The {@link BaseIcon}
+     * @param title the title
+     * @param value the value
+     * @return new instance
+     */
+    public static InfoBox create(IsElement<HTMLElement> icon, String title, String value) {
+        return new InfoBox(icon, title, value);
+    }
+
+    /**
+     * Creates info box with icon element, title and value
+     *
+     * @param icon  The {@link HTMLElement} icon
+     * @param title the title
+     * @param value the value
+     * @return new instance
+     */
+    public static InfoBox create(HTMLElement icon, String title, String value) {
+        return new InfoBox(DominoElement.of(icon), title, value);
+    }
+
+    /**
+     * Creates info box with icon and title
+     *
+     * @param icon  The {@link HTMLElement} icon
+     * @param title the title
+     * @return new instance
+     */
+    public static InfoBox create(HTMLElement icon, String title) {
+        return new InfoBox(DominoElement.of(icon), title);
+    }
+
+
+    /**
+     * Creates info box with icon and title
+     *
+     * @param icon  The {@link HTMLElement} icon
+     * @param title the title
+     * @return new instance
+     */
+    public static InfoBox create(IsElement<HTMLElement> icon, String title) {
+        return new InfoBox(DominoElement.of(icon), title);
+    }
+
+    /**
+     * Creates info box with icon and title
+     *
+     * @param icon  The {@link BaseIcon}
+     * @param title the title
+     * @return new instance
+     */
+    public static InfoBox create(BaseIcon<?> icon, String title) {
+        return new InfoBox(icon, title);
+    }
+
+    /**
+     * Creates info box with icon and title
+     *
+     * @param icon The {@link BaseIcon}
+     * @return new instance
+     */
+    public static InfoBox create(BaseIcon<?> icon) {
+        return new InfoBox(icon);
+    }
+
+    /**
+     * Creates info box with icon and title
+     *
+     * @param icon The {@link IsElement}
+     * @return new instance
+     */
+    public static InfoBox create(IsElement<HTMLElement> icon) {
+        return new InfoBox(icon);
+    }
+
+    /**
+     * Creates info box with icon and title
+     *
+     * @param icon The {@link HTMLElement}
+     * @return new instance
+     */
+    public static InfoBox create(HTMLElement icon) {
+        return new InfoBox(DominoElement.of(icon));
+    }
+
+    /**
+     * Sets the hover effect
+     *
+     * @param effect the {@link HoverEffect}
+     * @return same instance
+     */
+    public InfoBox setHoverEffect(HoverEffect effect) {
+        addCss(hoverEffect.replaceWith(effect.effectStyle));
+        return this;
+    }
+
+    public InfoBox setFlipped(boolean flipped) {
+        addCss(BooleanCssClass.of(dui_info_flipped, flipped));
+        return this;
+    }
+
+    /**
+     * Sets the icon
+     *
+     * @param element the {@link HTMLElement} icon
+     * @return same instance
+     */
+    public InfoBox setIcon(IsElement<HTMLElement> element) {
+        iconElement.remove();
+        iconElement = LazyChild.of(DominoElement.of(element.element()).addCss(dui_info_icon), root);
+        iconElement.get();
+        return this;
+    }
+
+    /**
+     * Sets the value
+     *
+     * @param value the new value
+     * @return same instance
+     */
+    public InfoBox setValue(String value) {
+        valueElement.get().setTextContent(value);
+        return this;
+    }
+
+    /**
+     * Sets the title
+     *
+     * @param title the new title
+     * @return same instance
+     */
+    public InfoBox setTitle(String title) {
+        titleElement.get().setTextContent(title);
+        return this;
+    }
+
+    /**
+     * @return The icon element
+     */
+    public DominoElement<HTMLElement> getIconElement() {
+        return (DominoElement<HTMLElement>) iconElement.get();
+    }
+
+    /**
+     * @return The icon element
+     */
+    public InfoBox withIconElement(ChildHandler<InfoBox, DominoElement<HTMLElement>> handler) {
+        handler.apply(this, iconElement.get());
+        return this;
+    }
+
+    /**
+     * @return The title element
+     */
+    public DominoElement<HTMLDivElement> getTitleElement() {
+        return titleElement.get();
+    }
+
+    /**
+     * @return The title element
+     */
+    public InfoBox withTitleElement(ChildHandler<InfoBox, DominoElement<HTMLDivElement>> handler) {
+        handler.apply(this, titleElement.get());
+        return this;
+    }
+
+    /**
+     * @return The title element
+     */
+    public InfoBox withTitleElement() {
+        titleElement.get();
+        return this;
+    }
+
+    /**
+     * @return The value element
+     */
+    public DominoElement<HTMLDivElement> getValueElement() {
+        return valueElement.get();
+    }
+
+    /**
+     * @return The value element
+     */
+    public InfoBox withValueElement() {
+        valueElement.get();
+        return this;
+    }
+
+    /**
+     * @return The value element
+     */
+    public InfoBox withValueElement(ChildHandler<InfoBox, DominoElement<HTMLDivElement>> handler) {
+        handler.apply(this, valueElement.get());
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HTMLDivElement element() {
+        return root.element();
+    }
+
+    /**
+     * An enum representing the hover effect
+     */
+    public enum HoverEffect {
+        ZOOM(dui_info_hover_zoom),
+        EXPAND(dui_info_hover_expand),
+        NONE(CssClass.NONE);
+
+        private final CssClass effectStyle;
+
+        HoverEffect(CssClass effectStyle) {
+            this.effectStyle = effectStyle;
+        }
+    }
+
 }

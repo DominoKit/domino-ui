@@ -30,21 +30,4 @@ public interface InfoBoxStyles {
     CssClass dui_info_value = () -> "dui-info-value";
     CssClass dui_info_hover_zoom = () -> "dui-info-hover-zoom";
     CssClass dui_info_hover_expand = () -> "dui-info-hover-expand";
-
-    /**
-     * CSS class for zoom hover effect
-     */
-    String HOVER_ZOOM_EFFECT = "hover-zoom-effect";
-    /**
-     * CSS class for expand hover effect
-     */
-    String HOVER_EXPAND_EFFECT = "hover-expand-effect";
-    /**
-     * CSS class for right flip
-     */
-    String INFO_BOX_3 = "info-box-3";
-    /**
-     * CSS class for left flip
-     */
-    String INFO_BOX = "info-box";
 }

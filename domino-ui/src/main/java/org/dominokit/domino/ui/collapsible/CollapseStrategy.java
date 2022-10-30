@@ -29,31 +29,27 @@ public interface CollapseStrategy {
    * Implement this method to provide any initialization required for the collapse strategy
    *
    * @param element The collapsible {@link HTMLElement}
-   * @param style the {@link Style} of the element
    */
-  default void init(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {}
+  default void init(HTMLElement element) {}
 
   /**
    * Implement this method to show a collapsible element
    *
    * @param element The collapsible {@link HTMLElement}
-   * @param style the {@link Style} of the element
    */
-  void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style);
+  void show(HTMLElement element);
   /**
    * Implement this method to hide a collapsible element
    *
    * @param element The collapsible {@link HTMLElement}
-   * @param style the {@link Style} of the element
    */
-  void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style);
+  void hide(HTMLElement element);
 
   /**
    * Implement this method to clean up any attributes or styles added the strategy when we switch to
    * a different one.
    *
    * @param element The collapsible {@link HTMLElement}
-   * @param style the {@link Style} of the element
    */
-  default void cleanup(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {};
+  default void cleanup(HTMLElement element) {};
 }
