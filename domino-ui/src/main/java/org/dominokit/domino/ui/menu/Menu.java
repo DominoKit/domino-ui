@@ -123,6 +123,7 @@ public class Menu<V>
     private boolean dropDown = false;
     private Set<OnAddItemHandler<V>> onAddItemHandlers = new HashSet<>();
     private boolean fitToTargetWidth = false;
+    private boolean centerOnSmallScreens = false;
 
     public static <V> Menu<V> create() {
         return new Menu<>();
@@ -225,14 +226,18 @@ public class Menu<V>
 
         element.addEventListener("keydown", keyboardNavigation);
 
-        MediaQuery.addOnMediumAndDownListener(
+        MediaQuery.addOnSmallAndDownListener(
                 () -> {
-                    this.smallScreen = true;
+                    if(centerOnSmallScreens) {
+                        this.smallScreen = true;
+                    }
                 });
-        MediaQuery.addOnLargeAndUpListener(
+        MediaQuery.addOnMediumAndUpListener(
                 () -> {
-                    this.smallScreen = false;
-                    backArrowContainer.remove();
+                    if(centerOnSmallScreens) {
+                        this.smallScreen = false;
+                        backArrowContainer.remove();
+                    }
                 });
         backIcon = LazyChild.of(Icons.ALL.keyboard_backspace_mdi().addCss(menu_back_icon), menuHeader);
         backIcon.whenInitialized(
@@ -253,6 +258,15 @@ public class Menu<V>
             createMissingElement.remove();
             keyboardNavigation.focusTopFocusableItem();
         }
+    }
+
+    public boolean isCenterOnSmallScreens() {
+        return centerOnSmallScreens;
+    }
+
+    public Menu<V> setCenterOnSmallScreens(boolean centerOnSmallScreens) {
+        this.centerOnSmallScreens = centerOnSmallScreens;
+        return this;
     }
 
     /**

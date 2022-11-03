@@ -15,16 +15,9 @@
  */
 package org.dominokit.domino.ui.collapsible;
 
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.*;
-
 import elemental2.dom.*;
 import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.*;
-import org.gwtproject.editor.client.Editor;
-import org.jboss.elemento.IsElement;
 
 /**
  * A component to show/hide content inside an {@link Accordion}

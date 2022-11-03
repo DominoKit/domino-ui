@@ -52,23 +52,17 @@ public interface Selectable<T> {
   /** @return boolean, true if the component is currently selected */
   boolean isSelected();
 
-  /**
-   * Adds a selection handler to this component, the handler will be called whenever the component
-   * selected/deselected
-   *
-   * @param selectionHandler {@link SelectionHandler}
-   */
-  default void addSelectionHandler(SelectionHandler<T> selectionHandler) {}
+  boolean isSelectable();
+  T setSelectable(boolean selectable);
 
-  /**
-   * A function to implement logic to be executed when a {@link Selectable} component selection
-   * changed
-   *
-   * @param <T> The type of the component implementing {@link Selectable}
-   */
-  @FunctionalInterface
-  interface SelectionHandler<T> {
-    /** @param selectable {@link Selectable} component which has its selection changed */
-    void onSelectionChanged(Selectable<T> selectable);
+  T setSelected(boolean selected);
+  T setSelected(boolean selected, boolean silent);
+
+  default T toggleSelect(){
+    return setSelected(!isSelected());
+  }
+
+  default T toggleSelect(boolean silent){
+    return setSelected(!isSelected(), silent);
   }
 }

@@ -18,7 +18,7 @@ package org.dominokit.domino.ui.loaders;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.elemento.IsElement;
@@ -191,9 +191,9 @@ public class Loader {
     this.loaderElement.getContentElement().removeCss(this.loadingTextPosition.getStyle());
     this.loadingTextPosition = loadingTextPosition;
     if (LoadingTextPosition.MIDDLE.equals(loadingTextPosition)) {
-      this.loaderElement.getContentElement().css(Styles.vertical_center);
+      this.loaderElement.getContentElement().css(GenericCss.vertical_center);
     } else {
-      this.loaderElement.getContentElement().removeCss(Styles.vertical_center);
+      this.loaderElement.getContentElement().removeCss(GenericCss.vertical_center);
     }
     this.loaderElement.getContentElement().css(this.loadingTextPosition.getStyle());
     return this;

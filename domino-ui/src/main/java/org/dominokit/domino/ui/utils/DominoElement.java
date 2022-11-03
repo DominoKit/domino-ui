@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.utils;
 
 import static elemental2.dom.DomGlobal.document;
-import static org.dominokit.domino.ui.style.GenericCss.dui;
 
 import elemental2.dom.*;
 import jsinterop.base.Js;

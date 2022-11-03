@@ -46,7 +46,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
     private final LazyChild<DominoElement<HTMLDivElement>> titleElement;
     private final LazyChild<DominoElement<HTMLDivElement>> valueElement;
 
-    private LazyChild<DominoElement<HTMLElement>> iconElement = NullLazyChild.of();
+    private LazyChild<DominoElement<HTMLDivElement>> iconContainer;
 
 
     private SwapCssClass hoverEffect = SwapCssClass.of(HoverEffect.ZOOM.effectStyle);
@@ -54,6 +54,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
 
     public InfoBox() {
         root = DominoElement.div().addCss(dui_info_box, hoverEffect);
+        iconContainer= LazyChild.of(DominoElement.div().addCss(dui_info_icon), root);
         contentElement = LazyChild.of(DominoElement.div().addCss(dui_info_content), root);
         titleElement = LazyChild.of(DominoElement.div().addCss(dui_info_title), contentElement);
         valueElement = LazyChild.of(DominoElement.div().addCss(dui_info_value), contentElement);
@@ -198,9 +199,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
      * @return same instance
      */
     public InfoBox setIcon(IsElement<HTMLElement> element) {
-        iconElement.remove();
-        iconElement = LazyChild.of(DominoElement.of(element.element()).addCss(dui_info_icon), root);
-        iconElement.get();
+        iconContainer.get().clearElement().appendChild(element);
         return this;
     }
 
@@ -229,15 +228,15 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
     /**
      * @return The icon element
      */
-    public DominoElement<HTMLElement> getIconElement() {
-        return (DominoElement<HTMLElement>) iconElement.get();
+    public DominoElement<HTMLDivElement> getIconElement() {
+        return (DominoElement<HTMLDivElement>) iconContainer.get();
     }
 
     /**
      * @return The icon element
      */
-    public InfoBox withIconElement(ChildHandler<InfoBox, DominoElement<HTMLElement>> handler) {
-        handler.apply(this, iconElement.get());
+    public InfoBox withIconElement(ChildHandler<InfoBox, DominoElement<HTMLDivElement>> handler) {
+        handler.apply(this, iconContainer.get());
         return this;
     }
 

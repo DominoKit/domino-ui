@@ -16,12 +16,9 @@
 package org.dominokit.domino.ui.collapsible;
 
 import elemental2.dom.HTMLElement;
-import org.checkerframework.checker.units.qual.C;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
 
 import static org.dominokit.domino.ui.style.DisplayCss.dui_hidden;
 

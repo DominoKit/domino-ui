@@ -15,9 +15,11 @@
  */
 package org.dominokit.domino.ui.badges;
 
+import org.dominokit.domino.ui.style.CssClass;
+
 /** Default CSS classes for {@link Badge} */
-public class BadgeStyles {
+public interface BadgeStyles {
 
   /** CSS class for badge */
-  public static final String BADGE = "badge";
+  CssClass dui_badge = ()->"dui-badge";
 }

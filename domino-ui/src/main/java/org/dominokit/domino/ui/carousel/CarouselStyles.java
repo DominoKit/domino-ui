@@ -15,28 +15,21 @@
  */
 package org.dominokit.domino.ui.carousel;
 
+import org.dominokit.domino.ui.style.CssClass;
+
 /** Default CSS classes for {@link Carousel} */
-public class CarouselStyles {
-  /** CSS class for carousel indicator */
-  public static final String CAROUSEL_INDICATORS = "carousel-indicators";
-  /** CSS class for slides container */
-  public static final String CAROUSEL_INNER = "carousel-inner";
-  /** CSS class for sliding controls */
-  public static final String CAROUSEL_CONTROL = "carousel-control";
-  /** CSS class for slide caption */
-  public static final String CAROUSEL_CAPTION = "carousel-caption";
-  /** CSS class for carousel */
-  public static final String CAROUSEL = "carousel";
-  /** CSS class for active slide */
-  public static final String ACTIVE = "active";
-  /** CSS class for animate sliding to the left */
-  public static final String LEFT = "left";
-  /** CSS class for animate sliding to the right */
-  public static final String RIGHT = "right";
-  /** CSS class for next indicator */
-  public static final String NEXT = "next";
-  /** CSS class for previous indicator */
-  public static final String PREV = "prev";
-  /** CSS class for slide */
-  public static final String ITEM = "item";
+public interface CarouselStyles {
+
+  CssClass carousel = ()->"dui-carousel";
+  CssClass carousel_indicators = ()->"dui-carousel-indicators";
+  CssClass slide_indicator = ()->"dui-slide-indicator";
+  CssClass carousel_inner = ()->"dui-carousel-inner";
+  CssClass slide = ()->"dui-slide";
+  CssClass slide_next = ()->"dui-slide-next";
+  CssClass slide_prev = ()->"dui-slide-prev";
+  CssClass slide_right = ()->"dui-slide-right";
+  CssClass slide_left = ()->"dui-slide-left";
+  CssClass carousel_control = ()->"dui-carousel-control";
+  CssClass slide_caption = ()->"dui-slide-caption";
+
 }

@@ -15,14 +15,19 @@
  */
 package org.dominokit.domino.ui.chips;
 
+import org.dominokit.domino.ui.style.CssClass;
+
 /** Default CSS classes for {@link Chip} */
 public class ChipStyles {
   /** CSS class for chip */
-  public static final String CHIP = "chip";
+  public static final CssClass dui_chip = ()-> "dui-chip";
   /** CSS class for chip value container */
-  public static final String CHIP_VALUE = "chip-value";
+  public static final CssClass dui_chip_value = ()-> "dui-chip-value";
   /** CSS class for left element */
-  public static final String CHIP_ADDON = "chip-addon";
+  public static final CssClass dui_chip_addon = ()-> "dui-chip-addon";
   /** CSS class for remove element */
-  public static final String CHIP_REMOVE = "chip-remove";
+  public static final CssClass dui_chip_selected = ()-> "dui-chip-selected";
+  public static final CssClass dui_chip_remove = ()-> "dui-chip-remove";
+  public static final CssClass dui_chip_has_addon = ()-> "dui-has-addon";
+
 }

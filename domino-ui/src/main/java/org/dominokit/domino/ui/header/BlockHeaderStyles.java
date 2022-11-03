@@ -15,9 +15,14 @@
  */
 package org.dominokit.domino.ui.header;
 
+import org.dominokit.domino.ui.style.CssClass;
+
 /** Default CSS classes for {@link BlockHeader} */
-public class BlockHeaderStyles {
+public interface BlockHeaderStyles {
 
   /** CSS class for a block header */
-  public static final String BLOCK_HEADER = "block-header";
+  CssClass dui_block_header = ()->"dui-block-header";
+  CssClass dui_block_header_title = ()->"dui-block-header-title";
+  CssClass dui_block_header_description = ()->"dui-block-header-description";
+  CssClass dui_block_header_reversed = ()->"dui-block-header-reversed";
 }

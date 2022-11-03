@@ -4,22 +4,31 @@ import org.dominokit.domino.ui.menu.AbstractMenuItem;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class MultiSelect<V, S> extends AbstractSelect<V, S, List<V>, MultiSelect<V, S>> {
+public class MultiSelect<V> extends AbstractSelect<V,List<V>, Option<V>, MultiSelect<V>> {
 
-     public MultiSelect(Function<S, Optional<SelectOption<V>>> optionMapper) {
-        super(optionMapper);
-        optionsMenu.setMultiSelect(true);
+    public <V> MultiSelect<V> create(){
+        return new MultiSelect<>();
     }
 
-    public MultiSelect<V, S> withValue(V... value) {
+    public <V> MultiSelect<V> create(String label){
+        return new MultiSelect<>(label);
+    }
+
+     public MultiSelect() {
+        optionsMenu.setMultiSelect(true);
+    }
+     public MultiSelect(String label) {
+        this();
+        setLabel(label);
+    }
+
+    public MultiSelect<V> withValue(V... value) {
         return withValue(isChangeListenersPaused(), value);
     }
 
-    public MultiSelect<V, S> withValue(boolean silent, V... value) {
+    public MultiSelect<V> withValue(boolean silent, V... value) {
         return withValue(Arrays.asList(value), silent);
     }
 
@@ -31,8 +40,8 @@ public class MultiSelect<V, S> extends AbstractSelect<V, S, List<V>, MultiSelect
 
     @Override
     public List<V> getValue() {
-        if (!optionsMenu.getSelected().isEmpty()) {
-            return optionsMenu.getSelected()
+        if (!optionsMenu.getSelection().isEmpty()) {
+            return optionsMenu.getSelection()
                     .stream()
                     .map(AbstractMenuItem::getValue)
                     .collect(Collectors.toList());

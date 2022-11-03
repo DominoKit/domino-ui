@@ -11,7 +11,6 @@ import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuItemsGroup;
 import org.dominokit.domino.ui.style.BooleanCssClass;
-import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.*;
 
 import java.util.*;

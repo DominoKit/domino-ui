@@ -20,10 +20,12 @@ import static org.dominokit.domino.ui.grid.Column.Offset.*;
 import static org.dominokit.domino.ui.grid.Column.Span.*;
 
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.PostfixCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.jboss.elemento.IsElement;
 
 /**
  * A component which provides an abstract level of the CSS grid column which will inherit the styles
@@ -45,9 +47,9 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * @see BaseDominoElement
  * @see Cloneable
  */
-public class Column extends BaseDominoElement<HTMLDivElement, Column> implements Cloneable, GridStyles {
+public class Column extends BaseDominoElement<HTMLElement, Column> implements Cloneable, GridStyles {
 
-    private final DominoElement<HTMLDivElement> column;
+    private final DominoElement<? extends HTMLElement> column;
     private PostfixCssClass onXLargeStyle = PostfixCssClass.of("dui-span-xl");
     private PostfixCssClass onLargeStyle = PostfixCssClass.of("dui-span-l");
     private PostfixCssClass onMediumStyle = PostfixCssClass.of("dui-span-m");
@@ -142,6 +144,16 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
     }
 
     /**
+     * Creates new column with size of 1 column for screens that are larger or equal medium and size
+     * of full row for screens that are smaller and equal small
+     *
+     * @return new instance
+     */
+    public static Column span1(IsElement<?> content) {
+        return span1().appendChild(content);
+    }
+
+    /**
      * Creates new column with size of 2 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
      *
@@ -149,6 +161,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
      */
     public static Column span2() {
         return span(_2, _full);
+    }
+    public static Column span2(IsElement<?> content) {
+        return span2().appendChild(content);
     }
 
     /**
@@ -161,6 +176,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(Span._3, _full);
     }
 
+    public static Column span3(IsElement<?> content) {
+        return span3().appendChild(content);
+    }
+
     /**
      * Creates new column with size of 4 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -171,6 +190,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_4, _full);
     }
 
+
+    public static Column span4(IsElement<?> content) {
+        return span4().appendChild(content);
+    }
     /**
      * Creates new column with size of 5 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -179,6 +202,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
      */
     public static Column span5() {
         return span(_5, _full);
+    }
+
+    public static Column span5(IsElement<?> content) {
+        return span5().appendChild(content);
     }
 
     /**
@@ -191,6 +218,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_6, _full);
     }
 
+    public static Column span6(IsElement<?> content) {
+        return span6().appendChild(content);
+    }
     /**
      * Creates new column with size of 7 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -201,6 +231,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_7, _full);
     }
 
+    public static Column span7(IsElement<?> content) {
+        return span7().appendChild(content);
+    }
     /**
      * Creates new column with size of 8 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -211,6 +244,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_8, _full);
     }
 
+    public static Column span8(IsElement<?> content) {
+        return span8().appendChild(content);
+    }
     /**
      * Creates new column with size of 9 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -221,6 +257,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_9, _full);
     }
 
+    public static Column span9(IsElement<?> content) {
+        return span9().appendChild(content);
+    }
     /**
      * Creates new column with size of 10 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -231,6 +270,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_10, _full);
     }
 
+    public static Column span10(IsElement<?> content) {
+        return span10().appendChild(content);
+    }
     /**
      * Creates new column with size of 11 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -241,6 +283,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_11, _full);
     }
 
+    public static Column span11(IsElement<?> content) {
+        return span11().appendChild(content);
+    }
     /**
      * Creates new column with size of 12 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -251,6 +296,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_12, _full);
     }
 
+    public static Column span12(IsElement<?> content) {
+        return span12().appendChild(content);
+    }
     /**
      * Creates new column with size of 13 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -261,6 +309,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_13, _full);
     }
 
+    public static Column span13(IsElement<?> content) {
+        return span13().appendChild(content);
+    }
     /**
      * Creates new column with size of 14 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -271,6 +322,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_14, _full);
     }
 
+    public static Column span14(IsElement<?> content) {
+        return span14().appendChild(content);
+    }
     /**
      * Creates new column with size of 15 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -281,6 +335,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_15, _full);
     }
 
+    public static Column span15(IsElement<?> content) {
+        return span15().appendChild(content);
+    }
     /**
      * Creates new column with size of 16 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -289,6 +346,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
      */
     public static Column span16() {
         return span(_16, _full);
+    }
+
+    public static Column span16(IsElement<?> content) {
+        return span16().appendChild(content);
     }
 
     /**
@@ -301,6 +362,10 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_17, _full);
     }
 
+    public static Column span17(IsElement<?> content) {
+        return span17().appendChild(content);
+    }
+
     /**
      * Creates new column with size of 18 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -311,6 +376,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_18, _full);
     }
 
+    public static Column span18(IsElement<?> content) {
+        return span18().appendChild(content);
+    }
     /**
      * Creates new column with size of 19 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -321,6 +389,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_19, _full);
     }
 
+    public static Column span19(IsElement<?> content) {
+        return span19().appendChild(content);
+    }
     /**
      * Creates new column with size of 20 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -331,6 +402,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_20, _full);
     }
 
+    public static Column span20(IsElement<?> content) {
+        return span20().appendChild(content);
+    }
     /**
      * Creates new column with size of 21 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -341,6 +415,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_21, _full);
     }
 
+    public static Column span21(IsElement<?> content) {
+        return span21().appendChild(content);
+    }
     /**
      * Creates new column with size of 22 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -351,6 +428,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_22, _full);
     }
 
+    public static Column span22(IsElement<?> content) {
+        return span22().appendChild(content);
+    }
     /**
      * Creates new column with size of 23 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -361,6 +441,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_23, _full);
     }
 
+    public static Column span23(IsElement<?> content) {
+        return span23().appendChild(content);
+    }
     /**
      * Creates new column with size of 24 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -371,6 +454,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_24, _full);
     }
 
+    public static Column span24(IsElement<?> content) {
+        return span24().appendChild(content);
+    }
     /**
      * Creates new column with size of 25 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -381,6 +467,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_25, _full);
     }
 
+    public static Column span25(IsElement<?> content) {
+        return span25().appendChild(content);
+    }
     /**
      * Creates new column with size of 26 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -391,6 +480,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_26, _full);
     }
 
+    public static Column span26(IsElement<?> content) {
+        return span26().appendChild(content);
+    }
     /**
      * Creates new column with size of 27 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -401,6 +493,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_27, _full);
     }
 
+    public static Column span27(IsElement<?> content) {
+        return span27().appendChild(content);
+    }
     /**
      * Creates new column with size of 28 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -411,6 +506,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_28, _full);
     }
 
+    public static Column span28(IsElement<?> content) {
+        return span28().appendChild(content);
+    }
     /**
      * Creates new column with size of 29 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -421,6 +519,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_29, _full);
     }
 
+    public static Column span29(IsElement<?> content) {
+        return span29().appendChild(content);
+    }
     /**
      * Creates new column with size of 30 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -431,6 +532,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_30, _full);
     }
 
+    public static Column span30(IsElement<?> content) {
+        return span30().appendChild(content);
+    }
     /**
      * Creates new column with size of 31 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -441,6 +545,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_31, _full);
     }
 
+    public static Column span31(IsElement<?> content) {
+        return span31().appendChild(content);
+    }
     /**
      * Creates new column with size of 32 columns for screens that are larger or equal medium and size
      * of full row for screens that are smaller and equal small
@@ -451,6 +558,9 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
         return span(_32, _full);
     }
 
+    public static Column span32(IsElement<?> content) {
+        return span32().appendChild(content);
+    }
     /**
      * Creates new column with 0 column distance from the start
      *
@@ -979,7 +1089,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
      * {@inheritDoc}
      */
     @Override
-    public HTMLDivElement element() {
+    public HTMLElement element() {
         return column.element();
     }
 

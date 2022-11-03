@@ -76,15 +76,15 @@ public class LabeledIcon extends BaseDominoElement<HTMLElement, LabeledIcon> {
   public enum IconPosition {
     /** position the icon to the left */
     LEFT(
-        (labeledIcon) -> {
-          labeledIcon.addCss(dui_reversed);
-        }),
+            (labeledIcon) -> {
+              labeledIcon.addCss(dui_reversed);
+            }),
 
     /** position the icon to the right */
     RIGHT(
-        (labeledIcon) -> {
-          dui_reversed.remove(labeledIcon);
-        });
+            (labeledIcon) -> {
+              dui_reversed.remove(labeledIcon);
+            });
 
     private final ElementsPlacement elementsPlacement;
 

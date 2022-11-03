@@ -57,7 +57,6 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
     this.toggleName = SwapCssClass.of(name);
     this.metaInfo = mdiMeta;
     init(this);
-    size24();
   }
 
   /**

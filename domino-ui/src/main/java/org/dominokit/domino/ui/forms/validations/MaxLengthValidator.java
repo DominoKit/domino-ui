@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.forms.validations;
 
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.forms.HasInputElement;
 import org.dominokit.domino.ui.i18n.FormsLabels;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
@@ -22,27 +24,45 @@ import org.dominokit.domino.ui.utils.HasMinMaxLength;
 import org.dominokit.domino.ui.utils.HasValidation;
 
 /** A predefined validator that validate the minimum value of a field */
-public class MaxLengthValidator<T> implements HasValidation.Validator {
+public class MaxLengthValidator<T, E extends HTMLElement> implements HasValidation.Validator {
 
-  private HasInputElement<T> inputElement;
+  private HasInputElement<T, E> inputElement;
   private final FormsLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
 
   /** @param inputElement the {@link HasInputElement} we are attaching this validator to */
-  public MaxLengthValidator(HasInputElement<T> inputElement) {
+  public MaxLengthValidator(HasInputElement<T, E> inputElement) {
     this.inputElement = inputElement;
   }
 
   /** {@inheritDoc} */
   @Override
   public ValidationResult isValid() {
-    if (inputElement.getInputElement().element()
+    if(inputElement.getInputElement().element() instanceof HTMLInputElement){
+      return validateHTMLInput();
+    }else {
+      return validateHTMLElement();
+    }
+  }
+
+  private ValidationResult validateHTMLInput() {
+    if (((HTMLInputElement)this.inputElement.getInputElement().element())
         .validity
         .tooLong ) {
-      if(inputElement instanceof HasMinMaxLength) {
-        HasMinMaxLength<T> hasLength = (HasMinMaxLength<T>) inputElement;
+      if(this.inputElement instanceof HasMinMaxLength) {
+        HasMinMaxLength<T> hasLength = (HasMinMaxLength<T>) this.inputElement;
         return ValidationResult.invalid(labels.getMaxErrorMessage(hasLength.getMaxLength(), hasLength.getLength()));
       }
     }
+    return ValidationResult.valid();
+  }
+  private ValidationResult validateHTMLElement() {
+      if(this.inputElement instanceof HasMinMaxLength) {
+        HasMinMaxLength<T> hasLength = (HasMinMaxLength<T>) this.inputElement;
+        int length = hasLength.getLength();
+        if(length > hasLength.getMaxLength()) {
+          return ValidationResult.invalid(labels.getMaxErrorMessage(hasLength.getMaxLength(), length));
+        }
+      }
     return ValidationResult.valid();
   }
 }

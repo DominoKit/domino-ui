@@ -6,14 +6,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.Objects.isNull;
+public class MultiSuggestBox<V> extends AbstractSuggestBox<V, List<V>, Option<V>, MultiSuggestBox<V>> {
 
-public class MultiSuggestBox<V> extends AbstractSuggestionBox<V, List<V>, MultiSuggestBox<V>> {
+    private List<Option<V>> selectedOptions = new ArrayList<>();
 
-    private List<SelectOption<V>> selectedOptions = new ArrayList<>();
+    public static <V> MultiSuggestBox<V> create(SuggestBoxStore<V, Option<V>> store){
+        return new MultiSuggestBox<>(store);
+    }
 
-    public MultiSuggestBox(SuggestBoxStore<V> store) {
+    public static <V> MultiSuggestBox<V> create(String label, SuggestBoxStore<V, Option<V>> store){
+        return new MultiSuggestBox<>(label, store);
+    }
+
+    public MultiSuggestBox(SuggestBoxStore<V, Option<V>> store) {
         super(store);
+    }
+
+    public MultiSuggestBox(String label, SuggestBoxStore<V, Option<V>> store) {
+        super(store);
+        setLabel(label);
     }
 
     @Override
@@ -33,21 +44,21 @@ public class MultiSuggestBox<V> extends AbstractSuggestionBox<V, List<V>, MultiS
     }
 
     @Override
-    protected void onOptionSelected(SelectOption<V> suggestion) {
+    protected void onOptionSelected(Option<V> suggestion) {
         selectedOptions.add(suggestion);
     }
 
     @Override
     protected void onBackspace() {
         if (!selectedOptions.isEmpty()) {
-            SelectOption<V> option = selectedOptions.get(selectedOptions.size() - 1);
+            Option<V> option = selectedOptions.get(selectedOptions.size() - 1);
             option.deselect();
             selectedOptions.remove(option);
         }
     }
 
     @Override
-    public void onApplyMissingOption(SelectOption<V> option) {
+    public void onApplyMissingOption(Option<V> option) {
         selectedOptions.add(option);
     }
 
@@ -55,7 +66,7 @@ public class MultiSuggestBox<V> extends AbstractSuggestionBox<V, List<V>, MultiS
     protected MultiSuggestBox<V> clearValue(boolean silent) {
         if (!selectedOptions.isEmpty()) {
             List<V> oldValue = getValue();
-            optionsMenu.withPauseSelectionListenersToggle(true, (field, handler) -> {
+            optionsMenu.withPauseSelectionListenersToggle(true, field -> {
                 new ArrayList<>(selectedOptions)
                         .forEach(AbstractMenuItem::deselect);
             });

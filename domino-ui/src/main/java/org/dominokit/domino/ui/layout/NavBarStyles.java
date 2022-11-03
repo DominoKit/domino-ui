@@ -19,8 +19,8 @@ import org.dominokit.domino.ui.style.CssClass;
 
 public class NavBarStyles {
 
-  public static final CssClass NAV_BAR = () -> "dui-nav-bar";
-  public static final CssClass ADD_ON = () -> "dui-nav-addon";
-  public static final CssClass TITLE = () -> "dui-nav-title";
-  public static final CssClass UTILITY = () -> "dui-nav-utility";
+  public static final CssClass nav_bar = () -> "dui-nav-bar";
+  public static final CssClass nav_add_on = () -> "dui-nav-addon";
+  public static final CssClass nav_title = () -> "dui-nav-title";
+  public static final CssClass nav_utility = () -> "dui-nav-utility";
 }
