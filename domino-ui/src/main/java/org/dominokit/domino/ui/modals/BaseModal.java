@@ -203,6 +203,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
 
     addTabIndexHandler();
     opacityTransition = new OpacityTransition(element(), evt -> doClose());
+    addHideListener(this::doClose);
   }
 
   /** @param title String modal header title */
