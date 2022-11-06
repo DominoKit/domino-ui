@@ -421,8 +421,10 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   /** {@inheritDoc} */
   @Override
   public T close() {
-    if (this.open) {
+    if (this.open && !isCollapsed()) {
       opacityTransition.hide();
+    } else {
+      doClose();
     }
     ModalBackDrop.showHideBodyScrolls();
     return (T) this;
