@@ -115,7 +115,7 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
               .addClickListener(evt -> dataGroup.toggleGroup());
       dataGroup.setGroupIconSupplier(groupIconSupplier).setGroupRenderer(groupRenderer).render();
 
-      dataTable.bodyElement().appendChild(tr().add(cellElement));
+      dataTable.bodyElement().appendChild(tr().css("data-table-group-row").add(cellElement));
       dataTable.bodyElement().appendChild(tableRow.element());
       dataGroups.put(groupId, dataGroup);
     } else {
