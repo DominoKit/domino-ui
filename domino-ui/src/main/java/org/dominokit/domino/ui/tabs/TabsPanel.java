@@ -25,6 +25,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
@@ -64,8 +65,8 @@ import org.jboss.elemento.IsElement;
 public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     implements IsElement<HTMLDivElement> {
 
-  private HTMLDivElement element = DominoElement.of(div()).element();
-  private DominoElement<HTMLUListElement> tabsList =
+  private final HTMLDivElement element = DominoElement.of(div()).element();
+  private final DominoElement<HTMLUListElement> tabsList =
       DominoElement.of(ul())
           .css(TabStyles.NAV, TabStyles.NAV_TABS, TabStyles.NAV_TABS_RIGHT)
           .attr("role", "tablist");
@@ -73,7 +74,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   private Tab activeTab;
   private Color tabsColor;
   private Transition transition;
-  private List<Tab> tabs = new ArrayList<>();
+  private final List<Tab> tabs = new ArrayList<>();
   private Color background;
   private boolean autoActivate = true;
 
@@ -391,11 +392,16 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    * @return
    */
   public TabsPanel activateByKey(String key, boolean silent) {
-    tabs.stream()
-        .filter(tab -> tab.getKey().equalsIgnoreCase(key))
-        .findFirst()
-        .ifPresent(tab -> activateTab(tab, silent));
+    findAnyByKey(key).ifPresent(tab -> activateTab(tab, silent));
     return this;
+  }
+
+  /**
+   * @param key String unique key of the Tab to be activated
+   * @return an optional tab matching the given key
+   */
+  public Optional<Tab> findAnyByKey(String key) {
+    return tabs.stream().filter(tab -> tab.getKey().equalsIgnoreCase(key)).findAny();
   }
 
   /** @return boolean, if auto-activating is enabled */
@@ -419,6 +425,20 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    */
   public TabsPanel setTabsAlign(TabsAlign align) {
     this.tabsList.css(align.getAlign());
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TabsPanel disable() {
+    tabs.forEach(Tab::disable);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TabsPanel enable() {
+    tabs.forEach(Tab::enable);
     return this;
   }
 }

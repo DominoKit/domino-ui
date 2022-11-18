@@ -287,6 +287,9 @@ table th[class*="col-"] {
     .table-responsive > .table-bordered > tfoot > tr:last-child > td {
         border-bottom: 0;
     }
+    .table-responsive .table-header > .flex-layout {
+        flex-direction: column;
+    }
 }
 
 .table tbody tr.table-row-filtered {
@@ -421,7 +424,10 @@ table th[class*="col-"] {
 .thead-fixed > tr, .tbody-fixed > tr {
     display: table;
     table-layout:fixed;
-    width:100%;
+}
+
+.thead-fixed > tr, .tbody-fixed > tr.data-table-group-row{
+    width: 100%;
 }
 
 .details-td {
@@ -493,6 +499,10 @@ table th[class*="col-"] {
     background-color: #f9f9f9;
 }
 
+.table-striped > tbody > tr.dom-ui-dt-tr-even:not([class*="details-tr"]):not([class*="bg-"]) {
+    background-color: #ffffff;
+}
+
 .table.dt-row-marker tbody tr,
 .table.dt-row-marker thead tr {
     border-left-width: 5px;
@@ -522,4 +532,51 @@ table th[class*="col-"] {
     line-height: 8px;
     padding-left: 1px;
     text-align: center;
+}
+
+.default-drop-area {
+    display: block;
+    width: 100%;
+}
+
+.default-drop-area > div {
+    height: 50px;
+    border: 1px dashed #8c8c8c;
+    border-radius: 2px;
+}
+
+.dragging {
+    opacity: 1;
+}
+
+.drag-over {
+    opacity: 0.5;
+}
+
+.col-resizer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    cursor: col-resize;
+    height: 100%;
+}
+
+.sticky-col {
+    position: -webkit-sticky;
+    position: sticky !important;
+    background-color: white;
+    z-index: 10;
+}
+
+.sticky-col:hover {
+    background-color: white !important;
+}
+
+.header-bar-title-container {
+    margin-bottom: 0;
+}
+
+.header-bar-actions-container {
+    margin-bottom: 0;
 }

@@ -63,6 +63,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
       DominoElement.of(h(3)).css(POPOVER_TITLE);
   private final DominoElement<HTMLDivElement> contentElement =
       DominoElement.of(div()).css(POPOVER_CONTENT);
+  private final OpacityTransition opacityTransition;
 
   private PopupPosition popupPosition = TOP;
 
@@ -99,7 +100,6 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
         };
     target.addEventListener(EventType.click.getName(), showListener);
     closeListener = evt -> closeAll();
-
     element.addEventListener(EventType.click.getName(), Event::stopPropagation);
     ElementUtil.onDetach(
         targetElement,
@@ -110,6 +110,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
           element.remove();
         });
     init(this);
+    opacityTransition = new OpacityTransition(element(), evt -> doClose());
     onDetached(
         mutationRecord ->
             document.body.removeEventListener(EventType.keydown.getName(), closeListener));
@@ -122,7 +123,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
       if (closeOthers) {
         closeOthers();
       }
-      open(targetElement);
+      open();
       element.style().setZIndex(ModalBackDrop.getNextZIndex());
       ModalBackDrop.push(this);
       openHandlers.forEach(OpenHandler::onOpen);
@@ -139,24 +140,27 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
     ModalBackDrop.closePopovers();
   }
 
-  private void open(HTMLElement target) {
+  private void open() {
     if (visible) {
       close();
     } else {
       document.body.appendChild(element.element());
-      element.removeCss(FADE, IN);
-      element.addCss(FADE, IN);
-      popupPosition.position(element.element(), target);
+      popupPosition.position(element.element(), targetElement);
       position(popupPosition);
       visible = true;
       if (closeOnEscape) {
         KeyboardEvents.listenOnKeyDown(document.body).onEscape(closeListener);
       }
+      opacityTransition.show();
     }
   }
 
   /** Closes the popover */
   public void close() {
+    opacityTransition.hide();
+  }
+
+  private void doClose() {
     element().remove();
     visible = false;
     document.body.removeEventListener(EventType.keydown.getName(), closeListener);

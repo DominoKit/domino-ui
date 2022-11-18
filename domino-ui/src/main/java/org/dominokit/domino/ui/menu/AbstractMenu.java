@@ -126,6 +126,8 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   private boolean useSmallScreensDirection = true;
   private boolean dropDown = false;
 
+  private boolean centerOnSmallScreens = false;
+
   public AbstractMenu() {
     init((T) this);
     menuHeader = new MenuHeader<>(this);
@@ -202,15 +204,19 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
               onAddMissingElement();
             });
 
-    MediaQuery.addOnMediumAndDownListener(
+    MediaQuery.addOnSmallAndDownListener(
         () -> {
-          this.smallScreen = true;
+          if (centerOnSmallScreens) {
+            this.smallScreen = true;
+          }
         });
-    MediaQuery.addOnLargeAndUpListener(
+    MediaQuery.addOnMediumAndUpListener(
         () -> {
-          this.smallScreen = false;
-          headContainer.toggleDisplay(headerVisible);
-          backArrowContainer.hide();
+          if (centerOnSmallScreens) {
+            this.smallScreen = false;
+            headContainer.toggleDisplay(headerVisible);
+            backArrowContainer.hide();
+          }
         });
 
     backArrowContainer.appendChild(
@@ -227,6 +233,15 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   private void onAddMissingElement() {
     missingItemHandler.onMissingItem(searchBox.getTextBox().getValue(), (T) this);
     onSearch(searchBox.getTextBox().getValue());
+  }
+
+  public boolean isCenterOnSmallScreens() {
+    return centerOnSmallScreens;
+  }
+
+  public T setCenterOnSmallScreens(boolean centerOnSmallScreens) {
+    this.centerOnSmallScreens = centerOnSmallScreens;
+    return (T) this;
   }
 
   /**

@@ -83,6 +83,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
           .setSortable(true)
           .setDrawTitle(true)
           .setPluginColumn(true)
+          .setWidth("100px")
           .setCellRenderer(
               cellInfo -> {
                 DominoElement.of(cellInfo.getElement()).css("dt-cm-utility");
@@ -120,6 +121,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    */
   public void drawHeaders(DataTable<T> dataTable, DominoElement<HTMLTableSectionElement> thead) {
     this.dataTable = dataTable;
+    thead.clearElement();
     DominoElement<HTMLTableRowElement> tr = DominoElement.of(tr());
     thead.appendChild(tr.element());
 
@@ -160,8 +162,9 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
 
           plugins.forEach(plugin -> plugin.onHeaderAdded(dataTable, columnConfig));
         });
-
-    dataTable.tableElement().appendChild(thead);
+    if (!thead.isAttached()) {
+      dataTable.tableElement().appendChild(thead);
+    }
   }
 
   /**

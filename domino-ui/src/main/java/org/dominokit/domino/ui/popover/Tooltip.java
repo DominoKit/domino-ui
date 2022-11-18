@@ -23,10 +23,7 @@ import static org.jboss.elemento.Elements.div;
 import elemental2.dom.*;
 import java.util.Optional;
 import java.util.function.Consumer;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementObserver;
-import org.dominokit.domino.ui.utils.ElementUtil;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -62,6 +59,7 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
   }
 
   public Tooltip(HTMLElement targetElement, Node content) {
+    OpacityTransition opacityTransition = new OpacityTransition(element, evt -> doClose());
     element.appendChild(arrowElement);
     element.appendChild(innerElement);
     innerElement.appendChild(content);
@@ -72,16 +70,14 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
         evt -> {
           evt.stopPropagation();
           document.body.appendChild(element.element());
-          element.removeCss("fade", "in");
-          element.addCss("fade", "in");
           popupPosition.position(element.element(), targetElement);
           position(popupPosition);
           elementObserver.ifPresent(ElementObserver::remove);
           elementObserver = ElementUtil.onDetach(targetElement, mutationRecord -> remove());
+          opacityTransition.show();
         };
-    removeToolTipListener = evt -> element.remove();
+    removeToolTipListener = evt -> opacityTransition.hide();
     targetElement.addEventListener(EventType.mouseenter.getName(), showToolTipListener);
-
     targetElement.addEventListener(EventType.mouseleave.getName(), removeToolTipListener);
     init(this);
 
@@ -93,10 +89,14 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
         };
   }
 
+  private void doClose() {
+    element.remove();
+  }
+
   /** {@inheritDoc} */
   @Override
   public Tooltip hide() {
-    element.remove();
+    doClose();
     return this;
   }
 

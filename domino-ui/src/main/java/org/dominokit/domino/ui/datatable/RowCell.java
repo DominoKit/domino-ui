@@ -71,7 +71,10 @@ public class RowCell<T> {
 
     if (nonNull(columnConfig.getTextAlign())) {
       cellElement.setTextAlign(columnConfig.getTextAlign());
-      columnConfig.getHeadElement().style().setTextAlign(columnConfig.getTextAlign());
+    }
+
+    if (nonNull(columnConfig.getHeaderTextAlign())) {
+      columnConfig.getHeadElement().style().setTextAlign(columnConfig.getHeaderTextAlign());
     }
 
     if (cellInfo.getTableRow().isEditable()) {

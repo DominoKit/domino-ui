@@ -27,12 +27,7 @@ import org.dominokit.domino.ui.grid.flex.FlexDirection;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoDom;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.Switchable;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -44,9 +39,10 @@ import org.jboss.elemento.IsElement;
 public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     extends BaseDominoElement<HTMLDivElement, T> implements IsModalDialog<T>, Switchable<T> {
 
-  private List<OpenHandler> openHandlers = new ArrayList<>();
-  private List<CloseHandler> closeHandlers = new ArrayList<>();
+  private final List<OpenHandler> openHandlers = new ArrayList<>();
+  private final List<CloseHandler> closeHandlers = new ArrayList<>();
   static int Z_INDEX = 1040;
+  private final OpacityTransition opacityTransition;
 
   /** a component that contains the modal elements */
   public static class Modal implements IsElement<HTMLDivElement> {
@@ -61,8 +57,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
 
     /** */
     public Modal() {
-      root =
-          DominoElement.div().setTabIndex(-1).css("modal", "fade").setAttribute("role", "dialog");
+      root = DominoElement.div().setTabIndex(-1).css("modal").setAttribute("role", "dialog");
       modalDialog =
           DominoElement.div().setTabIndex(-1).css("modal-dialog").setAttribute("role", "document");
       modalContent =
@@ -129,6 +124,56 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     public DominoElement<HTMLDivElement> getModalHeader() {
       return DominoElement.of(modalHeader);
     }
+
+    public void setMinWidth(String width) {
+      modalDialog.setMinWidth(width);
+      modalContent.setMinWidth(width);
+    }
+
+    public void setMinWidth(String width, boolean important) {
+      modalDialog.setMinWidth(width, important);
+      modalContent.setMinWidth(width, important);
+    }
+
+    public void setMinHeight(String height) {
+      modalDialog.setMinHeight(height);
+      modalContent.setMinHeight(height);
+    }
+
+    public void setMinHeight(String height, boolean important) {
+      modalDialog.setMinHeight(height, important);
+      modalContent.setMinHeight(height, important);
+    }
+
+    public void setWidth(String width) {
+      modalDialog.setWidth(width);
+      modalContent.setWidth(width);
+    }
+
+    public void setWidth(String width, boolean important) {
+      modalDialog.setWidth(width, important);
+      modalContent.setWidth(width, important);
+    }
+
+    public void setMaxWidth(String width) {
+      modalDialog.setMaxWidth(width);
+      modalContent.setMaxWidth(width);
+    }
+
+    public void setMaxWidth(String width, boolean important) {
+      modalDialog.setMaxWidth(width, important);
+      modalContent.setMaxWidth(width, important);
+    }
+
+    public void setMaxHeight(String height) {
+      modalDialog.setMaxHeight(height);
+      modalContent.setMaxHeight(height);
+    }
+
+    public void setMaxHeight(String height, boolean important) {
+      modalDialog.setMaxHeight(height, important);
+      modalContent.setMaxHeight(height, important);
+    }
   }
 
   protected Modal modalElement;
@@ -144,7 +189,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   private Element lastFocusElement;
   private Element activeElementBeforeOpen;
   private List<Element> focusElements = new ArrayList<>();
-  private Text headerText = DomGlobal.document.createTextNode("");
+  private final Text headerText = DomGlobal.document.createTextNode("");
   private boolean open = false;
   private boolean disabled = false;
   private boolean autoAppendAndRemove = true;
@@ -157,6 +202,8 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     modalElement.getModalTitle().appendChild(headerText);
 
     addTabIndexHandler();
+    opacityTransition = new OpacityTransition(element(), evt -> doClose());
+    addHideListener(this::doClose);
   }
 
   /** @param title String modal header title */
@@ -312,8 +359,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       initFocusElements();
       activeElementBeforeOpen = DominoDom.document.activeElement;
       addBackdrop();
-      style().addCss(ModalStyles.IN);
-      style().setDisplay("block");
+      setDisplay("block");
       if (nonNull(firstFocusElement) && isAutoFocus()) {
         firstFocusElement.focus();
         if (!Objects.equals(DominoDom.document.activeElement, firstFocusElement)) {
@@ -325,6 +371,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       openHandlers.forEach(OpenHandler::onOpen);
       this.open = true;
       ModalBackDrop.push(this);
+      opacityTransition.show();
     }
     ModalBackDrop.showHideBodyScrolls();
     return (T) this;
@@ -374,24 +421,29 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   /** {@inheritDoc} */
   @Override
   public T close() {
-    if (this.open) {
-      element().classList.remove(ModalStyles.IN);
-      element().style.display = "none";
-      if (nonNull(activeElementBeforeOpen)) {
-        activeElementBeforeOpen.focus();
-      }
-      if (autoAppendAndRemove) {
-        element().remove();
-      }
-      this.open = false;
-      if (ModalBackDrop.contains(this)) {
-        ModalBackDrop.popModal(this);
-      }
-      removeBackDrop();
-      closeHandlers.forEach(CloseHandler::onClose);
+    if (this.open && !isCollapsed()) {
+      opacityTransition.hide();
+    } else {
+      doClose();
     }
     ModalBackDrop.showHideBodyScrolls();
     return (T) this;
+  }
+
+  private void doClose() {
+    setDisplay("none");
+    if (nonNull(activeElementBeforeOpen)) {
+      activeElementBeforeOpen.focus();
+    }
+    if (autoAppendAndRemove) {
+      element().remove();
+    }
+    this.open = false;
+    if (ModalBackDrop.contains(this)) {
+      ModalBackDrop.popModal(this);
+    }
+    removeBackDrop();
+    closeHandlers.forEach(CloseHandler::onClose);
   }
 
   /**
@@ -559,15 +611,20 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   /** {@inheritDoc} */
   @Override
   public T centerVertically() {
-    Style.of(modalElement.modalDialog).addCss(Styles.vertical_center);
+    modalElement.root.addCss(ModalStyles.CENTER);
     return (T) this;
   }
 
   /** {@inheritDoc} */
   @Override
   public T deCenterVertically() {
-    Style.of(modalElement.modalDialog).removeCss(Styles.vertical_center);
+    modalElement.root.removeCss(ModalStyles.CENTER);
     return (T) this;
+  }
+
+  @Override
+  public boolean isCenteredVertically() {
+    return modalElement.root.containsCss(ModalStyles.CENTER);
   }
 
   /** {@inheritDoc} */
@@ -603,6 +660,76 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
    */
   public T setAutoFocus(boolean autoFocus) {
     this.autoFocus = autoFocus;
+    return (T) this;
+  }
+
+  @Override
+  public T setWidth(String width) {
+    super.setWidth(width);
+    modalElement.setWidth(width);
+    return (T) this;
+  }
+
+  @Override
+  public T setWidth(String width, boolean important) {
+    super.setWidth(width, important);
+    modalElement.setWidth(width, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMaxWidth(String width) {
+    super.setMaxWidth(width);
+    modalElement.setMaxWidth(width);
+    return (T) this;
+  }
+
+  @Override
+  public T setMaxWidth(String width, boolean important) {
+    super.setMaxWidth(width, important);
+    modalElement.setMaxWidth(width, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMaxHeight(String height) {
+    super.setMaxHeight(height);
+    modalElement.setMaxHeight(height);
+    return (T) this;
+  }
+
+  @Override
+  public T setMaxHeight(String height, boolean important) {
+    super.setMaxHeight(height, important);
+    modalElement.setMaxHeight(height, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMinWidth(String width) {
+    super.setMinWidth(width);
+    modalElement.setMinWidth(width);
+    return (T) this;
+  }
+
+  @Override
+  public T setMinWidth(String width, boolean important) {
+    super.setMinWidth(width, important);
+    modalElement.setMinWidth(width, important);
+    return (T) this;
+  }
+
+  @Override
+  public T setMinHeight(String height) {
+    super.setMinHeight(height);
+    modalElement.setMinHeight(height);
+    return (T) this;
+  }
+
+  @Override
+  public T setMinHeight(String height, boolean important) {
+    super.setMinHeight(height, important);
+    modalElement.setMinHeight(height, important);
     return (T) this;
   }
 }

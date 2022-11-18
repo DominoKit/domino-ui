@@ -447,6 +447,11 @@ public abstract class AbstractTagsInput<T extends AbstractTagsInput<T, V>, V>
     return (T) this;
   }
 
+  /** @return a list of the currently selected tags. */
+  public List<Chip> getChips() {
+    return chips;
+  }
+
   @Override
   protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
     return new InputAutoValidator<>(autoValidate);
