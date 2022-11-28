@@ -337,8 +337,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
    * @return same component instance
    */
   public T nonfloating() {
-    unfloatLabel();
     this.permaFloating = false;
+    unfloatLabel();
     hidePlaceholder();
     return (T) this;
   }
