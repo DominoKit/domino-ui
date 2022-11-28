@@ -44,6 +44,7 @@ public class ColumnConfig<T> {
   private String minWidth;
   private String maxWidth;
   private String textAlign;
+  private String headerTextAlign;
   private CellRenderer<T> cellRenderer;
   private CellRenderer<T> editableCellRenderer;
   private HeaderElementSupplier headerElementSupplier =
@@ -178,7 +179,47 @@ public class ColumnConfig<T> {
   }
 
   /**
-   * a shortcut to {@link #setWidth(String)} with value <b>left</b>
+   * @param headerTextAlign String css text align for the column header
+   *     <b>left</b>,<b>right</b>,<b>center</b>
+   * @return same ColumnConfig instance
+   */
+  public ColumnConfig<T> headerTextAlign(String headerTextAlign) {
+    this.headerTextAlign = headerTextAlign;
+    return this;
+  }
+
+  /**
+   * a shortcut to {@link #headerTextAlign(String)} with value <b>left</b>
+   *
+   * @return same ColumnConfig instance
+   */
+  public ColumnConfig<T> headerAlignLeft() {
+    headerTextAlign("left");
+    return this;
+  }
+
+  /**
+   * a shortcut to {@link #headerTextAlign(String)} with value <b>right</b>
+   *
+   * @return same ColumnConfig instance
+   */
+  public ColumnConfig<T> headerAlignRight() {
+    headerTextAlign("right");
+    return this;
+  }
+
+  /**
+   * a shortcut to {@link #headerTextAlign(String)} with value <b>center</b>
+   *
+   * @return same ColumnConfig instance
+   */
+  public ColumnConfig<T> headerAlignCenter() {
+    headerTextAlign("center");
+    return this;
+  }
+
+  /**
+   * a shortcut to {@link #textAlign(String)} with value <b>left</b>
    *
    * @return same ColumnConfig instance
    */
@@ -188,7 +229,7 @@ public class ColumnConfig<T> {
   }
 
   /**
-   * a shortcut to {@link #setWidth(String)} with value <b>right</b>
+   * a shortcut to {@link #textAlign(String)} with value <b>right</b>
    *
    * @return same ColumnConfig instance
    */
@@ -198,7 +239,7 @@ public class ColumnConfig<T> {
   }
 
   /**
-   * a shortcut to {@link #setWidth(String)} with value <b>center</b>
+   * a shortcut to {@link #textAlign(String)} with value <b>center</b>
    *
    * @return same ColumnConfig instance
    */
@@ -263,6 +304,11 @@ public class ColumnConfig<T> {
   /** @return the String text align we set with {@link #textAlign(String)} */
   public String getTextAlign() {
     return textAlign;
+  }
+
+  /** @return the String text align we set with {@link #headerTextAlign(String)} */
+  public String getHeaderTextAlign() {
+    return headerTextAlign;
   }
 
   /**

@@ -15,7 +15,7 @@
  */
 package org.dominokit.domino.ui.layout;
 
-import static org.dominokit.domino.ui.layout.NavBarStyles.nav_add_on;
+import static org.dominokit.domino.ui.layout.NavBarStyles.dui_nav_add_on;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -35,7 +35,7 @@ public class NavBarAddOn extends BaseDominoElement<HTMLElement, NavBarAddOn> {
   }
 
   public NavBarAddOn(HTMLElement element) {
-    root = DominoElement.of(element).addCss(nav_add_on);
+    root = DominoElement.of(element).addCss(dui_nav_add_on);
     init(this);
   }
 

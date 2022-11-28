@@ -23,10 +23,9 @@ import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.*;
 
-import static org.dominokit.domino.ui.layout.AppLayoutStyles.*;
-import static org.dominokit.domino.ui.layout.NavBarStyles.nav_utility;
+import static org.dominokit.domino.ui.layout.NavBarStyles.dui_nav_utility;
 
-public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout> {
+public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout> implements AppLayoutStyles{
 
   private final DominoElement<HTMLDivElement> layout;
   private final DominoElement<HTMLElement> body;
@@ -47,8 +46,8 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout> {
   private boolean autoCloseLeftDrawer = true;
   private boolean autoCloseRightDrawer = true;
 
-  public SwapCssClass LEFT_DRAWER_SIZE = new SwapCssClass(LEFT_MEDIUM);
-  public SwapCssClass RIGHT_DRAWER_SIZE = new SwapCssClass(RIGHT_MEDIUM);
+  public SwapCssClass LEFT_DRAWER_SIZE = new SwapCssClass(dui_left_medium);
+  public SwapCssClass RIGHT_DRAWER_SIZE = new SwapCssClass(dui_right_medium);
 
   public static AppLayout create() {
     return new AppLayout();
@@ -61,30 +60,30 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout> {
   public AppLayout() {
     layout =
         DominoElement.div()
-            .addCss(LAYOUT)
+            .addCss(dui_layout)
             .appendChild(
                 body =
                     DominoElement.section()
-                        .addCss(BODY)
-                        .appendChild(content = DominoElement.section().addCss(CONTENT)));
+                        .addCss(dui_body)
+                        .appendChild(content = DominoElement.section().addCss(dui_content)));
     header =
-        LazyChild.of(DominoElement.header().addCss(HEADER), body)
-            .whenInitialized(() -> layout.addCss(HAS_HEADER));
+        LazyChild.of(DominoElement.header().addCss(dui_header), body)
+            .whenInitialized(() -> layout.addCss(dui_has_header));
     navBar = LazyChild.of(NavBar.create(), header);
     footer =
-        LazyChild.of(DominoElement.section().addCss(FOOTER), body)
-            .whenInitialized(() -> layout.addCss(HAS_FOOTER));
+        LazyChild.of(DominoElement.section().addCss(dui_footer), body)
+            .whenInitialized(() -> layout.addCss(dui_has_footer));
     leftDrawerToggle = initLeftDrawerToggle(leftToggleIcon);
     leftDrawer =
-        LazyChild.of(DominoElement.section().addCss(LEFT_DRAWER), layout)
+        LazyChild.of(DominoElement.section().addCss(dui_left_drawer), layout)
             .whenInitialized(leftDrawerToggle::get);
-    leftDrawerContent = LazyChild.of(DominoElement.aside().addCss(LAYOUT_MENU), leftDrawer);
+    leftDrawerContent = LazyChild.of(DominoElement.aside().addCss(dui_layout_menu), leftDrawer);
 
     rightDrawerToggle = initRightDrawerToggle(rightToggleIcon);
     rightDrawer =
-        LazyChild.of(DominoElement.section().addCss(RIGHT_DRAWER), layout)
+        LazyChild.of(DominoElement.section().addCss(dui_right_drawer), layout)
             .whenInitialized(rightDrawerToggle::get);
-    rightDrawerContent = LazyChild.of(DominoElement.section().addCss(LAYOUT_MENU), rightDrawer);
+    rightDrawerContent = LazyChild.of(DominoElement.section().addCss(dui_layout_menu), rightDrawer);
     overlay = LazyChild.of(DominoElement.div().addCss(GenericCss.dui_overlay), layout);
 
     init(this);
@@ -96,11 +95,11 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout> {
                 .addClickListener(
                     evt -> {
                       if (autoCloseLeftDrawer) {
-                        LEFT_OPEN.remove(layout);
+                        dui_left_open.remove(layout);
                       }
 
                       if (autoCloseRightDrawer) {
-                        RIGHT_DRAWER.remove(layout);
+                        dui_right_drawer.remove(layout);
                       }
                     }));
   }
@@ -119,7 +118,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout> {
   }
 
   private LazyChild<UtilityElement<HTMLElement>> initRightDrawerToggle(BaseIcon<?> icon) {
-    return LazyChild.of(UtilityElement.of(icon).addCss(nav_utility), navBar)
+    return LazyChild.of(UtilityElement.of(icon).addCss(dui_nav_utility), navBar)
         .whenInitialized(
             () ->
                 icon.clickable()
@@ -274,64 +273,64 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout> {
   }
 
   public AppLayout toggleLeftDrawerSpanUp() {
-    layout.addCss(LEFT_SPAN_UP);
+    layout.addCss(dui_left_span_up);
     return this;
   }
 
   public AppLayout toggleLeftDrawerSpanDown() {
-    layout.addCss(LEFT_SPAN_DOWN);
+    layout.addCss(dui_left_span_down);
     return this;
   }
 
   public AppLayout toggleShrinkContent() {
-    layout.addCss(SHRINK_CONENT);
+    layout.addCss(dui_shrink_conent);
     return this;
   }
 
   public AppLayout toggleLeftOverlay() {
     overlay.get();
-    layout.addCss(LEFT_OVERLAY);
+    layout.addCss(dui_left_overlay);
     return this;
   }
 
   public AppLayout toggleRightOverlay() {
     overlay.get();
-    layout.addCss(RIGHT_OVERLAY);
+    layout.addCss(dui_right_overlay);
     return this;
   }
 
   public AppLayout toggleLeftDrawer() {
-    layout.addCss(LEFT_OPEN);
+    layout.addCss(dui_left_open);
     return this;
   }
 
   public AppLayout toggleRightDrawer() {
-    layout.addCss(RIGHT_OPEN);
+    layout.addCss(dui_right_open);
     return this;
   }
 
   public AppLayout toggleFixedFooter() {
-    layout.addCss(FOOTER_FIXED);
+    layout.addCss(dui_footer_fixed);
     return this;
   }
 
   public AppLayout showLeftDrawer() {
-    layout.addCss(LEFT_OPEN);
+    layout.addCss(dui_left_open);
     return this;
   }
 
   public AppLayout hideLeftDrawer() {
-    layout.removeCss(LEFT_OPEN);
+    layout.removeCss(dui_left_open);
     return this;
   }
 
   public AppLayout showRightDrawer() {
-    layout.addCss(RIGHT_OPEN);
+    layout.addCss(dui_right_open);
     return this;
   }
 
   public AppLayout hideRightDrawer() {
-    layout.removeCss(RIGHT_OPEN);
+    layout.removeCss(dui_right_open);
     return this;
   }
 
@@ -366,11 +365,11 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout> {
   }
 
   public boolean isLeftDrawerOpen() {
-    return LEFT_OPEN.isAppliedTo(layout);
+    return dui_left_open.isAppliedTo(layout);
   }
 
   public boolean isRightDrawerOpen() {
-    return RIGHT_OPEN.isAppliedTo(layout);
+    return dui_right_open.isAppliedTo(layout);
   }
 
   @Override

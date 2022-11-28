@@ -37,7 +37,7 @@ public class ScrollTop extends Button {
   /** @param icon {@link BaseIcon} to show in the component */
   public ScrollTop(BaseIcon<?> icon) {
     super(icon);
-    elevate(Elevation.LEVEL_1);
+    init(this);
     circle();
     setSize(ButtonSize.LARGE);
     addCss(ColorsCss.dui_bg_accent);

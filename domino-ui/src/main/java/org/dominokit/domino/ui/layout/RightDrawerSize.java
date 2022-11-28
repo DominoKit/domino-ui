@@ -18,11 +18,11 @@ package org.dominokit.domino.ui.layout;
 import org.dominokit.domino.ui.style.CssClass;
 
 public enum RightDrawerSize {
-  XSMALL(AppLayoutStyles.RIGHT_XSMALL),
-  SMALL(AppLayoutStyles.RIGHT_SMALL),
-  MEDIUM(AppLayoutStyles.RIGHT_MEDIUM),
-  LARGE(AppLayoutStyles.RIGHT_LARGE),
-  XLARGE(AppLayoutStyles.RIGHT_XLARGE),
+  XSMALL(AppLayoutStyles.dui_right_xsmall),
+  SMALL(AppLayoutStyles.dui_right_small),
+  MEDIUM(AppLayoutStyles.dui_right_medium),
+  LARGE(AppLayoutStyles.dui_right_large),
+  XLARGE(AppLayoutStyles.dui_right_xlarge),
   ;
 
   private CssClass cssClass;

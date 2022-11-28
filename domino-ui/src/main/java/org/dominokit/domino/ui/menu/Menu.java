@@ -812,13 +812,13 @@ public class Menu<V>
 
     @Override
     public Menu<V> triggerSelectionListeners(AbstractMenuItem<V, ?> source, List<AbstractMenuItem<V, ?>> selection) {
-        selectionListeners.forEach(listener -> listener.onSelectionSelection(Optional.ofNullable(source), selection));
+        selectionListeners.forEach(listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
         return this;
     }
 
     @Override
     public Menu<V> triggerDeselectionListeners(AbstractMenuItem<V, ?> source, List<AbstractMenuItem<V, ?>> selection) {
-        deselectionListeners.forEach(listener -> listener.onSelectionSelection(Optional.ofNullable(source), selection));
+        deselectionListeners.forEach(listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
         return this;
     }
 

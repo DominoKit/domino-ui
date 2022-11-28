@@ -15,10 +15,12 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
+import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TableEventListener;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
 
 /**
  * An interface to implement header action elements for the {@link HeaderBarPlugin}
@@ -37,4 +39,11 @@ public interface HeaderActionElement<T> extends TableEventListener {
   /** {@inheritDoc} */
   @Override
   default void handleEvent(TableEvent event) {}
+
+  /**
+   * Customize the styles for this action container
+   *
+   * @param container the flex item parent container of this action
+   */
+  default void applyStyles(FlexItem<? extends HTMLElement> container) {}
 }

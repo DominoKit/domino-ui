@@ -40,11 +40,7 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
    */
   public EmptyStatePlugin(BaseIcon<?> emptyStateIcon, String title) {
     emptyState =
-        EmptyState.create(emptyStateIcon)
-            .setTitle(title)
-            .setIconColor(Color.GREY)
-            .setTitleColor(Color.GREY)
-            .removeCss(GenericCss.vertical_center);
+        EmptyState.create(title, emptyStateIcon);
   }
 
   /** {@inheritDoc} */

@@ -470,6 +470,16 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         getClickableElement().addEventListener(EventType.click.getName(), listener);
         return element;
     }
+    /**
+     * @param listener {@link EventListener} to be added to the click event of the component clickable
+     *                 element
+     * @return same component
+     */
+    @Editor.Ignore
+    public T addClickListener(EventListener listener, boolean capture) {
+        getClickableElement().addEventListener(EventType.click.getName(), listener, capture);
+        return element;
+    }
 
     /**
      * Adds a listener for the provided event type

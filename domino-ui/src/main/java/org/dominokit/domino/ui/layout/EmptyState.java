@@ -15,18 +15,11 @@
  */
 package org.dominokit.domino.ui.layout;
 
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.*;
-
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
-import elemental2.dom.HTMLParagraphElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.GenericCss;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.*;
 
 /**
  * A component that indicate that other components or parts of the page has no content currently to
@@ -39,119 +32,134 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *                 .setTitleColor(Color.GREY)
  * </pre>
  */
-public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState> {
+public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState> implements EmptyStateStyles {
 
-  private HTMLDivElement element =
-      DominoElement.of(div())
-          .css("empty-state", GenericCss.align_center, GenericCss.vertical_center)
-          .element();
-  private HTMLDivElement iconContainer = div().element();
-  private HTMLHeadingElement titleContainer = h(4).element();
-  private HTMLParagraphElement descriptionContainer = p().element();
-  private Color iconColor;
-  private Color titleColor;
-  private Color descriptionColor;
+    private DominoElement<HTMLDivElement> element;
+    private LazyChild<DominoElement<HTMLHeadingElement>> title;
+    private LazyChild<DominoElement<HTMLElement>> description;
 
-  /** @param icon {@link BaseIcon} to indicate empty data */
-  public EmptyState(BaseIcon<?> icon) {
-    iconContainer.appendChild(icon.element());
-    element.appendChild(iconContainer);
-    element.appendChild(titleContainer);
-    element.appendChild(descriptionContainer);
-    init(this);
-  }
+    private LazyChild<BaseIcon<?>> icon = NullLazyChild.of();
 
-  /**
-   * @param icon {@link BaseIcon} to indicate empty data
-   * @return new EmptyState instance
-   */
-  public static EmptyState create(BaseIcon<?> icon) {
-    return new EmptyState(icon);
-  }
-
-  /**
-   * @param title String to be shown under the icon
-   * @return same EmptyState instance
-   */
-  public EmptyState setTitle(String title) {
-    titleContainer.textContent = title;
-    return this;
-  }
-
-  /**
-   * @param description String to be show under the title with smaller font
-   * @return same EmptyState instance
-   */
-  public EmptyState setDescription(String description) {
-    descriptionContainer.textContent = description;
-    return this;
-  }
-
-  /**
-   * @param iconColor {@link Color}
-   * @return same EmptyState instance
-   */
-  public EmptyState setIconColor(Color iconColor) {
-    if (nonNull(this.iconColor)) {
-      Style.of(iconContainer).removeCss(this.iconColor.getStyle());
+    public EmptyState() {
+        element = DominoElement.div().addCss(dui_empty_state);
+        title = LazyChild.of(DominoElement.h(4).addCss(dui_empty_state_title), element);
+        description = LazyChild.of(DominoElement.small().addCss(dui_empty_state_description), element);
+        init(this);
     }
-    this.iconColor = iconColor;
-    Style.of(iconContainer).addCss(iconColor.getStyle());
-    return this;
-  }
 
-  /**
-   * @param titleColor {@link Color}
-   * @return same EmptyState instance
-   */
-  public EmptyState setTitleColor(Color titleColor) {
-    if (nonNull(this.titleColor)) {
-      Style.of(titleContainer).removeCss(this.titleColor.getStyle());
+    public EmptyState(String title) {
+        this();
+        setTitle(title);
     }
-    this.titleColor = titleColor;
-    Style.of(titleContainer).addCss(titleColor.getStyle());
-    return this;
-  }
 
-  /**
-   * @param descriptionColor {@link Color}
-   * @return same EmptyState instance
-   */
-  public EmptyState setDescriptionColor(Color descriptionColor) {
-    if (nonNull(this.descriptionColor)) {
-      Style.of(descriptionContainer).removeCss(this.descriptionColor.getStyle());
+    public EmptyState(String title, String description) {
+        this(title);
+        setDescription(description);
     }
-    this.descriptionColor = descriptionColor;
-    Style.of(descriptionContainer).addCss(descriptionColor.getStyle());
-    return this;
-  }
 
-  /**
-   * @return the {@link HTMLDivElement} that contains the icon wrapped as a {@link DominoElement}
-   */
-  public DominoElement<HTMLDivElement> getIconContainer() {
-    return DominoElement.of(iconContainer);
-  }
+    public EmptyState(String title, BaseIcon<?> icon) {
+        this(title);
+        setIcon(icon);
+    }
 
-  /**
-   * @return the {@link HTMLHeadingElement} that contains the title wrapped as a {@link
-   *     DominoElement}
-   */
-  public DominoElement<HTMLHeadingElement> getTitleContainer() {
-    return DominoElement.of(titleContainer);
-  }
+    public EmptyState(String title, String description, BaseIcon<?> icon) {
+        this(title, description);
+        setIcon(icon);
+    }
 
-  /**
-   * @return the {@link HTMLParagraphElement} that contains the description wrapped as a {@link
-   *     DominoElement}
-   */
-  public DominoElement<HTMLParagraphElement> getDescriptionContainer() {
-    return DominoElement.of(descriptionContainer);
-  }
+    /**
+     * @param icon {@link BaseIcon} to indicate empty data
+     */
+    public EmptyState(BaseIcon<?> icon) {
+        this();
+        setIcon(icon);
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return element;
-  }
+    public static EmptyState create() {
+        return new EmptyState();
+    }
+
+    public static EmptyState create(String title) {
+        return new EmptyState(title);
+    }
+
+    public static EmptyState create(String title, String description) {
+        return new EmptyState(title, description);
+    }
+
+    public static EmptyState create(String title, BaseIcon<?> icon) {
+        return new EmptyState(title, icon);
+    }
+
+    public static EmptyState create(String title, String description, BaseIcon<?> icon) {
+        return new EmptyState(title, description, icon);
+    }
+
+    /**
+     * @param icon {@link BaseIcon} to indicate empty data
+     * @return new EmptyState instance
+     */
+    public static EmptyState create(BaseIcon<?> icon) {
+        return new EmptyState(icon);
+    }
+
+    /**
+     * @param title String to be shown under the icon
+     * @return same EmptyState instance
+     */
+    public EmptyState setTitle(String title) {
+        this.title.get().setTextContent(title);
+        return this;
+    }
+
+    /**
+     * @param description String to be show under the title with smaller font
+     * @return same EmptyState instance
+     */
+    public EmptyState setDescription(String description) {
+        this.description.get().setTextContent(description);
+        return this;
+    }
+
+    public EmptyState setIcon(BaseIcon<?> icon) {
+        this.icon.remove();
+        this.icon = LazyChild.of(icon.addCss(dui_empty_state_icon), element);
+        this.icon.get();
+        return this;
+    }
+
+    public DominoElement<HTMLHeadingElement> getTitle() {
+        return title.get();
+    }
+
+    public DominoElement<HTMLElement> getDescription() {
+        return description.get();
+    }
+
+    public BaseIcon<?> getIcon() {
+        return icon.get();
+    }
+
+    public EmptyState withTitle(ChildHandler<EmptyState, DominoElement<HTMLHeadingElement>> handler) {
+        handler.apply(this, title.get());
+        return this;
+    }
+
+    public EmptyState withDescription(ChildHandler<EmptyState, DominoElement<HTMLElement>> handler) {
+        handler.apply(this, description.get());
+        return this;
+    }
+
+    public EmptyState withIcon(ChildHandler<EmptyState, BaseIcon<?>> handler) {
+        handler.apply(this, icon.get());
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HTMLDivElement element() {
+        return element.element();
+    }
 }

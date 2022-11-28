@@ -1,7 +1,7 @@
 /*
  * Copyright © 2019 Dominokit
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License";
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -18,40 +18,40 @@ package org.dominokit.domino.ui.layout;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.ToggleCssClass;
 
-public class AppLayoutStyles {
+public interface AppLayoutStyles {
 
-  public static CssClass LAYOUT = () -> ("dui-layout");
-  public static CssClass BODY = () -> ("dui-layout-body");
-  public static CssClass HEADER = () -> ("dui-layout-header");
-  public static CssClass FOOTER = () -> ("dui-layout-footer");
-  public static CssClass CONTENT = () -> ("dui-layout-content");
-  public static CssClass LEFT_DRAWER = () -> ("dui-left-drawer");
-  public static CssClass RIGHT_DRAWER = () -> ("dui-right-drawer");
-  public static CssClass HAS_HEADER = () -> ("dui-layout-has-header");
-  public static CssClass HAS_FOOTER = () -> ("dui-layout-has-footer");
-  public static ToggleCssClass FOOTER_FIXED = () -> ("dui-layout-footer-fixed");
+  CssClass dui_layout = () -> "dui-layout";
+  CssClass dui_body = () -> "dui-layout-body";
+  CssClass dui_header = () -> "dui-layout-header";
+  CssClass dui_footer = () -> "dui-layout-footer";
+  CssClass dui_content = () -> "dui-layout-content";
+  CssClass dui_left_drawer = () -> "dui-left-drawer";
+  CssClass dui_right_drawer = () -> "dui-right-drawer";
+  CssClass dui_has_header = () -> "dui-layout-has-header";
+  CssClass dui_has_footer = () -> "dui-layout-has-footer";
+  ToggleCssClass dui_footer_fixed = () -> "dui-layout-footer-fixed";
 
-  public static ToggleCssClass LEFT_OPEN = () -> ("dui-left-open");
-  public static CssClass LAYOUT_MENU = () -> ("dui-layout-menu");
+  ToggleCssClass dui_left_open = () -> "dui-left-open";
+  CssClass dui_layout_menu = () -> "dui-layout-menu";
 
-  public static CssClass LEFT_XSMALL = () -> ("dui-layout-left-drawer-xsm");
-  public static CssClass LEFT_SMALL = () -> ("dui-layout-left-drawer-sm");
-  public static CssClass LEFT_MEDIUM = () -> ("dui-layout-left-drawer-md");
-  public static CssClass LEFT_LARGE = () -> ("dui-layout-left-drawer-lg");
-  public static CssClass LEFT_XLARGE = () -> ("dui-layout-left-drawer-xlg");
+  CssClass dui_left_xsmall = () -> "dui-layout-left-drawer-xsm";
+  CssClass dui_left_small = () -> "dui-layout-left-drawer-sm";
+  CssClass dui_left_medium = () -> "dui-layout-left-drawer-md";
+  CssClass dui_left_large = () -> "dui-layout-left-drawer-lg";
+  CssClass dui_left_xlarge = () -> "dui-layout-left-drawer-xlg";
 
-  public static ToggleCssClass RIGHT_OPEN = () -> ("dui-right-open");
+  ToggleCssClass dui_right_open = () -> "dui-right-open";
 
-  public static CssClass RIGHT_XSMALL = () -> ("dui-layout-right-drawer-xsm");
-  public static CssClass RIGHT_SMALL = () -> ("dui-layout-right-drawer-sm");
-  public static CssClass RIGHT_MEDIUM = () -> ("dui-layout-right-drawer-md");
-  public static CssClass RIGHT_LARGE = () -> ("dui-layout-right-drawer-lg");
-  public static CssClass RIGHT_XLARGE = () -> ("dui-layout-right-drawer-xlg");
+  CssClass dui_right_xsmall = () -> "dui-layout-right-drawer-xsm";
+  CssClass dui_right_small = () -> "dui-layout-right-drawer-sm";
+  CssClass dui_right_medium = () -> "dui-layout-right-drawer-md";
+  CssClass dui_right_large = () -> "dui-layout-right-drawer-lg";
+  CssClass dui_right_xlarge = () -> "dui-layout-right-drawer-xlg";
 
-  public static ToggleCssClass SHRINK_CONENT = () -> ("dui-shrink-content");
-  public static ToggleCssClass LEFT_SPAN_UP = () -> ("dui-left-drawer-span-up");
-  public static ToggleCssClass LEFT_SPAN_DOWN = () -> ("dui-left-drawer-span-down");
+  ToggleCssClass dui_shrink_conent = () -> "dui-shrink-content";
+  ToggleCssClass dui_left_span_up = () -> "dui-left-drawer-span-up";
+  ToggleCssClass dui_left_span_down = () -> "dui-left-drawer-span-down";
 
-  public static ToggleCssClass LEFT_OVERLAY = () -> "dui-left-overlay";
-  public static ToggleCssClass RIGHT_OVERLAY = () -> "dui-right-overlay";
+  ToggleCssClass dui_left_overlay = () -> "dui-left-overlay";
+  ToggleCssClass dui_right_overlay = () -> "dui-right-overlay";
 }

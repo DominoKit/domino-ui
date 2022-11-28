@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.chips;
 
-import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
@@ -203,13 +202,13 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
 
   @Override
   public ChipsGroup triggerSelectionListeners(Chip source, List<Chip> selection) {
-    selectionListeners.forEach(selectionListener -> selectionListener.onSelectionSelection(Optional.ofNullable(source), selection));
+    selectionListeners.forEach(selectionListener -> selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
     return this;
   }
 
   @Override
   public ChipsGroup triggerDeselectionListeners(Chip source, List<Chip> selection) {
-    deselectionListeners.forEach(selectionListener -> selectionListener.onSelectionSelection(Optional.ofNullable(source), selection));
+    deselectionListeners.forEach(selectionListener -> selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
     return this;
   }
 

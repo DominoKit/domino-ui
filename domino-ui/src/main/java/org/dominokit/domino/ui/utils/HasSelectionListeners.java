@@ -165,6 +165,6 @@ public interface HasSelectionListeners<T, V, S> {
          * @param source V item that has its selection changed
          * @param selection The current selected item(s)
          */
-        void onSelectionSelection(Optional<V> source, S selection);
+        void onSelectionChanged(Optional<V> source, S selection);
     }
 }

@@ -185,13 +185,13 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
     @Override
     public TableRow<T> triggerSelectionListeners(TableRow<T> source, TableRow<T> selection) {
-        selectionListeners.forEach(listener -> listener.onSelectionSelection(Optional.ofNullable(source), selection));
+        selectionListeners.forEach(listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
         return this;
     }
 
     @Override
     public TableRow<T> triggerDeselectionListeners(TableRow<T> source, TableRow<T> selection) {
-        deselectionListeners.forEach(listener -> listener.onSelectionSelection(Optional.ofNullable(source), selection));
+        deselectionListeners.forEach(listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
         return this;
     }
 

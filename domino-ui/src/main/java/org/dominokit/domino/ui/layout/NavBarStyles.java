@@ -17,10 +17,10 @@ package org.dominokit.domino.ui.layout;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-public class NavBarStyles {
+public interface NavBarStyles {
 
-  public static final CssClass nav_bar = () -> "dui-nav-bar";
-  public static final CssClass nav_add_on = () -> "dui-nav-addon";
-  public static final CssClass nav_title = () -> "dui-nav-title";
-  public static final CssClass nav_utility = () -> "dui-nav-utility";
+  CssClass dui_nav_bar = () -> "dui-nav-bar";
+  CssClass dui_nav_add_on = () -> "dui-nav-addon";
+  CssClass dui_nav_title = () -> "dui-nav-title";
+  CssClass dui_nav_utility = () -> "dui-nav-utility";
 }

@@ -18,11 +18,11 @@ package org.dominokit.domino.ui.layout;
 import org.dominokit.domino.ui.style.CssClass;
 
 public enum LeftDrawerSize {
-  XSMALL(AppLayoutStyles.LEFT_XSMALL),
-  SMALL(AppLayoutStyles.LEFT_SMALL),
-  MEDIUM(AppLayoutStyles.LEFT_MEDIUM),
-  LARGE(AppLayoutStyles.LEFT_LARGE),
-  XLARGE(AppLayoutStyles.LEFT_XLARGE),
+  XSMALL(AppLayoutStyles.dui_left_xsmall),
+  SMALL(AppLayoutStyles.dui_left_small),
+  MEDIUM(AppLayoutStyles.dui_left_medium),
+  LARGE(AppLayoutStyles.dui_left_large),
+  XLARGE(AppLayoutStyles.dui_left_xlarge),
   ;
 
   private CssClass cssClass;

@@ -15,17 +15,19 @@
  */
 package org.dominokit.domino.ui.lists;
 
-import static java.util.Objects.nonNull;
-
 import elemental2.dom.Event;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.utils.*;
+
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+import static java.util.Objects.nonNull;
 
 /**
  * A component which represents an item inside a {@link ListGroup}
@@ -34,250 +36,216 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * @see ListGroup
  * @see BaseDominoElement
  */
-public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>> {
+public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
+        implements Selectable<ListItem<T>>, HasSelectionListeners<ListItem<T>, ListItem<T>, ListItem<T>>, Bindable<ListGroup<T>>, ListStyles {
 
-  private final ListGroup<T> listGroup;
-  private T value;
-  private boolean selected = false;
-  private HTMLLIElement element;
-  private final List<SelectionChangedListener<T>> selectionChangedListeners = new ArrayList<>();
-  private boolean selectable = true;
-  private boolean enabled = true;
-  private boolean selectOnClick = true;
+    private ListGroup<T> listGroup;
+    private T value;
+    private DominoElement<HTMLLIElement> element;
+    private boolean selectable = true;
+    private boolean selectOnClick = true;
 
-  public ListItem(ListGroup<T> listGroup, T value, HTMLLIElement element) {
-    this.value = value;
-    this.element = element;
-    this.listGroup = listGroup;
-    init(this);
-    element.setAttribute("tabindex", "0");
+    private boolean selectionListenersPaused = false;
+    private Set<SelectionListener<? super ListItem<T>, ? super ListItem<T>>> selectionListeners = new HashSet<>();
+    private Set<SelectionListener<? super ListItem<T>, ? super ListItem<T>>> deselectionListeners = new HashSet<>();
 
-    this.addClickListener(this::trySelect);
+    public static <T> ListItem<T> create(T value) {
+        return new ListItem<>(value);
+    }
 
-    KeyboardEvents.listenOnKeyDown(element).onEnter(this::trySelect);
-  }
+    public ListItem(T value) {
+        this.value = value;
+        this.element = DominoElement.li()
+                .addCss(dui_list_group_item)
+                .setAttribute("tabindex", "0");
+        init(this);
 
-  private void trySelect(Event evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
-    MouseEvent mouseEvent = Js.uncheckedCast(evt);
-    if (selectable && enabled && selectOnClick) {
-      if (isSelected()) {
-        if (mouseEvent.shiftKey && listGroup.isMultiSelect()) {
-          deselectRange();
-        } else {
-          deselect();
+        this.addClickListener(this::trySelect, true);
+
+        KeyboardEvents.listenOnKeyDown(element.element()).onEnter(this::trySelect);
+    }
+
+    @Override
+    public void bindTo(ListGroup<T> owner) {
+        this.listGroup = owner;
+    }
+
+    private void trySelect(Event evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+        MouseEvent mouseEvent = Js.uncheckedCast(evt);
+        if (selectable && isEnabled() && selectOnClick) {
+            if (isSelected()) {
+                if (mouseEvent.shiftKey && isMultiSelect()) {
+                    deselectRange();
+                } else {
+                    deselect();
+                }
+            } else {
+                if (mouseEvent.shiftKey && isMultiSelect()) {
+                    selectRange();
+                } else {
+                    select();
+                }
+            }
         }
-      } else {
-        if (mouseEvent.shiftKey && listGroup.isMultiSelect()) {
-          selectRange();
-        } else {
-          select();
+    }
+
+    private boolean isMultiSelect() {
+        return nonNull(listGroup) && listGroup.isMultiSelect();
+    }
+
+    private void selectRange() {
+        if (nonNull(listGroup)) {
+            listGroup.selectRange(this);
         }
-      }
     }
-  }
 
-  private void selectRange() {
-    listGroup.selectRange(this);
-  }
-
-  private void deselectRange() {
-    listGroup.deselectRange(this);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public HTMLLIElement element() {
-    return element;
-  }
-
-  /** @return The value */
-  public T getValue() {
-    return value;
-  }
-
-  /** @param value The new value of this item */
-  public void setValue(T value) {
-    this.value = value;
-  }
-
-  /** @return The root element */
-  public HTMLLIElement getElement() {
-    return element;
-  }
-
-  /** @param element The new root element */
-  public void setElement(HTMLLIElement element) {
-    this.element = element;
-  }
-
-  /**
-   * Checks if values are equal
-   *
-   * @param value the value to check
-   * @return true if values are equal, false otherwise
-   */
-  public boolean valueEquals(T value) {
-    return Objects.equals(this.value, value);
-  }
-
-  /**
-   * Selects the item
-   *
-   * @return same instance
-   */
-  public ListItem<T> select() {
-    return select(false);
-  }
-
-  /**
-   * Deselects the item
-   *
-   * @return same instance
-   */
-  public ListItem<T> deselect() {
-    return deselect(false);
-  }
-
-  /**
-   * Selects the item with a boolean to indicate if this should inform handlers or not
-   *
-   * @param silent true for not informing the handlers associated, false otherwise
-   * @return same instance
-   */
-  public ListItem<T> select(boolean silent) {
-    this.listGroup.select(this, silent);
-    return this;
-  }
-
-  /**
-   * Deselects the item with a boolean to indicate if this should inform handlers or not
-   *
-   * @param silent true for not informing the handlers associated, false otherwise
-   * @return same instance
-   */
-  public ListItem<T> deselect(boolean silent) {
-    this.listGroup.deselect(this, silent);
-    return this;
-  }
-
-  /** @return True if the item is selected, false otherwise */
-  public boolean isSelected() {
-    return selected;
-  }
-
-  /**
-   * Sets a selection handler for which will be called when the selection is changed
-   *
-   * @param listener the {@link SelectionChangedListener} to set
-   * @return same instance
-   */
-  public ListItem<T> onSelectionChange(SelectionChangedListener<T> listener) {
-    this.selectionChangedListeners.add(listener);
-    return this;
-  }
-
-  /**
-   * Sets if this item can be selected
-   *
-   * @param selectable true to enable selecting the item, false otherwise
-   * @return same instance
-   */
-  public ListItem<T> setSelectable(boolean selectable) {
-    this.selectable = selectable;
-    if (selectable) {
-      css(ListStyles.SELECTABLE);
-    } else {
-      removeCss(ListStyles.SELECTABLE);
+    private void deselectRange() {
+        if (nonNull(listGroup)) {
+            listGroup.deselectRange(this);
+        }
     }
-    return this;
-  }
 
-  /** @return True if this item will be selected when clicking on it */
-  public boolean isSelectOnClick() {
-    return selectOnClick;
-  }
-
-  /**
-   * Sets if this item should be selected when clicking on it
-   *
-   * @param selectOnClick true to select on click, false otherwise
-   * @return same instance
-   */
-  public ListItem<T> setSelectOnClick(boolean selectOnClick) {
-    this.selectOnClick = selectOnClick;
-    return this;
-  }
-
-  /** @return True if the item is enabled, false otherwise */
-  public boolean isEnabled() {
-    return enabled;
-  }
-
-  /**
-   * Sets if this item is enabled
-   *
-   * @param enabled true to enable the item, false otherwise
-   * @return same instance
-   */
-  public ListItem<T> setEnabled(boolean enabled) {
-    if (!enabled) {
-      deselect();
-      addCss("disabled");
-      this.enabled = false;
-    }
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public boolean equals(Object other) {
-    if (this == other) return true;
-    if (other == null || getClass() != other.getClass()) return false;
-    ListItem<?> listItem = (ListItem<?>) other;
-    return value.equals(listItem.value);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public int hashCode() {
-    return Objects.hash(value);
-  }
-
-  void setSelected(boolean selected, boolean silent) {
-    this.selected = selected;
-    if (nonNull(listGroup.getSelectionColor())) {
-      removeCss(listGroup.getSelectionColor().getBackground());
-    }
-    removeCss(ListStyles.SELECTED);
-    if (selected) {
-      css(ListStyles.SELECTED);
-      if (nonNull(listGroup.getSelectionColor())) {
-        css(listGroup.getSelectionColor().getBackground());
-      }
-    }
-    if (!silent) {
-      fireSelectionHandlers(selected);
-    }
-  }
-
-  void fireSelectionHandlers(boolean selected) {
-    this.selectionChangedListeners.forEach(
-        listener -> listener.onSelectionChanged(ListItem.this, selected));
-  }
-
-  /**
-   * A handler that will be called when the item is selected or deselected
-   *
-   * @param <T> the type of the value object inside the item
-   */
-  @FunctionalInterface
-  public interface SelectionChangedListener<T> {
     /**
-     * @param item The item
-     * @param selected true if selected, false otherwise
+     * {@inheritDoc}
      */
-    void onSelectionChanged(ListItem<? extends T> item, boolean selected);
-  }
+    @Override
+    public HTMLLIElement element() {
+        return element.element();
+    }
+
+    /**
+     * @return The value
+     */
+    public T getValue() {
+        return value;
+    }
+
+    /**
+     * @param value The new value of this item
+     */
+    public void setValue(T value) {
+        this.value = value;
+    }
+
+    @Override
+    public ListItem<T> pauseSelectionListeners() {
+        this.selectionListenersPaused = true;
+        return this;
+    }
+
+    @Override
+    public ListItem<T> resumeSelectionListeners() {
+        this.selectionListenersPaused = false;
+        return this;
+    }
+
+    @Override
+    public ListItem<T> togglePauseSelectionListeners(boolean toggle) {
+        this.selectionListenersPaused = toggle;
+        return this;
+    }
+
+    @Override
+    public Set<SelectionListener<? super ListItem<T>, ? super ListItem<T>>> getSelectionListeners() {
+        return this.selectionListeners;
+    }
+
+    @Override
+    public Set<SelectionListener<? super ListItem<T>, ? super ListItem<T>>> getDeselectionListeners() {
+        return this.deselectionListeners;
+    }
+
+    @Override
+    public boolean isSelectionListenersPaused() {
+        return selectionListenersPaused;
+    }
+
+    @Override
+    public ListItem<T> triggerSelectionListeners(ListItem<T> source, ListItem<T> selection) {
+        selectionListeners.forEach(listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
+        return this;
+    }
+
+    @Override
+    public ListItem<T> triggerDeselectionListeners(ListItem<T> source, ListItem<T> selection) {
+        deselectionListeners.forEach(listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
+        return this;
+    }
+
+    @Override
+    public ListItem<T> getSelection() {
+        return this;
+    }
+
+    @Override
+    public ListItem<T> select() {
+        return select(isSelectable());
+    }
+
+    @Override
+    public ListItem<T> deselect() {
+        return deselect(isSelectionListenersPaused());
+    }
+
+    @Override
+    public ListItem<T> select(boolean silent) {
+        if (selectable && isEnabled()) {
+            if (nonNull(listGroup)) {
+                listGroup.select(this, silent);
+            }
+            setSelected(true);
+            if (!silent) {
+                triggerSelectionListeners(this, this);
+            }
+        }
+        return this;
+    }
+
+    @Override
+    public ListItem<T> deselect(boolean silent) {
+        if (selectable && isEnabled()) {
+            if (nonNull(listGroup)) {
+                listGroup.deselect(this, silent);
+            }
+            setSelected(false);
+            if (!silent) {
+                triggerDeselectionListeners(this, null);
+            }
+        }
+        return this;
+    }
+
+    @Override
+    public boolean isSelected() {
+        return dui_selected.isAppliedTo(this);
+    }
+
+    @Override
+    public boolean isSelectable() {
+        return selectable;
+    }
+
+    @Override
+    public ListItem<T> setSelectable(boolean selectable) {
+        this.selectable = selectable;
+        return this;
+    }
+
+    @Override
+    public ListItem<T> setSelected(boolean selected) {
+        addCss(BooleanCssClass.of(dui_selected, selected));
+        return this;
+    }
+
+    @Override
+    public ListItem<T> setSelected(boolean selected, boolean silent) {
+        if (selected) {
+            select(silent);
+        } else {
+            deselect(silent);
+        }
+        return this;
+    }
 }

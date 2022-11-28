@@ -113,13 +113,13 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
 
     @Override
     public Chip triggerSelectionListeners(Chip source, Chip selection) {
-        selectionListeners.forEach(listener -> listener.onSelectionSelection(Optional.ofNullable(source), selection));
+        selectionListeners.forEach(listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
         return this;
     }
 
     @Override
     public Chip triggerDeselectionListeners(Chip source, Chip selection) {
-        deselectionListeners.forEach(listener -> listener.onSelectionSelection(Optional.ofNullable(source), selection));
+        deselectionListeners.forEach(listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
         return this;
     }
 

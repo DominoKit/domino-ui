@@ -22,6 +22,7 @@
 //import java.util.ArrayList;
 //import java.util.List;
 //import jsinterop.base.Js;
+//import org.dominokit.domino.ui.datatable.ColumnConfig;
 //import org.dominokit.domino.ui.datatable.DataTable;
 //import org.dominokit.domino.ui.datatable.DataTableStyles;
 //import org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener;
@@ -33,11 +34,11 @@
 //import org.dominokit.domino.ui.dropdown.DropDownMenu;
 //import org.dominokit.domino.ui.dropdown.DropDownPosition;
 //import org.dominokit.domino.ui.dropdown.DropdownAction;
-//import org.dominokit.domino.ui.grid.Column;
-//import org.dominokit.domino.ui.grid.Row;
+//import org.dominokit.domino.ui.forms.TextBox;
 //import org.dominokit.domino.ui.grid.flex.FlexItem;
 //import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
 //import org.dominokit.domino.ui.grid.flex.FlexLayout;
+//import org.dominokit.domino.ui.icons.Icon;
 //import org.dominokit.domino.ui.icons.Icons;
 //import org.dominokit.domino.ui.icons.MdiIcon;
 //import org.dominokit.domino.ui.style.Style;
@@ -56,19 +57,21 @@
 // */
 //public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 //
-//  private Column titleColumn = Column.span6();
-//  private Column actionsBarColumn = Column.span6();
+//  private final HTMLHeadingElement title = Style.of(h(2)).setMarginBottom("0px").element();
+//  private final FlexLayout actionsBar =
+//      FlexLayout.create().setJustifyContent(FlexJustifyContent.END);
 //
-//  private HTMLHeadingElement title = Style.of(h(2)).setMarginBottom("0px").element();
-//  private FlexLayout actionsBar = FlexLayout.create().setJustifyContent(FlexJustifyContent.END);
-//
-//  private HTMLDivElement element =
+//  private final HTMLDivElement element =
 //      DominoElement.of(div())
-//          .add(
-//              Row.create()
-//                  .appendChild(titleColumn.appendChild(title))
-//                  .appendChild(actionsBarColumn.appendChild(actionsBar))
-//                  .element())
+//          .appendChild(
+//              FlexLayout.create()
+//                  .setJustifyContent(FlexJustifyContent.SPACE_BETWEEN)
+//                  .appendChild(
+//                      FlexItem.create().css("header-bar-title-container").appendChild(title))
+//                  .appendChild(
+//                      FlexItem.create()
+//                          .css("header-bar-actions-container")
+//                          .appendChild(actionsBar)))
 //          .css(DataTableStyles.HEADER)
 //          .style("padding-bottom: 5px;")
 //          .element();
@@ -95,9 +98,6 @@
 //    if (nonNull(description) && !description.isEmpty()) {
 //      this.title.appendChild(small().textContent(description).element());
 //    }
-//
-//    Style.of(titleColumn).setMarginBottom("0px");
-//    Style.of(actionsBarColumn).setMarginBottom("0px");
 //  }
 //
 //  /** {@inheritDoc} */
@@ -110,6 +110,7 @@
 //                    .addCss(Styles.m_r_5)
 //                    .addCss(Styles.m_l_5)
 //                    .appendChild(actionElement.asElement(dataTable))
+//                    .apply(actionElement::applyStyles)
 //                    .element()));
 //    dataTable.element().appendChild(element);
 //  }
@@ -137,12 +138,12 @@
 //    /** {@inheritDoc} */
 //    @Override
 //    public Node asElement(DataTable<T> dataTable) {
-//      MdiIcon condenseIcon =
+//      Icon condenseIcon =
 //          Icons.ALL
-//              .format_line_weight_mdi()
+//              .line_weight()
 //              .clickable()
 //              .setTooltip(condenseToolTip)
-//              .setToggleIcon(Icons.ALL.format_line_spacing_mdi())
+//              .setToggleIcon(Icons.ALL.format_line_spacing())
 //              .toggleOnClick(true)
 //              .apply(
 //                  icon ->
@@ -196,11 +197,11 @@
 //    /** {@inheritDoc} */
 //    @Override
 //    public Node asElement(DataTable<T> dataTable) {
-//      MdiIcon stripesIcon =
+//      Icon stripesIcon =
 //          Icons.ALL
-//              .format_line_spacing_mdi()
+//              .format_line_spacing()
 //              .clickable()
-//              .setToggleIcon(Icons.ALL.power_on_mdi())
+//              .setToggleIcon(Icons.ALL.power_input())
 //              .setTooltip(noStripsToolTip)
 //              .toggleOnClick(true)
 //              .apply(
@@ -256,11 +257,11 @@
 //    @Override
 //    public Node asElement(DataTable<T> dataTable) {
 //
-//      MdiIcon bordersIcon =
+//      Icon bordersIcon =
 //          Icons.ALL
-//              .border_vertical_mdi()
+//              .border_vertical()
 //              .clickable()
-//              .setToggleIcon(Icons.ALL.border_none_mdi())
+//              .setToggleIcon(Icons.ALL.border_clear())
 //              .toggleOnClick(true)
 //              .setTooltip(borderedToolTip)
 //              .apply(
@@ -316,11 +317,11 @@
 //    @Override
 //    public Node asElement(DataTable<T> dataTable) {
 //
-//      MdiIcon hoverIcon =
+//      Icon hoverIcon =
 //          Icons.ALL
-//              .blur_off_mdi()
+//              .blur_off()
 //              .clickable()
-//              .setToggleIcon(Icons.ALL.blur_mdi())
+//              .setToggleIcon(Icons.ALL.blur_on())
 //              .toggleOnClick(true)
 //              .setTooltip(noHoverToolTip)
 //              .apply(
@@ -409,25 +410,25 @@
 //    private String clearSearchToolTip = "Clear search";
 //
 //    private int autoSearchDelay = 200;
-//    private HTMLDivElement element = DominoElement.of(div()).css("search-new").element();
+//    private final HTMLDivElement element = DominoElement.of(div()).css("search-new").element();
 //    private DataTable<T> dataTable;
 //    private final TextBox textBox;
 //    private boolean autoSearch = true;
 //    private Timer autoSearchTimer;
 //    private EventListener autoSearchEventListener;
-//    private final MdiIcon searchIcon;
-//    private final MdiIcon clearIcon;
+//    private final Icon searchIcon;
+//    private final Icon clearIcon;
 //
 //    /** creates a new instance */
 //    public SearchTableAction() {
 //
 //      searchIcon =
 //          Icons.ALL
-//              .magnify_mdi()
+//              .search()
 //              .addClickListener(
 //                  evt -> {
 //                    autoSearchTimer.cancel();
-//                    doSearch();
+//                    search();
 //                  })
 //              .setTooltip(searchToolTip)
 //              .style()
@@ -435,7 +436,7 @@
 //              .get();
 //
 //      clearIcon =
-//          Icons.ALL.close_mdi().setTooltip(clearSearchToolTip).style().setCursor("pointer").get();
+//          Icons.ALL.clear().setTooltip(clearSearchToolTip).style().setCursor("pointer").get();
 //
 //      textBox =
 //          TextBox.create()
@@ -444,15 +445,10 @@
 //              .addRightAddOn(clearIcon)
 //              .addCss("table-search-box")
 //              .setMarginBottom("0px")
-//              .setMaxWidth("300px")
+//              .setWidth("100%")
 //              .addCss(Styles.pull_right);
 //
-//      clearIcon.addClickListener(
-//          evt -> {
-//            textBox.clear();
-//            autoSearchTimer.cancel();
-//            doSearch();
-//          });
+//      clearIcon.addClickListener(evt -> clear());
 //
 //      element.appendChild(textBox.element());
 //
@@ -460,7 +456,7 @@
 //          new Timer() {
 //            @Override
 //            public void run() {
-//              doSearch();
+//              search();
 //            }
 //          };
 //
@@ -500,7 +496,7 @@
 //          EventType.keypress.getName(),
 //          evt -> {
 //            if (ElementUtil.isEnterKey(Js.uncheckedCast(evt))) {
-//              doSearch();
+//              search();
 //            }
 //          });
 //
@@ -517,11 +513,19 @@
 //      this.autoSearchDelay = autoSearchDelayInMillies;
 //    }
 //
-//    private void doSearch() {
-//      SearchContext searchContext = dataTable.getSearchContext();
+//    private void search() {
+//      SearchContext<T> searchContext = dataTable.getSearchContext();
 //      Category search = Category.SEARCH;
 //      searchContext.removeByCategory(search);
 //      searchContext.add(Filter.create("*", textBox.getValue(), Category.SEARCH)).fireSearchEvent();
+//    }
+//
+//    /** Clears the search */
+//    public void clear() {
+//      textBox.clear();
+//      autoSearchTimer.cancel();
+//      search();
+//      textBox.focus();
 //    }
 //
 //    /** {@inheritDoc} */
@@ -540,6 +544,11 @@
 //      this.dataTable = dataTable;
 //      dataTable.addTableEventListener(SearchClearedEvent.SEARCH_EVENT_CLEARED, this);
 //      return element;
+//    }
+//
+//    @Override
+//    public void applyStyles(FlexItem<? extends HTMLElement> self) {
+//      self.setFlexGrow(1);
 //    }
 //
 //    /**
@@ -566,6 +575,21 @@
 //      clearIcon.setTooltip(clearSearchToolTip);
 //      return this;
 //    }
+//
+//    /** @return the search box */
+//    public TextBox getTextBox() {
+//      return textBox;
+//    }
+//
+//    /** @return the search icon */
+//    public Icon getSearchIcon() {
+//      return searchIcon;
+//    }
+//
+//    /** @return the clear icon */
+//    public Icon getClearIcon() {
+//      return clearIcon;
+//    }
 //  }
 //
 //  /**
@@ -578,19 +602,19 @@
 //    /** {@inheritDoc} */
 //    @Override
 //    public Node asElement(DataTable<T> dataTable) {
-//      MdiIcon columnsIcon = Icons.ALL.view_column_mdi().clickable();
+//      Icon columnsIcon = Icons.ALL.view_column().clickable();
 //
 //      DropDownMenu dropDownMenu = DropDownMenu.create(columnsIcon);
 //      dropDownMenu
 //          .setPosition(DropDownPosition.BOTTOM_LEFT)
 //          .apply(
 //              columnsMenu ->
-//                  dataTable
-//                      .getTableConfig()
-//                      .getColumns()
+//                  dataTable.getTableConfig().getColumns().stream()
+//                      .filter(this::notUtility)
 //                      .forEach(
 //                          columnConfig -> {
-//                            MdiIcon checkIcon = Icons.ALL.check_mdi();
+//                            Icon checkIcon =
+//                                Icons.ALL.check().toggleDisplay(!columnConfig.isHidden());
 //                            columnConfig.addShowHideListener(
 //                                DefaultColumnShowHideListener.of(checkIcon.element(), true));
 //                            FlexLayout itemElement =
@@ -603,7 +627,7 @@
 //                                        FlexItem.create()
 //                                            .appendChild(TextNode.of(columnConfig.getTitle())));
 //
-//                            columnsMenu.addAction(
+//                            columnsMenu.appendChild(
 //                                DropdownAction.create(columnConfig.getName(), itemElement.element())
 //                                    .setAutoClose(false)
 //                                    .addSelectionHandler(
@@ -617,6 +641,10 @@
 //            evt.stopPropagation();
 //          });
 //      return columnsIcon.element();
+//    }
+//
+//    private boolean notUtility(ColumnConfig<T> column) {
+//      return !column.isUtilityColumn();
 //    }
 //
 //    /** {@inheritDoc} */

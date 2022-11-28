@@ -650,7 +650,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /** @return the current {@link SearchContext} of the data table */
-  public SearchContext getSearchContext() {
+  public SearchContext<T> getSearchContext() {
     return searchContext;
   }
 
