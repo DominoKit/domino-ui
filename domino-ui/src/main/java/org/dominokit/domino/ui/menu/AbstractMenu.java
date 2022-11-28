@@ -798,7 +798,13 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
             });
 
         appendStrategy.onAppend(getAppendTarget(), element.element());
-        onDetached(record -> close());
+        onDetached(
+            record -> {
+              close();
+              if (isDropDown()) {
+                onClosed();
+              }
+            });
         if (smallScreen && nonNull(parent) && parent.isDropDown()) {
           parent.hide();
           headContainer.show();
@@ -913,15 +919,18 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
       if (isOpened()) {
         this.remove();
         getTargetElement().focus();
-        searchBox.clearSearch();
-        menuItems.forEach(AbstractMenuItem::onParentClosed);
-        closeHandlers.forEach(CloseHandler::onClose);
-        if (smallScreen && nonNull(parent) && parent.isDropDown()) {
-          parent.show();
-        }
       }
     }
     return (T) this;
+  }
+
+  private void onClosed() {
+    searchBox.clearSearch();
+    menuItems.forEach(AbstractMenuItem::onParentClosed);
+    closeHandlers.forEach(CloseHandler::onClose);
+    if (smallScreen && nonNull(parent) && parent.isDropDown()) {
+      parent.show();
+    }
   }
 
   /** @return The current {@link DropDirection} of the menu */
