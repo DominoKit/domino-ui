@@ -1195,7 +1195,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /** @return boolean, true if the component has no children */
   @Editor.Ignore
   public boolean isEmptyElement() {
-    return getElementsCount() == 0;
+    return getElementsCount() == 0 && (isNull(getTextContent()) || getTextContent().isEmpty());
   }
 
   /** @return double count of the component children */
