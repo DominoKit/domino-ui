@@ -53,6 +53,8 @@ public interface GenericCss {
 
     CssClass dui_close = () -> "dui-close";
 
+    CssClass dui_selected =()->"dui-selected";
+
     String font_6 = "font-6";
     String font_10 = "font-10";
     String font_12 = "font-12";
@@ -81,6 +83,7 @@ public interface GenericCss {
     String align_justify = "align-justify";
     String vertical_center = "dui-vertical-center";
     String horizontal_center = "dui-horizontal-center";
+
     String m_t__125 = "m-t--125";
     String m_t__120 = "m-t--120";
     String m_t__115 = "m-t--115";
