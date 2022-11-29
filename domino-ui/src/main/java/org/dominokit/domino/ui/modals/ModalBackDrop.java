@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.jboss.elemento.Elements;
 import org.jboss.elemento.EventType;
 
@@ -37,11 +38,10 @@ import org.jboss.elemento.EventType;
  */
 public class ModalBackDrop {
   /** the z-index increment for every modal open */
-  public static final int INCREMENT = 10;
-
   private static Deque<BaseModal> openedModals = new LinkedList<>();
+
   private static Deque<Popover> openedPopOvers = new LinkedList<>();
-  private static Integer NEXT_Z_INDEX = 1040;
+  private static Integer NEXT_Z_INDEX = 0;
   /** The single instance of the overlay backdrop element */
   public static final HTMLDivElement INSTANCE =
       DominoElement.of(Elements.div())
@@ -84,7 +84,7 @@ public class ModalBackDrop {
 
   public static void push(BaseModal modal) {
     openedModals.push(modal);
-    NEXT_Z_INDEX += INCREMENT;
+    incrementZIndex();
   }
 
   /**
@@ -93,7 +93,7 @@ public class ModalBackDrop {
    */
   public static void popModal(BaseModal modal) {
     openedModals.remove(modal);
-    NEXT_Z_INDEX -= INCREMENT;
+    decrementZIndex();
   }
 
   /**
@@ -110,7 +110,14 @@ public class ModalBackDrop {
    */
   public static void push(Popover popover) {
     openedPopOvers.push(popover);
-    NEXT_Z_INDEX += INCREMENT;
+    incrementZIndex();
+  }
+
+  private static void incrementZIndex() {
+    if (NEXT_Z_INDEX <= 0) {
+      NEXT_Z_INDEX = DominoUIConfig.INSTANCE.getInitialZIndex();
+    }
+    NEXT_Z_INDEX += DominoUIConfig.INSTANCE.getzIndexIncrement();
   }
 
   /**
@@ -119,18 +126,28 @@ public class ModalBackDrop {
   public static void popPopOver() {
     if (!openedPopOvers.isEmpty()) {
       openedPopOvers.pop();
-      NEXT_Z_INDEX -= INCREMENT;
+      decrementZIndex();
     }
+  }
+
+  private static void decrementZIndex() {
+    if (NEXT_Z_INDEX <= 0) {
+      NEXT_Z_INDEX = DominoUIConfig.INSTANCE.getInitialZIndex();
+    }
+    NEXT_Z_INDEX -= DominoUIConfig.INSTANCE.getzIndexIncrement();
   }
 
   /** @return the Integer z-index for the next modal */
   public static Integer getNextZIndex() {
+    if (NEXT_Z_INDEX <= 0) {
+      NEXT_Z_INDEX = DominoUIConfig.INSTANCE.getInitialZIndex();
+    }
     return NEXT_Z_INDEX;
   }
 
-  /** Increment the z-index by the {@link #INCREMENT} */
+  /** Increment the z-index by the {@link DominoUIConfig#getzIndexIncrement()} */
   public static void toNextZIndex() {
-    NEXT_Z_INDEX += INCREMENT;
+    incrementZIndex();
   }
 
   /** Close all currently open {@link Popover}s */

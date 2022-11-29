@@ -16,15 +16,19 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import static java.util.Collections.singletonList;
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
+import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
+import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.forms.CheckBox;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
@@ -50,6 +54,9 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private SelectionCondition<T> selectionCondition = (table, row) -> true;
   private TableRow<T> lastSelected;
   private CheckBoxCreator<T> checkBoxCreator = tableRow -> CheckBox.create();
+  private DataTable<T> datatable;
+  private List<T> oldSelection = new ArrayList<>();
+  private boolean retainSelectionOnDataChange = false;
 
   /** creates an instance with default configurations */
   public SelectionPlugin() {}
@@ -107,6 +114,11 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
       }
     }
     return Optional.empty();
+  }
+
+  @Override
+  public void onAfterAddTable(DataTable<T> dataTable) {
+    this.datatable = dataTable;
   }
 
   @Override
@@ -312,6 +324,42 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
       this.selectionCondition = selectionCondition;
     }
     return this;
+  }
+
+  /**
+   * If set to true any record that was originally selected, will remain selected after data change
+   * if it is present in the ew data set
+   *
+   * @param retainSelectionOnDataChange boolean , true to retain selection and false to ignore old
+   *     selection
+   * @return Same plugin instance
+   */
+  public SelectionPlugin<T> setRetainSelectionOnDataChange(boolean retainSelectionOnDataChange) {
+    this.retainSelectionOnDataChange = retainSelectionOnDataChange;
+    return this;
+  }
+
+  @Override
+  public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
+    if (retainSelectionOnDataChange) {
+      if (nonNull(oldSelection)
+          && !oldSelection.isEmpty()
+          && oldSelection.contains(tableRow.getRecord())) {
+        if (isNull(selectionCondition)
+            || selectionCondition.isAllowSelection(dataTable, tableRow)) {
+          tableRow.select();
+        }
+      }
+    }
+  }
+
+  @Override
+  public void handleEvent(TableEvent event) {
+    if (retainSelectionOnDataChange) {
+      if (OnBeforeDataChangeEvent.ON_BEFORE_DATA_CHANGE.equals(event.getType())) {
+        this.oldSelection = this.datatable.getSelectedRecords();
+      }
+    }
   }
 
   /**
