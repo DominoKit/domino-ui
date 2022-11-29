@@ -221,6 +221,11 @@ table th[class*="col-"] {
     overflow-x: auto;
 }
 
+.table-responsive[disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
 .table-responsive.table-fixed {
     /*position: relative;*/
     overflow: hidden !important;
@@ -579,4 +584,8 @@ table th[class*="col-"] {
 
 .header-bar-actions-container {
     margin-bottom: 0;
+}
+
+.table-responsive[disabled] {
+    pointer-events: none;
 }

@@ -473,6 +473,20 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /**
    * Adds a listener for the provided event type
    *
+   * @param type String event type
+   * @param listener {@link EventListener}
+   * @param capture boolean option
+   * @return same component
+   */
+  @Editor.Ignore
+  public T addEventListener(String type, EventListener listener, boolean capture) {
+    element().addEventListener(type, listener, capture);
+    return element;
+  }
+
+  /**
+   * Adds a listener for the provided event type
+   *
    * @param listener {@link EventListener}
    * @param events String array of event types
    * @return same component

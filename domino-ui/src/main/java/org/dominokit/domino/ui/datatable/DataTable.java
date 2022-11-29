@@ -92,6 +92,14 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
   private double scrollBarWidth = -1;
 
+  private EventListener disableKeyboardListener =
+      evt -> {
+        if (isDisabled()) {
+          evt.preventDefault();
+          evt.stopPropagation();
+        }
+      };
+
   /**
    * Creates a new data table instance
    *
@@ -104,6 +112,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     this.events.put(ANY, new ArrayList<>());
     this.dataStore = dataStore;
     this.addTableEventListener(ANY, dataStore);
+    this.addEventListener(EventType.keydown.getName(), disableKeyboardListener, true);
     this.dataStore.onDataChanged(
         dataChangedEvent -> {
           fireTableEvent(
