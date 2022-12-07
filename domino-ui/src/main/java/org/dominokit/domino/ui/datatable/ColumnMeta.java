@@ -13,16 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.datatable.plugins;
+package org.dominokit.domino.ui.datatable;
 
-import org.dominokit.domino.ui.datatable.plugins.pincolumns.PinColumnsPlugin;
-
-/**
- * this plugin allows marking columns as sticky ones
- *
- * @param <T> the type of data table records
- * @deprecated use {@link PinColumnsPlugin}
- */
-@Deprecated
-public class StickyColumnsPlugin<T> extends PinColumnsPlugin<T> {
+public interface ColumnMeta {
+  String getKey();
 }

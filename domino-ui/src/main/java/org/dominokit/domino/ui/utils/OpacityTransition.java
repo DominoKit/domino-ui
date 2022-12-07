@@ -25,6 +25,8 @@ import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import java.util.function.Consumer;
+import org.dominokit.domino.ui.animations.Animation;
+import org.dominokit.domino.ui.animations.Transition;
 import org.jboss.elemento.IsElement;
 
 /** Utility which handles {@code opacity} transition */
@@ -33,15 +35,27 @@ public class OpacityTransition {
   private static final String TRANSITIONEND = "transitionend";
 
   private final DominoElement<? extends HTMLElement> target;
-  private final EventListener onHide;
 
-  public OpacityTransition(HTMLElement target, EventListener onHide) {
-    this.target = DominoElement.of(target);
-    this.target.addCss(FADE);
-    this.onHide = onHide;
+  private Animation inAnimation;
+  private Animation outAnimation;
+
+  public OpacityTransition(HTMLElement target, Animation.CompleteCallback onHide) {
+    this(target, 300, onHide);
   }
 
-  public OpacityTransition(IsElement<? extends HTMLElement> target, EventListener onHide) {
+  public OpacityTransition(HTMLElement target, int duration, Animation.CompleteCallback onHide) {
+    inAnimation = Animation.create(target).transition(Transition.FADE_IN).duration(duration);
+    outAnimation =
+        Animation.create(target)
+            .transition(Transition.FADE_OUT)
+            .duration(duration)
+            .callback(onHide);
+
+    this.target = DominoElement.of(target);
+  }
+
+  public OpacityTransition(
+      IsElement<? extends HTMLElement> target, Animation.CompleteCallback onHide) {
     this(target.element(), onHide);
   }
 
@@ -56,7 +70,32 @@ public class OpacityTransition {
    * recommendations</a>
    */
   public void show() {
-    setTimeout(p0 -> target.addCss(IN), 0);
+    show(() -> {});
+  }
+
+  /**
+   * Applies {@code fade-in} css class which sets the {@code opacity} to 1
+   *
+   * <p>
+   *
+   * <p>{@link DomGlobal#setTimeout(SetTimeoutCallbackFn callback, double delay, Object...
+   * callbackParams)} was used based on <a
+   * href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions#javascript_examples">MDN
+   * recommendations</a>
+   */
+  public void show(Runnable onBeforeShow) {
+    inAnimation
+        .beforeStart(
+            element -> {
+              DominoElement.of(target).addCss(FADE);
+              onBeforeShow.run();
+            })
+        .animate();
+    setTimeout(
+        p0 -> {
+          target.addCss(IN);
+        },
+        0);
   }
 
   /**
@@ -64,9 +103,7 @@ public class OpacityTransition {
    * ends, call {@code onHide} callback
    */
   public void hide() {
-    addHideListener(
-        onHide, eventListener -> target.removeEventListener(TRANSITIONEND, eventListener));
-    target.removeCss(IN);
+    outAnimation.animate();
   }
 
   private void addHideListener(EventListener targetListener, Consumer<EventListener> consumer) {
@@ -74,10 +111,16 @@ public class OpacityTransition {
         new EventListener() {
           @Override
           public void handleEvent(Event evt) {
+            DomGlobal.console.info("Closing tooltip with ID " + target.getDominoId());
             targetListener.handleEvent(evt);
             consumer.accept(this);
           }
         };
-    target.addEventListener(TRANSITIONEND, eventListener);
+    target.addEventListener("webkitAnimationEnd", eventListener);
+    target.addEventListener("MSAnimationEnd", eventListener);
+    target.addEventListener("mozAnimationEnd", eventListener);
+    target.addEventListener("oanimationend", eventListener);
+    target.addEventListener("animationend", eventListener);
+    target.addEventListener("transitioncancel", eventListener);
   }
 }

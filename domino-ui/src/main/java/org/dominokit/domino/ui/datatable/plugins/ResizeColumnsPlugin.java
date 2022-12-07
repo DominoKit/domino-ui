@@ -22,16 +22,10 @@ import static org.dominokit.domino.ui.utils.DominoDom.document;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.MouseEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.datatable.ColumnConfig;
-import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.RowCell;
-import org.dominokit.domino.ui.datatable.TableRow;
+import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.ColumnResizedEvent;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.EventType;
 
@@ -41,36 +35,87 @@ import org.jboss.elemento.EventType;
  * @param <T> the type of data table records
  */
 public class ResizeColumnsPlugin<T> implements DataTablePlugin<T> {
-  private final Map<ColumnConfig<T>, List<RowCell<T>>> columnCells = new HashMap<>();
+
+  @Override
+  public void init(DataTable<T> dataTable) {
+    dataTable
+        .getTableConfig()
+        .getColumnsGrouped()
+        .forEach(
+            column -> column.applyAndOnSubColumns(col -> col.applyMeta(ResizeColumnMeta.create())));
+  }
 
   /** {@inheritDoc} */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     DominoElement<HTMLDivElement> resizeElement = DominoElement.div().css(COLUMN_RESIZER);
-    final double[] initialStartPosition = {0};
-    final double[] initialWidth = {0};
 
     EventListener resizeListener =
         evt -> {
           MouseEvent mouseEvent = Js.uncheckedCast(evt);
+          column.applyAndOnParents(
+              col -> {
+                ResizeColumnMeta.get(col)
+                    .ifPresent(
+                        meta -> {
+                          double currentPosition = mouseEvent.clientX;
+                          double diff = currentPosition - meta.getStartPosition();
+                          String width = px.of(meta.getInitialWidth() + diff);
+                          col.getHeadElement().setWidth(width);
+                          col.getHeadElement().setMaxWidth(width);
+                          col.getHeadElement().setMinWidth(width);
+                          col.setWidth(width).minWidth(width).maxWidth(width);
 
-          double currentPosition = mouseEvent.clientX;
-          double diff = currentPosition - initialStartPosition[0];
-          String width = px.of(initialWidth[0] + diff);
-          column.getHeadElement().setWidth(width);
-          column.getHeadElement().setMaxWidth(width);
-          column.getHeadElement().setMinWidth(width);
-          if (dataTable.getTableConfig().isFixed()) {
-            columnCells
-                .get(column)
-                .forEach(
-                    tRowCell ->
-                        DominoElement.of(tRowCell.getCellInfo().getElement())
-                            .setWidth(width)
-                            .setMaxWidth(width)
-                            .setMinWidth(width));
-          }
-          dataTable.fireTableEvent(new ColumnResizedEvent());
+                          ColumnHeaderMeta.get(col)
+                              .ifPresent(
+                                  headersMeta ->
+                                      headersMeta
+                                          .getExtraHeadElements()
+                                          .forEach(
+                                              header -> {
+                                                header.setWidth(width);
+                                                header.setMaxWidth(width);
+                                                header.setMinWidth(width);
+                                              }));
+                        });
+              });
+
+          column.onEachLastSubColumn(
+              col -> {
+                ResizeColumnMeta.get(col)
+                    .ifPresent(
+                        meta -> {
+                          double currentPosition = mouseEvent.clientX;
+                          double diff = currentPosition - meta.getStartPosition();
+                          String width = px.of(meta.getInitialWidth() + diff);
+                          col.getHeadElement().setWidth(width);
+                          col.getHeadElement().setMaxWidth(width);
+                          col.getHeadElement().setMinWidth(width);
+                          col.setWidth(width).minWidth(width).maxWidth(width);
+
+                          ColumnHeaderMeta.get(col)
+                              .ifPresent(
+                                  headersMeta ->
+                                      headersMeta
+                                          .getExtraHeadElements()
+                                          .forEach(
+                                              header -> {
+                                                header.setWidth(width);
+                                                header.setMaxWidth(width);
+                                                header.setMinWidth(width);
+                                              }));
+                        });
+              });
+
+          ColumnConfig<T> dataColumn = column.getLastGrandSiblingColumn();
+          ResizeColumnMeta.get(dataColumn)
+              .ifPresent(
+                  meta -> {
+                    double currentPosition = mouseEvent.clientX;
+                    double diff = currentPosition - meta.getStartPosition();
+
+                    dataTable.fireTableEvent(ColumnResizedEvent.of(column, diff));
+                  });
         };
 
     resizeElement.addEventListener(
@@ -79,31 +124,29 @@ public class ResizeColumnsPlugin<T> implements DataTablePlugin<T> {
           MouseEvent mouseEvent = Js.uncheckedCast(evt);
           if (mouseEvent.buttons == 1) {
             mouseEvent.preventDefault();
-            initialStartPosition[0] = mouseEvent.clientX;
-            initialWidth[0] = column.getHeadElement().getBoundingClientRect().width;
+            column
+                .getGrandParent()
+                .applyAndOnSubColumns(
+                    col ->
+                        ResizeColumnMeta.get(col)
+                            .ifPresent(
+                                meta ->
+                                    meta.setInitialWidth(
+                                            col.getHeadElement().getBoundingClientRect().width)
+                                        .setStartPosition(mouseEvent.clientX)));
             document.body.addEventListener(EventType.mousemove.getName(), resizeListener);
           }
         });
     resizeElement.addEventListener(
         EventType.mouseup.getName(),
-        evt -> document.body.removeEventListener(EventType.mousemove.getName(), resizeListener));
+        evt -> {
+          document.body.removeEventListener(EventType.mousemove.getName(), resizeListener);
+        });
     document.body.addEventListener(
         EventType.mouseup.getName(),
-        evt -> document.body.removeEventListener(EventType.mousemove.getName(), resizeListener));
-    column.getHeadElement().appendChild(resizeElement);
-    column.getHeadElement().setPosition("relative");
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
-    if (dataTable.getTableConfig().isFixed()) {
-      for (RowCell<T> cell : tableRow.getRowCells().values()) {
-        if (!columnCells.containsKey(cell.getColumnConfig())) {
-          columnCells.put(cell.getColumnConfig(), new ArrayList<>());
-        }
-        columnCells.get(cell.getColumnConfig()).add(cell);
-      }
-    }
+        evt -> {
+          document.body.removeEventListener(EventType.mousemove.getName(), resizeListener);
+        });
+    column.appendChild(FlexItem.of(resizeElement));
   }
 }

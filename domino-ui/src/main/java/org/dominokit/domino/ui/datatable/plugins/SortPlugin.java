@@ -53,7 +53,7 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
   /** {@inheritDoc} */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
-    if (column.isSortable()) {
+    if (column.isSortable() && !column.isUtilityColumn()) {
       SortContainer sortContainer = new SortContainer(column.getSortKey());
       sortContainers.put(column.getSortKey(), sortContainer);
 

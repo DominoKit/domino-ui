@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.datatable.ColumnUtils.fixElementWidth;
 import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.HTMLTableCellElement;
@@ -299,11 +298,10 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     } else {
       cellElement = DominoElement.of(td()).css("dt-td-cell").element();
     }
-
-    if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
-      fixElementWidth(
-          columnConfig, cellElement, dataTable.getTableConfig().getFixedDefaultColumnWidth());
-    }
+    //
+    //    if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
+    //      fixElementWidth(columnConfig, cellElement);
+    //    }
 
     RowCell<T> rowCell =
         new RowCell<>(new CellRenderer.CellInfo<>(this, cellElement), columnConfig);
@@ -316,7 +314,15 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     if (columnConfig.isHidden()) {
       DominoElement.of(cellElement).hide();
     }
+    dataTable
+        .getTableConfig()
+        .getPlugins()
+        .forEach(plugin -> plugin.onBeforeAddCell(dataTable, this, rowCell));
     element().appendChild(cellElement);
+    dataTable
+        .getTableConfig()
+        .getPlugins()
+        .forEach(plugin -> plugin.onAfterAddCell(dataTable, this, rowCell));
     columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(cellElement));
   }
 

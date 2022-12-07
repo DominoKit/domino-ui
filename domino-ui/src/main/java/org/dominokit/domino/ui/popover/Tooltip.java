@@ -23,6 +23,7 @@ import static org.jboss.elemento.Elements.div;
 import elemental2.dom.*;
 import java.util.Optional;
 import java.util.function.Consumer;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
@@ -59,7 +60,7 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
   }
 
   public Tooltip(HTMLElement targetElement, Node content) {
-    OpacityTransition opacityTransition = new OpacityTransition(element, evt -> doClose());
+    OpacityTransition opacityTransition = new OpacityTransition(element, element -> doClose());
     element.appendChild(arrowElement);
     element.appendChild(innerElement);
     innerElement.appendChild(content);
@@ -68,13 +69,18 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
 
     showToolTipListener =
         evt -> {
+          MouseEvent mouseEvent = Js.uncheckedCast(evt);
           evt.stopPropagation();
-          document.body.appendChild(element.element());
-          popupPosition.position(element.element(), targetElement);
-          position(popupPosition);
-          elementObserver.ifPresent(ElementObserver::remove);
-          elementObserver = ElementUtil.onDetach(targetElement, mutationRecord -> remove());
-          opacityTransition.show();
+          if (mouseEvent.buttons == 0) {
+            opacityTransition.show(
+                () -> {
+                  document.body.appendChild(element.element());
+                  popupPosition.position(element.element(), targetElement);
+                  position(popupPosition);
+                  elementObserver.ifPresent(ElementObserver::remove);
+                  elementObserver = ElementUtil.onDetach(targetElement, mutationRecord -> remove());
+                });
+          }
         };
     removeToolTipListener = evt -> opacityTransition.hide();
     targetElement.addEventListener(EventType.mouseenter.getName(), showToolTipListener);

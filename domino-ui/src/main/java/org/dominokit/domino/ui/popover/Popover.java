@@ -81,7 +81,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
   private final List<CloseHandler> closeHandlers = new ArrayList<>();
 
   static {
-    document.body.addEventListener(EventType.click.getName(), evt -> Popover.closeAll());
+    document.body.addEventListener(EventType.click.getName(), element -> Popover.closeAll());
   }
 
   public Popover(HTMLElement target, String title, Node content) {

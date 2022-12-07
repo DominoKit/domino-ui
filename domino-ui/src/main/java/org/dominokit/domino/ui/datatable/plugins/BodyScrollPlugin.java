@@ -16,7 +16,7 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import elemental2.core.JsMath;
-import elemental2.dom.HTMLTableSectionElement;
+import elemental2.dom.HTMLTableElement;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.BodyScrollEvent;
 
@@ -31,16 +31,16 @@ public class BodyScrollPlugin<T> implements DataTablePlugin<T> {
   /** {@inheritDoc} */
   @Override
   public void onBodyAdded(DataTable<T> dataTable) {
-    HTMLTableSectionElement tbody = dataTable.bodyElement().element();
-    tbody.addEventListener(
+    HTMLTableElement scrollElement = dataTable.tableElement().element();
+    scrollElement.addEventListener(
         "scroll",
         evt -> {
-          double scrollTop = new Double(tbody.scrollTop).intValue();
+          double scrollTop = new Double(scrollElement.scrollTop).intValue();
           if (scrollTop == 0) {
             dataTable.fireTableEvent(new BodyScrollEvent(ScrollPosition.TOP));
           }
-          int offsetHeight = new Double(tbody.offsetHeight).intValue();
-          int scrollHeight = new Double(tbody.scrollHeight).intValue();
+          int offsetHeight = new Double(scrollElement.offsetHeight).intValue();
+          int scrollHeight = new Double(scrollElement.scrollHeight).intValue();
 
           if (JsMath.abs(offsetHeight) + JsMath.abs(scrollTop)
               == new Double(scrollHeight).intValue()) {

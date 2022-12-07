@@ -116,6 +116,10 @@
     padding: 20px;
 }
 
+.card .body:not[class*="bg-"] {
+    background-color: inherit;
+}
+
 .card.fit-content .body{
     padding: 0px;
 }

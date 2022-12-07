@@ -5,6 +5,8 @@
     border-radius: 50%;
     cursor: pointer;
     text-align: center;
+    display: inline-block;
+    overflow: hidden;
 }
 
 .clickable-icon.small-icon {
