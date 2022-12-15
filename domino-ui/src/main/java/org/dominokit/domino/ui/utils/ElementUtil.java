@@ -149,6 +149,10 @@ public class ElementUtil {
     return Optional.empty();
   }
 
+  public static void withBodyObserverPaused(Runnable handler) {
+    BodyObserver.pauseFor(handler);
+  }
+
   /**
    * {@link #onAttach(HTMLElement, ObserverCallback)}
    *

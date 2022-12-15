@@ -16,26 +16,22 @@
 package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.datatable.ColumnUtils.fixElementWidth;
 import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.*;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
+import org.dominokit.domino.ui.datatable.plugins.ResizeColumnMeta;
 import org.dominokit.domino.ui.grid.flex.FlexAlign;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
-import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
 
 /**
- * This class is responsible of configuring the data table
+ * This class is responsible for configuring the data table
  *
  * <pre>
  *     TableConfig&lt;Contact&gt; tableConfig = new TableConfig&lt;&gt;();
@@ -65,7 +61,7 @@ import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
 public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> {
 
   private List<ColumnConfig<T>> columns = new LinkedList<>();
-  private List<DataTablePlugin<T>> plugins = new LinkedList<>();
+  private List<DataTablePlugin<T>> plugins = new ArrayList<>();
   private DataTable<T> dataTable;
   private boolean fixed = false;
   private String fixedDefaultColumnWidth = "100px";
@@ -77,6 +73,10 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   private DirtyRecordProvider<T> dirtyRecordProvider = original -> original;
   private SaveDirtyRecordHandler<T> saveDirtyRecordHandler = (originalRecord, dirtyRecord) -> {};
 
+  private String width;
+  private String maxWidth;
+  private String minWidth;
+
   private final ColumnConfig<T> pluginUtilityColumn =
       ColumnConfig.<T>create("plugin-utility-column")
           .setShowTooltip(false)
@@ -84,6 +84,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
           .setDrawTitle(true)
           .setPluginColumn(true)
           .setWidth("100px")
+          .applyMeta(ResizeColumnMeta.create().setResizable(false))
           .setCellRenderer(
               cellInfo -> {
                 DominoElement.of(cellInfo.getElement()).css("dt-cm-utility");
@@ -121,46 +122,18 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    */
   public void drawHeaders(DataTable<T> dataTable, DominoElement<HTMLTableSectionElement> thead) {
     this.dataTable = dataTable;
-    thead.clearElement();
-    DominoElement<HTMLTableRowElement> tr = DominoElement.of(tr());
-    thead.appendChild(tr.element());
+
+    int maxDepth = columns.stream().mapToInt(ColumnConfig::getColumnsDepth).max().orElse(0);
+
+    HTMLTableRowElement[] headers = new HTMLTableRowElement[maxDepth + 1];
+    for (int i = 0; i < headers.length; i++) {
+      headers[i] = tr().element();
+      thead.appendChild(headers[i]);
+    }
 
     columns.forEach(
-        columnConfig -> {
-          FlexLayout flexLayout = FlexLayout.create().setAlignItems(FlexAlign.CENTER);
-          if (columnConfig.isDrawTitle() && nonNull(columnConfig.getTitle())) {
-            flexLayout.appendChild(
-                FlexItem.of(DominoElement.div())
-                    .setOrder(50)
-                    .setFlexGrow(1)
-                    .appendChild(
-                        columnConfig
-                            .getHeaderElementSupplier()
-                            .asElement(columnConfig.getTitle())));
-          }
-
-          DominoElement<HTMLTableCellElement> th =
-              DominoElement.of(th())
-                  .addCss(DataTableStyles.TABLE_CM_HEADER, "dt-cm-utility")
-                  .appendChild(flexLayout);
-
-          columnConfig.applyScreenMedia(th.element());
-
-          tr.appendChild(th);
-          columnConfig.setHeadElement(th.element());
-          columnConfig.setHeaderLayout(flexLayout);
-          if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
-            fixElementWidth(columnConfig, th.element(), fixedDefaultColumnWidth);
-          }
-
-          if (columnConfig.isShowTooltip()) {
-            Tooltip.create(th.element(), columnConfig.getTooltipNode());
-          }
-          columnConfig.applyHeaderStyle();
-          columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(th.element(), true));
-          DominoElement.of(th).toggleDisplay(!columnConfig.isHidden());
-
-          plugins.forEach(plugin -> plugin.onHeaderAdded(dataTable, columnConfig));
+        col -> {
+          col.renderHeader(dataTable, this, headers);
         });
     if (!thead.isAttached()) {
       dataTable.tableElement().appendChild(thead);
@@ -192,6 +165,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    * @return same TableConfig instance
    */
   public TableConfig<T> addColumn(ColumnConfig<T> column) {
+    column.applyMeta(ColumnHeaderMeta.create());
     this.columns.add(column);
     return this;
   }
@@ -367,8 +341,19 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
     plugins.forEach(plugin -> plugin.onAfterAddHeaders(dataTable));
   }
 
-  /** @return a {@link List} of all {@link ColumnConfig} added to the table */
+  /** @return a {@link List} of all non grouping {@link ColumnConfig} added to the table */
   public List<ColumnConfig<T>> getColumns() {
+    return columns.stream().flatMap(col -> col.leafColumns().stream()).collect(Collectors.toList());
+  }
+
+  /** @return a {@link List} of all {@link ColumnConfig} added to the table */
+  public List<ColumnConfig<T>> getFlattenColumns() {
+    return columns.stream()
+        .flatMap(col -> col.flattenColumns().stream())
+        .collect(Collectors.toList());
+  }
+
+  public List<ColumnConfig<T>> getColumnsGrouped() {
     return columns;
   }
 
@@ -385,7 +370,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    */
   public ColumnConfig<T> getColumnByName(String name) {
     Optional<ColumnConfig<T>> first =
-        getColumns().stream()
+        getFlattenColumns().stream()
             .filter(columnConfig -> columnConfig.getName().equals(name))
             .findFirst();
     if (first.isPresent()) {
@@ -420,6 +405,33 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
     this.dirtyRecordProvider = dirtyRecordProvider;
     this.saveDirtyRecordHandler = saveDirtyRecordHandler;
 
+    return this;
+  }
+
+  public String getWidth() {
+    return width;
+  }
+
+  public TableConfig<T> setWidth(String width) {
+    this.width = width;
+    return this;
+  }
+
+  public String getMaxWidth() {
+    return maxWidth;
+  }
+
+  public TableConfig<T> setMaxWidth(String maxWidth) {
+    this.maxWidth = maxWidth;
+    return this;
+  }
+
+  public String getMinWidth() {
+    return minWidth;
+  }
+
+  public TableConfig<T> setMinWidth(String minWidth) {
+    this.minWidth = minWidth;
     return this;
   }
 

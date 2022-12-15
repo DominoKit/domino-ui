@@ -1774,6 +1774,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     return style().containsCss(cssClass);
   }
 
+  public Optional<String> hasCssClass(String cssClass) {
+    return style().containsCss(cssClass) ? Optional.of(cssClass) : Optional.empty();
+  }
+
   @Override
   public T pullRight() {
     style().pullRight();

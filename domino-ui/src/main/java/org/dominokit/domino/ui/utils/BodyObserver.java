@@ -46,32 +46,49 @@ final class BodyObserver {
   private static List<ElementObserver> detachObservers = new ArrayList<>();
   private static List<ElementObserver> attachObservers = new ArrayList<>();
   private static boolean ready = false;
+  private static boolean paused = false;
+  private static MutationObserver mutationObserver;
 
   private BodyObserver() {}
 
+  static void pauseFor(Runnable handler) {
+    mutationObserver.disconnect();
+    try {
+      handler.run();
+    } finally {
+      observe();
+    }
+  }
+
   private static void startObserving() {
-    MutationObserver mutationObserver =
+    mutationObserver =
         new MutationObserver(
             (JsArray<MutationRecord> records, MutationObserver observer) -> {
-              MutationRecord[] recordsArray =
-                  Js.uncheckedCast(records.asArray(new MutationRecord[records.length]));
-              for (MutationRecord record : recordsArray) {
-                if (!record.removedNodes.asList().isEmpty()) {
-                  onElementsRemoved(record);
-                }
+              if (!paused) {
+                MutationRecord[] recordsArray =
+                    Js.uncheckedCast(records.asArray(new MutationRecord[records.length]));
+                for (MutationRecord record : recordsArray) {
+                  if (!record.removedNodes.asList().isEmpty()) {
+                    onElementsRemoved(record);
+                  }
 
-                if (!record.addedNodes.asList().isEmpty()) {
-                  onElementsAppended(record);
+                  if (!record.addedNodes.asList().isEmpty()) {
+                    onElementsAppended(record);
+                  }
                 }
               }
               return null;
             });
 
+    observe();
+    ready = true;
+  }
+
+  private static void observe() {
     MutationObserverInit mutationObserverInit = MutationObserverInit.create();
     mutationObserverInit.setChildList(true);
     mutationObserverInit.setSubtree(true);
     mutationObserver.observe(document.body, mutationObserverInit);
-    ready = true;
   }
 
   private static void onElementsAppended(MutationRecord record) {

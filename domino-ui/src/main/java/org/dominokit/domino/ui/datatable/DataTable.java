@@ -20,13 +20,10 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_BORDERED;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_CONDENSED;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_FIXED;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_HOVER;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_RESPONSIVE;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_ROW_FILTERED;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_STRIPED;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.TBODY_FIXED;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.THEAD_FIXED;
 import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.Elements.table;
@@ -44,11 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.dominokit.domino.ui.datatable.events.DataSortEvent;
-import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
-import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
-import org.dominokit.domino.ui.datatable.events.TableEventListener;
+import org.dominokit.domino.ui.datatable.events.*;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -72,7 +65,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   private final DataStore<T> dataStore;
   private DominoElement<HTMLDivElement> root = DominoElement.of(div()).css(TABLE_RESPONSIVE);
   private DominoElement<HTMLTableElement> tableElement =
-      DominoElement.of(table()).css(TABLE, TABLE_HOVER, TABLE_STRIPED);
+      DominoElement.of(table()).css(TABLE, TABLE_HOVER, TABLE_STRIPED, "table-width-full");
   private TableConfig<T> tableConfig;
   private DominoElement<HTMLTableSectionElement> tbody = DominoElement.of(tbody());
   private DominoElement<HTMLTableSectionElement> thead = DominoElement.of(thead());
@@ -149,6 +142,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
               plugin.init(DataTable.this);
               plugin.onBeforeAddTable(DataTable.this);
             });
+    thead.clearElement();
     tableConfig.onBeforeHeaders(this);
     tableConfig.drawHeaders(this, thead);
     tableConfig.onAfterHeaders(this);
@@ -161,9 +155,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     }
 
     if (tableConfig.isFixed()) {
-      root.addCss(TABLE_FIXED);
-      thead.addCss(THEAD_FIXED);
-      tbody.addCss(TBODY_FIXED).setMaxHeight(tableConfig.getFixedBodyHeight());
+      tableElement.setMaxHeight(tableConfig.getFixedBodyHeight());
       tableElement.addEventListener(EventType.scroll, e -> updateTableWidth());
       EventListener resizeListener =
           e -> {
@@ -188,6 +180,15 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
               });
         });
 
+    if (tableConfig.isFixed()) {
+      tableElement.removeCss("table-width-full");
+      root.addCss("table-fixed");
+      ColumnUtils.fixElementWidth(this, tableElement.element());
+    }
+
+    if (tableConfig.isFixed()) {
+      ColumnUtils.fixElementWidth(this, tableElement.element());
+    }
     return this;
   }
 
@@ -203,9 +204,6 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         tableElement.element().offsetWidth + Math.round(tableElement.element().scrollLeft);
     thead.setWidth(px.of(w - 2));
     tbody.setWidth(px.of(w - 2));
-    if (tableConfig.isFixed()) {
-      updateHeadWidth(false);
-    }
   }
 
   /** Force loading the data into the table */
@@ -237,10 +235,6 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
                 if (hasVScrollBar()) {
                   if (scrollTop) {
                     tbody.element().scrollTop = 0.0;
-                  }
-                  if (tableConfig.isFixed()) {
-                    thead.setWidth(px.of(tbody.element().offsetWidth - getScrollWidth()));
-                    tbody.setWidth(px.of(tbody.element().offsetWidth));
                   }
                 }
               });
@@ -361,7 +355,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    */
   public DataTable<T> noBorder() {
     tableElement.removeCss(TABLE_BORDERED);
+    removeCss(TABLE_BORDERED);
     this.bordered = false;
+    fireTableEvent(new TableBorderedEvent(false));
     return this;
   }
 
@@ -373,7 +369,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   public DataTable<T> bordered() {
     noBorder();
     tableElement.addCss(TABLE_BORDERED);
+    addCss(TABLE_BORDERED);
     this.bordered = true;
+    fireTableEvent(new TableBorderedEvent(true));
     return this;
   }
 

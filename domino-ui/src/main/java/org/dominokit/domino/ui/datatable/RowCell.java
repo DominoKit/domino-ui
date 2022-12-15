@@ -60,12 +60,10 @@ public class RowCell<T> {
     cellElement.clearElement();
 
     if (nonNull(columnConfig.getMinWidth())) {
-      cellElement.setMinWidth(columnConfig.getMinWidth());
       columnConfig.getHeadElement().style().setMinWidth(columnConfig.getMinWidth());
     }
 
     if (nonNull(columnConfig.getMaxWidth())) {
-      cellElement.setMaxWidth(columnConfig.getMaxWidth());
       columnConfig.getHeadElement().style().setMaxWidth(columnConfig.getMaxWidth());
     }
 

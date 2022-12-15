@@ -495,7 +495,6 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     if (nonNull(label) && !label.isEmpty() || allowEmptyLabel()) {
       labelInitializer.apply();
       super.setLabel(label);
-      DomGlobal.console.info(getLabelTextElement().get().element());
       if ((getLabelTextElement().isPresent() && !getLabelTextElement().get().isEmptyElement())) {
         hidePlaceholder();
       }

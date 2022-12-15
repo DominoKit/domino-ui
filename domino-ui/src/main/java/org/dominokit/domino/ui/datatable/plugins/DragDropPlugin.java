@@ -95,7 +95,8 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   @Override
   public Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
-    return Optional.of(Collections.singletonList(dragDropIconSupplier.get().element()));
+    return Optional.of(
+        Collections.singletonList(dragDropIconSupplier.get().css("dui-row-dnd-element").element()));
   }
 
   /** {@inheritDoc} */

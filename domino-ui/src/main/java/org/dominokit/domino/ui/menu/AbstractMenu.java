@@ -96,6 +96,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   protected List<AbstractMenuItem<V, ?>> menuItems = new ArrayList<>();
   protected boolean autoCloseOnSelect = true;
   protected final List<MenuItemSelectionHandler<V>> selectionHandlers = new ArrayList<>();
+  protected final List<MenuItemAddedHandler<V>> addHandlers = new ArrayList<>();
   protected boolean headerVisible = false;
   private AbstractMenu<V, ?> currentOpen;
 
@@ -337,6 +338,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
       itemsContainer.appendChild(menuItem);
       menuItems.add(menuItem);
       menuItem.setParent(this);
+      addHandlers.forEach(handler -> handler.onItemAdded(menuItem));
     }
     return (T) this;
   }
@@ -733,6 +735,32 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   }
 
   /**
+   * Adds a global add handler that will apply to all menu items
+   *
+   * @param addHandler {@link MenuItemAddedHandler}
+   * @return same menu instance
+   */
+  public T addItemAddedHandler(MenuItemAddedHandler<V> addHandler) {
+    if (nonNull(addHandler)) {
+      addHandlers.add(addHandler);
+    }
+    return (T) this;
+  }
+
+  /**
+   * removes a global add handler that will apply to all menu items
+   *
+   * @param addHandler {@link MenuItemAddedHandler}
+   * @return same menu instance
+   */
+  public T removeItemAddedHandler(MenuItemAddedHandler<V> addHandler) {
+    if (nonNull(addHandler)) {
+      addHandlers.remove(addHandler);
+    }
+    return (T) this;
+  }
+
+  /**
    * Opens a sub menu that has this menu as its parent
    *
    * @param dropMenu {@link AbstractMenu} to open
@@ -1124,5 +1152,20 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
      * @param menuItem The {@link AbstractMenuItem} selected
      */
     void onItemSelected(AbstractMenuItem<V, ?> menuItem);
+  }
+
+  /**
+   * A functional interface to implement menu items add handlers
+   *
+   * @param <V> V the type of the menu item value
+   */
+  @FunctionalInterface
+  public interface MenuItemAddedHandler<V> {
+    /**
+     * Will be called when a menu item is added to the menu
+     *
+     * @param menuItem The {@link AbstractMenuItem} added
+     */
+    void onItemAdded(AbstractMenuItem<V, ?> menuItem);
   }
 }

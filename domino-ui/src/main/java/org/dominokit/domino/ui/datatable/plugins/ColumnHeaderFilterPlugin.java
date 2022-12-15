@@ -79,15 +79,24 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
           filtersRowElement.appendChild(th);
 
-          if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
+          if (columnConfig.isFixed()) {
             fixElementWidth(columnConfig, th.element());
           }
+
+          ColumnFilterMeta.get(columnConfig)
+              .ifPresent(
+                  meta -> {
+                    meta.getHeaderFilter().init(dataTable.getSearchContext(), columnConfig);
+                    th.add(meta.getHeaderFilter());
+                  });
           if (headerFilters.containsKey(columnConfig.getName())) {
             headerFilters
                 .get(columnConfig.getName())
                 .init(dataTable.getSearchContext(), columnConfig);
             th.add(headerFilters.get(columnConfig.getName()));
           }
+          ColumnHeaderMeta.get(columnConfig)
+              .ifPresent(columnHeaderMeta -> columnHeaderMeta.addExtraHeadElement(th));
 
           columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(th.element(), true));
           DominoElement.of(th).toggleDisplay(!columnConfig.isHidden());
@@ -123,7 +132,9 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
    * @param columnName String, the name of the column we are adding the header filter to.
    * @param headerFilter the {@link HeaderFilter}
    * @return same instance
+   * @deprecated use {@link ColumnConfig#applyMeta(ColumnMeta)} and pass {@link ColumnFilterMeta}
    */
+  @Deprecated
   public ColumnHeaderFilterPlugin<T> addHeaderFilter(String columnName, HeaderFilter headerFilter) {
     headerFilters.put(columnName, headerFilter);
     return this;
@@ -140,6 +151,11 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
   /** @return The table row element that contains the header filters components */
   public DominoElement<HTMLTableRowElement> getFiltersRowElement() {
     return filtersRowElement;
+  }
+
+  @Override
+  public int order() {
+    return 110;
   }
 
   /**

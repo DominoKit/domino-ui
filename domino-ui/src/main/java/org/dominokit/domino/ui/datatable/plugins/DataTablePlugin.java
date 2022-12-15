@@ -18,10 +18,7 @@ package org.dominokit.domino.ui.datatable.plugins;
 import elemental2.dom.HTMLElement;
 import java.util.List;
 import java.util.Optional;
-import org.dominokit.domino.ui.datatable.CellRenderer;
-import org.dominokit.domino.ui.datatable.ColumnConfig;
-import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.TableRow;
+import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TableEventListener;
 
@@ -33,7 +30,7 @@ import org.dominokit.domino.ui.datatable.events.TableEventListener;
  *
  * @param <T> the type of the datatable records
  */
-public interface DataTablePlugin<T> extends TableEventListener {
+public interface DataTablePlugin<T> extends TableEventListener, Comparable<DataTablePlugin<T>> {
 
   /**
    * this method is used to initialise the plugin with the datatable instance
@@ -108,6 +105,10 @@ public interface DataTablePlugin<T> extends TableEventListener {
    */
   default void onAfterAddTable(DataTable<T> dataTable) {}
 
+  default void onBeforeAddCell(DataTable<T> dataTable, TableRow<T> tableRow, RowCell<T> rowCell) {}
+
+  default void onAfterAddCell(DataTable<T> dataTable, TableRow<T> tableRow, RowCell<T> rowCell) {}
+
   /** {@inheritDoc} */
   @Override
   default void handleEvent(TableEvent event) {}
@@ -115,6 +116,15 @@ public interface DataTablePlugin<T> extends TableEventListener {
   /** @return boolean, true if the plugin should use the plugins utility column else false */
   default boolean requiresUtilityColumn() {
     return false;
+  }
+
+  default int order() {
+    return 100;
+  }
+
+  @Override
+  default int compareTo(DataTablePlugin<T> o) {
+    return Integer.compare(this.order(), o.order());
   }
 
   /**
