@@ -47,7 +47,8 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
 
   /** {@inheritDoc} */
   @Override
-  public void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
+  public void show(
+      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted) {
     DominoElement.of(element).removeCss(duration.getStyle());
     Animation.create(element)
         .duration(duration.getDuration())
@@ -57,12 +58,14 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
               style.removeCssProperty("display");
               DominoElement.of(element).removeAttribute("d-collapsed");
             })
+        .callback(e -> onCompleted.run())
         .animate();
   }
 
   /** {@inheritDoc} */
   @Override
-  public void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
+  public void hide(
+      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted) {
     DominoElement.of(element).removeCss(duration.getStyle());
     Animation.create(element)
         .duration(duration.getDuration())
@@ -71,6 +74,7 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
             theElement -> {
               style.setDisplay("none");
               DominoElement.of(element).setAttribute("d-collapsed", "true");
+              onCompleted.run();
             })
         .animate();
   }

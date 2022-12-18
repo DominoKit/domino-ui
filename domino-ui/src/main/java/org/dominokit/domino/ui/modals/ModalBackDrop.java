@@ -18,13 +18,12 @@ package org.dominokit.domino.ui.modals;
 import elemental2.dom.Event;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.popover.Popover;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.jboss.elemento.Elements;
@@ -152,17 +151,14 @@ public class ModalBackDrop {
 
   /** Close all currently open {@link Popover}s */
   public static void closePopovers() {
-    List<Popover> opened = new ArrayList<>(openedPopOvers);
-    opened.forEach(Popover::close);
+    DominoElement.body().querySelectorAll(".popover").forEach(BaseDominoElement::remove);
   }
 
   /** Automatically close all {@link Popover}s when the page is scrolled */
   public static void onScrollClosePopovers() {
-    List<Popover> shouldClose =
-        openedPopOvers.stream().filter(Popover::isCloseOnScroll).collect(Collectors.toList());
-    for (Popover popover : shouldClose) {
-      popover.close();
-    }
+    DominoElement.body()
+        .querySelectorAll(".popover[d-close-on-scroll='true']")
+        .forEach(BaseDominoElement::remove);
   }
 
   /** @return the int count of all opened moal dialogs */

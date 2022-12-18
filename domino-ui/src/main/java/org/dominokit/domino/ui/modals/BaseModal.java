@@ -23,6 +23,9 @@ import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.dominokit.domino.ui.animations.Transition;
+import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
+import org.dominokit.domino.ui.collapsible.CollapseDuration;
 import org.dominokit.domino.ui.grid.flex.FlexDirection;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
@@ -42,7 +45,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   private final List<OpenHandler> openHandlers = new ArrayList<>();
   private final List<CloseHandler> closeHandlers = new ArrayList<>();
   static int Z_INDEX = 1040;
-  private final OpacityTransition opacityTransition;
 
   /** a component that contains the modal elements */
   public static class Modal implements IsElement<HTMLDivElement> {
@@ -202,7 +204,9 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     modalElement.getModalTitle().appendChild(headerText);
 
     addTabIndexHandler();
-    opacityTransition = new OpacityTransition(element(), evt -> doClose());
+    setCollapseStrategy(
+        new AnimationCollapseStrategy(
+            Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
     addHideListener(this::doClose);
   }
 
@@ -359,7 +363,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       initFocusElements();
       activeElementBeforeOpen = DominoDom.document.activeElement;
       addBackdrop();
-      setDisplay("block");
       if (nonNull(firstFocusElement) && isAutoFocus()) {
         firstFocusElement.focus();
         if (!Objects.equals(DominoDom.document.activeElement, firstFocusElement)) {
@@ -371,7 +374,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       openHandlers.forEach(OpenHandler::onOpen);
       this.open = true;
       ModalBackDrop.push(this);
-      opacityTransition.show();
+      show();
     }
     ModalBackDrop.showHideBodyScrolls();
     return (T) this;
@@ -421,8 +424,10 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   /** {@inheritDoc} */
   @Override
   public T close() {
-    if (this.open && !isCollapsed()) {
-      opacityTransition.hide();
+    boolean open1 = this.open;
+    boolean b = !isCollapsed();
+    if (open1 && b) {
+      hide();
     } else {
       doClose();
     }
@@ -431,7 +436,6 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   }
 
   private void doClose() {
-    setDisplay("none");
     if (nonNull(activeElementBeforeOpen)) {
       activeElementBeforeOpen.focus();
     }

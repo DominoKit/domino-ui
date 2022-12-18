@@ -127,9 +127,8 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   @Override
   public Collapsible hide() {
     if (!forceHidden) {
-      strategy.hide(element, style);
+      strategy.hide(element, style, this::onHideCompleted);
       element.setAttribute("aria-expanded", "false");
-      onHideCompleted();
       this.collapsed = true;
     }
     return this;

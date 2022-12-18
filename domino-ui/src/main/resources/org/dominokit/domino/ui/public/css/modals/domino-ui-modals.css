@@ -22,7 +22,6 @@ body.modal-open {
 .modal {
     position: fixed;
     z-index: 1050;
-    display: none;
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
     outline: 0;
