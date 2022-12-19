@@ -73,6 +73,7 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
           evt.stopPropagation();
           if (mouseEvent.buttons == 0) {
             document.body.appendChild(element.element());
+            setZIndex(config().getZindexManager().getNextZIndex());
             show();
             popupPosition.position(element.element(), targetElement);
             position(popupPosition);

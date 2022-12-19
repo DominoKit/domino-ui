@@ -366,8 +366,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
           ResizeObserver resizeObserver =
               new ResizeObserver(
                   entries -> {
-                    resizeHandler.onResize(
-                        (T) BaseDominoElement.this, resizeObserverOptional.get(), entries);
+                    resizeObserverOptional.ifPresent(
+                        observer -> {
+                          resizeHandler.onResize((T) BaseDominoElement.this, observer, entries);
+                        });
                   });
           this.resizeObserverOptional = Optional.of(resizeObserver);
           resizeObserver.observe(this.element());
@@ -1919,6 +1921,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         .map(Js::<HTMLElement>uncheckedCast)
         .map(DominoElement::of)
         .collect(Collectors.toList());
+  }
+
+  protected DominoUIConfig config() {
+    return DominoUIConfig.INSTANCE;
   }
 
   /**

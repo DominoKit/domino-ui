@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_BORDERED;
@@ -30,7 +29,6 @@ import static org.jboss.elemento.Elements.table;
 import static org.jboss.elemento.Elements.tbody;
 import static org.jboss.elemento.Elements.thead;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
@@ -83,7 +81,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
   private final SearchContext<T> searchContext = new SearchContext<>(this);
 
-  private double scrollBarWidth = -1;
+  private RemoveRowsHandler<T> removeRecordsHandler = table -> table.bodyElement().clearElement();
 
   private EventListener disableKeyboardListener =
       evt -> {
@@ -156,29 +154,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
     if (tableConfig.isFixed()) {
       tableElement.setMaxHeight(tableConfig.getFixedBodyHeight());
-      tableElement.addEventListener(EventType.scroll, e -> updateTableWidth());
-      EventListener resizeListener =
-          e -> {
-            this.scrollBarWidth = -1;
-            updateTableWidth();
-          };
-      DomGlobal.window.addEventListener(EventType.resize.getName(), resizeListener);
-
-      onDetached(
-          mutationRecord ->
-              DomGlobal.window.removeEventListener(EventType.resize.getName(), resizeListener));
     }
-
-    onResize(
-        (target, observer, entries) -> {
-          DomGlobal.requestAnimationFrame(
-              timestamp -> {
-                if (isNull(entries) || entries.length <= 0) {
-                  return;
-                }
-                updateTableWidth();
-              });
-        });
 
     if (tableConfig.isFixed()) {
       tableElement.removeCss("table-width-full");
@@ -219,55 +195,10 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   public void setData(List<T> data) {
     this.data = data;
     tableRows.clear();
-    tbody.clearElement();
+    removeRecordsHandler.removeRows(this);
     if (nonNull(data) && !data.isEmpty()) {
       addRows(data, 0);
     }
-
-    updateHeadWidth(true);
-  }
-
-  private void updateHeadWidth(boolean scrollTop) {
-    DomGlobal.requestAnimationFrame(
-        timestamp -> {
-          DomGlobal.setTimeout(
-              p0 -> {
-                if (hasVScrollBar()) {
-                  if (scrollTop) {
-                    tbody.element().scrollTop = 0.0;
-                  }
-                }
-              });
-        });
-  }
-
-  private boolean hasVScrollBar() {
-    return tbody.element().scrollHeight > tbody.element().clientHeight;
-  }
-
-  private double getScrollWidth() {
-    if (scrollBarWidth == -1) {
-      DominoElement<HTMLDivElement> outer =
-          DominoElement.div()
-              .setTop("-1000px")
-              .setLeft("-1000px")
-              .setWidth("100px")
-              .setHeight("50px")
-              .setOverFlow("hidden")
-              .setCssProperty("-ms-overflow-style", "hidden");
-
-      DominoElement<HTMLDivElement> inner = DominoElement.div().setHeight("200px");
-
-      outer.appendChild(inner);
-      DominoElement.body().appendChild(outer);
-      double noScrollWidth = inner.element().offsetWidth;
-      outer.setOverFlow("auto").setCssProperty("-ms-overflow-style", "scrollbar");
-      double widthWithScroll = inner.element().clientWidth;
-      outer.remove();
-      scrollBarWidth = noScrollWidth - widthWithScroll;
-    }
-
-    return scrollBarWidth;
   }
 
   /**
@@ -665,6 +596,13 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return searchContext;
   }
 
+  public DataTable<T> setRemoveRecordsHandler(RemoveRowsHandler<T> removeRecordsHandler) {
+    if (nonNull(removeRecordsHandler)) {
+      this.removeRecordsHandler = removeRecordsHandler;
+    }
+    return this;
+  }
+
   /**
    * Listens to changes in the table rows selection
    *
@@ -690,5 +628,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
      * @return boolean, true if the table row should be hidden else false.
      */
     boolean filter(TableRow<T> tableRow);
+  }
+
+  public interface RemoveRowsHandler<T> {
+    void removeRows(DataTable<T> table);
   }
 }

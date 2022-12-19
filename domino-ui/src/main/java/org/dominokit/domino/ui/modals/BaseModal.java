@@ -40,11 +40,11 @@ import org.jboss.elemento.IsElement;
  * @param <T> the type of the component extending from this class
  */
 public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
-    extends BaseDominoElement<HTMLDivElement, T> implements IsModalDialog<T>, Switchable<T> {
+    extends BaseDominoElement<HTMLDivElement, T>
+    implements IsModalDialog<T>, Switchable<T>, IsPopup<T> {
 
   private final List<OpenHandler> openHandlers = new ArrayList<>();
   private final List<CloseHandler> closeHandlers = new ArrayList<>();
-  static int Z_INDEX = 1040;
 
   /** a component that contains the modal elements */
   public static class Modal implements IsElement<HTMLDivElement> {
@@ -99,8 +99,8 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     }
 
     /**
-     * @return the {@link HTMLDivElement} that contains the the header and the body wrapped as
-     *     {@link DominoElement}
+     * @return the {@link HTMLDivElement} that contains the header and the body wrapped as {@link
+     *     DominoElement}
      */
     public DominoElement<HTMLDivElement> getModalDialog() {
       return DominoElement.of(modalDialog);
@@ -206,7 +206,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     addTabIndexHandler();
     setCollapseStrategy(
         new AnimationCollapseStrategy(
-            Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
+            Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._200ms));
     addHideListener(this::doClose);
   }
 
@@ -362,7 +362,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       }
       initFocusElements();
       activeElementBeforeOpen = DominoDom.document.activeElement;
-      addBackdrop();
+      config().getZindexManager().onPopupOpen(this);
       if (nonNull(firstFocusElement) && isAutoFocus()) {
         firstFocusElement.focus();
         if (!Objects.equals(DominoDom.document.activeElement, firstFocusElement)) {
@@ -373,36 +373,9 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       }
       openHandlers.forEach(OpenHandler::onOpen);
       this.open = true;
-      ModalBackDrop.push(this);
       show();
     }
-    ModalBackDrop.showHideBodyScrolls();
     return (T) this;
-  }
-
-  private void addBackdrop() {
-    if (modal) {
-      if (ModalBackDrop.openedModalsCount() <= 0
-          || !DominoElement.of(ModalBackDrop.INSTANCE).isAttached()) {
-        DominoElement.body().appendChild(ModalBackDrop.INSTANCE);
-      } else {
-        Z_INDEX = Z_INDEX + 10;
-        ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
-        element().style.setProperty("z-index", (Z_INDEX + 10) + "");
-      }
-    }
-  }
-
-  private void removeBackDrop() {
-    if (modal) {
-      if (ModalBackDrop.openedModalsCount() < 1 || ModalBackDrop.allOpenedNotModals()) {
-        ModalBackDrop.INSTANCE.remove();
-      } else {
-        Z_INDEX = Z_INDEX - 10;
-        ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
-        element().style.setProperty("z-index", (Z_INDEX + 10) + "");
-      }
-    }
   }
 
   private void initFocusElements() {
@@ -424,9 +397,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
   /** {@inheritDoc} */
   @Override
   public T close() {
-    boolean open1 = this.open;
-    boolean b = !isCollapsed();
-    if (open1 && b) {
+    if (this.open && !isCollapsed()) {
       hide();
     } else {
       doClose();
@@ -443,10 +414,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       element().remove();
     }
     this.open = false;
-    if (ModalBackDrop.contains(this)) {
-      ModalBackDrop.popModal(this);
-    }
-    removeBackDrop();
+    config().getZindexManager().onPopupClose(this);
     closeHandlers.forEach(CloseHandler::onClose);
   }
 

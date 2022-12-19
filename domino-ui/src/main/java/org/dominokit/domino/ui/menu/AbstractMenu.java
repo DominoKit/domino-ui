@@ -44,14 +44,9 @@ import org.dominokit.domino.ui.menu.direction.BestSideUpDownDropDirection;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.menu.direction.MiddleOfScreenDropDirection;
 import org.dominokit.domino.ui.menu.direction.MouseBestFitDirection;
-import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.search.SearchBox;
 import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.utils.AppendStrategy;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.KeyboardNavigation;
-import org.dominokit.domino.ui.utils.PopupsCloser;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -62,7 +57,7 @@ import org.jboss.elemento.IsElement;
  * @param <T> The type of the class extending from this base class
  */
 public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
-    extends BaseDominoElement<HTMLDivElement, T> {
+    extends BaseDominoElement<HTMLDivElement, T> implements IsPopup<T> {
 
   protected final SearchBox searchBox;
   protected FlexLayout menuElement = FlexLayout.create();
@@ -819,7 +814,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
               if (focus) {
                 focus();
               }
-              element.setCssProperty("z-index", ModalBackDrop.getNextZIndex() + 10 + "");
+              config().getZindexManager().onPopupOpen(this);
               openHandlers.forEach(OpenHandler::onOpen);
               DominoElement.of(getTargetElement()).onDetached(targetDetach -> close());
               DominoElement.of(getAppendTarget()).onDetached(targetDetach -> close());
@@ -1123,6 +1118,16 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
       menuElement.elevate(Elevation.NONE);
     }
     this.dropDown = dropdown;
+  }
+
+  @Override
+  public boolean isModal() {
+    return false;
+  }
+
+  @Override
+  public boolean isAutoClose() {
+    return true;
   }
 
   /** A handler that will be called when closing the menu */

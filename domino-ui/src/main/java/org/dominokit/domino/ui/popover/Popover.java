@@ -51,7 +51,7 @@ import org.jboss.elemento.IsElement;
  * @see Switchable
  */
 public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
-    implements Switchable<Popover> {
+    implements Switchable<Popover>, IsPopup<Popover> {
 
   private final Text headerText;
   private final HTMLElement targetElement;
@@ -75,7 +75,6 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
   private boolean disabled = false;
   private String positionClass;
   private boolean closeOnEscape = true;
-  private boolean closeOnScroll = true;
 
   private final List<OpenHandler> openHandlers = new ArrayList<>();
   private final List<CloseHandler> closeHandlers = new ArrayList<>();
@@ -123,9 +122,8 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
       if (closeOthers) {
         closeAll();
       }
-      open();
-      element.style().setZIndex(ModalBackDrop.getNextZIndex());
-      ModalBackDrop.push(this);
+      doOpen();
+      config().getZindexManager().onPopupOpen(this);
       openHandlers.forEach(OpenHandler::onOpen);
     }
 
@@ -136,7 +134,11 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
     ModalBackDrop.closePopovers();
   }
 
-  private void open() {
+  public Popover open() {
+    return show();
+  }
+
+  private void doOpen() {
     document.body.appendChild(element.element());
     super.show();
     popupPosition.position(element.element(), targetElement);
@@ -148,15 +150,26 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
   }
 
   /** Closes the popover */
-  public void close() {
+  public Popover close() {
     hide();
+    return this;
   }
 
   private void doClose() {
     element().remove();
     document.body.removeEventListener(EventType.keydown.getName(), closeListener);
-    ModalBackDrop.popPopOver();
+    config().getZindexManager().onPopupClose(this);
     closeHandlers.forEach(CloseHandler::onClose);
+  }
+
+  @Override
+  public boolean isModal() {
+    return false;
+  }
+
+  @Override
+  public boolean isAutoClose() {
+    return true;
   }
 
   /**
