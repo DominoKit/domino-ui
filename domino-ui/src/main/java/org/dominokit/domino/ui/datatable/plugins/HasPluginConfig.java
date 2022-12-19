@@ -15,7 +15,7 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
-public interface HasPluginConfig<T, C extends PluginConfig> {
+public interface HasPluginConfig<T extends DataTablePlugin<?>, C extends PluginConfig> {
 
   T setConfig(C config);
 }

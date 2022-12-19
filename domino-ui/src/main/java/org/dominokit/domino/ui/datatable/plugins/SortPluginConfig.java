@@ -15,9 +15,15 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
-/** Enum listing possible sort direction */
-public enum SortDirection {
-  ASC,
-  DESC,
-  NONE
+public class SortPluginConfig implements PluginConfig {
+  private boolean triStateSort = false;
+
+  public boolean isTriStateSort() {
+    return triStateSort;
+  }
+
+  public SortPluginConfig setTriStateSort(boolean triStateSort) {
+    this.triStateSort = triStateSort;
+    return this;
+  }
 }
