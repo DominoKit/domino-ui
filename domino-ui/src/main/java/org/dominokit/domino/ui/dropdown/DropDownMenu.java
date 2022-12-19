@@ -46,15 +46,13 @@ import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
 /**
- * A component which provides a dropdown menu relative to an element
- *
- * <p>The menu can have different actions and can be placed at specific position
- *
- * <p>Customize the component can be done by overwriting classes provided by {@link DropDownStyles}
- *
- * <p>For example:
- *
- * <pre>
+ * @deprecated use a derivative from {@link org.dominokit.domino.ui.menu.AbstractMenu} A component
+ *     which provides a dropdown menu relative to an element
+ *     <p>The menu can have different actions and can be placed at specific position
+ *     <p>Customize the component can be done by overwriting classes provided by {@link
+ *     DropDownStyles}
+ *     <p>For example:
+ *     <pre>
  *      DropDownMenu.create(element)
  *                 .addAction(DropdownAction.create("action 1"))
  *                 .open();
@@ -63,6 +61,7 @@ import org.jboss.elemento.IsElement;
  * @see BaseDominoElement
  * @see HasBackground
  */
+@Deprecated
 public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu>
     implements HasBackground<DropDownMenu>, IsPopup<DropDownMenu> {
 
