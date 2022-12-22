@@ -79,9 +79,13 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
             position(popupPosition);
           }
         };
-    removeToolTipListener = evt -> hide();
-    targetElement.addEventListener(EventType.mouseenter.getName(), showToolTipListener);
-    targetElement.addEventListener(EventType.mouseleave.getName(), removeToolTipListener);
+    removeToolTipListener =
+        evt -> {
+          evt.stopPropagation();
+          hide();
+        };
+    targetElement.addEventListener(EventType.mouseenter.getName(), showToolTipListener, false);
+    targetElement.addEventListener(EventType.mouseleave.getName(), removeToolTipListener, false);
     init(this);
 
     removeHandler =
