@@ -40,7 +40,7 @@ import org.jboss.elemento.EventType;
  * @param <T> the type of the data table records
  */
 public class SortPlugin<T>
-    implements DataTablePlugin<T>, HasPluginConfig<SortPlugin<T>, SortPluginConfig> {
+    implements DataTablePlugin<T>, HasPluginConfig<T, SortPlugin<T>, SortPluginConfig> {
 
   private SortContainer currentContainer;
   private Map<String, SortContainer> sortContainers = new HashMap<>();
@@ -123,6 +123,11 @@ public class SortPlugin<T>
   public SortPlugin<T> setConfig(SortPluginConfig config) {
     this.config = config;
     return this;
+  }
+
+  @Override
+  public SortPluginConfig getConfig() {
+    return config;
   }
 
   /**

@@ -33,7 +33,7 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction, PinElementT
 
   private final PinDirection direction;
 
-  public static final String PIN_COLUMN = "pin-column";
+  public static final String PIN_COLUMN_META = "pin-column-meta";
 
   public static PinColumnMeta left() {
     return new PinColumnMeta(PinDirection.LEFT);
@@ -44,7 +44,7 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction, PinElementT
   }
 
   public static Optional<PinColumnMeta> get(ColumnConfig<?> column) {
-    return column.getMeta(PIN_COLUMN);
+    return column.getMeta(PIN_COLUMN_META);
   }
 
   public static boolean isPinLeft(ColumnConfig<?> column) {
@@ -73,7 +73,7 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction, PinElementT
 
   @Override
   public String getKey() {
-    return PIN_COLUMN;
+    return PIN_COLUMN_META;
   }
 
   @Override

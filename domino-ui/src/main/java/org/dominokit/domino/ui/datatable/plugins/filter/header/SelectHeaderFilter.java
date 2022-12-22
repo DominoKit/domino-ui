@@ -56,7 +56,7 @@ public class SelectHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFil
    * @param selectOption the {@link SelectOption}
    * @return same instance
    */
-  public SelectHeaderFilter appendChild(SelectOption<String> selectOption) {
+  public SelectHeaderFilter<T> appendChild(SelectOption<String> selectOption) {
     select.appendChild(selectOption);
     return this;
   }

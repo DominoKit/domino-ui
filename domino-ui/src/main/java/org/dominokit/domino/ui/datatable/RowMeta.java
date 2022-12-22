@@ -13,24 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.datatable.plugins;
+package org.dominokit.domino.ui.datatable;
 
-import java.util.function.Consumer;
-
-public interface HasPluginConfig<R, T extends DataTablePlugin<R>, C extends PluginConfig> {
-
-  T setConfig(C config);
-
-  C getConfig();
-
-  /**
-   * Use to update the configuration in the current plugin configuration
-   *
-   * @param handler {@link Consumer} of {@link C}
-   * @return same plugin instance.
-   */
-  default T configure(Consumer<C> handler) {
-    handler.accept(getConfig());
-    return (T) this;
-  }
+/**
+ * this interface is used to implement custom meta object for rows with a unique key then later
+ * these meta objects can be added to the row and can be used for any kind of logic.
+ */
+public interface RowMeta {
+  /** @return String, a unique key for the meta object */
+  String getKey();
 }

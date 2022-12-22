@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.datatable.plugins.pincolumns;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLTableCellElement;
 import java.util.List;
-import java.util.function.Consumer;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.RowCell;
@@ -63,7 +62,7 @@ import org.dominokit.domino.ui.utils.ElementUtil;
  * @param <T>
  */
 public class PinColumnsPlugin<T>
-    implements DataTablePlugin<T>, HasPluginConfig<PinColumnsPlugin<T>, PinColumnsConfig> {
+    implements DataTablePlugin<T>, HasPluginConfig<T, PinColumnsPlugin<T>, PinColumnsConfig> {
 
   public static final String dui_pinned_cell = "dui-pinned-cell";
   public static final String dui_pin_right_col = "dui-pin-right-col";
@@ -178,7 +177,9 @@ public class PinColumnsPlugin<T>
     datatable.getTableConfig().getColumnsGrouped().stream()
         .filter(PinColumnMeta::isPinLeft)
         .forEach(
-            col -> col.applyAndOnSubColumns(column -> column.removeMeta(PinColumnMeta.PIN_COLUMN)));
+            col ->
+                col.applyAndOnSubColumns(
+                    column -> column.removeMeta(PinColumnMeta.PIN_COLUMN_META)));
     pinLeftIcon.remove();
     applyPinnedColumns();
   }
@@ -192,7 +193,9 @@ public class PinColumnsPlugin<T>
     datatable.getTableConfig().getColumnsGrouped().stream()
         .filter(PinColumnMeta::isPinRight)
         .forEach(
-            col -> col.applyAndOnSubColumns(column -> column.removeMeta(PinColumnMeta.PIN_COLUMN)));
+            col ->
+                col.applyAndOnSubColumns(
+                    column -> column.removeMeta(PinColumnMeta.PIN_COLUMN_META)));
     pinRightIcon.remove();
     applyPinnedColumns();
   }
@@ -224,7 +227,7 @@ public class PinColumnsPlugin<T>
           .applyAndOnSubColumns(
               column -> {
                 if (PinColumnMeta.isPinLeft(column)) {
-                  column.removeMeta(PinColumnMeta.PIN_COLUMN);
+                  column.removeMeta(PinColumnMeta.PIN_COLUMN_META);
                 }
               });
     }
@@ -239,7 +242,7 @@ public class PinColumnsPlugin<T>
           .applyAndOnSubColumns(
               column -> {
                 if (PinColumnMeta.isPinRight(column)) {
-                  column.removeMeta(PinColumnMeta.PIN_COLUMN);
+                  column.removeMeta(PinColumnMeta.PIN_COLUMN_META);
                 }
               });
     }
@@ -342,14 +345,8 @@ public class PinColumnsPlugin<T>
     return this;
   }
 
-  /**
-   * Use to update the configuration in the current plugin configuration
-   *
-   * @param handler {@link Consumer} of {@link PinColumnsConfig}
-   * @return same plugin instance.
-   */
-  public PinColumnsPlugin<T> configure(Consumer<PinColumnsConfig> handler) {
-    handler.accept(config);
-    return this;
+  @Override
+  public PinColumnsConfig getConfig() {
+    return config;
   }
 }

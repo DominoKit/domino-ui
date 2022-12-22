@@ -819,7 +819,8 @@ public class ColumnConfig<T> {
     return this;
   }
 
-  public <C> Optional<C> getMeta(String key) {
+  @SuppressWarnings("all")
+  public <C extends ColumnMeta> Optional<C> getMeta(String key) {
     return Optional.ofNullable((C) columnMeta.get(key));
   }
 
@@ -896,7 +897,7 @@ public class ColumnConfig<T> {
     flexLayout = FlexLayout.create().setAlignItems(FlexAlign.CENTER);
     if (isDrawTitle() && nonNull(getTitle())) {
       flexLayout.appendChild(
-          FlexItem.of(DominoElement.div())
+          FlexItem.of(DominoElement.div().css("dui-th-title-wrapper"))
               .setOrder(50)
               .appendChild(getHeaderElementSupplier().asElement(getTitle())));
 

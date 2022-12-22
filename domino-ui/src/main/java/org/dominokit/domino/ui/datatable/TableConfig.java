@@ -149,7 +149,12 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   public void drawRecord(DataTable<T> dataTable, TableRow<T> tableRow) {
     tableRow.render();
     tableRow.addCss(isOdd(tableRow.getIndex()) ? "dom-ui-dt-tr-odd" : "dom-ui-dt-tr-even");
-    rowAppender.appendRow(dataTable, tableRow);
+    Optional<RowAppenderMeta<T>> appenderMeta = RowAppenderMeta.get(tableRow);
+    if (appenderMeta.isPresent()) {
+      appenderMeta.get().getRowAppender().appendRow(dataTable, tableRow);
+    } else {
+      rowAppender.appendRow(dataTable, tableRow);
+    }
 
     plugins.forEach(plugin -> plugin.onRowAdded(dataTable, tableRow));
   }
