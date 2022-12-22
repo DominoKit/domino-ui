@@ -74,9 +74,7 @@ public class ResizeColumnsPlugin<T> implements DataTablePlugin<T> {
                                       double diff = currentPosition - meta.getStartPosition();
                                       String width = px.of(meta.getInitialWidth() + diff);
                                       col.getHeadElement().setWidth(width);
-                                      col.getHeadElement().setMaxWidth(width);
-                                      col.getHeadElement().setMinWidth(width);
-                                      col.setWidth(width).minWidth(width).maxWidth(width);
+                                      col.setWidth(width);
 
                                       ColumnHeaderMeta.get(col)
                                           .ifPresent(
@@ -86,8 +84,6 @@ public class ResizeColumnsPlugin<T> implements DataTablePlugin<T> {
                                                       .forEach(
                                                           header -> {
                                                             header.setWidth(width);
-                                                            header.setMaxWidth(width);
-                                                            header.setMinWidth(width);
                                                           }));
                                     });
                           });
@@ -101,8 +97,6 @@ public class ResizeColumnsPlugin<T> implements DataTablePlugin<T> {
                                       double diff = currentPosition - meta.getStartPosition();
                                       String width = px.of(meta.getInitialWidth() + diff);
                                       col.getHeadElement().setWidth(width);
-                                      col.getHeadElement().setMaxWidth(width);
-                                      col.getHeadElement().setMinWidth(width);
                                       col.setWidth(width).minWidth(width).maxWidth(width);
 
                                       ColumnHeaderMeta.get(col)
@@ -113,8 +107,6 @@ public class ResizeColumnsPlugin<T> implements DataTablePlugin<T> {
                                                       .forEach(
                                                           header -> {
                                                             header.setWidth(width);
-                                                            header.setMaxWidth(width);
-                                                            header.setMinWidth(width);
                                                           }));
                                     });
                           });

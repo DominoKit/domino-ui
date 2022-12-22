@@ -107,11 +107,7 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
   private void fixElementWidth(ColumnConfig<T> column, HTMLElement element) {
     String fixedWidth = bestFitWidth(column);
-    Style.of(element)
-        .setWidth(fixedWidth)
-        .setMinWidth(fixedWidth)
-        .setMaxWidth(fixedWidth)
-        .addCss(DataTableStyles.FIXED_WIDTH);
+    Style.of(element).setWidth(fixedWidth).addCss(DataTableStyles.FIXED_WIDTH);
   }
 
   private String bestFitWidth(ColumnConfig<T> columnConfig) {
