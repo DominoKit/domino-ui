@@ -61,9 +61,7 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
       column
           .getHeaderLayout()
           .appendChild(FlexItem.create().setOrder(100).appendChild(sortContainer.sortElement));
-      column.getHeadElement()
-              .addCss(dui_cursor_pointer)
-              .css(GenericCss.disable_selection);
+      column.getHeadElement().addCss(dui_cursor_pointer).css(GenericCss.disable_selection);
       column
           .getHeadElement()
           .addEventListener(

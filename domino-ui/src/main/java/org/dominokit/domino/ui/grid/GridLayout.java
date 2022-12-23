@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.grid;
 
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -62,7 +60,8 @@ import org.dominokit.domino.ui.utils.LazyChild;
  *
  * @see BaseDominoElement
  */
-public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> implements GridStyles{
+public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
+    implements GridStyles {
 
   private final DominoElement<HTMLDivElement> element;
   private final DominoElement<HTMLDivElement> contentElement;
@@ -73,7 +72,9 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> im
   private final GridLayoutEditor editor = new GridLayoutEditor();
 
   public GridLayout() {
-    element =  DominoElement.div().addCss(dui_layout_grid)
+    element =
+        DominoElement.div()
+            .addCss(dui_layout_grid)
             .appendChild(contentElement = DominoElement.div().addCss(dui_grid_content));
     headerElement = LazyChild.of(DominoElement.div().addCss(dui_grid_header), element);
     footerElement = LazyChild.of(DominoElement.div().addCss(dui_grid_footer), element);
@@ -271,5 +272,4 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> im
   public DominoElement<HTMLDivElement> getRightElement() {
     return rightElement.get();
   }
-
 }

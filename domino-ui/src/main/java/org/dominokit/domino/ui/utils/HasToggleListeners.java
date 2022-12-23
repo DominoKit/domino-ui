@@ -25,106 +25,107 @@ import java.util.Set;
  */
 public interface HasToggleListeners<T> {
 
-    /**
-     * @param toggleListener {@link ToggleListener}
-     * @return same implementing class instance
-     */
-    default T addToggleListener(ToggleListener toggleListener) {
-        getToggleListeners().add(toggleListener);
-        return (T) this;
+  /**
+   * @param toggleListener {@link ToggleListener}
+   * @return same implementing class instance
+   */
+  default T addToggleListener(ToggleListener toggleListener) {
+    getToggleListeners().add(toggleListener);
+    return (T) this;
+  }
+
+  /**
+   * @param toggleListener {@link ToggleListener}
+   * @return same implementing class instance
+   */
+  default T removeToggleListener(ToggleListener toggleListener) {
+    getToggleListeners().remove(toggleListener);
+    return (T) this;
+  }
+
+  /**
+   * Checks if a component has the specified ChangeHandler
+   *
+   * @param toggleListener {@link ToggleListener}
+   * @return same implementing class instance
+   */
+  default boolean hasToggleListener(ToggleListener toggleListener) {
+    return getToggleListeners().contains(toggleListener);
+  }
+
+  /**
+   * Disable change listeners
+   *
+   * @return same component instance
+   */
+  T pauseToggleListeners();
+
+  /**
+   * Enables change listeners
+   *
+   * @return same component instance
+   */
+  T resumeToggleListeners();
+
+  /**
+   * Disable/Enable change listeners
+   *
+   * @param toggle boolean, true to pause the change listeners, false to enable them
+   * @return same component instance
+   */
+  T togglePauseToggleListeners(boolean toggle);
+
+  /**
+   * Execute a handler while toggling the change handlers state, revert the state back to its
+   * original value after executing the handler
+   *
+   * @param toggle boolean, true to pause the change listeners, false to enable them
+   * @return same component instance
+   */
+  default T withPauseToggleListenersToggle(boolean toggle, Handler<T> handler) {
+    boolean oldState = isToggleListenersPaused();
+    togglePauseToggleListeners(toggle);
+    try {
+      handler.apply((T) this);
+    } finally {
+      togglePauseToggleListeners(oldState);
     }
+    return (T) this;
+  }
 
-    /**
-     * @param toggleListener {@link ToggleListener}
-     * @return same implementing class instance
-     */
-    default T removeToggleListener(ToggleListener toggleListener) {
-        getToggleListeners().remove(toggleListener);
-        return (T) this;
+  /**
+   * Execute a handler while toggling the change handlers state, revert the state back to its
+   * original value after the AsyncHandler.onComplete is called
+   *
+   * @param toggle boolean, true to pause the change listeners, false to enable them
+   * @return same component instance
+   */
+  default T withPauseToggleListenersToggle(boolean toggle, AsyncHandler<T> handler) {
+    boolean oldState = isToggleListenersPaused();
+    togglePauseToggleListeners(toggle);
+    try {
+      handler.apply((T) this, () -> togglePauseToggleListeners(oldState));
+    } catch (Exception e) {
+      togglePauseToggleListeners(oldState);
+      throw e;
     }
+    return (T) this;
+  }
 
+  Set<ToggleListener> getToggleListeners();
+
+  boolean isToggleListenersPaused();
+
+  T triggerToggleListeners(Boolean oldValue, Boolean newValue);
+
+  /** */
+  @FunctionalInterface
+  interface ToggleListener {
     /**
-     * Checks if a component has the specified ChangeHandler
+     * Will be called whenever the component value is changed
      *
-     * @param toggleListener {@link ToggleListener}
-     * @return same implementing class instance
+     * @param newValue V the new value of the component
      */
-    default boolean hasToggleListener(ToggleListener toggleListener) {
-        return getToggleListeners().contains(toggleListener);
-    }
-
-    /**
-     * Disable change listeners
-     *
-     * @return same component instance
-     */
-    T pauseToggleListeners();
-
-    /**
-     * Enables change listeners
-     *
-     * @return same component instance
-     */
-    T resumeToggleListeners();
-
-    /**
-     * Disable/Enable change listeners
-     *
-     * @param toggle boolean, true to pause the change listeners, false to enable them
-     * @return same component instance
-     */
-    T togglePauseToggleListeners(boolean toggle);
-
-    /**
-     * Execute a handler while toggling the change handlers state, revert the state back to its original value after executing the handler
-     *
-     * @param toggle boolean, true to pause the change listeners, false to enable them
-     * @return same component instance
-     */
-    default T withPauseToggleListenersToggle(boolean toggle, Handler<T> handler) {
-        boolean oldState = isToggleListenersPaused();
-        togglePauseToggleListeners(toggle);
-        try {
-            handler.apply((T) this);
-        } finally {
-            togglePauseToggleListeners(oldState);
-        }
-        return (T) this;
-    }
-
-    /**
-     * Execute a handler while toggling the change handlers state, revert the state back to its original value after the AsyncHandler.onComplete is called
-     *
-     * @param toggle boolean, true to pause the change listeners, false to enable them
-     * @return same component instance
-     */
-    default T withPauseToggleListenersToggle(boolean toggle, AsyncHandler<T> handler) {
-        boolean oldState = isToggleListenersPaused();
-        togglePauseToggleListeners(toggle);
-        try {
-            handler.apply((T) this, () -> togglePauseToggleListeners(oldState));
-        } catch (Exception e) {
-            togglePauseToggleListeners(oldState);
-            throw e;
-        }
-        return (T) this;
-    }
-
-    Set<ToggleListener> getToggleListeners();
-
-    boolean isToggleListenersPaused();
-
-    T triggerToggleListeners(Boolean oldValue, Boolean newValue);
-
-    /**
-     */
-    @FunctionalInterface
-    interface ToggleListener {
-        /**
-         * Will be called whenever the component value is changed
-         *
-         * @param newValue V the new value of the component
-         */
-        void onValueChanged(Boolean oldValue, Boolean newValue);
-    }
+    void onValueChanged(Boolean oldValue, Boolean newValue);
+  }
 }

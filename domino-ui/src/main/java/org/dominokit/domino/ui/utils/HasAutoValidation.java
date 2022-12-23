@@ -45,5 +45,4 @@ public interface HasAutoValidation<T> {
    * @return same component instance
    */
   AutoValidator createAutoValidator(ApplyFunction autoValidate);
-
 }

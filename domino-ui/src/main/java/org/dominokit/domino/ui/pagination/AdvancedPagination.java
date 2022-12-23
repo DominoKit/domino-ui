@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,22 +28,22 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.pagination;
+// package org.dominokit.domino.ui.pagination;
 //
-//import static org.jboss.elemento.Elements.a;
-//import static org.jboss.elemento.Elements.li;
+// import static org.jboss.elemento.Elements.a;
+// import static org.jboss.elemento.Elements.li;
 //
-//import elemental2.dom.*;
-//import java.util.function.Function;
-//import java.util.stream.IntStream;
-//import org.dominokit.domino.ui.forms.Select;
-//import org.dominokit.domino.ui.forms.SelectOption;
-//import org.dominokit.domino.ui.icons.Icons;
-//import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-//import org.dominokit.domino.ui.utils.DominoElement;
+// import elemental2.dom.*;
+// import java.util.function.Function;
+// import java.util.stream.IntStream;
+// import org.dominokit.domino.ui.forms.Select;
+// import org.dominokit.domino.ui.forms.SelectOption;
+// import org.dominokit.domino.ui.icons.Icons;
+// import org.dominokit.domino.ui.keyboard.KeyboardEvents;
+// import org.dominokit.domino.ui.utils.DominoElement;
 //
-///** An advanced pagination implementation */
-//public class AdvancedPagination extends BasePagination<AdvancedPagination> {
+/// ** An advanced pagination implementation */
+// public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 //
 //  private DominoElement<HTMLLIElement> firstPage;
 //  private DominoElement<HTMLLIElement> lastPage;
@@ -245,9 +260,10 @@
 //  /**
 //   * Sets the text of total number of pages
 //   *
-//   * @param pagesCountTextHandler a {@link Function} that returns the text based on the current page
+//   * @param pagesCountTextHandler a {@link Function} that returns the text based on the current
+// page
 //   */
 //  public void setPagesCountTextHandler(Function<Integer, String> pagesCountTextHandler) {
 //    this.pagesCountTextHandler = pagesCountTextHandler;
 //  }
-//}
+// }

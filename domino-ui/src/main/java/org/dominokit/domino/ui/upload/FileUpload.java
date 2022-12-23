@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,36 +28,36 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.upload;
+// package org.dominokit.domino.ui.upload;
 //
-//import static java.util.Objects.nonNull;
-//import static org.jboss.elemento.Elements.div;
-//import static org.jboss.elemento.Elements.input;
+// import static java.util.Objects.nonNull;
+// import static org.jboss.elemento.Elements.div;
+// import static org.jboss.elemento.Elements.input;
 //
-//import elemental2.dom.*;
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.function.Supplier;
-//import jsinterop.base.Js;
-//import org.dominokit.domino.ui.grid.Column;
-//import org.dominokit.domino.ui.grid.Row;
-//import org.dominokit.domino.ui.grid.Row_12;
-//import org.dominokit.domino.ui.icons.BaseIcon;
-//import org.dominokit.domino.ui.notifications.Notification;
-//import org.dominokit.domino.ui.utils.BaseDominoElement;
-//import org.dominokit.domino.ui.utils.DominoElement;
-//import org.dominokit.domino.ui.utils.HasName;
-//import org.jboss.elemento.IsElement;
+// import elemental2.dom.*;
+// import java.util.ArrayList;
+// import java.util.Arrays;
+// import java.util.List;
+// import java.util.Optional;
+// import java.util.function.Supplier;
+// import jsinterop.base.Js;
+// import org.dominokit.domino.ui.grid.Column;
+// import org.dominokit.domino.ui.grid.Row;
+// import org.dominokit.domino.ui.grid.Row_12;
+// import org.dominokit.domino.ui.icons.BaseIcon;
+// import org.dominokit.domino.ui.notifications.Notification;
+// import org.dominokit.domino.ui.utils.BaseDominoElement;
+// import org.dominokit.domino.ui.utils.DominoElement;
+// import org.dominokit.domino.ui.utils.HasName;
+// import org.jboss.elemento.IsElement;
 //
-///**
+/// **
 // * A component for uploading files (photos, documents or any other file type) from local storage
 // *
 // * @see BaseDominoElement
 // * @see HasName
 // */
-//public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
+// public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
 //    implements HasName<FileUpload> {
 //
 //  private final Row<Row_12> row = Row.create();
@@ -227,7 +242,8 @@
 //    hiddenFileInput =
 //        input("file")
 //            .style(
-//                "visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;")
+//                "visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width:
+// 0px;")
 //            .element();
 //    DomGlobal.document.body.appendChild(hiddenFileInput);
 //  }
@@ -505,4 +521,4 @@
 //    /** @param fileItem the added {@link FileItem} */
 //    void onAddFile(FileItem fileItem);
 //  }
-//}
+// }

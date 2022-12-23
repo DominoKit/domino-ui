@@ -53,16 +53,18 @@ public interface Selectable<T> {
   boolean isSelected();
 
   boolean isSelectable();
+
   T setSelectable(boolean selectable);
 
   T setSelected(boolean selected);
+
   T setSelected(boolean selected, boolean silent);
 
-  default T toggleSelect(){
+  default T toggleSelect() {
     return setSelected(!isSelected());
   }
 
-  default T toggleSelect(boolean silent){
+  default T toggleSelect(boolean silent) {
     return setSelected(!isSelected(), silent);
   }
 }

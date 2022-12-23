@@ -20,16 +20,15 @@ import org.dominokit.domino.ui.style.CssClass;
 /** Default CSS classes for {@link Carousel} */
 public interface CarouselStyles {
 
-  CssClass carousel = ()->"dui-carousel";
-  CssClass carousel_indicators = ()->"dui-carousel-indicators";
-  CssClass slide_indicator = ()->"dui-slide-indicator";
-  CssClass carousel_inner = ()->"dui-carousel-inner";
-  CssClass slide = ()->"dui-slide";
-  CssClass slide_next = ()->"dui-slide-next";
-  CssClass slide_prev = ()->"dui-slide-prev";
-  CssClass slide_right = ()->"dui-slide-right";
-  CssClass slide_left = ()->"dui-slide-left";
-  CssClass carousel_control = ()->"dui-carousel-control";
-  CssClass slide_caption = ()->"dui-slide-caption";
-
+  CssClass carousel = () -> "dui-carousel";
+  CssClass carousel_indicators = () -> "dui-carousel-indicators";
+  CssClass slide_indicator = () -> "dui-slide-indicator";
+  CssClass carousel_inner = () -> "dui-carousel-inner";
+  CssClass slide = () -> "dui-slide";
+  CssClass slide_next = () -> "dui-slide-next";
+  CssClass slide_prev = () -> "dui-slide-prev";
+  CssClass slide_right = () -> "dui-slide-right";
+  CssClass slide_left = () -> "dui-slide-left";
+  CssClass carousel_control = () -> "dui-carousel-control";
+  CssClass slide_caption = () -> "dui-slide-caption";
 }

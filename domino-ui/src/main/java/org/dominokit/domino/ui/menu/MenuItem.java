@@ -23,7 +23,6 @@ import elemental2.dom.HTMLElement;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
@@ -111,7 +110,6 @@ public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
     }
     return textContent.toLowerCase().contains(token.toLowerCase());
   }
-
 
   /**
    * Adds an element as an add-on to the left

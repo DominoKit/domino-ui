@@ -15,16 +15,15 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import org.jboss.elemento.IsElement;
-
 import java.util.function.Supplier;
+import org.jboss.elemento.IsElement;
 
 public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyChild<T>> {
 
   private T element;
 
   public static <T extends IsElement<?>> LazyChild<T> of(T element, IsElement<?> parent) {
-    return new LazyChild<T>(element, ()->parent);
+    return new LazyChild<T>(element, () -> parent);
   }
 
   public static <T extends IsElement<?>> LazyChild<T> of(T element, Supplier<IsElement<?>> parent) {
@@ -44,6 +43,7 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
     super(() -> parent.get().element().append(element.element()));
     this.element = element;
   }
+
   public T get() {
     apply();
     return element;
@@ -57,14 +57,14 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
     return this;
   }
 
-  public T element(){
+  public T element() {
     return element;
   }
 
-  public LazyChild<T> initOrRemove(boolean state){
-    if(state){
+  public LazyChild<T> initOrRemove(boolean state) {
+    if (state) {
       get();
-    }else{
+    } else {
       remove();
     }
     return this;

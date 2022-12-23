@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,32 +28,32 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.datepicker;
+// package org.dominokit.domino.ui.datepicker;
 //
-//import static java.util.Objects.nonNull;
-//import static org.dominokit.domino.ui.datepicker.DatePickerElement.createDayElement;
-//import static org.dominokit.domino.ui.datepicker.DatePickerElement.createDayHeader;
-//import static org.jboss.elemento.Elements.*;
+// import static java.util.Objects.nonNull;
+// import static org.dominokit.domino.ui.datepicker.DatePickerElement.createDayElement;
+// import static org.dominokit.domino.ui.datepicker.DatePickerElement.createDayHeader;
+// import static org.jboss.elemento.Elements.*;
 //
-//import elemental2.core.JsDate;
-//import elemental2.dom.HTMLDivElement;
-//import elemental2.dom.HTMLTableElement;
-//import elemental2.dom.HTMLTableSectionElement;
-//import java.util.ArrayList;
-//import java.util.Date;
-//import java.util.List;
-//import org.dominokit.domino.ui.style.Color;
-//import org.dominokit.domino.ui.style.Style;
-//import org.dominokit.domino.ui.utils.DominoElement;
-//import org.dominokit.domino.ui.utils.HasSelectSupport;
-//import org.dominokit.domino.ui.utils.HasValue;
-//import org.dominokit.domino.ui.utils.TextUtil;
-//import org.gwtproject.editor.client.TakesValue;
-//import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
-//import org.jboss.elemento.HtmlContentBuilder;
-//import org.jboss.elemento.IsElement;
+// import elemental2.core.JsDate;
+// import elemental2.dom.HTMLDivElement;
+// import elemental2.dom.HTMLTableElement;
+// import elemental2.dom.HTMLTableSectionElement;
+// import java.util.ArrayList;
+// import java.util.Date;
+// import java.util.List;
+// import org.dominokit.domino.ui.style.Color;
+// import org.dominokit.domino.ui.style.Style;
+// import org.dominokit.domino.ui.utils.DominoElement;
+// import org.dominokit.domino.ui.utils.HasSelectSupport;
+// import org.dominokit.domino.ui.utils.HasValue;
+// import org.dominokit.domino.ui.utils.TextUtil;
+// import org.gwtproject.editor.client.TakesValue;
+// import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
+// import org.jboss.elemento.HtmlContentBuilder;
+// import org.jboss.elemento.IsElement;
 //
-///**
+/// **
 // * A component represents a month element on {@link DatePicker}
 // *
 // * @see IsElement
@@ -48,7 +63,7 @@
 // * @see org.dominokit.domino.ui.datepicker.DatePickerElement.SelectionHandler
 // * @see TakesValue
 // */
-//public class DatePickerMonth
+// public class DatePickerMonth
 //    implements IsElement<HTMLDivElement>,
 //        HasSelectSupport<DatePickerElement>,
 //        HasValue<DatePickerMonth, Date>,
@@ -490,4 +505,4 @@
 //  }
 //
 //  protected interface InternalHandler extends DaySelectionHandler, DayClickHandler {}
-//}
+// }

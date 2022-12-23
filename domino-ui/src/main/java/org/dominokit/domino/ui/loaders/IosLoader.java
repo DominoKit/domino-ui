@@ -15,10 +15,8 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
@@ -45,14 +43,11 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
   private final DominoElement<HTMLDivElement> progress9 =
       DominoElement.div().addCss(wait_me_progress_elem_9, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress10 =
-      DominoElement.div()
-          .addCss(wait_me_progress_elem_10, dui_bg_grey_d_2);
+      DominoElement.div().addCss(wait_me_progress_elem_10, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress11 =
-      DominoElement.div()
-          .addCss(wait_me_progress_elem_11, dui_bg_grey_d_2);
+      DominoElement.div().addCss(wait_me_progress_elem_11, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress12 =
-      DominoElement.div()
-          .addCss(wait_me_progress_elem_12, dui_bg_grey_d_2);
+      DominoElement.div().addCss(wait_me_progress_elem_12, dui_bg_grey_d_2);
 
   private final DominoElement<HTMLDivElement> loader =
       DominoElement.div()
@@ -73,10 +68,7 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
   private final DominoElement<HTMLDivElement> content =
       DominoElement.div()
           .addCss(wait_me_content, GenericCss.dui_vertical_center)
-          .appendChild(DominoElement.div()
-                  .appendChild(loader)
-                  .appendChild(loadingText)
-          );
+          .appendChild(DominoElement.div().appendChild(loader).appendChild(loadingText));
 
   private final DominoElement<HTMLDivElement> element =
       DominoElement.div()
@@ -101,10 +93,7 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
   /** {@inheritDoc} */
   @Override
   public void setSize(String width, String height) {
-    onAttached(
-        mutationRecord -> loader
-                .setWidth(width)
-                .setHeight(height));
+    onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
   }
 
   /** {@inheritDoc} */

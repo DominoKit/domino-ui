@@ -25,7 +25,6 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLPreElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
 
 /**
  * A component to create code blocks
@@ -33,118 +32,116 @@ import org.jboss.elemento.IsElement;
  * <p>This component wraps a string inside a
  *
  * <pre>pre</pre>
- * <p>
- * and
+ *
+ * <p>and
  *
  * <pre>code</pre>
- * <p>
- * element
+ *
+ * <p>element
  */
 public class Code {
 
+  /**
+   * Wraps a string inside
+   *
+   * <pre>pre</pre>
+   *
+   * <p>element
+   */
+  public static class Block extends BaseDominoElement<HTMLPreElement, Block> {
+    private final DominoElement<HTMLPreElement> element;
+
+    private Block(HTMLPreElement element) {
+      this.element = DominoElement.of(element);
+      init(this);
+    }
+
     /**
-     * Wraps a string inside
+     * set the code to be wrapped inside the element
      *
      * <pre>pre</pre>
-     * <p>
-     * element
-     */
-    public static class Block extends BaseDominoElement<HTMLPreElement, Block> {
-        private final DominoElement<HTMLPreElement> element;
-
-        private Block(HTMLPreElement element) {
-            this.element = DominoElement.of(element);
-            init(this);
-        }
-
-        /**
-         * set the code to be wrapped inside the element
-         *
-         * <pre>pre</pre>
-         * <p>
-         * and
-         *
-         * <pre>code</pre>
-         * <p>
-         * elements
-         *
-         * @param code String, the code string
-         * @return same Block instance
-         */
-        public Block setCode(String code) {
-            if (nonNull(element.getFirstChild())) element.removeChild(element.getFirstChild());
-            element.appendChild(DominoElement.code().addCss(dui_overflow_x_scroll, dui_whitespace_pre)
-                    .textContent(code));
-            return this;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public HTMLPreElement element() {
-            return element.element();
-        }
-    }
-
-    /**
-     * Wrap a single line string into a
+     *
+     * <p>and
      *
      * <pre>code</pre>
-     * <p>
-     * element
-     */
-    public static class Statement extends BaseDominoElement<HTMLElement, Statement> {
-        private final DominoElement<HTMLElement> element;
-
-        private Statement(HTMLElement element) {
-            this.element = DominoElement.of(element);
-            init(this);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public HTMLElement element() {
-            return element.element();
-        }
-    }
-
-    /**
-     * Factory to create code Block
      *
-     * @param code The code String
-     * @return new Block instance
+     * <p>elements
+     *
+     * @param code String, the code string
+     * @return same Block instance
      */
-    public static Block block(String code) {
-        return new Block(DominoElement.pre()
-                .appendChild(DominoElement.code()
-                        .addCss(dui_overflow_x_scroll, dui_whitespace_pre)
-                        .textContent(code)).element()
-        );
+    public Block setCode(String code) {
+      if (nonNull(element.getFirstChild())) element.removeChild(element.getFirstChild());
+      element.appendChild(
+          DominoElement.code().addCss(dui_overflow_x_scroll, dui_whitespace_pre).textContent(code));
+      return this;
     }
 
-    /**
-     * creates a empty code Block
-     *
-     * @return new empty Block instance
-     */
-    public static Block block() {
-        return new Block(pre().element());
+    /** {@inheritDoc} */
+    @Override
+    public HTMLPreElement element() {
+      return element.element();
+    }
+  }
+
+  /**
+   * Wrap a single line string into a
+   *
+   * <pre>code</pre>
+   *
+   * <p>element
+   */
+  public static class Statement extends BaseDominoElement<HTMLElement, Statement> {
+    private final DominoElement<HTMLElement> element;
+
+    private Statement(HTMLElement element) {
+      this.element = DominoElement.of(element);
+      init(this);
     }
 
-    /**
-     * factory to create a single statement code block
-     *
-     * @param code The code string
-     * @return new Statement instance
-     */
-    public static Statement statement(String code) {
-        return new Statement(DominoElement.code()
-                .addCss(dui_overflow_x_scroll, dui_whitespace_pre)
-                .textContent(code)
-                .element()
-        );
+    /** {@inheritDoc} */
+    @Override
+    public HTMLElement element() {
+      return element.element();
     }
+  }
+
+  /**
+   * Factory to create code Block
+   *
+   * @param code The code String
+   * @return new Block instance
+   */
+  public static Block block(String code) {
+    return new Block(
+        DominoElement.pre()
+            .appendChild(
+                DominoElement.code()
+                    .addCss(dui_overflow_x_scroll, dui_whitespace_pre)
+                    .textContent(code))
+            .element());
+  }
+
+  /**
+   * creates a empty code Block
+   *
+   * @return new empty Block instance
+   */
+  public static Block block() {
+    return new Block(pre().element());
+  }
+
+  /**
+   * factory to create a single statement code block
+   *
+   * @param code The code string
+   * @return new Statement instance
+   */
+  public static Statement statement(String code) {
+    return new Statement(
+        DominoElement.code()
+            .addCss(dui_overflow_x_scroll, dui_whitespace_pre)
+            .textContent(code)
+            .element());
+  }
 }

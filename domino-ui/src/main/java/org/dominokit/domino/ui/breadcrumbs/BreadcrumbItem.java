@@ -47,120 +47,110 @@ import org.dominokit.domino.ui.utils.TextNode;
  * @see HasClickableElement
  */
 public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbItem>
-        implements HasClickableElement {
+    implements HasClickableElement {
 
-    private final DominoElement<HTMLLIElement> element;
-    private final DominoElement<HTMLAnchorElement> anchorElement;
-    private Text textElement;
-    private BaseIcon<?> icon;
-    private boolean active = false;
+  private final DominoElement<HTMLLIElement> element;
+  private final DominoElement<HTMLAnchorElement> anchorElement;
+  private Text textElement;
+  private BaseIcon<?> icon;
+  private boolean active = false;
 
-    protected BreadcrumbItem(String text) {
-        element = DominoElement.li();
-        init(this);
-        anchorElement = DominoElement.a();
-        this.textElement = TextNode.of(text);
-        this.anchorElement.appendChild(textElement);
-        element.appendChild(anchorElement);
-        anchorElement.setAttribute("tabindex", "0");
-    }
+  protected BreadcrumbItem(String text) {
+    element = DominoElement.li();
+    init(this);
+    anchorElement = DominoElement.a();
+    this.textElement = TextNode.of(text);
+    this.anchorElement.appendChild(textElement);
+    element.appendChild(anchorElement);
+    anchorElement.setAttribute("tabindex", "0");
+  }
 
-    protected BreadcrumbItem(String text, BaseIcon<?> icon) {
-        this(text);
-        this.icon = icon;
-        this.anchorElement.insertFirst(icon);
-    }
+  protected BreadcrumbItem(String text, BaseIcon<?> icon) {
+    this(text);
+    this.icon = icon;
+    this.anchorElement.insertFirst(icon);
+  }
 
-    /**
-     * Creates location with text content
-     *
-     * @param text the content of the item
-     * @return new instance
-     */
-    public static BreadcrumbItem create(String text) {
-        return new BreadcrumbItem(text);
-    }
+  /**
+   * Creates location with text content
+   *
+   * @param text the content of the item
+   * @return new instance
+   */
+  public static BreadcrumbItem create(String text) {
+    return new BreadcrumbItem(text);
+  }
 
-    /**
-     * Creates item with text content and icon
-     *
-     * @param icon the {@link BaseIcon} of the item
-     * @param text the content of the item
-     * @return new instance
-     */
-    public static BreadcrumbItem create(BaseIcon<?> icon, String text) {
-        return new BreadcrumbItem(text, icon);
-    }
+  /**
+   * Creates item with text content and icon
+   *
+   * @param icon the {@link BaseIcon} of the item
+   * @param text the content of the item
+   * @return new instance
+   */
+  public static BreadcrumbItem create(BaseIcon<?> icon, String text) {
+    return new BreadcrumbItem(text, icon);
+  }
 
-    /**
-     * Sets item as active, customizing the active style can be done by overwriting {@link
-     * GenericCss#dui_active_element} CSS class
-     *
-     * @return same instance
-     */
-    BreadcrumbItem activate() {
-        element.addCss(dui_active_element);
-        return this;
-    }
+  /**
+   * Sets item as active, customizing the active style can be done by overwriting {@link
+   * GenericCss#dui_active_element} CSS class
+   *
+   * @return same instance
+   */
+  BreadcrumbItem activate() {
+    element.addCss(dui_active_element);
+    return this;
+  }
 
-    /**
-     * Sets item as inactive
-     *
-     * @return same instance
-     */
-    BreadcrumbItem deActivate() {
-        element.removeCss(dui_active_element);
-        return this;
-    }
+  /**
+   * Sets item as inactive
+   *
+   * @return same instance
+   */
+  BreadcrumbItem deActivate() {
+    element.removeCss(dui_active_element);
+    return this;
+  }
 
-    /**
-     * If true, sets the status to active, otherwise sets the status to inactive
-     *
-     * @param active the boolean to set the status
-     * @return same instance
-     * @deprecated This method should be no longer used directly. Use {@link
-     * Breadcrumb#setActiveItem(BreadcrumbItem)} instead
-     */
-    @Deprecated
-    public BreadcrumbItem setActive(boolean active) {
-        addCss(BooleanCssClass.of(dui_active_element, active));
-        return this;
-    }
+  /**
+   * If true, sets the status to active, otherwise sets the status to inactive
+   *
+   * @param active the boolean to set the status
+   * @return same instance
+   * @deprecated This method should be no longer used directly. Use {@link
+   *     Breadcrumb#setActiveItem(BreadcrumbItem)} instead
+   */
+  @Deprecated
+  public BreadcrumbItem setActive(boolean active) {
+    addCss(BooleanCssClass.of(dui_active_element, active));
+    return this;
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public HTMLLIElement element() {
-        return element.element();
-    }
+  /** {@inheritDoc} */
+  @Override
+  public HTMLLIElement element() {
+    return element.element();
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public HTMLAnchorElement getClickableElement() {
-        return anchorElement.element();
-    }
+  /** {@inheritDoc} */
+  @Override
+  public HTMLAnchorElement getClickableElement() {
+    return anchorElement.element();
+  }
 
-    /**
-     * @return the {@link Text} content
-     */
-    public Text getTextElement() {
-        return textElement;
-    }
+  /** @return the {@link Text} content */
+  public Text getTextElement() {
+    return textElement;
+  }
 
-    /**
-     * @return the {@link BaseIcon}
-     */
-    public BaseIcon<?> getIcon() {
-        return icon;
-    }
+  /** @return the {@link BaseIcon} */
+  public BaseIcon<?> getIcon() {
+    return icon;
+  }
 
-    /**
-     * @return true if the item is active, false otherwise
-     */
-    public boolean isActive() {
-        return dui_active_element.isAppliedTo(this);
-    }
+  /** @return true if the item is active, false otherwise */
+  public boolean isActive() {
+    return dui_active_element.isAppliedTo(this);
+  }
 }

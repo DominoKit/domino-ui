@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,36 +28,37 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.stepper;
+// package org.dominokit.domino.ui.stepper;
 //
-//import static java.util.Objects.nonNull;
-//import static org.dominokit.domino.ui.stepper.StepperStyles.*;
-//import static org.jboss.elemento.Elements.span;
+// import static java.util.Objects.nonNull;
+// import static org.dominokit.domino.ui.stepper.StepperStyles.*;
+// import static org.jboss.elemento.Elements.span;
 //
-//import elemental2.dom.HTMLDivElement;
-//import elemental2.dom.Node;
-//import java.util.ArrayList;
-//import java.util.List;
-//import org.dominokit.domino.ui.animations.Transition;
-//import org.dominokit.domino.ui.button.Button;
-//import org.dominokit.domino.ui.grid.flex.FlexDirection;
-//import org.dominokit.domino.ui.grid.flex.FlexItem;
-//import org.dominokit.domino.ui.grid.flex.FlexLayout;
-//import org.dominokit.domino.ui.grid.flex.FlexWrap;
-//import org.dominokit.domino.ui.icons.Icons;
-//import org.dominokit.domino.ui.mediaquery.MediaQuery;
-//import org.dominokit.domino.ui.style.Color;
-//import org.dominokit.domino.ui.utils.BaseDominoElement;
-//import org.dominokit.domino.ui.utils.DominoElement;
-//import org.jboss.elemento.IsElement;
+// import elemental2.dom.HTMLDivElement;
+// import elemental2.dom.Node;
+// import java.util.ArrayList;
+// import java.util.List;
+// import org.dominokit.domino.ui.animations.Transition;
+// import org.dominokit.domino.ui.button.Button;
+// import org.dominokit.domino.ui.grid.flex.FlexDirection;
+// import org.dominokit.domino.ui.grid.flex.FlexItem;
+// import org.dominokit.domino.ui.grid.flex.FlexLayout;
+// import org.dominokit.domino.ui.grid.flex.FlexWrap;
+// import org.dominokit.domino.ui.icons.Icons;
+// import org.dominokit.domino.ui.mediaquery.MediaQuery;
+// import org.dominokit.domino.ui.style.Color;
+// import org.dominokit.domino.ui.utils.BaseDominoElement;
+// import org.dominokit.domino.ui.utils.DominoElement;
+// import org.jboss.elemento.IsElement;
 //
-///**
-// * A Wizard like component that can have multiple {@link Step}s while only one step can be activated
+/// **
+// * A Wizard like component that can have multiple {@link Step}s while only one step can be
+// activated
 // * at a time
 // *
 // * @see <a href="https://demo.dominokit.org/forms/steppers">Steppers sample</a>
 // */
-//public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
+// public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
 //
 //  private final FlexItem content;
 //  private final FlexItem stepContentFlexItem;
@@ -233,7 +249,8 @@
 //  /**
 //   * Marks the Stepper as completed and call the stepper complete handlers
 //   *
-//   * @param completeContent {@link IsElement} to show up in the stepper as a completed indicator of
+//   * @param completeContent {@link IsElement} to show up in the stepper as a completed indicator
+// of
 //   *     to finalize the stepper process
 //   * @return same Stepper instance
 //   */
@@ -261,7 +278,8 @@
 //  }
 //
 //  /**
-//   * Complete the current active step, if there is more steps this will also move the stepper to the
+//   * Complete the current active step, if there is more steps this will also move the stepper to
+// the
 //   * next enabled non-completed step
 //   *
 //   * @return same Stepper instance
@@ -625,7 +643,8 @@
 //  }
 //
 //  /**
-//   * An interface that can implemented to provide different colors for different {@link Step} states
+//   * An interface that can implemented to provide different colors for different {@link Step}
+// states
 //   * other than the default colors
 //   */
 //  public interface StepStateColors {
@@ -774,7 +793,8 @@
 //    }
 //
 //    /**
-//     * This method will be called whenever the Step state is changed, the method will use the {@link
+//     * This method will be called whenever the Step state is changed, the method will use the
+// {@link
 //     * StepNumberRenderer} to render the step number based on the new step state
 //     *
 //     * @param step {@link Step} that has it is state changed
@@ -809,4 +829,4 @@
 //    /** @param stepper {@link Stepper} that the completed step belongs to */
 //    void onComplete(Stepper stepper);
 //  }
-//}
+// }

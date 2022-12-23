@@ -20,15 +20,14 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.forms.FormsStyles.*;
 
 import elemental2.dom.*;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-import org.dominokit.domino.ui.style.BooleanCssClass;
-import org.dominokit.domino.ui.utils.Checkable;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ApplyFunction;
-import org.dominokit.domino.ui.utils.LazyChild;
-
 import java.util.Optional;
 import java.util.function.Consumer;
+import org.dominokit.domino.ui.keyboard.KeyboardEvents;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.utils.ApplyFunction;
+import org.dominokit.domino.ui.utils.Checkable;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.LazyChild;
 
 /** A component that can switch between two boolean values with different labels */
 public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement, Boolean>
@@ -100,13 +99,13 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
     fieldInput.appendChild(trackElement = DominoElement.span().addCss(SWITCH_TRACK));
 
     EventListener listener =
-            evt -> {
-              evt.stopPropagation();
-              evt.preventDefault();
-              if (isEnabled() && !isReadOnly()) {
-                toggleChecked();
-              }
-            };
+        evt -> {
+          evt.stopPropagation();
+          evt.preventDefault();
+          if (isEnabled() && !isReadOnly()) {
+            toggleChecked();
+          }
+        };
     trackElement.addClickListener(listener);
     KeyboardEvents.listenOnKeyDown(getInputElement()).onEnter(listener);
     setDefaultValue(false);
@@ -124,11 +123,12 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
 
   @Override
   public Optional<Consumer<Event>> onChange() {
-    return Optional.of(event -> {
-      if (isEnabled() && !isReadOnly()) {
-        withValue(isChecked(), isChangeListenersPaused());
-      }
-    });
+    return Optional.of(
+        event -> {
+          if (isEnabled() && !isReadOnly()) {
+            withValue(isChecked(), isChangeListenersPaused());
+          }
+        });
   }
 
   @Override
@@ -163,34 +163,26 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
     return this;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public SwitchButton check() {
     return check(isChangeListenersPaused());
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public SwitchButton uncheck() {
     return uncheck(isChangeListenersPaused());
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public SwitchButton check(boolean silent) {
     toggleChecked(true, silent);
     return this;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public SwitchButton uncheck(boolean silent) {
     toggleChecked(false, silent);
@@ -237,9 +229,8 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   /** {@inheritDoc} */
   @Override
   public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
-    return new SwitchButtonAutoValidator(this,autoValidate);
+    return new SwitchButtonAutoValidator(this, autoValidate);
   }
-
 
   /**
    * {@inheritDoc}
@@ -251,9 +242,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
     return isChecked();
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public boolean isChecked() {
     return getInputElement().element().checked;
@@ -284,16 +273,16 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
     return Boolean.toString(getValue());
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   protected void doSetValue(Boolean value) {
-    withPauseChangeListenersToggle(true, (field, handler) -> getInputElement().element().checked = value);
+    withPauseChangeListenersToggle(
+        true, (field, handler) -> getInputElement().element().checked = value);
   }
 
   /**
-   * The SwitchButton will stretch the left label  pushing the switch and the right label to the right keeping the left label on the left
+   * The SwitchButton will stretch the left label pushing the switch and the right label to the
+   * right keeping the left label on the left
    *
    * @return same SwitchButton instance
    */
@@ -323,7 +312,8 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /**
-   * Will force SwitchButton labels closer to the switch track , in case of {@link #grow()} the right label will be pushed to the right closer to the track
+   * Will force SwitchButton labels closer to the switch track , in case of {@link #grow()} the
+   * right label will be pushed to the right closer to the track
    *
    * @return same SwitchButton instance
    */

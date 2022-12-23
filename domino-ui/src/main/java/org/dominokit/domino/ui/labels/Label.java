@@ -27,19 +27,18 @@ import org.dominokit.domino.ui.utils.HasContent;
  *
  * <p>For example:
  *
- *
  * @see BaseDominoElement
  * @see HasBackground
  * @see HasContent
  */
 public class Label extends BaseDominoElement<HTMLElement, Label> {
 
-  public static CssClass dui_label = ()-> "dui-label";
+  public static CssClass dui_label = () -> "dui-label";
 
   private final DominoElement<HTMLElement> element;
 
-  private Label(){
-    element =DominoElement.span().addCss(dui_label);
+  private Label() {
+    element = DominoElement.span().addCss(dui_label);
     init(this);
   }
 
@@ -69,5 +68,4 @@ public class Label extends BaseDominoElement<HTMLElement, Label> {
     element.setTextContent(text);
     return this;
   }
-
 }

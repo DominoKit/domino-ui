@@ -15,11 +15,11 @@
  */
 package org.dominokit.domino.ui.layout;
 
+import static org.dominokit.domino.ui.layout.NavBarStyles.*;
+
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
 import org.dominokit.domino.ui.utils.*;
-
-import static org.dominokit.domino.ui.layout.NavBarStyles.*;
 
 public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   private DominoElement<HTMLElement> root;
@@ -62,7 +62,7 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
     return lazyTitle.get().getTextContent();
   }
 
-  public NavBar appendChild(UtilityElement<?> utilityElement){
+  public NavBar appendChild(UtilityElement<?> utilityElement) {
     appendChild(utilityElement.addCss(dui_nav_utility).element());
     return this;
   }

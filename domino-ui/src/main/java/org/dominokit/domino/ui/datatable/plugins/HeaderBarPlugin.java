@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,49 +28,49 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.datatable.plugins;
+// package org.dominokit.domino.ui.datatable.plugins;
 //
-//import static java.util.Objects.nonNull;
-//import static org.jboss.elemento.Elements.*;
+// import static java.util.Objects.nonNull;
+// import static org.jboss.elemento.Elements.*;
 //
-//import elemental2.dom.*;
-//import java.util.ArrayList;
-//import java.util.List;
-//import jsinterop.base.Js;
-//import org.dominokit.domino.ui.datatable.ColumnConfig;
-//import org.dominokit.domino.ui.datatable.DataTable;
-//import org.dominokit.domino.ui.datatable.DataTableStyles;
-//import org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener;
-//import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
-//import org.dominokit.domino.ui.datatable.events.TableEvent;
-//import org.dominokit.domino.ui.datatable.model.Category;
-//import org.dominokit.domino.ui.datatable.model.Filter;
-//import org.dominokit.domino.ui.datatable.model.SearchContext;
-//import org.dominokit.domino.ui.dropdown.DropDownMenu;
-//import org.dominokit.domino.ui.dropdown.DropDownPosition;
-//import org.dominokit.domino.ui.dropdown.DropdownAction;
-//import org.dominokit.domino.ui.forms.TextBox;
-//import org.dominokit.domino.ui.grid.flex.FlexItem;
-//import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
-//import org.dominokit.domino.ui.grid.flex.FlexLayout;
-//import org.dominokit.domino.ui.icons.Icon;
-//import org.dominokit.domino.ui.icons.Icons;
-//import org.dominokit.domino.ui.icons.MdiIcon;
-//import org.dominokit.domino.ui.style.Style;
-//import org.dominokit.domino.ui.style.Styles;
-//import org.dominokit.domino.ui.style.Unit;
-//import org.dominokit.domino.ui.utils.DominoElement;
-//import org.dominokit.domino.ui.utils.ElementUtil;
-//import org.dominokit.domino.ui.utils.TextNode;
-//import org.gwtproject.timer.client.Timer;
-//import org.jboss.elemento.EventType;
+// import elemental2.dom.*;
+// import java.util.ArrayList;
+// import java.util.List;
+// import jsinterop.base.Js;
+// import org.dominokit.domino.ui.datatable.ColumnConfig;
+// import org.dominokit.domino.ui.datatable.DataTable;
+// import org.dominokit.domino.ui.datatable.DataTableStyles;
+// import org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener;
+// import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
+// import org.dominokit.domino.ui.datatable.events.TableEvent;
+// import org.dominokit.domino.ui.datatable.model.Category;
+// import org.dominokit.domino.ui.datatable.model.Filter;
+// import org.dominokit.domino.ui.datatable.model.SearchContext;
+// import org.dominokit.domino.ui.dropdown.DropDownMenu;
+// import org.dominokit.domino.ui.dropdown.DropDownPosition;
+// import org.dominokit.domino.ui.dropdown.DropdownAction;
+// import org.dominokit.domino.ui.forms.TextBox;
+// import org.dominokit.domino.ui.grid.flex.FlexItem;
+// import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
+// import org.dominokit.domino.ui.grid.flex.FlexLayout;
+// import org.dominokit.domino.ui.icons.Icon;
+// import org.dominokit.domino.ui.icons.Icons;
+// import org.dominokit.domino.ui.icons.MdiIcon;
+// import org.dominokit.domino.ui.style.Style;
+// import org.dominokit.domino.ui.style.Styles;
+// import org.dominokit.domino.ui.style.Unit;
+// import org.dominokit.domino.ui.utils.DominoElement;
+// import org.dominokit.domino.ui.utils.ElementUtil;
+// import org.dominokit.domino.ui.utils.TextNode;
+// import org.gwtproject.timer.client.Timer;
+// import org.jboss.elemento.EventType;
 //
-///**
+/// **
 // * This plugin attach an action bar to the table and adds {@link HeaderActionElement}(s) to it
 // *
 // * @param <T> the type of the data table records
 // */
-//public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
+// public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 //
 //  private final HTMLHeadingElement title = Style.of(h(2)).setMarginBottom("0px").element();
 //  private final FlexLayout actionsBar =
@@ -517,7 +532,8 @@
 //      SearchContext<T> searchContext = dataTable.getSearchContext();
 //      Category search = Category.SEARCH;
 //      searchContext.removeByCategory(search);
-//      searchContext.add(Filter.create("*", textBox.getValue(), Category.SEARCH)).fireSearchEvent();
+//      searchContext.add(Filter.create("*", textBox.getValue(),
+// Category.SEARCH)).fireSearchEvent();
 //    }
 //
 //    /** Clears the search */
@@ -593,7 +609,8 @@
 //  }
 //
 //  /**
-//   * A predefined action to add a drop down to the data table that allow selecting which columns be
+//   * A predefined action to add a drop down to the data table that allow selecting which columns
+// be
 //   * shown/hidden
 //   *
 //   * @param <T> the type of the data table records
@@ -628,7 +645,8 @@
 //                                            .appendChild(TextNode.of(columnConfig.getTitle())));
 //
 //                            columnsMenu.appendChild(
-//                                DropdownAction.create(columnConfig.getName(), itemElement.element())
+//                                DropdownAction.create(columnConfig.getName(),
+// itemElement.element())
 //                                    .setAutoClose(false)
 //                                    .addSelectionHandler(
 //                                        value ->
@@ -651,4 +669,4 @@
 //    @Override
 //    public void handleEvent(TableEvent event) {}
 //  }
-//}
+// }

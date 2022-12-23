@@ -15,9 +15,9 @@
  */
 package org.dominokit.domino.ui.button;
 
-import org.dominokit.domino.ui.style.CssClass;
-
 import static org.dominokit.domino.ui.style.GenericCss.*;
+
+import org.dominokit.domino.ui.style.CssClass;
 
 /**
  * An enum that lists all predefined button sizes. each enum value represent one css class that

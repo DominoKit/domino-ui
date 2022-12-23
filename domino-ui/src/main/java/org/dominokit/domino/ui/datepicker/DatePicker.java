@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,43 +28,43 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.datepicker;
+// package org.dominokit.domino.ui.datepicker;
 //
-//import static java.util.Objects.nonNull;
-//import static org.dominokit.domino.ui.style.Unit.px;
-//import static org.jboss.elemento.Elements.div;
+// import static java.util.Objects.nonNull;
+// import static org.dominokit.domino.ui.style.Unit.px;
+// import static org.jboss.elemento.Elements.div;
 //
-//import elemental2.core.JsDate;
-//import elemental2.dom.HTMLDivElement;
-//import java.util.ArrayList;
-//import java.util.Date;
-//import java.util.List;
-//import org.dominokit.domino.ui.button.Button;
-//import org.dominokit.domino.ui.forms.Select;
-//import org.dominokit.domino.ui.forms.SelectOption;
-//import org.dominokit.domino.ui.grid.Column;
-//import org.dominokit.domino.ui.grid.Row;
-//import org.dominokit.domino.ui.grid.Row_12;
-//import org.dominokit.domino.ui.grid.flex.FlexAlign;
-//import org.dominokit.domino.ui.grid.flex.FlexItem;
-//import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
-//import org.dominokit.domino.ui.grid.flex.FlexLayout;
-//import org.dominokit.domino.ui.icons.Icons;
-//import org.dominokit.domino.ui.icons.MdiIcon;
-//import org.dominokit.domino.ui.modals.ModalDialog;
-//import org.dominokit.domino.ui.pickers.PickerHandler;
-//import org.dominokit.domino.ui.style.ColorScheme;
-//import org.dominokit.domino.ui.style.Elevation;
-//import org.dominokit.domino.ui.style.Styles;
-//import org.dominokit.domino.ui.utils.BaseDominoElement;
-//import org.dominokit.domino.ui.utils.DominoElement;
-//import org.dominokit.domino.ui.utils.HasValue;
-//import org.gwtproject.editor.client.TakesValue;
-//import org.gwtproject.i18n.shared.DateTimeFormat;
-//import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
-//import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
+// import elemental2.core.JsDate;
+// import elemental2.dom.HTMLDivElement;
+// import java.util.ArrayList;
+// import java.util.Date;
+// import java.util.List;
+// import org.dominokit.domino.ui.button.Button;
+// import org.dominokit.domino.ui.forms.Select;
+// import org.dominokit.domino.ui.forms.SelectOption;
+// import org.dominokit.domino.ui.grid.Column;
+// import org.dominokit.domino.ui.grid.Row;
+// import org.dominokit.domino.ui.grid.Row_12;
+// import org.dominokit.domino.ui.grid.flex.FlexAlign;
+// import org.dominokit.domino.ui.grid.flex.FlexItem;
+// import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
+// import org.dominokit.domino.ui.grid.flex.FlexLayout;
+// import org.dominokit.domino.ui.icons.Icons;
+// import org.dominokit.domino.ui.icons.MdiIcon;
+// import org.dominokit.domino.ui.modals.ModalDialog;
+// import org.dominokit.domino.ui.pickers.PickerHandler;
+// import org.dominokit.domino.ui.style.ColorScheme;
+// import org.dominokit.domino.ui.style.Elevation;
+// import org.dominokit.domino.ui.style.Styles;
+// import org.dominokit.domino.ui.utils.BaseDominoElement;
+// import org.dominokit.domino.ui.utils.DominoElement;
+// import org.dominokit.domino.ui.utils.HasValue;
+// import org.gwtproject.editor.client.TakesValue;
+// import org.gwtproject.i18n.shared.DateTimeFormat;
+// import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
+// import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 //
-///**
+/// **
 // * A component to pick a date
 // *
 // * <p>Customize the component can be done by overwriting classes provided by {@link
@@ -71,7 +86,7 @@
 // * @see DatePickerMonth.InternalHandler
 // * @see TakesValue
 // */
-//public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
+// public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
 //    implements HasValue<DatePicker, Date>, DatePickerMonth.InternalHandler, TakesValue<Date> {
 //
 //  private final JsDate jsDate;
@@ -133,7 +148,8 @@
 //    build();
 //  }
 //
-//  public DatePicker(Date date, DateTimeFormatInfo dateTimeFormatInfo, Date minDate, Date maxDate) {
+//  public DatePicker(Date date, DateTimeFormatInfo dateTimeFormatInfo, Date minDate, Date maxDate)
+// {
 //    this.jsDate = new JsDate((double) date.getTime());
 //    this.minDate = new JsDate((double) minDate.getTime());
 //    this.maxDate = new JsDate((double) maxDate.getTime());
@@ -544,7 +560,8 @@
 //  }
 //
 //  /**
-//   * Sets the {@link ColorScheme}, the color scheme will be used to set the colors for header, body,
+//   * Sets the {@link ColorScheme}, the color scheme will be used to set the colors for header,
+// body,
 //   * and buttons defined in this picker
 //   *
 //   * @param colorScheme the new {@link ColorScheme}
@@ -598,7 +615,8 @@
 //        this.selectedPickerElement.getWeekDay() + getDateTimeFormatInfo().firstDayOfTheWeek();
 //    if (dayNameIndex > 6) {
 //      dayNameIndex =
-//          this.selectedPickerElement.getWeekDay() + getDateTimeFormatInfo().firstDayOfTheWeek() - 7;
+//          this.selectedPickerElement.getWeekDay() + getDateTimeFormatInfo().firstDayOfTheWeek() -
+// 7;
 //    }
 //    this.dayName.setTextContent(getDateTimeFormatInfo().weekdaysFull()[dayNameIndex]);
 //    this.monthName.setTextContent(
@@ -951,7 +969,8 @@
 //  @FunctionalInterface
 //  public interface DateSelectionHandler {
 //    /**
-//     * This method will be called when the date is selected passing the selected date and the format
+//     * This method will be called when the date is selected passing the selected date and the
+// format
 //     * used in the picker
 //     *
 //     * @param date the selected date
@@ -991,8 +1010,9 @@
 //     * @param dateTimeFormatInfo the {@link DateTimeFormatInfo}
 //     * @return new {@link DateTimeFormat} instance
 //     */
-//    public static DateTimeFormat getFormat(String pattern, DateTimeFormatInfo dateTimeFormatInfo) {
+//    public static DateTimeFormat getFormat(String pattern, DateTimeFormatInfo dateTimeFormatInfo)
+// {
 //      return DateTimeFormat.getFormat(pattern, dateTimeFormatInfo);
 //    }
 //  }
-//}
+// }

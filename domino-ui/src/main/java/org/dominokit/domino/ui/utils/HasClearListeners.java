@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -31,7 +30,7 @@ public interface HasClearListeners<T, V> {
    * @param clearListener {@link ClearListener}
    * @return same implementing class instance
    */
-  default T addClearListener(ClearListener<? super V> clearListener){
+  default T addClearListener(ClearListener<? super V> clearListener) {
     getClearListeners().add(clearListener);
     return (T) this;
   }
@@ -40,7 +39,7 @@ public interface HasClearListeners<T, V> {
    * @param clearListener {@link ClearListener}
    * @return same implementing class instance
    */
-  default T removeClearListener(ClearListener<? super V> clearListener){
+  default T removeClearListener(ClearListener<? super V> clearListener) {
     getClearListeners().remove(clearListener);
     return (T) this;
   }
@@ -51,7 +50,7 @@ public interface HasClearListeners<T, V> {
    * @param clearListener {@link ClearListener}
    * @return same implementing class instance
    */
-  default boolean hasClearListener(ClearListener<? super V> clearListener){
+  default boolean hasClearListener(ClearListener<? super V> clearListener) {
     return getClearListeners().contains(clearListener);
   }
 
@@ -82,12 +81,13 @@ public interface HasClearListeners<T, V> {
   T togglePauseClearListeners(boolean toggle);
 
   /**
-   * Execute a handler while toggling the change handlers state, revert the state back to its original value after executing the handler
+   * Execute a handler while toggling the change handlers state, revert the state back to its
+   * original value after executing the handler
    *
    * @param toggle boolean, true to pause the change listeners, false to enable them
    * @return same component instance
    */
-  default T withPauseClearListenersToggle(boolean toggle, Handler<T> handler){
+  default T withPauseClearListenersToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isClearListenersPaused();
     togglePauseClearListeners(toggle);
     try {
@@ -99,12 +99,13 @@ public interface HasClearListeners<T, V> {
   }
 
   /**
-   * Execute a handler while toggling the change handlers state, revert the state back to its original value after the AsyncHandler.onComplete is called
+   * Execute a handler while toggling the change handlers state, revert the state back to its
+   * original value after the AsyncHandler.onComplete is called
    *
    * @param toggle boolean, true to pause the change listeners, false to enable them
    * @return same component instance
    */
-  default T withPauseClearListenersToggle(boolean toggle, AsyncHandler<T> handler){
+  default T withPauseClearListenersToggle(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isClearListenersPaused();
     togglePauseClearListeners(toggle);
     try {

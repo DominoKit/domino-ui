@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.layout;
 
+import static org.dominokit.domino.ui.layout.NavBarStyles.dui_nav_utility;
+
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
@@ -23,9 +25,8 @@ import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.*;
 
-import static org.dominokit.domino.ui.layout.NavBarStyles.dui_nav_utility;
-
-public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout> implements AppLayoutStyles{
+public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
+    implements AppLayoutStyles {
 
   private final DominoElement<HTMLDivElement> layout;
   private final DominoElement<HTMLElement> body;

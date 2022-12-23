@@ -76,11 +76,12 @@ public class ElementValidations {
   public boolean hasValidator(Validator validator) {
     return !isNull(validator) && validators.contains(validator);
   }
-  public void addOrRemoveValidator(Validator validator, boolean state){
-      if(state){
-        addValidator(validator);
-      }else{
-        removeValidator(validator);
-      }
+
+  public void addOrRemoveValidator(Validator validator, boolean state) {
+    if (state) {
+      addValidator(validator);
+    } else {
+      removeValidator(validator);
+    }
   }
 }

@@ -1,20 +1,33 @@
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.dominokit.domino.ui.utils;
 
 /**
- * a Generic function to apply some logic to any component
- * the caller must call the CompleteHandler.onComplete after finish executing the logic to finalize the process.
+ * a Generic function to apply some logic to any component the caller must call the
+ * CompleteHandler.onComplete after finish executing the logic to finalize the process.
  *
  * @param <T> the field
  */
 @FunctionalInterface
 public interface AsyncHandler<T> {
-    /**
-     * @param field T the field we apply the logic on
-     */
-    void apply(T field, CompleteHandler handler);
+  /** @param field T the field we apply the logic on */
+  void apply(T field, CompleteHandler handler);
 
-    @FunctionalInterface
-    interface CompleteHandler {
-        void onComplete();
-    }
+  @FunctionalInterface
+  interface CompleteHandler {
+    void onComplete();
+  }
 }

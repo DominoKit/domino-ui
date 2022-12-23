@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,31 +28,31 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.timepicker;
+// package org.dominokit.domino.ui.timepicker;
 //
-//import static java.util.Objects.isNull;
-//import static java.util.Objects.nonNull;
-//import static org.jboss.elemento.Elements.input;
+// import static java.util.Objects.isNull;
+// import static java.util.Objects.nonNull;
+// import static org.jboss.elemento.Elements.input;
 //
-//import elemental2.dom.*;
-//import java.util.Date;
-//import java.util.Optional;
-//import jsinterop.base.Js;
-//import org.dominokit.domino.ui.forms.AutoValidator;
-//import org.dominokit.domino.ui.forms.ValueBox;
-//import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
-//import org.dominokit.domino.ui.icons.Icons;
-//import org.dominokit.domino.ui.icons.MdiIcon;
-//import org.dominokit.domino.ui.modals.ModalDialog;
-//import org.dominokit.domino.ui.popover.Popover;
-//import org.dominokit.domino.ui.popover.PopupPosition;
-//import org.dominokit.domino.ui.utils.DominoElement;
-//import org.dominokit.domino.ui.utils.ElementUtil;
-//import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
-//import org.jboss.elemento.EventType;
+// import elemental2.dom.*;
+// import java.util.Date;
+// import java.util.Optional;
+// import jsinterop.base.Js;
+// import org.dominokit.domino.ui.forms.AutoValidator;
+// import org.dominokit.domino.ui.forms.ValueBox;
+// import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
+// import org.dominokit.domino.ui.icons.Icons;
+// import org.dominokit.domino.ui.icons.MdiIcon;
+// import org.dominokit.domino.ui.modals.ModalDialog;
+// import org.dominokit.domino.ui.popover.Popover;
+// import org.dominokit.domino.ui.popover.PopupPosition;
+// import org.dominokit.domino.ui.utils.DominoElement;
+// import org.dominokit.domino.ui.utils.ElementUtil;
+// import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
+// import org.jboss.elemento.EventType;
 //
-///** A form element that takes and provide date value as time using a picker element */
-//public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
+/// ** A form element that takes and provide date value as time using a picker element */
+// public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 //
 //  private TimePicker timePicker;
 //
@@ -73,7 +88,8 @@
 //  /**
 //   * @param label String field label
 //   * @param time {@link Date} initial time
-//   * @param dateTimeFormatInfo {@link DateTimeFormatInfo} to be used to format the time value in the
+//   * @param dateTimeFormatInfo {@link DateTimeFormatInfo} to be used to format the time value in
+// the
 //   *     text input
 //   */
 //  public TimeBox(String label, Date time, DateTimeFormatInfo dateTimeFormatInfo) {
@@ -144,7 +160,8 @@
 //  /**
 //   * @param label String field label
 //   * @param time {@link Date} initial time
-//   * @param dateTimeFormatInfo {@link DateTimeFormatInfo} to be used to format the time value in the
+//   * @param dateTimeFormatInfo {@link DateTimeFormatInfo} to be used to format the time value in
+// the
 //   *     text input
 //   */
 //  public static TimeBox create(String label, Date time, DateTimeFormatInfo dateTimeFormatInfo) {
@@ -440,4 +457,4 @@
 //     */
 //    POPOVER
 //  }
-//}
+// }

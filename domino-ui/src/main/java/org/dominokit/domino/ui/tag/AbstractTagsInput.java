@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,39 +28,40 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.tag;
+// package org.dominokit.domino.ui.tag;
 //
-//import static java.util.Objects.nonNull;
-//import static org.jboss.elemento.Elements.input;
+// import static java.util.Objects.nonNull;
+// import static org.jboss.elemento.Elements.input;
 //
-//import elemental2.dom.HTMLDivElement;
-//import elemental2.dom.HTMLElement;
-//import elemental2.dom.HTMLInputElement;
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Map;
-//import java.util.stream.Collectors;
-//import org.dominokit.domino.ui.chips.Chip;
-//import org.dominokit.domino.ui.dropdown.DropDownMenu;
-//import org.dominokit.domino.ui.dropdown.DropDownPosition;
-//import org.dominokit.domino.ui.dropdown.DropdownAction;
-//import org.dominokit.domino.ui.forms.AbstractValueBox;
-//import org.dominokit.domino.ui.forms.AutoValidator;
-//import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
-//import org.dominokit.domino.ui.grid.flex.FlexItem;
-//import org.dominokit.domino.ui.grid.flex.FlexLayout;
-//import org.dominokit.domino.ui.grid.flex.FlexWrap;
-//import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-//import org.dominokit.domino.ui.keyboard.KeyboardEvents.KeyboardEventOptions;
-//import org.dominokit.domino.ui.style.ColorScheme;
-//import org.dominokit.domino.ui.tag.store.TagsStore;
-//import org.dominokit.domino.ui.utils.DominoElement;
+// import elemental2.dom.HTMLDivElement;
+// import elemental2.dom.HTMLElement;
+// import elemental2.dom.HTMLInputElement;
+// import java.util.ArrayList;
+// import java.util.List;
+// import java.util.Map;
+// import java.util.stream.Collectors;
+// import org.dominokit.domino.ui.chips.Chip;
+// import org.dominokit.domino.ui.dropdown.DropDownMenu;
+// import org.dominokit.domino.ui.dropdown.DropDownPosition;
+// import org.dominokit.domino.ui.dropdown.DropdownAction;
+// import org.dominokit.domino.ui.forms.AbstractValueBox;
+// import org.dominokit.domino.ui.forms.AutoValidator;
+// import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
+// import org.dominokit.domino.ui.grid.flex.FlexItem;
+// import org.dominokit.domino.ui.grid.flex.FlexLayout;
+// import org.dominokit.domino.ui.grid.flex.FlexWrap;
+// import org.dominokit.domino.ui.keyboard.KeyboardEvents;
+// import org.dominokit.domino.ui.keyboard.KeyboardEvents.KeyboardEventOptions;
+// import org.dominokit.domino.ui.style.ColorScheme;
+// import org.dominokit.domino.ui.tag.store.TagsStore;
+// import org.dominokit.domino.ui.utils.DominoElement;
 //
-///**
+/// **
 // * A component provides an input field which represents the data in tags
 // *
 // * <p>This component provides an input field which takes multiple values and each value is
-// * represented in a tag. It also provides a suggestion feature to list all the items in a store for
+// * represented in a tag. It also provides a suggestion feature to list all the items in a store
+// for
 // * the user to select from it.
 // *
 // * <p>Customize the component can be done by overwriting classes provided by {@link TagStyles}
@@ -71,7 +87,7 @@
 // * @param <V> the type of the object inside the input
 // * @see AbstractValueBox
 // */
-//public abstract class AbstractTagsInput<T extends AbstractTagsInput<T, V>, V>
+// public abstract class AbstractTagsInput<T extends AbstractTagsInput<T, V>, V>
 //    extends AbstractValueBox<T, HTMLElement, List<V>> {
 //
 //  private DominoElement<HTMLInputElement> tagTextInput;
@@ -147,7 +163,8 @@
 //              chips.stream().reduce((first, second) -> second).ifPresent(Chip::remove);
 //              search();
 //            })
-//        .onArrowUpDown(evt -> openMenu(true), KeyboardEventOptions.create().setPreventDefault(true))
+//        .onArrowUpDown(evt -> openMenu(true),
+// KeyboardEventOptions.create().setPreventDefault(true))
 //        .onEscape(evt -> dropDownMenu.close());
 //
 //    tagTextInput.addEventListener("input", evt -> search());
@@ -452,4 +469,4 @@
 //  protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
 //    return new InputAutoValidator<>(autoValidate);
 //  }
-//}
+// }

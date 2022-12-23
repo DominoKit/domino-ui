@@ -34,34 +34,34 @@ public class MinLengthValidator<T, E extends HTMLElement> implements HasValidati
     this.inputElement = inputElement;
   }
 
-
   /** {@inheritDoc} */
   @Override
   public ValidationResult isValid() {
-    if(inputElement.getInputElement().element() instanceof HTMLInputElement){
+    if (inputElement.getInputElement().element() instanceof HTMLInputElement) {
       return validateHTMLInput();
-    }else {
+    } else {
       return validateHTMLElement();
     }
   }
 
   private ValidationResult validateHTMLInput() {
-    if (((HTMLInputElement)this.inputElement.getInputElement().element())
-            .validity
-            .tooShort ) {
-      if(this.inputElement instanceof HasMinMaxLength) {
+    if (((HTMLInputElement) this.inputElement.getInputElement().element()).validity.tooShort) {
+      if (this.inputElement instanceof HasMinMaxLength) {
         HasMinMaxLength<T> hasLength = (HasMinMaxLength<T>) this.inputElement;
-        return ValidationResult.invalid(labels.getMinErrorMessage(hasLength.getMinLength(), hasLength.getLength()));
+        return ValidationResult.invalid(
+            labels.getMinErrorMessage(hasLength.getMinLength(), hasLength.getLength()));
       }
     }
     return ValidationResult.valid();
   }
+
   private ValidationResult validateHTMLElement() {
-    if(this.inputElement instanceof HasMinMaxLength) {
+    if (this.inputElement instanceof HasMinMaxLength) {
       HasMinMaxLength<T> hasLength = (HasMinMaxLength<T>) this.inputElement;
       int length = hasLength.getLength();
-      if(length < hasLength.getMinLength()) {
-        return ValidationResult.invalid(labels.getMinErrorMessage(hasLength.getMinLength(), hasLength.getLength()));
+      if (length < hasLength.getMinLength()) {
+        return ValidationResult.invalid(
+            labels.getMinErrorMessage(hasLength.getMinLength(), hasLength.getLength()));
       }
     }
     return ValidationResult.valid();

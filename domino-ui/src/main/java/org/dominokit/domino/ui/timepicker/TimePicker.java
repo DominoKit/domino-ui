@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,42 +28,42 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.timepicker;
+// package org.dominokit.domino.ui.timepicker;
 //
-//import static elemental2.dom.DomGlobal.document;
-//import static java.util.Objects.nonNull;
-//import static org.dominokit.domino.ui.timepicker.ClockStyle._12;
-//import static org.dominokit.domino.ui.timepicker.DayPeriod.AM;
-//import static org.dominokit.domino.ui.timepicker.DayPeriod.PM;
-//import static org.dominokit.domino.ui.utils.ElementUtil.clear;
-//import static org.jboss.elemento.Elements.*;
+// import static elemental2.dom.DomGlobal.document;
+// import static java.util.Objects.nonNull;
+// import static org.dominokit.domino.ui.timepicker.ClockStyle._12;
+// import static org.dominokit.domino.ui.timepicker.DayPeriod.AM;
+// import static org.dominokit.domino.ui.timepicker.DayPeriod.PM;
+// import static org.dominokit.domino.ui.utils.ElementUtil.clear;
+// import static org.jboss.elemento.Elements.*;
 //
-//import elemental2.core.JsDate;
-//import elemental2.dom.*;
-//import elemental2.svg.SVGCircleElement;
-//import elemental2.svg.SVGElement;
-//import java.util.*;
-//import jsinterop.base.Js;
-//import org.dominokit.domino.ui.animations.Animation;
-//import org.dominokit.domino.ui.animations.Transition;
-//import org.dominokit.domino.ui.button.Button;
-//import org.dominokit.domino.ui.button.LinkButton;
-//import org.dominokit.domino.ui.dialogs.Dialog;
-//import org.dominokit.domino.ui.icons.Icons;
-//import org.dominokit.domino.ui.modals.ModalDialog;
-//import org.dominokit.domino.ui.pickers.PickerHandler;
-//import org.dominokit.domino.ui.style.ColorScheme;
-//import org.dominokit.domino.ui.style.Elevation;
-//import org.dominokit.domino.ui.utils.DominoElement;
-//import org.dominokit.domino.ui.utils.ElementUtil;
-//import org.dominokit.domino.ui.utils.TextNode;
-//import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
-//import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
-//import org.jboss.elemento.EventType;
-//import org.jboss.elemento.IsElement;
+// import elemental2.core.JsDate;
+// import elemental2.dom.*;
+// import elemental2.svg.SVGCircleElement;
+// import elemental2.svg.SVGElement;
+// import java.util.*;
+// import jsinterop.base.Js;
+// import org.dominokit.domino.ui.animations.Animation;
+// import org.dominokit.domino.ui.animations.Transition;
+// import org.dominokit.domino.ui.button.Button;
+// import org.dominokit.domino.ui.button.LinkButton;
+// import org.dominokit.domino.ui.dialogs.Dialog;
+// import org.dominokit.domino.ui.icons.Icons;
+// import org.dominokit.domino.ui.modals.ModalDialog;
+// import org.dominokit.domino.ui.pickers.PickerHandler;
+// import org.dominokit.domino.ui.style.ColorScheme;
+// import org.dominokit.domino.ui.style.Elevation;
+// import org.dominokit.domino.ui.utils.DominoElement;
+// import org.dominokit.domino.ui.utils.ElementUtil;
+// import org.dominokit.domino.ui.utils.TextNode;
+// import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
+// import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
+// import org.jboss.elemento.EventType;
+// import org.jboss.elemento.IsElement;
 //
-///** A component that allows the user to pick time from a clock like element */
-//public class TimePicker implements IsElement<HTMLDivElement> {
+/// ** A component that allows the user to pick time from a clock like element */
+// public class TimePicker implements IsElement<HTMLDivElement> {
 //
 //  private DominoElement<HTMLDivElement> pickerContentContainer;
 //  private Clock clock;
@@ -93,7 +108,8 @@
 //  private DominoElement<HTMLElement> amPmSpanTop =
 //      DominoElement.of(span()).css(TimePickerStyles.AM_PM_TEXT).css(TimePickerStyles.AM_PM_TOP);
 //  private DominoElement<HTMLElement> amPmSpanBottom =
-//      DominoElement.of(span()).css(TimePickerStyles.AM_PM_TEXT).css(TimePickerStyles.AM_PM_BOTTOM);
+//
+// DominoElement.of(span()).css(TimePickerStyles.AM_PM_TEXT).css(TimePickerStyles.AM_PM_BOTTOM);
 //
 //  private DominoElement<HTMLAnchorElement> backToHours;
 //  private DominoElement<HTMLAnchorElement> backToMinutes;
@@ -555,7 +571,8 @@
 //        .on(
 //            EventType.mouseout,
 //            event -> {
-//              if (clock.getMinute() != clockElement.getValue()) removeMinutesPointer(clockElement);
+//              if (clock.getMinute() != clockElement.getValue())
+// removeMinutesPointer(clockElement);
 //            })
 //        .on(
 //            EventType.mousedown,
@@ -610,7 +627,8 @@
 //        .on(
 //            EventType.mouseout,
 //            event -> {
-//              if (clock.getSecond() != clockElement.getValue()) removeSecondsPointer(clockElement);
+//              if (clock.getSecond() != clockElement.getValue())
+// removeSecondsPointer(clockElement);
 //            })
 //        .on(
 //            EventType.mousedown,
@@ -928,7 +946,8 @@
 //  }
 //
 //  /**
-//   * @param showMinutesHandler {@link PickerHandler} to be called when the picker shows the minutes
+//   * @param showMinutesHandler {@link PickerHandler} to be called when the picker shows the
+// minutes
 //   *     panel
 //   * @return same instance
 //   */
@@ -1098,7 +1117,8 @@
 //    return clockPanel;
 //  }
 //
-//  /** @return boolean, true if the elements to switch between hour/minutes selection are visible */
+//  /** @return boolean, true if the elements to switch between hour/minutes selection are visible
+// */
 //  public boolean isShowSwitchers() {
 //    return showSwitchers;
 //  }
@@ -1152,7 +1172,8 @@
 //  }
 //
 //  private void formatTime() {
-//    hoursText.setTextContent(clock.getHour() < 10 ? ("0" + clock.getHour()) : clock.getHour() + "");
+//    hoursText.setTextContent(clock.getHour() < 10 ? ("0" + clock.getHour()) : clock.getHour() +
+// "");
 //    minutesText.setTextContent(
 //        clock.getMinute() < 10 ? ("0" + clock.getMinute()) : clock.getMinute() + "");
 //    secondsText.setTextContent(
@@ -1197,7 +1218,8 @@
 //    this.autoSwitchMinutes = autoSwitchMinutes;
 //  }
 //
-//  /** @return boolean, true if selecting a minute will automatically switch to seconds selection */
+//  /** @return boolean, true if selecting a minute will automatically switch to seconds selection
+// */
 //  public boolean isAutoSwitchSeconds() {
 //    return autoSwitchSeconds;
 //  }
@@ -1256,4 +1278,4 @@
 //     */
 //    void onTimeSelected(Date time, DateTimeFormatInfo dateTimeFormatInfo, TimePicker picker);
 //  }
-//}
+// }

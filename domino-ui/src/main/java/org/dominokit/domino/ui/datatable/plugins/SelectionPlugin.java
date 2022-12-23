@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,36 +28,36 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.datatable.plugins;
+// package org.dominokit.domino.ui.datatable.plugins;
 //
-//import static java.util.Collections.singletonList;
-//import static java.util.Objects.nonNull;
+// import static java.util.Collections.singletonList;
+// import static java.util.Objects.nonNull;
 //
-//import elemental2.dom.HTMLElement;
-//import elemental2.dom.MouseEvent;
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.function.Supplier;
-//import jsinterop.base.Js;
-//import org.dominokit.domino.ui.datatable.*;
-//import org.dominokit.domino.ui.forms.CheckBox;
-//import org.dominokit.domino.ui.grid.flex.FlexItem;
-//import org.dominokit.domino.ui.icons.BaseIcon;
-//import org.dominokit.domino.ui.icons.Icons;
-//import org.dominokit.domino.ui.style.ColorScheme;
-//import org.dominokit.domino.ui.style.Style;
-//import org.dominokit.domino.ui.utils.DominoElement;
-//import org.dominokit.domino.ui.utils.Selectable;
-//import org.jboss.elemento.IsElement;
+// import elemental2.dom.HTMLElement;
+// import elemental2.dom.MouseEvent;
+// import java.util.List;
+// import java.util.Optional;
+// import java.util.function.Supplier;
+// import jsinterop.base.Js;
+// import org.dominokit.domino.ui.datatable.*;
+// import org.dominokit.domino.ui.forms.CheckBox;
+// import org.dominokit.domino.ui.grid.flex.FlexItem;
+// import org.dominokit.domino.ui.icons.BaseIcon;
+// import org.dominokit.domino.ui.icons.Icons;
+// import org.dominokit.domino.ui.style.ColorScheme;
+// import org.dominokit.domino.ui.style.Style;
+// import org.dominokit.domino.ui.utils.DominoElement;
+// import org.dominokit.domino.ui.utils.Selectable;
+// import org.jboss.elemento.IsElement;
 //
-///**
+/// **
 // * This plugin allow selecting/deselecting single or multiple rows based on the {@link
 // * TableConfig#isMultiSelect()} and fires table selection change events when the user changes the
 // * selection.
 // *
 // * @param <T> the type of the data table records
 // */
-//public class SelectionPlugin<T> implements DataTablePlugin<T> {
+// public class SelectionPlugin<T> implements DataTablePlugin<T> {
 //
 //  private ColorScheme colorScheme;
 //  private Selectable<T> selectedRow;
@@ -173,7 +188,8 @@
 //    return clonedIndicator;
 //  }
 //
-//  private HTMLElement createMultiSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
+//  private HTMLElement createMultiSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell)
+// {
 //    CheckBox checkBox = createCheckBox(Optional.ofNullable(cell.getTableRow()));
 //
 //    TableRow<T> tableRow = cell.getTableRow();
@@ -330,4 +346,4 @@
 //  public interface CheckBoxCreator<T> {
 //    CheckBox get(Optional<TableRow<T>> row);
 //  }
-//}
+// }

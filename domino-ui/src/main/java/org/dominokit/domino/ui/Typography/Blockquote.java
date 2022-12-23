@@ -23,7 +23,6 @@ import static org.jboss.elemento.Elements.footer;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLQuoteElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.TextNode;

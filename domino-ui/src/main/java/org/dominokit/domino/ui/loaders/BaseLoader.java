@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.i18n.LoaderLabels;
@@ -32,15 +31,13 @@ import org.jboss.elemento.IsElement;
  * @see IsLoader
  */
 public abstract class BaseLoader<T extends BaseLoader<T>>
-    extends BaseDominoElement<HTMLDivElement, T> implements IsLoader, IsElement<HTMLDivElement> , LoaderStyles{
+    extends BaseDominoElement<HTMLDivElement, T>
+    implements IsLoader, IsElement<HTMLDivElement>, LoaderStyles {
 
   protected final LoaderLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
 
   protected HTMLDivElement loadingText =
-      DominoElement.div()
-          .addCss(dui_loader, wait_me_text)
-          .textContent(labels.loading())
-          .element();
+      DominoElement.div().addCss(dui_loader, wait_me_text).textContent(labels.loading()).element();
 
   /** {@inheritDoc} */
   @Override

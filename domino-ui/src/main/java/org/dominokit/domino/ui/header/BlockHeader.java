@@ -38,16 +38,22 @@ import org.dominokit.domino.ui.utils.LazyChild;
  *
  * @see BaseDominoElement
  */
-public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> implements BlockHeaderStyles{
+public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader>
+    implements BlockHeaderStyles {
 
   private final DominoElement<HTMLDivElement> element;
   private final DominoElement<HTMLHeadingElement> headerElement;
   private LazyChild<DominoElement<HTMLElement>> descriptionElement;
 
   private BlockHeader(String title) {
-    element = DominoElement.div().addCss(dui_block_header)
-            .appendChild(headerElement = DominoElement.h(2).addCss(dui_block_header_title).textContent(title));
-    descriptionElement = LazyChild.of(DominoElement.small().addCss(dui_block_header_description), element);
+    element =
+        DominoElement.div()
+            .addCss(dui_block_header)
+            .appendChild(
+                headerElement =
+                    DominoElement.h(2).addCss(dui_block_header_title).textContent(title));
+    descriptionElement =
+        LazyChild.of(DominoElement.small().addCss(dui_block_header_description), element);
     init(this);
   }
 
@@ -58,7 +64,7 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
 
   public BlockHeader setDescription(String description) {
     descriptionElement.get().setTextContent(description);
-    return  this;
+    return this;
   }
 
   /**
@@ -82,8 +88,7 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
     return new BlockHeader(header);
   }
 
-
-  public BlockHeader setReversed(boolean reversed){
+  public BlockHeader setReversed(boolean reversed) {
     addCss(BooleanCssClass.of(dui_block_header_reversed, reversed));
     return this;
   }
@@ -104,7 +109,8 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
     return headerElement;
   }
 
-  public BlockHeader withHeaderElement(ChildHandler<BlockHeader, DominoElement<HTMLHeadingElement>> handler) {
+  public BlockHeader withHeaderElement(
+      ChildHandler<BlockHeader, DominoElement<HTMLHeadingElement>> handler) {
     handler.apply(this, headerElement);
     return this;
   }
@@ -121,12 +127,11 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> 
   }
 
   /** @return The description element */
-  public BlockHeader withDescriptionElement(ChildHandler<BlockHeader, DominoElement<HTMLElement>> handler) {
+  public BlockHeader withDescriptionElement(
+      ChildHandler<BlockHeader, DominoElement<HTMLElement>> handler) {
     handler.apply(this, descriptionElement.get());
     return this;
   }
-
-
 
   /** {@inheritDoc} */
   @Override

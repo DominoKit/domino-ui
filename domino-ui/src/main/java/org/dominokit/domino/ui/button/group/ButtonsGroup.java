@@ -15,18 +15,15 @@
  */
 package org.dominokit.domino.ui.button.group;
 
+import static org.dominokit.domino.ui.button.ButtonStyles.*;
+
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.button.ButtonStyles;
+import java.util.Arrays;
 import org.dominokit.domino.ui.button.IsButton;
 import org.dominokit.domino.ui.style.BooleanCssClass;
-import org.dominokit.domino.ui.style.WavesElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-
-import java.util.Arrays;
-
-import static org.dominokit.domino.ui.button.ButtonStyles.*;
 
 /**
  * a component to group a set of buttons.
@@ -42,15 +39,13 @@ import static org.dominokit.domino.ui.button.ButtonStyles.*;
  *            .setSize(ButtonSize.LARGE);
  *     </pre>
  */
-public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup>
-     {
+public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
 
   private DominoElement<HTMLDivElement> groupElement;
 
   /** default constructor */
   public ButtonsGroup() {
-    groupElement  =
-    DominoElement.div().addCss(dui_button_group).setAttribute("role", "group");
+    groupElement = DominoElement.div().addCss(dui_button_group).setAttribute("role", "group");
     init(this);
   }
 
@@ -59,7 +54,6 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup>
     this();
     appendChild(buttons);
   }
-
 
   /** @return a new ButtonsGroup instance */
   public static ButtonsGroup create() {
@@ -75,6 +69,7 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup>
     appendChild(button.asButton().element());
     return this;
   }
+
   public ButtonsGroup appendChild(IsButton<?>... buttons) {
     Arrays.stream(buttons).forEach(this::appendChild);
     return this;
@@ -86,7 +81,7 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup>
     return groupElement.element();
   }
 
-  public ButtonsGroup setVertical(boolean vertical){
+  public ButtonsGroup setVertical(boolean vertical) {
     addCss(BooleanCssClass.of(dui_vertical, vertical));
     return this;
   }
@@ -101,5 +96,4 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup>
     dui_vertical.remove(this.element());
     return this;
   }
-
 }

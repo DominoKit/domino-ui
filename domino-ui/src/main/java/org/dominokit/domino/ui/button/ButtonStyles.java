@@ -17,18 +17,16 @@ package org.dominokit.domino.ui.button;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * A constants class to reference css classes used in Button components
- */
+/** A constants class to reference css classes used in Button components */
 public interface ButtonStyles {
-    CssClass dui_button = () -> "dui-btn";
-    CssClass dui_button_body = () -> "dui-btn-body";
-    CssClass dui_button_text = () -> "dui-btn-text";
-    CssClass dui_button_icon = () -> "dui-btn-icon";
-    CssClass dui_button_split = () -> "dui-btn-split";
-    CssClass dui_button_group = () -> "dui-btn-group";
-    CssClass dui_button_toolbar = () -> "dui-btn-toolbar";
-    CssClass dui_vertical = () -> "dui-vertical";
-    CssClass dui_circle = () -> "dui-circle";
-    CssClass dui_button_reversed = ()-> "dui-btn-reverse";
+  CssClass dui_button = () -> "dui-btn";
+  CssClass dui_button_body = () -> "dui-btn-body";
+  CssClass dui_button_text = () -> "dui-btn-text";
+  CssClass dui_button_icon = () -> "dui-btn-icon";
+  CssClass dui_button_split = () -> "dui-btn-split";
+  CssClass dui_button_group = () -> "dui-btn-group";
+  CssClass dui_button_toolbar = () -> "dui-btn-toolbar";
+  CssClass dui_vertical = () -> "dui-vertical";
+  CssClass dui_circle = () -> "dui-circle";
+  CssClass dui_button_reversed = () -> "dui-btn-reverse";
 }

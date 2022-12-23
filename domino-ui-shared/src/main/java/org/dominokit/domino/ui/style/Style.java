@@ -15,16 +15,14 @@
  */
 package org.dominokit.domino.ui.style;
 
-import elemental2.dom.HTMLElement;
-import org.jboss.elemento.IsElement;
-
-import java.util.Arrays;
-
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.GenericCss.*;
 
-public class Style<E extends HTMLElement>
-    implements DominoStyle<E, Style<E>> {
+import elemental2.dom.HTMLElement;
+import java.util.Arrays;
+import org.jboss.elemento.IsElement;
+
+public class Style<E extends HTMLElement> implements DominoStyle<E, Style<E>> {
 
   private E element;
 

@@ -19,8 +19,6 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.layout.EmptyState;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.GenericCss;
 
 /**
  * This plugin attache a pre-defined {@link EmptyState} component elements to the data table when
@@ -39,8 +37,7 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
    * @param title String, the title of the empty state
    */
   public EmptyStatePlugin(BaseIcon<?> emptyStateIcon, String title) {
-    emptyState =
-        EmptyState.create(title, emptyStateIcon);
+    emptyState = EmptyState.create(title, emptyStateIcon);
   }
 
   /** {@inheritDoc} */

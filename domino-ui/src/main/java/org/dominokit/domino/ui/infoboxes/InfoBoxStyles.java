@@ -17,17 +17,15 @@ package org.dominokit.domino.ui.infoboxes;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link InfoBox}
- */
+/** Default CSS classes for {@link InfoBox} */
 public interface InfoBoxStyles {
 
-    CssClass dui_info_box = () -> "dui-info-box";
-    CssClass dui_info_flipped = () -> "dui-info-flipped";
-    CssClass dui_info_icon = () -> "dui-info-icon";
-    CssClass dui_info_content = () -> "dui-info-content";
-    CssClass dui_info_title = () -> "dui-info-title";
-    CssClass dui_info_value = () -> "dui-info-value";
-    CssClass dui_info_hover_zoom = () -> "dui-info-hover-zoom";
-    CssClass dui_info_hover_expand = () -> "dui-info-hover-expand";
+  CssClass dui_info_box = () -> "dui-info-box";
+  CssClass dui_info_flipped = () -> "dui-info-flipped";
+  CssClass dui_info_icon = () -> "dui-info-icon";
+  CssClass dui_info_content = () -> "dui-info-content";
+  CssClass dui_info_title = () -> "dui-info-title";
+  CssClass dui_info_value = () -> "dui-info-value";
+  CssClass dui_info_hover_zoom = () -> "dui-info-hover-zoom";
+  CssClass dui_info_hover_expand = () -> "dui-info-hover-expand";
 }

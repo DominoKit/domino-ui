@@ -20,11 +20,10 @@ import org.dominokit.domino.ui.style.CssClass;
 /** Default CSS classes for {@link MediaObject} */
 public interface MediaStyles {
 
-  CssClass dui_media= () -> "dui-media";
+  CssClass dui_media = () -> "dui-media";
   CssClass dui_media_body = () -> "dui-media-body";
   CssClass dui_media_heading = () -> "dui-media-heading";
-  CssClass dui_media_object= () -> "dui-media-object";
-  CssClass  dui_media_left= () -> "dui-media-left";
-  CssClass  dui_media_right= () -> "dui-media-right";
-
+  CssClass dui_media_object = () -> "dui-media-object";
+  CssClass dui_media_left = () -> "dui-media-left";
+  CssClass dui_media_right = () -> "dui-media-right";
 }

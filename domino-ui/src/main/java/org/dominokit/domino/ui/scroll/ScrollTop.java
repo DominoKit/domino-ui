@@ -15,16 +15,15 @@
  */
 package org.dominokit.domino.ui.scroll;
 
+import static elemental2.dom.DomGlobal.document;
+
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.ButtonSize;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.ColorsCss;
-import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.elemento.EventType;
-
-import static elemental2.dom.DomGlobal.document;
 
 /**
  * A component that show up in a specific position on the screen only when the user scrolls down and

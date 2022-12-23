@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,34 +28,34 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.upload;
+// package org.dominokit.domino.ui.upload;
 //
-//import static java.util.Objects.nonNull;
-//import static org.jboss.elemento.Elements.h;
+// import static java.util.Objects.nonNull;
+// import static org.jboss.elemento.Elements.h;
 //
-//import elemental2.core.JsNumber;
-//import elemental2.dom.*;
-//import java.util.ArrayList;
-//import java.util.List;
-//import org.dominokit.domino.ui.Typography.Paragraph;
-//import org.dominokit.domino.ui.icons.Icons;
-//import org.dominokit.domino.ui.popover.PopupPosition;
-//import org.dominokit.domino.ui.popover.Tooltip;
-//import org.dominokit.domino.ui.progress.Progress;
-//import org.dominokit.domino.ui.progress.ProgressBar;
-//import org.dominokit.domino.ui.style.Color;
-//import org.dominokit.domino.ui.thumbnails.Thumbnail;
-//import org.dominokit.domino.ui.utils.BaseDominoElement;
-//import org.dominokit.domino.ui.utils.DominoElement;
-//import org.jboss.elemento.Elements;
+// import elemental2.core.JsNumber;
+// import elemental2.dom.*;
+// import java.util.ArrayList;
+// import java.util.List;
+// import org.dominokit.domino.ui.Typography.Paragraph;
+// import org.dominokit.domino.ui.icons.Icons;
+// import org.dominokit.domino.ui.popover.PopupPosition;
+// import org.dominokit.domino.ui.popover.Tooltip;
+// import org.dominokit.domino.ui.progress.Progress;
+// import org.dominokit.domino.ui.progress.ProgressBar;
+// import org.dominokit.domino.ui.style.Color;
+// import org.dominokit.domino.ui.thumbnails.Thumbnail;
+// import org.dominokit.domino.ui.utils.BaseDominoElement;
+// import org.dominokit.domino.ui.utils.DominoElement;
+// import org.jboss.elemento.Elements;
 //
-///**
+/// **
 // * A component representing the upload file
 // *
 // * @see BaseDominoElement
 // * @see FileUpload
 // */
-//public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
+// public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
 //  private static final String[] UNITS = {"KB", "MB", "GB", "TB"};
 //  private static final String ELLIPSIS_TEXT = "ellipsis-text";
 //
@@ -96,7 +111,8 @@
 //    initThumbnail();
 //
 //    if (isExceedsMaxFile()) {
-//      invalidate("File is too large, maximum file size is " + formatSize(options.getMaxFileSize()));
+//      invalidate("File is too large, maximum file size is " +
+// formatSize(options.getMaxFileSize()));
 //    }
 //
 //    init(this);
@@ -664,4 +680,4 @@
 //  public interface CancelHandler {
 //    void onCancel(XMLHttpRequest request);
 //  }
-//}
+// }

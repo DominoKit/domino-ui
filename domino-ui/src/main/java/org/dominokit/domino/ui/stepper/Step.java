@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,33 +28,34 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.stepper;
+// package org.dominokit.domino.ui.stepper;
 //
-//import static java.util.Objects.nonNull;
-//import static org.dominokit.domino.ui.stepper.StepperStyles.*;
-//import static org.jboss.elemento.Elements.span;
+// import static java.util.Objects.nonNull;
+// import static org.dominokit.domino.ui.stepper.StepperStyles.*;
+// import static org.jboss.elemento.Elements.span;
 //
-//import elemental2.dom.HTMLDivElement;
-//import elemental2.dom.HTMLElement;
-//import elemental2.dom.Node;
-//import java.util.ArrayList;
-//import java.util.Collections;
-//import java.util.List;
-//import java.util.function.Consumer;
-//import java.util.stream.Collectors;
-//import org.dominokit.domino.ui.animations.Animation;
-//import org.dominokit.domino.ui.forms.validations.ValidationResult;
-//import org.dominokit.domino.ui.grid.flex.FlexDirection;
-//import org.dominokit.domino.ui.grid.flex.FlexItem;
-//import org.dominokit.domino.ui.grid.flex.FlexLayout;
-//import org.dominokit.domino.ui.style.Color;
-//import org.dominokit.domino.ui.utils.BaseDominoElement;
-//import org.dominokit.domino.ui.utils.DominoElement;
-//import org.dominokit.domino.ui.utils.HasValidation;
-//import org.jboss.elemento.IsElement;
+// import elemental2.dom.HTMLDivElement;
+// import elemental2.dom.HTMLElement;
+// import elemental2.dom.Node;
+// import java.util.ArrayList;
+// import java.util.Collections;
+// import java.util.List;
+// import java.util.function.Consumer;
+// import java.util.stream.Collectors;
+// import org.dominokit.domino.ui.animations.Animation;
+// import org.dominokit.domino.ui.forms.validations.ValidationResult;
+// import org.dominokit.domino.ui.grid.flex.FlexDirection;
+// import org.dominokit.domino.ui.grid.flex.FlexItem;
+// import org.dominokit.domino.ui.grid.flex.FlexLayout;
+// import org.dominokit.domino.ui.style.Color;
+// import org.dominokit.domino.ui.utils.BaseDominoElement;
+// import org.dominokit.domino.ui.utils.DominoElement;
+// import org.dominokit.domino.ui.utils.HasValidation;
+// import org.jboss.elemento.IsElement;
 //
-///** A component that is a single step inside a {@link Stepper} */
-//public class Step extends BaseDominoElement<HTMLDivElement, Step> implements HasValidation<Step> {
+/// ** A component that is a single step inside a {@link Stepper} */
+// public class Step extends BaseDominoElement<HTMLDivElement, Step> implements HasValidation<Step>
+// {
 //
 //  private final DominoElement<HTMLElement> titleSpan;
 //  private final DominoElement<HTMLElement> descriptionSpan;
@@ -151,7 +167,8 @@
 //                                    .setFlexGrow(1)
 //                                    .css(STEP_DESCRIPTION)
 //                                    .appendChild(descriptionSpan))
-//                            .appendChild(errorMessagesFlexItem.setFlexGrow(1).css(STEP_ERRORS)))));
+//
+// .appendChild(errorMessagesFlexItem.setFlexGrow(1).css(STEP_ERRORS)))));
 //
 //    this.root.appendChild(header);
 //  }
@@ -234,7 +251,8 @@
 //  }
 //
 //  /**
-//   * Make the step the current active step in the stepper, this show the step content and hide other
+//   * Make the step the current active step in the stepper, this show the step content and hide
+// other
 //   * steps content, this will put the step in {@link Stepper.StepState#ACTIVE}
 //   *
 //   * @return same Step instance
@@ -378,7 +396,8 @@
 //  }
 //
 //  /**
-//   * This will not make the step active unless specified,but will enable the step so it is clickable
+//   * This will not make the step active unless specified,but will enable the step so it is
+// clickable
 //   * and can be stepped into with the stepper and will put the step in the provided state
 //   *
 //   * @param targetState {@link Stepper.StepState}
@@ -410,7 +429,8 @@
 //    return root.element();
 //  }
 //
-//  /** if the step is invalid it will be put in the {@link Stepper.StepState#ERROR} {@inheritDoc} */
+//  /** if the step is invalid it will be put in the {@link Stepper.StepState#ERROR} {@inheritDoc}
+// */
 //  @Override
 //  public ValidationResult validate() {
 //    clearInvalid();
@@ -424,7 +444,8 @@
 //    return ValidationResult.valid();
 //  }
 //
-//  /** if the step is invalid it will be put in the {@link Stepper.StepState#ERROR} {@inheritDoc} */
+//  /** if the step is invalid it will be put in the {@link Stepper.StepState#ERROR} {@inheritDoc}
+// */
 //  @Override
 //  public List<ValidationResult> validateAll() {
 //    clearInvalid();
@@ -582,9 +603,10 @@
 //  }
 //
 //  /**
-//   * @param initialState {@link Stepper.StepState} to be used as default initial state for the step
+//   * @param initialState {@link Stepper.StepState} to be used as default initial state for the
+// step
 //   */
 //  public void setInitialState(Stepper.StepState initialState) {
 //    this.initialState = initialState;
 //  }
-//}
+// }

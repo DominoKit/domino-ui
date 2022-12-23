@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,19 +28,19 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.utils;
+// package org.dominokit.domino.ui.utils;
 //
-//import java.util.List;
-//import java.util.Optional;
-//import org.dominokit.domino.ui.tree.Tree;
-//import org.dominokit.domino.ui.tree.TreeItemFilter;
+// import java.util.List;
+// import java.util.Optional;
+// import org.dominokit.domino.ui.tree.Tree;
+// import org.dominokit.domino.ui.tree.TreeItemFilter;
 //
-///**
+/// **
 // * An interface representing a parent tree item
 // *
 // * @param <T> the type of the object
 // */
-//public interface ParentTreeItem<T> {
+// public interface ParentTreeItem<T> {
 //  /** @return The current active value */
 //  T getActiveItem();
 //
@@ -90,4 +105,4 @@
 //
 //  /** @return the {@link TreeItemFilter} */
 //  TreeItemFilter<T> getFilter();
-//}
+// }

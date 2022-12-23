@@ -15,11 +15,8 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
@@ -30,9 +27,7 @@ public class PulseLoader extends BaseLoader<PulseLoader> implements IsElement<HT
       DominoElement.div().addCss(wait_me_progress_elem_1, dui_bg_black);
 
   private final DominoElement<HTMLDivElement> loader =
-      DominoElement.div()
-              .addCss(wait_me_progress, pulse)
-              .appendChild(progress1);
+      DominoElement.div().addCss(wait_me_progress, pulse).appendChild(progress1);
 
   private final DominoElement<HTMLDivElement> content =
       DominoElement.div()
@@ -64,9 +59,7 @@ public class PulseLoader extends BaseLoader<PulseLoader> implements IsElement<HT
   /** {@inheritDoc} */
   @Override
   public void setSize(String width, String height) {
-    onAttached(mutationRecord -> loader
-            .setWidth(width)
-            .setHeight(height));
+    onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
   }
 
   /** {@inheritDoc} */

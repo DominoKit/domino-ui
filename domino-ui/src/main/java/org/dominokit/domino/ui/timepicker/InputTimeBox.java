@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,32 +28,32 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.timepicker;
+// package org.dominokit.domino.ui.timepicker;
 //
-//import static java.util.Objects.isNull;
-//import static java.util.Objects.nonNull;
-//import static org.dominokit.domino.ui.timepicker.ClockStyle._12;
-//import static org.jboss.elemento.Elements.input;
+// import static java.util.Objects.isNull;
+// import static java.util.Objects.nonNull;
+// import static org.dominokit.domino.ui.timepicker.ClockStyle._12;
+// import static org.jboss.elemento.Elements.input;
 //
-//import elemental2.core.JsDate;
-//import elemental2.dom.HTMLDivElement;
-//import elemental2.dom.HTMLInputElement;
-//import java.util.Date;
-//import java.util.HashMap;
-//import java.util.Map;
+// import elemental2.core.JsDate;
+// import elemental2.dom.HTMLDivElement;
+// import elemental2.dom.HTMLInputElement;
+// import java.util.Date;
+// import java.util.HashMap;
+// import java.util.Map;
 //
-//import org.dominokit.domino.ui.forms.AutoValidator;
-//import org.dominokit.domino.ui.forms.ValueBox;
-//import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
-//import org.dominokit.domino.ui.icons.Icons;
-//import org.dominokit.domino.ui.icons.MdiIcon;
-//import org.dominokit.domino.ui.utils.DominoElement;
-//import org.dominokit.domino.ui.utils.Mask;
-//import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
-//import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
+// import org.dominokit.domino.ui.forms.AutoValidator;
+// import org.dominokit.domino.ui.forms.ValueBox;
+// import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
+// import org.dominokit.domino.ui.icons.Icons;
+// import org.dominokit.domino.ui.icons.MdiIcon;
+// import org.dominokit.domino.ui.utils.DominoElement;
+// import org.dominokit.domino.ui.utils.Mask;
+// import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
+// import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 //
-///** A form element that takes and provide date value as time using user input */
-//public class InputTimeBox extends ValueBox<InputTimeBox, HTMLInputElement, Date> {
+/// ** A form element that takes and provide date value as time using user input */
+// public class InputTimeBox extends ValueBox<InputTimeBox, HTMLInputElement, Date> {
 //  private static final String CLOCK_12_REGEX = "^((0[1-9]|1[0-2]):[0-5][0-9]) ?([AaPp][Mm])$";
 //  private static final String CLOCK_12_WITH_SECONDS_REGEX =
 //      "^((0[1-9]|1[0-2]):[0-5][0-9]):(?:[0-5]\\d) ?([AaPp][Mm])$";
@@ -89,7 +104,8 @@
 //  /**
 //   * @param label String field label
 //   * @param time {@link Date} initial time
-//   * @param dateTimeFormatInfo {@link DateTimeFormatInfo} to be used to format the time value in the
+//   * @param dateTimeFormatInfo {@link DateTimeFormatInfo} to be used to format the time value in
+// the
 //   *     text input
 //   */
 //  public InputTimeBox(String label, Date time, DateTimeFormatInfo dateTimeFormatInfo) {
@@ -173,7 +189,8 @@
 //  /**
 //   * @param label String field label
 //   * @param time {@link Date} initial time
-//   * @param dateTimeFormatInfo {@link DateTimeFormatInfo} to be used to format the time value in the
+//   * @param dateTimeFormatInfo {@link DateTimeFormatInfo} to be used to format the time value in
+// the
 //   *     text input
 //   */
 //  public static InputTimeBox create(
@@ -322,4 +339,4 @@
 //    clock.setShowSeconds(showSeconds);
 //    return clock;
 //  }
-//}
+// }

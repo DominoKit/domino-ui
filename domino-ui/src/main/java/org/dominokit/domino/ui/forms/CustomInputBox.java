@@ -49,15 +49,14 @@ public abstract class CustomInputBox<T extends CustomInputBox<T>>
   private String invalidPatternErrorMessage;
   private boolean emptyAsNull;
 
-  /**
-   * Creates an instance of the specified type with a label
-   */
+  /** Creates an instance of the specified type with a label */
   public CustomInputBox() {
     init();
   }
 
   /**
    * Creates an instance of the specified type with a label
+   *
    * @param label String
    */
   public CustomInputBox(String label) {
@@ -77,8 +76,7 @@ public abstract class CustomInputBox<T extends CustomInputBox<T>>
 
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
-    return DominoElement.input(type)
-            .addCss(FIELD_INPUT);
+    return DominoElement.input(type).addCss(FIELD_INPUT);
   }
 
   private void addInvalidPatternValidator() {

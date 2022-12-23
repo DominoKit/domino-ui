@@ -15,19 +15,18 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import org.dominokit.domino.ui.forms.validations.ValidationResult;
-import org.gwtproject.editor.client.Editor;
-
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.dominokit.domino.ui.forms.validations.ValidationResult;
+import org.gwtproject.editor.client.Editor;
 
 /**
  * Component that can be validated should implement this interface
  *
  * @param <T> the type of the component implementing this interface
  */
-public interface HasValidation<T> extends HasAutoValidation<T>{
+public interface HasValidation<T> extends HasAutoValidation<T> {
 
   /**
    * validate the component and fail-fast with first error
@@ -48,12 +47,12 @@ public interface HasValidation<T> extends HasAutoValidation<T>{
   default List<ValidationResult> validateAll() {
     clearInvalid();
     List<ValidationResult> validationResults =
-            getValidators().stream().map(Validator::isValid).collect(Collectors.toList());
+        getValidators().stream().map(Validator::isValid).collect(Collectors.toList());
     List<String> errorMessages =
-            validationResults.stream()
-                    .filter(validationResult -> !validationResult.isValid())
-                    .map(ValidationResult::getErrorMessage)
-                    .collect(Collectors.toList());
+        validationResults.stream()
+            .filter(validationResult -> !validationResult.isValid())
+            .map(ValidationResult::getErrorMessage)
+            .collect(Collectors.toList());
 
     if (!errorMessages.isEmpty()) {
       invalidate(errorMessages);
@@ -66,7 +65,7 @@ public interface HasValidation<T> extends HasAutoValidation<T>{
    * @return same implementing component
    */
   @Editor.Ignore
-  default T addValidator(Validator validator){
+  default T addValidator(Validator validator) {
     getValidators().add(validator);
     return (T) this;
   }
@@ -76,16 +75,15 @@ public interface HasValidation<T> extends HasAutoValidation<T>{
    * @return same implementing component
    */
   @Editor.Ignore
-  default T removeValidator(Validator validator){
+  default T removeValidator(Validator validator) {
     getValidators().remove(validator);
     return (T) this;
   }
 
-
-  default T addOrRemoveValidator(Validator validator, boolean state){
-    if(state){
+  default T addOrRemoveValidator(Validator validator, boolean state) {
+    if (state) {
       addValidator(validator);
-    }else{
+    } else {
       removeValidator(validator);
     }
     return (T) this;
@@ -96,7 +94,7 @@ public interface HasValidation<T> extends HasAutoValidation<T>{
    * @return same implementing component
    */
   @Editor.Ignore
-  default boolean hasValidator(Validator validator){
+  default boolean hasValidator(Validator validator) {
     return getValidators().contains(validator);
   }
 
@@ -129,7 +127,6 @@ public interface HasValidation<T> extends HasAutoValidation<T>{
    */
   @Editor.Ignore
   T clearInvalid();
-
 
   /**
    * Disable validations
@@ -180,68 +177,72 @@ public interface HasValidation<T> extends HasAutoValidation<T>{
   boolean isFocusValidationsPaused();
 
   /**
-   * Execute a handler while toggling the validations state, revert the state back to its original value after executing the handler
+   * Execute a handler while toggling the validations state, revert the state back to its original
+   * value after executing the handler
    *
    * @param toggle boolean, true to pause thevalidations, false to enable them
    * @return same component instance
    */
-  default T withPauseValidationsToggle(boolean toggle, Handler<T> handler){
+  default T withPauseValidationsToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isValidationsPaused();
     togglePauseValidations(toggle);
     try {
       handler.apply((T) this);
-    }finally {
+    } finally {
       this.togglePauseValidations(oldState);
     }
     return (T) this;
   }
 
   /**
-   * Execute a handler while toggling the validations state, revert the state back to its original value after the AsyncHandler.onComplete is called
+   * Execute a handler while toggling the validations state, revert the state back to its original
+   * value after the AsyncHandler.onComplete is called
    *
    * @param toggle boolean, true to pause the validations, false to enable them
    * @return same component instance
    */
-  default T withPauseValidationsToggle(boolean toggle, AsyncHandler<T> handler){
+  default T withPauseValidationsToggle(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isValidationsPaused();
     togglePauseValidations(toggle);
     try {
       handler.apply((T) this, () -> togglePauseValidations(oldState));
-    }catch (Exception e){
+    } catch (Exception e) {
       togglePauseValidations(oldState);
       throw e;
     }
     return (T) this;
   }
   /**
-   * Execute a handler while toggling the validations state, revert the state back to its original value after executing the handler
+   * Execute a handler while toggling the validations state, revert the state back to its original
+   * value after executing the handler
    *
    * @param toggle boolean, true to pause thevalidations, false to enable them
    * @return same component instance
    */
-  default T withPauseFocusValidationsToggle(boolean toggle, Handler<T> handler){
+  default T withPauseFocusValidationsToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isFocusValidationsPaused();
     togglePauseFocusValidations(toggle);
     try {
       handler.apply((T) this);
-    }finally {
+    } finally {
       this.togglePauseFocusValidations(oldState);
     }
     return (T) this;
   }
 
   /**
-   * Execute a handler while toggling the validations state, revert the state back to its original value after the AsyncHandler.onComplete is called
+   * Execute a handler while toggling the validations state, revert the state back to its original
+   * value after the AsyncHandler.onComplete is called
    *
    * @param toggle boolean, true to pause the validations, false to enable them
    * @return same component instance
    */
-  default T withPauseFocusValidationsToggle(boolean toggle, AsyncHandler<T> handler){
+  default T withPauseFocusValidationsToggle(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isFocusValidationsPaused();
     togglePauseFocusValidations(toggle);
     try {
       handler.apply((T) this, () -> togglePauseFocusValidations(oldState));
-    }catch (Exception e){
+    } catch (Exception e) {
       togglePauseFocusValidations(oldState);
       throw e;
     }

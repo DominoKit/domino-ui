@@ -20,22 +20,21 @@ import org.dominokit.domino.ui.style.CssClass;
 /** Default CSS classes for {@link Card} */
 public interface CardStyles {
 
-    CssClass card = () -> "dui-card";
-    CssClass card_reversed = () -> "dui-card-reversed";
-    CssClass card_main_title = () -> "dui-card-main-title";
-    CssClass card_title = () -> "dui-card-title";
-    CssClass card_description = () -> "dui-card-description";
-    CssClass card_header = () -> "dui-card-header";
-    CssClass card_main_header = () -> "dui-card-main-header";
-    CssClass card_sub_header = () -> "dui-card-subheader";
-    CssClass card_logo = () -> "dui-card-logo";
-    CssClass card_icon = () -> "dui-card-icon";
-    CssClass card_utility = () -> "dui-card-utility";
-    CssClass card_body = () -> "dui-card-body";
-    CssClass dui_card_header_filler = () -> "dui-card-header-filler";
+  CssClass card = () -> "dui-card";
+  CssClass card_reversed = () -> "dui-card-reversed";
+  CssClass card_main_title = () -> "dui-card-main-title";
+  CssClass card_title = () -> "dui-card-title";
+  CssClass card_description = () -> "dui-card-description";
+  CssClass card_header = () -> "dui-card-header";
+  CssClass card_main_header = () -> "dui-card-main-header";
+  CssClass card_sub_header = () -> "dui-card-subheader";
+  CssClass card_logo = () -> "dui-card-logo";
+  CssClass card_icon = () -> "dui-card-icon";
+  CssClass card_utility = () -> "dui-card-utility";
+  CssClass card_body = () -> "dui-card-body";
+  CssClass dui_card_header_filler = () -> "dui-card-header-filler";
 
-
-    /** CSS class for card */
+  /** CSS class for card */
   String CARD = "card";
   /** CSS class for card header */
   String HEADER = "header";

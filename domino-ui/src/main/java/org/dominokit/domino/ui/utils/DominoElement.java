@@ -30,150 +30,145 @@ import org.jboss.elemento.IsElement;
  */
 public class DominoElement<E extends HTMLElement> extends BaseDominoElement<E, DominoElement<E>> {
 
-    private final E wrappedElement;
+  private final E wrappedElement;
 
-    /**
-     * @param element the {@link HTMLElement} E to wrap as a DominoElement
-     * @param <E>     extends from {@link HTMLElement}
-     * @return the {@link DominoElement} wrapping the provided element
-     */
-    public static <E extends HTMLElement> DominoElement<E> of(E element) {
-        return new DominoElement<>(element).addCss(dui);
-    }
+  /**
+   * @param element the {@link HTMLElement} E to wrap as a DominoElement
+   * @param <E> extends from {@link HTMLElement}
+   * @return the {@link DominoElement} wrapping the provided element
+   */
+  public static <E extends HTMLElement> DominoElement<E> of(E element) {
+    return new DominoElement<>(element).addCss(dui);
+  }
 
-    /**
-     * @param element the {@link IsElement} E to wrap as a DominoElement
-     * @param <E>     extends from {@link HTMLElement}
-     * @return the {@link DominoElement} wrapping the provided element
-     */
-    public static <T extends HTMLElement, E extends IsElement<T>> DominoElement<T> of(E element) {
-        return new DominoElement<>(element.element()).addCss(dui);
-    }
+  /**
+   * @param element the {@link IsElement} E to wrap as a DominoElement
+   * @param <E> extends from {@link HTMLElement}
+   * @return the {@link DominoElement} wrapping the provided element
+   */
+  public static <T extends HTMLElement, E extends IsElement<T>> DominoElement<T> of(E element) {
+    return new DominoElement<>(element.element()).addCss(dui);
+  }
 
-    /**
-     * @return a {@link DominoElement} wrapping the document {@link HTMLBodyElement}
-     */
-    public static DominoElement<HTMLBodyElement> body() {
-        return new DominoElement<>(document.body);
-    }
+  /** @return a {@link DominoElement} wrapping the document {@link HTMLBodyElement} */
+  public static DominoElement<HTMLBodyElement> body() {
+    return new DominoElement<>(document.body);
+  }
 
-    /**
-     * @return a new {@link HTMLDivElement} wrapped as a {@link DominoElement}
-     */
-    public static DominoElement<HTMLDivElement> div() {
-        return DominoElement.of(Elements.div());
-    }
+  /** @return a new {@link HTMLDivElement} wrapped as a {@link DominoElement} */
+  public static DominoElement<HTMLDivElement> div() {
+    return DominoElement.of(Elements.div());
+  }
 
-    public static DominoElement<HTMLElement> nav() {
-        return DominoElement.of(Elements.nav());
-    }
+  public static DominoElement<HTMLElement> nav() {
+    return DominoElement.of(Elements.nav());
+  }
 
-    public static DominoElement<HTMLHeadingElement> h4() {
-        return DominoElement.of(Elements.h(4));
-    }
+  public static DominoElement<HTMLHeadingElement> h4() {
+    return DominoElement.of(Elements.h(4));
+  }
 
-    public static DominoElement<HTMLLabelElement> label() {
-        return DominoElement.of(Elements.label());
-    }
+  public static DominoElement<HTMLLabelElement> label() {
+    return DominoElement.of(Elements.label());
+  }
 
-    public static DominoElement<HTMLElement> span() {
-        return DominoElement.of(Elements.span());
-    }
+  public static DominoElement<HTMLElement> span() {
+    return DominoElement.of(Elements.span());
+  }
 
-    public static DominoElement<HTMLElement> section() {
-        return DominoElement.of(Elements.section());
-    }
+  public static DominoElement<HTMLElement> section() {
+    return DominoElement.of(Elements.section());
+  }
 
-    public static DominoElement<HTMLElement> aside() {
-        return DominoElement.of(Elements.aside());
-    }
+  public static DominoElement<HTMLElement> aside() {
+    return DominoElement.of(Elements.aside());
+  }
 
-    public static DominoElement<HTMLElement> header() {
-        return DominoElement.of(Elements.header());
-    }
+  public static DominoElement<HTMLElement> header() {
+    return DominoElement.of(Elements.header());
+  }
 
-    /**
-     * @return a new {@link HTMLDivElement} wrapped as a {@link DominoElement}
-     */
-    public static DominoElement<HTMLPictureElement> picture() {
-        return DominoElement.of(Js.<HTMLPictureElement>uncheckedCast(document.createElement("picture")))
-                .addCss(dui);
-    }
+  /** @return a new {@link HTMLDivElement} wrapped as a {@link DominoElement} */
+  public static DominoElement<HTMLPictureElement> picture() {
+    return DominoElement.of(Js.<HTMLPictureElement>uncheckedCast(document.createElement("picture")))
+        .addCss(dui);
+  }
 
-    /**
-     * @param element the E element extending from {@link HTMLElement}
-     */
-    public DominoElement(E element) {
-        this.wrappedElement = element;
-        init(this);
-    }
+  /** @param element the E element extending from {@link HTMLElement} */
+  public DominoElement(E element) {
+    this.wrappedElement = element;
+    init(this);
+  }
 
-    public static DominoElement<HTMLInputElement> input(String type) {
-        return DominoElement.of(Elements.input(type));
-    }
+  public static DominoElement<HTMLInputElement> input(String type) {
+    return DominoElement.of(Elements.input(type));
+  }
 
-    public static DominoElement<HTMLUListElement> ul() {
-        return DominoElement.of(Elements.ul());
-    }
+  public static DominoElement<HTMLUListElement> ul() {
+    return DominoElement.of(Elements.ul());
+  }
 
-    public static DominoElement<HTMLAnchorElement> a() {
-        return DominoElement.of(Elements.a());
-    }
+  public static DominoElement<HTMLAnchorElement> a() {
+    return DominoElement.of(Elements.a());
+  }
 
-    public static DominoElement<HTMLAnchorElement> a(String href) {
-        return DominoElement.of(Elements.a(href));
-    }
+  public static DominoElement<HTMLAnchorElement> a(String href) {
+    return DominoElement.of(Elements.a(href));
+  }
 
-    public static DominoElement<HTMLLIElement> li() {
-        return DominoElement.of(Elements.li());
-    }
+  public static DominoElement<HTMLLIElement> li() {
+    return DominoElement.of(Elements.li());
+  }
 
-    public static DominoElement<HTMLElement> small() {
-        return DominoElement.of(Elements.small());
-    }
+  public static DominoElement<HTMLElement> small() {
+    return DominoElement.of(Elements.small());
+  }
 
-    public static DominoElement<HTMLFieldSetElement> fieldSet() {
-        return DominoElement.of(Elements.fieldset());
-    }
+  public static DominoElement<HTMLFieldSetElement> fieldSet() {
+    return DominoElement.of(Elements.fieldset());
+  }
 
-    public static String getUniqueId() {
-        return Id.unique();
-    }
+  public static String getUniqueId() {
+    return Id.unique();
+  }
 
-    public static DominoElement<HTMLButtonElement> button() {
-        return DominoElement.of(Elements.button());
-    }
+  public static DominoElement<HTMLButtonElement> button() {
+    return DominoElement.of(Elements.button());
+  }
 
-    public static DominoElement<HTMLTextAreaElement> textarea() {
-        return DominoElement.of(Elements.textarea());
-    }
+  public static DominoElement<HTMLTextAreaElement> textarea() {
+    return DominoElement.of(Elements.textarea());
+  }
 
-    public static DominoElement<HTMLOListElement> ol() {
-        return DominoElement.of(Elements.ol());
-    }
+  public static DominoElement<HTMLOListElement> ol() {
+    return DominoElement.of(Elements.ol());
+  }
 
-    public static DominoElement<HTMLHeadingElement> h(int type) {
-        return DominoElement.of(Elements.h(type));
-    }
-    public static DominoElement<HTMLParagraphElement> p() {
-        return DominoElement.of(Elements.p());
-    }
-    public static DominoElement<HTMLImageElement> image(String src) {
-        return DominoElement.of(Elements.img(src));
-    }
-    public static DominoElement<HTMLElement> code() {
-        return DominoElement.of(Elements.code());
-    }
-    public static DominoElement<HTMLPreElement> pre() {
-        return DominoElement.of(Elements.pre());
-    }
+  public static DominoElement<HTMLHeadingElement> h(int type) {
+    return DominoElement.of(Elements.h(type));
+  }
 
+  public static DominoElement<HTMLParagraphElement> p() {
+    return DominoElement.of(Elements.p());
+  }
 
-    /**
-     * @return the E element that is extending from {@link HTMLElement} wrapped in this DominoElement
-     */
-    @Override
-    public E element() {
-        return wrappedElement;
-    }
+  public static DominoElement<HTMLImageElement> image(String src) {
+    return DominoElement.of(Elements.img(src));
+  }
+
+  public static DominoElement<HTMLElement> code() {
+    return DominoElement.of(Elements.code());
+  }
+
+  public static DominoElement<HTMLPreElement> pre() {
+    return DominoElement.of(Elements.pre());
+  }
+
+  /**
+   * @return the E element that is extending from {@link HTMLElement} wrapped in this DominoElement
+   */
+  @Override
+  public E element() {
+    return wrappedElement;
+  }
 }

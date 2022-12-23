@@ -15,17 +15,15 @@
  */
 package org.dominokit.domino.ui.icons;
 
-
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
+import java.util.function.Consumer;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.EventType;
-
-import java.util.function.Consumer;
 
 /**
  * A base implementation for Icon

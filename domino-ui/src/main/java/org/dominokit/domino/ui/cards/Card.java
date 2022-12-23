@@ -61,7 +61,7 @@ import org.jboss.elemento.IsElement;
  * @see BaseDominoElement
  * @see HasBackground
  */
-public class Card extends BaseDominoElement<HTMLDivElement, Card>  {
+public class Card extends BaseDominoElement<HTMLDivElement, Card> {
 
   private final FlexItem<HTMLDivElement> logoContainer;
   private final DominoElement<HTMLDivElement> root = DominoElement.div().addCss(CARD);

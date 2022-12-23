@@ -17,11 +17,10 @@ package org.dominokit.domino.ui.animations;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
+import java.util.Arrays;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.elemento.IsElement;
-
-import java.util.Arrays;
 
 /**
  * Animates an {@link HTMLElement}
@@ -51,7 +50,7 @@ public class Animation {
   private int delay = 0;
   private boolean infinite = false;
   private final DominoElement<HTMLElement> element;
-  private Transition[] transition = new Transition[]{Transition.BOUNCE};
+  private Transition[] transition = new Transition[] {Transition.BOUNCE};
   private CompleteCallback callback = DEFAULT_CALLBACK;
   private StartHandler startHandler = DEFAULT_START_HANDLER;
   private EventListener stopListener;
@@ -228,7 +227,7 @@ public class Animation {
   /** stops the animation and calls the {@link CompleteCallback} if it is set. */
   public void stop() {
     Arrays.asList(transition).forEach(t -> element.removeCss(t.getStyle()));
-//    element.removeCss(transition.getStyle());
+    //    element.removeCss(transition.getStyle());
     element.removeCss("animated");
     element.removeCss("infinite");
     element.removeCss("ease-in-out");

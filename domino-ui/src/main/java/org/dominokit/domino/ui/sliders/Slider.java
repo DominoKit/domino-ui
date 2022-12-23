@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,27 +28,27 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.sliders;
+// package org.dominokit.domino.ui.sliders;
 //
-//import static java.util.Objects.nonNull;
-//import static org.jboss.elemento.Elements.*;
-//import static org.jboss.elemento.Elements.input;
-//import static org.jboss.elemento.EventType.*;
-//import static org.jboss.elemento.EventType.input;
+// import static java.util.Objects.nonNull;
+// import static org.jboss.elemento.Elements.*;
+// import static org.jboss.elemento.Elements.input;
+// import static org.jboss.elemento.EventType.*;
+// import static org.jboss.elemento.EventType.input;
 //
-//import elemental2.dom.*;
-//import java.util.ArrayList;
-//import java.util.List;
-//import org.dominokit.domino.ui.grid.flex.FlexItem;
-//import org.dominokit.domino.ui.grid.flex.FlexLayout;
-//import org.dominokit.domino.ui.style.Color;
-//import org.dominokit.domino.ui.themes.Theme;
-//import org.dominokit.domino.ui.utils.BaseDominoElement;
-//import org.dominokit.domino.ui.utils.DominoElement;
-//import org.dominokit.domino.ui.utils.HasChangeListeners;
-//import org.jboss.elemento.IsElement;
+// import elemental2.dom.*;
+// import java.util.ArrayList;
+// import java.util.List;
+// import org.dominokit.domino.ui.grid.flex.FlexItem;
+// import org.dominokit.domino.ui.grid.flex.FlexLayout;
+// import org.dominokit.domino.ui.style.Color;
+// import org.dominokit.domino.ui.themes.Theme;
+// import org.dominokit.domino.ui.utils.BaseDominoElement;
+// import org.dominokit.domino.ui.utils.DominoElement;
+// import org.dominokit.domino.ui.utils.HasChangeListeners;
+// import org.jboss.elemento.IsElement;
 //
-///**
+/// **
 // * A component with min/max value and its value can be changed by sliding a pointer through the
 // * component
 // *
@@ -43,7 +58,7 @@
 // *         .setWithThumb(true);
 // * </pre>
 // */
-//public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
+// public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
 //    implements HasChangeListeners<Slider, Double> {
 //
 //  private DominoElement<HTMLParagraphElement> sliderContainer =
@@ -85,7 +100,8 @@
 //   * @param max double
 //   * @param min double
 //   * @param value double
-//   * @return new Slider instance initialized with the max and min values and sets its initial value
+//   * @return new Slider instance initialized with the max and min values and sets its initial
+// value
 //   */
 //  public static Slider create(double max, double min, double value) {
 //    return new Slider(max, min, value);
@@ -305,7 +321,8 @@
 //  }
 //
 //  /**
-//   * @param withThumb boolean, if true the slider will show a thumb over the pointer that shows the
+//   * @param withThumb boolean, if true the slider will show a thumb over the pointer that shows
+// the
 //   *     slider value while dragging
 //   * @return same Slider instance
 //   */
@@ -464,4 +481,4 @@
 //    /** @param value double value for the current position of the slider pointer */
 //    void onSlide(double value);
 //  }
-//}
+// }

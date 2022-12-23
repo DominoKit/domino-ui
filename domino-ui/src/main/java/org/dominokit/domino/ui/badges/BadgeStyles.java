@@ -21,5 +21,5 @@ import org.dominokit.domino.ui.style.CssClass;
 public interface BadgeStyles {
 
   /** CSS class for badge */
-  CssClass dui_badge = ()->"dui-badge";
+  CssClass dui_badge = () -> "dui-badge";
 }

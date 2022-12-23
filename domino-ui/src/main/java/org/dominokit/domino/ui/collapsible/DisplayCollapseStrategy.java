@@ -15,11 +15,11 @@
  */
 package org.dominokit.domino.ui.collapsible;
 
+import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSED;
+
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.DominoCss;
 import org.dominokit.domino.ui.utils.DominoElement;
-
-import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSED;
 
 /**
  * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show the
@@ -30,16 +30,12 @@ public class DisplayCollapseStrategy implements CollapseStrategy, CollapsibleSty
   /** {@inheritDoc} */
   @Override
   public void show(HTMLElement element) {
-    DominoElement.of(element)
-            .removeCss(dui_hidden)
-            .removeAttribute(DUI_COLLAPSED);
+    DominoElement.of(element).removeCss(dui_hidden).removeAttribute(DUI_COLLAPSED);
   }
 
   /** {@inheritDoc} */
   @Override
   public void hide(HTMLElement element) {
-    DominoElement.of(element)
-            .addCss(dui_hidden)
-            .setAttribute(DUI_COLLAPSED, "true");
+    DominoElement.of(element).addCss(dui_hidden).setAttribute(DUI_COLLAPSED, "true");
   }
 }

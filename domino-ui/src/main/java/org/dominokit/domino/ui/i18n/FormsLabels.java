@@ -15,19 +15,18 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-import static java.util.Objects.isNull;
 
 public interface FormsLabels {
 
-    default String requiredErrorMessage() {
-        return "* This field is required.";
-    }
+  default String requiredErrorMessage() {
+    return "* This field is required.";
+  }
 
-    default String getMinErrorMessage(int minLength, int length) {
-        return "Minimum length is " + minLength + " , current length is : " + length;
-    }
+  default String getMinErrorMessage(int minLength, int length) {
+    return "Minimum length is " + minLength + " , current length is : " + length;
+  }
 
-    default String getMaxErrorMessage(int maxLength, int length) {
-        return "Maximum length is " + maxLength + " , current length is : " + length;
-    }
+  default String getMaxErrorMessage(int maxLength, int length) {
+    return "Maximum length is " + maxLength + " , current length is : " + length;
+  }
 }

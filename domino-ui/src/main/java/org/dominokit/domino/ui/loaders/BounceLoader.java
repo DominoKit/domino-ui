@@ -15,97 +15,75 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
-/**
- * Bounce loader implementation
- */
+/** Bounce loader implementation */
 public class BounceLoader extends BaseLoader<BounceLoader> implements IsElement<HTMLDivElement> {
 
-    private final DominoElement<HTMLDivElement> progress1 =
-            DominoElement.div()
-                    .addCss(wait_me_progress_elem_1, dui_bg_green_d_2);
-    private final DominoElement<HTMLDivElement> progress2 =
-            DominoElement.div()
-                    .addCss(wait_me_progress_elem_2, dui_bg_green_d_2);
-    private final DominoElement<HTMLDivElement> progress3 =
-            DominoElement.div()
-                    .addCss(wait_me_progress_elem_3, dui_bg_green_d_2);
+  private final DominoElement<HTMLDivElement> progress1 =
+      DominoElement.div().addCss(wait_me_progress_elem_1, dui_bg_green_d_2);
+  private final DominoElement<HTMLDivElement> progress2 =
+      DominoElement.div().addCss(wait_me_progress_elem_2, dui_bg_green_d_2);
+  private final DominoElement<HTMLDivElement> progress3 =
+      DominoElement.div().addCss(wait_me_progress_elem_3, dui_bg_green_d_2);
 
-    private final DominoElement<HTMLDivElement> loader =
-            DominoElement.div()
-                    .addCss(wait_me_progress, bounce)
-                    .appendChild(progress1)
-                    .appendChild(progress2)
-                    .appendChild(progress3);
+  private final DominoElement<HTMLDivElement> loader =
+      DominoElement.div()
+          .addCss(wait_me_progress, bounce)
+          .appendChild(progress1)
+          .appendChild(progress2)
+          .appendChild(progress3);
 
-    private final DominoElement<HTMLDivElement> content =
-            DominoElement.div()
-                    .addCss(wait_me_content, dui_vertical_center)
-                    .appendChild(loader)
-                    .appendChild(loadingText);
+  private final DominoElement<HTMLDivElement> content =
+      DominoElement.div()
+          .addCss(wait_me_content, dui_vertical_center)
+          .appendChild(loader)
+          .appendChild(loadingText);
 
-    private final DominoElement<HTMLDivElement> element =
-            DominoElement.div()
-                    .addCss(wait_me)
-                    .style("background: rgba(255, 255, 255, 0.9);")
-                    .add(content);
+  private final DominoElement<HTMLDivElement> element =
+      DominoElement.div()
+          .addCss(wait_me)
+          .style("background: rgba(255, 255, 255, 0.9);")
+          .add(content);
 
-    public BounceLoader() {
-        init(this);
-    }
+  public BounceLoader() {
+    init(this);
+  }
 
-    public static BounceLoader create() {
-        return new BounceLoader();
-    }
+  public static BounceLoader create() {
+    return new BounceLoader();
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setLoadingText(String text) {
-        loadingText.textContent = text;
-    }
+  /** {@inheritDoc} */
+  @Override
+  public void setLoadingText(String text) {
+    loadingText.textContent = text;
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setSize(String width, String height) {
-        onAttached(
-                mutationRecord -> loader
-                        .setWidth(width)
-                        .setHeight(height)
-        );
-    }
+  /** {@inheritDoc} */
+  @Override
+  public void setSize(String width, String height) {
+    onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void removeLoadingText() {
-        onAttached(mutationRecord -> loadingText.remove());
-    }
+  /** {@inheritDoc} */
+  @Override
+  public void removeLoadingText() {
+    onAttached(mutationRecord -> loadingText.remove());
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public DominoElement<HTMLDivElement> getContentElement() {
-        return content;
-    }
+  /** {@inheritDoc} */
+  @Override
+  public DominoElement<HTMLDivElement> getContentElement() {
+    return content;
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public HTMLDivElement element() {
-        return element.element();
-    }
+  /** {@inheritDoc} */
+  @Override
+  public HTMLDivElement element() {
+    return element.element();
+  }
 }

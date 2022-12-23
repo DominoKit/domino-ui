@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,37 +28,37 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.datepicker;
+// package org.dominokit.domino.ui.datepicker;
 //
-//import static java.util.Objects.isNull;
-//import static java.util.Objects.nonNull;
-//import static org.dominokit.domino.ui.utils.ElementUtil.isEnterKey;
-//import static org.dominokit.domino.ui.utils.ElementUtil.isSpaceKey;
-//import static org.jboss.elemento.Elements.input;
+// import static java.util.Objects.isNull;
+// import static java.util.Objects.nonNull;
+// import static org.dominokit.domino.ui.utils.ElementUtil.isEnterKey;
+// import static org.dominokit.domino.ui.utils.ElementUtil.isSpaceKey;
+// import static org.jboss.elemento.Elements.input;
 //
-//import elemental2.dom.*;
-//import java.util.Date;
-//import java.util.Objects;
-//import java.util.Optional;
-//import jsinterop.base.Js;
-//import org.dominokit.domino.ui.forms.AutoValidator;
-//import org.dominokit.domino.ui.forms.ValueBox;
-//import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
-//import org.dominokit.domino.ui.forms.validations.ValidationResult;
-//import org.dominokit.domino.ui.icons.Icons;
-//import org.dominokit.domino.ui.icons.MdiIcon;
-//import org.dominokit.domino.ui.modals.ModalDialog;
-//import org.dominokit.domino.ui.popover.Popover;
-//import org.dominokit.domino.ui.popover.PopupPosition;
-//import org.dominokit.domino.ui.style.Styles;
-//import org.dominokit.domino.ui.utils.DominoElement;
-//import org.dominokit.domino.ui.utils.ElementUtil;
-//import org.dominokit.domino.ui.utils.LazyChild;
-//import org.gwtproject.i18n.shared.DateTimeFormat;
-//import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
-//import org.jboss.elemento.EventType;
+// import elemental2.dom.*;
+// import java.util.Date;
+// import java.util.Objects;
+// import java.util.Optional;
+// import jsinterop.base.Js;
+// import org.dominokit.domino.ui.forms.AutoValidator;
+// import org.dominokit.domino.ui.forms.ValueBox;
+// import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
+// import org.dominokit.domino.ui.forms.validations.ValidationResult;
+// import org.dominokit.domino.ui.icons.Icons;
+// import org.dominokit.domino.ui.icons.MdiIcon;
+// import org.dominokit.domino.ui.modals.ModalDialog;
+// import org.dominokit.domino.ui.popover.Popover;
+// import org.dominokit.domino.ui.popover.PopupPosition;
+// import org.dominokit.domino.ui.style.Styles;
+// import org.dominokit.domino.ui.utils.DominoElement;
+// import org.dominokit.domino.ui.utils.ElementUtil;
+// import org.dominokit.domino.ui.utils.LazyChild;
+// import org.gwtproject.i18n.shared.DateTimeFormat;
+// import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
+// import org.jboss.elemento.EventType;
 //
-///**
+/// **
 // * An text box for representing a {@link Date} which opens {@link DatePicker} when selecting it.
 // *
 // * <p>This component provides either selecting the date using the {@link DatePicker} or typing the
@@ -64,7 +79,7 @@
 // * @see ValueBox
 // * @see DatePicker
 // */
-//public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
+// public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 //
 //  private static final String READONLY = "readonly";
 //  private final DatePicker datePicker;
@@ -119,7 +134,8 @@
 //  }
 //
 //  public DateBox(
-//      String label, Date date, DateTimeFormatInfo dateTimeFormatInfo, Date minDate, Date maxDate) {
+//      String label, Date date, DateTimeFormatInfo dateTimeFormatInfo, Date minDate, Date maxDate)
+// {
 //    super("text", label);
 //    this.datePicker = DatePicker.create(date, dateTimeFormatInfo, minDate, maxDate);
 //    initDateBox();
@@ -298,7 +314,8 @@
 //  }
 //
 //  /**
-//   * Parse strict means that if the value is not valid, then an exception will be thrown, otherwise
+//   * Parse strict means that if the value is not valid, then an exception will be thrown,
+// otherwise
 //   * the value will wrapped around as needed
 //   *
 //   * @param parseStrict true to enable parse strict
@@ -336,7 +353,8 @@
 //   * Sets a custom pattern.
 //   *
 //   * <p>More information of defining the pattern can be found under <a
-//   * href="http://www.gwtproject.org/javadoc/latest/com/google/gwt/i18n/client/DateTimeFormat.html">GWT
+//   *
+// href="http://www.gwtproject.org/javadoc/latest/com/google/gwt/i18n/client/DateTimeFormat.html">GWT
 //   * DateTimeFormat</a>
 //   *
 //   * @param pattern the new pattern
@@ -507,18 +525,21 @@
 //  public DateBox openOnFocus() {
 //    this.openOnFocus = true;
 //    if (nonNull(getFocusEventListener())) {
-//      getInputElement().get().removeEventListener(EventType.focus.getName(), getFocusEventListener());
+//      getInputElement().get().removeEventListener(EventType.focus.getName(),
+// getFocusEventListener());
 //    }
 //    focusListener =
 //        evt -> {
-//          getInputElement().get().removeEventListener(EventType.focus.getName(), getFocusEventListener());
+//          getInputElement().get().removeEventListener(EventType.focus.getName(),
+// getFocusEventListener());
 //          open();
 //        };
 //    getInputElement().get().addEventListener(EventType.focus.getName(), getFocusEventListener());
 //    modal.addCloseListener(
 //        () -> {
 //          getInputElement().get().element().focus();
-//          getInputElement().get().addEventListener(EventType.focus.getName(), getFocusEventListener());
+//          getInputElement().get().addEventListener(EventType.focus.getName(),
+// getFocusEventListener());
 //        });
 //
 //    modal.addOpenListener(
@@ -734,4 +755,4 @@
 //    /** Shows the date picker in a popover */
 //    POPOVER
 //  }
-//}
+// }

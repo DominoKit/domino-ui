@@ -15,12 +15,12 @@
  */
 package org.dominokit.domino.ui.collapsible;
 
+import static org.dominokit.domino.ui.style.DisplayCss.dui_hidden;
+
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.utils.DominoElement;
-
-import static org.dominokit.domino.ui.style.DisplayCss.dui_hidden;
 
 /**
  * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show the
@@ -28,56 +28,52 @@ import static org.dominokit.domino.ui.style.DisplayCss.dui_hidden;
  */
 public class AnimationCollapseStrategy implements CollapseStrategy {
 
-    private final Transition showTransition;
-    private final Transition hideTransition;
-    private final CollapseDuration duration;
+  private final Transition showTransition;
+  private final Transition hideTransition;
+  private final CollapseDuration duration;
 
-    public AnimationCollapseStrategy(
-            Transition showTransition, Transition hideTransition, CollapseDuration duration) {
-        this.showTransition = showTransition;
-        this.hideTransition = hideTransition;
-        this.duration = duration;
-    }
+  public AnimationCollapseStrategy(
+      Transition showTransition, Transition hideTransition, CollapseDuration duration) {
+    this.showTransition = showTransition;
+    this.hideTransition = hideTransition;
+    this.duration = duration;
+  }
 
-    public AnimationCollapseStrategy(Transition transition, CollapseDuration duration) {
-        this.showTransition = transition;
-        this.hideTransition = transition;
-        this.duration = duration;
-    }
+  public AnimationCollapseStrategy(Transition transition, CollapseDuration duration) {
+    this.showTransition = transition;
+    this.hideTransition = transition;
+    this.duration = duration;
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void show(HTMLElement element) {
-        DominoElement.of(element).removeCss(duration.getStyle());
-        Animation.create(element)
-                .duration(duration.getDuration())
-                .transition(showTransition)
-                .beforeStart(
-                        theElement -> {
-                            DominoElement.of(element)
-                                    .removeCss(dui_hidden)
-                                    .removeAttribute(Collapsible.DUI_COLLAPSED);
-                        })
-                .animate();
-    }
+  /** {@inheritDoc} */
+  @Override
+  public void show(HTMLElement element) {
+    DominoElement.of(element).removeCss(duration.getStyle());
+    Animation.create(element)
+        .duration(duration.getDuration())
+        .transition(showTransition)
+        .beforeStart(
+            theElement -> {
+              DominoElement.of(element)
+                  .removeCss(dui_hidden)
+                  .removeAttribute(Collapsible.DUI_COLLAPSED);
+            })
+        .animate();
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void hide(HTMLElement element) {
-        duration.getStyle().remove(element);
-        Animation.create(element)
-                .duration(duration.getDuration())
-                .transition(hideTransition)
-                .callback(
-                        theElement -> {
-                            DominoElement.of(element)
-                                    .addCss(dui_hidden)
-                                    .setAttribute(Collapsible.DUI_COLLAPSED, "true");
-                        })
-                .animate();
-    }
+  /** {@inheritDoc} */
+  @Override
+  public void hide(HTMLElement element) {
+    duration.getStyle().remove(element);
+    Animation.create(element)
+        .duration(duration.getDuration())
+        .transition(hideTransition)
+        .callback(
+            theElement -> {
+              DominoElement.of(element)
+                  .addCss(dui_hidden)
+                  .setAttribute(Collapsible.DUI_COLLAPSED, "true");
+            })
+        .animate();
+  }
 }

@@ -15,4 +15,5 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-public interface DominoUILabels extends QuickSearchLabels, FormsLabels, MenuLabels, DialogLabels, LoaderLabels {}
+public interface DominoUILabels
+    extends QuickSearchLabels, FormsLabels, MenuLabels, DialogLabels, LoaderLabels {}

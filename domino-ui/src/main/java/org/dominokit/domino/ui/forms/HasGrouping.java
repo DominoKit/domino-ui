@@ -54,6 +54,4 @@ public interface HasGrouping<T>
 
   @Editor.Ignore
   T fixErrorsPosition(boolean fixErrorsPosition);
-
-
 }

@@ -77,8 +77,8 @@ public interface SuggestBoxStore<T, S extends Option<T>> {
   }
 
   /**
-   * A function to provide a List of {@link Option} to the {@link
-   * SuggestBoxStore#filter(String, SuggestionsHandler)}
+   * A function to provide a List of {@link Option} to the {@link SuggestBoxStore#filter(String,
+   * SuggestionsHandler)}
    *
    * @param <T> the type of the SuggestBox value
    */

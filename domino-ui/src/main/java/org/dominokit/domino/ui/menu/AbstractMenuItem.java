@@ -65,7 +65,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
         DominoElement.of(a("#"))
             .setAttribute("tabindex", "0")
             .setAttribute("aria-expanded", "true")
-                .addCss(menu_item_anchor);
+            .addCss(menu_item_anchor);
     root.appendChild(linkElement);
 
     indicatorIcon = createIndicator(Icons.ALL.menu_right_mdi());
@@ -92,9 +92,9 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   private void onSelected(Event evt) {
     evt.stopPropagation();
     evt.preventDefault();
-    if(parent.isMultiSelect() && isSelected()){
+    if (parent.isMultiSelect() && isSelected()) {
       deselect();
-    }else {
+    } else {
       select();
     }
   }
@@ -164,7 +164,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
       if (!silent) {
         selectionHandlers.forEach(handler -> handler.onSelection((T) this));
       }
-      if(nonNull(parent)) {
+      if (nonNull(parent)) {
         parent.onItemSelected(this);
       }
     }
@@ -184,7 +184,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
       if (!silent) {
         deselectionHandlers.forEach(DeselectionHandler::onDeselection);
       }
-      if(nonNull(parent)) {
+      if (nonNull(parent)) {
         parent.onItemDeselected(this);
       }
     }
@@ -367,7 +367,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   }
 
   T unbindGroup() {
-    this.itemGroup= null;
+    this.itemGroup = null;
     return (T) this;
   }
 

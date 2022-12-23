@@ -16,13 +16,10 @@
 package org.dominokit.domino.ui.button;
 
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
+import java.util.Arrays;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.Elements;
-
-import java.util.Arrays;
 
 /**
  * a component for a toolbar that has many buttons
@@ -54,9 +51,7 @@ public class ButtonsToolbar extends BaseDominoElement<HTMLDivElement, ButtonsToo
   /** default constructor */
   public ButtonsToolbar() {
     toolbarElement =
-    DominoElement.div()
-            .addCss(ButtonStyles.dui_button_toolbar)
-            .setAttribute("role", "toolbar");
+        DominoElement.div().addCss(ButtonStyles.dui_button_toolbar).setAttribute("role", "toolbar");
     init(this);
   }
 

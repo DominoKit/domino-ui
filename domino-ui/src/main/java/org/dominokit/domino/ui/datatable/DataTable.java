@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_BORDERED;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_CONDENSED;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_FIXED;
@@ -50,7 +49,6 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TableEventListener;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.store.DataStore;
-import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionSupport;

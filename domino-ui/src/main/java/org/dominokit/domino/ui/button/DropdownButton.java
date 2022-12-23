@@ -33,61 +33,57 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *                     .setPosition(DropDownPosition.TOP)
  *     </pre>
  */
-public class DropdownButton<T extends BaseButton<?, T>, V> extends BaseDominoElement<HTMLElement, DropdownButton<T, V>>
-implements IsButton<T>
-{
+public class DropdownButton<T extends BaseButton<?, T>, V>
+    extends BaseDominoElement<HTMLElement, DropdownButton<T, V>> implements IsButton<T> {
 
-    private T button;
-    private Menu<V> menu;
+  private T button;
+  private Menu<V> menu;
 
-    public static <T extends BaseButton<?, T>, V> DropdownButton<T,V> create(T button, Menu<V> menu){
-        return new DropdownButton<>(button, menu);
-    }
+  public static <T extends BaseButton<?, T>, V> DropdownButton<T, V> create(
+      T button, Menu<V> menu) {
+    return new DropdownButton<>(button, menu);
+  }
 
-    /**
-     * Creates a Dropdown button from a button and a menu
-     */
-    public DropdownButton(T button, Menu<V> menu) {
-        this.button = button;
-        this.menu = menu;
-        this.button
-                .setAttribute("data-toggle", "dropdown")
-                .setAttribute("aria-haspopup", true)
-                .setAttribute("aria-expanded", true)
-                .setAttribute("type", "button");
-        this.menu.setTargetElement(button)
-                .setMenuAppendTarget(DominoElement.body().element());
-        this.button.addClickListener(evt -> this.menu.open());
-        init(this);
-    }
+  /** Creates a Dropdown button from a button and a menu */
+  public DropdownButton(T button, Menu<V> menu) {
+    this.button = button;
+    this.menu = menu;
+    this.button
+        .setAttribute("data-toggle", "dropdown")
+        .setAttribute("aria-haspopup", true)
+        .setAttribute("aria-expanded", true)
+        .setAttribute("type", "button");
+    this.menu.setTargetElement(button).setMenuAppendTarget(DominoElement.body().element());
+    this.button.addClickListener(evt -> this.menu.open());
+    init(this);
+  }
 
-    public T getButton(){
-        return button;
-    }
+  public T getButton() {
+    return button;
+  }
 
-    public Menu<V> getMenu(){
-        return menu;
-    }
+  public Menu<V> getMenu() {
+    return menu;
+  }
 
-    public DropdownButton<T, V> withButton(ChildHandler<DropdownButton<T,V>, T> handler){
-        handler.apply(this, button);
-        return this;
-    }
-    public DropdownButton<T, V> withMenu(ChildHandler<DropdownButton<T,V>, Menu<V>> handler){
-        handler.apply(this, menu);
-        return this;
-    }
+  public DropdownButton<T, V> withButton(ChildHandler<DropdownButton<T, V>, T> handler) {
+    handler.apply(this, button);
+    return this;
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public HTMLElement element() {
-        return button.element();
-    }
+  public DropdownButton<T, V> withMenu(ChildHandler<DropdownButton<T, V>, Menu<V>> handler) {
+    handler.apply(this, menu);
+    return this;
+  }
 
-    @Override
-    public T asButton() {
-        return button;
-    }
+  /** {@inheritDoc} */
+  @Override
+  public HTMLElement element() {
+    return button.element();
+  }
+
+  @Override
+  public T asButton() {
+    return button;
+  }
 }

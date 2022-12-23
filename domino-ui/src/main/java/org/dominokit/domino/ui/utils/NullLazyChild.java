@@ -15,12 +15,10 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import java.util.function.Supplier;
 import org.jboss.elemento.IsElement;
 
-import java.util.function.Supplier;
-
 public class NullLazyChild<T extends IsElement<?>> extends LazyChild<T> {
-
 
   public static <T extends IsElement<?>> NullLazyChild<T> of() {
     return new NullLazyChild<T>();
@@ -38,7 +36,7 @@ public class NullLazyChild<T extends IsElement<?>> extends LazyChild<T> {
     return this;
   }
 
-  public T element(){
+  public T element() {
     return null;
   }
 
@@ -62,7 +60,7 @@ public class NullLazyChild<T extends IsElement<?>> extends LazyChild<T> {
     return false;
   }
 
-  public NullLazyChild<T> initOrRemove(boolean state){
+  public NullLazyChild<T> initOrRemove(boolean state) {
     return this;
   }
 }

@@ -15,15 +15,14 @@
  */
 package org.dominokit.domino.ui.menu;
 
-import elemental2.dom.HTMLUListElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.LazyChild;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.menu.MenuStyles.*;
+
+import elemental2.dom.HTMLUListElement;
+import java.util.ArrayList;
+import java.util.List;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.LazyChild;
 
 public class MenuItemsGroup<V, I extends AbstractMenuItem<V, I>>
     extends AbstractMenuItem<V, MenuItemsGroup<V, I>> {
@@ -42,7 +41,7 @@ public class MenuItemsGroup<V, I extends AbstractMenuItem<V, I>>
     itemsListElement = LazyChild.of(DominoElement.ul().addCss(menu_items_list), root);
   }
 
-  public MenuItemsGroup<V,I> appendChild(I menuItem) {
+  public MenuItemsGroup<V, I> appendChild(I menuItem) {
     if (nonNull(menuItem)) {
       menuItem.bindToGroup(this);
       itemsListElement.get().appendChild(menuItem);
@@ -53,7 +52,7 @@ public class MenuItemsGroup<V, I extends AbstractMenuItem<V, I>>
     return this;
   }
 
-  public MenuItemsGroup<V,I> removeItem(I menuItem) {
+  public MenuItemsGroup<V, I> removeItem(I menuItem) {
     if (this.menuItems.contains(menuItem)) {
       menuItem.unbindGroup();
       menuItem.remove();

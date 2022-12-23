@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.dialogs;
 
 import elemental2.dom.Event;
 import elemental2.dom.HTMLDivElement;
-
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -37,7 +36,7 @@ import org.jboss.elemento.EventType;
  */
 public class ModalBackDrop {
 
-  public static final CssClass dui_dialog_backdrop = ()->"dui-dialog-backdrop";
+  public static final CssClass dui_dialog_backdrop = () -> "dui-dialog-backdrop";
   /** the z-index increment for every modal open */
   public static final int INCREMENT = 10;
 

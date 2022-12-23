@@ -19,7 +19,7 @@ import org.dominokit.domino.ui.style.CssClass;
 
 /** Default CSS classes for {@link ListGroup} and {@link ListItem} */
 public interface ListStyles {
-  CssClass dui_list_group =()-> "dui-list-group";
-  CssClass dui_list_group_bordered =()-> "dui-list-group-bordered";
-  CssClass dui_list_group_item =()-> "dui-list-group-item";
+  CssClass dui_list_group = () -> "dui-list-group";
+  CssClass dui_list_group_bordered = () -> "dui-list-group-bordered";
+  CssClass dui_list_group_item = () -> "dui-list-group-item";
 }

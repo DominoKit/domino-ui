@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.utils;
 
-
 /**
  * Components that can be focused should implement this interface
  *

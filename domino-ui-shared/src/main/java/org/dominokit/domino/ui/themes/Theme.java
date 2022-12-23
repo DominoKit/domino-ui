@@ -15,14 +15,13 @@
  */
 package org.dominokit.domino.ui.themes;
 
-import org.dominokit.domino.ui.style.ColorScheme;
-import org.dominokit.domino.ui.style.Style;
+import static elemental2.dom.DomGlobal.document;
+import static java.util.Objects.nonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static elemental2.dom.DomGlobal.document;
-import static java.util.Objects.nonNull;
+import org.dominokit.domino.ui.style.ColorScheme;
+import org.dominokit.domino.ui.style.Style;
 
 public class Theme {
 

@@ -21,7 +21,6 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.HTMLElement;
 import java.util.ArrayList;
 import java.util.List;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.IsCollapsible;
 import org.jboss.elemento.IsElement;
@@ -90,9 +89,9 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   /**
    * Disable/Enable force hidden
    *
-   * @param forceHidden boolean, if true it will hide the element if it is visible and will not allow
-   *     the element to be shown unless it is turned off, when turned off the element will remain
-   *     hidden until we call {@link #show()}
+   * @param forceHidden boolean, if true it will hide the element if it is visible and will not
+   *     allow the element to be shown unless it is turned off, when turned off the element will
+   *     remain hidden until we call {@link #show()}
    * @return same instance
    */
   public Collapsible setForceHidden(boolean forceHidden) {

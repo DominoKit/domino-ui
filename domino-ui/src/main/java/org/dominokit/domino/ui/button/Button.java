@@ -44,8 +44,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class Button extends BaseButton<HTMLButtonElement, Button> {
 
   /** creates a Button without a text and with {@link Elevation#LEVEL_1} */
-  public Button() {
-  }
+  public Button() {}
 
   /**
    * create a Button with a text and with {@link Elevation#LEVEL_1}
@@ -64,6 +63,7 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
   public Button(BaseIcon<?> icon) {
     super(icon);
   }
+
   public Button(String text, BaseIcon<?> icon) {
     super(text, icon);
   }
@@ -107,7 +107,7 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
     return new Button(text, icon);
   }
 
-/**
+  /**
    * creates a Button with an icon by calling {@link Button#Button(BaseIcon)}
    *
    * @param icon {@link BaseIcon}, the button icon

@@ -18,8 +18,7 @@ package org.dominokit.domino.ui.forms;
 /** A component to input phone numbers */
 public class TelephoneBox extends CustomInputBox<TelephoneBox> {
 
-  public TelephoneBox() {
-  }
+  public TelephoneBox() {}
 
   /** @param label String */
   public TelephoneBox(String label) {

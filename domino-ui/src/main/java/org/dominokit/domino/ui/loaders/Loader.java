@@ -186,7 +186,9 @@ public class Loader {
    * @return same instance
    */
   public Loader setLoadingTextPosition(LoadingTextPosition loadingTextPosition) {
-    this.loaderElement.getContentElement().addCss(loadingPosition.replaceWith(loadingTextPosition.style));
+    this.loaderElement
+        .getContentElement()
+        .addCss(loadingPosition.replaceWith(loadingTextPosition.style));
     return this;
   }
 

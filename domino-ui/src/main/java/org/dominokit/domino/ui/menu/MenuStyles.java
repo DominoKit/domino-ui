@@ -43,5 +43,4 @@ public class MenuStyles {
   public static final CssClass menu_group = () -> "dui-menu-group";
   public static final CssClass menu_group_header = () -> "dui-menu-group-header";
   public static final CssClass MENU_DROP = () -> "dui-menu-drop";
-
 }

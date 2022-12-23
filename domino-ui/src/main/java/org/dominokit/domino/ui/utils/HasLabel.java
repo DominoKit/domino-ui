@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import java.util.Optional;
 
 /**
  * Components that can have a label should implement this interface

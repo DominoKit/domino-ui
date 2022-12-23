@@ -16,8 +16,6 @@
 package org.dominokit.domino.ui.collapsible;
 
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.style.Style;
-import org.jboss.elemento.IsElement;
 
 /**
  * The implementation of this interface are used to change the behavior used in {@link Collapsible}

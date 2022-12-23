@@ -36,8 +36,7 @@ public class SwapCssClass implements CssClass {
     return new SwapCssClass(cssClass);
   }
 
-  public SwapCssClass() {
-  }
+  public SwapCssClass() {}
 
   public SwapCssClass(CssClass initialStyle) {
     this.current = initialStyle;
@@ -70,9 +69,9 @@ public class SwapCssClass implements CssClass {
 
   @Override
   public void apply(HTMLElement element) {
-      remove(element);
-      current = replacement;
-      replacement.apply(element);
+    remove(element);
+    current = replacement;
+    replacement.apply(element);
   }
 
   public CssClass getCurrent() {

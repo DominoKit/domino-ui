@@ -23,12 +23,8 @@ package org.dominokit.domino.ui.forms;
  */
 public class EmailBox extends TextBox {
 
-  /**
-   * Creates a new instance with a label
-   *
-   */
-  public EmailBox() {
-  }
+  /** Creates a new instance with a label */
+  public EmailBox() {}
 
   /**
    * Creates a new instance with a label
@@ -49,15 +45,14 @@ public class EmailBox extends TextBox {
     return new EmailBox(label);
   }
 
-
   @Override
   public String getType() {
     return "email";
   }
 
   /**
-   * @param multiple boolean, Whether to allow multiple comma-separated e-mail addresses to
-   * be entered
+   * @param multiple boolean, Whether to allow multiple comma-separated e-mail addresses to be
+   *     entered
    * @return Same EmailBox instance
    */
   public EmailBox setMultiple(boolean multiple) {

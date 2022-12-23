@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
@@ -28,9 +27,7 @@ public class RotationLoader extends BaseLoader<RotationLoader>
       DominoElement.div().addCss(wait_me_progress_elem_1, dui_border_grey_d_2);
 
   private final DominoElement<HTMLDivElement> loader =
-      DominoElement.div()
-          .addCss(wait_me_progress, rotation)
-          .appendChild(progress1);
+      DominoElement.div().addCss(wait_me_progress, rotation).appendChild(progress1);
 
   private final DominoElement<HTMLDivElement> content =
       DominoElement.div()
@@ -61,10 +58,7 @@ public class RotationLoader extends BaseLoader<RotationLoader>
   /** {@inheritDoc} */
   @Override
   public void setSize(String width, String height) {
-    onAttached(
-        mutationRecord -> loader
-                .setWidth(width)
-                .setHeight(height));
+    onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
   }
 
   /** {@inheritDoc} */

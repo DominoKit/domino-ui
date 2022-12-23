@@ -19,5 +19,5 @@ import org.dominokit.domino.ui.style.CssClass;
 
 /** Default CSS classes for {@link Breadcrumb} */
 public interface BreadcrumbStyles {
-  CssClass dui_breadcrumb = ()-> "dui-breadcrumb";
+  CssClass dui_breadcrumb = () -> "dui-breadcrumb";
 }

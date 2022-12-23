@@ -15,18 +15,17 @@
  */
 package org.dominokit.domino.ui.grid;
 
-import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.PostfixCssClass;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
-
 import static org.dominokit.domino.ui.grid.Columns._12;
 import static org.dominokit.domino.ui.grid.Columns._16;
 import static org.dominokit.domino.ui.grid.Columns._18;
 import static org.dominokit.domino.ui.grid.Columns._24;
 import static org.dominokit.domino.ui.grid.Columns._32;
 
+import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.style.PostfixCssClass;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.jboss.elemento.IsElement;
 
 /**
  * A component which provides an abstract level of the CSS grid row which will inherit the styles
@@ -46,15 +45,14 @@ import static org.dominokit.domino.ui.grid.Columns._32;
  *
  * @see BaseDominoElement
  */
-public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridStyles{
+public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridStyles {
 
   protected DominoElement<HTMLDivElement> row;
 
   private PostfixCssClass rowColumns = PostfixCssClass.of("dui-row", _12.getCount());
 
   public Row(Columns columns) {
-    this.row =
-        DominoElement.div().addCss(dui_grid_row, rowColumns.postfix(columns.getCount()));
+    this.row = DominoElement.div().addCss(dui_grid_row, rowColumns.postfix(columns.getCount()));
     init(this);
   }
 
@@ -135,7 +133,7 @@ public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridS
     return this;
   }
 
-  //=========================
+  // =========================
 
   public Row span1(IsElement<?> content) {
     return appendChild(Column.span1().appendChild(content));
@@ -272,5 +270,4 @@ public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridS
   public HTMLDivElement element() {
     return row.element();
   }
-
 }

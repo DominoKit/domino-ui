@@ -1,4 +1,19 @@
-///*
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// *
 // * Copyright © 2019 Dominokit
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,47 +28,47 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package org.dominokit.domino.ui.tree;
+// package org.dominokit.domino.ui.tree;
 //
-//import static java.util.Objects.isNull;
-//import static java.util.Objects.nonNull;
-//import static org.dominokit.domino.ui.style.Unit.px;
-//import static org.jboss.elemento.Elements.a;
-//import static org.jboss.elemento.Elements.div;
-//import static org.jboss.elemento.Elements.li;
-//import static org.jboss.elemento.Elements.span;
-//import static org.jboss.elemento.Elements.ul;
+// import static java.util.Objects.isNull;
+// import static java.util.Objects.nonNull;
+// import static org.dominokit.domino.ui.style.Unit.px;
+// import static org.jboss.elemento.Elements.a;
+// import static org.jboss.elemento.Elements.div;
+// import static org.jboss.elemento.Elements.li;
+// import static org.jboss.elemento.Elements.span;
+// import static org.jboss.elemento.Elements.ul;
 //
-//import elemental2.dom.DomGlobal;
-//import elemental2.dom.EventListener;
-//import elemental2.dom.HTMLAnchorElement;
-//import elemental2.dom.HTMLElement;
-//import elemental2.dom.HTMLLIElement;
-//import elemental2.dom.HTMLUListElement;
-//import elemental2.dom.Node;
-//import java.util.ArrayList;
-//import java.util.Collections;
-//import java.util.LinkedList;
-//import java.util.List;
-//import java.util.Optional;
-//import org.dominokit.domino.ui.collapsible.Collapsible;
-//import org.dominokit.domino.ui.icons.BaseIcon;
-//import org.dominokit.domino.ui.icons.Icons;
-//import org.dominokit.domino.ui.style.Style;
-//import org.dominokit.domino.ui.style.Styles;
-//import org.dominokit.domino.ui.style.WaveColor;
-//import org.dominokit.domino.ui.style.WaveStyle;
-//import org.dominokit.domino.ui.style.WavesElement;
-//import org.dominokit.domino.ui.utils.CanActivate;
-//import org.dominokit.domino.ui.utils.CanDeactivate;
-//import org.dominokit.domino.ui.utils.DominoElement;
-//import org.dominokit.domino.ui.utils.DominoUIConfig;
-//import org.dominokit.domino.ui.utils.HasClickableElement;
-//import org.dominokit.domino.ui.utils.ParentTreeItem;
-//import org.jboss.elemento.EventType;
-//import org.jboss.elemento.IsElement;
+// import elemental2.dom.DomGlobal;
+// import elemental2.dom.EventListener;
+// import elemental2.dom.HTMLAnchorElement;
+// import elemental2.dom.HTMLElement;
+// import elemental2.dom.HTMLLIElement;
+// import elemental2.dom.HTMLUListElement;
+// import elemental2.dom.Node;
+// import java.util.ArrayList;
+// import java.util.Collections;
+// import java.util.LinkedList;
+// import java.util.List;
+// import java.util.Optional;
+// import org.dominokit.domino.ui.collapsible.Collapsible;
+// import org.dominokit.domino.ui.icons.BaseIcon;
+// import org.dominokit.domino.ui.icons.Icons;
+// import org.dominokit.domino.ui.style.Style;
+// import org.dominokit.domino.ui.style.Styles;
+// import org.dominokit.domino.ui.style.WaveColor;
+// import org.dominokit.domino.ui.style.WaveStyle;
+// import org.dominokit.domino.ui.style.WavesElement;
+// import org.dominokit.domino.ui.utils.CanActivate;
+// import org.dominokit.domino.ui.utils.CanDeactivate;
+// import org.dominokit.domino.ui.utils.DominoElement;
+// import org.dominokit.domino.ui.utils.DominoUIConfig;
+// import org.dominokit.domino.ui.utils.HasClickableElement;
+// import org.dominokit.domino.ui.utils.ParentTreeItem;
+// import org.jboss.elemento.EventType;
+// import org.jboss.elemento.IsElement;
 //
-///**
+/// **
 // * A component representing the tree item
 // *
 // * @param <T> the type of the value object inside the item
@@ -63,7 +78,7 @@
 // * @see CanDeactivate
 // * @see HasClickableElement
 // */
-//public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
+// public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 //    implements ParentTreeItem<TreeItem<T>>, CanActivate, CanDeactivate, HasClickableElement {
 //
 //  private String title;
@@ -880,7 +895,8 @@
 //
 //  /**
 //   * Change the title of a TreeItem, If the TreeItem was created without a value and the title is
-//   * used as a value then it will not change when the title is changed to change the value a call to
+//   * used as a value then it will not change when the title is changed to change the value a call
+// to
 //   * {@link #setValue(T)} should be called
 //   *
 //   * @param title String title to set
@@ -904,4 +920,4 @@
 //      this.expanded = expanded;
 //    }
 //  }
-//}
+// }

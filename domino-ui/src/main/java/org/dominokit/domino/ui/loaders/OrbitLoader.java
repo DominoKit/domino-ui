@@ -15,11 +15,8 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
@@ -70,10 +67,7 @@ public class OrbitLoader extends BaseLoader<OrbitLoader> implements IsElement<HT
   /** {@inheritDoc} */
   @Override
   public void setSize(String width, String height) {
-    onAttached(mutationRecord -> loader
-            .setWidth(width)
-            .setHeight(height)
-    );
+    onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
   }
 
   /** {@inheritDoc} */

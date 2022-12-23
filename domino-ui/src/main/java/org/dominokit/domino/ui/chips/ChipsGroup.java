@@ -15,12 +15,9 @@
  */
 package org.dominokit.domino.ui.chips;
 
-import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
-
 import java.util.*;
-
 import org.dominokit.domino.ui.utils.*;
 
 /**
@@ -50,19 +47,19 @@ import org.dominokit.domino.ui.utils.*;
  * @see AcceptDisable
  */
 public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
-    implements AcceptDisable<ChipsGroup>,
-        HasSelectionListeners<ChipsGroup, Chip, List<Chip>> {
+    implements AcceptDisable<ChipsGroup>, HasSelectionListeners<ChipsGroup, Chip, List<Chip>> {
 
   private final DominoElement<HTMLDivElement> root;
   private final List<Chip> chips = new ArrayList<>();
   private final List<Chip> selectedChips = new ArrayList<>();
 
   private boolean multiSelect = false;
-  private boolean removable= false;
-  private Set<SelectionListener<? super Chip, ? super List<Chip>>> selectionListeners = new HashSet<>();
-  private Set<SelectionListener<? super Chip, ? super List<Chip>>> deselectionListeners = new HashSet<>();
+  private boolean removable = false;
+  private Set<SelectionListener<? super Chip, ? super List<Chip>>> selectionListeners =
+      new HashSet<>();
+  private Set<SelectionListener<? super Chip, ? super List<Chip>>> deselectionListeners =
+      new HashSet<>();
   private boolean selectionListenersPaused = false;
-
 
   public ChipsGroup() {
     root = DominoElement.div();
@@ -86,31 +83,36 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
   public ChipsGroup appendChild(Chip chip) {
     chip.setSelectable(true);
     chip.setRemovable(removable || chip.isRemovable());
-    chip.onDetached(mutationRecord -> {
-      if(chip.isSelected()){
-        chip.deselect();
-      }
-    });
-    chip.addSelectionListener((source, selection) -> {
-      if(!this.selectedChips.isEmpty() && !multiSelect){
-        this.selectedChips.forEach(selectedChip-> selectedChip.withPauseSelectionListenersToggle(true, Chip::deselect));
-        this.selectedChips.clear();
-      }
-      source.ifPresent(this.selectedChips::add);
-      if(!isSelectionListenersPaused()) {
-        triggerSelectionListeners(source.get(), this.selectedChips);
-        if(!multiSelect) {
-          triggerDeselectionListeners(source.get(), this.selectedChips);
-        }
-      }
-    });
+    chip.onDetached(
+        mutationRecord -> {
+          if (chip.isSelected()) {
+            chip.deselect();
+          }
+        });
+    chip.addSelectionListener(
+        (source, selection) -> {
+          if (!this.selectedChips.isEmpty() && !multiSelect) {
+            this.selectedChips.forEach(
+                selectedChip ->
+                    selectedChip.withPauseSelectionListenersToggle(true, Chip::deselect));
+            this.selectedChips.clear();
+          }
+          source.ifPresent(this.selectedChips::add);
+          if (!isSelectionListenersPaused()) {
+            triggerSelectionListeners(source.get(), this.selectedChips);
+            if (!multiSelect) {
+              triggerDeselectionListeners(source.get(), this.selectedChips);
+            }
+          }
+        });
 
-    chip.addDeselectionListener((source, selection) -> {
-      source.ifPresent(this.selectedChips::remove);
-      if(!isSelectionListenersPaused()) {
-        triggerDeselectionListeners(source.get(), this.selectedChips);
-      }
-    });
+    chip.addDeselectionListener(
+        (source, selection) -> {
+          source.ifPresent(this.selectedChips::remove);
+          if (!isSelectionListenersPaused()) {
+            triggerDeselectionListeners(source.get(), this.selectedChips);
+          }
+        });
 
     chips.add(chip);
     root.appendChild(chip);
@@ -141,7 +143,6 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
   public List<Chip> getSelectedChips() {
     return selectedChips;
   }
-
 
   /** {@inheritDoc} */
   @Override
@@ -202,13 +203,17 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
 
   @Override
   public ChipsGroup triggerSelectionListeners(Chip source, List<Chip> selection) {
-    selectionListeners.forEach(selectionListener -> selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
+    selectionListeners.forEach(
+        selectionListener ->
+            selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
     return this;
   }
 
   @Override
   public ChipsGroup triggerDeselectionListeners(Chip source, List<Chip> selection) {
-    deselectionListeners.forEach(selectionListener -> selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
+    deselectionListeners.forEach(
+        selectionListener ->
+            selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
     return this;
   }
 
@@ -223,7 +228,7 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
 
   public ChipsGroup setMultiSelect(boolean multiSelect) {
     this.multiSelect = multiSelect;
-    if(!multiSelect && this.selectedChips.size() > 1){
+    if (!multiSelect && this.selectedChips.size() > 1) {
       Chip chip = selectedChips.get(0);
       chip.select();
     }

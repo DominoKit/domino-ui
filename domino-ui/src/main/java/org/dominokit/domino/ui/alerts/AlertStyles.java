@@ -20,6 +20,6 @@ import org.dominokit.domino.ui.style.CssClass;
 /** Default CSS classes for {@link Alert} */
 public interface AlertStyles {
 
-  CssClass dui_alert =()->"dui-alert";
-  CssClass dui_alert_body =()->"dui-alert-body";
+  CssClass dui_alert = () -> "dui-alert";
+  CssClass dui_alert_body = () -> "dui-alert-body";
 }

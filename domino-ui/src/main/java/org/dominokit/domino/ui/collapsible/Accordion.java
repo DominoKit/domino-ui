@@ -16,13 +16,11 @@
 package org.dominokit.domino.ui.collapsible;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -87,7 +85,8 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * @see AccordionPanel
  */
-public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> implements CollapsibleStyles{
+public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
+    implements CollapsibleStyles {
 
   private final DominoElement<HTMLDivElement> element;
   private List<AccordionPanel> panels = new LinkedList<>();
@@ -122,9 +121,10 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> impl
       panel.setCollapseStrategy(panelsCollapseStrategy);
     }
     element.appendChild(panel);
-    panel.withHeaderElement((accordionPanel, header) -> {
-      header.addClickListener(evt -> togglePanel(panel));
-    });
+    panel.withHeaderElement(
+        (accordionPanel, header) -> {
+          header.addClickListener(evt -> togglePanel(panel));
+        });
     return this;
   }
 

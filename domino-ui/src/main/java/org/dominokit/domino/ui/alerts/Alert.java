@@ -49,7 +49,7 @@ import org.dominokit.domino.ui.utils.*;
  * @see HasBackground
  * @see Color
  */
-public class Alert extends BaseDominoElement<HTMLDivElement, Alert>{
+public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
 
   private boolean dismissible = false;
   private final DominoElement<HTMLDivElement> element;
@@ -57,12 +57,11 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert>{
   private LazyChild<RemoveButton> removeButton;
 
   public Alert() {
-     element = DominoElement.div()
-             .addCss(dui_alert)
-             .appendChild(bodyElement = DominoElement.div().addCss(dui_alert_body));
-    removeButton = LazyChild.of(RemoveButton.create()
-                    .addClickListener(evt -> remove())
-            , element);
+    element =
+        DominoElement.div()
+            .addCss(dui_alert)
+            .appendChild(bodyElement = DominoElement.div().addCss(dui_alert_body));
+    removeButton = LazyChild.of(RemoveButton.create().addClickListener(evt -> remove()), element);
 
     init(this);
   }

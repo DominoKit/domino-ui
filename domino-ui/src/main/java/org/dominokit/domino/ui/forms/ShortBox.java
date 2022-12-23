@@ -36,7 +36,7 @@ public class ShortBox extends NumberBox<ShortBox, Short> {
 
   /** Create instance without a label */
   public ShortBox() {
-    setDefaultValue((short)0);
+    setDefaultValue((short) 0);
   }
 
   /**

@@ -37,32 +37,33 @@ public class MaxLengthValidator<T, E extends HTMLElement> implements HasValidati
   /** {@inheritDoc} */
   @Override
   public ValidationResult isValid() {
-    if(inputElement.getInputElement().element() instanceof HTMLInputElement){
+    if (inputElement.getInputElement().element() instanceof HTMLInputElement) {
       return validateHTMLInput();
-    }else {
+    } else {
       return validateHTMLElement();
     }
   }
 
   private ValidationResult validateHTMLInput() {
-    if (((HTMLInputElement)this.inputElement.getInputElement().element())
-        .validity
-        .tooLong ) {
-      if(this.inputElement instanceof HasMinMaxLength) {
+    if (((HTMLInputElement) this.inputElement.getInputElement().element()).validity.tooLong) {
+      if (this.inputElement instanceof HasMinMaxLength) {
         HasMinMaxLength<T> hasLength = (HasMinMaxLength<T>) this.inputElement;
-        return ValidationResult.invalid(labels.getMaxErrorMessage(hasLength.getMaxLength(), hasLength.getLength()));
+        return ValidationResult.invalid(
+            labels.getMaxErrorMessage(hasLength.getMaxLength(), hasLength.getLength()));
       }
     }
     return ValidationResult.valid();
   }
+
   private ValidationResult validateHTMLElement() {
-      if(this.inputElement instanceof HasMinMaxLength) {
-        HasMinMaxLength<T> hasLength = (HasMinMaxLength<T>) this.inputElement;
-        int length = hasLength.getLength();
-        if(length > hasLength.getMaxLength()) {
-          return ValidationResult.invalid(labels.getMaxErrorMessage(hasLength.getMaxLength(), length));
-        }
+    if (this.inputElement instanceof HasMinMaxLength) {
+      HasMinMaxLength<T> hasLength = (HasMinMaxLength<T>) this.inputElement;
+      int length = hasLength.getLength();
+      if (length > hasLength.getMaxLength()) {
+        return ValidationResult.invalid(
+            labels.getMaxErrorMessage(hasLength.getMaxLength(), length));
       }
+    }
     return ValidationResult.valid();
   }
 }

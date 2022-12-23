@@ -15,13 +15,13 @@
  */
 package org.dominokit.domino.ui.badges;
 
+import static org.dominokit.domino.ui.badges.BadgeStyles.dui_badge;
+
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Text;
 import org.dominokit.domino.ui.alerts.Alert;
 import org.dominokit.domino.ui.button.RemoveButton;
 import org.dominokit.domino.ui.utils.*;
-
-import static org.dominokit.domino.ui.badges.BadgeStyles.dui_badge;
 
 /**
  * Displays small label with color.
@@ -59,9 +59,7 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> {
 
   public Badge() {
     element = DominoElement.span().addCss(dui_badge);
-    removeButton = LazyChild.of(RemoveButton.create()
-                    .addClickListener(evt -> remove())
-            , element);
+    removeButton = LazyChild.of(RemoveButton.create().addClickListener(evt -> remove()), element);
     init(this);
     appendChild(textNode);
   }
@@ -71,7 +69,6 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> {
   public HTMLElement element() {
     return element.element();
   }
-
 
   /**
    * Passing true means that the alert will be closable and a close button will be added to the
@@ -145,5 +142,4 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> {
     textNode.textContent = text;
     return this;
   }
-
 }

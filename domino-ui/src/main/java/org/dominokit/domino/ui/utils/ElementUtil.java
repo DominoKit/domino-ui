@@ -20,9 +20,6 @@ import static org.jboss.elemento.Elements.a;
 
 import elemental2.dom.*;
 import java.util.Optional;
-import jsinterop.base.Js;
-import org.dominokit.domino.ui.forms.HasInputElement;
-import org.gwtproject.i18n.client.NumberFormat;
 import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
 import org.jboss.elemento.EventType;
@@ -194,79 +191,80 @@ public class ElementUtil {
     }
     return Optional.empty();
   }
-//
-//  /**
-//   * Force an input component to accept only numbers inputs
-//   *
-//   * @param hasInputElement {@link HasInputElement}
-//   * @param <T> The type of the component that extends from {@link HasInputElement}
-//   * @return same component
-//   */
-//  public static <T extends HasInputElement> T numbersOnly(T hasInputElement) {
-//    hasInputElement
-//        .getInputElement()
-//            .get()
-//        .addEventListener(
-//            "keypress",
-//            evt -> {
-//              KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-//              if (!(isMinusKey(keyboardEvent.key) || keyboardEvent.key.matches("^\\d+$"))) {
-//                evt.preventDefault();
-//              }
-//            });
-//    hasInputElement
-//        .getInputElement()
-//            .get()
-//        .addEventListener(
-//            "paste",
-//            evt -> {
-//              ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
-//              String text = clipboardEvent.clipboardData.getData("text");
-//              text = text.replace("-", "");
-//              if (!text.matches("^\\d+$")) {
-//                evt.preventDefault();
-//              }
-//            });
-//    return hasInputElement;
-//  }
-//
-//  /**
-//   * Force an input component to accept only numbers input with decimal characters
-//   *
-//   * @param hasInputElement {@link HasInputElement}
-//   * @param <T> The type of the component that extends from {@link HasInputElement}
-//   * @return same component
-//   */
-//  public static <T extends HasInputElement> T decimalOnly(T hasInputElement) {
-//    hasInputElement
-//        .getInputElement()
-//            .get()
-//        .addEventListener(
-//            "keypress",
-//            evt -> {
-//              KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-//              String key = keyboardEvent.key;
-//              if (!(isMinusKey(keyboardEvent.key)
-//                  || key.equals(numberConstants.decimalSeparator())
-//                  || keyboardEvent.key.matches("^\\d+$"))) {
-//                evt.preventDefault();
-//              }
-//            });
-//    hasInputElement
-//        .getInputElement()
-//            .get()
-//        .addEventListener(
-//            "paste",
-//            evt -> {
-//              ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
-//              try {
-//                NumberFormat.getDecimalFormat().parse(clipboardEvent.clipboardData.getData("text"));
-//              } catch (Exception ex) {
-//                evt.preventDefault();
-//              }
-//            });
-//    return hasInputElement;
-//  }
+  //
+  //  /**
+  //   * Force an input component to accept only numbers inputs
+  //   *
+  //   * @param hasInputElement {@link HasInputElement}
+  //   * @param <T> The type of the component that extends from {@link HasInputElement}
+  //   * @return same component
+  //   */
+  //  public static <T extends HasInputElement> T numbersOnly(T hasInputElement) {
+  //    hasInputElement
+  //        .getInputElement()
+  //            .get()
+  //        .addEventListener(
+  //            "keypress",
+  //            evt -> {
+  //              KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+  //              if (!(isMinusKey(keyboardEvent.key) || keyboardEvent.key.matches("^\\d+$"))) {
+  //                evt.preventDefault();
+  //              }
+  //            });
+  //    hasInputElement
+  //        .getInputElement()
+  //            .get()
+  //        .addEventListener(
+  //            "paste",
+  //            evt -> {
+  //              ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
+  //              String text = clipboardEvent.clipboardData.getData("text");
+  //              text = text.replace("-", "");
+  //              if (!text.matches("^\\d+$")) {
+  //                evt.preventDefault();
+  //              }
+  //            });
+  //    return hasInputElement;
+  //  }
+  //
+  //  /**
+  //   * Force an input component to accept only numbers input with decimal characters
+  //   *
+  //   * @param hasInputElement {@link HasInputElement}
+  //   * @param <T> The type of the component that extends from {@link HasInputElement}
+  //   * @return same component
+  //   */
+  //  public static <T extends HasInputElement> T decimalOnly(T hasInputElement) {
+  //    hasInputElement
+  //        .getInputElement()
+  //            .get()
+  //        .addEventListener(
+  //            "keypress",
+  //            evt -> {
+  //              KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+  //              String key = keyboardEvent.key;
+  //              if (!(isMinusKey(keyboardEvent.key)
+  //                  || key.equals(numberConstants.decimalSeparator())
+  //                  || keyboardEvent.key.matches("^\\d+$"))) {
+  //                evt.preventDefault();
+  //              }
+  //            });
+  //    hasInputElement
+  //        .getInputElement()
+  //            .get()
+  //        .addEventListener(
+  //            "paste",
+  //            evt -> {
+  //              ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
+  //              try {
+  //
+  // NumberFormat.getDecimalFormat().parse(clipboardEvent.clipboardData.getData("text"));
+  //              } catch (Exception ex) {
+  //                evt.preventDefault();
+  //              }
+  //            });
+  //    return hasInputElement;
+  //  }
 
   private static boolean isMinusKey(String key) {
     return numberConstants.minusSign().equals(key);

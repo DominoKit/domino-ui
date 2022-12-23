@@ -28,7 +28,7 @@ import org.gwtproject.editor.client.TakesValue;
  * @param <V> The type of the component value
  */
 public interface FormElement<T, V>
-        extends HasName<T>,
+    extends HasName<T>,
         HasType,
         HasValue<T, V>,
         HasHelperText<T>,
@@ -42,5 +42,4 @@ public interface FormElement<T, V>
         HasClearListeners<T, V>,
         AcceptDisable<T>,
         AcceptReadOnly<T>,
-        HasDefaultValue<T, V> {
-}
+        HasDefaultValue<T, V> {}

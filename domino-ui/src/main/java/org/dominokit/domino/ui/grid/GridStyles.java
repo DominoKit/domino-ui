@@ -17,41 +17,23 @@ package org.dominokit.domino.ui.grid;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link GridLayout}
- */
+/** Default CSS classes for {@link GridLayout} */
 public interface GridStyles {
-    /**
-     * CSS style for a grid column
-     */
-    CssClass dui_grid_col = () -> "dui-grid-col";
+  /** CSS style for a grid column */
+  CssClass dui_grid_col = () -> "dui-grid-col";
 
-    /**
-     * CSS style for grid layout
-     */
-    CssClass dui_layout_grid = () ->"dui-layout-grid";
-    /**
-     * CSS style for grid layout content
-     */
-    CssClass dui_grid_content = () ->"dui-grid-content";
-    /**
-     * CSS style for grid layout header
-     */
-    CssClass dui_grid_header = () ->"dui-grid-header";
-    /**
-     * CSS style for grid layout footer
-     */
-    CssClass dui_grid_footer = () ->"dui-grid-footer";
-    /**
-     * CSS style for grid layout left section
-     */
-    CssClass dui_grid_left = () ->"dui-gird-left";
-    /**
-     * CSS style for grid layout right section
-     */
-    CssClass dui_grid_right = () ->"dui-grid-right";
-    /**
-     * CSS style for grid row
-     */
-    CssClass dui_grid_row = () -> "dui-grid-row";
+  /** CSS style for grid layout */
+  CssClass dui_layout_grid = () -> "dui-layout-grid";
+  /** CSS style for grid layout content */
+  CssClass dui_grid_content = () -> "dui-grid-content";
+  /** CSS style for grid layout header */
+  CssClass dui_grid_header = () -> "dui-grid-header";
+  /** CSS style for grid layout footer */
+  CssClass dui_grid_footer = () -> "dui-grid-footer";
+  /** CSS style for grid layout left section */
+  CssClass dui_grid_left = () -> "dui-gird-left";
+  /** CSS style for grid layout right section */
+  CssClass dui_grid_right = () -> "dui-grid-right";
+  /** CSS style for grid row */
+  CssClass dui_grid_row = () -> "dui-grid-row";
 }

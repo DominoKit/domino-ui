@@ -15,7 +15,12 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.forms.FormsStyles.*;
+
 import elemental2.dom.*;
+import java.util.Objects;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
@@ -25,12 +30,6 @@ import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
 import org.jboss.elemento.EventType;
 
-import java.util.Objects;
-
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.*;
-
 /**
  * A Base implementation for form inputs that takes/provide numeric values
  *
@@ -38,15 +37,13 @@ import static org.dominokit.domino.ui.forms.FormsStyles.*;
  * @param <V> The Numeric type of the component value
  */
 public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
-        extends InputFormField<T, HTMLInputElement, V> implements
-        HasMinMaxValue<T, V>,
-        HasStep<T,V>,
-        HasPostfix<T>,
-        HasPrefix<T>  {
+    extends InputFormField<T, HTMLInputElement, V>
+    implements HasMinMaxValue<T, V>, HasStep<T, V>, HasPostfix<T>, HasPrefix<T> {
 
   protected final LazyChild<DominoElement<HTMLDivElement>> prefixElement;
   protected final LazyChild<DominoElement<HTMLDivElement>> postfixElement;
-  private final ChangeListener<V> formatValueChangeListener =(oldValue, newValue) -> formatValue(newValue);
+  private final ChangeListener<V> formatValueChangeListener =
+      (oldValue, newValue) -> formatValue(newValue);
   private java.util.function.Function<String, V> valueParser = defaultValueParser();
 
   private String maxValueErrorMessage;
@@ -55,10 +52,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   private boolean formattingEnabled;
   private String pattern = null;
 
-  /**
-   * Create an instance with a label
-   *
-   */
+  /** Create an instance with a label */
   public NumberBox() {
     super();
     prefixElement = LazyChild.of(DominoElement.div().addCss(FIELD_PREFIX), wrapperElement);
@@ -91,8 +85,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
 
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
-    return DominoElement.input(type)
-            .addCss(FIELD_INPUT);
+    return DominoElement.input(type).addCss(FIELD_INPUT);
   }
 
   private ValidationResult validateInputString() {
@@ -488,7 +481,6 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return new InputAutoValidator(autoValidate, getInputElement());
   }
 
-
   @Override
   public T setPostfix(String postfix) {
     postfixElement.get().setTextContent(postfix);
@@ -555,5 +547,4 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     getInputElement().element().name = name;
     return (T) this;
   }
-
 }
