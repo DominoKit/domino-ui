@@ -426,6 +426,10 @@ table th[class*="col-"] {
     table-layout:fixed;
 }
 
+.thead-fixed > tr, .tbody-fixed > tr.data-table-group-row{
+    width: 100%;
+}
+
 .details-td {
     max-width: 200px;
 }

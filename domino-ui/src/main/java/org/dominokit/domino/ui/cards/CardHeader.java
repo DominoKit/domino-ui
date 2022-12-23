@@ -11,27 +11,6 @@ import static org.dominokit.domino.ui.cards.CardStyles.*;
 
 public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
 
-    /*
-    <div class="dui dui-card">
-            <div class="dui dui-card-header">
-                <div class="dui dui-card-main-header">
-                    <img class="dui dui-card-logo dui-rounded-full" src="http://placehold.jp/50x50.png"/>
-                    <i class="dui dui-card-icon mdi mdi-book dui-clickable"></i>
-                    <div class="dui dui-card-title">
-                        <h2 class="dui dui-card-main-title">Card Title
-                            <small class="dui dui-card-description">Description text here...</small>
-                        </h2>
-                    </div>
-                    <i class="dui dui-card-utility mdi mdi-dots-vertical dui-clickable"></i>
-                    <i class="dui dui-card-utility mdi mdi-chevron-down dui-rounded-circle dui-clickable"></i>
-                </div>
-                <div class="dui dui-card-subheader">
-                    <span class="dui dui-badge dui-w-12 dui-bg-red" >4</span >
-                </div>
-            </div>
-            <div class="dui dui-card-body">Quis pharetra a pharetra fames blandit. Risus faucibus velit Risus imperdiet mattis neque volutpat, etiam lacinia netus dictum magnis per facilisi sociosqu. Volutpat. Ridiculus nostra.</div>
-        </div>
-     */
     private DominoElement<HTMLDivElement> element;
     private LazyChild<DominoElement<HTMLDivElement>> mainHeader;
     private LazyChild<DominoElement<HTMLDivElement>> subHeader;
@@ -48,7 +27,8 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
 
     CardHeader() {
         element = DominoElement.div().addCss(card_header);
-        mainHeader = LazyChild.of(DominoElement.div().addCss(card_main_header), element);
+        mainHeader = LazyChild.of(DominoElement.div().addCss(card_main_header), element)
+                .whenInitialized(() -> mainHeader.element().appendChild(DominoElement.div().addCss(dui_card_header_filler)));
         subHeader = LazyChild.of(DominoElement.div().addCss(card_sub_header), element);
         title = LazyChild.of(DominoElement.div().addCss(card_title), mainHeader);
         mainTitle = LazyChild.of(DominoElement.h(2).addCss(card_main_title), title);

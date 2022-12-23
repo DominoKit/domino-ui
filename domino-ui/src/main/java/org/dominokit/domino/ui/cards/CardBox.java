@@ -14,7 +14,7 @@ import java.util.Set;
 
 import static org.dominokit.domino.ui.cards.CardStyles.*;
 
-public class CardBox extends BaseDominoElement<HTMLDivElement, CardBox> implements CollapsibleElement<CardBox> {
+public class CardBox extends BaseDominoElement<HTMLDivElement, CardBox> implements CardStyles, CollapsibleElement<CardBox> {
 
     private DominoElement<HTMLDivElement> element;
     private DominoElement<HTMLDivElement> body;

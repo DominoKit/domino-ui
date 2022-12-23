@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
 import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
@@ -28,57 +27,47 @@ import org.jboss.elemento.IsElement;
 public class Win8LinearLoader extends BaseLoader<Win8LinearLoader>
     implements IsElement<HTMLDivElement> {
 
-  private final HTMLDivElement progress1 =
-      DominoElement.of(div())
-          .css(WAIT_ME_PROGRESS_ELEM_1)
-          .add(DominoElement.of(div()).style("background-color:#555"))
-          .element();
-  private final HTMLDivElement progress2 =
-      DominoElement.of(div())
-          .css(WAIT_ME_PROGRESS_ELEM_2)
-          .add(DominoElement.of(div()).style("background-color:#555"))
-          .element();
-  private final HTMLDivElement progress3 =
-      DominoElement.of(div())
-          .css(WAIT_ME_PROGRESS_ELEM_3)
-          .add(DominoElement.of(div()).style("background-color:#555"))
-          .element();
-  private final HTMLDivElement progress4 =
-      DominoElement.of(div())
-          .css(WAIT_ME_PROGRESS_ELEM_4)
-          .add(DominoElement.of(div()).style("background-color:#555"))
-          .element();
-  private final HTMLDivElement progress5 =
-      DominoElement.of(div())
-          .css(WAIT_ME_PROGRESS_ELEM_5)
-          .add(DominoElement.of(div()).style("background-color:#555"))
-          .element();
+  private final DominoElement<HTMLDivElement> progress1 =
+      DominoElement.div()
+          .addCss(wait_me_progress_elem_1)
+          .appendChild(DominoElement.div().addCss(dui_bg_grey_d_2));
+  private final DominoElement<HTMLDivElement> progress2 =
+      DominoElement.div()
+          .addCss(wait_me_progress_elem_2)
+          .appendChild(DominoElement.div().addCss(dui_bg_grey_d_2));
+  private final DominoElement<HTMLDivElement> progress3 =
+      DominoElement.div()
+          .addCss(wait_me_progress_elem_3)
+          .appendChild(DominoElement.div().addCss(dui_bg_grey_d_2));
+  private final DominoElement<HTMLDivElement> progress4 =
+      DominoElement.div()
+          .addCss(wait_me_progress_elem_4)
+          .appendChild(DominoElement.div().addCss(dui_bg_grey_d_2));
+  private final DominoElement<HTMLDivElement> progress5 =
+      DominoElement.div()
+          .addCss(wait_me_progress_elem_5)
+          .appendChild(DominoElement.div().addCss(dui_bg_grey_d_2));
 
-  private final HTMLDivElement loader =
-      DominoElement.of(div())
-          .css(WAIT_ME_PROGRESS)
-          .css(WIN_8_LINEAR)
-          .add(progress1)
-          .add(progress2)
-          .add(progress3)
-          .add(progress4)
-          .add(progress5)
-          .element();
+  private final DominoElement<HTMLDivElement> loader =
+      DominoElement.div()
+          .addCss(wait_me_progress, win_8_linear)
+          .appendChild(progress1)
+          .appendChild(progress2)
+          .appendChild(progress3)
+          .appendChild(progress4)
+          .appendChild(progress5);
 
-  private final HTMLDivElement content =
-      DominoElement.of(div())
-          .css(WAIT_ME_CONTENT)
-          .css(GenericCss.vertical_center)
-          .add(loader)
-          .add(loadingText)
-          .element();
+  private final DominoElement<HTMLDivElement> content =
+      DominoElement.div()
+          .addCss(wait_me_content, dui_vertical_center)
+          .appendChild(loader)
+          .appendChild(loadingText);
 
-  private final HTMLDivElement element =
-      DominoElement.of(div())
-          .css(WAIT_ME)
+  private final DominoElement<HTMLDivElement> element =
+      DominoElement.div()
+          .addCss(wait_me)
           .style("background: rgba(255, 255, 255, 0.9);")
-          .add(content)
-          .element();
+          .appendChild(content);
 
   public Win8LinearLoader() {
     init(this);
@@ -98,9 +87,9 @@ public class Win8LinearLoader extends BaseLoader<Win8LinearLoader>
   @Override
   public void setSize(String width, String height) {
     onAttached(
-        mutationRecord -> {
-          Style.of(loader).setWidth(width).setHeight(height);
-        });
+        mutationRecord -> loader
+                .setWidth(width)
+                .setHeight(height));
   }
 
   /** {@inheritDoc} */
@@ -112,12 +101,12 @@ public class Win8LinearLoader extends BaseLoader<Win8LinearLoader>
   /** {@inheritDoc} */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
-    return DominoElement.of(content);
+    return content;
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 }

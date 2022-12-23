@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-import static org.dominokit.domino.ui.loaders.LoaderStyles.WAIT_ME;
-import static org.dominokit.domino.ui.loaders.LoaderStyles.WAIT_ME_CONTENT;
 import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
@@ -27,20 +25,17 @@ import org.jboss.elemento.IsElement;
 /** A none loader implementation */
 public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTMLDivElement> {
 
-  private final HTMLDivElement content =
-      DominoElement.of(div())
-          .css(WAIT_ME_CONTENT)
-          .css(GenericCss.vertical_center)
+  private final DominoElement<HTMLDivElement> content =
+      DominoElement.div()
+          .addCss(wait_me_content, dui_vertical_center)
           .style("margin-top: -18px;")
-          .add(loadingText)
-          .element();
+          .appendChild(loadingText);
 
-  private final HTMLDivElement element =
-      DominoElement.of(div())
-          .css(WAIT_ME)
+  private final DominoElement<HTMLDivElement> element =
+      DominoElement.div()
+          .addCss(wait_me)
           .style("background: rgba(255, 255, 255, 0.9);")
-          .add(content)
-          .element();
+          .appendChild(content);
 
   public NoneLoader() {
     init(this);
@@ -75,6 +70,6 @@ public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTML
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 }

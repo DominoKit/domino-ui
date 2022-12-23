@@ -16,9 +16,11 @@
 package org.dominokit.domino.ui.loaders;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
+import static org.dominokit.domino.ui.style.GenericCss.dui_vertical_center;
 
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.style.GenericCss;
+import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.elemento.IsElement;
@@ -45,8 +47,9 @@ public class Loader {
   private String height;
   private boolean removeLoadingText = false;
 
-  private LoadingTextPosition loadingTextPosition = LoadingTextPosition.MIDDLE;
   private Timer timeOutTimer;
+
+  private SwapCssClass loadingPosition = SwapCssClass.of(LoadingTextPosition.MIDDLE.style);
 
   /**
    * Creates a loader for a target element with an effect
@@ -73,7 +76,7 @@ public class Loader {
   private Loader(HTMLElement target, LoaderEffect type) {
     this.target = DominoElement.of(target);
     this.loaderElement = LoaderFactory.make(type);
-    this.loaderElement.getContentElement().css(loadingTextPosition.getStyle());
+    this.loaderElement.getContentElement().addCss(loadingPosition);
   }
 
   /**
@@ -101,7 +104,7 @@ public class Loader {
     }
 
     target.appendChild(loaderElement.getElement());
-    target.addCss("waitMe_container");
+    target.addCss(waitme_container);
     started = true;
 
     if (timeout > 0) {
@@ -126,7 +129,7 @@ public class Loader {
   public Loader stop() {
     if (started) {
       loaderElement.getElement().remove();
-      target.removeCss("waitMe_container");
+      target.removeCss(waitme_container);
       started = false;
       if (nonNull(timeOutTimer) && timeOutTimer.isRunning()) {
         timeOutTimer.cancel();
@@ -176,11 +179,6 @@ public class Loader {
     return started;
   }
 
-  /** @return The {@link LoadingTextPosition} */
-  public LoadingTextPosition getLoadingTextPosition() {
-    return loadingTextPosition;
-  }
-
   /**
    * Sets the position of the loading text
    *
@@ -188,14 +186,7 @@ public class Loader {
    * @return same instance
    */
   public Loader setLoadingTextPosition(LoadingTextPosition loadingTextPosition) {
-    this.loaderElement.getContentElement().removeCss(this.loadingTextPosition.getStyle());
-    this.loadingTextPosition = loadingTextPosition;
-    if (LoadingTextPosition.MIDDLE.equals(loadingTextPosition)) {
-      this.loaderElement.getContentElement().css(GenericCss.vertical_center);
-    } else {
-      this.loaderElement.getContentElement().removeCss(GenericCss.vertical_center);
-    }
-    this.loaderElement.getContentElement().css(this.loadingTextPosition.getStyle());
+    this.loaderElement.getContentElement().addCss(loadingPosition.replaceWith(loadingTextPosition.style));
     return this;
   }
 
@@ -206,18 +197,18 @@ public class Loader {
 
   /** An enum representing the position of the loading text based on the loader effect */
   public enum LoadingTextPosition {
-    TOP(LoaderStyles.LOADING_TOP),
-    MIDDLE(LoaderStyles.LOADING_MIDDLE),
-    BOTTOM(LoaderStyles.LOADING_BOTTOM);
+    TOP(LoaderStyles.loading_top),
+    MIDDLE(CompositeCssClass.of(loading_middle, dui_vertical_center)),
+    BOTTOM(loading_bottom);
 
-    private final String style;
+    private final CssClass style;
 
-    LoadingTextPosition(String style) {
+    LoadingTextPosition(CssClass style) {
       this.style = style;
     }
 
     /** @return The css style of the position */
-    public String getStyle() {
+    public CssClass getStyle() {
       return style;
     }
   }

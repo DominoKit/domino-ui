@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
 import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
@@ -27,39 +26,32 @@ import org.jboss.elemento.IsElement;
 /** Orbit loader implementation */
 public class OrbitLoader extends BaseLoader<OrbitLoader> implements IsElement<HTMLDivElement> {
 
-  private final HTMLDivElement progress1 =
-      DominoElement.of(div())
-          .css(WAIT_ME_PROGRESS_ELEM_1)
-          .add(DominoElement.of(div()).style("background-color:#000"))
-          .element();
-  private final HTMLDivElement progress2 =
-      DominoElement.of(div())
-          .css(WAIT_ME_PROGRESS_ELEM_2)
-          .add(DominoElement.of(div()).style("background-color:#000"))
-          .element();
+  private final DominoElement<HTMLDivElement> progress1 =
+      DominoElement.div()
+          .addCss(wait_me_progress_elem_1)
+          .appendChild(DominoElement.div().addCss(dui_bg_black));
+  private final DominoElement<HTMLDivElement> progress2 =
+      DominoElement.div()
+          .addCss(wait_me_progress_elem_2)
+          .appendChild(DominoElement.div().addCss(dui_bg_black));
 
-  private final HTMLDivElement loader =
-      DominoElement.of(div())
-          .css(WAIT_ME_PROGRESS)
-          .css(ORBIT)
-          .add(progress1)
-          .add(progress2)
-          .element();
+  private final DominoElement<HTMLDivElement> loader =
+      DominoElement.div()
+          .addCss(wait_me_progress, orbit)
+          .appendChild(progress1)
+          .appendChild(progress2);
 
-  private final HTMLDivElement content =
-      DominoElement.of(div())
-          .css(WAIT_ME_CONTENT)
-          .css(GenericCss.vertical_center)
-          .add(loader)
-          .add(loadingText)
-          .element();
+  private final DominoElement<HTMLDivElement> content =
+      DominoElement.div()
+          .addCss(wait_me_content, dui_vertical_center)
+          .appendChild(loader)
+          .appendChild(loadingText);
 
-  private final HTMLDivElement element =
-      DominoElement.of(div())
-          .css(WAIT_ME)
+  private final DominoElement<HTMLDivElement> element =
+      DominoElement.div()
+          .addCss(wait_me)
           .style("background: rgba(255, 255, 255, 0.9);")
-          .add(content)
-          .element();
+          .appendChild(content);
 
   public OrbitLoader() {
     init(this);
@@ -78,7 +70,10 @@ public class OrbitLoader extends BaseLoader<OrbitLoader> implements IsElement<HT
   /** {@inheritDoc} */
   @Override
   public void setSize(String width, String height) {
-    onAttached(mutationRecord -> Style.of(loader).setWidth(width).setHeight(height));
+    onAttached(mutationRecord -> loader
+            .setWidth(width)
+            .setHeight(height)
+    );
   }
 
   /** {@inheritDoc} */
@@ -90,12 +85,12 @@ public class OrbitLoader extends BaseLoader<OrbitLoader> implements IsElement<HT
   /** {@inheritDoc} */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
-    return DominoElement.of(content);
+    return content;
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 }

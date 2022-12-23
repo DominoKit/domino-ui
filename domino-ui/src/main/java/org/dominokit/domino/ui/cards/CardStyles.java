@@ -18,32 +18,33 @@ package org.dominokit.domino.ui.cards;
 import org.dominokit.domino.ui.style.CssClass;
 
 /** Default CSS classes for {@link Card} */
-public class CardStyles {
+public interface CardStyles {
 
-    public static final CssClass card = () -> "dui-card";
-    public static final CssClass card_reversed = () -> "dui-card-reversed";
-    public static final CssClass card_main_title = () -> "dui-card-main-title";
-    public static final CssClass card_title = () -> "dui-card-title";
-    public static final CssClass card_description = () -> "dui-card-description";
-    public static final CssClass card_header = () -> "dui-card-header";
-    public static final CssClass card_main_header = () -> "dui-card-main-header";
-    public static final CssClass card_sub_header = () -> "dui-card-subheader";
-    public static final CssClass card_logo = () -> "dui-card-logo";
-    public static final CssClass card_icon = () -> "dui-card-icon";
-    public static final CssClass card_utility = () -> "dui-card-utility";
-    public static final CssClass card_body = () -> "dui-card-body";
+    CssClass card = () -> "dui-card";
+    CssClass card_reversed = () -> "dui-card-reversed";
+    CssClass card_main_title = () -> "dui-card-main-title";
+    CssClass card_title = () -> "dui-card-title";
+    CssClass card_description = () -> "dui-card-description";
+    CssClass card_header = () -> "dui-card-header";
+    CssClass card_main_header = () -> "dui-card-main-header";
+    CssClass card_sub_header = () -> "dui-card-subheader";
+    CssClass card_logo = () -> "dui-card-logo";
+    CssClass card_icon = () -> "dui-card-icon";
+    CssClass card_utility = () -> "dui-card-utility";
+    CssClass card_body = () -> "dui-card-body";
+    CssClass dui_card_header_filler = () -> "dui-card-header-filler";
 
 
     /** CSS class for card */
-  public static final String CARD = "card";
+  String CARD = "card";
   /** CSS class for card header */
-  public static final String HEADER = "header";
+  String HEADER = "header";
   /** CSS class for card header actions */
-  public static final String HEADER_ACTIONS = "header-actions";
+  String HEADER_ACTIONS = "header-actions";
   /** CSS class for card body */
-  public static final String BODY = "body";
+  String BODY = "body";
   /** CSS class for card header action icon */
-  public static final String ACTION_ICON = "action-icon";
+  String ACTION_ICON = "action-icon";
   /** CSS class for card to fit its content */
-  public static final String FIT_CONTENT = "fit-content";
+  String FIT_CONTENT = "fit-content";
 }

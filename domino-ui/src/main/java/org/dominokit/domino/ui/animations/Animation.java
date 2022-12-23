@@ -21,6 +21,8 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.elemento.IsElement;
 
+import java.util.Arrays;
+
 /**
  * Animates an {@link HTMLElement}
  *
@@ -49,7 +51,7 @@ public class Animation {
   private int delay = 0;
   private boolean infinite = false;
   private final DominoElement<HTMLElement> element;
-  private Transition transition = Transition.BOUNCE;
+  private Transition[] transition = new Transition[]{Transition.BOUNCE};
   private CompleteCallback callback = DEFAULT_CALLBACK;
   private StartHandler startHandler = DEFAULT_START_HANDLER;
   private EventListener stopListener;
@@ -132,11 +134,11 @@ public class Animation {
   /**
    * sets the transition type for this animation.
    *
-   * @param transition a {@link Transition} value
+   * @param transitions a {@link Transition} value
    * @return same instance
    */
-  public Animation transition(Transition transition) {
-    this.transition = transition;
+  public Animation transition(Transition... transitions) {
+    this.transition = transitions;
     return this;
   }
 
@@ -219,12 +221,14 @@ public class Animation {
 
     element.addCss("animated");
     element.addCss("ease-in-out");
-    element.addCss(transition.getStyle());
+    Arrays.asList(transition).forEach(t -> element.addCss(t.getStyle()));
+    ;
   }
 
   /** stops the animation and calls the {@link CompleteCallback} if it is set. */
   public void stop() {
-    element.removeCss(transition.getStyle());
+    Arrays.asList(transition).forEach(t -> element.removeCss(t.getStyle()));
+//    element.removeCss(transition.getStyle());
     element.removeCss("animated");
     element.removeCss("infinite");
     element.removeCss("ease-in-out");

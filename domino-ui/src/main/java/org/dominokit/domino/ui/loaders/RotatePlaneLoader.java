@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
 import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
@@ -28,30 +27,25 @@ import org.jboss.elemento.IsElement;
 public class RotatePlaneLoader extends BaseLoader<RotatePlaneLoader>
     implements IsElement<HTMLDivElement> {
 
-  private final HTMLDivElement progress1 =
-      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555").element();
+  private final DominoElement<HTMLDivElement> progress1 =
+      DominoElement.div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
 
-  private final HTMLDivElement loader =
-      DominoElement.of(div())
-          .css(WAIT_ME_PROGRESS)
-          .css(LoaderStyles.ROTATEPLANE)
-          .add(progress1)
-          .element();
+  private final DominoElement<HTMLDivElement> loader =
+      DominoElement.div()
+          .addCss(wait_me_progress, rotateplane)
+          .appendChild(progress1);
 
-  private final HTMLDivElement content =
-      DominoElement.of(div())
-          .css(WAIT_ME_CONTENT)
-          .css(GenericCss.vertical_center)
-          .add(loader)
-          .add(loadingText)
-          .element();
+  private final DominoElement<HTMLDivElement> content =
+      DominoElement.div()
+          .addCss(wait_me_content, dui_vertical_center)
+          .appendChild(loader)
+          .appendChild(loadingText);
 
-  private final HTMLDivElement element =
-      DominoElement.of(div())
-          .css(WAIT_ME)
+  private final DominoElement<HTMLDivElement> element =
+      DominoElement.div()
+          .addCss(wait_me)
           .style("background: rgba(255, 255, 255, 0.9);")
-          .add(content)
-          .element();
+          .appendChild(content);
 
   public RotatePlaneLoader() {
     init(this);
@@ -71,9 +65,9 @@ public class RotatePlaneLoader extends BaseLoader<RotatePlaneLoader>
   @Override
   public void setSize(String width, String height) {
     onAttached(
-        mutationRecord -> {
-          Style.of(loader).setWidth(width).setHeight(height);
-        });
+        mutationRecord -> loader
+                .setWidth(width)
+                .setHeight(height));
   }
 
   /** {@inheritDoc} */
@@ -85,12 +79,12 @@ public class RotatePlaneLoader extends BaseLoader<RotatePlaneLoader>
   /** {@inheritDoc} */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
-    return DominoElement.of(content);
+    return content;
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 }
