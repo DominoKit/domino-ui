@@ -1027,6 +1027,17 @@ public class ColumnConfig<T> {
     return this;
   }
 
+  public ColumnConfig<T> removeChild(Node child) {
+    if (flexLayout.contains(child)) {
+      flexLayout.removeChild(child);
+    }
+    return this;
+  }
+
+  public ColumnConfig<T> removeChild(IsElement<?> child) {
+    return removeChild(child.element());
+  }
+
   /**
    * A hook interface to style a cell being rendered on the table
    *

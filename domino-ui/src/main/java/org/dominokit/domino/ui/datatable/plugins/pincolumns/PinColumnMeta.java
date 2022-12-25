@@ -95,19 +95,30 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction, PinElementT
         PinDirection::pinHeaderLeft,
         (column, element) -> {
           element.addCss(dui_pinned_cell);
-          column.getHeadElement().hasCssClass(dui_pin_left_col).ifPresent(element::addCss);
+          if (column.getHeadElement().containsCss(dui_pin_left_col)) {
+            element.addCss(dui_pin_left_col);
+          } else {
+            element.removeCss(dui_pin_left_col);
+          }
           element.removeCss(dui_pin_right_col);
-          element.setCssProperty(
-              "left", column.getHeadElement().getAttribute("pin-left-data") + "px");
+          element
+              .setCssProperty("left", column.getHeadElement().getAttribute("pin-left-data") + "px")
+              .setCssProperty("right", "auto");
         }),
     RIGHT(
         PinColumnMeta::pinHeaderRight,
         (column, element) -> {
           element.addCss(dui_pinned_cell);
-          column.getHeadElement().hasCssClass(dui_pin_right_col).ifPresent(element::addCss);
+          if (column.getHeadElement().containsCss(dui_pin_right_col)) {
+            element.addCss(dui_pin_right_col);
+          } else {
+            element.removeCss(dui_pin_right_col);
+          }
           element.removeCss(dui_pin_left_col);
-          element.setCssProperty(
-              "right", column.getHeadElement().getAttribute("pin-right-data") + "px");
+          element
+              .setCssProperty(
+                  "right", column.getHeadElement().getAttribute("pin-right-data") + "px")
+              .setCssProperty("left", "auto");
         });
 
     private PinColumnFunction pinColumnFunction;
@@ -163,8 +174,8 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction, PinElementT
     if (!element.containsCss(dui_pinned_cell)) {
       element.addCss(dui_pinned_cell);
     }
-    element.setCssProperty("left", left + "px");
-    return left + Double.valueOf(element.getBoundingClientRect().width);
+    element.setCssProperty("left", left + "px").setCssProperty("right", "auto");
+    return left + element.getBoundingClientRect().width;
   }
 
   private static <T> double pinHeaderRight(ColumnConfig<T> column, double right) {
@@ -200,7 +211,7 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction, PinElementT
     if (!element.containsCss(dui_pinned_cell)) {
       element.addCss(dui_pinned_cell);
     }
-    element.setCssProperty("right", right + "px");
-    return right + Double.valueOf(element.getBoundingClientRect().width);
+    element.setCssProperty("right", right + "px").setCssProperty("left", "auto");
+    return right + element.getBoundingClientRect().width;
   }
 }

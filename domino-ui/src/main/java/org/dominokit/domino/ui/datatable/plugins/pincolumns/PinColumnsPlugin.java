@@ -71,13 +71,15 @@ public class PinColumnsPlugin<T>
   public static final String dui_pinned_right = "dui-pinned-right";
   private DataTable<T> datatable;
 
-  private FlexItem<?> pinLeftIcon = FlexItem.of(Icons.ALL.pin_mdi().size18()).setOrder(100);
-  private FlexItem<?> pinRightIcon = FlexItem.of(Icons.ALL.pin_mdi().size18()).setOrder(100);
+  private FlexItem<?> pinLeftIcon;
+  private FlexItem<?> pinRightIcon;
   private PinColumnsConfig config = PinColumnsConfig.of();
 
   @Override
   public void init(DataTable<T> dataTable) {
     this.datatable = dataTable;
+    this.pinLeftIcon = FlexItem.of(config.getPinLeftIcon()).setOrder(100);
+    this.pinRightIcon = FlexItem.of(config.getPinRightIcon()).setOrder(100);
   }
 
   @Override
@@ -119,8 +121,8 @@ public class PinColumnsPlugin<T>
               }
             });
 
-    List<ColumnConfig<T>> columns = onBeforeSetPinColumn();
-
+    onBeforeSetPinColumn();
+    List<ColumnConfig<T>> columns = datatable.getTableConfig().getColumns();
     columns.stream()
         .filter(PinColumnMeta::isPinLeft)
         .reduce((first, second) -> second)
@@ -133,24 +135,29 @@ public class PinColumnsPlugin<T>
     dataTable.onResize((element, observer, entries) -> applyPinnedColumns());
   }
 
-  private List<ColumnConfig<T>> onBeforeSetPinColumn() {
-    List<ColumnConfig<T>> columns = datatable.getTableConfig().getColumns();
-
+  private void onBeforeSetPinColumn() {
     datatable
         .headerElement()
         .querySelectorAll("." + dui_pinned_cell + ",." + dui_pinned_left + ",." + dui_pinned_right)
         .forEach(element -> element.removeCss(dui_pinned_cell, dui_pinned_left, dui_pinned_right));
-    return columns;
   }
 
   public void setPinRightColumn(ColumnConfig<T> pinRightColumn) {
     onBeforeSetPinColumn();
+    PinColumnMeta.get(pinRightColumn)
+        .ifPresent(
+            meta -> {
+              if (meta.isLeftPin()) {
+                unpinLeftColumns();
+              }
+            });
+
     datatable
         .headerElement()
         .querySelectorAll("." + dui_pin_right_col)
         .forEach(element -> element.removeCss(dui_pin_right_col));
     if (config.isShowPinIcon()) {
-      pinRightColumn.getGrandParent().appendChild(pinRightIcon);
+      pinRightColumn.getGrandParent().removeChild(pinLeftIcon).appendChild(pinRightIcon);
     }
     pinRightColumn
         .getGrandParent()
@@ -202,12 +209,19 @@ public class PinColumnsPlugin<T>
 
   public void setPinLeftColumn(ColumnConfig<T> pinLeftColumn) {
     onBeforeSetPinColumn();
+    PinColumnMeta.get(pinLeftColumn)
+        .ifPresent(
+            meta -> {
+              if (meta.isRightPin()) {
+                unpinRightColumns();
+              }
+            });
     datatable
         .headerElement()
         .querySelectorAll("." + dui_pin_left_col)
         .forEach(element -> element.removeCss(dui_pin_left_col));
     if (config.isShowPinIcon()) {
-      pinLeftColumn.getGrandParent().appendChild(pinLeftIcon);
+      pinLeftColumn.getGrandParent().removeChild(pinRightIcon).appendChild(pinLeftIcon);
     }
     pinLeftColumn
         .getGrandParent()

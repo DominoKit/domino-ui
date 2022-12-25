@@ -16,10 +16,15 @@
 package org.dominokit.domino.ui.datatable.plugins.pincolumns;
 
 import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
+import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.icons.Icons;
 
 public class PinColumnsConfig implements PluginConfig {
   private boolean showPinIcon = false;
   private boolean showPinMenu = false;
+
+  private BaseIcon<?> pinLeftIcon = Icons.ALL.pin_mdi().size18();
+  private BaseIcon<?> pinRightIcon = Icons.ALL.pin_mdi().size18();
 
   private String pinLeftText = "Pin left";
   private String pinRightText = "Pin right";
@@ -80,5 +85,23 @@ public class PinColumnsConfig implements PluginConfig {
 
   public void setUnpinText(String unpinText) {
     this.unpinText = unpinText;
+  }
+
+  public BaseIcon<?> getPinLeftIcon() {
+    return pinLeftIcon;
+  }
+
+  public PinColumnsConfig setPinLeftIcon(BaseIcon<?> pinLeftIcon) {
+    this.pinLeftIcon = pinLeftIcon;
+    return this;
+  }
+
+  public BaseIcon<?> getPinRightIcon() {
+    return pinRightIcon;
+  }
+
+  public PinColumnsConfig setPinRightIcon(BaseIcon<?> pinRightIcon) {
+    this.pinRightIcon = pinRightIcon;
+    return this;
   }
 }
