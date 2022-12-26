@@ -1242,8 +1242,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /** {@inheritDoc} */
   @Editor.Ignore
   public T disable() {
-    setAttribute("disabled", "");
-    addCss("disabled");
+    DisableUtil.disable(this);
     return element;
   }
 
@@ -1255,8 +1254,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /** {@inheritDoc} */
   @Editor.Ignore
   public T enable() {
-    removeAttribute("disabled");
-    removeCss("disabled");
+    DisableUtil.enable(this);
     return element;
   }
 
