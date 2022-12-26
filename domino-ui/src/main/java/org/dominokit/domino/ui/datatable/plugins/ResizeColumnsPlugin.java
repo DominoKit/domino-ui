@@ -17,15 +17,13 @@ package org.dominokit.domino.ui.datatable.plugins;
 
 import static org.dominokit.domino.ui.datatable.DataTableStyles.COLUMN_RESIZER;
 import static org.dominokit.domino.ui.style.Unit.px;
-import static org.dominokit.domino.ui.utils.DominoDom.document;
 
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.MouseEvent;
+import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.ColumnResizedEvent;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.utils.DominoDom;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.EventType;
 
@@ -34,7 +32,10 @@ import org.jboss.elemento.EventType;
  *
  * @param <T> the type of data table records
  */
-public class ResizeColumnsPlugin<T> implements DataTablePlugin<T> {
+public class ResizeColumnsPlugin<T>
+    implements DataTablePlugin<T>, HasPluginConfig<T, ResizeColumnsPlugin<T>, ResizeColumnsConfig> {
+
+  private ResizeColumnsConfig config = new ResizeColumnsConfig();
 
   @Override
   public void init(DataTable<T> dataTable) {
@@ -48,20 +49,26 @@ public class ResizeColumnsPlugin<T> implements DataTablePlugin<T> {
                       if (!ResizeColumnMeta.get(col).isPresent()) {
                         col.applyMeta(ResizeColumnMeta.create());
                       }
+
+                      ResizeColumnMeta.get(col)
+                          .ifPresent(
+                              meta -> {
+                                meta.setOriginalWidth(col.getWidth());
+                                meta.setOriginalMinWidth(col.getMinWidth());
+                                meta.setOriginalMaxWidth(col.getMaxWidth());
+                              });
                     }));
   }
 
   /** {@inheritDoc} */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
-
     ResizeColumnMeta.get(column)
         .ifPresent(
             resizeColumnMeta -> {
               if (resizeColumnMeta.isResizable()) {
                 DominoElement<HTMLDivElement> resizeElement =
                     DominoElement.div().css(COLUMN_RESIZER);
-
                 EventListener resizeListener =
                     evt -> {
                       MouseEvent mouseEvent = Js.uncheckedCast(evt);
@@ -73,18 +80,27 @@ public class ResizeColumnsPlugin<T> implements DataTablePlugin<T> {
                                       double currentPosition = mouseEvent.clientX;
                                       double diff = currentPosition - meta.getStartPosition();
                                       String width = px.of(meta.getInitialWidth() + diff);
+
                                       col.getHeadElement().setWidth(width);
                                       col.setWidth(width);
+                                      if (config.isClipContent()) {
+                                        String maxWidth = meta.suppliedMaxWidthOrOriginal(width);
+                                        col.getHeadElement().setMaxWidth(maxWidth);
+                                        col.maxWidth(maxWidth);
+                                        ColumnCssRuleMeta.get(col)
+                                            .ifPresent(
+                                                cssMeta ->
+                                                    cssMeta.getCssRule().style.maxWidth =
+                                                        CSSProperties.MaxWidthUnionType.of(
+                                                            maxWidth));
+                                      }
 
                                       ColumnHeaderMeta.get(col)
                                           .ifPresent(
                                               headersMeta ->
                                                   headersMeta
                                                       .getExtraHeadElements()
-                                                      .forEach(
-                                                          header -> {
-                                                            header.setWidth(width);
-                                                          }));
+                                                      .forEach(header -> header.setWidth(width)));
                                     });
                           });
 
@@ -97,17 +113,24 @@ public class ResizeColumnsPlugin<T> implements DataTablePlugin<T> {
                                       double diff = currentPosition - meta.getStartPosition();
                                       String width = px.of(meta.getInitialWidth() + diff);
                                       col.getHeadElement().setWidth(width);
-                                      col.setWidth(width).minWidth(width).maxWidth(width);
-
+                                      col.setWidth(width);
+                                      if (config.isClipContent()) {
+                                        String maxWidth = meta.suppliedMaxWidthOrOriginal(width);
+                                        col.getHeadElement().setMaxWidth(maxWidth);
+                                        col.maxWidth(maxWidth);
+                                        ColumnCssRuleMeta.get(col)
+                                            .ifPresent(
+                                                cssMeta ->
+                                                    cssMeta.getCssRule().style.maxWidth =
+                                                        CSSProperties.MaxWidthUnionType.of(
+                                                            maxWidth));
+                                      }
                                       ColumnHeaderMeta.get(col)
                                           .ifPresent(
                                               headersMeta ->
                                                   headersMeta
                                                       .getExtraHeadElements()
-                                                      .forEach(
-                                                          header -> {
-                                                            header.setWidth(width);
-                                                          }));
+                                                      .forEach(header -> header.setWidth(width)));
                                     });
                           });
 
@@ -140,24 +163,42 @@ public class ResizeColumnsPlugin<T> implements DataTablePlugin<T> {
                                                             .getBoundingClientRect()
                                                             .width)
                                                     .setStartPosition(mouseEvent.clientX)));
-                        document.body.addEventListener(
+                        DominoDom.document.body.addEventListener(
                             EventType.mousemove.getName(), resizeListener);
                       }
                     });
                 resizeElement.addEventListener(
                     EventType.mouseup.getName(),
                     evt -> {
-                      document.body.removeEventListener(
+                      DominoDom.document.body.removeEventListener(
                           EventType.mousemove.getName(), resizeListener);
                     });
-                document.body.addEventListener(
+                DominoDom.document.body.addEventListener(
                     EventType.mouseup.getName(),
                     evt -> {
-                      document.body.removeEventListener(
+                      DominoDom.document.body.removeEventListener(
                           EventType.mousemove.getName(), resizeListener);
                     });
                 column.appendChild(FlexItem.of(resizeElement));
               }
             });
+  }
+
+  @Override
+  public void onBeforeAddCell(DataTable<T> dataTable, TableRow<T> tableRow, RowCell<T> rowCell) {
+    if (config.isClipContent()) {
+      DominoElement.of(rowCell.getCellInfo().getElement()).addCss("ellipsis-text");
+    }
+  }
+
+  @Override
+  public ResizeColumnsPlugin<T> setConfig(ResizeColumnsConfig config) {
+    this.config = config;
+    return this;
+  }
+
+  @Override
+  public ResizeColumnsConfig getConfig() {
+    return config;
   }
 }

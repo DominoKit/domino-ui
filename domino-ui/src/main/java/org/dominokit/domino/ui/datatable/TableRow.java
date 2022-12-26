@@ -327,6 +327,9 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
       cellElement = DominoElement.of(td()).css("dt-td-cell").element();
     }
 
+    ColumnCssRuleMeta.get(columnConfig)
+        .ifPresent(meta -> DominoElement.of(cellElement).addCss(meta.getSelector()));
+
     RowCell<T> rowCell =
         new RowCell<>(new CellRenderer.CellInfo<>(this, cellElement), columnConfig);
     rowCell.updateCell();

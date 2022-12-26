@@ -28,11 +28,7 @@ public class ColumnUtils {
     bestFitWidth(column)
         .ifPresent(
             fixedWidth ->
-                Style.of(element)
-                    .setWidth(fixedWidth)
-                    .setMinWidth(fixedWidth)
-                    .setMaxWidth(fixedWidth)
-                    .addCss(DataTableStyles.FIXED_WIDTH));
+                Style.of(element).setWidth(fixedWidth).addCss(DataTableStyles.FIXED_WIDTH));
     ;
   }
 

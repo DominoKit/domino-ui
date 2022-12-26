@@ -93,14 +93,12 @@ th {
 }
 
 table col[class*="col-"] {
-    position: static;
     display: table-column;
     float: none;
 }
 
 table td[class*="col-"],
 table th[class*="col-"] {
-    position: static;
     display: table-cell;
     float: none;
 }
@@ -648,7 +646,7 @@ table th[class*="col-"] {
 }
 
 .table-responsive .table {
-    border-collapse: separate !important;
+    border-collapse: collapse !important;
 }
 
 .dui-row-dnd-element {

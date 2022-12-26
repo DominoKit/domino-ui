@@ -15,6 +15,9 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
+import static java.util.Objects.isNull;
+
+import elemental2.core.JsNumber;
 import java.util.Optional;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.ColumnMeta;
@@ -26,6 +29,10 @@ public class ResizeColumnMeta implements ColumnMeta {
   private double initialWidth;
   private double startPosition;
   private boolean resizable = true;
+
+  private String originalWidth;
+  private String originalMinWidth;
+  private String originalMaxWidth;
 
   public static ResizeColumnMeta create() {
     return new ResizeColumnMeta(true);
@@ -64,6 +71,49 @@ public class ResizeColumnMeta implements ColumnMeta {
   public ResizeColumnMeta setResizable(boolean resizable) {
     this.resizable = resizable;
     return this;
+  }
+
+  public String getOriginalWidth() {
+    return originalWidth;
+  }
+
+  public void setOriginalWidth(String originalWidth) {
+    this.originalWidth = originalWidth;
+  }
+
+  public String getOriginalMinWidth() {
+    return originalMinWidth;
+  }
+
+  public void setOriginalMinWidth(String originalMinWidth) {
+    this.originalMinWidth = originalMinWidth;
+  }
+
+  public String getOriginalMaxWidth() {
+    return originalMaxWidth;
+  }
+
+  public void setOriginalMaxWidth(String originalMaxWidth) {
+    this.originalMaxWidth = originalMaxWidth;
+  }
+
+  public String suppliedMaxWidthOrOriginal(String maxWidth) {
+    if (isNull(originalMaxWidth) || !originalMaxWidth.contains("px")) {
+      return maxWidth;
+    }
+
+    try {
+      int original = JsNumber.parseInt(originalMaxWidth, 10);
+      int supplied = JsNumber.parseInt(maxWidth, 10);
+
+      if (supplied > original) {
+        return originalMaxWidth;
+      } else {
+        return maxWidth;
+      }
+    } catch (Exception e) {
+      return maxWidth;
+    }
   }
 
   @Override
