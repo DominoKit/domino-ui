@@ -3,14 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.dominokit</groupId>
+    <groupId>walkingkooka</groupId>
     <artifactId>domino-ui-parent</artifactId>
-    <version>1.0.0-RC14</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>domino-ui-parent</name>
     <description>Domino ui parent</description>
-    <url>https://github.com/DominoKit/domino-ui</url>
+    <url>https://github.com/mP1/domino-ui</url>
 
     <organization>
         <name>Dominokit</name>
@@ -43,19 +43,16 @@
     <inceptionYear>2019</inceptionYear>
 
     <scm>
-        <connection>scm:git:https://github.com/DominoKit/domino-ui.git</connection>
-        <developerConnection>scm:git:git@github.com:DominoKit/domino-ui.git</developerConnection>
-        <url>https://github.com/DominoKit/domino-ui</url>
+        <connection>scm:git:https://github.com/mP1/domino-ui.git</connection>
+        <developerConnection>scm:git:git@github.com:mP1/domino-ui.git</developerConnection>
+        <url>https://github.com/mP1/domino-ui</url>
     </scm>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>github-mp1-appengine-repo</id>
+            <name>github.com/mP1 repository</name>
+            <url>https://maven-repo-254709.appspot.com</url>
         </repository>
     </distributionManagement>
 
@@ -63,7 +60,6 @@
         <module>domino-ui</module>
         <module>domino-ui-shared</module>
         <module>domino-ui-tools</module>
-        <module>domino-ui-webjar</module>
     </modules>
 
     <properties>
@@ -94,9 +90,9 @@
 
         <dependencies>
             <dependency>
-                <groupId>org.gwtproject.editor</groupId>
+                <groupId>walkingkooka</groupId>
                 <artifactId>gwt-editor</artifactId>
-                <version>1.0.0-RC1</version>
+                <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.gwtproject.core</groupId>
@@ -279,34 +275,6 @@
                 <version>${maven.deploy.plugin}</version>
                 <configuration>
                     <skip>true</skip>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.dominokit</groupId>
-                <artifactId>gitflow-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <configuration>
-                    <snapshotVersionProperty>snapshot.version</snapshotVersionProperty>
-                    <releaseVersionProperty>next.release.version</releaseVersionProperty>
-                    <!-- Set to true to immediately bump the development version when creating a release branch -->
-                    <commitDevelopmentVersionAtStart>true</commitDevelopmentVersionAtStart>
-
-                    <!-- Which digit to increas in major.minor.patch versioning, the values being 0.1.2 respectively.
-                         By default the rightmost number is increased.
-                         Pass in the number via parameter or profile to allow configuration,
-                         since everything set in the file can't be overwritten via command line -->
-                    <versionDigitToIncrement>${bump.digit}</versionDigitToIncrement>
-
-                    <!-- Execute mvn verify before release -->
-                    <preReleaseGoals>verify</preReleaseGoals>
-                    <preHotfixGoals>verify</preHotfixGoals>
-
-                    <!-- Configure branches -->
-                    <gitFlowConfig>
-                        <productionBranch>master</productionBranch>
-                        <!-- default is develop, but we use development -->
-                        <developmentBranch>development</developmentBranch>
-                    </gitFlowConfig>
                 </configuration>
             </plugin>
             <plugin>
