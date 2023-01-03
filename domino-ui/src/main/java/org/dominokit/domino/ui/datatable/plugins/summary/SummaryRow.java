@@ -1,0 +1,157 @@
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.dominokit.domino.ui.datatable.plugins.summary;
+
+import static org.jboss.elemento.Elements.*;
+
+import elemental2.dom.HTMLTableCellElement;
+import elemental2.dom.HTMLTableRowElement;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.dominokit.domino.ui.datatable.ColumnConfig;
+import org.dominokit.domino.ui.datatable.ColumnCssRuleMeta;
+import org.dominokit.domino.ui.datatable.DataTable;
+import org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
+
+public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, SummaryRow<T, S>> {
+  private S record;
+  private final int index;
+  private DataTable<T> dataTable;
+  private final Map<String, SummaryRowCell<T, S>> rowCells = new HashMap<>();
+  private HTMLTableRowElement element = tr().element();
+  private SummaryRowRenderer<T, S> rowRenderer = new DefaultSummaryRowRenderer<>();
+
+  public SummaryRow(S record, int index, DataTable<T> dataTable) {
+    this.record = record;
+    this.index = index;
+    this.dataTable = dataTable;
+    init(this);
+  }
+
+  public void setRecord(S record) {
+    this.record = record;
+  }
+
+  public S getRecord() {
+    return record;
+  }
+
+  public DataTable<T> getDataTable() {
+    return dataTable;
+  }
+
+  @Override
+  public HTMLTableRowElement element() {
+    return element;
+  }
+
+  public void addCell(SummaryRowCell<T, S> rowCell) {
+    rowCells.put(rowCell.getColumnConfig().getName(), rowCell);
+  }
+
+  public SummaryRowCell<T, S> getCell(String name) {
+    return rowCells.get(name);
+  }
+
+  public int getIndex() {
+    return index;
+  }
+
+  public void updateRow() {
+    updateRow(this.record);
+  }
+
+  public void updateRow(S record) {
+    this.record = record;
+    rowCells.values().forEach(SummaryRowCell::updateCell);
+  }
+
+  public Map<String, SummaryRowCell<T, S>> getRowCells() {
+    return Collections.unmodifiableMap(rowCells);
+  }
+
+  public void render() {
+    rowRenderer.render(dataTable, this);
+  }
+
+  /**
+   * An interface to implement listeners for Table row changes
+   *
+   * @param <T> the type of the data table records
+   */
+  @FunctionalInterface
+  public interface RowListener<T, S> {
+    /** @param summaryRow the changed {@link SummaryRow} */
+    void onChange(SummaryRow<T, S> summaryRow);
+  }
+
+  public void renderCell(ColumnConfig<T> columnConfig) {
+    HTMLTableCellElement cellElement;
+
+    cellElement = DominoElement.of(td()).css("dt-td-cell").element();
+
+    ColumnCssRuleMeta.get(columnConfig)
+        .ifPresent(
+            meta ->
+                meta.cssRules()
+                    .forEach(
+                        columnCssRule ->
+                            DominoElement.of(cellElement).addCss(columnCssRule.getCssClass())));
+
+    SummaryRowCell<T, S> rowCell =
+        new SummaryRowCell<>(
+            new SummaryCellRenderer.SummaryCellInfo<>(this, cellElement), columnConfig);
+    rowCell.updateCell();
+    addCell(rowCell);
+
+    columnConfig.applyScreenMedia(cellElement);
+
+    if (columnConfig.isHidden()) {
+      DominoElement.of(cellElement).hide();
+    }
+    element().appendChild(cellElement);
+    columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(cellElement));
+  }
+
+  public interface SummaryRowRenderer<T, S> {
+    void render(DataTable<T> dataTable, SummaryRow<T, S> summaryRow);
+  }
+
+  private static class DefaultSummaryRowRenderer<T, S> implements SummaryRowRenderer<T, S> {
+
+    @Override
+    public void render(DataTable<T> dataTable, SummaryRow<T, S> summaryRow) {
+
+      List<ColumnConfig<T>> columns = dataTable.getTableConfig().getColumns();
+      for (int i = 0; i < columns.size(); i++) {
+        summaryRow.renderCell(columns.get(i));
+        SummaryRowCell<T, S> addedCell = summaryRow.rowCells.get(columns.get(i).getName());
+        DominoElement<HTMLTableCellElement> cell =
+            DominoElement.of(addedCell.getCellInfo().getElement());
+        if (cell.hasAttribute("colspan")) {
+          int colspan = Integer.parseInt(cell.getAttribute("colspan"));
+          if (colspan > 1) {
+            i += colspan - 1;
+          }
+        }
+      }
+    }
+  }
+}

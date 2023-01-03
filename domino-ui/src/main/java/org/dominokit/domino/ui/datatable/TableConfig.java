@@ -131,10 +131,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
       thead.appendChild(headers[i]);
     }
 
-    columns.forEach(
-        col -> {
-          col.renderHeader(dataTable, this, headers);
-        });
+    columns.forEach(col -> col.renderHeader(dataTable, this, headers));
     if (!thead.isAttached()) {
       dataTable.tableElement().appendChild(thead);
     }
@@ -156,7 +153,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
       rowAppender.appendRow(dataTable, tableRow);
     }
 
-    plugins.forEach(plugin -> plugin.onRowAdded(dataTable, tableRow));
+    getPlugins().forEach(plugin -> plugin.onRowAdded(dataTable, tableRow));
   }
 
   private boolean isOdd(int index) {
@@ -323,7 +320,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
 
   /** @return the {@link List} of plugins added to the table */
   public List<DataTablePlugin<T>> getPlugins() {
-    return plugins;
+    return plugins.stream().sorted().collect(Collectors.toList());
   }
 
   /**
@@ -333,7 +330,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    * @param dataTable the {@link DataTable} initialized with this configuration
    */
   void onBeforeHeaders(DataTable<T> dataTable) {
-    plugins.forEach(plugin -> plugin.onBeforeAddHeaders(dataTable));
+    getPlugins().forEach(plugin -> plugin.onBeforeAddHeaders(dataTable));
   }
 
   /**
@@ -343,7 +340,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    * @param dataTable the {@link DataTable} initialized with this configuration
    */
   void onAfterHeaders(DataTable<T> dataTable) {
-    plugins.forEach(plugin -> plugin.onAfterAddHeaders(dataTable));
+    getPlugins().forEach(plugin -> plugin.onAfterAddHeaders(dataTable));
   }
 
   /** @return a {@link List} of all non grouping {@link ColumnConfig} added to the table */

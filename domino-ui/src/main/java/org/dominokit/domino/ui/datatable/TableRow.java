@@ -328,7 +328,12 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     }
 
     ColumnCssRuleMeta.get(columnConfig)
-        .ifPresent(meta -> DominoElement.of(cellElement).addCss(meta.getSelector()));
+        .ifPresent(
+            meta ->
+                meta.cssRules()
+                    .forEach(
+                        columnCssRule ->
+                            DominoElement.of(cellElement).addCss(columnCssRule.getCssClass())));
 
     RowCell<T> rowCell =
         new RowCell<>(new CellRenderer.CellInfo<>(this, cellElement), columnConfig);

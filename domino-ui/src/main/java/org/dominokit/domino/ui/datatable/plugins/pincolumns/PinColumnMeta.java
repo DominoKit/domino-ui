@@ -15,21 +15,16 @@
  */
 package org.dominokit.domino.ui.datatable.plugins.pincolumns;
 
-import elemental2.dom.HTMLElement;
+import static org.dominokit.domino.ui.datatable.plugins.pincolumns.PinColumnsPlugin.PIN_COLUMNS_CSS_RULE;
+
+import elemental2.dom.CSSStyleDeclaration;
 import java.util.List;
 import java.util.Optional;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
-import org.dominokit.domino.ui.datatable.ColumnHeaderMeta;
+import org.dominokit.domino.ui.datatable.ColumnCssRuleMeta;
 import org.dominokit.domino.ui.datatable.ColumnMeta;
-import org.dominokit.domino.ui.utils.DominoElement;
 
-public class PinColumnMeta implements ColumnMeta, PinColumnFunction, PinElementToColumn {
-
-  public static final String dui_pinned_cell = "dui-pinned-cell";
-  public static final String dui_pin_right_col = "dui-pin-right-col";
-  public static final String dui_pin_left_col = "dui-pin-left-col";
-  public static final String dui_pinned_left = "dui-pinned-left";
-  public static final String dui_pinned_right = "dui-pinned-right";
+public class PinColumnMeta implements ColumnMeta, PinColumnFunction {
 
   private final PinDirection direction;
 
@@ -56,7 +51,7 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction, PinElementT
   }
 
   public static boolean isPinned(ColumnConfig<?> column) {
-    return !(PinColumnMeta.isPinLeft(column) || PinColumnMeta.isPinRight(column));
+    return (PinColumnMeta.isPinLeft(column) || PinColumnMeta.isPinRight(column));
   }
 
   public PinColumnMeta(PinDirection direction) {
@@ -81,57 +76,26 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction, PinElementT
     return direction.pin(column, position);
   }
 
-  @Override
-  public void pinElement(ColumnConfig<?> column, DominoElement<?> element) {
-    direction.pinElement(column, element);
-  }
-
-  public static void clearPinningCss(DominoElement<?> element) {
-    element.removeCss(dui_pinned_cell, dui_pin_left_col, dui_pin_right_col);
-  }
-
-  public enum PinDirection implements PinColumnFunction, PinElementToColumn {
-    LEFT(
-        PinDirection::pinHeaderLeft,
-        (column, element) -> {
-          element.addCss(dui_pinned_cell);
-          if (column.getHeadElement().containsCss(dui_pin_left_col)) {
-            element.addCss(dui_pin_left_col);
-          } else {
-            element.removeCss(dui_pin_left_col);
-          }
-          element.removeCss(dui_pin_right_col);
-          element
-              .setCssProperty("left", column.getHeadElement().getAttribute("pin-left-data") + "px")
-              .setCssProperty("right", "auto");
-        }),
-    RIGHT(
-        PinColumnMeta::pinHeaderRight,
-        (column, element) -> {
-          element.addCss(dui_pinned_cell);
-          if (column.getHeadElement().containsCss(dui_pin_right_col)) {
-            element.addCss(dui_pin_right_col);
-          } else {
-            element.removeCss(dui_pin_right_col);
-          }
-          element.removeCss(dui_pin_left_col);
-          element
-              .setCssProperty(
-                  "right", column.getHeadElement().getAttribute("pin-right-data") + "px")
-              .setCssProperty("left", "auto");
-        });
+  public enum PinDirection implements PinColumnFunction {
+    LEFT(PinDirection::pinHeaderLeft),
+    RIGHT(PinColumnMeta::pinHeaderRight);
 
     private PinColumnFunction pinColumnFunction;
-    private PinElementToColumn pinElementToColumn;
 
-    PinDirection(PinColumnFunction pinColumnFunction, PinElementToColumn pinElementToColumn) {
+    PinDirection(PinColumnFunction pinColumnFunction) {
       this.pinColumnFunction = pinColumnFunction;
-      this.pinElementToColumn = pinElementToColumn;
     }
 
     private static <T> double pinHeaderLeft(ColumnConfig<T> column, double left) {
-      column.getHeadElement().addCss(dui_pinned_left);
-      column.getHeadElement().setAttribute("pin-left-data", left);
+      ColumnCssRuleMeta.get(column)
+          .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
+          .ifPresent(
+              pinCssRule -> {
+                CSSStyleDeclaration style = pinCssRule.getCssRule().style;
+                style.right = "auto";
+                style.position = "sticky";
+                style.left = left + "px";
+              });
 
       if (column.isColumnGroup()) {
         double[] childOffset = new double[] {left};
@@ -143,44 +107,26 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction, PinElementT
                   childOffset[0] = pinHeaderLeft(subColumn, childOffset[0]);
                 });
       }
-      ColumnHeaderMeta.get(column)
-          .ifPresent(
-              meta ->
-                  meta.getExtraHeadElements()
-                      .forEach(
-                          headElement -> {
-                            headElement.addCss(dui_pinned_left);
-                            column
-                                .getHeadElement()
-                                .hasCssClass(dui_pin_left_col)
-                                .ifPresent(headElement::addCss);
-                            pinElementLeft(headElement, left);
-                          }));
-      return pinElementLeft(column.getHeadElement(), left);
+
+      return left + column.getHeadElement().getBoundingClientRect().width;
     }
 
     @Override
     public double pin(ColumnConfig<?> column, double position) {
       return pinColumnFunction.pin(column, position);
     }
-
-    @Override
-    public void pinElement(ColumnConfig<?> column, DominoElement<?> element) {
-      pinElementToColumn.pinElement(column, element);
-    }
-  }
-
-  private static double pinElementLeft(DominoElement<? extends HTMLElement> element, double left) {
-    if (!element.containsCss(dui_pinned_cell)) {
-      element.addCss(dui_pinned_cell);
-    }
-    element.setCssProperty("left", left + "px").setCssProperty("right", "auto");
-    return left + element.getBoundingClientRect().width;
   }
 
   private static <T> double pinHeaderRight(ColumnConfig<T> column, double right) {
-    column.getHeadElement().addCss(dui_pinned_right);
-    column.getHeadElement().setAttribute("pin-right-data", right);
+    ColumnCssRuleMeta.get(column)
+        .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
+        .ifPresent(
+            pinCssRule -> {
+              CSSStyleDeclaration style = pinCssRule.getCssRule().style;
+              style.left = "auto";
+              style.position = "sticky";
+              style.right = right + "px";
+            });
     if (column.isColumnGroup()) {
       double[] childOffset = new double[] {right};
       List<ColumnConfig<T>> subColumns = column.getSubColumns();
@@ -190,28 +136,7 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction, PinElementT
         childOffset[0] = pinHeaderRight(subColumn, childOffset[0]);
       }
     }
-    ColumnHeaderMeta.get(column)
-        .ifPresent(
-            meta ->
-                meta.getExtraHeadElements()
-                    .forEach(
-                        headElement -> {
-                          headElement.addCss(dui_pinned_right);
-                          column
-                              .getHeadElement()
-                              .hasCssClass(dui_pin_right_col)
-                              .ifPresent(headElement::addCss);
-                          pinElementRight(headElement, right);
-                        }));
-    return pinElementRight(column.getHeadElement(), right);
-  }
 
-  private static double pinElementRight(
-      DominoElement<? extends HTMLElement> element, double right) {
-    if (!element.containsCss(dui_pinned_cell)) {
-      element.addCss(dui_pinned_cell);
-    }
-    element.setCssProperty("right", right + "px").setCssProperty("left", "auto");
-    return right + element.getBoundingClientRect().width;
+    return right + column.getHeadElement().getBoundingClientRect().width;
   }
 }

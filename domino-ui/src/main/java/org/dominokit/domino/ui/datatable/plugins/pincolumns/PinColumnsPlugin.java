@@ -15,12 +15,15 @@
  */
 package org.dominokit.domino.ui.datatable.plugins.pincolumns;
 
+import static java.util.Objects.nonNull;
+
+import elemental2.dom.CSSStyleDeclaration;
 import elemental2.dom.DomGlobal;
-import elemental2.dom.HTMLTableCellElement;
 import java.util.List;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
+import org.dominokit.domino.ui.datatable.ColumnCssRuleMeta;
 import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.RowCell;
 import org.dominokit.domino.ui.datatable.events.ColumnResizedEvent;
 import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableBorderedEvent;
@@ -30,7 +33,6 @@ import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.menu.MenuItem;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
 /**
@@ -49,7 +51,7 @@ import org.dominokit.domino.ui.utils.ElementUtil;
  *     </code>
  * </pre>
  *
- * to pin a column to the left apply a {@link PinColumnMeta} to the column with right direction
+ * <p>to pin a column to the left apply a {@link PinColumnMeta} to the column with right direction
  *
  * <pre>
  *     <code>
@@ -57,29 +59,45 @@ import org.dominokit.domino.ui.utils.ElementUtil;
  *     </code>
  * </pre>
  *
- * The pin menu and pin icon are both configurable and are disabled by default.
+ * <p>The pin menu and pin icon are both configurable and are disabled by default.
  *
  * @param <T>
  */
 public class PinColumnsPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, PinColumnsPlugin<T>, PinColumnsConfig> {
 
-  public static final String dui_pinned_cell = "dui-pinned-cell";
-  public static final String dui_pin_right_col = "dui-pin-right-col";
-  public static final String dui_pin_left_col = "dui-pin-left-col";
-  public static final String dui_pinned_left = "dui-pinned-left";
-  public static final String dui_pinned_right = "dui-pinned-right";
+  public static final String PIN_COLUMNS_CSS_RULE = "PIN-COLUMNS-CSS-RULE";
+
   private DataTable<T> datatable;
 
   private FlexItem<?> pinLeftIcon;
   private FlexItem<?> pinRightIcon;
   private PinColumnsConfig config = PinColumnsConfig.of();
 
+  private ColumnConfig<T> pinLeftColumn;
+  private ColumnConfig<T> pinRightColumn;
+
   @Override
   public void init(DataTable<T> dataTable) {
     this.datatable = dataTable;
     this.pinLeftIcon = FlexItem.of(config.getPinLeftIcon()).setOrder(100);
     this.pinRightIcon = FlexItem.of(config.getPinRightIcon()).setOrder(100);
+
+    datatable
+        .getTableConfig()
+        .getColumnsGrouped()
+        .forEach(
+            group ->
+                group.applyAndOnSubColumns(
+                    col -> {
+                      ColumnCssRuleMeta.get(col)
+                          .ifPresent(
+                              meta -> {
+                                meta.addRule(
+                                    PIN_COLUMNS_CSS_RULE,
+                                    "col-pin-" + col.getName().replace(" ", "_"));
+                              });
+                    }));
   }
 
   @Override
@@ -121,7 +139,6 @@ public class PinColumnsPlugin<T>
               }
             });
 
-    onBeforeSetPinColumn();
     List<ColumnConfig<T>> columns = datatable.getTableConfig().getColumns();
     columns.stream()
         .filter(PinColumnMeta::isPinLeft)
@@ -137,9 +154,20 @@ public class PinColumnsPlugin<T>
 
   private void onBeforeSetPinColumn() {
     datatable
-        .headerElement()
-        .querySelectorAll("." + dui_pinned_cell + ",." + dui_pinned_left + ",." + dui_pinned_right)
-        .forEach(element -> element.removeCss(dui_pinned_cell, dui_pinned_left, dui_pinned_right));
+        .getTableConfig()
+        .getColumnsGrouped()
+        .forEach(
+            group ->
+                group.applyAndOnSubColumns(
+                    column -> {
+                      ColumnCssRuleMeta.get(column)
+                          .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
+                          .ifPresent(
+                              pinCssRule -> {
+                                CSSStyleDeclaration style = pinCssRule.getCssRule().style;
+                                style.removeProperty("position");
+                              });
+                    }));
   }
 
   public void setPinRightColumn(ColumnConfig<T> pinRightColumn) {
@@ -152,16 +180,10 @@ public class PinColumnsPlugin<T>
               }
             });
 
-    datatable
-        .headerElement()
-        .querySelectorAll("." + dui_pin_right_col)
-        .forEach(element -> element.removeCss(dui_pin_right_col));
     if (config.isShowPinIcon()) {
       pinRightColumn.getGrandParent().removeChild(pinLeftIcon).appendChild(pinRightIcon);
     }
-    pinRightColumn
-        .getGrandParent()
-        .applyAndOnFirstSubColumn(col -> col.getHeadElement().addCss(dui_pin_right_col));
+
     pinColumnsRight(pinRightColumn);
   }
 
@@ -177,10 +199,6 @@ public class PinColumnsPlugin<T>
 
   public void unpinLeftColumns() {
     onBeforeSetPinColumn();
-    datatable
-        .headerElement()
-        .querySelectorAll("." + dui_pin_left_col + ",." + dui_pinned_left)
-        .forEach(element -> element.removeCss(dui_pin_left_col, dui_pinned_left));
     datatable.getTableConfig().getColumnsGrouped().stream()
         .filter(PinColumnMeta::isPinLeft)
         .forEach(
@@ -193,10 +211,6 @@ public class PinColumnsPlugin<T>
 
   public void unpinRightColumns() {
     onBeforeSetPinColumn();
-    datatable
-        .headerElement()
-        .querySelectorAll("." + dui_pin_right_col + ",." + dui_pinned_right)
-        .forEach(element -> element.removeCss(dui_pin_right_col, dui_pinned_right));
     datatable.getTableConfig().getColumnsGrouped().stream()
         .filter(PinColumnMeta::isPinRight)
         .forEach(
@@ -216,22 +230,46 @@ public class PinColumnsPlugin<T>
                 unpinRightColumns();
               }
             });
-    datatable
-        .headerElement()
-        .querySelectorAll("." + dui_pin_left_col)
-        .forEach(element -> element.removeCss(dui_pin_left_col));
+
     if (config.isShowPinIcon()) {
       pinLeftColumn.getGrandParent().removeChild(pinRightIcon).appendChild(pinLeftIcon);
     }
-    pinLeftColumn
-        .getGrandParent()
-        .applyAndOnLastSubColumn(col -> col.getHeadElement().addCss(dui_pin_left_col));
     pinColumnsLeft(pinLeftColumn);
   }
 
   private void pinColumnsLeft(ColumnConfig<T> pinLeftColumn) {
     List<ColumnConfig<T>> columns = datatable.getTableConfig().getColumnsGrouped();
     int columnIndex = columns.indexOf(pinLeftColumn.getGrandParent());
+    if (nonNull(this.pinLeftColumn)) {
+      this.pinLeftColumn
+          .getGrandParent()
+          .applyAndOnSubColumns(
+              column -> {
+                ColumnCssRuleMeta.get(column)
+                    .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
+                    .ifPresent(
+                        pinCssRule -> {
+                          CSSStyleDeclaration style = pinCssRule.getCssRule().style;
+                          style.removeProperty("border-left");
+                          style.removeProperty("border-right");
+                        });
+              });
+    }
+
+    this.pinLeftColumn = pinLeftColumn;
+    this.pinLeftColumn
+        .getGrandParent()
+        .applyAndOnEachLastSubColumn(
+            column -> {
+              ColumnCssRuleMeta.get(column)
+                  .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
+                  .ifPresent(
+                      pinCssRule -> {
+                        CSSStyleDeclaration style = pinCssRule.getCssRule().style;
+                        style.borderRight = "1px solid #ddd";
+                        style.removeProperty("border-left");
+                      });
+            });
     for (int i = 0; i <= columnIndex; i++) {
       columns.get(i).applyAndOnSubColumns(column -> column.applyMeta(PinColumnMeta.left()));
     }
@@ -250,6 +288,36 @@ public class PinColumnsPlugin<T>
   private void pinColumnsRight(ColumnConfig<T> pinRightColumn) {
     List<ColumnConfig<T>> columns = datatable.getTableConfig().getColumnsGrouped();
     int columnIndex = columns.indexOf(pinRightColumn.getGrandParent());
+    if (nonNull(this.pinRightColumn)) {
+      this.pinRightColumn
+          .getGrandParent()
+          .applyAndOnSubColumns(
+              column -> {
+                ColumnCssRuleMeta.get(column)
+                    .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
+                    .ifPresent(
+                        pinCssRule -> {
+                          CSSStyleDeclaration style = pinCssRule.getCssRule().style;
+                          style.removeProperty("border-left");
+                          style.removeProperty("border-right");
+                        });
+              });
+    }
+    this.pinRightColumn = pinRightColumn;
+    this.pinRightColumn
+        .getGrandParent()
+        .applyAndOnEachFirstSubColumn(
+            column -> {
+              ColumnCssRuleMeta.get(column)
+                  .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
+                  .ifPresent(
+                      pinCssRule -> {
+                        CSSStyleDeclaration style = pinCssRule.getCssRule().style;
+                        style.borderLeft = "1px solid #ddd";
+                        style.removeProperty("border-right");
+                      });
+            });
+
     for (int i = 0; i < columnIndex; i++) {
       columns
           .get(i)
@@ -273,10 +341,18 @@ public class PinColumnsPlugin<T>
         applyPinnedColumns();
         break;
       case ColumnResizedEvent.COLUMN_RESIZED:
-        DomGlobal.requestAnimationFrame(
-            timestamp -> {
+        ColumnResizedEvent columnResizedEvent = Js.uncheckedCast(event);
+        ColumnConfig<?> column = columnResizedEvent.getColumn();
+        if (PinColumnMeta.isPinned(column)) {
+          if (columnResizedEvent.getSizeDiff() > 0) {
+            if (columnResizedEvent.isCompleted()) {
               applyPinnedColumns();
-            });
+            }
+          } else {
+            applyPinnedColumns();
+          }
+        }
+
         break;
     }
   }
@@ -291,6 +367,7 @@ public class PinColumnsPlugin<T>
   }
 
   private void pinColumns() {
+    onBeforeSetPinColumn();
     if (datatable.isAttached()) {
       pinColumnsForAttachedTable();
     } else {
@@ -302,48 +379,31 @@ public class PinColumnsPlugin<T>
   private void pinColumnsForAttachedTable() {
     ElementUtil.withBodyObserverPaused(
         () -> {
-          double[] leftHeaderOffset = new double[] {0};
-          double[] rightHeaderOffset = new double[] {0};
-          datatable
-              .getTableConfig()
-              .getColumnsGrouped()
-              .forEach(
-                  column -> {
-                    if (PinColumnMeta.isPinLeft(column)) {
-                      leftHeaderOffset[0] =
-                          PinColumnMeta.get(column).get().pin(column, leftHeaderOffset[0]);
-                    }
-                  });
+          DomGlobal.requestAnimationFrame(
+              timestamp -> {
+                double[] leftHeaderOffset = new double[] {0};
+                double[] rightHeaderOffset = new double[] {0};
+                datatable
+                    .getTableConfig()
+                    .getColumnsGrouped()
+                    .forEach(
+                        column -> {
+                          if (PinColumnMeta.isPinLeft(column)) {
+                            leftHeaderOffset[0] =
+                                PinColumnMeta.get(column).get().pin(column, leftHeaderOffset[0]);
+                          }
+                        });
 
-          List<ColumnConfig<T>> groupedColumns = datatable.getTableConfig().getColumnsGrouped();
-          for (int i = groupedColumns.size() - 1; i >= 0; i--) {
-            ColumnConfig<T> column = groupedColumns.get(i);
-            if (PinColumnMeta.isPinRight(column)) {
-              rightHeaderOffset[0] =
-                  PinColumnMeta.get(column).get().pin(column, rightHeaderOffset[0]);
-            }
-          }
-          List<ColumnConfig<T>> columns = datatable.getTableConfig().getColumns();
-
-          datatable
-              .getRows()
-              .forEach(
-                  tableRow -> {
-                    for (int i = 0; i < columns.size(); i++) {
-                      ColumnConfig<T> column = columns.get(i);
-                      RowCell<T> cell = tableRow.getCell(column.getName());
-                      DominoElement<HTMLTableCellElement> td =
-                          DominoElement.of(cell.getCellInfo().getElement());
-                      DominoElement<HTMLTableCellElement> th =
-                          cell.getColumnConfig().getHeadElement();
-
-                      if (PinColumnMeta.get(column).isPresent()) {
-                        PinColumnMeta.get(column).get().pinElement(column, td);
-                      } else {
-                        PinColumnMeta.clearPinningCss(td);
-                      }
-                    }
-                  });
+                List<ColumnConfig<T>> groupedColumns =
+                    datatable.getTableConfig().getColumnsGrouped();
+                for (int i = groupedColumns.size() - 1; i >= 0; i--) {
+                  ColumnConfig<T> column = groupedColumns.get(i);
+                  if (PinColumnMeta.isPinRight(column)) {
+                    rightHeaderOffset[0] =
+                        PinColumnMeta.get(column).get().pin(column, rightHeaderOffset[0]);
+                  }
+                }
+              });
         });
   }
 

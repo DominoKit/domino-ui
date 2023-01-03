@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import java.util.Optional;
+import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
@@ -54,6 +55,10 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
         Optional.ofNullable(colorScheme)
             .map(scheme -> colorScheme.color().getHex())
             .orElse("transparent");
+    ColumnConfig<T> firstColumn = tableRow.getDataTable().getTableConfig().getColumns().get(0);
+    DominoElement.of(tableRow.getCell(firstColumn.getName()).getCellInfo().getElement())
+        .setCssProperty("border-left-color", color);
+
     DominoElement.of(tableRow.element()).setCssProperty("border-left-color", color);
   }
 
@@ -71,6 +76,11 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
    */
   public RowMarkerPlugin(MarkerColor<T> markerColor) {
     this.markerColor = markerColor;
+  }
+
+  @Override
+  public int order() {
+    return Integer.MAX_VALUE;
   }
 
   /**

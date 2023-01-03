@@ -116,6 +116,25 @@ public class ResizeColumnMeta implements ColumnMeta {
     }
   }
 
+  public String suppliedMinWidthOrOriginal(String minWidth) {
+    if (isNull(originalMinWidth) || !originalMinWidth.contains("px")) {
+      return minWidth;
+    }
+
+    try {
+      int original = JsNumber.parseInt(originalMinWidth, 10);
+      int supplied = JsNumber.parseInt(minWidth, 10);
+
+      if (supplied < original) {
+        return originalMinWidth;
+      } else {
+        return minWidth;
+      }
+    } catch (Exception e) {
+      return minWidth;
+    }
+  }
+
   @Override
   public String getKey() {
     return RESIZE_COLUMN_META;

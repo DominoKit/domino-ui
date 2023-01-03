@@ -15,35 +15,56 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-import elemental2.dom.CSSRule;
+import elemental2.dom.HTMLDivElement;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import org.dominokit.domino.ui.utils.DynamicStyleSheet;
 
-public class ColumnCssRuleMeta implements ColumnMeta {
+public class ColumnCssRuleMeta<T> implements ColumnMeta {
 
   public static final String COLUMN_CSS_RULE_META = "column-css-rule-meta";
+  public static final String DEFAULT_RULE = "COLUMN-DEFAULT-CSS-RULE";
 
-  private final CSSRule cssRule;
-  private final String selector;
+  private final Map<String, ColumnCssRule> cssRules = new HashMap<>();
+  private final DynamicStyleSheet<HTMLDivElement, DataTable<T>> dynamicStyleSheet;
 
-  public static ColumnCssRuleMeta of(CSSRule cssRule, String selector) {
-    return new ColumnCssRuleMeta(cssRule, selector);
+  static <T> ColumnCssRuleMeta<T> of(
+      DynamicStyleSheet<HTMLDivElement, DataTable<T>> dynamicStyleSheet) {
+    return new ColumnCssRuleMeta<>(dynamicStyleSheet);
   }
 
-  public ColumnCssRuleMeta(CSSRule cssRule, String selector) {
-    this.cssRule = cssRule;
-    this.selector = selector;
+  private ColumnCssRuleMeta(DynamicStyleSheet<HTMLDivElement, DataTable<T>> dynamicStyleSheet) {
+    this.dynamicStyleSheet = dynamicStyleSheet;
   }
 
-  public static Optional<ColumnCssRuleMeta> get(ColumnConfig<?> column) {
+  public static <T> Optional<ColumnCssRuleMeta<T>> get(ColumnConfig<?> column) {
     return column.getMeta(COLUMN_CSS_RULE_META);
   }
 
-  public CSSRule getCssRule() {
-    return cssRule;
+  public ColumnCssRuleMeta addRule(String key, String cssClass) {
+    DynamicStyleSheet.DynamicCssRule dynamicCssRule = dynamicStyleSheet.insertRule(cssClass);
+    cssRules.put(
+        key,
+        new ColumnCssRule(
+            key,
+            dynamicCssRule.getSelector(),
+            dynamicCssRule.getClassName(),
+            dynamicCssRule.getCssRule()));
+    return this;
   }
 
-  public String getSelector() {
-    return selector;
+  public Optional<ColumnCssRule> getColumnCssRule(String key) {
+    return Optional.ofNullable(cssRules.get(key));
+  }
+
+  public Map<String, ColumnCssRule> getCssRules() {
+    return cssRules;
+  }
+
+  public Collection<ColumnCssRule> cssRules() {
+    return cssRules.values();
   }
 
   @Override

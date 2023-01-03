@@ -138,4 +138,11 @@ public interface DataTablePlugin<T> extends TableEventListener, Comparable<DataT
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
     return Optional.empty();
   }
+
+  /**
+   * Will be called when the footer element is appended to the table element
+   *
+   * @param datatable {@link DataTable}
+   */
+  default void onFooterAdded(DataTable<T> datatable) {}
 }

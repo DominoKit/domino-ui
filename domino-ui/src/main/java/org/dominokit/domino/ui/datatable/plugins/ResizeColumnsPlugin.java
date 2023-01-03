@@ -79,28 +79,7 @@ public class ResizeColumnsPlugin<T>
                                     meta -> {
                                       double currentPosition = mouseEvent.clientX;
                                       double diff = currentPosition - meta.getStartPosition();
-                                      String width = px.of(meta.getInitialWidth() + diff);
-
-                                      col.getHeadElement().setWidth(width);
-                                      col.setWidth(width);
-                                      if (config.isClipContent()) {
-                                        String maxWidth = meta.suppliedMaxWidthOrOriginal(width);
-                                        col.getHeadElement().setMaxWidth(maxWidth);
-                                        col.maxWidth(maxWidth);
-                                        ColumnCssRuleMeta.get(col)
-                                            .ifPresent(
-                                                cssMeta ->
-                                                    cssMeta.getCssRule().style.maxWidth =
-                                                        CSSProperties.MaxWidthUnionType.of(
-                                                            maxWidth));
-                                      }
-
-                                      ColumnHeaderMeta.get(col)
-                                          .ifPresent(
-                                              headersMeta ->
-                                                  headersMeta
-                                                      .getExtraHeadElements()
-                                                      .forEach(header -> header.setWidth(width)));
+                                      resizeColumn(col, meta, diff);
                                     });
                           });
 
@@ -111,26 +90,7 @@ public class ResizeColumnsPlugin<T>
                                     meta -> {
                                       double currentPosition = mouseEvent.clientX;
                                       double diff = currentPosition - meta.getStartPosition();
-                                      String width = px.of(meta.getInitialWidth() + diff);
-                                      col.getHeadElement().setWidth(width);
-                                      col.setWidth(width);
-                                      if (config.isClipContent()) {
-                                        String maxWidth = meta.suppliedMaxWidthOrOriginal(width);
-                                        col.getHeadElement().setMaxWidth(maxWidth);
-                                        col.maxWidth(maxWidth);
-                                        ColumnCssRuleMeta.get(col)
-                                            .ifPresent(
-                                                cssMeta ->
-                                                    cssMeta.getCssRule().style.maxWidth =
-                                                        CSSProperties.MaxWidthUnionType.of(
-                                                            maxWidth));
-                                      }
-                                      ColumnHeaderMeta.get(col)
-                                          .ifPresent(
-                                              headersMeta ->
-                                                  headersMeta
-                                                      .getExtraHeadElements()
-                                                      .forEach(header -> header.setWidth(width)));
+                                      resizeColumn(col, meta, diff);
                                     });
                           });
 
@@ -167,21 +127,63 @@ public class ResizeColumnsPlugin<T>
                             EventType.mousemove.getName(), resizeListener);
                       }
                     });
-                resizeElement.addEventListener(
-                    EventType.mouseup.getName(),
+                EventListener stopResizing =
                     evt -> {
+                      ResizeColumnMeta.get(column)
+                          .ifPresent(
+                              meta -> {
+                                MouseEvent mouseEvent = Js.uncheckedCast(evt);
+                                double currentPosition = mouseEvent.clientX;
+                                double diff = currentPosition - meta.getStartPosition();
+
+                                dataTable.fireTableEvent(ColumnResizedEvent.of(column, diff, true));
+                              });
+
                       DominoDom.document.body.removeEventListener(
                           EventType.mousemove.getName(), resizeListener);
-                    });
-                DominoDom.document.body.addEventListener(
-                    EventType.mouseup.getName(),
-                    evt -> {
-                      DominoDom.document.body.removeEventListener(
-                          EventType.mousemove.getName(), resizeListener);
-                    });
+                    };
+                resizeElement.addEventListener(EventType.mouseup.getName(), stopResizing);
+                DominoDom.document.body.addEventListener(EventType.mouseup.getName(), stopResizing);
                 column.appendChild(FlexItem.of(resizeElement));
               }
             });
+  }
+
+  private void resizeColumn(ColumnConfig<T> col, ResizeColumnMeta meta, double diff) {
+
+    DomGlobal.requestAnimationFrame(
+        timestamp -> {
+          String width = px.of(meta.getInitialWidth() + diff);
+
+          col.setWidth(width);
+
+          String minWidth = meta.suppliedMinWidthOrOriginal(width);
+
+          if (config.isClipContent()) {
+            String maxWidth = meta.suppliedMaxWidthOrOriginal(width);
+            col.maxWidth(maxWidth);
+            ColumnCssRuleMeta.get(col)
+                .flatMap(cssMeta -> cssMeta.getColumnCssRule(ColumnCssRuleMeta.DEFAULT_RULE))
+                .ifPresent(
+                    columnCssRule ->
+                        columnCssRule.getCssRule().style.maxWidth =
+                            CSSProperties.MaxWidthUnionType.of(maxWidth));
+          }
+
+          ColumnCssRuleMeta.get(col)
+              .flatMap(cssMeta -> cssMeta.getColumnCssRule(ColumnCssRuleMeta.DEFAULT_RULE))
+              .ifPresent(
+                  columnCssRule -> {
+                    CSSStyleDeclaration style = columnCssRule.getCssRule().style;
+                    style.minWidth = CSSProperties.MinWidthUnionType.of(minWidth);
+                    style.width = CSSProperties.WidthUnionType.of(width);
+                  });
+
+          ColumnHeaderMeta.get(col)
+              .ifPresent(
+                  headersMeta ->
+                      headersMeta.getExtraHeadElements().forEach(header -> header.setWidth(width)));
+        });
   }
 
   @Override

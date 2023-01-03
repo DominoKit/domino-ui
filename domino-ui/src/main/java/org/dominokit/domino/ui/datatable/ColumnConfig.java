@@ -881,6 +881,13 @@ public class ColumnConfig<T> {
                       col.createColumnElement(tableConfig)
                           .clearElement()
                           .setAttribute("rowspan", diff + "");
+                  ColumnCssRuleMeta.get(this)
+                      .ifPresent(
+                          meta ->
+                              meta.cssRules()
+                                  .forEach(
+                                      columnCssRule ->
+                                          fillHeader.addCss(columnCssRule.getCssClass())));
                   ColumnHeaderMeta.get(col)
                       .ifPresent(
                           columnHeaderMeta -> columnHeaderMeta.addExtraHeadElement(fillHeader));
@@ -916,6 +923,11 @@ public class ColumnConfig<T> {
       th.addCss("dui-column-group");
     }
 
+    ColumnCssRuleMeta.get(this)
+        .ifPresent(
+            meta ->
+                meta.cssRules().forEach(columnCssRule -> th.addCss(columnCssRule.getCssClass())));
+
     applyScreenMedia(th.element());
 
     setHeadElement(th.element());
@@ -950,32 +962,32 @@ public class ColumnConfig<T> {
     return this;
   }
 
-  public ColumnConfig<T> applyAndOnFirstSubColumn(Consumer<ColumnConfig<T>> handler) {
+  public ColumnConfig<T> applyAndOnEachFirstSubColumn(Consumer<ColumnConfig<T>> handler) {
     handler.accept(this);
     if (isColumnGroup()) {
-      getSubColumns().get(0).applyAndOnFirstSubColumn(handler);
+      getSubColumns().get(0).applyAndOnEachFirstSubColumn(handler);
     }
     return this;
   }
 
   public ColumnConfig<T> onFirstSubColumn(Consumer<ColumnConfig<T>> handler) {
     if (isColumnGroup()) {
-      getSubColumns().get(0).applyAndOnFirstSubColumn(handler);
+      getSubColumns().get(0).applyAndOnEachFirstSubColumn(handler);
     }
     return this;
   }
 
-  public ColumnConfig<T> applyAndOnLastSubColumn(Consumer<ColumnConfig<T>> handler) {
+  public ColumnConfig<T> applyAndOnEachLastSubColumn(Consumer<ColumnConfig<T>> handler) {
     handler.accept(this);
     if (isColumnGroup()) {
-      getSubColumns().get(getSubColumns().size() - 1).applyAndOnLastSubColumn(handler);
+      getSubColumns().get(getSubColumns().size() - 1).applyAndOnEachLastSubColumn(handler);
     }
     return this;
   }
 
   public ColumnConfig<T> onEachLastSubColumn(Consumer<ColumnConfig<T>> handler) {
     if (isColumnGroup()) {
-      getSubColumns().get(getSubColumns().size() - 1).applyAndOnLastSubColumn(handler);
+      getSubColumns().get(getSubColumns().size() - 1).applyAndOnEachLastSubColumn(handler);
     }
     return this;
   }

@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_BORDERED;
@@ -24,10 +23,7 @@ import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_HOVER;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_RESPONSIVE;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_ROW_FILTERED;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_STRIPED;
-import static org.jboss.elemento.Elements.div;
-import static org.jboss.elemento.Elements.table;
-import static org.jboss.elemento.Elements.tbody;
-import static org.jboss.elemento.Elements.thead;
+import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.*;
 import java.util.ArrayList;
@@ -41,6 +37,7 @@ import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DynamicStyleSheet;
 import org.dominokit.domino.ui.utils.HasSelectionSupport;
 import org.jboss.elemento.EventType;
 
@@ -57,7 +54,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   /** Use this constant as flag value to check if a row in the data tables have been filtered out */
   public static final String DATA_TABLE_ROW_FILTERED = "data-table-row-filtered";
 
-  private static final String PARENT_SELECTOR_PREFIX = "dt-";
+  private static final String PARENT_SELECTOR_PREFIX = "dui-dt-";
 
   private final DataStore<T> dataStore;
   private DominoElement<HTMLDivElement> root = DominoElement.of(div()).css(TABLE_RESPONSIVE);
@@ -66,6 +63,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   private TableConfig<T> tableConfig;
   private DominoElement<HTMLTableSectionElement> tbody = DominoElement.of(tbody());
   private DominoElement<HTMLTableSectionElement> thead = DominoElement.of(thead());
+  private DominoElement<HTMLTableSectionElement> tfoot = DominoElement.of(tfoot());
   private List<T> data = new ArrayList<>();
   private boolean selectable = true;
   private List<TableRow<T>> tableRows = new ArrayList<>();
@@ -89,8 +87,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
           evt.stopPropagation();
         }
       };
-  private HTMLStyleElement styleElement;
-  private CSSStyleSheet styleSheet;
+
+  private DynamicStyleSheet<HTMLDivElement, DataTable<T>> dynamicStyleSheet;
 
   /**
    * Creates a new data table instance
@@ -101,10 +99,21 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   public DataTable(TableConfig<T> tableConfig, DataStore<T> dataStore) {
     super.init(this);
     this.tableConfig = tableConfig;
+
     this.events.put(ANY, new ArrayList<>());
     this.dataStore = dataStore;
     this.addTableEventListener(ANY, dataStore);
+    tableElement.setAttribute("dui-data-v-scroll", 0);
+    tableElement.setAttribute("dui-data-h-scroll", 0);
     this.addEventListener(EventType.keydown.getName(), disableKeyboardListener, true);
+    tableElement.addEventListener(
+        "scroll",
+        evt -> {
+          double scrollTop = new Double(tableElement.element().scrollTop).intValue();
+          double scrollLeft = new Double(tableElement.element().scrollLeft).intValue();
+          tableElement.setAttribute("dui-data-v-scroll", scrollTop);
+          tableElement.setAttribute("dui-data-h-scroll", scrollLeft);
+        });
     this.dataStore.onDataChanged(
         dataChangedEvent -> {
           fireTableEvent(
@@ -125,48 +134,26 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
           fireTableEvent(new TableDataUpdatedEvent<>(this.data, dataChangedEvent.getTotalCount()));
         });
 
-    initStyleSheet();
+    initDynamicStyleSheet();
     init();
   }
 
-  private void initStyleSheet() {
-    this.styleElement = (HTMLStyleElement) document.createElement("style");
-    this.styleElement.type = "text/css";
-    this.styleElement.id = tableElement.getDominoId() + "styles";
-    document.head.append(this.styleElement);
-    this.styleSheet = (CSSStyleSheet) this.styleElement.sheet;
-
-    tableElement.addCss(PARENT_SELECTOR_PREFIX + tableElement.getDominoId());
-    String rule = "." + PARENT_SELECTOR_PREFIX + tableElement.getDominoId() + " {" + "}";
-    this.styleSheet.insertRule(rule, 0);
+  private void initDynamicStyleSheet() {
+    this.dynamicStyleSheet = new DynamicStyleSheet<>(PARENT_SELECTOR_PREFIX, this);
     tableConfig
         .getColumnsGrouped()
         .forEach(
             col -> {
               col.applyAndOnSubColumns(
                   column -> {
-                    int index =
-                        styleSheet.insertRule(
-                            "."
-                                + PARENT_SELECTOR_PREFIX
-                                + tableElement.getDominoId()
-                                + " ."
-                                + PARENT_SELECTOR_PREFIX
-                                + "col-"
-                                + column.getName().replace(" ", "-")
-                                + "{}",
-                            styleSheet.cssRules.length);
-                    column.applyMeta(
-                        ColumnCssRuleMeta.of(
-                            styleSheet.cssRules.item(index),
-                            PARENT_SELECTOR_PREFIX + "col-" + column.getName().replace(" ", "-")));
+                    ColumnCssRuleMeta<T> columnCssRuleMeta =
+                        ColumnCssRuleMeta.of(this.dynamicStyleSheet);
+                    columnCssRuleMeta.addRule(
+                        ColumnCssRuleMeta.DEFAULT_RULE,
+                        "col-" + column.getName().replace(" ", "-"));
+                    column.applyMeta(columnCssRuleMeta);
                   });
             });
-
-    tableElement.onDetached(
-        mutationRecord -> {
-          document.head.removeChild(this.styleElement);
-        });
   }
 
   public DataStore<T> getDataStore() {
@@ -188,6 +175,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     tableConfig.onAfterHeaders(this);
     tableElement.appendChild(tbody);
     tableConfig.getPlugins().forEach(plugin -> plugin.onBodyAdded(DataTable.this));
+    tableElement.appendChild(tfoot);
+    tableConfig.getPlugins().forEach(plugin -> plugin.onFooterAdded(DataTable.this));
     root.appendChild(tableElement);
     tableConfig.getPlugins().forEach(plugin -> plugin.onAfterAddTable(DataTable.this));
     if (!tableConfig.isLazyLoad()) {
@@ -407,6 +396,11 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   /** @return the {@link HTMLTableSectionElement} -thead- wrapped as {@link DominoElement} */
   public DominoElement<HTMLTableSectionElement> headerElement() {
     return thead;
+  }
+
+  /** @return the {@link HTMLTableSectionElement} -tfoot- wrapped as {@link DominoElement} */
+  public DominoElement<HTMLTableSectionElement> footerElement() {
+    return tfoot;
   }
 
   /** @return the applied {@link TableConfig} of this table */

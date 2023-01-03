@@ -20,7 +20,7 @@ th {
 }
 
 .table {
-    border-bottom: 1px solid #eee;
+    /*border-bottom: 1px solid #eee;*/
     margin-bottom: 0px;
 }
 
@@ -80,7 +80,9 @@ th {
 .table-bordered thead tr td:last-child,
 .table-bordered thead tr th:last-child,
 .table-bordered tbody tr th:last-child,
-.table-bordered tbody tr td:last-child{
+.table-bordered tbody tr td:last-child,
+.table-bordered tfoot tr th:last-child,
+.table-bordered tfoot tr td:last-child{
     border-right: 1px solid #ddd;
 }
 
@@ -506,14 +508,19 @@ table th[class*="col-"] {
     background-color: #ffffff;
 }
 
-.table.dt-row-marker tbody tr,
-.table.dt-row-marker thead tr {
+.table.dt-row-marker tbody tr th:first-child,
+.table.dt-row-marker tbody tr td:first-child,
+.table.dt-row-marker thead tr th:first-child {
     border-left-width: 5px;
     border-left-style: solid;
 }
+.table.dt-row-marker thead tr th:first-child {
+    border-left-color: transparent;
+}
 
-.table.dt-row-marker tbody tr.details-tr,
-.table.dt-row-marker thead tr {
+.table.dt-row-marker tbody tr.details-tr td:first-child,
+.table.dt-row-marker tbody tr.details-tr th:first-child,
+.table.dt-row-marker thead tr th:first-child {
     border-left-color: transparent;
 }
 
@@ -624,29 +631,17 @@ table th[class*="col-"] {
     border-bottom: 1px solid #ddd;
 }
 
-.table-responsive thead tr td.dui-pinned-cell.dui-pin-right-col,
-.table-responsive thead tr th.dui-pinned-cell.dui-pin-right-col,
-.table-responsive tbody tr td.dui-pinned-cell.dui-pin-right-col,
-.table-responsive tbody tr th.dui-pinned-cell.dui-pin-right-col {
-    border-left: 1px solid #ddd;
-}
-
-.table-responsive thead tr td.dui-pinned-cell.dui-pin-left-col,
-.table-responsive thead tr th.dui-pinned-cell.dui-pin-left-col,
-.table-responsive tbody tr td.dui-pinned-cell.dui-pin-left-col,
-.table-responsive tbody tr th.dui-pinned-cell.dui-pin-left-col {
-    border-right: 1px solid #ddd;
-}
-
 .table-responsive .table-bordered thead tr td:not(:last-child),
 .table-responsive .table-bordered thead tr th:not(:last-child),
 .table-responsive .table-bordered tbody tr td:not(:last-child),
-.table-responsive .table-bordered tbody tr th:not(:last-child) {
+.table-responsive .table-bordered tbody tr th:not(:last-child),
+.table-responsive .table-bordered tfoot tr td:not(:last-child),
+.table-responsive .table-bordered tfoot tr th:not(:last-child) {
     border-right: 1px solid #ddd;
 }
 
 .table-responsive .table {
-    border-collapse: collapse !important;
+    border-collapse: separate !important;
 }
 
 .dui-row-dnd-element {
@@ -661,4 +656,19 @@ table th[class*="col-"] {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.table tfoot {
+    position: sticky;
+    bottom: 0;
+    background-color: #f9f9f9;
+    -webkit-box-shadow: 0px -1px 0px 0px rgba(221,221,221,1);
+    -moz-box-shadow: 0px -1px 0px 0px rgba(221,221,221,1);
+    box-shadow: 0px -1px 0px 0px rgba(221,221,221,1);
+}
+
+.table:not([dui-data-v-scroll='0']) thead {
+    -webkit-box-shadow: 0px 1px 0px -1px rgba(221,221,221,1);
+    -moz-box-shadow: 0px 1px 0px -1px rgba(221,221,221,1);
+    box-shadow: 0px 1px 0px -1px rgba(221,221,221,1);
 }
