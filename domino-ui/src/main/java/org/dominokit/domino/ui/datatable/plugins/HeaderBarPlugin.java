@@ -514,10 +514,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     }
 
     private void search() {
-      SearchContext<T> searchContext = dataTable.getSearchContext();
-      Category search = Category.SEARCH;
-      searchContext.removeByCategory(search);
-      searchContext.add(Filter.create("*", textBox.getValue(), Category.SEARCH)).fireSearchEvent();
+      this.dataTable.getSearchContext().fireSearchEvent();
     }
 
     /** Clears the search */
@@ -543,6 +540,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     public Node asElement(DataTable<T> dataTable) {
       this.dataTable = dataTable;
       dataTable.addTableEventListener(SearchClearedEvent.SEARCH_EVENT_CLEARED, this);
+      this.dataTable.getSearchContext().addBeforeSearchHandler(context -> {
+        context.removeByCategory(Category.SEARCH);
+        context.add(Filter.create("*", textBox.getValue(), Category.SEARCH));
+      });
       return element;
     }
 
