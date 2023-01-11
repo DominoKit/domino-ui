@@ -500,11 +500,11 @@ table th[class*="col-"] {
     line-height: 30px;
 }
 
-.table-striped > tbody > tr.dom-ui-dt-tr-odd:not([class*="details-tr"]):not([class*="bg-"]) {
+.table-striped > tbody > tr:nth-child(odd):not([class*="details-tr"]):not([class*="bg-"]) {
     background-color: #f9f9f9;
 }
 
-.table-striped > tbody > tr.dom-ui-dt-tr-even:not([class*="details-tr"]):not([class*="bg-"]) {
+.table-striped > tbody > tr:nth-child(even):not([class*="details-tr"]):not([class*="bg-"]) {
     background-color: #ffffff;
 }
 

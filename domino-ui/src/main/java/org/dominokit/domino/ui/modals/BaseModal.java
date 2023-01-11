@@ -35,7 +35,7 @@ import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
 /**
- * A base implementaton for components to show a pop-up
+ * A base implementation for components to show a pop-up
  *
  * @param <T> the type of the component extending from this class
  */

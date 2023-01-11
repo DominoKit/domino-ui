@@ -100,11 +100,11 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
     target.addEventListener(EventType.click.getName(), showListener);
     closeListener = evt -> closeAll();
     element.addEventListener(EventType.click.getName(), Event::stopPropagation);
-    ElementUtil.onDetach(
-        targetElement,
-        mutationRecord -> {
-          close();
-        });
+    DominoElement.of(targetElement)
+        .onDetached(
+            mutationRecord -> {
+              close();
+            });
     init(this);
     onDetached(
         mutationRecord ->

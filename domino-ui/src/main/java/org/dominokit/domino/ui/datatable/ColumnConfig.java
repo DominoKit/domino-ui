@@ -887,7 +887,8 @@ public class ColumnConfig<T> {
                               meta.cssRules()
                                   .forEach(
                                       columnCssRule ->
-                                          fillHeader.addCss(columnCssRule.getCssClass())));
+                                          fillHeader.addCss(
+                                              columnCssRule.getCssRule().getCssClass())));
                   ColumnHeaderMeta.get(col)
                       .ifPresent(
                           columnHeaderMeta -> columnHeaderMeta.addExtraHeadElement(fillHeader));
@@ -926,7 +927,8 @@ public class ColumnConfig<T> {
     ColumnCssRuleMeta.get(this)
         .ifPresent(
             meta ->
-                meta.cssRules().forEach(columnCssRule -> th.addCss(columnCssRule.getCssClass())));
+                meta.cssRules()
+                    .forEach(columnCssRule -> th.addCss(columnCssRule.getCssRule().getCssClass())));
 
     applyScreenMedia(th.element());
 

@@ -190,6 +190,7 @@ body.modal-open {
         left: 0;
         top: 0;
         width: 30%;
+        height: 100%;
     }
 
     .modal.modal-lg.left-sheet {
@@ -209,6 +210,7 @@ body.modal-open {
         right: 0;
         top: 0;
         width: 30%;
+        height: 100%;
     }
 
     .modal.modal-lg.right-sheet {
@@ -283,6 +285,7 @@ body.modal-open {
         left: 0;
         top: 0;
         width: 90%;
+        height: 100%;
     }
 
     .modal.modal-lg.left-sheet {
@@ -302,6 +305,7 @@ body.modal-open {
         right: 0;
         top: 0;
         width: 90%;
+        height: 100%;
     }
 
     .modal.modal-lg.right-sheet {

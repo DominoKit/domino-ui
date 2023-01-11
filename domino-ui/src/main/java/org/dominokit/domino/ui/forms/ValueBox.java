@@ -33,7 +33,6 @@ import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
-import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.Focusable;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
 import org.dominokit.domino.ui.utils.HasPlaceHolder;
@@ -352,11 +351,11 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   public T focus() {
     if (!isDisabled()) {
       if (!isAttached()) {
-        ElementUtil.onAttach(
-            getInputElement(),
-            mutationRecord -> {
-              tryFocus();
-            });
+        getInputElement()
+            .onAttached(
+                mutationRecord -> {
+                  tryFocus();
+                });
       } else {
         tryFocus();
       }
@@ -373,12 +372,12 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   @Override
   public T unfocus() {
     if (!isAttached()) {
-      ElementUtil.onAttach(
-          getInputElement(),
-          mutationRecord -> {
-            getInputElement().element().blur();
-            doUnfocus();
-          });
+      getInputElement()
+          .onAttached(
+              mutationRecord -> {
+                getInputElement().element().blur();
+                doUnfocus();
+              });
     } else {
       getInputElement().element().blur();
       doUnfocus();

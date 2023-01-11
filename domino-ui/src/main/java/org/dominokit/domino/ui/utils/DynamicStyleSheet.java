@@ -17,17 +17,16 @@ package org.dominokit.domino.ui.utils;
 
 import static elemental2.dom.DomGlobal.document;
 
-import elemental2.dom.CSSRule;
-import elemental2.dom.CSSStyleSheet;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLStyleElement;
+import elemental2.dom.*;
+import java.util.*;
 
 public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElement<E, D>> {
 
   private final String cssPrefix;
   private final D target;
   private final HTMLStyleElement styleElement;
-  private final CSSStyleSheet styleSheet;
+  private CSSStyleSheet styleSheet;
+  private DominoStyleSheet dominoStyleSheet = new DominoStyleSheet();
 
   public DynamicStyleSheet(String cssPrefix, D target) {
     this.cssPrefix = cssPrefix;
@@ -36,29 +35,25 @@ public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElemen
     this.styleElement = (HTMLStyleElement) document.createElement("style");
     this.styleElement.type = "text/css";
     this.styleElement.id = target.getDominoId() + "styles";
-    document.head.append(this.styleElement);
-    this.styleSheet = (CSSStyleSheet) this.styleElement.sheet;
-
+    target.appendChild(this.styleElement);
     target.addCss(cssPrefix + target.getDominoId());
-    String rule = "." + cssPrefix + target.getDominoId() + " {" + "}";
-    this.styleSheet.insertRule(rule, 0);
-
-    target.onDetached(mutationRecord -> document.head.removeChild(this.styleElement));
   }
 
-  public DynamicCssRule insertRule(String cssClass) {
-    String ruleName = cssPrefix + cssClass;
+  public void flush() {
+    dominoStyleSheet.flushInto(styleElement);
+  }
 
+  public DominoCSSRule insertRule(String cssClass) {
+    String ruleName = cssPrefix + cssClass;
     String selector = "." + cssPrefix + target.getDominoId() + " ." + ruleName;
 
-    int index = styleSheet.insertRule(selector + "{}", styleSheet.cssRules.length);
-    CSSRule rule = styleSheet.cssRules.item(index);
-
-    return new DynamicCssRule(selector, ruleName, rule);
+    DominoCSSRule dominoCSSRule = new DominoCSSRule(selector, ruleName);
+    dominoStyleSheet.addCssRule(dominoCSSRule);
+    return dominoCSSRule;
   }
 
-  public void removeRule(CSSRule cssRule) {
-    styleSheet.deleteRule(styleSheet.cssRules.asList().indexOf(cssRule));
+  public void removeRule(DominoCSSRule cssRule) {
+    dominoStyleSheet.removeRule(cssRule);
   }
 
   public HTMLStyleElement getStyleElement() {
@@ -69,27 +64,7 @@ public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElemen
     return styleSheet;
   }
 
-  public static class DynamicCssRule {
-    private final String selector;
-    private final String className;
-    private final CSSRule cssRule;
-
-    private DynamicCssRule(String selector, String className, CSSRule cssRule) {
-      this.selector = selector;
-      this.className = className;
-      this.cssRule = cssRule;
-    }
-
-    public String getSelector() {
-      return selector;
-    }
-
-    public String getClassName() {
-      return className;
-    }
-
-    public CSSRule getCssRule() {
-      return cssRule;
-    }
+  public Optional<DominoCSSRule> getCssStyleRule(String selector) {
+    return dominoStyleSheet.get(selector);
   }
 }

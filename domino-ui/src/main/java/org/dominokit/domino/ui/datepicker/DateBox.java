@@ -36,7 +36,6 @@ import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.jboss.elemento.EventType;
@@ -147,7 +146,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
             this.valueOnOpen = getValue();
           }
         };
-    ElementUtil.onDetach(element(), mutationRecord -> removeBox());
+    onDetached(mutationRecord -> removeBox());
 
     datePicker.addCloseHandler(this::close);
     datePicker.addResetHandler(() -> setValue(valueOnOpen));
@@ -209,8 +208,6 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   private void removeBox() {
     if (nonNull(popover)) {
       popover.close();
-      popover.removeAttachObserver();
-      popover.removeDetachObserver();
     }
     if (nonNull(modal)) {
       modal.element().remove();

@@ -633,7 +633,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     if (footer.isAttached()) {
       updateContentBottomPadding();
     } else {
-      ElementUtil.onAttach(footer.element(), mutationRecord -> updateContentBottomPadding());
+      footer.onAttached(mutationRecord -> updateContentBottomPadding());
     }
 
     return this;
@@ -649,8 +649,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    */
   public Layout unfixFooter() {
     footer.unfixed();
-    ElementUtil.onAttach(
-        footer.element(),
+    footer.onAttached(
         mutationRecord -> Style.of(content.element()).removeCssProperty("padding-bottom"));
     return this;
   }

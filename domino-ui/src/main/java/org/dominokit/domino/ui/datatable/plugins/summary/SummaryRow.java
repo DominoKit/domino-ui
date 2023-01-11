@@ -113,7 +113,8 @@ public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, Sum
                 meta.cssRules()
                     .forEach(
                         columnCssRule ->
-                            DominoElement.of(cellElement).addCss(columnCssRule.getCssClass())));
+                            DominoElement.of(cellElement)
+                                .addCss(columnCssRule.getCssRule().getCssClass())));
 
     SummaryRowCell<T, S> rowCell =
         new SummaryRowCell<>(

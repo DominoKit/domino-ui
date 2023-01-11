@@ -77,6 +77,14 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
           columnConfig.applyScreenMedia(th.element());
 
+          ColumnCssRuleMeta.get(columnConfig)
+              .ifPresent(
+                  meta ->
+                      meta.cssRules()
+                          .forEach(
+                              columnCssRule ->
+                                  th.addCss(columnCssRule.getCssRule().getCssClass())));
+
           filtersRowElement.appendChild(th);
 
           if (columnConfig.isFixed()) {

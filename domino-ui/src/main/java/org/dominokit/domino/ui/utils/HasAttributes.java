@@ -13,25 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.datatable;
+package org.dominokit.domino.ui.utils;
 
-import org.dominokit.domino.ui.utils.DominoCSSRule;
+public interface HasAttributes<T> {
+  T setAttribute(String name, boolean value);
 
-public class ColumnCssRule {
+  T setAttribute(String name, double value);
 
-  private final String key;
-  private final DominoCSSRule cssRule;
+  T setAttribute(String name, String value);
 
-  public ColumnCssRule(String key, DominoCSSRule cssRule) {
-    this.key = key;
-    this.cssRule = cssRule;
-  }
-
-  public String getKey() {
-    return key;
-  }
-
-  public DominoCSSRule getCssRule() {
-    return cssRule;
-  }
+  String getAttribute(String name);
 }

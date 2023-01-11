@@ -17,12 +17,13 @@ package org.dominokit.domino.ui.datatable.plugins.pincolumns;
 
 import static org.dominokit.domino.ui.datatable.plugins.pincolumns.PinColumnsPlugin.PIN_COLUMNS_CSS_RULE;
 
-import elemental2.dom.CSSStyleDeclaration;
 import java.util.List;
 import java.util.Optional;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.ColumnCssRuleMeta;
+import org.dominokit.domino.ui.datatable.ColumnHeaderMeta;
 import org.dominokit.domino.ui.datatable.ColumnMeta;
+import org.dominokit.domino.ui.utils.DominoCSSRule;
 
 public class PinColumnMeta implements ColumnMeta, PinColumnFunction {
 
@@ -91,12 +92,24 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction {
           .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
           .ifPresent(
               pinCssRule -> {
-                CSSStyleDeclaration style = pinCssRule.getCssRule().style;
-                style.right = "auto";
-                style.position = "sticky";
-                style.left = left + "px";
+                DominoCSSRule style = pinCssRule.getCssRule();
+                style.setProperty("right", "auto");
+                style.setProperty("position", "sticky");
+                style.setProperty("left", left + "px");
               });
-
+      column
+          .getGrandParent()
+          .applyAndOnSubColumns(
+              col -> {
+                col.getHeadElement().setCssProperty("z-index", "2");
+                ColumnHeaderMeta.get(col)
+                    .ifPresent(
+                        columnHeaderMeta -> {
+                          columnHeaderMeta
+                              .getExtraHeadElements()
+                              .forEach(element -> element.setCssProperty("z-index", "2"));
+                        });
+              });
       if (column.isColumnGroup()) {
         double[] childOffset = new double[] {left};
         column
@@ -122,10 +135,24 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction {
         .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
         .ifPresent(
             pinCssRule -> {
-              CSSStyleDeclaration style = pinCssRule.getCssRule().style;
-              style.left = "auto";
-              style.position = "sticky";
-              style.right = right + "px";
+              DominoCSSRule style = pinCssRule.getCssRule();
+              style.setProperty("left", "auto");
+              style.setProperty("position", "sticky");
+              style.setProperty("right", right + "px");
+            });
+
+    column
+        .getGrandParent()
+        .applyAndOnSubColumns(
+            col -> {
+              col.getHeadElement().setCssProperty("z-index", "2");
+              ColumnHeaderMeta.get(col)
+                  .ifPresent(
+                      columnHeaderMeta -> {
+                        columnHeaderMeta
+                            .getExtraHeadElements()
+                            .forEach(element -> element.setCssProperty("z-index", "2"));
+                      });
             });
     if (column.isColumnGroup()) {
       double[] childOffset = new double[] {right};

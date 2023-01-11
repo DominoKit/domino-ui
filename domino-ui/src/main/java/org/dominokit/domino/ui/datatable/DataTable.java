@@ -632,6 +632,10 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return this;
   }
 
+  public DynamicStyleSheet<HTMLDivElement, DataTable<T>> getDynamicStyleSheet() {
+    return dynamicStyleSheet;
+  }
+
   /**
    * Listens to changes in the table rows selection
    *

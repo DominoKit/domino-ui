@@ -20,6 +20,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.DynamicStyleSheet;
 
 public class ColumnCssRuleMeta<T> implements ColumnMeta {
@@ -27,7 +29,7 @@ public class ColumnCssRuleMeta<T> implements ColumnMeta {
   public static final String COLUMN_CSS_RULE_META = "column-css-rule-meta";
   public static final String DEFAULT_RULE = "COLUMN-DEFAULT-CSS-RULE";
 
-  private final Map<String, ColumnCssRule> cssRules = new HashMap<>();
+  private final Map<String, DominoCSSRule> cssRules = new HashMap<>();
   private final DynamicStyleSheet<HTMLDivElement, DataTable<T>> dynamicStyleSheet;
 
   static <T> ColumnCssRuleMeta<T> of(
@@ -43,28 +45,30 @@ public class ColumnCssRuleMeta<T> implements ColumnMeta {
     return column.getMeta(COLUMN_CSS_RULE_META);
   }
 
-  public ColumnCssRuleMeta addRule(String key, String cssClass) {
-    DynamicStyleSheet.DynamicCssRule dynamicCssRule = dynamicStyleSheet.insertRule(cssClass);
-    cssRules.put(
-        key,
-        new ColumnCssRule(
-            key,
-            dynamicCssRule.getSelector(),
-            dynamicCssRule.getClassName(),
-            dynamicCssRule.getCssRule()));
+  public ColumnCssRuleMeta<T> addRule(String key, String cssClass) {
+    DominoCSSRule dominoCSSRule = dynamicStyleSheet.insertRule(cssClass);
+    cssRules.put(key, dominoCSSRule);
     return this;
   }
 
   public Optional<ColumnCssRule> getColumnCssRule(String key) {
-    return Optional.ofNullable(cssRules.get(key));
-  }
-
-  public Map<String, ColumnCssRule> getCssRules() {
-    return cssRules;
+    if (cssRules.containsKey(key)) {
+      Optional<DominoCSSRule> cssStyleRule =
+          dynamicStyleSheet.getCssStyleRule(cssRules.get(key).getSelector());
+      if (cssStyleRule.isPresent()) {
+        DominoCSSRule dynamicCssRule = cssStyleRule.get();
+        return Optional.of(new ColumnCssRule(key, dynamicCssRule));
+      }
+    }
+    return Optional.empty();
   }
 
   public Collection<ColumnCssRule> cssRules() {
-    return cssRules.values();
+    return cssRules.keySet().stream()
+        .map(this::getColumnCssRule)
+        .filter(Optional::isPresent)
+        .map(Optional::get)
+        .collect(Collectors.toList());
   }
 
   @Override

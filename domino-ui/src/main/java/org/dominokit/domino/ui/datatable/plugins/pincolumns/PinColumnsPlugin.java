@@ -17,12 +17,12 @@ package org.dominokit.domino.ui.datatable.plugins.pincolumns;
 
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.CSSStyleDeclaration;
 import elemental2.dom.DomGlobal;
 import java.util.List;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.ColumnCssRuleMeta;
+import org.dominokit.domino.ui.datatable.ColumnHeaderMeta;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.ColumnResizedEvent;
 import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
@@ -33,6 +33,7 @@ import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.menu.MenuItem;
+import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
 /**
@@ -163,28 +164,38 @@ public class PinColumnsPlugin<T>
                       ColumnCssRuleMeta.get(column)
                           .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
                           .ifPresent(
-                              pinCssRule -> {
-                                CSSStyleDeclaration style = pinCssRule.getCssRule().style;
-                                style.removeProperty("position");
+                              pinCssRule -> pinCssRule.getCssRule().removeProperty("position"));
+                      column.getHeadElement().removeCssProperty("z-index");
+                      ColumnHeaderMeta.get(column)
+                          .ifPresent(
+                              columnHeaderMeta -> {
+                                columnHeaderMeta
+                                    .getExtraHeadElements()
+                                    .forEach(element -> element.removeCssProperty("z-index"));
                               });
                     }));
+
+    datatable.getDynamicStyleSheet().flush();
   }
 
   public void setPinRightColumn(ColumnConfig<T> pinRightColumn) {
-    onBeforeSetPinColumn();
-    PinColumnMeta.get(pinRightColumn)
-        .ifPresent(
-            meta -> {
-              if (meta.isLeftPin()) {
-                unpinLeftColumns();
-              }
-            });
+    this.datatable.nowOrWhenAttached(
+        () -> {
+          onBeforeSetPinColumn();
+          PinColumnMeta.get(pinRightColumn)
+              .ifPresent(
+                  meta -> {
+                    if (meta.isLeftPin()) {
+                      unpinLeftColumns();
+                    }
+                  });
 
-    if (config.isShowPinIcon()) {
-      pinRightColumn.getGrandParent().removeChild(pinLeftIcon).appendChild(pinRightIcon);
-    }
+          if (config.isShowPinIcon()) {
+            pinRightColumn.getGrandParent().removeChild(pinLeftIcon).appendChild(pinRightIcon);
+          }
 
-    pinColumnsRight(pinRightColumn);
+          pinColumnsRight(pinRightColumn);
+        });
   }
 
   public void unpinColumn(ColumnConfig<T> column) {
@@ -222,19 +233,22 @@ public class PinColumnsPlugin<T>
   }
 
   public void setPinLeftColumn(ColumnConfig<T> pinLeftColumn) {
-    onBeforeSetPinColumn();
-    PinColumnMeta.get(pinLeftColumn)
-        .ifPresent(
-            meta -> {
-              if (meta.isRightPin()) {
-                unpinRightColumns();
-              }
-            });
+    this.datatable.nowOrWhenAttached(
+        () -> {
+          onBeforeSetPinColumn();
+          PinColumnMeta.get(pinLeftColumn)
+              .ifPresent(
+                  meta -> {
+                    if (meta.isRightPin()) {
+                      unpinRightColumns();
+                    }
+                  });
 
-    if (config.isShowPinIcon()) {
-      pinLeftColumn.getGrandParent().removeChild(pinRightIcon).appendChild(pinLeftIcon);
-    }
-    pinColumnsLeft(pinLeftColumn);
+          if (config.isShowPinIcon()) {
+            pinLeftColumn.getGrandParent().removeChild(pinRightIcon).appendChild(pinLeftIcon);
+          }
+          pinColumnsLeft(pinLeftColumn);
+        });
   }
 
   private void pinColumnsLeft(ColumnConfig<T> pinLeftColumn) {
@@ -249,7 +263,7 @@ public class PinColumnsPlugin<T>
                     .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
                     .ifPresent(
                         pinCssRule -> {
-                          CSSStyleDeclaration style = pinCssRule.getCssRule().style;
+                          DominoCSSRule style = pinCssRule.getCssRule();
                           style.removeProperty("border-left");
                           style.removeProperty("border-right");
                         });
@@ -265,8 +279,8 @@ public class PinColumnsPlugin<T>
                   .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
                   .ifPresent(
                       pinCssRule -> {
-                        CSSStyleDeclaration style = pinCssRule.getCssRule().style;
-                        style.borderRight = "1px solid #ddd";
+                        DominoCSSRule style = pinCssRule.getCssRule();
+                        style.setProperty("border-right", "1px solid #ddd");
                         style.removeProperty("border-left");
                       });
             });
@@ -297,7 +311,7 @@ public class PinColumnsPlugin<T>
                     .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
                     .ifPresent(
                         pinCssRule -> {
-                          CSSStyleDeclaration style = pinCssRule.getCssRule().style;
+                          DominoCSSRule style = pinCssRule.getCssRule();
                           style.removeProperty("border-left");
                           style.removeProperty("border-right");
                         });
@@ -312,8 +326,8 @@ public class PinColumnsPlugin<T>
                   .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
                   .ifPresent(
                       pinCssRule -> {
-                        CSSStyleDeclaration style = pinCssRule.getCssRule().style;
-                        style.borderLeft = "1px solid #ddd";
+                        DominoCSSRule style = pinCssRule.getCssRule();
+                        style.setProperty("border-left", "1px solid #ddd");
                         style.removeProperty("border-right");
                       });
             });
@@ -403,6 +417,7 @@ public class PinColumnsPlugin<T>
                         PinColumnMeta.get(column).get().pin(column, rightHeaderOffset[0]);
                   }
                 }
+                this.datatable.getDynamicStyleSheet().flush();
               });
         });
   }

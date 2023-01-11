@@ -23,6 +23,7 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.ColumnResizedEvent;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.DominoDom;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.EventType;
@@ -36,9 +37,11 @@ public class ResizeColumnsPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, ResizeColumnsPlugin<T>, ResizeColumnsConfig> {
 
   private ResizeColumnsConfig config = new ResizeColumnsConfig();
+  private DataTable<T> datatable;
 
   @Override
   public void init(DataTable<T> dataTable) {
+    this.datatable = dataTable;
     dataTable
         .getTableConfig()
         .getColumnsGrouped()
@@ -150,7 +153,6 @@ public class ResizeColumnsPlugin<T>
   }
 
   private void resizeColumn(ColumnConfig<T> col, ResizeColumnMeta meta, double diff) {
-
     DomGlobal.requestAnimationFrame(
         timestamp -> {
           String width = px.of(meta.getInitialWidth() + diff);
@@ -165,24 +167,23 @@ public class ResizeColumnsPlugin<T>
             ColumnCssRuleMeta.get(col)
                 .flatMap(cssMeta -> cssMeta.getColumnCssRule(ColumnCssRuleMeta.DEFAULT_RULE))
                 .ifPresent(
-                    columnCssRule ->
-                        columnCssRule.getCssRule().style.maxWidth =
-                            CSSProperties.MaxWidthUnionType.of(maxWidth));
+                    columnCssRule -> columnCssRule.getCssRule().setProperty("max-width", maxWidth));
           }
 
           ColumnCssRuleMeta.get(col)
               .flatMap(cssMeta -> cssMeta.getColumnCssRule(ColumnCssRuleMeta.DEFAULT_RULE))
               .ifPresent(
                   columnCssRule -> {
-                    CSSStyleDeclaration style = columnCssRule.getCssRule().style;
-                    style.minWidth = CSSProperties.MinWidthUnionType.of(minWidth);
-                    style.width = CSSProperties.WidthUnionType.of(width);
+                    DominoCSSRule style = columnCssRule.getCssRule();
+                    style.setProperty("min-width", minWidth);
+                    style.setProperty("width", width);
                   });
 
           ColumnHeaderMeta.get(col)
               .ifPresent(
                   headersMeta ->
                       headersMeta.getExtraHeadElements().forEach(header -> header.setWidth(width)));
+          datatable.getDynamicStyleSheet().flush();
         });
   }
 
