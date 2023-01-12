@@ -155,35 +155,43 @@ public class ResizeColumnsPlugin<T>
   private void resizeColumn(ColumnConfig<T> col, ResizeColumnMeta meta, double diff) {
     DomGlobal.requestAnimationFrame(
         timestamp -> {
-          String width = px.of(meta.getInitialWidth() + diff);
+          double widthValue = meta.getInitialWidth() + diff;
+          if (widthValue >= 20) {
+            String width = px.of(widthValue);
 
-          col.setWidth(width);
+            col.setWidth(width);
 
-          String minWidth = meta.suppliedMinWidthOrOriginal(width);
+            String minWidth = meta.suppliedMinWidthOrOriginal(width);
 
-          if (config.isClipContent()) {
-            String maxWidth = meta.suppliedMaxWidthOrOriginal(width);
-            col.maxWidth(maxWidth);
+            DomGlobal.console.info(minWidth);
+
+            if (config.isClipContent()) {
+              String maxWidth = meta.suppliedMaxWidthOrOriginal(width);
+              col.maxWidth(maxWidth);
+              ColumnCssRuleMeta.get(col)
+                  .flatMap(cssMeta -> cssMeta.getColumnCssRule(ColumnCssRuleMeta.DEFAULT_RULE))
+                  .ifPresent(
+                      columnCssRule ->
+                          columnCssRule.getCssRule().setProperty("max-width", maxWidth));
+            }
+
             ColumnCssRuleMeta.get(col)
                 .flatMap(cssMeta -> cssMeta.getColumnCssRule(ColumnCssRuleMeta.DEFAULT_RULE))
                 .ifPresent(
-                    columnCssRule -> columnCssRule.getCssRule().setProperty("max-width", maxWidth));
+                    columnCssRule -> {
+                      DominoCSSRule style = columnCssRule.getCssRule();
+                      style.setProperty("min-width", minWidth);
+                      style.setProperty("width", width);
+                    });
+
+            ColumnHeaderMeta.get(col)
+                .ifPresent(
+                    headersMeta ->
+                        headersMeta
+                            .getExtraHeadElements()
+                            .forEach(header -> header.setWidth(width)));
+            datatable.getDynamicStyleSheet().flush();
           }
-
-          ColumnCssRuleMeta.get(col)
-              .flatMap(cssMeta -> cssMeta.getColumnCssRule(ColumnCssRuleMeta.DEFAULT_RULE))
-              .ifPresent(
-                  columnCssRule -> {
-                    DominoCSSRule style = columnCssRule.getCssRule();
-                    style.setProperty("min-width", minWidth);
-                    style.setProperty("width", width);
-                  });
-
-          ColumnHeaderMeta.get(col)
-              .ifPresent(
-                  headersMeta ->
-                      headersMeta.getExtraHeadElements().forEach(header -> header.setWidth(width)));
-          datatable.getDynamicStyleSheet().flush();
         });
   }
 

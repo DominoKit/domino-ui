@@ -20,6 +20,7 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.HTMLElement;
 import java.util.Optional;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 public class ColumnUtils {
@@ -27,8 +28,30 @@ public class ColumnUtils {
   public static <T> void fixElementWidth(ColumnConfig<T> column, HTMLElement element) {
     bestFitWidth(column)
         .ifPresent(
-            fixedWidth ->
-                Style.of(element).setWidth(fixedWidth).addCss(DataTableStyles.FIXED_WIDTH));
+            fixedWidth -> {
+              ColumnCssRuleMeta.get(column)
+                  .ifPresent(
+                      meta ->
+                          meta.getColumnCssRule(ColumnCssRuleMeta.DEFAULT_RULE)
+                              .ifPresent(
+                                  columnCssRule -> {
+                                    DominoCSSRule cssRule = columnCssRule.getCssRule();
+                                    cssRule.setProperty("width", fixedWidth);
+                                    if (nonNull(column.getMinWidth())
+                                        && !column.getMinWidth().isEmpty()) {
+                                      cssRule.setProperty("min-width", column.getMinWidth());
+                                    } else {
+                                      cssRule.setProperty("min-width", fixedWidth);
+                                    }
+                                    if (nonNull(column.getMaxWidth())
+                                        && !column.getMaxWidth().isEmpty()) {
+                                      cssRule.setProperty("max-width", column.getMaxWidth());
+                                    } else {
+                                      cssRule.setProperty("max-width", fixedWidth);
+                                    }
+                                  }));
+              Style.of(element).addCss(DataTableStyles.FIXED_WIDTH);
+            });
     ;
   }
 

@@ -120,15 +120,23 @@ public class ResizeColumnMeta implements ColumnMeta {
     if (isNull(originalMinWidth) || !originalMinWidth.contains("px")) {
       return minWidth;
     }
-
     try {
-      int original = JsNumber.parseInt(originalMinWidth, 10);
+      int originalMax = JsNumber.parseInt(originalMaxWidth, 10);
       int supplied = JsNumber.parseInt(minWidth, 10);
+      int original = JsNumber.parseInt(originalMinWidth, 10);
 
       if (supplied < original) {
-        return originalMinWidth;
+        if (!"NaN".equals(originalMax + "")) {
+          return Math.min(original, originalMax) + "px";
+        } else {
+          return originalMinWidth;
+        }
       } else {
-        return minWidth;
+        if (!"NaN".equals(originalMax + "")) {
+          return Math.min(supplied, originalMax) + "px";
+        } else {
+          return minWidth;
+        }
       }
     } catch (Exception e) {
       return minWidth;
