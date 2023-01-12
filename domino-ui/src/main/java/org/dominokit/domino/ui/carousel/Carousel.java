@@ -27,7 +27,6 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 import org.gwtproject.core.client.Scheduler;
 import org.gwtproject.timer.client.Timer;
@@ -139,8 +138,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   }
 
   private void addDetachListener() {
-    ElementUtil.onDetach(
-        element(),
+    onDetached(
         mutationRecord -> {
           this.attached = false;
           this.stopAutoSlide();
@@ -148,8 +146,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   }
 
   private void addAttachListener() {
-    ElementUtil.onAttach(
-        this.element(),
+    onAttached(
         mutationRecord -> {
           this.attached = true;
           if (autoSlide) {

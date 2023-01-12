@@ -63,23 +63,24 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
 
   /** {@inheritDoc} */
   @Override
-  public void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
+  public void show(
+      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted) {
     DominoElement.of(element)
         .apply(
             self -> {
               if (self.isAttached()) {
-                expandElement(element, style);
+                expandElement(element, style, onCompleted);
               } else {
                 self.onAttached(
                     mutationRecord -> {
-                      expandElement(element, style);
+                      expandElement(element, style, onCompleted);
                     });
               }
             });
   }
 
   private void expandElement(
-      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
+      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted) {
 
     DominoElement<HTMLElement> theElement = DominoElement.of(element);
     if (!theElement.containsCss(CollapsibleStyles.HEIGHT_COLLAPSED)) {
@@ -91,6 +92,7 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
           theElement.removeAttribute("dom-ui-collapse-height");
           element.style.height = CSSProperties.HeightUnionType.of(collapseHeight);
           resetParentHeight(treeItem);
+          onCompleted.run();
         };
     String scrollHeight = element.getAttribute(DOM_UI_SCROLL_HEIGHT);
     AddEventListenerOptions addEventListenerOptions = AddEventListenerOptions.create();
@@ -122,18 +124,21 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
 
   /** {@inheritDoc} */
   @Override
-  public void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
+  public void hide(
+      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted) {
     DominoElement.of(element)
         .apply(
             self -> {
               if (self.isAttached()) {
                 collapseElement(element, style, true);
+                onCompleted.run();
               } else {
                 self.onAttached(
                     mutationRecord -> {
                       style.removeCss(transition.getStyle());
                       collapseElement(element, style, false);
                       style.addCss(transition.getStyle());
+                      onCompleted.run();
                     });
               }
             });

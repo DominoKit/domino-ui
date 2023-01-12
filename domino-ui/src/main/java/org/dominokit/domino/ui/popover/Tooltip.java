@@ -21,8 +21,11 @@ import static org.dominokit.domino.ui.popover.TooltipStyles.*;
 import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.*;
-import java.util.Optional;
 import java.util.function.Consumer;
+import jsinterop.base.Js;
+import org.dominokit.domino.ui.animations.Transition;
+import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
+import org.dominokit.domino.ui.collapsible.CollapseDuration;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
@@ -52,14 +55,12 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
   private final EventListener showToolTipListener;
   private final Consumer<Tooltip> removeHandler;
   private final EventListener removeToolTipListener;
-  private Optional<ElementObserver> elementObserver = Optional.empty();
 
   public Tooltip(HTMLElement targetElement, String text) {
     this(targetElement, DomGlobal.document.createTextNode(text));
   }
 
   public Tooltip(HTMLElement targetElement, Node content) {
-    OpacityTransition opacityTransition = new OpacityTransition(element, evt -> doClose());
     element.appendChild(arrowElement);
     element.appendChild(innerElement);
     innerElement.appendChild(content);
@@ -68,36 +69,39 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
 
     showToolTipListener =
         evt -> {
+          MouseEvent mouseEvent = Js.uncheckedCast(evt);
           evt.stopPropagation();
-          document.body.appendChild(element.element());
-          popupPosition.position(element.element(), targetElement);
-          position(popupPosition);
-          elementObserver.ifPresent(ElementObserver::remove);
-          elementObserver = ElementUtil.onDetach(targetElement, mutationRecord -> remove());
-          opacityTransition.show();
+          if (mouseEvent.buttons == 0) {
+            document.body.appendChild(element.element());
+            setZIndex(config().getZindexManager().getNextZIndex());
+            show();
+            popupPosition.position(element.element(), targetElement);
+            position(popupPosition);
+          }
         };
-    removeToolTipListener = evt -> opacityTransition.hide();
-    targetElement.addEventListener(EventType.mouseenter.getName(), showToolTipListener);
-    targetElement.addEventListener(EventType.mouseleave.getName(), removeToolTipListener);
+    removeToolTipListener =
+        evt -> {
+          evt.stopPropagation();
+          hide();
+        };
+    targetElement.addEventListener(EventType.mouseenter.getName(), showToolTipListener, false);
+    targetElement.addEventListener(EventType.mouseleave.getName(), removeToolTipListener, false);
     init(this);
 
     removeHandler =
         tooltip -> {
           targetElement.removeEventListener(EventType.mouseenter.getName(), showToolTipListener);
           targetElement.removeEventListener(EventType.mouseleave.getName(), removeToolTipListener);
-          elementObserver.ifPresent(ElementObserver::remove);
         };
+
+    addHideListener(this::doClose);
+    setCollapseStrategy(
+        new AnimationCollapseStrategy(
+            Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
   }
 
   private void doClose() {
     element.remove();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Tooltip hide() {
-    doClose();
-    return this;
   }
 
   /** Removes the tooltip */

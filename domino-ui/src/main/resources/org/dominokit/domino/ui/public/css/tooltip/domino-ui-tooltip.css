@@ -1,6 +1,5 @@
 .tooltip {
     position: absolute;
-    z-index: 1070;
     display: block;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-style: normal;
@@ -15,14 +14,10 @@
     word-spacing: normal;
     word-wrap: normal;
     white-space: normal;
-    filter: alpha(opacity=0);
-    opacity: 0;
     line-break: auto;
     font-size: 13px;
 }
 .tooltip.in {
-    filter: alpha(opacity=90);
-    opacity: .9;
 }
 .tooltip.top {
     padding: 5px 0;

@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.collapsible;
 
+import static java.util.Objects.nonNull;
+
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
@@ -31,6 +33,9 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
   private final Transition showTransition;
   private final Transition hideTransition;
   private final CollapseDuration duration;
+  private Animation hideAnimation;
+  private boolean showing = false;
+  private boolean hiding = false;
 
   public AnimationCollapseStrategy(
       Transition showTransition, Transition hideTransition, CollapseDuration duration) {
@@ -47,31 +52,52 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
 
   /** {@inheritDoc} */
   @Override
-  public void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
-    DominoElement.of(element).removeCss(duration.getStyle());
-    Animation.create(element)
-        .duration(duration.getDuration())
-        .transition(showTransition)
-        .beforeStart(
-            theElement -> {
-              style.removeCssProperty("display");
-              DominoElement.of(element).removeAttribute("d-collapsed");
-            })
-        .animate();
+  public void show(
+      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted) {
+    if (!showing) {
+      DominoElement.of(element).removeCss(duration.getStyle());
+      Animation.create(element)
+          .duration(duration.getDuration())
+          .transition(showTransition)
+          .beforeStart(
+              theElement -> {
+                showing = true;
+                if (nonNull(hideAnimation)) {
+                  hideAnimation.stop(true);
+                  hideAnimation = null;
+                  hiding = false;
+                }
+                style.removeCssProperty("display");
+                DominoElement.of(element).removeAttribute("d-collapsed");
+              })
+          .callback(
+              e -> {
+                showing = false;
+                onCompleted.run();
+              })
+          .animate();
+    }
   }
 
   /** {@inheritDoc} */
   @Override
-  public void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
-    DominoElement.of(element).removeCss(duration.getStyle());
-    Animation.create(element)
-        .duration(duration.getDuration())
-        .transition(hideTransition)
-        .callback(
-            theElement -> {
-              style.setDisplay("none");
-              DominoElement.of(element).setAttribute("d-collapsed", "true");
-            })
-        .animate();
+  public void hide(
+      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted) {
+    if (!hiding) {
+      DominoElement.of(element).removeCss(duration.getStyle());
+      hideAnimation =
+          Animation.create(element)
+              .duration(duration.getDuration())
+              .transition(hideTransition)
+              .beforeStart(element1 -> hiding = true)
+              .callback(
+                  theElement -> {
+                    style.setDisplay("none");
+                    DominoElement.of(element).setAttribute("d-collapsed", "true");
+                    hiding = false;
+                    onCompleted.run();
+                  })
+              .animate();
+    }
   }
 }

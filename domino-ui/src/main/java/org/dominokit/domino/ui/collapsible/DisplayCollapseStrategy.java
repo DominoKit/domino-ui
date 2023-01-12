@@ -28,15 +28,19 @@ public class DisplayCollapseStrategy implements CollapseStrategy {
 
   /** {@inheritDoc} */
   @Override
-  public void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
+  public void show(
+      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted) {
     style.removeCssProperty("display");
     DominoElement.of(element).removeAttribute("d-collapsed");
+    onCompleted.run();
   }
 
   /** {@inheritDoc} */
   @Override
-  public void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
+  public void hide(
+      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted) {
     style.setDisplay("none");
     DominoElement.of(element).setAttribute("d-collapsed", "true");
+    onCompleted.run();
   }
 }

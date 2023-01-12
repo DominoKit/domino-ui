@@ -15,13 +15,9 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLTableCellElement;
-import elemental2.dom.Node;
+import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -29,11 +25,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import org.dominokit.domino.ui.datatable.CellRenderer;
-import org.dominokit.domino.ui.datatable.ColumnConfig;
-import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.RowCell;
-import org.dominokit.domino.ui.datatable.TableRow;
+import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.DataSortEvent;
 import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
@@ -43,34 +35,25 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TablePageChangeEvent;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Unit;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.TextNode;
 
-public class TreeGridPlugin<T> implements DataTablePlugin<T> {
+public class TreeGridPlugin<T>
+    implements DataTablePlugin<T>, HasPluginConfig<T, TreeGridPlugin<T>, TreePluginConfig<T>> {
 
   public static final String TREE_GRID_ROW_LEVEL = "tree-grid-row-level";
-  public static final String TREE_GRID_ROW_SUBITEMS = "tree-grid-row-sub-items";
   public static final String TREE_GRID_ROW_TOGGLE_ICON = "tree-grid-row-toggle-icon";
   public static final String TREE_GRID_EXPAND_COLLAPSE = "plugin-utility-column";
-  public static final int DEFAULT_INDENT = 20;
   public static final int BASE_PADDING = 10;
   public static final String ICON_ORDER = "10";
 
-  private final SubItemsProvider<T> subItemsProvider;
-  private ParentRowCellsSupplier<T> parentRowCellsSupplier;
-  private Supplier<BaseIcon<?>> expandIconSupplier = Icons.ALL::menu_right_mdi;
-  private Supplier<BaseIcon<?>> collapseIconSupplier = Icons.ALL::menu_down_mdi;
-  private Supplier<BaseIcon<?>> leafIconSupplier = Icons.ALL::circle_medium_mdi;
-  private Function<TableRow<T>, Node> indentColumnElementSupplier = tableRow -> TextNode.empty();
-  private int indent = DEFAULT_INDENT;
   private BaseIcon<?> headerIcon;
   private int expandedCount = 0;
   private DataTable<T> dataTable;
+  private TreePluginConfig<T> config;
 
   public TreeGridPlugin(SubItemsProvider<T> subItemsProvider) {
-    this.subItemsProvider = subItemsProvider;
+    config = new TreePluginConfig<>(subItemsProvider);
   }
 
   /** {@inheritDoc} */
@@ -93,10 +76,98 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
    * @param recursive boolean, if true will recursively expand the row children
    */
   public final void expandRow(TableRow<T> row, boolean recursive) {
-    expand(row, recursive);
-    if (row.isRoot()) {
-      increment();
+    if (config.isLazy()) {
+      TreeGridRowSubItemsMeta.get(row)
+          .ifPresent(
+              meta -> {
+                meta.getRecords(
+                    row,
+                    items -> {
+                      if (hasChildren(items)) {
+                        if (nonNull(config.getParentRowCellsSupplier())) {
+                          row.applyMeta(RowRendererMeta.of(new TreeGridRowRenderer()));
+                          row.clearElement();
+                          row.render();
+                          applyIndent(row);
+                        }
+                        addRowChildren(row);
+                        expand(row, recursive);
+                        if (row.isRoot()) {
+                          increment();
+                        }
+                      } else {
+                        row.removeMeta(RowRendererMeta.TABLE_ROW_RENDERER_META);
+                        row.clearElement();
+                        row.render();
+                        applyIndent(row);
+                      }
+                    });
+              });
+    } else {
+      addRowChildren(row);
+      expand(row, recursive);
+      if (row.isRoot()) {
+        increment();
+      }
     }
+  }
+
+  @Override
+  public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
+    if (!config.isLazy()) {
+      addRowChildren(tableRow);
+    }
+  }
+
+  private void addRowChildren(TableRow<T> tableRow) {
+    TreeGridRowSubItemsMeta.get(tableRow)
+        .ifPresent(
+            meta -> {
+              meta.getRecords(
+                  tableRow,
+                  rowItems -> {
+                    rowItems.ifPresent(
+                        items -> {
+                          List<T> records = new ArrayList<>(items);
+                          for (int i = 0; i < records.size(); i++) {
+                            TableRow<T> subRow = new TableRow<>(records.get(i), i, dataTable);
+                            subRow.hide();
+                            TreeGridRowLevel treeGridRowLevel =
+                                tableRow
+                                    .getMeta(TREE_GRID_ROW_LEVEL)
+                                    .map(o -> (TreeGridRowLevel) o)
+                                    .orElse(new TreeGridRowLevel(1));
+                            tableRow.applyMeta(treeGridRowLevel);
+                            subRow.applyMeta(new TreeGridRowLevel(treeGridRowLevel.level + 1));
+                            subRow.setParent(tableRow);
+                            subRow.applyMeta(RowAppenderMeta.of(new TreeChildRowAppender()));
+                            dataTable
+                                .getTableConfig()
+                                .getPlugins()
+                                .forEach(plugin -> plugin.onBeforeAddRow(dataTable, subRow));
+
+                            dataTable.getTableConfig().drawRecord(dataTable, subRow);
+                            dataTable.getRows().add(subRow);
+                            tableRow.getChildren().add(subRow);
+                            applyIndent(subRow);
+                          }
+                        });
+                  });
+            });
+  }
+
+  private void applyIndent(TableRow<T> tableRow) {
+    TreeGridRowLevel treeGridRowLevel =
+        tableRow
+            .getMeta(TREE_GRID_ROW_LEVEL)
+            .map(o -> (TreeGridRowLevel) o)
+            .orElse(new TreeGridRowLevel(1));
+    getRowCellElement(tableRow)
+        .setPaddingLeft(
+            Unit.px.of(
+                (treeGridRowLevel.level >= 1 ? treeGridRowLevel.level - 1 : treeGridRowLevel.level)
+                        * config.getIndent()
+                    + BASE_PADDING));
   }
 
   /**
@@ -135,10 +206,14 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
   private void expand(TableRow<T> row, boolean recursive) {
     row.show();
     if (recursive) {
-      TreeGridRowToggleIcon treeGridRowToggleIcon = row.getMetaObject(TREE_GRID_ROW_TOGGLE_ICON);
-      if (!treeGridRowToggleIcon.icon.isToggled()) {
-        treeGridRowToggleIcon.icon.toggleIcon();
-      }
+      Optional<TreeGridRowToggleIcon> iconMeta = row.getMeta(TREE_GRID_ROW_TOGGLE_ICON);
+      iconMeta.ifPresent(
+          meta -> {
+            if (!meta.icon.isToggled()) {
+              meta.icon.toggleIcon();
+            }
+          });
+
       for (TableRow<T> child : row.getChildren()) {
         expand(child, false);
       }
@@ -146,10 +221,14 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
   }
 
   private void collapse(TableRow<T> row) {
-    TreeGridRowToggleIcon treeGridRowToggleIcon = row.getMetaObject(TREE_GRID_ROW_TOGGLE_ICON);
-    if (treeGridRowToggleIcon.icon.isToggled()) {
-      treeGridRowToggleIcon.icon.toggleIcon();
-    }
+    Optional<TreeGridRowToggleIcon> iconMeta = row.getMeta(TREE_GRID_ROW_TOGGLE_ICON);
+    iconMeta.ifPresent(
+        meta -> {
+          if (meta.icon.isToggled()) {
+            meta.icon.toggleIcon();
+          }
+        });
+
     for (TableRow<T> child : row.getChildren()) {
       child.hide();
       collapse(child);
@@ -187,53 +266,74 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
   public Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
     List<HTMLElement> elements = new ArrayList<>();
-    getSubRecords(
-        cellInfo.getTableRow(),
-        items -> {
-          TableRow<T> tableRow = cellInfo.getTableRow();
-          BaseIcon<?> icon;
-          if (!isParent(items)) {
-            icon = leafIconSupplier.get().css("dt-tree-grid-leaf");
-          } else {
-            icon = expandIconSupplier.get().setToggleIcon(collapseIconSupplier.get()).clickable();
-            icon.addClickListener(
-                evt -> {
-                  if (icon.isToggled()) {
-                    collapse(tableRow);
+    TableRow<T> tableRow = cellInfo.getTableRow();
+    Optional<TreeGridRowSubItemsMeta<T>> subRecordsMeta = TreeGridRowSubItemsMeta.get(tableRow);
+    ;
+    if (config.isLazy() && !subRecordsMeta.get().loaded()) {
+      BaseIcon<?> icon = initExpandCollapseIcons(tableRow);
+      icon.setAttribute("order", ICON_ORDER);
+      tableRow.applyMeta(new TreeGridRowToggleIcon(icon));
+      elements.add(icon.element());
+    } else {
+      subRecordsMeta.ifPresent(
+          meta -> {
+            meta.getRecords(
+                cellInfo.getTableRow(),
+                itemsOptional -> {
+                  if (itemsOptional.isPresent() && itemsOptional.get().size() > 0) {
+                    BaseIcon<?> icon = initExpandCollapseIcons(tableRow);
+                    icon.setAttribute("order", ICON_ORDER);
+                    tableRow.applyMeta(new TreeGridRowToggleIcon(icon));
+                    elements.add(icon.element());
                   } else {
-                    expandRow(tableRow);
+                    BaseIcon<?> icon = config.getLeafIconSupplier().get().css("dt-tree-grid-leaf");
+                    icon.setAttribute("order", ICON_ORDER);
+                    tableRow.applyMeta(new TreeGridRowToggleIcon(icon));
+                    elements.add(icon.element());
                   }
-                  evt.stopPropagation();
                 });
-          }
-          icon.setAttribute("order", ICON_ORDER);
-          DominoElement<HTMLDivElement> title =
-              DominoElement.div()
-                  .setAttribute("order", "100")
-                  .appendChild(indentColumnElementSupplier.apply(tableRow));
-          tableRow.addMetaObject(new TreeGridRowToggleIcon(icon));
-          elements.add(icon.element());
-          elements.add(title.element());
-        });
+          });
+    }
+
+    DominoElement<HTMLDivElement> title =
+        DominoElement.div()
+            .setAttribute("order", "100")
+            .appendChild(config.getIndentColumnElementSupplier().apply(tableRow));
+    elements.add(title.element());
 
     return Optional.of(elements);
   }
 
-  private void getSubRecords(TableRow<T> tableRow, Consumer<Optional<Collection<T>>> consumer) {
-    SubItemMetaObject<T> metaObject = tableRow.getMetaObject(TREE_GRID_ROW_SUBITEMS);
-    if (nonNull(metaObject)) {
-      consumer.accept(metaObject.subItems);
-    } else {
-      subItemsProvider.get(tableRow.getRecord(), consumer);
-    }
+  private BaseIcon<?> initExpandCollapseIcons(TableRow<T> tableRow) {
+    BaseIcon<?> icon;
+    icon =
+        config
+            .getExpandIconSupplier()
+            .get()
+            .setToggleIcon(config.getCollapseIconSupplier().get())
+            .clickable();
+    icon.addClickListener(
+        evt -> {
+          if (icon.isToggled()) {
+            collapse(tableRow);
+          } else {
+            expandRow(tableRow);
+          }
+          evt.stopPropagation();
+        });
+    return icon;
   }
 
-  /** Adds the Expand all/collpase all to the plugins utility column header {@inheritDoc} */
+  /** Adds the Expand all/collapse all to the plugins utility column header {@inheritDoc} */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (column.isUtilityColumn()) {
       BaseIcon<?> baseIcon =
-          expandIconSupplier.get().setToggleIcon(collapseIconSupplier.get()).clickable();
+          config
+              .getExpandIconSupplier()
+              .get()
+              .setToggleIcon(config.getCollapseIconSupplier().get())
+              .clickable();
       baseIcon.addClickListener(
           evt -> {
             if (baseIcon.isToggled()) {
@@ -251,50 +351,24 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
   /** {@inheritDoc} */
   @Override
   public void onBeforeAddRow(DataTable<T> dataTable, TableRow<T> tableRow) {
-    if (nonNull(parentRowCellsSupplier)) {
-      getSubRecords(
-          tableRow,
-          items -> {
-            if (isParent(items)) {
-              tableRow.setRowRenderer(new TreeGridRowRenderer());
-            }
-          });
+    if (config.isLazy()) {
+      if (nonNull(config.getParentRowCellsSupplier())) {
+        tableRow.applyMeta(RowRendererMeta.of(new TreeGridRowRenderer()));
+      }
+      tableRow.applyMeta(TreeGridRowSubItemsMeta.of(config));
+    } else {
+      tableRow.applyMeta(
+          TreeGridRowSubItemsMeta.of(config)
+              .getRecords(
+                  tableRow,
+                  items -> {
+                    if (hasChildren(items)) {
+                      if (nonNull(config.getParentRowCellsSupplier())) {
+                        tableRow.applyMeta(RowRendererMeta.of(new TreeGridRowRenderer()));
+                      }
+                    }
+                  }));
     }
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
-    getSubRecords(
-        tableRow,
-        itemsOptional -> {
-          if (!isParent(itemsOptional)) {
-            return;
-          }
-          List<T> items = new ArrayList<>(itemsOptional.get());
-          List<TableRow<T>> subRows = new ArrayList<>();
-          for (int i = 0; i < items.size(); i++) {
-            TableRow<T> subRow = new TableRow<>(items.get(i), i, dataTable);
-            subRow.hide();
-            TreeGridRowLevel treeGridRowLevel =
-                Optional.ofNullable(tableRow.getMetaObject(TREE_GRID_ROW_LEVEL))
-                    .map(o -> (TreeGridRowLevel) o)
-                    .orElse(new TreeGridRowLevel(1));
-            tableRow.addMetaObject(treeGridRowLevel);
-            subRow.addMetaObject(new TreeGridRowLevel(treeGridRowLevel.level + 1));
-            dataTable
-                .getTableConfig()
-                .getPlugins()
-                .forEach(plugin -> plugin.onBeforeAddRow(dataTable, subRow));
-            dataTable.getTableConfig().drawRecord(dataTable, subRow);
-            dataTable.getRows().add(subRow);
-            subRow.setParent(tableRow);
-            subRows.add(subRow);
-            getRowCellElement(subRow)
-                .setPaddingLeft(Unit.px.of(treeGridRowLevel.level * indent + BASE_PADDING));
-          }
-          tableRow.setChildren(subRows);
-        });
   }
 
   /** {@inheritDoc} */
@@ -315,99 +389,63 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
-  /**
-   * Set a supplier that provides cells to be rendered in a parent row cells, this can be used to
-   * provide a custom UI for parent rows
-   *
-   * @param parentRowCellsSupplier {@link ParentRowCellsSupplier}
-   * @return Same plugin instance
-   */
+  /** @deprecated use {@link TreePluginConfig#setParentRowCellsSupplier(ParentRowCellsSupplier)} */
+  @Deprecated
   public TreeGridPlugin<T> setParentRowCellsSupplier(
       ParentRowCellsSupplier<T> parentRowCellsSupplier) {
-    this.parentRowCellsSupplier = parentRowCellsSupplier;
+    this.config.setParentRowCellsSupplier(parentRowCellsSupplier);
     return this;
   }
 
-  /**
-   * Sets a supplier for a custom expand icon instead of the default one
-   *
-   * @param expandIconSupplier {@link Supplier} of {@link BaseIcon}
-   * @return Same plugin instance
-   */
+  /** @deprecated use {@link TreePluginConfig#setExpandIconSupplier(Supplier)} */
+  @Deprecated
   public TreeGridPlugin<T> setExpandIconSupplier(Supplier<BaseIcon<?>> expandIconSupplier) {
-    if (isNull(expandIconSupplier)) {
-      this.expandIconSupplier = () -> Icons.ALL.plus_mdi().size18();
-    } else {
-      this.expandIconSupplier = expandIconSupplier;
-    }
+    config.setExpandIconSupplier(expandIconSupplier);
     return this;
   }
 
-  /**
-   * Sets a supplier for a custom collapse icon instead of the default one
-   *
-   * @param collapseIconSupplier {@link Supplier} of {@link BaseIcon}
-   * @return Same plugin instance
-   */
+  /** @deprecated use {@link TreePluginConfig#setCollapseIconSupplier(Supplier)} */
+  @Deprecated
   public TreeGridPlugin<T> setCollapseIconSupplier(Supplier<BaseIcon<?>> collapseIconSupplier) {
-    if (isNull(collapseIconSupplier)) {
-      this.collapseIconSupplier = () -> Icons.ALL.minus_mdi().size18();
-    } else {
-      this.collapseIconSupplier = collapseIconSupplier;
-    }
+    config.setCollapseIconSupplier(collapseIconSupplier);
     return this;
   }
 
-  /**
-   * Sets a supplier for a custom leaf row icon instead of the default one
-   *
-   * @param leafIconSupplier {@link Supplier} of {@link BaseIcon}
-   * @return Same plugin instance
-   */
+  /** @deprecated use {@link TreePluginConfig#setLeafIconSupplier(Supplier)} */
+  @Deprecated
   public TreeGridPlugin<T> setLeafIconSupplier(Supplier<BaseIcon<?>> leafIconSupplier) {
-    if (isNull(leafIconSupplier)) {
-      this.leafIconSupplier = () -> Icons.ALL.circle_medium_mdi().size18();
-    } else {
-      this.leafIconSupplier = leafIconSupplier;
-    }
+    config.setLeafIconSupplier(leafIconSupplier);
     return this;
   }
 
-  /**
-   * Sets indent value to be added for each tree gird level
-   *
-   * @param indent int
-   * @return Same plugin instance
-   */
+  /** @deprecated use {@link TreePluginConfig#setIndent(int)} */
+  @Deprecated
   public TreeGridPlugin<T> setIndent(int indent) {
-    if (indent < 0) {
-      this.indent = DEFAULT_INDENT;
-    } else {
-      this.indent = indent;
-    }
+    config.setIndent(indent);
     return this;
   }
 
-  /**
-   * Sets a supplier of elements to be appended to the tree grid indent column as part of the
-   * utility columns cells
-   *
-   * @param indentColumnElementSupplier {@link Function} that takes a {@link TableRow} and return a
-   *     {@link Node}
-   * @return same plugin instance
-   */
+  /** @deprecated use {@link TreePluginConfig#setIndentColumnElementSupplier(Function)} */
+  @Deprecated
   public TreeGridPlugin<T> setIndentColumnElementSupplier(
       Function<TableRow<T>, Node> indentColumnElementSupplier) {
-    if (isNull(indentColumnElementSupplier)) {
-      this.indentColumnElementSupplier = tableRow -> TextNode.empty();
-    } else {
-      this.indentColumnElementSupplier = indentColumnElementSupplier;
-    }
+    config.setIndentColumnElementSupplier(indentColumnElementSupplier);
     return this;
   }
 
-  private boolean isParent(Optional<Collection<T>> items) {
+  private boolean hasChildren(Optional<Collection<T>> items) {
     return items.isPresent() && !items.get().isEmpty();
+  }
+
+  @Override
+  public TreeGridPlugin<T> setConfig(TreePluginConfig config) {
+    this.config = config;
+    return this;
+  }
+
+  @Override
+  public TreePluginConfig<T> getConfig() {
+    return config;
   }
 
   /**
@@ -430,7 +468,7 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
     void get(T parent, Consumer<Optional<Collection<T>>> itemsConsumer);
   }
 
-  private static class TreeGridRowLevel implements TableRow.RowMetaObject {
+  private static class TreeGridRowLevel implements RowMeta {
     private final int level;
 
     public TreeGridRowLevel(int level) {
@@ -443,20 +481,7 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
-  private static class SubItemMetaObject<T> implements TableRow.RowMetaObject {
-    private final Optional<Collection<T>> subItems;
-
-    public SubItemMetaObject(Optional<Collection<T>> subItems) {
-      this.subItems = subItems;
-    }
-
-    @Override
-    public String getKey() {
-      return TREE_GRID_ROW_SUBITEMS;
-    }
-  }
-
-  private static class TreeGridRowToggleIcon implements TableRow.RowMetaObject {
+  private static class TreeGridRowToggleIcon implements RowMeta {
     private final BaseIcon<?> icon;
 
     public TreeGridRowToggleIcon(BaseIcon<?> icon) {
@@ -470,17 +495,38 @@ public class TreeGridPlugin<T> implements DataTablePlugin<T> {
   }
 
   private class TreeGridRowRenderer implements TableRow.RowRenderer<T> {
+
     @Override
     public void render(DataTable<T> dataTable, TableRow<T> tableRow) {
       List<ColumnConfig<T>> columns = dataTable.getTableConfig().getColumns();
       columns.stream().filter(ColumnConfig::isPluginColumn).forEach(tableRow::renderCell);
 
-      List<RowCell<T>> rowCells = parentRowCellsSupplier.get(dataTable, tableRow);
+      List<RowCell<T>> rowCells = config.getParentRowCellsSupplier().get(dataTable, tableRow);
       rowCells.forEach(
           rowCell -> {
             tableRow.addCell(rowCell);
             tableRow.element().appendChild(rowCell.getCellInfo().getElement());
           });
+    }
+  }
+
+  private class TreeChildRowAppender implements TableConfig.RowAppender<T> {
+
+    @Override
+    public void appendRow(DataTable<T> dataTable, TableRow<T> tableRow) {
+      if (nonNull(tableRow.getParent())) {
+        TableRow<T> parentRow = tableRow.getParent();
+        if (tableRow.getChildren().isEmpty()) {
+          dataTable.bodyElement().insertAfter(tableRow, parentRow);
+        } else {
+          dataTable
+              .bodyElement()
+              .insertAfter(
+                  tableRow, parentRow.getChildren().get(parentRow.getChildren().size() - 1));
+        }
+      } else {
+        dataTable.bodyElement().appendChild(tableRow.element());
+      }
     }
   }
 }

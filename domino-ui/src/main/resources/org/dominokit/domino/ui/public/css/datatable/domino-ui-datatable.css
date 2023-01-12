@@ -1,8 +1,6 @@
-
 table {
     border-spacing: 0;
-    border-collapse: collapse;
-    background-color: transparent;
+    background-color: inherit;
 }
 
 td,
@@ -22,10 +20,13 @@ th {
 }
 
 .table {
+    /*border-bottom: 1px solid #eee;*/
+    margin-bottom: 0px;
+}
+
+.table-width-full {
     width: 100%;
     max-width: 100%;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 0px;
 }
 
 .table > thead > tr > th,
@@ -36,12 +37,18 @@ th {
 .table > tfoot > tr > td {
     padding: 8px;
     line-height: 1.42857143;
-    border-top: 1px solid #ddd;
 }
-
+.table > thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
 .table > thead > tr > th {
     vertical-align: bottom;
-    border-bottom: 2px solid #ddd;
+}
+
+.table thead tr th.dui-pinned-cell {
+    z-index: 1;
 }
 
 .table > caption + thead > tr:first-child > th,
@@ -70,8 +77,13 @@ th {
     padding: 5px;
 }
 
-.table-bordered {
-    border: 1px solid #ddd;
+.table-bordered thead tr td:last-child,
+.table-bordered thead tr th:last-child,
+.table-bordered tbody tr th:last-child,
+.table-bordered tbody tr td:last-child,
+.table-bordered tfoot tr th:last-child,
+.table-bordered tfoot tr td:last-child{
+    border-right: 1px solid #ddd;
 }
 
 .table-bordered > thead > tr > th,
@@ -80,23 +92,15 @@ th {
 .table-bordered > thead > tr > td,
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > td {
-    border: 1px solid #ddd;
-}
-
-.table-bordered > thead > tr > th,
-.table-bordered > thead > tr > td {
-    border-bottom-width: 2px;
 }
 
 table col[class*="col-"] {
-    position: static;
     display: table-column;
     float: none;
 }
 
 table td[class*="col-"],
 table th[class*="col-"] {
-    position: static;
     display: table-cell;
     float: none;
 }
@@ -219,16 +223,24 @@ table th[class*="col-"] {
 .table-responsive {
     min-height: .01%;
     overflow-x: auto;
+    background-color: inherit;
 }
 
-.table-responsive.table-fixed {
-    /*position: relative;*/
-    overflow: hidden !important;
+.table-responsive.fixed-width{
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
+
+.table-responsive[disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
 
 .table-responsive.table-fixed .table {
     display: block;
     overflow-x: auto;
+    max-width: 100%;
 }
 
 .table .fixed-width {
@@ -241,7 +253,6 @@ table th[class*="col-"] {
     .table-responsive {
         width: 100%;
         margin-bottom: 15px;
-        overflow-y: hidden;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         border: 1px solid #ddd;
     }
@@ -298,8 +309,6 @@ table th[class*="col-"] {
 
 .table tbody tr td, .table tbody tr th {
     padding: 10px;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
 }
 
 .table tbody tr.primary td, .table tbody tr.primary th {
@@ -330,11 +339,9 @@ table th[class*="col-"] {
 .table thead tr th {
     vertical-align: middle;
     padding: 10px;
-    border-bottom: 1px solid #eee;
 }
 
 .table-bordered {
-    border-top: 1px solid #eee;
 }
 
 .table-hover > tbody > tr:hover:not([class*="details-tr"]):not([class*="bg-"]) {
@@ -343,16 +350,15 @@ table th[class*="col-"] {
 
 .table-bordered tbody tr td, .table-bordered tbody tr th {
     padding: 10px;
-    border: 1px solid #eee;
 }
 
 .table-bordered thead tr th {
     padding: 10px;
-    border: 1px solid #eee;
 }
 
 .table-cm-header:HOVER {
-    background-color: rgba(0, 0, 0, 0.04) !important;
+    background-color: inherit !important;
+    filter: brightness(95%);
 }
 
 .table thead tr th.table-cm-filter {
@@ -379,7 +385,7 @@ table th[class*="col-"] {
 }
 
 .table-responsive .table-header:not([class*="bg-"]) {
-    border-bottom: 1px solid rgba(204, 204, 204, 0.35);
+    border-bottom: 1px solid #dddddd;
 }
 
 .table-responsive .table-header:not([class*="bg-"]) h2,
@@ -418,7 +424,6 @@ table th[class*="col-"] {
     display: block;
     overflow-y: auto !important;
     overflow-x: hidden !important;
-    /*border-bottom: 1px solid #eee;*/
 }
 
 .thead-fixed > tr, .tbody-fixed > tr {
@@ -495,22 +500,27 @@ table th[class*="col-"] {
     line-height: 30px;
 }
 
-.table-striped > tbody > tr.dom-ui-dt-tr-odd:not([class*="details-tr"]):not([class*="bg-"]) {
+.table-striped > tbody > tr:nth-child(odd):not([class*="details-tr"]):not([class*="bg-"]) {
     background-color: #f9f9f9;
 }
 
-.table-striped > tbody > tr.dom-ui-dt-tr-even:not([class*="details-tr"]):not([class*="bg-"]) {
+.table-striped > tbody > tr:nth-child(even):not([class*="details-tr"]):not([class*="bg-"]) {
     background-color: #ffffff;
 }
 
-.table.dt-row-marker tbody tr,
-.table.dt-row-marker thead tr {
+.table.dt-row-marker tbody tr th:first-child,
+.table.dt-row-marker tbody tr td:first-child,
+.table.dt-row-marker thead tr th:first-child {
     border-left-width: 5px;
     border-left-style: solid;
 }
+.table.dt-row-marker thead tr th:first-child {
+    border-left-color: transparent;
+}
 
-.table.dt-row-marker tbody tr.details-tr,
-.table.dt-row-marker thead tr {
+.table.dt-row-marker tbody tr.details-tr td:first-child,
+.table.dt-row-marker tbody tr.details-tr th:first-child,
+.table.dt-row-marker thead tr th:first-child {
     border-left-color: transparent;
 }
 
@@ -554,12 +564,15 @@ table th[class*="col-"] {
 }
 
 .col-resizer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 5px;
+    width: 3px;
+    min-height: 20px;
     cursor: col-resize;
     height: 100%;
+    background-color: #f3f3f3;
+    order: 9999999;
+    margin-left: 5px;
+    border-radius: 2px;
+    flex-shrink: 0;
 }
 
 .sticky-col {
@@ -579,4 +592,87 @@ table th[class*="col-"] {
 
 .header-bar-actions-container {
     margin-bottom: 0;
+}
+
+.table-responsive[disabled] {
+    pointer-events: none;
+}
+.dui-pinned-cell {
+    position: sticky;
+}
+.table-cm-header {
+    white-space: nowrap;
+}
+
+.table-cm-filter,
+.table-cm-header,
+.dt-th-cell,
+.dt-td-cell {
+    background-color: inherit;
+}
+
+.card .body:not([class*="bg-"]) {
+    background-color: inherit;
+}
+
+.table-responsive thead,
+.table-responsive thead tr,
+.table-responsive tbody {
+    background-color: inherit;
+}
+
+.table-responsive.table-bordered {
+    border: 1px solid #ddd;
+}
+
+.table-responsive thead tr th,
+.table-responsive tbody tr:not(:last-child) th,
+.table-responsive tbody tr:not(:last-child) td {
+    border-bottom: 1px solid #ddd;
+}
+
+.table-responsive .table-bordered thead tr td:not(:last-child),
+.table-responsive .table-bordered thead tr th:not(:last-child),
+.table-responsive .table-bordered tbody tr td:not(:last-child),
+.table-responsive .table-bordered tbody tr th:not(:last-child),
+.table-responsive .table-bordered tfoot tr td:not(:last-child),
+.table-responsive .table-bordered tfoot tr th:not(:last-child) {
+    border-right: 1px solid #ddd;
+}
+
+.table-responsive .table {
+    border-collapse: separate !important;
+}
+
+.dui-row-dnd-element {
+    cursor: grab;
+}
+
+.dui-th-title-wrapper {
+    overflow: hidden;
+}
+
+.dui-th-title-text-wrapper {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.table tfoot {
+    position: sticky;
+    bottom: 0;
+    background-color: #f9f9f9;
+    -webkit-box-shadow: 0px -1px 0px 0px rgba(221,221,221,1);
+    -moz-box-shadow: 0px -1px 0px 0px rgba(221,221,221,1);
+    box-shadow: 0px -1px 0px 0px rgba(221,221,221,1);
+}
+
+.table tfoot tr {
+    background-color: inherit;
+}
+
+.table:not([dui-data-v-scroll='0']) thead {
+    -webkit-box-shadow: 0px 1px 0px -1px rgba(221,221,221,1);
+    -moz-box-shadow: 0px 1px 0px -1px rgba(221,221,221,1);
+    box-shadow: 0px 1px 0px -1px rgba(221,221,221,1);
 }

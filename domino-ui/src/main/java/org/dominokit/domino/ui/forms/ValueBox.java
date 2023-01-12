@@ -21,13 +21,7 @@ import static org.dominokit.domino.ui.keyboard.KeyboardEvents.*;
 import static org.jboss.elemento.Elements.label;
 import static org.jboss.elemento.Elements.span;
 
-import elemental2.dom.Element;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLInputElement;
-import elemental2.dom.HTMLLabelElement;
-import elemental2.dom.Node;
+import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +33,6 @@ import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
-import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.Focusable;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
 import org.dominokit.domino.ui.utils.HasPlaceHolder;
@@ -337,8 +330,8 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
    * @return same component instance
    */
   public T nonfloating() {
-    unfloatLabel();
     this.permaFloating = false;
+    unfloatLabel();
     hidePlaceholder();
     return (T) this;
   }
@@ -358,11 +351,11 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   public T focus() {
     if (!isDisabled()) {
       if (!isAttached()) {
-        ElementUtil.onAttach(
-            getInputElement(),
-            mutationRecord -> {
-              tryFocus();
-            });
+        getInputElement()
+            .onAttached(
+                mutationRecord -> {
+                  tryFocus();
+                });
       } else {
         tryFocus();
       }
@@ -379,12 +372,12 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   @Override
   public T unfocus() {
     if (!isAttached()) {
-      ElementUtil.onAttach(
-          getInputElement(),
-          mutationRecord -> {
-            getInputElement().element().blur();
-            doUnfocus();
-          });
+      getInputElement()
+          .onAttached(
+              mutationRecord -> {
+                getInputElement().element().blur();
+                doUnfocus();
+              });
     } else {
       getInputElement().element().blur();
       doUnfocus();
@@ -501,7 +494,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
     if (nonNull(label) && !label.isEmpty() || allowEmptyLabel()) {
       labelInitializer.apply();
       super.setLabel(label);
-      hidePlaceholder();
+      if ((getLabelTextElement().isPresent() && !getLabelTextElement().get().isEmptyElement())) {
+        hidePlaceholder();
+      }
     }
     return (T) this;
   }
@@ -569,7 +564,9 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   }
 
   protected boolean shouldShowPlaceholder() {
-    return isEmpty() && floating;
+    return isEmpty()
+        && (floating
+            || (getLabelTextElement().isPresent() && getLabelTextElement().get().isEmptyElement()));
   }
 
   /** {@inheritDoc} */

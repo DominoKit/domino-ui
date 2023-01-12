@@ -230,6 +230,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
                 "visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;")
             .element();
     DomGlobal.document.body.appendChild(hiddenFileInput);
+    onDetached(mutationRecord -> hiddenFileInput.remove());
   }
 
   /** @return new instance */

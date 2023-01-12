@@ -30,7 +30,6 @@ import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
-import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
@@ -514,10 +513,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     }
 
     private void search() {
-      SearchContext<T> searchContext = dataTable.getSearchContext();
-      Category search = Category.SEARCH;
-      searchContext.removeByCategory(search);
-      searchContext.add(Filter.create("*", textBox.getValue(), Category.SEARCH)).fireSearchEvent();
+      this.dataTable.getSearchContext().fireSearchEvent();
     }
 
     /** Clears the search */
@@ -543,6 +539,13 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     public Node asElement(DataTable<T> dataTable) {
       this.dataTable = dataTable;
       dataTable.addTableEventListener(SearchClearedEvent.SEARCH_EVENT_CLEARED, this);
+      this.dataTable
+          .getSearchContext()
+          .addBeforeSearchHandler(
+              context -> {
+                context.removeByCategory(Category.SEARCH);
+                context.add(Filter.create("*", textBox.getValue(), Category.SEARCH));
+              });
       return element;
     }
 

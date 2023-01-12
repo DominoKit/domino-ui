@@ -19,13 +19,8 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import elemental2.core.JsArray;
-import elemental2.dom.DOMRect;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.Element;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.Node;
-import elemental2.dom.NodeList;
+import elemental2.dom.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +38,6 @@ import org.dominokit.domino.ui.style.WavesSupport;
 import org.gwtproject.editor.client.Editor;
 import org.gwtproject.safehtml.shared.SafeHtmlBuilder;
 import org.jboss.elemento.EventType;
-import org.jboss.elemento.Id;
 import org.jboss.elemento.IsElement;
 import org.jboss.elemento.ObserverCallback;
 
@@ -64,10 +58,14 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         HasChildren<T>,
         HasWavesElement,
         IsReadOnly<T>,
-        DominoStyle<E, T, T> {
+        DominoStyle<E, T, T>,
+        HasAttributes<T> {
 
   /** The name of the attribute that holds a unique id for the component */
   private static final String DOMINO_UUID = "domino-uuid";
+
+  public static String ATTACH_UID_KEY = "dui-on-attach-uid";
+  public static String DETACH_UID_KEY = "dui-on-detach-uid";
 
   @Editor.Ignore protected T element;
   private String uuid;
@@ -79,10 +77,13 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   private ScreenMedia showOn;
   private Elevation elevation;
   private WavesSupport wavesSupport;
-  private Optional<ElementObserver> attachObserver = Optional.empty();
-  private Optional<ElementObserver> detachObserver = Optional.empty();
+  private List<ObserverCallback> attachObservers = new ArrayList<>();
+  private List<ObserverCallback> detachObservers = new ArrayList<>();
   private Optional<ResizeObserver> resizeObserverOptional = Optional.empty();
   private LambdaFunction dominoUuidInitializer;
+
+  private EventListener attachEventListener;
+  private EventListener detachEventListener;
 
   /**
    * initialize the component using its root element giving it a unique id, a {@link Style} and also
@@ -99,7 +100,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
           if (hasDominoId()) {
             uuid = getAttribute(DOMINO_UUID);
           } else {
-            this.uuid = Id.unique();
+            this.uuid = DominoId.unique();
             setAttribute(DOMINO_UUID, this.uuid);
             if (!hasId()) {
               element().id = this.uuid;
@@ -292,9 +293,21 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    */
   @Editor.Ignore
   public T onAttached(ObserverCallback observerCallback) {
-    if (!isAttached()) {
-      attachObserver = ElementUtil.onAttach(element, observerCallback);
+    if (isNull(this.attachEventListener)) {
+      if (!hasAttribute(ATTACH_UID_KEY)) {
+        setAttribute(ATTACH_UID_KEY, DominoId.unique());
+      }
+      this.attachEventListener =
+          evt -> {
+            CustomEvent cevent = Js.uncheckedCast(evt);
+            observerCallback.onObserved(Js.uncheckedCast(cevent.detail));
+          };
+      this.element
+          .element()
+          .addEventListener(AttachDetachEventType.attachedType(this), this.attachEventListener);
     }
+    attachObservers.add(observerCallback);
+    ElementUtil.startObserving();
     return element;
   }
 
@@ -306,7 +319,22 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    */
   @Editor.Ignore
   public T onDetached(ObserverCallback observerCallback) {
-    detachObserver = ElementUtil.onDetach(element, observerCallback);
+    if (isNull(this.detachEventListener)) {
+      if (!hasAttribute(DETACH_UID_KEY)) {
+        setAttribute(DETACH_UID_KEY, DominoId.unique());
+      }
+      this.detachEventListener =
+          evt -> {
+            CustomEvent cevent = Js.uncheckedCast(evt);
+            detachObservers.forEach(
+                observer -> observer.onObserved(Js.uncheckedCast(cevent.detail)));
+          };
+      this.element
+          .element()
+          .addEventListener(AttachDetachEventType.detachedType(this), this.detachEventListener);
+    }
+    detachObservers.add(observerCallback);
+    ElementUtil.startObserving();
     return element;
   }
 
@@ -315,8 +343,8 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    *
    * @return same component
    */
-  public T removeAttachObserver() {
-    attachObserver.ifPresent(ElementObserver::remove);
+  public T removeAttachObserver(ObserverCallback observerCallback) {
+    attachObservers.remove(observerCallback);
     return element;
   }
 
@@ -325,19 +353,9 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
    *
    * @return same component
    */
-  public T removeDetachObserver() {
-    detachObserver.ifPresent(ElementObserver::remove);
+  public T removeDetachObserver(ObserverCallback observerCallback) {
+    detachObservers.remove(observerCallback);
     return element;
-  }
-
-  /** @return Optional {@link ElementObserver} for attach */
-  public Optional<ElementObserver> getAttachObserver() {
-    return attachObserver;
-  }
-
-  /** @return Optional {@link ElementObserver} for detach */
-  public Optional<ElementObserver> getDetachObserver() {
-    return detachObserver;
   }
 
   /** @return boolean, true if the element is currently attached to the DOM tree */
@@ -345,6 +363,24 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   public boolean isAttached() {
     dominoUuidInitializer.apply();
     return nonNull(DomGlobal.document.body.querySelector("[domino-uuid='" + uuid + "']"));
+  }
+
+  /**
+   * Execute the handler if the component is already attached to the dom, if not execute it when the
+   * component is attached.
+   *
+   * @param handler {@link Runnable} to be executed
+   * @return same component instance
+   */
+  @Editor.Ignore
+  public T nowOrWhenAttached(Runnable handler) {
+    if (isAttached()) {
+      handler.run();
+    } else {
+      onAttached(mutationRecord -> handler.run());
+    }
+    dominoUuidInitializer.apply();
+    return (T) this;
   }
 
   /**
@@ -366,8 +402,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
           ResizeObserver resizeObserver =
               new ResizeObserver(
                   entries -> {
-                    resizeHandler.onResize(
-                        (T) BaseDominoElement.this, resizeObserverOptional.get(), entries);
+                    resizeObserverOptional.ifPresent(
+                        observer -> {
+                          resizeHandler.onResize((T) BaseDominoElement.this, observer, entries);
+                        });
                   });
           this.resizeObserverOptional = Optional.of(resizeObserver);
           resizeObserver.observe(this.element());
@@ -467,6 +505,20 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   public T addEventListener(String type, EventListener listener) {
     element().addEventListener(type, listener);
+    return element;
+  }
+
+  /**
+   * Adds a listener for the provided event type
+   *
+   * @param type String event type
+   * @param listener {@link EventListener}
+   * @param capture boolean option
+   * @return same component
+   */
+  @Editor.Ignore
+  public T addEventListener(String type, EventListener listener, boolean capture) {
+    element().addEventListener(type, listener, capture);
     return element;
   }
 
@@ -1195,7 +1247,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /** @return boolean, true if the component has no children */
   @Editor.Ignore
   public boolean isEmptyElement() {
-    return getElementsCount() == 0;
+    return getElementsCount() == 0 && (isNull(getTextContent()) || getTextContent().isEmpty());
   }
 
   /** @return double count of the component children */
@@ -1226,8 +1278,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /** {@inheritDoc} */
   @Editor.Ignore
   public T disable() {
-    setAttribute("disabled", "");
-    addCss("disabled");
+    DisableUtil.disable(this);
     return element;
   }
 
@@ -1239,8 +1290,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   /** {@inheritDoc} */
   @Editor.Ignore
   public T enable() {
-    removeAttribute("disabled");
-    removeCss("disabled");
+    DisableUtil.enable(this);
     return element;
   }
 
@@ -1760,6 +1810,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
     return style().containsCss(cssClass);
   }
 
+  public Optional<String> hasCssClass(String cssClass) {
+    return style().containsCss(cssClass) ? Optional.of(cssClass) : Optional.empty();
+  }
+
   @Override
   public T pullRight() {
     style().pullRight();
@@ -1901,6 +1955,10 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
         .map(Js::<HTMLElement>uncheckedCast)
         .map(DominoElement::of)
         .collect(Collectors.toList());
+  }
+
+  protected DominoUIConfig config() {
+    return DominoUIConfig.INSTANCE;
   }
 
   /**

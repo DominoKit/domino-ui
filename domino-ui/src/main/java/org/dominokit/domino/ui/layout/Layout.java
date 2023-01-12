@@ -22,6 +22,7 @@ import static org.jboss.elemento.Elements.div;
 import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
@@ -134,6 +135,36 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     if (nonNull(onShowHandler)) {
       onShowHandler.handleLayout(this);
     }
+
+    config()
+        .getZindexManager()
+        .addZIndexListener(
+            (assignedValues, modalOpen) -> {
+              Optional<Integer> minZIndex = assignedValues.stream().min(Integer::compare);
+              if (modalOpen) {
+                minZIndex.ifPresent(
+                    minIndex -> {
+                      Integer sidePanelsIndex = minIndex - (config().getzIndexIncrement() * 3);
+                      getRightPanel().setZIndex(sidePanelsIndex);
+                      getNavigationBar().setZIndex(minIndex - (config().getzIndexIncrement() * 2));
+                      if (DominoElement.body().containsCss("l-panel-span-up")) {
+                        getLeftPanel().setZIndex(minIndex - config().getzIndexIncrement());
+                      } else {
+                        getLeftPanel().setZIndex(sidePanelsIndex);
+                      }
+                    });
+              } else {
+
+                Integer sidePanelsIndex = config().getZindexManager().getNextZIndex();
+                getRightPanel().setZIndex(sidePanelsIndex);
+                getNavigationBar().setZIndex(config().getZindexManager().getNextZIndex());
+                if (DominoElement.body().containsCss("l-panel-span-up")) {
+                  getLeftPanel().setZIndex(config().getZindexManager().getNextZIndex());
+                } else {
+                  getLeftPanel().setZIndex(sidePanelsIndex);
+                }
+              }
+            });
   }
 
   /** @return new Layout instance without a title in the header */
@@ -181,7 +212,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    * Reveal the layout and append it to the page body and apply the specified theme color
    *
    * @param theme {@link ColorScheme}
-   * @param autoFixLeftPanel boolean, if true left panel will be fixed and and the user wont be able
+   * @param autoFixLeftPanel boolean, if true left panel will be fixed and the user will not be able
    *     to hide it using the hamburger menu icon while we open the application on large device
    *     screen, while it will be collapsible when opened on small screens
    * @return same Layout instance
@@ -602,7 +633,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     if (footer.isAttached()) {
       updateContentBottomPadding();
     } else {
-      ElementUtil.onAttach(footer.element(), mutationRecord -> updateContentBottomPadding());
+      footer.onAttached(mutationRecord -> updateContentBottomPadding());
     }
 
     return this;
@@ -618,8 +649,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
    */
   public Layout unfixFooter() {
     footer.unfixed();
-    ElementUtil.onAttach(
-        footer.element(),
+    footer.onAttached(
         mutationRecord -> Style.of(content.element()).removeCssProperty("padding-bottom"));
     return this;
   }

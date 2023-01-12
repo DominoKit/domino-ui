@@ -39,6 +39,8 @@ import org.dominokit.domino.ui.forms.IntegerBox;
 import org.dominokit.domino.ui.forms.LongBox;
 import org.dominokit.domino.ui.forms.ShortBox;
 import org.dominokit.domino.ui.forms.ValueBox;
+import org.dominokit.domino.ui.modals.DefaultZIndexManager;
+import org.dominokit.domino.ui.modals.ZIndexManager;
 import org.dominokit.domino.ui.tree.TreeItem;
 
 /**
@@ -48,7 +50,7 @@ import org.dominokit.domino.ui.tree.TreeItem;
  */
 public class DominoUIConfig {
 
-  /** The DominoFields single INSTANCE for global access. */
+  /** The DominoUIConfig single INSTANCE for global access. */
   public static final DominoUIConfig INSTANCE = new DominoUIConfig();
 
   private FieldStyle fieldsStyle = FieldStyle.LINED;
@@ -58,6 +60,11 @@ public class DominoUIConfig {
   private Optional<Boolean> fixErrorsPosition = Optional.empty();
   private Optional<Boolean> floatLabels = Optional.empty();
   private Optional<Boolean> condensed = Optional.empty();
+
+  private int initialZIndex = 1;
+  private int zIndexIncrement = 1;
+
+  private ZIndexManager zindexManager = new DefaultZIndexManager();
   private RequiredIndicatorRenderer requiredIndicatorRenderer =
       new RequiredIndicatorRenderer() {
         @Override
@@ -343,6 +350,32 @@ public class DominoUIConfig {
   public DominoUIConfig setDefaultButtonElevation(int defaultButtonElevation) {
     this.defaultButtonElevation = defaultButtonElevation;
     return this;
+  }
+
+  public int getInitialZIndex() {
+    return initialZIndex;
+  }
+
+  public DominoUIConfig setInitialZIndex(int initialZIndex) {
+    this.initialZIndex = initialZIndex;
+    return this;
+  }
+
+  public int getzIndexIncrement() {
+    return zIndexIncrement;
+  }
+
+  public DominoUIConfig setzindexIncrement(int zIndexIncrement) {
+    this.zIndexIncrement = zIndexIncrement;
+    return this;
+  }
+
+  public ZIndexManager getZindexManager() {
+    return zindexManager;
+  }
+
+  public void setZindexManager(ZIndexManager zindexManager) {
+    this.zindexManager = zindexManager;
   }
 
   /** An interface for rendering the required indicator on fields */

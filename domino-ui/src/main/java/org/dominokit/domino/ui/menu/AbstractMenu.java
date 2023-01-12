@@ -44,14 +44,9 @@ import org.dominokit.domino.ui.menu.direction.BestSideUpDownDropDirection;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.menu.direction.MiddleOfScreenDropDirection;
 import org.dominokit.domino.ui.menu.direction.MouseBestFitDirection;
-import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.search.SearchBox;
 import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.utils.AppendStrategy;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.KeyboardNavigation;
-import org.dominokit.domino.ui.utils.PopupsCloser;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -62,7 +57,7 @@ import org.jboss.elemento.IsElement;
  * @param <T> The type of the class extending from this base class
  */
 public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
-    extends BaseDominoElement<HTMLDivElement, T> {
+    extends BaseDominoElement<HTMLDivElement, T> implements IsPopup<T> {
 
   protected final SearchBox searchBox;
   protected FlexLayout menuElement = FlexLayout.create();
@@ -96,6 +91,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   protected List<AbstractMenuItem<V, ?>> menuItems = new ArrayList<>();
   protected boolean autoCloseOnSelect = true;
   protected final List<MenuItemSelectionHandler<V>> selectionHandlers = new ArrayList<>();
+  protected final List<MenuItemAddedHandler<V>> addHandlers = new ArrayList<>();
   protected boolean headerVisible = false;
   private AbstractMenu<V, ?> currentOpen;
 
@@ -337,6 +333,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
       itemsContainer.appendChild(menuItem);
       menuItems.add(menuItem);
       menuItem.setParent(this);
+      addHandlers.forEach(handler -> handler.onItemAdded(menuItem));
     }
     return (T) this;
   }
@@ -733,6 +730,32 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   }
 
   /**
+   * Adds a global add handler that will apply to all menu items
+   *
+   * @param addHandler {@link MenuItemAddedHandler}
+   * @return same menu instance
+   */
+  public T addItemAddedHandler(MenuItemAddedHandler<V> addHandler) {
+    if (nonNull(addHandler)) {
+      addHandlers.add(addHandler);
+    }
+    return (T) this;
+  }
+
+  /**
+   * removes a global add handler that will apply to all menu items
+   *
+   * @param addHandler {@link MenuItemAddedHandler}
+   * @return same menu instance
+   */
+  public T removeItemAddedHandler(MenuItemAddedHandler<V> addHandler) {
+    if (nonNull(addHandler)) {
+      addHandlers.remove(addHandler);
+    }
+    return (T) this;
+  }
+
+  /**
    * Opens a sub menu that has this menu as its parent
    *
    * @param dropMenu {@link AbstractMenu} to open
@@ -791,14 +814,20 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
               if (focus) {
                 focus();
               }
-              element.setCssProperty("z-index", ModalBackDrop.getNextZIndex() + 10 + "");
+              config().getZindexManager().onPopupOpen(this);
               openHandlers.forEach(OpenHandler::onOpen);
               DominoElement.of(getTargetElement()).onDetached(targetDetach -> close());
               DominoElement.of(getAppendTarget()).onDetached(targetDetach -> close());
             });
 
         appendStrategy.onAppend(getAppendTarget(), element.element());
-        onDetached(record -> close());
+        onDetached(
+            record -> {
+              close();
+              if (isDropDown()) {
+                onClosed();
+              }
+            });
         if (smallScreen && nonNull(parent) && parent.isDropDown()) {
           parent.hide();
           headContainer.show();
@@ -913,15 +942,18 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
       if (isOpened()) {
         this.remove();
         getTargetElement().focus();
-        searchBox.clearSearch();
-        menuItems.forEach(AbstractMenuItem::onParentClosed);
-        closeHandlers.forEach(CloseHandler::onClose);
-        if (smallScreen && nonNull(parent) && parent.isDropDown()) {
-          parent.show();
-        }
       }
     }
     return (T) this;
+  }
+
+  private void onClosed() {
+    searchBox.clearSearch();
+    menuItems.forEach(AbstractMenuItem::onParentClosed);
+    closeHandlers.forEach(CloseHandler::onClose);
+    if (smallScreen && nonNull(parent) && parent.isDropDown()) {
+      parent.show();
+    }
   }
 
   /** @return The current {@link DropDirection} of the menu */
@@ -1088,6 +1120,16 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
     this.dropDown = dropdown;
   }
 
+  @Override
+  public boolean isModal() {
+    return false;
+  }
+
+  @Override
+  public boolean isAutoClose() {
+    return true;
+  }
+
   /** A handler that will be called when closing the menu */
   @FunctionalInterface
   public interface CloseHandler {
@@ -1115,5 +1157,20 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
      * @param menuItem The {@link AbstractMenuItem} selected
      */
     void onItemSelected(AbstractMenuItem<V, ?> menuItem);
+  }
+
+  /**
+   * A functional interface to implement menu items add handlers
+   *
+   * @param <V> V the type of the menu item value
+   */
+  @FunctionalInterface
+  public interface MenuItemAddedHandler<V> {
+    /**
+     * Will be called when a menu item is added to the menu
+     *
+     * @param menuItem The {@link AbstractMenuItem} added
+     */
+    void onItemAdded(AbstractMenuItem<V, ?> menuItem);
   }
 }

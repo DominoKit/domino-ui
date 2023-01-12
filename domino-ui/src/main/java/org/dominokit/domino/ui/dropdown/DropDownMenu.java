@@ -40,28 +40,19 @@ import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.AppendStrategy;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasBackground;
-import org.dominokit.domino.ui.utils.IsCollapsible;
-import org.dominokit.domino.ui.utils.KeyboardNavigation;
-import org.dominokit.domino.ui.utils.LazyInitializer;
+import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
 /**
- * A component which provides a dropdown menu relative to an element
- *
- * <p>The menu can have different actions and can be placed at specific position
- *
- * <p>Customize the component can be done by overwriting classes provided by {@link DropDownStyles}
- *
- * <p>For example:
- *
- * <pre>
+ * @deprecated use a derivative from {@link org.dominokit.domino.ui.menu.AbstractMenu} A component
+ *     which provides a dropdown menu relative to an element
+ *     <p>The menu can have different actions and can be placed at specific position
+ *     <p>Customize the component can be done by overwriting classes provided by {@link
+ *     DropDownStyles}
+ *     <p>For example:
+ *     <pre>
  *      DropDownMenu.create(element)
  *                 .addAction(DropdownAction.create("action 1"))
  *                 .open();
@@ -70,8 +61,9 @@ import org.jboss.elemento.IsElement;
  * @see BaseDominoElement
  * @see HasBackground
  */
+@Deprecated
 public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu>
-    implements HasBackground<DropDownMenu> {
+    implements HasBackground<DropDownMenu>, IsPopup<DropDownMenu> {
 
   private KeyboardNavigation<DropdownAction<?>> keyboardNavigation;
   private final DominoElement<HTMLDivElement> element =
@@ -389,16 +381,17 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
   }
 
   /** Closes the menu */
-  public void close() {
+  public DropDownMenu close() {
     if (isOpened()) {
       element.remove();
       closeHandlers.forEach(CloseHandler::onClose);
     }
+    return this;
   }
 
   /** Opens the menu */
-  public void open() {
-    open(true);
+  public DropDownMenu open() {
+    return open(true);
   }
 
   /**
@@ -406,7 +399,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
    *
    * @param focus true to focus the first element
    */
-  public void open(boolean focus) {
+  public DropDownMenu open(boolean focus) {
     dropDownMenuInitializer.apply();
     if (hasActions() || creatable) {
       onAttached(
@@ -419,7 +412,7 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
               focus();
             }
 
-            element.setCssProperty("z-index", ModalBackDrop.getNextZIndex() + 10 + "");
+            config().getZindexManager().onPopupOpen(this);
             openHandlers.forEach(OpenHandler::onOpen);
 
             DominoElement.of(targetElement).onDetached(targetDetach -> close());
@@ -434,6 +427,17 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
         appendStrategy.onAppend(appendTarget, element.element());
       }
     }
+    return this;
+  }
+
+  @Override
+  public boolean isModal() {
+    return false;
+  }
+
+  @Override
+  public boolean isAutoClose() {
+    return true;
   }
 
   /** Clears the current search */

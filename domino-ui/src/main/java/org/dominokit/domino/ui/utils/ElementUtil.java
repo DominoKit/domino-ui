@@ -144,9 +144,13 @@ public class ElementUtil {
    */
   public static Optional<ElementObserver> onAttach(HTMLElement element, ObserverCallback callback) {
     if (element != null) {
-      return Optional.of(BodyObserver.addAttachObserver(element, callback));
+      DominoElement.of(element).onAttached(callback);
     }
     return Optional.empty();
+  }
+
+  public static void withBodyObserverPaused(Runnable handler) {
+    BodyObserver.pauseFor(handler);
   }
 
   /**
@@ -159,9 +163,13 @@ public class ElementUtil {
   public static Optional<ElementObserver> onAttach(
       IsElement<?> element, ObserverCallback callback) {
     if (element != null) {
-      return Optional.of(BodyObserver.addAttachObserver(element.element(), callback));
+      DominoElement.of(element).onAttached(callback);
     }
     return Optional.empty();
+  }
+
+  public static void startObserving() {
+    BodyObserver.startObserving();
   }
 
   /**
@@ -175,7 +183,7 @@ public class ElementUtil {
    */
   public static Optional<ElementObserver> onDetach(HTMLElement element, ObserverCallback callback) {
     if (element != null) {
-      return Optional.of(BodyObserver.addDetachObserver(element, callback));
+      DominoElement.of(element).onDetached(callback);
     }
     return Optional.empty();
   }
@@ -190,7 +198,7 @@ public class ElementUtil {
   public static Optional<ElementObserver> onDetach(
       IsElement<?> element, ObserverCallback callback) {
     if (element != null) {
-      return Optional.of(BodyObserver.addDetachObserver(element.element(), callback));
+      DominoElement.of(element).onDetached(callback);
     }
     return Optional.empty();
   }

@@ -224,6 +224,11 @@ public class Animation {
 
   /** stops the animation and calls the {@link CompleteCallback} if it is set. */
   public void stop() {
+    stop(false);
+  }
+
+  /** stops the animation and calls the {@link CompleteCallback} if it is set. */
+  public void stop(boolean silent) {
     element.removeCss(transition.getStyle());
     element.removeCss("animated");
     element.removeCss("infinite");
@@ -235,7 +240,9 @@ public class Animation {
     element.removeEventListener("mozAnimationEnd", stopListener);
     element.removeEventListener("oanimationend", stopListener);
     element.removeEventListener("animationend", stopListener);
-    callback.onComplete(element.element());
+    if (!silent) {
+      callback.onComplete(element.element());
+    }
   }
 
   /**

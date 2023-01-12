@@ -158,7 +158,7 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
     return this;
   }
 
-  private boolean hasFooter() {
+  public final boolean hasFooter() {
     return nonNull(footerElement.parentNode);
   }
 
@@ -229,15 +229,15 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
     return this;
   }
 
-  private boolean hasHeader() {
+  public final boolean hasHeader() {
     return nonNull(headerElement.parentNode);
   }
 
-  private boolean hasLeft() {
+  public final boolean hasLeft() {
     return nonNull(leftElement.parentNode);
   }
 
-  private boolean hasRight() {
+  public final boolean hasRight() {
     return nonNull(rightElement.parentNode);
   }
 

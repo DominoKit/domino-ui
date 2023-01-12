@@ -29,7 +29,6 @@ import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.elemento.IsElement;
 
 /** @deprecated use {@link org.dominokit.domino.ui.stepper.Step} */
@@ -68,8 +67,7 @@ public class Step extends BaseDominoElement<HTMLLIElement, Step> {
     contentElement.appendChild(bodyElement);
     contentElement.appendChild(footerElement);
     collapsible.hide();
-    ElementUtil.onAttach(
-        element(),
+    onAttached(
         mutationRecord -> {
           if (expanded) {
             collapsible.show();
