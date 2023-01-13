@@ -125,9 +125,9 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
             nextSlide();
           }
         };
+    init(this);
     addAttachListener();
     addDetachListener();
-    init(this);
   }
 
   private void resetTimer() {
@@ -152,8 +152,6 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
           if (autoSlide) {
             timer.scheduleRepeating(autoSlideDuration);
           }
-
-          addDetachListener();
         });
   }
 
