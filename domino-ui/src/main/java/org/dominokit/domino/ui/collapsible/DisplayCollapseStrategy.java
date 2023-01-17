@@ -26,21 +26,31 @@ import org.jboss.elemento.IsElement;
  */
 public class DisplayCollapseStrategy implements CollapseStrategy {
 
-  /** {@inheritDoc} */
+  private CollapsibleHandlers handlers;
+
   @Override
-  public void show(
-      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted) {
-    style.removeCssProperty("display");
-    DominoElement.of(element).removeAttribute("d-collapsed");
-    onCompleted.run();
+  public void init(
+      HTMLElement element,
+      Style<HTMLElement, IsElement<HTMLElement>> style,
+      CollapsibleHandlers handlers) {
+    this.handlers = handlers;
   }
 
   /** {@inheritDoc} */
   @Override
-  public void hide(
-      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted) {
+  public void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
+    style.removeCssProperty("display");
+    DominoElement.of(element).removeAttribute("d-collapsed");
+    this.handlers.onBeforeShow().run();
+    this.handlers.onShowCompleted().run();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
+    this.handlers.onBeforeHide().run();
     style.setDisplay("none");
     DominoElement.of(element).setAttribute("d-collapsed", "true");
-    onCompleted.run();
+    this.handlers.onHideCompleted().run();
   }
 }

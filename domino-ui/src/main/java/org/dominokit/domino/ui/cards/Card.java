@@ -474,10 +474,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    * Adds listener to be called when the body gets expanded. The {@code listener} will be called
    * everytime the body gets expanded.
    *
-   * @param listener the {@link Collapsible.ShowCompletedHandler} to be added
+   * @param listener the {@link Collapsible.ShowHandler} to be added
    * @return same instance
    */
-  public Card addExpandListener(Collapsible.ShowCompletedHandler listener) {
+  public Card addExpandListener(Collapsible.ShowHandler listener) {
     body.addShowListener(listener);
     return this;
   }
@@ -485,10 +485,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
   /**
    * Removes expand listener.
    *
-   * @param listener the {@link Collapsible.ShowCompletedHandler} to be removed
+   * @param listener the {@link Collapsible.ShowHandler} to be removed
    * @return same instance
    */
-  public Card removeExpandListener(Collapsible.ShowCompletedHandler listener) {
+  public Card removeExpandListener(Collapsible.ShowHandler listener) {
     body.removeShowListener(listener);
     return this;
   }
@@ -497,10 +497,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
    * Adds listener to be called when the body gets collapsed. The {@code listener} will be called
    * everytime the body gets collapsed.
    *
-   * @param listener the {@link Collapsible.HideCompletedHandler} to add
+   * @param listener the {@link Collapsible.HideHandler} to add
    * @return same instance
    */
-  public Card addCollapseListener(Collapsible.HideCompletedHandler listener) {
+  public Card addCollapseListener(Collapsible.HideHandler listener) {
     body.addHideListener(listener);
     return this;
   }
@@ -508,10 +508,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card> implements Has
   /**
    * Removes collapse listener.
    *
-   * @param listener the {@link Collapsible.HideCompletedHandler} to be removed
+   * @param listener the {@link Collapsible.HideHandler} to be removed
    * @return same instance
    */
-  public Card removeCollapseListener(Collapsible.HideCompletedHandler listener) {
+  public Card removeCollapseListener(Collapsible.HideHandler listener) {
     body.removeHideListener(listener);
     return this;
   }

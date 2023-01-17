@@ -31,36 +31,17 @@ public interface CollapseStrategy {
    * @param element The collapsible {@link HTMLElement}
    * @param style the {@link Style} of the element
    */
-  default void init(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {}
-
-  /**
-   * Implement this method to show a collapsible element
-   *
-   * @param element The collapsible {@link HTMLElement}
-   * @param style the {@link Style} of the element
-   * @param onCompleted the {@link Runnable} to be executed when the show operation is completed
-   */
-  void show(
-      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted);
+  default void init(
+      HTMLElement element,
+      Style<HTMLElement, IsElement<HTMLElement>> style,
+      CollapsibleHandlers handlers) {}
   /**
    * Implement this method to show a collapsible element
    *
    * @param element The collapsible {@link HTMLElement}
    * @param style the {@link Style} of the element
    */
-  default void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
-    show(element, style, () -> {});
-  }
-
-  /**
-   * Implement this method to hide a collapsible element
-   *
-   * @param element The collapsible {@link HTMLElement}
-   * @param style the {@link Style} of the element
-   * @param onCompleted the {@link Runnable} to be executed when the hide operation is completed
-   */
-  void hide(
-      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted);
+  void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style);
 
   /**
    * Implement this method to hide a collapsible element
@@ -68,9 +49,7 @@ public interface CollapseStrategy {
    * @param element The collapsible {@link HTMLElement}
    * @param style the {@link Style} of the element
    */
-  default void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
-    hide(element, style, () -> {});
-  }
+  void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style);
 
   /**
    * Implement this method to clean up any attributes or styles added the strategy when we switch to

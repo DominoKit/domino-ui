@@ -64,6 +64,6 @@ public interface ZIndexManager {
    */
   @FunctionalInterface
   interface ZIndexListener {
-    void onZIndexChange(List<Integer> assignedValues, boolean modalOpen);
+    void onZIndexChange(List<Integer> assignedValues, boolean modalOpen, boolean isDialogOpen);
   }
 }

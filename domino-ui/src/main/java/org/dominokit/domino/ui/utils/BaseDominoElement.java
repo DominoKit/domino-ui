@@ -1339,50 +1339,95 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   }
 
   /**
-   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.HideCompletedHandler}
+   * @param handler {@link Collapsible.HideHandler}
    * @return same component
-   * @see Collapsible#addHideHandler(Collapsible.HideCompletedHandler)
+   * @see Collapsible#addHideHandler(Collapsible.HideHandler)
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
-  public T addHideListener(Collapsible.HideCompletedHandler handler) {
+  public T addHideListener(Collapsible.HideHandler handler) {
     getCollapsible().addHideHandler(handler);
+    return (T) this;
+  }
+  /**
+   * @param handler {@link Collapsible.HideHandler}
+   * @return same component
+   * @see Collapsible#addBeforeHideHandler(Collapsible.HideHandler)
+   */
+  @Editor.Ignore
+  @SuppressWarnings("unchecked")
+  public T addBeforeHideListener(Collapsible.HideHandler handler) {
+    getCollapsible().addBeforeHideHandler(handler);
     return (T) this;
   }
 
   /**
-   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.HideCompletedHandler}
+   * @param handler {@link Collapsible.HideHandler}
    * @return same component
-   * @see Collapsible#removeHideHandler(Collapsible.HideCompletedHandler)
+   * @see Collapsible#removeHideHandler(Collapsible.HideHandler)
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
-  public T removeHideListener(Collapsible.HideCompletedHandler handler) {
+  public T removeHideListener(Collapsible.HideHandler handler) {
     getCollapsible().removeHideHandler(handler);
     return (T) this;
   }
 
   /**
-   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ShowCompletedHandler}
+   * @param handler {@link Collapsible.HideHandler}
    * @return same component
-   * @see Collapsible#addShowHandler(Collapsible.ShowCompletedHandler)
+   * @see Collapsible#removeBeforeHideHandler(Collapsible.HideHandler)
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
-  public T addShowListener(Collapsible.ShowCompletedHandler handler) {
-    getCollapsible().addShowHandler(handler);
+  public T removeBeforeHideListener(Collapsible.HideHandler handler) {
+    getCollapsible().removeBeforeHideHandler(handler);
     return (T) this;
   }
 
   /**
-   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ShowCompletedHandler}
+   * @param handler {@link Collapsible.ShowHandler}
    * @return same component
-   * @see Collapsible#removeShowHandler(Collapsible.ShowCompletedHandler)
+   * @see Collapsible#addShowHandler(Collapsible.ShowHandler)
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
-  public T removeShowListener(Collapsible.ShowCompletedHandler handler) {
+  public T addShowListener(Collapsible.ShowHandler handler) {
+    getCollapsible().addShowHandler(handler);
+    return (T) this;
+  }
+  /**
+   * @param handler {@link Collapsible.ShowHandler}
+   * @return same component
+   * @see Collapsible#addBeforeShowHandler(Collapsible.ShowHandler)
+   */
+  @Editor.Ignore
+  @SuppressWarnings("unchecked")
+  public T addBeforeShowListener(Collapsible.ShowHandler handler) {
+    getCollapsible().addBeforeShowHandler(handler);
+    return (T) this;
+  }
+
+  /**
+   * @param handler {@link Collapsible.ShowHandler}
+   * @return same component
+   * @see Collapsible#removeShowHandler(Collapsible.ShowHandler)
+   */
+  @Editor.Ignore
+  @SuppressWarnings("unchecked")
+  public T removeShowListener(Collapsible.ShowHandler handler) {
     getCollapsible().removeShowHandler(handler);
+    return (T) this;
+  }
+  /**
+   * @param handler {@link Collapsible.ShowHandler}
+   * @return same component
+   * @see Collapsible#removeBeforeShowHandler(Collapsible.ShowHandler)
+   */
+  @Editor.Ignore
+  @SuppressWarnings("unchecked")
+  public T removeBeforeShowListener(Collapsible.ShowHandler handler) {
+    getCollapsible().removeBeforeShowHandler(handler);
     return (T) this;
   }
 

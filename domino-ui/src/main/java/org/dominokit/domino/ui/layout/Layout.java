@@ -139,14 +139,17 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     config()
         .getZindexManager()
         .addZIndexListener(
-            (assignedValues, modalOpen) -> {
+            (assignedValues, modalOpen, isDialog) -> {
               Optional<Integer> minZIndex = assignedValues.stream().min(Integer::compare);
-              if (modalOpen) {
+              if (isDialog) {
                 minZIndex.ifPresent(
                     minIndex -> {
-                      Integer sidePanelsIndex = minIndex - (config().getzIndexIncrement() * 3);
+                      Integer sidePanelsIndex =
+                          minIndex - (config().getzIndexIncrement() * (modalOpen ? 3 : 2));
                       getRightPanel().setZIndex(sidePanelsIndex);
-                      getNavigationBar().setZIndex(minIndex - (config().getzIndexIncrement() * 2));
+                      getNavigationBar()
+                          .setZIndex(
+                              minIndex - (config().getzIndexIncrement() * (modalOpen ? 2 : 1)));
                       if (DominoElement.body().containsCss("l-panel-span-up")) {
                         getLeftPanel().setZIndex(minIndex - config().getzIndexIncrement());
                       } else {

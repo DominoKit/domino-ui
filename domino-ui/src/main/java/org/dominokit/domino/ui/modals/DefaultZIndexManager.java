@@ -66,7 +66,7 @@ public class DefaultZIndexManager implements ZIndexManager {
     popup.setZIndex(nextZIndex);
     assignedValues.add(nextZIndex);
     listeners.forEach(
-        listener -> listener.onZIndexChange(assignedValues, ModalBackDrop.INSTANCE.isAttached()));
+        listener -> listener.onZIndexChange(assignedValues, popup.isModal(), popup.isDialog()));
   }
 
   /**
@@ -88,7 +88,8 @@ public class DefaultZIndexManager implements ZIndexManager {
         assignedValues.add(modalZIndex);
         listeners.forEach(
             listener ->
-                listener.onZIndexChange(assignedValues, ModalBackDrop.INSTANCE.isAttached()));
+                listener.onZIndexChange(
+                    assignedValues, modals.peek().isModal(), modals.peek().isDialog()));
       } else {
         ModalBackDrop.INSTANCE.remove();
       }

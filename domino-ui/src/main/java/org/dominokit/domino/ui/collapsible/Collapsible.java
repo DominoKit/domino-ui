@@ -43,12 +43,15 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   public static final String DOM_UI_SCROLL_HEIGHT = "dom-ui-scroll-height";
   private final HTMLElement element;
   private final Style<HTMLElement, IsElement<HTMLElement>> style;
+  private final CollapsibleHandlers handlers;
 
   private boolean collapsed = false;
   private boolean forceHidden = false;
 
-  private List<HideCompletedHandler> hideHandlers = new ArrayList<>();
-  private List<ShowCompletedHandler> showHandlers = new ArrayList<>();
+  private List<HideHandler> hideHandlers = new ArrayList<>();
+  private List<HideHandler> beforeHideHandlers = new ArrayList<>();
+  private List<ShowHandler> showHandlers = new ArrayList<>();
+  private List<ShowHandler> beforeShowHandlers = new ArrayList<>();
   private CollapseStrategy strategy = new DisplayCollapseStrategy();
 
   /**
@@ -59,6 +62,29 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   public Collapsible(HTMLElement element) {
     this.element = element;
     style = Style.of(element);
+    handlers =
+        new CollapsibleHandlers() {
+          @Override
+          public Runnable onBeforeShow() {
+            return Collapsible.this::onBeforeShow;
+          }
+
+          @Override
+          public Runnable onShowCompleted() {
+            return Collapsible.this::onShowCompleted;
+          }
+
+          @Override
+          public Runnable onBeforeHide() {
+            return Collapsible.this::onBeforeHide;
+          }
+
+          @Override
+          public Runnable onHideCompleted() {
+            return Collapsible.this::onHideCompleted;
+          }
+        };
+    strategy.init(element, Style.of(element), handlers);
   }
 
   /**
@@ -112,7 +138,6 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   public Collapsible show() {
     if (!forceHidden) {
       strategy.show(element, style);
-      onShowCompleted();
       element.setAttribute("aria-expanded", "true");
       this.collapsed = false;
     }
@@ -127,7 +152,7 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   @Override
   public Collapsible hide() {
     if (!forceHidden) {
-      strategy.hide(element, style, this::onHideCompleted);
+      strategy.hide(element, style);
       element.setAttribute("aria-expanded", "false");
       this.collapsed = true;
     }
@@ -136,13 +161,25 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
   private void onHideCompleted() {
     if (nonNull(hideHandlers)) {
-      hideHandlers.forEach(HideCompletedHandler::onHidden);
+      hideHandlers.forEach(HideHandler::apply);
+    }
+  }
+
+  private void onBeforeHide() {
+    if (nonNull(beforeHideHandlers)) {
+      beforeHideHandlers.forEach(HideHandler::apply);
     }
   }
 
   private void onShowCompleted() {
     if (nonNull(showHandlers)) {
-      showHandlers.forEach(ShowCompletedHandler::onShown);
+      showHandlers.forEach(ShowHandler::apply);
+    }
+  }
+
+  private void onBeforeShow() {
+    if (nonNull(beforeShowHandlers)) {
+      beforeShowHandlers.forEach(ShowHandler::apply);
     }
   }
 
@@ -201,10 +238,10 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   /**
    * Add handler to be called when ever the element changed state to hidden
    *
-   * @param handler {@link HideCompletedHandler}
+   * @param handler {@link HideHandler}
    * @return same Collapsible instance
    */
-  public Collapsible addHideHandler(HideCompletedHandler handler) {
+  public Collapsible addHideHandler(HideHandler handler) {
     if (isNull(hideHandlers)) {
       hideHandlers = new ArrayList<>();
     }
@@ -213,24 +250,50 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   }
 
   /**
-   * removes the hide handler
+   * Add handler to be called when ever the element changed state to hidden before the hide
+   * operation started
    *
-   * @param handler {@link HideCompletedHandler}
+   * @param handler {@link HideHandler}
    * @return same Collapsible instance
    */
-  public void removeHideHandler(HideCompletedHandler handler) {
+  public Collapsible addBeforeHideHandler(HideHandler handler) {
+    if (isNull(beforeHideHandlers)) {
+      beforeHideHandlers = new ArrayList<>();
+    }
+    beforeHideHandlers.add(handler);
+    return this;
+  }
+
+  /**
+   * removes the hide handler
+   *
+   * @param handler {@link HideHandler}
+   * @return same Collapsible instance
+   */
+  public void removeHideHandler(HideHandler handler) {
     if (nonNull(hideHandlers)) {
       hideHandlers.remove(handler);
+    }
+  }
+  /**
+   * removes the before hide handler
+   *
+   * @param handler {@link HideHandler}
+   * @return same Collapsible instance
+   */
+  public void removeBeforeHideHandler(HideHandler handler) {
+    if (nonNull(beforeHideHandlers)) {
+      beforeHideHandlers.remove(handler);
     }
   }
 
   /**
    * Add handler to be called when ever the element changed state to visible
    *
-   * @param handler {@link ShowCompletedHandler}
+   * @param handler {@link ShowHandler}
    * @return same Collapsible instance
    */
-  public Collapsible addShowHandler(ShowCompletedHandler handler) {
+  public Collapsible addShowHandler(ShowHandler handler) {
     if (isNull(showHandlers)) {
       showHandlers = new ArrayList<>();
     }
@@ -239,14 +302,41 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   }
 
   /**
-   * removes the show handler
+   * Add handler to be called when ever the element changed state to visible, before the show
+   * operation is completed
    *
-   * @param handler {@link ShowCompletedHandler}
+   * @param handler {@link ShowHandler}
    * @return same Collapsible instance
    */
-  public void removeShowHandler(ShowCompletedHandler handler) {
+  public Collapsible addBeforeShowHandler(ShowHandler handler) {
+    if (isNull(beforeShowHandlers)) {
+      beforeShowHandlers = new ArrayList<>();
+    }
+    beforeShowHandlers.add(handler);
+    return this;
+  }
+
+  /**
+   * removes the show handler
+   *
+   * @param handler {@link ShowHandler}
+   * @return same Collapsible instance
+   */
+  public void removeShowHandler(ShowHandler handler) {
     if (nonNull(showHandlers)) {
       showHandlers.remove(handler);
+    }
+  }
+
+  /**
+   * removes the before show handler
+   *
+   * @param handler {@link ShowHandler}
+   * @return same Collapsible instance
+   */
+  public void removeBeforeShowHandler(ShowHandler handler) {
+    if (nonNull(beforeShowHandlers)) {
+      beforeShowHandlers.remove(handler);
     }
   }
 
@@ -264,7 +354,8 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
       this.strategy.cleanup(element, style);
     }
     this.strategy = strategy;
-    this.strategy.init(element, style);
+
+    this.strategy.init(element, style, handlers);
     return this;
   }
 
@@ -276,13 +367,13 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
 
   /** A callback interface to attach some listener when finish hiding the element */
   @FunctionalInterface
-  public interface HideCompletedHandler {
-    void onHidden();
+  public interface HideHandler {
+    void apply();
   }
 
   /** A callback interface to attach some listener when showing an element. */
   @FunctionalInterface
-  public interface ShowCompletedHandler {
-    void onShown();
+  public interface ShowHandler {
+    void apply();
   }
 }

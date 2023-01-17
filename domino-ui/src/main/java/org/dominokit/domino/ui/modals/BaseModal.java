@@ -610,6 +610,11 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     return modal;
   }
 
+  @Override
+  public boolean isDialog() {
+    return true;
+  }
+
   /**
    * @param modal boolean,true to make this modal show an overlay to block the content behind it
    *     when it is open

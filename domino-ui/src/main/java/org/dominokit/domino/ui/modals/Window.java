@@ -123,7 +123,8 @@ public class Window extends BaseModal<Window> {
           }
         });
 
-    initPosition();
+    addBeforeShowListener(this::updatePosition);
+    //    initPosition();
   }
 
   private void onMove(Event evt) {
@@ -263,19 +264,31 @@ public class Window extends BaseModal<Window> {
     this.windowTop = windowTop;
     return this;
   }
-
-  private void initPosition() {
-    addOpenListener(this::updatePosition);
-  }
+  //
+  //  private void initPosition() {
+  //    onAttached(mutationRecord -> {
+  //      DomGlobal.setTimeout(p0-> {
+  //        updatePosition();
+  //      },0);
+  //    });
+  //  }
 
   private void updatePosition() {
     if (maximized) {
       modalElement.element().style.left = "0px";
       modalElement.element().style.top = "0px";
     } else {
-      DOMRect windowRect = modalElement.getModalDialog().element().getBoundingClientRect();
+      DOMRect windowRect = modalElement.element().getBoundingClientRect();
       double initialWidth = windowRect.width;
       double windowWidth = DomGlobal.window.innerWidth;
+
+      DomGlobal.console.info("Initial width : " + initialWidth);
+      DomGlobal.console.info("Window width : " + windowWidth);
+      DomGlobal.console.info("windowLeft : " + windowLeft);
+      DomGlobal.console.info(
+          "((windowWidth - initialWidth) / 2) : " + ((windowWidth - initialWidth) / 2));
+      DomGlobal.console.info("fixed : " + fixed);
+      DomGlobal.console.info("DomGlobal.window.pageXOffset : " + DomGlobal.window.pageXOffset);
 
       if (windowLeft < 0) {
         modalElement.element().style.left =

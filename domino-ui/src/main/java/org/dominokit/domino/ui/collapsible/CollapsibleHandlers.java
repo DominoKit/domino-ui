@@ -13,20 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.utils;
+package org.dominokit.domino.ui.collapsible;
 
-public interface IsPopup<T> {
-  T open();
+public interface CollapsibleHandlers {
 
-  T close();
+  Runnable onBeforeShow();
 
-  boolean isModal();
+  Runnable onShowCompleted();
 
-  boolean isAutoClose();
+  Runnable onBeforeHide();
 
-  default boolean isDialog() {
-    return false;
-  }
-
-  T setZIndex(int zIndex);
+  Runnable onHideCompleted();
 }
