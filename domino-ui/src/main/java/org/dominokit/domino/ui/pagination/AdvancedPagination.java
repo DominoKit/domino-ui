@@ -150,12 +150,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
             .css("page-nav")
             .appendChild(lastPageAnchor.appendChild(Icons.ALL.skip_next().clickable()));
 
-    addListenerToElement(
-        lastPageAnchor,
-        event -> {
-          DomGlobal.console.info("going to last page : " + allPages.size());
-          moveToPage(allPages.size(), false);
-        });
+    addListenerToElement(lastPageAnchor, event -> moveToPage(allPages.size(), false));
 
     if (pages > 0) {
       moveToPage(1, silent);

@@ -163,8 +163,6 @@ public class ResizeColumnsPlugin<T>
 
             String minWidth = meta.suppliedMinWidthOrOriginal(width);
 
-            DomGlobal.console.info(minWidth);
-
             if (config.isClipContent()) {
               String maxWidth = meta.suppliedMaxWidthOrOriginal(width);
               col.maxWidth(maxWidth);

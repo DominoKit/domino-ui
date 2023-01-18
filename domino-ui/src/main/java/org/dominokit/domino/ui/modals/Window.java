@@ -282,14 +282,6 @@ public class Window extends BaseModal<Window> {
       double initialWidth = windowRect.width;
       double windowWidth = DomGlobal.window.innerWidth;
 
-      DomGlobal.console.info("Initial width : " + initialWidth);
-      DomGlobal.console.info("Window width : " + windowWidth);
-      DomGlobal.console.info("windowLeft : " + windowLeft);
-      DomGlobal.console.info(
-          "((windowWidth - initialWidth) / 2) : " + ((windowWidth - initialWidth) / 2));
-      DomGlobal.console.info("fixed : " + fixed);
-      DomGlobal.console.info("DomGlobal.window.pageXOffset : " + DomGlobal.window.pageXOffset);
-
       if (windowLeft < 0) {
         modalElement.element().style.left =
             ((windowWidth - initialWidth) / 2)
