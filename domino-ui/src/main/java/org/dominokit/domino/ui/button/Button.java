@@ -79,7 +79,7 @@ public class Button extends BaseButton<Button> {
   public Button(BaseIcon<?> icon) {
     super(icon);
     init(this);
-    elevate(Elevation.LEVEL_1);
+    elevate(DominoUIConfig.INSTANCE.getDefaultButtonElevation());
   }
 
   /**
