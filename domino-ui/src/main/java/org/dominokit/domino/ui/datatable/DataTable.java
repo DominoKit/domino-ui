@@ -541,6 +541,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         }
       }
       onSelectionChange(tableRows.get(0));
+      fireTableEvent(SelectAllEvent.of(true, selectionCondition));
     }
   }
 
@@ -561,6 +562,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         }
       }
       onSelectionChange(tableRows.get(0));
+      fireTableEvent(SelectAllEvent.of(false, selectionCondition));
     }
   }
 
