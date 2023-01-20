@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.utils;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.CSSStyleSheet;
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLStyleElement;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,18 +50,22 @@ public class DominoStyleSheet {
   }
 
   public void flushInto(HTMLStyleElement style) {
-    if (nonNull(style)) {
-      if (nonNull(style.sheet)) {
-        CSSStyleSheet cssStyleSheet = Js.uncheckedCast(style.sheet);
-        while (cssStyleSheet.cssRules.length > 0) {
-          cssStyleSheet.deleteRule(cssStyleSheet.cssRules.length - 1);
-        }
-        cssRules.forEach(
-            (s, rule) -> {
-              String cssText = rule.cssText();
-              cssStyleSheet.insertRule(cssText, 0);
-            });
-      }
-    }
+    DomGlobal.setTimeout(
+        p0 -> {
+          if (nonNull(style)) {
+            if (nonNull(style.sheet)) {
+              CSSStyleSheet cssStyleSheet = Js.uncheckedCast(style.sheet);
+              while (cssStyleSheet.cssRules.length > 0) {
+                cssStyleSheet.deleteRule(cssStyleSheet.cssRules.length - 1);
+              }
+              cssRules.forEach(
+                  (s, rule) -> {
+                    String cssText = rule.cssText();
+                    cssStyleSheet.insertRule(cssText, 0);
+                  });
+            }
+          }
+        },
+        0);
   }
 }

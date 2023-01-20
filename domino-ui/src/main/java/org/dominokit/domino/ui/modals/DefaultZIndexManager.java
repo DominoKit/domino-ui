@@ -34,14 +34,14 @@ public class DefaultZIndexManager implements ZIndexManager {
    * {@inheritDoc}
    *
    * @return The next z-index starting from {@link DominoUIConfig#getInitialZIndex()} and
-   *     incremented by {@link DominoUIConfig#getzIndexIncrement()} with every call
+   *     incremented by {@link DominoUIConfig#getZindexIncrement()} with every call
    */
   @Override
   public Integer getNextZIndex() {
     if (isNull(currentZIndex)) {
       this.currentZIndex = DominoUIConfig.INSTANCE.getInitialZIndex();
     }
-    currentZIndex += DominoUIConfig.INSTANCE.getzIndexIncrement();
+    currentZIndex += DominoUIConfig.INSTANCE.getZindexIncrement();
     return currentZIndex;
   }
 

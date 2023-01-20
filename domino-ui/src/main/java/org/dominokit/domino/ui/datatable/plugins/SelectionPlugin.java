@@ -301,6 +301,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
    * @return same plugin instance
    */
   public SelectionPlugin<T> setSingleSelectIcon(BaseIcon<?> singleSelectIcon) {
+    this.singleSelectIndicator = singleSelectIcon.element();
     return this;
   }
 

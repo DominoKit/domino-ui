@@ -300,7 +300,8 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
       this.attachEventListener =
           evt -> {
             CustomEvent cevent = Js.uncheckedCast(evt);
-            observerCallback.onObserved(Js.uncheckedCast(cevent.detail));
+            attachObservers.forEach(
+                callback -> callback.onObserved(Js.uncheckedCast(cevent.detail)));
           };
       this.element
           .element()

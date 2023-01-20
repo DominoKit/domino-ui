@@ -99,6 +99,7 @@ public class PinColumnsPlugin<T>
                                     "col-pin-" + col.getName().replace(" ", "_"));
                               });
                     }));
+    this.datatable.onAttached(mutationRecord -> pinColumns());
   }
 
   @Override

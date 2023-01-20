@@ -145,13 +145,13 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
                 minZIndex.ifPresent(
                     minIndex -> {
                       Integer sidePanelsIndex =
-                          minIndex - (config().getzIndexIncrement() * (modalOpen ? 3 : 2));
+                          minIndex - (config().getZindexIncrement() * (modalOpen ? 3 : 2));
                       getRightPanel().setZIndex(sidePanelsIndex);
                       getNavigationBar()
                           .setZIndex(
-                              minIndex - (config().getzIndexIncrement() * (modalOpen ? 2 : 1)));
+                              minIndex - (config().getZindexIncrement() * (modalOpen ? 2 : 1)));
                       if (DominoElement.body().containsCss("l-panel-span-up")) {
-                        getLeftPanel().setZIndex(minIndex - config().getzIndexIncrement());
+                        getLeftPanel().setZIndex(minIndex - config().getZindexIncrement());
                       } else {
                         getLeftPanel().setZIndex(sidePanelsIndex);
                       }

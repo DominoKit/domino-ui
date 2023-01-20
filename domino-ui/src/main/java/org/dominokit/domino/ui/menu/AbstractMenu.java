@@ -23,13 +23,7 @@ import static org.jboss.elemento.Elements.li;
 import static org.jboss.elemento.Elements.span;
 import static org.jboss.elemento.Elements.ul;
 
-import elemental2.dom.Event;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLIElement;
-import elemental2.dom.HTMLUListElement;
+import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -60,6 +54,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
     extends BaseDominoElement<HTMLDivElement, T> implements IsPopup<T> {
 
   protected final SearchBox searchBox;
+  private final EventListener positionListener;
   protected FlexLayout menuElement = FlexLayout.create();
 
   protected final FlexItem<HTMLDivElement> headContainer =
@@ -224,6 +219,10 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
             .addEventListener("touchstart", Event::stopPropagation));
 
     menuHeader.leftAddOnsContainer.appendChild(backArrowContainer);
+    positionListener = evt -> position();
+    onAttached(mutationRecord -> document.body.addEventListener("scroll", positionListener, true));
+    onDetached(
+        mutationRecord -> document.body.removeEventListener("scroll", positionListener, true));
   }
 
   private void onAddMissingElement() {
@@ -804,13 +803,13 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   public void open(boolean focus) {
     if (isDropDown()) {
       if (isOpened()) {
-        getEffectiveDropDirection().position(element.element(), getTargetElement());
+        position();
       } else {
         closeOthers();
         searchBox.clearSearch();
         onAttached(
             mutationRecord -> {
-              getEffectiveDropDirection().position(element.element(), getTargetElement());
+              position();
               if (focus) {
                 focus();
               }
@@ -836,6 +835,10 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
         show();
       }
     }
+  }
+
+  private void position() {
+    getEffectiveDropDirection().position(element.element(), getTargetElement());
   }
 
   protected DropDirection getEffectiveDropDirection() {
