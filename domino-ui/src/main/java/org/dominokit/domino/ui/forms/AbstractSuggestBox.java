@@ -409,6 +409,9 @@ public abstract class AbstractSuggestBox<T extends AbstractSuggestBox<T, V>, V>
         Loader.create(loaderContainer, loaderEffect)
             .setSize("20px", "20px")
             .setRemoveLoadingText(true);
+
+    DominoElement.of(loader.getLoaderElement().getElement()).setBackgroundColor("transparent");
+
     return (T) this;
   }
 
