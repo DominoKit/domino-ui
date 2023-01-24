@@ -28,6 +28,7 @@ public class TabStyles {
   public static final String TAB_CONTENT = "tab-content";
   public static final String TITLE = "title";
   public static final String VTABS_PANEL = "vtabs-panel";
+  public static final String HTABS_PANEL = "htabs-panel";
   public static final String TABS_CONTAINER = "tabs-container";
   public static final String TABS = "tabs";
   public static final String TABS_CONTENT = "tabs-content";
