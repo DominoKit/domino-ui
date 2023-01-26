@@ -152,6 +152,8 @@ public class PinColumnsPlugin<T>
         .findFirst()
         .ifPresent(this::setPinRightColumn);
     dataTable.onResize((element, observer, entries) -> applyPinnedColumns());
+
+    this.datatable.headerElement().setZIndex(2);
   }
 
   private void onBeforeSetPinColumn() {
@@ -165,7 +167,10 @@ public class PinColumnsPlugin<T>
                       ColumnCssRuleMeta.get(column)
                           .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
                           .ifPresent(
-                              pinCssRule -> pinCssRule.getCssRule().removeProperty("position"));
+                              pinCssRule -> {
+                                pinCssRule.getCssRule().removeProperty("position");
+                                pinCssRule.getCssRule().removeProperty("z-index");
+                              });
                       column.getHeadElement().removeCssProperty("z-index");
                       ColumnHeaderMeta.get(column)
                           .ifPresent(

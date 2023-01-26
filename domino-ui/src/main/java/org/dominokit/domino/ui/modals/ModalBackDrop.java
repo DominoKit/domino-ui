@@ -24,7 +24,6 @@ import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
-import org.jboss.elemento.Elements;
 import org.jboss.elemento.EventType;
 
 /**
@@ -38,13 +37,23 @@ public class ModalBackDrop {
 
   /** The single instance of the overlay backdrop element */
   public static final DominoElement<HTMLDivElement> INSTANCE =
-      DominoElement.of(Elements.div())
+      DominoElement.div()
           .css(ModalStyles.MODAL_BACKDROP)
           .css(ModalStyles.FADE)
           .css(ModalStyles.IN)
+          .setTabIndex(-1)
+          .setDisabled(true)
+          .addEventListener(
+              "scroll",
+              evt -> {
+                evt.preventDefault();
+                evt.stopPropagation();
+              })
           .addEventListener(
               EventType.click,
               event -> {
+                event.preventDefault();
+                event.stopPropagation();
                 if (ModalBackDrop.INSTANCE.isEqualNode(Js.uncheckedCast(event.target))) {
                   closeCurrentOpen();
                 }
@@ -66,6 +75,8 @@ public class ModalBackDrop {
             popup -> {
               if (popup.isAutoClose()) {
                 popup.close();
+              } else {
+                popup.stealFocus();
               }
             });
   }

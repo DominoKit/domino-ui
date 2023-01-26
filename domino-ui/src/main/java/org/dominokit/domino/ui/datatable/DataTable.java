@@ -207,44 +207,54 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return this;
   }
 
-  public void redraw() {
+  public DataTable<T> redraw() {
     tableConfig.onBeforeHeaders(this);
     tableConfig.drawHeaders(this, thead);
     tableConfig.onAfterHeaders(this);
     load();
+    return this;
   }
 
-  /** Force loading the data into the table */
-  public void load() {
+  /**
+   * Force loading the data into the table
+   *
+   * @return Same datatable instance
+   */
+  public DataTable<T> load() {
     this.dataStore.load();
+    return this;
   }
 
   /**
    * Set the table data
    *
    * @param data {@link List} of T
+   * @return Same datatable instance
    */
-  public void setData(List<T> data) {
+  public DataTable<T> setData(List<T> data) {
     this.data = data;
     tableRows.clear();
     removeRecordsHandler.removeRows(this);
     if (nonNull(data) && !data.isEmpty()) {
       addRows(data, 0);
     }
+    return this;
   }
 
   /**
    * Appends more records to the current data list of the table
    *
    * @param newData {@link List} of T
+   * @return Same datatable instance
    */
-  public void appendData(List<T> newData) {
+  public DataTable<T> appendData(List<T> newData) {
     if (nonNull(this.data)) {
       addRows(newData, this.data.size());
       this.data.addAll(newData);
     } else {
       setData(newData);
     }
+    return this;
   }
 
   private void addRows(List<T> data, int initialIndex) {
@@ -440,8 +450,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * Immediately filter the current table rows using the the specified filter
    *
    * @param rowFilter {@link LocalRowFilter}
+   * @return Same datatable instance
    */
-  public void filterRows(LocalRowFilter<T> rowFilter) {
+  public DataTable<T> filterRows(LocalRowFilter<T> rowFilter) {
     tableRows.forEach(
         tableRow -> {
           if (rowFilter.filter(tableRow)) {
@@ -455,10 +466,15 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
             tableRow.fireUpdate();
           }
         });
+    return this;
   }
 
-  /** Clear all filtration applied using {@link #filterRows(LocalRowFilter)} */
-  public void clearRowFilters() {
+  /**
+   * Clear all filtration applied using {@link #filterRows(LocalRowFilter)}
+   *
+   * @return Same datatable instance
+   */
+  public DataTable<T> clearRowFilters() {
     tableRows.stream()
         .filter(tableRow -> nonNull(tableRow.getFlag(DATA_TABLE_ROW_FILTERED)))
         .forEach(
@@ -467,6 +483,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
               tableRow.removeFlag(DATA_TABLE_ROW_FILTERED);
               tableRow.fireUpdate();
             });
+    return this;
   }
 
   /** {@inheritDoc} */
@@ -532,8 +549,12 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     selectAll((table, tableRow) -> true);
   }
 
-  /** Select all table rows that match a condition */
-  public void selectAll(SelectionCondition<T> selectionCondition) {
+  /**
+   * Select all table rows that match a condition
+   *
+   * @return Same datatable instance
+   */
+  public DataTable<T> selectAll(SelectionCondition<T> selectionCondition) {
     if (tableConfig.isMultiSelect() && !tableRows.isEmpty()) {
       for (TableRow<T> tableRow : tableRows) {
         if (selectionCondition.isAllowSelection(this, tableRow)) {
@@ -543,6 +564,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
       onSelectionChange(tableRows.get(0));
       fireTableEvent(SelectAllEvent.of(true, selectionCondition));
     }
+    return this;
   }
 
   /** Deselect all table rows */
@@ -551,8 +573,12 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     deselectAll((table, tableRow) -> true);
   }
 
-  /** Deselect all table rows that match a condition */
-  public void deselectAll(SelectionCondition<T> selectionCondition) {
+  /**
+   * Deselect all table rows that match a condition
+   *
+   * @return Same datatable instance
+   */
+  public DataTable<T> deselectAll(SelectionCondition<T> selectionCondition) {
     if (!tableRows.isEmpty()) {
       for (TableRow<T> tableRow : tableRows) {
         if (tableRow.isSelected()) {
@@ -564,6 +590,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
       onSelectionChange(tableRows.get(0));
       fireTableEvent(SelectAllEvent.of(false, selectionCondition));
     }
+    return this;
   }
 
   /** {@inheritDoc} */
@@ -576,14 +603,20 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * Add a listener to listen to data table selection changes
    *
    * @param selectionChangeListener {@link SelectionChangeListener}
+   * @return Same datatable instance
    */
-  public void addSelectionListener(SelectionChangeListener<T> selectionChangeListener) {
+  public DataTable<T> addSelectionListener(SelectionChangeListener<T> selectionChangeListener) {
     this.selectionChangeListeners.add(selectionChangeListener);
+    return this;
   }
 
-  /** @param selectionChangeListener {@link SelectionChangeListener} */
-  public void removeSelectionListener(SelectionChangeListener<T> selectionChangeListener) {
+  /**
+   * @param selectionChangeListener {@link SelectionChangeListener}
+   * @return Same datatable instance
+   */
+  public DataTable<T> removeSelectionListener(SelectionChangeListener<T> selectionChangeListener) {
     this.selectionChangeListeners.remove(selectionChangeListener);
+    return this;
   }
 
   /** @deprecated use {@link #addTableEventListener(String, TableEventListener)} */
@@ -597,12 +630,14 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    *
    * @param type String type of the event
    * @param listener {@link TableEventListener}
+   * @return Same datatable instance
    */
-  public void addTableEventListener(String type, TableEventListener listener) {
+  public DataTable<T> addTableEventListener(String type, TableEventListener listener) {
     if (!events.containsKey(type)) {
       events.put(type, new ArrayList<>());
     }
     events.get(type).add(listener);
+    return this;
   }
 
   /**
@@ -610,24 +645,28 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    *
    * @param type String type of the event
    * @param listener {@link TableEventListener}
+   * @return Same datatable instance
    */
-  public void removeTableListener(String type, TableEventListener listener) {
+  public DataTable<T> removeTableListener(String type, TableEventListener listener) {
     if (events.containsKey(type)) {
       events.get(type).remove(listener);
     }
+    return this;
   }
 
   /**
    * Manually fire a table event
    *
    * @param tableEvent {@link TableEvent}
+   * @return Same datatable instance
    */
-  public void fireTableEvent(TableEvent tableEvent) {
+  public DataTable<T> fireTableEvent(TableEvent tableEvent) {
     if (events.containsKey(tableEvent.getType())) {
       events.get(tableEvent.getType()).forEach(listener -> listener.handleEvent(tableEvent));
     }
 
     events.get(ANY).forEach(listener -> listener.handleEvent(tableEvent));
+    return this;
   }
 
   /** @return the current {@link SearchContext} of the data table */

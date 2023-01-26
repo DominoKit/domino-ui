@@ -3332,7 +3332,6 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 .select-button {
     background-color: transparent;
     width: 100%;
-    z-index: 1;
     border: 0px;
     text-align: left;
     padding: 0;

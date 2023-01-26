@@ -363,19 +363,31 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       initFocusElements();
       activeElementBeforeOpen = DominoDom.document.activeElement;
       config().getZindexManager().onPopupOpen(this);
-      if (nonNull(firstFocusElement) && isAutoFocus()) {
-        firstFocusElement.focus();
-        if (!Objects.equals(DominoDom.document.activeElement, firstFocusElement)) {
-          if (nonNull(lastFocusElement)) {
-            lastFocusElement.focus();
-          }
-        }
-      }
+      stealFocus();
       openHandlers.forEach(OpenHandler::onOpen);
       this.open = true;
       show();
     }
     return (T) this;
+  }
+
+  @Override
+  public void stealFocus() {
+    if (nonNull(firstFocusElement) && isAutoFocus()) {
+      nowOrWhenAttached(
+          () -> {
+            DomGlobal.setTimeout(
+                p0 -> {
+                  firstFocusElement.focus();
+                  if (!Objects.equals(DominoDom.document.activeElement, firstFocusElement)) {
+                    if (nonNull(lastFocusElement)) {
+                      lastFocusElement.focus();
+                    }
+                  }
+                },
+                0);
+          });
+    }
   }
 
   private void initFocusElements() {

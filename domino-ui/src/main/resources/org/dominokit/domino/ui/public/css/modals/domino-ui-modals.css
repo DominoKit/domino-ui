@@ -360,6 +360,7 @@ body.modal-open {
 }
 
 .modal .modal-content .modal-body {
+    background-color: inherit;
     color: #777;
     padding: 15px 25px 15px 25px;
 }

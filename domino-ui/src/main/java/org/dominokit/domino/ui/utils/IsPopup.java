@@ -29,4 +29,6 @@ public interface IsPopup<T> {
   }
 
   T setZIndex(int zIndex);
+
+  default void stealFocus() {}
 }
