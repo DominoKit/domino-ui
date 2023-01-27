@@ -37,6 +37,7 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
   public static final String D_COLLAPSED = "d-collapsed";
   private final CollapseDuration transition;
   private final TreeItem<?> treeItem;
+  private CollapsibleHandlers handlers;
 
   public TreeHeightCollapseStrategy(TreeItem<?> treeItem) {
     this.treeItem = treeItem;
@@ -49,7 +50,11 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
   }
 
   @Override
-  public void init(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
+  public void init(
+      HTMLElement element,
+      Style<HTMLElement, IsElement<HTMLElement>> style,
+      CollapsibleHandlers handlers) {
+    this.handlers = handlers;
     style.addCss(CollapsibleStyles.HEIGHT_COLLAPSED_OVERFLOW);
     style.addCss(transition.getStyle());
   }
@@ -63,24 +68,20 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
 
   /** {@inheritDoc} */
   @Override
-  public void show(
-      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted) {
+  public void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
     DominoElement.of(element)
         .apply(
             self -> {
-              if (self.isAttached()) {
-                expandElement(element, style, onCompleted);
-              } else {
-                self.onAttached(
-                    mutationRecord -> {
-                      expandElement(element, style, onCompleted);
-                    });
-              }
+              self.nowOrWhenAttached(
+                  () -> {
+                    this.handlers.onBeforeShow().run();
+                    expandElement(element, style);
+                  });
             });
   }
 
   private void expandElement(
-      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted) {
+      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
 
     DominoElement<HTMLElement> theElement = DominoElement.of(element);
     if (!theElement.containsCss(CollapsibleStyles.HEIGHT_COLLAPSED)) {
@@ -92,7 +93,7 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
           theElement.removeAttribute("dom-ui-collapse-height");
           element.style.height = CSSProperties.HeightUnionType.of(collapseHeight);
           resetParentHeight(treeItem);
-          onCompleted.run();
+          this.handlers.onShowCompleted().run();
         };
     String scrollHeight = element.getAttribute(DOM_UI_SCROLL_HEIGHT);
     AddEventListenerOptions addEventListenerOptions = AddEventListenerOptions.create();
@@ -124,21 +125,22 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy {
 
   /** {@inheritDoc} */
   @Override
-  public void hide(
-      HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style, Runnable onCompleted) {
+  public void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
     DominoElement.of(element)
         .apply(
             self -> {
               if (self.isAttached()) {
+                this.handlers.onBeforeHide().run();
                 collapseElement(element, style, true);
-                onCompleted.run();
+                this.handlers.onHideCompleted().run();
               } else {
                 self.onAttached(
                     mutationRecord -> {
+                      this.handlers.onBeforeHide().run();
                       style.removeCss(transition.getStyle());
                       collapseElement(element, style, false);
                       style.addCss(transition.getStyle());
-                      onCompleted.run();
+                      this.handlers.onHideCompleted().run();
                     });
               }
             });

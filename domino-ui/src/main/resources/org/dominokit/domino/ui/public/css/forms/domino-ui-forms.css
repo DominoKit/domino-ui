@@ -153,7 +153,13 @@
 
 .field-group .field-input-cntr {
     position: relative;
+    background-color: inherit;
     width: 100%;
+}
+
+.field-cntr .flex-layout,
+.field-cntr .field-label{
+    background-color: inherit;
 }
 
 .field-group.readonly .field-label,
@@ -163,6 +169,18 @@
 
 .field-group.d-checkbox.error .field-label {
     color: #5d5d5d;
+}
+
+.field-group.lined.d-select .field-cntr .flex-layout{
+    position: relative;
+    bottom: 4px;
+    align-items: center;
+}
+
+.field-group.rounded.d-select .field-cntr .flex-layout{
+    position: relative;
+    bottom: 2px;
+    align-items: center;
 }
 
 .field-group .field-label {
@@ -181,16 +199,15 @@
 }
 
 .field-group.rounded.readonly.floating:not([class*="switch"]):not([class*="d-checkbox"]) .field-label {
-    background-color: transparent;
+    background-color: inherit;
 }
 
 .field-group.rounded.floating:not([class*="switch"]):not([class*="d-checkbox"]) .field-label {
     top: -14px;
-    background-color: transparent;
+    background-color: inherit;
     padding-left: 3px;
     padding-right: 3px;
     left: 5px;
-    z-index: 9;
 }
 
 .field-group.rounded.floating:not([class*="switch"]):not([class*="d-checkbox"]) .field-label span:not(:empty):after {

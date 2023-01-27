@@ -361,11 +361,11 @@ public class DominoUIConfig {
     return this;
   }
 
-  public int getzIndexIncrement() {
+  public int getZindexIncrement() {
     return zIndexIncrement;
   }
 
-  public DominoUIConfig setzindexIncrement(int zIndexIncrement) {
+  public DominoUIConfig setZindexIncrement(int zIndexIncrement) {
     this.zIndexIncrement = zIndexIncrement;
     return this;
   }

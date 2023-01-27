@@ -34,14 +34,14 @@ public class DefaultZIndexManager implements ZIndexManager {
    * {@inheritDoc}
    *
    * @return The next z-index starting from {@link DominoUIConfig#getInitialZIndex()} and
-   *     incremented by {@link DominoUIConfig#getzIndexIncrement()} with every call
+   *     incremented by {@link DominoUIConfig#getZindexIncrement()} with every call
    */
   @Override
   public Integer getNextZIndex() {
     if (isNull(currentZIndex)) {
       this.currentZIndex = DominoUIConfig.INSTANCE.getInitialZIndex();
     }
-    currentZIndex += DominoUIConfig.INSTANCE.getzIndexIncrement();
+    currentZIndex += DominoUIConfig.INSTANCE.getZindexIncrement();
     return currentZIndex;
   }
 
@@ -66,7 +66,7 @@ public class DefaultZIndexManager implements ZIndexManager {
     popup.setZIndex(nextZIndex);
     assignedValues.add(nextZIndex);
     listeners.forEach(
-        listener -> listener.onZIndexChange(assignedValues, ModalBackDrop.INSTANCE.isAttached()));
+        listener -> listener.onZIndexChange(assignedValues, popup.isModal(), popup.isDialog()));
   }
 
   /**
@@ -88,7 +88,8 @@ public class DefaultZIndexManager implements ZIndexManager {
         assignedValues.add(modalZIndex);
         listeners.forEach(
             listener ->
-                listener.onZIndexChange(assignedValues, ModalBackDrop.INSTANCE.isAttached()));
+                listener.onZIndexChange(
+                    assignedValues, modals.peek().isModal(), modals.peek().isDialog()));
       } else {
         ModalBackDrop.INSTANCE.remove();
       }

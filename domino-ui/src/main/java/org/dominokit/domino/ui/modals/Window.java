@@ -123,7 +123,8 @@ public class Window extends BaseModal<Window> {
           }
         });
 
-    initPosition();
+    addBeforeShowListener(this::updatePosition);
+    //    initPosition();
   }
 
   private void onMove(Event evt) {
@@ -263,17 +264,21 @@ public class Window extends BaseModal<Window> {
     this.windowTop = windowTop;
     return this;
   }
-
-  private void initPosition() {
-    addOpenListener(this::updatePosition);
-  }
+  //
+  //  private void initPosition() {
+  //    onAttached(mutationRecord -> {
+  //      DomGlobal.setTimeout(p0-> {
+  //        updatePosition();
+  //      },0);
+  //    });
+  //  }
 
   private void updatePosition() {
     if (maximized) {
       modalElement.element().style.left = "0px";
       modalElement.element().style.top = "0px";
     } else {
-      DOMRect windowRect = modalElement.getModalDialog().element().getBoundingClientRect();
+      DOMRect windowRect = modalElement.element().getBoundingClientRect();
       double initialWidth = windowRect.width;
       double windowWidth = DomGlobal.window.innerWidth;
 

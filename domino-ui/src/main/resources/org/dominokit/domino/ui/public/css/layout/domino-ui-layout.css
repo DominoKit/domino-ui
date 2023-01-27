@@ -399,7 +399,6 @@ section.content.fit-height {
 
 .navbar.nav-fixed {
     position: fixed;
-    z-index: 12;
     transition: left 0.5s, width 0.5s;
     right: 0px;
     left: 0px;
@@ -723,7 +722,6 @@ section.content.fit-height {
 .l-panel-span-up .sidebar {
     top: 0px;
     height: calc(100vh);
-    z-index: 13;
 }
 .l-panel-span-up.ls-closed.panel-open.sm .navbar.nav-fixed,
 .l-panel-span-up.ls-closed.panel-open.md .navbar.nav-fixed,

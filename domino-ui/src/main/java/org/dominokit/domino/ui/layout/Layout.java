@@ -136,19 +136,32 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
       onShowHandler.handleLayout(this);
     }
 
+    overlay.setZIndex(config().getZindexManager().getNextZIndex());
+    getRightPanel().setZIndex(config().getZindexManager().getNextZIndex());
+    getNavigationBar().setZIndex(config().getZindexManager().getNextZIndex());
+    getLeftPanel().setZIndex(config().getZindexManager().getNextZIndex());
+
     config()
         .getZindexManager()
         .addZIndexListener(
-            (assignedValues, modalOpen) -> {
+            (assignedValues, modalOpen, isDialog) -> {
               Optional<Integer> minZIndex = assignedValues.stream().min(Integer::compare);
-              if (modalOpen) {
+              if (isDialog) {
                 minZIndex.ifPresent(
                     minIndex -> {
-                      Integer sidePanelsIndex = minIndex - (config().getzIndexIncrement() * 3);
+                      int sidePanelsIndex =
+                          Math.max(
+                              1, minIndex - (config().getZindexIncrement() * (modalOpen ? 3 : 2)));
                       getRightPanel().setZIndex(sidePanelsIndex);
-                      getNavigationBar().setZIndex(minIndex - (config().getzIndexIncrement() * 2));
+                      getNavigationBar()
+                          .setZIndex(
+                              Math.max(
+                                  1,
+                                  minIndex
+                                      - (config().getZindexIncrement() * (modalOpen ? 2 : 1))));
                       if (DominoElement.body().containsCss("l-panel-span-up")) {
-                        getLeftPanel().setZIndex(minIndex - config().getzIndexIncrement());
+                        getLeftPanel()
+                            .setZIndex(Math.max(1, minIndex - config().getZindexIncrement()));
                       } else {
                         getLeftPanel().setZIndex(sidePanelsIndex);
                       }

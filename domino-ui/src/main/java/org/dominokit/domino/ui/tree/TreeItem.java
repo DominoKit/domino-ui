@@ -407,28 +407,28 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   /** {@inheritDoc} */
   @Override
-  public TreeItem<T> addHideListener(Collapsible.HideCompletedHandler handler) {
+  public TreeItem<T> addHideListener(Collapsible.HideHandler handler) {
     collapsible.addHideHandler(handler);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public TreeItem<T> removeHideListener(Collapsible.HideCompletedHandler handler) {
+  public TreeItem<T> removeHideListener(Collapsible.HideHandler handler) {
     collapsible.removeHideHandler(handler);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public TreeItem<T> addShowListener(Collapsible.ShowCompletedHandler handler) {
+  public TreeItem<T> addShowListener(Collapsible.ShowHandler handler) {
     collapsible.addShowHandler(handler);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public TreeItem<T> removeShowListener(Collapsible.ShowCompletedHandler handler) {
+  public TreeItem<T> removeShowListener(Collapsible.ShowHandler handler) {
     collapsible.removeShowHandler(handler);
     return this;
   }

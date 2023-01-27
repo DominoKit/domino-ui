@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.tabs;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.tabs.TabStyles.HTABS_PANEL;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.Elements.ul;
 
@@ -65,7 +66,7 @@ import org.jboss.elemento.IsElement;
 public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     implements IsElement<HTMLDivElement> {
 
-  private final HTMLDivElement element = DominoElement.of(div()).element();
+  private final HTMLDivElement element = DominoElement.div().css(HTABS_PANEL).element();
   private final DominoElement<HTMLUListElement> tabsList =
       DominoElement.of(ul())
           .css(TabStyles.NAV, TabStyles.NAV_TABS, TabStyles.NAV_TABS_RIGHT)

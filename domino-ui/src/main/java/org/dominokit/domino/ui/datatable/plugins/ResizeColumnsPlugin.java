@@ -145,8 +145,19 @@ public class ResizeColumnsPlugin<T>
                       DominoDom.document.body.removeEventListener(
                           EventType.mousemove.getName(), resizeListener);
                     };
-                resizeElement.addEventListener(EventType.mouseup.getName(), stopResizing);
-                DominoDom.document.body.addEventListener(EventType.mouseup.getName(), stopResizing);
+
+                this.datatable.onAttached(
+                    mutationRecord -> {
+                      resizeElement.addEventListener(EventType.mouseup.getName(), stopResizing);
+                      DominoDom.document.body.addEventListener(
+                          EventType.mouseup.getName(), stopResizing);
+                    });
+                this.datatable.onDetached(
+                    mutationRecord -> {
+                      resizeElement.removeEventListener(EventType.mouseup.getName(), stopResizing);
+                      DominoDom.document.body.removeEventListener(
+                          EventType.mouseup.getName(), stopResizing);
+                    });
                 column.appendChild(FlexItem.of(resizeElement));
               }
             });
@@ -162,8 +173,6 @@ public class ResizeColumnsPlugin<T>
             col.setWidth(width);
 
             String minWidth = meta.suppliedMinWidthOrOriginal(width);
-
-            DomGlobal.console.info(minWidth);
 
             if (config.isClipContent()) {
               String maxWidth = meta.suppliedMaxWidthOrOriginal(width);

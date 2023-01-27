@@ -2653,7 +2653,6 @@ a {
     top: 70px;
     margin-right: 0px;
     background: #fdfdfd;
-    z-index: 11 !important;
     -webkit-box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
     -ms-box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
@@ -3333,7 +3332,6 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
 .select-button {
     background-color: transparent;
     width: 100%;
-    z-index: 1;
     border: 0px;
     text-align: left;
     padding: 0;

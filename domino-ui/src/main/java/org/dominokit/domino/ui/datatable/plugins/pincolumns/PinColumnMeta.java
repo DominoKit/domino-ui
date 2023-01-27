@@ -96,6 +96,7 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction {
                 style.setProperty("right", "auto");
                 style.setProperty("position", "sticky");
                 style.setProperty("left", left + "px");
+                style.setProperty("z-index", "1");
               });
       column
           .getGrandParent()
@@ -139,6 +140,7 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction {
               style.setProperty("left", "auto");
               style.setProperty("position", "sticky");
               style.setProperty("right", right + "px");
+              style.setProperty("z-index", "1");
             });
 
     column
