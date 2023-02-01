@@ -98,6 +98,7 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
     setCollapseStrategy(
         new AnimationCollapseStrategy(
             Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
+    DominoElement.of(targetElement).onDetached(mutationRecord -> doClose());
   }
 
   private void doClose() {
