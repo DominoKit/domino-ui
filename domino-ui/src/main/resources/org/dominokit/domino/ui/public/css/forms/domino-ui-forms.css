@@ -171,7 +171,9 @@
     color: #5d5d5d;
 }
 
-.field-group.lined.d-select .field-cntr .flex-layout{
+.field-group.lined.dui-datebox .field-cntr .flex-layout,
+.field-group.lined.dui-timebox .field-cntr .flex-layout,
+.field-group.lined.d-select .field-cntr .flex-layout {
     position: relative;
     bottom: 4px;
     align-items: center;

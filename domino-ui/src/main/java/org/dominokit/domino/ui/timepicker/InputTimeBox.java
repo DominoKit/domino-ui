@@ -97,6 +97,7 @@ public class InputTimeBox extends ValueBox<InputTimeBox, HTMLInputElement, Date>
     } else {
       this.dateTimeFormatInfo = dateTimeFormatInfo;
     }
+    addCss("dui-timebox");
     mask =
         Mask.of(this)
             .pattern(CLOCK_12_PATTERN)

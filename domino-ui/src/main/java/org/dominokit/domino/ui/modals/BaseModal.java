@@ -414,7 +414,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     } else {
       doClose();
     }
-    ModalBackDrop.showHideBodyScrolls();
+    ModalBackDrop.INSTANCE.showHideBodyScrolls();
     return (T) this;
   }
 

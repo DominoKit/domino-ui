@@ -138,6 +138,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     getInputElement().addEventListener("focusin", evt -> focused = true);
     getInputElement().addEventListener(EventType.blur.getName(), evt -> focused = false);
     getInputElement().addEventListener("focusout", evt -> focused = false);
+    addCss("dui-datebox");
 
     this.modalListener =
         evt -> {

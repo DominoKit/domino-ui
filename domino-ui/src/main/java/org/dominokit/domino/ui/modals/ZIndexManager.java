@@ -15,7 +15,7 @@
  */
 package org.dominokit.domino.ui.modals;
 
-import java.util.List;
+import java.util.Deque;
 import java.util.Optional;
 import org.dominokit.domino.ui.utils.IsPopup;
 
@@ -64,6 +64,24 @@ public interface ZIndexManager {
    */
   @FunctionalInterface
   interface ZIndexListener {
-    void onZIndexChange(List<Integer> assignedValues, boolean modalOpen, boolean isDialogOpen);
+    void onZIndexChange(ZIndexInfo zIndexInfo);
+
+    class ZIndexInfo {
+      private final IsPopup<?> popup;
+      private final Deque<IsPopup<?>> modals;
+
+      public ZIndexInfo(IsPopup<?> popup, Deque<IsPopup<?>> modals) {
+        this.popup = popup;
+        this.modals = modals;
+      }
+
+      public IsPopup<?> getPopup() {
+        return popup;
+      }
+
+      public Deque<IsPopup<?>> getModals() {
+        return modals;
+      }
+    }
   }
 }

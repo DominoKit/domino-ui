@@ -52,21 +52,19 @@ public class DefaultZIndexManager implements ZIndexManager {
    */
   @Override
   public void onPopupOpen(IsPopup<?> popup) {
-    List<Integer> assignedValues = new ArrayList<>();
     if (popup.isModal()) {
       Integer nextZIndex = getNextZIndex();
-      assignedValues.add(nextZIndex);
       ModalBackDrop.INSTANCE.setZIndex(nextZIndex);
       if (!ModalBackDrop.INSTANCE.isAttached()) {
         body().appendChild(ModalBackDrop.INSTANCE);
       }
       modals.push(popup);
     }
+
     Integer nextZIndex = getNextZIndex();
     popup.setZIndex(nextZIndex);
-    assignedValues.add(nextZIndex);
     listeners.forEach(
-        listener -> listener.onZIndexChange(assignedValues, popup.isModal(), popup.isDialog()));
+        listener -> listener.onZIndexChange(new ZIndexListener.ZIndexInfo(popup, modals)));
   }
 
   /**
@@ -76,20 +74,16 @@ public class DefaultZIndexManager implements ZIndexManager {
    */
   @Override
   public void onPopupClose(IsPopup<?> popup) {
-    List<Integer> assignedValues = new ArrayList<>();
     if (popup.isModal()) {
       modals.remove(popup);
       if (!modals.isEmpty()) {
         Integer backdropZIndex = getNextZIndex();
-        assignedValues.add(backdropZIndex);
         ModalBackDrop.INSTANCE.setZIndex(backdropZIndex);
         Integer modalZIndex = getNextZIndex();
         modals.peek().setZIndex(modalZIndex);
-        assignedValues.add(modalZIndex);
         listeners.forEach(
             listener ->
-                listener.onZIndexChange(
-                    assignedValues, modals.peek().isModal(), modals.peek().isDialog()));
+                listener.onZIndexChange(new ZIndexListener.ZIndexInfo(modals.peek(), modals)));
       } else {
         ModalBackDrop.INSTANCE.remove();
       }

@@ -131,7 +131,7 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
   }
 
   private static void closeAll() {
-    ModalBackDrop.closePopovers();
+    ModalBackDrop.INSTANCE.closePopovers();
   }
 
   public Popover open() {

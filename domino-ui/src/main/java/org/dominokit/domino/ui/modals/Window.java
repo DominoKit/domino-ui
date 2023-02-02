@@ -187,7 +187,7 @@ public class Window extends BaseModal<Window> {
     maximized = true;
     updatePosition();
     Window.this.css("maximized");
-    ModalBackDrop.showHideBodyScrolls();
+    ModalBackDrop.INSTANCE.showHideBodyScrolls();
     maximizing = false;
     return this;
   }
@@ -203,7 +203,7 @@ public class Window extends BaseModal<Window> {
     maximized = false;
     Window.this.removeCss("maximized");
     updatePosition();
-    ModalBackDrop.showHideBodyScrolls();
+    ModalBackDrop.INSTANCE.showHideBodyScrolls();
     return this;
   }
 

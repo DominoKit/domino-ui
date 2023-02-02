@@ -90,6 +90,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
           autoValidate();
           callChangeHandlers();
         });
+    addCss("dui-timebox");
     this.modalListener = evt -> modal.open();
     this.keyboardModalListener =
         event -> {

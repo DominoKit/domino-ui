@@ -1841,8 +1841,16 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
   @Override
   public T setZIndex(int zindex) {
+    this.setAttribute("dui-z-index", zindex);
     style().setZIndex(zindex);
     return (T) this;
+  }
+
+  public int getZIndex() {
+    if (hasAttribute("dui-z-index")) {
+      return Integer.parseInt(getAttribute("dui-z-index"));
+    }
+    return -1;
   }
 
   @Deprecated
