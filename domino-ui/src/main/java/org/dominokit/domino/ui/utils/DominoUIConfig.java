@@ -23,10 +23,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import org.dominokit.domino.ui.collapsible.CollapseStrategy;
-import org.dominokit.domino.ui.collapsible.DisplayCollapseStrategy;
-import org.dominokit.domino.ui.collapsible.HeightCollapseStrategy;
-import org.dominokit.domino.ui.collapsible.TreeHeightCollapseStrategy;
+import org.dominokit.domino.ui.animations.Transition;
+import org.dominokit.domino.ui.collapsible.*;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.forms.AbstractSelect;
 import org.dominokit.domino.ui.forms.AbstractSuggestBox;
@@ -101,6 +99,17 @@ public class DominoUIConfig {
       HeightCollapseStrategy::new;
   private Supplier<CollapseStrategy> defaultAccordionCollapseStrategySupplier =
       HeightCollapseStrategy::new;
+
+  private Supplier<CollapseStrategy> defaultTooltipCollapseStrategySupplier =
+      () ->
+          new AnimationCollapseStrategy(
+              new AnimationCollapseOptions()
+                  .setShowTransition(Transition.FADE_IN)
+                  .setHideTransition(Transition.FADE_OUT)
+                  .setShowDuration(CollapseDuration._300ms)
+                  .setHideDuration(CollapseDuration._300ms)
+                  .setShowDelay(500)
+                  .setHideDelay(100));
   private TreeCollapseSupplier defaultTreeCollapseStrategySupplier =
       TreeHeightCollapseStrategy::new;
 
@@ -314,6 +323,16 @@ public class DominoUIConfig {
   public DominoUIConfig setDefaultAccordionCollapseStrategySupplier(
       Supplier<CollapseStrategy> defaultAccordionCollapseStrategySupplier) {
     this.defaultAccordionCollapseStrategySupplier = defaultAccordionCollapseStrategySupplier;
+    return this;
+  }
+
+  public Supplier<CollapseStrategy> getDefaultTooltipCollapseStrategySupplier() {
+    return defaultTooltipCollapseStrategySupplier;
+  }
+
+  public DominoUIConfig setDefaultTooltipCollapseStrategySupplier(
+      Supplier<CollapseStrategy> defaultTooltipCollapseStrategySupplier) {
+    this.defaultTooltipCollapseStrategySupplier = defaultTooltipCollapseStrategySupplier;
     return this;
   }
 

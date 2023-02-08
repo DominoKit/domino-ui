@@ -29,10 +29,7 @@ import org.jboss.elemento.IsElement;
  * collapsible element
  */
 public class AnimationCollapseStrategy implements CollapseStrategy {
-
-  private final Transition showTransition;
-  private final Transition hideTransition;
-  private final CollapseDuration duration;
+  private final AnimationCollapseOptions options;
   private Animation hideAnimation;
   private boolean showing = false;
   private boolean hiding = false;
@@ -48,25 +45,37 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
 
   public AnimationCollapseStrategy(
       Transition showTransition, Transition hideTransition, CollapseDuration duration) {
-    this.showTransition = showTransition;
-    this.hideTransition = hideTransition;
-    this.duration = duration;
+    this.options =
+        new AnimationCollapseOptions()
+            .setShowTransition(showTransition)
+            .setHideTransition(hideTransition)
+            .setShowDuration(duration)
+            .setHideDuration(duration);
   }
 
   public AnimationCollapseStrategy(Transition transition, CollapseDuration duration) {
-    this.showTransition = transition;
-    this.hideTransition = transition;
-    this.duration = duration;
+    this.options =
+        new AnimationCollapseOptions()
+            .setShowTransition(transition)
+            .setHideTransition(transition)
+            .setShowDuration(duration)
+            .setHideDuration(duration);
+  }
+
+  public AnimationCollapseStrategy(AnimationCollapseOptions options) {
+    this.options = options;
   }
 
   /** {@inheritDoc} */
   @Override
   public void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
     if (!showing) {
-      DominoElement.of(element).removeCss(duration.getStyle());
+      DominoElement.of(element).removeCss(this.options.getShowDuration().getStyle());
+      DominoElement.of(element).removeCss(this.options.getHideDuration().getStyle());
       Animation.create(element)
-          .duration(duration.getDuration())
-          .transition(showTransition)
+          .duration(this.options.getShowDuration().getDuration())
+          .transition(this.options.getShowTransition())
+          .delay(this.options.getShowDelay())
           .beforeStart(
               theElement -> {
                 showing = true;
@@ -92,11 +101,13 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
   @Override
   public void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
     if (!hiding) {
-      DominoElement.of(element).removeCss(duration.getStyle());
+      DominoElement.of(element).removeCss(this.options.getShowDuration().getStyle());
+      DominoElement.of(element).removeCss(this.options.getHideDuration().getStyle());
       hideAnimation =
           Animation.create(element)
-              .duration(duration.getDuration())
-              .transition(hideTransition)
+              .duration(this.options.getHideDuration().getDuration())
+              .transition(this.options.getHideTransition())
+              .delay(this.options.getHideDelay())
               .beforeStart(
                   element1 -> {
                     hiding = true;
