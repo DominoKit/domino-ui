@@ -108,8 +108,7 @@ public class DominoUIConfig {
                   .setHideTransition(Transition.FADE_OUT)
                   .setShowDuration(CollapseDuration._300ms)
                   .setHideDuration(CollapseDuration._300ms)
-                  .setShowDelay(500)
-                  .setHideDelay(100));
+                  .setShowDelay(500));
   private TreeCollapseSupplier defaultTreeCollapseStrategySupplier =
       TreeHeightCollapseStrategy::new;
 

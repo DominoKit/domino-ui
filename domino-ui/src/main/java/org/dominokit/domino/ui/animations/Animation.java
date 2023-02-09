@@ -54,10 +54,18 @@ public class Animation {
   private StartHandler startHandler = DEFAULT_START_HANDLER;
   private EventListener stopListener;
   private double repeatCount = 1;
+  private Timer delayTimer;
 
   /** @param element an {@link HTMLElement} to be animated */
   public Animation(HTMLElement element) {
     this.element = DominoElement.of(element);
+    delayTimer =
+        new Timer() {
+          @Override
+          public void run() {
+            animateElement();
+          }
+        };
   }
 
   /**
@@ -183,12 +191,7 @@ public class Animation {
    */
   public Animation animate() {
     if (delay > 0) {
-      new Timer() {
-        @Override
-        public void run() {
-          animateElement();
-        }
-      }.schedule(delay);
+      delayTimer.schedule(delay);
     } else {
       animateElement();
     }
@@ -229,6 +232,7 @@ public class Animation {
 
   /** stops the animation and calls the {@link CompleteCallback} if it is set. */
   public void stop(boolean silent) {
+    delayTimer.cancel();
     element.removeCss(transition.getStyle());
     element.removeCss("animated");
     element.removeCss("infinite");

@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.collapsible;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLElement;
+import java.util.Optional;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.style.Style;
@@ -34,6 +35,7 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
   private boolean showing = false;
   private boolean hiding = false;
   private CollapsibleHandlers handlers;
+  private Animation showAnimation;
 
   @Override
   public void init(
@@ -72,34 +74,36 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
     if (!showing) {
       DominoElement.of(element).removeCss(this.options.getShowDuration().getStyle());
       DominoElement.of(element).removeCss(this.options.getHideDuration().getStyle());
-      Animation.create(element)
-          .duration(this.options.getShowDuration().getDuration())
-          .transition(this.options.getShowTransition())
-          .delay(this.options.getShowDelay())
-          .beforeStart(
-              theElement -> {
-                showing = true;
-                if (nonNull(hideAnimation)) {
-                  hideAnimation.stop(true);
-                  hideAnimation = null;
-                  hiding = false;
-                }
-                style.removeCssProperty("display");
-                DominoElement.of(element).removeAttribute("d-collapsed");
-                this.handlers.onBeforeShow().run();
-              })
-          .callback(
-              e -> {
-                showing = false;
-                this.handlers.onShowCompleted().run();
-              })
-          .animate();
+      showAnimation =
+          Animation.create(element)
+              .duration(this.options.getShowDuration().getDuration())
+              .transition(this.options.getShowTransition())
+              .delay(this.options.getShowDelay())
+              .beforeStart(
+                  theElement -> {
+                    showing = true;
+                    if (nonNull(hideAnimation)) {
+                      hideAnimation.stop(true);
+                      hideAnimation = null;
+                      hiding = false;
+                    }
+                    style.removeCssProperty("display");
+                    DominoElement.of(element).removeAttribute("d-collapsed");
+                    this.handlers.onBeforeShow().run();
+                  })
+              .callback(
+                  e -> {
+                    showing = false;
+                    this.handlers.onShowCompleted().run();
+                  })
+              .animate();
     }
   }
 
   /** {@inheritDoc} */
   @Override
   public void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
+    Optional.ofNullable(showAnimation).ifPresent(animation -> animation.stop(false));
     if (!hiding) {
       DominoElement.of(element).removeCss(this.options.getShowDuration().getStyle());
       DominoElement.of(element).removeCss(this.options.getHideDuration().getStyle());
@@ -107,7 +111,6 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
           Animation.create(element)
               .duration(this.options.getHideDuration().getDuration())
               .transition(this.options.getHideTransition())
-              .delay(this.options.getHideDelay())
               .beforeStart(
                   element1 -> {
                     hiding = true;

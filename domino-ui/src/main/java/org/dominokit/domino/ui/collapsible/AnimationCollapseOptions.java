@@ -24,7 +24,6 @@ public class AnimationCollapseOptions {
   private CollapseDuration showDuration;
   private CollapseDuration hideDuration;
   private int showDelay = 0;
-  private int hideDelay = 0;
 
   public Transition getShowTransition() {
     return showTransition;
@@ -68,15 +67,6 @@ public class AnimationCollapseOptions {
 
   public AnimationCollapseOptions setShowDelay(int showDelay) {
     this.showDelay = showDelay;
-    return this;
-  }
-
-  public int getHideDelay() {
-    return hideDelay;
-  }
-
-  public AnimationCollapseOptions setHideDelay(int hideDelay) {
-    this.hideDelay = hideDelay;
     return this;
   }
 }
