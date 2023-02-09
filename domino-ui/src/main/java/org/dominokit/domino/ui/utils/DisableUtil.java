@@ -29,13 +29,17 @@ public class DisableUtil {
   }
 
   public static void disable(HTMLElement element) {
+
     Optional.ofNullable(element)
         .ifPresent(
             e -> {
-              disableElement(DominoElement.of(e));
-              DominoElement.of(element)
-                  .querySelectorAll(FOCUSABLE_ELEMENTS)
-                  .forEach(child -> disableChild(DominoElement.of(child)));
+              DominoElement<HTMLElement> dominoElement = DominoElement.of(e);
+              if (!isDisabled(dominoElement)) {
+                disableElement(dominoElement);
+                DominoElement.of(element)
+                    .querySelectorAll(FOCUSABLE_ELEMENTS)
+                    .forEach(child -> disableChild(DominoElement.of(child)));
+              }
             });
   }
 
@@ -59,14 +63,25 @@ public class DisableUtil {
     element.setTabIndex(-1);
   }
 
+  private static <E extends HTMLElement> boolean isDisabled(DominoElement<E> element) {
+    return element.hasAttribute("disabled");
+  }
+
   public static <E extends HTMLElement> void enable(IsElement<E> element) {
+    Optional.ofNullable(element).ifPresent(e -> enable(e.element()));
+  }
+
+  public static void enable(HTMLElement element) {
     Optional.ofNullable(element)
         .ifPresent(
             e -> {
-              enableElement(DominoElement.of(e));
-              DominoElement.of(element)
-                  .querySelectorAll(FOCUSABLE_ELEMENTS)
-                  .forEach(child -> enableChild(DominoElement.of(child)));
+              DominoElement<HTMLElement> dominoElement = DominoElement.of(e);
+              if (isDisabled(dominoElement)) {
+                enableElement(dominoElement);
+                DominoElement.of(element)
+                    .querySelectorAll(FOCUSABLE_ELEMENTS)
+                    .forEach(child -> enableChild(DominoElement.of(child)));
+              }
             });
   }
 
