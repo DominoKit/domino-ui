@@ -1280,6 +1280,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   public T disable() {
     DisableUtil.disable(this);
+    DominoElement.of(getClickableElement()).setCssProperty("pointer-events", "none");
     return element;
   }
 
@@ -1292,6 +1293,7 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
   @Editor.Ignore
   public T enable() {
     DisableUtil.enable(this);
+    DominoElement.of(getClickableElement()).removeCssProperty("pointer-events");
     return element;
   }
 
