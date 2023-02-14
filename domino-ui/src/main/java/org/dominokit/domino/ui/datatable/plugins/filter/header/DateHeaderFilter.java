@@ -75,11 +75,11 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
     searchContext.addBeforeSearchHandler(
         context -> {
           if (dateBox.isEmptyIgnoreSpaces()) {
-            searchContext.remove(columnConfig.getName(), Category.HEADER_FILTER);
+            searchContext.remove(columnConfig.getFilterKey(), Category.HEADER_FILTER);
           } else {
             searchContext.add(
                 Filter.create(
-                    columnConfig.getName(),
+                    columnConfig.getFilterKey(),
                     dateBox.getValue().getTime() + "",
                     Category.HEADER_FILTER,
                     FilterTypes.DATE));

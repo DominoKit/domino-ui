@@ -26,11 +26,8 @@ import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_STRIPED;
 import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import elemental2.dom.EventListener;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.events.*;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
@@ -89,6 +86,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
       };
 
   private DynamicStyleSheet<HTMLDivElement, DataTable<T>> dynamicStyleSheet;
+  private final Map<String, TableMeta> tableMeta = new HashMap<>();
 
   /**
    * Creates a new data table instance
@@ -683,6 +681,21 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
   public DynamicStyleSheet<HTMLDivElement, DataTable<T>> getDynamicStyleSheet() {
     return dynamicStyleSheet;
+  }
+
+  public DataTable<T> applyMeta(TableMeta meta) {
+    tableMeta.put(meta.getKey(), meta);
+    return this;
+  }
+
+  @SuppressWarnings("all")
+  public <C extends TableMeta> Optional<C> getMeta(String key) {
+    return Optional.ofNullable((C) tableMeta.get(key));
+  }
+
+  public DataTable<T> removeMeta(String key) {
+    tableMeta.remove(key);
+    return this;
   }
 
   /**

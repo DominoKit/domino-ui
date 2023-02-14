@@ -47,6 +47,7 @@ import org.jboss.elemento.IsElement;
 public class ColumnConfig<T> {
 
   private final String name;
+  private String filterKey;
   private String title;
   private HTMLTableCellElement headElement;
   private FlexLayout headerLayout;
@@ -153,6 +154,15 @@ public class ColumnConfig<T> {
   /** @return String column name */
   public String getName() {
     return name;
+  }
+
+  public String getFilterKey() {
+    return nonNull(filterKey) ? filterKey : getName();
+  }
+
+  public ColumnConfig<T> setFilterKey(String filterKey) {
+    this.filterKey = filterKey;
+    return this;
   }
 
   public ColumnConfig<T> asHeader() {

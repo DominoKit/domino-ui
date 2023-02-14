@@ -13,24 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.datatable.plugins;
+package org.dominokit.domino.ui.datatable.plugins.tree.store;
 
 import java.util.Collection;
-import org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig;
+import java.util.Optional;
+import java.util.function.Consumer;
+import org.dominokit.domino.ui.datatable.events.SearchEvent;
+import org.dominokit.domino.ui.datatable.events.SortEvent;
 
-/**
- * @deprecated use {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridRowSubItemsMeta}
- * @param <T>
- */
-@Deprecated
-public class TreeGridRowSubItemsMeta<T>
-    extends org.dominokit.domino.ui.datatable.plugins.tree.TreeGridRowSubItemsMeta<T> {
+public interface TreeNodeStore<T> {
+  void getNodeChildren(
+      TreeNodeStoreContext<T> context, Consumer<Optional<Collection<T>>> itemsConsumer);
 
-  public TreeGridRowSubItemsMeta(TreePluginConfig<T> config) {
-    super(config);
-  }
+  SearchEvent getLastSearch();
 
-  public TreeGridRowSubItemsMeta(TreePluginConfig<T> config, Collection<T> records) {
-    super(config, records);
-  }
+  SortEvent<T> getLastSort();
 }

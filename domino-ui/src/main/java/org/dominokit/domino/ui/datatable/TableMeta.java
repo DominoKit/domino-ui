@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.datatable.plugins;
+package org.dominokit.domino.ui.datatable;
 
-import java.util.List;
+public interface TableMeta {
 
-public interface TreeNode<T> {
-  List<T> getItems();
+  String getKey();
 }

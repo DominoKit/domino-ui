@@ -41,17 +41,18 @@ public class LocalListDataStore<T> implements DataStore<T> {
 
   private final List<StoreDataChangeListener<T>> listeners = new ArrayList<>();
 
-  private final List<T> original;
-  private List<T> filtered;
+  protected final List<T> original;
+  protected List<T> filtered;
   private HasPagination pagination;
   private SearchFilter<T> searchFilter;
   private RecordsSorter<T> recordsSorter;
   private SortFunction<T> sortFunction;
   private SortEvent<T> lastSort;
+  private SearchEvent lastSearch;
   private boolean autoSort = false;
   private String autoSortBy = "*";
   private SortDirection autoSortDirection = SortDirection.ASC;
-  private boolean autSortApplied = false;
+  private boolean autoSortApplied = false;
 
   private DragDropRecordActions<T> dragDropRecordActions =
       new DragDropRecordActions<T>() {
@@ -130,8 +131,8 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * @param autoSort if true the data store will automatically sort the data list list before
-   *     loading it into the data table
+   * @param autoSort if true the data store will automatically sort the data list before loading it
+   *     into the data table
    * @return same instance
    */
   public LocalListDataStore<T> setAutoSort(boolean autoSort) {
@@ -205,8 +206,8 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   private void updatePagination() {
-    if (nonNull(pagination) && nonNull(original)) {
-      this.pagination.updatePagesByTotalCount(this.original.size());
+    if (nonNull(getPagination()) && nonNull(original)) {
+      this.getPagination().updatePagesByTotalCount(this.original.size());
     }
   }
 
@@ -269,36 +270,59 @@ public class LocalListDataStore<T> implements DataStore<T> {
     fireUpdate(true);
   }
 
-  private void onSearchChanged(SearchEvent event) {
-    if (nonNull(searchFilter)) {
+  public void onSearchChanged(SearchEvent event) {
+    if (nonNull(getSearchFilter())) {
+      setLastSearch(event);
       filtered =
           original.stream()
-              .filter(record -> searchFilter.filterRecord(event, record))
+              .filter(record -> getSearchFilter().filterRecord(event, record))
               .collect(Collectors.toList());
-      if (nonNull(lastSort)) {
-        sort(lastSort);
+      if (nonNull(getLastSort())) {
+        sort(getLastSort());
       }
       loadFirstPage();
     }
   }
 
   private void onSortChanged(SortEvent<T> event) {
-    if (nonNull(this.recordsSorter)) {
-      this.lastSort = event;
+    if (nonNull(this.getRecordsSorter())) {
+      setLastSort(event);
       sort(event);
       fireUpdate(false);
     }
   }
 
-  private void sort(SortEvent<T> event) {
-    sortFunction.sort(
-        filtered,
-        recordsSorter.onSortChange(event.getColumnConfig().getSortKey(), event.getSortDirection()));
+  protected void setLastSort(SortEvent<T> event) {
+    this.lastSort = event;
   }
 
-  private void loadFirstPage() {
-    if (nonNull(pagination)) {
-      pagination.updatePagesByTotalCount(filtered.size());
+  public SortEvent<T> getLastSort() {
+    return lastSort;
+  }
+
+  protected void setLastSearch(SearchEvent event) {
+    this.lastSearch = event;
+  }
+
+  public SearchEvent getLastSearch() {
+    return this.lastSearch;
+  }
+
+  public void sort(SortEvent<T> event) {
+    getSortFunction()
+        .sort(
+            filtered,
+            getRecordsSorter()
+                .onSortChange(event.getColumnConfig().getSortKey(), event.getSortDirection()));
+  }
+
+  public SortFunction<T> getSortFunction() {
+    return this.sortFunction;
+  }
+
+  protected void loadFirstPage() {
+    if (nonNull(getPagination())) {
+      getPagination().updatePagesByTotalCount(filtered.size());
     }
     fireUpdate(true);
   }
@@ -314,24 +338,51 @@ public class LocalListDataStore<T> implements DataStore<T> {
     updatePagination();
   }
 
+  public boolean isAutoSort() {
+    return autoSort;
+  }
+
+  public String getAutoSortBy() {
+    return autoSortBy;
+  }
+
+  public SortDirection getAutoSortDirection() {
+    return autoSortDirection;
+  }
+
+  public boolean isAutoSortApplied() {
+    return autoSortApplied;
+  }
+
+  public void setSortFunction(SortFunction<T> sortFunction) {
+    this.sortFunction = sortFunction;
+  }
+
+  protected void setAutoSortApplied(boolean autoSortApplied) {
+    this.autoSortApplied = autoSortApplied;
+  }
+
   private void fireUpdate(boolean applySort) {
     List<T> updateRecords = getUpdateRecords();
     if (applySort) {
-      if (nonNull(this.lastSort) && nonNull(recordsSorter)) {
+      if (nonNull(getLastSort()) && nonNull(getRecordsSorter())) {
         updateRecords.sort(
-            recordsSorter.onSortChange(
-                this.lastSort.getColumnConfig().getSortKey(), this.lastSort.getSortDirection()));
-      } else if (autoSort && nonNull(recordsSorter)) {
-        updateRecords.sort(recordsSorter.onSortChange(autoSortBy, autoSortDirection));
+            getRecordsSorter()
+                .onSortChange(
+                    getLastSort().getColumnConfig().getSortKey(),
+                    getLastSort().getSortDirection()));
+      } else if (isAutoSort() && nonNull(getRecordsSorter())) {
+        updateRecords.sort(
+            getRecordsSorter().onSortChange(getAutoSortBy(), getAutoSortDirection()));
       }
     }
-    if (!autSortApplied) {
-      autSortApplied = true;
+    if (!isAutoSortApplied()) {
+      setAutoSortApplied(true);
       listeners.forEach(
           dataChangeListener ->
               dataChangeListener.onDataChanged(
                   new DataChangedEvent<>(
-                      updateRecords, filtered.size(), autoSortDirection, autoSortBy)));
+                      updateRecords, filtered.size(), getAutoSortDirection(), getAutoSortBy())));
     } else {
       listeners.forEach(
           dataChangeListener ->
@@ -341,9 +392,9 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   private List<T> getUpdateRecords() {
-    if (nonNull(pagination)) {
-      int fromIndex = pagination.getPageSize() * (pagination.activePage() - 1);
-      int toIndex = Math.min(fromIndex + pagination.getPageSize(), filtered.size());
+    if (nonNull(getPagination())) {
+      int fromIndex = getPagination().getPageSize() * (getPagination().activePage() - 1);
+      int toIndex = Math.min(fromIndex + getPagination().getPageSize(), filtered.size());
       return new ArrayList<>(filtered.subList(fromIndex, toIndex));
     } else {
       return new ArrayList<>(filtered);

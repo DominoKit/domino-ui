@@ -18,8 +18,6 @@ package org.dominokit.domino.ui.datatable.plugins;
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.events.StickyColumnsEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.dnd.DragSource;
 import org.dominokit.domino.ui.dnd.DropZone;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
@@ -56,17 +54,6 @@ public class ReorderColumnsPlugin<T> implements DataTablePlugin<T> {
       column
           .getHeaderLayout()
           .appendChild(FlexItem.create().setOrder(100).appendChild(headerIconSupplier.get()));
-    }
-  }
-
-  @Override
-  public void handleEvent(TableEvent event) {
-    if (event.getType().equals(StickyColumnsEvent.STICKY_COLUMNS)) {
-      StickyColumnsEvent<T> stickyColumnsEvent = (StickyColumnsEvent<T>) event;
-      for (ColumnConfig<T> column : stickyColumnsEvent.getColumns()) {
-        dropZone.removeDropTarget(column.getHeadElement());
-        dragSource.removeDraggable(column.getName());
-      }
     }
   }
 

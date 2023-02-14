@@ -13,15 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.datatable.plugins;
+package org.dominokit.domino.ui.datatable.plugins.tree;
 
-import org.dominokit.domino.ui.datatable.plugins.pincolumns.PinColumnsPlugin;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
- * this plugin allows marking columns as sticky ones
+ * A functional interface to supply record children
  *
- * @param <T> the type of data table records
- * @deprecated use {@link PinColumnsPlugin}
+ * @param <T> Type of table records.
  */
-@Deprecated
-public class StickyColumnsPlugin<T> extends PinColumnsPlugin<T> {}
+@FunctionalInterface
+public interface SubItemsProvider<T> {
+  void getSubItems(T parent, Consumer<Optional<Collection<T>>> itemsConsumer);
+}
