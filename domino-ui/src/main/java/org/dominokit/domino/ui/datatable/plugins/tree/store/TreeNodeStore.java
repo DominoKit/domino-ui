@@ -28,4 +28,6 @@ public interface TreeNodeStore<T> {
   SearchEvent getLastSearch();
 
   SortEvent<T> getLastSort();
+
+  boolean hasChildren(T record);
 }

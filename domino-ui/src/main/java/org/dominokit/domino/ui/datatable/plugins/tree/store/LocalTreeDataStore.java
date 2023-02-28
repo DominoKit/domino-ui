@@ -22,19 +22,38 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.datatable.plugins.tree.SubItemsProvider;
+import org.dominokit.domino.ui.datatable.plugins.tree.TreeNodeChildrenAware;
 import org.dominokit.domino.ui.datatable.store.LocalListDataStore;
 
 public class LocalTreeDataStore<T> extends LocalListDataStore<T> implements TreeNodeStore<T> {
   private Map<T, LocalListDataStore<T>> childrenStore = new HashMap<>();
   private final SubItemsProvider<T> subItemsProvider;
+  private final TreeNodeChildrenAware<T> treeNodeChildrenAware;
 
   public LocalTreeDataStore(SubItemsProvider<T> subItemsProvider) {
     this.subItemsProvider = subItemsProvider;
+    this.treeNodeChildrenAware = record -> true;
+  }
+
+  public LocalTreeDataStore(
+      SubItemsProvider<T> subItemsProvider, TreeNodeChildrenAware<T> treeNodeChildrenAware) {
+    this.subItemsProvider = subItemsProvider;
+    this.treeNodeChildrenAware = treeNodeChildrenAware;
   }
 
   public LocalTreeDataStore(List<T> records, SubItemsProvider<T> subItemsProvider) {
     super(records);
     this.subItemsProvider = subItemsProvider;
+    this.treeNodeChildrenAware = record -> true;
+  }
+
+  public LocalTreeDataStore(
+      List<T> records,
+      SubItemsProvider<T> subItemsProvider,
+      TreeNodeChildrenAware<T> treeNodeChildrenAware) {
+    super(records);
+    this.subItemsProvider = subItemsProvider;
+    this.treeNodeChildrenAware = treeNodeChildrenAware;
   }
 
   @Override
@@ -87,5 +106,10 @@ public class LocalTreeDataStore<T> extends LocalListDataStore<T> implements Tree
       itemsConsumer.accept(
           Optional.ofNullable(childrenStore.get(context.getParent()).getFilteredRecords()));
     }
+  }
+
+  @Override
+  public boolean hasChildren(T record) {
+    return this.treeNodeChildrenAware.hasChildren(record);
   }
 }
