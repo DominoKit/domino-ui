@@ -276,7 +276,9 @@ public class TreeGridPlugin<T>
       }
       collapse(child);
     }
-    row.getChildren().clear();
+    if (config.isLazy()) {
+      row.getChildren().clear();
+    }
     if (row.isRoot()) {
       decrement();
     }
