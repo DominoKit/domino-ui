@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.modals;
 
-import elemental2.dom.Event;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import java.util.List;
@@ -39,8 +38,6 @@ public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDr
   /** The single instance of the overlay backdrop element */
   private DominoElement<HTMLDivElement> element;
 
-  private int zIndex = -1;
-
   private ModalBackDrop() {
     element = DominoElement.div();
     init(this);
@@ -49,7 +46,6 @@ public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDr
         .css(ModalStyles.FADE)
         .css(ModalStyles.IN)
         .setTabIndex(-1)
-        .setDisabled(true)
         .addEventListener(
             "scroll",
             evt -> {
@@ -71,8 +67,7 @@ public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDr
               if (element.isEqualNode(Js.uncheckedCast(event.target))) {
                 closeCurrentOpen();
               }
-            })
-        .addEventListener(EventType.scroll, Event::stopPropagation);
+            });
   }
 
   private void closeCurrentOpen() {
