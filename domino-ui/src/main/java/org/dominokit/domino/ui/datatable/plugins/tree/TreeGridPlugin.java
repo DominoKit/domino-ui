@@ -84,7 +84,7 @@ public class TreeGridPlugin<T>
                     items -> {
                       if (hasChildren(items)) {
                         if (nonNull(config.getParentRowCellsSupplier())) {
-                          row.applyMeta(RowRendererMeta.of(new TreeGridRowRenderer(this)));
+                          row.applyMeta(RowRendererMeta.of(new TreeGridRowRenderer<>(this)));
                           row.clearElement();
                           row.render();
                           applyIndent(row);
@@ -314,12 +314,11 @@ public class TreeGridPlugin<T>
     List<HTMLElement> elements = new ArrayList<>();
     TableRow<T> tableRow = cellInfo.getTableRow();
     Optional<TreeGridRowSubItemsMeta<T>> subRecordsMeta = TreeGridRowSubItemsMeta.get(tableRow);
-    ;
-    if (config.isLazy() && !subRecordsMeta.get().loaded()) {
-      BaseIcon<?> icon = initExpandCollapseIcons(tableRow);
-      icon.setAttribute("order", ICON_ORDER);
-      tableRow.applyMeta(new TreeGridRowToggleIcon(icon));
-      elements.add(icon.element());
+
+    if (config.isLazy() && !subRecordsMeta.get().hasChildren(tableRow)) {
+      initLeaf(elements, tableRow);
+    } else if (config.isLazy() && !subRecordsMeta.get().loaded()) {
+      initParent(elements, tableRow);
     } else {
       subRecordsMeta.ifPresent(
           meta -> {
@@ -327,15 +326,9 @@ public class TreeGridPlugin<T>
                 cellInfo.getTableRow(),
                 itemsOptional -> {
                   if (itemsOptional.isPresent() && itemsOptional.get().size() > 0) {
-                    BaseIcon<?> icon = initExpandCollapseIcons(tableRow);
-                    icon.setAttribute("order", ICON_ORDER);
-                    tableRow.applyMeta(new TreeGridRowToggleIcon(icon));
-                    elements.add(icon.element());
+                    initParent(elements, tableRow);
                   } else {
-                    BaseIcon<?> icon = config.getLeafIconSupplier().get().css("dt-tree-grid-leaf");
-                    icon.setAttribute("order", ICON_ORDER);
-                    tableRow.applyMeta(new TreeGridRowToggleIcon(icon));
-                    elements.add(icon.element());
+                    initLeaf(elements, tableRow);
                   }
                 });
           });
@@ -348,6 +341,20 @@ public class TreeGridPlugin<T>
     elements.add(title.element());
 
     return Optional.of(elements);
+  }
+
+  private void initLeaf(List<HTMLElement> elements, TableRow<T> tableRow) {
+    BaseIcon<?> icon = config.getLeafIconSupplier().get().css("dt-tree-grid-leaf");
+    icon.setAttribute("order", ICON_ORDER);
+    tableRow.applyMeta(new TreeGridRowToggleIcon(icon));
+    elements.add(icon.element());
+  }
+
+  private void initParent(List<HTMLElement> elements, TableRow<T> tableRow) {
+    BaseIcon<?> icon = initExpandCollapseIcons(tableRow);
+    icon.setAttribute("order", ICON_ORDER);
+    tableRow.applyMeta(new TreeGridRowToggleIcon(icon));
+    elements.add(icon.element());
   }
 
   private BaseIcon<?> initExpandCollapseIcons(TableRow<T> tableRow) {

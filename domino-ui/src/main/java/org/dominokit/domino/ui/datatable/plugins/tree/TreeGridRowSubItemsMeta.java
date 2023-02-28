@@ -74,6 +74,16 @@ public class TreeGridRowSubItemsMeta<T> implements RowMeta {
     return this;
   }
 
+  public boolean hasChildren(TableRow<T> row) {
+    if (row.getRecord() instanceof IsTreeNode) {
+      return ((IsTreeNode) row.getRecord()).hasChildren();
+    } else if (row.getDataTable().getDataStore() instanceof TreeNodeChildrenAware) {
+      return ((TreeNodeChildrenAware<T>) row.getDataTable().getDataStore())
+          .hasChildren(row.getRecord());
+    }
+    return true;
+  }
+
   public boolean loaded() {
     return nonNull(records);
   }
