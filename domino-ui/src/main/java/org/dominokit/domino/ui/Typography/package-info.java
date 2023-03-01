@@ -13,12 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.Typography;
-
 @Deprecated
-
-/**
- * @deprecated use {@link org.dominokit.domino.ui.typography.Blockquote}
- *     <p>A wrapper component for <strong>blockquote</strong> HTML tag
- */
-public class Blockquote extends org.dominokit.domino.ui.typography.Blockquote {}
+/** @deprecated use {@link org.dominokit.domino.ui.typography} */
+package org.dominokit.domino.ui.Typography;

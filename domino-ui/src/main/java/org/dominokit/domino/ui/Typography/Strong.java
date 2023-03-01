@@ -15,34 +15,14 @@
  */
 package org.dominokit.domino.ui.Typography;
 
-import static org.jboss.elemento.Elements.strong;
-
-import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-
-/** A wrapper component for <strong>strong</strong> HTML tag */
-public class Strong extends BaseDominoElement<HTMLElement, Strong> {
-
-  private final HTMLElement element = strong().element();
+@Deprecated
+/**
+ * @deprecated use {@link org.dominokit.domino.ui.typography.Strong} A wrapper component for
+ *     <strong>strong</strong> HTML tag
+ */
+public class Strong extends org.dominokit.domino.ui.typography.Strong {
 
   public Strong(String text) {
-    element.textContent = text;
-    init(this);
-  }
-
-  /**
-   * Creates new instance with text
-   *
-   * @param text the value
-   * @return new instance
-   */
-  public static Strong of(String text) {
-    return new Strong(text);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public HTMLElement element() {
-    return element;
+    super(text);
   }
 }

@@ -44,7 +44,7 @@ public class TreePluginConfig<T> implements PluginConfig {
     return lazy;
   }
 
-  public TreePluginConfig setLazy(boolean lazy) {
+  public TreePluginConfig<T> setLazy(boolean lazy) {
     this.lazy = lazy;
     return this;
   }
