@@ -66,7 +66,6 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   private static final String READONLY = "readonly";
   private final DatePicker datePicker;
   private String pattern;
-
   private Popover popover;
   private ModalDialog modal;
   private EventListener modalListener;
@@ -129,6 +128,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
         (date, dateTimeFormatInfo) -> {
           if (!handlerPaused) {
             value(date);
+            if (parseStrict) {
+              validate();
+            }
           }
         });
 
@@ -137,7 +139,15 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
     getInputElement().addEventListener(EventType.focus.getName(), evt -> focused = true);
     getInputElement().addEventListener("focusin", evt -> focused = true);
     getInputElement().addEventListener(EventType.blur.getName(), evt -> focused = false);
-    getInputElement().addEventListener("focusout", evt -> focused = false);
+    getInputElement()
+        .addEventListener(
+            "focusout",
+            evt -> {
+              focused = false;
+              if (parseStrict) {
+                validate();
+              }
+            });
     addCss("dui-datebox");
 
     this.modalListener =
@@ -199,6 +209,9 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
               } else {
                 try {
                   value(getFormattedValue(value));
+                  if (parseStrict) {
+                    validate();
+                  }
                 } catch (IllegalArgumentException ignored) {
                   DomGlobal.console.warn("Unable to parse date value " + value);
                 }
