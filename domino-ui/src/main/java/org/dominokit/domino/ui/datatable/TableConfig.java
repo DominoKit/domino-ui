@@ -80,10 +80,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   private final ColumnConfig<T> pluginUtilityColumn =
       ColumnConfig.<T>create("plugin-utility-column")
           .setShowTooltip(false)
-          .setSortable(true)
           .setDrawTitle(true)
           .setPluginColumn(true)
-          //          .setWidth("100px")
           .applyMeta(ResizeColumnMeta.create().setResizable(false))
           .setCellRenderer(
               cellInfo -> {
