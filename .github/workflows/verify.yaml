@@ -26,6 +26,7 @@ jobs:
     strategy:
       matrix:
         java-version: [ 8, 11 ]
+        distribution: 'temurin'
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
