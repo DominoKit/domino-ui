@@ -53,7 +53,7 @@ jobs:
           server-password: SONATYPE_PASSWORD
 
       - name: publish to snapshot
-        run: mvn clean deploy -B -e -Dci=true
+        run: ./mvnw clean deploy -B -e -Dci=true
         env:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
