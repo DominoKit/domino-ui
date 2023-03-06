@@ -71,7 +71,13 @@ public class ResizeColumnsPlugin<T>
             resizeColumnMeta -> {
               if (resizeColumnMeta.isResizable()) {
                 DominoElement<HTMLDivElement> resizeElement =
-                    DominoElement.div().css(COLUMN_RESIZER);
+                    DominoElement.div()
+                        .css(COLUMN_RESIZER)
+                        .addClickListener(
+                            evt -> {
+                              evt.stopPropagation();
+                              evt.preventDefault();
+                            });
                 EventListener resizeListener =
                     evt -> {
                       MouseEvent mouseEvent = Js.uncheckedCast(evt);
@@ -113,6 +119,7 @@ public class ResizeColumnsPlugin<T>
                     evt -> {
                       MouseEvent mouseEvent = Js.uncheckedCast(evt);
                       if (mouseEvent.buttons == 1) {
+                        mouseEvent.stopPropagation();
                         mouseEvent.preventDefault();
                         column
                             .getGrandParent()
