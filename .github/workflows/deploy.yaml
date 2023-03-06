@@ -48,16 +48,15 @@ jobs:
         with:
           java-version: 1.8
           distribution: 'temurin'
-      - name: Set up Maven
-        uses: stCarolas/setup-maven@v4.5
-        with:
-          maven-version: 3.8.7
+          server-id: ossrh
+          server-username: SONATYPE_USERNAME
+          server-password: SONATYPE_PASSWORD
 
-      - name: Release Maven package
-        uses: samuelmeuli/action-maven-publish@v1
-        with:
+      - name: publish to snapshot
+        run: mvn clean deploy -B -e -Dci=true
+        env:
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           gpg_private_key: ${{ secrets.gpg_private_key }}
           gpg_passphrase: ${{ secrets.gpg_passphrase }}
-          nexus_username: ${{ secrets.nexus_username }}
-          nexus_password: ${{ secrets.nexus_password }}
-          maven_args: -Dci=true
+
