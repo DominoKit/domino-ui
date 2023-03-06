@@ -33,7 +33,8 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java-version }}
-      - run: mvn verify -B -e
+          distribution: 'temurin'
+      - run: ./mvnw verify -B -e
 
   release:
     needs: verify
@@ -46,6 +47,11 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 1.8
+          distribution: 'temurin'
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v4.5
+        with:
+          maven-version: 3.8.7
 
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1
