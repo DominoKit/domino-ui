@@ -30,9 +30,10 @@ public class BestSideUpDownDropDirection implements DropDirection {
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect sourceRect = source.getBoundingClientRect();
     int innerWidth = window.innerWidth;
+    int innerHeight = window.innerHeight;
 
     double sourceHeight = sourceRect.height;
-    double downSpace = targetRect.bottom;
+    double downSpace = innerHeight - targetRect.bottom;
     double sourceWidth = sourceRect.width;
     double rightSpace = innerWidth - targetRect.right - window.pageXOffset;
 
