@@ -838,7 +838,9 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   }
 
   private void position() {
-    getEffectiveDropDirection().position(element.element(), getTargetElement());
+    if (isDropDown() && isOpened()) {
+      getEffectiveDropDirection().position(element.element(), getTargetElement());
+    }
   }
 
   protected DropDirection getEffectiveDropDirection() {
