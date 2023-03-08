@@ -109,7 +109,9 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   private void onSelected(Event evt) {
     evt.stopPropagation();
     evt.preventDefault();
-    select();
+    if (!isDisabled()) {
+      select();
+    }
   }
 
   /**
