@@ -109,19 +109,21 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
   private LazyInitializer dropDownMenuInitializer;
 
-  //  static {
-  //    document.addEventListener(EventType.click.getName(), evt -> DropDownMenu.closeAllMenus());
-  //    document.addEventListener(EventType.touchmove.getName(), evt -> DropDownMenu.touchMoved =
-  // true);
-  //    document.addEventListener(
-  //        EventType.touchend.getName(),
-  //        evt -> {
-  //          if (!DropDownMenu.touchMoved) {
-  //            closeAllMenus();
-  //          }
-  //          DropDownMenu.touchMoved = false;
-  //        });
-  //  }
+  static {
+    document.addEventListener(EventType.click.getName(), evt -> DropDownMenu.closeAllMenus());
+    document.addEventListener(
+        EventType.touchmove.getName(),
+        evt -> DropDownMenu.touchMoved = true,
+        EventOptions.of().setPassive(true).get());
+    document.addEventListener(
+        EventType.touchend.getName(),
+        evt -> {
+          if (!DropDownMenu.touchMoved) {
+            closeAllMenus();
+          }
+          DropDownMenu.touchMoved = false;
+        });
+  }
 
   public DropDownMenu(HTMLElement targetElement) {
     this.targetElement = targetElement;
@@ -133,9 +135,12 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
             () -> {
               element.appendChild(searchContainer).appendChild(menuElement);
               menuElement.setAttribute("role", "listbox");
-              element.addEventListener(EventType.touchend, Event::stopPropagation);
-              element.addEventListener(EventType.touchmove, Event::stopPropagation);
-              element.addEventListener(EventType.touchstart, Event::stopPropagation);
+              element.addEventListener(
+                  EventType.touchend, Event::stopPropagation, EventOptions.of().setPassive(true));
+              element.addEventListener(
+                  EventType.touchmove, Event::stopPropagation, EventOptions.of().setPassive(true));
+              element.addEventListener(
+                  EventType.touchstart, Event::stopPropagation, EventOptions.of().setPassive(true));
 
               addMenuNavigationListener();
               searchContainer.addClickListener(

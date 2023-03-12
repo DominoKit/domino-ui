@@ -16,11 +16,10 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import elemental2.dom.HTMLTableCellElement;
+import java.util.Optional;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
-
-import java.util.Optional;
 
 public class ColumnFilterMeta<T> implements ComponentMeta {
 

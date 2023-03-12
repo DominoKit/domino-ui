@@ -16,15 +16,14 @@
 package org.dominokit.domino.ui.datatable;
 
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.utils.ComponentMeta;
-import org.dominokit.domino.ui.utils.DominoCSSRule;
-import org.dominokit.domino.ui.utils.DynamicStyleSheet;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.dominokit.domino.ui.utils.ComponentMeta;
+import org.dominokit.domino.ui.utils.DominoCSSRule;
+import org.dominokit.domino.ui.utils.DynamicStyleSheet;
 
 public class ColumnCssRuleMeta<T> implements ComponentMeta {
 

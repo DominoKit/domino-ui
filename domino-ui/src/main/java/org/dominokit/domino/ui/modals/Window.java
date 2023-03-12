@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.modals;
 
+import static org.dominokit.domino.ui.style.Unit.px;
+
 import elemental2.dom.DOMRect;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Event;
@@ -30,8 +32,6 @@ import org.dominokit.domino.ui.style.Calc;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.EventType;
-
-import static org.dominokit.domino.ui.style.Unit.px;
 
 /**
  * A component that open a pop-up that acts like a window with close/maximize/minimize controls and

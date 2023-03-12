@@ -15,12 +15,20 @@
  */
 package org.dominokit.domino.ui.menu;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+import static org.jboss.elemento.Elements.a;
+import static org.jboss.elemento.Elements.li;
+
 import elemental2.dom.Event;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.Icons;
@@ -29,19 +37,11 @@ import org.dominokit.domino.ui.menu.direction.BestFitSideDropDirection;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DelayedExecution;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.EventOptions;
 import org.dominokit.domino.ui.utils.HasDeselectionHandler;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.a;
-import static org.jboss.elemento.Elements.li;
 
 /**
  * The base implementation for {@link AbstractMenu} items
@@ -99,8 +99,10 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
           evt.preventDefault();
           focus();
           openSubMenu();
-        });
-    this.addEventListener(EventType.touchend.getName(), this::onSelected);
+        },
+        EventOptions.of().setPassive(true));
+    this.addEventListener(
+        EventType.touchend.getName(), this::onSelected, EventOptions.of().setPassive(true));
     this.addEventListener(EventType.click.getName(), this::onSelected);
     this.addEventListener(EventType.mouseenter.getName(), evt -> openSubMenu());
     addRightAddOn(noIndicator);

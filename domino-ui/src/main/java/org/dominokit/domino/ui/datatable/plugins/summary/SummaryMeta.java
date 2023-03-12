@@ -15,11 +15,10 @@
  */
 package org.dominokit.domino.ui.datatable.plugins.summary;
 
-import org.dominokit.domino.ui.datatable.ColumnConfig;
-import org.dominokit.domino.ui.utils.ComponentMeta;
-
 import java.util.Objects;
 import java.util.Optional;
+import org.dominokit.domino.ui.datatable.ColumnConfig;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 
 public class SummaryMeta<T, S> implements ComponentMeta {
 

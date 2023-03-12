@@ -130,7 +130,8 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
   }
 
   private void expandRow(ExpandRecordEvent<T> event) {
-    Optional<DetailsButtonElement<T>> detailsButtonElement = DetailsButtonElement.get(event.getTableRow());
+    Optional<DetailsButtonElement<T>> detailsButtonElement =
+        DetailsButtonElement.get(event.getTableRow());
     setExpanded(detailsButtonElement.get());
   }
 
@@ -158,8 +159,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
    */
   public void setupColumn(ColumnConfig<T> column) {}
 
-  private static class DetailsButtonElement<T>
-      implements IsElement<HTMLElement>, ComponentMeta {
+  private static class DetailsButtonElement<T> implements IsElement<HTMLElement>, ComponentMeta {
     public static final String RECORD_DETAILS_BUTTON = "record-details-button";
     private final DominoElement<HTMLDivElement> element;
     private final CellRenderer.CellInfo<T> cellInfo;
@@ -211,7 +211,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
       return RECORD_DETAILS_BUTTON;
     }
 
-    public static <T> Optional<DetailsButtonElement<T>> get(TableRow<T> tableRow){
+    public static <T> Optional<DetailsButtonElement<T>> get(TableRow<T> tableRow) {
       return tableRow.getMeta(RECORD_DETAILS_BUTTON);
     }
   }

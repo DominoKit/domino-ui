@@ -19,7 +19,6 @@ import elemental2.dom.HTMLTableCellElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 

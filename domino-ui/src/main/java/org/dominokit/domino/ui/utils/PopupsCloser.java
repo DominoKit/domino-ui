@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.utils;
 
 import static elemental2.dom.DomGlobal.document;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.NodeList;

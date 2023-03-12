@@ -17,10 +17,8 @@ package org.dominokit.domino.ui.datatable;
 
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-/**
- * @deprecated use {@link ComponentMeta}
- */
+/** @deprecated use {@link ComponentMeta} */
 @Deprecated
-public interface RowMeta extends ComponentMeta{
+public interface RowMeta extends ComponentMeta {
   String getKey();
 }

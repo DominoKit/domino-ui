@@ -13,10 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.datatable;
+package org.dominokit.domino.ui.utils;
 
-import org.dominokit.domino.ui.utils.ComponentMeta;
+import java.util.Map;
+import java.util.Optional;
 
-/** @deprecated use {@link ComponentMeta} */
-@Deprecated
-public interface TableMeta extends ComponentMeta {}
+public interface HasMeta<T> {
+
+  Map<String, ComponentMeta> getMetaObjects();
+
+  default T applyMeta(ComponentMeta meta) {
+    getMetaObjects().put(meta.getKey(), meta);
+    return (T) this;
+  }
+
+  @SuppressWarnings("all")
+  default <E extends ComponentMeta> Optional<E> getMeta(String key) {
+    return Optional.ofNullable((E) getMetaObjects().get(key));
+  }
+
+  default T removeMeta(String key) {
+    getMetaObjects().remove(key);
+    return (T) this;
+  }
+}

@@ -15,10 +15,9 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-import org.dominokit.domino.ui.utils.ComponentMeta;
-
 import java.util.Objects;
 import java.util.Optional;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 
 public class RowRendererMeta<T> implements ComponentMeta {
 

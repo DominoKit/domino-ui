@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Consumer;
-import org.dominokit.domino.ui.datatable.RowMeta;
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.plugins.tree.store.TreeNodeStore;
 import org.dominokit.domino.ui.datatable.plugins.tree.store.TreeNodeStoreContext;
