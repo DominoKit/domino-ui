@@ -22,12 +22,18 @@ import elemental2.core.JsArray;
 import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.Collapsible;
+import org.dominokit.domino.ui.datatable.DataTable;
+import org.dominokit.domino.ui.datatable.RowMeta;
+import org.dominokit.domino.ui.datatable.TableMeta;
+import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.menu.AbstractMenu;
 import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.popover.Tooltip;
@@ -84,6 +90,8 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
   private EventListener attachEventListener;
   private EventListener detachEventListener;
+
+  private Map<String, ComponentMeta> metaObjects = new HashMap<>();
 
   /**
    * initialize the component using its root element giving it a unique id, a {@link Style} and also
@@ -2015,6 +2023,23 @@ public abstract class BaseDominoElement<E extends HTMLElement, T extends IsEleme
 
   protected DominoUIConfig config() {
     return DominoUIConfig.INSTANCE;
+  }
+
+
+  public T applyMeta(ComponentMeta meta) {
+    metaObjects.put(meta.getKey(), meta);
+    return (T) this;
+  }
+
+
+  @SuppressWarnings("all")
+  public <E extends ComponentMeta> Optional<E> getMeta(String key) {
+    return Optional.ofNullable((E) metaObjects.get(key));
+  }
+
+  public T removeMeta(String key) {
+    metaObjects.remove(key);
+    return (T) this;
   }
 
   /**

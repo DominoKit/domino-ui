@@ -15,18 +15,13 @@
  */
 package org.dominokit.domino.ui.menu;
 
-import static elemental2.dom.DomGlobal.document;
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.a;
-import static org.jboss.elemento.Elements.li;
-import static org.jboss.elemento.Elements.span;
-import static org.jboss.elemento.Elements.ul;
-
-import elemental2.dom.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import elemental2.dom.Event;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLLIElement;
+import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.grid.flex.FlexDirection;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
@@ -40,9 +35,26 @@ import org.dominokit.domino.ui.menu.direction.MiddleOfScreenDropDirection;
 import org.dominokit.domino.ui.menu.direction.MouseBestFitDirection;
 import org.dominokit.domino.ui.search.SearchBox;
 import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.AppendStrategy;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.IsPopup;
+import org.dominokit.domino.ui.utils.KeyboardNavigation;
+import org.dominokit.domino.ui.utils.PopupsCloser;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import static elemental2.dom.DomGlobal.document;
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+import static org.jboss.elemento.Elements.a;
+import static org.jboss.elemento.Elements.li;
+import static org.jboss.elemento.Elements.span;
+import static org.jboss.elemento.Elements.ul;
 
 /**
  * The base component to create a menu like UI.
@@ -422,7 +434,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
     return count > 0;
   }
 
-  /** @return String label that indicate the create missing items action */
+  /** @return String label that indicate the creat missing items action */
   public String getCreateMissingLabel() {
     return createMissingLabel;
   }
@@ -860,7 +872,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
         && Boolean.parseBoolean(this.getAttribute("domino-sub-menu"))) {
       return;
     }
-    PopupsCloser.close();
+    POPUPS_CLOSER.close();
   }
 
   private void focus() {
@@ -1079,7 +1091,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
       parent.onItemSelected(item);
     } else {
       if (isAutoCloseOnSelect() && !item.hasMenu()) {
-        PopupsCloser.close();
+        POPUPS_CLOSER.close();
       }
       selectionHandlers.forEach(selectionHandler -> selectionHandler.onItemSelected(item));
     }

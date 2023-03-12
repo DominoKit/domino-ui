@@ -38,7 +38,6 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   private final Map<String, RowCell<T>> rowCells = new HashMap<>();
 
   private Map<String, String> flags = new HashMap<>();
-  private Map<String, RowMeta> metaObjects = new HashMap<>();
 
   private HTMLTableRowElement element = tr().element();
   private List<SelectionHandler<T>> selectionHandlers = new ArrayList<>();
@@ -167,40 +166,6 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     return flags.get(name);
   }
 
-  /**
-   * @deprecated use {@link #applyMeta(RowMeta)}
-   * @param meta
-   */
-  @Deprecated
-  public void addMetaObject(RowMeta meta) {
-    metaObjects.put(meta.getKey(), meta);
-  }
-
-  public void applyMeta(RowMeta meta) {
-    metaObjects.put(meta.getKey(), meta);
-  }
-
-  /**
-   * @deprecated use {@link #getMeta(String)}
-   * @param key
-   * @return
-   * @param <E>
-   */
-  @Deprecated
-  public <E extends RowMetaObject> E getMetaObject(String key) {
-    return (E) metaObjects.get(key);
-  }
-
-  @SuppressWarnings("all")
-  public <E extends RowMeta> Optional<E> getMeta(String key) {
-    return Optional.ofNullable((E) metaObjects.get(key));
-  }
-
-  public TableRow<T> removeMeta(String key) {
-    metaObjects.remove(key);
-    return this;
-  }
-
   public void removeFlag(String name) {
     flags.remove(name);
   }
@@ -276,14 +241,6 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     /** @param tableRow the changed {@link TableRow} */
     void onChange(TableRow<T> tableRow);
   }
-
-  /**
-   * @deprecated use {@link RowMeta} this interface is used to implement custom meta object for rows
-   *     with a unique key then later these meta object can be added to the row and can be used for
-   *     any kind of logic.
-   */
-  @Deprecated
-  public interface RowMetaObject extends RowMeta {}
 
   /** Convert the row the editable mode */
   public void edit() {

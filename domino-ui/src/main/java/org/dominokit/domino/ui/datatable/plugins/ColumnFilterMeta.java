@@ -16,12 +16,13 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import elemental2.dom.HTMLTableCellElement;
-import java.util.Optional;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
-import org.dominokit.domino.ui.datatable.ColumnMeta;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-public class ColumnFilterMeta<T> implements ColumnMeta {
+import java.util.Optional;
+
+public class ColumnFilterMeta<T> implements ComponentMeta {
 
   public static final String DOMINO_COLUMN_HEADER_FILTER_META = "domino-column-header-filter-meta";
 

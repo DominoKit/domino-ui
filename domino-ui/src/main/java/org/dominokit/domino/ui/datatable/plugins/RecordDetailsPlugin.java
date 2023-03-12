@@ -31,6 +31,7 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.jboss.elemento.IsElement;
@@ -92,7 +93,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     applyStyles(cell);
     DetailsButtonElement<T> detailsButtonElement =
         new DetailsButtonElement<>(expandIcon, collapseIcon, RecordDetailsPlugin.this, cell);
-    cell.getTableRow().addMetaObject(detailsButtonElement);
+    cell.getTableRow().applyMeta(detailsButtonElement);
     cell.getTableRow()
         .addHideListener(
             () -> {
@@ -129,9 +130,8 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
   }
 
   private void expandRow(ExpandRecordEvent<T> event) {
-    DetailsButtonElement<T> detailsButtonElement =
-        event.getTableRow().getMetaObject(DataTableStyles.RECORD_DETAILS_BUTTON);
-    setExpanded(detailsButtonElement);
+    Optional<DetailsButtonElement<T>> detailsButtonElement = DetailsButtonElement.get(event.getTableRow());
+    setExpanded(detailsButtonElement.get());
   }
 
   /** @return the root {@link HTMLDivElement} of this component */
@@ -159,7 +159,8 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
   public void setupColumn(ColumnConfig<T> column) {}
 
   private static class DetailsButtonElement<T>
-      implements IsElement<HTMLElement>, TableRow.RowMetaObject {
+      implements IsElement<HTMLElement>, ComponentMeta {
+    public static final String RECORD_DETAILS_BUTTON = "record-details-button";
     private final DominoElement<HTMLDivElement> element;
     private final CellRenderer.CellInfo<T> cellInfo;
     private final BaseIcon<?> expandIcon;
@@ -207,7 +208,11 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
 
     @Override
     public String getKey() {
-      return DataTableStyles.RECORD_DETAILS_BUTTON;
+      return RECORD_DETAILS_BUTTON;
+    }
+
+    public static <T> Optional<DetailsButtonElement<T>> get(TableRow<T> tableRow){
+      return tableRow.getMeta(RECORD_DETAILS_BUTTON);
     }
   }
 

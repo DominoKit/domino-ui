@@ -34,6 +34,7 @@ import org.dominokit.domino.ui.datatable.plugins.tree.events.TreeRowExpandedEven
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Unit;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 public class TreeGridPlugin<T>
@@ -513,7 +514,7 @@ public class TreeGridPlugin<T>
     List<RowCell<T>> get(DataTable<T> dataTable, TableRow<T> tableRow);
   }
 
-  private static class TreeGridRowLevel implements RowMeta {
+  private static class TreeGridRowLevel implements ComponentMeta {
     private final int level;
 
     public TreeGridRowLevel(int level) {
@@ -526,7 +527,7 @@ public class TreeGridPlugin<T>
     }
   }
 
-  private static class TreeGridRowToggleIcon implements RowMeta {
+  private static class TreeGridRowToggleIcon implements ComponentMeta {
     private final BaseIcon<?> icon;
 
     public TreeGridRowToggleIcon(BaseIcon<?> icon) {

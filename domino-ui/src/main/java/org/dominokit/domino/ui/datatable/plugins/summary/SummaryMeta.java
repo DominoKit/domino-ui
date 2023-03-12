@@ -15,12 +15,13 @@
  */
 package org.dominokit.domino.ui.datatable.plugins.summary;
 
+import org.dominokit.domino.ui.datatable.ColumnConfig;
+import org.dominokit.domino.ui.utils.ComponentMeta;
+
 import java.util.Objects;
 import java.util.Optional;
-import org.dominokit.domino.ui.datatable.ColumnConfig;
-import org.dominokit.domino.ui.datatable.ColumnMeta;
 
-public class SummaryMeta<T, S> implements ColumnMeta {
+public class SummaryMeta<T, S> implements ComponentMeta {
 
   public static final String COLUMN_SUMMARY_META = "column-summary-meta";
 

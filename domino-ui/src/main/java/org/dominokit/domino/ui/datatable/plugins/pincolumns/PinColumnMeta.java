@@ -15,17 +15,18 @@
  */
 package org.dominokit.domino.ui.datatable.plugins.pincolumns;
 
-import static org.dominokit.domino.ui.datatable.plugins.pincolumns.PinColumnsPlugin.PIN_COLUMNS_CSS_RULE;
-
-import java.util.List;
-import java.util.Optional;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.ColumnCssRuleMeta;
 import org.dominokit.domino.ui.datatable.ColumnHeaderMeta;
-import org.dominokit.domino.ui.datatable.ColumnMeta;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 
-public class PinColumnMeta implements ColumnMeta, PinColumnFunction {
+import java.util.List;
+import java.util.Optional;
+
+import static org.dominokit.domino.ui.datatable.plugins.pincolumns.PinColumnsPlugin.PIN_COLUMNS_CSS_RULE;
+
+public class PinColumnMeta implements ComponentMeta, PinColumnFunction {
 
   private final PinDirection direction;
 

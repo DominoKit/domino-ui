@@ -109,18 +109,19 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
 
   private LazyInitializer dropDownMenuInitializer;
 
-  static {
-    document.addEventListener(EventType.click.getName(), evt -> DropDownMenu.closeAllMenus());
-    document.addEventListener(EventType.touchmove.getName(), evt -> DropDownMenu.touchMoved = true);
-    document.addEventListener(
-        EventType.touchend.getName(),
-        evt -> {
-          if (!DropDownMenu.touchMoved) {
-            closeAllMenus();
-          }
-          DropDownMenu.touchMoved = false;
-        });
-  }
+  //  static {
+  //    document.addEventListener(EventType.click.getName(), evt -> DropDownMenu.closeAllMenus());
+  //    document.addEventListener(EventType.touchmove.getName(), evt -> DropDownMenu.touchMoved =
+  // true);
+  //    document.addEventListener(
+  //        EventType.touchend.getName(),
+  //        evt -> {
+  //          if (!DropDownMenu.touchMoved) {
+  //            closeAllMenus();
+  //          }
+  //          DropDownMenu.touchMoved = false;
+  //        });
+  //  }
 
   public DropDownMenu(HTMLElement targetElement) {
     this.targetElement = targetElement;

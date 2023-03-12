@@ -16,6 +16,9 @@
 package org.dominokit.domino.ui.utils;
 
 public interface IsPopup<T> {
+
+  PopupsCloser POPUPS_CLOSER = PopupsCloser.INSTANCE;
+
   T open();
 
   T close();

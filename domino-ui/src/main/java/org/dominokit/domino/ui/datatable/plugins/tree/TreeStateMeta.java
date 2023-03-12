@@ -21,8 +21,9 @@ import java.util.Optional;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableMeta;
 import org.dominokit.domino.ui.datatable.TableRow;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 
-public class TreeStateMeta<T> implements TableMeta {
+public class TreeStateMeta<T> implements ComponentMeta {
 
   public static final String TREE_STATE_TABLE_META = "tree-state-table-meta";
 

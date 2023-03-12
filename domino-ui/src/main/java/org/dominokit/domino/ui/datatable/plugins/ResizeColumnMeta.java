@@ -15,14 +15,15 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
+import elemental2.core.JsNumber;
+import org.dominokit.domino.ui.datatable.ColumnConfig;
+import org.dominokit.domino.ui.utils.ComponentMeta;
+
+import java.util.Optional;
+
 import static java.util.Objects.isNull;
 
-import elemental2.core.JsNumber;
-import java.util.Optional;
-import org.dominokit.domino.ui.datatable.ColumnConfig;
-import org.dominokit.domino.ui.datatable.ColumnMeta;
-
-public class ResizeColumnMeta implements ColumnMeta {
+public class ResizeColumnMeta implements ComponentMeta {
 
   public static final String RESIZE_COLUMN_META = "resize-column-meta";
 
