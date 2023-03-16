@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.jboss.elemento.Elements.a;
 
 import elemental2.dom.*;
@@ -141,9 +142,13 @@ public class ElementUtil {
    */
   public static Optional<ElementObserver> onAttach(HTMLElement element, ObserverCallback callback) {
     if (element != null) {
-      return Optional.of(BodyObserver.addAttachObserver(element, callback));
+      elements.elementOf(element).onAttached(callback);
     }
     return Optional.empty();
+  }
+
+  public static void withBodyObserverPaused(Runnable handler) {
+    BodyObserver.pauseFor(handler);
   }
 
   /**
@@ -154,11 +159,15 @@ public class ElementUtil {
    * @return an Optional {@link ElementObserver}
    */
   public static Optional<ElementObserver> onAttach(
-      IsElement<?> element, ObserverCallback callback) {
+          IsElement<?> element, ObserverCallback callback) {
     if (element != null) {
-      return Optional.of(BodyObserver.addAttachObserver(element.element(), callback));
+      elements.elementOf(element).onAttached(callback);
     }
     return Optional.empty();
+  }
+
+  public static void startObserving() {
+    BodyObserver.startObserving();
   }
 
   /**
@@ -172,7 +181,7 @@ public class ElementUtil {
    */
   public static Optional<ElementObserver> onDetach(HTMLElement element, ObserverCallback callback) {
     if (element != null) {
-      return Optional.of(BodyObserver.addDetachObserver(element, callback));
+      elements.elementOf(element).onDetached(callback);
     }
     return Optional.empty();
   }
@@ -185,12 +194,13 @@ public class ElementUtil {
    * @return an Optional {@link ElementObserver}
    */
   public static Optional<ElementObserver> onDetach(
-      IsElement<?> element, ObserverCallback callback) {
+          IsElement<?> element, ObserverCallback callback) {
     if (element != null) {
-      return Optional.of(BodyObserver.addDetachObserver(element.element(), callback));
+      elements.elementOf(element).onDetached(callback);
     }
     return Optional.empty();
   }
+
   //
   //  /**
   //   * Force an input component to accept only numbers inputs

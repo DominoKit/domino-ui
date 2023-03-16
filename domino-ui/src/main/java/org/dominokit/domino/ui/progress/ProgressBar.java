@@ -15,12 +15,15 @@
  */
 package org.dominokit.domino.ui.progress;
 
-import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.config.HasComponentConfig;
+import org.dominokit.domino.ui.config.ProgressBarConfig;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
+
+import java.util.Optional;
 
 /**
  * A component to show the progress for a single operation within a {@link Progress}
@@ -34,194 +37,164 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * @see Progress
  */
-public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> {
+public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> implements ProgressStyles, HasComponentConfig<ProgressBarConfig> {
 
-  private DominoElement<HTMLDivElement> element =
-      DominoElement.of(div()).css(ProgressStyles.progress_bar).attr("role", "progressbar");
-  private double maxValue;
-  private double value = 0;
-  private String textExpression;
-  private boolean showText = false;
-  private String style = ProgressStyles.progress_bar_success;
+    private DominoElement<HTMLDivElement> element;
+    private double maxValue;
+    private double value = 0;
+    private String textExpression;
+    private boolean showText = false;
 
-  /** @param maxValue int max value of the operation progress */
-  public ProgressBar(int maxValue) {
-    this(maxValue, "{percent}%");
-  }
+    private Progress parent;
 
-  /**
-   * @param maxValue int max value of the operation progress
-   * @param textExpression String that contains the parameter one or all of the parameters
-   *     <b>percent</b>,<b>value</b>,<b>maxValue</b>
-   *     <p>example
-   *     <pre>
-   *                           "Finished {percent}% of the items - {value}/{maxValue}"
-   *                       </pre>
-   */
-  public ProgressBar(int maxValue, String textExpression) {
-    this.maxValue = maxValue;
-    this.textExpression = textExpression;
-    this.setValue(0);
-    init(this);
-  }
-
-  /**
-   * @param maxValue int max value of the operation progress
-   * @return new ProgressBar instance
-   */
-  public static ProgressBar create(int maxValue) {
-    return new ProgressBar(maxValue);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return element.element();
-  }
-
-  /** @return double current progress value */
-  public double getValue() {
-    return value;
-  }
-
-  /**
-   * Make progress text visible on the ProgressBar
-   *
-   * @return same Progressbar instance
-   */
-  public ProgressBar showText() {
-    this.showText = true;
-    updateText();
-    return this;
-  }
-
-  /**
-   * @param value double value of progress
-   * @return same Progressbar instance
-   */
-  public ProgressBar setValue(double value) {
-    if (value >= 0 && value <= maxValue) {
-      this.value = value;
-      int percent = new Double((value / maxValue) * 100).intValue();
-      element.style().setWidth(percent + "%");
-      updateText();
+    /**
+     * @param maxValue int max value of the operation progress
+     */
+    public ProgressBar(int maxValue) {
+        this(maxValue, DominoUIConfig.CONFIG.getUIConfig().getDefaultProgressExpression());
     }
-    return this;
-  }
 
-  private void updateText() {
-    if (showText) {
-      int percent = new Double((value / maxValue) * 100).intValue();
-      element.setTextContent(
-          textExpression
-              .replace("{percent}", percent + "")
-              .replace("{value}", value + "")
-              .replace("{maxValue}", maxValue + ""));
+    /**
+     * @param maxValue       int max value of the operation progress
+     * @param textExpression String that contains the parameter one or all of the parameters
+     *                       <b>percent</b>,<b>value</b>,<b>maxValue</b>
+     *                       <p>example
+     *                       <pre>
+     *                                                                       "Finished {percent}% of the items - {value}/{maxValue}"
+     *                                                                   </pre>
+     */
+    public ProgressBar(int maxValue, String textExpression) {
+        element = div()
+                .addCss(dui_progress_bar)
+                .setAttribute("role", "progressbar");
+        this.maxValue = maxValue;
+        this.textExpression = textExpression;
+        this.setValue(0);
+        init(this);
     }
-  }
 
-  /**
-   * Adds an animation effect to the ProgressBar
-   *
-   * @return same ProgressBar instance
-   */
-  public ProgressBar animate() {
-    striped();
-    element.addCss(ProgressStyles.active);
-    return this;
-  }
+    /**
+     * @param maxValue int max value of the operation progress
+     * @return new ProgressBar instance
+     */
+    public static ProgressBar create(int maxValue) {
+        return new ProgressBar(maxValue);
+    }
 
-  /**
-   * Apply the {@link ProgressStyles#progress_bar_success}
-   *
-   * @return same Progressbar instance
-   */
-  public ProgressBar striped() {
-    element.removeCss(ProgressStyles.progress_bar_striped);
-    element.addCss(ProgressStyles.progress_bar_striped);
-    return this;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HTMLDivElement element() {
+        return element.element();
+    }
 
-  /**
-   * Apply the {@link ProgressStyles#progress_bar_success}
-   *
-   * @return same Progressbar instance
-   */
-  public ProgressBar success() {
-    return setStyle(ProgressStyles.progress_bar_success);
-  }
 
-  /**
-   * Apply the {@link ProgressStyles#progress_bar_warning}
-   *
-   * @return same Progressbar instance
-   */
-  public ProgressBar warning() {
-    return setStyle(ProgressStyles.progress_bar_warning);
-  }
+    void setParent(Progress parent) {
+        this.parent = parent;
+    }
 
-  /**
-   * Apply the {@link ProgressStyles#progress_bar_info}
-   *
-   * @return same Progressbar instance
-   */
-  public ProgressBar info() {
-    return setStyle(ProgressStyles.progress_bar_info);
-  }
+    /**
+     * @return double current progress value
+     */
+    public double getValue() {
+        return value;
+    }
 
-  /**
-   * Apply the {@link ProgressStyles#progress_bar_danger}
-   *
-   * @return same Progressbar instance
-   */
-  public ProgressBar danger() {
-    return setStyle(ProgressStyles.progress_bar_danger);
-  }
+    /**
+     * Make progress text visible on the ProgressBar
+     *
+     * @return same Progressbar instance
+     */
+    public ProgressBar showText() {
+        this.showText = true;
+        updateText();
+        return this;
+    }
 
-  private ProgressBar setStyle(String style) {
-    element.removeCss(this.style);
-    element.addCss(style);
-    this.style = style;
-    return this;
-  }
+    /**
+     * @param value double value of progress
+     * @return same Progressbar instance
+     */
+    public ProgressBar setValue(double value) {
+        if (value >= 0 && value <= maxValue) {
+            this.value = value;
+            updateWidth();
+        }
+        return this;
+    }
 
-  /**
-   * @param background {@link Color} of the Progressbar
-   * @return same ProgressBar instance
-   */
-  public ProgressBar setBackground(Color background) {
-    setStyle(background.getBackground());
-    return this;
-  }
+    private void updateText() {
+        if (showText) {
+            int percent = new Double((value / maxValue) * 100).intValue();
+            element.setTextContent(getConfig().evaluateProgressBarExpression(textExpression, percent, value, maxValue));
+        }
+    }
 
-  /** @return double max value */
-  public double getMaxValue() {
-    return maxValue;
-  }
+    /**
+     * Adds an animation effect to the ProgressBar
+     *
+     * @return same ProgressBar instance
+     */
+    public ProgressBar animate() {
+        striped();
+        element.addCss(dui_active);
+        return this;
+    }
 
-  /**
-   * @param maxValue double
-   * @return same ProgressBar instance
-   */
-  public ProgressBar setMaxValue(double maxValue) {
-    this.maxValue = maxValue;
-    setValue(this.value);
-    return this;
-  }
+    /**
+     * Apply the {@link org.dominokit.domino.ui.style.GenericCss#dui_striped}
+     *
+     * @return same Progressbar instance
+     */
+    public ProgressBar striped() {
+        dui_striped.apply(this);
+        return this;
+    }
 
-  /**
-   * @param expression String that contains the parameter one or all of the parameters
-   *     <b>percent</b>,<b>value</b>,<b>maxValue</b>
-   *     <p>example
-   *     <pre>
-   *                           "Finished {percent}% of the items - {value}/{maxValue}"
-   *                       </pre>
-   *
-   * @return same ProgressBar instance
-   */
-  public ProgressBar textExpression(String expression) {
-    this.textExpression = expression;
-    updateText();
-    return this;
-  }
+    /**
+     * @return double max value
+     */
+    public double getMaxValue() {
+        return maxValue;
+    }
+
+    /**
+     * @param maxValue double
+     * @return same ProgressBar instance
+     */
+    public ProgressBar setMaxValue(double maxValue) {
+        this.maxValue = maxValue;
+        setValue(this.value);
+        return this;
+    }
+
+    /**
+     * @param expression String that contains the parameter one or all of the parameters
+     *                   <b>percent</b>,<b>value</b>,<b>maxValue</b>
+     *                   <p>example
+     *                   <pre>
+     *                                                               "Finished {percent}% of the items - {value}/{maxValue}"
+     *                                                           </pre>
+     * @return same ProgressBar instance
+     */
+    public ProgressBar textExpression(String expression) {
+        this.textExpression = expression;
+        updateText();
+        return this;
+    }
+
+    @Override
+    public ProgressBar remove() {
+        Optional.ofNullable(parent).ifPresent(progress -> progress.removeBar(this));
+        this.parent = null;
+        return super.remove();
+    }
+
+    void updateWidth() {
+        Optional.ofNullable(parent).ifPresent(progress -> {
+            element.style().setWidth(progress.calculateWidth(value) + "%");
+            updateText();
+        });
+    }
 }

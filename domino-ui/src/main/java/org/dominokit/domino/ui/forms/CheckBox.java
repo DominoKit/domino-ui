@@ -21,7 +21,7 @@ import static org.dominokit.domino.ui.forms.FormsStyles.*;
 import elemental2.dom.*;
 import java.util.Optional;
 import java.util.function.Consumer;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
+
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 
@@ -66,10 +66,10 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
   public CheckBox() {
     formElement.addCss(FORM_CHECK_BOX);
     wrapperElement.appendChild(
-        DominoElement.div()
+        div()
             .addCss(FIELD_INPUT)
-            .appendChild(checkLabelElement = DominoElement.label().addCss(CHECK_BOX_LABEL)));
-    checkLabelTextElement = LazyChild.of(DominoElement.span(), checkLabelElement);
+            .appendChild(checkLabelElement = label().addCss(CHECK_BOX_LABEL)));
+    checkLabelTextElement = LazyChild.of(span(), checkLabelElement);
     EventListener listener =
         evt -> {
           evt.stopPropagation();
@@ -79,7 +79,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
           }
         };
     checkLabelElement.addClickListener(listener);
-    KeyboardEvents.listenOnKeyDown(getInputElement()).onEnter(listener);
+    getInputElement().onKeyDown(keyEvents -> keyEvents.onEnter(listener));
     setDefaultValue(false);
   }
 
@@ -121,7 +121,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
 
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
-    return DominoElement.input(type).addCss(HIDDEN_INPUT);
+    return input(type).addCss(HIDDEN_INPUT);
   }
 
   @Override

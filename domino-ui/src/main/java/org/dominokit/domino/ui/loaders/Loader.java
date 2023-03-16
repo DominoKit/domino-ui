@@ -18,12 +18,15 @@ package org.dominokit.domino.ui.loaders;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
 import static org.dominokit.domino.ui.style.GenericCss.dui_vertical_center;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.elemento.IsElement;
+import org.junit.jupiter.params.shadow.com.univocity.parsers.common.fields.FieldSelector;
 
 /**
  * A component which provides a loader mask on a target element
@@ -74,7 +77,7 @@ public class Loader {
   }
 
   private Loader(HTMLElement target, LoaderEffect type) {
-    this.target = DominoElement.of(target);
+    this.target = elements.elementOf(target);
     this.loaderElement = LoaderFactory.make(type);
     this.loaderElement.getContentElement().addCss(loadingPosition);
   }

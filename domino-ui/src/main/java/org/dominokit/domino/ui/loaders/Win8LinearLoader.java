@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
@@ -25,28 +24,28 @@ public class Win8LinearLoader extends BaseLoader<Win8LinearLoader>
     implements IsElement<HTMLDivElement> {
 
   private final DominoElement<HTMLDivElement> progress1 =
-      DominoElement.div()
+      div()
           .addCss(wait_me_progress_elem_1)
-          .appendChild(DominoElement.div().addCss(dui_bg_grey_d_2));
+          .appendChild(div().addCss(dui_bg_grey_d_2));
   private final DominoElement<HTMLDivElement> progress2 =
-      DominoElement.div()
+      div()
           .addCss(wait_me_progress_elem_2)
-          .appendChild(DominoElement.div().addCss(dui_bg_grey_d_2));
+          .appendChild(div().addCss(dui_bg_grey_d_2));
   private final DominoElement<HTMLDivElement> progress3 =
-      DominoElement.div()
+      div()
           .addCss(wait_me_progress_elem_3)
-          .appendChild(DominoElement.div().addCss(dui_bg_grey_d_2));
+          .appendChild(div().addCss(dui_bg_grey_d_2));
   private final DominoElement<HTMLDivElement> progress4 =
-      DominoElement.div()
+      div()
           .addCss(wait_me_progress_elem_4)
-          .appendChild(DominoElement.div().addCss(dui_bg_grey_d_2));
+          .appendChild(div().addCss(dui_bg_grey_d_2));
   private final DominoElement<HTMLDivElement> progress5 =
-      DominoElement.div()
+      div()
           .addCss(wait_me_progress_elem_5)
-          .appendChild(DominoElement.div().addCss(dui_bg_grey_d_2));
+          .appendChild(div().addCss(dui_bg_grey_d_2));
 
   private final DominoElement<HTMLDivElement> loader =
-      DominoElement.div()
+      div()
           .addCss(wait_me_progress, win_8_linear)
           .appendChild(progress1)
           .appendChild(progress2)
@@ -55,13 +54,13 @@ public class Win8LinearLoader extends BaseLoader<Win8LinearLoader>
           .appendChild(progress5);
 
   private final DominoElement<HTMLDivElement> content =
-      DominoElement.div()
+      div()
           .addCss(wait_me_content, dui_vertical_center)
           .appendChild(loader)
           .appendChild(loadingText);
 
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.div()
+      div()
           .addCss(wait_me)
           .style("background: rgba(255, 255, 255, 0.9);")
           .appendChild(content);

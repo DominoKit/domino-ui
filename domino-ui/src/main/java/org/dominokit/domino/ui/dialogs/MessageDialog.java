@@ -53,7 +53,7 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
 
   /** creates new instance with empty title */
   public MessageDialog() {
-    messageElement = LazyChild.of(DominoElement.span(), contentElement);
+    messageElement = LazyChild.of(span(), contentElement);
     bodyElement.addCss(dui_text_center);
     appendButtons();
     setStretchWidth(DialogSize.SMALL);

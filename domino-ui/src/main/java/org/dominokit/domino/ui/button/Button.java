@@ -119,6 +119,6 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
 
   @Override
   protected DominoElement<HTMLButtonElement> createButtonElement() {
-    return DominoElement.button();
+    return button();
   }
 }

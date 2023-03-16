@@ -17,9 +17,11 @@ package org.dominokit.domino.ui.style;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.HasWavesElement;
 
 /** A utility class for configuring waves for a specific element */
@@ -36,7 +38,7 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
   }
 
   private WavesSupport(HTMLElement targetElement) {
-    this.element = DominoElement.of(targetElement);
+    this.element = elements.elementOf(targetElement);
     wavesElement = Waves.create(this.element);
   }
 

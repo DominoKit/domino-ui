@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLTableCellElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -56,16 +57,14 @@ public class RowCell<T> {
    * field.
    */
   public void updateCell() {
-    DominoElement<HTMLTableCellElement> cellElement = DominoElement.of(cellInfo.getElement());
+    DominoElement<HTMLTableCellElement> cellElement = elements.elementOf(cellInfo.getElement());
     cellElement.clearElement();
 
     if (nonNull(columnConfig.getMinWidth())) {
-      cellElement.setMinWidth(columnConfig.getMinWidth());
       columnConfig.getHeadElement().style().setMinWidth(columnConfig.getMinWidth());
     }
 
     if (nonNull(columnConfig.getMaxWidth())) {
-      cellElement.setMaxWidth(columnConfig.getMaxWidth());
       columnConfig.getHeadElement().style().setMaxWidth(columnConfig.getMaxWidth());
     }
 

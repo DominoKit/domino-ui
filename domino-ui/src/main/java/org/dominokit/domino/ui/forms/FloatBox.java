@@ -50,7 +50,7 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
   /** {@inheritDoc} */
   @Override
   protected Function<String, Float> defaultValueParser() {
-    return DominoUIConfig.CONFIG.getNumberParsers().floatParser(this);
+    return getConfig().getNumberParsers().floatParser(this);
   }
 
   /** {@inheritDoc} */

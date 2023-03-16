@@ -26,6 +26,10 @@ public interface CssClass {
 
   String getCssClass();
 
+  default void apply(IsElement<?> element){
+    apply(element.element());
+  }
+
   default void apply(HTMLElement element) {
     if (!element.classList.contains(getCssClass())) {
       element.classList.add(getCssClass());

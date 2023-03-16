@@ -56,9 +56,9 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   private boolean active = false;
 
   protected BreadcrumbItem(String text) {
-    element = DominoElement.li();
+    element = li();
     init(this);
-    anchorElement = DominoElement.a();
+    anchorElement = a();
     this.textElement = TextNode.of(text);
     this.anchorElement.appendChild(textElement);
     element.appendChild(anchorElement);
@@ -94,12 +94,12 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
 
   /**
    * Sets item as active, customizing the active style can be done by overwriting {@link
-   * GenericCss#dui_active_element} CSS class
+   * GenericCss#dui_active} CSS class
    *
    * @return same instance
    */
   BreadcrumbItem activate() {
-    element.addCss(dui_active_element);
+    element.addCss(dui_active);
     return this;
   }
 
@@ -109,7 +109,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
    * @return same instance
    */
   BreadcrumbItem deActivate() {
-    element.removeCss(dui_active_element);
+    element.removeCss(dui_active);
     return this;
   }
 
@@ -123,7 +123,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
    */
   @Deprecated
   public BreadcrumbItem setActive(boolean active) {
-    addCss(BooleanCssClass.of(dui_active_element, active));
+    addCss(BooleanCssClass.of(dui_active, active));
     return this;
   }
 
@@ -151,6 +151,6 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
 
   /** @return true if the item is active, false otherwise */
   public boolean isActive() {
-    return dui_active_element.isAppliedTo(this);
+    return dui_active.isAppliedTo(this);
   }
 }

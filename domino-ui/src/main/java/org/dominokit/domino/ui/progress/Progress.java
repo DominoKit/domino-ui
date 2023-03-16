@@ -21,6 +21,9 @@ import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A component that can show the progress for one or more operation
  *
@@ -33,12 +36,14 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * @see ProgressBar
  */
-public class Progress extends BaseDominoElement<HTMLDivElement, Progress> {
+public class Progress extends BaseDominoElement<HTMLDivElement, Progress> implements ProgressStyles {
 
-  private HTMLDivElement element = DominoElement.of(div()).css(ProgressStyles.progress).element();
+  private DominoElement<HTMLDivElement> element;
+  private final List<ProgressBar> progressBars = new ArrayList<>();
 
   /** */
   public Progress() {
+    element = div().addCss(dui_progress);
     init(this);
   }
 
@@ -54,12 +59,29 @@ public class Progress extends BaseDominoElement<HTMLDivElement, Progress> {
    */
   public Progress appendChild(ProgressBar bar) {
     element.appendChild(bar.element());
+    this.progressBars.add(bar);
+    bar.setParent(this);
+    bar.updateWidth();
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
+  }
+
+  String calculateWidth(double value) {
+    return String.valueOf(new Double((value / progressBars.stream()
+            .mapToDouble(ProgressBar::getMaxValue)
+            .sum()) * 100).intValue());
+  }
+
+  private void updateBars(){
+    progressBars.forEach(progressBar -> progressBar.updateWidth());
+  }
+
+  void removeBar(ProgressBar progressBar) {
+    this.progressBars.remove(progressBar);
   }
 }

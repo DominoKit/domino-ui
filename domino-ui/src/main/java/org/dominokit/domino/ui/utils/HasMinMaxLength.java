@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.utils;
 
-
 public interface HasMinMaxLength<T> {
   String MAX_LENGTH = "maxlength";
   String MIN_LENGTH = "minlength";

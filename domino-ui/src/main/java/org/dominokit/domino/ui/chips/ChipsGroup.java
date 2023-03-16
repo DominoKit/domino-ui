@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.chips;
 
-
 import elemental2.dom.HTMLDivElement;
 import java.util.*;
 import org.dominokit.domino.ui.utils.*;
@@ -62,7 +61,7 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
   private boolean selectionListenersPaused = false;
 
   public ChipsGroup() {
-    root = DominoElement.div();
+    root = div();
     init(this);
   }
 

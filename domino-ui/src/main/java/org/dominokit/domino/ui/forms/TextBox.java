@@ -47,7 +47,7 @@ public class TextBox extends TextInputFormField<TextBox, HTMLInputElement, Strin
 
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
-    return DominoElement.input(type).addCss(FIELD_INPUT);
+    return input(type).addCss(FIELD_INPUT);
   }
 
   @Override

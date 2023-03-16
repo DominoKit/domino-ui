@@ -15,14 +15,26 @@
  */
 package org.dominokit.domino.ui.button;
 
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.button.ButtonStyles.*;
-
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.style.*;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.style.GenericCss;
+import org.dominokit.domino.ui.style.SwapCssClass;
+import org.dominokit.domino.ui.style.WaveStyle;
+import org.dominokit.domino.ui.style.WavesElement;
+import org.dominokit.domino.ui.utils.AcceptDisable;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.HasClickableElement;
+import org.dominokit.domino.ui.utils.LazyChild;
+
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.button.ButtonStyles.dui_button;
+import static org.dominokit.domino.ui.button.ButtonStyles.dui_button_body;
+import static org.dominokit.domino.ui.button.ButtonStyles.dui_button_icon;
+import static org.dominokit.domino.ui.button.ButtonStyles.dui_button_reversed;
+import static org.dominokit.domino.ui.button.ButtonStyles.dui_button_text;
 
 /**
  * A base component to implement buttons
@@ -34,7 +46,7 @@ import org.dominokit.domino.ui.utils.*;
  */
 public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, B>>
     extends WavesElement<HTMLElement, B>
-    implements HasClickableElement, Sizable<B>, AcceptDisable<B>, IsButton<B> {
+    implements HasClickableElement, AcceptDisable<B>, IsButton<B> {
 
   private SwapCssClass sizeCssClass = SwapCssClass.of(GenericCss.dui_medium);
 
@@ -45,21 +57,21 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
   /** The default element that represent the button HTMLElement. */
   protected final DominoElement<E> buttonElement;
 
-  /** creates a button with default size {@link ButtonSize#MEDIUM} */
+  /** creates a button */
   protected BaseButton() {
     buttonElement =
         createButtonElement()
             .addCss(dui_button)
-            .appendChild(bodyElement = DominoElement.div().addCss(dui_button_body));
+            .appendChild(bodyElement = div().addCss(dui_button_body));
     textElement =
-        LazyChild.of(DominoElement.span().addCss(dui_button_text, dui_flex_grow), bodyElement);
+        LazyChild.of(span().addCss(dui_button_text, dui_flex_grow), bodyElement);
     init((B) this);
   }
 
   protected abstract DominoElement<E> createButtonElement();
 
   /**
-   * creates a button with text and default size {@link ButtonSize#MEDIUM}
+   * creates a button with text
    *
    * @param text String text
    */
@@ -75,7 +87,7 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
   }
 
   /**
-   * creates a button with an icon and default size {@link ButtonSize#MEDIUM}
+   * creates a button with an icon
    *
    * @param icon {@link BaseIcon}
    */
@@ -98,18 +110,6 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
     return (B) this;
   }
 
-  /**
-   * change the size of the button
-   *
-   * @param size {@link ButtonSize}
-   * @return same instance
-   */
-  public B setSize(ButtonSize size) {
-    if (nonNull(size)) {
-      addCss(sizeCssClass.replaceWith(size.getStyle()));
-    }
-    return (B) this;
-  }
 
   /**
    * return the clickable {@link HTMLElement} of this component, which the component button element.
@@ -119,50 +119,6 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
   @Override
   public HTMLElement getClickableElement() {
     return element();
-  }
-
-  /**
-   * change the button size to {@link ButtonSize#LARGE}
-   *
-   * @return same instance
-   */
-  @Override
-  public B large() {
-    setSize(ButtonSize.LARGE);
-    return (B) this;
-  }
-
-  /**
-   * change the button size to {@link ButtonSize#MEDIUM}
-   *
-   * @return same instance
-   */
-  @Override
-  public B medium() {
-    setSize(ButtonSize.MEDIUM);
-    return (B) this;
-  }
-
-  /**
-   * change the button size to {@link ButtonSize#SMALL}
-   *
-   * @return same instance
-   */
-  @Override
-  public B small() {
-    setSize(ButtonSize.SMALL);
-    return (B) this;
-  }
-
-  /**
-   * change the button size to {@link ButtonSize#XSMALL}
-   *
-   * @return same instance
-   */
-  @Override
-  public B xSmall() {
-    setSize(ButtonSize.XSMALL);
-    return (B) this;
   }
 
   /**

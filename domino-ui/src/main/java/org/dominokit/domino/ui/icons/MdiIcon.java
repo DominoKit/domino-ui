@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.icons;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.icons.IconsStyles.*;
-import static org.jboss.elemento.Elements.i;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
@@ -35,7 +34,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   private SwapCssClass contrastClass = new SwapCssClass();
 
   private MdiIcon(HTMLElement icon) {
-    this.icon = DominoElement.of(icon);
+    this.icon = elementOf(icon);
     init(this);
   }
 
@@ -52,7 +51,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   }
 
   private MdiIcon(CssClass icon, MdiMeta mdiMeta) {
-    this.icon = DominoElement.of(i()).addCss(dui, dui_mdi, icon);
+    this.icon = i().addCss(dui, dui_mdi, icon);
     this.name = icon;
     this.toggleName = SwapCssClass.of(name);
     this.metaInfo = mdiMeta;

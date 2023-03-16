@@ -18,6 +18,8 @@ package org.dominokit.domino.ui.datatable;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
 /**
  * This implementation is default to show/hide any element whenever the table column visibility is
  * changed
@@ -75,7 +77,7 @@ public class DefaultColumnShowHideListener implements ColumnShowHideListener {
   /** {@inheritDoc} */
   @Override
   public void onShowHide(boolean visible) {
-    DominoElement.of(element).toggleDisplay(visible);
+    elements.elementOf(element).toggleDisplay(visible);
   }
 
   /** {@inheritDoc} */

@@ -23,6 +23,8 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.utils.DominoElement;
 
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
 /**
  * This plugin adds a thin colored border to the left of a row based on custom criteria
  *
@@ -54,7 +56,7 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
         Optional.ofNullable(colorScheme)
             .map(scheme -> colorScheme.color().getHex())
             .orElse("transparent");
-    DominoElement.of(tableRow.element()).setCssProperty("border-left-color", color);
+    elements.elementOf(tableRow.element()).setCssProperty("border-left-color", color);
   }
 
   @Override

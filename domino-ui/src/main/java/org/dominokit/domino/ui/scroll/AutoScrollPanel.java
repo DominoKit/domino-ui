@@ -27,20 +27,25 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class AutoScrollPanel extends BaseDominoElement<HTMLDivElement, AutoScrollPanel> {
 
-  private HTMLDivElement element = DominoElement.of(div()).css("auto-scroll-panel").element();
+    private DominoElement<HTMLDivElement> root;
 
-  /** @return new AutoScrollPanel instance */
-  public static AutoScrollPanel create() {
-    return new AutoScrollPanel();
-  }
+    /**
+     * @return new AutoScrollPanel instance
+     */
+    public static AutoScrollPanel create() {
+        return new AutoScrollPanel();
+    }
 
-  public AutoScrollPanel() {
-    init(this);
-  }
+    public AutoScrollPanel() {
+        root = div().addCss(dui_overflow_auto);
+        init(this);
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return element;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HTMLDivElement element() {
+        return root.element();
+    }
 }

@@ -52,7 +52,7 @@ public class ShortBox extends NumberBox<ShortBox, Short> {
   /** {@inheritDoc} */
   @Override
   protected Function<String, Short> defaultValueParser() {
-    return DominoUIConfig.CONFIG.getNumberParsers().shortParser(this);
+    return getConfig().getNumberParsers().shortParser(this);
   }
 
   /** {@inheritDoc} */

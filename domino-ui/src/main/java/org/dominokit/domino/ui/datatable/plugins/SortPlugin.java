@@ -17,11 +17,13 @@ package org.dominokit.domino.ui.datatable.plugins;
 
 import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.style.DisplayCss.dui_cursor_pointer;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.jboss.elemento.Elements.span;
 
 import elemental2.dom.HTMLElement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.DataSortEvent;
@@ -39,11 +41,13 @@ import org.jboss.elemento.EventType;
  *
  * @param <T> the type of the data table records
  */
-public class SortPlugin<T> implements DataTablePlugin<T> {
+public class SortPlugin<T>
+    implements DataTablePlugin<T>, HasPluginConfig<T, SortPlugin<T>, SortPluginConfig> {
 
   private SortContainer currentContainer;
   private Map<String, SortContainer> sortContainers = new HashMap<>();
   private DataTable<T> dataTable;
+  private SortPluginConfig config = new SortPluginConfig();
 
   /** {@inheritDoc} */
   @Override
@@ -54,8 +58,8 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
   /** {@inheritDoc} */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
-    if (column.isSortable()) {
-      SortContainer sortContainer = new SortContainer(column.getSortKey());
+    if (column.isSortable() && !column.isUtilityColumn()) {
+      SortContainer sortContainer = new SortContainer(column.getSortKey(), config);
       sortContainers.put(column.getSortKey(), sortContainer);
 
       column
@@ -74,7 +78,7 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
   }
 
   private void updateStyles(SortContainer sortContainer) {
-    DominoElement.of(sortContainer.sortElement)
+    elements.elementOf(sortContainer.sortElement)
         .setCssProperty("right", "15px")
         .setCssProperty("list-style", "none");
     sortContainer.clear();
@@ -117,14 +121,38 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
+  @Override
+  public SortPlugin<T> setConfig(SortPluginConfig config) {
+    this.config = config;
+    return this;
+  }
+
+  @Override
+  public SortPluginConfig getConfig() {
+    return config;
+  }
+
+  /**
+   * Use to update the configuration in the current plugin configuration
+   *
+   * @param handler {@link Consumer} of {@link SortPluginConfig}
+   * @return same plugin instance.
+   */
+  public SortPlugin<T> configure(Consumer<SortPluginConfig> handler) {
+    handler.accept(config);
+    return this;
+  }
+
   private static class SortContainer {
     private final String columnName;
+    private SortPluginConfig config;
     private SortDirection sortDirection = SortDirection.DESC;
     private DominoElement<HTMLElement> sortElement =
-        DominoElement.of(span()).appendChild(Icons.ALL.sort_mdi()).setMinWidth("15px");
+        elements.elementOf(span()).appendChild(Icons.ALL.sort_mdi()).setMinWidth("15px");
 
-    public SortContainer(String columnName) {
+    public SortContainer(String columnName, SortPluginConfig config) {
       this.columnName = columnName;
+      this.config = config;
     }
 
     public void clear() {
@@ -133,10 +161,16 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
 
     public void update(boolean flip) {
       if (flip) {
-        if (SortDirection.ASC.equals(sortDirection)) {
-          sortDirection = SortDirection.DESC;
-        } else {
+        if (sortDirection.NONE.equals(sortDirection)) {
           sortDirection = SortDirection.ASC;
+        } else if (SortDirection.ASC.equals(sortDirection)) {
+          sortDirection = SortDirection.DESC;
+        } else if (SortDirection.DESC.equals(sortDirection)) {
+          if (config.isTriStateSort()) {
+            sortDirection = SortDirection.NONE;
+          } else {
+            sortDirection = SortDirection.ASC;
+          }
         }
       }
       clear();
@@ -146,8 +180,10 @@ public class SortPlugin<T> implements DataTablePlugin<T> {
     public BaseIcon<?> getSortArrow() {
       if (SortDirection.ASC.equals(sortDirection)) {
         return Icons.ALL.sort_ascending_mdi();
-      } else {
+      } else if (SortDirection.DESC.equals(sortDirection)) {
         return Icons.ALL.sort_descending_mdi();
+      } else {
+        return Icons.ALL.sort_mdi();
       }
     }
   }

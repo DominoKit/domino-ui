@@ -53,7 +53,7 @@ public class DropdownButton<T extends BaseButton<?, T>, V>
         .setAttribute("aria-haspopup", true)
         .setAttribute("aria-expanded", true)
         .setAttribute("type", "button");
-    this.menu.setTargetElement(button).setMenuAppendTarget(DominoElement.body().element());
+    this.menu.setTargetElement(button).setMenuAppendTarget(body().element());
     this.button.addClickListener(evt -> this.menu.open());
     init(this);
   }

@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
@@ -24,24 +23,24 @@ import org.jboss.elemento.IsElement;
 public class TimerLoader extends BaseLoader<TimerLoader> implements IsElement<HTMLDivElement> {
 
   private final DominoElement<HTMLDivElement> progress1 =
-      DominoElement.div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
+      div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress2 =
-      DominoElement.div().addCss(wait_me_progress_elem_2, dui_bg_grey_d_2);
+      div().addCss(wait_me_progress_elem_2, dui_bg_grey_d_2);
 
   private final DominoElement<HTMLDivElement> loader =
-      DominoElement.div()
+      div()
           .addCss(wait_me_progress, timer, dui_border_grey_d_2)
           .appendChild(progress1)
           .appendChild(progress2);
 
   private final DominoElement<HTMLDivElement> content =
-      DominoElement.div()
+      div()
           .addCss(wait_me_content, dui_vertical_center)
           .appendChild(loader)
           .appendChild(loadingText);
 
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.div()
+      div()
           .addCss(wait_me)
           .style("background: rgba(255, 255, 255, 0.9);")
           .appendChild(content);

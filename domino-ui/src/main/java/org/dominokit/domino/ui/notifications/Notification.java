@@ -46,27 +46,14 @@ import org.jboss.elemento.EventType;
 public class Notification extends BaseDominoElement<HTMLDivElement, Notification>
     implements NotificationStyles {
 
-  /** Top left position */
-  public static final Position TOP_LEFT = new TopLeftPosition();
-  /** Top center position */
-  public static final Position TOP_CENTER = new TopCenterPosition();
-  /** Top right position */
-  public static final Position TOP_RIGHT = new TopRightPosition();
-  /** Bottom left position */
-  public static final Position BOTTOM_LEFT = new BottomLeftPosition();
-  /** Bottom center position */
-  public static final Position BOTTOM_CENTER = new BottomCenterPosition();
-  /** Bottom right position */
-  public static final Position BOTTOM_RIGHT = new BottomRightPosition();
-
   private final DominoElement<HTMLDivElement> element;
   private final DominoElement<HTMLDivElement> root;
   private final LazyChild<DominoElement<HTMLElement>> messageSpan;
   private final LazyChild<RemoveButton> closeButton;
 
   private int duration = 4000;
-  private Transition[] inTransitions = new Transition[] {Transition.FADE_IN};
-  private Transition[] outTransitions = new Transition[] {Transition.FADE_OUT};
+  private Transition inTransition = Transition.FADE_IN;
+  private Transition outTransition = Transition.FADE_OUT;
   private SwapCssClass position = SwapCssClass.of(dui_ntf_top_left);
   private boolean closable = true;
   private boolean infinite = false;
@@ -75,16 +62,16 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
 
   public Notification() {
     root =
-        DominoElement.div()
+        div()
             .addCss(dui_notification_wrapper, position)
-            .appendChild(element = DominoElement.div().addCss(dui_notification));
-    messageSpan = LazyChild.of(DominoElement.span(), element);
+            .appendChild(element = div().addCss(dui_notification));
+    messageSpan = LazyChild.of(span(), element);
     closeButton = LazyChild.of(RemoveButton.create(), element);
     closeButton.whenInitialized(
         () -> {
           closeButton.element().addEventListener(EventType.click.getName(), e -> close());
           element.insertBefore(
-              DominoElement.span().addCss("dui-notification-filler"), closeButton.element());
+              span().addCss("dui-notification-filler"), closeButton.element());
         });
     init(this);
   }
@@ -148,11 +135,11 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * Defines the animation transition to be applied to show up the notification when {@link
    * Notification#show()} is called.
    *
-   * @param inTransitions {@link Transition}
+   * @param inTransition {@link Transition}
    * @return {@link Notification}
    */
-  public Notification inTransition(Transition... inTransitions) {
-    this.inTransitions = inTransitions;
+  public Notification inTransition(Transition inTransition) {
+    this.inTransition = inTransition;
     return this;
   }
 
@@ -160,11 +147,11 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * Defines the animation transition to be applied to close up the notification when {@link
    * Notification#close()} is called, or the duration ends.
    *
-   * @param outTransitions {@link Transition}
+   * @param outTransition {@link Transition}
    * @return {@link Notification}
    */
-  public Notification outTransition(Transition... outTransitions) {
-    this.outTransitions = outTransitions;
+  public Notification outTransition(Transition outTransition) {
+    this.outTransition = outTransition;
     return this;
   }
 
@@ -186,7 +173,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * @param position {@link Position}
    * @return {@link Notification}
    */
-  public Notification setPosition(CssPosition position) {
+  public Notification setPosition(Position position) {
     root.addCss(this.position.replaceWith(position.style));
     return this;
   }
@@ -217,7 +204,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     this.closed = false;
     Animation.create(element)
         .beforeStart(element -> DomGlobal.document.body.appendChild(element()))
-        .transition(inTransitions)
+        .transition(inTransition)
         .callback(
             e -> {
               if (!infinite) {
@@ -256,7 +243,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   private void animateClose(int after, Runnable onComplete) {
     Animation.create(element)
         .delay(after)
-        .transition(outTransitions)
+        .transition(outTransition)
         .callback(
             e2 -> {
               element().remove();
@@ -302,39 +289,13 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     return root.element();
   }
 
-  /** An interface for the required API to implement new position classes for notifications */
-  public interface Position {
-    /**
-     * this method will be called before attaching the notification element to the dom.
-     *
-     * @param element the notification element
-     */
-    void onBeforeAttach(HTMLElement element);
-
-    /**
-     * this method will be called everytime we try to show a new notification.
-     *
-     * @param element the notification element
-     */
-    void onNewElement(HTMLElement element);
-
-    /**
-     * this method will be called once the notification is completed and the notification element is
-     * removed from the dom
-     *
-     * @param dataPosition
-     * @param height
-     */
-    void onRemoveElement(int dataPosition, int height);
-  }
-
   /** functional interface to handle close event */
   @FunctionalInterface
   public interface CloseHandler {
     void onClose();
   }
 
-  public enum CssPosition {
+  public enum Position {
     TOP_LEFT(NotificationStyles.dui_ntf_top_left),
     TOP_MIDDLE(NotificationStyles.dui_ntf_top_middle),
     TOP_RIGHT(NotificationStyles.dui_ntf_top_right),
@@ -344,7 +305,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
 
     private CssClass style;
 
-    CssPosition(CssClass style) {
+    Position(CssClass style) {
       this.style = style;
     }
 

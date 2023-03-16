@@ -65,7 +65,7 @@ public abstract class CustomInputBox<T extends CustomInputBox<T>>
   }
 
   private void init() {
-    String listId = DominoElement.getUniqueId();
+    String listId = getUniqueId();
     suggestionsDataList.id = listId;
     getInputElement().setAttribute("list", listId);
     wrapperElement.appendChild(suggestionsDataList);
@@ -76,7 +76,7 @@ public abstract class CustomInputBox<T extends CustomInputBox<T>>
 
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
-    return DominoElement.input(type).addCss(FIELD_INPUT);
+    return input(type).addCss(FIELD_INPUT);
   }
 
   private void addInvalidPatternValidator() {

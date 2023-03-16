@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.grid;
 
-
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -73,13 +72,13 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
 
   public GridLayout() {
     element =
-        DominoElement.div()
+        div()
             .addCss(dui_layout_grid)
-            .appendChild(contentElement = DominoElement.div().addCss(dui_grid_content));
-    headerElement = LazyChild.of(DominoElement.div().addCss(dui_grid_header), element);
-    footerElement = LazyChild.of(DominoElement.div().addCss(dui_grid_footer), element);
-    leftElement = LazyChild.of(DominoElement.div().addCss(dui_grid_left), element);
-    rightElement = LazyChild.of(DominoElement.div().addCss(dui_grid_right), element);
+            .appendChild(contentElement = div().addCss(dui_grid_content));
+    headerElement = LazyChild.of(div().addCss(dui_grid_header), element);
+    footerElement = LazyChild.of(div().addCss(dui_grid_footer), element);
+    leftElement = LazyChild.of(div().addCss(dui_grid_left), element);
+    rightElement = LazyChild.of(div().addCss(dui_grid_right), element);
     init(this);
     updateGridLayout();
   }

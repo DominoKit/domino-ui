@@ -18,13 +18,13 @@ package org.dominokit.domino.ui.code;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.DisplayCss.dui_overflow_x_scroll;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_whitespace_pre;
-import static org.jboss.elemento.Elements.code;
-import static org.jboss.elemento.Elements.pre;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLPreElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 
 /**
  * A component to create code blocks
@@ -52,7 +52,7 @@ public class Code {
     private final DominoElement<HTMLPreElement> element;
 
     private Block(HTMLPreElement element) {
-      this.element = DominoElement.of(element);
+      this.element = elementOf(element);
       init(this);
     }
 
@@ -73,7 +73,7 @@ public class Code {
     public Block setCode(String code) {
       if (nonNull(element.getFirstChild())) element.removeChild(element.getFirstChild());
       element.appendChild(
-          DominoElement.code().addCss(dui_overflow_x_scroll, dui_whitespace_pre).textContent(code));
+          code().addCss(dui_overflow_x_scroll, dui_whitespace_pre).textContent(code));
       return this;
     }
 
@@ -95,7 +95,7 @@ public class Code {
     private final DominoElement<HTMLElement> element;
 
     private Statement(HTMLElement element) {
-      this.element = DominoElement.of(element);
+      this.element = elementOf(element);
       init(this);
     }
 
@@ -109,16 +109,16 @@ public class Code {
   /**
    * Factory to create code Block
    *
-   * @param code The code String
+   * @param codeText The code String
    * @return new Block instance
    */
-  public static Block block(String code) {
+  public static Block block(String codeText) {
     return new Block(
-        DominoElement.pre()
+            elements.pre()
             .appendChild(
-                DominoElement.code()
+                    elements.code()
                     .addCss(dui_overflow_x_scroll, dui_whitespace_pre)
-                    .textContent(code))
+                    .textContent(codeText))
             .element());
   }
 
@@ -128,7 +128,7 @@ public class Code {
    * @return new empty Block instance
    */
   public static Block block() {
-    return new Block(pre().element());
+    return new Block(elements.pre().element());
   }
 
   /**
@@ -139,7 +139,7 @@ public class Code {
    */
   public static Statement statement(String code) {
     return new Statement(
-        DominoElement.code()
+        elements.code()
             .addCss(dui_overflow_x_scroll, dui_whitespace_pre)
             .textContent(code)
             .element());

@@ -182,7 +182,7 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
   public boolean isFocused() {
     if (nonNull(DomGlobal.document.activeElement)) {
       String dominoId =
-          DominoElement.of(Js.<HTMLElement>uncheckedCast(DomGlobal.document.activeElement))
+          elementOf(Js.<HTMLElement>uncheckedCast(DomGlobal.document.activeElement))
               .getDominoId();
       return nonNull(formElement.querySelector("[domino-uuid=\"" + dominoId + "\"]"));
     }

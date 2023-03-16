@@ -15,20 +15,24 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import static org.dominokit.domino.ui.forms.FormsStyles.FORM_FIELD;
-import static org.dominokit.domino.ui.keyboard.KeyboardEvents.listenOnKeyPress;
-
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
-import java.util.List;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.config.FormsFieldsConfig;
+import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.HasCounter;
 import org.dominokit.domino.ui.utils.HasMinMaxLength;
 
-public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTMLElement> {
+import java.util.List;
+
+import static org.dominokit.domino.ui.forms.FormsStyles.FORM_FIELD;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
+public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTMLElement> implements HasComponentConfig<FormsFieldsConfig> {
 
   private final T formElement;
   private V oldValue;
@@ -73,24 +77,25 @@ public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTM
               countableElement.updateCounter(
                   hasLength.getLength(), countableElement.getMaxCount()));
     }
-    listenOnKeyPress(inputElement)
-        .onEnter(
-            evt -> {
-              if (DominoUIConfig.CONFIG.isFocusNextFieldOnEnter()) {
-                inputElement.blur();
-                List<Element> elements =
-                    DominoElement.body()
-                        .element()
-                        .querySelectorAll("." + FORM_FIELD.getCssClass())
-                        .asList();
-                int i = elements.indexOf(formElement);
-                if (i < elements.size() - 1) {
-                  Element element = elements.get(i + 1);
-                  Element input = element.querySelector(".dui-field-input");
-                  Js.<HTMLInputElement>uncheckedCast(input).focus();
-                }
-              }
-            });
+      inputElement.onKeyPress(keyEvents -> {
+          keyEvents.onEnter(
+                  evt -> {
+                      if (getConfig().isFocusNextFieldOnEnter()) {
+                          inputElement.blur();
+                          List<Element> elements =
+                                  ElementsFactory.elements.body()
+                                          .element()
+                                          .querySelectorAll("." + FORM_FIELD.getCssClass())
+                                          .asList();
+                          int i = elements.indexOf(formElement);
+                          if (i < elements.size() - 1) {
+                              Element element = elements.get(i + 1);
+                              Element input = element.querySelector(".dui-field-input");
+                              Js.<HTMLInputElement>uncheckedCast(input).focus();
+                          }
+                      }
+                  });
+      });
 
     return this;
   }

@@ -28,7 +28,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 /** A wrapper component for <strong>p</strong> HTML tag */
 public class Paragraph extends BaseDominoElement<HTMLParagraphElement, Paragraph> {
 
-  private final DominoElement<HTMLParagraphElement> element = DominoElement.of(p());
+  private final DominoElement<HTMLParagraphElement> element = p();
   private Color colorStyle;
   private String alignment = align_left;
 

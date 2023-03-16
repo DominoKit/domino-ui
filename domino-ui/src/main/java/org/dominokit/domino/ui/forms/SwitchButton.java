@@ -22,7 +22,7 @@ import static org.dominokit.domino.ui.forms.FormsStyles.*;
 import elemental2.dom.*;
 import java.util.Optional;
 import java.util.function.Consumer;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
+
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.Checkable;
@@ -92,11 +92,11 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   /** Creates a switch without a label */
   public SwitchButton() {
     addCss(SWITCH);
-    DominoElement<HTMLDivElement> fieldInput = DominoElement.div().addCss(FIELD_INPUT);
+    DominoElement<HTMLDivElement> fieldInput = div().addCss(FIELD_INPUT);
     wrapperElement.appendChild(fieldInput);
-    offLabelElement = LazyChild.of(DominoElement.label().addCss(SWITCH_OFF_LABEL), fieldInput);
-    onLabelElement = LazyChild.of(DominoElement.label().addCss(SWITCH_ON_LABEL), fieldInput);
-    fieldInput.appendChild(trackElement = DominoElement.span().addCss(SWITCH_TRACK));
+    offLabelElement = LazyChild.of(label().addCss(SWITCH_OFF_LABEL), fieldInput);
+    onLabelElement = LazyChild.of(label().addCss(SWITCH_ON_LABEL), fieldInput);
+    fieldInput.appendChild(trackElement = span().addCss(SWITCH_TRACK));
 
     EventListener listener =
         evt -> {
@@ -107,7 +107,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
           }
         };
     trackElement.addClickListener(listener);
-    KeyboardEvents.listenOnKeyDown(getInputElement()).onEnter(listener);
+    getInputElement().onKeyDown(keyEvents -> keyEvents.onEnter(listener));
     setDefaultValue(false);
   }
 
@@ -118,7 +118,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
 
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
-    return DominoElement.input(type).addCss(HIDDEN_INPUT);
+    return input(type).addCss(HIDDEN_INPUT);
   }
 
   @Override

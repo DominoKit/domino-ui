@@ -16,14 +16,14 @@
 package org.dominokit.domino.ui.pagination;
 
 /** An interface providing component with pagination */
-public interface HasPagination {
+public interface HasPagination<T extends HasPagination<T>> {
   /**
    * Go to a specific page number
    *
    * @param page the number of the page
    * @return same instance
    */
-  HasPagination gotoPage(int page);
+  T gotoPage(int page);
 
   /**
    * Go to a specific page number with boolean for notifying listeners or not
@@ -32,21 +32,21 @@ public interface HasPagination {
    * @param silent true to not notifying listeners
    * @return same instance
    */
-  HasPagination gotoPage(int page, boolean silent);
+  T gotoPage(int page, boolean silent);
 
   /**
    * Go to the next page of the current page
    *
    * @return same instance
    */
-  HasPagination nextPage();
+  T nextPage();
 
   /**
    * Go to the previous page of the current page
    *
    * @return same instance
    */
-  HasPagination previousPage();
+  T previousPage();
 
   /**
    * Go to the next page of the current page with boolean for notifying listeners or not
@@ -54,7 +54,7 @@ public interface HasPagination {
    * @param silent true to not notifying listeners
    * @return same instance
    */
-  HasPagination nextPage(boolean silent);
+  T nextPage(boolean silent);
 
   /**
    * Go to the previous page of the current page with boolean for notifying listeners or not
@@ -62,21 +62,21 @@ public interface HasPagination {
    * @param silent true to not notifying listeners
    * @return same instance
    */
-  HasPagination previousPage(boolean silent);
+  T previousPage(boolean silent);
 
   /**
    * Go to the first page
    *
    * @return same instance
    */
-  HasPagination gotoFirst();
+  T gotoFirst();
 
   /**
    * Go to the last page
    *
    * @return same instance
    */
-  HasPagination gotoLast();
+  T gotoLast();
 
   /**
    * Go to the first page with boolean for notifying listeners or not
@@ -84,7 +84,7 @@ public interface HasPagination {
    * @param silent true to not notifying listeners
    * @return same instance
    */
-  HasPagination gotoFirst(boolean silent);
+  T gotoFirst(boolean silent);
 
   /**
    * Go to the last page with boolean for notifying listeners or not
@@ -92,14 +92,14 @@ public interface HasPagination {
    * @param silent true to not notifying listeners
    * @return same instance
    */
-  HasPagination gotoLast(boolean silent);
+  T gotoLast(boolean silent);
 
   /**
    * Marks the current page as active
    *
    * @return same instance
    */
-  HasPagination markActivePage();
+  T markActivePage();
 
   /**
    * Updates the number of pages for this pagination
@@ -107,7 +107,7 @@ public interface HasPagination {
    * @param pages the new number of pages
    * @return same instance
    */
-  HasPagination updatePages(int pages);
+  T updatePages(int pages);
 
   /**
    * Updates the number of pages for this pagination
@@ -116,7 +116,7 @@ public interface HasPagination {
    * @param silent boolean flag to switch triggering the callback on/off for this call
    * @return same instance
    */
-  HasPagination updatePages(int pages, boolean silent);
+  T updatePages(int pages, boolean silent);
 
   /**
    * Updates the number of pages and the page size for this pagination
@@ -125,7 +125,7 @@ public interface HasPagination {
    * @param pageSize the new page size
    * @return same instance
    */
-  HasPagination updatePages(int pages, int pageSize);
+  T updatePages(int pages, int pageSize);
 
   /**
    * Updates the number of pages and the page size for this pagination
@@ -135,7 +135,7 @@ public interface HasPagination {
    * @param silent boolean flag to switch triggering the callback on/off for this call
    * @return same instance
    */
-  HasPagination updatePages(int pages, int pageSize, boolean silent);
+  T updatePages(int pages, int pageSize, boolean silent);
 
   /**
    * Updates the number of pages by providing the total number of items, the calculation will be
@@ -144,7 +144,7 @@ public interface HasPagination {
    * @param totalCount the total number of items
    * @return same instance
    */
-  HasPagination updatePagesByTotalCount(int totalCount);
+  T updatePagesByTotalCount(int totalCount);
 
   /**
    * Updates the number of pages by providing the total number of items, the calculation will be
@@ -154,7 +154,7 @@ public interface HasPagination {
    * @param silent boolean flag to switch triggering the callback on/off for this call
    * @return same instance
    */
-  HasPagination updatePagesByTotalCount(int totalCount, boolean silent);
+  T updatePagesByTotalCount(int totalCount, boolean silent);
 
   /**
    * Updates the number of pages by providing the total number of items and the page size
@@ -163,7 +163,7 @@ public interface HasPagination {
    * @param pageSize the new page size
    * @return same instance
    */
-  HasPagination updatePagesByTotalCount(int totalCount, int pageSize);
+  T updatePagesByTotalCount(int totalCount, int pageSize);
 
   /**
    * Updates the number of pages by providing the total number of items and the page size
@@ -173,7 +173,7 @@ public interface HasPagination {
    * @param silent boolean flag to switch triggering the callback on/off for this call
    * @return same instance
    */
-  HasPagination updatePagesByTotalCount(int totalCount, int pageSize, boolean silent);
+  T updatePagesByTotalCount(int totalCount, int pageSize, boolean silent);
 
   /** @return the total number of items */
   int getTotalCount();
@@ -184,7 +184,7 @@ public interface HasPagination {
    * @param pageSize the page size
    * @return same instance
    */
-  HasPagination setPageSize(int pageSize);
+  T setPageSize(int pageSize);
 
   /** @return the page size */
   int getPageSize();
@@ -195,17 +195,9 @@ public interface HasPagination {
   /** @return the total number of pages */
   int getPagesCount();
 
-  /**
-   * Adds listener that will be called when a page is changed
-   *
-   * @param pageChangedCallBack A {@link PageChangedCallBack}
-   * @return same instance
-   */
-  HasPagination onPageChanged(PageChangedCallBack pageChangedCallBack);
-
   /** A listener that will be called when the page is changed */
   @FunctionalInterface
-  interface PageChangedCallBack {
+  interface PaginationPageChangeListener {
     /** @param pageNumber the new selected page */
     void onPageChanged(int pageNumber);
   }

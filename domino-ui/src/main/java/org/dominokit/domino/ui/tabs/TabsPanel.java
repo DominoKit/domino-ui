@@ -64,12 +64,12 @@ import org.jboss.elemento.IsElement;
 public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     implements IsElement<HTMLDivElement> {
 
-  private HTMLDivElement element = DominoElement.of(div()).element();
+  private DominoElement<HTMLDivElement> element = div();
   private DominoElement<HTMLUListElement> tabsList =
-      DominoElement.of(ul())
+      ul()
           .css(TabStyles.NAV, TabStyles.NAV_TABS, TabStyles.NAV_TABS_RIGHT)
           .attr("role", "tablist");
-  private HTMLElement tabsContent = DominoElement.of(div()).css(TabStyles.TAB_CONTENT).element();
+  private DominoElement<HTMLElement> tabsContent = elementOf(div().css(TabStyles.TAB_CONTENT).element());
   private Tab activeTab;
   private Color tabsColor;
   private Transition transition;
@@ -254,7 +254,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 
   /**
@@ -276,7 +276,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
       tabsContent.remove();
     }
     Style.of(contentContainer).addCss(TabStyles.TAB_CONTENT);
-    this.tabsContent = contentContainer;
+    this.tabsContent = elementOf(contentContainer);
     return this;
   }
 
@@ -294,7 +294,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    *     content wrapped as {@link DominoElement}
    */
   public DominoElement<HTMLElement> getTabsContent() {
-    return DominoElement.of(tabsContent);
+    return tabsContent;
   }
 
   /** @return the current active {@link Tab} */

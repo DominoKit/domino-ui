@@ -51,7 +51,7 @@ public class ButtonsToolbar extends BaseDominoElement<HTMLDivElement, ButtonsToo
   /** default constructor */
   public ButtonsToolbar() {
     toolbarElement =
-        DominoElement.div().addCss(ButtonStyles.dui_button_toolbar).setAttribute("role", "toolbar");
+        div().addCss(ButtonStyles.dui_button_toolbar).setAttribute("role", "toolbar");
     init(this);
   }
 

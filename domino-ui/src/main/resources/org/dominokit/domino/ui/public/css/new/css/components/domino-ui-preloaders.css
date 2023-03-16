@@ -27,7 +27,7 @@
     height: var(--dui-preloader-size-sm);
 }
 
-.dui-preloader.dui-xsm {
+.dui-preloader.dui-xs {
     width: var(--dui-preloader-size-xsm);
     height: var(--dui-preloader-size-xsm);
 }

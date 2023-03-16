@@ -13,25 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.notifications;
+package org.dominokit.domino.ui.datatable.plugins;
 
-import elemental2.dom.HTMLElement;
+public class SortPluginConfig implements PluginConfig {
+  private boolean triStateSort = false;
 
-/** Display notification in top right */
-public class TopRightPosition extends NotificationPosition {
-
-  TopRightPosition() {
-    super("top-right", "top");
+  public boolean isTriStateSort() {
+    return triStateSort;
   }
 
-  @Override
-  public void onBeforePosition(HTMLElement element) {
-    element.style.setProperty("top", "20px");
-    element.style.setProperty("right", "20px");
-  }
-
-  @Override
-  protected int getOffsetPosition(HTMLElement element) {
-    return element.offsetTop;
+  public SortPluginConfig setTriStateSort(boolean triStateSort) {
+    this.triStateSort = triStateSort;
+    return this;
   }
 }

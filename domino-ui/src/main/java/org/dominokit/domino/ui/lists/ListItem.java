@@ -24,7 +24,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 
@@ -59,12 +58,11 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
 
   public ListItem(T value) {
     this.value = value;
-    this.element = DominoElement.li().addCss(dui_list_group_item).setAttribute("tabindex", "0");
+    this.element = li().addCss(dui_list_group_item).setAttribute("tabindex", "0");
     init(this);
 
     this.addClickListener(this::trySelect, true);
-
-    KeyboardEvents.listenOnKeyDown(element.element()).onEnter(this::trySelect);
+    element.onKeyDown(keyEvents -> keyEvents.onEnter(this::trySelect));
   }
 
   @Override

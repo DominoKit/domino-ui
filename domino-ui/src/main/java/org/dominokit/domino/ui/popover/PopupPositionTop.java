@@ -15,10 +15,11 @@
  */
 package org.dominokit.domino.ui.popover;
 
-import static elemental2.dom.DomGlobal.window;
-
 import elemental2.dom.DOMRect;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.CssClass;
+
+import static elemental2.dom.DomGlobal.window;
 
 /** Position the popover on the top */
 public class PopupPositionTop implements PopupPosition {
@@ -36,7 +37,7 @@ public class PopupPositionTop implements PopupPosition {
 
   /** {@inheritDoc} */
   @Override
-  public String getDirectionClass() {
-    return "top";
+  public CssClass getDirectionClass() {
+    return PopoverStyles.dui_pop_top;
   }
 }

@@ -15,7 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-public interface QuickSearchLabels {
+public interface QuickSearchLabels extends Labels {
 
   default String defaultQuickSearchPlaceHolder() {
     return "Search";

@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
@@ -24,13 +23,13 @@ import org.jboss.elemento.IsElement;
 public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTMLDivElement> {
 
   private final DominoElement<HTMLDivElement> content =
-      DominoElement.div()
+     div()
           .addCss(wait_me_content, dui_vertical_center)
           .style("margin-top: -18px;")
           .appendChild(loadingText);
 
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.div()
+     div()
           .addCss(wait_me)
           .style("background: rgba(255, 255, 255, 0.9);")
           .appendChild(content);
@@ -62,7 +61,7 @@ public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTML
   /** {@inheritDoc} */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
-    return DominoElement.of(content);
+    return elementOf(content);
   }
 
   /** {@inheritDoc} */

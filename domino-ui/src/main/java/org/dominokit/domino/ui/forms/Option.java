@@ -65,7 +65,7 @@ public abstract class Option<V> extends AbstractMenuItem<V, Option<V>> {
     if (node.nodeType == DomGlobal.document.TEXT_NODE) {
       String text = node.nodeValue;
       String highlighted = MatchHighlighter.highlight(text, searchTerm);
-      node.parentElement.appendChild(DominoElement.span().setInnerHtml(highlighted).element());
+      node.parentElement.appendChild(span().setInnerHtml(highlighted).element());
       node.parentElement.removeChild(node);
     } else if (node.nodeType == DomGlobal.document.ELEMENT_NODE) {
       for (int i = 0; i < node.childNodes.length; i++) {

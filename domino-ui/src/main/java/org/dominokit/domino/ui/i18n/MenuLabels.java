@@ -15,7 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-public interface MenuLabels {
+public interface MenuLabels extends Labels {
   default String getCreateMissingLabel() {
     return "Create ";
   }

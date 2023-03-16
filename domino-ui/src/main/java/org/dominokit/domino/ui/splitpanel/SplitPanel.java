@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.splitpanel;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;

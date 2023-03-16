@@ -31,8 +31,9 @@ public class UtilityElement<T extends HTMLElement> extends BaseDominoElement<T, 
   }
 
   public UtilityElement(T element) {
-    this.element = DominoElement.of(element);
+    this.element = elementOf(element);
     init(this);
+    addCss(dui_utility);
   }
 
   public UtilityElement(IsElement<T> element) {

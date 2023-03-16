@@ -16,11 +16,9 @@
 package org.dominokit.domino.ui.collapsible;
 
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.Style;
+import org.jboss.elemento.IsElement;
 
-/**
- * The implementation of this interface are used to change the behavior used in {@link Collapsible}
- * to show and hide the element.
- */
 public interface CollapseStrategy {
 
   /**
@@ -28,14 +26,14 @@ public interface CollapseStrategy {
    *
    * @param element The collapsible {@link HTMLElement}
    */
-  default void init(HTMLElement element) {}
-
+  default void init(HTMLElement element, CollapsibleHandlers handlers) {}
   /**
    * Implement this method to show a collapsible element
    *
    * @param element The collapsible {@link HTMLElement}
    */
   void show(HTMLElement element);
+
   /**
    * Implement this method to hide a collapsible element
    *

@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.popover;
 import elemental2.dom.DOMRect;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.CssClass;
 
 /**
  * Position the popover on the better position based on the target element location in the screen.
@@ -27,7 +28,7 @@ import elemental2.dom.HTMLElement;
  */
 public class PopupPositionBestFit implements PopupPosition {
 
-  private String positionClass;
+  private CssClass positionClass = PopupPosition.TOP.getDirectionClass();
 
   /** {@inheritDoc} */
   @Override
@@ -58,7 +59,7 @@ public class PopupPositionBestFit implements PopupPosition {
 
   /** {@inheritDoc} */
   @Override
-  public String getDirectionClass() {
+  public CssClass getDirectionClass() {
     return positionClass;
   }
 }

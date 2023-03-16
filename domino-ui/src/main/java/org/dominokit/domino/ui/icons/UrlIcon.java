@@ -33,7 +33,7 @@ public class UrlIcon extends BaseIcon<UrlIcon> {
   private UrlIcon(String url, CssClass name) {
     this.url = url;
     this.name = name;
-    this.icon = DominoElement.of(img(url).element());
+    this.icon = elementOf(img(url).element());
     init(this);
   }
 

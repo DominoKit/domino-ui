@@ -55,8 +55,8 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   /** Create an instance with a label */
   public NumberBox() {
     super();
-    prefixElement = LazyChild.of(DominoElement.div().addCss(FIELD_PREFIX), wrapperElement);
-    postfixElement = LazyChild.of(DominoElement.div().addCss(FIELD_POSTFIX), wrapperElement);
+    prefixElement = LazyChild.of(div().addCss(FIELD_PREFIX), wrapperElement);
+    postfixElement = LazyChild.of(div().addCss(FIELD_POSTFIX), wrapperElement);
     addValidator(this::validateInputString);
     addValidator(this::validateMaxValue);
     addValidator(this::validateMinValue);
@@ -85,7 +85,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
 
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
-    return DominoElement.input(type).addCss(FIELD_INPUT);
+    return input(type).addCss(FIELD_INPUT);
   }
 
   private ValidationResult validateInputString() {

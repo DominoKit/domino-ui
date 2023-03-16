@@ -231,7 +231,7 @@
                 <artifactId>fmt-maven-plugin</artifactId>
                 <version>${maven.fmt.plugin}</version>
                 <configuration>
-                    <skip>false</skip>
+                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -246,7 +246,7 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <version>${maven.license.plugin}</version>
                 <configuration>
-                    <skip>false</skip>
+                    <skip>true</skip>
                     <header>LICENSE.header</header>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <skipExistingHeaders>true</skipExistingHeaders>

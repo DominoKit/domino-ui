@@ -46,13 +46,13 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
   private Slide(HTMLElement element) {
     slideElement =
-        DominoElement.div().addCss(slide).appendChild(imageElement = DominoElement.of(element));
+        div().addCss(slide).appendChild(imageElement = elementOf(element));
 
-    indicatorElement = DominoElement.li().addCss(slide_indicator);
+    indicatorElement = li().addCss(slide_indicator);
 
-    captionElement = LazyChild.of(DominoElement.div().addCss(slide_caption), slideElement);
-    slideLabelElement = LazyChild.of(DominoElement.h(3), captionElement);
-    slideDescriptionElement = LazyChild.of(DominoElement.p(), captionElement);
+    captionElement = LazyChild.of(div().addCss(slide_caption), slideElement);
+    slideLabelElement = LazyChild.of(h(3), captionElement);
+    slideDescriptionElement = LazyChild.of(p(), captionElement);
     init(this);
   }
 
@@ -106,7 +106,7 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
   /**
    * Activates this slide. This will add {@link
-   * org.dominokit.domino.ui.style.GenericCss#dui_active_element} style to the slide
+   * org.dominokit.domino.ui.style.GenericCss#dui_active} style to the slide
    *
    * @return same instance
    */
@@ -125,18 +125,18 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
    * @param active a boolean that indicates this slide is active
    */
   public void setActive(boolean active) {
-    indicatorElement.addCss(BooleanCssClass.of(dui_active_element, active));
-    addCss(BooleanCssClass.of(dui_active_element, active));
+    indicatorElement.addCss(BooleanCssClass.of(dui_active, active));
+    addCss(BooleanCssClass.of(dui_active, active));
   }
 
   /** @return True if this slide is active, false otherwise */
   public boolean isActive() {
-    return dui_active_element.isAppliedTo(element());
+    return dui_active.isAppliedTo(element());
   }
 
   /** @return The indicator element */
   public DominoElement<HTMLLIElement> getIndicatorElement() {
-    return DominoElement.of(indicatorElement);
+    return elementOf(indicatorElement);
   }
 
   public Slide setLabel(String text) {
@@ -184,6 +184,6 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
   /** @return The image element */
   public DominoElement<HTMLElement> getImageElement() {
-    return DominoElement.of(imageElement);
+    return elementOf(imageElement);
   }
 }

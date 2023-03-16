@@ -76,7 +76,7 @@ class ClockElement {
     this.innerCircle = SVGUtil.createCircle(x, y, 2, innerColor.getHex());
     this.line = SVGUtil.createLine(centerX, centerY, x, y, colorScheme.lighten_4().getHex());
     this.element =
-        DominoElement.of(div())
+        div()
             .css(elementStyle)
             .style(
                 "position: absolute; left:"

@@ -43,11 +43,11 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab>
   private BaseIcon<?> icon;
   private DominoElement<HTMLElement> titleElement;
   private DominoElement<HTMLDivElement> contentContainer =
-      DominoElement.of(div()).attr("role", "tabpanel").css(TAB_PANE, FADE);
+      div().attr("role", "tabpanel").css(TAB_PANE, FADE);
   private boolean active;
-  private DominoElement<HTMLDivElement> iconContainer = DominoElement.div();
+  private DominoElement<HTMLDivElement> iconContainer = div();
   private DominoElement<HTMLDivElement> textContainer =
-      DominoElement.div().styler(style -> style.setMarginTop(Unit.px.of(2)));
+      div().styler(style -> style.setMarginTop(Unit.px.of(2)));
 
   private Color textColor;
   private Color iconColor;
@@ -66,9 +66,9 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab>
   public VerticalTab(String title, BaseIcon<?> icon) {
     this.title = title;
     setIcon(icon);
-    this.titleElement = DominoElement.of(span()).css(TITLE).textContent(title);
+    this.titleElement = span().css(TITLE).textContent(title);
     this.anchorElement =
-        DominoElement.of(a())
+       a()
             .add(iconContainer.appendChild(this.icon))
             .add(textContainer.appendChild(titleElement))
             .element();
@@ -78,9 +78,9 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab>
   /** @param title String title for the tab */
   public VerticalTab(String title) {
     this.title = title;
-    this.titleElement = DominoElement.of(span()).css(TITLE).textContent(title);
+    this.titleElement = span().css(TITLE).textContent(title);
     this.anchorElement =
-        DominoElement.of(a())
+        a()
             .add(iconContainer)
             .add(textContainer.appendChild(titleElement))
             .element();
@@ -129,7 +129,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab>
 
   /** @return the {@link HTMLDivElement} that contains the VerticalTab content */
   public DominoElement<HTMLDivElement> getContentContainer() {
-    return DominoElement.of(contentContainer);
+    return contentContainer;
   }
 
   /**
@@ -213,7 +213,7 @@ public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab>
 
   /** @return the {@link HTMLElement} that contains the tab header title */
   public DominoElement<HTMLElement> getTitleElement() {
-    return DominoElement.of(titleElement);
+    return titleElement;
   }
 
   /** @return the {@link HTMLElement} that has the waves effect */

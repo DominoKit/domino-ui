@@ -15,7 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-public interface LoaderLabels {
+public interface LoaderLabels extends Labels {
 
   default String loading() {
     return "Loading...";

@@ -49,7 +49,7 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
   /** {@inheritDoc} */
   @Override
   protected Function<String, Double> defaultValueParser() {
-    return DominoUIConfig.CONFIG.getNumberParsers().doubleParser(this);
+    return getConfig().getNumberParsers().doubleParser(this);
   }
 
   /** {@inheritDoc} */

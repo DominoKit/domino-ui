@@ -126,8 +126,18 @@ public abstract class BaseIcon<T extends BaseIcon<T>> extends BaseDominoElement<
    * @return same instance
    */
   public T clickable() {
+    return clickable(true);
+  }
+  /**
+   * Adds a clickable style to the icon
+   *
+   * @return same instance
+   */
+  public T clickable(boolean withWaves) {
     addCss(dui_clickable);
-    withWaves();
+    if (withWaves) {
+      withWaves();
+    }
     setAttribute("tabindex", "0");
     setAttribute("aria-expanded", "true");
     setAttribute("href", "#");

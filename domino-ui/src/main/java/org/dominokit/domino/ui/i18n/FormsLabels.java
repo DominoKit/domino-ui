@@ -15,8 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-
-public interface FormsLabels {
+public interface FormsLabels extends Labels {
 
   default String requiredErrorMessage() {
     return "* This field is required.";

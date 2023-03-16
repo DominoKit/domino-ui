@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.scroll;
 
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -27,20 +25,25 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class AutoVScrollPanel extends BaseDominoElement<HTMLDivElement, AutoVScrollPanel> {
 
-  private HTMLDivElement element = DominoElement.of(div()).css("auto-v-scroll-panel").element();
+    private DominoElement<HTMLDivElement> root;
 
-  /** @return new AutoVScrollPanel instance */
-  public static AutoVScrollPanel create() {
-    return new AutoVScrollPanel();
-  }
+    /**
+     * @return new AutoVScrollPanel instance
+     */
+    public static AutoVScrollPanel create() {
+        return new AutoVScrollPanel();
+    }
 
-  public AutoVScrollPanel() {
-    init(this);
-  }
+    public AutoVScrollPanel() {
+        root = div().addCss(dui_overflow_y_auto);
+        init(this);
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return element;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HTMLDivElement element() {
+        return root.element();
+    }
 }

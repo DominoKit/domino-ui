@@ -108,8 +108,8 @@ public class Window extends AbstractDialog<Window> {
           }
         };
 
-    addOpenListener(this::addMoveListeners);
-    addCloseListener(this::removeMoveListeners);
+    addExpandListener(component -> addMoveListeners());
+    addCollapseListener(component -> removeMoveListeners());
     updatePosition();
 
     onResize((element1, observer, entries) -> updatePosition());
@@ -234,7 +234,7 @@ public class Window extends AbstractDialog<Window> {
 
     headerElement.element().addEventsListener(stopMoveListener, true, "mouseup", "touchend");
     headerElement.element().addEventsListener(moveListener, true, "mousemove", "touchmove");
-    DominoElement.body().addEventsListener(stopMoveListener, "mouseup", "touchend");
+    body().addEventsListener(stopMoveListener, "mouseup", "touchend");
   }
 
   /** @return boolean, true if this window can be dragged across the screen */
@@ -329,7 +329,7 @@ public class Window extends AbstractDialog<Window> {
   }
 
   private void initPosition() {
-    addOpenListener(this::updatePosition);
+    addExpandListener(component->updatePosition());
   }
 
   /**

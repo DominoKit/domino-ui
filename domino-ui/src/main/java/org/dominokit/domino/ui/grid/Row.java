@@ -52,7 +52,7 @@ public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridS
   private PostfixCssClass rowColumns = PostfixCssClass.of("dui-row", _12.getCount());
 
   public Row(Columns columns) {
-    this.row = DominoElement.div().addCss(dui_grid_row, rowColumns.postfix(columns.getCount()));
+    this.row = div().addCss(dui_grid_row, rowColumns.postfix(columns.getCount()));
     init(this);
   }
 
@@ -136,131 +136,131 @@ public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridS
   // =========================
 
   public Row span1(IsElement<?> content) {
-    return appendChild(Column.span1().appendChild(content));
+    return appendChild(Column.colspan1().appendChild(content));
   }
 
   public Row span2(IsElement<?> content) {
-    return appendChild(Column.span2().appendChild(content));
+    return appendChild(Column.colspan2().appendChild(content));
   }
 
   public Row span3(IsElement<?> content) {
-    return appendChild(Column.span3().appendChild(content));
+    return appendChild(Column.colspan3().appendChild(content));
   }
 
   public Row span4(IsElement<?> content) {
-    return appendChild(Column.span4().appendChild(content));
+    return appendChild(Column.colspan4().appendChild(content));
   }
 
   public Row span5(IsElement<?> content) {
-    return appendChild(Column.span5().appendChild(content));
+    return appendChild(Column.colspan5().appendChild(content));
   }
 
   public Row span6(IsElement<?> content) {
-    return appendChild(Column.span6().appendChild(content));
+    return appendChild(Column.colspan6().appendChild(content));
   }
 
   public Row span7(IsElement<?> content) {
-    return appendChild(Column.span7().appendChild(content));
+    return appendChild(Column.colspan7().appendChild(content));
   }
 
   public Row span8(IsElement<?> content) {
-    return appendChild(Column.span8().appendChild(content));
+    return appendChild(Column.colspan8().appendChild(content));
   }
 
   public Row span9(IsElement<?> content) {
-    return appendChild(Column.span9().appendChild(content));
+    return appendChild(Column.colspan9().appendChild(content));
   }
 
   public Row span10(IsElement<?> content) {
-    return appendChild(Column.span10().appendChild(content));
+    return appendChild(Column.colspan10().appendChild(content));
   }
 
   public Row span11(IsElement<?> content) {
-    return appendChild(Column.span11().appendChild(content));
+    return appendChild(Column.colspan11().appendChild(content));
   }
 
   public Row span12(IsElement<?> content) {
-    return appendChild(Column.span12().appendChild(content));
+    return appendChild(Column.colspan12().appendChild(content));
   }
 
   public Row span13(IsElement<?> content) {
-    return appendChild(Column.span13().appendChild(content));
+    return appendChild(Column.colspan13().appendChild(content));
   }
 
   public Row span14(IsElement<?> content) {
-    return appendChild(Column.span14().appendChild(content));
+    return appendChild(Column.colspan14().appendChild(content));
   }
 
   public Row span15(IsElement<?> content) {
-    return appendChild(Column.span15().appendChild(content));
+    return appendChild(Column.colspan15().appendChild(content));
   }
 
   public Row span16(IsElement<?> content) {
-    return appendChild(Column.span16().appendChild(content));
+    return appendChild(Column.colspan16().appendChild(content));
   }
 
   public Row span17(IsElement<?> content) {
-    return appendChild(Column.span17().appendChild(content));
+    return appendChild(Column.colspan17().appendChild(content));
   }
 
   public Row span18(IsElement<?> content) {
-    return appendChild(Column.span18().appendChild(content));
+    return appendChild(Column.colspan18().appendChild(content));
   }
 
   public Row span19(IsElement<?> content) {
-    return appendChild(Column.span19().appendChild(content));
+    return appendChild(Column.colspan19().appendChild(content));
   }
 
   public Row span20(IsElement<?> content) {
-    return appendChild(Column.span20().appendChild(content));
+    return appendChild(Column.colspan20().appendChild(content));
   }
 
   public Row span21(IsElement<?> content) {
-    return appendChild(Column.span21().appendChild(content));
+    return appendChild(Column.colspan21().appendChild(content));
   }
 
   public Row span22(IsElement<?> content) {
-    return appendChild(Column.span22().appendChild(content));
+    return appendChild(Column.colspan22().appendChild(content));
   }
 
   public Row span23(IsElement<?> content) {
-    return appendChild(Column.span23().appendChild(content));
+    return appendChild(Column.colspan23().appendChild(content));
   }
 
   public Row span24(IsElement<?> content) {
-    return appendChild(Column.span24().appendChild(content));
+    return appendChild(Column.colspan24().appendChild(content));
   }
 
   public Row span25(IsElement<?> content) {
-    return appendChild(Column.span25().appendChild(content));
+    return appendChild(Column.colspan25().appendChild(content));
   }
 
   public Row span26(IsElement<?> content) {
-    return appendChild(Column.span26().appendChild(content));
+    return appendChild(Column.colspan26().appendChild(content));
   }
 
   public Row span27(IsElement<?> content) {
-    return appendChild(Column.span27().appendChild(content));
+    return appendChild(Column.colspan27().appendChild(content));
   }
 
   public Row span28(IsElement<?> content) {
-    return appendChild(Column.span28().appendChild(content));
+    return appendChild(Column.colspan28().appendChild(content));
   }
 
   public Row span29(IsElement<?> content) {
-    return appendChild(Column.span29().appendChild(content));
+    return appendChild(Column.colspan29().appendChild(content));
   }
 
   public Row span30(IsElement<?> content) {
-    return appendChild(Column.span30().appendChild(content));
+    return appendChild(Column.colspan30().appendChild(content));
   }
 
   public Row span31(IsElement<?> content) {
-    return appendChild(Column.span31().appendChild(content));
+    return appendChild(Column.colspan31().appendChild(content));
   }
 
   public Row span32(IsElement<?> content) {
-    return appendChild(Column.span32().appendChild(content));
+    return appendChild(Column.colspan32().appendChild(content));
   }
 
   /**

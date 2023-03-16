@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Objects;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
+import org.dominokit.domino.ui.config.HasComponentConfig;
+import org.dominokit.domino.ui.config.ZIndexConfig;
 import org.dominokit.domino.ui.i18n.DialogLabels;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.SwapCssClass;
@@ -31,7 +33,7 @@ import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.EventType;
 
 public class AbstractDialog<T extends AbstractDialog<T>>
-    extends BaseDominoElement<HTMLDivElement, T> implements DialogStyles {
+    extends BaseDominoElement<HTMLDivElement, T> implements DialogStyles, IsPopup<T>, HasComponentConfig<ZIndexConfig> {
   protected final DominoElement<HTMLDivElement> modalElement;
   protected LazyChild<DominoElement<HTMLDivElement>> headerElement;
   protected LazyChild<DominoElement<HTMLElement>> titleElement;
@@ -41,10 +43,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   protected LazyChild<DominoElement<HTMLDivElement>> contentHeader;
   protected LazyChild<DominoElement<HTMLDivElement>> contentFooter;
   protected DominoElement<HTMLDivElement> element;
-  private List<OpenHandler> openHandlers = new ArrayList<>();
-  private List<CloseHandler> closeHandlers = new ArrayList<>();
   private boolean autoClose = true;
-
   private Element firstFocusElement;
   private Element lastFocusElement;
   private Element activeElementBeforeOpen;
@@ -72,30 +71,30 @@ public class AbstractDialog<T extends AbstractDialog<T>>
 
   public AbstractDialog() {
     element =
-        DominoElement.div()
+        div()
             .addCss(dui_modal_box, dui_hidden)
             .appendChild(
                 modalElement =
-                    DominoElement.div()
+                    div()
                         .addCss(dui_modal)
                         .appendChild(
                             contentElement =
-                                DominoElement.div()
+                                div()
                                     .addCss(dui_dialog_content)
                                     .appendChild(
                                         bodyElement =
-                                            DominoElement.div().addCss(dui_dialog_body))));
+                                            div().addCss(dui_dialog_body))));
     init((T) this);
 
     headerElement =
         LazyChild.of(
-            DominoElement.div().addCss(dui_dialog_header).setAttribute("role", "tab"),
+            div().addCss(dui_dialog_header).setAttribute("role", "tab"),
             modalElement);
 
-    titleElement = LazyChild.of(DominoElement.span().addCss(dui_dialog_title), headerElement);
+    titleElement = LazyChild.of(span().addCss(dui_dialog_title), headerElement);
     contentHeader =
-        LazyChild.of(DominoElement.div().addCss(dui_dialog_content_header), contentElement);
-    contentFooter = LazyChild.of(DominoElement.div().addCss(dui_dialog_footer), contentElement);
+        LazyChild.of(div().addCss(dui_dialog_content_header), contentElement);
+    contentFooter = LazyChild.of(div().addCss(dui_dialog_footer), contentElement);
     setStretchWidth(DialogSize.MEDIUM);
     setStretchHeight(DialogSize.MEDIUM);
     addTabIndexHandler();
@@ -217,14 +216,6 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     return (T) this;
   }
 
-  /**
-   * @return boolean
-   * @see #setAutoClose(boolean)
-   */
-  public boolean isAutoClose() {
-    return autoClose;
-  }
-
   /** {@inheritDoc} */
   public T open() {
     if (isEnabled()) {
@@ -249,7 +240,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     }
     initFocusElements();
     activeElementBeforeOpen = DominoDom.document.activeElement;
-    addBackdrop();
+    getConfig().getZindexManager().onPopupOpen(this);
     element.removeCss(dui_hidden);
     if (nonNull(firstFocusElement) && isAutoFocus()) {
       firstFocusElement.focus();
@@ -259,34 +250,8 @@ public class AbstractDialog<T extends AbstractDialog<T>>
         }
       }
     }
-    openHandlers.forEach(OpenHandler::onOpen);
+    triggerExpandListeners((T)this);
     this.open = true;
-    ModalBackDrop.push(this);
-  }
-
-  private void addBackdrop() {
-    if (modal) {
-      if (ModalBackDrop.openedModalsCount() <= 0
-          || !DominoElement.of(ModalBackDrop.INSTANCE).isAttached()) {
-        DominoElement.body().appendChild(ModalBackDrop.INSTANCE);
-      } else {
-        Z_INDEX = Z_INDEX + 10;
-        ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
-        element.setCssProperty("z-index", (Z_INDEX + 10) + "");
-      }
-    }
-  }
-
-  private void removeBackDrop() {
-    if (modal) {
-      if (ModalBackDrop.openedModalsCount() < 1 || ModalBackDrop.allOpenedNotModals()) {
-        ModalBackDrop.INSTANCE.remove();
-      } else {
-        Z_INDEX = Z_INDEX - 10;
-        ModalBackDrop.INSTANCE.style.setProperty("z-index", Z_INDEX + "");
-        element.setCssProperty("z-index", (Z_INDEX + 10) + "");
-      }
-    }
   }
 
   private void initFocusElements() {
@@ -330,11 +295,16 @@ public class AbstractDialog<T extends AbstractDialog<T>>
       element.remove();
     }
     this.open = false;
-    if (ModalBackDrop.contains(this)) {
-      ModalBackDrop.popModal(this);
-    }
-    removeBackDrop();
-    closeHandlers.forEach(CloseHandler::onClose);
+    getConfig().getZindexManager().onPopupClose(this);
+    triggerCollapseListeners((T)this);
+  }
+
+  /**
+   * @return boolean
+   * @see #setAutoClose(boolean)
+   */
+  public boolean isAutoClose() {
+    return autoClose;
   }
 
   /**
@@ -376,30 +346,6 @@ public class AbstractDialog<T extends AbstractDialog<T>>
    */
   public T setModal(boolean modal) {
     this.modal = modal;
-    return (T) this;
-  }
-
-  /** {@inheritDoc} */
-  public T addOpenListener(OpenHandler openHandler) {
-    this.openHandlers.add(openHandler);
-    return (T) this;
-  }
-
-  /** {@inheritDoc} */
-  public T addCloseListener(CloseHandler closeHandler) {
-    this.closeHandlers.add(closeHandler);
-    return (T) this;
-  }
-
-  /** {@inheritDoc} */
-  public T removeOpenHandler(OpenHandler openHandler) {
-    this.openHandlers.remove(openHandler);
-    return (T) this;
-  }
-
-  /** {@inheritDoc} */
-  public T removeCloseHandler(CloseHandler closeHandler) {
-    this.closeHandlers.remove(closeHandler);
     return (T) this;
   }
 

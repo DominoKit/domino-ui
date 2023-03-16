@@ -15,19 +15,16 @@
  */
 package org.dominokit.domino.ui.pagination;
 
-import static org.jboss.elemento.Elements.a;
-import static org.jboss.elemento.Elements.li;
+import elemental2.dom.DomGlobal;
+import org.dominokit.domino.ui.button.Button;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-import elemental2.dom.HTMLAnchorElement;
 import java.util.stream.IntStream;
-import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.utils.DominoElement;
+
+import static java.util.Objects.nonNull;
 
 /** A simple pagination implementation */
 public class SimplePagination extends BasePagination<SimplePagination> {
-
-  private DominoElement<HTMLAnchorElement> prevAnchor;
-  private DominoElement<HTMLAnchorElement> nextAnchor;
 
   /** @return new instance */
   public static SimplePagination create() {
@@ -62,7 +59,14 @@ public class SimplePagination extends BasePagination<SimplePagination> {
   public SimplePagination(int pages, int pageSize) {
     this.pagesCount = pages;
     this.pageSize = pageSize;
-    init(this);
+
+    prevPage.getLink()
+            .addClickListener(evt -> moveToPage(index - 1, isChangeListenersPaused()))
+            .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(index - 1, isChangeListenersPaused())));
+    nextPage.getLink()
+            .addClickListener(evt -> moveToPage(index + 1, isChangeListenersPaused()))
+            .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(index + 1, isChangeListenersPaused())));
+
     updatePages(pages, pageSize);
   }
 
@@ -78,64 +82,46 @@ public class SimplePagination extends BasePagination<SimplePagination> {
     this.pageSize = pageSize;
     this.pagesCount = pages;
     this.index = 1;
-    allPages.clear();
-    pagesElement.clearElement();
-    prevAnchor = DominoElement.of(a());
-    prevElement =
-        DominoElement.of(li())
-            .css("page-nav")
-            .appendChild(
-                prevAnchor
-                    .appendChild(Icons.ALL.chevron_left_mdi().clickable())
-                    .addClickListener(event -> moveToPage(index - 1, false)));
+    clearPages();
 
-    pagesElement.appendChild(prevElement);
     if (pages > 0) {
       IntStream.rangeClosed(1, pages)
-          .forEach(
-              p ->
-                  DominoElement.of(li())
-                      .css("page")
-                      .apply(
-                          element -> {
-                            allPages.add(element);
-                            pagesElement.appendChild(
-                                element.appendChild(
-                                    DominoElement.of(a())
-                                        .setTextContent(p + "")
-                                        .addClickListener(evt -> moveToPage(p, false))));
-                          }));
-    }
-
-    nextAnchor = DominoElement.of(a());
-    nextElement =
-        DominoElement.of(li())
-            .css("page-nav")
-            .appendChild(
-                nextAnchor
-                    .appendChild(Icons.ALL.chevron_right_mdi().clickable())
-                    .addClickListener(event -> moveToPage(index + 1, false)));
-
-    if (pages > 0) {
-      moveToPage(1, silent);
+              .mapToObj(PagerNavItem::page)
+              .forEach(pagerNavItem -> {
+                pagerNavItem
+                        .addClickListener(evt -> moveToPage(pagerNavItem.getPage(), isChangeListenersPaused()))
+                        .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(pagerNavItem.getPage(), isChangeListenersPaused())));
+                if(allPages.isEmpty()){
+                  pagesList.insertAfter(pagerNavItem, prevPage);
+                }else {
+                  pagesList.insertAfter(pagerNavItem, allPages.get(allPages.size()-1));
+                }
+                allPages.add(pagerNavItem);
+              });
     }
 
     if (pages <= 0) {
-      nextElement.disable();
-      prevElement.disable();
+      prevPage.disable();
+      nextPage.disable();
       if (!silent) {
-        pageChangedCallBack.onPageChanged(0);
+        triggerChangeListeners(null, 0);
       }
+    }else {
+        moveToPage(1, silent);
     }
 
-    pagesElement.appendChild(nextElement);
-
     return this;
+  }
+
+  private void clearPages() {
+    allPages.forEach(BaseDominoElement::remove);
+    allPages.clear();
   }
 
   /** {@inheritDoc} */
   @Override
   protected void moveToPage(int page, boolean silent) {
+    PagerNavItem oldPage = activePage;
     if (page > 0 && page <= pagesCount) {
       index = page;
       if (markActivePage) {
@@ -143,24 +129,20 @@ public class SimplePagination extends BasePagination<SimplePagination> {
       }
 
       if (!silent) {
-        pageChangedCallBack.onPageChanged(page);
+        triggerChangeListeners(nonNull(oldPage)?oldPage.getPage():null, page);
       }
 
-      if (page == pagesCount) nextElement.disable();
-      else nextElement.enable();
+      if (page == pagesCount) {
+        nextPage.disable();
+      }else {
+        nextPage.enable();
+      }
 
-      if (page == 1) prevElement.disable();
-      else prevElement.enable();
+      if (page > 1) {
+        prevPage.enable();
+      }else {
+        prevPage.disable();
+      }
     }
-  }
-
-  /** @return The previous element */
-  public DominoElement<HTMLAnchorElement> getPrevAnchor() {
-    return prevAnchor;
-  }
-
-  /** @return The next element */
-  public DominoElement<HTMLAnchorElement> getNextAnchor() {
-    return nextAnchor;
   }
 }

@@ -46,9 +46,9 @@ import org.jboss.elemento.IsElement;
  */
 public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
 
-  private final HTMLDivElement element = DominoElement.of(div()).css(THUMBNAIL).element();
-  private final HTMLDivElement contentElement = DominoElement.of(div()).element();
-  private final HTMLDivElement captionElement = DominoElement.of(div()).css(CAPTION).element();
+  private final DominoElement<HTMLDivElement> element = div().css(THUMBNAIL);
+  private final DominoElement<HTMLDivElement> contentElement = div();
+  private final DominoElement<HTMLDivElement> captionElement = div().css(CAPTION);
 
   public Thumbnail() {
     element.appendChild(contentElement);
@@ -87,7 +87,7 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
    * @return same instance
    */
   public Thumbnail appendCaptionChild(Node content) {
-    if (isNull(captionElement.parentNode)) element.appendChild(captionElement);
+    if (isNull(captionElement.parentNode())) element.appendChild(captionElement);
     captionElement.appendChild(content);
     return this;
   }
@@ -105,16 +105,16 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 
   /** @return the content element */
   public DominoElement<HTMLDivElement> getContentElement() {
-    return DominoElement.of(contentElement);
+    return contentElement;
   }
 
   /** @return the caption container */
   public DominoElement<HTMLDivElement> getCaptionElement() {
-    return DominoElement.of(captionElement);
+    return captionElement;
   }
 }

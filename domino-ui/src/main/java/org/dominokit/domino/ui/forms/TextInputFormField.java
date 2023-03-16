@@ -29,8 +29,8 @@ public abstract class TextInputFormField<
   protected final LazyChild<DominoElement<HTMLDivElement>> postfixElement;
 
   public TextInputFormField() {
-    prefixElement = LazyChild.of(DominoElement.div().addCss(FIELD_PREFIX), wrapperElement);
-    postfixElement = LazyChild.of(DominoElement.div().addCss(FIELD_POSTFIX), wrapperElement);
+    prefixElement = LazyChild.of(div().addCss(FIELD_PREFIX), wrapperElement);
+    postfixElement = LazyChild.of(div().addCss(FIELD_POSTFIX), wrapperElement);
   }
 
   @Override

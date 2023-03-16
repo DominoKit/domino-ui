@@ -15,18 +15,20 @@
  */
 package org.dominokit.domino.ui.popover;
 
+import org.dominokit.domino.ui.style.CssClass;
+
 /** Default CSS classes for {@link Popover} */
-public class PopoverStyles {
-  /** CSS class for popover */
-  public static final String POPOVER = "popover";
-  /** CSS class for popover title */
-  public static final String POPOVER_TITLE = "popover-title";
-  /** CSS class for popover content */
-  public static final String POPOVER_CONTENT = "popover-content";
-  /** CSS class for popover arrow */
-  public static final String ARROW = "arrow";
-  /** CSS class for popover fade effect */
-  public static final String FADE = "fade";
-  /** CSS class for popover fade effect in */
-  public static final String IN = "in";
+public interface PopoverStyles {
+
+  CssClass dui_popover_arrow = () -> "dui-popover-arrow";
+  CssClass dui_popover = () -> "dui-popover";
+  CssClass dui_popover_wrapper = () -> "dui-popover-wrapper";
+  CssClass dui_popover_header = () -> "dui-popover-header";
+  CssClass dui_popover_body = () -> "dui-popover-body";
+
+  CssClass dui_pop_top = () -> "dui-pop-top";
+  CssClass dui_pop_right = () -> "dui-pop-right";
+  CssClass dui_pop_bottom = () -> "dui-pop-bottom";
+  CssClass dui_pop_left = () -> "dui-pop-left";
+  CssClass dui_tooltip = () -> "dui-tooltip";
 }

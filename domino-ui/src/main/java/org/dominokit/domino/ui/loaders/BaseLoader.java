@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.i18n.LoaderLabels;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -37,7 +36,7 @@ public abstract class BaseLoader<T extends BaseLoader<T>>
   protected final LoaderLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
 
   protected HTMLDivElement loadingText =
-      DominoElement.div().addCss(dui_loader, wait_me_text).textContent(labels.loading()).element();
+      div().addCss(dui_loader, wait_me_text).textContent(labels.loading()).element();
 
   /** {@inheritDoc} */
   @Override

@@ -37,96 +37,53 @@ import org.jboss.elemento.IsElement;
  * </pre>
  */
 public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
-    implements IsElement<HTMLDivElement> {
+        implements IsElement<HTMLDivElement>, PreloaderStyles {
 
-  private final HTMLDivElement root;
-  private final HTMLDivElement spinnerLayer;
+    private final DominoElement<HTMLDivElement> root;
 
-  private Size size = Size.large;
-  private Color color = Color.RED;
-
-  /** */
-  public Preloader() {
-    this.root =
-        DominoElement.of(div())
-            .css("preloader", "pl-size-l")
-            .add(
-                spinnerLayer =
-                    DominoElement.of(div())
-                        .css("spinner-layer", "pl-red")
-                        .add(
-                            DominoElement.of(div())
-                                .css("circle-clipper", "left")
-                                .add(DominoElement.of(div()).css("circle")))
-                        .add(
-                            DominoElement.of(div())
-                                .css("circle-clipper", "right")
-                                .add(DominoElement.of(div()).css("circle")))
-                        .element())
-            .element();
-    init(this);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return root;
-  }
-
-  /** @return new Preloader instance */
-  public static Preloader create() {
-    return new Preloader();
-  }
-
-  /**
-   * @param size {@link Size}
-   * @return same Preloader instance
-   */
-  public Preloader setSize(Size size) {
-    removeCss(this.size.style);
-    this.size = size;
-    addCss(this.size.style);
-    return this;
-  }
-
-  /**
-   * @param color {@link Color}
-   * @return same Preloader instance
-   */
-  public Preloader setColor(Color color) {
-    spinnerStyle().removeCss(this.color.getStyle().replace("col-", "pl-"));
-    this.color = color;
-    spinnerStyle().addCss(this.color.getStyle().replace("col-", "pl-"));
-    return this;
-  }
-
-  private Style<HTMLDivElement> spinnerStyle() {
-    return Style.of(spinnerLayer);
-  }
-
-  /**
-   * removes the loader from the dom tree
-   *
-   * @return same Preloader instance
-   */
-  public Preloader stop() {
-    element().remove();
-    return this;
-  }
-
-  /** An enum to list preloader sizes */
-  public enum Size {
-    xLarge(PreloaderStyles.pl_size_xl),
-    large(PreloaderStyles.pl_size_l),
-    medium(PreloaderStyles.pl_size_md),
-    small(PreloaderStyles.pl_size_sm),
-    xSmall(PreloaderStyles.pl_size_xs);
-
-    private String style;
-
-    /** @param style String css class for the loader size */
-    Size(String style) {
-      this.style = style;
+    /**
+     *
+     */
+    public Preloader() {
+        this.root =
+                div()
+                        .addCss(dui_preloader, dui_small)
+                        .appendChild(
+                                div()
+                                        .addCss(dui_pl_spinner_layer)
+                                        .appendChild(div()
+                                                .addCss(dui_pl_circle_clipper)
+                                                .add(div().addCss(dui_pl_circle_left)))
+                                        .appendChild(
+                                                div()
+                                                        .addCss(dui_pl_circle_clipper, dui_pl_right)
+                                                        .appendChild(div().addCss(dui_pl_circle_right)))
+                        );
+        init(this);
     }
-  }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HTMLDivElement element() {
+        return root.element();
+    }
+
+    /**
+     * @return new Preloader instance
+     */
+    public static Preloader create() {
+        return new Preloader();
+    }
+
+    /**
+     * removes the loader from the dom tree
+     *
+     * @return same Preloader instance
+     */
+    public Preloader stop() {
+        element().remove();
+        return this;
+    }
 }

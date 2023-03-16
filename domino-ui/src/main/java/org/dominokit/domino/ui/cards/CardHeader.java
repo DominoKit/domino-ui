@@ -41,18 +41,18 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   CardHeader() {
-    element = DominoElement.div().addCss(card_header);
+    element = div().addCss(card_header);
     mainHeader =
-        LazyChild.of(DominoElement.div().addCss(card_main_header), element)
+        LazyChild.of(div().addCss(card_main_header), element)
             .whenInitialized(
                 () ->
                     mainHeader
                         .element()
-                        .appendChild(DominoElement.div().addCss(dui_card_header_filler)));
-    subHeader = LazyChild.of(DominoElement.div().addCss(card_sub_header), element);
-    title = LazyChild.of(DominoElement.div().addCss(card_title), mainHeader);
-    mainTitle = LazyChild.of(DominoElement.h(2).addCss(card_main_title), title);
-    description = LazyChild.of(DominoElement.small().addCss(card_description), mainTitle);
+                        .appendChild(div().addCss(dui_card_header_filler)));
+    subHeader = LazyChild.of(div().addCss(card_sub_header), element);
+    title = LazyChild.of(div().addCss(card_title), mainHeader);
+    mainTitle = LazyChild.of(h(2).addCss(card_main_title), title);
+    description = LazyChild.of(small().addCss(card_description), mainTitle);
 
     init(this);
   }
@@ -161,7 +161,7 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
 
   public CardHeader setLogo(HTMLImageElement img) {
     logo.remove();
-    logo = LazyChild.of(DominoElement.of(img).addCss(card_logo), mainHeader);
+    logo = LazyChild.of(elementOf(img).addCss(card_logo), mainHeader);
     logo.get();
     return this;
   }

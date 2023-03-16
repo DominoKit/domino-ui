@@ -24,7 +24,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import org.dominokit.domino.ui.button.RemoveButton;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.IsElement;
@@ -49,11 +48,11 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
 
   public Chip(String text) {
     root =
-        DominoElement.div()
+        div()
             .addCss(dui_chip)
             .setAttribute("tabindex", "0")
             .appendChild(
-                textElement = DominoElement.span().addCss(dui_chip_value).setTextContent(text));
+                textElement = span().addCss(dui_chip_value).setTextContent(text));
     init(this);
 
     removeButton =
@@ -70,25 +69,26 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
                             }));
 
     addon =
-        LazyChild.of(DominoElement.div().addCss(dui_chip_addon), root)
+        LazyChild.of(div().addCss(dui_chip_addon), root)
             .whenInitialized(() -> root.addCss(dui_chip_has_addon))
             .onReset(() -> root.removeCss(dui_chip_has_addon));
 
-    KeyboardEvents.listenOnKeyDown(root)
-        .onEnter(
-            evt -> {
-              evt.stopPropagation();
-              if (isSelectable()) {
-                toggleSelect();
-              }
-            })
-        .onDelete(
-            evt -> {
-              evt.stopPropagation();
-              if (isRemovable()) {
-                remove();
-              }
-            });
+    root
+            .onKeyDown(keyEvents -> keyEvents.onEnter(
+                    evt -> {
+                      evt.stopPropagation();
+                      if (isSelectable()) {
+                        toggleSelect();
+                      }
+                    })
+                    .onDelete(
+                            evt -> {
+                              evt.stopPropagation();
+                              if (isRemovable()) {
+                                remove();
+                              }
+                            })
+            );
     root.addClickListener(
         evt -> {
           evt.stopPropagation();
@@ -254,11 +254,11 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
   }
 
   public Chip setLetters(String text) {
-    return setAddOn(DominoElement.span().textContent(text));
+    return setAddOn(span().textContent(text));
   }
 
   public Chip setImage(HTMLImageElement img) {
-    return setAddOn(DominoElement.of(img));
+    return setAddOn(elementOf(img));
   }
 
   public Chip withAddon(ChildHandler<Chip, DominoElement<HTMLDivElement>> handler) {

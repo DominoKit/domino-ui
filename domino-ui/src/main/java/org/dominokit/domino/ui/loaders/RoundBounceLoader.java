@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
@@ -25,32 +24,32 @@ public class RoundBounceLoader extends BaseLoader<RoundBounceLoader>
     implements IsElement<HTMLDivElement> {
 
   private final DominoElement<HTMLDivElement> progress1 =
-      DominoElement.div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
+      div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress2 =
-      DominoElement.div().addCss(wait_me_progress_elem_2, dui_bg_grey_d_2);
+      div().addCss(wait_me_progress_elem_2, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress3 =
-      DominoElement.div().addCss(wait_me_progress_elem_3, dui_bg_grey_d_2);
+      div().addCss(wait_me_progress_elem_3, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress4 =
-      DominoElement.div().addCss(wait_me_progress_elem_4, dui_bg_grey_d_2);
+      div().addCss(wait_me_progress_elem_4, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress5 =
-      DominoElement.div().addCss(wait_me_progress_elem_5, dui_bg_grey_d_2);
+      div().addCss(wait_me_progress_elem_5, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress6 =
-      DominoElement.div().addCss(wait_me_progress_elem_6, dui_bg_grey_d_2);
+      div().addCss(wait_me_progress_elem_6, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress7 =
-      DominoElement.div().addCss(wait_me_progress_elem_7, dui_bg_grey_d_2);
+      div().addCss(wait_me_progress_elem_7, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress8 =
-      DominoElement.div().addCss(wait_me_progress_elem_8, dui_bg_grey_d_2);
+      div().addCss(wait_me_progress_elem_8, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress9 =
-      DominoElement.div().addCss(wait_me_progress_elem_9, dui_bg_grey_d_2);
+      div().addCss(wait_me_progress_elem_9, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress10 =
-      DominoElement.div().addCss(wait_me_progress_elem_10, dui_bg_grey_d_2);
+      div().addCss(wait_me_progress_elem_10, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress11 =
-      DominoElement.div().addCss(wait_me_progress_elem_11, dui_bg_grey_d_2);
+      div().addCss(wait_me_progress_elem_11, dui_bg_grey_d_2);
   private final DominoElement<HTMLDivElement> progress12 =
-      DominoElement.div().addCss(wait_me_progress_elem_12, dui_bg_grey_d_2);
+      div().addCss(wait_me_progress_elem_12, dui_bg_grey_d_2);
 
   private final DominoElement<HTMLDivElement> loader =
-      DominoElement.div()
+      div()
           .addCss(wait_me_progress, round_bounce)
           .appendChild(progress1)
           .appendChild(progress2)
@@ -66,13 +65,13 @@ public class RoundBounceLoader extends BaseLoader<RoundBounceLoader>
           .appendChild(progress12);
 
   private final DominoElement<HTMLDivElement> content =
-      DominoElement.div()
+      div()
           .addCss(wait_me_content, dui_vertical_center)
           .appendChild(loader)
           .appendChild(loadingText);
 
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.div()
+      div()
           .addCss(wait_me)
           .style("background: rgba(255, 255, 255, 0.9);")
           .add(content);

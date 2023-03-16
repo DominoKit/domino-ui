@@ -15,24 +15,20 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_BORDERED;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_CONDENSED;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_FIXED;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_HOVER;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_RESPONSIVE;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_ROW_FILTERED;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_STRIPED;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.TBODY_FIXED;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.THEAD_FIXED;
 import static org.dominokit.domino.ui.style.Unit.px;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.Elements.table;
 import static org.jboss.elemento.Elements.tbody;
 import static org.jboss.elemento.Elements.thead;
 
-import elemental2.dom.DomGlobal;
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableSectionElement;
@@ -42,11 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.dominokit.domino.ui.datatable.events.DataSortEvent;
-import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
-import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
-import org.dominokit.domino.ui.datatable.events.TableEventListener;
+import org.dominokit.domino.ui.datatable.events.*;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -68,12 +60,13 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   public static final String DATA_TABLE_ROW_FILTERED = "data-table-row-filtered";
 
   private final DataStore<T> dataStore;
-  private DominoElement<HTMLDivElement> root = DominoElement.of(div()).css(TABLE_RESPONSIVE);
+  private DominoElement<HTMLDivElement> root = div().css(TABLE_RESPONSIVE);
   private DominoElement<HTMLTableElement> tableElement =
-      DominoElement.of(table()).css(DataTableStyles.TABLE, TABLE_HOVER, TABLE_STRIPED);
+      table()
+          .css(DataTableStyles.TABLE, TABLE_HOVER, TABLE_STRIPED, "table-width-full");
   private TableConfig<T> tableConfig;
-  private DominoElement<HTMLTableSectionElement> tbody = DominoElement.of(tbody());
-  private DominoElement<HTMLTableSectionElement> thead = DominoElement.of(thead());
+  private DominoElement<HTMLTableSectionElement> tbody = tbody();
+  private DominoElement<HTMLTableSectionElement> thead = thead();
   private List<T> data = new ArrayList<>();
   private boolean selectable = true;
   private List<TableRow<T>> tableRows = new ArrayList<>();
@@ -88,7 +81,15 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
   private final SearchContext<T> searchContext = new SearchContext<>(this);
 
-  private double scrollBarWidth = -1;
+  private RemoveRowsHandler<T> removeRecordsHandler = table -> table.bodyElement().clearElement();
+
+  private EventListener disableKeyboardListener =
+      evt -> {
+        if (isDisabled()) {
+          evt.preventDefault();
+          evt.stopPropagation();
+        }
+      };
 
   /**
    * Creates a new data table instance
@@ -102,6 +103,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     this.events.put(ANY, new ArrayList<>());
     this.dataStore = dataStore;
     this.addTableEventListener(ANY, dataStore);
+    this.addEventListener(EventType.keydown.getName(), disableKeyboardListener, true);
     this.dataStore.onDataChanged(
         dataChangedEvent -> {
           fireTableEvent(
@@ -138,6 +140,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
               plugin.init(DataTable.this);
               plugin.onBeforeAddTable(DataTable.this);
             });
+    thead.clearElement();
     tableConfig.onBeforeHeaders(this);
     tableConfig.drawHeaders(this, thead);
     tableConfig.onAfterHeaders(this);
@@ -150,29 +153,18 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     }
 
     if (tableConfig.isFixed()) {
-      root.addCss(TABLE_FIXED);
-      thead.addCss(THEAD_FIXED);
-      tbody.addCss(TBODY_FIXED).setMaxHeight(tableConfig.getFixedBodyHeight());
-      tableElement.addEventListener(EventType.scroll, e -> updateTableWidth());
-      DomGlobal.window.addEventListener(
-          EventType.resize.getName(),
-          e -> {
-            this.scrollBarWidth = -1;
-            updateTableWidth();
-          });
+      tableElement.setMaxHeight(tableConfig.getFixedBodyHeight());
     }
 
-    onResize(
-        (target, observer, entries) -> {
-          DomGlobal.requestAnimationFrame(
-              timestamp -> {
-                if (isNull(entries) || entries.length <= 0) {
-                  return;
-                }
-                updateTableWidth();
-              });
-        });
+    if (tableConfig.isFixed()) {
+      tableElement.removeCss("table-width-full");
+      root.addCss("table-fixed");
+      ColumnUtils.fixElementWidth(this, tableElement.element());
+    }
 
+    if (tableConfig.isFixed()) {
+      ColumnUtils.fixElementWidth(this, tableElement.element());
+    }
     return this;
   }
 
@@ -188,9 +180,6 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         tableElement.element().offsetWidth + Math.round(tableElement.element().scrollLeft);
     thead.setWidth(px.of(w - 2));
     tbody.setWidth(px.of(w - 2));
-    if (tableConfig.isFixed()) {
-      updateHeadWidth(false);
-    }
   }
 
   /** Force loading the data into the table */
@@ -206,59 +195,10 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   public void setData(List<T> data) {
     this.data = data;
     tableRows.clear();
-    tbody.clearElement();
+    removeRecordsHandler.removeRows(this);
     if (nonNull(data) && !data.isEmpty()) {
       addRows(data, 0);
     }
-
-    updateHeadWidth(true);
-  }
-
-  private void updateHeadWidth(boolean scrollTop) {
-    DomGlobal.requestAnimationFrame(
-        timestamp -> {
-          DomGlobal.setTimeout(
-              p0 -> {
-                if (hasVScrollBar()) {
-                  if (scrollTop) {
-                    tbody.element().scrollTop = 0.0;
-                  }
-                  if (tableConfig.isFixed()) {
-                    thead.setWidth(px.of(tbody.element().offsetWidth - getScrollWidth()));
-                    tbody.setWidth(px.of(tbody.element().offsetWidth));
-                  }
-                }
-              });
-        });
-  }
-
-  private boolean hasVScrollBar() {
-    return tbody.element().scrollHeight > tbody.element().clientHeight;
-  }
-
-  private double getScrollWidth() {
-    if (scrollBarWidth == -1) {
-      DominoElement<HTMLDivElement> outer =
-          DominoElement.div()
-              .setTop("-1000px")
-              .setLeft("-1000px")
-              .setWidth("100px")
-              .setHeight("50px")
-              .setOverFlow("hidden")
-              .setCssProperty("-ms-overflow-style", "hidden");
-
-      DominoElement<HTMLDivElement> inner = DominoElement.div().setHeight("200px");
-
-      outer.appendChild(inner);
-      DominoElement.body().appendChild(outer);
-      double noScrollWidth = inner.element().offsetWidth;
-      outer.setOverFlow("auto").setCssProperty("-ms-overflow-style", "scrollbar");
-      double widthWithScroll = inner.element().clientWidth;
-      outer.remove();
-      scrollBarWidth = noScrollWidth - widthWithScroll;
-    }
-
-    return scrollBarWidth;
   }
 
   /**
@@ -346,7 +286,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    */
   public DataTable<T> noBorder() {
     tableElement.removeCss(TABLE_BORDERED);
+    removeCss(TABLE_BORDERED);
     this.bordered = false;
+    fireTableEvent(new TableBorderedEvent(false));
     return this;
   }
 
@@ -358,7 +300,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   public DataTable<T> bordered() {
     noBorder();
     tableElement.addCss(TABLE_BORDERED);
+    addCss(TABLE_BORDERED);
     this.bordered = true;
+    fireTableEvent(new TableBorderedEvent(true));
     return this;
   }
 
@@ -652,6 +596,13 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return searchContext;
   }
 
+  public DataTable<T> setRemoveRecordsHandler(RemoveRowsHandler<T> removeRecordsHandler) {
+    if (nonNull(removeRecordsHandler)) {
+      this.removeRecordsHandler = removeRecordsHandler;
+    }
+    return this;
+  }
+
   /**
    * Listens to changes in the table rows selection
    *
@@ -677,5 +628,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
      * @return boolean, true if the table row should be hidden else false.
      */
     boolean filter(TableRow<T> tableRow);
+  }
+
+  public interface RemoveRowsHandler<T> {
+    void removeRows(DataTable<T> table);
   }
 }

@@ -16,12 +16,13 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;
 import java.util.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
+import org.dominokit.domino.ui.keyboard.KeyEventsConsumer;
 import org.dominokit.domino.ui.utils.*;
 import org.dominokit.domino.ui.utils.ApplyFunction;
 
@@ -389,21 +390,27 @@ public class FieldsGrouping
     return errors;
   }
 
-  public FieldsGrouping onKeyDown(KeyboardEventsHandler handler) {
+  public FieldsGrouping onKeyDown(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
-    handler.accept(KeyboardEvents.listenOnKeyDown(elements));
+    Arrays.stream(elements)
+            .map(ElementsFactory.elements::elementOf)
+            .forEach(element -> element.onKeyDown(handler));
     return this;
   }
 
-  public FieldsGrouping onKeyUp(KeyboardEventsHandler handler) {
+  public FieldsGrouping onKeyUp(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
-    handler.accept(KeyboardEvents.listenOnKeyUp(elements));
+    Arrays.stream(elements)
+            .map(ElementsFactory.elements::elementOf)
+            .forEach(element -> element.onKeyUp(handler));
     return this;
   }
 
-  public FieldsGrouping onKeyPress(KeyboardEventsHandler handler) {
+  public FieldsGrouping onKeyPress(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
-    handler.accept(KeyboardEvents.listenOnKeyPress(elements));
+    Arrays.stream(elements)
+            .map(ElementsFactory.elements::elementOf)
+                    .forEach(element -> element.onKeyPress(handler));
     return this;
   }
 
@@ -415,9 +422,5 @@ public class FieldsGrouping
             .map(hasInputElement -> hasInputElement.getInputElement().element())
             .toArray(HTMLElement[]::new);
     return elements;
-  }
-
-  public interface KeyboardEventsHandler {
-    void accept(KeyboardEvents<? extends HTMLElement> keyboardEvents);
   }
 }

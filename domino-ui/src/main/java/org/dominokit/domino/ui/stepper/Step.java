@@ -606,7 +606,9 @@
 //   * @param initialState {@link Stepper.StepState} to be used as default initial state for the
 // step
 //   */
-//  public void setInitialState(Stepper.StepState initialState) {
+//  public Step setInitialState(Stepper.StepState initialState) {
 //    this.initialState = initialState;
+//    return this;
 //  }
+//
 // }

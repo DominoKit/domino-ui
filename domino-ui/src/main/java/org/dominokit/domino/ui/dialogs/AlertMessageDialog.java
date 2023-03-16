@@ -67,15 +67,15 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
 
   /** creates new instance with empty title */
   public AlertMessageDialog() {
-    messageElement = LazyChild.of(DominoElement.span(), contentElement);
+    messageElement = LazyChild.of(span(), contentElement);
     bodyElement.addCss(dui_text_center);
     appendButtons();
     setStretchWidth(DialogSize.SMALL);
     setStretchHeight(DialogSize.VERY_SMALL);
     setAutoClose(false);
     contentHeader.get().addCss(dui_justify_around).appendChild(alertIcon);
-    addOpenListener(
-        () -> {
+    addExpandListener(
+        (component) -> {
           Animation.create(getAlertIcon())
               .transition(iconStartTransition)
               .duration(iconAnimationDuration)

@@ -17,8 +17,6 @@ package org.dominokit.domino.ui.Typography;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.blockquote;
-import static org.jboss.elemento.Elements.footer;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLQuoteElement;
@@ -32,7 +30,7 @@ import org.jboss.elemento.IsElement;
 public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
 
   private final DominoElement<HTMLQuoteElement> element =
-      DominoElement.of(blockquote()).css(m_b_25);
+      blockquote().css(m_b_25);
   private Paragraph paragraph = Paragraph.create();
   private DominoElement<HTMLElement> footer;
 
@@ -94,7 +92,7 @@ public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
   public Blockquote setFooterContent(Node content) {
     if (nonNull(footer)) footer.remove();
 
-    footer = DominoElement.of(footer().add(content));
+    footer = footer().add(content);
     element.appendChild(footer);
     return this;
   }

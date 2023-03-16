@@ -38,7 +38,7 @@ public class Label extends BaseDominoElement<HTMLElement, Label> {
   private final DominoElement<HTMLElement> element;
 
   private Label() {
-    element = DominoElement.span().addCss(dui_label);
+    element = span().addCss(dui_label);
     init(this);
   }
 

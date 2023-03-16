@@ -15,10 +15,11 @@
  */
 package org.dominokit.domino.ui.popover;
 
-import static elemental2.dom.DomGlobal.window;
-
 import elemental2.dom.DOMRect;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.CssClass;
+
+import static elemental2.dom.DomGlobal.window;
 
 /** Position the popover on the left */
 public class PopupPositionLeft implements PopupPosition {
@@ -38,7 +39,7 @@ public class PopupPositionLeft implements PopupPosition {
 
   /** {@inheritDoc} */
   @Override
-  public String getDirectionClass() {
-    return "left";
+  public CssClass getDirectionClass() {
+    return PopoverStyles.dui_pop_left;
   }
 }

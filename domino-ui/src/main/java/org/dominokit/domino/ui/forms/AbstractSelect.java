@@ -27,7 +27,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuItemsGroup;
@@ -36,24 +35,25 @@ import org.dominokit.domino.ui.utils.*;
 
 public abstract class AbstractSelect<
         T, V, S extends Option<T>, C extends AbstractSelect<T, V, S, C>>
-    extends AbstractFormElement<AbstractSelect<T, V, S, C>, V>
-    implements HasInputElement<AbstractSelect<T, V, S, C>, HTMLInputElement>,
-        HasPlaceHolder<AbstractSelect<T, V, S, C>> {
+    extends AbstractFormElement<C, V>
+    implements HasInputElement<C, HTMLInputElement>, HasPlaceHolder<C> {
 
   protected Menu<T> optionsMenu;
+  protected V value;
   private DominoElement<HTMLDivElement> fieldInput;
-  private DominoElement<HTMLElement> placeHolderElement = DominoElement.span();
+  private DominoElement<HTMLElement> placeHolderElement;
   private DominoElement<HTMLInputElement> inputElement;
 
   public AbstractSelect() {
+    placeHolderElement = span();
     addCss(FORM_SELECT);
     wrapperElement
         .appendChild(
             fieldInput =
-                DominoElement.div()
+                div()
                     .addCss(FIELD_INPUT)
                     .appendChild(placeHolderElement.addCss(FIELD_PLACEHOLDER)))
-        .appendChild(inputElement = DominoElement.input(getType()).addCss(HIDDEN_INPUT));
+        .appendChild(inputElement = input(getType()).addCss(HIDDEN_INPUT));
     labelForId(inputElement.getDominoId());
 
     optionsMenu =
@@ -61,13 +61,17 @@ public abstract class AbstractSelect<
             .setMenuAppendTarget(getWrapperElement().element())
             .setTargetElement(getWrapperElement())
             .setFitToTargetWidth(true)
-            .addSelectionListener((source, selection) -> updateTextValue())
-            .addCloseHandler(() -> focus())
+            .addSelectionListener((source, selection) -> {
+              withValue((V) source.get().getValue());
+              updateTextValue();
+            })
+            .addCollapseListener((menu) -> focus())
             .addOnAddItemHandler((menu, menuItem) -> ((S) menuItem).bindValueTarget(fieldInput));
 
-    KeyboardEvents.listenOnKeyDown(getInputElement().element())
-        .onEnter(evt -> optionsMenu.open(true))
-        .onSpace(evt -> optionsMenu.open(true));
+    getInputElement().onKeyDown(keyEvents -> keyEvents
+            .onEnter(evt -> optionsMenu.open(true))
+            .onSpace(evt -> optionsMenu.open(true))
+    );
 
     addPrimaryAddOn(
         Icons.ALL
@@ -189,7 +193,7 @@ public abstract class AbstractSelect<
   public boolean isFocused() {
     if (nonNull(DomGlobal.document.activeElement)) {
       String dominoId =
-          DominoElement.of(Js.<HTMLElement>uncheckedCast(DomGlobal.document.activeElement))
+          elementOf(Js.<HTMLElement>uncheckedCast(DomGlobal.document.activeElement))
               .getDominoId();
       return nonNull(formElement.querySelector("[domino-uuid=\"" + dominoId + "\"]"));
     }
@@ -274,6 +278,7 @@ public abstract class AbstractSelect<
 
   @Override
   public C withValue(V value, boolean silent) {
+    DomGlobal.console.info("Setting select value. "+ value+":"+silent);
     V oldValue = getValue();
     if (!Objects.equals(value, oldValue)) {
       doSetValue(value);
@@ -295,7 +300,6 @@ public abstract class AbstractSelect<
 
   public C selectOption(S option) {
     findOption(option).ifPresent(menuItem -> menuItem.select(isChangeListenersPaused()));
-
     return (C) this;
   }
 

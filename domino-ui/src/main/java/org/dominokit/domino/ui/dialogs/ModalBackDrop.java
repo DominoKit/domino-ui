@@ -15,18 +15,22 @@
  */
 package org.dominokit.domino.ui.dialogs;
 
+import elemental2.dom.CustomEvent;
+import elemental2.dom.CustomEventInit;
 import elemental2.dom.Event;
 import elemental2.dom.HTMLDivElement;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+import elemental2.dom.HTMLElement;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.config.HasComponentConfig;
+import org.dominokit.domino.ui.config.ZIndexConfig;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.jboss.elemento.EventType;
+
+import java.util.List;
 
 /**
  * A utility class to show overlays that blocks the content behind a modal dialog.
@@ -34,126 +38,74 @@ import org.jboss.elemento.EventType;
  * <p>this class can track the overlay across the page and all opened modals and it adjust its
  * position whenever a modal is opened or closed
  */
-public class ModalBackDrop {
+public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDrop> implements HasComponentConfig<ZIndexConfig> {
 
-  public static final CssClass dui_dialog_backdrop = () -> "dui-dialog-backdrop";
-  /** the z-index increment for every modal open */
-  public static final int INCREMENT = 10;
+    public static final String DUI_REMOVE_POPOVERS = "dui-remove-popovers";
 
-  private static Deque<AbstractDialog> openedModals = new LinkedList<>();
-  private static Deque<Popover> openedPopOvers = new LinkedList<>();
-  private static Integer NEXT_Z_INDEX = 10000;
+  public static final ModalBackDrop INSTANCE = new ModalBackDrop();
+  private CssClass dui_dialog_backdrop = () -> "dui-dialog-backdrop";
+
   /** The single instance of the overlay backdrop element */
-  public static final HTMLDivElement INSTANCE =
-      DominoElement.div()
-          .addCss(ModalBackDrop.dui_dialog_backdrop)
-          .addEventListener(
-              EventType.click,
-              event -> {
-                if (ModalBackDrop.INSTANCE.isEqualNode(Js.uncheckedCast(event.target))) {
-                  closeCurrentOpen();
-                }
-              })
-          .addEventListener(
-              EventType.keypress,
-              event -> {
-                if (ModalBackDrop.INSTANCE.isEqualNode(Js.uncheckedCast(event.target))) {
-                  closeCurrentOpen();
-                }
-              })
-          .addEventListener(EventType.scroll, Event::stopPropagation)
-          .element();
+  private DominoElement<HTMLDivElement> element;
 
-  private static void closeCurrentOpen() {
-    if (!ModalBackDrop.openedModals.isEmpty()) {
-      AbstractDialog modal = ModalBackDrop.openedModals.peek();
-      if (modal.isAutoClose()) {
-        modal.close();
-      }
-    }
+  private ModalBackDrop() {
+    element = div();
+      element.addCss(dui_dialog_backdrop);
+      element.addEventListener(
+                    EventType.click,
+                    event -> {
+                      if (ModalBackDrop.INSTANCE.isEqualNode(Js.uncheckedCast(event.target))) {
+                        closeCurrentOpen();
+                      }
+                    })
+            .addEventListener(
+                    EventType.keypress,
+                    event -> {
+                      if (ModalBackDrop.INSTANCE.isEqualNode(Js.uncheckedCast(event.target))) {
+                        closeCurrentOpen();
+                      }
+                    })
+            .addEventListener(EventType.scroll, event -> {
+              event.preventDefault();
+              event.stopPropagation();
+            });
+      init(this);
   }
 
-  /**
-   * @param modal {@link AbstractDialog}
-   * @return boolean, true if the provided modal is tracked by the ModalBackDrop
-   */
-  public static boolean contains(AbstractDialog modal) {
-    return openedModals.contains(modal);
-  }
-
-  public static void push(AbstractDialog modal) {
-    openedModals.push(modal);
-    NEXT_Z_INDEX += INCREMENT;
-  }
-
-  /**
-   * @param modal {@link AbstractDialog} to be removed from the tracked modals and to increment the
-   *     overlay z-index
-   */
-  public static void popModal(AbstractDialog modal) {
-    openedModals.remove(modal);
-    NEXT_Z_INDEX -= INCREMENT;
-  }
-
-  /**
-   * @param popover {@link Popover}
-   * @return boolean, true if the provided Popover is tracked by the ModalBackDrop
-   */
-  public static boolean contains(Popover popover) {
-    return openedPopOvers.contains(popover);
-  }
-
-  /**
-   * @param popover {@link Popover} to be tracked by this ModalBackDrop and to increment the overlay
-   *     z-index
-   */
-  public static void push(Popover popover) {
-    openedPopOvers.push(popover);
-    NEXT_Z_INDEX += INCREMENT;
-  }
-
-  /**
-   * remove the popover on top of queue from the tracked modals and to increment the overlay z-index
-   */
-  public static void popPopOver() {
-    if (!openedPopOvers.isEmpty()) {
-      openedPopOvers.pop();
-      NEXT_Z_INDEX -= INCREMENT;
-    }
-  }
-
-  /** @return the Integer z-index for the next modal */
-  public static Integer getNextZIndex() {
-    return NEXT_Z_INDEX;
-  }
-
-  /** Increment the z-index by the {@link #INCREMENT} */
-  public static void toNextZIndex() {
-    NEXT_Z_INDEX += INCREMENT;
+  private void closeCurrentOpen() {
+      getConfig()
+        .getZindexManager()
+        .getTopLevelModal()
+        .ifPresent(
+            popup -> {
+              if (popup.isAutoClose()) {
+                popup.close();
+              } else {
+                popup.stealFocus();
+              }
+            });
   }
 
   /** Close all currently open {@link Popover}s */
-  public static void closePopovers() {
-    List<Popover> opened = new ArrayList<>(openedPopOvers);
-    opened.forEach(Popover::close);
+  public void closePopovers(String sourceId) {
+    body().querySelectorAll(".dui-popover").forEach(e-> e.dispatchEvent(makeCloseEvent(sourceId)));
   }
+
+    private static CustomEvent<String> makeCloseEvent(String sourceId){
+        CustomEventInit initOptions= CustomEventInit.create();
+        initOptions.setDetail(sourceId);
+        return new CustomEvent<>(DUI_REMOVE_POPOVERS, initOptions);
+    }
 
   /** Automatically close all {@link Popover}s when the page is scrolled */
-  public static void onScrollClosePopovers() {
-    List<Popover> shouldClose =
-        openedPopOvers.stream().filter(Popover::isCloseOnScroll).collect(Collectors.toList());
-    for (Popover popover : shouldClose) {
-      popover.close();
-    }
+  public void onScrollClosePopovers() {
+    body()
+        .querySelectorAll(".dui-popover[d-close-on-scroll='true']")
+        .forEach(BaseDominoElement::remove);
   }
 
-  /** @return the int count of all opened moal dialogs */
-  public static int openedModalsCount() {
-    return openedModals.size();
-  }
-
-  /** @return boolean true if all opened dialogs are not modals */
-  public static boolean allOpenedNotModals() {
-    return openedModals.stream().noneMatch(AbstractDialog::isModal);
+  @Override
+  public HTMLDivElement element() {
+    return element.element();
   }
 }

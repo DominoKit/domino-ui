@@ -15,16 +15,31 @@
  */
 package org.dominokit.domino.ui.utils;
 
-public final class DominoId {
+import elemental2.core.JsDate;
 
-  private static final String UNIQUE_ID = "id-";
-  private static long counter = 0;
+public class DominoId {
 
-  /**
-   * Creates an identifier guaranteed to be unique within this document. This is useful for
-   * allocating element IDs.
-   */
+  private static final String DEFAULT_PREFIX = "dui-";
+  private static int counter = 0;
+  private static String SEED;
+  private static LazyInitializer seedInit =
+          new LazyInitializer(
+                  () -> {
+                    SEED = new JsDate().getTime() + "-";
+                  });
+
   public static String unique() {
-    return UNIQUE_ID + counter++;
+    return unique(DEFAULT_PREFIX);
+  }
+
+  public static String unique(String prefix) {
+    String id = prefix + getSeed() + counter;
+    counter++;
+    return id;
+  }
+
+  private static String getSeed() {
+    seedInit.apply();
+    return SEED;
   }
 }

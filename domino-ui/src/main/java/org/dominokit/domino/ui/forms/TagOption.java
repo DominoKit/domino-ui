@@ -54,7 +54,7 @@ public class TagOption<V> extends Option<V> {
   public TagOption(V value, String key, String text, String description) {
     this(value, key, text);
     if (nonNull(description) && !description.isEmpty()) {
-      descriptionElement = DominoElement.small().addCss(menu_item_hint).setTextContent(text);
+      descriptionElement = small().addCss(menu_item_hint).setTextContent(text);
       textElement.appendChild(descriptionElement);
     }
   }
@@ -64,7 +64,7 @@ public class TagOption<V> extends Option<V> {
     setValue(value);
     chip = createChip(value, key, text);
     if (nonNull(text) && !text.isEmpty()) {
-      textElement = DominoElement.span().addCss(menu_item_body).setTextContent(text);
+      textElement = span().addCss(menu_item_body).setTextContent(text);
       appendChild(textElement);
     }
   }
@@ -163,7 +163,7 @@ public class TagOption<V> extends Option<V> {
    */
   public TagOption<V> addLeftAddOn(IsElement<?> addOn) {
     if (nonNull(addOn)) {
-      linkElement.appendChild(DominoElement.of(addOn).addCss(menu_item_icon));
+      linkElement.appendChild(elementOf(addOn).addCss(menu_item_icon));
     }
     return this;
   }
@@ -176,7 +176,7 @@ public class TagOption<V> extends Option<V> {
    */
   public TagOption<V> addRightAddOn(IsElement<?> addOn) {
     if (nonNull(addOn)) {
-      linkElement.appendChild(DominoElement.of(addOn).addCss(menu_item_utility));
+      linkElement.appendChild(elementOf(addOn).addCss(menu_item_utility));
     }
     return this;
   }

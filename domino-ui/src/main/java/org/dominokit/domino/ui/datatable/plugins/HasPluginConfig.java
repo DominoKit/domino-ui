@@ -13,25 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.notifications;
+package org.dominokit.domino.ui.datatable.plugins;
 
-import elemental2.dom.HTMLElement;
+import java.util.function.Consumer;
 
-/** Display notification in top left */
-public class TopLeftPosition extends NotificationPosition {
+public interface HasPluginConfig<R, T extends DataTablePlugin<R>, C extends PluginConfig> {
 
-  protected TopLeftPosition() {
-    super("top-left", "top");
-  }
+  T setConfig(C config);
 
-  @Override
-  public void onBeforePosition(HTMLElement element) {
-    element.style.setProperty("top", "20px");
-    element.style.setProperty("left", "20px");
-  }
+  C getConfig();
 
-  @Override
-  protected int getOffsetPosition(HTMLElement element) {
-    return element.offsetTop;
+  /**
+   * Use to update the configuration in the current plugin configuration
+   *
+   * @param handler {@link Consumer} of {@link C}
+   * @return same plugin instance.
+   */
+  default T configure(Consumer<C> handler) {
+    handler.accept(getConfig());
+    return (T) this;
   }
 }

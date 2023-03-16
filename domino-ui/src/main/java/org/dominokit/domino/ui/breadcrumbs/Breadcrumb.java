@@ -63,7 +63,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   private boolean changeListenersPaused = false;
 
   public Breadcrumb() {
-    element = DominoElement.ol().addCss(dui_breadcrumb);
+    element = ol().addCss(dui_breadcrumb);
     init(this);
   }
 
@@ -171,7 +171,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   private void addNewItem(BreadcrumbItem item) {
     items.add(item);
     element.appendChild(item);
-    DominoElement.of(item.getClickableElement())
+    elementOf(item.getClickableElement())
         .addClickListener(
             e -> {
               if (!isDisabled()) {

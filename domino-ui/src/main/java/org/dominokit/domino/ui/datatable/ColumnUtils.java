@@ -16,38 +16,55 @@
 package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;
+import java.util.Optional;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 public class ColumnUtils {
 
-  public static <T> void fixElementWidth(
-      ColumnConfig<T> column, HTMLElement element, String fixedDefaultColumnWidth) {
-    String fixedWidth = bestFitWidth(column, fixedDefaultColumnWidth);
-    Style.of(element)
-        .setWidth(fixedWidth)
-        .setMinWidth(fixedWidth)
-        .setMaxWidth(fixedWidth)
-        .addCss(DataTableStyles.FIXED_WIDTH);
+  public static <T> void fixElementWidth(ColumnConfig<T> column, HTMLElement element) {
+    bestFitWidth(column)
+        .ifPresent(
+            fixedWidth ->
+                Style.of(element)
+                    .setWidth(fixedWidth)
+                    .setMinWidth(fixedWidth)
+                    .setMaxWidth(fixedWidth)
+                    .addCss(DataTableStyles.FIXED_WIDTH));
+    ;
+  }
+
+  public static <T> void fixElementWidth(DataTable<T> table, HTMLElement element) {
+
+    TableConfig<T> config = table.getTableConfig();
+    if (nonNull(config.getWidth()) && !config.getWidth().isEmpty()) {
+      elements.elementOf(element).setWidth(config.getWidth());
+    }
+    if (nonNull(config.getMinWidth()) && !config.getMinWidth().isEmpty()) {
+      elements.elementOf(element).setMinWidth(config.getMinWidth());
+    }
+    if (nonNull(config.getMaxWidth()) && !config.getMaxWidth().isEmpty()) {
+      elements.elementOf(element).setMaxWidth(config.getMaxWidth());
+    }
   }
 
   /**
    * @param columnConfig String value of preferred width to be used for a column from its width.
-   *     min-width, max-width or default fixedDefaultColumnWidth
-   * @param fixedDefaultColumnWidth
+   *     min-width, max-width or default none
    * @return same TableConfig instance
    */
-  private static <T> String bestFitWidth(
-      ColumnConfig<T> columnConfig, String fixedDefaultColumnWidth) {
+  private static <T> Optional<String> bestFitWidth(ColumnConfig<T> columnConfig) {
     if (nonNull(columnConfig.getWidth()) && !columnConfig.getWidth().isEmpty()) {
-      return columnConfig.getWidth();
+      return Optional.of(columnConfig.getWidth());
     } else if (nonNull(columnConfig.getMinWidth()) && !columnConfig.getMinWidth().isEmpty()) {
-      return columnConfig.getMinWidth();
+      return Optional.of(columnConfig.getMinWidth());
     } else if (nonNull(columnConfig.getMaxWidth()) && !columnConfig.getMaxWidth().isEmpty()) {
-      return columnConfig.getMaxWidth();
+      return Optional.of(columnConfig.getMaxWidth());
     } else {
-      return fixedDefaultColumnWidth;
+      return Optional.empty();
     }
   }
 }

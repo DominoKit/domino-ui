@@ -22,7 +22,10 @@ import elemental2.dom.HTMLElement;
 import java.util.HashMap;
 import java.util.Map;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.jboss.elemento.IsElement;
+
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 /**
  * Defines draggable elements.
@@ -41,7 +44,7 @@ public class DragSource {
    * @param draggable the element
    */
   public void addDraggable(HTMLElement draggable) {
-    DominoElement<? extends HTMLElement> dominoElement = DominoElement.of(draggable);
+    DominoElement<? extends HTMLElement> dominoElement = elements.elementOf(draggable);
     addDraggable(dominoElement.getDominoId(), draggable);
   }
 
@@ -89,7 +92,7 @@ public class DragSource {
 
     private Draggable(String id, HTMLElement element) {
       this.element = element;
-      DominoElement<? extends HTMLElement> dominoElement = DominoElement.of(element);
+      DominoElement<? extends HTMLElement> dominoElement = elements.elementOf(element);
       element.draggable = true;
       eventListener = evt -> onDragStart(evt, element, id);
       dominoElement.addEventListener("dragstart", eventListener);

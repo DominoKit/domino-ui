@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.style;
 
 import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.jboss.elemento.Elements.div;
 import static org.jboss.elemento.EventType.mousedown;
 
@@ -24,6 +25,7 @@ import elemental2.dom.*;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.elemento.IsElement;
 
@@ -39,7 +41,7 @@ public class Waves implements IsElement<HTMLElement> {
   private final WavesEventListener wavesEventListener = new WavesEventListener();
 
   public Waves(HTMLElement target) {
-    this(DominoElement.of(target));
+    this(elements.elementOf(target));
   }
 
   public Waves(DominoElement<? extends HTMLElement> target) {
@@ -151,7 +153,7 @@ public class Waves implements IsElement<HTMLElement> {
 
       stopCurrentWave();
 
-      ripple = DominoElement.of(div()).addCss("waves-ripple", "waves-rippling");
+      ripple = elements.div().addCss("waves-ripple", "waves-rippling");
       target.appendChild(ripple);
 
       ElementOffset position = offset(target.element());

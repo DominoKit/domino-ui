@@ -95,7 +95,7 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
 
   /** Default constructor */
   public Accordion() {
-    element = DominoElement.div().addCss(dui_collapse_group);
+    element = div().addCss(dui_collapse_group);
     init(this);
   }
 

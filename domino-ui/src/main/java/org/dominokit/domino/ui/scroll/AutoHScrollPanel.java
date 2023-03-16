@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.scroll;
 
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -27,7 +25,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class AutoHScrollPanel extends BaseDominoElement<HTMLDivElement, AutoHScrollPanel> {
 
-  private HTMLDivElement element = DominoElement.of(div()).css("auto-h-scroll-panel").element();
+  private DominoElement<HTMLDivElement> root;
 
   /** @return new AutoHScrollPanel instance */
   public static AutoHScrollPanel create() {
@@ -35,12 +33,13 @@ public class AutoHScrollPanel extends BaseDominoElement<HTMLDivElement, AutoHScr
   }
 
   public AutoHScrollPanel() {
+    root = div().addCss(dui_overflow_x_auto);
     init(this);
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return root.element();
   }
 }

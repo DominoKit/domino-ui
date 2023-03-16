@@ -34,7 +34,7 @@ public abstract class CountableInputFormField<
   private MaxLengthValidator<T, E> maxLengthValidator;
 
   public CountableInputFormField() {
-    counterElement = LazyChild.of(DominoElement.span().addCss(FIELD_COUNTER), wrapperElement);
+    counterElement = LazyChild.of(span().addCss(FIELD_COUNTER), wrapperElement);
   }
 
   @Override

@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.scroll;
 
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -24,7 +22,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 /** A component that wraps the {@link HTMLDivElement} to make it scrollable by default */
 public class ScrollPanel extends BaseDominoElement<HTMLDivElement, ScrollPanel> {
 
-  private HTMLDivElement element = DominoElement.of(div()).css("scroll-panel").element();
+  private DominoElement<HTMLDivElement> root;
 
   /** @return new AutoHScrollPanel instance */
   public static ScrollPanel create() {
@@ -32,12 +30,13 @@ public class ScrollPanel extends BaseDominoElement<HTMLDivElement, ScrollPanel> 
   }
 
   public ScrollPanel() {
+    root = div().addCss(dui_overflow_scroll);
     init(this);
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return root.element();
   }
 }

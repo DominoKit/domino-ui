@@ -17,10 +17,13 @@ package org.dominokit.domino.ui.animations;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
-import java.util.Arrays;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 import org.jboss.elemento.IsElement;
+
+import java.util.Arrays;
+
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 /**
  * Animates an {@link HTMLElement}
@@ -50,7 +53,7 @@ public class Animation {
   private int delay = 0;
   private boolean infinite = false;
   private final DominoElement<HTMLElement> element;
-  private Transition[] transition = new Transition[] {Transition.BOUNCE};
+  private Transition transition = Transition.FADE_IN;
   private CompleteCallback callback = DEFAULT_CALLBACK;
   private StartHandler startHandler = DEFAULT_START_HANDLER;
   private EventListener stopListener;
@@ -58,7 +61,7 @@ public class Animation {
 
   /** @param element an {@link HTMLElement} to be animated */
   public Animation(HTMLElement element) {
-    this.element = DominoElement.of(element);
+    this.element = elements.elementOf(element);
   }
 
   /**
@@ -133,11 +136,11 @@ public class Animation {
   /**
    * sets the transition type for this animation.
    *
-   * @param transitions a {@link Transition} value
+   * @param transition a {@link Transition} value
    * @return same instance
    */
-  public Animation transition(Transition... transitions) {
-    this.transition = transitions;
+  public Animation transition(Transition transition) {
+    this.transition = transition;
     return this;
   }
 
@@ -226,8 +229,12 @@ public class Animation {
 
   /** stops the animation and calls the {@link CompleteCallback} if it is set. */
   public void stop() {
-    Arrays.asList(transition).forEach(t -> element.removeCss(t.getStyle()));
-    //    element.removeCss(transition.getStyle());
+    stop(false);
+  }
+
+  /** stops the animation and calls the {@link CompleteCallback} if it is set. */
+  public void stop(boolean silent) {
+    element.removeCss(transition.getStyle());
     element.removeCss("animated");
     element.removeCss("infinite");
     element.removeCss("ease-in-out");
@@ -238,7 +245,9 @@ public class Animation {
     element.removeEventListener("mozAnimationEnd", stopListener);
     element.removeEventListener("oanimationend", stopListener);
     element.removeEventListener("animationend", stopListener);
-    callback.onComplete(element.element());
+    if (!silent) {
+      callback.onComplete(element.element());
+    }
   }
 
   /**

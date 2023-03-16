@@ -59,10 +59,10 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   MenuItemsGroup<V, T> itemGroup;
 
   public AbstractMenuItem() {
-    root = DominoElement.li().addCss(menu_item);
+    root = li().addCss(menu_item);
 
     linkElement =
-        DominoElement.of(a("#"))
+        elementOf(a("#"))
             .setAttribute("tabindex", "0")
             .setAttribute("aria-expanded", "true")
             .addCss(menu_item_anchor);
@@ -86,7 +86,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   }
 
   private LazyChild<IsElement<?>> createIndicator(IsElement<?> element) {
-    return LazyChild.of(DominoElement.of(element).addCss(menu_item_anchor, dui_clickable), root);
+    return LazyChild.of(elementOf(element).addCss(menu_item_anchor, dui_clickable), root);
   }
 
   private void onSelected(Event evt) {
@@ -107,7 +107,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
    */
   @Override
   public T appendChild(IsElement<?> element) {
-    linkElement.appendChild(DominoElement.of(element));
+    linkElement.appendChild(elementOf(element));
     return (T) this;
   }
 
@@ -165,7 +165,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
         selectionHandlers.forEach(handler -> handler.onSelection((T) this));
       }
       if (nonNull(parent)) {
-        parent.onItemSelected(this);
+        parent.onItemSelected(this, silent);
       }
     }
     return (T) this;
@@ -185,7 +185,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
         deselectionHandlers.forEach(DeselectionHandler::onDeselection);
       }
       if (nonNull(parent)) {
-        parent.onItemDeselected(this);
+        parent.onItemDeselected(this, silent);
       }
     }
     return (T) this;
@@ -287,7 +287,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   public T setNestingIndicator(IsElement<?> nestingIndicator) {
     if (nonNull(nestingIndicator)) {
       indicatorIcon.remove();
-      indicatorIcon = createIndicator(DominoElement.of(nestingIndicator));
+      indicatorIcon = createIndicator(elementOf(nestingIndicator));
       indicatorIcon.get();
     }
     return (T) this;

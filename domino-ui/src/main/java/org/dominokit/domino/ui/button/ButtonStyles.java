@@ -29,4 +29,6 @@ public interface ButtonStyles {
   CssClass dui_vertical = () -> "dui-vertical";
   CssClass dui_circle = () -> "dui-circle";
   CssClass dui_button_reversed = () -> "dui-btn-reverse";
+
+  CssClass dui_top_scroller = () -> "dui-top-scroller";
 }

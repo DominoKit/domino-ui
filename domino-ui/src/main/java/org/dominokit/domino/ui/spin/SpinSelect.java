@@ -39,13 +39,13 @@ import org.dominokit.domino.ui.utils.SwipeUtil;
 abstract class SpinSelect<T, S extends SpinSelect<T, ?>>
     extends BaseDominoElement<HTMLDivElement, S> implements HasSelectionHandler<S, SpinItem<T>> {
 
-  protected DominoElement<HTMLDivElement> element = DominoElement.of(div()).css(getStyle());
+  protected DominoElement<HTMLDivElement> element = div().css(getStyle());
   private final DominoElement<HTMLAnchorElement> prevAnchor =
-      DominoElement.of(a()).css(PREV).css(DISABLED);
-  private final DominoElement<HTMLAnchorElement> nextAnchor = DominoElement.of(a()).css(NEXT);
-  protected DominoElement<HTMLDivElement> contentPanel = DominoElement.of(div()).css(SPIN_CONTENT);
+      a().css(PREV).css(DISABLED);
+  private final DominoElement<HTMLAnchorElement> nextAnchor = a().css(NEXT);
+  protected DominoElement<HTMLDivElement> contentPanel = div().css(SPIN_CONTENT);
   protected DominoElement<HTMLDivElement> main =
-      DominoElement.of(div()).add(contentPanel).css(SPIN_CONTAINER);
+      div().add(contentPanel).css(SPIN_CONTAINER);
   protected List<SpinItem<T>> items = new ArrayList<>();
   private SpinItem<T> activeItem;
   private final List<HasSelectionHandler.SelectionHandler<SpinItem<T>>> selectionHandlers =

@@ -15,14 +15,20 @@
  */
 package org.dominokit.domino.ui.pagination;
 
-import static org.jboss.elemento.Elements.*;
+import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
-import java.util.LinkedList;
-import java.util.List;
+
+import java.util.*;
+
+import org.dominokit.domino.ui.i18n.PaginationLabels;
+import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
+import org.dominokit.domino.ui.utils.HasChangeListeners;
 
 /**
  * Base implementation for pagination
@@ -30,232 +36,314 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * @param <T> the type of the pagination
  */
 public abstract class BasePagination<T extends BasePagination<T>>
-    extends BaseDominoElement<HTMLElement, T> implements HasPagination {
+        extends BaseDominoElement<HTMLElement, T> implements HasPagination<T>, PaginationStyles, HasChangeListeners<T, Integer> {
 
-  protected DominoElement<HTMLUListElement> pagesElement = DominoElement.of(ul()).css("pagination");
-  protected DominoElement<HTMLElement> element = DominoElement.of(nav()).add(pagesElement);
-  protected DominoElement<? extends HTMLElement> activePage = DominoElement.of(li());
-  protected DominoElement<? extends HTMLElement> prevElement;
-  protected DominoElement<? extends HTMLElement> nextElement;
+    protected DominoElement<HTMLElement> pager;
+    protected DominoElement<HTMLUListElement> pagesList;
 
-  protected List<DominoElement<? extends HTMLElement>> allPages = new LinkedList<>();
-  protected PageChangedCallBack pageChangedCallBack = pageIndex -> {};
-  protected String size = "pagination-default";
+    protected DominoElement<HTMLUListElement> pagesElement = ul().css("pagination");
+    protected DominoElement<HTMLElement> element = nav().add(pagesElement);
+    protected PagerNavItem activePage;
+    protected List<PagerNavItem> allPages = new LinkedList<>();
 
-  protected int index = 1;
-  protected boolean markActivePage = true;
-  protected int pagesCount;
-  protected int pageSize = 10;
-  protected int totalCount = 0;
+    private final Set<ChangeListener<? super Integer>> pageChangeListeners = new HashSet<>();
+    private boolean changeListenersPaused = false;
 
-  /** {@inheritDoc} */
-  @Override
-  public HasPagination updatePagesByTotalCount(int totalCount) {
-    return updatePagesByTotalCount(totalCount, true);
-  }
+    protected String size = "pagination-default";
 
-  /** {@inheritDoc} */
-  @Override
-  public HasPagination updatePagesByTotalCount(int totalCount, boolean silent) {
-    int pages = (totalCount / this.pageSize) + (totalCount % this.pageSize > 0 ? 1 : 0);
-    this.totalCount = totalCount;
-    return updatePages(pages, this.pageSize, silent);
-  }
+    protected int index = 1;
+    protected boolean markActivePage = true;
+    protected int pagesCount;
+    protected int pageSize = 10;
+    protected int totalCount = 0;
 
-  /** {@inheritDoc} */
-  @Override
-  public HasPagination updatePagesByTotalCount(int totalCount, int pageSize) {
-    return updatePagesByTotalCount(totalCount, pageSize, true);
-  }
+    protected PagerNavItem prevPage;
+    protected PagerNavItem nextPage;
+    protected PagerNavItem firstPage;
+    protected PagerNavItem lastPage;
 
-  /** {@inheritDoc} */
-  @Override
-  public HasPagination updatePagesByTotalCount(int totalCount, int pageSize, boolean silent) {
-    int pages = (totalCount / pageSize) + (totalCount % pageSize > 0 ? 1 : 0);
-    this.totalCount = totalCount;
-    return updatePages(pages, pageSize, silent);
-  }
+    protected PaginationLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
 
-  @Override
-  public HasPagination updatePages(int pages) {
-    return updatePages(pages, true);
-  }
+    public BasePagination() {
+        pager =
+                nav()
+                        .addCss(dui_pager)
+                        .appendChild(pagesList = ul().addCss(dui_pager_list));
 
-  @Override
-  public HasPagination updatePages(int pages, int pageSize) {
-    return updatePages(pages, pageSize, true);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public T gotoPage(int page) {
-    return gotoPage(page, false);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public T gotoPage(int page, boolean silent) {
-    if (page > 0 && page <= pagesCount) {
-      moveToPage(page, silent);
-    }
-    return (T) this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public T nextPage() {
-    return nextPage(false);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public T previousPage() {
-    return previousPage(false);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public T nextPage(boolean silent) {
-    moveToPage(index + 1, silent);
-    return (T) this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public T previousPage(boolean silent) {
-    moveToPage(index - 1, silent);
-    return (T) this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public T gotoFirst() {
-    return gotoFirst(false);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public T gotoLast() {
-    return gotoLast(false);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public T gotoFirst(boolean silent) {
-    if (this.pagesCount > 0) {
-      return gotoPage(1, silent);
-    }
-    return (T) this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public T gotoLast(boolean silent) {
-    if (this.pagesCount > 0) {
-      return gotoPage(pagesCount, silent);
-    }
-    return (T) this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public T markActivePage() {
-    this.markActivePage = true;
-    gotoPage(activePage);
-    return (T) this;
-  }
-
-  /**
-   * A boolean to mark the active page automatically
-   *
-   * @param markActivePage true to mark the active page automatically, false otherwise
-   * @return same instance
-   */
-  public T setMarkActivePage(boolean markActivePage) {
-    this.markActivePage = markActivePage;
-    if (!markActivePage) {
-      activePage.removeCss("active");
+        init((T) this);
+        pagesList
+                .appendChild(firstPage = PagerNavItem.nav(Icons.ALL.skip_previous_mdi()).hide())
+                .appendChild(prevPage = PagerNavItem.nav(Icons.ALL.chevron_left_mdi()))
+                .appendChild(nextPage = PagerNavItem.nav(Icons.ALL.chevron_right_mdi()))
+                .appendChild(lastPage = PagerNavItem.nav(Icons.ALL.skip_next_mdi()).hide())
+        ;
     }
 
-    return (T) this;
-  }
-
-  void gotoPage(DominoElement<? extends HTMLElement> li) {
-    activePage.removeCss("active");
-    activePage = li;
-    if (markActivePage) {
-      activePage.addCss("active");
+    public T showFirstLastPage(boolean visible) {
+        firstPage.toggleDisplay(visible);
+        lastPage.toggleDisplay(visible);
+        return (T) this;
     }
-  }
 
-  /** {@inheritDoc} */
-  @Override
-  public T onPageChanged(PageChangedCallBack pageChangedCallBack) {
-    this.pageChangedCallBack = pageChangedCallBack;
-    return (T) this;
-  }
+    public T showNextPrevPage(boolean visible) {
+        nextPage.toggleDisplay(visible);
+        prevPage.toggleDisplay(visible);
+        return (T) this;
+    }
 
-  /**
-   * Sets the size to large
-   *
-   * @return same instance
-   */
-  public T large() {
-    return setSize("pagination-lg");
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T updatePagesByTotalCount(int totalCount) {
+        return updatePagesByTotalCount(totalCount, true);
+    }
 
-  /**
-   * Sets the size to small
-   *
-   * @return same instance
-   */
-  public T small() {
-    return setSize("pagination-sm");
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T updatePagesByTotalCount(int totalCount, boolean silent) {
+        int pages = (totalCount / this.pageSize) + (totalCount % this.pageSize > 0 ? 1 : 0);
+        this.totalCount = totalCount;
+        return updatePages(pages, this.pageSize, silent);
+    }
 
-  private T setSize(String sizeStyle) {
-    pagesElement.removeCss(size);
-    pagesElement.addCss(sizeStyle);
-    size = sizeStyle;
-    return (T) this;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T updatePagesByTotalCount(int totalCount, int pageSize) {
+        return updatePagesByTotalCount(totalCount, pageSize, true);
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public int getTotalCount() {
-    return this.totalCount;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T updatePagesByTotalCount(int totalCount, int pageSize, boolean silent) {
+        int pages = (totalCount / pageSize) + (totalCount % pageSize > 0 ? 1 : 0);
+        this.totalCount = totalCount;
+        return updatePages(pages, pageSize, silent);
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public T setPageSize(int pageSize) {
-    this.pageSize = pageSize;
-    return (T) this;
-  }
+    @Override
+    public T updatePages(int pages) {
+        return updatePages(pages, true);
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public int getPageSize() {
-    return this.pageSize;
-  }
+    @Override
+    public T updatePages(int pages, int pageSize) {
+        return updatePages(pages, pageSize, true);
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public int activePage() {
-    return index;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T gotoPage(int page) {
+        return gotoPage(page, isChangeListenersPaused());
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public int getPagesCount() {
-    return pagesCount;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T gotoPage(int page, boolean silent) {
+        if (page > 0 && page <= pagesCount) {
+            moveToPage(page, silent);
+        }
+        return (T) this;
+    }
 
-  protected abstract void moveToPage(int page, boolean silent);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T nextPage() {
+        return nextPage(isChangeListenersPaused());
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public HTMLElement element() {
-    return element.element();
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T previousPage() {
+        return previousPage(isChangeListenersPaused());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T nextPage(boolean silent) {
+        moveToPage(index + 1, silent);
+        return (T) this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T previousPage(boolean silent) {
+        moveToPage(index - 1, silent);
+        return (T) this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T gotoFirst() {
+        return gotoFirst(false);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T gotoLast() {
+        return gotoLast(false);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T gotoFirst(boolean silent) {
+        if (this.pagesCount > 0) {
+            return gotoPage(1, silent);
+        }
+        return (T) this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T gotoLast(boolean silent) {
+        if (this.pagesCount > 0) {
+            return gotoPage(pagesCount, silent);
+        }
+        return (T) this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T markActivePage() {
+        this.markActivePage = true;
+        gotoPage(activePage);
+        return (T) this;
+    }
+
+    /**
+     * A boolean to mark the active page automatically
+     *
+     * @param markActivePage true to mark the active page automatically, false otherwise
+     * @return same instance
+     */
+    public T setMarkActivePage(boolean markActivePage) {
+        this.markActivePage = markActivePage;
+        if (!markActivePage) {
+            activePage.removeCss("active");
+        }
+
+        return (T) this;
+    }
+
+    void gotoPage(PagerNavItem pagerNavItem) {
+        if(nonNull(activePage)) {
+            activePage.getLink().removeCss(dui_active);
+        }
+        pagerNavItem.getLink().addCss(BooleanCssClass.of(dui_active, markActivePage));
+        activePage = pagerNavItem;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getTotalCount() {
+        return this.totalCount;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+        return (T) this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getPageSize() {
+        return this.pageSize;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int activePage() {
+        return index;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getPagesCount() {
+        return pagesCount;
+    }
+
+    protected abstract void moveToPage(int page, boolean silent);
+
+    @Override
+    public T pauseChangeListeners() {
+        this.changeListenersPaused = true;
+        return (T) this;
+    }
+
+    @Override
+    public T resumeChangeListeners() {
+        this.changeListenersPaused = false;
+        return (T) this;
+    }
+
+    @Override
+    public T togglePauseChangeListeners(boolean toggle) {
+        this.changeListenersPaused = toggle;
+        return (T) this;
+    }
+
+    @Override
+    public Set<ChangeListener<? super Integer>> getChangeListeners() {
+        return pageChangeListeners;
+    }
+
+    @Override
+    public boolean isChangeListenersPaused() {
+        return changeListenersPaused;
+    }
+
+    @Override
+    public T triggerChangeListeners(Integer oldValue, Integer newValue) {
+        getChangeListeners()
+                .forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
+        return (T) this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HTMLElement element() {
+        return pager.element();
+    }
 }

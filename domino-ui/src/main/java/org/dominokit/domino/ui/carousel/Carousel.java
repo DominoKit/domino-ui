@@ -90,12 +90,12 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   public Carousel() {
 
     element =
-        DominoElement.div()
-            .appendChild(indicatorsElement = DominoElement.ol().addCss(carousel_indicators))
-            .appendChild(slidesElement = DominoElement.div().addCss(carousel_inner))
+        div()
+            .appendChild(indicatorsElement = ol().addCss(carousel_indicators))
+            .appendChild(slidesElement = div().addCss(carousel_inner))
             .appendChild(
                 prevElement =
-                    DominoElement.a()
+                    a()
                         .addCss(slide_left, carousel_control)
                         .setAttribute("role", "button")
                         .appendChild(
@@ -111,7 +111,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
                             }))
             .appendChild(
                 nextElement =
-                    DominoElement.a()
+                    a()
                         .addCss(slide_right, carousel_control)
                         .setAttribute("role", "button")
                         .appendChild(
@@ -237,13 +237,13 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   private void goToSlide(Slide slide, String source) {
     if (!slide.isActive()) {
       this.targetSlide = slide;
-      slide.getIndicatorElement().addCss(dui_active_element);
-      activeSlide.getIndicatorElement().removeCss(dui_active_element);
+      slide.getIndicatorElement().addCss(dui_active);
+      activeSlide.getIndicatorElement().removeCss(dui_active);
       slide.addCss(getPositionStyle(slide, source));
       Scheduler.get()
           .scheduleFixedDelay(
               () -> {
-                activeSlide.getIndicatorElement().removeCss(dui_active_element);
+                activeSlide.getIndicatorElement().removeCss(dui_active);
                 CssClass directionStyle = getDirectionStyle(slide, source);
                 slide.addCss(directionStyle);
                 activeSlide.addCss(directionStyle);

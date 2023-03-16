@@ -48,7 +48,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
 
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div()).css(FlexStyles.FLEX_LAYOUT);
+      div().css(FlexStyles.FLEX_LAYOUT);
   private final List<FlexItem<?>> flexItems = new ArrayList<>();
   private FlexDirection flexDirection;
   private FlexWrap flexWrap;

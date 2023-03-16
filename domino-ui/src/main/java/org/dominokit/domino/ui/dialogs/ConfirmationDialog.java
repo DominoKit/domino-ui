@@ -58,7 +58,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
 
   /** creates new instance with empty title */
   public ConfirmationDialog() {
-    messageElement = LazyChild.of(DominoElement.span(), contentElement);
+    messageElement = LazyChild.of(span(), contentElement);
     bodyElement.addCss(dui_text_center);
     appendButtons();
     setStretchWidth(DialogSize.SMALL);

@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.CssClass;
 
 /** An interface for the required API to implement new position classes for popover */
 public interface PopupPosition {
@@ -28,14 +29,12 @@ public interface PopupPosition {
   void position(HTMLElement tooltip, HTMLElement target);
 
   /** @return the CSS class for the position */
-  String getDirectionClass();
+  CssClass getDirectionClass();
 
   PopupPosition RIGHT = new PopupPositionRight();
   PopupPosition TOP = new PopupPositionTop();
   PopupPosition LEFT = new PopupPositionLeft();
   PopupPosition BOTTOM = new PopupPositionBottom();
-  /** use {@link PopupPosition#BEST_FIT} */
-  @Deprecated PopupPosition TOP_DOWN = new PopupPositionTopDown();
 
   PopupPosition BEST_FIT = new PopupPositionBestFit();
   PopupPosition LEFT_RIGHT = new PopupPositionLeftRight();

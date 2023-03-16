@@ -13,25 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.notifications;
+package org.dominokit.domino.ui.utils;
 
-import elemental2.dom.HTMLElement;
+public interface IsPopup<T> {
+  T open();
 
-/** Display notification in bottom right */
-public class BottomRightPosition extends NotificationPosition {
+  T close();
 
-  public BottomRightPosition() {
-    super("bottom-right", "bottom");
+  boolean isModal();
+
+  boolean isAutoClose();
+
+  default boolean isDialog() {
+    return false;
   }
 
-  @Override
-  public void onBeforePosition(HTMLElement element) {
-    element.style.setProperty("bottom", "20px");
-    element.style.setProperty("right", "20px");
-  }
+  T setZIndex(int zIndex);
 
-  @Override
-  protected int getOffsetPosition(HTMLElement element) {
-    return 20;
-  }
+  int getZIndex();
+
+  default void stealFocus() {}
 }

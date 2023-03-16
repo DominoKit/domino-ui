@@ -24,19 +24,19 @@ public class RotationLoader extends BaseLoader<RotationLoader>
     implements IsElement<HTMLDivElement> {
 
   private final DominoElement<HTMLDivElement> progress1 =
-      DominoElement.div().addCss(wait_me_progress_elem_1, dui_border_grey_d_2);
+      div().addCss(wait_me_progress_elem_1, dui_border_grey_d_2);
 
   private final DominoElement<HTMLDivElement> loader =
-      DominoElement.div().addCss(wait_me_progress, rotation).appendChild(progress1);
+      div().addCss(wait_me_progress, rotation).appendChild(progress1);
 
   private final DominoElement<HTMLDivElement> content =
-      DominoElement.div()
+      div()
           .addCss(wait_me_content, dui_vertical_center)
           .appendChild(loader)
           .appendChild(loadingText);
 
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.div()
+      div()
           .addCss(wait_me)
           .style("background: rgba(255, 255, 255, 0.9);")
           .appendChild(content);

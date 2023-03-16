@@ -26,7 +26,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class HScrollPanel extends BaseDominoElement<HTMLDivElement, HScrollPanel> {
 
-  private HTMLDivElement element = DominoElement.of(div()).css("h-scroll-panel").element();
+  private DominoElement<HTMLDivElement> root;
 
   /** @return new HScrollPanel instance */
   public static HScrollPanel create() {
@@ -34,12 +34,13 @@ public class HScrollPanel extends BaseDominoElement<HTMLDivElement, HScrollPanel
   }
 
   public HScrollPanel() {
+    root = div().addCss(dui_overflow_x_scroll);
     init(this);
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return root.element();
   }
 }

@@ -58,7 +58,7 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> {
   }
 
   public Badge() {
-    element = DominoElement.span().addCss(dui_badge);
+    element = span().addCss(dui_badge);
     removeButton = LazyChild.of(RemoveButton.create().addClickListener(evt -> remove()), element);
     init(this);
     appendChild(textNode);

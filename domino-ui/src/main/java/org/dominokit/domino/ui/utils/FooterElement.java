@@ -31,7 +31,7 @@ public class FooterElement<T extends HTMLElement> extends BaseDominoElement<T, F
   }
 
   public FooterElement(T element) {
-    this.element = DominoElement.of(element);
+    this.element = elementOf(element);
     init(this);
   }
 

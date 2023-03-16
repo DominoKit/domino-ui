@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.forms;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class Select<V> extends AbstractSelect<V, V, Option<V>, Select<V>> {
 
@@ -34,17 +35,14 @@ public class Select<V> extends AbstractSelect<V, V, Option<V>, Select<V>> {
   }
 
   protected void doSetValue(V value) {
-    optionsMenu.getMenuItems().stream()
-        .filter(menuItem -> Objects.equals(value, menuItem.getValue()))
-        .findFirst()
-        .ifPresent(menuItem -> optionsMenu.select(menuItem));
+    Optional.ofNullable(getValue())
+            .ifPresent(oldValue -> findOptionByValue(oldValue).ifPresent(option -> option.deselect(true)));
+    this.value = value;
+    findOptionByValue(value).ifPresent(option -> option.select(true));
   }
 
   @Override
   public V getValue() {
-    if (!optionsMenu.getSelection().isEmpty()) {
-      return optionsMenu.getSelection().get(0).getValue();
-    }
-    return null;
+    return value;
   }
 }

@@ -15,23 +15,16 @@
  */
 package org.dominokit.domino.ui.popover;
 
-import static elemental2.dom.DomGlobal.document;
-import static org.dominokit.domino.ui.popover.PopoverStyles.*;
-import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
-import static org.jboss.elemento.Elements.div;
-import static org.jboss.elemento.Elements.h;
-
-import elemental2.dom.*;
-import java.util.ArrayList;
-import java.util.List;
-//import org.dominokit.domino.ui.datepicker.DateBox;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-import org.dominokit.domino.ui.dialogs.ModalBackDrop;
-import org.dominokit.domino.ui.style.Elevation;
-//import org.dominokit.domino.ui.timepicker.TimeBox;
-import org.dominokit.domino.ui.utils.*;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.animations.Transition;
+import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
+import org.dominokit.domino.ui.collapsible.CollapseDuration;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
+
+import static elemental2.dom.DomGlobal.document;
 
 /**
  * A component for showing content on top of another element in different locations.
@@ -45,269 +38,43 @@ import org.jboss.elemento.IsElement;
  * </pre>
  *
  * @see BaseDominoElement
- * @see AcceptDisable
  */
-public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
-    implements AcceptDisable<Popover> {
+public class Popover extends BasePopover<Popover>{
 
-  private final Text headerText;
-  private final HTMLElement targetElement;
-
-  private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div())
-          .css(POPOVER)
-          .attr("role", "tooltip")
-          .style("display: block;")
-          .elevate(Elevation.LEVEL_1);
-  private final DominoElement<HTMLHeadingElement> headingElement =
-      DominoElement.of(h(3)).css(POPOVER_TITLE);
-  private final DominoElement<HTMLDivElement> contentElement =
-      DominoElement.of(div()).css(POPOVER_CONTENT);
-
-  private PopupPosition popupPosition = TOP;
-
-  private boolean visible = false;
-
-  private boolean closeOthers = true;
   private final EventListener showListener;
-  private final EventListener closeListener;
-  private boolean disabled = false;
-  private String positionClass;
   private boolean closeOnEscape = true;
-  private boolean closeOnScroll = true;
-
-  private final List<OpenHandler> openHandlers = new ArrayList<>();
-  private final List<CloseHandler> closeHandlers = new ArrayList<>();
-
-  static {
-    document.body.addEventListener(EventType.click.getName(), evt -> Popover.closeAll());
+  public static Popover create(HTMLElement target){
+    return new Popover(target);
+  }
+  public static Popover create(IsElement<? extends HTMLElement> target){
+    return new Popover(target.element());
   }
 
-  public Popover(HTMLElement target, String title, Node content) {
-    this.targetElement = target;
-    DominoElement<HTMLDivElement> arrowElement = DominoElement.of(div()).css(ARROW);
-    element.appendChild(arrowElement);
-    element.appendChild(headingElement);
-    element.appendChild(contentElement);
-    headerText = TextNode.of(title);
-    headingElement.appendChild(headerText);
-    contentElement.appendChild(content);
+  public Popover(HTMLElement target) {
+    super(target);
     showListener =
-        evt -> {
-          evt.stopPropagation();
-          show();
-        };
+            evt -> {
+              evt.stopPropagation();
+              show();
+            };
     target.addEventListener(EventType.click.getName(), showListener);
-    closeListener = evt -> closeAll();
-
-    element.addEventListener(EventType.click.getName(), Event::stopPropagation);
-    ElementUtil.onDetach(
-        targetElement,
-        mutationRecord -> {
-          if (visible) {
-            close();
-          }
-          element.remove();
-        });
-    init(this);
-    onDetached(
-        mutationRecord ->
-            document.body.removeEventListener(EventType.keydown.getName(), closeListener));
+    setCollapseStrategy(
+            new AnimationCollapseStrategy(
+                    Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
   }
 
-  /** {@inheritDoc} */
   @Override
-  public Popover show() {
-    if (isEnabled()) {
-      if (closeOthers) {
-        closeOthers();
-      }
-      open(targetElement);
-      element.style().setZIndex(ModalBackDrop.getNextZIndex());
-      ModalBackDrop.push(this);
-      openHandlers.forEach(OpenHandler::onOpen);
-    }
-
-    return this;
-  }
-
-  private static void closeAll() {
-    closeOthers();
-  }
-
-  private static void closeOthers() {
-    ModalBackDrop.closePopovers();
-  }
-
-  private void open(HTMLElement target) {
-    if (visible) {
-      close();
-    } else {
-      document.body.appendChild(element.element());
-      element.removeCss(FADE, IN);
-      element.addCss(FADE, IN);
-      popupPosition.position(element.element(), target);
-      position(popupPosition);
-      visible = true;
-      if (closeOnEscape) {
-        KeyboardEvents.listenOnKeyDown(document.body).onEscape(closeListener);
-      }
+  protected void doOpen() {
+    super.doOpen();
+    if (closeOnEscape) {
+      body().onKeyDown(keyEvents -> keyEvents.onEscape(closeListener));
     }
   }
 
-  /** Closes the popover */
-  public void close() {
-    element().remove();
-    visible = false;
-    document.body.removeEventListener(EventType.keydown.getName(), closeListener);
-    ModalBackDrop.popPopOver();
-    closeHandlers.forEach(CloseHandler::onClose);
-  }
-
-  /**
-   * Closes the popover and remove it completely from the target element so it will not be shown
-   * again
-   */
-  public void discard() {
-    close();
+  public Popover detach(){
     targetElement.removeEventListener(EventType.click.getName(), showListener);
     document.removeEventListener(EventType.click.getName(), closeListener);
-  }
-
-  /**
-   * Creates new instance hidden and with no paddings by default; this is helpful for pickers inside
-   * {@link TimeBox} and {@link DateBox}
-   *
-   * @param target the target element
-   * @param content the {@link Node} content
-   * @return new instance
-   */
-  public static Popover createPicker(HTMLElement target, Node content) {
-    Popover popover = new Popover(target, "", content);
-    popover.getHeadingElement().setDisplay("none");
-    popover.getContentElement().setCssProperty("padding", "0px");
-
-    return popover;
-  }
-
-  /**
-   * Same as {@link Popover#createPicker(HTMLElement, Node)} but with wrapper {@link IsElement}
-   *
-   * @param target the target element
-   * @param content the {@link IsElement} content
-   * @return new instance
-   */
-  public static Popover createPicker(IsElement<?> target, IsElement<?> content) {
-    Popover popover = new Popover(target.element(), "", content.element());
-    popover.getHeadingElement().setDisplay("none");
-    popover.getContentElement().setCssProperty("padding", "0px");
-
-    return popover;
-  }
-
-  /**
-   * Creates new instance for target with title and content
-   *
-   * @param target the target element
-   * @param title the title of the popover
-   * @param content the content {@link Node}
-   * @return new instance
-   */
-  public static Popover create(HTMLElement target, String title, Node content) {
-    return new Popover(target, title, content);
-  }
-
-  /**
-   * Creates new instance for target with title and content
-   *
-   * @param target the target element
-   * @param title the title of the popover
-   * @param content the content {@link Node}
-   * @return new instance
-   */
-  public static Popover create(HTMLElement target, String title, IsElement<?> content) {
-    return new Popover(target, title, content.element());
-  }
-
-  /**
-   * Creates new instance for target with title and content
-   *
-   * @param target the target element
-   * @param title the title of the popover
-   * @param content the content {@link Node}
-   * @return new instance
-   */
-  public static Popover create(IsElement<?> target, String title, Node content) {
-    return new Popover(target.element(), title, content);
-  }
-
-  /**
-   * Creates new instance for target with title and content
-   *
-   * @param target the target element
-   * @param title the title of the popover
-   * @param content the content {@link IsElement}
-   * @return new instance
-   */
-  public static Popover create(IsElement<?> target, String title, IsElement<?> content) {
-    return new Popover(target.element(), title, content.element());
-  }
-
-  /**
-   * Sets the position of the popover related to the target element
-   *
-   * @param position the {@link PopupPosition}
-   * @return same instance
-   */
-  public Popover position(PopupPosition position) {
-    this.element.removeCss(this.positionClass);
-    this.popupPosition = position;
-    this.positionClass = position.getDirectionClass();
-    this.element.addCss(this.positionClass);
-
     return this;
-  }
-
-  /**
-   * Sets if other popovers should be closed when open this one
-   *
-   * @param closeOthers true to close all popovers when this on is opened, false otherwise
-   * @return same instance
-   */
-  public Popover setCloseOthers(boolean closeOthers) {
-    this.closeOthers = closeOthers;
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Popover enable() {
-    this.disabled = false;
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Popover disable() {
-    this.disabled = true;
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public boolean isEnabled() {
-    return !disabled;
-  }
-
-  /** @return The heading element */
-  public DominoElement<HTMLHeadingElement> getHeadingElement() {
-    return headingElement;
-  }
-
-  /** Use {@link Popover#closeOnEscape(boolean)} instead */
-  @Deprecated
-  public Popover closeOnEscp(boolean closeOnEscp) {
-    return closeOnEscape(closeOnEscp);
   }
 
   /**
@@ -319,93 +86,5 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
   public Popover closeOnEscape(boolean closeOnEscape) {
     this.closeOnEscape = closeOnEscape;
     return this;
-  }
-
-  /**
-   * Sets if the popover should be closed if scrolling
-   *
-   * @param closeOnScroll true to close on scroll, false otherwise
-   * @return same instance
-   */
-  public Popover closeOnScroll(boolean closeOnScroll) {
-    this.closeOnScroll = closeOnScroll;
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return element.element();
-  }
-
-  /** @return the content element */
-  public DominoElement<HTMLDivElement> getContentElement() {
-    return contentElement;
-  }
-
-  /** @return The header text */
-  public Text getHeaderText() {
-    return headerText;
-  }
-
-  /** @return true if close on scrolling, false otherwise */
-  public boolean isCloseOnScroll() {
-    return closeOnScroll;
-  }
-
-  /**
-   * Adds an open handler to be called when the popover is opened
-   *
-   * @param openHandler the {@link OpenHandler}
-   * @return same instance
-   */
-  public Popover addOpenListener(OpenHandler openHandler) {
-    this.openHandlers.add(openHandler);
-    return this;
-  }
-
-  /**
-   * Adds a close handler to be called when the popover is closed
-   *
-   * @param closeHandler the {@link CloseHandler}
-   * @return same instance
-   */
-  public Popover addCloseListener(CloseHandler closeHandler) {
-    this.closeHandlers.add(closeHandler);
-    return this;
-  }
-
-  /**
-   * Removes an open handler
-   *
-   * @param openHandler the {@link OpenHandler} to remove
-   * @return same instance
-   */
-  public Popover removeOpenHandler(OpenHandler openHandler) {
-    this.openHandlers.remove(openHandler);
-    return this;
-  }
-
-  /**
-   * Removes a close handler
-   *
-   * @param closeHandler the {@link CloseHandler} to remove
-   * @return same instance
-   */
-  public Popover removeCloseHandler(CloseHandler closeHandler) {
-    this.closeHandlers.remove(closeHandler);
-    return this;
-  }
-
-  /** A handler to be called when opening the popover */
-  @FunctionalInterface
-  public interface OpenHandler {
-    void onOpen();
-  }
-
-  /** A handler to be called when closing the popover */
-  @FunctionalInterface
-  public interface CloseHandler {
-    void onClose();
   }
 }

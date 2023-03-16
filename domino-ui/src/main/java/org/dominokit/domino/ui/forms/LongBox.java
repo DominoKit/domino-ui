@@ -52,7 +52,7 @@ public class LongBox extends NumberBox<LongBox, Long> {
   /** {@inheritDoc} */
   @Override
   protected Function<String, Long> defaultValueParser() {
-    return DominoUIConfig.CONFIG.getNumberParsers().longParser(this);
+    return getConfig().getNumberParsers().longParser(this);
   }
 
   /** {@inheritDoc} */

@@ -31,7 +31,7 @@ public class HeaderElement<T extends HTMLElement> extends BaseDominoElement<T, H
   }
 
   public HeaderElement(T element) {
-    this.element = DominoElement.of(element);
+    this.element = elementOf(element);
     init(this);
   }
 

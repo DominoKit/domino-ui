@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.datatable.ColumnUtils.fixElementWidth;
 import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.HTMLTableCellElement;
@@ -41,7 +40,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   private final Map<String, RowCell<T>> rowCells = new HashMap<>();
 
   private Map<String, String> flags = new HashMap<>();
-  private Map<String, RowMetaObject> metaObjects = new HashMap<>();
+  private Map<String, RowMeta> metaObjects = new HashMap<>();
 
   private HTMLTableRowElement element = tr().element();
 
@@ -259,12 +258,18 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     return flags.get(name);
   }
 
-  public void addMetaObject(RowMetaObject metaObject) {
-    metaObjects.put(metaObject.getKey(), metaObject);
+  public void applyMeta(RowMeta meta) {
+    metaObjects.put(meta.getKey(), meta);
   }
 
-  public <E extends RowMetaObject> E getMetaObject(String key) {
-    return (E) metaObjects.get(key);
+  @SuppressWarnings("all")
+  public <E extends RowMeta> Optional<E> getMeta(String key) {
+    return Optional.ofNullable((E) metaObjects.get(key));
+  }
+
+  public TableRow<T> removeMeta(String key) {
+    metaObjects.remove(key);
+    return this;
   }
 
   public void removeFlag(String name) {
@@ -318,7 +323,12 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   }
 
   public void render() {
-    rowRenderer.render(dataTable, this);
+    Optional<RowRendererMeta<T>> rendererMeta = RowRendererMeta.get(this);
+    if (rendererMeta.isPresent()) {
+      rendererMeta.get().getRowRenderer().render(dataTable, this);
+    } else {
+      rowRenderer.render(dataTable, this);
+    }
   }
 
   /**
@@ -330,15 +340,6 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   public interface RowListener<T> {
     /** @param tableRow the changed {@link TableRow} */
     void onChange(TableRow<T> tableRow);
-  }
-
-  /**
-   * this interface is used to implement custom meta object for rows with a unique key then later
-   * these meta object can be added to the row and can be used for any kind of logic.
-   */
-  public interface RowMetaObject {
-    /** @return String, a unique key for the meta object */
-    String getKey();
   }
 
   /** Convert the row the editable mode */
@@ -375,25 +376,12 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     this.editable = editable;
   }
 
-  public void setRowRenderer(RowRenderer<T> rowRenderer) {
-    if (isNull(rowRenderer)) {
-      this.rowRenderer = new DefaultRowRenderer<>();
-    } else {
-      this.rowRenderer = rowRenderer;
-    }
-  }
-
   public void renderCell(ColumnConfig<T> columnConfig) {
     HTMLTableCellElement cellElement;
     if (columnConfig.isHeader()) {
-      cellElement = DominoElement.of(th()).css("dt-th-cell").element();
+      cellElement = th().css("dt-th-cell").element();
     } else {
-      cellElement = DominoElement.of(td()).css("dt-td-cell").element();
-    }
-
-    if (dataTable.getTableConfig().isFixed() || columnConfig.isFixed()) {
-      fixElementWidth(
-          columnConfig, cellElement, dataTable.getTableConfig().getFixedDefaultColumnWidth());
+      cellElement = td().css("dt-td-cell").element();
     }
 
     RowCell<T> rowCell =
@@ -405,9 +393,17 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
     columnConfig.applyCellStyle(cellElement);
     if (columnConfig.isHidden()) {
-      DominoElement.of(cellElement).hide();
+      elementOf(cellElement).hide();
     }
+    dataTable
+        .getTableConfig()
+        .getPlugins()
+        .forEach(plugin -> plugin.onBeforeAddCell(dataTable, this, rowCell));
     element().appendChild(cellElement);
+    dataTable
+        .getTableConfig()
+        .getPlugins()
+        .forEach(plugin -> plugin.onAfterAddCell(dataTable, this, rowCell));
     columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(cellElement));
   }
 

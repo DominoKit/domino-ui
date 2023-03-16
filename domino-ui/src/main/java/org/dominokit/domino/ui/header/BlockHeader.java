@@ -47,13 +47,13 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader>
 
   private BlockHeader(String title) {
     element =
-        DominoElement.div()
+        div()
             .addCss(dui_block_header)
             .appendChild(
                 headerElement =
-                    DominoElement.h(2).addCss(dui_block_header_title).textContent(title));
+                    h(2).addCss(dui_block_header_title).textContent(title));
     descriptionElement =
-        LazyChild.of(DominoElement.small().addCss(dui_block_header_description), element);
+        LazyChild.of(small().addCss(dui_block_header_description), element);
     init(this);
   }
 

@@ -13,5 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// This package should be deleted
-package org.dominokit.domino.ui.grid.flex;
+package org.dominokit.domino.ui.collapsible;
+
+public interface CollapsibleHandlers {
+
+  Runnable onBeforeShow();
+
+  Runnable onShowCompleted();
+
+  Runnable onBeforeHide();
+
+  Runnable onHideCompleted();
+}

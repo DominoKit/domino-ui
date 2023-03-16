@@ -16,6 +16,8 @@
 package org.dominokit.domino.ui.collapsible;
 
 import elemental2.dom.*;
+import org.dominokit.domino.ui.config.AccordionConfig;
+import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.utils.*;
 
@@ -28,7 +30,7 @@ import org.dominokit.domino.ui.utils.*;
  * @see Accordion
  */
 public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionPanel>
-    implements IsCollapsible<AccordionPanel>, CollapsibleStyles {
+    implements IsCollapsible<AccordionPanel>, CollapsibleStyles, HasComponentConfig<AccordionConfig> {
 
   private DominoElement<HTMLDivElement> element;
   private LazyChild<DominoElement<HTMLDivElement>> headerElement;
@@ -41,27 +43,27 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
 
   public AccordionPanel() {
     element =
-        DominoElement.div()
+        div()
             .addCss(dui_collapse_panel)
             .appendChild(
                 contentElement =
-                    DominoElement.div()
+                    div()
                         .addCss(dui_panel_content)
-                        .appendChild(bodyElement = DominoElement.div().addCss(dui_panel_body)));
+                        .appendChild(bodyElement = div().addCss(dui_panel_body)));
     init(this);
 
     headerElement =
         LazyChild.of(
-            DominoElement.div().addCss(dui_panel_header).setAttribute("role", "tab"), element);
+            div().addCss(dui_panel_header).setAttribute("role", "tab"), element);
 
-    titleElement = LazyChild.of(DominoElement.span().addCss(dui_panel_title), headerElement);
+    titleElement = LazyChild.of(span().addCss(dui_panel_title), headerElement);
     contentHeader =
-        LazyChild.of(DominoElement.div().addCss(dui_panel_content_header), contentElement);
-    contentFooter = LazyChild.of(DominoElement.div().addCss(dui_panel_footer), contentElement);
-    setCollapseStrategy(DominoUIConfig.CONFIG.getDefaultAccordionCollapseStrategySupplier().get());
+        LazyChild.of(div().addCss(dui_panel_content_header), contentElement);
+    contentFooter = LazyChild.of(div().addCss(dui_panel_footer), contentElement);
+    setCollapseStrategy(getConfig().getDefaultAccordionCollapseStrategySupplier().get());
 
-    addShowListener(() -> addCss(dui_active_element));
-    addHideListener(() -> removeCss(dui_active_element));
+    addShowListener(() -> addCss(dui_active));
+    addHideListener(() -> removeCss(dui_active));
     hide();
   }
 

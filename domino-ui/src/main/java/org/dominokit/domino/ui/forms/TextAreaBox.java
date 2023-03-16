@@ -39,7 +39,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
   public TextAreaBox() {
     setRows(4);
     addCss(FORM_TEXT_AREA);
-    wrapperElement.appendChild(DominoElement.div().addCss(FORM_TEXT_AREA_GAP));
+    wrapperElement.appendChild(div().addCss(FORM_TEXT_AREA_GAP));
     onAttached(mutationRecord -> adjustHeight());
     setDefaultValue("");
     getInputElement().setAttribute("data-scroll", "0");
@@ -74,7 +74,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
 
   @Override
   protected DominoElement<HTMLTextAreaElement> createInputElement(String type) {
-    return DominoElement.textarea().addCss(FIELD_INPUT);
+    return textarea().addCss(FIELD_INPUT);
   }
 
   /** {@inheritDoc} */

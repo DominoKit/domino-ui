@@ -49,14 +49,6 @@ import org.jboss.elemento.IsElement;
 public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
     implements MediaStyles {
 
-  /*
-    <div class="dui dui-media">
-      <div class="dui dui-media-object"><a><img src="https://placehold.jp/64x64.png"></a></div>
-      <div class="dui dui-media-body">
-          <h4 class="dui dui-media-heading">Media heading</h4>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-      </div>
-  </div>
-     */
   private final DominoElement<HTMLDivElement> element;
 
   private final LazyChild<DominoElement<HTMLDivElement>> leftMedia;
@@ -65,12 +57,12 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
   private final LazyChild<DominoElement<HTMLHeadingElement>> mediaHeader;
 
   public MediaObject() {
-    element = DominoElement.div().addCss(dui_media);
-    leftMedia = LazyChild.of(DominoElement.div().addCss(dui_media_object, dui_media_left), element);
-    mediaBody = LazyChild.of(DominoElement.div().addCss(dui_media_body), element);
+    element = div().addCss(dui_media);
+    leftMedia = LazyChild.of(div().addCss(dui_media_object, dui_media_left), element);
+    mediaBody = LazyChild.of(div().addCss(dui_media_body), element);
     rightMedia =
-        LazyChild.of(DominoElement.div().addCss(dui_media_object, dui_media_right), mediaBody);
-    mediaHeader = LazyChild.of(DominoElement.h4().addCss(dui_media_heading), mediaBody);
+        LazyChild.of(div().addCss(dui_media_object, dui_media_right), mediaBody);
+    mediaHeader = LazyChild.of(h4().addCss(dui_media_heading), mediaBody);
     init(this);
   }
 

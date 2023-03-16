@@ -15,12 +15,14 @@
  */
 package org.dominokit.domino.ui.grid.flex;
 
-import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.jboss.elemento.IsElement;
+
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 /**
  * A component which provides an abstract level of the CSS flex item which will inherit the styles
@@ -50,7 +52,7 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
   private FlexAlign alignSelf;
 
   public FlexItem() {
-    this((T) div().element());
+    this((T) elements.div().element());
   }
 
   public FlexItem(T root) {

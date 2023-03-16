@@ -15,10 +15,11 @@
  */
 package org.dominokit.domino.ui.popover;
 
-import static elemental2.dom.DomGlobal.window;
-
 import elemental2.dom.DOMRect;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.CssClass;
+
+import static elemental2.dom.DomGlobal.window;
 
 /**
  * Position the popover on the right or the left based on the location of the target element in the
@@ -29,7 +30,7 @@ import elemental2.dom.HTMLElement;
  */
 public class PopupPositionLeftRight implements PopupPosition {
 
-  private String positionClass;
+  private CssClass positionClass = PopupPosition.RIGHT.getDirectionClass();
 
   /** {@inheritDoc} */
   @Override
@@ -50,7 +51,7 @@ public class PopupPositionLeftRight implements PopupPosition {
 
   /** {@inheritDoc} */
   @Override
-  public String getDirectionClass() {
+  public CssClass getDirectionClass() {
     return positionClass;
   }
 }

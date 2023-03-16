@@ -1870,6 +1870,17 @@ public interface SpacingCss {
   CssClass dui_bg_cover = () -> "dui-bg-cover";
   CssClass dui_bg_contain = () -> "dui-bg-contain";
   CssClass dui_rounded_none = () -> "dui-rounded-none";
+
+  CssClass dui_rounded_inherit = () -> "dui_rounded_inherit";
+  CssClass dui_rounded_t_inherit = () -> "dui_rounded_t_inherit";
+  CssClass dui_rounded_b_inherit = () -> "dui_rounded_b_inherit";
+  CssClass dui_rounded_l_inherit = () -> "dui_rounded_l_inherit";
+  CssClass dui_rounded_r_inherit = () -> "dui_rounded_r_inherit";
+  CssClass dui_rounded_tl_inherit = () -> "dui_rounded_tl_inherit";
+  CssClass dui_rounded_tr_inherit = () -> "dui_rounded_tr_inherit";
+  CssClass dui_rounded_br_inherit = () -> "dui_rounded_br_inherit";
+  CssClass dui_rounded_bl_inherit = () -> "dui_rounded_bl_inherit";
+
   CssClass dui_rounded_sm = () -> "dui-rounded-sm";
   CssClass dui_rounded = () -> "dui-rounded";
   CssClass dui_rounded_md = () -> "dui-rounded-md";

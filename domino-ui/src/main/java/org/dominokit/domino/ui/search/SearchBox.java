@@ -16,7 +16,7 @@
 package org.dominokit.domino.ui.search;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.search.SearchStyles.QUICK_SEARCH;
+import static org.dominokit.domino.ui.search.SearchStyles.dui_quick_search;
 import static org.dominokit.domino.ui.utils.DominoUIConfig.CONFIG;
 
 import elemental2.dom.Event;
@@ -25,11 +25,14 @@ import elemental2.dom.HTMLDivElement;
 import java.util.HashSet;
 import java.util.Set;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.config.HasComponentConfig;
+import org.dominokit.domino.ui.config.SearchConfig;
 import org.dominokit.domino.ui.forms.TextBox;
+import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.QuickSearchLabels;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
+import org.dominokit.domino.ui.keyboard.KeyboardEventOptions;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
@@ -37,18 +40,17 @@ import org.gwtproject.timer.client.Timer;
 import org.jboss.elemento.EventType;
 
 /** A simple search box that is triggered while the user is typing */
-public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
+public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
+        implements HasLabels<QuickSearchLabels>, HasComponentConfig<SearchConfig> {
 
-  private int autoSearchDelay = 200;
-  private DominoElement<HTMLDivElement> root = DominoElement.div().addCss(QUICK_SEARCH);
+  private int autoSearchDelay;
+  private DominoElement<HTMLDivElement> root;
   private final TextBox textBox;
   private boolean autoSearch = true;
   private Timer autoSearchTimer;
   private EventListener autoSearchEventListener;
   private final BaseIcon<?> searchIcon;
   private final BaseIcon<?> clearIcon;
-
-  private QuickSearchLabels labels = CONFIG.getDominoUILabels();
 
   private Set<SearchListener> searchListeners = new HashSet<>();
 
@@ -59,6 +61,8 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
   /** creates a new instance */
   public SearchBox() {
     init(this);
+    this.autoSearchDelay = getConfig().getAutoSearchDelay();
+    root = div().addCss(dui_quick_search);
     searchIcon =
         Icons.ALL
             .magnify_mdi()
@@ -68,32 +72,33 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
                   autoSearchTimer.cancel();
                   doSearch();
                 })
-            .setTooltip(labels.defaultQuickSearchPlaceHolder());
+            .setTooltip(getLabels().defaultQuickSearchPlaceHolder());
 
     clearIcon =
         Icons.ALL
-            .window_close_mdi()
+            .backspace_outline_mdi()
             .clickable()
-            .setTooltip(labels.defaultQuickSearchClearToolTip())
+            .setTooltip(getLabels().defaultQuickSearchClearToolTip())
             .addClickListener(
                 evt -> {
                   clearSearch();
                   focusSearchBox();
                 });
 
-    KeyboardEvents.listenOnKeyDown(clearIcon)
-        .onEnter(
-            evt -> {
-              clearSearch();
-              focusSearchBox();
-            },
-            KeyboardEvents.KeyboardEventOptions.create()
-                .setPreventDefault(true)
-                .setStopPropagation(true));
+    clearIcon.onKeyDown(keyEvents -> keyEvents
+            .onEnter(
+                    evt -> {
+                      clearSearch();
+                      focusSearchBox();
+                    },
+                    KeyboardEventOptions.create()
+                            .setPreventDefault(true)
+                            .setStopPropagation(true))
+    );
 
     textBox =
         TextBox.create()
-            .setPlaceholder(labels.defaultQuickSearchPlaceHolder())
+            .setPlaceholder(getLabels().defaultQuickSearchPlaceHolder())
             .addLeftAddOn(searchIcon)
             .addRightAddOn(clearIcon);
 
@@ -151,13 +156,7 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
       autoSearchTimer.cancel();
     }
 
-    textBox.addEventListener(
-        EventType.keypress.getName(),
-        evt -> {
-          if (ElementUtil.isEnterKey(Js.uncheckedCast(evt))) {
-            doSearch();
-          }
-        });
+    textBox.onKeyPress(keyEvents -> keyEvents.onEnter(evt-> doSearch()));
 
     return this;
   }
@@ -176,13 +175,6 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
     searchListeners.forEach(searchListener -> searchListener.onSearch(textBox.getValue()));
   }
 
-  public SearchBox setLabels(QuickSearchLabels quickSearchLabels) {
-    this.labels = quickSearchLabels;
-    this.searchIcon.setTooltip(labels.defaultQuickSearchClearToolTip());
-    this.clearIcon.setTooltip(labels.defaultQuickSearchClearToolTip());
-    this.textBox.setPlaceholder(labels.defaultQuickSearchPlaceHolder());
-    return this;
-  }
   /**
    * Adds a search listener to the search box component
    *

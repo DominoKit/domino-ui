@@ -20,6 +20,8 @@ import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.EventType;
 
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
 /**
  * This plugin allow adding a listener to single click event on a row
  *
@@ -40,7 +42,7 @@ public class RowClickPlugin<T> implements DataTablePlugin<T> {
   /** {@inheritDoc} */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
-    DominoElement.of(tableRow.element()).styler(style -> style.setCursor("pointer"));
+    elements.elementOf(tableRow.element()).styler(style -> style.setCursor("pointer"));
     tableRow
         .element()
         .addEventListener(EventType.click.getName(), evt -> handler.onClick(tableRow));

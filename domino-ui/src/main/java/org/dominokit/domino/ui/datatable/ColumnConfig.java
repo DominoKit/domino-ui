@@ -17,17 +17,29 @@ package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.datatable.ColumnUtils.fixElementWidth;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+import static org.jboss.elemento.Elements.th;
 
 import elemental2.dom.HTMLTableCellElement;
+import elemental2.dom.HTMLTableRowElement;
 import elemental2.dom.Node;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import org.dominokit.domino.ui.grid.flex.FlexAlign;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
+import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.MdiIcon;
+import org.dominokit.domino.ui.menu.Menu;
+import org.dominokit.domino.ui.menu.direction.BestSideUpDownDropDirection;
+import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.ScreenMedia;
 import org.dominokit.domino.ui.utils.TextNode;
+import org.jboss.elemento.IsElement;
 
 /**
  * Class to define a column in the data table
@@ -50,8 +62,9 @@ public class ColumnConfig<T> {
   private HeaderElementSupplier headerElementSupplier =
       columnTitle -> {
         return FlexLayout.create()
+            .css("dui-th-title-wrapper")
             .appendChild(
-                FlexItem.of(DominoElement.div())
+                FlexItem.of(elements.div().css("dui-th-title-text-wrapper"))
                     .setOrder(50)
                     .setFlexGrow(1)
                     .styler(style -> style.setCssProperty("text-indent", "2px"))
@@ -74,6 +87,15 @@ public class ColumnConfig<T> {
 
   private final List<ColumnShowHideListener> showHideListeners = new ArrayList<>();
   private final List<ColumnShowHideListener> permanentHideListeners = new ArrayList<>();
+
+  private final List<ColumnConfig<T>> subColumns = new ArrayList<>();
+  private ColumnConfig<T> parent;
+
+  private final Map<String, ColumnMeta> columnMeta = new HashMap<>();
+
+  private final Menu<String> menu;
+  private MdiIcon menuIcon;
+  private FlexLayout flexLayout;
 
   /**
    * Creates an instance with a name which will also be used as a title
@@ -107,6 +129,13 @@ public class ColumnConfig<T> {
   public ColumnConfig(String name, String title) {
     this.name = name;
     this.title = title;
+    menuIcon = Icons.ALL.dots_vertical_mdi();
+    this.menu =
+        Menu.<String>create()
+            .setTargetElement(menuIcon)
+            .setDropDirection(new BestSideUpDownDropDirection())
+            .addOnAddItemHandler((menu1, menuItem) -> menuIcon.show());
+    menuIcon.hide();
   }
 
   /**
@@ -339,7 +368,7 @@ public class ColumnConfig<T> {
    *     DominoElement}
    */
   public DominoElement<HTMLTableCellElement> getHeadElement() {
-    return DominoElement.of(headElement);
+    return elements.elementOf(headElement);
   }
 
   /**
@@ -466,7 +495,7 @@ public class ColumnConfig<T> {
    * @param element {@link HTMLTableCellElement}
    */
   public void applyScreenMedia(HTMLTableCellElement element) {
-    DominoElement<HTMLTableCellElement> thElement = DominoElement.of(element);
+    DominoElement<HTMLTableCellElement> thElement = elements.elementOf(element);
 
     if (nonNull(showOn)) {
       thElement.showOn(showOn);
@@ -712,6 +741,291 @@ public class ColumnConfig<T> {
    */
   public ColumnConfig<T> setDrawTitle(boolean drawTitle) {
     this.drawTitle = drawTitle;
+    return this;
+  }
+
+  /**
+   * Adds a configuration for a column in the data table
+   *
+   * @param column {@link ColumnConfig}
+   * @return same TableConfig instance
+   */
+  public ColumnConfig<T> addColumn(ColumnConfig<T> column) {
+    column.parent = this;
+    column.applyMeta(ColumnHeaderMeta.create());
+    this.subColumns.add(column);
+    return this;
+  }
+
+  public boolean isColumnGroup() {
+    return !this.subColumns.isEmpty();
+  }
+
+  public int getColumnsCount() {
+    if (!isColumnGroup()) {
+      return 1;
+    }
+    return this.subColumns.stream().map(ColumnConfig::getColumnsCount).reduce(0, Integer::sum);
+  }
+
+  public int getColumnsDepth() {
+    if (!isColumnGroup()) {
+      return getGroupLevel();
+    }
+    return this.subColumns.stream().mapToInt(ColumnConfig::getColumnsDepth).max().orElse(0);
+  }
+
+  public int getGroupLevel() {
+    if (isNull(parent)) {
+      return 0;
+    }
+    return 1 + parent.getGroupLevel();
+  }
+
+  private int getColSpan() {
+    if (!isColumnGroup()) {
+      return 1;
+    }
+    return subColumns.stream().mapToInt(ColumnConfig::getColSpan).sum();
+  }
+
+  public List<ColumnConfig<T>> flattenColumns() {
+    List<ColumnConfig<T>> cols = new ArrayList<>();
+    cols.add(this);
+    if (isColumnGroup()) {
+      subColumns.forEach(col -> cols.addAll(col.flattenColumns()));
+    }
+    return cols;
+  }
+
+  public List<ColumnConfig<T>> leafColumns() {
+    List<ColumnConfig<T>> cols = new ArrayList<>();
+    if (!isColumnGroup()) {
+      cols.add(this);
+    } else {
+      subColumns.forEach(col -> cols.addAll(col.leafColumns()));
+    }
+    return cols;
+  }
+
+  public List<ColumnConfig<T>> getSubColumns() {
+    return subColumns;
+  }
+
+  public boolean hasParent() {
+    return nonNull(parent);
+  }
+
+  public ColumnConfig<T> applyMeta(ColumnMeta meta) {
+    columnMeta.put(meta.getKey(), meta);
+    return this;
+  }
+
+  @SuppressWarnings("all")
+  public <C extends ColumnMeta> Optional<C> getMeta(String key) {
+    return Optional.ofNullable((C) columnMeta.get(key));
+  }
+
+  public ColumnConfig<T> removeMeta(String key) {
+    columnMeta.remove(key);
+    return this;
+  }
+
+  void renderHeader(
+      DataTable<T> dataTable, TableConfig<T> tableConfig, HTMLTableRowElement[] headers) {
+    int depth = getColumnsDepth();
+    int startIndex = headers.length - 1 - depth;
+
+    if (startIndex == 0) {
+      elements.elementOf(headers[0]).appendChild(createColumnElement(tableConfig));
+    } else {
+      DominoElement<HTMLTableCellElement> fillHeader =
+          createColumnElement(tableConfig)
+              .clearElement()
+              .apply(self -> self.setAttribute("rowspan", startIndex + ""));
+      ColumnHeaderMeta.get(this)
+          .ifPresent(columnHeaderMeta -> columnHeaderMeta.addExtraHeadElement(fillHeader));
+      elements.elementOf(headers[0]).appendChild(fillHeader);
+      elements.elementOf(headers[startIndex]).appendChild(createColumnElement(tableConfig));
+    }
+
+    if (isColumnGroup()) {
+      renderChildColumns(dataTable, tableConfig, headers, startIndex + 1);
+    }
+    tableConfig.getPlugins().forEach(plugin -> plugin.onHeaderAdded(dataTable, this));
+  }
+
+  private void renderChildColumns(
+      DataTable<T> dataTable,
+      TableConfig<T> tableConfig,
+      HTMLTableRowElement[] headers,
+      int startIndex) {
+    getSubColumns()
+        .forEach(
+            col -> {
+              if (col.isColumnGroup()) {
+                elements.elementOf(headers[startIndex])
+                    .appendChild(
+                        col.createColumnElement(tableConfig)
+                            .apply(
+                                self -> {
+                                  if (startIndex < (headers.length - col.getColumnsDepth())) {
+                                    int diff = headers.length - col.getColumnsDepth() - 1;
+                                    self.setAttribute("rowspan", diff + 1 + "");
+                                  }
+                                }));
+                col.renderChildColumns(dataTable, tableConfig, headers, startIndex + 1);
+              } else {
+                int index = headers.length - 1;
+                if (index > startIndex) {
+                  int diff = startIndex - index;
+                  DominoElement<HTMLTableCellElement> fillHeader =
+                      col.createColumnElement(tableConfig)
+                          .clearElement()
+                          .setAttribute("rowspan", diff + "");
+                  ColumnHeaderMeta.get(col)
+                      .ifPresent(
+                          columnHeaderMeta -> columnHeaderMeta.addExtraHeadElement(fillHeader));
+                  elements.elementOf(headers[startIndex]).appendChild(fillHeader);
+                }
+                elements.elementOf(headers[index]).appendChild(col.createColumnElement(tableConfig));
+                tableConfig.getPlugins().forEach(plugin -> plugin.onHeaderAdded(dataTable, col));
+              }
+            });
+  }
+
+  private DominoElement<HTMLTableCellElement> createColumnElement(TableConfig<T> tableConfig) {
+
+    flexLayout = FlexLayout.create().setAlignItems(FlexAlign.CENTER);
+    if (isDrawTitle() && nonNull(getTitle())) {
+      flexLayout.appendChild(
+          FlexItem.of(elements.div().css("dui-th-title-wrapper"))
+              .setOrder(50)
+              .appendChild(getHeaderElementSupplier().asElement(getTitle())));
+
+      flexLayout.appendChild(
+          FlexItem.of(elements.div().css("dui-th-filler")).setOrder(60).setFlexGrow(1));
+    }
+
+    flexLayout.appendChild(FlexItem.of(menuIcon.size18().clickable().removeWaves()).setOrder(9980));
+
+    DominoElement<HTMLTableCellElement> th =
+            elements.elementOf(th().attr("colspan", getColSpan() + ""))
+            .addCss(DataTableStyles.TABLE_CM_HEADER)
+            .appendChild(flexLayout);
+
+    if (isColumnGroup()) {
+      th.addCss("dui-column-group");
+    }
+
+    applyScreenMedia(th.element());
+
+    setHeadElement(th.element());
+    setHeaderLayout(flexLayout);
+    if (tableConfig.isFixed() || isFixed()) {
+      fixElementWidth(this, th.element());
+    }
+
+    if (isShowTooltip()) {
+      Tooltip.create(th.element(), getTooltipNode());
+    }
+    applyHeaderStyle();
+    addShowHideListener(DefaultColumnShowHideListener.of(th.element(), true));
+    elements.elementOf(th).toggleDisplay(!isHidden());
+    return th;
+  }
+
+  public ColumnConfig<T> applyAndOnSubColumns(Consumer<ColumnConfig<T>> handler) {
+    handler.accept(this);
+    if (isColumnGroup()) {
+      getSubColumns().forEach(col -> col.applyAndOnSubColumns(handler));
+    }
+    return this;
+  }
+
+  public ColumnConfig<T> applyAndOnSubColumns(
+      Predicate<ColumnConfig<T>> predicate, Consumer<ColumnConfig<T>> handler) {
+    handler.accept(this);
+    if (isColumnGroup()) {
+      getSubColumns().forEach(col -> col.applyAndOnSubColumns(handler));
+    }
+    return this;
+  }
+
+  public ColumnConfig<T> applyAndOnFirstSubColumn(Consumer<ColumnConfig<T>> handler) {
+    handler.accept(this);
+    if (isColumnGroup()) {
+      getSubColumns().get(0).applyAndOnFirstSubColumn(handler);
+    }
+    return this;
+  }
+
+  public ColumnConfig<T> onFirstSubColumn(Consumer<ColumnConfig<T>> handler) {
+    if (isColumnGroup()) {
+      getSubColumns().get(0).applyAndOnFirstSubColumn(handler);
+    }
+    return this;
+  }
+
+  public ColumnConfig<T> applyAndOnLastSubColumn(Consumer<ColumnConfig<T>> handler) {
+    handler.accept(this);
+    if (isColumnGroup()) {
+      getSubColumns().get(getSubColumns().size() - 1).applyAndOnLastSubColumn(handler);
+    }
+    return this;
+  }
+
+  public ColumnConfig<T> onEachLastSubColumn(Consumer<ColumnConfig<T>> handler) {
+    if (isColumnGroup()) {
+      getSubColumns().get(getSubColumns().size() - 1).applyAndOnLastSubColumn(handler);
+    }
+    return this;
+  }
+
+  public ColumnConfig<T> applyAndOnParents(Consumer<ColumnConfig<T>> handler) {
+    handler.accept(this);
+    if (this.hasParent()) {
+      getParent().applyAndOnParents(handler);
+    }
+    return this;
+  }
+
+  public ColumnConfig<T> getGrandParent() {
+    if (hasParent()) {
+      return getParent().getGrandParent();
+    }
+    return this;
+  }
+
+  public ColumnConfig<T> getLastGrandSiblingColumn() {
+    if (!isColumnGroup()) {
+      return this;
+    }
+    return this.getSubColumns().get(this.getSubColumns().size() - 1).getLastGrandSiblingColumn();
+  }
+
+  public ColumnConfig<T> getFirstGrandSiblingColumn() {
+    if (!isColumnGroup()) {
+      return this;
+    }
+    return this.getSubColumns().get(0).getFirstGrandSiblingColumn();
+  }
+
+  public Menu<String> getMenu() {
+    return menu;
+  }
+
+  public ColumnConfig<T> getParent() {
+    return parent;
+  }
+
+  public ColumnConfig<T> appendChild(IsElement<?> element) {
+    flexLayout.appendChild(FlexItem.of(element));
+    return this;
+  }
+
+  public ColumnConfig<T> appendChild(FlexItem<?> element) {
+    flexLayout.appendChild(element);
     return this;
   }
 

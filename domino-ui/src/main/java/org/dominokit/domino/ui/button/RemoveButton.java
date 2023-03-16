@@ -30,9 +30,9 @@ public class RemoveButton extends BaseDominoElement<HTMLButtonElement, RemoveBut
 
   public RemoveButton() {
     button =
-        DominoElement.button()
+        button()
             .addCss(GenericCss.dui_close)
-            .appendChild(DominoElement.span().textContent("×"));
+            .appendChild(span().textContent("×"));
     init(this);
   }
 

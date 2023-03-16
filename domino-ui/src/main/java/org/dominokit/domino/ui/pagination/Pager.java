@@ -17,12 +17,19 @@ package org.dominokit.domino.ui.pagination;
 
 import static org.jboss.elemento.Elements.*;
 
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLUListElement;
+import elemental2.dom.Text;
+import org.dominokit.domino.ui.i18n.HasLabels;
+import org.dominokit.domino.ui.i18n.PaginationLabels;
+import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
+import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.HtmlContentBuilder;
 
@@ -40,184 +47,200 @@ import org.jboss.elemento.HtmlContentBuilder;
  *
  * @see BaseDominoElement
  */
-public class Pager extends BaseDominoElement<HTMLElement, Pager> {
+public class Pager extends BaseDominoElement<HTMLElement, Pager> implements PaginationStyles, HasLabels<PaginationLabels> {
 
-  private final DominoElement<HTMLUListElement> pagerElement = DominoElement.of(ul()).css("pager");
-  private final DominoElement<HTMLElement> element = DominoElement.of(nav()).add(pagerElement);
+    private final DominoElement<HTMLElement> element;
+    private final DominoElement<HTMLUListElement> pagesList;
 
-  private final DominoElement<HTMLLIElement> nextElement;
-  private final DominoElement<HTMLLIElement> prevElement;
+    private final PagerNavItem nextElement;
+    private final PagerNavItem prevElement;
+    private final DominoElement<HTMLElement> prevArrow;
+    private final DominoElement<HTMLElement> nextArrow;
 
-  private final DominoElement<HTMLAnchorElement> nextAnchor;
-  private final DominoElement<HTMLAnchorElement> prevAnchor;
+    private final Text nextText;
+    private final Text prevText;
 
-  private PagerChangeCallback onNext = () -> {};
-  private PagerChangeCallback onPrev = () -> {};
+    private PagerChangeCallback onNext = () -> {
+    };
+    private PagerChangeCallback onPrev = () -> {
+    };
 
-  private boolean allowNext = true;
-  private boolean allowPrev = true;
+    private boolean allowNext = true;
+    private boolean allowPrev = true;
 
-  public Pager() {
-    HtmlContentBuilder<HTMLAnchorElement> nextAnchor = a();
-    this.nextAnchor = DominoElement.of(nextAnchor);
-    nextElement =
-        DominoElement.of(
-            li().add(
-                    DominoElement.of(nextAnchor)
-                        .css("wave-effect")
-                        .addEventListener(
-                            EventType.click,
-                            event -> {
-                              if (allowNext) onNext.onChange();
-                            })
-                        .textContent("Next")
-                        .element()));
+    public Pager() {
+        EventListener goNext = evt -> {
+            if (allowNext) {
+                onNext.onChange();
+            }
+        };
+        EventListener goPrevious = evt -> {
+            if (allowPrev) {
+                onPrev.onChange();
+            }
+        };
+        element = nav().addCss(dui_pager)
+                .appendChild(pagesList = ul()
+                        .addCss(dui_pager_list, dui_navigator)
+                        .appendChild(prevElement = PagerNavItem.create()
+                                .withLink((parent, link) -> link.addCss(dui_navigator_nav))
+                                .appendChild(prevArrow = span().textContent("←"))
+                                .appendChild(prevText = TextNode.of(getLabels().getPreviousLabel()))
+                                .addClickListener(goPrevious)
+                                .onKeyDown(keyEvents -> keyEvents.onEnter(goPrevious))
+                        )
+                        .appendChild(nextElement = PagerNavItem.create()
+                                .withLink((parent, link) -> link.addCss(dui_navigator_nav))
+                                .appendChild(nextText = TextNode.of(getLabels().getNextLabel()))
+                                .appendChild(nextArrow = span().textContent("→"))
+                                .addClickListener(goNext)
+                                .onKeyDown(keyEvents -> keyEvents.onEnter(goNext))
+                        )
+                );
+        init(this);
+    }
 
-    HtmlContentBuilder<HTMLAnchorElement> prevAnchor = a();
-    this.prevAnchor = DominoElement.of(prevAnchor);
-    prevElement =
-        DominoElement.of(
-            li().add(
-                    DominoElement.of(prevAnchor)
-                        .css("wave-effect")
-                        .addEventListener(
-                            EventType.click,
-                            event -> {
-                              if (allowPrev) onPrev.onChange();
-                            })
-                        .textContent("Previous")));
-    pagerElement.appendChild(prevElement);
-    pagerElement.appendChild(nextElement);
+    /**
+     * @return new instance
+     */
+    public static Pager create() {
+        return new Pager();
+    }
 
-    init(this);
-  }
+    /**
+     * Sets the handler that will be called when next element is clicked
+     *
+     * @param nextCallback the {@link PagerChangeCallback}
+     * @return same instance
+     */
+    public Pager onNext(PagerChangeCallback nextCallback) {
+        this.onNext = nextCallback;
+        return this;
+    }
 
-  /** @return new instance */
-  public static Pager create() {
-    return new Pager();
-  }
+    /**
+     * Sets the handler that will be called when previous element is clicked
+     *
+     * @param previousCallback the {@link PagerChangeCallback}
+     * @return same instance
+     */
+    public Pager onPrevious(PagerChangeCallback previousCallback) {
+        this.onPrev = previousCallback;
+        return this;
+    }
 
-  /**
-   * Sets the handler that will be called when next element is clicked
-   *
-   * @param nextCallback the {@link PagerChangeCallback}
-   * @return same instance
-   */
-  public Pager onNext(PagerChangeCallback nextCallback) {
-    this.onNext = nextCallback;
-    return this;
-  }
+    /**
+     * Disables the next element
+     *
+     * @return same instance
+     */
+    public Pager disableNext() {
+        this.allowNext = false;
+        nextElement.disable();
+        return this;
+    }
 
-  /**
-   * Sets the handler that will be called when previous element is clicked
-   *
-   * @param previousCallback the {@link PagerChangeCallback}
-   * @return same instance
-   */
-  public Pager onPrevious(PagerChangeCallback previousCallback) {
-    this.onPrev = previousCallback;
-    return this;
-  }
+    /**
+     * Disables the previous element
+     *
+     * @return same instance
+     */
+    public Pager disablePrevious() {
+        this.allowPrev = false;
+        prevElement.disable();
+        return this;
+    }
 
-  /**
-   * Disables the next element
-   *
-   * @return same instance
-   */
-  public Pager disableNext() {
-    this.allowNext = false;
-    nextElement.removeCss("disabled");
-    nextElement.addCss("disabled");
+    /**
+     * Enables the next element
+     *
+     * @return same instance
+     */
+    public Pager enableNext() {
+        this.allowNext = true;
+        nextElement.enable();
+        return this;
+    }
 
-    return this;
-  }
+    /**
+     * Enables the previous element
+     *
+     * @return same instance
+     */
+    public Pager enablePrevious() {
+        this.allowPrev = true;
+        prevElement.enable();
+        return this;
+    }
 
-  /**
-   * Disables the previous element
-   *
-   * @return same instance
-   */
-  public Pager disablePrevious() {
-    this.allowPrev = false;
-    prevElement.removeCss("disabled");
-    prevElement.addCss("disabled");
+    /**
+     * Sets the text of the next element
+     *
+     * @param text the new text
+     * @return same instance
+     */
+    public Pager nextText(String text) {
+        nextText.textContent = text;
+        return this;
+    }
 
-    return this;
-  }
+    /**
+     * Sets the text of the previous element
+     *
+     * @param text the new text
+     * @return same instance
+     */
+    public Pager previousText(String text) {
+        prevText.textContent = text;
+        return this;
+    }
 
-  /**
-   * Enables the next element
-   *
-   * @return same instance
-   */
-  public Pager enableNext() {
-    this.allowNext = true;
-    nextElement.removeCss("disabled");
+    /**
+     * Shows arrows next to the navigation elements
+     *
+     * @return same instance
+     */
+    public Pager showArrows() {
+        prevArrow.show();
+        nextArrow.show();
+        return this;
+    }
 
-    return this;
-  }
+    /**
+     * hides arrows next to the navigation elements
+     *
+     * @return same instance
+     */
+    public Pager hideArrows() {
+        prevArrow.hide();
+        nextArrow.hide();
+        return this;
+    }
 
-  /**
-   * Enables the previous element
-   *
-   * @return same instance
-   */
-  public Pager enablePrevious() {
-    this.allowPrev = true;
-    prevElement.removeCss("disabled");
+    public Pager setShowArrows(boolean show){
+        prevArrow.toggleDisplay(show);
+        nextArrow.toggleDisplay(show);
+        return this;
+    }
 
-    return this;
-  }
+    public Pager spread(boolean spread){
+        BooleanCssClass.of(dui_navigator_previous, spread).apply(prevElement);
+        BooleanCssClass.of(dui_navigator_next, spread).apply(nextElement);
+        return this;
+    }
 
-  /**
-   * Sets the text of the next element
-   *
-   * @param text the new text
-   * @return same instance
-   */
-  public Pager nextText(String text) {
-    nextAnchor.setTextContent(text);
-    return this;
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HTMLElement element() {
+        return element.element();
+    }
 
-  /**
-   * Sets the text of the previous element
-   *
-   * @param text the new text
-   * @return same instance
-   */
-  public Pager previousText(String text) {
-    prevAnchor.setTextContent(text);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Pager show() {
-    nextElement.addCss("next");
-    prevElement.addCss("previous");
-    return this;
-  }
-
-  /**
-   * Shows arrows next to the navigation elements
-   *
-   * @return same instance
-   */
-  public Pager showArrows() {
-    prevAnchor.insertFirst(span().attr("aria-hidden", "true").textContent("←"));
-    nextAnchor.appendChild(span().attr("aria-hidden", "true").textContent("→"));
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public HTMLElement element() {
-    return element.element();
-  }
-
-  /** A handler that will be called when the navigation is changed */
-  public interface PagerChangeCallback {
-    void onChange();
-  }
+    /**
+     * A handler that will be called when the navigation is changed
+     */
+    public interface PagerChangeCallback {
+        void onChange();
+    }
 }

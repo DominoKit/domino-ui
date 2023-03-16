@@ -17,21 +17,114 @@ package org.dominokit.domino.ui.style;
 
 public interface GenericCss {
   CssClass dui = () -> "dui";
-  CssClass dui_primary = () -> "dui-primary";
-  CssClass dui_secondary = () -> "dui-secondary";
-  CssClass dui_dominant = () -> "dui-dominant";
-  CssClass dui_accent = () -> "dui-accent";
-  CssClass dui_success = () -> "dui-success";
-  CssClass dui_info = () -> "dui-info";
-  CssClass dui_warning = () -> "dui-warning";
-  CssClass dui_error = () -> "dui-error";
+  CssClass dui_primary = new ReplaceCssClass(CompositeCssClass.of(
+          ()->"dui-info",
+          ()->"dui-warning",
+          ()->"dui-error",
+          ()->"dui-accent",
+          ()->"dui-dominant",
+          ()->"dui-secondary",
+          ()->"dui-success"
+  )).replaceWith(()->"dui-primary");
+  CssClass dui_secondary = new ReplaceCssClass(CompositeCssClass.of(
+          ()->"dui-info",
+          ()->"dui-warning",
+          ()->"dui-error",
+          ()->"dui-accent",
+          ()->"dui-dominant",
+          ()->"dui-primary",
+          ()->"dui-success"
+  )).replaceWith(()->"dui-secondary");
+  CssClass dui_dominant = new ReplaceCssClass(CompositeCssClass.of(
+          ()->"dui-info",
+          ()->"dui-warning",
+          ()->"dui-error",
+          ()->"dui-accent",
+          ()->"dui-secondary",
+          ()->"dui-primary",
+          ()->"dui-success"
+  )).replaceWith(()->"dui-dominant");
+  CssClass dui_accent = new ReplaceCssClass(CompositeCssClass.of(
+          ()->"dui-info",
+          ()->"dui-warning",
+          ()->"dui-error",
+          ()->"dui-dominant",
+          ()->"dui-secondary",
+          ()->"dui-primary",
+          ()->"dui-success"
+  )).replaceWith(()->"dui-accent");
+  CssClass dui_success = new ReplaceCssClass(CompositeCssClass.of(
+          ()->"dui-info",
+          ()->"dui-warning",
+          ()->"dui-error",
+          ()->"dui-accent",
+          ()->"dui-dominant",
+          ()->"dui-secondary",
+          ()->"dui-primary"
+  )).replaceWith(()->"dui-success");
+  CssClass dui_info = new ReplaceCssClass(CompositeCssClass.of(
+          ()->"dui-success",
+          ()->"dui-warning",
+          ()->"dui-error",
+          ()->"dui-accent",
+          ()->"dui-dominant",
+          ()->"dui-secondary",
+          ()->"dui-primary"
+  )).replaceWith(()->"dui-info");
+  CssClass dui_warning = new ReplaceCssClass(CompositeCssClass.of(
+          ()->"dui-success",
+          ()->"dui-info",
+          ()->"dui-error",
+          ()->"dui-accent",
+          ()->"dui-dominant",
+          ()->"dui-secondary",
+          ()->"dui-primary"
+  )).replaceWith(()->"dui-warning");
+  CssClass dui_error = new ReplaceCssClass(CompositeCssClass.of(
+          ()->"dui-success",
+          ()->"dui-info",
+          ()->"dui-warning",
+          ()->"dui-accent",
+          ()->"dui-dominant",
+          ()->"dui-secondary",
+          ()->"dui-primary"
+  )).replaceWith(()->"dui-error");
   CssClass dui_clickable = () -> "dui-clickable";
-  CssClass dui_active_element = () -> "dui-active";
-  CssClass dui_xlarge = () -> "dui-xl";
-  CssClass dui_large = () -> "dui-lg";
-  CssClass dui_medium = () -> "dui-md";
-  CssClass dui_small = () -> "dui-sm";
-  CssClass dui_xsmall = () -> "dui-xs";
+  CssClass dui_active = () -> "dui-active";
+  CssClass dui_utility = () -> "dui-utility";
+  CssClass dui_prefix = () -> "dui-prefix";
+  /** The css to add the stripes effect */
+  CssClass dui_striped = ()->"dui-striped";
+  CssClass dui_xlarge = new ReplaceCssClass(CompositeCssClass.of(
+          ()->"dui-lg",
+          ()->"dui-md",
+          ()->"dui-sm",
+          ()->"dui-xs"
+  )).replaceWith(()->"dui-xl");
+  CssClass dui_large = new ReplaceCssClass(CompositeCssClass.of(
+          ()->"dui-xl",
+          ()->"dui-md",
+          ()->"dui-sm",
+          ()->"dui-xs"
+  )).replaceWith(()->"dui-lg");
+  CssClass dui_medium = new ReplaceCssClass(CompositeCssClass.of(
+          ()->"dui-xl",
+          ()->"dui-lg",
+          ()->"dui-sm",
+          ()->"dui-xs"
+  )).replaceWith(()->"dui-md");
+  CssClass dui_small = new ReplaceCssClass(CompositeCssClass.of(
+          ()->"dui-xl",
+          ()->"dui-lg",
+          ()->"dui-md",
+          ()->"dui-xs"
+  )).replaceWith(()->"dui-sm");
+  CssClass dui_xsmall = new ReplaceCssClass(CompositeCssClass.of(
+          ()->"dui-xl",
+          ()->"dui-lg",
+          ()->"dui-md",
+          ()->"dui-sm"
+  )).replaceWith(()->"dui-xs");
 
   CssClass dui_w_xlarge = () -> "dui-w-xl";
   CssClass dui_w_large = () -> "dui-w-lg";

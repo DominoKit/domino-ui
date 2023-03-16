@@ -13,25 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.notifications;
+package org.dominokit.domino.ui.datatable.plugins;
 
-import elemental2.dom.HTMLElement;
-
-/** Display notification in bottom left */
-public class BottomLeftPosition extends NotificationPosition {
-
-  public BottomLeftPosition() {
-    super("bottom-left", "bottom");
-  }
-
-  @Override
-  public void onBeforePosition(HTMLElement element) {
-    element.style.setProperty("bottom", "20px");
-    element.style.setProperty("left", "20px");
-  }
-
-  @Override
-  protected int getOffsetPosition(HTMLElement element) {
-    return 20;
-  }
-}
+public interface PluginConfig {}

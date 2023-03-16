@@ -15,12 +15,17 @@
  */
 package org.dominokit.domino.ui.collapsible;
 
+import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.DisplayCss.dui_hidden;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;
+import java.util.Optional;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 
 /**
  * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show the
@@ -28,52 +33,99 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class AnimationCollapseStrategy implements CollapseStrategy {
 
-  private final Transition showTransition;
-  private final Transition hideTransition;
-  private final CollapseDuration duration;
+  private final AnimationCollapseOptions options;
+  private Animation hideAnimation;
+  private boolean showing = false;
+  private boolean hiding = false;
+    private CollapsibleHandlers handlers;
+    private Animation showAnimation;
 
-  public AnimationCollapseStrategy(
+    @Override
+    public void init(HTMLElement element, CollapsibleHandlers handlers) {
+        this.handlers = handlers;
+    }
+
+    public AnimationCollapseStrategy(
       Transition showTransition, Transition hideTransition, CollapseDuration duration) {
-    this.showTransition = showTransition;
-    this.hideTransition = hideTransition;
-    this.duration = duration;
+        this.options =
+                new AnimationCollapseOptions()
+                        .setShowTransition(showTransition)
+                        .setHideTransition(hideTransition)
+                        .setShowDuration(duration)
+                        .setHideDuration(duration);
+
   }
 
   public AnimationCollapseStrategy(Transition transition, CollapseDuration duration) {
-    this.showTransition = transition;
-    this.hideTransition = transition;
-    this.duration = duration;
+      this.options =
+              new AnimationCollapseOptions()
+                      .setShowTransition(transition)
+                      .setHideTransition(transition)
+                      .setShowDuration(duration)
+                      .setHideDuration(duration);
+  }
+
+  public AnimationCollapseStrategy(AnimationCollapseOptions options) {
+    this.options = options;
   }
 
   /** {@inheritDoc} */
   @Override
   public void show(HTMLElement element) {
-    DominoElement.of(element).removeCss(duration.getStyle());
-    Animation.create(element)
-        .duration(duration.getDuration())
-        .transition(showTransition)
-        .beforeStart(
-            theElement -> {
-              DominoElement.of(element)
-                  .removeCss(dui_hidden)
-                  .removeAttribute(Collapsible.DUI_COLLAPSED);
-            })
-        .animate();
+      if (!showing) {
+          elements.elementOf(element).removeCss(this.options.getShowDuration().getStyle());
+          elements.elementOf(element).removeCss(this.options.getHideDuration().getStyle());
+          showAnimation =
+                  Animation.create(element)
+                          .duration(this.options.getShowDuration().getDuration())
+                          .transition(this.options.getShowTransition())
+                          .delay(this.options.getShowDelay())
+                          .beforeStart(
+                                  theElement -> {
+                                      showing = true;
+                                      if (nonNull(hideAnimation)) {
+                                          hideAnimation.stop(true);
+                                          hideAnimation = null;
+                                          hiding = false;
+                                      }
+                                      elements.elementOf(element)
+                                              .removeCss(dui_hidden)
+                                              .removeAttribute(Collapsible.DUI_COLLAPSED);
+                                  })
+                          .callback(
+                                  e -> {
+                                      showing = false;
+                                      this.handlers.onShowCompleted().run();
+                                  })
+                          .animate();
+    }
   }
 
   /** {@inheritDoc} */
   @Override
   public void hide(HTMLElement element) {
-    duration.getStyle().remove(element);
-    Animation.create(element)
-        .duration(duration.getDuration())
-        .transition(hideTransition)
-        .callback(
-            theElement -> {
-              DominoElement.of(element)
-                  .addCss(dui_hidden)
-                  .setAttribute(Collapsible.DUI_COLLAPSED, "true");
-            })
-        .animate();
+      Optional.ofNullable(showAnimation).ifPresent(animation -> animation.stop(false));
+      if (!hiding) {
+          elements.elementOf(element).removeCss(this.options.getShowDuration().getStyle());
+          elements.elementOf(element).removeCss(this.options.getHideDuration().getStyle());
+          hideAnimation =
+                  Animation.create(element)
+                          .duration(this.options.getHideDuration().getDuration())
+                          .transition(this.options.getHideTransition())
+                          .beforeStart(
+                                  element1 -> {
+                                      hiding = true;
+                                      this.handlers.onBeforeHide().run();
+                                  })
+                          .callback(
+                                  theElement -> {
+                                      elements.elementOf(element)
+                                              .addCss(dui_hidden)
+                                              .setAttribute(Collapsible.DUI_COLLAPSED, "true");
+                                      hiding = false;
+                                      this.handlers.onHideCompleted().run();
+                                  })
+                          .animate();
+    }
   }
 }

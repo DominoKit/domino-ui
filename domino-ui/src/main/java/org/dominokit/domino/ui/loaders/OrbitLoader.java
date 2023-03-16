@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
@@ -24,28 +23,28 @@ import org.jboss.elemento.IsElement;
 public class OrbitLoader extends BaseLoader<OrbitLoader> implements IsElement<HTMLDivElement> {
 
   private final DominoElement<HTMLDivElement> progress1 =
-      DominoElement.div()
+     div()
           .addCss(wait_me_progress_elem_1)
-          .appendChild(DominoElement.div().addCss(dui_bg_black));
+          .appendChild(div().addCss(dui_bg_black));
   private final DominoElement<HTMLDivElement> progress2 =
-      DominoElement.div()
+     div()
           .addCss(wait_me_progress_elem_2)
-          .appendChild(DominoElement.div().addCss(dui_bg_black));
+          .appendChild(div().addCss(dui_bg_black));
 
   private final DominoElement<HTMLDivElement> loader =
-      DominoElement.div()
+     div()
           .addCss(wait_me_progress, orbit)
           .appendChild(progress1)
           .appendChild(progress2);
 
   private final DominoElement<HTMLDivElement> content =
-      DominoElement.div()
+     div()
           .addCss(wait_me_content, dui_vertical_center)
           .appendChild(loader)
           .appendChild(loadingText);
 
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.div()
+     div()
           .addCss(wait_me)
           .style("background: rgba(255, 255, 255, 0.9);")
           .appendChild(content);

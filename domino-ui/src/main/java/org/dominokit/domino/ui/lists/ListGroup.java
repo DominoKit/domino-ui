@@ -78,7 +78,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   }
 
   public ListGroup() {
-    element = DominoElement.ul().addCss(dui_list_group, dui_list_group_bordered);
+    element = ul().addCss(dui_list_group, dui_list_group_bordered);
     init(this);
 
     this.addClickListener(

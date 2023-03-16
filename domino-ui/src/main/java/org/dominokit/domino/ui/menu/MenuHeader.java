@@ -36,8 +36,8 @@ public class MenuHeader extends BaseDominoElement<HTMLDivElement, MenuHeader> {
   private final LazyChild<DominoElement<HTMLElement>> titleElement;
 
   public MenuHeader() {
-    root = DominoElement.div().addCss(menu_header_bar);
-    titleElement = LazyChild.of(DominoElement.span().addCss(menu_title), root);
+    root = div().addCss(menu_header_bar);
+    titleElement = LazyChild.of(span().addCss(menu_title), root);
     init(this);
   }
 
@@ -85,7 +85,7 @@ public class MenuHeader extends BaseDominoElement<HTMLDivElement, MenuHeader> {
    * @return same header instance
    */
   public MenuHeader appendAction(IsElement<?> element) {
-    root.appendChild(DominoElement.of(element).addCss(menu_utility, dui_clickable));
+    root.appendChild(elementOf(element).addCss(menu_utility, dui_clickable));
     return this;
   }
 

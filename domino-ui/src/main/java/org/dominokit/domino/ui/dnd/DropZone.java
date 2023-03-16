@@ -21,6 +21,8 @@ import java.util.Map;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
 /**
  * Define a drop zone.
  *
@@ -81,7 +83,7 @@ public class DropZone {
     private final EventListener onDrop;
 
     public DropTarget(HTMLElement element, DropListener dropListener) {
-      this.element = DominoElement.of(element);
+      this.element = elements.elementOf(element);
       this.dropListener = dropListener;
       onDragOver = this::onDragOver;
       onDragLeave = this::onDragLeave;

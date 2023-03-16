@@ -29,7 +29,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.loaders.Loader;
 import org.dominokit.domino.ui.loaders.LoaderEffect;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
@@ -70,9 +69,9 @@ public abstract class AbstractSuggestBox<
     addCss(FORM_SELECT);
     wrapperElement.appendChild(
         fieldInput =
-            DominoElement.div()
+            div()
                 .addCss(FIELD_INPUT)
-                .appendChild(inputElement = DominoElement.input(getType()).addCss(FIELD_INPUT)));
+                .appendChild(inputElement = input(getType()).addCss(FIELD_INPUT)));
 
     delayedTextInput =
         DelayedTextInput.create(inputElement.element(), getTypeAheadDelay(), delayedAction);
@@ -83,7 +82,7 @@ public abstract class AbstractSuggestBox<
             .setTargetElement(getWrapperElement())
             .setAutoOpen(false)
             .setFitToTargetWidth(true)
-            .addCloseHandler(this::focus)
+            .addCollapseListener(component -> focus())
             .addOnAddItemHandler((menu, menuItem) -> ((S) menuItem).bindValueTarget(fieldInput))
             .addSelectionListener(
                 (source, selection) -> {
@@ -94,7 +93,7 @@ public abstract class AbstractSuggestBox<
                       });
                 });
 
-    addPrimaryAddOn(loaderElement = DominoElement.div().addCss(dui_w_12, dui_h_6));
+    addPrimaryAddOn(loaderElement = div().addCss(dui_w_12, dui_h_6));
     loader =
         Loader.create(loaderElement, LoaderEffect.FACEBOOK)
             .setLoadingTextPosition(Loader.LoadingTextPosition.TOP)
@@ -111,53 +110,54 @@ public abstract class AbstractSuggestBox<
                   clearValue(false);
                 }));
 
-    KeyboardEvents.listenOnKeyDown(getInputElement())
-        .onArrowDown(
-            evt -> {
-              optionsMenu.focus();
-              evt.preventDefault();
-            })
-        .onArrowUp(
-            evt -> {
-              optionsMenu.focus();
-              evt.preventDefault();
-            })
-        .onEscape(
-            evt -> {
-              focus();
-              evt.preventDefault();
-            })
-        .onEnter(
-            evt -> {
-              if (optionsMenu.isOpened() && !optionsMenu.getMenuItems().isEmpty()) {
-                evt.stopPropagation();
-                evt.preventDefault();
-                if (isAutoSelect()) {
-                  optionsMenu.getMenuItems().get(0).select();
-                  optionsMenu.close();
-                } else {
-                  optionsMenu.focus();
-                }
-              }
-            })
-        .onTab(
-            evt -> {
-              if (optionsMenu.isOpened()) {
-                evt.stopPropagation();
-                evt.preventDefault();
+    getInputElement().onKeyDown(keyEvents -> {
+      keyEvents.onArrowDown(
+              evt -> {
                 optionsMenu.focus();
-              }
-            })
-        .onBackspace(
-            evt -> {
-              if (!isReadOnly() && !isDisabled()) {
-                if (isNull(getInputStringValue()) || getInputStringValue().isEmpty()) {
-                  evt.stopPropagation();
-                  evt.preventDefault();
-                  onBackspace();
-                }
-              }
-            });
+                evt.preventDefault();
+              })
+              .onArrowUp(
+                      evt -> {
+                        optionsMenu.focus();
+                        evt.preventDefault();
+                      })
+              .onEscape(
+                      evt -> {
+                        focus();
+                        evt.preventDefault();
+                      })
+              .onEnter(
+                      evt -> {
+                        if (optionsMenu.isOpened() && !optionsMenu.getMenuItems().isEmpty()) {
+                          evt.stopPropagation();
+                          evt.preventDefault();
+                          if (isAutoSelect()) {
+                            optionsMenu.getMenuItems().get(0).select();
+                            optionsMenu.close();
+                          } else {
+                            optionsMenu.focus();
+                          }
+                        }
+                      })
+              .onTab(
+                      evt -> {
+                        if (optionsMenu.isOpened()) {
+                          evt.stopPropagation();
+                          evt.preventDefault();
+                          optionsMenu.focus();
+                        }
+                      })
+              .onBackspace(
+                      evt -> {
+                        if (!isReadOnly() && !isDisabled()) {
+                          if (isNull(getInputStringValue()) || getInputStringValue().isEmpty()) {
+                            evt.stopPropagation();
+                            evt.preventDefault();
+                            onBackspace();
+                          }
+                        }
+                      });
+    });
   }
 
   protected abstract void onBackspace();
@@ -283,7 +283,7 @@ public abstract class AbstractSuggestBox<
   public boolean isFocused() {
     if (nonNull(DomGlobal.document.activeElement)) {
       String dominoId =
-          DominoElement.of(Js.<HTMLElement>uncheckedCast(DomGlobal.document.activeElement))
+          elementOf(Js.<HTMLElement>uncheckedCast(DomGlobal.document.activeElement))
               .getDominoId();
       return nonNull(formElement.querySelector("[domino-uuid=\"" + dominoId + "\"]"));
     }

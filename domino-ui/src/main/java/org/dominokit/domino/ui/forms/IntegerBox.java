@@ -52,7 +52,7 @@ public class IntegerBox extends NumberBox<IntegerBox, Integer> {
   /** {@inheritDoc} */
   @Override
   protected Function<String, Integer> defaultValueParser() {
-    return DominoUIConfig.CONFIG.getNumberParsers().integerParser(this);
+    return getConfig().getNumberParsers().integerParser(this);
   }
 
   /** {@inheritDoc} */

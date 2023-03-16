@@ -67,8 +67,8 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
 
   private final VTabsContainer tabsList = VTabsContainer.create();
   private final FlexItem<HTMLDivElement> tabsHeadersContainer;
-  private DominoElement<HTMLDivElement> element = DominoElement.of(div()).css(VTABS_PANEL);
-  private HTMLElement tabsContent = DominoElement.of(div()).css(TAB_CONTENT).element();
+  private DominoElement<HTMLDivElement> element = div().css(VTABS_PANEL);
+  private DominoElement<HTMLElement> tabsContent = elementOf(div().css(TAB_CONTENT).element());
   private VerticalTab activeTab;
   private Color tabsColor;
   private Transition transition;
@@ -297,7 +297,7 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
       tabsContent.remove();
     }
     Style.of(contentContainer).addCss("tab-content");
-    this.tabsContent = contentContainer;
+    this.tabsContent = elementOf(contentContainer);
     return this;
   }
 
@@ -315,7 +315,7 @@ public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, Vertica
    *     content wrapped as {@link DominoElement}
    */
   public DominoElement<HTMLElement> getTabsContent() {
-    return DominoElement.of(tabsContent);
+    return tabsContent;
   }
 
   /** @return the current active {@link VerticalTab} */

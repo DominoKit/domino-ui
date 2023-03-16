@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
@@ -25,27 +24,27 @@ public class BouncePulseLoader extends BaseLoader<BouncePulseLoader>
     implements IsElement<HTMLDivElement> {
 
   private final DominoElement<HTMLDivElement> progress1 =
-      DominoElement.div().addCss(wait_me_progress_elem_1, dui_bg_black);
+     div().addCss(wait_me_progress_elem_1, dui_bg_black);
   private final DominoElement<HTMLDivElement> progress2 =
-      DominoElement.div().addCss(wait_me_progress_elem_2, dui_bg_black);
+     div().addCss(wait_me_progress_elem_2, dui_bg_black);
   private final DominoElement<HTMLDivElement> progress3 =
-      DominoElement.div().addCss(wait_me_progress_elem_3, dui_bg_black);
+     div().addCss(wait_me_progress_elem_3, dui_bg_black);
 
   private final DominoElement<HTMLDivElement> loader =
-      DominoElement.div()
+     div()
           .addCss(wait_me_progress, bounce_pulse)
           .appendChild(progress1)
           .appendChild(progress2)
           .appendChild(progress3);
 
   private final DominoElement<HTMLDivElement> content =
-      DominoElement.div()
+     div()
           .addCss(wait_me_content, dui_vertical_center, vertical)
           .appendChild(loader)
           .appendChild(loadingText);
 
   private final DominoElement<HTMLDivElement> element =
-      DominoElement.div()
+     div()
           .addCss(wait_me)
           .style("background: rgba(255, 255, 255, 0.7);")
           .appendChild(content);

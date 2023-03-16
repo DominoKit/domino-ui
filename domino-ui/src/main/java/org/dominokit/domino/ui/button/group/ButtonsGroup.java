@@ -45,7 +45,7 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
 
   /** default constructor */
   public ButtonsGroup() {
-    groupElement = DominoElement.div().addCss(dui_button_group).setAttribute("role", "group");
+    groupElement = div().addCss(dui_button_group).setAttribute("role", "group");
     init(this);
   }
 

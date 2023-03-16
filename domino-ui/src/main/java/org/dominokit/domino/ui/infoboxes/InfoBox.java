@@ -22,6 +22,8 @@ import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.IsElement;
 
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
 /**
  * Container for displaying information with icons
  *
@@ -50,11 +52,11 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   private SwapCssClass hoverEffect = SwapCssClass.of(HoverEffect.ZOOM.effectStyle);
 
   public InfoBox() {
-    root = DominoElement.div().addCss(dui_info_box, hoverEffect);
-    iconContainer = LazyChild.of(DominoElement.div().addCss(dui_info_icon), root);
-    contentElement = LazyChild.of(DominoElement.div().addCss(dui_info_content), root);
-    titleElement = LazyChild.of(DominoElement.div().addCss(dui_info_title), contentElement);
-    valueElement = LazyChild.of(DominoElement.div().addCss(dui_info_value), contentElement);
+    root = div().addCss(dui_info_box, hoverEffect);
+    iconContainer = LazyChild.of(div().addCss(dui_info_icon), root);
+    contentElement = LazyChild.of(div().addCss(dui_info_content), root);
+    titleElement = LazyChild.of(div().addCss(dui_info_title), contentElement);
+    valueElement = LazyChild.of(div().addCss(dui_info_value), contentElement);
     init(this);
   }
 
@@ -106,7 +108,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
    * @return new instance
    */
   public static InfoBox create(HTMLElement icon, String title, String value) {
-    return new InfoBox(DominoElement.of(icon), title, value);
+    return new InfoBox(elements.elementOf(icon), title, value);
   }
 
   /**
@@ -117,7 +119,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
    * @return new instance
    */
   public static InfoBox create(HTMLElement icon, String title) {
-    return new InfoBox(DominoElement.of(icon), title);
+    return new InfoBox(elements.elementOf(icon), title);
   }
 
   /**
@@ -128,7 +130,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
    * @return new instance
    */
   public static InfoBox create(IsElement<HTMLElement> icon, String title) {
-    return new InfoBox(DominoElement.of(icon), title);
+    return new InfoBox(elements.elementOf(icon), title);
   }
 
   /**
@@ -169,7 +171,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
    * @return new instance
    */
   public static InfoBox create(HTMLElement icon) {
-    return new InfoBox(DominoElement.of(icon));
+    return new InfoBox(elements.elementOf(icon));
   }
 
   /**

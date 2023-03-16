@@ -35,7 +35,7 @@ public class NavBarAddOn extends BaseDominoElement<HTMLElement, NavBarAddOn> {
   }
 
   public NavBarAddOn(HTMLElement element) {
-    root = DominoElement.of(element).addCss(dui_nav_add_on);
+    root = elementOf(element).addCss(dui_nav_add_on);
     init(this);
   }
 

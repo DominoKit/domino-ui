@@ -48,9 +48,8 @@ public class SimplePaginationPlugin<T> implements DataTablePlugin<T> {
   public void onAfterAddTable(DataTable<T> dataTable) {
     dataTable.element().appendChild(simplePagination.element());
 
-    simplePagination.onPageChanged(
-        pageNumber ->
-            dataTable.fireTableEvent(new TablePageChangeEvent(pageNumber, simplePagination)));
+    simplePagination.addChangeListener((oldValue, newValue) ->
+              dataTable.fireTableEvent(new TablePageChangeEvent(newValue, simplePagination)));
   }
 
   /** @return the {@link SimplePagination} wrapped in this plugin */

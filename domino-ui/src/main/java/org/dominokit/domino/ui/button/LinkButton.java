@@ -80,6 +80,6 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
 
   @Override
   protected DominoElement<HTMLAnchorElement> createButtonElement() {
-    return DominoElement.a();
+    return a();
   }
 }

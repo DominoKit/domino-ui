@@ -34,8 +34,8 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   }
 
   public NavBar() {
-    root = DominoElement.nav().addCss(dui_nav_bar);
-    lazyTitle = LazyChild.of(DominoElement.h4().addCss(dui_nav_title), root);
+    root = nav().addCss(dui_nav_bar);
+    lazyTitle = LazyChild.of(h4().addCss(dui_nav_title), root);
     init(this);
   }
 

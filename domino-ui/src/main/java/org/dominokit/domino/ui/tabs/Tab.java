@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.tabs;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.*;
 import java.util.ArrayList;
@@ -39,10 +38,10 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
 
   private HTMLAnchorElement clickableElement = a().element();
   private DominoElement<HTMLLIElement> tab =
-      DominoElement.of(li().attr("role", "presentation").add(clickableElement));
+      li().attr("role", "presentation").appendChild(clickableElement);
 
   private DominoElement<HTMLDivElement> contentContainer =
-      DominoElement.of(div()).attr("role", "tabpanel").css(TabStyles.TAB_PANE, TabStyles.FADE);
+      div().attr("role", "tabpanel").css(TabStyles.TAB_PANE, TabStyles.FADE);
 
   private FlexItem closeContainer = FlexItem.create();
   private FlexLayout tabElementsContainer;
@@ -170,12 +169,12 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
 
   /** @return the Tab {@link HTMLLIElement} wrapped as {@link DominoElement} */
   public DominoElement<HTMLLIElement> getTab() {
-    return DominoElement.of(tab);
+    return tab;
   }
 
   /** @return the {@link HTMLDivElement} that contains the Tab content */
   public DominoElement<HTMLDivElement> getContentContainer() {
-    return DominoElement.of(contentContainer);
+    return contentContainer;
   }
 
   /**

@@ -22,7 +22,6 @@ import elemental2.dom.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.TakesValue;
 import org.gwtproject.safehtml.shared.SafeHtml;
@@ -64,16 +63,16 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   public Radio(T value, String label) {
 
     radioElement =
-        DominoElement.div()
+        div()
             .addCss(FORM_RADIO)
-            .appendChild(inputElement = DominoElement.input(getType()).addCss(HIDDEN_INPUT))
+            .appendChild(inputElement = input(getType()).addCss(HIDDEN_INPUT))
             .appendChild(
                 fieldInput =
-                    DominoElement.div()
+                    div()
                         .addCss(FIELD_INPUT)
                         .appendChild(
-                            labelElement = DominoElement.label().addCss(FORM_RADIO_LABEL)));
-    noteElement = LazyChild.of(DominoElement.small().addCss(FORM_RADIO_NOTE), radioElement);
+                            labelElement = label().addCss(FORM_RADIO_LABEL)));
+    noteElement = LazyChild.of(small().addCss(FORM_RADIO_NOTE), radioElement);
     setLabel(label);
     labelForId(inputElement.getDominoId());
     withValue(value);
@@ -91,7 +90,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
             setChecked(isChecked(), isChangeListenersPaused());
           }
         });
-    KeyboardEvents.listenOnKeyDown(getInputElement()).onEnter(listener);
+    getInputElement().onKeyDown(keyEvents -> keyEvents.onEnter(listener));
     init(this);
   }
 
@@ -135,7 +134,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   }
 
   private void linkLabelToField() {
-    DominoElement<HTMLInputElement> asDominoElement = DominoElement.of(inputElement);
+    DominoElement<HTMLInputElement> asDominoElement = elementOf(inputElement);
     if (!asDominoElement.hasAttribute("id")) {
       inputElement.setAttribute("id", asDominoElement.getDominoId());
     }
@@ -278,7 +277,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
 
   /** @param node {@link Node} to be used as a label */
   public Radio<T> setLabel(Node node) {
-    DominoElement.of(labelElement).clearElement().appendChild(node);
+    elementOf(labelElement).clearElement().appendChild(node);
     return this;
   }
 
@@ -374,7 +373,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   public boolean isFocused() {
     if (nonNull(DomGlobal.document.activeElement)) {
       String dominoId =
-          DominoElement.of(Js.<HTMLElement>uncheckedCast(DomGlobal.document.activeElement))
+          elementOf(Js.<HTMLElement>uncheckedCast(DomGlobal.document.activeElement))
               .getDominoId();
       return nonNull(radioElement.querySelector("[domino-uuid=\"" + dominoId + "\"]"));
     }
@@ -383,7 +382,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
 
   @Override
   public Radio<T> labelForId(String id) {
-    DominoElement<HTMLInputElement> asDominoElement = DominoElement.of(inputElement);
+    DominoElement<HTMLInputElement> asDominoElement = elementOf(inputElement);
     if (!asDominoElement.hasAttribute("id")) {
       inputElement.setAttribute("id", asDominoElement.getDominoId());
     }

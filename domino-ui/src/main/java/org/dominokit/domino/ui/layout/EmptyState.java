@@ -42,9 +42,9 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
   private LazyChild<BaseIcon<?>> icon = NullLazyChild.of();
 
   public EmptyState() {
-    element = DominoElement.div().addCss(dui_empty_state);
-    title = LazyChild.of(DominoElement.h(4).addCss(dui_empty_state_title), element);
-    description = LazyChild.of(DominoElement.small().addCss(dui_empty_state_description), element);
+    element = div().addCss(dui_empty_state);
+    title = LazyChild.of(h(4).addCss(dui_empty_state_title), element);
+    description = LazyChild.of(small().addCss(dui_empty_state_description), element);
     init(this);
   }
 

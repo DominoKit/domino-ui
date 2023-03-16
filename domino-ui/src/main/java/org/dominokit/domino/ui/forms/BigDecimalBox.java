@@ -57,7 +57,7 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
    */
   @Override
   protected Function<String, BigDecimal> defaultValueParser() {
-    return DominoUIConfig.CONFIG.getNumberParsers().bigDecimalParser(this);
+    return getConfig().getNumberParsers().bigDecimalParser(this);
   }
 
   /** {@inheritDoc} */

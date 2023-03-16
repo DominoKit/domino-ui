@@ -26,6 +26,9 @@ import elemental2.dom.HTMLLabelElement;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import org.dominokit.domino.ui.config.FormsFieldsConfig;
+import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.forms.validations.RequiredValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.i18n.FormsLabels;
@@ -35,7 +38,7 @@ import org.gwtproject.editor.client.EditorError;
 import org.jboss.elemento.IsElement;
 
 public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V>
-    extends BaseDominoElement<HTMLFieldSetElement, T> implements FormElement<T, V> {
+    extends BaseDominoElement<HTMLFieldSetElement, T> implements FormElement<T, V> , HasComponentConfig<FormsFieldsConfig> {
 
   protected final DominoElement<HTMLFieldSetElement> formElement;
   protected final DominoElement<HTMLDivElement> bodyElement;
@@ -67,21 +70,21 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
 
   public AbstractFormElement() {
     formElement =
-        DominoElement.fieldSet()
+        fieldSet()
             .addCss(FORM_FIELD)
             .appendChild(
                 bodyElement =
-                    DominoElement.div()
+                    div()
                         .addCss(FIELD_BODY)
-                        .appendChild(wrapperElement = DominoElement.div().addCss(INPUT_WRAPPER)));
-    labelElement = LazyChild.of(DominoElement.label().addCss(FIELD_LABEL), formElement);
-    messagesWrapper = LazyChild.of(DominoElement.div().addCss(MESSAGES_WRAPPER), bodyElement);
-    helperTextElement = LazyChild.of(DominoElement.span().addCss(FIELD_HELPER), messagesWrapper);
+                        .appendChild(wrapperElement = div().addCss(INPUT_WRAPPER)));
+    labelElement = LazyChild.of(label().addCss(FIELD_LABEL), formElement);
+    messagesWrapper = LazyChild.of(div().addCss(MESSAGES_WRAPPER), bodyElement);
+    helperTextElement = LazyChild.of(span().addCss(FIELD_HELPER), messagesWrapper);
     errorElementSupplier =
-        errorMessage -> DominoElement.span().addCss(FIELD_ERROR).setTextContent(errorMessage);
+        errorMessage -> span().addCss(FIELD_ERROR).setTextContent(errorMessage);
     requiredElement =
         LazyChild.of(
-            DominoElement.of(DominoUIConfig.CONFIG.getRequiredIndicator().get())
+            elementOf(getConfig().getRequiredIndicator().get())
                 .addCss(FIELD_REQUIRED_INDICATOR),
             labelElement);
     requiredValidator = new RequiredValidator(this);
@@ -113,19 +116,19 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
 
   @Override
   public <E extends HTMLElement, C extends IsElement<E>> T addLeftAddOn(C addon) {
-    wrapperElement.appendChild(DominoElement.of(addon).addCss(ADD_ON, ADD_ON_LEFT));
+    wrapperElement.appendChild(elementOf(addon).addCss(ADD_ON, ADD_ON_LEFT));
     return (T) this;
   }
 
   @Override
   public <E extends HTMLElement, C extends IsElement<E>> T addRightAddOn(C addon) {
-    wrapperElement.appendChild(DominoElement.of(addon).addCss(ADD_ON, ADD_ON_RIGHT));
+    wrapperElement.appendChild(elementOf(addon).addCss(ADD_ON, ADD_ON_RIGHT));
     return (T) this;
   }
 
   @Override
   public <E extends HTMLElement, C extends IsElement<E>> T addPrimaryAddOn(C addon) {
-    wrapperElement.appendChild(DominoElement.of(addon).addCss(ADD_ON, ADD_ON_MANDATORY));
+    wrapperElement.appendChild(elementOf(addon).addCss(ADD_ON, ADD_ON_MANDATORY));
     return (T) this;
   }
 

@@ -60,32 +60,32 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
 
   public AppLayout() {
     layout =
-        DominoElement.div()
+        div()
             .addCss(dui_layout)
             .appendChild(
                 body =
-                    DominoElement.section()
+                    section()
                         .addCss(dui_body)
-                        .appendChild(content = DominoElement.section().addCss(dui_content)));
+                        .appendChild(content = section().addCss(dui_content)));
     header =
-        LazyChild.of(DominoElement.header().addCss(dui_header), body)
+        LazyChild.of(header().addCss(dui_header), body)
             .whenInitialized(() -> layout.addCss(dui_has_header));
     navBar = LazyChild.of(NavBar.create(), header);
     footer =
-        LazyChild.of(DominoElement.section().addCss(dui_footer), body)
+        LazyChild.of(section().addCss(dui_footer), body)
             .whenInitialized(() -> layout.addCss(dui_has_footer));
     leftDrawerToggle = initLeftDrawerToggle(leftToggleIcon);
     leftDrawer =
-        LazyChild.of(DominoElement.section().addCss(dui_left_drawer), layout)
+        LazyChild.of(section().addCss(dui_left_drawer), layout)
             .whenInitialized(leftDrawerToggle::get);
-    leftDrawerContent = LazyChild.of(DominoElement.aside().addCss(dui_layout_menu), leftDrawer);
+    leftDrawerContent = LazyChild.of(aside().addCss(dui_layout_menu), leftDrawer);
 
     rightDrawerToggle = initRightDrawerToggle(rightToggleIcon);
     rightDrawer =
-        LazyChild.of(DominoElement.section().addCss(dui_right_drawer), layout)
+        LazyChild.of(section().addCss(dui_right_drawer), layout)
             .whenInitialized(rightDrawerToggle::get);
-    rightDrawerContent = LazyChild.of(DominoElement.section().addCss(dui_layout_menu), rightDrawer);
-    overlay = LazyChild.of(DominoElement.div().addCss(GenericCss.dui_overlay), layout);
+    rightDrawerContent = LazyChild.of(section().addCss(dui_layout_menu), rightDrawer);
+    overlay = LazyChild.of(div().addCss(GenericCss.dui_overlay), layout);
 
     init(this);
 
