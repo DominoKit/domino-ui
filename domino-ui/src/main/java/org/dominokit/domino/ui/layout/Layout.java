@@ -22,10 +22,12 @@ import static org.jboss.elemento.Elements.div;
 import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.function.Consumer;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
+import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.themes.Theme;
@@ -144,30 +146,56 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     config()
         .getZindexManager()
         .addZIndexListener(
-            (assignedValues, modalOpen, isDialog) -> {
-              Optional<Integer> minZIndex = assignedValues.stream().min(Integer::compare);
-              if (isDialog) {
-                minZIndex.ifPresent(
-                    minIndex -> {
-                      int sidePanelsIndex =
+            (zInfo) -> {
+              OptionalInt minModalZIndex =
+                  document.body.querySelectorAll(".modal").asList().stream()
+                      .mapToInt(e -> DominoElement.of(Js.<HTMLElement>uncheckedCast(e)).getZIndex())
+                      .filter(value -> value > -1)
+                      .min();
+              if (ModalBackDrop.INSTANCE.isAttached()) {
+                getRightPanel()
+                    .setZIndex(
+                        Math.max(
+                            1,
+                            ModalBackDrop.INSTANCE.getZIndex()
+                                - (config().getZindexIncrement() * 2)));
+                getNavigationBar()
+                    .setZIndex(
+                        Math.max(
+                            1, ModalBackDrop.INSTANCE.getZIndex() - config().getZindexIncrement()));
+                if (DominoElement.body().containsCss("l-panel-span-up")) {
+                  getLeftPanel()
+                      .setZIndex(
                           Math.max(
-                              1, minIndex - (config().getZindexIncrement() * (modalOpen ? 3 : 2)));
-                      getRightPanel().setZIndex(sidePanelsIndex);
-                      getNavigationBar()
-                          .setZIndex(
-                              Math.max(
-                                  1,
-                                  minIndex
-                                      - (config().getZindexIncrement() * (modalOpen ? 2 : 1))));
-                      if (DominoElement.body().containsCss("l-panel-span-up")) {
-                        getLeftPanel()
-                            .setZIndex(Math.max(1, minIndex - config().getZindexIncrement()));
-                      } else {
-                        getLeftPanel().setZIndex(sidePanelsIndex);
-                      }
-                    });
+                              1,
+                              ModalBackDrop.INSTANCE.getZIndex() - config().getZindexIncrement()));
+                } else {
+                  getLeftPanel()
+                      .setZIndex(
+                          Math.max(
+                              1,
+                              ModalBackDrop.INSTANCE.getZIndex()
+                                  - (config().getZindexIncrement() * 2)));
+                }
+              } else if (minModalZIndex.isPresent()) {
+                getRightPanel()
+                    .setZIndex(
+                        Math.max(
+                            1, minModalZIndex.getAsInt() - (config().getZindexIncrement() * 2)));
+                getNavigationBar()
+                    .setZIndex(
+                        Math.max(1, minModalZIndex.getAsInt() - config().getZindexIncrement()));
+                if (DominoElement.body().containsCss("l-panel-span-up")) {
+                  getLeftPanel()
+                      .setZIndex(
+                          Math.max(1, minModalZIndex.getAsInt() - config().getZindexIncrement()));
+                } else {
+                  getLeftPanel()
+                      .setZIndex(
+                          Math.max(
+                              1, minModalZIndex.getAsInt() - (config().getZindexIncrement() * 2)));
+                }
               } else {
-
                 Integer sidePanelsIndex = config().getZindexManager().getNextZIndex();
                 getRightPanel().setZIndex(sidePanelsIndex);
                 getNavigationBar().setZIndex(config().getZindexManager().getNextZIndex());

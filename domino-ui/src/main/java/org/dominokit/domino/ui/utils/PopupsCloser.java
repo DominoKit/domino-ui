@@ -26,23 +26,25 @@ import org.jboss.elemento.EventType;
 /** A utility class that close all opened popus based on a selector */
 public class PopupsCloser {
 
+  public static final PopupsCloser INSTANCE = new PopupsCloser();
+
   public static final String DOMINO_UI_AUTO_CLOSABLE = "domino-ui-auto-closable";
   private static boolean touchMoved;
 
   static {
-    document.addEventListener(EventType.click.getName(), evt -> close());
+    document.addEventListener(EventType.click.getName(), evt -> PopupsCloser.INSTANCE.close());
     document.addEventListener(EventType.touchmove.getName(), evt -> touchMoved = true);
     document.addEventListener(
         EventType.touchend.getName(),
         evt -> {
           if (!touchMoved) {
-            close();
+            PopupsCloser.INSTANCE.close();
           }
           touchMoved = false;
         });
   }
 
-  public static void close() {
+  public void close() {
     close(DOMINO_UI_AUTO_CLOSABLE);
   }
 
@@ -51,7 +53,7 @@ public class PopupsCloser {
    *
    * @param selector
    */
-  public static void close(String selector) {
+  public void close(String selector) {
     NodeList<Element> elementsByName = document.body.querySelectorAll("[" + selector + "]");
     for (int i = 0; i < elementsByName.length; i++) {
       HTMLElement element = Js.uncheckedCast(elementsByName.item(i));

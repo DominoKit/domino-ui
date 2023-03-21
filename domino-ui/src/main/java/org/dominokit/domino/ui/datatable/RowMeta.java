@@ -15,11 +15,10 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-/**
- * this interface is used to implement custom meta object for rows with a unique key then later
- * these meta objects can be added to the row and can be used for any kind of logic.
- */
-public interface RowMeta {
-  /** @return String, a unique key for the meta object */
+import org.dominokit.domino.ui.utils.ComponentMeta;
+
+/** @deprecated use {@link ComponentMeta} */
+@Deprecated
+public interface RowMeta extends ComponentMeta {
   String getKey();
 }

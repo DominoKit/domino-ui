@@ -171,10 +171,18 @@
     color: #5d5d5d;
 }
 
-.field-group.lined.d-select .field-cntr .flex-layout{
+.field-group.lined.dui-datebox .field-cntr .flex-layout,
+.field-group.lined.dui-timebox .field-cntr .flex-layout,
+.field-group.lined.d-select .field-cntr .flex-layout {
     position: relative;
     bottom: 4px;
     align-items: center;
+}
+
+.table-cm-filter .field-group.lined.dui-datebox .field-cntr .flex-layout,
+.table-cm-filter .field-group.lined.dui-timebox .field-cntr .flex-layout,
+.table-cm-filter .field-group.lined.d-select .field-cntr .flex-layout {
+    bottom: 2px;
 }
 
 .field-group.rounded.d-select .field-cntr .flex-layout{
@@ -672,7 +680,7 @@ label {
 
 .table-cm-filter .field-group .field-cntr {
     padding-top: 2px;
-    height: 34px;
+    height: 36px;
 }
 
 .table-cm-filter .field-group.rounded .select-button,

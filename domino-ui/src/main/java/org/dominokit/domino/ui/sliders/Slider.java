@@ -30,6 +30,7 @@ import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.themes.Theme;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.EventOptions;
 import org.dominokit.domino.ui.utils.HasChangeHandlers;
 import org.jboss.elemento.IsElement;
 
@@ -169,15 +170,16 @@ public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
         };
     slider.addEventListener(change.getName(), evt -> callChangeHandlers());
 
-    slider.addEventListener(mousedown.getName(), downEvent);
-    slider.addEventListener(touchstart.getName(), downEvent);
+    slider.addEventListener(mousedown.getName(), downEvent, EventOptions.of().setPassive(true));
+    slider.addEventListener(touchstart.getName(), downEvent, EventOptions.of().setPassive(true));
 
     slider.addEventListener(mousemove.getName(), moveMouseListener);
-    slider.addEventListener(touchmove.getName(), moveMouseListener);
+    slider.addEventListener(
+        touchmove.getName(), moveMouseListener, EventOptions.of().setPassive(true));
     slider.addEventListener(input.getName(), moveMouseListener);
 
     slider.addEventListener(mouseup.getName(), upEvent);
-    slider.addEventListener(touchend.getName(), upEvent);
+    slider.addEventListener(touchend.getName(), upEvent, EventOptions.of().setPassive(true));
 
     slider.addEventListener(mouseout.getName(), leaveMouseListener);
     slider.addEventListener(blur.getName(), leaveMouseListener);

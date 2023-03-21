@@ -72,11 +72,11 @@ public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
     searchContext.addBeforeSearchHandler(
         context -> {
           if (timeBox.isEmptyIgnoreSpaces()) {
-            searchContext.remove(columnConfig.getName(), Category.HEADER_FILTER);
+            searchContext.remove(columnConfig.getFilterKey(), Category.HEADER_FILTER);
           } else {
             searchContext.add(
                 Filter.create(
-                    columnConfig.getName(),
+                    columnConfig.getFilterKey(),
                     timeBox.getValue().getTime() + "",
                     Category.HEADER_FILTER,
                     FilterTypes.TIME));

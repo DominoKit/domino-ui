@@ -29,7 +29,6 @@ import org.dominokit.domino.ui.datatable.events.SortEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Styles;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.EventType;
@@ -56,7 +55,7 @@ public class SortPlugin<T>
   /** {@inheritDoc} */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
-    if (column.isSortable() && !column.isUtilityColumn()) {
+    if (column.isSortable()) {
       SortContainer sortContainer = new SortContainer(column.getSortKey(), config);
       sortContainers.put(column.getSortKey(), sortContainer);
 
@@ -145,16 +144,22 @@ public class SortPlugin<T>
     private final String columnName;
     private SortPluginConfig config;
     private SortDirection sortDirection = SortDirection.DESC;
-    private DominoElement<HTMLElement> sortElement =
-        DominoElement.of(span()).appendChild(Icons.ALL.sort_mdi()).setMinWidth("15px");
+    private DominoElement<HTMLElement> sortElement;
 
     public SortContainer(String columnName, SortPluginConfig config) {
       this.columnName = columnName;
       this.config = config;
+      sortElement = DominoElement.of(span()).setMinWidth("15px");
+      if (!config.isShowIconOnSortedColumnOnly()) {
+        sortElement.appendChild(config.getUnsortedIcon().get());
+      }
     }
 
     public void clear() {
-      sortElement.clearElement().appendChild(Icons.ALL.sort_mdi());
+      sortElement.clearElement();
+      if (!config.isShowIconOnSortedColumnOnly()) {
+        sortElement.appendChild(config.getUnsortedIcon().get());
+      }
     }
 
     public void update(boolean flip) {
@@ -177,11 +182,11 @@ public class SortPlugin<T>
 
     public BaseIcon<?> getSortArrow() {
       if (SortDirection.ASC.equals(sortDirection)) {
-        return Icons.ALL.sort_ascending_mdi();
+        return config.getAscendingIcon().get();
       } else if (SortDirection.DESC.equals(sortDirection)) {
-        return Icons.ALL.sort_descending_mdi();
+        return config.getDescendingIcon().get();
       } else {
-        return Icons.ALL.sort_mdi();
+        return config.getUnsortedIcon().get();
       }
     }
   }

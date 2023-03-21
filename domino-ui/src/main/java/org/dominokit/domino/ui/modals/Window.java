@@ -17,7 +17,11 @@ package org.dominokit.domino.ui.modals;
 
 import static org.dominokit.domino.ui.style.Unit.px;
 
-import elemental2.dom.*;
+import elemental2.dom.DOMRect;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.Event;
+import elemental2.dom.EventListener;
+import elemental2.dom.MouseEvent;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
@@ -27,7 +31,6 @@ import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.style.Calc;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.PopupsCloser;
 import org.jboss.elemento.EventType;
 
 /**
@@ -187,7 +190,7 @@ public class Window extends BaseModal<Window> {
     maximized = true;
     updatePosition();
     Window.this.css("maximized");
-    ModalBackDrop.showHideBodyScrolls();
+    ModalBackDrop.INSTANCE.showHideBodyScrolls();
     maximizing = false;
     return this;
   }
@@ -203,7 +206,7 @@ public class Window extends BaseModal<Window> {
     maximized = false;
     Window.this.removeCss("maximized");
     updatePosition();
-    ModalBackDrop.showHideBodyScrolls();
+    ModalBackDrop.INSTANCE.showHideBodyScrolls();
     return this;
   }
 
@@ -264,14 +267,6 @@ public class Window extends BaseModal<Window> {
     this.windowTop = windowTop;
     return this;
   }
-  //
-  //  private void initPosition() {
-  //    onAttached(mutationRecord -> {
-  //      DomGlobal.setTimeout(p0-> {
-  //        updatePosition();
-  //      },0);
-  //    });
-  //  }
 
   private void updatePosition() {
     if (maximized) {
@@ -313,7 +308,7 @@ public class Window extends BaseModal<Window> {
         .removeEventListener(EventType.mouseup.getName(), stopMoveListener);
   }
 
-  private void addMoveListeners() {
+  public void addMoveListeners() {
     modalElement
         .getModalHeader()
         .addEventListener(
@@ -321,7 +316,7 @@ public class Window extends BaseModal<Window> {
             evt -> {
               if (draggable) {
                 DropDownMenu.closeAllMenus();
-                PopupsCloser.close();
+                POPUPS_CLOSER.close();
                 MouseEvent mouseEvent = Js.uncheckedCast(evt);
                 if (!startMoving && mouseEvent.button == 0) {
                   mouseEvent.stopPropagation();

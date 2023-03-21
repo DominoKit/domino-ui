@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.datatable.CellRenderer;
 import org.dominokit.domino.ui.datatable.DataTable;
@@ -37,6 +38,7 @@ import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
@@ -164,7 +166,7 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     }
   }
 
-  public static class DataGroup<T> implements TableRow.RowMetaObject {
+  public static class DataGroup<T> implements ComponentMeta {
 
     private static final String KEY = "dataGroup";
 
@@ -181,8 +183,8 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
       addRow(lastRow);
     }
 
-    public static <T> DataGroup<T> fromRow(TableRow<T> tableRow) {
-      return tableRow.getMetaObject(KEY);
+    public static <T> Optional<DataGroup<T>> fromRow(TableRow<T> tableRow) {
+      return tableRow.getMeta(KEY);
     }
 
     public void toggleGroup() {
@@ -192,7 +194,7 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
 
     public void addRow(TableRow<T> tableRow) {
       groupRows.add(tableRow);
-      tableRow.addMetaObject(this);
+      tableRow.applyMeta(this);
     }
 
     private DataGroup<T> setGroupIconSupplier(BaseIcon<?> groupIconSupplier) {

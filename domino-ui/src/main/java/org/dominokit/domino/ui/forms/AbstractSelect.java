@@ -139,7 +139,7 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
         evt -> {
           pauseFocusValidation();
           if (closePopOverOnOpen) {
-            ModalBackDrop.closePopovers();
+            ModalBackDrop.INSTANCE.closePopovers();
           }
           open();
           evt.stopPropagation();

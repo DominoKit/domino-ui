@@ -15,6 +15,10 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-public interface ColumnMeta {
+import org.dominokit.domino.ui.utils.ComponentMeta;
+
+/** @deprecated use {@link ComponentMeta} */
+@Deprecated
+public interface ColumnMeta extends ComponentMeta {
   String getKey();
 }

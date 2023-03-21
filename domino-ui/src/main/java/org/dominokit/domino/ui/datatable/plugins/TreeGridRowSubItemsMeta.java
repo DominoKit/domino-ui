@@ -15,66 +15,22 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
-import static java.util.Objects.nonNull;
-
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.function.Consumer;
-import org.dominokit.domino.ui.datatable.RowMeta;
-import org.dominokit.domino.ui.datatable.TableRow;
+import org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig;
 
-public class TreeGridRowSubItemsMeta<T> implements RowMeta {
-
-  public static final String TREE_GRID_ROW_SUB_ITEMS_META = "tree-grid-row-sub-items-meta";
-  private final TreePluginConfig<T> config;
-  private Collection<T> records;
-
-  public static <T> TreeGridRowSubItemsMeta<T> of(
-      TreePluginConfig<T> config, Collection<T> records) {
-    return new TreeGridRowSubItemsMeta<>(config, records);
-  }
-
-  public static <T> TreeGridRowSubItemsMeta<T> of(TreePluginConfig<T> config) {
-    return new TreeGridRowSubItemsMeta<>(config);
-  }
+/**
+ * @deprecated use {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridRowSubItemsMeta}
+ * @param <T>
+ */
+@Deprecated
+public class TreeGridRowSubItemsMeta<T>
+    extends org.dominokit.domino.ui.datatable.plugins.tree.TreeGridRowSubItemsMeta<T> {
 
   public TreeGridRowSubItemsMeta(TreePluginConfig<T> config) {
-    this.config = config;
+    super(config);
   }
 
   public TreeGridRowSubItemsMeta(TreePluginConfig<T> config, Collection<T> records) {
-    this.config = config;
-    this.records = records;
-  }
-
-  public static <T> Optional<TreeGridRowSubItemsMeta<T>> get(TableRow<T> row) {
-    return row.getMeta(TREE_GRID_ROW_SUB_ITEMS_META);
-  }
-
-  public TreeGridRowSubItemsMeta<T> getRecords(
-      TableRow<T> row, Consumer<Optional<Collection<T>>> recordsConsumer) {
-    if (nonNull(records)) {
-      recordsConsumer.accept(Optional.of(records));
-    } else {
-      config
-          .getSubItemsProvider()
-          .get(
-              row.getRecord(),
-              items -> {
-                this.records = items.orElse(Collections.emptyList());
-                recordsConsumer.accept(items);
-              });
-    }
-    return this;
-  }
-
-  public boolean loaded() {
-    return nonNull(records);
-  }
-
-  @Override
-  public String getKey() {
-    return TREE_GRID_ROW_SUB_ITEMS_META;
+    super(config, records);
   }
 }

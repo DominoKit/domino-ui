@@ -23,9 +23,6 @@ import static org.jboss.elemento.Elements.div;
 import elemental2.dom.*;
 import java.util.function.Consumer;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.animations.Transition;
-import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
-import org.dominokit.domino.ui.collapsible.CollapseDuration;
 import org.dominokit.domino.ui.utils.*;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
@@ -72,11 +69,7 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
           MouseEvent mouseEvent = Js.uncheckedCast(evt);
           evt.stopPropagation();
           if (mouseEvent.buttons == 0) {
-            document.body.appendChild(element.element());
-            setZIndex(config().getZindexManager().getNextZIndex());
             show();
-            popupPosition.position(element.element(), targetElement);
-            position(popupPosition);
           }
         };
     removeToolTipListener =
@@ -94,10 +87,16 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
           targetElement.removeEventListener(EventType.mouseleave.getName(), removeToolTipListener);
         };
 
+    addBeforeShowListener(
+        () -> {
+          document.body.appendChild(element.element());
+          setZIndex(config().getZindexManager().getNextZIndex());
+          popupPosition.position(element.element(), targetElement);
+          position(popupPosition);
+        });
     addHideListener(this::doClose);
-    setCollapseStrategy(
-        new AnimationCollapseStrategy(
-            Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
+    setCollapseStrategy(DominoUIConfig.INSTANCE.getDefaultTooltipCollapseStrategySupplier().get());
+    DominoElement.of(targetElement).onDetached(mutationRecord -> doClose());
   }
 
   private void doClose() {

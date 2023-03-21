@@ -72,19 +72,19 @@ public abstract class DelayedHeaderFilterInput<B extends ValueBox, T>
   public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
     searchContext.addBeforeSearchHandler(
         tSearchContext -> {
-          if (nonNull(searchContext) && nonNull(columnConfig)) {
+          if (nonNull(columnConfig)) {
             if (isEmpty()) {
-              searchContext.remove(columnConfig.getName(), Category.HEADER_FILTER);
+              searchContext.remove(columnConfig.getFilterKey(), Category.HEADER_FILTER);
             } else {
               searchContext.add(
                   Filter.create(
-                      columnConfig.getName(), getValue(), Category.HEADER_FILTER, getType()));
+                      columnConfig.getFilterKey(), getValue(), Category.HEADER_FILTER, getType()));
             }
           }
         });
     delayedTextInput.setDelayedAction(
         () -> {
-          if (nonNull(searchContext) && nonNull(columnConfig)) {
+          if (nonNull(columnConfig)) {
             searchContext.fireSearchEvent();
           }
         });

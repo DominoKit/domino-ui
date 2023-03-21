@@ -34,6 +34,7 @@ import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.BestSideUpDownDropDirection;
 import org.dominokit.domino.ui.popover.Tooltip;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ScreenMedia;
 import org.dominokit.domino.ui.utils.TextNode;
@@ -47,6 +48,7 @@ import org.jboss.elemento.IsElement;
 public class ColumnConfig<T> {
 
   private final String name;
+  private String filterKey;
   private String title;
   private HTMLTableCellElement headElement;
   private FlexLayout headerLayout;
@@ -89,7 +91,7 @@ public class ColumnConfig<T> {
   private final List<ColumnConfig<T>> subColumns = new ArrayList<>();
   private ColumnConfig<T> parent;
 
-  private final Map<String, ColumnMeta> columnMeta = new HashMap<>();
+  private final Map<String, ComponentMeta> columnMeta = new HashMap<>();
 
   private final Menu<String> menu;
   private MdiIcon menuIcon;
@@ -153,6 +155,15 @@ public class ColumnConfig<T> {
   /** @return String column name */
   public String getName() {
     return name;
+  }
+
+  public String getFilterKey() {
+    return nonNull(filterKey) ? filterKey : getName();
+  }
+
+  public ColumnConfig<T> setFilterKey(String filterKey) {
+    this.filterKey = filterKey;
+    return this;
   }
 
   public ColumnConfig<T> asHeader() {
@@ -814,13 +825,13 @@ public class ColumnConfig<T> {
     return nonNull(parent);
   }
 
-  public ColumnConfig<T> applyMeta(ColumnMeta meta) {
+  public ColumnConfig<T> applyMeta(ComponentMeta meta) {
     columnMeta.put(meta.getKey(), meta);
     return this;
   }
 
   @SuppressWarnings("all")
-  public <C extends ColumnMeta> Optional<C> getMeta(String key) {
+  public <C extends ComponentMeta> Optional<C> getMeta(String key) {
     return Optional.ofNullable((C) columnMeta.get(key));
   }
 

@@ -144,6 +144,9 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private HTMLElement createSingleSelectCell(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
     HTMLElement clonedIndicator = Js.uncheckedCast(singleSelectIndicator.cloneNode(true));
+    if (cell.getTableRow().isSelected()) {
+      styleSelectedRow(clonedIndicator, cell.getTableRow());
+    }
     cell.getTableRow()
         .element()
         .addEventListener(
@@ -166,11 +169,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
                   if (nonNull(selectedRow)) {
                     selectedRow.deselect();
                   }
-                  Style.of(clonedIndicator).setDisplay("inline-block");
-                  if (nonNull(colorScheme)) {
-                    Style.of(((TableRow<T>) selectable).element())
-                        .addCss(colorScheme.lighten_5().getBackground());
-                  }
+                  styleSelectedRow(clonedIndicator, (TableRow<T>) selectable);
                   selectedRow = selectable;
                 } else {
                   Style.of(clonedIndicator).setDisplay("none");
@@ -185,10 +184,20 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     return clonedIndicator;
   }
 
+  private void styleSelectedRow(HTMLElement clonedIndicator, TableRow<T> selectable) {
+    Style.of(clonedIndicator).setDisplay("inline-block");
+    if (nonNull(colorScheme)) {
+      Style.of(selectable.element()).addCss(colorScheme.lighten_5().getBackground());
+    }
+  }
+
   private HTMLElement createMultiSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
     CheckBox checkBox = createCheckBox(Optional.ofNullable(cell.getTableRow()));
 
     TableRow<T> tableRow = cell.getTableRow();
+    if (tableRow.isSelected()) {
+      checkBox.check(true);
+    }
     tableRow.addSelectionHandler(
         selectable -> {
           if (selectionCondition.isAllowSelection(dataTable, tableRow)) {

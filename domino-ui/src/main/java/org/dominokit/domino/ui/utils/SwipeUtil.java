@@ -37,7 +37,8 @@ public class SwipeUtil {
 
     SwipeData swipeData = new SwipeData();
 
-    touchsurface.addEventListener(
+    DominoElement<HTMLElement> touchSurfaceElement = DominoElement.of(touchsurface);
+    touchSurfaceElement.addEventListener(
         "touchstart",
         evt -> {
           TouchEvent touchEvent = Js.uncheckedCast(evt);
@@ -49,12 +50,13 @@ public class SwipeUtil {
               new Date().getTime(); // record time when finger first makes contact with surface
           evt.preventDefault();
         },
-        false);
+        EventOptions.of().setPassive(false));
 
     // prevent scrolling when inside DIV
-    touchsurface.addEventListener("touchmove", Event::preventDefault, false);
+    touchSurfaceElement.addEventListener(
+        "touchmove", Event::preventDefault, EventOptions.of().setPassive(true));
 
-    touchsurface.addEventListener(
+    touchSurfaceElement.addEventListener(
         "touchend",
         evt -> {
           TouchEvent touchEvent = Js.uncheckedCast(evt);
@@ -91,7 +93,7 @@ public class SwipeUtil {
           }
           evt.preventDefault();
         },
-        false);
+        EventOptions.of().setPassive(true));
   }
 
   private static class SwipeData {

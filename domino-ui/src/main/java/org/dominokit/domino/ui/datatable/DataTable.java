@@ -26,11 +26,8 @@ import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_STRIPED;
 import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import elemental2.dom.EventListener;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.events.*;
 import org.dominokit.domino.ui.datatable.model.SearchContext;

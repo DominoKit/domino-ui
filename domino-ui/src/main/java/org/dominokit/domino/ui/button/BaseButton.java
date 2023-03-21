@@ -15,17 +15,28 @@
  */
 package org.dominokit.domino.ui.button;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.button;
-import static org.jboss.elemento.Elements.span;
 
 import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import elemental2.dom.Text;
+import jsinterop.base.Js;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
+import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.style.*;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.style.Elevation;
+import org.dominokit.domino.ui.style.StyleType;
+import org.dominokit.domino.ui.style.WaveStyle;
+import org.dominokit.domino.ui.style.WavesElement;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.HasBackground;
+import org.dominokit.domino.ui.utils.HasClickableElement;
+import org.dominokit.domino.ui.utils.HasContent;
+import org.dominokit.domino.ui.utils.Sizable;
+import org.dominokit.domino.ui.utils.Switchable;
 
 /**
  * A base component to implement buttons
@@ -46,16 +57,30 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
   private ButtonSize size;
   protected String content;
   private BaseIcon<?> icon;
-  private HTMLElement textSpan = span().element();
-  private Text textElement = TextNode.empty();
   private Elevation beforeLinkifyElevation = Elevation.LEVEL_1;
+
+  protected FlexLayout contentLayout;
 
   /** The default element that represent the button HTMLElement. */
   protected final DominoElement<HTMLButtonElement> buttonElement =
       DominoElement.of(button()).css(ButtonStyles.BUTTON);
 
+  private FlexItem<HTMLDivElement> textContainer;
+  private FlexItem<HTMLDivElement> iconContainer;
+
   /** creates a button with default size {@link ButtonSize#MEDIUM} */
   protected BaseButton() {
+    textContainer = FlexItem.create().addCss("dui-btn-text").setFlexGrow(1).setOrder(20);
+
+    iconContainer = FlexItem.create().setOrder(10);
+    contentLayout =
+        FlexLayout.create()
+            .setJustifyContent(FlexJustifyContent.CENTER)
+            .appendChild(textContainer)
+            .appendChild(iconContainer);
+
+    buttonElement.appendChild(contentLayout);
+
     setSize(ButtonSize.MEDIUM);
   }
 
@@ -124,13 +149,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
   @Override
   public B setContent(String content) {
     this.content = content;
-    textElement.textContent = content;
-    if (isNull(icon)) {
-      buttonElement.appendChild(textElement);
-    } else {
-      textSpan.appendChild(textElement);
-      buttonElement.appendChild(textSpan);
-    }
+    textContainer.textContent(content);
     return (B) this;
   }
 
@@ -405,25 +424,12 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
    * @return same instance
    */
   public B setIcon(BaseIcon<?> icon) {
-    if (isNull(icon)) {
-      if (nonNull(this.icon)) {
-        this.icon.remove();
-        this.icon = null;
-      }
-    } else {
-      if (nonNull(this.icon)) {
-        BaseIcon<?> temp = this.icon;
-        this.insertAfter(icon, this.icon);
-        temp.remove();
-        this.icon = icon;
-      } else {
-        if (nonNull(content) && !content.isEmpty()) {
-          textSpan.appendChild(textElement);
-          buttonElement.appendChild(textSpan.appendChild(textElement));
-        }
-        this.icon = icon;
-        buttonElement.appendChild(this.icon);
-      }
+    if (nonNull(this.icon)) {
+      this.icon.remove();
+    }
+    if (nonNull(icon)) {
+      iconContainer.appendChild(icon);
+      this.icon = icon;
       this.icon.addCss("btn-icon");
     }
     return (B) this;
@@ -440,11 +446,33 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
   /** @return {@link DominoElement} of {@link HTMLElement} that wrap the button text */
   public DominoElement<HTMLElement> getTextSpan() {
-    return DominoElement.of(textSpan);
+    return DominoElement.of(Js.<HTMLElement>uncheckedCast(textContainer));
+  }
+
+  public B setIconPosition(IconPosition position) {
+    if (nonNull(position)) {
+      iconContainer.setOrder(position.getIconOrder());
+    }
+    return (B) this;
   }
 
   private void applyCircleWaves() {
     applyWaveStyle(WaveStyle.CIRCLE);
     applyWaveStyle(WaveStyle.FLOAT);
+  }
+
+  public enum IconPosition {
+    LEFT(10),
+    RIGHT(30);
+
+    private final int iconOrder;
+
+    IconPosition(int iconOrder) {
+      this.iconOrder = iconOrder;
+    }
+
+    public int getIconOrder() {
+      return iconOrder;
+    }
   }
 }

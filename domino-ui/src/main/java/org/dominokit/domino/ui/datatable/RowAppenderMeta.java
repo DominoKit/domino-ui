@@ -17,8 +17,9 @@ package org.dominokit.domino.ui.datatable;
 
 import java.util.Objects;
 import java.util.Optional;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 
-public class RowAppenderMeta<T> implements RowMeta {
+public class RowAppenderMeta<T> implements ComponentMeta {
 
   public static final String TABLE_ROW_APPENDER_META = "table-row-appender-meta";
   private final TableConfig.RowAppender<T> rowAppender;

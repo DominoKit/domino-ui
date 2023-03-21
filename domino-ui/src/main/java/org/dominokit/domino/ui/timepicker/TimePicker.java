@@ -39,6 +39,7 @@ import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
+import org.dominokit.domino.ui.utils.EventOptions;
 import org.dominokit.domino.ui.utils.TextNode;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
@@ -513,14 +514,14 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
   private ClockElement makeHourElement(int hour) {
     ClockElement clockElement = ClockElement.createHour(hour, clockStyle, colorScheme);
-    ElementUtil.contentBuilder(clockElement.getElement())
-        .on(
+    DominoElement.of(clockElement.getElement())
+        .addEventListener(
             EventType.mouseenter,
             event -> {
               drawHourPointer(hourElements.get(clock.getHour()));
               drawHourPointer(clockElement);
             })
-        .on(
+        .addEventListener(
             EventType.mousedown,
             event -> {
               event.stopPropagation();
@@ -528,12 +529,12 @@ public class TimePicker implements IsElement<HTMLDivElement> {
               drawHourPointer(hourElements.get(clock.getHour()));
               drawHourPointer(clockElement);
             })
-        .on(
+        .addEventListener(
             EventType.mouseout,
             event -> {
               if (clock.getHour() != clockElement.getValue()) removeHourPointer(clockElement);
             })
-        .on(
+        .addEventListener(
             EventType.click,
             event -> {
               event.stopPropagation();
@@ -548,8 +549,9 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
   private ClockElement makeMinuteElement(int minute) {
     ClockElement clockElement = ClockElement.createMinute(minute, colorScheme);
-    ElementUtil.contentBuilder(clockElement.getElement())
-        .on(
+    EventOptions eventOptions = EventOptions.of().setPassive(true);
+    DominoElement.of(clockElement.getElement())
+        .addEventListener(
             EventType.mouseenter,
             event -> {
               drawMinutesPointer(minutesElements.get(clock.getMinute()));
@@ -559,36 +561,38 @@ public class TimePicker implements IsElement<HTMLDivElement> {
                 setminute(clockElement.getValue());
               }
             })
-        .on(
+        .addEventListener(
             EventType.mouseout,
             event -> {
               if (clock.getMinute() != clockElement.getValue()) removeMinutesPointer(clockElement);
             })
-        .on(
+        .addEventListener(
             EventType.mousedown,
             event -> {
               event.stopPropagation();
               event.preventDefault();
             })
-        .on(
+        .addEventListener(
             EventType.mouseup,
             event -> {
               event.stopPropagation();
               event.preventDefault();
               setminute(clockElement.getValue());
             })
-        .on(
+        .addEventListener(
             EventType.touchstart,
             event -> {
               event.stopPropagation();
               event.preventDefault();
-            })
-        .on(
+            },
+            eventOptions)
+        .addEventListener(
             EventType.touchmove,
             event -> {
               setminute(clockElement.getValue());
-            })
-        .on(
+            },
+            eventOptions)
+        .addEventListener(
             EventType.click,
             event -> {
               event.stopPropagation();
@@ -603,8 +607,8 @@ public class TimePicker implements IsElement<HTMLDivElement> {
 
   private ClockElement makeSecondElement(int second) {
     ClockElement clockElement = ClockElement.createSecond(second, colorScheme);
-    ElementUtil.contentBuilder(clockElement.getElement())
-        .on(
+    DominoElement.of(clockElement.getElement())
+        .addEventListener(
             EventType.mouseenter,
             event -> {
               drawSecondsPointer(secondsElements.get(clock.getSecond()));
@@ -614,35 +618,37 @@ public class TimePicker implements IsElement<HTMLDivElement> {
                 setSecond(clockElement.getValue());
               }
             })
-        .on(
+        .addEventListener(
             EventType.mouseout,
             event -> {
               if (clock.getSecond() != clockElement.getValue()) removeSecondsPointer(clockElement);
             })
-        .on(
+        .addEventListener(
             EventType.mousedown,
             event -> {
               event.stopPropagation();
               event.preventDefault();
             })
-        .on(
+        .addEventListener(
             EventType.mouseup,
             event -> {
               event.stopPropagation();
               event.preventDefault();
               setSecond(clockElement.getValue());
             })
-        .on(
+        .addEventListener(
             EventType.touchstart,
             event -> {
               event.stopPropagation();
               event.preventDefault();
-            })
-        .on(
+            },
+            EventOptions.of().setPassive(true))
+        .addEventListener(
             EventType.touchmove,
             event -> {
               setSecond(clockElement.getValue());
-            });
+            },
+            EventOptions.of().setPassive(true));
 
     return clockElement;
   }

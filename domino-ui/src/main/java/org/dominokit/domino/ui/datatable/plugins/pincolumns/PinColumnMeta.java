@@ -22,10 +22,10 @@ import java.util.Optional;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.ColumnCssRuleMeta;
 import org.dominokit.domino.ui.datatable.ColumnHeaderMeta;
-import org.dominokit.domino.ui.datatable.ColumnMeta;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 
-public class PinColumnMeta implements ColumnMeta, PinColumnFunction {
+public class PinColumnMeta implements ComponentMeta, PinColumnFunction {
 
   private final PinDirection direction;
 

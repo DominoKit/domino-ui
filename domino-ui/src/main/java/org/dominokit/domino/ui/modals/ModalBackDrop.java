@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.modals;
 
-import elemental2.dom.Event;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import java.util.List;
@@ -32,42 +31,46 @@ import org.jboss.elemento.EventType;
  * <p>this class can track the overlay across the page and all opened modals and it adjust its
  * position whenever a modal is opened or closed
  */
-public class ModalBackDrop {
-  /** the z-index increment for every modal open */
+public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDrop> {
+
+  public static final ModalBackDrop INSTANCE = new ModalBackDrop();
 
   /** The single instance of the overlay backdrop element */
-  public static final DominoElement<HTMLDivElement> INSTANCE =
-      DominoElement.div()
-          .css(ModalStyles.MODAL_BACKDROP)
-          .css(ModalStyles.FADE)
-          .css(ModalStyles.IN)
-          .setTabIndex(-1)
-          .setDisabled(true)
-          .addEventListener(
-              "scroll",
-              evt -> {
-                evt.preventDefault();
-                evt.stopPropagation();
-              })
-          .addEventListener(
-              EventType.click,
-              event -> {
-                event.preventDefault();
-                event.stopPropagation();
-                if (ModalBackDrop.INSTANCE.isEqualNode(Js.uncheckedCast(event.target))) {
-                  closeCurrentOpen();
-                }
-              })
-          .addEventListener(
-              EventType.keypress,
-              event -> {
-                if (ModalBackDrop.INSTANCE.isEqualNode(Js.uncheckedCast(event.target))) {
-                  closeCurrentOpen();
-                }
-              })
-          .addEventListener(EventType.scroll, Event::stopPropagation);
+  private DominoElement<HTMLDivElement> element;
 
-  private static void closeCurrentOpen() {
+  private ModalBackDrop() {
+    element = DominoElement.div();
+    init(this);
+    element
+        .css(ModalStyles.MODAL_BACKDROP)
+        .css(ModalStyles.FADE)
+        .css(ModalStyles.IN)
+        .setTabIndex(-1)
+        .addEventListener(
+            "scroll",
+            evt -> {
+              evt.preventDefault();
+              evt.stopPropagation();
+            })
+        .addEventListener(
+            EventType.click,
+            event -> {
+              event.preventDefault();
+              event.stopPropagation();
+              if (element.isEqualNode(Js.uncheckedCast(event.target))) {
+                closeCurrentOpen();
+              }
+            })
+        .addEventListener(
+            EventType.keypress,
+            event -> {
+              if (element.isEqualNode(Js.uncheckedCast(event.target))) {
+                closeCurrentOpen();
+              }
+            });
+  }
+
+  private void closeCurrentOpen() {
     DominoUIConfig.INSTANCE
         .getZindexManager()
         .getTopLevelModal()
@@ -82,18 +85,18 @@ public class ModalBackDrop {
   }
 
   /** Close all currently open {@link Popover}s */
-  public static void closePopovers() {
+  public void closePopovers() {
     DominoElement.body().querySelectorAll(".popover").forEach(BaseDominoElement::remove);
   }
 
   /** Automatically close all {@link Popover}s when the page is scrolled */
-  public static void onScrollClosePopovers() {
+  public void onScrollClosePopovers() {
     DominoElement.body()
         .querySelectorAll(".popover[d-close-on-scroll='true']")
         .forEach(BaseDominoElement::remove);
   }
 
-  public static void showHideBodyScrolls() {
+  public void showHideBodyScrolls() {
     List<DominoElement<HTMLElement>> openedDialogs =
         DominoElement.body()
             .querySelectorAll(
@@ -105,5 +108,10 @@ public class ModalBackDrop {
         DominoElement.body().addCss(ModalStyles.MODAL_OPEN);
       }
     }
+  }
+
+  @Override
+  public HTMLDivElement element() {
+    return element.element();
   }
 }

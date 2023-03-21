@@ -20,6 +20,7 @@ import org.dominokit.domino.ui.button.group.ButtonsGroup;
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.dropdown.DropDownPosition;
 import org.dominokit.domino.ui.dropdown.DropdownAction;
+import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
@@ -277,7 +278,7 @@ public class DropdownButton extends BaseButton<DropdownButton> {
     dropDownMenu = DropDownMenu.create(groupElement);
     groupElement.appendChild(asDropDown());
     caretIcon.addCss(Styles.pull_right);
-    buttonElement.appendChild(caretIcon);
+    contentLayout.appendChild(FlexItem.create().setOrder(40).appendChild(caretIcon));
     init(this);
     elevate(DominoUIConfig.INSTANCE.getDefaultButtonElevation());
   }

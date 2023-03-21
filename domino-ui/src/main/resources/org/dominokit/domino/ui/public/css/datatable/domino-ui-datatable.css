@@ -676,3 +676,8 @@ table th[class*="col-"] {
     -moz-box-shadow: 0px 1px 0px -1px rgba(221,221,221,1);
     box-shadow: 0px 1px 0px -1px rgba(221,221,221,1);
 }
+
+.table > tbody > tr > td:first-child,
+.table > tbody > tr > th:first-child {
+    border-left-color: inherit;
+}

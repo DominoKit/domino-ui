@@ -21,10 +21,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.DynamicStyleSheet;
 
-public class ColumnCssRuleMeta<T> implements ColumnMeta {
+public class ColumnCssRuleMeta<T> implements ComponentMeta {
 
   public static final String COLUMN_CSS_RULE_META = "column-css-rule-meta";
   public static final String DEFAULT_RULE = "COLUMN-DEFAULT-CSS-RULE";

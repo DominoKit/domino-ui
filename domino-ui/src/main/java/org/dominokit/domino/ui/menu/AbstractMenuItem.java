@@ -37,9 +37,9 @@ import org.dominokit.domino.ui.menu.direction.BestFitSideDropDirection;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DelayedExecution;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.EventOptions;
 import org.dominokit.domino.ui.utils.HasDeselectionHandler;
 import org.dominokit.domino.ui.utils.HasSelectionHandler;
-import org.dominokit.domino.ui.utils.PopupsCloser;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
@@ -99,8 +99,10 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
           evt.preventDefault();
           focus();
           openSubMenu();
-        });
-    this.addEventListener(EventType.touchend.getName(), this::onSelected);
+        },
+        EventOptions.of().setPassive(true));
+    this.addEventListener(
+        EventType.touchend.getName(), this::onSelected, EventOptions.of().setPassive(true));
     this.addEventListener(EventType.click.getName(), this::onSelected);
     this.addEventListener(EventType.mouseenter.getName(), evt -> openSubMenu());
     addRightAddOn(noIndicator);
@@ -109,7 +111,9 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
   private void onSelected(Event evt) {
     evt.stopPropagation();
     evt.preventDefault();
-    select();
+    if (!isDisabled()) {
+      select();
+    }
   }
 
   /**
@@ -374,12 +378,6 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
           },
           200);
     }
-  }
-
-  private void openSelfMenu() {
-    PopupsCloser.close();
-    this.menu.open();
-    this.parent.setCurrentOpen(this.menu);
   }
 
   void onParentClosed() {

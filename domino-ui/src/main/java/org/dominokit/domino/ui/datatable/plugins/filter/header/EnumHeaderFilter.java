@@ -89,12 +89,12 @@ public class EnumHeaderFilter<T, E extends Enum>
           if (select.getSelectedIndex() > 0) {
             searchContext.add(
                 Filter.create(
-                    columnConfig.getName(),
+                    columnConfig.getFilterKey(),
                     select.getValue(),
                     Category.HEADER_FILTER,
                     FilterTypes.ENUM));
           } else {
-            searchContext.remove(columnConfig.getName(), Category.HEADER_FILTER);
+            searchContext.remove(columnConfig.getFilterKey(), Category.HEADER_FILTER);
           }
         });
     select.addSelectionHandler(option -> searchContext.fireSearchEvent());

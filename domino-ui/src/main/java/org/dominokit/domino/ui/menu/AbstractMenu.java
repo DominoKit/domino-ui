@@ -23,10 +23,20 @@ import static org.jboss.elemento.Elements.li;
 import static org.jboss.elemento.Elements.span;
 import static org.jboss.elemento.Elements.ul;
 
-import elemental2.dom.*;
+import elemental2.dom.Event;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLLIElement;
+import elemental2.dom.HTMLUListElement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.grid.flex.FlexDirection;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
@@ -40,9 +50,17 @@ import org.dominokit.domino.ui.menu.direction.MiddleOfScreenDropDirection;
 import org.dominokit.domino.ui.menu.direction.MouseBestFitDirection;
 import org.dominokit.domino.ui.search.SearchBox;
 import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.AppendStrategy;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ComponentMeta;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.EventOptions;
+import org.dominokit.domino.ui.utils.IsPopup;
+import org.dominokit.domino.ui.utils.KeyboardNavigation;
+import org.dominokit.domino.ui.utils.PopupsCloser;
 import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
+import org.jboss.elemento.ObserverCallback;
 
 /**
  * The base component to create a menu like UI.
@@ -95,8 +113,10 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   private final DropDirection contextMenuDropDirection = new MouseBestFitDirection();
   private final DropDirection smallScreenDropDirection = new MiddleOfScreenDropDirection();
   private DropDirection effectiveDropDirection = dropDirection;
-  private HTMLElement targetElement;
-  private HTMLElement appendTarget = document.body;
+  private MenuTarget lastTarget;
+
+  private Map<String, MenuTarget> targets = new HashMap<>();
+  private DominoElement<HTMLElement> appendTarget = DominoElement.of(document.body);
   private AppendStrategy appendStrategy = AppendStrategy.LAST;
 
   private final List<AbstractMenu.CloseHandler> closeHandlers = new ArrayList<>();
@@ -108,6 +128,14 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
       evt -> {
         evt.stopPropagation();
         evt.preventDefault();
+        lastTarget =
+            targets.get(
+                DominoElement.of(Js.<HTMLElement>uncheckedCast(evt.currentTarget)).getDominoId());
+        if (isNull(lastTarget)) {
+          lastTarget =
+              targets.get(
+                  DominoElement.of(Js.<HTMLElement>uncheckedCast(evt.target)).getDominoId());
+        }
         getEffectiveDropDirection().init(evt);
         open();
       };
@@ -118,9 +146,11 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   private boolean dropDown = false;
 
   private boolean centerOnSmallScreens = false;
+  private ObserverCallback appendTargetDetachObserver;
 
   public AbstractMenu() {
     init((T) this);
+    appendTargetDetachObserver = targetDetach -> close();
     menuHeader = new MenuHeader<>(this);
     menuElement.setDirection(FlexDirection.TOP_TO_BOTTOM);
     searchBox = SearchBox.create().addSearchListener(this::onSearch);
@@ -215,8 +245,9 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
             .keyboard_backspace()
             .clickable()
             .addClickListener(this::backToParent)
-            .addEventListener("touchend", this::backToParent)
-            .addEventListener("touchstart", Event::stopPropagation));
+            .addEventListener("touchend", this::backToParent, EventOptions.of().setPassive(true))
+            .addEventListener(
+                "touchstart", Event::stopPropagation, EventOptions.of().setPassive(true)));
 
     menuHeader.leftAddOnsContainer.appendChild(backArrowContainer);
     positionListener = evt -> position();
@@ -422,7 +453,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
     return count > 0;
   }
 
-  /** @return String label that indicate the create missing items action */
+  /** @return String label that indicate the creat missing items action */
   public String getCreateMissingLabel() {
     return createMissingLabel;
   }
@@ -815,8 +846,6 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
               }
               config().getZindexManager().onPopupOpen(this);
               openHandlers.forEach(OpenHandler::onOpen);
-              DominoElement.of(getTargetElement()).onDetached(targetDetach -> close());
-              DominoElement.of(getAppendTarget()).onDetached(targetDetach -> close());
             });
 
         appendStrategy.onAppend(getAppendTarget(), element.element());
@@ -838,7 +867,14 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   }
 
   private void position() {
-    getEffectiveDropDirection().position(element.element(), getTargetElement());
+    if (isDropDown() && isOpened()) {
+      Optional<MenuTarget> menuTarget = getTarget();
+      menuTarget.ifPresent(
+          target -> {
+            getEffectiveDropDirection()
+                .position(element.element(), target.getTargetElement().element());
+          });
+    }
   }
 
   protected DropDirection getEffectiveDropDirection() {
@@ -858,19 +894,18 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
         && Boolean.parseBoolean(this.getAttribute("domino-sub-menu"))) {
       return;
     }
-    PopupsCloser.close();
+    POPUPS_CLOSER.close();
   }
 
   private void focus() {
     getFocusElement().focus();
   }
 
-  /**
-   * @return the {@link HTMLElement} that triggers this menu to open, and which the positioning of
-   *     the menu will be based on.
-   */
-  public HTMLElement getTargetElement() {
-    return targetElement;
+  public Optional<MenuTarget> getTarget() {
+    if (isNull(lastTarget) && targets.size() == 1) {
+      return targets.values().stream().findFirst();
+    }
+    return Optional.ofNullable(lastTarget);
   }
 
   /**
@@ -888,24 +923,109 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    * @return same menu instance
    */
   public T setTargetElement(HTMLElement targetElement) {
-    if (nonNull(this.targetElement)) {
-      this.targetElement.removeEventListener(
-          isContextMenu() ? EventType.contextmenu.getName() : EventType.click.getName(),
-          openListener);
-    }
-    this.targetElement = targetElement;
-    if (nonNull(this.targetElement)) {
-      applyTargetListeners();
-      setDropDown(true);
-    } else {
-      setDropDown(false);
-    }
+    setTarget(MenuTarget.of(targetElement));
+    return (T) this;
+  }
+
+  /**
+   * @param targetElement The {@link IsElement} that triggers this menu to open, and which the
+   *     positioning of the menu will be based on.
+   * @return same menu instance
+   */
+  public T setTargetElement(IsElement<?> targetElement, ComponentMeta meta) {
+    return (T) setTargetElement(targetElement.element(), meta);
+  }
+
+  /**
+   * @param targetElement The {@link HTMLElement} that triggers this menu to open, and which the
+   *     positioning of the menu will be based on.
+   * @return same menu instance
+   */
+  public T setTargetElement(HTMLElement targetElement, ComponentMeta meta) {
+    setTarget(MenuTarget.of(targetElement).applyMeta(meta));
+    return (T) this;
+  }
+
+  /**
+   * @param targetElement The {@link IsElement} that triggers this menu to open, and which the
+   *     positioning of the menu will be based on.
+   * @return same menu instance
+   */
+  public T addTargetElement(IsElement<?> targetElement) {
+    return (T) addTargetElement(targetElement.element());
+  }
+
+  /**
+   * @param targetElement The {@link HTMLElement} that triggers this menu to open, and which the
+   *     positioning of the menu will be based on.
+   * @return same menu instance
+   */
+  public T addTargetElement(HTMLElement targetElement) {
+    addTarget(MenuTarget.of(targetElement));
+    return (T) this;
+  }
+
+  /**
+   * @param targetElement The {@link IsElement} that triggers this menu to open, and which the
+   *     positioning of the menu will be based on.
+   * @return same menu instance
+   */
+  public T addTargetElement(IsElement<?> targetElement, ComponentMeta meta) {
+    return (T) addTargetElement(targetElement.element(), meta);
+  }
+
+  /**
+   * @param targetElement The {@link HTMLElement} that triggers this menu to open, and which the
+   *     positioning of the menu will be based on.
+   * @return same menu instance
+   */
+  public T addTargetElement(HTMLElement targetElement, ComponentMeta meta) {
+    addTarget(MenuTarget.of(targetElement).applyMeta(meta));
     return (T) this;
   }
 
   /** @return the {@link HTMLElement} to which the menu will be appended to when opened. */
   public HTMLElement getAppendTarget() {
-    return appendTarget;
+    return appendTarget.element();
+  }
+
+  public T setTarget(MenuTarget menuTarget) {
+    this.targets
+        .values()
+        .forEach(
+            target -> {
+              target
+                  .getTargetElement()
+                  .removeEventListener(
+                      isContextMenu() ? EventType.contextmenu.getName() : EventType.click.getName(),
+                      openListener);
+              target.getTargetElement().removeDetachObserver(menuTarget.getTargetDetachObserver());
+            });
+    this.targets.clear();
+    return addTarget(menuTarget);
+  }
+
+  public T addTarget(MenuTarget menuTarget) {
+    if (nonNull(menuTarget)) {
+      this.targets.put(menuTarget.getTargetElement().getDominoId(), menuTarget);
+      menuTarget.setTargetDetachObserver(
+          mutationRecord -> {
+            if (Objects.equals(menuTarget, lastTarget)) {
+              close();
+            }
+
+            this.targets.remove(menuTarget.getTargetElement().getDominoId());
+          });
+      DominoElement.of(menuTarget.getTargetElement())
+          .onDetached(menuTarget.getTargetDetachObserver());
+    }
+    if (!this.targets.isEmpty()) {
+      applyTargetListeners(menuTarget);
+      setDropDown(true);
+    } else {
+      setDropDown(false);
+    }
+    return (T) this;
   }
 
   /**
@@ -915,11 +1035,15 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    * @return same menu instance
    */
   public T setAppendTarget(HTMLElement appendTarget) {
-    if (isNull(appendTarget)) {
-      this.appendTarget = document.body;
-    } else {
-      this.appendTarget = appendTarget;
+    if (nonNull(this.appendTarget)) {
+      this.appendTarget.removeDetachObserver(appendTargetDetachObserver);
     }
+    if (isNull(appendTarget)) {
+      this.appendTarget = DominoElement.of(document.body);
+    } else {
+      this.appendTarget = DominoElement.of(appendTarget);
+    }
+    DominoElement.of(getAppendTarget()).onDetached(appendTargetDetachObserver);
     return (T) this;
   }
 
@@ -944,7 +1068,11 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
     if (isDropDown()) {
       if (isOpened()) {
         this.remove();
-        getTargetElement().focus();
+        getTarget()
+            .ifPresent(
+                menuTarget -> {
+                  menuTarget.getTargetElement().element().focus();
+                });
       }
     }
     return (T) this;
@@ -1056,19 +1184,19 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
    */
   public T setContextMenu(boolean contextMenu) {
     this.contextMenu = contextMenu;
-    if (nonNull(targetElement)) {
-      applyTargetListeners();
-    }
+    targets.values().forEach(this::applyTargetListeners);
     return (T) this;
   }
 
-  private void applyTargetListeners() {
+  private void applyTargetListeners(MenuTarget menuTarget) {
     if (isContextMenu()) {
-      getTargetElement().removeEventListener(EventType.click.getName(), openListener);
-      getTargetElement().addEventListener(EventType.contextmenu.getName(), openListener);
+      menuTarget.getTargetElement().removeEventListener(EventType.click.getName(), openListener);
+      menuTarget.getTargetElement().addEventListener(EventType.contextmenu.getName(), openListener);
     } else {
-      getTargetElement().removeEventListener(EventType.contextmenu.getName(), openListener);
-      getTargetElement().addEventListener(EventType.click.getName(), openListener);
+      menuTarget
+          .getTargetElement()
+          .removeEventListener(EventType.contextmenu.getName(), openListener);
+      menuTarget.getTargetElement().addEventListener(EventType.click.getName(), openListener);
     }
   }
 
@@ -1077,7 +1205,7 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
       parent.onItemSelected(item);
     } else {
       if (isAutoCloseOnSelect() && !item.hasMenu()) {
-        PopupsCloser.close();
+        POPUPS_CLOSER.close();
       }
       selectionHandlers.forEach(selectionHandler -> selectionHandler.onItemSelected(item));
     }

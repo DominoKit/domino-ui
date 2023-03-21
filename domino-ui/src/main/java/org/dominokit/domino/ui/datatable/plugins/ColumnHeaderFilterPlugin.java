@@ -136,7 +136,8 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
    * @param columnName String, the name of the column we are adding the header filter to.
    * @param headerFilter the {@link HeaderFilter}
    * @return same instance
-   * @deprecated use {@link ColumnConfig#applyMeta(ColumnMeta)} and pass {@link ColumnFilterMeta}
+   * @deprecated use {@link ColumnConfig#applyMeta(org.dominokit.domino.ui.utils.ComponentMeta)} and
+   *     pass {@link ColumnFilterMeta}
    */
   @Deprecated
   public ColumnHeaderFilterPlugin<T> addHeaderFilter(String columnName, HeaderFilter headerFilter) {

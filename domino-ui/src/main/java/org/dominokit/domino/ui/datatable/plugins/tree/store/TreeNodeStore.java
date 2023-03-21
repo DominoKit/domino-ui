@@ -13,15 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.datatable.plugins;
+package org.dominokit.domino.ui.datatable.plugins.tree.store;
 
-import org.dominokit.domino.ui.datatable.plugins.pincolumns.PinColumnsPlugin;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.function.Consumer;
+import org.dominokit.domino.ui.datatable.events.SearchEvent;
+import org.dominokit.domino.ui.datatable.events.SortEvent;
 
-/**
- * this plugin allows marking columns as sticky ones
- *
- * @param <T> the type of data table records
- * @deprecated use {@link PinColumnsPlugin}
- */
-@Deprecated
-public class StickyColumnsPlugin<T> extends PinColumnsPlugin<T> {}
+public interface TreeNodeStore<T> {
+  void getNodeChildren(
+      TreeNodeStoreContext<T> context, Consumer<Optional<Collection<T>>> itemsConsumer);
+
+  SearchEvent getLastSearch();
+
+  SortEvent<T> getLastSort();
+
+  boolean hasChildren(T record);
+}

@@ -74,6 +74,12 @@ public class Loader {
     this.target = DominoElement.of(target);
     this.loaderElement = LoaderFactory.make(type);
     this.loaderElement.getContentElement().css(loadingTextPosition.getStyle());
+    DominoElement.of(this.loaderElement.getElement())
+        .addClickListener(
+            evt -> {
+              evt.preventDefault();
+              evt.stopPropagation();
+            });
   }
 
   /**
