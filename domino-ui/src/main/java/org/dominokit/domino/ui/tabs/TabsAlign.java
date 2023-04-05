@@ -15,24 +15,28 @@
  */
 package org.dominokit.domino.ui.tabs;
 
+import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.GenericCss;
+import org.dominokit.domino.ui.style.SpacingCss;
+
 /** An enum to list possible values for tabs align */
 public enum TabsAlign {
   /** Tabs headers will be aligned to the left of the tab panel */
-  LEFT("tabs-left"),
+  LEFT(SpacingCss.dui_justify_start),
   /** Tabs headers will be aligned to the center of the tab panel */
-  CENTER("tabs-center"),
+  CENTER(SpacingCss.dui_justify_center),
   /** Tabs headers will be aligned to the right of the tab panel */
-  RIGHT("tabs-right");
+  RIGHT(SpacingCss.dui_justify_end);
 
-  private String align;
+  private final CssClass align;
 
   /** @param align String css class name for the tab align */
-  TabsAlign(String align) {
+  TabsAlign(CssClass align) {
     this.align = align;
   }
 
   /** @return String css class name for the tab align */
-  public String getAlign() {
+  public CssClass getAlign() {
     return align;
   }
 }

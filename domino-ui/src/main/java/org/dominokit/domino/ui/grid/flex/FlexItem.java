@@ -16,13 +16,11 @@
 package org.dominokit.domino.ui.grid.flex;
 
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.ElementsFactory;
-import org.jboss.elemento.IsElement;
-
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * A component which provides an abstract level of the CSS flex item which will inherit the styles
@@ -42,7 +40,7 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
  * @see BaseDominoElement
  * @see FlexLayout
  */
-public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexItem<T>> {
+public class FlexItem<T extends Element> extends BaseDominoElement<T, FlexItem<T>> {
 
   private final T element;
   private int order;
@@ -71,12 +69,12 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
   }
 
   /**
-   * @deprecated use {@link #of(HTMLElement)} Creates new flex item with {@code element} inside it
+   * @deprecated use {@link #of(Element)} Creates new flex item with {@code element} inside it
    * @param element the child element
    * @return new instance
    */
   @Deprecated
-  public static <T extends HTMLElement> FlexItem<T> from(T element) {
+  public static <T extends Element> FlexItem<T> from(T element) {
     return new FlexItem<>(element);
   }
 
@@ -86,7 +84,7 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
    * @return new instance
    */
   @Deprecated
-  public static <T extends HTMLElement> FlexItem<T> from(IsElement<T> element) {
+  public static <T extends Element> FlexItem<T> from(IsElement<T> element) {
     return new FlexItem<>(element.element());
   }
 
@@ -96,7 +94,7 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
    * @param element the child element
    * @return new instance
    */
-  public static <T extends HTMLElement> FlexItem<T> of(T element) {
+  public static <T extends Element> FlexItem<T> of(T element) {
     return new FlexItem<>(element);
   }
 
@@ -106,7 +104,7 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
    * @param element the child element
    * @return new instance
    */
-  public static <T extends HTMLElement> FlexItem<T> of(IsElement<T> element) {
+  public static <T extends Element> FlexItem<T> of(IsElement<T> element) {
     return new FlexItem<>(element.element());
   }
 

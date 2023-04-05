@@ -20,6 +20,7 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.LinkButton;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.*;
 
 public class MessageDialog extends AbstractDialog<MessageDialog> {
@@ -28,7 +29,7 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
 
   private MessageHandler confirmHandler = (dialog) -> {};
 
-  private LazyChild<DominoElement<HTMLElement>> messageElement;
+  private LazyChild<SpanElement> messageElement;
 
   /** @return new instance with empty title */
   public static MessageDialog create() {
@@ -90,7 +91,7 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
                   }
                 });
 
-    appendChild(FooterElement.of(confirmButton));
+    appendChild(Footer.of(confirmButton));
 
     withContentFooter((parent, self) -> self.addCss(dui_text_center));
   }

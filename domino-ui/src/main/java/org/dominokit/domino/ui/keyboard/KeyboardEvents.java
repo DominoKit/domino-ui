@@ -1,9 +1,10 @@
 package org.dominokit.domino.ui.keyboard;
 
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.events.HasDefaultEventOptions;
 import org.dominokit.domino.ui.utils.LazyInitializer;
 
-public class KeyboardEvents<T extends Node> implements HasDefaultOptions{
+public class KeyboardEvents<T extends Node> implements HasDefaultEventOptions<KeyboardEventOptions> {
 
     public static final String KEYDOWN = "keydown";
     public static final String KEYUP = "keyup";
@@ -12,9 +13,9 @@ public class KeyboardEvents<T extends Node> implements HasDefaultOptions{
     private KeyboardEventOptions defaultOptions = KeyboardEventOptions.create();
     private final T element;
 
-    private KeyBoardKeyListener keyUpListener =new KeyBoardKeyListener(this);
-    private KeyBoardKeyListener keyDownListener =new KeyBoardKeyListener(this);
-    private KeyBoardKeyListener keyPressListener =new KeyBoardKeyListener(this);
+    private KeyboardKeyListener keyUpListener =new KeyboardKeyListener(this);
+    private KeyboardKeyListener keyDownListener =new KeyboardKeyListener(this);
+    private KeyboardKeyListener keyPressListener =new KeyboardKeyListener(this);
 
     private LazyInitializer keyUpListenerInitializer;
     private LazyInitializer keyDownListenerInitializer;

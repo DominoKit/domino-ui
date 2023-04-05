@@ -16,12 +16,13 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.*;
 
 import elemental2.dom.*;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import org.dominokit.domino.ui.elements.LabelElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 
@@ -29,8 +30,8 @@ import org.dominokit.domino.ui.utils.*;
 public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean>
     implements Checkable<CheckBox>, HasIndeterminateState<CheckBox> {
 
-  private DominoElement<HTMLLabelElement> checkLabelElement;
-  private LazyChild<DominoElement<HTMLElement>> checkLabelTextElement;
+  private LabelElement checkLabelElement;
+  private LazyChild<SpanElement> checkLabelTextElement;
 
   /**
    * Creates a checkbox with a label
@@ -64,11 +65,11 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
 
   /** Creates a checkbox without a label */
   public CheckBox() {
-    formElement.addCss(FORM_CHECK_BOX);
+    formElement.addCss(dui_form_check_box);
     wrapperElement.appendChild(
         div()
-            .addCss(FIELD_INPUT)
-            .appendChild(checkLabelElement = label().addCss(CHECK_BOX_LABEL)));
+            .addCss(dui_field_input)
+            .appendChild(checkLabelElement = label().addCss(dui_check_box_label)));
     checkLabelTextElement = LazyChild.of(span(), checkLabelElement);
     EventListener listener =
         evt -> {
@@ -121,7 +122,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
 
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
-    return input(type).addCss(HIDDEN_INPUT);
+    return input(type).addCss(dui_hidden_input).toDominoElement();
   }
 
   @Override
@@ -164,21 +165,21 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
   @Override
   public CheckBox indeterminate() {
     getInputElement().element().indeterminate = true;
-    addCss(BooleanCssClass.of(CHECK_BOX_INDETERMINATE, true));
+    addCss(BooleanCssClass.of(dui_check_box_indeterminate, true));
     return this;
   }
 
   @Override
   public CheckBox determinate() {
     getInputElement().element().indeterminate = false;
-    addCss(BooleanCssClass.of(CHECK_BOX_INDETERMINATE, false));
+    addCss(BooleanCssClass.of(dui_check_box_indeterminate, false));
     return this;
   }
 
   @Override
   public CheckBox toggleIndeterminate(boolean indeterminate) {
     getInputElement().element().indeterminate = indeterminate;
-    addCss(BooleanCssClass.of(CHECK_BOX_INDETERMINATE, indeterminate));
+    addCss(BooleanCssClass.of(dui_check_box_indeterminate, indeterminate));
     return this;
   }
 
@@ -186,7 +187,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
   public CheckBox toggleIndeterminate() {
     boolean current = getInputElement().element().indeterminate;
     getInputElement().element().indeterminate = !current;
-    addCss(BooleanCssClass.of(CHECK_BOX_INDETERMINATE, !current));
+    addCss(BooleanCssClass.of(dui_check_box_indeterminate, !current));
     return this;
   }
 
@@ -228,7 +229,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
    * @return same CheckBox instance
    */
   public CheckBox filledIn() {
-    addCss(BooleanCssClass.of(CHECK_BOX_FILLED, true));
+    addCss(BooleanCssClass.of(dui_check_box_filled, true));
     return this;
   }
 
@@ -238,12 +239,12 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
    * @return same CheckBox instance
    */
   public CheckBox filledOut() {
-    addCss(BooleanCssClass.of(CHECK_BOX_FILLED, false));
+    addCss(BooleanCssClass.of(dui_check_box_filled, false));
     return this;
   }
 
   public CheckBox filled(boolean filled) {
-    addCss(BooleanCssClass.of(CHECK_BOX_FILLED, filled));
+    addCss(BooleanCssClass.of(dui_check_box_filled, filled));
     return this;
   }
 

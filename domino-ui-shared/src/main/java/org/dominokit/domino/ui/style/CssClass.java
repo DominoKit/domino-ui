@@ -15,10 +15,13 @@
  */
 package org.dominokit.domino.ui.style;
 
-import static java.util.Objects.nonNull;
+import elemental2.dom.Element;
+import org.dominokit.domino.ui.IsElement;
 
-import elemental2.dom.HTMLElement;
-import org.jboss.elemento.IsElement;
+import java.util.Arrays;
+import java.util.Objects;
+
+import static java.util.Objects.nonNull;
 
 public interface CssClass {
 
@@ -30,13 +33,21 @@ public interface CssClass {
     apply(element.element());
   }
 
-  default void apply(HTMLElement element) {
+  default void apply(Element element) {
     if (!element.classList.contains(getCssClass())) {
       element.classList.add(getCssClass());
     }
   }
 
-  default boolean isAppliedTo(HTMLElement element) {
+  default void apply(Element... elements){
+    Arrays.asList(elements).forEach(this::apply);
+  }
+
+  default void apply(IsElement<?>... elements){
+    Arrays.asList(elements).forEach(this::apply);
+  }
+
+  default boolean isAppliedTo(Element element) {
     if (nonNull(element)) {
       return element.classList.contains(getCssClass());
     }
@@ -50,11 +61,23 @@ public interface CssClass {
     return false;
   }
 
-  default void remove(HTMLElement element) {
+  default void remove(Element element) {
     element.classList.remove(getCssClass());
+  }
+
+  default void remove(Element... elements) {
+    Arrays.asList(elements).forEach(this::remove);
   }
 
   default void remove(IsElement<?> element) {
     remove(element.element());
   }
+  default void remove(IsElement<?>... elements) {
+    Arrays.asList(elements).forEach(this::remove);
+  }
+
+  default boolean isSameAs(CssClass other){
+    return Objects.equals(getCssClass(), other.getCssClass());
+  }
+
 }

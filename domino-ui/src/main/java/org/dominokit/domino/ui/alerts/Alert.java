@@ -20,6 +20,7 @@ import static org.dominokit.domino.ui.alerts.AlertStyles.dui_alert_body;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.button.RemoveButton;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.*;
 
@@ -52,8 +53,8 @@ import org.dominokit.domino.ui.utils.*;
 public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
 
   private boolean dismissible = false;
-  private final DominoElement<HTMLDivElement> element;
-  private final DominoElement<HTMLDivElement> bodyElement;
+  private final DivElement element;
+  private final DivElement bodyElement;
   private LazyChild<RemoveButton> removeButton;
 
   public Alert() {
@@ -139,13 +140,13 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
   }
 
   /**
-   * Adds text as a child, the {@code text} will be added in {@link TextNode}
+   * Adds text as a child, the {@code text} will be added in {@link ElementsFactory#text()}
    *
    * @param text the content
    * @return same instance
    */
   public Alert appendChild(String text) {
-    bodyElement.appendChild(TextNode.of(text));
+    bodyElement.appendChild(text(text));
     return this;
   }
 

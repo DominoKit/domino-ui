@@ -19,6 +19,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementsFactory;
@@ -28,7 +29,7 @@ import org.dominokit.domino.ui.utils.HasWavesElement;
 public class WavesSupport implements HasWaveEffect<WavesSupport> {
 
   private static final String WAVES_EFFECT = "waves-effect";
-  private final DominoElement<HTMLElement> element;
+  private final DominoElement<Element> element;
 
   private String waveColor;
   private final Waves wavesElement;
@@ -37,7 +38,7 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
     this(targetElement.getWavesElement());
   }
 
-  private WavesSupport(HTMLElement targetElement) {
+  private WavesSupport(Element targetElement) {
     this.element = elements.elementOf(targetElement);
     wavesElement = Waves.create(this.element);
   }
@@ -58,7 +59,7 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
    * @param element the {@link HTMLElement}
    * @return new instance
    */
-  public static WavesSupport addFor(HTMLElement element) {
+  public static WavesSupport addFor(Element element) {
     return new WavesSupport(element).initWaves();
   }
 

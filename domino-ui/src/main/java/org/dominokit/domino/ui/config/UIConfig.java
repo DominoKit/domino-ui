@@ -6,5 +6,9 @@ public interface UIConfig extends FormsFieldsConfig,
         CardConfig,
         CollapseConfig,
         ProgressBarConfig,
-        SearchConfig {
+        SearchConfig,
+        SpinConfig,
+        TabsConfig,
+        TreeConfig,
+        UploadConfig {
 }

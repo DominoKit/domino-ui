@@ -15,232 +15,255 @@
  */
 package org.dominokit.domino.ui.search;
 
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.search.SearchStyles.dui_quick_search;
-import static org.dominokit.domino.ui.utils.DominoUIConfig.CONFIG;
-
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
-import java.util.HashSet;
-import java.util.Set;
-import jsinterop.base.Js;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.SearchConfig;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.forms.TextBox;
 import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.QuickSearchLabels;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.keyboard.KeyboardEventOptions;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.timer.client.Timer;
-import org.jboss.elemento.EventType;
 
-/** A simple search box that is triggered while the user is typing */
+import java.util.HashSet;
+import java.util.Set;
+
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.search.SearchStyles.dui_quick_search;
+
+/**
+ * A simple search box that is triggered while the user is typing
+ */
 public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
         implements HasLabels<QuickSearchLabels>, HasComponentConfig<SearchConfig> {
 
-  private int autoSearchDelay;
-  private DominoElement<HTMLDivElement> root;
-  private final TextBox textBox;
-  private boolean autoSearch = true;
-  private Timer autoSearchTimer;
-  private EventListener autoSearchEventListener;
-  private final BaseIcon<?> searchIcon;
-  private final BaseIcon<?> clearIcon;
+    private int autoSearchDelay;
+    private DivElement root;
+    private final TextBox textBox;
+    private boolean autoSearch = true;
+    private Timer autoSearchTimer;
+    private EventListener autoSearchEventListener;
+    private final Icon<?> searchIcon;
+    private final Icon<?> clearIcon;
 
-  private Set<SearchListener> searchListeners = new HashSet<>();
+    private Set<SearchListener> searchListeners = new HashSet<>();
 
-  public static SearchBox create() {
-    return new SearchBox();
-  }
+    public static SearchBox create() {
+        return new SearchBox();
+    }
 
-  /** creates a new instance */
-  public SearchBox() {
-    init(this);
-    this.autoSearchDelay = getConfig().getAutoSearchDelay();
-    root = div().addCss(dui_quick_search);
-    searchIcon =
-        Icons.ALL
-            .magnify_mdi()
-            .clickable()
-            .addClickListener(
+    /**
+     * creates a new instance
+     */
+    public SearchBox() {
+        init(this);
+        this.autoSearchDelay = getConfig().getAutoSearchDelay();
+        root = div().addCss(dui_quick_search);
+        searchIcon =
+                Icons.ALL
+                        .magnify_mdi()
+                        .clickable()
+                        .addClickListener(
+                                evt -> {
+                                    autoSearchTimer.cancel();
+                                    doSearch();
+                                })
+                        .setTooltip(getLabels().defaultQuickSearchPlaceHolder());
+
+        clearIcon =
+                Icons.ALL
+                        .backspace_outline_mdi()
+                        .clickable()
+                        .setTooltip(getLabels().defaultQuickSearchClearToolTip())
+                        .addClickListener(
+                                evt -> {
+                                    clearSearch();
+                                    focusSearchBox();
+                                });
+
+        clearIcon.onKeyDown(keyEvents -> keyEvents
+                .onEnter(KeyboardEventOptions.create()
+                                .setPreventDefault(true)
+                                .setStopPropagation(true),
+                        evt -> {
+                            clearSearch();
+                            focusSearchBox();
+                        })
+        );
+
+        textBox =
+                TextBox.create()
+                        .setPlaceholder(getLabels().defaultQuickSearchPlaceHolder())
+                        .addLeftAddOn(searchIcon)
+                        .addRightAddOn(clearIcon);
+
+        root.appendChild(textBox.element());
+
+        autoSearchTimer =
+                new Timer() {
+                    @Override
+                    public void run() {
+                        doSearch();
+                    }
+                };
+
+        autoSearchEventListener =
                 evt -> {
-                  autoSearchTimer.cancel();
-                  doSearch();
-                })
-            .setTooltip(getLabels().defaultQuickSearchPlaceHolder());
+                    autoSearchTimer.cancel();
+                    autoSearchTimer.schedule(autoSearchDelay);
+                };
 
-    clearIcon =
-        Icons.ALL
-            .backspace_outline_mdi()
-            .clickable()
-            .setTooltip(getLabels().defaultQuickSearchClearToolTip())
-            .addClickListener(
-                evt -> {
-                  clearSearch();
-                  focusSearchBox();
-                });
-
-    clearIcon.onKeyDown(keyEvents -> keyEvents
-            .onEnter(
-                    evt -> {
-                      clearSearch();
-                      focusSearchBox();
-                    },
-                    KeyboardEventOptions.create()
-                            .setPreventDefault(true)
-                            .setStopPropagation(true))
-    );
-
-    textBox =
-        TextBox.create()
-            .setPlaceholder(getLabels().defaultQuickSearchPlaceHolder())
-            .addLeftAddOn(searchIcon)
-            .addRightAddOn(clearIcon);
-
-    root.appendChild(textBox.element());
-
-    autoSearchTimer =
-        new Timer() {
-          @Override
-          public void run() {
-            doSearch();
-          }
-        };
-
-    autoSearchEventListener =
-        evt -> {
-          autoSearchTimer.cancel();
-          autoSearchTimer.schedule(autoSearchDelay);
-        };
-
-    setAutoSearch(true);
-    root.addClickListener(Event::stopPropagation);
-  }
-
-  private void focusSearchBox() {
-    getTextBox().getInputElement().element().focus();
-  }
-
-  /** Clears the search box and trigger the search with an empty token */
-  public void clearSearch() {
-    textBox.clear();
-    autoSearchTimer.cancel();
-    doSearch();
-  }
-
-  /** @return boolean, true if the auto search is enabled */
-  public boolean isAutoSearch() {
-    return autoSearch;
-  }
-
-  /**
-   * Enable/Disable auto search when enabled the search will be triggered while the user is typing
-   * with a delay otherwise the search will only be triggered when the user click on search or press
-   * Enter
-   *
-   * @param autoSearch boolean
-   * @return same action instance
-   */
-  public SearchBox setAutoSearch(boolean autoSearch) {
-    this.autoSearch = autoSearch;
-
-    if (autoSearch) {
-      textBox.addEventListener("input", autoSearchEventListener);
-    } else {
-      textBox.removeEventListener("input", autoSearchEventListener);
-      autoSearchTimer.cancel();
+        setAutoSearch(true);
+        root.addClickListener(Event::stopPropagation);
     }
 
-    textBox.onKeyPress(keyEvents -> keyEvents.onEnter(evt-> doSearch()));
-
-    return this;
-  }
-
-  /** @return int search delay in milliseconds */
-  public int getAutoSearchDelay() {
-    return autoSearchDelay;
-  }
-
-  /** @param autoSearchDelayInMillies int auto search delay in milliseconds */
-  public void setAutoSearchDelay(int autoSearchDelayInMillies) {
-    this.autoSearchDelay = autoSearchDelayInMillies;
-  }
-
-  private void doSearch() {
-    searchListeners.forEach(searchListener -> searchListener.onSearch(textBox.getValue()));
-  }
-
-  /**
-   * Adds a search listener to the search box component
-   *
-   * @param searchListener {@link SearchListener}
-   * @return same instance
-   */
-  public SearchBox addSearchListener(SearchListener searchListener) {
-    if (nonNull(searchListener)) {
-      this.searchListeners.add(searchListener);
+    private void focusSearchBox() {
+        getTextBox().getInputElement().element().focus();
     }
-    return this;
-  }
 
-  /**
-   * Removes a search listener from the search box component
-   *
-   * @param searchListener {@link SearchListener}
-   * @return same instance
-   */
-  public SearchBox removeSearchListener(SearchListener searchListener) {
-    if (nonNull(searchListener)) {
-      this.searchListeners.remove(searchListener);
+    /**
+     * Clears the search box and trigger the search with an empty token
+     */
+    public void clearSearch() {
+        textBox.clear();
+        autoSearchTimer.cancel();
+        doSearch();
     }
-    return this;
-  }
 
-  /**
-   * Remove all search listeners
-   *
-   * @return same instance
-   */
-  public SearchBox clearSearchListeners() {
-    this.searchListeners.clear();
-    return this;
-  }
+    /**
+     * @return boolean, true if the auto search is enabled
+     */
+    public boolean isAutoSearch() {
+        return autoSearch;
+    }
 
-  /** @return The search {@link TextBox} */
-  public TextBox getTextBox() {
-    return textBox;
-  }
+    /**
+     * Enable/Disable auto search when enabled the search will be triggered while the user is typing
+     * with a delay otherwise the search will only be triggered when the user click on search or press
+     * Enter
+     *
+     * @param autoSearch boolean
+     * @return same action instance
+     */
+    public SearchBox setAutoSearch(boolean autoSearch) {
+        this.autoSearch = autoSearch;
 
-  /** @return the search {@link BaseIcon} */
-  public BaseIcon<?> getSearchIcon() {
-    return searchIcon;
-  }
+        if (autoSearch) {
+            textBox.addEventListener("input", autoSearchEventListener);
+        } else {
+            textBox.removeEventListener("input", autoSearchEventListener);
+            autoSearchTimer.cancel();
+        }
 
-  /** @return the clear search {@link BaseIcon} */
-  public BaseIcon<?> getClearIcon() {
-    return clearIcon;
-  }
+        textBox.onKeyPress(keyEvents -> keyEvents.onEnter(evt -> doSearch()));
 
-  /** @return a set of {@link SearchListener}s */
-  public Set<SearchListener> getSearchListeners() {
-    return searchListeners;
-  }
+        return this;
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return root.element();
-  }
+    /**
+     * @return int search delay in milliseconds
+     */
+    public int getAutoSearchDelay() {
+        return autoSearchDelay;
+    }
 
-  /** A functional interface to implement the search logic in as a search listener */
-  @FunctionalInterface
-  public interface SearchListener {
-    /** @param token String user input */
-    void onSearch(String token);
-  }
+    /**
+     * @param autoSearchDelayInMillies int auto search delay in milliseconds
+     */
+    public void setAutoSearchDelay(int autoSearchDelayInMillies) {
+        this.autoSearchDelay = autoSearchDelayInMillies;
+    }
+
+    private void doSearch() {
+        searchListeners.forEach(searchListener -> searchListener.onSearch(textBox.getValue()));
+    }
+
+    /**
+     * Adds a search listener to the search box component
+     *
+     * @param searchListener {@link SearchListener}
+     * @return same instance
+     */
+    public SearchBox addSearchListener(SearchListener searchListener) {
+        if (nonNull(searchListener)) {
+            this.searchListeners.add(searchListener);
+        }
+        return this;
+    }
+
+    /**
+     * Removes a search listener from the search box component
+     *
+     * @param searchListener {@link SearchListener}
+     * @return same instance
+     */
+    public SearchBox removeSearchListener(SearchListener searchListener) {
+        if (nonNull(searchListener)) {
+            this.searchListeners.remove(searchListener);
+        }
+        return this;
+    }
+
+    /**
+     * Remove all search listeners
+     *
+     * @return same instance
+     */
+    public SearchBox clearSearchListeners() {
+        this.searchListeners.clear();
+        return this;
+    }
+
+    /**
+     * @return The search {@link TextBox}
+     */
+    public TextBox getTextBox() {
+        return textBox;
+    }
+
+    /**
+     * @return the search {@link Icon}
+     */
+    public Icon<?> getSearchIcon() {
+        return searchIcon;
+    }
+
+    /**
+     * @return the clear search {@link Icon}
+     */
+    public Icon<?> getClearIcon() {
+        return clearIcon;
+    }
+
+    /**
+     * @return a set of {@link SearchListener}s
+     */
+    public Set<SearchListener> getSearchListeners() {
+        return searchListeners;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HTMLDivElement element() {
+        return root.element();
+    }
+
+    /**
+     * A functional interface to implement the search logic in as a search listener
+     */
+    @FunctionalInterface
+    public interface SearchListener {
+        /**
+         * @param token String user input
+         */
+        void onSearch(String token);
+    }
 }

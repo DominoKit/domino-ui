@@ -15,14 +15,11 @@
  */
 package org.dominokit.domino.ui.icons;
 
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.img;
-
 import org.dominokit.domino.ui.style.CssClass;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.style.SwapCssClass;
 
 /** Url icon implementation */
-public class UrlIcon extends BaseIcon<UrlIcon> {
+public class UrlIcon extends Icon<UrlIcon> implements CanChangeIcon<UrlIcon> {
 
   private final String url;
 
@@ -32,7 +29,7 @@ public class UrlIcon extends BaseIcon<UrlIcon> {
 
   private UrlIcon(String url, CssClass name) {
     this.url = url;
-    this.name = name;
+    this.name = SwapCssClass.of(name);
     this.icon = elementOf(img(url).element());
     init(this);
   }
@@ -56,20 +53,7 @@ public class UrlIcon extends BaseIcon<UrlIcon> {
 
   /** {@inheritDoc} */
   @Override
-  protected UrlIcon doToggle() {
-    if (nonNull(toggleIcon)) {
-      if (name.isAppliedTo(this)) {
-        addCss(toggleName.replaceWith(toggleIcon.name));
-      } else {
-        addCss(toggleName.replaceWith(name));
-      }
-    }
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public UrlIcon changeTo(BaseIcon<?> icon) {
+  public UrlIcon changeTo(UrlIcon icon) {
     removeCss(getName());
     addCss(icon.getName());
     return null;

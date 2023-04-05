@@ -17,20 +17,15 @@ package org.dominokit.domino.ui.dialogs;
 
 import elemental2.dom.CustomEvent;
 import elemental2.dom.CustomEventInit;
-import elemental2.dom.Event;
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ZIndexConfig;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
-import org.jboss.elemento.EventType;
-
-import java.util.List;
+import org.dominokit.domino.ui.events.EventType;
 
 /**
  * A utility class to show overlays that blocks the content behind a modal dialog.
@@ -46,7 +41,7 @@ public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDr
   private CssClass dui_dialog_backdrop = () -> "dui-dialog-backdrop";
 
   /** The single instance of the overlay backdrop element */
-  private DominoElement<HTMLDivElement> element;
+  private DivElement element;
 
   private ModalBackDrop() {
     element = div();

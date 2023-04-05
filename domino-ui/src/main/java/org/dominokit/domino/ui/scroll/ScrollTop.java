@@ -18,10 +18,10 @@ package org.dominokit.domino.ui.scroll;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.ButtonStyles;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.elemento.EventType;
+import org.dominokit.domino.ui.events.EventType;
 
 import static elemental2.dom.DomGlobal.document;
 
@@ -33,23 +33,23 @@ public class ScrollTop extends Button implements ButtonStyles {
 
   private int showOffset = 60;
 
-  /** @param icon {@link BaseIcon} to show in the component */
-  public ScrollTop(BaseIcon<?> icon) {
+  /** @param icon {@link Icon} to show in the component */
+  public ScrollTop(Icon<?> icon) {
     super(icon);
     init(this);
     circle();
     addCss(ColorsCss.dui_bg_accent);
     addCss(dui_top_scroller);
-    hide();
+    collapse();
     addClickListener(evt -> ElementUtil.scrollTop());
 
     document.addEventListener(
         EventType.scroll.getName(),
         evt -> {
           if (document.scrollingElement.scrollTop > showOffset) {
-            ScrollTop.this.show();
+            ScrollTop.this.expand();
           } else {
-            ScrollTop.this.hide();
+            ScrollTop.this.collapse();
           }
         });
   }
@@ -83,10 +83,10 @@ public class ScrollTop extends Button implements ButtonStyles {
   }
 
   /**
-   * @param icon {@link BaseIcon} to show in the component
+   * @param icon {@link Icon} to show in the component
    * @return same ScrollTop instance
    */
-  public static ScrollTop create(BaseIcon<?> icon) {
+  public static ScrollTop create(Icon<?> icon) {
     return new ScrollTop(icon);
   }
 

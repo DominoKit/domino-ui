@@ -16,16 +16,16 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.*;
 
 import elemental2.dom.DomGlobal;
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
@@ -40,20 +40,20 @@ public abstract class AbstractSelect<
 
   protected Menu<T> optionsMenu;
   protected V value;
-  private DominoElement<HTMLDivElement> fieldInput;
-  private DominoElement<HTMLElement> placeHolderElement;
+  private DivElement fieldInput;
+  private SpanElement placeHolderElement;
   private DominoElement<HTMLInputElement> inputElement;
 
   public AbstractSelect() {
     placeHolderElement = span();
-    addCss(FORM_SELECT);
+    addCss(dui_form_select);
     wrapperElement
         .appendChild(
             fieldInput =
                 div()
-                    .addCss(FIELD_INPUT)
-                    .appendChild(placeHolderElement.addCss(FIELD_PLACEHOLDER)))
-        .appendChild(inputElement = input(getType()).addCss(HIDDEN_INPUT));
+                    .addCss(dui_field_input)
+                    .appendChild(placeHolderElement.addCss(dui_field_placeholder)))
+        .appendChild(inputElement = input(getType()).addCss(dui_hidden_input).toDominoElement());
     labelForId(inputElement.getDominoId());
 
     optionsMenu =
@@ -76,14 +76,14 @@ public abstract class AbstractSelect<
     addPrimaryAddOn(
         Icons.ALL
             .chevron_down_mdi()
-            .addCss(FORM_SELECT_DROP_ARROW)
+            .addCss(dui_form_select_drop_arrow)
             .clickable()
             .addClickListener(evt -> optionsMenu.open(true)));
 
     addPrimaryAddOn(
         Icons.ALL
             .delete_mdi()
-            .addCss(FORM_SELECT_CLEAR)
+            .addCss(dui_form_select_clear)
             .clickable()
             .addClickListener(
                 evt -> {
@@ -301,6 +301,15 @@ public abstract class AbstractSelect<
   public C selectOption(S option) {
     findOption(option).ifPresent(menuItem -> menuItem.select(isChangeListenersPaused()));
     return (C) this;
+  }
+
+  public int getSelectedIndex(){
+    return getOptionsMenu()
+            .getSelection()
+            .stream()
+            .findFirst()
+            .map(item -> getOptionsMenu().getMenuItems().indexOf(item))
+            .orElse(-1);
   }
 
   public Optional<S> findOption(S option) {

@@ -1,6 +1,7 @@
 package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.CustomEvent;
+import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
@@ -8,13 +9,14 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ZIndexConfig;
 import org.dominokit.domino.ui.dialogs.ModalBackDrop;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.FollowOnScroll;
 import org.dominokit.domino.ui.utils.IsPopup;
-import org.jboss.elemento.EventType;
+import org.dominokit.domino.ui.events.EventType;
 
 import java.util.Objects;
 
@@ -25,13 +27,13 @@ import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
 public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTMLDivElement, T>
         implements IsPopup<T>, PopoverStyles, FollowOnScroll.ScrollFollower, HasComponentConfig<ZIndexConfig> {
 
-    protected final HTMLElement targetElement;
+    protected final Element targetElement;
     private final EventListener closeAllListener;
-    private DominoElement<HTMLDivElement> root;
-    private DominoElement<HTMLDivElement> wrapper;
-    private DominoElement<HTMLDivElement> arrow;
-    private DominoElement<HTMLDivElement> header;
-    private DominoElement<HTMLDivElement> body;
+    private DivElement root;
+    private DivElement wrapper;
+    private DivElement arrow;
+    private DivElement header;
+    private DivElement body;
 
     private PopupPosition popupPosition = TOP;
 
@@ -52,7 +54,7 @@ public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTM
         ModalBackDrop.INSTANCE.closePopovers(sourceId);
     }
 
-    public BasePopover(HTMLElement target) {
+    public BasePopover(Element target) {
         this.targetElement = target;
         root = div()
                 .addCss(dui_popover, positionClass)
@@ -80,19 +82,19 @@ public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTM
                     body().removeEventListener(EventType.keydown.getName(), closeListener);
                 }
         );
-        addHideListener(this::doClose);
+        addCollapseListener(this::doClose);
         closeAllListener = evt -> {
             CustomEvent<String> event= Js.uncheckedCast(evt);
             if(!Objects.equals(event.detail, getDominoId())) {
                 close();
             }
         };
-        addHideListener(() -> removeEventListener(DUI_REMOVE_POPOVERS, closeAllListener));
+        addCollapseListener(() -> removeEventListener(DUI_REMOVE_POPOVERS, closeAllListener));
     }
 
     /** {@inheritDoc} */
     @Override
-    public T show() {
+    public T expand() {
         if (isEnabled()) {
             if (closeOthers) {
                 closeAll(getDominoId());
@@ -105,12 +107,12 @@ public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTM
     }
 
     public T open() {
-        return show();
+        return expand();
     }
 
     protected void doOpen() {
         body().appendChild(root.element());
-        super.show();
+        super.expand();
         doPosition();
         if(!isCloseOnScroll()) {
             followOnScroll.start();
@@ -126,7 +128,7 @@ public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTM
 
     /** Closes the popover */
     public T close() {
-        hide();
+        collapse();
         return (T) this;
     }
 
@@ -179,29 +181,29 @@ public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTM
         return (T) this;
     }
 
-    public DominoElement<HTMLDivElement> getArrowElement() {
+    public DivElement getArrowElement() {
         return arrow;
     }
 
-    public T withArrow(ChildHandler<T, DominoElement<HTMLDivElement>> handler){
+    public T withArrow(ChildHandler<T, DivElement> handler){
         handler.apply((T) this, arrow);
         return (T) this;
     }
 
-    public DominoElement<HTMLDivElement> getHeaderElement() {
+    public DivElement getHeaderElement() {
         return header;
     }
 
-    public T withHeader(ChildHandler<T, DominoElement<HTMLDivElement>> handler){
+    public T withHeader(ChildHandler<T, DivElement> handler){
         handler.apply((T) this, header);
         return (T) this;
     }
 
-    public DominoElement<HTMLDivElement> getBody() {
+    public DivElement getBody() {
         return body;
     }
 
-    public T withBody(ChildHandler<T, DominoElement<HTMLDivElement>> handler){
+    public T withBody(ChildHandler<T, DivElement> handler){
         handler.apply((T) this, body);
         return (T) this;
     }

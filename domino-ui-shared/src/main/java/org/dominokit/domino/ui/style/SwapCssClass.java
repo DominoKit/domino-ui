@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.style;
 
 import static java.util.Objects.nonNull;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 
 public class SwapCssClass implements CssClass {
@@ -30,6 +31,9 @@ public class SwapCssClass implements CssClass {
 
   public static SwapCssClass of(CssClass initialStyle) {
     return new SwapCssClass(initialStyle);
+  }
+  public static SwapCssClass of(HasCssClass initialStyle) {
+    return new SwapCssClass(initialStyle.getCssClass());
   }
 
   public static SwapCssClass of(String cssClass) {
@@ -61,14 +65,14 @@ public class SwapCssClass implements CssClass {
   }
 
   @Override
-  public void remove(HTMLElement element) {
+  public void remove(Element element) {
     if (nonNull(current)) {
       current.remove(element);
     }
   }
 
   @Override
-  public void apply(HTMLElement element) {
+  public void apply(Element element) {
     remove(element);
     current = replacement;
     replacement.apply(element);

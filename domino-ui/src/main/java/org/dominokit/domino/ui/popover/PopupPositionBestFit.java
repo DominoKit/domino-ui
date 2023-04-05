@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.DOMRect;
 import elemental2.dom.DomGlobal;
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.CssClass;
 
@@ -32,7 +33,7 @@ public class PopupPositionBestFit implements PopupPosition {
 
   /** {@inheritDoc} */
   @Override
-  public void position(HTMLElement popup, HTMLElement target) {
+  public void position(Element popup, Element target) {
     DOMRect targetRect = target.getBoundingClientRect();
     double bottom = targetRect.bottom + popup.getBoundingClientRect().height;
     double right = targetRect.right + popup.getBoundingClientRect().height;
@@ -52,7 +53,7 @@ public class PopupPositionBestFit implements PopupPosition {
     }
   }
 
-  protected void position(HTMLElement popup, HTMLElement target, PopupPosition popupPosition) {
+  protected void position(Element popup, Element target, PopupPosition popupPosition) {
     popupPosition.position(popup, target);
     this.positionClass = popupPosition.getDirectionClass();
   }

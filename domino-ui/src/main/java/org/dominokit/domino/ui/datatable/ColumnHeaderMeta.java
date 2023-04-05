@@ -19,13 +19,16 @@ import elemental2.dom.HTMLTableCellElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.dominokit.domino.ui.elements.THElement;
+import org.dominokit.domino.ui.elements.THeadElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 public class ColumnHeaderMeta implements ColumnMeta {
 
   public static final String DOMINO_COLUMN_HEADER_META = "domino-column-header-meta";
 
-  private List<DominoElement<HTMLTableCellElement>> extraHeadElements = new ArrayList<>();
+  private List<THElement> extraHeadElements = new ArrayList<>();
 
   public static ColumnHeaderMeta create() {
     return new ColumnHeaderMeta();
@@ -40,12 +43,12 @@ public class ColumnHeaderMeta implements ColumnMeta {
     return column.getMeta(DOMINO_COLUMN_HEADER_META);
   }
 
-  public List<DominoElement<HTMLTableCellElement>> getExtraHeadElements() {
+  public List<THElement> getExtraHeadElements() {
     return extraHeadElements;
   }
 
   public ColumnHeaderMeta addExtraHeadElement(
-      DominoElement<HTMLTableCellElement> extraHeadElement) {
+      THElement extraHeadElement) {
     this.extraHeadElements.add(extraHeadElement);
     return this;
   }

@@ -17,16 +17,13 @@ package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
-import static org.jboss.elemento.Elements.a;
 
 import elemental2.dom.*;
 import java.util.Optional;
 import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
-import org.jboss.elemento.EventType;
-import org.jboss.elemento.HtmlContentBuilder;
-import org.jboss.elemento.IsElement;
-import org.jboss.elemento.ObserverCallback;
+import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.IsElement;
 
 /** A general purpose utility class */
 public class ElementUtil {
@@ -57,27 +54,9 @@ public class ElementUtil {
   }
 
   /**
-   * @param element the target element
-   * @param <E> the type extending from {@link HTMLElement}
-   * @return new {@link HtmlContentBuilder} for the provided element
-   */
-  public static <E extends HTMLElement> HtmlContentBuilder<E> contentBuilder(E element) {
-    return new HtmlContentBuilder<>(element);
-  }
-
-  /**
-   * @param element the target {@link IsElement}
-   * @param <E> the type extending from {@link HTMLElement}
-   * @return new {@link HtmlContentBuilder} for the provided element
-   */
-  public static <E extends HTMLElement> HtmlContentBuilder<E> contentBuilder(IsElement<E> element) {
-    return new HtmlContentBuilder<>(element.element());
-  }
-
-  /**
    * @param keyCode String keyboard key code
    * @param keyboardEvent {@link KeyboardEvent}
-   * @return boolean, true if the the KeyCode is same as the key of the KeyboradEvent
+   * @return boolean, true if the KeyCode is same as the key of the KeyboradEvent
    */
   public static boolean isKeyOf(String keyCode, KeyboardEvent keyboardEvent) {
     return keyCode.equalsIgnoreCase(keyboardEvent.key);
@@ -137,10 +116,10 @@ public class ElementUtil {
    * registered.
    *
    * @param element the {@link HTMLElement} which is going to be added to the body
-   * @param callback {@link ObserverCallback}
+   * @param callback {@link AttachDetachCallback}
    * @return an Optional {@link ElementObserver}
    */
-  public static Optional<ElementObserver> onAttach(HTMLElement element, ObserverCallback callback) {
+  public static Optional<ElementObserver> onAttach(HTMLElement element, AttachDetachCallback callback) {
     if (element != null) {
       elements.elementOf(element).onAttached(callback);
     }
@@ -152,14 +131,14 @@ public class ElementUtil {
   }
 
   /**
-   * {@link #onAttach(HTMLElement, ObserverCallback)}
+   * {@link #onAttach(HTMLElement, AttachDetachCallback)}
    *
    * @param element the {@link IsElement} which is going to be added to the body
-   * @param callback {@link ObserverCallback}
+   * @param callback {@link AttachDetachCallback}
    * @return an Optional {@link ElementObserver}
    */
   public static Optional<ElementObserver> onAttach(
-          IsElement<?> element, ObserverCallback callback) {
+          IsElement<?> element, AttachDetachCallback callback) {
     if (element != null) {
       elements.elementOf(element).onAttached(callback);
     }
@@ -176,10 +155,10 @@ public class ElementUtil {
    * registered.
    *
    * @param element the {@link HTMLElement} which is going to be removed from the body
-   * @param callback {@link ObserverCallback}
+   * @param callback {@link AttachDetachCallback}
    * @return an Optional {@link ElementObserver}
    */
-  public static Optional<ElementObserver> onDetach(HTMLElement element, ObserverCallback callback) {
+  public static Optional<ElementObserver> onDetach(HTMLElement element, AttachDetachCallback callback) {
     if (element != null) {
       elements.elementOf(element).onDetached(callback);
     }
@@ -187,14 +166,14 @@ public class ElementUtil {
   }
 
   /**
-   * {@link #onDetach(HTMLElement, ObserverCallback)}
+   * {@link #onDetach(HTMLElement, AttachDetachCallback)}
    *
    * @param element the {@link HTMLElement} which is going to be removed from the body
-   * @param callback {@link ObserverCallback}
+   * @param callback {@link AttachDetachCallback}
    * @return an Optional {@link ElementObserver}
    */
   public static Optional<ElementObserver> onDetach(
-          IsElement<?> element, ObserverCallback callback) {
+          IsElement<?> element, AttachDetachCallback callback) {
     if (element != null) {
       elements.elementOf(element).onDetached(callback);
     }
@@ -300,7 +279,7 @@ public class ElementUtil {
    *
    * @param element {@link HTMLElement}
    */
-  public static void scrollToElement(HTMLElement element) {
+  public static void scrollToElement(Element element) {
     element.scrollIntoView();
   }
 
@@ -312,8 +291,8 @@ public class ElementUtil {
    * @return new {@link HTMLAnchorElement} instance
    */
   public static HTMLAnchorElement openInNewTabLink(String text, String targetUrl) {
-    return a().textContent(text)
-        .on(EventType.click, event -> DomGlobal.window.open(targetUrl, "_blank"))
+    return elements.a().textContent(text)
+        .addEventListener(EventType.click, event -> DomGlobal.window.open(targetUrl, "_blank"))
         .element();
   }
 

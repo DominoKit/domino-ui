@@ -22,4 +22,6 @@ public interface DominoUILabels
         DialogLabels,
         LoaderLabels,
         PaginationLabels,
-        SearchLabels {}
+        SearchLabels,
+        UploadLabels,
+        PickersLabels {}

@@ -20,13 +20,12 @@ import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
 import static org.dominokit.domino.ui.style.GenericCss.dui_vertical_center;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.gwtproject.timer.client.Timer;
-import org.jboss.elemento.IsElement;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.fields.FieldSelector;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * A component which provides a loader mask on a target element
@@ -43,7 +42,7 @@ import org.junit.jupiter.params.shadow.com.univocity.parsers.common.fields.Field
  */
 public class Loader {
 
-  private final DominoElement<HTMLElement> target;
+  private final DominoElement<Element> target;
   private final IsLoader loaderElement;
   private boolean started = false;
   private String width;
@@ -76,7 +75,7 @@ public class Loader {
     return new Loader(target.element(), effect);
   }
 
-  private Loader(HTMLElement target, LoaderEffect type) {
+  private Loader(Element target, LoaderEffect type) {
     this.target = elements.elementOf(target);
     this.loaderElement = LoaderFactory.make(type);
     this.loaderElement.getContentElement().addCss(loadingPosition);

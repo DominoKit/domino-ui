@@ -22,10 +22,14 @@ import elemental2.dom.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.InputElement;
+import org.dominokit.domino.ui.elements.LabelElement;
+import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.TakesValue;
 import org.gwtproject.safehtml.shared.SafeHtml;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * A component that represent a single option in a {@link RadioGroup}
@@ -44,11 +48,11 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
         HasChangeListeners<Radio<T>, Boolean>,
         HasInputElement<Radio<T>, HTMLInputElement> {
 
-  private DominoElement<HTMLDivElement> radioElement;
-  private DominoElement<HTMLInputElement> inputElement;
-  private DominoElement<HTMLDivElement> fieldInput;
-  private DominoElement<HTMLLabelElement> labelElement;
-  private LazyChild<DominoElement<HTMLElement>> noteElement;
+  private DivElement radioElement;
+  private InputElement inputElement;
+  private DivElement fieldInput;
+  private LabelElement labelElement;
+  private LazyChild<SmallElement> noteElement;
   private RadioGroup<? super T> radioGroup;
   private T value;
 
@@ -64,15 +68,15 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
 
     radioElement =
         div()
-            .addCss(FORM_RADIO)
-            .appendChild(inputElement = input(getType()).addCss(HIDDEN_INPUT))
+            .addCss(dui_form_radio)
+            .appendChild(inputElement = input(getType()).addCss(dui_hidden_input))
             .appendChild(
                 fieldInput =
                     div()
-                        .addCss(FIELD_INPUT)
+                        .addCss(dui_field_input)
                         .appendChild(
-                            labelElement = label().addCss(FORM_RADIO_LABEL)));
-    noteElement = LazyChild.of(small().addCss(FORM_RADIO_NOTE), radioElement);
+                            labelElement = label().addCss(dui_form_radio_label)));
+    noteElement = LazyChild.of(small().addCss(dui_form_radio_note), radioElement);
     setLabel(label);
     labelForId(inputElement.getDominoId());
     withValue(value);
@@ -334,7 +338,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
 
   /** {@inheritDoc} */
   public DominoElement<HTMLInputElement> getInputElement() {
-    return inputElement;
+    return inputElement.toDominoElement();
   }
 
   /** {@inheritDoc} */
@@ -430,15 +434,15 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return super.setReadOnly(readOnly);
   }
 
-  public DominoElement<HTMLDivElement> getFieldInput() {
+  public DivElement getFieldInput() {
     return fieldInput;
   }
 
-  public DominoElement<HTMLLabelElement> getLabelElement() {
+  public LabelElement getLabelElement() {
     return labelElement;
   }
 
-  public DominoElement<HTMLElement> getNoteElement() {
+  public SmallElement getNoteElement() {
     return noteElement.get();
   }
 
@@ -446,17 +450,17 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return radioGroup;
   }
 
-  public T withFieldInput(ChildHandler<Radio<T>, DominoElement<HTMLDivElement>> handler) {
+  public T withFieldInput(ChildHandler<Radio<T>, DivElement> handler) {
     handler.apply(this, fieldInput);
     return (T) this;
   }
 
-  public T withLabelElement(ChildHandler<Radio<T>, DominoElement<HTMLLabelElement>> handler) {
+  public T withLabelElement(ChildHandler<Radio<T>, LabelElement> handler) {
     handler.apply(this, labelElement);
     return (T) this;
   }
 
-  public T withNoteElement(ChildHandler<Radio<T>, DominoElement<HTMLElement>> handler) {
+  public T withNoteElement(ChildHandler<Radio<T>, SmallElement> handler) {
     handler.apply(this, noteElement.get());
     return (T) this;
   }

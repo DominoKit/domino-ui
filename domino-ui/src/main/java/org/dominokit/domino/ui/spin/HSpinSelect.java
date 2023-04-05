@@ -16,9 +16,8 @@
 package org.dominokit.domino.ui.spin;
 
 import elemental2.dom.DOMRect;
-import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 
 /**
@@ -28,61 +27,53 @@ import org.dominokit.domino.ui.utils.SwipeUtil;
  */
 public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
 
-  /**
-   * Creates new instance
-   *
-   * @param <T> the type of the object inside the spin
-   * @return new instance
-   */
-  public static <T> HSpinSelect<T> create() {
-    return new HSpinSelect<>();
-  }
+    /**
+     * Creates new instance
+     *
+     * @param <T> the type of the object inside the spin
+     * @return new instance
+     */
+    public static <T> HSpinSelect<T> create() {
+        return new HSpinSelect<>();
+    }
 
-  /**
-   * Creates new instance with back/forward icons
-   *
-   * @param backIcon the back {@link BaseIcon}
-   * @param forwardIcon the forward {@link BaseIcon}
-   * @param <T> the type of the object inside the spin
-   * @return new instance
-   */
-  public static <T> HSpinSelect<T> create(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {
-    return new HSpinSelect<>(backIcon, forwardIcon);
-  }
+    /**
+     * Creates new instance with back/forward icons
+     *
+     * @param backIcon    the back {@link Icon}
+     * @param forwardIcon the forward {@link Icon}
+     * @param <T>         the type of the object inside the spin
+     * @return new instance
+     */
+    public static <T> HSpinSelect<T> create(Icon<?> backIcon, Icon<?> forwardIcon) {
+        return new HSpinSelect<>(backIcon, forwardIcon);
+    }
 
-  public HSpinSelect() {
-    this(Icons.ALL.arrow_left_mdi(), Icons.ALL.arrow_right_mdi());
-  }
+    public HSpinSelect() {
+        this(DominoUIConfig.CONFIG.getUIConfig().getDefaultBackIconSupplier().get()
+                , DominoUIConfig.CONFIG.getUIConfig().getDefaultForwardIconSupplier().get()
+        );
+    }
 
-  public HSpinSelect(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {
-    super(backIcon, forwardIcon);
-    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, main.element(), evt -> moveBack());
-    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, main.element(), evt -> moveForward());
-  }
+    public HSpinSelect(Icon<?> backIcon, Icon<?> forwardIcon) {
+        super(backIcon, forwardIcon);
+        addCss(dui_spin_horizontal);
+        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, contentPanel.element(), evt -> moveBack());
+        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, contentPanel.element(), evt -> moveForward());
+    }
 
-  @Override
-  protected void fixElementsWidth() {
-    DOMRect boundingClientRect = main.getBoundingClientRect();
-    double totalWidth = boundingClientRect.width * items.size();
-    contentPanel.setWidth(100 * items.size() + "%");
+    @Override
+    protected void fixElementsWidth() {
+        DOMRect boundingClientRect = contentPanel.getBoundingClientRect();
+        double totalWidth = boundingClientRect.width * items.size();
+        contentPanel.setWidth(100 * items.size() + "%");
 
-    items.forEach(
-        spinItem -> spinItem.setWidth(((boundingClientRect.width / totalWidth) * 100) + "%"));
-  }
+        items.forEach(
+                spinItem -> spinItem.setWidth(((boundingClientRect.width / totalWidth) * 100) + "%"));
+    }
 
-  @Override
-  protected void setTransformProperty(double offset) {
-    contentPanel.setCssProperty("transform", "translate3d(-" + offset + "%, 0px, 0px)");
-  }
-
-  @Override
-  protected String getStyle() {
-    return SpinStyles.H_SPIN;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return element.element();
-  }
+    @Override
+    protected void setTransformProperty(double offset) {
+        contentPanel.setCssProperty("transform", "translate3d(-" + offset + "%, 0px, 0px)");
+    }
 }

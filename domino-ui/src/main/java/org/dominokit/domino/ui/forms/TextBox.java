@@ -16,7 +16,7 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.FIELD_INPUT;
+import static org.dominokit.domino.ui.forms.FormsStyles.dui_field_input;
 
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -47,7 +47,7 @@ public class TextBox extends TextInputFormField<TextBox, HTMLInputElement, Strin
 
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
-    return input(type).addCss(FIELD_INPUT);
+    return input(type).addCss(dui_field_input).toDominoElement();
   }
 
   @Override

@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.datatable.plugins;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.COLUMN_RESIZER;
 import static org.dominokit.domino.ui.style.Unit.px;
 import static org.dominokit.domino.ui.utils.DominoDom.document;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
@@ -26,9 +25,10 @@ import elemental2.dom.MouseEvent;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.ColumnResizedEvent;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.EventType;
+import org.dominokit.domino.ui.events.EventType;
 
 /**
  * this plugin allows resizing columns of a data table
@@ -60,7 +60,7 @@ public class ResizeColumnsPlugin<T> implements DataTablePlugin<T> {
         .ifPresent(
             resizeColumnMeta -> {
               if (resizeColumnMeta.isResizable()) {
-                DominoElement<HTMLDivElement> resizeElement =
+                DivElement resizeElement =
                     elements.div().css(COLUMN_RESIZER);
 
                 EventListener resizeListener =

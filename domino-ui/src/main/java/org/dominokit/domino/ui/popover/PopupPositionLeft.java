@@ -16,8 +16,10 @@
 package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.Style;
 
 import static elemental2.dom.DomGlobal.window;
 
@@ -25,15 +27,15 @@ import static elemental2.dom.DomGlobal.window;
 public class PopupPositionLeft implements PopupPosition {
   /** {@inheritDoc} */
   @Override
-  public void position(HTMLElement tooltip, HTMLElement target) {
+  public void position(Element tooltip, Element target) {
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect tooltipRect = tooltip.getBoundingClientRect();
-    tooltip.style.setProperty(
+    Style.of(tooltip).style.setProperty(
         "top",
         (targetRect.top + window.pageYOffset)
             + ((targetRect.height - tooltipRect.height) / 2)
             + "px");
-    tooltip.style.setProperty(
+    Style.of(tooltip).style.setProperty(
         "left", targetRect.left - window.pageXOffset - tooltipRect.width + "px");
   }
 

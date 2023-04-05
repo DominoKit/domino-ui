@@ -15,7 +15,7 @@
  */
 package org.dominokit.domino.ui.style;
 
-import elemental2.dom.HTMLElement;
+import elemental2.dom.Element;
 
 public class PostfixCssClass implements CssClass {
   private final String baseCssName;
@@ -60,12 +60,12 @@ public class PostfixCssClass implements CssClass {
   }
 
   @Override
-  public void remove(HTMLElement element) {
+  public void remove(Element element) {
     swapCssClass.remove(element);
   }
 
   @Override
-  public void apply(HTMLElement element) {
+  public void apply(Element element) {
     swapCssClass.apply(element);
   }
 

@@ -24,9 +24,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.dominokit.domino.ui.icons.BaseIcon;
+
+import org.dominokit.domino.ui.elements.OListElement;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasChangeListeners;
 
@@ -54,7 +55,7 @@ import org.dominokit.domino.ui.utils.HasChangeListeners;
  */
 public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     implements HasChangeListeners<Breadcrumb, BreadcrumbItem> {
-  private final DominoElement<HTMLOListElement> element;
+  private final OListElement element;
   private final List<BreadcrumbItem> items = new ArrayList<>();
   private final Set<ChangeListener<? super BreadcrumbItem>> changeListeners = new HashSet<>();
   private BreadcrumbItem activeItem;
@@ -93,12 +94,12 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   /**
    * Adds new location with {@code text}, {@code icon} and {@code onClick} listener
    *
-   * @param icon the {@link BaseIcon} of the location
+   * @param icon the {@link Icon} of the location
    * @param text the label of the location
    * @param onClick {@link EventListener} that will be called when the location is clicked
    * @return same instance
    */
-  public Breadcrumb appendChild(BaseIcon<?> icon, String text, EventListener onClick) {
+  public Breadcrumb appendChild(Icon<?> icon, String text, EventListener onClick) {
     BreadcrumbItem item = BreadcrumbItem.create(icon, text);
     addAndActivateNewItem(item);
     item.addClickListener(onClick);

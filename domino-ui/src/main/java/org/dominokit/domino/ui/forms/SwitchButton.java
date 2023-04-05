@@ -17,12 +17,14 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.*;
 
 import elemental2.dom.*;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.LabelElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.Checkable;
@@ -33,12 +35,12 @@ import org.dominokit.domino.ui.utils.LazyChild;
 public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement, Boolean>
     implements Checkable<SwitchButton> {
 
-  private LazyChild<DominoElement<HTMLLabelElement>> offLabelElement;
-  private LazyChild<DominoElement<HTMLLabelElement>> onLabelElement;
+  private LazyChild<LabelElement> offLabelElement;
+  private LazyChild<LabelElement> onLabelElement;
 
   private String offTitle;
   private String onTitle;
-  private DominoElement<HTMLElement> trackElement;
+  private SpanElement trackElement;
 
   /**
    * @param label String label describing the switch
@@ -91,12 +93,12 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
 
   /** Creates a switch without a label */
   public SwitchButton() {
-    addCss(SWITCH);
-    DominoElement<HTMLDivElement> fieldInput = div().addCss(FIELD_INPUT);
+    addCss(dui_switch);
+    DivElement fieldInput = div().addCss(dui_field_input);
     wrapperElement.appendChild(fieldInput);
-    offLabelElement = LazyChild.of(label().addCss(SWITCH_OFF_LABEL), fieldInput);
-    onLabelElement = LazyChild.of(label().addCss(SWITCH_ON_LABEL), fieldInput);
-    fieldInput.appendChild(trackElement = span().addCss(SWITCH_TRACK));
+    offLabelElement = LazyChild.of(label().addCss(di_switch_off_label), fieldInput);
+    onLabelElement = LazyChild.of(label().addCss(dui_switch_on_label), fieldInput);
+    fieldInput.appendChild(trackElement = span().addCss(dui_switch_track));
 
     EventListener listener =
         evt -> {
@@ -118,7 +120,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
 
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
-    return input(type).addCss(HIDDEN_INPUT);
+    return input(type).addCss(dui_hidden_input).toDominoElement();
   }
 
   @Override
@@ -218,7 +220,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /** @return HTMLLabelElement */
-  public LazyChild<DominoElement<HTMLLabelElement>> getOffLabelElement() {
+  public LazyChild<LabelElement> getOffLabelElement() {
     return offLabelElement;
   }
 
@@ -287,7 +289,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
    * @return same SwitchButton instance
    */
   public SwitchButton grow() {
-    addCss(BooleanCssClass.of(SWITCH_GROW, true));
+    addCss(BooleanCssClass.of(dui_switch_grow, true));
     return this;
   }
 
@@ -297,7 +299,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
    * @return same SwitchButton instance
    */
   public SwitchButton ungrow() {
-    addCss(BooleanCssClass.of(SWITCH_GROW, false));
+    addCss(BooleanCssClass.of(dui_switch_grow, false));
     return this;
   }
 
@@ -307,7 +309,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
    * @return same SwitchButton instance
    */
   public SwitchButton grow(boolean grow) {
-    addCss(BooleanCssClass.of(SWITCH_GROW, grow));
+    addCss(BooleanCssClass.of(dui_switch_grow, grow));
     return this;
   }
 
@@ -318,7 +320,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
    * @return same SwitchButton instance
    */
   public SwitchButton condenseLabels() {
-    addCss(BooleanCssClass.of(SWITCH_CONDENSE, true));
+    addCss(BooleanCssClass.of(dui_switch_condense, true));
     return this;
   }
 
@@ -328,7 +330,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
    * @return same SwitchButton instance
    */
   public SwitchButton uncondenseLabels() {
-    addCss(BooleanCssClass.of(SWITCH_CONDENSE, false));
+    addCss(BooleanCssClass.of(dui_switch_condense, false));
     return this;
   }
 
@@ -338,7 +340,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
    * @return same SwitchButton instance
    */
   public SwitchButton condenseLabels(boolean grow) {
-    addCss(BooleanCssClass.of(SWITCH_CONDENSE, grow));
+    addCss(BooleanCssClass.of(dui_switch_condense, grow));
     return this;
   }
 

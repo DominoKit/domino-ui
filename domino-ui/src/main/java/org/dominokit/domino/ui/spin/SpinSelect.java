@@ -15,20 +15,28 @@
  */
 package org.dominokit.domino.ui.spin;
 
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.spin.SpinStyles.*;
-import static org.jboss.elemento.Elements.a;
-import static org.jboss.elemento.Elements.div;
-
+import elemental2.dom.DomGlobal;
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
-import java.util.ArrayList;
-import java.util.List;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.config.HasComponentConfig;
+import org.dominokit.domino.ui.config.SpinConfig;
+import org.dominokit.domino.ui.elements.AnchorElement;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasSelectionHandler;
-import org.dominokit.domino.ui.utils.SwipeUtil;
+import org.dominokit.domino.ui.utils.HasChangeListeners;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import static java.util.Objects.nonNull;
 
 /**
  * Abstract implementation for spin
@@ -36,245 +44,316 @@ import org.dominokit.domino.ui.utils.SwipeUtil;
  * @param <T> the type of the object inside the spin
  * @param <S> the type of the spin
  */
-abstract class SpinSelect<T, S extends SpinSelect<T, ?>>
-    extends BaseDominoElement<HTMLDivElement, S> implements HasSelectionHandler<S, SpinItem<T>> {
+abstract class SpinSelect<T, S extends SpinSelect<T, S>>
+        extends BaseDominoElement<HTMLDivElement, S>
+        implements SpinStyles,
+        HasChangeListeners<S, T>,
+        HasComponentConfig<SpinConfig> {
 
-  protected DominoElement<HTMLDivElement> element = div().css(getStyle());
-  private final DominoElement<HTMLAnchorElement> prevAnchor =
-      a().css(PREV).css(DISABLED);
-  private final DominoElement<HTMLAnchorElement> nextAnchor = a().css(NEXT);
-  protected DominoElement<HTMLDivElement> contentPanel = div().css(SPIN_CONTENT);
-  protected DominoElement<HTMLDivElement> main =
-      div().add(contentPanel).css(SPIN_CONTAINER);
-  protected List<SpinItem<T>> items = new ArrayList<>();
-  private SpinItem<T> activeItem;
-  private final List<HasSelectionHandler.SelectionHandler<SpinItem<T>>> selectionHandlers =
-      new ArrayList<>();
-  private NavigationHandler navigationHandler = direction -> {};
+    private final Icon<?> backIcon;
+    private final Icon<?> forwardIcon;
 
-  SpinSelect(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {
-    element
-        .appendChild(
-            prevAnchor.appendChild(
-                backIcon
-                    .clickable()
-                    .addClickListener(
-                        evt -> {
-                          moveBack();
-                          navigationHandler.onNavigate(Direction.BACKWARD);
-                        })))
-        .appendChild(main)
-        .appendChild(
-            nextAnchor.appendChild(
-                forwardIcon
-                    .clickable()
-                    .addClickListener(
-                        evt -> {
-                          moveForward();
-                          navigationHandler.onNavigate(Direction.FORWARD);
-                        })));
-    init((S) this);
-    onAttached(mutationRecord -> fixElementsWidth());
-    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, main.element(), evt -> moveBack());
-    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, main.element(), evt -> moveForward());
-  }
+    protected DivElement root;
+    private final AnchorElement prevAnchor;
+    private final AnchorElement nextAnchor;
+    protected DivElement contentPanel;
+    protected List<SpinItem<T>> items = new ArrayList<>();
+    private SpinItem<T> activeItem;
+    private T oldValue;
+    private boolean changeListenersPaused;
+    private final Set<ChangeListener<? super T>> changeListeners = new HashSet<>();
+    private SwapCssClass exitCss = SwapCssClass.of();
+    private EventListener clearAnimation;
 
-  /**
-   * Move to the next item
-   *
-   * @return same instance
-   */
-  public S moveForward() {
-    moveToIndex(items.indexOf(this.activeItem) + 1);
-    return (S) this;
-  }
+    SpinSelect(Icon<?> backIcon, Icon<?> forwardIcon) {
+        this.backIcon = backIcon;
+        this.forwardIcon = forwardIcon;
+        root = div()
+                .addCss(dui_spin)
+                .appendChild(prevAnchor = a().addCss(dui_spin_prev, dui_disabled)
+                        .appendChild(backIcon.addCss(dui_clickable)
+                                .addClickListener(evt -> moveBack())
+                        )
+                )
+                .appendChild(contentPanel = div().addCss(dui_spin_content))
+                .appendChild(nextAnchor = a().addCss(dui_spin_next)
+                        .appendChild(forwardIcon.addCss(dui_clickable)
+                                .addClickListener(evt -> moveForward())
+                        )
+                );
 
-  /**
-   * Move back to the previous item
-   *
-   * @return same instance
-   */
-  public S moveBack() {
-    moveToIndex(items.indexOf(this.activeItem) - 1);
-    return (S) this;
-  }
-
-  /**
-   * Move to item at a specific index
-   *
-   * @param targetIndex the index of the item
-   * @return same instance
-   */
-  public S moveToIndex(int targetIndex) {
-    if (targetIndex < items.size() && targetIndex >= 0) {
-      int activeIndex = items.indexOf(activeItem);
-      if (targetIndex != activeIndex) {
-        this.activeItem = items.get(targetIndex);
-        double offset = (100d / items.size()) * (targetIndex);
-        setTransformProperty(offset);
-        informSelectionHandlers();
-      }
+        init((S) this);
+        addCss(()->"dui-spin-exit-right");
+        clearAnimation = evt -> {
+                removeCss("dui-spin-animate");
+        };
     }
 
-    updateArrowsVisibility();
-    return (S) this;
-  }
-
-  /**
-   * Move to a specific item
-   *
-   * @param item the {@link SpinItem}
-   * @return same instance
-   */
-  public S moveToItem(SpinItem<T> item) {
-    if (items.contains(item)) {
-      return moveToIndex(items.indexOf(item));
-    }
-    return (S) this;
-  }
-
-  private void updateArrowsVisibility() {
-    if (items.indexOf(this.activeItem) == items.size() - 1) {
-      nextAnchor.addCss(DISABLED);
-    } else {
-      nextAnchor.removeCss(DISABLED);
+    /**
+     * Move to the next item
+     *
+     * @return same instance
+     */
+    public S moveForward() {
+        moveToIndex(items.indexOf(this.activeItem) + 1);
+        return (S) this;
     }
 
-    if (items.indexOf(this.activeItem) < 1) {
-      prevAnchor.addCss(DISABLED);
-    } else {
-      prevAnchor.removeCss(DISABLED);
+    /**
+     * Move back to the previous item
+     *
+     * @return same instance
+     */
+    public S moveBack() {
+        moveToIndex(items.indexOf(this.activeItem) - 1);
+        return (S) this;
     }
-  }
 
-  /**
-   * Adds a new item
-   *
-   * @param spinItem A {@link SpinItem} to add
-   * @return same instance
-   */
-  public S appendChild(SpinItem<T> spinItem) {
-    if (items.isEmpty()) {
-      this.activeItem = spinItem;
+    /**
+     * Move to item at a specific index
+     *
+     * @param targetIndex the index of the item
+     * @return same instance
+     */
+    public S moveToIndex(int targetIndex) {
+        this.oldValue = getValue();
+        if (targetIndex < items.size() && targetIndex >= 0) {
+            int activeIndex = items.indexOf(activeItem);
+            if (targetIndex != activeIndex) {
+                SpinItem<T> next = items.get(targetIndex);
+                if(items.indexOf(next)> indexOf(this.activeItem)){
+                    addCss(exitCss.replaceWith(dui_spin_exit_forward));
+                }else {
+                    addCss(exitCss.replaceWith(dui_spin_exit_backward));
+                }
+                this.activeItem.addCss(spinExiting);
+                next.addCss(spinActivating);
+                DomGlobal.setTimeout(p0 -> {
+                    addCss(dui_spin_animate);
+                    this.activeItem.removeCss(dui_active);
+                    next.addCss(dui_active);
+                    this.activeItem = next;
+                    updateArrowsVisibility();
+                    triggerChangeListeners(oldValue, getValue());
+                }, 0);
+            }
+        }
+        return (S) this;
     }
-    items.add(spinItem);
-    contentPanel.appendChild(spinItem);
-    return (S) this;
-  }
 
-  /** @return the current active item */
-  public SpinItem<T> getActiveItem() {
-    return activeItem;
-  }
-
-  private void informSelectionHandlers() {
-    selectionHandlers.forEach(
-        spinItemSelectionHandler -> spinItemSelectionHandler.onSelection(this.activeItem));
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public S addSelectionHandler(SelectionHandler<SpinItem<T>> selectionHandler) {
-    selectionHandlers.add(selectionHandler);
-    return (S) this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public S removeSelectionHandler(SelectionHandler<SpinItem<T>> selectionHandler) {
-    selectionHandlers.remove(selectionHandler);
-    return (S) this;
-  }
-
-  /** @return All the items */
-  public List<SpinItem<T>> getItems() {
-    return items;
-  }
-
-  /**
-   * @param item the {@link SpinItem}
-   * @return the index of the item inside the spin
-   */
-  public int indexOf(SpinItem<T> item) {
-    if (items.contains(item)) {
-      return items.indexOf(item);
-    } else {
-      return -1;
+    /**
+     * Move to a specific item
+     *
+     * @param item the {@link SpinItem}
+     * @return same instance
+     */
+    public S moveToItem(SpinItem<T> item) {
+        if (items.contains(item)) {
+            return moveToIndex(items.indexOf(item));
+        }
+        return (S) this;
     }
-  }
 
-  /** @return the total number of items inside the spin */
-  public int itemsCount() {
-    return items.size();
-  }
+    private void updateArrowsVisibility() {
+        if (items.indexOf(this.activeItem) == items.size() - 1) {
+            nextAnchor.addCss(dui_disabled);
+            nextAnchor.disable();
+        } else {
+            nextAnchor.removeCss(dui_disabled);
+            nextAnchor.enable();
+        }
 
-  /**
-   * @param item the {@link SpinItem}
-   * @return true if the item is the last item, false otherwise
-   */
-  public boolean isLastItem(SpinItem<T> item) {
-    return items.contains(item) && indexOf(item) == (itemsCount() - 1);
-  }
-
-  /**
-   * @param item the {@link SpinItem}
-   * @return true if the item is the first item, false otherwise
-   */
-  public boolean isFirstItem(SpinItem<T> item) {
-    return items.contains(item) && indexOf(item) == 0;
-  }
-
-  /**
-   * Move to the first item
-   *
-   * @return same instance
-   */
-  public S gotoFirst() {
-    moveToIndex(0);
-    return (S) this;
-  }
-
-  /**
-   * Move to the last item
-   *
-   * @return same instance
-   */
-  public S gotoLast() {
-    moveToIndex(itemsCount() - 1);
-    return (S) this;
-  }
-
-  /**
-   * Adds a handler which will be called when navigating between items
-   *
-   * @param navigationHandler A {@link NavigationHandler} to add
-   * @return same instance
-   */
-  public S onNavigate(NavigationHandler navigationHandler) {
-    if (nonNull(navigationHandler)) {
-      this.navigationHandler = navigationHandler;
+        if (items.indexOf(this.activeItem) < 1) {
+            prevAnchor.addCss(dui_disabled);
+            prevAnchor.disable();
+        } else {
+            prevAnchor.removeCss(dui_disabled);
+            prevAnchor.enable();
+        }
     }
-    return (S) this;
-  }
 
-  /** @return the previous element */
-  public DominoElement<HTMLAnchorElement> getPrevAnchor() {
-    return prevAnchor;
-  }
+    @Override
+    public S pauseChangeListeners() {
+        this.changeListenersPaused = true;
+        return (S) this;
+    }
 
-  /** @return the next element */
-  public DominoElement<HTMLAnchorElement> getNextAnchor() {
-    return nextAnchor;
-  }
+    @Override
+    public S resumeChangeListeners() {
+        this.changeListenersPaused = false;
+        return (S) this;
+    }
 
-  /** @return the content panel */
-  public DominoElement<HTMLDivElement> getContentPanel() {
-    return contentPanel;
-  }
+    @Override
+    public S togglePauseChangeListeners(boolean toggle) {
+        this.changeListenersPaused = toggle;
+        return (S) this;
+    }
 
-  protected abstract void fixElementsWidth();
+    @Override
+    public Set<ChangeListener<? super T>> getChangeListeners() {
+        return this.changeListeners;
+    }
 
-  protected abstract void setTransformProperty(double offset);
+    @Override
+    public boolean isChangeListenersPaused() {
+        return this.changeListenersPaused;
+    }
 
-  protected abstract String getStyle();
+    @Override
+    public S triggerChangeListeners(T oldValue, T newValue) {
+        if(!isChangeListenersPaused()){
+            changeListeners.forEach(changeListener -> changeListener.onValueChanged(oldValue, Optional.ofNullable(getActiveItem())
+                    .map(SpinItem::getValue).orElse(null)));
+        }
+        return (S) this;
+    }
+
+    /**
+     * Adds a new item
+     *
+     * @param spinItem A {@link SpinItem} to add
+     * @return same instance
+     */
+    public S appendChild(SpinItem<T> spinItem) {
+        if(nonNull(spinItem)) {
+            if (items.isEmpty()) {
+                this.activeItem = spinItem;
+                this.activeItem.addCss(dui_active);
+            }
+            items.add(spinItem);
+            spinItem.addEventListener("transitionend", clearAnimation);
+            contentPanel.appendChild(spinItem);
+            updateArrowsVisibility();
+        }
+        return (S) this;
+    }
+
+    /**
+     * @return the current active item
+     */
+    public SpinItem<T> getActiveItem() {
+        return activeItem;
+    }
+
+    /**
+     * @return All the items
+     */
+    public List<SpinItem<T>> getItems() {
+        return items;
+    }
+
+    /**
+     * @param item the {@link SpinItem}
+     * @return the index of the item inside the spin
+     */
+    public int indexOf(SpinItem<T> item) {
+        if (items.contains(item)) {
+            return items.indexOf(item);
+        } else {
+            return -1;
+        }
+    }
+
+    /**
+     * @return the total number of items inside the spin
+     */
+    public int itemsCount() {
+        return items.size();
+    }
+
+    /**
+     * @param item the {@link SpinItem}
+     * @return true if the item is the last item, false otherwise
+     */
+    public boolean isLastItem(SpinItem<T> item) {
+        return items.contains(item) && indexOf(item) == (itemsCount() - 1);
+    }
+
+    /**
+     * @param item the {@link SpinItem}
+     * @return true if the item is the first item, false otherwise
+     */
+    public boolean isFirstItem(SpinItem<T> item) {
+        return items.contains(item) && indexOf(item) == 0;
+    }
+
+    /**
+     * Move to the first item
+     *
+     * @return same instance
+     */
+    public S gotoFirst() {
+        moveToIndex(0);
+        return (S) this;
+    }
+
+    /**
+     * Move to the last item
+     *
+     * @return same instance
+     */
+    public S gotoLast() {
+        moveToIndex(itemsCount() - 1);
+        return (S) this;
+    }
+
+    /**
+     * @return the previous element
+     */
+    public AnchorElement getPrevAnchor() {
+        return prevAnchor;
+    }
+
+    /**
+     * @return the next element
+     */
+    public AnchorElement getNextAnchor() {
+        return nextAnchor;
+    }
+
+    /**
+     * @return the content panel
+     */
+    public DivElement getContentPanel() {
+        return contentPanel;
+    }
+
+    public T getValue(){
+        return Optional.ofNullable(activeItem).map(SpinItem::getValue).orElse(null);
+    }
+
+    public S withBackAnchor(ChildHandler<S, AnchorElement> handler){
+        handler.apply((S) this, prevAnchor);
+        return (S) this;
+    }
+
+    public S withForwardAnchor(ChildHandler<S, AnchorElement> handler){
+        handler.apply((S) this, nextAnchor);
+        return (S) this;
+    }
+
+    public S withBackIcon(ChildHandler<S, Icon<?>> handler){
+        handler.apply((S) this, backIcon);
+        return (S) this;
+    }
+
+    public S withForwardIcon(ChildHandler<S, Icon<?>> handler){
+        handler.apply((S) this, forwardIcon);
+        return (S) this;
+    }
+
+    public S withContentContainer(ChildHandler<S, DivElement> handler){
+        handler.apply((S) this, contentPanel);
+        return (S) this;
+    }
+
+    protected abstract void fixElementsWidth();
+
+    protected abstract void setTransformProperty(double offset);
+
+    @Override
+    public HTMLDivElement element() {
+        return root.element();
+    }
 }

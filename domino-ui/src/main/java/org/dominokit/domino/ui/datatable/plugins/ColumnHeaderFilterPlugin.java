@@ -15,25 +15,33 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
-import static org.jboss.elemento.Elements.th;
-import static org.jboss.elemento.Elements.tr;
-
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableRowElement;
 import elemental2.dom.HTMLTableSectionElement;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.dominokit.domino.ui.datatable.*;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.datatable.ColumnConfig;
+import org.dominokit.domino.ui.datatable.ColumnHeaderMeta;
+import org.dominokit.domino.ui.datatable.ColumnMeta;
+import org.dominokit.domino.ui.datatable.DataTable;
+import org.dominokit.domino.ui.datatable.DataTableStyles;
+import org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener;
+import org.dominokit.domino.ui.datatable.TableConfig;
 import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
+import org.dominokit.domino.ui.elements.THElement;
+import org.dominokit.domino.ui.elements.THeadElement;
+import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 /**
  * This plugin adds header filters to table columns headers
@@ -50,7 +58,7 @@ import org.jboss.elemento.IsElement;
 public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
   private final Map<String, HeaderFilter> headerFilters = new HashMap<>();
-  private DominoElement<HTMLTableRowElement> filtersRowElement = elements.tr();
+  private TableRowElement filtersRowElement = elements.tr();
 
   /**
    * Create a new instance
@@ -67,12 +75,12 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
   public void onAfterAddHeaders(DataTable<T> dataTable) {
     TableConfig<T> tableConfig = dataTable.getTableConfig();
     List<ColumnConfig<T>> columns = tableConfig.getColumns();
-    DominoElement<HTMLTableSectionElement> thead = dataTable.headerElement();
+    THeadElement thead = dataTable.headerElement();
     thead.appendChild(filtersRowElement);
 
     columns.forEach(
         columnConfig -> {
-          DominoElement<HTMLTableCellElement> th =
+          THElement th =
               elements.th().css(DataTableStyles.TABLE_CM_FILTER);
           columnConfig.getHeaderStyler().styleCell(th.element());
 
@@ -88,13 +96,13 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
               .ifPresent(
                   meta -> {
                     meta.getHeaderFilter().init(dataTable.getSearchContext(), columnConfig);
-                    th.add(meta.getHeaderFilter());
+                    th.appendChild(meta.getHeaderFilter());
                   });
           if (headerFilters.containsKey(columnConfig.getName())) {
             headerFilters
                 .get(columnConfig.getName())
                 .init(dataTable.getSearchContext(), columnConfig);
-            th.add(headerFilters.get(columnConfig.getName()));
+            th.appendChild(headerFilters.get(columnConfig.getName()));
           }
           ColumnHeaderMeta.get(columnConfig)
               .ifPresent(columnHeaderMeta -> columnHeaderMeta.addExtraHeadElement(th));
@@ -146,7 +154,7 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
   }
 
   /** @return The table row element that contains the header filters components */
-  public DominoElement<HTMLTableRowElement> getFiltersRowElement() {
+  public TableRowElement getFiltersRowElement() {
     return filtersRowElement;
   }
 

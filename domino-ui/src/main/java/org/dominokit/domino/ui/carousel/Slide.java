@@ -15,15 +15,28 @@
  */
 package org.dominokit.domino.ui.carousel;
 
-import static org.dominokit.domino.ui.carousel.CarouselStyles.*;
-import static org.jboss.elemento.Elements.img;
-
-import elemental2.dom.*;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLHeadingElement;
+import elemental2.dom.HTMLImageElement;
+import elemental2.dom.HTMLLIElement;
+import elemental2.dom.HTMLParagraphElement;
+import elemental2.dom.HTMLPictureElement;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.HeadingElement;
+import org.dominokit.domino.ui.elements.LIElement;
+import org.dominokit.domino.ui.elements.ParagraphElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.LazyChild;
+
+import static org.dominokit.domino.ui.carousel.CarouselStyles.slide;
+import static org.dominokit.domino.ui.carousel.CarouselStyles.slide_caption;
+import static org.dominokit.domino.ui.carousel.CarouselStyles.slide_indicator;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 /**
  * A component for an element for {@link Carousel}
@@ -35,12 +48,12 @@ import org.dominokit.domino.ui.utils.LazyChild;
  */
 public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
-  private final DominoElement<HTMLLIElement> indicatorElement;
-  private final LazyChild<DominoElement<HTMLHeadingElement>> slideLabelElement;
-  private final LazyChild<DominoElement<HTMLParagraphElement>> slideDescriptionElement;
-  private final LazyChild<DominoElement<HTMLDivElement>> captionElement;
+  private final LIElement indicatorElement;
+  private final LazyChild<HeadingElement> slideLabelElement;
+  private final LazyChild<ParagraphElement> slideDescriptionElement;
+  private final LazyChild<DivElement> captionElement;
 
-  private final DominoElement<HTMLDivElement> slideElement;
+  private final DivElement slideElement;
 
   private final DominoElement<HTMLElement> imageElement;
 
@@ -57,7 +70,7 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   }
 
   public Slide(String imageSrc) {
-    this(img(imageSrc).element());
+    this(elements.img(imageSrc).element());
   }
 
   public Slide(HTMLImageElement image) {
@@ -150,35 +163,35 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   }
 
   /** @return The slide label element */
-  public DominoElement<HTMLHeadingElement> getSlideLabelElement() {
+  public HeadingElement getSlideLabelElement() {
     return slideLabelElement.get();
   }
 
   /** @return The slide label element */
   public Slide withSlideLabelElement(
-      ChildHandler<Slide, DominoElement<HTMLHeadingElement>> handler) {
+      ChildHandler<Slide, HeadingElement> handler) {
     handler.apply(this, slideLabelElement.get());
     return this;
   }
 
   /** @return The slide description element */
-  public DominoElement<HTMLParagraphElement> getSlideDescriptionElement() {
+  public ParagraphElement getSlideDescriptionElement() {
     return slideDescriptionElement.get();
   }
 
   public Slide withSlideDescriptionElement(
-      ChildHandler<Slide, DominoElement<HTMLParagraphElement>> handler) {
+      ChildHandler<Slide, ParagraphElement> handler) {
     handler.apply(this, slideDescriptionElement.get());
     return this;
   }
 
-  public Slide withSlideCaptionElement(ChildHandler<Slide, DominoElement<HTMLDivElement>> handler) {
+  public Slide withSlideCaptionElement(ChildHandler<Slide, DivElement> handler) {
     handler.apply(this, captionElement.get());
     return this;
   }
 
   /** @return The slide caption element */
-  public DominoElement<HTMLDivElement> getCaptionElement() {
+  public DivElement getCaptionElement() {
     return captionElement.get();
   }
 

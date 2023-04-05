@@ -15,18 +15,11 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.datatable.ColumnUtils.fixElementWidth;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
-import static org.jboss.elemento.Elements.th;
-
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableRowElement;
 import elemental2.dom.Node;
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.elements.THElement;
 import org.dominokit.domino.ui.grid.flex.FlexAlign;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
@@ -35,11 +28,23 @@ import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.BestSideUpDownDropDirection;
 import org.dominokit.domino.ui.popover.Tooltip;
+import org.dominokit.domino.ui.style.SpacingCss;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.ScreenMedia;
-import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.elemento.IsElement;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.datatable.ColumnUtils.fixElementWidth;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 /**
  * Class to define a column in the data table
@@ -68,7 +73,7 @@ public class ColumnConfig<T> {
                     .setOrder(50)
                     .setFlexGrow(1)
                     .styler(style -> style.setCssProperty("text-indent", "2px"))
-                    .appendChild(TextNode.of(columnTitle)))
+                    .appendChild(ElementsFactory.elements.text(columnTitle)))
             .element();
       };
   private CellStyler<T> headerStyler = element -> {};
@@ -134,8 +139,8 @@ public class ColumnConfig<T> {
         Menu.<String>create()
             .setTargetElement(menuIcon)
             .setDropDirection(new BestSideUpDownDropDirection())
-            .addOnAddItemHandler((menu1, menuItem) -> menuIcon.show());
-    menuIcon.hide();
+            .addOnAddItemHandler((menu1, menuItem) -> menuIcon.expand());
+    menuIcon.collapse();
   }
 
   /**
@@ -535,7 +540,7 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> setTooltipText(String tooltipText) {
-    this.tooltipNode = TextNode.of(tooltipText);
+    this.tooltipNode = ElementsFactory.elements.text(tooltipText);
     return this;
   }
 
@@ -839,7 +844,7 @@ public class ColumnConfig<T> {
     if (startIndex == 0) {
       elements.elementOf(headers[0]).appendChild(createColumnElement(tableConfig));
     } else {
-      DominoElement<HTMLTableCellElement> fillHeader =
+      THElement fillHeader =
           createColumnElement(tableConfig)
               .clearElement()
               .apply(self -> self.setAttribute("rowspan", startIndex + ""));
@@ -879,7 +884,7 @@ public class ColumnConfig<T> {
                 int index = headers.length - 1;
                 if (index > startIndex) {
                   int diff = startIndex - index;
-                  DominoElement<HTMLTableCellElement> fillHeader =
+                  THElement fillHeader =
                       col.createColumnElement(tableConfig)
                           .clearElement()
                           .setAttribute("rowspan", diff + "");
@@ -894,7 +899,7 @@ public class ColumnConfig<T> {
             });
   }
 
-  private DominoElement<HTMLTableCellElement> createColumnElement(TableConfig<T> tableConfig) {
+  private THElement createColumnElement(TableConfig<T> tableConfig) {
 
     flexLayout = FlexLayout.create().setAlignItems(FlexAlign.CENTER);
     if (isDrawTitle() && nonNull(getTitle())) {
@@ -907,10 +912,10 @@ public class ColumnConfig<T> {
           FlexItem.of(elements.div().css("dui-th-filler")).setOrder(60).setFlexGrow(1));
     }
 
-    flexLayout.appendChild(FlexItem.of(menuIcon.size18().clickable().removeWaves()).setOrder(9980));
+    flexLayout.appendChild(FlexItem.of(menuIcon.addCss(SpacingCss.dui_font_size_4).clickable().removeWaves()).setOrder(9980));
 
-    DominoElement<HTMLTableCellElement> th =
-            elements.elementOf(th().attr("colspan", getColSpan() + ""))
+    THElement th =
+            elements.th().setAttribute("colspan", getColSpan() + "")
             .addCss(DataTableStyles.TABLE_CM_HEADER)
             .appendChild(flexLayout);
 

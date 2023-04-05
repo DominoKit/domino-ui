@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.datatable.events;
 
 import java.util.List;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
-import org.dominokit.domino.ui.datatable.plugins.StickyColumnsPlugin;
 
 /**
  * This event will be fired when a column has been marked as sticky column from {@link

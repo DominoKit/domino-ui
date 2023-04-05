@@ -15,9 +15,10 @@
  */
 package org.dominokit.domino.ui.style;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 
-public interface DominoStyle<E extends HTMLElement, R> {
+public interface DominoStyle<E extends Element, R> {
   R setCssProperty(String name, String value);
 
   R setCssProperty(String name, String value, boolean important);
@@ -175,10 +176,6 @@ public interface DominoStyle<E extends HTMLElement, R> {
   R setOpacity(double opacity, boolean important);
 
   boolean containsCss(String cssClass);
-
-  R pullRight();
-
-  R pullLeft();
 
   R alignCenter();
 

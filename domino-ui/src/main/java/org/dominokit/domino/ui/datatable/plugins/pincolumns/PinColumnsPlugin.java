@@ -30,10 +30,11 @@ import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.menu.MenuItem;
+import org.dominokit.domino.ui.style.SpacingCss;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.dominokit.domino.ui.utils.ElementsFactory;
 
+import static org.dominokit.domino.ui.style.SpacingCss.dui_font_size_4;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 /**
@@ -74,8 +75,8 @@ public class PinColumnsPlugin<T>
   public static final String dui_pinned_right = "dui-pinned-right";
   private DataTable<T> datatable;
 
-  private FlexItem<?> pinLeftIcon = FlexItem.of(Icons.ALL.pin_mdi().size18()).setOrder(100);
-  private FlexItem<?> pinRightIcon = FlexItem.of(Icons.ALL.pin_mdi().size18()).setOrder(100);
+  private FlexItem<?> pinLeftIcon = FlexItem.of(Icons.ALL.pin_mdi().addCss(dui_font_size_4)).setOrder(100);
+  private FlexItem<?> pinRightIcon = FlexItem.of(Icons.ALL.pin_mdi().addCss(dui_font_size_4)).setOrder(100);
   private PinColumnsConfig config = PinColumnsConfig.of();
 
   @Override

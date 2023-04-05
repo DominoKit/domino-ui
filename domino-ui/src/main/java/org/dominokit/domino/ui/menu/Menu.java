@@ -20,6 +20,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.menu.MenuStyles.*;
 
+import elemental2.dom.Element;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLAnchorElement;
@@ -32,8 +33,12 @@ import java.util.*;
 
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ZIndexConfig;
+import org.dominokit.domino.ui.elements.AnchorElement;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.LIElement;
+import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
@@ -45,8 +50,8 @@ import org.dominokit.domino.ui.search.SearchBox;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.*;
-import org.jboss.elemento.EventType;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * The base component to create a menu like UI.
@@ -59,15 +64,15 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
     public static final String ANY = "*";
     private final LazyChild<MenuHeader> menuHeader;
-    private final LazyChild<DominoElement<HTMLDivElement>> menuSearchContainer;
+    private final LazyChild<DivElement> menuSearchContainer;
     private final LazyChild<SearchBox> searchBox;
-    private final LazyChild<DominoElement<HTMLDivElement>> menuSubHeader;
-    private final DominoElement<HTMLUListElement> menuItemsList;
-    private final DominoElement<HTMLDivElement> menuBody;
-    private final LazyChild<DominoElement<HTMLAnchorElement>> createMissingElement;
+    private final LazyChild<DivElement> menuSubHeader;
+    private final UListElement menuItemsList;
+    private final DivElement menuBody;
+    private final LazyChild<AnchorElement> createMissingElement;
     private final LazyChild<MdiIcon> backIcon;
-    private LazyChild<DominoElement<HTMLLIElement>> noResultElement;
-    protected DominoElement<HTMLDivElement> menuElement;
+    private LazyChild<LIElement> noResultElement;
+    protected DivElement menuElement;
 
     private HTMLElement focusElement;
     protected KeyboardNavigation<AbstractMenuItem<V, ?>> keyboardNavigation;
@@ -95,7 +100,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     private final DropDirection contextMenuDropDirection = new MouseBestFitDirection();
     private final DropDirection smallScreenDropDirection = new MiddleOfScreenDropDirection();
     private DropDirection effectiveDropDirection = dropDirection;
-    private HTMLElement targetElement;
+    private Element targetElement;
     private HTMLElement menuAppendTarget = document.body;
     private AppendStrategy appendStrategy = AppendStrategy.LAST;
 
@@ -121,7 +126,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                 }
             };
     private final FlexItem<HTMLDivElement> backArrowContainer =
-            FlexItem.create().setOrder(0).css("back-arrow-icon").hide();
+            FlexItem.create().setOrder(0).css("back-arrow-icon").collapse();
     private boolean contextMenu = false;
     private boolean useSmallScreensDirection = true;
     private boolean dropDown = false;
@@ -280,10 +285,10 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      * Set the menu icon in the header, setting the icon will force the header to show up if not
      * visible
      *
-     * @param icon Any Icon instance that extends from {@link BaseIcon}
+     * @param icon Any Icon instance that extends from {@link Icon}
      * @return the same menu instance
      */
-    public Menu<V> setIcon(BaseIcon<?> icon) {
+    public Menu<V> setIcon(Icon<?> icon) {
         menuHeader.get().setIcon(icon);
         return this;
     }
@@ -419,7 +424,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      */
     public Menu<V> appendSeparator() {
         this.menuItemsList.appendChild(
-                li().add(span().addCss(menu_separator)));
+                li().appendChild(span().addCss(menu_separator)));
         return this;
     }
 
@@ -510,7 +515,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      * @return The {@link DominoElement} of the {@link HTMLLIElement} that is used to represent no
      * results when search is applied
      */
-    public LazyChild<DominoElement<HTMLLIElement>> getNoResultElement() {
+    public LazyChild<LIElement> getNoResultElement() {
         return noResultElement;
     }
 
@@ -524,7 +529,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         if (nonNull(noResultElement)) {
             this.noResultElement.remove();
             this.noResultElement =
-                    LazyChild.of(elementOf(noResultElement).addCss(menu_no_results), menuItemsList);
+                    LazyChild.of(LIElement.of(noResultElement).addCss(menu_no_results), menuItemsList);
         }
         return this;
     }
@@ -935,10 +940,10 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                 appendStrategy.onAppend(getMenuAppendTarget(), element.element());
                 onDetached(record -> close());
                 if (smallScreen && nonNull(parent) && parent.isDropDown()) {
-                    parent.hide();
+                    parent.collapse();
                     menuHeader.get().insertFirst(backArrowContainer);
                 }
-                show();
+                expand();
             }
         }
     }
@@ -971,7 +976,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      * @return the {@link HTMLElement} that triggers this menu to open, and which the positioning of
      * the menu will be based on.
      */
-    public HTMLElement getTargetElement() {
+    public Element getTargetElement() {
         return targetElement;
     }
 
@@ -989,7 +994,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      *                      positioning of the menu will be based on.
      * @return same menu instance
      */
-    public Menu<V> setTargetElement(HTMLElement targetElement) {
+    public Menu<V> setTargetElement(Element targetElement) {
         if (nonNull(this.targetElement)) {
             this.targetElement.removeEventListener(
                     isContextMenu() ? EventType.contextmenu.getName() : EventType.click.getName(),
@@ -1057,7 +1062,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                 menuItems.forEach(AbstractMenuItem::onParentClosed);
                 triggerCollapseListeners(this);
                 if (smallScreen && nonNull(parent) && parent.isDropDown()) {
-                    parent.show();
+                    parent.expand();
                 }
             }
         }

@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.style;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 
 import static java.util.Objects.nonNull;
@@ -61,14 +62,14 @@ public class ReplaceCssClass implements CssClass {
   }
 
   @Override
-  public void remove(HTMLElement element) {
+  public void remove(Element element) {
     if (nonNull(replacement)) {
       replacement.remove(element);
     }
   }
 
   @Override
-  public void apply(HTMLElement element) {
+  public void apply(Element element) {
     if(nonNull(replacement)){
       original.remove(element);
       replacement.apply(element);

@@ -16,9 +16,8 @@
 package org.dominokit.domino.ui.spin;
 
 import elemental2.dom.DOMRect;
-import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 
 /**
@@ -41,24 +40,26 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
   /**
    * Creates new instance with back/forward icons
    *
-   * @param backIcon the back {@link BaseIcon}
-   * @param forwardIcon the forward {@link BaseIcon}
+   * @param backIcon the back {@link Icon}
+   * @param forwardIcon the forward {@link Icon}
    * @param <T> the type of the object inside the spin
    * @return new instance
    */
-  public static <T> VSpinSelect<T> create(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {
+  public static <T> VSpinSelect<T> create(Icon<?> backIcon, Icon<?> forwardIcon) {
     return new VSpinSelect<>(backIcon, forwardIcon);
   }
 
   public VSpinSelect() {
-    this(Icons.ALL.arrow_up_mdi(), Icons.ALL.arrow_down_mdi());
+    this(DominoUIConfig.CONFIG.getUIConfig().getDefaultUpIconSupplier().get()
+            , DominoUIConfig.CONFIG.getUIConfig().getDefaultDownIconSupplier().get()
+    );
   }
 
-  public VSpinSelect(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {
+  public VSpinSelect(Icon<?> backIcon, Icon<?> forwardIcon) {
     super(backIcon, forwardIcon);
-    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.DOWN, main.element(), evt -> moveBack());
-    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.UP, main.element(), evt -> moveForward());
-    setHeight("50px");
+    addCss(dui_spin_vertical);
+    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.DOWN, contentPanel.element(), evt -> moveBack());
+    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.UP, contentPanel.element(), evt -> moveForward());
   }
 
   @Override
@@ -67,13 +68,8 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
   }
 
   @Override
-  protected String getStyle() {
-    return SpinStyles.V_SPIN;
-  }
-
-  @Override
   protected void fixElementsWidth() {
-    DOMRect boundingClientRect = main.getBoundingClientRect();
+    DOMRect boundingClientRect = contentPanel.getBoundingClientRect();
     double totalHeight = boundingClientRect.height * items.size();
     contentPanel.setHeight(100 * items.size() + "%");
 
@@ -81,9 +77,4 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
         spinItem -> spinItem.setHeight(((boundingClientRect.height / totalHeight) * 100) + "%"));
   }
 
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return element.element();
-  }
 }

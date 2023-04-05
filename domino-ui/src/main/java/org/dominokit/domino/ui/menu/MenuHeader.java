@@ -20,11 +20,13 @@ import static org.dominokit.domino.ui.menu.MenuStyles.*;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * Menu header component for {@link Menu}, the header is hidden by default unless it is explicitly
@@ -32,8 +34,8 @@ import org.jboss.elemento.IsElement;
  */
 public class MenuHeader extends BaseDominoElement<HTMLDivElement, MenuHeader> {
 
-  private final DominoElement<HTMLDivElement> root;
-  private final LazyChild<DominoElement<HTMLElement>> titleElement;
+  private final DivElement root;
+  private final LazyChild<SpanElement> titleElement;
 
   public MenuHeader() {
     root = div().addCss(menu_header_bar);
@@ -44,10 +46,10 @@ public class MenuHeader extends BaseDominoElement<HTMLDivElement, MenuHeader> {
   /**
    * Set the menu header icon
    *
-   * @param icon {@link BaseIcon}
+   * @param icon {@link Icon}
    * @return same header instance
    */
-  public MenuHeader setIcon(BaseIcon<?> icon) {
+  public MenuHeader setIcon(Icon<?> icon) {
     root.appendChild(icon.addCss(menu_icon));
     return this;
   }

@@ -21,6 +21,8 @@ import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -88,7 +90,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
     implements CollapsibleStyles {
 
-  private final DominoElement<HTMLDivElement> element;
+  private final DivElement element;
   private List<AccordionPanel> panels = new LinkedList<>();
   private boolean multiOpen = false;
   private CollapseStrategy panelsCollapseStrategy;
@@ -141,11 +143,11 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
         accordionPanels.forEach(
             accordionPanel -> {
               if (!accordionPanel.isCollapsed()) {
-                accordionPanel.hide();
+                accordionPanel.collapse();
               }
             });
         if (panel.isCollapsed()) {
-          panel.show();
+          panel.expand();
         }
       } else {
         panel.toggleDisplay();

@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.icons;
 import static org.dominokit.domino.ui.icons.IconsStyles.*;
 
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -30,13 +31,13 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class LabeledIcon extends BaseDominoElement<HTMLElement, LabeledIcon> {
 
-  private final DominoElement<HTMLElement> element = span().addCss(dui_labeled_icon);
+  private final SpanElement element = span().addCss(dui_labeled_icon);
 
-  public LabeledIcon(BaseIcon<?> icon, String text) {
+  public LabeledIcon(Icon<?> icon, String text) {
     this(icon, text, IconPosition.LEFT);
   }
 
-  public LabeledIcon(BaseIcon<?> icon, String text, IconPosition position) {
+  public LabeledIcon(Icon<?> icon, String text, IconPosition position) {
     element.appendChild(icon);
     element.appendChild(span().addCss(dui_icon_text).textContent(text));
     position.apply(this);
@@ -45,11 +46,11 @@ public class LabeledIcon extends BaseDominoElement<HTMLElement, LabeledIcon> {
   /**
    * Creates an icon with a label text
    *
-   * @param icon the {@link BaseIcon}
+   * @param icon the {@link Icon}
    * @param text the label of the icon
    * @return new instance
    */
-  public static LabeledIcon create(BaseIcon<?> icon, String text) {
+  public static LabeledIcon create(Icon<?> icon, String text) {
     return new LabeledIcon(icon, text);
   }
 
@@ -57,12 +58,12 @@ public class LabeledIcon extends BaseDominoElement<HTMLElement, LabeledIcon> {
    * Creates an icon with a label text with providing the position of the icon to either left or
    * right
    *
-   * @param icon the {@link BaseIcon}
+   * @param icon the {@link Icon}
    * @param text the label of the icon
    * @param position the {@link IconPosition}
    * @return new instance
    */
-  public static LabeledIcon create(BaseIcon<?> icon, String text, IconPosition position) {
+  public static LabeledIcon create(Icon<?> icon, String text, IconPosition position) {
     return new LabeledIcon(icon, text, position);
   }
 

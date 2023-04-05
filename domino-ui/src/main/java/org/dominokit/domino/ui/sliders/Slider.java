@@ -19,26 +19,27 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.InputElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.EventOptions;
+import org.dominokit.domino.ui.events.EventOptions;
 import org.dominokit.domino.ui.utils.HasChangeListeners;
-import org.jboss.elemento.EventType;
+import org.dominokit.domino.ui.events.EventType;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import static org.jboss.elemento.EventType.blur;
-import static org.jboss.elemento.EventType.change;
-import static org.jboss.elemento.EventType.mousedown;
-import static org.jboss.elemento.EventType.mousemove;
-import static org.jboss.elemento.EventType.mouseout;
-import static org.jboss.elemento.EventType.mouseup;
-import static org.jboss.elemento.EventType.touchend;
-import static org.jboss.elemento.EventType.touchmove;
-import static org.jboss.elemento.EventType.touchstart;
+import static org.dominokit.domino.ui.events.EventType.blur;
+import static org.dominokit.domino.ui.events.EventType.change;
+import static org.dominokit.domino.ui.events.EventType.mousedown;
+import static org.dominokit.domino.ui.events.EventType.mousemove;
+import static org.dominokit.domino.ui.events.EventType.mouseout;
+import static org.dominokit.domino.ui.events.EventType.mouseup;
+import static org.dominokit.domino.ui.events.EventType.touchend;
+import static org.dominokit.domino.ui.events.EventType.touchmove;
+import static org.dominokit.domino.ui.events.EventType.touchstart;
 
 /**
  * A component with min/max value and its value can be changed by sliding a pointer through the
@@ -53,10 +54,10 @@ import static org.jboss.elemento.EventType.touchstart;
 public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
         implements HasChangeListeners<Slider, Double>,
         SliderStyles{
-    private final DominoElement<HTMLDivElement> root;
-    private final DominoElement<HTMLInputElement> input;
-    private final DominoElement<HTMLElement> thumb;
-    private final DominoElement<HTMLElement> valueElement;
+    private final DivElement root;
+    private final InputElement input;
+    private final SpanElement thumb;
+    private final SpanElement valueElement;
     private double oldValue;
     private Set<ChangeListener<? super Double>> changeListeners = new HashSet<>();
     private boolean mouseDown;
@@ -108,7 +109,7 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
                 )
                 .appendChild(thumb = span()
                         .addCss(dui_slider_thumb)
-                        .hide()
+                        .collapse()
                         .appendChild(valueElement = span().addCss(dui_slider_value))
                 );
         setMaxValue(max);
@@ -208,12 +209,12 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
     }
 
     private void showThumb() {
-        thumb.show();
+        thumb.expand();
         updateThumbValue();
     }
 
     private void hideThumb() {
-        thumb.hide();
+        thumb.collapse();
     }
 
     private void evaluateThumbPosition() {

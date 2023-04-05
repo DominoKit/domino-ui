@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.button;
 import elemental2.dom.HTMLDivElement;
 import java.util.Arrays;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -46,7 +47,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class ButtonsToolbar extends BaseDominoElement<HTMLDivElement, ButtonsToolbar> {
 
-  private DominoElement<HTMLDivElement> toolbarElement;
+  private DivElement toolbarElement;
 
   /** default constructor */
   public ButtonsToolbar() {

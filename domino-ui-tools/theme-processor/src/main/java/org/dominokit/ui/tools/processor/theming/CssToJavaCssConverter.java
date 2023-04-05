@@ -36,7 +36,7 @@ public class CssToJavaCssConverter {
   }
 
   private static String toJavaCss(String line) {
-    return "public static final CssClass "
+    return "CssClass "
         + asName(line)
         + " = () -> \""
         + asStyleName(line)
@@ -44,13 +44,12 @@ public class CssToJavaCssConverter {
   }
 
   private static String asName(String line) {
-    return line.replace(".dui", "")
+    return line.replace(".dui.dui", "dui")
         .replace("\\\\", "_")
         .replace("-", "_")
         .replace(" > * + *", "")
         .replace(" {", "")
-        .substring(1)
-        .toUpperCase();
+        .toLowerCase();
   }
 
   private static String asStyleName(String line) {

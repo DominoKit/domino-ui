@@ -15,24 +15,23 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.FIELD_INPUT;
-import static org.jboss.elemento.Elements.*;
-
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLOptionElement;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.DominoElement;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 /**
  * A Base implementation for special type components with text input
@@ -76,7 +75,7 @@ public abstract class CustomInputBox<T extends CustomInputBox<T>>
 
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
-    return input(type).addCss(FIELD_INPUT);
+    return input(type).addCss(dui_field_input).toDominoElement();
   }
 
   private void addInvalidPatternValidator() {
@@ -154,7 +153,7 @@ public abstract class CustomInputBox<T extends CustomInputBox<T>>
    * @return same implementing component instance
    */
   public T addSuggestedValue(String suggestedValue) {
-    HTMLOptionElement optionElement = option().attr("value", suggestedValue).element();
+    HTMLOptionElement optionElement = option().setAttribute("value", suggestedValue).element();
     suggestionsDataList.appendChild(optionElement);
     suggestedValues.put(suggestedValue, optionElement);
     return (T) this;

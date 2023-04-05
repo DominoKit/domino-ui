@@ -56,7 +56,7 @@
 // import org.dominokit.domino.ui.utils.LazyChild;
 // import org.gwtproject.i18n.shared.DateTimeFormat;
 // import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
-// import org.jboss.elemento.EventType;
+// import org.dominokit.domino.ui.events.EventType;
 //
 /// **
 // * An text box for representing a {@link Date} which opens {@link DatePicker} when selecting it.

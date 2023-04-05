@@ -20,10 +20,11 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.LinkButton;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.FooterElement;
+import org.dominokit.domino.ui.utils.Footer;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /** A special dialog component that introduce a confirm/reject actions */
@@ -33,7 +34,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
 
   private ConfirmHandler confirmHandler = (dialog) -> {};
   private RejectHandler rejectHandler = AbstractDialog::close;
-  private LazyChild<DominoElement<HTMLElement>> messageElement;
+  private LazyChild<SpanElement> messageElement;
 
   /** @return new instance with empty title */
   public static ConfirmationDialog create() {
@@ -105,8 +106,8 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
                   }
                 });
 
-    appendChild(FooterElement.of(rejectButton));
-    appendChild(FooterElement.of(confirmButton));
+    appendChild(Footer.of(rejectButton));
+    appendChild(Footer.of(confirmButton));
 
     withContentFooter((parent, self) -> self.addCss(dui_text_center));
   }

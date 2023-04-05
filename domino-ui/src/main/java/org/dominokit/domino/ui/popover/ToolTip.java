@@ -16,26 +16,25 @@
 package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.DomGlobal;
+import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
 import elemental2.dom.Node;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
-import org.jboss.elemento.EventType;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.IsElement;
 
 import java.util.function.Consumer;
 
-import static elemental2.dom.DomGlobal.document;
 import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
 import static org.dominokit.domino.ui.popover.TooltipStyles.TOOLTIP;
 import static org.dominokit.domino.ui.popover.TooltipStyles.TOOLTIP_ARROW;
 import static org.dominokit.domino.ui.popover.TooltipStyles.TOOLTIP_INNER;
-import static org.jboss.elemento.Elements.div;
 
 /**
  * A component for showing a content when hovering over a target element
@@ -52,22 +51,22 @@ import static org.jboss.elemento.Elements.div;
  */
 public class ToolTip extends BaseDominoElement<HTMLDivElement, ToolTip> {
 
-    private final DominoElement<HTMLDivElement> element =
-            div().css(TOOLTIP).attr("role", "tooltip");
-    private final DominoElement<HTMLDivElement> arrowElement =
+    private final DivElement element =
+            div().css(TOOLTIP).setAttribute("role", "tooltip");
+    private final DivElement arrowElement =
             div().css(TOOLTIP_ARROW);
-    private final DominoElement<HTMLDivElement> innerElement =
+    private final DivElement innerElement =
             div().css(TOOLTIP_INNER);
     private PopupPosition popupPosition = TOP;
     private final EventListener showToolTipListener;
     private final Consumer<ToolTip> removeHandler;
     private final EventListener removeToolTipListener;
 
-    public ToolTip(HTMLElement targetElement, String text) {
+    public ToolTip(Element targetElement, String text) {
         this(targetElement, DomGlobal.document.createTextNode(text));
     }
 
-    public ToolTip(HTMLElement targetElement, Node content) {
+    public ToolTip(Element targetElement, Node content) {
         element.appendChild(arrowElement);
         element.appendChild(innerElement);
         innerElement.appendChild(content);
@@ -79,13 +78,13 @@ public class ToolTip extends BaseDominoElement<HTMLDivElement, ToolTip> {
                     MouseEvent mouseEvent = Js.uncheckedCast(evt);
                     evt.stopPropagation();
                     if (mouseEvent.buttons == 0) {
-                        show();
+                        expand();
                     }
                 };
         removeToolTipListener =
                 evt -> {
                     evt.stopPropagation();
-                    hide();
+                    collapse();
                 };
         targetElement.addEventListener(EventType.mouseenter.getName(), showToolTipListener, false);
         targetElement.addEventListener(EventType.mouseleave.getName(), removeToolTipListener, false);
@@ -105,7 +104,7 @@ public class ToolTip extends BaseDominoElement<HTMLDivElement, ToolTip> {
 //          popupPosition.position(element.element(), targetElement);
 //          position(popupPosition);
 //        });
-        addHideListener(this::doClose);
+        addCollapseListener(this::doClose);
 //    setCollapseStrategy(config().getDefaultTooltipCollapseStrategySupplier().get());
         elementOf(targetElement).onDetached(mutationRecord -> doClose());
     }
@@ -191,14 +190,14 @@ public class ToolTip extends BaseDominoElement<HTMLDivElement, ToolTip> {
     /**
      * @return the arrow element
      */
-    public DominoElement<HTMLDivElement> getArrowElement() {
+    public DivElement getArrowElement() {
         return arrowElement;
     }
 
     /**
      * @return the inner container element
      */
-    public DominoElement<HTMLDivElement> getInnerElement() {
+    public DivElement getInnerElement() {
         return innerElement;
     }
 

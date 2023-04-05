@@ -11,7 +11,7 @@ public class FollowOnScroll {
 
     private final EventListener repositionListener;
 
-    public FollowOnScroll(HTMLElement targetElement, ScrollFollower scrollFollower) {
+    public FollowOnScroll(Element targetElement, ScrollFollower scrollFollower) {
         repositionListener =
                 evt -> {
                     if (scrollFollower.isFollowerOpen()) {

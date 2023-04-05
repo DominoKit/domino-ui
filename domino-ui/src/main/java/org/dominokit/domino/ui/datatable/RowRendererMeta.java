@@ -15,10 +15,12 @@
  */
 package org.dominokit.domino.ui.datatable;
 
+import org.dominokit.domino.ui.utils.ComponentMeta;
+
 import java.util.Objects;
 import java.util.Optional;
 
-public class RowRendererMeta<T> implements RowMeta {
+public class RowRendererMeta<T> implements ComponentMeta {
 
   public static final String TABLE_ROW_RENDERER_META = "table-row-renderer-meta";
 

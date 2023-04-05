@@ -22,15 +22,13 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.config.FormsFieldsConfig;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.HasCounter;
 import org.dominokit.domino.ui.utils.HasMinMaxLength;
 
 import java.util.List;
 
-import static org.dominokit.domino.ui.forms.FormsStyles.FORM_FIELD;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+import static org.dominokit.domino.ui.forms.FormsStyles.dui_form_field;
 
 public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTMLElement> implements HasComponentConfig<FormsFieldsConfig> {
 
@@ -85,7 +83,7 @@ public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTM
                           List<Element> elements =
                                   ElementsFactory.elements.body()
                                           .element()
-                                          .querySelectorAll("." + FORM_FIELD.getCssClass())
+                                          .querySelectorAll("." + dui_form_field.getCssClass())
                                           .asList();
                           int i = elements.indexOf(formElement);
                           if (i < elements.size() - 1) {

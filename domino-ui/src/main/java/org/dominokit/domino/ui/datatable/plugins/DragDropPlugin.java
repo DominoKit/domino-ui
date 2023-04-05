@@ -37,9 +37,8 @@ import org.dominokit.domino.ui.grid.flex.FlexAlign;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.utils.TextNode;
 
 /**
  * this plugin allows reordering and moving records in a data table
@@ -52,8 +51,8 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   private DragSource dragSource;
   private TableRow<T> emptyDropRow;
   private DataTable<T> dataTable;
-  private Supplier<BaseIcon<?>> emptyDropIconSupplier = Icons.ALL::plus_mdi;
-  private Supplier<BaseIcon<?>> dragDropIconSupplier = Icons.ALL::drag_vertical_mdi;
+  private Supplier<Icon<?>> emptyDropIconSupplier = Icons.ALL::plus_mdi;
+  private Supplier<Icon<?>> dragDropIconSupplier = Icons.ALL::drag_vertical_mdi;
   private FlexLayout emptyDropArea;
   private Text emptyDropText;
   private final List<DataTable<T>> otherDataTables = new ArrayList<>();
@@ -67,7 +66,7 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   }
 
   private void initEmptyDropArea(DataTable<T> dataTable) {
-    emptyDropText = TextNode.of("Drop items here");
+    emptyDropText = text("Drop items here");
     emptyDropArea =
         FlexLayout.create()
             .setAlignItems(FlexAlign.CENTER)
@@ -82,7 +81,7 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
     emptyDropRow = new TableRow<>(null, -1, dataTable).css("default-drop-area");
     emptyDropRow.appendChild(emptyDropArea);
     dropZone.addDropTarget(emptyDropRow, draggableId -> moveItem(dataTable, null, draggableId));
-    emptyDropRow.hide();
+    emptyDropRow.collapse();
   }
 
   /** {@inheritDoc} */
@@ -142,7 +141,7 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
       emptyDropRow.toggleDisplay(dataTable.getRows().isEmpty());
     }
     if (event instanceof RecordDroppedEvent) {
-      emptyDropRow.hide();
+      emptyDropRow.collapse();
     }
   }
 
@@ -168,12 +167,12 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   }
 
   /** @param emptyDropIconSupplier supplier to create icon for the empty drop area */
-  public void setEmptyDropIconSupplier(Supplier<BaseIcon<?>> emptyDropIconSupplier) {
+  public void setEmptyDropIconSupplier(Supplier<Icon<?>> emptyDropIconSupplier) {
     this.emptyDropIconSupplier = emptyDropIconSupplier;
   }
 
   /** @param dragDropIconSupplier supplier to create icon for each draggable row */
-  public void setDragDropIconSupplier(Supplier<BaseIcon<?>> dragDropIconSupplier) {
+  public void setDragDropIconSupplier(Supplier<Icon<?>> dragDropIconSupplier) {
     this.dragDropIconSupplier = dragDropIconSupplier;
   }
 

@@ -21,8 +21,8 @@ import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
 import org.dominokit.domino.ui.collapsible.CollapseDuration;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.jboss.elemento.EventType;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.IsElement;
 
 import static elemental2.dom.DomGlobal.document;
 
@@ -55,7 +55,7 @@ public class Popover extends BasePopover<Popover>{
     showListener =
             evt -> {
               evt.stopPropagation();
-              show();
+              expand();
             };
     target.addEventListener(EventType.click.getName(), showListener);
     setCollapseStrategy(

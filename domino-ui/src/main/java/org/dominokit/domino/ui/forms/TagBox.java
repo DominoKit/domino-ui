@@ -60,7 +60,7 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, TagOption<V>, TagB
               .setRemovable(this.isRemovable())
               .withChip((option, chip) -> chip.setSelectable(false));
         });
-    fieldInput.addCss(FormsStyles.FORM_TAGS_INPUT);
+    fieldInput.addCss(FormsStyles.dui_form_tags_input);
   }
 
   public TagBox(String label, SuggestBoxStore<V, TagOption<V>> store) {

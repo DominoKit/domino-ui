@@ -18,13 +18,6 @@
     cursor: col-resize;
 }
 
-.split-panel > div.splitter.dock > div {
-    width: 0.5em;
-    height: 1em;
-    background-repeat: no-repeat;
-    background-position: center;
-
-}
 
 .split-panel,
 .split-panel > div,

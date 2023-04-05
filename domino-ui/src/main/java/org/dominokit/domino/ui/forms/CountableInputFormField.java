@@ -16,9 +16,10 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.FIELD_COUNTER;
+import static org.dominokit.domino.ui.forms.FormsStyles.du_field_counter;
 
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.forms.validations.MaxLengthValidator;
 import org.dominokit.domino.ui.forms.validations.MinLengthValidator;
 import org.dominokit.domino.ui.utils.*;
@@ -28,13 +29,13 @@ public abstract class CountableInputFormField<
     extends InputFormField<T, E, V>
     implements HasCounter<T>, HasMinMaxLength<T>, HasPlaceHolder<T> {
 
-  protected final LazyChild<DominoElement<HTMLElement>> counterElement;
+  protected final LazyChild<SpanElement> counterElement;
   protected CountFormatter countFormatter = (count, maxCount) -> count + "/" + maxCount;
   private MinLengthValidator<T, E> minLengthValidator;
   private MaxLengthValidator<T, E> maxLengthValidator;
 
   public CountableInputFormField() {
-    counterElement = LazyChild.of(span().addCss(FIELD_COUNTER), wrapperElement);
+    counterElement = LazyChild.of(span().addCss(du_field_counter), wrapperElement);
   }
 
   @Override
@@ -127,7 +128,7 @@ public abstract class CountableInputFormField<
     return (T) this;
   }
 
-  public DominoElement<HTMLElement> getCounterElement() {
+  public SpanElement getCounterElement() {
     return counterElement.get();
   }
 
@@ -136,7 +137,7 @@ public abstract class CountableInputFormField<
     return (T) this;
   }
 
-  public T withCounterElement(ChildHandler<T, DominoElement<HTMLElement>> handler) {
+  public T withCounterElement(ChildHandler<T, SpanElement> handler) {
     handler.apply((T) this, counterElement.get());
     return (T) this;
   }

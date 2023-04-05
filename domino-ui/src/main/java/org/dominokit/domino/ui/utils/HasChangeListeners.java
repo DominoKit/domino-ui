@@ -96,6 +96,23 @@ public interface HasChangeListeners<T, V> {
 
   /**
    * Execute a handler while toggling the change handlers state, revert the state back to its
+   * original value after executing the handler
+   *
+   * @return same component instance
+   */
+  default T withPausedChangeListeners(Handler<T> handler) {
+    boolean oldState = isChangeListenersPaused();
+    togglePauseChangeListeners(true);
+    try {
+      handler.apply((T) this);
+    } finally {
+      togglePauseChangeListeners(oldState);
+    }
+    return (T) this;
+  }
+
+  /**
+   * Execute a handler while toggling the change handlers state, revert the state back to its
    * original value after the AsyncHandler.onComplete is called
    *
    * @param toggle boolean, true to pause the change listeners, false to enable them
@@ -104,6 +121,24 @@ public interface HasChangeListeners<T, V> {
   default T withPauseChangeListenersToggle(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isChangeListenersPaused();
     togglePauseChangeListeners(toggle);
+    try {
+      handler.apply((T) this, () -> togglePauseChangeListeners(oldState));
+    } catch (Exception e) {
+      togglePauseChangeListeners(oldState);
+      throw e;
+    }
+    return (T) this;
+  }
+
+  /**
+   * Execute a handler while toggling the change handlers state, revert the state back to its
+   * original value after the AsyncHandler.onComplete is called
+   *
+   * @return same component instance
+   */
+  default T withPausedChangeListenersAsync(AsyncHandler<T> handler) {
+    boolean oldState = isChangeListenersPaused();
+    togglePauseChangeListeners(true);
     try {
       handler.apply((T) this, () -> togglePauseChangeListeners(oldState));
     } catch (Exception e) {

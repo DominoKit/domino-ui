@@ -15,12 +15,11 @@ public interface AcceptKeyEvents {
     /**
      * On ctrl + backspace buttons pressed with options
      *
-     * @param backspaceHandler the {@link EventListener} to call
      * @param options the {@link KeyboardEventOptions}
+     * @param backspaceHandler the {@link EventListener} to call
      * @return same instance
      */
-    AcceptKeyEvents onBackspace(
-            EventListener backspaceHandler, KeyboardEventOptions options);
+    AcceptKeyEvents onBackspace(KeyboardEventOptions options, EventListener backspaceHandler);
 
     // ---------------- handlers ----------------
     /**
@@ -34,11 +33,11 @@ public interface AcceptKeyEvents {
     /**
      * On escape button pressed with {@code options}
      *
-     * @param escapeHandler the {@link EventListener} to call
      * @param options the {@link KeyboardEventOptions}
+     * @param escapeHandler the {@link EventListener} to call
      * @return same instance
      */
-    AcceptKeyEvents onEscape(EventListener escapeHandler, KeyboardEventOptions options);
+    AcceptKeyEvents onEscape(KeyboardEventOptions options, EventListener escapeHandler);
 
     /**
      * On arrow up or arrow down buttons pressed
@@ -51,12 +50,11 @@ public interface AcceptKeyEvents {
     /**
      * On arrow up or arrow down buttons pressed with options
      *
-     * @param arrowDownHandler the {@link EventListener} to call
      * @param options the {@link KeyboardEventOptions}
+     * @param arrowDownHandler the {@link EventListener} to call
      * @return same instance
      */
-    AcceptKeyEvents onArrowUpDown(
-            EventListener arrowDownHandler, KeyboardEventOptions options);
+    AcceptKeyEvents onArrowUpDown(KeyboardEventOptions options, EventListener arrowDownHandler);
 
     /**
      * On arrow down button pressed
@@ -69,12 +67,11 @@ public interface AcceptKeyEvents {
     /**
      * On arrow down button pressed with options
      *
-     * @param arrowDownHandler the {@link EventListener} to call
      * @param options the {@link KeyboardEventOptions}
+     * @param arrowDownHandler the {@link EventListener} to call
      * @return same instance
      */
-    AcceptKeyEvents onArrowDown(
-            EventListener arrowDownHandler, KeyboardEventOptions options);
+    AcceptKeyEvents onArrowDown(KeyboardEventOptions options, EventListener arrowDownHandler);
 
     /**
      * On arrow up button pressed with options
@@ -87,11 +84,45 @@ public interface AcceptKeyEvents {
     /**
      * On arrow up button pressed with options
      *
-     * @param arrowUpHandler the {@link EventListener} to call
      * @param options the {@link KeyboardEventOptions}
+     * @param arrowUpHandler the {@link EventListener} to call
      * @return same instance
      */
-    AcceptKeyEvents onArrowUp(EventListener arrowUpHandler, KeyboardEventOptions options);
+    AcceptKeyEvents onArrowUp(KeyboardEventOptions options, EventListener arrowUpHandler);
+
+    /**
+     * On arrow right button pressed with options
+     *
+     * @param arrowUpHandler the {@link EventListener} to call
+     * @return same instance
+     */
+    AcceptKeyEvents onArrowRight(EventListener arrowUpHandler);
+
+    /**
+     * On arrow right button pressed with options
+     *
+     * @param options the {@link KeyboardEventOptions}
+     * @param arrowUpHandler the {@link EventListener} to call
+     * @return same instance
+     */
+    AcceptKeyEvents onArrowRight(KeyboardEventOptions options, EventListener arrowUpHandler);
+
+    /**
+     * On arrow right button pressed with options
+     *
+     * @param arrowUpHandler the {@link EventListener} to call
+     * @return same instance
+     */
+    AcceptKeyEvents onArrowLeft(EventListener arrowUpHandler);
+
+    /**
+     * On arrow right button pressed with options
+     *
+     * @param options the {@link KeyboardEventOptions}
+     * @param arrowUpHandler the {@link EventListener} to call
+     * @return same instance
+     */
+    AcceptKeyEvents onArrowLeft(KeyboardEventOptions options, EventListener arrowUpHandler);
 
     /**
      * On enter button pressed
@@ -104,11 +135,11 @@ public interface AcceptKeyEvents {
     /**
      * On enter button pressed with options
      *
-     * @param enterHandler the {@link EventListener} to call
      * @param options the {@link KeyboardEventOptions}
+     * @param enterHandler the {@link EventListener} to call
      * @return same instance
      */
-    AcceptKeyEvents onEnter(EventListener enterHandler, KeyboardEventOptions options);
+    AcceptKeyEvents onEnter(KeyboardEventOptions options, EventListener enterHandler);
 
     /**
      * On delete button pressed
@@ -121,11 +152,11 @@ public interface AcceptKeyEvents {
     /**
      * On delete button pressed with options
      *
-     * @param deleteHandler the {@link EventListener} to call
      * @param options the {@link KeyboardEventOptions}
+     * @param deleteHandler the {@link EventListener} to call
      * @return same instance
      */
-    AcceptKeyEvents onDelete(EventListener deleteHandler, KeyboardEventOptions options);
+    AcceptKeyEvents onDelete(KeyboardEventOptions options, EventListener deleteHandler);
 
     /**
      * On space button pressed
@@ -138,11 +169,11 @@ public interface AcceptKeyEvents {
     /**
      * On space button pressed with options
      *
-     * @param spaceHandler the {@link EventListener} to call
      * @param options the {@link KeyboardEventOptions}
+     * @param spaceHandler the {@link EventListener} to call
      * @return same instance
      */
-    AcceptKeyEvents onSpace(EventListener spaceHandler, KeyboardEventOptions options);
+    AcceptKeyEvents onSpace(KeyboardEventOptions options, EventListener spaceHandler);
 
     /**
      * On tab button pressed
@@ -155,20 +186,20 @@ public interface AcceptKeyEvents {
     /**
      * On tab button pressed with options
      *
-     * @param tabHandler the {@link EventListener} to call
      * @param options the {@link KeyboardEventOptions}
+     * @param tabHandler the {@link EventListener} to call
      * @return same instance
      */
-    AcceptKeyEvents onTab(EventListener tabHandler, KeyboardEventOptions options);
+    AcceptKeyEvents onTab(KeyboardEventOptions options, EventListener tabHandler);
 
     /**
      * On key button pressed with options
      *
-     * @param handler the {@link EventListener} to call
      * @param options the {@link KeyboardEventOptions}
+     * @param handler the {@link EventListener} to call
      * @return same instance
      */
-    AcceptKeyEvents on(String key, EventListener handler, KeyboardEventOptions options);
+    AcceptKeyEvents on(String key, KeyboardEventOptions options, EventListener handler);
 
     /**
      * On key button pressed
@@ -180,11 +211,11 @@ public interface AcceptKeyEvents {
     /**
      * On key pressed with options
      *
-     * @param handler the {@link EventListener} to call
      * @param options the {@link KeyboardEventOptions}
+     * @param handler the {@link EventListener} to call
      * @return same instance
      */
-    AcceptKeyEvents any(EventListener handler, KeyboardEventOptions options);
+    AcceptKeyEvents any(KeyboardEventOptions options, EventListener handler);
 
     /**
      * On key pressed

@@ -21,6 +21,8 @@ import java.util.Optional;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TableEventListener;
+import org.dominokit.domino.ui.style.DominoCss;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 
 /**
  * An interface for implementing datatable plugins
@@ -30,7 +32,10 @@ import org.dominokit.domino.ui.datatable.events.TableEventListener;
  *
  * @param <T> the type of the datatable records
  */
-public interface DataTablePlugin<T> extends TableEventListener, Comparable<DataTablePlugin<T>> {
+public interface DataTablePlugin<T> extends TableEventListener,
+        Comparable<DataTablePlugin<T>>,
+        ElementsFactory,
+        DominoCss {
 
   /**
    * this method is used to initialise the plugin with the datatable instance

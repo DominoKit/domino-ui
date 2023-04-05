@@ -16,19 +16,20 @@
 package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 /** A none loader implementation */
 public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTMLDivElement> {
 
-  private final DominoElement<HTMLDivElement> content =
+  private final DivElement content =
      div()
           .addCss(wait_me_content, dui_vertical_center)
           .style("margin-top: -18px;")
           .appendChild(loadingText);
 
-  private final DominoElement<HTMLDivElement> element =
+  private final DivElement element =
      div()
           .addCss(wait_me)
           .style("background: rgba(255, 255, 255, 0.9);")

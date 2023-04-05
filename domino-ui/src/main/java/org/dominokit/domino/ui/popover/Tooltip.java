@@ -15,8 +15,8 @@
  */
 package org.dominokit.domino.ui.popover;
 
+import elemental2.dom.Element;
 import elemental2.dom.EventListener;
-import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
 import elemental2.dom.Node;
 import jsinterop.base.Js;
@@ -24,9 +24,8 @@ import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
 import org.dominokit.domino.ui.collapsible.CollapseDuration;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.elemento.EventType;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.IsElement;
 
 import java.util.function.Consumer;
 
@@ -48,21 +47,21 @@ public class Tooltip extends BasePopover<Tooltip>{
   private final EventListener showListener;
   private final Consumer<Tooltip> removeHandler;
   private boolean closeOnEscape = true;
-  public static Tooltip create(HTMLElement target, String text){
-    return new Tooltip(target, TextNode.of(text));
+  public static Tooltip create(Element target, String text){
+    return new Tooltip(target, elements.text(text));
   }
 
-  public static Tooltip create(IsElement<? extends HTMLElement> target, String text){
-    return new Tooltip(target.element(), TextNode.of(text));
+  public static Tooltip create(IsElement<? extends Element> target, String text){
+    return new Tooltip(target.element(), elements.text(text));
   }
-  public static Tooltip create(HTMLElement target, Node content){
+  public static Tooltip create(Element target, Node content){
     return new Tooltip(target, content);
   }
-  public static Tooltip create(IsElement<? extends HTMLElement> target, Node content){
+  public static Tooltip create(IsElement<? extends Element> target, Node content){
     return new Tooltip(target.element(), content);
   }
 
-  public Tooltip(HTMLElement target, Node content) {
+  public Tooltip(Element target, Node content) {
     super(target);
     addCss(dui_tooltip);
     appendChild(content);
@@ -71,7 +70,7 @@ public class Tooltip extends BasePopover<Tooltip>{
               MouseEvent mouseEvent = Js.uncheckedCast(evt);
               evt.stopPropagation();
               if (mouseEvent.buttons == 0) {
-                show();
+                expand();
               }
             };
     targetElement.addEventListener(EventType.mouseenter.getName(), showListener, false);

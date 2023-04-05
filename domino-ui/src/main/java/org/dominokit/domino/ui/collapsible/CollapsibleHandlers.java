@@ -17,11 +17,11 @@ package org.dominokit.domino.ui.collapsible;
 
 public interface CollapsibleHandlers {
 
-  Runnable onBeforeShow();
+  Runnable onBeforeExpand();
 
-  Runnable onShowCompleted();
+  Runnable onExpandCompleted();
 
-  Runnable onBeforeHide();
+  Runnable onBeforeCollapse();
 
-  Runnable onHideCompleted();
+  Runnable onCollapseCompleted();
 }

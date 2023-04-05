@@ -21,10 +21,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Consumer;
-import org.dominokit.domino.ui.datatable.RowMeta;
-import org.dominokit.domino.ui.datatable.TableRow;
 
-public class TreeGridRowSubItemsMeta<T> implements RowMeta {
+import org.dominokit.domino.ui.datatable.TableRow;
+import org.dominokit.domino.ui.utils.ComponentMeta;
+
+public class TreeGridRowSubItemsMeta<T> implements ComponentMeta {
 
   public static final String TREE_GRID_ROW_SUB_ITEMS_META = "tree-grid-row-sub-items-meta";
   private final TreePluginConfig<T> config;

@@ -22,11 +22,12 @@ import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.LinkButton;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.FooterElement;
+import org.dominokit.domino.ui.utils.Footer;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
@@ -35,14 +36,14 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
 
   private MessageHandler confirmHandler = (dialog) -> {};
 
-  private LazyChild<DominoElement<HTMLElement>> messageElement;
+  private LazyChild<SpanElement> messageElement;
 
   private Transition iconStartTransition = Transition.ZOOM_IN;
   private Transition iconEndTransition = Transition.TADA;
 
   private int iconAnimationDuration = 1000;
 
-  private BaseIcon<?> alertIcon = Icons.ALL.alert_mdi().size48();
+  private Icon<?> alertIcon = Icons.ALL.alert_mdi().addCss(dui_font_size_12);
 
   /** @return new instance with empty title */
   public static AlertMessageDialog create() {
@@ -119,7 +120,7 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
                   }
                 });
 
-    appendChild(FooterElement.of(confirmButton));
+    appendChild(Footer.of(confirmButton));
 
     withContentFooter((parent, self) -> self.addCss(dui_text_center));
   }
@@ -174,11 +175,11 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
     return this;
   }
 
-  public BaseIcon<?> getAlertIcon() {
+  public Icon<?> getAlertIcon() {
     return alertIcon;
   }
 
-  public AlertMessageDialog setAlertIcon(BaseIcon<?> alertIcon) {
+  public AlertMessageDialog setAlertIcon(Icon<?> alertIcon) {
     if (nonNull(alertIcon)) {
       this.alertIcon.remove();
     }

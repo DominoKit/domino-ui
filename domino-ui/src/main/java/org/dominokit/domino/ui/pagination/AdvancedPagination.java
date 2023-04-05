@@ -21,7 +21,6 @@ import org.dominokit.domino.ui.forms.Select;
 import org.dominokit.domino.ui.forms.SelectOption;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.TextNode;
 
 import java.util.stream.IntStream;
 
@@ -73,7 +72,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
             .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(index - 1, isChangeListenersPaused())));
 
     firstPage
-            .show()
+            .expand()
             .getLink()
             .addClickListener(evt -> moveToPage(1, isChangeListenersPaused()))
             .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(1, isChangeListenersPaused())));
@@ -83,7 +82,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
             .addClickListener(evt -> moveToPage(index + 1, isChangeListenersPaused()))
             .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(index + 1, isChangeListenersPaused())));
     lastPage
-            .show()
+            .expand()
             .getLink()
             .addClickListener(evt -> moveToPage(allPages.size(), isChangeListenersPaused()))
             .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(allPages.size(), isChangeListenersPaused())));
@@ -93,7 +92,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
                     .addChangeListener((oldValue, newValue) -> moveToPage(newValue, isChangeListenersPaused()));
 
     pagesList.insertAfter(PagerNavItem.create(pagesSelect).withLink((parent, link) -> link.addCss(dui_pagination_select) ), prevPage);
-    totalPagesCount = PagerNavItem.create(TextNode.of(labels.getPaginationCountLabel(pagesCount)))
+    totalPagesCount = PagerNavItem.create(text(labels.getPaginationCountLabel(pagesCount)))
             .withLink((parent, link) -> link.addCss(dui_page_count));
     pagesList.insertBefore(totalPagesCount
             , nextPage);
@@ -124,7 +123,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
               });
     }
 
-    totalPagesCount.withLink((parent, link) -> link.clearElement().appendChild(TextNode.of(labels.getPaginationCountLabel(pagesCount))));
+    totalPagesCount.withLink((parent, link) -> link.clearElement().appendChild(text(labels.getPaginationCountLabel(pagesCount))));
 
     if (pages > 0) {
       moveToPage(1, silent);

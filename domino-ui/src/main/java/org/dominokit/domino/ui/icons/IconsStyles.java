@@ -26,11 +26,6 @@ public class IconsStyles {
   public static final CssClass dui_reversed = () -> "dui-reversed";
   public static final CssClass dui_icon_text = () -> "dui-mdi-text";
 
-  public static final CssClass mdi_18px = () -> "mdi-18px";
-  public static final CssClass mdi_24px = () -> "mdi-24px";
-  public static final CssClass mdi_36px = () -> "mdi-36px";
-  public static final CssClass mdi_48px = () -> "mdi-48px";
-
   public static final CssClass mdi_rotate_45 = () -> "mdi-rotate-45";
   public static final CssClass mdi_rotate_90 = () -> "mdi-rotate-90";
   public static final CssClass mdi_rotate_135 = () -> "mdi-rotate-135";

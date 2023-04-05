@@ -17,10 +17,8 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.*;
 
 import elemental2.dom.DomGlobal;
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import java.util.List;
@@ -28,6 +26,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.loaders.Loader;
 import org.dominokit.domino.ui.loaders.LoaderEffect;
@@ -43,12 +43,12 @@ public abstract class AbstractSuggestBox<
         HasPlaceHolder<AbstractSuggestBox<T, V, S, C>> {
 
   protected Menu<T> optionsMenu;
-  protected DominoElement<HTMLDivElement> fieldInput;
-  protected DominoElement<HTMLInputElement> inputElement;
+  protected DivElement fieldInput;
+  protected InputElement inputElement;
 
   protected final SuggestBoxStore<T, S> store;
 
-  private final DominoElement<HTMLDivElement> loaderElement;
+  private final DivElement loaderElement;
   private Loader loader;
 
   private DelayedTextInput delayedTextInput;
@@ -66,12 +66,12 @@ public abstract class AbstractSuggestBox<
 
   public AbstractSuggestBox(SuggestBoxStore<T, S> store) {
     this.store = store;
-    addCss(FORM_SELECT);
+    addCss(dui_form_select);
     wrapperElement.appendChild(
         fieldInput =
             div()
-                .addCss(FIELD_INPUT)
-                .appendChild(inputElement = input(getType()).addCss(FIELD_INPUT)));
+                .addCss(dui_field_input)
+                .appendChild(inputElement = input(getType()).addCss(dui_field_input)));
 
     delayedTextInput =
         DelayedTextInput.create(inputElement.element(), getTypeAheadDelay(), delayedAction);
@@ -102,7 +102,7 @@ public abstract class AbstractSuggestBox<
     addPrimaryAddOn(
         Icons.ALL
             .delete_mdi()
-            .addCss(FORM_SELECT_CLEAR)
+            .addCss(dui_form_select_clear)
             .clickable()
             .addClickListener(
                 evt -> {
@@ -253,7 +253,7 @@ public abstract class AbstractSuggestBox<
 
   @Override
   public DominoElement<HTMLInputElement> getInputElement() {
-    return inputElement;
+    return inputElement.toDominoElement();
   }
 
   @Override

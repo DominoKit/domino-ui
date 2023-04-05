@@ -15,20 +15,14 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import static elemental2.dom.DomGlobal.document;
-
 import elemental2.dom.*;
-import jsinterop.base.Js;
-import org.jboss.elemento.Elements;
-import org.jboss.elemento.Id;
-import org.jboss.elemento.IsElement;
 
 /**
  * A class that can wrap any HTMLElement as domino component
  *
  * @param <E> the type of the wrapped element
  */
-public class DominoElement<E extends HTMLElement> extends BaseDominoElement<E, DominoElement<E>> {
+public class DominoElement<E extends Element> extends BaseDominoElement<E, DominoElement<E>> {
 
   private final E wrappedElement;
 
@@ -36,6 +30,7 @@ public class DominoElement<E extends HTMLElement> extends BaseDominoElement<E, D
   public DominoElement(E element) {
     this.wrappedElement = element;
     init(this);
+    addCss(dui);
   }
 
   /**

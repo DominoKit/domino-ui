@@ -15,46 +15,50 @@
  */
 package org.dominokit.domino.ui.style;
 
+import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
+import elemental2.dom.Event;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.MouseEvent;
+import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.gwtproject.timer.client.Timer;
+
 import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
-import static org.jboss.elemento.Elements.div;
-import static org.jboss.elemento.EventType.mousedown;
-
-import elemental2.dom.*;
-import jsinterop.base.Js;
-import jsinterop.base.JsPropertyMap;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementsFactory;
-import org.gwtproject.timer.client.Timer;
-import org.jboss.elemento.IsElement;
+import static org.dominokit.domino.ui.events.EventType.mousedown;
 
 /** Adds the required events to add waves for a target element */
-public class Waves implements IsElement<HTMLElement> {
+public class Waves implements IsElement<Element> {
 
-  private final DominoElement<? extends HTMLElement> target;
-  private DominoElement<HTMLDivElement> ripple;
+  private final DominoElement<? extends Element> target;
+  private DivElement ripple;
   private JsPropertyMap<String> rippleStyle;
   private Timer delayTimer;
   private Timer removeTimer;
   private final int duration = 750;
   private final WavesEventListener wavesEventListener = new WavesEventListener();
 
-  public Waves(HTMLElement target) {
+  public Waves(Element target) {
     this(elements.elementOf(target));
   }
 
-  public Waves(DominoElement<? extends HTMLElement> target) {
+  public Waves(DominoElement<? extends Element> target) {
     this.target = target;
   }
 
   /**
    * Creates waves for a specific target element
    *
-   * @param target the {@link HTMLElement} to add waves to
+   * @param target the {@link Element} to add waves to
    * @return new instance
    */
-  public static Waves create(HTMLElement target) {
+  public static Waves create(Element target) {
     return new Waves(target);
   }
 
@@ -64,7 +68,7 @@ public class Waves implements IsElement<HTMLElement> {
    * @param target the {@link DominoElement} to add waves to
    * @return new instance
    */
-  public static Waves create(DominoElement<? extends HTMLElement> target) {
+  public static Waves create(DominoElement<? extends Element> target) {
     return new Waves(target);
   }
 
@@ -124,11 +128,11 @@ public class Waves implements IsElement<HTMLElement> {
 
   /** {@inheritDoc} */
   @Override
-  public HTMLElement element() {
+  public Element element() {
     return target.element();
   }
 
-  private ElementOffset offset(HTMLElement target) {
+  private ElementOffset offset(Element target) {
     Element docElem = target.ownerDocument.documentElement;
     DOMRect box = target.getBoundingClientRect();
     ElementOffset position = new ElementOffset();

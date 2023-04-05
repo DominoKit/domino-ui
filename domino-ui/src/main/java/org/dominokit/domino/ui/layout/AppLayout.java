@@ -19,7 +19,11 @@ import static org.dominokit.domino.ui.layout.NavBarStyles.dui_nav_utility;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.elements.AsideElement;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.HeaderElement;
+import org.dominokit.domino.ui.elements.SectionElement;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.SwapCssClass;
@@ -28,21 +32,21 @@ import org.dominokit.domino.ui.utils.*;
 public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     implements AppLayoutStyles {
 
-  private final DominoElement<HTMLDivElement> layout;
-  private final DominoElement<HTMLElement> body;
-  private final DominoElement<HTMLElement> content;
+  private final DivElement layout;
+  private final SectionElement body;
+  private final SectionElement content;
   private final LazyChild<NavBar> navBar;
-  private final LazyChild<DominoElement<HTMLElement>> header;
-  private final LazyChild<DominoElement<HTMLElement>> footer;
-  private final LazyChild<DominoElement<HTMLElement>> leftDrawer;
-  private final LazyChild<DominoElement<HTMLElement>> leftDrawerContent;
-  private final LazyChild<DominoElement<HTMLElement>> rightDrawer;
-  private final LazyChild<DominoElement<HTMLElement>> rightDrawerContent;
-  private final LazyChild<DominoElement<HTMLDivElement>> overlay;
+  private final LazyChild<HeaderElement> header;
+  private final LazyChild<SectionElement> footer;
+  private final LazyChild<SectionElement> leftDrawer;
+  private final LazyChild<AsideElement> leftDrawerContent;
+  private final LazyChild<SectionElement> rightDrawer;
+  private final LazyChild<SectionElement> rightDrawerContent;
+  private final LazyChild<DivElement> overlay;
   private LazyChild<NavBarAddOn> leftDrawerToggle;
-  private BaseIcon<?> leftToggleIcon = Icons.ALL.menu_mdi();
-  private LazyChild<UtilityElement<HTMLElement>> rightDrawerToggle;
-  private BaseIcon<?> rightToggleIcon = Icons.ALL.menu_open_mdi();
+  private Icon<?> leftToggleIcon = Icons.ALL.menu_mdi();
+  private LazyChild<PostfixAddOn<HTMLElement>> rightDrawerToggle;
+  private Icon<?> rightToggleIcon = Icons.ALL.menu_open_mdi();
 
   private boolean autoCloseLeftDrawer = true;
   private boolean autoCloseRightDrawer = true;
@@ -105,7 +109,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
                     }));
   }
 
-  private LazyChild<NavBarAddOn> initLeftDrawerToggle(BaseIcon<?> icon) {
+  private LazyChild<NavBarAddOn> initLeftDrawerToggle(Icon<?> icon) {
     return LazyChild.of(NavBarAddOn.of(icon), navBar)
         .whenInitialized(
             () ->
@@ -118,8 +122,8 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
                     .addCss(dui_order_first));
   }
 
-  private LazyChild<UtilityElement<HTMLElement>> initRightDrawerToggle(BaseIcon<?> icon) {
-    return LazyChild.of(UtilityElement.of(icon).addCss(dui_nav_utility), navBar)
+  private LazyChild<PostfixAddOn<HTMLElement>> initRightDrawerToggle(Icon<?> icon) {
+    return LazyChild.of(PostfixAddOn.of(icon).addCss(dui_nav_utility), navBar)
         .whenInitialized(
             () ->
                 icon.clickable()
@@ -136,15 +140,15 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     navBar.get().setTitle(title);
   }
 
-  public DominoElement<HTMLDivElement> getLayout() {
+  public DivElement getLayout() {
     return layout;
   }
 
-  public DominoElement<HTMLElement> getBody() {
+  public SectionElement getBody() {
     return body;
   }
 
-  public DominoElement<HTMLElement> getContent() {
+  public SectionElement getContent() {
     return content;
   }
 
@@ -152,41 +156,41 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     return navBar.get();
   }
 
-  public DominoElement<HTMLElement> getHeader() {
+  public HeaderElement getHeader() {
     return header.get();
   }
 
-  public DominoElement<HTMLElement> getFooter() {
+  public SectionElement getFooter() {
     return footer.get();
   }
 
-  public DominoElement<HTMLElement> getLeftDrawer() {
+  public SectionElement getLeftDrawer() {
     return leftDrawer.get();
   }
 
-  public DominoElement<HTMLElement> getLeftDrawerContent() {
+  public AsideElement getLeftDrawerContent() {
     return leftDrawerContent.get();
   }
 
-  public DominoElement<HTMLElement> getRightDrawer() {
+  public SectionElement getRightDrawer() {
     return rightDrawer.get();
   }
 
-  public DominoElement<HTMLElement> getRightDrawerContent() {
+  public SectionElement getRightDrawerContent() {
     return rightDrawerContent.get();
   }
 
-  public AppLayout withLayout(ChildHandler<AppLayout, DominoElement<HTMLDivElement>> handler) {
+  public AppLayout withLayout(ChildHandler<AppLayout, DivElement> handler) {
     handler.apply(this, layout);
     return this;
   }
 
-  public AppLayout withBody(ChildHandler<AppLayout, DominoElement<HTMLElement>> handler) {
+  public AppLayout withBody(ChildHandler<AppLayout, SectionElement> handler) {
     handler.apply(this, body);
     return this;
   }
 
-  public AppLayout withContent(ChildHandler<AppLayout, DominoElement<HTMLElement>> handler) {
+  public AppLayout withContent(ChildHandler<AppLayout, SectionElement> handler) {
     handler.apply(this, content);
     return this;
   }
@@ -196,34 +200,34 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     return this;
   }
 
-  public AppLayout withHeader(ChildHandler<AppLayout, DominoElement<HTMLElement>> handler) {
+  public AppLayout withHeader(ChildHandler<AppLayout, HeaderElement> handler) {
     handler.apply(this, header.get());
     return this;
   }
 
-  public AppLayout withFooter(ChildHandler<AppLayout, DominoElement<HTMLElement>> handler) {
+  public AppLayout withFooter(ChildHandler<AppLayout, SectionElement> handler) {
     handler.apply(this, footer.get());
     return this;
   }
 
-  public AppLayout withLeftDrawer(ChildHandler<AppLayout, DominoElement<HTMLElement>> handler) {
+  public AppLayout withLeftDrawer(ChildHandler<AppLayout, SectionElement> handler) {
     handler.apply(this, leftDrawer.get());
     return this;
   }
 
-  public AppLayout withRightDrawer(ChildHandler<AppLayout, DominoElement<HTMLElement>> handler) {
+  public AppLayout withRightDrawer(ChildHandler<AppLayout, SectionElement> handler) {
     handler.apply(this, rightDrawer.get());
     return this;
   }
 
   public AppLayout withLeftDrawerContent(
-      ChildHandler<AppLayout, DominoElement<HTMLElement>> handler) {
+      ChildHandler<AppLayout, AsideElement> handler) {
     handler.apply(this, leftDrawerContent.get());
     return this;
   }
 
   public AppLayout withRightDrawerContent(
-      ChildHandler<AppLayout, DominoElement<HTMLElement>> handler) {
+      ChildHandler<AppLayout, SectionElement> handler) {
     handler.apply(this, rightDrawerContent.get());
     return this;
   }
@@ -335,7 +339,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     return this;
   }
 
-  public AppLayout setLeftDrawerToggleIcon(BaseIcon<?> icon) {
+  public AppLayout setLeftDrawerToggleIcon(Icon<?> icon) {
     if (leftDrawerToggle.isInitialized()) {
       leftDrawerToggle.get().remove();
     }
@@ -345,7 +349,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     return this;
   }
 
-  public AppLayout setRightDrawerToggleIcon(BaseIcon<?> icon) {
+  public AppLayout setRightDrawerToggleIcon(Icon<?> icon) {
     if (rightDrawerToggle.isInitialized()) {
       rightDrawerToggle.get().remove();
     }

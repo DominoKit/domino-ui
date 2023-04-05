@@ -23,11 +23,13 @@ import java.util.List;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.button.RemoveButton;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
-import org.jboss.elemento.EventType;
+import org.dominokit.domino.ui.events.EventType;
 
 /**
  * A component for showing notifications on different position with custom content
@@ -46,9 +48,9 @@ import org.jboss.elemento.EventType;
 public class Notification extends BaseDominoElement<HTMLDivElement, Notification>
     implements NotificationStyles {
 
-  private final DominoElement<HTMLDivElement> element;
-  private final DominoElement<HTMLDivElement> root;
-  private final LazyChild<DominoElement<HTMLElement>> messageSpan;
+  private final DivElement element;
+  private final DivElement root;
+  private final LazyChild<SpanElement> messageSpan;
   private final LazyChild<RemoveButton> closeButton;
 
   private int duration = 4000;
@@ -133,7 +135,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
 
   /**
    * Defines the animation transition to be applied to show up the notification when {@link
-   * Notification#show()} is called.
+   * Notification#expand()} is called.
    *
    * @param inTransition {@link Transition}
    * @return {@link Notification}
@@ -167,7 +169,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * Defines the location in which the notification will show up when {@link Notification#show()} is
+   * Defines the location in which the notification will show up when {@link Notification#expand()} is
    * called.
    *
    * @param position {@link Position}
@@ -200,7 +202,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    *
    * @return {@link Notification}
    */
-  public Notification show() {
+  public Notification expand() {
     this.closed = false;
     Animation.create(element)
         .beforeStart(element -> DomGlobal.document.body.appendChild(element()))

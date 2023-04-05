@@ -45,7 +45,7 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
    */
   public RadioGroup(String name) {
     init(this);
-    addCss(FORM_RADIO_GROUP);
+    addCss(dui_form_radio_group);
     setName(name);
   }
 
@@ -84,7 +84,7 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
   }
 
   public RadioGroup<T> withGap(boolean withGap) {
-    addCss(BooleanCssClass.of(FORM_RADIO_GROUP_GAP, withGap));
+    addCss(BooleanCssClass.of(dui_form_radio_group_gap, withGap));
     return this;
   }
   /**
@@ -206,7 +206,7 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
    * @return same RadioGroup instance
    */
   public RadioGroup<T> vertical(boolean vertical) {
-    addCss(BooleanCssClass.of(FORM_RADIO_GROUP_VERTICAL, vertical));
+    addCss(BooleanCssClass.of(dui_form_radio_group_vertical, vertical));
     return this;
   }
 

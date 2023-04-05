@@ -22,10 +22,11 @@ import static org.dominokit.domino.ui.grid.Columns._24;
 import static org.dominokit.domino.ui.grid.Columns._32;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.PostfixCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * A component which provides an abstract level of the CSS grid row which will inherit the styles
@@ -47,7 +48,7 @@ import org.jboss.elemento.IsElement;
  */
 public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridStyles {
 
-  protected DominoElement<HTMLDivElement> row;
+  protected DivElement row;
 
   private PostfixCssClass rowColumns = PostfixCssClass.of("dui-row", _12.getCount());
 

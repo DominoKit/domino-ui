@@ -17,7 +17,7 @@ package org.dominokit.domino.ui.style;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * An abstract element that provides waves support

@@ -15,12 +15,13 @@
  */
 package org.dominokit.domino.ui.style;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 
 public interface ToggleCssClass extends CssClass {
 
   @Override
-  default void apply(HTMLElement element) {
+  default void apply(Element element) {
     if (element.classList.contains(getCssClass())) {
       element.classList.remove(getCssClass());
     } else {

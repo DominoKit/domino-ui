@@ -19,9 +19,8 @@ import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.UtilityElement;
-import org.jboss.elemento.EventType;
+import org.dominokit.domino.ui.utils.PostfixAddOn;
+import org.dominokit.domino.ui.events.EventType;
 
 /**
  * A component that open a pop-up that acts like a window with close/maximize/minimize controls and
@@ -75,7 +74,7 @@ public class Window extends AbstractDialog<Window> {
                   evt.stopPropagation();
                   restore();
                 })
-            .hide();
+            .collapse();
     maximizeIcon =
         Icons.ALL
             .window_maximize_mdi()
@@ -95,9 +94,9 @@ public class Window extends AbstractDialog<Window> {
                   close();
                 });
 
-    appendChild(UtilityElement.of(maximizeIcon));
-    appendChild(UtilityElement.of(restoreIcon));
-    appendChild(UtilityElement.of(closeIcon));
+    appendChild(PostfixAddOn.of(maximizeIcon));
+    appendChild(PostfixAddOn.of(restoreIcon));
+    appendChild(PostfixAddOn.of(closeIcon));
 
     moveListener = this::onMove;
     stopMoveListener =
@@ -258,8 +257,8 @@ public class Window extends AbstractDialog<Window> {
    */
   public Window maximize() {
     maximizing = true;
-    maximizeIcon.hide();
-    restoreIcon.show();
+    maximizeIcon.collapse();
+    restoreIcon.expand();
     maximized = true;
     updatePosition();
     addCss(dui_maximized);
@@ -273,8 +272,8 @@ public class Window extends AbstractDialog<Window> {
    * @return same Window instance
    */
   public Window restore() {
-    restoreIcon.hide();
-    maximizeIcon.show();
+    restoreIcon.collapse();
+    maximizeIcon.expand();
     maximized = false;
     Window.this.removeCss("maximized");
     removeCss(dui_maximized);
@@ -338,8 +337,8 @@ public class Window extends AbstractDialog<Window> {
    * @return same Window instance
    */
   public Window hideResizing() {
-    restoreIcon.hide();
-    maximizeIcon.hide();
+    restoreIcon.collapse();
+    maximizeIcon.collapse();
     return this;
   }
 
@@ -350,11 +349,11 @@ public class Window extends AbstractDialog<Window> {
    */
   public Window showResizing() {
     if (maximized) {
-      maximizeIcon.hide();
-      restoreIcon.show();
+      maximizeIcon.collapse();
+      restoreIcon.expand();
     } else {
-      maximizeIcon.show();
-      restoreIcon.hide();
+      maximizeIcon.expand();
+      restoreIcon.collapse();
     }
     return this;
   }
@@ -365,7 +364,7 @@ public class Window extends AbstractDialog<Window> {
    * @return same Window instance
    */
   public Window hideClosing() {
-    closeIcon.hide();
+    closeIcon.collapse();
     return this;
   }
 
@@ -375,7 +374,7 @@ public class Window extends AbstractDialog<Window> {
    * @return same Window instance
    */
   public Window showClosing() {
-    closeIcon.show();
+    closeIcon.expand();
     return this;
   }
 

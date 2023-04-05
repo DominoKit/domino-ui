@@ -15,26 +15,39 @@
  */
 package org.dominokit.domino.ui.style;
 
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.style.GenericCss.*;
-
+import elemental2.dom.CSSStyleDeclaration;
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
+import elemental2.svg.SVGElement;
+import jsinterop.base.Js;
+import org.dominokit.domino.ui.DominoElementAdapter;
+import org.dominokit.domino.ui.IsElement;
+
 import java.util.Arrays;
-import org.jboss.elemento.IsElement;
 
-public class Style<E extends HTMLElement> implements DominoStyle<E, Style<E>> {
+import static java.util.Objects.nonNull;
 
+public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
+
+  public final CSSStyleDeclaration style;
   private E element;
 
   public Style(E element) {
     this.element = element;
+    if(this.element instanceof HTMLElement){
+      this.style = Js.<HTMLElement>uncheckedCast(element).style;
+    }else if(this.element instanceof SVGElement){
+      this.style = Js.<DominoElementAdapter>uncheckedCast(element).style;
+    }else {
+      throw new IllegalArgumentException("Element is not HTMLElement nor SVGElement.");
+    }
   }
 
-  public static <E extends HTMLElement> Style<E> of(E htmlElement) {
-    return new Style<>(htmlElement);
+  public static <E extends Element> Style<E> of(E element) {
+    return new Style<>(element);
   }
 
-  public static <E extends HTMLElement, T extends IsElement<E>> Style<E> of(T isElement) {
+  public static <E extends Element, T extends IsElement<E>> Style<E> of(T isElement) {
     return new Style<>(isElement.element());
   }
 
@@ -45,7 +58,7 @@ public class Style<E extends HTMLElement> implements DominoStyle<E, Style<E>> {
    */
   @Override
   public Style<E> setCssProperty(String name, String value) {
-    element.style.setProperty(name, value);
+    style.setProperty(name, value);
     return this;
   }
 
@@ -58,9 +71,9 @@ public class Style<E extends HTMLElement> implements DominoStyle<E, Style<E>> {
   @Override
   public Style<E> setCssProperty(String name, String value, boolean important) {
     if (important) {
-      element.style.setProperty(name, value, "important");
+      style.setProperty(name, value, "important");
     } else {
-      element.style.setProperty(name, value);
+      style.setProperty(name, value);
     }
     return this;
   }
@@ -71,7 +84,7 @@ public class Style<E extends HTMLElement> implements DominoStyle<E, Style<E>> {
    */
   @Override
   public Style<E> removeCssProperty(String name) {
-    element.style.removeProperty(name);
+    style.removeProperty(name);
     return this;
   }
 
@@ -580,44 +593,20 @@ public class Style<E extends HTMLElement> implements DominoStyle<E, Style<E>> {
   }
 
   @Override
-  public Style<E> pullRight() {
-    if (!containsCss(pull_right)) {
-      addCss(pull_right);
-    }
-
-    return this;
-  }
-
-  @Override
-  public Style<E> pullLeft() {
-    if (!containsCss(pull_left)) {
-      addCss(pull_left);
-    }
-
-    return this;
-  }
-
-  @Override
   public Style<E> alignCenter() {
-    if (containsCss(align_center)) {
-      removeCss(align_center);
-    }
-    addCss(align_center);
+    addCss(SpacingCss.dui_text_center);
     return this;
   }
 
   @Override
   public Style<E> alignRight() {
-    if (containsCss(align_right)) {
-      removeCss(align_right);
-    }
-    addCss(align_right);
+    addCss(SpacingCss.dui_text_right);
     return this;
   }
 
   @Override
   public Style<E> cssText(String cssText) {
-    element.style.cssText = cssText;
+    style.cssText = cssText;
     return this;
   }
 

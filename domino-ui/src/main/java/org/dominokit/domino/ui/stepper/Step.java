@@ -51,7 +51,7 @@
 // import org.dominokit.domino.ui.utils.BaseDominoElement;
 // import org.dominokit.domino.ui.utils.DominoElement;
 // import org.dominokit.domino.ui.utils.HasValidation;
-// import org.jboss.elemento.IsElement;
+// import org.dominokit.domino.ui.IsElement;
 //
 /// ** A component that is a single step inside a {@link Stepper} */
 // public class Step extends BaseDominoElement<HTMLDivElement, Step> implements HasValidation<Step>

@@ -19,6 +19,5 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public interface MdiIconsByTagFactory {
-
   List<Supplier<MdiIcon>> icons();
 }

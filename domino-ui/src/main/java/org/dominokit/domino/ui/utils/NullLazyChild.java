@@ -16,7 +16,7 @@
 package org.dominokit.domino.ui.utils;
 
 import java.util.function.Supplier;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 public class NullLazyChild<T extends IsElement<?>> extends LazyChild<T> {
 

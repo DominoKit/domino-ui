@@ -19,6 +19,7 @@ package org.dominokit.domino.ui.progress;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ProgressBarConfig;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
@@ -39,7 +40,7 @@ import java.util.Optional;
  */
 public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> implements ProgressStyles, HasComponentConfig<ProgressBarConfig> {
 
-    private DominoElement<HTMLDivElement> element;
+    private DivElement element;
     private double maxValue;
     private double value = 0;
     private String textExpression;

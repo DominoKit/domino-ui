@@ -22,6 +22,8 @@ import elemental2.dom.HTMLUListElement;
 
 import java.util.*;
 
+import org.dominokit.domino.ui.elements.NavElement;
+import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.i18n.PaginationLabels;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.BooleanCssClass;
@@ -38,11 +40,11 @@ import org.dominokit.domino.ui.utils.HasChangeListeners;
 public abstract class BasePagination<T extends BasePagination<T>>
         extends BaseDominoElement<HTMLElement, T> implements HasPagination<T>, PaginationStyles, HasChangeListeners<T, Integer> {
 
-    protected DominoElement<HTMLElement> pager;
-    protected DominoElement<HTMLUListElement> pagesList;
+    protected NavElement pager;
+    protected UListElement pagesList;
 
-    protected DominoElement<HTMLUListElement> pagesElement = ul().css("pagination");
-    protected DominoElement<HTMLElement> element = nav().add(pagesElement);
+    protected UListElement pagesElement = ul().css("pagination");
+    protected NavElement element = nav().appendChild(pagesElement);
     protected PagerNavItem activePage;
     protected List<PagerNavItem> allPages = new LinkedList<>();
 
@@ -72,10 +74,10 @@ public abstract class BasePagination<T extends BasePagination<T>>
 
         init((T) this);
         pagesList
-                .appendChild(firstPage = PagerNavItem.nav(Icons.ALL.skip_previous_mdi()).hide())
+                .appendChild(firstPage = PagerNavItem.nav(Icons.ALL.skip_previous_mdi()).collapse())
                 .appendChild(prevPage = PagerNavItem.nav(Icons.ALL.chevron_left_mdi()))
                 .appendChild(nextPage = PagerNavItem.nav(Icons.ALL.chevron_right_mdi()))
-                .appendChild(lastPage = PagerNavItem.nav(Icons.ALL.skip_next_mdi()).hide())
+                .appendChild(lastPage = PagerNavItem.nav(Icons.ALL.skip_next_mdi()).collapse())
         ;
     }
 

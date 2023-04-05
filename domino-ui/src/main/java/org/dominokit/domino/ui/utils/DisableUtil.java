@@ -15,8 +15,9 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 import java.util.Optional;
 
@@ -27,15 +28,15 @@ public class DisableUtil {
   public static final String FOCUSABLE_ELEMENTS =
       "a, button, embed, iframe, label, audio[controls], video[controls], img[usemap], object[usemap], input, textarea, select, details, [tabindex]";
 
-  public static <E extends HTMLElement> void disable(IsElement<E> element) {
+  public static <E extends Element> void disable(IsElement<E> element) {
     Optional.ofNullable(element).ifPresent(e -> disable(e.element()));
   }
 
-  public static void disable(HTMLElement element) {
+  public static void disable(Element element) {
     Optional.ofNullable(element)
         .ifPresent(
             e -> {
-              DominoElement<HTMLElement> dominoElement = elements.elementOf(e);
+              DominoElement<Element> dominoElement = elements.elementOf(e);
               if (!isDisabled(dominoElement)) {
                 disableElement(dominoElement);
                 elements.elementOf(element)
@@ -45,7 +46,7 @@ public class DisableUtil {
             });
   }
 
-  private static <E extends HTMLElement> void disableChild(DominoElement<E> element) {
+  private static <E extends Element> void disableChild(DominoElement<E> element) {
     if (element.isDisabled()) {
       element.setAttribute("dui-disabled", "true");
     } else {
@@ -53,7 +54,7 @@ public class DisableUtil {
     }
   }
 
-  private static <E extends HTMLElement> void disableElement(DominoElement<E> element) {
+  private static <E extends Element> void disableElement(DominoElement<E> element) {
     element.removeAttribute("dui-disabled");
     element.setAttribute("disabled", "");
 
@@ -64,19 +65,19 @@ public class DisableUtil {
     element.setTabIndex(-1);
   }
 
-  private static <E extends HTMLElement> boolean isDisabled(DominoElement<E> element) {
+  private static <E extends Element> boolean isDisabled(DominoElement<E> element) {
     return element.hasAttribute("disabled");
   }
 
-  public static <E extends HTMLElement> void enable(IsElement<E> element) {
+  public static <E extends Element> void enable(IsElement<E> element) {
     Optional.ofNullable(element).ifPresent(e -> enable(e.element()));
   }
 
-  public static void enable(HTMLElement element) {
+  public static void enable(Element element) {
     Optional.ofNullable(element)
         .ifPresent(
             e -> {
-              DominoElement<HTMLElement> dominoElement = elements.elementOf(e);
+              DominoElement<Element> dominoElement = elements.elementOf(e);
               if (isDisabled(dominoElement)) {
                 enableElement(dominoElement);
                 elements.elementOf(element)
@@ -86,7 +87,7 @@ public class DisableUtil {
             });
   }
 
-  private static <E extends HTMLElement> void enableChild(DominoElement<E> element) {
+  private static <E extends Element> void enableChild(DominoElement<E> element) {
     if (element.hasAttribute("dui-disabled")) {
       element.removeAttribute("dui-disabled");
     } else {
@@ -94,7 +95,7 @@ public class DisableUtil {
     }
   }
 
-  private static <E extends HTMLElement> void enableElement(DominoElement<E> element) {
+  private static <E extends Element> void enableElement(DominoElement<E> element) {
     element.removeAttribute("dui-disabled");
     element.removeAttribute("disabled");
     if (element.hasAttribute("dui-tabindex")) {

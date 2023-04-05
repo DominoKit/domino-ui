@@ -19,7 +19,7 @@ import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.datatable.DataTable;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * This abstract plugin attach custom content to the data table top panel

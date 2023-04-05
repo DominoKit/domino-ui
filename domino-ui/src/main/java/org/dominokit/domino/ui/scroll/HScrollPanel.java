@@ -15,9 +15,8 @@
  */
 package org.dominokit.domino.ui.scroll;
 
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -26,7 +25,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class HScrollPanel extends BaseDominoElement<HTMLDivElement, HScrollPanel> {
 
-  private DominoElement<HTMLDivElement> root;
+  private DivElement root;
 
   /** @return new HScrollPanel instance */
   public static HScrollPanel create() {

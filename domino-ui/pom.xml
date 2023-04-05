@@ -31,8 +31,8 @@
             <artifactId>gwt-timer</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.elemento</groupId>
-            <artifactId>elemento-core</artifactId>
+            <groupId>org.gwtproject.safehtml</groupId>
+            <artifactId>gwt-safehtml</artifactId>
         </dependency>
         <dependency>
             <groupId>org.dominokit.i18n</groupId>

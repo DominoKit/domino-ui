@@ -28,14 +28,14 @@ public interface IsCollapsible<T> {
    *
    * @return same component instance
    */
-  T show();
+  T expand();
 
   /**
    * Hides the component
    *
    * @return same component instance
    */
-  T hide();
+  T collapse();
 
   /**
    * if the component is visible then hide it, otherwise show it

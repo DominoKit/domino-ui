@@ -15,16 +15,17 @@
  */
 package org.dominokit.domino.ui.grid.flex;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
-import java.util.ArrayList;
-import java.util.List;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.IsCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 /**
  * A component which provides an abstract level of the CSS flex layout which will inherit the styles
@@ -47,7 +48,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
 
-  private final DominoElement<HTMLDivElement> element =
+  private final DivElement element =
       div().css(FlexStyles.FLEX_LAYOUT);
   private final List<FlexItem<?>> flexItems = new ArrayList<>();
   private FlexDirection flexDirection;

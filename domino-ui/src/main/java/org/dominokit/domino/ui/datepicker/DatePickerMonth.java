@@ -51,7 +51,7 @@
 // import org.gwtproject.editor.client.TakesValue;
 // import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 // import org.jboss.elemento.HtmlContentBuilder;
-// import org.jboss.elemento.IsElement;
+// import org.dominokit.domino.ui.IsElement;
 //
 /// **
 // * A component represents a month element on {@link DatePicker}

@@ -21,20 +21,24 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.HTMLImageElement;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.HeadingElement;
+import org.dominokit.domino.ui.elements.ImageElement;
+import org.dominokit.domino.ui.elements.SmallElement;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.*;
 
 public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
 
-  private DominoElement<HTMLDivElement> element;
-  private LazyChild<DominoElement<HTMLDivElement>> mainHeader;
-  private LazyChild<DominoElement<HTMLDivElement>> subHeader;
-  private LazyChild<DominoElement<HTMLDivElement>> title;
-  private LazyChild<DominoElement<HTMLHeadingElement>> mainTitle;
-  private LazyChild<DominoElement<HTMLElement>> description;
+  private DivElement element;
+  private LazyChild<DivElement> mainHeader;
+  private LazyChild<DivElement> subHeader;
+  private LazyChild<DivElement> title;
+  private LazyChild<HeadingElement> mainTitle;
+  private LazyChild<SmallElement> description;
 
-  private LazyChild<DominoElement<HTMLImageElement>> logo = NullLazyChild.of();
-  private LazyChild<BaseIcon<?>> cardIcon = NullLazyChild.of();
+  private LazyChild<ImageElement> logo = NullLazyChild.of();
+  private LazyChild<Icon<?>> cardIcon = NullLazyChild.of();
 
   public static CardHeader create() {
     return new CardHeader();
@@ -67,7 +71,7 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
     setDescription(description);
   }
 
-  public DominoElement<HTMLDivElement> getMainHeader() {
+  public DivElement getMainHeader() {
     return mainHeader.get();
   }
 
@@ -77,12 +81,12 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   public CardHeader withMainHeader(
-      ChildHandler<CardHeader, DominoElement<HTMLDivElement>> handler) {
+      ChildHandler<CardHeader, DivElement> handler) {
     handler.apply(this, mainHeader.get());
     return this;
   }
 
-  public DominoElement<HTMLDivElement> getSubHeader() {
+  public DivElement getSubHeader() {
     return subHeader.get();
   }
 
@@ -91,7 +95,7 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
     return this;
   }
 
-  public CardHeader withSubHeader(ChildHandler<CardHeader, DominoElement<HTMLDivElement>> handler) {
+  public CardHeader withSubHeader(ChildHandler<CardHeader, DivElement> handler) {
     handler.apply(this, subHeader.get());
     return this;
   }
@@ -106,7 +110,7 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
     return this;
   }
 
-  public DominoElement<HTMLDivElement> getTitleElement() {
+  public DivElement getTitleElement() {
     return title.get();
   }
 
@@ -115,12 +119,12 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
     return this;
   }
 
-  public CardHeader withTitle(ChildHandler<CardHeader, DominoElement<HTMLDivElement>> handler) {
+  public CardHeader withTitle(ChildHandler<CardHeader, DivElement> handler) {
     handler.apply(this, title.get());
     return this;
   }
 
-  public DominoElement<HTMLHeadingElement> getMainTitleElement() {
+  public HeadingElement getMainTitleElement() {
     return mainTitle.get();
   }
 
@@ -135,12 +139,12 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   public CardHeader withMainTitle(
-      ChildHandler<CardHeader, DominoElement<HTMLHeadingElement>> handler) {
+      ChildHandler<CardHeader, HeadingElement> handler) {
     handler.apply(this, mainTitle.get());
     return this;
   }
 
-  public DominoElement<HTMLElement> getDescriptionElement() {
+  public SmallElement getDescriptionElement() {
     return description.get();
   }
 
@@ -154,19 +158,19 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
     return this;
   }
 
-  public CardHeader withDescription(ChildHandler<CardHeader, DominoElement<HTMLElement>> handler) {
+  public CardHeader withDescription(ChildHandler<CardHeader, SmallElement> handler) {
     handler.apply(this, description.get());
     return this;
   }
 
   public CardHeader setLogo(HTMLImageElement img) {
     logo.remove();
-    logo = LazyChild.of(elementOf(img).addCss(card_logo), mainHeader);
+    logo = LazyChild.of(ImageElement.of(img).addCss(card_logo), mainHeader);
     logo.get();
     return this;
   }
 
-  public DominoElement<HTMLImageElement> getLogo() {
+  public ImageElement getLogo() {
     return logo.get();
   }
 
@@ -180,23 +184,23 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
     return this;
   }
 
-  public CardHeader withLogo(ChildHandler<CardHeader, DominoElement<HTMLImageElement>> handler) {
+  public CardHeader withLogo(ChildHandler<CardHeader, ImageElement> handler) {
     handler.apply(this, logo.get());
     return this;
   }
 
-  public CardHeader setIcon(BaseIcon<?> icon) {
+  public CardHeader setIcon(Icon<?> icon) {
     cardIcon.remove();
     cardIcon = LazyChild.of(icon.addCss(card_icon), mainHeader);
     cardIcon.get();
     return this;
   }
 
-  public BaseIcon<?> getIcon() {
+  public Icon<?> getIcon() {
     return cardIcon.get();
   }
 
-  public CardHeader withIcon(BaseIcon<?> icon) {
+  public CardHeader withIcon(Icon<?> icon) {
     setIcon(icon);
     return this;
   }
@@ -206,18 +210,14 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
     return this;
   }
 
-  public CardHeader withIcon(ChildHandler<CardHeader, BaseIcon<?>> handler) {
+  public CardHeader withIcon(ChildHandler<CardHeader, Icon<?>> handler) {
     handler.apply(this, cardIcon.get());
     return this;
   }
 
-  public CardHeader appendChild(UtilityElement<?> utility) {
+  public CardHeader appendChild(PostfixAddOn<?> utility) {
     mainHeader.get().appendChild(utility.addCss(card_utility));
     return this;
-  }
-
-  public CardHeader withUtility(UtilityElement<?> utility) {
-    return appendChild(utility);
   }
 
   @Override

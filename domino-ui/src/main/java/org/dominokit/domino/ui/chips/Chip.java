@@ -24,16 +24,18 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import org.dominokit.domino.ui.button.RemoveButton;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     implements HasSelectionListeners<Chip, Chip, Chip>, Selectable<Chip>, AcceptDisable<Chip> {
 
-  private DominoElement<HTMLDivElement> root;
-  private DominoElement<HTMLElement> textElement;
-  private LazyChild<DominoElement<HTMLDivElement>> addon;
+  private DivElement root;
+  private SpanElement textElement;
+  private LazyChild<DivElement> addon;
   private LazyChild<RemoveButton> removeButton;
   private Set<SelectionListener<? super Chip, ? super Chip>> selectionListeners = new HashSet<>();
   private Set<SelectionListener<? super Chip, ? super Chip>> deselectionListeners = new HashSet<>();
@@ -239,12 +241,12 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     return this;
   }
 
-  public Chip withTextElement(ChildHandler<Chip, DominoElement<HTMLElement>> handler) {
+  public Chip withTextElement(ChildHandler<Chip, SpanElement> handler) {
     handler.apply(this, textElement);
     return this;
   }
 
-  public DominoElement<HTMLElement> getTextElement() {
+  public SpanElement getTextElement() {
     return textElement;
   }
 
@@ -261,7 +263,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     return setAddOn(elementOf(img));
   }
 
-  public Chip withAddon(ChildHandler<Chip, DominoElement<HTMLDivElement>> handler) {
+  public Chip withAddon(ChildHandler<Chip, DivElement> handler) {
     handler.apply(this, addon.get());
     return this;
   }

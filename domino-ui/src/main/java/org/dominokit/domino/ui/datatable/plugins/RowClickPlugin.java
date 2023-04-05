@@ -17,10 +17,7 @@ package org.dominokit.domino.ui.datatable.plugins;
 
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableRow;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.EventType;
-
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+import org.dominokit.domino.ui.events.EventType;
 
 /**
  * This plugin allow adding a listener to single click event on a row

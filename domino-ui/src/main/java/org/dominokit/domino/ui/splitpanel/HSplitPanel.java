@@ -38,17 +38,16 @@ package org.dominokit.domino.ui.splitpanel;
  * </pre>
  *
  * @see BaseSplitPanel
- * @see HasSize
+ * @see HasSplitPanels
  */
-public class HSplitPanel extends BaseSplitPanel<HSplitPanel, HSplitter> implements HasSize {
+public class HSplitPanel extends BaseSplitPanel<HSplitPanel, HSplitter> implements HasSplitPanels, SplitStyles {
 
   public HSplitPanel() {
-    super(SplitStyles.HORIZONTAL);
-    init(this);
+    addCss(dui_horizontal);
   }
 
   @Override
-  protected HSplitter createSplitter(SplitPanel first, SplitPanel second, HasSize mainPanel) {
+  protected HSplitter createSplitter(SplitPanel first, SplitPanel second, HasSplitPanels mainPanel) {
     return HSplitter.create(first, second, this);
   }
 

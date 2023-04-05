@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.menu.direction;
 import static elemental2.dom.DomGlobal.window;
 
 import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 
 public class BestMiddleSideDropDirection implements DropDirection {
@@ -25,7 +26,7 @@ public class BestMiddleSideDropDirection implements DropDirection {
   private DropDirection currentPosition;
 
   @Override
-  public void position(HTMLElement source, HTMLElement target) {
+  public void position(Element source, Element target) {
 
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect sourceRect = source.getBoundingClientRect();

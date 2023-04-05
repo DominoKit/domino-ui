@@ -18,7 +18,10 @@ package org.dominokit.domino.ui.layout;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.HeadingElement;
+import org.dominokit.domino.ui.elements.SmallElement;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.*;
 
 /**
@@ -35,11 +38,11 @@ import org.dominokit.domino.ui.utils.*;
 public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
     implements EmptyStateStyles {
 
-  private DominoElement<HTMLDivElement> element;
-  private LazyChild<DominoElement<HTMLHeadingElement>> title;
-  private LazyChild<DominoElement<HTMLElement>> description;
+  private DivElement element;
+  private LazyChild<HeadingElement> title;
+  private LazyChild<SmallElement> description;
 
-  private LazyChild<BaseIcon<?>> icon = NullLazyChild.of();
+  private LazyChild<Icon<?>> icon = NullLazyChild.of();
 
   public EmptyState() {
     element = div().addCss(dui_empty_state);
@@ -58,18 +61,18 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
     setDescription(description);
   }
 
-  public EmptyState(String title, BaseIcon<?> icon) {
+  public EmptyState(String title, Icon<?> icon) {
     this(title);
     setIcon(icon);
   }
 
-  public EmptyState(String title, String description, BaseIcon<?> icon) {
+  public EmptyState(String title, String description, Icon<?> icon) {
     this(title, description);
     setIcon(icon);
   }
 
-  /** @param icon {@link BaseIcon} to indicate empty data */
-  public EmptyState(BaseIcon<?> icon) {
+  /** @param icon {@link Icon} to indicate empty data */
+  public EmptyState(Icon<?> icon) {
     this();
     setIcon(icon);
   }
@@ -86,19 +89,19 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
     return new EmptyState(title, description);
   }
 
-  public static EmptyState create(String title, BaseIcon<?> icon) {
+  public static EmptyState create(String title, Icon<?> icon) {
     return new EmptyState(title, icon);
   }
 
-  public static EmptyState create(String title, String description, BaseIcon<?> icon) {
+  public static EmptyState create(String title, String description, Icon<?> icon) {
     return new EmptyState(title, description, icon);
   }
 
   /**
-   * @param icon {@link BaseIcon} to indicate empty data
+   * @param icon {@link Icon} to indicate empty data
    * @return new EmptyState instance
    */
-  public static EmptyState create(BaseIcon<?> icon) {
+  public static EmptyState create(Icon<?> icon) {
     return new EmptyState(icon);
   }
 
@@ -112,7 +115,7 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
   }
 
   /**
-   * @param description String to be show under the title with smaller font
+   * @param description String to be shown under the title with smaller font
    * @return same EmptyState instance
    */
   public EmptyState setDescription(String description) {
@@ -120,36 +123,36 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
     return this;
   }
 
-  public EmptyState setIcon(BaseIcon<?> icon) {
+  public EmptyState setIcon(Icon<?> icon) {
     this.icon.remove();
     this.icon = LazyChild.of(icon.addCss(dui_empty_state_icon), element);
     this.icon.get();
     return this;
   }
 
-  public DominoElement<HTMLHeadingElement> getTitle() {
+  public HeadingElement getTitle() {
     return title.get();
   }
 
-  public DominoElement<HTMLElement> getDescription() {
+  public SmallElement getDescription() {
     return description.get();
   }
 
-  public BaseIcon<?> getIcon() {
+  public Icon<?> getIcon() {
     return icon.get();
   }
 
-  public EmptyState withTitle(ChildHandler<EmptyState, DominoElement<HTMLHeadingElement>> handler) {
+  public EmptyState withTitle(ChildHandler<EmptyState, HeadingElement> handler) {
     handler.apply(this, title.get());
     return this;
   }
 
-  public EmptyState withDescription(ChildHandler<EmptyState, DominoElement<HTMLElement>> handler) {
+  public EmptyState withDescription(ChildHandler<EmptyState, SmallElement> handler) {
     handler.apply(this, description.get());
     return this;
   }
 
-  public EmptyState withIcon(ChildHandler<EmptyState, BaseIcon<?>> handler) {
+  public EmptyState withIcon(ChildHandler<EmptyState, Icon<?>> handler) {
     handler.apply(this, icon.get());
     return this;
   }

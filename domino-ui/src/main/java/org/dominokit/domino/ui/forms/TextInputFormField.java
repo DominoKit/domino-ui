@@ -15,22 +15,23 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import static org.dominokit.domino.ui.forms.FormsStyles.*;
-
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.HasPostfix;
+import org.dominokit.domino.ui.utils.HasPrefix;
+import org.dominokit.domino.ui.utils.LazyChild;
 
 public abstract class TextInputFormField<
         T extends InputFormField<T, E, V>, E extends HTMLInputElement, V>
     extends CountableInputFormField<T, E, V> implements HasPostfix<T>, HasPrefix<T> {
 
-  protected final LazyChild<DominoElement<HTMLDivElement>> prefixElement;
-  protected final LazyChild<DominoElement<HTMLDivElement>> postfixElement;
+  protected final LazyChild<DivElement> prefixElement;
+  protected final LazyChild<DivElement> postfixElement;
 
   public TextInputFormField() {
-    prefixElement = LazyChild.of(div().addCss(FIELD_PREFIX), wrapperElement);
-    postfixElement = LazyChild.of(div().addCss(FIELD_POSTFIX), wrapperElement);
+    prefixElement = LazyChild.of(div().addCss(dui_field_prefix), wrapperElement);
+    postfixElement = LazyChild.of(div().addCss(dui_field_postfix), wrapperElement);
   }
 
   @Override
@@ -61,11 +62,11 @@ public abstract class TextInputFormField<
     return "";
   }
 
-  public DominoElement<HTMLDivElement> getPrefixElement() {
+  public DivElement getPrefixElement() {
     return prefixElement.get();
   }
 
-  public DominoElement<HTMLDivElement> getPostfixElement() {
+  public DivElement getPostfixElement() {
     return postfixElement.get();
   }
 
@@ -74,7 +75,7 @@ public abstract class TextInputFormField<
     return (T) this;
   }
 
-  public T withPrefixElement(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
+  public T withPrefixElement(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, prefixElement.get());
     return (T) this;
   }
@@ -84,7 +85,7 @@ public abstract class TextInputFormField<
     return (T) this;
   }
 
-  public T withPostfixElement(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
+  public T withPostfixElement(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, postfixElement.get());
     return (T) this;
   }

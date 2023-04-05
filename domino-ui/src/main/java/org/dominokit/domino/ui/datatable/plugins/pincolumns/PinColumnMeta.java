@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.datatable.plugins.pincolumns;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import java.util.List;
 import java.util.Optional;
@@ -143,7 +144,7 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction, PinElementT
                                 .getHeadElement()
                                 .hasCssClass(dui_pin_left_col)
                                 .ifPresent(headElement::addCss);
-                            pinElementLeft(headElement, left);
+                            pinElementLeft(headElement.toDominoElement(), left);
                           }));
       return pinElementLeft(column.getHeadElement(), left);
     }
@@ -159,7 +160,7 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction, PinElementT
     }
   }
 
-  private static double pinElementLeft(DominoElement<? extends HTMLElement> element, double left) {
+  private static double pinElementLeft(DominoElement<? extends Element> element, double left) {
     if (!element.containsCss(dui_pinned_cell)) {
       element.addCss(dui_pinned_cell);
     }
@@ -190,7 +191,7 @@ public class PinColumnMeta implements ColumnMeta, PinColumnFunction, PinElementT
                               .getHeadElement()
                               .hasCssClass(dui_pin_right_col)
                               .ifPresent(headElement::addCss);
-                          pinElementRight(headElement, right);
+                          pinElementRight(headElement.toDominoElement(), right);
                         }));
     return pinElementRight(column.getHeadElement(), right);
   }

@@ -21,6 +21,8 @@ import static org.dominokit.domino.ui.menu.MenuStyles.*;
 import elemental2.dom.HTMLUListElement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 
@@ -30,7 +32,7 @@ public class MenuItemsGroup<V, I extends AbstractMenuItem<V, I>>
   private final Menu<V> menu;
   private List<I> menuItems = new ArrayList<>();
 
-  private LazyChild<DominoElement<HTMLUListElement>> itemsListElement;
+  private LazyChild<UListElement> itemsListElement;
 
   public MenuItemsGroup(Menu<V> menu) {
     this.menu = menu;

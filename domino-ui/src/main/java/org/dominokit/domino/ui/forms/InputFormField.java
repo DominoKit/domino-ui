@@ -22,6 +22,7 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import java.util.Objects;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.elements.BaseElement;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.DominoElement;

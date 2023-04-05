@@ -19,13 +19,14 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.menu.MenuStyles.*;
 
-import elemental2.dom.HTMLElement;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.dominokit.domino.ui.elements.SmallElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * An implementation og the {@link AbstractMenuItem} for a menu item that can have a main text and a
@@ -33,8 +34,8 @@ import org.jboss.elemento.IsElement;
  */
 public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
 
-  private DominoElement<HTMLElement> descriptionElement;
-  private DominoElement<HTMLElement> textElement;
+  private SmallElement descriptionElement;
+  private SpanElement textElement;
 
   public static <V> MenuItem<V> create(String text) {
     return new MenuItem<>(text);
@@ -60,13 +61,17 @@ public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
     }
   }
 
-  /** @return The description element */
-  public DominoElement<HTMLElement> getDescriptionElement() {
+  /**
+   * @return The description element
+   */
+  public SmallElement getDescriptionElement() {
     return descriptionElement;
   }
 
-  /** @return the main text element */
-  public DominoElement<HTMLElement> getTextElement() {
+  /**
+   * @return the main text element
+   */
+  public SpanElement getTextElement() {
     return textElement;
   }
 
@@ -80,17 +85,17 @@ public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
   @Override
   public boolean onSearch(String token, boolean caseSensitive) {
     if (isNull(token) || token.isEmpty()) {
-      this.show();
+      this.expand();
       return true;
     }
     if (containsToken(token, caseSensitive)) {
       if (this.isCollapsed()) {
-        this.show();
+        this.expand();
       }
       return true;
     }
     if (this.isExpanded()) {
-      this.hide();
+      this.collapse();
     }
     return false;
   }

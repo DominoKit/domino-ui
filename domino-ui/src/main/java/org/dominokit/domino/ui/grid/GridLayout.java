@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.grid;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
@@ -62,12 +63,12 @@ import org.dominokit.domino.ui.utils.LazyChild;
 public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     implements GridStyles {
 
-  private final DominoElement<HTMLDivElement> element;
-  private final DominoElement<HTMLDivElement> contentElement;
-  private final LazyChild<DominoElement<HTMLDivElement>> headerElement;
-  private final LazyChild<DominoElement<HTMLDivElement>> footerElement;
-  private final LazyChild<DominoElement<HTMLDivElement>> leftElement;
-  private final LazyChild<DominoElement<HTMLDivElement>> rightElement;
+  private final DivElement element;
+  private final DivElement contentElement;
+  private final LazyChild<DivElement> headerElement;
+  private final LazyChild<DivElement> footerElement;
+  private final LazyChild<DivElement> leftElement;
+  private final LazyChild<DivElement> rightElement;
   private final GridLayoutEditor editor = new GridLayoutEditor();
 
   public GridLayout() {
@@ -248,27 +249,27 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   }
 
   /** @return The content section */
-  public DominoElement<HTMLDivElement> getContentElement() {
+  public DivElement getContentElement() {
     return contentElement;
   }
 
   /** @return The header section */
-  public DominoElement<HTMLDivElement> getHeaderElement() {
+  public DivElement getHeaderElement() {
     return headerElement.get();
   }
 
   /** @return The footer section */
-  public DominoElement<HTMLDivElement> getFooterElement() {
+  public DivElement getFooterElement() {
     return footerElement.get();
   }
 
   /** @return The left section */
-  public DominoElement<HTMLDivElement> getLeftElement() {
+  public DivElement getLeftElement() {
     return leftElement.get();
   }
 
   /** @return The right section */
-  public DominoElement<HTMLDivElement> getRightElement() {
+  public DivElement getRightElement() {
     return rightElement.get();
   }
 }

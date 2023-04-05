@@ -23,10 +23,11 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import elemental2.dom.AddEventListenerOptions;
 import elemental2.dom.CSSProperties;
 import elemental2.dom.DomGlobal;
+import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementsFactory;
 
 /**
  * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show the
@@ -46,7 +47,7 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
   }
 
   @Override
-  public void init(HTMLElement element, CollapsibleHandlers handlers) {
+  public void init(Element element, CollapsibleHandlers handlers) {
       this.handlers = handlers;
     elements.elementOf(element)
         .addCss(dui_height_collapsed_overflow)
@@ -55,7 +56,7 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
   }
 
   @Override
-  public void cleanup(HTMLElement element) {
+  public void cleanup(Element element) {
       elements.elementOf(element)
         .removeCss(dui_height_collapsed_overflow)
         .removeCss(transition.getStyle());
@@ -63,21 +64,21 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
 
   /** {@inheritDoc} */
   @Override
-  public void show(HTMLElement element) {
+  public void expand(Element element) {
       elements.elementOf(element)
         .apply(
             self -> {
                 self.nowOrWhenAttached(
                         () -> {
-                            this.handlers.onBeforeShow().run();
+                            this.handlers.onBeforeExpand().run();
                             expandElement(element);
                         });
             });
   }
 
-  private void expandElement(HTMLElement element) {
+  private void expandElement(Element element) {
 
-    DominoElement<HTMLElement> theElement = elements.elementOf(element);
+    DominoElement<Element> theElement = elements.elementOf(element);
     if (!dui_height_collapsed.isAppliedTo(element)) {
       theElement.addCss(dui_height_collapsed);
     }
@@ -86,8 +87,8 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
         evt -> {
           String collapseHeight = element.getAttribute(DUI_COLLAPSE_HEIGHT);
           theElement.removeAttribute(DUI_COLLAPSE_HEIGHT);
-          element.style.height = CSSProperties.HeightUnionType.of(collapseHeight);
-            this.handlers.onShowCompleted().run();
+            elements.elementOf(element).elementStyle().height = CSSProperties.HeightUnionType.of(collapseHeight);
+            this.handlers.onExpandCompleted().run();
         };
     String scrollHeight = element.getAttribute(DUI_SCROLL_HEIGHT);
     AddEventListenerOptions addEventListenerOptions = AddEventListenerOptions.create();
@@ -101,41 +102,41 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
         isNull(scrollHeight)
             ? element.scrollHeight
             : Math.max(Integer.parseInt(scrollHeight), element.scrollHeight);
-    element.style.height = CSSProperties.HeightUnionType.of(desiredHeight + "px");
+      elements.elementOf(element).elementStyle().height = CSSProperties.HeightUnionType.of(desiredHeight + "px");
     dui_height_collapsed.remove(element);
     theElement.removeAttribute(Collapsible.DUI_COLLAPSED).removeAttribute(DUI_SCROLL_HEIGHT);
   }
 
   /** {@inheritDoc} */
   @Override
-  public void hide(HTMLElement element) {
+  public void collapse(Element element) {
       elements.elementOf(element)
         .apply(
             self -> {
                 if (self.isAttached()) {
-                    this.handlers.onBeforeHide().run();
+                    this.handlers.onBeforeCollapse().run();
                     collapseElement(element, true);
-                    this.handlers.onHideCompleted().run();
+                    this.handlers.onCollapseCompleted().run();
                 } else {
                     self.onAttached(
                             mutationRecord -> {
-                                this.handlers.onBeforeHide().run();
+                                this.handlers.onBeforeCollapse().run();
                                 transition.getStyle().remove(element);
                                 collapseElement(element, false);
                                 transition.getStyle().apply(element);
-                                this.handlers.onHideCompleted().run();
+                                this.handlers.onCollapseCompleted().run();
                             });
                 }
             });
   }
 
-  private void collapseElement(HTMLElement element, boolean useAnimationFrame) {
-    DominoElement<HTMLElement> elementToCollapse = elements.elementOf(element);
+  private void collapseElement(Element element, boolean useAnimationFrame) {
+    DominoElement<Element> elementToCollapse = elements.elementOf(element);
     int scrollHeight = element.scrollHeight;
     dui_height_collapsed_overflow.remove(element);
 
-    CSSProperties.HeightUnionType originalHeight = element.style.height;
-    element.style.height = CSSProperties.HeightUnionType.of(scrollHeight + "px");
+    CSSProperties.HeightUnionType originalHeight = elements.elementOf(element).elementStyle().height;
+      elements.elementOf(element).elementStyle().height = CSSProperties.HeightUnionType.of(scrollHeight + "px");
     if (useAnimationFrame) {
       DomGlobal.requestAnimationFrame(
           timestamp -> {

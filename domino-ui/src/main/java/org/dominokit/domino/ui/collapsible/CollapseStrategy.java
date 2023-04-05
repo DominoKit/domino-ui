@@ -15,37 +15,36 @@
  */
 package org.dominokit.domino.ui.collapsible;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.style.Style;
-import org.jboss.elemento.IsElement;
 
 public interface CollapseStrategy {
 
   /**
    * Implement this method to provide any initialization required for the collapse strategy
    *
-   * @param element The collapsible {@link HTMLElement}
+   * @param element The collapsible {@link Element}
    */
-  default void init(HTMLElement element, CollapsibleHandlers handlers) {}
+  default void init(Element element, CollapsibleHandlers handlers) {}
   /**
    * Implement this method to show a collapsible element
    *
-   * @param element The collapsible {@link HTMLElement}
+   * @param element The collapsible {@link Element}
    */
-  void show(HTMLElement element);
+  void expand(Element element);
 
   /**
    * Implement this method to hide a collapsible element
    *
-   * @param element The collapsible {@link HTMLElement}
+   * @param element The collapsible {@link Element}
    */
-  void hide(HTMLElement element);
+  void collapse(Element element);
 
   /**
    * Implement this method to clean up any attributes or styles added the strategy when we switch to
    * a different one.
    *
-   * @param element The collapsible {@link HTMLElement}
+   * @param element The collapsible {@link Element}
    */
-  default void cleanup(HTMLElement element) {};
+  default void cleanup(Element element) {};
 }

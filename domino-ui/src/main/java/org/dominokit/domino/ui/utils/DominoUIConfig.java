@@ -15,27 +15,12 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
-
-import elemental2.dom.HTMLElement;
-import elemental2.dom.Node;
-import java.math.BigDecimal;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import org.dominokit.domino.ui.collapsible.CollapseStrategy;
-import org.dominokit.domino.ui.collapsible.DisplayCollapseStrategy;
-import org.dominokit.domino.ui.collapsible.HeightCollapseStrategy;
 import org.dominokit.domino.ui.config.DefaultUIConfig;
 import org.dominokit.domino.ui.config.UIConfig;
-import org.dominokit.domino.ui.dialogs.DefaultZIndexManager;
-import org.dominokit.domino.ui.dialogs.ZIndexManager;
-import org.dominokit.domino.ui.forms.*;
 import org.dominokit.domino.ui.i18n.DefaultDominoUILabels;
 import org.dominokit.domino.ui.i18n.DominoUILabels;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.Icons;
+
+import static java.util.Objects.nonNull;
 
 // import org.dominokit.domino.ui.tree.TreeItem;
 

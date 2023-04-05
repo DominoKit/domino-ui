@@ -17,12 +17,11 @@ package org.dominokit.domino.ui.infoboxes;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
-import org.jboss.elemento.IsElement;
-
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * Container for displaying information with icons
@@ -42,12 +41,12 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
  */
 public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implements InfoBoxStyles {
 
-  private final DominoElement<HTMLDivElement> root;
-  private final LazyChild<DominoElement<HTMLDivElement>> contentElement;
-  private final LazyChild<DominoElement<HTMLDivElement>> titleElement;
-  private final LazyChild<DominoElement<HTMLDivElement>> valueElement;
+  private final DivElement root;
+  private final LazyChild<DivElement> contentElement;
+  private final LazyChild<DivElement> titleElement;
+  private final LazyChild<DivElement> valueElement;
 
-  private LazyChild<DominoElement<HTMLDivElement>> iconContainer;
+  private LazyChild<DivElement> iconContainer;
 
   private SwapCssClass hoverEffect = SwapCssClass.of(HoverEffect.ZOOM.effectStyle);
 
@@ -78,19 +77,19 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   /**
    * Creates info box with icon, title and value
    *
-   * @param icon The {@link BaseIcon}
+   * @param icon The {@link Icon}
    * @param title the title
    * @param value the value
    * @return new instance
    */
-  public static InfoBox create(BaseIcon<?> icon, String title, String value) {
+  public static InfoBox create(Icon<?> icon, String title, String value) {
     return new InfoBox(icon, title, value);
   }
 
   /**
    * Creates info box with icon, title and value
    *
-   * @param icon The {@link BaseIcon}
+   * @param icon The {@link Icon}
    * @param title the title
    * @param value the value
    * @return new instance
@@ -136,21 +135,21 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   /**
    * Creates info box with icon and title
    *
-   * @param icon The {@link BaseIcon}
+   * @param icon The {@link Icon}
    * @param title the title
    * @return new instance
    */
-  public static InfoBox create(BaseIcon<?> icon, String title) {
+  public static InfoBox create(Icon<?> icon, String title) {
     return new InfoBox(icon, title);
   }
 
   /**
    * Creates info box with icon and title
    *
-   * @param icon The {@link BaseIcon}
+   * @param icon The {@link Icon}
    * @return new instance
    */
-  public static InfoBox create(BaseIcon<?> icon) {
+  public static InfoBox create(Icon<?> icon) {
     return new InfoBox(icon);
   }
 
@@ -224,23 +223,23 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   }
 
   /** @return The icon element */
-  public DominoElement<HTMLDivElement> getIconElement() {
-    return (DominoElement<HTMLDivElement>) iconContainer.get();
+  public DivElement getIconElement() {
+    return (DivElement) iconContainer.get();
   }
 
   /** @return The icon element */
-  public InfoBox withIconElement(ChildHandler<InfoBox, DominoElement<HTMLDivElement>> handler) {
+  public InfoBox withIconElement(ChildHandler<InfoBox, DivElement> handler) {
     handler.apply(this, iconContainer.get());
     return this;
   }
 
   /** @return The title element */
-  public DominoElement<HTMLDivElement> getTitleElement() {
+  public DivElement getTitleElement() {
     return titleElement.get();
   }
 
   /** @return The title element */
-  public InfoBox withTitleElement(ChildHandler<InfoBox, DominoElement<HTMLDivElement>> handler) {
+  public InfoBox withTitleElement(ChildHandler<InfoBox, DivElement> handler) {
     handler.apply(this, titleElement.get());
     return this;
   }
@@ -252,7 +251,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   }
 
   /** @return The value element */
-  public DominoElement<HTMLDivElement> getValueElement() {
+  public DivElement getValueElement() {
     return valueElement.get();
   }
 
@@ -263,7 +262,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   }
 
   /** @return The value element */
-  public InfoBox withValueElement(ChildHandler<InfoBox, DominoElement<HTMLDivElement>> handler) {
+  public InfoBox withValueElement(ChildHandler<InfoBox, DivElement> handler) {
     handler.apply(this, valueElement.get());
     return this;
   }

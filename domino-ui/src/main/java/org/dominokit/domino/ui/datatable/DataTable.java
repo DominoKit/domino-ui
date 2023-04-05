@@ -15,6 +15,34 @@
  */
 package org.dominokit.domino.ui.datatable;
 
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLTableElement;
+import elemental2.dom.HTMLTableSectionElement;
+import org.dominokit.domino.ui.datatable.events.DataSortEvent;
+import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
+import org.dominokit.domino.ui.datatable.events.TableBorderedEvent;
+import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
+import org.dominokit.domino.ui.datatable.events.TableEvent;
+import org.dominokit.domino.ui.datatable.events.TableEventListener;
+import org.dominokit.domino.ui.datatable.model.SearchContext;
+import org.dominokit.domino.ui.datatable.store.DataStore;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.TBodyElement;
+import org.dominokit.domino.ui.elements.THeadElement;
+import org.dominokit.domino.ui.elements.TableElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.utils.HasSelectionSupport;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_BORDERED;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_CONDENSED;
@@ -23,28 +51,6 @@ import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_RESPONSIVE
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_ROW_FILTERED;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_STRIPED;
 import static org.dominokit.domino.ui.style.Unit.px;
-import static org.jboss.elemento.Elements.div;
-import static org.jboss.elemento.Elements.table;
-import static org.jboss.elemento.Elements.tbody;
-import static org.jboss.elemento.Elements.thead;
-
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLTableElement;
-import elemental2.dom.HTMLTableSectionElement;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import org.dominokit.domino.ui.datatable.events.*;
-import org.dominokit.domino.ui.datatable.model.SearchContext;
-import org.dominokit.domino.ui.datatable.store.DataStore;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasSelectionSupport;
-import org.jboss.elemento.EventType;
 
 /**
  * The data table component
@@ -60,13 +66,13 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   public static final String DATA_TABLE_ROW_FILTERED = "data-table-row-filtered";
 
   private final DataStore<T> dataStore;
-  private DominoElement<HTMLDivElement> root = div().css(TABLE_RESPONSIVE);
-  private DominoElement<HTMLTableElement> tableElement =
+  private DivElement root = div().css(TABLE_RESPONSIVE);
+  private TableElement tableElement =
       table()
           .css(DataTableStyles.TABLE, TABLE_HOVER, TABLE_STRIPED, "table-width-full");
   private TableConfig<T> tableConfig;
-  private DominoElement<HTMLTableSectionElement> tbody = tbody();
-  private DominoElement<HTMLTableSectionElement> thead = thead();
+  private TBodyElement tbody = tbody();
+  private THeadElement thead = thead();
   private List<T> data = new ArrayList<>();
   private boolean selectable = true;
   private List<TableRow<T>> tableRows = new ArrayList<>();
@@ -360,17 +366,17 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /** @return the {@link HTMLTableElement} wrapped as {@link DominoElement} */
-  public DominoElement<HTMLTableElement> tableElement() {
+  public TableElement tableElement() {
     return tableElement;
   }
 
   /** @return the {@link HTMLTableSectionElement} -tbody- wrapped as {@link DominoElement} */
-  public DominoElement<HTMLTableSectionElement> bodyElement() {
+  public TBodyElement bodyElement() {
     return tbody;
   }
 
   /** @return the {@link HTMLTableSectionElement} -thead- wrapped as {@link DominoElement} */
-  public DominoElement<HTMLTableSectionElement> headerElement() {
+  public THeadElement headerElement() {
     return thead;
   }
 

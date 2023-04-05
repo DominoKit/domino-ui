@@ -19,10 +19,11 @@ import static org.dominokit.domino.ui.grid.Column.Offset.*;
 import static org.dominokit.domino.ui.grid.Column.Span.*;
 
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.PostfixCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * A component which provides an abstract level of the CSS grid column which will inherit the styles
@@ -47,7 +48,7 @@ import org.jboss.elemento.IsElement;
 public class Column extends BaseDominoElement<HTMLElement, Column>
     implements Cloneable, GridStyles {
 
-  private final DominoElement<? extends HTMLElement> column;
+  private final DivElement column;
   private PostfixCssClass onXLargeStyle = PostfixCssClass.of("dui-span-xl");
   private PostfixCssClass onLargeStyle = PostfixCssClass.of("dui-span-l");
   private PostfixCssClass onMediumStyle = PostfixCssClass.of("dui-span-m");

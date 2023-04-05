@@ -18,13 +18,13 @@ package org.dominokit.domino.ui.breadcrumbs;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Text;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.elements.AnchorElement;
+import org.dominokit.domino.ui.elements.LIElement;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
-import org.dominokit.domino.ui.utils.TextNode;
 
 /**
  * A component for {@link Breadcrumb} location.
@@ -49,23 +49,23 @@ import org.dominokit.domino.ui.utils.TextNode;
 public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbItem>
     implements HasClickableElement {
 
-  private final DominoElement<HTMLLIElement> element;
-  private final DominoElement<HTMLAnchorElement> anchorElement;
+  private final LIElement element;
+  private final AnchorElement anchorElement;
   private Text textElement;
-  private BaseIcon<?> icon;
+  private Icon<?> icon;
   private boolean active = false;
 
   protected BreadcrumbItem(String text) {
     element = li();
     init(this);
     anchorElement = a();
-    this.textElement = TextNode.of(text);
+    this.textElement = text(text);
     this.anchorElement.appendChild(textElement);
     element.appendChild(anchorElement);
     anchorElement.setAttribute("tabindex", "0");
   }
 
-  protected BreadcrumbItem(String text, BaseIcon<?> icon) {
+  protected BreadcrumbItem(String text, Icon<?> icon) {
     this(text);
     this.icon = icon;
     this.anchorElement.insertFirst(icon);
@@ -84,11 +84,11 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   /**
    * Creates item with text content and icon
    *
-   * @param icon the {@link BaseIcon} of the item
+   * @param icon the {@link Icon} of the item
    * @param text the content of the item
    * @return new instance
    */
-  public static BreadcrumbItem create(BaseIcon<?> icon, String text) {
+  public static BreadcrumbItem create(Icon<?> icon, String text) {
     return new BreadcrumbItem(text, icon);
   }
 
@@ -144,8 +144,8 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
     return textElement;
   }
 
-  /** @return the {@link BaseIcon} */
-  public BaseIcon<?> getIcon() {
+  /** @return the {@link Icon} */
+  public Icon<?> getIcon() {
     return icon;
   }
 

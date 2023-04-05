@@ -18,10 +18,9 @@ package org.dominokit.domino.ui.collapsible;
 import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSED;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.DominoCss;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementsFactory;
 
 /**
  * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show the
@@ -33,23 +32,23 @@ public class DisplayCollapseStrategy implements CollapseStrategy, CollapsibleSty
   private CollapsibleHandlers handlers;
 
   @Override
-  public void init(HTMLElement element, CollapsibleHandlers handlers) {
+  public void init(Element element, CollapsibleHandlers handlers) {
     this.handlers = handlers;
   }
 
   /** {@inheritDoc} */
   @Override
-  public void show(HTMLElement element) {
+  public void expand(Element element) {
     elements.elementOf(element).removeCss(dui_hidden).removeAttribute(DUI_COLLAPSED);
-    this.handlers.onBeforeShow().run();
-    this.handlers.onShowCompleted().run();
+    this.handlers.onBeforeExpand().run();
+    this.handlers.onExpandCompleted().run();
   }
 
   /** {@inheritDoc} */
   @Override
-  public void hide(HTMLElement element) {
-    this.handlers.onBeforeHide().run();
+  public void collapse(Element element) {
+    this.handlers.onBeforeCollapse().run();
     elements.elementOf(element).addCss(dui_hidden).setAttribute(DUI_COLLAPSED, "true");
-    this.handlers.onHideCompleted().run();
+    this.handlers.onCollapseCompleted().run();
   }
 }

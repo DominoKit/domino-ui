@@ -16,7 +16,7 @@
 package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.HTMLElement;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 public interface HasAddOns<T> {
   <E extends HTMLElement, C extends IsElement<E>> T addLeftAddOn(C addon);

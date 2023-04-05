@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.popover;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.CssClass;
 
@@ -26,7 +27,7 @@ public interface PopupPosition {
    * @param tooltip the popover element
    * @param target the target element
    */
-  void position(HTMLElement tooltip, HTMLElement target);
+  void position(Element tooltip, Element target);
 
   /** @return the CSS class for the position */
   CssClass getDirectionClass();

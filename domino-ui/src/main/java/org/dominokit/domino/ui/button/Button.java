@@ -16,7 +16,8 @@
 package org.dominokit.domino.ui.button;
 
 import elemental2.dom.HTMLButtonElement;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.elements.ButtonElement;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -60,11 +61,11 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
    *
    * @param icon The button icon
    */
-  public Button(BaseIcon<?> icon) {
+  public Button(Icon<?> icon) {
     super(icon);
   }
 
-  public Button(String text, BaseIcon<?> icon) {
+  public Button(String text, Icon<?> icon) {
     super(text, icon);
   }
 
@@ -88,37 +89,37 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
   }
 
   /**
-   * creates a Button with an icon by calling {@link Button#Button(BaseIcon)}
+   * creates a Button with an icon by calling {@link Button#Button(Icon)}
    *
-   * @param icon {@link BaseIcon}, the button icon
+   * @param icon {@link Icon}, the button icon
    * @return new Button instance
    */
-  public static Button create(BaseIcon<?> icon) {
+  public static Button create(Icon<?> icon) {
     return new Button(icon);
   }
 
   /**
-   * creates a Button with an icon by calling {@link Button#Button(BaseIcon)}
+   * creates a Button with an icon by calling {@link Button#Button(Icon)}
    *
-   * @param icon {@link BaseIcon}, the button icon
+   * @param icon {@link Icon}, the button icon
    * @return new Button instance
    */
-  public static Button create(String text, BaseIcon<?> icon) {
+  public static Button create(String text, Icon<?> icon) {
     return new Button(text, icon);
   }
 
   /**
-   * creates a Button with an icon by calling {@link Button#Button(BaseIcon)}
+   * creates a Button with an icon by calling {@link Button#Button(Icon)}
    *
-   * @param icon {@link BaseIcon}, the button icon
+   * @param icon {@link Icon}, the button icon
    * @return new Button instance
    */
-  public static Button create(BaseIcon<?> icon, String text) {
+  public static Button create(Icon<?> icon, String text) {
     return new Button(text, icon);
   }
 
   @Override
-  protected DominoElement<HTMLButtonElement> createButtonElement() {
+  protected ButtonElement createButtonElement() {
     return button();
   }
 }

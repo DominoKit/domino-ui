@@ -22,15 +22,17 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
 import org.dominokit.domino.ui.collapsible.CollapseDuration;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.SearchLabels;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.timer.client.Timer;
-import org.jboss.elemento.EventType;
+import org.dominokit.domino.ui.events.EventType;
 
 /**
  * A search component that can fit into another component with fixed height, this component will
@@ -52,9 +54,9 @@ import org.jboss.elemento.EventType;
 public class Search extends BaseDominoElement<HTMLDivElement, Search>
         implements HasLabels<SearchLabels>, SearchStyles {
 
-    private final BaseIcon<?> closeIcon;
-    private final DominoElement<HTMLInputElement> searchInput;
-    private DominoElement<HTMLDivElement> element;
+    private final Icon<?> closeIcon;
+    private final InputElement searchInput;
+    private DivElement element;
     private SearchHandler searchHandler;
     private SearchCloseHandler closeHandler;
     private final boolean autoSearch;
@@ -75,7 +77,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
         this.searchInput = input("text").setAttribute("placeholder", getLabels().getStartTyping());
         this.element = div()
                 .addCss(dui_search_bar, dui_h_full)
-                .hide()
+                .collapse()
                 .appendChild(div().addCss(dui_search_bar_container)
                         .appendChild(Icons.ALL.magnify_mdi())
                         .appendChild(searchInput.addCss(dui_flex_grow))
@@ -117,7 +119,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
 
         init(this);
 
-        setCollapseStrategy(new AnimationCollapseStrategy(Transition.SLIDE_IN_RIGHT, Transition.SLIDE_OUT_RIGHT, CollapseDuration._300ms));
+        setCollapseStrategy(new AnimationCollapseStrategy(Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
     }
 
     /**
@@ -142,7 +144,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
      * @return same Search instance
      */
     public Search open() {
-        show();
+        expand();
         setZIndex(config().getUIConfig().getZindexManager().getNextZIndex());
         searchInput.element().focus();
         return this;
@@ -154,7 +156,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
      * @return same Search instance
      */
     public Search close() {
-        hide();
+        collapse();
         searchInput.element().value = "";
         closeHandler.onClose();
         return this;
@@ -234,7 +236,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
      * @return the {@link HTMLInputElement} of this search component wrapped as {@link
      * DominoElement}
      */
-    public DominoElement<HTMLInputElement> getInputElement() {
+    public InputElement getInputElement() {
         return searchInput;
     }
 

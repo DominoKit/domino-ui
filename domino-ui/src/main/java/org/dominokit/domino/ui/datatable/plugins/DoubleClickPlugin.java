@@ -17,7 +17,7 @@ package org.dominokit.domino.ui.datatable.plugins;
 
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableRow;
-import org.jboss.elemento.EventType;
+import org.dominokit.domino.ui.events.EventType;
 
 /**
  * this plugin attach a handler to listen for double click event on data table rows

@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 
@@ -42,7 +43,7 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
 
   private ListGroup<T> listGroup;
   private T value;
-  private DominoElement<HTMLLIElement> element;
+  private LIElement element;
   private boolean selectable = true;
   private boolean selectOnClick = true;
 

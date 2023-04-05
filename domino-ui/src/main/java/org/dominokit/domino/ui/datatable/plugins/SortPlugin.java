@@ -17,8 +17,6 @@ package org.dominokit.domino.ui.datatable.plugins;
 
 import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.style.DisplayCss.dui_cursor_pointer;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
-import static org.jboss.elemento.Elements.span;
 
 import elemental2.dom.HTMLElement;
 import java.util.HashMap;
@@ -30,11 +28,11 @@ import org.dominokit.domino.ui.datatable.events.DataSortEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.EventType;
+import org.dominokit.domino.ui.events.EventType;
 
 /**
  * This plugin adds sort capability to column headers on click
@@ -65,7 +63,7 @@ public class SortPlugin<T>
       column
           .getHeaderLayout()
           .appendChild(FlexItem.create().setOrder(100).appendChild(sortContainer.sortElement));
-      column.getHeadElement().addCss(dui_cursor_pointer).css(GenericCss.disable_selection);
+      column.getHeadElement().addCss(dui_cursor_pointer, GenericCss.dui_disable_text_select);
       column
           .getHeadElement()
           .addEventListener(
@@ -148,7 +146,7 @@ public class SortPlugin<T>
     private SortPluginConfig config;
     private SortDirection sortDirection = SortDirection.DESC;
     private DominoElement<HTMLElement> sortElement =
-        elements.elementOf(span()).appendChild(Icons.ALL.sort_mdi()).setMinWidth("15px");
+        elements.elementOf(elements.span()).appendChild(Icons.ALL.sort_mdi()).setMinWidth("15px");
 
     public SortContainer(String columnName, SortPluginConfig config) {
       this.columnName = columnName;
@@ -177,7 +175,7 @@ public class SortPlugin<T>
       sortElement.clearElement().appendChild(getSortArrow());
     }
 
-    public BaseIcon<?> getSortArrow() {
+    public Icon<?> getSortArrow() {
       if (SortDirection.ASC.equals(sortDirection)) {
         return Icons.ALL.sort_ascending_mdi();
       } else if (SortDirection.DESC.equals(sortDirection)) {

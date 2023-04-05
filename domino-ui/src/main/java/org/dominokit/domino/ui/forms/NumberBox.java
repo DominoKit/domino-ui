@@ -17,18 +17,18 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.*;
 
 import elemental2.dom.*;
 import java.util.Objects;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.i18n.client.NumberFormat;
 import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
-import org.jboss.elemento.EventType;
+import org.dominokit.domino.ui.events.EventType;
 
 /**
  * A Base implementation for form inputs that takes/provide numeric values
@@ -38,10 +38,10 @@ import org.jboss.elemento.EventType;
  */
 public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     extends InputFormField<T, HTMLInputElement, V>
-    implements HasMinMaxValue<T, V>, HasStep<T, V>, HasPostfix<T>, HasPrefix<T> {
+    implements HasMinMaxValue<T, V>, HasStep<T, V>, HasPostfix<T>, HasPrefix<T>, HasPlaceHolder<T> {
 
-  protected final LazyChild<DominoElement<HTMLDivElement>> prefixElement;
-  protected final LazyChild<DominoElement<HTMLDivElement>> postfixElement;
+  protected final LazyChild<DivElement> prefixElement;
+  protected final LazyChild<DivElement> postfixElement;
   private final ChangeListener<V> formatValueChangeListener =
       (oldValue, newValue) -> formatValue(newValue);
   private java.util.function.Function<String, V> valueParser = defaultValueParser();
@@ -55,8 +55,8 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   /** Create an instance with a label */
   public NumberBox() {
     super();
-    prefixElement = LazyChild.of(div().addCss(FIELD_PREFIX), wrapperElement);
-    postfixElement = LazyChild.of(div().addCss(FIELD_POSTFIX), wrapperElement);
+    prefixElement = LazyChild.of(div().addCss(dui_field_prefix), wrapperElement);
+    postfixElement = LazyChild.of(div().addCss(dui_field_postfix), wrapperElement);
     addValidator(this::validateInputString);
     addValidator(this::validateMaxValue);
     addValidator(this::validateMinValue);
@@ -85,7 +85,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
 
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
-    return input(type).addCss(FIELD_INPUT);
+    return input(type).addCss(dui_field_input).toDominoElement();
   }
 
   private ValidationResult validateInputString() {
@@ -432,6 +432,17 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     }
   }
 
+  @Override
+  public String getPlaceholder() {
+    return getInputElement().element().placeholder;
+  }
+
+  @Override
+  public T setPlaceholder(String placeholder) {
+    getInputElement().element().placeholder = placeholder;
+    return (T) this;
+  }
+
   /**
    * Reads a String value and convert it to the field number type
    *
@@ -509,11 +520,11 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return "";
   }
 
-  public DominoElement<HTMLDivElement> getPrefixElement() {
+  public DivElement getPrefixElement() {
     return prefixElement.get();
   }
 
-  public DominoElement<HTMLDivElement> getPostfixElement() {
+  public DivElement getPostfixElement() {
     return postfixElement.get();
   }
 
@@ -522,7 +533,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return (T) this;
   }
 
-  public T withPrefixElement(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
+  public T withPrefixElement(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, prefixElement.get());
     return (T) this;
   }
@@ -532,7 +543,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return (T) this;
   }
 
-  public T withPostfixElement(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
+  public T withPostfixElement(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, postfixElement.get());
     return (T) this;
   }

@@ -24,8 +24,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
+
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.DataSortEvent;
 import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
@@ -34,9 +33,11 @@ import org.dominokit.domino.ui.datatable.events.SortEvent;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TablePageChangeEvent;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.style.Unit;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementsFactory;
 
@@ -49,7 +50,7 @@ public class TreeGridPlugin<T>
   public static final int BASE_PADDING = 10;
   public static final String ICON_ORDER = "10";
 
-  private BaseIcon<?> headerIcon;
+  private ToggleIcon<?,?> headerIcon;
   private int expandedCount = 0;
   private DataTable<T> dataTable;
   private TreePluginConfig<T> config;
@@ -133,7 +134,7 @@ public class TreeGridPlugin<T>
                           List<T> records = new ArrayList<>(items);
                           for (int i = 0; i < records.size(); i++) {
                             TableRow<T> subRow = new TableRow<>(records.get(i), i, dataTable);
-                            subRow.hide();
+                            subRow.collapse();
                             TreeGridRowLevel treeGridRowLevel =
                                 tableRow
                                     .getMeta(TREE_GRID_ROW_LEVEL)
@@ -206,13 +207,13 @@ public class TreeGridPlugin<T>
   }
 
   private void expand(TableRow<T> row, boolean recursive) {
-    row.show();
+    row.expand();
     if (recursive) {
       Optional<TreeGridRowToggleIcon> iconMeta = row.getMeta(TREE_GRID_ROW_TOGGLE_ICON);
       iconMeta.ifPresent(
           meta -> {
             if (!meta.icon.isToggled()) {
-              meta.icon.toggleIcon();
+              meta.icon.toggle();
             }
           });
 
@@ -227,12 +228,12 @@ public class TreeGridPlugin<T>
     iconMeta.ifPresent(
         meta -> {
           if (meta.icon.isToggled()) {
-            meta.icon.toggleIcon();
+            meta.icon.toggle();
           }
         });
 
     for (TableRow<T> child : row.getChildren()) {
-      child.hide();
+      child.collapse();
       collapse(child);
     }
     if (row.isRoot()) {
@@ -243,14 +244,14 @@ public class TreeGridPlugin<T>
   private void increment() {
     expandedCount++;
     if (!headerIcon.isToggled()) {
-      headerIcon.toggleIcon();
+      headerIcon.toggle();
     }
   }
 
   private void decrement() {
     expandedCount--;
     if (expandedCount == 0 && headerIcon.isToggled()) {
-      headerIcon.toggleIcon();
+      headerIcon.toggle();
     }
   }
 
@@ -272,7 +273,7 @@ public class TreeGridPlugin<T>
     Optional<TreeGridRowSubItemsMeta<T>> subRecordsMeta = TreeGridRowSubItemsMeta.get(tableRow);
     ;
     if (config.isLazy() && !subRecordsMeta.get().loaded()) {
-      BaseIcon<?> icon = initExpandCollapseIcons(tableRow);
+      ToggleIcon<?, ?> icon = initExpandCollapseIcons(tableRow);
       icon.setAttribute("order", ICON_ORDER);
       tableRow.applyMeta(new TreeGridRowToggleIcon(icon));
       elements.add(icon.element());
@@ -283,12 +284,12 @@ public class TreeGridPlugin<T>
                 cellInfo.getTableRow(),
                 itemsOptional -> {
                   if (itemsOptional.isPresent() && itemsOptional.get().size() > 0) {
-                    BaseIcon<?> icon = initExpandCollapseIcons(tableRow);
+                    ToggleIcon<?,?> icon = initExpandCollapseIcons(tableRow);
                     icon.setAttribute("order", ICON_ORDER);
                     tableRow.applyMeta(new TreeGridRowToggleIcon(icon));
                     elements.add(icon.element());
                   } else {
-                    BaseIcon<?> icon = config.getLeafIconSupplier().get().css("dt-tree-grid-leaf");
+                    ToggleIcon<?,?> icon = config.getLeafIconSupplier().get().css("dt-tree-grid-leaf");
                     icon.setAttribute("order", ICON_ORDER);
                     tableRow.applyMeta(new TreeGridRowToggleIcon(icon));
                     elements.add(icon.element());
@@ -297,7 +298,7 @@ public class TreeGridPlugin<T>
           });
     }
 
-    DominoElement<HTMLDivElement> title =
+    DivElement title =
         ElementsFactory.elements.div()
             .setAttribute("order", "100")
             .appendChild(config.getIndentColumnElementSupplier().apply(tableRow));
@@ -306,13 +307,12 @@ public class TreeGridPlugin<T>
     return Optional.of(elements);
   }
 
-  private BaseIcon<?> initExpandCollapseIcons(TableRow<T> tableRow) {
-    BaseIcon<?> icon;
+  private ToggleIcon<?,?> initExpandCollapseIcons(TableRow<T> tableRow) {
+    ToggleIcon<?,?> icon;
     icon =
         config
-            .getExpandIconSupplier()
+            .getExpandColapseIconSupplier()
             .get()
-            .setToggleIcon(config.getCollapseIconSupplier().get())
             .clickable();
     icon.addClickListener(
         evt -> {
@@ -330,11 +330,10 @@ public class TreeGridPlugin<T>
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (column.isUtilityColumn()) {
-      BaseIcon<?> baseIcon =
+      ToggleIcon<?,?> baseIcon =
           config
-              .getExpandIconSupplier()
+              .getExpandColapseIconSupplier()
               .get()
-              .setToggleIcon(config.getCollapseIconSupplier().get())
               .clickable();
       baseIcon.addClickListener(
           evt -> {
@@ -384,55 +383,11 @@ public class TreeGridPlugin<T>
       case TableDataUpdatedEvent.DATA_UPDATED:
       case TablePageChangeEvent.PAGINATION_EVENT:
         if (headerIcon.isToggled()) {
-          headerIcon.toggleIcon();
+          headerIcon.toggle();
         }
         expandedCount = 0;
         break;
     }
-  }
-
-  /** @deprecated use {@link TreePluginConfig#setParentRowCellsSupplier(ParentRowCellsSupplier)} */
-  @Deprecated
-  public TreeGridPlugin<T> setParentRowCellsSupplier(
-      ParentRowCellsSupplier<T> parentRowCellsSupplier) {
-    this.config.setParentRowCellsSupplier(parentRowCellsSupplier);
-    return this;
-  }
-
-  /** @deprecated use {@link TreePluginConfig#setExpandIconSupplier(Supplier)} */
-  @Deprecated
-  public TreeGridPlugin<T> setExpandIconSupplier(Supplier<BaseIcon<?>> expandIconSupplier) {
-    config.setExpandIconSupplier(expandIconSupplier);
-    return this;
-  }
-
-  /** @deprecated use {@link TreePluginConfig#setCollapseIconSupplier(Supplier)} */
-  @Deprecated
-  public TreeGridPlugin<T> setCollapseIconSupplier(Supplier<BaseIcon<?>> collapseIconSupplier) {
-    config.setCollapseIconSupplier(collapseIconSupplier);
-    return this;
-  }
-
-  /** @deprecated use {@link TreePluginConfig#setLeafIconSupplier(Supplier)} */
-  @Deprecated
-  public TreeGridPlugin<T> setLeafIconSupplier(Supplier<BaseIcon<?>> leafIconSupplier) {
-    config.setLeafIconSupplier(leafIconSupplier);
-    return this;
-  }
-
-  /** @deprecated use {@link TreePluginConfig#setIndent(int)} */
-  @Deprecated
-  public TreeGridPlugin<T> setIndent(int indent) {
-    config.setIndent(indent);
-    return this;
-  }
-
-  /** @deprecated use {@link TreePluginConfig#setIndentColumnElementSupplier(Function)} */
-  @Deprecated
-  public TreeGridPlugin<T> setIndentColumnElementSupplier(
-      Function<TableRow<T>, Node> indentColumnElementSupplier) {
-    config.setIndentColumnElementSupplier(indentColumnElementSupplier);
-    return this;
   }
 
   private boolean hasChildren(Optional<Collection<T>> items) {
@@ -470,7 +425,7 @@ public class TreeGridPlugin<T>
     void get(T parent, Consumer<Optional<Collection<T>>> itemsConsumer);
   }
 
-  private static class TreeGridRowLevel implements RowMeta {
+  private static class TreeGridRowLevel implements ComponentMeta {
     private final int level;
 
     public TreeGridRowLevel(int level) {
@@ -483,10 +438,10 @@ public class TreeGridPlugin<T>
     }
   }
 
-  private static class TreeGridRowToggleIcon implements RowMeta {
-    private final BaseIcon<?> icon;
+  private static class TreeGridRowToggleIcon implements ComponentMeta {
+    private final ToggleIcon<?, ?> icon;
 
-    public TreeGridRowToggleIcon(BaseIcon<?> icon) {
+    public TreeGridRowToggleIcon(ToggleIcon<?, ?> icon) {
       this.icon = icon;
     }
 

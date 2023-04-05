@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.cards;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
@@ -24,23 +25,28 @@ import java.util.Set;
 
 import org.dominokit.domino.ui.config.CardConfig;
 import org.dominokit.domino.ui.config.HasComponentConfig;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.HeadingElement;
+import org.dominokit.domino.ui.elements.ImageElement;
+import org.dominokit.domino.ui.elements.SmallElement;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.utils.*;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 public class Card extends BaseDominoElement<HTMLDivElement, Card>
     implements CardStyles, CollapsibleElement<Card>, HasComponentConfig<CardConfig> {
 
-  private DominoElement<HTMLDivElement> element;
-  private DominoElement<HTMLDivElement> body;
+  private DivElement element;
+  private DivElement body;
 
   private LazyChild<CardHeader> header;
 
   private Set<CollapseHandler<Card>> collapseHandlers = new HashSet<>();
   private Set<ExpandHandler<Card>> expandHandlers = new HashSet<>();
-  private LazyChild<UtilityElement<? extends HTMLElement>> collapseElement = NullLazyChild.of();
+  private LazyChild<PostfixAddOn<? extends Element>> collapseElement = NullLazyChild.of();
 
-  private final BaseIcon<?> collapseIcon;
+  private final ToggleIcon<?, ?> collapseIcon;
 
   public static Card create() {
     return new Card();
@@ -72,7 +78,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
                         .setCollapseStrategy(
                             getConfig().getDefaultCardCollapseStrategySupplier().get()));
     header = LazyChild.of(CardHeader.create(), element);
-    collapseIcon = getConfig().getCardCollapseIcon().get();
+    collapseIcon = getConfig().getCardCollapseExpandIcon().get();
 
     init(this);
   }
@@ -91,7 +97,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
     return this;
   }
 
-  public DominoElement<HTMLDivElement> getSubHeader() {
+  public DivElement getSubHeader() {
     return header.get().getSubHeader();
   }
 
@@ -100,7 +106,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
     return this;
   }
 
-  public Card withSubHeader(ChildHandler<CardHeader, DominoElement<HTMLDivElement>> handler) {
+  public Card withSubHeader(ChildHandler<CardHeader, DivElement> handler) {
     handler.apply(header.get(), header.get().getSubHeader());
     return this;
   }
@@ -115,7 +121,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
     return this;
   }
 
-  public DominoElement<HTMLDivElement> getTitleElement() {
+  public DivElement getTitleElement() {
     return header.get().getTitleElement();
   }
 
@@ -124,12 +130,12 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
     return this;
   }
 
-  public Card withTitle(ChildHandler<CardHeader, DominoElement<HTMLDivElement>> handler) {
+  public Card withTitle(ChildHandler<CardHeader, DivElement> handler) {
     handler.apply(header.get(), header.get().getTitleElement());
     return this;
   }
 
-  public DominoElement<HTMLHeadingElement> getMainTitleElement() {
+  public HeadingElement getMainTitleElement() {
     return header.get().getMainTitleElement();
   }
 
@@ -144,12 +150,12 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
   }
 
   public Card withMainTitle(
-      ChildHandler<CardHeader, DominoElement<HTMLHeadingElement>> handler) {
+      ChildHandler<CardHeader, HeadingElement> handler) {
     handler.apply(header.get(), header.get().getMainTitleElement());
     return this;
   }
 
-  public DominoElement<HTMLElement> getDescriptionElement() {
+  public SmallElement getDescriptionElement() {
     return header.get().getDescriptionElement();
   }
 
@@ -163,16 +169,16 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
     return this;
   }
 
-  public Card withDescription(ChildHandler<CardHeader, DominoElement<HTMLElement>> handler) {
+  public Card withDescription(ChildHandler<CardHeader, SmallElement> handler) {
     handler.apply(header.get(), header.get().getDescriptionElement());
     return this;
   }
 
-  public DominoElement<HTMLDivElement> getBody() {
+  public DivElement getBody() {
     return body;
   }
 
-  public Card withBody(ChildHandler<Card, DominoElement<HTMLDivElement>> handler) {
+  public Card withBody(ChildHandler<Card, DivElement> handler) {
     handler.apply(this, body);
     return this;
   }
@@ -187,7 +193,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
     return this;
   }
 
-  public DominoElement<HTMLImageElement> getLogo() {
+  public ImageElement getLogo() {
     return header.get().getLogo();
   }
 
@@ -206,21 +212,21 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
     return this;
   }
 
-  public Card withLogo(ChildHandler<CardHeader, DominoElement<HTMLImageElement>> handler) {
+  public Card withLogo(ChildHandler<CardHeader, ImageElement> handler) {
     handler.apply(header.get(), header.get().getLogo());
     return this;
   }
 
-  public Card setIcon(BaseIcon<?> icon) {
+  public Card setIcon(Icon<?> icon) {
     header.get().setIcon(icon);
     return this;
   }
 
-  public BaseIcon<?> getIcon() {
+  public Icon<?> getIcon() {
     return header.get().getIcon();
   }
 
-  public Card withIcon(BaseIcon<?> icon) {
+  public Card withIcon(Icon<?> icon) {
     setIcon(icon);
     return this;
   }
@@ -230,18 +236,18 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
     return this;
   }
 
-  public Card withIcon(ChildHandler<CardHeader, BaseIcon<?>> handler) {
+  public Card withIcon(ChildHandler<CardHeader, Icon<?>> handler) {
     handler.apply(header.get(), header.get().getIcon());
     return this;
   }
 
-  public Card appendChild(UtilityElement<?> utility) {
+  public Card appendChild(PostfixAddOn<?> utility) {
     header.get().appendChild(utility);
     return this;
   }
 
-  public Card withUtility(UtilityElement<?> utility) {
-    header.get().withUtility(utility);
+  public Card withUtility(PostfixAddOn<?> utility) {
+    header.get().appendChild(utility);
     return this;
   }
 
@@ -255,7 +261,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
               (header, mainHeader) -> {
                 collapseElement =
                     LazyChild.of(
-                        UtilityElement.of(collapseIcon.clickable())
+                        PostfixAddOn.of(collapseIcon.clickable())
                             .addCss(card_utility, dui_order_last)
                             .setAttribute("tabindex", "0"),
                         mainHeader);
@@ -295,16 +301,16 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
 
   @Override
   public Card expand() {
-    body.getCollapsible().show();
-    collapseIcon.changeTo(getConfig().getCardCollapseIcon().get());
+    body.getCollapsible().expand();
+    collapseIcon.toggle();
     expandHandlers.forEach(handler -> handler.onExpanded(this));
     return this;
   }
 
   @Override
   public Card collapse() {
-    body.getCollapsible().hide();
-    collapseIcon.changeTo(getConfig().getCardExpandIcon().get());
+    body.getCollapsible().collapse();
+    collapseIcon.toggle();
     collapseHandlers.forEach(handler -> handler.onCollapsed(this));
     return this;
   }

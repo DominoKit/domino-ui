@@ -16,31 +16,56 @@
 package org.dominokit.domino.ui.utils;
 
 import java.util.function.Supplier;
-import org.jboss.elemento.IsElement;
+
+import elemental2.dom.Element;
+import org.dominokit.domino.ui.IsElement;
+
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyChild<T>> {
 
   private T element;
 
   public static <T extends IsElement<?>> LazyChild<T> of(T element, IsElement<?> parent) {
-    return new LazyChild<T>(element, () -> parent);
+    return new LazyChild<>(element, () -> parent);
   }
 
   public static <T extends IsElement<?>> LazyChild<T> of(T element, Supplier<IsElement<?>> parent) {
-    return new LazyChild<T>(element, parent);
+    return new LazyChild<>(element, parent);
   }
 
   public static <T extends IsElement<?>> LazyChild<T> of(T element, LazyChild<?> parent) {
-    return new LazyChild<T>(element, parent);
+    return new LazyChild<>(element, parent);
+  }
+
+  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(T element, IsElement<?> parent) {
+    return new LazyChild<>(element, () -> parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
+  }
+
+  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(T element, Supplier<IsElement<?>> parent) {
+    return new LazyChild<>(element, parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
+  }
+
+  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(T element, LazyChild<?> parent) {
+    return new LazyChild<>(element, parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
   }
 
   public LazyChild(T element, Supplier<IsElement<?>> parent) {
-    super(() -> parent.get().element().append(element.element()));
+    this(element, parent, (p, child) -> elements.elementOf(p).appendChild(child));
+    this.element = element;
+  }
+
+  public LazyChild(T element, Supplier<IsElement<?>> parent, AppendStrategy<T> appendStrategy) {
+    super(() -> appendStrategy.onAppend(parent.get().element(), element));
     this.element = element;
   }
 
   public LazyChild(T element, LazyChild<?> parent) {
-    super(() -> parent.get().element().append(element.element()));
+    this(element, parent, (p, child) -> elements.elementOf(p).appendChild(child));
+  }
+
+  public LazyChild(T element, LazyChild<?> parent, AppendStrategy<T> appendStrategy) {
+    super(() -> appendStrategy.onAppend(parent.get().element(), element));
     this.element = element;
   }
 
@@ -68,5 +93,9 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
       remove();
     }
     return this;
+  }
+
+  public interface AppendStrategy<C> {
+    void onAppend(Element parent, C child);
   }
 }

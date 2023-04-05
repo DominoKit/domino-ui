@@ -15,28 +15,34 @@
  */
 package org.dominokit.domino.ui.timepicker;
 
+import org.dominokit.domino.ui.style.CssClass;
+
 /** Constants class for time picker components css classes names */
-public class TimePickerStyles {
-  public static final String PICKER_WIDTH = "270px";
-  public static final String TIME_PICKER = "time-picker";
-  public static final String TIME_PANEL = "time-panel";
-  public static final String HOUR_TEXT = "hour-text";
-  public static final String MINUTE_TEXT = "minute-text";
-  public static final String SECOND_TEXT = "second-text";
-  public static final String AM_PM_CONTAINER = "am-pm-container";
-  public static final String AM_PM_TEXT = "am-pm-text";
-  public static final String AM_PM_TOP = "am-pm-top";
-  public static final String AM_PM_BOTTOM = "am-pm-bottom";
-  public static final String TIME_DISPLAY_LARGE = "time-display-large";
-  public static final String TIME_FOOTER = "time-footer";
-  public static final String CLEAR_BUTTON = "clear-button";
-  public static final String NOW_BUTTON = "now-button";
-  public static final String CLOSE_BUTTON = "close-button";
-  public static final String NAVIGATE = "navigate";
-  public static final String NAVIGATE_LEFT = "navigate-left";
-  public static final String NAVIGATE_RIGHT = "navigate-right";
-  public static final String PICKER_CONTENT = "picker-content";
-  public static final String CLOCK_PICKER = "clock-picker";
-  public static final String HOUR = "hour";
-  public static final String SMALL_HOUR = "small-hour";
+public interface TimePickerStyles {
+  CssClass dui_picker_width = ()-> "270px";
+  CssClass dui_time_picker = ()-> "time-picker";
+  CssClass dui_time_panel = ()-> "time-panel";
+  CssClass dui_hour_text = ()-> "hour-text";
+  CssClass dui_minute_text = ()-> "minute-text";
+  CssClass dui_second_text = ()-> "second-text";
+  CssClass dui_am_pm_container = ()-> "am-pm-container";
+  CssClass dui_am_pm_text = ()-> "am-pm-text";
+  CssClass dui_am_pm_top = ()-> "am-pm-top";
+  CssClass dui_am_pm_bottom = ()-> "am-pm-bottom";
+  CssClass dui_time_display_large = ()-> "time-display-large";
+  CssClass du_time_footer = ()-> "time-footer";
+  CssClass dui_clear_button = ()-> "clear-button";
+  CssClass dui_now_button = ()-> "now-button";
+  CssClass dui_close_button = ()-> "close-button";
+  CssClass dui_navigate = ()-> "navigate";
+  CssClass dui_navigate_left = ()-> "navigate-left";
+  CssClass dui_navigate_right = ()-> "navigate-right";
+  CssClass dui_picker_content = ()-> "picker-content";
+  CssClass dui_clock_picker = ()-> "clock-picker";
+  CssClass dui_hour = ()-> "hour";
+  CssClass dui_small_hour = ()-> "small-hour";
+
+  // ==============================
+  CssClass dui_time_picker_center_circle = ()-> "dui-time-picker-center-circle";
+  CssClass dui_time_picker_svg_root = ()-> "dui-time-picker-svg-root";
 }

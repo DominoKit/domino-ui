@@ -26,23 +26,25 @@ import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ZIndexConfig;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.i18n.DialogLabels;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.*;
-import org.jboss.elemento.EventType;
+import org.dominokit.domino.ui.events.EventType;
 
 public class AbstractDialog<T extends AbstractDialog<T>>
     extends BaseDominoElement<HTMLDivElement, T> implements DialogStyles, IsPopup<T>, HasComponentConfig<ZIndexConfig> {
-  protected final DominoElement<HTMLDivElement> modalElement;
-  protected LazyChild<DominoElement<HTMLDivElement>> headerElement;
-  protected LazyChild<DominoElement<HTMLElement>> titleElement;
-  protected LazyChild<BaseIcon<?>> panelIcon = NullLazyChild.of();
-  protected DominoElement<HTMLDivElement> contentElement;
-  protected DominoElement<HTMLDivElement> bodyElement;
-  protected LazyChild<DominoElement<HTMLDivElement>> contentHeader;
-  protected LazyChild<DominoElement<HTMLDivElement>> contentFooter;
-  protected DominoElement<HTMLDivElement> element;
+  protected final DivElement modalElement;
+  protected LazyChild<DivElement> headerElement;
+  protected LazyChild<SpanElement> titleElement;
+  protected LazyChild<Icon<?>> panelIcon = NullLazyChild.of();
+  protected DivElement contentElement;
+  protected DivElement bodyElement;
+  protected LazyChild<DivElement> contentHeader;
+  protected LazyChild<DivElement> contentFooter;
+  protected DivElement element;
   private boolean autoClose = true;
   private Element firstFocusElement;
   private Element lastFocusElement;
@@ -379,17 +381,17 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     return element.element();
   }
 
-  public T appendChild(UtilityElement<?> element) {
+  public T appendChild(PostfixAddOn<?> element) {
     headerElement.get().appendChild(element.addCss(dui_dialog_utility));
     return (T) this;
   }
 
-  public T appendChild(HeaderElement<?> element) {
+  public T appendChild(Header<?> element) {
     contentHeader.get().appendChild(element);
     return (T) this;
   }
 
-  public T appendChild(FooterElement<?> element) {
+  public T appendChild(Footer<?> element) {
     contentFooter.get().appendChild(element);
     return (T) this;
   }
@@ -415,58 +417,58 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     return setTitle(title);
   }
 
-  public T withTitleElement(ChildHandler<T, DominoElement<HTMLElement>> handler) {
+  public T withTitleElement(ChildHandler<T, SpanElement> handler) {
     handler.apply((T) this, titleElement.get());
     return (T) this;
   }
 
-  public DominoElement<HTMLElement> getTitleElement() {
+  public SpanElement getTitleElement() {
     return titleElement.get();
   }
 
-  public T withHeaderElement(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
+  public T withHeaderElement(ChildHandler<T,  DivElement> handler) {
     handler.apply((T) this, headerElement.get());
     return (T) this;
   }
 
-  public DominoElement<HTMLDivElement> getHeaderElement() {
+  public  DivElement getHeaderElement() {
     return headerElement.get();
   }
 
-  public T setIcon(BaseIcon<?> icon) {
+  public T setIcon(Icon<?> icon) {
     panelIcon.remove();
     panelIcon = LazyChild.of(icon.addCss(dui_dialog_icon), headerElement);
     panelIcon.get();
     return (T) this;
   }
 
-  public T withIcon(BaseIcon<?> icon) {
+  public T withIcon(Icon<?> icon) {
     return setIcon(icon);
   }
 
-  public DominoElement<HTMLDivElement> getContentBody() {
+  public  DivElement getContentBody() {
     return bodyElement;
   }
 
-  public T withContentBody(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
+  public T withContentBody(ChildHandler<T,  DivElement> handler) {
     handler.apply((T) this, bodyElement);
     return (T) this;
   }
 
-  public DominoElement<HTMLDivElement> getContentElement() {
+  public  DivElement getContentElement() {
     return contentElement;
   }
 
-  public T withContentElement(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
+  public T withContentElement(ChildHandler<T,  DivElement> handler) {
     handler.apply((T) this, contentElement);
     return (T) this;
   }
 
-  public DominoElement<HTMLDivElement> getContentHeader() {
+  public  DivElement getContentHeader() {
     return contentHeader.get();
   }
 
-  public T withContentHeader(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
+  public T withContentHeader(ChildHandler<T,  DivElement> handler) {
     handler.apply((T) this, contentHeader.get());
     return (T) this;
   }
@@ -476,11 +478,11 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     return (T) this;
   }
 
-  public DominoElement<HTMLDivElement> getContentFooter() {
+  public  DivElement getContentFooter() {
     return contentFooter.get();
   }
 
-  public T withContentFooter(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
+  public T withContentFooter(ChildHandler<T,  DivElement> handler) {
     handler.apply((T) this, contentFooter.get());
     return (T) this;
   }

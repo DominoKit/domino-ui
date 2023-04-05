@@ -18,12 +18,13 @@ package org.dominokit.domino.ui.layout;
 import static org.dominokit.domino.ui.layout.NavBarStyles.*;
 
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLHeadingElement;
+import org.dominokit.domino.ui.elements.HeadingElement;
+import org.dominokit.domino.ui.elements.NavElement;
 import org.dominokit.domino.ui.utils.*;
 
 public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
-  private DominoElement<HTMLElement> root;
-  private LazyChild<DominoElement<HTMLHeadingElement>> lazyTitle;
+  private NavElement root;
+  private LazyChild<HeadingElement> lazyTitle;
 
   public static NavBar create() {
     return new NavBar();
@@ -35,7 +36,7 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
 
   public NavBar() {
     root = nav().addCss(dui_nav_bar);
-    lazyTitle = LazyChild.of(h4().addCss(dui_nav_title), root);
+    lazyTitle = LazyChild.of(h(4).addCss(dui_nav_title), root);
     init(this);
   }
 
@@ -49,12 +50,12 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
     return this;
   }
 
-  public NavBar withTitle(ChildHandler<NavBar, DominoElement<HTMLHeadingElement>> handler) {
+  public NavBar withTitle(ChildHandler<NavBar, HeadingElement> handler) {
     handler.apply(this, lazyTitle.get());
     return this;
   }
 
-  public DominoElement<HTMLHeadingElement> getTitleElement() {
+  public HeadingElement getTitleElement() {
     return lazyTitle.get();
   }
 
@@ -62,8 +63,8 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
     return lazyTitle.get().getTextContent();
   }
 
-  public NavBar appendChild(UtilityElement<?> utilityElement) {
-    appendChild(utilityElement.addCss(dui_nav_utility).element());
+  public NavBar appendChild(PostfixAddOn<?> postfixAddOn) {
+    appendChild(postfixAddOn.addCss(dui_nav_utility).element());
     return this;
   }
 

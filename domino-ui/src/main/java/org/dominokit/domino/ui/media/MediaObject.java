@@ -19,11 +19,13 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.HeadingElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * A component to display media such as images, video and audio
@@ -49,12 +51,12 @@ import org.jboss.elemento.IsElement;
 public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
     implements MediaStyles {
 
-  private final DominoElement<HTMLDivElement> element;
+  private final DivElement element;
 
-  private final LazyChild<DominoElement<HTMLDivElement>> leftMedia;
-  private final LazyChild<DominoElement<HTMLDivElement>> rightMedia;
-  private final LazyChild<DominoElement<HTMLDivElement>> mediaBody;
-  private final LazyChild<DominoElement<HTMLHeadingElement>> mediaHeader;
+  private final LazyChild<DivElement> leftMedia;
+  private final LazyChild<DivElement> rightMedia;
+  private final LazyChild<DivElement> mediaBody;
+  private final LazyChild<HeadingElement> mediaHeader;
 
   public MediaObject() {
     element = div().addCss(dui_media);
@@ -62,7 +64,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
     mediaBody = LazyChild.of(div().addCss(dui_media_body), element);
     rightMedia =
         LazyChild.of(div().addCss(dui_media_object, dui_media_right), mediaBody);
-    mediaHeader = LazyChild.of(h4().addCss(dui_media_heading), mediaBody);
+    mediaHeader = LazyChild.of(h(4).addCss(dui_media_heading), mediaBody);
     init(this);
   }
 
@@ -129,46 +131,54 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
     return setRightMedia(element.element());
   }
 
-  /** @return The media element body */
-  public DominoElement<HTMLDivElement> getMediaBody() {
+  /**
+   * @return The media element body
+   */
+  public DivElement getMediaBody() {
     return mediaBody.get();
   }
 
-  /** @return The media header element */
-  public DominoElement<HTMLHeadingElement> getMediaHeader() {
+  /**
+   * @return The media header element
+   */
+  public HeadingElement getMediaHeader() {
     return mediaHeader.get();
   }
 
-  /** @return The left media element */
-  public DominoElement<HTMLDivElement> getLeftMedia() {
+  /**
+   * @return The left media element
+   */
+  public DivElement getLeftMedia() {
     return leftMedia.get();
   }
 
-  /** @return The right media element */
-  public DominoElement<HTMLDivElement> getRightMedia() {
+  /**
+   * @return The right media element
+   */
+  public DivElement getRightMedia() {
     return rightMedia.get();
   }
 
   public MediaObject withHeader(
-      ChildHandler<MediaObject, DominoElement<HTMLHeadingElement>> handler) {
+      ChildHandler<MediaObject, HeadingElement> handler) {
     handler.apply(this, mediaHeader.get());
     return this;
   }
 
   public MediaObject withMediaBody(
-      ChildHandler<MediaObject, DominoElement<HTMLDivElement>> handler) {
+      ChildHandler<MediaObject, DivElement> handler) {
     handler.apply(this, mediaBody.get());
     return this;
   }
 
   public MediaObject withLeftMedia(
-      ChildHandler<MediaObject, DominoElement<HTMLDivElement>> handler) {
+      ChildHandler<MediaObject, DivElement> handler) {
     handler.apply(this, leftMedia.get());
     return this;
   }
 
   public MediaObject withRightMedia(
-      ChildHandler<MediaObject, DominoElement<HTMLDivElement>> handler) {
+      ChildHandler<MediaObject, DivElement> handler) {
     handler.apply(this, rightMedia.get());
     return this;
   }

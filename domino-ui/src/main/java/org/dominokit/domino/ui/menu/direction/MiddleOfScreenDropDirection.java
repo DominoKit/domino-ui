@@ -19,15 +19,17 @@ import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.Unit.px;
 
 import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.Style;
 
 public class MiddleOfScreenDropDirection implements DropDirection {
   @Override
-  public void position(HTMLElement source, HTMLElement target) {
+  public void position(Element source, Element target) {
     DOMRect sourceRect = source.getBoundingClientRect();
 
-    source.style.setProperty(
+    Style.of(source).style.setProperty(
         "top", px.of(((window.innerHeight - sourceRect.height) / 2) + window.pageYOffset));
-    source.style.setProperty("left", px.of((window.innerWidth - sourceRect.width) / 2));
+    Style.of(source).style.setProperty("left", px.of((window.innerWidth - sourceRect.width) / 2));
   }
 }

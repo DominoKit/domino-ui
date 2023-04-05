@@ -15,9 +15,8 @@
  */
 package org.dominokit.domino.ui.progress;
 
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -38,7 +37,7 @@ import java.util.List;
  */
 public class Progress extends BaseDominoElement<HTMLDivElement, Progress> implements ProgressStyles {
 
-  private DominoElement<HTMLDivElement> element;
+  private DivElement element;
   private final List<ProgressBar> progressBars = new ArrayList<>();
 
   /** */

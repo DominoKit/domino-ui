@@ -15,8 +15,10 @@
  */
 package org.dominokit.domino.ui.style;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 public class NoneCss implements CssClass {
   @Override
@@ -25,10 +27,10 @@ public class NoneCss implements CssClass {
   }
 
   @Override
-  public void apply(HTMLElement element) {}
+  public void apply(Element element) {}
 
   @Override
-  public boolean isAppliedTo(HTMLElement element) {
+  public boolean isAppliedTo(Element element) {
     return false;
   }
 
@@ -38,7 +40,7 @@ public class NoneCss implements CssClass {
   }
 
   @Override
-  public void remove(HTMLElement element) {}
+  public void remove(Element element) {}
 
   @Override
   public void remove(IsElement<?> element) {}

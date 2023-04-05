@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.labels;
 
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -35,7 +36,7 @@ public class Label extends BaseDominoElement<HTMLElement, Label> {
 
   public static CssClass dui_label = () -> "dui-label";
 
-  private final DominoElement<HTMLElement> element;
+  private final SpanElement element;
 
   private Label() {
     element = span().addCss(dui_label);

@@ -19,17 +19,19 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.elements.AnchorElement;
+import org.dominokit.domino.ui.elements.LIElement;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
         implements PaginationStyles {
 
-    private DominoElement<HTMLLIElement> root;
-    private DominoElement<HTMLAnchorElement> link;
+    private LIElement root;
+    private AnchorElement link;
     private final int page;
 
     public static PagerNavItem create(Node node) {
@@ -44,7 +46,7 @@ class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
                 .appendChild(element);
     }
 
-    public static PagerNavItem nav(BaseIcon<?> icon) {
+    public static PagerNavItem nav(Icon<?> icon) {
         return new PagerNavItem(-1)
                 .withLink((parent, link) -> link.addCss(dui_page_link))
                 .appendChild(icon.addCss(dui_page_icon, dui_clickable));
@@ -80,12 +82,12 @@ class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
         return link.element();
     }
 
-    public DominoElement<HTMLAnchorElement> getLink() {
+    public AnchorElement getLink() {
         return link;
     }
 
     public PagerNavItem withLink(
-            ChildHandler<PagerNavItem, DominoElement<HTMLAnchorElement>> handler) {
+            ChildHandler<PagerNavItem, AnchorElement> handler) {
         handler.apply(this, link);
         return this;
     }

@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
+import elemental2.dom.Element;
 import elemental2.dom.Event;
 import elemental2.dom.HTMLElement;
 
@@ -23,5 +24,5 @@ public interface DropDirection {
     return this;
   }
 
-  void position(HTMLElement source, HTMLElement target);
+  void position(Element source, Element target);
 }

@@ -18,19 +18,21 @@ package org.dominokit.domino.ui.menu;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.menu.MenuStyles.*;
-import static org.jboss.elemento.Elements.a;
 
 import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.dominokit.domino.ui.elements.AnchorElement;
+import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.menu.direction.BestFitSideDropDirection;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.TakesValue;
-import org.jboss.elemento.EventType;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * The base implementation for {@link Menu} items
@@ -42,8 +44,8 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
     extends BaseDominoElement<HTMLLIElement, T>
     implements HasSelectionHandler<T, T>, HasDeselectionHandler<T>, TakesValue<V> {
 
-  protected final DominoElement<HTMLLIElement> root;
-  protected final DominoElement<HTMLAnchorElement> linkElement;
+  protected final LIElement root;
+  protected final AnchorElement linkElement;
 
   protected Menu<V> parent;
 
@@ -62,7 +64,7 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
     root = li().addCss(menu_item);
 
     linkElement =
-        elementOf(a("#"))
+        a("#")
             .setAttribute("tabindex", "0")
             .setAttribute("aria-expanded", "true")
             .addCss(menu_item_anchor);
@@ -126,9 +128,9 @@ public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
    */
   public boolean onSearch(String token, boolean caseSensitive) {
     if (isNull(token) || token.isEmpty()) {
-      this.show();
+      this.expand();
     } else {
-      hide();
+      collapse();
     }
     return false;
   }

@@ -15,11 +15,17 @@
  */
 package org.dominokit.domino.ui.thumbnails;
 
-/** Default CSS styles for {@link Thumbnail} */
-public class ThumbnailStyles {
+import org.dominokit.domino.ui.style.CssClass;
 
-  /** CSS class for thumbnail */
-  public static final String THUMBNAIL = "thumbnail";
-  /** CSS class for caption */
-  public static final String CAPTION = "caption";
+/**
+ * Default CSS styles for {@link Thumbnail}
+ */
+public interface ThumbnailStyles {
+    CssClass dui_thumbnail = () -> "dui-thumbnail";
+    CssClass dui_thumbnail_title = () -> "dui-thumbnail-title";
+    CssClass dui_thumbnail_body = () -> "dui-thumbnail-body";
+    CssClass dui_thumbnail_head = () -> "dui-thumbnail-head";
+    CssClass dui_thumbnail_tail = () -> "dui-thumbnail-tail";
+    CssClass dui_thumbnail_footer = () -> "dui-thumbnail-footer";
+    CssClass dui_thumbnail_img = () -> "dui-thumbnail-img";
 }

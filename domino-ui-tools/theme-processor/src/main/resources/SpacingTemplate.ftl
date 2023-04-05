@@ -123,4 +123,9 @@
 .dui.dui-basis-${spacig.name} {
     flex-basis: var(--dui-spc-${spacig.name});
 }
+
+.dui.dui-font-size-${spacig.name} {
+    flex-basis: var(--dui-spc-${spacig.name});
+}
+
 </#list>

@@ -21,6 +21,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import java.util.Arrays;
 import org.dominokit.domino.ui.button.IsButton;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -41,7 +42,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
 
-  private DominoElement<HTMLDivElement> groupElement;
+  private DivElement groupElement;
 
   /** default constructor */
   public ButtonsGroup() {

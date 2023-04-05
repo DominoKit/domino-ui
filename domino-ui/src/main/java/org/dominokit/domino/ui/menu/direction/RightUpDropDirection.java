@@ -19,11 +19,13 @@ import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.Unit.px;
 
 import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.Style;
 
 public class RightUpDropDirection implements DropDirection {
   @Override
-  public void position(HTMLElement source, HTMLElement target) {
+  public void position(Element source, Element target) {
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect sourceRect = source.getBoundingClientRect();
 
@@ -33,14 +35,14 @@ public class RightUpDropDirection implements DropDirection {
       delta = sourceRect.height - availableSpace;
     }
 
-    source.style.setProperty(
+    Style.of(source).style.setProperty(
         "top",
         px.of(
             (targetRect.top + window.pageYOffset)
                 - (sourceRect.height - targetRect.height)
                 + delta));
 
-    source.style.setProperty(
+    Style.of(source).style.setProperty(
         "left", px.of(targetRect.left + window.pageXOffset + targetRect.width + 1));
   }
 }

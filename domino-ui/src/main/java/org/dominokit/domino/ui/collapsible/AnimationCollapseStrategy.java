@@ -19,13 +19,11 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.DisplayCss.dui_hidden;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import java.util.Optional;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementsFactory;
 
 /**
  * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show the
@@ -41,7 +39,7 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
     private Animation showAnimation;
 
     @Override
-    public void init(HTMLElement element, CollapsibleHandlers handlers) {
+    public void init(Element element, CollapsibleHandlers handlers) {
         this.handlers = handlers;
     }
 
@@ -71,7 +69,7 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
 
   /** {@inheritDoc} */
   @Override
-  public void show(HTMLElement element) {
+  public void expand(Element element) {
       if (!showing) {
           elements.elementOf(element).removeCss(this.options.getShowDuration().getStyle());
           elements.elementOf(element).removeCss(this.options.getHideDuration().getStyle());
@@ -95,7 +93,7 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
                           .callback(
                                   e -> {
                                       showing = false;
-                                      this.handlers.onShowCompleted().run();
+                                      this.handlers.onExpandCompleted().run();
                                   })
                           .animate();
     }
@@ -103,7 +101,7 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
 
   /** {@inheritDoc} */
   @Override
-  public void hide(HTMLElement element) {
+  public void collapse(Element element) {
       Optional.ofNullable(showAnimation).ifPresent(animation -> animation.stop(false));
       if (!hiding) {
           elements.elementOf(element).removeCss(this.options.getShowDuration().getStyle());
@@ -115,7 +113,7 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
                           .beforeStart(
                                   element1 -> {
                                       hiding = true;
-                                      this.handlers.onBeforeHide().run();
+                                      this.handlers.onBeforeCollapse().run();
                                   })
                           .callback(
                                   theElement -> {
@@ -123,7 +121,7 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
                                               .addCss(dui_hidden)
                                               .setAttribute(Collapsible.DUI_COLLAPSED, "true");
                                       hiding = false;
-                                      this.handlers.onHideCompleted().run();
+                                      this.handlers.onCollapseCompleted().run();
                                   })
                           .animate();
     }

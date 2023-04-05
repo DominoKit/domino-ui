@@ -17,50 +17,19 @@ package org.dominokit.domino.ui.splitpanel;
 
 import elemental2.dom.MouseEvent;
 import elemental2.dom.TouchEvent;
-import org.dominokit.domino.ui.style.Calc;
 import org.dominokit.domino.ui.style.Unit;
 
 class HSplitter extends BaseSplitter<HSplitter> {
 
-  HSplitter(SplitPanel left, SplitPanel right, HasSize hSplitPanel) {
+  HSplitter(SplitPanel left, SplitPanel right, HasSplitPanels hSplitPanel) {
     super(left, right, hSplitPanel);
     init(this);
+    addCss(dui_horizontal);
+    handleElement.addCss(dui_horizontal);
   }
 
   static HSplitter create(SplitPanel left, SplitPanel right, HSplitPanel hSplitPanel) {
     return new HSplitter(left, right, hSplitPanel);
-  }
-
-  @Override
-  protected double getPanelSize(SplitPanel panel) {
-    return panel.getBoundingClientRect().width;
-  }
-
-  @Override
-  protected void setNewSizes(
-      SplitPanel first,
-      SplitPanel second,
-      double firstPercent,
-      double secondPercent,
-      HasSize mainPanel) {
-    first
-        .style()
-        .setWidth(
-            Calc.sub(
-                Unit.percent.of(firstPercent),
-                Unit.px.of(
-                    first.isFirst()
-                        ? mainPanel.getSplitterSize() / 2
-                        : mainPanel.getSplitterSize())));
-    second
-        .style()
-        .setWidth(
-            Calc.sub(
-                Unit.percent.of(secondPercent),
-                Unit.px.of(
-                    second.isLast()
-                        ? mainPanel.getSplitterSize() / 2
-                        : mainPanel.getSplitterSize())));
   }
 
   @Override
@@ -78,7 +47,4 @@ class HSplitter extends BaseSplitter<HSplitter> {
     return element.getBoundingClientRect().width;
   }
 
-  public void setSize(int size) {
-    setWidth(Unit.px.of(size));
-  }
 }

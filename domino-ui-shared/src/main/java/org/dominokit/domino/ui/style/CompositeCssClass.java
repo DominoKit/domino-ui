@@ -15,13 +15,14 @@
  */
 package org.dominokit.domino.ui.style;
 
-import elemental2.dom.HTMLElement;
+import elemental2.dom.Element;
+import org.dominokit.domino.ui.IsElement;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.jboss.elemento.IsElement;
 
 public class CompositeCssClass implements CssClass {
 
@@ -33,6 +34,17 @@ public class CompositeCssClass implements CssClass {
 
   public static CompositeCssClass of(CssClass... cssClasses) {
     return new CompositeCssClass(cssClasses);
+  }
+
+  public static CompositeCssClass of(Element element){
+    return of(element.classList.asList()
+            .stream()
+            .map(s -> (CssClass) () -> s)
+            .collect(Collectors.toList()));
+  }
+
+  public static CompositeCssClass of(IsElement<?> element){
+    return of(element.element());
   }
 
   public CompositeCssClass(Collection<CssClass> cssClasses) {
@@ -49,12 +61,12 @@ public class CompositeCssClass implements CssClass {
   }
 
   @Override
-  public void apply(HTMLElement element) {
+  public void apply(Element element) {
     cssClasses.forEach(cssClass -> cssClass.apply(element));
   }
 
   @Override
-  public boolean isAppliedTo(HTMLElement element) {
+  public boolean isAppliedTo(Element element) {
     return cssClasses.stream().allMatch(cssClass -> cssClass.isAppliedTo(element));
   }
 
@@ -64,7 +76,7 @@ public class CompositeCssClass implements CssClass {
   }
 
   @Override
-  public void remove(HTMLElement element) {
+  public void remove(Element element) {
     cssClasses.forEach(cssClass -> cssClass.remove(element));
   }
 

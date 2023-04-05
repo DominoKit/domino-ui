@@ -15,23 +15,17 @@
  */
 package org.dominokit.domino.ui.pagination;
 
-import static org.jboss.elemento.Elements.*;
-
 import elemental2.dom.EventListener;
-import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLUListElement;
 import elemental2.dom.Text;
+import org.dominokit.domino.ui.elements.NavElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.PaginationLabels;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
-import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.elemento.EventType;
-import org.jboss.elemento.HtmlContentBuilder;
 
 /**
  * A component which provides a simple navigation between a list of elements using next/previous
@@ -49,13 +43,11 @@ import org.jboss.elemento.HtmlContentBuilder;
  */
 public class Pager extends BaseDominoElement<HTMLElement, Pager> implements PaginationStyles, HasLabels<PaginationLabels> {
 
-    private final DominoElement<HTMLElement> element;
-    private final DominoElement<HTMLUListElement> pagesList;
-
+    private final NavElement element;
     private final PagerNavItem nextElement;
     private final PagerNavItem prevElement;
-    private final DominoElement<HTMLElement> prevArrow;
-    private final DominoElement<HTMLElement> nextArrow;
+    private final SpanElement prevArrow;
+    private final SpanElement nextArrow;
 
     private final Text nextText;
     private final Text prevText;
@@ -80,18 +72,18 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> implements Pagi
             }
         };
         element = nav().addCss(dui_pager)
-                .appendChild(pagesList = ul()
+                .appendChild(ul()
                         .addCss(dui_pager_list, dui_navigator)
                         .appendChild(prevElement = PagerNavItem.create()
                                 .withLink((parent, link) -> link.addCss(dui_navigator_nav))
                                 .appendChild(prevArrow = span().textContent("←"))
-                                .appendChild(prevText = TextNode.of(getLabels().getPreviousLabel()))
+                                .appendChild(prevText = text(getLabels().getPreviousLabel()))
                                 .addClickListener(goPrevious)
                                 .onKeyDown(keyEvents -> keyEvents.onEnter(goPrevious))
                         )
                         .appendChild(nextElement = PagerNavItem.create()
                                 .withLink((parent, link) -> link.addCss(dui_navigator_nav))
-                                .appendChild(nextText = TextNode.of(getLabels().getNextLabel()))
+                                .appendChild(nextText = text(getLabels().getNextLabel()))
                                 .appendChild(nextArrow = span().textContent("→"))
                                 .addClickListener(goNext)
                                 .onKeyDown(keyEvents -> keyEvents.onEnter(goNext))
@@ -201,8 +193,8 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> implements Pagi
      * @return same instance
      */
     public Pager showArrows() {
-        prevArrow.show();
-        nextArrow.show();
+        prevArrow.expand();
+        nextArrow.expand();
         return this;
     }
 
@@ -212,8 +204,8 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> implements Pagi
      * @return same instance
      */
     public Pager hideArrows() {
-        prevArrow.hide();
-        nextArrow.hide();
+        prevArrow.collapse();
+        nextArrow.collapse();
         return this;
     }
 

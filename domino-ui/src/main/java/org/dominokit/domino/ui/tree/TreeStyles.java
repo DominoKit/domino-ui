@@ -15,16 +15,21 @@
  */
 package org.dominokit.domino.ui.tree;
 
-/** Default CSS classes for {@link Tree} */
-public class TreeStyles {
-  /** CSS class for tree title */
-  public static final String TITLE = "title";
-  /** CSS class for tree header */
-  public static final String HEADER = "header";
-  /** CSS class for tree header */
-  public static final String MENU_HEADER = "menu-header";
-  /** CSS class for tree list */
-  public static final String LIST = "list";
-  /** CSS class for tree menu */
-  public static final String MENU = "menu";
+import org.dominokit.domino.ui.style.CssClass;
+
+/**
+ * Default CSS classes for {@link Tree}
+ */
+public interface TreeStyles {
+    CssClass dui_tree = () -> "dui-tree";
+    CssClass dui_tree_nav = () -> "dui-tree-nav";
+    CssClass dui_tree_header = () -> "dui-tree-header";
+    CssClass dui_tree_header_item = () -> "dui-tree-header-item";
+    CssClass dui_tree_item_close = () -> "dui-tree-item-close";
+    CssClass dui_tree_item_icon = () -> "dui-tree-item-icon";
+    CssClass dui_tree_item_text = () -> "dui-tree-item-text";
+    CssClass dui_tree_content_item = () -> "dui-tree-content-item";
+    CssClass dui_tree_item_content = () -> "dui-tree-item-content";
+    CssClass dui_tree_anchor = () -> "dui-tree-anchor";
+    CssClass dui_tree_item = () -> "dui-tree-item";
 }

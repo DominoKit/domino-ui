@@ -15,22 +15,21 @@
  */
 package org.dominokit.domino.ui.spin;
 
+import org.dominokit.domino.ui.style.CssClass;
+
 /** Default CSS classes for {@link SpinSelect} and {@link SpinItem} */
-public class SpinStyles {
-  /** CSS class for previous element */
-  public static final String PREV = "prev";
-  /** CSS class for disabled spin */
-  public static final String DISABLED = "disabled";
-  /** CSS class for next element */
-  public static final String NEXT = "next";
-  /** CSS class for spin content element */
-  public static final String SPIN_CONTENT = "spin-content";
-  /** CSS class for spin container */
-  public static final String SPIN_CONTAINER = "spin-container";
-  /** CSS class for horizontal spin */
-  public static final String H_SPIN = "h-spin";
-  /** CSS class for vertical spin */
-  public static final String V_SPIN = "v-spin";
-  /** CSS class for spin item */
-  public static final String SPIN_ITEM = "spin-item";
+public interface SpinStyles {
+
+  CssClass dui_spin = ()-> "dui-spin";
+  CssClass dui_spin_prev = ()-> "dui-spin-prev";
+  CssClass dui_spin_next = ()-> "dui-spin-next";
+  CssClass dui_spin_content = ()-> "dui-spin-content";
+  CssClass dui_spin_horizontal = ()-> "dui-spin-horizontal";
+  CssClass dui_spin_vertical = ()-> "dui-spin-vertical";
+  CssClass dui_spin_item = ()-> "dui-spin-item";
+  CssClass spinActivating = () -> "dui-spin-item-activating";
+  CssClass spinExiting = () -> "dui-spin-item-exiting";
+  CssClass dui_spin_exit_forward = () -> "dui-spin-exit-forward";
+  CssClass dui_spin_exit_backward = () -> "dui-spin-exit-backward";
+  CssClass dui_spin_animate = () -> "dui-spin-animate";
 }

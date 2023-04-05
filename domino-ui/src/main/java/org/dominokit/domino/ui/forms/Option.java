@@ -20,9 +20,8 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.MatchHighlighter;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 public abstract class Option<V> extends AbstractMenuItem<V, Option<V>> {
 

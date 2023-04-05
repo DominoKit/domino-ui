@@ -17,18 +17,19 @@ package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
-import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.ResizeColumnMeta;
+import org.dominokit.domino.ui.elements.THeadElement;
 import org.dominokit.domino.ui.grid.flex.FlexAlign;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
 
 /**
@@ -121,14 +122,14 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    * @param thead the {@link DominoElement} of {@link HTMLTableSectionElement} that is the table
    *     header element
    */
-  public void drawHeaders(DataTable<T> dataTable, DominoElement<HTMLTableSectionElement> thead) {
+  public void drawHeaders(DataTable<T> dataTable, THeadElement thead) {
     this.dataTable = dataTable;
 
     int maxDepth = columns.stream().mapToInt(ColumnConfig::getColumnsDepth).max().orElse(0);
 
     HTMLTableRowElement[] headers = new HTMLTableRowElement[maxDepth + 1];
     for (int i = 0; i < headers.length; i++) {
-      headers[i] = tr().element();
+      headers[i] = elements.tr().element();
       thead.appendChild(headers[i]);
     }
 

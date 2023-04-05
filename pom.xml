@@ -83,7 +83,6 @@
         <maven.gpg.plugin>1.6</maven.gpg.plugin>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <elemento.version>1.0.3</elemento.version>
         <elemental2.version>1.1.0</elemental2.version>
         <gwt.version>2.9.0</gwt.version>
         <jackson.apt.version>1.0.0-RC3</jackson.apt.version>
@@ -109,9 +108,9 @@
                 <version>1.0.0-RC1</version>
             </dependency>
             <dependency>
-                <groupId>org.jboss.elemento</groupId>
-                <artifactId>elemento-core</artifactId>
-                <version>${elemento.version}</version>
+                <groupId>org.gwtproject.safehtml</groupId>
+                <artifactId>gwt-safehtml</artifactId>
+                <version>1.0.0-RC1</version>
             </dependency>
             <dependency>
                 <groupId>org.dominokit.i18n</groupId>

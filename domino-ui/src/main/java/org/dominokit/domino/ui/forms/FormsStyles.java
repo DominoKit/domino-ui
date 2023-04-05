@@ -17,51 +17,51 @@ package org.dominokit.domino.ui.forms;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-public class FormsStyles {
+public interface FormsStyles {
 
-  public static final CssClass FORM_FIELD = () -> "dui-form-field";
-  public static final CssClass FIELD_LABEL = () -> "dui-form-field-label";
-  public static final CssClass FIELD_BODY = () -> "dui-form-field-body";
-  public static final CssClass INPUT_WRAPPER = () -> "dui-field-input-wrapper";
-  public static final CssClass ADD_ON = () -> "dui-field-addon";
-  public static final CssClass ADD_ON_LEFT = () -> "dui-field-addon-left";
-  public static final CssClass ADD_ON_RIGHT = () -> "dui-field-addon-right";
-  public static final CssClass ADD_ON_MANDATORY = () -> "dui-field-addon-mandatory";
-  public static final CssClass FIELD_PREFIX = () -> "dui-field-prefix";
-  public static final CssClass FIELD_POSTFIX = () -> "dui-field-postfix";
-  public static final CssClass FIELD_INPUT = () -> "dui-field-input";
-  public static final CssClass FIELD_COUNTER = () -> "dui-field-counter";
-  public static final CssClass MESSAGES_WRAPPER = () -> "dui-field-messages-wrapper";
-  public static final CssClass FIELD_HELPER = () -> "dui-field-helper";
-  public static final CssClass FIELD_ERROR = () -> "dui-field-error";
-  public static final CssClass FIELD_REQUIRED_INDICATOR = () -> "dui-field-required-indicator";
-  public static final CssClass FIXED_ERRORS = () -> "dui-form-messages-fixed";
-  public static final CssClass FIELD_INVALID = () -> "dui-field-invalid";
-  public static final CssClass HIDDEN_INPUT = () -> "dui-field-input-hidden";
+  CssClass dui_form_field = () -> "dui-form-field";
+  CssClass dui_field_label = () -> "dui-form-field-label";
+  CssClass dui_field_body = () -> "dui-form-field-body";
+  CssClass dui_input_wrapper = () -> "dui-field-input-wrapper";
+  CssClass dui_add_on = () -> "dui-field-addon";
+  CssClass dui_add_on_left = () -> "dui-field-addon-left";
+  CssClass dui_add_on_right = () -> "dui-field-addon-right";
+  CssClass dui_add_on_mandatory = () -> "dui-field-addon-mandatory";
+  CssClass dui_field_prefix = () -> "dui-field-prefix";
+  CssClass dui_field_postfix = () -> "dui-field-postfix";
+  CssClass dui_field_input = () -> "dui-field-input";
+  CssClass du_field_counter = () -> "dui-field-counter";
+  CssClass dui_messages_wrapper = () -> "dui-field-messages-wrapper";
+  CssClass dui_field_helper = () -> "dui-field-helper";
+  CssClass dui_field_error = () -> "dui-field-error";
+  CssClass dui_field_required_indicator = () -> "dui-field-required-indicator";
+  CssClass dui_fixed_errors = () -> "dui-form-messages-fixed";
+  CssClass dui_field_invalid = () -> "dui-field-invalid";
+  CssClass dui_hidden_input = () -> "dui-field-input-hidden";
 
-  public static final CssClass SWITCH = () -> "dui-form-switch";
-  public static final CssClass SWITCH_OFF_LABEL = () -> "dui-switch-off-label";
-  public static final CssClass SWITCH_ON_LABEL = () -> "dui-switch-on-label";
-  public static final CssClass SWITCH_TRACK = () -> "dui-switch-track";
-  public static final CssClass FIELD_PLACEHOLDER = () -> "dui-field-placeholder";
-  public static final CssClass FORM_SELECT = () -> "dui-form-select";
-  public static final CssClass FORM_SELECT_CLEAR = () -> "dui-form-select-clear";
-  public static final CssClass FORM_SELECT_DROP_ARROW = () -> "dui-form-select-drop-arrow";
+  CssClass dui_switch = () -> "dui-form-switch";
+  CssClass di_switch_off_label = () -> "dui-switch-off-label";
+  CssClass dui_switch_on_label = () -> "dui-switch-on-label";
+  CssClass dui_switch_track = () -> "dui-switch-track";
+  CssClass dui_field_placeholder = () -> "dui-field-placeholder";
+  CssClass dui_form_select = () -> "dui-form-select";
+  CssClass dui_form_select_clear = () -> "dui-form-select-clear";
+  CssClass dui_form_select_drop_arrow = () -> "dui-form-select-drop-arrow";
 
-  public static final CssClass FORM_RADIO_GROUP = () -> "dui-form-radio-group";
-  public static final CssClass FORM_RADIO = () -> "dui-form-radio";
-  public static final CssClass FORM_RADIO_LABEL = () -> "dui-radio-label";
-  public static final CssClass FORM_RADIO_NOTE = () -> "dui-form-radio-note";
-  public static final CssClass FORM_RADIO_GROUP_VERTICAL = () -> "dui-form-radio-group-vertical";
-  public static final CssClass FORM_RADIO_GROUP_GAP = () -> "dui-form-radio-gap";
+  CssClass dui_form_radio_group = () -> "dui-form-radio-group";
+  CssClass dui_form_radio = () -> "dui-form-radio";
+  CssClass dui_form_radio_label = () -> "dui-radio-label";
+  CssClass dui_form_radio_note = () -> "dui-form-radio-note";
+  CssClass dui_form_radio_group_vertical = () -> "dui-form-radio-group-vertical";
+  CssClass dui_form_radio_group_gap = () -> "dui-form-radio-gap";
 
-  public static final CssClass FORM_CHECK_BOX = () -> "dui-form-checkbox";
-  public static final CssClass CHECK_BOX_LABEL = () -> "dui-checkbox-label";
-  public static final CssClass CHECK_BOX_INDETERMINATE = () -> "dui-form-checkbox-indeterminate";
-  public static final CssClass CHECK_BOX_FILLED = () -> "dui-form-checkbox-filled";
-  public static final CssClass SWITCH_GROW = () -> "dui-switch-grow";
-  public static final CssClass SWITCH_CONDENSE = () -> "dui-switch-condense-labels";
-  public static final CssClass FORM_TAGS_INPUT = () -> "dui-form-tags-input";
-  public static final CssClass FORM_TEXT_AREA = () -> "dui-form-text-area";
-  public static final CssClass FORM_TEXT_AREA_GAP = () -> "dui-text-area-gap";
+  CssClass dui_form_check_box = () -> "dui-form-checkbox";
+  CssClass dui_check_box_label = () -> "dui-checkbox-label";
+  CssClass dui_check_box_indeterminate = () -> "dui-form-checkbox-indeterminate";
+  CssClass dui_check_box_filled = () -> "dui-form-checkbox-filled";
+  CssClass dui_switch_grow = () -> "dui-switch-grow";
+  CssClass dui_switch_condense = () -> "dui-switch-condense-labels";
+  CssClass dui_form_tags_input = () -> "dui-form-tags-input";
+  CssClass dui_form_text_area = () -> "dui-form-text-area";
+  CssClass dui_form_text_area_gap = () -> "dui-text-area-gap";
 }

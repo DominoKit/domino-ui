@@ -16,7 +16,8 @@
 package org.dominokit.domino.ui.button;
 
 import elemental2.dom.HTMLAnchorElement;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.elements.AnchorElement;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -31,11 +32,11 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
   }
 
   /** @param icon The button icon */
-  public LinkButton(BaseIcon<?> icon) {
+  public LinkButton(Icon<?> icon) {
     super(icon);
   }
 
-  public LinkButton(String text, BaseIcon<?> icon) {
+  public LinkButton(String text, Icon<?> icon) {
     super(text, icon);
   }
 
@@ -59,27 +60,27 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
   }
 
   /**
-   * creates a Button with an icon by calling {@link Button#Button(BaseIcon)}
+   * creates a Button with an icon by calling {@link Button#Button(Icon)}
    *
-   * @param icon {@link BaseIcon}, the button icon
+   * @param icon {@link Icon}, the button icon
    * @return new Button instance
    */
-  public static LinkButton create(BaseIcon<?> icon) {
+  public static LinkButton create(Icon<?> icon) {
     return new LinkButton(icon);
   }
 
   /**
-   * creates a Button with an icon by calling {@link LinkButton#LinkButton(BaseIcon)}
+   * creates a Button with an icon by calling {@link LinkButton#LinkButton(Icon)}
    *
-   * @param icon {@link BaseIcon}, the button icon
+   * @param icon {@link Icon}, the button icon
    * @return new Button instance
    */
-  public static LinkButton create(String text, BaseIcon<?> icon) {
+  public static LinkButton create(String text, Icon<?> icon) {
     return new LinkButton(text, icon);
   }
 
   @Override
-  protected DominoElement<HTMLAnchorElement> createButtonElement() {
+  protected AnchorElement createButtonElement() {
     return a();
   }
 }

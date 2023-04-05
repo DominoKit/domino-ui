@@ -15,20 +15,27 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.*;
-
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableRowElement;
-import java.util.*;
 import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.HasSelectionListeners;
 import org.dominokit.domino.ui.utils.Selectable;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow<T>>
     implements Selectable<TableRow<T>>,
@@ -40,7 +47,6 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   private final Map<String, RowCell<T>> rowCells = new HashMap<>();
 
   private Map<String, String> flags = new HashMap<>();
-  private Map<String, RowMeta> metaObjects = new HashMap<>();
 
   private HTMLTableRowElement element = tr().element();
 
@@ -258,20 +264,6 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     return flags.get(name);
   }
 
-  public void applyMeta(RowMeta meta) {
-    metaObjects.put(meta.getKey(), meta);
-  }
-
-  @SuppressWarnings("all")
-  public <E extends RowMeta> Optional<E> getMeta(String key) {
-    return Optional.ofNullable((E) metaObjects.get(key));
-  }
-
-  public TableRow<T> removeMeta(String key) {
-    metaObjects.remove(key);
-    return this;
-  }
-
   public void removeFlag(String name) {
     flags.remove(name);
   }
@@ -393,7 +385,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
     columnConfig.applyCellStyle(cellElement);
     if (columnConfig.isHidden()) {
-      elementOf(cellElement).hide();
+      elementOf(cellElement).collapse();
     }
     dataTable
         .getTableConfig()

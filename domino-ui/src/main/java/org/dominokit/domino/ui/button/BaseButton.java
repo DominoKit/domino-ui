@@ -17,7 +17,10 @@ package org.dominokit.domino.ui.button;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.elements.BaseElement;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.SwapCssClass;
@@ -48,14 +51,12 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
     extends WavesElement<HTMLElement, B>
     implements HasClickableElement, AcceptDisable<B>, IsButton<B> {
 
-  private SwapCssClass sizeCssClass = SwapCssClass.of(GenericCss.dui_medium);
-
-  private DominoElement<HTMLDivElement> bodyElement;
-  private LazyChild<DominoElement<HTMLElement>> textElement;
-  private LazyChild<BaseIcon<?>> iconElement;
+  private DivElement bodyElement;
+  private LazyChild<SpanElement> textElement;
+  private LazyChild<Icon<?>> iconElement;
 
   /** The default element that represent the button HTMLElement. */
-  protected final DominoElement<E> buttonElement;
+  protected final BaseElement<E, ?> buttonElement;
 
   /** creates a button */
   protected BaseButton() {
@@ -68,7 +69,7 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
     init((B) this);
   }
 
-  protected abstract DominoElement<E> createButtonElement();
+  protected abstract BaseElement<E, ?> createButtonElement();
 
   /**
    * creates a button with text
@@ -80,7 +81,7 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
     setText(text);
   }
 
-  protected BaseButton(String text, BaseIcon<?> icon) {
+  protected BaseButton(String text, Icon<?> icon) {
     this();
     setText(text);
     setIcon(icon);
@@ -89,9 +90,9 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
   /**
    * creates a button with an icon
    *
-   * @param icon {@link BaseIcon}
+   * @param icon {@link Icon}
    */
-  protected BaseButton(BaseIcon<?> icon) {
+  protected BaseButton(Icon<?> icon) {
     this();
     setIcon(icon);
   }
@@ -135,10 +136,10 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
   /**
    * sets the button icon replacing the current icon.
    *
-   * @param icon the new {@link BaseIcon}
+   * @param icon the new {@link Icon}
    * @return same instance
    */
-  public B setIcon(BaseIcon<?> icon) {
+  public B setIcon(Icon<?> icon) {
     if (nonNull(iconElement)) {
       iconElement.remove();
     }
@@ -147,11 +148,11 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
     return (B) this;
   }
 
-  public DominoElement<HTMLElement> getTextElement() {
+  public SpanElement getTextElement() {
     return textElement.get();
   }
 
-  public B withTextElement(ChildHandler<B, DominoElement<HTMLElement>> handler) {
+  public B withTextElement(ChildHandler<B, SpanElement> handler) {
     handler.apply((B) this, textElement.get());
     return (B) this;
   }
@@ -161,7 +162,7 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
     return (B) this;
   }
 
-  public B withIconElement(ChildHandler<B, BaseIcon<?>> handler) {
+  public B withIconElement(ChildHandler<B, Icon<?>> handler) {
     if (nonNull(iconElement)) {
       handler.apply((B) this, iconElement.get());
     }

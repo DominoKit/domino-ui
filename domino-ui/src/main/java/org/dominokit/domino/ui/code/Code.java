@@ -22,6 +22,7 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLPreElement;
+import org.dominokit.domino.ui.elements.PreElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementsFactory;
@@ -49,10 +50,10 @@ public class Code {
    * <p>element
    */
   public static class Block extends BaseDominoElement<HTMLPreElement, Block> {
-    private final DominoElement<HTMLPreElement> element;
+    private final PreElement element;
 
     private Block(HTMLPreElement element) {
-      this.element = elementOf(element);
+      this.element = PreElement.of(element);
       init(this);
     }
 

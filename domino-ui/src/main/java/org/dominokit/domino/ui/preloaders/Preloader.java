@@ -15,14 +15,11 @@
  */
 package org.dominokit.domino.ui.preloaders;
 
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
 
 /**
  * A component to show a loading indicator with different sizes and colors
@@ -39,7 +36,7 @@ import org.jboss.elemento.IsElement;
 public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
         implements IsElement<HTMLDivElement>, PreloaderStyles {
 
-    private final DominoElement<HTMLDivElement> root;
+    private final DivElement root;
 
     /**
      *
@@ -53,7 +50,7 @@ public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
                                         .addCss(dui_pl_spinner_layer)
                                         .appendChild(div()
                                                 .addCss(dui_pl_circle_clipper)
-                                                .add(div().addCss(dui_pl_circle_left)))
+                                                .appendChild(div().addCss(dui_pl_circle_left)))
                                         .appendChild(
                                                 div()
                                                         .addCss(dui_pl_circle_clipper, dui_pl_right)

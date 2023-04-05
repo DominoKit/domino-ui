@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.pagination;
 import elemental2.dom.DomGlobal;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.TextNode;
 
 import java.util.stream.IntStream;
 
@@ -88,20 +87,20 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         this.pagesCount = pages;
         this.pageSize = pageSize;
         this.windowSize = windowSize;
-        pagesList.insertFirst(prevSet = PagerNavItem.nav(Icons.ALL.page_first_mdi()).hide());
-        pagesList.appendChild(nextSet = PagerNavItem.nav(Icons.ALL.page_last_mdi()).hide());
+        pagesList.insertFirst(prevSet = PagerNavItem.nav(Icons.ALL.page_first_mdi()).collapse());
+        pagesList.appendChild(nextSet = PagerNavItem.nav(Icons.ALL.page_last_mdi()).collapse());
 
         prevPage.getLink()
                 .addClickListener(evt -> moveToPage(index - 1, isChangeListenersPaused()))
                 .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(index - 1, isChangeListenersPaused())));
 
         firstPage
-                .show()
+                .expand()
                 .getLink()
                 .addClickListener(evt -> moveToPage(1, isChangeListenersPaused()))
                 .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(1, isChangeListenersPaused())));
         prevSet
-                .show()
+                .expand()
                 .getLink()
                 .addClickListener(evt -> moveToPage((windowIndex * windowSize), isChangeListenersPaused()))
                 .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage((windowIndex * windowSize), isChangeListenersPaused())));
@@ -111,25 +110,25 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
                 .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(index + 1, isChangeListenersPaused())));
 
         lastPage
-                .show()
+                .expand()
                 .getLink()
                 .addClickListener(evt -> moveToPage(allPages.size(), isChangeListenersPaused()))
                 .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(allPages.size(), isChangeListenersPaused())));
         nextSet
-                .show()
+                .expand()
                 .getLink()
                 .addClickListener(evt -> moveToPage((windowIndex * windowSize) + windowSize + 1, isChangeListenersPaused()))
                 .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage((windowIndex * windowSize) + windowSize + 1, isChangeListenersPaused())));
 
-        dots = PagerNavItem.create(TextNode.of("..."))
+        dots = PagerNavItem.create(text("..."))
                 .addClickListener(evt -> moveToPage((windowIndex * windowSize) + windowSize + 1, isChangeListenersPaused()))
                 .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage((windowIndex * windowSize) + windowSize + 1, isChangeListenersPaused())));
 
         pagesList.insertBefore(dots, nextPage);
-        pagesTotalCount = PagerNavItem.create(TextNode.of(pagesCount+""));
+        pagesTotalCount = PagerNavItem.create(text(pagesCount+""));
         pagesList.insertAfter(pagesTotalCount, dots);
 
-        totalCountNavItem = PagerNavItem.create(TextNode.of("(" + this.getTotalCount() + ")"));
+        totalCountNavItem = PagerNavItem.create(text("(" + this.getTotalCount() + ")"));
         pagesList.insertBefore(totalCountNavItem.toggleDisplay(totalRecordVisible), nextPage);
 
         updatePages(pages, pageSize);
@@ -173,10 +172,10 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
                     );
         }
 
-        dots.show();
+        dots.expand();
 
-        pagesTotalCount.withLink((parent, link) -> link.clearElement().appendChild(TextNode.of(pagesCount+"")));
-        totalCountNavItem.withLink((parent, link) -> link.clearElement().appendChild(TextNode.of("("+getTotalCount()+")")));
+        pagesTotalCount.withLink((parent, link) -> link.clearElement().appendChild(text(pagesCount+"")));
+        totalCountNavItem.withLink((parent, link) -> link.clearElement().appendChild(text("("+getTotalCount()+")")));
 
         if (pages > 0) {
             moveToPage(1, silent);

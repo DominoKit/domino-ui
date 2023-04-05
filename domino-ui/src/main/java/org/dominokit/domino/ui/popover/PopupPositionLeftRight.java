@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.popover;
 
 import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.CssClass;
 
@@ -34,7 +35,7 @@ public class PopupPositionLeftRight implements PopupPosition {
 
   /** {@inheritDoc} */
   @Override
-  public void position(HTMLElement popup, HTMLElement target) {
+  public void position(Element popup, Element target) {
     DOMRect targetRect = target.getBoundingClientRect();
 
     double distanceToCenter = (targetRect.left) - (targetRect.width / 2);

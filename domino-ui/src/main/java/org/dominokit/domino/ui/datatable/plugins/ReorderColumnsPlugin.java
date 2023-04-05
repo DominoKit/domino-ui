@@ -23,7 +23,7 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.dnd.DragSource;
 import org.dominokit.domino.ui.dnd.DropZone;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 
 /**
@@ -35,7 +35,7 @@ public class ReorderColumnsPlugin<T> implements DataTablePlugin<T> {
 
   private final DropZone dropZone = new DropZone();
   private final DragSource dragSource = new DragSource();
-  private Supplier<BaseIcon<?>> headerIconSupplier = Icons.ALL::drag_vertical_mdi;
+  private Supplier<Icon<?>> headerIconSupplier = Icons.ALL::drag_vertical_mdi;
 
   /** {@inheritDoc} */
   @Override
@@ -71,7 +71,7 @@ public class ReorderColumnsPlugin<T> implements DataTablePlugin<T> {
   }
 
   /** @param headerIconSupplier header icon supplier */
-  public void setHeaderIconSupplier(Supplier<BaseIcon<?>> headerIconSupplier) {
+  public void setHeaderIconSupplier(Supplier<Icon<?>> headerIconSupplier) {
     this.headerIconSupplier = headerIconSupplier;
   }
 }

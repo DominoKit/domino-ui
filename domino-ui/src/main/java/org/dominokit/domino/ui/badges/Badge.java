@@ -21,6 +21,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.Text;
 import org.dominokit.domino.ui.alerts.Alert;
 import org.dominokit.domino.ui.button.RemoveButton;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.*;
 
 /**
@@ -39,10 +40,10 @@ import org.dominokit.domino.ui.utils.*;
  * @see HasBackground
  */
 public class Badge extends BaseDominoElement<HTMLElement, Badge> {
-  private final Text textNode = TextNode.empty();
+  private final Text textNode = ElementsFactory.elements.text();
 
   private boolean removable = false;
-  private final DominoElement<HTMLElement> element;
+  private final SpanElement element;
   private LazyChild<RemoveButton> removeButton;
 
   /**

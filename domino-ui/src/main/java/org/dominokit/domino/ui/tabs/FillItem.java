@@ -15,17 +15,20 @@
  */
 package org.dominokit.domino.ui.tabs;
 
-import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
+import elemental2.dom.HTMLLIElement;
+import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 
-/** A component that adds a space between {@link VerticalTab}s in the {@link VerticalTabsPanel} */
-public class FillItem extends BaseDominoElement<HTMLDivElement, FillItem> {
+import static org.dominokit.domino.ui.tabs.TabStyles.dui_tab_item;
 
-  private FlexItem<HTMLDivElement> element;
+/** A component that adds a space between {@link Tab}s in the {@link TabsPanel} */
+public class FillItem extends BaseDominoElement<HTMLLIElement, FillItem> {
+
+  private LIElement element;
 
   public FillItem() {
-    this.element = FlexItem.create().setFlexGrow(1);
+    this.element = li().addCss(dui_tab_item, dui_flex_grow);
     init(this);
   }
 
@@ -36,7 +39,7 @@ public class FillItem extends BaseDominoElement<HTMLDivElement, FillItem> {
 
   /** {@inheritDoc} */
   @Override
-  public HTMLDivElement element() {
+  public HTMLLIElement element() {
     return element.element();
   }
 }

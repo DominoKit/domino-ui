@@ -17,6 +17,8 @@ package org.dominokit.domino.ui.chips;
 
 import elemental2.dom.HTMLDivElement;
 import java.util.*;
+
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.*;
 
 /**
@@ -48,7 +50,7 @@ import org.dominokit.domino.ui.utils.*;
 public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
     implements AcceptDisable<ChipsGroup>, HasSelectionListeners<ChipsGroup, Chip, List<Chip>> {
 
-  private final DominoElement<HTMLDivElement> root;
+  private final DivElement root;
   private final List<Chip> chips = new ArrayList<>();
   private final List<Chip> selectedChips = new ArrayList<>();
 

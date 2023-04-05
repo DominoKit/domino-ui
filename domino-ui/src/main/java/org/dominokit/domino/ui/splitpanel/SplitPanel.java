@@ -20,7 +20,10 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * A wrapper component for split panels
@@ -36,12 +39,12 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  *
  * @see BaseDominoElement
  */
-public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
+public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> implements SplitStyles {
 
-  private final HTMLDivElement element = div().element();
+  private final DivElement element;
 
-  private int minSize = 0;
-  private int maxSize = -1;
+  private int minSize = 1;
+  private int maxSize = Integer.MAX_VALUE;
 
   private boolean isFirst = false;
   private boolean isLast = false;
@@ -51,12 +54,13 @@ public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
   private final List<ResizeListener> resizeListeners = new ArrayList<>();
 
   public SplitPanel() {
+    element = div().addCss(dui_split_panel);
     init(this);
   }
 
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 
   /** @return new instance */

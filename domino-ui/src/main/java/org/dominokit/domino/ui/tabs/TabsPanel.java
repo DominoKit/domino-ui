@@ -15,24 +15,25 @@
  */
 package org.dominokit.domino.ui.tabs;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.div;
-import static org.jboss.elemento.Elements.ul;
-
+import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
+import org.dominokit.domino.ui.animations.Animation;
+import org.dominokit.domino.ui.animations.Transition;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.UListElement;
+import org.dominokit.domino.ui.style.SwapCssClass;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.IsElement;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import org.dominokit.domino.ui.animations.Animation;
-import org.dominokit.domino.ui.animations.Transition;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 /**
  * A component to create tabs where only one {@link Tab} can be active at a time
@@ -62,30 +63,29 @@ import org.jboss.elemento.IsElement;
  * </pre>
  */
 public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
-    implements IsElement<HTMLDivElement> {
+    implements IsElement<HTMLDivElement>, TabStyles {
 
-  private DominoElement<HTMLDivElement> element = div();
-  private DominoElement<HTMLUListElement> tabsList =
-      ul()
-          .css(TabStyles.NAV, TabStyles.NAV_TABS, TabStyles.NAV_TABS_RIGHT)
-          .attr("role", "tablist");
-  private DominoElement<HTMLElement> tabsContent = elementOf(div().css(TabStyles.TAB_CONTENT).element());
+  private DivElement root;
+  private UListElement tabsListElement;
+  private DominoElement<Element> tabsContent;
   private Tab activeTab;
-  private Color tabsColor;
   private Transition transition;
   private List<Tab> tabs = new ArrayList<>();
-  private Color background;
   private boolean autoActivate = true;
 
   private final List<Consumer<Tab>> closeHandlers = new ArrayList<>();
   private final List<Tab.ActivationHandler> activationHandlers = new ArrayList<>();
 
+  private final SwapCssClass alignCss = SwapCssClass.of(TabsAlign.LEFT.getAlign());
+  private final SwapCssClass directionCss = SwapCssClass.of(TabsDirection.HORIZONTAL);
+
   public TabsPanel() {
-    element.appendChild(tabsList.element());
-    element.appendChild(tabsContent);
+    root = div()
+            .addCss(dui_tabs, directionCss)
+            .appendChild(tabsListElement = ul().addCss(dui_tabs_nav))
+            .appendChild(tabsContent = elementOf(div().addCss(dui_tabs_content).element()));
+
     init(this);
-    setBackgroundColor(Color.WHITE);
-    setColor(Color.BLUE);
   }
 
   public static TabsPanel create() {
@@ -113,13 +113,13 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
           }
         }
         if (index == tabs.size() - 1) {
-          tabsList.appendChild(tab.element());
-          tabsContent.appendChild(tab.getContentContainer().element());
+          tabsListElement.appendChild(tab.element());
+          tabsContent.appendChild(tab.getTabPanel().element());
         } else {
-          tabsList.insertBefore(tab, tabs.get(index + 1));
+          tabsListElement.insertBefore(tab, tabs.get(index + 1));
           tabsContent.insertBefore(
-              tab.getContentContainer().element(),
-              tabs.get(index + 1).getContentContainer().element());
+              tab.getTabPanel().element(),
+              tabs.get(index + 1).getTabPanel().element());
         }
 
         tab.getClickableElement().addEventListener("click", evt -> activateTab(tab));
@@ -142,6 +142,14 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    */
   public TabsPanel appendChild(Tab tab) {
     insertAt(tabs.size(), tab);
+    return this;
+  }
+  /**
+   * @param fillItem {@link FillItem}
+   * @return same TabsPanel instance
+   */
+  public TabsPanel appendChild(FillItem fillItem) {
+    tabsListElement.appendChild(fillItem);
     return this;
   }
 
@@ -195,7 +203,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
           activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, true));
         }
         if (nonNull(transition)) {
-          Animation.create(activeTab.getContentContainer()).transition(transition).animate();
+          Animation.create(activeTab.getTabPanel()).transition(transition).animate();
         }
       }
     }
@@ -219,42 +227,16 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
           activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, false));
         }
         if (nonNull(transition)) {
-          Animation.create(activeTab.getContentContainer()).transition(transition).animate();
+          Animation.create(activeTab.getTabPanel()).transition(transition).animate();
         }
       }
     }
   }
 
-  /**
-   * @param color {@link Color} of the focus/active color of the tab
-   * @return same TabsPanel instance
-   */
-  public TabsPanel setColor(Color color) {
-    if (nonNull(this.tabsColor)) {
-      tabsList.removeCss(tabsColor.getStyle());
-    }
-    tabsList.addCss(color.getStyle());
-    this.tabsColor = color;
-    return this;
-  }
-
-  /**
-   * @param background {@link Color} of the TabsPanel header
-   * @return same TabsPanel
-   */
-  public TabsPanel setBackgroundColor(Color background) {
-    if (nonNull(this.background)) {
-      tabsList.removeCss(this.background.getBackground());
-    }
-    tabsList.addCss(background.getBackground());
-    this.background = background;
-    return this;
-  }
-
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element.element();
+    return root.element();
   }
 
   /**
@@ -271,12 +253,11 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    *     content
    * @return same TabsPanel instance
    */
-  public TabsPanel setContentContainer(HTMLElement contentContainer) {
-    if (element.contains(tabsContent)) {
+  public TabsPanel setContentContainer(Element contentContainer) {
+    if (root.contains(tabsContent)) {
       tabsContent.remove();
     }
-    Style.of(contentContainer).addCss(TabStyles.TAB_CONTENT);
-    this.tabsContent = elementOf(contentContainer);
+    this.tabsContent = elementOf(contentContainer).addCss(dui_tabs_content);
     return this;
   }
 
@@ -293,7 +274,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    * @return the {@link HTMLElement} that is used to as a container element to render active tab
    *     content wrapped as {@link DominoElement}
    */
-  public DominoElement<HTMLElement> getTabsContent() {
+  public DominoElement<Element> getTabsContent() {
     return tabsContent;
   }
 
@@ -418,7 +399,16 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    * @return same TabsPanel instance
    */
   public TabsPanel setTabsAlign(TabsAlign align) {
-    this.tabsList.css(align.getAlign());
+    addCss(alignCss.replaceWith(align.getAlign()));
+    return this;
+  }
+
+  /**
+   * @param direction {@link TabsDirection}
+   * @return same TabsPanel instance
+   */
+  public TabsPanel setTabsDirection(TabsDirection direction) {
+    addCss(directionCss.replaceWith(direction));
     return this;
   }
 }

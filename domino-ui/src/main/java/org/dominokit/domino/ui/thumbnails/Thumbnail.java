@@ -15,17 +15,19 @@
  */
 package org.dominokit.domino.ui.thumbnails;
 
-import static java.util.Objects.isNull;
-import static org.dominokit.domino.ui.thumbnails.ThumbnailStyles.CAPTION;
-import static org.dominokit.domino.ui.thumbnails.ThumbnailStyles.THUMBNAIL;
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLImageElement;
+import elemental2.dom.HTMLPictureElement;
 import elemental2.dom.Node;
+import jsinterop.base.Js;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * A component which provides a showcase for images and any other elements with extra caption
@@ -44,77 +46,132 @@ import org.jboss.elemento.IsElement;
  *
  * @see BaseDominoElement
  */
-public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
+public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> implements ThumbnailStyles {
 
-  private final DominoElement<HTMLDivElement> element = div().css(THUMBNAIL);
-  private final DominoElement<HTMLDivElement> contentElement = div();
-  private final DominoElement<HTMLDivElement> captionElement = div().css(CAPTION);
+    private final DivElement element;
+    private final DivElement head;
+    private final LazyChild<DivElement> title;
+    private final DivElement body;
 
-  public Thumbnail() {
-    element.appendChild(contentElement);
-    init(this);
-  }
+    private final LazyChild<DivElement> tail;
+    private final LazyChild<DivElement> footer;
 
-  /** @return new instnace */
-  public static Thumbnail create() {
-    return new Thumbnail();
-  }
+    private SwapCssClass directionCss = SwapCssClass.of();
 
-  /** {@inheritDoc} */
-  @Override
-  public Thumbnail setContent(Node content) {
-    ElementUtil.clear(contentElement);
-    contentElement.appendChild(content);
-    return this;
-  }
+    public Thumbnail() {
+        this.element = div()
+                .addCss(dui_thumbnail)
+                .appendChild(head = div().addCss(dui_thumbnail_head)
+                        .appendChild(body = div().addCss(dui_thumbnail_body))
+                );
+        title = LazyChild.of(div().addCss(dui_thumbnail_title), head);
+        tail = LazyChild.of(div().addCss(dui_thumbnail_tail), element);
+        footer = LazyChild.of(div().addCss(dui_thumbnail_footer), tail);
 
-  /** {@inheritDoc} */
-  @Override
-  public Thumbnail setContent(IsElement<?> content) {
-    return setContent(content.element());
-  }
+        init(this);
+    }
 
-  /** @deprecated use {@link #appendCaptionChild(Node)} */
-  @Deprecated
-  public Thumbnail appendCaptionContent(Node content) {
-    return appendCaptionChild(content);
-  }
+    /**
+     * @return new instnace
+     */
+    public static Thumbnail create() {
+        return new Thumbnail();
+    }
 
-  /**
-   * Adds a caption element
-   *
-   * @param content the {@link Node} caption
-   * @return same instance
-   */
-  public Thumbnail appendCaptionChild(Node content) {
-    if (isNull(captionElement.parentNode())) element.appendChild(captionElement);
-    captionElement.appendChild(content);
-    return this;
-  }
+    @Override
+    protected HTMLElement getAppendTarget() {
+        return body.element();
+    }
 
-  /**
-   * Adds a caption element
-   *
-   * @param content the {@link IsElement} caption
-   * @return same instance
-   */
-  public Thumbnail appendCaptionChild(IsElement<?> content) {
-    return appendCaptionChild(content.element());
-  }
+    public Thumbnail setDirection(ThumbnailDirection direction) {
+        addCss(directionCss.replaceWith(direction));
+        return this;
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return element.element();
-  }
+    public Thumbnail appendChild(HTMLImageElement img) {
+        elements.elementOf(img).addCss(dui_thumbnail_img);
+        return super.appendChild(img);
+    }
 
-  /** @return the content element */
-  public DominoElement<HTMLDivElement> getContentElement() {
-    return contentElement;
-  }
+    public Thumbnail appendChild(IsElement<?> element) {
+        if (element.element() instanceof HTMLImageElement || element.element() instanceof HTMLPictureElement) {
+            elements.elementOf(element).addCss(dui_thumbnail_img);
+        }
+        return super.appendChild(element);
+    }
 
-  /** @return the caption container */
-  public DominoElement<HTMLDivElement> getCaptionElement() {
-    return captionElement;
-  }
+    public Thumbnail appendChild(Node node) {
+        if (node instanceof HTMLImageElement || node instanceof HTMLPictureElement) {
+            elements.elementOf(Js.<HTMLElement>uncheckedCast(node)).addCss(dui_thumbnail_img);
+        }
+        return super.appendChild(element);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HTMLDivElement element() {
+        return element.element();
+    }
+
+    public Thumbnail withHeader(ChildHandler<Thumbnail, DivElement> handler) {
+        handler.apply(this, head);
+        return this;
+    }
+
+    public Thumbnail withTitle(ChildHandler<Thumbnail, DivElement> handler) {
+        handler.apply(this, title.get());
+        return this;
+    }
+
+    public Thumbnail withTitle() {
+        title.get();
+        return this;
+    }
+
+    public Thumbnail withTail(ChildHandler<Thumbnail, DivElement> handler) {
+        handler.apply(this, tail.get());
+        return this;
+    }
+
+    public Thumbnail withTail() {
+        tail.get();
+        return this;
+    }
+
+    public Thumbnail withFooter(ChildHandler<Thumbnail, DivElement> handler) {
+        handler.apply(this, footer.get());
+        return this;
+    }
+
+    public Thumbnail withFooter() {
+        footer.get();
+        return this;
+    }
+
+    public Thumbnail withBody(ChildHandler<Thumbnail, DivElement> handler) {
+        handler.apply(this, body);
+        return this;
+    }
+
+    public DivElement getHeader() {
+        return head;
+    }
+
+    public DivElement getTitle() {
+        return title.get();
+    }
+
+    public DivElement getBody() {
+        return body;
+    }
+
+    public DivElement getTail() {
+        return tail.get();
+    }
+
+    public DivElement getFooter() {
+        return footer.get();
+    }
 }

@@ -22,6 +22,8 @@ import elemental2.dom.HTMLUListElement;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -53,7 +55,7 @@ import org.dominokit.domino.ui.utils.HasSelectionListeners;
 public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<T>>
     implements HasSelectionListeners<ListGroup<T>, T, List<T>>, ListStyles {
 
-  private final DominoElement<HTMLUListElement> element;
+  private final UListElement element;
   private final List<ListItem<T>> items = new ArrayList<>();
   private ItemRenderer<T> itemRenderer = (listGroup, item) -> {};
 

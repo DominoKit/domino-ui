@@ -21,11 +21,12 @@ import static java.util.Objects.nonNull;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import org.dominokit.domino.ui.forms.FormElement;
+import org.dominokit.domino.ui.utils.DominoId;
 import org.dominokit.domino.ui.utils.HasValidation.Validator;
 
 /**
  * This class associate a list of {@link Validator} with a {@link FormElement} and allow running all
- * of the validators and return the result in fail-fast style.
+ * the validators and return the result in fail-fast style.
  */
 public class ElementValidations {
 

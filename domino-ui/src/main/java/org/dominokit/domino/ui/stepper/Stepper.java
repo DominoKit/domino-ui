@@ -49,7 +49,7 @@
 // import org.dominokit.domino.ui.style.Color;
 // import org.dominokit.domino.ui.utils.BaseDominoElement;
 // import org.dominokit.domino.ui.utils.DominoElement;
-// import org.jboss.elemento.IsElement;
+// import org.dominokit.domino.ui.IsElement;
 //
 /// **
 // * A Wizard like component that can have multiple {@link Step}s while only one step can be

@@ -19,24 +19,25 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.menu.MenuStyles.*;
 
-import elemental2.dom.HTMLElement;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.dominokit.domino.ui.elements.SmallElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.utils.NullLazyChild;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 public class SelectOption<V> extends Option<V> {
 
   private String text;
-  private DominoElement<HTMLElement> descriptionElement;
-  private DominoElement<HTMLElement> textElement;
+  private SmallElement descriptionElement;
+  private SpanElement textElement;
 
-  private DominoElement<HTMLElement> valueElement;
-  private LazyChild<DominoElement<HTMLElement>> lazyValueElement = NullLazyChild.of();
+  private SpanElement valueElement;
+  private LazyChild<SpanElement> lazyValueElement = NullLazyChild.of();
 
   public static <V> SelectOption<V> create(V value, String key, String text) {
     return new SelectOption<>(value, key, text);
@@ -68,7 +69,7 @@ public class SelectOption<V> extends Option<V> {
     }
   }
 
-  protected DominoElement<HTMLElement> createValueElement(V value, String key, String text) {
+  protected SpanElement createValueElement(V value, String key, String text) {
     return span().textContent(text).addCss(dui_m_r_1);
   }
 
@@ -85,13 +86,17 @@ public class SelectOption<V> extends Option<V> {
     lazyValueElement.remove();
   }
 
-  /** @return The description element */
-  public DominoElement<HTMLElement> getDescriptionElement() {
+  /**
+   * @return The description element
+   */
+  public SmallElement getDescriptionElement() {
     return descriptionElement;
   }
 
-  /** @return the main text element */
-  public DominoElement<HTMLElement> getTextElement() {
+  /**
+   * @return the main text element
+   */
+  public SpanElement getTextElement() {
     return textElement;
   }
 
@@ -105,17 +110,17 @@ public class SelectOption<V> extends Option<V> {
   @Override
   public boolean onSearch(String token, boolean caseSensitive) {
     if (isNull(token) || token.isEmpty()) {
-      this.show();
+      this.expand();
       return true;
     }
     if (containsToken(token, caseSensitive)) {
       if (this.isCollapsed()) {
-        this.show();
+        this.expand();
       }
       return true;
     }
     if (this.isExpanded()) {
-      this.hide();
+      this.collapse();
     }
     return false;
   }

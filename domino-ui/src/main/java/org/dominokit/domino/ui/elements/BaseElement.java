@@ -1,22 +1,30 @@
 package org.dominokit.domino.ui.elements;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoElement;
 
-public abstract class BaseElement<E extends HTMLElement, T extends BaseElement<E,T>> extends BaseDominoElement<E, T> {
+public abstract class BaseElement<E extends Element, T extends BaseElement<E,T>> extends BaseDominoElement<E, T> {
 
-    protected E element;
+    private final E wrappedElement;
 
-    public BaseElement() {
-        this.element = createElement();
+    /** @param element the E element extending from {@link Element} */
+    public BaseElement(E element) {
+        this.wrappedElement = element;
         init((T) this);
         addCss(dui);
     }
 
-    protected abstract E createElement();
+    public DominoElement<E> toDominoElement(){
+        return elementOf(wrappedElement);
+    }
 
+    /**
+     * @return the E element that is extending from {@link HTMLElement} wrapped in this DominoElement
+     */
     @Override
     public E element() {
-        return element;
+        return wrappedElement;
     }
 }

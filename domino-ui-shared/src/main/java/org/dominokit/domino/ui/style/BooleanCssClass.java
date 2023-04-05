@@ -15,8 +15,8 @@
  */
 package org.dominokit.domino.ui.style;
 
-import elemental2.dom.HTMLElement;
-import org.jboss.elemento.IsElement;
+import elemental2.dom.Element;
+import org.dominokit.domino.ui.IsElement;
 
 public class BooleanCssClass implements CssClass {
 
@@ -33,7 +33,7 @@ public class BooleanCssClass implements CssClass {
   }
 
   @Override
-  public void apply(HTMLElement element) {
+  public void apply(Element element) {
     if (addRemove) {
       cssClass.apply(element);
     } else {
@@ -42,7 +42,7 @@ public class BooleanCssClass implements CssClass {
   }
 
   @Override
-  public boolean isAppliedTo(HTMLElement element) {
+  public boolean isAppliedTo(Element element) {
     return cssClass.isAppliedTo(element);
   }
 
@@ -52,7 +52,7 @@ public class BooleanCssClass implements CssClass {
   }
 
   @Override
-  public void remove(HTMLElement element) {
+  public void remove(Element element) {
     cssClass.remove(element);
   }
 

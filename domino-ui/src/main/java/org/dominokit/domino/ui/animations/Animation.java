@@ -15,11 +15,12 @@
  */
 package org.dominokit.domino.ui.animations;
 
+import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 import java.util.Arrays;
 
@@ -52,7 +53,7 @@ public class Animation {
   private int duration = 800;
   private int delay = 0;
   private boolean infinite = false;
-  private final DominoElement<HTMLElement> element;
+  private final DominoElement<Element> element;
   private Transition transition = Transition.FADE_IN;
   private CompleteCallback callback = DEFAULT_CALLBACK;
   private StartHandler startHandler = DEFAULT_START_HANDLER;
@@ -60,7 +61,7 @@ public class Animation {
   private double repeatCount = 1;
 
   /** @param element an {@link HTMLElement} to be animated */
-  public Animation(HTMLElement element) {
+  public Animation(Element element) {
     this.element = elements.elementOf(element);
   }
 
@@ -84,7 +85,7 @@ public class Animation {
    * @param element an {@link HTMLElement} to be animated
    * @return an {@link Animation} instance
    */
-  public static Animation create(HTMLElement element) {
+  public static Animation create(Element element) {
     return new Animation(element);
   }
 
@@ -256,8 +257,8 @@ public class Animation {
    */
   @FunctionalInterface
   public interface CompleteCallback {
-    /** @param element an {@link HTMLElement} that is being animated */
-    void onComplete(HTMLElement element);
+    /** @param element an {@link Element} that is being animated */
+    void onComplete(Element element);
   }
 
   /**
@@ -266,7 +267,7 @@ public class Animation {
    */
   @FunctionalInterface
   public interface StartHandler {
-    /** @param element an {@link HTMLElement} that is being animated */
-    void beforeStart(HTMLElement element);
+    /** @param element an {@link Element} that is being animated */
+    void beforeStart(Element element);
   }
 }

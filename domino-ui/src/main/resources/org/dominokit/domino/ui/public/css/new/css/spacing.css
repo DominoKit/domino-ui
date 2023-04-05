@@ -6488,11 +6488,32 @@
 .dui.dui-order-10 {
     order: 10;
 }
-.dui.dui-order-11 {
-    order: 11;
+.dui.dui-order-20 {
+    order: 20;
 }
-.dui.dui-order-12 {
-    order: 12;
+.dui.dui-order-30 {
+    order: 30;
+}
+.dui.dui-order-40 {
+    order: 40;
+}
+.dui.dui-order-50 {
+    order: 50;
+}
+.dui.dui-order-60 {
+    order: 60;
+}
+.dui.dui-order-70 {
+    order: 70;
+}
+.dui.dui-order-80 {
+    order: 80;
+}
+.dui.dui-order-90 {
+    order: 90;
+}
+.dui.dui-order-100 {
+    order: 100;
 }
 .dui.dui-order-first {
     order: -9999;

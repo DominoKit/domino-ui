@@ -16,13 +16,14 @@
 package org.dominokit.domino.ui.scroll;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** A component that wraps the {@link HTMLDivElement} to make it vertically scrollable by default */
 public class VScrollPanel extends BaseDominoElement<HTMLDivElement, VScrollPanel> {
 
-  private DominoElement<HTMLDivElement> root;
+  private DivElement root;
 
   /** @return new AutoHScrollPanel instance */
   public static VScrollPanel create() {

@@ -16,37 +16,38 @@
 package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 /** Bounce loader implementation */
 public class BounceLoader extends BaseLoader<BounceLoader> implements IsElement<HTMLDivElement> {
 
-  private final DominoElement<HTMLDivElement> progress1 =
+  private final DivElement progress1 =
      div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
-  private final DominoElement<HTMLDivElement> progress2 =
+  private final DivElement progress2 =
      div().addCss(wait_me_progress_elem_2, dui_bg_grey_d_2);
-  private final DominoElement<HTMLDivElement> progress3 =
+  private final DivElement progress3 =
      div().addCss(wait_me_progress_elem_3, dui_bg_grey_d_2);
 
-  private final DominoElement<HTMLDivElement> loader =
+  private final DivElement loader =
      div()
           .addCss(wait_me_progress, bounce)
           .appendChild(progress1)
           .appendChild(progress2)
           .appendChild(progress3);
 
-  private final DominoElement<HTMLDivElement> content =
+  private final DivElement content =
      div()
           .addCss(wait_me_content, dui_vertical_center)
           .appendChild(loader)
           .appendChild(loadingText);
 
-  private final DominoElement<HTMLDivElement> element =
+  private final DivElement element =
      div()
           .addCss(wait_me)
           .style("background: rgba(255, 255, 255, 0.9);")
-          .add(content);
+          .appendChild(content);
 
   public BounceLoader() {
     init(this);
@@ -77,7 +78,7 @@ public class BounceLoader extends BaseLoader<BounceLoader> implements IsElement<
   /** {@inheritDoc} */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
-    return content;
+    return content.toDominoElement();
   }
 
   /** {@inheritDoc} */

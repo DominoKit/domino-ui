@@ -20,7 +20,7 @@ import static org.dominokit.domino.ui.layout.NavBarStyles.dui_nav_add_on;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 public class NavBarAddOn extends BaseDominoElement<HTMLElement, NavBarAddOn> {
 

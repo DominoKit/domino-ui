@@ -15,15 +15,19 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
-import static java.util.Objects.isNull;
-
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.datatable.TableRow;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.ToggleIcon;
+import org.dominokit.domino.ui.icons.ToggleMdiIcon;
+
 import java.util.function.Function;
 import java.util.function.Supplier;
-import org.dominokit.domino.ui.datatable.TableRow;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.utils.TextNode;
+
+import static java.util.Objects.isNull;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_font_size_4;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 public class TreePluginConfig<T> implements PluginConfig {
 
@@ -32,10 +36,9 @@ public class TreePluginConfig<T> implements PluginConfig {
   private boolean lazy = false;
   private final TreeGridPlugin.SubItemsProvider<T> subItemsProvider;
   private TreeGridPlugin.ParentRowCellsSupplier<T> parentRowCellsSupplier;
-  private Supplier<BaseIcon<?>> expandIconSupplier = Icons.ALL::menu_right_mdi;
-  private Supplier<BaseIcon<?>> collapseIconSupplier = Icons.ALL::menu_down_mdi;
-  private Supplier<BaseIcon<?>> leafIconSupplier = Icons.ALL::circle_medium_mdi;
-  private Function<TableRow<T>, Node> indentColumnElementSupplier = tableRow -> TextNode.empty();
+  private Supplier<ToggleIcon<?,?>> expandCollapseIconSupplier = ()-> ToggleMdiIcon.create(Icons.ALL.menu_right_mdi(), Icons.ALL.menu_down_mdi());
+  private Supplier<ToggleIcon<?,?>> leafIconSupplier = ()->ToggleMdiIcon.create(Icons.ALL.circle_medium_mdi(), Icons.ALL.circle_medium_mdi());
+  private Function<TableRow<T>, Node> indentColumnElementSupplier = tableRow -> elements.text();
   private int indent = DEFAULT_INDENT;
 
   public TreePluginConfig(TreeGridPlugin.SubItemsProvider<T> subItemsProvider) {
@@ -72,57 +75,39 @@ public class TreePluginConfig<T> implements PluginConfig {
     return this;
   }
 
-  public Supplier<BaseIcon<?>> getExpandIconSupplier() {
-    return expandIconSupplier;
+  public Supplier<ToggleIcon<?,?>> getExpandColapseIconSupplier() {
+    return expandCollapseIconSupplier;
   }
 
   /**
    * Sets a supplier for a custom expand icon instead of the default one
    *
-   * @param expandIconSupplier {@link Supplier} of {@link BaseIcon}
+   * @param expandIconSupplier {@link Supplier} of {@link Icon}
    * @return Same config instance
    */
-  public TreePluginConfig<T> setExpandIconSupplier(Supplier<BaseIcon<?>> expandIconSupplier) {
+  public TreePluginConfig<T> setExpandCollapseIconSupplier(Supplier<ToggleIcon<?,?>> expandIconSupplier) {
     if (isNull(expandIconSupplier)) {
-      this.expandIconSupplier = () -> Icons.ALL.plus_mdi().size18();
+      this.expandCollapseIconSupplier = () -> ToggleMdiIcon.create(Icons.ALL.plus_mdi().addCss(dui_font_size_4), Icons.ALL.minus_mdi().addCss(dui_font_size_4));
     } else {
-      this.expandIconSupplier = expandIconSupplier;
+      this.expandCollapseIconSupplier = expandIconSupplier;
     }
     return this;
   }
 
-  public Supplier<BaseIcon<?>> getCollapseIconSupplier() {
-    return collapseIconSupplier;
-  }
-
-  /**
-   * Sets a supplier for a custom collapse icon instead of the default one
-   *
-   * @param collapseIconSupplier {@link Supplier} of {@link BaseIcon}
-   * @return Same config instance
-   */
-  public TreePluginConfig<T> setCollapseIconSupplier(Supplier<BaseIcon<?>> collapseIconSupplier) {
-    if (isNull(collapseIconSupplier)) {
-      this.collapseIconSupplier = () -> Icons.ALL.minus_mdi().size18();
-    } else {
-      this.collapseIconSupplier = collapseIconSupplier;
-    }
-    return this;
-  }
-
-  public Supplier<BaseIcon<?>> getLeafIconSupplier() {
+  public Supplier<ToggleIcon<?,?>> getLeafIconSupplier() {
     return leafIconSupplier;
   }
 
   /**
    * Sets a supplier for a custom leaf row icon instead of the default one
    *
-   * @param leafIconSupplier {@link Supplier} of {@link BaseIcon}
+   * @param leafIconSupplier {@link Supplier} of {@link Icon}
    * @return Same config instance
    */
-  public TreePluginConfig<T> setLeafIconSupplier(Supplier<BaseIcon<?>> leafIconSupplier) {
+  public TreePluginConfig<T> setLeafIconSupplier(Supplier<ToggleIcon<?,?>> leafIconSupplier) {
     if (isNull(leafIconSupplier)) {
-      this.leafIconSupplier = () -> Icons.ALL.circle_medium_mdi().size18();
+      this.leafIconSupplier = () -> ToggleMdiIcon.create(Icons.ALL.circle_medium_mdi().addCss(dui_font_size_4),
+              Icons.ALL.circle_medium_mdi().addCss(dui_font_size_4));
     } else {
       this.leafIconSupplier = leafIconSupplier;
     }

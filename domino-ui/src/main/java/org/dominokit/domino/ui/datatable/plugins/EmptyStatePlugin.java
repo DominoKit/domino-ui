@@ -17,7 +17,7 @@ package org.dominokit.domino.ui.datatable.plugins;
 
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.layout.EmptyState;
 
 /**
@@ -33,10 +33,10 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
   /**
    * Create an instance with custom icon and title
    *
-   * @param emptyStateIcon the {@link BaseIcon} of the empty state
+   * @param emptyStateIcon the {@link Icon} of the empty state
    * @param title String, the title of the empty state
    */
-  public EmptyStatePlugin(BaseIcon<?> emptyStateIcon, String title) {
+  public EmptyStatePlugin(Icon<?> emptyStateIcon, String title) {
     emptyState = EmptyState.create(title, emptyStateIcon);
   }
 
@@ -48,9 +48,9 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
         event -> {
           TableDataUpdatedEvent tableDataUpdatedEvent = (TableDataUpdatedEvent) event;
           if (tableDataUpdatedEvent.getTotalCount() == 0) {
-            emptyState.show();
+            emptyState.expand();
           } else {
-            emptyState.hide();
+            emptyState.collapse();
           }
         });
     dataTable.element().appendChild(emptyState.element());

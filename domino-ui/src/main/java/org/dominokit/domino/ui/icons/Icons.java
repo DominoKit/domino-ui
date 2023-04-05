@@ -30,7 +30,7 @@ public class Icons implements MdiIcons {
    * @param name the name of the icon
    * @return new instance
    */
-  public static BaseIcon<?> of(String name) {
+  public static Icon<?> of(String name) {
     return MdiIcon.create(name);
   }
 }

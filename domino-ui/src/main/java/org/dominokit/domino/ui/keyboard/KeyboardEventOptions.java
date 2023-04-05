@@ -1,6 +1,8 @@
 package org.dominokit.domino.ui.keyboard;
 
-public class KeyboardEventOptions {
+import org.dominokit.domino.ui.events.EvenHandlerOptions;
+
+public class KeyboardEventOptions implements EvenHandlerOptions {
     boolean preventDefault = false;
     boolean stopPropagation = false;
     boolean withCtrlKey;

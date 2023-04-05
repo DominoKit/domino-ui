@@ -19,35 +19,38 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.forms.FormsStyles.*;
 
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLFieldSetElement;
-import elemental2.dom.HTMLLabelElement;
+
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.dominokit.domino.ui.config.FormsFieldsConfig;
 import org.dominokit.domino.ui.config.HasComponentConfig;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.FieldSetElement;
+import org.dominokit.domino.ui.elements.LabelElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.forms.validations.RequiredValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.i18n.FormsLabels;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.EditorError;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V>
-    extends BaseDominoElement<HTMLFieldSetElement, T> implements FormElement<T, V> , HasComponentConfig<FormsFieldsConfig> {
+    extends BaseDominoElement<HTMLFieldSetElement, T> implements FormElement<T, V> , HasComponentConfig<FormsFieldsConfig>, FormsStyles {
 
-  protected final DominoElement<HTMLFieldSetElement> formElement;
-  protected final DominoElement<HTMLDivElement> bodyElement;
-  protected final LazyChild<DominoElement<HTMLLabelElement>> labelElement;
+  protected final FieldSetElement formElement;
+  protected final  DivElement bodyElement;
+  protected final LazyChild<LabelElement> labelElement;
   protected final LazyChild<DominoElement<HTMLElement>> requiredElement;
-  protected final DominoElement<HTMLDivElement> wrapperElement;
-  protected final LazyChild<DominoElement<HTMLDivElement>> messagesWrapper;
-  protected final LazyChild<DominoElement<HTMLElement>> helperTextElement;
-  protected Function<String, DominoElement<HTMLElement>> errorElementSupplier;
+  protected final  DivElement wrapperElement;
+  protected final LazyChild< DivElement> messagesWrapper;
+  protected final LazyChild<SpanElement> helperTextElement;
+  protected Function<String, SpanElement> errorElementSupplier;
 
   protected Set<Validator> validators = new LinkedHashSet<>();
   protected AutoValidator autoValidator;
@@ -70,22 +73,22 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
 
   public AbstractFormElement() {
     formElement =
-        fieldSet()
-            .addCss(FORM_FIELD)
+        fieldset()
+            .addCss(dui_form_field)
             .appendChild(
                 bodyElement =
                     div()
-                        .addCss(FIELD_BODY)
-                        .appendChild(wrapperElement = div().addCss(INPUT_WRAPPER)));
-    labelElement = LazyChild.of(label().addCss(FIELD_LABEL), formElement);
-    messagesWrapper = LazyChild.of(div().addCss(MESSAGES_WRAPPER), bodyElement);
-    helperTextElement = LazyChild.of(span().addCss(FIELD_HELPER), messagesWrapper);
+                        .addCss(dui_field_body)
+                        .appendChild(wrapperElement = div().addCss(dui_input_wrapper)));
+    labelElement = LazyChild.of(label().addCss(dui_field_label), formElement);
+    messagesWrapper = LazyChild.of(div().addCss(dui_messages_wrapper), bodyElement);
+    helperTextElement = LazyChild.of(span().addCss(dui_field_helper), messagesWrapper);
     errorElementSupplier =
-        errorMessage -> span().addCss(FIELD_ERROR).setTextContent(errorMessage);
+        errorMessage -> span().addCss(dui_field_error).setTextContent(errorMessage);
     requiredElement =
         LazyChild.of(
             elementOf(getConfig().getRequiredIndicator().get())
-                .addCss(FIELD_REQUIRED_INDICATOR),
+                .addCss(dui_field_required_indicator),
             labelElement);
     requiredValidator = new RequiredValidator(this);
     init((T) this);
@@ -116,19 +119,19 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
 
   @Override
   public <E extends HTMLElement, C extends IsElement<E>> T addLeftAddOn(C addon) {
-    wrapperElement.appendChild(elementOf(addon).addCss(ADD_ON, ADD_ON_LEFT));
+    wrapperElement.appendChild(elementOf(addon).addCss(dui_add_on, dui_add_on_left));
     return (T) this;
   }
 
   @Override
   public <E extends HTMLElement, C extends IsElement<E>> T addRightAddOn(C addon) {
-    wrapperElement.appendChild(elementOf(addon).addCss(ADD_ON, ADD_ON_RIGHT));
+    wrapperElement.appendChild(elementOf(addon).addCss(dui_add_on, dui_add_on_right));
     return (T) this;
   }
 
   @Override
   public <E extends HTMLElement, C extends IsElement<E>> T addPrimaryAddOn(C addon) {
-    wrapperElement.appendChild(elementOf(addon).addCss(ADD_ON, ADD_ON_MANDATORY));
+    wrapperElement.appendChild(elementOf(addon).addCss(dui_add_on, dui_add_on_mandatory));
     return (T) this;
   }
 
@@ -287,7 +290,7 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
         });
 
     if (!errorMessages.isEmpty()) {
-      formElement.addCss(FIELD_INVALID);
+      formElement.addCss(dui_field_invalid);
     }
 
     return (T) this;
@@ -297,9 +300,9 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     errors.clear();
     messagesWrapper
         .get()
-        .querySelectorAll("." + FIELD_ERROR.getCssClass())
+        .querySelectorAll("." + dui_field_error.getCssClass())
         .forEach(BaseDominoElement::remove);
-    FIELD_INVALID.remove(this);
+    dui_field_invalid.remove(this);
   }
 
   @Override
@@ -361,7 +364,7 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
 
   @Override
   public T fixErrorsPosition(boolean fixErrorsPosition) {
-    addCss(BooleanCssClass.of(FIXED_ERRORS, fixErrorsPosition));
+    addCss(BooleanCssClass.of(dui_fixed_errors, fixErrorsPosition));
     return (T) this;
   }
 
@@ -447,27 +450,27 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     return defaultValue;
   }
 
-  public DominoElement<HTMLDivElement> getBodyElement() {
+  public  DivElement getBodyElement() {
     return bodyElement;
   }
 
-  public DominoElement<HTMLLabelElement> getLabelElement() {
+  public LabelElement getLabelElement() {
     return labelElement.get();
   }
 
-  public DominoElement<HTMLDivElement> getWrapperElement() {
+  public  DivElement getWrapperElement() {
     return wrapperElement;
   }
 
-  public DominoElement<HTMLDivElement> getMessagesWrapperElement() {
+  public  DivElement getMessagesWrapperElement() {
     return messagesWrapper.get();
   }
 
-  public DominoElement<HTMLElement> getHelperTextElement() {
+  public SpanElement getHelperTextElement() {
     return helperTextElement.get();
   }
 
-  public T withBodyElement(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
+  public T withBodyElement(ChildHandler<T,  DivElement> handler) {
     handler.apply((T) this, bodyElement);
     return (T) this;
   }
@@ -477,12 +480,12 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     return (T) this;
   }
 
-  public T withLabelElement(ChildHandler<T, DominoElement<HTMLLabelElement>> handler) {
+  public T withLabelElement(ChildHandler<T, LabelElement> handler) {
     handler.apply((T) this, labelElement.get());
     return (T) this;
   }
 
-  public T withWrapperElement(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
+  public T withWrapperElement(ChildHandler<T,  DivElement> handler) {
     handler.apply((T) this, wrapperElement);
     return (T) this;
   }
@@ -492,7 +495,7 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     return (T) this;
   }
 
-  public T withMessagesWrapperElement(ChildHandler<T, DominoElement<HTMLDivElement>> handler) {
+  public T withMessagesWrapperElement(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, messagesWrapper.get());
     return (T) this;
   }
@@ -502,7 +505,7 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     return (T) this;
   }
 
-  public T withHelperTextElement(ChildHandler<T, DominoElement<HTMLElement>> handler) {
+  public T withHelperTextElement(ChildHandler<T, SpanElement> handler) {
     handler.apply((T) this, helperTextElement.get());
     return (T) this;
   }

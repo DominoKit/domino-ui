@@ -16,7 +16,7 @@
 package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.Node;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * A component that can have child elements should implement this interface

@@ -38,7 +38,7 @@
 // import org.dominokit.domino.ui.style.Style;
 // import org.dominokit.domino.ui.utils.DominoElement;
 // import org.dominokit.domino.ui.utils.Selectable;
-// import org.jboss.elemento.EventType;
+// import org.dominokit.domino.ui.events.EventType;
 //
 /// **
 // * A component represents a day element on {@link DatePicker}

@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.scroll;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -25,7 +26,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class AutoVScrollPanel extends BaseDominoElement<HTMLDivElement, AutoVScrollPanel> {
 
-    private DominoElement<HTMLDivElement> root;
+    private DivElement root;
 
     /**
      * @return new AutoVScrollPanel instance

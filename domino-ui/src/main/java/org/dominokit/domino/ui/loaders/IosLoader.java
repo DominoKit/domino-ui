@@ -16,39 +16,40 @@
 package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 /** IOS loader implementation */
 public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDivElement> {
 
-  private final DominoElement<HTMLDivElement> progress1 =
+  private final DivElement progress1 =
      div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
-  private final DominoElement<HTMLDivElement> progress2 =
+  private final DivElement progress2 =
      div().addCss(wait_me_progress_elem_2, dui_bg_grey_d_2);
-  private final DominoElement<HTMLDivElement> progress3 =
+  private final DivElement progress3 =
      div().addCss(wait_me_progress_elem_3, dui_bg_grey_d_2);
-  private final DominoElement<HTMLDivElement> progress4 =
+  private final DivElement progress4 =
      div().addCss(wait_me_progress_elem_4, dui_bg_grey_d_2);
-  private final DominoElement<HTMLDivElement> progress5 =
+  private final DivElement progress5 =
      div().addCss(wait_me_progress_elem_5, dui_bg_grey_d_2);
-  private final DominoElement<HTMLDivElement> progress6 =
+  private final DivElement progress6 =
      div().addCss(wait_me_progress_elem_6, dui_bg_grey_d_2);
-  private final DominoElement<HTMLDivElement> progress7 =
+  private final DivElement progress7 =
      div().addCss(wait_me_progress_elem_7, dui_bg_grey_d_2);
-  private final DominoElement<HTMLDivElement> progress8 =
+  private final DivElement progress8 =
      div().addCss(wait_me_progress_elem_8, dui_bg_grey_d_2);
-  private final DominoElement<HTMLDivElement> progress9 =
+  private final DivElement progress9 =
      div().addCss(wait_me_progress_elem_9, dui_bg_grey_d_2);
-  private final DominoElement<HTMLDivElement> progress10 =
+  private final DivElement progress10 =
      div().addCss(wait_me_progress_elem_10, dui_bg_grey_d_2);
-  private final DominoElement<HTMLDivElement> progress11 =
+  private final DivElement progress11 =
      div().addCss(wait_me_progress_elem_11, dui_bg_grey_d_2);
-  private final DominoElement<HTMLDivElement> progress12 =
+  private final DivElement progress12 =
      div().addCss(wait_me_progress_elem_12, dui_bg_grey_d_2);
 
-  private final DominoElement<HTMLDivElement> loader =
+  private final DivElement loader =
      div()
           .addCss(wait_me_progress, ios)
           .appendChild(progress1)
@@ -64,12 +65,12 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
           .appendChild(progress11)
           .appendChild(progress12);
 
-  private final DominoElement<HTMLDivElement> content =
+  private final DivElement content =
      div()
           .addCss(wait_me_content, GenericCss.dui_vertical_center)
           .appendChild(div().appendChild(loader).appendChild(loadingText));
 
-  private final DominoElement<HTMLDivElement> element =
+  private final DivElement element =
      div()
           .addCss(wait_me)
           .style("background: rgba(255, 255, 255, 0.9);")
@@ -104,7 +105,7 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
   /** {@inheritDoc} */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
-    return content;
+    return content.toDominoElement();
   }
 
   /** {@inheritDoc} */

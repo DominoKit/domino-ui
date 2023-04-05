@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.style;
 
 import static java.util.Objects.nonNull;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 
 /**
@@ -139,9 +140,9 @@ public enum Elevation {
   /**
    * Removes all elevation css classes from an element
    *
-   * @param element an {@link HTMLElement} to remove the css classes from.
+   * @param element an {@link Element} to remove the css classes from.
    */
-  public static void removeFrom(HTMLElement element) {
+  public static void removeFrom(Element element) {
     String elevationClass = "";
     for (int i = 0; i < element.classList.length; i++) {
       if (element.classList.item(i).startsWith("elevation-")) {

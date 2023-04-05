@@ -20,7 +20,7 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLTableCellElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.TextNode;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 
 /**
  * This class represent a single cell in a data table row and it contains information about the cell
@@ -32,7 +32,7 @@ public class RowCell<T> {
 
   private final ColumnConfig<T> columnConfig;
   private final CellRenderer.CellInfo<T> cellInfo;
-  private CellRenderer<T> defaultCellRenderer = cell -> TextNode.of("");
+  private CellRenderer<T> defaultCellRenderer = cell -> elements.text("");
 
   /**
    * Creates and initialize an instance with the cell info and column info
@@ -53,7 +53,7 @@ public class RowCell<T> {
   /**
    * This method will force update the cell which might result on clearing all it content and
    * rerender them again with any updated data this is useful when for example changing a field
-   * value in the records instance and we want to reflect the change to the cell that renders the
+   * value in the records instance, and we want to reflect the change to the cell that renders the
    * field.
    */
   public void updateCell() {
