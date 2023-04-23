@@ -50,7 +50,7 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
   private MdiIcon closeIcon;
   private TabsPanel parent;
   private String key = "";
-  private CloseHandler closeHandler = tab -> true;
+  private DelegatedCloseHandler delegatedCloseHandler = (tab, runner) -> runner.run();
   private final List<Consumer<Tab>> closeHandlers = new ArrayList<>();
   private final List<ActivationHandler> activationHandlers = new ArrayList<>();
   private FlexItem iconContainer;
@@ -307,10 +307,12 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
    */
   public Tab close() {
     if (nonNull(parent)) {
-      if (closeHandler.onBeforeClose(this)) {
-        closeHandlers.forEach(handler -> handler.accept(this));
-        parent.closeTab(this);
-      }
+      delegatedCloseHandler.onBeforeClose(
+          this,
+          () -> {
+            closeHandlers.forEach(handler -> handler.accept(this));
+            parent.closeTab(this);
+          });
     }
 
     return this;
@@ -340,7 +342,21 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
    */
   public Tab setOnBeforeCloseHandler(CloseHandler closeHandler) {
     if (nonNull(closeHandler)) {
-      this.closeHandler = closeHandler;
+      delegatedCloseHandler =
+          (tab, runner) -> {
+            if (closeHandler.onBeforeClose(tab)) runner.run();
+          };
+    }
+    return this;
+  }
+
+  /**
+   * @param delegatedCloseHandler {@link DelegatedCloseHandler}
+   * @return same Tab instance
+   */
+  public Tab setOnBeforeCloseHandler(DelegatedCloseHandler delegatedCloseHandler) {
+    if (nonNull(delegatedCloseHandler)) {
+      this.delegatedCloseHandler = delegatedCloseHandler;
     }
     return this;
   }
@@ -443,9 +459,19 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasCli
     /**
      * @param tab {@link Tab} that is about to be closed
      * @return boolean, true if the tab should be actually closed, false if the tab should not be
-     *     cloased
+     *     closed
      */
     boolean onBeforeClose(Tab tab);
+  }
+
+  /** A delegated function to handle if the tab should be closed on not */
+  @FunctionalInterface
+  public interface DelegatedCloseHandler {
+    /**
+     * @param tab {@link Tab} that is about to be closed
+     * @param closeRunner runner to perform the actual close action
+     */
+    void onBeforeClose(Tab tab, Runnable closeRunner);
   }
 
   /** A function to handle Tab activation state change */
