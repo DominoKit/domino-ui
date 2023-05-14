@@ -147,11 +147,7 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
         .getZindexManager()
         .addZIndexListener(
             (zInfo) -> {
-              OptionalInt minModalZIndex =
-                  document.body.querySelectorAll(".modal").asList().stream()
-                      .mapToInt(e -> DominoElement.of(Js.<HTMLElement>uncheckedCast(e)).getZIndex())
-                      .filter(value -> value > -1)
-                      .min();
+              OptionalInt minZIndex;
               if (ModalBackDrop.INSTANCE.isAttached()) {
                 getRightPanel()
                     .setZIndex(
@@ -177,23 +173,19 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
                               ModalBackDrop.INSTANCE.getZIndex()
                                   - (config().getZindexIncrement() * 2)));
                 }
-              } else if (minModalZIndex.isPresent()) {
+              } else if ((minZIndex = determineMinZIndex()).isPresent()) {
                 getRightPanel()
                     .setZIndex(
-                        Math.max(
-                            1, minModalZIndex.getAsInt() - (config().getZindexIncrement() * 2)));
+                        Math.max(1, minZIndex.getAsInt() - (config().getZindexIncrement() * 2)));
                 getNavigationBar()
-                    .setZIndex(
-                        Math.max(1, minModalZIndex.getAsInt() - config().getZindexIncrement()));
+                    .setZIndex(Math.max(1, minZIndex.getAsInt() - config().getZindexIncrement()));
                 if (DominoElement.body().containsCss("l-panel-span-up")) {
                   getLeftPanel()
-                      .setZIndex(
-                          Math.max(1, minModalZIndex.getAsInt() - config().getZindexIncrement()));
+                      .setZIndex(Math.max(1, minZIndex.getAsInt() - config().getZindexIncrement()));
                 } else {
                   getLeftPanel()
                       .setZIndex(
-                          Math.max(
-                              1, minModalZIndex.getAsInt() - (config().getZindexIncrement() * 2)));
+                          Math.max(1, minZIndex.getAsInt() - (config().getZindexIncrement() * 2)));
                 }
               } else {
                 Integer sidePanelsIndex = config().getZindexManager().getNextZIndex();
@@ -206,6 +198,13 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
                 }
               }
             });
+  }
+
+  protected OptionalInt determineMinZIndex() {
+    return document.body.querySelectorAll(".modal, .dropdown").asList().stream()
+        .mapToInt(e -> DominoElement.of(Js.<HTMLElement>uncheckedCast(e)).getZIndex())
+        .filter(value -> value > -1)
+        .min();
   }
 
   /** @return new Layout instance without a title in the header */
