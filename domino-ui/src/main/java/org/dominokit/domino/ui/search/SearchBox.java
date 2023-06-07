@@ -28,7 +28,9 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.keyboard.KeyboardEventOptions;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.PostfixAddOn;
+import org.dominokit.domino.ui.utils.PrefixAddOn;
 import org.gwtproject.timer.client.Timer;
 
 import java.util.HashSet;
@@ -66,8 +68,8 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
         this.autoSearchDelay = getConfig().getAutoSearchDelay();
         root = div().addCss(dui_quick_search);
         searchIcon =
-                Icons.ALL
-                        .magnify_mdi()
+                Icons
+                        .magnify()
                         .clickable()
                         .addClickListener(
                                 evt -> {
@@ -77,8 +79,8 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
                         .setTooltip(getLabels().defaultQuickSearchPlaceHolder());
 
         clearIcon =
-                Icons.ALL
-                        .backspace_outline_mdi()
+                Icons
+                        .backspace_outline()
                         .clickable()
                         .setTooltip(getLabels().defaultQuickSearchClearToolTip())
                         .addClickListener(
@@ -100,8 +102,9 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
         textBox =
                 TextBox.create()
                         .setPlaceholder(getLabels().defaultQuickSearchPlaceHolder())
-                        .addLeftAddOn(searchIcon)
-                        .addRightAddOn(clearIcon);
+                        .appendChild(PrefixAddOn.of(searchIcon))
+                        .appendChild(PostfixAddOn.of(clearIcon))
+                        .addCss(dui_m_0);
 
         root.appendChild(textBox.element());
 
@@ -130,10 +133,11 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
     /**
      * Clears the search box and trigger the search with an empty token
      */
-    public void clearSearch() {
+    public SearchBox clearSearch() {
         textBox.clear();
         autoSearchTimer.cancel();
         doSearch();
+        return this;
     }
 
     /**
@@ -176,12 +180,14 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
     /**
      * @param autoSearchDelayInMillies int auto search delay in milliseconds
      */
-    public void setAutoSearchDelay(int autoSearchDelayInMillies) {
+    public SearchBox setAutoSearchDelay(int autoSearchDelayInMillies) {
         this.autoSearchDelay = autoSearchDelayInMillies;
+        return this;
     }
 
-    private void doSearch() {
+    private SearchBox doSearch() {
         searchListeners.forEach(searchListener -> searchListener.onSearch(textBox.getValue()));
+        return this;
     }
 
     /**
@@ -225,6 +231,14 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
      */
     public TextBox getTextBox() {
         return textBox;
+    }
+
+    /**
+     * @return The search {@link TextBox}
+     */
+    public SearchBox withTextBox(ChildHandler<SearchBox, TextBox> handler) {
+        handler.apply(this, textBox);
+        return this;
     }
 
     /**

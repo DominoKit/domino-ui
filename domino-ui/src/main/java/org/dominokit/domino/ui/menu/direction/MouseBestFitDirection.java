@@ -15,16 +15,18 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
-import static elemental2.dom.DomGlobal.window;
-import static org.dominokit.domino.ui.style.Unit.px;
-
 import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 import elemental2.dom.Event;
-import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.Style;
+
+import static elemental2.dom.DomGlobal.window;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+import static org.dominokit.domino.ui.utils.Unit.px;
 
 /** Positions the menu on the bottom right of the mouse click location */
 public class MouseBestFitDirection implements DropDirection {
@@ -40,6 +42,7 @@ public class MouseBestFitDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override
   public void position(Element source, Element target) {
+    dui_flex_col_reverse.remove(source);
     DOMRect sourceRect = source.getBoundingClientRect();
     int innerWidth = window.innerWidth;
     int innerHeight = window.innerHeight;
@@ -62,6 +65,7 @@ public class MouseBestFitDirection implements DropDirection {
         positionTopLeft(source, sourceHeight, sourceWidth);
       }
     }
+    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", target.getBoundingClientRect().width+"px");
   }
 
   private void positionBottomRight(Element source, double sourceHeight) {
@@ -105,6 +109,14 @@ public class MouseBestFitDirection implements DropDirection {
     Style.of(source).style.setProperty(
         "top", px.of(mouseEvent.clientY - sourceHeight + delta + window.pageYOffset));
     Style.of(source).style.setProperty("left", px.of(mouseEvent.clientX - sourceWidth + window.pageXOffset));
+    dui_dd_best_mouse_fit.apply(source);
+
+  }
+
+  @Override
+  public void cleanup(Element source) {
+    dui_dd_best_mouse_fit.remove(source);
+    elements.elementOf(source).removeCssProperty("--dui-menu-drop-min-width");
   }
 
   private boolean hasSpaceBelow(double sourceHeight, double downSpace) {
@@ -114,4 +126,5 @@ public class MouseBestFitDirection implements DropDirection {
   private boolean hasSpaceOnRightSide(double sourceWidth, double rightSpace) {
     return rightSpace > sourceWidth;
   }
+
 }

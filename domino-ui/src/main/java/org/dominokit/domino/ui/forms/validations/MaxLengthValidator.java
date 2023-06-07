@@ -24,7 +24,7 @@ import org.dominokit.domino.ui.utils.HasMinMaxLength;
 import org.dominokit.domino.ui.utils.HasValidation;
 
 /** A predefined validator that validate the minimum value of a field */
-public class MaxLengthValidator<T, E extends HTMLElement> implements HasValidation.Validator {
+public class MaxLengthValidator<T, E extends HTMLElement> implements HasValidation.Validator<T> {
 
   private HasInputElement<T, E> inputElement;
   private final FormsLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
@@ -36,7 +36,7 @@ public class MaxLengthValidator<T, E extends HTMLElement> implements HasValidati
 
   /** {@inheritDoc} */
   @Override
-  public ValidationResult isValid() {
+  public ValidationResult isValid(T input) {
     if (inputElement.getInputElement().element() instanceof HTMLInputElement) {
       return validateHTMLInput();
     } else {

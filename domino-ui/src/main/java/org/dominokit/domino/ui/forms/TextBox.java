@@ -15,13 +15,7 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.dui_field_input;
-
-import elemental2.dom.HTMLInputElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-
-public class TextBox extends TextInputFormField<TextBox, HTMLInputElement, String> {
+public class TextBox extends BaseTextBox<TextBox> {
 
   public static TextBox create() {
     return new TextBox();
@@ -32,12 +26,11 @@ public class TextBox extends TextInputFormField<TextBox, HTMLInputElement, Strin
   }
 
   public TextBox() {
-    setDefaultValue("");
+
   }
 
   public TextBox(String label) {
-    this();
-    setLabel(label);
+    super(label);
   }
 
   @Override
@@ -45,31 +38,4 @@ public class TextBox extends TextInputFormField<TextBox, HTMLInputElement, Strin
     return "text";
   }
 
-  @Override
-  protected DominoElement<HTMLInputElement> createInputElement(String type) {
-    return input(type).addCss(dui_field_input).toDominoElement();
-  }
-
-  @Override
-  public String getStringValue() {
-    return getValue();
-  }
-
-  @Override
-  protected void doSetValue(String value) {
-    if (nonNull(value)) {
-      getInputElement().element().value = value;
-    } else {
-      getInputElement().element().value = "";
-    }
-  }
-
-  @Override
-  public String getValue() {
-    String value = getInputElement().element().value;
-    if (value.isEmpty() && isEmptyAsNull()) {
-      return null;
-    }
-    return value;
-  }
 }

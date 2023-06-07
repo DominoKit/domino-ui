@@ -16,16 +16,37 @@
 package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
 
-public interface ToggleCssClass extends CssClass {
+public class ToggleCssClass implements CssClass {
+
+  private final CssClass cssClass;
+  public static ToggleCssClass of(CssClass cssClass) {
+    return new ToggleCssClass(cssClass);
+  }
+
+  public static ToggleCssClass of(HasCssClass cssClass) {
+    return new ToggleCssClass(cssClass.getCssClass());
+  }
+
+  public static ToggleCssClass of(String cssClass) {
+    return new ToggleCssClass(()-> cssClass);
+  }
+
+  public ToggleCssClass(CssClass cssClass) {
+    this.cssClass = cssClass;
+  }
 
   @Override
-  default void apply(Element element) {
+  public void apply(Element element) {
     if (element.classList.contains(getCssClass())) {
       element.classList.remove(getCssClass());
     } else {
       element.classList.add(getCssClass());
     }
+  }
+
+  @Override
+  public String getCssClass() {
+    return cssClass.getCssClass();
   }
 }

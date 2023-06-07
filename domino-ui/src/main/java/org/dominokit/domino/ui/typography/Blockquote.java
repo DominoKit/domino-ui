@@ -23,6 +23,7 @@ import org.dominokit.domino.ui.elements.ParagraphElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.FooterContent;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
@@ -81,6 +82,11 @@ public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
 
     public Blockquote withFooter(ChildHandler<Blockquote, FooterElement> handler){
         handler.apply(this, footer.get());
+        return this;
+    }
+
+    public Blockquote appendChild(FooterContent<?> footerContent){
+        footer.get().appendChild(footerContent);
         return this;
     }
 

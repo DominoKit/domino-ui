@@ -12,15 +12,15 @@ import java.util.function.Supplier;
 public interface UploadConfig extends ComponentConfig {
 
     default Supplier<Icon<?>> getDefaultUploadIcon(){
-        return Icons.ALL::upload_mdi;
+        return Icons::upload;
     }
 
     default Supplier<Icon<?>> getDefaultRemoveIcon(){
-        return Icons.ALL::trash_can_mdi;
+        return Icons::trash_can;
     }
 
     default Supplier<Icon<?>> getDefaultCancelIcon(){
-        return Icons.ALL::cancel_mdi;
+        return Icons::cancel;
     }
 
     default FilePreviewFactory getFilePreviewFactory(){

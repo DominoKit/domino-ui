@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import static java.util.Objects.isNull;
-import static org.dominokit.domino.ui.style.DisplayCss.dui_cursor_pointer;
 
 import elemental2.dom.HTMLElement;
 import java.util.HashMap;
@@ -146,7 +145,7 @@ public class SortPlugin<T>
     private SortPluginConfig config;
     private SortDirection sortDirection = SortDirection.DESC;
     private DominoElement<HTMLElement> sortElement =
-        elements.elementOf(elements.span()).appendChild(Icons.ALL.sort_mdi()).setMinWidth("15px");
+        elements.elementOf(elements.span()).appendChild(Icons.sort()).setMinWidth("15px");
 
     public SortContainer(String columnName, SortPluginConfig config) {
       this.columnName = columnName;
@@ -154,7 +153,7 @@ public class SortPlugin<T>
     }
 
     public void clear() {
-      sortElement.clearElement().appendChild(Icons.ALL.sort_mdi());
+      sortElement.clearElement().appendChild(Icons.sort());
     }
 
     public void update(boolean flip) {
@@ -177,11 +176,11 @@ public class SortPlugin<T>
 
     public Icon<?> getSortArrow() {
       if (SortDirection.ASC.equals(sortDirection)) {
-        return Icons.ALL.sort_ascending_mdi();
+        return Icons.sort_ascending();
       } else if (SortDirection.DESC.equals(sortDirection)) {
-        return Icons.ALL.sort_descending_mdi();
+        return Icons.sort_descending();
       } else {
-        return Icons.ALL.sort_mdi();
+        return Icons.sort();
       }
     }
   }

@@ -15,17 +15,21 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
-import static elemental2.dom.DomGlobal.window;
-import static org.dominokit.domino.ui.style.Unit.px;
-
 import elemental2.dom.DOMRect;
+import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.Style;
+
+import static elemental2.dom.DomGlobal.window;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+import static org.dominokit.domino.ui.utils.Unit.px;
 
 public class BottomMiddleDropDirection implements DropDirection {
   @Override
   public void position(Element source, Element target) {
+    dui_flex_col_reverse.remove(source);
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect sourceRect = source.getBoundingClientRect();
     double delta = 0;
@@ -33,6 +37,10 @@ public class BottomMiddleDropDirection implements DropDirection {
     if (availableSpace < sourceRect.width) {
       delta = sourceRect.width - availableSpace;
     }
+
+    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width+"px");
+    targetRect = target.getBoundingClientRect();
+    sourceRect = source.getBoundingClientRect();
 
     Style.of(source).style.setProperty(
         "top", px.of((targetRect.top + window.pageYOffset) + targetRect.height + 1));
@@ -43,5 +51,14 @@ public class BottomMiddleDropDirection implements DropDirection {
                 + window.pageXOffset
                 - ((sourceRect.width - targetRect.width) / 2)
                 + delta));
+    dui_dd_bottom_middle.apply(source);
+
   }
+
+  @Override
+  public void cleanup(Element source) {
+    dui_dd_bottom_middle.remove(source);
+    elements.elementOf(source).removeCssProperty("--dui-menu-drop-min-width");
+  }
+
 }

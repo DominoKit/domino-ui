@@ -137,7 +137,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
    */
   @Override
   public Collapsible expand() {
-    if (!forceHidden) {
+    if (!forceHidden && isCollapsed()) {
       strategy.expand(element);
       element.setAttribute("aria-expanded", "true");
       this.collapsed = false;
@@ -152,7 +152,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
    */
   @Override
   public Collapsible collapse() {
-    if (!forceHidden) {
+    if (!forceHidden && !isCollapsed()) {
       strategy.collapse(element);
       element.setAttribute("aria-expanded", "false");
       this.collapsed = true;
@@ -200,7 +200,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
    * @return same collapsible instance
    */
   @Override
-  public Collapsible toggleDisplay() {
+  public Collapsible toggleCollapse() {
     if (isCollapsed()) {
       expand();
     } else {
@@ -216,7 +216,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
    * @return same collapsible instance
    */
   @Override
-  public Collapsible toggleDisplay(boolean state) {
+  public Collapsible toggleCollapse(boolean state) {
     if (state) {
       expand();
     } else {

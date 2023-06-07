@@ -77,12 +77,14 @@ class GridLayoutEditor {
           G_CONTENT, G_CONTENT, G_CONTENT, G_CONTENT
         }
       };
-  private SectionSpan headerSectionSpan = SectionSpan._1;
-  private SectionSpan footerSectionSpan = SectionSpan._1;
-  private SectionSpan leftSectionSpan = SectionSpan._3;
-  private boolean leftSpanUp = false;
-  private SectionSpan rightSectionSpan = SectionSpan._3;
-  private boolean rightSpanUp = false;
+  SectionSpan headerSectionSpan = SectionSpan._1;
+  SectionSpan footerSectionSpan = SectionSpan._1;
+  SectionSpan leftSectionSpan = SectionSpan._3;
+  boolean leftSpanUp = false;
+  boolean leftSpanDown = false;
+  SectionSpan rightSectionSpan = SectionSpan._3;
+  boolean rightSpanUp = false;
+  boolean rightSpanDown = false;
   private boolean hasFooter = false;
   private boolean hasHeader = false;
   private boolean hasLeft = false;
@@ -120,6 +122,7 @@ class GridLayoutEditor {
     this.hasRight = true;
     this.rightSectionSpan = sectionSpan;
     this.rightSpanUp = spanUp;
+    this.rightSpanDown = spanDown;
 
     int xStart = hasHeader() ? headerSectionSpan.getValue() : 0;
     int xEnd =
@@ -210,6 +213,7 @@ class GridLayoutEditor {
     this.hasLeft = true;
     this.leftSectionSpan = sectionSpan;
     this.leftSpanUp = spanUp;
+    this.leftSpanDown = spanDown;
 
     int xStart = hasHeader() ? headerSectionSpan.getValue() : 0;
     int xEnd =

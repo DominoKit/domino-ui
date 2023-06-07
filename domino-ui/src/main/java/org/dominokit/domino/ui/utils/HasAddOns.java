@@ -19,9 +19,9 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;
 
 public interface HasAddOns<T> {
-  <E extends HTMLElement, C extends IsElement<E>> T addLeftAddOn(C addon);
+  T appendChild(PrefixAddOn<?> prefix);
 
-  <E extends HTMLElement, C extends IsElement<E>> T addRightAddOn(C addon);
+  T appendChild(PostfixAddOn<?> addon);
 
-  <E extends HTMLElement, C extends IsElement<E>> T addPrimaryAddOn(C addon);
+  T appendChild(PrimaryAddOn<?> addon);
 }

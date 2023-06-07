@@ -30,12 +30,8 @@ import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.menu.MenuItem;
-import org.dominokit.domino.ui.style.SpacingCss;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
-
-import static org.dominokit.domino.ui.style.SpacingCss.dui_font_size_4;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 /**
  * This plugin allow the user to pin a specific column or columns to the right or left of the table.
@@ -74,9 +70,8 @@ public class PinColumnsPlugin<T>
   public static final String dui_pinned_left = "dui-pinned-left";
   public static final String dui_pinned_right = "dui-pinned-right";
   private DataTable<T> datatable;
-
-  private FlexItem<?> pinLeftIcon = FlexItem.of(Icons.ALL.pin_mdi().addCss(dui_font_size_4)).setOrder(100);
-  private FlexItem<?> pinRightIcon = FlexItem.of(Icons.ALL.pin_mdi().addCss(dui_font_size_4)).setOrder(100);
+  private FlexItem<?> pinLeftIcon = FlexItem.of(Icons.pin().addCss(dui_font_size_4)).setOrder(100);
+  private FlexItem<?> pinRightIcon = FlexItem.of(Icons.pin().addCss(dui_font_size_4)).setOrder(100);
   private PinColumnsConfig config = PinColumnsConfig.of();
 
   @Override
@@ -97,7 +92,7 @@ public class PinColumnsPlugin<T>
                     .appendChild(
                         MenuItem.<String>create(config.getPinLeftText())
                             .value("left")
-                            .addLeftAddOn(FlexItem.of(Icons.ALL.dock_left_mdi()))
+//                            .addLeftAddOn(FlexItem.of(Icons.dock_left()))
                             .addSelectionHandler(
                                 value -> {
                                   setPinLeftColumn(column);
@@ -106,7 +101,7 @@ public class PinColumnsPlugin<T>
                     .appendChild(
                         MenuItem.<String>create(config.getPinRightText())
                             .value("right")
-                            .addLeftAddOn(FlexItem.of(Icons.ALL.dock_right_mdi()))
+//                            .addLeftAddOn(FlexItem.of(Icons.dock_right()))
                             .addSelectionHandler(
                                 value -> {
                                   setPinRightColumn(column);
@@ -115,7 +110,7 @@ public class PinColumnsPlugin<T>
                     .appendChild(
                         MenuItem.<String>create(config.getUnpinText())
                             .value("right")
-                            .addLeftAddOn(FlexItem.of(Icons.ALL.pin_off_mdi()))
+//                            .addLeftAddOn(FlexItem.of(Icons.pin_off()))
                             .addSelectionHandler(
                                 value -> {
                                   unpinColumn(column);

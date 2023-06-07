@@ -18,8 +18,6 @@ package org.dominokit.domino.ui.cards;
 import static org.dominokit.domino.ui.cards.CardStyles.*;
 
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.HTMLImageElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.HeadingElement;
@@ -45,18 +43,18 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   CardHeader() {
-    element = div().addCss(card_header);
+    element = div().addCss(dui_card_header);
     mainHeader =
-        LazyChild.of(div().addCss(card_main_header), element)
+        LazyChild.of(div().addCss(dui_card_main_header), element)
             .whenInitialized(
                 () ->
                     mainHeader
                         .element()
                         .appendChild(div().addCss(dui_card_header_filler)));
-    subHeader = LazyChild.of(div().addCss(card_sub_header), element);
-    title = LazyChild.of(div().addCss(card_title), mainHeader);
-    mainTitle = LazyChild.of(h(2).addCss(card_main_title), title);
-    description = LazyChild.of(small().addCss(card_description), mainTitle);
+    subHeader = LazyChild.of(div().addCss(dui_card_sub_header), element);
+    title = LazyChild.of(div().addCss(dui_card_title), mainHeader);
+    mainTitle = LazyChild.of(h(2).addCss(dui_card_main_title), title);
+    description = LazyChild.of(small().addCss(dui_card_description), mainTitle);
 
     init(this);
   }
@@ -164,8 +162,12 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   public CardHeader setLogo(HTMLImageElement img) {
+    return setLogo(ImageElement.of(img));
+  }
+
+  public CardHeader setLogo(ImageElement img) {
     logo.remove();
-    logo = LazyChild.of(ImageElement.of(img).addCss(card_logo), mainHeader);
+    logo = LazyChild.of(img.addCss(dui_card_logo), mainHeader);
     logo.get();
     return this;
   }
@@ -175,8 +177,7 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   public CardHeader withLogo(HTMLImageElement img) {
-    setLogo(img);
-    return this;
+    return setLogo(img);
   }
 
   public CardHeader withLogo() {
@@ -191,7 +192,7 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
 
   public CardHeader setIcon(Icon<?> icon) {
     cardIcon.remove();
-    cardIcon = LazyChild.of(icon.addCss(card_icon), mainHeader);
+    cardIcon = LazyChild.of(icon.addCss(dui_card_icon), mainHeader);
     cardIcon.get();
     return this;
   }
@@ -215,8 +216,13 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
     return this;
   }
 
-  public CardHeader appendChild(PostfixAddOn<?> utility) {
-    mainHeader.get().appendChild(utility.addCss(card_utility));
+  public CardHeader appendChild(PostfixAddOn<?> postfixAddOn) {
+    mainHeader.get().appendChild(postfixAddOn);
+    return this;
+  }
+
+  public CardHeader appendChild(PrefixAddOn<?> prefixAddOn) {
+    mainHeader.get().appendChild(prefixAddOn);
     return this;
   }
 

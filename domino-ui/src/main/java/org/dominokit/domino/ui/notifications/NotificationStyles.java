@@ -23,15 +23,10 @@ public interface NotificationStyles {
   CssClass dui_notification = () -> "dui-notification";
   CssClass dui_notification_wrapper = () -> "dui-notification-wrapper";
   CssClass dui_ntf_top_left = () -> "dui-ntf-top-left";
-
   CssClass dui_ntf_top_middle = () -> "dui-ntf-top-middle";
-
   CssClass dui_ntf_top_right = () -> "dui-ntf-top-right";
-
   CssClass dui_ntf_bottom_left = () -> "dui-ntf-bottom-left";
-
   CssClass dui_ntf_bottom_middle = () -> "dui-ntf-bottom-middle";
-
   CssClass dui_ntf_bottom_right = () -> "dui-ntf-bottom-right";
   CssClass dui_notification_filler = () -> "dui-notification-filler";
 }

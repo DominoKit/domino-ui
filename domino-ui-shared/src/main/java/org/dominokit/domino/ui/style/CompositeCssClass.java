@@ -75,6 +75,15 @@ public class CompositeCssClass implements CssClass {
     return isAppliedTo(element.element());
   }
 
+  public boolean contains(CssClass cssClass){
+    return cssClasses.stream()
+            .anyMatch(c -> c.isSameAs(cssClass));
+  }
+
+  public Set<CssClass> getCssClasses() {
+    return cssClasses;
+  }
+
   @Override
   public void remove(Element element) {
     cssClasses.forEach(cssClass -> cssClass.remove(element));

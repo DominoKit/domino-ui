@@ -1,5 +1,6 @@
 package org.dominokit.domino.ui.tree;
 
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -14,9 +15,9 @@ import org.dominokit.domino.ui.utils.PostfixAddOn;
 
 import static java.util.Objects.nonNull;
 
-public class TreeHeader extends BaseDominoElement<HTMLLIElement, TreeHeader> implements TreeStyles {
+public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader> implements TreeStyles {
 
-    private final LIElement element;
+    private final DivElement element;
     private final DivElement content;
     private LazyChild<Icon<?>> headerIcon;
     private final LazyChild<SpanElement> textElement;
@@ -38,9 +39,12 @@ public class TreeHeader extends BaseDominoElement<HTMLLIElement, TreeHeader> imp
     }
 
     public TreeHeader() {
-        element = li()
+        element = div()
                 .addCss(dui_tree_header)
-                .appendChild(content = div().addCss(dui_tree_item_content));
+                .appendChild(content = div()
+                        .addCss(dui_tree_item_content)
+                        .appendChild(div().addCss(dui_tree_item_filler))
+                );
         textElement = LazyChild.of(span().addCss(dui_tree_header_item, dui_tree_item_text), content);
         init(this);
     }
@@ -79,6 +83,7 @@ public class TreeHeader extends BaseDominoElement<HTMLLIElement, TreeHeader> imp
     public TreeHeader appendChild(PostfixAddOn<?> postfixAddOn){
         if(nonNull(postfixAddOn)){
             postfixAddOn.addCss(dui_tree_header_item);
+            content.appendChild(postfixAddOn);
         }
         return this;
     }
@@ -111,7 +116,7 @@ public class TreeHeader extends BaseDominoElement<HTMLLIElement, TreeHeader> imp
     }
 
     @Override
-    public HTMLLIElement element() {
+    public HTMLDivElement element() {
         return element.element();
     }
 }

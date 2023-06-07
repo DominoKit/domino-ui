@@ -22,12 +22,14 @@ import org.dominokit.domino.ui.style.CssClass;
  */
 public interface TreeStyles {
     CssClass dui_tree = () -> "dui-tree";
+    CssClass dui_tree_body = () -> "dui-tree-body";
     CssClass dui_tree_nav = () -> "dui-tree-nav";
     CssClass dui_tree_header = () -> "dui-tree-header";
     CssClass dui_tree_header_item = () -> "dui-tree-header-item";
     CssClass dui_tree_item_close = () -> "dui-tree-item-close";
     CssClass dui_tree_item_icon = () -> "dui-tree-item-icon";
     CssClass dui_tree_item_text = () -> "dui-tree-item-text";
+    CssClass dui_tree_item_filler = () -> "dui-tree-item-filler";
     CssClass dui_tree_content_item = () -> "dui-tree-content-item";
     CssClass dui_tree_item_content = () -> "dui-tree-item-content";
     CssClass dui_tree_anchor = () -> "dui-tree-anchor";

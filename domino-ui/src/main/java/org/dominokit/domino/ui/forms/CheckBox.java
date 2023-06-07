@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.forms;
 import static java.util.Objects.isNull;
 
 import elemental2.dom.*;
+
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -77,11 +78,21 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
           evt.preventDefault();
           if (isEnabled() && !isReadOnly()) {
             toggleChecked();
+
           }
         };
     checkLabelElement.addClickListener(listener);
     getInputElement().onKeyDown(keyEvents -> keyEvents.onEnter(listener));
     setDefaultValue(false);
+    labelElement.get();
+  }
+
+  protected LazyChild<DominoElement<HTMLElement>> initRequiredIndicator() {
+    return
+            LazyChild.of(
+                    elementOf(getConfig().getRequiredIndicator().get())
+                            .addCss(dui_field_required_indicator),
+                    checkLabelElement);
   }
 
   /**
@@ -138,7 +149,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
 
   @Override
   public CheckBox toggleChecked() {
-    withValue(!isChecked());
+    withValue(!isChecked(), isChangeListenersPaused());
     return this;
   }
 
@@ -243,7 +254,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
     return this;
   }
 
-  public CheckBox filled(boolean filled) {
+  public CheckBox setFilled(boolean filled) {
     addCss(BooleanCssClass.of(dui_check_box_filled, filled));
     return this;
   }
@@ -287,7 +298,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
   @Override
   protected void doSetValue(Boolean value) {
     withPauseChangeListenersToggle(
-        true, (field, handler) -> getInputElement().element().checked = value);
+        true, field -> getInputElement().element().checked = value);
   }
 
   /** {@inheritDoc} */

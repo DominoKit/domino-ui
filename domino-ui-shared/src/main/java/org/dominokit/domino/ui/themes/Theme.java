@@ -79,7 +79,7 @@ public class Theme {
 
   public Theme(ColorScheme scheme) {
     this.scheme = scheme;
-    this.themeStyle = scheme.color().getStyle().replace("col-", "theme-");
+    this.themeStyle = scheme.color().getCssClass().getCssClass();
     this.name = scheme.color().getName().replace(" ", "_").toLowerCase();
   }
 

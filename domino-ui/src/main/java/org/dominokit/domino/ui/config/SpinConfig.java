@@ -8,18 +8,18 @@ import java.util.function.Supplier;
 public interface SpinConfig extends ComponentConfig {
 
     default Supplier<Icon<?>> getDefaultBackIconSupplier(){
-        return Icons.ALL::chevron_left_mdi;
+        return Icons::chevron_left;
     }
 
     default Supplier<Icon<?>> getDefaultForwardIconSupplier(){
-        return Icons.ALL::chevron_right_mdi;
+        return Icons::chevron_right;
     }
 
     default Supplier<Icon<?>> getDefaultUpIconSupplier(){
-        return Icons.ALL::chevron_up_mdi;
+        return Icons::chevron_up;
     }
 
     default Supplier<Icon<?>> getDefaultDownIconSupplier(){
-        return Icons.ALL::chevron_down_mdi;
+        return Icons::chevron_down;
     }
 }

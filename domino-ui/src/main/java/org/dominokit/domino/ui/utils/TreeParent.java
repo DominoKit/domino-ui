@@ -110,5 +110,6 @@ public interface TreeParent<T> {
 
     UListElement getSubTree();
 
+    T getValue();
 
 }

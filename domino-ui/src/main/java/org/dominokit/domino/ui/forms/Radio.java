@@ -213,7 +213,6 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
       if (!silent) {
         triggerChangeListeners(oldState, isChecked());
       }
-      radioGroup.onSelectionChanged(null, this, silent);
     }
     return this;
   }

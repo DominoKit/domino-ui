@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.style;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
@@ -79,5 +80,4 @@ public interface CssClass {
   default boolean isSameAs(CssClass other){
     return Objects.equals(getCssClass(), other.getCssClass());
   }
-
 }

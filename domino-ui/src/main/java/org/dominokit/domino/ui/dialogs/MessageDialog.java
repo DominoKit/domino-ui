@@ -17,10 +17,10 @@ package org.dominokit.domino.ui.dialogs;
 
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.LinkButton;
 import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.*;
 
 public class MessageDialog extends AbstractDialog<MessageDialog> {
@@ -30,6 +30,7 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   private MessageHandler confirmHandler = (dialog) -> {};
 
   private LazyChild<SpanElement> messageElement;
+  private LazyChild<NavBar> navHeader;
 
   /** @return new instance with empty title */
   public static MessageDialog create() {
@@ -55,22 +56,29 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   /** creates new instance with empty title */
   public MessageDialog() {
     messageElement = LazyChild.of(span(), contentElement);
+    navHeader = LazyChild.of(NavBar.create().addCss(dui_dialog_nav), headerElement);
     bodyElement.addCss(dui_text_center);
     appendButtons();
     setStretchWidth(DialogSize.SMALL);
+    setStretchHeight(DialogSize.SMALL);
     setAutoClose(false);
   }
 
   /** @param title String creates new instance with custom title */
   public MessageDialog(String title) {
     this();
-    setTitle(title);
+    navHeader.get().setTitle(title);
   }
 
   /** @param title String creates new instance with custom title */
   public MessageDialog(String title, String message) {
     this(title);
     setMessage(message);
+  }
+
+  public MessageDialog setTitle(String title) {
+    navHeader.get().setTitle(title);
+    return this;
   }
 
   public MessageDialog setMessage(String message) {
@@ -80,10 +88,9 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   }
 
   private void appendButtons() {
-
     confirmButton =
         LinkButton.create(labels.dialogOk())
-            .addCss(dui_min_w_32, dui_primary)
+            .addCss(dui_min_w_32)
             .addClickListener(
                 evt -> {
                   if (nonNull(confirmHandler)) {
@@ -91,7 +98,7 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
                   }
                 });
 
-    appendChild(Footer.of(confirmButton));
+    appendChild(FooterContent.of(confirmButton));
 
     withContentFooter((parent, self) -> self.addCss(dui_text_center));
   }
@@ -115,6 +122,11 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   /** @return the confirmation {@link Button} */
   public MessageDialog withConfirmButton(ChildHandler<MessageDialog, LinkButton> handler) {
     handler.apply(this, confirmButton);
+    return this;
+  }
+
+  public MessageDialog withNavHeader(ChildHandler<MessageDialog, NavBar> handler){
+    handler.apply(this, navHeader.get());
     return this;
   }
 

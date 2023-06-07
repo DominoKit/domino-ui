@@ -16,20 +16,21 @@
 package org.dominokit.domino.ui.style;
 
 /** An enum representing the wave styles supported */
-public enum WaveStyle {
-  FLOAT("waves-float"),
-  CIRCLE("waves-circle"),
-  RIPPLE("waves-ripple"),
-  BLOCK("waves-block");
+public enum WaveStyle implements HasCssClass{
+  FLOAT(()->"dui-waves-float"),
+  CIRCLE(()->"dui-waves-circle"),
+  RIPPLE(()->"dui-waves-ripple"),
+  BLOCK(()->"dui-waves-block");
 
-  private final String style;
+  private final CssClass style;
 
-  WaveStyle(String style) {
+  WaveStyle(CssClass style) {
     this.style = style;
   }
 
   /** @return the css style of the wave style */
-  public String getStyle() {
+  @Override
+  public CssClass getCssClass() {
     return style;
   }
 }

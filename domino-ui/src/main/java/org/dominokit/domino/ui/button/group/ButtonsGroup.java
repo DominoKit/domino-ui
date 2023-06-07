@@ -66,13 +66,8 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
     return new ButtonsGroup(buttons);
   }
 
-  public ButtonsGroup appendChild(IsButton<?> button) {
-    appendChild(button.asButton().element());
-    return this;
-  }
-
   public ButtonsGroup appendChild(IsButton<?>... buttons) {
-    Arrays.stream(buttons).forEach(this::appendChild);
+    Arrays.stream(buttons).forEach(btn-> appendChild(btn.asButton()));
     return this;
   }
 

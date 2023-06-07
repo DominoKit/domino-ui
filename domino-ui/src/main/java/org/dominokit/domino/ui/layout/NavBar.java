@@ -15,16 +15,19 @@
  */
 package org.dominokit.domino.ui.layout;
 
+import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.layout.NavBarStyles.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.HeadingElement;
 import org.dominokit.domino.ui.elements.NavElement;
+import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.utils.*;
 
 public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   private NavElement root;
-  private LazyChild<HeadingElement> lazyTitle;
+  private HeadingElement title;
+  private LazyChild<SmallElement> description;
 
   public static NavBar create() {
     return new NavBar();
@@ -35,8 +38,10 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   }
 
   public NavBar() {
-    root = nav().addCss(dui_nav_bar);
-    lazyTitle = LazyChild.of(h(4).addCss(dui_nav_title), root);
+    root = nav()
+            .addCss(dui_nav_bar)
+            .appendChild(title = h(4).addCss(dui_nav_title));
+    description = LazyChild.of(small().addCss(dui_nav_description), title);
     init(this);
   }
 
@@ -45,27 +50,52 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
     setTitle(title);
   }
 
+  public NavBar(String title, String description) {
+    this(title);
+    setDescription(description);
+
+  }
+
   public NavBar setTitle(String title) {
-    lazyTitle.get().setTextContent(title);
+    this.title.setTextContent(title);
+    return this;
+  }
+
+  public NavBar setDescription(String description) {
+    if(isNull(description) || description.isEmpty()){
+      this.description.remove();
+    }else {
+      this.description.get().setTextContent(description);
+    }
     return this;
   }
 
   public NavBar withTitle(ChildHandler<NavBar, HeadingElement> handler) {
-    handler.apply(this, lazyTitle.get());
+    handler.apply(this, title);
+    return this;
+  }
+
+
+  public NavBar withDescription(ChildHandler<NavBar, SmallElement> handler) {
+    handler.apply(this, description.get());
     return this;
   }
 
   public HeadingElement getTitleElement() {
-    return lazyTitle.get();
+    return title;
+  }
+
+
+  public SmallElement getDescriptionElement() {
+    return description.get();
   }
 
   public String getTitle() {
-    return lazyTitle.get().getTextContent();
+    return title.getTextContent();
   }
 
-  public NavBar appendChild(PostfixAddOn<?> postfixAddOn) {
-    appendChild(postfixAddOn.addCss(dui_nav_utility).element());
-    return this;
+  public String getDescription() {
+    return description.get().getTextContent();
   }
 
   @Override

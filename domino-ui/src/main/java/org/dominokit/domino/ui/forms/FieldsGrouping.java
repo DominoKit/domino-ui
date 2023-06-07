@@ -51,7 +51,7 @@ public class FieldsGrouping
         AcceptDisable<FieldsGrouping> {
 
   private final List<HasGrouping<?>> formElements = new ArrayList<>();
-  private final Set<Validator> validators = new LinkedHashSet<>();
+  private final Set<Validator<FieldsGrouping>> validators = new LinkedHashSet<>();
   private final List<String> errors = new ArrayList<>();
 
   private boolean validationsPaused = false;
@@ -88,9 +88,13 @@ public class FieldsGrouping
     return this;
   }
 
+  public ValidationResult validate(){
+    return validate(this);
+  }
+
   /** {@inheritDoc} validate all components grouped by this FieldsGrouping in fail-fast mode */
   @Override
-  public ValidationResult validate() {
+  public ValidationResult validate(FieldsGrouping fieldsGrouping) {
     if (!validationsPaused) {
       this.errors.clear();
       boolean fieldsValid = validateFields();
@@ -100,7 +104,7 @@ public class FieldsGrouping
       }
 
       for (Validator validator : validators) {
-        ValidationResult result = validator.isValid();
+        ValidationResult result = validator.isValid(fieldsGrouping);
         if (!result.isValid()) {
           return result;
         }
@@ -269,31 +273,31 @@ public class FieldsGrouping
 
   /**
    * {@inheritDoc} Adds a validator to this FieldsGrouping, the validator will be applied to all
-   * grouped elements when {@link #validate()} is called
+   * grouped elements when {@link #validate(FieldsGrouping)} is called
    *
    * @param validator {@link Validator}
    * @return same FieldsGrouping instance
    */
-  public FieldsGrouping addValidator(Validator validator) {
+  public FieldsGrouping addValidator(Validator<FieldsGrouping> validator) {
     validators.add(validator);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public FieldsGrouping removeValidator(Validator validator) {
+  public FieldsGrouping removeValidator(Validator<FieldsGrouping> validator) {
     validators.remove(validator);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public boolean hasValidator(Validator validator) {
+  public boolean hasValidator(Validator<FieldsGrouping> validator) {
     return validators.contains(validator);
   }
 
   @Override
-  public Set<Validator> getValidators() {
+  public Set<Validator<FieldsGrouping>> getValidators() {
     return validators;
   }
 
@@ -358,7 +362,7 @@ public class FieldsGrouping
   @Override
   public FieldsGrouping autoValidate() {
     if (isAutoValidation()) {
-      validate();
+      validate(this);
     }
     return this;
   }

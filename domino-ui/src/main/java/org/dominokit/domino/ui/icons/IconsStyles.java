@@ -19,11 +19,8 @@ import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.ToggleCssClass;
 
 public class IconsStyles {
-
   public static final CssClass dui_mdi = () -> "mdi";
-
   public static final CssClass dui_labeled_icon = () -> "dui-labeled-icon";
-  public static final CssClass dui_reversed = () -> "dui-reversed";
   public static final CssClass dui_icon_text = () -> "dui-mdi-text";
 
   public static final CssClass mdi_rotate_45 = () -> "mdi-rotate-45";
@@ -34,8 +31,8 @@ public class IconsStyles {
   public static final CssClass mdi_rotate_270 = () -> "mdi-rotate-270";
   public static final CssClass mdi_rotate_315 = () -> "mdi-rotate-315";
 
-  public static final ToggleCssClass mdi_flip_v = () -> "mdi-flip-v";
-  public static final ToggleCssClass mdi_flip_h = () -> "mdi-flip-h";
+  public static final ToggleCssClass mdi_flip_v = ToggleCssClass.of(() -> "mdi-flip-v");
+  public static final ToggleCssClass mdi_flip_h = ToggleCssClass.of(() -> "mdi-flip-h");
 
   public static final CssClass mdi_light = () -> "mdi-light";
   public static final CssClass mdi_dark = () -> "mdi-dark";

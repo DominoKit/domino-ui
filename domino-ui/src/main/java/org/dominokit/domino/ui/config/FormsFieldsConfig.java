@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
-public interface FormsFieldsConfig extends ComponentConfig {
+public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
 
     /**
      * @return a supplier of {@link Node}, this should return a new Node instance everytime it is call
@@ -43,8 +43,15 @@ public interface FormsFieldsConfig extends ComponentConfig {
         return false;
     }
 
+    default boolean isFixedLabelSpace(){
+        return true;
+    }
     default NumberParsers getNumberParsers(){
         return new NumberParsers() {};
+    }
+
+    default boolean isFormFieldFloatLabelLeft(){
+        return false;
     }
 
     interface NumberParsers {

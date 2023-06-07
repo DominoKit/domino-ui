@@ -25,6 +25,7 @@ import org.dominokit.domino.ui.tree.TreeItem;
 import org.dominokit.domino.ui.utils.DominoId;
 import org.dominokit.domino.ui.utils.IsCollapsible;
 
+import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSED;
 import static org.dominokit.domino.ui.style.GenericCss.dui_transition_none;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
@@ -66,6 +67,8 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
             double height = treeItem.getBoundingClientRect().height;
             treeItem.setAttribute(DUI_COLLAPSED_HEIGHT, height);
         });
+
+        element.setAttribute(DUI_COLLAPSED, true);
     }
 
     @Override
@@ -83,7 +86,7 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
                     this.handlers.onBeforeExpand().run();
                     double height = treeItem.getBoundingClientRect().height;
                     treeItem.setAttribute(DUI_COLLAPSED_HEIGHT, height);
-                    treeItem.getSubTree().expand();
+                    treeItem.getSubTree().show();
                     treeItem.setCssProperty(this.heightVar, height + "px");
                     double expandedHeight = getActualHeight();
                     treeItem.setAttribute(DUI_EXPANDED_HEIGHT, expandedHeight);
@@ -103,7 +106,7 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
     private void expandElement(Element element) {
         if (dui_transition_none.isAppliedTo(treeItem)) {
             treeItem.setCssProperty(this.heightVar, "auto");
-            treeItem.removeAttribute(Collapsible.DUI_COLLAPSED);
+            treeItem.removeAttribute(DUI_COLLAPSED);
             handlers.onExpandCompleted().run();
         } else {
             EventListener stopListener =
@@ -123,7 +126,7 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
 
             String expandedHeight = treeItem.getAttribute(DUI_EXPANDED_HEIGHT);
             treeItem.setCssProperty(this.heightVar, expandedHeight + "px");
-            treeItem.removeAttribute(Collapsible.DUI_COLLAPSED);
+            treeItem.removeAttribute(DUI_COLLAPSED);
         }
 
     }
@@ -169,12 +172,12 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
 
     private void collapseElement(Element element) {
         if (dui_transition_none.isAppliedTo(treeItem)) {
-            treeItem.setAttribute(Collapsible.DUI_COLLAPSED, "true");
+            treeItem.setAttribute(DUI_COLLAPSED, "true");
             treeItem.setCssProperty(this.heightVar, treeItem.getAttribute(DUI_COLLAPSED_HEIGHT) + "px");
         } else {
             DomGlobal.requestAnimationFrame(
                     timestamp -> {
-                        treeItem.setAttribute(Collapsible.DUI_COLLAPSED, "true");
+                        treeItem.setAttribute(DUI_COLLAPSED, "true");
                         treeItem.setCssProperty(this.heightVar, treeItem.getAttribute(DUI_COLLAPSED_HEIGHT) + "px");
                     });
         }

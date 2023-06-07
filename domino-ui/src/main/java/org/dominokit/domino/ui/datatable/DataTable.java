@@ -50,7 +50,7 @@ import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_HOVER;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_RESPONSIVE;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_ROW_FILTERED;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_STRIPED;
-import static org.dominokit.domino.ui.style.Unit.px;
+import static org.dominokit.domino.ui.utils.Unit.px;
 
 /**
  * The data table component

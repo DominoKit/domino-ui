@@ -27,7 +27,8 @@ public enum CollapseDuration implements CollapsibleStyles {
   _700ms(dui_height_collapsed_trans_700, 700),
   _800ms(dui_height_collapsed_trans_800, 800),
   _900ms(dui_height_collapsed_trans_900, 900),
-  _1000ms(dui_height_collapsed_trans_1000, 1000);
+  _1000ms(dui_height_collapsed_trans_1000, 1000),
+  _20000ms(dui_height_collapsed_trans_20000, 20000);
 
   private final CssClass style;
   private final int duration;

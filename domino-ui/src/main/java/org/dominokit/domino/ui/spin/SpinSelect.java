@@ -230,6 +230,34 @@ abstract class SpinSelect<T, S extends SpinSelect<T, S>>
     }
 
     /**
+     * Adds a new item
+     *
+     * @param spinItem A {@link SpinItem} to add
+     * @return same instance
+     */
+    public S prependChild(SpinItem<T> spinItem) {
+        if(nonNull(spinItem)) {
+            if (items.isEmpty()) {
+                this.activeItem = spinItem;
+                this.activeItem.addCss(dui_active);
+            }
+            items.add(0, spinItem);
+            spinItem.addEventListener("transitionend", clearAnimation);
+            contentPanel.insertFirst(spinItem);
+            updateArrowsVisibility();
+        }
+        return (S) this;
+    }
+
+    public S reset(){
+        getItems().forEach(BaseDominoElement::remove);
+        this.getItems().clear();
+        this.activeItem = null;
+        this.oldValue = null;
+        return (S) this;
+    }
+
+    /**
      * @return the current active item
      */
     public SpinItem<T> getActiveItem() {

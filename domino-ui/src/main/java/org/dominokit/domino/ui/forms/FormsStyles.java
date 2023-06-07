@@ -20,7 +20,8 @@ import org.dominokit.domino.ui.style.CssClass;
 public interface FormsStyles {
 
   CssClass dui_form_field = () -> "dui-form-field";
-  CssClass dui_field_label = () -> "dui-form-field-label";
+  CssClass dui_field_label = () -> "dui-field-label";
+  CssClass dui_form_label_float_left = () -> "dui-form-label-float-left";
   CssClass dui_field_body = () -> "dui-form-field-body";
   CssClass dui_input_wrapper = () -> "dui-field-input-wrapper";
   CssClass dui_add_on = () -> "dui-field-addon";
@@ -47,6 +48,7 @@ public interface FormsStyles {
   CssClass dui_form_select = () -> "dui-form-select";
   CssClass dui_form_select_clear = () -> "dui-form-select-clear";
   CssClass dui_form_select_drop_arrow = () -> "dui-form-select-drop-arrow";
+  CssClass dui_select_menu = ()-> "dui-select-menu";
 
   CssClass dui_form_radio_group = () -> "dui-form-radio-group";
   CssClass dui_form_radio = () -> "dui-form-radio";
@@ -63,5 +65,6 @@ public interface FormsStyles {
   CssClass dui_switch_condense = () -> "dui-switch-condense-labels";
   CssClass dui_form_tags_input = () -> "dui-form-tags-input";
   CssClass dui_form_text_area = () -> "dui-form-text-area";
+  CssClass dui_form_text_area_header = () -> "dui-form-text-area-header";
   CssClass dui_form_text_area_gap = () -> "dui-text-area-gap";
 }

@@ -19,6 +19,7 @@ import static org.dominokit.domino.ui.icons.IconsStyles.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.style.WavesElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -29,17 +30,20 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * @see BaseDominoElement
  */
-public class LabeledIcon extends BaseDominoElement<HTMLElement, LabeledIcon> {
+public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
 
-  private final SpanElement element = span().addCss(dui_labeled_icon);
+  private final SpanElement element;
 
   public LabeledIcon(Icon<?> icon, String text) {
     this(icon, text, IconPosition.LEFT);
   }
 
   public LabeledIcon(Icon<?> icon, String text, IconPosition position) {
-    element.appendChild(icon);
-    element.appendChild(span().addCss(dui_icon_text).textContent(text));
+     element = span()
+             .addCss(dui_labeled_icon)
+             .appendChild(icon)
+             .appendChild(span().addCss(dui_icon_text, dui_text_ellipsis).textContent(text));
+     init(this);
     position.apply(this);
   }
 

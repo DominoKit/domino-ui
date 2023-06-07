@@ -17,7 +17,6 @@ import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.thumbnails.Thumbnail;
 import org.dominokit.domino.ui.typography.BlockHeader;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, DefaultFilePreview>
         implements IsFilePreview<HTMLDivElement>,
@@ -42,9 +41,9 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, Defaul
         this.fileItem = fileItem;
         this.thumbnail = Thumbnail.create()
                 .addCss(dui_min_h_64, dui_w_full, dui_file_preview)
-                .withBody((parent, body) -> body.addCss(dui_max_h_52, dui_min_h_52, dui_overflow_y_hidden))
+                .withBody((parent, body) -> body.addCss(dui_max_h_52, dui_min_h_52, dui_overflow_y_hidden, dui_flex, dui_justify_center, dui_items_center))
                 .addClickListener(Event::stopPropagation);
-        messageElement = div().addCss(dui_text_ellipsis, dui_m_b_2);
+        messageElement = div().addCss(dui_text_ellipsis, dui_m_b_2, dui_text_center);
         removeIcon = getConfig().getDefaultRemoveIcon().get();
         uploadIcon = getConfig().getDefaultUploadIcon().get();
         cancelIcon = getConfig().getDefaultCancelIcon().get().hide();
@@ -64,7 +63,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, Defaul
             });
             fileReader.readAsDataURL(this.fileItem.getFile());
         } else {
-            thumbnail.appendChild(Icons.ALL.file_upload_mdi()
+            thumbnail.appendChild(Icons.file_upload()
                     .addCss(dui_fg_grey, dui_font_size_24));
         }
 

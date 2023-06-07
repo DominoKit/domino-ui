@@ -21,13 +21,14 @@ import elemental2.dom.HTMLImageElement;
 import elemental2.dom.HTMLPictureElement;
 import elemental2.dom.Node;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.FooterContent;
+import org.dominokit.domino.ui.utils.HeaderContent;
 import org.dominokit.domino.ui.utils.LazyChild;
-import org.dominokit.domino.ui.IsElement;
 
 /**
  * A component which provides a showcase for images and any other elements with extra caption
@@ -104,7 +105,7 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> impl
         if (node instanceof HTMLImageElement || node instanceof HTMLPictureElement) {
             elements.elementOf(Js.<HTMLElement>uncheckedCast(node)).addCss(dui_thumbnail_img);
         }
-        return super.appendChild(element);
+        return super.appendChild(node);
     }
 
     /**
@@ -137,6 +138,16 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> impl
 
     public Thumbnail withTail() {
         tail.get();
+        return this;
+    }
+
+    public Thumbnail appendChild(FooterContent<?> footerContent){
+        footer.get().appendChild(footerContent);
+        return this;
+    }
+
+    public Thumbnail appendChild(HeaderContent<?> headerContent){
+        title.get().appendChild(headerContent);
         return this;
     }
 

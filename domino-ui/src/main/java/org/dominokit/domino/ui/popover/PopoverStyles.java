@@ -25,10 +25,5 @@ public interface PopoverStyles {
   CssClass dui_popover_wrapper = () -> "dui-popover-wrapper";
   CssClass dui_popover_header = () -> "dui-popover-header";
   CssClass dui_popover_body = () -> "dui-popover-body";
-
-  CssClass dui_pop_top = () -> "dui-pop-top";
-  CssClass dui_pop_right = () -> "dui-pop-right";
-  CssClass dui_pop_bottom = () -> "dui-pop-bottom";
-  CssClass dui_pop_left = () -> "dui-pop-left";
   CssClass dui_tooltip = () -> "dui-tooltip";
 }

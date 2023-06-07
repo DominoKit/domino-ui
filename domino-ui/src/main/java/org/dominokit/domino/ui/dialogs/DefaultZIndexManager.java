@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.dialogs;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ZIndexConfig;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.IsPopup;
 
 import java.util.ArrayList;
@@ -32,87 +33,89 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<ZIndexConfig> {
 
-  private Integer currentZIndex;
-  private static Deque<IsPopup<?>> modals = new LinkedList<>();
+    public static final ZIndexManager INSTANCE = new DefaultZIndexManager();
 
-  private final List<ZIndexListener> listeners = new ArrayList<>();
+    private Integer currentZIndex;
+    private static Deque<IsPopup<?>> modals = new LinkedList<>();
 
-  /**
-   * {@inheritDoc}
-   *
-   * @return The next z-index starting from {@link org.dominokit.domino.ui.config.ZIndexConfig#getInitialZIndex()} and
-   *     incremented by {@link org.dominokit.domino.ui.config.ZIndexConfig#getzIndexIncrement()} with every call
-   */
-  @Override
-  public Integer getNextZIndex() {
-    if (isNull(currentZIndex)) {
-      this.currentZIndex = getConfig().getInitialZIndex();
-    }
-    currentZIndex += getConfig().getzIndexIncrement();
-    return currentZIndex;
-  }
+    private final List<ZIndexListener> listeners = new ArrayList<>();
 
-  /**
-   * {@inheritDoc} Also attach the modal backdrop if not attached
-   *
-   * @param popup the popup to be shown next
-   */
-  @Override
-  public void onPopupOpen(IsPopup<?> popup) {
-    if (popup.isModal()) {
-      Integer nextZIndex = getNextZIndex();
-      ModalBackDrop.INSTANCE.setZIndex(nextZIndex);
-      if (!ModalBackDrop.INSTANCE.isAttached()) {
-        elements.body().appendChild(ModalBackDrop.INSTANCE);
-      }
-      modals.push(popup);
+    /**
+     * {@inheritDoc}
+     *
+     * @return The next z-index starting from {@link org.dominokit.domino.ui.config.ZIndexConfig#getInitialZIndex()} and
+     * incremented by {@link org.dominokit.domino.ui.config.ZIndexConfig#getzIndexIncrement()} with every call
+     */
+    @Override
+    public Integer getNextZIndex() {
+        if (isNull(currentZIndex)) {
+            this.currentZIndex = getConfig().getInitialZIndex();
+        }
+        currentZIndex += getConfig().getzIndexIncrement();
+        return currentZIndex;
     }
 
-    Integer nextZIndex = getNextZIndex();
-    popup.setZIndex(nextZIndex);
-    listeners.forEach(
-        listener -> listener.onZIndexChange(new ZIndexListener.ZIndexInfo(popup, modals)));
-  }
+    /**
+     * {@inheritDoc} Also attach the modal backdrop if not attached
+     *
+     * @param popup the popup to be shown next
+     */
+    @Override
+    public void onPopupOpen(IsPopup<?> popup) {
+        if (popup.isModal()) {
+            Integer nextZIndex = getNextZIndex();
+            ModalBackDrop.INSTANCE.setZIndex(nextZIndex);
+            if (!ModalBackDrop.INSTANCE.isAttached()) {
+                elements.body().appendChild(ModalBackDrop.INSTANCE);
+            }
+            modals.push(popup);
+        }
 
-  /**
-   * {@inheritDoc} Also remove the modal backdrop when modal remain open
-   *
-   * @param popup the popup to be closed
-   */
-  @Override
-  public void onPopupClose(IsPopup<?> popup) {
-    if (popup.isModal()) {
-      modals.remove(popup);
-      if (!modals.isEmpty()) {
-        Integer backdropZIndex = getNextZIndex();
-        ModalBackDrop.INSTANCE.setZIndex(backdropZIndex);
-        Integer modalZIndex = getNextZIndex();
-        modals.peek().setZIndex(modalZIndex);
+        Integer next = getNextZIndex();
+        popup.setZIndex(next);
         listeners.forEach(
-            listener ->
-                listener.onZIndexChange(new ZIndexListener.ZIndexInfo(modals.peek(), modals)));
-      } else {
-        ModalBackDrop.INSTANCE.remove();
-      }
+                listener -> listener.onZIndexChange(new ZIndexListener.ZIndexInfo(popup, modals)));
     }
-  }
 
-  @Override
-  public Optional<IsPopup<?>> getTopLevelModal() {
-    return Optional.ofNullable(modals.peek());
-  }
-
-  @Override
-  public void addZIndexListener(ZIndexListener listener) {
-    if (nonNull(listener)) {
-      listeners.add(listener);
+    /**
+     * {@inheritDoc} Also remove the modal backdrop when modal remain open
+     *
+     * @param popup the popup to be closed
+     */
+    @Override
+    public void onPopupClose(IsPopup<?> popup) {
+        if (popup.isModal()) {
+            modals.remove(popup);
+            if (!modals.isEmpty()) {
+                Integer backdropZIndex = getNextZIndex();
+                ModalBackDrop.INSTANCE.setZIndex(backdropZIndex);
+                Integer modalZIndex = getNextZIndex();
+                modals.peek().setZIndex(modalZIndex);
+                listeners.forEach(
+                        listener ->
+                                listener.onZIndexChange(new ZIndexListener.ZIndexInfo(modals.peek(), modals)));
+            } else {
+                ModalBackDrop.INSTANCE.remove();
+            }
+        }
     }
-  }
 
-  @Override
-  public void removeZIndexListener(ZIndexListener listener) {
-    if (nonNull(listener)) {
-      listeners.remove(listener);
+    @Override
+    public Optional<IsPopup<?>> getTopLevelModal() {
+        return Optional.ofNullable(modals.peek());
     }
-  }
+
+    @Override
+    public void addZIndexListener(ZIndexListener listener) {
+        if (nonNull(listener)) {
+            listeners.add(listener);
+        }
+    }
+
+    @Override
+    public void removeZIndexListener(ZIndexListener listener) {
+        if (nonNull(listener)) {
+            listeners.remove(listener);
+        }
+    }
 }

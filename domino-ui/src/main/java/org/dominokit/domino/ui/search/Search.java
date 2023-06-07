@@ -68,7 +68,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
      */
     public Search(boolean autoSearch) {
         this.autoSearch = autoSearch;
-        this.closeIcon = Icons.ALL.close_mdi()
+        this.closeIcon = Icons.close()
                 .clickable()
                 .addClickListener(evt -> {
                     evt.stopPropagation();
@@ -79,8 +79,8 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
                 .addCss(dui_search_bar, dui_h_full)
                 .collapse()
                 .appendChild(div().addCss(dui_search_bar_container)
-                        .appendChild(Icons.ALL.magnify_mdi())
-                        .appendChild(searchInput.addCss(dui_flex_grow))
+                        .appendChild(Icons.magnify())
+                        .appendChild(searchInput.addCss(dui_grow_1))
                         .appendChild(closeIcon)
                 );
         this.searchHandler = searchToken -> {

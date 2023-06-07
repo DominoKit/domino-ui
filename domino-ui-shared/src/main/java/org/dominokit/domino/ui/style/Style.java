@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.DominoElementAdapter;
 import org.dominokit.domino.ui.IsElement;
 
 import java.util.Arrays;
+import java.util.function.Predicate;
 
 import static java.util.Objects.nonNull;
 
@@ -34,13 +35,7 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
 
   public Style(E element) {
     this.element = element;
-    if(this.element instanceof HTMLElement){
-      this.style = Js.<HTMLElement>uncheckedCast(element).style;
-    }else if(this.element instanceof SVGElement){
-      this.style = Js.<DominoElementAdapter>uncheckedCast(element).style;
-    }else {
-      throw new IllegalArgumentException("Element is not HTMLElement nor SVGElement.");
-    }
+    this.style = Js.<DominoElementAdapter>uncheckedCast(element).style;
   }
 
   public static <E extends Element> Style<E> of(E element) {
@@ -62,6 +57,42 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
     return this;
   }
 
+  @Override
+  public Style<E> setCssProperty(String name, Number value) {
+    style.setProperty(name, String.valueOf(value));
+    return this;
+  }
+
+  @Override
+  public Style<E> setCssProperty(String name, int value) {
+    style.setProperty(name, String.valueOf(value));
+    return this;
+  }
+
+  @Override
+  public Style<E> setCssProperty(String name, double value) {
+    style.setProperty(name, String.valueOf(value));
+    return this;
+  }
+
+  @Override
+  public Style<E> setCssProperty(String name, short value) {
+    style.setProperty(name, String.valueOf(value));
+    return this;
+  }
+
+  @Override
+  public Style<E> setCssProperty(String name, float value) {
+    style.setProperty(name, String.valueOf(value));
+    return this;
+  }
+
+  @Override
+  public Style<E> setCssProperty(String name, boolean value) {
+    style.setProperty(name, String.valueOf(value));
+    return this;
+  }
+
   /**
    * @param name css property name
    * @param value css property value
@@ -77,6 +108,15 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
     }
     return this;
   }
+  public Style<E> setOrRemoveCssProperty(String name, String value, Predicate<Style<E>> predicate) {
+    if(predicate.test(this)){
+      setCssProperty(name, value);
+    }else {
+      removeCssProperty(name);
+    }
+    return this;
+  }
+
 
   /**
    * @param name css property name
@@ -169,6 +209,16 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
   @Override
   public Style<E> removeCss(CssClass cssClass) {
     cssClass.remove(element);
+    return this;
+  }
+
+  /**
+   * @param hasCssClass css class name
+   * @return same style instance
+   */
+  @Override
+  public Style<E> removeCss(HasCssClass hasCssClass) {
+    hasCssClass.getCssClass().remove(element);
     return this;
   }
 

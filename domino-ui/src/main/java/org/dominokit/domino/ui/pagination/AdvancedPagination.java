@@ -17,8 +17,8 @@ package org.dominokit.domino.ui.pagination;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.forms.Select;
-import org.dominokit.domino.ui.forms.SelectOption;
+import org.dominokit.domino.ui.forms.suggest.Select;
+import org.dominokit.domino.ui.forms.suggest.SelectOption;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -118,7 +118,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
       IntStream.rangeClosed(1, pages)
           .forEach(
               p -> {
-                pagesSelect.appendItem(page -> SelectOption.create(p, String.valueOf(p), String.valueOf(p)), p);
+                pagesSelect.appendItem(page -> SelectOption.create(String.valueOf(p), p,  String.valueOf(p)), p);
                 allPages.add(PagerNavItem.page(p));
               });
     }

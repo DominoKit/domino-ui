@@ -238,9 +238,12 @@ public interface ElementsFactory {
     default OListElement ol() {
         return new OListElement(dom.ol());
     }
-
     default ParagraphElement p() {
         return new ParagraphElement(dom.p());
+    }
+
+    default ParagraphElement p(String text) {
+        return new ParagraphElement(dom.p()).setTextContent(text);
     }
 
     default PreElement pre() {

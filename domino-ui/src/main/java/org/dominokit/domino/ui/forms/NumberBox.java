@@ -88,7 +88,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return input(type).addCss(dui_field_input).toDominoElement();
   }
 
-  private ValidationResult validateInputString() {
+  private ValidationResult validateInputString(NumberBox<T,V> target) {
     try {
       tryGetValue();
     } catch (NumberFormatException e) {
@@ -97,7 +97,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return ValidationResult.valid();
   }
 
-  private ValidationResult validateMaxValue() {
+  private ValidationResult validateMaxValue(NumberBox<T,V> target) {
     V value = getValue();
     if (nonNull(value) && isExceedMaxValue(value)) {
       return ValidationResult.invalid(getMaxValueErrorMessage());
@@ -105,7 +105,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return ValidationResult.valid();
   }
 
-  private ValidationResult validateMinValue() {
+  private ValidationResult validateMinValue(NumberBox<T,V> target) {
     V value = getValue();
     if (nonNull(value) && isLowerThanMinValue(value)) {
       return ValidationResult.invalid(getMinValueErrorMessage());

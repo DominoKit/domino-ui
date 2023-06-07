@@ -17,9 +17,12 @@ package org.dominokit.ui.tools.processor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.dominokit.jackson.annotation.JSONMapper;
 
 @JSONMapper
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MetaIconInfo {
   @JsonIgnore private String id;
   private String name;

@@ -16,18 +16,16 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import static org.dominokit.domino.ui.datatable.DataTableStyles.COLUMN_RESIZER;
-import static org.dominokit.domino.ui.style.Unit.px;
+import static org.dominokit.domino.ui.utils.Unit.px;
 import static org.dominokit.domino.ui.utils.DominoDom.document;
 
 import elemental2.dom.EventListener;
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.MouseEvent;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.ColumnResizedEvent;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.events.EventType;
 
 /**

@@ -33,7 +33,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *     </pre>
  *
  * <pre>
- *         Button.create(Icons.ALL.content_save_mdi(), "Save")
+ *         Button.create(Icons.content_save(), "Save")
  *              .addClickListener(evt-&gt; //handle the event);
  *     </pre>
  *

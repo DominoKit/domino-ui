@@ -15,25 +15,26 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;
 
-public class PostfixAddOn<T extends HTMLElement> extends BaseDominoElement<T, PostfixAddOn<T>> {
+public class PostfixAddOn<T extends Element> extends BaseDominoElement<T, PostfixAddOn<T>> {
 
   private DominoElement<T> element;
 
-  public static <T extends HTMLElement> PostfixAddOn<T> of(T element) {
+  public static <T extends Element> PostfixAddOn<T> of(T element) {
     return new PostfixAddOn<>(element);
   }
 
-  public static <T extends HTMLElement> PostfixAddOn<T> of(IsElement<T> element) {
+  public static <T extends Element> PostfixAddOn<T> of(IsElement<T> element) {
     return new PostfixAddOn<>(element);
   }
 
   public PostfixAddOn(T element) {
     this.element = elementOf(element);
     init(this);
-    addCss(dui_postfix);
+    addCss(dui_postfix_addon);
   }
 
   public PostfixAddOn(IsElement<T> element) {

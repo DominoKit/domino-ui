@@ -20,7 +20,6 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.timepicker.ClockStyle._12;
 
 import elemental2.core.JsDate;
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
 
 import java.util.Date;
@@ -28,13 +27,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.dominokit.domino.ui.elements.DivElement;
-import org.dominokit.domino.ui.forms.AutoValidator;
 import org.dominokit.domino.ui.forms.TextInputFormField;
-import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Mask;
+import org.dominokit.domino.ui.utils.PrimaryAddOn;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
@@ -126,7 +124,7 @@ public class InputTimeBox extends TextInputFormField<InputTimeBox, HTMLInputElem
                 value ->
                         invalidate(notMatchedErrorMessage + " " + PATTERNS_MESSAGE.get(mask.getPattern())));
         setClockStyle(_12);
-        addPrimaryAddOn(Icons.ALL.clock_mdi());
+        appendChild(PrimaryAddOn.of(Icons.clock()));
         setValue(time);
     }
 

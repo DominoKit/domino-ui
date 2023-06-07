@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.tree;
 
 import elemental2.dom.Element;
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
@@ -31,9 +32,8 @@ import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.StateChangeIcon;
 import org.dominokit.domino.ui.icons.ToggleIcon;
-import org.dominokit.domino.ui.style.WaveColor;
 import org.dominokit.domino.ui.style.WaveStyle;
-import org.dominokit.domino.ui.style.WavesElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.CanActivate;
 import org.dominokit.domino.ui.utils.CanDeactivate;
 import org.dominokit.domino.ui.utils.HasClickableElement;
@@ -53,18 +53,18 @@ import java.util.Set;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.style.WavesStyles.dui_waves_accent;
 
 /**
  * A component representing the tree item
  *
  * @param <T> the type of the value object inside the item
- * @see WavesElement
  * @see TreeParent
  * @see CanActivate
  * @see CanDeactivate
  * @see HasClickableElement
  */
-public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
+public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
         implements TreeParent<T>,
         CanActivate,
         CanDeactivate,
@@ -86,14 +86,32 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
     private T value;
 
-    private int level = 1;
-
     private ToggleTarget toggleTarget = ToggleTarget.ANY;
 
     private OriginalState originalState;
     private boolean selectionListenersPaused;
     private Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>> selectionListeners = new HashSet<>();
     private Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>> deselectionListeners = new HashSet<>();
+
+    private final EventListener anchorListener = evt -> {
+        if (ToggleTarget.ANY.equals(this.toggleTarget)) {
+            evt.stopPropagation();
+            if(isParent()) {
+                toggle();
+            }
+            activateItem();
+        }
+    };
+
+    private final EventListener iconListener = evt -> {
+        if (ToggleTarget.ICON.equals(this.toggleTarget)) {
+            evt.stopPropagation();
+            if(isParent()) {
+                toggle();
+            }
+            activateItem();
+        }
+    };
 
     private TreeItem() {
         this.element = li()
@@ -108,11 +126,11 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
                         .addCss(dui_tree_nav)
                         .hide());
         this.textElement = LazyChild.of(span().addCss(dui_tree_item_text), contentElement);
-        setToggleTarget(ToggleTarget.ANY);
         init(this);
 
         setCollapseStrategy(getConfig().getTreeDefaultCollapseStrategy(this).get());
         setAttribute(Collapsible.DUI_COLLAPSED, "true");
+
     }
 
     public TreeItem(Icon<?> icon, String title) {
@@ -225,15 +243,14 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
     private void init() {
         addBeforeCollapseListener(() -> updateIcon(true));
-        addBeforeShowListener(() -> updateIcon(false));
-        anchorElement.addClickListener(evt -> {
-                    if (ToggleTarget.ANY.equals(this.toggleTarget) && isParent()) {
-                        toggle();
-                    }
-                    activateItem();
-                });
-        setWaveColor(WaveColor.THEME);
-        applyWaveStyle(WaveStyle.BLOCK);
+        addBeforeExpandListener(() -> updateIcon(false));
+        anchorElement.addClickListener(anchorListener);
+        applyWaves();
+    }
+
+    private void applyWaves() {
+        withWaves((item, waves) -> waves.setWaveStyle(WaveStyle.BLOCK)
+        );
     }
 
     private void activateItem() {
@@ -243,7 +260,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
             this.activeTreeItem = null;
             triggerDeselectionListeners(source, this);
         }
-        parent.setActiveItem(this);
+        getParent().ifPresent(itemParent -> itemParent.setActiveItem(this));
         triggerSelectionListeners(this, this);
     }
 
@@ -257,7 +274,6 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
         this.subItems.add(treeItem);
         subTree.appendChild(treeItem);
         treeItem.parent = this;
-        treeItem.setLevel(level + 1);
         treeItem.setToggleTarget(this.toggleTarget);
         updateIcon(isCollapsed());
         getParent().ifPresent(p -> {
@@ -290,7 +306,11 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
                 if (isParent()) {
                     icon.setState(collapsed ? TreeItemIcon.STATE_COLLAPSED : TreeItemIcon.STATE_EXPANDED);
                 } else {
-                    icon.setState(TreeItemIcon.STATE_LEAF);
+                    if (dui_active.isAppliedTo(this)) {
+                        icon.setState(TreeItemIcon.STATE_ACTIVE);
+                    } else {
+                        icon.setState(TreeItemIcon.STATE_LEAF);
+                    }
                 }
             }
         }
@@ -317,12 +337,19 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
             this.toggleTarget = toggleTarget;
             if (ToggleTarget.ICON.equals(toggleTarget)) {
+                removeWaves();
                 if (nonNull(itemIcon) && itemIcon.isInitialized()) {
-                    itemIcon.get().setClickable(true);
+                    itemIcon.get()
+                            .setClickable(true)
+                            .addEventListener("click", iconListener, true);
                 }
             } else {
+                applyWaves();
                 if (nonNull(itemIcon) && itemIcon.isInitialized()) {
-                    itemIcon.get().setClickable(false);
+                    itemIcon.get()
+                            .setClickable(false)
+                            .removeEventListener("click", iconListener);
+                    ;
                 }
             }
 
@@ -333,7 +360,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
     private void toggle() {
         if (isParent()) {
-            toggleDisplay();
+            toggleCollapse();
         }
     }
 
@@ -355,8 +382,8 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
         if (isParent()) {
             super.expand();
         }
-        if (expandParent && nonNull(parent)) {
-            parent.expandNode(true);
+        if (expandParent) {
+            getParent().ifPresent(itemParent-> itemParent.expandNode(true));
         }
         return this;
     }
@@ -373,9 +400,9 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
      * {@inheritDoc}
      */
     @Override
-    public TreeItem<T> toggleDisplay() {
+    public TreeItem<T> toggleCollapse() {
         if (isParent()) {
-            super.toggleDisplay();
+            super.toggleCollapse();
         }
         return this;
     }
@@ -411,11 +438,13 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     @Override
     public Optional<TreeParent<T>> getParent() {
         if (parent instanceof TreeItem) {
-            return Optional.of((TreeItem<T>) parent);
+            return Optional.of(parent);
         } else {
             return Optional.empty();
         }
     }
+
+
 
     /**
      * {@inheritDoc}
@@ -438,7 +467,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
             }
             this.activeTreeItem = activeItem;
             this.activeTreeItem.activate();
-            parent.setActiveItem(this, true);
+            getParent().ifPresent(itemParent-> itemParent.setActiveItem(this, true));
             if (!silent) {
                 triggerSelectionListeners(activeItem, activeItem);
                 getTreeRoot().triggerSelectionListeners(activeItem, activeItem);
@@ -501,9 +530,10 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     @Override
     public void activate(boolean activateParent) {
         addCss(dui_active);
-        if (activateParent && nonNull(parent)) {
-            parent.setActiveItem(this);
+        if (activateParent) {
+            getParent().ifPresent(itemParent-> itemParent.setActiveItem(this));
         }
+        updateIcon(isCollapsed());
     }
 
 
@@ -519,6 +549,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
                 collapse();
             }
         }
+        updateIcon(isCollapsed());
     }
 
     /**
@@ -615,7 +646,8 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
      */
     @Override
     public boolean isAutoExpandFound() {
-        return parent.isAutoExpandFound();
+        return getTreeRoot()
+                .isAutoExpandFound();
     }
 
     /**
@@ -627,7 +659,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
                 if (this.equals(this.getTreeRoot().getActiveItem())) {
                     this.expandNode();
                 } else {
-                    toggleDisplay(originalState.expanded);
+                    toggleCollapse(originalState.expanded);
                 }
             }
             this.originalState = null;
@@ -669,22 +701,6 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
             this.expandNode();
             subItems.forEach(TreeItem::expandAll);
             dui_transition_none.remove(this);
-        }
-    }
-
-    /**
-     * Sets the level of this item
-     *
-     * @param level the new level
-     * @return same instance
-     */
-    void setLevel(int level) {
-        this.level = level;
-        if (level > 0) {
-            subTree.setCssProperty("--dui-tree-item-depth", String.valueOf(level));
-        }
-        if (isParent()) {
-            subItems.forEach(treeItem -> treeItem.setLevel(level + 1));
         }
     }
 
@@ -763,9 +779,7 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
      */
     @Override
     public TreeItem<T> remove() {
-        if (nonNull(parent)) {
-            parent.removeItem(this);
-        }
+        getParent().ifPresent(itemParent -> itemParent.removeItem(this));
         return super.remove();
     }
 

@@ -51,8 +51,8 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   private DragSource dragSource;
   private TableRow<T> emptyDropRow;
   private DataTable<T> dataTable;
-  private Supplier<Icon<?>> emptyDropIconSupplier = Icons.ALL::plus_mdi;
-  private Supplier<Icon<?>> dragDropIconSupplier = Icons.ALL::drag_vertical_mdi;
+  private Supplier<Icon<?>> emptyDropIconSupplier = Icons::plus;
+  private Supplier<Icon<?>> dragDropIconSupplier = Icons::drag_vertical;
   private FlexLayout emptyDropArea;
   private Text emptyDropText;
   private final List<DataTable<T>> otherDataTables = new ArrayList<>();
@@ -141,7 +141,7 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
       emptyDropRow.toggleDisplay(dataTable.getRows().isEmpty());
     }
     if (event instanceof RecordDroppedEvent) {
-      emptyDropRow.collapse();
+      emptyDropRow.hide();
     }
   }
 

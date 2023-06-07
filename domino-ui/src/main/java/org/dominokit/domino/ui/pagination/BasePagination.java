@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.pagination;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLUListElement;
 
 import java.util.*;
 
@@ -28,7 +27,6 @@ import org.dominokit.domino.ui.i18n.PaginationLabels;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasChangeListeners;
 
@@ -74,10 +72,10 @@ public abstract class BasePagination<T extends BasePagination<T>>
 
         init((T) this);
         pagesList
-                .appendChild(firstPage = PagerNavItem.nav(Icons.ALL.skip_previous_mdi()).collapse())
-                .appendChild(prevPage = PagerNavItem.nav(Icons.ALL.chevron_left_mdi()))
-                .appendChild(nextPage = PagerNavItem.nav(Icons.ALL.chevron_right_mdi()))
-                .appendChild(lastPage = PagerNavItem.nav(Icons.ALL.skip_next_mdi()).collapse())
+                .appendChild(firstPage = PagerNavItem.nav(Icons.skip_previous()).collapse())
+                .appendChild(prevPage = PagerNavItem.nav(Icons.chevron_left()))
+                .appendChild(nextPage = PagerNavItem.nav(Icons.chevron_right()))
+                .appendChild(lastPage = PagerNavItem.nav(Icons.skip_next()).collapse())
         ;
     }
 

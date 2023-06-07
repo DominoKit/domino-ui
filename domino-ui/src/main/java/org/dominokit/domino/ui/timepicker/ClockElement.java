@@ -23,7 +23,7 @@ import org.dominokit.domino.ui.elements.LineElement;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-import static org.dominokit.domino.ui.style.Unit.px;
+import static org.dominokit.domino.ui.utils.Unit.px;
 import static org.dominokit.domino.ui.timepicker.ClockStyle._24;
 
 /**

@@ -32,6 +32,7 @@ import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.dominokit.domino.ui.utils.LazyChild;
@@ -81,7 +82,6 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
         tabPanel = div().addCss(dui_tab_panel);
 
     }
-
 
     /**
      * @param title String title for the tab
@@ -471,6 +471,16 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
     public void removeTab() {
         this.remove();
         tabPanel.remove();
+    }
+
+    public Tab withHeader(ChildHandler<Tab, DivElement> handler){
+        handler.apply(this, tabHeader);
+        return this;
+    }
+
+    public Tab withContent(ChildHandler<Tab, DivElement> handler){
+        handler.apply(this, tabPanel);
+        return this;
     }
 
     /**

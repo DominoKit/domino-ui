@@ -17,8 +17,6 @@ package org.dominokit.domino.ui.splitpanel;
 
 import elemental2.dom.MouseEvent;
 import elemental2.dom.TouchEvent;
-import org.dominokit.domino.ui.style.Calc;
-import org.dominokit.domino.ui.style.Unit;
 
 class VSplitter extends BaseSplitter<VSplitter> {
 

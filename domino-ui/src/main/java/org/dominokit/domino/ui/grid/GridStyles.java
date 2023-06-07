@@ -31,7 +31,7 @@ public interface GridStyles {
   /** CSS style for grid layout footer */
   CssClass dui_grid_footer = () -> "dui-grid-footer";
   /** CSS style for grid layout left section */
-  CssClass dui_grid_left = () -> "dui-gird-left";
+  CssClass dui_grid_left = () -> "dui-grid-left";
   /** CSS style for grid layout right section */
   CssClass dui_grid_right = () -> "dui-grid-right";
   /** CSS style for grid row */

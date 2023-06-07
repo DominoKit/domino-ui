@@ -17,9 +17,7 @@ package org.dominokit.domino.ui.carousel;
 
 import static org.dominokit.domino.ui.carousel.CarouselStyles.*;
 
-import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLOListElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,8 +105,8 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
                                                 .addCss(slide_left, carousel_control)
                                                 .setAttribute("role", "button")
                                                 .appendChild(
-                                                        Icons.ALL
-                                                                .chevron_left_mdi()
+                                                        Icons
+                                                                .chevron_left()
                                                                 .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
                                                 .addEventListener(
                                                         "click",
@@ -122,8 +120,8 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
                                                 .addCss(slide_right, carousel_control)
                                                 .setAttribute("role", "button")
                                                 .appendChild(
-                                                        Icons.ALL
-                                                                .chevron_right_mdi()
+                                                        Icons
+                                                                .chevron_right()
                                                                 .addCss(GenericCss.dui_vertical_center, SpacingCss.dui_font_size_12))
                                                 .addEventListener(
                                                         "click",

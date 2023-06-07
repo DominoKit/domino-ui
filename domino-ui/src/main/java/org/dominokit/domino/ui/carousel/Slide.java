@@ -17,26 +17,24 @@ package org.dominokit.domino.ui.carousel;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.HTMLImageElement;
 import elemental2.dom.HTMLLIElement;
-import elemental2.dom.HTMLParagraphElement;
 import elemental2.dom.HTMLPictureElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.HeadingElement;
+import org.dominokit.domino.ui.elements.ImageElement;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.elements.ParagraphElement;
+import org.dominokit.domino.ui.elements.PictureElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 import static org.dominokit.domino.ui.carousel.CarouselStyles.slide;
 import static org.dominokit.domino.ui.carousel.CarouselStyles.slide_caption;
 import static org.dominokit.domino.ui.carousel.CarouselStyles.slide_indicator;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 /**
  * A component for an element for {@link Carousel}
@@ -81,6 +79,14 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
     this((HTMLElement) pictureElement);
   }
 
+  public Slide(ImageElement image) {
+    this(image.element());
+  }
+
+  public Slide(PictureElement pictureElement) {
+    this(pictureElement.element());
+  }
+
   /**
    * Creates new slide with image source
    *
@@ -108,6 +114,26 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
    * @return new instance
    */
   public static Slide create(HTMLPictureElement pictureElement) {
+    return new Slide(pictureElement);
+  }
+
+  /**
+   * Creates new slide with {@link ImageElement}
+   *
+   * @param image the {@link ImageElement}
+   * @return new instance
+   */
+  public static Slide create(ImageElement image) {
+    return new Slide(image);
+  }
+
+  /**
+   * Creates new slide with {@link PictureElement}
+   *
+   * @param pictureElement the {@link PictureElement}
+   * @return new instance
+   */
+  public static Slide create(PictureElement pictureElement) {
     return new Slide(pictureElement);
   }
 

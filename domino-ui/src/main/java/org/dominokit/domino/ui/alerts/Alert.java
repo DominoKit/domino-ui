@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.alerts;
 import static org.dominokit.domino.ui.alerts.AlertStyles.dui_alert;
 import static org.dominokit.domino.ui.alerts.AlertStyles.dui_alert_body;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.button.RemoveButton;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -140,17 +141,6 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
   }
 
   /**
-   * Adds text as a child, the {@code text} will be added in {@link ElementsFactory#text()}
-   *
-   * @param text the content
-   * @return same instance
-   */
-  public Alert appendChild(String text) {
-    bodyElement.appendChild(text(text));
-    return this;
-  }
-
-  /**
    * Passing true means that the alert will be closable and a close button will be added to the
    * element to hide it
    *
@@ -210,6 +200,11 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
   public Alert withCloseButton() {
     removeButton.get();
     return this;
+  }
+
+  @Override
+  protected Element getAppendTarget() {
+    return bodyElement.element();
   }
 
   /** {@inheritDoc} */

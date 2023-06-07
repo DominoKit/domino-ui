@@ -22,7 +22,7 @@
 // import org.dominokit.domino.ui.datatable.model.FilterTypes;
 // import org.dominokit.domino.ui.datatable.model.SearchContext;
 // import org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin;
-// import org.dominokit.domino.ui.datepicker.DateBox;
+// import org.dominokit.domino.ui.forms.DateBox;
 // import org.dominokit.domino.ui.popover.PopupPosition;
 //
 ///**

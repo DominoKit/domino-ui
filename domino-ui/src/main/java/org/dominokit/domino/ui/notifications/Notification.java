@@ -27,6 +27,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.events.EventType;
@@ -50,6 +51,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
 
   private final DivElement element;
   private final DivElement root;
+  private final DivElement content;
   private final LazyChild<SpanElement> messageSpan;
   private final LazyChild<RemoveButton> closeButton;
 
@@ -57,7 +59,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   private Transition inTransition = Transition.FADE_IN;
   private Transition outTransition = Transition.FADE_OUT;
   private SwapCssClass position = SwapCssClass.of(dui_ntf_top_left);
-  private boolean closable = true;
+  private boolean dismissible = true;
   private boolean infinite = false;
   private boolean closed = true;
   private final List<CloseHandler> closeHandlers = new ArrayList<>();
@@ -66,9 +68,11 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     root =
         div()
             .addCss(dui_notification_wrapper, position)
-            .appendChild(element = div().addCss(dui_notification));
-    messageSpan = LazyChild.of(span(), element);
-    closeButton = LazyChild.of(RemoveButton.create(), element);
+            .appendChild(element = div()
+                    .appendChild(content = div().addCss(dui_order_first))
+                    .addCss(dui_notification));
+    messageSpan = LazyChild.of(span(), content);
+    closeButton = LazyChild.of(RemoveButton.create().addCss(dui_order_last), element);
     closeButton.whenInitialized(
         () -> {
           closeButton.element().addEventListener(EventType.click.getName(), e -> close());
@@ -90,6 +94,15 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     return notification;
   }
 
+  /**
+   * Creates a notification for the message with no specific type and default black bacjground.
+   *
+   * @return {@link Notification}
+   */
+  public static Notification create() {
+    return new Notification();
+  }
+
   @Override
   protected HTMLElement getStyleTarget() {
     return element.element();
@@ -97,7 +110,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
 
   @Override
   protected HTMLElement getAppendTarget() {
-    return element.element();
+    return content.element();
   }
 
   /** @return {@link DominoElement<HTMLButtonElement>} the close button of the notification. */
@@ -110,15 +123,15 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    *
    * @return {@link Notification}
    */
-  public Notification setClosable(boolean closable) {
-    this.closable = closable;
-    closeButton.initOrRemove(closable);
+  public Notification setDismissible(boolean dismissible) {
+    this.dismissible = dismissible;
+    closeButton.initOrRemove(dismissible);
     return this;
   }
 
   /** @return boolean, true if the close button is visible, else false. */
-  public boolean isClosable() {
-    return closable;
+  public boolean isDismissible() {
+    return dismissible;
   }
 
   /**
@@ -128,7 +141,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * @param duration in millisecond
    * @return {@link Notification}
    */
-  public Notification duration(int duration) {
+  public Notification setDuration(int duration) {
     this.duration = duration;
     return this;
   }
@@ -197,6 +210,17 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     return infinite;
   }
 
+  @Override
+  public Notification show(){
+    return expand();
+  }
+
+  @Override
+  public Notification hide() {
+    close();
+    return this;
+  }
+
   /**
    * Show up the notification and apply the IN transtion animation.
    *
@@ -205,7 +229,10 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   public Notification expand() {
     this.closed = false;
     Animation.create(element)
-        .beforeStart(element -> DomGlobal.document.body.appendChild(element()))
+        .beforeStart(element -> {
+          DomGlobal.document.body.appendChild(element());
+          NotificationPosition.updatePositions(position);
+        })
         .transition(inTransition)
         .callback(
             e -> {
@@ -250,6 +277,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
             e2 -> {
               element().remove();
               onComplete.run();
+              NotificationPosition.updatePositions(position);
             })
         .animate();
   }
@@ -282,6 +310,11 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     if (nonNull(closeHandler)) {
       closeHandlers.remove(closeHandler);
     }
+    return this;
+  }
+
+  public Notification withContent(ChildHandler<Notification, DivElement> handler){
+    handler.apply(this, content);
     return this;
   }
 

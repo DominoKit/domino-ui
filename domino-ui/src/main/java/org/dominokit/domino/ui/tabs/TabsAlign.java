@@ -16,17 +16,16 @@
 package org.dominokit.domino.ui.tabs;
 
 import org.dominokit.domino.ui.style.CssClass;
-import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.SpacingCss;
 
 /** An enum to list possible values for tabs align */
 public enum TabsAlign {
   /** Tabs headers will be aligned to the left of the tab panel */
-  LEFT(SpacingCss.dui_justify_start),
+  START(SpacingCss.dui_justify_start),
   /** Tabs headers will be aligned to the center of the tab panel */
   CENTER(SpacingCss.dui_justify_center),
   /** Tabs headers will be aligned to the right of the tab panel */
-  RIGHT(SpacingCss.dui_justify_end);
+  END(SpacingCss.dui_justify_end);
 
   private final CssClass align;
 

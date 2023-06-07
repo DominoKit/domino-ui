@@ -15,6 +15,6 @@ public interface CardConfig extends ComponentConfig {
     }
 
     default Supplier<ToggleIcon<?, ?>> getCardCollapseExpandIcon() {
-        return ()->ToggleMdiIcon.create(Icons.ALL.chevron_up_mdi(), Icons.ALL.chevron_down_mdi());
+        return ()->ToggleMdiIcon.create(Icons.chevron_up(), Icons.chevron_down());
     }
 }

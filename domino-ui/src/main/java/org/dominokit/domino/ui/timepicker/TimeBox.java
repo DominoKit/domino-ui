@@ -26,11 +26,12 @@ import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.forms.InputFormField;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
+import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.popover.Popover;
-import org.dominokit.domino.ui.popover.PopupPosition;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.HasPlaceHolder;
+import org.dominokit.domino.ui.utils.PrimaryAddOn;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
 import java.util.Date;
@@ -49,7 +50,7 @@ public class TimeBox extends InputFormField<TimeBox, HTMLInputElement, Date> imp
     private Popover popover;
     private Dialog modal;
     private EventListener modalListener;
-    private PopupPosition popupPosition = PopupPosition.BOTTOM;
+    private DropDirection popupPosition = DropDirection.BOTTOM_MIDDLE;
 
     private PickerStyle pickerStyle;
     private Date value;
@@ -131,7 +132,7 @@ public class TimeBox extends InputFormField<TimeBox, HTMLInputElement, Date> imp
                 });
         timePicker.addClearHandler(() -> withValue(null));
         setPickerStyle(PickerStyle.MODAL);
-        addPrimaryAddOn(Icons.ALL.clock_mdi().clickable());
+        appendChild(PrimaryAddOn.of(Icons.clock().clickable()));
 
     }
 
@@ -306,9 +307,9 @@ public class TimeBox extends InputFormField<TimeBox, HTMLInputElement, Date> imp
      * @param popoverPosition {@link PopupPosition} if the {@link PickerStyle#POPOVER} is used
      * @return same instance
      */
-    public TimeBox setPopoverPosition(PopupPosition popoverPosition) {
+    public TimeBox setPopoverPosition(DropDirection popoverPosition) {
         this.popupPosition = popoverPosition;
-        if (nonNull(this.popover)) this.popover.position(this.popupPosition);
+        if (nonNull(this.popover)) this.popover.setPosition(this.popupPosition);
         return this;
     }
 

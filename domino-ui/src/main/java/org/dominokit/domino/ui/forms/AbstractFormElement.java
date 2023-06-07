@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.*;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLFieldSetElement;
@@ -38,7 +37,6 @@ import org.dominokit.domino.ui.i18n.FormsLabels;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.EditorError;
-import org.dominokit.domino.ui.IsElement;
 
 public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V>
     extends BaseDominoElement<HTMLFieldSetElement, T> implements FormElement<T, V> , HasComponentConfig<FormsFieldsConfig>, FormsStyles {
@@ -46,19 +44,19 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   protected final FieldSetElement formElement;
   protected final  DivElement bodyElement;
   protected final LazyChild<LabelElement> labelElement;
-  protected final LazyChild<DominoElement<HTMLElement>> requiredElement;
-  protected final  DivElement wrapperElement;
+  protected LazyChild<DominoElement<HTMLElement>> requiredElement;
+  protected final DivElement wrapperElement;
   protected final LazyChild< DivElement> messagesWrapper;
   protected final LazyChild<SpanElement> helperTextElement;
   protected Function<String, SpanElement> errorElementSupplier;
 
-  protected Set<Validator> validators = new LinkedHashSet<>();
+  protected Set<Validator<T>> validators = new LinkedHashSet<>();
   protected AutoValidator autoValidator;
   protected final List<String> errors = new ArrayList<>();
   protected String requiredErrorMessage;
 
   protected final FormsLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
-  protected final RequiredValidator requiredValidator;
+  protected final RequiredValidator<T> requiredValidator;
   protected Set<ChangeListener<? super V>> changeListeners = new LinkedHashSet<>();
   protected Set<ClearListener<? super V>> clearListeners = new LinkedHashSet<>();
   private boolean autoValidate = false;
@@ -70,6 +68,7 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   private boolean emptyAsNull;
 
   protected V defaultValue;
+  private boolean showRequiredIndicator = true;
 
   public AbstractFormElement() {
     formElement =
@@ -85,13 +84,21 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     helperTextElement = LazyChild.of(span().addCss(dui_field_helper), messagesWrapper);
     errorElementSupplier =
         errorMessage -> span().addCss(dui_field_error).setTextContent(errorMessage);
-    requiredElement =
+
+    requiredValidator = new RequiredValidator<>(this);
+    if(getConfig().isFixedLabelSpace()){
+      labelElement.get();
+    }
+    init((T) this);
+    setLabelFloatLeft(getConfig().isFormFieldFloatLabelLeft());
+  }
+
+  protected LazyChild<DominoElement<HTMLElement>> initRequiredIndicator() {
+    return
         LazyChild.of(
             elementOf(getConfig().getRequiredIndicator().get())
                 .addCss(dui_field_required_indicator),
-            labelElement);
-    requiredValidator = new RequiredValidator(this);
-    init((T) this);
+                labelElement);
   }
 
   @Override
@@ -118,19 +125,19 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   }
 
   @Override
-  public <E extends HTMLElement, C extends IsElement<E>> T addLeftAddOn(C addon) {
-    wrapperElement.appendChild(elementOf(addon).addCss(dui_add_on, dui_add_on_left));
+  public T appendChild(PrefixAddOn<?> addon) {
+    wrapperElement.appendChild(elementOf(addon));
     return (T) this;
   }
 
   @Override
-  public <E extends HTMLElement, C extends IsElement<E>> T addRightAddOn(C addon) {
-    wrapperElement.appendChild(elementOf(addon).addCss(dui_add_on, dui_add_on_right));
+  public T appendChild(PostfixAddOn<?> addon) {
+    wrapperElement.appendChild(elementOf(addon));
     return (T) this;
   }
 
   @Override
-  public <E extends HTMLElement, C extends IsElement<E>> T addPrimaryAddOn(C addon) {
+  public T appendChild(PrimaryAddOn<?> addon) {
     wrapperElement.appendChild(elementOf(addon).addCss(dui_add_on, dui_add_on_mandatory));
     return (T) this;
   }
@@ -239,8 +246,13 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     return "";
   }
 
+  public T setLabelFloatLeft(boolean floatLeft){
+    addCss(BooleanCssClass.of(dui_form_label_float_left, floatLeft));
+    return (T) this;
+  }
+
   @Override
-  public ValidationResult validate() {
+  public ValidationResult validate(T formElement) {
     if (!validationsPaused) {
       return doValidate();
     } else {
@@ -249,7 +261,7 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   }
 
   @Override
-  public Set<Validator> getValidators() {
+  public Set<Validator<T>> getValidators() {
     return validators;
   }
 
@@ -263,9 +275,8 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     if (!element.isEnabled()) {
       return ValidationResult.valid();
     }
-    Set<Validator> validators1 = getValidators();
-    for (Validator validator : validators1) {
-      ValidationResult result = validator.isValid();
+    for (Validator<T> validator : getValidators()) {
+      ValidationResult result = validator.isValid((T) this);
       if (!result.isValid()) {
         element.invalidate(result.getErrorMessage());
         return result;
@@ -319,9 +330,26 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   @Override
   public T setRequired(boolean required) {
     this.required = required;
-    requiredElement.initOrRemove(required);
+    getRequiredElement().initOrRemove(isRequired() && isShowRequiredIndicator());
     addOrRemoveValidator(requiredValidator, required);
     return (T) this;
+  }
+
+  public T setShowRequiredIndicator(boolean state){
+    this.showRequiredIndicator = state;
+    getRequiredElement().initOrRemove(isRequired() && isShowRequiredIndicator());
+    return (T) this;
+  }
+
+  private LazyChild<DominoElement<HTMLElement>> getRequiredElement(){
+    if(isNull(requiredElement)){
+      requiredElement = initRequiredIndicator();
+    }
+    return requiredElement;
+  }
+
+  public boolean isShowRequiredIndicator(){
+    return this.showRequiredIndicator;
   }
 
   @Override
@@ -470,43 +498,56 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     return helperTextElement.get();
   }
 
-  public T withBodyElement(ChildHandler<T,  DivElement> handler) {
+  public T withBody(ChildHandler<T,  DivElement> handler) {
     handler.apply((T) this, bodyElement);
     return (T) this;
   }
 
-  public T withLabelElement() {
+  public T withLabel() {
     labelElement.get();
     return (T) this;
   }
 
-  public T withLabelElement(ChildHandler<T, LabelElement> handler) {
+  public T withLabel(ChildHandler<T, LabelElement> handler) {
     handler.apply((T) this, labelElement.get());
     return (T) this;
   }
 
-  public T withWrapperElement(ChildHandler<T,  DivElement> handler) {
+  public T withWrapper(ChildHandler<T,  DivElement> handler) {
     handler.apply((T) this, wrapperElement);
     return (T) this;
   }
 
-  public T withMessagesWrapperElement() {
+  public T withMessagesWrapper() {
     messagesWrapper.get();
     return (T) this;
   }
 
-  public T withMessagesWrapperElement(ChildHandler<T, DivElement> handler) {
+  public T withMessagesWrapper(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, messagesWrapper.get());
     return (T) this;
   }
 
-  public T withHelperTextElement() {
+  public T withHelperText() {
     helperTextElement.get();
     return (T) this;
   }
 
-  public T withHelperTextElement(ChildHandler<T, SpanElement> handler) {
+  public T withHelperText(ChildHandler<T, SpanElement> handler) {
     handler.apply((T) this, helperTextElement.get());
     return (T) this;
   }
+
+  public LazyChild<DominoElement<HTMLElement>> requiredElement() {
+    return requiredElement;
+  }
+
+  public LazyChild<DivElement> messagesWrapper() {
+    return messagesWrapper;
+  }
+
+  public LazyChild<LabelElement> labelElement(){
+    return labelElement;
+  }
+
 }

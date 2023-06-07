@@ -17,6 +17,9 @@ package org.dominokit.domino.ui.style;
 
 public interface GenericCss {
   CssClass dui = () -> "dui";
+
+  CssClass dui_ignore_bg = ()->"dui-ignore-bg";
+  CssClass dui_ignore_fg = ()->"dui-ignore-fg";
   CssClass dui_primary = new ReplaceCssClass(CompositeCssClass.of(
           ()->"dui-info",
           ()->"dui-warning",
@@ -89,14 +92,53 @@ public interface GenericCss {
           ()->"dui-secondary",
           ()->"dui-primary"
   )).replaceWith(()->"dui-error");
+
+  CssClass dui_red = ()->"dui-red";
+  CssClass dui_pink = ()->"dui-pink";
+  CssClass dui_purple = ()->"dui-purple";
+  CssClass dui_deep_purple = ()->"dui-deep-purple";
+  CssClass dui_indigo = ()->"dui-indigo";
+  CssClass dui_blue = ()->"dui-blue";
+  CssClass dui_light_blue = ()->"dui-light-blue";
+  CssClass dui_cyan = ()->"dui-cyan";
+  CssClass dui_teal = ()->"dui-teal";
+  CssClass dui_green = ()->"dui-green";
+  CssClass dui_light_green = ()->"dui-light-green";
+  CssClass dui_lime = ()->"dui-lime";
+  CssClass dui_yellow = ()->"dui-yellow";
+  CssClass dui_amber = ()->"dui-amber";
+  CssClass dui_orange = ()->"dui-orange";
+  CssClass dui_deep_orange = ()->"dui-deep-orange";
+  CssClass dui_brown = ()->"dui-brown";
+  CssClass dui_grey = ()->"dui-grey";
+  CssClass dui_blue_grey = ()->"dui-blue-grey";
+  CssClass dui_white = ()->"dui-white";
+  CssClass dui_black = ()->"dui-black";
+  CssClass dui_transparent = ()->"dui-transparent";
+
+  CssClass dui_bg = () -> "dui-bg";
+  CssClass dui_bg_l_5 = () -> "dui-bg-l-5";
+  CssClass dui_bg_l_4 = () -> "dui-bg-l-4";
+  CssClass dui_bg_l_3 = () -> "dui-bg-l-3";
+  CssClass dui_bg_l_2 = () -> "dui-bg-l-2";
+  CssClass dui_bg_l_1 = () -> "dui-bg-l-1";
+  CssClass dui_bg_d_1 = () -> "dui-bg-d-1";
+  CssClass dui_bg_d_2 = () -> "dui-bg-d-2";
+  CssClass dui_bg_d_3 = () -> "dui-bg-d-3";
+  CssClass dui_bg_d_4 = () -> "dui-bg-d-4";
+  CssClass dui_fg = () -> "dui-fg";
   CssClass dui_clickable = () -> "dui-clickable";
   CssClass dui_disabled = ()-> "dui-disabled";
   CssClass dui_active = () -> "dui-active";
+  CssClass dui_hide_empty = () -> "dui-hide-empty";
+  CssClass dui_hover_disabled = () -> "dui-hover-disabled";
   CssClass dui_transition_none = () -> "dui-transition-none";
-  CssClass dui_horizontal = () -> "dui-horizontal";
-  CssClass dui_vertical = () -> "dui-vertical";
-  CssClass dui_postfix = () -> "dui-postfix-addon";
-  CssClass dui_prefix = () -> "dui-prefix-addon";
+  CssClass dui_horizontal = ReplaceCssClass.of(() -> "dui-vertical").replaceWith(()->"dui-horizontal");
+  CssClass dui_vertical = ReplaceCssClass.of(() -> "dui-horizontal").replaceWith(()->"dui-vertical");
+  CssClass dui_postfix_addon = () -> "dui-postfix-addon";
+  CssClass dui_subheader_addon = () -> "dui-subheader-addon";
+  CssClass dui_primary_addon = () -> "dui-primary-addon";
+  CssClass dui_prefix_addon = () -> "dui-prefix-addon";
   /** The css to add the stripes effect */
   CssClass dui_separator = () -> "dui-separator";
   CssClass dui_striped = ()->"dui-striped";
@@ -148,7 +190,12 @@ public interface GenericCss {
   CssClass dui_vertical_center = () -> "dui-vertical-center";
   CssClass dui_horizontal_center = () -> "dui-horizontal-center";
 
+  CssClass dui_left = ()-> "dui-left";
+  CssClass dui_right = ()-> "dui-right";
+  CssClass dui_center = ()-> "dui-center";
+
   CssClass dui_close = () -> "dui-close";
+  CssClass dui_close_char = () -> "dui-close-char";
 
   CssClass dui_selected = () -> "dui-selected";
 

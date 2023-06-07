@@ -22,8 +22,8 @@
  import org.dominokit.domino.ui.datatable.model.FilterTypes;
  import org.dominokit.domino.ui.datatable.model.SearchContext;
  import org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin;
- import org.dominokit.domino.ui.forms.Select;
- import org.dominokit.domino.ui.forms.SelectOption;
+ import org.dominokit.domino.ui.forms.suggest.Select;
+ import org.dominokit.domino.ui.forms.suggest.SelectOption;
 
 /**
  * A Single option select column header filter component that is rendered as a {@link Select}

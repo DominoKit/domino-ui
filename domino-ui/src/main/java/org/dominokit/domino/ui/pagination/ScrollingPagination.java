@@ -87,8 +87,8 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         this.pagesCount = pages;
         this.pageSize = pageSize;
         this.windowSize = windowSize;
-        pagesList.insertFirst(prevSet = PagerNavItem.nav(Icons.ALL.page_first_mdi()).collapse());
-        pagesList.appendChild(nextSet = PagerNavItem.nav(Icons.ALL.page_last_mdi()).collapse());
+        pagesList.insertFirst(prevSet = PagerNavItem.nav(Icons.page_first()).collapse());
+        pagesList.appendChild(nextSet = PagerNavItem.nav(Icons.page_last()).collapse());
 
         prevPage.getLink()
                 .addClickListener(evt -> moveToPage(index - 1, isChangeListenersPaused()))

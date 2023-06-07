@@ -20,13 +20,24 @@ import static org.dominokit.domino.ui.forms.FormsStyles.*;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLTextAreaElement;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.tabs.FillItem;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.FillerElement;
+import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.utils.PostfixAddOn;
+import org.dominokit.domino.ui.utils.PrefixAddOn;
+import org.dominokit.domino.ui.utils.PrimaryAddOn;
 
 public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAreaElement, String> {
 
   private EventListener autosizeListener = evt -> adjustHeight();
   private int rows;
   private boolean autoSize = false;
+
+  private DivElement header;
+  private LazyChild<FillerElement> headerFiller;
 
   public static TextAreaBox create() {
     return new TextAreaBox();
@@ -39,7 +50,9 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
   public TextAreaBox() {
     setRows(4);
     addCss(dui_form_text_area);
-    wrapperElement.appendChild(div().addCss(dui_form_text_area_gap));
+    wrapperElement
+            .appendChild(header = div().addCss(dui_form_text_area_header, dui_hide_empty, dui_flex, dui_items_center, dui_order_first));
+    headerFiller = LazyChild.of(FillerElement.create().addCss(dui_order_30), header);
     onAttached(mutationRecord -> adjustHeight());
     setDefaultValue("");
     getInputElement().setAttribute("data-scroll", "0");
@@ -50,6 +63,31 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
                 getInputElement()
                     .element()
                     .setAttribute("data-scroll", getInputElement().element().scrollTop));
+  }
+
+  @Override
+  protected LazyChild<SpanElement> initCounterElement() {
+    headerFiller.get();
+    return counterElement = LazyChild.of(span().addCss(du_field_counter), header);
+  }
+
+  @Override
+  public TextAreaBox appendChild(PrefixAddOn<?> addon) {
+    header.appendChild(addon);
+    return this;
+  }
+
+  @Override
+  public TextAreaBox appendChild(PrimaryAddOn<?> addon) {
+    header.appendChild(addon);
+    return this;
+  }
+
+  @Override
+  public TextAreaBox appendChild(PostfixAddOn<?> addon) {
+    headerFiller.get();
+    header.appendChild(addon);
+    return this;
   }
 
   public TextAreaBox(String label) {
@@ -74,7 +112,9 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
 
   @Override
   protected DominoElement<HTMLTextAreaElement> createInputElement(String type) {
-    return textarea().addCss(dui_field_input).toDominoElement();
+    return textarea().addCss(dui_field_input)
+            .setCssProperty("line-height","26px")
+            .toDominoElement();
   }
 
   /** {@inheritDoc} */
@@ -96,7 +136,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
    */
   public TextAreaBox autoSize() {
     getInputElement().addEventListener("input", autosizeListener);
-    getInputElement().style().setOverFlow("hidden");
+    getInputElement().style().setOverFlowY("hidden");
     updateRows(1);
     this.autoSize = true;
     return this;
@@ -110,7 +150,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
    */
   public TextAreaBox fixedSize() {
     getInputElement().removeEventListener("input", autosizeListener);
-    getInputElement().style().setOverFlow("");
+    getInputElement().style().setOverFlowY("");
     setRows(rows);
     this.autoSize = false;
     return this;
@@ -120,7 +160,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
     getInputElement().style().setHeight("auto");
     int scrollHeight = getInputElement().element().scrollHeight;
     if (scrollHeight < 30) {
-      scrollHeight = 22;
+      scrollHeight = 28;
     }
     if (autoSize) {
       getInputElement().style().setHeight(scrollHeight + "px");

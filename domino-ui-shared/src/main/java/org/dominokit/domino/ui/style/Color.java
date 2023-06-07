@@ -15,5764 +15,10618 @@
  */
 package org.dominokit.domino.ui.style;
 
-import org.dominokit.domino.ui.themes.Theme;
+
+import static org.dominokit.domino.ui.style.ColorsCss.*;
+import static org.dominokit.domino.ui.style.GenericCss.*;
 
 public interface Color {
 
-  String getStyle();
+    CssClass getCssClass();
 
-  String getName();
+    String getName();
 
-  String getHex();
+    CssClass getBackground();
 
-  String getBackground();
+    CssClass getForeground();
 
-  Color RED =
-      new Color() {
+    CssClass getBorderColor();
+
+    CssClass getAccentColor();
+
+    Color DOMINANT = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_dominant;
+        }
+
+        @Override
+        public String getName() {
+            return "DOMINANT";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_dominant;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_dominant;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_dominant;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_dominant;
+        }
+
+    };
+
+    Color DOMINANT_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_dominant;
+        }
+
+        @Override
+        public String getName() {
+            return "DOMINANT_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_dominant_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_dominant_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_dominant;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_dominant;
+        }
+
+    };
+
+    Color DOMINANT_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_dominant;
+        }
+
+        @Override
+        public String getName() {
+            return "DOMINANT_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_dominant_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_dominant_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_dominant;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_dominant;
+        }
+
+    };
+
+    Color DOMINANT_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_dominant;
+        }
+
+        @Override
+        public String getName() {
+            return "DOMINANT_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_dominant_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_dominant_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_dominant;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_dominant;
+        }
+
+    };
+
+    Color DOMINANT_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_dominant;
+        }
+
+        @Override
+        public String getName() {
+            return "DOMINANT_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_dominant_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_dominant_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_dominant;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_dominant;
+        }
+
+    };
+
+    Color DOMINANT_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_dominant;
+        }
+
+        @Override
+        public String getName() {
+            return "DOMINANT_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_dominant_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_dominant_l_5;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_dominant;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_dominant;
+        }
+
+    };
+
+
+    Color DOMINANT_DARKEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_dominant;
+        }
+
+        @Override
+        public String getName() {
+            return "DOMINANT_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_dominant_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_dominant_d_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_dominant;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_dominant;
+        }
+
+    };
+
+    Color DOMINANT_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_dominant;
+        }
+
+        @Override
+        public String getName() {
+            return "DOMINANT_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_dominant_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_dominant_d_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_dominant;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_dominant;
+        }
+
+    };
+
+    Color DOMINANT_DARKEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_dominant;
+        }
+
+        @Override
+        public String getName() {
+            return "DOMINANT_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_dominant_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_dominant_d_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_dominant;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_dominant;
+        }
+
+    };
+
+    Color DOMINANT_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_dominant;
+        }
+
+        @Override
+        public String getName() {
+            return "DOMINANT_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_dominant_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_dominant_d_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_dominant;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_dominant;
+        }
+
+    };
+
+    Color ACCENT = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_accent;
+        }
+
+        @Override
+        public String getName() {
+            return "ACCENT";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_accent;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_accent;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_accent;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_accent;
+        }
+
+    };
+
+    Color ACCENT_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_accent;
+        }
+
+        @Override
+        public String getName() {
+            return "ACCENT_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_accent_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_accent_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_accent;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_accent;
+        }
+
+    };
+
+    Color ACCENT_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_accent;
+        }
+
+        @Override
+        public String getName() {
+            return "ACCENT_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_accent_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_accent_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_accent;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_accent;
+        }
+
+    };
+
+    Color ACCENT_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_accent;
+        }
+
+        @Override
+        public String getName() {
+            return "ACCENT_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_accent_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_accent_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_accent;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_accent;
+        }
+
+    };
+
+    Color ACCENT_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_accent;
+        }
+
+        @Override
+        public String getName() {
+            return "ACCENT_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_accent_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_accent_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_accent;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_accent;
+        }
+
+    };
+
+    Color ACCENT_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_accent;
+        }
+
+        @Override
+        public String getName() {
+            return "ACCENT_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_accent_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_accent_l_5;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_accent;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_accent;
+        }
+
+    };
+
+
+    Color ACCENT_DARKEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_accent;
+        }
+
+        @Override
+        public String getName() {
+            return "ACCENT_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_accent_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_accent_d_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_accent;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_accent;
+        }
+
+    };
+
+    Color ACCENT_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_accent;
+        }
+
+        @Override
+        public String getName() {
+            return "ACCENT_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_accent_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_accent_d_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_accent;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_accent;
+        }
+
+    };
+
+    Color ACCENT_DARKEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_accent;
+        }
+
+        @Override
+        public String getName() {
+            return "ACCENT_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_accent_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_accent_d_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_accent;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_accent;
+        }
+
+    };
+
+    Color ACCENT_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_accent;
+        }
+
+        @Override
+        public String getName() {
+            return "ACCENT_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_accent_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_accent_d_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_accent;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_accent;
+        }
+
+    };
+
+    Color PRIMARY = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_primary;
+        }
+
+        @Override
+        public String getName() {
+            return "PRIMARY";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_primary;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_primary;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_primary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_primary;
+        }
+
+    };
+
+    Color PRIMARY_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_primary;
+        }
+
+        @Override
+        public String getName() {
+            return "PRIMARY_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_primary_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_primary_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_primary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_primary;
+        }
+
+    };
+
+    Color PRIMARY_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_primary;
+        }
+
+        @Override
+        public String getName() {
+            return "PRIMARY_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_primary_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_primary_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_primary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_primary;
+        }
+
+    };
+
+    Color PRIMARY_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_primary;
+        }
+
+        @Override
+        public String getName() {
+            return "PRIMARY_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_primary_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_primary_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_primary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_primary;
+        }
+
+    };
+
+    Color PRIMARY_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_primary;
+        }
+
+        @Override
+        public String getName() {
+            return "PRIMARY_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_primary_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_primary_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_primary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_primary;
+        }
+
+    };
+
+    Color PRIMARY_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_primary;
+        }
+
+        @Override
+        public String getName() {
+            return "PRIMARY_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_primary_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_primary_l_5;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_primary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_primary;
+        }
+
+    };
+
+
+    Color PRIMARY_DARKEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_primary;
+        }
+
+        @Override
+        public String getName() {
+            return "PRIMARY_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_primary_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_primary_d_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_primary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_primary;
+        }
+
+    };
+
+    Color PRIMARY_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_primary;
+        }
+
+        @Override
+        public String getName() {
+            return "PRIMARY_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_primary_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_primary_d_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_primary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_primary;
+        }
+
+    };
+
+    Color PRIMARY_DARKEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_primary;
+        }
+
+        @Override
+        public String getName() {
+            return "PRIMARY_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_primary_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_primary_d_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_primary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_primary;
+        }
+
+    };
+
+    Color PRIMARY_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_primary;
+        }
+
+        @Override
+        public String getName() {
+            return "PRIMARY_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_primary_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_primary_d_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_primary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_primary;
+        }
+
+    };
+
+    Color SECONDARY = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_secondary;
+        }
+
+        @Override
+        public String getName() {
+            return "SECONDARY";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_secondary;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_secondary;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_secondary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_secondary;
+        }
+
+    };
+
+    Color SECONDARY_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_secondary;
+        }
+
+        @Override
+        public String getName() {
+            return "SECONDARY_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_secondary_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_secondary_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_secondary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_secondary;
+        }
+
+    };
+
+    Color SECONDARY_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_secondary;
+        }
+
+        @Override
+        public String getName() {
+            return "SECONDARY_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_secondary_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_secondary_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_secondary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_secondary;
+        }
+
+    };
+
+    Color SECONDARY_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_secondary;
+        }
+
+        @Override
+        public String getName() {
+            return "SECONDARY_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_secondary_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_secondary_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_secondary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_secondary;
+        }
+
+    };
+
+    Color SECONDARY_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_secondary;
+        }
+
+        @Override
+        public String getName() {
+            return "SECONDARY_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_secondary_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_secondary_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_secondary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_secondary;
+        }
+
+    };
+
+    Color SECONDARY_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_secondary;
+        }
+
+        @Override
+        public String getName() {
+            return "SECONDARY_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_secondary_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_secondary_l_5;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_secondary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_secondary;
+        }
+
+    };
+
+
+    Color SECONDARY_DARKEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_secondary;
+        }
+
+        @Override
+        public String getName() {
+            return "SECONDARY_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_secondary_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_secondary_d_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_secondary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_secondary;
+        }
+
+    };
+
+    Color SECONDARY_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_secondary;
+        }
+
+        @Override
+        public String getName() {
+            return "SECONDARY_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_secondary_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_secondary_d_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_secondary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_secondary;
+        }
+
+    };
+
+    Color SECONDARY_DARKEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_secondary;
+        }
+
+        @Override
+        public String getName() {
+            return "SECONDARY_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_secondary_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_secondary_d_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_secondary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_secondary;
+        }
+
+    };
+
+    Color SECONDARY_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_secondary;
+        }
+
+        @Override
+        public String getName() {
+            return "SECONDARY_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_secondary_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_secondary_d_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_secondary;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_secondary;
+        }
+
+    };
+
+    Color SUCCESS = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_success;
+        }
+
+        @Override
+        public String getName() {
+            return "SUCCESS";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_success;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_success;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_success;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_success;
+        }
+
+    };
+
+    Color SUCCESS_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_success;
+        }
+
+        @Override
+        public String getName() {
+            return "SUCCESS_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_success_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_success_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_success;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_success;
+        }
+
+    };
+
+    Color SUCCESS_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_success;
+        }
+
+        @Override
+        public String getName() {
+            return "SUCCESS_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_success_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_success_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_success;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_success;
+        }
+
+    };
+
+    Color SUCCESS_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_success;
+        }
+
+        @Override
+        public String getName() {
+            return "SUCCESS_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_success_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_success_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_success;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_success;
+        }
+
+    };
+
+    Color SUCCESS_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_success;
+        }
+
+        @Override
+        public String getName() {
+            return "SUCCESS_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_success_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_success_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_success;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_success;
+        }
+
+    };
+
+    Color SUCCESS_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_success;
+        }
+
+        @Override
+        public String getName() {
+            return "SUCCESS_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_success_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_success_l_5;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_success;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_success;
+        }
+
+    };
+
+
+    Color SUCCESS_DARKEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_success;
+        }
+
+        @Override
+        public String getName() {
+            return "SUCCESS_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_success_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_success_d_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_success;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_success;
+        }
+
+    };
+
+    Color SUCCESS_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_success;
+        }
+
+        @Override
+        public String getName() {
+            return "SUCCESS_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_success_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_success_d_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_success;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_success;
+        }
+
+    };
+
+    Color SUCCESS_DARKEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_success;
+        }
+
+        @Override
+        public String getName() {
+            return "SUCCESS_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_success_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_success_d_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_success;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_success;
+        }
+
+    };
+
+    Color SUCCESS_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_success;
+        }
+
+        @Override
+        public String getName() {
+            return "SUCCESS_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_success_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_success_d_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_success;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_success;
+        }
+
+    };
+
+    Color WARNING = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_warning;
+        }
+
+        @Override
+        public String getName() {
+            return "WARNING";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_warning;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_warning;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_warning;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_warning;
+        }
+
+    };
+
+    Color WARNING_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_warning;
+        }
+
+        @Override
+        public String getName() {
+            return "WARNING_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_warning_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_warning_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_warning;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_warning;
+        }
+
+    };
+
+    Color WARNING_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_warning;
+        }
+
+        @Override
+        public String getName() {
+            return "WARNING_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_warning_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_warning_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_warning;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_warning;
+        }
+
+    };
+
+    Color WARNING_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_warning;
+        }
+
+        @Override
+        public String getName() {
+            return "WARNING_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_warning_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_warning_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_warning;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_warning;
+        }
+
+    };
+
+    Color WARNING_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_warning;
+        }
+
+        @Override
+        public String getName() {
+            return "WARNING_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_warning_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_warning_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_warning;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_warning;
+        }
+
+    };
+
+    Color WARNING_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_warning;
+        }
+
+        @Override
+        public String getName() {
+            return "WARNING_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_warning_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_warning_l_5;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_warning;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_warning;
+        }
+
+    };
+
+
+    Color WARNING_DARKEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_warning;
+        }
+
+        @Override
+        public String getName() {
+            return "WARNING_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_warning_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_warning_d_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_warning;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_warning;
+        }
+
+    };
+
+    Color WARNING_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_warning;
+        }
+
+        @Override
+        public String getName() {
+            return "WARNING_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_warning_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_warning_d_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_warning;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_warning;
+        }
+
+    };
+
+    Color WARNING_DARKEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_warning;
+        }
+
+        @Override
+        public String getName() {
+            return "WARNING_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_warning_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_warning_d_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_warning;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_warning;
+        }
+
+    };
+
+    Color WARNING_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_warning;
+        }
+
+        @Override
+        public String getName() {
+            return "WARNING_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_warning_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_warning_d_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_warning;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_warning;
+        }
+
+    };
+
+    Color INFO = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_info;
+        }
+
+        @Override
+        public String getName() {
+            return "INFO";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_info;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_info;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_info;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_info;
+        }
+
+    };
+
+    Color INFO_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_info;
+        }
+
+        @Override
+        public String getName() {
+            return "INFO_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_info_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_info_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_info;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_info;
+        }
+
+    };
+
+    Color INFO_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_info;
+        }
+
+        @Override
+        public String getName() {
+            return "INFO_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_info_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_info_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_info;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_info;
+        }
+
+    };
+
+    Color INFO_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_info;
+        }
+
+        @Override
+        public String getName() {
+            return "INFO_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_info_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_info_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_info;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_info;
+        }
+
+    };
+
+    Color INFO_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_info;
+        }
+
+        @Override
+        public String getName() {
+            return "INFO_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_info_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_info_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_info;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_info;
+        }
+
+    };
+
+    Color INFO_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_info;
+        }
+
+        @Override
+        public String getName() {
+            return "INFO_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_info_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_info_l_5;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_info;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_info;
+        }
+
+    };
+
+
+    Color INFO_DARKEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_info;
+        }
+
+        @Override
+        public String getName() {
+            return "INFO_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_info_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_info_d_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_info;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_info;
+        }
+
+    };
+
+    Color INFO_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_info;
+        }
+
+        @Override
+        public String getName() {
+            return "INFO_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_info_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_info_d_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_info;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_info;
+        }
+
+    };
+
+    Color INFO_DARKEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_info;
+        }
+
+        @Override
+        public String getName() {
+            return "INFO_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_info_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_info_d_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_info;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_info;
+        }
+
+    };
+
+    Color INFO_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_info;
+        }
+
+        @Override
+        public String getName() {
+            return "INFO_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_info_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_info_d_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_info;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_info;
+        }
+
+    };
+
+    Color ERROR = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_error;
+        }
+
+        @Override
+        public String getName() {
+            return "ERROR";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_error;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_error;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_error;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_error;
+        }
+
+    };
+
+    Color ERROR_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_error;
+        }
+
+        @Override
+        public String getName() {
+            return "ERROR_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_error_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_error_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_error;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_error;
+        }
+
+    };
+
+    Color ERROR_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_error;
+        }
+
+        @Override
+        public String getName() {
+            return "ERROR_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_error_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_error_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_error;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_error;
+        }
+
+    };
+
+    Color ERROR_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_error;
+        }
+
+        @Override
+        public String getName() {
+            return "ERROR_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_error_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_error_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_error;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_error;
+        }
+
+    };
+
+    Color ERROR_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_error;
+        }
+
+        @Override
+        public String getName() {
+            return "ERROR_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_error_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_error_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_error;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_error;
+        }
+
+    };
+
+    Color ERROR_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_error;
+        }
+
+        @Override
+        public String getName() {
+            return "ERROR_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_error_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_error_l_5;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_error;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_error;
+        }
+
+    };
+
+
+    Color ERROR_DARKEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_error;
+        }
+
+        @Override
+        public String getName() {
+            return "ERROR_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_error_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_error_d_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_error;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_error;
+        }
+
+    };
+
+    Color ERROR_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_error;
+        }
+
+        @Override
+        public String getName() {
+            return "ERROR_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_error_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_error_d_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_error;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_error;
+        }
+
+    };
+
+    Color ERROR_DARKEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_error;
+        }
+
+        @Override
+        public String getName() {
+            return "ERROR_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_error_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_error_d_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_error;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_error;
+        }
+
+    };
+
+    Color ERROR_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_error;
+        }
+
+        @Override
+        public String getName() {
+            return "ERROR_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_error_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_error_d_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_error;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_error;
+        }
+
+    };
+
+    Color RED = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_red;
+        }
+
+        @Override
+        public String getName() {
+            return "RED";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_red;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_red;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_red;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_red;
+        }
+
+    };
+
+    Color RED_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_red;
+        }
+
+        @Override
+        public String getName() {
+            return "RED_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_red_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_red_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_red;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_red;
+        }
+
+    };
+
+    Color RED_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_red;
+        }
+
+        @Override
+        public String getName() {
+            return "RED_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_red_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_red_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_red;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_red;
+        }
+
+    };
+
+    Color RED_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_red;
+        }
+
+        @Override
+        public String getName() {
+            return "RED_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_red_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_red_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_red;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_red;
+        }
+
+    };
+
+    Color RED_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_red;
+        }
+
+        @Override
+        public String getName() {
+            return "RED_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_red_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_red_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_red;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_red;
+        }
+
+    };
+
+    Color RED_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_red;
+        }
+
+        @Override
+        public String getName() {
+            return "RED_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_red_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_red_l_5;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_red;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_red;
+        }
+
+    };
+
+
+    Color RED_DARKEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_red;
+        }
+
+        @Override
+        public String getName() {
+            return "RED_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_red_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_red_d_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_red;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_red;
+        }
+
+    };
+
+    Color RED_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_red;
+        }
+
+        @Override
+        public String getName() {
+            return "RED_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_red_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_red_d_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_red;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_red;
+        }
+
+    };
+
+    Color RED_DARKEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_red;
+        }
+
+        @Override
+        public String getName() {
+            return "RED_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_red_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_red_d_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_red;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_red;
+        }
+
+    };
+
+    Color RED_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_red;
+        }
+
+        @Override
+        public String getName() {
+            return "RED_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_red_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_red_d_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_red;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_red;
+        }
+
+    };
+
+    Color PINK = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_pink;
+        }
+
+        @Override
+        public String getName() {
+            return "PINK";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_pink;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_pink;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_pink;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_pink;
+        }
+
+    };
+
+    Color PINK_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_pink;
+        }
+
+        @Override
+        public String getName() {
+            return "PINK_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_pink_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_pink_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_pink;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_pink;
+        }
+
+    };
+
+    Color PINK_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_pink;
+        }
+
+        @Override
+        public String getName() {
+            return "PINK_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_pink_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_pink_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_pink;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_pink;
+        }
+
+    };
+
+    Color PINK_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_pink;
+        }
+
+        @Override
+        public String getName() {
+            return "PINK_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_pink_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_pink_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_pink;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_pink;
+        }
+
+    };
+
+    Color PINK_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_pink;
+        }
+
+        @Override
+        public String getName() {
+            return "PINK_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_pink_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_pink_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_pink;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_pink;
+        }
+
+    };
+
+    Color PINK_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_pink;
+        }
+
+        @Override
+        public String getName() {
+            return "PINK_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_pink_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_pink_l_5;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_pink;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_pink;
+        }
+
+    };
+
+
+    Color PINK_DARKEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_pink;
+        }
+
+        @Override
+        public String getName() {
+            return "PINK_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_pink_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_pink_d_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_pink;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_pink;
+        }
+
+    };
+
+    Color PINK_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_pink;
+        }
+
+        @Override
+        public String getName() {
+            return "PINK_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_pink_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_pink_d_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_pink;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_pink;
+        }
+
+    };
+
+    Color PINK_DARKEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_pink;
+        }
+
+        @Override
+        public String getName() {
+            return "PINK_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_pink_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_pink_d_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_pink;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_pink;
+        }
+
+    };
+
+    Color PINK_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_pink;
+        }
+
+        @Override
+        public String getName() {
+            return "PINK_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_pink_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_pink_d_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_pink;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_pink;
+        }
+
+    };
+
+    Color PURPLE = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "PURPLE";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_purple;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_purple;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_purple;
+        }
+
+    };
+
+    Color PURPLE_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "PURPLE_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_purple_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_purple_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_purple;
+        }
+
+    };
+
+    Color PURPLE_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "PURPLE_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_purple_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_purple_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_purple;
+        }
+
+    };
+
+    Color PURPLE_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "PURPLE_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_purple_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_purple_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_purple;
+        }
+
+    };
+
+    Color PURPLE_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "PURPLE_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_purple_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_purple_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_purple;
+        }
+
+    };
+
+    Color PURPLE_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "PURPLE_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_purple_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_purple_l_5;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_purple;
+        }
+
+    };
+
+
+    Color PURPLE_DARKEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "PURPLE_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_purple_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_purple_d_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_purple;
+        }
+
+    };
+
+    Color PURPLE_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "PURPLE_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_purple_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_purple_d_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_purple;
+        }
+
+    };
+
+    Color PURPLE_DARKEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "PURPLE_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_purple_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_purple_d_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_purple;
+        }
+
+    };
+
+    Color PURPLE_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "PURPLE_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_purple_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_purple_d_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_purple;
+        }
+
+    };
+
+    Color DEEP_PURPLE = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_deep_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "DEEP_PURPLE";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_deep_purple;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_deep_purple;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_deep_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_deep_purple;
+        }
+
+    };
+
+    Color DEEP_PURPLE_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_deep_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "DEEP_PURPLE_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_deep_purple_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_deep_purple_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_deep_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_deep_purple;
+        }
+
+    };
+
+    Color DEEP_PURPLE_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_deep_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "DEEP_PURPLE_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_deep_purple_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_deep_purple_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_deep_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_deep_purple;
+        }
+
+    };
+
+    Color DEEP_PURPLE_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_deep_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "DEEP_PURPLE_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_deep_purple_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_deep_purple_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_deep_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_deep_purple;
+        }
+
+    };
+
+    Color DEEP_PURPLE_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_deep_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "DEEP_PURPLE_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_deep_purple_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_deep_purple_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_deep_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_deep_purple;
+        }
+
+    };
+
+    Color DEEP_PURPLE_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_deep_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "DEEP_PURPLE_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_deep_purple_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_deep_purple_l_5;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_deep_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_deep_purple;
+        }
+
+    };
+
+
+    Color DEEP_PURPLE_DARKEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_deep_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "DEEP_PURPLE_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_deep_purple_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_deep_purple_d_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_deep_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_deep_purple;
+        }
+
+    };
+
+    Color DEEP_PURPLE_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_deep_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "DEEP_PURPLE_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_deep_purple_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_deep_purple_d_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_deep_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_deep_purple;
+        }
+
+    };
+
+    Color DEEP_PURPLE_DARKEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_deep_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "DEEP_PURPLE_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_deep_purple_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_deep_purple_d_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_deep_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_deep_purple;
+        }
+
+    };
+
+    Color DEEP_PURPLE_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_deep_purple;
+        }
+
+        @Override
+        public String getName() {
+            return "DEEP_PURPLE_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_deep_purple_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_deep_purple_d_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_deep_purple;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_deep_purple;
+        }
+
+    };
+
+    Color INDIGO = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_indigo;
+        }
+
+        @Override
+        public String getName() {
+            return "INDIGO";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_indigo;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_indigo;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_indigo;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_indigo;
+        }
+
+    };
+
+    Color INDIGO_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_indigo;
+        }
+
+        @Override
+        public String getName() {
+            return "INDIGO_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_indigo_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_indigo_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_indigo;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_indigo;
+        }
+
+    };
+
+    Color INDIGO_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_indigo;
+        }
+
+        @Override
+        public String getName() {
+            return "INDIGO_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_indigo_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_indigo_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_indigo;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_indigo;
+        }
+
+    };
+
+    Color INDIGO_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_indigo;
+        }
+
+        @Override
+        public String getName() {
+            return "INDIGO_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_indigo_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_indigo_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_indigo;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_indigo;
+        }
+
+    };
+
+    Color INDIGO_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_indigo;
+        }
+
+        @Override
+        public String getName() {
+            return "INDIGO_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_indigo_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_indigo_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_indigo;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_indigo;
+        }
+
+    };
+
+    Color INDIGO_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_indigo;
+        }
+
+        @Override
+        public String getName() {
+            return "INDIGO_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_indigo_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_indigo_l_5;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_indigo;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_indigo;
+        }
+
+    };
+
+
+    Color INDIGO_DARKEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_indigo;
+        }
+
+        @Override
+        public String getName() {
+            return "INDIGO_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_indigo_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_indigo_d_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_indigo;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_indigo;
+        }
+
+    };
+
+    Color INDIGO_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_indigo;
+        }
+
+        @Override
+        public String getName() {
+            return "INDIGO_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_indigo_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_indigo_d_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_indigo;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_indigo;
+        }
+
+    };
+
+    Color INDIGO_DARKEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_indigo;
+        }
+
+        @Override
+        public String getName() {
+            return "INDIGO_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_indigo_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_indigo_d_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_indigo;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_indigo;
+        }
+
+    };
+
+    Color INDIGO_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_indigo;
+        }
+
+        @Override
+        public String getName() {
+            return "INDIGO_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_indigo_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_indigo_d_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_indigo;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_indigo;
+        }
+
+    };
+
+    Color BLUE = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "BLUE";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_blue;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_blue;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_blue;
+        }
+
+    };
+
+    Color BLUE_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "BLUE_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_blue_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_blue_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_blue;
+        }
+
+    };
+
+    Color BLUE_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "BLUE_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_blue_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_blue_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_blue;
+        }
+
+    };
+
+    Color BLUE_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "BLUE_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_blue_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_blue_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_blue;
+        }
+
+    };
+
+    Color BLUE_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "BLUE_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_blue_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_blue_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_blue;
+        }
+
+    };
+
+    Color BLUE_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "BLUE_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_blue_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_blue_l_5;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_blue;
+        }
+
+    };
+
+
+    Color BLUE_DARKEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "BLUE_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_blue_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_blue_d_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_blue;
+        }
+
+    };
+
+    Color BLUE_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "BLUE_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_blue_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_blue_d_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_blue;
+        }
+
+    };
+
+    Color BLUE_DARKEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "BLUE_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_blue_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_blue_d_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_blue;
+        }
+
+    };
+
+    Color BLUE_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "BLUE_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_blue_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_blue_d_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_blue;
+        }
+
+    };
+
+    Color LIGHT_BLUE = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_light_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "LIGHT_BLUE";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_light_blue;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_light_blue;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_light_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_light_blue;
+        }
+
+    };
+
+    Color LIGHT_BLUE_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_light_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "LIGHT_BLUE_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_light_blue_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_light_blue_l_1;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_light_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_light_blue;
+        }
+
+    };
+
+    Color LIGHT_BLUE_LIGHTEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_light_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "LIGHT_BLUE_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_light_blue_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_light_blue_l_2;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_light_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_light_blue;
+        }
+
+    };
+
+    Color LIGHT_BLUE_LIGHTEN_3 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_light_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "LIGHT_BLUE_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_light_blue_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_light_blue_l_3;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_light_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_light_blue;
+        }
+
+    };
+
+    Color LIGHT_BLUE_LIGHTEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_light_blue;
+        }
+
+        @Override
+        public String getName() {
+            return "LIGHT_BLUE_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_light_blue_l_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_light_blue_l_4;
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_light_blue;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_light_blue;
+        }
+
+    };
+
+    Color LIGHT_BLUE_LIGHTEN_5 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-red";
+        public CssClass getCssClass() {
+            return dui_light_blue;
         }
 
         @Override
         public String getName() {
-          return "RED";
+            return "LIGHT_BLUE_LIGHTEN_5";
         }
 
         @Override
-        public String getHex() {
-          return "#F44336";
+        public CssClass getBackground() {
+            return dui_bg_light_blue_l_5;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-red";
+        public CssClass getForeground() {
+            return dui_fg_light_blue_l_5;
         }
-      };
 
-  Color RED_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-red";
+        public CssClass getBorderColor() {
+            return dui_border_light_blue;
         }
 
         @Override
-        public String getName() {
-          return "RED LIGHTEN 1";
+        public CssClass getAccentColor() {
+            return dui_accent_light_blue;
         }
+
+    };
+
 
+    Color LIGHT_BLUE_DARKEN_1 = new Color() {
         @Override
-        public String getHex() {
-          return "#ef5350";
+        public CssClass getCssClass() {
+            return dui_light_blue;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-red";
+        public String getName() {
+            return "LIGHT_BLUE_DARKEN_1";
         }
-      };
 
-  Color RED_LIGHTEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-red";
+        public CssClass getBackground() {
+            return dui_bg_light_blue_d_1;
         }
 
         @Override
-        public String getName() {
-          return "RED LIGHTEN 2";
+        public CssClass getForeground() {
+            return dui_fg_light_blue_d_1;
         }
 
         @Override
-        public String getHex() {
-          return "#e57373";
+        public CssClass getBorderColor() {
+            return dui_border_light_blue;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-red";
+        public CssClass getAccentColor() {
+            return dui_accent_light_blue;
         }
-      };
 
-  Color RED_LIGHTEN_3 =
-      new Color() {
+    };
+
+    Color LIGHT_BLUE_DARKEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-red";
+        public CssClass getCssClass() {
+            return dui_light_blue;
         }
 
         @Override
         public String getName() {
-          return "RED LIGHTEN 3";
+            return "LIGHT_BLUE_DARKEN_2";
         }
 
         @Override
-        public String getHex() {
-          return "#ef9a9a";
+        public CssClass getBackground() {
+            return dui_bg_light_blue_d_2;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-red";
+        public CssClass getForeground() {
+            return dui_fg_light_blue_d_2;
         }
-      };
 
-  Color RED_LIGHTEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-red";
+        public CssClass getBorderColor() {
+            return dui_border_light_blue;
         }
 
         @Override
-        public String getName() {
-          return "RED LIGHTEN 4";
+        public CssClass getAccentColor() {
+            return dui_accent_light_blue;
         }
 
+    };
+
+    Color LIGHT_BLUE_DARKEN_3 = new Color() {
         @Override
-        public String getHex() {
-          return "#ffcdd2";
+        public CssClass getCssClass() {
+            return dui_light_blue;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-red";
+        public String getName() {
+            return "LIGHT_BLUE_DARKEN_3";
         }
-      };
 
-  Color RED_LIGHTEN_5 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-red";
+        public CssClass getBackground() {
+            return dui_bg_light_blue_d_3;
         }
 
         @Override
-        public String getName() {
-          return "RED LIGHTEN 5";
+        public CssClass getForeground() {
+            return dui_fg_light_blue_d_3;
         }
 
         @Override
-        public String getHex() {
-          return "#ffebee";
+        public CssClass getBorderColor() {
+            return dui_border_light_blue;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-red";
+        public CssClass getAccentColor() {
+            return dui_accent_light_blue;
         }
-      };
+
+    };
 
-  Color RED_DARKEN_1 =
-      new Color() {
+    Color LIGHT_BLUE_DARKEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-red";
+        public CssClass getCssClass() {
+            return dui_light_blue;
         }
 
         @Override
         public String getName() {
-          return "RED DARKEN 1";
+            return "LIGHT_BLUE_DARKEN_4";
         }
 
         @Override
-        public String getHex() {
-          return "#e53935";
+        public CssClass getBackground() {
+            return dui_bg_light_blue_d_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-red";
+        public CssClass getForeground() {
+            return dui_fg_light_blue_d_4;
         }
-      };
 
-  Color RED_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-red";
+        public CssClass getBorderColor() {
+            return dui_border_light_blue;
         }
 
         @Override
-        public String getName() {
-          return "RED DARKEN 2";
+        public CssClass getAccentColor() {
+            return dui_accent_light_blue;
         }
+
+    };
 
+    Color CYAN = new Color() {
         @Override
-        public String getHex() {
-          return "#d32f2f";
+        public CssClass getCssClass() {
+            return dui_cyan;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-red";
+        public String getName() {
+            return "CYAN";
         }
-      };
 
-  Color RED_DARKEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-red";
+        public CssClass getBackground() {
+            return dui_bg_cyan;
         }
 
         @Override
-        public String getName() {
-          return "RED DARKEN 3";
+        public CssClass getForeground() {
+            return dui_fg_cyan;
         }
 
         @Override
-        public String getHex() {
-          return "#c62828";
+        public CssClass getBorderColor() {
+            return dui_border_cyan;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-red";
+        public CssClass getAccentColor() {
+            return dui_accent_cyan;
         }
-      };
 
-  Color RED_DARKEN_4 =
-      new Color() {
+    };
+
+    Color CYAN_LIGHTEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-red";
+        public CssClass getCssClass() {
+            return dui_cyan;
         }
 
         @Override
         public String getName() {
-          return "RED DARKEN 4";
+            return "CYAN_LIGHTEN_1";
         }
 
         @Override
-        public String getHex() {
-          return "#b71c1c";
+        public CssClass getBackground() {
+            return dui_bg_cyan_l_1;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-red";
+        public CssClass getForeground() {
+            return dui_fg_cyan_l_1;
         }
-      };
 
-  Color PINK =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-pink";
+        public CssClass getBorderColor() {
+            return dui_border_cyan;
         }
 
         @Override
-        public String getName() {
-          return "PINK";
+        public CssClass getAccentColor() {
+            return dui_accent_cyan;
         }
 
+    };
+
+    Color CYAN_LIGHTEN_2 = new Color() {
         @Override
-        public String getHex() {
-          return "#E91E63";
+        public CssClass getCssClass() {
+            return dui_cyan;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-pink";
+        public String getName() {
+            return "CYAN_LIGHTEN_2";
         }
-      };
 
-  Color PINK_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-pink";
+        public CssClass getBackground() {
+            return dui_bg_cyan_l_2;
         }
 
         @Override
-        public String getName() {
-          return "PINK LIGHTEN 1";
+        public CssClass getForeground() {
+            return dui_fg_cyan_l_2;
         }
 
         @Override
-        public String getHex() {
-          return "#ec407a";
+        public CssClass getBorderColor() {
+            return dui_border_cyan;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-pink";
+        public CssClass getAccentColor() {
+            return dui_accent_cyan;
         }
-      };
+
+    };
 
-  Color PINK_LIGHTEN_2 =
-      new Color() {
+    Color CYAN_LIGHTEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-pink";
+        public CssClass getCssClass() {
+            return dui_cyan;
         }
 
         @Override
         public String getName() {
-          return "PINK LIGHTEN 2";
+            return "CYAN_LIGHTEN_3";
         }
 
         @Override
-        public String getHex() {
-          return "#f06292";
+        public CssClass getBackground() {
+            return dui_bg_cyan_l_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-pink";
+        public CssClass getForeground() {
+            return dui_fg_cyan_l_3;
         }
-      };
 
-  Color PINK_LIGHTEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-pink";
+        public CssClass getBorderColor() {
+            return dui_border_cyan;
         }
 
         @Override
-        public String getName() {
-          return "PINK LIGHTEN 3";
+        public CssClass getAccentColor() {
+            return dui_accent_cyan;
         }
+
+    };
 
+    Color CYAN_LIGHTEN_4 = new Color() {
         @Override
-        public String getHex() {
-          return "#f48fb1";
+        public CssClass getCssClass() {
+            return dui_cyan;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-pink";
+        public String getName() {
+            return "CYAN_LIGHTEN_4";
         }
-      };
 
-  Color PINK_LIGHTEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-pink";
+        public CssClass getBackground() {
+            return dui_bg_cyan_l_4;
         }
 
         @Override
-        public String getName() {
-          return "PINK LIGHTEN 4";
+        public CssClass getForeground() {
+            return dui_fg_cyan_l_4;
         }
 
         @Override
-        public String getHex() {
-          return "#f8bbd0";
+        public CssClass getBorderColor() {
+            return dui_border_cyan;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-pink";
+        public CssClass getAccentColor() {
+            return dui_accent_cyan;
         }
-      };
 
-  Color PINK_LIGHTEN_5 =
-      new Color() {
+    };
+
+    Color CYAN_LIGHTEN_5 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-pink";
+        public CssClass getCssClass() {
+            return dui_cyan;
         }
 
         @Override
         public String getName() {
-          return "PINK LIGHTEN 5";
+            return "CYAN_LIGHTEN_5";
         }
 
         @Override
-        public String getHex() {
-          return "#fce4ec";
+        public CssClass getBackground() {
+            return dui_bg_cyan_l_5;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-pink";
+        public CssClass getForeground() {
+            return dui_fg_cyan_l_5;
         }
-      };
 
-  Color PINK_DARKEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-pink";
+        public CssClass getBorderColor() {
+            return dui_border_cyan;
         }
 
         @Override
-        public String getName() {
-          return "PINK DARKEN 1";
+        public CssClass getAccentColor() {
+            return dui_accent_cyan;
         }
 
+    };
+
+
+    Color CYAN_DARKEN_1 = new Color() {
         @Override
-        public String getHex() {
-          return "#d81b60";
+        public CssClass getCssClass() {
+            return dui_cyan;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-pink";
+        public String getName() {
+            return "CYAN_DARKEN_1";
         }
-      };
 
-  Color PINK_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-pink";
+        public CssClass getBackground() {
+            return dui_bg_cyan_d_1;
         }
 
         @Override
-        public String getName() {
-          return "PINK DARKEN 2";
+        public CssClass getForeground() {
+            return dui_fg_cyan_d_1;
         }
 
         @Override
-        public String getHex() {
-          return "#c2185b";
+        public CssClass getBorderColor() {
+            return dui_border_cyan;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-pink";
+        public CssClass getAccentColor() {
+            return dui_accent_cyan;
         }
-      };
 
-  Color PINK_DARKEN_3 =
-      new Color() {
+    };
+
+    Color CYAN_DARKEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-pink";
+        public CssClass getCssClass() {
+            return dui_cyan;
         }
 
         @Override
         public String getName() {
-          return "PINK DARKEN 3";
+            return "CYAN_DARKEN_2";
         }
 
         @Override
-        public String getHex() {
-          return "#ad1457";
+        public CssClass getBackground() {
+            return dui_bg_cyan_d_2;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-pink";
+        public CssClass getForeground() {
+            return dui_fg_cyan_d_2;
         }
-      };
 
-  Color PINK_DARKEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-pink";
+        public CssClass getBorderColor() {
+            return dui_border_cyan;
         }
 
         @Override
-        public String getName() {
-          return "PINK DARKEN 4";
+        public CssClass getAccentColor() {
+            return dui_accent_cyan;
         }
 
+    };
+
+    Color CYAN_DARKEN_3 = new Color() {
         @Override
-        public String getHex() {
-          return "#880e4f";
+        public CssClass getCssClass() {
+            return dui_cyan;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-pink";
+        public String getName() {
+            return "CYAN_DARKEN_3";
         }
-      };
 
-  Color PURPLE =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-purple";
+        public CssClass getBackground() {
+            return dui_bg_cyan_d_3;
         }
 
         @Override
-        public String getName() {
-          return "PURPLE";
+        public CssClass getForeground() {
+            return dui_fg_cyan_d_3;
         }
 
         @Override
-        public String getHex() {
-          return "#9C27B0";
+        public CssClass getBorderColor() {
+            return dui_border_cyan;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-purple";
+        public CssClass getAccentColor() {
+            return dui_accent_cyan;
         }
-      };
+
+    };
 
-  Color PURPLE_LIGHTEN_1 =
-      new Color() {
+    Color CYAN_DARKEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-purple";
+        public CssClass getCssClass() {
+            return dui_cyan;
         }
 
         @Override
         public String getName() {
-          return "PURPLE LIGHTEN 1";
+            return "CYAN_DARKEN_4";
         }
 
         @Override
-        public String getHex() {
-          return "#ab47bc";
+        public CssClass getBackground() {
+            return dui_bg_cyan_d_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-purple";
+        public CssClass getForeground() {
+            return dui_fg_cyan_d_4;
         }
-      };
 
-  Color PURPLE_LIGHTEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-purple";
+        public CssClass getBorderColor() {
+            return dui_border_cyan;
         }
 
         @Override
-        public String getName() {
-          return "PURPLE LIGHTEN 2";
+        public CssClass getAccentColor() {
+            return dui_accent_cyan;
         }
+
+    };
 
+    Color TEAL = new Color() {
         @Override
-        public String getHex() {
-          return "#ba68c8";
+        public CssClass getCssClass() {
+            return dui_teal;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-purple";
+        public String getName() {
+            return "TEAL";
         }
-      };
 
-  Color PURPLE_LIGHTEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-purple";
+        public CssClass getBackground() {
+            return dui_bg_teal;
         }
 
         @Override
-        public String getName() {
-          return "PURPLE LIGHTEN 3";
+        public CssClass getForeground() {
+            return dui_fg_teal;
         }
 
         @Override
-        public String getHex() {
-          return "#ce93d8";
+        public CssClass getBorderColor() {
+            return dui_border_teal;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-purple";
+        public CssClass getAccentColor() {
+            return dui_accent_teal;
         }
-      };
 
-  Color PURPLE_LIGHTEN_4 =
-      new Color() {
+    };
+
+    Color TEAL_LIGHTEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-purple";
+        public CssClass getCssClass() {
+            return dui_teal;
         }
 
         @Override
         public String getName() {
-          return "PURPLE LIGHTEN 4";
+            return "TEAL_LIGHTEN_1";
         }
 
         @Override
-        public String getHex() {
-          return "#e1bee7";
+        public CssClass getBackground() {
+            return dui_bg_teal_l_1;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-purple";
+        public CssClass getForeground() {
+            return dui_fg_teal_l_1;
         }
-      };
 
-  Color PURPLE_LIGHTEN_5 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-purple";
+        public CssClass getBorderColor() {
+            return dui_border_teal;
         }
 
         @Override
-        public String getName() {
-          return "PURPLE LIGHTEN 5";
+        public CssClass getAccentColor() {
+            return dui_accent_teal;
         }
 
+    };
+
+    Color TEAL_LIGHTEN_2 = new Color() {
         @Override
-        public String getHex() {
-          return "#f3e5f5";
+        public CssClass getCssClass() {
+            return dui_teal;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-purple";
+        public String getName() {
+            return "TEAL_LIGHTEN_2";
         }
-      };
 
-  Color PURPLE_DARKEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-purple";
+        public CssClass getBackground() {
+            return dui_bg_teal_l_2;
         }
 
         @Override
-        public String getName() {
-          return "PURPLE DARKEN 1";
+        public CssClass getForeground() {
+            return dui_fg_teal_l_2;
         }
 
         @Override
-        public String getHex() {
-          return "#8e24aa";
+        public CssClass getBorderColor() {
+            return dui_border_teal;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-purple";
+        public CssClass getAccentColor() {
+            return dui_accent_teal;
         }
-      };
+
+    };
 
-  Color PURPLE_DARKEN_2 =
-      new Color() {
+    Color TEAL_LIGHTEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-purple";
+        public CssClass getCssClass() {
+            return dui_teal;
         }
 
         @Override
         public String getName() {
-          return "PURPLE DARKEN 2";
+            return "TEAL_LIGHTEN_3";
         }
 
         @Override
-        public String getHex() {
-          return "#7b1fa2";
+        public CssClass getBackground() {
+            return dui_bg_teal_l_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-purple";
+        public CssClass getForeground() {
+            return dui_fg_teal_l_3;
         }
-      };
 
-  Color PURPLE_DARKEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-purple";
+        public CssClass getBorderColor() {
+            return dui_border_teal;
         }
 
         @Override
-        public String getName() {
-          return "PURPLE DARKEN 3";
+        public CssClass getAccentColor() {
+            return dui_accent_teal;
         }
+
+    };
 
+    Color TEAL_LIGHTEN_4 = new Color() {
         @Override
-        public String getHex() {
-          return "#6a1b9a";
+        public CssClass getCssClass() {
+            return dui_teal;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-purple";
+        public String getName() {
+            return "TEAL_LIGHTEN_4";
         }
-      };
 
-  Color PURPLE_DARKEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-purple";
+        public CssClass getBackground() {
+            return dui_bg_teal_l_4;
         }
 
         @Override
-        public String getName() {
-          return "PURPLE DARKEN 4";
+        public CssClass getForeground() {
+            return dui_fg_teal_l_4;
         }
 
         @Override
-        public String getHex() {
-          return "#4a148c";
+        public CssClass getBorderColor() {
+            return dui_border_teal;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-purple";
+        public CssClass getAccentColor() {
+            return dui_accent_teal;
         }
-      };
 
-  Color DEEP_PURPLE =
-      new Color() {
+    };
+
+    Color TEAL_LIGHTEN_5 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-deep-purple";
+        public CssClass getCssClass() {
+            return dui_teal;
         }
 
         @Override
         public String getName() {
-          return "DEEP PURPLE";
+            return "TEAL_LIGHTEN_5";
         }
 
         @Override
-        public String getHex() {
-          return "#673AB7";
+        public CssClass getBackground() {
+            return dui_bg_teal_l_5;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-deep-purple";
+        public CssClass getForeground() {
+            return dui_fg_teal_l_5;
         }
-      };
 
-  Color DEEP_PURPLE_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-deep-purple";
+        public CssClass getBorderColor() {
+            return dui_border_teal;
         }
 
         @Override
-        public String getName() {
-          return "DEEP PURPLE LIGHTEN 1";
+        public CssClass getAccentColor() {
+            return dui_accent_teal;
         }
+
+    };
+
 
+    Color TEAL_DARKEN_1 = new Color() {
         @Override
-        public String getHex() {
-          return "#7e57c2";
+        public CssClass getCssClass() {
+            return dui_teal;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-deep-purple";
+        public String getName() {
+            return "TEAL_DARKEN_1";
         }
-      };
 
-  Color DEEP_PURPLE_LIGHTEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-deep-purple";
+        public CssClass getBackground() {
+            return dui_bg_teal_d_1;
         }
 
         @Override
-        public String getName() {
-          return "DEEP PURPLE LIGHTEN 2";
+        public CssClass getForeground() {
+            return dui_fg_teal_d_1;
         }
 
         @Override
-        public String getHex() {
-          return "#9575cd";
+        public CssClass getBorderColor() {
+            return dui_border_teal;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-deep-purple";
+        public CssClass getAccentColor() {
+            return dui_accent_teal;
         }
-      };
 
-  Color DEEP_PURPLE_LIGHTEN_3 =
-      new Color() {
+    };
+
+    Color TEAL_DARKEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-deep-purple";
+        public CssClass getCssClass() {
+            return dui_teal;
         }
 
         @Override
         public String getName() {
-          return "DEEP PURPLE LIGHTEN 3";
+            return "TEAL_DARKEN_2";
         }
 
         @Override
-        public String getHex() {
-          return "#b39ddb";
+        public CssClass getBackground() {
+            return dui_bg_teal_d_2;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-deep-purple";
+        public CssClass getForeground() {
+            return dui_fg_teal_d_2;
         }
-      };
 
-  Color DEEP_PURPLE_LIGHTEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-deep-purple";
+        public CssClass getBorderColor() {
+            return dui_border_teal;
         }
 
         @Override
-        public String getName() {
-          return "DEEP PURPLE LIGHTEN 4";
+        public CssClass getAccentColor() {
+            return dui_accent_teal;
         }
 
+    };
+
+    Color TEAL_DARKEN_3 = new Color() {
         @Override
-        public String getHex() {
-          return "#d1c4e9";
+        public CssClass getCssClass() {
+            return dui_teal;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-deep-purple";
+        public String getName() {
+            return "TEAL_DARKEN_3";
         }
-      };
 
-  Color DEEP_PURPLE_LIGHTEN_5 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-deep-purple";
+        public CssClass getBackground() {
+            return dui_bg_teal_d_3;
         }
 
         @Override
-        public String getName() {
-          return "DEEP PURPLE LIGHTEN 5";
+        public CssClass getForeground() {
+            return dui_fg_teal_d_3;
         }
 
         @Override
-        public String getHex() {
-          return "#ede7f6";
+        public CssClass getBorderColor() {
+            return dui_border_teal;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-deep-purple";
+        public CssClass getAccentColor() {
+            return dui_accent_teal;
         }
-      };
+
+    };
 
-  Color DEEP_PURPLE_DARKEN_1 =
-      new Color() {
+    Color TEAL_DARKEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-deep-purple";
+        public CssClass getCssClass() {
+            return dui_teal;
         }
 
         @Override
         public String getName() {
-          return "DEEP PURPLE DARKEN 1";
+            return "TEAL_DARKEN_4";
         }
 
         @Override
-        public String getHex() {
-          return "#5e35b1";
+        public CssClass getBackground() {
+            return dui_bg_teal_d_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-deep-purple";
+        public CssClass getForeground() {
+            return dui_fg_teal_d_4;
         }
-      };
 
-  Color DEEP_PURPLE_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-deep-purple";
+        public CssClass getBorderColor() {
+            return dui_border_teal;
         }
 
         @Override
-        public String getName() {
-          return "DEEP PURPLE DARKEN 2";
+        public CssClass getAccentColor() {
+            return dui_accent_teal;
         }
+
+    };
 
+    Color GREEN = new Color() {
         @Override
-        public String getHex() {
-          return "#512da8";
+        public CssClass getCssClass() {
+            return dui_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-deep-purple";
+        public String getName() {
+            return "GREEN";
         }
-      };
 
-  Color DEEP_PURPLE_DARKEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-deep-purple";
+        public CssClass getBackground() {
+            return dui_bg_green;
         }
 
         @Override
-        public String getName() {
-          return "DEEP PURPLE DARKEN 3";
+        public CssClass getForeground() {
+            return dui_fg_green;
         }
 
         @Override
-        public String getHex() {
-          return "#4527a0";
+        public CssClass getBorderColor() {
+            return dui_border_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-deep-purple";
+        public CssClass getAccentColor() {
+            return dui_accent_green;
         }
-      };
 
-  Color DEEP_PURPLE_DARKEN_4 =
-      new Color() {
+    };
+
+    Color GREEN_LIGHTEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-deep-purple";
+        public CssClass getCssClass() {
+            return dui_green;
         }
 
         @Override
         public String getName() {
-          return "DEEP PURPLE DARKEN 4";
+            return "GREEN_LIGHTEN_1";
         }
 
         @Override
-        public String getHex() {
-          return "#311b92";
+        public CssClass getBackground() {
+            return dui_bg_green_l_1;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-deep-purple";
+        public CssClass getForeground() {
+            return dui_fg_green_l_1;
         }
-      };
 
-  Color INDIGO =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-indigo";
+        public CssClass getBorderColor() {
+            return dui_border_green;
         }
 
         @Override
-        public String getName() {
-          return "INDIGO";
+        public CssClass getAccentColor() {
+            return dui_accent_green;
         }
 
+    };
+
+    Color GREEN_LIGHTEN_2 = new Color() {
         @Override
-        public String getHex() {
-          return "#3F51B5";
+        public CssClass getCssClass() {
+            return dui_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-indigo";
+        public String getName() {
+            return "GREEN_LIGHTEN_2";
         }
-      };
 
-  Color INDIGO_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-indigo";
+        public CssClass getBackground() {
+            return dui_bg_green_l_2;
         }
 
         @Override
-        public String getName() {
-          return "INDIGO LIGHTEN 1";
+        public CssClass getForeground() {
+            return dui_fg_green_l_2;
         }
 
         @Override
-        public String getHex() {
-          return "#5c6bc0";
+        public CssClass getBorderColor() {
+            return dui_border_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-indigo";
+        public CssClass getAccentColor() {
+            return dui_accent_green;
         }
-      };
+
+    };
 
-  Color INDIGO_LIGHTEN_2 =
-      new Color() {
+    Color GREEN_LIGHTEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-indigo";
+        public CssClass getCssClass() {
+            return dui_green;
         }
 
         @Override
         public String getName() {
-          return "INDIGO LIGHTEN 2";
+            return "GREEN_LIGHTEN_3";
         }
 
         @Override
-        public String getHex() {
-          return "#7986cb";
+        public CssClass getBackground() {
+            return dui_bg_green_l_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-indigo";
+        public CssClass getForeground() {
+            return dui_fg_green_l_3;
         }
-      };
 
-  Color INDIGO_LIGHTEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-indigo";
+        public CssClass getBorderColor() {
+            return dui_border_green;
         }
 
         @Override
-        public String getName() {
-          return "INDIGO LIGHTEN 3";
+        public CssClass getAccentColor() {
+            return dui_accent_green;
         }
+
+    };
 
+    Color GREEN_LIGHTEN_4 = new Color() {
         @Override
-        public String getHex() {
-          return "#9fa8da";
+        public CssClass getCssClass() {
+            return dui_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-indigo";
+        public String getName() {
+            return "GREEN_LIGHTEN_4";
         }
-      };
 
-  Color INDIGO_LIGHTEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-indigo";
+        public CssClass getBackground() {
+            return dui_bg_green_l_4;
         }
 
         @Override
-        public String getName() {
-          return "INDIGO LIGHTEN 4";
+        public CssClass getForeground() {
+            return dui_fg_green_l_4;
         }
 
         @Override
-        public String getHex() {
-          return "#c5cae9";
+        public CssClass getBorderColor() {
+            return dui_border_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-indigo";
+        public CssClass getAccentColor() {
+            return dui_accent_green;
         }
-      };
 
-  Color INDIGO_LIGHTEN_5 =
-      new Color() {
+    };
+
+    Color GREEN_LIGHTEN_5 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-indigo";
+        public CssClass getCssClass() {
+            return dui_green;
         }
 
         @Override
         public String getName() {
-          return "INDIGO LIGHTEN 5";
+            return "GREEN_LIGHTEN_5";
         }
 
         @Override
-        public String getHex() {
-          return "#e8eaf6";
+        public CssClass getBackground() {
+            return dui_bg_green_l_5;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-indigo";
+        public CssClass getForeground() {
+            return dui_fg_green_l_5;
         }
-      };
 
-  Color INDIGO_DARKEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-indigo";
+        public CssClass getBorderColor() {
+            return dui_border_green;
         }
 
         @Override
-        public String getName() {
-          return "INDIGO DARKEN 1";
+        public CssClass getAccentColor() {
+            return dui_accent_green;
         }
 
+    };
+
+
+    Color GREEN_DARKEN_1 = new Color() {
         @Override
-        public String getHex() {
-          return "#3949ab";
+        public CssClass getCssClass() {
+            return dui_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-indigo";
+        public String getName() {
+            return "GREEN_DARKEN_1";
         }
-      };
 
-  Color INDIGO_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-indigo";
+        public CssClass getBackground() {
+            return dui_bg_green_d_1;
         }
 
         @Override
-        public String getName() {
-          return "INDIGO DARKEN 2";
+        public CssClass getForeground() {
+            return dui_fg_green_d_1;
         }
 
         @Override
-        public String getHex() {
-          return "#303f9f";
+        public CssClass getBorderColor() {
+            return dui_border_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-indigo";
+        public CssClass getAccentColor() {
+            return dui_accent_green;
         }
-      };
 
-  Color INDIGO_DARKEN_3 =
-      new Color() {
+    };
+
+    Color GREEN_DARKEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-indigo";
+        public CssClass getCssClass() {
+            return dui_green;
         }
 
         @Override
         public String getName() {
-          return "INDIGO DARKEN 3";
+            return "GREEN_DARKEN_2";
         }
 
         @Override
-        public String getHex() {
-          return "#283593";
+        public CssClass getBackground() {
+            return dui_bg_green_d_2;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-indigo";
+        public CssClass getForeground() {
+            return dui_fg_green_d_2;
         }
-      };
 
-  Color INDIGO_DARKEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-indigo";
+        public CssClass getBorderColor() {
+            return dui_border_green;
         }
 
         @Override
-        public String getName() {
-          return "INDIGO DARKEN 4";
+        public CssClass getAccentColor() {
+            return dui_accent_green;
         }
 
+    };
+
+    Color GREEN_DARKEN_3 = new Color() {
         @Override
-        public String getHex() {
-          return "#1a237e";
+        public CssClass getCssClass() {
+            return dui_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-indigo";
+        public String getName() {
+            return "GREEN_DARKEN_3";
         }
-      };
 
-  Color BLUE =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-blue";
+        public CssClass getBackground() {
+            return dui_bg_green_d_3;
         }
 
         @Override
-        public String getName() {
-          return "BLUE";
+        public CssClass getForeground() {
+            return dui_fg_green_d_3;
         }
 
         @Override
-        public String getHex() {
-          return "#2196F3";
+        public CssClass getBorderColor() {
+            return dui_border_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_green;
         }
-      };
+
+    };
 
-  Color BLUE_LIGHTEN_1 =
-      new Color() {
+    Color GREEN_DARKEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-blue";
+        public CssClass getCssClass() {
+            return dui_green;
         }
 
         @Override
         public String getName() {
-          return "BLUE LIGHTEN 1";
+            return "GREEN_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_green_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_green_d_4;
         }
 
         @Override
-        public String getHex() {
-          return "#42a5f5";
+        public CssClass getBorderColor() {
+            return dui_border_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_green;
         }
-      };
 
-  Color BLUE_LIGHTEN_2 =
-      new Color() {
+    };
+
+    Color LIGHT_GREEN = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-blue";
+        public CssClass getCssClass() {
+            return dui_light_green;
         }
 
         @Override
         public String getName() {
-          return "BLUE LIGHTEN 2";
+            return "LIGHT_GREEN";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_light_green;
         }
 
         @Override
-        public String getHex() {
-          return "#64b5f6";
+        public CssClass getForeground() {
+            return dui_fg_light_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-blue";
+        public CssClass getBorderColor() {
+            return dui_border_light_green;
         }
-      };
 
-  Color BLUE_LIGHTEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_light_green;
         }
 
+    };
+
+    Color LIGHT_GREEN_LIGHTEN_1 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_light_green;
+        }
+
         @Override
         public String getName() {
-          return "BLUE LIGHTEN 3";
+            return "LIGHT_GREEN_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_light_green_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_light_green_l_1;
         }
 
         @Override
-        public String getHex() {
-          return "#90caf9";
+        public CssClass getBorderColor() {
+            return dui_border_light_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_light_green;
         }
-      };
 
-  Color BLUE_LIGHTEN_4 =
-      new Color() {
+    };
+
+    Color LIGHT_GREEN_LIGHTEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-blue";
+        public CssClass getCssClass() {
+            return dui_light_green;
         }
 
         @Override
         public String getName() {
-          return "BLUE LIGHTEN 4";
+            return "LIGHT_GREEN_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_light_green_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_light_green_l_2;
         }
 
         @Override
-        public String getHex() {
-          return "#bbdefb";
+        public CssClass getBorderColor() {
+            return dui_border_light_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_light_green;
         }
-      };
+
+    };
 
-  Color BLUE_LIGHTEN_5 =
-      new Color() {
+    Color LIGHT_GREEN_LIGHTEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-blue";
+        public CssClass getCssClass() {
+            return dui_light_green;
         }
 
         @Override
         public String getName() {
-          return "BLUE LIGHTEN 5";
+            return "LIGHT_GREEN_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_light_green_l_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_light_green_l_3;
         }
 
         @Override
-        public String getHex() {
-          return "#e3f2fd";
+        public CssClass getBorderColor() {
+            return dui_border_light_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_light_green;
         }
-      };
 
-  Color BLUE_DARKEN_1 =
-      new Color() {
+    };
+
+    Color LIGHT_GREEN_LIGHTEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-blue";
+        public CssClass getCssClass() {
+            return dui_light_green;
         }
 
         @Override
         public String getName() {
-          return "BLUE DARKEN 1";
+            return "LIGHT_GREEN_LIGHTEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_light_green_l_4;
         }
 
         @Override
-        public String getHex() {
-          return "#1e88e5";
+        public CssClass getForeground() {
+            return dui_fg_light_green_l_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-blue";
+        public CssClass getBorderColor() {
+            return dui_border_light_green;
         }
-      };
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_light_green;
+        }
+
+    };
 
-  Color BLUE_DARKEN_2 =
-      new Color() {
+    Color LIGHT_GREEN_LIGHTEN_5 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-blue";
+        public CssClass getCssClass() {
+            return dui_light_green;
         }
 
         @Override
         public String getName() {
-          return "BLUE DARKEN 2";
+            return "LIGHT_GREEN_LIGHTEN_5";
         }
 
         @Override
-        public String getHex() {
-          return "#1976d2";
+        public CssClass getBackground() {
+            return dui_bg_light_green_l_5;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-blue";
+        public CssClass getForeground() {
+            return dui_fg_light_green_l_5;
         }
-      };
+
+        @Override
+        public CssClass getBorderColor() {
+            return dui_border_light_green;
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_light_green;
+        }
+
+    };
+
 
-  Color BLUE_DARKEN_3 =
-      new Color() {
+    Color LIGHT_GREEN_DARKEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-blue";
+        public CssClass getCssClass() {
+            return dui_light_green;
         }
 
         @Override
         public String getName() {
-          return "BLUE DARKEN 3";
+            return "LIGHT_GREEN_DARKEN_1";
         }
 
         @Override
-        public String getHex() {
-          return "#1565c0";
+        public CssClass getBackground() {
+            return dui_bg_light_green_d_1;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-blue";
+        public CssClass getForeground() {
+            return dui_fg_light_green_d_1;
         }
-      };
 
-  Color BLUE_DARKEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-blue";
+        public CssClass getBorderColor() {
+            return dui_border_light_green;
         }
 
         @Override
+        public CssClass getAccentColor() {
+            return dui_accent_light_green;
+        }
+
+    };
+
+    Color LIGHT_GREEN_DARKEN_2 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_light_green;
+        }
+
+        @Override
         public String getName() {
-          return "BLUE DARKEN 4";
+            return "LIGHT_GREEN_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_light_green_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_light_green_d_2;
         }
 
         @Override
-        public String getHex() {
-          return "#0d47a1";
+        public CssClass getBorderColor() {
+            return dui_border_light_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_light_green;
         }
-      };
+
+    };
 
-  Color LIGHT_BLUE =
-      new Color() {
+    Color LIGHT_GREEN_DARKEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-light-blue";
+        public CssClass getCssClass() {
+            return dui_light_green;
         }
 
         @Override
         public String getName() {
-          return "LIGHT BLUE";
+            return "LIGHT_GREEN_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_light_green_d_3;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_light_green_d_3;
         }
 
         @Override
-        public String getHex() {
-          return "#03A9F4";
+        public CssClass getBorderColor() {
+            return dui_border_light_green;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_light_green;
         }
-      };
 
-  Color LIGHT_BLUE_LIGHTEN_1 =
-      new Color() {
+    };
+
+    Color LIGHT_GREEN_DARKEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-light-blue";
+        public CssClass getCssClass() {
+            return dui_light_green;
         }
 
         @Override
         public String getName() {
-          return "LIGHT BLUE LIGHTEN 1";
+            return "LIGHT_GREEN_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_light_green_d_4;
         }
 
         @Override
-        public String getHex() {
-          return "#29b6f6";
+        public CssClass getForeground() {
+            return dui_fg_light_green_d_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-light-blue";
+        public CssClass getBorderColor() {
+            return dui_border_light_green;
         }
-      };
 
-  Color LIGHT_BLUE_LIGHTEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-light-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_light_green;
         }
 
+    };
+
+    Color LIME = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_lime;
+        }
+
         @Override
         public String getName() {
-          return "LIGHT BLUE LIGHTEN 2";
+            return "LIME";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_lime;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_lime;
         }
 
         @Override
-        public String getHex() {
-          return "#4fc3f7";
+        public CssClass getBorderColor() {
+            return dui_border_lime;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-light-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_lime;
         }
-      };
 
-  Color LIGHT_BLUE_LIGHTEN_3 =
-      new Color() {
+    };
+
+    Color LIME_LIGHTEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-light-blue";
+        public CssClass getCssClass() {
+            return dui_lime;
         }
 
         @Override
         public String getName() {
-          return "LIGHT BLUE LIGHTEN 3";
+            return "LIME_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_lime_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_lime_l_1;
         }
 
         @Override
-        public String getHex() {
-          return "#81d4fa";
+        public CssClass getBorderColor() {
+            return dui_border_lime;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-light-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_lime;
         }
-      };
+
+    };
 
-  Color LIGHT_BLUE_LIGHTEN_4 =
-      new Color() {
+    Color LIME_LIGHTEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-light-blue";
+        public CssClass getCssClass() {
+            return dui_lime;
         }
 
         @Override
         public String getName() {
-          return "LIGHT BLUE LIGHTEN 4";
+            return "LIME_LIGHTEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_lime_l_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_lime_l_2;
         }
 
         @Override
-        public String getHex() {
-          return "#b3e5fc";
+        public CssClass getBorderColor() {
+            return dui_border_lime;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-light-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_lime;
         }
-      };
 
-  Color LIGHT_BLUE_LIGHTEN_5 =
-      new Color() {
+    };
+
+    Color LIME_LIGHTEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-light-blue";
+        public CssClass getCssClass() {
+            return dui_lime;
         }
 
         @Override
         public String getName() {
-          return "LIGHT BLUE LIGHTEN 5";
+            return "LIME_LIGHTEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_lime_l_3;
         }
 
         @Override
-        public String getHex() {
-          return "#e1f5fe";
+        public CssClass getForeground() {
+            return dui_fg_lime_l_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-light-blue";
+        public CssClass getBorderColor() {
+            return dui_border_lime;
         }
-      };
+
+        @Override
+        public CssClass getAccentColor() {
+            return dui_accent_lime;
+        }
+
+    };
 
-  Color LIGHT_BLUE_DARKEN_1 =
-      new Color() {
+    Color LIME_LIGHTEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-light-blue";
+        public CssClass getCssClass() {
+            return dui_lime;
         }
 
         @Override
         public String getName() {
-          return "LIGHT BLUE DARKEN 1";
+            return "LIME_LIGHTEN_4";
         }
 
         @Override
-        public String getHex() {
-          return "#039be5";
+        public CssClass getBackground() {
+            return dui_bg_lime_l_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-light-blue";
+        public CssClass getForeground() {
+            return dui_fg_lime_l_4;
         }
-      };
 
-  Color LIGHT_BLUE_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-light-blue";
+        public CssClass getBorderColor() {
+            return dui_border_lime;
         }
 
         @Override
+        public CssClass getAccentColor() {
+            return dui_accent_lime;
+        }
+
+    };
+
+    Color LIME_LIGHTEN_5 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_lime;
+        }
+
+        @Override
         public String getName() {
-          return "LIGHT BLUE DARKEN 2";
+            return "LIME_LIGHTEN_5";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_lime_l_5;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_lime_l_5;
         }
 
         @Override
-        public String getHex() {
-          return "#0288d1";
+        public CssClass getBorderColor() {
+            return dui_border_lime;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-light-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_lime;
         }
-      };
+
+    };
 
-  Color LIGHT_BLUE_DARKEN_3 =
-      new Color() {
+
+    Color LIME_DARKEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-light-blue";
+        public CssClass getCssClass() {
+            return dui_lime;
         }
 
         @Override
         public String getName() {
-          return "LIGHT BLUE DARKEN 3";
+            return "LIME_DARKEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_lime_d_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_lime_d_1;
         }
 
         @Override
-        public String getHex() {
-          return "#0277bd";
+        public CssClass getBorderColor() {
+            return dui_border_lime;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-light-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_lime;
         }
-      };
+
+    };
 
-  Color LIGHT_BLUE_DARKEN_4 =
-      new Color() {
+    Color LIME_DARKEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-light-blue";
+        public CssClass getCssClass() {
+            return dui_lime;
         }
 
         @Override
         public String getName() {
-          return "LIGHT BLUE DARKEN 4";
+            return "LIME_DARKEN_2";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_lime_d_2;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_lime_d_2;
         }
 
         @Override
-        public String getHex() {
-          return "#01579b";
+        public CssClass getBorderColor() {
+            return dui_border_lime;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-light-blue";
+        public CssClass getAccentColor() {
+            return dui_accent_lime;
         }
-      };
 
-  Color CYAN =
-      new Color() {
+    };
+
+    Color LIME_DARKEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-cyan";
+        public CssClass getCssClass() {
+            return dui_lime;
         }
 
         @Override
         public String getName() {
-          return "CYAN";
+            return "LIME_DARKEN_3";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_lime_d_3;
         }
 
         @Override
-        public String getHex() {
-          return "#00BCD4";
+        public CssClass getForeground() {
+            return dui_fg_lime_d_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-cyan";
+        public CssClass getBorderColor() {
+            return dui_border_lime;
         }
-      };
 
-  Color CYAN_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-cyan";
+        public CssClass getAccentColor() {
+            return dui_accent_lime;
         }
 
+    };
+
+    Color LIME_DARKEN_4 = new Color() {
+        @Override
+        public CssClass getCssClass() {
+            return dui_lime;
+        }
+
         @Override
         public String getName() {
-          return "CYAN LIGHTEN 1";
+            return "LIME_DARKEN_4";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_lime_d_4;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_lime_d_4;
         }
 
         @Override
-        public String getHex() {
-          return "#26c6da";
+        public CssClass getBorderColor() {
+            return dui_border_lime;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-cyan";
+        public CssClass getAccentColor() {
+            return dui_accent_lime;
         }
-      };
 
-  Color CYAN_LIGHTEN_2 =
-      new Color() {
+    };
+
+    Color YELLOW = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-cyan";
+        public CssClass getCssClass() {
+            return dui_yellow;
         }
 
         @Override
         public String getName() {
-          return "CYAN LIGHTEN 2";
+            return "YELLOW";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_yellow;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_yellow;
         }
 
         @Override
-        public String getHex() {
-          return "#4dd0e1";
+        public CssClass getBorderColor() {
+            return dui_border_yellow;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-cyan";
+        public CssClass getAccentColor() {
+            return dui_accent_yellow;
         }
-      };
+
+    };
 
-  Color CYAN_LIGHTEN_3 =
-      new Color() {
+    Color YELLOW_LIGHTEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-cyan";
+        public CssClass getCssClass() {
+            return dui_yellow;
         }
 
         @Override
         public String getName() {
-          return "CYAN LIGHTEN 3";
+            return "YELLOW_LIGHTEN_1";
+        }
+
+        @Override
+        public CssClass getBackground() {
+            return dui_bg_yellow_l_1;
+        }
+
+        @Override
+        public CssClass getForeground() {
+            return dui_fg_yellow_l_1;
         }
 
         @Override
-        public String getHex() {
-          return "#80deea";
+        public CssClass getBorderColor() {
+            return dui_border_yellow;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-cyan";
+        public CssClass getAccentColor() {
+            return dui_accent_yellow;
         }
-      };
+
+    };
 
-  Color CYAN_LIGHTEN_4 =
-      new Color() {
+    Color YELLOW_LIGHTEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-cyan";
+        public CssClass getCssClass() {
+            return dui_yellow;
         }
 
         @Override
         public String getName() {
-          return "CYAN LIGHTEN 4";
+            return "YELLOW_LIGHTEN_2";
         }
 
         @Override
-        public String getHex() {
-          return "#b2ebf2";
+        public CssClass getBackground() {
+            return dui_bg_yellow_l_2;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-cyan";
+        public CssClass getForeground() {
+            return dui_fg_yellow_l_2;
         }
-      };
 
-  Color CYAN_LIGHTEN_5 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-cyan";
+        public CssClass getBorderColor() {
+            return dui_border_yellow;
         }
 
         @Override
-        public String getName() {
-          return "CYAN LIGHTEN 5";
+        public CssClass getAccentColor() {
+            return dui_accent_yellow;
         }
+
+    };
 
+    Color YELLOW_LIGHTEN_3 = new Color() {
         @Override
-        public String getHex() {
-          return "#e0f7fa";
+        public CssClass getCssClass() {
+            return dui_yellow;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-cyan";
+        public String getName() {
+            return "YELLOW_LIGHTEN_3";
         }
-      };
 
-  Color CYAN_DARKEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-cyan";
+        public CssClass getBackground() {
+            return dui_bg_yellow_l_3;
         }
 
         @Override
-        public String getName() {
-          return "CYAN DARKEN 1";
+        public CssClass getForeground() {
+            return dui_fg_yellow_l_3;
         }
 
         @Override
-        public String getHex() {
-          return "#00acc1";
+        public CssClass getBorderColor() {
+            return dui_border_yellow;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-cyan";
+        public CssClass getAccentColor() {
+            return dui_accent_yellow;
         }
-      };
 
-  Color CYAN_DARKEN_2 =
-      new Color() {
+    };
+
+    Color YELLOW_LIGHTEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-cyan";
+        public CssClass getCssClass() {
+            return dui_yellow;
         }
 
         @Override
         public String getName() {
-          return "CYAN DARKEN 2";
+            return "YELLOW_LIGHTEN_4";
         }
 
         @Override
-        public String getHex() {
-          return "#0097a7";
+        public CssClass getBackground() {
+            return dui_bg_yellow_l_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-cyan";
+        public CssClass getForeground() {
+            return dui_fg_yellow_l_4;
         }
-      };
 
-  Color CYAN_DARKEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-cyan";
+        public CssClass getBorderColor() {
+            return dui_border_yellow;
         }
 
         @Override
-        public String getName() {
-          return "CYAN DARKEN 3";
+        public CssClass getAccentColor() {
+            return dui_accent_yellow;
         }
 
+    };
+
+    Color YELLOW_LIGHTEN_5 = new Color() {
         @Override
-        public String getHex() {
-          return "#00838f";
+        public CssClass getCssClass() {
+            return dui_yellow;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-cyan";
+        public String getName() {
+            return "YELLOW_LIGHTEN_5";
         }
-      };
 
-  Color CYAN_DARKEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-cyan";
+        public CssClass getBackground() {
+            return dui_bg_yellow_l_5;
         }
 
         @Override
-        public String getName() {
-          return "CYAN DARKEN 4";
+        public CssClass getForeground() {
+            return dui_fg_yellow_l_5;
         }
 
         @Override
-        public String getHex() {
-          return "#006064";
+        public CssClass getBorderColor() {
+            return dui_border_yellow;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-cyan";
+        public CssClass getAccentColor() {
+            return dui_accent_yellow;
         }
-      };
+
+    };
 
-  Color TEAL =
-      new Color() {
+
+    Color YELLOW_DARKEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-teal";
+        public CssClass getCssClass() {
+            return dui_yellow;
         }
 
         @Override
         public String getName() {
-          return "TEAL";
+            return "YELLOW_DARKEN_1";
         }
 
         @Override
-        public String getHex() {
-          return "#009688";
+        public CssClass getBackground() {
+            return dui_bg_yellow_d_1;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-teal";
+        public CssClass getForeground() {
+            return dui_fg_yellow_d_1;
         }
-      };
 
-  Color TEAL_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-teal";
+        public CssClass getBorderColor() {
+            return dui_border_yellow;
         }
 
         @Override
-        public String getName() {
-          return "TEAL LIGHTEN 1";
+        public CssClass getAccentColor() {
+            return dui_accent_yellow;
         }
 
+    };
+
+    Color YELLOW_DARKEN_2 = new Color() {
         @Override
-        public String getHex() {
-          return "#26a69a";
+        public CssClass getCssClass() {
+            return dui_yellow;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-teal";
+        public String getName() {
+            return "YELLOW_DARKEN_2";
         }
-      };
 
-  Color TEAL_LIGHTEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-teal";
+        public CssClass getBackground() {
+            return dui_bg_yellow_d_2;
         }
 
         @Override
-        public String getName() {
-          return "TEAL LIGHTEN 2";
+        public CssClass getForeground() {
+            return dui_fg_yellow_d_2;
         }
 
         @Override
-        public String getHex() {
-          return "#4db6ac";
+        public CssClass getBorderColor() {
+            return dui_border_yellow;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-teal";
+        public CssClass getAccentColor() {
+            return dui_accent_yellow;
         }
-      };
+
+    };
 
-  Color TEAL_LIGHTEN_3 =
-      new Color() {
+    Color YELLOW_DARKEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-teal";
+        public CssClass getCssClass() {
+            return dui_yellow;
         }
 
         @Override
         public String getName() {
-          return "TEAL LIGHTEN 3";
+            return "YELLOW_DARKEN_3";
         }
 
         @Override
-        public String getHex() {
-          return "#80cbc4";
+        public CssClass getBackground() {
+            return dui_bg_yellow_d_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-teal";
+        public CssClass getForeground() {
+            return dui_fg_yellow_d_3;
         }
-      };
 
-  Color TEAL_LIGHTEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-teal";
+        public CssClass getBorderColor() {
+            return dui_border_yellow;
         }
 
         @Override
-        public String getName() {
-          return "TEAL LIGHTEN 4";
+        public CssClass getAccentColor() {
+            return dui_accent_yellow;
         }
+
+    };
 
+    Color YELLOW_DARKEN_4 = new Color() {
         @Override
-        public String getHex() {
-          return "#b2dfdb";
+        public CssClass getCssClass() {
+            return dui_yellow;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-teal";
+        public String getName() {
+            return "YELLOW_DARKEN_4";
         }
-      };
 
-  Color TEAL_LIGHTEN_5 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-teal";
+        public CssClass getBackground() {
+            return dui_bg_yellow_d_4;
         }
 
         @Override
-        public String getName() {
-          return "TEAL LIGHTEN 5";
+        public CssClass getForeground() {
+            return dui_fg_yellow_d_4;
         }
 
         @Override
-        public String getHex() {
-          return "#e0f2f1";
+        public CssClass getBorderColor() {
+            return dui_border_yellow;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-teal";
+        public CssClass getAccentColor() {
+            return dui_accent_yellow;
         }
-      };
 
-  Color TEAL_DARKEN_1 =
-      new Color() {
+    };
+
+    Color AMBER = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-teal";
+        public CssClass getCssClass() {
+            return dui_amber;
         }
 
         @Override
         public String getName() {
-          return "TEAL DARKEN 1";
+            return "AMBER";
         }
 
         @Override
-        public String getHex() {
-          return "#00897b";
+        public CssClass getBackground() {
+            return dui_bg_amber;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-teal";
+        public CssClass getForeground() {
+            return dui_fg_amber;
         }
-      };
 
-  Color TEAL_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-teal";
+        public CssClass getBorderColor() {
+            return dui_border_amber;
         }
 
         @Override
-        public String getName() {
-          return "TEAL DARKEN 2";
+        public CssClass getAccentColor() {
+            return dui_accent_amber;
         }
 
+    };
+
+    Color AMBER_LIGHTEN_1 = new Color() {
         @Override
-        public String getHex() {
-          return "#00796b";
+        public CssClass getCssClass() {
+            return dui_amber;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-teal";
+        public String getName() {
+            return "AMBER_LIGHTEN_1";
         }
-      };
 
-  Color TEAL_DARKEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-teal";
+        public CssClass getBackground() {
+            return dui_bg_amber_l_1;
         }
 
         @Override
-        public String getName() {
-          return "TEAL DARKEN 3";
+        public CssClass getForeground() {
+            return dui_fg_amber_l_1;
         }
 
         @Override
-        public String getHex() {
-          return "#00695c";
+        public CssClass getBorderColor() {
+            return dui_border_amber;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-teal";
+        public CssClass getAccentColor() {
+            return dui_accent_amber;
         }
-      };
+
+    };
 
-  Color TEAL_DARKEN_4 =
-      new Color() {
+    Color AMBER_LIGHTEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-teal";
+        public CssClass getCssClass() {
+            return dui_amber;
         }
 
         @Override
         public String getName() {
-          return "TEAL DARKEN 4";
+            return "AMBER_LIGHTEN_2";
         }
 
         @Override
-        public String getHex() {
-          return "#004d40";
+        public CssClass getBackground() {
+            return dui_bg_amber_l_2;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-teal";
+        public CssClass getForeground() {
+            return dui_fg_amber_l_2;
         }
-      };
 
-  Color GREEN =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-green";
+        public CssClass getBorderColor() {
+            return dui_border_amber;
         }
 
         @Override
-        public String getName() {
-          return "GREEN";
+        public CssClass getAccentColor() {
+            return dui_accent_amber;
         }
+
+    };
 
+    Color AMBER_LIGHTEN_3 = new Color() {
         @Override
-        public String getHex() {
-          return "#4CAF50";
+        public CssClass getCssClass() {
+            return dui_amber;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-green";
+        public String getName() {
+            return "AMBER_LIGHTEN_3";
         }
-      };
 
-  Color GREEN_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-green";
+        public CssClass getBackground() {
+            return dui_bg_amber_l_3;
         }
 
         @Override
-        public String getName() {
-          return "GREEN LIGHTEN 1";
+        public CssClass getForeground() {
+            return dui_fg_amber_l_3;
         }
 
         @Override
-        public String getHex() {
-          return "#66bb6a";
+        public CssClass getBorderColor() {
+            return dui_border_amber;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-green";
+        public CssClass getAccentColor() {
+            return dui_accent_amber;
         }
-      };
 
-  Color GREEN_LIGHTEN_2 =
-      new Color() {
+    };
+
+    Color AMBER_LIGHTEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-green";
+        public CssClass getCssClass() {
+            return dui_amber;
         }
 
         @Override
         public String getName() {
-          return "GREEN LIGHTEN 2";
+            return "AMBER_LIGHTEN_4";
         }
 
         @Override
-        public String getHex() {
-          return "#81c784";
+        public CssClass getBackground() {
+            return dui_bg_amber_l_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-green";
+        public CssClass getForeground() {
+            return dui_fg_amber_l_4;
         }
-      };
 
-  Color GREEN_LIGHTEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-green";
+        public CssClass getBorderColor() {
+            return dui_border_amber;
         }
 
         @Override
-        public String getName() {
-          return "GREEN LIGHTEN 3";
+        public CssClass getAccentColor() {
+            return dui_accent_amber;
         }
 
+    };
+
+    Color AMBER_LIGHTEN_5 = new Color() {
         @Override
-        public String getHex() {
-          return "#a5d6a7";
+        public CssClass getCssClass() {
+            return dui_amber;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-green";
+        public String getName() {
+            return "AMBER_LIGHTEN_5";
         }
-      };
 
-  Color GREEN_LIGHTEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-green";
+        public CssClass getBackground() {
+            return dui_bg_amber_l_5;
         }
 
         @Override
-        public String getName() {
-          return "GREEN LIGHTEN 4";
+        public CssClass getForeground() {
+            return dui_fg_amber_l_5;
         }
 
         @Override
-        public String getHex() {
-          return "#c8e6c9";
+        public CssClass getBorderColor() {
+            return dui_border_amber;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-green";
+        public CssClass getAccentColor() {
+            return dui_accent_amber;
         }
-      };
+
+    };
 
-  Color GREEN_LIGHTEN_5 =
-      new Color() {
+
+    Color AMBER_DARKEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-green";
+        public CssClass getCssClass() {
+            return dui_amber;
         }
 
         @Override
         public String getName() {
-          return "GREEN LIGHTEN 5";
+            return "AMBER_DARKEN_1";
         }
 
         @Override
-        public String getHex() {
-          return "#e8f5e9";
+        public CssClass getBackground() {
+            return dui_bg_amber_d_1;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-green";
+        public CssClass getForeground() {
+            return dui_fg_amber_d_1;
         }
-      };
 
-  Color GREEN_DARKEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-green";
+        public CssClass getBorderColor() {
+            return dui_border_amber;
         }
 
         @Override
-        public String getName() {
-          return "GREEN DARKEN 1";
+        public CssClass getAccentColor() {
+            return dui_accent_amber;
         }
 
+    };
+
+    Color AMBER_DARKEN_2 = new Color() {
         @Override
-        public String getHex() {
-          return "#43a047";
+        public CssClass getCssClass() {
+            return dui_amber;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-green";
+        public String getName() {
+            return "AMBER_DARKEN_2";
         }
-      };
 
-  Color GREEN_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-green";
+        public CssClass getBackground() {
+            return dui_bg_amber_d_2;
         }
 
         @Override
-        public String getName() {
-          return "GREEN DARKEN 2";
+        public CssClass getForeground() {
+            return dui_fg_amber_d_2;
         }
 
         @Override
-        public String getHex() {
-          return "#388e3c";
+        public CssClass getBorderColor() {
+            return dui_border_amber;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-green";
+        public CssClass getAccentColor() {
+            return dui_accent_amber;
         }
-      };
+
+    };
 
-  Color GREEN_DARKEN_3 =
-      new Color() {
+    Color AMBER_DARKEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-green";
+        public CssClass getCssClass() {
+            return dui_amber;
         }
 
         @Override
         public String getName() {
-          return "GREEN DARKEN 3";
+            return "AMBER_DARKEN_3";
         }
 
         @Override
-        public String getHex() {
-          return "#2e7d32";
+        public CssClass getBackground() {
+            return dui_bg_amber_d_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-green";
+        public CssClass getForeground() {
+            return dui_fg_amber_d_3;
         }
-      };
 
-  Color GREEN_DARKEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-green";
+        public CssClass getBorderColor() {
+            return dui_border_amber;
         }
 
         @Override
-        public String getName() {
-          return "GREEN DARKEN 4";
+        public CssClass getAccentColor() {
+            return dui_accent_amber;
         }
+
+    };
 
+    Color AMBER_DARKEN_4 = new Color() {
         @Override
-        public String getHex() {
-          return "#1b5e20";
+        public CssClass getCssClass() {
+            return dui_amber;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-green";
+        public String getName() {
+            return "AMBER_DARKEN_4";
         }
-      };
 
-  Color LIGHT_GREEN =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-light-green";
+        public CssClass getBackground() {
+            return dui_bg_amber_d_4;
         }
 
         @Override
-        public String getName() {
-          return "LIGHT GREEN";
+        public CssClass getForeground() {
+            return dui_fg_amber_d_4;
         }
 
         @Override
-        public String getHex() {
-          return "#8BC34A";
+        public CssClass getBorderColor() {
+            return dui_border_amber;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-light-green";
+        public CssClass getAccentColor() {
+            return dui_accent_amber;
         }
-      };
 
-  Color LIGHT_GREEN_LIGHTEN_1 =
-      new Color() {
+    };
+
+    Color ORANGE = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-light-green";
+        public CssClass getCssClass() {
+            return dui_orange;
         }
 
         @Override
         public String getName() {
-          return "LIGHT GREEN LIGHTEN 1";
+            return "ORANGE";
         }
 
         @Override
-        public String getHex() {
-          return "#9ccc65";
+        public CssClass getBackground() {
+            return dui_bg_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-light-green";
+        public CssClass getForeground() {
+            return dui_fg_orange;
         }
-      };
 
-  Color LIGHT_GREEN_LIGHTEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-light-green";
+        public CssClass getBorderColor() {
+            return dui_border_orange;
         }
 
         @Override
-        public String getName() {
-          return "LIGHT GREEN LIGHTEN 2";
+        public CssClass getAccentColor() {
+            return dui_accent_orange;
         }
 
+    };
+
+    Color ORANGE_LIGHTEN_1 = new Color() {
         @Override
-        public String getHex() {
-          return "#aed581";
+        public CssClass getCssClass() {
+            return dui_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-light-green";
+        public String getName() {
+            return "ORANGE_LIGHTEN_1";
         }
-      };
 
-  Color LIGHT_GREEN_LIGHTEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-light-green";
+        public CssClass getBackground() {
+            return dui_bg_orange_l_1;
         }
 
         @Override
-        public String getName() {
-          return "LIGHT GREEN LIGHTEN 3";
+        public CssClass getForeground() {
+            return dui_fg_orange_l_1;
         }
 
         @Override
-        public String getHex() {
-          return "#c5e1a5";
+        public CssClass getBorderColor() {
+            return dui_border_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-light-green";
+        public CssClass getAccentColor() {
+            return dui_accent_orange;
         }
-      };
+
+    };
 
-  Color LIGHT_GREEN_LIGHTEN_4 =
-      new Color() {
+    Color ORANGE_LIGHTEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-light-green";
+        public CssClass getCssClass() {
+            return dui_orange;
         }
 
         @Override
         public String getName() {
-          return "LIGHT GREEN LIGHTEN 4";
+            return "ORANGE_LIGHTEN_2";
         }
 
         @Override
-        public String getHex() {
-          return "#dcedc8";
+        public CssClass getBackground() {
+            return dui_bg_orange_l_2;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-light-green";
+        public CssClass getForeground() {
+            return dui_fg_orange_l_2;
         }
-      };
 
-  Color LIGHT_GREEN_LIGHTEN_5 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-light-green";
+        public CssClass getBorderColor() {
+            return dui_border_orange;
         }
 
         @Override
-        public String getName() {
-          return "LIGHT GREEN LIGHTEN 5";
+        public CssClass getAccentColor() {
+            return dui_accent_orange;
         }
+
+    };
 
+    Color ORANGE_LIGHTEN_3 = new Color() {
         @Override
-        public String getHex() {
-          return "#f1f8e9";
+        public CssClass getCssClass() {
+            return dui_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-light-green";
+        public String getName() {
+            return "ORANGE_LIGHTEN_3";
         }
-      };
 
-  Color LIGHT_GREEN_DARKEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-light-green";
+        public CssClass getBackground() {
+            return dui_bg_orange_l_3;
         }
 
         @Override
-        public String getName() {
-          return "LIGHT GREEN DARKEN 1";
+        public CssClass getForeground() {
+            return dui_fg_orange_l_3;
         }
 
         @Override
-        public String getHex() {
-          return "#7cb342";
+        public CssClass getBorderColor() {
+            return dui_border_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-light-green";
+        public CssClass getAccentColor() {
+            return dui_accent_orange;
         }
-      };
 
-  Color LIGHT_GREEN_DARKEN_2 =
-      new Color() {
+    };
+
+    Color ORANGE_LIGHTEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-light-green";
+        public CssClass getCssClass() {
+            return dui_orange;
         }
 
         @Override
         public String getName() {
-          return "LIGHT GREEN DARKEN 2";
+            return "ORANGE_LIGHTEN_4";
         }
 
         @Override
-        public String getHex() {
-          return "#689f38";
+        public CssClass getBackground() {
+            return dui_bg_orange_l_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-light-green";
+        public CssClass getForeground() {
+            return dui_fg_orange_l_4;
         }
-      };
 
-  Color LIGHT_GREEN_DARKEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-light-green";
+        public CssClass getBorderColor() {
+            return dui_border_orange;
         }
 
         @Override
-        public String getName() {
-          return "LIGHT GREEN DARKEN 3";
+        public CssClass getAccentColor() {
+            return dui_accent_orange;
         }
 
+    };
+
+    Color ORANGE_LIGHTEN_5 = new Color() {
         @Override
-        public String getHex() {
-          return "#558b2f";
+        public CssClass getCssClass() {
+            return dui_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-light-green";
+        public String getName() {
+            return "ORANGE_LIGHTEN_5";
         }
-      };
 
-  Color LIGHT_GREEN_DARKEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-light-green";
+        public CssClass getBackground() {
+            return dui_bg_orange_l_5;
         }
 
         @Override
-        public String getName() {
-          return "LIGHT GREEN DARKEN 4";
+        public CssClass getForeground() {
+            return dui_fg_orange_l_5;
         }
 
         @Override
-        public String getHex() {
-          return "#33691e";
+        public CssClass getBorderColor() {
+            return dui_border_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-light-green";
+        public CssClass getAccentColor() {
+            return dui_accent_orange;
         }
-      };
+
+    };
 
-  Color LIME =
-      new Color() {
+
+    Color ORANGE_DARKEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-lime";
+        public CssClass getCssClass() {
+            return dui_orange;
         }
 
         @Override
         public String getName() {
-          return "LIME";
+            return "ORANGE_DARKEN_1";
         }
 
         @Override
-        public String getHex() {
-          return "#CDDC39";
+        public CssClass getBackground() {
+            return dui_bg_orange_d_1;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-lime";
+        public CssClass getForeground() {
+            return dui_fg_orange_d_1;
         }
-      };
 
-  Color LIME_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-lime";
+        public CssClass getBorderColor() {
+            return dui_border_orange;
         }
 
         @Override
-        public String getName() {
-          return "LIME LIGHTEN 1";
+        public CssClass getAccentColor() {
+            return dui_accent_orange;
         }
 
+    };
+
+    Color ORANGE_DARKEN_2 = new Color() {
         @Override
-        public String getHex() {
-          return "#d4e157";
+        public CssClass getCssClass() {
+            return dui_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-lime";
+        public String getName() {
+            return "ORANGE_DARKEN_2";
         }
-      };
 
-  Color LIME_LIGHTEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-lime";
+        public CssClass getBackground() {
+            return dui_bg_orange_d_2;
         }
 
         @Override
-        public String getName() {
-          return "LIME LIGHTEN 2";
+        public CssClass getForeground() {
+            return dui_fg_orange_d_2;
         }
 
         @Override
-        public String getHex() {
-          return "#dce775";
+        public CssClass getBorderColor() {
+            return dui_border_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-lime";
+        public CssClass getAccentColor() {
+            return dui_accent_orange;
         }
-      };
+
+    };
 
-  Color LIME_LIGHTEN_3 =
-      new Color() {
+    Color ORANGE_DARKEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-lime";
+        public CssClass getCssClass() {
+            return dui_orange;
         }
 
         @Override
         public String getName() {
-          return "LIME LIGHTEN 3";
+            return "ORANGE_DARKEN_3";
         }
 
         @Override
-        public String getHex() {
-          return "#e6ee9c";
+        public CssClass getBackground() {
+            return dui_bg_orange_d_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-lime";
+        public CssClass getForeground() {
+            return dui_fg_orange_d_3;
         }
-      };
 
-  Color LIME_LIGHTEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-lime";
+        public CssClass getBorderColor() {
+            return dui_border_orange;
         }
 
         @Override
-        public String getName() {
-          return "LIME LIGHTEN 4";
+        public CssClass getAccentColor() {
+            return dui_accent_orange;
         }
+
+    };
 
+    Color ORANGE_DARKEN_4 = new Color() {
         @Override
-        public String getHex() {
-          return "#f0f4c3";
+        public CssClass getCssClass() {
+            return dui_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-lime";
+        public String getName() {
+            return "ORANGE_DARKEN_4";
         }
-      };
 
-  Color LIME_LIGHTEN_5 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-lime";
+        public CssClass getBackground() {
+            return dui_bg_orange_d_4;
         }
 
         @Override
-        public String getName() {
-          return "LIME LIGHTEN 5";
+        public CssClass getForeground() {
+            return dui_fg_orange_d_4;
         }
 
         @Override
-        public String getHex() {
-          return "#f9fbe7";
+        public CssClass getBorderColor() {
+            return dui_border_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-lime";
+        public CssClass getAccentColor() {
+            return dui_accent_orange;
         }
-      };
 
-  Color LIME_DARKEN_1 =
-      new Color() {
+    };
+
+    Color DEEP_ORANGE = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-lime";
+        public CssClass getCssClass() {
+            return dui_deep_orange;
         }
 
         @Override
         public String getName() {
-          return "LIME DARKEN 1";
+            return "DEEP_ORANGE";
         }
 
         @Override
-        public String getHex() {
-          return "#c0ca33";
+        public CssClass getBackground() {
+            return dui_bg_deep_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-lime";
+        public CssClass getForeground() {
+            return dui_fg_deep_orange;
         }
-      };
 
-  Color LIME_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-lime";
+        public CssClass getBorderColor() {
+            return dui_border_deep_orange;
         }
 
         @Override
-        public String getName() {
-          return "LIME DARKEN 2";
+        public CssClass getAccentColor() {
+            return dui_accent_deep_orange;
         }
 
+    };
+
+    Color DEEP_ORANGE_LIGHTEN_1 = new Color() {
         @Override
-        public String getHex() {
-          return "#afb42b";
+        public CssClass getCssClass() {
+            return dui_deep_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-lime";
+        public String getName() {
+            return "DEEP_ORANGE_LIGHTEN_1";
         }
-      };
 
-  Color LIME_DARKEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-lime";
+        public CssClass getBackground() {
+            return dui_bg_deep_orange_l_1;
         }
 
         @Override
-        public String getName() {
-          return "LIME DARKEN 3";
+        public CssClass getForeground() {
+            return dui_fg_deep_orange_l_1;
         }
 
         @Override
-        public String getHex() {
-          return "#9e9d24";
+        public CssClass getBorderColor() {
+            return dui_border_deep_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-lime";
+        public CssClass getAccentColor() {
+            return dui_accent_deep_orange;
         }
-      };
+
+    };
 
-  Color LIME_DARKEN_4 =
-      new Color() {
+    Color DEEP_ORANGE_LIGHTEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-lime";
+        public CssClass getCssClass() {
+            return dui_deep_orange;
         }
 
         @Override
         public String getName() {
-          return "LIME DARKEN 4";
+            return "DEEP_ORANGE_LIGHTEN_2";
         }
 
         @Override
-        public String getHex() {
-          return "#827717";
+        public CssClass getBackground() {
+            return dui_bg_deep_orange_l_2;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-lime";
+        public CssClass getForeground() {
+            return dui_fg_deep_orange_l_2;
         }
-      };
 
-  Color YELLOW =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-yellow";
+        public CssClass getBorderColor() {
+            return dui_border_deep_orange;
         }
 
         @Override
-        public String getName() {
-          return "YELLOW";
+        public CssClass getAccentColor() {
+            return dui_accent_deep_orange;
         }
+
+    };
 
+    Color DEEP_ORANGE_LIGHTEN_3 = new Color() {
         @Override
-        public String getHex() {
-          return "#FFEB3B";
+        public CssClass getCssClass() {
+            return dui_deep_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-yellow";
+        public String getName() {
+            return "DEEP_ORANGE_LIGHTEN_3";
         }
-      };
 
-  Color YELLOW_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-yellow";
+        public CssClass getBackground() {
+            return dui_bg_deep_orange_l_3;
         }
 
         @Override
-        public String getName() {
-          return "YELLOW LIGHTEN 1";
+        public CssClass getForeground() {
+            return dui_fg_deep_orange_l_3;
         }
 
         @Override
-        public String getHex() {
-          return "#ffee58";
+        public CssClass getBorderColor() {
+            return dui_border_deep_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-yellow";
+        public CssClass getAccentColor() {
+            return dui_accent_deep_orange;
         }
-      };
 
-  Color YELLOW_LIGHTEN_2 =
-      new Color() {
+    };
+
+    Color DEEP_ORANGE_LIGHTEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-yellow";
+        public CssClass getCssClass() {
+            return dui_deep_orange;
         }
 
         @Override
         public String getName() {
-          return "YELLOW LIGHTEN 2";
+            return "DEEP_ORANGE_LIGHTEN_4";
         }
 
         @Override
-        public String getHex() {
-          return "#fff176";
+        public CssClass getBackground() {
+            return dui_bg_deep_orange_l_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-yellow";
+        public CssClass getForeground() {
+            return dui_fg_deep_orange_l_4;
         }
-      };
 
-  Color YELLOW_LIGHTEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-yellow";
+        public CssClass getBorderColor() {
+            return dui_border_deep_orange;
         }
 
         @Override
-        public String getName() {
-          return "YELLOW LIGHTEN 3";
+        public CssClass getAccentColor() {
+            return dui_accent_deep_orange;
         }
 
+    };
+
+    Color DEEP_ORANGE_LIGHTEN_5 = new Color() {
         @Override
-        public String getHex() {
-          return "#fff59d";
+        public CssClass getCssClass() {
+            return dui_deep_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-yellow";
+        public String getName() {
+            return "DEEP_ORANGE_LIGHTEN_5";
         }
-      };
 
-  Color YELLOW_LIGHTEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-yellow";
+        public CssClass getBackground() {
+            return dui_bg_deep_orange_l_5;
         }
 
         @Override
-        public String getName() {
-          return "YELLOW LIGHTEN 4";
+        public CssClass getForeground() {
+            return dui_fg_deep_orange_l_5;
         }
 
         @Override
-        public String getHex() {
-          return "#fff9c4";
+        public CssClass getBorderColor() {
+            return dui_border_deep_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-yellow";
+        public CssClass getAccentColor() {
+            return dui_accent_deep_orange;
         }
-      };
+
+    };
 
-  Color YELLOW_LIGHTEN_5 =
-      new Color() {
+
+    Color DEEP_ORANGE_DARKEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-yellow";
+        public CssClass getCssClass() {
+            return dui_deep_orange;
         }
 
         @Override
         public String getName() {
-          return "YELLOW LIGHTEN 5";
+            return "DEEP_ORANGE_DARKEN_1";
         }
 
         @Override
-        public String getHex() {
-          return "#fffde7";
+        public CssClass getBackground() {
+            return dui_bg_deep_orange_d_1;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-yellow";
+        public CssClass getForeground() {
+            return dui_fg_deep_orange_d_1;
         }
-      };
 
-  Color YELLOW_DARKEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-yellow";
+        public CssClass getBorderColor() {
+            return dui_border_deep_orange;
         }
 
         @Override
-        public String getName() {
-          return "YELLOW DARKEN 1";
+        public CssClass getAccentColor() {
+            return dui_accent_deep_orange;
         }
 
+    };
+
+    Color DEEP_ORANGE_DARKEN_2 = new Color() {
         @Override
-        public String getHex() {
-          return "#fdd835";
+        public CssClass getCssClass() {
+            return dui_deep_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-yellow";
+        public String getName() {
+            return "DEEP_ORANGE_DARKEN_2";
         }
-      };
 
-  Color YELLOW_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-yellow";
+        public CssClass getBackground() {
+            return dui_bg_deep_orange_d_2;
         }
 
         @Override
-        public String getName() {
-          return "YELLOW DARKEN 2";
+        public CssClass getForeground() {
+            return dui_fg_deep_orange_d_2;
         }
 
         @Override
-        public String getHex() {
-          return "#fbc02d";
+        public CssClass getBorderColor() {
+            return dui_border_deep_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-yellow";
+        public CssClass getAccentColor() {
+            return dui_accent_deep_orange;
         }
-      };
+
+    };
 
-  Color YELLOW_DARKEN_3 =
-      new Color() {
+    Color DEEP_ORANGE_DARKEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-yellow";
+        public CssClass getCssClass() {
+            return dui_deep_orange;
         }
 
         @Override
         public String getName() {
-          return "YELLOW DARKEN 3";
+            return "DEEP_ORANGE_DARKEN_3";
         }
 
         @Override
-        public String getHex() {
-          return "#f9a825";
+        public CssClass getBackground() {
+            return dui_bg_deep_orange_d_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-yellow";
+        public CssClass getForeground() {
+            return dui_fg_deep_orange_d_3;
         }
-      };
 
-  Color YELLOW_DARKEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-yellow";
+        public CssClass getBorderColor() {
+            return dui_border_deep_orange;
         }
 
         @Override
-        public String getName() {
-          return "YELLOW DARKEN 4";
+        public CssClass getAccentColor() {
+            return dui_accent_deep_orange;
         }
+
+    };
 
+    Color DEEP_ORANGE_DARKEN_4 = new Color() {
         @Override
-        public String getHex() {
-          return "#f57f17";
+        public CssClass getCssClass() {
+            return dui_deep_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-yellow";
+        public String getName() {
+            return "DEEP_ORANGE_DARKEN_4";
         }
-      };
 
-  Color AMBER =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-amber";
+        public CssClass getBackground() {
+            return dui_bg_deep_orange_d_4;
         }
 
         @Override
-        public String getName() {
-          return "AMBER";
+        public CssClass getForeground() {
+            return dui_fg_deep_orange_d_4;
         }
 
         @Override
-        public String getHex() {
-          return "#FFC107";
+        public CssClass getBorderColor() {
+            return dui_border_deep_orange;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-amber";
+        public CssClass getAccentColor() {
+            return dui_accent_deep_orange;
         }
-      };
 
-  Color AMBER_LIGHTEN_1 =
-      new Color() {
+    };
+
+    Color BROWN = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-amber";
+        public CssClass getCssClass() {
+            return dui_brown;
         }
 
         @Override
         public String getName() {
-          return "AMBER LIGHTEN 1";
+            return "BROWN";
         }
 
         @Override
-        public String getHex() {
-          return "#ffca28";
+        public CssClass getBackground() {
+            return dui_bg_brown;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-amber";
+        public CssClass getForeground() {
+            return dui_fg_brown;
         }
-      };
 
-  Color AMBER_LIGHTEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-amber";
+        public CssClass getBorderColor() {
+            return dui_border_brown;
         }
 
         @Override
-        public String getName() {
-          return "AMBER LIGHTEN 2";
+        public CssClass getAccentColor() {
+            return dui_accent_brown;
         }
 
+    };
+
+    Color BROWN_LIGHTEN_1 = new Color() {
         @Override
-        public String getHex() {
-          return "#ffd54f";
+        public CssClass getCssClass() {
+            return dui_brown;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-amber";
+        public String getName() {
+            return "BROWN_LIGHTEN_1";
         }
-      };
 
-  Color AMBER_LIGHTEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-amber";
+        public CssClass getBackground() {
+            return dui_bg_brown_l_1;
         }
 
         @Override
-        public String getName() {
-          return "AMBER LIGHTEN 3";
+        public CssClass getForeground() {
+            return dui_fg_brown_l_1;
         }
 
         @Override
-        public String getHex() {
-          return "#ffe082";
+        public CssClass getBorderColor() {
+            return dui_border_brown;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-amber";
+        public CssClass getAccentColor() {
+            return dui_accent_brown;
         }
-      };
+
+    };
 
-  Color AMBER_LIGHTEN_4 =
-      new Color() {
+    Color BROWN_LIGHTEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-amber";
+        public CssClass getCssClass() {
+            return dui_brown;
         }
 
         @Override
         public String getName() {
-          return "AMBER LIGHTEN 4";
+            return "BROWN_LIGHTEN_2";
         }
 
         @Override
-        public String getHex() {
-          return "#ffecb3";
+        public CssClass getBackground() {
+            return dui_bg_brown_l_2;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-amber";
+        public CssClass getForeground() {
+            return dui_fg_brown_l_2;
         }
-      };
 
-  Color AMBER_LIGHTEN_5 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-amber";
+        public CssClass getBorderColor() {
+            return dui_border_brown;
         }
 
         @Override
-        public String getName() {
-          return "AMBER LIGHTEN 5";
+        public CssClass getAccentColor() {
+            return dui_accent_brown;
         }
+
+    };
 
+    Color BROWN_LIGHTEN_3 = new Color() {
         @Override
-        public String getHex() {
-          return "#fff8e1";
+        public CssClass getCssClass() {
+            return dui_brown;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-amber";
+        public String getName() {
+            return "BROWN_LIGHTEN_3";
         }
-      };
 
-  Color AMBER_DARKEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-amber";
+        public CssClass getBackground() {
+            return dui_bg_brown_l_3;
         }
 
         @Override
-        public String getName() {
-          return "AMBER DARKEN 1";
+        public CssClass getForeground() {
+            return dui_fg_brown_l_3;
         }
 
         @Override
-        public String getHex() {
-          return "#ffb300";
+        public CssClass getBorderColor() {
+            return dui_border_brown;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-amber";
+        public CssClass getAccentColor() {
+            return dui_accent_brown;
         }
-      };
 
-  Color AMBER_DARKEN_2 =
-      new Color() {
+    };
+
+    Color BROWN_LIGHTEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-amber";
+        public CssClass getCssClass() {
+            return dui_brown;
         }
 
         @Override
         public String getName() {
-          return "AMBER DARKEN 2";
+            return "BROWN_LIGHTEN_4";
         }
 
         @Override
-        public String getHex() {
-          return "#ffa000";
+        public CssClass getBackground() {
+            return dui_bg_brown_l_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-amber";
+        public CssClass getForeground() {
+            return dui_fg_brown_l_4;
         }
-      };
 
-  Color AMBER_DARKEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-amber";
+        public CssClass getBorderColor() {
+            return dui_border_brown;
         }
 
         @Override
-        public String getName() {
-          return "AMBER DARKEN 3";
+        public CssClass getAccentColor() {
+            return dui_accent_brown;
         }
 
+    };
+
+    Color BROWN_LIGHTEN_5 = new Color() {
         @Override
-        public String getHex() {
-          return "#ff8f00";
+        public CssClass getCssClass() {
+            return dui_brown;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-amber";
+        public String getName() {
+            return "BROWN_LIGHTEN_5";
         }
-      };
 
-  Color AMBER_DARKEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-amber";
+        public CssClass getBackground() {
+            return dui_bg_brown_l_5;
         }
 
         @Override
-        public String getName() {
-          return "AMBER DARKEN 4";
+        public CssClass getForeground() {
+            return dui_fg_brown_l_5;
         }
 
         @Override
-        public String getHex() {
-          return "#ff6f00";
+        public CssClass getBorderColor() {
+            return dui_border_brown;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-amber";
+        public CssClass getAccentColor() {
+            return dui_accent_brown;
         }
-      };
+
+    };
 
-  Color ORANGE =
-      new Color() {
+
+    Color BROWN_DARKEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-orange";
+        public CssClass getCssClass() {
+            return dui_brown;
         }
 
         @Override
         public String getName() {
-          return "ORANGE";
+            return "BROWN_DARKEN_1";
         }
 
         @Override
-        public String getHex() {
-          return "#FF9800";
+        public CssClass getBackground() {
+            return dui_bg_brown_d_1;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-orange";
+        public CssClass getForeground() {
+            return dui_fg_brown_d_1;
         }
-      };
 
-  Color ORANGE_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-orange";
+        public CssClass getBorderColor() {
+            return dui_border_brown;
         }
 
         @Override
-        public String getName() {
-          return "ORANGE LIGHTEN 1";
+        public CssClass getAccentColor() {
+            return dui_accent_brown;
         }
 
+    };
+
+    Color BROWN_DARKEN_2 = new Color() {
         @Override
-        public String getHex() {
-          return "#ffa726";
+        public CssClass getCssClass() {
+            return dui_brown;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-orange";
+        public String getName() {
+            return "BROWN_DARKEN_2";
         }
-      };
 
-  Color ORANGE_LIGHTEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-orange";
+        public CssClass getBackground() {
+            return dui_bg_brown_d_2;
         }
 
         @Override
-        public String getName() {
-          return "ORANGE LIGHTEN 2";
+        public CssClass getForeground() {
+            return dui_fg_brown_d_2;
         }
 
         @Override
-        public String getHex() {
-          return "#ffb74d";
+        public CssClass getBorderColor() {
+            return dui_border_brown;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-orange";
+        public CssClass getAccentColor() {
+            return dui_accent_brown;
         }
-      };
+
+    };
 
-  Color ORANGE_LIGHTEN_3 =
-      new Color() {
+    Color BROWN_DARKEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-orange";
+        public CssClass getCssClass() {
+            return dui_brown;
         }
 
         @Override
         public String getName() {
-          return "ORANGE LIGHTEN 3";
+            return "BROWN_DARKEN_3";
         }
 
         @Override
-        public String getHex() {
-          return "#ffcc80";
+        public CssClass getBackground() {
+            return dui_bg_brown_d_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-orange";
+        public CssClass getForeground() {
+            return dui_fg_brown_d_3;
         }
-      };
 
-  Color ORANGE_LIGHTEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-orange";
+        public CssClass getBorderColor() {
+            return dui_border_brown;
         }
 
         @Override
-        public String getName() {
-          return "ORANGE LIGHTEN 4";
+        public CssClass getAccentColor() {
+            return dui_accent_brown;
         }
+
+    };
 
+    Color BROWN_DARKEN_4 = new Color() {
         @Override
-        public String getHex() {
-          return "#ffe0b2";
+        public CssClass getCssClass() {
+            return dui_brown;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-orange";
+        public String getName() {
+            return "BROWN_DARKEN_4";
         }
-      };
 
-  Color ORANGE_LIGHTEN_5 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-orange";
+        public CssClass getBackground() {
+            return dui_bg_brown_d_4;
         }
 
         @Override
-        public String getName() {
-          return "ORANGE LIGHTEN 5";
+        public CssClass getForeground() {
+            return dui_fg_brown_d_4;
         }
 
         @Override
-        public String getHex() {
-          return "#fff3e0";
+        public CssClass getBorderColor() {
+            return dui_border_brown;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-orange";
+        public CssClass getAccentColor() {
+            return dui_accent_brown;
         }
-      };
 
-  Color ORANGE_DARKEN_1 =
-      new Color() {
+    };
+
+    Color GREY = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-orange";
+        public CssClass getCssClass() {
+            return dui_grey;
         }
 
         @Override
         public String getName() {
-          return "ORANGE DARKEN 1";
+            return "GREY";
         }
 
         @Override
-        public String getHex() {
-          return "#fb8c00";
+        public CssClass getBackground() {
+            return dui_bg_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-orange";
+        public CssClass getForeground() {
+            return dui_fg_grey;
         }
-      };
 
-  Color ORANGE_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-orange";
+        public CssClass getBorderColor() {
+            return dui_border_grey;
         }
 
         @Override
-        public String getName() {
-          return "ORANGE DARKEN 2";
+        public CssClass getAccentColor() {
+            return dui_accent_grey;
         }
 
+    };
+
+    Color GREY_LIGHTEN_1 = new Color() {
         @Override
-        public String getHex() {
-          return "#f57c00";
+        public CssClass getCssClass() {
+            return dui_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-orange";
+        public String getName() {
+            return "GREY_LIGHTEN_1";
         }
-      };
 
-  Color ORANGE_DARKEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-orange";
+        public CssClass getBackground() {
+            return dui_bg_grey_l_1;
         }
 
         @Override
-        public String getName() {
-          return "ORANGE DARKEN 3";
+        public CssClass getForeground() {
+            return dui_fg_grey_l_1;
         }
 
         @Override
-        public String getHex() {
-          return "#ef6c00";
+        public CssClass getBorderColor() {
+            return dui_border_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-orange";
+        public CssClass getAccentColor() {
+            return dui_accent_grey;
         }
-      };
+
+    };
 
-  Color ORANGE_DARKEN_4 =
-      new Color() {
+    Color GREY_LIGHTEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-orange";
+        public CssClass getCssClass() {
+            return dui_grey;
         }
 
         @Override
         public String getName() {
-          return "ORANGE DARKEN 4";
+            return "GREY_LIGHTEN_2";
         }
 
         @Override
-        public String getHex() {
-          return "#e65100";
+        public CssClass getBackground() {
+            return dui_bg_grey_l_2;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-orange";
+        public CssClass getForeground() {
+            return dui_fg_grey_l_2;
         }
-      };
 
-  Color DEEP_ORANGE =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-deep-orange";
+        public CssClass getBorderColor() {
+            return dui_border_grey;
         }
 
         @Override
-        public String getName() {
-          return "DEEP ORANGE";
+        public CssClass getAccentColor() {
+            return dui_accent_grey;
         }
+
+    };
 
+    Color GREY_LIGHTEN_3 = new Color() {
         @Override
-        public String getHex() {
-          return "#FF5722";
+        public CssClass getCssClass() {
+            return dui_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-deep-orange";
+        public String getName() {
+            return "GREY_LIGHTEN_3";
         }
-      };
 
-  Color DEEP_ORANGE_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-deep-orange";
+        public CssClass getBackground() {
+            return dui_bg_grey_l_3;
         }
 
         @Override
-        public String getName() {
-          return "DEEP ORANGE LIGHTEN 1";
+        public CssClass getForeground() {
+            return dui_fg_grey_l_3;
         }
 
         @Override
-        public String getHex() {
-          return "#ff7043";
+        public CssClass getBorderColor() {
+            return dui_border_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-deep-orange";
+        public CssClass getAccentColor() {
+            return dui_accent_grey;
         }
-      };
 
-  Color DEEP_ORANGE_LIGHTEN_2 =
-      new Color() {
+    };
+
+    Color GREY_LIGHTEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-deep-orange";
+        public CssClass getCssClass() {
+            return dui_grey;
         }
 
         @Override
         public String getName() {
-          return "DEEP ORANGE LIGHTEN 2";
+            return "GREY_LIGHTEN_4";
         }
 
         @Override
-        public String getHex() {
-          return "#ff8a65";
+        public CssClass getBackground() {
+            return dui_bg_grey_l_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-deep-orange";
+        public CssClass getForeground() {
+            return dui_fg_grey_l_4;
         }
-      };
 
-  Color DEEP_ORANGE_LIGHTEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-deep-orange";
+        public CssClass getBorderColor() {
+            return dui_border_grey;
         }
 
         @Override
-        public String getName() {
-          return "DEEP ORANGE LIGHTEN 3";
+        public CssClass getAccentColor() {
+            return dui_accent_grey;
         }
 
+    };
+
+    Color GREY_LIGHTEN_5 = new Color() {
         @Override
-        public String getHex() {
-          return "#ffab91";
+        public CssClass getCssClass() {
+            return dui_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-deep-orange";
+        public String getName() {
+            return "GREY_LIGHTEN_5";
         }
-      };
 
-  Color DEEP_ORANGE_LIGHTEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-deep-orange";
+        public CssClass getBackground() {
+            return dui_bg_grey_l_5;
         }
 
         @Override
-        public String getName() {
-          return "DEEP ORANGE LIGHTEN 4";
+        public CssClass getForeground() {
+            return dui_fg_grey_l_5;
         }
 
         @Override
-        public String getHex() {
-          return "#ffccbc";
+        public CssClass getBorderColor() {
+            return dui_border_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-deep-orange";
+        public CssClass getAccentColor() {
+            return dui_accent_grey;
         }
-      };
+
+    };
 
-  Color DEEP_ORANGE_LIGHTEN_5 =
-      new Color() {
+
+    Color GREY_DARKEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-deep-orange";
+        public CssClass getCssClass() {
+            return dui_grey;
         }
 
         @Override
         public String getName() {
-          return "DEEP ORANGE LIGHTEN 5";
+            return "GREY_DARKEN_1";
         }
 
         @Override
-        public String getHex() {
-          return "#fbe9e7";
+        public CssClass getBackground() {
+            return dui_bg_grey_d_1;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-deep-orange";
+        public CssClass getForeground() {
+            return dui_fg_grey_d_1;
         }
-      };
 
-  Color DEEP_ORANGE_DARKEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-deep-orange";
+        public CssClass getBorderColor() {
+            return dui_border_grey;
         }
 
         @Override
-        public String getName() {
-          return "DEEP ORANGE DARKEN 1";
+        public CssClass getAccentColor() {
+            return dui_accent_grey;
         }
 
+    };
+
+    Color GREY_DARKEN_2 = new Color() {
         @Override
-        public String getHex() {
-          return "#f4511e";
+        public CssClass getCssClass() {
+            return dui_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-deep-orange";
+        public String getName() {
+            return "GREY_DARKEN_2";
         }
-      };
 
-  Color DEEP_ORANGE_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-deep-orange";
+        public CssClass getBackground() {
+            return dui_bg_grey_d_2;
         }
 
         @Override
-        public String getName() {
-          return "DEEP ORANGE DARKEN 2";
+        public CssClass getForeground() {
+            return dui_fg_grey_d_2;
         }
 
         @Override
-        public String getHex() {
-          return "#e64a19";
+        public CssClass getBorderColor() {
+            return dui_border_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-deep-orange";
+        public CssClass getAccentColor() {
+            return dui_accent_grey;
         }
-      };
+
+    };
 
-  Color DEEP_ORANGE_DARKEN_3 =
-      new Color() {
+    Color GREY_DARKEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-deep-orange";
+        public CssClass getCssClass() {
+            return dui_grey;
         }
 
         @Override
         public String getName() {
-          return "DEEP ORANGE DARKEN 3";
+            return "GREY_DARKEN_3";
         }
 
         @Override
-        public String getHex() {
-          return "#d84315";
+        public CssClass getBackground() {
+            return dui_bg_grey_d_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-deep-orange";
+        public CssClass getForeground() {
+            return dui_fg_grey_d_3;
         }
-      };
 
-  Color DEEP_ORANGE_DARKEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-deep-orange";
+        public CssClass getBorderColor() {
+            return dui_border_grey;
         }
 
         @Override
-        public String getName() {
-          return "DEEP ORANGE DARKEN 4";
+        public CssClass getAccentColor() {
+            return dui_accent_grey;
         }
+
+    };
 
+    Color GREY_DARKEN_4 = new Color() {
         @Override
-        public String getHex() {
-          return "#bf360c";
+        public CssClass getCssClass() {
+            return dui_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-deep-orange";
+        public String getName() {
+            return "GREY_DARKEN_4";
         }
-      };
 
-  Color BROWN =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-brown";
+        public CssClass getBackground() {
+            return dui_bg_grey_d_4;
         }
 
         @Override
-        public String getName() {
-          return "BROWN";
+        public CssClass getForeground() {
+            return dui_fg_grey_d_4;
         }
 
         @Override
-        public String getHex() {
-          return "#795548";
+        public CssClass getBorderColor() {
+            return dui_border_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-brown";
+        public CssClass getAccentColor() {
+            return dui_accent_grey;
         }
-      };
 
-  Color BROWN_LIGHTEN_1 =
-      new Color() {
+    };
+
+    Color BLUE_GREY = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-brown";
+        public CssClass getCssClass() {
+            return dui_blue_grey;
         }
 
         @Override
         public String getName() {
-          return "BROWN LIGHTEN 1";
+            return "BLUE_GREY";
         }
 
         @Override
-        public String getHex() {
-          return "#8d6e63";
+        public CssClass getBackground() {
+            return dui_bg_blue_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-brown";
+        public CssClass getForeground() {
+            return dui_fg_blue_grey;
         }
-      };
 
-  Color BROWN_LIGHTEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-brown";
+        public CssClass getBorderColor() {
+            return dui_border_blue_grey;
         }
 
         @Override
-        public String getName() {
-          return "BROWN LIGHTEN 2";
+        public CssClass getAccentColor() {
+            return dui_accent_blue_grey;
         }
 
+    };
+
+    Color BLUE_GREY_LIGHTEN_1 = new Color() {
         @Override
-        public String getHex() {
-          return "#a1887f";
+        public CssClass getCssClass() {
+            return dui_blue_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-brown";
+        public String getName() {
+            return "BLUE_GREY_LIGHTEN_1";
         }
-      };
 
-  Color BROWN_LIGHTEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-brown";
+        public CssClass getBackground() {
+            return dui_bg_blue_grey_l_1;
         }
 
         @Override
-        public String getName() {
-          return "BROWN LIGHTEN 3";
+        public CssClass getForeground() {
+            return dui_fg_blue_grey_l_1;
         }
 
         @Override
-        public String getHex() {
-          return "#bcaaa4";
+        public CssClass getBorderColor() {
+            return dui_border_blue_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-brown";
+        public CssClass getAccentColor() {
+            return dui_accent_blue_grey;
         }
-      };
+
+    };
 
-  Color BROWN_LIGHTEN_4 =
-      new Color() {
+    Color BLUE_GREY_LIGHTEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-brown";
+        public CssClass getCssClass() {
+            return dui_blue_grey;
         }
 
         @Override
         public String getName() {
-          return "BROWN LIGHTEN 4";
+            return "BLUE_GREY_LIGHTEN_2";
         }
 
         @Override
-        public String getHex() {
-          return "#d7ccc8";
+        public CssClass getBackground() {
+            return dui_bg_blue_grey_l_2;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-brown";
+        public CssClass getForeground() {
+            return dui_fg_blue_grey_l_2;
         }
-      };
 
-  Color BROWN_LIGHTEN_5 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-brown";
+        public CssClass getBorderColor() {
+            return dui_border_blue_grey;
         }
 
         @Override
-        public String getName() {
-          return "BROWN LIGHTEN 5";
+        public CssClass getAccentColor() {
+            return dui_accent_blue_grey;
         }
+
+    };
 
+    Color BLUE_GREY_LIGHTEN_3 = new Color() {
         @Override
-        public String getHex() {
-          return "#efebe9";
+        public CssClass getCssClass() {
+            return dui_blue_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-brown";
+        public String getName() {
+            return "BLUE_GREY_LIGHTEN_3";
         }
-      };
 
-  Color BROWN_DARKEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-brown";
+        public CssClass getBackground() {
+            return dui_bg_blue_grey_l_3;
         }
 
         @Override
-        public String getName() {
-          return "BROWN DARKEN 1";
+        public CssClass getForeground() {
+            return dui_fg_blue_grey_l_3;
         }
 
         @Override
-        public String getHex() {
-          return "#6d4c41";
+        public CssClass getBorderColor() {
+            return dui_border_blue_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-brown";
+        public CssClass getAccentColor() {
+            return dui_accent_blue_grey;
         }
-      };
 
-  Color BROWN_DARKEN_2 =
-      new Color() {
+    };
+
+    Color BLUE_GREY_LIGHTEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-brown";
+        public CssClass getCssClass() {
+            return dui_blue_grey;
         }
 
         @Override
         public String getName() {
-          return "BROWN DARKEN 2";
+            return "BLUE_GREY_LIGHTEN_4";
         }
 
         @Override
-        public String getHex() {
-          return "#5d4037";
+        public CssClass getBackground() {
+            return dui_bg_blue_grey_l_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-brown";
+        public CssClass getForeground() {
+            return dui_fg_blue_grey_l_4;
         }
-      };
 
-  Color BROWN_DARKEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-brown";
+        public CssClass getBorderColor() {
+            return dui_border_blue_grey;
         }
 
         @Override
-        public String getName() {
-          return "BROWN DARKEN 3";
+        public CssClass getAccentColor() {
+            return dui_accent_blue_grey;
         }
 
+    };
+
+    Color BLUE_GREY_LIGHTEN_5 = new Color() {
         @Override
-        public String getHex() {
-          return "#4e342e";
+        public CssClass getCssClass() {
+            return dui_blue_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-brown";
+        public String getName() {
+            return "BLUE_GREY_LIGHTEN_5";
         }
-      };
 
-  Color BROWN_DARKEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-brown";
+        public CssClass getBackground() {
+            return dui_bg_blue_grey_l_5;
         }
 
         @Override
-        public String getName() {
-          return "BROWN DARKEN 4";
+        public CssClass getForeground() {
+            return dui_fg_blue_grey_l_5;
         }
 
         @Override
-        public String getHex() {
-          return "#3e2723";
+        public CssClass getBorderColor() {
+            return dui_border_blue_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-brown";
+        public CssClass getAccentColor() {
+            return dui_accent_blue_grey;
         }
-      };
+
+    };
 
-  Color GREY =
-      new Color() {
+
+    Color BLUE_GREY_DARKEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-grey";
+        public CssClass getCssClass() {
+            return dui_blue_grey;
         }
 
         @Override
         public String getName() {
-          return "GREY";
+            return "BLUE_GREY_DARKEN_1";
         }
 
         @Override
-        public String getHex() {
-          return "#9E9E9E";
+        public CssClass getBackground() {
+            return dui_bg_blue_grey_d_1;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-grey";
+        public CssClass getForeground() {
+            return dui_fg_blue_grey_d_1;
         }
-      };
 
-  Color GREY_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-grey";
+        public CssClass getBorderColor() {
+            return dui_border_blue_grey;
         }
 
         @Override
-        public String getName() {
-          return "GREY LIGHTEN 1";
+        public CssClass getAccentColor() {
+            return dui_accent_blue_grey;
         }
 
+    };
+
+    Color BLUE_GREY_DARKEN_2 = new Color() {
         @Override
-        public String getHex() {
-          return "#bdbdbd";
+        public CssClass getCssClass() {
+            return dui_blue_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-grey";
+        public String getName() {
+            return "BLUE_GREY_DARKEN_2";
         }
-      };
 
-  Color GREY_LIGHTEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-grey";
+        public CssClass getBackground() {
+            return dui_bg_blue_grey_d_2;
         }
 
         @Override
-        public String getName() {
-          return "GREY LIGHTEN 2";
+        public CssClass getForeground() {
+            return dui_fg_blue_grey_d_2;
         }
 
         @Override
-        public String getHex() {
-          return "#e0e0e0";
+        public CssClass getBorderColor() {
+            return dui_border_blue_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-grey";
+        public CssClass getAccentColor() {
+            return dui_accent_blue_grey;
         }
-      };
+
+    };
 
-  Color GREY_LIGHTEN_3 =
-      new Color() {
+    Color BLUE_GREY_DARKEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-grey";
+        public CssClass getCssClass() {
+            return dui_blue_grey;
         }
 
         @Override
         public String getName() {
-          return "GREY LIGHTEN 3";
+            return "BLUE_GREY_DARKEN_3";
         }
 
         @Override
-        public String getHex() {
-          return "#eeeeee";
+        public CssClass getBackground() {
+            return dui_bg_blue_grey_d_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-grey";
+        public CssClass getForeground() {
+            return dui_fg_blue_grey_d_3;
         }
-      };
 
-  Color GREY_LIGHTEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-grey";
+        public CssClass getBorderColor() {
+            return dui_border_blue_grey;
         }
 
         @Override
-        public String getName() {
-          return "GREY LIGHTEN 4";
+        public CssClass getAccentColor() {
+            return dui_accent_blue_grey;
         }
+
+    };
 
+    Color BLUE_GREY_DARKEN_4 = new Color() {
         @Override
-        public String getHex() {
-          return "#f5f5f5";
+        public CssClass getCssClass() {
+            return dui_blue_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-grey";
+        public String getName() {
+            return "BLUE_GREY_DARKEN_4";
         }
-      };
 
-  Color GREY_LIGHTEN_5 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-grey";
+        public CssClass getBackground() {
+            return dui_bg_blue_grey_d_4;
         }
 
         @Override
-        public String getName() {
-          return "GREY LIGHTEN 5";
+        public CssClass getForeground() {
+            return dui_fg_blue_grey_d_4;
         }
 
         @Override
-        public String getHex() {
-          return "#fafafa";
+        public CssClass getBorderColor() {
+            return dui_border_blue_grey;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-grey";
+        public CssClass getAccentColor() {
+            return dui_accent_blue_grey;
         }
-      };
 
-  Color GREY_DARKEN_1 =
-      new Color() {
+    };
+
+    Color WHITE = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-grey";
+        public CssClass getCssClass() {
+            return dui_white;
         }
 
         @Override
         public String getName() {
-          return "GREY DARKEN 1";
+            return "WHITE";
         }
 
         @Override
-        public String getHex() {
-          return "#757575";
+        public CssClass getBackground() {
+            return dui_bg_white;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-grey";
+        public CssClass getForeground() {
+            return dui_fg_white;
         }
-      };
 
-  Color GREY_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-grey";
+        public CssClass getBorderColor() {
+            return dui_border_white;
         }
 
         @Override
-        public String getName() {
-          return "GREY DARKEN 2";
+        public CssClass getAccentColor() {
+            return dui_accent_white;
         }
 
+    };
+
+    Color WHITE_LIGHTEN_1 = new Color() {
         @Override
-        public String getHex() {
-          return "#616161";
+        public CssClass getCssClass() {
+            return dui_white;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-grey";
+        public String getName() {
+            return "WHITE_LIGHTEN_1";
         }
-      };
 
-  Color GREY_DARKEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-grey";
+        public CssClass getBackground() {
+            return dui_bg_white_l_1;
         }
 
         @Override
-        public String getName() {
-          return "GREY DARKEN 3";
+        public CssClass getForeground() {
+            return dui_fg_white_l_1;
         }
 
         @Override
-        public String getHex() {
-          return "#424242";
+        public CssClass getBorderColor() {
+            return dui_border_white;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-grey";
+        public CssClass getAccentColor() {
+            return dui_accent_white;
         }
-      };
+
+    };
 
-  Color GREY_DARKEN_4 =
-      new Color() {
+    Color WHITE_LIGHTEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-grey";
+        public CssClass getCssClass() {
+            return dui_white;
         }
 
         @Override
         public String getName() {
-          return "GREY DARKEN 4";
+            return "WHITE_LIGHTEN_2";
         }
 
         @Override
-        public String getHex() {
-          return "#212121";
+        public CssClass getBackground() {
+            return dui_bg_white_l_2;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-grey";
+        public CssClass getForeground() {
+            return dui_fg_white_l_2;
         }
-      };
 
-  Color BLUE_GREY =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-blue-grey";
+        public CssClass getBorderColor() {
+            return dui_border_white;
         }
 
         @Override
-        public String getName() {
-          return "BLUE GREY";
+        public CssClass getAccentColor() {
+            return dui_accent_white;
         }
+
+    };
 
+    Color WHITE_LIGHTEN_3 = new Color() {
         @Override
-        public String getHex() {
-          return "#607D8B";
+        public CssClass getCssClass() {
+            return dui_white;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-blue-grey";
+        public String getName() {
+            return "WHITE_LIGHTEN_3";
         }
-      };
 
-  Color BLUE_GREY_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-1-blue-grey";
+        public CssClass getBackground() {
+            return dui_bg_white_l_3;
         }
 
         @Override
-        public String getName() {
-          return "BLUE GREY LIGHTEN 1";
+        public CssClass getForeground() {
+            return dui_fg_white_l_3;
         }
 
         @Override
-        public String getHex() {
-          return "#78909c";
+        public CssClass getBorderColor() {
+            return dui_border_white;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-1-blue-grey";
+        public CssClass getAccentColor() {
+            return dui_accent_white;
         }
-      };
 
-  Color BLUE_GREY_LIGHTEN_2 =
-      new Color() {
+    };
+
+    Color WHITE_LIGHTEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-2-blue-grey";
+        public CssClass getCssClass() {
+            return dui_white;
         }
 
         @Override
         public String getName() {
-          return "BLUE GREY LIGHTEN 2";
+            return "WHITE_LIGHTEN_4";
         }
 
         @Override
-        public String getHex() {
-          return "#90a4ae";
+        public CssClass getBackground() {
+            return dui_bg_white_l_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-2-blue-grey";
+        public CssClass getForeground() {
+            return dui_fg_white_l_4;
         }
-      };
 
-  Color BLUE_GREY_LIGHTEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-3-blue-grey";
+        public CssClass getBorderColor() {
+            return dui_border_white;
         }
 
         @Override
-        public String getName() {
-          return "BLUE GREY LIGHTEN 3";
+        public CssClass getAccentColor() {
+            return dui_accent_white;
         }
 
+    };
+
+    Color WHITE_LIGHTEN_5 = new Color() {
         @Override
-        public String getHex() {
-          return "#b0bec5";
+        public CssClass getCssClass() {
+            return dui_white;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-3-blue-grey";
+        public String getName() {
+            return "WHITE_LIGHTEN_5";
         }
-      };
 
-  Color BLUE_GREY_LIGHTEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-4-blue-grey";
+        public CssClass getBackground() {
+            return dui_bg_white_l_5;
         }
 
         @Override
-        public String getName() {
-          return "BLUE GREY LIGHTEN 4";
+        public CssClass getForeground() {
+            return dui_fg_white_l_5;
         }
 
         @Override
-        public String getHex() {
-          return "#cfd8dc";
+        public CssClass getBorderColor() {
+            return dui_border_white;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-4-blue-grey";
+        public CssClass getAccentColor() {
+            return dui_accent_white;
         }
-      };
+
+    };
 
-  Color BLUE_GREY_LIGHTEN_5 =
-      new Color() {
+
+    Color WHITE_DARKEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-l-5-blue-grey";
+        public CssClass getCssClass() {
+            return dui_white;
         }
 
         @Override
         public String getName() {
-          return "BLUE GREY LIGHTEN 5";
+            return "WHITE_DARKEN_1";
         }
 
         @Override
-        public String getHex() {
-          return "#eceff1";
+        public CssClass getBackground() {
+            return dui_bg_white_d_1;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-l-5-blue-grey";
+        public CssClass getForeground() {
+            return dui_fg_white_d_1;
         }
-      };
 
-  Color BLUE_GREY_DARKEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-1-blue-grey";
+        public CssClass getBorderColor() {
+            return dui_border_white;
         }
 
         @Override
-        public String getName() {
-          return "BLUE GREY DARKEN 1";
+        public CssClass getAccentColor() {
+            return dui_accent_white;
         }
 
+    };
+
+    Color WHITE_DARKEN_2 = new Color() {
         @Override
-        public String getHex() {
-          return "#546e7a";
+        public CssClass getCssClass() {
+            return dui_white;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-1-blue-grey";
+        public String getName() {
+            return "WHITE_DARKEN_2";
         }
-      };
 
-  Color BLUE_GREY_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-2-blue-grey";
+        public CssClass getBackground() {
+            return dui_bg_white_d_2;
         }
 
         @Override
-        public String getName() {
-          return "BLUE GREY DARKEN 2";
+        public CssClass getForeground() {
+            return dui_fg_white_d_2;
         }
 
         @Override
-        public String getHex() {
-          return "#455a64";
+        public CssClass getBorderColor() {
+            return dui_border_white;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-2-blue-grey";
+        public CssClass getAccentColor() {
+            return dui_accent_white;
         }
-      };
+
+    };
 
-  Color BLUE_GREY_DARKEN_3 =
-      new Color() {
+    Color WHITE_DARKEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-3-blue-grey";
+        public CssClass getCssClass() {
+            return dui_white;
         }
 
         @Override
         public String getName() {
-          return "BLUE GREY DARKEN 3";
+            return "WHITE_DARKEN_3";
         }
 
         @Override
-        public String getHex() {
-          return "#37474f";
+        public CssClass getBackground() {
+            return dui_bg_white_d_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-3-blue-grey";
+        public CssClass getForeground() {
+            return dui_fg_white_d_3;
         }
-      };
 
-  Color BLUE_GREY_DARKEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-d-4-blue-grey";
+        public CssClass getBorderColor() {
+            return dui_border_white;
         }
 
         @Override
-        public String getName() {
-          return "BLUE GREY DARKEN 4";
+        public CssClass getAccentColor() {
+            return dui_accent_white;
         }
+
+    };
 
+    Color WHITE_DARKEN_4 = new Color() {
         @Override
-        public String getHex() {
-          return "#263238";
+        public CssClass getCssClass() {
+            return dui_white;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-d-4-blue-grey";
+        public String getName() {
+            return "WHITE_DARKEN_4";
         }
-      };
 
-  Color BLACK =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-black";
+        public CssClass getBackground() {
+            return dui_bg_white_d_4;
         }
 
         @Override
-        public String getName() {
-          return "BLACK";
+        public CssClass getForeground() {
+            return dui_fg_white_d_4;
         }
 
         @Override
-        public String getHex() {
-          return "#000000";
+        public CssClass getBorderColor() {
+            return dui_border_white;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-black";
+        public CssClass getAccentColor() {
+            return dui_accent_white;
         }
-      };
 
-  Color BLACK_LIGHTEN_1 =
-      new Color() {
+    };
+
+    Color BLACK = new Color() {
         @Override
-        public String getStyle() {
-          return "col-black";
+        public CssClass getCssClass() {
+            return dui_black;
         }
 
         @Override
         public String getName() {
-          return "BLACK LIGHTEN 1";
+            return "BLACK";
         }
 
         @Override
-        public String getHex() {
-          return "#000000";
+        public CssClass getBackground() {
+            return dui_bg_black;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-black";
+        public CssClass getForeground() {
+            return dui_fg_black;
         }
-      };
 
-  Color BLACK_LIGHTEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-black";
+        public CssClass getBorderColor() {
+            return dui_border_black;
         }
 
         @Override
-        public String getName() {
-          return "BLACK LIGHTEN 2";
+        public CssClass getAccentColor() {
+            return dui_accent_black;
         }
 
+    };
+
+    Color BLACK_LIGHTEN_1 = new Color() {
         @Override
-        public String getHex() {
-          return "#000000";
+        public CssClass getCssClass() {
+            return dui_black;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-black";
+        public String getName() {
+            return "BLACK_LIGHTEN_1";
         }
-      };
 
-  Color BLACK_LIGHTEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-black";
+        public CssClass getBackground() {
+            return dui_bg_black_l_1;
         }
 
         @Override
-        public String getName() {
-          return "BLACK LIGHTEN 3";
+        public CssClass getForeground() {
+            return dui_fg_black_l_1;
         }
 
         @Override
-        public String getHex() {
-          return "#000000";
+        public CssClass getBorderColor() {
+            return dui_border_black;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-black";
+        public CssClass getAccentColor() {
+            return dui_accent_black;
         }
-      };
+
+    };
 
-  Color BLACK_LIGHTEN_4 =
-      new Color() {
+    Color BLACK_LIGHTEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-black";
+        public CssClass getCssClass() {
+            return dui_black;
         }
 
         @Override
         public String getName() {
-          return "BLACK LIGHTEN 4";
+            return "BLACK_LIGHTEN_2";
         }
 
         @Override
-        public String getHex() {
-          return "#000000";
+        public CssClass getBackground() {
+            return dui_bg_black_l_2;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-black";
+        public CssClass getForeground() {
+            return dui_fg_black_l_2;
         }
-      };
 
-  Color BLACK_LIGHTEN_5 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-black";
+        public CssClass getBorderColor() {
+            return dui_border_black;
         }
 
         @Override
-        public String getName() {
-          return "BLACK LIGHTEN 5";
+        public CssClass getAccentColor() {
+            return dui_accent_black;
         }
+
+    };
 
+    Color BLACK_LIGHTEN_3 = new Color() {
         @Override
-        public String getHex() {
-          return "#000000";
+        public CssClass getCssClass() {
+            return dui_black;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-black";
+        public String getName() {
+            return "BLACK_LIGHTEN_3";
         }
-      };
 
-  Color BLACK_DARKEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-black";
+        public CssClass getBackground() {
+            return dui_bg_black_l_3;
         }
 
         @Override
-        public String getName() {
-          return "BLACK DARKEN 1";
+        public CssClass getForeground() {
+            return dui_fg_black_l_3;
         }
 
         @Override
-        public String getHex() {
-          return "#000000";
+        public CssClass getBorderColor() {
+            return dui_border_black;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-black";
+        public CssClass getAccentColor() {
+            return dui_accent_black;
         }
-      };
 
-  Color BLACK_DARKEN_2 =
-      new Color() {
+    };
+
+    Color BLACK_LIGHTEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-black";
+        public CssClass getCssClass() {
+            return dui_black;
         }
 
         @Override
         public String getName() {
-          return "BLACK DARKEN 2";
+            return "BLACK_LIGHTEN_4";
         }
 
         @Override
-        public String getHex() {
-          return "#000000";
+        public CssClass getBackground() {
+            return dui_bg_black_l_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-black";
+        public CssClass getForeground() {
+            return dui_fg_black_l_4;
         }
-      };
 
-  Color BLACK_DARKEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-black";
+        public CssClass getBorderColor() {
+            return dui_border_black;
         }
 
         @Override
-        public String getName() {
-          return "BLACK DARKEN 3";
+        public CssClass getAccentColor() {
+            return dui_accent_black;
         }
 
+    };
+
+    Color BLACK_LIGHTEN_5 = new Color() {
         @Override
-        public String getHex() {
-          return "#000000";
+        public CssClass getCssClass() {
+            return dui_black;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-black";
+        public String getName() {
+            return "BLACK_LIGHTEN_5";
         }
-      };
 
-  Color BLACK_DARKEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-black";
+        public CssClass getBackground() {
+            return dui_bg_black_l_5;
         }
 
         @Override
-        public String getName() {
-          return "BLACK DARKEN 4";
+        public CssClass getForeground() {
+            return dui_fg_black_l_5;
         }
 
         @Override
-        public String getHex() {
-          return "#000000";
+        public CssClass getBorderColor() {
+            return dui_border_black;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-black";
+        public CssClass getAccentColor() {
+            return dui_accent_black;
         }
-      };
+
+    };
 
-  Color WHITE =
-      new Color() {
+
+    Color BLACK_DARKEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-white";
+        public CssClass getCssClass() {
+            return dui_black;
         }
 
         @Override
         public String getName() {
-          return "WHITE";
+            return "BLACK_DARKEN_1";
         }
 
         @Override
-        public String getHex() {
-          return "#FFFFFF";
+        public CssClass getBackground() {
+            return dui_bg_black_d_1;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-white";
+        public CssClass getForeground() {
+            return dui_fg_black_d_1;
         }
-      };
 
-  Color WHITE_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-white";
+        public CssClass getBorderColor() {
+            return dui_border_black;
         }
 
         @Override
-        public String getName() {
-          return "WHITE LIGHTEN 1";
+        public CssClass getAccentColor() {
+            return dui_accent_black;
         }
 
+    };
+
+    Color BLACK_DARKEN_2 = new Color() {
         @Override
-        public String getHex() {
-          return "#ffffff";
+        public CssClass getCssClass() {
+            return dui_black;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-white";
+        public String getName() {
+            return "BLACK_DARKEN_2";
         }
-      };
 
-  Color WHITE_LIGHTEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-white";
+        public CssClass getBackground() {
+            return dui_bg_black_d_2;
         }
 
         @Override
-        public String getName() {
-          return "WHITE LIGHTEN 2";
+        public CssClass getForeground() {
+            return dui_fg_black_d_2;
         }
 
         @Override
-        public String getHex() {
-          return "#ffffff";
+        public CssClass getBorderColor() {
+            return dui_border_black;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-white";
+        public CssClass getAccentColor() {
+            return dui_accent_black;
         }
-      };
+
+    };
 
-  Color WHITE_LIGHTEN_3 =
-      new Color() {
+    Color BLACK_DARKEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-white";
+        public CssClass getCssClass() {
+            return dui_black;
         }
 
         @Override
         public String getName() {
-          return "WHITE LIGHTEN 3";
+            return "BLACK_DARKEN_3";
         }
 
         @Override
-        public String getHex() {
-          return "#ffffff";
+        public CssClass getBackground() {
+            return dui_bg_black_d_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-white";
+        public CssClass getForeground() {
+            return dui_fg_black_d_3;
         }
-      };
 
-  Color WHITE_LIGHTEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-white";
+        public CssClass getBorderColor() {
+            return dui_border_black;
         }
 
         @Override
-        public String getName() {
-          return "WHITE LIGHTEN 4";
+        public CssClass getAccentColor() {
+            return dui_accent_black;
         }
+
+    };
 
+    Color BLACK_DARKEN_4 = new Color() {
         @Override
-        public String getHex() {
-          return "#ffffff";
+        public CssClass getCssClass() {
+            return dui_black;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-white";
+        public String getName() {
+            return "BLACK_DARKEN_4";
         }
-      };
 
-  Color WHITE_LIGHTEN_5 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-white";
+        public CssClass getBackground() {
+            return dui_bg_black_d_4;
         }
 
         @Override
-        public String getName() {
-          return "WHITE LIGHTEN 5";
+        public CssClass getForeground() {
+            return dui_fg_black_d_4;
         }
 
         @Override
-        public String getHex() {
-          return "#ffffff";
+        public CssClass getBorderColor() {
+            return dui_border_black;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-white";
+        public CssClass getAccentColor() {
+            return dui_accent_black;
         }
-      };
 
-  Color WHITE_DARKEN_1 =
-      new Color() {
+    };
+
+    Color TRANSPARENT = new Color() {
         @Override
-        public String getStyle() {
-          return "col-white";
+        public CssClass getCssClass() {
+            return dui_transparent;
         }
 
         @Override
         public String getName() {
-          return "WHITE DARKEN 1";
+            return "TRANSPARENT";
         }
 
         @Override
-        public String getHex() {
-          return "#ffffff";
+        public CssClass getBackground() {
+            return dui_bg_transparent;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-white";
+        public CssClass getForeground() {
+            return dui_fg_transparent;
         }
-      };
 
-  Color WHITE_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-white";
+        public CssClass getBorderColor() {
+            return dui_border_transparent;
         }
 
         @Override
-        public String getName() {
-          return "WHITE DARKEN 2";
+        public CssClass getAccentColor() {
+            return dui_accent_transparent;
         }
 
+    };
+
+    Color TRANSPARENT_LIGHTEN_1 = new Color() {
         @Override
-        public String getHex() {
-          return "#ffffff";
+        public CssClass getCssClass() {
+            return dui_transparent;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-white";
+        public String getName() {
+            return "TRANSPARENT_LIGHTEN_1";
         }
-      };
 
-  Color WHITE_DARKEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-white";
+        public CssClass getBackground() {
+            return dui_bg_transparent_l_1;
         }
 
         @Override
-        public String getName() {
-          return "WHITE DARKEN 3";
+        public CssClass getForeground() {
+            return dui_fg_transparent_l_1;
         }
 
         @Override
-        public String getHex() {
-          return "#ffffff";
+        public CssClass getBorderColor() {
+            return dui_border_transparent;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-white";
+        public CssClass getAccentColor() {
+            return dui_accent_transparent;
         }
-      };
+
+    };
 
-  Color WHITE_DARKEN_4 =
-      new Color() {
+    Color TRANSPARENT_LIGHTEN_2 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-white";
+        public CssClass getCssClass() {
+            return dui_transparent;
         }
 
         @Override
         public String getName() {
-          return "WHITE DARKEN 4";
+            return "TRANSPARENT_LIGHTEN_2";
         }
 
         @Override
-        public String getHex() {
-          return "#ffffff";
+        public CssClass getBackground() {
+            return dui_bg_transparent_l_2;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-white";
+        public CssClass getForeground() {
+            return dui_fg_transparent_l_2;
         }
-      };
 
-  Color TRANSPARENT =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-transparent";
+        public CssClass getBorderColor() {
+            return dui_border_transparent;
         }
 
         @Override
-        public String getName() {
-          return "TRANSPARENT";
+        public CssClass getAccentColor() {
+            return dui_accent_transparent;
         }
+
+    };
 
+    Color TRANSPARENT_LIGHTEN_3 = new Color() {
         @Override
-        public String getHex() {
-          return "transparent";
+        public CssClass getCssClass() {
+            return dui_transparent;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-transparent";
+        public String getName() {
+            return "TRANSPARENT_LIGHTEN_3";
         }
-      };
 
-  Color TRANSPARENT_LIGHTEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-transparent";
+        public CssClass getBackground() {
+            return dui_bg_transparent_l_3;
         }
 
         @Override
-        public String getName() {
-          return "TRANSPARENT LIGHTEN 1";
+        public CssClass getForeground() {
+            return dui_fg_transparent_l_3;
         }
 
         @Override
-        public String getHex() {
-          return "transparent";
+        public CssClass getBorderColor() {
+            return dui_border_transparent;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-transparent";
+        public CssClass getAccentColor() {
+            return dui_accent_transparent;
         }
-      };
 
-  Color TRANSPARENT_LIGHTEN_2 =
-      new Color() {
+    };
+
+    Color TRANSPARENT_LIGHTEN_4 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-transparent";
+        public CssClass getCssClass() {
+            return dui_transparent;
         }
 
         @Override
         public String getName() {
-          return "TRANSPARENT LIGHTEN 2";
+            return "TRANSPARENT_LIGHTEN_4";
         }
 
         @Override
-        public String getHex() {
-          return "transparent";
+        public CssClass getBackground() {
+            return dui_bg_transparent_l_4;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-transparent";
+        public CssClass getForeground() {
+            return dui_fg_transparent_l_4;
         }
-      };
 
-  Color TRANSPARENT_LIGHTEN_3 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-transparent";
+        public CssClass getBorderColor() {
+            return dui_border_transparent;
         }
 
         @Override
-        public String getName() {
-          return "TRANSPARENT LIGHTEN 3";
+        public CssClass getAccentColor() {
+            return dui_accent_transparent;
         }
 
+    };
+
+    Color TRANSPARENT_LIGHTEN_5 = new Color() {
         @Override
-        public String getHex() {
-          return "transparent";
+        public CssClass getCssClass() {
+            return dui_transparent;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-transparent";
+        public String getName() {
+            return "TRANSPARENT_LIGHTEN_5";
         }
-      };
 
-  Color TRANSPARENT_LIGHTEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-transparent";
+        public CssClass getBackground() {
+            return dui_bg_transparent_l_5;
         }
 
         @Override
-        public String getName() {
-          return "TRANSPARENT LIGHTEN 4";
+        public CssClass getForeground() {
+            return dui_fg_transparent_l_5;
         }
 
         @Override
-        public String getHex() {
-          return "transparent";
+        public CssClass getBorderColor() {
+            return dui_border_transparent;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-transparent";
+        public CssClass getAccentColor() {
+            return dui_accent_transparent;
         }
-      };
+
+    };
 
-  Color TRANSPARENT_LIGHTEN_5 =
-      new Color() {
+
+    Color TRANSPARENT_DARKEN_1 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-transparent";
+        public CssClass getCssClass() {
+            return dui_transparent;
         }
 
         @Override
         public String getName() {
-          return "TRANSPARENT LIGHTEN 5";
+            return "TRANSPARENT_DARKEN_1";
         }
 
         @Override
-        public String getHex() {
-          return "transparent";
+        public CssClass getBackground() {
+            return dui_bg_transparent_d_1;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-transparent";
+        public CssClass getForeground() {
+            return dui_fg_transparent_d_1;
         }
-      };
 
-  Color TRANSPARENT_DARKEN_1 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-transparent";
+        public CssClass getBorderColor() {
+            return dui_border_transparent;
         }
 
         @Override
-        public String getName() {
-          return "TRANSPARENT DARKEN 1";
+        public CssClass getAccentColor() {
+            return dui_accent_transparent;
         }
 
+    };
+
+    Color TRANSPARENT_DARKEN_2 = new Color() {
         @Override
-        public String getHex() {
-          return "transparent";
+        public CssClass getCssClass() {
+            return dui_transparent;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-transparent";
+        public String getName() {
+            return "TRANSPARENT_DARKEN_2";
         }
-      };
 
-  Color TRANSPARENT_DARKEN_2 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-transparent";
+        public CssClass getBackground() {
+            return dui_bg_transparent_d_2;
         }
 
         @Override
-        public String getName() {
-          return "TRANSPARENT DARKEN 2";
+        public CssClass getForeground() {
+            return dui_fg_transparent_d_2;
         }
 
         @Override
-        public String getHex() {
-          return "transparent";
+        public CssClass getBorderColor() {
+            return dui_border_transparent;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-transparent";
+        public CssClass getAccentColor() {
+            return dui_accent_transparent;
         }
-      };
+
+    };
 
-  Color TRANSPARENT_DARKEN_3 =
-      new Color() {
+    Color TRANSPARENT_DARKEN_3 = new Color() {
         @Override
-        public String getStyle() {
-          return "col-transparent";
+        public CssClass getCssClass() {
+            return dui_transparent;
         }
 
         @Override
         public String getName() {
-          return "TRANSPARENT DARKEN 3";
+            return "TRANSPARENT_DARKEN_3";
         }
 
         @Override
-        public String getHex() {
-          return "transparent";
+        public CssClass getBackground() {
+            return dui_bg_transparent_d_3;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-transparent";
+        public CssClass getForeground() {
+            return dui_fg_transparent_d_3;
         }
-      };
 
-  Color TRANSPARENT_DARKEN_4 =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-transparent";
+        public CssClass getBorderColor() {
+            return dui_border_transparent;
         }
 
         @Override
-        public String getName() {
-          return "TRANSPARENT DARKEN 4";
+        public CssClass getAccentColor() {
+            return dui_accent_transparent;
         }
+
+    };
 
+    Color TRANSPARENT_DARKEN_4 = new Color() {
         @Override
-        public String getHex() {
-          return "transparent";
+        public CssClass getCssClass() {
+            return dui_transparent;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-transparent";
+        public String getName() {
+            return "TRANSPARENT_DARKEN_4";
         }
-      };
 
-  Color THEME =
-      new Color() {
         @Override
-        public String getStyle() {
-          return "col-theme";
+        public CssClass getBackground() {
+            return dui_bg_transparent_d_4;
         }
 
         @Override
-        public String getName() {
-          return "THEME";
+        public CssClass getForeground() {
+            return dui_fg_transparent_d_4;
         }
 
         @Override
-        public String getHex() {
-          return Theme.currentTheme.getScheme().color().getHex();
+        public CssClass getBorderColor() {
+            return dui_border_transparent;
         }
 
         @Override
-        public String getBackground() {
-          return "bg-theme";
+        public CssClass getAccentColor() {
+            return dui_accent_transparent;
         }
-      };
 
-  static Color of(String name) {
-    switch (name) {
-      case "RED":
-        return Color.RED;
+    };
 
-      case "RED DARKEN 1":
-        return Color.RED_DARKEN_1;
 
-      case "RED DARKEN 2":
-        return Color.RED_DARKEN_2;
+    static Color of(String name) {
+        switch (name) {
+            case "RED":
+                return Color.RED;
 
-      case "RED DARKEN 3":
-        return Color.RED_DARKEN_3;
+            case "RED DARKEN 1":
+                return Color.RED_DARKEN_1;
 
-      case "RED DARKEN 4":
-        return Color.RED_DARKEN_4;
+            case "RED DARKEN 2":
+                return Color.RED_DARKEN_2;
 
-      case "RED LIGHTEN 1":
-        return Color.RED_LIGHTEN_1;
+            case "RED DARKEN 3":
+                return Color.RED_DARKEN_3;
 
-      case "RED LIGHTEN 2":
-        return Color.RED_LIGHTEN_2;
+            case "RED DARKEN 4":
+                return Color.RED_DARKEN_4;
 
-      case "RED LIGHTEN 3":
-        return Color.RED_LIGHTEN_3;
+            case "RED LIGHTEN 1":
+                return Color.RED_LIGHTEN_1;
 
-      case "RED LIGHTEN 4":
-        return Color.RED_LIGHTEN_4;
+            case "RED LIGHTEN 2":
+                return Color.RED_LIGHTEN_2;
 
-      case "RED LIGHTEN 5":
-        return Color.RED_LIGHTEN_5;
+            case "RED LIGHTEN 3":
+                return Color.RED_LIGHTEN_3;
 
-      case "PINK":
-        return Color.PINK;
+            case "RED LIGHTEN 4":
+                return Color.RED_LIGHTEN_4;
 
-      case "PINK DARKEN 1":
-        return Color.PINK_DARKEN_1;
+            case "RED LIGHTEN 5":
+                return Color.RED_LIGHTEN_5;
 
-      case "PINK DARKEN 2":
-        return Color.PINK_DARKEN_2;
+            case "PINK":
+                return Color.PINK;
 
-      case "PINK DARKEN 3":
-        return Color.PINK_DARKEN_3;
+            case "PINK DARKEN 1":
+                return Color.PINK_DARKEN_1;
 
-      case "PINK DARKEN 4":
-        return Color.PINK_DARKEN_4;
+            case "PINK DARKEN 2":
+                return Color.PINK_DARKEN_2;
 
-      case "PINK LIGHTEN 1":
-        return Color.PINK_LIGHTEN_1;
+            case "PINK DARKEN 3":
+                return Color.PINK_DARKEN_3;
 
-      case "PINK LIGHTEN 2":
-        return Color.PINK_LIGHTEN_2;
+            case "PINK DARKEN 4":
+                return Color.PINK_DARKEN_4;
 
-      case "PINK LIGHTEN 3":
-        return Color.PINK_LIGHTEN_3;
+            case "PINK LIGHTEN 1":
+                return Color.PINK_LIGHTEN_1;
 
-      case "PINK LIGHTEN 4":
-        return Color.PINK_LIGHTEN_4;
+            case "PINK LIGHTEN 2":
+                return Color.PINK_LIGHTEN_2;
 
-      case "PINK LIGHTEN 5":
-        return Color.PINK_LIGHTEN_5;
+            case "PINK LIGHTEN 3":
+                return Color.PINK_LIGHTEN_3;
 
-      case "PURPLE":
-        return Color.PURPLE;
+            case "PINK LIGHTEN 4":
+                return Color.PINK_LIGHTEN_4;
 
-      case "PURPLE DARKEN 1":
-        return Color.PURPLE_DARKEN_1;
+            case "PINK LIGHTEN 5":
+                return Color.PINK_LIGHTEN_5;
 
-      case "PURPLE DARKEN 2":
-        return Color.PURPLE_DARKEN_2;
+            case "PURPLE":
+                return Color.PURPLE;
 
-      case "PURPLE DARKEN 3":
-        return Color.PURPLE_DARKEN_3;
+            case "PURPLE DARKEN 1":
+                return Color.PURPLE_DARKEN_1;
 
-      case "PURPLE DARKEN 4":
-        return Color.PURPLE_DARKEN_4;
+            case "PURPLE DARKEN 2":
+                return Color.PURPLE_DARKEN_2;
 
-      case "PURPLE LIGHTEN 1":
-        return Color.PURPLE_LIGHTEN_1;
+            case "PURPLE DARKEN 3":
+                return Color.PURPLE_DARKEN_3;
 
-      case "PURPLE LIGHTEN 2":
-        return Color.PURPLE_LIGHTEN_2;
+            case "PURPLE DARKEN 4":
+                return Color.PURPLE_DARKEN_4;
 
-      case "PURPLE LIGHTEN 3":
-        return Color.PURPLE_LIGHTEN_3;
+            case "PURPLE LIGHTEN 1":
+                return Color.PURPLE_LIGHTEN_1;
 
-      case "PURPLE LIGHTEN 4":
-        return Color.PURPLE_LIGHTEN_4;
+            case "PURPLE LIGHTEN 2":
+                return Color.PURPLE_LIGHTEN_2;
 
-      case "PURPLE LIGHTEN 5":
-        return Color.PURPLE_LIGHTEN_5;
+            case "PURPLE LIGHTEN 3":
+                return Color.PURPLE_LIGHTEN_3;
 
-      case "DEEP PURPLE":
-        return Color.DEEP_PURPLE;
+            case "PURPLE LIGHTEN 4":
+                return Color.PURPLE_LIGHTEN_4;
 
-      case "DEEP PURPLE DARKEN 1":
-        return Color.DEEP_PURPLE_DARKEN_1;
+            case "PURPLE LIGHTEN 5":
+                return Color.PURPLE_LIGHTEN_5;
 
-      case "DEEP PURPLE DARKEN 2":
-        return Color.DEEP_PURPLE_DARKEN_2;
+            case "DEEP PURPLE":
+                return Color.DEEP_PURPLE;
 
-      case "DEEP PURPLE DARKEN 3":
-        return Color.DEEP_PURPLE_DARKEN_3;
+            case "DEEP PURPLE DARKEN 1":
+                return Color.DEEP_PURPLE_DARKEN_1;
 
-      case "DEEP PURPLE DARKEN 4":
-        return Color.DEEP_PURPLE_DARKEN_4;
+            case "DEEP PURPLE DARKEN 2":
+                return Color.DEEP_PURPLE_DARKEN_2;
 
-      case "DEEP PURPLE LIGHTEN 1":
-        return Color.DEEP_PURPLE_LIGHTEN_1;
+            case "DEEP PURPLE DARKEN 3":
+                return Color.DEEP_PURPLE_DARKEN_3;
 
-      case "DEEP PURPLE LIGHTEN 2":
-        return Color.DEEP_PURPLE_LIGHTEN_2;
+            case "DEEP PURPLE DARKEN 4":
+                return Color.DEEP_PURPLE_DARKEN_4;
 
-      case "DEEP PURPLE LIGHTEN 3":
-        return Color.DEEP_PURPLE_LIGHTEN_3;
+            case "DEEP PURPLE LIGHTEN 1":
+                return Color.DEEP_PURPLE_LIGHTEN_1;
 
-      case "DEEP PURPLE LIGHTEN 4":
-        return Color.DEEP_PURPLE_LIGHTEN_4;
+            case "DEEP PURPLE LIGHTEN 2":
+                return Color.DEEP_PURPLE_LIGHTEN_2;
 
-      case "DEEP PURPLE LIGHTEN 5":
-        return Color.DEEP_PURPLE_LIGHTEN_5;
+            case "DEEP PURPLE LIGHTEN 3":
+                return Color.DEEP_PURPLE_LIGHTEN_3;
 
-      case "INDIGO":
-        return Color.INDIGO;
+            case "DEEP PURPLE LIGHTEN 4":
+                return Color.DEEP_PURPLE_LIGHTEN_4;
 
-      case "INDIGO DARKEN 1":
-        return Color.INDIGO_DARKEN_1;
+            case "DEEP PURPLE LIGHTEN 5":
+                return Color.DEEP_PURPLE_LIGHTEN_5;
 
-      case "INDIGO DARKEN 2":
-        return Color.INDIGO_DARKEN_2;
+            case "INDIGO":
+                return Color.INDIGO;
 
-      case "INDIGO DARKEN 3":
-        return Color.INDIGO_DARKEN_3;
+            case "INDIGO DARKEN 1":
+                return Color.INDIGO_DARKEN_1;
 
-      case "INDIGO DARKEN 4":
-        return Color.INDIGO_DARKEN_4;
+            case "INDIGO DARKEN 2":
+                return Color.INDIGO_DARKEN_2;
 
-      case "INDIGO LIGHTEN 1":
-        return Color.INDIGO_LIGHTEN_1;
+            case "INDIGO DARKEN 3":
+                return Color.INDIGO_DARKEN_3;
 
-      case "INDIGO LIGHTEN 2":
-        return Color.INDIGO_LIGHTEN_2;
+            case "INDIGO DARKEN 4":
+                return Color.INDIGO_DARKEN_4;
 
-      case "INDIGO LIGHTEN 3":
-        return Color.INDIGO_LIGHTEN_3;
+            case "INDIGO LIGHTEN 1":
+                return Color.INDIGO_LIGHTEN_1;
 
-      case "INDIGO LIGHTEN 4":
-        return Color.INDIGO_LIGHTEN_4;
+            case "INDIGO LIGHTEN 2":
+                return Color.INDIGO_LIGHTEN_2;
 
-      case "INDIGO LIGHTEN 5":
-        return Color.INDIGO_LIGHTEN_5;
+            case "INDIGO LIGHTEN 3":
+                return Color.INDIGO_LIGHTEN_3;
 
-      case "BLUE":
-        return Color.BLUE;
+            case "INDIGO LIGHTEN 4":
+                return Color.INDIGO_LIGHTEN_4;
 
-      case "BLUE DARKEN 1":
-        return Color.BLUE_DARKEN_1;
+            case "INDIGO LIGHTEN 5":
+                return Color.INDIGO_LIGHTEN_5;
 
-      case "BLUE DARKEN 2":
-        return Color.BLUE_DARKEN_2;
+            case "BLUE":
+                return Color.BLUE;
 
-      case "BLUE DARKEN 3":
-        return Color.BLUE_DARKEN_3;
+            case "BLUE DARKEN 1":
+                return Color.BLUE_DARKEN_1;
 
-      case "BLUE DARKEN 4":
-        return Color.BLUE_DARKEN_4;
+            case "BLUE DARKEN 2":
+                return Color.BLUE_DARKEN_2;
 
-      case "BLUE LIGHTEN 1":
-        return Color.BLUE_LIGHTEN_1;
+            case "BLUE DARKEN 3":
+                return Color.BLUE_DARKEN_3;
 
-      case "BLUE LIGHTEN 2":
-        return Color.BLUE_LIGHTEN_2;
+            case "BLUE DARKEN 4":
+                return Color.BLUE_DARKEN_4;
 
-      case "BLUE LIGHTEN 3":
-        return Color.BLUE_LIGHTEN_3;
+            case "BLUE LIGHTEN 1":
+                return Color.BLUE_LIGHTEN_1;
 
-      case "BLUE LIGHTEN 4":
-        return Color.BLUE_LIGHTEN_4;
+            case "BLUE LIGHTEN 2":
+                return Color.BLUE_LIGHTEN_2;
 
-      case "BLUE LIGHTEN 5":
-        return Color.BLUE_LIGHTEN_5;
+            case "BLUE LIGHTEN 3":
+                return Color.BLUE_LIGHTEN_3;
 
-      case "LIGHT BLUE":
-        return Color.LIGHT_BLUE;
+            case "BLUE LIGHTEN 4":
+                return Color.BLUE_LIGHTEN_4;
 
-      case "LIGHT BLUE DARKEN 1":
-        return Color.LIGHT_BLUE_DARKEN_1;
+            case "BLUE LIGHTEN 5":
+                return Color.BLUE_LIGHTEN_5;
 
-      case "LIGHT BLUE DARKEN 2":
-        return Color.LIGHT_BLUE_DARKEN_2;
+            case "LIGHT BLUE":
+                return Color.LIGHT_BLUE;
 
-      case "LIGHT BLUE DARKEN 3":
-        return Color.LIGHT_BLUE_DARKEN_3;
+            case "LIGHT BLUE DARKEN 1":
+                return Color.LIGHT_BLUE_DARKEN_1;
 
-      case "LIGHT BLUE DARKEN 4":
-        return Color.LIGHT_BLUE_DARKEN_4;
+            case "LIGHT BLUE DARKEN 2":
+                return Color.LIGHT_BLUE_DARKEN_2;
 
-      case "LIGHT BLUE LIGHTEN 1":
-        return Color.LIGHT_BLUE_LIGHTEN_1;
+            case "LIGHT BLUE DARKEN 3":
+                return Color.LIGHT_BLUE_DARKEN_3;
 
-      case "LIGHT BLUE LIGHTEN 2":
-        return Color.LIGHT_BLUE_LIGHTEN_2;
+            case "LIGHT BLUE DARKEN 4":
+                return Color.LIGHT_BLUE_DARKEN_4;
 
-      case "LIGHT BLUE LIGHTEN 3":
-        return Color.LIGHT_BLUE_LIGHTEN_3;
+            case "LIGHT BLUE LIGHTEN 1":
+                return Color.LIGHT_BLUE_LIGHTEN_1;
 
-      case "LIGHT BLUE LIGHTEN 4":
-        return Color.LIGHT_BLUE_LIGHTEN_4;
+            case "LIGHT BLUE LIGHTEN 2":
+                return Color.LIGHT_BLUE_LIGHTEN_2;
 
-      case "LIGHT BLUE LIGHTEN 5":
-        return Color.LIGHT_BLUE_LIGHTEN_5;
+            case "LIGHT BLUE LIGHTEN 3":
+                return Color.LIGHT_BLUE_LIGHTEN_3;
 
-      case "CYAN":
-        return Color.CYAN;
+            case "LIGHT BLUE LIGHTEN 4":
+                return Color.LIGHT_BLUE_LIGHTEN_4;
 
-      case "CYAN DARKEN 1":
-        return Color.CYAN_DARKEN_1;
+            case "LIGHT BLUE LIGHTEN 5":
+                return Color.LIGHT_BLUE_LIGHTEN_5;
 
-      case "CYAN DARKEN 2":
-        return Color.CYAN_DARKEN_2;
+            case "CYAN":
+                return Color.CYAN;
 
-      case "CYAN DARKEN 3":
-        return Color.CYAN_DARKEN_3;
+            case "CYAN DARKEN 1":
+                return Color.CYAN_DARKEN_1;
 
-      case "CYAN DARKEN 4":
-        return Color.CYAN_DARKEN_4;
+            case "CYAN DARKEN 2":
+                return Color.CYAN_DARKEN_2;
 
-      case "CYAN LIGHTEN 1":
-        return Color.CYAN_LIGHTEN_1;
+            case "CYAN DARKEN 3":
+                return Color.CYAN_DARKEN_3;
 
-      case "CYAN LIGHTEN 2":
-        return Color.CYAN_LIGHTEN_2;
+            case "CYAN DARKEN 4":
+                return Color.CYAN_DARKEN_4;
 
-      case "CYAN LIGHTEN 3":
-        return Color.CYAN_LIGHTEN_3;
+            case "CYAN LIGHTEN 1":
+                return Color.CYAN_LIGHTEN_1;
 
-      case "CYAN LIGHTEN 4":
-        return Color.CYAN_LIGHTEN_4;
+            case "CYAN LIGHTEN 2":
+                return Color.CYAN_LIGHTEN_2;
 
-      case "CYAN LIGHTEN 5":
-        return Color.CYAN_LIGHTEN_5;
+            case "CYAN LIGHTEN 3":
+                return Color.CYAN_LIGHTEN_3;
 
-      case "TEAL":
-        return Color.TEAL;
+            case "CYAN LIGHTEN 4":
+                return Color.CYAN_LIGHTEN_4;
 
-      case "TEAL DARKEN 1":
-        return Color.TEAL_DARKEN_1;
+            case "CYAN LIGHTEN 5":
+                return Color.CYAN_LIGHTEN_5;
 
-      case "TEAL DARKEN 2":
-        return Color.TEAL_DARKEN_2;
+            case "TEAL":
+                return Color.TEAL;
 
-      case "TEAL DARKEN 3":
-        return Color.TEAL_DARKEN_3;
+            case "TEAL DARKEN 1":
+                return Color.TEAL_DARKEN_1;
 
-      case "TEAL DARKEN 4":
-        return Color.TEAL_DARKEN_4;
+            case "TEAL DARKEN 2":
+                return Color.TEAL_DARKEN_2;
 
-      case "TEAL LIGHTEN 1":
-        return Color.TEAL_LIGHTEN_1;
+            case "TEAL DARKEN 3":
+                return Color.TEAL_DARKEN_3;
 
-      case "TEAL LIGHTEN 2":
-        return Color.TEAL_LIGHTEN_2;
+            case "TEAL DARKEN 4":
+                return Color.TEAL_DARKEN_4;
 
-      case "TEAL LIGHTEN 3":
-        return Color.TEAL_LIGHTEN_3;
+            case "TEAL LIGHTEN 1":
+                return Color.TEAL_LIGHTEN_1;
 
-      case "TEAL LIGHTEN 4":
-        return Color.TEAL_LIGHTEN_4;
+            case "TEAL LIGHTEN 2":
+                return Color.TEAL_LIGHTEN_2;
 
-      case "TEAL LIGHTEN 5":
-        return Color.TEAL_LIGHTEN_5;
+            case "TEAL LIGHTEN 3":
+                return Color.TEAL_LIGHTEN_3;
 
-      case "GREEN":
-        return Color.GREEN;
+            case "TEAL LIGHTEN 4":
+                return Color.TEAL_LIGHTEN_4;
 
-      case "GREEN DARKEN 1":
-        return Color.GREEN_DARKEN_1;
+            case "TEAL LIGHTEN 5":
+                return Color.TEAL_LIGHTEN_5;
 
-      case "GREEN DARKEN 2":
-        return Color.GREEN_DARKEN_2;
+            case "GREEN":
+                return Color.GREEN;
 
-      case "GREEN DARKEN 3":
-        return Color.GREEN_DARKEN_3;
+            case "GREEN DARKEN 1":
+                return Color.GREEN_DARKEN_1;
 
-      case "GREEN DARKEN 4":
-        return Color.GREEN_DARKEN_4;
+            case "GREEN DARKEN 2":
+                return Color.GREEN_DARKEN_2;
 
-      case "GREEN LIGHTEN 1":
-        return Color.GREEN_LIGHTEN_1;
+            case "GREEN DARKEN 3":
+                return Color.GREEN_DARKEN_3;
 
-      case "GREEN LIGHTEN 2":
-        return Color.GREEN_LIGHTEN_2;
+            case "GREEN DARKEN 4":
+                return Color.GREEN_DARKEN_4;
 
-      case "GREEN LIGHTEN 3":
-        return Color.GREEN_LIGHTEN_3;
+            case "GREEN LIGHTEN 1":
+                return Color.GREEN_LIGHTEN_1;
 
-      case "GREEN LIGHTEN 4":
-        return Color.GREEN_LIGHTEN_4;
+            case "GREEN LIGHTEN 2":
+                return Color.GREEN_LIGHTEN_2;
 
-      case "GREEN LIGHTEN 5":
-        return Color.GREEN_LIGHTEN_5;
+            case "GREEN LIGHTEN 3":
+                return Color.GREEN_LIGHTEN_3;
 
-      case "LIGHT GREEN":
-        return Color.LIGHT_GREEN;
+            case "GREEN LIGHTEN 4":
+                return Color.GREEN_LIGHTEN_4;
 
-      case "LIGHT GREEN DARKEN 1":
-        return Color.LIGHT_GREEN_DARKEN_1;
+            case "GREEN LIGHTEN 5":
+                return Color.GREEN_LIGHTEN_5;
 
-      case "LIGHT GREEN DARKEN 2":
-        return Color.LIGHT_GREEN_DARKEN_2;
+            case "LIGHT GREEN":
+                return Color.LIGHT_GREEN;
 
-      case "LIGHT GREEN DARKEN 3":
-        return Color.LIGHT_GREEN_DARKEN_3;
+            case "LIGHT GREEN DARKEN 1":
+                return Color.LIGHT_GREEN_DARKEN_1;
 
-      case "LIGHT GREEN DARKEN 4":
-        return Color.LIGHT_GREEN_DARKEN_4;
+            case "LIGHT GREEN DARKEN 2":
+                return Color.LIGHT_GREEN_DARKEN_2;
 
-      case "LIGHT GREEN LIGHTEN 1":
-        return Color.LIGHT_GREEN_LIGHTEN_1;
+            case "LIGHT GREEN DARKEN 3":
+                return Color.LIGHT_GREEN_DARKEN_3;
 
-      case "LIGHT GREEN LIGHTEN 2":
-        return Color.LIGHT_GREEN_LIGHTEN_2;
+            case "LIGHT GREEN DARKEN 4":
+                return Color.LIGHT_GREEN_DARKEN_4;
 
-      case "LIGHT GREEN LIGHTEN 3":
-        return Color.LIGHT_GREEN_LIGHTEN_3;
+            case "LIGHT GREEN LIGHTEN 1":
+                return Color.LIGHT_GREEN_LIGHTEN_1;
 
-      case "LIGHT GREEN LIGHTEN 4":
-        return Color.LIGHT_GREEN_LIGHTEN_4;
+            case "LIGHT GREEN LIGHTEN 2":
+                return Color.LIGHT_GREEN_LIGHTEN_2;
 
-      case "LIGHT GREEN LIGHTEN 5":
-        return Color.LIGHT_GREEN_LIGHTEN_5;
+            case "LIGHT GREEN LIGHTEN 3":
+                return Color.LIGHT_GREEN_LIGHTEN_3;
 
-      case "LIME":
-        return Color.LIME;
+            case "LIGHT GREEN LIGHTEN 4":
+                return Color.LIGHT_GREEN_LIGHTEN_4;
 
-      case "LIME DARKEN 1":
-        return Color.LIME_DARKEN_1;
+            case "LIGHT GREEN LIGHTEN 5":
+                return Color.LIGHT_GREEN_LIGHTEN_5;
 
-      case "LIME DARKEN 2":
-        return Color.LIME_DARKEN_2;
+            case "LIME":
+                return Color.LIME;
 
-      case "LIME DARKEN 3":
-        return Color.LIME_DARKEN_3;
+            case "LIME DARKEN 1":
+                return Color.LIME_DARKEN_1;
 
-      case "LIME DARKEN 4":
-        return Color.LIME_DARKEN_4;
+            case "LIME DARKEN 2":
+                return Color.LIME_DARKEN_2;
 
-      case "LIME LIGHTEN 1":
-        return Color.LIME_LIGHTEN_1;
+            case "LIME DARKEN 3":
+                return Color.LIME_DARKEN_3;
 
-      case "LIME LIGHTEN 2":
-        return Color.LIME_LIGHTEN_2;
+            case "LIME DARKEN 4":
+                return Color.LIME_DARKEN_4;
 
-      case "LIME LIGHTEN 3":
-        return Color.LIME_LIGHTEN_3;
+            case "LIME LIGHTEN 1":
+                return Color.LIME_LIGHTEN_1;
 
-      case "LIME LIGHTEN 4":
-        return Color.LIME_LIGHTEN_4;
+            case "LIME LIGHTEN 2":
+                return Color.LIME_LIGHTEN_2;
 
-      case "LIME LIGHTEN 5":
-        return Color.LIME_LIGHTEN_5;
+            case "LIME LIGHTEN 3":
+                return Color.LIME_LIGHTEN_3;
 
-      case "YELLOW":
-        return Color.YELLOW;
+            case "LIME LIGHTEN 4":
+                return Color.LIME_LIGHTEN_4;
 
-      case "YELLOW DARKEN 1":
-        return Color.YELLOW_DARKEN_1;
+            case "LIME LIGHTEN 5":
+                return Color.LIME_LIGHTEN_5;
 
-      case "YELLOW DARKEN 2":
-        return Color.YELLOW_DARKEN_2;
+            case "YELLOW":
+                return Color.YELLOW;
 
-      case "YELLOW DARKEN 3":
-        return Color.YELLOW_DARKEN_3;
+            case "YELLOW DARKEN 1":
+                return Color.YELLOW_DARKEN_1;
 
-      case "YELLOW DARKEN 4":
-        return Color.YELLOW_DARKEN_4;
+            case "YELLOW DARKEN 2":
+                return Color.YELLOW_DARKEN_2;
 
-      case "YELLOW LIGHTEN 1":
-        return Color.YELLOW_LIGHTEN_1;
+            case "YELLOW DARKEN 3":
+                return Color.YELLOW_DARKEN_3;
 
-      case "YELLOW LIGHTEN 2":
-        return Color.YELLOW_LIGHTEN_2;
+            case "YELLOW DARKEN 4":
+                return Color.YELLOW_DARKEN_4;
 
-      case "YELLOW LIGHTEN 3":
-        return Color.YELLOW_LIGHTEN_3;
+            case "YELLOW LIGHTEN 1":
+                return Color.YELLOW_LIGHTEN_1;
 
-      case "YELLOW LIGHTEN 4":
-        return Color.YELLOW_LIGHTEN_4;
+            case "YELLOW LIGHTEN 2":
+                return Color.YELLOW_LIGHTEN_2;
 
-      case "YELLOW LIGHTEN 5":
-        return Color.YELLOW_LIGHTEN_5;
+            case "YELLOW LIGHTEN 3":
+                return Color.YELLOW_LIGHTEN_3;
 
-      case "AMBER":
-        return Color.AMBER;
+            case "YELLOW LIGHTEN 4":
+                return Color.YELLOW_LIGHTEN_4;
 
-      case "AMBER DARKEN 1":
-        return Color.AMBER_DARKEN_1;
+            case "YELLOW LIGHTEN 5":
+                return Color.YELLOW_LIGHTEN_5;
 
-      case "AMBER DARKEN 2":
-        return Color.AMBER_DARKEN_2;
+            case "AMBER":
+                return Color.AMBER;
 
-      case "AMBER DARKEN 3":
-        return Color.AMBER_DARKEN_3;
+            case "AMBER DARKEN 1":
+                return Color.AMBER_DARKEN_1;
 
-      case "AMBER DARKEN 4":
-        return Color.AMBER_DARKEN_4;
+            case "AMBER DARKEN 2":
+                return Color.AMBER_DARKEN_2;
 
-      case "AMBER LIGHTEN 1":
-        return Color.AMBER_LIGHTEN_1;
+            case "AMBER DARKEN 3":
+                return Color.AMBER_DARKEN_3;
 
-      case "AMBER LIGHTEN 2":
-        return Color.AMBER_LIGHTEN_2;
+            case "AMBER DARKEN 4":
+                return Color.AMBER_DARKEN_4;
 
-      case "AMBER LIGHTEN 3":
-        return Color.AMBER_LIGHTEN_3;
+            case "AMBER LIGHTEN 1":
+                return Color.AMBER_LIGHTEN_1;
 
-      case "AMBER LIGHTEN 4":
-        return Color.AMBER_LIGHTEN_4;
+            case "AMBER LIGHTEN 2":
+                return Color.AMBER_LIGHTEN_2;
 
-      case "AMBER LIGHTEN 5":
-        return Color.AMBER_LIGHTEN_5;
+            case "AMBER LIGHTEN 3":
+                return Color.AMBER_LIGHTEN_3;
 
-      case "ORANGE":
-        return Color.ORANGE;
+            case "AMBER LIGHTEN 4":
+                return Color.AMBER_LIGHTEN_4;
 
-      case "ORANGE DARKEN 1":
-        return Color.ORANGE_DARKEN_1;
+            case "AMBER LIGHTEN 5":
+                return Color.AMBER_LIGHTEN_5;
 
-      case "ORANGE DARKEN 2":
-        return Color.ORANGE_DARKEN_2;
+            case "ORANGE":
+                return Color.ORANGE;
 
-      case "ORANGE DARKEN 3":
-        return Color.ORANGE_DARKEN_3;
+            case "ORANGE DARKEN 1":
+                return Color.ORANGE_DARKEN_1;
 
-      case "ORANGE DARKEN 4":
-        return Color.ORANGE_DARKEN_4;
+            case "ORANGE DARKEN 2":
+                return Color.ORANGE_DARKEN_2;
 
-      case "ORANGE LIGHTEN 1":
-        return Color.ORANGE_LIGHTEN_1;
+            case "ORANGE DARKEN 3":
+                return Color.ORANGE_DARKEN_3;
 
-      case "ORANGE LIGHTEN 2":
-        return Color.ORANGE_LIGHTEN_2;
+            case "ORANGE DARKEN 4":
+                return Color.ORANGE_DARKEN_4;
 
-      case "ORANGE LIGHTEN 3":
-        return Color.ORANGE_LIGHTEN_3;
+            case "ORANGE LIGHTEN 1":
+                return Color.ORANGE_LIGHTEN_1;
 
-      case "ORANGE LIGHTEN 4":
-        return Color.ORANGE_LIGHTEN_4;
+            case "ORANGE LIGHTEN 2":
+                return Color.ORANGE_LIGHTEN_2;
 
-      case "ORANGE LIGHTEN 5":
-        return Color.ORANGE_LIGHTEN_5;
+            case "ORANGE LIGHTEN 3":
+                return Color.ORANGE_LIGHTEN_3;
 
-      case "DEEP ORANGE":
-        return Color.DEEP_ORANGE;
+            case "ORANGE LIGHTEN 4":
+                return Color.ORANGE_LIGHTEN_4;
 
-      case "DEEP ORANGE DARKEN 1":
-        return Color.DEEP_ORANGE_DARKEN_1;
+            case "ORANGE LIGHTEN 5":
+                return Color.ORANGE_LIGHTEN_5;
 
-      case "DEEP ORANGE DARKEN 2":
-        return Color.DEEP_ORANGE_DARKEN_2;
+            case "DEEP ORANGE":
+                return Color.DEEP_ORANGE;
 
-      case "DEEP ORANGE DARKEN 3":
-        return Color.DEEP_ORANGE_DARKEN_3;
+            case "DEEP ORANGE DARKEN 1":
+                return Color.DEEP_ORANGE_DARKEN_1;
 
-      case "DEEP ORANGE DARKEN 4":
-        return Color.DEEP_ORANGE_DARKEN_4;
+            case "DEEP ORANGE DARKEN 2":
+                return Color.DEEP_ORANGE_DARKEN_2;
 
-      case "DEEP ORANGE LIGHTEN 1":
-        return Color.DEEP_ORANGE_LIGHTEN_1;
+            case "DEEP ORANGE DARKEN 3":
+                return Color.DEEP_ORANGE_DARKEN_3;
 
-      case "DEEP ORANGE LIGHTEN 2":
-        return Color.DEEP_ORANGE_LIGHTEN_2;
+            case "DEEP ORANGE DARKEN 4":
+                return Color.DEEP_ORANGE_DARKEN_4;
 
-      case "DEEP ORANGE LIGHTEN 3":
-        return Color.DEEP_ORANGE_LIGHTEN_3;
+            case "DEEP ORANGE LIGHTEN 1":
+                return Color.DEEP_ORANGE_LIGHTEN_1;
 
-      case "DEEP ORANGE LIGHTEN 4":
-        return Color.DEEP_ORANGE_LIGHTEN_4;
+            case "DEEP ORANGE LIGHTEN 2":
+                return Color.DEEP_ORANGE_LIGHTEN_2;
 
-      case "DEEP ORANGE LIGHTEN 5":
-        return Color.DEEP_ORANGE_LIGHTEN_5;
+            case "DEEP ORANGE LIGHTEN 3":
+                return Color.DEEP_ORANGE_LIGHTEN_3;
 
-      case "BROWN":
-        return Color.BROWN;
+            case "DEEP ORANGE LIGHTEN 4":
+                return Color.DEEP_ORANGE_LIGHTEN_4;
 
-      case "BROWN DARKEN 1":
-        return Color.BROWN_DARKEN_1;
+            case "DEEP ORANGE LIGHTEN 5":
+                return Color.DEEP_ORANGE_LIGHTEN_5;
 
-      case "BROWN DARKEN 2":
-        return Color.BROWN_DARKEN_2;
+            case "BROWN":
+                return Color.BROWN;
 
-      case "BROWN DARKEN 3":
-        return Color.BROWN_DARKEN_3;
+            case "BROWN DARKEN 1":
+                return Color.BROWN_DARKEN_1;
 
-      case "BROWN DARKEN 4":
-        return Color.BROWN_DARKEN_4;
+            case "BROWN DARKEN 2":
+                return Color.BROWN_DARKEN_2;
 
-      case "BROWN LIGHTEN 1":
-        return Color.BROWN_LIGHTEN_1;
+            case "BROWN DARKEN 3":
+                return Color.BROWN_DARKEN_3;
 
-      case "BROWN LIGHTEN 2":
-        return Color.BROWN_LIGHTEN_2;
+            case "BROWN DARKEN 4":
+                return Color.BROWN_DARKEN_4;
 
-      case "BROWN LIGHTEN 3":
-        return Color.BROWN_LIGHTEN_3;
+            case "BROWN LIGHTEN 1":
+                return Color.BROWN_LIGHTEN_1;
 
-      case "BROWN LIGHTEN 4":
-        return Color.BROWN_LIGHTEN_4;
+            case "BROWN LIGHTEN 2":
+                return Color.BROWN_LIGHTEN_2;
 
-      case "BROWN LIGHTEN 5":
-        return Color.BROWN_LIGHTEN_5;
+            case "BROWN LIGHTEN 3":
+                return Color.BROWN_LIGHTEN_3;
 
-      case "GREY":
-        return Color.GREY;
+            case "BROWN LIGHTEN 4":
+                return Color.BROWN_LIGHTEN_4;
 
-      case "GREY DARKEN 1":
-        return Color.GREY_DARKEN_1;
+            case "BROWN LIGHTEN 5":
+                return Color.BROWN_LIGHTEN_5;
 
-      case "GREY DARKEN 2":
-        return Color.GREY_DARKEN_2;
+            case "GREY":
+                return Color.GREY;
 
-      case "GREY DARKEN 3":
-        return Color.GREY_DARKEN_3;
+            case "GREY DARKEN 1":
+                return Color.GREY_DARKEN_1;
 
-      case "GREY DARKEN 4":
-        return Color.GREY_DARKEN_4;
+            case "GREY DARKEN 2":
+                return Color.GREY_DARKEN_2;
 
-      case "GREY LIGHTEN 1":
-        return Color.GREY_LIGHTEN_1;
+            case "GREY DARKEN 3":
+                return Color.GREY_DARKEN_3;
 
-      case "GREY LIGHTEN 2":
-        return Color.GREY_LIGHTEN_2;
+            case "GREY DARKEN 4":
+                return Color.GREY_DARKEN_4;
 
-      case "GREY LIGHTEN 3":
-        return Color.GREY_LIGHTEN_3;
+            case "GREY LIGHTEN 1":
+                return Color.GREY_LIGHTEN_1;
 
-      case "GREY LIGHTEN 4":
-        return Color.GREY_LIGHTEN_4;
+            case "GREY LIGHTEN 2":
+                return Color.GREY_LIGHTEN_2;
 
-      case "GREY LIGHTEN 5":
-        return Color.GREY_LIGHTEN_5;
+            case "GREY LIGHTEN 3":
+                return Color.GREY_LIGHTEN_3;
 
-      case "BLUE GREY":
-        return Color.BLUE_GREY;
+            case "GREY LIGHTEN 4":
+                return Color.GREY_LIGHTEN_4;
 
-      case "BLUE GREY DARKEN 1":
-        return Color.BLUE_GREY_DARKEN_1;
+            case "GREY LIGHTEN 5":
+                return Color.GREY_LIGHTEN_5;
 
-      case "BLUE GREY DARKEN 2":
-        return Color.BLUE_GREY_DARKEN_2;
+            case "BLUE GREY":
+                return Color.BLUE_GREY;
 
-      case "BLUE GREY DARKEN 3":
-        return Color.BLUE_GREY_DARKEN_3;
+            case "BLUE GREY DARKEN 1":
+                return Color.BLUE_GREY_DARKEN_1;
 
-      case "BLUE GREY DARKEN 4":
-        return Color.BLUE_GREY_DARKEN_4;
+            case "BLUE GREY DARKEN 2":
+                return Color.BLUE_GREY_DARKEN_2;
 
-      case "BLUE GREY LIGHTEN 1":
-        return Color.BLUE_GREY_LIGHTEN_1;
+            case "BLUE GREY DARKEN 3":
+                return Color.BLUE_GREY_DARKEN_3;
 
-      case "BLUE GREY LIGHTEN 2":
-        return Color.BLUE_GREY_LIGHTEN_2;
+            case "BLUE GREY DARKEN 4":
+                return Color.BLUE_GREY_DARKEN_4;
 
-      case "BLUE GREY LIGHTEN 3":
-        return Color.BLUE_GREY_LIGHTEN_3;
+            case "BLUE GREY LIGHTEN 1":
+                return Color.BLUE_GREY_LIGHTEN_1;
 
-      case "BLUE GREY LIGHTEN 4":
-        return Color.BLUE_GREY_LIGHTEN_4;
+            case "BLUE GREY LIGHTEN 2":
+                return Color.BLUE_GREY_LIGHTEN_2;
 
-      case "BLUE GREY LIGHTEN 5":
-        return Color.BLUE_GREY_LIGHTEN_5;
+            case "BLUE GREY LIGHTEN 3":
+                return Color.BLUE_GREY_LIGHTEN_3;
 
-      case "BLACK":
-        return Color.BLACK;
+            case "BLUE GREY LIGHTEN 4":
+                return Color.BLUE_GREY_LIGHTEN_4;
 
-      case "BLACK DARKEN 1":
-        return Color.BLACK_DARKEN_1;
+            case "BLUE GREY LIGHTEN 5":
+                return Color.BLUE_GREY_LIGHTEN_5;
 
-      case "BLACK DARKEN 2":
-        return Color.BLACK_DARKEN_2;
+            case "BLACK":
+                return Color.BLACK;
 
-      case "BLACK DARKEN 3":
-        return Color.BLACK_DARKEN_3;
+            case "BLACK DARKEN 1":
+                return Color.BLACK_DARKEN_1;
 
-      case "BLACK DARKEN 4":
-        return Color.BLACK_DARKEN_4;
+            case "BLACK DARKEN 2":
+                return Color.BLACK_DARKEN_2;
 
-      case "BLACK LIGHTEN 1":
-        return Color.BLACK_LIGHTEN_1;
+            case "BLACK DARKEN 3":
+                return Color.BLACK_DARKEN_3;
 
-      case "BLACK LIGHTEN 2":
-        return Color.BLACK_LIGHTEN_2;
+            case "BLACK DARKEN 4":
+                return Color.BLACK_DARKEN_4;
 
-      case "BLACK LIGHTEN 3":
-        return Color.BLACK_LIGHTEN_3;
+            case "BLACK LIGHTEN 1":
+                return Color.BLACK_LIGHTEN_1;
 
-      case "BLACK LIGHTEN 4":
-        return Color.BLACK_LIGHTEN_4;
+            case "BLACK LIGHTEN 2":
+                return Color.BLACK_LIGHTEN_2;
 
-      case "BLACK LIGHTEN 5":
-        return Color.BLACK_LIGHTEN_5;
+            case "BLACK LIGHTEN 3":
+                return Color.BLACK_LIGHTEN_3;
 
-      case "WHITE":
-        return Color.WHITE;
+            case "BLACK LIGHTEN 4":
+                return Color.BLACK_LIGHTEN_4;
 
-      case "WHITE DARKEN 1":
-        return Color.WHITE_DARKEN_1;
+            case "BLACK LIGHTEN 5":
+                return Color.BLACK_LIGHTEN_5;
 
-      case "WHITE DARKEN 2":
-        return Color.WHITE_DARKEN_2;
+            case "WHITE":
+                return Color.WHITE;
 
-      case "WHITE DARKEN 3":
-        return Color.WHITE_DARKEN_3;
+            case "WHITE DARKEN 1":
+                return Color.WHITE_DARKEN_1;
 
-      case "WHITE DARKEN 4":
-        return Color.WHITE_DARKEN_4;
+            case "WHITE DARKEN 2":
+                return Color.WHITE_DARKEN_2;
 
-      case "WHITE LIGHTEN 1":
-        return Color.WHITE_LIGHTEN_1;
+            case "WHITE DARKEN 3":
+                return Color.WHITE_DARKEN_3;
 
-      case "WHITE LIGHTEN 2":
-        return Color.WHITE_LIGHTEN_2;
+            case "WHITE DARKEN 4":
+                return Color.WHITE_DARKEN_4;
 
-      case "WHITE LIGHTEN 3":
-        return Color.WHITE_LIGHTEN_3;
+            case "WHITE LIGHTEN 1":
+                return Color.WHITE_LIGHTEN_1;
 
-      case "WHITE LIGHTEN 4":
-        return Color.WHITE_LIGHTEN_4;
+            case "WHITE LIGHTEN 2":
+                return Color.WHITE_LIGHTEN_2;
 
-      case "WHITE LIGHTEN 5":
-        return Color.WHITE_LIGHTEN_5;
+            case "WHITE LIGHTEN 3":
+                return Color.WHITE_LIGHTEN_3;
 
-      case "TRANSPARENT":
-        return Color.TRANSPARENT;
+            case "WHITE LIGHTEN 4":
+                return Color.WHITE_LIGHTEN_4;
 
-      case "TRANSPARENT DARKEN 1":
-        return Color.TRANSPARENT_DARKEN_1;
+            case "WHITE LIGHTEN 5":
+                return Color.WHITE_LIGHTEN_5;
 
-      case "TRANSPARENT DARKEN 2":
-        return Color.TRANSPARENT_DARKEN_2;
+            case "TRANSPARENT":
+                return Color.TRANSPARENT;
 
-      case "TRANSPARENT DARKEN 3":
-        return Color.TRANSPARENT_DARKEN_3;
+            case "TRANSPARENT DARKEN 1":
+                return Color.TRANSPARENT_DARKEN_1;
 
-      case "TRANSPARENT DARKEN 4":
-        return Color.TRANSPARENT_DARKEN_4;
+            case "TRANSPARENT DARKEN 2":
+                return Color.TRANSPARENT_DARKEN_2;
 
-      case "TRANSPARENT LIGHTEN 1":
-        return Color.TRANSPARENT_LIGHTEN_1;
+            case "TRANSPARENT DARKEN 3":
+                return Color.TRANSPARENT_DARKEN_3;
 
-      case "TRANSPARENT LIGHTEN 2":
-        return Color.TRANSPARENT_LIGHTEN_2;
+            case "TRANSPARENT DARKEN 4":
+                return Color.TRANSPARENT_DARKEN_4;
 
-      case "TRANSPARENT LIGHTEN 3":
-        return Color.TRANSPARENT_LIGHTEN_3;
+            case "TRANSPARENT LIGHTEN 1":
+                return Color.TRANSPARENT_LIGHTEN_1;
 
-      case "TRANSPARENT LIGHTEN 4":
-        return Color.TRANSPARENT_LIGHTEN_4;
+            case "TRANSPARENT LIGHTEN 2":
+                return Color.TRANSPARENT_LIGHTEN_2;
 
-      case "TRANSPARENT LIGHTEN 5":
-        return Color.TRANSPARENT_LIGHTEN_5;
-      default:
-        throw new IllegalArgumentException("Color [" + name + "] not found!");
+            case "TRANSPARENT LIGHTEN 3":
+                return Color.TRANSPARENT_LIGHTEN_3;
+
+            case "TRANSPARENT LIGHTEN 4":
+                return Color.TRANSPARENT_LIGHTEN_4;
+
+            case "TRANSPARENT LIGHTEN 5":
+                return Color.TRANSPARENT_LIGHTEN_5;
+            default:
+                throw new IllegalArgumentException("Color [" + name + "] not found!");
+        }
     }
-  }
 }

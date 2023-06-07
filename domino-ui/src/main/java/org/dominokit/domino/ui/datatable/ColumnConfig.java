@@ -134,7 +134,7 @@ public class ColumnConfig<T> {
   public ColumnConfig(String name, String title) {
     this.name = name;
     this.title = title;
-    menuIcon = Icons.ALL.dots_vertical_mdi();
+    menuIcon = Icons.dots_vertical();
     this.menu =
         Menu.<String>create()
             .setTargetElement(menuIcon)

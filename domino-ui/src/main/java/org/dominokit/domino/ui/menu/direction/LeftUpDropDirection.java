@@ -15,17 +15,21 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
-import static elemental2.dom.DomGlobal.window;
-import static org.dominokit.domino.ui.style.Unit.px;
-
 import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.ElementsFactory;
+
+import static elemental2.dom.DomGlobal.window;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+import static org.dominokit.domino.ui.utils.Unit.px;
 
 public class LeftUpDropDirection implements DropDirection {
   @Override
   public void position(Element source, Element target) {
+    dui_flex_col_reverse.apply(source);
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect sourceRect = source.getBoundingClientRect();
 
@@ -44,5 +48,18 @@ public class LeftUpDropDirection implements DropDirection {
 
     Style.of(source).style.setProperty(
         "left", px.of(targetRect.left + window.pageXOffset - sourceRect.width - 1));
+    dui_dd_left_up.apply(source);
+    targetRect = target.getBoundingClientRect();
+    sourceRect = source.getBoundingClientRect();
+    elements.elementOf(source).setCssProperty("--dui-dd-position-delta", ((targetRect.top - sourceRect.top))+"px");
+    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width+"px");
   }
+
+  @Override
+  public void cleanup(Element source) {
+    dui_dd_left_up.remove(source);
+    elements.elementOf(source).removeCssProperty("--dui-dd-position-delta");
+    elements.elementOf(source).removeCssProperty("--dui-menu-drop-min-width");
+  }
+
 }

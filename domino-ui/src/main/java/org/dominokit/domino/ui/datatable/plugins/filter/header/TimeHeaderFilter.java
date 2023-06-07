@@ -22,7 +22,7 @@
  import org.dominokit.domino.ui.datatable.model.FilterTypes;
  import org.dominokit.domino.ui.datatable.model.SearchContext;
  import org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin;
- import org.dominokit.domino.ui.popover.PopupPosition;
+ import org.dominokit.domino.ui.menu.direction.DropDirection;
  import org.dominokit.domino.ui.timepicker.TimeBox;
 
 /**
@@ -61,7 +61,7 @@
                       );
                 })
             .setPickerStyle(TimeBox.PickerStyle.POPOVER)
-            .setPopoverPosition(PopupPosition.BEST_FIT)
+            .setPopoverPosition(DropDirection.BEST_SIDE_UP_DOWN)
             .styler(style -> style.setMarginBottom("0px"));
   }
 

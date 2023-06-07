@@ -17,18 +17,17 @@ package org.dominokit.domino.ui.dialogs;
 
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.LinkButton;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.Footer;
+import org.dominokit.domino.ui.utils.FooterContent;
 import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.utils.NullLazyChild;
 
 public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
 
@@ -43,7 +42,8 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
 
   private int iconAnimationDuration = 1000;
 
-  private Icon<?> alertIcon = Icons.ALL.alert_mdi().addCss(dui_font_size_12);
+  private LazyChild<Icon<?>> alertIcon = NullLazyChild.of();
+  private LazyChild<NavBar> navHeader;
 
   /** @return new instance with empty title */
   public static AlertMessageDialog create() {
@@ -69,37 +69,45 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
   /** creates new instance with empty title */
   public AlertMessageDialog() {
     messageElement = LazyChild.of(span(), contentElement);
+    navHeader = LazyChild.of(NavBar.create().addCss(dui_dialog_nav), headerElement);
     bodyElement.addCss(dui_text_center);
     appendButtons();
     setStretchWidth(DialogSize.SMALL);
     setStretchHeight(DialogSize.VERY_SMALL);
     setAutoClose(false);
-    contentHeader.get().addCss(dui_justify_around).appendChild(alertIcon);
+    contentHeader.get().addCss(dui_justify_around);
     addExpandListener(
         (component) -> {
-          Animation.create(getAlertIcon())
-              .transition(iconStartTransition)
-              .duration(iconAnimationDuration)
-              .callback(
-                  iconElement ->
-                      Animation.create(getAlertIcon())
-                          .transition(iconEndTransition)
-                          .duration(iconAnimationDuration)
-                          .animate())
-              .animate();
+          if(alertIcon.isInitialized()) {
+            Animation.create(getAlertIcon())
+                    .transition(iconStartTransition)
+                    .duration(iconAnimationDuration)
+                    .callback(
+                            iconElement ->
+                                    Animation.create(getAlertIcon())
+                                            .transition(iconEndTransition)
+                                            .duration(iconAnimationDuration)
+                                            .animate())
+                    .animate();
+          }
         });
   }
 
   /** @param title String creates new instance with custom title */
   public AlertMessageDialog(String title) {
     this();
-    setTitle(title);
+    navHeader.get().setTitle(title);
   }
 
   /** @param title String creates new instance with custom title */
   public AlertMessageDialog(String title, String message) {
     this(title);
     setMessage(message);
+  }
+
+  public AlertMessageDialog setTitle(String title) {
+    navHeader.get().setTitle(title);
+    return this;
   }
 
   public AlertMessageDialog setMessage(String message) {
@@ -109,10 +117,9 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
   }
 
   private void appendButtons() {
-
     confirmButton =
         LinkButton.create(labels.dialogOk())
-            .addCss(dui_min_w_32, dui_primary)
+            .addCss(dui_min_w_32)
             .addClickListener(
                 evt -> {
                   if (nonNull(confirmHandler)) {
@@ -120,7 +127,7 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
                   }
                 });
 
-    appendChild(Footer.of(confirmButton));
+    appendChild(FooterContent.of(confirmButton));
 
     withContentFooter((parent, self) -> self.addCss(dui_text_center));
   }
@@ -176,14 +183,20 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
   }
 
   public Icon<?> getAlertIcon() {
-    return alertIcon;
+    return alertIcon.get();
   }
 
   public AlertMessageDialog setAlertIcon(Icon<?> alertIcon) {
     if (nonNull(alertIcon)) {
       this.alertIcon.remove();
     }
-    this.alertIcon = alertIcon;
+    this.alertIcon = LazyChild.of(alertIcon, contentHeader);
+    this.alertIcon.get();
+    return this;
+  }
+
+  public AlertMessageDialog withNavHeader(ChildHandler<AlertMessageDialog, NavBar> handler){
+    handler.apply(this, navHeader.get());
     return this;
   }
 

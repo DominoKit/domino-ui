@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.lists;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.Event;
@@ -75,7 +76,7 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     evt.stopPropagation();
     evt.preventDefault();
     MouseEvent mouseEvent = Js.uncheckedCast(evt);
-    if (selectable && isEnabled() && selectOnClick) {
+    if (selectable && (isNull(listGroup) || listGroup.isSelectable()) && isEnabled() && selectOnClick) {
       if (isSelected()) {
         if (mouseEvent.shiftKey && isMultiSelect()) {
           deselectRange();

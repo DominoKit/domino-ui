@@ -15,20 +15,19 @@
  */
 package org.dominokit.domino.ui.button;
 
-import elemental2.dom.HTMLDivElement;
+import elemental2.dom.Element;
+import elemental2.dom.Event;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.BaseElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.BooleanCssClass;
-import org.dominokit.domino.ui.style.GenericCss;
-import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.style.WaveStyle;
 import org.dominokit.domino.ui.style.WavesElement;
 import org.dominokit.domino.ui.utils.AcceptDisable;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 
@@ -48,151 +47,161 @@ import static org.dominokit.domino.ui.button.ButtonStyles.dui_button_text;
  * @param <B> The button subclass being wrapped
  */
 public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, B>>
-    extends WavesElement<HTMLElement, B>
-    implements HasClickableElement, AcceptDisable<B>, IsButton<B> {
+        extends WavesElement<HTMLElement, B>
+        implements HasClickableElement, AcceptDisable<B>, IsButton<B> {
 
-  private DivElement bodyElement;
-  private LazyChild<SpanElement> textElement;
-  private LazyChild<Icon<?>> iconElement;
+    private DivElement bodyElement;
+    private LazyChild<SpanElement> textElement;
+    private LazyChild<Icon<?>> iconElement;
 
-  /** The default element that represent the button HTMLElement. */
-  protected final BaseElement<E, ?> buttonElement;
+    /**
+     * The default element that represent the button HTMLElement.
+     */
+    protected final BaseElement<E, ?> buttonElement;
 
-  /** creates a button */
-  protected BaseButton() {
-    buttonElement =
-        createButtonElement()
-            .addCss(dui_button)
-            .appendChild(bodyElement = div().addCss(dui_button_body));
-    textElement =
-        LazyChild.of(span().addCss(dui_button_text, dui_flex_grow), bodyElement);
-    init((B) this);
-  }
-
-  protected abstract BaseElement<E, ?> createButtonElement();
-
-  /**
-   * creates a button with text
-   *
-   * @param text String text
-   */
-  protected BaseButton(String text) {
-    this();
-    setText(text);
-  }
-
-  protected BaseButton(String text, Icon<?> icon) {
-    this();
-    setText(text);
-    setIcon(icon);
-  }
-
-  /**
-   * creates a button with an icon
-   *
-   * @param icon {@link Icon}
-   */
-  protected BaseButton(Icon<?> icon) {
-    this();
-    setIcon(icon);
-  }
-
-  /**
-   * @param text String, the new text
-   * @return same instance
-   */
-  @Override
-  public B setTextContent(String text) {
-    return setText(text);
-  }
-
-  public B setText(String text) {
-    textElement.get().setTextContent(text);
-    return (B) this;
-  }
-
-
-  /**
-   * return the clickable {@link HTMLElement} of this component, which the component button element.
-   *
-   * @return {@link HTMLElement} of this button instance
-   */
-  @Override
-  public HTMLElement getClickableElement() {
-    return element();
-  }
-
-  /**
-   * changes the button to a circle button by applying {@link ButtonStyles#dui_circle}
-   *
-   * @return same instance
-   */
-  public B circle() {
-    buttonElement.addCss(ButtonStyles.dui_circle);
-    applyCircleWaves();
-    return (B) this;
-  }
-
-  /**
-   * sets the button icon replacing the current icon.
-   *
-   * @param icon the new {@link Icon}
-   * @return same instance
-   */
-  public B setIcon(Icon<?> icon) {
-    if (nonNull(iconElement)) {
-      iconElement.remove();
+    /**
+     * creates a button
+     */
+    protected BaseButton() {
+        buttonElement =
+                createButtonElement()
+                        .addClickListener(Event::stopPropagation)
+                        .addCss(dui_button)
+                        .appendChild(bodyElement = div().addCss(dui_button_body));
+        textElement =
+                LazyChild.of(span().addCss(dui_button_text, dui_grow_1), bodyElement);
+        init((B) this);
     }
-    iconElement = LazyChild.of(icon.addCss(dui_button_icon), bodyElement);
-    iconElement.get();
-    return (B) this;
-  }
 
-  public SpanElement getTextElement() {
-    return textElement.get();
-  }
+    protected abstract BaseElement<E, ?> createButtonElement();
 
-  public B withTextElement(ChildHandler<B, SpanElement> handler) {
-    handler.apply((B) this, textElement.get());
-    return (B) this;
-  }
-
-  public B withTextElement() {
-    textElement.get();
-    return (B) this;
-  }
-
-  public B withIconElement(ChildHandler<B, Icon<?>> handler) {
-    if (nonNull(iconElement)) {
-      handler.apply((B) this, iconElement.get());
+    /**
+     * creates a button with text
+     *
+     * @param text String text
+     */
+    protected BaseButton(String text) {
+        this();
+        setText(text);
     }
-    return (B) this;
-  }
 
-  public B withIconElement() {
-    if (nonNull(iconElement)) {
-      iconElement.get();
+    protected BaseButton(String text, Icon<?> icon) {
+        this();
+        setText(text);
+        setIcon(icon);
     }
-    return (B) this;
-  }
 
-  public B setReversed(boolean reversed) {
-    addCss(BooleanCssClass.of(dui_button_reversed, reversed));
-    return (B) this;
-  }
+    /**
+     * creates a button with an icon
+     *
+     * @param icon {@link Icon}
+     */
+    protected BaseButton(Icon<?> icon) {
+        this();
+        setIcon(icon);
+    }
 
-  @Override
-  public HTMLElement element() {
-    return buttonElement.element();
-  }
+    @Override
+    protected Element getAppendTarget() {
+        return bodyElement.element();
+    }
 
-  @Override
-  public B asButton() {
-    return (B) this;
-  }
+    /**
+     * @param text String, the new text
+     * @return same instance
+     */
+    @Override
+    public B setTextContent(String text) {
+        return setText(text);
+    }
 
-  private void applyCircleWaves() {
-    applyWaveStyle(WaveStyle.CIRCLE);
-    applyWaveStyle(WaveStyle.FLOAT);
-  }
+    public B setText(String text) {
+        textElement.get().setTextContent(text);
+        return (B) this;
+    }
+
+
+    /**
+     * return the clickable {@link HTMLElement} of this component, which the component button element.
+     *
+     * @return {@link HTMLElement} of this button instance
+     */
+    @Override
+    public HTMLElement getClickableElement() {
+        return element();
+    }
+
+    /**
+     * changes the button to a circle button by applying {@link ButtonStyles#dui_circle}
+     *
+     * @return same instance
+     */
+    public B circle() {
+        buttonElement.addCss(ButtonStyles.dui_circle);
+        applyCircleWaves();
+        return (B) this;
+    }
+
+    /**
+     * sets the button icon replacing the current icon.
+     *
+     * @param icon the new {@link Icon}
+     * @return same instance
+     */
+    public B setIcon(Icon<?> icon) {
+        if (nonNull(iconElement)) {
+            iconElement.remove();
+        }
+        iconElement = LazyChild.of(icon.addCss(dui_button_icon), bodyElement);
+        iconElement.get();
+        return (B) this;
+    }
+
+    public SpanElement getTextElement() {
+        return textElement.get();
+    }
+
+    public B withTextElement(ChildHandler<B, SpanElement> handler) {
+        handler.apply((B) this, textElement.get());
+        return (B) this;
+    }
+
+    public B withTextElement() {
+        textElement.get();
+        return (B) this;
+    }
+
+    public B withIconElement(ChildHandler<B, Icon<?>> handler) {
+        if (nonNull(iconElement)) {
+            handler.apply((B) this, iconElement.get());
+        }
+        return (B) this;
+    }
+
+    public B withIconElement() {
+        if (nonNull(iconElement)) {
+            iconElement.get();
+        }
+        return (B) this;
+    }
+
+    public B setReversed(boolean reversed) {
+        addCss(BooleanCssClass.of(dui_button_reversed, reversed));
+        return (B) this;
+    }
+
+    @Override
+    public HTMLElement element() {
+        return buttonElement.element();
+    }
+
+    @Override
+    public B asButton() {
+        return (B) this;
+    }
+
+    private void applyCircleWaves() {
+        setWaveStyle(WaveStyle.CIRCLE);
+        setWaveStyle(WaveStyle.FLOAT);
+    }
 }

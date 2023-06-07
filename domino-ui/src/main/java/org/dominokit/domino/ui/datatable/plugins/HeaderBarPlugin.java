@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.datatable.plugins;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import jsinterop.base.Js;
@@ -45,11 +44,11 @@ import org.dominokit.domino.ui.icons.ToggleMdiIcon;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuItem;
 import org.dominokit.domino.ui.menu.direction.BottomLeftDropDirection;
-import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.style.SpacingCss;
-import org.dominokit.domino.ui.style.Unit;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.Unit;
 import org.dominokit.domino.ui.utils.ElementUtil;
+import org.dominokit.domino.ui.utils.PostfixAddOn;
+import org.dominokit.domino.ui.utils.PrefixAddOn;
 import org.gwtproject.timer.client.Timer;
 
 import java.util.ArrayList;
@@ -147,13 +146,13 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
             ToggleIcon<?, ?> condenseIcon =
-                    ToggleMdiIcon.create(Icons.ALL
-                                            .format_line_weight_mdi()
+                    ToggleMdiIcon.create(Icons
+                                            .format_line_weight()
                                             .clickable()
                                             .setTooltip(condenseToolTip)
                                     ,
-                                    Icons.ALL
-                                            .format_line_spacing_mdi()
+                                    Icons
+                                            .format_line_spacing()
                                             .clickable()
                                             .setTooltip(condenseToolTip)
                             )
@@ -211,13 +210,13 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
             ToggleIcon<?, ?> stripesIcon =
-                    ToggleMdiIcon.create(Icons.ALL
-                                            .format_line_spacing_mdi()
+                    ToggleMdiIcon.create(Icons
+                                            .format_line_spacing()
                                             .clickable()
                                             .setTooltip(noStripsToolTip)
                                     ,
-                                    Icons.ALL
-                                            .power_mdi()
+                                    Icons
+                                            .power()
                                             .clickable()
                                             .setTooltip(stripsToolTip)
                             )
@@ -276,13 +275,13 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
             ToggleIcon<?, ?> bordersIcon =
-                    ToggleMdiIcon.create(Icons.ALL
-                                            .border_vertical_mdi()
+                    ToggleMdiIcon.create(Icons
+                                            .border_vertical()
                                             .clickable()
                                             .setTooltip(borderedToolTip)
                                     ,
-                                    Icons.ALL
-                                            .border_horizontal_mdi()
+                                    Icons
+                                            .border_horizontal()
                                             .clickable()
                                             .setTooltip(noBprdersToolTip)
                             )
@@ -340,13 +339,13 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
         @Override
         public Node asElement(DataTable<T> dataTable) {
             ToggleIcon<?, ?> hoverIcon =
-                    ToggleMdiIcon.create(Icons.ALL
-                                            .blur_off_mdi()
+                    ToggleMdiIcon.create(Icons
+                                            .blur_off()
                                             .clickable()
                                             .setTooltip(noHoverToolTip)
                                     ,
-                                    Icons.ALL
-                                            .border_horizontal_mdi()
+                                    Icons
+                                            .border_horizontal()
                                             .clickable()
                                             .setTooltip(hoverToolTip)
                             )
@@ -404,8 +403,8 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
         public Node asElement(DataTable<T> dataTable) {
 
             MdiIcon clearFiltersIcon =
-                    Icons.MDI_ICONS
-                            .filter_remove_mdi()
+                    Icons
+                            .filter_remove()
                             .setTooltip(clearFiltersToolTip)
                             .addCss(SpacingCss.dui_font_size_4)
                             .clickable()
@@ -452,8 +451,8 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
         public SearchTableAction() {
 
             searchIcon =
-                    Icons.ALL
-                            .magnify_mdi()
+                    Icons
+                            .magnify()
                             .addClickListener(
                                     evt -> {
                                         autoSearchTimer.cancel();
@@ -463,13 +462,13 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                             .setCursor("pointer");
 
             clearIcon =
-                    Icons.ALL.format_clear_mdi().setTooltip(clearSearchToolTip).setCursor("pointer");
+                    Icons.format_clear().setTooltip(clearSearchToolTip).setCursor("pointer");
 
             textBox =
                     TextBox.create()
                             .setPlaceholder(searchToolTip)
-                            .addLeftAddOn(searchIcon)
-                            .addRightAddOn(clearIcon)
+                            .appendChild(PrefixAddOn.of(searchIcon))
+                            .appendChild(PostfixAddOn.of(clearIcon))
                             .addCss("table-search-box")
                             .setMarginBottom("0px")
                             .setWidth("100%");
@@ -648,7 +647,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
          */
         @Override
         public Node asElement(DataTable<T> dataTable) {
-            Icon<?> columnsIcon = Icons.ALL.view_column_mdi().clickable();
+            Icon<?> columnsIcon = Icons.view_column().clickable();
             columnsIcon.setDropMenu(Menu.<String>create()
                     .setDropDirection(new BottomLeftDropDirection())
                     .apply(
@@ -658,7 +657,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                                             .forEach(
                                                     columnConfig -> {
                                                         Icon<?> checkIcon =
-                                                                Icons.ALL.check_mdi().toggleDisplay(!columnConfig.isHidden());
+                                                                Icons.check().toggleDisplay(!columnConfig.isHidden());
                                                         columnConfig.addShowHideListener(
                                                                 DefaultColumnShowHideListener.of(checkIcon.element(), true));
                                                         FlexLayout itemElement =

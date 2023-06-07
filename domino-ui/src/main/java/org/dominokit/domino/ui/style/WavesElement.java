@@ -28,8 +28,6 @@ import org.dominokit.domino.ui.IsElement;
 public abstract class WavesElement<E extends HTMLElement, T extends IsElement<E>>
     extends BaseDominoElement<E, T> implements HasWaveEffect<T> {
 
-  protected WavesSupport wavesSupport;
-
   /** {@inheritDoc} */
   @Override
   public void init(T element) {
@@ -44,19 +42,6 @@ public abstract class WavesElement<E extends HTMLElement, T extends IsElement<E>
     return element;
   }
 
-  /** {@inheritDoc} */
-  @Override
-  public T setWaveColor(WaveColor waveColor) {
-    wavesSupport.setWaveColor(waveColor);
-    return element;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public T applyWaveStyle(WaveStyle waveStyle) {
-    wavesSupport.applyWaveStyle(waveStyle);
-    return element;
-  }
 
   /** {@inheritDoc} */
   @Override

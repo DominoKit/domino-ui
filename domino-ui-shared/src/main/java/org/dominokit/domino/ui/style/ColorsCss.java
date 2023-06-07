@@ -2676,6 +2676,20 @@ public interface ColorsCss {
   CssClass dui_border_l_light_green_d_4 = () -> "dui-border-l-light-green-d-4";
   CssClass dui_divide_light_green_d_4 = () -> "dui-divide-light-green-d-4";
   CssClass dui_outline_light_green_d_4 = () -> "dui-outline-light-green-d-4";
+  CssClass dui_fg_lime_l_5 = () -> "dui-fg-lime-l-5";
+  CssClass dui_bg_lime_l_5 = () -> "dui-bg-lime-l-5";
+  CssClass dui_accent_lime_l_5 = () -> "dui-accent-lime-l-5";
+  CssClass dui_shadow_lime_l_5 = () -> "dui-shadow-lime-l-5";
+  CssClass dui_text_decoration_lime_l_5 = () -> "dui-text-decoration-lime-l-5";
+  CssClass dui_border_lime_l_5 = () -> "dui-border-lime-l-5";
+  CssClass dui_border_x_lime_l_5 = () -> "dui-border-x-lime-l-5";
+  CssClass dui_border_y_lime_l_5 = () -> "dui-border-y-lime-l-5";
+  CssClass dui_border_t_lime_l_5 = () -> "dui-border-t-lime-l-5";
+  CssClass dui_border_r_lime_l_5 = () -> "dui-border-r-lime-l-5";
+  CssClass dui_border_b_lime_l_5 = () -> "dui-border-b-lime-l-5";
+  CssClass dui_border_l_lime_l_5 = () -> "dui-border-l-lime-l-5";
+  CssClass dui_divide_lime_l_5 = () -> "dui-divide-lime-l-5";
+  CssClass dui_outline_lime_l_5 = () -> "dui-outline-lime-l-5";
   CssClass dui_fg_lime_l_4 = () -> "dui-fg-lime-l-4";
   CssClass dui_bg_lime_l_4 = () -> "dui-bg-lime-l-4";
   CssClass dui_accent_lime_l_4 = () -> "dui-accent-lime-l-4";
@@ -4092,6 +4106,26 @@ public interface ColorsCss {
   CssClass dui_outline_current = () -> "dui-outline-current";
   CssClass dui_fg_transparent = () -> "dui-fg-transparent";
   CssClass dui_bg_transparent = () -> "dui-bg-transparent";
+  CssClass dui_bg_transparent_l_1 = () -> "dui-bg-transparent-l-1";
+  CssClass dui_bg_transparent_l_2 = () -> "dui-bg-transparent-l-2";
+  CssClass dui_bg_transparent_l_3 = () -> "dui-bg-transparent-l-3";
+  CssClass dui_bg_transparent_l_4 = () -> "dui-bg-transparent-l-4";
+  CssClass dui_bg_transparent_l_5 = () -> "dui-bg-transparent-l-5";
+  CssClass dui_bg_transparent_d_1 = () -> "dui-bg-transparent-d-1";
+  CssClass dui_bg_transparent_d_2 = () -> "dui-bg-transparent-d-2";
+  CssClass dui_bg_transparent_d_3 = () -> "dui-bg-transparent-d-3";
+  CssClass dui_bg_transparent_d_4 = () -> "dui-bg-transparent-d-4";
+
+  CssClass dui_fg_transparent_l_1 = () -> "dui-fg-transparent-l-1";
+  CssClass dui_fg_transparent_l_2 = () -> "dui-fg-transparent-l-2";
+  CssClass dui_fg_transparent_l_3 = () -> "dui-fg-transparent-l-3";
+  CssClass dui_fg_transparent_l_4 = () -> "dui-fg-transparent-l-4";
+  CssClass dui_fg_transparent_l_5 = () -> "dui-fg-transparent-l-5";
+  CssClass dui_fg_transparent_d_1 = () -> "dui-fg-transparent-d-1";
+  CssClass dui_fg_transparent_d_2 = () -> "dui-fg-transparent-d-2";
+  CssClass dui_fg_transparent_d_3 = () -> "dui-fg-transparent-d-3";
+  CssClass dui_fg_transparent_d_4 = () -> "dui-fg-transparent-d-4";
+
   CssClass dui_accent_transparent = () -> "dui-accent-transparent";
   CssClass dui_shadow_transparent = () -> "dui-shadow-transparent";
   CssClass dui_text_decoration_transparent = () -> "dui-text-decoration-transparent";

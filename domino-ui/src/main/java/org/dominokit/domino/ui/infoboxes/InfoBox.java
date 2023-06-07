@@ -33,7 +33,7 @@ import org.dominokit.domino.ui.IsElement;
  * <p>For example:
  *
  * <pre>
- *     InfoBox.create(Icons.ALL.shopping_cart(), "NEW ORDERS", "125");
+ *     InfoBox.create(Icons.shopping_cart(), "NEW ORDERS", "125");
  * </pre>
  *
  * @see BaseDominoElement
@@ -44,18 +44,18 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   private final DivElement root;
   private final LazyChild<DivElement> contentElement;
   private final LazyChild<DivElement> titleElement;
-  private final LazyChild<DivElement> valueElement;
+  private final LazyChild<DivElement> infoElement;
 
   private LazyChild<DivElement> iconContainer;
 
-  private SwapCssClass hoverEffect = SwapCssClass.of(HoverEffect.ZOOM.effectStyle);
+  private SwapCssClass hoverEffect = SwapCssClass.of(HoverEffect.NONE.effectStyle);
 
   public InfoBox() {
     root = div().addCss(dui_info_box, hoverEffect);
     iconContainer = LazyChild.of(div().addCss(dui_info_icon), root);
     contentElement = LazyChild.of(div().addCss(dui_info_content), root);
     titleElement = LazyChild.of(div().addCss(dui_info_title), contentElement);
-    valueElement = LazyChild.of(div().addCss(dui_info_value), contentElement);
+    infoElement = LazyChild.of(div().addCss(dui_info_value), contentElement);
     init(this);
   }
 
@@ -71,7 +71,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
 
   public InfoBox(IsElement<HTMLElement> icon, String title, String value) {
     this(icon, title);
-    setValue(value);
+    setInfo(value);
   }
 
   /**
@@ -206,8 +206,8 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
    * @param value the new value
    * @return same instance
    */
-  public InfoBox setValue(String value) {
-    valueElement.get().setTextContent(value);
+  public InfoBox setInfo(String value) {
+    infoElement.get().setTextContent(value);
     return this;
   }
 
@@ -223,47 +223,61 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   }
 
   /** @return The icon element */
-  public DivElement getIconElement() {
+  public DivElement getIcon() {
     return (DivElement) iconContainer.get();
   }
 
   /** @return The icon element */
-  public InfoBox withIconElement(ChildHandler<InfoBox, DivElement> handler) {
+  public InfoBox withIcon(ChildHandler<InfoBox, DivElement> handler) {
     handler.apply(this, iconContainer.get());
     return this;
   }
 
   /** @return The title element */
-  public DivElement getTitleElement() {
+  public DivElement getTitle() {
     return titleElement.get();
   }
 
   /** @return The title element */
-  public InfoBox withTitleElement(ChildHandler<InfoBox, DivElement> handler) {
+  public InfoBox withTitle(ChildHandler<InfoBox, DivElement> handler) {
     handler.apply(this, titleElement.get());
     return this;
   }
 
   /** @return The title element */
-  public InfoBox withTitleElement() {
+  public InfoBox withTitle() {
     titleElement.get();
     return this;
   }
 
   /** @return The value element */
-  public DivElement getValueElement() {
-    return valueElement.get();
+  public DivElement getInfo() {
+    return infoElement.get();
   }
 
   /** @return The value element */
-  public InfoBox withValueElement() {
-    valueElement.get();
+  public InfoBox withInfo() {
+    infoElement.get();
     return this;
   }
 
   /** @return The value element */
-  public InfoBox withValueElement(ChildHandler<InfoBox, DivElement> handler) {
-    handler.apply(this, valueElement.get());
+  public InfoBox withInfo(ChildHandler<InfoBox, DivElement> handler) {
+    handler.apply(this, infoElement.get());
+    return this;
+  }
+
+  public DivElement getContent(){
+    return contentElement.get();
+  }
+
+  public InfoBox withContent(){
+    contentElement.get();
+    return this;
+  }
+
+  public InfoBox withContent(ChildHandler<InfoBox, DivElement> handler){
+    handler.apply(this, contentElement.get());
     return this;
   }
 

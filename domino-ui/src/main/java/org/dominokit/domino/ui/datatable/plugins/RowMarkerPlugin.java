@@ -52,11 +52,11 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
 
   private void setStyle(TableRow<T> tableRow) {
     ColorScheme colorScheme = markerColor.getColorScheme(tableRow);
-    String color =
-        Optional.ofNullable(colorScheme)
-            .map(scheme -> colorScheme.color().getHex())
-            .orElse("transparent");
-    elements.elementOf(tableRow.element()).setCssProperty("border-left-color", color);
+//    String color =
+//        Optional.ofNullable(colorScheme)
+//            .map(scheme -> colorScheme.color().getHex())
+//            .orElse("transparent");
+//    elements.elementOf(tableRow.element()).setCssProperty("border-left-color", color);
   }
 
   @Override

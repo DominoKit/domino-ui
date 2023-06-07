@@ -650,7 +650,7 @@ body.dui {
     --dui-primary-fg-clr: var(--dui-clr-dominant);
     --dui-secondary-fg-clr: var(--dui-clr-dominant);
     --dui-dominant-fg-clr: var(--dui-clr-black);
-    --dui-sucess-fg-clr: var(--dui-clr-dominant);
+    --dui-success-fg-clr: var(--dui-clr-dominant);
     --dui-warning-fg-clr: var(--dui-clr-dominant);
     --dui-info-fg-clr: var(--dui-clr-dominant);
     --dui-error-fg-clr: var(--dui-clr-dominant);
@@ -1285,7 +1285,11 @@ body.dui {
     --dui-bg-d-3:var(--dui-clr-primary-d-3);
     --dui-bg-d-4:var(--dui-clr-primary-d-4);
     --dui-text-color: var(--dui-alternate-color);
+}
+.dui.dui-primary:not(.dui-ignore-bg) {
     background-color: var(--dui-clr-primary);
+}
+.dui.dui-primary:not(.dui-ignore-fg) {
     color: var(--dui-primary-fg-clr);
 }
 
@@ -1301,7 +1305,11 @@ body.dui {
     --dui-bg-d-3:var(--dui-clr-secondary-d-3);
     --dui-bg-d-4:var(--dui-clr-secondary-d-4);
     --dui-text-color: var(--dui-alternate-color);
+}
+.dui.dui-secondary:not(.dui-ignore-bg) {
     background-color: var(--dui-clr-secondary);
+}
+.dui.dui-secondary:not(.dui-ignore-fg) {
     color: var(--dui-secondary-fg-clr);
 }
 
@@ -1317,7 +1325,11 @@ body.dui {
     --dui-bg-d-3:var(--dui-clr-dominant-d-3);
     --dui-bg-d-4:var(--dui-clr-dominant-d-4);
     --dui-text-color: var(--dui-color);
+}
+.dui.dui-dominant:not(.dui-ignore-bg) {
     background-color: var(--dui-clr-dominant);
+}
+.dui.dui-dominant:not(.dui-ignore-fg) {
     color: var(--dui-dominant-fg-clr);
 }
 
@@ -1333,7 +1345,11 @@ body.dui {
     --dui-bg-d-3:var(--dui-clr-accent-d-3);
     --dui-bg-d-4:var(--dui-clr-accent-d-4);
     --dui-text-color: var(--dui-alternate-color);
+}
+.dui.dui-accent:not(.dui-ignore-bg) {
     background-color: var(--dui-clr-accent);
+}
+.dui.dui-accent:not(.dui-ignore-fg) {
     color: var(--dui-accent-fg-clr);
 }
 
@@ -1349,8 +1365,12 @@ body.dui {
     --dui-bg-d-3:var(--dui-clr-success-d-3);
     --dui-bg-d-4:var(--dui-clr-success-d-4);
     --dui-text-color: var(--dui-alternate-color);
+}
+.dui.dui-success:not(.dui-ignore-bg) {
     background-color: var(--dui-clr-success);
-    color: var(--dui-sucess-fg-clr);
+}
+.dui.dui-success:not(.dui-ignore-fg) {
+    color: var(--dui-success-fg-clr);
 }
 
 .dui.dui-info {
@@ -1368,6 +1388,12 @@ body.dui {
     background-color: var(--dui-clr-info);
     color: var(--dui-info-fg-clr);
 }
+.dui.dui-info:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-info);
+}
+.dui.dui-info:not(.dui-ignore-fg) {
+    color: var(--dui-info-fg-clr);
+}
 
 .dui.dui-warning {
     --dui-bg-l-5:var(--dui-clr-warning-l-5);
@@ -1381,7 +1407,11 @@ body.dui {
     --dui-bg-d-3:var(--dui-clr-warning-d-3);
     --dui-bg-d-4:var(--dui-clr-warning-d-4);
     --dui-text-color: var(--dui-alternate-color);
+}
+.dui.dui-warning:not(.dui-ignore-bg) {
     background-color: var(--dui-clr-warning);
+}
+.dui.dui-warning:not(.dui-ignore-fg) {
     color: var(--dui-warning-fg-clr);
 }
 
@@ -1397,7 +1427,12 @@ body.dui {
     --dui-bg-d-3:var(--dui-clr-error-d-3);
     --dui-bg-d-4:var(--dui-clr-error-d-4);
     --dui-text-color: var(--dui-alternate-color);
+}
+
+.dui.dui-error:not(.dui-ignore-bg) {
     background-color: var(--dui-clr-error);
+}
+.dui.dui-error:not(.dui-ignore-fg) {
     color: var(--dui-error-fg-clr);
 }
 

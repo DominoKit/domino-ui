@@ -15,16 +15,33 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import org.dominokit.domino.ui.elements.DataListElement;
+import org.dominokit.domino.ui.elements.OptionElement;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A component that has an input to take/provide Email(s) value
  *
  * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email">Email input
  *     on MDN</a>
  */
-public class EmailBox extends TextBox {
+public class EmailBox extends BaseTextBox<EmailBox> implements HasInputDataList<EmailBox> {
+
+  private DataListElement dataListElement;
+  private Map<String, OptionElement> dataListOptions;
 
   /** Creates a new instance with a label */
-  public EmailBox() {}
+  public EmailBox() {
+    initDataList();
+  }
+
+  private void initDataList() {
+    this.dataListElement = datalist();
+    this.dataListOptions = new HashMap<>();
+    bindDataList(this);
+  }
 
   /**
    * Creates a new instance with a label
@@ -33,6 +50,7 @@ public class EmailBox extends TextBox {
    */
   public EmailBox(String label) {
     super(label);
+    initDataList();
   }
 
   /** @return a new instance without a label */
@@ -62,5 +80,15 @@ public class EmailBox extends TextBox {
       getInputElement().removeAttribute("multiple");
     }
     return this;
+  }
+
+  @Override
+  public DataListElement getDataListElement() {
+    return dataListElement;
+  }
+
+  @Override
+  public Map<String, OptionElement> getDataListOptions() {
+    return dataListOptions;
   }
 }

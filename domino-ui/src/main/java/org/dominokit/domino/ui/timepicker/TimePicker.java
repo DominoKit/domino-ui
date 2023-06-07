@@ -9,7 +9,6 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.button.LinkButton;
-import org.dominokit.domino.ui.dialogs.Dialog;
 import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.CircleElement;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -21,8 +20,6 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.pickers.PickerHandler;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 import org.dominokit.domino.ui.events.EventType;
@@ -33,7 +30,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.timepicker.ClockStyle._12;
 import static org.dominokit.domino.ui.timepicker.DayPeriod.AM;
 import static org.dominokit.domino.ui.timepicker.DayPeriod.PM;
@@ -150,7 +146,7 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker> im
                                                                 showMinutes();
                                                             }
                                                         })
-                                                .appendChild(Icons.ALL.chevron_left_mdi())
+                                                .appendChild(Icons.chevron_left())
                                                 .hide()
                                 )
                                 .appendChild(hoursText = div()
@@ -192,7 +188,7 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker> im
                                                                 showSeconds();
                                                             }
                                                         })
-                                                .appendChild(Icons.ALL.chevron_right_mdi())
+                                                .appendChild(Icons.chevron_right())
                                                 .hide()
                                 )
                                 .appendChild(amPmSpanTop = span().addCss(dui_am_pm_text, dui_am_pm_top))
@@ -291,7 +287,7 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker> im
      */
     public TimePicker showBorder() {
         this.borderVisible = true;
-        element.style().setBorder("1px solid " + colorScheme.color().getHex());
+//        element.style().setBorder("1px solid " + colorScheme.color().getHex());
         return this;
     }
 

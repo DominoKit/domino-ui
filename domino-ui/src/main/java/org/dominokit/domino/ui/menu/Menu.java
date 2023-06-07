@@ -18,18 +18,18 @@ package org.dominokit.domino.ui.menu;
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.menu.MenuStyles.*;
+import static org.dominokit.domino.ui.utils.PopupsCloser.DOMINO_UI_AUTO_CLOSABLE;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
-import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
-import elemental2.dom.HTMLUListElement;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ZIndexConfig;
@@ -37,10 +37,10 @@ import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.elements.UListElement;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
+import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.menu.direction.BestSideUpDownDropDirection;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
@@ -59,11 +59,11 @@ import org.dominokit.domino.ui.IsElement;
  * @param <V> The type of the menu items value
  */
 public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
-        implements HasSelectionListeners<Menu<V>, AbstractMenuItem<V, ?>, List<AbstractMenuItem<V, ?>>>,
-        IsPopup<Menu<V>>, HasComponentConfig<ZIndexConfig> {
+        implements HasSelectionListeners<Menu<V>, AbstractMenuItem<V>, List<AbstractMenuItem<V>>>,
+        IsPopup<Menu<V>>, HasComponentConfig<ZIndexConfig>, MenuStyles {
 
     public static final String ANY = "*";
-    private final LazyChild<MenuHeader> menuHeader;
+    private final LazyChild<NavBar> menuHeader;
     private final LazyChild<DivElement> menuSearchContainer;
     private final LazyChild<SearchBox> searchBox;
     private final LazyChild<DivElement> menuSubHeader;
@@ -75,23 +75,23 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     protected DivElement menuElement;
 
     private HTMLElement focusElement;
-    protected KeyboardNavigation<AbstractMenuItem<V, ?>> keyboardNavigation;
+    protected KeyboardNavigation<AbstractMenuItem<V>> keyboardNavigation;
 
     protected boolean searchable;
     protected boolean caseSensitive = false;
     protected String createMissingLabel = "Create ";
     private MissingItemHandler<V> missingItemHandler;
 
-    protected List<AbstractMenuItem<V, ?>> menuItems = new ArrayList<>();
+    protected List<AbstractMenuItem<V>> menuItems = new ArrayList<>();
     protected boolean autoCloseOnSelect = true;
     protected final Set<
-            SelectionListener<? super AbstractMenuItem<V, ?>, ? super List<AbstractMenuItem<V, ?>>>>
+            SelectionListener<? super AbstractMenuItem<V>, ? super List<AbstractMenuItem<V>>>>
             selectionListeners = new LinkedHashSet<>();
     protected final Set<
-            SelectionListener<? super AbstractMenuItem<V, ?>, ? super List<AbstractMenuItem<V, ?>>>>
+            SelectionListener<? super AbstractMenuItem<V>, ? super List<AbstractMenuItem<V>>>>
             deselectionListeners = new LinkedHashSet<>();
 
-    private final List<AbstractMenuItem<V, ?>> selectedValues = new ArrayList<>();
+    private final List<AbstractMenuItem<V>> selectedValues = new ArrayList<>();
     protected boolean headerVisible = false;
     private Menu<V> currentOpen;
 
@@ -101,11 +101,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     private final DropDirection smallScreenDropDirection = new MiddleOfScreenDropDirection();
     private DropDirection effectiveDropDirection = dropDirection;
     private Element targetElement;
-    private HTMLElement menuAppendTarget = document.body;
+    private Element menuAppendTarget = document.body;
     private AppendStrategy appendStrategy = AppendStrategy.LAST;
 
     private Menu<V> parent;
-    private AbstractMenuItem<V, ?> parentItem;
+    private AbstractMenuItem<V> parentItem;
 
     private boolean selectionListenersPaused = false;
     private boolean multiSelect = false;
@@ -113,7 +113,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     private EventListener repositionListener =
             evt -> {
                 if (isOpened()) {
-                    getEffectiveDropDirection().position(element.element(), getTargetElement());
+                    position();
                 }
             };
 
@@ -125,8 +125,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                     open(evt);
                 }
             };
-    private final FlexItem<HTMLDivElement> backArrowContainer =
-            FlexItem.create().setOrder(0).css("back-arrow-icon").collapse();
+    private final DivElement backArrowContainer;
     private boolean contextMenu = false;
     private boolean useSmallScreensDirection = true;
     private boolean dropDown = false;
@@ -138,11 +137,14 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         return new Menu<>();
     }
 
+    private OpenMenuCondition<V> openMenuCondition = (menu)-> true;
+
     public Menu() {
-        menuElement = div().addCss(menu);
-        menuHeader = LazyChild.of(new MenuHeader(), menuElement);
-        menuSearchContainer = LazyChild.of(div().addCss(menu_search), menuElement);
-        searchBox = LazyChild.of(SearchBox.create(), menuSearchContainer);
+        menuElement = div().addCss(dui_menu);
+        menuHeader = LazyChild.of(NavBar.create(), menuElement);
+        menuSearchContainer = LazyChild.of(div().addCss(dui_menu_search), menuElement);
+        searchBox = LazyChild.of(SearchBox.create().addCss(dui_menu_search_box), menuSearchContainer);
+        backArrowContainer = div().addCss(dui_order_first, dui_menu_back_icon);
         init(this);
 
         EventListener addMissingEventListener =
@@ -152,12 +154,14 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                     onAddMissingElement();
                 };
 
+        addClickListener(evt-> evt.stopPropagation());
+
         createMissingElement =
                 LazyChild.of(
                         a("#")
                                 .setAttribute("tabindex", "0")
                                 .setAttribute("aria-expanded", "true")
-                                .addCss(menu_create_missing),
+                                .addCss(dui_menu_create_missing),
                         menuSearchContainer);
         createMissingElement.whenInitialized(
                 () -> {
@@ -172,7 +176,10 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                                         .clearAll()
                                         .onEnter(addMissingEventListener)
                                         .onTab(evt -> keyboardNavigation.focusTopFocusableItem())
-                                        .onArrowDown(evt -> keyboardNavigation.focusTopFocusableItem());
+                                        .onArrowDown(evt -> {
+                                            DomGlobal.console.info("ON ARROW DOWN");
+                                            keyboardNavigation.focusTopFocusableItem();
+                                        });
                             });
                 });
         searchBox.whenInitialized(
@@ -182,7 +189,9 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                                     .onKeyDown(keyEvents -> keyEvents
                                             .onArrowDown(
                                             evt -> {
-                                                if (isAllowCreateMissing() && createMissingElement.get().isAttached()) {
+                                                String searchToken = searchBox.element().getTextBox().getValue();
+                                                boolean tokenPresent = nonNull(searchToken) && !searchToken.trim().isEmpty();
+                                                if (isAllowCreateMissing() && createMissingElement.element().isAttached() && tokenPresent) {
                                                     createMissingElement.get().element().focus();
                                                 } else {
                                                     keyboardNavigation.focusTopFocusableItem();
@@ -191,11 +200,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                                             .onEscape(evt -> close()));
                 });
 
-        menuSubHeader = LazyChild.of(div().addCss(menu_sub_header), menuElement);
+        menuSubHeader = LazyChild.of(div().addCss(dui_menu_sub_header), menuElement);
 
-        menuItemsList = ul().addCss(menu_items_list);
-        noResultElement = LazyChild.of(li().addCss(menu_no_results), menuItemsList);
-        menuBody = div().addCss(menu_body);
+        menuItemsList = ul().addCss(dui_menu_items_list);
+        noResultElement = LazyChild.of(li().addCss(dui_menu_no_results, dui_order_last), menuItemsList);
+        menuBody = div().addCss(dui_menu_body);
         menuElement.appendChild(menuBody.appendChild(menuItemsList));
 
         keyboardNavigation =
@@ -251,7 +260,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                         backArrowContainer.remove();
                     }
                 });
-        backIcon = LazyChild.of(Icons.ALL.keyboard_backspace_mdi().addCss(menu_back_icon), menuHeader);
+        backIcon = LazyChild.of(Icons.keyboard_backspace().addCss(dui_menu_back_icon), menuHeader);
         backIcon.whenInitialized(
                 () -> {
                     backIcon
@@ -289,7 +298,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      * @return the same menu instance
      */
     public Menu<V> setIcon(Icon<?> icon) {
-        menuHeader.get().setIcon(icon);
+        menuHeader.get().appendChild(PrefixAddOn.of(icon));
         return this;
     }
 
@@ -306,50 +315,14 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     }
 
     /**
-     * Appends an element to menu actions bar, appending an action element will force the header to
-     * show up if not visible
-     *
-     * @param element {@link HTMLElement}
-     * @return same menu instance
-     */
-    public Menu<V> appendAction(HTMLElement element) {
-        menuHeader.get().appendAction(element);
-        return this;
-    }
-
-    /**
-     * Appends an element to menu actions bar, appending an action element will force the header to
-     * show up if not visible
-     *
-     * @param element {@link IsElement}
-     * @return same menu instance
-     */
-    public Menu<V> appendAction(IsElement<?> element) {
-        menuHeader.get().appendAction(element);
-        return this;
-    }
-
-    /**
      * Appends a child element to the menu subheader, the subheader will show up below the search and
      * before the menu items.
      *
-     * @param element {@link HTMLElement}
+     * @param addon {@link SubheaderAddon}
      * @return same menu instance
      */
-    public Menu<V> appendSubHeaderChild(HTMLElement element) {
-        menuSubHeader.get().appendChild(element);
-        return this;
-    }
-
-    /**
-     * Appends a child element to the menu subheader, the subheader will show up below the search and
-     * before the menu items.
-     *
-     * @param element {@link IsElement}
-     * @return same menu instance
-     */
-    public Menu<V> appendSunHeaderChild(IsElement<?> element) {
-        menuSubHeader.get().appendChild(element);
+    public Menu<V> appendChild(SubheaderAddon<?> addon) {
+        menuSubHeader.get().appendChild(addon);
         return this;
     }
 
@@ -359,7 +332,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      * @param menuItem {@link Menu}
      * @return same menu instance
      */
-    public Menu<V> appendChild(AbstractMenuItem<V, ?> menuItem) {
+    public Menu<V> appendChild(AbstractMenuItem<V> menuItem) {
         if (nonNull(menuItem)) {
             menuItemsList.appendChild(menuItem);
             menuItems.add(menuItem);
@@ -369,7 +342,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         return this;
     }
 
-    void onItemAdded(AbstractMenuItem<V, ?> menuItem) {
+    void onItemAdded(AbstractMenuItem<V> menuItem) {
         onAddItemHandlers.forEach(handler -> handler.onAdded(this, menuItem));
     }
 
@@ -379,8 +352,8 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      * @param menuGroup {@link MenuItemsGroup}
      * @return same menu instance
      */
-    public <I extends AbstractMenuItem<V, I>> Menu<V> appendGroup(
-            MenuItemsGroup<V, I> menuGroup, MenuItemsGroupHandler<V, I> groupHandler) {
+    public <I extends AbstractMenuItem<V>> Menu<V> appendGroup(
+            MenuItemsGroup<V> menuGroup, MenuItemsGroupHandler<V, I> groupHandler) {
         if (nonNull(menuGroup)) {
             menuItemsList.appendChild(menuGroup);
             menuItems.add(menuGroup);
@@ -396,7 +369,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      * @param menuItem {@link Menu}
      * @return same menu instance
      */
-    public Menu<V> removeItem(AbstractMenuItem<V, ?> menuItem) {
+    public Menu<V> removeItem(AbstractMenuItem<V> menuItem) {
         if (this.menuItems.contains(menuItem)) {
             menuItem.remove();
             this.menuItems.remove(menuItem);
@@ -422,9 +395,9 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      *
      * @return same menu instance
      */
-    public Menu<V> appendSeparator() {
+    public Menu<V> appendChild(Separator separator) {
         this.menuItemsList.appendChild(
-                li().appendChild(span().addCss(menu_separator)));
+                separator.addCss(dui_menu_separator));
         return this;
     }
 
@@ -475,6 +448,8 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         } else {
             noResultElement.remove();
         }
+
+        position();
         return count > 0;
     }
 
@@ -507,8 +482,22 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     /**
      * @return a List of {@link AbstractMenuItem} of this menu
      */
-    public List<AbstractMenuItem<V, ?>> getMenuItems() {
+    public List<AbstractMenuItem<V>> getMenuItems() {
         return menuItems;
+    }
+    /**
+     * @return a List of {@link AbstractMenuItem} of this menu
+     */
+    public List<AbstractMenuItem<V>> getFlatMenuItems() {
+        List<AbstractMenuItem<V>> items = new ArrayList<>();
+        menuItems.forEach(item -> {
+            if(item instanceof MenuItemsGroup){
+                ((MenuItemsGroup<?>)item).getMenuItems().forEach(subItem -> items.add((AbstractMenuItem<V>) subItem));
+            }else {
+                items.add(item);
+            }
+        });
+        return items;
     }
 
     /**
@@ -529,7 +518,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         if (nonNull(noResultElement)) {
             this.noResultElement.remove();
             this.noResultElement =
-                    LazyChild.of(LIElement.of(noResultElement).addCss(menu_no_results), menuItemsList);
+                    LazyChild.of(LIElement.of(noResultElement).addCss(dui_menu_no_results), menuItemsList);
         }
         return this;
     }
@@ -606,14 +595,14 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     /**
      * @return The {@link KeyboardNavigation} of the menu
      */
-    public KeyboardNavigation<AbstractMenuItem<V, ?>> getKeyboardNavigation() {
+    public KeyboardNavigation<AbstractMenuItem<V>> getKeyboardNavigation() {
         return keyboardNavigation;
     }
 
     /**
-     * @return The {@link MenuHeader} component of the menu
+     * @return The {@link NavBar} component of the menu
      */
-    public MenuHeader getMenuHeader() {
+    public NavBar getMenuHeader() {
         return menuHeader.get();
     }
 
@@ -679,7 +668,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      * @param menuItem {@link AbstractMenuItem}
      * @return same menu instance
      */
-    public Menu<V> select(AbstractMenuItem<V, ?> menuItem) {
+    public Menu<V> select(AbstractMenuItem<V> menuItem) {
         return select(menuItem, isSelectionListenersPaused());
     }
 
@@ -690,7 +679,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      * @param silent   boolean, true to avoid triggering change handlers
      * @return same menu instance
      */
-    public Menu<V> select(AbstractMenuItem<V, ?> menuItem, boolean silent) {
+    public Menu<V> select(AbstractMenuItem<V> menuItem, boolean silent) {
         menuItem.select(silent);
         return this;
     }
@@ -737,7 +726,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      * @return same menu instance
      */
     public Menu<V> selectByKey(String key, boolean silent) {
-        for (AbstractMenuItem<V, ?> menuItem : getMenuItems()) {
+        for (AbstractMenuItem<V> menuItem : getMenuItems()) {
             if (menuItem.getKey().equals(key)) {
                 select(menuItem, silent);
             }
@@ -809,14 +798,14 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
     @Override
     public Set<
-            SelectionListener<? super AbstractMenuItem<V, ?>, ? super List<AbstractMenuItem<V, ?>>>>
+            SelectionListener<? super AbstractMenuItem<V>, ? super List<AbstractMenuItem<V>>>>
     getSelectionListeners() {
         return selectionListeners;
     }
 
     @Override
     public Set<
-            SelectionListener<? super AbstractMenuItem<V, ?>, ? super List<AbstractMenuItem<V, ?>>>>
+            SelectionListener<? super AbstractMenuItem<V>, ? super List<AbstractMenuItem<V>>>>
     getDeselectionListeners() {
         return deselectionListeners;
     }
@@ -828,7 +817,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
     @Override
     public Menu<V> triggerSelectionListeners(
-            AbstractMenuItem<V, ?> source, List<AbstractMenuItem<V, ?>> selection) {
+            AbstractMenuItem<V> source, List<AbstractMenuItem<V>> selection) {
         selectionListeners.forEach(
                 listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
         return this;
@@ -836,14 +825,14 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
     @Override
     public Menu<V> triggerDeselectionListeners(
-            AbstractMenuItem<V, ?> source, List<AbstractMenuItem<V, ?>> selection) {
+            AbstractMenuItem<V> source, List<AbstractMenuItem<V>> selection) {
         deselectionListeners.forEach(
                 listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
         return this;
     }
 
     @Override
-    public List<AbstractMenuItem<V, ?>> getSelection() {
+    public List<AbstractMenuItem<V>> getSelection() {
         return selectedValues;
     }
 
@@ -915,27 +904,28 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      * @param focus true to focus the first element
      */
     public void open(boolean focus) {
-        if (isDropDown()) {
+        DominoElement<Element> target = elementOf(getTargetElement());
+        if (isDropDown() && openMenuCondition.check(this) && !(target.isReadOnly() || target.isDisabled())) {
+            getConfig().getZindexManager().onPopupOpen(this);
             if (isOpened()) {
-                getEffectiveDropDirection().position(element.element(), getTargetElement());
+                position();
             } else {
                 closeOthers();
                 if (isSearchable()) {
                     searchBox.get().clearSearch();
                 }
+                triggerExpandListeners(this);
                 onAttached(
                         mutationRecord -> {
-                            getEffectiveDropDirection().position(element.element(), getTargetElement());
+                            position();
                             if (focus) {
                                 focus();
                             }
-                            getConfig().getZindexManager().onPopupOpen(this);
-                            triggerExpandListeners(this);
-                            elementOf(getTargetElement()).onDetached(targetDetach -> close());
+                            target.onDetached(targetDetach -> close());
                             elementOf(getMenuAppendTarget()).onDetached(targetDetach -> close());
                         });
                 if (fitToTargetWidth) {
-                    element.setWidth(getMenuAppendTarget().getBoundingClientRect().width + "px");
+                    element.setWidth(getTargetElement().getBoundingClientRect().width + "px");
                 }
                 appendStrategy.onAppend(getMenuAppendTarget(), element.element());
                 onDetached(record -> close());
@@ -943,9 +933,13 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                     parent.collapse();
                     menuHeader.get().insertFirst(backArrowContainer);
                 }
-                expand();
+                show();
             }
         }
+    }
+
+    private void position() {
+        getEffectiveDropDirection().position(element.element(), getTargetElement());
     }
 
     protected DropDirection getEffectiveDropDirection() {
@@ -1015,7 +1009,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     /**
      * @return the {@link HTMLElement} to which the menu will be appended to when opened.
      */
-    public HTMLElement getMenuAppendTarget() {
+    public Element getMenuAppendTarget() {
         return menuAppendTarget;
     }
 
@@ -1025,7 +1019,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      * @param appendTarget {@link HTMLElement}
      * @return same menu instance
      */
-    public Menu<V> setMenuAppendTarget(HTMLElement appendTarget) {
+    public Menu<V> setMenuAppendTarget(Element appendTarget) {
         if (isNull(appendTarget)) {
             this.menuAppendTarget = document.body;
         } else {
@@ -1083,6 +1077,14 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      * @return same menu instance
      */
     public Menu<V> setDropDirection(DropDirection dropDirection) {
+        if(nonNull(this.dropDirection)){
+            this.dropDirection.cleanup(this.element());
+        }
+
+        if(nonNull(this.effectiveDropDirection)){
+            this.effectiveDropDirection.cleanup(this.element());
+        }
+
         if (effectiveDropDirection.equals(this.dropDirection)) {
             this.dropDirection = dropDirection;
             this.effectiveDropDirection = this.dropDirection;
@@ -1103,14 +1105,14 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         return parent;
     }
 
-    void setParentItem(AbstractMenuItem<V, ?> parentItem) {
+    void setParentItem(AbstractMenuItem<V> parentItem) {
         this.parentItem = parentItem;
     }
 
     /**
      * @return the {@link AbstractMenuItem} that opens the menu
      */
-    public AbstractMenuItem<V, ?> getParentItem() {
+    public AbstractMenuItem<V> getParentItem() {
         return parentItem;
     }
 
@@ -1146,7 +1148,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         }
     }
 
-    protected void onItemSelected(AbstractMenuItem<V, ?> item, boolean silent) {
+    protected void onItemSelected(AbstractMenuItem<V> item, boolean silent) {
         if (nonNull(parent)) {
             parent.onItemSelected(item, silent);
         } else {
@@ -1167,7 +1169,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         }
     }
 
-    protected void onItemDeselected(AbstractMenuItem<V, ?> item, boolean silent) {
+    protected void onItemDeselected(AbstractMenuItem<V> item, boolean silent) {
         if (nonNull(parent)) {
             parent.onItemDeselected(item, silent);
         } else {
@@ -1210,23 +1212,34 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     private void setDropDown(boolean dropdown) {
         if (dropdown) {
             this.setAttribute("domino-ui-root-menu", true)
-                    .setAttribute(PopupsCloser.DOMINO_UI_AUTO_CLOSABLE, true);
+                    .setAttribute(DOMINO_UI_AUTO_CLOSABLE, true);
             menuElement.elevate(Elevation.LEVEL_1);
             document.addEventListener("scroll", repositionListener, true);
         } else {
             this.removeAttribute("domino-ui-root-menu")
-                    .removeAttribute(PopupsCloser.DOMINO_UI_AUTO_CLOSABLE);
+                    .removeAttribute(DOMINO_UI_AUTO_CLOSABLE);
             menuElement.elevate(Elevation.NONE);
             document.removeEventListener("scroll", repositionListener);
         }
-        addCss(BooleanCssClass.of(MENU_DROP, dropdown));
+        addCss(BooleanCssClass.of(dui_menu_drop, dropdown));
         this.dropDown = dropdown;
+        setAutoClose(this.dropDown);
     }
 
     public Menu<V> addOnAddItemHandler(OnAddItemHandler<V> onAddItemHandler) {
         if (nonNull(onAddItemHandler)) {
             this.onAddItemHandlers.add(onAddItemHandler);
         }
+        return this;
+    }
+
+    public Menu<V> withHeader(){
+        menuHeader.get();
+        return this;
+    }
+
+    public Menu<V> withHeader(ChildHandler<Menu<V>, NavBar> handler){
+        handler.apply(this, menuHeader.get());
         return this;
     }
 
@@ -1237,7 +1250,25 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
     @Override
     public boolean isAutoClose() {
-        return false;
+        return Boolean.parseBoolean(getAttribute(DOMINO_UI_AUTO_CLOSABLE, "false"));
+    }
+
+    public Menu<V> setAutoClose(boolean autoClose) {
+        if(autoClose){
+            setAttribute(DOMINO_UI_AUTO_CLOSABLE, "true");
+        }else {
+            removeAttribute(DOMINO_UI_AUTO_CLOSABLE);
+        }
+        return this;
+    }
+
+    public Menu<V> setOpenMenuCondition(OpenMenuCondition<V> openMenuCondition) {
+        if(isNull(openMenuCondition)){
+            this.openMenuCondition = menu-> true;
+            return this;
+        }
+        this.openMenuCondition = openMenuCondition;
+        return this;
     }
 
     /**
@@ -1273,15 +1304,15 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
          *
          * @param menuItem The {@link AbstractMenuItem} selected
          */
-        void onItemSelectionChange(AbstractMenuItem<V, ?> menuItem, boolean selected);
+        void onItemSelectionChange(AbstractMenuItem<V> menuItem, boolean selected);
     }
 
     @FunctionalInterface
-    public interface MenuItemsGroupHandler<V, I extends AbstractMenuItem<V, I>> {
-        void handle(MenuItemsGroup<V, I> initializedGroup);
+    public interface MenuItemsGroupHandler<V, I extends AbstractMenuItem<V>> {
+        void handle(MenuItemsGroup<V> initializedGroup);
     }
 
     public interface OnAddItemHandler<V> {
-        void onAdded(Menu<V> menu, AbstractMenuItem<V, ? extends AbstractMenuItem<V, ?>> menuItem);
+        void onAdded(Menu<V> menu, AbstractMenuItem<V> menuItem);
     }
 }

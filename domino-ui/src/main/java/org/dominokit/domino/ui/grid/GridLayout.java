@@ -18,7 +18,7 @@ package org.dominokit.domino.ui.grid;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
@@ -123,9 +123,12 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
    * @return same instance
    */
   public GridLayout setHeaderSpan(SectionSpan sectionSpan) {
-    editor.addHeader(sectionSpan);
-    headerElement.get();
-    updateGridLayout();
+    sectionSpan.ifSpanOrElse(() -> {
+      editor.addHeader(sectionSpan);
+      headerElement.get();
+      updateGridLayout();
+    }, this::hideHeader);
+
     return this;
   }
 
@@ -153,9 +156,11 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
    * @return same instance
    */
   public GridLayout setRightSpan(SectionSpan sectionSpan, boolean spanUp, boolean spanDown) {
-    editor.addRight(sectionSpan, spanUp, spanDown);
-    rightElement.get();
-    updateGridLayout();
+    sectionSpan.ifSpanOrElse(() -> {
+      editor.addRight(sectionSpan, spanUp, spanDown);
+      rightElement.get();
+      updateGridLayout();
+    }, this::hideRight);
     return this;
   }
 
@@ -186,9 +191,11 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
    * @return same instance
    */
   public GridLayout setLeftSpan(SectionSpan sectionSpan, boolean spanUp, boolean spanDown) {
-    editor.addLeft(sectionSpan, spanUp, spanDown);
-    leftElement.get();
-    updateGridLayout();
+    sectionSpan.ifSpanOrElse(() -> {
+      editor.addLeft(sectionSpan, spanUp, spanDown);
+      leftElement.get();
+      updateGridLayout();
+    }, this::hideLeft);
     return this;
   }
 
@@ -211,9 +218,11 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
    * @return same instance
    */
   public GridLayout setFooterSpan(SectionSpan sectionSpan) {
-    editor.addFooter(sectionSpan);
-    footerElement.get();
-    updateGridLayout();
+    sectionSpan.ifSpanOrElse(() -> {
+      editor.addFooter(sectionSpan);
+      footerElement.get();
+      updateGridLayout();
+    }, this::hideFooter);
 
     return this;
   }
@@ -253,9 +262,21 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     return contentElement;
   }
 
+  public GridLayout withContent(ChildHandler<GridLayout, DivElement> handler){
+    handler.apply(this, contentElement);
+    return this;
+  }
+
   /** @return The header section */
   public DivElement getHeaderElement() {
     return headerElement.get();
+  }
+
+  public GridLayout withHeader(ChildHandler<GridLayout, DivElement> handler){
+    DivElement header = headerElement.get();
+    setHeaderSpan(editor.headerSectionSpan);
+    handler.apply(this, header);
+    return this;
   }
 
   /** @return The footer section */
@@ -263,13 +284,34 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     return footerElement.get();
   }
 
+  public GridLayout withFooter(ChildHandler<GridLayout, DivElement> handler){
+    DivElement footer = footerElement.get();
+    setFooterSpan(editor.footerSectionSpan);
+    handler.apply(this, footer);
+    return this;
+  }
+
   /** @return The left section */
   public DivElement getLeftElement() {
     return leftElement.get();
   }
 
+  public GridLayout withLeftPanel(ChildHandler<GridLayout, DivElement> handler){
+    DivElement left = leftElement.get();
+    setLeftSpan(editor.leftSectionSpan, editor.leftSpanUp, editor.leftSpanDown);
+    handler.apply(this, left);
+    return this;
+  }
+
   /** @return The right section */
   public DivElement getRightElement() {
     return rightElement.get();
+  }
+
+  public GridLayout withRightPanel(ChildHandler<GridLayout, DivElement> handler){
+    DivElement right = rightElement.get();
+    setRightSpan(editor.rightSectionSpan, editor.rightSpanUp, editor.rightSpanDown);
+    handler.apply(this, right);
+    return this;
   }
 }

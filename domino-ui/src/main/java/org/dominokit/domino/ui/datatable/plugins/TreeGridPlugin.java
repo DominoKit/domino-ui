@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.*;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ import org.dominokit.domino.ui.datatable.events.TablePageChangeEvent;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.icons.ToggleIcon;
-import org.dominokit.domino.ui.style.Unit;
+import org.dominokit.domino.ui.utils.Unit;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementsFactory;

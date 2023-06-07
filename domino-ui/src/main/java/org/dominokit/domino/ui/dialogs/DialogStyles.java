@@ -44,6 +44,7 @@ public interface DialogStyles {
   CssClass dui_dialog_content = () -> "dui-dialog-content";
   CssClass dui_dialog_body = () -> "dui-dialog-body";
   CssClass dui_dialog_footer = () -> "dui-dialog-footer";
+  CssClass dui_dialog_nav = () -> "dui-dialog-nav";
 
   CssClass dui_window = () -> "dui-window";
   CssClass dui_maximized = () -> "dui-maximized";

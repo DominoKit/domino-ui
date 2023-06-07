@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.forms.FormsStyles.du_field_counter;
 
@@ -29,23 +30,34 @@ public abstract class CountableInputFormField<
     extends InputFormField<T, E, V>
     implements HasCounter<T>, HasMinMaxLength<T>, HasPlaceHolder<T> {
 
-  protected final LazyChild<SpanElement> counterElement;
+  protected LazyChild<SpanElement> counterElement;
   protected CountFormatter countFormatter = (count, maxCount) -> count + "/" + maxCount;
   private MinLengthValidator<T, E> minLengthValidator;
   private MaxLengthValidator<T, E> maxLengthValidator;
 
   public CountableInputFormField() {
-    counterElement = LazyChild.of(span().addCss(du_field_counter), wrapperElement);
+
   }
 
   @Override
   public T updateCounter(int count, int maxCount) {
     if (maxCount > 0) {
-      counterElement.get().setTextContent(countFormatter.format(count, getMaxCount()));
+      getCountElement().setTextContent(countFormatter.format(count, getMaxCount()));
       minLengthValidator = new MinLengthValidator<>(this);
       maxLengthValidator = new MaxLengthValidator<>(this);
     }
     return (T) this;
+  }
+
+  private SpanElement getCountElement() {
+    if(isNull(counterElement)){
+      counterElement = initCounterElement();
+    }
+    return counterElement.get();
+  }
+
+  protected LazyChild<SpanElement> initCounterElement() {
+    return counterElement = LazyChild.of(span().addCss(du_field_counter), wrapperElement);
   }
 
   public T setCountFormatter(CountFormatter formatter) {
@@ -71,7 +83,7 @@ public abstract class CountableInputFormField<
       getInputElement().removeAttribute(MAX_LENGTH);
       removeValidator(maxLengthValidator);
     } else {
-      counterElement.get();
+      getCountElement();
       getInputElement().setAttribute(MAX_LENGTH, maxLength);
       updateCounter(getLength(), getMaxCount());
       addValidator(maxLengthValidator);
@@ -103,7 +115,7 @@ public abstract class CountableInputFormField<
       getInputElement().removeAttribute(MIN_LENGTH);
       removeValidator(minLengthValidator);
     } else {
-      counterElement.get();
+      getCountElement();
       getInputElement().setAttribute("minlength", minLength);
       updateCounter(getLength(), getMaxCount());
       addValidator(minLengthValidator);
@@ -129,16 +141,16 @@ public abstract class CountableInputFormField<
   }
 
   public SpanElement getCounterElement() {
-    return counterElement.get();
+    return getCountElement();
   }
 
   public T withCounterElement() {
-    counterElement.get();
+    getCountElement();
     return (T) this;
   }
 
   public T withCounterElement(ChildHandler<T, SpanElement> handler) {
-    handler.apply((T) this, counterElement.get());
+    handler.apply((T) this, getCountElement());
     return (T) this;
   }
 }

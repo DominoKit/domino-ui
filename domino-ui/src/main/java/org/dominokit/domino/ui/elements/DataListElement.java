@@ -10,4 +10,5 @@ public class DataListElement extends BaseElement<HTMLDataListElement, DataListEl
     public DataListElement(HTMLDataListElement element) {
         super(element);
     }
+
 }

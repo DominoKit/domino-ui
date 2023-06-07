@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.Editor;
 
@@ -54,4 +55,8 @@ public interface HasGrouping<T>
 
   @Editor.Ignore
   T fixErrorsPosition(boolean fixErrorsPosition);
+
+  default ValidationResult validate(){
+    return validate((T) this);
+  }
 }

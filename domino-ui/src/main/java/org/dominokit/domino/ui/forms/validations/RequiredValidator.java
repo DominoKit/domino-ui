@@ -19,7 +19,7 @@ import org.dominokit.domino.ui.forms.FormElement;
 import org.dominokit.domino.ui.utils.HasValidation;
 
 /** A predefined validator that validates a required field as not empty */
-public class RequiredValidator implements HasValidation.Validator {
+public class RequiredValidator<T> implements HasValidation.Validator<T> {
 
   private FormElement element;
 
@@ -30,7 +30,7 @@ public class RequiredValidator implements HasValidation.Validator {
 
   /** {@inheritDoc} */
   @Override
-  public ValidationResult isValid() {
+  public ValidationResult isValid(T target) {
     if (element.isEmpty()) {
       return ValidationResult.invalid(element.getRequiredErrorMessage());
     }

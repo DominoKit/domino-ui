@@ -32,5 +32,7 @@ public interface TabStyles {
     CssClass dui_tab_header =()->"dui-tab-header";
     CssClass dui_tabs_content =()->"dui-tabs-content";
     CssClass dui_tab_panel =()->"dui-tab-panel";
+    CssClass dui_vertical_header = ()-> "dui-vertical-header";
+    CssClass dui_vertical_header_reversed = ()-> "dui-reversed-vertical-header";
 
 }

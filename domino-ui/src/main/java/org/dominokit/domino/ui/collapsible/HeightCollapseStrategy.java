@@ -15,145 +15,163 @@
  */
 package org.dominokit.domino.ui.collapsible;
 
-import static java.util.Objects.isNull;
-import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSE_HEIGHT;
-import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_SCROLL_HEIGHT;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
-
 import elemental2.dom.AddEventListenerOptions;
-import elemental2.dom.CSSProperties;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.EventListener;
-import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoId;
+import org.dominokit.domino.ui.utils.IsCollapsible;
+
+import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSED;
+import static org.dominokit.domino.ui.style.GenericCss.dui_transition_none;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 /**
- * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show the
+ * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show
+ * the
  * collapsible element
  */
 public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyles {
 
-  private final CollapseDuration transition;
-  private CollapsibleHandlers handlers;
+    public static final String EXPAND_COLLAPSE_HEIGHT_VAR = "--dui-element-expand-collapse-height-";
+    public static final String DUI_EXPANDED_HEIGHT = "dui-expanded-height";
+    public static final String DUI_EXPAND_COLLAPSE_VAR = "dui-expand-collapse-var";
+    private final CollapseDuration transition;
+    private final String heightVar;
+    private CollapsibleHandlers handlers;
+    private DominoElement<Element> target;
 
-  public HeightCollapseStrategy() {
-    this.transition = CollapseDuration._200ms;
-  }
-
-  public HeightCollapseStrategy(CollapseDuration transition) {
-    this.transition = transition;
-  }
-
-  @Override
-  public void init(Element element, CollapsibleHandlers handlers) {
-      this.handlers = handlers;
-    elements.elementOf(element)
-        .addCss(dui_height_collapsed_overflow)
-        .addCss(transition.getStyle())
-        .removeAttribute(DUI_COLLAPSE_HEIGHT);
-  }
-
-  @Override
-  public void cleanup(Element element) {
-      elements.elementOf(element)
-        .removeCss(dui_height_collapsed_overflow)
-        .removeCss(transition.getStyle());
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public void expand(Element element) {
-      elements.elementOf(element)
-        .apply(
-            self -> {
-                self.nowOrWhenAttached(
-                        () -> {
-                            this.handlers.onBeforeExpand().run();
-                            expandElement(element);
-                        });
-            });
-  }
-
-  private void expandElement(Element element) {
-
-    DominoElement<Element> theElement = elements.elementOf(element);
-    if (!dui_height_collapsed.isAppliedTo(element)) {
-      theElement.addCss(dui_height_collapsed);
+    public HeightCollapseStrategy() {
+        this(CollapseDuration._300ms);
     }
 
-    EventListener stopListener =
-        evt -> {
-          String collapseHeight = element.getAttribute(DUI_COLLAPSE_HEIGHT);
-          theElement.removeAttribute(DUI_COLLAPSE_HEIGHT);
-            elements.elementOf(element).elementStyle().height = CSSProperties.HeightUnionType.of(collapseHeight);
-            this.handlers.onExpandCompleted().run();
-        };
-    String scrollHeight = element.getAttribute(DUI_SCROLL_HEIGHT);
-    AddEventListenerOptions addEventListenerOptions = AddEventListenerOptions.create();
-    addEventListenerOptions.setOnce(true);
-    element.addEventListener("webkitTransitionEnd", stopListener, addEventListenerOptions);
-    element.addEventListener("MSTransitionEnd", stopListener, addEventListenerOptions);
-    element.addEventListener("mozTransitionEnd", stopListener, addEventListenerOptions);
-    element.addEventListener("oanimationend", stopListener, addEventListenerOptions);
-    element.addEventListener("animationend", stopListener, addEventListenerOptions);
-    int desiredHeight =
-        isNull(scrollHeight)
-            ? element.scrollHeight
-            : Math.max(Integer.parseInt(scrollHeight), element.scrollHeight);
-      elements.elementOf(element).elementStyle().height = CSSProperties.HeightUnionType.of(desiredHeight + "px");
-    dui_height_collapsed.remove(element);
-    theElement.removeAttribute(Collapsible.DUI_COLLAPSED).removeAttribute(DUI_SCROLL_HEIGHT);
-  }
+    public HeightCollapseStrategy(CollapseDuration transition) {
+        this.transition = transition;
+        this.heightVar = DominoId.unique(EXPAND_COLLAPSE_HEIGHT_VAR);
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public void collapse(Element element) {
-      elements.elementOf(element)
-        .apply(
-            self -> {
-                if (self.isAttached()) {
-                    this.handlers.onBeforeCollapse().run();
-                    collapseElement(element, true);
-                    this.handlers.onCollapseCompleted().run();
-                } else {
-                    self.onAttached(
-                            mutationRecord -> {
-                                this.handlers.onBeforeCollapse().run();
-                                transition.getStyle().remove(element);
-                                collapseElement(element, false);
-                                transition.getStyle().apply(element);
-                                this.handlers.onCollapseCompleted().run();
-                            });
-                }
-            });
-  }
-
-  private void collapseElement(Element element, boolean useAnimationFrame) {
-    DominoElement<Element> elementToCollapse = elements.elementOf(element);
-    int scrollHeight = element.scrollHeight;
-    dui_height_collapsed_overflow.remove(element);
-
-    CSSProperties.HeightUnionType originalHeight = elements.elementOf(element).elementStyle().height;
-      elements.elementOf(element).elementStyle().height = CSSProperties.HeightUnionType.of(scrollHeight + "px");
-    if (useAnimationFrame) {
-      DomGlobal.requestAnimationFrame(
-          timestamp -> {
-            elementToCollapse
+    @Override
+    public void init(Element element, CollapsibleHandlers handlers) {
+        this.target = elements.elementOf(element);
+        this.target.setAttribute(DUI_EXPAND_COLLAPSE_VAR, this.heightVar);
+        this.target.setCssProperty("height", "var(" + this.heightVar + ", auto)");
+        this.handlers = handlers;
+        this.target
                 .addCss(dui_height_collapsed_overflow)
-                .addCss(dui_height_collapsed)
-                .setAttribute(DUI_COLLAPSE_HEIGHT, originalHeight.asString())
-                .setAttribute(Collapsible.DUI_COLLAPSED, "true")
-                .setAttribute(DUI_SCROLL_HEIGHT, scrollHeight);
-          });
-    } else {
-      elementToCollapse
-          .addCss(dui_height_collapsed_overflow)
-          .addCss(CollapsibleStyles.dui_height_collapsed)
-          .setAttribute(DUI_COLLAPSE_HEIGHT, originalHeight.asString())
-          .setAttribute(Collapsible.DUI_COLLAPSED, "true")
-          .setAttribute(DUI_SCROLL_HEIGHT, scrollHeight);
+                .addCss(transition.getStyle());
     }
-  }
+
+    @Override
+    public void cleanup(Element element) {
+        elements.elementOf(element)
+                .addCss(dui_height_collapsed_overflow)
+                .addCss(transition.getStyle());
+        element.removeAttribute("dom-ui-collapse-height");
+    }
+
+    @Override
+    public void expand(Element element) {
+        this.target.nowOrWhenAttached(
+                () -> {
+                    this.handlers.onBeforeExpand().run();
+                    expandElement(element);
+                });
+    }
+
+    private double getActualHeight() {
+        double contentHeight = this.target.childElements()
+                .stream()
+                .filter(IsCollapsible::isExpanded)
+                .mapToDouble(e -> e.getBoundingClientRect().height)
+                .sum();
+
+        double elementHeight = this.target.getBoundingClientRect().height;
+        return Math.max(elementHeight, contentHeight);
+    }
+
+    private void expandElement(Element element) {
+        if (dui_transition_none.isAppliedTo(this.target)) {
+            this.target.setCssProperty(this.heightVar, "auto");
+            this.target.removeAttribute(DUI_COLLAPSED);
+            handlers.onExpandCompleted().run();
+        } else {
+            EventListener stopListener =
+                    evt -> {
+                        handlers.onExpandCompleted().run();
+                        double actualHeight = getActualHeight();
+                        this.target.setCssProperty(this.heightVar, "auto");
+                        this.target.setAttribute(DUI_EXPANDED_HEIGHT, actualHeight);
+                    };
+
+            AddEventListenerOptions addEventListenerOptions = AddEventListenerOptions.create();
+            addEventListenerOptions.setOnce(true);
+            this.target.element().addEventListener("webkitTransitionEnd", stopListener, addEventListenerOptions);
+            this.target.element().addEventListener("MSTransitionEnd", stopListener, addEventListenerOptions);
+            this.target.element().addEventListener("mozTransitionEnd", stopListener, addEventListenerOptions);
+            this.target.element().addEventListener("oanimationend", stopListener, addEventListenerOptions);
+            this.target.element().addEventListener("animationend", stopListener, addEventListenerOptions);
+
+
+            this.target.removeCss(dui_height_collapsed);
+            String expandedHeight = this.target.getAttribute(DUI_EXPANDED_HEIGHT);
+
+            if("auto".equals(expandedHeight)){
+                double actualHeight = getActualHeight();
+                this.target.setCssProperty(this.heightVar, actualHeight +"px");
+                this.target.removeAttribute(DUI_COLLAPSED);
+            }else {
+                this.target.setCssProperty(this.heightVar, expandedHeight +"px");
+                this.target.removeAttribute(DUI_COLLAPSED);
+            }
+
+        }
+
+    }
+
+    @Override
+    public void collapse(Element element) {
+        boolean disableAnimation = dui_transition_none.isAppliedTo(this.target);
+        this.target.apply(
+                self -> {
+                    if (self.isAttached()) {
+                        double actualHeight = getActualHeight();
+                        this.target.setAttribute(DUI_EXPANDED_HEIGHT, actualHeight);
+                        this.target.setCssProperty(this.heightVar, actualHeight + "px");
+
+                        this.handlers.onBeforeCollapse().run();
+                        collapseElement(element);
+                        handlers.onCollapseCompleted().run();
+                    } else {
+                        self.onAttached(
+                                mutationRecord -> {
+                                    this.target.setAttribute(DUI_EXPANDED_HEIGHT, "auto");
+                                    this.target.setCssProperty(this.heightVar, "auto");
+                                    this.handlers.onBeforeCollapse().run();
+                                    this.target.addCss(dui_transition_none);
+                                    collapseElement(element);
+                                    if (!disableAnimation) {
+                                        dui_transition_none.remove(this.target);
+                                    }
+                                    handlers.onCollapseCompleted().run();
+
+                                });
+                    }
+                });
+    }
+
+    private void collapseElement(Element element) {
+        if (dui_transition_none.isAppliedTo(this.target)) {
+            this.target.setAttribute(DUI_COLLAPSED, "true");
+            this.target.setCssProperty(this.heightVar, "0px");
+            this.target.addCss(dui_height_collapsed);
+        } else {
+            DomGlobal.requestAnimationFrame(
+                    timestamp -> {
+                        this.target.setAttribute(DUI_COLLAPSED, "true");
+                        this.target.setCssProperty(this.heightVar, "0px");
+                        this.target.addCss(dui_height_collapsed);
+                    });
+        }
+    }
 }

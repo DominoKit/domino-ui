@@ -35,7 +35,7 @@ public class ReorderColumnsPlugin<T> implements DataTablePlugin<T> {
 
   private final DropZone dropZone = new DropZone();
   private final DragSource dragSource = new DragSource();
-  private Supplier<Icon<?>> headerIconSupplier = Icons.ALL::drag_vertical_mdi;
+  private Supplier<Icon<?>> headerIconSupplier = Icons::drag_vertical;
 
   /** {@inheritDoc} */
   @Override

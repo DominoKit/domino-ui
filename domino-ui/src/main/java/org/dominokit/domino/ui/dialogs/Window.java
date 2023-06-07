@@ -19,6 +19,7 @@ import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
+import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 import org.dominokit.domino.ui.events.EventType;
 
@@ -50,6 +51,8 @@ public class Window extends AbstractDialog<Window> {
   private boolean fixed;
   private boolean maximizing = false;
 
+  private NavBar navHeader;
+
   /**
    * @param title String window title
    * @return new Window instance
@@ -60,14 +63,16 @@ public class Window extends AbstractDialog<Window> {
 
   /** @param title String window title */
   public Window(String title) {
-    super(title);
+    super();
+    headerElement.get().appendChild(navHeader = NavBar.create(title).addCss(dui_dialog_nav));
     setModal(false);
     setAutoClose(false);
     addCss(dui_window);
 
     restoreIcon =
-        Icons.ALL
-            .window_restore_mdi()
+        Icons
+            .window_restore()
+                .addCss(dui_order_last_1)
             .clickable()
             .addClickListener(
                 evt -> {
@@ -76,8 +81,9 @@ public class Window extends AbstractDialog<Window> {
                 })
             .collapse();
     maximizeIcon =
-        Icons.ALL
-            .window_maximize_mdi()
+        Icons
+            .window_maximize()
+                .addCss(dui_order_last_1)
             .clickable()
             .addClickListener(
                 evt -> {
@@ -85,8 +91,9 @@ public class Window extends AbstractDialog<Window> {
                   maximize();
                 });
     closeIcon =
-        Icons.ALL
-            .close_mdi()
+        Icons
+            .close()
+                .addCss(dui_order_last_4)
             .clickable()
             .addClickListener(
                 evt -> {
@@ -94,9 +101,9 @@ public class Window extends AbstractDialog<Window> {
                   close();
                 });
 
-    appendChild(PostfixAddOn.of(maximizeIcon));
-    appendChild(PostfixAddOn.of(restoreIcon));
-    appendChild(PostfixAddOn.of(closeIcon));
+    navHeader.appendChild(PostfixAddOn.of(maximizeIcon));
+    navHeader.appendChild(PostfixAddOn.of(restoreIcon));
+    navHeader.appendChild(PostfixAddOn.of(closeIcon));
 
     moveListener = this::onMove;
     stopMoveListener =
@@ -339,6 +346,11 @@ public class Window extends AbstractDialog<Window> {
   public Window hideResizing() {
     restoreIcon.collapse();
     maximizeIcon.collapse();
+    return this;
+  }
+
+  public Window setTitle(String title) {
+    navHeader.setTitle(title);
     return this;
   }
 

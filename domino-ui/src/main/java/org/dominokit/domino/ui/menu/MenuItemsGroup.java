@@ -18,32 +18,37 @@ package org.dominokit.domino.ui.menu;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.menu.MenuStyles.*;
 
-import elemental2.dom.HTMLUListElement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.UListElement;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.layout.NavBar;
+import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-public class MenuItemsGroup<V, I extends AbstractMenuItem<V, I>>
-    extends AbstractMenuItem<V, MenuItemsGroup<V, I>> {
+public class MenuItemsGroup<V>
+    extends AbstractMenuItem<V> {
 
   private final Menu<V> menu;
-  private List<I> menuItems = new ArrayList<>();
+  private List<AbstractMenuItem<V>> menuItems = new ArrayList<>();
 
+  private DivElement groupElement;
+  private LazyChild<NavBar> groupHeader;
   private LazyChild<UListElement> itemsListElement;
 
   public MenuItemsGroup(Menu<V> menu) {
     this.menu = menu;
-    removeCss(menu_item);
-    addCss(menu_group);
-    linkElement.removeCss(menu_item_anchor);
-    linkElement.addCss(menu_group_header);
-    itemsListElement = LazyChild.of(ul().addCss(menu_items_list), root);
+    removeCss(dui_menu_item);
+    addCss(dui_menu_group);
+    linkElement.removeCss(dui_menu_item_anchor);
+    linkElement.addCss(dui_menu_group_header);
+    root.appendChild(groupElement = div().addCss(dui_flex, dui_flex_col));
+    groupHeader = LazyChild.of(NavBar.create().addCss(dui_order_first), bodyElement);
+    itemsListElement = LazyChild.of(ul().addCss(dui_menu_items_list, dui_order_last), groupElement);
   }
 
-  public MenuItemsGroup<V, I> appendChild(I menuItem) {
+  public MenuItemsGroup<V> appendChild(AbstractMenuItem<V> menuItem) {
     if (nonNull(menuItem)) {
       menuItem.bindToGroup(this);
       itemsListElement.get().appendChild(menuItem);
@@ -54,7 +59,7 @@ public class MenuItemsGroup<V, I extends AbstractMenuItem<V, I>>
     return this;
   }
 
-  public MenuItemsGroup<V, I> removeItem(I menuItem) {
+  public MenuItemsGroup<V> removeItem(AbstractMenuItem<V> menuItem) {
     if (this.menuItems.contains(menuItem)) {
       menuItem.unbindGroup();
       menuItem.remove();
@@ -63,8 +68,18 @@ public class MenuItemsGroup<V, I extends AbstractMenuItem<V, I>>
     return this;
   }
 
-  public List<I> getMenuItems() {
+  public List<AbstractMenuItem<V>> getMenuItems() {
     return menuItems;
+  }
+
+  public MenuItemsGroup<V> withHeader(ChildHandler<MenuItemsGroup<V>, NavBar> handler){
+    handler.apply(this, groupHeader.get());
+    return this;
+  }
+
+  public MenuItemsGroup<V> withItemsMenu(ChildHandler<MenuItemsGroup<V>, UListElement> handler){
+    handler.apply(this, itemsListElement.get());
+    return this;
   }
 
   @Override

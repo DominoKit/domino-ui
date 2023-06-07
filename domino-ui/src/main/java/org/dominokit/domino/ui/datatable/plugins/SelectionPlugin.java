@@ -54,7 +54,7 @@ import static java.util.Objects.nonNull;
 public class SelectionPlugin<T> implements DataTablePlugin<T> {
 
     private TableRow<T> selectedRow;
-    private Element singleSelectIndicator = Icons.ALL.check_mdi().element();
+    private Element singleSelectIndicator = Icons.check().element();
     private SelectionCondition<T> selectionCondition = (table, row) -> true;
     private TableRow<T> lastSelected;
     private CheckBoxCreator<T> checkBoxCreator = tableRow -> CheckBox.create();

@@ -15,25 +15,26 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;
 
-public class PrefixAddOn<T extends HTMLElement> extends BaseDominoElement<T, PrefixAddOn<T>> {
+public class PrefixAddOn<T extends Element> extends BaseDominoElement<T, PrefixAddOn<T>> {
 
   private DominoElement<T> element;
 
-  public static <T extends HTMLElement> PrefixAddOn<T> of(T element) {
+  public static <T extends Element> PrefixAddOn<T> of(T element) {
     return new PrefixAddOn<>(element);
   }
 
-  public static <T extends HTMLElement> PrefixAddOn<T> of(IsElement<T> element) {
+  public static <T extends Element> PrefixAddOn<T> of(IsElement<T> element) {
     return new PrefixAddOn<>(element);
   }
 
   public PrefixAddOn(T element) {
     this.element = elementOf(element);
     init(this);
-    addCss(dui_prefix);
+    addCss(dui_prefix_addon);
   }
 
   public PrefixAddOn(IsElement<T> element) {

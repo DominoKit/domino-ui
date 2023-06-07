@@ -181,7 +181,7 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> 
      */
     public ProgressBar textExpression(String expression) {
         this.textExpression = expression;
-        updateText();
+        showText();
         return this;
     }
 

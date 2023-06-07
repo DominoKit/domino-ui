@@ -45,7 +45,6 @@ public class InputAutoValidator<E extends HTMLElement> extends AutoValidator {
   /** {@inheritDoc} */
   @Override
   public void attach() {
-
     inputElement.addEventListener("blur", eventListener);
   }
 

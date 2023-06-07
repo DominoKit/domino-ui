@@ -20,14 +20,18 @@ import elemental2.dom.EventListener;
 import elemental2.dom.MouseEvent;
 import elemental2.dom.Node;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
 import org.dominokit.domino.ui.collapsible.CollapseDuration;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.dialogs.ModalBackDrop;
 import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 import java.util.function.Consumer;
+
+import static elemental2.dom.DomGlobal.document;
+import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_TOOLTIPS;
 
 /**
  * A component for showing content on top of another element in different locations.
@@ -43,6 +47,12 @@ import java.util.function.Consumer;
  * @see BaseDominoElement
  */
 public class Tooltip extends BasePopover<Tooltip>{
+
+  static {
+    document.body.addEventListener(EventType.click.getName(), element -> {
+      ModalBackDrop.INSTANCE.closeTooltips("");
+    });
+  }
 
   private final EventListener showListener;
   private final Consumer<Tooltip> removeHandler;
@@ -63,6 +73,7 @@ public class Tooltip extends BasePopover<Tooltip>{
 
   public Tooltip(Element target, Node content) {
     super(target);
+    setAttribute("dui-tooltip", true);
     addCss(dui_tooltip);
     appendChild(content);
     showListener =
@@ -83,11 +94,24 @@ public class Tooltip extends BasePopover<Tooltip>{
     setCollapseStrategy(
             new AnimationCollapseStrategy(
                     Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
+    addCollapseListener(() -> removeEventListener(DUI_REMOVE_TOOLTIPS, closeAllListener));
+  }
+
+  @Override
+  protected EventListener getCloseListener() {
+    return evt-> closeOthers("");
+  }
+
+  @Override
+  protected Tooltip closeOthers(String sourceId) {
+    ModalBackDrop.INSTANCE.closeTooltips(sourceId);
+    return this;
   }
 
   @Override
   protected void doOpen() {
     super.doOpen();
+    addEventListener(DUI_REMOVE_TOOLTIPS, closeAllListener);
     if (closeOnEscape) {
       body().onKeyDown(keyEvents -> keyEvents.onEscape(closeListener));
     }

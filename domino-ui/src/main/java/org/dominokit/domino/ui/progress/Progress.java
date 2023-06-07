@@ -76,10 +76,6 @@ public class Progress extends BaseDominoElement<HTMLDivElement, Progress> implem
             .sum()) * 100).intValue());
   }
 
-  private void updateBars(){
-    progressBars.forEach(progressBar -> progressBar.updateWidth());
-  }
-
   void removeBar(ProgressBar progressBar) {
     this.progressBars.remove(progressBar);
   }

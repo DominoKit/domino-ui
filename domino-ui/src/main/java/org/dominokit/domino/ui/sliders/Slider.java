@@ -17,18 +17,17 @@ package org.dominokit.domino.ui.sliders;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.events.EventOptions;
+import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.HasChangeListeners;
 import org.dominokit.domino.ui.events.EventType;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.dominokit.domino.ui.events.EventType.blur;
@@ -217,6 +216,17 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
         thumb.collapse();
     }
 
+    public Slider withThumb(ChildHandler<Slider, SpanElement> handler){
+        setShowThumb(true);
+        handler.apply(this, thumb);
+        return this;
+    }
+
+    public Slider withThumb(){
+        setShowThumb(true);
+        return this;
+    }
+
     private void evaluateThumbPosition() {
         if (mouseDown) {
             thumb.style().setLeft(calculateRangeOffset() + "px");
@@ -305,32 +315,12 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
     }
 
     /**
-     * Show a thumb over the slider pointer that show the value while dragging
-     *
-     * @return same Slider instance
-     */
-    public Slider withThumb() {
-        setWithThumb(true);
-        return this;
-    }
-
-    /**
-     * Wont show a thumb over the slider pointer that show the value while dragging
-     *
-     * @return same Slider instance
-     */
-    public Slider withoutThumb() {
-        setWithThumb(false);
-        return this;
-    }
-
-    /**
      * @param withThumb boolean, if true the slider will show a thumb over the pointer that shows
      *                  the
      *                  slider value while dragging
      * @return same Slider instance
      */
-    public Slider setWithThumb(boolean withThumb) {
+    public Slider setShowThumb(boolean withThumb) {
         this.withThumb = withThumb;
         return this;
     }

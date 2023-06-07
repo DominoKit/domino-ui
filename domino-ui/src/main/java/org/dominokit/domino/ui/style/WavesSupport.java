@@ -28,11 +28,10 @@ import org.dominokit.domino.ui.utils.HasWavesElement;
 /** A utility class for configuring waves for a specific element */
 public class WavesSupport implements HasWaveEffect<WavesSupport> {
 
-  private static final String WAVES_EFFECT = "waves-effect";
+  private static final CssClass dui_waves_effect = ()->"dui-waves-effect";
   private final DominoElement<Element> element;
-
-  private String waveColor;
   private final Waves wavesElement;
+  private final SwapCssClass waveClass = SwapCssClass.of(WaveStyle.RIPPLE);
 
   private WavesSupport(HasWavesElement targetElement) {
     this(targetElement.getWavesElement());
@@ -66,48 +65,32 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
   /** {@inheritDoc} */
   @Override
   public WavesSupport initWaves() {
-    if (!hasWavesEffect()) element.addCss(WAVES_EFFECT);
-
-    wavesElement.initWaves();
+    if (!hasWavesEffect()) {
+      element.addCss(dui_waves_effect);
+      wavesElement.initWaves();
+    }
     return this;
   }
 
   private boolean hasWavesEffect() {
-    return element.style().containsCss(WAVES_EFFECT);
-  }
-
-  /** Use {@link WavesSupport#setWaveColor(WaveColor)} instead */
-  @Deprecated
-  public WavesSupport setWavesColor(WaveColor waveColor) {
-    return setWaveColor(waveColor);
+    return dui_waves_effect.isAppliedTo(element);
   }
 
   /** {@inheritDoc} */
   @Override
-  public WavesSupport setWaveColor(WaveColor waveColor) {
-    if (!hasWavesEffect()) initWaves();
-    if (isNull(this.waveColor)) element.addCss(waveColor.getStyle());
-    else {
-      element.removeCss(this.waveColor);
-      element.addCss(waveColor.getStyle());
+  public WavesSupport setWaveStyle(WaveStyle waveStyle) {
+    if (!hasWavesEffect()){
+      initWaves();
     }
-    this.waveColor = waveColor.getStyle();
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public WavesSupport applyWaveStyle(WaveStyle waveStyle) {
-    if (!hasWavesEffect()) initWaves();
-    if (!element.style().containsCss(waveStyle.getStyle())) element.addCss(waveStyle.getStyle());
+    element.addCss(waveClass.replaceWith(waveStyle));
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public WavesSupport removeWaves() {
-    if (hasWavesEffect()) element.removeCss(WAVES_EFFECT);
-    if (nonNull(waveColor)) element.removeCss(waveColor);
+    dui_waves_effect.remove(element);
+    waveClass.remove(element);
     removeWaveStyles();
     wavesElement.removeWaves();
     return this;
@@ -118,5 +101,9 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
       String style = element.style().cssClassByIndex(i);
       if (style.contains("waves-")) element.removeCss(style);
     }
+  }
+
+  public DominoElement<Element> getElement() {
+    return element;
   }
 }

@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * A drawer like component that allow you to show and hide content.
@@ -59,28 +58,28 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *                         AccordionPanel.create(
  *                                 "Collapsible item 1", TextNode.of("Panel 1"))
  *                                 .show()
- *                                 .setIcon(Icons.ALL.perm_contact_calendar())
+ *                                 .setIcon(Icons.perm_contact_calendar())
  *                                 .setHeaderBackground(Color.PINK)
  *                                 .setBodyBackground(Color.PINK)
  *                                 .show())
  *                 .appendChild(
  *                         AccordionPanel.create(
  *                                 "Collapsible item 2", TextNode.of("Panel 2"))
- *                                 .setIcon(Icons.ALL.cloud_download())
+ *                                 .setIcon(Icons.cloud_download())
  *                                 .setHeaderBackground(Color.CYAN)
  *                                 .setBodyBackground(Color.CYAN))
  *                 .appendChild(
  *                         AccordionPanel.create(
  *                                 "Collapsible item 3", TextNode.of("Panel 3"))
  *                                 .show()
- *                                 .setIcon(Icons.ALL.contact_phone())
+ *                                 .setIcon(Icons.contact_phone())
  *                                 .setHeaderBackground(Color.TEAL)
  *                                 .setBodyBackground(Color.TEAL)
  *                                 .show())
  *                 .appendChild(
  *                         AccordionPanel.create(
  *                                 "Collapsible item 4", TextNode.of("Panel 4"))
- *                                 .setIcon(Icons.ALL.folder_shared())
+ *                                 .setIcon(Icons.folder_shared())
  *                                 .setHeaderBackground(Color.ORANGE)
  *                                 .setBodyBackground(Color.ORANGE))
  *     </pre>
@@ -123,7 +122,7 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
       panel.setCollapseStrategy(panelsCollapseStrategy);
     }
     element.appendChild(panel);
-    panel.withHeaderElement(
+    panel.withHeader(
         (accordionPanel, header) -> {
           header.addClickListener(evt -> togglePanel(panel));
         });
@@ -150,7 +149,7 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
           panel.expand();
         }
       } else {
-        panel.toggleDisplay();
+        panel.toggleCollapse();
       }
     }
   }
@@ -168,6 +167,15 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
    */
   public Accordion multiOpen() {
     this.multiOpen = true;
+    return this;
+  }
+
+  public boolean isMultiOpen() {
+    return multiOpen;
+  }
+
+  public Accordion setMultiOpen(boolean multiOpen) {
+    this.multiOpen = multiOpen;
     return this;
   }
 

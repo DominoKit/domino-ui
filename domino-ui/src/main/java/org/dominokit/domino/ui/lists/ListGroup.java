@@ -66,6 +66,8 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
 
   private boolean multiSelect = false;
   private ListItem<? extends T> lastSelected = null;
+
+  private boolean selectable = true;
   private Set<SelectionListener<? super T, ? super List<T>>> selectionListeners = new HashSet<>();
   private Set<SelectionListener<? super T, ? super List<T>>> deselectionListeners = new HashSet<>();
 
@@ -558,8 +560,13 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
    * @return same instance
    */
   public ListGroup<T> setSelectable(boolean selectable) {
+    this.selectable = selectable;
     getItems().forEach(item -> item.setSelectable(selectable));
     return this;
+  }
+
+  public boolean isSelectable() {
+    return selectable;
   }
 
   /** {@inheritDoc} */

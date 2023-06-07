@@ -56,29 +56,29 @@ import static java.util.Objects.nonNull;
  *             .setToggleTarget(ToggleTarget.ICON)
  *             .addItemClickListener((treeItem) -&gt; DomGlobal.console.info(treeItem.getValue()))
  *             .appendChild(
- *                 TreeItem.create("Computer", Icons.ALL.laptop_mdi())
+ *                 TreeItem.create("Computer", Icons.laptop())
  *                     .addClickListener((evt) -&gt; Notification.create("Computer").show()))
  *             .appendChild(
- *                 TreeItem.create("Headset", Icons.ALL.headset_mdi())
+ *                 TreeItem.create("Headset", Icons.headset())
  *                     .addClickListener((evt) -&gt; Notification.create("Headset").show()))
  *             .appendChild(
- *                 TreeItem.create("Keyboard", Icons.ALL.keyboard_mdi())
+ *                 TreeItem.create("Keyboard", Icons.keyboard())
  *                     .addClickListener((evt) -&gt; Notification.create("Keyboard").show()))
  *             .appendChild(
- *                 TreeItem.create("Mouse", Icons.ALL.mouse_mdi())
+ *                 TreeItem.create("Mouse", Icons.mouse())
  *                     .addClickListener((evt) -&gt; Notification.create("Mouse").show()))
  *             .addSeparator()
  *             .appendChild(
- *                 TreeItem.create("Laptop", Icons.ALL.laptop_mdi())
+ *                 TreeItem.create("Laptop", Icons.laptop())
  *                     .addClickListener((evt) -&gt; Notification.create("Laptop").show()))
  *             .appendChild(
- *                 TreeItem.create("Smart phone", Icons.ALL.cellphone_mdi())
+ *                 TreeItem.create("Smart phone", Icons.cellphone())
  *                     .addClickListener((evt) -&gt; Notification.create("Smart phone").show()))
  *             .appendChild(
- *                 TreeItem.create("Tablet", Icons.ALL.tablet_mdi())
+ *                 TreeItem.create("Tablet", Icons.tablet())
  *                     .addClickListener((evt) -&gt; Notification.create("Tablet").show()))
  *             .appendChild(
- *                 TreeItem.create("Speaker", Icons.ALL.speaker_mdi())
+ *                 TreeItem.create("Speaker", Icons.speaker())
  *                     .addClickListener((evt) -&gt; Notification.create("Speaker").show()));
  * </pre>
  *
@@ -110,6 +110,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     private CollapseStrategy collapseStrategy;
 
     private DivElement element;
+    private DivElement bodyElement;
     private UListElement subTree;
     private LazyChild<TreeHeader> headerElement;
     private LazyChild<PostfixAddOn<?>> searchIcon;
@@ -121,8 +122,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     public Tree() {
         element = div()
                 .addCss(dui_tree)
-                .appendChild(subTree = ul().addCss(dui_tree_nav));
-        headerElement = LazyChild.ofInsertFirst(TreeHeader.create(), subTree);
+                .appendChild(bodyElement = div()
+                        .addCss(dui_tree_body)
+                        .appendChild(subTree = ul().addCss(dui_tree_nav))
+                );
+        headerElement = LazyChild.of(TreeHeader.create(), element);
         init(this);
     }
 
@@ -133,11 +137,6 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
 
     public Tree(String treeTitle, T value) {
         this(treeTitle);
-        this.value = value;
-    }
-
-    public Tree(T value) {
-        this();
         this.value = value;
     }
 
@@ -152,12 +151,20 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     }
 
     /**
-     * @param value the default selected value
+     * @param title the default selected value
      * @param <T>   the type of the object
      * @return new instance
      */
-    public static <T> Tree<T> create(T value) {
-        return new Tree<>(value);
+    public static <T> Tree<T> create(String title) {
+        return new Tree<>(title);
+    }
+
+    /**
+     * @param <T>   the type of the object
+     * @return new instance
+     */
+    public static <T> Tree<T> create() {
+        return new Tree<>();
     }
 
     @Override
@@ -174,7 +181,6 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     public Tree<T> appendChild(TreeItem<T> treeItem) {
         super.appendChild(treeItem.element());
         treeItem.setParent(this);
-        treeItem.setLevel(0);
         treeItem.setToggleTarget(this.toggleTarget);
         if (nonNull(collapseStrategy)) {
             treeItem.setCollapseStrategy(collapseStrategy);
@@ -315,7 +321,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
             }
 
             if (isNull(searchIcon)) {
-                searchIcon = LazyChild.of(PostfixAddOn.of(Icons.ALL.magnify_mdi()
+                searchIcon = LazyChild.of(PostfixAddOn.of(Icons.magnify()
                         .clickable()
                         .addClickListener(evt -> {
                             evt.stopPropagation();
@@ -344,7 +350,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     public Tree<T> setFoldable(boolean foldingEnabled) {
         if (foldingEnabled) {
             if (isNull(collapseExpandAllIcon)) {
-                collapseExpandAllIcon = LazyChild.of(PostfixAddOn.of(ToggleMdiIcon.create(Icons.ALL.fullscreen_mdi(), Icons.ALL.fullscreen_exit_mdi())
+                collapseExpandAllIcon = LazyChild.of(PostfixAddOn.of(ToggleMdiIcon.create(Icons.fullscreen(), Icons.fullscreen_exit())
                         .clickable()
                                 .apply(self -> self.addClickListener(evt -> {
                                     evt.stopPropagation();

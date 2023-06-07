@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 
@@ -24,6 +25,11 @@ public interface HasMeta<T> {
 
   default T applyMeta(ComponentMeta meta) {
     getMetaObjects().put(meta.getKey(), meta);
+    return (T) this;
+  }
+
+  default T applyMeta(ComponentMeta... metas) {
+    Arrays.asList(metas).forEach(meta -> getMetaObjects().put(meta.getKey(), meta));
     return (T) this;
   }
 

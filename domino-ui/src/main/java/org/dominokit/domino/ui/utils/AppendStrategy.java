@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
@@ -28,7 +29,7 @@ public interface AppendStrategy {
    * @param target the target element
    * @param menu the menu element
    */
-  void onAppend(HTMLElement target, HTMLElement menu);
+  void onAppend(Element target, HTMLElement menu);
 
   /**
    * {@code FIRST} strategy means that the menu will be added at the first index of the target

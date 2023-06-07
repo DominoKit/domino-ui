@@ -27,18 +27,50 @@ public class BooleanCssClass implements CssClass {
     return new BooleanCssClass(cssClass, addRemove);
   }
 
+  public static BooleanCssClass of(HasCssClass cssClass, boolean addRemove) {
+    return new BooleanCssClass(cssClass.getCssClass(), addRemove);
+  }
+
+  public static BooleanCssClass of(String cssClass, boolean addRemove) {
+    return new BooleanCssClass(()-> cssClass, addRemove);
+  }
+
+  public static BooleanCssClass of(CssClass cssClass) {
+    return new BooleanCssClass(cssClass);
+  }
+
+  public static BooleanCssClass of(HasCssClass cssClass) {
+    return new BooleanCssClass(cssClass.getCssClass());
+  }
+
+  public static BooleanCssClass of(String cssClass) {
+    return new BooleanCssClass(()-> cssClass);
+  }
+
   public BooleanCssClass(CssClass cssClass, boolean addRemove) {
     this.cssClass = cssClass;
     this.addRemove = addRemove;
   }
 
+  public BooleanCssClass(CssClass cssClass) {
+    this(cssClass, true);
+  }
+
   @Override
   public void apply(Element element) {
+    apply(element, addRemove);
+  }
+
+  public void apply(Element element, boolean addRemove) {
     if (addRemove) {
       cssClass.apply(element);
     } else {
       remove(element);
     }
+  }
+
+  public void apply(IsElement<?> element, boolean addRemove) {
+    apply(element.element(), addRemove);
   }
 
   @Override

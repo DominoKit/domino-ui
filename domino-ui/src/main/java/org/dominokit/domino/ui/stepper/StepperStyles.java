@@ -15,27 +15,47 @@
  */
 package org.dominokit.domino.ui.stepper;
 
+import org.dominokit.domino.ui.style.CssClass;
+
 /** A constants class for Steppers css classes names */
-public class StepperStyles {
-  public static final String D_STEPPER = "d-stepper";
-  public static final String STEP_CONTENT = "step-content";
-  public static final String LAST_STEP = "last-step";
-  public static final String HORIZONTAL_STEPPER = "horizontal-stepper";
-  public static final String VERTICAL_STEPPER = "vertical-stepper";
-  public static final String STEP_ACTIVE = "step-active";
-  public static final String STEP_INACTIVE = "step-inactive";
-  public static final String STEP_ERROR = "step-error";
-  public static final String STEP_COMPLETED = "step-completed";
-  public static final String STEP_DISABLED = "step-disabled";
-  public static final String STEP_HEADER = "step-header";
-  public static final String STEP_NUMBER_CNTR = "step-number-cntr";
-  public static final String STEP_NUMBER = "step-number";
-  public static final String STEP_VERTICAL_BAR = "step-vertical-bar";
-  public static final String STEP_TITLE_CNTR = "step-title-cntr";
-  public static final String STEP_MAIN_TITLE_CNTR = "step-main-title-cntr";
-  public static final String STEP_TITLE = "step-title";
-  public static final String STEP_HORIZONTAL_BAR = "step-horizontal-bar";
-  public static final String STEP_DESCRIPTION = "step-description";
-  public static final String STEP_ERRORS = "step-errors";
-  public static final String STEP_INVALID = "step-invalid";
+public interface StepperStyles {
+
+  CssClass dui_stepper = ()-> "dui-stepper";
+  CssClass dui_stepper_track = ()-> "dui-stepper-track";
+  CssClass dui_step_track = ()-> "dui-step-track";
+  CssClass dui_stepper_content = ()-> "dui-stepper-content";
+  CssClass dui_stepper_step = ()-> "dui-stepper-step";
+  CssClass dui_step_header = ()-> "dui-step-header";
+  CssClass dui_step_content = ()-> "dui-step-content";
+  CssClass dui_step_footer = ()-> "dui-step-footer";
+  CssClass dui_tracker_node = ()-> "dui-tracker-node";
+  CssClass dui_tracker_node_icon = ()-> "dui-tracker-node-icon";
+  CssClass dui_tracker_line = ()-> "dui-tracker-line";
+  CssClass dui_tracker_chain = ()-> "dui-tracker-chain";
+  CssClass dui_tracker_content = ()-> "dui-tracker-content";
+
+  CssClass dui_stepper_active_content = ()-> "dui-stepper-active-content";
+  CssClass dui_step_prefix = ()-> "dui-step-prefix";
+  CssClass dui_step_last = ()-> "dui-step-last";
+  String D_STEPPER = "d-stepper";
+  String STEP_CONTENT = "step-content";
+  String LAST_STEP = "last-step";
+  String HORIZONTAL_STEPPER = "horizontal-stepper";
+  String VERTICAL_STEPPER = "vertical-stepper";
+  String STEP_ACTIVE = "step-active";
+  String STEP_INACTIVE = "step-inactive";
+  String STEP_ERROR = "step-error";
+  String STEP_COMPLETED = "step-completed";
+  String STEP_DISABLED = "step-disabled";
+  String STEP_HEADER = "step-header";
+  String STEP_NUMBER_CNTR = "step-number-cntr";
+  String STEP_NUMBER = "step-number";
+  String STEP_VERTICAL_BAR = "step-vertical-bar";
+  String STEP_TITLE_CNTR = "step-title-cntr";
+  String STEP_MAIN_TITLE_CNTR = "step-main-title-cntr";
+  String STEP_TITLE = "step-title";
+  String STEP_HORIZONTAL_BAR = "step-horizontal-bar";
+  String STEP_DESCRIPTION = "step-description";
+  String STEP_ERRORS = "step-errors";
+  String STEP_INVALID = "step-invalid";
 }

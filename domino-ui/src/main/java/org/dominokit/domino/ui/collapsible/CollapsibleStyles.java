@@ -42,4 +42,5 @@ public interface CollapsibleStyles {
   CssClass dui_height_collapsed_trans_800 = () -> "dui-height-collapsed-trans-800";
   CssClass dui_height_collapsed_trans_900 = () -> "dui-height-collapsed-trans-900";
   CssClass dui_height_collapsed_trans_1000 = () -> "dui-height-collapsed-trans-1000";
+  CssClass dui_height_collapsed_trans_20000 = () -> "dui-height-collapsed-trans-20000";
 }

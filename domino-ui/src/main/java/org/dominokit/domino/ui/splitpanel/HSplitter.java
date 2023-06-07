@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.splitpanel;
 
 import elemental2.dom.MouseEvent;
 import elemental2.dom.TouchEvent;
-import org.dominokit.domino.ui.style.Unit;
 
 class HSplitter extends BaseSplitter<HSplitter> {
 

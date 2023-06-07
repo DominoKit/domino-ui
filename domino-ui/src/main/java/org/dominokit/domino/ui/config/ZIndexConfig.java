@@ -6,7 +6,7 @@ import org.dominokit.domino.ui.dialogs.ZIndexManager;
 public interface ZIndexConfig extends ComponentConfig{
 
     default int getInitialZIndex() {
-        return 1;
+        return 8388635;
     }
 
     default int getzIndexIncrement() {
@@ -15,7 +15,7 @@ public interface ZIndexConfig extends ComponentConfig{
 
 
     default ZIndexManager getZindexManager() {
-        return new DefaultZIndexManager();
+        return DefaultZIndexManager.INSTANCE;
     }
 
 }

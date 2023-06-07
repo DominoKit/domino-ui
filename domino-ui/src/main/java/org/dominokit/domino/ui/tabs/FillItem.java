@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.tabs;
 import elemental2.dom.HTMLLIElement;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 import static org.dominokit.domino.ui.tabs.TabStyles.dui_tab_item;
 
@@ -28,7 +27,7 @@ public class FillItem extends BaseDominoElement<HTMLLIElement, FillItem> {
   private LIElement element;
 
   public FillItem() {
-    this.element = li().addCss(dui_tab_item, dui_flex_grow);
+    this.element = li().addCss(dui_tab_item, dui_grow_1);
     init(this);
   }
 

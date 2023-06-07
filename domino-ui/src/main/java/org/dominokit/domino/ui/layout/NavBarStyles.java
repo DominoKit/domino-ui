@@ -23,4 +23,5 @@ public interface NavBarStyles {
   CssClass dui_nav_add_on = () -> "dui-nav-addon";
   CssClass dui_nav_title = () -> "dui-nav-title";
   CssClass dui_nav_utility = () -> "dui-nav-utility";
+  CssClass dui_nav_description = () -> "dui-nav-description";
 }

@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.layout;
 
 import org.dominokit.domino.ui.style.CssClass;
-import org.dominokit.domino.ui.style.ToggleCssClass;
 
 public interface AppLayoutStyles {
 
@@ -29,9 +28,9 @@ public interface AppLayoutStyles {
   CssClass dui_right_drawer = () -> "dui-right-drawer";
   CssClass dui_has_header = () -> "dui-layout-has-header";
   CssClass dui_has_footer = () -> "dui-layout-has-footer";
-  ToggleCssClass dui_footer_fixed = () -> "dui-layout-footer-fixed";
+  CssClass dui_footer_fixed = () -> "dui-layout-footer-fixed";
 
-  ToggleCssClass dui_left_open = () -> "dui-left-open";
+  CssClass dui_left_open = () -> "dui-left-open";
   CssClass dui_layout_menu = () -> "dui-layout-menu";
 
   CssClass dui_left_xsmall = () -> "dui-layout-left-drawer-xsm";
@@ -40,18 +39,17 @@ public interface AppLayoutStyles {
   CssClass dui_left_large = () -> "dui-layout-left-drawer-lg";
   CssClass dui_left_xlarge = () -> "dui-layout-left-drawer-xlg";
 
-  ToggleCssClass dui_right_open = () -> "dui-right-open";
+  CssClass dui_right_open = () -> "dui-right-open";
 
   CssClass dui_right_xsmall = () -> "dui-layout-right-drawer-xsm";
   CssClass dui_right_small = () -> "dui-layout-right-drawer-sm";
   CssClass dui_right_medium = () -> "dui-layout-right-drawer-md";
   CssClass dui_right_large = () -> "dui-layout-right-drawer-lg";
   CssClass dui_right_xlarge = () -> "dui-layout-right-drawer-xlg";
+  CssClass dui_shrink_content = () -> "dui-shrink-content";
+  CssClass dui_left_span_up = () -> "dui-left-drawer-span-up";
+  CssClass dui_left_span_down = () -> "dui-left-drawer-span-down";
 
-  ToggleCssClass dui_shrink_conent = () -> "dui-shrink-content";
-  ToggleCssClass dui_left_span_up = () -> "dui-left-drawer-span-up";
-  ToggleCssClass dui_left_span_down = () -> "dui-left-drawer-span-down";
-
-  ToggleCssClass dui_left_overlay = () -> "dui-left-overlay";
-  ToggleCssClass dui_right_overlay = () -> "dui-right-overlay";
+  CssClass dui_left_overlay = () -> "dui-left-overlay";
+  CssClass dui_right_overlay = () -> "dui-right-overlay";
 }

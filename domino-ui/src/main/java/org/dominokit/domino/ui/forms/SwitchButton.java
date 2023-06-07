@@ -111,6 +111,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
     trackElement.addClickListener(listener);
     getInputElement().onKeyDown(keyEvents -> keyEvents.onEnter(listener));
     setDefaultValue(false);
+    labelElement.get();
   }
 
   @Override
@@ -279,7 +280,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   @Override
   protected void doSetValue(Boolean value) {
     withPauseChangeListenersToggle(
-        true, (field, handler) -> getInputElement().element().checked = value);
+        true, field -> getInputElement().element().checked = value);
   }
 
   /**

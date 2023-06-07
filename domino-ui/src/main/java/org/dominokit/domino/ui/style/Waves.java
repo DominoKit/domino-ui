@@ -26,6 +26,8 @@ import jsinterop.base.JsPropertyMap;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ElementsFactory;
+import org.gwtproject.editor.client.EditorVisitor;
 import org.gwtproject.timer.client.Timer;
 
 import static elemental2.dom.DomGlobal.window;
@@ -36,8 +38,8 @@ import static org.dominokit.domino.ui.events.EventType.mousedown;
 /** Adds the required events to add waves for a target element */
 public class Waves implements IsElement<Element> {
 
-  private final DominoElement<? extends Element> target;
-  private DivElement ripple;
+  private final DivElement target;
+  DivElement ripple;
   private JsPropertyMap<String> rippleStyle;
   private Timer delayTimer;
   private Timer removeTimer;
@@ -49,7 +51,10 @@ public class Waves implements IsElement<Element> {
   }
 
   public Waves(DominoElement<? extends Element> target) {
-    this.target = target;
+    this.target = elements.div().addCss("dui-wave-sentinel");
+    elements.elementOf(target)
+            .addCss("dui-waves-target")
+            .appendChild(this.target);
   }
 
   /**
@@ -82,6 +87,7 @@ public class Waves implements IsElement<Element> {
   /** Removes the event listeners that adds waves */
   public void removeWaves() {
     target.removeEventListener(mousedown.getName(), wavesEventListener);
+    this.target.remove();
   }
 
   private boolean isTargetDisabled() {
@@ -101,7 +107,7 @@ public class Waves implements IsElement<Element> {
                 new Timer() {
                   @Override
                   public void run() {
-                    ripple.removeCss("waves-rippling");
+                    ripple.removeCss("dui-waves-rippling");
                     ripple.remove();
                   }
                 };
@@ -157,7 +163,7 @@ public class Waves implements IsElement<Element> {
 
       stopCurrentWave();
 
-      ripple = elements.div().addCss("waves-ripple", "waves-rippling");
+      ripple = elements.div().addCss("dui-waves-ripple", "dui-waves-rippling");
       target.appendChild(ripple);
 
       ElementOffset position = offset(target.element());
@@ -177,11 +183,11 @@ public class Waves implements IsElement<Element> {
 
       rippleStyle.set("top", relativeY + "px");
       rippleStyle.set("left", relativeX + "px");
-      ripple.addCss("waves-notransition");
+      ripple.addCss("dui-waves-notransition");
 
       ripple.setAttribute("style", convertStyle(rippleStyle));
 
-      ripple.removeCss("waves-notransition");
+      ripple.removeCss("dui-waves-notransition");
 
       rippleStyle.set("-webkit-transform", scale + " " + translate);
       rippleStyle.set("-moz-transform", scale + " " + translate);

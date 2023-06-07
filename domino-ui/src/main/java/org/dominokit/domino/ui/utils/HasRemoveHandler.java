@@ -29,11 +29,11 @@ public interface HasRemoveHandler<T> {
    * @param removeHandler {@link RemoveHandler}
    * @return same implementing component
    */
-  T addRemoveHandler(RemoveHandler removeHandler);
+  T addRemoveHandler(RemoveHandler<T> removeHandler);
 
   /** a function to handle removing of the component */
-  interface RemoveHandler {
+  interface RemoveHandler<T> {
     /** Will be called when the component is being removed */
-    void onRemove();
+    void onRemove(T component);
   }
 }

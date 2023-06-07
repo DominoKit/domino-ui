@@ -284,7 +284,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   private boolean shouldFocus(V itemToFocus) {
-    return isNull(focusCondition) || focusCondition.shouldFocus(itemToFocus);
+    return isNull(focusCondition) || focusCondition.shouldFocus(itemToFocus) && !ElementsFactory.elements.elementOf(itemToFocus.element()).isHidden();
   }
 
   /** apply focus on the top most focusable item */

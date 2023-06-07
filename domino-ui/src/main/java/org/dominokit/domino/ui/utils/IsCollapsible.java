@@ -42,7 +42,7 @@ public interface IsCollapsible<T> {
    *
    * @return same component instance
    */
-  T toggleDisplay();
+  T toggleCollapse();
 
   /**
    * Show/hides the component based on the provided flag
@@ -50,7 +50,7 @@ public interface IsCollapsible<T> {
    * @param state boolean, if true show the component, if false hide it
    * @return same component instance
    */
-  T toggleDisplay(boolean state);
+  T toggleCollapse(boolean state);
 
   /** @return boolean, true if the component is collapsed */
   boolean isCollapsed();

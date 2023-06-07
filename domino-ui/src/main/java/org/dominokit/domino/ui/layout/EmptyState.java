@@ -29,7 +29,7 @@ import org.dominokit.domino.ui.utils.*;
  * display
  *
  * <pre>
- * EmptyState.create(Icons.ALL.cloud_question_mdi())
+ * EmptyState.create(Icons.cloud_question())
  *                 .setTitle("Could not find records")
  *                 .setIconColor(Color.GREY)
  *                 .setTitleColor(Color.GREY)

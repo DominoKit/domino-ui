@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.tabs;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLUListElement;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -27,6 +26,8 @@ import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.utils.PostfixAddOn;
+import org.dominokit.domino.ui.utils.PrefixAddOn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +77,10 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   private final List<Consumer<Tab>> closeHandlers = new ArrayList<>();
   private final List<Tab.ActivationHandler> activationHandlers = new ArrayList<>();
 
-  private final SwapCssClass alignCss = SwapCssClass.of(TabsAlign.LEFT.getAlign());
+  private final SwapCssClass alignCss = SwapCssClass.of(TabsAlign.START.getAlign());
   private final SwapCssClass directionCss = SwapCssClass.of(TabsDirection.HORIZONTAL);
+  private final SwapCssClass headerDirectionCss = SwapCssClass.of();
+  private final SwapCssClass headerAlignCss = SwapCssClass.of();
 
   public TabsPanel() {
     root = div()
@@ -409,6 +412,26 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    */
   public TabsPanel setTabsDirection(TabsDirection direction) {
     addCss(directionCss.replaceWith(direction));
+    return this;
+  }
+
+  public TabsPanel setHeaderDirection(HeaderDirection direction){
+    addCss(headerDirectionCss.replaceWith(direction));
+    return this;
+  }
+
+  public TabsPanel setTabHeaderAlign(TabsHeaderAlign align){
+    addCss(headerAlignCss.replaceWith(align));
+    return this;
+  }
+
+  public TabsPanel appendChild(PostfixAddOn<?> postfixAddOn){
+    tabsListElement.appendChild(postfixAddOn);
+    return this;
+  }
+
+  public TabsPanel appendChild(PrefixAddOn<?> prefixAddOn){
+    tabsListElement.appendChild(prefixAddOn);
     return this;
   }
 }

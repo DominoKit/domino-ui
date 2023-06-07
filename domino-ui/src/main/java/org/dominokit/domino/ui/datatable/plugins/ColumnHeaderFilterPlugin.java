@@ -16,9 +16,6 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLTableCellElement;
-import elemental2.dom.HTMLTableRowElement;
-import elemental2.dom.HTMLTableSectionElement;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.ColumnHeaderMeta;
@@ -34,14 +31,12 @@ import org.dominokit.domino.ui.elements.THElement;
 import org.dominokit.domino.ui.elements.THeadElement;
 import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 /**
  * This plugin adds header filters to table columns headers

@@ -17,14 +17,13 @@ package org.dominokit.domino.ui.dialogs;
 
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.LinkButton;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.Footer;
+import org.dominokit.domino.ui.utils.FooterContent;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /** A special dialog component that introduce a confirm/reject actions */
@@ -35,6 +34,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   private ConfirmHandler confirmHandler = (dialog) -> {};
   private RejectHandler rejectHandler = AbstractDialog::close;
   private LazyChild<SpanElement> messageElement;
+  private LazyChild<NavBar> navHeader;
 
   /** @return new instance with empty title */
   public static ConfirmationDialog create() {
@@ -60,6 +60,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   /** creates new instance with empty title */
   public ConfirmationDialog() {
     messageElement = LazyChild.of(span(), contentElement);
+    navHeader = LazyChild.of(NavBar.create().addCss(dui_dialog_nav), headerElement);
     bodyElement.addCss(dui_text_center);
     appendButtons();
     setStretchWidth(DialogSize.SMALL);
@@ -70,13 +71,18 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   /** @param title String creates new instance with custom title */
   public ConfirmationDialog(String title) {
     this();
-    setTitle(title);
+    navHeader.get().setTitle(title);
   }
 
   /** @param title String creates new instance with custom title */
   public ConfirmationDialog(String title, String message) {
     this(title);
     setMessage(message);
+  }
+
+  public ConfirmationDialog setTitle(String title) {
+    navHeader.get().setTitle(title);
+    return this;
   }
 
   public ConfirmationDialog setMessage(String message) {
@@ -87,7 +93,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
 
   private void appendButtons() {
     rejectButton =
-        LinkButton.create(labels.dialogConfirmationReject(), Icons.ALL.cancel_mdi())
+        LinkButton.create(labels.dialogConfirmationReject(), Icons.cancel())
             .addCss(dui_min_w_32, dui_error, dui_m_r_0_5)
             .addClickListener(
                 evt -> {
@@ -97,7 +103,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
                 });
 
     confirmButton =
-        LinkButton.create(labels.dialogConfirmationAccept(), Icons.ALL.check_mdi())
+        LinkButton.create(labels.dialogConfirmationAccept(), Icons.check())
             .addCss(dui_min_w_32, dui_success, dui_m_l_0_5)
             .addClickListener(
                 evt -> {
@@ -106,8 +112,8 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
                   }
                 });
 
-    appendChild(Footer.of(rejectButton));
-    appendChild(Footer.of(confirmButton));
+    appendChild(FooterContent.of(rejectButton));
+    appendChild(FooterContent.of(confirmButton));
 
     withContentFooter((parent, self) -> self.addCss(dui_text_center));
   }
@@ -154,6 +160,11 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   /** @return the reject {@link Button} */
   public ConfirmationDialog withRejectButton(ChildHandler<ConfirmationDialog, LinkButton> handler) {
     handler.apply(this, rejectButton);
+    return this;
+  }
+
+  public ConfirmationDialog withNavHeader(ChildHandler<ConfirmationDialog, NavBar> handler){
+    handler.apply(this, navHeader.get());
     return this;
   }
 

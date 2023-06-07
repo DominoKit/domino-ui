@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.pagination;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLUListElement;
 import elemental2.dom.Text;
 import org.dominokit.domino.ui.elements.NavElement;
 import org.dominokit.domino.ui.elements.SpanElement;
@@ -25,7 +24,6 @@ import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.PaginationLabels;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * A component which provides a simple navigation between a list of elements using next/previous

@@ -34,7 +34,6 @@
  import org.dominokit.domino.ui.icons.Icon;
  import org.dominokit.domino.ui.icons.Icons;
  import org.dominokit.domino.ui.utils.ComponentMeta;
- import org.dominokit.domino.ui.utils.DominoElement;
  import org.dominokit.domino.ui.utils.ElementUtil;
  import org.dominokit.domino.ui.IsElement;
 
@@ -67,8 +66,8 @@
   public RecordDetailsPlugin(CellRenderer<T> cellRenderer) {
     this(
         cellRenderer,
-        Icons.ALL.fullscreen_exit_mdi().clickable(),
-        Icons.ALL.fullscreen_mdi().clickable());
+        Icons.fullscreen_exit().clickable(),
+        Icons.fullscreen().clickable());
   }
 
   /**

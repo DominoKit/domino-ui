@@ -118,7 +118,7 @@ public interface HasChangeListeners<T, V> {
    * @param toggle boolean, true to pause the change listeners, false to enable them
    * @return same component instance
    */
-  default T withPauseChangeListenersToggle(boolean toggle, AsyncHandler<T> handler) {
+  default T withPauseChangeListenersToggleAsync(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isChangeListenersPaused();
     togglePauseChangeListeners(toggle);
     try {

@@ -10,5 +10,8 @@ public interface UIConfig extends FormsFieldsConfig,
         SpinConfig,
         TabsConfig,
         TreeConfig,
-        UploadConfig {
+        UploadConfig,
+        StepperConfig,
+        CalendarConfig,
+        TimePickerConfig {
 }

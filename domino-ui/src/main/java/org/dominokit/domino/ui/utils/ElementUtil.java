@@ -30,6 +30,7 @@ public class ElementUtil {
 
   /** The default {@link NumberConstants} to format numbers */
   static final NumberConstants numberConstants = LocaleInfo.getCurrentLocale().getNumberConstants();
+  public static final String DUI_EVENT_SCROLL_TOP = "dui-event-scroll-top";
 
   /**
    * Removes all the children of the element
@@ -263,6 +264,10 @@ public class ElementUtil {
   public static void scrollTop() {
     DomGlobal.document.body.scrollTop = 0;
     DomGlobal.document.documentElement.scrollTop = 0;
+    CustomEventInit initOptions = CustomEventInit.create();
+    initOptions.setBubbles(true);
+    CustomEvent scrollTopEvent = new CustomEvent<>(DUI_EVENT_SCROLL_TOP, initOptions);
+    DomGlobal.document.dispatchEvent(scrollTopEvent);
   }
 
   /**

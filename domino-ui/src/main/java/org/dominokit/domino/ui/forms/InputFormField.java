@@ -23,8 +23,10 @@ import elemental2.dom.HTMLElement;
 import java.util.Objects;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.elements.BaseElement;
+import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.utils.ApplyFunction;
+import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
@@ -35,6 +37,7 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
 
   public InputFormField() {
     inputElement = createInputElement(getType());
+    inputElement.setAttribute("spellcheck", getConfig().isSpellCheckEnabled());
     labelForId(inputElement.getDominoId());
     wrapperElement.appendChild(inputElement);
     InputFieldInitializer.create((T) this).init((HasInputElement<T, HTMLElement>) this);
@@ -78,7 +81,7 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
 
   @Override
   public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
-    return new InputAutoValidator(autoValidate, getInputElement());
+    return new InputAutoValidator<>(autoValidate, getInputElement());
   }
 
   @Override
@@ -188,5 +191,10 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
       return nonNull(formElement.querySelector("[domino-uuid=\"" + dominoId + "\"]"));
     }
     return false;
+  }
+
+  public T withInputElement(ChildHandler<T, DominoElement<E>> handler){
+    handler.apply((T)this, getInputElement());
+    return (T) this;
   }
 }

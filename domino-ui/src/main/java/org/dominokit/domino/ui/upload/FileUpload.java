@@ -238,7 +238,6 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
 
         fileItem.addRemoveHandler(
                 removedFile -> {
-                    fileItem.remove();
                     addedFileItems.remove(fileItem);
                 });
 
@@ -326,6 +325,11 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
      */
     public FileUpload manualUpload() {
         this.autoUpload = false;
+        return this;
+    }
+
+    public FileUpload setAutoUpload(boolean autoUpload){
+        this.autoUpload = autoUpload;
         return this;
     }
 

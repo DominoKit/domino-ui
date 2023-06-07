@@ -36,8 +36,8 @@ public class TreePluginConfig<T> implements PluginConfig {
   private boolean lazy = false;
   private final TreeGridPlugin.SubItemsProvider<T> subItemsProvider;
   private TreeGridPlugin.ParentRowCellsSupplier<T> parentRowCellsSupplier;
-  private Supplier<ToggleIcon<?,?>> expandCollapseIconSupplier = ()-> ToggleMdiIcon.create(Icons.ALL.menu_right_mdi(), Icons.ALL.menu_down_mdi());
-  private Supplier<ToggleIcon<?,?>> leafIconSupplier = ()->ToggleMdiIcon.create(Icons.ALL.circle_medium_mdi(), Icons.ALL.circle_medium_mdi());
+  private Supplier<ToggleIcon<?,?>> expandCollapseIconSupplier = ()-> ToggleMdiIcon.create(Icons.menu_right(), Icons.menu_down());
+  private Supplier<ToggleIcon<?,?>> leafIconSupplier = ()->ToggleMdiIcon.create(Icons.circle_medium(), Icons.circle_medium());
   private Function<TableRow<T>, Node> indentColumnElementSupplier = tableRow -> elements.text();
   private int indent = DEFAULT_INDENT;
 
@@ -87,7 +87,7 @@ public class TreePluginConfig<T> implements PluginConfig {
    */
   public TreePluginConfig<T> setExpandCollapseIconSupplier(Supplier<ToggleIcon<?,?>> expandIconSupplier) {
     if (isNull(expandIconSupplier)) {
-      this.expandCollapseIconSupplier = () -> ToggleMdiIcon.create(Icons.ALL.plus_mdi().addCss(dui_font_size_4), Icons.ALL.minus_mdi().addCss(dui_font_size_4));
+      this.expandCollapseIconSupplier = () -> ToggleMdiIcon.create(Icons.plus().addCss(dui_font_size_4), Icons.minus().addCss(dui_font_size_4));
     } else {
       this.expandCollapseIconSupplier = expandIconSupplier;
     }
@@ -106,8 +106,8 @@ public class TreePluginConfig<T> implements PluginConfig {
    */
   public TreePluginConfig<T> setLeafIconSupplier(Supplier<ToggleIcon<?,?>> leafIconSupplier) {
     if (isNull(leafIconSupplier)) {
-      this.leafIconSupplier = () -> ToggleMdiIcon.create(Icons.ALL.circle_medium_mdi().addCss(dui_font_size_4),
-              Icons.ALL.circle_medium_mdi().addCss(dui_font_size_4));
+      this.leafIconSupplier = () -> ToggleMdiIcon.create(Icons.circle_medium().addCss(dui_font_size_4),
+              Icons.circle_medium().addCss(dui_font_size_4));
     } else {
       this.leafIconSupplier = leafIconSupplier;
     }

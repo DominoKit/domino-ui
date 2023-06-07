@@ -16,7 +16,7 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.style.Unit.px;
+import static org.dominokit.domino.ui.utils.Unit.px;
 
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.Node;
@@ -40,7 +40,6 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.icons.ToggleMdiIcon;
 import org.dominokit.domino.ui.utils.ComponentMeta;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * This plugin renders the table rows in groups.
@@ -52,7 +51,7 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     private Map<String, DataGroup<T>> dataGroups = new HashMap<>();
     private final GroupSupplier<T> groupSupplier;
     private CellRenderer<T> groupRenderer;
-    private Supplier<ToggleIcon<?,?>> groupExpandCollapseIconSupplier = ()-> ToggleMdiIcon.create(Icons.ALL.minus_box_mdi(), Icons.ALL.plus_box_mdi());
+    private Supplier<ToggleIcon<?,?>> groupExpandCollapseIconSupplier = ()-> ToggleMdiIcon.create(Icons.minus_box(), Icons.plus_box());
 
     /**
      * Create an instance with custom group supplier and group cell renderer

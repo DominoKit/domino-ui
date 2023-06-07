@@ -15,20 +15,32 @@
  */
 package org.dominokit.domino.ui.chips;
 
-import static org.dominokit.domino.ui.chips.ChipStyles.*;
-
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLImageElement;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 import org.dominokit.domino.ui.button.RemoveButton;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
-import org.dominokit.domino.ui.utils.*;
-import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.utils.AcceptDisable;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.HasRemoveHandler;
+import org.dominokit.domino.ui.utils.HasSelectionListeners;
+import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.utils.PrefixAddOn;
+import org.dominokit.domino.ui.utils.Selectable;
+import org.dominokit.domino.ui.elements.ImageElement;
+
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip;
+import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_addon;
+import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_has_addon;
+import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_remove;
+import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_selected;
+import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_value;
 
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     implements HasSelectionListeners<Chip, Chip, Chip>, Selectable<Chip>, AcceptDisable<Chip> {
@@ -193,10 +205,12 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
 
   @Override
   public Chip setSelected(boolean selected, boolean silent) {
-    if (selected) {
-      select(silent);
-    } else {
-      deselect(silent);
+    if(!isReadOnly() && !isDisabled()) {
+      if (selected) {
+        select(silent);
+      } else {
+        deselect(silent);
+      }
     }
     return this;
   }
@@ -250,17 +264,25 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     return textElement;
   }
 
-  public Chip setAddOn(IsElement<?> addOn) {
-    this.addon.get().clearElement().appendChild(addOn);
+  public Chip appendChild(PrefixAddOn<?> prefixAddOn) {
+    this.addon.get().appendChild(prefixAddOn);
     return this;
   }
 
   public Chip setLetters(String text) {
-    return setAddOn(span().textContent(text));
+    return appendChild(PrefixAddOn.of(span().textContent(text)));
   }
 
   public Chip setImage(HTMLImageElement img) {
-    return setAddOn(elementOf(img));
+    return appendChild(PrefixAddOn.of(img));
+  }
+  public Chip setImage(ImageElement img) {
+    return appendChild(PrefixAddOn.of(img));
+  }
+
+  public Chip clearAddOn() {
+    addon.remove();
+    return this;
   }
 
   public Chip withAddon(ChildHandler<Chip, DivElement> handler) {

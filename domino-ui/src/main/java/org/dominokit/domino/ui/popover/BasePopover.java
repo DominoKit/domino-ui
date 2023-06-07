@@ -1,64 +1,42 @@
 package org.dominokit.domino.ui.popover;
 
-import elemental2.dom.CustomEvent;
-import elemental2.dom.Element;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
+import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ZIndexConfig;
-import org.dominokit.domino.ui.dialogs.ModalBackDrop;
 import org.dominokit.domino.ui.elements.DivElement;
-import org.dominokit.domino.ui.style.SwapCssClass;
+import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.FollowOnScroll;
 import org.dominokit.domino.ui.utils.IsPopup;
-import org.dominokit.domino.ui.events.EventType;
 
 import java.util.Objects;
 
-import static elemental2.dom.DomGlobal.document;
-import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_POPOVERS;
-import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
+import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSED;
 
-public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTMLDivElement, T>
+public abstract class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTMLDivElement, T>
         implements IsPopup<T>, PopoverStyles, FollowOnScroll.ScrollFollower, HasComponentConfig<ZIndexConfig> {
-
     protected final Element targetElement;
-    private final EventListener closeAllListener;
+    protected final EventListener closeAllListener;
     private DivElement root;
     private DivElement wrapper;
     private DivElement arrow;
     private DivElement header;
     private DivElement body;
 
-    private PopupPosition popupPosition = TOP;
+    private DropDirection popupPosition = DropDirection.BEST_MIDDLE_UP_DOWN;
 
     private boolean closeOthers = true;
     protected final EventListener closeListener;
-    private SwapCssClass positionClass = SwapCssClass.of(dui_pop_top);
-
-
     private final FollowOnScroll followOnScroll;
-
-    static {
-        document.body.addEventListener(EventType.click.getName(), element -> {
-            closeAll("");
-        });
-    }
-
-    private static void closeAll(String sourceId) {
-        ModalBackDrop.INSTANCE.closePopovers(sourceId);
-    }
 
     public BasePopover(Element target) {
         this.targetElement = target;
         root = div()
-                .addCss(dui_popover, positionClass)
-                .appendChild(wrapper= div()
+                .addCss(dui_popover)
+                .appendChild(wrapper = div()
                         .addCss(dui_popover_wrapper)
                         .appendChild(arrow = div().addCss(dui_popover_arrow))
                         .appendChild(header = div().addCss(dui_popover_header))
@@ -68,8 +46,8 @@ public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTM
         init((T) this);
         followOnScroll = new FollowOnScroll(targetElement, this);
 
-        closeListener = evt -> closeAll("");
-        root.addEventListener(EventType.click.getName(), evt-> {
+        closeListener = getCloseListener();
+        root.addEventListener(EventType.click.getName(), evt -> {
             evt.preventDefault();
             evt.stopPropagation();
         });
@@ -78,26 +56,30 @@ public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTM
                         mutationRecord -> close());
 
         onDetached(
-                mutationRecord ->{
+                mutationRecord -> {
                     body().removeEventListener(EventType.keydown.getName(), closeListener);
                 }
         );
         addCollapseListener(this::doClose);
         closeAllListener = evt -> {
-            CustomEvent<String> event= Js.uncheckedCast(evt);
-            if(!Objects.equals(event.detail, getDominoId())) {
+            CustomEvent<String> event = Js.uncheckedCast(evt);
+            if (!Objects.equals(event.detail, getDominoId())) {
                 close();
             }
         };
-        addCollapseListener(() -> removeEventListener(DUI_REMOVE_POPOVERS, closeAllListener));
+        setAttribute(DUI_COLLAPSED, "true");
     }
 
-    /** {@inheritDoc} */
+    protected abstract EventListener getCloseListener();
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T expand() {
         if (isEnabled()) {
             if (closeOthers) {
-                closeAll(getDominoId());
+                closeOthers(getDominoId());
             }
             doOpen();
             getConfig().getZindexManager().onPopupOpen(this);
@@ -114,23 +96,29 @@ public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTM
         body().appendChild(root.element());
         super.expand();
         doPosition();
-        if(!isCloseOnScroll()) {
+        if (!isCloseOnScroll()) {
             followOnScroll.start();
         }
-
-        addEventListener(DUI_REMOVE_POPOVERS, closeAllListener);
     }
 
     private void doPosition() {
-        popupPosition.position(root.element(), targetElement);
-        position(popupPosition);
+       doPosition(this.popupPosition);
     }
 
-    /** Closes the popover */
+    protected void doPosition(DropDirection position){
+        popupPosition.position(root.element(), targetElement);
+    }
+
+    /**
+     * Closes the popover
+     */
     public T close() {
         collapse();
         return (T) this;
     }
+
+    protected abstract T closeOthers(String sourceId);
+
 
     protected void doClose() {
         followOnScroll.stop();
@@ -161,11 +149,11 @@ public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTM
     /**
      * Sets the position of the popover related to the target element
      *
-     * @param position the {@link PopupPosition}
+     * @param position the {@link DropDirection}
      * @return same instance
      */
-    public T position(PopupPosition position) {
-        addCss(positionClass.replaceWith(position.getDirectionClass()));
+    public T setPosition(DropDirection position) {
+        this.popupPosition.cleanup(this.element());
         this.popupPosition = position;
         return (T) this;
     }
@@ -185,7 +173,7 @@ public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTM
         return arrow;
     }
 
-    public T withArrow(ChildHandler<T, DivElement> handler){
+    public T withArrow(ChildHandler<T, DivElement> handler) {
         handler.apply((T) this, arrow);
         return (T) this;
     }
@@ -194,7 +182,7 @@ public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTM
         return header;
     }
 
-    public T withHeader(ChildHandler<T, DivElement> handler){
+    public T withHeader(ChildHandler<T, DivElement> handler) {
         handler.apply((T) this, header);
         return (T) this;
     }
@@ -203,7 +191,7 @@ public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTM
         return body;
     }
 
-    public T withBody(ChildHandler<T, DivElement> handler){
+    public T withBody(ChildHandler<T, DivElement> handler) {
         handler.apply((T) this, body);
         return (T) this;
     }
@@ -225,14 +213,18 @@ public class BasePopover<T extends BasePopover<T>> extends BaseDominoElement<HTM
         return (T) this;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HTMLDivElement element() {
         return root.element();
     }
 
 
-    /** @return true if close on scrolling, false otherwise */
+    /**
+     * @return true if close on scrolling, false otherwise
+     */
     public boolean isCloseOnScroll() {
         return hasAttribute("d-close-on-scroll")
                 && getAttribute("d-close-on-scroll").equalsIgnoreCase("true");

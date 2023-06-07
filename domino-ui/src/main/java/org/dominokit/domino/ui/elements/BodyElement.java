@@ -9,5 +9,6 @@ public class BodyElement extends BaseElement<HTMLBodyElement, BodyElement> {
 
     public BodyElement(HTMLBodyElement element) {
         super(element);
+        setCssProperty("--dui-z-index", "10");
     }
 }
