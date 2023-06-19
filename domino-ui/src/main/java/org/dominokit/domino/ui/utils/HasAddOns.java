@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.utils;
 
-
 public interface HasAddOns<T> {
   T appendChild(PrefixAddOn<?> prefix);
 
